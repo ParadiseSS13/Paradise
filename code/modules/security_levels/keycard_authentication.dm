@@ -118,9 +118,13 @@
 	icon_state = "auth_off"
 	event_triggered_by = null
 	event_confirmed_by = null
+	underlays.Cut()
+	set_light(0)
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	icon_state = "auth_on"
+	underlays += emissive_appearance(icon, "auth_lightmask")
+	set_light(1,0.1)
 	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
 		if(KA == src) continue
 		KA.reset()

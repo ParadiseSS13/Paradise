@@ -377,6 +377,9 @@
 			environment.merge(gas)
 
 /obj/machinery/alarm/update_icon()
+	underlays.Cut()
+	set_light(0)
+
 	if(wiresexposed)
 		icon_state = "alarmx"
 		return
@@ -391,6 +394,9 @@
 			icon_state = "alarm2" //yes, alarm2 is yellow alarm
 		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
+
+	set_light(1, 0.1) //so byond doesnt cull the icon when in complete darkness
+	underlays += emissive_appearance(icon, "alarm_lightmask") //no power check because of the returns in the earlier checks (add one if that is changed)
 
 /obj/machinery/alarm/proc/register_env_machine(m_id, device_type)
 	var/new_name

@@ -76,11 +76,17 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	update_icon()
 
 /obj/machinery/requests_console/update_icon()
+	underlays.Cut()
+	set_light(0)
 	if(stat & NOPOWER)
-		if(icon_state != "req_comp_off")
-			icon_state = "req_comp_off"
+		icon_state = "req_comp_off"
 	else
+		set_light(1, 0.1)
 		icon_state = "req_comp[newmessagepriority]"
+		if(newmessagepriority == 0)
+			underlays += emissive_appearance(icon, "req_comp_lightmask")
+		else
+			underlays += emissive_appearance(icon, "req_comp2_lightmask")
 
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)

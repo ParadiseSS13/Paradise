@@ -280,13 +280,20 @@
 	return ..()
 
 /obj/machinery/light/update_icon()
+	underlays.Cut()
 
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
-			if(emergency_mode)
+			if(emergency_mode || fire_mode)
 				icon_state = "[base_state]_emergency"
+				underlays += emissive_appearance(icon, "[base_state]_emergency_lightmask")
 			else
 				icon_state = "[base_state][on]"
+				if(on && !nightshift_enabled)
+					underlays += emissive_appearance(icon, "[base_state]_lightmask")
+				else if (on)
+					underlays += emissive_appearance(icon, "[base_state]_emergency_lightmask")
+
 		if(LIGHT_EMPTY)
 			icon_state = "[base_state]-empty"
 			on = FALSE
@@ -574,9 +581,11 @@
 		return
 	if(fire_mode)
 		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
+		update_icon()
 		return
 	emergency_mode = TRUE
 	set_light(3, 1.7, bulb_emergency_colour)
+	update_icon()
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update, override = TRUE)
 
 /obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)

@@ -44,6 +44,7 @@
 
 
 GLOBAL_LIST_EMPTY(airlock_overlays)
+GLOBAL_LIST_EMPTY(airlock_emissive_undelays)
 
 /obj/machinery/door/airlock
 	name = "airlock"
@@ -97,6 +98,11 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/image/old_dam_overlay
 	var/image/old_note_overlay
 
+	var/mutable_appearance/old_buttons_underlay
+	var/mutable_appearance/old_lights_underlay
+	var/mutable_appearance/old_damag_underlay
+	var/mutable_appearance/old_sparks_underlay
+
 	var/doorOpen = 'sound/machines/airlock_open.ogg'
 	var/doorClose = 'sound/machines/airlock_close.ogg'
 	var/doorDeni = 'sound/machines/deniedbeep.ogg' // i'm thinkin' Deni's
@@ -146,7 +152,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		max_integrity = normal_integrity
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
-	update_icon()
+	update_icon(AIRLOCK_CLOSED)
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
@@ -332,7 +338,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 			icon_state = "nonexistenticonstate" //MADNESS
 	set_airlock_overlays(state)
 
-/obj/machinery/door/airlock/proc/set_airlock_overlays(state)
+/obj/machinery/door/airlock/proc/set_airlock_overlays(state) //also doing emissive shizzle here, because its the best place
 	var/image/frame_overlay
 	var/image/filling_overlay
 	var/image/lights_overlay
@@ -342,9 +348,19 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/image/sparks_overlay
 	var/image/note_overlay
 	var/notetype = note_type()
+
+	var/mutable_appearance/buttons_underlay
+	var/mutable_appearance/lights_underlay
+	var/mutable_appearance/damag_underlay
+	var/mutable_appearance/sparks_underlay
+
+	set_light(0)
+	//underlays.Cut() //unideal but I keep on getting buttons_underlay sticking around for some reason >>:C
+
 	switch(state)
 		if(AIRLOCK_CLOSED)
 			frame_overlay = get_airlock_overlay("closed", icon)
+			buttons_underlay = get_airlock_emissive_underlay("closed_lightmask", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -358,13 +374,17 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
 			if(obj_integrity <integrity_failure)
 				damag_overlay = get_airlock_overlay("sparks_broken", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay( "sparks_broken_lightmask", overlays_file)
 			else if(obj_integrity < (0.75 * max_integrity))
 				damag_overlay = get_airlock_overlay("sparks_damaged", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay("sparks_damaged_lightmask", overlays_file)
 			if(lights && arePowerSystemsOn())
 				if(locked)
 					lights_overlay = get_airlock_overlay("lights_bolts", overlays_file)
+					lights_underlay = get_airlock_emissive_underlay("lights_bolts_lightmask", overlays_file)
 				else if(emergency)
 					lights_overlay = get_airlock_overlay("lights_emergency", overlays_file)
+					lights_underlay = get_airlock_emissive_underlay("lights_emergency_lightmask", overlays_file)
 			if(note)
 				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
 
@@ -372,6 +392,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 			if(!arePowerSystemsOn())
 				return
 			frame_overlay = get_airlock_overlay("closed", icon)
+			buttons_underlay = get_airlock_emissive_underlay("closed_lightmask", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -383,17 +404,22 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 					panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
 			if(obj_integrity <integrity_failure)
 				damag_overlay = get_airlock_overlay("sparks_broken", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay( "sparks_broken_lightmask", overlays_file)
 			else if(obj_integrity < (0.75 * max_integrity))
 				damag_overlay = get_airlock_overlay("sparks_damaged", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay( "sparks_damaged_lightmask", overlays_file)
 			if(welded)
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
 			lights_overlay = get_airlock_overlay("lights_denied", overlays_file)
+			lights_underlay = get_airlock_emissive_underlay("lights_denied_lightmask", overlays_file)
 			if(note)
 				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
 
 		if(AIRLOCK_EMAG)
 			frame_overlay = get_airlock_overlay("closed", icon)
+			buttons_underlay = get_airlock_emissive_underlay("closed_lightmask", overlays_file)
 			sparks_overlay = get_airlock_overlay("sparks", overlays_file)
+			sparks_underlay = get_airlock_emissive_underlay("sparks_lightmask", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -405,8 +431,10 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 					panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
 			if(obj_integrity <integrity_failure)
 				damag_overlay = get_airlock_overlay("sparks_broken", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay( "sparks_broken_lightmask", overlays_file)
 			else if(obj_integrity < (0.75 * max_integrity))
 				damag_overlay = get_airlock_overlay("sparks_damaged", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay( "sparks_damaged_lightmask", overlays_file)
 			if(welded)
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
 			if(note)
@@ -414,12 +442,14 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 
 		if(AIRLOCK_CLOSING)
 			frame_overlay = get_airlock_overlay("closing", icon)
+			buttons_underlay = get_airlock_emissive_underlay("closing_lightmask", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closing", overlays_file)
 			else
 				filling_overlay = get_airlock_overlay("fill_closing", icon)
 			if(lights && arePowerSystemsOn())
 				lights_overlay = get_airlock_overlay("lights_closing", overlays_file)
+				lights_underlay = get_airlock_emissive_underlay("lights_closing_lightmask", overlays_file)
 			if(panel_open)
 				if(security_level)
 					panel_overlay = get_airlock_overlay("panel_closing_protected", overlays_file)
@@ -441,17 +471,20 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 					panel_overlay = get_airlock_overlay("panel_open", overlays_file)
 			if(obj_integrity < (0.75 * max_integrity))
 				damag_overlay = get_airlock_overlay("sparks_open", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay("sparks_open_lightmask", overlays_file)
 			if(note)
 				note_overlay = get_airlock_overlay("[notetype]_open", note_overlay_file)
 
 		if(AIRLOCK_OPENING)
 			frame_overlay = get_airlock_overlay("opening", icon)
+			buttons_underlay = get_airlock_emissive_underlay("opening_lightmask", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_opening", overlays_file)
 			else
 				filling_overlay = get_airlock_overlay("fill_opening", icon)
 			if(lights && arePowerSystemsOn())
 				lights_overlay = get_airlock_overlay("lights_opening", overlays_file)
+				lights_underlay = get_airlock_emissive_underlay("lights_opening_lightmask", overlays_file)
 			if(panel_open)
 				if(security_level)
 					panel_overlay = get_airlock_overlay("panel_opening_protected", overlays_file)
@@ -494,12 +527,40 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		overlays += note_overlay
 		old_note_overlay = note_overlay
 
+		//EMISSIVE ICONS
+	if(buttons_underlay != old_buttons_underlay)
+		underlays -= old_buttons_underlay
+		underlays += buttons_underlay
+		old_buttons_underlay = buttons_underlay
+	if(lights_underlay != old_lights_underlay)
+		underlays -= old_lights_underlay
+		underlays += lights_underlay
+		old_lights_underlay = lights_underlay
+	if(damag_underlay != old_damag_underlay)
+		underlays -= old_damag_underlay
+		underlays += damag_underlay
+		old_damag_underlay = damag_underlay
+	if(sparks_underlay != old_sparks_underlay)
+		underlays -= old_sparks_underlay
+		underlays += sparks_underlay
+		old_sparks_underlay = sparks_underlay
+
+	if(buttons_underlay || lights_underlay || damag_underlay || sparks_underlay)
+		set_light(1, 0.1)
+
 /proc/get_airlock_overlay(icon_state, icon_file)
 	var/iconkey = "[icon_state][icon_file]"
 	if(GLOB.airlock_overlays[iconkey])
 		return GLOB.airlock_overlays[iconkey]
 	GLOB.airlock_overlays[iconkey] = image(icon_file, icon_state)
 	return GLOB.airlock_overlays[iconkey]
+
+/proc/get_airlock_emissive_underlay(icon_state, icon_file)
+	var/iconkey = "[icon_state][icon_file]"
+	if(GLOB.airlock_emissive_undelays[iconkey])
+		return GLOB.airlock_emissive_undelays[iconkey]
+	GLOB.airlock_emissive_undelays[iconkey] = emissive_appearance(icon_file, icon_state)
+	return GLOB.airlock_emissive_undelays[iconkey]
 
 /obj/machinery/door/airlock/do_animate(animation)
 	switch(animation)

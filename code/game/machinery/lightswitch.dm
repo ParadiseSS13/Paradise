@@ -16,7 +16,6 @@
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to.
 	var/logic_connect = FALSE						//Set this to allow the switch to send out logic signals.
 
-
 /obj/machinery/light_switch/New(turf/loc, w_dir=null)
 	..()
 	switch(w_dir)
@@ -64,6 +63,9 @@
 	return ..()
 
 /obj/machinery/light_switch/proc/updateicon()
+	underlays.Cut()
+	set_light(0)
+
 	if(stat & NOPOWER)
 		icon_state = "light-p"
 	else
@@ -71,6 +73,8 @@
 			icon_state = "light1"
 		else
 			icon_state = "light0"
+		set_light(1, 0.1) //byond will cull the icon if in complete darkness otherwise
+		underlays += emissive_appearance(icon, "light_lightmask")
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()

@@ -11,6 +11,7 @@
 	var/buildstage = 0
 	var/custom_name
 	dog_fashion = null
+	blocks_emissive = FALSE
 
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
@@ -221,10 +222,16 @@
 		qdel(src)
 
 /obj/item/radio/intercom/update_icon()
+	set_light(0)
+	underlays.Cut()
+
 	if(!circuitry_installed)
 		icon_state="intercom-frame"
 		return
 	icon_state = "intercom[!on?"-p":""][b_stat ? "-open":""]"
+	if(on)
+		set_light(1, 0.1) //so byond doesnt cull the icon when in complete darkness
+		underlays += emissive_appearance(icon, "intercom_lightmask")
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
 	var/area/current_area = get_area(src)

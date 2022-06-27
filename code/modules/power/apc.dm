@@ -290,10 +290,6 @@
 		status_overlays_lock[1] = image(icon, "apcox-0")    // 0=blue 1=red
 		status_overlays_lock[2] = image(icon, "apcox-1")
 
-		status_overlays_charging[1] = image(icon, "apco3-0")
-		status_overlays_charging[2] = image(icon, "apco3-1")
-		status_overlays_charging[3] = image(icon, "apco3-2")
-
 		status_overlays_equipment[1] = image(icon, "apco0-0") // 0=red, 1=green, 2=blue
 		status_overlays_equipment[2] = image(icon, "apco0-1")
 		status_overlays_equipment[3] = image(icon, "apco0-2")
@@ -309,7 +305,9 @@
 		status_overlays_environ[3] = image(icon, "apco2-2")
 		status_overlays_environ[4] = image(icon, "apco2-3")
 
-
+		status_overlays_charging[1] = image(icon, "apco3-0")
+		status_overlays_charging[2] = image(icon, "apco3-1")
+		status_overlays_charging[3] = image(icon, "apco3-2")
 
 	var/update = check_updates() 		//returns 0 if no need to update icons.
 						// 1 if we need to update the icon_state
@@ -317,9 +315,13 @@
 	if(!update && !force_update)
 		return
 
+	underlays.Cut()
+	set_light(0)
+
 	if(force_update || update & 1) // Updating the icon state
 		if(update_state & UPSTATE_ALLGOOD)
 			icon_state = "apc0"
+			set_light(1,0.1)
 		else if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2))
 			var/basestate = "apc[ cell ? "2" : "1" ]"
 			if(update_state & UPSTATE_OPENED1)
@@ -333,17 +335,15 @@
 			icon_state = "apc-b"
 		else if(update_state & UPSTATE_BLUESCREEN)
 			icon_state = "apcemag"
+			underlays += emissive_appearance(icon, "emit_apcemag")
+			set_light(1,0.1) //so byond doesnt cull the icon when we want to see emissives
 		else if(update_state & UPSTATE_WIREEXP)
 			icon_state = "apcewires"
-
-
 
 	if(!(update_state & UPSTATE_ALLGOOD))
 		if(overlays.len)
 			overlays = 0
 			return
-
-
 
 	if(force_update || update & 2)
 
@@ -351,13 +351,18 @@
 			overlays.len = 0
 
 		if(!(stat & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
+			set_light(1,0.1) //so byond doesnt cull the icon when we want to see emissives
 			overlays += status_overlays_lock[locked+1]
 			overlays += status_overlays_charging[charging+1]
+			underlays += emissive_appearance(icon, status_overlays_lock[locked+1].icon_state)
+			underlays += emissive_appearance(icon, status_overlays_charging[charging+1].icon_state)
 			if(operating)
 				overlays += status_overlays_equipment[equipment+1]
 				overlays += status_overlays_lighting[lighting+1]
 				overlays += status_overlays_environ[environ+1]
-
+				underlays += emissive_appearance(icon, status_overlays_equipment[equipment+1].icon_state)
+				underlays += emissive_appearance(icon, status_overlays_lighting[lighting+1].icon_state)
+				underlays += emissive_appearance(icon, status_overlays_environ[environ+1].icon_state)
 
 /obj/machinery/power/apc/proc/check_updates()
 

@@ -71,8 +71,13 @@
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
 /obj/machinery/disco/update_icon()
+	underlays.Cut()
+	set_light(0)
+
 	if(active)
 		icon_state = "disco1"
+		set_light(1, 0.1) //so byond doesnt cull the icon in complete darkness
+		underlays += emissive_appearance(icon, "disco_lightmask")
 	else
 		icon_state = "disco0"
 	..()
