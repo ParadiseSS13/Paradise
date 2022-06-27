@@ -158,6 +158,20 @@
 	buildstacktype = /obj/item/stack/sheet/wood
 	item_chair = /obj/item/chair/wood
 
+/obj/structure/chair/sofa/bamboo
+	name = "bamboo sofa"
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
+	buildstackamount = 2
+	buildstacktype = /obj/item/stack/sheet/wood
+
+/obj/structure/chair/stool/bamboo
+	name = "bamboo stool"
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
+	buildstackamount = 2
+	buildstacktype = /obj/item/stack/sheet/wood
+
 /obj/structure/chair/wood/narsie_act()
 	return
 
