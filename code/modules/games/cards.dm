@@ -52,6 +52,7 @@
 	. = ..()
 	for(var/deck in 1 to deck_size)
 		build_deck()
+	update_icon()
 	deck_total = length(cards)
 
 /obj/item/deck/proc/build_deck()
@@ -162,7 +163,7 @@
 	H.parentdeck = src
 	H.update_values()
 	H.update_icon()
-	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draws a card.</span>")
+	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
 	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
 /obj/item/deck/verb/deal_card()
