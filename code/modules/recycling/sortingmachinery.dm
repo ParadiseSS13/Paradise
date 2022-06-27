@@ -150,6 +150,10 @@
 	resistance_flags = FLAMMABLE
 	var/static/list/no_wrap = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/evidencebag, /obj/structure/closet/body_bag, /obj/item/twohanded/required)
 
+/obj/item/stack/packageWrap/cyborg
+	energy_type = /datum/robot_energy_storage/packageWrap
+	is_cyborg = TRUE
+
 /obj/item/stack/packageWrap/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
 	if(!in_range(A, user))

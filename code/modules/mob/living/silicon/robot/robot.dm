@@ -308,7 +308,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Engineering", "Medical", "Miner", "Janitor", "Service")
+	var/list/modules = list("Engineering", "Medical", "Miner", "Cargo", "Janitor", "Service")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(mmi != null && mmi.alien)
@@ -398,6 +398,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Standard"] = "Standard-Jani"
 			module_sprites["Noble-CLN"] = "Noble-CLN"
 			module_sprites["Cricket"] = "Cricket-JANI"
+
+		if("Cargo") //Testing, hopefully fun?
+			module = new /obj/item/robot_module/cargo(src)
+			module.channels = list("Supply" = 1)
+			module_sprites["Basic"] = "Cargo"
+			module_sprites["Standard"] = "Standard-Cargo"
+			module_sprites["Noble-CRG"] = "Noble-CRG"
+			module_sprites["Cricket"] = "Cricket-CRG"
 
 		if("Destroyer") // Rolling Borg
 			module = new /obj/item/robot_module/destroyer(src)

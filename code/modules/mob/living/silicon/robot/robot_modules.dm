@@ -579,6 +579,19 @@
 		return TRUE
 	return ..()
 
+//Cargo cyborg module
+/obj/item/robot_module/cargo
+	name = "cargo robot module"
+	module_type = "Cargo"
+	basic_modules = list(
+		/obj/item/flash/cyborg,
+		/obj/item/extinguisher/mini,
+		/obj/item/destTagger,
+		/obj/item/stack/packageWrap/cyborg,
+		/obj/item/rcs,
+		/obj/item/hand_labeler,
+	)
+
 // Deathsquad cyborg module.
 /obj/item/robot_module/deathsquad
 	name = "NT advanced combat module"
@@ -861,6 +874,11 @@
 /datum/robot_energy_storage/cable
 	name = "Cable Synthesizer"
 	statpanel_name = "Cable"
+
+/datum/robot_energy_storage/packageWrap
+	name = "Package Wrapper Synthesizer"
+	statpanel_name = "Package Wrapper"
+
 
 // For the medical stacks, even though the recharge rate is 0, it will be set to 1 by default because of a `max()` proc.
 // It will always take ~12 seconds to fully recharge these stacks beacuse of this. This time does not apply to the syndicate storages.
