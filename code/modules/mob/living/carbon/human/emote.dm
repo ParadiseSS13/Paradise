@@ -107,8 +107,8 @@
 				return
 
 		if("hiss", "hisses")
-			if(isunathi(src)) //Only Unathi can hiss.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			if(isunathi(src) || istajaran(src)) //Only Unathi and Tajaran can hiss.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'						//Everyone else fails, skip the emote attempt
 			else								//Everyone else fails, skip the emote attempt
 				return
 
