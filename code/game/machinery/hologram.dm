@@ -87,6 +87,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		stat |= NOPOWER
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
+	update_icon()
 
 /obj/machinery/hologram/holopad/obj_break()
 	. = ..()
@@ -412,16 +413,27 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	update_icon()
 
 /obj/machinery/hologram/holopad/update_icon()
-	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	underlays.Cut()
+	set_light(0)
+
+	if(stat & NOPOWER)
+		icon_state = "holopad0"
+		return
+
 	if(icon_state == "holopad_open")
 		return
-	else if(ringing)
+
+	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	set_light(1, 0.1)
+
+	if(ringing)
 		icon_state = "holopad_ringing"
+		underlays += emissive_appearance(icon, "holopad_ringing_lightmask")
 	else if(total_users)
 		icon_state = "holopad1"
+		underlays += emissive_appearance(icon, "holopad1_lightmask")
 	else
 		icon_state = "holopad0"
-
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
 	masters[user] = h

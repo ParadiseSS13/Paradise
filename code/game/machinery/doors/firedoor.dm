@@ -202,6 +202,9 @@
 
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
+	underlays.Cut()
+	set_light(0)
+
 	if(active_alarm && hasPower())
 		overlays += image('icons/obj/doors/doorfire.dmi', "alarmlights")
 	if(density)

@@ -59,17 +59,18 @@
 	..()
 	if(SSradio)
 		SSradio.add_object(src, frequency)
+	update_icon()
 
-// timed process
-/obj/machinery/status_display/process()
+/obj/machinery/status_display/update_icon()
+	. = ..()
+	underlays.Cut()
+	set_light(0)
+
 	if(stat & NOPOWER)
-		remove_display()
 		return
-	if(spookymode)
-		spookymode = FALSE
-		remove_display()
-		return
-	update()
+
+	underlays += emissive_appearance(icon, "lightmask")
+	set_light(1, 0.1)
 
 /obj/machinery/status_display/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -176,6 +177,7 @@
 		overlays.Cut()
 	if(maptext)
 		maptext = ""
+	update_icon()
 
 /obj/machinery/status_display/receive_signal(datum/signal/signal)
 	switch(signal.data["command"])
@@ -213,25 +215,20 @@
 
 	var/emotion = "Neutral"
 
+/obj/machinery/ai_status_display/Initialize(mapload)
+	. = ..()
+	update_icon()
+
 /obj/machinery/ai_status_display/attack_ai(mob/living/silicon/ai/user)
 	if(isAI(user))
 		user.ai_statuschange()
-
-/obj/machinery/ai_status_display/process()
-	if(stat & NOPOWER)
-		overlays.Cut()
-		return
-	if(spookymode)
-		spookymode = FALSE
-		overlays.Cut()
-		return
-	update()
 
 /obj/machinery/ai_status_display/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
 		return
-	set_picture("ai_bsod")
+	mode = 2
+	update_icon()
 	..(severity)
 
 /obj/machinery/ai_status_display/flicker()
@@ -239,59 +236,64 @@
 		return FALSE
 
 	spookymode = TRUE
+	update_icon()
 	return TRUE
 
-/obj/machinery/ai_status_display/proc/update()
-	if(mode==0) //Blank
-		overlays.Cut()
+/obj/machinery/ai_status_display/update_icon()
+	var/new_display
+
+	set_light(0)
+	overlays.Cut()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
 		return
 
-	if(mode==1)	// AI emoticon
-		switch(emotion)
-			if("Very Happy")
-				set_picture("ai_veryhappy")
-			if("Happy")
-				set_picture("ai_happy")
-			if("Neutral")
-				set_picture("ai_neutral")
-			if("Unsure")
-				set_picture("ai_unsure")
-			if("Confused")
-				set_picture("ai_confused")
-			if("Sad")
-				set_picture("ai_sad")
-			if("Surprised")
-				set_picture("ai_surprised")
-			if("Upset")
-				set_picture("ai_upset")
-			if("Angry")
-				set_picture("ai_angry")
-			if("BSOD")
-				set_picture("ai_bsod")
-			if("Blank")
-				set_picture("ai_off")
-			if("Problems?")
-				set_picture("ai_trollface")
-			if("Awesome")
-				set_picture("ai_awesome")
-			if("Dorfy")
-				set_picture("ai_urist")
-			if("Facepalm")
-				set_picture("ai_facepalm")
-			if("Friend Computer")
-				set_picture("ai_friend")
-		return
+	switch(mode)
+		if(0) //Blank
+			new_display = "ai_off"
 
-	if(mode==2)	// BSOD
-		set_picture("ai_bsod")
-		return
+		if(1)	// AI emoticon
+			switch(emotion)
+				if("Very Happy")
+					new_display = "ai_veryhappy"
+				if("Happy")
+					new_display = "ai_happy"
+				if("Neutral")
+					new_display = "ai_neutral"
+				if("Unsure")
+					new_display = "ai_unsure"
+				if("Confused")
+					new_display = "ai_confused"
+				if("Sad")
+					new_display = "ai_sad"
+				if("Surprised")
+					new_display = "ai_surprised"
+				if("Upset")
+					new_display = "ai_upset"
+				if("Angry")
+					new_display = "ai_angry"
+				if("BSOD")
+					new_display = "ai_bsod"
+				if("Blank")
+					new_display = "ai_off"
+				if("Problems?")
+					new_display = "ai_trollface"
+				if("Awesome")
+					new_display = "ai_awesome"
+				if("Dorfy")
+					new_display = "ai_urist"
+				if("Facepalm")
+					new_display = "ai_facepalm"
+				if("Friend Computer")
+					new_display = "ai_friend"
 
+		if(2)	// BSOD
+			new_display ="ai_bsod"
 
-/obj/machinery/ai_status_display/proc/set_picture(state)
-	picture_state = state
-	if(overlays.len)
-		overlays.Cut()
-	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
+	overlays += image(icon, new_display)
+	underlays += emissive_appearance(icon, "lightmask")
+	set_light(1, 0.1)
 
 #undef FONT_SIZE
 #undef FONT_COLOR

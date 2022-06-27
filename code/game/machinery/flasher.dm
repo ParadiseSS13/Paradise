@@ -16,6 +16,10 @@
 	var/base_state = "mflash"
 	anchored = TRUE
 
+/obj/machinery/flasher/Initialize()
+	. = ..()
+	update_icon()
+
 /obj/machinery/flasher/portable //Portable version of the flasher. Only flashes when anchored
 	name = "portable flasher"
 	desc = "A portable flashing device. Wrench to activate and deactivate. Cannot detect slow movements."
@@ -32,10 +36,21 @@
 /obj/machinery/flasher/power_change()
 	if( powered() )
 		stat &= ~NOPOWER
-		icon_state = "[base_state]1"
 	else
 		stat |= ~NOPOWER
+	update_icon()
+
+/obj/machinery/flasher/update_icon()
+	. = ..()
+	set_light(0)
+	underlays.Cut()
+
+	if(stat & NOPOWER)
 		icon_state = "[base_state]1-p"
+	else
+		set_light(1, 0.1)
+		icon_state = "[base_state]1"
+		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
