@@ -52,8 +52,8 @@
 	. = ..()
 	for(var/deck in 1 to deck_size)
 		build_deck()
-	update_icon()
 	deck_total = length(cards)
+	update_icon()
 
 /obj/item/deck/proc/build_deck()
 	return
