@@ -318,17 +318,18 @@
 	var/pickedcard = null
 
 /obj/item/cardhand/proc/update_values()
-	if(parentdeck)
-		var/obj/item/deck/D = parentdeck
-		hitsound = D.card_hitsound
-		force = D.card_force
-		throwforce = D.card_throwforce
-		throw_speed = D.card_throw_speed
-		throw_range = D.card_throw_range
-		attack_verb = D.card_attack_verb
-		resistance_flags = D.card_resistance_flags
+	if(!parentdeck)
+		return
+	var/obj/item/deck/D = parentdeck
+	hitsound = D.card_hitsound
+	force = D.card_force
+	throwforce = D.card_throwforce
+	throw_speed = D.card_throw_speed
+	throw_range = D.card_throw_range
+	attack_verb = D.card_attack_verb
+	resistance_flags = D.card_resistance_flags
 
-/obj/item/cardhand/attackby(obj/O as obj, mob/user as mob)
+/obj/item/cardhand/attackby(obj/O, mob/user)
 	if(length(cards) == 1 && istype(O, /obj/item/pen))
 		var/datum/playingcard/P = cards[1]
 		if(P.name != "Blank Card")
@@ -357,7 +358,7 @@
 			return
 	..()
 
-/obj/item/cardhand/attack_self(mob/user as mob)
+/obj/item/cardhand/attack_self(mob/user)
 	if(length(cards) == 1)
 		turn_hand(user)
 		return
@@ -563,7 +564,7 @@
 		add_overlay(I)
 		i++
 
-/obj/item/cardhand/dropped(mob/user as mob)
+/obj/item/cardhand/dropped(mob/user)
 	..()
 	direction = user.dir
 	update_icon()
