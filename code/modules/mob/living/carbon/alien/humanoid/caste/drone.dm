@@ -5,6 +5,7 @@
 	health = 100
 	icon_state = "aliend_s"
 
+	var/datum/action/innate/xeno_action/evolve_to_queen/evolve_to_queen_action = new
 /mob/living/carbon/alien/humanoid/drone/New()
 	if(src.name == "alien drone")
 		src.name = text("alien drone ([rand(1, 1000)])")
@@ -13,16 +14,23 @@
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	..()
+/mob/living/carbon/alien/humanoid/drone/GrantAlienActions()
+	. = ..()
+	evolve_to_queen_action.Grant(src)
+
 
 //Drones use the same base as generic humanoids.
 //Drone verbs
 
-/mob/living/carbon/alien/humanoid/drone/verb/evolve() // -- TLE
-	set name = "Evolve (500)"
-	set desc = "Produce an interal egg sac capable of spawning children. Only one queen can exist at a time."
-	set category = "Alien"
+/datum/action/innate/xeno_action/evolve_to_queen // -- TLE
+	name = "Evolve (500)"
+	desc = "Produce an interal egg sac capable of spawning children. Only one queen can exist at a time."
+	button_icon_state = "alien_evolve_drone"
 
-	if(powerc(500))
+/datum/action/innate/xeno_action/evolve_to_queen/Activate()
+	var/mob/living/carbon/alien/humanoid/drone/drone_host = owner
+
+	if(plasmacheck(500))
 		// Queen check
 		var/no_queen = 1
 		for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.alive_mob_list)
@@ -30,18 +38,18 @@
 				continue
 			no_queen = 0
 
-		if(src.has_brain_worms())
-			to_chat(src, "<span class='warning'>We cannot perform this ability at the present time!</span>")
+		if(drone_host.has_brain_worms())
+			to_chat(drone_host, "<span class='warning'>We cannot perform this ability at the present time!</span>")
 			return
 		if(no_queen)
-			adjustPlasma(-500)
-			to_chat(src, "<span class='noticealien'>You begin to evolve!</span>")
-			for(var/mob/O in viewers(src, null))
-				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
-			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(loc)
-			mind.transfer_to(new_xeno)
+			drone_host.adjustPlasma(-500)
+			to_chat(drone_host, "<span class='noticealien'>You begin to evolve!</span>")
+			for(var/mob/O in viewers(drone_host, null))
+				O.show_message(text("<span class='alertalien'>[drone_host] begins to twist and contort!</span>"), 1)
+			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(drone_host.loc)
+			drone_host.mind.transfer_to(new_xeno)
 			new_xeno.mind.name = new_xeno.name
-			qdel(src)
+			qdel(drone_host)
 		else
-			to_chat(src, "<span class='notice'>We already have an alive queen.</span>")
+			to_chat(drone_host, "<span class='notice'>We already have an alive queen.</span>")
 	return

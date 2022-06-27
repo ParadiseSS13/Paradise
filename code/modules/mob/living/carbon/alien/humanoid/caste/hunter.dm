@@ -5,6 +5,13 @@
 	health = 125
 	icon_state = "alienh_s"
 
+/mob/living/carbon/alien/humanoid/hunter/GrantAlienActions()
+	plant_action.Grant(src)
+	whisper_action.Grant(src)
+	transfer_plasma_action.Grant(src)
+	neurotoxin_action.Grant(src)
+	regurgitate_action.Grant(src)
+
 /mob/living/carbon/alien/humanoid/hunter/New()
 	if(name == "alien hunter")
 		name = text("alien hunter ([rand(1, 1000)])")

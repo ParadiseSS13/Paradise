@@ -5,6 +5,14 @@
 	health = 150
 	icon_state = "aliens_s"
 
+/mob/living/carbon/alien/humanoid/sentinel/GrantAlienActions()
+	plant_action.Grant(src)
+	whisper_action.Grant(src)
+	transfer_plasma_action.Grant(src)
+	neurotoxin_action.Grant(src)
+	regurgitate_action.Grant(src)
+	corrosive_acid_action.Grant(src)
+
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"
 	icon = 'icons/mob/alienlarge.dmi'
@@ -47,7 +55,7 @@
 	set desc = "Become a Praetorian, Royal Guard to the Queen."
 	set category = "Alien"
 
-	if(powerc(250))
+	if(plasmacheck(250))
 		adjustToxLoss(-250)
 		to_chat(src, "<span class=notice'>You begin to evolve!</span>")
 		for(var/mob/O in viewers(src, null))
