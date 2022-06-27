@@ -1,3 +1,6 @@
+/obj/item/clothing/gloves/color
+	dyeable = TRUE
+
 /obj/item/clothing/gloves/color/yellow
 	name = "insulated gloves"
 	desc = "These gloves will protect the wearer from electric shock."
@@ -7,7 +10,6 @@
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
-	dyeable = TRUE
 
 /obj/item/clothing/gloves/color/yellow/power
 	var/old_mclick_override

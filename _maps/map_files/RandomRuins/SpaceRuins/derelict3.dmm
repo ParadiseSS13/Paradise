@@ -4,10 +4,10 @@
 /area/template_noop)
 "b" = (
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "c" = (
 /turf/simulated/wall,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "d" = (
 /obj/structure/lattice,
 /turf/template_noop,

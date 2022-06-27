@@ -13,8 +13,8 @@ SUBSYSTEM_DEF(profiler)
 	/// Time it took to send the stuff down FFI for redis (ms)
 	var/send_ffi_cost = 0
 
-/datum/controller/subsystem/profiler/stat_entry()
-	..("F:[round(fetch_cost, 1)]ms | W:[round(write_cost, 1)]ms | SE:[round(send_encode_cost, 1)]ms | SF:[round(send_ffi_cost, 1)]ms")
+/datum/controller/subsystem/profiler/get_stat_details()
+	return "F:[round(fetch_cost, 1)]ms | W:[round(write_cost, 1)]ms | SE:[round(send_encode_cost, 1)]ms | SF:[round(send_ffi_cost, 1)]ms"
 
 /datum/controller/subsystem/profiler/Initialize()
 	if(!GLOB.configuration.general.enable_auto_profiler)

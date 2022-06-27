@@ -1131,6 +1131,7 @@
 			else
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
+	qdel(temp_holder)
 
 /**
  * Regrows a given external limb if it is missing. Does not add internal organs back in.
