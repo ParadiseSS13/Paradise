@@ -887,8 +887,6 @@
 	special_names = null
 	golem_colour = rgb(176, 136, 32)
 	skinned_type = /obj/item/stack/sheet/brass
-	brute_mod = 2
-	burn_mod = 2
 	info_text = "Будучи <span class='danger'>латунный големом</span>, вы очень хрупкие, но взамен имеете силу Ратвара."
 	special_names = list(
         MALE = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),

@@ -78,8 +78,8 @@
 	shockbull = TRUE
 
 /obj/item/projectile/energy/bolt/large
-	damage = 20	
-	weaken = 1	
+	damage = 20
+	weaken = 1
 	stamina = 30
 
 /obj/item/projectile/energy/shock_revolver

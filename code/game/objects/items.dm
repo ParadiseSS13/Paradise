@@ -227,6 +227,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		. += msg
 
 	if(isclocker(user) && enchant_type)
+		if(enchant_type == CASTING_SPELL)
+			. += "<span class='notice'>The last spell hasn't expired yet!</span><BR>"
 		for(var/datum/spell_enchant/S in enchants)
 			if(S.enchantment == enchant_type)
 				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><BR>"

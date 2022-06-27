@@ -14,7 +14,7 @@
 	consume_range = 12
 	gender = NEUTER
 
-/obj/singularity/narsie/admin_investigate_setup()
+/obj/singularity/ratvar/admin_investigate_setup()
 	return
 
 /obj/singularity/ratvar/New()
@@ -52,7 +52,7 @@
 				to_chat(clock_mind.current, "<span class='clock'>Current goal: Slaughter the heretics!</span>")
 	return ..()
 
-/obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user)
+/obj/singularity/ratvar/attack_ghost(mob/dead/observer/user)
 	var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
 	cog.key = user.key
 	SSticker.mode.add_clocker(cog.mind)

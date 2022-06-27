@@ -20,9 +20,19 @@
 	var/cooldowntime = 0
 	var/death_message = "<span class='danger'>The structure falls apart.</span>"
 	var/death_sound = 'sound/effects/forge_destroy.ogg'
+	var/hidden = FALSE
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
+		if(I.enchant_type == HIDE_SPELL)
+			toggle_hide()
+			to_chat(user, "<span class='notice'>You [hidden ? null : "un"]disguise [src].</span>")
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+			I.deplete_spell()
+			return TRUE
+		if(hidden)
+			to_chat(user, "<span class='warning'>You have to clear the view of this structure in order to manipulate with it!</span>")
+			return TRUE
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
@@ -37,6 +47,51 @@
 	visible_message(death_message)
 	playsound(src, death_sound, 50, TRUE)
 	. = ..()
+
+/obj/structure/clockwork/functional/examine(mob/user)
+	. = ..()
+	if(hidden && isclocker(user))
+		. += "<span class='notice'>It's a disguised [initial(name)]!</span>"
+
+// returns TRUE if hidden, if unhidden FALSE
+/obj/structure/clockwork/functional/proc/toggle_hide()
+	hidden = !hidden
+	if(!hidden)
+		name = initial(name)
+		desc = initial(desc)
+		icon = initial(icon)
+		if(!anchored)
+			icon_state = "[initial(icon_state)]-off"
+		else
+			icon_state = "[initial(icon_state)]"
+		return FALSE
+	switch(rand(1,5))
+		if(1)
+			name = "rack"
+			desc = "Different from the Middle Ages version. <BR><span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+			icon = 'icons/obj/objects.dmi'
+			icon_state = "rack"
+		if(2)
+			name = "wooden table"
+			desc = "Do not apply fire to this. Rumour says it burns easily. <BR><span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
+			icon = 'icons/obj/smooth_structures/wood_table.dmi'
+			icon_state = "wood_table"
+		if(3)
+			name = "personal closet"
+			desc = "It's a secure locker for personnel. The first card swiped gains control."
+			icon = 'icons/obj/closet.dmi'
+			icon_state = "secureoff"
+		if(4)
+			name = "girder"
+			desc = "<span class='notice'>The bolts are <b>lodged</b> in place.</span>"
+			icon = 'icons/obj/structures.dmi'
+			icon_state = "girder"
+		if(5)
+			name = "bookcase"
+			desc = null
+			icon = 'icons/obj/library.dmi'
+			icon_state = "book-4"
+	return TRUE
 
 /obj/structure/clockwork/functional/beacon
 	name = "herald's beacon"
@@ -75,12 +130,12 @@
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
 
 			if(ishuman(L))
-				L.heal_overall_damage(2, 2, TRUE)
+				L.heal_overall_damage(10, 10, TRUE)
 
 			else if(isanimal(L))
 				var/mob/living/simple_animal/M = L
 				if(M.health < M.maxHealth)
-					M.adjustHealth(-2)
+					M.adjustHealth(-8)
 
 			if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 				L.blood_volume += 1
@@ -129,8 +184,21 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
+		if(I.enchant_type == HIDE_SPELL)
+			if(!toggle_hide())
+				STOP_PROCESSING(SSprocessing, src)
+			else
+				if(anchored)
+					START_PROCESSING(SSprocessing, src)
+			to_chat(user, "<span class='notice'>You [hidden ? null : "un"]disguise [src].</span>")
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+			I.deplete_spell()
+			return TRUE
+		if(hidden)
+			to_chat(user, "<span class='warning'>You have to clear the view of this structure in order to manipulate with it!</span>")
+			return TRUE
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
@@ -143,18 +211,54 @@
 		return TRUE
 	return ..()
 
+/obj/structure/clockwork/functional/altar/toggle_hide()
+	hidden = !hidden
+	if(!hidden)
+		name = initial(name)
+		desc = initial(desc)
+		icon = initial(icon)
+		if(!anchored)
+			icon_state = "[initial(icon_state)]-off"
+		else
+			icon_state = "[initial(icon_state)]"
+		return FALSE
+	switch(rand(1,5))
+		if(1, 2, 3)
+			name = "potted plant"
+			desc = null
+			icon = 'icons/obj/flora/plants.dmi'
+			icon_state = "plant-[rand(1,36)]"
+		if(4)
+			name = "chair"
+			desc = "You sit in this. Either by will or force."
+			icon = 'icons/obj/chairs.dmi'
+			icon_state = "chair"
+		if(5)
+			name = "stool"
+			desc = "Apply butt."
+			icon = 'icons/obj/chairs.dmi'
+			icon_state = "stool"
+
+/obj/structure/clockwork/functional/altar/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(!converting && ishuman(AM) && !isclocker(AM) && !hidden && anchored)
+		converting = AM
+		first_stage_check(converting)
+
+
 /obj/structure/clockwork/functional/altar/Uncrossed(atom/movable/AM)
 	. = ..()
 	if(AM == converting)
 		if(first_stage)
 			stop_convert()
 		converting = null
+		convert_timer = 1
 
 /obj/structure/clockwork/functional/altar/process()
 	if(!converting)
 		var/list/mob/living/carbon/human/bodies = list()
 		for(var/mob/living/carbon/human/H in range(0, src))
-			if(isclocker(H) && H.stat != DEAD)
+			if(isclocker(H))
 				continue
 			if(!H.mind)
 				continue
@@ -164,21 +268,21 @@
 		convert_timer = 0
 	else if(!has_clocker)
 		for(var/mob/living/M in range(1, src))
-			if(isclocker(M) && M.stat != DEAD)
+			if(isclocker(M) && M.stat == CONSCIOUS)
 				has_clocker = M
 				break
 	else
 		convert_timer++
 		has_clocker = null
 		for(var/mob/living/M in range(1, src))
-			if(isclocker(M) && M.stat != DEAD)
+			if(isclocker(M) && M.stat == CONSCIOUS)
 				has_clocker = M
 				break
 		if(!has_clocker)
 			stop_convert()
-		if(!anchored)
+		if(!anchored || hidden)
 			stop_convert()
-		if(isclocker(converting) && converting.stat != DEAD)
+		if(isclocker(converting))
 			stop_convert(TRUE)
 		switch(convert_timer)
 			if(-INFINITY to 8)
@@ -198,12 +302,6 @@
 /obj/structure/clockwork/functional/altar/proc/first_stage_check(var/mob/living/carbon/human/target)
 	first_stage = TRUE
 	target.visible_message("<span class='warning'>[src] begins to glow a piercing amber!</span>", "<span class='clock'>You feel something start to invade your mind...</span>")
-	if(isclocker(target) && target.stat == DEAD)
-		var/mob/dead/observer/ghost = target.get_ghost()
-		if(ghost?.client && target.ghost_can_reenter())
-			to_chat(ghost, "<span class='ghostalert'>Your flesh try to bring back to life. Return to your body if you want to feel alive again!</span> (Verbs -> Ghost -> Re-enter corpse)")
-			window_flash(ghost.client)
-			ghost << sound('sound/effects/genetics.ogg')
 	glow = new (get_turf(src))
 	animate(glow, alpha = 255, time = 8 SECONDS)
 	icon_state = "[initial(icon_state)]-fast"
@@ -211,19 +309,11 @@
 
 /obj/structure/clockwork/functional/altar/proc/second_stage_check(var/mob/living/carbon/human/target)
 	second_stage = TRUE
-	if(!is_convertable_to_clocker(target.mind)) // mindshield or holy or mindless monkey
+	if(!is_convertable_to_clocker(target.mind) || target.stat == DEAD) // mindshield or holy or mindless monkey. or dead guy
 		target.visible_message("<span class='warning'>[src] in glowing manner starts corrupting [target]!</span>", \
 		"<span class='danger'>You feel as your body starts to corrupt by [src] underneath!</span>")
 		target.Weaken(10)
-	else if(target.stat == DEAD && isclocker(target)) // dead clocker
-		target.revive()
-		target.set_species(/datum/species/golem/clockwork)
-		stop_convert(TRUE)
-		if(!target.client)
-			give_ghost(target)
-		else
-			to_chat(target, "<span class='clocklarge'><b>\"You are back once again.\"</b></span>")
-	else if(target.stat != DEAD && !isclocker(target) && is_convertable_to_clocker(target.mind)) // just non-clocker
+	else // just a living non-clocker civil
 		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
 		target.heal_overall_damage(50, 50, TRUE)
 		if(isgolem(target))
@@ -240,17 +330,6 @@
 	var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
 	cube.try_to_transfer(target)
 	adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
-
-/obj/structure/clockwork/functional/altar/proc/give_ghost(var/mob/living/carbon/human/golem)
-	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Brass Golem?", ROLE_CLOCKER, TRUE, poll_time = 10 SECONDS, source = /obj/item/clockwork/clockslab)
-	if(length(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		golem.ghostize(FALSE)
-		golem.key = C.key
-		SEND_SOUND(golem, 'sound/ambience/antag/clockcult.ogg')
-	else
-		golem.visible_message("<span class='warning'>[golem] twitches as there was no soul after a revival!</span>")
 
 /obj/structure/clockwork/functional/altar/proc/stop_convert(var/silent = FALSE)
 	QDEL_NULL(glow)
@@ -285,6 +364,10 @@
 
 /obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
 	var/datum/game_mode/gamemode = SSticker.mode
+
+	if(GLOB.ark_of_the_clockwork_justiciar)
+		to_chat(user, "<span class='clockitalic'>There is already Gateway somewhere!</span>")
+		return FALSE
 
 	if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
 		to_chat(user, "<span class='clockitalic'><b>Ratvar</b> is not ready to be summoned yet!</span>")

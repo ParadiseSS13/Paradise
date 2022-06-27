@@ -24,6 +24,7 @@
 	START_PROCESSING(SSprocessing, src)
 	GLOB.poi_list |= src
 	visible_message("<span class='boldwarning'>[src] shudders and roars to life, its parts beginning to whirr and screech!</span>")
+	GLOB.ark_of_the_clockwork_justiciar = src
 	if(!countdown)
 		countdown = new(src)
 		countdown.start()
@@ -38,6 +39,7 @@
 		qdel(countdown)
 		countdown = null
 	GLOB.poi_list.Remove(src)
+	GLOB.ark_of_the_clockwork_justiciar = null
 	for(var/mob/M as anything in GLOB.mob_list)
 		M.stop_sound_channel(CHANNEL_JUSTICAR_ARK)
 	. = ..()

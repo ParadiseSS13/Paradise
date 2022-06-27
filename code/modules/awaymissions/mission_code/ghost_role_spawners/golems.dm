@@ -147,3 +147,22 @@
 	mob_name = "a free golem"
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
+
+/obj/effect/mob_spawn/human/golem/clockwork
+	name = "fleshed golem shell"
+	desc = "This body used to be made of flesh, but now... it's just shaped shell into brass."
+	mob_name = "a clockwork golem"
+	can_transfer = FALSE
+	mob_species = /datum/species/golem/clockwork
+	banType = ROLE_CLOCKER
+	offstation_role = FALSE
+	random = TRUE
+	important_info = "You are an antag, but you have to serve other human-servants in order to summen Ratvar!"
+	description = "You are a Golem. You move slowly. You are unable to wear clothes, but can still use most tools. Serve Ratvar and complete the ritual at any cost."
+	flavour_text = "You are a clock working golem convened to serve Ratvar."
+
+/obj/effect/mob_spawn/human/golem/clockwork/special(mob/living/new_spawn, name)
+	var/datum/species/golem/X = mob_species
+	to_chat(new_spawn, "[initial(X.info_text)]")
+	new_spawn.rename_character(null, new_spawn.dna.species.get_random_name())
+	SSticker.mode.add_clocker(new_spawn)

@@ -24,7 +24,7 @@
 	pass_flags = PASSTABLE
 	AIStatus = AI_OFF // Usually someone WILL play for him but i don't know about this on chief.
 	universal_speak = TRUE
-	loot = list(/obj/item/clockwork/component/geis_capacitor/fallen_armor)
+	loot = list(/obj/item/clockwork/fallen_armor)
 	del_on_death = TRUE
 	deathmessage = "shatters as the flames goes out."
 	light_range = 2
@@ -92,9 +92,10 @@
 	icon = 'icons/mob/clockwork_mobs.dmi'
 	mouse_color = "clock" // Check mouse/New()
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	pressure_resistance = 100
 	universal_speak = 1
 	gold_core_spawnable = NO_SPAWN
-	butcher_results = list(/obj/item/clockwork/alloy_shards/medium/gear_bit = 1)
 
 /mob/living/simple_animal/mouse/clockwork/handle_automated_action()
 	if(!isturf(loc))

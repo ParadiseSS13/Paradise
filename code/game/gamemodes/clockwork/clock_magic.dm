@@ -30,11 +30,15 @@
 /datum/action/innate/clockwork/clock_magic/Activate()
 	. = ..()
 	var/obj/item/item = owner.get_active_hand()
+	if(istype(item, /obj/item/gripper)) // cogs gripper
+		var/obj/item/gripper/G = item
+		item = G.gripped_item
 	// If we having something in hand. Check if it can be enchanted. Else skip.
 	if(!item) // Maybe we want to enchant our armor
 		var/list/items = list()
 		var/list/duplicates = list()
 		var/list/possible_items = list()
+		var/list/possible_icons = list()
 		for(var/obj/item/I in owner.contents)
 			if(istype(I, /obj/item/gripper)) // cogs gripper
 				var/obj/item/gripper/G = I
@@ -44,23 +48,43 @@
 			if(I.name in items) // in case there are doubles clockslabs
 				duplicates[I.name]++
 				possible_items["[I.name] ([duplicates[I.name]])"] = I
+				var/image/item_image = image(icon = I.icon, icon_state = I.icon_state)
+				if(I.enchant_type > NO_SPELL) //cause casting spell is -1
+					item_image.add_overlay("[initial(I.icon_state)]_overlay_[I.enchant_type]")
+				possible_icons += list("[I.name] ([duplicates[I.name]])" = item_image)
 			else
 				items.Add(I.name)
 				duplicates[I.name] = 1
 				possible_items[I.name] = I
-		if(possible_items.len)
-			possible_items += "(NO ITEM)"
-		var/item_to_enchant = input(owner, "Pick a clock spell to prepare...", "Spell Choices") as null|anything in possible_items
+				var/image/item_image = image(icon = I.icon, icon_state = I.icon_state)
+				if(I.enchant_type > NO_SPELL) //cause casting spell is -1
+					item_image.add_overlay("[initial(I.icon_state)]_overlay_[I.enchant_type]")
+				possible_icons += list(I.name = item_image)
+		if(ishuman(owner))
+			possible_items += "Spell hand"
+			possible_icons += list("Spell hand" = image(icon = 'icons/mob/actions/actions_clockwork.dmi', icon_state = "hand"))
+		var/item_to_enchant
+		if(possible_items.len >= 2)
+			item_to_enchant = show_radial_menu(owner, owner, possible_icons, require_near = TRUE)
+		else if(possible_items.len == 1)
+			item_to_enchant = possible_items[1]
+		else
+			item_to_enchant = null
 		if(!item_to_enchant)
 			if(possible_items.len) // we had a choice but declined
 				return
 			item_to_enchant = null
-		if(item_to_enchant == "(NO ITEM)")
+		if(item_to_enchant == "Spell hand")
 			item_to_enchant = null
 		else
 			item = possible_items[item_to_enchant]
-
-	if(length(item?.enchants)) // it just works
+			if(!(item in owner.contents))
+				var/obj/item/gripper/G = locate() in owner
+				if(item != G?.gripped_item)
+					return
+		if(QDELETED(src) || owner.incapacitated())
+			return
+	if(item?.enchants.len) // it just works
 		if(item.enchant_type == CASTING_SPELL)
 			to_chat(owner, "<span class='warning'> You can't enchant [item] right now while spell is working!</span>")
 			return
@@ -68,12 +92,15 @@
 			to_chat(owner, "<span class='clockitalic'>There is already prepared spell in [item]! If you choose another spell it will overwrite old one!</span>")
 		var/entered_spell_name
 		var/list/possible_enchants = list()
+		var/list/possible_enchant_icons = list()
 		for(var/datum/spell_enchant/S in item.enchants)
 			if(S.enchantment == item.enchant_type)
 				continue
 			possible_enchants[S.name] = S
-		entered_spell_name = input(owner, "Pick a clock spell to prepare...", "Spell Choices") as null|anything in possible_enchants
-
+			var/image/I = image(icon = item.icon, icon_state = initial(item.icon_state))
+			I.add_overlay("[initial(item.icon_state)]_overlay_[S.enchantment]")
+			possible_enchant_icons += list(S.name = I)
+		entered_spell_name = show_radial_menu(owner, owner, possible_enchant_icons, require_near = TRUE)
 		var/datum/spell_enchant/spell_enchant = possible_enchants[entered_spell_name]
 		if(QDELETED(src) || owner.incapacitated() || !spell_enchant)
 			return

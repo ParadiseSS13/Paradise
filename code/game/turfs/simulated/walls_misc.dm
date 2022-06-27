@@ -108,12 +108,7 @@
 	return TRUE
 
 /turf/simulated/wall/clockwork/devastate_wall()
-	for(var/i in 1 to 2)
-		new/obj/item/clockwork/alloy_shards/large(src)
-	for(var/i in 1 to 2)
-		new/obj/item/clockwork/alloy_shards/medium(src)
-	for(var/i in 1 to 3)
-		new/obj/item/clockwork/alloy_shards/small(src)
+	new sheet_type(src, sheet_amount)
 
 /turf/simulated/wall/clockwork/mech_melee_attack(obj/mecha/M)
 	..()

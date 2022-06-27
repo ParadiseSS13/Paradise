@@ -437,11 +437,6 @@ emp_act
 	if(!I.force)
 		return 0 //item force is zero
 
-	if(wear_suit?.enchant_type == ABSORB_SPELL)
-		visible_message("<span class='warning'>[src]'s [wear_suit] shines as it absorbs the hit!</span>", "<span class='warning'>Your [wear_suit] shines as absorbs the hit!</span>")
-		wear_suit.deplete_spell()
-		return 0
-
 	var/armor = run_armor_check(affecting, "melee", "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
 	if(weapon_sharp && prob(getarmor(user.zone_selected, "melee")))

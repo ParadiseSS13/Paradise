@@ -4,7 +4,6 @@
 //Clockwork Magic
 // state for spell
 #define NO_SPELL 0
-#define A_SPELL 1
 #define CASTING_SPELL -1
 
 // Clockslab enchant type
@@ -12,16 +11,22 @@
 #define KNOCK_SPELL 2
 #define REFORM_SPELL 3
 #define TELEPORT_SPELL 4
+#define HEAL_SPELL 5
+#define HIDE_SPELL 6
 // Ratvarian spear enchant type
 #define CONFUSE_SPELL 1
 #define DISABLE_SPELL 2
 // Clock hammer
 #define CRUSH_SPELL 1
 #define KNOCKOFF_SPELL 2
+// Sword
+#define BLOODSHED_SPELL 1
+#define FASTSWORD_SPELL 2
+// Buckler
+#define PUSHOFF_SPELL 1
 // Clockwork robe
-#define WEAK_REFLECT_SPELL 1
-#define WEAK_ABSORB_SPELL 2
-#define INVIS_SPELL 3
+#define INVIS_SPELL 1
+#define SPEED_SPELL 2
 // armour
 #define REFLECT_SPELL 1
 #define FLASH_SPELL 2
@@ -41,7 +46,9 @@ GLOBAL_LIST_INIT(clockslab_spells, list(
 	new /datum/spell_enchant("Stun", STUN_SPELL, 125, 8),
 	new /datum/spell_enchant("Force Passage", KNOCK_SPELL, 100),
 	new /datum/spell_enchant("Terraform", REFORM_SPELL, 40),
-	new /datum/spell_enchant("Teleportation", TELEPORT_SPELL, 25) // has do_after 5 seconds
+	new /datum/spell_enchant("Teleportation", TELEPORT_SPELL, 25), // has do_after 5 seconds
+	new /datum/spell_enchant("Seal Wounds", HEAL_SPELL, 100, 5),
+	new /datum/spell_enchant("Hidings Clock", HIDE_SPELL, 100, 5)
 ))
 GLOBAL_LIST_INIT(spear_spells, list(
 	new /datum/spell_enchant("Confusion", CONFUSE_SPELL, 80),
@@ -51,11 +58,22 @@ GLOBAL_LIST_INIT(hammer_spells, list(
 	new /datum/spell_enchant("Crusher", CRUSH_SPELL, 100),
 	new /datum/spell_enchant("Knock off", KNOCKOFF_SPELL, 100)
 ))
+GLOBAL_LIST_INIT(sword_spells, list(
+	new /datum/spell_enchant("Bloodshed", BLOODSHED_SPELL, 100, 6),
+	new /datum/spell_enchant("Swordsman", FASTSWORD_SPELL, 100, 5, spell_action = TRUE)
+))
+GLOBAL_LIST_INIT(shield_spells, list(
+	new /datum/spell_enchant("Push off", PUSHOFF_SPELL, 100, 5)
+))
+GLOBAL_LIST_INIT(robe_spells, list(
+	new /datum/spell_enchant("Camoflauge", INVIS_SPELL, 100, 5, spell_action = TRUE),
+	new /datum/spell_enchant("Haste", SPEED_SPELL, 100, 10, spell_action = TRUE)
+))
 GLOBAL_LIST_INIT(armour_spells, list(
-	new /datum/spell_enchant("Reflection", REFLECT_SPELL, 100, 10),
+	new /datum/spell_enchant("Reflection", REFLECT_SPELL, 100, 6),
 	new /datum/spell_enchant("Flash", FLASH_SPELL, 25, spell_action = TRUE),
 	new /datum/spell_enchant("Absorb", ABSORB_SPELL, 100, 10),
-	new /datum/spell_enchant("Harden plates", ARMOR_SPELL, 100, 15, spell_action = TRUE)
+	new /datum/spell_enchant("Harden plates", ARMOR_SPELL, 100, 12, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(gloves_spell, list(
 	new /datum/spell_enchant("Hands of North Star", FASTPUNCH_SPELL, 75, spell_action = TRUE),
@@ -63,9 +81,9 @@ GLOBAL_LIST_INIT(gloves_spell, list(
 	new /datum/spell_enchant("Red Flame", FIRE_SPELL, 50, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(shard_spells, list(
-	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 500, 20),
-	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 20),
-	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 20)
+	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 500, 10),
+	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 10),
+	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 10)
 ))
 /// Power per crew for summoning. For example if 45 players on station, the Ratvar will demand 45*number.
 #define CLOCK_POWER_PER_CREW 400
@@ -83,13 +101,13 @@ GLOBAL_LIST_INIT(shard_spells, list(
 
 // Clockwork Status
 /// At what population does it switch to highpop values
-#define CLOCK_POPULATION_THRESHOLD 100
+#define CLOCK_POPULATION_THRESHOLD 80
 /// Percent for power to reveal (Lowpop)
-#define CLOCK_POWER_REVEAL_LOW 0.5
+#define CLOCK_POWER_REVEAL_LOW 0.7
 /// Percent clockers to reveal (Lowpop)
 #define CLOCK_CREW_REVEAL_LOW 0.25
 /// Percent for power to reveal (Highpop)
-#define CLOCK_POWER_REVEAL_HIGH 0.3
+#define CLOCK_POWER_REVEAL_HIGH 0.5
 /// Percent clockers to reveal (Highpop)
 #define CLOCK_CREW_REVEAL_HIGH 0.15
 

@@ -1110,15 +1110,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	overlays.Cut()
 	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
-			if(!isclocker(src))
-				overlays += "eyes-[custom_panel]"
-			else
+			if(isclocker(src) && SSticker.mode.power_reveal)
 				overlays += "eyes-[custom_panel]-clocked"
-		else
-			if(!isclocker(src))
-				overlays += "eyes-[icon_state]"
 			else
+				overlays += "eyes-[custom_panel]"
+		else
+			if(isclocker(src) && SSticker.mode.power_reveal)
 				overlays += "eyes-[icon_state]-clocked"
+			else
+				overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
 	if(opened)

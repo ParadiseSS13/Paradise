@@ -46,6 +46,9 @@
 		new /obj/item/stack/rods(get_turf(src), number_of_rods)
 	qdel(src)
 
+/obj/structure/lattice/ratvar_act()
+	new /obj/structure/lattice/clockwork(loc)
+	qdel(src)
 
 /obj/structure/lattice/blob_act(obj/structure/blob/B)
 	return
@@ -97,6 +100,10 @@
 	for(var/obj/structure/cable/C in T)
 		C.deconstruct()
 	..()
+
+/obj/structure/lattice/catwalk/ratvar_act()
+	new /obj/structure/lattice/catwalk/clockwork(loc)
+	qdel(src)
 
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
