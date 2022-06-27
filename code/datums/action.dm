@@ -95,6 +95,7 @@
 		else
 			button.icon = button_icon
 			button.icon_state = background_icon_state
+		button.name = name
 		button.desc = desc
 
 		ApplyIcon(button)

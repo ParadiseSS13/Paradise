@@ -10,6 +10,10 @@
 	. = ..()
 	if(!.)
 		return
+	if(!user.can_reproduce)
+		if(show_message)
+			to_chat(user, "<span class='warning'>You dont know how to do reproduce!</span>")
+		return FALSE
 	if(!isturf(user.loc))
 		if(show_message)
 			to_chat(user, "<span class='warning'>You can only split while on flooring!</span>")
@@ -17,6 +21,9 @@
 
 /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	to_chat(user, "<span class='sinister'>You prepare to split in two, making you unable to vent crawl!</span>")
+	hunger_cost += 30
+	update_name()
+	user.update_action_buttons_icon()
 	user.ventcrawler = FALSE // Temporarily disable it
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
 	if(!length(candidates))

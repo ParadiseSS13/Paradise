@@ -43,6 +43,7 @@
 							You can restore yourself to your original form while morphed by shift-clicking yourself.<br> \
 							Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health.</b>"
 
+	var/can_reproduce = FALSE
 	/// If the morph is disguised or not
 	var/morphed = FALSE
 	/// If the morph is ready to perform an ambush
@@ -327,6 +328,7 @@
 
 
 /mob/living/simple_animal/hostile/morph/proc/make_morph_antag(give_default_objectives = TRUE)
+	can_reproduce = TRUE
 	mind.assigned_role = SPECIAL_ROLE_MORPH
 	mind.special_role = SPECIAL_ROLE_MORPH
 	SSticker.mode.traitors |= mind
