@@ -58,6 +58,8 @@
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
+	if(select > ammo_type.len) /// If we decrease ammo types while selecting a removed one, we want to make sure it doesnt try to select an out of bounds index
+		select = 1
 	for(var/i = 1, i <= ammo_type.len, i++)
 		var/shottype = ammo_type[i]
 		shot = new shottype(src)

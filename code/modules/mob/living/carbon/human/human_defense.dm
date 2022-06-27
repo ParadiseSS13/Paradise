@@ -13,7 +13,7 @@ emp_act
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		return FALSE
-	if(P.is_reflectable)
+	if(P.is_reflectable(REFLECTABILITY_PHYSICAL))
 		var/can_reflect = check_reflect(def_zone)
 		var/reflected = FALSE
 
@@ -37,7 +37,7 @@ emp_act
 		return 2
 
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(!lying && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
+		if(!lying && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src) && P.is_reflectable(REFLECTABILITY_PHYSICAL)) //But only if they're not lying down, and hulks can't do it, and only if it can be reflected
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
 			playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 			if(HAS_TRAIT(src, TRAIT_PACIFISM))
