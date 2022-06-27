@@ -112,6 +112,8 @@
 
 /datum/emote/living/deathgasp/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
 	var/mob/living/carbon/human/H = user
+	if(!user)
+		return ..()
 	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
 	playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(), ignore_walls = !isnull(user.mind))
 
