@@ -262,7 +262,7 @@
 	item_state = "blindfold"
 	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
-	flash_protect = TRUE
+	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
 	origin_tech = null
 

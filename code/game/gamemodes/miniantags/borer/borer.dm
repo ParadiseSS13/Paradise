@@ -66,13 +66,13 @@
 	icon_dead = "brainslug_dead"
 	speed = 5
 	a_intent = INTENT_HARM
-	stop_automated_movement = 1
+	stop_automated_movement = TRUE
 	status_flags = CANPUSH
 	attacktext = "nips"
 	friendly = "prods"
-	wander = 0
+	wander = FALSE
 	mob_size = MOB_SIZE_TINY
-	density = 0
+	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	faction = list("creature")

@@ -14,7 +14,7 @@
 	projectiletype = /obj/item/projectile/guardian
 	ranged_cooldown_time = 5 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
-	ranged = 1
+	ranged = TRUE
 	range = 13
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	see_in_dark = 8
@@ -28,7 +28,7 @@
 /mob/living/simple_animal/hostile/guardian/ranged/ToggleMode()
 	if(loc == summoner)
 		if(toggle)
-			ranged = 1
+			ranged = TRUE
 			melee_damage_lower = 10
 			melee_damage_upper = 10
 			obj_damage = initial(obj_damage)
@@ -40,7 +40,7 @@
 			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
 			toggle = FALSE
 		else
-			ranged = 0
+			ranged = FALSE
 			melee_damage_lower = 0
 			melee_damage_upper = 0
 			obj_damage = 0
