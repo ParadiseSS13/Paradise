@@ -366,6 +366,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_undelays)
 			else
 				filling_overlay = get_airlock_overlay("fill_closed", icon)
 			if(panel_open)
+				buttons_underlay = null
 				if(security_level)
 					panel_overlay = get_airlock_overlay("panel_closed_protected", overlays_file)
 				else
@@ -398,6 +399,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_undelays)
 			else
 				filling_overlay = get_airlock_overlay("fill_closed", icon)
 			if(panel_open)
+				buttons_underlay = null
 				if(security_level)
 					panel_overlay = get_airlock_overlay("panel_closed_protected", overlays_file)
 				else
@@ -425,6 +427,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_undelays)
 			else
 				filling_overlay = get_airlock_overlay("fill_closed", icon)
 			if(panel_open)
+				buttons_underlay = null
 				if(security_level)
 					panel_overlay = get_airlock_overlay("panel_closed_protected", overlays_file)
 				else
@@ -451,6 +454,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_undelays)
 				lights_overlay = get_airlock_overlay("lights_closing", overlays_file)
 				lights_underlay = get_airlock_emissive_underlay("lights_closing_lightmask", overlays_file)
 			if(panel_open)
+				buttons_underlay = null
 				if(security_level)
 					panel_overlay = get_airlock_overlay("panel_closing_protected", overlays_file)
 				else
@@ -486,6 +490,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_undelays)
 				lights_overlay = get_airlock_overlay("lights_opening", overlays_file)
 				lights_underlay = get_airlock_emissive_underlay("lights_opening_lightmask", overlays_file)
 			if(panel_open)
+				buttons_underlay = null
 				if(security_level)
 					panel_overlay = get_airlock_overlay("panel_opening_protected", overlays_file)
 				else
