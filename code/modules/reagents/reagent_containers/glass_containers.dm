@@ -68,10 +68,13 @@
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
-	if((!proximity) ||  !check_allowed_items(target,target_self = TRUE))
+	if((!proximity) || !check_allowed_items(target, target_self = TRUE))
 		return
 
 	if(!is_open_container())
+		return
+
+	if(!reagents)
 		return
 
 	if(target.is_refillable()) //Something like a glass. Player probably wants to transfer TO it.
