@@ -389,6 +389,7 @@
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
 
 	LE.firer = src
+	LE.firer_source_atom = src
 	LE.def_zone = ran_zone(zone_selected)
 	LE.original = A
 	LE.current = T

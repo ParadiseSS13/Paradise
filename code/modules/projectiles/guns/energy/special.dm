@@ -46,7 +46,7 @@
 	..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(cell.charge > shot.e_cost)
-		overlays += "decloner_spin"
+		add_overlay("decloner_spin")
 
 // Flora Gun //
 /obj/item/gun/energy/floragun
@@ -754,6 +754,133 @@
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
 	M.mimic_type = mimic_type
 	..()
+
+/obj/item/gun/energy/detective
+	name = "DL-88 energy revolver"
+	desc = "A 'modern' take on the classic projectile revolver."
+	icon_state = "handgun"
+	item_state = null
+	modifystate = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
+	/// If true, this gun is tracking something and cannot track another mob
+	var/tracking_target_UID
+	/// Used to track if the gun is overcharged
+	var/overcharged
+	/// Yes, this gun has a radio, welcome to 2022
+	var/obj/item/radio/headset/Announcer
+	/// Used to link back to the pinpointer
+	var/linked_pinpointer_UID
+	shaded_charge = TRUE
+	can_holster = TRUE
+	can_charge = FALSE
+	unique_reskin = TRUE
+	charge_sections = 5
+	inhand_charge_sections = 3
+
+/obj/item/gun/energy/detective/Initialize(mapload, ...)
+	. = ..()
+	Announcer = new /obj/item/radio/headset(src)
+	Announcer.config(list("Security" = 1))
+	options["The Original"] = "handgun"
+	options["Golden Mamba"] = "handgun_golden-mamba"
+	options["NT's Finest"] = "handgun_nt-finest"
+	options["Cancel"] = null
+
+/obj/item/gun/energy/detective/Destroy()
+	QDEL_NULL(Announcer)
+	return ..()
+
+/obj/item/gun/energy/detective/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Ctrl-click to clear active tracked target or clear linked pinpointer.</span>"
+
+/obj/item/gun/energy/detective/CtrlClick(mob/user)
+	. = ..()
+	if(!isliving(loc)) //don't do this next bit if this gun is on the floor
+		return
+	var/tracking_target = locateUID(tracking_target_UID)
+	if(tracking_target)
+		if(alert("Do you want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
+			to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
+			stop_pointing()
+	if(linked_pinpointer_UID)
+		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
+			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
+			var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+			C.linked_gun_UID = null
+			if(C.mode == MODE_DET)
+				C.stop_tracking()
+			linked_pinpointer_UID = null
+
+/obj/item/gun/energy/detective/proc/link_pinpointer(pinpointer_UID)
+	linked_pinpointer_UID = pinpointer_UID
+
+/obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message("<span class='notice'>[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].</span>", "<span class='notice'>You start [overcharged ? "restoring" : "removing"] the safety limits on [src]</span>")
+	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume))
+		user.visible_message("<span class='notice'>[user] stops modifying the safety limits on [src].", "You stop modifying the [src]'s safety limits</span>")
+		return
+	if(!overcharged)
+		overcharged = TRUE
+		ammo_type = list(/obj/item/ammo_casing/energy/detective/overcharge)
+		update_ammo_types()
+		select_fire(user)
+	else // Unable to early return due to the visible message at the end
+		overcharged = FALSE
+		ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
+		update_ammo_types()
+		select_fire(user)
+	user.visible_message("<span class='notice'>[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]</span>")
+	update_icon()
+
+/obj/item/gun/energy/detective/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!istype(I, /obj/item/ammo_box/magazine/detective/speedcharger))
+		return
+	var/obj/item/ammo_box/magazine/detective/speedcharger/S = I
+	if(!S.charge)
+		to_chat(user, "<span class='notice'>[S] has no charge to give!</span>")
+		return
+	if(cell.charge == cell.maxcharge)
+		to_chat(user, "<span class='notice'>[src] is already at full power!</span>")
+		return
+	var/new_speedcharger_charge = cell.give(S.charge)
+	S.charge -= new_speedcharger_charge
+	S.update_icon()
+	update_icon()
+
+/obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	if(!overcharged)
+		return ..()
+	if(prob(clamp((100 - ((cell.charge / cell.maxcharge) * 100)), 10, 70)))	//minimum probability of 10, maximum of 70
+		playsound(user, fire_sound, 50, 1)
+		visible_message("<span class='userdanger'>[src]'s energy cell overloads!</span>")
+		user.apply_damage(60, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+		user.EyeBlurry(10 SECONDS)
+		user.flash_eyes(2, TRUE)
+		do_sparks(rand(5, 9), FALSE, src)
+		playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
+		user.unEquip(src)
+		cell.charge = 0 //ha ha you lose
+		update_icon()
+		return
+	return ..()
+
+/obj/item/gun/energy/detective/proc/start_pointing(target_UID)
+	tracking_target_UID = target_UID
+	Announcer.autosay("Alert: Detective's revolver discharged in tracking mode. Tracking: [locateUID(tracking_target_UID)] at [get_area_name(src)].", src, "Security")
+	var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+	if(C)
+		C.start_tracking()
+		addtimer(CALLBACK(src, .proc/stop_pointing), 1 MINUTES, TIMER_UNIQUE)
+
+/obj/item/gun/energy/detective/proc/stop_pointing()
+	if(linked_pinpointer_UID)
+		var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+		if(C?.mode == MODE_DET)
+			C.stop_tracking()
+	tracking_target_UID = null
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT
