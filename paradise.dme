@@ -233,6 +233,7 @@
 #include "code\controllers\subsystem\chat_pings.dm"
 #include "code\controllers\subsystem\cleanup.dm"
 #include "code\controllers\subsystem\dbcore.dm"
+#include "code\controllers\subsystem\debugview.dm"
 #include "code\controllers\subsystem\discord.dm"
 #include "code\controllers\subsystem\events.dm"
 #include "code\controllers\subsystem\fires.dm"
