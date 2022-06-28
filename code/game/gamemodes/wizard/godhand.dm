@@ -78,6 +78,7 @@
 	on_use_sound = 'sound/magic/disintegrate.ogg'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
+	needs_permit = FALSE
 
 /obj/item/melee/touch_attack/fake_disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //not exploding after touching yourself would be bad
