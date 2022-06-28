@@ -406,10 +406,15 @@
 			calibrated = FALSE
 
 /obj/machinery/teleport/hub/update_icon()
+	set_light(0)
+	underlays.Cut()
+
 	if(panel_open)
 		icon_state = "tele-o"
 	else if(power_station && power_station.engaged)
 		icon_state = "tele1"
+		underlays += emissive_appearance(icon, "tele1_lightmask")
+		set_light(2, 1, "#f1f1bd")
 	else
 		icon_state = "tele0"
 
@@ -629,9 +634,14 @@
 		teleporter_hub.update_icon()
 
 /obj/machinery/teleport/station/update_icon()
+	underlays.Cut()
+	set_light(0)
+
 	if(panel_open)
 		icon_state = "controller-o"
 	else if(stat & NOPOWER)
 		icon_state = "controller-p"
 	else
 		icon_state = "controller"
+		underlays += emissive_appearance(icon, "controller_lightmask")
+		set_light(1, 0.1)

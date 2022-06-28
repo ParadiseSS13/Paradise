@@ -145,6 +145,7 @@
 	else if(mode==-1)
 		mode=0
 	to_chat(user, "You [mode ? "unfasten": "fasten"] the screws around the power connection.")
+	update()
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
 	if(mode != required_mode_to_deconstruct)
@@ -315,7 +316,10 @@
 
 // update the icon & overlays to reflect mode & status
 /obj/machinery/disposal/proc/update()
+	set_light(0)
 	overlays.Cut()
+	underlays.Cut()
+
 	if(stat & BROKEN)
 		icon_state = "disposal-broken"
 		mode = 0
@@ -324,7 +328,7 @@
 
 	// flush handle
 	if(flush)
-		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-handle")
+		overlays += image(icon, "dispover-handle")
 
 	// only handle is shown if no power
 	if(stat & NOPOWER || mode == -1)
@@ -332,13 +336,21 @@
 
 	// 	check for items in disposal - occupied light
 	if(contents.len > 0)
-		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-full")
+		overlays += image(icon, "dispover-full")
 
 	// charging and ready light
-	if(mode == 1)
-		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-charge")
-	else if(mode == 2)
-		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-ready")
+	switch(mode)
+		if(-1)
+			overlays += image(icon, "dispover-unscrewed")
+		if( 1)
+			overlays += image(icon, "dispover-charge")
+			underlays += emissive_appearance(icon, "dispover-charge")
+			overlays += image(icon, "dispover-panel")
+			set_light(1, 0.1)
+		if(2)
+			overlays += image(icon, "dispover-ready")
+			underlays += emissive_appearance(icon, "dispover-ready")
+			set_light(1, 0.1)
 
 // timed process
 // charge the gas reservoir and perform flush if ready

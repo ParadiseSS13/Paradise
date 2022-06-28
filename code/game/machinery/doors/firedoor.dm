@@ -21,6 +21,7 @@
 	closingLayer = CLOSED_FIREDOOR_LAYER
 	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
+	blocks_emissive = TRUE
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70)
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
@@ -34,6 +35,7 @@
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
 	CalculateAffectingAreas()
+	update_emissive_block()
 
 /obj/machinery/door/firedoor/examine(mob/user)
 	. = ..()
@@ -202,8 +204,6 @@
 
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
-	underlays.Cut()
-	set_light(0)
 
 	if(active_alarm && hasPower())
 		overlays += image('icons/obj/doors/doorfire.dmi', "alarmlights")

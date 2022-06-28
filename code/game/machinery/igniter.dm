@@ -27,9 +27,19 @@
 	add_fingerprint(user)
 
 	use_power(50)
-	src.on = !( src.on )
-	src.icon_state = text("igniter[]", src.on)
+	on = !on
+	update_icon()
 	return
+
+/obj/machinery/igniter/update_icon()
+	. = ..()
+	set_light(0)
+	underlays.Cut()
+
+	icon_state = "igniter[on]"
+	if(on)
+		set_light(1,1,"#b4570b")
+		underlays += emissive_appearance(icon, "igniter_lightmask")
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()?
 	if(src.on && !(stat & NOPOWER) )

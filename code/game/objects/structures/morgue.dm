@@ -43,7 +43,10 @@
 	update()
 
 /obj/structure/morgue/proc/update()
+	set_light(0)
+	underlays.Cut()
 	cut_overlays()
+
 	if(!connected)
 		if(contents.len)
 			var/mob/living/M = locate() in contents
@@ -66,6 +69,8 @@
 		else
 			status = EMPTY_MORGUE
 		add_overlay("morgue_[status]")
+		underlays += emissive_appearance(icon, "morgue_[status]")
+		set_light(1, 0.1)
 	else
 		status = EXTENDED_TRAY
 	if(name != initial(name))
@@ -259,11 +264,16 @@
 	update()
 
 /obj/structure/crematorium/proc/update()
+	underlays.Cut()
 	cut_overlays()
+	set_light(0)
+
 	if(!connected)
 		add_overlay("crema_closed")
 		if(cremating)
 			add_overlay("crema_active")
+			underlays += emissive_appearance(icon, "crema_active_lightmask")
+			set_light(1, 1, "#f17c1c")
 			return
 		if(contents.len)
 			add_overlay("crema_full")
