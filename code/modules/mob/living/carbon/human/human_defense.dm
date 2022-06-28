@@ -634,6 +634,10 @@ emp_act
 			updatehealth("alien attack")
 
 		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
+			if(absorb_stun(0))
+				visible_message("<span class='warning'>[src] is not affected by [M]'s disarm attempt!</span>")
+				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+				return FALSE
 			var/obj/item/I = get_active_hand()
 			if(I && unEquip(I))
 				playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
