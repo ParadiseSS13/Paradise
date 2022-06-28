@@ -79,7 +79,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	spawner_list = GLOB.xeno_spawn
 	return ..()
 
-/obj/effect/landmark/spawner/nukedisc_respawn //todo: rename this and cause mapping pain
+/obj/effect/landmark/spawner/nukedisc_respawn
 	name = "nukedisc_respawn"
 	icon_state = "Nuke_disk"
 
