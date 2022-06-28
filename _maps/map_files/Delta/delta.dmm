@@ -25688,10 +25688,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Mining Maintenance";
-	req_access_txt = "48"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
