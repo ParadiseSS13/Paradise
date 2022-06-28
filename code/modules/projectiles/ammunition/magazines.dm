@@ -423,7 +423,7 @@
 
 /obj/item/ammo_box/magazine/toy/smg
 	name = "foam force SMG magazine"
-	icon_state = "smg9mm"
+	icon_state = "smg10mm"
 	max_ammo = 20
 	multi_sprite_step = 4
 
