@@ -1,6 +1,6 @@
 
 /*
- * #Library User Data Datum
+ * # Library User Data Datum
  *
  * Because facilitating an entire library system that needs to be able to search a DB + move lots and lots of data
  * the temporary data used for functions has been condensed into a single datum
@@ -29,7 +29,7 @@
 	search_categories = list()
 
 /*
- * #Borrowbook datum
+ * # Borrowbook datum
  *
  * Used for tracking books that have been checked out from the library by players. Created and stored upon a book being
  * checked out and deleted upon the book being succesfully checked back in or the librarian marking a book as "lost"

@@ -371,7 +371,7 @@ CREATE TABLE `library` (
 	`author` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_unicode_ci',
 	`title` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_unicode_ci',
 	`content` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_unicode_ci',
-	`ckey` VARCHAR(32) NULL DEFAULT '' COLLATE 'utf8mb4_unicode_ci',
+	`ckey` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_unicode_ci',
 	`reports` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
 	`summary` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
 	`ratings` DOUBLE NULL DEFAULT '0',
