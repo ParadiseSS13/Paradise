@@ -17,7 +17,7 @@
 	/// Whether the baton can stun silicon mobs
 	var/affect_silicon = FALSE
 	/// The stun time (in seconds) for non-silicons
-	var/stun_time = 6 SECONDS
+	var/knockdown_duration = 6 SECONDS
 	/// The stun time (in seconds) for silicons
 	var/stun_time_silicon = 10 SECONDS
 	/// Cooldown in seconds between two knockdowns
@@ -38,7 +38,7 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_them()]self with [src]!</span>", \
 							 "<span class='userdanger'>You accidentally club yourself with [src]!</span>")
-		user.Weaken(stun_time)
+		//user.KnockDown(knockdown_duration)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(force * 2, BRUTE, "head")
@@ -53,7 +53,7 @@
 	if(issilicon(target) && !affect_silicon)
 		return ..()
 	else
-		stun(target, user)
+		baton_knockdown(target, user)
 
 /**
   * Called when a target is about to be hit non-lethally.
@@ -62,7 +62,7 @@
   * * target - The mob about to be hit
   * * user - The attacking user
   */
-/obj/item/melee/classic_baton/proc/stun(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
 	if(issilicon(target))
 		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
 							 "<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
@@ -84,7 +84,7 @@
 	add_attack_logs(user, target, "Stunned with [src]")
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
-	target.Weaken(stun_time)
+	//target.KnockDown(knockdown_duration)
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown_finished), cooldown)
 	return TRUE

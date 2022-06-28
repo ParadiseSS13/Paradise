@@ -3,7 +3,7 @@
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
 	// Overrides
 	affect_silicon = TRUE
-	stun_time = 2 SECONDS
+	knockdown_duration = 4 SECONDS
 	cooldown = 2.5 SECONDS
 	force_off = 5
 	force_on = 15
@@ -20,7 +20,7 @@
 	/// Stutter to deal on stun.
 	var/stutter_amount = 10 SECONDS
 
-/obj/item/melee/classic_baton/telescopic/contractor/stun(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/telescopic/contractor/baton_knockdown(mob/living/target, mob/living/user)
 	. = ..()
 	target.adjustStaminaLoss(stamina_damage)
 	target.Jitter(jitter_amount)
