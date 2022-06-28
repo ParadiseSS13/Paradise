@@ -7,7 +7,7 @@
 	school = "transmutation"
 
 	charge_max = 300
-	clothes_req = 1
+	clothes_req = TRUE
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "clown"
 

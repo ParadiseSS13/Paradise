@@ -1,14 +1,14 @@
 /obj/effect/proc_holder/spell/rod_form
 	name = "Rod Form"
 	desc = "Take on the form of an immovable rod, destroying all in your path."
-	clothes_req = 1
-	human_req = 0
+	clothes_req = TRUE
+	human_req = FALSE
 	charge_max = 600
 	cooldown_min = 200
 	invocation = "CLANG!"
 	invocation_type = "shout"
 	action_icon_state = "immrod"
-	centcom_cancast = 0
+	centcom_cancast = FALSE
 
 	sound = 'sound/effects/whoosh.ogg'
 	var/rod_delay = 2
@@ -24,7 +24,7 @@
 		W.max_distance += spell_level * 3 //You travel farther when you upgrade the spell
 		W.start_turf = start
 		M.forceMove(W)
-		M.notransform = 1
+		M.notransform = TRUE
 		M.status_flags |= GODMODE
 
 //Wizard Version of the Immovable Rod
@@ -43,6 +43,6 @@
 /obj/effect/immovablerod/wizard/Destroy()
 	if(wizard)
 		wizard.status_flags &= ~GODMODE
-		wizard.notransform = 0
+		wizard.notransform = FALSE
 		wizard.forceMove(get_turf(src))
 	return ..()
