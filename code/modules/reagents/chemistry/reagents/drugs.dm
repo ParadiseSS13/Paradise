@@ -360,19 +360,21 @@
 	addiction_decay_rate = 0.1 // very low, to prevent people from abusing the massive speed boost for too long. forces them to take long downtimes to not die from brain damage.
 	heart_rate_increase = 1
 	taste_description = "speed"
+	/// modifier to the stun time of the mob taking the drug
+	var/tenacity = 1.5
 
 /datum/reagent/methamphetamine/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.physiology.stun_mod *= 1.5 // takes 1.5 times longer to get up as they are off their head
+		H.physiology.stun_mod *= tenacity // takes 1.5 times longer to get up as they are off their head
 
 /datum/reagent/methamphetamine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/recent_consumption = holder.addiction_threshold_accumulated[type]
 	if(prob(5))
 		M.emote(pick("twitch_s","blink_r","shiver"))
-	M.AdjustJitter(10 SECONDS)
+	M.AdjustJitter(10 SECONDS, bound_upper = 100 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-40, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
@@ -385,7 +387,7 @@
 	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.physiology.stun_mod /= 1.5
+		H.physiology.stun_mod /= tenacity
 	..()
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
@@ -431,14 +433,14 @@
 	taste_description = "WAAAAGH"
 	/// timer until we can start rolling for reducing a mobs strength again.
 	var/next_remove_strength
+	var/bonus_damage = 2
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/L)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.physiology.melee_bonus += 2 // rage mode
+		H.physiology.melee_bonus += bonus_damage // rage mode
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
-	var/check = rand(0,100)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -454,7 +456,7 @@
 	M.SetWeakened(0)
 	M.Druggy(30 SECONDS)
 	update_flags |= M.setStaminaLoss(0, FALSE)
-
+	var/check = rand(0, 100)
 	if(check < 30)
 		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
 	if(check < 8)
@@ -471,7 +473,7 @@
 /datum/reagent/bath_salts/on_mob_delete(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.physiology.melee_bonus -= 2 // ragen't mode
+		H.physiology.melee_bonus -= bonus_damage // ragen't mode
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -587,8 +589,8 @@
 		var/mob/living/carbon/human/H = M
 		H.physiology.stun_mod /= tenacity
 		H.physiology.stamina_mod /= tenacity
-		H.vomit(blood = TRUE, stun = FALSE)
-		H.adjustToxLoss(10)
+		H.vomit(blood = TRUE, stun = FALSE) // just a visual, very gritty. don't do drugs kids
+		H.LoseBreath(10 SECONDS) // procs 5 times, mostly a visual thing. damage could stack to cause a slowdown.
 		H.Confused(10 SECONDS)
 
 /datum/reagent/thc
@@ -799,9 +801,8 @@
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_item()
-	if(prob(50))
-		update_flags |= M.adjustFireLoss(10, FALSE)
-	update_flags |= M.adjustBrainLoss(20, FALSE)
+	update_flags |= M.adjustFireLoss(5, FALSE)
+	update_flags |= M.adjustBrainLoss(3, FALSE)
 	return list(effect, update_flags)
 
 //Surge: crank
