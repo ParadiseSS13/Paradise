@@ -39,7 +39,8 @@
 	var/flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
-	var/reflectability = REFLECTABILITY_PHYSICAL // Can it be reflected or not?
+	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
+	var/reflectability = REFLECTABILITY_PHYSICAL
 	var/alwayslog = FALSE // ALWAYS log this projectile on hit even if it doesn't hit a living target. Useful for AOE explosion / EMP.
 	//Effects
 	var/stun = 0

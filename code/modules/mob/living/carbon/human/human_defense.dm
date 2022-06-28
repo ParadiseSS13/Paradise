@@ -13,7 +13,7 @@ emp_act
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		return FALSE
-	if(P.is_reflectable(REFLECTABILITY_PHYSICAL))
+	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/can_reflect = check_reflect(def_zone)
 		var/reflected = FALSE
 
