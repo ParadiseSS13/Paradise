@@ -78,4 +78,5 @@
 	/// if a mob is choosing to lay down
 	var/resting = FALSE
 	var/body_position = STANDING_UP
+	var/mobility_flags = MOBILITY_FLAGS_DEFAULT
 
