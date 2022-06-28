@@ -88528,17 +88528,6 @@
 	icon_state = "dark"
 	},
 /area/security/main)
-"fqy" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/lightsout,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/sleep)
 "frp" = (
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -90012,6 +90001,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/clownoffice)
+"iwk" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
+/area/medical/surgery)
 "iwQ" = (
 /obj/machinery/light_switch{
 	name = "north bump";
@@ -94390,7 +94383,7 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/crew_quarters/sleep)
+/area/hallway/primary/central)
 "rIy" = (
 /obj/machinery/door/airlock/research{
 	name = "Research Break Room"
@@ -141643,7 +141636,7 @@ bva
 bva
 bva
 bva
-fqy
+cDd
 bva
 bva
 cGD
@@ -148081,7 +148074,7 @@ aFt
 aFt
 cSX
 dDE
-cXI
+iwk
 dlz
 dlz
 dcF
