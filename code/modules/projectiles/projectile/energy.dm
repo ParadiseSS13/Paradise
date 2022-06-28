@@ -170,7 +170,7 @@
 	icon_state = "yellow_laser"
 	light_color = LIGHT_COLOR_YELLOW
 	stamina = 0
-	reflectability = REFLECTABILITY_NEVER
+	reflectability = REFLECTABILITY_PHYSICAL //No mr cult juggernaught, please don't set me to search!
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/on_hit(atom/target)
 	. = ..()
@@ -189,7 +189,6 @@
 		no_worky(tracking_already = TRUE)
 		return
 	D.start_pointing(target.UID())
-	qdel(src)
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/proc/set_warrant(atom/target)
 	var/mob/living/carbon/human/target_to_mark = target
@@ -202,7 +201,6 @@
 		no_worky(target, warrant_fail = TRUE)
 		return
 	set_criminal_status(firer, R, SEC_RECORD_STATUS_SEARCH, "Target tagged by Detective Revolver", "Detective Revolver")
-	qdel(src)
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/proc/no_worky(atom/target, tracking_already, warrant_fail)
 	if(tracking_already)
