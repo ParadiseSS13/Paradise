@@ -19,6 +19,9 @@
 	var/light_range_on = 1
 	var/light_power_on = 0.1 //just dont want it to be culled by byond.
 
+	var/mutable_appearance/old_op_overlay
+	var/mutable_appearance/old_oc_overlay
+
 /obj/machinery/power/generator/New()
 	..()
 	update_desc()
@@ -78,17 +81,16 @@
 
 /obj/machinery/power/generator/update_icon()
 	if(stat & (NOPOWER|BROKEN))
-		overlays.Cut()
+		cut_overlays()
 		underlays.Cut()
 		return
 	else
-		overlays.Cut()
-
+		cut_overlays()
 		if(lastgenlev != 0)
-			overlays += image('icons/obj/power.dmi', "teg-op[lastgenlev]")
+			add_overlay(mutable_appearance('icons/obj/power.dmi', "teg-op[lastgenlev]"))
 			underlays += emissive_appearance(icon, "teg-op[lastgenlev]")
 
-		overlays += image('icons/obj/power.dmi', "teg-oc[lastcirc]")
+		add_overlay(mutable_appearance('icons/obj/power.dmi', "teg-oc[lastcirc]"))
 		underlays += emissive_appearance(icon, "teg-oc[lastcirc]")
 
 /obj/machinery/power/generator/process()
