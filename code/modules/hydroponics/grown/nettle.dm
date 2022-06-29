@@ -104,7 +104,7 @@
 
 /obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
 	..()
-	if(!living(M))
+	if(!isliving(M))
 		return
 
 	to_chat(M, "<span class='danger'>You flinch as you are struck by the Deathnettle!</span>")
