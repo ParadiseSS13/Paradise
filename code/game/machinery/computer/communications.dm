@@ -275,7 +275,7 @@
 
 		if("RestoreBackup")
 			to_chat(usr, "Backup routing data restored!")
-			src.emagged = FALSE
+			emagged = FALSE
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("RestartNanoMob")
