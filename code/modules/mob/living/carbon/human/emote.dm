@@ -124,7 +124,7 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
-		if("choke", "chokes","giggle", "giggles","cry", "cries","sigh", "sighs","laugh", "laughs","moan", "moans","snore", "snores","wink", "winks","whistle", "whistles", "yawn", "yawns")
+		if("choke", "chokes","giggle", "giggles","cry", "cries","sigh", "sighs","laugh", "laughs","moan", "moans","snore", "snores","wink", "winks","whistle", "whistles", "yawn", "yawns", "dance")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
@@ -332,6 +332,9 @@
 			if(!restrained())
 				message = "радостно танцу[pluralize_ru(src.gender,"ет","ют")]!"
 				m_type = 1
+				var/dance_time = 3 SECONDS
+				spin(dance_time, pick(0.1 SECONDS, 0.2 SECONDS))
+				do_jitter_animation(rand(80, 160), dance_time / 4)
 
 		if("jump")
 			if(!restrained())

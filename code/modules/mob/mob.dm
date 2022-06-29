@@ -1397,8 +1397,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE		//overridden in living.dm
 
 /mob/proc/spin(spintime, speed)
-	set waitfor = 0
+	set waitfor = FALSE
 	var/D = dir
+	if(spintime < world.tick_lag || speed < world.tick_lag || !spintime || !speed)
+		return
 	while(spintime >= speed)
 		sleep(speed)
 		switch(D)
