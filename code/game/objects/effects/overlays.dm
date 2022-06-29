@@ -22,17 +22,17 @@
 	name = "Palm tree"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "palm1"
-	density = 1
+	density = TRUE
 	layer = 5
-	anchored = 1
+	anchored = TRUE
 
 /obj/effect/overlay/palmtree_l
 	name = "Palm tree"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "palm2"
-	density = 1
+	density = TRUE
 	layer = 5
-	anchored = 1
+	anchored = TRUE
 
 /obj/effect/overlay/coconut
 	name = "Coconuts"
@@ -54,8 +54,8 @@
 	name = "Wallrot"
 	desc = "Ick..."
 	icon = 'icons/effects/wallrot.dmi'
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	layer = 5
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
