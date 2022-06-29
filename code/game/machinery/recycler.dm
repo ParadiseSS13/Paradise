@@ -6,16 +6,16 @@
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "grinder-o0"
 	layer = MOB_LAYER+1 // Overhead
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	damage_deflection = 15
 	var/emergency_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
-	var/blood = 0
+	var/blood = FALSE
 	var/eat_dir = WEST
 	var/amount_produced = 1
 	var/crush_damage = 1000
-	var/eat_victim_items = 1
+	var/eat_victim_items = TRUE
 	var/item_recycle_sound = 'sound/machines/recycler.ogg'
 
 /obj/machinery/recycler/Initialize(mapload)
@@ -75,7 +75,7 @@
 
 /obj/machinery/recycler/emag_act(mob/user)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		if(emergency_mode)
 			emergency_mode = FALSE
 			update_icon()
@@ -176,7 +176,7 @@
 		add_mob_blood(L)
 
 	if(!blood && !issilicon(L))
-		blood = 1
+		blood = TRUE
 		update_icon()
 
 	// Remove and recycle the equipped items
@@ -189,9 +189,9 @@
 	L.Paralyse(10 SECONDS)
 
 	// For admin fun, var edit emagged to 2.
-	if(gib || emagged == 2)
+	if(gib || emagged == 2) // emagged is usually treated as a boolean (except for bots), so this is a weird exception
 		L.gib()
-	else if(emagged == 1)
+	else if(emagged)
 		L.adjustBruteLoss(crush_damage)
 
 
@@ -230,7 +230,7 @@
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"
-	emagged = 1
+	emagged = TRUE
 	crush_damage = 120
 
 

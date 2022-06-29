@@ -11,12 +11,12 @@ FIRE ALARM
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "firealarm_on"
-	var/detecting = 1.0
-	var/working = 1.0
+	var/detecting = TRUE
+	var/working = TRUE
 	var/time = 10.0
 	var/timing = 0.0
 	var/lockdownbyai = 0
-	anchored = 1.0
+	anchored = TRUE
 	max_integrity = 250
 	integrity_failure = 100
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
@@ -30,7 +30,7 @@ FIRE ALARM
 	light_range = 7
 	light_color = "#ff3232"
 
-	var/wiresexposed = 0
+	var/wiresexposed = FALSE
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
 
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
