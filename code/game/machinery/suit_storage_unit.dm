@@ -274,13 +274,9 @@
 			suit_type = /obj/item/clothing/suit/space/nasavoid/ltblue
 	..()
 
-
-/obj/machinery/suit_storage_unit/New()
-	..()
-	wires = new(src)
-
 /obj/machinery/suit_storage_unit/Initialize()
 	. = ..()
+	wires = new(src)
 	if(suit_type)
 		suit = new suit_type(src)
 	if(helmet_type)

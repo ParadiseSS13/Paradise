@@ -32,15 +32,6 @@
 	active_power_usage = 600
 	idle_power_usage = 100
 
-
-// create a new disposal
-// find the attached trunk (if present)
-/obj/machinery/disposal/New()
-	..()
-	trunk_check()
-	//gas.volume = 1.05 * CELLSTANDARD
-	update()
-
 /obj/machinery/disposal/proc/trunk_check()
 	var/obj/structure/disposalpipe/trunk/T = locate() in loc
 	if(!T)
@@ -82,9 +73,9 @@
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
-/obj/machinery/disposal/Initialize()
+/obj/machinery/disposal/Initialize(mapload)
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
-	..()
+	. = ..()
 	var/atom/L = loc
 	var/datum/gas_mixture/env = new
 	env.copy_from(L.return_air())
@@ -92,6 +83,7 @@
 	air_contents = new
 	air_contents.merge(removed)
 	trunk_check()
+	update()
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(obj/item/I, mob/user, params)

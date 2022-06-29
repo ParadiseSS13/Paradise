@@ -95,8 +95,8 @@
 	icon_state = "juicer0"
 	beaker = null
 
-/obj/machinery/reagentgrinder/New()
-	..()
+/obj/machinery/reagentgrinder/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)

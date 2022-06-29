@@ -16,8 +16,8 @@
 /obj/machinery/space_heater/get_cell()
 	return cell
 
-/obj/machinery/space_heater/New()
-	..()
+/obj/machinery/space_heater/Initialize(mapload)
+	. = ..()
 	cell = new /obj/item/stock_parts/cell(src)
 	update_icon()
 	return

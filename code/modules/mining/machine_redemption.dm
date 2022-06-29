@@ -55,11 +55,13 @@
 	/// The currently inserted design disk.
 	var/obj/item/disk/design_disk/inserted_disk
 
-/obj/machinery/mineral/ore_redemption/New()
+/obj/machinery/mineral/ore_redemption/ComponentInitialize()
 	..()
-	ore_buffer = list()
-	// Components
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, .proc/on_material_insert))
+
+/obj/machinery/mineral/ore_redemption/Initialize(mapload)
+	. = ..()
+	ore_buffer = list()
 	files = new /datum/research/smelter(src)
 	// Stock parts
 	component_parts = list()
@@ -71,8 +73,8 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/ore_redemption/upgraded/New()
-	..()
+/obj/machinery/mineral/ore_redemption/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -91,8 +93,8 @@
 	req_access = list(ACCESS_FREE_GOLEMS)
 	req_access_claim = ACCESS_FREE_GOLEMS
 
-/obj/machinery/mineral/ore_redemption/golem/New()
-	..()
+/obj/machinery/mineral/ore_redemption/golem/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/golem(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -112,8 +114,8 @@
 	req_access = list()
 	anyone_claim = TRUE
 
-/obj/machinery/mineral/ore_redemption/labor/New()
-	..()
+/obj/machinery/mineral/ore_redemption/labor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/labor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

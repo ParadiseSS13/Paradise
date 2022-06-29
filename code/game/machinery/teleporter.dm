@@ -319,8 +319,8 @@
 	var/calibrated //Calibration prevents mutation
 	var/admin_usage = FALSE // if 1, works on CC level. If 0, doesn't. Used for admin room teleport.
 
-/obj/machinery/teleport/hub/New()
-	..()
+/obj/machinery/teleport/hub/Initialize(mapload)
+	. = ..()
 	link_power_station()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
@@ -328,17 +328,13 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
-/obj/machinery/teleport/hub/upgraded/New()
-	..()
+/obj/machinery/teleport/hub/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
-
-/obj/machinery/teleport/hub/Initialize()
-	..()
-	link_power_station()
 
 /obj/machinery/teleport/hub/Destroy()
 	if(power_station)
@@ -513,8 +509,8 @@
 	var/list/linked_stations = list()
 	var/efficiency = 0
 
-/obj/machinery/teleport/station/New()
-	..()
+/obj/machinery/teleport/station/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_station(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
@@ -522,10 +518,6 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	link_console_and_hub()
-
-/obj/machinery/teleport/station/Initialize()
-	..()
 	link_console_and_hub()
 
 /obj/machinery/teleport/station/RefreshParts()

@@ -14,12 +14,12 @@
 	var/last_winner = null			//for letting people who to hunt down and steal prizes from
 	var/window_name = "arcade"		//in case you want to change the window name for certain machines
 
-/obj/machinery/arcade/New()
-	..()
+/obj/machinery/arcade/Initialize(mapload)
+	. = ..()
 	if(type == /obj/machinery/arcade)		//if you spawn the base-type, it will replace itself with a random subtype for randomness
 		var/choice = pick(subtypesof(/obj/machinery/arcade))
 		new choice(loc)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/arcade/examine(mob/user)
 	. = ..()

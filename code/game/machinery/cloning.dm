@@ -63,8 +63,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/biomass
 	biomass = CLONE_BIOMASS
 
-/obj/machinery/clonepod/New()
-	..()
+/obj/machinery/clonepod/Initialize(mapload)
+	. = ..()
 	countdown = new(src)
 
 	Radio = new /obj/item/radio(src)
@@ -83,8 +83,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	RefreshParts()
 	update_icon()
 
-/obj/machinery/clonepod/upgraded/New()
-	..()
+/obj/machinery/clonepod/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)

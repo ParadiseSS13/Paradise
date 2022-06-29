@@ -114,14 +114,14 @@
 //		NEW() PROCS			//
 //////////////////////////////
 
-/obj/machinery/fishtank/New()
-	..()
+/obj/machinery/fishtank/Initialize(mapload)
+	. = ..()
 	if(!has_lid)				//Tank doesn't have a lid/light, remove the verbs for then
 		verbs -= /obj/machinery/fishtank/verb/toggle_lid_verb
 		verbs -= /obj/machinery/fishtank/verb/toggle_light_verb
 
-/obj/machinery/fishtank/tank/New()
-	..()
+/obj/machinery/fishtank/tank/Initialize(mapload)
+	. = ..()
 	if(prob(5))					//5% chance to get the castle decoration
 		icon_state = "tank2"
 

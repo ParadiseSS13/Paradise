@@ -22,8 +22,8 @@
 	var/obj/item/charging = null // The item that is being charged
 	var/using_power = FALSE // Whether the recharger is actually transferring power or not, used for icon
 
-/obj/machinery/recharger/New()
-	..()
+/obj/machinery/recharger/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)

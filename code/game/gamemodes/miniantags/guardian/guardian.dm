@@ -228,7 +228,7 @@
 /obj/item/guardiancreator
 	name = "deck of tarot cards"
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power. "
-	icon = 'icons/obj/toy.dmi'
+	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "deck_syndicate_full"
 	var/used = FALSE
 	var/theme = "magic"

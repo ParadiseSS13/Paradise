@@ -167,7 +167,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 	var/list/obj/structure/fillers = list()
 
-/obj/machinery/dna_vault/New()
+/obj/machinery/dna_vault/Initialize(mapload)
+	. = ..()
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
 	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))

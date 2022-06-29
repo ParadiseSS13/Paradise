@@ -16,9 +16,10 @@
 	var/lastgenlev = -1
 	var/lastcirc = "00"
 
-/obj/machinery/power/generator/New()
-	..()
+/obj/machinery/power/generator/Initialize(mapload)
+	. = ..()
 	update_desc()
+	connect()
 
 /obj/machinery/power/generator/update_desc()
 	. = ..()
@@ -35,10 +36,6 @@
 		hot_circ.generator = null
 	if(powernet)
 		disconnect_from_network()
-
-/obj/machinery/power/generator/Initialize()
-	..()
-	connect()
 
 /obj/machinery/power/generator/proc/connect()
 	connect_to_network()
