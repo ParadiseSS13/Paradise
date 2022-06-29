@@ -19,7 +19,7 @@
 	var/light_range_on = 1
 	var/light_power_on = 0.1 //just dont want it to be culled by byond.
 
-/obj/machinery/power/generator/Initialize()
+/obj/machinery/power/generator/Initialize(mapload)
 	. = ..()
 	update_desc()
 	connect()
