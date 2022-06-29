@@ -1651,7 +1651,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A special deck of space-grade playing cards with a mono-molecular edge and metal reinforcement, making them lethal weapons both when wielded as a blade and when thrown. \
 	You can also play card games with them."
 	reference = "SPC"
-	item = /obj/item/toy/cards/deck/syndicate
+	item = /obj/item/deck/cards/syndicate
 	cost = 1
 	excludefrom = list(/datum/game_mode/nuclear)
 	surplus = 40

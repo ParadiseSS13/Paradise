@@ -56,18 +56,19 @@
 	///Item that is stored inside the book
 	var/obj/item/store
 
-/obj/item/book/attack/New(datum/cachedbook/CB, _copyright = FALSE, _protected = FALSE)
+/obj/item/book/New(datum/cachedbook/CB, _copyright = FALSE, _protected = FALSE)
 	if(CB)
-		B.author = CB.author
-		B.title = CB.title
-		B.pages = CB.content
-		B.summary = CB.summary
-		B.categories = CB.categories
-		B.copyright = _copyright
-		B.protected = _protected
-		B.rating = CB.rating
-		B.name = "Book: [CB.title]"
-		B.icon_state =	"book[rand(1,8)]"
+		author = CB.author
+		title = CB.title
+		pages = CB.content
+		summary = CB.summary
+		categories = CB.categories
+		copyright = _copyright
+		protected = _protected
+		rating = CB.rating
+		name = "Book: [CB.title]"
+		icon_state =	"book[rand(1,8)]"
+	..()
 
 
 /obj/item/book/attack(mob/M, mob/living/user)

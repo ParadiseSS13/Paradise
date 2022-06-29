@@ -249,6 +249,7 @@
 /**
  * Play the sound effect in an emote.
  * If you want to change the way the playsound call works, override this.
+ * Note! If you want age_based to work, you need to force vary to TRUE.
  * * user - The user of the emote.
  * * intentional - Whether or not the emote was triggered intentionally.
  * * sound_path - Filesystem path to the audio clip to play.
@@ -257,7 +258,8 @@
 /datum/emote/proc/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
 	if(age_based && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		playsound(user.loc, sound_path, sound_volume, vary, frequency = H.get_age_pitch())
+		// Vary needs to be true as otherwise frequency changes get ignored deep within playsound_local :(
+		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch())
 	else
 		playsound(user.loc, sound_path, sound_volume, vary)
 

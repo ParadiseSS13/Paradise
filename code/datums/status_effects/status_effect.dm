@@ -105,8 +105,9 @@
 // HELPER PROCS //
 //////////////////
 
-/mob/living/proc/apply_status_effect(effect, ...) //applies a given status effect to this mob, returning the effect if it was successful
-	. = FALSE
+/// Applies a given status effect to this mob, returning the effect if it was successful or null otherwise
+/mob/living/proc/apply_status_effect(effect, ...)
+	. = null
 	var/datum/status_effect/S1 = effect
 	LAZYINITLIST(status_effects)
 	for(var/datum/status_effect/S in status_effects)
@@ -123,7 +124,8 @@
 	S1 = new effect(arguments)
 	. = S1
 
-/mob/living/proc/remove_status_effect(effect, ...) //removes all of a given status effect from this mob, returning TRUE if at least one was removed
+/// Removes all of a given status effect from this mob, returning TRUE if at least one was removed
+/mob/living/proc/remove_status_effect(effect, ...)
 	. = FALSE
 	var/list/arguments = args.Copy(2)
 	if(status_effects)
@@ -133,15 +135,17 @@
 				qdel(S)
 				. = TRUE
 
-/mob/living/proc/has_status_effect(effect) //returns the effect if the mob calling the proc owns the given status effect
-	. = FALSE
+/// Returns the effect if the mob calling the proc owns the given status effect, or null otherwise
+/mob/living/proc/has_status_effect(effect)
+	. = null
 	if(status_effects)
 		var/datum/status_effect/S1 = effect
 		for(var/datum/status_effect/S in status_effects)
 			if(initial(S1.id) == S.id)
 				return S
 
-/mob/living/proc/has_status_effect_list(effect) //returns a list of effects with matching IDs that the mod owns; use for effects there can be multiple of
+/// Returns a list of effects with matching IDs that the mod owns; use for effects there can be multiple of
+/mob/living/proc/has_status_effect_list(effect)
 	. = list()
 	if(status_effects)
 		var/datum/status_effect/S1 = effect

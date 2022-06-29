@@ -1330,7 +1330,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
-	if(istype(P) && P.is_reflectable && P.starting)
+	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
 		visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", "<span class='userdanger'>[P] gets reflected by [src]!</span>")
 		P.reflect_back(src)
 		return -1

@@ -151,7 +151,7 @@
 	var/list/books = GLOB.library_catalog.getRandomBooks(book_count)
 	for(var/b in books)
 		var/datum/cachedbook/book = b
-		var/obj/item/book/B = new(src, book)
+		new /obj/item/book(src, book, _copyright = TRUE, _protected = FALSE)
 	update_icon()
 
 /*

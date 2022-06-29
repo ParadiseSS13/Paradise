@@ -518,11 +518,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Thunderdome (Observer.)"
 	icon_state = "purple"
 
-/area/exploration/methlab
-	name = "\improper Abandoned Drug Lab"
-	icon_state = "green"
-	there_can_be_many = TRUE
-
 //Abductors
 /area/abductor_ship
 	name = "\improper Abductor Ship"
@@ -1195,12 +1190,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
-/area/AIsattele
-	name = "\improper Abandoned Teleporter"
-	icon_state = "teleporter"
-	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
-	there_can_be_many = TRUE
-
 /area/toxins/explab
 	name = "\improper E.X.P.E.R.I-MENTOR Lab"
 	icon_state = "toxmisc"
@@ -1720,97 +1709,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engiestation/solars
 	name = "\improper Engineering Outpost Solars"
 	icon_state = "panelsP"
-
-//DJSTATION
-
-/area/djstation
-	name = "\improper Ruskie DJ Station"
-	icon_state = "DJ"
-	there_can_be_many = TRUE
-
-/area/djstation/solars
-	name = "\improper Ruskie DJ Station Solars"
-	icon_state = "DJ"
-
-//DERELICT
-
-/area/derelict
-	name = "\improper Derelict Station"
-	icon_state = "storage"
-
-/area/derelict/hallway/primary
-	name = "\improper Derelict Primary Hallway"
-	icon_state = "hallP"
-
-/area/derelict/hallway/secondary
-	name = "\improper Derelict Secondary Hallway"
-	icon_state = "hallS"
-
-/area/derelict/arrival
-	name = "\improper Derelict Arrival Centre"
-	icon_state = "yellow"
-
-/area/derelict/storage/equipment
-	name = "Derelict Equipment Storage"
-
-/area/derelict/storage/storage_access
-	name = "Derelict Storage Access"
-
-/area/derelict/storage/engine_storage
-	name = "Derelict Engine Storage"
-	icon_state = "green"
-
-/area/derelict/bridge
-	name = "\improper Derelict Control Room"
-	icon_state = "bridge"
-
-/area/derelict/secret
-	name = "\improper Derelict Secret Room"
-	icon_state = "library"
-
-/area/derelict/bridge/access
-	name = "Derelict Control Room Access"
-	icon_state = "auxstorage"
-
-/area/derelict/bridge/ai_upload
-	name = "\improper Derelict Computer Core"
-	icon_state = "ai"
-
-/area/derelict/solar_control
-	name = "\improper Derelict Solar Control"
-	icon_state = "engine"
-
-/area/derelict/se_solar
-	name = "South East Solars"
-	icon_state = "engine"
-
-/area/derelict/crew_quarters
-	name = "\improper Derelict Crew Quarters"
-	icon_state = "fitness"
-
-/area/derelict/medical
-	name = "Derelict Medbay"
-	icon_state = "medbay"
-
-/area/derelict/medical/morgue
-	name = "\improper Derelict Morgue"
-	icon_state = "morgue"
-	is_haunted = TRUE
-
-/area/derelict/medical/chapel
-	name = "\improper Derelict Chapel"
-	icon_state = "chapel"
-	is_haunted = TRUE
-
-/area/derelict/teleporter
-	name = "\improper Derelict Teleporter"
-	icon_state = "teleporter"
-	there_can_be_many = TRUE
-
-/area/derelict/eva
-	name = "Derelict EVA Storage"
-	icon_state = "eva"
-
 /area/shuttle/derelict/ship/start
 	name = "\improper Abandoned Ship"
 	icon_state = "yellow"

@@ -517,3 +517,8 @@
 		return B.current.client
 
 #define SERVER_MESSAGES_REDIS_CHANNEL "byond.servermessages"
+
+/// Projectile reflectability defines
+#define REFLECTABILITY_NEVER 0
+#define REFLECTABILITY_PHYSICAL 1
+#define REFLECTABILITY_ENERGY 2

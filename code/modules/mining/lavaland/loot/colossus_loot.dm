@@ -33,9 +33,10 @@
 	var/list/affected_targets = list()
 	var/activation_sound = 'sound/effects/break_stone.ogg'
 
-/obj/machinery/anomalous_crystal/New()
+/obj/machinery/anomalous_crystal/Initialize(mapload)
+	. = ..()
 	activation_method = pick("touch","laser","bullet","energy","bomb","mob_bump","weapon","speech") // "heat" removed due to lack of is_hot()
-	..()
+
 
 /obj/machinery/anomalous_crystal/hear_talk(mob/speaker, list/message_pieces)
 	..()
@@ -76,11 +77,11 @@
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
 
-/obj/machinery/anomalous_crystal/random/New() //Just a random crysal spawner for loot
+/obj/machinery/anomalous_crystal/random/Initialize() //Just a random crysal spawner for loot
 	. = ..()
 	var/random_crystal = pick(typesof(/obj/machinery/anomalous_crystal) - /obj/machinery/anomalous_crystal/random - /obj/machinery/anomalous_crystal)
 	new random_crystal(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
 	activation_method = "touch"
@@ -93,8 +94,8 @@
 	var/list/NewFlora = list()
 	var/florachance = 8
 
-/obj/machinery/anomalous_crystal/theme_warp/New()
-	..()
+/obj/machinery/anomalous_crystal/theme_warp/Initialize(mapload)
+	. = ..()
 	terrain_theme = pick("lavaland","winter","jungle","alien")
 	switch(terrain_theme)
 		if("lavaland")//Depressurizes the place... and free cult metal, I guess.
@@ -161,8 +162,8 @@
 	cooldown_add = 50
 	var/generated_projectile = /obj/item/projectile/beam/emitter
 
-/obj/machinery/anomalous_crystal/emitter/New()
-	..()
+/obj/machinery/anomalous_crystal/emitter/Initialize(mapload)
+	. = ..()
 	generated_projectile = pick(/obj/item/projectile/magic/fireball/infernal,
 								 /obj/item/projectile/bullet/meteorshot, /obj/item/projectile/beam/xray, /obj/item/projectile/colossus)
 
@@ -299,8 +300,8 @@
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
 										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink)
 
-/obj/machinery/anomalous_crystal/refresher/New()
-	..()
+/obj/machinery/anomalous_crystal/refresher/Initialize(mapload)
+	. = ..()
 	banned_items_typecache = typecacheof(banned_items_typecache)
 
 

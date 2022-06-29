@@ -232,8 +232,8 @@
 	var/safe_levels = 10
 
 
-/obj/machinery/power/bluespace_tap/New()
-	..()
+/obj/machinery/power/bluespace_tap/Initialize(mapload)
+	. = ..()
 	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()

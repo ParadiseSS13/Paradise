@@ -11,8 +11,9 @@
 	idle_power_usage = 5
 	var/on = FALSE	//Is it making food already?
 	var/list/food_choices = list()
-/obj/machinery/cooking/New()
-	..()
+
+/obj/machinery/cooking/Initialize(mapload)
+	. = ..()
 	updatefood()
 
 /obj/machinery/cooking/attackby(obj/item/I, mob/user, params)
