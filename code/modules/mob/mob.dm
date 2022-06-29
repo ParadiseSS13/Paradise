@@ -600,7 +600,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	face_atom(A)
 	var/list/result = A.examine(src)
-	to_chat(src, result.Join("\n"))
+	to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
 
 //same as above
 //note: ghosts can point, this is intended

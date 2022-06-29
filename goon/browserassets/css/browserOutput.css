@@ -427,3 +427,6 @@ h1.alert, h2.alert			{color: #000000;}
 /* Syndicate codewords */
 span.body .codephrases {color: #0000FF;}
 span.body .coderesponses {color: #FF0000;}
+
+/* Examine styles */
+.examine {border: 1px solid #000000; padding: 5px; margin: 2px 10px; background: #D3D3D3;}
