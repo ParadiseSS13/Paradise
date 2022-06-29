@@ -19,12 +19,10 @@
 	var/light_range_on = 1
 	var/light_power_on = 0.1 //just dont want it to be culled by byond.
 
-	var/mutable_appearance/old_op_overlay
-	var/mutable_appearance/old_oc_overlay
-
-/obj/machinery/power/generator/New()
-	..()
+/obj/machinery/power/generator/Initialize()
+	. = ..()
 	update_desc()
+	connect()
 
 /obj/machinery/power/generator/proc/update_desc()
 	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."
