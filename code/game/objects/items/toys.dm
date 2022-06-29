@@ -96,7 +96,7 @@
 				qdel(src)
 	return
 
-/obj/item/toy/balloon/update_icon()
+/obj/item/toy/balloon/update_icon_state()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
 		item_state = "waterballoon"
@@ -1114,7 +1114,7 @@
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 
-/obj/item/twohanded/toy/chainsaw/update_icon()
+/obj/item/twohanded/toy/chainsaw/update_icon_state()
 	if(wielded)
 		icon_state = "chainsaw[wielded]"
 	else

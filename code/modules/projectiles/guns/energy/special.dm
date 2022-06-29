@@ -190,7 +190,7 @@
 		return ..()
 
 /obj/item/gun/energy/plasmacutter/update_icon()
-	return
+	return ..(NONE)
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -215,10 +215,9 @@
 	var/obj/effect/portal/orange
 
 
-/obj/item/gun/energy/wormhole_projector/update_icon()
+/obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
-	return
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
@@ -261,7 +260,7 @@
 	can_charge = 0
 
 /obj/item/gun/energy/printer/update_icon()
-	return
+	return ..(NONE)
 
 /obj/item/gun/energy/printer/emp_act()
 	return

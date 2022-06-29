@@ -493,11 +493,11 @@
 	icon_state = "handgun_ammo_battery"
 	var/charge = 1000
 
-/obj/item/ammo_box/magazine/detective/speedcharger/update_icon()
+/obj/item/ammo_box/magazine/detective/speedcharger/update_overlays()
+	. = ..()
 	var/charge_percent_rounded = round(charge_percent(), 20) // to the nearest 20%
-	cut_overlays()
 	if(charge_percent_rounded)
-		add_overlay("hab_charge_[charge_percent_rounded]")
+		. += "hab_charge_[charge_percent_rounded]"
 
 /obj/item/ammo_box/magazine/detective/speedcharger/proc/charge_percent()
 	return (charge / initial(charge) * 100)
