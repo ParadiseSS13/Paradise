@@ -67993,6 +67993,10 @@
 /area/medical/surgeryobs)
 "oDl" = (
 /obj/structure/closet/emcloset,
+/obj/item/pen/blue{
+	pixel_x = 2;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/bar)
 "oDn" = (
@@ -76342,7 +76346,6 @@
 /area/ai_monitored/storage/eva)
 "qwA" = (
 /obj/machinery/light_construct/small,
-/obj/item/toy/cards/deck,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedbar)
@@ -88975,7 +88978,7 @@
 /area/engine/break_room)
 "tjQ" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/black,
+/obj/item/deck/cards/black,
 /turf/simulated/floor/carpet/lone,
 /area/crew_quarters/bar)
 "tko" = (
@@ -101007,10 +101010,14 @@
 	},
 /area/hallway/secondary/entry/south)
 "vSu" = (
-/obj/item/toy/cards/deck,
-/obj/structure/table/wood,
-/turf/simulated/floor/wood,
-/area/maintenance/abandonedbar)
+/obj/item/deck/cards/doublecards,
+/obj/structure/closet/crate,
+/obj/item/pen/blue{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plating,
+/area/crew_quarters/bar)
 "vSx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -123745,7 +123752,7 @@ eFk
 tur
 cdJ
 mZP
-vSu
+dxm
 vNH
 cdJ
 duo
@@ -155824,7 +155831,7 @@ mRQ
 qdr
 wRP
 ouS
-xPq
+vSu
 oDl
 ouS
 aNg
