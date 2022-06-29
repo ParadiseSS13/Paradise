@@ -213,7 +213,7 @@
 		T.total_joules = 0
 		T.on = TRUE
 
-	return 1
+	return TRUE
 
 
 // Opens and unlocks doors, power check
