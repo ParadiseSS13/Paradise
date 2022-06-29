@@ -141,7 +141,7 @@
 		summary = user_data.selected_book.summary ? user_data.selected_book.summary : "no summary",
 		copyright = user_data.selected_book.copyright ? user_data.selected_book.copyright : FALSE,
 		categories = user_data.selected_book.categories,
-		)
+	)
 	data["selectedbook"] = selected_book_data
 
 	//should only be generating the cached booklist when we absolutely need to

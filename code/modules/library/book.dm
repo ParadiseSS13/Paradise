@@ -56,6 +56,20 @@
 	///Item that is stored inside the book
 	var/obj/item/store
 
+/obj/item/book/attack/New(datum/cachedbook/CB, _copyright = FALSE, _protected = FALSE)
+	if(CB)
+		B.author = CB.author
+		B.title = CB.title
+		B.pages = CB.content
+		B.summary = CB.summary
+		B.categories = CB.categories
+		B.copyright = _copyright
+		B.protected = _protected
+		B.rating = CB.rating
+		B.name = "Book: [CB.title]"
+		B.icon_state =	"book[rand(1,8)]"
+
+
 /obj/item/book/attack(mob/M, mob/living/user)
 	if(user.a_intent == INTENT_HELP)
 		force = 0

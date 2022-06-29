@@ -44,7 +44,7 @@
 	var/fined //Bool
 
 /*
- * #Cachedbook datum
+ * # Cachedbook datum
  *
  * Used for holding book data sourced from the Database in limbo to be used whenever the library computer needs it, these
  * are designed to only temporarily hold book data
@@ -70,10 +70,10 @@
 	title = row["title"]
 	content = json_decode(row["content"])
 	summary = row["summary"]
-	rating = row["ratings"]
-	categories += GLOB.library_catalog.getBookCategoryByID(row["primaryCategory"])
-	categories += GLOB.library_catalog.getBookCategoryByID(row["secondaryCategory"])
-	categories += GLOB.library_catalog.getBookCategoryByID(row["tertiaryCategory"])
+	rating = row["rating"]
+	categories += GLOB.library_catalog.getBookCategoryByID(row["primary_category"])
+	categories += GLOB.library_catalog.getBookCategoryByID(row["secondary_category"])
+	categories += GLOB.library_catalog.getBookCategoryByID(row["tertiary_category"])
 	ckey = row["ckey"]
 	var/list/reports_json = list()
 	if(length(row["reports"]))
@@ -87,7 +87,7 @@
 		reports += report
 
 /*
- * #Programmaticbook datum
+ * # Programmaticbook datum
  *
  * Used for holding book data from books that have been "hardcoded" such as manuals.
  */
@@ -107,7 +107,7 @@
 	var/category_id
 
 /*
- * #library_category datum
+ * # library_category datum
  *
  * Used for storing information about library categories. This is used both for "book categories" like genre/purpose
  * and also for defining OOC Report types to facilitate the reporting and deleting of bad books

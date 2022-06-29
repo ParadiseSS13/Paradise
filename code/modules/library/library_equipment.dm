@@ -151,16 +151,7 @@
 	var/list/books = GLOB.library_catalog.getRandomBooks(book_count)
 	for(var/b in books)
 		var/datum/cachedbook/book = b
-		var/obj/item/book/B = new(src) //this really should be a constructor that accepts cachedbook datums at some point tbh
-		B.author = book.author
-		B.title = book.title
-		B.pages = book.content
-		B.summary = book.summary
-		B.categories = book.categories
-		B.copyright = TRUE
-		B.rating = book.rating
-		B.name = "Book: [book.title]"
-		B.icon_state =	"book[rand(1,8)]"
+		var/obj/item/book/B = new(src, book)
 	update_icon()
 
 /*

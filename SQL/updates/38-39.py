@@ -117,7 +117,7 @@ def main():
     print("Inserting...")
     for row in new_rows:
         params = [row[1], row[2], row[3], row[4], row[5]]
-        sql_query = "INSERT INTO library (author, title, content, primaryCategory, ckey) VALUES (%s, %s, %s, %s, %s)"
+        sql_query = "INSERT INTO library (author, title, content, primary_category, ckey) VALUES (%s, %s, %s, %s, %s)"
         cursor.execute(sql_query, params)
 
     cursor.close()

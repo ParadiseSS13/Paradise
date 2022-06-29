@@ -4,16 +4,16 @@
 #define MAX_PLAYER_UPLOADS 5
 
 /*
- * #Library Catalog
- *
- * This datum forms the basis for the entire library system, one is created at roundstart and stored to a global variable
- * It holds lists for all predefined report and book categories, books flagged during the round, and all programmatic
- * books.
- *
- * Additionally, ALL library SQL queries are handled in this datum. This is intentional so that we do not have multiple SQL
- * queries trying to do the same thing but in 4-5 different dm files. This datum is split into a specific
- * structure: 1) Defining Library Lists 2) Get Procs that get information from the catalog or DB 3) Send/Update procs that
- * perform changes to the Database. Don't mix their functionalities together.
+ * # Library Catalog
+
+  This datum forms the basis for the entire library system, one is created at roundstart and stored to a global variable
+ It holds lists for all predefined report and book categories, books flagged during the round, and all programmatic
+ books.
+
+ Additionally, ALL library SQL queries are handled in this datum. This is intentional so that we do not have multiple SQL
+ queries trying to do the same thing but in 4-5 different dm files. This datum is split into a specific
+ structure: 1) Defining Library Lists 2) Get Procs that get information from the catalog or DB 3) Send/Update procs that
+ perform changes to the Database. Don't mix their functionalities together.
  */
 /datum/library_catalog
 	///Lists of all reported books in the current round
@@ -50,6 +50,7 @@
 		DEFINE_CATEGORY(LIB_CATEGORY_MYSTERY, "Mystery"),
 		DEFINE_CATEGORY(LIB_CATEGORY_ADVENTURE, "Adventure"),
 		DEFINE_CATEGORY(LIB_CATEGORY_HISTORY, "History"),
+
 		DEFINE_CATEGORY(LIB_CATEGORY_PHILOSOPHY, "Philosophy"),
 		DEFINE_CATEGORY(LIB_CATEGORY_DRAMA, "Drama and Thriller"),
     	DEFINE_CATEGORY(LIB_CATEGORY_EXPERIMENT, "Experiment Notes"),
@@ -63,6 +64,7 @@
 		DEFINE_CATEGORY(LIB_CATEGORY_EXPLORATION, "Exploration"),
 		DEFINE_CATEGORY(LIB_CATEGORY_THEATRE, "Theatre"),
 		DEFINE_CATEGORY(LIB_CATEGORY_POETRY, "Poetry"),
+
     	DEFINE_CATEGORY(LIB_CATEGORY_LAW, "Law"),
 		DEFINE_CATEGORY(LIB_CATEGORY_SECURITY, "Security"),
 		DEFINE_CATEGORY(LIB_CATEGORY_SUPPLY, "Supply"),
@@ -143,7 +145,7 @@
   * * id - integer value that matches as a book SSID
  */
 /datum/library_catalog/proc/getBookByID(id)
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, content, summary, ratings, raters, primaryCategory, secondaryCategory, tertiaryCategory, ckey, reports FROM library WHERE id=:id", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, content, summary, rating, raters, primary_category, secondary_category, tertiary_category, ckey, reports FROM library WHERE id=:id", list(
 		"id" = id
 	))
 
@@ -160,11 +162,11 @@
 			"title"   = query.item[3],
 			"content" = query.item[4],
 			"summary" = query.item[5],
-			"ratings" = query.item[6],
+			"rating" = query.item[6],
 			"raters"  = query.item[7],
-			"primaryCategory"   = query.item[8],
-			"secondaryCategory" = query.item[9],
-			"tertiaryCategory"  = query.item[10],
+			"primary_category"   = query.item[8],
+			"secondary_category" = query.item[9],
+			"tertiary_category"  = query.item[10],
 			"ckey"    = query.item[11],
 			"reports" = query.item[12],
 		))
@@ -207,10 +209,10 @@
 				category_vars += ":category[category_count]"
 				category_count++
 			var/query_insert = "([jointext(category_vars, ", ")])"
-			searchquery += " [!where ? "WHERE" : "AND"] (primaryCategory IN [query_insert] OR secondaryCategory IN [query_insert] OR tertiaryCategory IN [query_insert])"
+			searchquery += " [!where ? "WHERE" : "AND"] (primary_category IN [query_insert] OR secondary_category IN [query_insert] OR tertiary_category IN [query_insert])"
 			where = TRUE
 		if(search_terms.search_rating["min"] && search_terms.search_rating["max"])
-			searchquery += " [!where ? "WHERE" : "AND"] (ratings BETWEEN :ratingmin AND :ratingmax)"
+			searchquery += " [!where ? "WHERE" : "AND"] (rating BETWEEN :ratingmin AND :ratingmax)"
 			sql_params["ratingmin"] = search_terms.search_rating["min"]
 			sql_params["ratingmax"] = search_terms.search_rating["max"]
 			where = TRUE
@@ -225,9 +227,8 @@
 /*
   * # getBooksByRange
   *
-  * External proc that builds part of an SQL statement using a datum of search terms/parameters. It will then return
-  * a list of two objects: 1) the built SQL statement and 2) the assoc list of parameters that will accompany it in the query
-  * This should only ever be used to generate WHERE statements
+  * External proc used to get a large amount of books from a specific part of the library DB. Has paremeters to
+  * specify range as well as what kind of books to look for. Will return a list of cachedbook datums.
   *
   * Arguments:
   * * initial - Book we want to start grabbing rows at, THIS IS NOT SSID, based on number of rows in DB
@@ -236,7 +237,7 @@
  */
 /datum/library_catalog/proc/getBooksByRange(initial = 1, range = 25, datum/library_user_data/search_terms, doAsync = TRUE)
 	var/list/search_query = buildSearchQuery(search_terms)
-	var/sql = "SELECT id, author, title, content, summary, ratings, raters, primaryCategory, secondaryCategory, tertiaryCategory, ckey, reports FROM library" + search_query[1] + " LIMIT :lowerlimit, :upperlimit"
+	var/sql = "SELECT id, author, title, content, summary, rating, raters, primary_category, secondary_category, tertiary_category, ckey, reports FROM library" + search_query[1] + " LIMIT :lowerlimit, :upperlimit"
 	var/list/sql_params = search_query[2]
 
 	sql_params["lowerlimit"] = initial
@@ -257,11 +258,11 @@
 			"title"   = select_query.item[3],
 			"content" = select_query.item[4],
 			"summary" = select_query.item[5],
-			"ratings" = select_query.item[6],
+			"rating" = select_query.item[6],
 			"raters"  = select_query.item[7],
-			"primaryCategory"   = select_query.item[8],
-			"secondaryCategory" = select_query.item[9],
-			"tertiaryCategory"  = select_query.item[10],
+			"primary_category"   = select_query.item[8],
+			"secondary_category" = select_query.item[9],
+			"tertiary_category"  = select_query.item[10],
 			"ckey"    = select_query.item[11],
 			"reports" = select_query.item[12],
 		))
@@ -337,7 +338,7 @@
 	var/list/sql_params = list()
 	sql_params["id"] = bookid
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ratings, raters FROM library WHERE id=:id", sql_params)
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT rating, raters FROM library WHERE id=:id", sql_params)
 
 	if(!query.warn_execute())
 		qdel(query)
@@ -369,7 +370,7 @@
 		return
 	var/num_books = clamp(amount, 1, 50) //you don't need more than 50 random books <3
 	var/list/sql_params = list("amount" = num_books )
-	var/sql = "SELECT id, author, title, content, summary, ratings, primaryCategory, secondaryCategory, tertiaryCategory, ckey, reports FROM library GROUP BY title ORDER BY rand() LIMIT :amount"
+	var/sql = "SELECT id, author, title, content, summary, rating, primary_category, secondary_category, tertiary_category, ckey, reports FROM library GROUP BY title ORDER BY rand() LIMIT :amount"
 	var/datum/db_query/query = SSdbcore.NewQuery(sql, sql_params)
 	if(!query.warn_execute(async = doAsync)) //this proc is used in initialize in some objects :)
 		qdel(query)
@@ -384,10 +385,10 @@
 			"title"   = query.item[3],
 			"content" = query.item[4],
 			"summary" = query.item[5],
-			"ratings" = query.item[6],
-			"primaryCategory"   = query.item[7],
-			"secondaryCategory" = query.item[8],
-			"tertiaryCategory"  = query.item[9],
+			"rating" = query.item[6],
+			"primary_category"   = query.item[7],
+			"secondary_category" = query.item[8],
+			"tertiary_category"  = query.item[9],
 			"ckey"    = query.item[10],
 			"reports" = query.item[11]
 		))
@@ -525,7 +526,7 @@
 	if(length(get_total_books(search_terms)) >= MAX_PLAYER_UPLOADS)
 		return FALSE
 
-	var/sql = {"INSERT INTO library (author, title, content, summary, primaryCategory, secondaryCategory, tertiaryCategory, ckey, raters, reports)
+	var/sql = {"INSERT INTO library (author, title, content, summary, primary_category, secondary_category, tertiary_category, ckey, raters, reports)
 	VALUES (:author, :title, :content, :summary, :primarycategory, :secondarycategory, :tertiarycategory, :ckey, :raters, :reports)"}
 
 	var/sql_params = list(
@@ -591,7 +592,7 @@
 	sql_params["newrating"] = round(new_rating_value / length(new_raters_info), 0.01)
 	sql_params["raters"] = json_encode(new_raters_info)
 
-	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE library SET ratings=:newrating, raters=:raters WHERE id=:id", sql_params)
+	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE library SET rating=:newrating, raters=:raters WHERE id=:id", sql_params)
 
 	if(!query.warn_execute())
 		qdel(query)
