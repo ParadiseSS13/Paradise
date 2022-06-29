@@ -61,3 +61,13 @@
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+
+/obj/item/organ/internal/cyberimp/eyes/hud/omni //WIP, may be removed upon further testing
+	name = "Omni-HUD implant"
+	desc = "These cybernetic eye implants will display more HUDs than you need."
+	implant_color = "#5f5f5f"
+	origin_tech = "materials=8;programming=7;biotech=7;combat=7;engineering=4"
+	aug_message = "You see everything much more clearly now..."
+	HUD_type = DATA_HUD_SECURITY_ADVANCED
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+

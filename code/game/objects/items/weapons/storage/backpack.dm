@@ -582,3 +582,9 @@
 	name = "\improper TSF marine backpack"
 	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
 	icon_state = "ert_solgov"
+
+/obj/item/storage/backpack/ert/deathsquad
+	name = "deathsquad backpack"
+	desc = "A spacious backpack with lots of pockets, worn by those working in Special Operations."
+	icon_state = "ert_security"
+

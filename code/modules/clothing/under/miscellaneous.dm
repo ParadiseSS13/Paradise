@@ -110,6 +110,8 @@
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
+	sensor_mode = SENSOR_OFF // You think the Deathsquad wants to be seen?
+	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/centcom_commander
 	name = "\improper CentComm commander's jumpsuit"
