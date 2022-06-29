@@ -166,7 +166,7 @@
 
 		if(emagged)
 			Reset()
-			emagged = 0
+			emagged = FALSE
 
 	add_fingerprint(usr)
 	updateUsrDialog()
@@ -186,7 +186,7 @@
 				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
 				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
 				Reset()
-				emagged = 0
+				emagged = FALSE
 			else
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
 				var/score = player_hp + player_mp + 5
@@ -252,7 +252,7 @@
 		gameover = 0
 		blocked = 0
 
-		emagged = 1
+		emagged = TRUE
 
 		enemy_name = "Cuban Pete"
 		name = "Outbomb Cuban Pete"
@@ -282,7 +282,7 @@
 	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/orion_trail
-	var/busy = 0 //prevent clickspam that allowed people to ~speedrun~ the game.
+	var/busy = FALSE //prevent clickspam that allowed people to ~speedrun~ the game.
 	var/engine = 0
 	var/hull = 0
 	var/electronics = 0
@@ -381,7 +381,7 @@
 		if(emagged)
 			to_chat(user, "<span class='userdanger'><font size=3>You're never going to make it to Orion...</span></font>")
 			user.death()
-			emagged = 0 //removes the emagged status after you lose
+			emagged = FALSE //removes the emagged status after you lose
 			playing = 0 //also a new game
 			name = "The Orion Trail"
 			desc = "Learn how our ancestors got to Orion, and have fun in the process!"
@@ -424,7 +424,7 @@
 
 	if(busy)
 		return
-	busy = 1
+	busy = TRUE
 
 	if(href_list["continue"]) //Continue your travels
 		if(turns >= ORION_TRAIL_WINTURN)
@@ -560,7 +560,7 @@
 					var/mob/living/L = usr
 					L.Stun(20 SECONDS) //you can't run :^)
 				var/S = new /obj/singularity/onetile(usr.loc)
-				emagged = 0 //immediately removes emagged status so people can't kill themselves by sprinting up and interacting
+				emagged = FALSE //immediately removes emagged status so people can't kill themselves by sprinting up and interacting
 				sleep(50)
 				atom_say("[S] winks out, just as suddenly as it appeared.")
 				qdel(S)
@@ -676,7 +676,7 @@
 
 	add_fingerprint(usr)
 	updateUsrDialog()
-	busy = 0
+	busy = FALSE
 	return
 
 
@@ -956,7 +956,7 @@
 	else
 		var/score = alive + round(food/2) + round(fuel/5) + engine + hull + electronics - lings_aboard
 		prizevend(score)
-	emagged = 0
+	emagged = FALSE
 	name = "The Orion Trail"
 	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
 
@@ -967,7 +967,7 @@
 		desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
 		add_hiddenprint(user)
 		newgame()
-		emagged = 1
+		emagged = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/orion
 	name = "spaceport security"
@@ -982,7 +982,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ship"
 	w_class = WEIGHT_CLASS_SMALL
-	var/active = 0 //if the ship is on
+	var/active = FALSE //if the ship is on
 
 /obj/item/orion_ship/examine(mob/user)
 	. = ..()
@@ -1000,7 +1000,7 @@
 	log_game("[key_name(usr)] primed an explosive Orion ship for detonation.")
 
 	to_chat(user, "<span class='warning'>You flip the switch on the underside of [src].</span>")
-	active = 1
+	active = TRUE
 	visible_message("<span class='notice'>[src] softly beeps and whirs to life!</span>")
 	playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
 	atom_say("This is ship ID #[rand(1,1000)] to Orion Port Authority. We're coming in for landing, over.")
