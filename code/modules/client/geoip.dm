@@ -223,6 +223,48 @@ var/global/list/geoip_ckey_updated = list()
 			return FALSE
 		if("OJSC Kyrgyztelecom")
 			return FALSE
+		if("SPD Kurilov Sergiy Oleksandrovich")
+			return FALSE
+		if("VilTel Ltd")
+			return FALSE
+		if("MARK-ITT")
+			return FALSE
+		if("Sakhatelecom")
+			return FALSE
+		if("Dataline LLC")
+			return FALSE
+		if("LTD Magistral_Telecom")
+			return FALSE
+		if("SP Argaev Artem Sergeyevich")
+			return FALSE
+		if("LLC Digital Dialogue-Nets")
+			return FALSE
+		if("Corporate Internet Service Provider LLC")
+			return FALSE
+		if("NetDataComm, s.r.o.")
+			return FALSE
+		if("Telnet Ltd.")
+			return FALSE
+		if("Kabardino-Balkaria")
+			return FALSE
+		if("KVS Ltd")
+			return FALSE
+		if("Triolan")
+			return FALSE
+		if("Nikita Sergienko")
+			return FALSE
+		if("Teleskan-Intercom Ltd. network")
+			return FALSE
+		if("OOO NIIR-RadioNet")
+			return FALSE
+		if("LLC \"FTICOM\"")
+			return FALSE
+		if("Mediagrand Ltd.")
+			return FALSE
+		if("Internet96 llc")
+			return FALSE
+		if("JSC \"Ufanet\"")
+			return FALSE
 	return TRUE
 
 /proc/geoip_check(addr)
