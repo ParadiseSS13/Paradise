@@ -15,8 +15,9 @@ export const DestinationTagger = (props, context) => {
       <Window.Content scrollable>
         <Section title="TagMaster 3.0">
           <LabeledListItem>
-            <LabeledListItem label="Selected">{selected_destination.name}</LabeledListItem>
+            <LabeledListItem label="Selected">{selected_destination.name ? selected_destination.name : "None"}</LabeledListItem>
           </LabeledListItem>
+          <br />
           <Box>
             <Flex
               overflowY="auto"
@@ -26,7 +27,7 @@ export const DestinationTagger = (props, context) => {
               direction="row"
             >
               {destinations.map((destination, index) => (
-                <Flex.Item key={index}>
+                <Flex.Item key={index} m="2px">
                   <Button
                     width="115px"
                     textAlign="center"
