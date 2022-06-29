@@ -215,7 +215,7 @@
 
 	if(isspaceturf(path) && is_mining_level(z)) //if we are trying to make space on lavaland, we must scream and redirect
 		log_debug("Something just tried to turn [src] into space on lavaland, report it to a coder. [ADMIN_COORDJMP(src)]")
-		path = /turf/simulated/floor/plating/lava
+		path = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 
 	set_light(0)
 	var/old_opacity = opacity
