@@ -257,7 +257,7 @@
 		sleep(6)
 		open()
 		emagged = TRUE
-		return 1
+		return TRUE
 
 /obj/machinery/door/update_icon()
 	if(density)
