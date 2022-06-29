@@ -213,6 +213,10 @@
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 
+	if(isspaceturf(path) && is_mining_level(z)) //if we are trying to make space on lavaland, we must scream and redirect
+		log_debug("Something just tried to turn [src] into space on lavaland, report it to a coder [ADMIN_COORDJMP(src)]")
+		path = /turf/simulated/floor/plating/lava
+
 	set_light(0)
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
