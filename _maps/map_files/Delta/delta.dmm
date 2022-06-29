@@ -16034,7 +16034,7 @@
 	internal_pressure_bound = 2000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -17529,7 +17529,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/co2,
 /area/atmos)
@@ -19173,7 +19173,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/atmos)
@@ -20384,7 +20384,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
@@ -21745,7 +21745,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/atmos)
@@ -22884,7 +22884,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n20,
 /area/atmos)
@@ -27672,7 +27672,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)

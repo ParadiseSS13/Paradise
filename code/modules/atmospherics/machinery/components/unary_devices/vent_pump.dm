@@ -20,7 +20,7 @@
 
 	req_one_access_txt = "24;10"
 
-	var/pump_direction_releasing = TRUE //FALSE = siphoning, TRUE = releasing
+	var/releasing = TRUE //FALSE = siphoning, TRUE = releasing
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
@@ -54,7 +54,7 @@
 	icon_state = "map_vent_out"
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon
-	pump_direction_releasing = FALSE
+	releasing = FALSE
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on
 	on = TRUE
@@ -102,7 +102,7 @@
 	else if(!powered())
 		vent_icon += "off"
 	else
-		vent_icon += "[on ? "[pump_direction_releasing ? "out" : "in"]" : "off"]"
+		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
 	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
 
@@ -150,7 +150,7 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
-	if(pump_direction_releasing) //internal -> external
+	if(releasing) //internal -> external
 		var/pressure_delta = 10000
 		if(pressure_checks & 1)
 			pressure_delta = min(pressure_delta, (external_pressure_bound - environment_pressure))
@@ -209,7 +209,7 @@
 		"tag" = src.id_tag,
 		"device" = "AVP",
 		"power" = on,
-		"direction" = pump_direction_releasing?("release"):("siphon"),
+		"direction" = releasing?("release"):("siphon"),
 		"checks" = pressure_checks,
 		"internal" = internal_pressure_bound,
 		"external" = external_pressure_bound,
@@ -247,11 +247,11 @@
 
 	if("purge" in signal.data)
 		pressure_checks &= ~1
-		pump_direction_releasing = FALSE
+		releasing = FALSE
 
 	if("stabalize" in signal.data)
 		pressure_checks |= 1
-		pump_direction_releasing = TRUE
+		releasing = TRUE
 
 	if("power" in signal.data)
 		on = text2num(signal.data["power"])
@@ -266,7 +266,7 @@
 		pressure_checks = (pressure_checks ? 0 : 3)
 
 	if("direction" in signal.data)
-		pump_direction_releasing = text2num(signal.data["direction"])
+		releasing = text2num(signal.data["direction"])
 
 	if("set_internal_pressure" in signal.data)
 		internal_pressure_bound = clamp(text2num(signal.data["set_internal_pressure"]), 0, ONE_ATMOSPHERE * 50)

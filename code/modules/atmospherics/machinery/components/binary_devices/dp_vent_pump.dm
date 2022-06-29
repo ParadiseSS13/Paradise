@@ -16,7 +16,7 @@
 
 	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
 
-	var/pump_direction_releasing = TRUE //FALSE = siphoning, TRUE = releasing
+	var/releasing = TRUE //FALSE = siphoning, TRUE = releasing
 
 	var/external_pressure_bound = ONE_ATMOSPHERE
 	var/input_pressure_min = 0
@@ -90,7 +90,7 @@
 	if(!powered())
 		vent_icon += "off"
 	else
-		vent_icon += "[on ? "[pump_direction_releasing ? "out" : "in"]" : "off"]"
+		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
 	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
 
@@ -120,7 +120,7 @@
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
 
-	if(pump_direction_releasing) //input -> external
+	if(releasing) //input -> external
 		var/pressure_delta = 10000
 
 		if(pressure_checks&1)
@@ -170,7 +170,7 @@
 		"tag" = id_tag,
 		"device" = "ADVP",
 		"power" = on,
-		"direction" = pump_direction_releasing?("release"):("siphon"),
+		"direction" = releasing?("release"):("siphon"),
 		"checks" = pressure_checks,
 		"input" = input_pressure_min,
 		"output" = output_pressure_max,
@@ -191,18 +191,18 @@
 		on = !on
 
 	if(signal.data["direction"] != null)
-		pump_direction_releasing = text2num(signal.data["direction"])
+		releasing = text2num(signal.data["direction"])
 
 	if(signal.data["checks"] != null)
 		pressure_checks = text2num(signal.data["checks"])
 
 	if(signal.data["purge"])
 		pressure_checks &= ~1
-		pump_direction_releasing = FALSE
+		releasing = FALSE
 
 	if(signal.data["stabilize"])//the fact that this was "stabalize" shows how many fucks people give about these wonders, none
 		pressure_checks |= 1
-		pump_direction_releasing = TRUE
+		releasing = TRUE
 
 	if(signal.data["set_input_pressure"] != null)
 		input_pressure_min = clamp(
