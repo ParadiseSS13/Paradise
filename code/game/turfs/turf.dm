@@ -214,7 +214,7 @@
 		return src
 
 	if(isspaceturf(path) && is_mining_level(z)) //if we are trying to make space on lavaland, we must scream and redirect
-		log_debug("Something just tried to turn [src] into space on lavaland, report it to a coder [ADMIN_COORDJMP(src)]")
+		log_debug("Something just tried to turn [src] into space on lavaland, report it to a coder. [ADMIN_COORDJMP(src)]")
 		path = /turf/simulated/floor/plating/lava
 
 	set_light(0)
