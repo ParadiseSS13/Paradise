@@ -32,6 +32,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2
 	charge_sections = 3
+	inhand_charge_sections = 3
 	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
 	actions_types = list(/datum/action/item_action/toggle_gunlight)
 	shaded_charge = FALSE

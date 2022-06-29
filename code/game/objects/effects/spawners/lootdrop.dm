@@ -89,7 +89,7 @@
 				/obj/item/stack/rods{amount = 50} = 10,
 				/obj/item/stack/sheet/cardboard = 20,
 				/obj/item/stack/sheet/metal{amount = 20} = 10,
-				/obj/item/stack/sheet/mineral/plasma{layer = 2.9} = 10,
+				/obj/item/stack/sheet/mineral/plasma = 10,
 				/obj/item/stack/sheet/rglass = 10,
 				/obj/item/book/manual/engineering_construction = 10,
 				/obj/item/book/manual/engineering_hacking = 10,
@@ -102,11 +102,10 @@
 				/obj/item/crowbar/red = 10,
 				/obj/item/restraints/handcuffs/toy = 5,
 				/obj/item/extinguisher = 90,
-				//obj/item/gun/projectile/revolver/russian = 1, //disabled until lootdrop is a proper world proc.
 				/obj/item/hand_labeler = 10,
 				/obj/item/paper/crumpled = 10,
 				/obj/item/pen = 10,
-				 /obj/item/cultivator = 10,
+				/obj/item/cultivator = 10,
 				/obj/item/reagent_containers/spray/pestspray = 10,
 				/obj/item/stock_parts/cell = 30,
 				/obj/item/storage/belt/utility = 20,
@@ -134,6 +133,7 @@
 				/obj/item/caution = 10,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,
+				/obj/item/grenade/smokebomb = 3,
 				/obj/item/seeds/ambrosia/cruciatus = 3,
 				/obj/item/gun/projectile/automatic/pistol = 1,
 				/obj/item/ammo_box/magazine/m10mm = 4,
@@ -154,11 +154,11 @@
 				/obj/item/storage/box/syndie_kit/space = 2,
 				/obj/item/multitool/ai_detect = 2,
 				/obj/item/implanter/storage = 1,
-				/obj/item/toy/cards/deck/syndicate = 2,
+				/obj/item/deck/cards/syndicate = 2,
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				"" = 64 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY
+				"" = 60 // This should be a decently high number for chances where no loot will spawn
 				)
 
 /obj/effect/spawner/lootdrop/maintenance/two

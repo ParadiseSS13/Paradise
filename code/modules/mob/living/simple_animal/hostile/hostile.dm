@@ -394,13 +394,14 @@
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, 1)
-		casing.fire(targeted_atom, src, zone_override = ran_zone())
+		casing.fire(targeted_atom, src, zone_override = ran_zone(), firer_source_atom = src)
 	else if(projectiletype)
 		var/obj/item/projectile/P = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, 1)
 		P.current = startloc
 		P.starting = startloc
 		P.firer = src
+		P.firer_source_atom = src
 		P.yo = targeted_atom.y - startloc.y
 		P.xo = targeted_atom.x - startloc.x
 		if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space

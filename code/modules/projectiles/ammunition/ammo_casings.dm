@@ -29,14 +29,6 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-/obj/item/ammo_casing/c38
-	desc = "A .38 bullet casing."
-	caliber = "38"
-	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/c38
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-
 /obj/item/ammo_casing/c38/invisible
 	projectile_type = /obj/item/projectile/bullet/mime
 	muzzle_flash_effect = null // invisible eh
@@ -333,7 +325,7 @@
 /obj/item/ammo_casing/caseless
 	desc = "A caseless bullet casing."
 
-/obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread)
+/obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
 	if(..())
 		loc = null
 		return 1

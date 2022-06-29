@@ -40,6 +40,7 @@
 	for(var/i=1 to get_shot_amount())
 		var/obj/item/projectile/A = new projectile(curloc)
 		A.firer = chassis.occupant
+		A.firer_source_atom = src
 		A.original = target
 		A.current = curloc
 

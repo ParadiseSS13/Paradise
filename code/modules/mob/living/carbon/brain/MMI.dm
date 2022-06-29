@@ -53,7 +53,7 @@
 			B.brainmob = null
 			brainmob.container = src
 			brainmob.forceMove(src)
-			brainmob.stat = CONSCIOUS
+			brainmob.set_stat(CONSCIOUS)
 			brainmob.see_invisible = initial(brainmob.see_invisible)
 			brainmob.remove_from_respawnable_list()
 			GLOB.dead_mob_list -= brainmob//Update dem lists

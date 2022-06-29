@@ -57,9 +57,6 @@
 /obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
-"o" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plating/airless)
 "p" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flashlight,
@@ -121,17 +118,10 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
-"D" = (
-/turf/simulated/floor/plating/airless)
 "F" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
-"P" = (
-/obj/effect/spawner/window/reinforced{
-	useFull = 0
-	},
-/turf/simulated/floor/plating/airless)
 
 (1,1,1) = {"
 a
@@ -165,8 +155,8 @@ a
 a
 a
 c
-P
-o
+j
+F
 j
 c
 a
@@ -179,8 +169,8 @@ a
 a
 c
 c
-P
-D
+j
+h
 j
 c
 c

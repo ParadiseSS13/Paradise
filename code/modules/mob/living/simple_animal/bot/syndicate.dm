@@ -142,6 +142,7 @@
 	P.current = loc
 	P.starting = loc
 	P.firer = src
+	P.firer_source_atom = src
 	P.yo = target.y - loc.y
 	P.xo = target.x - loc.x
 	P.original = target
