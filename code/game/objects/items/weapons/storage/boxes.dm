@@ -887,7 +887,7 @@
 
 /obj/item/storage/box/breaching/populate_contents()
 	for(var/I in 1 to 3)
-		new /obj/item/grenade/plastic/x4/thermite(src)
+		new /obj/item/grenade/plastic/c4/thermite(src)
 
 /obj/item/storage/box/mindshield
 	name = "boxed mindshield kit"
