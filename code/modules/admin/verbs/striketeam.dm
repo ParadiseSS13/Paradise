@@ -151,9 +151,9 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	new_commando.equip_death_commando(is_leader)
 	return new_commando
 
-/mob/living/carbon/human/proc/equip_death_commando(is_leader = FALSE)
+/mob/living/carbon/human/proc/equip_death_commando(is_leader = FALSE, mob/living/carbon/human/H)
 
-	M.equipOutfit(/datum/outfit/admin/death_commando)
+	H.equipOutfit(/datum/outfit/admin/death_commando)
 
 	if(is_leader)
 		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)

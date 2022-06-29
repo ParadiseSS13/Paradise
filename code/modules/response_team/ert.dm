@@ -3,6 +3,7 @@
 #define ERT_TYPE_AMBER		1
 #define ERT_TYPE_RED		2
 #define ERT_TYPE_GAMMA		3
+#define ERT_TYPE_EPSILON	4
 
 /datum/game_mode
 	var/list/datum/mind/ert = list()
@@ -304,6 +305,15 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /datum/response_team/gamma/announce_team()
 	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
+
+/datum/response_team/epsilon
+	engineering_outfit = /datum/outfit/admin/death_commando
+	security_outfit = /datum/outfit/admin/death_commando
+	medical_outfit = /datum/outfit/admin/death_commando
+	command_outfit = /datum/outfit/admin/death_commando/leader
+	janitor_outfit = /datum/outfit/admin/death_commando
+	paranormal_outfit = /datum/outfit/admin/death_commando
+	borg_path = /mob/living/silicon/robot/deathsquad
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"

@@ -263,12 +263,9 @@
 
 /datum/outfit/admin/death_commando
 	name = "Deathsquad"
-	rt_job = "Deathsquad"
-	rt_mob_job = "Deathsquad"
-	allow_backbag_choice = FALSE
-	allow_loadout = FALSE
 
 	pda = /obj/item/pinpointer
+	id = /obj/item/card/id/ert/deathsquad
 	box = /obj/item/storage/box/responseteam
 	back = /obj/item/storage/backpack/ert/deathsquad
 	belt = /obj/item/gun/projectile/revolver/mateba
@@ -278,9 +275,9 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit = /obj/item/clothing/suit/space/deathsquad
 	suit_store = /obj/item/gun/energy/pulse
-	glasses = obj/item/clothing/glasses/thermal
+	glasses = /obj/item/clothing/glasses/thermal
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	head = obj/item/clothing/head/helmet/space/deathsquad
+	head = /obj/item/clothing/head/helmet/space/deathsquad
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	r_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 
@@ -288,25 +285,31 @@
 		/obj/item/storage/box/flashbangs,
 		/obj/item/ammo_box/a357,
 		/obj/item/flashlight/seclite,
+		/obj/item/grenade/plastic/c4/x4,
 		/obj/item/melee/energy/sword/saber,
-		/obj/item/shield/energy
+		/obj/item/shield/energy,
 	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/brain/anti_drop
-		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
-		/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
-		/obj/item/organ/internal/cyberimp/mouth/breathing_tube
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened
-		/obj/item/organ/internal/cyberimp/chest/reviver/hardened
-		/obj/item/organ/internal/cyberimp/eyes/hud/omni,
-		/obj/item/organ/internal/cyberimp/arm/telebaton,
+		/obj/item/organ/internal/cyberimp/brain/anti_drop,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+		/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,
+		/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
+		/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+		/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+		/obj/item/organ/internal/cyberimp/arm/telebaton
 	)
 
 	implants = list(
 		/obj/item/implant/mindshield, // No death alarm, Deathsquad are silent
 		/obj/item/implant/dust
 	)
+
+/datum/outfit/admin/death_commando/leader
+		backpack_contents = list(
+			/obj/item/disk/nuclear/unrestricted
+		)
 
 /datum/outfit/admin/death_commando/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	return H.equip_death_commando()

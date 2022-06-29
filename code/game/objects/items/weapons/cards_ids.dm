@@ -817,6 +817,10 @@
 /obj/item/card/id/ert/medic
 	icon_state = "ERT_medical"
 
+/obj/item/card/id/ert/deathsquad
+	name = "Deathsquad ID"
+	iconstate = "deathsquad"
+
 /obj/item/card/id/golem
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
@@ -924,6 +928,8 @@
 			return "ERT Medical"
 		if("ERT_janitorial")
 			return "ERT Janitorial"
+		if("deathsquad")
+			return "deathsquad"
 		if("syndie")
 			return "Syndicate"
 		if("TDred")
