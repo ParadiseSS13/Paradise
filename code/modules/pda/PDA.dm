@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/silent = FALSE //To beep or not to beep, that is the question
 	var/honkamt = 0 //How many honks left when infected with honk.exe
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
-	var/detonate = 1 // Can the PDA be blown up?
+	var/detonate = TRUE // Can the PDA be blown up?
 	var/ttone = "beep" //The ringtone!
 	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
 								"boom" = 'sound/effects/explosionfar.ogg',

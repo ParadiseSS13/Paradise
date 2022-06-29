@@ -74,8 +74,8 @@
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
-	var/up_state = "up"
-	var/down_state = "down"
+	var/icon_up = "up"
+	var/icon_down = "down"
 	var/folded = /obj/item/roller
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
@@ -95,20 +95,20 @@
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	density = TRUE
-	icon_state = up_state
+	icon_state = icon_up
 	M.pixel_y = initial(M.pixel_y)
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	density = FALSE
-	icon_state = down_state
+	icon_state = icon_down
 	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
 	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
 
 /obj/structure/bed/roller/holo
 	name = "holo stretcher"
 	icon_state = "holo_extended"
-	up_state = "holo_extended"
-	down_state = "holo_extended"
+	icon_up = "holo_extended"
+	icon_down = "holo_extended"
 	folded = /obj/item/roller/holo
 
 /obj/item/roller
