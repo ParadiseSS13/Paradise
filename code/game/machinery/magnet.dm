@@ -29,16 +29,14 @@
 	var/center_y = 0
 	var/max_dist = 20 // absolute value of center_x,y cannot exceed this integer
 
-/obj/machinery/magnetic_module/New()
-	..()
+/obj/machinery/magnetic_module/Initialize(mapload)
+	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)
 		hide(T.intact)
 	center = T
 
-	spawn(10)	// must wait for map loading to finish
-		if(SSradio)
-			SSradio.add_object(src, freq, RADIO_MAGNETS)
+	SSradio.add_object(src, freq, RADIO_MAGNETS)
 
 	spawn()
 		magnetic_process()
@@ -197,27 +195,28 @@
 	var/looping = 0 // 1 if looping
 
 
-/obj/machinery/magnetic_controller/New()
-	..()
+/obj/machinery/magnetic_controller/Initialize(mapload)
+	. = ..()
 
-	if(autolink)
-		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
-			if(M.freq == frequency && M.code == code)
-				magnets.Add(M)
-
-
-	spawn(45)	// must wait for map loading to finish
-		if(SSradio)
-			radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
-
+	radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
 
 	if(path) // check for default path
 		filter_path() // renders rpath
 
+	if(autolink)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/magnetic_controller/LateInitialize()
+	..()
+	if(autolink)
+		// GLOB.machines is populated in /machinery/Initialize
+		// so linkage gets delayed until that one finished.
+		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
+			if(M.freq == frequency && M.code == code)
+				magnets.Add(M)
 
 /obj/machinery/magnetic_controller/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 

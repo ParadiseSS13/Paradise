@@ -4,7 +4,7 @@
 	damage = 0
 	damage_type = BURN
 	flag = "energy"
-	is_reflectable = TRUE
+	reflectability = REFLECTABILITY_ENERGY
 
 /obj/item/projectile/energy/electrode
 	name = "electrode"
@@ -146,7 +146,7 @@
 	damage_type = BURN
 	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
-	is_reflectable = FALSE //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.
+	reflectability = REFLECTABILITY_PHYSICAL //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard. Carp still can reflect though, screw you.
 
 /obj/item/projectile/energy/detective
 	name = "energy revolver shot"
@@ -170,6 +170,7 @@
 	icon_state = "yellow_laser"
 	light_color = LIGHT_COLOR_YELLOW
 	stamina = 0
+	reflectability = REFLECTABILITY_PHYSICAL //No mr cult juggernaught, please don't set me to search!
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/on_hit(atom/target)
 	. = ..()
@@ -182,26 +183,24 @@
 /obj/item/projectile/energy/detective/tracker_warrant_shot/proc/start_tracking(atom/target)
 	var/obj/item/gun/energy/detective/D = firer_source_atom
 	if(!D)
-		no_worky()
+		no_worky(target)
 		return
 	if(D.tracking_target_UID)
 		no_worky(tracking_already = TRUE)
 		return
 	D.start_pointing(target.UID())
-	qdel(src)
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/proc/set_warrant(atom/target)
 	var/mob/living/carbon/human/target_to_mark = target
 	var/perpname = target_to_mark.get_visible_name(TRUE)
 	if(!perpname || perpname == "Unknown")
-		no_worky(warrant_fail = TRUE)
+		no_worky(target, warrant_fail = TRUE)
 		return
 	var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 	if(!R || (R.fields["criminal"] in list(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_ARREST)))
-		to_chat(firer, "<span class='danger'>Weapon Alert: Target already set to higher warrant status or has no record!</span>")
+		no_worky(target, warrant_fail = TRUE)
 		return
 	set_criminal_status(firer, R, SEC_RECORD_STATUS_SEARCH, "Target tagged by Detective Revolver", "Detective Revolver")
-	qdel(src)
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/proc/no_worky(atom/target, tracking_already, warrant_fail)
 	if(tracking_already)

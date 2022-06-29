@@ -614,13 +614,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"\The [holder.legcuffed.name] falls off you.")
 		holder.unEquip(holder.legcuffed)
 
-/obj/item/organ/external/proc/fracture()
+/obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(is_robotic())
 		return	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
 
 	if((status & ORGAN_BROKEN) || (limb_flags & CANNOT_BREAK))
 		return
-	if(owner)
+	if(owner && !silent)
 		owner.audible_message(
 			"<span class='warning'>You hear a sickening crack coming from \the [owner].</span>",
 			"<span class='danger'>[owner]'s [name] appears to buckle unnaturally!</span>"
