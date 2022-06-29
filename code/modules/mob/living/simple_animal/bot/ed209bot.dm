@@ -240,9 +240,9 @@
 			continue
 
 		targets += C
-	if(targets.len>0)
+	if(length(targets))
 		var/mob/living/carbon/t = pick(targets)
-		if((t.stat!=2) && IS_HORIZONTAL(t) && (!t.handcuffed)) //we don't shoot people who are dead, cuffed or lying down.
+		if(t.stat != DEAD && !HAS_TRAIT(t, TRAIT_FLOORED) && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
 			shootAt(t)
 	switch(mode)
 
