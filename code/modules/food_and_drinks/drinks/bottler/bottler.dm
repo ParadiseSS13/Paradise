@@ -22,7 +22,7 @@
 	var/list/containers = list("glass bottle" = 10, "plastic bottle" = 20, "metal can" = 25)
 	var/bottling = 0
 
-/obj/machinery/bottler/New()
+/obj/machinery/bottler/Initialize(mapload)
 	. = ..()
 	if(!available_recipes)
 		available_recipes = list()

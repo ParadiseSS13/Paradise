@@ -42,10 +42,6 @@
 	var/prisoner_time
 	var/prisoner_hasrecord = FALSE
 
-/obj/machinery/door_timer/New()
- 	GLOB.celltimers_list += src
- 	return ..()
-
 /obj/machinery/door_timer/Destroy()
  	GLOB.celltimers_list -= src
  	return ..()
@@ -118,34 +114,37 @@
 			return
 	atom_say("[src] beeps, \"[occupant]: [notifytext]\"")
 
-/obj/machinery/door_timer/Initialize()
+/obj/machinery/door_timer/Initialize(mapload)
 	..()
 
+	GLOB.celltimers_list += src
 	Radio = new /obj/item/radio(src)
 	Radio.listening = 0
 	Radio.config(list("Security" = 0))
 	Radio.follow_target = src
+	return INITIALIZE_HINT_LATELOAD
 
-	spawn(20)
-		for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
-			if(M.id == id)
-				targets += M
+/obj/machinery/door_timer/LateInitialize()
+	..()
+	for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
+		if(M.id == id)
+			targets += M
 
-		for(var/obj/machinery/flasher/F in GLOB.machines)
-			if(F.id == id)
-				targets += F
+	for(var/obj/machinery/flasher/F in GLOB.machines)
+		if(F.id == id)
+			targets += F
 
-		for(var/obj/structure/closet/secure_closet/brig/C in world)
-			if(C.id == id)
-				targets += C
+	for(var/obj/structure/closet/secure_closet/brig/C in world)
+		if(C.id == id)
+			targets += C
 
-		for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
-			if(T.id == id)
-				targets += T
+	for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
+		if(T.id == id)
+			targets += T
 
-		if(targets.len==0)
-			stat |= BROKEN
-		update_icon()
+	if(targets.len==0)
+		stat |= BROKEN
+	update_icon()
 
 /obj/machinery/door_timer/Destroy()
 	QDEL_NULL(Radio)
