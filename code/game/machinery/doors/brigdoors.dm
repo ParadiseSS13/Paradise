@@ -252,7 +252,7 @@
 			T.redeem()
 		T.on = FALSE
 
-	return 1
+	return TRUE
 
 
 // Check for releasetime timeleft
