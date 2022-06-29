@@ -49,7 +49,6 @@ const SeedsContent = (props, context) => {
     <Table>
       <Table.Row bold>
         <Table.Cell>Name</Table.Cell>
-        <Table.Cell>Variant</Table.Cell>
         <Table.Cell>Lifespan</Table.Cell>
         <Table.Cell>Endurance</Table.Cell>
         <Table.Cell>Maturation</Table.Cell>
@@ -71,8 +70,8 @@ const SeedsContent = (props, context) => {
               }}
             />
             {seed.name}
+            {seed.variant ? " (" + seed.variant + ")" : ""}
           </Table.Cell>
-          <Table.Cell>{seed.variant}</Table.Cell>
           <Table.Cell>{seed.lifespan}</Table.Cell>
           <Table.Cell>{seed.endurance}</Table.Cell>
           <Table.Cell>{seed.maturation}</Table.Cell>
