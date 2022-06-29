@@ -172,23 +172,21 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/storage/box/responseteam(src), slot_in_backpack)
-
-	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/storage/box/flashbangs(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/flashlight/seclite(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_wear_pda)
+	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/shield/energy(src), slot_in_backpack)
 	if(is_leader)
 		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)
 
-
-	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber(src), slot_l_store)
-	equip_to_slot_or_del(new /obj/item/shield/energy(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double(src), slot_s_store)
+	equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double(src), slot_l_store)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_r_store)
+	equip_to_slot_or_del(new /obj/item/gun/energy/pulse(src), slot_s_store)
 	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver/mateba(src), slot_belt)
-	equip_to_slot_or_del(new /obj/item/gun/energy/pulse(src), slot_r_hand)
+	equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_wear_pda)
 
 	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(src)
 	L.implant(src)
