@@ -116,7 +116,7 @@
 	desc = "A collapsed roller bed that can be carried around."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 	var/extended = /obj/structure/bed/roller
 
 /obj/item/roller/attack_self(mob/user)
