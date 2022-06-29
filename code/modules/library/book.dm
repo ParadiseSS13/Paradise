@@ -56,7 +56,8 @@
 	///Item that is stored inside the book
 	var/obj/item/store
 
-/obj/item/book/New(datum/cachedbook/CB, _copyright = FALSE, _protected = FALSE)
+/obj/item/book/Initialize(mapload, datum/cachedbook/CB = null, _copyright = FALSE, _protected = FALSE)
+	. = ..()
 	if(CB)
 		author = CB.author
 		title = CB.title
@@ -67,8 +68,7 @@
 		protected = _protected
 		rating = CB.rating
 		name = "Book: [CB.title]"
-		icon_state =	"book[rand(1,8)]"
-	..()
+		icon_state = "book[rand(1,8)]"
 
 
 /obj/item/book/attack(mob/M, mob/living/user)

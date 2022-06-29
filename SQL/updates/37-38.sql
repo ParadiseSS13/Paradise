@@ -15,9 +15,9 @@ CREATE TABLE `library` (
 	`summary` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
 	`ratings` DOUBLE NULL DEFAULT '0',
 	`raters` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
-	`primaryCategory` INT(11) NULL DEFAULT '0',
-	`secondaryCategory` INT(11) NOT NULL DEFAULT '0',
-	`tertiaryCategory` INT(11) NULL DEFAULT '0',
+	`primary_category` INT(11) NULL DEFAULT '0',
+	`secondary_category` INT(11) NOT NULL DEFAULT '0',
+	`tertiary_category` INT(11) NULL DEFAULT '0',
 	PRIMARY KEY (`id`) USING BTREE,
 	INDEX `ckey` (`ckey`) USING BTREE,
 	INDEX `flagged` (`reports`(1024)) USING BTREE

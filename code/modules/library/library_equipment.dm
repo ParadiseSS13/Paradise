@@ -146,12 +146,12 @@
 	icon_state = "random_bookcase"
 	anchored = TRUE
 
-/obj/structure/bookcase/random/Initialize()
+/obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	var/list/books = GLOB.library_catalog.getRandomBooks(book_count)
+	var/list/books = GLOB.library_catalog.getRandomBooks(book_count, doAsync = FALSE)
 	for(var/b in books)
 		var/datum/cachedbook/book = b
-		new /obj/item/book(src, book, _copyright = TRUE, _protected = FALSE)
+		new /obj/item/book(src, book, TRUE, FALSE)
 	update_icon()
 
 /*
