@@ -39,7 +39,7 @@
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad
-	name = "deathsquad helmet"
+	name = "Deathsquad helmet"
 	desc = "That's not red paint. That's real blood."
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
@@ -53,7 +53,7 @@
 	strip_delay = 130
 
 /obj/item/clothing/suit/space/deathsquad
-	name = "deathsquad suit"
+	name = "Deathsquad suit"
 	desc = "A heavily armored, advanced space suit that protects against most forms of damage."
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
