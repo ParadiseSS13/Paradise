@@ -329,9 +329,9 @@
 
 /obj/structure/crematorium/proc/connect()
 	connected = new /obj/structure/c_tray( loc )
-	step(connected, SOUTH)
+	step(connected, dir)
 	connected.layer = BELOW_OBJ_LAYER
-	var/turf/T = get_step(src, SOUTH)
+	var/turf/T = get_step(src, dir)
 	if(T.contents.Find(connected))
 		connected.connected = src
 		update_icon(UPDATE_OVERLAYS)
