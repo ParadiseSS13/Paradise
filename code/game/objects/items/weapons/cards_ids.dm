@@ -819,7 +819,7 @@
 
 /obj/item/card/id/ert/deathsquad
 	name = "Deathsquad ID"
-	iconstate = "deathsquad"
+	icon_state = "deathsquad"
 
 /obj/item/card/id/golem
 	name = "Free Golem ID"
@@ -929,7 +929,7 @@
 		if("ERT_janitorial")
 			return "ERT Janitorial"
 		if("deathsquad")
-			return "deathsquad"
+			return "Deathsquad"
 		if("syndie")
 			return "Syndicate"
 		if("TDred")

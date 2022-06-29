@@ -171,7 +171,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	W.registered_name = real_name
 	equip_to_slot_or_del(W, slot_wear_id)
 
-	var/obj/item/radio/R = new /obj/item/radio/headset/alt(src)
+	var/obj/item/radio/R = new /obj/item/radio/headset/alt(src) //todo: make this use
 	R.set_frequency(DTH_FREQ)
 	R.requires_tcomms = FALSE
 	R.instant = TRUE
