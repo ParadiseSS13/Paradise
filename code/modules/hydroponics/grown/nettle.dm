@@ -37,7 +37,7 @@
 	force = 15
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_NORMAL // Two nettle/deathnettle fit in a pneumatic cannon. They fit in plant bags.
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "combat=3"
@@ -104,7 +104,9 @@
 
 /obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
 	..()
-	if(isliving(M))
-		to_chat(M, "<span class='danger'>You flinch as you are struck by the Deathnettle!</span>")
-		add_attack_logs(user, M, "Hit with [src]")
-		M.AdjustEyeBlurry(force * 2) // Maximum duration 5 seconds.
+	if(!living(M))
+		return
+
+	to_chat(M, "<span class='danger'>You flinch as you are struck by the Deathnettle!</span>")
+	add_attack_logs(user, M, "Hit with [src]")
+	M.AdjustEyeBlurry(force * 2) // Maximum duration 5 seconds per hit.
