@@ -16,6 +16,10 @@
 	// Settings
 	/// Whether the baton can stun silicon mobs
 	var/affect_silicon = FALSE
+	/// The amount of stamina damage the baton does per swing
+	var/stamina_damage = 30
+	/// The amount the stamina damage ignores armour
+	var/stamina_armour_pen = 0
 	/// The stun time (in seconds) for non-silicons
 	var/knockdown_duration = 6 SECONDS
 	/// The stun time (in seconds) for silicons
@@ -81,7 +85,7 @@
 	// Visuals and sound
 	user.do_attack_animation(target)
 	playsound(target, stun_sound, 75, TRUE, -1)
-	add_attack_logs(user, target, "Stunned with [src]")
+	add_attack_logs(user, target, "Knocked down with [src]")
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
 	//target.KnockDown(knockdown_duration)
@@ -108,7 +112,9 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
-	return
+	var/armour = target.run_armor_check("chest", armour_penetration = stamina_armour_pen)
+	armour = (100 - armour) / 100
+	target.adjustStaminaLoss(stamina_damage * armour)
 
 /**
   * Called some time after a non-lethal attack
