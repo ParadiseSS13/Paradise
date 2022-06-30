@@ -513,6 +513,11 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
+	if(target.absorb_stun(0))
+		target.visible_message("<span class='warning'>[target] is not affected by [user]'s disarm attempt!</span>")
+		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
 	else
