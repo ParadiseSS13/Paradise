@@ -280,7 +280,6 @@ CREATE TABLE `player` (
   `fupdate` smallint(4) DEFAULT '0',
   `parallax` tinyint(1) DEFAULT '8',
   `byond_date` DATE DEFAULT NULL,
-  `keybindings` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `2fa_status` ENUM('DISABLED','ENABLED_IP','ENABLED_ALWAYS') NOT NULL DEFAULT 'DISABLED' COLLATE 'utf8mb4_general_ci',
   `screentip_mode` tinyint(1) DEFAULT '8',
   `screentip_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#ffd391',
