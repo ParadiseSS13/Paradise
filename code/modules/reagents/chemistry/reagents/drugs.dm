@@ -250,6 +250,7 @@
 	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
+	M.AdjustKnockDown(-2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/pump_up/overdose_process(mob/living/M, severity)
@@ -830,6 +831,7 @@
 	M.AdjustParalysis(-4 SECONDS)
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
+	M.AdjustKnockDown(-4 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-25, FALSE)
 	if(prob(5))
 		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
