@@ -73,6 +73,8 @@
 #define MAX_KEYPRESS_AUTOKICK 50
 ///Length of held key rolling buffer
 #define HELD_KEY_BUFFER_LENGTH 15
+///Maximum keys that can be bound to one button
+#define MAX_COMMANDS_PER_KEY 5
 
 /// Note text for suppressed CID warning
 #define CIDWARNING_SUPPRESSED_NOTETEXT "CID COUNT WARNING DISABLED - Delete this note to re-enable"

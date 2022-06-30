@@ -2,7 +2,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
-	focus = null
+	input_focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -30,7 +30,8 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.alive_mob_list += src
-	set_focus(src)
+	input_focus = src
+	reset_perspective(src)
 	prepare_huds()
 	update_runechat_msg_location()
 	. = ..()
@@ -1092,7 +1093,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!canface())
 		return 0
 	setDir(ndir)
-	client.move_delay += movement_delay()
 	return 1
 
 

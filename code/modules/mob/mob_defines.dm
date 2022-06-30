@@ -210,3 +210,5 @@
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
 	/// A soft reference to the location where this mob's runechat message will appear. Uses `UID()`.
 	var/runechat_msg_location
+	/// The datum receiving keyboard input. src by default.
+	var/datum/input_focus = null
