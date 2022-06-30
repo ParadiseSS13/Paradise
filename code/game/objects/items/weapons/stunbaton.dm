@@ -20,7 +20,6 @@
 	/// Chance for the baton to stun when thrown at someone
 	var/throw_hit_chance = 35
 	var/obj/item/stock_parts/cell/high/cell = null
-	var/cooldown = 3 SECONDS // REVERT LATER
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -173,17 +172,16 @@
 			return
 
 	if(user.a_intent == INTENT_HARM)
-		if(turned_on && cooldown <= world.time) // REVERT LATER
-			baton_stun(L, user)
+		baton_stun(L, user)
 		return ..() // Whack them too if in harm intent
 
 	if(!turned_on)
 		L.visible_message("<span class='warning'>[user] has prodded [L] with [src]. Luckily it was off.</span>",
 			"<span class='danger'>[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>")
 		return
-	if(cooldown <= world.time) /// REVERT LATER
-		baton_stun(L, user)
-		user.do_attack_animation(L)
+
+	baton_stun(L, user)
+	user.do_attack_animation(L)
 
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
 	if(ishuman(L))
@@ -194,11 +192,9 @@
 		H.forcesay(GLOB.hit_appends)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
-	L.Confused(stunforce)// REVERT LATER
 	L.Stuttering(stunforce)
-	L.adjustStaminaLoss(70)// REVERT LATER
-	L.Jitter(stunforce)// REVERT LATER
-	cooldown = world.time + initial(cooldown)//REVERT!!!!
+	L.Weaken(stunforce)
+
 	if(user)
 		L.lastattacker = user.real_name
 		L.lastattackerckey = user.ckey
@@ -207,8 +203,6 @@
 		add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
-	spawn(20)// REVERT LATER also ew spawn
-		L.KnockDown(5 SECONDS) // REVERT LATER
 
 
 /obj/item/melee/baton/emp_act(severity)
