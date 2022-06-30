@@ -1102,6 +1102,7 @@
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
+		M.AdjustKnockDown(-2 SECONDS)
 	if(prob(8))
 		M.reagents.add_reagent("methamphetamine",1.2)
 		var/sonic_message = pick("Gotta go fast!", "Time to speed, keed!", "I feel a need for speed!", "Let's juice.", "Juice time.", "Way Past Cool!")

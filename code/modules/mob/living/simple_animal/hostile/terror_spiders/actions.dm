@@ -177,7 +177,7 @@
 		return TRUE
 	if(isliving(mover))
 		var/mob/living/M = mover
-		if(M.lying)
+		if(!(M.mobility_flags & MOBILITY_MOVE))
 			return TRUE
 		return prob(80)
 	if(istype(mover, /obj/item/projectile))
