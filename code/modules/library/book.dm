@@ -112,7 +112,7 @@
 	if(!in_range(src, user))
 		return FALSE
 	if(!user.is_literate()) //this person was 2 cool 4 school and cannot READ
-		user.visible_message("You attempt to the read the book but remember that you don't actually know how to read.")
+		to_chat(user, "<span class='warning'>You attempt to the read the book but remember that you don't actually know how to read.</span>")
 		return FALSE
 	return TRUE
 
@@ -140,28 +140,25 @@
 /obj/item/book/proc/show_content(mob/user)
 	var/dat = ""
 	//First, we're going to choose/generate our header buttons for switching pages and store it in var/dat
+	var/header_left = "<div style='float:left; text-align:left; width:49.9%'></div>"
+	var/header_right = "<div style ='float;left; text-align:right; width:49.9%'></div>"
 	if(length(pages)) //No need to have page switching buttons if there's no pages
-		if(current_page == 0)
-			dat+= "<DIV STYLE='float:left; text-align:left; width:49.9%'></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:right; width:49.9%'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
-		else if(current_page < length(pages))
-			dat+= "<DIV STYLE='float:left; text-align:left; width:49.9%'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:right; width:49.9%'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
-		else if(current_page == length(pages))
-			dat+= "<DIV STYLE='float:left; text-align:left; width:49.9%'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float;left; text-align:right; width:49.9%'></DIV>"
+		if(current_page < length(pages))
+			header_right = "<div style='float:left; text-align:right; width:49.9%'><a href='?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
+		if(current_page)
+			header_left = "<div style='float:left; text-align:left; width:49.9%'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div>"
 
+	dat += header_left + header_right
 	//Now we're going to display the header buttons + the current page selected, if it's page 0, we display the cover_page instead
 	if(!current_page)
 		var/cover_page = {"<center><h1>[title]</h1><br></h2>Written by: [author]</h2></center><br><hr><b>Summary:</b> [summary]"}
-		user << browse("<body bgcolor='[book_bgcolor]'>[dat]<BR>" + "[cover_page]", "window=book[UID()];size=400x400")
+		user << browse("<body bgcolor='[book_bgcolor]'>[dat]<br>" + "[cover_page]", "window=book[UID()];size=400x400")
 		return
 	else
-		user << browse("<body bgcolor='[book_bgcolor]'>[dat]<BR>" + "[pages[current_page]]", "window=book[UID()]")
+		user << browse("<body bgcolor='[book_bgcolor]'>[dat]<br>" + "[pages[current_page]]", "window=book[UID()]")
 
 /obj/item/book/Topic(href, href_list)
-	..()
-	if(loc != usr && !Adjacent(usr))
+	if(!..())
 		return
 	if(href_list["next_page"])
 		if(current_page > length(pages)) //should never be false, but just in-case
@@ -169,7 +166,7 @@
 			return
 		current_page++
 		playsound(loc, "pageturn", 50, 1)
-		attack_self(usr) //scuffed but this is how you update the UI
+		attack_self(user) //scuffed but this is how you update the UI
 		updateUsrDialog()
 	if(href_list["prev_page"])
 		if(current_page < 0) //should never be false, but just in-case
@@ -177,7 +174,7 @@
 			return
 		current_page--
 		playsound(loc, "pageturn", 50, 1)
-		attack_self(usr) //scuffed but this is how you update the UI
+		attack_self(user) //scuffed but this is how you update the UI
 		updateUsrDialog()
 
 /**
@@ -195,9 +192,9 @@
 	var/choice = input("What would you like to edit?") in list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page", "Cancel")
 	switch(choice)
 		if("Title")
-			var/newtitle = reject_bad_text(stripped_input(usr, "Write a new title:"))
+			var/newtitle = reject_bad_text(stripped_input(user, "Write a new title:"))
 			if(!newtitle)
-				to_chat(usr, "The title is invalid.")
+				to_chat(user, "The title is invalid.")
 				return
 			else
 				//Like with paper, the name (not title) of the book should indicate that THIS IS A BOOK when actions are performed with it
@@ -205,33 +202,33 @@
 				name = "Book: " + newtitle
 				title = newtitle
 		if("Author")
-			var/newauthor = stripped_input(usr, "Write the author's name:")
+			var/newauthor = stripped_input(user, "Write the author's name:")
 			if(!newauthor)
-				to_chat(usr, "The name is invalid.")
+				to_chat(user, "The name is invalid.")
 				return
 			else
 				author = newauthor
 		if("Summary")
-			var/newsummary = strip_html(input(usr, "Write the new summary:") as message|null, MAX_SUMMARY_LEN)
+			var/newsummary = strip_html(input(user, "Write the new summary:") as message|null, MAX_SUMMARY_LEN)
 			if(!newsummary)
-				to_chat(usr, "The name is invalid.")
+				to_chat(user, "The name is invalid.")
 				return
 			else
 				summary = newsummary
 		if("Edit Current Page")
 			if(carved)
-				to_chat(usr, "<span class='notice'>The pages of [title] have been cut out!</span>")
+				to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
 				return
 			if(!current_page)
-				to_chat(usr, "<span class='notice'>You need to turn to a page before writing in the book.</span>")
+				to_chat(user, "<span class='notice'>You need to turn to a page before writing in the book.</span>")
 				return
 			var/character_space_remaining = MAX_CHARACTERS_PER_BOOKPAGE - length(pages[current_page])
 			if(character_space_remaining <= 0)
-				to_chat(usr, "<span class='notice'>There's not enough space left on this page to write anything!</span>")
+				to_chat(user, "<span class='notice'>There's not enough space left on this page to write anything!</span>")
 				return
-			var/content = strip_html(input(usr, "Add Text to this page, you have [character_space_remaining] characters of space left:") as message|null, MAX_CHARACTERS_PER_BOOKPAGE)
+			var/content = strip_html(input(user, "Add Text to this page, you have [character_space_remaining] characters of space left:") as message|null, MAX_CHARACTERS_PER_BOOKPAGE)
 			if(!content)
-				to_chat(usr, "The content is invalid.")
+				to_chat(user, "The content is invalid.")
 				return
 			//check if length of current text content + what player is adding is larger than our character limit
 			else if((length(content) + length(pages[current_page])) > MAX_CHARACTERS_PER_BOOKPAGE)
@@ -241,20 +238,20 @@
 				pages[current_page] += content
 		if("Add Page")
 			if(carved)
-				to_chat(usr, "<span class='notice'>You can't add anymore pages, the pages of [title] have been cut out and the book is ruined!</span>")
+				to_chat(user, "<span class='notice'>You can't add anymore pages, the pages of [title] have been cut out and the book is ruined!</span>")
 				return
 			if(length(pages) >= MAX_PAGES)
-				to_chat(usr, "<span class='notice'>You can't fit anymore pages in this book!</span>")
+				to_chat(user, "<span class='notice'>You can't fit anymore pages in this book!</span>")
 				return
-			to_chat(usr, "<span class='notice'>You add another page to the book!</span>")
+			to_chat(user, "<span class='notice'>You add another page to the book!</span>")
 			pages += " "
 		if("Remove Page")
 			if(!length(pages))
-				to_chat(usr, "<span class='notice'>There aren't any pages in this book!</span>")
+				to_chat(user, "<span class='notice'>There aren't any pages in this book!</span>")
 				return
-			var/page_choice = stripped_input(usr, "There are [length(pages)] pages, which page number would you like to remove?")
+			var/page_choice = stripped_input(user, "There are [length(pages)] pages, which page number would you like to remove?")
 			if(!isnum(page_choice) || page_choice > length(pages))
-				to_chat(usr, "That is not an acceptable value.")
+				to_chat(user, "That is not an acceptable value.")
 				return
 			pages -= pages[page_choice]
 
@@ -278,10 +275,9 @@
 /obj/item/book/proc/remove_page(page_number)
 	if(length(pages) < page_number) //can't remove the page if it doesn't exist
 		return FALSE
-	if(pages -= pages[page_number])
-		page_number = length(pages) //if page_number is somehow at a value it shouldn't be we fix it here aswell
-		return TRUE //we want to make sure whatever is calling this proc knows the operation was succesful
-	return FALSE
+	pages -= pages[page_number]
+	page_number = length(pages) //if page_number is somehow at a value it shouldn't be we fix it here aswell
+	return TRUE //we want to make sure whatever is calling this proc knows the operation was succesful
 
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
 	if(carved)

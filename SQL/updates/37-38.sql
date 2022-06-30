@@ -13,7 +13,7 @@ CREATE TABLE `library` (
 	`ckey` VARCHAR(32) NULL DEFAULT '' COLLATE 'utf8mb4_unicode_ci',
 	`reports` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
 	`summary` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
-	`ratings` DOUBLE NULL DEFAULT '0',
+	`rating` DOUBLE NULL DEFAULT '0',
 	`raters` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
 	`primary_category` INT(11) NULL DEFAULT '0',
 	`secondary_category` INT(11) NOT NULL DEFAULT '0',

@@ -548,8 +548,8 @@
 		return FALSE
 
 	qdel(query)
-	log_admin("[ckey] has uploaded the book titled [selected_book.title], [length(selected_book.content)] bytes in length")
-	message_admins("[ckey] has uploaded the book titled [selected_book.title], [length(selected_book.content)] bytes in length")
+	log_admin("[ckey] has uploaded the book titled [selected_book.title], [length(selected_book.content)] pages in length")
+	message_admins("[ckey] has uploaded the book titled [selected_book.title], [length(selected_book.content)] pages in length")
 	return TRUE
 
 /*

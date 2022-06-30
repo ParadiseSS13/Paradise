@@ -76,7 +76,7 @@
 	categories += GLOB.library_catalog.getBookCategoryByID(row["tertiary_category"])
 	ckey = row["ckey"]
 	var/list/reports_json = list()
-	if(length(row["reports"]))
+	if(length(row["reports"]) > 5) //do we actually have a string with content??
 		reports_json = json_decode(row["reports"])
 	for(var/r in reports_json)
 		var/datum/library_category/report_category = GLOB.library_catalog.getReportCategoryByID(r[2])

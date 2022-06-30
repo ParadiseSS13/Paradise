@@ -2,14 +2,6 @@
 #define BARCODE_MODE_SCAN_INVENTORY  2
 #define BARCODE_MODE_CHECKOUT        3
 #define BARCODE_MODE_CHECKIN         4
-/* Library Items
- *
- * Contains:
- *		Bookcase
- *		Book Binder
- *		Barcode Scanner
- */
-
 
 /*
  * Bookcase
@@ -210,12 +202,14 @@
 	selected_content.author = B.author
 	selected_content.author = B.summary
 	selected_content.content = B.pages
-	selected_content.categories = B.categories
+	for(var/c in B.categories)
+		if(c)
+			selected_content.categories += cz
 
 /obj/machinery/bookbinder/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "BookBinder", name, 600, 400, master_ui, state)
+		ui = new(user, src, ui_key, "BookBinder", name, 700, 400, master_ui, state)
 		ui.open()
 
 /obj/machinery/bookbinder/ui_data(mob/user)
