@@ -1,11 +1,10 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section, Slider } from '../components';
+import { Button, LabeledList, Box, Section} from '../components';
 import { Window } from '../layouts';
 
 export const ERTManager = (props, context) => {
   const { act, data } = useBackend(context);
   let slotOptions = [0, 1, 2, 3, 4, 5];
-  let DSOptions = [0, 1, 2, 3, 4, 5, 10, 15];
   return (
     <Window>
       <Window.Content>
