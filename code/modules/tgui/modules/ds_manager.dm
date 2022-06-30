@@ -42,7 +42,7 @@
 			squad_slots = text2num(params["set_sec"])
 		if("toggle_safety")
 			safety = !(safety)
-			if ("safety" = TRUE)
+			if ("safety" == FALSE)
 				message_admins("<span class='notice'>[key_name_admin(usr)] has preparing to send a Deathsquad.</span>", 1)
 		if("dispatch_ds")
 			safety = !(safety)
@@ -54,12 +54,11 @@
 			var/slot_text = english_list(slots_list)
 			if(alert("Do you want to send in the CentComm death squad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 				return
-			alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.")
-
-			var/input = "<br>#1 Work as a team.<br>#2 Accomplish your objective at all costs.<br>#3 Leave no witnesses." //default mission
-			while(!input)
-				input = sanitize(copytext(input(src, "Please specify which mission the deathsquad shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
-				if(!input)
+			if(alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader. Are you sure?",,"Yes","No")!="Yes")
+				return
+			while(!mission)
+				mission = sanitize(copytext(input(src, "Please specify which mission the deathsquad shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+				if(!mission)
 					if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 						return
 			notify_ghosts("A Deathsquad is being dispatched. Open positions: [slot_text]")

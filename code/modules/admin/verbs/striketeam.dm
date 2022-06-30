@@ -31,7 +31,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			alert("coder hasnt coded this yet, yell at them")
 		return
 
-/client/proc/trigger_deathsquad(leader_slot, squad_slots, mission, commando_ghosts)
+/proc/trigger_deathsquad(leader_slot, squad_slots, mission, commando_ghosts)
 
 	// Find the nuclear auth code
 	var/nuke_code
