@@ -600,7 +600,7 @@
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags = NONE)
 
 /mob/living/carbon/human/Topic(href, href_list)
-	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+	if(!usr.stat && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.restrained() && in_range(src, usr))
 		var/thief_mode = 0
 		if(ishuman(usr))
 			var/mob/living/carbon/human/H = usr
@@ -1131,6 +1131,7 @@
 			else
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
+	qdel(temp_holder)
 
 /**
  * Regrows a given external limb if it is missing. Does not add internal organs back in.

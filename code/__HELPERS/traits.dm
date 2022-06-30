@@ -68,10 +68,14 @@
 			} \
 \
 			for(var/TRAIT in target.status_traits) { \
+				if(!target.status_traits[TRAIT]) \
+					continue; \
 				target.status_traits[TRAIT] &= SOURCES; \
 				if(!length(target.status_traits[TRAIT])) { \
 					target.status_traits -= TRAIT; \
 					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(TRAIT), TRAIT); \
+					if(!target.status_traits) \
+						break; \
 				} \
 			} \
 			if(!length(target.status_traits)) { \
@@ -96,10 +100,14 @@
 			} \
 \
 			for(var/TRAIT in target.status_traits) { \
+				if(!target.status_traits[TRAIT]) \
+					continue; \
 				target.status_traits[TRAIT] -= SOURCES; \
 				if(!length(target.status_traits[TRAIT])) { \
 					target.status_traits -= TRAIT; \
 					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(TRAIT)); \
+					if(!target.status_traits) \
+						break; \
 				} \
 			} \
 			if(!length(target.status_traits)) { \
@@ -206,6 +214,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define INNATE_TRAIT "innate"
 #define VAMPIRE_TRAIT "vampire"
 #define CHANGELING_TRAIT "changeling"
+#define LYING_DOWN_TRAIT "lying_down"
+#define SLIME_TRAIT "slime"
 
 // unique trait sources
 #define STATUE_MUTE "statue"
@@ -216,9 +226,30 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CULT_EYES "cult_eyes"
 #define DOGGO_SPACESUIT "doggo_spacesuit"
 #define FLOORCLUWNE "floorcluwne"
+#define LOCKDOWN_TRAIT "lockdown"
+#define STAT_TRAIT "stat_trait"
+#define TRANSFORMING_TRAIT "transforming"
+#define BUCKLING_TRAIT "buckled"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
+
+//status effec traits
+/// Forces the user to stay unconscious.
+#define TRAIT_KNOCKEDOUT "knockedout"
+/// Prevents voluntary movement.
+#define TRAIT_IMMOBILIZED "immobilized"
+/// Prevents voluntary standing or staying up on its own.
+#define TRAIT_FLOORED "floored"
+/// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
+#define TRAIT_HANDS_BLOCKED "handsblocked"
+/// Inability to access UI hud elements.
+#define TRAIT_UI_BLOCKED "uiblocked"
+/// Inability to pull things.
+#define TRAIT_CANNOT_PULL "pullblocked"
+/// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
+#define TRAIT_RESTRAINED "restrained"
+

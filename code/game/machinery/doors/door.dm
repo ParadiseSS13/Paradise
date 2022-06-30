@@ -39,16 +39,21 @@
 
 /obj/machinery/door/New()
 	..()
+	GLOB.airlocks += src
+	update_freelook_sight()
+
+/obj/machinery/door/Initialize(mapload)
+	. = ..()
 	set_init_door_layer()
 	update_dir()
-	update_freelook_sight()
-	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
+
+	air_update_turf(1)
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -72,10 +77,6 @@
 		else
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
-
-/obj/machinery/door/Initialize()
-	air_update_turf(1)
-	..()
 
 /obj/machinery/door/Destroy()
 	density = 0

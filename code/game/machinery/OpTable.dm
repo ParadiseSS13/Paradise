@@ -16,8 +16,8 @@
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
 
-/obj/machinery/optable/New()
-	..()
+/obj/machinery/optable/Initialize(mapload)
+	. = ..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		computer = locate(/obj/machinery/computer/operating, get_step(src, dir))
 		if(computer)
@@ -65,7 +65,7 @@
   */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(M && M.lying)
+	if(M && IS_HORIZONTAL(M))
 		patient = M
 	else
 		patient = null
@@ -94,7 +94,7 @@
 	else
 		visible_message("<span class='alert'>[new_patient] has been laid on the operating table by [user].</span>")
 	new_patient.resting = TRUE
-	new_patient.update_canmove()
+	new_patient.lay_down()
 	new_patient.forceMove(loc)
 	if(user.pulling == new_patient)
 		user.stop_pulling()

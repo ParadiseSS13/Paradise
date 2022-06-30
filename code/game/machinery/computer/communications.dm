@@ -43,6 +43,9 @@
 /obj/machinery/computer/communications/New()
 	GLOB.shuttle_caller_list += src
 	..()
+
+/obj/machinery/computer/communications/Initialize(mapload)
+	. = ..()
 	crew_announcement.newscast = 0
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = 1)

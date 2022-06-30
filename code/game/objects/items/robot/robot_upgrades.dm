@@ -123,7 +123,7 @@
 			if(ghost.mind && ghost.mind.current == R)
 				R.key = ghost.key
 
-	R.stat = CONSCIOUS
+	R.set_stat(CONSCIOUS)
 	GLOB.dead_mob_list -= R //please never forget this ever kthx
 	GLOB.alive_mob_list += R
 	R.notify_ai(1)

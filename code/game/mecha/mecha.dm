@@ -965,7 +965,6 @@
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
-	AI.canmove = 1 //Much easier than adding AI checks! Be sure to set this back to 0 if you decide to allow an AI to leave a mech somehow.
 	AI.can_shunt = 0 //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
@@ -1169,7 +1168,6 @@
 		brainmob.reset_perspective(src)
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
-		brainmob.canmove = TRUE
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
 			if(R.imprinted_master)
@@ -1255,7 +1253,6 @@
 				L.reset_perspective()
 			mmi.mecha = null
 			mmi.update_icon()
-			L.canmove = 0
 			if(istype(mmi, /obj/item/mmi/robotic_brain))
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)

@@ -27,8 +27,8 @@
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles
 
-/obj/machinery/chem_master/New()
-	..()
+/obj/machinery/chem_master/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_master(null)
@@ -547,8 +547,8 @@
 	name = "\improper CondiMaster 3000"
 	condi = TRUE
 
-/obj/machinery/chem_master/condimaster/New()
-	..()
+/obj/machinery/chem_master/condimaster/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
