@@ -87,10 +87,10 @@
 	var/newid = 1
 	//building a list of all programmatic books
 	for(var/typepath in (subtypesof(/obj/item/book/manual) - forbidden_books))
-		var/obj/item/book/B = new typepath(null)
+		var/obj/item/book/B = typepath
 		var/datum/programmaticbook/PB = new()
-		PB.title = B.name
-		PB.author = B.author
+		PB.title = initial(B.name)
+		PB.author = initial(B.author)
 		PB.id = "M[newid]"
 		PB.path = typepath
 		newid++
@@ -130,8 +130,7 @@
 
 ///External proc that Returns a report programmaticbook datum that matches the provided bookid
 /datum/library_catalog/proc/getProgrammaticBookByID(id)
-	for(var/book in GLOB.library_catalog.books)
-		var/datum/programmaticbook/PB = book
+	for(var/datum/programmaticbook/PB as anything in GLOB.library_catalog.books)
 		if(PB.id == id)
 			return PB
 

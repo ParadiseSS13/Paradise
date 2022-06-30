@@ -138,7 +138,7 @@
   * buttons and then builds the rest of the UI based on what page the player is turned to.
   */
 /obj/item/book/proc/show_content(mob/user)
-	var/dat = " "
+	var/dat = ""
 	//First, we're going to choose/generate our header buttons for switching pages and store it in var/dat
 	if(length(pages)) //No need to have page switching buttons if there's no pages
 		if(current_page == 0)
@@ -208,7 +208,7 @@
 			var/newauthor = stripped_input(usr, "Write the author's name:")
 			if(!newauthor)
 				to_chat(usr, "The name is invalid.")
-				return 1
+				return
 			else
 				author = newauthor
 		if("Summary")
@@ -285,28 +285,29 @@
 
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
 	if(carved)
-		to_chat(user, "<span class='warning>[title] has already been carved out!</span>")
+		to_chat(user, "<span class='warning'>[title] has already been carved out!</span>")
 		return
 	if(!I.sharp)
-		to_chat(user, "<span class='warning>You can't carve [title] using that!</span>")
+		to_chat(user, "<span class='warning'>You can't carve [title] using that!</span>")
 		return
 	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
 		user.visible_message("<span class='warning'>[user] appears to carve out the pages inside of [title]!</span>",\
-				"<span class='danger'>You begin to carve out [title].!</span>")
+				"<span class='danger'>You carve out [title].!</span>")
 		carved = TRUE
 		return TRUE
 
 /obj/item/book/proc/store_item(obj/item/I, mob/user)
 	if(store)
-		to_chat(user, "<span class='notice'>There is already something in [name]!</span>")
+		to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
 		return
 
 	//does it exist, if so is it an abstract item?
-	if(!I || !istype(I) || (I.flags & ABSTRACT))
+	if(!istype(I) || (I.flags & ABSTRACT))
 		return
 	if(I.flags & NODROP)
 		to_chat(user, "<span class='notice'>[I] stays stuck to your hand when you try and hide it in the book!.</span>")
+		return
 	//Checking to make sure the item we're storing isn't larger than/equal to size of the book, prevents recursive storing aswell
 	if(I.w_class >= w_class)
 		to_chat(user, "<span class='notice'>[I] is to large to fit in [name].</span>")
@@ -337,8 +338,7 @@
 /obj/item/book/random/Initialize()
 	..()
 	var/list/books = GLOB.library_catalog.getRandomBooks(amount)
-	for(var/b in books)
-		var/datum/cachedbook/book = b
+	for(var/datum/cachedbook/book as anything in books)
 		var/obj/item/book/B = new(loc) //this really should be a constructor that accepts cachedbook datums at some point tbh
 		B.author = book.author
 		B.title = book.title

@@ -10,9 +10,6 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(!SSticker)
-		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
-		return
 
 	var/datum/ui_module/library_manager/L = new()
 	L.ui_interact(usr)
@@ -61,10 +58,9 @@
 
 	switch(action)
 		if("view_reported_books")
-			reports= list()
+			reports = list()
 			for(var/datum/cachedbook/CB in  GLOB.library_catalog.getFlaggedBooks())
-				for(var/r in CB.reports)
-					var/datum/flagged_book/report = r
+				for(var/datum/flagged_book/report as anything in CB.reports)
 					if(!report)
 						return
 					var/datum/library_category/report_category =  GLOB.library_catalog.getReportCategoryByID(report.category_id)
@@ -80,8 +76,7 @@
 			page_state = LIBRARY_MENU_REPORTS
 		if("delete_book")
 			if(GLOB.library_catalog.removeBookByID(text2num(params["bookid"])))
-				log_admin("[key_name(usr)] has deleted the book [params["bookid"]].")
-				message_admins("[key_name_admin(usr)] has deleted the book [params["bookid"]].")
+				log_and_message_admins(has deleted the book [params["bookid"]].")
 		if("view_book")
 			if(params["bookid"])
 				view_book_by_id(text2num(params["bookid"]))
@@ -112,11 +107,10 @@
 					if(!answer)
 						return
 					var/confirm = alert("You are about to delete book [text2num(answer)]", "Confirm Deletion", "Yes", "No")
-					if(!confirm || confirm == "No")
+					if(confirm != "Yes")
 						return
 					if(GLOB.library_catalog.removeBookByID(text2num(answer)))
-						log_admin("[key_name(usr)] has deleted the book [text2num(answer)].")
-						message_admins("[key_name_admin(usr)] has deleted the book [text2num(answer)].")
+						log_and_message_admins("has deleted the book [text2num(answer)].")
 				if("specify_ckey_search")
 					if(!answer)
 						return
@@ -141,11 +135,10 @@
 						return
 					var/confirm //We want to be absolutely certain an admin wants to do this
 					confirm = alert("You are about to mass delete potentially up to 10 books", "Confirm Deletion", "Yes", "No")
-					if(!confirm || confirm == "No")
+					if(confirm != "Yes")
 						return
 					if(GLOB.library_catalog.removeBooksByCkey(answer))
-						log_admin("[key_name(usr)] has deleted all books uploaded by [answer].")
-						message_admins("[key_name_admin(usr)] has deleted all books uploaded by [answer].")
+						log_and_message_admins(has deleted all books uploaded by [answer].")
 				else
 					return FALSE
 		else
