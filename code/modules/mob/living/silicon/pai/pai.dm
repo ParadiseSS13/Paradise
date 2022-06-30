@@ -328,19 +328,19 @@
 	verbs -= /mob/living/silicon/pai/proc/choose_verbs
 
 
-/mob/living/silicon/pai/lay_down()
+/mob/living/silicon/pai/rest()
 	set name = "Rest"
 	set category = "IC"
 
-	// Pass lying down or getting up to our pet human, if we're in a rig.
-	if(stat == CONSCIOUS && istype(loc,/obj/item/paicard))
-		resting = 0
+	resting = !resting
+	if(resting)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
 	else
-		resting = !resting
-		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
+
+	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
 	update_icons()
-	update_canmove()
 
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -385,7 +385,7 @@
 /mob/living/silicon/pai/proc/close_up()
 
 	last_special = world.time + 200
-	resting = 0
+	stand_up()
 	if(loc == card)
 		return
 
@@ -419,10 +419,6 @@
 
 /mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
-
-/mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
-	. = ..()
-	density = 0 //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
@@ -471,9 +467,9 @@
 		H.icon = 'icons/mob/pai.dmi'
 		H.icon_state = "[chassis]_dead"
 		return
-	if(resting)
+	if(IS_HORIZONTAL(src))
 		icon_state = "[chassis]"
-		resting = 0
+		stand_up()
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'

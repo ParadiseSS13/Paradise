@@ -44,7 +44,7 @@
 	if(length(contents))
 		var/obj/item/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
 		if(choice)
-			if(user.incapacitated() || !Adjacent(user))
+			if(user.incapacitated() || IS_HORIZONTAL(user) || !Adjacent(user))
 				return
 			if(!user.get_active_hand())
 				user.put_in_hands(choice)

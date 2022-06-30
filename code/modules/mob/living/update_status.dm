@@ -63,48 +63,19 @@
 	return TRUE
 
 // Whether the mob is capable of standing or not
-/mob/living/proc/can_stand()
-	return !(IsWeakened() || IsParalyzed() || stat || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+/mob/living/proc/cannot_stand()
+	return HAS_TRAIT(src, TRAIT_FLOORED)
 
 // Whether the mob is capable of actions or not
-/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE, list/extra_checks = list(), use_default_checks = TRUE)
+/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, list/extra_checks = list(), use_default_checks = TRUE)
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want it checking for these statuses or you are supplying your own checks.
 	if(use_default_checks)
 		extra_checks += CALLBACK(src, /mob/living.proc/IsWeakened)
 		extra_checks += CALLBACK(src, /mob/living.proc/IsStunned)
 
-	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
+	if(stat || HAS_TRAIT_NOT_FROM(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED) || (!ignore_restraints && restrained()) || check_for_true_callbacks(extra_checks))
 		return TRUE
-
-//Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
-/mob/living/update_canmove(delay_action_updates = 0)
-	var/fall_over = !can_stand()
-	var/buckle_lying = !(buckled && !buckled.buckle_lying)
-	if(fall_over || resting || IsStunned() || (buckled && buckle_lying != 0))
-		drop_r_hand()
-		drop_l_hand()
-	else
-		lying = 0
-		canmove = 1
-	if(buckled)
-		lying = 90 * buckle_lying
-	else if((fall_over || resting) && !lying)
-		fall(fall_over)
-
-	canmove = !(fall_over || resting || IsStunned() || IsFrozen() || buckled || IsImmobilized())
-	density = !lying
-	if(lying)
-		if(layer == initial(layer))
-			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
-	else
-		if(layer == LYING_MOB_LAYER)
-			layer = initial(layer)
-
-	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
 
 /mob/living/proc/update_stamina()
 	return

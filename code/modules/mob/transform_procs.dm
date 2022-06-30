@@ -12,8 +12,7 @@
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	return ..()
@@ -57,8 +56,7 @@
 	for(var/obj/item/W in src)
 		unEquip(W)
 
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -121,8 +119,7 @@
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	for(var/t in bodyparts)
@@ -149,7 +146,6 @@
 	if(notransform)
 		return
 	notransform = TRUE
-	canmove = FALSE
 	for(var/obj/item/I in src)
 		unEquip(I)
 	regenerate_icons()
@@ -184,8 +180,7 @@
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	for(var/t in bodyparts)	//this really should not be necessary
@@ -209,8 +204,7 @@
 		unEquip(W)
 
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -248,8 +242,7 @@
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	for(var/t in bodyparts)	//this really should not be necessary
