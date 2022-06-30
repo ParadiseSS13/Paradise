@@ -236,6 +236,7 @@
 		owner.adjustStaminaLoss(-15)
 		owner.AdjustStunned(-2 SECONDS)
 		owner.AdjustWeakened(-2 SECONDS)
+		owner.AdjustKnockDown(-2 SECONDS)
 		if(drain_amount == 10)
 			to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
 

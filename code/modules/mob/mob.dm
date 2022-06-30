@@ -1061,18 +1061,32 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 // facing verbs
 /mob/proc/canface()
-	if(!canmove)						return 0
-	if(client.moving)					return 0
-	if(world.time < client.move_delay)	return 0
-	if(stat==2)							return 0
-	if(anchored)						return 0
-	if(notransform)						return 0
-	if(restrained())					return 0
-	return 1
+	if(client.moving)
+		return FALSE
+	if(world.time < client.move_delay)
+		return FALSE
+	if(stat == DEAD)
+		return FALSE
+	if(anchored)
+		return FALSE
+	if(notransform)
+		return FALSE
+	if(restrained())
+		return FALSE
+	return TRUE
 
-/mob/proc/fall(forced)
+/mob/living/canface()
+	if(!(mobility_flags & MOBILITY_MOVE))
+		return FALSE
+	. = ..()
+
+/mob/proc/fall()
 	drop_l_hand()
 	drop_r_hand()
+
+/mob/living/fall()
+	..()
+	set_body_position(LYING_DOWN)
 
 /mob/proc/facedir(ndir)
 	if(!canface())

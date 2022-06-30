@@ -74,7 +74,7 @@
 	if(!ignoreRest)
 		if(ishuman(A))
 			var/mob/living/carbon/human/M = A
-			if(M.lying)
+			if(IS_HORIZONTAL(M))
 				return 1
 
 			if(M.flying)

@@ -51,7 +51,7 @@
 	mobloc = get_turf(target.loc)
 	if(jaunt_water_effect)
 		jaunt_steam(mobloc)
-	target.canmove = 0
+	ADD_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
 	holder.reappearing = 1
 	playsound(get_turf(target), 'sound/magic/ethereal_exit.ogg', 50, 1, -1)
 	sleep(jaunt_in_time * 4)
@@ -66,10 +66,12 @@
 					continue
 				if(target.Move(T))
 					target.remove_CC()
+					REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
 					return
 			for(var/turf/space/S in orange(7))
 				if(target.Move(S))
 					break
+		REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
 		target.remove_CC()
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/jaunt_steam(mobloc)

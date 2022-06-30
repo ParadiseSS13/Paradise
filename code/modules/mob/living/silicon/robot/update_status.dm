@@ -1,5 +1,5 @@
 // No args for restraints because robots don't have those
-/mob/living/silicon/robot/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+/mob/living/silicon/robot/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE)
 	if(stat || lockcharge || IsWeakened() || IsStunned() || IsParalyzed() || !is_component_functioning("actuator"))
 		return TRUE
 
@@ -14,7 +14,7 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
-		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || IsParalyzed() || IsSleeping() || resting || IsStunned() || IsWeakened() || getOxyLoss() > maxHealth * 0.5)
+		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStunned() || IsWeakened() || getOxyLoss() > maxHealth * 0.5)
 			if(stat == CONSCIOUS)
 				KnockOut()
 				update_headlamp()

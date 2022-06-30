@@ -40,7 +40,7 @@
 	set name = "Activate Electric Chair"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(last_time + delay_time > world.time)
 		to_chat(usr, "<span class='warning'>\The [src] is not ready yet!</span>")

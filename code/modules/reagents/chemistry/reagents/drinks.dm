@@ -302,6 +302,7 @@
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
+		M.AdjustKnockDown(-2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)

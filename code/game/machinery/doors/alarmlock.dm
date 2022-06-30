@@ -8,10 +8,6 @@
 	var/datum/radio_frequency/air_connection
 	var/air_frequency = ATMOS_FIRE_FREQ
 
-/obj/machinery/door/airlock/alarmlock/New()
-	..()
-	air_connection = new
-
 /obj/machinery/door/airlock/alarmlock/Destroy()
 	if(SSradio)
 		SSradio.remove_object(src,air_frequency)
@@ -19,7 +15,8 @@
 	return ..()
 
 /obj/machinery/door/airlock/alarmlock/Initialize()
-	..()
+	. = ..()
+	air_connection = new
 	SSradio.remove_object(src, air_frequency)
 	air_connection = SSradio.add_object(src, air_frequency, RADIO_TO_AIRALARM)
 	open()

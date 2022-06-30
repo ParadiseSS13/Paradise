@@ -79,30 +79,89 @@
 
 #define IS_STUN_IMMUNE(source, ignore_canstun) ((source.status_flags & GODMODE) || (!ignore_canstun && !(source.status_flags & CANSTUN)))
 
-/mob/living
+/*
+STATUS EFFECTS
+*/
 
-	// Booleans
-	var/resting = FALSE
+/mob/living/proc/lay_down()
+	set_body_position(LYING_DOWN)
 
-	/*
-	STATUS EFFECTS
-	*/
+/mob/living/proc/stand_up(instant = TRUE, work_when_dead = FALSE)
+	set waitfor = FALSE
 
-// RESTING
+	if(stat == DEAD && !work_when_dead)
+		return
+	if(!instant && !do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/cannot_stand)), only_use_extra_checks = TRUE))
+		return
+	if(resting || body_position == STANDING_UP || HAS_TRAIT(src, TRAIT_FLOORED))
+		return
+	set_body_position(STANDING_UP)
 
-/mob/living/proc/StartResting(updating = 1)
-	var/val_change = !resting
-	resting = TRUE
+/mob/living/proc/set_body_position(new_value)
+	if(body_position == new_value)
+		return FALSE
+	if(buckled) // if they are buckled they aint movin nowhere
+		return FALSE
+	. = TRUE
+	body_position = new_value
+	if(new_value == LYING_DOWN) // From standing to lying down.
+		on_lying_down()
+	else // From lying down to standing up.
+		on_standing_up()
 
-	if(updating && val_change)
-		update_canmove()
+/mob/living/proc/on_lying_down(new_lying_angle)
+	if(layer == initial(layer)) //to avoid things like hiding larvas.
+		layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
+	pixel_y = PIXEL_Y_OFFSET_LYING
+	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
+	ADD_TRAIT(src, TRAIT_CANNOT_PULL, LYING_DOWN_TRAIT)
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/orient_crawling)
+	set_density(FALSE)
+	set_lying_angle(pick(90, 270))
 
-/mob/living/proc/StopResting(updating = 1)
-	var/val_change = !!resting
-	resting = FALSE
+/mob/living/proc/on_standing_up()
+	if(layer == LYING_MOB_LAYER)
+		layer = initial(layer)
+	set_density(initial(density))
+	REMOVE_TRAITS_IN(src, LYING_DOWN_TRAIT)
+	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
+	set_lying_angle(0)
+	pixel_y = 0
 
-	if(updating && val_change)
-		update_canmove()
+/* makes sure the crawlers head is pointing in the direction they crawl
+* effectively splits dirs down the middle.
+
+									 # | #
+moving this way points the head left # | # moving this way points the head right
+									 # | #
+
+moving up or down retains their old lying angle
+
+*/
+/mob/living/proc/orient_crawling(datum/source, old_dir, new_dir)
+	SIGNAL_HANDLER
+	if(new_dir in list(WEST, NORTHWEST, SOUTHWEST))
+		set_lying_angle(270) // point right
+	if(new_dir in list(EAST, NORTHEAST, SOUTHEAST))
+		set_lying_angle(90) //point left
+
+
+/**
+ * Changes the inclination angle of a mob, used by humans and others to differentiate between standing up and prone positions.
+ *
+ * In BYOND-angles 0 is NORTH, 90 is EAST, 180 is SOUTH and 270 is WEST.
+ * This usually means that 0 is standing up, 90 and 270 are horizontal positions to right and left respectively, and 180 is upside-down.
+ * Mobs that do now follow these conventions due to unusual sprites should require a special handling or redefinition of this proc, due to the density and layer changes.
+ * The return of this proc is the previous value of the modified lying_angle if a change was successful (might include zero), or null if no change was made.
+ */
+/mob/living/proc/set_lying_angle(new_lying)
+	if(new_lying == lying_angle)
+		return
+	. = lying_angle
+	lying_angle = new_lying
+	if(lying_angle != lying_prev)
+		update_transform()
+		lying_prev = lying_angle
 
 
 // SCALAR STATUS EFFECTS
@@ -635,6 +694,56 @@
 	else if(amount > 0)
 		P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
 	return P
+
+/mob/living/proc/IsKnockedDown()
+	return has_status_effect(STATUS_EFFECT_FLOORED)
+
+/mob/living/proc/AmountKnockDown()
+	var/datum/status_effect/incapacitating/floored/F = IsKnockedDown()
+	if(F)
+		return F.duration - world.time
+	return 0
+
+/mob/living/proc/KnockDown(amount, ignore_canstun = FALSE) //Can't go below remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/floored/F = IsKnockedDown()
+	if(F)
+		F.duration = max(world.time + amount, F.duration)
+	else if(amount > 0)
+		F = apply_status_effect(STATUS_EFFECT_FLOORED, amount)
+	return F
+
+/mob/living/proc/SetKnockDown(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/floored/F = IsKnockedDown()
+	if(amount <= 0)
+		if(F)
+			qdel(F)
+	else
+		if(absorb_stun(amount, ignore_canstun))
+			return
+		if(F)
+			F.duration = world.time + amount
+		else
+			F = apply_status_effect(STATUS_EFFECT_FLOORED, amount)
+	return F
+
+/mob/living/proc/AdjustKnockDown(amount, ignore_canstun = FALSE) //Adds to remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/floored/F = IsKnockedDown()
+	if(F)
+		F.duration += amount
+	else if(amount > 0)
+		F = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
+	return F
+
 
 //
 //		DISABILITIES
