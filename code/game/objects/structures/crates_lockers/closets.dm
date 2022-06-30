@@ -24,6 +24,7 @@
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
+	var/transparent
 
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
@@ -300,11 +301,11 @@
 
 /obj/structure/closet/update_icon_state()
 	if(!opened)
-		icon_state = icon_closed
+		icon_state = "[icon_closed][transparent ? "_trans" : ""]"
 	else
-		icon_state = icon_opened
+		icon_state = "[icon_opened][transparent ? "_trans" : ""]"
 
-/obj/structure/closet/update_overlays(transparent = FALSE)
+/obj/structure/closet/update_overlays()
 	. = ..()
 	if(transparent && opened)
 		. += "[open_door_sprite]_trans"
@@ -398,20 +399,17 @@
 	return TRUE
 
 /obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
-	var/transparent = FALSE
+	transparent = FALSE
 	for(var/atom/A in location)
 		if(A.density && A != src && A != AM)
 			transparent = TRUE
 			break
-	icon_opened = transparent ? "bluespace_open_trans" : "bluespace_open"
-	icon_closed = transparent ? "bluespace_trans" : "bluespace"
-	icon_state = opened ? icon_opened : icon_closed
-	update_overlays(transparent)
+	update_icon()
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
 	if(AM.density)
-		icon_state = opened ? "bluespace_open_trans" : "bluespace_trans"
-		update_overlays(TRUE)
+		transparent = TRUE
+		update_icon()
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)
