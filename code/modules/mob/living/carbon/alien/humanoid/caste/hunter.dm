@@ -17,7 +17,7 @@
 	. += ..()	//but they still need to slow down on stun
 
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
-	if(m_intent == MOVE_INTENT_RUN || resting)
+	if(m_intent == MOVE_INTENT_RUN || IS_HORIZONTAL(src))
 		..()
 	else
 		adjustPlasma(-heal_rate)
@@ -54,7 +54,7 @@
 		to_chat(src, "<span class='alertalien'>It is unsafe to leap without gravity!</span>")
 		//It's also extremely buggy visually, so it's balance+bugfix
 		return
-	if(lying)
+	if(IS_HORIZONTAL(src))
 		return
 
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...
@@ -99,7 +99,6 @@
 		if(leaping)
 			leaping = 0
 			update_icons()
-			update_canmove()
 
 
 /mob/living/carbon/alien/humanoid/float(on)

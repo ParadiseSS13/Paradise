@@ -112,7 +112,7 @@
 	if(!drownee)
 		return
 
-	if(drownee && ((drownee.lying && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
+	if(drownee && ((IS_HORIZONTAL(drownee) && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
 		if(HAS_TRAIT(drownee, TRAIT_NOBREATH))

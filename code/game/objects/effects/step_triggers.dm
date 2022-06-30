@@ -60,10 +60,8 @@
 		if(AM in T.affecting)
 			return
 
-	if(isliving(AM))
-		var/mob/living/M = AM
-		if(immobilize)
-			M.canmove = FALSE
+	if(immobilize)
+		ADD_TRAIT(A, TRAIT_IMMOBILIZED, "[UID()]")
 
 	affecting.Add(AM)
 	while(AM && !stopthrow)
@@ -94,13 +92,7 @@
 				AM.setDir(predir)
 
 
-
-	affecting.Remove(AM)
-
-	if(isliving(AM))
-		var/mob/living/M = AM
-		if(immobilize)
-			M.canmove = TRUE
+	REMOVE_TRAIT(A, TRAIT_IMMOBILIZED, "[UID()]")
 
 /* Stops things thrown by a thrower, doesn't do anything */
 
