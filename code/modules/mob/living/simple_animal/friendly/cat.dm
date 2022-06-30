@@ -109,7 +109,7 @@
 			custom_emote(EMOTE_VISIBLE, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 			icon_state = "[icon_living]_sit"
 			collar_type = "[initial(collar_type)]_sit"
-			stand_up()
+			lay_down()
 		else if(prob(1))
 			if(IS_HORIZONTAL(src))
 				custom_emote(EMOTE_VISIBLE, pick("gets up and meows.", "walks around.", "stops resting."))

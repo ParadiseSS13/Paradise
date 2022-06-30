@@ -245,7 +245,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Inability to access UI hud elements.
 #define TRAIT_UI_BLOCKED "uiblocked"
 /// Inability to pull things.
-#define TRAIT_PULL_BLOCKED "pullblocked"
+#define TRAIT_CANNOT_PULL "pullblocked"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
 

@@ -347,7 +347,7 @@
 	return 0
 
 /mob/proc/Move_Pulled(atom/A)
-	if(HAS_TRAIT(src, TRAIT_PULL_BLOCKED) || restrained() || !pulling)
+	if(HAS_TRAIT(src, TRAIT_CANNOT_PULL) || restrained() || !pulling)
 		return
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
 		stop_pulling()
