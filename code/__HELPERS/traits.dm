@@ -68,10 +68,14 @@
 			} \
 \
 			for(var/TRAIT in target.status_traits) { \
+				if(!target.status_traits[TRAIT]) \
+					continue; \
 				target.status_traits[TRAIT] &= SOURCES; \
 				if(!length(target.status_traits[TRAIT])) { \
 					target.status_traits -= TRAIT; \
 					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(TRAIT), TRAIT); \
+					if(!target.status_traits) \
+						break; \
 				} \
 			} \
 			if(!length(target.status_traits)) { \
