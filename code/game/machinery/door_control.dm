@@ -7,7 +7,7 @@
 	var/id = null
 	var/safety_z_check = TRUE
 	var/normaldoorcontrol = FALSE
-	var/desiredstate_open = FALSE
+	var/desiredstate_open = FALSE // FALSE is closed, TRUE is open.
 	var/specialfunctions = 1
 	/*
 	Bitflag, 	1= open
