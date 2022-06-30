@@ -8,7 +8,7 @@
 	if(!istype(I)) //Something went wrong
 		return
 	if(!hide_tape) //if TRUE this hides the tape overlay and added examine text
-		RegisterSignal(parent, COMSIG_ATOM_ADD_EMISSIVE_BLOCKER, .proc/add_tape_overlay)
+		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/add_tape_overlay)
 		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/add_tape_text)
 	x_offset = x
 	y_offset = y

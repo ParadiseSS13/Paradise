@@ -450,8 +450,6 @@
 #define SENSOR_VITALS 2
 #define SENSOR_COORDS 3
 
-#define FIXED_SENSOR 2
-
 // Dice rigged options.
 #define DICE_NOT_RIGGED 1
 #define DICE_BASICALLY_RIGGED 2

@@ -71,7 +71,7 @@
 	icon_state = "orange"
 	item_state = "o_suit"
 	item_color = "orange"
-	has_sensor = FIXED_SENSOR
+	has_sensor = 2
 	sensor_mode = SENSOR_COORDS
 
 /obj/item/clothing/under/color/pink
