@@ -11,14 +11,13 @@
 /obj/machinery/computer/arcade/proc/Reset()
 	return
 
-/obj/machinery/computer/arcade/New()
-	..()
+/obj/machinery/computer/arcade/Initialize(mapload)
+	. = ..()
 	if(!circuit)
 		var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
 		var/obj/machinery/computer/arcade/chosen = new choice(loc)
 		chosen.dir = dir
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 	Reset()
 
 

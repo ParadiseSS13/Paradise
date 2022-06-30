@@ -354,6 +354,11 @@
 	var/endtime = world.time+time
 	var/starttime = world.time
 	. = 1
+	
+	var/mob/living/L
+	if(isliving(user))
+		L = user
+	
 	while(world.time < endtime)
 		sleep(1)
 		if(progress)
@@ -363,6 +368,7 @@
 			break
 		if(only_use_extra_checks)
 			if(check_for_true_callbacks(extra_checks))
+				. = 0
 				break
 			continue
 
@@ -370,7 +376,7 @@
 			drifting = 0
 			user_loc = user.loc
 
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || check_for_true_callbacks(extra_checks))
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || (L && IS_HORIZONTAL(L)) || check_for_true_callbacks(extra_checks))
 			. = 0
 			break
 	if(progress)

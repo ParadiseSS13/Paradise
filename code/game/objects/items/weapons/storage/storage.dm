@@ -98,7 +98,7 @@
 		return
 	var/mob/M = usr
 
-	if(istype(M.loc, /obj/mecha) || M.incapacitated(FALSE, TRUE, TRUE)) // Stops inventory actions in a mech as well as while being incapacitated
+	if(istype(M.loc, /obj/mecha) || M.incapacitated(FALSE, TRUE)) // Stops inventory actions in a mech as well as while being incapacitated
 		return
 
 	if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
@@ -108,14 +108,14 @@
 		return
 
 	if((istype(over_object, /obj/structure/table) || isfloorturf(over_object)) && length(contents) \
-		&& loc == M && !M.stat && !M.restrained() && M.canmove && over_object.Adjacent(M) && !istype(src, /obj/item/storage/lockbox)) // Worlds longest `if()`
+		&& loc == M && !M.stat && !M.restrained() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && over_object.Adjacent(M) && !istype(src, /obj/item/storage/lockbox)) // Worlds longest `if()`
 		var/turf/T = get_turf(over_object)
 		if(isfloorturf(over_object))
 			if(get_turf(M) != T)
 				return // Can only empty containers onto the floor under you
 			if(alert(M, "Empty [src] onto [T]?", "Confirm", "Yes", "No") != "Yes")
 				return
-			if(!(M && over_object && length(contents) && loc == M && !M.stat && !M.restrained() && M.canmove && get_turf(M) == T))
+			if(!(M && over_object && length(contents) && loc == M && !M.stat && !M.restrained() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && get_turf(M) == T))
 				return // Something happened while the player was thinking
 		hide_from(M)
 		M.face_atom(over_object)
@@ -150,7 +150,7 @@
 
 /obj/item/storage/AltClick(mob/user)
 	. = ..()
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
 		show_to(user)
 		playsound(loc, "rustle", 50, TRUE, -5)
 		add_fingerprint(user)

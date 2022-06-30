@@ -14,7 +14,7 @@
 	speed_process = TRUE
 
 
-/obj/machinery/mineral/mint/New()
+/obj/machinery/mineral/mint/ComponentInitialize()
 	..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_URANIUM, MAT_DIAMOND, MAT_BANANIUM, MAT_TRANQUILLITE), MINERAL_MATERIAL_AMOUNT * 50, FALSE, /obj/item/stack)
 

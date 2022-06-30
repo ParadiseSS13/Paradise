@@ -148,3 +148,5 @@
 * this is needed as many functions for stun durations used to output cycles as values, but we now track stun times in deciseconds.
 */
 #define STATUS_EFFECT_CONSTANT * 20
+
+#define IS_HORIZONTAL(x) x.body_position
