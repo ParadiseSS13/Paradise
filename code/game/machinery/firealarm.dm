@@ -273,11 +273,11 @@ FIRE ALARM
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)
-	update_icon()
 
 /obj/machinery/firealarm/Initialize(mapload)
 	. = ..()
 	name = "fire alarm"
+	update_icon()
 
 /obj/machinery/firealarm/Destroy()
 	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)

@@ -37,8 +37,6 @@
 				animate(user, pixel_y = pixel_y + 10 , time = 1, loop = 1)
 				animate(user, pixel_y = pixel_y, time = 10, loop = 1, easing = SINE_EASING)
 				animate(user)
-				if(user.lying)//aka. if they have just been stunned
-					user.pixel_y -= 6
 		else
 			if(wielded)
 				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")

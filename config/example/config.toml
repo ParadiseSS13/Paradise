@@ -558,6 +558,8 @@ mc_highpop_threshold_disable = 60
 base_run_speed = 1
 # Base walk speed before modifiers
 base_walk_speed = 4
+# Move delay added from crawling
+crawling_speed_reduction = 4
 # Move delay for humanoids
 human_delay = 1.5
 # Move delay for cyborgs

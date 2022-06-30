@@ -43,8 +43,11 @@
 
 	AIproc = 1
 
-	while(AIproc && stat != DEAD && (attacked || hungry || rabid || buckled))
-		if(!canmove)  //also covers buckling. Not sure why buckled is in the while condition if we're going to immediately break, honestly
+	while(AIproc && stat != DEAD && (attacked || hungry || rabid))
+		if(buckled)
+			break
+
+		if(!(mobility_flags & MOBILITY_MOVE))
 			break
 
 		if(!Target || client)
@@ -72,7 +75,7 @@
 						if(Target.Adjacent(src))
 							Target.attack_slime(src)
 					break
-				if(!Target.lying && prob(80))
+				if(!(mobility_flags & MOBILITY_MOVE) && prob(80))
 
 					if(Target.client && Target.health >= 20)
 						if(!Atkcool)
@@ -258,12 +261,11 @@
 
 
 /mob/living/simple_animal/slime/proc/handle_targets()
-	update_canmove()
 	if(Tempstun)
 		if(!buckled) // not while they're eating!
-			canmove = 0
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_TRAIT)
 	else
-		canmove = 1
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_TRAIT)
 
 	if(attacked > 50)
 		attacked = 50
@@ -281,7 +283,7 @@
 			Discipline--
 
 	if(!client)
-		if(!canmove)
+		if(!(mobility_flags & MOBILITY_MOVE))
 			return
 
 		if(buckled)
@@ -358,16 +360,16 @@
 					target_patience += 3
 
 		if(!Target) // If we have no target, we are wandering or following orders
-			if (Leader)
+			if(Leader)
 				if(holding_still)
 					holding_still = max(holding_still - 1, 0)
-				else if(canmove && isturf(loc))
+				else if(isturf(loc))
 					step_to(src, Leader)
 
 			else if(hungry)
 				if (holding_still)
 					holding_still = max(holding_still - hungry, 0)
-				else if(canmove && isturf(loc) && prob(50))
+				else if(isturf(loc) && prob(50))
 					step(src, pick(GLOB.cardinal))
 
 			else
@@ -375,7 +377,7 @@
 					holding_still = max(holding_still - 1, 0)
 				else if (docile && pulledby)
 					holding_still = 10
-				else if(canmove && isturf(loc) && prob(33))
+				else if(isturf(loc) && prob(33))
 					step(src, pick(GLOB.cardinal))
 		else if(!AIproc)
 			INVOKE_ASYNC(src, .proc/AIprocess)

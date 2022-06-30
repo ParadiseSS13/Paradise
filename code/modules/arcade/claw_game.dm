@@ -17,8 +17,8 @@ GLOBAL_VAR(claw_game_html)
 								'icons/obj/arcade_images/prize_inside.png',
 								'icons/obj/arcade_images/prizeorbs.png')
 
-/obj/machinery/arcade/claw/New()
-	..()
+/obj/machinery/arcade/claw/Initialize(mapload)
+	. = ..()
 	machine_image = pick("_1", "_2")
 	update_icon()
 

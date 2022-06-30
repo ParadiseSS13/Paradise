@@ -15,7 +15,7 @@
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
-		if(M.canmove && !M.restrained())
+		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
@@ -51,7 +51,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Druggy(30 SECONDS)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
-		if(M.canmove && !M.restrained())
+		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
 		M.emote(pick("twitch","drool","moan","giggle"))
@@ -172,6 +172,7 @@
 	M.AdjustParalysis(-4 SECONDS)
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
+	M.AdjustKnockDown(-4 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-25, FALSE)
 	if(prob(15))
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
@@ -454,6 +455,7 @@
 	M.SetParalysis(0)
 	M.SetStunned(0)
 	M.SetWeakened(0)
+	M.SetKnockDown(0)
 	M.Druggy(30 SECONDS)
 	update_flags |= M.setStaminaLoss(0, FALSE)
 	var/check = rand(0, 100)
@@ -778,7 +780,6 @@
 		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
 	return ..() | update_flags

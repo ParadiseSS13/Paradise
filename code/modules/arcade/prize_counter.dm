@@ -10,8 +10,8 @@
 	idle_power_usage = 40
 	var/tickets = 0
 
-/obj/machinery/prize_counter/New()
-	..()
+/obj/machinery/prize_counter/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/prize_counter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

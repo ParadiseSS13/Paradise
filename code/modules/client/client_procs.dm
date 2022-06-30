@@ -415,6 +415,7 @@
 
 /client/Destroy()
 	announce_leave() // Do not put this below
+	SSdebugview.stop_processing(src)
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
