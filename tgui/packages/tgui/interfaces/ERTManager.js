@@ -1,10 +1,11 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section } from '../components';
+import { Button, LabeledList, Box, Section, Slider } from '../components';
 import { Window } from '../layouts';
 
 export const ERTManager = (props, context) => {
   const { act, data } = useBackend(context);
   let slotOptions = [0, 1, 2, 3, 4, 5];
+  let DSOptions = [0, 1, 2, 3, 4, 5, 10, 15];
   return (
     <Window>
       <Window.Content>
@@ -29,13 +30,20 @@ export const ERTManager = (props, context) => {
               />
               <Button
                 content="Gamma"
-                color={data.ert_type === 'Gamma' ? 'purple' : ''}
+                color={data.ert_type === 'Gamma' ? 'yellow' : ''}
                 onClick={() => act('ert_type', { ert_type: 'Gamma' })}
+              />
+              <Button
+                content="Epsilon"
+                color={data.ert_type === 'Epsilon' ? 'purple' : ''}
+                onClick={() => act('ert_type', { ert_type: 'Epsilon' })}
+                tooltip= "Deathsquad"
               />
             </LabeledList.Item>
           </LabeledList>
         </Section>
         <Section title="Slots">
+        {data.ert_type !== "Epsilon" ? (
           <LabeledList>
             <LabeledList.Item label="Commander">
               <Button
@@ -151,8 +159,72 @@ export const ERTManager = (props, context) => {
               />
             </LabeledList.Item>
           </LabeledList>
+          ) : (
+            <LabeledList>
+            <LabeledList.Item label="Leader">
+              <Button
+                icon={data.com ? 'toggle-on' : 'toggle-off'}
+                selected={data.com}
+                content={data.com ? 'Yes' : 'No'}
+                onClick={() => act('toggle_com')}
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Deathsquad">
+              {slotOptions.map((a, i) => (
+                <Button
+                  key={'sec' + a}
+                  selected={data.sec === a}
+                  content={a}
+                  onClick={() =>
+                    act('set_sec', {
+                      set_sec: a,
+                    })
+                  }
+                />
+              ))}
+            </LabeledList.Item>
+            <LabeledList.Item label="Epsilon Cyborg">
+              {slotOptions.map((a, i) => (
+                <Button
+                  key={'cyb' + a}
+                  selected={data.cyb === a}
+                  content={a}
+                  onClick={() =>
+                    act('set_cyb', {
+                      set_cyb: a,
+                    })
+                  }
+                />
+              ))}
+            </LabeledList.Item>
+            <LabeledList.Item label="Total Slots">
+              <Box color={data.total > data.spawnpoints ? 'red' : 'green'}>
+                {data.total} total, versus {data.spawnpoints} spawnpoints
+              </Box>
+            </LabeledList.Item>
+            <LabeledList.Item label="Safety">
+              <Button
+                icon={data.safety ? 'check' : 'times'}
+                selected={data.safety}
+                content={data.safety ? 'ON' : 'OFF'}
+                tooltip={data.safety ? 'Disable Safety' : 'Enable Safety'}
+                onClick={() => act('toggle_safety')}
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Dispatch">
+              <Button
+                icon={'bomb'}
+                disabled={data.safety}
+                color="red"
+                content={'SEND IN THE DEATHSQUAD'}
+                onClick={() => act('dispatch_ds')}
+              />
+            </LabeledList.Item>
+            </LabeledList>
+          ) }
         </Section>
       </Window.Content>
     </Window>
   );
 };
+

@@ -306,6 +306,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 /datum/response_team/gamma/announce_team()
 	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
 
+// -- DEATHSQUAD --
 /datum/response_team/epsilon
 	engineering_outfit = /datum/outfit/admin/death_commando
 	security_outfit = /datum/outfit/admin/death_commando

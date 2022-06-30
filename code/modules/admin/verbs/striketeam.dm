@@ -151,17 +151,8 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	new_commando.equip_death_commando(is_leader)
 	return new_commando
 
-/mob/living/carbon/human/proc/equip_death_commando(is_leader = FALSE, mob/living/carbon/human/H)
-
-	H.equipOutfit(/datum/outfit/admin/death_commando)
-
-	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
-	else
-		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)
-
-	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(src)
-	L.implant(src)
+/mob/living/carbon/human/proc/equip_death_commando()
+	src.equipOutfit(/datum/outfit/admin/death_commando)
 
 	var/obj/item/card/id/W = new(src)
 	W.name = "[real_name]'s ID Card"
