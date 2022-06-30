@@ -197,6 +197,7 @@
 	L.Weaken(stunforce)
 	L.Stuttering(stunforce)
 
+
 	if(user)
 		L.lastattacker = user.real_name
 		L.lastattackerckey = user.ckey

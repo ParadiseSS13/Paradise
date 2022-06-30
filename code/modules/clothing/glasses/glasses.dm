@@ -523,15 +523,17 @@
 	toggle_veil()
 
 /obj/item/clothing/glasses/proc/toggle_veil()
-	if(usr.canmove && !usr.incapacitated())
-		if(up)
-			up = !up
-			tint = initial(tint)
-			to_chat(usr, "You activate [src], allowing you to see.")
-		else
-			up = !up
-			tint = 3
-			to_chat(usr, "You deactivate [src], obscuring your vision.")
-		var/mob/living/carbon/user = usr
-		user.update_tint()
-		user.update_inv_glasses()
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.incapacitated())
+		return
+
+	if(up)
+		up = !up
+		tint = initial(tint)
+		to_chat(usr, "You activate [src], allowing you to see.")
+	else
+		up = !up
+		tint = 3
+		to_chat(usr, "You deactivate [src], obscuring your vision.")
+	var/mob/living/carbon/user = usr
+	user.update_tint()
+	user.update_inv_glasses()

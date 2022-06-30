@@ -112,7 +112,7 @@
 
 			if(ishuman(AM))
 				var/mob/living/carbon/H = AM
-				if(H.lying)
+				if(IS_HORIZONTAL(H))
 					H.apply_damage(trap_damage, BRUTE,"chest")
 				else
 					H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))

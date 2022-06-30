@@ -86,7 +86,6 @@
 		occupant.updatehealth()
 		if(occupant.health >= 0 && occupant.stat == DEAD)
 			occupant.update_revive()
-			occupant.lying = FALSE
 			update_icon(UPDATE_OVERLAYS)
 		sleep(10)
 	active = FALSE

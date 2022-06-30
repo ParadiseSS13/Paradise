@@ -1,10 +1,15 @@
 /mob/CanPass(atom/movable/mover, turf/target, height=0)
+	var/horizontal = FALSE
+	if(isliving(src))
+		var/mob/living/L = src
+		horizontal = IS_HORIZONTAL(L)
+
 	if(height==0)
 		return 1
 	if(istype(mover, /obj/item/projectile))
-		return (!density || lying)
+		return projectile_hit_check(mover)
 	if(mover.throwing)
-		return (!density || lying || (mover.throwing.thrower == src))
+		return (!density || horizontal || (mover.throwing.thrower == src))
 	if(mover.checkpass(PASSMOB))
 		return 1
 	if(buckled == mover)
@@ -15,8 +20,10 @@
 			return FALSE
 		if(mover in buckled_mobs)
 			return TRUE
-	return (!mover.density || !density || lying)
+	return (!mover.density || !density || horizontal)
 
+/mob/proc/projectile_hit_check(obj/item/projectile/P)
+	return !density
 
 /client/verb/toggle_throw_mode()
 	set hidden = 1
@@ -74,9 +81,10 @@
 	if(moving)
 		return 0
 
+	var/mob/living/living_mob = null
 	if(isliving(mob))
-		var/mob/living/L = mob
-		if(L.incorporeal_move)//Move though walls
+		living_mob = mob
+		if(living_mob.incorporeal_move)//Move though walls
 			Process_Incorpmove(direct)
 			return
 
@@ -96,7 +104,7 @@
 	if(mob.buckled) //if we're buckled to something, tell it we moved.
 		return mob.buckled.relaymove(mob, direct)
 
-	if(!mob.canmove)
+	if(living_mob && !(living_mob.mobility_flags & MOBILITY_MOVE))
 		return
 
 	if(!mob.lastarea)
@@ -135,7 +143,6 @@
 	if(locate(/obj/item/grab, mob))
 		delay += 7
 
-	var/mob/living/living_mob = mob
 	if(istype(living_mob))
 		var/newdir = NONE
 		var/confusion = living_mob.get_confusion()
@@ -192,7 +199,7 @@
 ///Checks to see if you are being grabbed and if so attemps to break it
 /client/proc/Process_Grab()
 	if(mob.grabbed_by.len)
-		if(mob.incapacitated(FALSE, TRUE, TRUE)) // Can't break out of grabs if you're incapacitated
+		if(mob.incapacitated(FALSE, TRUE)) // Can't break out of grabs if you're incapacitated
 			return TRUE
 		var/list/grabbing = list()
 
@@ -340,7 +347,7 @@
 	return 0
 
 /mob/proc/Move_Pulled(atom/A)
-	if(!canmove || restrained() || !pulling)
+	if(HAS_TRAIT(src, TRAIT_CANNOT_PULL) || restrained() || !pulling)
 		return
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
 		stop_pulling()

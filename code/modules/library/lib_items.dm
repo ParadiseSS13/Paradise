@@ -70,11 +70,11 @@
 	else
 		return ..()
 
-/obj/structure/bookcase/attack_hand(mob/user as mob)
+/obj/structure/bookcase/attack_hand(mob/living/user)
 	if(contents.len)
 		var/obj/item/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
 		if(choice)
-			if(user.incapacitated() || user.lying || !Adjacent(user))
+			if(user.incapacitated() || IS_HORIZONTAL(user) || !Adjacent(user))
 				return
 			if(!user.get_active_hand())
 				user.put_in_hands(choice)

@@ -75,7 +75,7 @@
 	var/mob/living/carbon/human/H = AM
 	var/move_dir = get_dir(loc, H.loc)
 
-	if((transform_standing || H.lying) && move_dir == acceptdir)
+	if((transform_standing || IS_HORIZONTAL(H)) && move_dir == acceptdir)
 		H.forceMove(drop_location())
 		do_transform(H)
 
@@ -184,7 +184,7 @@
 		var/mob/living/carbon/human/H = AM
 		var/move_dir = get_dir(loc, H.loc)
 
-		if(H.lying && move_dir == acceptdir)
+		if(IS_HORIZONTAL(H) && move_dir == acceptdir)
 			H.forceMove(drop_location())
 			irradiate(H)
 
