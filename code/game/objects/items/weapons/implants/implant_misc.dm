@@ -37,10 +37,10 @@
 	to_chat(imp_in, "<span class='notice'>You feel a sudden surge of energy!</span>")
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
+	imp_in.SetKnockDown(0)
 	imp_in.SetParalysis(0)
 	imp_in.adjustStaminaLoss(-75)
-	imp_in.lying = 0
-	imp_in.update_canmove()
+	imp_in.stand_up(TRUE)
 
 	imp_in.reagents.add_reagent("synaptizine", 10)
 	imp_in.reagents.add_reagent("omnizine", 10)

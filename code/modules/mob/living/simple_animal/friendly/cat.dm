@@ -104,17 +104,16 @@
 	if(!stat && !buckled)
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
-			StartResting()
+			lay_down()
 		else if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 			icon_state = "[icon_living]_sit"
 			collar_type = "[initial(collar_type)]_sit"
-			resting = TRUE
-			update_canmove()
+			lay_down()
 		else if(prob(1))
-			if(resting)
+			if(IS_HORIZONTAL(src))
 				custom_emote(EMOTE_VISIBLE, pick("gets up and meows.", "walks around.", "stops resting."))
-				StopResting()
+				stand_up()
 			else
 				custom_emote(EMOTE_VISIBLE, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
@@ -135,24 +134,26 @@
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
 	. = ..()
-	if(!stat && !resting && !buckled)
-		turns_since_scan++
-		if(turns_since_scan > 5)
-			walk_to(src,0)
-			turns_since_scan = 0
-			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
-				movement_target = null
-				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
-				movement_target = null
-				stop_automated_movement = 0
-				for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
-					if(isturf(snack.loc) && !snack.stat)
-						movement_target = snack
-						break
-			if(movement_target)
-				stop_automated_movement = 1
-				walk_to(src,movement_target,0,3)
+	if(stat || IS_HORIZONTAL(src) || buckled)
+		return
+
+	turns_since_scan++
+	if(turns_since_scan > 5)
+		walk_to(src,0)
+		turns_since_scan = 0
+	if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
+		movement_target = null
+		stop_automated_movement = 0
+	if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+		movement_target = null
+		stop_automated_movement = 0
+		for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
+			if(isturf(snack.loc) && !snack.stat)
+				movement_target = snack
+				break
+	if(movement_target)
+		stop_automated_movement = 1
+		walk_to(src,movement_target,0,3)
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"

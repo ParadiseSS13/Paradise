@@ -207,7 +207,7 @@
 		return
 	if(!ismob(O) && !istype(O, /obj/structure/closet/body_bag))
 		return
-	if(!ismob(user) || user.stat || user.lying || user.IsStunned())
+	if(!ismob(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	O.forceMove(loc)
 	if(user != O)
@@ -430,7 +430,7 @@
 		return
 	if(!ismob(O) && !istype(O, /obj/structure/closet/body_bag))
 		return
-	if(!ismob(user) || user.stat || user.lying || user.IsStunned())
+	if(!ismob(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	O.forceMove(loc)
 	if(user != O)

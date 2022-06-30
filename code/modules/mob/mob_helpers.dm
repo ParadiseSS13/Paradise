@@ -463,17 +463,22 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
 		SetSleeping(40 SECONDS, voluntary = TRUE) //Short nap
 
-/mob/living/verb/lay_down()
+/mob/living/verb/rest()
 	set name = "Rest"
 	set category = "IC"
 
-	if(!resting)
-		client.move_delay = world.time + 20
+
+	resting = !resting // this happens before the do_mob so that you can stay resting if you are stunned.
+
+	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/cannot_stand)), only_use_extra_checks = TRUE))
+		return
+
+	if(resting)
 		to_chat(src, "<span class='notice'>You are now resting.</span>")
-		StartResting()
-	else if(resting)
-		to_chat(src, "<span class='notice'>You are now getting up.</span>")
-		StopResting()
+		lay_down()
+	else
+		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
+		stand_up()
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool

@@ -332,7 +332,7 @@
 
 	var/mob/living/carbon/human/human_target = target
 
-	if(human_target.canmove && !human_target.r_hand && !human_target.restrained())
+	if(!HAS_TRAIT(human_target, TRAIT_HANDS_BLOCKED) && !human_target.r_hand && !human_target.restrained())
 		message_param = "shakes hands with %t."
 	else
 		message_param = "holds out [user.p_their()] hand to %t."
@@ -350,7 +350,7 @@
 		)
 		return TRUE
 
-	if(target.canmove && !target.r_hand && !target.restrained())
+	if(!HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) && !target.r_hand && !target.restrained())
 		message_param = "shakes hands with %t."
 	else
 		message_param = "holds out [user.p_their()] hand to %t."
