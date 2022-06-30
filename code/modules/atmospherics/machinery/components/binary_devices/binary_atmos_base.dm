@@ -153,3 +153,9 @@
 /obj/machinery/atmospherics/binary/process_atmos()
 	..()
 	return parent1 && parent2
+
+/obj/machinery/atmospherics/binary/relaymove(mob/living/user, direction)
+	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
+	..()
+	user.remove_ventcrawl() //we moved between pipe networks, no more seeing into the old one
+	user.add_ventcrawl(src, target_move)
