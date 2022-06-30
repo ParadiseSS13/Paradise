@@ -542,13 +542,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /atom/proc/update_pipe_vision()
 	return
 
-/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
+/mob/living/update_pipe_vision()
 	if(pipes_shown.len)
 		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else
 		if(is_ventcrawling(src))
-			add_ventcrawl(target_move)
+			add_ventcrawl(loc)
 
 
 //Throwing stuff
