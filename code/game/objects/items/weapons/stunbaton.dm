@@ -172,7 +172,8 @@
 			return
 
 	if(user.a_intent == INTENT_HARM)
-		baton_stun(L, user)
+		if(turned_on)
+			baton_stun(L, user)
 		return ..() // Whack them too if in harm intent
 
 	if(!turned_on)
@@ -192,8 +193,10 @@
 		H.forcesay(GLOB.hit_appends)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
-	L.Stuttering(stunforce)
+
 	L.Weaken(stunforce)
+	L.Stuttering(stunforce)
+
 
 	if(user)
 		L.lastattacker = user.real_name
