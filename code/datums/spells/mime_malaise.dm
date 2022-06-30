@@ -20,7 +20,7 @@
 	item_state = "fleshtostone"
 
 /obj/item/melee/touch_attack/mime_malaise/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.lying || user.handcuffed)
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new

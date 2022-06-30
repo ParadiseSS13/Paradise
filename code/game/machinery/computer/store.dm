@@ -10,9 +10,6 @@
 	name = "\improper Merchandise Computer Circuitboard"
 	build_path = /obj/machinery/computer/merch
 
-/obj/machinery/computer/merch/New()
-	..()
-
 /obj/machinery/computer/merch/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	return attack_hand(user)

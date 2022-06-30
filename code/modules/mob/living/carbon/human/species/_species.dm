@@ -239,10 +239,13 @@
 	. = 0	//We start at 0.
 
 	if(has_gravity(H))
-		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
-			. -= 1
-		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
-			. -= 0.5
+		if(!IS_HORIZONTAL(H))
+			if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
+				. -= 1
+			else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
+				. -= 0.5
+		else
+			. += GLOB.configuration.movement.crawling_speed_reduction
 
 		var/ignoreslow = FALSE
 		if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
@@ -505,13 +508,18 @@
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
 			target.apply_effect(8 SECONDS, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
-		else if(target.lying)
+		else if(IS_HORIZONTAL(target))
 			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
+		return FALSE
+	if(target.absorb_stun(0))
+		target.visible_message("<span class='warning'>[target] is not affected by [user]'s disarm attempt!</span>")
+		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE

@@ -91,6 +91,7 @@
 #define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
+#define STATUS_EFFECT_FLOORED /datum/status_effect/incapacitating/floored
 
 // transient
 #define STATUS_EFFECT_CONFUSION /datum/status_effect/transient/confusion

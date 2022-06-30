@@ -50,7 +50,6 @@
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
-	var/lying = 0
 	var/lying_prev = 0
 	var/lastpuke = 0
 	var/can_strip = 1

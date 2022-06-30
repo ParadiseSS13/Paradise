@@ -100,7 +100,7 @@
 	set name = "Empty Spray Bottle"
 	set category = "Object"
 	set src in usr
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
