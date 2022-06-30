@@ -88,7 +88,7 @@
 	add_attack_logs(user, target, "Knocked down with [src]")
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
-	//target.KnockDown(knockdown_duration)
+	target.KnockDown(knockdown_duration)
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown_finished), cooldown)
 	return TRUE

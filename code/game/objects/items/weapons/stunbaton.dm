@@ -190,7 +190,7 @@
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)
 
-	//addtimer(CALLBACK(L, mob/living/.proc/KnockDown, knockdown_duration), 3 SECONDS)
+	addtimer(CALLBACK(L, /mob/living.proc/KnockDown, knockdown_duration), 3 SECONDS)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
