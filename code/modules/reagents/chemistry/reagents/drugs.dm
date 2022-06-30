@@ -755,12 +755,13 @@
 	metabolization_rate = 0.6
 	addiction_decay_rate = 0.1 //very low to force them to take time off of meth
 	taste_description = "wiper fluid"
+	var/tenacity = 1.5 // higher is worse
 
 /datum/reagent/lube/ultra/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.physiology.stun_mod *= 1.5
+		H.physiology.stun_mod *= tenacity
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -787,7 +788,7 @@
 	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.physiology.stun_mod /= 1.5
+		H.physiology.stun_mod /= tenacity
 	..()
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)
@@ -829,10 +830,10 @@
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-25, FALSE)
-	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
-	if(prob(10))
-		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
+		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
+		if(prob(10))
+			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 		to_chat(M, "<span class='notice'>[high_message]</span>")
 	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
