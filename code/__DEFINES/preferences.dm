@@ -121,6 +121,7 @@
 #define TAB_CHAR 0
 #define TAB_GAME 1
 #define TAB_GEAR 2
+#define TAB_KEYS 3
 
 // Colourblind modes
 #define COLOURBLIND_MODE_NONE "None"

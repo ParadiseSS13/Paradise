@@ -8,6 +8,17 @@
 		return FALSE
 	return !isnull(C.holder) && ..()
 
+/datum/keybinding/admin/mc_debug
+	name = "Master Controller Debug"
+	keys = list("F3")
+
+/datum/keybinding/admin/mc_debug/down(client/C)
+	. = ..()
+	if(C in SSdebugview.processing)
+		SSdebugview.stop_processing(C)
+		return
+	SSdebugview.start_processing(C)
+
 /datum/keybinding/admin/asay_msay
 	name = "Asay/Msay"
 	keys = list("F5")

@@ -131,7 +131,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(!SSdbcore.IsConnected())
 		return // Bail
 
-	var/loaded_preferences_successfully = FALSE
 	parent?.set_macros()
 	if(istype(C))
 		if(!IsGuestKey(C.key))

@@ -1091,9 +1091,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/facedir(ndir)
 	if(!canface())
-		return 0
+		return FALSE
 	setDir(ndir)
-	return 1
+	return TRUE
 
 
 /mob/verb/eastface()

@@ -13,9 +13,6 @@
 /client/proc/set_macros()
 	var/static/list/macro_set = list(
 		"Tab" = @{".winset \"input.focus=true ? map.focus=true : input.focus=true\""},
-		"O" = "ooc",
-		"T" = ".say",
-		"M" = ".me",
 		"Any" = @"KeyDown [[*]]",
 		"Any+UP" = @"KeyUp [[*]]",
 	)

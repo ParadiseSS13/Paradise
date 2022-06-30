@@ -11,7 +11,7 @@
 
 /datum/keybinding/client/ooc
 	name = "OOC"
-	keys = list("F2")
+	keys = list("O")
 
 /datum/keybinding/client/ooc/down(client/C)
 	. = ..()
@@ -19,7 +19,7 @@
 
 /datum/keybinding/client/say
 	name = "Say"
-	keys = list("F3")
+	keys = list("T")
 
 /datum/keybinding/client/say/down(client/C)
 	. = ..()
@@ -27,7 +27,7 @@
 
 /datum/keybinding/client/me
 	name = "Me"
-	keys = list("F4")
+	keys = list("M")
 
 /datum/keybinding/client/me/down(client/C)
 	. = ..()
