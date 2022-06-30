@@ -2763,8 +2763,8 @@
 						H.corgize()
 				ok = 1
 			if("striketeam")
-				if(usr.client.strike_team())
-					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Deathsquad")
+				if(usr.client.deathsquad_spawn())
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Deathsquad") //This needs to be changed, Deathsquad is no longer an admin secret
 			if("striketeam_syndicate")
 				if(usr.client.syndicate_strike_team())
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Syndie Strike Team")

@@ -412,7 +412,7 @@
 
 /proc/call_shuttle_proc(mob/user, reason, sanitized = FALSE)
 	if(GLOB.sent_strike_team == 1)
-		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
+		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 		return
 
 	if(SSshuttle.emergencyNoEscape)
