@@ -28,7 +28,6 @@
 #define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
 // Role tags for EVERYONE!
-#define ROLE_BORER				"cortical borer"
 #define ROLE_DEMON				"slaughter demon"
 #define ROLE_SENTIENT			"sentient animal"
 #define ROLE_POSIBRAIN			"positronic brain"
@@ -54,7 +53,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ABDUCTOR = /datum/game_mode/abduction, 		// Abductor
 	ROLE_BLOB = /datum/game_mode/blob, 					// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
-	ROLE_BORER, 										// Cortical borer
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
 	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian

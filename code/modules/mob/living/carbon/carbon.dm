@@ -14,10 +14,6 @@
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(stomach_contents)
 	QDEL_LIST(processing_patches)
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(B)
-		B.leave_host()
-		qdel(B)
 	GLOB.carbon_list -= src
 	return ..()
 
