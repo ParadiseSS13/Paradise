@@ -187,7 +187,6 @@
 
 /mob/living/simple_animal/bot/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SEESHUD_DIAGNOSTIC_ADVANCED, ROUNDSTART_TRAIT)
 	if(seeshud_trait)
 		ADD_TRAIT(src, seeshud_trait, ROUNDSTART_TRAIT)
 
