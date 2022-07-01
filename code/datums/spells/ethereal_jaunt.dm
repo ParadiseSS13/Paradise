@@ -4,12 +4,12 @@
 
 	school = "transmutation"
 	charge_max = 300
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "none"
 	invocation_type = "none"
 	cooldown_min = 100 //50 deciseconds reduction per rank
-	nonabstract_req = 1
-	centcom_cancast = 0 //Prevent people from getting to centcom
+	nonabstract_req = TRUE
+	centcom_cancast = FALSE //Prevent people from getting to centcom
 	var/sound1 = 'sound/magic/ethereal_enter.ogg'
 	var/jaunt_duration = 50 //in deciseconds
 	var/jaunt_in_time = 5
@@ -32,14 +32,14 @@
 		INVOKE_ASYNC(src, .proc/do_jaunt, target)
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/do_jaunt(mob/living/target)
-	target.notransform = 1
+	target.notransform = TRUE
 	var/turf/mobloc = get_turf(target)
 	var/obj/effect/dummy/spell_jaunt/holder = new jaunt_type_path(mobloc)
 	new jaunt_out_type(mobloc, target.dir)
 	target.ExtinguishMob()
 	target.forceMove(holder)
 	target.reset_perspective(holder)
-	target.notransform = 0 //mob is safely inside holder now, no need for protection.
+	target.notransform = FALSE //mob is safely inside holder now, no need for protection.
 	if(jaunt_water_effect)
 		jaunt_steam(mobloc)
 
@@ -86,8 +86,8 @@
 	var/reappearing = 0
 	var/movedelay = 0
 	var/movespeed = 2
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
