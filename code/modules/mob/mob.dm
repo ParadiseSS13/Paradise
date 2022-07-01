@@ -922,7 +922,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(isliving(M))
 		var/mob/living/L = M
 		if(L.mob_size <= MOB_SIZE_SMALL)
-			return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+			return // Stops pAI drones and small mobs (parrots, crabs) from stripping people. --DZD
 	if(!M.can_strip)
 		return
 	if(usr == src)

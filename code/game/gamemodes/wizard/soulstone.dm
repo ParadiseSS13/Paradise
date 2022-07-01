@@ -88,10 +88,6 @@
 		to_chat(user, "<span class='warning'>This being has no soul!</span>")
 		return ..()
 
-	if(M.has_brain_worms()) //Borer stuff - RR
-		to_chat(user, "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>")
-		return ..()
-
 	if(jobban_isbanned(M, ROLE_CULTIST) || jobban_isbanned(M, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
 		return ..()
