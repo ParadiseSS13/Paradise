@@ -89,7 +89,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 /mob/dead/observer/Initialize(mapload, flags=1)
 	. = ..()
-	var/mob/body = src.mind?.current
+	var/mob/body = mind?.current
 	//starts ghosts off with all HUDs.
 	if(istype(body))
 		toggle_all_huds_on(body)
