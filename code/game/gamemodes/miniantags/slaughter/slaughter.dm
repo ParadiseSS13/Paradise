@@ -29,7 +29,6 @@
 	maxHealth = 200
 	health = 200
 	environment_smash = 1
-	//universal_understand = TRUE
 	obj_damage = 50
 	melee_damage_lower = 30
 	melee_damage_upper = 30
