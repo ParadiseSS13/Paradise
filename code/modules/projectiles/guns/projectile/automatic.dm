@@ -81,7 +81,7 @@
 	desc = "A rejected prototype three-round burst 10mm submachine gun, designated 'SABR'. Surplus of this model are bouncing around armories of Nanotrasen Space Stations. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	item_state = "saber"
-	mag_type = /obj/item/ammo_box/magazine/smgm10mm
+	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 

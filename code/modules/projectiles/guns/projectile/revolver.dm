@@ -159,7 +159,7 @@
 /obj/item/gun/projectile/revolver/russian
 	name = "\improper Russian Revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
-	icon_state = "russianrevolver"
+	icon_state = "russian_revolver"
 	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/rus357
 	var/spun = 0

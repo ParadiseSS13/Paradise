@@ -1884,7 +1884,7 @@
 	name = "Syndicate Outpost"
 	})
 "dr" = (
-/obj/item/ammo_box/magazine/m9mm,
+/obj/item/ammo_box/magazine/m10mm,
 /obj/structure/closet/cabinet,
 /obj/item/suppressor,
 /turf/simulated/floor/plasteel/airless{
