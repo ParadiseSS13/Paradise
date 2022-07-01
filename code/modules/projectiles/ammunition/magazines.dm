@@ -223,7 +223,7 @@
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
 	icon_state = "enforcer"
-	ammo_type = /obj/item/ammo_casing/rubber10mm
+	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
 	multi_sprite_step = 1
 	caliber = "9mm"
@@ -245,7 +245,7 @@
 	var/ammo = ammo_count()
 	if(!ammo)
 		return 0
-	if(istype(contents[length(contents)], /obj/item/ammo_casing/rubber10mm))
+	if(istype(contents[length(contents)], /obj/item/ammo_casing/rubber9mm))
 		return 1
 	return 0
 
@@ -309,7 +309,7 @@
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/apsm9mm
-	name = "stechkin pistol magazine (9mm)"
+	name = "stechkin aps magazine (9mm)"
 	icon_state = "9mmaps"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -423,7 +423,7 @@
 
 /obj/item/ammo_box/magazine/toy/smg
 	name = "foam force SMG magazine"
-	icon_state = "smg10mm"
+	icon_state = "smg9mm"
 	max_ammo = 20
 	multi_sprite_step = 4
 

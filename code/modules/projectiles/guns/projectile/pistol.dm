@@ -1,7 +1,7 @@
 //Stetchkin//
 /obj/item/gun/projectile/automatic/pistol
-	name = "makarov pistol"
-	desc = "A small, easily concealable 9mm handgun. Has a threaded barrel for suppressors."
+	name = "stechkin pistol"
+	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=3;materials=2;syndicate=4"
