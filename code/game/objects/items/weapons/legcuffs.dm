@@ -200,6 +200,9 @@
 
 /obj/item/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom)
 	if(iscarbon(hit_atom))
+		var/mob/living/carbon/C = hit_atom
+		if(C.legcuffed)
+			return
 		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy(get_turf(hit_atom))
 		B.Crossed(hit_atom, null)
 		qdel(src)
