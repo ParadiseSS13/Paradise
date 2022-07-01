@@ -278,7 +278,7 @@
 	. = ..()
 	verbs -= /mob/living/verb/pulled
 	verbs -= /mob/verb/me_verb
-	ADD_TRAIT(src, TRAIT_SEESHUD_MEDICAL, SPECIES_TRAIT)
+	ADD_TRAIT(src, TRAIT_SEESHUD_MEDICAL, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
 	. = ..()

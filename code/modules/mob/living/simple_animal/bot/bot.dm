@@ -177,8 +177,6 @@
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
-		diag_hud.add_hud_to(src)
-		permanent_huds |= diag_hud
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
@@ -189,8 +187,9 @@
 
 /mob/living/simple_animal/bot/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SEESHUD_DIAGNOSTIC_ADVANCED, ROUNDSTART_TRAIT)
 	if(seeshud_trait)
-		ADD_TRAIT(src, seeshud_trait, INNATE_TRAIT)
+		ADD_TRAIT(src, seeshud_trait, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return //we use a different hud

@@ -103,8 +103,6 @@ GLOBAL_LIST_INIT(seeshud_trait_to_hud, list(
 /datum/atom_hud/proc/remove_hud_from(mob/M)
 	if(!M)
 		return
-	if(src in M.permanent_huds)
-		return
 	for(var/atom/A in hudatoms)
 		remove_from_single_hud(M, A)
 	hudusers -= M

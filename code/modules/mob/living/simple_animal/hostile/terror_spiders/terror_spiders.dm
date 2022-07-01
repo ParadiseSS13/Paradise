@@ -301,7 +301,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SEESHUD_MEDICAL, SPECIES_TRAIT)
+	ADD_TRAIT(src, TRAIT_SEESHUD_MEDICAL, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
 	if(spider_awaymission)

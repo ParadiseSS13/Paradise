@@ -67,11 +67,7 @@
 				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
 	//SECHUD
-	ADD_TRAIT(src, TRAIT_SEESHUD_SECURITY, SPECIES_TRAIT)
-	// var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	// secsensor.add_hud_to(src)
-	// permanent_huds |= secsensor
-
+	ADD_TRAIT(src, TRAIT_SEESHUD_SECURITY, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
 	if(access_card)

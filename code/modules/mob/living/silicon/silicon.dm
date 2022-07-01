@@ -32,8 +32,6 @@
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
 
 
-	// var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
-	// var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/diag_hud_trait = TRAIT_SEESHUD_DIAGNOSTIC // Determines the diagnostic hud trait to use
 
 /mob/living/silicon/New()
@@ -314,29 +312,15 @@
 	REMOVE_TRAIT(src, TRAIT_SEESHUD_SECURITY, TRAIT_GENERIC)
 	REMOVE_TRAIT(src, TRAIT_SEESHUD_MEDICAL, TRAIT_GENERIC)
 	REMOVE_TRAIT(src, diag_hud_trait, TRAIT_GENERIC)
-	// var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
-	// var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	// var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
-	// secsensor.remove_hud_from(src)
-	// medsensor.remove_hud_from(src)
-	// diagsensor.remove_hud_from(src)
-
 
 /mob/living/silicon/proc/add_sec_hud()
 	ADD_TRAIT(src, TRAIT_SEESHUD_SECURITY, TRAIT_GENERIC)
-	// var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
-	// secsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/add_med_hud()
 	ADD_TRAIT(src, TRAIT_SEESHUD_MEDICAL, TRAIT_GENERIC)
-	// var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	// medsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
 	ADD_TRAIT(src, diag_hud_trait, TRAIT_GENERIC)
-	// var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
-	// diagsensor.add_hud_to(src)
-
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Diagnostic","Disable")

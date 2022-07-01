@@ -31,7 +31,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SEESHUD_MEDICAL, SPECIES_TRAIT)
+	ADD_TRAIT(src, TRAIT_SEESHUD_MEDICAL, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/hostile/guardian/healer/Stat()
 	..()
