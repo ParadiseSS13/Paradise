@@ -384,7 +384,7 @@
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
 	flash_protect = FLASH_PROTECTION_WELDER
-	flash_protect = FLASH_PROTECTION_NONE
+	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
@@ -496,7 +496,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
-	flash_protect = FLASH_PROTECTION_NONE
+	tint = FLASH_PROTECTION_NONE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',

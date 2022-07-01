@@ -38,12 +38,6 @@
 			if(toggle_sound)
 				playsound(src.loc, "[toggle_sound]", 100, 0, 4)
 
-/obj/item/clothing/head/helmet/update_icon_state()
-	if(!can_toggle)
-		return
-	/// Done as such to not break chameleon gear since you can't rely on initial states
-	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
-
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
 	desc = "A helmet with a built-in visor. It doesn't seem to do anything, but it sure looks cool!"
