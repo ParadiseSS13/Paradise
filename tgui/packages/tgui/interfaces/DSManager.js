@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const DSManager = (props, context) => {
   const { act, data } = useBackend(context);
-  let slotOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  let slotOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
   return (
     <Window>
       <Window.Content>
@@ -20,14 +20,6 @@ export const DSManager = (props, context) => {
         </Section>
         <Section title="Slots">
             <LabeledList>
-            <LabeledList.Item label="Leader">
-              <Button
-                icon={data.lead ? 'toggle-on' : 'toggle-off'}
-                selected={data.lead}
-                content={data.lead ? 'Yes' : 'No'}
-                onClick={() => act('toggle_lead')}
-              />
-            </LabeledList.Item>
             <LabeledList.Item label="Deathsquad">
               {slotOptions.map((a, i) => (
                 <Button
@@ -43,8 +35,8 @@ export const DSManager = (props, context) => {
               ))}
             </LabeledList.Item>
             <LabeledList.Item label="Total Slots">
-              <Box color={data.total > data.spawnpoints ? 'red' : 'green'}>
-                {data.total} total, versus {data.spawnpoints} spawnpoints
+              <Box color={data.squad > data.spawnpoints ? 'red' : 'green'}>
+                {data.squad} squad, versus {data.spawnpoints} spawnpoints
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Safety">

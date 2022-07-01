@@ -3,8 +3,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 /datum/ui_module/ds_manager
 	name = "DS Manager"
-	var/leader_slot = 1
-	var/squad_slots = 5
+	var/squad_slots = 6
 	var/safety = TRUE
 	var/mission = null //default mission
 
@@ -27,7 +26,6 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			data["security_level_color"] = "red"
 		else
 			data["security_level_color"] = "purple"
-	data["lead"] = leader_slot
 	data["squad"] = squad_slots
 	data["total"] = leader_slot + squad_slots
 	data["spawnpoints"] = GLOB.emergencyresponseteamspawn.len
@@ -39,10 +37,8 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		return
 	. = TRUE
 	switch(action)
-		if("toggle_lead")
-			leader_slot = leader_slot ? 0 : 1
 		if("set_squad")
-			squad_slots = text2num(params["set_sec"])
+			squad_slots = text2num(params["set_squad"])
 		if("toggle_safety")
 			safety = !(safety)
 			if (safety == FALSE)
@@ -50,8 +46,6 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		if("dispatch_ds")
 			safety = !(safety)
 			var/slots_list = list()
-			if(leader_slot > 0)
-				slots_list += "leader: [leader_slot]"
 			if(squad_slots > 0)
 				slots_list += "squad: [squad_slots]"
 			var/slot_text = english_list(slots_list)
@@ -91,7 +85,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			nuke_code = N.r_code
 			break
 
-	// GLOB.sent_strike_team = 1
+	/* GLOB.sent_strike_team = 1 */ // TODO: PUT THIS SOMEWHERE
 
 	// Spawns commandos and equips them.
 	var/commando_number = COMMANDOS_POSSIBLE //for selecting a leader
@@ -111,10 +105,10 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			to_chat(user, "This ghost is no longer available for deathsquad! (Cloned, revived, closed the game, etc.)")
 			return
 
-		if(!is_leader)
-			var/new_dstype = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
-			if(new_dstype == "Cyborg")
-				use_ds_borg = TRUE
+		// if(!is_leader) // Temporary, need to check if cyborgs work
+		var/new_dstype = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
+		if(new_dstype == "Cyborg")
+			use_ds_borg = TRUE
 
 		if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
 			to_chat(user, "This ghost is no longer available for deathsquad! (Cloned, revived, closed the game, etc.)")
@@ -176,6 +170,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
 	return 1
 
+// MIND CODE - VERY WIP
 /proc/create_death_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/M = new(spawn_location.loc)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
