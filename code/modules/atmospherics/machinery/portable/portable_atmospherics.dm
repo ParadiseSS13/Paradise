@@ -69,7 +69,7 @@
 	if(!connected_port)
 		return
 
-	anchored = TRUE
+	anchored = FALSE
 
 	connected_port.connected_device = null
 	connected_port = null
