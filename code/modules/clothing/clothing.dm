@@ -360,13 +360,23 @@ BLIND     // can't see anything
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
 	var/blockTracking // Do we block AI tracking?
-	var/HUDType = null
+	var/seeshud_trait = null
 
 	var/vision_flags = 0
 	var/see_in_dark = 0
 	var/lighting_alpha
 
 	var/can_toggle = null
+
+/obj/item/clothing/head/equipped(mob/living/carbon/human/user, slot)
+	..()
+	if(istype(user) && seeshud_trait && slot == slot_head)
+		ADD_TRAIT(user, seeshud_trait, "[CLOTHING_TRAIT][UID()]")
+
+/obj/item/clothing/head/dropped(mob/living/carbon/human/user)
+	..()
+	if(istype(user) && seeshud_trait && user.head == src)
+		REMOVE_TRAIT(user, seeshud_trait, "[CLOTHING_TRAIT][UID()]")
 
 //Mask
 /obj/item/clothing/mask

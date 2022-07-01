@@ -49,7 +49,7 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 	see_in_dark = 8
-	HUDType = MEDHUD
+	seeshud_trait = TRAIT_SEESHUD_MEDICAL
 	strip_delay = 130
 
 /obj/item/clothing/suit/space/deathsquad
