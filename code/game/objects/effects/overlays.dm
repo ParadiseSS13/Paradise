@@ -24,7 +24,6 @@
 	icon_state = "palm1"
 	density = TRUE
 	layer = 5
-	anchored = TRUE
 
 /obj/effect/overlay/palmtree_l
 	name = "Palm tree"
@@ -32,7 +31,6 @@
 	icon_state = "palm2"
 	density = TRUE
 	layer = 5
-	anchored = TRUE
 
 /obj/effect/overlay/coconut
 	name = "Coconuts"
@@ -54,7 +52,6 @@
 	name = "Wallrot"
 	desc = "Ick..."
 	icon = 'icons/effects/wallrot.dmi'
-	anchored = TRUE
 	density = TRUE
 	layer = 5
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

@@ -29,7 +29,6 @@
 		var/mark = ""
 		icon = 'icons/misc/mark.dmi'
 		icon_state = "blank"
-		anchored = TRUE
 		layer = 99
 		plane = HUD_PLANE
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -50,12 +49,10 @@
 	name = "begin"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "begin"
-	anchored = TRUE
 
 /obj/effect/projection
 	name = "Projection"
 	desc = "This looks like a projection of something."
-	anchored = TRUE
 
 
 /obj/effect/shut_controller

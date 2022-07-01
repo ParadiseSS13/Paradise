@@ -3,7 +3,6 @@
 	name = "FORCEWALL"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "m_shield"
-	anchored = TRUE
 	opacity = FALSE
 	density = TRUE
 	var/lifetime = 30 SECONDS

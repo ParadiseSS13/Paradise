@@ -3,7 +3,6 @@
 /obj/structure/glowshroom
 	name = "glowshroom"
 	desc = "Mycena Bregprox, a species of mushroom that glows in the dark."
-	anchored = TRUE
 	opacity = FALSE
 	density = FALSE
 	icon = 'icons/obj/lighting.dmi'

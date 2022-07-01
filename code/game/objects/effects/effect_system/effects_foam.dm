@@ -6,7 +6,6 @@
 	name = "foam"
 	icon_state = "foam"
 	opacity = FALSE
-	anchored = TRUE
 	density = FALSE
 	layer = OBJ_LAYER + 0.9
 	animate_movement = 0

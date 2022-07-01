@@ -227,7 +227,6 @@
 	desc = "Green squishy mess."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
-	anchored = TRUE
 
 /obj/structure/spider/cocoon
 	name = "cocoon"
