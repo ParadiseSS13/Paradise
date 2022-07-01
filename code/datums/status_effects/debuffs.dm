@@ -152,7 +152,7 @@
 /datum/status_effect/bluespace_slowdown
 	id = "bluespace_slowdown"
 	alert_type = null
-	duration = 10 SECONDS
+	duration = 15 SECONDS
 
 /datum/status_effect/bluespace_slowdown/on_apply()
 	owner.next_move_modifier *= 2

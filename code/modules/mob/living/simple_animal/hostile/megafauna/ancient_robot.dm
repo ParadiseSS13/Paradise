@@ -14,7 +14,7 @@
 
 /*
 
-Ancient combat robot (a better name is still under work)
+Vetus Speculator
 
 An old 4 legged self learning robot made from a long gone civilization. Likes to scan and learn from things... Including crewmembers.
 
@@ -38,15 +38,16 @@ Finaly, for each mode, it has a special attack.
 	- Vortex causes a small earthquake, leading to rocks falling from the sky.
 
 Upon reaching critical HP (normally death), it preps a 10 second self destruct, before exploding. Large tell, hard to miss.
-Loot: Anomaly core that matches the mode that was picked of the robot. A pinpointer that can point to tendrils, which should be fine, as by the time this is killed, the round should be an hour or more over.
+Loot: Anomaly core that matches the mode that was picked of the robot. A pinpointer that can point to tendrils, which should be fine, as by the time this is killed, the round should be an hour or more over. As well as a variety of raw ores.
+Crusher Loot: Adaptive inteligence core, a trophy that temporarly increases the force of a crusher against a target it has hit within the last 30 seconds by 2 per hit, up to 20 extra force.
 
 Difficulty: Hard
 
 */
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot
-	name = "old ass hunk of junk"
-	desc = "what is this piece of shit?"
+	name = "\improper Vetus Speculator"
+	desc = "An ancient robot from a long forgotten civilization. Adapts to the enviroment, and what it finds, to be the ideal combatant."
 	health = 2500
 	maxHealth = 2500
 	attacktext = "shocks"
@@ -168,11 +169,11 @@ Difficulty: Hard
 	if(prob(30 + anger_modifier))
 		triple_charge()
 
-	else if(prob(60 + anger_modifier))
-		do_special_move()
-
 	else if(prob(15 + anger_modifier))
 		spawn_anomalies()
+
+	else if(prob(60 + anger_modifier))
+		do_special_move()
 
 	calculate_extra_player_anger()
 
@@ -228,7 +229,7 @@ Difficulty: Hard
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A) //list of bumped in current charge
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A)
 	if(charging)
 		DestroySurroundings()
 		if(isliving(A))
@@ -247,7 +248,6 @@ Difficulty: Hard
 	..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/body_shield()
-	//add overlay of shield, give it immunity to ranged (but not melee) during duration.
 	body_shield_enabled = TRUE
 	visible_message("<span class='danger'>[src] creates some sort of energy shield!</span>")
 	add_overlay("shield")
@@ -262,7 +262,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/item/projectile/P)
 	if(body_shield_enabled)
 		do_sparks(2, 1, src)
-		visible_message("<span class='danger'>[src]'s shield deflects the projectile in a shower of sparks!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+		visible_message("<span class='danger'>[src]'s shield deflects [P] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 		if(P.damage)
 			disable_shield()
 		return
@@ -315,7 +315,7 @@ Difficulty: Hard
 			for(var/turf/T in view(4, target))
 				if(T.density)
 					continue
-				if(T in range(2, target))
+				if(T in range(1, target))
 					continue
 				turfs += T
 			while(volcanos < 3 && length(turfs))
@@ -506,7 +506,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg
 	name = "leg"
-	desc = "leg"
+	desc = "Legs with a mounted turret, for shooting and crushing small miners like you."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "leg"
 	maxHealth = INFINITY //it's fine trust me
@@ -568,7 +568,7 @@ Difficulty: Hard
 	fake_hp = clamp(fake_hp - damage, 0, fake_max_hp)
 	if(damage && ranged && fake_hp <= 200)
 		ranged = FALSE
-		visible_message("<span class='danger'>[src]'s turret breaks and pulls back in the leg!</span>")
+		visible_message("<span class='danger'>[src]'s turret breaks and pulls back into the leg!</span>")
 	if(damage && transfer_rate <= 0.25) //warn that you are not doing much damage
 		visible_message("<span class='danger'>[src] looks too damaged to hurt it much more!</span>")
 	health_and_snap_check(FALSE)
@@ -622,6 +622,8 @@ Difficulty: Hard
 	return ..()
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/OpenFire() // This is (idealy) to keep the turrets on the legs from shooting people that are close to the robot. The guns will only shoot if they won't hit the robot, or if the user is between a leg and another leg / robot
+	if(core.exploding)
+		return
 	if(get_dist(target, core) < 3)
 		return
 	if(prob(33))
@@ -633,12 +635,12 @@ Difficulty: Hard
 	playsound(src, 'sound/effects/meteorimpact.ogg', 60, TRUE, 2, TRUE) //turned way down from bubblegum levels due to 4 legs
 
 /obj/item/projectile/ancient_robot_bullet
-	damage = 5
+	damage = 6
 	damage_type = BRUTE
 
 /obj/item/projectile/rock
 	name= "thrown rock"
-	damage = 20
+	damage = 25
 	damage_type = BRUTE
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small1"
@@ -688,7 +690,7 @@ Difficulty: Hard
 	for(var/mob/living/L in T.contents)
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 			continue
-		L.adjustBruteLoss(30)
+		L.adjustBruteLoss(35)
 		to_chat(L, "<span class='userdanger'>You're hit by the falling rock!</span>")
 
 /obj/effect/temp_visual/fireball/rock
