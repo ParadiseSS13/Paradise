@@ -75,8 +75,9 @@
 					reports += list(report_info)
 			page_state = LIBRARY_MENU_REPORTS
 		if("delete_book")
-			if(GLOB.library_catalog.removeBookByID(text2num(params["bookid"])))
-				log_and_message_admins("has deleted the book [params["bookid"]].")
+			if(text2num(params["bookid"])) //make sure this is actually a number
+				if(GLOB.library_catalog.removeBookByID(text2num(params["bookid"])))
+					log_and_message_admins("has deleted the book [params["bookid"]].")
 		if("view_book")
 			if(params["bookid"])
 				view_book_by_id(text2num(params["bookid"]))
@@ -104,11 +105,11 @@
 			var/answer = params["answer"]
 			switch(id)
 				if("specify_ssid_delete")
-					if(!answer)
+					if(!answer || !text2num(answer))
 						return
 					var/confirm = alert("You are about to delete book [text2num(answer)]", "Confirm Deletion", "Yes", "No")
 					if(confirm != "Yes")
-						return
+						return //we don't need to sanitize b/c removeBookyByID uses id=:id instead of like statemetns
 					if(GLOB.library_catalog.removeBookByID(text2num(answer)))
 						log_and_message_admins("has deleted the book [text2num(answer)].")
 				if("specify_ckey_search")
@@ -133,11 +134,12 @@
 				if("specify_ckey_delete")
 					if(!answer)
 						return
+					var/sanitized_answer = paranoid_sanitize(answer) //the last thing we want happening is someone deleting every book with "%%"
 					var/confirm //We want to be absolutely certain an admin wants to do this
 					confirm = alert("You are about to mass delete potentially up to 10 books", "Confirm Deletion", "Yes", "No")
 					if(confirm != "Yes")
 						return
-					if(GLOB.library_catalog.removeBooksByCkey(answer))
+					if(GLOB.library_catalog.removeBooksByCkey(sanitized_answer))
 						log_and_message_admins("has deleted all books uploaded by [answer].")
 				else
 					return FALSE
@@ -184,7 +186,7 @@
 /datum/ui_module/library_manager/Topic(href, href_list)
 	..()
 	if(!check_rights(R_ADMIN))
-		log_admin("[key_name(user)] tried to use the library manager without authorization.")
+		log_admin("[key_name(usr)] tried to use the library manager without authorization.")
 		message_admins("[key_name_admin(usr)] has attempted to override the library manager!")
 		return
 	if(href_list["next_page"])

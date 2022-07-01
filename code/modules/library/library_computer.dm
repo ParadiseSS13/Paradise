@@ -4,6 +4,8 @@
 #define LOGIN_FULL   1
 ///Login state for our computer, this state grants basic access to functions
 #define LOGIN_PUBLIC 2
+///Wait time before printing another book, used to prevent spam
+#define PRINTING_COOLDOWN (5 SECONDS)
 
 /**
   * # Library Computer
@@ -45,7 +47,7 @@
 	///How Long a book is allowed to be checked out for
 	var/checkoutperiod = 15 MINUTES
 	///Wait period for printing books
-	var/print_cooldown
+	var/print_cooldown = 5 SECONDS
 
 
 /obj/machinery/computer/library/Initialize(mapload)
@@ -154,8 +156,8 @@
 		var/finedue = FALSE
 		if(remaining_time <= 0) //if remaining time is less than zero, you're late
 			late = TRUE
-			if(remaining_time <= -15) //if you've been late 15 minutes, you can now fine a player
-				finedue = TRUE
+			//if(remaining_time <= -15) //if you've been late 15 minutes, you can now fine a player
+				//finedue = TRUE
 		remaining_time = round(remaining_time)
 
 		var/list/checkout_data = list(
@@ -270,19 +272,21 @@
 			var/datum/cachedbook/orderedbook = GLOB.library_catalog.getBookByID(params["bookid"])
 			if(orderedbook && print_cooldown <= world.time)
 				make_external_book(orderedbook)
-				print_cooldown = world.time + (10 SECONDS)
+				print_cooldown = world.time + PRINTING_COOLDOWN
 		if("order_programmatic_book")
 			var/datum/programmaticbook/PB = GLOB.library_catalog.getProgrammaticBookByID(params["bookid"])
 			if(PB && print_cooldown <= world.time)
 				make_programmatic_book(PB)
-				print_cooldown = world.time + (10 SECONDS)
+				print_cooldown = world.time + PRINTING_COOLDOWN
 
 		//rating acts
 		if("set_rating")
 			if(params["rating_value"])
 				user_data.selected_rating = text2num(params["rating_value"])
 		if("rate_book")
-			GLOB.library_catalog.rateBook(params["user_ckey"], params["bookid"], user_data.selected_rating)
+			if(GLOB.library_catalog.rateBook(params["user_ckey"], params["bookid"], user_data.selected_rating))
+				playsound(loc, 'sound/machines/ping.ogg', 25, 0)
+				atom_say("Rating Succesful!")
 			populate_booklist()
 		//Report Acts
 		if("submit_report")

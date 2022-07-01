@@ -347,6 +347,7 @@
 	while(query.NextRow())
 		if(!query.item[2]) //we don't want to decode something that is null
 			break
+		message_admins(query.item[2])
 		book_ratings = list(query.item[1], json_decode(query.item[2]))
 
 	qdel(query)

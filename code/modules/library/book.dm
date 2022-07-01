@@ -83,14 +83,15 @@
 /obj/item/book/attack_self(mob/user as mob)
 	if(carved)
 		//Attempt to remove inserted object, if none found, remind user that someone vandalized their book (Bastards)!
-		if(!remove_stored_item(user, FALSE))
+		if(!remove_stored_item(user, TRUE))
 			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
 		return
+	user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
 	read_book(user)
 
 /obj/item/book/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/pen))
-		edit_book()
+		edit_book(user)
 	else if(istype(I, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/scanner = I
 		scanner.scanBook(src, user) //abstraction and proper scoping ftw | did you know barcode scanner code used to be here?
@@ -127,7 +128,7 @@
 		return
 	if(!can_read(user))
 		return
-	user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
+
 	show_content(user) //where all the magic happens
 	onclose(user, "book")
 
@@ -158,7 +159,7 @@
 		user << browse("<body bgcolor='[book_bgcolor]'>[dat]<br>" + "[pages[current_page]]", "window=book[UID()]")
 
 /obj/item/book/Topic(href, href_list)
-	if(!..())
+	if(..())
 		return
 	if(href_list["next_page"])
 		if(current_page > length(pages)) //should never be false, but just in-case
@@ -315,12 +316,12 @@
 	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
 
 
-/obj/item/book/proc/remove_stored_item(mob/user, thrown = FALSE)
+/obj/item/book/proc/remove_stored_item(mob/user, display_message = TRUE)
 	if(!store)
-		if(!thrown) //we don't wanna display this message if the object falls out because it was thrown
+		if(display_message) //we don't wanna display this message in certain cases if there's not a user removing it
 			to_chat(user, "<span class='notice'>You search [name] but there is nothing in it!</span>")
 		return FALSE
-	if(!thrown)
+	if(display_message)
 		to_chat(user, "<span class='notice'>You carefully remove [store] from [name]!</span>")
 	store.forceMove(get_turf(store.loc))
 	store = null
