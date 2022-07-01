@@ -230,7 +230,7 @@ FIRE ALARM
 		return 1
 
 	if(fingerprintslast == user.ckey && world.time < last_time_pulled + 2 SECONDS) //no spamming >:C
-		to_chat(user, "<span class='warning'>It is still processing your earlier command.</span>")
+		to_chat(user, "<span class='warning'>[src] is still processing your earlier command.</span>")
 		return
 
 	toggle_alarm(user)
