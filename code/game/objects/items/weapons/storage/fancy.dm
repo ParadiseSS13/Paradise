@@ -210,13 +210,13 @@
 /obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(istype(W, /obj/item/match))
 		var/obj/item/match/M = W
-		if(M.lit == 1)
+		if(M.lit)
 			if(!stop_messages)
 				to_chat(usr, "<span class='notice'>Putting a lit [W] in [src] probably isn't a good idea.</span>")
 			return 0
 	if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/L = W
-		if(L.lit == 1)
+		if(L.lit)
 			if(!stop_messages)
 				to_chat(usr, "<span class='notice'>Putting [W] in [src] while lit probably isn't a good idea.</span>")
 			return 0

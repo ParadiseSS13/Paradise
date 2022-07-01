@@ -5,11 +5,11 @@
 	desc = "A block of stone used to sharpen things."
 	w_class = WEIGHT_CLASS_SMALL
 	usesound = 'sound/items/screwdriver.ogg'
-	var/used = 0
+	var/used = FALSE
 	var/increment = 4
 	var/max = 30
 	var/prefix = "sharpened"
-	var/requires_sharpness = 1
+	var/requires_sharpness = TRUE
 	var/claw_damage_increase = 2
 
 
@@ -40,7 +40,7 @@
 		return
 	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
 	if(!requires_sharpness)
-		I.sharp = 1
+		I.sharp = TRUE
 	I.force = clamp(I.force + increment, 0, max)
 	I.throwforce = clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
@@ -77,5 +77,5 @@
 	increment = 200
 	max = 200
 	prefix = "super-sharpened"
-	requires_sharpness = 0
+	requires_sharpness = FALSE
 	claw_damage_increase = 200

@@ -6,7 +6,7 @@
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=2"
-	var/open = 0
+	var/open = FALSE
 
 /obj/item/conversion_kit/New()
 	..()

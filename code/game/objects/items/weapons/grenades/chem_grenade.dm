@@ -106,7 +106,7 @@
 			add_attack_logs(user, src, "has primed (contained [contained])", ATKLOG_FEW)
 			to_chat(user, "<span class='warning'>You prime [src]! [det_time / 10] second\s!</span>")
 			playsound(user.loc, 'sound/weapons/armbomb.ogg', 60, 1)
-			active = 1
+			active = TRUE
 			update_icon()
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
@@ -306,12 +306,12 @@
 		nadeassembly = new(src)
 		nadeassembly.a_left = new /obj/item/assembly/igniter(nadeassembly)
 		nadeassembly.a_left.holder = nadeassembly
-		nadeassembly.a_left.secured = 1
+		nadeassembly.a_left.secured = TRUE
 		nadeassembly.a_right = new typekey(nadeassembly)
 		if(!nadeassembly.a_right.secured)
 			nadeassembly.a_right.toggle_secure() // necessary because fuxing prock_sensors
 		nadeassembly.a_right.holder = nadeassembly
-		nadeassembly.secured = 1
+		nadeassembly.secured = TRUE
 		nadeassembly.master = src
 		nadeassembly.update_icon()
 		stage = READY
