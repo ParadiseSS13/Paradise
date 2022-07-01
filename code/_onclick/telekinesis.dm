@@ -104,7 +104,7 @@
 /obj/item/tk_grab/afterattack(atom/target , mob/living/user, proximity, params)//TODO: go over this
 	if(!target || !user)
 		return
-	if(last_throw+3 > world.time)
+	if(last_throw+30 > world.time)
 		return
 	if(!host || host != user)
 		qdel(src)
