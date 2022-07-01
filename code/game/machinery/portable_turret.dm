@@ -157,19 +157,18 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	if(stat & BROKEN)
 		icon_state = "destroyed_target_prism"
-		return
-	if(!raised || !raising)
-		icon_state = "turretCover"
-		return
-	if(!powered() && !enabled)
-		icon_state = "grey_target_prism"
-		return
-	if(iconholder)
-		//lasers have a orange icon
-		icon_state = "orange_target_prism"
+	else if(raised || raising)
+		if(powered() && enabled)
+			if(iconholder)
+				//lasers have a orange icon
+				icon_state = "orange_target_prism"
+			else
+				//almost everything has a blue icon
+				icon_state = "target_prism"
+		else
+			icon_state = "grey_target_prism"
 	else
-		//almost everything has a blue icon
-		icon_state = "target_prism"
+		icon_state = "turretCover"
 
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)

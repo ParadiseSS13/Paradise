@@ -43,19 +43,19 @@
 		return
 	if(stat & BROKEN)
 		icon_state = "[lasercolor]destroyed_target_prism"
-		return
-	if(!powered())
-		icon_state = "[lasercolor]grey_target_prism"
-		return
-	if(!enabled)
-		icon_state = "[lasercolor]grey_target_prism"
-		return
-	if(iconholder)
-		//lasers have a orange icon
-		icon_state = "[lasercolor]orange_target_prism"
 	else
-		//almost everything has a blue icon
-		icon_state = "[lasercolor]target_prism"
+		if(powered())
+			if(enabled)
+				if(iconholder)
+					//lasers have a orange icon
+					icon_state = "[lasercolor]orange_target_prism"
+				else
+					//almost everything has a blue icon
+					icon_state = "[lasercolor]target_prism"
+			else
+				icon_state = "[lasercolor]grey_target_prism"
+		else
+			icon_state = "[lasercolor]grey_target_prism"
 
 /obj/machinery/porta_turret/tag/bullet_act(obj/item/projectile/P)
 	..()

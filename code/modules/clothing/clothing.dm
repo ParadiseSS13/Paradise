@@ -369,8 +369,9 @@ BLIND     // can't see anything
 	var/can_toggle = null
 
 /obj/item/clothing/head/update_icon_state()
-	icon_state = "[initial(icon_state)][up ? "_up" : ""]"
-	item_state = "[initial(item_state)][up ? "_up" : ""]"
+	/// Done as such to not break chameleon gear since you can't rely on initial states
+	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
+	item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
 
 //Mask
 /obj/item/clothing/mask
@@ -383,7 +384,8 @@ BLIND     // can't see anything
 	put_on_delay = 40
 
 /obj/item/clothing/mask/update_icon_state()
-	icon_state = "[initial(icon_state)][up ? "_up" : ""]"
+	/// Done as such to not break chameleon gear since you can't rely on initial states
+	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(mob/user)
