@@ -21,6 +21,7 @@
 	window_id = "autoed209"
 	window_name = "Automatic Security Unit v2.6"
 	path_image_color = "#FF0000"
+	seeshud_trait = TRAIT_SEESHUD_SECURITY
 
 	allow_pai = 0
 
@@ -43,8 +44,8 @@
 	var/shoot_sound = 'sound/weapons/taser.ogg'
 
 
-/mob/living/simple_animal/bot/ed209/Initialize(mapload, created_name, created_lasercolor)
-	. = ..()
+/mob/living/simple_animal/bot/ed209/New(loc, created_name, created_lasercolor)
+	..()
 	if(created_name)
 		name = created_name
 	if(created_lasercolor)
@@ -66,8 +67,6 @@
 			else if (lasercolor == "r")
 				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
-	//SECHUD
-	ADD_TRAIT(src, TRAIT_SEESHUD_SECURITY, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
 	if(access_card)

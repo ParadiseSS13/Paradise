@@ -81,12 +81,13 @@
 	arrest_type = 1
 	weaponscheck = 1
 
-/mob/living/simple_animal/bot/secbot/Initialize(mapload)
-	. = ..()
+/mob/living/simple_animal/bot/secbot/New()
+	..()
 	icon_state = "[base_icon][on]"
-	var/datum/job/detective/J = new/datum/job/detective
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+	spawn(3)
+		var/datum/job/detective/J = new/datum/job/detective
+		access_card.access += J.get_access()
+		prev_access = access_card.access
 
 /mob/living/simple_animal/bot/secbot/turn_on()
 	..()
