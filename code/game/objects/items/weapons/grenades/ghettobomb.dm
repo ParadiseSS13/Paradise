@@ -12,7 +12,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	active = FALSE
-	det_time = 50
+	det_time = 5 SECONDS
 	display_timer = FALSE
 	var/list/times
 
