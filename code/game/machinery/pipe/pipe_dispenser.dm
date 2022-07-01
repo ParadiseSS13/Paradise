@@ -99,6 +99,34 @@
 		new /obj/item/pipe_gsensor(loc)
 	return TRUE
 
+/obj/machinery/pipedispenser/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(unwrenched)
+		playsound(loc, I.usesound, 50, 1)
+		to_chat(user, "<span class='notice'>You begin to fasten \the [src] to the floor...</span>")
+		if(do_after(user, 20 * I.toolspeed, target = src))
+			user.visible_message( \
+				"[user] fastens \the [src].", \
+				"<span class='notice'>You have fastened \the [src]. Now it can dispense pipes.</span>", \
+				"You hear ratchet.")
+			anchored = TRUE
+			stat &= ~MAINT
+			unwrenched = FALSE
+			power_change()
+	else
+		playsound(loc, I.usesound, 50, 1)
+		to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
+		if(do_after(user, 40 * I.toolspeed, target = src))
+			user.visible_message( \
+				"[user] unfastens \the [src].", \
+				"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
+				"You hear ratchet.")
+			anchored = FALSE
+			stat |= MAINT
+			unwrenched = TRUE
+			if(usr.machine==src)
+				usr << browse(null, "window=pipedispenser")
+
 /obj/machinery/pipedispenser/attackby(obj/item/W as obj, mob/user as mob, params)
 	add_fingerprint(usr)
 	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
@@ -106,34 +134,7 @@
 		user.drop_item()
 		qdel(W)
 		return
-	else if(istype(W, /obj/item/wrench))
-		if(unwrenched)
-			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You begin to fasten \the [src] to the floor...</span>")
-			if(do_after(user, 20 * W.toolspeed, target = src))
-				user.visible_message( \
-					"[user] fastens \the [src].", \
-					"<span class='notice'>You have fastened \the [src]. Now it can dispense pipes.</span>", \
-					"You hear ratchet.")
-				anchored = TRUE
-				stat &= ~MAINT
-				unwrenched = FALSE
-				power_change()
-		else
-			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message( \
-					"[user] unfastens \the [src].", \
-					"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
-					"You hear ratchet.")
-				anchored = FALSE
-				stat |= MAINT
-				unwrenched = TRUE
-				if(usr.machine==src)
-					usr << browse(null, "window=pipedispenser")
-	else
-		return ..()
+	return ..()
 
 
 /obj/machinery/pipedispenser/disposal
