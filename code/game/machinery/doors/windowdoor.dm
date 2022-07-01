@@ -24,6 +24,9 @@
 	..()
 	if(set_dir)
 		setDir(set_dir)
+
+/obj/machinery/door/window/Initialize(mapload)
+	. = ..()
 	if(req_access && req_access.len)
 		icon_state = "[icon_state]"
 		base_state = icon_state

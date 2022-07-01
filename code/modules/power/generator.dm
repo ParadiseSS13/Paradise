@@ -16,9 +16,10 @@
 	var/lastgenlev = -1
 	var/lastcirc = "00"
 
-/obj/machinery/power/generator/New()
-	..()
+/obj/machinery/power/generator/Initialize(mapload)
+	. = ..()
 	update_desc()
+	connect()
 
 /obj/machinery/power/generator/proc/update_desc()
 	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."
@@ -34,10 +35,6 @@
 		hot_circ.generator = null
 	if(powernet)
 		disconnect_from_network()
-
-/obj/machinery/power/generator/Initialize()
-	..()
-	connect()
 
 /obj/machinery/power/generator/proc/connect()
 	connect_to_network()

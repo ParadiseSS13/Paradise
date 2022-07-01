@@ -10,6 +10,8 @@
 		to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
 	var/prev = stam_paralyzed
 	stam_paralyzed = TRUE
-	update_canmove()
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "stam_crit") // make defines later
+	ADD_TRAIT(src, TRAIT_FLOORED, "stam_crit")
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, "stam_crit")
 	if(!prev && getStaminaLoss() < 120) // Puts you a little further into the initial stamcrit, makes stamcrit harder to outright counter with chems.
 		adjustStaminaLoss(30, FALSE)
