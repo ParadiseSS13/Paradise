@@ -1,12 +1,12 @@
 //Stetchkin//
 /obj/item/gun/projectile/automatic/pistol
-	name = "stechkin pistol"
-	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
+	name = "makarov pistol"
+	desc = "A small, easily concealable 9mm handgun. Has a threaded barrel for suppressors."
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=3;materials=2;syndicate=4"
 	can_holster = TRUE
-	mag_type = /obj/item/ammo_box/magazine/m10mm
+	mag_type = /obj/item/ammo_box/magazine/m9mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
@@ -103,9 +103,9 @@
 	item_state = "deagleg"
 
 //APS Pistol//
-/obj/item/gun/projectile/automatic/pistol/APS
-	name = "stechkin APS pistol"
-	desc = "The original russian version of a widely used Syndicate sidearm. Uses 9mm ammo."
+/obj/item/gun/projectile/automatic/pistol/aps
+	name = "stechkin APS machine pistol"
+	desc = "An old Soviet machine pistol. It fires quickly, but kicks like a mule. Uses 9mm ammo."
 	icon_state = "aps"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"

@@ -5,9 +5,9 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-/obj/item/ammo_casing/rubber9mm
-	desc = "A 9mm rubber bullet casing."
-	caliber = "9mm"
+/obj/item/ammo_casing/rubber10mm
+	desc = "A 10mm rubber bullet casing."
+	caliber = "10mm"
 	icon_state = "r-casing"
 	projectile_type = /obj/item/projectile/bullet/weakbullet4
 
@@ -39,35 +39,35 @@
 /obj/item/ammo_casing/c10mm
 	desc = "A 10mm bullet casing."
 	caliber = "10mm"
-	projectile_type = /obj/item/projectile/bullet/midbullet3
+	projectile_type = /obj/item/projectile/bullet/weakbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c10mm/ap
-	projectile_type = /obj/item/projectile/bullet/midbullet3/ap
+	projectile_type = /obj/item/projectile/bullet/armourpiercing
 
-/obj/item/ammo_casing/c10mm/fire
-	projectile_type = /obj/item/projectile/bullet/midbullet3/fire
+/obj/item/ammo_casing/c10mm/inc
+	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
-/obj/item/ammo_casing/c10mm/hp
-	projectile_type = /obj/item/projectile/bullet/midbullet3/hp
+/obj/item/ammo_casing/c10mm/tox
+	projectile_type = /obj/item/projectile/bullet/toxinbullet
 
 /obj/item/ammo_casing/c9mm
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"
-	projectile_type = /obj/item/projectile/bullet/weakbullet3
+	projectile_type = /obj/item/projectile/bullet/midbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c9mm/ap
-	projectile_type = /obj/item/projectile/bullet/armourpiercing
+	projectile_type = /obj/item/projectile/bullet/midbullet3/ap
 
-/obj/item/ammo_casing/c9mm/tox
-	projectile_type = /obj/item/projectile/bullet/toxinbullet
+/obj/item/ammo_casing/c9mm/hp
+	projectile_type = /obj/item/projectile/bullet/midbullet3/hp
 
-/obj/item/ammo_casing/c9mm/inc
-	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
+/obj/item/ammo_casing/c9mm/fire
+	projectile_type = /obj/item/projectile/bullet/midbullet3/fire
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c46x30mm
