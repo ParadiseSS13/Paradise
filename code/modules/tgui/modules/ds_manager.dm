@@ -34,7 +34,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	data["safety"] = safety
 	return data
 
-/datum/ui_module/ds_manager/ui_act(action, params)
+/datum/ui_module/ds_manager/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	. = TRUE
@@ -46,7 +46,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		if("toggle_safety")
 			safety = !(safety)
 			if (safety == FALSE)
-				message_admins("<span class='notice'>[key_name_admin(usr)] has preparing to send a Deathsquad.</span>", 1)
+				message_admins("<span class='notice'>[key_name_admin(usr)] is preparing to send a Deathsquad.</span>", 1)
 		if("dispatch_ds")
 			safety = !(safety)
 			var/slots_list = list()
@@ -62,30 +62,26 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			notify_ghosts("A Deathsquad is being dispatched. Open positions: [slot_text]")
 			message_admins("[key_name_admin(usr)] is dispatching a Deathsquad. Slots: [slot_text]", 1)
 			log_admin("[key_name(usr)] dispatched a Deathsquad. Slots: [slot_text]")
-			trigger_deathsquad(usr, leader_slot, squad_slots, mission)
+			trigger_deathsquad(ui.user, leader_slot, squad_slots, mission)
 		else
 			return FALSE
 
-/proc/trigger_deathsquad(testingvariable, leader_slot, squad_slots, mission)
-	set src = testingvariable
+/datum/ui_module/ds_manager/proc/trigger_deathsquad(mob/user, leader_slot, squad_slots, mission)
 
-	while(!mission)
-	mission = sanitize(copytext(input(src, "Please specify a mission the deathsquad shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+	var/list/commando_ghosts = null
+	mission = sanitize(copytext(input(user, "Please specify a mission the deathsquad shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
 	if(!mission)
 		if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 			return
-	if(alert("Would you like to custom pick your Deathsquad?",,"Yes","No")!="Yes")		// Find ghosts willing to be DS
+	if(alert("Would you like to custom pick your Deathsquad?",,"Yes","No")=="Yes")		// Find ghosts willing to be DS
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-		var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, COMMANDOS_POSSIBLE, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
-		if(!commando_ghosts.len)
-			to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
-			return
+		commando_ghosts = pollCandidatesWithVeto(user.client, user, COMMANDOS_POSSIBLE, "Join the DeathSquad?",, 21, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 	else
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-		var/list/commando_ghosts = shuffle(SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source))
-		if(!commando_ghosts.len)
-			to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
-			return
+		commando_ghosts = shuffle(SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source))
+	if(!length(commando_ghosts))
+		to_chat(user, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
+		return
 	// Find the nuclear auth code
 	var/nuke_code
 	var/temp_code
@@ -111,16 +107,18 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		var/use_ds_borg = FALSE
 		var/mob/ghost_mob = pick(commando_ghosts)
 		commando_ghosts -= ghost_mob
-		if(!(!ghost_mob || !ghost_mob.key || !ghost_mob.client))
-			to_chat("This ghost is no longer available for deathsquad! (Cloned, revived, closed the game, etc.)")
+		if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
+			to_chat(user, "This ghost is no longer available for deathsquad! (Cloned, revived, closed the game, etc.)")
+			return
 
 		if(!is_leader)
 			var/new_dstype = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
 			if(new_dstype == "Cyborg")
 				use_ds_borg = TRUE
 
-		if(!(!ghost_mob || !ghost_mob.key || !ghost_mob.client)) // Have to re-check this due to the above alert() call
-			to_chat("This ghost is no longer available for deathsquad! (Cloned, revived, closed the game, etc.)")
+		if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
+			to_chat(user, "This ghost is no longer available for deathsquad! (Cloned, revived, closed the game, etc.)")
+			return
 
 		if(use_ds_borg)
 			var/mob/living/silicon/robot/deathsquad/R = new(get_turf(L))
