@@ -10,10 +10,10 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 /datum/ui_module/ghost_hud_panel
 	name = "Ghost HUD Panel"
 	/// Associative list to get the appropriate hud type based on the string passed from TGUI.
-	var/list/hud_type_lookup = list(
-		"medical" = DATA_HUD_MEDICAL_ADVANCED,
-		"security" = DATA_HUD_SECURITY_ADVANCED,
-		"diagnostic" = DATA_HUD_DIAGNOSTIC_ADVANCED
+	var/static/list/hud_trait_lookup = list(
+		"medical" = TRAIT_SEESHUD_MEDICAL,
+		"security" = TRAIT_SEESHUD_SECURITY,
+		"diagnostic" = TRAIT_SEESHUD_DIAGNOSTIC_ADVANCED,
 	)
 
 /datum/ui_module/ghost_hud_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
@@ -25,8 +25,8 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 
 /datum/ui_module/ghost_hud_panel/ui_data(mob/dead/observer/ghost)
 	var/list/data = list()
-	for(var/hud in hud_type_lookup)
-		data[hud] = (hud_type_lookup[hud] in ghost.data_hud_seen)
+	for(var/hud in hud_trait_lookup)
+		data[hud] = HAS_TRAIT_FROM(ghost, hud_trait_lookup[hud], "ghost_hud")
 	data["ahud"] = ghost.antagHUD
 	// Split radioactivity out as it isn't a true datahud
 	data["radioactivity"] = ghost.seerads
@@ -41,12 +41,12 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 
 	switch(action)
 		if("hud_on")
-			var/hud_type = hud_type_lookup[params["hud_type"]]
-			ghost.show_me_the_hud(hud_type)
+			var/hud_trait = hud_trait_lookup[params["hud_type"]]
+			ghost.show_me_the_hud(hud_trait)
 
 		if("hud_off")
-			var/hud_type = hud_type_lookup[params["hud_type"]]
-			ghost.remove_the_hud(hud_type)
+			var/hud_trait = hud_trait_lookup[params["hud_type"]]
+			ghost.remove_the_hud(hud_trait)
 
 		if("rads_on")
 			ghost.set_radiation_view(TRUE)

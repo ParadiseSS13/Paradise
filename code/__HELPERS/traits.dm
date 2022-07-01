@@ -21,7 +21,7 @@
 			target.status_traits[trait] |= list(source); \
 		} \
 \
-		SEND_SIGNAL(target, SIGNAL_ADDTRAIT(trait), trait); \
+		SEND_SIGNAL(target, SIGNAL_ADDTRAIT(trait), trait, source); \
 	} while (0)
 
 /**
@@ -44,7 +44,7 @@
 			for(var/TRAIT_SOURCE in target.status_traits[trait]) { \
 				if((!SOURCES && (TRAIT_SOURCE != ROUNDSTART_TRAIT)) || (TRAIT_SOURCE in SOURCES)) { \
 					if(length(target.status_traits[trait]) == 1) { \
-						SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(trait), trait); \
+						SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(trait), trait, sources); \
 					} \
 					LAZYREMOVEASSOC(target.status_traits, trait, TRAIT_SOURCE); \
 				} \
@@ -194,6 +194,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCE_DOORS 		"force_doors"
 #define TRAIT_AI_UNTRACKABLE	"AI_untrackable"
 
+#define TRAIT_SEESHUD_MEDICAL	"seeshud_medical"
+#define TRAIT_SEESHUD_JOB		"seeshud_job"
+#define TRAIT_SEESHUD_SECURITY	"seeshud_security"
+#define TRAIT_SEESHUD_HYDROPONIC	"seeshud_hydroponic"
+#define TRAIT_SEESHUD_DIAGNOSTIC	"seeshud_diagnostic"
+#define TRAIT_SEESHUD_DIAGNOSTIC_ADVANCED	"seeshud_diagnostic_advanced"
+
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
@@ -216,6 +223,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHANGELING_TRAIT "changeling"
 #define LYING_DOWN_TRAIT "lying_down"
 #define SLIME_TRAIT "slime"
+#define VEHICLE_TRAIT "vehicle"
 
 // unique trait sources
 #define STATUE_MUTE "statue"

@@ -506,28 +506,21 @@
 	flash_protect = 0
 	scan_reagents = TRUE
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80)
-	var/hud_active = FALSE
 	var/explosion_detection_dist = 21
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/user, slot)
 	..()
 	if(slot == slot_head)
 		GLOB.doppler_arrays += src //Needed to sense the kabooms
-		if(ishuman(user))
-			var/mob/living/carbon/human/U = user
-			if(istype(U.glasses, /obj/item/clothing/glasses/hud/diagnostic)) // If they are for some reason wearing a diagnostic hud when they put the helmet on
-				return // already have a hud
-			var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-			DHUD.add_hud_to(user)
-			hud_active = TRUE
+		if(istype(user))
+			ADD_TRAIT(user, TRAIT_SEESHUD_DIAGNOSTIC, "[CLOTHING_TRAIT][UID()]")
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user)
 	..()
-	if((user.head == src) && hud_active)
+	if(user.head == src)
 		GLOB.doppler_arrays -= src
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.remove_hud_from(user)
+		REMOVE_TRAIT(user, TRAIT_SEESHUD_DIAGNOSTIC, "[CLOTHING_TRAIT][UID()]")
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
 		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)

@@ -20,7 +20,7 @@
 	window_id = "automed"
 	window_name = "Automatic Medical Unit v1.1"
 	path_image_color = "#DDDDFF"
-	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
+	seeshud_trait = TRAIT_SEESHUD_MEDICAL
 
 	var/obj/item/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
@@ -116,16 +116,12 @@
 	else
 		icon_state = "medibot1"
 
-/mob/living/simple_animal/bot/medbot/New(loc, new_skin)
-	..()
+/mob/living/simple_animal/bot/medbot/Initialize(mapload, loc, new_skin)
+	. = ..()
 	var/datum/job/doctor/J = new /datum/job/doctor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 	qdel(J)
-
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
-	permanent_huds |= medsensor
 
 	if(new_skin)
 		skin = new_skin

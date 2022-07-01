@@ -85,10 +85,15 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 	real_name = name
 
-	//starts ghosts off with all HUDs.
-	toggle_all_huds_on(body)
-	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, .proc/set_ghost_darkness_level) //something something don't call this until we have a HUD
 	..()
+
+/mob/dead/observer/Initialize(mapload, flags=1)
+	. = ..()
+	var/mob/body = src.mind?.current
+	//starts ghosts off with all HUDs.
+	if(istype(body))
+		toggle_all_huds_on(body)
+	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, .proc/set_ghost_darkness_level) //something something don't call this until we have a HUD
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
@@ -321,15 +326,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(sound)
 		src << sound(sound)
 
-/mob/dead/observer/proc/show_me_the_hud(hud_index)
-	var/datum/atom_hud/H = GLOB.huds[hud_index]
-	H.add_hud_to(src)
-	data_hud_seen |= hud_index
+/mob/dead/observer/proc/show_me_the_hud(hud_trait)
+	if(list(TRAIT_SEESHUD_MEDICAL, TRAIT_SEESHUD_SECURITY, TRAIT_SEESHUD_DIAGNOSTIC_ADVANCED).Find(hud_trait) == -1)
+		CRASH("show_me_the_hud called with non-hud trait [hud_trait]")
+	ADD_TRAIT(src, hud_trait, "ghost_hud")
 
-/mob/dead/observer/proc/remove_the_hud(hud_index) //remove old huds
-	var/datum/atom_hud/H = GLOB.huds[hud_index]
-	H.remove_hud_from(src)
-	data_hud_seen -= hud_index
+/mob/dead/observer/proc/remove_the_hud(hud_trait) //remove old huds
+	if(list(TRAIT_SEESHUD_MEDICAL, TRAIT_SEESHUD_SECURITY, TRAIT_SEESHUD_DIAGNOSTIC_ADVANCED).Find(hud_trait) == -1)
+		CRASH("remove_the_hud called with non-hud trait [hud_trait]")
+	REMOVE_TRAIT(src, hud_trait, "ghost_hud")
 
 /mob/dead/observer/verb/open_hud_panel()
 	set category = "Ghost"
@@ -347,9 +352,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * * user - A reference to the ghost's old mob. This argument is required since `src` does not have a `client` at this point.
  */
 /mob/dead/observer/proc/toggle_all_huds_on(mob/user)
-	show_me_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
-	show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
-	show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	show_me_the_hud(TRAIT_SEESHUD_DIAGNOSTIC_ADVANCED)
+	show_me_the_hud(TRAIT_SEESHUD_MEDICAL)
+	show_me_the_hud(TRAIT_SEESHUD_SECURITY)
+	// ADD_TRAIT(src, TRAIT_SEESHUD_DIAGNOSTIC, TRAIT_GENERIC)
+	// ADD_TRAIT(src, TRAIT_SEESHUD_SECURITY, TRAIT_GENERIC)
+	// ADD_TRAIT(src, TRAIT_SEESHUD_MEDICAL, TRAIT_GENERIC)
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
 		return
 	antagHUD = TRUE
@@ -360,9 +368,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * Toggles off all HUDs for the ghost player.
  */
 /mob/dead/observer/proc/toggle_all_huds_off()
-	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
-	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
-	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	remove_the_hud(TRAIT_SEESHUD_DIAGNOSTIC_ADVANCED)
+	remove_the_hud(TRAIT_SEESHUD_MEDICAL)
+	remove_the_hud(TRAIT_SEESHUD_SECURITY)
+	// remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
+	// remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
+	// remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	// REMOVE_TRAIT(src, TRAIT_SEESHUD_DIAGNOSTIC, TRAIT_GENERIC)
+	// REMOVE_TRAIT(src, TRAIT_SEESHUD_SECURITY, TRAIT_GENERIC)
+	// REMOVE_TRAIT(src, TRAIT_SEESHUD_MEDICAL, TRAIT_GENERIC)
 	antagHUD = FALSE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.remove_hud_from(src)

@@ -79,7 +79,7 @@
 	var/control_freq = BOT_FREQ		// bot control frequency
 	var/bot_filter 				// The radio filter the bot uses to identify itself on the network.
 	var/bot_type = 0 //The type of bot it is, for radio control.
-	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC //The type of data HUD the bot uses. Diagnostic by default.
+	var/seeshud_trait = TRAIT_SEESHUD_DIAGNOSTIC //The type of data HUD the bot uses. Diagnostic by default.
 	//This holds text for what the bot is mode doing, reported on the remote bot control interface.
 	var/list/mode_name = list("In Pursuit","Preparing to Arrest", "Arresting", \
 	"Beginning Patrol", "Patrolling", "Summoned by PDA", \
@@ -187,6 +187,10 @@
 		path_hud.add_to_hud(src)
 		path_hud.add_hud_to(src)
 
+/mob/living/simple_animal/bot/Initialize(mapload)
+	. = ..()
+	if(seeshud_trait)
+		ADD_TRAIT(src, seeshud_trait, INNATE_TRAIT)
 
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return //we use a different hud

@@ -32,9 +32,11 @@
 		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
+	prepare_seeing_huds()
 	update_runechat_msg_location()
 	. = ..()
 
+/// Prepares the atom to *be displayed* on various huds in its `hud_possible` list
 /atom/proc/prepare_huds()
 	hud_list = list()
 	for(var/hud in hud_possible)
@@ -46,6 +48,30 @@
 				var/image/I = image('icons/mob/hud.dmi', src, "")
 				I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
 				hud_list[hud] = I
+
+/// Prepares the mob to *be able to see* hud icons displayed on other atoms
+/mob/proc/prepare_seeing_huds()
+	for(var/trait in GLOB.seeshud_trait_to_hud)
+		RegisterSignal(src,  SIGNAL_ADDTRAIT(trait), .proc/on_seeshud_trait_added)
+		RegisterSignal(src,  SIGNAL_REMOVETRAIT(trait),	.proc/on_seeshud_trait_removed)
+
+/mob/proc/on_seeshud_trait_added(mob/owner, trait, source)
+	var/HUDType = GLOB.seeshud_trait_to_hud[trait]
+	if(HAS_TRAIT_NOT_FROM(owner, trait, source))
+		return
+	var/datum/atom_hud/H = GLOB.huds[HUDType]
+	if(!H)
+		stack_trace("Failed to find a hud corresponding to seeshud trait [trait].")
+	H.add_hud_to(owner)
+
+/mob/proc/on_seeshud_trait_removed(mob/owner, trait, sources)
+	if(HAS_TRAIT_NOT_FROM(owner, trait, sources))
+		return
+	var/HUDType = GLOB.seeshud_trait_to_hud[trait]
+	var/datum/atom_hud/H = GLOB.huds[HUDType]
+	if(!H)
+		stack_trace("Failed to find a hud corresponding to seeshud trait [trait].")
+	H.remove_hud_from(owner)
 
 /mob/proc/generate_name()
 	return name

@@ -19,7 +19,7 @@
 	window_id = "autosec"
 	window_name = "Automatic Security Unit v1.6"
 	path_image_color = "#FF0000"
-	data_hud_type = DATA_HUD_SECURITY_ADVANCED
+	seeshud_trait = TRAIT_SEESHUD_SECURITY
 
 	var/base_icon = "secbot"
 	var/mob/living/carbon/target
@@ -81,18 +81,13 @@
 	arrest_type = 1
 	weaponscheck = 1
 
-/mob/living/simple_animal/bot/secbot/New()
-	..()
+/mob/living/simple_animal/bot/secbot/Initialize(mapload)
+	. = ..()
 	icon_state = "[base_icon][on]"
-	spawn(3)
-		var/datum/job/detective/J = new/datum/job/detective
-		access_card.access += J.get_access()
-		prev_access = access_card.access
-
-	//SECHUD
-	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
-	permanent_huds |= secsensor
+	// spawn(3)
+	var/datum/job/detective/J = new/datum/job/detective
+	access_card.access += J.get_access()
+	prev_access = access_card.access
 
 /mob/living/simple_animal/bot/secbot/turn_on()
 	..()

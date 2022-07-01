@@ -29,13 +29,9 @@
 	melee_damage_type = STAMINA
 	admin_spawned = TRUE
 
-/mob/living/simple_animal/hostile/guardian/healer/New()
-	..()
-
-/mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
-	..()
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
+/mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SEESHUD_MEDICAL, SPECIES_TRAIT)
 
 /mob/living/simple_animal/hostile/guardian/healer/Stat()
 	..()

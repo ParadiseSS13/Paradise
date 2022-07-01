@@ -18,23 +18,19 @@
 	name = "HUD implant"
 	desc = "These cybernetic eyes will display a HUD over everything you see. Maybe."
 	slot = "eye_hud"
-	var/HUD_type = 0
+	var/seeshud_trait = null  /// TRAIT_SEESHUD_FOO that would show you the hud icons you want to see.
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
 	var/list/examine_extensions = null
 
 /obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = 0)
 	..()
-	if(HUD_type)
-		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		H.add_hud_to(M)
-		M.permanent_huds |= H
+	if(seeshud_trait)
+		ADD_TRAIT(M, seeshud_trait, "[CLOTHING_TRAIT][UID()]")
 
 /obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = 0)
 	. = ..()
-	if(HUD_type)
-		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		M.permanent_huds ^= H
-		H.remove_hud_from(M)
+	if(seeshud_trait)
+		REMOVE_TRAIT(M, seeshud_trait, "[CLOTHING_TRAIT][UID()]")
 
 /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	name = "Medical HUD implant"
@@ -42,7 +38,7 @@
 	implant_color = "#00FFFF"
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
-	HUD_type = DATA_HUD_MEDICAL_ADVANCED
+	seeshud_trait = TRAIT_SEESHUD_MEDICAL
 	examine_extensions = list(EXAMINE_HUD_MEDICAL)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
@@ -51,7 +47,7 @@
 	implant_color = "#ff9000"
 	origin_tech = "materials=4;engineering=4;biotech=4"
 	aug_message = "You see the diagnostic information of the synthetics around you..."
-	HUD_type = DATA_HUD_DIAGNOSTIC_ADVANCED
+	seeshud_trait = TRAIT_SEESHUD_DIAGNOSTIC_ADVANCED
 
 /obj/item/organ/internal/cyberimp/eyes/hud/security
 	name = "Security HUD implant"
@@ -59,5 +55,5 @@
 	implant_color = "#CC0000"
 	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
-	HUD_type = DATA_HUD_SECURITY_ADVANCED
+	seeshud_trait = TRAIT_SEESHUD_SECURITY
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
