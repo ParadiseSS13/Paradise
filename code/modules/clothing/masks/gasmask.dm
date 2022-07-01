@@ -35,6 +35,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSEYES
+	can_toggle = TRUE
 	visor_flags_inv = HIDEEYES
 	resistance_flags = FIRE_PROOF
 
@@ -48,6 +49,7 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40)
 	resistance_flags = FIRE_PROOF
+	can_toggle = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -214,6 +216,7 @@
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
+	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
 	var/phrase_list = list(
 
@@ -240,6 +243,7 @@
 	name = "head of security's SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
 	icon_state = "hosmask"
+	can_toggle = FALSE
 	aggressiveness = 3
 	phrase = 12
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
@@ -248,6 +252,7 @@
 	name = "warden's SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
 	icon_state = "wardenmask"
+	can_toggle = FALSE
 	aggressiveness = 3
 	phrase = 12
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)

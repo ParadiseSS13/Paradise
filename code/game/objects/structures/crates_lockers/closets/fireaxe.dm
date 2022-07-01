@@ -189,6 +189,9 @@
 	else
 		icon_state = "fireaxe_[has_axe]_[hitstaken]hits"
 
+/obj/structure/closet/fireaxecabinet/update_overlays()
+	return
+
 /obj/structure/closet/fireaxecabinet/open()
 	return
 

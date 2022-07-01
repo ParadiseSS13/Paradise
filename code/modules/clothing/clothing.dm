@@ -369,6 +369,8 @@ BLIND     // can't see anything
 	var/can_toggle = null
 
 /obj/item/clothing/head/update_icon_state()
+	if(!can_toggle)
+		return
 	/// Done as such to not break chameleon gear since you can't rely on initial states
 	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
 	item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
@@ -382,8 +384,11 @@ BLIND     // can't see anything
 	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
+	var/can_toggle = null
 
 /obj/item/clothing/mask/update_icon_state()
+	if(!can_toggle)
+		return
 	/// Done as such to not break chameleon gear since you can't rely on initial states
 	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
 
