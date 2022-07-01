@@ -62,11 +62,12 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			notify_ghosts("A Deathsquad is being dispatched. Open positions: [slot_text]")
 			message_admins("[key_name_admin(usr)] is dispatching a Deathsquad. Slots: [slot_text]", 1)
 			log_admin("[key_name(usr)] dispatched a Deathsquad. Slots: [slot_text]")
-			trigger_deathsquad(leader_slot, squad_slots, mission)
+			trigger_deathsquad(usr, leader_slot, squad_slots, mission)
 		else
 			return FALSE
 
-/proc/trigger_deathsquad(leader_slot, squad_slots, mission)
+/proc/trigger_deathsquad(testingvariable, leader_slot, squad_slots, mission)
+	set src = testingvariable
 
 	while(!mission)
 	mission = sanitize(copytext(input(src, "Please specify a mission the deathsquad shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
@@ -76,13 +77,13 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	if(alert("Would you like to custom pick your Deathsquad?",,"Yes","No")!="Yes")		// Find ghosts willing to be DS
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
 		var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, COMMANDOS_POSSIBLE, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
-		if(!length(commando_ghosts))
+		if(!commando_ghosts.len)
 			to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 			return
 	else
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
 		var/list/commando_ghosts = shuffle(SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source))
-		if(!length(commando_ghosts))
+		if(!commando_ghosts.len)
 			to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 			return
 	// Find the nuclear auth code
@@ -177,7 +178,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
 	return 1
 
-/datum/ui_module/ds_manager/client/proc/create_death_commando(obj/spawn_location, is_leader = FALSE)
+/proc/create_death_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/M = new(spawn_location.loc)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_name = pick(GLOB.commando_names)
