@@ -49,11 +49,6 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			if(squad_slots > 0)
 				slots_list += "squad: [squad_slots]"
 			var/slot_text = english_list(slots_list)
-			if(alert("Do you want to send in the Deathsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
-				return
-			if(alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader. Are you sure?",,"Yes","No")!="Yes")
-				return
-			notify_ghosts("A Deathsquad is being dispatched. Open positions: [slot_text]")
 			message_admins("[key_name_admin(usr)] is dispatching a Deathsquad. Slots: [slot_text]", 1)
 			log_admin("[key_name(usr)] dispatched a Deathsquad. Slots: [slot_text]")
 			trigger_deathsquad(ui.user, leader_slot, squad_slots, mission)
@@ -63,9 +58,19 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 /datum/ui_module/ds_manager/proc/trigger_deathsquad(mob/user, leader_slot, squad_slots, mission)
 
 	var/list/commando_ghosts = null
+	if(alert("Do you want to send in the Deathsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
+		message_admins("[key_name_admin(usr)] cancelled their Deathsquad.", 1)
+		log_admin("[key_name(usr)] cancelled their Deathsquad.")
+		return
+	if(alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader. Are you sure?",,"Yes","No")!="Yes")
+		message_admins("[key_name_admin(usr)] cancelled their Deathsquad.", 1)
+		log_admin("[key_name(usr)] cancelled their Deathsquad.")
+		return
 	mission = sanitize(copytext(input(user, "Please specify a mission the deathsquad shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
 	if(!mission)
 		if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
+			message_admins("[key_name_admin(usr)] cancelled their Deathsquad.", 1)
+			log_admin("[key_name(usr)] cancelled their Deathsquad.")
 			return
 	if(alert("Would you like to custom pick your Deathsquad?",,"Yes","No")=="Yes")		// Find ghosts willing to be DS
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
