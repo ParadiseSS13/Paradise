@@ -124,8 +124,8 @@
 			anchored = FALSE
 			stat |= MAINT
 			unwrenched = TRUE
-			if(usr.machine==src)
-				usr << browse(null, "window=pipedispenser")
+			if(user.machine == src)
+				user << browse(null, "window=pipedispenser")
 
 /obj/machinery/pipedispenser/attackby(obj/item/W as obj, mob/user as mob, params)
 	add_fingerprint(usr)
