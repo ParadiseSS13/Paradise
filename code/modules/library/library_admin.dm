@@ -76,7 +76,7 @@
 			page_state = LIBRARY_MENU_REPORTS
 		if("delete_book")
 			if(GLOB.library_catalog.removeBookByID(text2num(params["bookid"])))
-				log_and_message_admins(has deleted the book [params["bookid"]].")
+				log_and_message_admins("has deleted the book [params["bookid"]].")
 		if("view_book")
 			if(params["bookid"])
 				view_book_by_id(text2num(params["bookid"]))
@@ -138,7 +138,7 @@
 					if(confirm != "Yes")
 						return
 					if(GLOB.library_catalog.removeBooksByCkey(answer))
-						log_and_message_admins(has deleted all books uploaded by [answer].")
+						log_and_message_admins("has deleted all books uploaded by [answer].")
 				else
 					return FALSE
 		else
@@ -184,7 +184,7 @@
 /datum/ui_module/library_manager/Topic(href, href_list)
 	..()
 	if(!check_rights(R_ADMIN))
-		log_admin("[key_name(usr)] tried to use the library manager without authorization.")
+		log_admin("[key_name(user)] tried to use the library manager without authorization.")
 		message_admins("[key_name_admin(usr)] has attempted to override the library manager!")
 		return
 	if(href_list["next_page"])

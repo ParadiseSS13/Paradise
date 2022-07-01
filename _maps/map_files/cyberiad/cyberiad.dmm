@@ -46,6 +46,50 @@
 /mob/living/simple_animal/hostile/scarybat,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"aag" = (
+/obj/machinery/hologram/holopad,
+/obj/effect/landmark/spawner/xeno,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/plasteel,
+/area/maintenance/incinerator)
+"aah" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/ai_slipper,
+/mob/living/simple_animal/bot/secbot/pingsky,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/aisat_interior)
+"aai" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/mob/living/simple_animal/bot/floorbot{
+	on = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluecorners"
+	},
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "aaQ" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -8305,8 +8349,8 @@
 	dir = 4
 	},
 /obj/machinery/computer/cryopod{
-	dir = 1;
-	pixel_y = -30
+	pixel_y = -30;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -21208,8 +21252,8 @@
 	dir = 4
 	},
 /obj/machinery/computer/cryopod{
-	dir = 8;
-	pixel_x = 30
+	pixel_x = 30;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -23227,8 +23271,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast west";
-	name = "Bridge Blast Doors"
+	name = "Bridge Blast Doors";
+	id_tag = "bridge blast west"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -27000,8 +27044,8 @@
 "bkR" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast west";
-	name = "Bridge Blast Doors"
+	name = "Bridge Blast Doors";
+	id_tag = "bridge blast west"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -32158,8 +32202,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast west";
-	name = "Bridge Blast Doors"
+	name = "Bridge Blast Doors";
+	id_tag = "bridge blast west"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -32575,9 +32619,9 @@
 	req_access_txt = "28"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
 	id_tag = "kitchenhall";
-	name = "Kitchen Shutters"
+	name = "Kitchen Shutters";
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -32592,9 +32636,9 @@
 	req_access_txt = "28"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
 	id_tag = "kitchenhall";
-	name = "Kitchen Shutters"
+	name = "Kitchen Shutters";
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -32609,9 +32653,9 @@
 	req_access_txt = "28"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
 	id_tag = "kitchenhall";
-	name = "Kitchen Shutters"
+	name = "Kitchen Shutters";
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -36453,8 +36497,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	id_tag = "robotics";
-	name = "Robotics Lab Shutters"
+	name = "Robotics Lab Shutters";
+	id_tag = "robotics"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -36496,8 +36540,8 @@
 /obj/item/folder/white,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	id_tag = "robotics";
-	name = "Robotics Lab Shutters"
+	name = "Robotics Lab Shutters";
+	id_tag = "robotics"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -36531,8 +36575,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	id_tag = "rdlab";
-	name = "Research and Development Lab Shutters"
+	name = "Research and Development Lab Shutters";
+	id_tag = "rdlab"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -36552,8 +36596,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	id_tag = "rdlab";
-	name = "Research and Development Lab Shutters"
+	name = "Research and Development Lab Shutters";
+	id_tag = "rdlab"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -36787,8 +36831,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id_tag = "hopqueue";
-	name = "Privacy Shutters"
+	name = "Privacy Shutters";
+	id_tag = "hopqueue"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
@@ -41293,8 +41337,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id_tag = "hop";
-	name = "Privacy Shutters"
+	name = "Privacy Shutters";
+	id_tag = "hop"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
@@ -42285,8 +42329,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id_tag = "hop";
-	name = "Privacy Shutters"
+	name = "Privacy Shutters";
+	id_tag = "hop"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads)
@@ -42927,8 +42971,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	id_tag = "rdlab2";
-	name = "Research and Development Lab Shutters"
+	name = "Research and Development Lab Shutters";
+	id_tag = "rdlab2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -43085,8 +43129,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id_tag = "hop";
-	name = "Privacy Shutters"
+	name = "Privacy Shutters";
+	id_tag = "hop"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads)
@@ -44710,8 +44754,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id_tag = "hopqueue";
-	name = "Privacy Shutters"
+	name = "Privacy Shutters";
+	id_tag = "hopqueue"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
@@ -54260,9 +54304,9 @@
 "cpy" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
 	id_tag = "viroshutters";
-	name = "Privacy Shutters"
+	name = "Privacy Shutters";
+	dir = 2
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology)
@@ -60885,13 +60929,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/incinerator)
-"cCB" = (
-/obj/machinery/hologram/holopad,
-/obj/effect/landmark/spawner/xeno,
-/mob/living/simple_animal/mouse,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
 "cCC" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -64131,8 +64168,8 @@
 	req_access_txt = "47"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "RnDChem";
-	name = "Biohazard Shutter"
+	name = "Biohazard Shutter";
+	id_tag = "RnDChem"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -64151,16 +64188,16 @@
 /obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "RnDChem";
-	name = "Biohazard Shutter"
+	name = "Biohazard Shutter";
+	id_tag = "RnDChem"
 	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "cJT" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "RnDChem";
-	name = "Biohazard Shutter"
+	name = "Biohazard Shutter";
+	id_tag = "RnDChem"
 	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
@@ -75423,30 +75460,6 @@
 /area/aisat/entrance{
 	name = "\improper AI Satellite Atmospherics"
 	})
-"dkY" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/mob/living/simple_animal/bot/secbot/pingsky,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/ai_slipper,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat_interior)
 "dkZ" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4
@@ -75622,19 +75635,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"dls" = (
-/mob/living/simple_animal/bot/floorbot{
-	on = 0
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluecorners"
-	},
-/area/aisat/entrance{
-	name = "\improper AI Satellite Atmospherics"
-	})
 "dlt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -78982,11 +78982,11 @@
 /area/engine/supermatter)
 "gLY" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
 	frequency = 1441;
-	id = "engine-waste_out";
 	name = "engine outlet injector";
-	volume_rate = 200
+	volume_rate = 200;
+	dir = 1;
+	id = "engine-waste_out"
 	},
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
@@ -100282,7 +100282,7 @@ cwx
 cyd
 czK
 cBc
-cCB
+aag
 cDZ
 cwx
 aaa
@@ -117813,7 +117813,7 @@ dpd
 dpF
 dke
 dkX
-dls
+aai
 dqp
 dqp
 dqp
@@ -118583,7 +118583,7 @@ rWq
 dka
 djJ
 dkf
-dkY
+aah
 dlt
 dlU
 cSK

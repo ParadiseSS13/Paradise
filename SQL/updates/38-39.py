@@ -82,7 +82,7 @@ def main():
     short_books = 0
     for entry in new_rows:
         if "Print Job" in entry[2]:
-            print("Book {} had \"Book Job\" in title: removing record...".format(entry[0]))
+            print("Book {} had \"Print Job\" in title: removing record...".format(entry[0]))
             notitle_books += 1
             new_rows.remove(entry)
             continue

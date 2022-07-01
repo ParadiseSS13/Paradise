@@ -123,7 +123,7 @@
   */
 /obj/item/book/proc/read_book(mob/user)
 	if(!length(pages)) //You can't read a book with no pages in it
-		to_chat(user, "This book is completely blank!")
+		to_chat(user, "<span class='notice'>This book is completely blank!</span>")
 		return
 	if(!can_read(user))
 		return
@@ -166,7 +166,7 @@
 			return
 		current_page++
 		playsound(loc, "pageturn", 50, 1)
-		attack_self(user) //scuffed but this is how you update the UI
+		attack_self(usr) //scuffed but this is how you update the UI
 		updateUsrDialog()
 	if(href_list["prev_page"])
 		if(current_page < 0) //should never be false, but just in-case
@@ -174,7 +174,7 @@
 			return
 		current_page--
 		playsound(loc, "pageturn", 50, 1)
-		attack_self(user) //scuffed but this is how you update the UI
+		attack_self(usr) //scuffed but this is how you update the UI
 		updateUsrDialog()
 
 /**

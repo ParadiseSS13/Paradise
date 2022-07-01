@@ -44,7 +44,7 @@
 	if(length(contents))
 		var/obj/item/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
 		if(choice)
-			if(user.incapacitated() || IS_HORIZONTAL(user) || !Adjacent(user))
+			if(user.incapacitated() || !Adjacent(user))
 				return
 			if(!user.get_active_hand())
 				user.put_in_hands(choice)
@@ -204,7 +204,7 @@
 	selected_content.content = B.pages
 	for(var/c in B.categories)
 		if(c)
-			selected_content.categories += cz
+			selected_content.categories += c
 
 /obj/machinery/bookbinder/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
