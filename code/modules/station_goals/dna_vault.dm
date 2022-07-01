@@ -188,8 +188,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			dna_max = G.human_count
 			break
 
-	..()
-
 /obj/machinery/dna_vault/update_icon()
 	..()
 	if(stat & NOPOWER)
