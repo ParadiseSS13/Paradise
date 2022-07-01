@@ -21,7 +21,6 @@
 	/// Do you want the gun to fit into a turret, defaults to true, used for if a energy gun is too strong to be in a turret, or does not make sense to be in one.
 	var/can_fit_in_turrets = TRUE
 	var/new_icon_state
-	var/new_item_state
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
 
@@ -145,23 +144,8 @@
 	update_icon()
 	return
 
-/obj/item/gun/energy/update_icon_state()
-	icon_state = initial(icon_state)
-	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
-	new_icon_state = "[icon_state]_charge"
-	new_item_state = null
-	if(!initial(item_state))
-		new_item_state = icon_state
-	if(modifystate)
-		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-		new_icon_state += "_[shot.select_name]"
-		if(new_item_state)
-			new_item_state += "[shot.select_name]"
-	if(new_item_state)
-		new_item_state += "[ratio]"
-		item_state = new_item_state
-	if(current_skin)
-		icon_state = current_skin
+/obj/item/gun/energy/update_icon()
+	..(ALL)
 	var/mob/living/carbon/human/user = loc
 	if(istype(user))
 		if(user.hand) //this is kinda ew but whatever
@@ -169,14 +153,30 @@
 		else
 			user.update_inv_l_hand()
 
+/obj/item/gun/energy/update_icon_state()
+	icon_state = initial(icon_state)
+	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+	var/inhand_ratio = CEILING((cell.charge / cell.maxcharge) * inhand_charge_sections, 1)
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	new_icon_state = "[icon_state]_charge"
+	var/new_item_state = null
+	if(!initial(item_state))
+		new_item_state = icon_state
+	if(modifystate)
+		new_icon_state += "_[shot.select_name]"
+		if(new_item_state)
+			new_item_state += "[shot.select_name]"
+	if(new_item_state)
+		new_item_state += "[inhand_ratio]"
+		item_state = new_item_state
+	if(current_skin)
+		icon_state = current_skin
+
 /obj/item/gun/energy/update_overlays()
 	. = ..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
 		. += "[icon_state]_[shot.select_name]"
-		new_icon_state += "_[shot.select_name]"
-		if(new_item_state)
-			new_item_state += "[shot.select_name]"
 	if(cell.charge < shot.e_cost)
 		. += "[icon_state]_empty"
 	else
@@ -186,10 +186,10 @@
 		else
 			. += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
 	if(gun_light && can_flashlight)
-		var/flashlight = "flight"
+		var/iconF = "flight"
 		if(gun_light.on)
-			flashlight = "flight_on"
-		. += image(icon = icon, icon_state = flashlight, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+			iconF = "flight_on"
+		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 	if(bayonet && can_bayonet)
 		. += knife_overlay
 
