@@ -4,7 +4,7 @@
 	icon_state = "pipe_d"
 	density = TRUE
 	anchored = TRUE
-	var/unwrenched = 0
+	var/unwrenched = FALSE
 	var/wait = 0
 
 /obj/machinery/pipedispenser/detailed_examine()
@@ -107,20 +107,7 @@
 		qdel(W)
 		return
 	else if(istype(W, /obj/item/wrench))
-		if(unwrenched==0)
-			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message( \
-					"[user] unfastens \the [src].", \
-					"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
-					"You hear ratchet.")
-				anchored = 0
-				stat |= MAINT
-				unwrenched = 1
-				if(usr.machine==src)
-					usr << browse(null, "window=pipedispenser")
-		else /*if(unwrenched==1)*/
+		if(unwrenched)
 			playsound(loc, W.usesound, 50, 1)
 			to_chat(user, "<span class='notice'>You begin to fasten \the [src] to the floor...</span>")
 			if(do_after(user, 20 * W.toolspeed, target = src))
@@ -128,10 +115,23 @@
 					"[user] fastens \the [src].", \
 					"<span class='notice'>You have fastened \the [src]. Now it can dispense pipes.</span>", \
 					"You hear ratchet.")
-				anchored = 1
+				anchored = TRUE
 				stat &= ~MAINT
-				unwrenched = 0
+				unwrenched = FALSE
 				power_change()
+		else
+			playsound(loc, W.usesound, 50, 1)
+			to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				user.visible_message( \
+					"[user] unfastens \the [src].", \
+					"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
+					"You hear ratchet.")
+				anchored = FALSE
+				stat |= MAINT
+				unwrenched = TRUE
+				if(usr.machine==src)
+					usr << browse(null, "window=pipedispenser")
 	else
 		return ..()
 
