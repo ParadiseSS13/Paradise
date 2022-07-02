@@ -230,6 +230,11 @@
 	else
 		return ..()
 
+/obj/structure/table/shove_impact(mob/living/target)
+	target.forceMove(get_turf(src))
+	target.Weaken(4 SECONDS)
+	return FALSE
+
 
 /obj/structure/table/screwdriver_act(mob/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
@@ -440,6 +445,11 @@
 			AM.throw_impact(L)
 	L.Weaken(10 SECONDS)
 	qdel(src)
+
+/obj/structure/table/glass/shove_impact(mob/living/target)
+	target.forceMove(get_turf(src))
+	table_shatter(target)
+	return TRUE
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))

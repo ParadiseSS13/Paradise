@@ -618,3 +618,7 @@
 
 /atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
 	return FALSE
+
+/// called when a mob gets shoved into an items turf
+/atom/movable/proc/shove_impact(mob/living/target)
+	return FALSE

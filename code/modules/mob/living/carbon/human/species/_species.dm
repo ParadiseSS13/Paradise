@@ -512,7 +512,15 @@
 			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
+
+
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(user == target)
+		return FALSE
+	if(target.move_resist > user.pull_force)
+		return FALSE
+	if(!(target.status_flags & CANPUSH))
+		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
@@ -523,59 +531,32 @@
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
+
+	add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	var/shove_dir = get_dir(user.loc, target.loc)
+	var/turf/shove_to = get_step(target.loc, shove_dir)
+	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+
+	var/blocked_by_item = FALSE
+	for(var/atom/movable/AM in shove_to)
+		if(AM.shove_impact(target))
+			blocked_by_item = TRUE
+
+	if(blocked_by_item)
+		return TRUE
+
+	var/moved = target.Move(shove_to, shove_dir)
+	if(!moved) //they got pushed into a dense object
+		if(!HAS_TRAIT(target, TRAIT_FLOORED))
+			target.KnockDown(3 SECONDS)
+			addtimer(CALLBACK(target, /mob/living.proc/SetKnockDown, 0), 3 SECONDS) // so you cannot chain stun someone
+		else if(!user.IsStunned())
+			target.Stun(0.5 SECONDS)
+	if(target.IsSlowed())
+		target.drop_item()
 	else
-		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
-		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
-		if(target.w_uniform)
-			target.w_uniform.add_fingerprint(user)
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/randn = rand(1, 100)
-		if(randn <= 25)
-			target.apply_effect(4 SECONDS, WEAKEN, target.run_armor_check(affecting, MELEE))
-			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
-			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
-			return
-
-		var/talked = 0	// BubbleWrap
-
-		if(randn <= 60)
-			//BubbleWrap: Disarming breaks a pull
-			if(target.pulling)
-				target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [target.pulling]!</span>")
-				talked = 1
-				target.stop_pulling()
-
-			//BubbleWrap: Disarming also breaks a grab - this will also stop someone being choked, won't it?
-			if(istype(target.l_hand, /obj/item/grab))
-				var/obj/item/grab/lgrab = target.l_hand
-				if(lgrab.affecting)
-					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [lgrab.affecting]!</span>")
-					talked = 1
-				spawn(1)
-					qdel(lgrab)
-			if(istype(target.r_hand, /obj/item/grab))
-				var/obj/item/grab/rgrab = target.r_hand
-				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [rgrab.affecting]!</span>")
-					talked = 1
-				spawn(1)
-					qdel(rgrab)
-			//End BubbleWrap
-
-			if(!talked)	//BubbleWrap
-				if(target.drop_item())
-					target.visible_message("<span class='danger'>[user] has disarmed [target]!</span>")
-			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			return
-
-
-	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
+		target.Slowed(2.5 SECONDS, 1)
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))

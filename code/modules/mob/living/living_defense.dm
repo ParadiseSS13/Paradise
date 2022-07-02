@@ -374,3 +374,10 @@
 
 /mob/living/proc/cult_self_harm(damage)
 	return FALSE
+
+/mob/living/shove_impact(mob/living/target)
+	if(!IS_HORIZONTAL(src))
+		target.KnockDown(1 SECONDS) // knock them both down
+		KnockDown(1 SECONDS)
+		return TRUE
+	return FALSE
