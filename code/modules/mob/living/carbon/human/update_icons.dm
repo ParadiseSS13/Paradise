@@ -657,6 +657,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing.overlays += bloodsies
 		overlays_standing[GLOVES_LAYER]	= standing
 	else
+		if(slot_gloves in check_obscured_slots())
+			return
 		if(blood_DNA)
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "bloodyhands", layer = -GLOVES_LAYER)
 			bloodsies.color = hand_blood_color
@@ -785,6 +787,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.color = shoes.color
 		overlays_standing[SHOES_LAYER] = standing
 	else
+		if(slot_shoes in check_obscured_slots())
+			return
 		if(feet_blood_DNA)
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER)
 			bloodsies.color = feet_blood_color
