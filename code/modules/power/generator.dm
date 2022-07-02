@@ -80,18 +80,17 @@
 
 /obj/machinery/power/generator/update_overlays()
 	. = ..()
-	underlays.Cut()
 	if(stat & (NOPOWER|BROKEN))
 		return
 
 	if(lastgenlev != 0)
 		. += "teg-op[lastgenlev]"
 		if(light)
-			underlays += emissive_appearance(icon, "teg-op[lastgenlev]")
+			. += emissive_appearance(icon, "teg-op[lastgenlev]")
 
 	. += "teg-oc[lastcirc]"
 	if(light)
-		underlays += emissive_appearance(icon, "teg-oc[lastcirc]")
+		. += emissive_appearance(icon, "teg-oc[lastcirc]")
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))
