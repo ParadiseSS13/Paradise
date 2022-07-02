@@ -81187,7 +81187,7 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "ufw" = (
-/obj/structure/closet/wardrobe/orange,
+/obj/structure/closet/wardrobe/orange/prison,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
