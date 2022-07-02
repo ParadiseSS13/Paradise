@@ -14,12 +14,16 @@
 	/// How many seconds does the knockdown last for?
 	var/knockdown_duration = 10 SECONDS
 	/// how much stamina damage does this baton do?
-	var/stam_damage = 70
+	var/stam_damage = 60 // 2 hits or 1 hit + 2 disabler shots
 	/// Is the baton currently turned on
 	var/turned_on = FALSE
 	/// How much power does it cost to stun someone
 	var/hitcost = 1000
 	var/obj/item/stock_parts/cell/high/cell = null
+	/// the amount of time between swings
+	var/cooldown = 3.5 SECONDS
+	/// the time it takes before the target falls over
+	var/time_to_knockdown = 2.5 SECONDS
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -150,7 +154,7 @@
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-		baton_stun(user, user)
+		baton_stun(user, user, skip_cooldown = TRUE)
 		return
 
 	if(issilicon(M)) // Can't stunbaton borgs and AIs
@@ -175,22 +179,30 @@
 			"<span class='danger'>[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>")
 		return
 
-	baton_stun(L, user)
-	user.do_attack_animation(L)
+	if(baton_stun(L, user))
+		user.do_attack_animation(L)
 
-/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
-	baton_timer(user)
+/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
+	if(cooldown > world.time && !skip_cooldown)
+		return FALSE
+
+	var/user_UID = user.UID()
+	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, "[user_UID]")) // prevents double baton cheese.
+		return FALSE
+
+	cooldown = world.time + initial(cooldown)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
-			return
+			return FALSE
 		H.forcesay(GLOB.hit_appends)
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)
 
-	addtimer(CALLBACK(L, /mob/living.proc/KnockDown, knockdown_duration), 3 SECONDS)
+	ADD_TRAIT(L, TRAIT_WAS_BATONNED, "[user.UID()]") // so one person cannot hit the same person with two separate batons
+	addtimer(CALLBACK(src, .proc/baton_knockdown, L, user_UID, knockdown_duration), time_to_knockdown)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
@@ -202,11 +214,11 @@
 		add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
+	return TRUE
 
-/obj/item/melee/baton/proc/baton_timer(mob/user)
-	set waitfor = FALSE
-	user.changeNext_move(4 SECONDS)
-	do_mob(user, user, 4 SECONDS, extra_checks = list(), only_use_extra_checks = TRUE) // to give an indicator of why they cannot make actions
+/obj/item/melee/baton/proc/baton_knockdown(mob/living/target, user_UID, knockdown_duration)
+	target.KnockDown(knockdown_duration)
+	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, "[user_UID]")
 
 /obj/item/melee/baton/emp_act(severity)
 	. = ..()
@@ -245,6 +257,6 @@
 	QDEL_NULL(sparkler)
 	return ..()
 
-/obj/item/melee/baton/cattleprod/baton_stun()
+/obj/item/melee/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(sparkler.activate())
 		return ..()
