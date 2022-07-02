@@ -6,16 +6,16 @@
 	layer = ABOVE_WINDOW_LAYER
 	closingLayer = ABOVE_WINDOW_LAYER
 	resistance_flags = ACID_PROOF
-	visible = 0
+	visible = FALSE
 	flags = ON_BORDER
-	opacity = 0
+	opacity = FALSE
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
 	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
-	var/reinf = 0
+	var/reinf = FALSE
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
@@ -170,14 +170,14 @@
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state = base_state
 
-	density = 1
+	density = TRUE
 //	if(visible)
 //		set_opacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
 	air_update_turf(1)
 	update_freelook_sight()
 	sleep(10)
 
-	operating = 0
+	operating = FALSE
 	return 1
 
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -332,7 +332,7 @@
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
-	reinf = 1
+	reinf = TRUE
 	explosion_block = 1
 	var/id = null
 
