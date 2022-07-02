@@ -107,6 +107,9 @@ Difficulty: Hard
 		melee_damage_lower = 25
 		melee_damage_upper = 25
 	body_shield()
+	add_overlay("[mode]")
+	add_overlay("eyes")
+
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Destroy()
 	QDEL_NULL(TR)
