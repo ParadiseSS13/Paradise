@@ -60,7 +60,6 @@
 
 // Internal surgeries.
 /datum/surgery_step/internal
-	priority = 2
 	can_infect = 1
 	blood_level = 1
 

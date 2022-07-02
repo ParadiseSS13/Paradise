@@ -36,7 +36,6 @@
 	return affected.is_robotic()
 
 /datum/surgery_step/cavity
-	priority = 1
 
 /datum/surgery_step/cavity/proc/get_max_wclass(obj/item/organ/external/affected)
 	switch(affected.limb_name)

@@ -3,7 +3,6 @@
 //				GENERIC	RIBCAGE SURGERY							//
 //////////////////////////////////////////////////////////////////
 /datum/surgery_step/open_encased
-	priority = 2
 	can_infect = 1
 	blood_level = 1
 

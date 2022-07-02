@@ -2,15 +2,7 @@
 /datum/surgery
 	var/name
 	var/status = 1
-	var/list/steps = list()
-	/*
-	var/eyes	=	0
-	var/face	=	0
-	var/appendix =	0
-	var/ribcage =	0
-	var/head_reattach = 0									//Steps in a surgery
-	*/
-
+	var/list/steps = list() //Steps in a surgery
 	var/can_cancel = 1
 	var/step_in_progress = 0
 	var/list/in_progress = list()									//Actively performing a Surgery
@@ -49,8 +41,6 @@
 
 /* SURGERY STEPS */
 /datum/surgery_step
-	var/priority = 0	//steps with higher priority would be attempted first
-
 	// type path referencing tools that can be used for this step, and how well are they suited for it
 	var/list/allowed_tools = null
 	var/implement_type = null
@@ -215,19 +205,3 @@
 				O.germ_level += germs
 
 	E.germ_level += germs
-
-/proc/sort_surgeries()
-	var/gap = GLOB.surgery_steps.len
-	var/swapped = 1
-	while(gap > 1 || swapped)
-		swapped = 0
-		if(gap > 1)
-			gap = round(gap / 1.247330950103979)
-		if(gap < 1)
-			gap = 1
-		for(var/i = 1; gap + i <= GLOB.surgery_steps.len; i++)
-			var/datum/surgery_step/l = GLOB.surgery_steps[i]		//Fucking hate
-			var/datum/surgery_step/r = GLOB.surgery_steps[gap+i]	//how lists work here
-			if(l.priority < r.priority)
-				GLOB.surgery_steps.Swap(i, gap + i)
-				swapped = 1
