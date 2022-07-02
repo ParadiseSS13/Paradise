@@ -375,8 +375,9 @@
 /mob/living/proc/cult_self_harm(damage)
 	return FALSE
 
-/mob/living/shove_impact(mob/living/target)
+/mob/living/shove_impact(mob/living/target, mob/living/attacker)
 	if(!IS_HORIZONTAL(src))
+		add_attack_logs(attacker, target, "pushed into [src]", ATKLOG_ALL)
 		target.KnockDown(1 SECONDS) // knock them both down
 		KnockDown(1 SECONDS)
 		return TRUE

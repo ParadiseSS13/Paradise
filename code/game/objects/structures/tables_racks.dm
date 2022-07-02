@@ -230,10 +230,11 @@
 	else
 		return ..()
 
-/obj/structure/table/shove_impact(mob/living/target)
+/obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
+	add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
 	target.forceMove(get_turf(src))
 	target.Weaken(4 SECONDS)
-	return FALSE
+	return TRUE
 
 
 /obj/structure/table/screwdriver_act(mob/user, obj/item/I)
@@ -446,9 +447,9 @@
 	L.Weaken(10 SECONDS)
 	qdel(src)
 
-/obj/structure/table/glass/shove_impact(mob/living/target)
-	target.forceMove(get_turf(src))
-	table_shatter(target)
+/obj/structure/table/glass/shove_impact(mob/living/target, mob/living/attacker)
+	add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
+	target.forceMove(get_turf(src)) // will break the table and then stun the person.
 	return TRUE
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)

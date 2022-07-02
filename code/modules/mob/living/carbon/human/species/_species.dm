@@ -515,10 +515,6 @@
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
 		return FALSE
-	if(target.move_resist > user.pull_force)
-		return FALSE
-	if(!(target.status_flags & CANPUSH))
-		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
@@ -542,7 +538,7 @@
 
 	var/blocked_by_item = FALSE
 	for(var/atom/movable/AM in shove_to)
-		if(AM.shove_impact(target))
+		if(AM.shove_impact(target, user))
 			blocked_by_item = TRUE
 
 	if(blocked_by_item)
@@ -550,6 +546,7 @@
 
 	var/moved = target.Move(shove_to, shove_dir)
 	if(!moved) //they got pushed into a dense object
+		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
 		if(!HAS_TRAIT(target, TRAIT_FLOORED))
 			target.KnockDown(3 SECONDS)
 			addtimer(CALLBACK(target, /mob/living.proc/SetKnockDown, 0), 3 SECONDS) // so you cannot chain stun someone
