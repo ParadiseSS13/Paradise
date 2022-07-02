@@ -102,10 +102,6 @@
 	display_name = "Jumpsuit, darkred"
 	path = /obj/item/clothing/under/color/darkred
 
-/datum/gear/uniform/suit/jumpsuitprioner
-	display_name = "Prisoner uniform"
-	path = /obj/item/clothing/under/color/orange/prison
-
 /datum/gear/uniform/suit/soviet
 	display_name = "USSP uniform"
 	path = /obj/item/clothing/under/soviet
