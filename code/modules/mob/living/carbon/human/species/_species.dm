@@ -512,8 +512,6 @@
 			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
-
-
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
 		return FALSE
@@ -531,6 +529,10 @@
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
+	if(target.move_resist > user.pull_force)
+		return FALSE
+	if(!(target.status_flags & CANPUSH))
+		return FALSE
 
 	add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
