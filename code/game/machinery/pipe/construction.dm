@@ -560,3 +560,13 @@
 		our_rpd.delete_single_pipe(user, src)
 	else
 		..()
+
+/obj/item/pipe/AltClick(mob/user)
+	. = ..()
+	if(user.Adjacent(src))
+		rotate()
+
+/obj/item/pipe/AltShiftClick(mob/user)
+	. = ..()
+	if(user.Adjacent(src))
+		flip()
