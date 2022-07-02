@@ -156,11 +156,11 @@
 
 //check if mob is lying down on something we can operate him on.
 /proc/can_operate(mob/living/carbon/M)
-	if(locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting))
+	if(locate(/obj/machinery/optable, M.loc) && IS_HORIZONTAL(M))
 		return TRUE
-	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsWeakened() || M.IsStunned() || M.IsParalyzed() || M.IsSleeping() || M.stat))
+	if(locate(/obj/structure/bed, M.loc) && (IS_HORIZONTAL(M) || M.IsWeakened() || M.IsStunned() || M.IsParalyzed() || M.IsSleeping() || M.stat))
 		return TRUE
-	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsWeakened() || M.IsStunned() || M.IsParalyzed() || M.IsSleeping()  || M.stat))
+	if(locate(/obj/structure/table, M.loc) && (IS_HORIZONTAL(M) || M.IsWeakened() || M.IsStunned() || M.IsParalyzed() || M.IsSleeping()  || M.stat))
 		return TRUE
 	return FALSE
 

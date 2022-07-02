@@ -129,19 +129,13 @@
 		frequency = new_frequency
 		radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
+// this is an override, in addition to the one in airlock_control.dm
 /obj/machinery/door/airlock/Initialize()
-	..()
+	. = ..()
 	if(frequency)
 		set_frequency(frequency)
 
 	update_icon()
-
-
-/obj/machinery/door/airlock/New()
-	..()
-
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/machinery/airlock_sensor
 	icon = 'icons/obj/airlock_machines.dmi'
@@ -204,14 +198,9 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/airlock_sensor/Initialize()
-	..()
+/obj/machinery/airlock_sensor/Initialize(mapload)
+	. = ..()
 	set_frequency(frequency)
-
-/obj/machinery/airlock_sensor/New()
-	..()
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/machinery/airlock_sensor/Destroy()
 	if(SSradio)
@@ -274,15 +263,9 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/access_button/Initialize()
-	..()
+/obj/machinery/access_button/Initialize(mapload)
+	. = ..()
 	set_frequency(frequency)
-
-/obj/machinery/access_button/New()
-	..()
-
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/machinery/access_button/Destroy()
 	if(SSradio)

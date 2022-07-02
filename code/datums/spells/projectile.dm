@@ -14,7 +14,7 @@
 
 	var/proj_lingering = 0 //if it lingers or disappears upon hitting an obstacle
 	var/proj_homing = 1 //if it follows the target
-	var/proj_insubstantial = 0 //if it can pass through dense objects or not
+	var/proj_insubstantial = FALSE //if it can pass through dense objects or not
 	var/proj_trigger_range = 0 //the range from target at which the projectile triggers cast(target)
 
 	var/proj_lifespan = 15 //in deciseconds * proj_step_delay
@@ -69,7 +69,7 @@
 							var/obj/effect/overlay/trail = new /obj/effect/overlay(projectile.loc)
 							trail.icon = proj_trail_icon
 							trail.icon_state = proj_trail_icon_state
-							trail.density = 0
+							trail.density = FALSE
 							spawn(proj_trail_lifespan)
 								qdel(trail)
 
