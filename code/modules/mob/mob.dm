@@ -922,7 +922,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(isliving(M))
 		var/mob/living/L = M
 		if(L.mob_size <= MOB_SIZE_SMALL)
-			return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+			return // Stops pAI drones and small mobs (parrots, crabs) from stripping people. --DZD
 	if(!M.can_strip)
 		return
 	if(usr == src)
@@ -1023,6 +1023,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	stat(null, "Server Uptime: [worldtime2text()]")
 	stat(null, "Round Time: [ROUND_TIME ? time2text(ROUND_TIME, "hh:mm:ss") : "N/A"]")
 	stat(null, "Station Time: [station_time_timestamp()]")
+	stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% " + \
+				"AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, " + \
+				"[round(SStime_track.time_dilation_avg,1)]%, " + \
+				"[round(SStime_track.time_dilation_avg_slow,1)]%)")
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
@@ -1057,18 +1061,32 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 // facing verbs
 /mob/proc/canface()
-	if(!canmove)						return 0
-	if(client.moving)					return 0
-	if(world.time < client.move_delay)	return 0
-	if(stat==2)							return 0
-	if(anchored)						return 0
-	if(notransform)						return 0
-	if(restrained())					return 0
-	return 1
+	if(client.moving)
+		return FALSE
+	if(world.time < client.move_delay)
+		return FALSE
+	if(stat == DEAD)
+		return FALSE
+	if(anchored)
+		return FALSE
+	if(notransform)
+		return FALSE
+	if(restrained())
+		return FALSE
+	return TRUE
 
-/mob/proc/fall(forced)
+/mob/living/canface()
+	if(!(mobility_flags & MOBILITY_MOVE))
+		return FALSE
+	. = ..()
+
+/mob/proc/fall()
 	drop_l_hand()
 	drop_r_hand()
+
+/mob/living/fall()
+	..()
+	set_body_position(LYING_DOWN)
 
 /mob/proc/facedir(ndir)
 	if(!canface())
@@ -1532,3 +1550,10 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	invisibility = INVISIBILITY_OBSERVER
 	alpha = 128
 	remove_from_all_data_huds()
+
+/mob/proc/set_stat(new_stat)
+	if(new_stat == stat)
+		return
+	. = stat
+	stat = new_stat
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)

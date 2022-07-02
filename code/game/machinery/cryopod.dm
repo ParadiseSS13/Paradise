@@ -42,8 +42,8 @@
 	var/allow_items = 1
 
 
-/obj/machinery/computer/cryopod/New()
-	..()
+/obj/machinery/computer/cryopod/Initialize(mapload)
+	. = ..()
 	for(var/T in GLOB.potential_theft_objectives)
 		theft_cache += new T
 
@@ -244,14 +244,10 @@
 /obj/machinery/cryopod/right
 	dir = EAST
 
-/obj/machinery/cryopod/New()
+/obj/machinery/cryopod/Initialize(mapload)
+	. = ..()
 	announce = new /obj/item/radio/intercom(src)
 	icon_state = base_icon_state
-	..()
-
-/obj/machinery/cryopod/Initialize()
-	..()
-
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
@@ -370,6 +366,8 @@
 			if(O.target != occupant.mind)
 				continue
 			O.on_target_cryo()
+		occupant.mind.remove_all_antag_datums()
+
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
@@ -435,7 +433,6 @@
 		else
 			occupant.ghostize(TRUE)
 
-	occupant.mind.remove_all_antag_datums()
 	QDEL_NULL(occupant)
 	name = initial(name)
 

@@ -38,7 +38,7 @@
 					visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 
 			if(INTENT_DISARM)
-				if(!lying)
+				if(!IS_HORIZONTAL(src))
 					if(prob(5))//Very small chance to push an alien down.
 						Paralyse(4 SECONDS)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)

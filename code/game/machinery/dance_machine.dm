@@ -46,7 +46,7 @@
 	var/datum/track/T = new /datum/track(name, file, length, beat)
 	songs += T
 
-/obj/machinery/disco/New()
+/obj/machinery/disco/Initialize(mapload)
 	. = ..()
 	selection = songs[1]
 
@@ -401,8 +401,10 @@
 		sleep(speed)
 		for(var/i in 1 to speed)
 			M.setDir(pick(GLOB.cardinal))
-			M.resting = !M.resting
-			M.update_canmove()
+			if(IS_HORIZONTAL(M))
+				M.stand_up()
+			else
+				M.lay_down()
 		 time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
@@ -468,13 +470,13 @@
 				if(!(M in rangers))
 					rangers[M] = TRUE
 					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
-		for(var/mob/L in rangers)
+		for(var/mob/living/L in rangers)
 			if(get_dist(src, L) > 10)
 				rangers -= L
 				if(!L || !L.client)
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
-			else if(prob(9) && L.canmove && isliving(L))
+			else if(prob(9) && (L.mobility_flags & MOBILITY_STAND) && isliving(L))
 				dance(L)
 	else if(active)
 		active = FALSE

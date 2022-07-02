@@ -488,10 +488,7 @@
 /turf/proc/acid_melt()
 	return
 
-/turf/handle_fall(mob/faller, forced)
-	faller.lying = pick(90, 270)
-	if(!forced)
-		return
+/turf/handle_fall()
 	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, TRUE)
 

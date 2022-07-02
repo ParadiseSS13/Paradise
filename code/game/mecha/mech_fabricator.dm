@@ -49,12 +49,13 @@
 	/// Whether the queue is currently being processed.
 	var/processing_queue = FALSE
 
-/obj/machinery/mecha_part_fabricator/New()
+/obj/machinery/mecha_part_fabricator/Initialize(mapload)
+	. = ..()
 	// Set up some datums
 	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), 0, FALSE, /obj/item/stack, CALLBACK(src, .proc/can_insert_materials), CALLBACK(src, .proc/on_material_insert))
 	materials.precise_insertion = TRUE
 	local_designs = new /datum/research(src)
-	..()
+
 	// Components
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mechfab(null)
@@ -65,8 +66,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mecha_part_fabricator/Initialize(mapload)
-	. = ..()
 	categories = list(
 		"Cyborg",
 		"Cyborg Repair",
@@ -458,8 +457,8 @@
   *
   * Upgraded variant of [/obj/machinery/mecha_part_fabricator].
   */
-/obj/machinery/mecha_part_fabricator/upgraded/New()
-	..()
+/obj/machinery/mecha_part_fabricator/upgraded/Initialize(mapload)
+	. = ..()
 	// Upgraded components
 	QDEL_LIST(component_parts)
 	component_parts = list()

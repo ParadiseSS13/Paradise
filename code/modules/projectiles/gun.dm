@@ -2,7 +2,7 @@
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "detective"
+	icon_state = "revolver_bright"
 	item_state = "gun"
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
@@ -237,7 +237,7 @@
 					break
 			if(chambered)
 				sprd = round((pick(0.5, -0.5)) * (randomized_gun_spread + randomized_bonus_spread))
-				if(!chambered.fire(target, user, params, ,suppressed, zone_override, sprd))
+				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 					shoot_with_empty_chamber(user)
 					break
 				else
@@ -259,7 +259,7 @@
 					to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
 					return
 			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
-			if(!chambered.fire(target, user, params, , suppressed, zone_override, sprd))
+			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 				shoot_with_empty_chamber(user)
 				return
 			else
