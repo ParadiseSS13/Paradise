@@ -216,7 +216,7 @@
 				box.boxes = list() // Clear the box boxes so we don't have boxes inside boxes. - Xzibit
 				boxes.Add(boxestoadd)
 				box.update_appearance(UPDATE_DESC|UPDATE_ICON)
-				update_appearanceUPDATE_DESC|UPDATE_ICON)
+				update_appearance(UPDATE_DESC|UPDATE_ICON)
 				to_chat(user, "<span class='warning'>You put [box] on top of [src]!</span>")
 			else
 				to_chat(user, "<span class='warning'>The stack is too high!</span>")
