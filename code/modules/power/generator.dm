@@ -40,7 +40,7 @@
 		disconnect_from_network()
 
 /obj/machinery/power/generator/Initialize()
-	..()
+	. = ..()
 	connect()
 
 /obj/machinery/power/generator/proc/connect()

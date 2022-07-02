@@ -145,7 +145,7 @@
 
 /obj/machinery/atmospherics/binary/circulator/power_change()
 	. = ..()
-	if((stat & (BROKEN|NOPOWER)))
+	if(stat & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
