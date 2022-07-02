@@ -632,13 +632,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(inv)
 			inv.update_icon()
 
+	var/hidden = (slot_gloves in check_obscured_slots())
+
 	if(gloves)
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				gloves.screen_loc = ui_gloves		//...draw the item in the inventory screen
 			client.screen += gloves					//Either way, add the item to the HUD
 
-		if(slot_gloves in check_obscured_slots())
+		if(hidden)
 			return
 		var/t_state = gloves.item_state
 		if(!t_state)	t_state = gloves.icon_state
@@ -657,7 +659,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing.overlays += bloodsies
 		overlays_standing[GLOVES_LAYER]	= standing
 	else
-		if(slot_gloves in check_obscured_slots())
+		if(hidden)
 			return
 		if(blood_DNA)
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "bloodyhands", layer = -GLOVES_LAYER)
@@ -762,13 +764,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(inv)
 			inv.update_icon()
 
+	var/hidden = (slot_shoes in check_obscured_slots())
+
 	if(shoes)
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				shoes.screen_loc = ui_shoes			//...draw the item in the inventory screen
 			client.screen += shoes					//Either way, add the item to the HUD
 
-		if(slot_shoes in check_obscured_slots())
+		if(hidden)
 			return
 		var/mutable_appearance/standing
 		if(shoes.icon_override)
@@ -778,7 +782,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			standing = mutable_appearance('icons/mob/clothing/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
 
-
 		if(shoes.blood_DNA)
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
 			bloodsies.color = shoes.blood_color
@@ -787,7 +790,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.color = shoes.color
 		overlays_standing[SHOES_LAYER] = standing
 	else
-		if(slot_shoes in check_obscured_slots())
+		if(hidden)
 			return
 		if(feet_blood_DNA)
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER)
