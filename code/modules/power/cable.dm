@@ -827,7 +827,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	src.amount = rand(1,2)
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	update_wclass()
 
 /obj/item/stack/cable_coil/yellow

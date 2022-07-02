@@ -497,16 +497,30 @@ BLIND     // can't see anything
 				playsound(src.loc, I.usesound, 100, 1)
 				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
 				cut_open = TRUE
-				icon_state = "[icon_state]_opentoe"
-				item_state = "[item_state]_opentoe"
-				name = "mangled [name]"
-				desc = "[desc] They have had their toes opened up."
-				update_appearance()
+				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 			else
 				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
 		return
 	else
 		return ..()
+
+/obj/item/clothing/shoes/update_name()
+	. = ..()
+	if(!cut_open)
+		return
+	name = "mangled [name]"
+
+/obj/item/clothing/shoes/update_desc()
+	. = ..()
+	if(!cut_open)
+		return
+	desc = "[desc] They have had their toes opened up."
+
+/obj/item/clothing/shoes/update_icon_state()
+	if(!cut_open)
+		return
+	icon_state = "[icon_state]_opentoe"
+	item_state = "[item_state]_opentoe"
 
 /obj/item/proc/negates_gravity()
 	return

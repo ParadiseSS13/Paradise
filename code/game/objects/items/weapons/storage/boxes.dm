@@ -762,7 +762,7 @@
 			return
 		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
 		design = switchDesign
-		update_appearance()
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
 	else if(is_sharp(W))
 		if(!contents.len)

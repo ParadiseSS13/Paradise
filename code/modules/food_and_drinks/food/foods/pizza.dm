@@ -177,7 +177,7 @@
 		user.put_in_hands(pizza)
 		to_chat(user, "<span class='warning'>You take [pizza] out of [src].</span>")
 		pizza = null
-		update_appearance()
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 
 	if(boxes.len > 0)
@@ -188,8 +188,8 @@
 		boxes -= box
 		user.put_in_hands(box)
 		to_chat(user, "<span class='warning'>You remove the topmost [src] from your hand.</span>")
-		box.update_appearance()
-		update_appearance()
+		box.update_appearance(UPDATE_DESC|UPDATE_ICON)
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 	..()
 
@@ -199,7 +199,7 @@
 	open = !open
 	if(open && pizza)
 		is_messy = TRUE
-	update_appearance()
+	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/pizzabox/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pizzabox/))
@@ -215,8 +215,8 @@
 				box.loc = src
 				box.boxes = list() // Clear the box boxes so we don't have boxes inside boxes. - Xzibit
 				boxes.Add(boxestoadd)
-				box.update_appearance()
-				update_appearance()
+				box.update_appearance(UPDATE_DESC|UPDATE_ICON)
+				update_appearanceUPDATE_DESC|UPDATE_ICON)
 				to_chat(user, "<span class='warning'>You put [box] on top of [src]!</span>")
 			else
 				to_chat(user, "<span class='warning'>The stack is too high!</span>")
@@ -230,7 +230,7 @@
 			I.loc = src
 			pizza = I
 
-			update_appearance()
+			update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 			to_chat(user, "<span class='warning'>You put [I] in [src]!</span>")
 		else
@@ -245,7 +245,7 @@
 		if(boxes.len > 0)
 			boxtotagto = boxes[boxes.len]
 		boxtotagto.box_tag = copytext("[boxtotagto.box_tag][t]", 1, 30)
-		update_appearance()
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 	..()
 

@@ -90,7 +90,7 @@
 	if(rusted)
 		return
 	rusted = TRUE
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /turf/simulated/wall/update_name()
 	. = ..()

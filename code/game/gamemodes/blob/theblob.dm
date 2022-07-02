@@ -20,7 +20,7 @@
 	. = ..()
 	GLOB.blobs += src
 	setDir(pick(GLOB.cardinal))
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 	if(atmosblock)
 		air_update_turf(TRUE)
 	ConsumeTile()
@@ -63,13 +63,17 @@
 /obj/structure/blob/proc/Life()
 	return
 
+/obj/structure/blob/proc/update_state()
+	return
+
 /obj/structure/blob/proc/RegenHealth()
 	// All blobs heal over time when pulsed, but it has a cool down
 	if(health_timestamp > world.time)
 		return 0
 	if(obj_integrity < max_integrity)
 		obj_integrity = min(max_integrity, obj_integrity + 1)
-		update_appearance()
+		update_state()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 		health_timestamp = world.time + 10 // 1 seconds
 
 
@@ -186,7 +190,8 @@
 /obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. && obj_integrity > 0)
-		update_appearance()
+		update_state()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/structure/blob/proc/change_to(type)
 	if(!ispath(type))
@@ -227,6 +232,12 @@
 	max_integrity = 25
 	brute_resist = 0.25
 
+/obj/structure/blob/normal/update_state()
+	if(obj_integrity <= 15)
+		brute_resist = 0.5
+	else
+		brute_resist = 0.25
+
 /obj/structure/blob/normal/update_name()
 	. = ..()
 	if(obj_integrity <= 15)
@@ -244,7 +255,5 @@
 /obj/structure/blob/normal/update_icon_state()
 	if(obj_integrity <= 15)
 		icon_state = "blob_damaged"
-		brute_resist = 0.5
 	else
 		icon_state = "blob"
-		brute_resist = 0.25

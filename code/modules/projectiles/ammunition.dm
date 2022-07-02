@@ -35,7 +35,7 @@
 	pixel_x = rand(-10.0, 10)
 	pixel_y = rand(-10.0, 10)
 	dir = pick(GLOB.alldirs)
-	update_appearance()
+	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/ammo_casing/update_desc()
 	. = ..()
@@ -63,7 +63,7 @@
 				else
 					continue
 			if(boolets > 0)
-				box.update_appearance()
+				box.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s.</span>")
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
@@ -126,7 +126,7 @@
 	..()
 	for(var/i in 1 to max_ammo)
 		stored_ammo += new ammo_type(src)
-	update_appearance()
+	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/ammo_box/Destroy()
 	QDEL_LIST(stored_ammo)
@@ -144,7 +144,7 @@
 		if(!initial_mats)
 			initial_mats = materials.Copy()
 		update_mat_value()
-		update_appearance()
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return b
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
@@ -199,8 +199,8 @@
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
 		playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
-		A.update_appearance()
-		update_appearance()
+		A.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 	return num_loaded
 
@@ -210,7 +210,7 @@
 		user.put_in_hands(A)
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
-		update_appearance()
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 // `multi_sprite_step` governs whether there are different sprites for different degrees of being loaded.
 // AMMO_MULTI_SPRITE_STEP_NONE - just a single `icon_state`, no shenanigans

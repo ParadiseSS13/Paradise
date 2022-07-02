@@ -65,7 +65,7 @@
 				qdel(W)
 				build_step++
 				to_chat(user, "<span class='notice'>You add the robot leg to [src].</span>")
-				update_appearance()
+				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 		if(2)
 			var/newcolor = ""
@@ -80,12 +80,12 @@
 				qdel(W)
 				build_step++
 				to_chat(user, "<span class='notice'>You add the armor to [src].</span>")
-				update_appearance()
+				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 		if(3)
 			if(W.tool_behaviour == TOOL_WELDER && W.use_tool(src, user, volume = W.tool_volume))
 				build_step++
-				update_appearance(UPDATE_NAME)
+				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 				to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
 		if(4)
 			switch(lasercolor)
@@ -106,7 +106,7 @@
 			qdel(W)
 			build_step++
 			to_chat(user, "<span class='notice'>You add the helmet to [src].</span>")
-			update_appearance()
+			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 		if(5)
 			if(isprox(W))
@@ -115,7 +115,7 @@
 				qdel(W)
 				build_step++
 				to_chat(user, "<span class='notice'>You add the prox sensor to [src].</span>")
-				update_appearance()
+				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 		if(6)
 			if(istype(W, /obj/item/stack/cable_coil))
@@ -153,7 +153,7 @@
 				return
 			build_step++
 			to_chat(user, "<span class='notice'>You add [W] to [src].</span>")
-			update_appearance()
+			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 			qdel(W)
 
 		if(8)
@@ -392,7 +392,7 @@
 					qdel(I)
 					build_step++
 					to_chat(user, "<span class='notice'>You add the health sensor to [src].</span>")
-					update_appearance()
+					update_appearance(UPDATE_NAME)
 
 			if(1)
 				if(isprox(I))
@@ -517,7 +517,7 @@
 		user.unEquip(src, 1)
 		qdel(src)
 
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/secbot_assembly/update_name()
 	. = ..()
@@ -642,7 +642,7 @@
 			var/mob/living/simple_animal/bot/honkbot/A = new /mob/living/simple_animal/bot/honkbot(get_turf(src))
 			A.robot_arm = robot_arm
 			qdel(src)
-	update_appearance()
+	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/honkbot_arm_assembly/update_icon_state()
 	if(build_step == 1)

@@ -13,7 +13,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
 	if(!isShotFlammable() && (resistance_flags & ON_FIRE))
 		extinguish()
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_name()
 	. = ..()
@@ -62,14 +62,14 @@
 	..()
 	set_light(light_intensity, null, light_color)
 	visible_message("<span class = 'notice'>[src] begins to burn with a blue hue!</span>")
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/extinguish(silent = FALSE)
 	..()
 	set_light(0)
 	if(!silent)
 		visible_message("<span class = 'notice'>The dancing flame on [src] dies out.</span>")
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot
 	return

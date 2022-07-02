@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-			D.update_appearance()
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")

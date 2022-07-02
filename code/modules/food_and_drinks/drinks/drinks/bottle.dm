@@ -357,7 +357,7 @@
 		B.reagents.copy_to(src, 100)
 		if(!B.is_glass)
 			is_glass = FALSE
-		update_appearance()
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/throw_impact(atom/target,mob/thrower)
 	var/firestarter = FALSE

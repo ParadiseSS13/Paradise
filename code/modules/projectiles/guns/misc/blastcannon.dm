@@ -22,7 +22,7 @@
 		user.put_in_hands(bomb)
 		user.visible_message("<span class='warning'>[user] detaches [bomb] from [src].</span>")
 		bomb = null
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 	return ..()
 
 /obj/item/gun/blastcannon/update_name()
@@ -57,7 +57,7 @@
 		user.visible_message("<span class='warning'>[user] attaches [T] to [src]!</span>")
 		T.forceMove(src)
 		bomb = T
-		update_appearance()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 		return TRUE
 	return ..()
 
@@ -81,7 +81,7 @@
 		return ..()
 	var/power = calculate_bomb()
 	QDEL_NULL(bomb)
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 	var/heavy = power * 0.2
 	var/medium = power * 0.5
 	var/light = power

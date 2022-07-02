@@ -30,7 +30,7 @@
 
 		visible_message("[user] places [I] in [src].")
 		add_fingerprint(user)
-		update_appearance()
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 	else
 		return ..()
 
@@ -58,7 +58,7 @@
 /obj/item/ashtray/proc/empty_tray()
 	for(var/obj/item/I in contents)
 		I.forceMove(loc)
-	update_appearance()
+	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/ashtray/throw_impact(atom/hit_atom)
 	if(contents.len)

@@ -511,10 +511,10 @@
 	if(!length(cards))
 		qdel(src)
 
-/obj/item/cardhand/update_appearance()
+/obj/item/cardhand/update_appearance(updates=ALL)
 	if(!length(cards))
 		return
-	..()
+	..(updates)
 
 /obj/item/cardhand/update_name()
 	. = ..()
