@@ -4,7 +4,7 @@
 	This needs more thinking out, but I might as well.
 */
 #define TK_MAXRANGE 15
-#define TK_COOLDOWN (1.5 SECONDS)
+#define TK_COOLDOWN 1.5 SECONDS
 /*
 	Telekinetic attack:
 
