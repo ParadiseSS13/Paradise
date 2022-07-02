@@ -22,7 +22,7 @@
 
 	if(stat == DEAD)
 		icon_state = "empress_dead"
-	else if(stat == UNCONSCIOUS || lying || resting)
+	else if(stat == UNCONSCIOUS || IS_HORIZONTAL(src))
 		icon_state = "empress_sleep"
 	else
 		icon_state = "empress_s"

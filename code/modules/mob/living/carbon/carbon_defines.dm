@@ -14,8 +14,6 @@
 	var/obj/item/head = null
 	var/obj/item/clothing/suit/wear_suit = null		//TODO: necessary? Are they even used? ~Carn
 
-	var/mob/living/simple_animal/borer/borer = null
-
 	//Active emote/pose
 	var/pose = null
 

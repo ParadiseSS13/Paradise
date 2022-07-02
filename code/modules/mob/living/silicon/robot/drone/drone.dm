@@ -359,10 +359,6 @@
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	verbs -= silicon_subsystems
 
-/mob/living/silicon/robot/drone/update_canmove(delay_action_updates = FALSE)
-	. = ..()
-	density = emagged //this is reset every canmove update otherwise
-
 /mob/living/silicon/robot/drone/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
 	..()
 	update_headlamp(TRUE, 0, FALSE)
