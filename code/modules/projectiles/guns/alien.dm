@@ -15,7 +15,7 @@
 	return
 
 /obj/item/gun/energy/noisecannon/update_overlays()
-	return
+	return list()
 
 //Casing
 /obj/item/ammo_casing/energy/sonic

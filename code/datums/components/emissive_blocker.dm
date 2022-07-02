@@ -1,10 +1,13 @@
 /datum/component/emissive_blocker
-	var/list/stored_blocker
+	/// Stores either the mutable_appearance or a list of them
+	var/stored_blocker
 
 /datum/component/emissive_blocker/Initialize(_stored_blocker)
 	stored_blocker = _stored_blocker
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON_STATE, .proc/update_generic_block)
 	RegisterSignal(parent, COMSIG_ATOM_ADD_EMISSIVE_BLOCKER, .proc/add_generic_block)
+	var/atom/movable/A = parent
+	A.add_overlay(stored_blocker)
 
 /// Updates the generic blocker when the icon_state is changed
 /datum/component/emissive_blocker/proc/update_generic_block(datum/source)

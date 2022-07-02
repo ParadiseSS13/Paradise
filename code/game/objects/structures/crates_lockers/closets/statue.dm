@@ -110,7 +110,7 @@
 	return
 
 /obj/structure/closet/statue/update_overlays()
-	return
+	return list()
 
 /obj/structure/closet/statue/proc/shatter(mob/user)
 	if(user)

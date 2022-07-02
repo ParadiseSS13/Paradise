@@ -17,7 +17,7 @@
 		icon_state = icon_opened
 
 /obj/structure/closet/cabinet/update_overlays()
-	return
+	return list()
 
 /obj/structure/closet/acloset
 	name = "strange closet"

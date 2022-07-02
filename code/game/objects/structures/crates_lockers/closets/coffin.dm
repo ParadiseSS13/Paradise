@@ -18,7 +18,7 @@
 		icon_state = icon_opened
 
 /obj/structure/closet/coffin/update_overlays()
-	return
+	return list()
 
 /obj/structure/closet/coffin/sarcophagus
 	name = "sarcophagus"

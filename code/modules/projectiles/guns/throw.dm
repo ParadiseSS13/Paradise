@@ -45,7 +45,7 @@
 	return
 
 /obj/item/gun/throw/update_overlays()
-	return
+	return list()
 
 /obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
 	if(istype(I, valid_projectile_type) && !(I.flags & NODROP))

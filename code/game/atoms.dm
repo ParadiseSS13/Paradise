@@ -405,6 +405,7 @@
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
+	/// Signal sent should the appearance be updated. This is more broad if listening to a more specific signal doesn't cut it
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_APPEARANCE, updates)
 	if(updates & UPDATE_NAME)
 		update_name(updates)
@@ -450,7 +451,7 @@
 
 /// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /atom/proc/update_overlays()
-	. = list()
+	return list()
 
 /// Updates the fire overlay of the atom
 /atom/proc/update_fire_overlay()

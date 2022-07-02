@@ -64,7 +64,7 @@
 		qdel(src)
 
 /obj/item/gun/energy/chrono_gun/update_overlays()
-	return
+	return list()
 
 /obj/item/gun/energy/chrono_gun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
 	if(field)

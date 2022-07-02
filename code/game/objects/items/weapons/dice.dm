@@ -306,7 +306,7 @@
 	sides = 100
 
 /obj/item/dice/d100/update_overlays()
-	return
+	return list()
 
 /obj/item/dice/d20/e20
 	var/triggered = FALSE

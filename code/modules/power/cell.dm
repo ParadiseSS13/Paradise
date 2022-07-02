@@ -316,7 +316,7 @@
 	ratingdesc = FALSE
 
 /obj/item/stock_parts/cell/infinite/abductor/update_overlays()
-	return
+	return list()
 
 /obj/item/stock_parts/cell/potato
 	name = "potato battery"

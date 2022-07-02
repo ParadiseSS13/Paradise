@@ -413,7 +413,7 @@
 	return
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_overlays()
-	return
+	return list()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/stack/cable_coil))

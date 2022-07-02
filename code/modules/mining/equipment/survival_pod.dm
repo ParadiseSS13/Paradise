@@ -236,7 +236,7 @@
 	return
 
 /obj/machinery/smartfridge/survival_pod/update_overlays()
-	return
+	return list()
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)
