@@ -4,7 +4,7 @@
 
 	school = "transmutation"
 	charge_max = 100
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "AULIE OXIN FIERA"
 	invocation_type = "whisper"
 	cooldown_min = 20 //20 deciseconds reduction per rank

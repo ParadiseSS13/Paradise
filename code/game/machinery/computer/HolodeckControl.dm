@@ -5,7 +5,7 @@
 	icon_screen = "holocontrol"
 	var/area/linkedholodeck = null
 	var/area/target = null
-	var/active = 0
+	var/active = FALSE
 	var/list/holographic_items = list()
 	var/damaged = 0
 	var/last_change = 0
@@ -165,7 +165,7 @@
 /obj/machinery/computer/HolodeckControl/emag_act(user as mob)
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
 		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
 		log_game("[key_name(usr)] emagged the Holodeck Control Computer")
@@ -210,7 +210,7 @@
 			target = locate(/area/holodeck/source_plating)
 			if(target)
 				loadProgram(target)
-			active = 0
+			active = FALSE
 			for(var/mob/M in range(10,src))
 				M.show_message("The holodeck overloads!")
 
@@ -260,13 +260,13 @@
 							T.temperature = 5000
 							T.hotspot_expose(50000,50000,1)*/
 
-		active = 1
+		active = TRUE
 	else
 		for(var/item in holographic_items)
 			derez(item)
 		var/area/targetsource = locate(/area/holodeck/source_plating)
 		targetsource.copy_contents_to(linkedholodeck , 1)
-		active = 0
+		active = FALSE
 
 
 /obj/machinery/computer/HolodeckControl/proc/loadProgram(area/A)
@@ -280,7 +280,7 @@
 			return
 
 	last_change = world.time
-	active = 1
+	active = TRUE
 
 	for(var/item in holographic_items)
 		derez(item)
@@ -321,7 +321,7 @@
 
 	var/area/targetsource = locate(/area/holodeck/source_plating)
 	targetsource.copy_contents_to(linkedholodeck , 1)
-	active = 0
+	active = FALSE
 
 // Holographic Items!
 /turf/simulated/floor/holofloor/
@@ -413,10 +413,10 @@
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "rwindow"
 	desc = "A window."
-	density = 1
+	density = TRUE
 	layer = 3.2//Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
-	anchored = 1.0
+	anchored = TRUE
 	flags = ON_BORDER
 
 /obj/structure/rack/holorack
@@ -457,7 +457,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration = 50
 	block_chance = 50
-	var/active = 0
+	var/active = FALSE
 
 /obj/item/holo/esword/green/New()
 	..()
@@ -519,8 +519,8 @@
 	desc = "Boom, Shakalaka!"
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "hoop"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	pass_flags = LETPASSTHROW
 
 /obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -556,11 +556,11 @@
 	desc = "This device is used to declare ready. If all devices in an area are ready, the event will begin!"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "auth_off"
-	var/ready = 0
+	var/ready = FALSE
 	var/area/currentarea = null
 	var/eventstarted = 0
 
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
