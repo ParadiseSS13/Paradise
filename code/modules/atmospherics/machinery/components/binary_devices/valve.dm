@@ -20,7 +20,7 @@
 	return "Click this to turn the valve. If red, the pipes on each end are separated. Otherwise, they are connected."
 
 /obj/machinery/atmospherics/binary/valve/open
-	open = FALSE
+	open = TRUE
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/update_icon_state()
@@ -99,7 +99,7 @@
 	..()
 
 /obj/machinery/atmospherics/binary/valve/digital/open
-	open = 1
+	open = TRUE
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/digital/power_change()
