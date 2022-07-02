@@ -14,7 +14,7 @@
 	var/use_item_overlays = FALSE
 
 /obj/item/storage/belt/update_overlays()
-	. =..()
+	. = ..()
 	if(use_item_overlays)
 		for(var/obj/item/I in contents)
 			. += "[I.belt_icon]"

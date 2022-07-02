@@ -360,8 +360,8 @@
 	harmful = FALSE
 
 /obj/item/ammo_casing/caseless/foam_dart/update_desc()
+	. = ..()
 	if(modified)
-		..()
 		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 
 /obj/item/ammo_casing/caseless/foam_dart/update_icon_state()
@@ -421,8 +421,8 @@
 
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper/update_desc()
+	. = ..()
 	if(modified)
-		..()
 		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon_state()

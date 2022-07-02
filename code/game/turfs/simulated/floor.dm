@@ -109,7 +109,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/update_overlays()
 	. = ..()
 	update_visuals()
-	cut_overlay(current_overlay)
 	if(current_overlay)
 		. += current_overlay
 

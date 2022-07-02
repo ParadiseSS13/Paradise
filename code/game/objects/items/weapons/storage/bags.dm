@@ -409,7 +409,7 @@
 /obj/item/storage/bag/tray/update_overlays()
 	. = ..()
 	for(var/obj/item/I in contents)
-		. += image(icon = I.icon, icon_state = I.icon_state, layer = -1, pixel_x = rand(-7, 7), pixel_y = rand(-3, 2))
+		. += image(icon = I.icon, icon_state = I.icon_state, layer = -1)
 
 /obj/item/storage/bag/tray/cyborg
 
@@ -456,7 +456,8 @@
 
 /obj/item/storage/bag/tray/cookies_tray/populate_contents() // By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
-		new cookie(src)
+		var/obj/item/C = new cookie(src)
+		C.in_inventory = TRUE
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie

@@ -76,7 +76,7 @@
 			while(amount--)
 				var/obj/item/I = new typekey(src)
 				item_quants[I.name] += 1
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/food/snacks/grown,
@@ -111,19 +111,17 @@
 	else
 		set_light(light_range_on, light_power_on)
 	if(old_stat != stat)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/extinguish_light()
 	set_light(0)
 	underlays.Cut()
 
-/obj/machinery/smartfridge/update_icon_state()
+/obj/machinery/smartfridge/update_overlays()
+	. = ..()
 	underlays.Cut()
 	if(light)
 		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
-
-/obj/machinery/smartfridge/update_overlays()
-	. = ..()
 	if(panel_open)
 		. += "[icon_state]_panel"
 	if(stat & (BROKEN|NOPOWER))
@@ -189,7 +187,7 @@
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
 		SStgui.update_uis(src)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else if(istype(O, /obj/item/storage/bag))
 		var/obj/item/storage/bag/P = O
 		var/items_loaded = 0
@@ -199,7 +197,7 @@
 		if(items_loaded)
 			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
 			SStgui.update_uis(src)
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		var/failed = length(P.contents)
 		if(failed)
 			to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
@@ -239,7 +237,7 @@
 			items_loaded++
 	if(items_loaded)
 		user.visible_message("<span class='notice'>[user] empties \the [P] into \the [src].</span>", "<span class='notice'>You empty \the [P] into \the [src].</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	var/failed = length(P.contents)
 	if(failed)
 		to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
@@ -368,7 +366,7 @@
 			if(I.name == O)
 				I.forceMove(loc)
 				throw_item = I
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 				break
 	if(!throw_item)
 		return FALSE

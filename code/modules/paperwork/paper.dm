@@ -29,6 +29,7 @@
 	var/footer 	//The bottom stuff before the stamp but after the body
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
+	var/list/stamp_overlays = list()
 	var/fields		//Amount of user created fields
 	var/list/stamped
 	var/ico[0]      //Icons and
@@ -260,6 +261,7 @@
 	info = null
 	stamps = null
 	stamped = list()
+	stamp_overlays = list()
 	updateinfolinks()
 	update_icon()
 
@@ -482,7 +484,11 @@
 	if(!stamped)
 		stamped = new
 	stamped += S.type
-	add_overlay(stampoverlay)
+	stamp_overlays += stampoverlay
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/paper/update_overlays()
+	return stamp_overlays
 
 /*
  * Premade paper

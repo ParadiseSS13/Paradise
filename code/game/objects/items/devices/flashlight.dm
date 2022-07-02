@@ -169,13 +169,10 @@
 	..()
 
 /obj/item/flashlight/flare/update_icon_state()
-	..()
 	if(!fuel)
 		icon_state = "[initial(icon_state)]-empty"
-	if(on)
-		item_state = "[initial(item_state)]-on"
-	else
-		item_state = "[initial(item_state)]"
+		return
+	..()
 
 /obj/item/flashlight/flare/process()
 	var/turf/pos = get_turf(src)

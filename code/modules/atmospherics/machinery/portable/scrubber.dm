@@ -31,7 +31,6 @@
 	..(severity)
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon_state()
-	cut_overlays()
 	if(on)
 		icon_state = "pscrubber:1"
 	else
@@ -182,7 +181,6 @@
 	to_chat(usr, "<span class='warning'>You can't directly interact with this machine. Use the area atmos computer.</span>")
 
 /obj/machinery/portable_atmospherics/scrubber/huge/update_icon_state()
-	cut_overlays()
 	icon_state = "scrubber:[on]"
 
 /obj/machinery/portable_atmospherics/scrubber/huge/attackby(obj/item/W, mob/user, params)

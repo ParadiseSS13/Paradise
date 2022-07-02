@@ -66,11 +66,10 @@ FIRE ALARM
 			. += "overlay_[get_security_level()]"
 		else
 			. += "overlay_green"
-	if(light)
-		if(overlays)
+		if(light)
 			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
-		if(!wiresexposed)
-			underlays += emissive_appearance(icon, "firealarm_lightmask")
+	if(light && !wiresexposed)
+		underlays += emissive_appearance(icon, "firealarm_lightmask")
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)

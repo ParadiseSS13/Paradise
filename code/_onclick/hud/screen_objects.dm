@@ -335,7 +335,7 @@
 	return 1
 
 /obj/screen/zone_sel/update_icon(mob/user)
-	. = ..(NONE)
+	..(NONE)
 	cut_overlays()
 	var/image/sel = image(overlay_file, "[selecting]")
 	sel.appearance_flags = RESET_COLOR

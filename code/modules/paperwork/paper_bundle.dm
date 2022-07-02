@@ -218,11 +218,8 @@
 	qdel(src)
 	return
 
-/obj/item/paper_bundle/update_icon_state()
-	cut_overlays()
-	if(contents.len)
-		var/obj/item/paper/P = src[1]
-		icon_state = P.overlays
+/obj/item/paper_bundle/update_desc()
+	. = ..()
 	if(amount > 1)
 		desc =  "[amount] papers clipped to each other."
 	else
@@ -231,6 +228,11 @@
 		if(istype(O, /obj/item/photo))
 			desc += "\nThere is a photo attached to it."
 			return
+
+/obj/item/paper_bundle/update_icon_state()
+	if(contents.len)
+		var/obj/item/paper/P = src[1]
+		icon_state = P.overlays
 
 /obj/item/paper_bundle/update_overlays()
 	. = ..()

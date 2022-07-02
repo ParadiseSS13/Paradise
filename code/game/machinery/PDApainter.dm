@@ -19,9 +19,9 @@
 		icon_state = "[initial(icon_state)]-off"
 
 /obj/machinery/pdapainter/update_overlays()
+	. = ..()
 	if(stat & BROKEN)
 		return
-	. = ..()
 	if(storedpda)
 		. += "[initial(icon_state)]-closed"
 

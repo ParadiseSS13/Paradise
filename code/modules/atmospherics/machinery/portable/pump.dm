@@ -25,7 +25,6 @@
 			replaced by using a screwdriver, and then adding a new cell. A tank of gas can also be attached to the air pump."
 
 /obj/machinery/portable_atmospherics/pump/update_icon_state()
-	cut_overlays()
 	icon_state = "psiphon:[on]"
 
 /obj/machinery/portable_atmospherics/pump/update_overlays()

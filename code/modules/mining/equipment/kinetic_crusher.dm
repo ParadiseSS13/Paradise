@@ -145,7 +145,6 @@
 		set_light(0)
 
 /obj/item/twohanded/kinetic_crusher/update_icon_state()
-	cut_overlays()
 	item_state = "crusher[wielded]"
 
 /obj/item/twohanded/kinetic_crusher/update_overlays()

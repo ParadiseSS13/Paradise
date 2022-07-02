@@ -360,7 +360,7 @@
 		return TRUE
 	if(!power)
 		to_chat(user, "<span class='warning'>The shield generator needs to be powered by wire underneath.</span>")
-		return
+		return TRUE
 
 	active = !active
 	user.visible_message("[user] turned the shield generator [active ? "on" : "off"].", \

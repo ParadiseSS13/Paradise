@@ -18,9 +18,6 @@
 	..()
 
 /obj/item/grenade/plastic/Destroy()
-	if(target)
-		var/datum/component/persistent_overlay/PE = target.GetComponent(/datum/component/persistent_overlay)
-		qdel(PE)
 	QDEL_NULL(nadeassembly)
 	target = null
 	return ..()

@@ -199,7 +199,6 @@
 	return ..()
 
 /obj/structure/sign/picture_frame/update_icon_state()
-	cut_overlays()
 	if(frame)
 		icon = null
 		icon_state = null
