@@ -245,7 +245,3 @@
 		if(!powernet || !cold_circ || !hot_circ)
 			connect()
 			return TRUE
-
-/obj/machinery/power/generator/power_change()
-	..()
-	update_icon()
