@@ -113,8 +113,8 @@
 					else if(!isrobot(user))
 						to_chat(user, "<span class='notice'>You need to hold a cautery or equivalent in your inactive hand to stop the surgery in progress.</span>")
 
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 
 /proc/get_pain_modifier(mob/living/carbon/human/M) //returns modfier to make surgery harder if patient is conscious and feels pain
