@@ -19,7 +19,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(MAT_METAL=1750, MAT_GLASS=400)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
@@ -63,7 +63,7 @@
 		flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 		icon_state = initial(icon_state)
 		to_chat(usr, "You flip [src] down to protect your eyes.")
-		flash_protect = 2
+		flash_protect = FLASH_PROTECTION_WELDER
 		tint = 2
 	else
 		up = !up
@@ -71,7 +71,7 @@
 		flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 		icon_state = "[initial(icon_state)]up"
 		to_chat(usr, "You push [src] up out of your face.")
-		flash_protect = 0
+		flash_protect = FLASH_PROTECTION_NONE
 		tint = 0
 	var/mob/living/carbon/user = usr
 	user.update_tint()
@@ -94,7 +94,7 @@
 	icon_state = "cake0"
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
-	var/onfire = 0.0
+	var/onfire = FALSE
 	var/status = 0
 	var/fire_resist = T0C+1300	//this is the max temp it can stand before you start to cook. although it might not burn away, you take damage
 	var/processing = 0 //I dont think this is used anywhere.
@@ -115,7 +115,7 @@
 
 /obj/item/clothing/head/cakehat/attack_self(mob/user as mob)
 	if(status > 1)	return
-	src.onfire = !( src.onfire )
+	src.onfire = !src.onfire
 	if(src.onfire)
 		src.force = 3
 		src.damtype = "fire"

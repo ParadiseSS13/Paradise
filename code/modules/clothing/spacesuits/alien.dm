@@ -204,7 +204,7 @@
 /obj/item/clothing/shoes/magboots/vox/attack_self(mob/user)
 	if(magpulse)
 		flags &= ~NOSLIP
-		magpulse = 0
+		magpulse = FALSE
 		flags |= NODROP
 		to_chat(user, "You relax your deathgrip on the flooring.")
 	else
@@ -217,7 +217,7 @@
 			return
 
 		flags |= NOSLIP
-		magpulse = 1
+		magpulse = TRUE
 		flags &= ~NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
 		to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
 		to_chat(user, "It would be hard to take off [src] without relaxing your grip first.")
@@ -228,7 +228,7 @@
 	if(src.magpulse)
 		user.visible_message("[src] go limp as they are removed from [usr]'s feet.", "[src] go limp as they are removed from your feet.")
 		flags &= ~NOSLIP
-		magpulse = 0
+		magpulse = FALSE
 		flags &= ~NODROP
 
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)

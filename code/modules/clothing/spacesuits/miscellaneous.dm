@@ -238,7 +238,7 @@
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	species_restricted = list("exclude", "Wryn")
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
