@@ -16,6 +16,9 @@
 	can_unwrench = 1
 	var/side_inverted = 0
 
+	var/light_range_on = 1
+	var/light_power_on = 0.1 //just dont want it to be culled by byond.
+
 /obj/machinery/atmospherics/binary/circulator/detailed_examine()
 	return "This generates electricity, depending on the difference in temperature between each side of the machine. The meter in \
 			the center of the machine gives an indicator of how much electricity is being generated."
@@ -44,6 +47,7 @@
 	if(output_starting_pressure >= input_starting_pressure - 10)
 		//Need at least 10 KPa difference to overcome friction in the mechanism
 		last_pressure_delta = 0
+		update_icon()
 		return null
 
 	//Calculate necessary moles to transfer using PV = nRT
@@ -52,7 +56,9 @@
 
 		var/transfer_moles = pressure_delta * outlet.volume/(inlet.temperature * R_IDEAL_GAS_EQUATION)
 
-		last_pressure_delta = pressure_delta
+		if(last_pressure_delta != pressure_delta)
+			last_pressure_delta = pressure_delta
+			update_icon()
 
 		//log_debug("pressure_delta = [pressure_delta]; transfer_moles = [transfer_moles];")
 
@@ -66,10 +72,7 @@
 
 	else
 		last_pressure_delta = 0
-
-/obj/machinery/atmospherics/binary/circulator/process_atmos()
-	..()
-	update_icon()
+		update_icon()
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_inlet_air()
 	if(side_inverted==0)
@@ -105,16 +108,54 @@
 		side_inverted = TRUE
 	else
 		side_inverted = FALSE
+	update_icon()
 	to_chat(user, "<span class='notice'>You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side.</span>")
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
 
-/obj/machinery/atmospherics/binary/circulator/update_icon_state()
+/obj/machinery/atmospherics/binary/circulator/update_icon_state() //this gets called everytime atmos is updated in the circulator (alot)
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "circ[side]-p"
-	else if(last_pressure_delta > 0)
+		return
+	if(last_pressure_delta > 0)
 		if(last_pressure_delta > ONE_ATMOSPHERE)
 			icon_state = "circ[side]-run"
 		else
 			icon_state = "circ[side]-slow"
 	else
 		icon_state = "circ[side]-off"
+
+/obj/machinery/atmospherics/binary/circulator/update_overlays()
+	. = ..()
+	if(!side_inverted)
+		. += "in_up"
+	else
+		. += "in_down"
+
+	if(node2)
+		var/image/new_pipe_overlay = image(icon, "connected")
+		new_pipe_overlay.color = node2.pipe_color
+		. += new_pipe_overlay
+	else
+		. += "disconnected"
+
+	if(stat & (BROKEN|NOPOWER) && !light)
+		return
+	if(last_pressure_delta > 0)
+		if(last_pressure_delta > ONE_ATMOSPHERE)
+			. += emissive_appearance(icon,"emit[side]-run")
+		else
+			. += emissive_appearance(icon,"emit[side]-slow")
+	else
+		. += emissive_appearance(icon,"emit[side]-off")
+
+/obj/machinery/atmospherics/binary/circulator/power_change()
+	. = ..()
+	if(stat & (BROKEN|NOPOWER))
+		set_light(0)
+	else
+		set_light(light_range_on, light_power_on)
+	update_icon()
+
+/obj/machinery/atmospherics/binary/circulator/update_underlays()
+	. = ..()
+	update_icon()
