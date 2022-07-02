@@ -104,7 +104,7 @@
 	if(unwrenched)
 		playsound(loc, I.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to fasten \the [src] to the floor...</span>")
-		if(do_after(user, 20 * I.toolspeed, target = src))
+		if(do_after(user, 2 SECONDS * I.toolspeed, target = src))
 			user.visible_message( \
 				"[user] fastens \the [src].", \
 				"<span class='notice'>You have fastened \the [src]. Now it can dispense pipes.</span>", \
@@ -116,7 +116,7 @@
 	else
 		playsound(loc, I.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
-		if(do_after(user, 40 * I.toolspeed, target = src))
+		if(do_after(user, 4 SECONDS * I.toolspeed, target = src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
@@ -127,7 +127,7 @@
 			if(user.machine == src)
 				user << browse(null, "window=pipedispenser")
 
-/obj/machinery/pipedispenser/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/pipedispenser/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(usr)
 	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
 		to_chat(usr, "<span class='notice'>You put [W] back to [src].</span>")
