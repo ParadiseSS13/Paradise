@@ -242,7 +242,7 @@
 /mob/living/silicon/robot/drone/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 35
-		stat = CONSCIOUS
+		set_stat(CONSCIOUS)
 		return
 	health = 35 - (getBruteLoss() + getFireLoss() + getOxyLoss())
 	update_stat("updatehealth([reason])")
@@ -358,10 +358,6 @@
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	verbs -= silicon_subsystems
-
-/mob/living/silicon/robot/drone/update_canmove(delay_action_updates = FALSE)
-	. = ..()
-	density = emagged //this is reset every canmove update otherwise
 
 /mob/living/silicon/robot/drone/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
 	..()

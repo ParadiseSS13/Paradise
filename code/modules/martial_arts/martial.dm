@@ -100,7 +100,7 @@
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
-	if(D.lying)
+	if(IS_HORIZONTAL(D))
 		atk_verb = "kick"
 
 	switch(atk_verb)
@@ -130,7 +130,7 @@
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(8 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
-	else if(D.lying)
+	else if(IS_HORIZONTAL(D))
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
@@ -269,7 +269,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(user.mind.changeling) //Changelings
+		if(ischangeling(user))
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -293,7 +293,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(user.mind.changeling) //Changelings
+		if(ischangeling(user))
 			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires

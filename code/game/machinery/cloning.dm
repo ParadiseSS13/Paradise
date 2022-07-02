@@ -63,8 +63,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/biomass
 	biomass = CLONE_BIOMASS
 
-/obj/machinery/clonepod/New()
-	..()
+/obj/machinery/clonepod/Initialize(mapload)
+	. = ..()
 	countdown = new(src)
 
 	Radio = new /obj/item/radio(src)
@@ -83,8 +83,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	RefreshParts()
 	update_icon()
 
-/obj/machinery/clonepod/upgraded/New()
-	..()
+/obj/machinery/clonepod/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -444,8 +444,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			SSticker.mode.rise(H)
 			if(SSticker.mode.cult_ascendant)
 				SSticker.mode.ascend(H)
-	if(H.mind in SSticker.mode.changelings)
-		SSticker.mode.update_change_icons_added(H.mind)
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)

@@ -50,7 +50,6 @@
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
-	var/lying = 0
 	var/lying_prev = 0
 	var/lastpuke = 0
 	var/can_strip = 1
@@ -156,8 +155,6 @@
 	var/status_flags = CANSTUN|CANWEAKEN|CANPARALYSE|CANPUSH	//bitflags defining which status effects can be inflicted (replaces canweaken, canstun, etc)
 
 	var/area/lastarea = null
-
-	var/digitalcamo = 0 // Can they be tracked by the AI?
 
 	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
 

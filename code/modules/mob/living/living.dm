@@ -2,6 +2,7 @@
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
+	register_init_signals()
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
 	GLOB.mob_living_list += src
@@ -204,21 +205,21 @@
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
 	var/turf/T = get_turf(src)
 	if(!T)
-		return 0
+		return FALSE
 	if(!is_level_reachable(T.z))
-		return 0
-	if(user != null && src == user)
-		return 0
+		return FALSE
+	if(!isnull(user) && src == user)
+		return FALSE
 	if(invisibility || alpha == 0)//cloaked
-		return 0
-	if(digitalcamo)
-		return 0
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_AI_UNTRACKABLE))
+		return FALSE
 
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	if(!near_camera(src))
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
@@ -243,7 +244,7 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(incapacitated(ignore_lying = TRUE))
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
@@ -299,7 +300,7 @@
 /mob/living/proc/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = maxHealth
-		stat = CONSCIOUS
+		set_stat(CONSCIOUS)
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
@@ -450,6 +451,7 @@
 	SetWeakened(0, TRUE)
 	SetSlowed(0)
 	SetImmobilized(0)
+	SetKnockDown(0)
 	SetLoseBreath(0)
 	SetDizzy(0)
 	SetJitter(0)
@@ -495,7 +497,6 @@
 			human_mob.restore_blood()
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
-
 	SEND_SIGNAL(src, COMSIG_LIVING_AHEAL)
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
@@ -510,10 +511,14 @@
 	if(human_mob)
 		human_mob.update_eyes()
 		human_mob.update_dna()
+
+	resting = FALSE
+	stand_up() // wake the fuck up badmin, we've got an "event" to burn
 	return
 
-/mob/living/proc/remove_CC(should_update_canmove = TRUE)
+/mob/living/proc/remove_CC()
 	SetWeakened(0)
+	SetKnockDown(0)
 	SetStunned(0)
 	SetParalysis(0)
 	SetImmobilized(0)
@@ -537,7 +542,7 @@
 	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
 		log_game("DEBUG: [src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 		stop_pulling()
-	if(restrained())
+	if(restrained() || HAS_TRAIT(src, TRAIT_CANNOT_PULL))
 		stop_pulling()
 
 	var/turf/old_loc = loc
@@ -563,7 +568,7 @@
 		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 			if(isliving(pulling))
 				var/mob/living/M = pulling
-				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+				if(IS_HORIZONTAL(M) && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 					M.makeTrail(dest)
 			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
 			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
@@ -572,11 +577,19 @@
 /mob/living/proc/pull_grabbed(turf/old_turf, direct, movetime)
 	if(!Adjacent(old_turf))
 		return
+	// We might not actually be grab pulled, but we are pretending that we are, so as to
+	// hackily work around issues arising from mutual grabs.
+	var/old_being_pulled = currently_grab_pulled
+	currently_grab_pulled = TRUE
 	// yes, this is four distinct `for` loops. No, they can't be merged.
 	var/list/grabbing = list()
 	for(var/mob/M in ret_grab())
-		if(src != M)
-			grabbing |= M
+		if(src == M)
+			continue
+		if(M.currently_grab_pulled)
+			// Being already pulled by something else up the call stack.
+			continue
+		grabbing |= M
 	for(var/mob/M in grabbing)
 		M.currently_grab_pulled = TRUE
 		M.animate_movement = SYNC_STEPS
@@ -612,6 +625,8 @@
 		G.adjust_position()
 	for(var/obj/item/grab/G in grabbed_by)
 		G.adjust_position()
+
+	currently_grab_pulled = old_being_pulled
 
 
 /mob/living/proc/makeTrail(turf/T)
@@ -696,7 +711,7 @@
 *///////////////////////
 
 /mob/living/can_resist()
-	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE))
 
 /mob/living/verb/resist()
 	set name = "Resist"
@@ -721,7 +736,7 @@
 		var/obj/C = loc
 		C.container_resist(src)
 
-	else if(canmove)
+	else if(mobility_flags & MOBILITY_MOVE)
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
 		else
@@ -802,7 +817,7 @@
 		animate(src, pixel_y = pixel_y - 2, time = 10, loop = -1)
 		floating = TRUE
 	else if(((!on || fixed) && floating))
-		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
+		animate(src, pixel_y = get_standard_pixel_y_offset(), time = 10)
 		floating = FALSE
 
 /mob/living/proc/can_use_vents()
@@ -926,10 +941,10 @@
 
 	return loc_temp
 
-/mob/living/proc/get_standard_pixel_x_offset(lying = 0)
+/mob/living/proc/get_standard_pixel_x_offset()
 	return initial(pixel_x)
 
-/mob/living/proc/get_standard_pixel_y_offset(lying = 0)
+/mob/living/proc/get_standard_pixel_y_offset()
 	return initial(pixel_y)
 
 /mob/living/proc/spawn_dust()

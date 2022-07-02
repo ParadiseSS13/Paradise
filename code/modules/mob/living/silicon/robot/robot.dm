@@ -162,7 +162,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_robot_verbs()
 
 	// Remove inherited verbs that effectively do nothing for cyborgs, or lead to unintended behaviour.
-	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/rest
 	verbs -= /mob/living/verb/mob_sleep
 
 	// Install a default cell into the borg if none is there yet
@@ -1167,10 +1167,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	disconnect_from_ai()
 	lawupdate = 0
 	lockcharge = 0
-	canmove = 1
+	REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
-	QDEL_NULL(src.camera)
+	QDEL_NULL(camera)
 	// I'm trying to get the Cyborg to not be listed in the camera list
 	// Instead of being listed as "deactivated". The downside is that I'm going
 	// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
@@ -1208,7 +1208,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		clear_alert("locked")
 	lockcharge = state
-	update_canmove()
+	if(state) // turn them off
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKDOWN_TRAIT)
+		ADD_TRAIT(src, TRAIT_UI_BLOCKED, LOCKDOWN_TRAIT)
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LOCKDOWN_TRAIT)
+	else
+		REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
 
 /mob/living/silicon/robot/proc/choose_icon(triesleft, list/module_sprites)
 
@@ -1330,7 +1335,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
-	if(istype(P) && P.is_reflectable && P.starting)
+	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
 		visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", "<span class='userdanger'>[P] gets reflected by [src]!</span>")
 		P.reflect_back(src)
 		return -1

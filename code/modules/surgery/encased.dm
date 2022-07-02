@@ -50,6 +50,7 @@
 	user.visible_message("<span class='notice'> [user] has cut [target]'s [affected.encased] open with \the [tool].</span>",		\
 	"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>")
 	affected.open = 2.5
+	affected.fracture(silent = TRUE)
 	return 1
 
 /datum/surgery_step/open_encased/saw/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

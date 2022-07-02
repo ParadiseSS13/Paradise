@@ -21,7 +21,6 @@
 	/// Face towards the atom while pulling it
 	var/face_while_pulling = FALSE
 	var/throwforce = 0
-	var/canmove = TRUE
 
 	var/inertia_dir = 0
 	var/atom/inertia_last_loc
@@ -120,11 +119,8 @@
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
-		var/mob/living/ex_pulled = pulling
 		pulling.pulledby = null
 		pulling = null
-		if(!QDELETED(ex_pulled) && istype(ex_pulled))
-			ex_pulled.update_canmove()// mob gets up if it was lyng down in a chokehold
 
 /atom/movable/proc/check_pulling()
 	if(pulling)
@@ -334,7 +330,6 @@
 		reset_perspective(destination)
 		if(hud_used && length(client.parallax_layers))
 			hud_used.update_parallax()
-	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 	update_runechat_msg_location()
 
 

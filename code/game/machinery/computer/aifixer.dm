@@ -6,18 +6,19 @@
 	circuit = /obj/item/circuitboard/aifixer
 	req_access = list(ACCESS_CAPTAIN, ACCESS_ROBOTICS, ACCESS_HEADS)
 	var/mob/living/silicon/ai/occupant = null
-	var/active = 0
+	var/active = FALSE
 
 	light_color = LIGHT_COLOR_PURPLE
 
-/obj/machinery/computer/aifixer/attackby(I as obj, user as mob, params)
-	if(occupant && istype(I, /obj/item/screwdriver))
+/obj/machinery/computer/aifixer/screwdriver_act(mob/user, obj/item/I)
+	if(occupant)
 		if(stat & BROKEN)
-			..()
+			return ..()
 		if(stat & NOPOWER)
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge.</span>")
 		else
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep!.</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -85,7 +86,6 @@
 		occupant.updatehealth()
 		if(occupant.health >= 0 && occupant.stat == DEAD)
 			occupant.update_revive()
-			occupant.lying = FALSE
 			update_icon()
 		sleep(10)
 	active = FALSE
@@ -117,8 +117,8 @@
 			return
 		AI.forceMove(src)
 		occupant = AI
-		AI.control_disabled = 1
-		AI.aiRadio.disabledAi = 1
+		AI.control_disabled = TRUE
+		AI.aiRadio.disabledAi = TRUE
 		to_chat(AI, "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 		update_icon()

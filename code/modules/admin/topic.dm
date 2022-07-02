@@ -747,14 +747,15 @@
 							msg = job
 						else
 							msg += ", [job]"
-
-					// Reload their job ban holder (refresh this round)
-					M.client.jbh.reload_jobbans(M.client)
 					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
-					to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
-					to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
-					to_chat(M, "<span class='warning'>This jobban will be lifted in [mins] minutes.</span>")
+
+					// Reload their job ban holder (refresh this round)
+					if(M.client)
+						M.client.jbh.reload_jobbans(M.client)
+						to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
+						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
+						to_chat(M, "<span class='warning'>This jobban will be lifted in [mins] minutes.</span>")
 					href_list["jobban2"] = 1 // lets it fall through and refresh
 					return 1
 				if("No")
@@ -769,14 +770,15 @@
 								msg = job
 							else
 								msg += ", [job]"
-
-						// Reload their job ban holder (refresh this round)
-						M.client.jbh.reload_jobbans(M.client)
 						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
-						to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
-						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
-						to_chat(M, "<span class='warning'>Jobban can be lifted only upon request.</span>")
+
+						// Reload their job ban holder (refresh this round)
+						if(M.client)
+							M.client.jbh.reload_jobbans(M.client)
+							to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
+							to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
+							to_chat(M, "<span class='warning'>Jobban can be lifted only upon request.</span>")
 						href_list["jobban2"] = 1 // lets it fall through and refresh
 						return 1
 				if("Cancel")
@@ -2868,9 +2870,12 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All ([objective])")
 
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
-					if(H.stat == 2 || !H.client || !H.mind) continue
-					if(is_special_character(H)) continue
-					//traitorize(H, objective, 0)
+					if(H.stat == DEAD || !H.client || !H.mind)
+						continue
+					if(is_special_character(H))
+						continue
+					if(jobban_isbanned(H, ROLE_TRAITOR) || jobban_isbanned(H, ROLE_SYNDICATE))
+						continue
 					H.mind.add_antag_datum(/datum/antagonist/traitor)
 
 				for(var/mob/living/silicon/A in GLOB.player_list)

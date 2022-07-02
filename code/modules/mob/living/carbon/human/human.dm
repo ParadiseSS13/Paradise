@@ -203,14 +203,12 @@
 				stat("Distribution Pressure", internal.distribute_pressure)
 
 		// I REALLY need to split up status panel things into datums
-		var/mob/living/simple_animal/borer/B = has_brain_worms()
-		if(B && B.controlling)
-			stat("Chemicals", B.chemicals)
 
 		if(mind)
-			if(mind.changeling)
-				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
-				stat("Absorbed DNA", mind.changeling.absorbedcount)
+			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+			if(cling)
+				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
+				stat("Absorbed DNA", cling.absorbed_count)
 
 			var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 			if(V)
@@ -599,7 +597,7 @@
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags = NONE)
 
 /mob/living/carbon/human/Topic(href, href_list)
-	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+	if(!usr.stat && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.restrained() && in_range(src, usr))
 		var/thief_mode = 0
 		if(ishuman(usr))
 			var/mob/living/carbon/human/H = usr
@@ -1130,6 +1128,7 @@
 			else
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
+	qdel(temp_holder)
 
 /**
  * Regrows a given external limb if it is missing. Does not add internal organs back in.
