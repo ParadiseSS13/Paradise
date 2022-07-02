@@ -638,6 +638,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				gloves.screen_loc = ui_gloves		//...draw the item in the inventory screen
 			client.screen += gloves					//Either way, add the item to the HUD
 
+		if(slot_gloves in check_obscured_slots())
+			return
 		var/t_state = gloves.item_state
 		if(!t_state)	t_state = gloves.icon_state
 
@@ -764,6 +766,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				shoes.screen_loc = ui_shoes			//...draw the item in the inventory screen
 			client.screen += shoes					//Either way, add the item to the HUD
 
+		if(slot_shoes in check_obscured_slots())
+			return
 		var/mutable_appearance/standing
 		if(shoes.icon_override)
 			standing = mutable_appearance(shoes.icon_override, "[shoes.icon_state]", layer = -SHOES_LAYER)
@@ -799,6 +803,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			s_store.screen_loc = ui_sstore1
 			client.screen += s_store
 
+		if(slot_s_store in check_obscured_slots())
+			return
 		var/t_state = s_store.item_state
 		if(!t_state)
 			t_state = s_store.icon_state
@@ -901,6 +907,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
+	
+	update_inv_gloves()
+	update_inv_shoes()
+	update_inv_s_store()
+
 	update_tail_layer()
 	update_wing_layer()
 	update_collar()
