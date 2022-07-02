@@ -451,10 +451,10 @@
 
 	var/list/candidate_ghosts = willing_ghosts.Copy()
 
-	to_chat(adminusr, "Candidate Ghosts:");
+	to_chat(adminclient, "Candidate Ghosts:");
 	for(var/mob/dead/observer/G in candidate_ghosts)
 		if(G.key && G.client)
-			to_chat(adminusr, "- [G] ([G.key])");
+			to_chat(adminclient, "- [G] ([G.key])");
 		else
 			candidate_ghosts -= G
 

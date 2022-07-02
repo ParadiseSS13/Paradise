@@ -1,4 +1,4 @@
-#define COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
+/* #define COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
 GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 /datum/ui_module/ds_manager
@@ -273,4 +273,4 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	R.freqlock = TRUE
 	equip_to_slot_or_del(R, slot_l_ear)
 
-	return 1
+	return 1 */
