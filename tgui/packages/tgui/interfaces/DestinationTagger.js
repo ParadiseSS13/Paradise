@@ -7,8 +7,10 @@ export const DestinationTagger = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     destinations,
-    selected_destination,
+    selected_destination_id,
   } = data;
+
+  let selected_destination = destinations[selected_destination_id - 1]
 
   return (
     <Window resizable>
@@ -32,7 +34,7 @@ export const DestinationTagger = (props, context) => {
                     width="115px"
                     textAlign="center"
                     content={destination.name}
-                    selected={destination.id === selected_destination.id}
+                    selected={destination.id === selected_destination?.id}
                     onClick={() => act("select_destination", {
                       destination:destination.id
                     })}

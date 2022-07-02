@@ -253,17 +253,13 @@
 	var/list/data = list()
 
 	data["destinations"] = list()
-	data["selected_destination"] = list()
-	var/destination_index = 1
-	for(var/destination in GLOB.TAGGERLOCATIONS)
+	data["selected_destination_id"] = clamp(currTag, 1, length(GLOB.TAGGERLOCATIONS))
+	for(var/destination_index in 1 to length(GLOB.TAGGERLOCATIONS))
 		var/list/destination_data = list(
-			"name" = destination,
+			"name" = GLOB.TAGGERLOCATIONS[destination_index],
 			"id"   = destination_index,
 		)
 		data["destinations"] += list(destination_data)
-		if(destination_index == currTag)
-			data["selected_destination"] = destination_data
-		destination_index++
 
 	return data
 
@@ -272,13 +268,11 @@
 		return
 
 	if(action == "select_destination")
-		for(var/destination in GLOB.TAGGERLOCATIONS)
-			var/destination_id = text2num(params["destination"])
-			if(currTag != destination_id && length(GLOB.TAGGERLOCATIONS) >= destination_id)
-				currTag = destination_id
-				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
-				break
-		add_fingerprint(usr)
+		var/destination_id = text2num(params["destination"])
+		if(currTag != destination_id && length(GLOB.TAGGERLOCATIONS) >= destination_id)
+			currTag = destination_id
+			playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
+			add_fingerprint(usr)
 
 /obj/machinery/disposal/deliveryChute
 	name = "Delivery chute"
