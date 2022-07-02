@@ -179,7 +179,7 @@
 	user.do_attack_animation(L)
 
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
-	user.changeNext_move(4 SECONDS)
+	baton_timer(user)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
@@ -203,6 +203,10 @@
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
 
+/obj/item/melee/baton/proc/baton_timer(mob/user)
+	set waitfor = FALSE
+	user.changeNext_move(4 SECONDS)
+	do_mob(user, user, 4 SECONDS, extra_checks = list(), only_use_extra_checks = TRUE) // to give an indicator of why they cannot make actions
 
 /obj/item/melee/baton/emp_act(severity)
 	. = ..()
