@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 /datum/ui_module/ds_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "DSManager", name, 450, 300, master_ui, state)
+		ui = new(user, src, ui_key, "DSManager", name, 460, 260, master_ui, state)
 		ui.autoupdate = TRUE
 		ui.open()
 
@@ -27,7 +27,6 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		else
 			data["security_level_color"] = "purple"
 	data["squad"] = squad_slots
-	data["total"] = leader_slot + squad_slots
 	data["spawnpoints"] = GLOB.emergencyresponseteamspawn.len
 	data["safety"] = safety
 	return data
@@ -51,11 +50,11 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			var/slot_text = english_list(slots_list)
 			message_admins("[key_name_admin(usr)] is dispatching a Deathsquad. Slots: [slot_text]", 1)
 			log_admin("[key_name(usr)] dispatched a Deathsquad. Slots: [slot_text]")
-			trigger_deathsquad(ui.user, leader_slot, squad_slots, mission)
+			trigger_deathsquad(ui.user, squad_slots, mission)
 		else
 			return FALSE
 
-/datum/ui_module/ds_manager/proc/trigger_deathsquad(mob/user, leader_slot, squad_slots, mission)
+/datum/ui_module/ds_manager/proc/trigger_deathsquad(mob/user, squad_slots, mission)
 
 	var/list/commando_ghosts = null
 	if(alert("Do you want to send in the Deathsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
@@ -79,6 +78,8 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
 		commando_ghosts = shuffle(SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source))
 	if(!length(commando_ghosts))
+		message_admins("[key_name_admin(usr)] 's Deathsquad had no volunteers and was cancelled.", 1)
+		log_admin("[key_name(usr)] 's Deathsquad had no volunteers and was cancelled.")
 		to_chat(user, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
 	// Find the nuclear auth code
@@ -110,10 +111,10 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			to_chat(user, "This ghost is no longer available for deathsquad! (Cloned, revived, closed the game, etc.)")
 			return
 
-		// if(!is_leader) // Temporary, need to check if cyborgs work
-		var/new_dstype = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
-		if(new_dstype == "Cyborg")
-			use_ds_borg = TRUE
+		if(!is_leader)
+			var/new_dstype = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
+			if(new_dstype == "Cyborg")
+				use_ds_borg = TRUE
 
 		if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
 			to_chat(user, "This ghost is no longer available for deathsquad! (Cloned, revived, closed the game, etc.)")
@@ -141,22 +142,13 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			R.mind.store_memory("<B>Mission:</B> <span class='warning'>[mission].</span>")
 			to_chat(R, "<span class='userdanger'>You are a Special Operations cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[mission]</span></span>")
 		else
-			var/mob/living/carbon/human/M = create_death_commando(L, is_leader)
-			M.mind.key = ghost_mob.key
-			M.key = ghost_mob.key
-			M.internal = M.s_store
-			M.update_action_buttons_icon()
-			if(nuke_code)
-				M.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
-			M.mind.store_memory("<B>Mission:</B> <span class='warning'>[mission].</span>")
-			to_chat(M, "<span class='userdanger'>You are a Deathsquad [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[mission]</span></span>")
+			create_death_commando(L, is_leader, ghost_mob.key, nuke_code)
 
 		is_leader = FALSE
 		commando_number--
 
 	//Spawns the rest of the commando gear.
-	for(var/obj/effect/landmark/spawner/commando_manual/L in GLOB.landmarks_list)
-		//new /obj/item/gun/energy/pulse_rifle(L.loc)
+	for(var/obj/effect/landmark/spawner/commando_manual/L in GLOB.landmarks_list) // todo: put this in the dsquad bag
 		var/obj/item/paper/P = new(L.loc)
 		P.info = "<p><b>Good morning soldier!</b>. This compact guide will familiarize you with standard operating procedure. There are three basic rules to follow:<br>#1 Work as a team.<br>#2 Accomplish your objective at all costs.<br>#3 Leave no witnesses.<br>You are fully equipped and stocked for your mission--before departing on the Spec. Ops. Shuttle due South, make sure that all operatives are ready. Actual mission objective will be relayed to you by Central Command through your headsets.<br>If deemed appropriate, Central Command will also allow members of your team to equip assault power-armor for the mission. You will find the armor storage due West of your position. Once you are ready to leave, utilize the Special Operations shuttle console and toggle the hull doors via the other console.</p><p>In the event that the team does not accomplish their assigned objective in a timely manner, or finds no other way to do so, attached below are instructions on how to operate a Nanotrasen Nuclear Device. Your operations <b>LEADER</b> is provided with a nuclear authentication disk and a pin-pointer for this reason. You may easily recognize them by their rank: Lieutenant, Captain, or Major. The nuclear device itself will be present somewhere on your destination.</p><p>Hello and thank you for choosing Nanotrasen for your nuclear information needs. Today's crash course will deal with the operation of a Fission Class Nanotrasen made Nuclear Device.<br>First and foremost, <b>DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.</b> Pressing any button on the compacted bomb will cause it to extend and bolt itself into place. If this is done to unbolt it one must completely log in which at this time may not be possible.<br>To make the device functional:<br>#1 Place bomb in designated detonation zone<br> #2 Extend and anchor bomb (attack with hand).<br>#3 Insert Nuclear Auth. Disk into slot.<br>#4 Type numeric code into keypad ([nuke_code]).<br>Note: If you make a mistake press R to reset the device.<br>#5 Press the E button to log onto the device.<br>You now have activated the device. To deactivate the buttons at anytime, for example when you have already prepped the bomb for detonation, remove the authentication disk OR press the R on the keypad. Now the bomb CAN ONLY be detonated using the timer. A manual detonation is not an option.<br>Note: Toggle off the <b>SAFETY</b>.<br>Use the - - and + + to set a detonation time between 5 seconds and 10 minutes. Then press the timer toggle button to start the countdown. Now remove the authentication disk so that the buttons deactivate.<br>Note: <b>THE BOMB IS STILL SET AND WILL DETONATE</b><br>Now before you remove the disk if you need to move the bomb you can: Toggle off the anchor, move it, and re-anchor.</p><p>The nuclear authorization code is: <b>[nuke_code ? nuke_code : "None provided"]</b></p><p><b>Good luck, soldier!</b></p>"
 		P.name = "Spec. Ops Manual"
@@ -176,12 +168,51 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	return 1
 
 // MIND CODE - VERY WIP
-/proc/create_death_commando(obj/spawn_location, is_leader = FALSE)
+/datum/ui_module/ds_manager/proc/create_death_commando(obj/spawn_location, is_leader = FALSE, mob/dskey, nuke_code)
+	var/mob/living/carbon/human/M = new(spawn_location.loc)
+	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
+	var/commando_name = pick(GLOB.commando_names)
+
+	var/datum/character_save/S = new //Randomize appearance for the commando.
+	S.randomise()
+	if(is_leader)
+		S.age = rand(35, 45)
+		S.real_name = "[commando_leader_rank] [commando_name]"
+	else
+		S.real_name = "[commando_name]"
+	S.copy_to(M)
+
+
+	M.dna.ready_dna(M)//Creates DNA.
+
+	M.mind.key = dskey
+	M.key = dskey
+	M.internal = M.l_store
+	M.update_action_buttons_icon()
+	if(nuke_code)
+		M.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
+	M.mind.store_memory("<B>Mission:</B> <span class='warning'>[mission].</span>")
+	to_chat(M, "<span class='userdanger'>You are a Deathsquad [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[mission]</span></span>")
+
+	//Creates mind stuff.
+	M.mind_initialize()
+	M.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
+	M.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
+	SSticker.mode.traitors |= M.mind//Adds them to current traitor list. Which is really the extra antagonist list.
+	M.equip_death_commando(is_leader)
+	return M
+
+/*
 	var/mob/living/carbon/human/M = new(spawn_location.loc)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_name = pick(GLOB.commando_names)
 
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+
+	if(prob(50))
+		M.change_gender(MALE)
+	else
+		M.change_gender(FEMALE)
 
 	M.set_species(/datum/species/human, TRUE)
 	M.dna.ready_dna(M)
@@ -206,20 +237,26 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	else
 		M.real_name = "[commando_name]"
 
-	//Creates mind stuff.
-	M.mind_initialize()
+	M.name = M.real_name
+	M.mind = M
+	M.mind.current = M.key
+	M.mind.set_original_mob(M)
 	M.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 	M.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 	M.mind.offstation_role = TRUE
-	SSticker.mode.traitors |= M.mind//Adds them to current traitor list. Which is really the extra antagonist list.
-	M.equip_death_commando(is_leader)
+	if(!(M.mind in SSticker.minds))
+		SSticker.minds += M.mind
+	SSticker.mode.traitors += M.mind
 
 	M.forceMove(spawn_location)
 
-	return M
+	return M */
 
-/mob/living/carbon/human/proc/equip_death_commando()
-	src.equipOutfit(/datum/outfit/admin/death_commando)
+/mob/living/carbon/human/proc/equip_death_commando(is_leader)
+	if (is_leader)
+		src.equipOutfit(/datum/outfit/admin/death_commando/leader)
+	else
+		src.equipOutfit(/datum/outfit/admin/death_commando)
 
 	var/obj/item/card/id/W = new(src) // Make this use Deathsquad ID
 	W.name = "[real_name]'s ID Card"
