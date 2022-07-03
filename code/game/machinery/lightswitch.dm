@@ -12,7 +12,7 @@
 	var/otherarea = null
 	//	luminosity = 1
 	settagwhitelist = list("logic_id_tag")
-	var/light_connect = TRUE						//Allows the switch to control lights in its associated areas. When set to 0, using the switch won't affect the lights.
+	var/light_connect = TRUE						//Allows the switch to control lights in its associated areas. When set to FALSE, using the switch won't affect the lights.
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to.
 	var/logic_connect = FALSE						//Set this to allow the switch to send out logic signals.
 
