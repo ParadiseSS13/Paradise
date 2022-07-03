@@ -617,7 +617,6 @@
 /area/holodeck/source_desert)
 "cC" = (
 /obj/effect/landmark/spawner/ert,
-/obj/effect/landmark/spawner/ds,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "cE" = (
@@ -6038,7 +6037,6 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/ds,
 /obj/effect/landmark/spawner/ert,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -6803,7 +6801,6 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/effect/landmark/spawner/ds,
 /obj/effect/landmark/spawner/ert,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -7338,6 +7335,7 @@
 /obj/item/clipboard,
 /obj/item/folder/yellow,
 /obj/item/pen/blue,
+/obj/effect/landmark/spawner/commando_manual,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Cr" = (
@@ -9883,7 +9881,6 @@
 /area/centcom/evac)
 "MG" = (
 /obj/structure/chair/office/dark,
-/obj/effect/landmark/spawner/ds,
 /obj/effect/landmark/spawner/ert,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -11514,6 +11511,7 @@
 /obj/item/clipboard,
 /obj/item/folder/white,
 /obj/item/pen/blue,
+/obj/effect/landmark/spawner/commando_manual,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "TQ" = (

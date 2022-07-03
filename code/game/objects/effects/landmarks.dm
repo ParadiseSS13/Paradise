@@ -59,10 +59,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	spawner_list = GLOB.emergencyresponseteamspawn
 	return ..()
 
-/obj/effect/landmark/spawner/ds
-	name = "Commando"
-	icon_state = "ERT"
-
 /obj/effect/landmark/spawner/wiz
 	name = "wizard"
 	icon_state = "Wiz"
