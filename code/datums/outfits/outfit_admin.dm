@@ -278,6 +278,8 @@
 	head = /obj/item/clothing/head/helmet/space/deathsquad
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	r_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
+	l_ear = /obj/item/radio/headset/alt/deathsquad
+	id = /obj/item/card/id/ert/deathsquad
 
 	backpack_contents = list(
 		/obj/item/storage/box/flashbangs,
@@ -305,6 +307,7 @@
 	)
 
 /datum/outfit/admin/death_commando/leader
+	name = "Deathsquad Leader"
 	backpack_contents = list(
 		/obj/item/storage/box/flashbangs,
 		/obj/item/ammo_box/a357,
@@ -313,6 +316,20 @@
 		/obj/item/shield/energy,
 		/obj/item/disk/nuclear/unrestricted
 	)
+
+/datum/outfit/admin/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_centcom_access("Death Commando"), "Deathsquad")
+	H.sec_hud_set_ID() // Force it to show as assistant on sec huds
+
+	var/obj/item/radio/R = H.l_ear
+	if(istype(R))
+		R.set_frequency(DTH_FREQ)
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"

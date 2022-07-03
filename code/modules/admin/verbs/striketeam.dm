@@ -192,22 +192,4 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		src.equipOutfit(/datum/outfit/admin/death_commando/leader)
 	else
 		src.equipOutfit(/datum/outfit/admin/death_commando)
-
-	var/obj/item/radio/R = new /obj/item/radio/headset/alt(src)
-	R.set_frequency(DTH_FREQ)
-	R.requires_tcomms = FALSE
-	R.instant = TRUE
-	R.freqlock = TRUE
-	R.name = "Deathsquad headset"
-	R.desc = "Special Operations only. Protects ears from flashbangs."
-	equip_to_slot_or_del(R, slot_l_ear)
-
-	var/obj/item/card/id/W = new(src)
-	W.name = "[real_name]'s ID Card"
-	W.icon_state = "deathsquad"
-	W.assignment = "Death Commando"
-	W.access = get_centcom_access(W.assignment)
-	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
-
-	return 1
+	return 1s
