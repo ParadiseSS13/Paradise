@@ -27,8 +27,11 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 			var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
 			current_mode.possible_traitors.Remove(src)
 
-	// Ghost the current player and disallow them to return to the body
-	ghostize(FALSE)
+	// Ghost the current player and allow or disallow them to respawn, depends on time
+	if(TOO_EARLY_TO_GHOST)
+		ghostize(FALSE)
+	else
+		ghostize(TRUE)
 	// Delete the old AI shell
 	qdel(src)
 
