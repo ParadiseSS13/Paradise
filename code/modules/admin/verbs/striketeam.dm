@@ -55,7 +55,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
 		commando_ghosts = shuffle(SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source))
 		to_chat(usr, commando_ghosts)
-		if (commando_ghosts > commando_number)
+		if (length(commando_ghosts) > commando_number)
 			commando_ghosts.Cut(commando_number + 1) //cuts the ghost candidates down to the ammount requested
 	if(!length(commando_ghosts))
 		message_admins("[key_name_admin(usr)]'s Deathsquad had no volunteers and was cancelled.", 1)
@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		return
 
 	// Spawns commandos and equips them.
-	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list) //Despite obj/effect/landmark/spawner/ds being in the exact same location and doing the exact same thing as obj/effect/landmark/spawner/ert, switching them breaks it.
 		if(!commando_number)
 			break
 		if(!length(commando_ghosts))
@@ -142,6 +142,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_name = pick(GLOB.commando_names)
+	var/obj/item/organ/external/head/head_organ = new_commando.get_organ("head")
 
 	if(is_leader)
 		new_commando.age = rand(35, 45)
@@ -150,18 +151,17 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		new_commando.real_name = "[commando_name]"
 
 	if(prob(50))
-			new_commando.change_gender(MALE)
-		else
-			new_commando.change_gender(FEMALE)
+		new_commando.change_gender(MALE)
+	else
+		new_commando.change_gender(FEMALE)
 
 	new_commando.set_species(/datum/species/human, TRUE)
 	new_commando.dna.ready_dna(new_commando)
-	new_commando.cleanSE() //No fat/blind/colourblind/epileptic/whatever ERT.
 	new_commando.overeatduration = 0
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
-	var/skin_tone = rand(-120, 20) // A range of skin colors
+	var/skin_tone = rand(20, 160) // A range of skin colors
 
 	head_organ.facial_colour = hair_c
 	head_organ.sec_facial_colour = hair_c
