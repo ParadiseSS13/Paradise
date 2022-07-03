@@ -89932,12 +89932,13 @@
 /area/atmos)
 "imS" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/soldieruniform,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/item/seeds/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "inx" = (
