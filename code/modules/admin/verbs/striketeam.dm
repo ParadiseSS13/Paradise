@@ -1,5 +1,6 @@
 //Deathsquad
 
+#define COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
 GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 /client/proc/strike_team()
@@ -63,12 +64,11 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		return
 
 	// Spawns commandos and equips them.
-	for(var/obj/effect/landmark/spawner/ert/L in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list)
 		if(!commando_number)
 			break
 		if(!length(commando_ghosts))
 			break
-
 		var/use_ds_borg = FALSE
 		var/mob/ghost_mob = pick(commando_ghosts)
 		commando_ghosts -= ghost_mob
@@ -108,7 +108,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
 			new_commando.mind.key = ghost_mob.key
 			new_commando.key = ghost_mob.key
-			new_commando.internal = new_commando.s_store
+			new_commando.internal = new_commando.l_store
 			new_commando.update_action_buttons_icon()
 			if(nuke_code)
 				new_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
@@ -121,9 +121,9 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	//Spawns the rest of the commando gear.
 	for(var/obj/effect/landmark/spawner/commando_manual/L in GLOB.landmarks_list)
 		var/obj/item/paper/P = new(L.loc)
-		P.info = "<p><b>Good morning soldier!</b>. This compact guide will familiarize you with standard operating procedure. There are three basic rules to follow:<br>#1 Work as a team.<br>#2 Accomplish your objective at all costs.<br>#3 Leave no witnesses.<br>You are fully equipped and stocked for your mission--before departing on the Spec. Ops. Shuttle due South, make sure that all operatives are ready. Actual mission objective will be relayed to you by Central Command through your headsets.<br>If deemed appropriate, Central Command will also allow members of your team to equip assault power-armor for the mission. You will find the armor storage due West of your position. Once you are ready to leave, utilize the Special Operations shuttle console and toggle the hull doors via the other console.</p><p>In the event that the team does not accomplish their assigned objective in a timely manner, or finds no other way to do so, attached below are instructions on how to operate a Nanotrasen Nuclear Device. Your operations <b>LEADER</b> is provided with a nuclear authentication disk and a pin-pointer for this reason. You may easily recognize them by their rank: Lieutenant, Captain, or Major. The nuclear device itself will be present somewhere on your destination.</p><p>Hello and thank you for choosing Nanotrasen for your nuclear information needs. Today's crash course will deal with the operation of a Fission Class Nanotrasen made Nuclear Device.<br>First and foremost, <b>DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.</b> Pressing any button on the compacted bomb will cause it to extend and bolt itself into place. If this is done to unbolt it one must completely log in which at this time may not be possible.<br>To make the device functional:<br>#1 Place bomb in designated detonation zone<br> #2 Extend and anchor bomb (attack with hand).<br>#3 Insert Nuclear Auth. Disk into slot.<br>#4 Type numeric code into keypad ([nuke_code]).<br>Note: If you make a mistake press R to reset the device.<br>#5 Press the E button to log onto the device.<br>You now have activated the device. To deactivate the buttons at anytime, for example when you have already prepped the bomb for detonation, remove the authentication disk OR press the R on the keypad. Now the bomb CAN ONLY be detonated using the timer. A manual detonation is not an option.<br>Note: Toggle off the <b>SAFETY</b>.<br>Use the - - and + + to set a detonation time between 5 seconds and 10 minutes. Then press the timer toggle button to start the countdown. Now remove the authentication disk so that the buttons deactivate.<br>Note: <b>THE BOMB IS STILL SET AND WILL DETONATE</b><br>Now before you remove the disk if you need to move the bomb you can: Toggle off the anchor, move it, and re-anchor.</p><p>The nuclear authorization code is: <b>[nuke_code ? nuke_code : "None provided"]</b></p><p><b>Good luck, soldier!</b></p>"
-		P.name = "Spec. Ops Manual"
-		P.icon = "pamphlet-ds"
+		P.info = "<p><b>Good morning soldier!</b>. This compact guide will familiarize you with standard operating procedure. There are three basic rules to follow:<br>#1 Work as a team.<br>#2 Accomplish your objective at all costs.<br>#3 Leave no witnesses.<br><br> Your mission objective will be relayed to you by Central Command through your headsets or in person.<br>If deemed appropriate, Central Command will also allow members of your team to use mechs for the mission. You will find the mech storage due East of your position. </p><p>In the event that the team does not accomplish their assigned objective in a timely manner, or finds no other way to do so, attached below are instructions on how to operate a Nanotrasen Nuclear Device. Your operations <b>LEADER</b> is provided with a nuclear authentication disk, and all commandos have pinpointer for locating it. You may easily recognize them by their rank: <b>Lieutenant, Captain, or Major</b>. The nuclear device itself will be present somewhere on your destination.<hr></p><p>Hello and thank you for choosing Nanotrasen for your nuclear information needs. Today's crash course will deal with the operation of a Fission Class Nanotrasen made Nuclear Device.<br>First and foremost, <b>DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.</b> Pressing any button on the compacted bomb will cause it to extend and bolt itself into place. If this is done to unbolt it one must completely log in which at this time may not be possible.<br>To make the device functional:<br>#1 Place bomb in designated detonation zone<br> #2 Extend and anchor bomb (attack with hand).<br>#3 Insert Nuclear Auth. Disk into slot.<br>#4 Enter the nuclear authorization code: ([nuke_code]).<br>#5 Enter your desired time until activation.<br>#6 Disable the Safety.<br>#6 Arm the device.<br>You now have activated the device and it will begin counting down to detonation. Remove the Nuclear Authorization Disk and either head back to your shuttle or stay around until the Nuclear Device detonates, depending on your orders from Central Command.</p><p>The nuclear authorization code is: <b>[nuke_code ? nuke_code : "None provided"]</b></p><p><b>Good luck, soldier!</b></p>"
+		P.name = "Special Operations Manual"
+		P.icon_state = "ticket"
 		var/obj/item/stamp/centcom/stamp = new
 		P.stamp(stamp)
 		qdel(stamp)
@@ -143,22 +143,44 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_name = pick(GLOB.commando_names)
 
-	var/datum/character_save/S = new //Randomize appearance for the commando.
-	S.randomise()
 	if(is_leader)
-		S.age = rand(35, 45)
-		S.real_name = "[commando_leader_rank] [commando_name]"
+		new_commando.age = rand(35, 45)
+		new_commando.real_name = "[commando_leader_rank] [commando_name]"
 	else
-		S.real_name = "[commando_name]"
-	S.copy_to(new_commando)
+		new_commando.real_name = "[commando_name]"
 
+	if(prob(50))
+			new_commando.change_gender(MALE)
+		else
+			new_commando.change_gender(FEMALE)
 
-	new_commando.dna.ready_dna(new_commando)//Creates DNA.
+	new_commando.set_species(/datum/species/human, TRUE)
+	new_commando.dna.ready_dna(new_commando)
+	new_commando.cleanSE() //No fat/blind/colourblind/epileptic/whatever ERT.
+	new_commando.overeatduration = 0
+
+	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
+	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
+	var/skin_tone = rand(-120, 20) // A range of skin colors
+
+	head_organ.facial_colour = hair_c
+	head_organ.sec_facial_colour = hair_c
+	head_organ.hair_colour = hair_c
+	head_organ.sec_hair_colour = hair_c
+	new_commando.change_eye_color(eye_c)
+	new_commando.s_tone = skin_tone
+	head_organ.h_style = random_hair_style(new_commando.gender, head_organ.dna.species.name)
+	head_organ.f_style = random_facial_hair_style(new_commando.gender, head_organ.dna.species.name)
+
+	new_commando.regenerate_icons()
+	new_commando.update_body()
+	new_commando.update_dna()
 
 	//Creates mind stuff.
 	new_commando.mind_initialize()
 	new_commando.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 	new_commando.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
+	new_commando.mind.offstation_role = TRUE
 	SSticker.mode.traitors |= new_commando.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_commando.equip_death_commando(is_leader)
 	return new_commando
@@ -170,19 +192,22 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	else
 		src.equipOutfit(/datum/outfit/admin/death_commando)
 
-	var/obj/item/card/id/W = new(src) // Make this use Deathsquad ID
-	W.name = "[real_name]'s ID Card"
-	W.icon_state = "deathsquad"
-	W.assignment = "Death Commando"
-	W.access = get_centcom_access(W.assignment)
-	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
-
-	var/obj/item/radio/R = new /obj/item/radio/headset/alt(src) //todo: make this use /obj/item/radio/headset/alt/deathsquad
+	var/obj/item/radio/R = new /obj/item/radio/headset/alt(src)
 	R.set_frequency(DTH_FREQ)
 	R.requires_tcomms = FALSE
 	R.instant = TRUE
 	R.freqlock = TRUE
+	R.name = "Deathsquad headset"
+	R.desc = "Special Operations only. Protects ears from flashbangs."
 	equip_to_slot_or_del(R, slot_l_ear)
+
+	var/obj/item/card/id/W = new(src)
+	W.name = "[real_name]'s ID Card"
+	W.icon_state = "deathsquad"
+	W.assignment = "Death Commando"
+	W.access = get_centcom_access(W.assignment)
+	W.assignment = "Deathsquad Commando"
+	W.registered_name = real_name
+	equip_to_slot_or_del(W, slot_wear_id)
 
 	return 1

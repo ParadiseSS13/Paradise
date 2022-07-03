@@ -265,7 +265,6 @@
 	name = "Deathsquad"
 
 	pda = /obj/item/pinpointer
-	id = /obj/item/card/id/ert/deathsquad
 	box = /obj/item/storage/box/responseteam
 	back = /obj/item/storage/backpack/ert/deathsquad
 	belt = /obj/item/gun/projectile/revolver/mateba
@@ -287,7 +286,7 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/grenade/plastic/c4/x4,
 		/obj/item/melee/energy/sword/saber,
-		/obj/item/shield/energy,
+		/obj/item/shield/energy
 	)
 
 	cybernetic_implants = list(
@@ -307,12 +306,14 @@
 	)
 
 /datum/outfit/admin/death_commando/leader
-		backpack_contents = list(
-			/obj/item/disk/nuclear/unrestricted
-		)
-
-/datum/outfit/admin/death_commando/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	return H.equip_death_commando()
+	backpack_contents = list(
+		/obj/item/storage/box/flashbangs,
+		/obj/item/ammo_box/a357,
+		/obj/item/flashlight/seclite,
+		/obj/item/melee/energy/sword/saber,
+		/obj/item/shield/energy,
+		/obj/item/disk/nuclear/unrestricted
+	)
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"

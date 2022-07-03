@@ -309,10 +309,6 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
-/obj/item/radio/headset/ert/alt/deathsquad //todo: make this use (DTH_FREQ), requires_tcomms = FALSE, instant = TRUE, freqlock = TRUE
-	name = "deathsquad headset"
-	desc = "Special Operations only. Protects ears from flashbangs."
-
 /obj/item/radio/headset/ert/alt/solgov
 	name = "\improper Trans-Solar Federation Marine's bowman headset"
 

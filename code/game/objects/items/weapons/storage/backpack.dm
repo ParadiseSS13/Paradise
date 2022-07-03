@@ -584,7 +584,7 @@
 	icon_state = "ert_solgov"
 
 /obj/item/storage/backpack/ert/deathsquad
-	name = "deathsquad backpack"
+	name = "Deathsquad backpack"
 	desc = "A spacious backpack with lots of pockets, worn by those working in Special Operations."
 	icon_state = "ert_security"
 
