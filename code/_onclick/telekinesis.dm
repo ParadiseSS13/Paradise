@@ -4,7 +4,7 @@
 	This needs more thinking out, but I might as well.
 */
 #define TK_MAXRANGE 15
-
+#define TK_COOLDOWN 1.5 SECONDS
 /*
 	Telekinetic attack:
 
@@ -101,10 +101,10 @@
 	afterattack(target, user)
 	return TRUE
 
-/obj/item/tk_grab/afterattack(atom/target , mob/living/user, proximity, params)//TODO: go over this
+/obj/item/tk_grab/afterattack(atom/target , mob/living/user, proximity, params)
 	if(!target || !user)
 		return
-	if(last_throw+3 > world.time)
+	if(last_throw + TK_COOLDOWN > world.time)
 		return
 	if(!host || host != user)
 		qdel(src)
@@ -195,6 +195,7 @@
 
 /obj/item/tk_grab/update_overlays()
 	. = ..()
-	if(!focus)
-		return
-	. += icon(focus.icon, focus.icon_state)
+	if(focus && focus.icon && focus.icon_state)
+		. += icon(focus.icon,focus.icon_state)
+
+#undef TK_COOLDOWN
