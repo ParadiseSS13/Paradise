@@ -296,7 +296,7 @@
 	)
 
 /datum/outfit/admin/death_commando/leader
-	name = "Deathsquad Leader"
+	name = "NT Deathsquad Leader"
 	backpack_contents = list(
 		/obj/item/storage/box/flashbangs,
 		/obj/item/ammo_box/a357,

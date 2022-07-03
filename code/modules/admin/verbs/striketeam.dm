@@ -30,7 +30,7 @@ GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 
 	var/commando_number
 	var/is_leader = TRUE // set to FALSE after leader is spawned
-	commando_number = clamp(input(src, "How many Deathsquad Commandos would you like to send? (Recommended is 6, Max is 14)", "Specify Commandos") as num|null, 1, MAX_COMMANDOS)
+	commando_number = clamp(input(src, "How many Deathsquad Commandos would you like to send? (Recommended is 6, Max is [MAX_COMMANDOS]])", "Specify Commandos") as num|null, 1, MAX_COMMANDOS)
 	if(!commando_number)
 		message_admins("[key_name_admin(proccaller)] cancelled their Deathsquad.")
 		log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
