@@ -81,12 +81,6 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 
-/obj/item/clothing/suit/greatcoat
-	name = "great coat"
-	desc = "A Nazi great coat." //A what
-	icon_state = "nazi"
-	item_state = "nazi"
-
 
 /obj/item/clothing/suit/johnny_coat
 	name = "johnny~~ coat"
@@ -849,31 +843,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
-/obj/item/clothing/suit/officercoat
-	name = "clown officer's coat"
-	desc = "A classy clown officer's overcoat, also designed by Hugo Boss." //What and why
-	icon_state = "officersuit"
-	item_state = "officersuit"
-	ignore_suitadjust = 0
-	actions_types = list(/datum/action/item_action/button)
-	adjust_flavour = "unbutton"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
-/obj/item/clothing/suit/soldiercoat
-	name = "clown soldier's coat"
-	desc = "An overcoat for the clown soldier, to keep him warm during those cold winter nights on the front."
-	icon_state = "soldiersuit"
-	item_state = "soldiersuit"
-	ignore_suitadjust = 0
-	actions_types = list(/datum/action/item_action/button)
-	adjust_flavour = "unbutton"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/toggle/owlwings
 	name = "owl cloak"

@@ -122,10 +122,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
-"C" = (
-/obj/effect/mob_spawn/human/corpse/clownmili,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
 "D" = (
 /obj/item/stack/ore/bananium,
 /turf/simulated/floor/plasteel/airless,
@@ -175,10 +171,6 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"O" = (
-/obj/effect/mob_spawn/human/corpse/clownoff,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "P" = (
@@ -614,7 +606,7 @@ n
 p
 H
 k
-O
+x
 b
 m
 m
@@ -633,7 +625,7 @@ a
 a
 b
 x
-C
+x
 k
 L
 P

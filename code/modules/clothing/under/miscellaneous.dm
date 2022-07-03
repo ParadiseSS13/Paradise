@@ -647,19 +647,6 @@
 	item_state = "colin_earle"
 	item_color = "colin_earle"
 
-/obj/item/clothing/under/officeruniform
-	name = "clown officer's uniform"
-	desc = "For Clown officers, this uniform was designed by the great clown designer Hugo Boss."
-	icon_state = "officeruniform"
-	item_color = "officeruniform"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/soldieruniform
-	name = "clown soldier's uniform"
-	desc = "For the basic grunt of the Clown army."
-	icon_state = "soldieruniform"
-	item_color = "soldieruniform"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/pennywise
 	name = "\improper Pennywise costume"

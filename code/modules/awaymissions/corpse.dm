@@ -402,45 +402,6 @@
 	mob_name = pick(GLOB.clown_names)
 	return ..()
 
-/obj/effect/mob_spawn/human/corpse/clownmili
-	name = "Clown Soldier"
-	outfit = /datum/outfit/clownsoldier
-
-/obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
-	mob_name = "Officer [pick(GLOB.clown_names)]"
-	return ..()
-
-/obj/effect/mob_spawn/human/corpse/clownoff
-	name = "Clown Officer"
-	outfit = /datum/outfit/clownofficer
-
-/obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
-	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
-	return ..()
-
-
-/datum/outfit/clownsoldier
-	name = "Clown Soldier"
-	uniform = /obj/item/clothing/under/soldieruniform
-	suit = /obj/item/clothing/suit/soldiercoat
-	shoes = /obj/item/clothing/shoes/clown_shoes
-	l_ear = /obj/item/radio/headset
-	mask = /obj/item/clothing/mask/gas/clown_hat
-	l_pocket = /obj/item/bikehorn
-	back = /obj/item/storage/backpack/clown
-	head = /obj/item/clothing/head/stalhelm
-
-/datum/outfit/clownofficer
-	name = "Clown Officer"
-	uniform = /obj/item/clothing/under/officeruniform
-	suit = /obj/item/clothing/suit/officercoat
-	shoes = /obj/item/clothing/shoes/clown_shoes
-	l_ear = /obj/item/radio/headset
-	mask = /obj/item/clothing/mask/gas/clown_hat
-	l_pocket = /obj/item/bikehorn
-	back = /obj/item/storage/backpack/clown
-	head = /obj/item/clothing/head/naziofficer
-
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"
 	mob_name = "Mime"

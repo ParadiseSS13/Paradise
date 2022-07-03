@@ -25229,12 +25229,12 @@
 /area/clownoffice)
 "bhj" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/soldieruniform,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/item/paper_bin,
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "bhk" = (

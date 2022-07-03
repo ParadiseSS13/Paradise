@@ -332,28 +332,6 @@
 	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
-/obj/item/clothing/head/stalhelm //Why do these exist
-	name = "clown stalhelm"
-	desc = "The typical clown soldier's helmet."
-	icon_state = "stalhelm"
-	item_state = "stalhelm"
-	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
-
-/obj/item/clothing/head/panzer //Why
-	name = "clown HONKMech cap"
-	desc = "The softcap worn by HONK Mech pilots."
-	icon_state = "panzercap"
-	item_state = "panzercap"
-	flags = BLOCKHAIR
-
-/obj/item/clothing/head/naziofficer //Ah, come on
-	name = "clown officer cap"
-	desc = "The peaked clown officer's cap, disturbingly similar to the warden's."
-	icon_state = "officercap"
-	item_state = "officercap"
-	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
 
 /obj/item/clothing/head/beret/purple //Fluff?
 	name = "Pierson Family Beret"
