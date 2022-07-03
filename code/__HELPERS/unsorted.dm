@@ -869,7 +869,6 @@ Returns 1 if the chain up to the area contains the given typepath
 		O.update_icon()
 	return O
 
-/area/proc/copy_contents_to(area/A , platingRequired = 0 )
 /area/proc/copy_contents_to(area/A , platingRequired = 0, perfect_copy = TRUE)
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
 	//Returns: Nothing.
