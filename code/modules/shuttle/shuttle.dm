@@ -483,7 +483,7 @@
 
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
-		if(!T0)
+		if(!T0 || is_turf_blacklisted_for_transit(T0))
 			continue
 		var/turf/T1 = L1[i]
 		if(!T1)
@@ -497,7 +497,6 @@
 			var/turf/simulated/Ts1 = T1
 			Ts1.copy_air_with_tile(T0)
 
-		areaInstance.moving = TRUE
 		//move mobile to new location
 		for(var/atom/movable/AM in T0)
 			AM.onShuttleMove(T0, T1, rotation, last_caller)
@@ -537,6 +536,10 @@
 			W.update_audio()
 
 	unlockPortDoors(S1)
+
+/obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
+	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava))
+	return is_type_in_typecache(T, blacklisted_turf_types)
 
 
 /obj/docking_port/mobile/proc/findTransitDock()
