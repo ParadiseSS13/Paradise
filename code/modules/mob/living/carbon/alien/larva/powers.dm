@@ -4,7 +4,7 @@
 	desc = "Allows to hide beneath tables or certain items. Toggled on or off."
 	button_icon_state = "alien_hide"
 
-/datum/action/innate/xeno_action/hide/Activate(var/mob/living/carbon/alien/larva/owner)
+/datum/action/innate/xeno_action/hide/Activate()
 	var/mob/living/carbon/alien/host = owner
 
 	if(!IsAvailable())
