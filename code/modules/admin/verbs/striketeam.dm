@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		return
 
 	// Spawns commandos and equips them.
-	for(var/obj/effect/landmark/spawner/ert/L in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list)
 		if(!commando_number)
 			break
 		if(!length(commando_ghosts))
@@ -123,6 +123,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		var/obj/item/paper/P = new(L.loc)
 		P.info = "<p><b>Good morning soldier!</b>. This compact guide will familiarize you with standard operating procedure. There are three basic rules to follow:<br>#1 Work as a team.<br>#2 Accomplish your objective at all costs.<br>#3 Leave no witnesses.<br><br> Your mission objective will be relayed to you by Central Command through your headsets or in person.<br>If deemed appropriate, Central Command will also allow members of your team to use mechs for the mission. You will find the mech storage due East of your position. </p><p>In the event that the team does not accomplish their assigned objective in a timely manner, or finds no other way to do so, attached below are instructions on how to operate a Nanotrasen Nuclear Device. Your operations <b>LEADER</b> is provided with a nuclear authentication disk, and all commandos have pinpointer for locating it. You may easily recognize them by their rank: <b>Lieutenant, Captain, or Major</b>. The nuclear device itself will be present somewhere on your destination.<hr></p><p>Hello and thank you for choosing Nanotrasen for your nuclear information needs. Today's crash course will deal with the operation of a Fission Class Nanotrasen made Nuclear Device.<br>First and foremost, <b>DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.</b> Pressing any button on the compacted bomb will cause it to extend and bolt itself into place. If this is done to unbolt it one must completely log in which at this time may not be possible.<br>To make the device functional:<br>#1 Place bomb in designated detonation zone<br> #2 Extend and anchor bomb (attack with hand).<br>#3 Insert Nuclear Auth. Disk into slot.<br>#4 Enter the nuclear authorization code: ([nuke_code]).<br>#5 Enter your desired time until activation.<br>#6 Disable the Safety.<br>#6 Arm the device.<br>You now have activated the device and it will begin counting down to detonation. Remove the Nuclear Authorization Disk and either head back to your shuttle or stay around until the Nuclear Device detonates, depending on your orders from Central Command.</p><p>The nuclear authorization code is: <b>[nuke_code ? nuke_code : "None provided"]</b></p><p><b>Good luck, soldier!</b></p>"
 		P.name = "Special Operations Manual"
+		P.icon_state = "ticket"
 		var/obj/item/stamp/centcom/stamp = new
 		P.stamp(stamp)
 		qdel(stamp)
@@ -141,7 +142,6 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_name = pick(GLOB.commando_names)
-	var/obj/item/organ/external/head/head_organ = new_commando.get_organ("head")
 
 	if(is_leader)
 		new_commando.age = rand(35, 45)
@@ -150,9 +150,9 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		new_commando.real_name = "[commando_name]"
 
 	if(prob(50))
-		new_commando.change_gender(MALE)
-	else
-		new_commando.change_gender(FEMALE)
+			new_commando.change_gender(MALE)
+		else
+			new_commando.change_gender(FEMALE)
 
 	new_commando.set_species(/datum/species/human, TRUE)
 	new_commando.dna.ready_dna(new_commando)
