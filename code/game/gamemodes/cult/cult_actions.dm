@@ -81,7 +81,7 @@
 		if(iscultist(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
+			to_chat(M, "<span class='cultlarge'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
 
 
 //Objectives

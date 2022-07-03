@@ -309,9 +309,9 @@ Pipelines + Other Objects -> Pipe network
 			user.loc = target_move.loc
 			user.Moved(old_loc, get_dir(old_loc, user.loc), FALSE)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out of the ventilation system.")
-	user.canmove = 0
-	spawn(1)
-		user.canmove = 1
+	ADD_TRAIT(user, TRAIT_IMMOBILIZED, "ventcrawling")
+	spawn(1) // this is awful
+		REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, "ventcrawling")
 
 /obj/machinery/atmospherics/AltClick(mob/living/L)
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery))

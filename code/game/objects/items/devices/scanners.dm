@@ -194,8 +194,6 @@ REAGENT SCANNER
 		to_chat(user, "<span class='info'>Subject appears to be suffering from fatigue.</span>")
 	if(H.getCloneLoss())
 		to_chat(user, "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>")
-	if(H.has_brain_worms())
-		to_chat(user, "<span class='warning'>Subject suffering from aberrant brain activity. Recommend further scanning.</span>")
 
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
 		if(H.getBrainLoss() >= 100)
@@ -753,9 +751,6 @@ REAGENT SCANNER
 	dat += "Body Temperature: [target.bodytemperature-T0C]&deg;C ([target.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 	dat += "<hr>"
-
-	if(target.has_brain_worms())
-		dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
 
 	var/blood_percent =  round((target.blood_volume / BLOOD_VOLUME_NORMAL))
 	blood_percent *= 100

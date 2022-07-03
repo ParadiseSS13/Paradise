@@ -772,6 +772,7 @@
 	var/linked_pinpointer_UID
 	shaded_charge = TRUE
 	can_holster = TRUE
+	can_fit_in_turrets = FALSE
 	can_charge = FALSE
 	unique_reskin = TRUE
 	charge_sections = 5

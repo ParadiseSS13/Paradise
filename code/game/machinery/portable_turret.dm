@@ -584,8 +584,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return TURRET_NOT_TARGET
 
 	if(check_synth)	//If it's set to attack all non-silicons, target them!
-		if(L.lying)
-			return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
+		if(IS_HORIZONTAL(L))
+			return TURRET_SECONDARY_TARGET
 		return TURRET_PRIORITY_TARGET
 
 	if(iscuffed(L)) // If the target is handcuffed, leave it alone
@@ -601,8 +601,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(assess_perp(L, check_access, check_weapons, check_records, check_arrest) < 4)
 			return TURRET_NOT_TARGET	//if threat level < 4, keep going
 
-	if(L.lying)		//if the perp is lying down, it's still a target but a less-important target
-		return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
+	if(HAS_TRAIT(L, TRAIT_FLOORED)) // if the perp is floored, they aren't a threat. unless we are putting them down for good
+		if(lethal)
+			return TURRET_SECONDARY_TARGET
+		else
+			return TURRET_NOT_TARGET
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee
 

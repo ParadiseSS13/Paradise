@@ -97,6 +97,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gcommander"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/commander/gamma
+	slowdown = 0
 
 //Security
 /obj/item/clothing/head/helmet/space/hardsuit/ert/security
@@ -124,6 +125,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gsecurity"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/security/gamma
+	slowdown = 0
 
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
@@ -134,7 +136,6 @@
 	item_state = "helm-orange"
 	item_color = "ert_engineer"
 
-//Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 	name = "elite emergency response team engineer helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -156,6 +157,7 @@
 	icon_state = "ert_gengineer"
 	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
+	slowdown = 0
 
 //Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical
@@ -181,6 +183,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gmedical"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/medical/gamma
+	slowdown = 0
 
 //Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
@@ -206,6 +209,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gjanitor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor/gamma
+	slowdown = 0
 
 //Paranormal
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal

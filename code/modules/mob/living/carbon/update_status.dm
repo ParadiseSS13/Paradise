@@ -25,7 +25,9 @@
 		enter_stamcrit()
 	else if(stam_paralyzed)
 		stam_paralyzed = FALSE
-		update_canmove()
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "stam_crit") // make defines later
+		REMOVE_TRAIT(src, TRAIT_FLOORED, "stam_crit")
+		REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, "stam_crit")
 
 /mob/living/carbon/can_hear()
 	. = FALSE

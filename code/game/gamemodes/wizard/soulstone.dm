@@ -88,10 +88,6 @@
 		to_chat(user, "<span class='warning'>This being has no soul!</span>")
 		return ..()
 
-	if(M.has_brain_worms()) //Borer stuff - RR
-		to_chat(user, "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>")
-		return ..()
-
 	if(jobban_isbanned(M, ROLE_CULTIST) || jobban_isbanned(M, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
 		return ..()
@@ -308,7 +304,6 @@
 					to_chat(user, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 				else
 					T.forceMove(src) // Put the shade into the stone.
-					T.canmove = 0
 					T.health = T.maxHealth
 					icon_state = icon_state_full
 					name = "soulstone : [T.name]"
@@ -388,7 +383,6 @@
 /obj/item/soulstone/proc/init_shade(mob/living/M, mob/user, forced = FALSE)
 	var/type = get_shade_type()
 	var/mob/living/simple_animal/shade/S = new type(src)
-	S.canmove = FALSE // Can't move out of the soul stone
 	S.name = "Shade of [M.real_name]"
 	S.real_name = "Shade of [M.real_name]"
 	S.key = M.key
