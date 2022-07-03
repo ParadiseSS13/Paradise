@@ -82,12 +82,9 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
-/obj/item/radio/headset/alt/deathsquad
+/obj/item/radio/headset/alt/deathsquad // This is only for the desc, look at DS post equip for more
 	name = "Deathsquad headset"
 	desc = "Special Operations only. Protects ears from flashbangs."
-	requires_tcomms = FALSE
-	instant = TRUE
-	freqlock = TRUE
 
 /obj/item/radio/headset/syndicate
 	origin_tech = "syndicate=3"

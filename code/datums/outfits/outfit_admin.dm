@@ -265,7 +265,7 @@
 	name = "NT Deathsquad"
 
 	pda = /obj/item/pinpointer
-	box = /obj/item/storage/box/responseteam
+	box = /obj/item/storage/box/deathsquad
 	back = /obj/item/storage/backpack/ert/deathsquad
 	belt = /obj/item/gun/projectile/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat
@@ -330,6 +330,9 @@
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
 		R.set_frequency(DTH_FREQ)
+		R.requires_tcomms = FALSE
+		R.instant = TRUE
+		R.freqlock = TRUE
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
