@@ -31,7 +31,7 @@
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
-	SEND_SOUND(world, pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg'))
+	SEND_SOUND(world, 'sound/effects/narsie_risen.ogg')
 
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)

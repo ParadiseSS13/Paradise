@@ -1001,7 +1001,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	used = TRUE
 	color = rgb(255, 0, 0)
 	..()
-	SEND_SOUND(world, 'sound/effects/dimensional_rend.ogg')
+	SEND_SOUND(world, 'sound/effects/narsie_summon.ogg')
 	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
 	icon_state = "rune_large_distorted"
 	var/turf/T = get_turf(src)
