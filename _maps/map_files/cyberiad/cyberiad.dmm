@@ -79976,6 +79976,11 @@
 /obj/machinery/atmospherics/pipe/simple/visible/red,
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
+"mAM" = (
+/obj/item/coin/clown,
+/obj/item/coin/mime,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "mNS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -124376,7 +124381,7 @@ aMz
 aMz
 aGY
 aGX
-aGY
+mAM
 aGX
 aRI
 aMz
