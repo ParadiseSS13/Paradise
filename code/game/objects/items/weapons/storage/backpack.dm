@@ -209,6 +209,7 @@
 	icon_state = "satchel"
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
+	item_state = "satchel-leather"
 
 /obj/item/storage/backpack/satchel/verb/switch_strap()
 	set name = "Switch Strap Side"
@@ -242,11 +243,13 @@
 	name = "satchel"
 	desc = "A deluxe NT Satchel, made of the highest quality leather."
 	icon_state = "satchel-norm"
+	item_state = "satchel-norm"
 
 /obj/item/storage/backpack/satchel_eng
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
+	item_state = "satchel-eng"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel/explorer
@@ -259,48 +262,57 @@
 	name = "medical satchel"
 	desc = "A sterile satchel used in medical departments."
 	icon_state = "satchel-med"
+	item_state = "satchel-med"
 
 /obj/item/storage/backpack/satchel_vir
 	name = "virologist satchel"
 	desc = "A sterile satchel with virologist colours."
 	icon_state = "satchel-vir"
+	item_state = "satchel-vir"
 
 /obj/item/storage/backpack/satchel_chem
 	name = "chemist satchel"
 	desc = "A sterile satchel with chemist colours."
 	icon_state = "satchel-chem"
+	item_state = "satchel-chem"
 
 /obj/item/storage/backpack/satchel_gen
 	name = "geneticist satchel"
 	desc = "A sterile satchel with geneticist colours."
 	icon_state = "satchel-gen"
+	item_state = "satchel-gen"
 
 /obj/item/storage/backpack/satchel_tox
 	name = "scientist satchel"
 	desc = "Useful for holding research materials."
 	icon_state = "satchel-tox"
 	resistance_flags = FIRE_PROOF
+	item_state = "satchel-tox"
 
 /obj/item/storage/backpack/satchel_sec
 	name = "security satchel"
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
+	item_state = "satchel-sec"
 
 /obj/item/storage/backpack/satchel_hyd
 	name = "hydroponics satchel"
 	desc = "A green satchel for plant related work."
 	icon_state = "satchel-hyd"
+	item_state = "satchel-hyd"
 
 /obj/item/storage/backpack/satchel_cap
 	name = "captain's satchel"
 	desc = "An exclusive satchel for Nanotrasen officers."
 	icon_state = "satchel-cap"
+	item_state = "satchel-cap"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_blueshield
 	name = "blueshield satchel"
 	desc = "A robust satchel issued to Nanotrasen's finest."
 	icon_state = "satchel-blueshield"
+	item_state = "satchel-blueshield"
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
@@ -310,6 +322,7 @@
 	max_combined_w_class = 15
 	level = 1
 	cant_hold = list(/obj/item/storage/backpack/satchel_flat) //muh recursive backpacks
+	item_state = "satchel-norm"
 
 /obj/item/storage/backpack/satchel_flat/hide(intact)
 	if(intact)
