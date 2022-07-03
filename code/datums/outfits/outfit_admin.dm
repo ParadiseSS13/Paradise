@@ -813,7 +813,7 @@
 /datum/outfit/admin/hardsuit/wizard
 	name = "Wizard Hardsuit"
 	suit = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
-	shoes = /obj/item/clothing/shoes/magboots
+	shoes = /obj/item/clothing/shoes/magboots/wizard
 
 /datum/outfit/admin/hardsuit/medical
 	name = "Medical Hardsuit"

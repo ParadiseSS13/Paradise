@@ -1204,6 +1204,17 @@
 	desc = "It's just an ordinary magical box."
 	icon_state = "box_wizard"
 
+/obj/item/storage/box/wizard/hardsuit
+	name = "Battlemage Armour Bundle"
+	desc = "This box contains a bundle of Battlemage Armour"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/hardsuit/New()
+	. = ..()
+	contents = list()
+	new /obj/item/clothing/suit/space/hardsuit/shielded/wizard(src)
+	new /obj/item/clothing/shoes/magboots/wizard(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI
