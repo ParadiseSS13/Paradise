@@ -5,16 +5,16 @@
 	name = "gas sensor"
 	req_one_access_txt = "24;10"
 
-	anchored = 1
+	anchored = TRUE
 	var/state = 0
-	var/bolts = 1
+	var/bolts = TRUE
 
 	var/id_tag
 	frequency = ATMOS_VENTSCRUB
-	Mtoollink = 1
+	Mtoollink = TRUE
 	settagwhitelist = list("id_tag")
 
-	var/on = 1
+	var/on = TRUE
 	var/output = 3
 	//Flags:
 	// 1 for pressure
@@ -145,7 +145,7 @@
 	frequency = ATMOS_VENTSCRUB
 	var/show_sensors=1
 	var/list/sensors = list()
-	Mtoollink = 1
+	Mtoollink = TRUE
 
 	var/list/sensor_information = list()
 
@@ -604,15 +604,15 @@
 		if(!radio_connection)
 			return 0
 
-		var/injecting = 0
+		var/injecting = FALSE
 		for(var/id_tag in sensor_information)
 			var/list/data = sensor_information[id_tag]
 			if(data["temperature"])
 				if(data["temperature"] >= cutoff_temperature)
-					injecting = 0
+					injecting = FALSE
 					break
 				if(data["temperature"] <= on_temperature)
-					injecting = 1
+					injecting = TRUE
 
 		var/datum/signal/signal = new
 		signal.transmission_method = 1 //radio signal

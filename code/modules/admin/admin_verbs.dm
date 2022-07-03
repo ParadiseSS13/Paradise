@@ -167,6 +167,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
+	/client/proc/ss_breakdown,
 	#ifdef REFERENCE_TRACKING
 	/datum/proc/find_refs,
 	/datum/proc/qdel_then_find_references,
@@ -280,6 +281,9 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 			verbs += /client/proc/view_runtimes
 			verbs += /client/proc/cmd_display_del_log
 			verbs += /client/proc/cmd_display_del_log_simple
+			verbs += /client/proc/toggledebuglogs
+			verbs += /client/proc/debug_variables /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+			verbs += /client/proc/ss_breakdown
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
@@ -925,7 +929,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	set name = "Toggle Debug Log Messages"
 	set category = "Preferences"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_VIEWRUNTIMES | R_DEBUG))
 		return
 
 	prefs.toggles ^= PREFTOGGLE_CHAT_DEBUGLOGS

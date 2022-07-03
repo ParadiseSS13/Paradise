@@ -177,7 +177,7 @@
 		return TRUE
 	if(isliving(mover))
 		var/mob/living/M = mover
-		if(M.lying)
+		if(!(M.mobility_flags & MOBILITY_MOVE))
 			return TRUE
 		return prob(80)
 	if(istype(mover, /obj/item/projectile))
@@ -189,8 +189,7 @@
 	if(isliving(AM) && !isterrorspider(AM))
 		var/mob/living/M = AM
 		to_chat(M, "<span class='userdanger'>You get stuck in [src] for a moment.</span>")
-		M.Stun(4) // 8 seconds.
-		M.Weaken(4) // 8 seconds.
+		M.Weaken(8 SECONDS)
 		if(iscarbon(M))
 			web_special_ability(M)
 			addtimer(CALLBACK(src, .proc/after_carbon_crossed, M), 7 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)

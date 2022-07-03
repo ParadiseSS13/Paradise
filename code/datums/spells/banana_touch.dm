@@ -7,7 +7,7 @@
 	school = "transmutation"
 
 	charge_max = 300
-	clothes_req = 1
+	clothes_req = TRUE
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "clown"
 
@@ -20,7 +20,7 @@
 	item_state = "banana_touch"
 
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.lying || user.handcuffed)
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
@@ -34,10 +34,9 @@
 
 /mob/living/carbon/human/proc/bananatouched()
 	to_chat(src, "<font color='red' size='6'>HONK</font>")
-	Weaken(7)
-	Stun(7)
-	Stuttering(15)
-	do_jitter_animation(15)
+	Weaken(14 SECONDS)
+	Stuttering(30 SECONDS)
+	do_jitter_animation(30 SECONDS)
 
 	if(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)) //Wizards get non-cursed clown robes and magical mask.
 		unEquip(shoes, TRUE)

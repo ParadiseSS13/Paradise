@@ -145,6 +145,8 @@
 		if(!istype(I, /obj/item/organ))
 			IC = I
 			break
+	if(!IC && affected.hidden)
+		IC = affected.hidden
 	if(istype(tool,/obj/item/cautery))
 		to_chat(user, "<span class='notice'>You prepare to close the cavity wall.</span>")
 	else if(tool)
@@ -192,7 +194,7 @@
 				affected.cause_internal_bleeding()
 			user.drop_item()
 			affected.hidden = tool
-			tool.forceMove(affected)
+			tool.forceMove(target)
 			return 1
 	else
 		if(IC)

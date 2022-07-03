@@ -39,11 +39,11 @@
 	occupant = null
 	return ..()
 
-/obj/machinery/gibber/suicide_act(mob/user)
+/obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
 	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
-	user.Stun(10)
+	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
 	update_icon()
@@ -326,12 +326,13 @@
 	var/consumption_delay = 3 SECONDS
 	var/list/victim_targets = list()
 
-/obj/machinery/gibber/autogibber/New()
-	..()
-	spawn(5)
-		var/turf/T = get_step(src, acceptdir)
-		if(istype(T))
-			lturf = T
+/obj/machinery/gibber/autogibber/Initialize(mapload)
+	. = ..()
+
+	var/turf/T = get_step(src, acceptdir)
+	if(istype(T))
+		lturf = T
+
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/gibber(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

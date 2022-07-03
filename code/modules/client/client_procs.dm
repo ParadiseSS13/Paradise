@@ -332,6 +332,8 @@
 
 	. = ..()	//calls mob.Login()
 
+	mob.update_client_colour(0) // Activate colourblind mode if they have one set
+
 
 	if(ckey in GLOB.clientmessages)
 		for(var/message in GLOB.clientmessages[ckey])
@@ -413,6 +415,7 @@
 
 /client/Destroy()
 	announce_leave() // Do not put this below
+	SSdebugview.stop_processing(src)
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src

@@ -289,11 +289,11 @@
 				var/mob/living/carbon/human/C = target
 				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
 				if(C.client)
-					C.EyeBlurry(3)
-					C.EyeBlind(1)
+					C.EyeBlurry(6 SECONDS)
+					C.EyeBlind(2 SECONDS)
 					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
-						C.Confused(3)
-						C.Weaken(3)
+						C.Confused(6 SECONDS)
+						C.Weaken(6 SECONDS)
 				C.lip_style = "spray_face"
 				C.lip_color = colour
 				C.update_body()

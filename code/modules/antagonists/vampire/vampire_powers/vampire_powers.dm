@@ -59,6 +59,7 @@
 
 	U.SetWeakened(0)
 	U.SetStunned(0)
+	U.SetKnockDown(0)
 	U.SetParalysis(0)
 	U.SetSleeping(0)
 	U.SetConfused(0)
@@ -143,11 +144,12 @@
 			vamp.remove_ability(src)
 
 
-/datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE)
+/datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE, log_choice = TRUE)
 	var/datum/vampire_subclass/new_subclass = new subclass_to_add
 	subclass = new_subclass
 	check_vampire_upgrade(announce)
-	SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
+	if(log_choice)
+		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 
 /obj/effect/proc_holder/spell/vampire/glare
 	name = "Glare"
@@ -185,22 +187,22 @@
 			continue
 
 		var/deviation
-		if(user.weakened || user.resting)
+		if(user.IsWeakened() || IS_HORIZONTAL(user))
 			deviation = DEVIATION_PARTIAL
 		else
 			deviation = calculate_deviation(target, user)
 
 		if(deviation == DEVIATION_FULL)
-			target.AdjustConfused(3)
+			target.AdjustConfused(6 SECONDS)
 			target.adjustStaminaLoss(40)
 		else if(deviation == DEVIATION_PARTIAL)
-			target.Weaken(1)
-			target.AdjustConfused(3)
+			target.Weaken(2 SECONDS)
+			target.AdjustConfused(6 SECONDS)
 			target.adjustStaminaLoss(40)
 		else
 			target.adjustStaminaLoss(120)
-			target.Weaken(6)
-			target.AdjustSilence(3)
+			target.Weaken(12 SECONDS)
+			target.AdjustSilence(6 SECONDS)
 			target.flash_eyes(1, TRUE, TRUE)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
@@ -302,7 +304,7 @@
 			H.adjustBrainLoss(60)
 		else
 			visible_message("<span class='warning'>[H] looks to be stunned by the energy!</span>")
-			H.Weaken(20)
+			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in H)
 		if(L && L.implanted)
@@ -319,7 +321,7 @@
 	add_attack_logs(M, H, "Vampire-sired")
 	H.mind.make_vampire()
 	H.revive()
-	H.Weaken(20)
+	H.Weaken(40 SECONDS)
 
 /obj/effect/proc_holder/spell/turf_teleport/shadow_step
 	name = "Shadow Step (30)"

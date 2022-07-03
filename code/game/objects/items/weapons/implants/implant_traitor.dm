@@ -3,6 +3,8 @@
 	desc = "Divide and Conquer"
 	origin_tech = "programming=5;biotech=5;syndicate=8"
 	activated = FALSE
+	/// The UID of the mindslave's `mind`. Stored to solve GC race conditions and ensure we can remove their mindslave status even when they're deleted or gibbed.
+	var/mindslave_UID
 
 /obj/item/implant/traitor/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -45,11 +47,11 @@
 
 	// Create a new mindslave datum for the target with the user as their master.
 	mindslave_target.mind.add_antag_datum(new /datum/antagonist/mindslave(user.mind))
+	mindslave_UID = mindslave_target.mind.UID()
 	log_admin("[key_name_admin(user)] has mind-slaved [key_name_admin(mindslave_target)].")
 	return TRUE
 
 /obj/item/implant/traitor/removed(mob/target)
-	if(..())
-		target.mind.remove_antag_datum(/datum/antagonist/mindslave)
-		return TRUE
-	return FALSE
+	. = ..()
+	var/datum/mind/M = locateUID(mindslave_UID)
+	M.remove_antag_datum(/datum/antagonist/mindslave)

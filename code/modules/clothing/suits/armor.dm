@@ -429,7 +429,7 @@
 			if(dist_from_user == 0)
 				if(isliving(AM))
 					var/mob/living/M = AM
-					M.Weaken(3)
+					M.Weaken(6 SECONDS)
 					to_chat(M, "<span class='userdanger'>You're slammed into the floor by [owner]'s reactive armor!</span>")
 					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
 			else
@@ -441,6 +441,15 @@
 				INVOKE_ASYNC(AM, /atom/movable/.proc/throw_at, throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
 		disable(rand(2, 5))
 		return TRUE
+
+/obj/item/clothing/suit/armor/reactive/random //Spawner for random reactive armor
+	name = "Random Reactive Armor"
+
+/obj/item/clothing/suit/armor/reactive/random/Initialize(mapload)
+	. = ..()
+	var/spawnpath = pick(subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random)
+	new spawnpath(loc)
+	qdel(src)
 
 //All of the armor below is mostly unused
 

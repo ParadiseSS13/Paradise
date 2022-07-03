@@ -1,7 +1,7 @@
 /obj/machinery/computer/telescience
 	name = "telepad control console"
 	desc = "Used to teleport objects to and from the telescience telepad."
-	icon_keyboard = "telesci_key"
+	icon_keyboard = "tech_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console
 	req_access = list(ACCESS_RESEARCH)
@@ -30,8 +30,8 @@
 	var/max_crystals = 4
 	var/obj/item/gps/inserted_gps
 
-/obj/machinery/computer/telescience/New()
-	..()
+/obj/machinery/computer/telescience/Initialize(mapload)
+	. = ..()
 	recalibrate()
 
 /obj/machinery/computer/telescience/Destroy()
@@ -44,9 +44,6 @@
 /obj/machinery/computer/telescience/examine(mob/user)
 	. = ..()
 	. += "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots."
-
-/obj/machinery/computer/telescience/Initialize()
-	..()
 
 /obj/machinery/computer/telescience/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore/bluespace_crystal))

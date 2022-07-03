@@ -44,7 +44,7 @@
 	desc = "Used to control the satellite network."
 	circuit = /obj/item/circuitboard/computer/sat_control
 	icon_screen = "accelerator"
-	icon_keyboard = "accelerator_key"
+	icon_keyboard = "rd_key"
 	var/notice
 
 /obj/machinery/computer/sat_control/attack_hand(mob/user)
@@ -108,8 +108,8 @@
 	var/static/gid = 0
 	var/id = 0
 
-/obj/machinery/satellite/New()
-	..()
+/obj/machinery/satellite/Initialize(mapload)
+	. = ..()
 	id = gid++
 
 /obj/machinery/satellite/attack_hand(mob/user)
@@ -162,13 +162,15 @@
 /obj/machinery/satellite/meteor_shield/process()
 	if(!active)
 		return
-	for(var/obj/effect/meteor/M in GLOB.meteor_list)
+	for(var/obj/effect/M in GLOB.meteor_list)
 		if(M.z != z)
 			continue
 		if(get_dist(M, src) > kill_range)
 			continue
 		if(!emagged && space_los(M))
 			Beam(get_turf(M), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
+			if(istype(M, /obj/effect/space_dust/meaty))
+				new /obj/item/reagent_containers/food/snacks/meatsteak(get_turf(M))
 			qdel(M)
 
 /obj/machinery/satellite/meteor_shield/toggle(user)

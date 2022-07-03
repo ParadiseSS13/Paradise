@@ -102,7 +102,7 @@
 			if(!(NO_BLOOD in H.dna.species.species_traits))
 				H.blood_volume = max(H.blood_volume - blood_loss, 0)
 				to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
-				if(H.client)
+				if(H?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
 					H.client.color = "red" //bloody screen so real
 		else
 			last_pump = world.time //lets be extra fair *sigh*
@@ -133,7 +133,7 @@
 		if(istype(H))
 			if(!(NO_BLOOD in H.dna.species.species_traits))
 				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss * 0.5, BLOOD_VOLUME_NORMAL)
-				if(owner.client)
+				if(owner?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
 					owner.client.color = ""
 
 				H.adjustBruteLoss(-cursed_heart.heal_brute)
@@ -215,10 +215,11 @@
 
 	if(!(status & ORGAN_DEAD))
 		var/boost = emagged ? 2 : 1
-		owner.AdjustDrowsy(-4 * boost)
-		owner.AdjustParalysis(-1 * boost)
-		owner.AdjustStunned(-1 * boost)
-		owner.AdjustWeakened(-1 * boost)
+		owner.AdjustDrowsy(-8 SECONDS * boost)
+		owner.AdjustParalysis(-2 SECONDS * boost)
+		owner.AdjustStunned(-2 SECONDS * boost)
+		owner.AdjustWeakened(-2 SECONDS * boost)
+		owner.AdjustKnockDown(-2 SECONDS * boost)
 		owner.SetSleeping(0)
 		owner.adjustStaminaLoss(-1 * boost)
 

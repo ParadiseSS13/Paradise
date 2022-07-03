@@ -66,6 +66,8 @@
 	var/scan_range = 7
 	var/always_up = FALSE		//Will stay active
 	var/has_cover = TRUE		//Hides the cover
+	/// Deployment override to allow turret popup on/under dense turfs/objects, for admin/CC turrets
+	var/deployment_override = FALSE
 
 
 /obj/machinery/porta_turret/Initialize(mapload)
@@ -432,7 +434,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		controllock = TRUE
 		enabled = FALSE //turns off the turret temporarily
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
-		enabled = TRUE //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
+		enabled = TRUE //turns it back on. The cover pop_up() pop_down() are automatically called in process(), no need to define it here
 
 /obj/machinery/porta_turret/take_damage(force)
 	if(!raised && !raising)
@@ -505,13 +507,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & (NOPOWER|BROKEN))
 		if(!always_up)
 			//if the turret has no power or is broken, make the turret pop down if it hasn't already
-			popDown()
+			pop_down()
 		return
 
 	if(!enabled)
 		if(!always_up)
 			//if the turret is off, make it pop down
-			popDown()
+			pop_down()
 		return
 
 	var/list/targets = list()			//list of primary targets
@@ -542,7 +544,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!tryToShootAt(targets))
 		if(!tryToShootAt(secondarytargets)) // if no valid targets, go for secondary targets
 			if(!always_up)
-				popDown() // no valid targets, close the cover
+				pop_down() // no valid targets, close the cover
 
 /obj/machinery/porta_turret/proc/in_faction(mob/living/target)
 	if(!(faction in target.faction))
@@ -582,8 +584,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return TURRET_NOT_TARGET
 
 	if(check_synth)	//If it's set to attack all non-silicons, target them!
-		if(L.lying)
-			return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
+		if(IS_HORIZONTAL(L))
+			return TURRET_SECONDARY_TARGET
 		return TURRET_PRIORITY_TARGET
 
 	if(iscuffed(L)) // If the target is handcuffed, leave it alone
@@ -599,8 +601,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(assess_perp(L, check_access, check_weapons, check_records, check_arrest) < 4)
 			return TURRET_NOT_TARGET	//if threat level < 4, keep going
 
-	if(L.lying)		//if the perp is lying down, it's still a target but a less-important target
-		return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
+	if(HAS_TRAIT(L, TRAIT_FLOORED)) // if the perp is floored, they aren't a threat. unless we are putting them down for good
+		if(lethal)
+			return TURRET_SECONDARY_TARGET
+		else
+			return TURRET_NOT_TARGET
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee
 
@@ -614,21 +619,36 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(target(M))
 			return 1
 
-/obj/machinery/porta_turret/proc/popUp()	//pops the turret up
+/obj/machinery/porta_turret/proc/check_pop_up()
+	/// Whitelist to determine what objects can be put over turrets while letting them deploy
+	var/static/list/deployment_whitelist = typecacheof(list(
+		/obj/structure/window/reinforced,
+		/obj/structure/window/basic,
+		/obj/structure/window/plasmabasic,
+		/obj/structure/window/plasmareinforced,
+		/obj/machinery/door/window,
+		/obj/structure/railing,
+	))
 	if(disabled)
 		return
 	if(raising || raised)
 		return
 	if(stat & BROKEN)
 		return
+	if(deployment_override)
+		pop_up()
 	// check if anything's preventing us from raising
 	var/turf/T = get_turf(src)
 	for(var/atom/A in T)
 		if(A == src)
 			continue
 		if(A.density)
+			if(is_type_in_typecache(A, deployment_whitelist))
+				continue
 			return
+	pop_up()
 
+/obj/machinery/porta_turret/proc/pop_up()	//pops the turret up
 	set_raised_raising(raised, TRUE)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 	update_icon()
@@ -642,7 +662,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	set_raised_raising(TRUE, FALSE)
 	update_icon()
 
-/obj/machinery/porta_turret/proc/popDown()	//pops the turret down
+/obj/machinery/porta_turret/proc/pop_down()	//pops the turret down
 	last_target = null
 	if(disabled)
 		return
@@ -682,7 +702,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(target)
 		last_target = target
 		if(has_cover)
-			popUp()				//pop the turret up if it's not already up.
+			check_pop_up()				//pop the turret up if it's not already up.
 		// Set angle
 		set_angle(get_angle(src, target))
 		shootAt(target)
@@ -738,6 +758,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_weapons = TRUE
 	check_anomalies = TRUE
 	region_max = REGION_CENTCOMM // Non-turretcontrolled turrets at CC can have their access customized to check for CC accesses.
+	deployment_override = TRUE
 
 /obj/machinery/porta_turret/centcom/pulse
 	name = "pulse turret"

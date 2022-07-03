@@ -231,6 +231,11 @@
 	if(slot == slot_wear_suit) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return 1
 
+/obj/item/clothing/suit/space/hardsuit/on_mob_move(dir, mob)
+	if(jetpack)
+		jetpack.on_mob_move(dir, mob)
+
+
 //Engineering hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/engine
 	name = "engineering hardsuit helmet"

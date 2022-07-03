@@ -63,11 +63,6 @@
 		to_chat(src, "You can't commit suicide before the game starts!")
 		return
 
-	// No more borergrief, one way or the other
-	if(has_brain_worms())
-		to_chat(src, "You try to bring yourself to commit suicide, but - something prevents you!")
-		return
-
 	if(suiciding)
 		to_chat(src, "You're already committing suicide! Be patient!")
 		return
@@ -179,7 +174,7 @@
 	set name = "pAI Suicide"
 	var/answer = input("REALLY kill yourself? This action can't be undone.", "Suicide", "No") in list ("Yes", "No")
 	if(answer == "Yes")
-		if(canmove || resting)
+		if(mobility_flags & MOBILITY_MOVE)
 			close_up()
 		var/obj/item/paicard/card = loc
 		card.removePersonality()

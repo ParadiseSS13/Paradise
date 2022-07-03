@@ -109,12 +109,12 @@
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!</span>\n"
 
 	//Jitters
-	switch(jitteriness)
-		if(300 to INFINITY)
+	switch(AmountJitter())
+		if(600 SECONDS to INFINITY)
 			msg += "<span class='warning'><B>[p_they(TRUE)] [p_are()] convulsing violently!</B></span>\n"
-		if(200 to 300)
+		if(400 SECONDS to 600 SECONDS)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
-		if(100 to 200)
+		if(200 SECONDS to 400 SECONDS)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
 
 

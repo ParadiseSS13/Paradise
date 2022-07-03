@@ -2,7 +2,6 @@
 	name = "landmark"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
-	anchored = 1.0
 	layer = MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -79,12 +78,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	spawner_list = GLOB.xeno_spawn
 	return ..()
 
-/obj/effect/landmark/spawner/blob
-	name = "blobstart"
-	icon_state = "Blob"
+/obj/effect/landmark/spawner/blob //todo: rename this and cause mapping pain
+	name = "nukedisc_respawn"
+	icon_state = "Nuke_disk"
 
 /obj/effect/landmark/spawner/blob/Initialize(mapload)
-	spawner_list = GLOB.blobstart
+	spawner_list = GLOB.nukedisc_respawn
 	return ..()
 
 /obj/effect/landmark/spawner/late
@@ -247,7 +246,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	name = "start"
 	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "Assistant"
-	anchored = 1.0
 
 /obj/effect/landmark/start/ai
 	name = "AI"

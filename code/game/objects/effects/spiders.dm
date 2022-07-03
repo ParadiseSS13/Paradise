@@ -56,7 +56,7 @@
 	desc = "They seem to pulse slightly with an inner life"
 	icon_state = "eggs"
 	var/amount_grown = 0
-	var/player_spiders = 0
+	var/player_spiders = FALSE
 	///Was this egg laid by a xenobiology mob? Used for mob capping
 	var/xenobiology_spawned = FALSE
 	var/list/faction = list("spiders")
@@ -88,14 +88,14 @@
 	name = "spiderling"
 	desc = "It never stays still for long."
 	icon_state = "spiderling"
-	anchored = 0
+	anchored = FALSE
 	layer = 2.75
 	max_integrity = 3
 	var/amount_grown = 0
 	var/grow_as = null
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
-	var/travelling_in_vent = 0
-	var/player_spiders = 0
+	var/travelling_in_vent = FALSE
+	var/player_spiders = FALSE
 	var/list/faction = list("spiders")
 	var/selecting_player = 0
 	///Is this spiderling created from a xenobiology mob?
@@ -123,7 +123,7 @@
 /obj/structure/spider/spiderling/process()
 	if(travelling_in_vent)
 		if(istype(loc, /turf))
-			travelling_in_vent = 0
+			travelling_in_vent = FALSE
 			entry_vent = null
 	else if(entry_vent)
 		if(get_dist(src, entry_vent) <= 1)
@@ -227,7 +227,6 @@
 	desc = "Green squishy mess."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
-	anchored = 1
 
 /obj/structure/spider/cocoon
 	name = "cocoon"

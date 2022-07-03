@@ -46,7 +46,8 @@ SUBSYSTEM_DEF(air)
 	var/list/currentrun = list()
 	var/currentpart = SSAIR_DEFERREDPIPENETS
 
-/datum/controller/subsystem/air/stat_entry(msg)
+/datum/controller/subsystem/air/get_stat_details()
+	var/list/msg = list()
 	msg += "C:{"
 	msg += "AT:[round(cost_turfs,1)]|"
 	msg += "EG:[round(cost_groups,1)]|"
@@ -64,7 +65,7 @@ SUBSYSTEM_DEF(air)
 	msg += "HP:[high_pressure_delta.len]|"
 	msg += "AS:[active_super_conductivity.len]|"
 	msg += "AT/MS:[round((cost ? active_turfs.len/cost : 0),0.1)]"
-	..(msg)
+	return msg.Join("")
 
 /datum/controller/subsystem/air/get_metrics()
 	. = ..()
@@ -76,6 +77,8 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/Initialize(timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	icon_manager = new() // Sets up icon manager for pipes
+	if(length(active_turfs))
+		log_debug("Failed sanity check: active_turfs is not empty before initialization ([length(active_turfs)])")
 	setup_allturfs()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
@@ -298,9 +301,6 @@ SUBSYSTEM_DEF(air)
 			add_to_active(S)
 
 /datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	if(active_turfs.len)
-		log_debug("failed sanity check: active_turfs is not empty before initialization ([active_turfs.len])")
-
 	for(var/thing in turfs_to_init)
 		var/turf/T = thing
 		if(T.blocks_air)

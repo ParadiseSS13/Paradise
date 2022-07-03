@@ -48,8 +48,7 @@
 			return
 		if(transformation_text)
 			to_chat(affected_mob, transformation_text)
-		affected_mob.notransform = 1
-		affected_mob.canmove = 0
+		affected_mob.notransform = TRUE
 		affected_mob.icon = null
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = 101
@@ -112,7 +111,7 @@
 		if(3)
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
-				affected_mob.AdjustConfused(10)
+				affected_mob.AdjustConfused(20 SECONDS)
 		if(4)
 			if(prob(3))
 				affected_mob.say(pick("Eeek, ook ook!", "Eee-eeek!", "Eeee!", "Ungh, ungh."))
@@ -145,7 +144,7 @@
 				affected_mob.say(pick("Beep, boop", "beep, beep!", "Boop...bop"))
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
-				affected_mob.Paralyse(2)
+				affected_mob.Paralyse(4 SECONDS)
 		if(4)
 			if(prob(20))
 				affected_mob.say(pick("beep, beep!", "Boop bop boop beep.", "kkkiiiill mmme", "I wwwaaannntt tttoo dddiiieeee..."))
@@ -175,7 +174,7 @@
 		if(3)
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
-				affected_mob.Paralyse(2)
+				affected_mob.Paralyse(4 SECONDS)
 		if(4)
 			if(prob(20))
 				affected_mob.say(pick("You look delicious.", "Going to... devour you...", "Hsssshhhhh!"))

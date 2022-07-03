@@ -188,7 +188,7 @@
 	if(narsie_rune)
 		for(var/obj/effect/rune/I in orange(1, R))
 			qdel(I)
-
+	SSblackbox.record_feedback("tally", "runes_scribed", 1, "[R.cultist_name]")
 	R.blood_DNA = list()
 	R.blood_DNA[H.dna.unique_enzymes] = H.dna.blood_type
 	R.add_hiddenprint(H)

@@ -57,7 +57,7 @@
 		if(3.0)
 			b_loss += 30
 			if(prob(50))
-				Paralyse(1)
+				Paralyse(2 SECONDS)
 			AdjustEarDamage(15, 60)
 
 	adjustBruteLoss(b_loss)
@@ -84,11 +84,3 @@
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
 
-/* Commented out because it's duplicated in life.dm
-/mob/living/carbon/alien/larva/proc/grow() // Larvae can grow into full fledged Xenos if they survive long enough -- TLE
-	if(icon_state == "larva_l" && !canmove) // This is a shit death check. It is made of shit and death. Fix later.
-		return
-	else
-		var/mob/living/carbon/alien/humanoid/A = new(loc)
-		A.key = key
-		qdel(src) */

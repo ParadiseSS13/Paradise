@@ -1,4 +1,6 @@
 GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire"))
+GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons/effects/welding_effect.dmi', "welding_sparks", GASFIRE_LAYER, ABOVE_LIGHTING_PLANE))
+
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
@@ -166,10 +168,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	else if(istype(loc, /obj/item/storage))
-		var/obj/item/storage/S = loc
-		if(!QDELETED(S)) // Can happen when the storage gets deleted, thus deleting the contents
-			S.remove_from_storage(src) // Not required to call. Will only cause runtimes
 	QDEL_LIST(actions)
 	master = null
 	return ..()
@@ -605,9 +603,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 				if(M.stat != DEAD)
 					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
 					M.drop_item()
-				M.AdjustEyeBlurry(10)
-				M.Paralyse(1)
-				M.Weaken(2)
+				M.AdjustEyeBlurry(20 SECONDS)
+				M.Paralyse(2 SECONDS)
+				M.Weaken(4 SECONDS)
 			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
@@ -616,7 +614,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)
-	M.AdjustEyeBlurry(rand(3,4))
+	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
 	return
 
 /obj/item/singularity_pull(S, current_size)
@@ -725,7 +723,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		var/mob/living/L = user
 		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES))
 			return
-		if(istype(L) && L.incapacitated(ignore_lying = TRUE))
+		if(istype(L) && HAS_TRAIT(L, TRAIT_HANDS_BLOCKED))
 			apply_outline(L, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
 		else
 			apply_outline(L) //if the player's alive and well we send the command with no color set, so it uses the theme's color
@@ -736,7 +734,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	remove_outline()
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
+	if(!user || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == I)
 		return
 
 	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?

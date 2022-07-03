@@ -121,7 +121,7 @@
 /mob/living/simple_animal/parrot/death(gibbed)
 	if(can_die())
 		if(held_item)
-			custom_emote(EMOTE_VISUAL, "lets go of [held_item]!")
+			custom_emote(EMOTE_VISIBLE, "lets go of [held_item]!")
 			drop_held_item()
 		walk(src, 0)
 	return ..()
@@ -153,7 +153,7 @@
 
 /mob/living/simple_animal/parrot/Topic(href, href_list)
 	//Can the usr physically do this?
-	if(!usr.canmove || usr.stat || usr.restrained() || !usr.Adjacent(src))
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || usr.restrained() || !usr.Adjacent(src))
 		return
 
 	//Is the usr's mob type able to do this?
@@ -247,7 +247,7 @@
 			parrot_state |= PARROT_ATTACK
 		else
 			if(held_item)
-				custom_emote(EMOTE_VISUAL, "lets go of [held_item]!")
+				custom_emote(EMOTE_VISIBLE, "lets go of [held_item]!")
 
 			parrot_state |= PARROT_FLEE		//Otherwise, fly like a bat out of hell!
 			drop_held_item(FALSE)
@@ -308,8 +308,8 @@
 		parrot_state = PARROT_WANDER
 		return
 
-	if(!isturf(loc) || !canmove || buckled)
-		return //If it can't move, dont let it move. (The buckled check probably isn't necessary thanks to canmove)
+	if(!isturf(loc) || !(mobility_flags & MOBILITY_MOVE) || buckled)
+		return //If it can't move, dont let it move.
 
 //-----SPEECH
 	/* Parrot speech mimickry!
@@ -347,7 +347,7 @@
 			//Search for item to steal
 			parrot_interest = search_for_perch_and_item()
 			if(parrot_interest)
-				custom_emote(EMOTE_VISUAL, "looks in [parrot_interest]'s direction and takes flight.")
+				custom_emote(EMOTE_VISIBLE, "looks in [parrot_interest]'s direction and takes flight.")
 				parrot_state = PARROT_SWOOP|PARROT_STEAL
 				icon_state = "parrot_fly"
 			return
@@ -371,7 +371,7 @@
 					parrot_interest = AM
 					parrot_state = PARROT_SWOOP|PARROT_STEAL
 					face_atom(AM)
-					custom_emote(EMOTE_VISUAL, "turns and flies towards [parrot_interest].")
+					custom_emote(EMOTE_VISIBLE, "turns and flies towards [parrot_interest].")
 					return
 				else	//Else it's a perch
 					parrot_perch = AM
@@ -493,10 +493,10 @@
 				var/obj/item/organ/external/affecting = H.get_organ(ran_zone(pick(parrot_dam_zone)))
 
 				H.apply_damage(damage, BRUTE, affecting, H.run_armor_check(affecting, MELEE), sharp = TRUE)
-				custom_emote(EMOTE_VISUAL, pick("pecks [H]'s [affecting].", "cuts [H]'s [affecting] with its talons."))
+				custom_emote(EMOTE_VISIBLE, pick("pecks [H]'s [affecting].", "cuts [H]'s [affecting] with its talons."))
 			else
 				L.adjustBruteLoss(damage)
-				custom_emote(EMOTE_VISUAL, pick("pecks at [L].", "claws [L]."))
+				custom_emote(EMOTE_VISIBLE, pick("pecks at [L].", "claws [L]."))
 			return
 		//Otherwise, fly towards the mob!
 		else

@@ -4,8 +4,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	// hide and freeze for the GC
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -22,8 +21,7 @@
 		return FALSE
 	new /obj/effect/decal/cleanable/ash(loc)
 	// hide and freeze them while they get GC'd
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	QDEL_IN(src, 0)
@@ -33,8 +31,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	// hide and freeze them while they get GC'd
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	QDEL_IN(src, 0)
@@ -52,7 +49,7 @@
 		return FALSE
 
 	..()
-	stat = DEAD
+	set_stat(DEAD)
 
 	timeofdeath = world.time
 	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
@@ -62,7 +59,7 @@
 	SetLoseBreath(0)
 
 	if(!gibbed && deathgasp_on_death)
-		emote("deathgasp", force = TRUE)
+		emote("deathgasp")
 
 	if(mind && suiciding)
 		mind.suicided = TRUE
@@ -70,16 +67,13 @@
 	hud_used?.reload_fullscreen()
 	update_sight()
 	update_action_buttons_icon()
-
+	ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
-
-	if(!gibbed)
-		update_canmove()
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src
@@ -103,6 +97,6 @@
 
 /mob/living/proc/delayed_gib()
 	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
-	Weaken(15)
-	do_jitter_animation(1000, -1)
-	addtimer(CALLBACK(src, .proc/gib), rand(20, 100))
+	Weaken(30 SECONDS)
+	do_jitter_animation(1000, -1) // jitter until they are gibbed
+	addtimer(CALLBACK(src, .proc/gib), rand(2 SECONDS, 10 SECONDS))

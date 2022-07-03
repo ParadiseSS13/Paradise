@@ -145,7 +145,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	aiPDA = new/obj/item/pda/silicon/ai(src)
 	rename_character(null, pickedName)
 	anchored = 1
-	canmove = 0
 	density = 1
 	loc = loc
 
@@ -173,7 +172,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		add_ai_verbs(src)
 
 	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
-	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/rest
 	verbs -= /mob/living/verb/mob_sleep
 	verbs -= /mob/living/verb/resist
 	verbs -= /mob/living/verb/stop_pulling1
@@ -588,8 +587,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
-/mob/living/silicon/ai/update_canmove()
-	return FALSE
 
 /mob/living/silicon/ai/proc/announcement()
 	set name = "Announcement"
@@ -737,21 +734,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		if(M)
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
-
-	else if(href_list["faketrack"])
-		var/mob/target = locate(href_list["track"]) in GLOB.mob_list
-		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in GLOB.mob_list
-		if(A && target)
-
-			A.cameraFollow = target
-			to_chat(A, "Now tracking [target.name] on camera.")
-			if(usr.machine == null)
-				usr.machine = usr
-
-			while(cameraFollow == target)
-				to_chat(usr, "Target is not on or near any active cameras on the station. We'll check again in 5 seconds (unless you use the cancel-camera verb).")
-				sleep(40)
-				continue
 
 	else if(href_list["open"])
 		var/mob/target = locate(href_list["open"]) in GLOB.mob_list

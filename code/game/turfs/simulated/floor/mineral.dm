@@ -180,7 +180,7 @@
 
 /turf/simulated/floor/mineral/bananium/proc/squeek()
 	if(spam_flag < world.time)
-		playsound(src, "clownstep", 50, 1)
+		playsound(src, 'sound/effects/clownstep1.ogg', 50, 1)
 		spam_flag = world.time + 10
 
 /turf/simulated/floor/mineral/bananium/airless
@@ -197,7 +197,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
-		H.slip("the floor", 0, 5, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
+		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
 //TRANQUILLITE

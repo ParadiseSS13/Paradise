@@ -5,9 +5,8 @@
 /obj/effect/particle_effect/foam
 	name = "foam"
 	icon_state = "foam"
-	opacity = 0
-	anchored = 1
-	density = 0
+	opacity = FALSE
+	density = FALSE
 	layer = OBJ_LAYER + 0.9
 	animate_movement = 0
 	var/amount = 3
@@ -100,7 +99,7 @@
 
 	if(iscarbon(AM))
 		var/mob/living/carbon/M =	AM
-		if(M.slip("foam", 5, 2))
+		if(M.slip("foam", 10 SECONDS))
 			if(reagents)
 				for(var/reagent_id in reagents.reagent_list)
 					var/amount = M.reagents.get_reagent_amount(reagent_id)

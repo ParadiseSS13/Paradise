@@ -14,8 +14,8 @@
 	has_specials = 1
 	upgradeable = 1
 
-/obj/machinery/cooker/deepfryer/New()
-	..()
+/obj/machinery/cooker/deepfryer/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/deepfryer(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -23,8 +23,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
-/obj/machinery/cooker/deepfryer/upgraded/New()
-	..()
+/obj/machinery/cooker/deepfryer/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/deepfryer(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)

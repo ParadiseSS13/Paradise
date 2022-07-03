@@ -14,8 +14,6 @@
 	var/obj/item/head = null
 	var/obj/item/clothing/suit/wear_suit = null		//TODO: necessary? Are they even used? ~Carn
 
-	var/mob/living/simple_animal/borer/borer = null
-
 	//Active emote/pose
 	var/pose = null
 
@@ -26,8 +24,5 @@
 	var/co2overloadtime = null
 	var/dreaming = 0 //How many dream images we have left to send
 	var/nightmare = 0
-
-	/// The world.time after which the mob can hallucinate again.
-	var/next_hallucination = 0
 
 	blood_volume = BLOOD_VOLUME_NORMAL

@@ -7,7 +7,7 @@
 	school = "transmutation"
 
 	charge_max = 300
-	clothes_req = 1
+	clothes_req = TRUE
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "mime"
 
@@ -20,7 +20,7 @@
 	item_state = "fleshtostone"
 
 /obj/item/melee/touch_attack/mime_malaise/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.lying || user.handcuffed)
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
@@ -32,8 +32,7 @@
 	..()
 
 /mob/living/carbon/human/proc/mimetouched()
-	Weaken(7)
-	Stun(7)
+	Weaken(14 SECONDS)
 	if(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)) //Wizards get non-cursed mime outfit. Replace with mime robes if we add those.
 		unEquip(wear_mask, TRUE)
 		unEquip(w_uniform, TRUE)
@@ -41,7 +40,7 @@
 		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/mime, slot_wear_mask, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/under/mime, slot_w_uniform, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/suit/suspenders, slot_wear_suit, TRUE, TRUE)
-		Silence(7)
+		Silence(14 SECONDS)
 	else
 		qdel(wear_mask)
 		qdel(w_uniform)

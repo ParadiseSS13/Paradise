@@ -239,10 +239,13 @@
 	. = 0	//We start at 0.
 
 	if(has_gravity(H))
-		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
-			. -= 1
-		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
-			. -= 0.5
+		if(!IS_HORIZONTAL(H))
+			if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
+				. -= 1
+			else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
+				. -= 0.5
+		else
+			. += GLOB.configuration.movement.crawling_speed_reduction
 
 		var/ignoreslow = FALSE
 		if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
@@ -336,10 +339,6 @@
 // Return 0 if it shouldn't deplete and do its normal effect
 // Other return values will cause weird badness
 /datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
-		H.reagents.del_reagent(R.id)
-		return FALSE
 	return TRUE
 
 // For special snowflake species effects
@@ -416,7 +415,9 @@
 	return TRUE
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
-	. = stun_mod * H.physiology.stun_mod * amount
+	. = amount
+	if(!H.frozen) //admin freeze has no breaks
+		. = stun_mod * H.physiology.stun_mod * amount
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return
@@ -449,7 +450,7 @@
 	//Vampire code
 	var/datum/antagonist/vampire/V = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V && !V.draining && user.zone_selected == "head" && target != user)
-		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
+		if((NO_BLOOD in target.dna.species.species_traits) || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
 		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
@@ -505,15 +506,20 @@
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
-			target.apply_effect(4, WEAKEN, armor_block)
+			target.apply_effect(8 SECONDS, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
-		else if(target.lying)
+		else if(IS_HORIZONTAL(target))
 			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
+		return FALSE
+	if(target.absorb_stun(0))
+		target.visible_message("<span class='warning'>[target] is not affected by [user]'s disarm attempt!</span>")
+		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
@@ -525,7 +531,7 @@
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/randn = rand(1, 100)
 		if(randn <= 25)
-			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, MELEE))
+			target.apply_effect(4 SECONDS, WEAKEN, target.run_armor_check(affecting, MELEE))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
@@ -934,6 +940,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		H.see_invisible = SEE_INVISIBLE_OBSERVER
 
+	H.update_tint()
 	H.sync_lighting_plane_alpha()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)

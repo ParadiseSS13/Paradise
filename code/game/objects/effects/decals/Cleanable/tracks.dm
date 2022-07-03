@@ -26,6 +26,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	basecolor = "#A10808"
 	var/entered_dirs = 0
 	var/exited_dirs = 0
+	var/base_alpha = BLOODY_FOOTPRINT_BASE_ALPHA
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
 
 
@@ -41,6 +42,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 			hasfeet = FALSE
 		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
+			S.bloody_shoes[BLOOD_BASE_ALPHA] = base_alpha
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
@@ -49,6 +51,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 				update_icon()
 		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet //This will need to be changed.
 			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
+			H.bloody_feet[BLOOD_BASE_ALPHA] = base_alpha
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
@@ -109,7 +112,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 				I.color = basecolor
 				overlays += I
 
-	alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness
+	alpha = base_alpha + bloodiness
 
 /proc/createFootprintsFrom(atom/movable/A, dir, turf/T)
 	var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
@@ -118,6 +121,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 		FP.blood_state = H.blood_state
 		FP.bloodiness = H.bloody_feet[H.blood_state] - BLOOD_LOSS_IN_SPREAD
 		FP.basecolor = H.feet_blood_color
+		FP.base_alpha = H.bloody_feet[BLOOD_BASE_ALPHA]
 		if(H.blood_DNA)
 			FP.blood_DNA = H.blood_DNA.Copy()
 	else if(istype(A, /obj/item/clothing/shoes))
@@ -125,6 +129,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 		FP.blood_state = S.blood_state
 		FP.bloodiness = S.bloody_shoes[S.blood_state] - BLOOD_LOSS_IN_SPREAD
 		FP.basecolor = S.blood_color
+		FP.base_alpha = S.bloody_shoes[BLOOD_BASE_ALPHA]
 		if(S.blood_DNA)
 			FP.blood_DNA = S.blood_DNA.Copy()
 	FP.entered_dirs |= dir

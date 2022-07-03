@@ -42,10 +42,9 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 			overlays += AO
 
 		anchored = TRUE
-		canmove = FALSE
-		admin_prev_sleeping = sleeping
-		AdjustSleeping(20000)
+		admin_prev_sleeping = AmountSleeping()
 		frozen = AO
+		PermaSleeping()
 
 	else
 		GLOB.frozen_atom_list -= src
@@ -54,9 +53,8 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 			overlays -= frozen
 
 		anchored = FALSE
-		canmove = TRUE
 		frozen = null
-		SetSleeping(admin_prev_sleeping)
+		SetSleeping(admin_prev_sleeping, TRUE)
 		admin_prev_sleeping = null
 
 	to_chat(src, "<b><font color= red>You have been [frozen ? "frozen" : "unfrozen"] by [admin]</b></font>")

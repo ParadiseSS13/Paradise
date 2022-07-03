@@ -60,7 +60,7 @@
 		if(3.0)
 			b_loss += 30
 			if(prob(50) && !shielded)
-				Paralyse(1)
+				Paralyse(2 SECONDS)
 			AdjustEarDamage(15, 60)
 
 	take_overall_damage(b_loss, f_loss)
@@ -103,7 +103,7 @@
 	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
 	..(I, cuff_break = 1)
 
-/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
+/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset()
 	if(leaping)
 		return -32
 	else if(custom_pixel_y_offset)

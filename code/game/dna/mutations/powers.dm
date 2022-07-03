@@ -254,8 +254,8 @@
 	..()
 	block = GLOB.chameleonblock
 
-/datum/mutation/stealth/chameleon/on_life(mob/M)
-	if((world.time - M.last_movement) >= 30 && !M.stat && M.canmove && !M.restrained())
+/datum/mutation/stealth/chameleon/on_life(mob/living/M) //look if a ghost gets this, its an admins problem
+	if((world.time - M.last_movement) >= 30 && !M.stat && (M.mobility_flags & MOBILITY_STAND) && !M.restrained())
 		if(M.invisibility != INVISIBILITY_OBSERVER)
 			M.alpha -= 25
 	else
@@ -489,17 +489,17 @@
 /obj/effect/proc_holder/spell/leap/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/leap/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(istype(user.loc,/mob/) || user.lying || user.stunned || user.buckled || user.stat)
+	if(istype(user.loc,/mob/) || IS_HORIZONTAL(user) || user.IsStunned() || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 
 	if(istype(user.loc,/turf/))
 		if(user.restrained())//Why being pulled while cuffed prevents you from moving
-			for(var/mob/M in range(user, 1))
+			for(var/mob/living/M in range(user, 1))
 				if(M.pulling == user)
-					if(!M.restrained() && M.stat == 0 && M.canmove && user.Adjacent(M))
+					if(!M.restrained() && M.stat == 0 && !(M.mobility_flags & MOBILITY_STAND) && user.Adjacent(M))
 						failure = TRUE
 					else
 						M.stop_pulling()
@@ -507,8 +507,7 @@
 		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
-			user.Weaken(5)
-			user.Stun(5)
+			user.Weaken(10 SECONDS)
 			user.visible_message("<span class='warning'>[user] attempts to leap away but is slammed back down to the ground!</span>",
 								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
@@ -528,16 +527,16 @@
 		if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
-			user.AdjustWeakened(10)
-			user.AdjustStunned(5)
+			user.AdjustWeakened(20 SECONDS)
+			user.AdjustStunned(10 SECONDS)
 
 		user.layer = prevLayer
 
 	if(istype(user.loc,/obj/))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
-		user.AdjustParalysis(3)
-		user.AdjustWeakened(5)
+		user.AdjustParalysis(6 SECONDS)
+		user.AdjustWeakened(10 SECONDS)
 		container.visible_message("<span class='danger'>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
 		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
 		var/wiggle = 6

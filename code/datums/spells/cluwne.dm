@@ -6,7 +6,7 @@
 	school = "transmutation"
 
 	charge_max = 600
-	clothes_req = 1
+	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "clown"
@@ -20,7 +20,7 @@
 	setBrainLoss(80, use_brain_mod = FALSE)
 	set_nutrition(9000)
 	overeatduration = 9000
-	Confused(30)
+	Confused(60 SECONDS)
 	if(mind)
 		mind.assigned_role = "Cluwne"
 

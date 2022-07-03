@@ -12,21 +12,18 @@
 	desc = "They look like human remains. They have a strange aura about them."
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
-	anchored = TRUE
 
 /obj/effect/decal/remains/xeno
 	name = "remains"
 	desc = "They look like the remains of something... alien. They have a strange aura about them."
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remainsxeno"
-	anchored = TRUE
 
 /obj/effect/decal/remains/robot
 	name = "remains"
 	desc = "They look like the remains of something mechanical. They have a strange aura about them."
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "remainsrobot"
-	anchored = TRUE
 
 /obj/effect/decal/remains/robot/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 2
@@ -39,7 +36,6 @@
 	desc = "Noooooooooooooooooooooo"
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
-	anchored = TRUE
 
 /obj/effect/decal/remains/slime/New()
 	..()

@@ -8,8 +8,7 @@
 	invisibility = 101
 
 	density = 0
-	stat = 2
-	canmove = 0
+	stat = DEAD
 
 /mob/new_player/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)

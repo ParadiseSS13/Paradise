@@ -1,8 +1,7 @@
 /mob/living/silicon/gib()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -24,8 +23,7 @@
 /mob/living/silicon/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	dust_animation()
@@ -45,6 +43,6 @@
 
 /mob/living/silicon/death(gibbed)
 	. = ..()
-	if(!gibbed)
+	if(. && !gibbed)
 		if(death_sound)
 			playsound(get_turf(src), death_sound, 200, 1)
