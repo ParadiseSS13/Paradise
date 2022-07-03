@@ -16,6 +16,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		if(alert("A Deathsquad is already being sent, are you sure you want to send another?",,"Yes","No")!="Yes")
 			return
 	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a DeathSquad.</span>", 1)
+	log_admin("[key_name_admin(usr)] has started to spawn a DeathSquad.")
 	if(alert("Do you want to send in the Deathsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.")
@@ -31,11 +32,13 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 	var/commando_number = 6 //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
-	commando_number = input(src, "How many Deathsquad would you like to send?", "Specify Commandos") as num|null
+	commando_number = input(src, "How many Deathsquad would you like to send? (Recommended is 6)", "Specify Commandos") as num|null
 	if(GLOB.sent_strike_team == 1)
 		if(alert("A Deathsquad leader has previously been sent with a NAD, would you like to summon another?",,"Yes","No")!="Yes")
 			is_leader = FALSE
 	GLOB.sent_strike_team = 1
+	message_admins("[key_name_admin(usr)] has sent a Deathsquad with [commando_number] commandos.", 1)
+	log_admin("[key_name(usr)] has sent a Deathsquad with [commando_number] commandos.")
 
 	// Find the nuclear auth code
 	var/nuke_code
@@ -50,11 +53,10 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/list/commando_ghosts = null
 	if(alert("Would you like to custom pick your Deathsquad?",,"Yes","No")=="Yes")		// Find ghosts willing to be DS
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-		commando_ghosts = pollCandidatesWithVeto(src, usr, commando_number, "Join the DeathSquad?",, 21, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
+		commando_ghosts = pollCandidatesWithVeto(src, usr, commando_number, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 	else
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-		commando_ghosts = shuffle(SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source))
-		to_chat(usr, commando_ghosts)
+		commando_ghosts = shuffle(SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source))
 		if (length(commando_ghosts) > commando_number)
 			commando_ghosts.Cut(commando_number + 1) //cuts the ghost candidates down to the ammount requested
 	if(!length(commando_ghosts))
@@ -75,8 +77,8 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
 			continue
 
-		if(!is_leader)
-			var/new_dstype = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
+		if(is_leader)
+			var/new_dstype = alert(ghost_mob.client, "Select Deathsquad Type.", "Deathsquad Character Generation", "Organic", "Cyborg")
 			if(new_dstype == "Cyborg")
 				use_ds_borg = TRUE
 
@@ -123,7 +125,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		var/obj/item/paper/P = new(L.loc)
 		P.info = "<p><b>Good morning soldier!</b>. This compact guide will familiarize you with standard operating procedure. There are three basic rules to follow:<br>#1 Work as a team.<br>#2 Accomplish your objective at all costs.<br>#3 Leave no witnesses.<br><br> Your mission objective will be relayed to you by Central Command through your headsets or in person.<br>If deemed appropriate, Central Command will also allow members of your team to use mechs for the mission. You will find the mech storage due East of your position. </p><p>In the event that the team does not accomplish their assigned objective in a timely manner, or finds no other way to do so, attached below are instructions on how to operate a Nanotrasen Nuclear Device. Your operations <b>LEADER</b> is provided with a nuclear authentication disk, and all commandos have pinpointer for locating it. You may easily recognize them by their rank: <b>Lieutenant, Captain, or Major</b>. The nuclear device itself will be present somewhere on your destination.<hr></p><p>Hello and thank you for choosing Nanotrasen for your nuclear information needs. Today's crash course will deal with the operation of a Fission Class Nanotrasen made Nuclear Device.<br>First and foremost, <b>DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.</b> Pressing any button on the compacted bomb will cause it to extend and bolt itself into place. If this is done to unbolt it one must completely log in which at this time may not be possible.<br>To make the device functional:<br>#1 Place bomb in designated detonation zone<br> #2 Extend and anchor bomb (attack with hand).<br>#3 Insert Nuclear Auth. Disk into slot.<br>#4 Enter the nuclear authorization code: ([nuke_code]).<br>#5 Enter your desired time until activation.<br>#6 Disable the Safety.<br>#6 Arm the device.<br>You now have activated the device and it will begin counting down to detonation. Remove the Nuclear Authorization Disk and either head back to your shuttle or stay around until the Nuclear Device detonates, depending on your orders from Central Command.</p><p>The nuclear authorization code is: <b>[nuke_code ? nuke_code : "None provided"]</b></p><p><b>Good luck, soldier!</b></p>"
 		P.name = "Special Operations Manual"
-		P.icon_state = "ticket"
+		P.icon_state = "paper"
 		var/obj/item/stamp/centcom/stamp = new
 		P.stamp(stamp)
 		qdel(stamp)
@@ -161,7 +163,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
-	var/skin_tone = rand(20, 160) // A range of skin colors
+	var/skin_tone = rand(40, 160) // A range of skin colors
 
 	head_organ.facial_colour = hair_c
 	head_organ.sec_facial_colour = hair_c
@@ -186,7 +188,6 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	return new_commando
 
 /mob/living/carbon/human/proc/equip_death_commando(is_leader = FALSE)
-
 	if (is_leader)
 		src.equipOutfit(/datum/outfit/admin/death_commando/leader)
 	else
@@ -206,7 +207,6 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	W.icon_state = "deathsquad"
 	W.assignment = "Death Commando"
 	W.access = get_centcom_access(W.assignment)
-	W.assignment = "Deathsquad Commando"
 	W.registered_name = real_name
 	equip_to_slot_or_del(W, slot_wear_id)
 

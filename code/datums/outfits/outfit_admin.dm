@@ -268,7 +268,6 @@
 	box = /obj/item/storage/box/responseteam
 	back = /obj/item/storage/backpack/ert/deathsquad
 	belt = /obj/item/gun/projectile/revolver/mateba
-
 	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/rank/deathsquad
 	shoes = /obj/item/clothing/shoes/magboots/advance
@@ -296,7 +295,7 @@
 		/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
-		/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+		/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic, //Deathsquad helmet already has medical hud, might as well let them see IPC health
 		/obj/item/organ/internal/cyberimp/arm/telebaton
 	)
 
