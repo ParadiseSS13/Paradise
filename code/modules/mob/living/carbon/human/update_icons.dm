@@ -762,22 +762,23 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				shoes.screen_loc = ui_shoes			//...draw the item in the inventory screen
 			client.screen += shoes					//Either way, add the item to the HUD
 
-		var/mutable_appearance/standing
-		if(shoes.icon_override)
-			standing = mutable_appearance(shoes.icon_override, "[shoes.icon_state]", layer = -SHOES_LAYER)
-		else if(shoes.sprite_sheets && shoes.sprite_sheets[dna.species.name])
-			standing = mutable_appearance(shoes.sprite_sheets[dna.species.name], "[shoes.icon_state]", layer = -SHOES_LAYER)
-		else
-			standing = mutable_appearance('icons/mob/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
+		if(!wear_suit || !(wear_suit.flags_inv & HIDESHOES))
+			var/mutable_appearance/standing
+			if(shoes.icon_override)
+				standing = mutable_appearance(shoes.icon_override, "[shoes.icon_state]", layer = -SHOES_LAYER)
+			else if(shoes.sprite_sheets && shoes.sprite_sheets[dna.species.name])
+				standing = mutable_appearance(shoes.sprite_sheets[dna.species.name], "[shoes.icon_state]", layer = -SHOES_LAYER)
+			else
+				standing = mutable_appearance('icons/mob/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
 
 
-		if(shoes.blood_DNA)
-			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
-			bloodsies.color = shoes.blood_color
-			standing.overlays += bloodsies
-		standing.alpha = shoes.alpha
-		standing.color = shoes.color
-		overlays_standing[SHOES_LAYER] = standing
+			if(shoes.blood_DNA)
+				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
+				bloodsies.color = shoes.blood_color
+				standing.overlays += bloodsies
+			standing.alpha = shoes.alpha
+			standing.color = shoes.color
+			overlays_standing[SHOES_LAYER] = standing
 	else
 		if(feet_blood_DNA)
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER)
