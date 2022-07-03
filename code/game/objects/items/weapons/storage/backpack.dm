@@ -256,7 +256,7 @@
 	name = "explorer satchel"
 	desc = "A robust satchel for stashing your loot."
 	icon_state = "satchel-explorer"
-	item_state = "securitypack"
+	item_state = "satchel-explorer"
 
 /obj/item/storage/backpack/satchel_med
 	name = "medical satchel"
