@@ -187,7 +187,7 @@
 		return FALSE
 
 	var/user_UID = user.UID()
-	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, "[user_UID]")) // prevents double baton cheese.
+	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // prevents double baton cheese.
 		return FALSE
 
 	cooldown = world.time + initial(cooldown)
@@ -201,7 +201,7 @@
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)
 
-	ADD_TRAIT(L, TRAIT_WAS_BATONNED, "[user.UID()]") // so one person cannot hit the same person with two separate batons
+	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user.UID()) // so one person cannot hit the same person with two separate batons
 	addtimer(CALLBACK(src, .proc/baton_knockdown, L, user_UID, knockdown_duration), time_to_knockdown)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
@@ -228,7 +228,7 @@
 /obj/item/melee/baton/wash(mob/living/user, atom/source)
 	if(turned_on && cell?.charge)
 		flick("baton_active", source)
-		baton_stun(user, user)
+		baton_stun(user, user, TRUE)
 		user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>",
 							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 		return TRUE
