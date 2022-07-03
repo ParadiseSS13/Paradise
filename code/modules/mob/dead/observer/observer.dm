@@ -16,6 +16,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
+	blocks_emissive = FALSE // Ghosts are transparent, duh
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
