@@ -1,18 +1,15 @@
 //Deathsquad
 
 #define COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
-GLOBAL_VAR_INIT(sent_strike_team, 0)
+GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 
 /client/proc/strike_team()
 	if(!check_rights(R_EVENT))
 		return
-	if(!SSticker)
-		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
-		return
 	if(SSticker.current_state == GAME_STATE_PREGAME)
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
-	if(GLOB.sent_strike_team == 1)
+	if(GLOB.sent_strike_team == TRUE)
 		if(alert("A Deathsquad is already being sent, are you sure you want to send another?",, "Yes", "No") != "Yes")
 			return
 	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a DeathSquad.</span>")
@@ -36,7 +33,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	if(GLOB.sent_strike_team)
 		if(alert("A Deathsquad leader has previously been sent with a NAD, would you like to summon another?",,"Yes","No")!="Yes")
 			is_leader = FALSE
-	GLOB.sent_strike_team = 1
+	GLOB.sent_strike_team = TRUE
 	message_admins("[key_name_admin(usr)] has sent a Deathsquad with [commando_number] commandos.")
 	log_admin("[key_name(usr)] has sent a Deathsquad with [commando_number] commandos.")
 
