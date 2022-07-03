@@ -20,10 +20,10 @@
 	/// How much power does it cost to stun someone
 	var/hitcost = 1000
 	var/obj/item/stock_parts/cell/high/cell = null
-	/// the amount of time between swings
+	/// the initial cooldown tracks the time between swings. tracks the world.time when the baton is usable again.
 	var/cooldown = 3.5 SECONDS
 	/// the time it takes before the target falls over
-	var/time_to_knockdown = 2.5 SECONDS
+	var/knockdown_delay = 2.5 SECONDS
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -152,9 +152,9 @@
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
+		if(baton_stun(user, user, skip_cooldown = TRUE)) // for those super edge cases where you clumsy baton yourself in quick succession
+			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-		baton_stun(user, user, skip_cooldown = TRUE)
 		return
 
 	if(issilicon(M)) // Can't stunbaton borgs and AIs
@@ -182,6 +182,7 @@
 	if(baton_stun(L, user))
 		user.do_attack_animation(L)
 
+/// returning false results in no baton attack animation, returning true results in an animation.
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(cooldown > world.time && !skip_cooldown)
 		return FALSE
@@ -190,7 +191,7 @@
 	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // prevents double baton cheese.
 		return FALSE
 
-	cooldown = world.time + initial(cooldown)
+	cooldown = world.time + initial(cooldown) // tracks the world.time when hitting will be next available.
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
@@ -202,7 +203,7 @@
 		H.adjustStaminaLoss(stam_damage)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user.UID()) // so one person cannot hit the same person with two separate batons
-	addtimer(CALLBACK(src, .proc/baton_knockdown, L, user_UID, knockdown_duration), time_to_knockdown)
+	addtimer(CALLBACK(src, .proc/baton_knockdown, L, user_UID, knockdown_duration), knockdown_delay)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
@@ -218,7 +219,7 @@
 
 /obj/item/melee/baton/proc/baton_knockdown(mob/living/target, user_UID, knockdown_duration)
 	target.KnockDown(knockdown_duration)
-	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, "[user_UID]")
+	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
 /obj/item/melee/baton/emp_act(severity)
 	. = ..()
@@ -228,7 +229,7 @@
 /obj/item/melee/baton/wash(mob/living/user, atom/source)
 	if(turned_on && cell?.charge)
 		flick("baton_active", source)
-		baton_stun(user, user, TRUE)
+		baton_stun(user, user, skip_cooldown = TRUE)
 		user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>",
 							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 		return TRUE

@@ -18,7 +18,7 @@
 	var/affect_silicon = FALSE
 	/// The amount of stamina damage the baton does per swing
 	var/stamina_damage = 30
-	/// The amount the stamina damage ignores armour
+	/// How much melee armour is ignored by the stamina damage
 	var/stamina_armour_pen = 0
 	/// The stun time (in seconds) for non-silicons
 	var/knockdown_duration = 6 SECONDS
@@ -90,7 +90,7 @@
 	target.LAssailant = iscarbon(user) ? user : null
 	target.KnockDown(knockdown_duration)
 	on_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown_finished), cooldown)
+	addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), cooldown)
 	return TRUE
 
 /**
@@ -112,15 +112,9 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
-	var/armour = target.run_armor_check("chest", armour_penetration = stamina_armour_pen)
-	armour = (100 - armour) / 100
+	var/armour = target.run_armor_check("chest", armour_penetration = stamina_armour_pen) // returns a % of their chest melee armour
+	armour = (100 - armour) / 100 // converts the % into a decimal
 	target.adjustStaminaLoss(stamina_damage * armour)
-
-/**
-  * Called some time after a non-lethal attack
-  */
-/obj/item/melee/classic_baton/proc/cooldown_finished()
-	on_cooldown = FALSE
 
 /**
   * # Fancy Cane
