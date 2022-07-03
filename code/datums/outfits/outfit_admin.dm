@@ -290,17 +290,6 @@
 		/obj/item/shield/energy
 	)
 
-	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/brain/anti_drop,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-		/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,
-		/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
-		/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
-		/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic, //Deathsquad helmet already has medical hud, might as well let them see IPC health
-		/obj/item/organ/internal/cyberimp/arm/telebaton
-	)
-
 	implants = list(
 		/obj/item/implant/mindshield, // No death alarm, Deathsquad are silent
 		/obj/item/implant/dust
@@ -325,7 +314,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Death Commando"), "Deathsquad")
-	H.sec_hud_set_ID() // Force it to show as assistant on sec huds
+	H.sec_hud_set_ID()
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
