@@ -100,11 +100,6 @@
 			M.last_bumped = world.time
 			if(M.restrained() && !check_access(null))
 				return
-			if(isterrorspider(M))
-				var/mob/living/simple_animal/hostile/poison/terror_spider/T = M
-				if(T.spider_opens_doors == 2)
-					T.try_open_airlock(src)
-					return
 			if(M.mob_size > MOB_SIZE_TINY)
 				bumpopen(M)
 			return
@@ -154,26 +149,36 @@
 				var/mob/living/simple_animal/bot/B = user
 				B.door_opened(src)
 		else
+			if(pry_open_check(user))
+				return
 			do_animate("deny")
-			if(HAS_TRAIT(user, TRAIT_FORCE_DOORS))
-				var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 
-				if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-					if(!V.bloodusable)
-						REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
-						return
-				if(welded)
-					to_chat(user, "<span class='warning'>The door is welded.</span>")
-					return
-				if(locked)
-					to_chat(user, "<span class='warning'>The door is bolted.</span>")
-					return
-				if(density)
-					visible_message("<span class='danger'>[user] forces the door open!</span>")
-					playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-					open(TRUE)
-				if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-					V.bloodusable = max(V.bloodusable - 5, 0)
+/obj/machinery/door/proc/pry_open_check(mob/user)
+	. = TRUE
+	if(isterrorspider(user))
+		return
+
+	if(HAS_TRAIT(user, TRAIT_FORCE_DOORS))
+		var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+
+		if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+			if(!V.bloodusable)
+				REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+				return FALSE
+		if(welded)
+			to_chat(user, "<span class='warning'>The door is welded.</span>")
+			return
+		if(locked)
+			to_chat(user, "<span class='warning'>The door is bolted.</span>")
+			return
+		if(density)
+			visible_message("<span class='danger'>[user] forces the door open!</span>")
+			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			open(TRUE)
+		if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+			V.bloodusable = max(V.bloodusable - 5, 0)
+		return
+	return FALSE
 
 /obj/machinery/door/attack_ai(mob/user)
 	return attack_hand(user)
