@@ -530,11 +530,13 @@
 	if(!(target.status_flags & CANPUSH))
 		return FALSE
 
-	add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)
 	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+
+	if(shove_to == user.loc)
+		return FALSE
 
 	var/blocked_by_item = FALSE
 	for(var/atom/movable/AM in shove_to)
