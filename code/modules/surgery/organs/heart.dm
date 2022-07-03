@@ -215,7 +215,6 @@
 
 	if(!(status & ORGAN_DEAD))
 		var/boost = emagged ? 2 : 1
-		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 		owner.AdjustParalysis(-2 SECONDS * boost)
 		owner.AdjustStunned(-2 SECONDS * boost)
 		owner.AdjustWeakened(-2 SECONDS * boost)

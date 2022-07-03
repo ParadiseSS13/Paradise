@@ -58,7 +58,7 @@
 /obj/item/projectile/beam/disabler/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	if(isliving(target))
-		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 20)
+		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 15)
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"
