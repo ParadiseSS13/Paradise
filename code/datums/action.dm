@@ -472,6 +472,9 @@
 /datum/action/item_action/accessory/holster
 	name = "Holster"
 
+/datum/action/item_action/accessory/holobadge
+	name = "Holobadge"
+
 /datum/action/item_action/accessory/storage
 	name = "View Storage"
 
