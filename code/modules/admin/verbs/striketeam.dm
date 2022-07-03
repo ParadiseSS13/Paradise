@@ -31,7 +31,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 	commando_number = input(src, "How many Deathsquad Commandos would you like to send? (Recommended is 6)", "Specify Commandos") as num|null
 	if(GLOB.sent_strike_team)
-		if(alert("A Deathsquad leader has previously been sent with a NAD, would you like to summon another?",,"Yes","No")!="Yes")
+		if(alert("A Deathsquad leader has previously been sent with a NAD, would you like to spawn another?",, "Yes", "No") != "Yes")
 			is_leader = FALSE
 	GLOB.sent_strike_team = TRUE
 	message_admins("[key_name_admin(usr)] has sent a Deathsquad with [commando_number] commandos.")
