@@ -3,8 +3,8 @@
 	desc = "A dark necromantic pact that can forever bind your soul to an item of your choosing. So long as both your body and the item remain intact and on the same plane you can revive from death, though the time between reincarnations grows steadily with use."
 	school = "necromancy"
 	charge_max = 10
-	clothes_req = 0
-	centcom_cancast = 0
+	clothes_req = FALSE
+	centcom_cancast = FALSE
 	invocation = "NECREM IMORTIUM!"
 	invocation_type = "shout"
 	level_max = 0 //cannot be improved
@@ -113,7 +113,7 @@
 				desc = "Rise from the dead! You will reform at the location of your phylactery and your old body will crumble away."
 				charge_max = 1800 //3 minute cooldown, if you rise in sight of someone and killed again, you're probably screwed.
 				charge_counter = 1800
-				stat_allowed = 1
+				stat_allowed = UNCONSCIOUS
 				marked_item.name = "Ensouled [marked_item.name]"
 				marked_item.desc = "A terrible aura surrounds this item, its very existence is offensive to life itself..."
 				marked_item.color = "#003300"

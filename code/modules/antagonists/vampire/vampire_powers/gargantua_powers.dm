@@ -61,7 +61,7 @@
 
 /obj/effect/proc_holder/spell/vampire/charge/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
-	if(L.IsWeakened() || L.resting)
+	if(L.IsWeakened() || IS_HORIZONTAL(L))
 		return FALSE
 	return ..()
 

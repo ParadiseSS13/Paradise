@@ -5,7 +5,7 @@
 
 	school = "evocation"
 	charge_max = 600
-	clothes_req = 0
+	clothes_req = FALSE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "gib"

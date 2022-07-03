@@ -339,7 +339,7 @@
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user)
 
-	if(user.incapacitated() || user.lying || get_dist(user, src) > 1)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || get_dist(user, src) > 1)
 		return
 
 	if(!istype(AM))

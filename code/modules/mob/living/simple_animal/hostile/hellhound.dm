@@ -45,14 +45,14 @@
 /mob/living/simple_animal/hostile/hellhound/handle_automated_action()
 	if(!..())
 		return
-	if(resting)
+	if(IS_HORIZONTAL(src))
 		if(!wants_to_rest())
 			custom_emote(EMOTE_VISIBLE, "growls, and gets up.")
 			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
-			StopResting()
+			stand_up()
 	else if(wants_to_rest())
 		custom_emote(EMOTE_VISIBLE, "lays down, and starts to lick their wounds.")
-		StartResting()
+		lay_down()
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)
 	. = ..()
@@ -68,7 +68,7 @@
 			msgs += "<span class='warning'>It has many injuries.</span>"
 		else if(health > (maxHealth*0.25))
 			msgs += "<span class='warning'>It is covered in wounds!</span>"
-		if(resting)
+		if(IS_HORIZONTAL(src))
 			if(getBruteLoss() || getFireLoss())
 				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
 			else
@@ -77,7 +77,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
-	if(stat != DEAD && resting && (getBruteLoss() || getFireLoss()))
+	if(stat != DEAD && IS_HORIZONTAL(src) && (getBruteLoss() || getFireLoss()))
 		if(life_regen_cycles >= life_regen_cycle_trigger)
 			life_regen_cycles = 0
 			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")

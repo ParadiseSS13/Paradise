@@ -39,7 +39,8 @@
 	var/flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
-	var/is_reflectable = FALSE // Can it be reflected or not?
+	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
+	var/reflectability = REFLECTABILITY_PHYSICAL
 	var/alwayslog = FALSE // ALWAYS log this projectile on hit even if it doesn't hit a living target. Useful for AOE explosion / EMP.
 	//Effects
 	var/stun = 0
@@ -196,7 +197,7 @@
 	if(!yes) //prevents double bumps.
 		return
 
-	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
+	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
@@ -330,8 +331,6 @@
 
 	if(ismob(source))
 		firer = source // The reflecting mob will be the new firer
-	else
-		firer = null // Reflected by something other than a mob so firer will be null
 
 	// redirect the projectile
 	original = locate(new_x, new_y, z)
@@ -390,3 +389,10 @@
 		return
 	if(trajectory && !trajectory_ignore_forcemove && isturf(target))
 		trajectory.initialize_location(target.x, target.y, target.z, 0, 0)
+
+/obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
+	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not
+		return FALSE
+	if(reflectability < desired_reflectability_level)
+		return FALSE
+	return TRUE
