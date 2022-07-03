@@ -122,6 +122,7 @@
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
 	slowdown = 1
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
+	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	magical = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield

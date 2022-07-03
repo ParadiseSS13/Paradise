@@ -53,6 +53,7 @@
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	slowdown = 0
 	armor = list("melee" = 70, "bullet" = 40, "laser" = 10, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
 
 /obj/item/clothing/suit/space/hostile_environment/New()

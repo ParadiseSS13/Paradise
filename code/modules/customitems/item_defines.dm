@@ -1275,7 +1275,6 @@
 	item_state = "superior_suit"
 	item_color = "superior_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES
 
 /obj/item/clothing/head/fluff/arachno_mask
 	name = "Arachno-Man mask"

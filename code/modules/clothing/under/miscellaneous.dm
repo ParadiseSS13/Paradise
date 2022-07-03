@@ -474,35 +474,30 @@
 	desc = "A big and puffy orange dress."
 	icon_state = "bride_orange"
 	item_color = "bride_orange"
-	flags_inv = HIDESHOES
 
 /obj/item/clothing/under/wedding/bride_purple
 	name = "purple wedding dress"
 	desc = "A big and puffy purple dress."
 	icon_state = "bride_purple"
 	item_color = "bride_purple"
-	flags_inv = HIDESHOES
 
 /obj/item/clothing/under/wedding/bride_blue
 	name = "blue wedding dress"
 	desc = "A big and puffy blue dress."
 	icon_state = "bride_blue"
 	item_color = "bride_blue"
-	flags_inv = HIDESHOES
 
 /obj/item/clothing/under/wedding/bride_red
 	name = "red wedding dress"
 	desc = "A big and puffy red dress."
 	icon_state = "bride_red"
 	item_color = "bride_red"
-	flags_inv = HIDESHOES
 
 /obj/item/clothing/under/wedding/bride_white
 	name = "white wedding dress"
 	desc = "A white wedding gown made from the finest silk."
 	icon_state = "bride_white"
 	item_color = "bride_white"
-	flags_inv = HIDESHOES
 
 /obj/item/clothing/under/sundress
 	name = "sundress"

@@ -15,6 +15,7 @@ Contents:
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/melee/baton, /obj/item/tank, /obj/item/stock_parts/cell)
 	slowdown = 0
 	armor = list("melee" = 60, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	flags_inv = HIDEJUMPSUIT|HIDETAIL
 
 	var/suitActive = 0
 	var/suitBusy = 0

@@ -150,7 +150,7 @@
 	icon_state = "hastur"
 	item_state = "hastur"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
 
 /obj/item/clothing/suit/imperium_monk
@@ -176,7 +176,7 @@
 	icon_state = "corgisuit"
 	item_state = "chickensuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
-	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/corgisuit/super_hero
@@ -213,7 +213,7 @@
 	icon_state = "monkeysuit"
 	item_state = "monkeysuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 
 
 /obj/item/clothing/suit/holidaypriest
@@ -684,7 +684,7 @@
 	icon_state = "xenos"
 	item_state = "xenos_helm"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 
 //swimsuit
 /obj/item/clothing/under/swimsuit/
@@ -730,7 +730,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 50)
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
+	flags_inv = HIDEJUMPSUIT|HIDETAIL
 
 /obj/item/clothing/head/mercy_hood
 	name = "Mercy Hood"

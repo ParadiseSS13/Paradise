@@ -190,6 +190,7 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
 	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
+	flags_inv = HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	slowdown = 0
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
