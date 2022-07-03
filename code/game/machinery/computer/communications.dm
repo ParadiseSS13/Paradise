@@ -414,7 +414,7 @@
 		menu_state=value
 
 /proc/call_shuttle_proc(mob/user, reason, sanitized = FALSE)
-	if(GLOB.sent_strike_team == 1)
+	if(GLOB.strike_team_sent == 1)
 		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 		return
 
@@ -446,8 +446,8 @@
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
 			return
 
-		if(GLOB.sent_strike_team == 1)
-			to_chat(user, "Central Command will not allow the shuttle to be called. Consider all contracts terminated.")
+		if(GLOB.strike_team_sent == 1)
+			to_chat(user, "Central Command will not allow the shuttle to be called. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 			return
 
 		if(world.time < 54000) // 30 minute grace period to let the game get going

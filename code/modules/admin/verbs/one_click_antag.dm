@@ -297,11 +297,6 @@
 	return 1
 */
 
-/datum/admins/proc/makeDeathsquad()
-	alert("This proc is no longer in use, Deathsquads can be called from Secrets > IC Events > Send in the Deathsquad. This will now attempt to spawn a Deathsquad anyways.")
-	usr.client.strike_team()
-	return TRUE
-
 /proc/makeBody(mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
 	if(!G_found || !G_found.key)	return
 

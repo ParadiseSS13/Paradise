@@ -1,7 +1,7 @@
 //Deathsquad
 
 #define MAX_COMMANDOS 14
-GLOBAL_VAR_INIT(sent_strike_team, FALSE)
+GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 
 /client/proc/strike_team()
 	var/proccaller = usr.client
@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	if(SSticker.current_state == GAME_STATE_PREGAME)
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
-	if(GLOB.sent_strike_team == TRUE)
+	if(GLOB.strike_team_sent)
 		if(alert("A Deathsquad is already being sent, are you sure you want to send another?",, "Yes", "No") != "Yes")
 			return
 	else
@@ -35,10 +35,10 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 		message_admins("[key_name_admin(proccaller)] cancelled their Deathsquad.")
 		log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
 		return
-	if(GLOB.sent_strike_team)
+	if(GLOB.strike_team_sent)
 		if(alert("A Deathsquad leader has previously been sent with a NAD, would you like to spawn another?",, "Yes", "No") != "Yes")
 			is_leader = FALSE
-	GLOB.sent_strike_team = TRUE
+	GLOB.strike_team_sent = TRUE
 	message_admins("[key_name_admin(proccaller)] has sent a Deathsquad with [commando_number] commandos.")
 	log_admin("[key_name(proccaller)] has sent a Deathsquad with [commando_number] commandos.")
 
@@ -112,7 +112,6 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 			var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
 			new_commando.mind.key = ghost_mob.key
 			new_commando.key = ghost_mob.key
-			new_commando.internal = new_commando.l_store
 			new_commando.update_action_buttons_icon()
 			if(nuke_code)
 				new_commando.mind.store_memory("<b>Nuke Code:</b> <span class='warning'>[nuke_code].</span>")
@@ -127,16 +126,10 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 		var/obj/item/paper/P = new(L.loc)
 		P.info = "<p><b>Good morning soldier!</b>. This compact guide will familiarize you with standard operating procedure. There are three basic rules to follow:<br>#1 Work as a team.<br>#2 Accomplish your objective at all costs.<br>#3 Leave no witnesses.<br><br> Your mission objective will be relayed to you by Central Command through your headsets or in person.<br>If deemed appropriate, Central Command will also allow members of your team to use mechs for the mission. You will find the mech storage due East of your position. </p><p>In the event that the team does not accomplish their assigned objective in a timely manner, or finds no other way to do so, attached below are instructions on how to operate a Nanotrasen Nuclear Device. Your operations <b>LEADER</b> is provided with a nuclear authentication disk, and all commandos have pinpointer for locating it. You may easily recognize them by their rank: <b>Lieutenant, Captain, or Major</b>. The nuclear device itself will be present somewhere on your destination.<hr></p><p>Hello and thank you for choosing Nanotrasen for your nuclear information needs. Today's crash course will deal with the operation of a Fission Class Nanotrasen made Nuclear Device.<br>First and foremost, <b>DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.</b> Pressing any button on the compacted bomb will cause it to extend and bolt itself into place. If this is done to unbolt it one must completely log in which at this time may not be possible.<br>To make the device functional:<br>#1 Place bomb in designated detonation zone<br> #2 Extend and anchor bomb (attack with hand).<br>#3 Insert Nuclear Auth. Disk into slot.<br>#4 Enter the nuclear authorization code: ([nuke_code]).<br>#5 Enter your desired time until activation.<br>#6 Disable the Safety.<br>#6 Arm the device.<br>You now have activated the device and it will begin counting down to detonation. Remove the Nuclear Authorization Disk and either head back to your shuttle or stay around until the Nuclear Device detonates, depending on your orders from Central Command.</p><p>The nuclear authorization code is: <b>[nuke_code ? nuke_code : "None provided"]</b></p><p><b>Good luck, soldier!</b></p>"
 		P.name = "Special Operations Manual"
-		P.icon_state = "paper"
+		P.update_icon()
 		var/obj/item/stamp/centcom/stamp = new
 		P.stamp(stamp)
 		qdel(stamp)
-
-	for(var/thing in GLOB.landmarks_list) // I dont think this does anything anymore?
-		var/obj/effect/landmark/L = thing
-		if(L.name == "Commando-Bomb")
-			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
-			qdel(L)
 
 	message_admins("<span class='notice'>[key_name_admin(proccaller)] has spawned a DeathSquad.</span>")
 	log_admin("[key_name(proccaller)] used Spawn Death Squad.")
@@ -146,7 +139,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_name = pick(GLOB.commando_names)
-	var/obj/item/organ/external/head/head_organ = new_commando.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = new_commando.get_organ("head") // This appearance code is brought to you by ert.dm, basically the same code. If you change something here change somethere there too.
 
 	if(is_leader)
 		new_commando.age = rand(35, 45)
@@ -159,9 +152,9 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	else
 		new_commando.change_gender(FEMALE)
 
-	new_commando.set_species(/datum/species/human, TRUE)
+	new_commando.set_species(/datum/species/human, TRUE) // All of this code down here too is also from ert.dm, I'm lazy don't blame me
 	new_commando.dna.ready_dna(new_commando)
-	new_commando.cleanSE() //No fat/blind/colourblind/epileptic/whatever ERT.
+	new_commando.cleanSE() //No fat/blind/colourblind/epileptic/whatever Deathsquad.
 	new_commando.overeatduration = 0
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
@@ -191,8 +184,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	return new_commando
 
 /mob/living/carbon/human/proc/equip_death_commando(is_leader = FALSE)
-	if (is_leader)
+	if(is_leader)
 		equipOutfit(/datum/outfit/admin/death_commando/leader)
 	else
 		equipOutfit(/datum/outfit/admin/death_commando)
-	return 1
