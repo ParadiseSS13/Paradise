@@ -21821,7 +21821,9 @@
 	name = "\improper Garden"
 	})
 "bac" = (
-/obj/structure/table,
+/obj/structure/rack,
+/obj/item/clothing/under/pennywise,
+/obj/item/clothing/mask/gas/clown_hat/pennywise,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bad" = (
