@@ -291,7 +291,7 @@
 	for(var/mob/living/simple_animal/hostile/carp/C in linkedholodeck)
 		qdel(C)
 
-	holographic_items = A.copy_contents_to(linkedholodeck , 1)
+	holographic_items = A.copy_contents_to(linkedholodeck , 1, perfect_copy = FALSE)
 
 	if(emagged)
 		for(var/obj/item/holo/H in linkedholodeck)

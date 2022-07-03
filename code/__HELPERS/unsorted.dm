@@ -870,6 +870,7 @@ Returns 1 if the chain up to the area contains the given typepath
 	return O
 
 /area/proc/copy_contents_to(area/A , platingRequired = 0 )
+/area/proc/copy_contents_to(area/A , platingRequired = 0, perfect_copy = TRUE)
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
@@ -949,7 +950,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 
 					for(var/obj/O in objs)
-						newobjs += DuplicateObject(O , 1)
+						newobjs += DuplicateObject(O , perfect_copy)
 
 
 					for(var/obj/O in newobjs)
