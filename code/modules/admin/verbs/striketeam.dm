@@ -13,31 +13,31 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 	if(GLOB.sent_strike_team == 1)
-		if(alert("A Deathsquad is already being sent, are you sure you want to send another?",,"Yes","No")!="Yes")
+		if(alert("A Deathsquad is already being sent, are you sure you want to send another?",, "Yes", "No") != "Yes")
 			return
-	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a DeathSquad.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a DeathSquad.</span>")
 	log_admin("[key_name_admin(usr)] has started to spawn a DeathSquad.")
-	if(alert("Do you want to send in the Deathsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
+	if(alert("Do you want to send in the Deathsquad? Once enabled, this is irreversible.",, "Yes", "No") != "Yes")
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.")
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext(input(src, "Please specify which mission the Deathsquad shall undertake.", "Specify Mission", "",),1,MAX_MESSAGE_LEN))
+		input = sanitize(copytext(input(src, "Please specify which mission the Deathsquad shall undertake.", "Specify Mission", "",), 1, MAX_MESSAGE_LEN))
 		if(!input)
-			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
-				message_admins("[key_name_admin(usr)] cancelled their Deathsquad.", 1)
+			if(alert("Error, no mission set. Do you want to exit the setup process?",, "Yes", "No") == "Yes")
+				message_admins("[key_name_admin(usr)] cancelled their Deathsquad.")
 				log_admin("[key_name(usr)] cancelled their Deathsquad.")
 				return
 
 	var/commando_number = 6 //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
-	commando_number = input(src, "How many Deathsquad would you like to send? (Recommended is 6)", "Specify Commandos") as num|null
-	if(GLOB.sent_strike_team == 1)
+	commando_number = input(src, "How many Deathsquad Commandos would you like to send? (Recommended is 6)", "Specify Commandos") as num|null
+	if(GLOB.sent_strike_team)
 		if(alert("A Deathsquad leader has previously been sent with a NAD, would you like to summon another?",,"Yes","No")!="Yes")
 			is_leader = FALSE
 	GLOB.sent_strike_team = 1
-	message_admins("[key_name_admin(usr)] has sent a Deathsquad with [commando_number] commandos.", 1)
+	message_admins("[key_name_admin(usr)] has sent a Deathsquad with [commando_number] commandos.")
 	log_admin("[key_name(usr)] has sent a Deathsquad with [commando_number] commandos.")
 
 	// Find the nuclear auth code
@@ -51,7 +51,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 	// Find ghosts willing to be DS
 	var/list/commando_ghosts = null
-	if(alert("Would you like to custom pick your Deathsquad?",,"Yes","No")=="Yes")		// Find ghosts willing to be DS
+	if(alert("Would you like to custom pick your Deathsquad?",, "Yes", "No") == "Yes")
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
 		commando_ghosts = pollCandidatesWithVeto(src, usr, commando_number, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 	else
@@ -60,7 +60,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		if (length(commando_ghosts) > commando_number)
 			commando_ghosts.Cut(commando_number + 1) //cuts the ghost candidates down to the ammount requested
 	if(!length(commando_ghosts))
-		message_admins("[key_name_admin(usr)]'s Deathsquad had no volunteers and was cancelled.", 1)
+		message_admins("[key_name_admin(usr)]'s Deathsquad had no volunteers and was cancelled.")
 		log_admin("[key_name(usr)]'s Deathsquad had no volunteers and was cancelled.")
 		to_chat(src, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
@@ -136,7 +136,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a CentComm DeathSquad.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a CentComm DeathSquad.</span>")
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
 	return 1
 
@@ -189,7 +189,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 /mob/living/carbon/human/proc/equip_death_commando(is_leader = FALSE)
 	if (is_leader)
-		src.equipOutfit(/datum/outfit/admin/death_commando/leader)
+		equipOutfit(/datum/outfit/admin/death_commando/leader)
 	else
-		src.equipOutfit(/datum/outfit/admin/death_commando)
-	return 1s
+		equipOutfit(/datum/outfit/admin/death_commando)
+	return 1

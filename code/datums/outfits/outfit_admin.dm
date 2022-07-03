@@ -262,7 +262,7 @@
 		R.icon_state = "headset"
 
 /datum/outfit/admin/death_commando
-	name = "Deathsquad"
+	name = "NT Deathsquad"
 
 	pda = /obj/item/pinpointer
 	box = /obj/item/storage/box/responseteam
