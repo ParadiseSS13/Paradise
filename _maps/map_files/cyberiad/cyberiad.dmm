@@ -16504,10 +16504,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
-"aOi" = (
-/obj/item/clothing/head/naziofficer,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "aOj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -21825,7 +21821,6 @@
 	name = "\improper Garden"
 	})
 "bac" = (
-/obj/item/clothing/suit/soldiercoat,
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -124379,7 +124374,7 @@ aMz
 aMz
 aGY
 aGX
-aOi
+aGY
 aGX
 aRI
 aMz
