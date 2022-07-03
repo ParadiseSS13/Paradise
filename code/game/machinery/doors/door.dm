@@ -100,6 +100,11 @@
 			M.last_bumped = world.time
 			if(M.restrained() && !check_access(null))
 				return
+			if(isterrorspider(M))
+				var/mob/living/simple_animal/hostile/poison/terror_spider/T = M
+				if(T.spider_opens_doors == 2)
+					T.try_open_airlock(src)
+					return
 			if(M.mob_size > MOB_SIZE_TINY)
 				bumpopen(M)
 			return
