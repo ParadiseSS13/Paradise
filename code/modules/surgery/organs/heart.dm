@@ -215,13 +215,12 @@
 
 	if(!(status & ORGAN_DEAD))
 		var/boost = emagged ? 2 : 1
-		owner.AdjustDrowsy(-8 SECONDS * boost)
+		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 		owner.AdjustParalysis(-2 SECONDS * boost)
 		owner.AdjustStunned(-2 SECONDS * boost)
 		owner.AdjustWeakened(-2 SECONDS * boost)
 		owner.AdjustKnockDown(-2 SECONDS * boost)
-		owner.SetSleeping(0)
-		owner.adjustStaminaLoss(-1 * boost)
+		owner.adjustStaminaLoss(-10 * boost)
 
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/message_to_owner(mob/M, message)
