@@ -1,10 +1,11 @@
 //Deathsquad
 
-#define MAX_COMMANDOS 14
+#define MAX_COMMANDOS
+
 GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 
 /client/proc/strike_team()
-	var/proccaller = usr.client
+	var/client/proccaller = usr.client
 	if(!check_rights(R_EVENT))
 		return
 	if(SSticker.current_state == GAME_STATE_PREGAME)
@@ -20,9 +21,9 @@ GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 	log_admin("[key_name_admin(proccaller)] has started to spawn a DeathSquad.")
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.")
 
-	var/input
-	input = sanitize(copytext(input(src, "Please specify which mission the Deathsquad shall undertake.", "Specify Mission", "",), 1, MAX_MESSAGE_LEN))
-	if(!input)
+	var/mission
+	mission = sanitize(copytext(input(src, "Please specify which mission the Deathsquad shall undertake.", "Specify Mission", "",), 1, MAX_MESSAGE_LEN))
+	if(!mission)
 		if(alert("Error, no mission set. Do you want to exit the setup process?",, "Yes", "No") == "Yes")
 			message_admins("[key_name_admin(proccaller)] cancelled their Deathsquad.")
 			log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
@@ -58,7 +59,7 @@ GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 		commando_ghosts = pollCandidatesWithVeto(src, usr, commando_number, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 	else
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-		commando_ghosts = shuffle(SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source))
+		commando_ghosts = SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 		if(length(commando_ghosts) > commando_number)
 			commando_ghosts.Cut(commando_number + 1) //cuts the ghost candidates down to the amount requested
 	if(!length(commando_ghosts))
@@ -106,8 +107,8 @@ GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 			R.key = ghost_mob.key
 			if(nuke_code)
 				R.mind.store_memory("<b>Nuke Code:</b> <span class='warning'>[nuke_code].</span>")
-			R.mind.store_memory("<b>Mission:</b> <span class='warning'>[input].</span>")
-			to_chat(R, "<span class='userdanger'>You are a Deathsquad cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[input]</span></span>")
+			R.mind.store_memory("<b>Mission:</b> <span class='warning'>[mission].</span>")
+			to_chat(R, "<span class='userdanger'>You are a Deathsquad cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[mission]</span></span>")
 		else
 			var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
 			new_commando.mind.key = ghost_mob.key
@@ -115,8 +116,8 @@ GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 			new_commando.update_action_buttons_icon()
 			if(nuke_code)
 				new_commando.mind.store_memory("<b>Nuke Code:</b> <span class='warning'>[nuke_code].</span>")
-			new_commando.mind.store_memory("<b>Mission:</b> <span class='warning'>[input].</span>")
-			to_chat(new_commando, "<span class='userdanger'>You are a Deathsquad [is_leader ? "<b>TEAM LEADER</b>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[input]</span></span>")
+			new_commando.mind.store_memory("<b>Mission:</b> <span class='warning'>[mission].</span>")
+			to_chat(new_commando, "<span class='userdanger'>You are a Deathsquad [is_leader ? "<b>TEAM LEADER</b>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[mission]</span></span>")
 
 		is_leader = FALSE
 		commando_number--
@@ -152,7 +153,8 @@ GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 	else
 		new_commando.change_gender(FEMALE)
 
-	new_commando.set_species(/datum/species/human, TRUE) // All of this code down here too is also from ert.dm, I'm lazy don't blame me
+	// All of this code down here too is also from ert.dm, I'm lazy don't blame me
+	new_commando.set_species(/datum/species/human, TRUE)
 	new_commando.dna.ready_dna(new_commando)
 	new_commando.cleanSE() //No fat/blind/colourblind/epileptic/whatever Deathsquad.
 	new_commando.overeatduration = 0
