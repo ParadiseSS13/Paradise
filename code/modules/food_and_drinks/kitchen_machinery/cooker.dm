@@ -2,11 +2,11 @@
 	name = "cooker"
 	desc = "You shouldn't be seeing this!"
 	layer = 2.9
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
-	var/on = 0
+	var/on = FALSE
 	var/onicon = null
 	var/officon = null
 	var/openicon = null
@@ -57,7 +57,7 @@
 /obj/machinery/cooker/proc/turnoff(obj/item/olditem)
 	icon_state = officon
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	on = 0
+	on = FALSE
 	qdel(olditem)
 	return
 
@@ -87,7 +87,7 @@
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
 	icon_state = onicon
 	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
-	on = 1
+	on = TRUE
 	chef.drop_item()
 	tocook.loc = src
 

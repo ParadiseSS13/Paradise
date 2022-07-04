@@ -12,7 +12,7 @@
 	var/eatverb
 	var/wrapped = 0
 	var/dried_type = null
-	var/dry = 0
+	var/dry = FALSE
 	var/cooktype[0]
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
