@@ -493,6 +493,9 @@
 	icon_state = "handgun_ammo_battery"
 	var/charge = 1000
 
+/obj/item/ammo_box/magazine/detective/speedcharger/update_icon_state()
+	return
+
 /obj/item/ammo_box/magazine/detective/speedcharger/update_overlays()
 	. = ..()
 	var/charge_percent_rounded = round(charge_percent(), 20) // to the nearest 20%

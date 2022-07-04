@@ -126,7 +126,7 @@
 	..()
 	for(var/i in 1 to max_ammo)
 		stored_ammo += new ammo_type(src)
-	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/ammo_box/Destroy()
 	QDEL_LIST(stored_ammo)

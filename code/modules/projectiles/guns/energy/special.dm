@@ -840,7 +840,7 @@
 		return
 	var/new_speedcharger_charge = cell.give(S.charge)
 	S.charge -= new_speedcharger_charge
-	S.update_icon()
+	S.update_icon(UPDATE_OVERLAYS)
 	update_icon()
 
 /obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
