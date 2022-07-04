@@ -376,11 +376,15 @@
  8.Apply retractor again to specimen's torso.<br>
  9.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
  10.Insert replacement gland (Retrieve one from gland storage).<br>
- 11.Cauterize the patient's torso with a cautery.<br>
- 12.Consider dressing the specimen back to not disturb the habitat. <br>
- 13.Put the specimen in the experiment machinery.<br>
- 14.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
- 15.You will receive one supply credit, and the subject will be counted towards your quota.<br>
+ 11.Close the specimen's ribcage with the retractor.<br>
+ 12.Apply the bone gel to the bones in specimen's torso.<br>
+ 13.Set the bones in specimen's torso with the bone setter.<br>
+ 14.Mend the bones with the bone gel again.<br>
+ 15.Cauterize the patient's torso with a cautery.<br>
+ 16.Consider dressing the specimen back to not disturb the habitat. <br>
+ 17.Put the specimen in the experiment machinery.<br>
+ 18.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
+ 19.You will receive one supply credit, and the subject will be counted towards your quota.<br>
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
