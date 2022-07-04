@@ -28,7 +28,7 @@
 	charge = maxcharge
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -179,7 +179,7 @@
 /obj/item/stock_parts/cell/crap/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/upgraded
 	name = "upgraded power cell"
@@ -204,7 +204,7 @@
 /obj/item/stock_parts/cell/secborg/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/hos_gun
 	name = "\improper X-01 multiphase energy gun power cell"
@@ -243,7 +243,7 @@
 /obj/item/stock_parts/cell/high/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
@@ -257,7 +257,7 @@
 /obj/item/stock_parts/cell/super/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
@@ -271,7 +271,7 @@
 /obj/item/stock_parts/cell/hyper/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
@@ -286,7 +286,7 @@
 /obj/item/stock_parts/cell/bluespace/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/bluespace/charging
 	name = "self-charging bluespace power cell"
@@ -350,7 +350,7 @@
 /obj/item/stock_parts/cell/emproof/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/emproof/emp_act(severity)
 	return

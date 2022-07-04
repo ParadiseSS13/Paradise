@@ -44,7 +44,7 @@
 			name = "light switch([area.name])"
 
 		src.on = src.area.lightswitch
-		updateicon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/light_switch/Initialize()
 	..()
@@ -63,18 +63,15 @@
 	radio_connection = null
 	return ..()
 
-/obj/machinery/light_switch/proc/updateicon()
+/obj/machinery/light_switch/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "light-p"
-	else
-		if(on)
-			icon_state = "light1"
-		else
-			icon_state = "light0"
+		return
+	icon_state = "light[on]"
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
-	. += "A light switch. It is [on? "on" : "off"]."
+	. += "A light switch. It is [on ? "on" : "off"]."
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -83,11 +80,11 @@
 /obj/machinery/light_switch/attack_hand(mob/user)
 	on = !on
 	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
 	if(light_connect)
 		area.lightswitch = on
-		area.updateicon()
+		area.update_icon(UPDATE_ICON_STATE)
 
 	if(logic_connect && powered(LIGHT))		//Don't bother sending a signal if we aren't set to send them or we have no power to send with.
 		handle_output()
@@ -95,7 +92,7 @@
 	if(light_connect)
 		for(var/obj/machinery/light_switch/L in area)
 			L.on = on
-			L.updateicon()
+			L.update_icon(UPDATE_ICON_STATE)
 
 		area.power_change()
 
@@ -135,7 +132,7 @@
 		else
 			stat |= NOPOWER
 
-		updateicon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/light_switch/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

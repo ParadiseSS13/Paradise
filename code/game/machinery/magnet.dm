@@ -44,20 +44,11 @@
 	// update the invisibility and icon
 /obj/machinery/magnetic_module/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
-	// update the icon_state
-/obj/machinery/magnetic_module/proc/updateicon()
-	var/state="floor_magnet"
-	var/onstate=""
-	if(!on)
-		onstate="0"
-
-	if(invisibility)
-		icon_state = "[state][onstate]-f"	// if invisible, set icon to faded version
+/obj/machinery/magnetic_module/update_icon_state()
+	icon_state = "floor_magnet[on ? "" : "0"][invisibility ? "-f" : ""]"	// if invisible, set icon to faded version
 											// in case of being revealed by T-scanner
-	else
-		icon_state = "[state][onstate]"
 
 /obj/machinery/magnetic_module/receive_signal(datum/signal/signal)
 	var/command = signal.data["command"]
@@ -149,7 +140,7 @@
 		active_power_usage = electricity_level*15
 	else
 		use_power = 0
-		updateicon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/magnetic_module/proc/magnetic_process() // proc that actually does the pulling

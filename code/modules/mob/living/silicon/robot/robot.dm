@@ -1120,7 +1120,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		robot_suit.head.flash2.burn_out()
 		robot_suit.head.flash2 = null
 		robot_suit.head = null
-		robot_suit.updateicon()
+		robot_suit.update_icon(UPDATE_OVERLAYS)
 	else
 		new /obj/item/robot_parts/robot_suit(T)
 		new /obj/item/robot_parts/l_leg(T)
