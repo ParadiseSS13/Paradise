@@ -74,7 +74,7 @@
 	if(istype(O, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/B = O
 		B.computer = src
-		to_chat(user, "Barcode Scanner Succesfully Connected to Computer")
+		to_chat(user, "<span class='notice'>Barcode Scanner Succesfully Connected to Computer.</span>")
 		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
 		playsound(B, 'sound/machines/terminal_select.ogg', 10, TRUE)
 		return
@@ -86,21 +86,21 @@
 			user_data.patron_name = null
 			user_data.patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "ERROR: No name detected!")
+			to_chat(user, "<span class='notice'>ERROR: No name detected!</span>")
 			return //no point in continuing if the ID card has no associated name!
 		playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 		if(ID.associated_account_number)
 			user_data.patron_account = ID.associated_account_number
 		else
 			user_data.patron_account = null
-			to_chat(user, "[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'")
+			to_chat(user, "<span class='notice'>[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'</span>")
 		return
 	return ..()
 
 /obj/machinery/computer/library/check_access(mob/user)
-	if(issilicon(usr) || usr?.can_admin_interact())
+	if(issilicon(user) || user?.can_admin_interact())
 		return LOGIN_FULL
-	if(user && allowed(usr))
+	if(user && allowed(user))
 		return LOGIN_FULL
 	return LOGIN_PUBLIC
 

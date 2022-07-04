@@ -59,7 +59,7 @@
 	switch(action)
 		if("view_reported_books")
 			reports = list()
-			for(var/datum/cachedbook/CB in  GLOB.library_catalog.getFlaggedBooks())
+			for(var/datum/cachedbook/CB in GLOB.library_catalog.getFlaggedBooks())
 				for(var/datum/flagged_book/report as anything in CB.reports)
 					if(!report)
 						return

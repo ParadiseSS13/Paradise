@@ -4,9 +4,9 @@
 # if you do not have that module installed, you cannot run this script
 
 # To run this, supply the following args in a command shell
-# python 36-37.py address username password database
+# python 38-39.py address username password database
 # Example:
-# python 36-37.py 127.0.0.1 sirryan2002 myubersecretdbpassword paradise_gamedb
+# python 38-39.py 127.0.0.1 sirryan2002 myubersecretdbpassword paradise_gamedb
 
 import json
 import mysql.connector, argparse

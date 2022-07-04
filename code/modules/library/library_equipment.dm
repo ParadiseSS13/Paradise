@@ -11,9 +11,9 @@
 	name = "bookcase"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bookshelf-0"
-	anchored = 1
-	density = 1
-	opacity = 1
+	anchored = TRUE
+	density = TRUE
+	opacity = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
@@ -300,7 +300,7 @@
 			return FALSE
 
 /obj/machinery/bookbinder/proc/print_book()
-	src.visible_message("[src] whirs as it prints and binds a new book.")
+	visible_message("[src] whirs as it prints and binds a new book.")
 	var/obj/item/book/b = new(loc)
 	b.pages = selected_content.content ? selected_content.content : list(" ")
 	b.title = selected_content.title ? selected_content.title : "no title" //The less of these that are null the better
@@ -326,7 +326,7 @@
 	var/obj/machinery/computer/library/computer
 	var/mode = BARCODE_MODE_SCAN_SELECT
 
-/obj/item/barcodescanner/attack_self(mob/user as mob)
+/obj/item/barcodescanner/attack_self(mob/user)
 	if(!check_connection(user))
 		return
 	mode++
@@ -345,9 +345,9 @@
 		else
 			modedesc = "ERROR"
 	playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
-	to_chat(user, "[src] mode: [modedesc]")
+	to_chat(user, "<span class='notice'>[src] mode: [modedesc]</span>")
 
-/obj/item/barcodescanner/proc/scanID(obj/item/card/id/ID, mob/user as mob)
+/obj/item/barcodescanner/proc/scanID(obj/item/card/id/ID, mob/user)
 	if(!check_connection(user))
 		return
 
@@ -357,7 +357,7 @@
 		computer.user_data.patron_name = null
 		computer.user_data.patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-		to_chat(user, "[src]'s screen flashes: 'ERROR! No name associated with this ID Card'")
+		to_chat(user, "<span class='warning'>[src]'s screen flashes: 'ERROR! No name associated with this ID Card'</span>")
 		return //no point in continuing if the ID card has no associated name!
 
 	playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
@@ -365,10 +365,10 @@
 		computer.user_data.patron_account = ID.associated_account_number
 	else
 		computer.user_data.patron_account = null
-		to_chat(user, "[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'")
+		to_chat(user, "<span class='warning'>[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'</span>")
 		return
 
-	to_chat(user, "[src]'s screen flashes: 'Patron Selected'")
+	to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Patron Selected'</span>")
 
 /obj/item/barcodescanner/proc/scanBook(obj/item/book/B, mob/user as mob)
 	if(!check_connection(user))
@@ -414,5 +414,5 @@
 		return TRUE
 	else
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-		to_chat(user, "Please reconnect [src] to a library computer.")
+		to_chat(user, "<span class='notice'>Please reconnect [src] to a library computer.</span>")
 		return FALSE

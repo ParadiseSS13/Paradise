@@ -26,7 +26,7 @@
 
 	///Title & Real name of the book
 	var/title
-	//Who wrote the book, can be changed by pen or PC
+	///Who wrote the book, can be changed by pen or PC
 	var/author
 	///Short summary of the contents of the book, can be changed by pen or PC
 	var/summary
@@ -188,14 +188,14 @@
   */
 /obj/item/book/proc/edit_book(mob/user)
 	if(protected) //we don't want people touching "special" books, especially ones that use iframes
-		to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
+		to_chat(user, "<span class='notice'>These pages don't seem to take the ink well. Looks like you can't modify it.</span>")
 		return
-	var/choice = input("What would you like to edit?") in list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page", "Cancel")
+	var/choice = input("What would you like to edit?") as null|anything in list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page")
 	switch(choice)
 		if("Title")
 			var/newtitle = reject_bad_text(stripped_input(user, "Write a new title:"))
 			if(!newtitle)
-				to_chat(user, "The title is invalid.")
+				to_chat(user, "<span class='notice'>The title is invalid.</span>")
 				return
 			else
 				//Like with paper, the name (not title) of the book should indicate that THIS IS A BOOK when actions are performed with it
@@ -205,14 +205,14 @@
 		if("Author")
 			var/newauthor = stripped_input(user, "Write the author's name:")
 			if(!newauthor)
-				to_chat(user, "The name is invalid.")
+				to_chat(user, "<span class='notice'>The name is invalid.</span>")
 				return
 			else
 				author = newauthor
 		if("Summary")
 			var/newsummary = strip_html(input(user, "Write the new summary:") as message|null, MAX_SUMMARY_LEN)
 			if(!newsummary)
-				to_chat(user, "The name is invalid.")
+				to_chat(user, "<span class='notice'>The name is invalid.</span>")
 				return
 			else
 				summary = newsummary
@@ -229,7 +229,7 @@
 				return
 			var/content = strip_html(input(user, "Add Text to this page, you have [character_space_remaining] characters of space left:") as message|null, MAX_CHARACTERS_PER_BOOKPAGE)
 			if(!content)
-				to_chat(user, "The content is invalid.")
+				to_chat(user, "<span class='notice'>The content is invalid.</span>")
 				return
 			//check if length of current text content + what player is adding is larger than our character limit
 			else if((length(content) + length(pages[current_page])) > MAX_CHARACTERS_PER_BOOKPAGE)

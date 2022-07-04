@@ -114,17 +114,17 @@
 
 ///External proc that Returns a report library_category datum that matches the provided cat_id
 /datum/library_catalog/proc/getReportCategoryByID(category_id)
-	for (var/datum/library_category/category in GLOB.library_catalog.report_types)
+	for(var/datum/library_category/category in GLOB.library_catalog.report_types)
 		if(category.category_id == category_id)
 			return category
 	//proc shouldn't get this far, but if there's an entry in the DB that we don't have added, just default to other cat
-	for (var/datum/library_category/category in GLOB.library_catalog.report_types)
+	for(var/datum/library_category/category in GLOB.library_catalog.report_types)
 		if(category.category_id == LIB_REPORT_OTHER)
 			return category
 
 ///External proc that Returns a book library_category datum that matches the provided cat_id
 /datum/library_catalog/proc/getBookCategoryByID(category_id)
-	for (var/datum/library_category/category in GLOB.library_catalog.categories)
+	for(var/datum/library_category/category in GLOB.library_catalog.categories)
 		if(category.category_id == category_id)
 			return category
 

@@ -281,7 +281,7 @@
 	icon_state = "evabook"
 	author = "Maria Crash, Senior Atmospherics Technician"
 	title = "EVA Gear and You: Not Spending All Day Inside"
-	pages = ({"<html>
+	pages = list({"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -630,7 +630,7 @@
 	author = "Syndicate"
 	protected = TRUE
 	title = "Fission Mailed: Nuclear Sabotage 101"
-	pages = ({"<html>
+	pages = list({"<html>
 			Nuclear Explosives 101:<br>
 			Hello and thank you for choosing the Syndicate for your nuclear information needs.<br>
 			Today's crash course will deal with the operation of a Fusion Class Nanotrasen made Nuclear Device.<br>
