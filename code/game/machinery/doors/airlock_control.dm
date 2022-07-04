@@ -142,7 +142,7 @@
 	icon_state = "airlock_sensor_off"
 	layer = ABOVE_WINDOW_LAYER
 	name = "airlock sensor"
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = FIRE_PROOF
 	power_channel = ENVIRON
 
@@ -151,7 +151,7 @@
 	frequency = 1379
 	var/command = "cycle"
 
-	var/on = 1
+	var/on = TRUE
 	var/alert = 0
 	var/previousPressure
 
@@ -219,12 +219,12 @@
 	icon_state = "access_button_standby"
 	name = "access button"
 	layer = ABOVE_WINDOW_LAYER
-	anchored = 1
+	anchored = TRUE
 	power_channel = ENVIRON
 	var/master_tag
 	frequency = AIRLOCK_FREQ
 	var/command = "cycle"
-	var/on = 1
+	var/on = TRUE
 
 /obj/machinery/access_button/update_icon()
 	if(on)
