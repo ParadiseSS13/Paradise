@@ -67,7 +67,7 @@
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakouttime = 45
-	weaken = 2 SECONDS
+	knockdowntime = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
