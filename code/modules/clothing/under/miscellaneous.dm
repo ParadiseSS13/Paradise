@@ -106,10 +106,11 @@
 
 /obj/item/clothing/under/rank/deathsquad
 	name = "\improper Deathsquad jumpsuit"
-	desc = "It's a jumpsuit worn by the Deathsquad. A small tag at the bottom reads \"Not associated with Nanotrasen\". "
+	desc = "It's a jumpsuit worn by the Deathsquad, providing slight protection. A small tag at the bottom reads \"Not associated with Nanotrasen\". "
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	sensor_mode = SENSOR_OFF // You think the Deathsquad wants to be seen?
 	random_sensor = FALSE
 

@@ -812,7 +812,7 @@
 
 /obj/item/storage/box/deathsquad
 	name = "boxed death kit"
-	icon_state = "box_ert"
+	icon_state = "box_of_doom"
 
 /obj/item/storage/box/deathsquad/populate_contents()
 	new /obj/item/flashlight/flare(src)

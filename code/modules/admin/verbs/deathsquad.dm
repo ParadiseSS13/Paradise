@@ -1,17 +1,17 @@
 //Deathsquad
 
-#define MAX_COMMANDOS
+#define MAX_COMMANDOS 14
 
-GLOBAL_VAR_INIT(strike_team_sent, FALSE)
+GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
-/client/proc/strike_team()
+/client/proc/send_deathsquad()
 	var/client/proccaller = usr.client
 	if(!check_rights(R_EVENT))
 		return
 	if(SSticker.current_state == GAME_STATE_PREGAME)
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
-	if(GLOB.strike_team_sent)
+	if(GLOB.deathsquad_sent)
 		if(alert("A Deathsquad is already being sent, are you sure you want to send another?",, "Yes", "No") != "Yes")
 			return
 	else
@@ -36,10 +36,10 @@ GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 		message_admins("[key_name_admin(proccaller)] cancelled their Deathsquad.")
 		log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
 		return
-	if(GLOB.strike_team_sent)
-		if(alert("A Deathsquad leader has previously been sent with a NAD, would you like to spawn another?",, "Yes", "No") != "Yes")
+	if(GLOB.deathsquad_sent)
+		if(alert("A Deathsquad leader has previously been sent with an unrestricted NAD, would you like to spawn another?",, "Yes", "No") != "Yes")
 			is_leader = FALSE
-	GLOB.strike_team_sent = TRUE
+	GLOB.deathsquad_sent = TRUE
 	message_admins("[key_name_admin(proccaller)] has sent a Deathsquad with [commando_number] commandos.")
 	log_admin("[key_name(proccaller)] has sent a Deathsquad with [commando_number] commandos.")
 
@@ -110,7 +110,7 @@ GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 			R.mind.store_memory("<b>Mission:</b> <span class='warning'>[mission].</span>")
 			to_chat(R, "<span class='userdanger'>You are a Deathsquad cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[mission]</span></span>")
 		else
-			var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
+			var/mob/living/carbon/human/new_commando = create_deathsquad_commando(L, is_leader)
 			new_commando.mind.key = ghost_mob.key
 			new_commando.key = ghost_mob.key
 			new_commando.update_action_buttons_icon()
@@ -136,10 +136,10 @@ GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 	log_admin("[key_name(proccaller)] used Spawn Death Squad.")
 	return TRUE
 
-/client/proc/create_death_commando(obj/spawn_location, is_leader = FALSE)
+/client/proc/create_deathsquad_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
-	var/commando_name = pick(GLOB.commando_names)
+	var/commando_name = pick(GLOB.deathsquad_names)
 	var/obj/item/organ/external/head/head_organ = new_commando.get_organ("head") // This appearance code is brought to you by ert.dm, basically the same code. If you change something here change somethere there too.
 
 	if(is_leader)
@@ -182,11 +182,11 @@ GLOBAL_VAR_INIT(strike_team_sent, FALSE)
 	new_commando.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 	new_commando.mind.offstation_role = TRUE
 	SSticker.mode.traitors |= new_commando.mind//Adds them to current traitor list. Which is really the extra antagonist list.
-	new_commando.equip_death_commando(is_leader)
+	new_commando.equip_deathsquad_commando(is_leader)
 	return new_commando
 
-/mob/living/carbon/human/proc/equip_death_commando(is_leader = FALSE)
+/mob/living/carbon/human/proc/equip_deathsquad_commando(is_leader = FALSE)
 	if(is_leader)
-		equipOutfit(/datum/outfit/admin/death_commando/leader)
+		equipOutfit(/datum/outfit/admin/deathsquad_commando/leader)
 	else
-		equipOutfit(/datum/outfit/admin/death_commando)
+		equipOutfit(/datum/outfit/admin/deathsquad_commando)

@@ -414,7 +414,7 @@
 		menu_state=value
 
 /proc/call_shuttle_proc(mob/user, reason, sanitized = FALSE)
-	if(GLOB.strike_team_sent == 1)
+	if(GLOB.deathsquad_sent == 1)
 		to_chat(user, "<span class='warning'>Central Command does not allow the shuttle to be called at this time. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 		return
 
@@ -446,7 +446,7 @@
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
 			return
 
-		if(GLOB.strike_team_sent == 1)
+		if(GLOB.deathsquad_sent == 1)
 			to_chat(user, "Central Command does not allow the shuttle to be called at this time. Please stand by.") //This may show up before Epsilon Alert/Before DS arrives
 			return
 

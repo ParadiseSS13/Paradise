@@ -261,7 +261,7 @@
 		R.name = "radio headset"
 		R.icon_state = "headset"
 
-/datum/outfit/admin/death_commando
+/datum/outfit/admin/deathsquad_commando
 	name = "NT Deathsquad"
 
 	pda = /obj/item/pinpointer
@@ -295,7 +295,7 @@
 		/obj/item/implant/dust
 	)
 
-/datum/outfit/admin/death_commando/leader
+/datum/outfit/admin/deathsquad_commando/leader
 	name = "NT Deathsquad Leader"
 	backpack_contents = list(
 		/obj/item/storage/box/flashbangs,
@@ -306,14 +306,14 @@
 		/obj/item/disk/nuclear/unrestricted
 	)
 
-/datum/outfit/admin/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/deathsquad_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("Death Commando"), "Deathsquad")
+		apply_to_card(I, H, get_centcom_access("Deathsquad Commando"), "Deathsquad")
 	H.sec_hud_set_ID()
 
 	var/obj/item/radio/R = H.l_ear
