@@ -58,7 +58,7 @@
 	return ..()
 
 /obj/item/clothing/suit/space/chronos/emp_act(severity)
-	var/mob/living/carbon/human/user = src.loc
+	var/mob/living/carbon/human/user = loc
 	switch(severity)
 		if(1)
 			if(user && ishuman(user) && (user.wear_suit == src))
@@ -114,7 +114,7 @@
 
 /obj/item/clothing/suit/space/chronos/process()
 	if(activated)
-		var/mob/living/carbon/human/user = src.loc
+		var/mob/living/carbon/human/user = loc
 		if(user && ishuman(user) && (user.wear_suit == src))
 			if(camera && (user.remote_control == camera))
 				if(!teleporting && !((camera.x == user.x) && (camera.y == user.y) && (camera.z == user.z))) //cheaper than a couple get_turf calls???
@@ -127,7 +127,7 @@
 /obj/item/clothing/suit/space/chronos/proc/activate()
 	if(!activating && !activated && !teleporting)
 		activating = TRUE
-		var/mob/living/carbon/human/user = src.loc
+		var/mob/living/carbon/human/user = loc
 		if(user && ishuman(user))
 			if(user.wear_suit == src)
 				to_chat(user, "\nChronosuitMK4 login: root")
@@ -138,7 +138,7 @@
 					helmet = user.head
 					helmet.flags |= NODROP
 					helmet.suit = src
-					src.flags |= NODROP
+					flags |= NODROP
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view")
@@ -155,7 +155,7 @@
 /obj/item/clothing/suit/space/chronos/proc/deactivate()
 	if(activated)
 		activating = TRUE
-		var/mob/living/carbon/human/user = src.loc
+		var/mob/living/carbon/human/user = loc
 		if(user && ishuman(user))
 			if(user.wear_suit == src)
 				to_chat(user, "\nroot@ChronosuitMK4# chronowalk4 --stop\n")
@@ -171,7 +171,7 @@
 					helmet.suit = null
 					helmet = null
 				to_chat(user, "logout")
-		src.flags &= ~NODROP
+		flags &= ~NODROP
 		cooldown = world.time + cooldowntime * 1.5
 		activated = FALSE
 		activating = FALSE
@@ -196,15 +196,15 @@
 	if(holder)
 		if(user == holder)
 			if(user.client && user.client.eye != src)
-				src.loc = get_turf(user)
+				loc = get_turf(user)
 				user.client.eye = src
 			var/step = get_step(src, direction)
 			if(step)
 				if(istype(step, /turf/space))
-					if(!src.Move(step))
-						src.loc = step
+					if(!Move(step))
+						loc = step
 				else
-					src.loc = step
+					loc = step
 	else
 		qdel(src)
 

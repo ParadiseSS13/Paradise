@@ -104,7 +104,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 
-	var/turf/location = src.loc
+	var/turf/location = loc
 	if(istype(location, /mob/))
 		var/mob/living/carbon/human/M = location
 		if(M.l_hand == src || M.r_hand == src || M.head == src)
@@ -115,16 +115,16 @@
 
 /obj/item/clothing/head/cakehat/attack_self(mob/user as mob)
 	if(status > 1)	return
-	src.onfire = !src.onfire
-	if(src.onfire)
-		src.force = 3
-		src.damtype = "fire"
-		src.icon_state = "cake1"
+	onfire = !onfire
+	if(onfire)
+		force = 3
+		damtype = "fire"
+		icon_state = "cake1"
 		START_PROCESSING(SSobj, src)
 	else
-		src.force = null
-		src.damtype = "brute"
-		src.icon_state = "cake0"
+		force = null
+		damtype = "brute"
+		icon_state = "cake0"
 	return
 
 
@@ -145,13 +145,13 @@
 	)
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user as mob)
-	if(src.icon_state == "ushankadown")
-		src.icon_state = "ushankaup"
-		src.item_state = "ushankaup"
+	if(icon_state == "ushankadown")
+		icon_state = "ushankaup"
+		item_state = "ushankaup"
 		to_chat(user, "You raise the ear flaps on the ushanka.")
 	else
-		src.icon_state = "ushankadown"
-		src.item_state = "ushankadown"
+		icon_state = "ushankadown"
+		item_state = "ushankadown"
 		to_chat(user, "You lower the ear flaps on the ushanka.")
 
 /*
