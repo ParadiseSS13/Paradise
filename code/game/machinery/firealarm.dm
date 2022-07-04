@@ -36,6 +36,8 @@ FIRE ALARM
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
 
+	var/last_time_pulled //used to prevent pulling spam by same persons
+
 /obj/machinery/firealarm/no_alarm
 	report_fire_alarms = FALSE
 
@@ -227,6 +229,10 @@ FIRE ALARM
 	if(user.incapacitated())
 		return 1
 
+	if(fingerprintslast == user.ckey && world.time < last_time_pulled + 2 SECONDS) //no spamming >:C
+		to_chat(user, "<span class='warning'>[src] is still processing your earlier command.</span>")
+		return
+
 	toggle_alarm(user)
 
 
@@ -234,6 +240,7 @@ FIRE ALARM
 	var/area/A = get_area(src)
 	if(istype(A))
 		add_fingerprint(user)
+		last_time_pulled = world.time
 		if(A.fire)
 			reset()
 		else

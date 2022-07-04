@@ -168,16 +168,6 @@
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
 
-/datum/design/stunshell
-	name = "Stun Shell"
-	desc = "A stunning shell for a shotgun."
-	id = "stunshell"
-	req_tech = list("combat" = 3, "materials" = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 200)
-	build_path = /obj/item/ammo_casing/shotgun/stunslug
-	category = list("Weapons")
-
 /datum/design/stunrevolver
 	name = "Tesla Revolver Parts Kit"
 	desc = "A kit for a high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."

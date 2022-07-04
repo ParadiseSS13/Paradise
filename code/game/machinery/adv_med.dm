@@ -246,8 +246,6 @@
 		occupantData["bodyTempC"] = occupant.bodytemperature-T0C
 		occupantData["bodyTempF"] = (((occupant.bodytemperature-T0C) * 1.8) + 32)
 
-		occupantData["hasBorer"] = occupant.has_brain_worms()
-
 		var/bloodData[0]
 		bloodData["hasBlood"] = FALSE
 		if(!(NO_BLOOD in occupant.dna.species.species_traits))
@@ -411,9 +409,6 @@
 		dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 		dat += "<hr>"
-
-		if(occupant.has_brain_worms())
-			dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
 
 		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))
 		blood_percent *= 100
