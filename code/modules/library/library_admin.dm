@@ -44,7 +44,6 @@
 	data["booklist"] = cached_books
 	data["ckey"] = selected_ckey ? selected_ckey : "ERROR"
 	data["reports"] = reports
-	for(var/CB in cached_books)
 
 	data["modal"] = ui_modal_data(src)
 	return data

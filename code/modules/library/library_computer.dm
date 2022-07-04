@@ -153,17 +153,13 @@
 	for(var/datum/borrowbook/b in checkouts)
 		var/remaining_time = (b.duedate - world.time) / 600
 		var/late = FALSE
-		var/finedue = FALSE
 		if(remaining_time <= 0) //if remaining time is less than zero, you're late
 			late = TRUE
-			//if(remaining_time <= -15) //if you've been late 15 minutes, you can now fine a player
-				//finedue = TRUE
 		remaining_time = round(remaining_time)
 
 		var/list/checkout_data = list(
 			timeleft = remaining_time,
 			islate = late,
-			allow_fine = finedue,
 			title = b.bookname,
 			libraryid = b.libraryid,
 			patron_name = b.patron_name
@@ -217,7 +213,7 @@
 
 	static_data["programmatic_booklist"] = list()
 	for(var/book in GLOB.library_catalog.books)
-		var/datum/programmaticbook/PB = book
+		var/datum/programmatic_book/PB = book
 		var/list/book_data = list(
 			title = PB.title  ? PB.title : "not specified",
 			author = PB.author ? PB.author : "Nanotrasen",
@@ -274,7 +270,7 @@
 				make_external_book(orderedbook)
 				print_cooldown = world.time + PRINTING_COOLDOWN
 		if("order_programmatic_book")
-			var/datum/programmaticbook/PB = GLOB.library_catalog.getProgrammaticBookByID(params["bookid"])
+			var/datum/programmatic_book/PB = GLOB.library_catalog.getProgrammaticBookByID(params["bookid"])
 			if(PB && print_cooldown <= world.time)
 				make_programmatic_book(PB)
 				print_cooldown = world.time + PRINTING_COOLDOWN
@@ -351,7 +347,7 @@
 					ui_modal_input(src, id, "Please input the new summary:", null, arguments, user_data.selected_book.summary)
 				//book list buttons
 				if("expand_info")
-					var/datum/programmaticbook/PB = GLOB.library_catalog.getProgrammaticBookByID(arguments["bookid"])
+					var/datum/programmatic_book/PB = GLOB.library_catalog.getProgrammaticBookByID(arguments["bookid"])
 					if(PB)
 						ui_modal_message(src, id, "", arguments = list(
 							isProgrammatic = TRUE,
@@ -452,20 +448,6 @@
 		else
 			return FALSE
 
-/obj/machinery/computer/library/proc/serializebook(obj/item/book/B)
-	var/datum/cachedbook/CB = new()
-	CB.title = B.title
-	CB.author = B.author
-	if(length(B.pages)) //just incase we run a book with no pages
-		CB.content = B.pages[1]
-	else
-		CB.content = "Blank"
-	CB.summary = B.summary
-	CB.rating = B.rating
-	CB.copyright = B.copyright
-	CB.libraryid = B.libraryid
-	return CB
-
 /obj/machinery/computer/library/proc/select_book(obj/item/book/B)
 	if(B.carved == TRUE)
 		return
@@ -473,7 +455,7 @@
 	user_data.selected_book.author = B.author ? B.author : "No Author"
 	user_data.selected_book.summary = B.summary ? B.summary : "No Summary"
 	user_data.selected_book.copyright = B.copyright ? B.copyright : FALSE
-	user_data.selected_book.content = B.pages
+	user_data.selected_book.content = B.pages ? B.pages : list()
 
 /obj/machinery/computer/library/proc/inventoryAdd(obj/item/book/B) //add book to library inventory
 	for(var/datum/cachedbook/I in inventory)
@@ -482,7 +464,8 @@
 	if(!B.libraryid)
 		total_books++
 		B.libraryid = total_books
-	var/datum/cachedbook/CB = serializebook(B)
+	var/datum/cachedbook/CB = new()
+	CB.serialize_book(B)
 	if(!CB)
 		return
 	inventory.Add(CB)
@@ -506,7 +489,6 @@
 	P.libraryid = B.libraryid
 	P.patron_name = sanitize(user_data.patron_name)
 	P.patron_account = sanitize(user_data.patron_account)
-	P.getdate = world.time
 	P.duedate = world.time + (checkoutperiod)
 	checkouts.Add(P)
 	return TRUE
@@ -577,7 +559,7 @@
 	B.copyright = TRUE
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
 
-/obj/machinery/computer/library/proc/make_programmatic_book(datum/programmaticbook/newbook)
+/obj/machinery/computer/library/proc/make_programmatic_book(datum/programmatic_book/newbook)
 	if(!newbook || !newbook.path)
 		return
 

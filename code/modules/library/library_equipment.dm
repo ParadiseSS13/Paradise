@@ -141,8 +141,7 @@
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
 	var/list/books = GLOB.library_catalog.getRandomBooks(book_count, doAsync = FALSE)
-	for(var/b in books)
-		var/datum/cachedbook/book = b
+	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(src, book, TRUE, FALSE)
 	update_icon()
 
@@ -378,14 +377,14 @@
 		if(BARCODE_MODE_SCAN_SELECT)
 			computer.select_book(B)
 			playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
-			to_chat(user, "[src]'s screen flashes: 'Book selected in library computer.'")
+			to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Book selected in library computer.'</span>")
 		if(BARCODE_MODE_SCAN_INVENTORY)
 			if(computer.inventoryAdd(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-				to_chat(user, "[src]'s screen flashes: 'Title added to general inventory.'")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title added to general inventory.'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "[src]'s screen flashes: 'Title already in general inventory.'")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title already in general inventory.'</span>")
 		if(BARCODE_MODE_CHECKOUT)
 			var/confirm
 			if(!computer.user_data.patron_account)
@@ -397,17 +396,17 @@
 				return
 			if(computer.checkout(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-				to_chat(user, "[src]'s screen flashes: 'Title checked out to [computer.user_data.patron_name].'")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked out to [computer.user_data.patron_name].'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'</span>")
 		if(BARCODE_MODE_CHECKIN)
 			if(computer.checkin(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-				to_chat(user, "[src]'s screen flashes: 'Title checked back into general inventory.'")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked back into general inventory.'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'</span>")
 
 /obj/item/barcodescanner/proc/check_connection(mob/user as mob) //fuck you null references!
 	if(computer)

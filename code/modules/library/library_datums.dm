@@ -39,9 +39,7 @@
 	var/libraryid
 	var/patron_name
 	var/patron_account //Patron's Account ID, used for deducting $credits$ from their account
-	var/getdate
 	var/duedate
-	var/fined //Bool
 
 /*
  * # Cachedbook datum
@@ -86,12 +84,24 @@
 		report.reporter = r[1]
 		reports += report
 
+/datum/cachedbook/proc/serialize_book(obj/item/book/B)
+	title = B.title ? B.title : "Unnamed"
+	author = B.author ? B.author : "Anonymous"
+	if(length(B.pages)) //just incase we run a book with no pages
+		content = B.pages
+	else
+		content = list()
+	summary = B.summary ? B.summary : "No summary provided"
+	rating = B.rating ? B.rating : 0
+	copyright = B.copyright ? B.copyright : FALSE
+	libraryid = B.libraryid
+
 /*
  * # Programmaticbook datum
  *
  * Used for holding book data from books that have been "hardcoded" such as manuals.
  */
-/datum/programmaticbook
+/datum/programmatic_book
 	var/id
 	var/title
 	var/author

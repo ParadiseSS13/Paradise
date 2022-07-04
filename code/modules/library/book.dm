@@ -56,6 +56,9 @@
 	///Item that is stored inside the book
 	var/obj/item/store
 
+	///since the browserUI is datumized, we need to track all open instances of it so we don't open duplicate menus
+	var/list/book_browsers = list()
+
 /obj/item/book/Initialize(mapload, datum/cachedbook/CB = null, _copyright = FALSE, _protected = FALSE)
 	. = ..()
 	if(CB)
@@ -80,7 +83,7 @@
 		attack_verb = list("bashed", "whacked")
 	..()
 
-/obj/item/book/attack_self(mob/user as mob)
+/obj/item/book/attack_self(mob/user)
 	if(carved)
 		//Attempt to remove inserted object, if none found, remind user that someone vandalized their book (Bastards)!
 		if(!remove_stored_item(user, TRUE))
@@ -89,7 +92,7 @@
 	user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
 	read_book(user)
 
-/obj/item/book/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/book/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen))
 		edit_book(user)
 	else if(istype(I, /obj/item/barcodescanner))
@@ -98,8 +101,15 @@
 		return
 	else if(I.sharp && !carved) //don't use sharp objects on your books if you don't want to carve out all of its pages kids!
 		carve_book(user, I)
+	else if(store_item(I, user))
+		return
 	else
-		store_item(I)
+		..()
+
+/obj/item/book/examine(mob/user)
+	. = ..()
+	if(isobserver(user))
+		read_book(user)
 
 /**
   * Internal Checker Proc
@@ -295,6 +305,8 @@
 		return TRUE
 
 /obj/item/book/proc/store_item(obj/item/I, mob/user)
+	if(!carved)
+		return
 	if(store)
 		to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
 		return
@@ -307,13 +319,14 @@
 		return
 	//Checking to make sure the item we're storing isn't larger than/equal to size of the book, prevents recursive storing aswell
 	if(I.w_class >= w_class)
-		to_chat(user, "<span class='notice'>[I] is to large to fit in [name].</span>")
+		to_chat(user, "<span class='notice'>[I] is to large to fit in [src].</span>")
 		return
 
 	user.drop_item()
 	I.forceMove(src)
 	store = I
 	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
+	return TRUE
 
 
 /obj/item/book/proc/remove_stored_item(mob/user, display_message = TRUE)
@@ -336,16 +349,7 @@
 	..()
 	var/list/books = GLOB.library_catalog.getRandomBooks(amount)
 	for(var/datum/cachedbook/book as anything in books)
-		var/obj/item/book/B = new(loc) //this really should be a constructor that accepts cachedbook datums at some point tbh
-		B.author = book.author
-		B.title = book.title
-		B.pages = book.content
-		B.summary = book.summary
-		B.categories = book.categories
-		B.copyright = TRUE
-		B.rating = book.rating
-		B.name = "Book: [book.title]"
-		B.icon_state =	"book[rand(1,8)]"
+		new /obj/item/book(loc, book, TRUE, FALSE)
 	qdel(src)
 
 /obj/item/book/random/triple
@@ -365,3 +369,5 @@
 	protected = TRUE
 	title = "The codex gigas"
 	copyright = TRUE
+
+#undef MAX_PAGES

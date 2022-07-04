@@ -245,7 +245,7 @@ const SearchTools = (properties, context) => {
   return (
     <Flex flex-direction="row">
       <FlexItem width="40%">
-        <Box fontSize="1.2rem" bold>
+        <Box fontSize="1.2rem" m=".5em" bold>
           <Icon
             name="edit"
             verticalAlign="middle"
@@ -293,7 +293,7 @@ const SearchTools = (properties, context) => {
         </LabeledList>
       </FlexItem>
       <FlexItem width="40%">
-        <Box fontSize="1.2rem" bold>
+        <Box fontSize="1.2rem" m=".5em" bold >
           <Icon
             name="clipboard-list"
             verticalAlign="middle"
@@ -304,12 +304,15 @@ const SearchTools = (properties, context) => {
         </Box>
         <LabeledList>
           <LabeledList.Item label="Select Categories">
-          <Dropdown
-              width="190px"
-              options={book_categories.map((c) => c.description)}
-              onSelected={(val) => act('toggle_search_category', {
-                category_id: categoryMap[val]
-              })} />
+            <Box mt={2}>
+              <Dropdown
+                  mt={0.6}
+                  width="190px"
+                  options={book_categories.map((c) => c.description)}
+                  onSelected={(val) => act('toggle_search_category', {
+                    category_id: categoryMap[val]
+                  })} />
+            </Box>
           </LabeledList.Item>
         </LabeledList>
           <br />
@@ -321,12 +324,12 @@ const SearchTools = (properties, context) => {
                   selected
                   icon="unlink"
                   onClick={() => act('toggle_search_category', {
-                  category_id: book_categories.category_id
+                    category_id: book_categories.category_id
                   })} />
               ))}
       </FlexItem>
       <FlexItem>
-        <Box fontSize="1.2rem" bold>
+        <Box fontSize="1.2rem" m=".5em" bold>
           <Icon
             name="search-plus"
             verticalAlign="middle"
@@ -515,45 +518,48 @@ const UploadBooks = (properties, context) => {
       }
 
       <Box fontSize="1.2rem" bold>
-          <Icon
-            name="search-plus"
-            verticalAlign="middle"
-            size={3}
-            mr="1rem"
-          />
-          Book Uploader
+        <Icon
+          name="search-plus"
+          verticalAlign="middle"
+          size={3}
+          mr="1rem"
+        />
+        Book Uploader
       </Box>
       <Flex>
         <FlexItem>
-      <LabeledList>
-        <LabeledList.Item label="Title">
-          <Button
-            textAlign="left"
-            icon="pen"
-            width="auto"
-            disabled={selectedbook.copyright}
-            content={selectedbook.title}
-            onClick={() => modalOpen(context, 'edit_selected_title')} />
-        </LabeledList.Item>
-        <LabeledList.Item label="Author">
-          <Button
-            textAlign="left"
-            icon="pen"
-            width="auto"
-            disabled={selectedbook.copyright}
-            content={selectedbook.author}
-            onClick={() => modalOpen(context, 'edit_selected_author')} />
-        </LabeledList.Item>
-        <LabeledList.Item label="Select Categories">
-          <Dropdown
-              width="190px"
-              options={book_categories.map((c) => c.description)}
-              onSelected={(val) => act('toggle_upload_category', {
-                category_id: categoryMap[val]
-              })} />
-          </LabeledList.Item>
-        </LabeledList>
-          <br />
+          <LabeledList>
+            <LabeledList.Item label="Title">
+              <Button
+                textAlign="left"
+                icon="pen"
+                width="auto"
+                disabled={selectedbook.copyright}
+                content={selectedbook.title}
+                onClick={() => modalOpen(context, 'edit_selected_title')} />
+            </LabeledList.Item>
+            <LabeledList.Item label="Author">
+              <Button
+                textAlign="left"
+                icon="pen"
+                width="auto"
+                disabled={selectedbook.copyright}
+                content={selectedbook.author}
+                onClick={() => modalOpen(context, 'edit_selected_author')} />
+            </LabeledList.Item>
+            <LabeledList.Item label="Select Categories">
+              <Box mt={2}>
+              <Dropdown
+                  mt={0.6}
+                  width="190px"
+                  options={book_categories.map((c) => c.description)}
+                  onSelected={(val) => act('toggle_upload_category', {
+                    category_id: categoryMap[val]
+                  })} />
+                </Box>
+              </LabeledList.Item>
+            </LabeledList>
+            <br />
             {book_categories.filter(category => selectedbook.categories.includes(category.category_id))
               .map(book_categories => (
                 <Button
@@ -566,22 +572,22 @@ const UploadBooks = (properties, context) => {
                   category_id: book_categories.category_id
                   })} />
               ))}
-      </FlexItem>
-      <FlexItem>
-        <LabeledList>
-      <LabeledList.Item label="Summary">
-          <Button
-            icon="pen"
-            width="auto"
-            disabled={selectedbook.copyright}
-            content="Edit Summary"
-            onClick={() => modalOpen(context, 'edit_selected_summary')} />
-        </LabeledList.Item>
-        <LabeledList.Item>
-          {selectedbook.summary}
-        </LabeledList.Item>
-        </LabeledList>
-      </FlexItem>
+        </FlexItem>
+        <FlexItem>
+          <LabeledList>
+            <LabeledList.Item label="Summary">
+              <Button
+                icon="pen"
+                width="auto"
+                disabled={selectedbook.copyright}
+                content="Edit Summary"
+                onClick={() => modalOpen(context, 'edit_selected_summary')} />
+              </LabeledList.Item>
+              <LabeledList.Item>
+                {selectedbook.summary}
+              </LabeledList.Item>
+            </LabeledList>
+        </FlexItem>
       </Flex>
       <br />
       <Button.Confirm bold
@@ -633,13 +639,6 @@ const PatronManager = (properties, context) => {
                   onClick={() => act('reportlost', {
                     libraryid:checkout_data.libraryid
                   })}
-                />
-                <Button
-                  content="Apply Fine"
-                  icon="coins"
-                  color="bad"
-                  disabled={!checkout_data.allow_fine}
-                  onClick={() => act('applyfine')}
                 />
               </Table.Cell>
             </Table.Row>

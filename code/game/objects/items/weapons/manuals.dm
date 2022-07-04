@@ -869,10 +869,10 @@
 
 /obj/item/book/manual/random
 	icon_state = "random_book"
+	var/static/list/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear, /obj/item/book/manual/wiki)
 
-/obj/item/book/manual/random/New()
+/obj/item/book/manual/random/Initialize()
 	..()
-	var/static/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear, /obj/item/book/manual/wiki)
 	var/newtype = pick(subtypesof(/obj/item/book/manual) - banned_books)
 	new newtype(loc)
 	qdel(src)

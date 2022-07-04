@@ -58,12 +58,15 @@ export const BookBinder = (props, context) => {
                     onClick={() => modalOpen(context, 'edit_selected_author')} />
                 </LabeledList.Item>
                 <LabeledList.Item label="Select Categories">
-                  <Dropdown
-                    width="190px"
-                    options={book_categories.map((c) => c.description)}
-                    onSelected={(val) => act('toggle_binder_category', {
-                    category_id: categoryMap[val]
-                  })} />
+                  <Box mt={2}>
+                    <Dropdown
+                      mt={.6}
+                      width="190px"
+                      options={book_categories.map((c) => c.description)}
+                      onSelected={(val) => act('toggle_binder_category', {
+                      category_id: categoryMap[val]
+                    })} />
+                  </Box>
                 </LabeledList.Item>
               </LabeledList>
               <br />
