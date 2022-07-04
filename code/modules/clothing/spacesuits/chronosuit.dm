@@ -30,7 +30,7 @@
 	var/obj/effect/chronos_cam/camera = null
 	var/activating = FALSE
 	var/activated = FALSE
-	var/cooldowntime = 50 //deciseconds
+	var/cooldowntime = 5 SECONDS
 	var/teleporting = FALSE
 
 
