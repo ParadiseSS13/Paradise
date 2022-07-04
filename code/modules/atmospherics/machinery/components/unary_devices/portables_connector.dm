@@ -5,7 +5,7 @@
 	name = "connector port"
 	desc = "For connecting portables devices related to atmospherics control."
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 	layer = GAS_FILTER_LAYER
 
 	var/obj/machinery/portable_atmospherics/connected_device

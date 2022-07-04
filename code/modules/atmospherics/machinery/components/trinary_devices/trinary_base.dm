@@ -17,7 +17,7 @@
 	var/datum/pipeline/parent2
 	var/datum/pipeline/parent3
 
-	var/flipped = 0
+	var/flipped = FALSE
 
 /obj/machinery/atmospherics/trinary/New()
 	..()

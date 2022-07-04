@@ -58,7 +58,7 @@
 
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
-	flipped = 1
+	flipped = TRUE
 
 /obj/machinery/atmospherics/trinary/filter/update_icon_state()
 	if(flipped)
@@ -72,7 +72,7 @@
 		icon_state += on ? "on" : "off"
 	else
 		icon_state += "off"
-		on = 0
+		on = FALSE
 
 /obj/machinery/atmospherics/trinary/filter/update_underlays()
 	if(..())

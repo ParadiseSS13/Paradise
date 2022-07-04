@@ -5,7 +5,7 @@
 	icon = 'icons/obj/atmospherics/cold_sink.dmi'
 	icon_state = "off"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	name = "thermal tansfer plate"
 	desc = "Transfers heat to and from an area"
