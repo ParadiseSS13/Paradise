@@ -164,7 +164,7 @@
 	health = clamp(health, 0, maxHealth)
 	med_hud_set_health()
 
-/mob/living/simple_animal/lay_down()
+/mob/living/simple_animal/on_lying_down(new_lying_angle)
 	..()
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_resting
@@ -173,7 +173,7 @@
 			regenerate_icons()
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //simple mobs cannot crawl
 
-/mob/living/simple_animal/stand_up()
+/mob/living/simple_animal/on_standing_up()
 	..()
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_living
