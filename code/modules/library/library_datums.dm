@@ -69,15 +69,15 @@
 	content = json_decode(row["content"])
 	summary = row["summary"]
 	rating = row["rating"]
-	categories += GLOB.library_catalog.getBookCategoryByID(row["primary_category"])
-	categories += GLOB.library_catalog.getBookCategoryByID(row["secondary_category"])
-	categories += GLOB.library_catalog.getBookCategoryByID(row["tertiary_category"])
+	categories += text2num(row["primary_category"])
+	categories += text2num(row["secondary_category"])
+	categories += text2num(row["tertiary_category"])
 	ckey = row["ckey"]
 	var/list/reports_json = list()
 	if(length(row["reports"]) > 5) //do we actually have a string with content??
 		reports_json = json_decode(row["reports"])
 	for(var/r in reports_json)
-		var/datum/library_category/report_category = GLOB.library_catalog.getReportCategoryByID(r[2])
+		var/datum/library_category/report_category = GLOB.library_catalog.get_report_category_by_id(r[2])
 		var/datum/flagged_book/report = new()
 		report.bookid = id
 		report.category_id = report_category.category_id

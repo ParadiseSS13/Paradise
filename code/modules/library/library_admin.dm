@@ -48,7 +48,7 @@
 	data["modal"] = ui_modal_data(src)
 	return data
 
-/datum/ui_module/library_manager/ui_act(action, params)
+/datum/ui_module/library_manager/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 
@@ -58,11 +58,11 @@
 	switch(action)
 		if("view_reported_books")
 			reports = list()
-			for(var/datum/cachedbook/CB in GLOB.library_catalog.getFlaggedBooks())
+			for(var/datum/cachedbook/CB in GLOB.library_catalog.get_flagged_books())
 				for(var/datum/flagged_book/report as anything in CB.reports)
 					if(!report)
 						return
-					var/datum/library_category/report_category =  GLOB.library_catalog.getReportCategoryByID(report.category_id)
+					var/datum/library_category/report_category =  GLOB.library_catalog.get_report_category_by_id(report.category_id)
 					var/report_info = list(
 						"reporter_ckey" = report.reporter,
 						"uploader_ckey" = CB.ckey,
@@ -75,12 +75,15 @@
 			page_state = LIBRARY_MENU_REPORTS
 		if("delete_book")
 			if(text2num(params["bookid"])) //make sure this is actually a number
-				if(GLOB.library_catalog.removeBookByID(text2num(params["bookid"])))
-					log_and_message_admins("has deleted the book [params["bookid"]].")
+				if(GLOB.library_catalog.remove_book_by_id(text2num(params["bookid"])))
+					log_and_message_admins("has deleted book [params["bookid"]].")
 		if("view_book")
 			if(params["bookid"])
-				view_book_by_id(text2num(params["bookid"]))
-
+				view_book_by_id(text2num(params["bookid"]), ui.user)
+		if("unflag_book")
+			if(params["bookid"])
+				if(GLOB.library_catalog.unflag_book_by_id(text2num(params["bookid"])))
+					log_and_message_admins("has unflagged book [params["bookid"]].")
 		if("return")
 			page_state = LIBRARY_MENU_MAIN
 
@@ -109,7 +112,7 @@
 					var/confirm = alert("You are about to delete book [text2num(answer)]", "Confirm Deletion", "Yes", "No")
 					if(confirm != "Yes")
 						return //we don't need to sanitize b/c removeBookyByID uses id=:id instead of like statemetns
-					if(GLOB.library_catalog.removeBookByID(text2num(answer)))
+					if(GLOB.library_catalog.remove_book_by_id(text2num(answer)))
 						log_and_message_admins("has deleted the book [text2num(answer)].")
 				if("specify_ckey_search")
 					if(!answer)
@@ -118,7 +121,7 @@
 					search_terms.search_ckey = answer
 					selected_ckey = answer
 					cached_books = list()
-					for(var/datum/cachedbook/CB in GLOB.library_catalog.getBooksByRange(1, 10, search_terms))
+					for(var/datum/cachedbook/CB in GLOB.library_catalog.get_book_by_range(1, 10, search_terms))
 						var/list/book_data = list(
 							"id" = CB.id,
 							"title" = CB.title,
@@ -138,18 +141,18 @@
 					confirm = alert("You are about to mass delete potentially up to 10 books", "Confirm Deletion", "Yes", "No")
 					if(confirm != "Yes")
 						return
-					if(GLOB.library_catalog.removeBooksByCkey(sanitized_answer))
+					if(GLOB.library_catalog.remove_books_by_ckey(sanitized_answer))
 						log_and_message_admins("has deleted all books uploaded by [answer].")
 				else
 					return FALSE
 		else
 			return FALSE
 
-/datum/ui_module/library_manager/proc/view_book_by_id(bookid)
-	if(view_book?.id != bookid) //lets not make more queries than neccesary
-		view_book = GLOB.library_catalog.getBookByID(bookid)
+/datum/ui_module/library_manager/proc/view_book_by_id(bookid, mob/user)
+	if(!view_book || view_book.id != bookid)
+		view_book = GLOB.library_catalog.get_book_by_id(bookid)
 	view_book_page = 0
-	view_book()
+	view_book(user)
 
 /*
 * #View Book
@@ -161,26 +164,24 @@
 	if(!view_book || !length(view_book.content))
 		return
 
-	var/dat = " "
+	var/dat = ""
 	//First, we're going to choose/generate our header buttons for switching pages and store it in var/dat
+	var/header_left = "<div style='float:left; text-align:left; width:49.9%'></div>"
+	var/header_right = "<div style ='float;left; text-align:right; width:49.9%'></div>"
 	if(length(view_book.content)) //No need to have page switching buttons if there's no pages
-		if(view_book_page == 0)
-			dat+= "<DIV STYLE='float:left; text-align:left; width:49.9%'></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:right; width:49.9%'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
-		else if(view_book_page < length(view_book.content))
-			dat+= "<DIV STYLE='float:left; text-align:left; width:49.9%'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:right; width:49.9%'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
-		else if(view_book_page == length(view_book.content))
-			dat+= "<DIV STYLE='float:left; text-align:left; width:49.9%'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float;left; text-align:right; width:49.9%'></DIV>"
+		if(view_book_page < length(view_book.content))
+			header_right = "<div style='float:left; text-align:right; width:49.9%'><a href='?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
+		if(view_book_page)
+			header_left = "<div style='float:left; text-align:left; width:49.9%'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div>"
 
+	dat += header_left + header_right
 	//Now we're going to display the header buttons + the current page selected, if it's page 0, we display the cover_page instead
 	if(!view_book_page)
 		var/cover_page = {"<center><h1>[view_book.title]</h1><br></h2>Written by: [view_book.author]</h2></center><br><hr><b>Summary:</b> [view_book.summary]"}
-		user << browse("<body>[dat]<BR>" + "[cover_page]", "window=adminbook[UID()];size=400x400")
+		user << browse("<body>[dat]<br>" + "[cover_page]", "window=book[UID()];size=400x400")
 		return
 	else
-		user << browse("<body>[dat]<BR>" + "[view_book.content[view_book_page]]", "window=adminbook[UID()]")
+		user << browse("<body>[dat]<br>" + "[view_book.content[view_book_page]]", "window=book[UID()]")
 
 /datum/ui_module/library_manager/Topic(href, href_list)
 	..()

@@ -140,7 +140,7 @@
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	var/list/books = GLOB.library_catalog.getRandomBooks(book_count, doAsync = FALSE)
+	var/list/books = GLOB.library_catalog.get_random_book(book_count, doAsync = FALSE)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(src, book, TRUE, FALSE)
 	update_icon()
@@ -215,12 +215,12 @@
 	var/list/data = list()
 
 	var/list/selected_book_data = list(
-		title = selected_content.title ? selected_content.title : "not specified",
-		author = selected_content.author ? selected_content.author : "not specified",
-		summary = selected_content.summary ? selected_content.summary : "no summary",
-		copyright = selected_content.copyright ? selected_content.copyright : FALSE,
-		categories = selected_content.categories,
-		)
+		"title" = selected_content.title ? selected_content.title : "not specified",
+		"author" = selected_content.author ? selected_content.author : "not specified",
+		"summary" = selected_content.summary ? selected_content.summary : "no summary",
+		"copyright" = selected_content.copyright ? selected_content.copyright : FALSE,
+		"categories" = selected_content.categories ? selected_content.categories : list()
+	)
 	data["selectedbook"] = selected_book_data
 	data["modal"] = ui_modal_data(src)
 	return data
@@ -238,7 +238,7 @@
 
 	return static_data
 
-/obj/machinery/bookbinder/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/machinery/bookbinder/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
@@ -254,14 +254,15 @@
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		if("toggle_binder_category")
-			if(text2num(params["category_id"]) in selected_content.categories)
-				selected_content.categories -= text2num(params["category_id"])
+			var/category_id = text2num(params["category_id"])
+			if(category_id in selected_content.categories)
+				selected_content.categories -= category_id
 			else
 				if(length(selected_content.categories) >= 3)
 					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 					return
-				selected_content.categories += text2num(params["category_id"])
-	add_fingerprint(usr)
+				selected_content.categories += category_id
+	add_fingerprint(ui.user)
 
 /obj/machinery/bookbinder/proc/ui_act_modal(action, list/params)
 	. = TRUE
@@ -300,13 +301,7 @@
 
 /obj/machinery/bookbinder/proc/print_book()
 	visible_message("[src] whirs as it prints and binds a new book.")
-	var/obj/item/book/b = new(loc)
-	b.pages = selected_content.content ? selected_content.content : list(" ")
-	b.title = selected_content.title ? selected_content.title : "no title" //The less of these that are null the better
-	b.author = selected_content.author ? selected_content.author : "no author"
-	b.summary = selected_content.summary ? selected_content.summary : "No Summary Provided"
-	b.categories = selected_content.categories ? selected_content.categories : list()
-	b.icon_state = "book[rand(1,16)]"
+	new /obj/item/book(loc, selected_content, FALSE, FALSE)
 	printing = FALSE
 
 /*

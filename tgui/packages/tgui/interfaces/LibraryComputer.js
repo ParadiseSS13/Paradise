@@ -19,6 +19,10 @@ const expandModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
   const expandinfo = modal.args;
 
+  const {
+    user_ckey,
+  } = data;
+
   return (
     <Section level={2} m="-1rem" pb="1rem">
       <LabeledList>
@@ -30,6 +34,18 @@ const expandModalBodyOverride = (modal, context) => {
         <LabeledList.Item label="Categories">{expandinfo.categories.join(", ")}</LabeledList.Item>}
       </LabeledList>
       <br />
+      {user_ckey === expandinfo.ckey && //  we only want the book author to be able to delete the book
+        <Button
+          content="Delete Book"
+          icon="trash"
+          color="bad"
+          disabled={expandinfo.isProgrammatic}
+          onClick={() => act('delete_book',{
+            bookid: expandinfo.id,
+            user_ckey: user_ckey,
+          })}
+        />
+      }
       <Button
         content="Report Book"
         icon="flag"
@@ -137,7 +153,7 @@ const rateModalBodyOverride = (modal, context) => {
         <LabeledList.Item label="Title">{rate_content.title}</LabeledList.Item>
         <LabeledList.Item label="Author">{rate_content.author}</LabeledList.Item>
         <LabeledList.Item label="Rating">{rate_content.current_rating ? rate_content.current_rating : 0}<Icon name="star" verticalAlign="middle"/></LabeledList.Item>
-        <LabeledList.Item label="Total Ratings">{rate_content.number_ratings ? rate_content.number_ratings : 0}</LabeledList.Item>
+        <LabeledList.Item label="Total Ratings">{rate_content.total_ratings ? rate_content.total_ratings : 0}</LabeledList.Item>
       </LabeledList>
       <br />
       <RatingTools/>
@@ -192,7 +208,7 @@ const LibraryComputerNavigation = (properties, context) => {
         <Icon name="list" />
         Upload Book
       </Tabs.Tab>
-      {login_state &&
+      {login_state === 1 &&
       <Tabs.Tab
         selected={3 === tabIndex}
         onClick={() => setTabIndex(3)}>
@@ -274,16 +290,14 @@ const SearchTools = (properties, context) => {
           <LabeledList.Item label="Ratings">
             <Flex>
               <FlexItem>
-                <Button
-                  margin-right=".4em"
+                <Button mr={1}
                   width="min-content"
                   content={searchcontent.ratingmin}
                   onClick={() => modalOpen(context, 'edit_search_ratingmin')} />
               </FlexItem>
-              <FlexItem>&nbsp;&nbsp;To&nbsp;&nbsp;</FlexItem>
+              <FlexItem>To</FlexItem>
               <FlexItem>
-                <Button
-                  margin-left=".4em"
+                <Button ml={1}
                   width="min-content"
                   content={searchcontent.ratingmax}
                   onClick={() => modalOpen(context, 'edit_search_ratingmax')} />
@@ -425,7 +439,7 @@ const LibraryBooksList = (properties, context) => {
               <Table.Cell>{external_booklist.rating}<Icon name="star" verticalAlign="middle"/></Table.Cell>
               <Table.Cell>{external_booklist.categories.join(", ").substr(0,45)}</Table.Cell>
               <Table.Cell textAlign="right">
-                {login_state &&
+                {login_state === 1 &&
                 <Button
                   content="Order"
                   icon="print"
@@ -474,7 +488,7 @@ const ProgramatticBooks = (properties, context) => {
               <Table.Cell textAlign="left"><Icon name="book" /> {programmatic_booklist.title}</Table.Cell>
               <Table.Cell textAlign="left">{programmatic_booklist.author}</Table.Cell>
               <Table.Cell textAlign="right">
-              {login_state &&
+              {login_state === 1 &&
                 <Button
                   content="Order"
                   icon="print"
@@ -482,13 +496,13 @@ const ProgramatticBooks = (properties, context) => {
                     bookid: programmatic_booklist.id,
                   })}
                 />
-}
-                <Button
-                  content="More..."
-                  onClick={() => modalOpen(context, 'expand_info',{
-                    bookid: programmatic_booklist.id,
-                  })}
-                />
+              }
+              <Button
+                content="More..."
+                onClick={() => modalOpen(context, 'expand_info',{
+                  bookid: programmatic_booklist.id,
+                })}
+              />
               </Table.Cell>
             </Table.Row>
           ))}

@@ -59,7 +59,7 @@
 	///since the browserUI is datumized, we need to track all open instances of it so we don't open duplicate menus
 	var/list/book_browsers = list()
 
-/obj/item/book/Initialize(mapload, datum/cachedbook/CB = null, _copyright = FALSE, _protected = FALSE)
+/obj/item/book/Initialize(mapload, datum/cachedbook/CB, _copyright = FALSE, _protected = FALSE)
 	. = ..()
 	if(CB)
 		author = CB.author
@@ -177,7 +177,7 @@
 			return
 		current_page++
 		playsound(loc, "pageturn", 50, 1)
-		attack_self(usr) //scuffed but this is how you update the UI
+		read_book(usr) //scuffed but this is how you update the UI
 		updateUsrDialog()
 	if(href_list["prev_page"])
 		if(current_page < 0) //should never be false, but just in-case
@@ -185,7 +185,7 @@
 			return
 		current_page--
 		playsound(loc, "pageturn", 50, 1)
-		attack_self(usr) //scuffed but this is how you update the UI
+		read_book(usr) //scuffed but this is how you update the UI
 		updateUsrDialog()
 
 /**
@@ -324,6 +324,7 @@
 
 	user.drop_item()
 	I.forceMove(src)
+	RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/remove_stored_item) //ensure proper GC'ing
 	store = I
 	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
 	return TRUE
@@ -337,6 +338,7 @@
 	if(display_message)
 		to_chat(user, "<span class='notice'>You carefully remove [store] from [name]!</span>")
 	store.forceMove(get_turf(store.loc))
+	UnregisterSignal(store, COMSIG_PARENT_QDELETING)
 	store = null
 	return TRUE
 
@@ -347,7 +349,7 @@
 
 /obj/item/book/random/Initialize()
 	..()
-	var/list/books = GLOB.library_catalog.getRandomBooks(amount)
+	var/list/books = GLOB.library_catalog.get_random_book(amount)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(loc, book, TRUE, FALSE)
 	qdel(src)

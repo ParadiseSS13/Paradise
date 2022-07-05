@@ -11,9 +11,11 @@
  books.
 
  Additionally, ALL library SQL queries are handled in this datum. This is intentional so that we do not have multiple SQL
- queries trying to do the same thing but in 4-5 different dm files. This datum is split into a specific
- structure: 1) Defining Library Lists 2) Get Procs that get information from the catalog or DB 3) Send/Update procs that
- perform changes to the Database. Don't mix their functionalities together.
+ queries trying to do the same thing but in 4-5 different dm files. This file is split/organized into a specific
+ structure:
+ TOP    - Defining Library Lists
+ MIDDLE - Get Procs that get information from the catalog or DB
+ BOTTOM - Send/Update procs that perform changes to the Database. Don't mix their functionalities together.
  */
 /datum/library_catalog
 	///Lists of all reported books in the current round
@@ -113,7 +115,7 @@
  */
 
 ///External proc that Returns a report library_category datum that matches the provided cat_id
-/datum/library_catalog/proc/getReportCategoryByID(category_id)
+/datum/library_catalog/proc/get_report_category_by_id(category_id)
 	for(var/datum/library_category/category in GLOB.library_catalog.report_types)
 		if(category.category_id == category_id)
 			return category
@@ -123,19 +125,19 @@
 			return category
 
 ///External proc that Returns a book library_category datum that matches the provided cat_id
-/datum/library_catalog/proc/getBookCategoryByID(category_id)
+/datum/library_catalog/proc/get_book_category_by_id(category_id)
 	for(var/datum/library_category/category in GLOB.library_catalog.categories)
 		if(category.category_id == category_id)
 			return category
 
 ///External proc that Returns a report programmaticbook datum that matches the provided bookid
-/datum/library_catalog/proc/getProgrammaticBookByID(id)
+/datum/library_catalog/proc/get_programmatic_book_by_id(id)
 	for(var/datum/programmatic_book/PB as anything in GLOB.library_catalog.books)
 		if(PB.id == id)
 			return PB
 
 /*
-  * # getBookByID
+  * # get_book_by_id
   *
   * External proc that takes in an id number and searches the Database for a book with a matching SSID
   * returns a cached book with the data from that row
@@ -143,7 +145,7 @@
   * Arguments:
   * * id - integer value that matches as a book SSID
  */
-/datum/library_catalog/proc/getBookByID(id)
+/datum/library_catalog/proc/get_book_by_id(id)
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, content, summary, rating, raters, primary_category, secondary_category, tertiary_category, ckey, reports FROM library WHERE id=:id", list(
 		"id" = id
 	))
@@ -176,7 +178,7 @@
 	return results
 
 /*
-  * # buildSearchQuery
+  * # build_search_query
   *
   * Internal proc that builds part of an SQL statement using a datum of search terms/parameters. It will then return
   * a list of two objects: 1) the built SQL statement and 2) the assoc list of parameters that will accompany it in the query
@@ -185,7 +187,7 @@
   * Arguments:
   * * datum/library_user_data/search_terms - datum with parameters for what we want to query our DB for
  */
-/datum/library_catalog/proc/buildSearchQuery(datum/library_user_data/search_terms)
+/datum/library_catalog/proc/build_search_query(datum/library_user_data/search_terms)
 	var/searchquery = ""
 	//We do not want to use WHERE more than once in our query, first usage makes this TRUE and defaults other WHERE's to AND
 	var/where = FALSE
@@ -224,7 +226,7 @@
 	return results
 
 /*
-  * # getBooksByRange
+  * # get_book_by_range
   *
   * External proc used to get a large amount of books from a specific part of the library DB. Has paremeters to
   * specify range as well as what kind of books to look for. Will return a list of cachedbook datums.
@@ -234,8 +236,8 @@
   * * range - Amount of books we want to grab at once
   * * datum/library_user_data/search_terms - datum with parameters for what we want to query our DB for
  */
-/datum/library_catalog/proc/getBooksByRange(initial = 1, range = 25, datum/library_user_data/search_terms, doAsync = TRUE)
-	var/list/search_query = buildSearchQuery(search_terms)
+/datum/library_catalog/proc/get_book_by_range(initial = 1, range = 25, datum/library_user_data/search_terms, doAsync = TRUE)
+	var/list/search_query = build_search_query(search_terms)
 	var/sql = "SELECT id, author, title, content, summary, rating, raters, primary_category, secondary_category, tertiary_category, ckey, reports FROM library" + search_query[1] + " LIMIT :lowerlimit, :upperlimit"
 	var/list/sql_params = search_query[2]
 
@@ -270,12 +272,12 @@
 	return results
 
 /*
-  * # getFlaggedBooks
+  * # get_flagged_books
   *
   * External proc that finds all books that have reports marked in the Database. Returns these books as a list
   * of cachedbook datums. This proc is not intended to actually handle reports or generate report_book datums
  */
-/datum/library_catalog/proc/getFlaggedBooks()
+/datum/library_catalog/proc/get_flagged_books()
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, content, summary, ckey, reports FROM library WHERE LENGTH(reports) > 5")
 	if(!query.warn_execute())
 		qdel(query)
@@ -308,7 +310,7 @@
   * * datum/library_user_data/search_terms - datum with parameters for what we want to query our DB for
  */
 /datum/library_catalog/proc/get_total_books(datum/library_user_data/search_terms)
-	var/list/search_query = buildSearchQuery(search_terms)
+	var/list/search_query = build_search_query(search_terms)
 	var/sql = "SELECT COUNT(id) FROM library" + search_query[1]
 	var/list/sql_params = search_query[2]
 
@@ -324,7 +326,7 @@
 	qdel(count_query)
 
 /*
-  * # getBookRatings
+  * # get_book_ratings
   *
   * External proc that gets all of the book ratings for a book. Unless the requested SSID doesn't exist in the
   * database, this proc will return (if the book has ratings) a list with the
@@ -333,7 +335,7 @@
   * Arguments:
   * * bookid - SSID of the book you wish to get ratings for
  */
-/datum/library_catalog/proc/getBookRatings(bookid)
+/datum/library_catalog/proc/get_book_ratings(bookid)
 	var/list/sql_params = list()
 	sql_params["id"] = bookid
 
@@ -345,16 +347,16 @@
 
 	var/list/book_ratings = list()
 	while(query.NextRow())
-		if(!query.item[2]) //we don't want to decode something that is null
+		if(!query.item[2] || length(query.item[2]) < 5) //we don't want to decode something that is null or contains no values
+			book_ratings = list(query.item[1], list())
 			break
-		message_admins(query.item[2])
 		book_ratings = list(query.item[1], json_decode(query.item[2]))
 
 	qdel(query)
 	return book_ratings
 
 /*
-  * # getRandomBooks
+  * # get_random_books
   *
   * External proc that gets random books from the Database, used by spawners for the most part. RANT: whoever wrote the fucking
   * old library code made this a global proc that accepted a loc and new'd/spawned in books from THIS PROC, take this as a
@@ -363,7 +365,7 @@
   * Arguments:
   * * amount - amount of random books to get
  */
-/datum/library_catalog/proc/getRandomBooks(amount = 1, doAsync = TRUE)
+/datum/library_catalog/proc/get_random_book(amount = 1, doAsync = TRUE)
 	if(!amount)
 		return
 	if(!SSdbcore.IsConnected())
@@ -402,7 +404,7 @@
  */
 
 /*
-  * # flagBookByID
+  * # flag_book_by_id
   *
   * External proc that Handles reporting of books. Will first get the existing flags for the book from the DB, if the report is
   * guchi, it will then add it to the list of reports for the book, encode to JSON, and update the DB
@@ -412,15 +414,15 @@
   * * bookid - SSID of the book being reported
   * * category_id - ID of the report category that is being used in the report
  */
-/datum/library_catalog/proc/flagBookByID(ckey, bookid, category_id)
+/datum/library_catalog/proc/flag_book_by_id(ckey, bookid, category_id)
 	//we should never flag a book in the DB without having the Book ID, Report Type, or Who reported it
 	if(!bookid || !category_id || !ckey)
 		return FALSE
-	var/datum/library_category/report_type = getReportCategoryByID(category_id) //lets pull our report category datum
+	var/datum/library_category/report_type = get_report_category_by_id(category_id) //lets pull our report category datum
 	if(!report_type) //is this an existing report type? If not somethings gone terribly wrong
 		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for a reason that does not exist, please investigate further.")
 		return FALSE
-	var/datum/cachedbook/reportedbook = GLOB.library_catalog.getBookByID(bookid) //and now lets get what's currently on the DB
+	var/datum/cachedbook/reportedbook = GLOB.library_catalog.get_book_by_id(bookid) //and now lets get what's currently on the DB
 	if(!reportedbook) //does this book exist in the DB?
 		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but it does not exist in the Database, please investigate further.")
 		return FALSE
@@ -468,14 +470,45 @@
 	return TRUE
 
 /*
-  * # removeBookByID
+  * # unflag_book_by_id
+  *
+  * External proc that removes all reports on a book.
+  *
+  * Arguments:
+  * * bookid - SSID of the book being reported
+ */
+/datum/library_catalog/proc/unflag_book_by_id(bookid)
+	//we should never flag a book in the DB without having the Book ID, Report Type, or Who reported it
+	if(!bookid)
+		return FALSE
+	var/datum/cachedbook/reportedbook = GLOB.library_catalog.get_book_by_id(bookid)
+	if(!reportedbook)
+		return FALSE //it don't exist
+
+	if(!SSdbcore.IsConnected()) //check our connection to the DB
+		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not succesfully saved to the Database. Please investigate further.")
+		return FALSE
+
+	//uploading our report to the library
+	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE library SET reports=:report WHERE id=:id", list(
+		"id" = text2num(bookid),
+		"report" = json_encode(list()),
+	))
+	if(!query.warn_execute())
+		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not succesfully saved to the Database. Please investigate further.")
+		qdel(query)
+		return FALSE
+	qdel(query)
+	return TRUE
+/*
+  * # remove_book_by_id
   *
   * External proc that Handles the deletion of books by SSID
   *
   * Arguments:
   * * bookid - SSID of the book being deleted
  */
-/datum/library_catalog/proc/removeBookByID(bookid)
+/datum/library_catalog/proc/remove_book_by_id(bookid)
 	var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE id=:id", list(
 		"id" = text2num(bookid)
 	))
@@ -486,14 +519,14 @@
 	return TRUE
 
 /*
-  * # removeBooksByCkey
+  * # remove_books_by_ckey
   *
   * External proc that Handles the mass deletion of all books uploaded by a single ckey
   *
   * Arguments:
   * * ckey - ckey we will use to get all the books we want for deletion
  */
-/datum/library_catalog/proc/removeBooksByCkey(ckey)
+/datum/library_catalog/proc/remove_books_by_ckey(ckey)
 	var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
@@ -504,7 +537,7 @@
 	return TRUE
 
 /*
-  * # uploadBook
+  * # upload_book
   *
   * External proc that handles creating new rows/uploading books to the DB
   *
@@ -512,7 +545,7 @@
   * * ckey - author's ckey that will be tied to the book uploaded
   * * datum/cachedbook/selected_book - cachedbook datum that contains all the book information to added to DB
  */
-/datum/library_catalog/proc/uploadBook(ckey, datum/cachedbook/selected_book)
+/datum/library_catalog/proc/upload_book(ckey, datum/cachedbook/selected_book)
 	if(!ckey)
 		return FALSE
 	if(!selected_book.title || !selected_book.author || !length(selected_book.categories) || !length(selected_book.content))
@@ -554,7 +587,7 @@
 	return TRUE
 
 /*
-  * # rateBook
+  * # rate_book
   *
   * External proc that handles adding ratings to books in the DB. Will first get the ratings for the book from the DB
   * and then rebuild the list/JSON for the ratings. It will also calculate the new average rating for the book.
@@ -566,21 +599,21 @@
   * * bookid - SSID of the book being rated
   * * user_rating - integer from 1 to 10
  */
-/datum/library_catalog/proc/rateBook(ckey, bookid, user_rating)
+/datum/library_catalog/proc/rate_book(ckey, bookid, user_rating)
 	if(!ckey || !bookid || !user_rating || !isnum(user_rating))
 		return
 	if(!SSdbcore.IsConnected())
 		return
 
-	var/list/current_ratings = getBookRatings(bookid) // = [ratingInt, [[ckey, rating],[ckey, rating],[ckey, rating]]]
+	var/list/current_ratings = get_book_ratings(bookid) // = [ratingInt, [[ckey, rating],[ckey, rating],[ckey, rating]]]
 	var/list/new_raters_info = list()
 	var/new_rating_value = round(user_rating, 1) //should only ever be a whole number
 
-	if(length(current_ratings)) //did getBookRatings actually return something?
+	if(length(current_ratings)) //did get_book_ratings actually return something?
 		for(var/rating in current_ratings[2])
 			if(rating[1] == ckey)
 				continue //if your ckey has an existing rating, throw it out to make room for new one
-			new_raters_info += rating
+			new_raters_info += list(rating)
 			new_rating_value += rating[2]
 	else
 		current_ratings = list()
@@ -588,8 +621,10 @@
 	new_raters_info += list(list(ckey, user_rating)) //intentional
 	var/list/sql_params = list()
 	sql_params["id"] = bookid
-	//aggregate of ratings divided by total ratings to get average, we make sure this is rounded to the 100th's place
-	sql_params["newrating"] = round(new_rating_value / length(new_raters_info), 0.01)
+	//aggregate of ratings divided by total ratings to get average
+	var/new_calculated_average = new_rating_value / length(new_raters_info)
+	new_calculated_average = round(new_calculated_average, 0.1)
+	sql_params["newrating"] = new_calculated_average
 	sql_params["raters"] = json_encode(new_raters_info)
 
 	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE library SET rating=:newrating, raters=:raters WHERE id=:id", sql_params)
@@ -598,6 +633,7 @@
 		qdel(query)
 		return
 	qdel(query)
+	return TRUE
 
 #undef DEFINE_CATEGORY
 #undef MAX_PLAYER_UPLOADS

@@ -138,6 +138,14 @@ const ReportsMenu = (properties, context) => {
                   })}
                 />
                 <Button
+                  content="Unflag"
+                  icon="flag"
+                  color="caution"
+                  onClick={() => act('unflag_book',{
+                    bookid: report.id,
+                  })}
+                />
+                <Button
                   content="View"
                   onClick={() => act('view_book',{
                     bookid: report.id,
@@ -172,7 +180,7 @@ const BooksByCkeyMenu = (properties, context) => {
           Books uploaded by {ckey}
           <br />
         </Box>
-        <Button
+        <Button mt={1}
           content="Return to Main"
           icon="arrow-alt-circle-left"
           onClick={() => act('return')}
@@ -193,6 +201,7 @@ const BooksByCkeyMenu = (properties, context) => {
                 <Button.Confirm
                   content="Delete"
                   icon="trash"
+                  color="bad"
                   onClick={() => act('delete_book',{
                     bookid: booklist.id,
                   })}

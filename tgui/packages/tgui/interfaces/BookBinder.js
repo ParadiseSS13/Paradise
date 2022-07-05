@@ -100,7 +100,7 @@ export const BookBinder = (props, context) => {
           </Flex>
           <br />
           <Button
-            icon="Print"
+            icon="print"
             width="auto"
             content="Print Book"
             onClick={() => act('print_book')}

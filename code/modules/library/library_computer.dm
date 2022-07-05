@@ -26,8 +26,7 @@
 	icon_state = "computer"
 
 	//We define a required access only to lock library specific actions like ordering/managing books to librarian access+
-	req_access = list(ACCESS_LIBRARY)
-
+	req_one_access = list(ACCESS_LIBRARY)
 	///Page Number for going through player book archives
 	var/archive_page_num = 1
 	///report category_id we have selected
@@ -97,13 +96,6 @@
 		return
 	return ..()
 
-/obj/machinery/computer/library/check_access(mob/user)
-	if(issilicon(user) || user?.can_admin_interact())
-		return LOGIN_FULL
-	if(user && allowed(user))
-		return LOGIN_FULL
-	return LOGIN_PUBLIC
-
 /obj/machinery/computer/library/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -126,7 +118,7 @@
 	var/selected_categories = list()
 	selected_categories = user_data.search_categories
 
-	data["login_state"] = check_access(user)
+	data["login_state"] = allowed(user)
 
 	data["searchcontent"] = list(
 		"title" = user_data.search_title,
@@ -138,12 +130,13 @@
 	)
 
 	var/list/selected_book_data = list(
-		title = user_data.selected_book.title ? user_data.selected_book.title : "not specified",
-		author = user_data.selected_book.author ? user_data.selected_book.author : "not specified",
-		summary = user_data.selected_book.summary ? user_data.selected_book.summary : "no summary",
-		copyright = user_data.selected_book.copyright ? user_data.selected_book.copyright : FALSE,
-		categories = user_data.selected_book.categories,
+		"title" = user_data.selected_book.title ? user_data.selected_book.title : "not specified",
+		"author" = user_data.selected_book.author ? user_data.selected_book.author : "not specified",
+		"summary" = user_data.selected_book.summary ? user_data.selected_book.summary : "no summary",
+		"copyright" = user_data.selected_book.copyright ? user_data.selected_book.copyright : FALSE,
+		"categories" = user_data.selected_book.categories ? user_data.selected_book.categories : list()
 	)
+
 	data["selectedbook"] = selected_book_data
 
 	//should only be generating the cached booklist when we absolutely need to
@@ -158,11 +151,11 @@
 		remaining_time = round(remaining_time)
 
 		var/list/checkout_data = list(
-			timeleft = remaining_time,
-			islate = late,
-			title = b.bookname,
-			libraryid = b.libraryid,
-			patron_name = b.patron_name
+			"timeleft" = remaining_time,
+			"islate" = late,
+			"title" = b.bookname,
+			"libraryid" = b.libraryid,
+			"patron_name" = b.patron_name
 		)
 		data["checkout_data"] += list(checkout_data)
 
@@ -175,12 +168,12 @@
 				checked_out = TRUE
 				break
 		var/list/book_data = list(
-			title = CB.title  ? CB.title : "not specified",
-			author = CB.author ? CB.author : "not specified",
-			summary = CB.summary ? CB.summary : "no summary",
-			id = CB.id,
-			libraryid = CB.libraryid,
-			checked_out = checked_out,
+			"title" = CB.title  ? CB.title : "not specified",
+			"author" = CB.author ? CB.author : "not specified",
+			"summary" = CB.summary ? CB.summary : "no summary",
+			"id" = CB.id,
+			"libraryid" = CB.libraryid,
+			"checked_out" = checked_out,
 		)
 		data["inventory_list"] += list(book_data)
 	data["user_ckey"] = user?.ckey
@@ -206,8 +199,8 @@
 	for(var/r in GLOB.library_catalog.report_types)
 		var/datum/library_category/report = r
 		var/report_info = list(
-			category_id = report.category_id,
-			description = report.description,
+			"category_id" = report.category_id,
+			"description" = report.description,
 		)
 		static_data["report_categories"] += list(report_info)
 
@@ -215,9 +208,9 @@
 	for(var/book in GLOB.library_catalog.books)
 		var/datum/programmatic_book/PB = book
 		var/list/book_data = list(
-			title = PB.title  ? PB.title : "not specified",
-			author = PB.author ? PB.author : "Nanotrasen",
-			id = PB.id,
+			"title" = PB.title  ? PB.title : "not specified",
+			"author "= PB.author ? PB.author : "Nanotrasen",
+			"id" = PB.id,
 		)
 		static_data["programmatic_booklist"] += list(book_data)
 
@@ -246,11 +239,12 @@
 			populate_booklist()
 		//Search Tools' Buttons
 		if("toggle_search_category")
-			if(text2num(params["category_id"]) in user_data.search_categories)
-				user_data.search_categories -= text2num(params["category_id"])
+			var/category_id = text2num(params["category_id"])
+			if(category_id in user_data.search_categories)
+				user_data.search_categories -= category_id
 				populate_booklist()
 			else
-				user_data.search_categories += text2num(params["category_id"])
+				user_data.search_categories += category_id
 				populate_booklist()
 		if("clear_search")
 			user_data.clear_search()
@@ -265,28 +259,44 @@
 
 		//Order Buttons
 		if("order_external_book")
-			var/datum/cachedbook/orderedbook = GLOB.library_catalog.getBookByID(params["bookid"])
+			var/datum/cachedbook/orderedbook = GLOB.library_catalog.get_book_by_id(params["bookid"])
 			if(orderedbook && print_cooldown <= world.time)
 				make_external_book(orderedbook)
 				print_cooldown = world.time + PRINTING_COOLDOWN
 		if("order_programmatic_book")
-			var/datum/programmatic_book/PB = GLOB.library_catalog.getProgrammaticBookByID(params["bookid"])
+			var/datum/programmatic_book/PB = GLOB.library_catalog.get_programmatic_book_by_id(params["bookid"])
 			if(PB && print_cooldown <= world.time)
 				make_programmatic_book(PB)
 				print_cooldown = world.time + PRINTING_COOLDOWN
+		//book author actions
+		if("delete_book")
+			if(params["bookid"])
+				var/datum/cachedbook/selectedbook = GLOB.library_catalog.get_book_by_id(params["bookid"])
+				if(!selectedbook)
+					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+					atom_say("Deletion Failed!")
+				if(selectedbook.ckey != params["user_ckey"])
+					message_admins("[params["user_ckey"]] attempted to delete a book that wasn't theirs, this shouldn't happen, please investigate.")
+				if(GLOB.library_catalog.remove_book_by_id(params["bookid"])) //this doesn't need to be logged
+					playsound(loc, 'sound/machines/ping.ogg', 25, 0)
+					atom_say("Deletion Succesful!")
+				else
+					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+					atom_say("Deletion Failed!")
+
 
 		//rating acts
 		if("set_rating")
 			if(params["rating_value"])
 				user_data.selected_rating = text2num(params["rating_value"])
 		if("rate_book")
-			if(GLOB.library_catalog.rateBook(params["user_ckey"], params["bookid"], user_data.selected_rating))
+			if(GLOB.library_catalog.rate_book(params["user_ckey"], params["bookid"], user_data.selected_rating))
 				playsound(loc, 'sound/machines/ping.ogg', 25, 0)
 				atom_say("Rating Succesful!")
 			populate_booklist()
 		//Report Acts
 		if("submit_report")
-			if(GLOB.library_catalog.flagBookByID(params["user_ckey"], params["bookid"], selected_report))
+			if(GLOB.library_catalog.flag_book_by_id(params["user_ckey"], params["bookid"], selected_report))
 				playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 				atom_say("Report Submitted!")
 			else
@@ -306,7 +316,7 @@
 				user_data.selected_book.categories += text2num(params["category_id"])
 				populate_booklist()
 		if("uploadbook")
-			if(GLOB.library_catalog.uploadBook(params["user_ckey"], user_data.selected_book))
+			if(GLOB.library_catalog.upload_book(params["user_ckey"], user_data.selected_book))
 				playsound(src, 'sound/machines/ping.ogg', 50, 0)
 				atom_say("Book Uploaded!")
 			else
@@ -314,9 +324,10 @@
 				atom_say("Book Upload Failed!")
 			num_pages = getmaxpages()
 		if("reportlost")
-			inventoryRemove(params["libraryid"])
-		if("applyfine")
-			inventoryRemove(params["applyfine"])
+			inventoryRemove(text2num(params["libraryid"]))
+			for(var/datum/borrowbook/book in checkouts)
+				if(book.libraryid == text2num(params["libraryid"]))
+					checkouts -= book
 	add_fingerprint(usr)
 
 
@@ -347,18 +358,18 @@
 					ui_modal_input(src, id, "Please input the new summary:", null, arguments, user_data.selected_book.summary)
 				//book list buttons
 				if("expand_info")
-					var/datum/programmatic_book/PB = GLOB.library_catalog.getProgrammaticBookByID(arguments["bookid"])
+					var/datum/programmatic_book/PB = GLOB.library_catalog.get_programmatic_book_by_id(arguments["bookid"])
 					if(PB)
 						ui_modal_message(src, id, "", arguments = list(
-							isProgrammatic = TRUE,
-							title = PB.title,
-							author = PB.author,
-							summary = PB.summary ? PB.summary : "No Summary Provided",
-							rating = "N for Nanotrasen",
+							"isProgrammatic" = TRUE,
+							"title" = PB.title,
+							"author" = PB.author,
+							"summary" = PB.summary ? PB.summary : "No Summary Provided",
+							"rating" = "N for Nanotrasen",
 						))
 
 						return //If we've succesfully opened the modal for our programmatic book, we don't need to do more logic
-					var/datum/cachedbook/CB = GLOB.library_catalog.getBookByID(arguments["bookid"])
+					var/datum/cachedbook/CB = GLOB.library_catalog.get_book_by_id(arguments["bookid"])
 					if(CB)
 						var/category_names = list()
 						for(var/datum/library_category/category in CB.categories)
@@ -367,24 +378,25 @@
 						user_data.selected_rating = 0
 
 						ui_modal_message(src, id, "", arguments = list(
-							isProgrammatic = FALSE,
-							id = CB.id,
-							title = CB.title,
-							author = CB.author,
-							summary = CB.summary ? CB.summary : "No Summary Provided",
-							rating = CB.rating ? CB.rating : "No Rating Provided",
-							categories = category_names,
+							"isProgrammatic" = FALSE,
+							"id" = CB.id,
+							"ckey" = CB.ckey,
+							"title" = CB.title,
+							"author" = CB.author,
+							"summary" = CB.summary ? CB.summary : "No Summary Provided",
+							"rating" = CB.rating ? CB.rating : "No Rating Provided",
+							"categories" = category_names,
 						))
 				if("report_book")
-					var/datum/cachedbook/CB = GLOB.library_catalog.getBookByID(arguments["bookid"])
+					var/datum/cachedbook/CB = GLOB.library_catalog.get_book_by_id(arguments["bookid"])
 					ui_modal_message(src, id, "", arguments = list(
 						id = CB.id,
 						title = CB.title,
 						ckey = CB.ckey,
 					))
 				if("rate_info")
-					var/datum/cachedbook/CB = GLOB.library_catalog.getBookByID(arguments["bookid"])
-					var/list/book_ratings = GLOB.library_catalog.getBookRatings(arguments["bookid"])
+					var/datum/cachedbook/CB = GLOB.library_catalog.get_book_by_id(arguments["bookid"])
+					var/list/book_ratings = GLOB.library_catalog.get_book_ratings(arguments["bookid"])
 					ui_modal_message(src, id, "", arguments = list(
 						"id" = CB.id,
 						"title" = CB.title,
@@ -456,6 +468,7 @@
 	user_data.selected_book.summary = B.summary ? B.summary : "No Summary"
 	user_data.selected_book.copyright = B.copyright ? B.copyright : FALSE
 	user_data.selected_book.content = B.pages ? B.pages : list()
+	user_data.selected_book.categories = B.categories ? B.categories : list()
 
 /obj/machinery/computer/library/proc/inventoryAdd(obj/item/book/B) //add book to library inventory
 	for(var/datum/cachedbook/I in inventory)
@@ -472,9 +485,9 @@
 	return TRUE
 
 /obj/machinery/computer/library/proc/inventoryRemove(libraryID) //remove book from library inventory
-	for(var/datum/cachedbook/I in inventory)
-		if(I.libraryid == libraryID)
-			inventory.Remove(I)
+	for(var/datum/cachedbook/O in inventory)
+		if(O.libraryid == libraryID)
+			inventory.Remove(O)
 			return TRUE
 	return FALSE
 
@@ -512,7 +525,7 @@
 	cached_booklist = list() //clear old list
 	var/starting_book = (archive_page_num - 1) * LIBRARY_BOOKS_PER_PAGE
 	var/range = LIBRARY_BOOKS_PER_PAGE
-	for(var/datum/cachedbook/CB in GLOB.library_catalog.getBooksByRange(starting_book, range, user_data, async))
+	for(var/datum/cachedbook/CB in GLOB.library_catalog.get_book_by_range(starting_book, range, user_data, async))
 		//instead of just adding the datum to the cached_booklist, we want to make it an assoc list so we can just give it to the TGUI
 
 		var/list/book_data = list(
@@ -525,8 +538,10 @@
 			"reports" = CB.reports,
 		)
 		book_data["categories"] = list()
-		for(var/datum/library_category/category in CB.categories)
-			book_data["categories"] += category.description //we're displaying the cats onlys, so we don't need the ids
+		for(var/category in CB.categories)
+			var/datum/library_category/book_category = GLOB.library_catalog.get_book_category_by_id(category)
+			if(book_category)
+				book_data["categories"] += book_category.description //we're displaying the cats onlys, so we don't need the ids
 
 		cached_booklist += list(book_data)
 	num_pages = getmaxpages()
@@ -538,25 +553,15 @@
 	var/book_count = max(1, GLOB.library_catalog.get_total_books(user_data))
 	var/page_count = round(book_count/LIBRARY_BOOKS_PER_PAGE)
 	//Since 'round' gets the floor value it's likely there will be 1 page more than
-	//the page count amount (almost guaranteed), we double check this by reversing
-	//our math and adding one to the count in this case.
-	if((page_count * LIBRARY_BOOKS_PER_PAGE) > book_count)
+	//the page count amount (almost guaranteed), we check for a remainder because of this
+	if(book_count % LIBRARY_BOOKS_PER_PAGE)
 		page_count++
 	return page_count
 
 /obj/machinery/computer/library/proc/make_external_book(datum/cachedbook/newbook)
 	if(!newbook || !newbook.id)
 		return
-	var/obj/item/book/B = new(loc)
-	B.name = "Book: [newbook.title]"
-	B.title = newbook.title
-	B.author = newbook.author
-	B.summary = newbook.summary
-	B.pages += newbook.content
-	B.categories = newbook.categories
-	B.rating = newbook.rating
-	B.icon_state = "book[rand(1,16)]"
-	B.copyright = TRUE
+	new /obj/item/book(loc, newbook, TRUE, FALSE)
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
 
 /obj/machinery/computer/library/proc/make_programmatic_book(datum/programmatic_book/newbook)
@@ -569,3 +574,4 @@
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL
 #undef LOGIN_PUBLIC
+#undef PRINTING_COOLDOWN
