@@ -633,6 +633,10 @@
 	icon_state = "beret_hos"
 	item_state = "beret_hos"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/pirate/fluff/stumpy //MrFroztee: Stumpy
 	name = "The Sobriety Skullcap"
 	desc = "A hat suited for the king of the pirates"

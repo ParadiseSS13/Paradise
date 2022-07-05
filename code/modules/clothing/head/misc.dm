@@ -30,11 +30,23 @@
 /obj/item/clothing/head/beret/blue
 	icon_state = "beret_blue"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/beret/black
 	icon_state = "beret_black"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/beret/purple_normal
 	icon_state = "beret_purple_normal"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/that
 	name = "top-hat"
@@ -181,6 +193,10 @@
 	icon_state = "bandana"
 	item_state = "bandana"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 //stylish bs12 hats
 
 /obj/item/clothing/head/bowlerhat
@@ -195,6 +211,10 @@
 	icon_state = "beaver_hat"
 	item_state = "beaver_hat"
 	desc = "Like a top hat, but made of beavers."
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/boaterhat
 	name = "boater hat"
@@ -299,6 +319,10 @@
 	item_state = "bearpelt"
 	flags = BLOCKHAIR
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/xenos
 	name = "xeno helmet"
 	desc = "A helmet made out of chitinous alien hide."
@@ -361,12 +385,20 @@
 	icon_state = "beret_purple"
 	item_state = "purpleberet"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/beret/centcom/officer
 	name = "officer beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer"
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/beret/centcom/officer/navy
 	name = "navy blue officer beret"
@@ -375,10 +407,18 @@
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/beret/centcom/captain
 	name = "captain's beret"
 	desc = "A white beret adorned with the shield—a cobalt kite shield with an engraved sword—of the Nanotrasen security forces, worn only by those captaining a vessel of the Nanotrasen Navy."
 	icon_state = "beret_centcom_captain"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/sombrero
 	name = "sombrero"

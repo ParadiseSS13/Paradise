@@ -445,11 +445,19 @@
 	item_color = "red"
 	desc = "It's a red bandana."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/mask/bandana/blue
 	name = "blue bandana"
 	icon_state = "bandblue"
 	item_color = "blue"
 	desc = "It's a blue bandana."
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/mask/bandana/gold
 	name = "gold bandana"
@@ -457,11 +465,19 @@
 	item_color = "yellow"
 	desc = "It's a gold bandana."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/mask/bandana/green
 	name = "green bandana"
 	icon_state = "bandgreen"
 	item_color = "green"
 	desc = "It's a green bandana."
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/mask/bandana/orange
 	name = "orange bandana"
@@ -469,27 +485,47 @@
 	item_color = "orange"
 	desc = "It's an orange bandana."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/mask/bandana/purple
 	name = "purple bandana"
 	icon_state = "bandpurple"
 	item_color = "purple"
 	desc = "It's a purple bandana."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
 	icon_state = "bandbotany"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"
 	desc = "It's a black bandana with a skull pattern."
 	icon_state = "bandskull"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/mask/bandana/black
 	name = "black bandana"
 	icon_state = "bandblack"
 	item_color = "black"
 	desc = "It's a black bandana."
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/mask/bandana/durathread
 	name = "durathread bandana"
