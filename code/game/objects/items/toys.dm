@@ -772,21 +772,20 @@
 
 /obj/item/toy/windup_toolbox/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/toy/windup_toolbox/update_icon()
-	..()
-	cut_overlays()
+/obj/item/toy/windup_toolbox/update_overlays()
+	. = ..()
 	if(active)
-		add_overlay("single_latch_open")
+		. += "single_latch_open"
 	else
-		add_overlay("single_latch")
+		. += "single_latch"
 
 /obj/item/toy/windup_toolbox/attack_self(mob/user)
 	if(!active)
 		to_chat(user, "<span class='notice'>You wind up [src], it begins to rumble.</span>")
 		active = TRUE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		playsound(src, 'sound/effects/pope_entry.ogg', 100)
 		animate_rumble(src)
 		addtimer(CALLBACK(src, .proc/stopRumble), 60 SECONDS)
@@ -795,7 +794,7 @@
 
 /obj/item/toy/windup_toolbox/proc/stopRumble()
 	active = FALSE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	visible_message("<span class='warning'>[src] slowly stops rattling and falls still, its latch snapping shut.</span>") //subtle difference
 	playsound(loc, 'sound/weapons/batonextend.ogg', 100, TRUE)
 	animate(src, transform = matrix())

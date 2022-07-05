@@ -42,11 +42,14 @@
 	ammo_x_offset = 1
 	can_holster = TRUE
 
-/obj/item/gun/energy/decloner/update_icon()
-	..()
+/obj/item/gun/energy/decloner/update_icon_state()
+	return
+
+/obj/item/gun/energy/decloner/update_overlays()
+	. = list()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(cell.charge > shot.e_cost)
-		add_overlay("decloner_spin")
+		. += "decloner_spin"
 
 // Flora Gun //
 /obj/item/gun/energy/floragun

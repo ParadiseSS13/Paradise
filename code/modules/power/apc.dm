@@ -738,7 +738,7 @@
 			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "<span class='notice'>You remove [cell].</span>")
 			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
-			cell.update_icon()
+			cell.update_icon(UPDATE_OVERLAYS)
 			cell = null
 			charging = FALSE
 			update_icon()
