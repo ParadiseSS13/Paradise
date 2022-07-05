@@ -241,7 +241,7 @@ Difficulty: Hard
 				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
 				forceMove(get_turf(L))
 				var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-				L.apply_damage(15, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
+				L.apply_damage(25, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
 				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 				shake_camera(L, 4, 3)
 				shake_camera(src, 2, 3)
@@ -559,6 +559,13 @@ Difficulty: Hard
 	..()
 	health_and_snap_check(TRUE)
 
+/mob/living/simple_animal/hostile/ancient_robot_leg/bullet_act(obj/item/projectile/P)
+	if(core.stat == CONSCIOUS && !core.target && core.AIStatus != AI_OFF && !core.client)
+		if(P.firer && get_dist(core, P.firer) <= core.aggro_vision_range)
+			core.FindTarget(list(P.firer), 1)
+		core.Goto(P.starting, core.move_to_delay, 3)
+	..()
+
 /mob/living/simple_animal/hostile/ancient_robot_leg/Goto()
 	return // stops the legs from trying to move on their own
 
@@ -602,7 +609,7 @@ Difficulty: Hard
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
 			forceMove(get_turf(L))
 			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-			L.apply_damage(5, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
+			L.apply_damage(12.5, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
 			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			shake_camera(L, 4, 3)
 			shake_camera(src, 2, 3)
@@ -638,7 +645,7 @@ Difficulty: Hard
 	playsound(src, 'sound/effects/meteorimpact.ogg', 60, TRUE, 2, TRUE) //turned way down from bubblegum levels due to 4 legs
 
 /obj/item/projectile/ancient_robot_bullet
-	damage = 6
+	damage = 8
 	damage_type = BRUTE
 
 /obj/item/projectile/rock
