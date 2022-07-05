@@ -141,7 +141,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		successful_load = load_preferences(Q)
 		if(!successful_load)
 			to_chat(C, "<span class='narsie'>Your preferences failed to load. Please inform the server host immediately.</span>")
-		init_keybindings()
 
 /datum/preferences/proc/color_square(colour)
 	return "<span style='font-face: fixedsys; background-color: [colour]; color: [colour]'>___</span>"

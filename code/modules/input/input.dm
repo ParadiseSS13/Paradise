@@ -42,7 +42,7 @@
 			ID.keysend_tripped = TRUE
 			ID.next_keysend_trip_reset = world.time + (2 SECONDS)
 		else
-			log_and_message_admins("was just autokicked for flooding keysends; likely abuse but potentially lagspike.")
+			log_and_message_admins("was just autokicked for flooding keysends; likely abuse but potentially lagspike, or a controller plugged into their PC.")
 			qdel(src)
 			return
 

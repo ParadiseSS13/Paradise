@@ -9,8 +9,9 @@
 	return !isnull(C.holder) && ..()
 
 /datum/keybinding/admin/mc_debug
-	name = "Master Controller Debug"
+	name = "MC Debug"
 	keys = list("F3")
+	rights = R_VIEWRUNTIMES | R_DEBUG
 
 /datum/keybinding/admin/mc_debug/down(client/C)
 	. = ..()

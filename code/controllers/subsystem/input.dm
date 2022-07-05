@@ -3,14 +3,13 @@
 SUBSYSTEM_DEF(input)
 	name = "Input"
 	wait = 1 // SS_TICKER means this runs every tick
-	init_order = INIT_ORDER_INPUT
-	flags = SS_TICKER
+	flags = SS_TICKER | SS_NO_INIT
 	priority = FIRE_PRIORITY_INPUT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	offline_implications = "Player input will no longer be recognised. Immediate server restart recommended."
 
 	/// List of clients whose input to process in loop.
-	var/list/processing = list()
+	var/list/client/processing = list()
 
 /datum/controller/subsystem/input/fire(resumed = FALSE)
 	var/list/to_cull

@@ -120,12 +120,11 @@
 
 	/// The client's job ban holder
 	var/datum/job_ban_holder/jbh = new()
+
 	/// Input datum, what the client is pressing.
 	var/datum/input_data/input_data = new()
-
 	/// The client's active keybindings, depending on their active mob.
 	var/list/active_keybindings = list()
-
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
 

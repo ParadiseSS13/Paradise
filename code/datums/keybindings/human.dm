@@ -20,7 +20,7 @@
 	name = "Rest"
 	keys = list("V")
 
-/datum/keybinding/human/crawl/down(client/C)
+/datum/keybinding/human/rest/down(client/C)
 	. = ..()
 	var/mob/living/carbon/human/M = C.mob
 	M.rest()
