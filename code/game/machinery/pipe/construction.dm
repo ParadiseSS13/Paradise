@@ -13,7 +13,7 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_NORMAL
 	level = 2
-	var/flipped = 0
+	var/flipped = FALSE
 
 /obj/item/pipe/New(loc, pipe_type, dir, obj/machinery/atmospherics/make_from)
 	..()
@@ -114,11 +114,11 @@
 
 		var/obj/machinery/atmospherics/trinary/triP = make_from
 		if(istype(triP) && triP.flipped)
-			src.flipped = 1
+			src.flipped = TRUE
 
 		var/obj/machinery/atmospherics/binary/circulator/circP = make_from
 		if(istype(circP) && circP.side == CIRC_RIGHT)
-			src.flipped = 1
+			src.flipped = TRUE
 
 	else
 		src.pipe_type = pipe_type

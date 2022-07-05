@@ -60,10 +60,10 @@
 	var/disable = FALSE
 	var/last_spark = FALSE
 	var/base_state = "migniter"
-	anchored = 1
+	anchored = TRUE
 
 /obj/machinery/sparker/power_change()
-	if( powered() && disable == 0 )
+	if(powered() && !disable)
 		stat &= ~NOPOWER
 		icon_state = "[base_state]"
 //		src.sd_set_light(2)

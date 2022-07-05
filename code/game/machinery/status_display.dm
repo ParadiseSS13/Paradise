@@ -14,8 +14,8 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	name = "status display"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/mode = 1	// 0 = Blank
@@ -32,10 +32,10 @@
 
 	frequency = DISPLAY_FREQ		// radio frequency
 
-	var/friendc = 0      // track if Friend Computer mode
-	var/ignore_friendc = 0
+	var/friendc = FALSE      // track if Friend Computer mode
+	var/ignore_friendc = FALSE
 
-	var/spookymode = 0
+	var/spookymode = FALSE
 
 	maptext_height = 26
 	maptext_width = 32
@@ -66,7 +66,7 @@
 		remove_display()
 		return
 	if(spookymode)
-		spookymode = 0
+		spookymode = FALSE
 		remove_display()
 		return
 	update()
@@ -200,10 +200,10 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	name = "AI display"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 
-	var/spookymode = 0
+	var/spookymode = FALSE
 
 	var/mode = 0	// 0 = Blank
 					// 1 = AI emoticon
@@ -222,7 +222,7 @@
 		overlays.Cut()
 		return
 	if(spookymode)
-		spookymode = 0
+		spookymode = FALSE
 		overlays.Cut()
 		return
 	update()
