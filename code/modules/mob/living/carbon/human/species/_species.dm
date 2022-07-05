@@ -541,10 +541,20 @@
 	//Directional checks to make sure that we're not shoving through a windoor or something like that
 	var/directional_blocked = FALSE
 	var/target_turf = get_turf(target)
-	for(var/obj/obj_content in target_turf) // check the tile we are on for border
-		if(obj_content.flags & ON_BORDER && obj_content.dir & shove_dir && obj_content.density)
+	if(shove_dir in list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)) // if we are moving diagonially, we need to check if there are dense walls either side of us
+		var/turf/T = get_step(target.loc, turn(shove_dir, 45)) // check to the left for a dense turf
+		if(T.density)
 			directional_blocked = TRUE
-			break
+		else
+			T = get_step(target.loc, turn(shove_dir, -45)) // check to the right for a dense turf
+			if(T.density)
+				directional_blocked = TRUE
+
+	if(!directional_blocked)
+		for(var/obj/obj_content in target_turf) // check the tile we are on for border
+			if(obj_content.flags & ON_BORDER && obj_content.dir & shove_dir && obj_content.density)
+				directional_blocked = TRUE
+				break
 	if(!directional_blocked)
 		for(var/obj/obj_content in shove_to) // check tile we are moving to for borders
 			if(obj_content.flags & ON_BORDER && obj_content.dir & turn(shove_dir, 180) && obj_content.density)
