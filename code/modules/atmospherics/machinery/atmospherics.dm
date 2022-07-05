@@ -297,7 +297,7 @@ Pipelines + Other Objects -> Pipe network
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
 		else if(target_move.can_crawl_through())
-			if(returnPipenet() != target_move.returnPipenet())
+			if(returnPipenet(target_move) != target_move.returnPipenet())
 				user.update_pipe_vision(target_move)
 			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
