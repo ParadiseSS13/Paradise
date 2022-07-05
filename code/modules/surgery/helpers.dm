@@ -147,12 +147,13 @@
 	var/turf/T = get_turf(M)
 	if(locate(/obj/machinery/optable, T))
 		return 1
-	else if(locate(/obj/structure/table, T))
+	if(locate(/obj/structure/bed/roller/holo, T))
+		return 0.9
+	if(locate(/obj/structure/table, T) || locate(/obj/structure/bed/roller, T))
 		return 0.8
-	else if(locate(/obj/structure/bed, T))
+	if(locate(/obj/structure/bed, T))
 		return 0.7
-	else
-		return 0.5
+	return 0.5
 
 //check if mob is lying down on something we can operate him on.
 /proc/can_operate(mob/living/carbon/M)
