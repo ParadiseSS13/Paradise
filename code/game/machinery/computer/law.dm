@@ -5,7 +5,7 @@
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/aiupload
 	var/mob/living/silicon/ai/current = null
-	var/opened = FALSE
+	var/opened = 0
 
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
@@ -16,7 +16,7 @@
 	set category = "Object"
 	set name = "Access Computer's Internals"
 	set src in oview(1)
-	if(get_dist(src, usr) > 1 || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || istype(usr, /mob/living/silicon))
+	if(get_dist(src, usr) > 1 || usr.restrained() || usr.lying || usr.stat || istype(usr, /mob/living/silicon))
 		return
 
 	opened = !opened

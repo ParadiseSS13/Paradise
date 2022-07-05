@@ -11,7 +11,7 @@
 
 //Recover from stuns.
 /datum/action/changeling/epinephrine/sting_action(mob/living/user)
-	if(IS_HORIZONTAL(user))
+	if(user.lying)
 		to_chat(user, "<span class='notice'>We arise.</span>")
 	else
 		to_chat(user, "<span class='notice'>Adrenaline rushes through us.</span>")
@@ -21,7 +21,8 @@
 	user.SetStunned(0)
 	user.SetWeakened(0)
 	user.setStaminaLoss(0)
-	user.SetKnockDown(0)
+	user.lying = FALSE
+	user.update_canmove()
 	user.reagents.add_reagent("synaptizine", 15)
 	user.reagents.add_reagent("stimulative_agent", 1)
 

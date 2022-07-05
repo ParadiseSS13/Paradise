@@ -2,6 +2,7 @@
 /obj/effect/particle_effect/ion_trails
 	name = "ion trails"
 	icon_state = "ion_trails"
+	anchored = TRUE
 
 /obj/effect/particle_effect/ion_trails/Initialize(mapload, targetdir)
 	. = ..()

@@ -5,8 +5,9 @@
 /obj/effect/particle_effect/foam
 	name = "foam"
 	icon_state = "foam"
-	opacity = FALSE
-	density = FALSE
+	opacity = 0
+	anchored = 1
+	density = 0
 	layer = OBJ_LAYER + 0.9
 	animate_movement = 0
 	var/amount = 3

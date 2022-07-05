@@ -327,7 +327,7 @@
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
 			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
 			return FALSE
-	if(HAS_TRAIT(speaker, TRAIT_HANDS_BLOCKED))
+	if(speaker.incapacitated(ignore_lying = 1))
 		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
 		return FALSE
 
@@ -567,6 +567,30 @@
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE
+
+/datum/language/corticalborer
+	name = "Cortical Link"
+	desc = "Cortical borers possess a strange link between their tiny minds."
+	speech_verb = "sings"
+	ask_verb = "sings"
+	exclaim_verbs = list("sings")
+	colour = "alien"
+	key = "bo"
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
+
+/datum/language/corticalborer/broadcast(mob/living/speaker, message, speaker_mask)
+	var/mob/living/simple_animal/borer/B
+
+	if(iscarbon(speaker))
+		var/mob/living/carbon/M = speaker
+		B = M.has_brain_worms()
+	else if(istype(speaker,/mob/living/simple_animal/borer))
+		B = speaker
+
+	if(B)
+		speaker_mask = B.truename
+	..(speaker,message,speaker_mask)
 
 /datum/language/binary
 	name = "Robot Talk"

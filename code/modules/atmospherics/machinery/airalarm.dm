@@ -73,7 +73,7 @@
 	name = "alarm"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm0"
-	anchored = TRUE
+	anchored = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
@@ -92,12 +92,12 @@
 	var/remote_control = TRUE
 	var/rcon_setting = RCON_AUTO
 	var/rcon_time = 0
-	var/locked = TRUE
+	var/locked = 1
 	var/datum/wires/alarm/wires = null
-	var/wiresexposed = FALSE // If it's been screwdrivered open.
-	var/aidisabled = FALSE
+	var/wiresexposed = 0 // If it's been screwdrivered open.
+	var/aidisabled = 0
 	var/AAlarmwires = 31
-	var/shorted = FALSE
+	var/shorted = 0
 
 	// Waiting on a device to respond.
 	// Specifies an id_tag.  NULL means we aren't waiting.
@@ -223,7 +223,7 @@
 			setDir(direction)
 
 		buildstage = 0
-		wiresexposed = TRUE
+		wiresexposed = 1
 		set_pixel_offsets_from_dir(-24, 24, -24, 24)
 
 	. = ..()

@@ -64,53 +64,53 @@
 */
 
 /obj/machinery/door/airlock/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/command/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 	normal_integrity = 400
 
 /obj/machinery/door/airlock/engineering/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/security/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 	normal_integrity = 400
 
 /obj/machinery/door/airlock/medical/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/virology/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/research/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/mining/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/atmos/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/science/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/maintenance/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/maintenance/external/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 	normal_integrity = 200
 
@@ -126,7 +126,7 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/gold/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/silver
@@ -136,7 +136,7 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/silver/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/diamond
@@ -149,7 +149,7 @@
 
 /obj/machinery/door/airlock/diamond/glass
 	normal_integrity = 950
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/uranium
@@ -172,7 +172,7 @@
 
 
 /obj/machinery/door/airlock/uranium/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/plasma
@@ -216,7 +216,7 @@
 	return 0
 
 /obj/machinery/door/airlock/plasma/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/bananium
@@ -229,7 +229,7 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/bananium/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/tranquillite
@@ -250,7 +250,7 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/sandstone/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/wood
@@ -260,7 +260,7 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/wood/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 /obj/machinery/door/airlock/titanium
@@ -273,7 +273,7 @@
 
 /obj/machinery/door/airlock/titanium/glass
 	normal_integrity = 350
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 //////////////////////////////////
@@ -287,7 +287,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_public
 
 /obj/machinery/door/airlock/public/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 //////////////////////////////////
@@ -305,7 +305,7 @@
 	doorClose = 'sound/machines/airlock_ext_close.ogg'
 
 /obj/machinery/door/airlock/external/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE
 
 //////////////////////////////////
@@ -316,7 +316,7 @@
 /obj/machinery/door/airlock/centcom
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
-	opacity = TRUE
+	opacity = 1
 	explosion_block = 2
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
@@ -324,7 +324,7 @@
 
 /obj/machinery/door/airlock/centcom/glass
 	glass = TRUE
-	opacity = FALSE
+	opacity = 0
 
 /obj/machinery/door/airlock/centcom/glass/Initialize()
 	. = ..()
@@ -582,7 +582,7 @@
 
 /obj/machinery/door/airlock/cult/glass
 	glass = TRUE
-	opacity = FALSE
+	opacity = 0
 
 /obj/machinery/door/airlock/cult/glass/Initialize()
 	. = ..()
@@ -608,7 +608,7 @@
 
 /obj/machinery/door/airlock/cult/unruned/glass
 	glass = TRUE
-	opacity = FALSE
+	opacity = 0
 
 /obj/machinery/door/airlock/cult/unruned/glass/Initialize()
 	. = ..()
@@ -644,5 +644,5 @@
 	return
 
 /obj/machinery/door/airlock/multi_tile/glass
-	opacity = FALSE
+	opacity = 0
 	glass = TRUE

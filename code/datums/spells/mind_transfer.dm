@@ -4,7 +4,7 @@
 
 	school = "transmutation"
 	charge_max = 600
-	clothes_req = FALSE
+	clothes_req = 0
 	invocation = "GIN'YU CAPAN"
 	invocation_type = "whisper"
 	selection_activated_message = "<span class='notice'>You prepare to transfer your mind. Click on a target to cast the spell.</span>"

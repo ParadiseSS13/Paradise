@@ -4,7 +4,8 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	// hide and freeze for the GC
-	notransform = TRUE
+	notransform = 1
+	canmove = 0
 	icon = null
 	invisibility = 101
 
@@ -21,7 +22,8 @@
 		return FALSE
 	new /obj/effect/decal/cleanable/ash(loc)
 	// hide and freeze them while they get GC'd
-	notransform = TRUE
+	notransform = 1
+	canmove = 0
 	icon = null
 	invisibility = 101
 	QDEL_IN(src, 0)
@@ -31,7 +33,8 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	// hide and freeze them while they get GC'd
-	notransform = TRUE
+	notransform = 1
+	canmove = 0
 	icon = null
 	invisibility = 101
 	QDEL_IN(src, 0)
@@ -67,13 +70,16 @@
 	hud_used?.reload_fullscreen()
 	update_sight()
 	update_action_buttons_icon()
-	ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
+
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
+
+	if(!gibbed)
+		update_canmove()
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src

@@ -126,7 +126,6 @@
 	if(stat)
 		return 0
 	on = 1
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(initial(light_range))
 	update_icon()
 	update_controls()
@@ -135,7 +134,6 @@
 
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = 0
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(0)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
@@ -194,6 +192,11 @@
 /mob/living/simple_animal/bot/med_hud_set_status()
 	return //we use a different hud
 
+/mob/living/simple_animal/bot/update_canmove(delay_action_updates = 0)
+	. = ..()
+	if(!on)
+		. = 0
+	canmove = .
 
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)

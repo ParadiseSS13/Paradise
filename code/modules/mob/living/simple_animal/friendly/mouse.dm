@@ -63,13 +63,13 @@
 
 /mob/living/simple_animal/mouse/handle_automated_movement()
 	. = ..()
-	if(IS_HORIZONTAL(src))
+	if(resting)
 		if(prob(1))
-			stand_up()
+			StopResting()
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "snuffles")
 	else if(prob(0.5))
-		lay_down()
+		StartResting()
 
 /mob/living/simple_animal/mouse/New()
 	..()

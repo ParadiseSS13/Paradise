@@ -19,6 +19,7 @@
 	name = "sparks"
 	desc = "it's a spark what do you need to know?"
 	icon_state = "sparks"
+	anchored = TRUE
 	var/hotspottemp = 1000
 
 /obj/effect/particle_effect/sparks/New()

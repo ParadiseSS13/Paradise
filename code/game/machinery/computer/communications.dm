@@ -275,7 +275,7 @@
 
 		if("RestoreBackup")
 			to_chat(usr, "Backup routing data restored!")
-			emagged = FALSE
+			src.emagged = 0
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("RestartNanoMob")
@@ -294,7 +294,7 @@
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)
-		emagged = TRUE
+		src.emagged = 1
 		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
 		SStgui.update_uis(src)
 

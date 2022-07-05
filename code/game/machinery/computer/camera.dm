@@ -200,7 +200,7 @@
 	icon_screen = "telescreen"
 	icon_keyboard = null
 	light_range_on = 0
-	density = FALSE
+	density = 0
 	circuit = /obj/item/circuitboard/camera/telescreen
 
 /obj/machinery/computer/security/telescreen/entertainment

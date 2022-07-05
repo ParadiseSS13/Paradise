@@ -6,23 +6,23 @@
 
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 
-	can_unwrench = TRUE
+	can_unwrench = 1
 
 	name = "air injector"
 	desc = "Has a valve and pump attached to it"
 
 	req_one_access_txt = "24;10"
 
-	var/injecting = FALSE
+	var/injecting = 0
 
 	var/volume_rate = 50
 
 	var/id
-	Mtoollink = TRUE
+	Mtoollink = 1
 	settagwhitelist = list("id_tag")
 
 /obj/machinery/atmospherics/unary/outlet_injector/on
-	on = TRUE
+	on = 1
 
 /obj/machinery/atmospherics/unary/outlet_injector/New()
 	..()
@@ -64,7 +64,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/process_atmos()
 	..()
 
-	injecting = FALSE
+	injecting = 0
 
 	if(!on || stat & NOPOWER)
 		return 0
@@ -85,7 +85,7 @@
 	if(on || injecting)
 		return 0
 
-	injecting = TRUE
+	injecting = 1
 
 	if(air_contents.temperature > 0)
 		var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
@@ -157,7 +157,7 @@
 				icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]off"
 		else
 			icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]exposed"
-			on = FALSE
+			on = 0
 		return*/
 
 /obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(mob/user, obj/item/multitool/P)

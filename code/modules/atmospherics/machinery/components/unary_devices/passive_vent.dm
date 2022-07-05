@@ -6,7 +6,7 @@
 	name = "passive vent"
 	desc = "A large air vent"
 
-	can_unwrench = TRUE
+	can_unwrench = 1
 
 	var/volume = 250
 

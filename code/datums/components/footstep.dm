@@ -53,7 +53,7 @@
 		return
 
 	var/mob/living/LM = parent
-	if(!T.footstep || IS_HORIZONTAL(LM) || !(LM.mobility_flags & MOBILITY_MOVE) || LM.buckled || LM.throwing || LM.flying || istype(LM.loc, /obj/machinery/atmospherics))
+	if(!T.footstep || LM.lying || !LM.canmove || LM.resting || LM.buckled || LM.throwing || LM.flying || istype(LM.loc, /obj/machinery/atmospherics))
 		return
 
 	if(ishuman(LM))

@@ -249,8 +249,8 @@
 /datum/reagent/proc/fakerevive(mob/living/M)
 	if(!HAS_TRAIT_FROM(M, TRAIT_FAKEDEATH, id))
 		return
-	if(IS_HORIZONTAL(M))
-		M.stand_up()
+	if(M.resting)
+		M.StopResting()
 	REMOVE_TRAIT(M, TRAIT_FAKEDEATH, id)
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()

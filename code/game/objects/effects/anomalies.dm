@@ -8,6 +8,7 @@
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon_state = "bhole3"
 	density = FALSE
+	anchored = TRUE
 	light_range = 3
 	var/movechance = ANOMALY_MOVECHANCE
 	var/obj/item/assembly/signaler/anomaly/aSignal = /obj/item/assembly/signaler/anomaly

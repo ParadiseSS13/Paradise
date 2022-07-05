@@ -59,7 +59,6 @@
 
 	U.SetWeakened(0)
 	U.SetStunned(0)
-	U.SetKnockDown(0)
 	U.SetParalysis(0)
 	U.SetSleeping(0)
 	U.SetConfused(0)
@@ -187,7 +186,7 @@
 			continue
 
 		var/deviation
-		if(user.IsWeakened() || IS_HORIZONTAL(user))
+		if(user.IsWeakened() || user.resting)
 			deviation = DEVIATION_PARTIAL
 		else
 			deviation = calculate_deviation(target, user)

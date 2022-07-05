@@ -481,13 +481,13 @@
 
 	SStun = world.time + rand(20,60)
 	spawn(0)
-		ADD_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_TRAIT)
+		canmove = FALSE
 		if(user)
 			step_away(src,user,15)
 		sleep(3)
 		if(user)
 			step_away(src,user,15)
-		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_TRAIT)
+		update_canmove()
 
 /mob/living/simple_animal/slime/pet
 	docile = TRUE

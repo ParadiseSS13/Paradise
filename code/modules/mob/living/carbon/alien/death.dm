@@ -3,7 +3,8 @@
 		return FALSE
 	death(1)
 	var/atom/movable/overlay/animation = null
-	notransform = TRUE
+	notransform = 1
+	canmove = 0
 	icon = null
 	invisibility = 101
 
@@ -25,7 +26,8 @@
 /mob/living/carbon/alien/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = TRUE
+	notransform = 1
+	canmove = 0
 	icon = null
 	invisibility = 101
 	dust_animation()

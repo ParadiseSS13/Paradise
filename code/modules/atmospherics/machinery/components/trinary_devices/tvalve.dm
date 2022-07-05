@@ -8,7 +8,7 @@
 	name = "manual switching valve"
 	desc = "A pipe valve"
 
-	can_unwrench = TRUE
+	can_unwrench = 1
 
 	var/state = TVALVE_STATE_STRAIGHT
 
@@ -21,11 +21,11 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/flipped
 	icon_state = "map_tvalvem0"
-	flipped = TRUE
+	flipped = 1
 
 /obj/machinery/atmospherics/trinary/tvalve/flipped/bypass
 	icon_state = "map_tvalvem1"
-	flipped = TRUE
+	flipped = 1
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/update_icon(animation)
@@ -121,11 +121,11 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/flipped
 	icon_state = "map_tvalvem0"
-	flipped = TRUE
+	flipped = 1
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/flipped/bypass
 	icon_state = "map_tvalvem1"
-	flipped = TRUE
+	flipped = 1
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/power_change()

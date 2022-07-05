@@ -3,6 +3,7 @@
 	desc = "Looks unstable. Best to test it with the clown."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
+	anchored = TRUE
 
 	var/obj/item/target = null
 	/// The UID and `name` of the object that created this portal. For example, a wormhole jaunter.

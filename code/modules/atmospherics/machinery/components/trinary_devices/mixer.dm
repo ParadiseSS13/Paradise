@@ -2,7 +2,7 @@
 	icon = 'icons/atmos/mixer.dmi'
 	icon_state = "map"
 
-	can_unwrench = TRUE
+	can_unwrench = 1
 
 	name = "gas mixer"
 
@@ -33,7 +33,7 @@
 
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"
-	flipped = TRUE
+	flipped = 1
 
 /obj/machinery/atmospherics/trinary/mixer/update_icon(safety = 0)
 	..()
@@ -49,7 +49,7 @@
 		icon_state += on ? "on" : "off"
 	else
 		icon_state += "off"
-		on = FALSE
+		on = 0
 
 /obj/machinery/atmospherics/trinary/mixer/update_underlays()
 	if(..())

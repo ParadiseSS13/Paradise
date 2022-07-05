@@ -74,7 +74,7 @@
 	if(!ignoreRest)
 		if(ishuman(A))
 			var/mob/living/carbon/human/M = A
-			if(IS_HORIZONTAL(M))
+			if(M.lying)
 				return 1
 
 			if(M.flying)
@@ -103,7 +103,7 @@
 				if(TURF_WET_PERMAFROST) // Permafrost
 					M.slip("the frosted floor", 10 SECONDS, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
 
-/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
+/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	. = ..()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 

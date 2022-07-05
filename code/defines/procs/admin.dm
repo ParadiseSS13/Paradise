@@ -73,11 +73,8 @@
 /proc/key_name_admin(whom)
 	if(whom)
 		var/datum/whom_datum = whom //As long as it's not null, will be close enough/has the proc UID() that is all that's needed
-		if(istype(whom_datum))  // strings and numbers are not datums, but sometimes they do get here...
-			var/message = "[key_name(whom, 1)]([ADMIN_QUE(whom_datum,"?")])[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
-			return message
-		else
-			return "INVALID/[whom]"
+		var/message = "[key_name(whom, 1)]([ADMIN_QUE(whom_datum,"?")])[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
+		return message
 
 /proc/key_name_mentor(whom)
 	// Same as key_name_admin, but does not include (?) or (A) for antags.

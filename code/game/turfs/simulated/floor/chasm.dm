@@ -150,7 +150,8 @@
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.notransform = TRUE
-		L.Weaken(400 SECONDS)
+		L.Stun(400 SECONDS)
+		L.resting = TRUE
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha

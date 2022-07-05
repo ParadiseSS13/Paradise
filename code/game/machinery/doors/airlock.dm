@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	name = "airlock"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "closed"
-	anchored = TRUE
+	anchored = 1
 	max_integrity = 300
 	integrity_failure = 70
 	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
@@ -74,11 +74,11 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/lights = TRUE // bolt lights show by default
 	var/datum/wires/airlock/wires
 	var/aiDisabledIdScanner = FALSE
-	var/aiHacking = FALSE
+	var/aiHacking = 0
 	var/obj/machinery/door/airlock/closeOther
 	var/closeOtherId
 	var/lockdownbyai = 0
-	var/justzap = FALSE
+	var/justzap = 0
 	var/obj/item/airlock_electronics/electronics
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
 	var/obj/item/note //Any papers pinned to the airlock
@@ -191,9 +191,9 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		if(isElectrified())
 			if(!justzap)
 				if(shock(user, 100))
-					justzap = TRUE
+					justzap = 1
 					spawn (10)
-						justzap = FALSE
+						justzap = 0
 					return
 			else
 				return
@@ -617,7 +617,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 			return
 		else if(!canAIHack(user))
 			to_chat(user, "Connection lost! Unable to hack airlock.")
-			aiHacking = FALSE
+			aiHacking=0
 			return
 		to_chat(user, "Fault confirmed: airlock control wire disabled or cut.")
 		sleep(20)
@@ -1215,7 +1215,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	if(operating && !forced)
 		return 0
 
-	locked = TRUE
+	locked = 1
 	playsound(src, boltDown, 30, 0, 3)
 	update_icon()
 	return 1
@@ -1228,7 +1228,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		if(operating || !arePowerSystemsOn() || wires.is_cut(WIRE_DOOR_BOLTS))
 			return
 
-	locked = FALSE
+	locked = 0
 	playsound(src,boltUp, 30, 0, 3)
 	update_icon()
 	return 1

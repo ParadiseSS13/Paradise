@@ -4,8 +4,6 @@
 	var/base_run_speed = 1
 	/// Base walk speed before modifiers
 	var/base_walk_speed = 4
-	///crawling speed modifier
-	var/crawling_speed_reduction = 4
 	/// Move delay for humanoids
 	var/human_delay = 1.5
 	/// Move delay for cyborgs
@@ -21,7 +19,6 @@
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
 	CONFIG_LOAD_NUM(base_run_speed, data["base_run_speed"])
 	CONFIG_LOAD_NUM(base_walk_speed, data["base_walk_speed"])
-	CONFIG_LOAD_NUM(crawling_speed_reduction, data["crawling_speed_reduction"])
 	CONFIG_LOAD_NUM(human_delay, data["human_delay"])
 	CONFIG_LOAD_NUM(robot_delay, data["robot_delay"])
 	CONFIG_LOAD_NUM(alien_delay, data["alien_delay"])

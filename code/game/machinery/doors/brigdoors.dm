@@ -18,12 +18,12 @@
 	icon_state = "frame"
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_BRIG)
-	anchored = TRUE    		// can't pick it up
-	density = FALSE       		// can walk through it.
+	anchored = 1    		// can't pick it up
+	density = 0       		// can walk through it.
 	layer = WALL_OBJ_LAYER
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
-	var/timing = FALSE    	// boolean, true/1 timer is on, false/0 means it's not timing
+	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing
 	var/picture_state		// icon_state of alert picture, if not displaying text/numbers
 	var/list/obj/machinery/targets = list()
 	var/timetoset = 0		// Used to set releasetime upon starting the timer
@@ -119,7 +119,7 @@
 
 	GLOB.celltimers_list += src
 	Radio = new /obj/item/radio(src)
-	Radio.listening = FALSE
+	Radio.listening = 0
 	Radio.config(list("Security" = 0))
 	Radio.follow_target = src
 	return INITIALIZE_HINT_LATELOAD
@@ -163,7 +163,7 @@
 			Radio.autosay("Timer has expired. Releasing prisoner.", name, "Security", list(z))
 			occupant = CELL_NONE
 			timer_end() // open doors, reset timer, clear status screen
-			timing = FALSE
+			timing = 0
 			. = PROCESS_KILL
 		update_icon()
 	else
@@ -211,9 +211,9 @@
 
 	for(var/obj/machinery/treadmill_monitor/T in targets)
 		T.total_joules = 0
-		T.on = TRUE
+		T.on = 1
 
-	return TRUE
+	return 1
 
 
 // Opens and unlocks doors, power check
@@ -244,15 +244,15 @@
 			continue
 		if(C.opened)
 			continue
-		C.locked = FALSE
+		C.locked = 0
 		C.icon_state = C.icon_closed
 
 	for(var/obj/machinery/treadmill_monitor/T in targets)
 		if(!T.stat)
 			T.redeem()
-		T.on = FALSE
+		T.on = 0
 
-	return TRUE
+	return 1
 
 
 // Check for releasetime timeleft

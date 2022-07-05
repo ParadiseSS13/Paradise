@@ -239,13 +239,10 @@
 	. = 0	//We start at 0.
 
 	if(has_gravity(H))
-		if(!IS_HORIZONTAL(H))
-			if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
-				. -= 1
-			else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
-				. -= 0.5
-		else
-			. += GLOB.configuration.movement.crawling_speed_reduction
+		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
+			. -= 1
+		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
+			. -= 0.5
 
 		var/ignoreslow = FALSE
 		if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
@@ -508,7 +505,7 @@
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
 			target.apply_effect(8 SECONDS, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
-		else if(IS_HORIZONTAL(target))
+		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 

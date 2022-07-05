@@ -65,7 +65,7 @@
   */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(M && IS_HORIZONTAL(M))
+	if(M && M.lying)
 		patient = M
 	else
 		patient = null
@@ -94,7 +94,7 @@
 	else
 		visible_message("<span class='alert'>[new_patient] has been laid on the operating table by [user].</span>")
 	new_patient.resting = TRUE
-	new_patient.lay_down()
+	new_patient.update_canmove()
 	new_patient.forceMove(loc)
 	if(user.pulling == new_patient)
 		user.stop_pulling()

@@ -72,11 +72,3 @@
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_paralyzed = FALSE //knocks you down
-
-	/// Number of degrees of rotation of a mob. 0 means no rotation, up-side facing NORTH. 90 means up-side rotated to face EAST, and so on.
-	VAR_PROTECTED/lying_angle = 0
-	/// if a mob is choosing to lay down
-	var/resting = FALSE
-	var/body_position = STANDING_UP
-	var/mobility_flags = MOBILITY_FLAGS_DEFAULT
-

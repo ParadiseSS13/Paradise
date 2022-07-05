@@ -42,7 +42,7 @@
 /obj/effect/particle_effect/steam
 	name = "steam"
 	icon_state = "extinguish"
-	density = FALSE
+	density = 0
 
 /obj/effect/particle_effect/steam/New()
 	..()

@@ -219,7 +219,6 @@
 		owner.AdjustParalysis(-2 SECONDS * boost)
 		owner.AdjustStunned(-2 SECONDS * boost)
 		owner.AdjustWeakened(-2 SECONDS * boost)
-		owner.AdjustKnockDown(-2 SECONDS * boost)
 		owner.SetSleeping(0)
 		owner.adjustStaminaLoss(-1 * boost)
 

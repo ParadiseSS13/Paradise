@@ -1044,7 +1044,7 @@
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.2
 	drink_icon = "erikasurprise"
-	drink_name = "Erika Surprise"
+	name = "Erika Surprise"
 	drink_desc = "The surprise is, it's green!"
 	taste_description = "disappointment"
 
@@ -1102,7 +1102,6 @@
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
-		M.AdjustKnockDown(-2 SECONDS)
 	if(prob(8))
 		M.reagents.add_reagent("methamphetamine",1.2)
 		var/sonic_message = pick("Gotta go fast!", "Time to speed, keed!", "I feel a need for speed!", "Let's juice.", "Juice time.", "Way Past Cool!")

@@ -91,7 +91,7 @@
 
 	var/mob/user = usr
 
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
 		usr << browse(null, "window=hscan")
 		onclose(usr, "hscan")
 		return

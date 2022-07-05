@@ -9,6 +9,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	var/drydesc = "It's dry and crusty. Someone is not doing their job."
 	gender = PLURAL
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	icon = 'icons/effects/blood.dmi'
@@ -136,6 +137,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	desc = "They look bloody and gruesome."
 	gender = PLURAL
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "gibbl5"

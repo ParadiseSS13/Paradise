@@ -4,7 +4,8 @@
 	desc = "Burbling corrosive stuff."
 	icon_state = "acid"
 	density = FALSE
-	opacity = FALSE
+	opacity = 0
+	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = ABOVE_NORMAL_TURF_LAYER
 	var/turf/target

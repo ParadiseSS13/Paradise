@@ -3,8 +3,9 @@
 	name = "FORCEWALL"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "m_shield"
-	opacity = FALSE
-	density = TRUE
+	anchored = 1
+	opacity = 0
+	density = 1
 	var/lifetime = 30 SECONDS
 
 /obj/effect/forcefield/New()

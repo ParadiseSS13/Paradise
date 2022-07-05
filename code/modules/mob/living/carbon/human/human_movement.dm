@@ -35,7 +35,7 @@
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
 	if(.) // did we actually move?
-		if(!IS_HORIZONTAL(src) && !buckled && !throwing)
+		if(!lying && !buckled && !throwing)
 			for(var/obj/item/organ/external/splinted in splinted_limbs)
 				splinted.update_splints()
 
@@ -44,7 +44,7 @@
 
 	var/obj/item/clothing/shoes/S = shoes
 
-	if(S && !IS_HORIZONTAL(src) && loc == NewLoc)
+	if(S && !lying && loc == NewLoc)
 		SEND_SIGNAL(S, COMSIG_SHOES_STEP_ACTION)
 
 	//Bloody footprints

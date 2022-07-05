@@ -100,7 +100,7 @@
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
-	if(IS_HORIZONTAL(D))
+	if(D.lying)
 		atk_verb = "kick"
 
 	switch(atk_verb)
@@ -130,7 +130,7 @@
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(8 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
-	else if(IS_HORIZONTAL(D))
+	else if(D.lying)
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 

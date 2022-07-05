@@ -75,7 +75,7 @@
 	if(!L)
 		return TURRET_NOT_TARGET
 
-	if(IS_HORIZONTAL(L))
+	if(L.lying)
 		return TURRET_NOT_TARGET
 
 	var/target_suit

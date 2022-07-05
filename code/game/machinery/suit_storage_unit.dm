@@ -423,7 +423,7 @@
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !Adjacent(A) || !isliving(A))
+	if(user.stat || user.lying || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	var/mob/living/target = A
 	if(!state_open)
@@ -552,6 +552,9 @@
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/A in contents)
 		A.forceMove(T)
+		if(isliving(A))
+			var/mob/living/L = A
+			L.update_canmove()
 	occupant = null
 
 /obj/machinery/suit_storage_unit/proc/close_machine(atom/movable/target = null)

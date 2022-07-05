@@ -2,8 +2,8 @@
 
 /obj/machinery/computer/operating
 	name = "operating computer"
-	density = TRUE
-	anchored = TRUE
+	density = 1
+	anchored = 1.0
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating

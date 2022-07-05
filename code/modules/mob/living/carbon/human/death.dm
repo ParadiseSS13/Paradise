@@ -2,7 +2,8 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	var/atom/movable/overlay/animation = null
-	notransform = TRUE
+	notransform = 1
+	canmove = 0
 	icon = null
 	invisibility = 101
 	if(!ismachineperson(src))
@@ -49,6 +50,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	notransform = TRUE
+	canmove = FALSE
 	dust_animation()
 	QDEL_IN(src, 20)
 	return TRUE
@@ -67,7 +69,8 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	var/atom/movable/overlay/animation = null
-	notransform = TRUE
+	notransform = 1
+	canmove = 0
 	icon = null
 	invisibility = 101
 

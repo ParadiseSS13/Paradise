@@ -19,7 +19,7 @@ Thus, the two variables affect pump operation are set in New():
 	name = "volumetric gas pump"
 	desc = "A volumetric pump"
 
-	can_unwrench = TRUE
+	can_unwrench = 1
 
 	var/transfer_rate = 200
 
@@ -51,7 +51,7 @@ Thus, the two variables affect pump operation are set in New():
 	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/on
-	on = TRUE
+	on = 1
 	icon_state = "map_on"
 
 /obj/machinery/atmospherics/binary/volume_pump/atmos_init()

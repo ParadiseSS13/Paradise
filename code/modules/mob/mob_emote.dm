@@ -130,7 +130,7 @@
 
 	var/mob/living/L = user
 
-	if(IS_HORIZONTAL(L))
+	if(user.lying || (istype(L) && L.IsWeakened()))
 		message = "flops and flails around on the floor."
 		return ..()
 	else if(params)

@@ -14,6 +14,10 @@
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(stomach_contents)
 	QDEL_LIST(processing_patches)
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+	if(B)
+		B.leave_host()
+		qdel(B)
 	GLOB.carbon_list -= src
 	return ..()
 
@@ -220,19 +224,18 @@
 			if(player_logged)
 				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
 				"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
-			if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					if(H.w_uniform)
 						H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-10 SECONDS)
+				if(!AmountSleeping())
+					StopResting()
 				AdjustParalysis(-6 SECONDS)
 				AdjustStunned(-6 SECONDS)
 				AdjustWeakened(-6 SECONDS)
-				AdjustKnockDown(-6 SECONDS)
-				resting = FALSE
-				stand_up() // help them up if possible
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
@@ -438,8 +441,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "You must be conscious to do this!")
 		return
 
-	if(!(mobility_flags & MOBILITY_MOVE))
-		to_chat(src, "You can't vent crawl while you cannot move!")
+	if(lying)
+		to_chat(src, "You can't vent crawl while you're stunned!")
 		return
 
 	if(has_buckled_mobs())
@@ -514,7 +517,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
 
 
-/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, var/obj/machinery/atmospherics/target_move)
+/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
 	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
 		return
 	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
@@ -539,15 +542,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /atom/proc/update_pipe_vision()
 	return
 
-/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
-	if(pipes_shown.len && !(target_move))
+/mob/living/update_pipe_vision()
+	if(pipes_shown.len)
 		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else
 		if(is_ventcrawling(src))
-			if(target_move)
-				remove_ventcrawl() //no more seeing the old pipe network if you are moving into a new one
-			add_ventcrawl(loc, target_move)
+			add_ventcrawl(loc)
 
 
 //Throwing stuff
@@ -748,42 +749,41 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/Topic(href, href_list)
 	..()
 	//strip panel
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained() || !in_range(src, usr))
-		return
-	if(href_list["internal"])
-		var/slot = text2num(href_list["internal"])
-		var/obj/item/ITEM = get_item_by_slot(slot)
-		if(ITEM && istype(ITEM, /obj/item/tank))
-			visible_message("<span class='danger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>", \
-							"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
+	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+		if(href_list["internal"])
+			var/slot = text2num(href_list["internal"])
+			var/obj/item/ITEM = get_item_by_slot(slot)
+			if(ITEM && istype(ITEM, /obj/item/tank))
+				visible_message("<span class='danger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>", \
+								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
 
-			var/no_mask
-			if(!get_organ_slot("breathing_tube"))
-				if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-					if(!(head && head.flags & AIRTIGHT))
-						no_mask = 1
-			if(no_mask)
-				to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
-				return
+				var/no_mask
+				if(!get_organ_slot("breathing_tube"))
+					if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+						if(!(head && head.flags & AIRTIGHT))
+							no_mask = 1
+				if(no_mask)
+					to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
+					return
 
-			if(do_mob(usr, src, POCKET_STRIP_DELAY))
-				if(internal)
-					internal = null
-					update_action_buttons_icon()
-				else
-					var/no_mask2
-					if(!get_organ_slot("breathing_tube"))
-						if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-							if(!(head && head.flags & AIRTIGHT))
-								no_mask2 = 1
-					if(no_mask2)
-						to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
-						return
-					internal = ITEM
-					update_action_buttons_icon()
+				if(do_mob(usr, src, POCKET_STRIP_DELAY))
+					if(internal)
+						internal = null
+						update_action_buttons_icon()
+					else
+						var/no_mask2
+						if(!get_organ_slot("breathing_tube"))
+							if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+								if(!(head && head.flags & AIRTIGHT))
+									no_mask2 = 1
+						if(no_mask2)
+							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
+							return
+						internal = ITEM
+						update_action_buttons_icon()
 
-				visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
-								"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
+					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
+									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
 
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
@@ -830,9 +830,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
 
-/mob/living/carbon/fall()
-	..()
-	loc.handle_fall()//it's loc so it doesn't call the mob's handle_fall which does nothing
+/mob/living/carbon/fall(forced)
+	loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
 	return(istype(wear_mask, /obj/item/clothing/mask/muzzle))
@@ -863,6 +862,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
 	Weaken(3, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	update_canmove()
 	spin(32, 2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>",
 		"<span class='notice'>You stop, drop, and roll!</span>")
@@ -973,21 +973,20 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		drop_l_hand()
 		stop_pulling()
 		throw_alert("handcuffed", /obj/screen/alert/restrained/handcuffed, new_master = src.handcuffed)
-		ADD_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")
 	else
-		REMOVE_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")
 		clear_alert("handcuffed")
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
 	update_hud_handcuffed()
 
-/mob/living/carbon/get_standard_pixel_y_offset()
-	if(IS_HORIZONTAL(src))
+/mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
+	if(lying)
 		if(buckled)
-			return buckled.buckle_offset
+			return buckled.buckle_offset //tg just has this whole block removed, always returning -6. Paradise is special.
 		else
-			return PIXEL_Y_OFFSET_LYING
-	return initial(pixel_y)
+			return -6
+	else
+		return initial(pixel_y)
 
 /mob/living/carbon/emp_act(severity)
 	..()
@@ -1040,11 +1039,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				W.plane = initial(W.plane)
 
 
-/mob/living/carbon/proc/slip(description, knockdown, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
+/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
-	if(IS_HORIZONTAL(src) && !tilesSlipped)
+	if((lying) && (!(tilesSlipped)))
 		return FALSE
 
 	if(!(slipAny))
@@ -1063,7 +1062,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
-	KnockDown(knockdown)
+	Weaken(weaken)
 	return TRUE
 
 /mob/living/carbon/proc/can_eat(flags = 255)

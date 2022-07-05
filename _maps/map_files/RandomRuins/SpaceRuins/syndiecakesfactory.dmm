@@ -211,7 +211,9 @@
 	id = null
 	},
 /obj/machinery/gibber/autogibber,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	canmove = 0
+	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "wB" = (

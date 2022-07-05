@@ -12,7 +12,8 @@
 	// can we muster a parent call here?
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = TRUE
+	notransform = 1
+	canmove = 0
 	icon = null
 	invisibility = 101
 

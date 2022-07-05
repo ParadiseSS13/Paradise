@@ -2,9 +2,9 @@
 	name = "glass alarm airlock"
 	icon = 'icons/obj/doors/airlocks/station2/glass.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/station2/overlays.dmi'
-	opacity = FALSE
-	glass = TRUE
-	autoclose = FALSE
+	opacity = 0
+	glass = 1
+	autoclose = 0
 	var/datum/radio_frequency/air_connection
 	var/air_frequency = ATMOS_FIRE_FREQ
 
@@ -34,8 +34,8 @@
 	if(alarm_area == our_area.name)
 		switch(alert)
 			if("severe")
-				autoclose = TRUE
+				autoclose = 1
 				close()
 			if("minor", "clear")
-				autoclose = FALSE
+				autoclose = 0
 				open()

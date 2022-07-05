@@ -11,7 +11,7 @@
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "open"
 	density = FALSE
-	opacity = FALSE
+	opacity = 0
 
 /obj/machinery/door/poddoor/shutters/radiation
 	name = "radiation shutters"

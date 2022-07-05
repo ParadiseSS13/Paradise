@@ -48,7 +48,7 @@
 #define CANWEAKEN		2
 #define CANPARALYSE		4
 #define CANPUSH			8
-#define PASSEMOTES		16 //Mob has holders inside of it that need to see emotes.
+#define PASSEMOTES		16 //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define GODMODE			32
 
 //Health Defines
@@ -148,5 +148,3 @@
 * this is needed as many functions for stun durations used to output cycles as values, but we now track stun times in deciseconds.
 */
 #define STATUS_EFFECT_CONSTANT * 20
-
-#define IS_HORIZONTAL(x) x.body_position

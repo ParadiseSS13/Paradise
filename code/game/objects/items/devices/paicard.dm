@@ -268,7 +268,7 @@
 				to_chat(M, "<font color = #ffc4c4><h5>oblivion... </h5></font>")
 				var/mob/living/silicon/pai/P = M
 				if(istype(P))
-					if(IS_HORIZONTAL(P))
+					if(P.resting || P.canmove)
 						P.close_up()
 				M.death(0, 1)
 			removePersonality()

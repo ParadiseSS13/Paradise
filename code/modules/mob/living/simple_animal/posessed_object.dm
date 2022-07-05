@@ -42,7 +42,7 @@
 	var/response = alert(src, "End your possession of this object? (It will not stop you from respawning later)","Are you sure you want to ghost?","Ghost","Stay in body")
 	if(response != "Ghost")
 		return
-	lay_down()
+	StartResting()
 	var/mob/dead/observer/ghost = ghostize(1)
 	ghost.timeofdeath = world.time
 	death(0) // Turn back into a regular object.

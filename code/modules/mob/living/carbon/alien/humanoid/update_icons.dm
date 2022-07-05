@@ -31,7 +31,7 @@
 	else if(leap_on_click)
 		icon_state = "alien[caste]_pounce"
 
-	else if(IS_HORIZONTAL(src))
+	else if(lying || resting)
 		icon_state = "alien[caste]_sleep"
 	else if(m_intent == MOVE_INTENT_RUN)
 		icon_state = "alien[caste]_running"
@@ -51,8 +51,8 @@
 			var/old_icon = icon
 			icon = alt_icon
 			alt_icon = old_icon
-		pixel_x = get_standard_pixel_x_offset()
-		pixel_y = get_standard_pixel_y_offset()
+		pixel_x = get_standard_pixel_x_offset(lying)
+		pixel_y = get_standard_pixel_y_offset(lying)
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	..()
@@ -69,6 +69,8 @@
 	update_transform()
 
 /mob/living/carbon/alien/humanoid/update_transform() //The old method of updating lying/standing was update_icons(). Aliens still expect that.
+	if(lying > 0)
+		lying = 90 //Anything else looks lousy
 	..()
 	update_icons()
 

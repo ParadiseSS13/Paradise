@@ -223,7 +223,7 @@
 	set category = null
 	set name = "Toggle Lock"
 
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
+	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
 		return
 
 	if(ishuman(usr) || isrobot(usr))

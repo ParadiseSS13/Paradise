@@ -3,6 +3,7 @@
 	desc = "Someone should clean that up."
 	gender = PLURAL
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shards"
@@ -13,6 +14,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
+	anchored = TRUE
 	scoop_reagents = list("ash" = 10)
 	mergeable_decal = FALSE
 
@@ -37,6 +39,7 @@
 	desc = "Someone should clean that up."
 	gender = PLURAL
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/dirt.dmi'
 	icon_state = "dirt"
@@ -69,6 +72,7 @@
 	desc = "It's still good. Four second rule!"
 	gender = PLURAL
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
@@ -87,6 +91,7 @@
 	desc = "Jeez. I hope that's not for lunch."
 	gender = PLURAL
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	light_range = 1
 	icon = 'icons/effects/effects.dmi'
@@ -103,6 +108,7 @@
 	name = "cobweb"
 	desc = "Somebody should remove that."
 	density = FALSE
+	anchored = TRUE
 	layer = OBJ_LAYER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb1"
@@ -112,6 +118,7 @@
 	name = "gooey grey mass"
 	desc = "It looks like a melted... something."
 	density = FALSE
+	anchored = TRUE
 	layer = OBJ_LAYER
 	gender = NEUTER
 	icon = 'icons/effects/effects.dmi'
@@ -126,6 +133,7 @@
 	name = "cobweb"
 	desc = "Somebody should remove that."
 	density = FALSE
+	anchored = TRUE
 	layer = OBJ_LAYER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb2"
@@ -135,6 +143,7 @@
 	desc = "Gosh, how unpleasant."
 	gender = PLURAL
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "vomit_1"
@@ -169,6 +178,7 @@
 	name = "tomato smudge"
 	desc = "It's red."
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("tomato_floor1", "tomato_floor2", "tomato_floor3")
@@ -176,6 +186,7 @@
 /obj/effect/decal/cleanable/plant_smudge
 	name = "plant smudge"
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	gender = NEUTER
 	icon = 'icons/effects/tomatodecal.dmi'
@@ -185,6 +196,7 @@
 	name = "smashed egg"
 	desc = "Seems like this one won't hatch."
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_egg1", "smashed_egg2", "smashed_egg3")
@@ -193,6 +205,7 @@
 	name = "smashed pie"
 	desc = "It's pie cream from a cream pie."
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_pie")
@@ -201,6 +214,7 @@
 	name = "space fungus"
 	desc = "A fungal growth. Looks pretty nasty."
 	density = FALSE
+	anchored = TRUE
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	icon = 'icons/effects/effects.dmi'
@@ -215,6 +229,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
+	anchored = TRUE
 
 /obj/effect/decal/cleanable/insectguts
 	name = "bug guts"
@@ -222,3 +237,4 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+	anchored = TRUE

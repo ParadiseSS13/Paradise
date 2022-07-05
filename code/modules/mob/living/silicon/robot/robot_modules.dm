@@ -461,7 +461,7 @@
 			I.clean_blood()
 		else if(ishuman(A))
 			var/mob/living/carbon/human/cleaned_human = A
-			if(!IS_HORIZONTAL(cleaned_human))
+			if(!cleaned_human.lying)
 				continue
 			cleaned_human.clean_blood()
 			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
