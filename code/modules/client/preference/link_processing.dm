@@ -1086,6 +1086,10 @@
 								var/numpad = (text2num(href_list["numpad"]) && text2num(new_key)) ? "Numpad" : ""
 								var/clear = text2num(href_list["clear_key"])
 
+								if(new_key == "Unidentified") //There doesn't seem to be any any key!
+									capture_keybinding(user, KB, href_list["old"])
+									return
+
 								if(!(length_char(new_key) == 1 && text2ascii(new_key) >= 0x80)) // Don't uppercase unicode stuff
 									new_key = uppertext(new_key)
 
