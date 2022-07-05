@@ -417,7 +417,6 @@
 /obj/item/clothing/mask/bandana
 	name = "bandana"
 	desc = "A colorful bandana."
-	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_TINY
