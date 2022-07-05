@@ -411,6 +411,10 @@
 		set_scan_temp("Subject already in database.")
 		SStgui.update_uis(src)
 		return
+	if(subject.stat != DEAD)
+		set_scan_temp("Subject is not dead.", "bad")
+		SStgui.update_uis(src)
+		return
 
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(pod.occupant && pod.clonemind == subject.mind)
