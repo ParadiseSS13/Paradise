@@ -278,6 +278,8 @@
 				V.vomit(0, FALSE, FALSE)
 				return
 		else
+			if(!vamp.bloodtotal)
+				return ..() | update_flags
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
@@ -344,6 +346,7 @@
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-4 SECONDS)
 		M.AdjustWeakened(-4 SECONDS)
+		M.AdjustKnockDown(-4 SECONDS)
 		update_flags |= M.adjustToxLoss(-2, FALSE)
 		update_flags |= M.adjustFireLoss(-2, FALSE)
 		update_flags |= M.adjustOxyLoss(-2, FALSE)

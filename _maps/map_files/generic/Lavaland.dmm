@@ -871,7 +871,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
-/area/mine/laborcamp)
+/area/mine/laborcamp/security)
 "ca" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair{
@@ -4153,7 +4153,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "qT" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/mine/laborcamp)
 "rj" = (
 /obj/structure/chair{
@@ -4220,7 +4221,7 @@
 	dir = 4;
 	icon_state = "darkredcorners"
 	},
-/area/mine/laborcamp)
+/area/mine/laborcamp/security)
 "sP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -4426,7 +4427,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/laborcamp)
+/area/mine/laborcamp/security)
 "xM" = (
 /obj/structure/ore_box,
 /obj/machinery/light/small{
@@ -4657,7 +4658,8 @@
 /area/shuttle/siberia)
 "Gp" = (
 /obj/structure/sign/poster/contraband/clown,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/mine/laborcamp)
 "GD" = (
 /obj/structure/sign/poster/contraband/lusty_xenomorph,
@@ -4829,7 +4831,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/laborcamp)
+/area/mine/laborcamp/security)
 "LO" = (
 /obj/effect/spawner/window,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4880,7 +4882,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/mine/laborcamp)
+/area/mine/laborcamp/security)
 "Nj" = (
 /obj/machinery/door/airlock{
 	name = "Restroom"
@@ -4943,6 +4945,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"PX" = (
+/turf/simulated/wall,
+/area/mine/laborcamp/security)
 "QE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -10086,9 +10091,9 @@ ao
 aq
 aJ
 aq
-aq
+PX
 Ni
-aq
+PX
 aj
 aD
 aj
@@ -10345,7 +10350,7 @@ hQ
 aq
 bZ
 sO
-ap
+cG
 aj
 aj
 aj

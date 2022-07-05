@@ -28,8 +28,8 @@
 /obj/machinery/chem_dispenser/get_cell()
 	return cell
 
-/obj/machinery/chem_dispenser/New()
-	..()
+/obj/machinery/chem_dispenser/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -41,8 +41,8 @@
 	RefreshParts()
 	dispensable_reagents = sortList(dispensable_reagents)
 
-/obj/machinery/chem_dispenser/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -73,8 +73,8 @@
 		"diethylamine")
 	upgrade_reagents = null
 
-/obj/machinery/chem_dispenser/mutagensaltpeter/New()
-	..()
+/obj/machinery/chem_dispenser/mutagensaltpeter/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
@@ -346,8 +346,8 @@
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
 	is_drink = TRUE
 
-/obj/machinery/chem_dispenser/soda/New()
-	..()
+/obj/machinery/chem_dispenser/soda/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -358,8 +358,8 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/soda/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/soda/upgraded/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -382,8 +382,8 @@
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
 
-/obj/machinery/chem_dispenser/beer/New()
-	..()
+/obj/machinery/chem_dispenser/beer/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -394,8 +394,8 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/beer/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/beer/upgraded/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)

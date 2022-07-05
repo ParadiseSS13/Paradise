@@ -330,7 +330,7 @@
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
 	if(target && emote_taunt.len && prob(taunt_chance))
-		emote("me", 1, "[pick(emote_taunt)] at [target].")
+		custom_emote(EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
 		taunt_chance = max(taunt_chance-7,2)
 
 /mob/living/simple_animal/hostile/proc/LoseAggro()
@@ -394,13 +394,14 @@
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, 1)
-		casing.fire(targeted_atom, src, zone_override = ran_zone())
+		casing.fire(targeted_atom, src, zone_override = ran_zone(), firer_source_atom = src)
 	else if(projectiletype)
 		var/obj/item/projectile/P = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, 1)
 		P.current = startloc
 		P.starting = startloc
 		P.firer = src
+		P.firer_source_atom = src
 		P.yo = targeted_atom.y - startloc.y
 		P.xo = targeted_atom.x - startloc.x
 		if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space

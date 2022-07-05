@@ -15,8 +15,8 @@
 	req_access = list(ACCESS_RD) //Only the R&D can change server settings.
 	var/plays_sound = 0
 
-/obj/machinery/r_n_d/server/New()
-	..()
+/obj/machinery/r_n_d/server/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -25,8 +25,8 @@
 	RefreshParts()
 	initialize_serv(); //Agouri // fuck you agouri
 
-/obj/machinery/r_n_d/server/upgraded/New()
-	..()
+/obj/machinery/r_n_d/server/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)

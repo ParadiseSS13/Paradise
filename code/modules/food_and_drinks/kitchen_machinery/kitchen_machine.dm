@@ -28,8 +28,8 @@
 *   Initialising
 ********************/
 
-/obj/machinery/kitchen_machine/New()
-	..()
+/obj/machinery/kitchen_machine/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 	reagents.set_reacting(FALSE)
 	init_lists()

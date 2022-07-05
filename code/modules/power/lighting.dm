@@ -193,6 +193,8 @@
 	var/status = LIGHT_OK
 	/// Is the light currently flickering?
 	var/flickering = FALSE
+	/// Was this light extinguished with an antag ability? Used to ovveride flicker events
+	var/extinguished = FALSE
 
 	/// Item type of the light bulb
 	var/light_type = /obj/item/light/tube
@@ -314,6 +316,7 @@
 	if(fire_mode)
 		set_emergency_lights()
 	if(on) // Turning on
+		extinguished = FALSE
 		if(instant)
 			_turn_on(trigger, play_sound)
 		else if(!turning_on)
@@ -600,7 +603,7 @@
 /obj/machinery/light/proc/flicker_event(amount)
 	if(on && status == LIGHT_OK)
 		for(var/i = 0; i < amount; i++)
-			if(status != LIGHT_OK)
+			if(status != LIGHT_OK || extinguished)
 				break
 			on = FALSE
 			update(FALSE, TRUE, FALSE)
@@ -608,7 +611,7 @@
 			on = (status == LIGHT_OK)
 			update(FALSE, TRUE, FALSE)
 			sleep(rand(1, 10))
-		on = (status == LIGHT_OK)
+		on = (status == LIGHT_OK && !extinguished)
 		update(FALSE, TRUE, FALSE)
 	flickering = FALSE
 
@@ -718,6 +721,7 @@
 	if(status == LIGHT_OK)
 		return
 	status = LIGHT_OK
+	extinguished = FALSE
 	on = TRUE
 	update(FALSE, TRUE, FALSE)
 
@@ -923,6 +927,7 @@
 
 /obj/machinery/light/extinguish_light()
 	on = FALSE
+	extinguished = TRUE
 	emergency_mode = FALSE
 	no_emergency = TRUE
 	addtimer(CALLBACK(src, .proc/enable_emergency_lighting), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
@@ -931,6 +936,7 @@
 
 /obj/machinery/light/proc/enable_emergency_lighting()
 	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")
+	extinguished = FALSE
 	no_emergency = FALSE
 	update(FALSE)
 

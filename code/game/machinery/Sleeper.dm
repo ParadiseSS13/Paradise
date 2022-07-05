@@ -34,7 +34,7 @@
 /obj/machinery/sleeper/detailed_examine()
 	return "The sleeper allows you to clean the blood by means of dialysis, and to administer medication in a controlled environment.<br>\
 			<br>\
-			Click your target with Grab intent, then click on the sleeper to place them in it. Click the green console, with an empty hand, to open the menu. \
+			Click on your target then drag their sprite onto the sleeper to put them into it. Click the sleeper, with an empty hand, to open the menu. \
 			Click 'Start Dialysis' to begin filtering unwanted chemicals from the occupant's blood. The beaker contained will begin to fill with their \
 			contaminated blood, and will need to be emptied when full.<br>\
 			<br>\
@@ -50,8 +50,8 @@
 	else
 		set_light(0)
 
-/obj/machinery/sleeper/New()
-	..()
+/obj/machinery/sleeper/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 
@@ -66,8 +66,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/sleeper/upgraded/New()
-	..()
+/obj/machinery/sleeper/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -591,8 +591,8 @@
 
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/machinery/sleeper/syndie/New()
-	..()
+/obj/machinery/sleeper/syndie/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/syndicate(null)
 	var/obj/item/stock_parts/matter_bin/B = new(null)

@@ -35,6 +35,13 @@
 #define AGE_MIN 17			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
 
+/// Mob is standing up, usually associated with lying_angle value of 0.
+#define STANDING_UP 0
+/// Mob is lying down, usually associated with lying_angle values of 90 or 270.
+#define LYING_DOWN 1
+
+///How much a mob's sprite should be moved when they're lying down
+#define PIXEL_Y_OFFSET_LYING -6
 
 #define LEFT 1
 #define RIGHT 2
@@ -190,9 +197,6 @@
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 #define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
-
-#define EMOTE_VISUAL 1  //A mob emote is visual
-#define EMOTE_SOUND 2  //A mob emote is sound
 
 #define STATUS_UPDATE_HEALTH 1
 #define STATUS_UPDATE_STAT 2

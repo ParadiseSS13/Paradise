@@ -65,8 +65,8 @@ SUBSYSTEM_DEF(shuttle)
 
 	return ..()
 
-/datum/controller/subsystem/shuttle/stat_entry(msg)
-	..("M:[mobile.len] S:[stationary.len] T:[transit.len]")
+/datum/controller/subsystem/shuttle/get_stat_details()
+	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	for(var/obj/docking_port/D in world)

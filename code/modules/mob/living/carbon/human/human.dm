@@ -203,14 +203,12 @@
 				stat("Distribution Pressure", internal.distribute_pressure)
 
 		// I REALLY need to split up status panel things into datums
-		var/mob/living/simple_animal/borer/B = has_brain_worms()
-		if(B && B.controlling)
-			stat("Chemicals", B.chemicals)
 
 		if(mind)
-			if(mind.changeling)
-				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
-				stat("Absorbed DNA", mind.changeling.absorbedcount)
+			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+			if(cling)
+				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
+				stat("Absorbed DNA", cling.absorbed_count)
 
 			var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 			if(V)
@@ -599,7 +597,7 @@
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags = NONE)
 
 /mob/living/carbon/human/Topic(href, href_list)
-	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+	if(!usr.stat && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.restrained() && in_range(src, usr))
 		var/thief_mode = 0
 		if(ishuman(usr))
 			var/mob/living/carbon/human/H = usr
@@ -1130,6 +1128,7 @@
 			else
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
+	qdel(temp_holder)
 
 /**
  * Regrows a given external limb if it is missing. Does not add internal organs back in.
@@ -2015,3 +2014,21 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
 		to_chat(usr, "OOC Metadata is not supported by this server!")
+
+/mob/living/carbon/human/verb/pose()
+	set name = "Set Pose"
+	set desc = "Sets a description which will be shown when someone examines you."
+	set category = "IC"
+
+	// no metagaming
+	if(stat)
+		return
+
+	pose = sanitize(copytext(input(usr, "This is [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+
+/mob/living/carbon/human/verb/set_flavor()
+	set name = "Set Flavour Text"
+	set desc = "Sets an extended description of your character's features."
+	set category = "IC"
+
+	update_flavor_text()

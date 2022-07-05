@@ -11,13 +11,10 @@
 		flags_2 = RAD_NO_CONTAMINATE_2
 		max_integrity = 200
 
-/obj/machinery/shield/New()
+/obj/machinery/shield/Initialize(mapload)
+	. = ..()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
-	..()
-
-/obj/machinery/shield/Initialize()
 	air_update_turf(1)
-	..()
 
 /obj/machinery/shield/Destroy()
 	opacity = FALSE

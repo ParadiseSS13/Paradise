@@ -396,7 +396,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else if((findtext(message, GLOB.rest_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			if(!L.resting)
+			if(!IS_HORIZONTAL(L))
 				L.lay_down()
 		next_command = world.time + cooldown_meme
 
@@ -404,10 +404,12 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else if((findtext(message, GLOB.getup_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			if(L.resting)
-				L.lay_down() //aka get up
+			if(IS_HORIZONTAL(L))
+				L.resting = FALSE
+				L.stand_up()
 			L.SetStunned(0)
 			L.SetWeakened(0)
+			L.SetKnockDown(0)
 			L.SetParalysis(0) //i said get up i don't care if you're being tazed
 		next_command = world.time + cooldown_damage
 
