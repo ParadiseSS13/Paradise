@@ -48,6 +48,8 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
 			nuke_code = N.r_code
 			break
+	if(!nuke_code)
+		message_admins("No nuclear warheads have been detected, the Deathsquad will not be provided detonation codes.")
 
 	// Find ghosts willing to be DS
 	var/list/commando_ghosts = list()
@@ -68,7 +70,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	// Spawns commandos and equips them.
 
 	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list) //Despite obj/effect/landmark/spawner/ds being in the exact same location and doing the exact same thing as obj/effect/landmark/spawner/ert, switching them breaks it?
-		if(!commando_number)
+		if(commando_number == 0)
 			break
 		if(!length(commando_ghosts))
 			break
