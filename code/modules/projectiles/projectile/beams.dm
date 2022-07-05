@@ -55,11 +55,6 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/item/projectile/beam/disabler/on_hit(atom/target, blocked, hit_zone)
-	. = ..()
-	if(isliving(target))
-		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 15)
-
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
