@@ -14,7 +14,7 @@
 
 /*
 
-Vetus Speculator.
+Vetus Speculator
 
 An old 4 legged self learning robot made from a long gone civilization. Likes to scan and learn from things... Including crewmembers.
 
