@@ -147,9 +147,9 @@
 
 /obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(parent_organ != parent.limb_name)
-		return 0
+		return FALSE
 	replaced(H)
-	return 1
+	return TRUE
 
 /****************************************************
 			   DAMAGE PROCS
@@ -666,7 +666,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_INT_BLEEDING
 	perma_injury = 0
 
-/obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
+/obj/item/organ/external/robotize(company, make_tough = FALSE, convert_all = TRUE)
 	..()
 	//robot limbs take reduced damage
 	if(!make_tough)
@@ -781,7 +781,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(isnull(O))
 		O = owner
 	if(!istype(O)) // You're not the primary organ of ANYTHING, bucko
-		return 0
+		return FALSE
 	return src == O.bodyparts_by_name[limb_name]
 
 /obj/item/organ/external/proc/infection_check()
