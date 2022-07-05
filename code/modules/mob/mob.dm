@@ -1064,8 +1064,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/canface()
 	if(client.moving)
 		return FALSE
-	if(world.time < client.move_delay)
-		return FALSE
 	if(stat == DEAD)
 		return FALSE
 	if(anchored)
