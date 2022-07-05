@@ -1,5 +1,14 @@
 /datum/admins/key_down(_key, client/user)
 	switch(_key)
+		if("F3")
+			if(user.keys_held["Shift"])
+				if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
+					return
+				if(user in SSdebugview.processing)
+					SSdebugview.stop_processing(user)
+				else
+					SSdebugview.start_processing(user)
+				return
 		if("F5")
 			user.get_admin_say()
 			return

@@ -18,8 +18,8 @@
 *   Initialising
 ********************/
 
-/obj/machinery/kitchen_machine/candy_maker/New()
-	..()
+/obj/machinery/kitchen_machine/candy_maker/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/candy_maker(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -27,8 +27,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
-/obj/machinery/kitchen_machine/candy_maker/upgraded/New()
-	..()
+/obj/machinery/kitchen_machine/candy_maker/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/candy_maker(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)

@@ -22,14 +22,13 @@
 	desc = "It's a ... present?"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "strangepresent"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 
 /obj/effect/mark
 		var/mark = ""
 		icon = 'icons/misc/mark.dmi'
 		icon_state = "blank"
-		anchored = 1
 		layer = 99
 		plane = HUD_PLANE
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -50,12 +49,10 @@
 	name = "begin"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "begin"
-	anchored = 1.0
 
 /obj/effect/projection
 	name = "Projection"
 	desc = "This looks like a projection of something."
-	anchored = 1.0
 
 
 /obj/effect/shut_controller
@@ -68,8 +65,8 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "showcase_1"
 	desc = "A stand with the empty body of a cyborg bolted to it."
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 
 /obj/effect/spawner
 	name = "object spawner"

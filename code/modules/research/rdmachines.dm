@@ -21,10 +21,10 @@
 	var/efficiency_coeff = 1
 	var/list/categories = list()
 
-/obj/machinery/r_n_d/New()
-	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
-	materials.precise_insertion = TRUE
-	..()
+
+/obj/machinery/r_n_d/Initialize(mapload)
+	. = ..()
+
 	wires["Red"] = 0
 	wires["Blue"] = 0
 	wires["Green"] = 0
@@ -35,6 +35,11 @@
 	hack_wire = pick_n_take(w)
 	shock_wire = pick_n_take(w)
 	disable_wire = pick_n_take(w)
+
+/obj/machinery/r_n_d/ComponentInitialize()
+	..()
+	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
+	materials.precise_insertion = TRUE
 
 /obj/machinery/r_n_d/Destroy()
 	if(loaded_item)

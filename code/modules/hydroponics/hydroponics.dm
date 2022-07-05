@@ -32,8 +32,8 @@
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
 	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
-/obj/machinery/hydroponics/New()
-	..()
+/obj/machinery/hydroponics/Initialize(mapload)
+	. = ..()
 	var/datum/atom_hud/data/hydroponic/hydro_hud = GLOB.huds[DATA_HUD_HYDROPONIC]
 	prepare_huds()
 	hydro_hud.add_to_hud(src)
@@ -50,8 +50,8 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray3"
 
-/obj/machinery/hydroponics/constructable/New()
-	..()
+/obj/machinery/hydroponics/constructable/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/hydroponics(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -114,7 +114,7 @@
 	return connected
 
 /obj/machinery/hydroponics/AltClick()
-	if(wrenchable && !usr.stat && !usr.lying && Adjacent(usr))
+	if(wrenchable && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && Adjacent(usr))
 		toggle_lid(usr)
 		return
 	return ..()

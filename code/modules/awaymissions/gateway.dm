@@ -40,13 +40,11 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/wait = 0				//this just grabs world.time at world start
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
-/obj/machinery/gateway/centerstation/New()
-	..()
+/obj/machinery/gateway/centerstation/Initialize(mapload)
+	. = ..()
 	if(!GLOB.the_gateway)
 		GLOB.the_gateway = src
 
-/obj/machinery/gateway/centerstation/Initialize()
-	..()
 	update_icon()
 	wait = world.time + GLOB.configuration.gateway.away_mission_delay
 	return INITIALIZE_HINT_LATELOAD

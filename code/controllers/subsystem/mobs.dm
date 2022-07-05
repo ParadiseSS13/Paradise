@@ -18,8 +18,8 @@ SUBSYSTEM_DEF(mobs)
 	cust["processing"] = length(GLOB.mob_living_list)
 	.["custom"] = cust
 
-/datum/controller/subsystem/mobs/stat_entry()
-	..("P:[GLOB.mob_living_list.len]")
+/datum/controller/subsystem/mobs/get_stat_details()
+	return "P:[length(GLOB.mob_living_list.len)]"
 
 /datum/controller/subsystem/mobs/Initialize(start_timeofday)
 	clients_by_zlevel = new /list(world.maxz,0)

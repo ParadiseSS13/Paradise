@@ -26,16 +26,17 @@
 	var/turf/location = get_turf(loc)
 	if(location)
 		location.hotspot_expose(1000,1000)
+	sparks.start()
 	if(istype(loc, /obj/item/assembly_holder))
-		if(istype(loc.loc, /obj/structure/reagent_dispensers/fueltank))
-			var/obj/structure/reagent_dispensers/fueltank/tank = loc.loc
+		var/locloc = loc.loc
+		if(istype(locloc, /obj/structure/reagent_dispensers/fueltank))
+			var/obj/structure/reagent_dispensers/fueltank/tank = locloc
 			if(tank)
-				tank.boom(TRUE)
-		if(istype(loc.loc, /obj/item/reagent_containers/glass/beaker))
-			var/obj/item/reagent_containers/glass/beaker/beakerbomb = loc.loc
+				tank.boom(TRUE)  // this qdel's `src`
+		else if(istype(locloc, /obj/item/reagent_containers/glass/beaker))
+			var/obj/item/reagent_containers/glass/beaker/beakerbomb = locloc
 			if(beakerbomb)
 				beakerbomb.heat_beaker()
-	sparks.start()
 	return TRUE
 
 

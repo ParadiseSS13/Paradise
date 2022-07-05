@@ -76,8 +76,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	name = "Spell" // Only rename this if the spell you're making is not abstract
 	desc = "A wizard spell"
 	panel = "Spells"//What panel the proc holder needs to go on.
-	density = 0
-	opacity = 0
+	density = FALSE
+	opacity = FALSE
 
 	var/school = "evocation" //not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
 
@@ -92,11 +92,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/holder_var_type = "bruteloss" //only used if charge_type equals to "holder_var"
 	var/holder_var_amount = 20 //same. The amount adjusted with the mob's var when the spell is used
 
-	var/ghost = 0 // Skip life check.
-	var/clothes_req = 1 //see if it requires clothes
-	var/human_req = 0 //spell can only be cast by humans
-	var/nonabstract_req = 0 //spell can only be cast by mobs that are physical entities
-	var/stat_allowed = 0 //see if it requires being conscious/alive, need to set to 1 for ghostpells
+	var/ghost = FALSE // Skip life check.
+	var/clothes_req = TRUE //see if it requires clothes
+	var/human_req = FALSE //spell can only be cast by humans
+	var/nonabstract_req = FALSE //spell can only be cast by mobs that are physical entities
+	var/stat_allowed = CONSCIOUS //see if it requires being conscious/alive, need to set to 1 for ghostpells
 	var/invocation = "HURP DURP" //what is uttered when the wizard casts the spell
 	var/invocation_emote_self = null
 	var/invocation_type = "none" //can be none, whisper and shout
@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/overlay_icon_state = "spell"
 	var/overlay_lifespan = 0
 
-	var/sparks_spread = 0
+	var/sparks_spread = FALSE
 	var/sparks_amt = 0 //cropped at 10
 	var/smoke_spread = 0 //1 - harmless, 2 - harmful
 	var/smoke_amt = 0 //cropped at 10
@@ -387,8 +387,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			var/obj/effect/overlay/spell = new /obj/effect/overlay(location)
 			spell.icon = overlay_icon
 			spell.icon_state = overlay_icon_state
-			spell.anchored = 1
-			spell.density = 0
+			spell.anchored = TRUE
+			spell.density = FALSE
 			spawn(overlay_lifespan)
 				qdel(spell)
 
@@ -568,7 +568,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."
 	charge_max = 100
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "JE VES"
 	invocation_type = "whisper"
 	level_max = 0 //cannot be improved

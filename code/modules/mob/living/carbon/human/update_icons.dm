@@ -632,12 +632,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(inv)
 			inv.update_icon()
 
+	var/hidden = (slot_gloves in check_obscured_slots())
+
 	if(gloves)
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				gloves.screen_loc = ui_gloves		//...draw the item in the inventory screen
 			client.screen += gloves					//Either way, add the item to the HUD
 
+		if(hidden)
+			return
 		var/t_state = gloves.item_state
 		if(!t_state)	t_state = gloves.icon_state
 
@@ -655,6 +659,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing.overlays += bloodsies
 		overlays_standing[GLOVES_LAYER]	= standing
 	else
+		if(hidden)
+			return
 		if(blood_DNA)
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "bloodyhands", layer = -GLOVES_LAYER)
 			bloodsies.color = hand_blood_color
@@ -758,12 +764,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(inv)
 			inv.update_icon()
 
+	var/hidden = (slot_shoes in check_obscured_slots())
+
 	if(shoes)
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				shoes.screen_loc = ui_shoes			//...draw the item in the inventory screen
 			client.screen += shoes					//Either way, add the item to the HUD
 
+		if(hidden)
+			return
 		var/mutable_appearance/standing
 		if(shoes.icon_override)
 			standing = mutable_appearance(shoes.icon_override, "[shoes.icon_state]", layer = -SHOES_LAYER)
@@ -771,7 +781,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = mutable_appearance(shoes.sprite_sheets[dna.species.name], "[shoes.icon_state]", layer = -SHOES_LAYER)
 		else
 			standing = mutable_appearance('icons/mob/clothing/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
-
 
 		if(shoes.blood_DNA)
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
@@ -781,6 +790,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.color = shoes.color
 		overlays_standing[SHOES_LAYER] = standing
 	else
+		if(hidden)
+			return
 		if(feet_blood_DNA)
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER)
 			bloodsies.color = feet_blood_color
@@ -799,6 +810,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			s_store.screen_loc = ui_sstore1
 			client.screen += s_store
 
+		if(slot_s_store in check_obscured_slots())
+			return
 		var/t_state = s_store.item_state
 		if(!t_state)
 			t_state = s_store.icon_state
@@ -901,6 +914,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
+	
+	update_inv_gloves()
+	update_inv_shoes()
+	update_inv_s_store()
+
 	update_tail_layer()
 	update_wing_layer()
 	update_collar()
