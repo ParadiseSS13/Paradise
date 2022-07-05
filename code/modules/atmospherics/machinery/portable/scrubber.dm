@@ -128,10 +128,10 @@
 		"tank_pressure" = air_contents.return_pressure() > 0 ? round(air_contents.return_pressure(), 0.001) : 0
 	)
 	if(holding_tank)
-		data["has_holding_tank_tank"] = TRUE
-		data["holding_tank_tank"] = list("name" = holding_tank.name, "tank_pressure" = holding_tank.air_contents.return_pressure() > 0 ? round(holding_tank.air_contents.return_pressure(), 0.001) : 0)
+		data["has_holding_tank"] = TRUE
+		data["holding_tank"] = list("name" = holding_tank.name, "tank_pressure" = holding_tank.air_contents.return_pressure() > 0 ? round(holding_tank.air_contents.return_pressure(), 0.001) : 0)
 	else
-		data["has_holding_tank_tank"] = FALSE
+		data["has_holding_tank"] = FALSE
 
 	return data
 
