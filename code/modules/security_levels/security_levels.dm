@@ -61,7 +61,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
 				if(R && is_station_level(R.z))
 					R.locked = FALSE
-					R.update_icon()
+					R.update_state()
 
 				post_status("alert", "redalert")
 				update_firealarms()
