@@ -15,8 +15,10 @@
 	var/eat_dir = WEST
 	var/amount_produced = 1
 	var/crush_damage = 1000
-	var/eat_victim_items = 1
+	var/eat_victim_items = TRUE
 	var/item_recycle_sound = 'sound/machines/recycler.ogg'
+	/// For admin fun, var edit always_gib to TRUE (1)
+	var/always_gib = FALSE
 
 /obj/machinery/recycler/Initialize(mapload)
 	. = ..()
@@ -75,7 +77,7 @@
 
 /obj/machinery/recycler/emag_act(mob/user)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		if(emergency_mode)
 			emergency_mode = FALSE
 			update_icon(UPDATE_ICON_STATE)
@@ -187,10 +189,9 @@
 	// Instantly lie down, also go unconscious from the pain, before you die.
 	L.Paralyse(10 SECONDS)
 
-	// For admin fun, var edit emagged to 2.
-	if(gib || emagged == 2)
+	if(gib || always_gib)
 		L.gib()
-	else if(emagged == 1)
+	else if(emagged)
 		L.adjustBruteLoss(crush_damage)
 
 
@@ -229,7 +230,7 @@
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"
-	emagged = 1
+	emagged = TRUE
 	crush_damage = 120
 
 

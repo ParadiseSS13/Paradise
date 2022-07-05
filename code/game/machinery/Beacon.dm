@@ -6,10 +6,10 @@
 	level = 1		// underfloor
 	layer = WIRE_LAYER
 	plane = FLOOR_PLANE
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 0
-	var/syndicate = 0
+	var/syndicate = FALSE
 	var/area_bypass = FALSE
 	var/obj/item/radio/beacon/Beacon
 	var/enabled = TRUE
