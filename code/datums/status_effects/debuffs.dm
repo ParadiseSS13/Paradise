@@ -137,6 +137,35 @@
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
 
+/datum/status_effect/teleport_sickness
+	id = "teleportation sickness"
+	duration = 30 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /obj/screen/alert/status_effect/teleport_sickness
+	var/teleports = 1
+
+/obj/screen/alert/status_effect/teleport_sickness
+	name = "Teleportation sickness"
+	desc = "You feel like you are going to throw up with all this teleporting."
+	icon_state = "bluespace"
+
+/datum/status_effect/teleport_sickness/refresh()
+	. = ..()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/M = owner
+		teleports += 1
+		if(teleports < 3)
+			return
+		if(teleports >= 6)
+			to_chat(M, "<span class='danger'>You feel really sick!</span>")
+			M.adjustBruteLoss(rand(0, teleports * 2))
+			M.vomit(30, 0, 0, 0, 1)
+			M.Weaken(6 SECONDS)
+		else
+			to_chat(M, "<span class='warning'>You feel a bit sick!</span>")
+			M.vomit(15, 0, 0, 0, 1)
+			M.Weaken(2 SECONDS)
+
 /datum/status_effect/pacifism
 	id = "pacifism_debuff"
 	alert_type = null
