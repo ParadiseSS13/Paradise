@@ -12,7 +12,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita
 	name = "margherita pizza"
 	desc = "The golden standard of pizzas."
-	icon_state = "pizzamargherita"
+	icon_state = "margheritapizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/margheritaslice
 	list_reagents = list("nutriment" = 30, "tomatojuice" = 6, "vitamin" = 5)
 
@@ -20,7 +20,7 @@
 	name = "margherita slice"
 	desc = "A slice of the classic pizza."
 	icon = 'icons/obj/food/pizza.dmi'
-	icon_state = "pizzamargheritaslice"
+	icon_state = "margheritapizzaslice"
 	filling_color = "#BAA14C"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
@@ -107,6 +107,23 @@
 	icon_state = "macpizzaslice"
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
+
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/pepperonipizza
+	name = "pepperoni pizza"
+	desc = "What did the pepperoni say to the pizza?"
+	icon_state = "pepperonipizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/pepperonipizzaslice
+	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 2, "tomato" = 2, "cheese" = 3, "pepperoni" = 3, "grease" = 1)
+
+/obj/item/reagent_containers/food/snacks/pepperonipizzaslice
+	name = "pepperoni pizza slice"
+	desc = "Nice to meat you!"
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "pepperonipizzaslice"
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 2, "tomato" = 2, "cheese" = 3, "pepperoni" = 3, "grease" = 1)
 
 
 //////////////////////
