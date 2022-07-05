@@ -538,10 +538,25 @@
 	if(shove_to == user.loc)
 		return FALSE
 
+	//Directional checks to make sure that we're not shoving through a windoor or something like that
+	var/directional_blocked = FALSE
+	var/target_turf = get_turf(target)
+	for(var/obj/obj_content in target_turf) // check the tile we are on for border
+		if(obj_content.flags & ON_BORDER && obj_content.dir & shove_dir && obj_content.density)
+			directional_blocked = TRUE
+			break
+	if(!directional_blocked)
+		for(var/obj/obj_content in shove_to) // check tile we are moving to for borders
+			if(obj_content.flags & ON_BORDER && obj_content.dir & turn(shove_dir, 180) && obj_content.density)
+				directional_blocked = TRUE
+				break
+
 	var/blocked_by_item = FALSE
-	for(var/atom/movable/AM in shove_to)
-		if(AM.shove_impact(target, user))
-			blocked_by_item = TRUE
+	if(!directional_blocked)
+		for(var/atom/movable/AM in shove_to)
+			if(AM.shove_impact(target, user))
+				blocked_by_item = TRUE
+				break // only hit one thing
 
 	if(blocked_by_item)
 		return TRUE
@@ -554,10 +569,14 @@
 			addtimer(CALLBACK(target, /mob/living.proc/SetKnockDown, 0), 3 SECONDS) // so you cannot chain stun someone
 		else if(!user.IsStunned())
 			target.Stun(0.5 SECONDS)
-	if(target.IsSlowed())
-		target.drop_item()
 	else
-		target.Slowed(2.5 SECONDS, 1)
+		if(target.IsSlowed() && target.get_active_hand())
+			target.drop_item()
+			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
+		else
+			target.Slowed(2.5 SECONDS, 1)
+			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
+	target.stop_pulling()
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))

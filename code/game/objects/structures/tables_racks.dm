@@ -231,11 +231,12 @@
 		return ..()
 
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
+	if(locate(/obj/structure/table) in get_turf(target))
+		return FALSE
 	add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
 	target.forceMove(get_turf(src))
 	target.Weaken(4 SECONDS)
 	return TRUE
-
 
 /obj/structure/table/screwdriver_act(mob/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
