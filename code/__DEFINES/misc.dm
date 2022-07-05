@@ -371,7 +371,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 38
+#define SQL_VERSION 37 //SEAN TODO: OH MY GOD DO NOT MERGE THIS
 
 // Vending machine stuff
 #define CAT_NORMAL 1
