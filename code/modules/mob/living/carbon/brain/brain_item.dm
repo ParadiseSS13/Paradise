@@ -61,10 +61,6 @@
 
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
-		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
-		if(borer)
-			borer.leave_host() //Should remove borer if the brain is removed - RR
-
 		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 

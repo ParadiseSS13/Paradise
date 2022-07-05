@@ -9,7 +9,7 @@
 	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
 	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF
@@ -304,7 +304,7 @@
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/doorfire.dmi'
 	glass = FALSE
-	opacity = 1
+	opacity = TRUE
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
 	max_integrity = 550

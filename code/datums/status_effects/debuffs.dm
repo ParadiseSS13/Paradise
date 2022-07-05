@@ -214,7 +214,7 @@
 	owner.client?.pixel_y = py_diff
 
 /datum/status_effect/transient/dizziness/calc_decay()
-	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
 
 /**
  * # Drowsiness
@@ -235,7 +235,7 @@
 		owner.Paralyse(10 SECONDS)
 
 /datum/status_effect/transient/drowsiness/calc_decay()
-	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
 
 /**
  * # Drukenness
@@ -371,31 +371,90 @@
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
 		owner.update_stat()
-	owner.update_canmove()
 
 
 /datum/status_effect/incapacitating/on_remove()
-	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
+	if(needs_update_stat || issilicon(owner)) //silicons need stat updates
 		owner.update_stat()
-	owner.update_canmove()
 	return ..()
+
+//FLOORED - forces the victim prone.
+/datum/status_effect/incapacitating/floored
+	id = "floored"
+
+/datum/status_effect/incapacitating/floored/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_FLOORED, "[id]")
+
+/datum/status_effect/incapacitating/floored/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, "[id]")
+	return ..()
+
 
 //STUN - prevents movement and actions, victim stays standing
 /datum/status_effect/incapacitating/stun
 	id = "stun"
 
+/datum/status_effect/incapacitating/stun/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
+
+/datum/status_effect/incapacitating/stun/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
+	return ..()
+
 //IMMOBILIZED - prevents movement, victim can still stand and act
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
+
+/datum/status_effect/incapacitating/immobilized/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+
+/datum/status_effect/incapacitating/immobilized/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	return ..()
 
 //WEAKENED - prevents movement and action, victim falls over
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
 
+/datum/status_effect/incapacitating/weakened/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	ADD_TRAIT(owner, TRAIT_FLOORED, "[id]")
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
+
+/datum/status_effect/incapacitating/weakened/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, "[id]")
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
+	return ..()
+
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
 	needs_update_stat = TRUE
+
+/datum/status_effect/incapacitating/paralyzed/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
+
+/datum/status_effect/incapacitating/paralyzed/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
+	return ..()
 
 //SLEEPING - victim falls over, cannot act, cannot see or hear, heals under certain conditions.
 /datum/status_effect/incapacitating/sleeping
@@ -409,6 +468,16 @@
 /datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner, set_duration, voluntary = FALSE)
 	..()
 	src.voluntary = voluntary
+
+/datum/status_effect/incapacitating/sleeping/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(src, TRAIT_KNOCKEDOUT, "[id]")
+
+/datum/status_effect/incapacitating/sleeping/on_remove()
+	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, "[id]")
+	return ..()
 
 /datum/status_effect/incapacitating/sleeping/tick()
 	if(!iscarbon(owner))
@@ -477,7 +546,7 @@
 	owner.do_jitter_animation(strength / 20, 1)
 
 /datum/status_effect/transient/jittery/calc_decay()
-	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
 
 /datum/status_effect/transient/stammering
 	id = "stammer"

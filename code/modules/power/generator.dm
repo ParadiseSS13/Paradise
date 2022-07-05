@@ -16,6 +16,9 @@
 	var/lastgenlev = -1
 	var/lastcirc = "00"
 
+	var/light_range_on = 1
+	var/light_power_on = 0.1 //just dont want it to be culled by byond.
+
 /obj/machinery/power/generator/Initialize(mapload)
 	. = ..()
 	update_desc()
@@ -35,6 +38,10 @@
 		hot_circ.generator = null
 	if(powernet)
 		disconnect_from_network()
+
+/obj/machinery/power/generator/Initialize()
+	. = ..()
+	connect()
 
 /obj/machinery/power/generator/proc/connect()
 	connect_to_network()
@@ -60,21 +67,29 @@
 	updateDialog()
 
 /obj/machinery/power/generator/power_change()
+	. = ..()
 	if(!anchored)
 		stat |= NOPOWER
+	if((stat & (BROKEN|NOPOWER)))
+		set_light(0)
 	else
-		..()
+		set_light(light_range_on, light_power_on)
+	update_icon()
+
 
 /obj/machinery/power/generator/update_icon()
 	if(stat & (NOPOWER|BROKEN))
-		overlays.Cut()
+		cut_overlays()
+		underlays.Cut()
+		return
 	else
-		overlays.Cut()
-
+		cut_overlays()
 		if(lastgenlev != 0)
-			overlays += image('icons/obj/power.dmi', "teg-op[lastgenlev]")
+			add_overlay(mutable_appearance('icons/obj/power.dmi', "teg-op[lastgenlev]"))
+			underlays += emissive_appearance(icon, "teg-op[lastgenlev]")
 
-		overlays += image('icons/obj/power.dmi', "teg-oc[lastcirc]")
+		add_overlay(mutable_appearance('icons/obj/power.dmi', "teg-oc[lastcirc]"))
+		underlays += emissive_appearance(icon, "teg-oc[lastcirc]")
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))
@@ -230,7 +245,3 @@
 		if(!powernet || !cold_circ || !hot_circ)
 			connect()
 			return TRUE
-
-/obj/machinery/power/generator/power_change()
-	..()
-	update_icon()

@@ -114,7 +114,7 @@
 	return connected
 
 /obj/machinery/hydroponics/AltClick()
-	if(wrenchable && !usr.stat && !usr.lying && Adjacent(usr))
+	if(wrenchable && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && Adjacent(usr))
 		toggle_lid(usr)
 		return
 	return ..()
