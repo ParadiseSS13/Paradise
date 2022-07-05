@@ -478,10 +478,16 @@ Difficulty: Hard
 		if(BOTTOM_LEFT)
 			BL.leg_movement(target, 0.6)
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/ex_act(severity, target)
-	if(severity == EXPLODE_LIGHT)
-		return
-	..()
+/mob/living/simple_animal/hostile/megafauna/anicent_robot/ex_act(severity, target)
+	switch(severity)
+		if(1)
+			adjustBruteLoss(25)
+
+		if(2)
+			adjustBruteLoss(10)
+
+		if(3)
+			return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Goto()
 	if(!exploding)
@@ -615,13 +621,13 @@ Difficulty: Hard
 			shake_camera(src, 2, 3)
 	..()
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/ex_act(severity, target)
+/mob/living/simple_animal/hostile/hostile/ancient_robot_leg/ex_act(severity, target)
 	switch(severity)
 		if(1)
-			adjustBruteLoss(250)
+			adjustBruteLoss(25)
 
 		if(2)
-			adjustBruteLoss(100)
+			adjustBruteLoss(10)
 
 		if(3)
 			return
