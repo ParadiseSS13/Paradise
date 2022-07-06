@@ -1,3 +1,5 @@
+#define BATON_COOLDOWN 3.5 SECONDS
+
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
 	desc = "A little security robot.  He looks less than thrilled."
@@ -34,6 +36,7 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/harmbaton = 0 //If true, beat instead of stun
 	var/flashing_lights = 0 //If true, flash lights
+	var/baton_delayed = FALSE
 	var/prev_flashing_lights = 0
 	allow_pai = 0
 
@@ -219,7 +222,7 @@
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(!C.IsStunned() || arrest_type)
+		if((!C.IsWeakened() || arrest_type) && !baton_delayed)
 			stun_attack(A)
 		else if(C.canBeHandcuffed() && !C.handcuffed)
 			cuff(A)
@@ -263,8 +266,11 @@
 	if(ishuman(C) && harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
 		C.apply_damage(10, BRUTE)
 	C.SetStuttering(10 SECONDS)
-	C.Weaken(10 SECONDS)
-	add_attack_logs(src, C, "stunned")
+	C.adjustStaminaLoss(60)
+	baton_delayed = TRUE
+	addtimer(CALLBACK(C, .proc/KnockDown, 10 SECONDS), 2.5 SECONDS)
+	addtimer(CALLBACK(src, .proc/reset_baton_cooldown), BATON_COOLDOWN)
+	add_attack_logs(src, C, "batoned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
@@ -314,7 +320,7 @@
 				return
 
 			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc))	// if right next to perp
+				if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
 					stun_attack(target)
 
 					mode = BOT_PREP_ARREST
@@ -334,7 +340,7 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) ||  target.AmountWeakened() < 4 SECONDS)
+			if( !Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
 				back_to_hunt()
 				return
 
@@ -427,6 +433,9 @@
 		return 1
 	return 0
 
+/mob/living/simple_animal/bot/secbot/proc/reset_baton_cooldown()
+	baton_delayed = FALSE
+
 /mob/living/simple_animal/bot/secbot/explode()
 	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
@@ -467,3 +476,5 @@
 
 /obj/machinery/bot_core/secbot
 	req_access = list(ACCESS_SECURITY)
+
+#undef BATON_COOLDOWN
