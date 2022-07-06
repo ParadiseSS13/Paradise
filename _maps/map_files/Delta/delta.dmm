@@ -690,10 +690,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Arrivals Port Fore";
-	dir = 8
-	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -1308,10 +1304,6 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/obj/machinery/camera{
-	c_tag = "Arrivals Port Aft";
-	dir = 8
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -1441,13 +1433,6 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/fore2)
-"alY" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "ferry_home";
-	locked = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry)
 "alZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1574,21 +1559,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
-"amx" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry)
-"amy" = (
-/obj/structure/sign/vacuum,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry)
 "amz" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
@@ -88491,6 +88461,15 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/sleep)
+"fqM" = (
+/obj/machinery/camera{
+	c_tag = "Arrivals Hall Port"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "frp" = (
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -91489,6 +91468,14 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
+"lWE" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/camera{
+	c_tag = "Arrivals Port Aft";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "lYs" = (
 /obj/machinery/light_switch{
 	dir = 4;
@@ -91509,6 +91496,13 @@
 /obj/item/mop,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"mcT" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "mdC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -91994,6 +91988,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/courtroom)
+"mQK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/secondary/entry)
 "mRz" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -92086,6 +92091,17 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/genetics_cloning)
+"naP" = (
+/obj/machinery/status_display{
+	pixel_x = 32
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/camera{
+	c_tag = "Arrivals Port Fore";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "naX" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -92341,6 +92357,15 @@
 /obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
+"nCK" = (
+/obj/machinery/door/firedoor,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/secondary/entry)
 "nDM" = (
 /obj/structure/table,
 /obj/item/folder/red,
@@ -95068,6 +95093,13 @@
 	},
 /turf/space,
 /area/space)
+"tbJ" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "tdA" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -127954,8 +127986,8 @@ aaa
 aaa
 aaa
 aaa
-afw
 aaa
+afw
 aaa
 aaa
 aaa
@@ -128979,7 +129011,7 @@ acC
 buc
 gio
 adZ
-adZ
+tbJ
 adZ
 aeI
 adZ
@@ -129236,16 +129268,16 @@ adc
 adt
 afh
 aea
-aea
-aea
-aeJ
-aea
-aea
-aea
-aea
-aea
-aea
-agJ
+mQK
+asB
+nCK
+asB
+asB
+asB
+asB
+asB
+asB
+ahg
 ajZ
 ajZ
 ajZ
@@ -129493,12 +129525,12 @@ acC
 adu
 pZw
 aeb
-aeb
+mcT
 aeb
 aeO
 aeb
 aeb
-akb
+naP
 aeb
 aeb
 agf
@@ -129510,7 +129542,7 @@ aeb
 aeb
 aeb
 aeb
-aeb
+lWE
 aeb
 agB
 aeb
@@ -130033,7 +130065,7 @@ aaa
 aaa
 aaa
 adb
-ant
+fqM
 anL
 adb
 abj
@@ -131830,7 +131862,7 @@ aaa
 aaa
 aaa
 abj
-acC
+aaa
 adb
 ann
 anP
@@ -132087,8 +132119,8 @@ aaa
 aaa
 aaa
 abj
-amx
-ajy
+aaa
+adb
 ant
 anP
 aoo
@@ -132343,8 +132375,8 @@ aaa
 aaa
 aaa
 aaa
-acC
-acC
+abj
+aaa
 acC
 ant
 anP
@@ -132600,9 +132632,9 @@ aaa
 aaa
 aaa
 aaa
-alY
-afb
-alY
+abj
+aaa
+acC
 ant
 rBP
 aoo
@@ -132857,8 +132889,8 @@ aaa
 aaa
 aaa
 aaa
-acC
-acC
+abj
+aaa
 acC
 ant
 anP
@@ -133115,8 +133147,8 @@ aaa
 aaa
 aaa
 abj
-amy
-ajf
+aaa
+acC
 ant
 alm
 ahy
@@ -133372,8 +133404,8 @@ aaa
 aaa
 aaa
 abj
+aaa
 acC
-adb
 akG
 als
 aoo
