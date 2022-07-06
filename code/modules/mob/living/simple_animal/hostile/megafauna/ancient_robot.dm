@@ -691,6 +691,7 @@ Difficulty: Hard
 	set_light(4, l_color = "#ee2e27")
 
 /obj/effect/temp_visual/beam_target
+	duration = 1.6 SECONDS
 	var/datum/beam/charge
 
 /obj/effect/temp_visual/beam_target/Initialize(mapload, target)
