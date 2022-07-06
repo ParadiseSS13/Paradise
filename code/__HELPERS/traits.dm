@@ -230,6 +230,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STAT_TRAIT "stat_trait"
 #define TRANSFORMING_TRAIT "transforming"
 #define BUCKLING_TRAIT "buckled"
+#define TRAIT_WAS_BATONNED "batonged"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

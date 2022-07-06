@@ -10,7 +10,7 @@
 	mob_biotypes = MOB_ORGANIC
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 14
-	ranged = 1
+	ranged = TRUE
 	vision_range = 5
 	aggro_vision_range = 9
 	speed = 3
@@ -86,7 +86,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
-	del_on_death = 1
+	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
@@ -173,9 +173,9 @@
 	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	loot = list(/obj/item/organ/internal/regenerative_core/legion)
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
-	del_on_death = 1
+	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
-	robust_searching = 1
+	robust_searching = TRUE
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 
@@ -239,7 +239,7 @@
 	throw_message = "is shrugged off by"
 	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
-	robust_searching = 1
+	robust_searching = TRUE
 	var/can_infest_dead = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)

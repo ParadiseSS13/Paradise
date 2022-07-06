@@ -25,7 +25,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white/LoseTarget()
-	stop_automated_movement = 0
+	stop_automated_movement = FALSE
 	attackstep = 0
 	attackcycles = 0
 	..()
