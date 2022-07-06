@@ -67,3 +67,5 @@
 		if(!istype(T))
 			return
 		add_underlay(T, node, dir)
+		var/icon/frame = icon('icons/atmos/vent_pump.dmi', "frame")
+		underlays += frame
