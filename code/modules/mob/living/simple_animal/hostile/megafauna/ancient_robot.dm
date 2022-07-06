@@ -561,6 +561,11 @@ Difficulty: Hard
 	ranged_cooldown_time = rand(30, 60) // keeps them not running on the same time
 	addtimer(CALLBACK(src, .proc/beam_setup), 1 SECONDS)
 
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/Destroy()
+	QDEL_NULL(leg_part)
+	return ..()
+
 /mob/living/simple_animal/hostile/ancient_robot_leg/Life(seconds, times_fired)
 	..()
 	health_and_snap_check(TRUE)
@@ -691,6 +696,11 @@ Difficulty: Hard
 /obj/effect/temp_visual/beam_target/Initialize(mapload, target)
 	. = ..()
 	charge = Beam(target, "target_beam", 'icons/effects/effects.dmi', time=1.5 SECONDS, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
+
+
+/obj/effect/temp_visual/beam_target/Destroy()
+	QDEL_NULL(charge)
+	return ..()
 
 /obj/effect/temp_visual/target/ancient
 
