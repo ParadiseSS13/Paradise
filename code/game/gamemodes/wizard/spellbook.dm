@@ -650,7 +650,11 @@
 	for(var/path in spells_path)
 		var/obj/effect/proc_holder/spell/S = new path()
 		LearnSpell(user, book, S)
+	OnBuy(user, book)
 	return TRUE
+
+/datum/spellbook_entry/loadout/proc/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	return
 
 /obj/item/spellbook
 	name = "spell book"
