@@ -916,10 +916,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry)
-"ahv" = (
-/obj/structure/lattice,
-/turf/space,
-/area/hallway/secondary/entry)
 "ahw" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Auxiliary Storage";
@@ -128255,7 +128251,7 @@ acC
 aef
 aef
 acC
-alW
+abj
 abj
 abj
 abj
@@ -128274,11 +128270,11 @@ abj
 acC
 mWj
 siv
-aaa
-aaa
-aaa
-aaa
-aaa
+abj
+abj
+abj
+abj
+abj
 apH
 aqA
 art
@@ -128517,7 +128513,7 @@ aaa
 aaa
 aaa
 aaa
-ahv
+abj
 acC
 acC
 acC
@@ -128534,7 +128530,7 @@ acC
 aaa
 aaa
 aaa
-aaa
+abj
 aaa
 apH
 aqB
@@ -130328,7 +130324,7 @@ abj
 abj
 abj
 abj
-alW
+abj
 abj
 acC
 ant
