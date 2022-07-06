@@ -11,12 +11,15 @@
 	var/officon = null
 	var/openicon = null
 	var/thiscooktype = null
-	var/burns = 0				// whether a machine burns something - if it does, you probably want to add the cooktype to /snacks/badrecipe
+	/// whether a machine burns something - if it does, you probably want to add the cooktype to /snacks/badrecipe
+	var/burns = FALSE
 	var/firechance = 0
 	var/cooktime = 0
 	var/foodcolor = null
-	var/has_specials = 0		//Set to 1 if the machine has specials to check, otherwise leave it at 0
-	var/upgradeable = 0			//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
+	///Set to TRUE if the machine has specials to check, otherwise leave it at FALSE
+	var/has_specials = FALSE
+	///Set to TRUE if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
+	var/upgradeable = FALSE
 
 // checks if the snack has been cooked in a certain way
 /obj/machinery/cooker/proc/checkCooked(obj/item/reagent_containers/food/snacks/D)
@@ -62,7 +65,7 @@
 	return
 
 // Burns the food with a chance of starting a fire - for if you try cooking something that's already been cooked that way
-// if burns = 0 then it'll just tell you that the item is already that foodtype and it would do nothing
+// if burns = FALSE then it'll just tell you that the item is already that foodtype and it would do nothing
 // if you wanted a different side effect set burns to 1 and override burn_food()
 /obj/machinery/cooker/proc/burn_food(mob/user, obj/item/reagent_containers/props)
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))

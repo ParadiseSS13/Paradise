@@ -9,8 +9,6 @@
 	var/trash = null
 	var/slice_path
 	var/slices_num
-	var/eatverb
-	var/wrapped = 0
 	var/dried_type = null
 	var/dry = FALSE
 	var/cooktype[0]
