@@ -177,7 +177,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
-	var/skin_tone = rand(40, 160) // A range of skin colors
+	var/skin_tone = rand(-120, 20) // A range of skin colors (This doesn't work, result is always pale white)
 
 	head_organ.facial_colour = hair_c
 	head_organ.sec_facial_colour = hair_c
@@ -197,7 +197,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	new_commando.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 	new_commando.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 	new_commando.mind.offstation_role = TRUE
-	SSticker.mode.traitors |= new_commando.mind//Adds them to current traitor list. Which is really the extra antagonist list.
+	SSticker.mode.traitors |= new_commando.mind //Adds them to current traitor list. Which is really the extra antagonist list.
 	new_commando.equip_deathsquad_commando(is_leader)
 	return new_commando
 
