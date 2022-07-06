@@ -527,10 +527,10 @@
 		return
 	up = !up
 	if(up)
-		tint = initial(tint)
-	else
 		tint = 3
-	to_chat(usr, [up ? "You deactivate [src], obscuring your vision." : "You activate [src], allowing you to see.")
+	else
+		tint = initial(tint)
+	to_chat(usr, up ? "You deactivate [src], obscuring your vision." : "You activate [src], allowing you to see.")
 	var/mob/living/carbon/user = usr
 	user.update_tint()
 	user.update_inv_glasses()
