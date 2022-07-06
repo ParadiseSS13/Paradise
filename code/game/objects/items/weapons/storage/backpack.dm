@@ -156,6 +156,13 @@
 	item_state = "engiepack"
 	resistance_flags = FIRE_PROOF
 
+/obj/item/storage/backpack/industrial/atmos
+	name = "atmospherics backpack"
+	desc = "It's a fireproof backpack for Atmospherics Staff."
+	icon_state = "atmospack"
+	item_state = "atmospack"
+	resistance_flags = FIRE_PROOF
+
 /obj/item/storage/backpack/explorer
 	name = "explorer bag"
 	desc = "A robust backpack for stashing your loot."
@@ -247,6 +254,12 @@
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
+	resistance_flags = FIRE_PROOF
+
+/obj/item/storage/backpack/satchel_atmos
+	name = "atmospherics satchel"
+	desc = "A fireproof satchel for keeping gear safe."
+	icon_state = "satchel-atmos"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel/explorer
