@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/freq_ventcrawl_combat = 1800 // 3 minutes
 	var/freq_ventcrawl_idle =  9000 // 15 minutes
 	var/last_ventcrawl_time = -9000 // Last time the spider crawled. Used to prevent excessive crawling. Setting to freq*-1 ensures they can crawl once on spawn.
-	var/ai_ventbreaker = 0
+	var/ai_ventbreaker = FALSE
 
 	// AI movement tracking
 	var/spider_steps_taken = 0 // leave at 0, its a counter for ai steps taken.
@@ -119,11 +119,11 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
-	var/spider_awaymission = 0 // if 1, limits certain behavior in away missions
-	var/spider_uo71 = 0 // if 1, spider is in the UO71 away mission
+	var/spider_awaymission = FALSE // if TRUE, limits certain behavior in away missions
+	var/spider_uo71 = FALSE // if TRUE, spider is in the UO71 away mission
 	var/spider_unlock_id_tag = "" // if defined, unlock awaymission blast doors with this tag on death
 	var/spider_role_summary = "UNDEFINED"
-	var/spider_placed = 0
+	var/spider_placed = FALSE
 
 	// AI variables designed for use in procs
 	var/atom/movable/cocoon_target // for queen and nurse
@@ -131,15 +131,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/obj/machinery/atmospherics/unary/vent_pump/exit_vent // remote vent they intend to come out of
 	var/obj/machinery/atmospherics/unary/vent_pump/nest_vent // home vent, usually used by queens
 	var/fed = 0
-	var/travelling_in_vent = 0
+	var/travelling_in_vent = FALSE
 	var/list/enemies = list()
-	var/path_to_vent = 0
+	var/path_to_vent = FALSE
 	var/killcount = 0
 	var/busy = 0 // leave this alone!
 	var/spider_tier = TS_TIER_1 // 1 for red,gray,green. 2 for purple,black,white, 3 for prince, mother. 4 for queen
 	/// Does this terror speak loudly on the terror hivemind?
 	var/loudspeaker = FALSE
-	var/hasdied = 0
+	var/hasdied = FALSE
 	var/list/spider_special_drops = list()
 	var/attackstep = 0
 	var/attackcycles = 0
@@ -282,16 +282,16 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
 	if(is_away_level(z))
-		spider_awaymission = 1
+		spider_awaymission = TRUE
 		GLOB.ts_count_alive_awaymission++
 		if(spider_tier >= 3)
 			ai_ventcrawls = FALSE // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
 		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
-			spider_uo71 = 1
+			spider_uo71 = TRUE
 			if(world.time < 600)
 				// these are static spiders, specifically for the UO71 away mission, make them stay in place
 				ai_ventcrawls = FALSE
-				spider_placed = 1
+				spider_placed = TRUE
 	else
 		GLOB.ts_count_alive_station++
 	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
@@ -344,7 +344,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()
 	if(!hasdied)
-		hasdied = 1
+		hasdied = TRUE
 		GLOB.ts_count_dead++
 		GLOB.ts_death_last = world.time
 		if(spider_awaymission)
