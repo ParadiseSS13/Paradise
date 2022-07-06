@@ -621,7 +621,7 @@ Difficulty: Hard
 			shake_camera(src, 2, 3)
 	..()
 
-/mob/living/simple_animal/hostile/hostile/ancient_robot_leg/ex_act(severity, target)
+/mob/living/simple_animal/hostile/ancient_robot_leg/ex_act(severity, target)
 	switch(severity)
 		if(1)
 			adjustBruteLoss(25)
