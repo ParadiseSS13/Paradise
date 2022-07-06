@@ -10,7 +10,6 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-
 	var/datum/ui_module/library_manager/L = new()
 	L.ui_interact(usr)
 

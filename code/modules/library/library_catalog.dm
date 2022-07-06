@@ -116,23 +116,23 @@
 
 ///External proc that Returns a report library_category datum that matches the provided cat_id
 /datum/library_catalog/proc/get_report_category_by_id(category_id)
-	for(var/datum/library_category/category in GLOB.library_catalog.report_types)
+	for(var/datum/library_category/category in report_types)
 		if(category.category_id == category_id)
 			return category
 	//proc shouldn't get this far, but if there's an entry in the DB that we don't have added, just default to other cat
-	for(var/datum/library_category/category in GLOB.library_catalog.report_types)
+	for(var/datum/library_category/category in report_types)
 		if(category.category_id == LIB_REPORT_OTHER)
 			return category
 
 ///External proc that Returns a book library_category datum that matches the provided cat_id
 /datum/library_catalog/proc/get_book_category_by_id(category_id)
-	for(var/datum/library_category/category in GLOB.library_catalog.categories)
+	for(var/datum/library_category/category in categories)
 		if(category.category_id == category_id)
 			return category
 
 ///External proc that Returns a report programmaticbook datum that matches the provided bookid
 /datum/library_catalog/proc/get_programmatic_book_by_id(id)
-	for(var/datum/programmatic_book/PB as anything in GLOB.library_catalog.books)
+	for(var/datum/programmatic_book/PB as anything in books)
 		if(PB.id == id)
 			return PB
 
@@ -422,7 +422,7 @@
 	if(!report_type) //is this an existing report type? If not somethings gone terribly wrong
 		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for a reason that does not exist, please investigate further.")
 		return FALSE
-	var/datum/cachedbook/reportedbook = GLOB.library_catalog.get_book_by_id(bookid) //and now lets get what's currently on the DB
+	var/datum/cachedbook/reportedbook = get_book_by_id(bookid) //and now lets get what's currently on the DB
 	if(!reportedbook) //does this book exist in the DB?
 		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but it does not exist in the Database, please investigate further.")
 		return FALSE
@@ -433,7 +433,7 @@
 
 	//Alright now that we've triple checked that we're ready to do this:
 	//Has this player reported this book already this round?
-	for(var/datum/flagged_book/book in GLOB.library_catalog.flagged_books)
+	for(var/datum/flagged_book/book in flagged_books)
 		if (book.bookid == bookid && book.reporter == ckey)
 			return FALSE
 	//If not, have they report this book in a previous round?
@@ -446,7 +446,7 @@
 	f.bookid = bookid
 	f.reporter = ckey
 	f.category_id = category_id
-	GLOB.library_catalog.flagged_books += f //adding to global list
+	flagged_books += f //adding to global list
 	reportedbook.reports += f //adding to books var for tracking reports
 	//Now we will add the report to the DB, we will build the JSON we're going to upload from our books report list
 	var/list/flag_json = list()
@@ -481,7 +481,7 @@
 	//we should never flag a book in the DB without having the Book ID, Report Type, or Who reported it
 	if(!bookid)
 		return FALSE
-	var/datum/cachedbook/reportedbook = GLOB.library_catalog.get_book_by_id(bookid)
+	var/datum/cachedbook/reportedbook = get_book_by_id(bookid)
 	if(!reportedbook)
 		return FALSE //it don't exist
 

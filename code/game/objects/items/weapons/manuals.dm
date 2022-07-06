@@ -875,4 +875,4 @@
 	..()
 	var/newtype = pick(subtypesof(/obj/item/book/manual) - banned_books)
 	new newtype(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL

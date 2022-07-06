@@ -58,17 +58,18 @@
 
 /obj/item/book/Initialize(mapload, datum/cachedbook/CB, _copyright = FALSE, _protected = FALSE)
 	. = ..()
-	if(CB)
-		author = CB.author
-		title = CB.title
-		pages = CB.content
-		summary = CB.summary
-		categories = CB.categories
-		copyright = _copyright
-		protected = _protected
-		rating = CB.rating
-		name = "Book: [CB.title]"
-		icon_state = "book[rand(1,8)]"
+	if(!CB)
+		return
+	author = CB.author
+	title = CB.title
+	pages = CB.content
+	summary = CB.summary
+	categories = CB.categories
+	copyright = _copyright
+	protected = _protected
+	rating = CB.rating
+	name = "Book: [CB.title]"
+	icon_state = "book[rand(1,8)]"
 
 
 /obj/item/book/attack(mob/M, mob/living/user)
@@ -197,32 +198,29 @@
 	if(protected) //we don't want people touching "special" books, especially ones that use iframes
 		to_chat(user, "<span class='notice'>These pages don't seem to take the ink well. Looks like you can't modify it.</span>")
 		return
-	var/choice = input("What would you like to edit?") as null|anything in list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page")
+	var/choice = input(user, "What would you like to edit?") as null|anything in list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page")
 	switch(choice)
 		if("Title")
 			var/newtitle = reject_bad_text(stripped_input(user, "Write a new title:"))
 			if(!newtitle)
 				to_chat(user, "<span class='notice'>The title is invalid.</span>")
 				return
-			else
-				//Like with paper, the name (not title) of the book should indicate that THIS IS A BOOK when actions are performed with it
-				//this is to prevent players from naming it "Nuclear Authentification Disk" or "Energy Sword" to fuck with security
-				name = "Book: " + newtitle
-				title = newtitle
+			//Like with paper, the name (not title) of the book should indicate that THIS IS A BOOK when actions are performed with it
+			//this is to prevent players from naming it "Nuclear Authentification Disk" or "Energy Sword" to fuck with security
+			name = "Book: " + newtitle
+			title = newtitle
 		if("Author")
 			var/newauthor = stripped_input(user, "Write the author's name:")
 			if(!newauthor)
 				to_chat(user, "<span class='notice'>The name is invalid.</span>")
 				return
-			else
-				author = newauthor
+			author = newauthor
 		if("Summary")
 			var/newsummary = strip_html(input(user, "Write the new summary:") as message|null, MAX_SUMMARY_LEN)
 			if(!newsummary)
 				to_chat(user, "<span class='notice'>The name is invalid.</span>")
 				return
-			else
-				summary = newsummary
+			summary = newsummary
 		if("Edit Current Page")
 			if(carved)
 				to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
@@ -258,7 +256,7 @@
 				to_chat(user, "<span class='notice'>There aren't any pages in this book!</span>")
 				return
 			var/page_choice = stripped_input(user, "There are [length(pages)] pages, which page number would you like to remove?")
-			if(!isnum(page_choice) || page_choice > length(pages))
+			if(!isnum(page_choice) || page_choice <= 0 || page_choice > length(pages))
 				to_chat(user, "That is not an acceptable value.")
 				return
 			pages -= pages[page_choice]
@@ -266,7 +264,7 @@
 /obj/item/book/proc/edit_page(content, page_number)
 	if(!content)
 		return
-	if(length(pages) < page_number) //can't remove the page if it doesn't exist
+	if(length(pages) < page_number) //can't edit the page if it doesn't exist
 		return
 	pages += content
 
@@ -297,7 +295,7 @@
 	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
 		user.visible_message("<span class='warning'>[user] appears to carve out the pages inside of [title]!</span>",\
-				"<span class='danger'>You carve out [title].!</span>")
+				"<span class='danger'>You carve out [title]!</span>")
 		carved = TRUE
 		return TRUE
 
@@ -349,7 +347,7 @@
 	var/list/books = GLOB.library_catalog.get_random_book(amount)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(loc, book, TRUE, FALSE)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/book/random/triple
 	amount = 3

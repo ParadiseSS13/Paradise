@@ -275,8 +275,10 @@
 				if(!selectedbook)
 					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 					atom_say("Deletion Failed!")
+					return
 				if(selectedbook.ckey != params["user_ckey"])
 					message_admins("[params["user_ckey"]] attempted to delete a book that wasn't theirs, this shouldn't happen, please investigate.")
+					return
 				if(GLOB.library_catalog.remove_book_by_id(params["bookid"])) //this doesn't need to be logged
 					playsound(loc, 'sound/machines/ping.ogg', 25, 0)
 					atom_say("Deletion Succesful!")
@@ -559,13 +561,13 @@
 	return page_count
 
 /obj/machinery/computer/library/proc/make_external_book(datum/cachedbook/newbook)
-	if(!newbook || !newbook.id)
+	if(!newbook?.id)
 		return
 	new /obj/item/book(loc, newbook, TRUE, FALSE)
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
 
 /obj/machinery/computer/library/proc/make_programmatic_book(datum/programmatic_book/newbook)
-	if(!newbook || !newbook.path)
+	if(!newbook?.path)
 		return
 
 	new newbook.path(loc)

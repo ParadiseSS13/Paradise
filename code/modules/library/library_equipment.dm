@@ -57,13 +57,10 @@
 	for(var/obj/item/I in contents)
 		if(is_type_in_list(I, allowed_books))
 			I.forceMove(get_turf(src))
-	qdel(src)
+	..()
 
 /obj/structure/bookcase/update_icon()
-	if(length(contents) < 5)
-		icon_state = "bookshelf-[length(contents)]"
-	else
-		icon_state = "bookshelf-5"
+	icon_state = "bookshelf-[min(length(contents), 5)]"
 
 
 /obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
