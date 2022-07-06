@@ -139,16 +139,16 @@
 //Gets blood from mob to a container or other mob, preserving all data in it.
 /mob/living/proc/transfer_blood_to(atom/movable/AM, amount, forced)
 	if(!blood_volume || !AM.reagents)
-		return 0
+		return FALSE
 	if(blood_volume < BLOOD_VOLUME_BAD && !forced)
-		return 0
+		return FALSE
 
 	if(blood_volume < amount)
 		amount = blood_volume
 
 	var/blood_id = get_blood_id()
 	if(!blood_id)
-		return 0
+		return FALSE
 
 	blood_volume -= amount
 

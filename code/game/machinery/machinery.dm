@@ -112,9 +112,9 @@ Class Procs:
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/uid
 	var/global/gl_uid = 1
-	var/panel_open = 0
+	var/panel_open = FALSE
 	var/area/myArea
-	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
+	var/interact_offline = FALSE // Can the machine be interacted with while de-powered.
 	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
@@ -446,11 +446,11 @@ Class Procs:
 		return FALSE
 	if(!(flags & NODECONSTRUCT))
 		if(!panel_open)
-			panel_open = 1
+			panel_open = TRUE
 			icon_state = icon_state_open
 			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
 		else
-			panel_open = 0
+			panel_open = FALSE
 			icon_state = icon_state_closed
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
 		I.play_tool_sound(user, I.tool_volume)

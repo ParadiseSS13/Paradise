@@ -9,24 +9,24 @@
 
 /datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
-		return 0
+		return FALSE
 	if(affected.is_robotic())
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/surgery/embedded_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
-		return 0
+		return FALSE
 	if(!affected.is_robotic())
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 /datum/surgery_step/remove_object
 	name = "Remove Embedded Objects"
@@ -63,4 +63,4 @@
 	else
 		to_chat(user, "<span class='warning'>You can't find [target]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!</span>")
 
-	return 1
+	return TRUE

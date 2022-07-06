@@ -3,21 +3,20 @@
 //				GENERIC	RIBCAGE SURGERY							//
 //////////////////////////////////////////////////////////////////
 /datum/surgery_step/open_encased
-	priority = 2
-	can_infect = 1
+	can_infect = TRUE
 	blood_level = 1
 
 /datum/surgery_step/open_encased/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	if(!hasorgans(target))
-		return 0
+		return FALSE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected)
-		return 0
+		return FALSE
 	if(affected.is_robotic())
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 
 /datum/surgery_step/open_encased/saw
@@ -51,7 +50,7 @@
 	"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>")
 	affected.open = 2.5
 	affected.fracture(silent = TRUE)
-	return 1
+	return TRUE
 
 /datum/surgery_step/open_encased/saw/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -65,7 +64,7 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return 0
+	return FALSE
 
 
 /datum/surgery_step/open_encased/retract
@@ -102,7 +101,7 @@
 
 	affected.open = 3
 
-	return 1
+	return TRUE
 
 /datum/surgery_step/open_encased/retract/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -117,7 +116,7 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return 0
+	return FALSE
 
 /datum/surgery_step/open_encased/close
 	name = "unretract bone" //i suck at names okay? give me a new one
@@ -153,7 +152,7 @@
 
 	affected.open = 2.5
 
-	return 1
+	return TRUE
 
 /datum/surgery_step/open_encased/close/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -168,7 +167,7 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return 0
+	return FALSE
 
 /datum/surgery_step/open_encased/mend
 	name = "mend bone"
@@ -203,4 +202,4 @@
 
 	affected.open = 2
 
-	return 1
+	return TRUE

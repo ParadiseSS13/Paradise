@@ -10,11 +10,11 @@
 
 	var/obj/machinery/power/generator/generator
 
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 
-	can_unwrench = 1
-	var/side_inverted = 0
+	can_unwrench = TRUE
+	var/side_inverted = FALSE
 
 	var/light_range_on = 1
 	var/light_power_on = 0.1 //just dont want it to be culled by byond.
@@ -75,39 +75,36 @@
 		update_icon()
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_inlet_air()
-	if(side_inverted==0)
-		return air2
-	else
+	if(side_inverted)
 		return air1
+	else
+		return air2
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_outlet_air()
-	if(side_inverted==0)
-		return air1
-	else
+	if(side_inverted)
 		return air2
+	else
+		return air1
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_inlet_side()
 	if(dir==SOUTH||dir==NORTH)
-		if(side_inverted==0)
-			return "South"
-		else
+		if(side_inverted)
 			return "North"
+		else
+			return "South"
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_outlet_side()
 	if(dir==SOUTH||dir==NORTH)
-		if(side_inverted==0)
-			return "North"
-		else
+		if(side_inverted)
 			return "South"
+		else
+			return "North"
 
 /obj/machinery/atmospherics/binary/circulator/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!side_inverted)
-		side_inverted = TRUE
-	else
-		side_inverted = FALSE
+	side_inverted = !side_inverted
 	to_chat(user, "<span class='notice'>You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side.</span>")
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
 
