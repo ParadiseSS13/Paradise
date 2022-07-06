@@ -10,7 +10,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
-	can_suppress = 1
+	can_suppress = TRUE
 	burst_size = 1
 	fire_delay = 0
 	actions_types = list()
@@ -27,7 +27,7 @@
 	icon_state = "m1911"
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
-	can_suppress = 0
+	can_suppress = FALSE
 
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
@@ -86,7 +86,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistolH.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
-	can_suppress = 0
+	can_suppress = FALSE
 
 /obj/item/gun/projectile/automatic/pistol/deagle/update_icon()
 	..()
@@ -110,7 +110,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
-	can_suppress = 0
+	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)

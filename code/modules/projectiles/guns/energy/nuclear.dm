@@ -6,7 +6,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
 	modifystate = 2
-	can_flashlight = 1
+	can_flashlight = TRUE
 	flight_x_offset = 20
 	flight_y_offset = 10
 	shaded_charge = TRUE
@@ -33,7 +33,7 @@
 	ammo_x_offset = 2
 	charge_sections = 3
 	inhand_charge_sections = 3
-	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
+	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
 	actions_types = list(/datum/action/item_action/toggle_gunlight)
 	shaded_charge = FALSE
 	can_holster = TRUE  // Pistol sized, so it should fit into a holster
@@ -88,7 +88,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
-	can_flashlight = 0
+	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 	shaded_charge = FALSE
@@ -101,10 +101,10 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
 	var/fail_tick = 0
 	charge_delay = 5
-	can_charge = 0
+	can_charge = FALSE
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
-	selfcharge = 1
+	selfcharge = TRUE
 	shaded_charge = FALSE
 
 /obj/item/gun/energy/gun/nuclear/detailed_examine()

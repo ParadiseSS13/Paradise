@@ -28,7 +28,7 @@
 	icon_state = "pulse_carbine"
 	item_state = "pulse"
 	cell_type = /obj/item/stock_parts/cell/pulse/carbine
-	can_flashlight = 1
+	can_flashlight = TRUE
 	flight_x_offset = 18
 	flight_y_offset = 12
 
@@ -41,7 +41,7 @@
 	item_state = "gun"
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
-	can_charge = 0
+	can_charge = FALSE
 
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"
@@ -74,6 +74,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse)
 	weapon_weight = WEAPON_MEDIUM
-	can_flashlight = 0
+	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2

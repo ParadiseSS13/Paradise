@@ -13,18 +13,18 @@
 	throw_range = 5
 	force = 5
 	origin_tech = "combat=1"
-	needs_permit = 1
+	needs_permit = TRUE
 	attack_verb = list("struck", "hit", "bashed")
 
 	var/fire_sound = "gunshot"
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
 	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
 	var/fire_sound_text = "gunshot" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
-	var/suppressed = 0					//whether or not a message is displayed when fired
-	var/can_suppress = 0
-	var/can_unsuppress = 1
+	var/suppressed = FALSE					//whether or not a message is displayed when fired
+	var/can_suppress = FALSE
+	var/can_unsuppress = TRUE
 	var/recoil = 0						//boom boom shake the room
-	var/clumsy_check = 1
+	var/clumsy_check = TRUE
 	var/obj/item/ammo_casing/chambered = null
 	var/trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
 	var/sawn_desc = null				//description change if weapon is sawn-off
@@ -47,7 +47,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 
 	var/obj/item/flashlight/gun_light = null
-	var/can_flashlight = 0
+	var/can_flashlight = FALSE
 
 	var/can_bayonet = FALSE //if a bayonet can be added or removed if it already has one.
 	var/obj/item/kitchen/knife/bayonet
