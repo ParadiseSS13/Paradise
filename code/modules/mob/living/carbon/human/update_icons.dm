@@ -880,6 +880,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(inv)
 			inv.update_icon()
 
+	var/obscured_slots = check_obscured_slots()
+
 	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit))
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)					//if the inventory is open ...
@@ -914,10 +916,21 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
-	
-	update_inv_gloves()
-	update_inv_shoes()
-	update_inv_s_store()
+
+	if(slot_gloves in obscured_slots)
+		remove_overlay(GLOVES_LAYER)
+	else if(gloves || blood_DNA)
+		update_inv_gloves()
+
+	if(slot_shoes in obscured_slots)
+		remove_overlay(SHOES_LAYER)
+	else if(shoes || feet_blood_DNA)
+		update_inv_shoes()
+
+	if(slot_s_store in obscured_slots)
+		remove_overlay(SUIT_STORE_LAYER)
+	else if(s_store)
+		update_inv_s_store()
 
 	update_tail_layer()
 	update_wing_layer()
