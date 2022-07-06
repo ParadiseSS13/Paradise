@@ -56,9 +56,6 @@
 	///Item that is stored inside the book
 	var/obj/item/store
 
-	///since the browserUI is datumized, we need to track all open instances of it so we don't open duplicate menus
-	var/list/book_browsers = list()
-
 /obj/item/book/Initialize(mapload, datum/cachedbook/CB, _copyright = FALSE, _protected = FALSE)
 	. = ..()
 	if(CB)
