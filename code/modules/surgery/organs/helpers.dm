@@ -117,7 +117,7 @@
 	var/obj/item/tank/jetpack/J
 	if(istype(back,/obj/item/tank/jetpack))
 		J = back
-		if(J.on == 1)
+		if(J.on)
 			return TRUE
 	return FALSE
 
