@@ -20,27 +20,21 @@
 		return
 	SSdebugview.start_processing(C)
 
-/datum/keybinding/admin/asay_msay
-	name = "Asay/Msay"
-	keys = list("F5")
-
-/datum/keybinding/admin/asay_msay/down(client/C)
-	. = ..()
-	C.get_admin_say()
-
-/datum/keybinding/admin/asay
-	name = "Asay"
-
-/datum/keybinding/admin/asay/down(client/C)
-	. = ..()
-	C.cmd_admin_say()
-
 /datum/keybinding/admin/msay
 	name = "Msay"
+	keys = list("F4")
 
 /datum/keybinding/admin/msay/down(client/C)
 	. = ..()
-	C.cmd_mentor_say()
+	C.get_mentor_say()
+
+/datum/keybinding/admin/asay
+	name = "Asay"
+	keys = list("F5")
+
+/datum/keybinding/admin/asay/down(client/C)
+	. = ..()
+	C.get_admin_say()
 
 /datum/keybinding/admin/aghost
 	name = "Aghost"
