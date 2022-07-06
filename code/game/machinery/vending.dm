@@ -87,7 +87,7 @@
 
 	// Things that can go wrong
 	/// Allows people to access a vendor that's normally access restricted.
-	emagged = 0
+	emagged = FALSE
 	/// Shocks people like an airlock
 	var/seconds_electrified = 0
 	/// Fire items at customers! We're broken!
