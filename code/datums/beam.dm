@@ -48,8 +48,7 @@
 	finished = 1
 
 /datum/beam/proc/Reset()
-	for(var/obj/effect/ebeam/B in elements)
-		qdel(B)
+	QDEL_LIST(elements)
 
 /datum/beam/Destroy()
 	Reset()
