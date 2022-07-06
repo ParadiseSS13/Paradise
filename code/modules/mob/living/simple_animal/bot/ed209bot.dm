@@ -7,11 +7,11 @@
 	icon_state = "ed2090"
 	density = 1
 	anchored = 0
-	health = 100
-	maxHealth = 100
+	health = 150
+	maxHealth = 150
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	obj_damage = 60
-	environment_smash = 2 //Walls can't stop THE LAW
+	environment_smash = ENVIRONMENT_SMASH_WALLS //Walls can't stop THE LAW //someone fix this please this is funny
 	mob_size = MOB_SIZE_LARGE
 
 	radio_channel = "Security"

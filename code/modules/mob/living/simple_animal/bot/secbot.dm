@@ -7,8 +7,8 @@
 	icon_state = "secbot0"
 	density = 0
 	anchored = 0
-	health = 25
-	maxHealth = 25
+	health = 60
+	maxHealth = 60
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	pass_flags = PASSMOB
 
@@ -79,7 +79,8 @@
 
 /mob/living/simple_animal/bot/secbot/armsky
 	name = "Sergeant-at-Armsky"
-	health = 45
+	health = 100
+	maxHealth = 100
 	idcheck = 1
 	arrest_type = 1
 	weaponscheck = 1
@@ -215,6 +216,9 @@
 			if(!Proj.nodamage && Proj.damage < src.health)
 				retaliate(Proj.firer)
 	..()
+
+/mob/living/simple_animal/bot/secbot/projectile_hit_check(obj/item/projectile/P)
+	return FALSE
 
 
 /mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
