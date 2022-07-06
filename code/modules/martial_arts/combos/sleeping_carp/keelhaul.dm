@@ -8,7 +8,7 @@
 	playsound(get_turf(target), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	if(!IS_HORIZONTAL(target))
 		target.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
-		target.KnockDown(4 SECONDS)
+		target.KnockDown(6 SECONDS)
 		target.visible_message("<span class='warning'>[user] kicks [target] in the head, sending them face first into the floor!</span>",
 						"<span class='userdanger'>You are kicked in the head by [user], sending you crashing to the floor!</span>")
 	else
