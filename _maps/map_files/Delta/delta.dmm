@@ -519,11 +519,12 @@
 "afw" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 8;
-	height = 15;
+	dwidth = 9;
+	height = 18;
 	id = "admin_home";
 	name = "port bay 1";
-	width = 18
+	timid = 1;
+	width = 19
 	},
 /turf/space,
 /area/space)
