@@ -119,7 +119,7 @@
 	onfire = !onfire
 	if(onfire)
 		force = 3
-		damtype = "fire"
+		damtype = BURN
 		icon_state = "cake1"
 		START_PROCESSING(SSobj, src)
 	else
