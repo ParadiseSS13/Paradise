@@ -31,7 +31,7 @@
 
 	var/is_electronic = 0
 	gold_core_spawnable = HOSTILE_SPAWN
-	del_on_death = 1
+	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/mimic/emp_act(severity)
 	if(is_electronic)
@@ -45,9 +45,9 @@
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
 /mob/living/simple_animal/hostile/mimic/crate
 	attacktext = "bites"
-	stop_automated_movement = 1
-	wander = 0
-	var/attempt_open = 0
+	stop_automated_movement = TRUE
+	wander = FALSE
+	var/attempt_open = FALSE
 
 // Pickup loot
 /mob/living/simple_animal/hostile/mimic/crate/Initialize(mapload)
@@ -84,7 +84,7 @@
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
 		visible_message("<b>[src]</b> starts to move!")
-		attempt_open = 1
+		attempt_open = TRUE
 
 /mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE)
 	trigger()
@@ -221,7 +221,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		emote_see = list("aims menacingly")
 		obj_damage = 0
 		environment_smash = 0 //needed? seems weird for them to do so
-		ranged = 1
+		ranged = TRUE
 		retreat_distance = 1 //just enough to shoot
 		minimum_distance = 6
 		var/obj/item/gun/G = O
@@ -277,7 +277,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 			Pewgun.chambered.loc = Pewgun
 			visible_message("<span class='danger'>The <b>[src]</b> cocks itself!</span>")
 	else
-		ranged = 0 //BANZAIIII
+		ranged = FALSE //BANZAIIII
 		retreat_distance = 0
 		minimum_distance = 1
 		return

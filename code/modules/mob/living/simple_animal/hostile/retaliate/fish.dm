@@ -24,7 +24,7 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("gnashes")
 	faction = list("carp")
-	flying = 1
+	flying = TRUE
 
 	var/carp_color = "carp" //holder for icon set
 	var/static/list/carp_colors = list(\

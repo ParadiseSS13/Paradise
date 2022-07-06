@@ -23,7 +23,7 @@
 	icon_living = "ghost2"
 	icon_dead = "ghost"
 	mob_biotypes = MOB_SPIRIT
-	density = 0 // ghost
+	density = FALSE // ghost
 	invisibility = 60 // no seriously ghost
 	speak_chance = 0 // fyi, ghost
 
@@ -52,7 +52,7 @@
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
-	del_on_death = 1
+	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(check_drift = 0)
 	return 1
@@ -91,7 +91,7 @@
 
 	faction = list("undead")
 	loot = list(/obj/effect/decal/remains/human)
-	del_on_death = 1
+	del_on_death = TRUE
 	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/zombie
@@ -121,4 +121,4 @@
 
 	faction = list("undead")
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
-	del_on_death = 1
+	del_on_death = TRUE
