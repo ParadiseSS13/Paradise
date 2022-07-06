@@ -29,11 +29,13 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 			return
 
 	var/is_leader = TRUE // set to FALSE after leader is spawned
-	var/commando_number = clamp(input(src, "How many Deathsquad Commandos would you like to send? (Recommended is 6, Max is [MAX_COMMANDOS]])", "Specify Commandos") as num|null, 1, MAX_COMMANDOS)
+	var/commando_number = input(src, "How many Deathsquad Commandos would you like to send? (Recommended is 6, Max is [MAX_COMMANDOS])", "Specify Commandos") as num|null
 	if(!commando_number)
 		message_admins("[key_name_admin(proccaller)] cancelled their Deathsquad.")
 		log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
 		return
+	commando_number = clamp(commando_number, 0, MAX_COMMANDOS)
+
 	if(GLOB.deathsquad_sent)
 		if(alert("A Deathsquad leader has previously been sent with an unrestricted NAD, would you like to spawn another?",, "Yes", "No") != "Yes")
 			is_leader = FALSE
@@ -58,7 +60,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		commando_ghosts = pollCandidatesWithVeto(src, usr, commando_number, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 	else
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-		commando_ghosts = SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
+		commando_ghosts = SSghost_spawns.poll_candidates("Join the Deathsquad?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 		if(length(commando_ghosts) > commando_number)
 			commando_ghosts.Cut(commando_number + 1) //cuts the ghost candidates down to the amount requested
 	if(!length(commando_ghosts))
@@ -80,12 +82,12 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
 			continue
 
-		var/new_dstype = "Organic"
-		if(!is_leader)
-			new_dstype = input_async(ghost_mob.client, "Select Deathsquad Type (10 seconds):", list("Organic", "Cyborg"))
+		var/dstype
+		if(is_leader)
+			dstype = input_async(ghost_mob, "Select Deathsquad Type (10 seconds):", list("Organic", "Cyborg"))
 		else
 			to_chat(ghost_mob.client, "<span class='boldwarning'>You have been chosen to lead the Deathsquad. Please stand by.</span>" )
-		addtimer(CALLBACK(src, .proc/deathsquad_spawn, ghost_mob, is_leader, new_dstype, L, nuke_code, mission), 10 SECONDS)
+		addtimer(CALLBACK(src, .proc/deathsquad_spawn, ghost_mob, is_leader, dstype, L, nuke_code, mission), 10 SECONDS) // This may fail if the user switches mobs during it, this is because input_async is only for mobs not clients
 
 		is_leader = FALSE
 		commando_number--
@@ -104,13 +106,20 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	log_admin("[key_name(proccaller)] used Spawn Death Squad.")
 	return TRUE
 
-/client/proc/deathsquad_spawn(mob/ghost_mob, is_leader = FALSE, new_dstype, obj/L, nuke_code, mission)
+/client/proc/deathsquad_spawn(mob/ghost_mob, is_leader = FALSE, datum/async_input/new_dstype_input, obj/L, nuke_code, mission)
+	var/new_dstype
+	if(new_dstype_input)
+		new_dstype_input.close()
+		new_dstype = new_dstype_input.result
+	if(!new_dstype_input)  // didn't receive any response, or didn't ask them in the first place
+		new_dstype = "Organic"
+
 	var/use_ds_borg = FALSE
 	if(new_dstype == "Cyborg")
 		use_ds_borg = TRUE
 
 	if(!ghost_mob || !ghost_mob.key || !ghost_mob.client) // Doublechecking after async request
-		return FALSE
+		return
 
 	if(use_ds_borg)
 		var/mob/living/silicon/robot/deathsquad/R = new(get_turf(L))
