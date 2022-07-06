@@ -437,6 +437,13 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
 
+//ovveride block check, we don't want to block anything that's not a holo object
+/obj/item/holo/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby)
+	if(!istype(hitby, /obj/item/holo))
+		return
+	else
+		..()
+
 /obj/item/holo/claymore/blue
 	icon_state = "claymoreblue"
 	item_state = "claymoreblue"
