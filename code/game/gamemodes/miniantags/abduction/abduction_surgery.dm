@@ -80,7 +80,7 @@
 	name = "Experimental Robotic Dissection"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/extract_organ/synth,/datum/surgery_step/internal/gland_insert,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest")
-	requires_organic_bodypart = 0
+	requires_organic_bodypart = FALSE
 
 /datum/surgery/organ_extraction/synth/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!ishuman(user))

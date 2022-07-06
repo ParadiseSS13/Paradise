@@ -16,7 +16,7 @@
 			return
 
 		var/datum/mind/player_mind = new /datum/mind(key_of_morph)
-		player_mind.active = 1
+		player_mind.active = TRUE
 		if(!GLOB.xeno_spawn)
 			kill()
 			return
