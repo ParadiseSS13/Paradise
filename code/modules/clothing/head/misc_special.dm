@@ -114,7 +114,8 @@
 		location.hotspot_expose(700, 1)
 
 /obj/item/clothing/head/cakehat/attack_self(mob/user)
-	if(status > 1)	return
+	if(status > 1)
+		return
 	onfire = !onfire
 	if(onfire)
 		force = 3
@@ -123,9 +124,8 @@
 		START_PROCESSING(SSobj, src)
 	else
 		force = null
-		damtype = "brute"
+		damtype = BRUTE
 		icon_state = "cake0"
-	return
 
 
 /*
