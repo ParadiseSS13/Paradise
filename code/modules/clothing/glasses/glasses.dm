@@ -68,7 +68,7 @@
 	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -84,7 +84,7 @@
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	prescription_upgradable = 0
+	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/meson/prescription
 	prescription = 1
@@ -99,7 +99,7 @@
 	throw_speed = 4
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "eye replacement implant"
@@ -108,7 +108,7 @@
 	item_state = "eyepatch"
 	flags = NODROP
 	flags_cover = null
-	prescription_upgradable = 0
+	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"
@@ -182,7 +182,7 @@
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
 	item_state = "headset" // lol
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -263,7 +263,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/sunglasses
 	name = "sunglasses"
@@ -393,7 +393,7 @@
 	item_state = "blindfold"
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 3				//to make them blind
-	prescription_upgradable = 0
+	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/sunglasses/blindfold/fake
 	name = "tattered blindfold"
@@ -417,7 +417,7 @@
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -495,7 +495,7 @@
 	item_state = "tajblind"
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
-	up = 0
+	up = FALSE
 	tint = FLASH_PROTECTION_NONE
 
 	sprite_sheets = list(
@@ -525,15 +525,12 @@
 /obj/item/clothing/glasses/proc/toggle_veil()
 	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.incapacitated())
 		return
-
+	up = !up
 	if(up)
-		up = !up
 		tint = initial(tint)
-		to_chat(usr, "You activate [src], allowing you to see.")
 	else
-		up = !up
 		tint = 3
-		to_chat(usr, "You deactivate [src], obscuring your vision.")
+	to_chat(usr, [up ? "You deactivate [src], obscuring your vision." : "You activate [src], allowing you to see.")
 	var/mob/living/carbon/user = usr
 	user.update_tint()
 	user.update_inv_glasses()

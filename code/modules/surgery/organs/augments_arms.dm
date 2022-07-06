@@ -51,7 +51,7 @@
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/arm/emag_act()
-	return 0
+	return FALSE
 
 /obj/item/organ/internal/cyberimp/arm/emp_act(severity)
 	if(emp_proof)

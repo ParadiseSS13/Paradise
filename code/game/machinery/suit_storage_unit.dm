@@ -111,6 +111,7 @@
 	name = "security suit storage unit"
 	suit_type	= /obj/item/clothing/suit/space/hardsuit/security
 	mask_type	= /obj/item/clothing/mask/gas/sechailer
+	storage_type	= /obj/item/tank/jetpack/oxygen/security
 	req_access	= list(ACCESS_SECURITY)
 
 /obj/machinery/suit_storage_unit/security/secure
@@ -120,6 +121,7 @@
 	name = "Head of Security's suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
+	storage_type = null
 	req_access = list(ACCESS_HOS)
 
 /obj/machinery/suit_storage_unit/security/hos/secure
