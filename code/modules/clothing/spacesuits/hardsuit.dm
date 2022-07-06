@@ -335,7 +335,7 @@
 	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
-	on = 1
+	on = TRUE
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDETAIL
@@ -410,7 +410,7 @@
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
 	w_class = WEIGHT_CLASS_NORMAL
-	var/on = 1
+	var/on = TRUE
 	actions_types = list(/datum/action/item_action/toggle_hardsuit_mode)
 	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
@@ -482,7 +482,7 @@
 	icon_state = "hardsuit0-medical"
 	item_state = "medical_helm"
 	item_color = "medical"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75)
 	scan_reagents = 1 //Generally worn by the CMO, so they'd get utility off of seeing reagents
 
@@ -503,7 +503,7 @@
 	icon_state = "hardsuit0-rd"
 	item_state = "rd"
 	item_color = "rd"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	scan_reagents = TRUE
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80)
 	var/hud_active = FALSE
