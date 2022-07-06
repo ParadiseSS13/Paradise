@@ -153,7 +153,7 @@
 	. = ..()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/M = owner
-		teleports += 1
+		teleports++
 		if(teleports < 3)
 			return
 		if(teleports >= 6)
