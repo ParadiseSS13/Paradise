@@ -137,3 +137,17 @@
 	. = ..()
 	icon_state = "snap3"
 	render_target = "*snap[id]"
+
+/obj/effect/frosty_breath
+	icon = 'icons/effects/effects.dmi'
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/frosty_breath/Initialize(mapload, direction)
+	. = ..()
+	dir = direction
+	if(dir == NORTH)
+		plane = BELOW_MOB_LAYER
+	else
+		plane = FLY_LAYER
+	flick("breath", src)
+	QDEL_IN(src, 1.8 SECONDS)
