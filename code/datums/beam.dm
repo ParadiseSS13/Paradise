@@ -115,6 +115,9 @@
 	anchored = 1
 	var/datum/beam/owner
 
+/obj/effect/ebeam/ex_act(severity)
+	return
+
 /obj/effect/ebeam/Destroy()
 	owner = null
 	return ..()
