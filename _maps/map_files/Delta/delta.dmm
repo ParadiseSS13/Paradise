@@ -1247,9 +1247,6 @@
 /area/maintenance/fore2)
 "akG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -93441,6 +93438,18 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/security/securearmoury)
+"pOL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "pPC" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -128762,7 +128771,7 @@ aef
 adb
 acC
 acC
-acC
+adb
 acC
 acC
 acC
@@ -129790,7 +129799,7 @@ acC
 adb
 acC
 acC
-acC
+adb
 acC
 acC
 acC
@@ -131864,7 +131873,7 @@ aaa
 abj
 aaa
 adb
-ann
+ant
 anP
 aoo
 aoU
@@ -132122,7 +132131,7 @@ abj
 aaa
 adb
 ant
-anP
+pOL
 aoo
 aoV
 apM
@@ -133921,7 +133930,7 @@ aaa
 aaa
 adb
 ant
-anP
+pOL
 aoo
 apc
 apT
