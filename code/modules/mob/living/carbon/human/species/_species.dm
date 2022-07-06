@@ -525,12 +525,16 @@
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	if(target.move_resist > user.pull_force)
 		return FALSE
 	if(!(target.status_flags & CANPUSH))
 		return FALSE
+	if(target.anchored)
+		return FALSE
+	if(target.buckled)
+		target.buckled.unbuckle_mob(target)
 
-	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)
 	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -574,6 +578,8 @@
 	var/moved = target.Move(shove_to, shove_dir)
 	if(!moved) //they got pushed into a dense object
 		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
+		target.visible_message("<span class='warning'>[target] gets slammed into the wall!</span>", \
+								"<span class='warning'>You get slammed into the wall!</span>")
 		if(!HAS_TRAIT(target, TRAIT_FLOORED))
 			target.KnockDown(3 SECONDS)
 			addtimer(CALLBACK(target, /mob/living.proc/SetKnockDown, 0), 3 SECONDS) // so you cannot chain stun someone
@@ -585,6 +591,9 @@
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
 			target.Slowed(2.5 SECONDS, 1)
+			var/obj/item/I = target.get_active_hand()
+			if(I)
+				to_chat(target, "<span class='warning'>Your grip on [I] loosens!</span>")
 			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
 	target.stop_pulling()
 
