@@ -120,11 +120,8 @@
 /obj/screen/pull/Click()
 	usr.stop_pulling()
 
-/obj/screen/pull/update_icon(mob/mymob)
-	..(NONE)
-	if(!mymob)
-		return
-	if(mymob.pulling)
+/obj/screen/pull/update_icon_state()
+	if(hud?.mymob?.pulling)
 		icon_state = "pull"
 	else
 		icon_state = "pull0"
@@ -325,22 +322,23 @@
 							return "eyes"
 				return "head"
 
-/obj/screen/zone_sel/proc/set_selected_zone(choice, mob/user)
-	if(isobserver(user))
+/obj/screen/zone_sel/proc/set_selected_zone(choice)
+	if(!hud)
+		return
+	if(isobserver(hud.mymob))
 		return
 
 	if(choice != selecting)
 		selecting = choice
-		update_icon(user)
+		update_icon(UPDATE_OVERLAYS)
 	return 1
 
-/obj/screen/zone_sel/update_icon(mob/user)
-	..(NONE)
-	cut_overlays()
+/obj/screen/zone_sel/update_overlays()
+	. = ..()
 	var/image/sel = image(overlay_file, "[selecting]")
 	sel.appearance_flags = RESET_COLOR
-	add_overlay(sel)
-	user.zone_selected = selecting
+	. += sel
+	hud.mymob.zone_selected = selecting
 
 /obj/screen/zone_sel/alien
 	icon = 'icons/mob/screen_alien.dmi'

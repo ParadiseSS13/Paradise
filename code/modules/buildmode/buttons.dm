@@ -43,9 +43,9 @@
 	screen_loc = "NORTH,WEST+2"
 	name = "Change Dir"
 
-/obj/screen/buildmode/bdir/update_icon()
+/obj/screen/buildmode/bdir/update_icon(updates=UPDATE_ICON_STATE)
 	dir = bd.build_dir
-	..(NONE)
+	..(updates)
 
 /obj/screen/buildmode/bdir/Click()
 	bd.toggle_dirswitch()
