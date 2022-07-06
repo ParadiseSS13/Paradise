@@ -9,5 +9,12 @@ GLOBAL_LIST_INIT(keybindings_groups, list(
 	"Silicon" = KB_CATEGORY_SILICON,
 	"Robot" = KB_CATEGORY_ROBOT,
 	"Admin" = KB_CATEGORY_ADMIN,
+	"Carbon Emote" = KB_CATEGORY_EMOTE_CARBON,
+	"Human Emote" = KB_CATEGORY_EMOTE_HUMAN,
+	"Silicon Emote" = KB_CATEGORY_EMOTE_SILICON,
+	"Animal Emote" = KB_CATEGORY_EMOTE_ANIMAL,
+	"Brain Emote" = KB_CATEGORY_EMOTE_BRAIN,
+	"Alien Emote" = KB_CATEGORY_EMOTE_ALIEN,
+	"Generic Emote" = KB_CATEGORY_EMOTE_GENERIC,
 	"Other" = KB_CATEGORY_UNSORTED,
 ))
