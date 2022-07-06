@@ -87,7 +87,7 @@
 		if(!remove_stored_item(user, TRUE))
 			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
 		return
-	user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
+	user.visible_message("<span class='notice'>[user] opens a book titled \"[title]\" and begins reading intently.</span>")
 	read_book(user)
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
@@ -203,7 +203,7 @@
 		if("Title")
 			var/newtitle = reject_bad_text(stripped_input(user, "Write a new title:"))
 			if(!newtitle)
-				to_chat(user, "<span class='notice'>The title is invalid.</span>")
+				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			//Like with paper, the name (not title) of the book should indicate that THIS IS A BOOK when actions are performed with it
 			//this is to prevent players from naming it "Nuclear Authentification Disk" or "Energy Sword" to fuck with security
@@ -212,13 +212,13 @@
 		if("Author")
 			var/newauthor = stripped_input(user, "Write the author's name:")
 			if(!newauthor)
-				to_chat(user, "<span class='notice'>The name is invalid.</span>")
+				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			author = newauthor
 		if("Summary")
 			var/newsummary = strip_html(input(user, "Write the new summary:") as message|null, MAX_SUMMARY_LEN)
 			if(!newsummary)
-				to_chat(user, "<span class='notice'>The name is invalid.</span>")
+				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			summary = newsummary
 		if("Edit Current Page")
@@ -234,7 +234,7 @@
 				return
 			var/content = strip_html(input(user, "Add Text to this page, you have [character_space_remaining] characters of space left:") as message|null, MAX_CHARACTERS_PER_BOOKPAGE)
 			if(!content)
-				to_chat(user, "<span class='notice'>The content is invalid.</span>")
+				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			//check if length of current text content + what player is adding is larger than our character limit
 			else if((length(content) + length(pages[current_page])) > MAX_CHARACTERS_PER_BOOKPAGE)
@@ -256,8 +256,11 @@
 				to_chat(user, "<span class='notice'>There aren't any pages in this book!</span>")
 				return
 			var/page_choice = stripped_input(user, "There are [length(pages)] pages, which page number would you like to remove?")
+			if(!page_choice)
+				to_chat(user, "<span class='notice'>You change your mind.</span>")
+				return
 			if(!isnum(page_choice) || page_choice <= 0 || page_choice > length(pages))
-				to_chat(user, "That is not an acceptable value.")
+				to_chat(user, "<span class='notice'>That is not an acceptable value.</span")
 				return
 			pages -= pages[page_choice]
 

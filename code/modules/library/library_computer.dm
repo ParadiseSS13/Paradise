@@ -223,6 +223,8 @@
 	if(ui_act_modal(action, params))
 		return
 
+	add_fingerprint(usr)
+
 	switch(action)
 		//Page Switching
 		if("incrementpage")
@@ -282,9 +284,9 @@
 				if(GLOB.library_catalog.remove_book_by_id(params["bookid"])) //this doesn't need to be logged
 					playsound(loc, 'sound/machines/ping.ogg', 25, 0)
 					atom_say("Deletion Succesful!")
-				else
-					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-					atom_say("Deletion Failed!")
+					return
+				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+				atom_say("Deletion Failed!")
 
 
 		//rating acts
@@ -301,9 +303,9 @@
 			if(GLOB.library_catalog.flag_book_by_id(params["user_ckey"], params["bookid"], selected_report))
 				playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 				atom_say("Report Submitted!")
-			else
-				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				atom_say("Report Submission Failed!")
+				return
+			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+			atom_say("Report Submission Failed!")
 		if("set_report")
 			selected_report =  text2num(params["report_type"])
 		//Book Uploader
@@ -321,16 +323,15 @@
 			if(GLOB.library_catalog.upload_book(params["user_ckey"], user_data.selected_book))
 				playsound(src, 'sound/machines/ping.ogg', 50, 0)
 				atom_say("Book Uploaded!")
-			else
-				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				atom_say("Book Upload Failed!")
+				return
+			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+			atom_say("Book Upload Failed!")
 			num_pages = getmaxpages()
 		if("reportlost")
 			inventoryRemove(text2num(params["libraryid"]))
 			for(var/datum/borrowbook/book in checkouts)
 				if(book.libraryid == text2num(params["libraryid"]))
 					checkouts -= book
-	add_fingerprint(usr)
 
 
 /obj/machinery/computer/library/proc/ui_act_modal(action, list/params)
@@ -410,7 +411,7 @@
 				else
 					return FALSE
 		if(UI_MODAL_ANSWER)
-			var/answer = params["answer"]
+			var/answer = sanitize(params["answer"]) //xss attacks bad
 			switch(id)
 				if("edit_search_title")
 					if(!length(answer))
@@ -553,7 +554,7 @@
 /obj/machinery/computer/library/proc/getmaxpages()
 	//if get_total_books doesn't return anything, just set pages to 1 so we don't break stuff
 	var/book_count = max(1, GLOB.library_catalog.get_total_books(user_data))
-	var/page_count = round(book_count/LIBRARY_BOOKS_PER_PAGE)
+	var/page_count = round(book_count / LIBRARY_BOOKS_PER_PAGE)
 	//Since 'round' gets the floor value it's likely there will be 1 page more than
 	//the page count amount (almost guaranteed), we check for a remainder because of this
 	if(book_count % LIBRARY_BOOKS_PER_PAGE)
@@ -564,14 +565,14 @@
 	if(!newbook?.id)
 		return
 	new /obj/item/book(loc, newbook, TRUE, FALSE)
-	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
+	visible_message("<span class='notice'>[src]'s printer hums as it produces a completely bound book. How did it do that?</span>")
 
 /obj/machinery/computer/library/proc/make_programmatic_book(datum/programmatic_book/newbook)
 	if(!newbook?.path)
 		return
 
 	new newbook.path(loc)
-	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
+	visible_message("<span class='notice'>[src]'s printer hums as it produces a completely bound book. How did it do that?</span>")
 
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL

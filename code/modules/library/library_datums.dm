@@ -69,9 +69,12 @@
 	content = json_decode(row["content"])
 	summary = row["summary"]
 	rating = row["rating"]
-	categories += text2num(row["primary_category"])
-	categories += text2num(row["secondary_category"])
-	categories += text2num(row["tertiary_category"])
+	if(text2num(row["primary_category"]))
+		categories += text2num(row["primary_category"])
+	if(text2num(row["primary_category"]))
+		categories += text2num(row["secondary_category"])
+	if(text2num(row["primary_category"]))
+		categories += text2num(row["tertiary_category"])
 	ckey = row["ckey"]
 	var/list/reports_json = list()
 	if(length(row["reports"]) > 5) //do we actually have a string with content??

@@ -26,7 +26,7 @@
 		O.forceMove(src)
 		update_icon()
 		return TRUE
-	else if(istype(O, /obj/item/storage/bag/books))
+	if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
 			if(is_type_in_list(T, allowed_books))
@@ -34,23 +34,25 @@
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon()
 		return TRUE
-	else if(istype(O, /obj/item/pen))
+	if(istype(O, /obj/item/pen))
 		rename_interactive(user, O)
 		return TRUE
-	else
-		return ..()
+
+	return ..()
 
 /obj/structure/bookcase/attack_hand(mob/user as mob)
-	if(length(contents))
-		var/obj/item/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
-		if(choice)
-			if(user.incapacitated() || !Adjacent(user))
-				return
-			if(!user.get_active_hand())
-				user.put_in_hands(choice)
-			else
-				choice.forceMove(get_turf(src))
-			update_icon()
+	if(!length(contents))
+		return
+
+	var/obj/item/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
+	if(choice)
+		if(user.incapacitated() || !Adjacent(user))
+			return
+		if(!user.get_active_hand())
+			user.put_in_hands(choice)
+		else
+			choice.forceMove(get_turf(src))
+		update_icon()
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/wood(loc, 5)
@@ -242,11 +244,13 @@
 	if(ui_act_modal(action, params))
 		return
 
+	add_fingerprint(ui.user)
+
 	switch(action)
 		if("print_book")
 			if(!printing)
 				printing = TRUE
-				visible_message("[src] begins to hum as it warms up its printing drums.")
+				visible_message("<span class='notice'>[src] begins to hum as it warms up its printing drums.</span>")
 				addtimer(CALLBACK(src, .proc/print_book), 5 SECONDS)
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
@@ -259,7 +263,6 @@
 					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 					return
 				selected_content.categories += category_id
-	add_fingerprint(ui.user)
 
 /obj/machinery/bookbinder/proc/ui_act_modal(action, list/params)
 	. = TRUE
@@ -297,7 +300,7 @@
 			return FALSE
 
 /obj/machinery/bookbinder/proc/print_book()
-	visible_message("[src] whirs as it prints and binds a new book.")
+	visible_message("<span class='notice'>[src] whirs as it prints and binds a new book.</span>")
 	new /obj/item/book(loc, selected_content, FALSE, FALSE)
 	printing = FALSE
 

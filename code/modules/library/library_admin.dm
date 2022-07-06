@@ -60,7 +60,7 @@
 			for(var/datum/cachedbook/CB in GLOB.library_catalog.get_flagged_books())
 				for(var/datum/flagged_book/report as anything in CB.reports)
 					if(!report)
-						return
+						continue
 					var/datum/library_category/report_category =  GLOB.library_catalog.get_report_category_by_id(report.category_id)
 					var/report_info = list(
 						"reporter_ckey" = report.reporter,
@@ -117,8 +117,8 @@
 					if(!answer)
 						return
 					var/datum/library_user_data/search_terms = new()
-					search_terms.search_ckey = answer
-					selected_ckey = answer
+					search_terms.search_ckey = paranoid_sanitize(answer)
+					selected_ckey = paranoid_sanitize(answer)
 					cached_books = list()
 					for(var/datum/cachedbook/CB in GLOB.library_catalog.get_book_by_range(1, 10, search_terms))
 						var/list/book_data = list(
