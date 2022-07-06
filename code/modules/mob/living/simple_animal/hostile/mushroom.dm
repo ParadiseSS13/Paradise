@@ -17,7 +17,7 @@
 	obj_damage = 0
 	melee_damage_lower = 1
 	melee_damage_upper = 1
-	attack_same = 2
+	attack_same = 2 // this is usually a bool, but mushrooms are a special case
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("mushroom")
@@ -26,7 +26,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
 	ventcrawler = 2
-	robust_searching = 1
+	robust_searching = TRUE
 	speak_emote = list("squeaks")
 	deathmessage = "fainted"
 	var/powerlevel = 0 //Tracks our general strength level gained from eating other shrooms

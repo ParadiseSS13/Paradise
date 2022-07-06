@@ -879,6 +879,25 @@
 	name = "magical box"
 	desc = "It's just an ordinary magical box."
 	icon_state = "box_wizard"
+	w_class = WEIGHT_CLASS_GIGANTIC
+
+/obj/item/storage/box/breaching
+	name = "breaching charges"
+	desc = "Contains three T4 thermal breaching charges."
+	icon_state = "flashbang"
+
+/obj/item/storage/box/breaching/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/grenade/plastic/c4/thermite(src)
+
+/obj/item/storage/box/mindshield
+	name = "boxed mindshield kit"
+	desc = "Contains everything needed to secure the minds of those around you."
+
+/obj/item/storage/box/mindshield/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/implantcase/mindshield(src)
+	new /obj/item/implanter/mindshield(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

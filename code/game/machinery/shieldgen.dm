@@ -3,9 +3,9 @@
 		desc = "An energy shield used to contain hull breaches."
 		icon = 'icons/effects/effects.dmi'
 		icon_state = "shield-old"
-		density = 1
+		density = TRUE
 		opacity = FALSE
-		anchored = 1
+		anchored = TRUE
 		move_resist = INFINITY
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		flags_2 = RAD_NO_CONTAMINATE_2
@@ -18,7 +18,7 @@
 
 /obj/machinery/shield/Destroy()
 	opacity = FALSE
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	return ..()
 
@@ -128,14 +128,14 @@
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
-	density = 1
+	density = TRUE
 	opacity = FALSE
-	anchored = 0
+	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
 	var/const/max_health = 100
 	var/health = max_health
-	var/active = 0
+	var/active = FALSE
 	var/malfunction = FALSE //Malfunction causes parts of the shield to slowly dissapate
 	var/list/deployed_shields = list()
 	var/is_open = FALSE //Whether or not the wires are exposed
@@ -151,9 +151,9 @@
 	if(active)
 		return //If it's already turned on, how did this get called?
 
-	active = 1
+	active = TRUE
 	update_icon()
-	anchored = 1
+	anchored = TRUE
 
 	for(var/turf/target_tile in range(2, src))
 		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
@@ -169,7 +169,7 @@
 	if(!active)
 		return //If it's already off, how did this get called?
 
-	active = 0
+	active = FALSE
 	update_icon()
 
 	QDEL_LIST(deployed_shields)
@@ -308,8 +308,8 @@
 		desc = "A shield generator."
 		icon = 'icons/obj/stationobjs.dmi'
 		icon_state = "Shield_Gen"
-		anchored = 0
-		density = 1
+		anchored = FALSE
+		density = TRUE
 		req_access = list(ACCESS_TELEPORTER)
 		var/active = 0
 		var/power = 0
@@ -469,14 +469,14 @@
 			state = 1
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
-			anchored = 1
+			anchored = TRUE
 			return
 
 		else if(state == 1)
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
-			anchored = 0
+			anchored = FALSE
 			return
 
 	if(istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
@@ -528,13 +528,13 @@
 		desc = "An energy shield."
 		icon = 'icons/effects/effects.dmi'
 		icon_state = "shieldwall"
-		anchored = 1
-		density = 1
+		anchored = TRUE
+		density = TRUE
 		move_resist = INFINITY
 		resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		light_range = 3
 		var/needs_power = 0
-		var/active = 1
+		var/active = TRUE
 		var/delay = 5
 		var/last_active
 		var/mob/U

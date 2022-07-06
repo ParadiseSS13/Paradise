@@ -27,46 +27,46 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
-			return 0
+			return FALSE
 		if(!affected.is_robotic())
-			return 0
-		return 1
+			return FALSE
+		return TRUE
 
 /datum/surgery/cybernetic_amputation/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
-			return 0
+			return FALSE
 		if(!affected.is_robotic())
-			return 0
+			return FALSE
 		if(affected.limb_flags & CANNOT_DISMEMBER)
 			return FALSE
-		return 1
+		return TRUE
 
 //to do, moar surgerys or condense down ala manipulate organs.
 /datum/surgery_step/robotics
-	can_infect = 0
+	can_infect = FALSE
 
 /datum/surgery_step/robotics/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!istype(target))
-		return 0
+		return FALSE
 	if(!hasorgans(target))
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected == null)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/surgery_step/robotics/external
 
 /datum/surgery_step/robotics/external/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!..())
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected.is_robotic())
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/surgery_step/robotics/external/unscrew_hatch
 	name = "unscrew hatch"
@@ -82,8 +82,8 @@
 	if(..())
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(!affected)
-			return 0
-		return 1
+			return FALSE
+		return TRUE
 
 /datum/surgery_step/robotics/external/unscrew_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -96,13 +96,13 @@
 	user.visible_message("<span class='notice'> [user] has opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You have opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",)
 	affected.open = 1
-	return 1
+	return TRUE
 
 /datum/surgery_step/robotics/external/unscrew_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to unscrew [target]'s [affected.name].</span>", \
 	"<span class='warning'> Your [tool] slips, failing to unscrew [target]'s [affected.name].</span>")
-	return 0
+	return FALSE
 
 /datum/surgery_step/robotics/external/open_hatch
 	name = "open hatch"
@@ -118,8 +118,8 @@
 	if(..())
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(!affected)
-			return 0
-		return 1
+			return FALSE
+		return TRUE
 
 /datum/surgery_step/robotics/external/open_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -132,13 +132,13 @@
 	user.visible_message("<span class='notice'> [user] opens the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>", \
 	 "<span class='notice'> You open the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>" )
 	affected.open = 2
-	return 1
+	return TRUE
 
 /datum/surgery_step/robotics/external/open_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to open the hatch on [target]'s [affected.name].</span>",
 	"<span class='warning'> Your [tool] slips, failing to open the hatch on [target]'s [affected.name].</span>")
-	return 0
+	return FALSE
 
 /datum/surgery_step/robotics/external/close_hatch
 	name = "close hatch"
@@ -154,8 +154,8 @@
 	if(..())
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(!affected)
-			return 0
-		return 1
+			return FALSE
+		return TRUE
 
 /datum/surgery_step/robotics/external/close_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -168,13 +168,13 @@
 	user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = 0
-	return 1
+	return TRUE
 
 /datum/surgery_step/robotics/external/close_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
 	"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
-	return 0
+	return FALSE
 
 /datum/surgery_step/robotics/external/repair
 	name = "repair damage internally"
@@ -256,8 +256,8 @@
 			user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
 			affected.open = 0
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /datum/surgery_step/robotics/external/repair/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -273,7 +273,7 @@
 		if("finish")
 			user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
 			"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
-	return 0
+	return FALSE
 
 ///////condenseing remove/extract/repair here.	/////////////
 /datum/surgery_step/robotics/manipulate_robotic_organs
@@ -430,7 +430,7 @@
 
 		if(!user.canUnEquip(I, 0))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
-			return 0
+			return FALSE
 
 		user.drop_item()
 		I.insert(target)
@@ -467,8 +467,8 @@
 		"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
 		affected.open = 0
 		affected.germ_level = 0
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -502,7 +502,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
 		"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
-	return 0
+	return FALSE
 
 
 /datum/surgery_step/robotics/external/amputate
@@ -533,13 +533,13 @@
 	if(istype(thing,/obj/item))
 		user.put_in_hands(thing)
 
-	return 1
+	return TRUE
 
 /datum/surgery_step/robotics/external/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("<span class='warning'> [user]'s hand slips!</span>", \
 	"<span class='warning'> Your hand slips!</span>")
-	return 0
+	return FALSE
 
 /datum/surgery/cybernetic_customization
 	name = "Cybernetic Appearance Customization"

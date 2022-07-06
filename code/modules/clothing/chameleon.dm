@@ -298,11 +298,11 @@
 	origin_tech = "magnets=3;syndicate=4"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/hud/security/chameleon
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
