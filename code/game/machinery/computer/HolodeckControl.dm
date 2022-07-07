@@ -425,7 +425,7 @@
 /obj/item/holo
 	damtype = STAMINA
 
-//ovveride block check, we don't want to block anything that's not a holo object
+//override block check, we don't want to block anything that's not a holo object
 /obj/item/holo/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby)
 	if(!istype(hitby, /obj/item/holo))
 		return FALSE
