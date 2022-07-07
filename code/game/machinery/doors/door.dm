@@ -4,7 +4,7 @@
 	icon = 'icons/obj/doors/doorint.dmi'
 	icon_state = "door1"
 	anchored = TRUE
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
@@ -13,10 +13,10 @@
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
-	var/visible = 1
+	var/visible = TRUE
 	/// Is it currently in the process of opening or closing.
 	var/operating = FALSE
-	var/autoclose = 0
+	var/autoclose = FALSE
 	/// Whether the door detects things and mobs in its way and reopen or crushes them.
 	var/safe = TRUE
 	// Whether the door is bolted or not.
@@ -79,7 +79,7 @@
 			bound_height = width * world.icon_size
 
 /obj/machinery/door/Destroy()
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
 	GLOB.airlocks -= src
@@ -256,8 +256,8 @@
 		flick("door_spark", src)
 		sleep(6)
 		open()
-		emagged = 1
-		return 1
+		emagged = TRUE
+		return TRUE
 
 /obj/machinery/door/update_icon()
 	if(density)

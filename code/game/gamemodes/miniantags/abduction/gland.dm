@@ -11,8 +11,8 @@
 	var/cooldown_high = 300
 	var/next_activation = 0
 	var/uses // -1 For inifinite
-	var/human_only = 0
-	var/active = 0
+	var/human_only = FALSE
+	var/active = FALSE
 	tough = TRUE //not easily broken by combat damage
 
 	var/mind_control_uses = 1
@@ -30,7 +30,7 @@
 	return FALSE
 
 /obj/item/organ/internal/heart/gland/proc/Start()
-	active = 1
+	active = TRUE
 	next_activation = world.time + rand(cooldown_low,cooldown_high)
 
 /obj/item/organ/internal/heart/gland/proc/update_gland_hud()
@@ -67,7 +67,7 @@
 	update_gland_hud()
 
 /obj/item/organ/internal/heart/gland/remove(mob/living/carbon/M, special = 0)
-	active = 0
+	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
@@ -90,14 +90,14 @@
 	if(!active)
 		return
 	if(!ownerCheck())
-		active = 0
+		active = FALSE
 		return
 	if(next_activation <= world.time)
 		activate()
 		uses--
 		next_activation  = world.time + rand(cooldown_low,cooldown_high)
 	if(!uses)
-		active = 0
+		active = FALSE
 
 /obj/item/organ/internal/heart/gland/proc/activate()
 	return

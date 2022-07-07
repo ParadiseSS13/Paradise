@@ -159,8 +159,8 @@
 	name = "terror web"
 	desc = "it's stringy and sticky"
 	icon = 'icons/effects/effects.dmi'
-	anchored = 1 // prevents people dragging it
-	density = 0 // prevents it blocking all movement
+	anchored = TRUE // prevents people dragging it
+	density = FALSE // prevents it blocking all movement
 	max_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	icon_state = "stickyweb1"
 	var/creator_ckey = null
@@ -252,7 +252,7 @@
 			return
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
-		stop_automated_movement = 1
+		stop_automated_movement = TRUE
 		walk(src,0)
 		if(do_after(src, 40, target = cocoon_target.loc))
 			if(busy == SPINNING_COCOON)
@@ -291,7 +291,7 @@
 						C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
 		cocoon_target = null
 		busy = 0
-		stop_automated_movement = 0
+		stop_automated_movement = FALSE
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoVentSmash()
 	var/valid_target = FALSE
@@ -308,7 +308,7 @@
 	if(do_after(src, 40, target = loc))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
 			if(P.welded)
-				P.welded = 0
+				P.welded = FALSE
 				P.update_icon()
 				P.update_pipe_image()
 				forceMove(P.loc)
@@ -316,7 +316,7 @@
 				return
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
 			if(C.welded)
-				C.welded = 0
+				C.welded = FALSE
 				C.update_icon()
 				C.update_pipe_image()
 				forceMove(C.loc)

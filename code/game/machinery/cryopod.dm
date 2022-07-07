@@ -19,8 +19,8 @@
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "cellconsole"
 	circuit = /obj/item/circuitboard/cryopodcontrol
-	density = 0
-	interact_offline = 1
+	density = FALSE
+	interact_offline = TRUE
 	req_one_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
@@ -39,7 +39,7 @@
 
 	var/storage_type = "crewmembers"
 	var/storage_name = "Cryogenic Oversight Control"
-	var/allow_items = 1
+	var/allow_items = TRUE
 
 
 /obj/machinery/computer/cryopod/Initialize(mapload)
@@ -185,8 +185,8 @@
 	desc = "A man-sized pod for entering suspended animation."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
 	dir = WEST
@@ -687,7 +687,7 @@
 
 	storage_type = "cyborgs"
 	storage_name = "Robotic Storage Control"
-	allow_items = 0
+	allow_items = FALSE
 
 /obj/machinery/cryopod/robot
 	name = "robotic storage unit"

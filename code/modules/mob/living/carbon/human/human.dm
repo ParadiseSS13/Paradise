@@ -203,9 +203,6 @@
 				stat("Distribution Pressure", internal.distribute_pressure)
 
 		// I REALLY need to split up status panel things into datums
-		var/mob/living/simple_animal/borer/B = has_brain_worms()
-		if(B && B.controlling)
-			stat("Chemicals", B.chemicals)
 
 		if(mind)
 			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
@@ -1052,6 +1049,8 @@
 			obscured |= slot_w_uniform
 		if(wear_suit.flags_inv & HIDESHOES)
 			obscured |= slot_shoes
+		if(wear_suit.flags_inv & HIDESUITSTORAGE)
+			obscured |= slot_s_store
 
 	if(head)
 		if(head.flags_inv & HIDEMASK)

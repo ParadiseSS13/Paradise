@@ -48,8 +48,7 @@
 	finished = 1
 
 /datum/beam/proc/Reset()
-	for(var/obj/effect/ebeam/B in elements)
-		qdel(B)
+	QDEL_LIST(elements)
 
 /datum/beam/Destroy()
 	Reset()
@@ -114,6 +113,9 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = 1
 	var/datum/beam/owner
+
+/obj/effect/ebeam/ex_act(severity)
+	return
 
 /obj/effect/ebeam/Destroy()
 	owner = null

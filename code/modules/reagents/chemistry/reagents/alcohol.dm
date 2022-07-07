@@ -1044,7 +1044,7 @@
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.2
 	drink_icon = "erikasurprise"
-	name = "Erika Surprise"
+	drink_name = "Erika Surprise"
 	drink_desc = "The surprise is, it's green!"
 	taste_description = "disappointment"
 
