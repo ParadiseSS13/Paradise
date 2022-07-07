@@ -266,6 +266,7 @@
 	name = "atmospherics satchel"
 	desc = "A fireproof satchel for keeping gear safe."
 	icon_state = "satchel-atmos"
+	item_state = "satchel-atmos"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel/explorer
