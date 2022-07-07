@@ -65,17 +65,17 @@
 	var/start_charge = 90				// initial cell charge %
 	var/cell_type = 2500	//Base cell has 2500 capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
 	var/opened = 0 //0=closed, 1=opened, 2=cover removed
-	var/shorted = 0
+	var/shorted = FALSE
 	var/lighting = 3
 	var/equipment = 3
 	var/environ = 3
-	var/operating = 1
-	var/charging = 0
+	var/operating = TRUE
+	var/charging = 0 // 0 is not charging, 1 is charging, 2 is fully charged
 	var/chargemode = 1
 	var/chargecount = 0
-	var/locked = 1
-	var/coverlocked = 1
-	var/aidisabled = 0
+	var/locked = TRUE
+	var/coverlocked = TRUE
+	var/aidisabled = FALSE
 	var/obj/machinery/power/terminal/terminal = null
 	var/lastused_light = 0
 	var/lastused_equip = 0
@@ -83,9 +83,9 @@
 	var/lastused_total = 0
 	var/main_status = APC_EXTERNAL_POWER_NOTCONNECTED
 	powernet = 0		// set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
-	var/malfhack = 0 //New var for my changes to AI malf. --NeoFite
+	var/malfhack = FALSE //New var for my changes to AI malf. --NeoFite
 	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
-	var/debug= 0
+	var/debug = FALSE
 	var/autoflag= 0		// 0 = off, 1= eqp and lights off, 2 = eqp off, 3 = all on.
 //	luminosity = 1
 	var/has_electronics = 0 // 0 - none, 1 - plugged in, 2 - secured by screwdriver
@@ -95,8 +95,8 @@
 	var/longtermpower = 10
 	var/update_state = -1
 	var/update_overlay = -1
-	var/global/status_overlays = 0
-	var/updating_icon = 0
+	var/global/status_overlays = FALSE
+	var/updating_icon = FALSE
 	var/datum/wires/apc/wires = null
 	//var/debug = 0
 	var/global/list/status_overlays_lock
@@ -105,13 +105,13 @@
 	var/global/list/status_overlays_lighting
 	var/global/list/status_overlays_environ
 	var/indestructible = 0 // If set, prevents aliens from destroying it
-	var/keep_preset_name = 0
+	var/keep_preset_name = FALSE
 	/// Was this APC built instead of already existing? Used for malfhack to keep borgs from building apcs in space
 	var/constructed = FALSE
 
 	var/report_power_alarm = TRUE
 
-	var/shock_proof = 0 //if set to 1, this APC will not arc bolts of electricity if it's overloaded.
+	var/shock_proof = FALSE //if set to FALSE, this APC will not arc bolts of electricity if it's overloaded.
 
 	// Nightshift
 	var/nightshift_lights = FALSE
@@ -124,12 +124,12 @@
 
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
-	keep_preset_name = 1
-	locked = 0
+	keep_preset_name = TRUE
+	locked = FALSE
 	environ = 0
 	equipment = 0
 	lighting = 0
-	operating = 0
+	operating = FALSE
 	emergency_power = FALSE
 
 /obj/machinery/power/apc/noalarm
@@ -177,7 +177,7 @@
 		area = get_area(src)
 		area.apc |= src
 		opened = 1
-		operating = 0
+		operating = FALSE
 		name = "[area.name] APC"
 		stat |= MAINT
 		constructed = TRUE
@@ -277,7 +277,7 @@
 /obj/machinery/power/apc/update_icon(force_update = FALSE)
 
 	if(!status_overlays || force_update)
-		status_overlays = 1
+		status_overlays = TRUE
 		status_overlays_lock = new
 		status_overlays_charging = new
 		status_overlays_equipment = new
@@ -432,11 +432,11 @@
 /obj/machinery/power/apc/proc/queue_icon_update()
 
 	if(!updating_icon)
-		updating_icon = 1
+		updating_icon = TRUE
 		// Start the update
 		spawn(APC_UPDATE_ICON_COOLDOWN)
 			update_icon()
-			updating_icon = 0
+			updating_icon = FALSE
 
 /obj/machinery/power/apc/flicker(second_pass = FALSE)
 	if(opened || panel_open)
@@ -602,7 +602,7 @@
 							"[user.name] has discarded strangely the programmed power control board from [name]!",
 							"<span class='notice'>You discarded the strangely programmed board.</span>")
 						malfai = null
-						malfhack = 0
+						malfhack = FALSE
 						return
 					else
 						user.visible_message(\
@@ -737,8 +737,8 @@
 			to_chat(user, "Nothing happens.")
 		else
 			flick("apc-spark", src)
-			emagged = 1
-			locked = 0
+			emagged = TRUE
+			locked = FALSE
 			to_chat(user, "You emag the APC interface.")
 			update_icon()
 
@@ -755,7 +755,7 @@
 			cell.add_fingerprint(user)
 			cell.update_icon()
 			cell = null
-			charging = FALSE
+			charging = 0
 			update_icon()
 		return
 	if(stat & (BROKEN|MAINT))
@@ -1040,7 +1040,7 @@
 		occupier.parent = malf.parent
 	else
 		occupier.parent = malf
-	malf.shunted = 1
+	malf.shunted = TRUE
 	malf.mind.transfer_to(occupier)
 	occupier.eyeobj.name = "[occupier.name] (AI Eye)"
 	if(malf.parent)
@@ -1057,7 +1057,7 @@
 		return
 	if(occupier.parent && occupier.parent.stat != DEAD)
 		occupier.mind.transfer_to(occupier.parent)
-		occupier.parent.shunted = 0
+		occupier.parent.shunted = FALSE
 		occupier.parent.adjustOxyLoss(occupier.getOxyLoss())
 		occupier.parent.cancel_camera()
 		qdel(occupier)
@@ -1344,7 +1344,7 @@
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	stat |= BROKEN
-	operating = 0
+	operating = FALSE
 	if(occupier)
 		malfvacate(1)
 	update_icon()
