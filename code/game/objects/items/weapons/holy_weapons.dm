@@ -157,7 +157,7 @@
 /obj/item/nullrod/claymore/darkblade
 	name = "dark blade"
 	icon_state = "cultblade"
-	item_state = "blood_blade" //yes someone really did delete the old cult blade, enjoy having a bright red "dark blade"
+	item_state = "darkbalde"
 	desc = "Spread the glory of the dark gods!"
 	slot_flags = SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
