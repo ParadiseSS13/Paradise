@@ -217,79 +217,38 @@
 
 /datum/recipe/oven/pizzamargherita
 	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/grown/tomato
+		/obj/item/reagent_containers/food/snacks/rawpizza/margherita,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita
 
 /datum/recipe/oven/meatpizza
 	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/grown/tomato
+		/obj/item/reagent_containers/food/snacks/rawpizza/meatpizza,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza
 
-/datum/recipe/oven/syntipizza
-	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/meat/syntiflesh,
-		/obj/item/reagent_containers/food/snacks/meat/syntiflesh,
-		/obj/item/reagent_containers/food/snacks/meat/syntiflesh,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/grown/tomato
-	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza
 
 /datum/recipe/oven/mushroompizza
-
 	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom,
-		/obj/item/reagent_containers/food/snacks/grown/tomato
+		/obj/item/reagent_containers/food/snacks/rawpizza/mushroompizza,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza
 
 /datum/recipe/oven/vegetablepizza
 	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/grown/eggplant,
-		/obj/item/reagent_containers/food/snacks/grown/carrot,
-		/obj/item/reagent_containers/food/snacks/grown/corn,
-		/obj/item/reagent_containers/food/snacks/grown/tomato
+		/obj/item/reagent_containers/food/snacks/rawpizza/vegetablepizza,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza
 
 /datum/recipe/oven/hawaiianpizza
 	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/grown/tomato,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/pineappleslice,
-		/obj/item/reagent_containers/food/snacks/pineappleslice,
-		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/rawpizza/hawaiianpizza,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza
 
 /datum/recipe/oven/macncheesepizza
 	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/macncheese,
+		//obj/item/reagent_containers/food/snacks/rawpizza/macpizza,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
 
