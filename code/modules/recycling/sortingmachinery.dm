@@ -236,7 +236,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	///Value of the tag
-	var/currTag = 0
+	var/currTag = 1
 	//The whole system for the sorttype var is determined based on the order of this list,
 	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
 
@@ -251,16 +251,18 @@
 
 /obj/item/destTagger/ui_data(mob/user)
 	var/list/data = list()
-
-	data["destinations"] = list()
 	data["selected_destination_id"] = clamp(currTag, 1, length(GLOB.TAGGERLOCATIONS))
+	return data
+
+/obj/item/destTagger/ui_static_data(mob/user)
+	var/list/static_data = list()
+	static_data["destinations"] = list()
 	for(var/destination_index in 1 to length(GLOB.TAGGERLOCATIONS))
 		var/list/destination_data = list(
 			"name" = GLOB.TAGGERLOCATIONS[destination_index],
 			"id"   = destination_index,
 		)
-		data["destinations"] += list(destination_data)
-
+		static_data["destinations"] += list(destination_data)
 	return data
 
 /obj/item/destTagger/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -268,8 +270,8 @@
 		return
 
 	if(action == "select_destination")
-		var/destination_id = text2num(params["destination"])
-		if(currTag != destination_id && length(GLOB.TAGGERLOCATIONS) >= destination_id)
+		var/destination_id = clamp(text2num(params["destination"]), 1, length(GLOB.TAGGERLOCATIONS))
+		if(currTag != destination_id)
 			currTag = destination_id
 			playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
 			add_fingerprint(usr)
