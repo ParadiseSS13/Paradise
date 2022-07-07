@@ -107,8 +107,8 @@
 	icon_state = "magic_mirror"
 
 /obj/structure/mirror/magic/pride/curse(mob/user)
-	user.visible_message("<span class='danger'><B>The ground splits beneath [user] as [user.p_their()] hand leaves the mirror!</B></span>", \
-	"<span class='notice'>Perfect. Much better! Now <i>nobody</i> will be able to resist yo-</span>")
+	user.visible_message(span_danger("<B>The ground splits beneath [user] as [user.p_their()] hand leaves the mirror!</B>"), \
+	span_notice("Perfect. Much better! Now <i>nobody</i> will be able to resist yo-"))
 
 	var/turf/T = get_turf(user)
 	var/list/levels = GLOB.space_manager.z_list.Copy()
@@ -119,7 +119,7 @@
 		var/turf/return_turf = locate(user.x, user.y, 3) //return to sender
 		var/mob/living/carbon/human/fool = user
 		if(return_turf && fool)
-			to_chat(fool, "<span class='danger'><B>You dare try to play me for a fool?</B></span>")
+			to_chat(fool, span_danger("<B>You dare try to play me for a fool?</B>"))
 			fool.monkeyize()
 			fool.forceMove(return_turf)
 			return

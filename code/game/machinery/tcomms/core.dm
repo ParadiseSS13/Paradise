@@ -286,7 +286,7 @@
 		if("network_id")
 			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
 			log_action(usr, "renamed core with ID [network_id] to [new_id]")
-			to_chat(usr, "<span class='notice'>Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>.</span>")
+			to_chat(usr, span_notice("Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>."))
 			network_id = new_id
 
 		if("unlink")
@@ -302,7 +302,7 @@
 		if("change_password")
 			var/new_password = input(usr, "Please enter a new password","New Password", link_password)
 			log_action(usr, "has changed the password on core with ID [network_id] from [link_password] to [new_password]")
-			to_chat(usr, "<span class='notice'>Successfully changed password from <b>[link_password]</b> to <b>[new_password]</b>.</span>")
+			to_chat(usr, span_notice("Successfully changed password from <b>[link_password]</b> to <b>[new_password]</b>."))
 			link_password = new_password
 
 		if("add_filter")
@@ -315,7 +315,7 @@
 			else
 				nttc.filtering |= name_to_add
 				log_action(usr, "has added [name_to_add] to the NTTC filter list on core with ID [network_id]", TRUE)
-				to_chat(usr, "<span class='notice'>Successfully added <b>[name_to_add]</b> to the NTTC filtering list.</span>")
+				to_chat(usr, span_notice("Successfully added <b>[name_to_add]</b> to the NTTC filtering list."))
 
 		if("remove_filter")
 			var/name_to_remove = params["user"]
@@ -326,7 +326,7 @@
 				if(confirm == "Yes")
 					nttc.filtering -= name_to_remove
 					log_action(usr, "has removed [name_to_remove] from the NTTC filter list on core with ID [network_id]", TRUE)
-					to_chat(usr, "<span class='notice'>Successfully removed <b>[name_to_remove]</b> from the NTTC filtering list.</span>")
+					to_chat(usr, span_notice("Successfully removed <b>[name_to_remove]</b> from the NTTC filtering list."))
 
 
 #undef UI_TAB_CONFIG

@@ -25,7 +25,7 @@
 
 	// If the target is catatonic or doesn't have a mind, return.
 	if(!mindslave_target.mind)
-		to_chat(user, "<span class='warning'><i>This person doesn't have a mind for you to slave!</i></span>")
+		to_chat(user, span_warning("<i>This person doesn't have a mind for you to slave!</i>"))
 		return FALSE
 
 	// Fails if they're already a mindslave of someone, or if they're mindshielded.

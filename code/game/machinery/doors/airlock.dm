@@ -853,9 +853,9 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	normalspeed = !normalspeed
 
 	if(normalspeed)
-		to_chat(user, "<span class='notice'>The door is now in <b>normal</b> mode.</span>")
+		to_chat(user, span_notice("The door is now in <b>normal</b> mode."))
 	else
-		to_chat(user, "<span class='notice'>The door is now in <b>fast</b> mode.</span>")
+		to_chat(user, span_notice("The door is now in <b>fast</b> mode."))
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)

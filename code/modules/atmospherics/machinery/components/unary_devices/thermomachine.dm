@@ -86,8 +86,8 @@
 	. = ..()
 	. += span_notice("The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).")
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.</span>"
-		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.</span>"
+		. += span_notice("The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.")
+		. += span_notice("Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.")
 
 
 /obj/machinery/atmospherics/unary/thermomachine/process_atmos()

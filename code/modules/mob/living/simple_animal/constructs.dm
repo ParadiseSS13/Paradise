@@ -75,7 +75,7 @@
 			adjustBruteLoss(-5)
 			if(src != M)
 				Beam(M,icon_state="sendbeam",time=4)
-				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
+				M.visible_message(span_danger("[M] repairs some of \the <b>[src]'s</b> dents."), \
 						   "<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
 			else
 				M.visible_message(span_danger("[M] repairs some of its own dents."), \

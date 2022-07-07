@@ -79,7 +79,7 @@
 	if(current_obj.find_target())
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
 			if(cult_mind && cult_mind.current)
-				to_chat(cult_mind.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span>")
+				to_chat(cult_mind.current, span_danger("[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead..."))
 		return TRUE
 	return FALSE
 

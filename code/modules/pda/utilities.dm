@@ -89,7 +89,7 @@
 
 	user.show_message(span_notice("Analyzing Results for [C]:"))
 	if(C.radiation)
-		user.show_message("<span class='notice'>Radiation Level: [C.radiation > 0 ? "</span><span class='danger'>[C.radiation]" : "0"]</span>")
+		user.show_message(span_notice("Radiation Level: [C.radiation > 0 ? "</span><span class='danger'>[C.radiation]" : "0"]"))
 	else
 		user.show_message(span_notice("No radiation detected."))
 

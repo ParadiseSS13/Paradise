@@ -33,7 +33,7 @@
 			. += "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining."
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
-				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
+				. += span_notice("There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.")
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
@@ -268,7 +268,7 @@
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>"
+		. += span_notice("Occupies <b>[cost]%</b> of mod capacity.")
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
@@ -315,7 +315,7 @@
 		else
 			to_chat(user, span_notice("The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits."))
 	else
-		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits.</span>")
+		to_chat(user, span_notice("You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits."))
 		. = FALSE
 
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)

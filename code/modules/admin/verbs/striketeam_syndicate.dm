@@ -81,7 +81,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code]</span>.")
 		new_syndicate_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input]</span>.")
 
-		to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")
+		to_chat(new_syndicate_commando, span_notice("You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span>"))
 		new_syndicate_commando.faction += "syndicate"
 		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_commando.mind.current)

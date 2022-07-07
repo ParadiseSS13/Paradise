@@ -47,7 +47,7 @@
 	. += deconstruction_hints(user)
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
-	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
+	return span_notice("The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.")
 
 /obj/structure/table/update_icon()
 	if((smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) && !flipped)
@@ -589,9 +589,9 @@
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
-		to_chat(user, "<span class='notice'>The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.</span>")
+		to_chat(user, span_notice("The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed."))
 	else
-		to_chat(user, "<span class='notice'>The top cover is firmly <b>welded</b> on.</span>")
+		to_chat(user, span_notice("The top cover is firmly <b>welded</b> on."))
 
 /obj/structure/table/reinforced/flip(direction)
 	if(!deconstruction_ready)
@@ -687,7 +687,7 @@
 	qdel(src)
 
 /obj/structure/table/tray/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>It is held together by some <b>screws</b> and <b>bolts</b>.</span>")
+	to_chat(user, span_notice("It is held together by some <b>screws</b> and <b>bolts</b>."))
 
 /obj/structure/table/tray/flip()
 	return 0
@@ -711,7 +711,7 @@
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+	. += span_notice("It's held together by a couple of <b>bolts</b>.")
 
 /obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)

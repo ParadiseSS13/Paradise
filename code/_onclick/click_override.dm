@@ -30,7 +30,7 @@
 		to_chat(user, span_warning("You try to draw power from [src], but you cannot hold the power at this time!"))
 		return
 	user.middleClickOverride = clickBehavior
-	to_chat(user, "<span class='notice'>You draw a bit of power from [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
+	to_chat(user, span_notice("You draw a bit of power from [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!"))
 
 /datum/middleClickOverride/badminClicker
 	var/summon_path = /obj/item/reagent_containers/food/snacks/cookie

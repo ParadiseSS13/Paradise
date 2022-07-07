@@ -90,7 +90,7 @@
 		field = F
 		F.gun = src
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
+			to_chat(user, span_notice("Connection established with target: <b>[F.captured]</b>"))
 
 
 /obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)

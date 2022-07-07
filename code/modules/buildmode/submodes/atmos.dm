@@ -17,7 +17,7 @@
 	to_chat(user, span_notice("Left Mouse Button on turf      = Select corner"))
 	to_chat(user, span_notice("Left Mouse Button + Ctrl on turf = Set 'base atmos conditions' for space turfs in region"))
 	to_chat(user, span_notice("Right Mouse Button on buildmode button = Adjust target atmos"))
-	to_chat(user, "<span class='notice'><b>Notice:</b> Starts out with standard breathable/liveable defaults</span>")
+	to_chat(user, span_notice("<b>Notice:</b> Starts out with standard breathable/liveable defaults"))
 	to_chat(user, span_notice("***********************************************************"))
 
 // FIXME this is a little tedious, something where you don't have to fill in each field would be cooler

@@ -350,7 +350,7 @@
 	invocation_type = "shout"
 	cooldown_min = 20 //10 deciseconds reduction per rank
 
-	selection_activated_message		= "<span class='notice'>Your prepare to cast your fireball spell! <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message		= span_notice("Your prepare to cast your fireball spell! <B>Left-click to cast at a target!</B>")
 	selection_deactivated_message	= span_notice("You extinguish your fireball...for now.")
 
 	var/fireball_type = /obj/item/projectile/magic/fireball

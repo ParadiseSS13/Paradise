@@ -30,7 +30,7 @@
 			Lattices can be made by applying metal rods to a space tile."
 
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
-	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
+	return span_notice("The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.")
 
 /obj/structure/lattice/attackby(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)
@@ -77,7 +77,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_CATWALK)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
+	to_chat(user, span_notice("The supporting rods look like they could be <b>cut</b>."))
 
 /obj/structure/lattice/catwalk/Move()
 	var/turf/T = loc

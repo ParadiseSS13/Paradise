@@ -753,7 +753,7 @@
 					// Reload their job ban holder (refresh this round)
 					if(M.client)
 						M.client.jbh.reload_jobbans(M.client)
-						to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
+						to_chat(M, span_warning("<big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big>"))
 						to_chat(M, span_danger("The reason is: [reason]"))
 						to_chat(M, span_warning("This jobban will be lifted in [mins] minutes."))
 					href_list["jobban2"] = 1 // lets it fall through and refresh
@@ -776,7 +776,7 @@
 						// Reload their job ban holder (refresh this round)
 						if(M.client)
 							M.client.jbh.reload_jobbans(M.client)
-							to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
+							to_chat(M, span_warning("<big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big>"))
 							to_chat(M, span_danger("The reason is: [reason]"))
 							to_chat(M, span_warning("Jobban can be lifted only upon request."))
 						href_list["jobban2"] = 1 // lets it fall through and refresh
@@ -883,7 +883,7 @@
 				if(!reason)
 					return
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
-				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
+				to_chat(M, span_warning("<big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big>"))
 				to_chat(M, span_warning("This is a temporary ban, it will be removed in [mins] minutes."))
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				add_note(M.ckey, "Banned for [mins] minutes - [reason]", null, usr.ckey, FALSE)
@@ -901,7 +901,7 @@
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
-				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
+				to_chat(M, span_warning("<big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big>"))
 				to_chat(M, span_warning("This ban does not expire automatically and must be appealed."))
 				if(M.client)
 					M.client.link_forum_account(TRUE)
@@ -1455,7 +1455,7 @@
 		sleep(5)
 		M.loc = pick(GLOB.aroomwarp)
 		spawn(50)
-			to_chat(M, "<span class='notice'>You have been sent to the <b>Admin Room!</b>.</span>")
+			to_chat(M, span_notice("You have been sent to the <b>Admin Room!</b>."))
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the Admin Room")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the Admin Room", 1)
 
@@ -1750,7 +1750,7 @@
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
 		message_admins("[key_name_admin(H)] got [H.p_their()] cookie, spawned by [key_name_admin(src.owner)]")
 		SSblackbox.record_feedback("amount", "admin_cookies_spawned", 1)
-		to_chat(H, "<span class='notice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")
+		to_chat(H, span_notice("Your prayers have been answered!! You received the <b>best cookie</b>!"))
 
 	else if(href_list["BlueSpaceArtillery"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return

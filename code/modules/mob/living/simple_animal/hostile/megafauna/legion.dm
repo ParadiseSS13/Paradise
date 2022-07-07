@@ -68,7 +68,7 @@ Difficulty: Medium
 			A.faction = faction
 			ranged_cooldown = world.time + ranged_cooldown_time
 		else
-			visible_message("<span class='warning'><b>[src] charges!</b></span>")
+			visible_message(span_warning("<b>[src] charges!</b>"))
 			SpinAnimation(speed = 20, loops = 5, parallel = FALSE)
 			ranged = FALSE
 			retreat_distance = 0

@@ -1544,7 +1544,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!start_audio_emote_cooldown(10 SECONDS))
 			to_chat(src, span_warning("The low-power capacitor for your speaker system is still recharging, please try again later."))
 			return
-		visible_message("<span class='warning'>The power warning light on <span class='name'>[src]</span> flashes urgently.</span>",\
+		visible_message(span_warning("The power warning light on <span class='name'>[src]</span> flashes urgently."),\
 						 span_warning("You announce you are operating in low power mode."))
 		playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 	else

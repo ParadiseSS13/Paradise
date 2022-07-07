@@ -170,7 +170,7 @@
 	if(istype(I, /obj/item/card/id))
 		if(istype(I, /obj/item/card/id/prisoner))
 			var/obj/item/card/id/prisoner/prisoner_id = I
-			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
+			to_chat(user, span_notice("<B>ID: [prisoner_id.registered_name]</B>"))
 			to_chat(user, span_notice("Points Collected:[prisoner_id.mining_points]"))
 			to_chat(user, span_notice("Point Quota: [prisoner_id.goal]"))
 			to_chat(user, span_notice("Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release."))

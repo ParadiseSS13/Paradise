@@ -63,7 +63,7 @@
 		to_chat(user, span_warning("You need an empty hand to draw [holstered]!"))
 	else
 		if(user.a_intent == INTENT_HARM)
-			usr.visible_message("<span class='warning'>[user] draws [holstered], ready to shoot!</span></span>", \
+			usr.visible_message(span_warning("[user] draws [holstered], ready to shoot!</span>"), \
 			span_warning("You draw [holstered], ready to shoot!"))
 		else
 			user.visible_message(span_notice("[user] draws [holstered], pointing it at the ground."), \

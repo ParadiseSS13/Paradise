@@ -123,7 +123,7 @@
 		var/mob/living/carbon/human/H = M
 		if(!ishumanbasic(H) || reac_volume < 5) // implying xenohumans are holy
 			if(method == INGEST && show_message)
-				to_chat(H, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
+				to_chat(H, span_notice("<i>You feel nothing but a terrible aftertaste.</i>"))
 			return ..()
 
 		to_chat(H, span_userdanger("A terrible pain travels down your back as wings burst out!"))

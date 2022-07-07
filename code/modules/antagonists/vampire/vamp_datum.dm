@@ -135,7 +135,7 @@
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)
 				adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
-				to_chat(owner.current, "<span class='notice'><b>You have accumulated [bloodtotal] unit\s of blood, and have [bloodusable] left to use.</b></span>")
+				to_chat(owner.current, span_notice("<b>You have accumulated [bloodtotal] unit\s of blood, and have [bloodusable] left to use.</b>"))
 		H.blood_volume = max(H.blood_volume - 25, 0)
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(H.blood_volume)
@@ -148,7 +148,7 @@
 			to_chat(owner.current, span_warning("You have bled your victim dry!"))
 			break
 		if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
-			to_chat(owner.current, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
+			to_chat(owner.current, span_notice("<b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b>"))
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 		else
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + (blood / 2)))

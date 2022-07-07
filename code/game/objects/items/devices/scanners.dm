@@ -70,7 +70,7 @@ REAGENT SCANNER
 			if(H.reagents.reagent_list.len)
 				to_chat(user, span_notice("Subject contains the following reagents:"))
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					to_chat(user, "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounce'>OVERDOSING</span>" : ".</span>"]")
+					to_chat(user, span_notice("[R.volume]u of [R.name]") + (R.overdosed ? " - [span_boldannounce("OVERDOSING")]" : "."))
 			else
 				to_chat(user, "<span class = 'notice'>Subject contains no reagents.</span>")
 			if(H.reagents.addiction_list.len)
@@ -121,8 +121,8 @@ REAGENT SCANNER
 		to_chat(user, "\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>")
 		to_chat(user, "\t Damage Specifics: <font color='blue'>?</font> - <font color='green'>?</font> - <font color='#FFA500'>?</font> - <font color='red'>?</font>")
 		to_chat(user, span_notice("Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)"))
-		to_chat(user, "<span class='warning'><b>Warning: Blood Level ERROR: --% --cl.</span><span class='notice'>Type: ERROR</span>")
-		to_chat(user, "<span class='notice'>Subject's pulse: <font color='red'>-- bpm.</font></span>")
+		to_chat(user, span_warning("<b>Warning: Blood Level ERROR: --% --cl.</span><span class='notice'>Type: ERROR"))
+		to_chat(user, span_notice("Subject's pulse: <font color='red'>-- bpm.</font>"))
 		return
 
 	var/mob/living/carbon/human/H = M
@@ -240,13 +240,13 @@ REAGENT SCANNER
 			else
 				blood_type = blood_id
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			to_chat(user, "<span class='danger'>LOW blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
+			to_chat(user, span_danger("LOW blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]"))
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			to_chat(user, "<span class='danger'>CRITICAL blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
+			to_chat(user, span_danger("CRITICAL blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]"))
 		else
 			to_chat(user, span_info("Blood level [blood_percent] %, [H.blood_volume] cl, type: [blood_type]"))
 
-	to_chat(user, "<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
+	to_chat(user, span_notice("Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>"))
 	var/implant_detect
 	for(var/obj/item/organ/internal/O in H.internal_organs)
 		if(O.is_robotic())
@@ -691,7 +691,7 @@ REAGENT SCANNER
 			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/update_icon), 20)
 
 	else if(iscorgi(M) && M.stat == DEAD)
-		to_chat(user, "<span class='notice'>You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b></span>") // :'(
+		to_chat(user, span_notice("You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b>")) // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		ready = FALSE
 		addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), scan_cd)

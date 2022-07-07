@@ -149,14 +149,14 @@
 /datum/species/wryn/handle_death(gibbed, mob/living/carbon/human/H)
 	for(var/mob/living/carbon/C in GLOB.alive_mob_list)
 		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
-			to_chat(C, "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>")
+			to_chat(C, span_danger("<B>Your antennae tingle as you are overcome with pain...</B>"))
 			to_chat(C, span_danger("It feels like part of you has died.")) // This is bullshit
 
 /datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.handcuffed && target.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
 
 		user.visible_message(span_notice("[user] begins to violently pull off [target]'s antennae."))
-		to_chat(target, "<span class='danger'><B>[user] grips your antennae and starts violently pulling!<B></span>")
+		to_chat(target, span_danger("<B>[user] grips your antennae and starts violently pulling!<B>"))
 		if(do_mob(user, target, 250))
 			var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
 			target.remove_language("Wryn Hivemind")
@@ -164,7 +164,7 @@
 			node.forceMove(user.loc)
 			to_chat(user, span_notice("You hear a loud crunch as you mercilessly pull off [target]'s antennae."))
 			to_chat(target, span_danger("You hear a loud crunch as your antennae is ripped off your head by [user]."))
-			to_chat(target, "<span class='danger'><B>It's so quiet...</B></span>")
+			to_chat(target, span_danger("<B>It's so quiet...</B>"))
 			var/obj/item/organ/external/head/head_organ = target.get_organ("head")
 			head_organ.h_style = "Bald"
 			target.update_hair()

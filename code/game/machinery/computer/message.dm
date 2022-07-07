@@ -18,7 +18,7 @@
 	var/noserver = span_alert("ALERT: No server detected.")
 	var/incorrectkey = span_warning("ALERT: Incorrect decryption key!")
 	var/defaultmsg = span_notice("Welcome. Please select an option.")
-	var/rebootmsg = "<span class='warning'>%$&(�: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
+	var/rebootmsg = span_warning("%$&(�: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!")
 	//Computer properties
 	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg

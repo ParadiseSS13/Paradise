@@ -403,7 +403,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	message_admins("[key_name_admin(usr)] has admin ended the round with message: '[input]'")
 	log_admin("[key_name(usr)] has admin ended the round with message: '[input]'")
 	SSticker.force_ending = TRUE
-	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
+	to_chat(world, span_warning("<big><b>[input]</b></big>"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	SSticker.mode_result = "admin ended"
 
@@ -420,7 +420,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, "<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
+		to_chat(world, span_notice("<b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p>"))
 		log_admin("Announce: [key_name(usr)] : [message]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

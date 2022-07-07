@@ -949,7 +949,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
 
 	for(var/key in zlevel_turf_indexes)
-		to_chat(usr, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] ATs</b></span>")
+		to_chat(usr, span_notice("Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] ATs</b>"))
 
 	var/z_to_view = input(usr, "A list of z-levels their ATs has appeared in chat. Please enter a Z to visualise. Enter 0 to cancel.", "Selection", 0) as num
 

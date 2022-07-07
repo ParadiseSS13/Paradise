@@ -108,9 +108,9 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
 		// So joules = stored_energy * SSmachines.wait * 0.1
 		var/joules = stored_energy * SSmachines.wait * 0.1
-		. += "<span class='notice'>[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b>.</span>"
+		. += span_notice("[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b>.")
 	else
-		. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"</span>"
+		. += span_notice("<b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"")
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))

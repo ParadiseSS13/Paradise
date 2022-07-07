@@ -13,9 +13,9 @@
 	. = ..()
 	switch(state)
 		if(PLASTIC_FLAPS_NORMAL)
-			. += "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>"
+			. += span_notice("[src] are <b>screwed</b> to the floor.")
 		if(PLASTIC_FLAPS_DETACHED)
-			. += "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>"
+			. += span_notice("[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.")
 
 /obj/structure/plasticflaps/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

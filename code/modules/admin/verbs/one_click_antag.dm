@@ -357,7 +357,7 @@
 					//So they don't forget their code or mission.
 
 
-					to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate. [!syndicate_leader_selected ? "commando" : "<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: <span class='danger'>[input]</span></span>")
+					to_chat(new_syndicate_commando, span_notice("You are an Elite Syndicate. [!syndicate_leader_selected ? "commando" : "<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: <span class='danger'>[input]</span>"))
 
 					antnum--
 

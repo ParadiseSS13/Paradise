@@ -96,7 +96,7 @@
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
-	selection_activated_message = "<span class='notice'>You channel blood magics to weaken the bluespace veil. <B>Left-click to cast at a target area!</B></span>"
+	selection_activated_message = span_notice("You channel blood magics to weaken the bluespace veil. <B>Left-click to cast at a target area!</B>")
 	selection_deactivated_message = span_notice("Your magics subside.")
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/create_new_targeting()
@@ -182,7 +182,7 @@
 		spike.color = B.basecolor
 		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		L.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
-		L.visible_message("<span class='warning'><b>[L] gets impaled by a spike of living blood!</b></span>")
+		L.visible_message(span_warning("<b>[L] gets impaled by a spike of living blood!</b>"))
 
 /obj/effect/temp_visual/blood_spike
 	icon = 'icons/effects/vampire_effects.dmi'
@@ -238,7 +238,7 @@
 		owner.AdjustWeakened(-2 SECONDS)
 		owner.AdjustKnockDown(-2 SECONDS)
 		if(drain_amount == 10)
-			to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
+			to_chat(H, span_warning("You feel your life force draining!</b>"))
 
 		if(beam_number >= max_beams)
 			break

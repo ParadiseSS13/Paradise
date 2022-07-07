@@ -188,7 +188,7 @@
 		if("network_id")
 			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
 			log_action(usr, "renamed core with ID [network_id] to [new_id]")
-			to_chat(usr, "<span class='notice'>Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>.</span>")
+			to_chat(usr, span_notice("Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>."))
 			network_id = new_id
 
 		// Only do these hrefs if we are linked to prevent bugs/exploits
@@ -214,13 +214,13 @@
 			if(istype(C, /obj/machinery/tcomms/core))
 				if(password_bypass)
 					AddLink(C)
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_id]</b>.</span>")
+					to_chat(usr, span_notice("Successfully linked to <b>[C.network_id]</b>."))
 					return
 				var/user_pass = input(usr, "Please enter core password","Password Entry")
 				// Check the password
 				if(user_pass == C.link_password)
 					AddLink(C)
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_id]</b>.</span>")
+					to_chat(usr, span_notice("Successfully linked to <b>[C.network_id]</b>."))
 				else
 					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
 			else

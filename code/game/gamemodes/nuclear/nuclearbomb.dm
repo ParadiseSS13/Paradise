@@ -246,7 +246,7 @@ GLOBAL_VAR(bomb_set)
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_COVER_OPEN)
 			return
 		visible_message(span_notice("[user] cuts apart the anchoring system sealant on [src]."),\
-		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
+		span_notice("You cut apart the anchoring system's sealant.</span>"))
 		removal_stage = NUKE_SEALANT_OPEN
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)

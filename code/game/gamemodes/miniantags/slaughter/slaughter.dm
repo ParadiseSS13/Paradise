@@ -161,7 +161,7 @@
 	if(!A)
 		to_chat(user, span_warning("You could not locate any sapient heretics for the Slaughter."))
 		return 0
-	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
+	to_chat(user, span_danger("You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b>"))
 
 /mob/living/simple_animal/slaughter/cult/New()
 	..()

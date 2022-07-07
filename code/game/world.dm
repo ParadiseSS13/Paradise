@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// Send the stats URL if applicable
 	if(GLOB.configuration.url.round_stats_url && GLOB.round_id)
 		var/stats_link = "[GLOB.configuration.url.round_stats_url][GLOB.round_id]"
-		to_chat(world, "<span class='notice'>Stats for this round can be viewed at <a href=\"[stats_link]\">[stats_link]</a></span>")
+		to_chat(world, span_notice("Stats for this round can be viewed at <a href=\"[stats_link]\">[stats_link]</a>"))
 
 	// If the server has been gracefully shutdown in TGS, have a 60 seconds grace period for SQL updates and stuff
 	var/secs_before_auto_reconnect = 10

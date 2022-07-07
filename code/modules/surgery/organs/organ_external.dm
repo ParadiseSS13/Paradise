@@ -559,7 +559,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			organ_spilled = TRUE
 
 	if(organ_spilled)
-		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
+		C.visible_message(span_danger("<B>[C]'s internal organs spill out onto the floor!</B>"))
 	return TRUE
 
 /obj/item/organ/external/chest/droplimb()

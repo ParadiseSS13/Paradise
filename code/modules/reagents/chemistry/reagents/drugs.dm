@@ -281,7 +281,7 @@
 			M.emote("cry")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M]</b> sways and falls over!</span>")
+			M.visible_message(span_warning("[M]</b> sways and falls over!"))
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			update_flags |= M.adjustBrainLoss(3, FALSE)
 			M.Weaken(16 SECONDS)

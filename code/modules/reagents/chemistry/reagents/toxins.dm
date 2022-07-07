@@ -84,7 +84,7 @@
 		if(!isshadowperson(human))
 			to_chat(M, span_danger("Your flesh rapidly mutates!"))
 			to_chat(M, span_danger("You are now a Shadow Person, a mutant race of darkness-dwelling humanoids."))
-			to_chat(M, "<span class='danger'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
+			to_chat(M, span_danger("Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness."))
 			to_chat(M, span_danger("Aside from your new traits, you are mentally unchanged and retain your prior obligations."))
 			human.set_species(/datum/species/shadow)
 	return ..()
@@ -303,7 +303,7 @@
 			else
 				H.take_organ_damage(5, 10)
 		else
-			to_chat(H, "<span class='warning'>The greenish acidic substance stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			to_chat(H, span_warning("The greenish acidic substance stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!"))
 			if(volume >= 10)
 				H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
 				H.emote("scream")
@@ -363,7 +363,7 @@
 		if(volume >= 5)
 			H.emote("scream")
 			H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
-		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		to_chat(H, span_warning("The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!"))
 
 /datum/reagent/acetic_acid
 	name = "Acetic acid"
@@ -389,7 +389,7 @@
 			else
 				H.adjustBruteLoss(min(5, volume * 0.25))
 		else
-			to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			to_chat(H, span_warning("The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!"))
 			if(volume >= 25)
 				H.adjustBruteLoss(2)
 				H.emote("scream")

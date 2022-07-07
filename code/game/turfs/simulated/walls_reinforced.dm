@@ -23,19 +23,19 @@
 	. = ..()
 	switch(d_state)
 		if(RWALL_INTACT)
-			. += "<span class='notice'>The outer <b>grille</b> is fully intact.</span>"
+			. += span_notice("The outer <b>grille</b> is fully intact.")
 		if(RWALL_SUPPORT_LINES)
-			. += "<span class='notice'>The outer <i>grille</i> has been cut, and the support lines are <b>screwed</b> securely to the outer cover.</span>"
+			. += span_notice("The outer <i>grille</i> has been cut, and the support lines are <b>screwed</b> securely to the outer cover.")
 		if(RWALL_COVER)
-			. += "<span class='notice'>The support lines have been <i>unscrewed</i>, and the metal cover is <b>welded</b> firmly in place.</span>"
+			. += span_notice("The support lines have been <i>unscrewed</i>, and the metal cover is <b>welded</b> firmly in place.")
 		if(RWALL_CUT_COVER)
-			. += "<span class='notice'>The metal cover has been <i>sliced through</i>, and is <b>connected loosely</b> to the girder.</span>"
+			. += span_notice("The metal cover has been <i>sliced through</i>, and is <b>connected loosely</b> to the girder.")
 		if(RWALL_BOLTS)
-			. += "<span class='notice'>The outer cover has been <i>pried away</i>, and the bolts anchoring the support rods are <b>wrenched</b> in place.</span>"
+			. += span_notice("The outer cover has been <i>pried away</i>, and the bolts anchoring the support rods are <b>wrenched</b> in place.")
 		if(RWALL_SUPPORT_RODS)
-			. += "<span class='notice'>The bolts anchoring the support rods have been <i>loosened</i>, but are still <b>welded</b> firmly to the girder.</span>"
+			. += span_notice("The bolts anchoring the support rods have been <i>loosened</i>, but are still <b>welded</b> firmly to the girder.")
 		if(RWALL_SHEATH)
-			. += "<span class='notice'>The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.</span>"
+			. += span_notice("The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.")
 
 /turf/simulated/wall/r_wall/attackby(obj/item/I, mob/user, params)
 	if(d_state == RWALL_COVER && istype(I, /obj/item/gun/energy/plasmacutter))

@@ -761,7 +761,7 @@
 				for(var/obj/item/implant/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield implant has been deactivated.</B></FONT></span>")
+				to_chat(H, span_notice("<Font size =3><B>Your mindshield implant has been deactivated.</B></FONT>"))
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield implant")
 			if("add")
@@ -771,15 +771,15 @@
 				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield implant")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield implant")
 
-				to_chat(H, "<span class='warning'><Font size =3><B>You somehow have become the recepient of a mindshield transplant, and it just activated!</B></FONT></span>")
+				to_chat(H, span_warning("<Font size =3><B>You somehow have become the recepient of a mindshield transplant, and it just activated!</B></FONT>"))
 				if(src in SSticker.mode.revolutionaries)
 					special_role = null
 					SSticker.mode.revolutionaries -= src
-					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
+					to_chat(src, span_warning("<Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font>"))
 				if(src in SSticker.mode.head_revolutionaries)
 					special_role = null
 					SSticker.mode.head_revolutionaries -=src
-					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
+					to_chat(src, span_warning("<Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font>"))
 
 	else if(href_list["revolution"])
 
@@ -787,12 +787,12 @@
 			if("clear")
 				if(src in SSticker.mode.revolutionaries)
 					SSticker.mode.revolutionaries -= src
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary!</B></FONT></span>")
+					to_chat(current, span_warning("<FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary!</B></FONT>"))
 					SSticker.mode.update_rev_icons_removed(src)
 					special_role = null
 				if(src in SSticker.mode.head_revolutionaries)
 					SSticker.mode.head_revolutionaries -= src
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a head revolutionary!</B></FONT></span>")
+					to_chat(current, span_warning("<FONT size = 3><B>You have been brainwashed! You are no longer a head revolutionary!</B></FONT>"))
 					SSticker.mode.update_rev_icons_removed(src)
 					special_role = null
 				log_admin("[key_name(usr)] has de-rev'd [key_name(current)]")
@@ -802,9 +802,9 @@
 				if(src in SSticker.mode.head_revolutionaries)
 					SSticker.mode.head_revolutionaries -= src
 					SSticker.mode.update_rev_icons_removed(src)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>Revolution has been disappointed of your leadership traits! You are a regular revolutionary now!</B></FONT></span>")
+					to_chat(current, span_warning("<FONT size = 3><B>Revolution has been disappointed of your leadership traits! You are a regular revolutionary now!</B></FONT>"))
 				else if(!(src in SSticker.mode.revolutionaries))
-					to_chat(current, "<span class='warning'><FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT></span>")
+					to_chat(current, span_warning("<FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT>"))
 				else
 					return
 				SSticker.mode.revolutionaries += src
@@ -918,7 +918,7 @@
 					current.spellremove(current)
 					current.faction = list("Station")
 					SSticker.mode.update_wiz_icons_removed(src)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a wizard!</B></FONT></span>")
+					to_chat(current, span_warning("<FONT size = 3><B>You have been brainwashed! You are no longer a wizard!</B></FONT>"))
 					log_admin("[key_name(usr)] has de-wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-wizarded [key_name_admin(current)]")
 			if("wizard")
@@ -1091,7 +1091,7 @@
 					for(var/datum/objective/nuclear/O in objectives)
 						objectives-=O
 						qdel(O)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
+					to_chat(current, span_warning("<FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT>"))
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
 			if("nuclear")
@@ -1769,8 +1769,8 @@
 			var/mob/living/carbon/human/H = current
 			H.update_inv_w_uniform()
 
-	to_chat(current, "<span class='warning'><b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b></span>")
-	to_chat(current, "<span class='warning'><b>This means you don't remember who you were working for or what you were doing.</b></span>")
+	to_chat(current, span_warning("<b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b>"))
+	to_chat(current, span_warning("<b>This means you don't remember who you were working for or what you were doing.</b>"))
 
 //Initialisation procs
 /mob/proc/mind_initialize()

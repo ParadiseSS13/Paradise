@@ -15,7 +15,7 @@
 					old_cell.corrupt()
 					old_cell.updateicon()
 					cell = CELL
-					to_chat(U, "<span class='notice'>Upgrade complete. Maximum capacity: <b>[round(cell.maxcharge/100)]</b>%</span>")
+					to_chat(U, span_notice("Upgrade complete. Maximum capacity: <b>[round(cell.maxcharge/100)]</b>%"))
 				else
 					to_chat(U, span_danger("Procedure interrupted. Protocol terminated."))
 			return

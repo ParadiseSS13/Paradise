@@ -88,7 +88,7 @@
 		. += "<b>[stored_gun.get_remaining_mod_capacity()]%</b> mod capacity remaining."
 		for(var/A in stored_gun.get_modkits())
 			var/obj/item/borg/upgrade/modkit/M = A
-			. += "<span class='notice'>There is \a [M] installed, using <b>[M.cost]%</b> capacity.</span>"
+			. += span_notice("There is \a [M] installed, using <b>[M.cost]%</b> capacity.")
 
 
 /mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)

@@ -60,11 +60,11 @@
 					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
 					end_squabble(get_area(wizard.current))
 				else
-					to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
+					to_chat(wizard.current, span_warning("<font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"))
 					wizard.current.gib() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
 			continue
 		if(wizard.current.client && wizard.current.client.is_afk() > 10 * 60 * 10) // 10 minutes
-			to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
+			to_chat(wizard.current, span_warning("<font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"))
 			wizard.current.gib() // Let's keep the round moving
 			continue
 		if(!wizard.current.client)
@@ -154,5 +154,5 @@
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
 		SSticker.mode_result = "raging wizard loss - wizard killed"
-		to_chat(world, "<span class='warning'><FONT size = 3><B> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
+		to_chat(world, span_warning("<FONT size = 3><B> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</B></FONT>"))
 	..(1)

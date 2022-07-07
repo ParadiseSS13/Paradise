@@ -947,7 +947,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
+	to_chat(T, span_notice("<b><font size=3>Man up and deal with it.</font></b>"))
 	to_chat(T, span_notice("Move on."))
 	SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 

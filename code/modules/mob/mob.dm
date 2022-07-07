@@ -750,7 +750,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(length(msg) <= 40 || !shrink)
 			return span_notice("[html_encode(msg)]") //Repeat after me, "I will not give players access to decoded HTML."
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return span_notice("[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a>")
 
 /mob/proc/is_dead()
 	return stat == DEAD

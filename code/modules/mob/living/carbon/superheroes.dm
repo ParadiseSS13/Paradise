@@ -152,7 +152,7 @@
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message		= span_notice("You start preparing a mindblowing monologue. <B>Left-click to cast at a target!</B>")
 	selection_deactivated_message	= span_notice("You decide to save your brilliance for another day.")
 
 /obj/effect/proc_holder/spell/recruit/create_new_targeting()
@@ -213,7 +213,7 @@
 			return
 
 	recruiting = FALSE
-	to_chat(user, "<span class='notice'>You have recruited <b>[target]</b> as your henchman!</span>")
+	to_chat(user, span_notice("You have recruited <b>[target]</b> as your henchman!"))
 	to_chat(target, "<span class='deadsay'><b>You have decided to enroll as a henchman for [user]. You are now part of the feared 'Greyshirts'.</b></span>")
 	to_chat(target, "<span class='deadsay'><b>You must follow the orders of [user], and help [user.p_them()] succeed in [user.p_their()] dastardly schemes.</span>")
 	to_chat(target, span_deadsay("You may not harm other Greyshirt or [user]. However, you do not need to obey other Greyshirts."))

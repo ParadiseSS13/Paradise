@@ -286,7 +286,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
 				if( can_use(user) )//If they can still act.
 					id_check(user, 2)
-					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
+					to_chat(user, span_notice("You put the ID into \the [src]'s slot.<br>You can remove it with ALT click."))
 					overlays += image('icons/goonstation/objects/pda_overlay.dmi', C.icon_state)
 					SStgui.update_uis(src)
 

@@ -687,7 +687,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(SSjobs)
 		var/currentpositiontally
 		var/totalpositiontally
-		to_chat(src, "<span class='notice'>Job Name: Filled job slot / Total job slots <b>(Free job slots)</b></span>")
+		to_chat(src, span_notice("Job Name: Filled job slot / Total job slots <b>(Free job slots)</b>"))
 		for(var/datum/job/job in SSjobs.occupations)
 			to_chat(src, "<span class='notice'>[job.title]: [job.current_positions] / \
 			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
@@ -939,7 +939,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("Admin [key_name_admin(usr)] has forced the players to have random appearances.", 1)
 
 	if(notifyplayers == "Yes")
-		to_chat(world, "<span class='notice'><b>Admin [usr.key] has forced the players to have completely random identities!</span>")
+		to_chat(world, span_notice("<b>Admin [usr.key] has forced the players to have completely random identities!"))
 
 	to_chat(usr, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.")
 
@@ -1087,12 +1087,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(SSticker.mode.ert_disabled)
 		SSticker.mode.ert_disabled = 0
-		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>")
+		to_chat(usr, span_notice("ERT has been <b>Enabled</b>."))
 		log_admin("Admin [key_name(src)] has enabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has enabled ERT calling.", 1)
 	else
 		SSticker.mode.ert_disabled = 1
-		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>")
+		to_chat(usr, span_warning("ERT has been <b>Disabled</b>."))
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
 

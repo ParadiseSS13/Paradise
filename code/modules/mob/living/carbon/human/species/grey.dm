@@ -60,11 +60,11 @@
 		else
 			H.take_organ_damage(5, 10)
 	else
-		to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		to_chat(H, span_warning("The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!"))
 		if(volume >= 10)
 			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
 			H.emote("scream")
-			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			to_chat(H, span_warning("The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!"))
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.active_character.speciesprefs

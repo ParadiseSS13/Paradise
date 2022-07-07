@@ -39,7 +39,7 @@
 		return
 
 	// Now we reconnect them
-	to_chat(usr, "<span class='notice'>Now connecting you to: <b>[selected_server]</b></span>")
+	to_chat(usr, span_notice("Now connecting you to: <b>[selected_server]</b>"))
 
 	if(watchlisted) // I mean why not
 		message_admins("[key_name_admin(usr)] is on the watchlist and just jumped to [selected_server]")

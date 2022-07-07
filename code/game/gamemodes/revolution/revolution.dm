@@ -244,7 +244,7 @@
 		carbon_mob.Silence(10 SECONDS)
 		carbon_mob.flash_eyes(1, 1)
 	rev_mind.current.Stun(10 SECONDS)
-	to_chat(rev_mind.current, "<span class='danger'><FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT></span>")
+	to_chat(rev_mind.current, span_danger("<FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT>"))
 	rev_mind.current.create_attack_log("<font color='red'>Has been converted to the revolution!</font>")
 	rev_mind.current.create_log(CONVERSION_LOG, "converted to the revolution")
 	rev_mind.special_role = SPECIAL_ROLE_REV
@@ -267,12 +267,12 @@
 		rev_mind.current.create_attack_log("<font color='red'>Has renounced the revolution!</font>")
 		rev_mind.current.create_log(CONVERSION_LOG, "renounced the revolution")
 		if(beingborged)
-			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who flashed you."]</FONT></span>")
+			to_chat(rev_mind.current, span_danger("<FONT size = 3>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who flashed you."]</FONT>"))
 			message_admins("[key_name_admin(rev_mind.current)] [ADMIN_QUE(rev_mind.current,"?")] ([ADMIN_FLW(rev_mind.current,"FLW")]) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 
 		else
 			rev_mind.current.Paralyse(10 SECONDS)
-			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</FONT></span>")
+			to_chat(rev_mind.current, span_danger("<FONT size = 3>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</FONT>"))
 
 		update_rev_icons_removed(rev_mind)
 		for(var/mob/living/M in view(rev_mind.current))

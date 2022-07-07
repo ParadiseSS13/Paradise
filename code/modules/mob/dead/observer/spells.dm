@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	name = "Boo!"
 	desc = "Fuck with the living."
 	selection_deactivated_message	= span_notice("Your presence will not be known. For now.")
-	selection_activated_message		= "<span class='notice'>You prepare to reach across the veil. <b>Left-click to influence a target!</b></span>"
+	selection_activated_message		= span_notice("You prepare to reach across the veil. <b>Left-click to influence a target!</b>")
 
 	ghost = TRUE
 

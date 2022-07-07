@@ -41,7 +41,7 @@
 		return
 
 	voice = sanitize(copytext(chosen_voice, 1, MAX_MESSAGE_LEN))
-	to_chat(user, "<span class='notice'>You are now mimicking <b>[voice]</b>.</span>")
+	to_chat(user, span_notice("You are now mimicking <b>[voice]</b>."))
 
 /obj/item/voice_changer/voice_modulator
 	name = "voice modulator"

@@ -504,7 +504,7 @@
 					else
 						M.stop_pulling()
 
-		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
+		user.visible_message(span_danger("[user.name]</b> takes a huge leap!"))
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
 			user.Weaken(10 SECONDS)
@@ -525,7 +525,7 @@
 		user.flying = prevFlying
 
 		if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
-			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
+			user.visible_message(span_danger("[user.name]</b> crashes due to [user.p_their()] heavy weight!"))
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)
 			user.AdjustStunned(10 SECONDS)
@@ -537,7 +537,7 @@
 		to_chat(user, span_warning("You leap and slam your head against the inside of [container]! Ouch!"))
 		user.AdjustParalysis(6 SECONDS)
 		user.AdjustWeakened(10 SECONDS)
-		container.visible_message("<span class='danger'>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
+		container.visible_message(span_danger("[user.loc]</b> emits a loud thump and rattles a bit."))
 		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
 		var/wiggle = 6
 		while(wiggle > 0)
@@ -653,7 +653,7 @@
 			to_chat(user, span_warning("[M.name] is dying, and [M.p_their()] thoughts are too scrambled to read."))
 			return
 
-		to_chat(user, "<span class='notice'>Mind Reading of <b>[M.name]:</b></span>")
+		to_chat(user, span_notice("Mind Reading of <b>[M.name]:</b>"))
 
 		var/pain_condition = M.health / M.maxHealth
 		// lower health means more pain
@@ -671,33 +671,33 @@
 
 		switch(pain_condition)
 			if(0.81 to INFINITY)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] feels good.</span>")
+				to_chat(user, span_notice("<b>Condition</b>: [M.name] feels good."))
 			if(0.61 to 0.8)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering mild pain.</span>")
+				to_chat(user, span_notice("<b>Condition</b>: [M.name] is suffering mild pain."))
 			if(0.41 to 0.6)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering significant pain.</span>")
+				to_chat(user, span_notice("<b>Condition</b>: [M.name] is suffering significant pain."))
 			if(0.21 to 0.4)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering severe pain.</span>")
+				to_chat(user, span_notice("<b>Condition</b>: [M.name] is suffering severe pain."))
 			else
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering excruciating pain.</span>")
+				to_chat(user, span_notice("<b>Condition</b>: [M.name] is suffering excruciating pain."))
 				thoughts = "haunted by [M.p_their()] own mortality"
 
 		switch(M.a_intent)
 			if(INTENT_HELP)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense benevolent thoughts from [M.name].</span>")
+				to_chat(user, span_notice("<b>Mood</b>: You sense benevolent thoughts from [M.name]."))
 			if(INTENT_DISARM)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cautious thoughts from [M.name].</span>")
+				to_chat(user, span_notice("<b>Mood</b>: You sense cautious thoughts from [M.name]."))
 			if(INTENT_GRAB)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense hostile thoughts from [M.name].</span>")
+				to_chat(user, span_notice("<b>Mood</b>: You sense hostile thoughts from [M.name]."))
 			if(INTENT_HARM)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cruel thoughts from [M.name].</span>")
+				to_chat(user, span_notice("<b>Mood</b>: You sense cruel thoughts from [M.name]."))
 				for(var/mob/living/L in view(7,M))
 					if(L == M)
 						continue
 					thoughts = "thinking about punching [L.name]"
 					break
 			else
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense strange thoughts from [M.name].</span>")
+				to_chat(user, span_notice("<b>Mood</b>: You sense strange thoughts from [M.name]."))
 
 		if(istype(M,/mob/living/carbon/human))
 			var/numbers[0]
@@ -706,8 +706,8 @@
 				numbers += H.mind.initial_account.account_number
 				numbers += H.mind.initial_account.remote_access_pin
 			if(numbers.len>0)
-				to_chat(user, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
-		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
+				to_chat(user, span_notice("<b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name]."))
+		to_chat(user, span_notice("<b>Thoughts</b>: [M.name] is currently [thoughts]."))
 
 		if(M.dna?.GetSEState(GLOB.empathblock))
 			to_chat(M, span_warning("You sense [user.name] reading your mind."))

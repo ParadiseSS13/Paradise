@@ -52,4 +52,4 @@
 		return
 	if(isNightmare)
 		dream_image = span_cultitalic("[dream_image]")
-	to_chat(src, "<span class='notice'><i>... [dream_image] ...</i></span>")
+	to_chat(src, span_notice("<i>... [dream_image] ...</i>"))
