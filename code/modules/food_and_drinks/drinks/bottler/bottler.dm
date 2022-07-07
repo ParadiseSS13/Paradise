@@ -270,7 +270,7 @@
 		containers[con_type]--
 	//select and process a recipe based on inserted ingredients
 	visible_message("<span class='notice'>[src] hums as it processes the ingredients...</span>")
-	bottling = 1
+	bottling = TRUE
 	var/datum/bottler_recipe/recipe_to_use = select_recipe()
 	if(!recipe_to_use)
 		//bad recipe, ruins the drink
@@ -288,7 +288,7 @@
 	flick("bottler_on", src)
 	spawn(45)
 		resetSlots()
-		bottling = 0
+		bottling = FALSE
 		drink_container.forceMove(loc)
 		updateUsrDialog()
 

@@ -11,15 +11,19 @@
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
-	/// How many life ticks does the stun last for
-	var/stunforce = 14 SECONDS
+	/// How many seconds does the knockdown last for?
+	var/knockdown_duration = 10 SECONDS
+	/// how much stamina damage does this baton do?
+	var/stam_damage = 60 // 2 hits or 1 hit + 2 disabler shots
 	/// Is the baton currently turned on
 	var/turned_on = FALSE
 	/// How much power does it cost to stun someone
 	var/hitcost = 1000
-	/// Chance for the baton to stun when thrown at someone
-	var/throw_hit_chance = 35
 	var/obj/item/stock_parts/cell/high/cell = null
+	/// the initial cooldown tracks the time between swings. tracks the world.time when the baton is usable again.
+	var/cooldown = 3.5 SECONDS
+	/// the time it takes before the target falls over
+	var/knockdown_delay = 2.5 SECONDS
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -79,11 +83,6 @@
 
 /obj/item/melee/baton/get_cell()
 	return cell
-
-/obj/item/melee/baton/throw_impact(atom/hit_atom)
-	..()
-	if(prob(throw_hit_chance) && turned_on && isliving(hit_atom) && !issilicon(hit_atom))
-		baton_stun(hit_atom)
 
 /**
   * Removes the specified amount of charge from the batons power cell.
@@ -153,10 +152,9 @@
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
+		if(baton_stun(user, user, skip_cooldown = TRUE)) // for those super edge cases where you clumsy baton yourself in quick succession
+			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-		user.Weaken(stunforce * 3)
-		deductcharge(hitcost)
 		return
 
 	if(issilicon(M)) // Can't stunbaton borgs and AIs
@@ -181,22 +179,33 @@
 			"<span class='danger'>[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>")
 		return
 
-	baton_stun(L, user)
-	user.do_attack_animation(L)
+	if(baton_stun(L, user))
+		user.do_attack_animation(L)
 
-/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
+/// returning false results in no baton attack animation, returning true results in an animation.
+/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
+	if(cooldown > world.time && !skip_cooldown)
+		return FALSE
+
+	var/user_UID = user.UID()
+	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // prevents double baton cheese.
+		return FALSE
+
+	cooldown = world.time + initial(cooldown) // tracks the world.time when hitting will be next available.
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
-			return
+			return FALSE
 		H.forcesay(GLOB.hit_appends)
+		H.Confused(10 SECONDS)
+		H.Jitter(10 SECONDS)
+		H.adjustStaminaLoss(stam_damage)
+
+	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user.UID()) // so one person cannot hit the same person with two separate batons
+	addtimer(CALLBACK(src, .proc/baton_knockdown, L, user_UID, knockdown_duration), knockdown_delay)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
-
-	L.Weaken(stunforce)
-	L.Stuttering(stunforce)
-
 
 	if(user)
 		L.lastattacker = user.real_name
@@ -206,7 +215,11 @@
 		add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
+	return TRUE
 
+/obj/item/melee/baton/proc/baton_knockdown(mob/living/target, user_UID, knockdown_duration)
+	target.KnockDown(knockdown_duration)
+	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
 /obj/item/melee/baton/emp_act(severity)
 	. = ..()
@@ -216,13 +229,9 @@
 /obj/item/melee/baton/wash(mob/living/user, atom/source)
 	if(turned_on && cell?.charge)
 		flick("baton_active", source)
-		user.Stun(stunforce)
-		user.Weaken(stunforce)
-		user.SetStuttering(stunforce)
-		deductcharge(hitcost)
+		baton_stun(user, user, skip_cooldown = TRUE)
 		user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>",
 							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
-		playsound(src, "sparks", 50, TRUE)
 		return TRUE
 	..()
 
@@ -235,9 +244,9 @@
 	item_state = "prod"
 	force = 3
 	throwforce = 5
-	stunforce = 10 SECONDS
+	knockdown_duration = 6 SECONDS
+	stam_damage = 40 // three hits to crit
 	hitcost = 2000
-	throw_hit_chance = 10
 	slot_flags = SLOT_BACK
 	var/obj/item/assembly/igniter/sparkler = null
 
@@ -249,6 +258,6 @@
 	QDEL_NULL(sparkler)
 	return ..()
 
-/obj/item/melee/baton/cattleprod/baton_stun()
+/obj/item/melee/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(sparkler.activate())
 		return ..()

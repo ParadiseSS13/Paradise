@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/guardian/charger
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	ranged = 1 //technically
+	ranged = TRUE //technically
 	ranged_message = "charges"
 	ranged_cooldown_time = 40
 	speed = -1
@@ -10,7 +10,7 @@
 	magic_fluff_string = "..And draw the Hunter, an alien master of rapid assault."
 	tech_fluff_string = "Boot sequence complete. Charge modules loaded. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to deal damage."
-	var/charging = 0
+	var/charging = FALSE
 	var/obj/screen/alert/chargealert
 
 /mob/living/simple_animal/hostile/guardian/charger/Life()
@@ -31,11 +31,11 @@
 		Shoot(A)
 
 /mob/living/simple_animal/hostile/guardian/charger/Shoot(atom/targeted_atom)
-	charging = 1
+	charging = TRUE
 	throw_at(targeted_atom, range, 1, src, 0, callback = CALLBACK(src, .proc/charging_end))
 
 /mob/living/simple_animal/hostile/guardian/charger/proc/charging_end()
-	charging = 0
+	charging = FALSE
 
 /mob/living/simple_animal/hostile/guardian/charger/Move()
 	if(charging)
@@ -69,4 +69,4 @@
 				shake_camera(L, 4, 3)
 				shake_camera(src, 2, 3)
 
-		charging = 0
+		charging = FALSE
