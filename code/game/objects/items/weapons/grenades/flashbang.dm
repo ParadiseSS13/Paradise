@@ -52,7 +52,7 @@
 		// Flash
 		if(flash)
 			if(M.flash_eyes(affect_silicon = TRUE))
-				M.Confused(status_duration*2)
+				M.Confused(status_duration * 2)
 
 		// Bang
 		var/ear_safety = M.check_ear_prot()
