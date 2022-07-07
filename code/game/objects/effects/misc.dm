@@ -142,13 +142,14 @@
 	icon = 'icons/effects/effects.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_MOB_LAYER
+	anchored = TRUE
 
-/obj/effect/frosty_breath/Initialize(mapload, direction, mob/living/carbon/C)
+/obj/effect/frosty_breath/Initialize(mapload, mob/living/carbon/C)
 	. = ..()
-	dir = direction
-	if(C.buckled && !istype(C.buckled, /obj/structure/kitchenspike))
+	dir = C.dir
+	if(C.buckled) //dont need to offset when they are upsidedown+buckled (on meat spike)
 		pixel_y = (C.buckled.buckle_offset + 16)
 	if(dir == NORTH)
 		layer = BELOW_MOB_LAYER
-	flick("breath_[istype(C.buckled, /obj/structure/kitchenspike) ? "180" : "[C.lying_angle]" ]", src) //you can thank the kitchenspike code not using lying_angle for this jank
+	flick("breath_[istype(C.buckled, /obj/structure/kitchenspike) ? "180" : "[C.lying_prev]" ]", src) //you can thank the kitchenspike code not using lying_angle for this jank
 	QDEL_IN(src, 2 SECONDS)
