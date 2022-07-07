@@ -605,6 +605,7 @@
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
 	armour_penetration = 35
+	block_chance = 80 //Melee only, only for 5 seconds after hittitng someone
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
@@ -619,18 +620,26 @@
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
+		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
 		if(isrobot(target))
 			..()
 			return
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(8 SECONDS)
+			target.KnockDown(8 SECONDS)
 			..()
 		return
 	else
 		playsound(loc, "swing_hit", 50, 1, -1)
 		return ..()
+
+/obj/item/twohanded/chainsaw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //It's a chainsaw, you try blocking bullets with it
+	if(!owner.has_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING))
+		final_block_chance = 0 //Need to be ready to ruuuummbllleeee
+	return ..()
 
 /obj/item/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
 	. = ..()
