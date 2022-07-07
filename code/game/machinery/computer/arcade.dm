@@ -379,7 +379,7 @@
 		dat += "<br><P ALIGN=Right><a href='byond://?src=[UID()];menu=1'>OK...</a></P>"
 
 		if(emagged)
-			to_chat(user, "<span class='userdanger'><font size=3>You're never going to make it to Orion...</span></font>")
+			to_chat(user, "[span_userdanger("<font size=3>You're never going to make it to Orion...")]</font>")
 			user.death()
 			emagged = FALSE //removes the emagged status after you lose
 			playing = 0 //also a new game

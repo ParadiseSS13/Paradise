@@ -686,7 +686,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		M.revive()
 		equip_skeleton(M)
 	spooky_scaries |= M
-	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
+	to_chat(M, "[span_userdanger("You have been revived by ")]<B>[user.real_name]!</B>")
 	to_chat(M, span_userdanger("[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!"))
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
 

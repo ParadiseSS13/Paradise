@@ -83,7 +83,7 @@
 			if(limb_name)
 				submsg += " [preposition] [p_their()] [limb_name]"
 			if(item.blood_DNA)
-				submsg = "<span class='warning'>[submsg]!</span>\n"
+				submsg = "[span_warning("[submsg]!")]\n"
 			else
 				submsg = "[submsg].\n"
 			msg += submsg
@@ -93,7 +93,7 @@
 			switch(limb_name)
 				if("hands")
 					if(blood_DNA)
-						msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
+						msg += "[span_warning("[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!")]\n"
 				if("eyes")
 					if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
 						msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
@@ -102,27 +102,27 @@
 	//handcuffed?
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!</span>\n"
+			msg += "[span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!")]\n"
 		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!</span>\n"
+			msg += "[span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!")]\n"
 		else
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!</span>\n"
+			msg += "[span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!")]\n"
 
 	//Jitters
 	switch(AmountJitter())
 		if(600 SECONDS to INFINITY)
-			msg += "<span class='warning'><B>[p_they(TRUE)] [p_are()] convulsing violently!</B></span>\n"
+			msg += "[span_warning("<B>[p_they(TRUE)] [p_are()] convulsing violently!</B>")]\n"
 		if(400 SECONDS to 600 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
+			msg += "[span_warning("[p_they(TRUE)] [p_are()] extremely jittery.")]\n"
 		if(200 SECONDS to 400 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
+			msg += "[span_warning("[p_they(TRUE)] [p_are()] twitching ever so slightly.")]\n"
 
 
 	var/appears_dead = FALSE
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		appears_dead = TRUE
 		if(suiciding)
-			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
+			msg += "[span_warning("[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.")]\n"
 		msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(!key)

@@ -168,7 +168,7 @@
 
 /obj/structure/falsewall/reinforced/examine_status(mob/user)
 	. = ..()
-	. += "<br><span class='notice'>The outer <b>grille</b> is fully intact.</span>"	//not going to fake other states of disassembly
+	. += "<br>[span_notice("The outer <b>grille</b> is fully intact.")]"	//not going to fake other states of disassembly
 
 /obj/structure/falsewall/reinforced/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)

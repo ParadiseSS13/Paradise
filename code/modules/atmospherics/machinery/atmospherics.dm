@@ -201,7 +201,7 @@ Pipelines + Other Objects -> Pipe network
 				"[user] unfastens \the [src].", \
 				span_notice("You have unfastened \the [src]."), \
 				span_italics("You hear ratcheting."))
-			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+			investigate_log("was [span_warning("REMOVED")] by [key_name(usr)]", "atmos")
 
 			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
 				if(usermagboots.gustprotection && usermagboots.magpulse)

@@ -351,7 +351,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
 	if(!(stat & NOPOWER) && (!AI || force))
 		if(AI && (istype(AI.current, /obj/machinery/hologram/holopad)))
-			to_chat(user, "<span class='danger'>ERROR:</span> Image feed in progress.")
+			to_chat(user, "[span_danger("ERROR:")] Image feed in progress.")
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
@@ -378,7 +378,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		return hologram
 
 
-	to_chat(user, "<span class='danger'>ERROR:</span> Hologram Projection Malfunction.")
+	to_chat(user, "[span_danger("ERROR:")] Hologram Projection Malfunction.")
 	clear_holo(user)//safety check
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.

@@ -430,7 +430,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
     to_chat(user, "\red Red text \black Black text")
 
     //Good
-    to_chat(user, "<span class='warning'>Red text</span>Black text")
+    to_chat(user, "[span_warning("Red text")]Black text")
     ```
   * To use variables in strings, you should **never** use the `text()` operator, use
    embedded expressions directly in the string.

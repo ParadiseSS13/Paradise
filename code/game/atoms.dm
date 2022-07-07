@@ -359,7 +359,7 @@
 		else
 			f_name = "a "
 		if(blood_color != "#030303")
-			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
+			f_name += "[span_danger("blood-stained")] [name][infix]!"
 		else
 			f_name += "oil-stained [name][infix]."
 	. = list("[bicon(src)] That's [f_name] [suffix]")

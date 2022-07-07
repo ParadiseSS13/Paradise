@@ -60,7 +60,7 @@
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		log_game("[key_name(user)] has rigged a beartrap with an IED.")
 		to_chat(user, span_notice("You sneak [IED] underneath the pressure plate and connect the trigger wire."))
-		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
+		desc = "A trap used to catch bears and other legged creatures. [span_warning("There is an IED hooked up to it.")]"
 	if(istype(I, /obj/item/assembly/signaler))
 		if(IED)
 			to_chat(user, span_warning("This beartrap already has an IED hooked up to it!"))
@@ -76,7 +76,7 @@
 		user.drop_item()
 		I.forceMove(src)
 		to_chat(user, span_notice("You sneak [sig] underneath the pressure plate and connect the trigger wire."))
-		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
+		desc = "A trap used to catch bears and other legged creatures. [span_warning("There is a remote signaler hooked up to it.")]"
 	if(istype(I, /obj/item/screwdriver))
 		if(IED)
 			IED.forceMove(get_turf(src))

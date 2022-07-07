@@ -233,7 +233,7 @@
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
 	to_chat(usr, span_info("<b>You whisper to [choice]: </b>[msg]"))
-	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
+	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i>[span_danger(" [msg]")]</I>")
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
 

@@ -92,7 +92,7 @@
 
 /obj/item/mobcapsule/proc/capture(mob/living/simple_animal/S, mob/living/M)
 	if(captured)
-		to_chat(M, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
+		to_chat(M, "[span_notice("Capture failed!")]: The capsule already has a mob registered to it!")
 	else
 		if("neutral" in S.faction)
 			S.forceMove(src)

@@ -36,7 +36,7 @@
 	if(!istype(M))
 		return
 
-	to_chat(M, "<span class='notice'>[bicon(src)] Incoming encrypted transmission from your handlers. Message as follows:</span><br />"\
+	to_chat(M, "[span_notice("[bicon(src)] Incoming encrypted transmission from your handlers. Message as follows:")]<br />"\
 			 + span_boldnotice("[text]"))
 	if(sndfile)
 		M.playsound_local(get_turf(M), sndfile, 30, FALSE, use_reverb = FALSE)

@@ -967,7 +967,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	if(confirm == "Yes")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')
 		for(var/sissy in GLOB.player_list)
-			to_chat(sissy, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
+			to_chat(sissy, "<br><center>[span_notice("<b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.")]</center><br>")
 			SEND_SOUND(sissy, manned_up_sound)
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")

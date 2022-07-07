@@ -27,24 +27,24 @@
 	msg += "</span>"
 
 	if(opened)
-		msg += "<span class='warning'>Its cover is open and the power cell is [cell ? "installed" : "missing"].</span>\n"
+		msg += "[span_warning("Its cover is open and the power cell is [cell ? "installed" : "missing"].")]\n"
 	else
 		msg += "Its cover is closed[locked ? "" : ", and looks unlocked"].\n"
 
 	if(cell && cell.charge <= 0)
-		msg += "<span class='warning'>Its battery indicator is blinking red!</span>\n"
+		msg += "[span_warning("Its battery indicator is blinking red!")]\n"
 
 	switch(stat)
 		if(CONSCIOUS)
 			if(!client)
 				msg += "It appears to be in stand-by mode.\n" //afk
 		if(UNCONSCIOUS)
-			msg += "<span class='warning'>It doesn't seem to be responding.</span>\n"
+			msg += "[span_warning("It doesn't seem to be responding.")]\n"
 		if(DEAD)
 			if(!suiciding)
 				msg += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>\n"
 			else
-				msg += "<span class='warning'>It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
+				msg += "[span_warning("It looks like its system is corrupted beyond repair. There is no hope of recovery.")]\n"
 	msg += "*---------*</span>"
 
 	if(print_flavor_text())

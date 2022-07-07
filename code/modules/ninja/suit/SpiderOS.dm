@@ -265,7 +265,7 @@
 					t_disk.loc = T
 					t_disk = null
 				else
-					to_chat(U, "<span class='userdanger'>ERROR</span>: Could not eject disk.")
+					to_chat(U, "[span_userdanger("ERROR")]: Could not eject disk.")
 
 		if("Copy to Disk")
 			var/datum/tech/current_data = locate(href_list["target"])

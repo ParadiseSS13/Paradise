@@ -136,7 +136,7 @@
 				to_chat(H, span_warning("You feel intensely watched."))
 		sleep(5)
 		to_chat(H, span_warning("<b>Your mind snaps!</b>"))
-		to_chat(H, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
+		to_chat(H, "<big>[span_warning("<b>You can't remember how you got here...</b>")]</big>")
 		var/objtype = pick(subtypesof(/datum/objective/abductee/))
 		var/datum/objective/abductee/O = new objtype()
 		SSticker.mode.abductees += H.mind

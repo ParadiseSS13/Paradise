@@ -267,7 +267,7 @@
 			if(T.client) // If there's someone in the body
 				init_shade(T, user)
 			else // Poll ghosts
-				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
+				to_chat(user, "[span_userdanger("Capture failed!")] The soul has already fled its mortal frame. You attempt to bring it back...")
 				T.Paralyse(40 SECONDS)
 				if(!get_cult_ghost(T, user, TRUE))
 					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
@@ -275,17 +275,17 @@
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
 			if(T.stat == 0)
-				to_chat(user, "<span class='danger'>Capture failed!</span> Kill or maim the victim first!")
+				to_chat(user, "[span_danger("Capture failed!")] Kill or maim the victim first!")
 			else
 				if(!length(T.client_mobs_in_contents))
 					to_chat(user, span_warning("They have no soul!"))
 				else
 					if(T.client == null)
-						to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
+						to_chat(user, "[span_userdanger("Capture failed!")] The soul has already fled its mortal frame. You attempt to bring it back...")
 						get_cult_ghost(T, user, get_new_player = !T.ghost_can_reenter())
 					else
 						if(length(contents))
-							to_chat(user, "<span class='danger'>Capture failed!</span> The soul stone is full! Use or free an existing soul to make room.")
+							to_chat(user, "[span_danger("Capture failed!")] The soul stone is full! Use or free an existing soul to make room.")
 						else
 							init_shade(T, user, TRUE)
 
@@ -296,19 +296,19 @@
 				to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 				return
 			if(T.stat == DEAD)
-				to_chat(user, "<span class='danger'>Capture failed!</span> The shade has already been banished!")
+				to_chat(user, "[span_danger("Capture failed!")] The shade has already been banished!")
 			if((iscultist(T) && purified) || (T.holy && !purified))
-				to_chat(user, "<span class='danger'>Capture failed!</span> The shade recoils away from [src]!")
+				to_chat(user, "[span_danger("Capture failed!")] The shade recoils away from [src]!")
 			else
 				if(length(contents))
-					to_chat(user, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
+					to_chat(user, "[span_danger("Capture failed!")]: The soul stone is full! Use or free an existing soul to make room.")
 				else
 					T.forceMove(src) // Put the shade into the stone.
 					T.health = T.maxHealth
 					icon_state = icon_state_full
 					name = "soulstone : [T.name]"
 					to_chat(T, span_notice("Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form"))
-					to_chat(user, "<span class='notice'>Capture successful!</span> [T.name]'s has been recaptured and stored within the soul stone.")
+					to_chat(user, "[span_notice("Capture successful!")] [T.name]'s has been recaptured and stored within the soul stone.")
 
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/shell = target
@@ -330,7 +330,7 @@
 					to_chat(C, C.playstyle_string)
 					to_chat(C, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Construct)"))
 			else
-				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
+				to_chat(user, "[span_danger("Creation failed!")]: The soul stone is empty! Go kill someone!")
 
 /obj/item/soulstone/proc/radial_check(mob/user)
 	if(!ishuman(user)) // Should never happen, but just in case

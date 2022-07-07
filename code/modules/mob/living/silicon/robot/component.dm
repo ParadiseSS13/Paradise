@@ -299,7 +299,7 @@
 			else
 				if(LAZYLEN(damaged))
 					for(var/datum/robot_component/org in damaged)
-						user.show_message(text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
+						user.show_message(text("[span_notice("\t []: [][] - [] - [] - []")]",	\
 						capitalize(org.name),					\
 						(org.is_destroyed())	?	"<font color='red'><b>DESTROYED</b></font> "							:"",\
 						(org.electronics_damage > 0)	?	"<font color='#FFA500'>[org.electronics_damage]</font>"	:0,	\

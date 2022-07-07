@@ -172,7 +172,7 @@
 				to_chat(usr, span_danger("Self-destruct aborted - safety active"))
 				return
 			message_admins(span_notice("[key_name_admin(usr)] detonated all cyborgs!"))
-			log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")
+			log_game("[span_notice("[key_name(usr)] detonated all cyborgs!")]")
 			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 				if(istype(R, /mob/living/silicon/robot/drone))
 					continue
@@ -181,7 +181,7 @@
 					continue
 				to_chat(R, span_danger("Self-destruct command received."))
 				if(R.connected_ai)
-					to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
+					to_chat(R.connected_ai, "<br><br>[span_alert("ALERT - Cyborg detonation detected: [R.name]")]<br>")
 				R.self_destruct()
 			. = TRUE
 		if("killbot") // destroys one specific cyborg
@@ -195,10 +195,10 @@
 				return
 			var/turf/T = get_turf(R)
 			message_admins(span_notice("[key_name_admin(usr)] detonated [key_name_admin(R)] ([ADMIN_COORDJMP(T)])!"))
-			log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(R)]!</span>")
+			log_game("[span_notice("[key_name(usr)] detonated [key_name(R)]!")]")
 			to_chat(R, span_danger("Self-destruct command received."))
 			if(R.connected_ai)
-				to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
+				to_chat(R.connected_ai, "<br><br>[span_alert("ALERT - Cyborg detonation detected: [R.name]")]<br>")
 			R.self_destruct()
 			. = TRUE
 		if("stopbot") // lock or unlock the borg

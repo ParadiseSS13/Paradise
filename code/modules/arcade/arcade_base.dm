@@ -93,7 +93,7 @@
 
 /obj/machinery/arcade/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user)
 	if(cashmoney.amount < token_price)
-		to_chat(user, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
+		to_chat(user, "[bicon(cashmoney)] [span_warning("That is not enough money.")]")
 		return 0
 	visible_message(span_info("[usr] inserts a credit chip into [src]."))
 	cashmoney.use(token_price)

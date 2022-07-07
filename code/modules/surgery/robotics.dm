@@ -496,7 +496,7 @@
 		span_warning(" Your hand slips, disconnecting \the [tool]."))
 
 	else if(current_type == "install")
-		user.visible_message("<span class='warning'> [user]'s hand slips!</span>.", \
+		user.visible_message("[span_warning(" [user]'s hand slips!")].", \
 		span_warning(" Your hand slips!"))
 	else if(current_type == "finish")
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)

@@ -128,7 +128,7 @@
 				var/mob/living/newtraitor = newtraitormind.current
 				//message_admins("[newtraitor.real_name] is the new Traitor.")
 
-				to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+				to_chat(newtraitor, "[span_danger("ATTENTION:")] It is time to pay your debt to the Syndicate...")
 				newtraitor.mind.add_antag_datum(/datum/antagonist/traitor)
 			//else
 				//message_admins("No new traitor being added.")

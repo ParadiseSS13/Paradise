@@ -143,9 +143,9 @@
 
 			//Bottom message
 			if(!auth)
-				dat += "<br><hr><dd><span class='notice'>Please authenticate with the server in order to show additional options.</span>"
+				dat += "<br><hr><dd>[span_notice("Please authenticate with the server in order to show additional options.")]"
 			else
-				dat += "<br><hr><dd><span class='warning'>Reg, #514 forbids sending messages containing Erotic Rendering Properties.</span>"
+				dat += "<br><hr><dd>[span_warning("Reg, #514 forbids sending messages containing Erotic Rendering Properties.")]"
 
 		//Message Logs
 		if(1)

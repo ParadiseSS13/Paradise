@@ -378,7 +378,7 @@ datum/tech/robotics
 
 /obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
 	name = "[default_name] \[[T]\]"
-	desc = T.desc + "\n <span class='notice'>Level: [T.level]</span>"
+	desc = T.desc + "\n [span_notice("Level: [T.level]")]"
 	// NOTE: This is just a reference to the tech on the system it grabbed it from
 	// This seems highly fragile
 	stored = T

@@ -70,9 +70,9 @@
 				scan_card(O, user)
 				SStgui.update_uis(src)
 			else
-				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to linked account.</span>")
+				to_chat(user, "[bicon(src)][span_warning("Unable to connect to linked account.")]")
 		else
-			to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
+			to_chat(user, "[bicon(src)][span_warning("Unable to connect to accounts database.")]")
 	else
 		return ..()
 
@@ -109,7 +109,7 @@
 					alert("That is not a valid code!")
 				print_reference()
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
+				to_chat(usr, "[bicon(src)][span_warning("Incorrect code entered.")]")
 		if("link_account")
 			if(!linked_db)
 				reconnect_database()
@@ -118,7 +118,7 @@
 				var/attempt_pin = input("Enter pin code", "Account pin") as num
 				linked_account = attempt_account_access(attempt_account_num, attempt_pin, 1)
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
+				to_chat(usr, "[bicon(src)][span_warning("Unable to connect to accounts database.")]")
 		if("trans_purpose")
 			var/purpose = clean_input("Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
 			if(purpose)
@@ -138,7 +138,7 @@
 			else if(linked_account)
 				transaction_locked = 1
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
+				to_chat(usr, "[bicon(src)][span_warning("No account connected to send transactions to.")]")
 		if("scan_card")
 			//attempt to connect to a new db, and if that doesn't work then fail
 			if(!linked_db)
@@ -148,7 +148,7 @@
 				if(istype(I, /obj/item/card))
 					scan_card(I, usr)
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'>Unable to link accounts.</span>")
+				to_chat(usr, "[bicon(src)][span_warning("Unable to link accounts.")]")
 		if("reset")
 			//reset the access code - requires HoP/captain access
 			var/obj/item/I = usr.get_active_hand()
@@ -171,7 +171,7 @@
 			return
 
 		if(!linked_account)
-			to_chat(user, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
+			to_chat(user, "[bicon(src)][span_warning("EFTPOS is not connected to an account.")]")
 			return
 
 		var/confirm = alert("Are you sure you want to pay $[transaction_amount] to Account: [linked_account.owner_name] ", "Confirm transaction", "Yes", "No")
@@ -181,10 +181,10 @@
 		var/datum/money_account/D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
 
 		if(!D)
-			to_chat(user, "[bicon(src)]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
+			to_chat(user, "[bicon(src)][span_warning("Unable to access account. Check security settings and try again.")]")
 
 		if(transaction_amount > D.money)
-			to_chat(user, "[bicon(src)]<span class='warning'>You don't have that much money!</span>")
+			to_chat(user, "[bicon(src)][span_warning("You don't have that much money!")]")
 			return
 
 		var/transSuccess = D.charge(transaction_amount, linked_account, transaction_purpose, machine_name, D.owner_name)

@@ -76,7 +76,7 @@
 
 /datum/surgery_step/generic/clamp_bleeders/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] clamps bleeders in [target]'s [affected.name] with \the [tool]</span>.",	\
+	user.visible_message("[span_notice(" [user] clamps bleeders in [target]'s [affected.name] with \the [tool]")].",	\
 	span_notice(" You clamp bleeders in [target]'s [affected.name] with \the [tool]."))
 	spread_germs_to_organ(affected, user, tool)
 	return TRUE

@@ -41,7 +41,7 @@
 				return
 
 			else
-				to_chat(user, "<span class='danger'>FĆAL �Rr�R</span>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
+				to_chat(user, "[span_danger("FĆAL �Rr�R")]: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
 
 /obj/structure/respawner
 	name = "\improper Long-Distance Cloning Machine"

@@ -525,10 +525,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 		// Space base near the station
 		if(is_station_level(origin.z))
-			desc += "<u><span class='warning'>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], near the station!</span></u>"
+			desc += "<u>[span_warning("The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], near the station!")]</u>"
 		// Space base on another Z-level
 		else
-			desc += "<u><span class='warning'>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], in the direction of space sector [origin.z]!</span></u>"
+			desc += "<u>[span_warning("The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], in the direction of space sector [origin.z]!")]</u>"
 
 	else
 		inner_portal.icon_state = "lava"

@@ -221,7 +221,7 @@
 		 span_notice("You slice [src]!"))
 	else
 		user.visible_message(span_notice("[user] crudely slices [src] with [I]!"),
-			"<span class='notice'>You crudely slice [src] with your [I]</span>!")
+			"[span_notice("You crudely slice [src] with your [I]")]!")
 		slices_lost = rand(1,min(1,round(slices_num/2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i=1 to (slices_num-slices_lost))

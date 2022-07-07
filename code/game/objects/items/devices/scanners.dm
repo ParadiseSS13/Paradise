@@ -485,10 +485,10 @@ REAGENT SCANNER
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
 				if(R.id != "blood")
-					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
+					dat += "<br>[TAB][span_notice("[R][details ? ": [R.volume / one_percent]%" : ""]")]"
 				else
 					blood_type = R.data["blood_type"]
-					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
+					dat += "<br>[TAB][span_notice("[R][blood_type ? " [blood_type]" : ""][details ? ": [R.volume / one_percent]%" : ""]")]"
 		if(dat)
 			to_chat(user, span_notice("Chemicals found: [dat]"))
 			datatoprint = dat

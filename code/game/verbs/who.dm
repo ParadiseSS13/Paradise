@@ -181,6 +181,6 @@
 				modmsg += "\n"
 				num_mods_online++
 
-	var/noadmins_info = "\n<span class='notice'><small>If no admins or mentors are online, make a ticket anyways. Adminhelps and mentorhelps will be relayed to discord, and staff will still be informed.<small></span>"
+	var/noadmins_info = "\n[span_notice("<small>If no admins or mentors are online, make a ticket anyways. Adminhelps and mentorhelps will be relayed to discord, and staff will still be informed.<small>")]"
 	msg = "<b>Current Admins ([num_admins_online]):</b>\n" + msg + "\n<b>Current Mentors ([num_mods_online]):</b>\n" + modmsg + noadmins_info
 	to_chat(src, msg)

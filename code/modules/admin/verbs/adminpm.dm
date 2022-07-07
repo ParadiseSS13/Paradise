@@ -78,7 +78,7 @@
 	/*if(C && C.last_pm_recieved + config.simultaneous_pm_warning_timeout > world.time && holder)
 		//send a warning to admins, but have a delay popup for mods
 		if(holder.rights & R_ADMIN)
-			to_chat(src, "<span class='danger'>Simultaneous PMs warning:</span> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]")
+			to_chat(src, "[span_danger("Simultaneous PMs warning:")] that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]")
 		else
 			if(alert("That player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]","Simultaneous PMs warning","Continue","Cancel") == "Cancel")
 				return*/
@@ -244,7 +244,7 @@
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN, 0, X.mob))
-			to_chat(X, span_pmsend("<b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span>"))
+			to_chat(X, span_pmsend("<b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> [span_notice("[msg]")]"))
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"

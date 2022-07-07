@@ -883,7 +883,7 @@
 			to_chat(user, "[B.get_mecha_info_text()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
-		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'><span class='userdanger'>ASSUME DIRECT CONTROL?</span></a><br>")
+		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
 	else
 		examine(user)
 		if(occupant)

@@ -343,7 +343,7 @@
 /datum/antagonist/vampire/greet()
 	var/dat
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	dat = "<span class='danger'>You are a Vampire!</span><br>"
+	dat = "[span_danger("You are a Vampire!")]<br>"
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
 		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(owner.current, dat)

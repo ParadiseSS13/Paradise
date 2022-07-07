@@ -35,7 +35,7 @@
 			if(istype(human_user.shoes, /obj/item/clothing/shoes/cowboy))
 				human_user.say(pick("Hot damn!", "Hoo-wee!", "Got-dang!"))
 		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 110, TRUE)
-		user.visible_message("<b><span class='danger'>[user] slams [user.p_their()] fist down on [the_table]!</span></b>", "<b><span class='danger'>You slam your fist down on [the_table]!</span></b>")
+		user.visible_message("<b>[span_danger("[user] slams [user.p_their()] fist down on [the_table]!")]</b>", "<b>[span_danger("You slam your fist down on [the_table]!")]</b>")
 		qdel(src)
 	else
 		user.do_attack_animation(the_table)

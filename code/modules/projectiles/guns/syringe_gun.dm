@@ -145,7 +145,7 @@
 
 /obj/item/gun/syringe/rapidsyringe/examine(mob/user)
 	. = ..()
-	. += "A switch on the side is set to [get_units_per_shot()] unit\s per shot, <span class='notice'>alt-click to change it.</span>"
+	. += "A switch on the side is set to [get_units_per_shot()] unit\s per shot, [span_notice("alt-click to change it.")]"
 	if(chambered?.BB)
 		. += "<span class='notice'>The chambered syringe contains [round(chambered.BB.reagents.total_volume)] units."
 

@@ -430,7 +430,7 @@
 			if(!client)
 				msg += "\nIt appears to be in stand-by mode." //afk
 		if(UNCONSCIOUS)
-			msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
+			msg += "\n[span_warning("It doesn't seem to be responding.")]"
 		if(DEAD)
 			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
 

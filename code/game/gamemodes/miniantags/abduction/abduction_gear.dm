@@ -546,7 +546,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		else
 			helptext = span_notice("Subject suitable for experiments.")
 
-	to_chat(user,"<span class='notice'>Probing result: </span>[species]")
+	to_chat(user,"[span_notice("Probing result: ")][species]")
 	to_chat(user, "[helptext]")
 
 /obj/item/restraints/handcuffs/energy

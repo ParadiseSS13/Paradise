@@ -106,7 +106,7 @@
 		return
 
 	// Tell them
-	to_chat(usr, "<span class='notice'>You have purchased [package.friendly_name]</span>.")
+	to_chat(usr, "[span_notice("You have purchased [package.friendly_name]")].")
 	log_karma("[key_name(usr)] has purchased [package.friendly_name].")
 	qdel(insert_query)
 

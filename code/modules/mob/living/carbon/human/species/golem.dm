@@ -39,7 +39,7 @@
 		"is smashing their body apart!")
 
 	var/golem_colour = rgb(170, 170, 170)
-	var/info_text = "As an <span class='danger'>Iron Golem</span>, you don't have any special traits."
+	var/info_text = "As an [span_danger("Iron Golem")], you don't have any special traits."
 	var/random_eligible = TRUE
 	var/prefix = "Iron"
 	var/list/special_names = list("Tarkus")
@@ -102,7 +102,7 @@
 		"vocal_cords" = /obj/item/organ/internal/vocal_cords/adamantine
 		)
 	golem_colour = rgb(68, 238, 221)
-	info_text = "As an <span class='danger'>Adamantine Golem</span>, you possess special vocal cords allowing you to \"resonate\" messages to all golems."
+	info_text = "As an [span_danger("Adamantine Golem")], you possess special vocal cords allowing you to \"resonate\" messages to all golems."
 	prefix = "Adamantine"
 	special_names = null
 
@@ -113,7 +113,7 @@
 	//Can burn and takes damage from heat
 	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS) //no RESISTHEAT, NOFIRE
 	golem_colour = rgb(170, 51, 221)
-	info_text = "As a <span class='danger'>Plasma Golem</span>, you burn easily. Be careful, if you get hot enough while burning, you'll blow up!"
+	info_text = "As a [span_danger("Plasma Golem")], you burn easily. Be careful, if you get hot enough while burning, you'll blow up!"
 	heatmod = 0 //fine until they blow up
 	prefix = "Plasma"
 	special_names = list("Flood", "Fire", "Bar", "Man")
@@ -172,7 +172,7 @@
 	golem_colour = rgb(0, 255, 255)
 	armor = 70 //up from 55
 	skinned_type = /obj/item/stack/ore/diamond
-	info_text = "As a <span class='danger'>Diamond Golem</span>, you are more resistant than the average golem."
+	info_text = "As a [span_danger("Diamond Golem")], you are more resistant than the average golem."
 	prefix = "Diamond"
 	special_names = list("Back")
 
@@ -183,7 +183,7 @@
 	speed_mod = 1
 	armor = 25 //down from 55
 	skinned_type = /obj/item/stack/ore/gold
-	info_text = "As a <span class='danger'>Gold Golem</span>, you are faster but less resistant than the average golem."
+	info_text = "As a [span_danger("Gold Golem")], you are faster but less resistant than the average golem."
 	prefix = "Golden"
 	special_names = list("Boy")
 
@@ -193,7 +193,7 @@
 	golem_colour = rgb(221, 221, 221)
 	punchstunthreshold = 9 //60% chance, from 40%
 	skinned_type = /obj/item/stack/ore/silver
-	info_text = "As a <span class='danger'>Silver Golem</span>, your attacks have a higher chance of stunning."
+	info_text = "As a [span_danger("Silver Golem")], your attacks have a higher chance of stunning."
 	prefix = "Silver"
 	special_names = list("Surfer", "Chariot", "Lining")
 
@@ -207,7 +207,7 @@
 	punchstunthreshold = 18 //still 40% stun chance
 	speed_mod = 4 //pretty fucking slow
 	skinned_type = /obj/item/stack/ore/iron
-	info_text = "As a <span class='danger'>Plasteel Golem</span>, you are slower, but harder to stun, and hit very hard when punching."
+	info_text = "As a [span_danger("Plasteel Golem")], you are slower, but harder to stun, and hit very hard when punching."
 	prefix = "Plasteel"
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/plasteel
@@ -221,7 +221,7 @@
 	name = "Titanium Golem"
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "As a <span class='danger'>Titanium Golem</span>, you are resistant to burn damage and immune to ash storms."
+	info_text = "As a [span_danger("Titanium Golem")], you are resistant to burn damage and immune to ash storms."
 	burn_mod = 0.9
 	prefix = "Titanium"
 	special_names = list("Dioxide")
@@ -239,7 +239,7 @@
 	name = "Plastitanium Golem"
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "As a <span class='danger'>Plastitanium Golem</span>, you are very resistant to burn damage and immune to both ash storms and lava."
+	info_text = "As a [span_danger("Plastitanium Golem")], you are very resistant to burn damage and immune to both ash storms and lava."
 	burn_mod = 0.8
 	prefix = "Plastitanium"
 	special_names = null
@@ -262,7 +262,7 @@
 	language = "Golem Mindlink"
 	default_language = "Golem Mindlink"
 	speed_mod = 1 //faster
-	info_text = "As an <span class='danger'>Alloy Golem</span>, you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to speak telepathically to other alloy golems."
+	info_text = "As an [span_danger("Alloy Golem")], you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to speak telepathically to other alloy golems."
 	prefix = "Alien"
 	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
 
@@ -296,7 +296,7 @@
 	heatmod = 1.5
 	dietflags = DIET_HERB		// Plants eat...plants?
 
-	info_text = "As a <span class='danger'>Wooden Golem</span>, you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
+	info_text = "As a [span_danger("Wooden Golem")], you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
 	prefix = "Wooden"
 	special_names = list("Bark", "Willow", "Catalpa", "Oak", "Sap", "Twig", "Branch", "Maple", "Birch", "Elm", "Basswood", "Cottonwood", "Larch", "Aspen", "Ash", "Beech", "Buckeye", "Cedar", "Chestnut", "Cypress", "Fir", "Hawthorn", "Hazel", "Hickory", "Ironwood", "Juniper", "Leaf", "Mangrove", "Palm", "Pawpaw", "Pine", "Poplar", "Redwood", "Redbud", "Sassafras", "Spruce", "Sumac", "Trunk", "Walnut", "Yew")
 	human_surname_chance = 0
@@ -337,7 +337,7 @@
 	name = "Uranium Golem"
 	golem_colour = rgb(119, 255, 0)
 	skinned_type = /obj/item/stack/ore/uranium
-	info_text = "As an <span class='danger'>Uranium Golem</span>, you emit radiation. It won't harm fellow golems, but organic lifeforms will be affected."
+	info_text = "As an [span_danger("Uranium Golem")], you emit radiation. It won't harm fellow golems, but organic lifeforms will be affected."
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown")
 
@@ -353,7 +353,7 @@
 	ventcrawler = VENTCRAWLER_NUDE
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
-	info_text = "As a <span class='danger'>Plastic Golem</span>, you are capable of ventcrawling if you're naked."
+	info_text = "As a [span_danger("Plastic Golem")], you are capable of ventcrawling if you're naked."
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
@@ -363,7 +363,7 @@
 	armor = 0
 	burn_mod = 3 //melts easily
 	brute_mod = 0.25
-	info_text = "As a <span class='danger'>Sand Golem</span>, you are immune to physical bullets and take very little brute damage, but are extremely vulnerable to burn damage and energy weapons. You will also turn to sand when dying, preventing any form of recovery."
+	info_text = "As a [span_danger("Sand Golem")], you are immune to physical bullets and take very little brute damage, but are extremely vulnerable to burn damage and energy weapons. You will also turn to sand when dying, preventing any form of recovery."
 	unarmed_type = /datum/unarmed_attack/golem/sand
 	prefix = "Sand"
 	special_names = list("Castle", "Bag", "Dune", "Worm", "Storm")
@@ -396,7 +396,7 @@
 	armor = 0
 	brute_mod = 3 //very fragile
 	burn_mod = 0.25
-	info_text = "As a <span class='danger'>Glass Golem</span>, you reflect lasers and energy weapons, and are very resistant to burn damage. However, you are extremely vulnerable to brute damage. On death, you'll shatter beyond any hope of recovery."
+	info_text = "As a [span_danger("Glass Golem")], you reflect lasers and energy weapons, and are very resistant to burn damage. However, you are extremely vulnerable to brute damage. On death, you'll shatter beyond any hope of recovery."
 	unarmed_type = /datum/unarmed_attack/golem/glass
 	prefix = "Glass"
 	special_names = list("Lens", "Prism", "Fiber", "Bead")
@@ -429,7 +429,7 @@
 	name = "Bluespace Golem"
 	golem_colour = rgb(51, 51, 255)
 	skinned_type = /obj/item/stack/ore/bluespace_crystal
-	info_text = "As a <span class='danger'>Bluespace Golem</span>, you are spatially unstable: You will teleport when hit, and you can teleport manually at a long distance."
+	info_text = "As a [span_danger("Bluespace Golem")], you are spatially unstable: You will teleport when hit, and you can teleport manually at a long distance."
 	prefix = "Bluespace"
 	special_names = list("Crystal", "Polycrystal")
 	unarmed_type = /datum/unarmed_attack/golem/bluespace
@@ -559,7 +559,7 @@
 	punchdamagehigh = 1
 	punchstunthreshold = 2 //Harmless and can't stun
 	skinned_type = /obj/item/stack/ore/bananium
-	info_text = "As a <span class='danger'>Bananium Golem</span>, you are made for pranking. Your body emits natural honks, and punching people will just harmlessly honk them. Your skin also bleeds banana peels when damaged."
+	info_text = "As a [span_danger("Bananium Golem")], you are made for pranking. Your body emits natural honks, and punching people will just harmlessly honk them. Your skin also bleeds banana peels when damaged."
 	prefix = "Bananium"
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
@@ -642,7 +642,7 @@
 	special_names = null
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/tranquillite
-	info_text = "As a <span class='danger'>Tranquillite Golem</span>, you are capable of creating invisible walls, and can regenerate by drinking your bottle of Nothing."
+	info_text = "As a [span_danger("Tranquillite Golem")], you are capable of creating invisible walls, and can regenerate by drinking your bottle of Nothing."
 	unarmed_type = /datum/unarmed_attack/golem/tranquillite
 
 /datum/species/golem/tranquillite/get_random_name()

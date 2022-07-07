@@ -28,9 +28,9 @@
 	return TRUE
 
 /datum/martial_art/adminfu/explaination_header(user)
-	to_chat(user, "<span class='notice'>Grab</span>: Automatic Neck Grab.")
-	to_chat(user, "<span class='notice'>Disarm</span>: Stun/weaken")
-	to_chat(user, "<span class='notice'>Harm</span>: Death.")
+	to_chat(user, "[span_notice("Grab")]: Automatic Neck Grab.")
+	to_chat(user, "[span_notice("Disarm")]: Stun/weaken")
+	to_chat(user, "[span_notice("Harm")]: Death.")
 
 /obj/item/adminfu_scroll
 	name = "frayed scroll"

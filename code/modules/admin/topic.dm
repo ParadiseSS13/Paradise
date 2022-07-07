@@ -2110,8 +2110,8 @@
 					newtraitormind.objectives += kill_objective
 					var/datum/antagonist/traitor/T = new()
 					T.give_objectives = FALSE
-					to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-					to_chat(newtraitormind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
+					to_chat(newtraitormind.current, "[span_danger("ATTENTION:")] It is time to pay your debt to the Syndicate...")
+					to_chat(newtraitormind.current, "<b>Goal: [span_danger("KILL [H.real_name]")], currently in [get_area(H.loc)]</b>")
 					newtraitormind.add_antag_datum(T)
 				else
 					to_chat(usr, span_warning("ERROR: Unable to find any valid candidate to send after [H]."))
@@ -3449,8 +3449,8 @@
 		protect_objective.explanation_text = "Protect [H.real_name], the [H.mind.assigned_role]."
 		hunter_mind.objectives += protect_objective
 	SSticker.mode.traitors |= hunter_mob.mind
-	to_chat(hunter_mob, "<span class='danger'>ATTENTION:</span> You are now on a mission!")
-	to_chat(hunter_mob, "<b>Goal: <span class='danger'>[killthem ? "MURDER" : "PROTECT"] [H.real_name]</span>, currently in [get_area(H.loc)].</b>");
+	to_chat(hunter_mob, "[span_danger("ATTENTION:")] You are now on a mission!")
+	to_chat(hunter_mob, "<b>Goal: [span_danger("[killthem ? "MURDER" : "PROTECT"] [H.real_name]")], currently in [get_area(H.loc)].</b>");
 	if(killthem)
 		to_chat(hunter_mob, "<b>If you kill [H.p_them()], [H.p_they()] cannot be revived.</b>");
 	hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
