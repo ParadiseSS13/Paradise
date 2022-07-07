@@ -411,7 +411,18 @@
 	button_icon_state = "remove_card"
 	use_itemicon = FALSE
 
+/datum/action/item_action/remove_card/IsAvailable()
+	var/obj/item/cardhand/C = target
+	if(length(C.cards) <= 1)
+		return FALSE
+	var/mob/living/carbon/human/O = owner
+	if(O.l_hand && O.r_hand)
+		return FALSE
+	return ..()
+
 /datum/action/item_action/remove_card/Trigger()
+	if(!IsAvailable())
+		return
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/C = target
 		return C.Removecard()
@@ -487,7 +498,10 @@
 		for(var/datum/playingcard/P in cards)
 			to_discard[P.name] = P
 		var/discarding = input("Which card do you wish to put down?") as null|anything in to_discard
-
+		
+		if(!discarding)
+			continue
+		
 		if(QDELETED(src))
 			return
 
@@ -514,6 +528,10 @@
 /obj/item/cardhand/update_appearance(updates=ALL)
 	if(!length(cards))
 		return
+	if(length(cards) <= 2)
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.UpdateButtonIcon()
 	..(updates)
 
 /obj/item/cardhand/update_name()
