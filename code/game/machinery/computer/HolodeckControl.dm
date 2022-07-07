@@ -425,6 +425,13 @@
 /obj/item/holo
 	damtype = STAMINA
 
+//ovveride block check, we don't want to block anything that's not a holo object
+/obj/item/holo/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby)
+	if(!istype(hitby, /obj/item/holo))
+		return FALSE
+	else
+		return ..()
+
 /obj/item/holo/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
@@ -437,12 +444,6 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
 
-//ovveride block check, we don't want to block anything that's not a holo object
-/obj/item/holo/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby)
-	if(!istype(hitby, /obj/item/holo))
-		return
-	else
-		..()
 
 /obj/item/holo/claymore/blue
 	icon_state = "claymoreblue"
@@ -473,12 +474,6 @@
 /obj/item/holo/esword/red/New()
 	..()
 	item_color = "red"
-
-/obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby)
-	if(!active || !istype(hitby, /obj/item/holo))
-		return
-	else
-		..()
 
 /obj/item/holo/esword/New()
 	..()
