@@ -162,7 +162,7 @@
 	name = "barrier grenade"
 	desc = "Instant cover."
 	icon = 'icons/obj/grenade.dmi'
-	icon_state = "flashbang"
+	icon_state = "wallbang"
 	item_state = "flashbang"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	var/mode = SINGLE
@@ -270,6 +270,7 @@
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall"
+	item_state = "grenade"
 	mode = NORTH
 	var/uptime = DROPWALL_UPTIME SECONDS
 
@@ -373,7 +374,7 @@
 	desc = "This dropwall has ran out of charge, but some materials could possibly be reclamed."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead"
-	item_state = "flashbang"
+	item_state = "grenade"
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 2500) //plasma burned up for power or something, plus not that much to reclaim
 
 

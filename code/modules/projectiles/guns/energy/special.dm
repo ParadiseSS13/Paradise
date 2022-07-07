@@ -13,6 +13,7 @@
 	can_holster = FALSE
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
+	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
 	flight_x_offset = 17
@@ -116,7 +117,7 @@
 	unique_frequency = TRUE
 	can_flashlight = 0
 	max_mod_capacity = 0
-	empty_state = null
+	empty_state = "crossbow_empty"
 	can_holster = TRUE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine()
@@ -136,6 +137,7 @@
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
+	empty_state = "crossbowlarge_empty"
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"

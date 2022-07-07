@@ -67,7 +67,7 @@
 	desc = "An advanced energy revolver with the capacity to shoot both disablers and lasers."
 	cell_type = /obj/item/stock_parts/cell/hos_gun
 	icon_state = "bsgun"
-	item_state = "gun"
+	item_state = null
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
@@ -78,6 +78,7 @@
 	name = "\improper PDW-9 taser pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
 	icon_state = "pdw9pistol"
+	item_state = "gun"
 
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"
@@ -97,7 +98,7 @@
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
 	icon_state = "nucgun"
-	item_state = "nucgun"
+	item_state = null
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
 	var/fail_tick = 0
 	charge_delay = 5
@@ -108,5 +109,5 @@
 	shaded_charge = FALSE
 
 /obj/item/gun/energy/gun/nuclear/detailed_examine()
-	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To switch between stun and lethal, click the weapon \
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To switch between disable and lethal, click the weapon \
 			in your hand. Unlike most weapons, this weapon recharges itself."
