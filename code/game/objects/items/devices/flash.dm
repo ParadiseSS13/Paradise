@@ -19,7 +19,10 @@
 	var/battery_panel = 0 //whether the flash can be modified with a cell or not
 	var/overcharged = 0   //if overcharged the flash will set people on fire then immediately burn out (does so even if it doesn't blind them).
 	var/can_overcharge = TRUE //set this to FALSE if you don't want your flash to be overcharge capable
+	///This tracks the world.time until the flash can be used again
 	var/cooldown
+	///This is the duration of the cooldown
+	var/cooldown_duration = 5 SECONDS
 	var/use_sound = 'sound/weapons/flash.ogg'
 
 /obj/item/flash/proc/clown_check(mob/user)
@@ -71,9 +74,9 @@
 
 /obj/item/flash/proc/try_use_flash(mob/user = null)
 	if(cooldown >= world.time)
-		to_chat(user, "<span class='warning'>Your flash is recharging!</span>")
+		to_chat(user, "<span class='warning'>Your [src] is recharging!</span>")
 		return
-	cooldown = world.time + 5 SECONDS
+	cooldown = world.time + cooldown_duration
 	flash_recharge(user)
 
 	if(broken)
@@ -100,13 +103,13 @@
 				terrible_conversion_proc(M, user)
 				M.drop_l_hand()
 				M.drop_r_hand()
-				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
-				to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
-				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
+				visible_message("<span class='disarm'>[user] blinds [M] with the [src]!</span>")
+				to_chat(user, "<span class='danger'>You blind [M] with the [src]!</span>")
+				to_chat(M, "<span class='userdanger'>[user] blinds you with the [src]!</span>")
 			else
-				visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
-				to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
-				to_chat(M, "<span class='danger'>[user] fails to blind you with the flash!</span>")
+				visible_message("<span class='disarm'>[user] fails to blind [M] with the [src]!</span>")
+				to_chat(user, "<span class='warning'>You fail to blind [M] with the [src]!</span>")
+				to_chat(M, "<span class='danger'>[user] fails to blind you with the [src]!</span>")
 			return
 
 	if(M.flash_eyes())
@@ -134,7 +137,7 @@
 /obj/item/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!try_use_flash(user))
 		return 0
-	user.visible_message("<span class='disarm'>[user]'s flash emits a blinding light!</span>", "<span class='danger'>Your flash emits a blinding light!</span>")
+	user.visible_message("<span class='disarm'>[user]'s [src] emits a blinding light!</span>", "<span class='danger'>Your [src] emits a blinding light!</span>")
 	for(var/mob/living/carbon/M in oviewers(3, null))
 		flash_carbon(M, user, 6 SECONDS, 0)
 
@@ -249,34 +252,16 @@
 /obj/item/flash/armimplant
 	name = "photon projector"
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
-	var/flashcd = 20
-	var/overheat = 0
+	cooldown_duration = 2 SECONDS
 	var/obj/item/organ/internal/cyberimp/arm/flash/I = null
+
+/obj/item/flash/armimplant/burn_out()
+	if(I && I.owner)
+		to_chat(I.owner, "<span class='warning'>Your [src] implant overheats and deactivates!</span>")
+		I.Retract()
 
 /obj/item/flash/armimplant/Destroy()
 	I = null
 	return ..()
-
-/obj/item/flash/armimplant/burn_out()
-	if(I && I.owner)
-		to_chat(I.owner, "<span class='warning'>Your photon projector implant overheats and deactivates!</span>")
-		I.Retract()
-	overheat = FALSE
-	addtimer(CALLBACK(src, .proc/cooldown), flashcd * 2)
-
-/obj/item/flash/armimplant/try_use_flash(mob/user = null)
-	if(overheat)
-		if(I && I.owner)
-			to_chat(I.owner, "<span class='warning'>Your photon projector is running too hot to be used again so quickly!</span>")
-		return FALSE
-	overheat = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown), flashcd)
-	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
-	update_icon(1)
-	return TRUE
-
-/obj/item/flash/armimplant/proc/cooldown()
-	overheat = FALSE
-
 
 /obj/item/flash/synthetic //just a regular flash now
