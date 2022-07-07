@@ -19,6 +19,7 @@
 	var/battery_panel = 0 //whether the flash can be modified with a cell or not
 	var/overcharged = 0   //if overcharged the flash will set people on fire then immediately burn out (does so even if it doesn't blind them).
 	var/can_overcharge = TRUE //set this to FALSE if you don't want your flash to be overcharge capable
+	var/cooldown
 	var/use_sound = 'sound/weapons/flash.ogg'
 
 /obj/item/flash/proc/clown_check(mob/user)
@@ -69,6 +70,10 @@
 
 
 /obj/item/flash/proc/try_use_flash(mob/user = null)
+	if(cooldown >= world.time)
+		to_chat(user, "<span class='warning'>Your flash is recharging!</span>")
+		return
+	cooldown = world.time + 5 SECONDS
 	flash_recharge(user)
 
 	if(broken)
@@ -93,7 +98,8 @@
 			if(M.flash_eyes(1, 1))
 				M.AdjustConfused(power)
 				terrible_conversion_proc(M, user)
-				M.Stun(2 SECONDS)
+				M.drop_l_hand()
+				M.drop_r_hand()
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 				to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
@@ -128,7 +134,7 @@
 /obj/item/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!try_use_flash(user))
 		return 0
-	user.visible_message("<span class='disarm'>[user]'s [src] emits a blinding light!</span>", "<span class='danger'>Your [src] emits a blinding light!</span>")
+	user.visible_message("<span class='disarm'>[user]'s flash emits a blinding light!</span>", "<span class='danger'>Your flash emits a blinding light!</span>")
 	for(var/mob/living/carbon/M in oviewers(3, null))
 		flash_carbon(M, user, 6 SECONDS, 0)
 
