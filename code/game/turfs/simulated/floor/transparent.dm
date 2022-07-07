@@ -34,7 +34,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(I.use_tool(src, user, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You fix some cracks in the glass.</span>")
+		to_chat(user, span_notice("You fix some cracks in the glass."))
 		overlays -= current_overlay
 		current_overlay = null
 		burnt = FALSE
@@ -61,7 +61,7 @@
 			to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle [src]!</span>")
 			return
 		else
-			to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
+			to_chat(user, span_notice("You begin replacing [src]..."))
 			playsound(src, I.usesound, 80, TRUE)
 			if(do_after(user, 3 SECONDS * I.toolspeed, target = src))
 				if(R.get_amount() < 2 || !transparent_floor)

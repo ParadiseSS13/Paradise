@@ -36,14 +36,14 @@
 		if(!mymop)
 			m.janicart_insert(user, src)
 			return
-		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
+		to_chat(user, span_notice("Theres already a mop in the mopbucket."))
 		return
 	return ..()
 
 /obj/structure/mopbucket/proc/put_in_cart(obj/item/mop/I, mob/user)
 	user.drop_item()
 	I.forceMove(src)
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	to_chat(user, span_notice("You put [I] into [src]."))
 	return
 
 /obj/structure/mopbucket/on_reagent_change()
@@ -72,7 +72,7 @@
 	. = ..()
 	if(mymop)
 		user.put_in_hands(mymop)
-		to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
+		to_chat(user, span_notice("You take [mymop] from [src]."))
 		mymop = null
 		update_icon()
 		return

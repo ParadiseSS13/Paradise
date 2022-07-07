@@ -331,7 +331,7 @@
 		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
 		return FALSE
 
-	speaker.visible_message("<span class='notice'>[speaker] touches [speaker.p_their()] fingers to [speaker.p_their()] temple.</span>") //If placed in grey/broadcast, it will happen regardless of the success of the action.
+	speaker.visible_message(span_notice("[speaker] touches [speaker.p_their()] fingers to [speaker.p_their()] temple.")) //If placed in grey/broadcast, it will happen regardless of the success of the action.
 
 	return TRUE
 

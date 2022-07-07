@@ -55,7 +55,7 @@ AI MODULES
 				if(R.lawupdate && (R.connected_ai == comp.current))
 					to_chat(R, "These are your laws now:")
 					R.show_laws()
-			to_chat(usr, "<span class='notice'>Upload complete. The AI's laws have been modified.</span>")
+			to_chat(usr, span_notice("Upload complete. The AI's laws have been modified."))
 
 	else if(istype(C, /obj/machinery/computer/borgupload))
 		var/obj/machinery/computer/borgupload/comp = C
@@ -77,7 +77,7 @@ AI MODULES
 			src.transmitInstructions(comp.current, usr)
 			to_chat(comp.current, "These are your laws now:")
 			comp.current.show_laws()
-			to_chat(usr, "<span class='notice'>Upload complete. The robot's laws have been modified.</span>")
+			to_chat(usr, span_notice("Upload complete. The robot's laws have been modified."))
 
 
 /obj/item/aiModule/proc/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
@@ -424,6 +424,6 @@ AI MODULES
 
 /obj/item/aiModule/toyAI/attack_self(mob/user)
 	laws[1] = generate_ion_law()
-	to_chat(user, "<span class='notice'>You press the button on [src].</span>")
+	to_chat(user, span_notice("You press the button on [src]."))
 	playsound(user, 'sound/machines/click.ogg', 20, 1)
 	src.loc.visible_message("<span class='warning'>[bicon(src)] [laws[1]]</span>")

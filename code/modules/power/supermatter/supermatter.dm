@@ -735,7 +735,7 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/M = user
 			var/obj/item/scalpel/supermatter/scalpel = I
-			to_chat(M, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
+			to_chat(M, span_notice("You carefully begin to scrape [src] with [I]..."))
 			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
 				if(scalpel.uses_left)
 					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
@@ -753,12 +753,12 @@
 						S.forceMove(tongs)
 						tongs.icon_state = "supermatter_tongs_loaded"
 						tongs.item_state = "supermatter_tongs_loaded"
-						to_chat(M, "<span class='notice'>You pick up [S] with [tongs]!</span>")
+						to_chat(M, span_notice("You pick up [S] with [tongs]!"))
 				else
 					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
 		return
 	if(istype(I, /obj/item/retractor/supermatter))
-		to_chat(user, "<span class='notice'>[I] bounces off [src], you need to cut a sliver off first!</span>")
+		to_chat(user, span_notice("[I] bounces off [src], you need to cut a sliver off first!"))
 	else if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\

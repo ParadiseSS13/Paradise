@@ -73,7 +73,7 @@
 	* examine_list: The current list of text getting passed from the parent's normal examine() proc.
 */
 /datum/component/label/proc/Examine(datum/source, mob/user, list/examine_list)
-	examine_list += "<span class='notice'>It has a label with some words written on it. Use a hand labeler to remove it.</span>"
+	examine_list += span_notice("It has a label with some words written on it. Use a hand labeler to remove it.")
 
 /// Applies a label to the name of the parent in the format of: "parent_name (label)"
 /datum/component/label/proc/apply_label()

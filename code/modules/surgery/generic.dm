@@ -42,8 +42,8 @@
 
 /datum/surgery_step/generic/cut_open/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [affected.name] with \the [tool].</span>", \
-	"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>",)
+	user.visible_message(span_notice(" [user] has made an incision on [target]'s [affected.name] with \the [tool]."), \
+	span_notice(" You have made an incision on [target]'s [affected.name] with \the [tool]."),)
 	affected.open = 1
 	return TRUE
 
@@ -77,7 +77,7 @@
 /datum/surgery_step/generic/clamp_bleeders/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] clamps bleeders in [target]'s [affected.name] with \the [tool]</span>.",	\
-	"<span class='notice'> You clamp bleeders in [target]'s [affected.name] with \the [tool].</span>")
+	span_notice(" You clamp bleeders in [target]'s [affected.name] with \the [tool]."))
 	spread_germs_to_organ(affected, user, tool)
 	return TRUE
 
@@ -116,14 +116,14 @@
 
 /datum/surgery_step/generic/retract_skin/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [affected.name] with \the [tool].</span>"
-	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [affected.name] with \the [tool].</span>"
+	var/msg = span_notice(" [user] keeps the incision open on [target]'s [affected.name] with \the [tool].")
+	var/self_msg = span_notice(" You keep the incision open on [target]'s [affected.name] with \the [tool].")
 	if(target_zone == "chest")
-		msg = "<span class='notice'> [user] keeps the ribcage open on [target]'s torso with \the [tool].</span>"
+		msg = span_notice(" [user] keeps the ribcage open on [target]'s torso with \the [tool].")
 		self_msg = "<span class='notice'> You keep the ribcage open on [target]'s torso with \the [tool]."
 	if(target_zone == "groin")
-		msg = "<span class='notice'> [user] keeps the incision open on [target]'s lower abdomen with \the [tool].</span>"
-		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with \the [tool].</span>"
+		msg = span_notice(" [user] keeps the incision open on [target]'s lower abdomen with \the [tool].")
+		self_msg = span_notice(" You keep the incision open on [target]'s lower abdomen with \the [tool].")
 	user.visible_message(msg, self_msg)
 	affected.open = 2
 	return TRUE
@@ -165,8 +165,8 @@
 
 /datum/surgery_step/generic/cauterize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] cauterizes the incision on [target]'s [affected.name] with \the [tool].</span>", \
-	"<span class='notice'> You cauterize the incision on [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message(span_notice(" [user] cauterizes the incision on [target]'s [affected.name] with \the [tool]."), \
+	span_notice(" You cauterize the incision on [target]'s [affected.name] with \the [tool]."))
 	affected.open = 0
 	affected.germ_level = 0
 	return TRUE
@@ -185,11 +185,11 @@
 	time = 30
 
 /datum/surgery_step/generic/drill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] begins to drill into the bone in [target]'s [parse_zone(target_zone)].", "<span class='notice'>You begin to drill into the bone in [target]'s [parse_zone(target_zone)]...</span>")
+	user.visible_message("[user] begins to drill into the bone in [target]'s [parse_zone(target_zone)].", span_notice("You begin to drill into the bone in [target]'s [parse_zone(target_zone)]..."))
 	..()
 
 /datum/surgery_step/generic/drill/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] drills into [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You drill into [target]'s [parse_zone(target_zone)].</span>")
+	user.visible_message("[user] drills into [target]'s [parse_zone(target_zone)]!", span_notice("You drill into [target]'s [parse_zone(target_zone)]."))
 	return TRUE
 
 
@@ -226,8 +226,8 @@
 
 /datum/surgery_step/generic/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool].</span>", \
-	"<span class='notice'> You amputate [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message(span_notice(" [user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool]."), \
+	span_notice(" You amputate [target]'s [affected.name] with \the [tool]."))
 
 	add_attack_logs(user, target, "Surgically removed [affected.name]. INTENT: [uppertext(user.a_intent)]")//log it
 

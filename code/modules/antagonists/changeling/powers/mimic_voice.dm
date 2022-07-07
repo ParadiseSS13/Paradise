@@ -14,7 +14,7 @@
 	if(cling.mimicing)
 		cling.mimicing = ""
 		cling.chem_recharge_slowdown -= 0.5
-		to_chat(user, "<span class='notice'>We return our vocal glands to their original position.</span>")
+		to_chat(user, span_notice("We return our vocal glands to their original position."))
 		return FALSE
 
 	var/mimic_voice = stripped_input(user, "Enter a name to mimic.", "Mimic Voice", null, MAX_NAME_LEN)
@@ -24,7 +24,7 @@
 	cling.mimicing = mimic_voice
 	cling.chem_recharge_slowdown += 0.5
 	to_chat(user, "<span class='notice'>We shape our glands to take the voice of <b>[mimic_voice]</b>, this will stop us from regenerating chemicals while active.</span>")
-	to_chat(user, "<span class='notice'>Use this power again to return to our original voice and reproduce chemicals again.</span>")
+	to_chat(user, span_notice("Use this power again to return to our original voice and reproduce chemicals again."))
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

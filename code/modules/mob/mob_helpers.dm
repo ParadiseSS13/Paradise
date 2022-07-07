@@ -458,7 +458,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	set category = "IC"
 
 	if(IsSleeping())
-		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
+		to_chat(src, span_notice("You are already sleeping."))
 		return
 	if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
 		SetSleeping(40 SECONDS, voluntary = TRUE) //Short nap
@@ -474,10 +474,10 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		return
 
 	if(resting)
-		to_chat(src, "<span class='notice'>You are now resting.</span>")
+		to_chat(src, span_notice("You are now resting."))
 		lay_down()
 	else
-		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
+		to_chat(src, span_notice("You are now trying to get up."))
 		stand_up()
 
 /proc/get_multitool(mob/user as mob)

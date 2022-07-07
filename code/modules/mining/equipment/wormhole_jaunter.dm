@@ -13,13 +13,13 @@
 	slot_flags = SLOT_BELT
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
+	user.visible_message(span_notice("[user.name] activates the [name]!"))
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/proc/turf_check(mob/user)
 	var/turf/device_turf = get_turf(user)
 	if(!device_turf || !is_teleport_allowed(device_turf.z))
-		to_chat(user, "<span class='notice'>You're having difficulties getting the [name] to work.</span>")
+		to_chat(user, span_notice("You're having difficulties getting the [name] to work."))
 		return FALSE
 	return TRUE
 
@@ -39,7 +39,7 @@
 
 	var/list/L = get_destinations(user)
 	if(!L.len)
-		to_chat(user, "<span class='notice'>[src] found no beacons in the world to anchor a wormhole to.</span>")
+		to_chat(user, span_notice("[src] found no beacons in the world to anchor a wormhole to."))
 		return
 	var/chosen_beacon = pick(L)
 	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100, user)
@@ -61,7 +61,7 @@
 /obj/item/wormhole_jaunter/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You emag [src].</span>")
+		to_chat(user, span_notice("You emag [src]."))
 		var/turf/T = get_turf(src)
 		do_sparks(5, 0, T)
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -136,8 +136,8 @@
 			return
 		destination = pick(L)
 	var/obj/effect/temp_visual/getaway_flare/F = new(get_turf(src))
-	user.visible_message("<span class='notice'>[user] pulls out a black and gold flare and lights it.</span>",\
-						  "<span class='notice'>You light an emergency extraction flare, initiating the extraction process.</span>")
+	user.visible_message(span_notice("[user] pulls out a black and gold flare and lights it."),\
+						  span_notice("You light an emergency extraction flare, initiating the extraction process."))
 	user.drop_item()
 	forceMove(F)
 	addtimer(CALLBACK(src, .proc/create_portal, destination), 5 SECONDS)

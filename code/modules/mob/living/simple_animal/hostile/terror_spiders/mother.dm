@@ -65,7 +65,7 @@
 		return
 	if(!isobserver(user) && !isterrorspider(user))
 		return
-	. += "<span class='notice'>[p_they(TRUE)] is carrying [length(contents)] spiderlings.</span>"
+	. += span_notice("[p_they(TRUE)] is carrying [length(contents)] spiderlings.")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/proc/DoCreateJelly()
 	// Mothers create jellies, which other terrors eat to get regeneration points, just like they get from wrapping corpses.
@@ -80,7 +80,7 @@
 	if(isspaceturf(mylocation))
 		to_chat(src, "<span class='danger'>Cannot secrete jelly in space.</span>")
 		return
-	visible_message("<span class='notice'>[src] begins to secrete royal jelly.</span>")
+	visible_message(span_notice("[src] begins to secrete royal jelly."))
 	if(do_after(src, 100, target = loc))
 		if(loc != mylocation)
 			return

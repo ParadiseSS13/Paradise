@@ -123,11 +123,11 @@
 
 	if(mymob.client.view < world.view)
 		if(mymob.client.view < ARBITRARY_VIEWRANGE_NOHUD)
-			to_chat(mymob, "<span class='notice'>HUD is unavailable with this view range.</span>")
+			to_chat(mymob, span_notice("HUD is unavailable with this view range."))
 			display_hud_version = HUD_STYLE_NOHUD
 		else
 			if(display_hud_version == HUD_STYLE_STANDARD)
-				to_chat(mymob, "<span class='notice'>Standard HUD mode is unavailable with a smaller-than-normal view range.</span>")
+				to_chat(mymob, span_notice("Standard HUD mode is unavailable with a smaller-than-normal view range."))
 				display_hud_version = HUD_STYLE_REDUCED
 
 	switch(display_hud_version)

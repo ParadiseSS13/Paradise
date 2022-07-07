@@ -73,7 +73,7 @@
 	if(isliving(user))
 		if(user.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
 			user.revive()
-			to_chat(user, "<span class='notice'>You feel great!</span>")
+			to_chat(user, span_notice("You feel great!"))
 			return
 	to_chat(user, "<span class='warning'>You irradiate yourself with pure negative energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]</span>")
 	if(ismachineperson(user)) //speshul snowfleks deserv speshul treetment
@@ -102,7 +102,7 @@
 			user.death(FALSE)
 			return
 	user.revive()
-	to_chat(user, "<span class='notice'>You feel great!</span>")
+	to_chat(user, span_notice("You feel great!"))
 
 /////////////////////////////////////
 //WAND OF POLYMORPH
@@ -159,7 +159,7 @@
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/door/zap_self(mob/living/user)
-	to_chat(user, "<span class='notice'>You feel vaguely more open with your feelings.</span>")
+	to_chat(user, span_notice("You feel vaguely more open with your feelings."))
 	charges--
 	..()
 
@@ -193,6 +193,6 @@
 	max_charges = 5 //5, 4, 3, 2
 
 /obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
-	to_chat(user, "<span class='notice'>You feel rather silly!.</span>")
+	to_chat(user, span_notice("You feel rather silly!."))
 	charges--
 	..()

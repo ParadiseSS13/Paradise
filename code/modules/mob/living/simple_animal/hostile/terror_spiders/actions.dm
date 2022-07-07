@@ -141,7 +141,7 @@
 		to_chat(src, "<span class='danger'>Webs can only be spun while standing on a floor.</span>")
 		return
 	var/turf/mylocation = loc
-	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
+	visible_message(span_notice("[src] begins to secrete a sticky substance."))
 	if(do_after(src, delay_web, target = loc))
 		if(loc != mylocation)
 			return
@@ -251,7 +251,7 @@
 			cocoon_target = null
 			return
 		busy = SPINNING_COCOON
-		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
+		visible_message(span_notice("[src] begins to secrete a sticky substance around [cocoon_target]."))
 		stop_automated_movement = TRUE
 		walk(src,0)
 		if(do_after(src, 40, target = cocoon_target.loc))
@@ -278,7 +278,7 @@
 							regen_points += regen_points_per_kill
 							fed++
 							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
-							to_chat(src, "<span class='notice'>You feel invigorated!</span>")
+							to_chat(src, span_notice("You feel invigorated!"))
 						else
 							visible_message("<span class='danger'>[src] wraps [L] in a web.</span>")
 						large_cocoon = 1

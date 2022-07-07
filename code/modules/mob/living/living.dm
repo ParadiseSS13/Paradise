@@ -275,7 +275,7 @@
 				break
 			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
 		death()
-		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
+		to_chat(src, span_notice("You have given up life and succumbed to death."))
 
 
 /mob/living/proc/InCritical()
@@ -789,7 +789,7 @@
 *///////////////////////
 
 /mob/living/proc/Exhaust()
-	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
+	to_chat(src, span_notice("You're too exhausted to keep going..."))
 	Weaken(10 SECONDS)
 
 /mob/living/proc/get_visible_name()
@@ -873,7 +873,7 @@
 			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
 			return
 		if(!silent)
-			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
+			visible_message(span_notice("[src] tries to put [what] on [who]."))
 		if(do_mob(src, who, what.put_on_delay))
 			if(what && Adjacent(who) && !(what.flags & NODROP))
 				unEquip(what)
@@ -958,7 +958,7 @@
 	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results) //can we butcher it?
 		var/sharpness = is_sharp(I)
 		if(sharpness)
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
+			to_chat(user, span_notice("You begin to butcher [src]..."))
 			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
 			if(do_mob(user, src, 80 / sharpness) && Adjacent(I))
 				harvest(user)
@@ -972,7 +972,7 @@
 			for(var/i = 1, i <= butcher_results[path], i++)
 				new path(loc)
 			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
-		visible_message("<span class='notice'>[user] butchers [src].</span>")
+		visible_message(span_notice("[user] butchers [src]."))
 		gib()
 
 /mob/living/movement_delay(ignorewalk = 0)

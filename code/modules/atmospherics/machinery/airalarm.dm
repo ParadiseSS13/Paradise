@@ -960,7 +960,7 @@
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of \the [src]!</span>", "<span class='notice'>You emag \the [src], disabling its safeties.</span>")
+			user.visible_message("<span class='warning'>Sparks fly out of \the [src]!</span>", span_notice("You emag \the [src], disabling its safeties."))
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
@@ -976,7 +976,7 @@
 				else
 					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
 						locked = !locked
-						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
+						to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
 						SStgui.update_uis(src)
 					else
 						to_chat(user, "<span class='warning'>Access denied.</span>")

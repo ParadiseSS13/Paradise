@@ -42,7 +42,7 @@
 			cell.update_icon()
 			cell.add_fingerprint(user)
 			user.put_in_active_hand(cell)
-			to_chat(user, "<span class='notice'>You remove \the [cell].</span>")
+			to_chat(user, span_notice("You remove \the [cell]."))
 			var/datum/robot_component/C = components["power cell"]
 			C.uninstall()
 			module?.update_cells(TRUE)

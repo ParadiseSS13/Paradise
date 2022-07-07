@@ -23,7 +23,7 @@
 		spark_system.start()
 		playsound(user, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		playsound(user, 'sound/weapons/blade1.ogg', 50, 1)
-		user.visible_message("<span class='danger'>[user] masterfully slices [target]!</span>", "<span class='notice'>You masterfully slice [target]!</span>")
+		user.visible_message("<span class='danger'>[user] masterfully slices [target]!</span>", span_notice("You masterfully slice [target]!"))
 		target.emag_act(user)
 		sleep(15)
 		cooldown = 0
@@ -65,7 +65,7 @@
 			msg = "Your Energy Katana lands at your feet!"
 
 	if(msg)
-		to_chat(user, "<span class='notice'>[msg]</span>")
+		to_chat(user, span_notice("[msg]"))
 
 /obj/item/katana/energy/New()
 	..()

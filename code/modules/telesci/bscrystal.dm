@@ -22,7 +22,7 @@
 /obj/item/stack/ore/bluespace_crystal/attack_self(mob/user)
 	if(use(1))
 		blink_mob(user)
-		user.visible_message("<span class='notice'>[user] crushes a [singular_name]!</span>")
+		user.visible_message(span_notice("[user] crushes a [singular_name]!"))
 
 /obj/item/stack/ore/bluespace_crystal/proc/blink_mob(mob/living/L)
 	if(!is_teleport_allowed(L.z))

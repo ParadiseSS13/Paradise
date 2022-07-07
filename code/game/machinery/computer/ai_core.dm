@@ -23,7 +23,7 @@
 				if(!user.drop_item())
 					return
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
+				to_chat(user, span_notice("You place the circuit board inside the frame."))
 				update_icon()
 				state = CIRCUIT_CORE
 				P.forceMove(src)
@@ -34,9 +34,9 @@
 				var/obj/item/stack/cable_coil/C = P
 				if(C.get_amount() >= 5)
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
+					to_chat(user, span_notice("You start to add cables to the frame..."))
 					if(do_after(user, 20, target = src) && state == SCREWED_CORE && C.use(5))
-						to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+						to_chat(user, span_notice("You add cables to the frame."))
 						state = CABLED_CORE
 						update_icon()
 				else
@@ -47,9 +47,9 @@
 				var/obj/item/stack/sheet/rglass/G = P
 				if(G.get_amount() >= 2)
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-					to_chat(user, "<span class='notice'>You start to put in the glass panel...</span>")
+					to_chat(user, span_notice("You start to put in the glass panel..."))
 					if(do_after(user, 20, target = src) && state == CABLED_CORE && G.use(2))
-						to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
+						to_chat(user, span_notice("You put in the glass panel."))
 						state = GLASS_CORE
 						update_icon()
 				else
@@ -58,7 +58,7 @@
 
 			if(istype(P, /obj/item/aiModule/purge))
 				laws.clear_inherent_laws()
-				to_chat(usr, "<span class='notice'>Law module applied.</span>")
+				to_chat(usr, span_notice("Law module applied."))
 				return
 
 			if(istype(P, /obj/item/aiModule/freeform))
@@ -67,7 +67,7 @@
 					to_chat(usr, "No law detected on module, please create one.")
 					return
 				laws.add_supplied_law(M.lawpos, M.newFreeFormLaw)
-				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
+				to_chat(usr, span_notice("Added a freeform law."))
 				return
 
 			if(istype(P, /obj/item/aiModule/syndicate))
@@ -76,7 +76,7 @@
 					to_chat(usr, "No law detected on module, please create one.")
 					return
 				laws.add_ion_law(M.newFreeFormLaw)
-				to_chat(usr, "<span class='notice'>Added a hacked law.</span>")
+				to_chat(usr, span_notice("Added a hacked law."))
 				return
 
 			if(istype(P, /obj/item/aiModule))
@@ -85,7 +85,7 @@
 					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
 					return
 				laws = M.laws
-				to_chat(usr, "<span class='notice'>Added [M.laws.name] laws.</span>")
+				to_chat(usr, span_notice("Added [M.laws.name] laws."))
 				return
 
 			if(istype(P, /obj/item/mmi) && !brain)
@@ -118,7 +118,7 @@
 
 				M.forceMove(src)
 				brain = M
-				to_chat(user, "<span class='notice'>You add [M.name] to the frame.</span>")
+				to_chat(user, span_notice("You add [M.name] to the frame."))
 				update_icon()
 				return
 
@@ -132,19 +132,19 @@
 		return
 	switch(state)
 		if(CIRCUIT_CORE)
-			to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+			to_chat(user, span_notice("You remove the circuit board."))
 			state = EMPTY_CORE
 			circuit.forceMove(loc)
 			circuit = null
 			return
 		if(GLASS_CORE)
-			to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
+			to_chat(user, span_notice("You remove the glass panel."))
 			state = CABLED_CORE
 			new /obj/item/stack/sheet/rglass(loc, 2)
 			return
 		if(CABLED_CORE)
 			if(brain)
-				to_chat(user, "<span class='notice'>You remove the brain.</span>")
+				to_chat(user, span_notice("You remove the brain."))
 				brain.forceMove(loc)
 				brain = null
 	update_icon()
@@ -157,16 +157,16 @@
 		return
 	switch(state)
 		if(SCREWED_CORE)
-			to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
+			to_chat(user, span_notice("You unfasten the circuit board."))
 			state = CIRCUIT_CORE
 		if(CIRCUIT_CORE)
-			to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
+			to_chat(user, span_notice("You screw the circuit board into place."))
 			state = SCREWED_CORE
 		if(GLASS_CORE)
 			var/area/R = get_area(src)
 			message_admins("[key_name_admin(usr)] has completed an AI core in [R]: [ADMIN_COORDJMP(loc)].")
 			log_game("[key_name(usr)] has completed an AI core in [R]: [COORD(loc)].")
-			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
+			to_chat(user, span_notice("You connect the monitor."))
 			if(!brain)
 				var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
 				var/obj/structure/AIcore/deactivated/D = new(loc)
@@ -183,7 +183,7 @@
 			SSblackbox.record_feedback("amount", "ais_created", 1)
 			qdel(src)
 		if(AI_READY_CORE)
-			to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+			to_chat(user, span_notice("You disconnect the monitor."))
 			state = GLASS_CORE
 	update_icon()
 
@@ -197,7 +197,7 @@
 	if(brain)
 		to_chat(user, "<span class='warning'>Get that [brain.name] out of there first!</span>")
 	else
-		to_chat(user, "<span class='notice'>You remove the cables.</span>")
+		to_chat(user, span_notice("You remove the cables."))
 		state = SCREWED_CORE
 		update_icon()
 		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
@@ -246,7 +246,7 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
+		to_chat(user, span_notice("You deconstruct the frame."))
 		new /obj/item/stack/sheet/plasteel(drop_location(), 4)
 		qdel(src)
 

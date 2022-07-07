@@ -76,7 +76,7 @@ Bonus
 			cured_diseases += D.GetDiseaseID()
 			D.cure()
 	if(cured)
-		to_chat(M, "<span class='notice'>You feel much better.</span>")
+		to_chat(M, span_notice("You feel much better."))
 
 /datum/symptom/heal/metabolism/End(datum/disease/advance/A)
 	// Remove all the diseases we cured.

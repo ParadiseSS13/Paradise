@@ -78,7 +78,7 @@
 		if(G.amount >= G.max_amount)
 			continue
 		G.attackby(NG, user)
-	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
+	to_chat(user, span_notice("You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s."))
 	qdel(src)
 
 /obj/item/shard/Crossed(mob/living/L, oldloc)

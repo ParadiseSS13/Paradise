@@ -18,7 +18,7 @@
 	else
 		to_chat(AI, "<span class='userdanger'>[user] has upgraded you with combat software!</span>")
 		AI.add_malf_picker()
-	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
+	to_chat(user, span_notice("You upgrade [AI]. [src] is consumed in the process."))
 	qdel(src)
 
 
@@ -36,5 +36,5 @@
 		AI.eyeobj.relay_speech = 1
 		to_chat(AI, "<span class='userdanger'>[user] has upgraded you with surveillance software!</span>")
 		to_chat(AI, "Via a combination of hidden microphones and lip reading software, you are able to use your cameras to listen in on conversations.")
-	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
+	to_chat(user, span_notice("You upgrade [AI]. [src] is consumed in the process."))
 	qdel(src)

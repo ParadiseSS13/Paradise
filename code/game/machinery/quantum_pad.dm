@@ -63,7 +63,7 @@
 		M.set_multitool_buffer(user, src)
 	else
 		linked_pad = M.buffer
-		to_chat(user, "<span class='notice'>You link [src] to the one in [I]'s buffer.</span>")
+		to_chat(user, span_notice("You link [src] to the one in [I]'s buffer."))
 
 /obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

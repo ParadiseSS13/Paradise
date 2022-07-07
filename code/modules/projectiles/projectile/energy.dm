@@ -115,7 +115,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/gun/energy/bsg/N = locate() in H
 			if(N)
-				to_chat(H, "<span class='notice'>[N] deploys an energy shield to project you from [src]'s explosion.</span>")
+				to_chat(H, span_notice("[N] deploys an energy shield to project you from [src]'s explosion."))
 				continue
 		var/distance = (1 + get_dist(M, src))
 		if(prob(min(400 / distance, 100))) //100% chance to hit with the blast up to 3 tiles, after that chance to hit is 80% at 4 tiles, 66.6% at 5, 57% at 6, and 50% at 7

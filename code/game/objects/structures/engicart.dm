@@ -28,10 +28,10 @@
 	user.drop_item()
 	I.loc = src
 	updateUsrDialog()
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	to_chat(user, span_notice("You put [I] into [src]."))
 	return
 /obj/structure/engineeringcart/attackby(obj/item/I, mob/user, params)
-	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
+	var/fail_msg = span_notice("There is already one of those in [src].")
 	if(!I.is_robot_module())
 		if(istype(I, /obj/item/stack/sheet/glass))
 			if(!myglass)
@@ -87,14 +87,14 @@
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
+					span_notice(" You have tightened \the [src]'s casters."), \
 					"You hear ratchet.")
 				anchored = 1
 			else if(anchored)
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
-					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+					span_notice(" You have loosened \the [src]'s casters."), \
 					"You hear ratchet.")
 				anchored = 0
 	else
@@ -129,37 +129,37 @@
 	if(href_list["glass"])
 		if(myglass)
 			user.put_in_hands(myglass)
-			to_chat(user, "<span class='notice'>You take [myglass] from [src].</span>")
+			to_chat(user, span_notice("You take [myglass] from [src]."))
 			myglass = null
 	if(href_list["metal"])
 		if(mymetal)
 			user.put_in_hands(mymetal)
-			to_chat(user, "<span class='notice'>You take [mymetal] from [src].</span>")
+			to_chat(user, span_notice("You take [mymetal] from [src]."))
 			mymetal = null
 	if(href_list["plasteel"])
 		if(myplasteel)
 			user.put_in_hands(myplasteel)
-			to_chat(user, "<span class='notice'>You take [myplasteel] from [src].</span>")
+			to_chat(user, span_notice("You take [myplasteel] from [src]."))
 			myplasteel = null
 	if(href_list["flashlight"])
 		if(myflashlight)
 			user.put_in_hands(myflashlight)
-			to_chat(user, "<span class='notice'>You take [myflashlight] from [src].</span>")
+			to_chat(user, span_notice("You take [myflashlight] from [src]."))
 			myflashlight = null
 	if(href_list["bluetoolbox"])
 		if(mybluetoolbox)
 			user.put_in_hands(mybluetoolbox)
-			to_chat(user, "<span class='notice'>You take [mybluetoolbox] from [src].</span>")
+			to_chat(user, span_notice("You take [mybluetoolbox] from [src]."))
 			mybluetoolbox = null
 	if(href_list["redtoolbox"])
 		if(myredtoolbox)
 			user.put_in_hands(myredtoolbox)
-			to_chat(user, "<span class='notice'>You take [myredtoolbox] from [src].</span>")
+			to_chat(user, span_notice("You take [myredtoolbox] from [src]."))
 			myredtoolbox = null
 	if(href_list["yellowtoolbox"])
 		if(myyellowtoolbox)
 			user.put_in_hands(myyellowtoolbox)
-			to_chat(user, "<span class='notice'>You take [myyellowtoolbox] from [src].</span>")
+			to_chat(user, span_notice("You take [myyellowtoolbox] from [src]."))
 			myyellowtoolbox = null
 
 	update_icon()

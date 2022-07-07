@@ -23,7 +23,7 @@
 		if(Uses >= 5)
 			to_chat(user, "<span class='warning'>You cannot enhance this extract further!</span>")
 			return ..()
-		to_chat(user, "<span class='notice'>You apply the enhancer to the slime extract. It may now be reused one more time.</span>")
+		to_chat(user, span_notice("You apply the enhancer to the slime extract. It may now be reused one more time."))
 		Uses++
 		qdel(O)
 	if(istype(O, /obj/item/reagent_containers/syringe))
@@ -134,7 +134,7 @@
 	if(!proximity_flag)
 		return
 	if(istype(target))
-		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
+		to_chat(user, span_notice("You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.")) // le fluff faec
 		return
 
 /obj/item/slimepotion/slime/docility
@@ -156,14 +156,14 @@
 		return
 	if(M.rabid) //Stops being rabid, but doesn't become truly docile.
 		to_chat(M, "<span class='warning'>You absorb the potion, and your rabid hunger finally settles to a normal desire to feed.</span>")
-		to_chat(user, "<span class='notice'>You feed the slime the potion, calming its rabid rage.</span>")
+		to_chat(user, span_notice("You feed the slime the potion, calming its rabid rage."))
 		M.rabid = FALSE
 		qdel(src)
 		return
 	M.docile = 1
 	M.set_nutrition(700)
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
-	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
+	to_chat(user, span_notice("You feed the slime the potion, removing its hunger and calming it."))
 	being_used = 1
 	var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
@@ -199,7 +199,7 @@
 		to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
 		return ..()
 
-	to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
+	to_chat(user, span_notice("You offer [src] sentience potion to [SM]..."))
 	being_used = 1
 
 	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
@@ -220,11 +220,11 @@
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 		if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
 			to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
-		to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
+		to_chat(user, span_notice("[M] accepts the potion and suddenly becomes attentive and aware. It worked!"))
 		after_success(user, SM)
 		qdel(src)
 	else
-		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
+		to_chat(user, span_notice("[M] looks interested for a moment, but then looks back down. Maybe you should try again later."))
 		being_used = 0
 		..()
 
@@ -264,14 +264,14 @@
 		prompted = FALSE
 		return
 
-	to_chat(user, "<span class='notice'>You drink the potion then place your hands on [SM]...</span>")
+	to_chat(user, span_notice("You drink the potion then place your hands on [SM]..."))
 	user.mind.transfer_to(SM)
 	SM.universal_speak = 1
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience
 	SM.can_collar = 1
 	user.death()
-	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
+	to_chat(SM, span_notice("In a quick flash, you feel your consciousness flow into [SM]!"))
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")
 	SM.name = "[SM.name] as [user.real_name]"
 	qdel(src)
@@ -296,7 +296,7 @@
 		to_chat(user, "<span class='warning'>The slime already has the maximum amount of extract!</span>")
 		return ..()
 
-	to_chat(user, "<span class='notice'>You feed the slime the steroid. It will now produce one more extract.</span>")
+	to_chat(user, span_notice("You feed the slime the steroid. It will now produce one more extract."))
 	M.cores++
 	qdel(src)
 
@@ -323,7 +323,7 @@
 		to_chat(user, "<span class='warning'>The slime already has no chance of mutating!</span>")
 		return ..()
 
-	to_chat(user, "<span class='notice'>You feed the slime the stabilizer. It is now less likely to mutate.</span>")
+	to_chat(user, span_notice("You feed the slime the stabilizer. It is now less likely to mutate."))
 	M.mutation_chance = clamp(M.mutation_chance-15,0,100)
 	qdel(src)
 
@@ -347,7 +347,7 @@
 		to_chat(user, "<span class='warning'>The slime is already guaranteed to mutate!</span>")
 		return ..()
 
-	to_chat(user, "<span class='notice'>You feed the slime the mutator. It is now more likely to mutate.</span>")
+	to_chat(user, span_notice("You feed the slime the mutator. It is now more likely to mutate."))
 	M.mutation_chance = clamp(M.mutation_chance+12,0,100)
 	M.mutator_used = TRUE
 	qdel(src)
@@ -381,7 +381,7 @@
 			return ..()
 		V.vehicle_move_delay = vehicle_speed_mod
 
-	to_chat(user, "<span class='notice'>You slather the red gunk over [O], making it faster.</span>")
+	to_chat(user, span_notice("You slather the red gunk over [O], making it faster."))
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	O.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
 	qdel(src)
@@ -414,7 +414,7 @@
 	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		to_chat(user, "<span class='warning'>[C] is already fireproof!</span>")
 		return ..()
-	to_chat(user, "<span class='notice'>You slather the blue gunk over [C], fireproofing it.</span>")
+	to_chat(user, span_notice("You slather the blue gunk over [C], fireproofing it."))
 	C.name = "fireproofed [C.name]"
 	C.color = "#000080"
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT

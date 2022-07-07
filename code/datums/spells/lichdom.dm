@@ -45,7 +45,7 @@
 
 		if(stat_allowed) //Death is not my end!
 			if(M.stat == CONSCIOUS && iscarbon(M))
-				to_chat(M, "<span class='notice'>You aren't dead enough to revive!</span>")//Usually a good problem to have
+				to_chat(M, span_notice("You aren't dead enough to revive!"))//Usually a good problem to have
 
 				charge_counter = charge_max
 				return

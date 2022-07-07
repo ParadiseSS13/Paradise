@@ -18,10 +18,10 @@
 		if(R.getBruteLoss() || R.getFireLoss() )
 			R.heal_overall_damage(15, 15)
 			use(1)
-			user.visible_message("<span class='notice'>\The [user] applied some [src] at [R]'s damaged areas.</span>",\
-				"<span class='notice'>You apply some [src] at [R]'s damaged areas.</span>")
+			user.visible_message(span_notice("\The [user] applied some [src] at [R]'s damaged areas."),\
+				span_notice("You apply some [src] at [R]'s damaged areas."))
 		else
-			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
+			to_chat(user, span_notice("All [R]'s systems are nominal."))
 
 	if(istype(M,/mob/living/carbon/human)) //Repairing robotic limbs and IPCs
 		var/mob/living/carbon/human/H = M
@@ -56,13 +56,13 @@
 					E.heal_damage(remheal, 0, 0, 1) //Healing Brute
 					E.heal_damage(0, remheal, 0, 1) //Healing Burn
 					remheal = nremheal
-					user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [M]'s [E.name] with \the [src].</span>")
+					user.visible_message(span_notice("\The [user] applies some nanite paste at \the [M]'s [E.name] with \the [src]."))
 				if(H.bleed_rate && ismachineperson(H))
 					H.bleed_rate = 0
 			else
-				to_chat(user, "<span class='notice'>Nothing to fix here.</span>")
+				to_chat(user, span_notice("Nothing to fix here."))
 		else
-			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
+			to_chat(user, span_notice("[src] won't work on that."))
 
 /obj/item/stack/nanopaste/cyborg
 	energy_type = /datum/robot_energy_storage/medical/nanopaste

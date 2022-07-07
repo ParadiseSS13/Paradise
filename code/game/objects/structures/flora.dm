@@ -347,7 +347,7 @@
 			user.visible_message("<span class='danger'>[user] begins clearing away [src].</b>","<span class='warning'><b>You begin clearing away [src].</span></span>")
 			spawn(rand(15,30))
 				if(get_dist(user,src) < 2)
-					to_chat(user, "<span class='notice'>You clear away [src].</span>")
+					to_chat(user, span_notice("You clear away [src]."))
 					var/obj/item/stack/sheet/wood/W = new(src.loc)
 					W.amount = rand(3,15)
 					if(prob(50))

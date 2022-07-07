@@ -198,7 +198,7 @@
 			if(istype(I, /obj/item/clothing/mask/cigarette))
 				var/obj/item/clothing/mask/cigarette/C = I
 				user.equip_to_slot_if_possible(C, slot_wear_mask)
-				to_chat(user, "<span class='notice'>You take \a [C.name] out of the pack.</span>")
+				to_chat(user, span_notice("You take \a [C.name] out of the pack."))
 				update_icon()
 				got_cig = 1
 				break
@@ -212,13 +212,13 @@
 		var/obj/item/match/M = W
 		if(M.lit == 1)
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>Putting a lit [W] in [src] probably isn't a good idea.</span>")
+				to_chat(usr, span_notice("Putting a lit [W] in [src] probably isn't a good idea."))
 			return 0
 	if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/L = W
 		if(L.lit == 1)
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>Putting [W] in [src] while lit probably isn't a good idea.</span>")
+				to_chat(usr, span_notice("Putting [W] in [src] while lit probably isn't a good idea."))
 			return 0
 	//if we get this far, handle the insertion checks as normal
 	. = ..()

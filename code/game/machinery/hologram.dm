@@ -204,7 +204,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		if(outgoing_call)
 			return
 		if(dialling_input)
-			to_chat(usr, "<span class='notice'>Finish dialling first!</span>")
+			to_chat(usr, span_notice("Finish dialling first!"))
 			return
 		temp = "You must stand on the holopad to make a call!<br>"
 		temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"

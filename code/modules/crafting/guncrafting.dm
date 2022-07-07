@@ -101,7 +101,7 @@
 		var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
 		user.unEquip(src)
 		user.put_in_hands(C)
-		to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
+		to_chat(user, span_notice("You screw the pins into place, securing the pipe to the receiver."))
 		qdel(src)
 
 /obj/item/weaponcrafting/ishotgunconstruction2
@@ -134,7 +134,7 @@
 			var/obj/item/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/gun/projectile/revolver/doublebarrel/improvised
 			user.unEquip(src)
 			user.put_in_hands(W)
-			to_chat(user, "<span class='notice'>You tie the wrapping paper around the stock and the barrel to secure it.</span>")
+			to_chat(user, span_notice("You tie the wrapping paper around the stock and the barrel to secure it."))
 			qdel(src)
 		else
 			to_chat(user, "<span class='warning'>You need at least five feet of wrapping paper to secure the stock.</span>")

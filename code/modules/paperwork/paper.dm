@@ -69,9 +69,9 @@
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_content(user)
 		else
-			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+			. += span_notice("You have to go closer if you want to read it.")
 	else
-		. += "<span class='notice'>You don't know how to read.</span>"
+		. += span_notice("You don't know how to read.")
 
 /obj/item/paper/proc/show_content(mob/user, forceshow = 0, forcestars = 0, infolinks = 0, view = 1)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -103,7 +103,7 @@
 		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
 	if(!usr.is_literate())
-		to_chat(usr, "<span class='notice'>You don't know how to read.</span>")
+		to_chat(usr, span_notice("You don't know how to read."))
 		return
 	var/n_name = rename_interactive(usr)
 	if(isnull(n_name))
@@ -142,20 +142,20 @@
 		return ..()
 	var/mob/living/carbon/human/H = M
 	if(user.zone_selected == "eyes")
-		user.visible_message("<span class='notice'>[user] holds up a paper and shows it to [H].</span>",
-			"<span class='notice'>You show the paper to [H].</span>")
+		user.visible_message(span_notice("[user] holds up a paper and shows it to [H]."),
+			span_notice("You show the paper to [H]."))
 		H.examinate(src)
 
 	else if(user.zone_selected == "mouth")
 		if(H == user)
-			to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
+			to_chat(user, span_notice("You wipe off your face with [src]."))
 		else
 			user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>",
-							 	 "<span class='notice'>You begin to wipe off [H]'s face.</span>")
+							 	 span_notice("You begin to wipe off [H]'s face."))
 			if(!do_after(user, 1 SECONDS, target = H) || !do_after(H, 1 SECONDS, FALSE)) // user needs to keep their active hand, H does not.
 				return
-			user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>",
-				"<span class='notice'>You wipe off [H]'s face.</span>")
+			user.visible_message(span_notice("[user] wipes [H]'s face clean with \the [src]."),
+				span_notice("You wipe off [H]'s face."))
 
 		H.lip_style = null
 		H.lip_color = null
@@ -173,7 +173,7 @@
 		return
 
 	D.visible_message("<span class='warning'>[D] starts chewing the corner of [src]!</span>",
-		"<span class='notice'>You start chewing the corner of [src].</span>",
+		span_notice("You start chewing the corner of [src]."),
 		"<span class='warning'>You hear a quiet gnawing, and the sound of paper rustling.</span>")
 	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
 	if(!do_after(D, 10 SECONDS, FALSE, src))
@@ -198,12 +198,12 @@
 		qdel(src)
 
 		D.visible_message("<span class='warning'>[D] finishes eating [src][message_ending]</span>",
-			"<span class='notice'>You finish eating [src][message_ending]</span>")
+			span_notice("You finish eating [src][message_ending]"))
 		D.emote("bark")
 
 	// 10% chance of the paper just being eaten entirely.
 	else
-		D.visible_message("<span class='warning'>[D] swallows [src] whole!</span>", "<span class='notice'>You swallow [src] whole. Tasty!</span>")
+		D.visible_message("<span class='warning'>[D] swallows [src] whole!</span>", span_notice("You swallow [src] whole. Tasty!"))
 		playsound(D, 'sound/items/eatfood.ogg', 50, TRUE)
 		qdel(src)
 
@@ -331,7 +331,7 @@
 		// check for exploits
 		for(var/bad in paper_blacklist)
 			if(findtext(t,bad))
-				to_chat(usr, "<span class='notice'>You think to yourself, \</span>"Hm.. this is only paper...\"")
+				to_chat(usr, span_notice("You think to yourself, \")Hm.. this is only paper...\"")
 				log_admin("PAPER: [key_name(usr)] tried to use forbidden word in [src]: [bad].")
 				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
 				return
@@ -367,7 +367,7 @@
 		if(istype(P, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/C = P
 			if(!C.iscopy && !C.copied)
-				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
+				to_chat(user, span_notice("Take off the carbon copy first."))
 				add_fingerprint(user)
 				return
 		var/obj/item/paper_bundle/B = new(src.loc, default_papers = FALSE)
@@ -405,7 +405,7 @@
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
-		to_chat(user, "<span class='notice'>You clip [P] to [(src.name == "paper") ? "the paper" : src.name].</span>")
+		to_chat(user, span_notice("You clip [P] to [(src.name == "paper") ? "the paper" : src.name]."))
 		src.loc = B
 		P.loc = B
 		B.amount++
@@ -429,12 +429,12 @@
 
 		if(istype(P, /obj/item/stamp/clown))
 			if(!clown)
-				to_chat(user, "<span class='notice'>You are totally unable to use the stamp. HONK!</span>")
+				to_chat(user, span_notice("You are totally unable to use the stamp. HONK!"))
 				return
 
 		stamp(P)
 
-		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
+		to_chat(user, span_notice("You stamp the paper with your rubber stamp."))
 
 	if(is_hot(P))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
@@ -674,7 +674,7 @@
 			evilpaper_selfdestruct()
 	else
 		if(mytarget)
-			to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. The only bit you recognize is the name of [mytarget]. Perhaps [mytarget] can make sense of it?</span>")
+			to_chat(user,span_notice("This page appears to be covered in some sort of bizzare code. The only bit you recognize is the name of [mytarget]. Perhaps [mytarget] can make sense of it?"))
 		else
 			evilpaper_selfdestruct()
 

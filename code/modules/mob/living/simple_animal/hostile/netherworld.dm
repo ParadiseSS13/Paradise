@@ -90,7 +90,7 @@
 /obj/structure/spawner/nether/attack_hand(mob/user)
 	. = ..()
 	if(isskeleton(user))
-		to_chat(user, "<span class='notice'>You don't feel like going home yet...</span>")
+		to_chat(user, span_notice("You don't feel like going home yet..."))
 	else
 		user.visible_message("<span class='warning'>[user] is violently pulled into the link!</span>", \
 							"<span class='userdanger'>Touching the portal, you are quickly pulled through into a world of unimaginable horror!</span>")

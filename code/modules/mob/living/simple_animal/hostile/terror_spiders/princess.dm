@@ -90,9 +90,9 @@
 		return
 	canlay++
 	if(canlay == 1)
-		to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
+		to_chat(src, span_notice("You have an egg available to lay."))
 	else
-		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
+		to_chat(src, span_notice("You have [canlay] eggs available to lay."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/show_egg_timer()
 	var/average_timer = (1 / (grant_prob / 100)) * (spider_spawnfrequency / 10)

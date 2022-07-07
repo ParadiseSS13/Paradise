@@ -107,7 +107,7 @@
 /obj/item/assembly/attach_assembly(obj/item/assembly/A, mob/user)
 	holder = new /obj/item/assembly_holder(get_turf(src))
 	if(holder.attach(A, src, user))
-		to_chat(user, "<span class='notice'>You attach [A] to [src]!</span>")
+		to_chat(user, span_notice("You attach [A] to [src]!"))
 		return TRUE
 	return FALSE
 
@@ -125,9 +125,9 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(toggle_secure())
-		to_chat(user, "<span class='notice'>[src] is ready!</span>")
+		to_chat(user, span_notice("[src] is ready!"))
 	else
-		to_chat(user, "<span class='notice'>[src] can now be attached!</span>")
+		to_chat(user, span_notice("[src] can now be attached!"))
 
 /obj/item/assembly/process()
 	STOP_PROCESSING(SSobj, src)

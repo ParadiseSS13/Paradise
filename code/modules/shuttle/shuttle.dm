@@ -831,14 +831,14 @@
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
-				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+				to_chat(usr, span_notice("Unable to comply."))
 
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
 		src.req_access = list()
 		emagged = 1
-		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+		to_chat(user, span_notice("You fried the consoles ID checking system."))
 
 //for restricting when the computer can be used, needed for some console subtypes.
 /obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)
@@ -866,7 +866,7 @@
 		if(world.time < next_request)
 			return
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
-		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
+		to_chat(usr, span_notice("Your request has been recieved by Centcom."))
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
@@ -938,7 +938,7 @@
 
 /obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
 	if(!isgolem(user) && !isobserver(user))
-		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
+		to_chat(user, span_notice("The console is unresponsive. Seems only golems can use it."))
 		return
 	..()
 

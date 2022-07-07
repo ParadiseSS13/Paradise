@@ -508,7 +508,7 @@
 
 /obj/item/ammo_box/magazine/detective/speedcharger/examine()
 	. = ..()
-	. += "<span class='notice'>There is [charge_percent()]% charge left!</span>"
+	. += span_notice("There is [charge_percent()]% charge left!")
 
 /obj/item/ammo_box/magazine/detective/speedcharger/attack_self()
 	return

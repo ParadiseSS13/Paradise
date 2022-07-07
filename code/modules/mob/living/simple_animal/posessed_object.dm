@@ -99,7 +99,7 @@
 
 	update_icon(1)
 
-	visible_message("<span class='notice'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
+	visible_message(span_notice("[src] rises into the air and begins to float!")) // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
 
 

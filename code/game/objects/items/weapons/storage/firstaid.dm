@@ -285,7 +285,7 @@
 		var/mob/living/carbon/C = over_object
 		if(loc == C && src == C.get_active_hand())
 			if(!contents.len)
-				to_chat(C, "<span class='notice'>There is nothing in [src]!</span>")
+				to_chat(C, span_notice("There is nothing in [src]!"))
 				return
 			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
 			if(do_mob(C, C, 100)) // 10 seconds

@@ -107,10 +107,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(!awaygate)
 		awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
 		if(!awaygate)
-			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
+			to_chat(user, span_notice("Error: No destination found."))
 			return
 	if(world.time < wait)
-		to_chat(user, "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.</span>")
+		to_chat(user, span_notice("Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes."))
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -223,7 +223,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(!stationgate)
 		stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
 		if(!stationgate)
-			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
+			to_chat(user, span_notice("Error: No destination found."))
 			return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -281,14 +281,14 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centeraway/proc/exilecheck(mob/living/carbon/M)
 	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile implant in the contents
 		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
-			to_chat(M, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")
+			to_chat(M, span_notice("The station gate has detected your exile implant and is blocking your entry."))
 			return 1
 	return 0
 
 /obj/machinery/gateway/centeraway/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/multitool))
 		if(calibrated)
-			to_chat(user, "<span class='notice'>The gate is already calibrated, there is no work for you to do here.</span>")
+			to_chat(user, span_notice("The gate is already calibrated, there is no work for you to do here."))
 			return
 		else
 			to_chat(user, "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>")

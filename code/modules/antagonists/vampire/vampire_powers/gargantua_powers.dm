@@ -45,7 +45,7 @@
 	var/mob/living/target = targets[1]
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		to_chat(H, "<span class='notice'>You feel a rush of energy!</span>")
+		to_chat(H, span_notice("You feel a rush of energy!"))
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
 
 /obj/effect/proc_holder/spell/vampire/charge

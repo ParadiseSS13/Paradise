@@ -32,7 +32,7 @@
 /obj/item/rad_laser/attack(mob/living/M, mob/living/user)
 	if(!used)
 		add_attack_logs(user, M, "Irradiated by [src]")
-		user.visible_message("<span class='notice'>[user] analyzes [M]'s vitals.</span>")
+		user.visible_message(span_notice("[user] analyzes [M]'s vitals."))
 		var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 		used = 1
 		icon_state = "health1"
@@ -101,7 +101,7 @@
 	return ..()
 
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You [active ? "deactivate" : "activate"] [src].</span>")
+	to_chat(user, span_notice("You [active ? "deactivate" : "activate"] [src]."))
 	active = !active
 	if(active)
 		GLOB.active_jammers |= src
@@ -137,7 +137,7 @@
 
 /obj/item/teleporter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
+	. += span_notice("[src] has [charges] out of [max_charges] charges left.")
 
 /obj/item/teleporter/attack_self(mob/user)
 	attempt_teleport(user, FALSE)

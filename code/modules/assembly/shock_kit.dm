@@ -29,7 +29,7 @@
 		return
 	if(istype(W, /obj/item/screwdriver))
 		status = !status
-		to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
+		to_chat(user, span_notice("[src] is now [status ? "secured" : "unsecured"]!"))
 	add_fingerprint(user)
 	return
 

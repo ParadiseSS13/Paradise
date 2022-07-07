@@ -807,7 +807,7 @@
 /datum/reagent/consumable/wasabi/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
 		if(volume <= 1)
-			to_chat(M, "<span class='notice'>Your nostrils tingle briefly.</span>")
+			to_chat(M, span_notice("Your nostrils tingle briefly."))
 		else
 			to_chat(M, "<span class='warning'>Your nostrils burn uncomfortably!</span>")
 			M.adjustFireLoss(1)

@@ -150,10 +150,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		start_program(find_program(/datum/data/pda/app/main_menu))
 		notifying_programs.Cut()
 		overlays -= image('icons/obj/pda.dmi', "pda-r")
-		to_chat(usr, "<span class='notice'>You press the reset button on \the [src].</span>")
+		to_chat(usr, span_notice("You press the reset button on \the [src]."))
 		SStgui.update_uis(src)
 	else
-		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
+		to_chat(usr, span_notice("You cannot do this while restrained."))
 
 /obj/item/pda/AltClick(mob/user)
 	..()
@@ -179,7 +179,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(id)
-			to_chat(user, "<span class='notice'>You remove the ID from [src].</span>")
+			to_chat(user, span_notice("You remove the ID from [src]."))
 			SStgui.update_uis(src)
 		else
 			id.forceMove(get_turf(src))
@@ -199,9 +199,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(id)
 			remove_id(usr)
 		else
-			to_chat(usr, "<span class='notice'>This PDA does not have an ID in it.</span>")
+			to_chat(usr, span_notice("This PDA does not have an ID in it."))
 	else
-		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
+		to_chat(usr, span_notice("You cannot do this while restrained."))
 
 /obj/item/pda/verb/verb_remove_pen()
 	set category = "Object"
@@ -217,7 +217,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(can_use(user))
 		var/obj/item/pen/O = locate() in src
 		if(O)
-			to_chat(user, "<span class='notice'>You remove [O] from [src].</span>")
+			to_chat(user, span_notice("You remove [O] from [src]."))
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			if(istype(loc, /mob))
 				var/mob/M = loc
@@ -228,7 +228,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
 	else
-		to_chat(user, "<span class='notice'>You cannot do this while restrained.</span>")
+		to_chat(user, span_notice("You cannot do this while restrained."))
 
 /obj/item/pda/proc/id_check(mob/user as mob, choice as num)//To check for IDs; 1 for in-pda use, 2 for out of pda use.
 	if(choice == 1)
@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		cartridge.forceMove(src)
 		cartridge.update_programs(src)
 		update_shortcuts()
-		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
+		to_chat(user, span_notice("You insert [cartridge] into [src]."))
 		SStgui.update_uis(src)
 		if(cartridge.radio)
 			cartridge.radio.hostpda = src
@@ -268,7 +268,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	else if(istype(C, /obj/item/card/id))
 		var/obj/item/card/id/idcard = C
 		if(!idcard.registered_name)
-			to_chat(user, "<span class='notice'>\The [src] rejects the ID.</span>")
+			to_chat(user, span_notice("\The [src] rejects the ID."))
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 			return
@@ -277,7 +277,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			ownjob = idcard.assignment
 			ownrank = idcard.rank
 			name = "PDA-[owner] ([ownjob])"
-			to_chat(user, "<span class='notice'>Card scanned.</span>")
+			to_chat(user, span_notice("Card scanned."))
 			SStgui.update_uis(src)
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
@@ -294,17 +294,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 		user.drop_item()
 		C.forceMove(src)
 		pai = C
-		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
+		to_chat(user, span_notice("You slot \the [C] into [src]."))
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/pen))
 		var/obj/item/pen/O = locate() in src
 		if(O)
-			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
+			to_chat(user, span_notice("There is already a pen in \the [src]."))
 		else
 			user.drop_item()
 			C.forceMove(src)
-			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
+			to_chat(user, span_notice("You slide \the [C] into \the [src]."))
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/nanomob_card))
 		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))

@@ -257,7 +257,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/announce_objectives()
 	if(!length(objectives))
 		return FALSE
-	to_chat(owner.current, "<span class='notice'>Your current objectives:</span>")
+	to_chat(owner.current, span_notice("Your current objectives:"))
 	var/objective_num = 1
 	for(var/objective in objectives)
 		var/datum/objective/O = objective

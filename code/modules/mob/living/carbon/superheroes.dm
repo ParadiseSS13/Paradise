@@ -153,7 +153,7 @@
 	var/recruiting = 0
 
 	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You decide to save your brilliance for another day.</span>"
+	selection_deactivated_message	= span_notice("You decide to save your brilliance for another day.")
 
 /obj/effect/proc_holder/spell/recruit/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -188,21 +188,21 @@
 	for(var/progress = 0, progress <= 3, progress++)
 		switch(progress)
 			if(1)
-				to_chat(user, "<span class='notice'>You begin by introducing yourself and explaining what you're about.</span>")
+				to_chat(user, span_notice("You begin by introducing yourself and explaining what you're about."))
 				user.visible_message("<span class='danger'>[user] introduces [user.p_them()]self and explains [user.p_their()] plans.</span>")
 			if(2)
-				to_chat(user, "<span class='notice'>You begin the recruitment of [target].</span>")
+				to_chat(user, span_notice("You begin the recruitment of [target]."))
 				user.visible_message("<span class='danger'>[user] leans over towards [target], whispering excitedly as [user.p_they()] give[user.p_s()] a speech.</span>")
 				to_chat(target, "<span class='danger'>You feel yourself agreeing with [user], and a surge of loyalty begins building.</span>")
 				target.Weaken(24 SECONDS)
 				sleep(20)
 				if(ismindshielded(target))
-					to_chat(user, "<span class='notice'>[target.p_they(TRUE)] are enslaved by Nanotrasen. You feel [target.p_their()] interest in your cause wane and disappear.</span>")
+					to_chat(user, span_notice("[target.p_they(TRUE)] are enslaved by Nanotrasen. You feel [target.p_their()] interest in your cause wane and disappear."))
 					user.visible_message("<span class='danger'>[user] stops talking for a moment, then moves back away from [target].</span>")
 					to_chat(target, "<span class='danger'>Your mindshield implant activates, protecting you from conversion.</span>")
 					return
 			if(3)
-				to_chat(user, "<span class='notice'>You begin filling out the application form with [target].</span>")
+				to_chat(user, span_notice("You begin filling out the application form with [target]."))
 				user.visible_message("<span class='danger'>[user] pulls out a pen and paper and begins filling an application form with [target].</span>")
 				to_chat(target, "<span class='danger'>You are being convinced by [user] to fill out an application form to become a henchman.</span>")//Ow the edge
 

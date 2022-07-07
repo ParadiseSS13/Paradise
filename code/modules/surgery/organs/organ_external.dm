@@ -65,7 +65,7 @@
 	if(dead_icon)
 		icon_state = dead_icon
 	if(owner)
-		to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
+		to_chat(owner, span_notice("You can't feel your [name] anymore..."))
 		owner.update_body()
 		if(vital)
 			owner.death()
@@ -580,7 +580,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			return
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
 		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
-			"<span class='notice'>You begin to cut open [src]...</span>")
+			span_notice("You begin to cut open [src]..."))
 		if(do_after(user, 54, target = src))
 			drop_organs(user)
 			drop_embedded_objects()

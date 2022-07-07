@@ -128,9 +128,9 @@
 
 /obj/structure/ladder/proc/show_fluff_message(going_up, mob/user)
 	if(going_up)
-		user.visible_message("[user] climbs up [src].","<span class='notice'>You [use_verb] up [src].</span>")
+		user.visible_message("[user] climbs up [src].",span_notice("You [use_verb] up [src]."))
 	else
-		user.visible_message("[user] climbs down [src].","<span class='notice'>You [use_verb] down [src].</span>")
+		user.visible_message("[user] climbs down [src].",span_notice("You [use_verb] down [src]."))
 
 
 // Indestructible away mission ladders which link based on a mapped ID and height value rather than X/Y/Z.

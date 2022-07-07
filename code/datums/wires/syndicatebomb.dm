@@ -24,12 +24,12 @@
 				holder.visible_message("<span class='danger'>[bicon(B)] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
 		if(WIRE_BOMB_UNBOLT)
-			holder.visible_message("<span class='notice'>[bicon(holder)] The bolts spin in place for a moment.</span>")
+			holder.visible_message(span_notice("[bicon(holder)] The bolts spin in place for a moment."))
 		if(WIRE_BOMB_DELAY)
 			if(B.delayedbig)
-				holder.visible_message("<span class='notice'>[bicon(B)] The bomb has already been delayed.</span>")
+				holder.visible_message(span_notice("[bicon(B)] The bomb has already been delayed."))
 			else
-				holder.visible_message("<span class='notice'>[bicon(B)] The bomb chirps.</span>")
+				holder.visible_message(span_notice("[bicon(B)] The bomb chirps."))
 				playsound(B, 'sound/machines/chime.ogg', 30, 1)
 				B.detonation_timer += 300
 				B.delayedbig = TRUE
@@ -49,9 +49,9 @@
 				B.activate()
 				B.update_icon()
 			else if(B.delayedlittle)
-				holder.visible_message("<span class='notice'>[bicon(B)] Nothing happens.</span>")
+				holder.visible_message(span_notice("[bicon(B)] Nothing happens."))
 			else
-				holder.visible_message("<span class='notice'>[bicon(B)] The bomb seems to hesitate for a moment.</span>")
+				holder.visible_message(span_notice("[bicon(B)] The bomb seems to hesitate for a moment."))
 				B.detonation_timer += 100
 				B.delayedlittle = TRUE
 	..()
@@ -70,7 +70,7 @@
 					B.defused = TRUE
 		if(WIRE_BOMB_UNBOLT)
 			if(!mend && B.anchored)
-				holder.visible_message("<span class='notice'>[bicon(B)] The bolts lift out of the ground!</span>")
+				holder.visible_message(span_notice("[bicon(B)] The bolts lift out of the ground!"))
 				playsound(B, 'sound/effects/stealthoff.ogg', 30, 1)
 				B.anchored = FALSE
 		if(WIRE_BOMB_PROCEED)
@@ -79,7 +79,7 @@
 				B.explode_now = TRUE
 		if(WIRE_BOMB_ACTIVATE)
 			if(!mend && B.active)
-				holder.visible_message("<span class='notice'>[bicon(B)] The timer stops! The bomb has been defused!</span>")
+				holder.visible_message(span_notice("[bicon(B)] The timer stops! The bomb has been defused!"))
 				B.defused = TRUE
 				B.update_icon()
 	..()

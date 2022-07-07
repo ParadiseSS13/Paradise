@@ -25,12 +25,12 @@
 		var/turf/T = get_turf(target)
 		var/obj/structure/holosign/H = locate(holosign_type) in T
 		if(H)
-			to_chat(user, "<span class='notice'>You use [src] to deactivate [H].</span>")
+			to_chat(user, span_notice("You use [src] to deactivate [H]."))
 			qdel(H)
 		else
 			if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
 				if(holocreator_busy)
-					to_chat(user, "<span class='notice'>[src] is busy creating a hologram.</span>")
+					to_chat(user, span_notice("[src] is busy creating a hologram."))
 					return
 				if(signs.len < max_signs)
 					playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
@@ -45,10 +45,10 @@
 						if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
 					H = new holosign_type(get_turf(target), src)
-					to_chat(user, "<span class='notice'>You create [H] with [src].</span>")
+					to_chat(user, span_notice("You create [H] with [src]."))
 					return H
 				else
-					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
+					to_chat(user, span_notice("[src] is projecting at max capacity!"))
 
 /obj/item/holosign_creator/attack(mob/living/carbon/human/M, mob/user)
 	return
@@ -57,7 +57,7 @@
 	if(signs.len)
 		for(var/H in signs)
 			qdel(H)
-		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
+		to_chat(user, span_notice("You clear all active holograms."))
 
 /obj/item/holosign_creator/janitor
 	name = "Janitorial Holosign projector"
@@ -69,9 +69,9 @@
 	wet_enabled = !wet_enabled
 	playsound(loc, 'sound/weapons/empty.ogg', 20)
 	if(wet_enabled)
-		to_chat(user, "<span class='notice'>You enable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry.</span>")
+		to_chat(user, span_notice("You enable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry."))
 	else
-		to_chat(user, "<span class='notice'>You disable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely.</span>")
+		to_chat(user, span_notice("You disable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely."))
 
 /obj/item/holosign_creator/janitor/examine(mob/user)
 	. = ..()
@@ -124,7 +124,7 @@
 		var/mob/living/silicon/robot/R = user
 
 		if(shock)
-			to_chat(user, "<span class='notice'>You clear all active holograms, and reset your projector to normal.</span>")
+			to_chat(user, span_notice("You clear all active holograms, and reset your projector to normal."))
 			holosign_type = /obj/structure/holosign/barrier/cyborg
 			creation_time = 5
 			if(signs.len)
@@ -145,8 +145,8 @@
 			if(signs.len)
 				for(var/H in signs)
 					qdel(H)
-				to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
+				to_chat(user, span_notice("You clear all active holograms."))
 	if(signs.len)
 		for(var/H in signs)
 			qdel(H)
-		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
+		to_chat(user, span_notice("You clear all active holograms."))

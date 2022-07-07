@@ -17,10 +17,10 @@
 /obj/item/mixing_bowl/attackby(obj/item/I, mob/user, params)
 	if(dirty)
 		if(istype(I, /obj/item/soap))
-			user.visible_message("<span class='notice'>[user] starts to scrub [src].</span>", "<span class='notice'>You start to scrub [src].</span>")
+			user.visible_message(span_notice("[user] starts to scrub [src]."), span_notice("You start to scrub [src]."))
 			if(do_after(user, 20 * I.toolspeed, target = src))
 				clean()
-				user.visible_message("<span class='notice'>[user] has scrubbed [src] clean.</span>", "<span class='notice'>You have scrubbed [src] clean.</span>")
+				user.visible_message(span_notice("[user] has scrubbed [src] clean."), span_notice("You have scrubbed [src] clean."))
 			return 1
 		else
 			to_chat(user, "<span class='warning'>You should clean [src] before you use it for food prep.</span>")
@@ -34,7 +34,7 @@
 			if(S.get_amount() > 1)
 				var/obj/item/stack/to_add = S.split(user, 1)
 				to_add.forceMove(src)
-				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
+				user.visible_message(span_notice("[user] adds one of [S] to [src]."), span_notice("You add one of [S] to [src]."))
 			else
 				return add_item(S, user)
 		else
@@ -52,11 +52,11 @@
 
 /obj/item/mixing_bowl/proc/add_item(obj/item/I, mob/user)
 	if(!user.drop_item())
-		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
+		to_chat(user, span_notice("\The [I] is stuck to your hand, you cannot put it in [src]"))
 		//return 0
 	else
 		I.forceMove(src)
-		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
+		user.visible_message(span_notice("[user] adds [I] to [src]."), span_notice("You add [I] to [src]."))
 
 /obj/item/mixing_bowl/attack_self(mob/user)
 	var/dat = ""
@@ -128,7 +128,7 @@
 	if(reagents.total_volume)
 		make_dirty(5)
 	reagents.clear_reagents()
-	to_chat(usr, "<span class='notice'>You dispose of [src]'s contents.</span>")
+	to_chat(usr, span_notice("You dispose of [src]'s contents."))
 	updateUsrDialog()
 
 /obj/item/mixing_bowl/proc/make_dirty(chance)

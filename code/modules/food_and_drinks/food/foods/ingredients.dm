@@ -114,10 +114,10 @@
 	if(istype(I, /obj/item/kitchen/rollingpin))
 		if(isturf(loc))
 			new /obj/item/reagent_containers/food/snacks/sliceable/flatdough(loc)
-			to_chat(user, "<span class='notice'>You flatten [src].</span>")
+			to_chat(user, span_notice("You flatten [src]."))
 			qdel(src)
 		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
+			to_chat(user, span_notice("You need to put [src] on a surface to roll it out!"))
 	else
 		..()
 
@@ -167,18 +167,18 @@
 /obj/item/reagent_containers/food/snacks/cookiedough/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/kitchen/rollingpin) && !flat)
 		if(isturf(loc))
-			to_chat(user, "<span class='notice'>You flatten [src].</span>")
+			to_chat(user, span_notice("You flatten [src]."))
 			flat = TRUE
 			update_icon()
 		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
+			to_chat(user, span_notice("You need to put [src] on a surface to roll it out!"))
 	else if(istype(I, /obj/item/kitchen/cutter) && flat)
 		if(isturf(loc))
 			new /obj/item/reagent_containers/food/snacks/rawcookies(loc)
-			to_chat(user, "<span class='notice'>You cut [src] into cookies.</span>")
+			to_chat(user, span_notice("You cut [src] into cookies."))
 			qdel(src)
 		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to cut it out!</span>")
+			to_chat(user, span_notice("You need to put [src] on a surface to cut it out!"))
 	else
 		return ..()
 
@@ -194,11 +194,11 @@
 	if(istype(I, /obj/item/reagent_containers/food/snacks/choc_pile))
 		if(isturf(loc))
 			new /obj/item/reagent_containers/food/snacks/rawcookies/chocochips(loc)
-			to_chat(user, "<span class='notice'>You sprinkle [I] all over the cookies.</span>")
+			to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
 			qdel(src)
 			qdel(I)
 		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to add this</span>")
+			to_chat(user, span_notice("You need to put [src] on a surface to add this"))
 	else
 		return ..()
 
@@ -227,10 +227,10 @@
 	if(istype(I, /obj/item/kitchen/knife))
 		if(isturf(loc))
 			new /obj/item/reagent_containers/food/snacks/choc_pile(loc)
-			to_chat(user, "<span class='notice'>You cut [src] into little crumbles.</span>")
+			to_chat(user, span_notice("You cut [src] into little crumbles."))
 			qdel(src)
 		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to cut it out!</span>")
+			to_chat(user, span_notice("You need to put [src] on a surface to cut it out!"))
 	else
 		return ..()
 

@@ -273,7 +273,7 @@ Class Procs:
 				return FALSE
 
 			if(unlinkFrom(usr, O))
-				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was removed.</span>")
+				to_chat(usr, span_notice("A green light flashes on \the [P], confirming the link was removed."))
 			else
 				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.</span>")
 			update_mt_menu = TRUE
@@ -290,18 +290,18 @@ Class Procs:
 				return FALSE
 
 			if(linkWith(usr, O, href_list))
-				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was added.</span>")
+				to_chat(usr, span_notice("A green light flashes on \the [P], confirming the link was added."))
 			else
 				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when linking the two devices.</span>")
 			update_mt_menu = TRUE
 
 		if("buffer" in href_list)
 			P.buffer = src
-			to_chat(usr, "<span class='notice'>A green light flashes, and the device appears in the multitool buffer.</span>")
+			to_chat(usr, span_notice("A green light flashes, and the device appears in the multitool buffer."))
 			update_mt_menu = TRUE
 
 		if("flush" in href_list)
-			to_chat(usr, "<span class='notice'>A green light flashes, and the device disappears from the multitool buffer.</span>")
+			to_chat(usr, span_notice("A green light flashes, and the device disappears from the multitool buffer."))
 			P.buffer = null
 			update_mt_menu = TRUE
 
@@ -434,7 +434,7 @@ Class Procs:
 		return FALSE
 	if((panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
 		deconstruct(TRUE)
-		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+		to_chat(user, span_notice("You disassemble [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return 1
 	return 0
@@ -448,11 +448,11 @@ Class Procs:
 		if(!panel_open)
 			panel_open = TRUE
 			icon_state = icon_state_open
-			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
+			to_chat(user, span_notice("You open the maintenance hatch of [src]."))
 		else
 			panel_open = FALSE
 			icon_state = icon_state_closed
-			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
+			to_chat(user, span_notice("You close the maintenance hatch of [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return 1
 	return 0
@@ -464,7 +464,7 @@ Class Procs:
 		return FALSE
 	if(panel_open)
 		dir = turn(dir,-90)
-		to_chat(user, "<span class='notice'>You rotate [src].</span>")
+		to_chat(user, span_notice("You rotate [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return TRUE
 	return FALSE
@@ -478,17 +478,17 @@ Class Procs:
 	if(istype(O, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = O
 		if(stat & BROKEN)
-			to_chat(user, "<span class='notice'>[src] is too damaged to be fixed with nanopaste!</span>")
+			to_chat(user, span_notice("[src] is too damaged to be fixed with nanopaste!"))
 			return
 		if(obj_integrity == max_integrity)
-			to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
+			to_chat(user, span_notice("[src] is fully intact."))
 			return
 		if(being_repaired)
 			return
 		if(N.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
 			return
-		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
+		to_chat(user, span_notice("You start applying [O] to [src]."))
 		being_repaired = TRUE
 		var/result = do_after(user, 3 SECONDS, target = src)
 		being_repaired = FALSE
@@ -498,8 +498,8 @@ Class Procs:
 			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
 			return
 		obj_integrity = min(obj_integrity + 50, max_integrity)
-		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
-			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
+		user.visible_message(span_notice("[user] applied some [O] at [src]'s damaged areas."),\
+			span_notice("You apply some [O] at [src]'s damaged areas."))
 	else
 		return ..()
 
@@ -534,7 +534,7 @@ Class Procs:
 						component_parts -= A
 						component_parts += B
 						B.loc = null
-						to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+						to_chat(user, span_notice("[A.name] replaced with [B.name]."))
 						shouldplaysound = 1
 						break
 			RefreshParts()
@@ -547,15 +547,15 @@ Class Procs:
 		return 0
 
 /obj/machinery/proc/display_parts(mob/user)
-	. = list("<span class='notice'>Following parts detected in the machine:</span>")
+	. = list(span_notice("Following parts detected in the machine:"))
 	for(var/obj/item/C in component_parts)
-		. += "<span class='notice'>[bicon(C)] [C.name]</span>"
+		. += span_notice("[bicon(C)] [C.name]")
 	. = jointext(., "\n")
 
 /obj/machinery/examine(mob/user)
 	. = ..()
 	if(stat & BROKEN)
-		. += "<span class='notice'>It looks broken and non-functional.</span>"
+		. += span_notice("It looks broken and non-functional.")
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
 			. += "<span class='warning'>It's on fire!</span>"

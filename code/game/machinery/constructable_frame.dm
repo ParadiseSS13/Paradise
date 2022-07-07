@@ -77,10 +77,10 @@
 				var/obj/item/stack/cable_coil/C = P
 				if(C.get_amount() >= 5)
 					playsound(src.loc, C.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
+					to_chat(user, span_notice("You start to add cables to the frame."))
 					if(do_after(user, 20 * C.toolspeed, target = src))
 						if(state == 1 && C.get_amount() >= 5 && C.use(5))
-							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+							to_chat(user, span_notice("You add cables to the frame."))
 							state = 2
 							icon_state = "box_1"
 						else
@@ -92,7 +92,7 @@
 
 			if(istype(P, /obj/item/wrench))
 				playsound(src.loc, P.usesound, 75, 1)
-				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
+				to_chat(user, span_notice("You dismantle the frame."))
 				deconstruct(TRUE)
 				return
 		if(2)
@@ -100,7 +100,7 @@
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "machine")
 					playsound(src.loc, B.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
+					to_chat(user, span_notice("You add the circuit board to the frame."))
 					circuit = P
 					user.drop_item()
 					P.loc = src
@@ -116,7 +116,7 @@
 				return
 			if(istype(P, /obj/item/wirecutters))
 				playsound(src.loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
+				to_chat(user, span_notice("You remove the cables."))
 				state = 1
 				icon_state = "box_0"
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
@@ -129,9 +129,9 @@
 				circuit.loc = src.loc
 				circuit = null
 				if(components.len == 0)
-					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+					to_chat(user, span_notice("You remove the circuit board."))
 				else
-					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
+					to_chat(user, span_notice("You remove the circuit board and other components."))
 					for(var/obj/item/I in components)
 						I.loc = src.loc
 				name = initial(name)
@@ -181,7 +181,7 @@
 
 				for(var/obj/item/stock_parts/part in added_components)
 					components += part
-					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
+					to_chat(user, span_notice("[part.name] applied."))
 				replacer.play_rped_sound()
 
 				update_req_desc()
@@ -533,7 +533,7 @@ to destroy them and players will be able to make replacements.
 	build_path = type
 	format_board_name()
 	if(user)
-		to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
+		to_chat(user, span_notice("You set the board to [board_name]."))
 
 /obj/item/circuitboard/monkey_recycler
 	board_name = "Monkey Recycler"
@@ -586,7 +586,7 @@ to destroy them and players will be able to make replacements.
 
 	build_path = new_path
 	name = "circuit board ([new_name] 3000)"
-	to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
+	to_chat(user, span_notice("You change the circuit board setting to \"[new_name]\"."))
 
 /obj/item/circuitboard/chem_master/condi_master
 	board_name = "CondiMaster 3000"

@@ -140,8 +140,8 @@
 
 /obj/item/borg/upgrade/vtec/do_install(mob/living/silicon/robot/R)
 	if(R.speed < 0)
-		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
-		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
+		to_chat(R, span_notice("A VTEC unit is already installed!"))
+		to_chat(usr, span_notice("There's no room for another VTEC unit!"))
 		return
 
 	R.speed = -1 // Gotta go fast.
@@ -159,11 +159,11 @@
 /obj/item/borg/upgrade/disablercooler/do_install(mob/living/silicon/robot/R)
 	var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
 	if(!T)
-		to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
+		to_chat(usr, span_notice("There's no disabler in this unit!"))
 		return
 	if(T.charge_delay <= 2)
-		to_chat(R, "<span class='notice'>A cooling unit is already installed!</span>")
-		to_chat(usr, "<span class='notice'>There's no room for another cooling unit!</span>")
+		to_chat(R, span_notice("A cooling unit is already installed!"))
+		to_chat(usr, span_notice("There's no room for another cooling unit!"))
 		return
 
 	T.charge_delay = max(2 , T.charge_delay - 4)
@@ -178,7 +178,7 @@
 
 /obj/item/borg/upgrade/thrusters/do_install(mob/living/silicon/robot/R)
 	if(R.ionpulse)
-		to_chat(usr, "<span class='notice'>This unit already has ion thrusters installed!</span>")
+		to_chat(usr, span_notice("This unit already has ion thrusters installed!"))
 		return
 
 	R.ionpulse = 1
@@ -303,10 +303,10 @@
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
 	on = !on
 	if(on)
-		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
+		to_chat(cyborg, span_notice("You activate the self-repair module."))
 		START_PROCESSING(SSobj, src)
 	else
-		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
+		to_chat(cyborg, span_notice("You deactivate the self-repair module."))
 		STOP_PROCESSING(SSobj, src)
 	update_icon()
 

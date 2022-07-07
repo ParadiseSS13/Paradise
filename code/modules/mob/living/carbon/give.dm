@@ -15,7 +15,7 @@
 		to_chat(usr, "<span class='warning'> You don't have anything in your hand to give to [target.name]</span>")
 		return
 	if((I.flags & NODROP) || (I.flags & ABSTRACT))
-		to_chat(usr, "<span class='notice'>That's not exactly something you can give.</span>")
+		to_chat(usr, span_notice("That's not exactly something you can give."))
 		return
 	if(target.r_hand == null || target.l_hand == null)
 		var/ans = alert(target,"[usr] wants to give you \a [I]?",,"Yes","No")
@@ -44,7 +44,7 @@
 				usr.unEquip(I)
 				target.put_in_hands(I)
 				I.add_fingerprint(target)
-				target.visible_message("<span class='notice'> [usr.name] handed [I] to [target.name].</span>")
+				target.visible_message(span_notice(" [usr.name] handed [I] to [target.name]."))
 				I.on_give(usr, target)
 			if("No")
 				target.visible_message("<span class='warning'> [usr.name] tried to hand [I] to [target.name] but [target.name] didn't want it.</span>")

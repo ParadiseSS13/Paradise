@@ -7,7 +7,7 @@
 
 /datum/antagonist/wishgranter/greet()
 	..()
-	to_chat(owner.current, "<span class='notice'>Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!</span>")
+	to_chat(owner.current, span_notice("Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!"))
 
 /datum/antagonist/wishgranter/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/carbon/human/H = ..()

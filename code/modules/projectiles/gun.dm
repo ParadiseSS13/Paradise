@@ -88,9 +88,9 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin && !current_skin)
-		. += "<span class='notice'>Alt-click it to reskin it.</span>"
+		. += span_notice("Alt-click it to reskin it.")
 	if(unique_rename)
-		. += "<span class='notice'>Use a pen on it to rename it.</span>"
+		. += span_notice("Use a pen on it to rename it.")
 	if(bayonet)
 		. += "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it."
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
@@ -304,7 +304,7 @@
 			if(!gun_light)
 				if(!user.unEquip(I))
 					return
-				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
+				to_chat(user, span_notice("You click [S] into place on [src]."))
 				if(S.on)
 					set_light(0)
 				gun_light = S
@@ -319,7 +319,7 @@
 		if(istype(I, /obj/item/pen))
 			var/t = rename_interactive(user, I, use_prefix = FALSE)
 			if(!isnull(t))
-				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
+				to_chat(user, span_notice("You name the gun [name]. Say hello to your new friend."))
 	if(istype(I, /obj/item/kitchen/knife))
 		var/obj/item/kitchen/knife/K = I
 		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
@@ -327,7 +327,7 @@
 		if(!user.drop_item())
 			return
 		K.forceMove(src)
-		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
+		to_chat(user, span_notice("You attach [K] to [src]'s bayonet lug."))
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
 		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi'))		//Snowflake state?
@@ -346,7 +346,7 @@
 		return
 	if(gun_light && can_flashlight)
 		for(var/obj/item/flashlight/seclite/S in src)
-			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
+			to_chat(user, span_notice("You unscrew the seclite from [src]."))
 			gun_light = null
 			S.loc = get_turf(user)
 			update_gun_light(user)
@@ -370,7 +370,7 @@
 	if(!isturf(user.loc))
 		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc]!</span>")
 	gun_light.on = !gun_light.on
-	to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
+	to_chat(user, span_notice("You toggle the gun light [gun_light.on ? "on":"off"]."))
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_gun_light(user)
@@ -447,9 +447,9 @@
 	if(!do_mob(user, target, 120) || user.zone_selected != "mouth")
 		if(user)
 			if(user == target)
-				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")
+				user.visible_message(span_notice("[user] decided life was worth living."))
 			else if(target && target.Adjacent(user))
-				target.visible_message("<span class='notice'>[user] has decided to spare [target]'s life.</span>", "<span class='notice'>[user] has decided to spare your life!</span>")
+				target.visible_message(span_notice("[user] has decided to spare [target]'s life."), span_notice("[user] has decided to spare your life!"))
 		semicd = 0
 		return
 

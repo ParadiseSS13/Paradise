@@ -48,7 +48,7 @@
 		if(user.drop_item())
 			B.forceMove(src)
 			if(!syndiemmi)
-				visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
+				visible_message(span_notice("[user] sticks \a [O] into \the [src]."))
 			brainmob = B.brainmob
 			B.brainmob = null
 			brainmob.container = src
@@ -83,14 +83,14 @@
 		if(radio)
 			to_chat(user, "<span class='warning'>[src] already has a radio installed.</span>")
 		else
-			user.visible_message("<span class='notice'>[user] begins to install [O] into [src]...</span>", \
-				"<span class='notice'>You start to install [O] into [src]...</span>")
+			user.visible_message(span_notice("[user] begins to install [O] into [src]..."), \
+				span_notice("You start to install [O] into [src]..."))
 			if(do_after(user, 20, target=src))
 				if(user.drop_item())
-					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
-						"<span class='notice'>You install [O] in [src].</span>")
+					user.visible_message(span_notice("[user] installs [O] in [src]."), \
+						span_notice("You install [O] in [src]."))
 					if(brainmob)
-						to_chat(brainmob, "<span class='notice'>MMI radio capability installed.</span>")
+						to_chat(brainmob, span_notice("MMI radio capability installed."))
 					install_radio()
 					qdel(O)
 				else
@@ -114,20 +114,20 @@
 		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
 		return
 	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
-							 "<span class='notice'>You start to uninstall the radio from [src]...</span>")
+							 span_notice("You start to uninstall the radio from [src]..."))
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
 	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
-						 "<span class='notice'>You uninstall the radio from [src].</span>")
+						 span_notice("You uninstall the radio from [src]."))
 
 
 /obj/item/mmi/attack_self(mob/user as mob)
 	if(!brainmob)
 		to_chat(user, "<span class='warning'>You upend the MMI, but there's nothing in it.</span>")
 	else
-		to_chat(user, "<span class='notice'>You unlock and upend the MMI, spilling the brain onto the floor.</span>")
+		to_chat(user, span_notice("You unlock and upend the MMI, spilling the brain onto the floor."))
 		dropbrain(get_turf(user))
 		icon = 'icons/obj/assemblies.dmi'
 		icon_state = "mmi_empty"
@@ -181,7 +181,7 @@
 /obj/item/mmi/examine(mob/user)
 	. = ..()
 	if(radio)
-		. += "<span class='notice'>A radio is installed on [src].</span>"
+		. += span_notice("A radio is installed on [src].")
 
 /obj/item/mmi/proc/install_radio()
 	radio = new(src)
@@ -310,7 +310,7 @@
 
 /obj/item/mmi/syndie/attackby(obj/item/O, mob/user, params)
 	if(!master_uid && ishuman(user) && user.mind && istype(O,/obj/item/organ/internal/brain))
-		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
+		to_chat(user, span_notice("You press your thumb on [src] and imprint your user information."))
 		master_uid = user.mind.UID()
 		if(!user.mind.has_antag_datum(/datum/antagonist/traitor))
 			message_admins("[user] has mindslaved [O] using a Syndicate MMI, but they are not a traitor!")

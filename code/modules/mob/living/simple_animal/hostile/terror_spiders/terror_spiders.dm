@@ -181,13 +181,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			enemies -= target
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
 		if(T.spider_tier > spider_tier)
-			visible_message("<span class='notice'>[src] cowers before [target].</span>")
+			visible_message(span_notice("[src] cowers before [target]."))
 		else if(T.spider_tier == spider_tier)
-			visible_message("<span class='notice'>[src] nuzzles [target].</span>")
+			visible_message(span_notice("[src] nuzzles [target]."))
 		else if(T.spider_tier < spider_tier && spider_tier >= 4)
 			target.attack_animal(src)
 		else
-			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
+			visible_message(span_notice("[src] harmlessly nuzzles [target]."))
 		T.CheckFaction()
 		CheckFaction()
 	else if(istype(target, /obj/structure/spider/royaljelly))
@@ -234,7 +234,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(regen_points > 200)
 		to_chat(src, "<span class='warning'>You aren't hungry for jelly right now.</span>")
 		return
-	to_chat(src, "<span class='notice'>You consume the royal jelly! Regeneration speed increased!</span>")
+	to_chat(src, span_notice("You consume the royal jelly! Regeneration speed increased!"))
 	regen_points += regen_points_per_jelly
 	fed++
 	qdel(J)
@@ -249,9 +249,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(key)
 			. += "<span class='warning'>[p_they(TRUE)] regards [p_their()] surroundings with a curious intelligence.</span>"
 		if(health > (maxHealth*0.95))
-			. += "<span class='notice'>[p_they(TRUE)] is in excellent health.</span>"
+			. += span_notice("[p_they(TRUE)] is in excellent health.")
 		else if(health > (maxHealth*0.75))
-			. += "<span class='notice'>[p_they(TRUE)] has a few injuries.</span>"
+			. += span_notice("[p_they(TRUE)] has a few injuries.")
 		else if(health > (maxHealth*0.55))
 			. += "<span class='warning'>[p_they(TRUE)] has many injuries.</span>"
 		else if(health > (maxHealth*0.25))
@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(degenerate)
 			. += "<span class='warning'>[p_they(TRUE)] appears to be dying.</span>"
 		else if(health < maxHealth && regen_points > regen_points_per_kill)
-			. += "<span class='notice'>[p_they(TRUE)] appears to be regenerating quickly.</span>"
+			. += span_notice("[p_they(TRUE)] appears to be regenerating quickly.")
 		if(killcount >= 1)
 			. += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
 
@@ -324,7 +324,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(stat == DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
 		if(prob(2))
 			// 2% chance every cycle to decompose
-			visible_message("<span class='notice'>The dead body of [src] decomposes!</span>")
+			visible_message(span_notice("The dead body of [src] decomposes!"))
 			gib()
 	else
 		if(degenerate)

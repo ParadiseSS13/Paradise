@@ -133,7 +133,7 @@
 
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
-		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
+		to_chat(src, span_notice("SSD warning acknowledged."))
 		return
 	if(href_list["link_forum_account"])
 		link_forum_account()
@@ -886,7 +886,7 @@
 	winset(src, "infowindow", "background-color=#1d1d1d;text-color=#FFFFFF")
 	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#1d1d1d")
 	// NOTIFY USER
-	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
+	to_chat(src, span_notice("Darkmode Enabled"))
 
 /client/proc/deactivate_darkmode()
 	///// BUTTONS /////
@@ -920,7 +920,7 @@
 	winset(src, "infowindow", "background-color=none;text-color=#000000")
 	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
 	///// NOTIFY USER /////
-	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
+	to_chat(src, span_notice("Darkmode Disabled")) // what a sick fuck
 
 /client/proc/generate_clickcatcher()
 	if(!void)

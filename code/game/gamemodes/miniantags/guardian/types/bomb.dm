@@ -88,4 +88,4 @@
 /obj/item/guardian_bomb/examine(mob/user)
 	. = stored_obj.examine(user)
 	if(get_dist(user, src) <= 2)
-		. += "<span class='notice'>Looks odd!</span>"
+		. += span_notice("Looks odd!")

@@ -119,8 +119,8 @@
 				return // Something happened while the player was thinking
 		hide_from(M)
 		M.face_atom(over_object)
-		M.visible_message("<span class='notice'>[M] empties [src] onto [over_object].</span>",
-			"<span class='notice'>You empty [src] onto [over_object].</span>")
+		M.visible_message(span_notice("[M] empties [src] onto [over_object]."),
+			span_notice("You empty [src] onto [over_object]."))
 		for(var/obj/item/I in contents)
 			remove_from_storage(I, T)
 		update_icon() // For content-sensitive icons
@@ -433,11 +433,11 @@
 		if(!prevent_warning && !istype(I, /obj/item/gun/energy/kinetic_accelerator/crossbow))
 			for(var/mob/M in viewers(usr, null))
 				if(M == usr)
-					to_chat(usr, "<span class='notice'>You put [I] into [src].</span>")
+					to_chat(usr, span_notice("You put [I] into [src]."))
 				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
-					M.show_message("<span class='notice'>[usr] puts [I] into [src].</span>")
+					M.show_message(span_notice("[usr] puts [I] into [src]."))
 				else if(I && I.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
-					M.show_message("<span class='notice'>[usr] puts [I] into [src].</span>")
+					M.show_message(span_notice("[usr] puts [I] into [src]."))
 
 		orient2hud(usr)
 		if(usr.s_active)
@@ -631,7 +631,7 @@
 	if(!found)	// User is too far away
 		return
 
-	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	to_chat(user, span_notice("You fold [src] flat."))
 	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
 	user.put_in_hands(I)
 	qdel(src)

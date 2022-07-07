@@ -61,14 +61,14 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 
-	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
+	var/t = span_notice("Coordinates: [x],[y] \n")
 	t+= "<span class='warning'>Temperature: [environment.temperature] \n</span>"
-	t+= "<span class='notice'>Nitrogen: [environment.nitrogen] \n</span>"
-	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
-	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
-	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
-	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
-	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
+	t+= span_notice("Nitrogen: [environment.nitrogen] \n")
+	t+= span_notice("Oxygen: [environment.oxygen] \n")
+	t+= span_notice("Plasma : [environment.toxins] \n")
+	t+= span_notice("Carbon Dioxide: [environment.carbon_dioxide] \n")
+	t+= span_notice("N2O: [environment.sleeping_agent] \n")
+	t+= span_notice("Agent B: [environment.agent_b] \n")
 
 	usr.show_message(t, EMOTE_VISIBLE)
 
@@ -582,7 +582,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "IC"
 
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
+		to_chat(src, span_notice("Something is there but you can't see it."))
 		return 1
 
 	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
@@ -727,17 +727,17 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/update_flavor_text()
 	set src in usr
 	if(usr != src)
-		to_chat(usr, "<span class='notice'>You can't change the flavor text of this mob</span>")
+		to_chat(usr, span_notice("You can't change the flavor text of this mob"))
 		return
 	if(stat)
-		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		to_chat(usr, span_notice("You have to be conscious to change your flavor text"))
 		return
 
 	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
 
 	if(msg != null)
 		if(stat)
-			to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+			to_chat(usr, span_notice("You have to be conscious to change your flavor text"))
 			return
 		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 		msg = html_encode(msg)
@@ -748,7 +748,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 40 || !shrink)
-			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
+			return span_notice("[html_encode(msg)]") //Repeat after me, "I will not give players access to decoded HTML."
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
@@ -801,7 +801,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(client.holder && (client.holder.rights & R_ADMIN))
 		is_admin = 1
 	else if(stat != DEAD || isnewplayer(src))
-		to_chat(usr, "<span class='notice'>You must be observing to use this!</span>")
+		to_chat(usr, span_notice("You must be observing to use this!"))
 		return
 
 	if(is_admin && stat == DEAD)

@@ -89,7 +89,7 @@
 
 			dronefab.produce_drones = !dronefab.produce_drones
 			var/toggle = dronefab.produce_drones ? "enable" : "disable"
-			to_chat(usr, "<span class='notice'>You [toggle] drone production in the nearby fabricator.</span>")
+			to_chat(usr, span_notice("You [toggle] drone production in the nearby fabricator."))
 			message_admins("[key_name_admin(usr)] [toggle]d maintenance drone production from the control console.")
 			log_game("[key_name(usr)] [toggle]d maintenance drone production from the control console.")
 
@@ -98,7 +98,7 @@
 
 		if("ping")
 			ping_cooldown = world.time + 1 MINUTES // One minute cooldown to prevent chat spam
-			to_chat(usr, "<span class='notice'>You issue a maintenance request for all active drones, highlighting [drone_call_area].</span>")
+			to_chat(usr, span_notice("You issue a maintenance request for all active drones, highlighting [drone_call_area]."))
 			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 				if(D.client && D.stat == CONSCIOUS)
 					to_chat(D, "<span class='boldnotice'>-- Maintenance drone presence requested in: [drone_call_area].</span>")
@@ -107,7 +107,7 @@
 			var/mob/living/silicon/robot/drone/D = locateUID(params["uid"])
 			if(D)
 				D.sync_cooldown = world.time + 1 MINUTES // One minute cooldown to prevent chat spam
-				to_chat(usr, "<span class='notice'>You issue a law synchronization directive for the drone.</span>")
+				to_chat(usr, span_notice("You issue a law synchronization directive for the drone."))
 				D.law_resync()
 
 		if("shutdown")
@@ -130,7 +130,7 @@
 
 		dronefab = fab
 		if(user)
-			to_chat(user, "<span class='notice'>Drone fabricator located.</span>")
+			to_chat(user, span_notice("Drone fabricator located."))
 		return
 
 	if(user)

@@ -206,7 +206,7 @@
 /obj/machinery/washing_machine/attackby(obj/item/W as obj, mob/user as mob, params)
 	/*if(istype(W,/obj/item/screwdriver))
 		panel = !panel
-		to_chat(user, "<span class='notice'>you [panel ? </span>"open" : "close"] the [src]'s maintenance panel")*/
+		to_chat(user, span_notice("you [panel ? ")open" : "close"] the [src]'s maintenance panel")*/
 	if(default_unfasten_wrench(user, W))
 		power_change()
 		return
@@ -284,7 +284,7 @@
 			to_chat(user, "<span class='warning'>Washing these gloves would fry the electronics!</span>")
 			return
 		if(W.flags & NODROP) //if "can't drop" item
-			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
+			to_chat(user, span_notice("\The [W] is stuck to your hand, you cannot put it in the washing machine!"))
 			return
 
 		if(contents.len < 5)
@@ -293,9 +293,9 @@
 				W.loc = src
 				state = 3
 			else
-				to_chat(user, "<span class='notice'>You can't put the item in right now.</span>")
+				to_chat(user, span_notice("You can't put the item in right now."))
 		else
-			to_chat(user, "<span class='notice'>The washing machine is full.</span>")
+			to_chat(user, span_notice("The washing machine is full."))
 		update_icon()
 	else
 		return ..()

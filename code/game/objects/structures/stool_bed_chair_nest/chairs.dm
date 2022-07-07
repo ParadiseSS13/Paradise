@@ -35,7 +35,7 @@
 	if(istype(W, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/SK = W
 		if(!SK.status)
-			to_chat(user, "<span class='notice'>[SK] is not ready to be attached!</span>")
+			to_chat(user, span_notice("[SK] is not ready to be attached!"))
 			return
 		user.drop_item()
 		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(get_turf(src), SK)
@@ -78,7 +78,7 @@
 			return
 		if(!ishuman(usr))
 			return
-		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
+		usr.visible_message(span_notice("[usr] grabs \the [src.name]."), span_notice("You grab \the [src.name]."))
 		var/C = new item_chair(loc)
 		usr.put_in_hands(C)
 		qdel(src)
@@ -508,7 +508,7 @@
 			to_chat(user, "<span class='warning'>There is already \a [A] here.</span>")
 			return
 
-	user.visible_message("<span class='notice'>[user] rights [src].</span>", "<span class='notice'>You right [src].</span>")
+	user.visible_message(span_notice("[user] rights [src]."), span_notice("You right [src]."))
 	var/obj/structure/chair/C = new origin_type(get_turf(loc))
 	C.setDir(dir)
 	qdel(src)
@@ -607,10 +607,10 @@
 	if(!istype(user) || user.incapacitated() || !in_range(src, user))
 		return
 	if(!isprocessing)
-		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \
-		"<span class='notice'>Automated spinny chairs. The pinnacle of Ratvarian technology.</span>")
+		user.visible_message(span_notice("[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER."), \
+		span_notice("Automated spinny chairs. The pinnacle of Ratvarian technology."))
 		START_PROCESSING(SSfastprocess, src)
 	else
-		user.visible_message("<span class='notice'>[user] stops [src]'s uncontrollable spinning.</span>", \
-		"<span class='notice'>You grab [src] and stop its wild spinning.</span>")
+		user.visible_message(span_notice("[user] stops [src]'s uncontrollable spinning."), \
+		span_notice("You grab [src] and stop its wild spinning."))
 		STOP_PROCESSING(SSfastprocess, src)

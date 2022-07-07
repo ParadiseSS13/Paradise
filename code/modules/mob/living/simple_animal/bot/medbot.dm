@@ -249,7 +249,7 @@
 
 		W.forceMove(src)
 		reagent_glass = W
-		to_chat(user, "<span class='notice'>You insert [W].</span>")
+		to_chat(user, span_notice("You insert [W]."))
 		show_controls(user)
 
 	else
@@ -263,7 +263,7 @@
 	if(emagged == 2)
 		declare_crit = 0
 		if(user)
-			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
+			to_chat(user, span_notice("You short out [src]'s reagent synthesis circuits."))
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		flick("medibot_spark", src)
 		if(user)

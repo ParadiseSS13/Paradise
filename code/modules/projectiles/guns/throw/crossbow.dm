@@ -43,7 +43,7 @@
 	if(cell)
 		. += "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]"
 	else
-		. += "<span class='notice'>It has an empty mount for a battery cell.</span>"
+		. += span_notice("It has an empty mount for a battery cell.")
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
@@ -68,14 +68,14 @@
 /obj/item/gun/throw/crossbow/attack_self(mob/living/user)
 	if(tension)
 		if(to_launch)
-			user.visible_message("<span class='notice'>[user] relaxes the tension on [src]'s string and removes [to_launch].</span>","<span class='notice'>You relax the tension on [src]'s string and remove [to_launch].</span>")
+			user.visible_message(span_notice("[user] relaxes the tension on [src]'s string and removes [to_launch]."),span_notice("You relax the tension on [src]'s string and remove [to_launch]."))
 			to_launch.forceMove(get_turf(src))
 			var/obj/item/arrow/A = to_launch
 			to_launch = null
 			A.removed()
 			process_chamber()
 		else
-			user.visible_message("<span class='notice'>[user] relaxes the tension on [src]'s string.</span>","<span class='notice'>You relax the tension on [src]'s string.</span>")
+			user.visible_message(span_notice("[user] relaxes the tension on [src]'s string."),span_notice("You relax the tension on [src]'s string."))
 		tension = 0
 		update_icon()
 	else
@@ -99,23 +99,23 @@
 		return ..()
 
 	if(cell)
-		to_chat(user, "<span class='notice'>[src] already has a cell installed.</span>")
+		to_chat(user, span_notice("[src] already has a cell installed."))
 		return
 
 	user.drop_item()
 	I.forceMove(src)
 	cell = I
-	to_chat(user, "<span class='notice'>You jam [cell] into [src] and wire it to the firing coil.</span>")
+	to_chat(user, span_notice("You jam [cell] into [src] and wire it to the firing coil."))
 	process_chamber()
 
 /obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
 	. = ..()
 	if(!cell)
-		to_chat(user, "<span class='notice'>[src] doesn't have a cell installed.</span>")
+		to_chat(user, span_notice("[src] doesn't have a cell installed."))
 		return
 
 	cell.forceMove(get_turf(src))
-	to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [I].</span>")
+	to_chat(user, span_notice("You jimmy [cell] out of [src] with [I]."))
 	cell = null
 
 /obj/item/gun/throw/crossbow/verb/set_tension()

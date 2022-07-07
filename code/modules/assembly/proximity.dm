@@ -19,7 +19,7 @@
 
 /obj/item/assembly/prox_sensor/describe()
 	if(timing)
-		return "<span class='notice'>The proximity sensor is arming.</span>"
+		return span_notice("The proximity sensor is arming.")
 	return "The proximity sensor is [scanning ? "armed" : "disarmed"]."
 
 /obj/item/assembly/prox_sensor/activate()

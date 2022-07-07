@@ -44,5 +44,5 @@
 			return
 	else
 		owner = user
-		to_chat(user, "<span class='notice'>[src] now recognizes you as its sole user.</span>")
+		to_chat(user, span_notice("[src] now recognizes you as its sole user."))
 	return ..()

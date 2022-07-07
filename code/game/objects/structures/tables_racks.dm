@@ -98,8 +98,8 @@
 	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
 		if(user.pulling.loc == loc)
-			user.visible_message("<span class='notice'>[user] places [user.pulling] onto [src].</span>",
-				"<span class='notice'>You place [user.pulling] onto [src].</span>")
+			user.visible_message(span_notice("[user] places [user.pulling] onto [src]."),
+				span_notice("You place [user.pulling] onto [src]."))
 			user.stop_pulling()
 
 /obj/structure/table/attack_tk() // no telehulk sorry
@@ -291,7 +291,7 @@
 		return
 
 	if(!flip(get_cardinal_dir(usr,src)))
-		to_chat(usr, "<span class='notice'>It won't budge.</span>")
+		to_chat(usr, span_notice("It won't budge."))
 		return
 
 	usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
@@ -311,7 +311,7 @@
 		return
 
 	if(!unflip())
-		to_chat(usr, "<span class='notice'>It won't budge.</span>")
+		to_chat(usr, span_notice("It won't budge."))
 		return
 
 
@@ -603,9 +603,9 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table...</span>")
+	to_chat(user, span_notice("You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table..."))
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
+		to_chat(user, span_notice("You [deconstruction_ready ? "strengthen" : "weaken"] the table."))
 		deconstruction_ready = !deconstruction_ready
 
 /obj/structure/table/reinforced/brass
@@ -826,13 +826,13 @@
 	if(building)
 		return
 	building = TRUE
-	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
+	to_chat(user, span_notice("You start constructing a rack..."))
 	if(do_after(user, 50, target = user, progress=TRUE))
 		if(!user.drop_item(src))
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
 		user.visible_message("<span class='notice'>[user] assembles \a [R].\
-			</span>", "<span class='notice'>You assemble \a [R].</span>")
+			</span>", span_notice("You assemble \a [R]."))
 		R.add_fingerprint(user)
 		qdel(src)
 	building = FALSE

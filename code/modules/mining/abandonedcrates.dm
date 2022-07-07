@@ -152,16 +152,16 @@
 
 /obj/structure/closet/crate/secure/loot/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, "<span class='notice'>The crate is locked with a Deca-code lock.</span>")
+		to_chat(user, span_notice("The crate is locked with a Deca-code lock."))
 		var/input = clean_input("Enter [codelen] digits.", "Deca-Code Lock", "")
 		if(in_range(src, user))
 			if(input == code)
-				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
+				to_chat(user, span_notice("The crate unlocks!"))
 				locked = 0
 				overlays.Cut()
 				overlays += "securecrateg"
 			else if(input == null || length(input) != codelen)
-				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
+				to_chat(user, span_notice("You leave the crate alone."))
 			else
 				to_chat(user, "<span class='warning'>A red light flashes.</span>")
 				lastattempt = input
@@ -177,11 +177,11 @@
 			boom(user)
 			return 1
 		if(istype(W, /obj/item/multitool))
-			to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
+			to_chat(user, span_notice("DECA-CODE LOCK REPORT:"))
 			if(attempts == 1)
 				to_chat(user, "<span class='warning'>* Anti-Tamper Bomb will activate on next failed access attempt.</span>")
 			else
-				to_chat(user, "<span class='notice'>* Anti-Tamper Bomb will activate after [attempts] failed access attempts.</span>")
+				to_chat(user, span_notice("* Anti-Tamper Bomb will activate after [attempts] failed access attempts."))
 			if(lastattempt != null)
 				var/bulls = 0
 				var/cows = 0
@@ -198,7 +198,7 @@
 						else
 							++cows
 
-				to_chat(user, "<span class='notice'>Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>")
+				to_chat(user, span_notice("Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions."))
 			return 1
 	return ..()
 

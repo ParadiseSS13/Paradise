@@ -62,7 +62,7 @@
 					continue
 			if(boolets > 0)
 				box.update_icon()
-				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s.</span>")
+				to_chat(user, span_notice("You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s."))
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
 				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
@@ -76,16 +76,16 @@
 						to_chat(user, "<span class='warning''>The inscription can be at most 20 characters long.</span>")
 					else
 						if(label_text == "")
-							to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
+							to_chat(user, span_notice("You scratch the inscription off of [initial(BB)]."))
 							BB.name = initial(BB.name)
 						else
-							to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
+							to_chat(user, span_notice("You inscribe \"[label_text]\" into \the [initial(BB.name)]."))
 							BB.name = "[initial(BB.name)] \"[label_text]\""
 				else
-					to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
+					to_chat(user, span_notice("You can only inscribe a metal bullet."))//because inscribing beanbags is silly
 
 			else
-				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
+				to_chat(user, span_notice("There is no bullet in the casing to inscribe anything into."))
 		..()
 
 /obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -195,7 +195,7 @@
 			num_loaded++
 	if(num_loaded)
 		if(!silent)
-			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]!"))
 		playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
 		A.update_icon()
 		update_icon()
@@ -207,7 +207,7 @@
 	if(A)
 		user.put_in_hands(A)
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
-		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
+		to_chat(user, span_notice("You remove a round from \the [src]!"))
 		update_icon()
 
 // `multi_sprite_step` governs whether there are different sprites for different degrees of being loaded.

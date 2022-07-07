@@ -568,11 +568,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/toggle_ionpulse()
 	if(!ionpulse)
-		to_chat(src, "<span class='notice'>No thrusters are installed!</span>")
+		to_chat(src, span_notice("No thrusters are installed!"))
 		return
 
 	ionpulse_on = !ionpulse_on
-	to_chat(src, "<span class='notice'>You [ionpulse_on ? null :"de"]activate your ion thrusters.</span>")
+	to_chat(src, span_notice("You [ionpulse_on ? null :"de"]activate your ion thrusters."))
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
@@ -673,14 +673,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					C.brute_damage = WC.brute
 					C.electronics_damage = WC.burn
 
-				to_chat(usr, "<span class='notice'>You install [W].</span>")
+				to_chat(usr, span_notice("You install [W]."))
 
 				return
 
 	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src, /mob/living/silicon/robot/drone)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
-			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+			to_chat(user, span_notice("Nothing to fix!"))
 			return
 		else if(!getFireLoss(TRUE))
 			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
@@ -724,7 +724,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(allowed(W))
 				locked = !locked
 				to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
-				to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
+				to_chat(src, span_notice("[user] [ locked ? "locked" : "unlocked"] your interface."))
 				update_icons()
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -739,7 +739,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(!user.drop_item())
 				return
 			if(U.action(src))
-				user.visible_message("<span class='notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
+				user.visible_message(span_notice("[user] applied [U] to [src]."), span_notice("You apply [U] to [src]."))
 				U.forceMove(src)
 
 	else if(istype(W, /obj/item/mmi_radio_upgrade))
@@ -753,8 +753,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "<span class='warning'>A radio upgrade is already installed in the MMI!</span>")
 			return
 		else if(user.drop_item())
-			to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
-			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
+			to_chat(user, span_notice("You apply the upgrade to [src]."))
+			to_chat(src, span_notice("MMI radio capability installed."))
 			mmi.install_radio()
 			qdel(W)
 	else
@@ -786,7 +786,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	if(!cell)	// haxing
 		wiresexposed = !wiresexposed
-		to_chat(user, "<span class='notice'>The wires have been [wiresexposed ? "exposed" : "unexposed"]</span>")
+		to_chat(user, span_notice("The wires have been [wiresexposed ? "exposed" : "unexposed"]"))
 		update_icons()
 		I.play_tool_sound(user, I.tool_volume)
 	else //radio check
@@ -826,7 +826,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 		to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts...")
 		if(I.use_tool(src, user, 30, volume = I.tool_volume))
-			user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
+			user.visible_message("[user] deconstructs [src]!", span_notice("You unfasten the securing bolts, and [src] falls to pieces!"))
 			deconstruct()
 		return
 	// Okay we're not removing the cell or an MMI, but maybe something else?
@@ -957,7 +957,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(alert("Are you sure?", locked ? "Unlock Cover" : "Lock Cover", "Yes", "No") == "Yes")
 			locked = !locked
 			update_icons()
-			to_chat(usr, "<span class='notice'>You [locked ? "lock" : "unlock"] your cover.</span>")
+			to_chat(usr, span_notice("You [locked ? "lock" : "unlock"] your cover."))
 		return
 	if(!locked)
 		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a robotocist.</span>")
@@ -965,7 +965,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(alert("You cannnot lock your own cover again. Are you sure?\n           You will need a robotocist to re-lock you.", "Unlock Own Cover", "Yes", "No") == "Yes")
 		locked = !locked
 		update_icons()
-		to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
+		to_chat(usr, span_notice("You unlock your cover."))
 
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)

@@ -45,19 +45,19 @@
 		for(var/obj/item/T in B.contents)
 			if(istype(T, /obj/item/book) || istype(T, /obj/item/spellbook) || istype(T, /obj/item/tome) || istype(T, /obj/item/storage/bible))
 				B.remove_from_storage(T, src)
-		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
+		to_chat(user, span_notice("You empty [O] into [src]."))
 		update_icon()
 		return TRUE
 	else if(istype(O, /obj/item/wrench))
 		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
-		"<span class='notice'>You start disassembling \the [src].</span>")
+		span_notice("You start disassembling \the [src]."))
 		playsound(get_turf(src), O.usesound, 50, 1)
 		busy = TRUE
 
 		if(do_after(user, 50 * O.toolspeed, target = src))
 			playsound(get_turf(src), O.usesound, 75, 1)
 			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
-			"<span class='notice'>You disassemble \the [src].</span>")
+			span_notice("You disassemble \the [src]."))
 			busy = FALSE
 			density = 0
 			deconstruct(TRUE)
@@ -171,12 +171,12 @@
 /obj/item/book/attack_self(mob/user as mob)
 	if(carved)
 		if(store)
-			to_chat(user, "<span class='notice'>[store] falls out of [title]!</span>")
+			to_chat(user, span_notice("[store] falls out of [title]!"))
 			store.forceMove(get_turf(loc))
 			store = null
 			return
 		else
-			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
+			to_chat(user, span_notice("The pages of [title] have been cut out!"))
 			return
 	if(src.dat)
 		user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book")
@@ -193,13 +193,13 @@
 				user.drop_item()
 				W.forceMove(src)
 				store = W
-				to_chat(user, "<span class='notice'>You put [W] in [title].</span>")
+				to_chat(user, span_notice("You put [W] in [title]."))
 				return 1
 			else
-				to_chat(user, "<span class='notice'>[W] won't fit in [title].</span>")
+				to_chat(user, span_notice("[W] won't fit in [title]."))
 				return 1
 		else
-			to_chat(user, "<span class='notice'>There's already something in [title]!</span>")
+			to_chat(user, span_notice("There's already something in [title]!"))
 			return 1
 	if(istype(W, /obj/item/pen))
 		if(unique)
@@ -283,9 +283,9 @@
 		return
 	if(carved)
 		return
-	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
+	to_chat(user, span_notice("You begin to carve out [title]."))
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
+		to_chat(user, span_notice("You carve out the pages from [title]! You didn't want to read it anyway."))
 		carved = TRUE
 		return TRUE
 /*

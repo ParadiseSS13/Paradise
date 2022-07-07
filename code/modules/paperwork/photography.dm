@@ -78,7 +78,7 @@
 	if(in_range(user, src) || isobserver(user))
 		show(user)
 	else
-		. += "<span class='notice'>It is too far away.</span>"
+		. += span_notice("It is too far away.")
 
 /obj/item/photo/proc/show(mob/user as mob)
 	var/icon/img_shown = new/icon(img)
@@ -193,7 +193,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5,7)
 	if(nsize)
 		size = nsize
-		to_chat(usr, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
+		to_chat(usr, span_notice("Camera will now take [size]x[size] photos."))
 
 /obj/item/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
@@ -210,9 +210,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/camera_film))
 		if(pictures_left)
-			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
+			to_chat(user, span_notice("[src] still has some film in it!"))
 			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+		to_chat(user, span_notice("You insert [I] into [src]."))
 		user.drop_item()
 		qdel(I)
 		pictures_left = pictures_max
@@ -337,7 +337,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
-	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
+	to_chat(user, span_notice("[pictures_left] photos left."))
 	icon_state = icon_off
 	on = FALSE
 	if(istype(src,/obj/item/camera/spooky))
@@ -465,7 +465,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
 	if(saved_pictures.len >= max_storage)
-		to_chat(user, "<span class='notice'>Maximum photo storage capacity reached.</span>")
+		to_chat(user, span_notice("Maximum photo storage capacity reached."))
 		return
 	to_chat(user, "Picture saved.")
 	var/x_c = target.x - (size-1)/2

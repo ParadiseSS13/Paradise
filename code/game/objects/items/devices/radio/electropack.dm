@@ -12,7 +12,7 @@
 
 /obj/item/radio/electropack/attack_hand(mob/user as mob)
 	if(src == user.back)
-		to_chat(user, "<span class='notice'>You need help taking this off!</span>")
+		to_chat(user, span_notice("You need help taking this off!"))
 		return 0
 	. = ..()
 
@@ -30,13 +30,13 @@
 	..()
 	if(istype(W, /obj/item/clothing/head/helmet))
 		if(!b_stat)
-			to_chat(user, "<span class='notice'>[src] is not ready to be attached!</span>")
+			to_chat(user, span_notice("[src] is not ready to be attached!"))
 			return
 		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit( user )
 		A.icon = 'icons/obj/assemblies.dmi'
 
 		if(!user.unEquip(W))
-			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot attach it to \the [src]!</span>")
+			to_chat(user, span_notice("\the [W] is stuck to your hand, you cannot attach it to \the [src]!"))
 			return
 		W.loc = A
 		W.master = A

@@ -378,8 +378,8 @@
 /obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
 		return ..()
-	user.visible_message("<span class='notice'>[user] scatters [src] in all directions.</span>", \
-						 "<span class='notice'>You scatter [src] across the area. The particles slowly fade away.</span>")
+	user.visible_message(span_notice("[user] scatters [src] in all directions."), \
+						 span_notice("You scatter [src] across the area. The particles slowly fade away."))
 	user.drop_item()
 	qdel(src)
 
@@ -387,7 +387,7 @@
 	..()
 	if(inert)
 		return
-	visible_message("<span class='notice'>[src] breaks into particles upon impact, which fade away to nothingness.</span>")
+	visible_message(span_notice("[src] breaks into particles upon impact, which fade away to nothingness."))
 	qdel(src)
 
 /obj/item/ectoplasm/revenant/examine(mob/user)

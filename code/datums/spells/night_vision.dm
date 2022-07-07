@@ -5,7 +5,7 @@
 	charge_max = 10
 	clothes_req = FALSE
 
-	message = "<span class='notice'>You toggle your night vision!</span>"
+	message = span_notice("You toggle your night vision!")
 
 /obj/effect/proc_holder/spell/night_vision/create_new_targeting()
 	return new /datum/spell_targeting/self

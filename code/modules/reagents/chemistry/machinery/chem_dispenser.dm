@@ -107,7 +107,7 @@
 /obj/machinery/chem_dispenser/examine(mob/user)
 	. = ..()
 	if(panel_open)
-		. += "<span class='notice'>[src]'s maintenance hatch is open!</span>"
+		. += span_notice("[src]'s maintenance hatch is open!")
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: <br>Recharging <b>[recharge_amount]</b> power units per interval.<br>Power efficiency increased by <b>[round((powerefficiency * 1000) - 100, 1)]%</b>.<span>"
 
@@ -248,14 +248,14 @@
 
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
 		if(panel_open)
-			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+			to_chat(user, span_notice("Close the maintenance panel first."))
 			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
 		beaker =  I
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
+		to_chat(user, span_notice("You set [I] on the machine."))
 		SStgui.update_uis(src) // update all UIs attached to src
 		update_icon()
 		return
@@ -452,16 +452,16 @@
 			if(actual)
 				target.reagents.add_reagent(current_reagent, actual)
 				cell.charge -= actual / efficiency
-				to_chat(user, "<span class='notice'>You dispense [actual] unit\s of [current_reagent] into [target].</span>")
+				to_chat(user, span_notice("You dispense [actual] unit\s of [current_reagent] into [target]."))
 				update_icon()
 			else if(free) // If actual is nil and there's still free space, it means we're out of juice
 				to_chat(user, "<span class='warning'>Insufficient energy to complete operation.</span>")
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, "<span class='notice'>You remove [amount] unit\s of [current_reagent] from [target].</span>")
+				to_chat(user, span_notice("You remove [amount] unit\s of [current_reagent] from [target]."))
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
-				to_chat(user, "<span class='notice'>You remove all but [current_reagent] from [target].</span>")
+				to_chat(user, span_notice("You remove all but [current_reagent] from [target]."))
 
 /obj/item/handheld_chem_dispenser/attack_self(mob/user)
 	if(cell)
@@ -566,16 +566,16 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			to_chat(user, span_notice("[src] already has a cell."))
 		else
 			if(C.maxcharge < 100)
-				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
+				to_chat(user, span_notice("[src] requires a higher capacity cell."))
 				return
 			if(!user.unEquip(W))
 				return
 			W.loc = src
 			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+			to_chat(user, span_notice("You install a cell in [src]."))
 			update_icon()
 
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
@@ -583,7 +583,7 @@
 		cell.update_icon()
 		cell.loc = get_turf(src)
 		cell = null
-		to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
+		to_chat(user, span_notice("You remove the cell from [src]."))
 		update_icon()
 		return
 	..()

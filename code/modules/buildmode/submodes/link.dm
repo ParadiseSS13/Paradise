@@ -27,10 +27,10 @@
 	..()
 
 /datum/buildmode_mode/link/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on obj  = Select button to link</span>")
+	to_chat(user, span_notice("***********************************************************"))
+	to_chat(user, span_notice("Left Mouse Button on obj  = Select button to link"))
 	to_chat(user, "<span class='notice'>Right Mouse Button on obj = Link/unlink to selected button")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_notice("***********************************************************"))
 
 // FIXME: this probably would work better with something component-based
 /datum/buildmode_mode/link/handle_click(mob/user, params, obj/object)

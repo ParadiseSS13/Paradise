@@ -38,7 +38,7 @@
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(100)
-			return "<span class='notice'>It looks fully intact.</span>"
+			return span_notice("It looks fully intact.")
 		if(70 to 99)
 			return  "<span class='warning'>It looks slightly damaged.</span>"
 		if(40 to 70)
@@ -122,7 +122,7 @@
 			if(!istype(T, /turf/simulated/floor))
 				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
 				return
-			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
+			user.visible_message(span_notice("[user] tightens some bolts on the wall."), "<span class='warning'>You tighten the bolts on the wall.</span>")
 			ChangeToWall()
 	else
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
@@ -139,7 +139,7 @@
 	dismantle(user, TRUE)
 
 /obj/structure/falsewall/proc/dismantle(mob/user, disassembled = TRUE)
-	user.visible_message("<span class='notice'>[user] dismantles the false wall.</span>", "<span class='warning'>You dismantle the false wall.</span>")
+	user.visible_message(span_notice("[user] dismantles the false wall."), "<span class='warning'>You dismantle the false wall.</span>")
 	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 	deconstruct(disassembled)
 

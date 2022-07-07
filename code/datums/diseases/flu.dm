@@ -16,7 +16,7 @@
 	switch(stage)
 		if(2)
 			if(IS_HORIZONTAL(affected_mob) && prob(20))
-				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+				to_chat(affected_mob, span_notice("You feel better."))
 				stage--
 				return
 			if(prob(1))
@@ -34,7 +34,7 @@
 
 		if(3)
 			if(IS_HORIZONTAL(affected_mob) && prob(15))
-				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+				to_chat(affected_mob, span_notice("You feel better."))
 				stage--
 				return
 			if(prob(1))

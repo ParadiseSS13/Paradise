@@ -311,7 +311,7 @@
 		if(istype(backup) && movement_dir && !backup.anchored)
 			var/opposite_dir = turn(movement_dir, 180)
 			if(backup.newtonian_move(opposite_dir)) //You're pushing off something movable, so it moves
-				to_chat(src, "<span class='notice'>You push off of [backup] to propel yourself.</span>")
+				to_chat(src, span_notice("You push off of [backup] to propel yourself."))
 		return 1
 	return 0
 
@@ -491,7 +491,7 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		if(C.legcuffed)
-			to_chat(C, "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>")
+			to_chat(C, span_notice("You are legcuffed! You cannot run until you get [C.legcuffed] removed!"))
 			C.m_intent = MOVE_INTENT_WALK	//Just incase
 			C.hud_used.move_intent.icon_state = "walking"
 			return

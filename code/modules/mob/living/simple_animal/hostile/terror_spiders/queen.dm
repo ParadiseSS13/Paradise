@@ -83,9 +83,9 @@
 	spider_lastspawn = world.time
 	canlay += getSpiderLevel()
 	if(canlay == 1)
-		to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
+		to_chat(src, span_notice("You have an egg available to lay."))
 	else if(canlay > 1)
-		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
+		to_chat(src, span_notice("You have [canlay] eggs available to lay."))
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/getSpiderLevel()
@@ -244,7 +244,7 @@
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
-	to_chat(src, "<span class='notice'>You have matured to your egglaying stage. You can now smash through walls, and lay eggs, but can no longer ventcrawl.</span>")
+	to_chat(src, span_notice("You have matured to your egglaying stage. You can now smash through walls, and lay eggs, but can no longer ventcrawl."))
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/LayQueenEggs()
@@ -352,8 +352,8 @@
 		return
 	if(!isobserver(user) && !isterrorspider(user))
 		return
-	. += "<span class='notice'>[p_they(TRUE)] has laid [eggslaid] egg[eggslaid != 1 ? "s" : ""].</span>"
-	. += "<span class='notice'>[p_they(TRUE)] has lived for [MinutesAlive()] minutes.</span>"
+	. += span_notice("[p_they(TRUE)] has laid [eggslaid] egg[eggslaid != 1 ? "s" : ""].")
+	. += span_notice("[p_they(TRUE)] has lived for [MinutesAlive()] minutes.")
 
 
 /obj/item/projectile/terrorqueenspit

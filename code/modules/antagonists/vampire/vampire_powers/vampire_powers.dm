@@ -64,7 +64,7 @@
 	U.SetSleeping(0)
 	U.SetConfused(0)
 	U.adjustStaminaLoss(-100)
-	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
+	to_chat(user, span_notice("You instill your body with clean blood and remove any incapacitating effects."))
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
@@ -289,7 +289,7 @@
 		visible_message("[H] looks unfazed!")
 		return
 	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
-		visible_message("<span class='notice'>[H] looks refreshed!</span>")
+		visible_message(span_notice("[H] looks refreshed!"))
 		H.adjustBruteLoss(-60)
 		H.adjustFireLoss(-60)
 		for(var/obj/item/organ/external/E in H.bodyparts)

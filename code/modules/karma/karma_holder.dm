@@ -84,7 +84,7 @@
 		return
 
 	if(select_query.NextRow())
-		to_chat(usr, "<span class='notice'>You have already purchased [package.friendly_name]. If you believe this is an error, please contact the server host.</span>")
+		to_chat(usr, span_notice("You have already purchased [package.friendly_name]. If you believe this is an error, please contact the server host."))
 		qdel(select_query)
 		return
 

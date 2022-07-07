@@ -27,7 +27,7 @@
 
 //Starts healing you every second for 10 seconds. Can be used whilst unconscious.
 /datum/action/changeling/fleshmend/sting_action(mob/living/user)
-	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
+	to_chat(user, span_notice("We begin to heal rapidly."))
 	if(recent_uses > 1)
 		to_chat(user, "<span class='warning'>Our healing's effectiveness is reduced \
 			by quick repeated use!</span>")

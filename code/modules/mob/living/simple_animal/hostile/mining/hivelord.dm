@@ -131,8 +131,8 @@
 		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/reabsorb_host(mob/living/carbon/C)
-	C.visible_message("<span class='notice'>[src] is reabsorbed by [C]'s body.</span>", \
-								"<span class='notice'>[src] is reabsorbed by your body.</span>")
+	C.visible_message(span_notice("[src] is reabsorbed by [C]'s body."), \
+								span_notice("[src] is reabsorbed by your body."))
 	transfer_reagents(C)
 	death()
 

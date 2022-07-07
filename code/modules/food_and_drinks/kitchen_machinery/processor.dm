@@ -45,7 +45,7 @@
 	if(!P)
 		return
 
-	visible_message("<span class='notice'>[picked_slime] is sucked into [src].</span>")
+	visible_message(span_notice("[picked_slime] is sucked into [src]."))
 	picked_slime.forceMove(src)
 
 //RECIPE DATUMS
@@ -115,7 +115,7 @@
 	var/C = S.cores
 	if(S.stat != DEAD)
 		S.forceMove(processor.drop_location())
-		S.visible_message("<span class='notice'>[S] crawls free of the processor!</span>")
+		S.visible_message(span_notice("[S] crawls free of the processor!"))
 		return
 	for(var/i in 1 to (C+processor.rating_amount-1))
 		new S.coretype(processor.drop_location())
@@ -130,9 +130,9 @@
 	var/mob/living/carbon/human/monkey/O = what
 	if(O.client) //grief-proof
 		O.loc = loc
-		O.visible_message("<span class='notice'>Suddenly [O] jumps out from the processor!</span>", \
-				"<span class='notice'>You jump out of \the [src].</span>", \
-				"<span class='notice'>You hear a chimp.</span>")
+		O.visible_message(span_notice("Suddenly [O] jumps out from the processor!"), \
+				span_notice("You jump out of \the [src]."), \
+				span_notice("You hear a chimp."))
 		return
 	var/obj/item/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
 	var/datum/reagent/blood/B = new()
@@ -189,7 +189,7 @@
 		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
 		return 1
 
-	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
+	user.visible_message(span_notice("\the [user] puts \the [what] into \the [src]."), \
 		"<span class='notice'>You put \the [what] into \the [src].")
 
 	user.drop_item()
@@ -210,7 +210,7 @@
 		return 1
 	processing = 1
 	user.visible_message("[user] turns on [src].", \
-		"<span class='notice'>You turn on [src].</span>", \
+		span_notice("You turn on [src]."), \
 		"<span class='italics'>You hear a food processor.</span>")
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(500)
@@ -231,6 +231,6 @@
 		P.process_food(loc, O, src)
 	processing = 0
 
-	visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
-		"<span class='notice'>\the [src] has finished processing.</span>", \
-		"<span class='notice'>You hear a food processor stopping.</span>")
+	visible_message(span_notice("\the [src] has finished processing."), \
+		span_notice("\the [src] has finished processing."), \
+		span_notice("You hear a food processor stopping."))

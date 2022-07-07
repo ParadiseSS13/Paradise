@@ -36,8 +36,8 @@
 		return
 	if(!reagents.total_volume)
 		if(M == user)
-			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
-		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
+			to_chat(user, span_notice("You finish eating \the [src]."))
+		user.visible_message(span_notice("[M] finishes eating \the [src]."))
 		user.unEquip(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(usr)
@@ -74,11 +74,11 @@
 	if(in_range(user, src))
 		if(bitecount > 0)
 			if(bitecount==1)
-				. += "<span class='notice'>[src] was bitten by someone!</span>"
+				. += span_notice("[src] was bitten by someone!")
 			else if(bitecount<=3)
-				. += "<span class='notice'>[src] was bitten [bitecount] times!</span>"
+				. += span_notice("[src] was bitten [bitecount] times!")
 			else
-				. += "<span class='notice'>[src] was bitten multiple times!</span>"
+				. += span_notice("[src] was bitten multiple times!")
 
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
@@ -153,23 +153,23 @@
 		if(isdog(M))
 			var/mob/living/simple_animal/pet/dog/D = M
 			if(world.time < (D.last_eaten + 300))
-				to_chat(D, "<span class='notice'>You are too full to try eating [src] right now.</span>")
+				to_chat(D, span_notice("You are too full to try eating [src] right now."))
 			else if(bitecount >= 4)
-				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
+				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].",span_notice("You swallow up the last part of [src]."))
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				D.adjustHealth(-10)
 				D.last_eaten = world.time
 				D.taste(reagents)
 				qdel(src)
 			else
-				D.visible_message("[D] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
+				D.visible_message("[D] takes a bite of [src].",span_notice("You take a bite of [src]."))
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				bitecount++
 				D.last_eaten = world.time
 				D.taste(reagents)
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
-			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))
+			to_chat(N, span_notice("You nibble away at [src]."))
 			if(prob(50))
 				N.visible_message("[N] nibbles away at [src].", "")
 			N.adjustHealth(-2)
@@ -177,7 +177,7 @@
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to put something small inside.</span>"
+	. += span_notice("Alt-click to put something small inside.")
 
 /obj/item/reagent_containers/food/snacks/sliceable/AltClick(mob/user)
 	var/obj/item/I = user.get_active_hand()
@@ -217,10 +217,10 @@
 		return TRUE
 	var/slices_lost = 0
 	if(!inaccurate)
-		user.visible_message("<span class='notice'>[user] slices [src]!</span>",
-		 "<span class='notice'>You slice [src]!</span>")
+		user.visible_message(span_notice("[user] slices [src]!"),
+		 span_notice("You slice [src]!"))
 	else
-		user.visible_message("<span class='notice'>[user] crudely slices [src] with [I]!</span>",
+		user.visible_message(span_notice("[user] crudely slices [src] with [I]!"),
 			"<span class='notice'>You crudely slice [src] with your [I]</span>!")
 		slices_lost = rand(1,min(1,round(slices_num/2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num

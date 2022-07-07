@@ -19,13 +19,13 @@
 /obj/item/card/id/guest/examine(mob/user)
 	. = ..()
 	if(world.time < expiration_time)
-		. += "<span class='notice'>This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
+		. += span_notice("This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].")
 	else
 		. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
-	. += "<span class='notice'>It grants access to following areas:</span>"
+	. += span_notice("It grants access to following areas:")
 	for(var/A in temp_access)
-		. += "<span class='notice'>[get_access_desc(A)].</span>"
-	. += "<span class='notice'>Issuing reason: [reason].</span>"
+		. += span_notice("[get_access_desc(A)].")
+	. += span_notice("Issuing reason: [reason].")
 
 /////////////////////////////////////////////
 //Guest pass terminal////////////////////////

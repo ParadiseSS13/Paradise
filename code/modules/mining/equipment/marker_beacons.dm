@@ -38,8 +38,8 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use in-hand to place a [singular_name].</span>"
-	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
+	. += span_notice("Use in-hand to place a [singular_name].")
+	. += span_notice("Alt-click to select a color. Current color is [picked_color].")
 
 /obj/item/stack/marker_beacon/update_icon()
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]"
@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		to_chat(user, "<span class='warning'>There is already a [singular_name] here.</span>")
 		return
 	if(use(1))
-		to_chat(user, "<span class='notice'>You activate and anchor [amount ? "a":"the"] [singular_name] in place.</span>")
+		to_chat(user, span_notice("You activate and anchor [amount ? "a":"the"] [singular_name] in place."))
 		playsound(user, 'sound/machines/click.ogg', 50, 1)
 		var/obj/structure/marker_beacon/M = new(user.loc, picked_color)
 		transfer_fingerprints_to(M)
@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 /obj/structure/marker_beacon/examine(mob/user)
 	. = ..()
 	if(picked_color)
-		. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
+		. += span_notice("Alt-click to select a color. Current color is [picked_color].")
 
 /obj/structure/marker_beacon/update_icon()
 	while(!picked_color || !GLOB.marker_beacon_colors[picked_color])
@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
+	to_chat(user, span_notice("You start picking [src] up..."))
 	if(do_after(user, remove_speed, target = src))
 		var/obj/item/stack/marker_beacon/M = new(loc)
 		M.picked_color = picked_color
@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 /obj/structure/marker_beacon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/marker_beacon))
 		var/obj/item/stack/marker_beacon/M = I
-		to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
+		to_chat(user, span_notice("You start picking [src] up..."))
 		if(do_after(user, remove_speed, target = src) && M.amount + 1 <= M.max_amount)
 			M.add(1)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)

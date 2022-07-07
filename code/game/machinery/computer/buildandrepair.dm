@@ -39,7 +39,7 @@
 			if(!ispath(A))
 				continue
 			nice_list += list("[req_components[A]] [initial(A.name)]\s")
-		. += "<span class='notice'>Required components: [english_list(nice_list)].</span>"
+		. += span_notice("Required components: [english_list(nice_list)].")
 
 /obj/item/circuitboard/message_monitor
 	board_name = "Message Monitor"
@@ -384,7 +384,7 @@
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(allowed(user))
-			user.visible_message("<span class='notice'>[user] waves [user.p_their()] ID past [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past [src]'s access protocol scanner.</span>")
+			user.visible_message(span_notice("[user] waves [user.p_their()] ID past [src]'s access protocol scanner."), span_notice("You swipe your ID past [src]'s access protocol scanner."))
 			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in access_types
 			if(!console_choice)
 				return
@@ -403,7 +403,7 @@
 					build_path = /obj/machinery/computer/rdconsole/public
 
 			format_board_name()
-			to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
+			to_chat(user, span_notice("Access protocols set to [console_choice]."))
 		else
 			to_chat(user, "<span class='warning'>Access Denied</span>")
 		return
@@ -478,10 +478,10 @@
 		return
 
 	if(anchored)
-		to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
+		to_chat(user, span_notice("You unfasten the frame."))
 		anchored = FALSE
 	else
-		to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
+		to_chat(user, span_notice("You wrench the frame into place."))
 		anchored = TRUE
 
 /obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/I)
@@ -490,13 +490,13 @@
 		return
 
 	if(state == STATE_CIRCUIT)
-		to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+		to_chat(user, span_notice("You remove the circuit board."))
 		state = STATE_EMPTY
 		name = initial(name)
 		circuit.forceMove(drop_location())
 		circuit = null
 	else if(state == STATE_GLASS)
-		to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
+		to_chat(user, span_notice("You remove the glass panel."))
 		state = STATE_WIRES
 		new /obj/item/stack/sheet/glass(drop_location(), 2)
 	else
@@ -512,17 +512,17 @@
 
 	switch(state)
 		if(STATE_CIRCUIT)
-			to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
+			to_chat(user, span_notice("You screw the circuit board into place."))
 			state = STATE_NOWIRES
 			I.play_tool_sound(src)
 			update_icon()
 		if(STATE_NOWIRES)
-			to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
+			to_chat(user, span_notice("You unfasten the circuit board."))
 			state = STATE_CIRCUIT
 			I.play_tool_sound(src)
 			update_icon()
 		if(STATE_GLASS)
-			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
+			to_chat(user, span_notice("You connect the monitor."))
 			I.play_tool_sound(src)
 			var/obj/machinery/computer/B = new circuit.build_path(loc)
 			B.setDir(dir)
@@ -538,7 +538,7 @@
 		return
 
 	if(state == STATE_WIRES)
-		to_chat(user, "<span class='notice'>You remove the cables.</span>")
+		to_chat(user, span_notice("You remove the cables."))
 		var/obj/item/stack/cable_coil/C = new(drop_location())
 		C.amount = 5
 		state = STATE_NOWIRES
@@ -557,7 +557,7 @@
 				return
 
 			B.play_tool_sound(src)
-			to_chat(user, "<span class='notice'>You place [B] inside [src].</span>")
+			to_chat(user, span_notice("You place [B] inside [src]."))
 			name += " ([B.board_name])"
 			state = STATE_CIRCUIT
 			user.drop_item()
@@ -576,14 +576,14 @@
 				return
 
 			C.play_tool_sound(src)
-			to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
+			to_chat(user, span_notice("You start to add cables to the frame."))
 			if(!do_after(user, 2 SECONDS * C.toolspeed, target = src))
 				return
 			if(C.get_amount() < 5 || !C.use(5))
 				to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
 				return
 
-			to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+			to_chat(user, span_notice("You add cables to the frame."))
 			state = STATE_WIRES
 			update_icon()
 			return
@@ -598,14 +598,14 @@
 				return
 
 			G.play_tool_sound(src)
-			to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
+			to_chat(user, span_notice("You start to add the glass panel to the frame."))
 			if(!do_after(user, 2 SECONDS * G.toolspeed, target = src))
 				return
 			if(G.get_amount() < 2 || !G.use(2))
 				to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")
 				return
 
-			to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
+			to_chat(user, span_notice("You put in the glass panel."))
 			state = STATE_GLASS
 			update_icon()
 			return

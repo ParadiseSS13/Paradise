@@ -52,7 +52,7 @@
 			to_chat(user, "<span class='warning'>There are not enough crystal slots.</span>")
 			return
 		crystals += 1
-		user.visible_message("<span class='notice'>[user] inserts a [B.singular_name] into [src]'s crystal slot.</span>")
+		user.visible_message(span_notice("[user] inserts a [B.singular_name] into [src]'s crystal slot."))
 		B.use(1)
 		updateUsrDialog()
 	else if(istype(W, /obj/item/gps))
@@ -60,21 +60,21 @@
 			inserted_gps = W
 			user.unEquip(W)
 			W.loc = src
-			user.visible_message("<span class='notice'>[user] inserts [W] into [src]'s GPS device slot.</span>")
+			user.visible_message(span_notice("[user] inserts [W] into [src]'s GPS device slot."))
 			updateUsrDialog()
 	else if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
 			telepad = M.buffer
 			M.buffer = null
-			to_chat(user, "<span class='notice'>You upload the data from [M]'s buffer.</span>")
+			to_chat(user, span_notice("You upload the data from [M]'s buffer."))
 			updateUsrDialog()
 	else
 		return ..()
 
 /obj/machinery/computer/telescience/emag_act(user as mob)
 	if(!emagged)
-		to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
+		to_chat(user, span_notice("You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"))
 		emagged = 1
 	else
 		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")

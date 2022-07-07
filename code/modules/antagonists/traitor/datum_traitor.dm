@@ -205,7 +205,7 @@
 		target_radio.hidden_uplink = T
 		T.uplink_owner = "[traitor_mob.key]"
 		target_radio.traitor_frequency = freq
-		to_chat(traitor_mob, "<span class='notice'>The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.</span>")
+		to_chat(traitor_mob, span_notice("The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features."))
 		antag_memory += "<B>Radio Freq:</B> [format_frequency(freq)] ([R.name])."
 		return TRUE
 
@@ -219,7 +219,7 @@
 		var/obj/item/pda/P = R
 		P.lock_code = pda_pass
 
-		to_chat(traitor_mob, "<span class='notice'>The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.</span>")
+		to_chat(traitor_mob, span_notice("The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features."))
 		antag_memory += "<B>Uplink Passcode:</B> [pda_pass] ([R.name]."
 		return TRUE
 	return FALSE

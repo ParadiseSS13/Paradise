@@ -231,7 +231,7 @@
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
 					return
 				Nuke_request(input, usr)
-				to_chat(usr, "<span class='notice'>Request sent.</span>")
+				to_chat(usr, span_notice("Request sent."))
 				log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
 				GLOB.priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
@@ -284,7 +284,7 @@
 					var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
 										"Capturing all of them", "Fixing minor text issues", "Being the very best",
 										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
-					to_chat(usr, "<span class='notice'>Restarting Nano-Mob Hunter GO! game server. [loading_msg]...</span>")
+					to_chat(usr, span_notice("Restarting Nano-Mob Hunter GO! game server. [loading_msg]..."))
 				else
 					to_chat(usr, "<span class='warning'>Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting.</span>")
 			else
@@ -295,7 +295,7 @@
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
+		to_chat(user, span_notice("You scramble the communication routing circuits!"))
 		SStgui.update_uis(src)
 
 /obj/machinery/computer/communications/attack_ai(mob/user as mob)

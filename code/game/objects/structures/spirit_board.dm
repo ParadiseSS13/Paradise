@@ -40,7 +40,7 @@
 	var/turf/T = loc
 	sleep(rand(20,30))
 	if(T == loc)
-		visible_message("<span class='notice'>The planchette slowly moves... and stops at the letter \"[planchette]\".</span>")
+		visible_message(span_notice("The planchette slowly moves... and stops at the letter \"[planchette]\"."))
 
 
 /obj/structure/spirit_board/proc/spirit_board_checks(mob/M)

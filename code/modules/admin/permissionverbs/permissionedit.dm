@@ -111,7 +111,7 @@
 			return
 		qdel(log_query)
 
-		to_chat(usr, "<span class='notice'>New admin added.</span>")
+		to_chat(usr, span_notice("New admin added."))
 	else
 		if(!isnull(admin_id) && isnum(admin_id))
 			var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE admin SET admin_rank=:new_rank WHERE id=:admin_id", list(
@@ -133,7 +133,7 @@
 				qdel(log_query)
 				return
 			qdel(log_query)
-			to_chat(usr, "<span class='notice'>Admin rank changed.</span>")
+			to_chat(usr, span_notice("Admin rank changed."))
 
 /datum/admins/proc/log_admin_permission_modification(adm_ckey, new_permission)
 	if(IsAdminAdvancedProcCall())
@@ -208,7 +208,7 @@
 			qdel(log_query)
 			return
 		qdel(log_query)
-		to_chat(usr, "<span class='notice'>Permission removed.</span>")
+		to_chat(usr, span_notice("Permission removed."))
 	else //This admin doesn't have this permission, so we are adding it.
 		var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE admin SET flags=:newflags WHERE id=:admin_id", list(
 			"newflags" = (admin_rights | new_permission),
@@ -232,7 +232,7 @@
 			qdel(log_query)
 			return
 		qdel(log_query)
-		to_chat(usr, "<span class='notice'>Permission added.</span>")
+		to_chat(usr, span_notice("Permission added."))
 
 /datum/admins/proc/updateranktodb(ckey,newrank)
 	if(!SSdbcore.IsConnected())

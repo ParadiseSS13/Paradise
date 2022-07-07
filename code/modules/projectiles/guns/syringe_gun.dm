@@ -45,7 +45,7 @@
 
 /obj/item/gun/syringe/attack_self(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, span_notice("[src] is empty."))
 		return FALSE
 
 	var/obj/item/reagent_containers/syringe/S
@@ -61,7 +61,7 @@
 
 	user.put_in_hands(S)
 	syringes.Remove(S)
-	to_chat(user, "<span class='notice'>You unload [S] from [src]!</span>")
+	to_chat(user, span_notice("You unload [S] from [src]!"))
 	return TRUE
 
 /obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
@@ -70,13 +70,13 @@
 		if(in_clip < max_syringes)
 			if(!user.unEquip(A))
 				return
-			to_chat(user, "<span class='notice'>You load [A] into [src]!</span>")
+			to_chat(user, span_notice("You load [A] into [src]!"))
 			syringes.Add(A)
 			A.loc = src
 			process_chamber() // Chamber the syringe if none is already
 			return TRUE
 		else
-			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
+			to_chat(user, span_notice("[src] cannot hold more syringes."))
 	else
 		return ..()
 /obj/item/gun/syringe/rapidsyringe_old
@@ -137,7 +137,7 @@
 			reagents.maximum_volume = var_value
 
 /obj/item/gun/syringe/rapidsyringe/build_reagent_description(mob/user)
-	. = list("<span class='notice'>There's a little window for the internal reservoir.</span>")
+	. = list(span_notice("There's a little window for the internal reservoir."))
 	. += ..()
 
 /obj/item/gun/syringe/rapidsyringe/proc/get_units_per_shot()
@@ -164,7 +164,7 @@
 	if(user)
 		if(!user.unEquip(new_syringe))
 			return
-		to_chat(user, "<span class='notice'>You load \the [new_syringe] into [src].</span>")
+		to_chat(user, span_notice("You load \the [new_syringe] into [src]."))
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 	syringes.Add(new_syringe)
 	new_syringe.forceMove(src)
@@ -226,7 +226,7 @@
 			return
 
 		var/trans = incoming.reagents.trans_to(src, incoming.amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [round(trans)] unit\s of the solution to [src]'s internal reservoir.</span>")
+		to_chat(user, span_notice("You transfer [round(trans)] unit\s of the solution to [src]'s internal reservoir."))
 		update_loaded_syringe()
 
 		// Reset the reservoir alarm
@@ -262,7 +262,7 @@
 		else
 			transfer_amount = reagents.trans_to(destination, reservoir_transfer_amount)
 
-		to_chat(user, "<span class='notice'>You drain [transfer_amount] unit\s from [transfer_source] into [destination].</span>")
+		to_chat(user, span_notice("You drain [transfer_amount] unit\s from [transfer_source] into [destination]."))
 		// Refill the syringe
 		update_loaded_syringe()
 		return TRUE
@@ -287,7 +287,7 @@
 		transfer_amount_selection = 1
 
 	playsound(src, 'sound/weapons/gun_interactions/selector.ogg', 25, 1)
-	to_chat(user, "<span class='notice'>[src] will now fill each syringe with up to [get_units_per_shot()] units.</span>")
+	to_chat(user, span_notice("[src] will now fill each syringe with up to [get_units_per_shot()] units."))
 	update_loaded_syringe()
 
 /// Update the chambered syringe's contents based on the reservoir contents.
@@ -322,7 +322,7 @@
 // Unload an empty syringe, making sure its existing contents get returned to the reservoir
 /obj/item/gun/syringe/rapidsyringe/attack_self(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, span_notice("[src] is empty."))
 		return FALSE
 
 	var/obj/item/reagent_containers/syringe/S
@@ -339,7 +339,7 @@
 	syringes.Remove(S)
 	process_chamber()
 	playsound(src, "sound/weapons/gun_interactions/remove_bullet.ogg", 25, 1)
-	to_chat(user, "<span class='notice'>You unload [S] from [src].</span>")
+	to_chat(user, span_notice("You unload [S] from [src]."))
 	return TRUE
 
 /obj/item/gun/syringe/rapidsyringe/suicide_act(mob/user)

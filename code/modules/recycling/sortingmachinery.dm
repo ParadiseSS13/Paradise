@@ -41,7 +41,7 @@
 
 		if(sortTag != O.currTag)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
-			to_chat(user, "<span class='notice'>*[tag]*</span>")
+			to_chat(user, span_notice("*[tag]*"))
 			sortTag = O.currTag
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
@@ -51,7 +51,7 @@
 			return
 		else
 			sortTag = sp.sortTag
-			to_chat(user, "<span class='notice'>You rip the label off the shipping package and affix it to [src].</span>")
+			to_chat(user, span_notice("You rip the label off the shipping package and affix it to [src]."))
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
@@ -61,7 +61,7 @@
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
 		var/obj/item/stack/wrapping_paper/WP = W
 		if(WP.use(3))
-			user.visible_message("<span class='notice'>[user] wraps the package in festive paper!</span>")
+			user.visible_message(span_notice("[user] wraps the package in festive paper!"))
 			giftwrapped = 1
 			if(istype(wrapped, /obj/structure/closet/crate))
 				icon_state = "giftcrate"
@@ -70,7 +70,7 @@
 			if(WP.amount <= 0 && !WP.loc) //if we used our last wrapping paper, drop a cardboard tube
 				new /obj/item/c_tube( get_turf(user) )
 		else
-			to_chat(user, "<span class='notice'>You need more paper.</span>")
+			to_chat(user, span_notice("You need more paper."))
 	else
 		return ..()
 
@@ -109,7 +109,7 @@
 
 		if(sortTag != O.currTag)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
-			to_chat(user, "<span class='notice'>*[tag]*</span>")
+			to_chat(user, span_notice("*[tag]*"))
 			sortTag = O.currTag
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
@@ -119,7 +119,7 @@
 			return
 		else
 			sortTag = sp.sortTag
-			to_chat(user, "<span class='notice'>You rip the label off the shipping package and affix it to [src].</span>")
+			to_chat(user, span_notice("You rip the label off the shipping package and affix it to [src]."))
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
@@ -131,11 +131,11 @@
 		if(WP.use(1))
 			icon_state = "giftcrate[wrapped.w_class]"
 			giftwrapped = 1
-			user.visible_message("<span class='notice'>[user] wraps the package in festive paper!</span>")
+			user.visible_message(span_notice("[user] wraps the package in festive paper!"))
 			if(WP.amount <= 0 && !WP.loc) //if we used our last wrapping paper, drop a cardboard tube
 				new /obj/item/c_tube( get_turf(user) )
 		else
-			to_chat(user, "<span class='notice'>You need more paper.</span>")
+			to_chat(user, span_notice("You need more paper."))
 	else
 		return ..()
 
@@ -199,10 +199,10 @@
 		D.init_welded = C.welded
 		C.welded = TRUE
 	else
-		to_chat(user, "<span class='notice'>The object you are trying to wrap is unsuitable for the sorting machinery.</span>")
+		to_chat(user, span_notice("The object you are trying to wrap is unsuitable for the sorting machinery."))
 		return FALSE
 
-	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
+	user.visible_message(span_notice("[user] wraps [target]."))
 	user.create_attack_log("<font color='blue'>Has used [name] on [target]</font>")
 	add_attack_logs(user, target, "used [name]", ATKLOG_ALL)
 
@@ -383,31 +383,31 @@
 		if(istype(O, /obj/item/pen))
 			var/str = copytext(sanitize(input(user,"Intended recipient?","Address","")),1,MAX_NAME_LEN)
 			if(!str || !length(str))
-				to_chat(user, "<span class='notice'>Invalid text.</span>")
+				to_chat(user, span_notice("Invalid text."))
 				return
-			user.visible_message("<span class='notice'>[user] addresses [src] to [str].</span>")
+			user.visible_message(span_notice("[user] addresses [src] to [str]."))
 			name = "Shipping package (RE: [str])"
 		return
 	if(wrapped)
-		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
+		to_chat(user, span_notice("[src] already contains \a [wrapped]."))
 		return
 	if(istype(O, /obj/item) && !istype(O, /obj/item/storage) && !istype(O, /obj/item/shippingPackage))
 		if(!user.canUnEquip(O))
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
 			return
 		if(O.w_class > 3)
-			to_chat(user, "<span class='notice'>[O] is too large to fit in [src].</span>")
+			to_chat(user, span_notice("[O] is too large to fit in [src]."))
 		else
 			wrapped = O
 			user.unEquip(O)
 			O.forceMove(src)
 			O.add_fingerprint(usr)
 			add_fingerprint(usr)
-			to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
+			to_chat(user, span_notice("You put [O] in [src]."))
 
 /obj/item/shippingPackage/attack_self(mob/user)
 	if(sealed)
-		to_chat(user, "<span class='notice'>You tear open [src], dropping the contents onto the floor.</span>")
+		to_chat(user, span_notice("You tear open [src], dropping the contents onto the floor."))
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 		user.unEquip(src)
 		wrapped.forceMove(get_turf(user))
@@ -416,17 +416,17 @@
 	else if(wrapped)
 		switch(alert("Select an action:",, "Remove Object", "Seal Package", "Cancel"))
 			if("Remove Object")
-				to_chat(user, "<span class='notice'>You shake out [src]'s contents onto the floor.</span>")
+				to_chat(user, span_notice("You shake out [src]'s contents onto the floor."))
 				wrapped.forceMove(get_turf(user))
 				wrapped = null
 			if("Seal Package")
-				to_chat(user, "<span class='notice'>You seal [src], preparing it for delivery.</span>")
+				to_chat(user, span_notice("You seal [src], preparing it for delivery."))
 				icon_state = "shippack_sealed"
 				sealed = 1
 				update_desc()
 	else
 		if(alert("Do you want to tear up the package?",, "Yes", "No") == "Yes")
-			to_chat(user, "<span class='notice'>You shred [src].</span>")
+			to_chat(user, span_notice("You shred [src]."))
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 			user.unEquip(src)
 			qdel(src)

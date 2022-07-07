@@ -71,7 +71,7 @@
 	if(cracked) // Cracked open.
 		. += "<span class='warning'>It is broken, and can no longer store objects safely.</span>"
 	else if(dented) // Not cracked, but dented.
-		. += "<span class='notice'>[src] looks dented. Perhaps a bigger explosion may break it.</span>"
+		. += span_notice("[src] looks dented. Perhaps a bigger explosion may break it.")
 	else // Not cracked or dented.
 		. += "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
 
@@ -174,7 +174,7 @@
 		tongs.sliver = src
 		tongs.icon_state = "supermatter_tongs_loaded"
 		tongs.item_state = "supermatter_tongs_loaded"
-		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
+		to_chat(user, span_notice("You carefully pick up [src] with [tongs]."))
 	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
 		return
 	else
@@ -255,7 +255,7 @@
 	I.icon_state = "supermatter_tongs_loaded"
 	I.item_state = "supermatter_tongs_loaded"
 	icon_state = "core_container_cracked_empty"
-	to_chat(user, "<span class='notice'>You carefully pick up [I.sliver] with [I].</span>")
+	to_chat(user, span_notice("You carefully pick up [I.sliver] with [I]."))
 
 /obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user)
 	if(istype(tongs))
@@ -336,7 +336,7 @@
 /obj/item/retractor/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
 	if(sliver)
 		sliver.forceMove(loc)
-		visible_message("<span class='notice'>[sliver] falls out of [src] as it hits the ground.</span>")
+		visible_message(span_notice("[sliver] falls out of [src] as it hits the ground."))
 		sliver = null
 		icon_state = "supermatter_tongs"
 		item_state = "supermatter_tongs"

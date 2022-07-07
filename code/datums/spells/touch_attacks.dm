@@ -11,7 +11,7 @@
 		qdel(attached_hand)
 		charge_counter = charge_max
 		attached_hand = null
-		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
+		to_chat(user, span_notice("You draw the power out of your hand."))
 		return 0
 	..()
 
@@ -41,7 +41,7 @@
 		attached_hand = null
 		to_chat(user, "<span class='warning'>Your hands are full!</span>")
 		return 0
-	to_chat(user, "<span class='notice'>You channel the power of the spell to your hand.</span>")
+	to_chat(user, span_notice("You channel the power of the spell to your hand."))
 	return 1
 
 

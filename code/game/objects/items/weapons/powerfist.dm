@@ -25,9 +25,9 @@
 /obj/item/melee/powerfist/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src))
-		. += "<span class='notice'>You'll need to get closer to see any more.</span>"
+		. += span_notice("You'll need to get closer to see any more.")
 	else if(tank)
-		. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
+		. += span_notice("[bicon(tank)] It has [tank] mounted onto it.")
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank/internals))
@@ -51,7 +51,7 @@
 			fisto_setting = 3
 		if(3)
 			fisto_setting = 1
-	to_chat(user, "<span class='notice'>You tweak [src]'s piston valve to [fisto_setting].</span>")
+	to_chat(user, span_notice("You tweak [src]'s piston valve to [fisto_setting]."))
 
 /obj/item/melee/powerfist/screwdriver_act(mob/user, obj/item/I)
 	if(!tank)
@@ -64,9 +64,9 @@
 /obj/item/melee/powerfist/proc/updateTank(obj/item/tank/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)
 		if(!tank)
-			to_chat(user, "<span class='notice'>[src] currently has no tank attached to it.</span>")
+			to_chat(user, span_notice("[src] currently has no tank attached to it."))
 			return
-		to_chat(user, "<span class='notice'>You detach [thetank] from [src].</span>")
+		to_chat(user, span_notice("You detach [thetank] from [src]."))
 		tank.forceMove(get_turf(user))
 		user.put_in_hands(tank)
 		tank = null
@@ -76,7 +76,7 @@
 			return
 		if(!user.unEquip(thetank))
 			return
-		to_chat(user, "<span class='notice'>You hook [thetank] up to [src].</span>")
+		to_chat(user, span_notice("You hook [thetank] up to [src]."))
 		tank = thetank
 		thetank.forceMove(src)
 

@@ -24,9 +24,9 @@
 /obj/item/organ/internal/lantern/ui_action_click()
 	if(toggle_biolum())
 		if(glowing)
-			owner.visible_message("<span class='notice'>[owner] starts to glow!</span>", "<span class='notice'>You enable your bioluminescence.</span>")
+			owner.visible_message(span_notice("[owner] starts to glow!"), span_notice("You enable your bioluminescence."))
 		else
-			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>", "<span class='notice'>You disable your bioluminescence.</span>")
+			owner.visible_message(span_notice("[owner] fades to dark."), span_notice("You disable your bioluminescence."))
 
 /obj/item/organ/internal/lantern/on_life()
 	..()
@@ -38,7 +38,7 @@
 
 		if(owner.stat)
 			toggle_biolum(1)
-			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>")
+			owner.visible_message(span_notice("[owner] fades to dark."))
 			return
 
 		owner.set_nutrition(max(owner.nutrition - KIDAN_LANTERN_HUNGERCOST, KIDAN_LANTERN_HUNGERCOST))

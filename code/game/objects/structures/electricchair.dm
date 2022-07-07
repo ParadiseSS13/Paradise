@@ -45,7 +45,7 @@
 	if(last_time + delay_time > world.time)
 		to_chat(usr, "<span class='warning'>\The [src] is not ready yet!</span>")
 		return
-	to_chat(usr, "<span class='notice'>You activate \the [src].</span>")
+	to_chat(usr, span_notice("You activate \the [src]."))
 	shock()
 
 /obj/structure/chair/e_chair/rotate()

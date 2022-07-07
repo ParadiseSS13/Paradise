@@ -18,7 +18,7 @@
 
 /obj/structure/largecrate/attack_hand(mob/user as mob)
 	if(manifest)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
+		to_chat(user, span_notice("You tear the manifest off of the crate."))
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
 		manifest.forceMove(loc)
 		if(ishuman(user))
@@ -27,7 +27,7 @@
 		update_icon()
 		return
 	else
-		to_chat(user, "<span class='notice'>You need a crowbar to pry this open!</span>")
+		to_chat(user, span_notice("You need a crowbar to pry this open!"))
 		return
 
 /obj/structure/largecrate/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -41,9 +41,9 @@
 		for(var/O in contents)
 			var/atom/movable/A = O
 			A.forceMove(T)
-		user.visible_message("<span class='notice'>[user] pries \the [src] open.</span>", \
-							 "<span class='notice'>You pry open \the [src].</span>", \
-							 "<span class='notice'>You hear splitting wood.</span>")
+		user.visible_message(span_notice("[user] pries \the [src] open."), \
+							 span_notice("You pry open \the [src]."), \
+							 span_notice("You hear splitting wood."))
 		qdel(src)
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)

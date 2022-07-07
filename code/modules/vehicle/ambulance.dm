@@ -112,7 +112,7 @@
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>"
+	. += span_notice("Drag [src]'s sprite over the ambulance to (de)attach it.")
 
 /obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
 	..()

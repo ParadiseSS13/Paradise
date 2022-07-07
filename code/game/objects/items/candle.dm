@@ -37,14 +37,14 @@
 
 /obj/item/candle/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W))
-		light("<span class='notice'>[user] lights [src] with [W].</span>")
+		light(span_notice("[user] lights [src] with [W]."))
 		return
 	return ..()
 
 /obj/item/candle/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light("<span class='notice'>[user] casually lights [src] with [I], what a badass.</span>")
+		light(span_notice("[user] casually lights [src] with [I], what a badass."))
 
 /obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
@@ -96,7 +96,7 @@
 
 /obj/item/candle/attack_self(mob/user)
 	if(lit)
-		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
+		user.visible_message(span_notice("[user] snuffs out [src]."))
 		lit = 0
 		update_icon()
 		set_light(0)

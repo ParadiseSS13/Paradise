@@ -48,9 +48,9 @@
 		user.update_inv_l_hand()
 	if(!(flags & ABSTRACT))
 		if(isrobot(user))
-			to_chat(user, "<span class='notice'>You free up your module.</span>")
+			to_chat(user, span_notice("You free up your module."))
 		else
-			to_chat(user, "<span class='notice'>You are now carrying [name] with one hand.</span>")
+			to_chat(user, span_notice("You are now carrying [name] with one hand."))
 	if(unwieldsound)
 		playsound(loc, unwieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = user.get_inactive_hand()
@@ -83,9 +83,9 @@
 		user.update_inv_l_hand()
 	if(!(flags & ABSTRACT))
 		if(isrobot(user))
-			to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
+			to_chat(user, span_notice("You dedicate your module to [src]."))
 		else
-			to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
+			to_chat(user, span_notice("You grab [src] with both hands."))
 	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
@@ -156,7 +156,7 @@
 	if(get_dist(src, user) > 1)
 		return FALSE
 	if(H != null)
-		to_chat(user, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
+		to_chat(user, span_notice("[src] is too cumbersome to carry in one hand!"))
 		return
 	if(loc != user)
 		wield(user)
@@ -166,7 +166,7 @@
 	var/obj/item/twohanded/required/H = receiver.get_inactive_hand()
 	if(H != null) //Check if he can wield it
 		receiver.drop_item() //Can't wear it so drop it
-		to_chat(receiver, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
+		to_chat(receiver, span_notice("[src] is too cumbersome to carry in one hand!"))
 		return
 	equipped(receiver,receiver.hand ? slot_l_hand : slot_r_hand)
 
@@ -176,7 +176,7 @@
 		wield(user)
 		if(!wielded) // Drop immediately if we couldn't wield
 			user.unEquip(src)
-			to_chat(user, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
+			to_chat(user, span_notice("[src] is too cumbersome to carry in one hand!"))
 	else
 		unwield(user)
 
@@ -479,7 +479,7 @@
 /obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/organ/external/head))
 		if(user.unEquip(src) && user.drop_item())
-			to_chat(user, "<span class='notice'>You stick [I] onto the spear and stand it upright on the ground.</span>")
+			to_chat(user, span_notice("You stick [I] onto the spear and stand it upright on the ground."))
 			var/obj/structure/headspear/HS = new /obj/structure/headspear(get_turf(src))
 			var/matrix/M = matrix()
 			I.transform = M

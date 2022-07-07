@@ -26,7 +26,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/door/poddoor/impassable/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/door/poddoor/Bumped(atom/AM)
@@ -63,7 +63,7 @@
 	if(!density)
 		return
 	if(!hasPower())
-		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
+		to_chat(user, span_notice("You start forcing [src] open..."))
 		if(do_after(user, 50 * I.toolspeed, target = src))
 			if(!hasPower())
 				open()
@@ -139,7 +139,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/door/poddoor/multi_tile/impassable/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor

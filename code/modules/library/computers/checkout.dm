@@ -197,7 +197,7 @@
 /obj/machinery/computer/library/checkout/emag_act(mob/user)
 	if(density && !emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
+		to_chat(user, span_notice("You override the library computer's printing restrictions."))
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/W as obj, mob/user as mob)
 	if(default_unfasten_wrench(user, W))

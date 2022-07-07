@@ -39,7 +39,7 @@
 
 /mob/living/silicon/attack_larva(mob/living/carbon/alien/larva/L)
 	if(L.a_intent == INTENT_HELP)
-		visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>")
+		visible_message(span_notice("[L.name] rubs its head against [src]."))
 
 /mob/living/silicon/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
@@ -56,14 +56,14 @@
 /mob/living/silicon/attack_hand(mob/living/carbon/human/M)
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			M.visible_message("<span class='notice'>[M] pets [src]!</span>", \
-							"<span class='notice'>You pet [src]!</span>")
+			M.visible_message(span_notice("[M] pets [src]!"), \
+							span_notice("You pet [src]!"))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		if("grab")
 			grabbedby(M)
 		else
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			playsound(loc, 'sound/effects/bang.ogg', 10, 1)
-			visible_message("<span class='notice'>[M] punches [src], but doesn't leave a dent.</span>", \
-						"<span class='notice'>[M] punches [src], but doesn't leave a dent.</span>")
+			visible_message(span_notice("[M] punches [src], but doesn't leave a dent."), \
+						span_notice("[M] punches [src], but doesn't leave a dent."))
 	return FALSE

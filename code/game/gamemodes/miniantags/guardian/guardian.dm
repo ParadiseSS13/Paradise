@@ -217,10 +217,10 @@
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(!light_on)
 		set_light(luminosity_on)
-		to_chat(src, "<span class='notice'>You activate your light.</span>")
+		to_chat(src, span_notice("You activate your light."))
 	else
 		set_light(0)
-		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
+		to_chat(src, span_notice("You deactivate your light."))
 	light_on = !light_on
 
 ////////Creation
@@ -296,7 +296,7 @@
 /obj/item/guardiancreator/examine(mob/user, distance)
 	. = ..()
 	if(used)
-		. += "<span class='notice'>[used_message]</span>"
+		. += span_notice("[used_message]")
 
 /obj/item/guardiancreator/proc/has_guardian(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)

@@ -70,9 +70,9 @@
 /obj/item/melee/baton/examine(mob/user)
 	. = ..()
 	if(isrobot(user))
-		. += "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>"
+		. += span_notice("This baton is drawing power directly from your own internal charge.")
 	if(cell)
-		. += "<span class='notice'>The baton is [round(cell.percent())]% charged.</span>"
+		. += span_notice("The baton is [round(cell.percent())]% charged.")
 	else
 		. += "<span class='warning'>The baton does not have a power source installed.</span>"
 
@@ -117,7 +117,7 @@
 			return
 		I.forceMove(src)
 		cell = I
-		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
+		to_chat(user, span_notice("You install [I] into [src]."))
 		update_icon()
 
 /obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
@@ -128,7 +128,7 @@
 		return
 
 	user.put_in_hands(cell)
-	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
+	to_chat(user, span_notice("You remove [cell] from [src]."))
 	cell.update_icon()
 	cell = null
 	turned_on = FALSE
@@ -137,7 +137,7 @@
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell?.charge >= hitcost)
 		turned_on = !turned_on
-		to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
+		to_chat(user, span_notice("[src] is now [turned_on ? "on" : "off"]."))
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		if(isrobot(loc))

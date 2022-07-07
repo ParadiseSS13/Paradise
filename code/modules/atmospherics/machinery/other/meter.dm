@@ -134,11 +134,11 @@
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	playsound(loc, W.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+	to_chat(user, span_notice("You begin to unfasten \the [src]..."))
 	if(do_after(user, 40 * W.toolspeed, target = src))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
+			span_notice("You have unfastened \the [src]."), \
 			"You hear ratchet.")
 		deconstruct(TRUE)
 

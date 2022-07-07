@@ -139,12 +139,12 @@
 	if(!Adjacent(user))
 		return 0
 	if(user.restrained() || user.buckled)
-		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
+		to_chat(user, span_notice("You need your hands and legs free for this."))
 		return 0
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return 0
 	if(issilicon(user))
-		to_chat(user, "<span class='notice'>You need hands for this.</span>")
+		to_chat(user, span_notice("You need hands for this."))
 		return 0
 	return 1
 
@@ -154,7 +154,7 @@
 		if(resistance_flags & ON_FIRE)
 			. += "<span class='warning'>It's on fire!</span>"
 		if(broken)
-			. += "<span class='notice'>It appears to be broken.</span>"
+			. += span_notice("It appears to be broken.")
 		var/examine_status = examine_status(user)
 		if(examine_status)
 			. += examine_status

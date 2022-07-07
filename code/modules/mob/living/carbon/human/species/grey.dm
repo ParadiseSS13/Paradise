@@ -78,7 +78,7 @@
 			var/obj/item/organ/internal/cyberimp/brain/speech_translator/implant = new
 			implant.insert(H)
 			if(!translator_pref)
-				to_chat(H, "<span class='notice'>A speech translator implant has been installed due to your role on the station.</span>")
+				to_chat(H, span_notice("A speech translator implant has been installed due to your role on the station."))
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid" || R.id == "facid")

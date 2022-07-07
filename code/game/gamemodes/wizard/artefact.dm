@@ -227,7 +227,7 @@
 	var/mob/holder = get(loc, /mob)
 	if(current_owner && current_owner != holder)
 
-		to_chat(current_owner, "<span class='notice'>Your otherworldly vision fades...</span>")
+		to_chat(current_owner, span_notice("Your otherworldly vision fades..."))
 
 		REMOVE_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
 		current_owner.update_sight()
@@ -238,14 +238,14 @@
 	if(!current_owner && holder)
 		current_owner = holder
 
-		to_chat(current_owner, "<span class='notice'>You can see...everything!</span>")
+		to_chat(current_owner, span_notice("You can see...everything!"))
 
 		ADD_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
 		current_owner.update_sight()
 		current_owner.update_icons()
 
 /obj/item/scrying/attack_self(mob/user as mob)
-	to_chat(user, "<span class='notice'> You can see...everything!</span>")
+	to_chat(user, span_notice(" You can see...everything!"))
 	visible_message("<span class='danger'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>")
 	user.ghostize(1)
 
@@ -848,7 +848,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if(link)
 			target = null
 			link.loc = get_turf(src)
-			to_chat(user, "<span class='notice'>You remove [link] from the doll.</span>")
+			to_chat(user, span_notice("You remove [link] from the doll."))
 			link = null
 			update_targets()
 			return
@@ -870,7 +870,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					user.reset_perspective(null)
 					user.unset_machine()
 			if("r_leg","l_leg")
-				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")
+				to_chat(user, span_notice("You move the doll's legs around."))
 				var/turf/T = get_step(target,pick(GLOB.cardinal))
 				target.Move(T)
 			if("r_arm","l_arm")
@@ -885,7 +885,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					target.ClickOn(T)
 					GiveHint(target)
 			if("head")
-				to_chat(user, "<span class='notice'>You smack the doll's head with your hand.</span>")
+				to_chat(user, span_notice("You smack the doll's head with your hand."))
 				target.Dizzy(20 SECONDS)
 				to_chat(target, "<span class='warning'>You suddenly feel as if your head was hit with a hammer!</span>")
 				GiveHint(target,user)
@@ -903,10 +903,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
 	if(prob(50) || force)
 		var/way = dir2text(get_dir(victim,get_turf(src)))
-		to_chat(victim, "<span class='notice'>You feel a dark presence from [way]</span>")
+		to_chat(victim, span_notice("You feel a dark presence from [way]"))
 	if(prob(20) || force)
 		var/area/A = get_area(src)
-		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
+		to_chat(victim, span_notice("You feel a dark presence from [A.name]"))
 
 /obj/item/voodoo/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(target)

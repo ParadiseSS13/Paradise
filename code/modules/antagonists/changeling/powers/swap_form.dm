@@ -31,7 +31,7 @@
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
 
-	to_chat(user, "<span class='notice'>We tighten our grip. We must hold still....</span>")
+	to_chat(user, span_notice("We tighten our grip. We must hold still...."))
 	target.Jitter(1000 SECONDS)
 	user.Jitter(1000 SECONDS)
 

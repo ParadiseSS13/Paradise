@@ -75,7 +75,7 @@
 		. += "There are [amount] [singular_name]\s in the stack."
 	else
 		. += "There are [amount] [name]\s in the stack."
-	. +="<span class='notice'>Alt-click to take a custom amount.</span>"
+	. +=span_notice("Alt-click to take a custom amount.")
 
 /obj/item/stack/proc/add(newamount)
 	if(is_cyborg)
@@ -225,7 +225,7 @@
 				return FALSE
 
 		if(R.time)
-			to_chat(usr, "<span class='notice'>Building [R.title]...</span>")
+			to_chat(usr, span_notice("Building [R.title]..."))
 			if(!do_after(usr, R.time, target = loc))
 				return FALSE
 
@@ -328,7 +328,7 @@
 	if(stackmaterial == null || stackmaterial <= min || stackmaterial > get_amount())
 		return
 	change_stack(user,stackmaterial)
-	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
+	to_chat(user, span_notice("You take [stackmaterial] sheets out of the stack."))
 
 /obj/item/stack/proc/change_stack(mob/user,amount)
 	var/obj/item/stack/F = new type(user, amount, FALSE)
@@ -343,7 +343,7 @@
 	if(istype(W, merge_type))
 		var/obj/item/stack/S = W
 		merge(S)
-		to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
+		to_chat(user, span_notice("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
 	else
 		return ..()
 

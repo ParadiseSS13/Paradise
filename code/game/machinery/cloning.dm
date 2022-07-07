@@ -291,9 +291,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		var/message
 		message += "<b>Consciousness slowly creeps over you as your body regenerates.</b><br>"
 		message += "<i>So this is what cloning feels like?</i>"
-		to_chat(H, "<span class='notice'>[message]</span>")
+		to_chat(H, span_notice("[message]"))
 	else if(grab_ghost_when == CLONER_MATURE_CLONE)
-		to_chat(clonemind.current, "<span class='notice'>Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete.</span>")
+		to_chat(clonemind.current, span_notice("Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete."))
 		// Set up a soul link with the dead body to catch a revival
 		RegisterSignal(clonemind.current, COMSIG_LIVING_REVIVE, .proc/occupant_got_revived)
 		RegisterSignal(clonemind, COMSIG_MIND_TRANSER_TO, .proc/occupant_got_revived)
@@ -381,13 +381,13 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		else
 			connected_message("Authorized Ejection")
 			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
-			to_chat(user, "<span class='notice'>You force an emergency ejection.</span>")
+			to_chat(user, span_notice("You force an emergency ejection."))
 			go_out()
 
 // A user can feed in biomass sources manually.
 	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
 		if(user.drop_item())
-			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
+			to_chat(user, span_notice("[src] processes [I]."))
 			biomass += BIOMASS_BASE_AMOUNT
 			qdel(I)
 	else

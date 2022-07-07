@@ -36,7 +36,7 @@
 		return TRUE
 	if(modifiers["ctrl"])
 		locked = !locked
-		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
+		to_chat(usr, span_notice("Action button \"[name]\" [locked ? "" : "un"]locked."))
 		return TRUE
 	if(usr.next_click > world.time)
 		return
@@ -70,7 +70,7 @@
 		return TRUE
 	if(modifiers["ctrl"])
 		locked = !locked
-		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
+		to_chat(usr, span_notice("Action button \"[name]\" [locked ? "" : "un"]locked."))
 		return TRUE
 	if(modifiers["alt"])
 		for(var/V in usr.actions)
@@ -79,7 +79,7 @@
 			B.moved = FALSE
 		moved = FALSE
 		usr.update_action_buttons(TRUE)
-		to_chat(usr, "<span class='notice'>Action button positions have been reset.</span>")
+		to_chat(usr, span_notice("Action button positions have been reset."))
 		return TRUE
 	usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
 
@@ -99,7 +99,7 @@
 	if(moved)
 		moved = FALSE
 	user.update_action_buttons(TRUE)
-	to_chat(user, "<span class='notice'>Action button positions have been reset.</span>")
+	to_chat(user, span_notice("Action button positions have been reset."))
 
 /obj/screen/movable/action_button/hide_toggle/proc/InitialiseIcon(mob/living/user)
 	if(isalien(user))

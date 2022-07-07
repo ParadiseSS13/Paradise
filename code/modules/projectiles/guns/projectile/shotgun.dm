@@ -28,7 +28,7 @@
 		return
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+		to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]!"))
 		A.update_icon()
 		update_icon()
 
@@ -119,7 +119,7 @@
 			return
 		else
 			afterattack(user, user)
-			user.visible_message("[src] goes click!", "<span class='notice'>[src] you are holding goes click.</span>")
+			user.visible_message("[src] goes click!", span_notice("[src] you are holding goes click."))
 	if(magazine.ammo_count())	//Spill the mag onto the floor
 		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
 		while(get_ammo(0) > 0)
@@ -130,7 +130,7 @@
 				CB.update_icon()
 
 	if(do_after(user, 30, target = src))
-		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
+		user.visible_message("[user] shortens \the [src]!", span_notice("You shorten \the [src]."))
 		post_sawoff()
 		return 1
 
@@ -162,7 +162,7 @@
 			return
 		else
 			afterattack(user, user)
-			user.visible_message("[src] goes click!", "<span class='notice'>[src] you are holding goes click.</span>")
+			user.visible_message("[src] goes click!", span_notice("[src] you are holding goes click."))
 	if(magazine.ammo_count())	//Spill the mag onto the floor
 		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
 		while(get_ammo() > 0)
@@ -174,7 +174,7 @@
 
 	if(do_after(user, 30, target = src))
 		qdel(A)
-		user.visible_message("<span class='notice'>[user] lengthens [src]!</span>", "<span class='notice'>You lengthen [src].</span>")
+		user.visible_message(span_notice("[user] lengthens [src]!"), span_notice("You lengthen [src]."))
 		post_unsaw(user)
 		return 1
 
@@ -243,7 +243,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/attackby(obj/item/A, mob/user, params)
 	if(!bolt_open)
-		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
+		to_chat(user, span_notice("The bolt is closed!"))
 		return
 	. = ..()
 

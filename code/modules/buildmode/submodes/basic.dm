@@ -2,15 +2,15 @@
 	key = "basic"
 
 /datum/buildmode_mode/basic/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button        = Construct / Upgrade</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button       = Deconstruct / Delete / Downgrade</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button + ctrl = R-Window</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button + alt  = Airlock</span>")
+	to_chat(user, span_notice("***********************************************************"))
+	to_chat(user, span_notice("Left Mouse Button        = Construct / Upgrade"))
+	to_chat(user, span_notice("Right Mouse Button       = Deconstruct / Delete / Downgrade"))
+	to_chat(user, span_notice("Left Mouse Button + ctrl = R-Window"))
+	to_chat(user, span_notice("Left Mouse Button + alt  = Airlock"))
 	to_chat(user, "")
-	to_chat(user, "<span class='notice'>Use the button in the upper left corner to</span>")
-	to_chat(user, "<span class='notice'>change the direction of built objects.</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_notice("Use the button in the upper left corner to"))
+	to_chat(user, span_notice("change the direction of built objects."))
+	to_chat(user, span_notice("***********************************************************"))
 
 /datum/buildmode_mode/basic/handle_click(user, params, obj/object)
 	var/list/pa = params2list(params)

@@ -150,7 +150,7 @@
 		return
 	var/chosen_limb = missing_limbs[limb_select]
 
-	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on [H.p_their()] missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
+	H.visible_message(span_notice("[H] begins to hold still and concentrate on [H.p_their()] missing [limb_select]..."), span_notice("You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)"))
 	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob/living.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 		if(H.incapacitated(extra_checks = list(CALLBACK(H, /mob/living.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 			to_chat(H, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
@@ -188,7 +188,7 @@
 		H.updatehealth()
 		H.UpdateDamageIcon()
 		H.adjust_nutrition(-SLIMEPERSON_HUNGERCOST)
-		H.visible_message("<span class='notice'>[H] finishes regrowing [H.p_their()] missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
+		H.visible_message(span_notice("[H] finishes regrowing [H.p_their()] missing [new_limb]!"), span_notice("You finish regrowing your [limb_select]"))
 		new_limb.add_limb_flags()
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")

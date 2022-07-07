@@ -44,9 +44,9 @@
 	. = ..()
 	if(key_type)
 		if(!inserted_key)
-			. += "<span class='notice'>Put a key inside it by clicking it with the key.</span>"
+			. += span_notice("Put a key inside it by clicking it with the key.")
 		else
-			. += "<span class='notice'>Alt-click [src] to remove the key.</span>"
+			. += span_notice("Alt-click [src] to remove the key.")
 	if(resistance_flags & ON_FIRE)
 		. += "<span class='warning'>It's on fire!</span>"
 	var/healthpercent = obj_integrity/max_integrity * 100
@@ -62,7 +62,7 @@
 	if(key_type && !is_key(inserted_key) && is_key(I))
 		if(user.drop_item())
 			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+			to_chat(user, span_notice("You insert [I] into [src]."))
 			if(inserted_key)	//just in case there's an invalid key
 				inserted_key.forceMove(drop_location())
 			inserted_key = I
@@ -76,7 +76,7 @@
 		if(!(user in buckled_mobs))
 			to_chat(user, "<span class='warning'>You must be riding [src] to remove [src]'s key!</span>")
 			return
-		to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
+		to_chat(user, span_notice("You remove [inserted_key] from [src]."))
 		inserted_key.forceMove(drop_location())
 		user.put_in_hands(inserted_key)
 		inserted_key = null

@@ -38,7 +38,7 @@
 
 /obj/item/seeds/kudzu/attack_self(mob/user)
 	plant(user)
-	to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
+	to_chat(user, span_notice("You plant the kudzu. You monster."))
 
 /obj/item/seeds/kudzu/get_analyzer_text()
 	var/text = ..()

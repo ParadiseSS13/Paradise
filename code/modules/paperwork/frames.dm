@@ -70,7 +70,7 @@
 			name = initial(name)
 			update_icon()
 		else
-			to_chat(user, "<span class='notice'>There is nothing to remove from \the [src].</span>")
+			to_chat(user, span_notice("There is nothing to remove from \the [src]."))
 	else if(istype(I, /obj/item/crowbar))
 		playsound(src, I.usesound, 100, 1)
 		user.visible_message("<span class='warning'>[user] breaks down \the [src].</span>", "<span class='warning'>You break down \the [src].</span>")
@@ -89,7 +89,7 @@
 			insert(I)
 			update_icon()
 		else
-			to_chat(user, "<span class='notice'>\The [src] already contains \a [displayed].</span>")
+			to_chat(user, span_notice("\The [src] already contains \a [displayed]."))
 	else
 		return ..()
 
@@ -103,14 +103,14 @@
 	var/stuff_on_wall = 0
 	for(var/obj/O in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O, /obj/structure/sign))
-			to_chat(user, "<span class='notice'>\The [T] is far too cluttered to place \a [src]!</span>")
+			to_chat(user, span_notice("\The [T] is far too cluttered to place \a [src]!"))
 			return
 		stuff_on_wall++
 		if(stuff_on_wall >= 4)
-			to_chat(user, "<span class='notice'>\The [T] is far too cluttered to place \a [src]!</span>")
+			to_chat(user, span_notice("\The [T] is far too cluttered to place \a [src]!"))
 			return
 
-	to_chat(user, "<span class='notice'>You start place \the [src] on \the [T].</span>")
+	to_chat(user, span_notice("You start place \the [src] on \the [T]."))
 
 	var/px = 0
 	var/py = 0
@@ -126,7 +126,7 @@
 		if(WEST)
 			px = -32
 		else
-			to_chat(user, "<span class='notice'>You cannot reach \the [T] from here!</span>")
+			to_chat(user, span_notice("You cannot reach \the [T] from here!"))
 			return
 
 	user.unEquip(src)
@@ -237,7 +237,7 @@
 			user.unEquip(I)
 			explosive = I
 			I.forceMove(src)
-			user.visible_message("<span class='notice'>[user] fiddles with the back of \the [src].</span>", "<span class='notice'>You secure \the [I] behind \the [src].</span>")
+			user.visible_message(span_notice("[user] fiddles with the back of \the [src]."), span_notice("You secure \the [I] behind \the [src]."))
 
 			message_admins("[key_name_admin(user)] attached [I] to a picture frame.")
 			log_game("[key_name_admin(user)] attached [I] to a picture frame.")

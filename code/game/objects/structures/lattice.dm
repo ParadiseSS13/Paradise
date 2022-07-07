@@ -38,7 +38,7 @@
 	if(istype(C, /obj/item/wirecutters))
 		var/obj/item/wirecutters/W = C
 		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
+		to_chat(user, span_notice("Slicing [name] joints..."))
 		deconstruct()
 	else
 		var/turf/T = get_turf(src)

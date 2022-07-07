@@ -58,7 +58,7 @@
 			icon_state = "armorsec"
 			user.update_inv_wear_suit()
 			desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
-			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
+			to_chat(user, span_notice("You attach [attached_badge] to [src]."))
 		return
 	..()
 
@@ -74,7 +74,7 @@
 		icon_state = "armor"
 		user.update_inv_wear_suit()
 		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
-		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
+		to_chat(user, span_notice("You remove [attached_badge] from [src]."))
 		attached_badge = null
 
 		return
@@ -278,11 +278,11 @@
 		to_chat(user, "<span class='warning'>[src] is disabled and rebooting!</span>")
 		return
 	if(active)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, span_notice("[src] is now active."))
 		icon_state = "reactive"
 		item_state = "reactive"
 	else
-		to_chat(user, "<span class='notice'>[src] is now inactive.</span>")
+		to_chat(user, span_notice("[src] is now inactive."))
 		icon_state = "reactiveoff"
 		item_state = "reactiveoff"
 		add_fingerprint(user)

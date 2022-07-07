@@ -5,11 +5,11 @@
 	var/objholder = null
 
 /datum/buildmode_mode/fill/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button + Alt on turf/obj/mob = Delete region</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select object type</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_notice("***********************************************************"))
+	to_chat(user, span_notice("Left Mouse Button on turf/obj/mob      = Select corner"))
+	to_chat(user, span_notice("Left Mouse Button + Alt on turf/obj/mob = Delete region"))
+	to_chat(user, span_notice("Right Mouse Button on buildmode button = Select object type"))
+	to_chat(user, span_notice("***********************************************************"))
 
 /datum/buildmode_mode/fill/change_settings(mob/user)
 	var/target_path = input(user,"Enter typepath:" ,"Typepath","/obj/structure/closet")

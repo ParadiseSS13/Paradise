@@ -245,7 +245,7 @@
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
 	..()
 	if(used)
-		to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
+		to_chat(user, span_notice("[src] crumbles to ashes."))
 		qdel(src)
 
 /obj/item/reagent_containers/food/drinks/bottle/unholywater
@@ -289,7 +289,7 @@
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
 	if(curselimit > 1)
-		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
+		to_chat(user, span_notice("We have exhausted our ability to curse the shuttle."))
 		return
 	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, "<span class='danger'>Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
@@ -777,7 +777,7 @@
 
 /obj/effect/portal/cult/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user) || istype(I, /obj/item/nullrod) && user.mind.isholy)
-		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
+		to_chat(user, span_notice("You close the portal with your [I]."))
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
 		qdel(src)
 		return

@@ -8,11 +8,11 @@
 
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/cast(mob/user)
 	if(user.l_hand || user.r_hand)
-		to_chat(user, "<span class='notice'>You drop what was in your hands as large blades spring from your fingers!</span>")
+		to_chat(user, span_notice("You drop what was in your hands as large blades spring from your fingers!"))
 		user.drop_l_hand()
 		user.drop_r_hand()
 	else
-		to_chat(user, "<span class='notice'>Large blades of blood spring from your fingers!</span>")
+		to_chat(user, span_notice("Large blades of blood spring from your fingers!"))
 	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc)
 	user.put_in_hands(claws)
 
@@ -82,7 +82,7 @@
 		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
 /obj/item/twohanded/required/vamp_claws/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
+	to_chat(user, span_notice("You dispel your claws!"))
 	qdel(src)
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils
@@ -97,7 +97,7 @@
 	var/area_of_affect = 1
 
 	selection_activated_message = "<span class='notice'>You channel blood magics to weaken the bluespace veil. <B>Left-click to cast at a target area!</B></span>"
-	selection_deactivated_message = "<span class='notice'>Your magics subside.</span>"
+	selection_deactivated_message = span_notice("Your magics subside.")
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/create_new_targeting()
 	var/datum/spell_targeting/click/T = new

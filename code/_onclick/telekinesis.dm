@@ -140,10 +140,10 @@
 
 	else
 		if(focus.buckled_mobs)
-			to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
+			to_chat(user, span_notice("This object is too heavy to move with something buckled to it!"))
 			return
 		if(length(focus.client_mobs_in_contents))
-			to_chat(user, "<span class='notice'>This object is too heavy to move with something inside of it!</span>")
+			to_chat(user, span_notice("This object is too heavy to move with something inside of it!"))
 			return
 		apply_focus_overlay()
 		focus.throw_at(target, 10, 1, user)

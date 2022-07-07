@@ -91,7 +91,7 @@
 	if(food_value < 0)
 		eat_self_message = "<span class='warning'>You start eating [A]... disgusting....</span>"
 	else
-		eat_self_message = "<span class='notice'>You start eating [A].</span>"
+		eat_self_message = span_notice("You start eating [A].")
 	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
 	if(do_after(src, 3 SECONDS, target = A))
 		if(food_value + gathered_food < 0)

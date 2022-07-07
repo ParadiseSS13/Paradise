@@ -45,20 +45,20 @@
 		return
 	var/mob/living/carbon/chugger = over_object
 	if(!(container_type & DRAINABLE))
-		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
+		to_chat(chugger, span_notice("You need to open [src] first!"))
 		return
 	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
-		chugger.visible_message("<span class='notice'>[chugger] raises [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>",
-			"<span class='notice'>You start chugging [src].</span>",
-			"<span class='notice'>You hear what sounds like gulping.</span>")
+		chugger.visible_message(span_notice("[chugger] raises [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!"),
+			span_notice("You start chugging [src]."),
+			span_notice("You hear what sounds like gulping."))
 		chugging = TRUE
 		while(do_after_once(chugger, 4 SECONDS, TRUE, chugger, null, "You stop chugging [src]."))
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
-				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>",
-					"<span class='notice'>You finish off [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>",
-					"<span class='notice'>You hear a gasp and a clink.</span>")
+				chugger.visible_message(span_notice("[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!"),
+					span_notice("You finish off [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]"),
+					span_notice("You hear a gasp and a clink."))
 				break
 		chugging = FALSE
 
@@ -78,7 +78,7 @@
 			return FALSE
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
+		to_chat(user, span_notice(" You transfer [trans] units of the solution to [target]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
@@ -93,7 +93,7 @@
 			return FALSE
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
+		to_chat(user, span_notice("You fill [src] with [trans] units of the contents of [target]."))
 
 	return FALSE
 
@@ -101,16 +101,16 @@
 	. = ..()
 	if(in_range(user, src))
 		if(!reagents || reagents.total_volume == 0)
-			. += "<span class='notice'> \The [src] is empty!</span>"
+			. += span_notice(" \The [src] is empty!")
 		else if(reagents.total_volume <= volume/4)
-			. += "<span class='notice'> \The [src] is almost empty!</span>"
+			. += span_notice(" \The [src] is almost empty!")
 		else if(reagents.total_volume <= volume*0.66)
-			. += "<span class='notice'> \The [src] is half full!</span>"// We're all optimistic, right?!
+			. += span_notice(" \The [src] is half full!")// We're all optimistic, right?!
 
 		else if(reagents.total_volume <= volume*0.90)
-			. += "<span class='notice'> \The [src] is almost full!</span>"
+			. += span_notice(" \The [src] is almost full!")
 		else
-			. += "<span class='notice'> \The [src] is full!</span>"
+			. += span_notice(" \The [src] is full!")
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END

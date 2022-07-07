@@ -28,7 +28,7 @@
 	var/turf/simulated/floor/plasteel/F = target
 
 	if(F.icon_state == floor_state && F.dir == floor_dir)
-		to_chat(user, "<span class='notice'>This is already painted [floor_state] [dir2text(floor_dir)]!</span>")
+		to_chat(user, span_notice("This is already painted [floor_state] [dir2text(floor_dir)]!"))
 		return
 
 	F.icon_state = floor_state

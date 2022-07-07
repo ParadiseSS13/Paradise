@@ -60,7 +60,7 @@
 /obj/machinery/computer/teleporter/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>The teleporter can now lock on to Syndicate beacons!</span>")
+		to_chat(user, span_notice("The teleporter can now lock on to Syndicate beacons!"))
 	else
 		ui_interact(user)
 
@@ -603,18 +603,18 @@
 	if(!panel_open)
 		toggle(user)
 	else
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the maintenance panel first."))
 
 /obj/machinery/teleport/station/proc/toggle(mob/user)
 	if(stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console)
 		return
 	if(teleporter_hub.panel_open)
-		to_chat(user, "<span class='notice'>Close the hub's maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the hub's maintenance panel first."))
 		return
 	if(teleporter_console.target)
 		engaged = !engaged
 		use_power(5000)
-		visible_message("<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")
+		visible_message(span_notice("Teleporter [engaged ? "" : "dis"]engaged!"))
 	else
 		visible_message("<span class='alert'>No target detected.</span>")
 		engaged = FALSE

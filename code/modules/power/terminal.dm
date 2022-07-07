@@ -58,7 +58,7 @@
 
 		if(!master || master.can_terminal_dismantle())
 			user.visible_message("[user.name] dismantles the power terminal from [master].", \
-								"<span class='notice'>You begin to cut the cables...</span>")
+								span_notice("You begin to cut the cables..."))
 
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			if(do_after(user, 50*W.toolspeed, target = src))
@@ -67,7 +67,7 @@
 						do_sparks(5, TRUE, master)
 						return
 					new /obj/item/stack/cable_coil(loc, 10)
-					to_chat(user, "<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
+					to_chat(user, span_notice("You cut the cables and dismantle the power terminal."))
 					qdel(src)
 
 

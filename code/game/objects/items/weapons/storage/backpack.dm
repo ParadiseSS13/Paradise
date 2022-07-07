@@ -35,15 +35,15 @@
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 		if(!space_used)
-			. += "<span class='notice'> [src] is empty.</span>"
+			. += span_notice(" [src] is empty.")
 		else if(space_used <= max_combined_w_class * 0.6)
-			. += "<span class='notice'> [src] still has plenty of remaining space.</span>"
+			. += span_notice(" [src] still has plenty of remaining space.")
 		else if(space_used <= max_combined_w_class * 0.8)
-			. += "<span class='notice'> [src] is beginning to run out of space.</span>"
+			. += span_notice(" [src] is beginning to run out of space.")
 		else if(space_used < max_combined_w_class)
-			. += "<span class='notice'> [src] doesn't have much space left.</span>"
+			. += span_notice(" [src] doesn't have much space left.")
 		else
-			. += "<span class='notice'> [src] is full.</span>"
+			. += span_notice(" [src] is full.")
 
 /*
  * Backpack Types

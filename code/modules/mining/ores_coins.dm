@@ -22,12 +22,12 @@
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!refined_type)
-		to_chat(user, "<span class='notice'>You can't smelt [src] into anything useful!</span>")
+		to_chat(user, span_notice("You can't smelt [src] into anything useful!"))
 		return
 	if(!I.use_tool(src, user, 0, 15, volume = I.tool_volume))
 		return
 	new refined_type(drop_location(), amount)
-	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
+	to_chat(user, span_notice("You smelt [src] into its refined form!"))
 	qdel(src)
 
 /obj/item/stack/ore/Crossed(atom/movable/AM, oldloc)
@@ -235,7 +235,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
 	if(!wires && istype(I, /obj/item/assembly/igniter))
-		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
+		user.visible_message("[user] attaches [I] to [src].", span_notice("You attach [I] to [src]."))
 		wires = new(src)
 		attacher = key_name(user)
 		qdel(I)
@@ -253,7 +253,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(primed)
 		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool))
 			primed = 0
-			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
+			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", span_notice("You stopped the chain reaction. ...The ore's quality looks diminished."))
 			icon_state = "Gibtonite ore"
 			quality = GIBTONITE_QUALITY_LOW
 			return
@@ -425,13 +425,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
-			to_chat(user, "<span class='notice'>There already is a string attached to this coin.</span>")
+			to_chat(user, span_notice("There already is a string attached to this coin."))
 			return
 
 		if(CC.use(1))
 			overlays += image('icons/obj/economy.dmi',"coin_string_overlay")
 			string_attached = 1
-			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")
+			to_chat(user, span_notice("You attach a string to the coin."))
 		else
 			to_chat(user, "<span class='warning'>You need one length of cable to attach a string to the coin.</span>")
 			return
@@ -446,7 +446,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		CC.update_icon()
 		overlays = list()
 		string_attached = null
-		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
+		to_chat(user, span_notice("You detach the string from the coin."))
 	else ..()
 
 /obj/item/coin/welder_act(mob/user, obj/item/I)
@@ -460,7 +460,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 						"uranium" = /obj/item/clothing/gloves/ring/uranium)
 	var/typekey = typelist[cmineral]
 	if(ispath(typekey))
-		to_chat(user, "<span class='notice'>You make [src] into a ring.</span>")
+		to_chat(user, span_notice("You make [src] into a ring."))
 		new typekey(get_turf(loc))
 		qdel(src)
 
@@ -473,9 +473,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		icon_state = "coin_[cmineral]_[coinflip]"
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
 		if(do_after(user, 15, target = src))
-			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
-								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
-								 "<span class='notice'>You hear the clattering of loose change.</span>")
+			user.visible_message(span_notice("[user] has flipped [src]. It lands on [coinflip]."), \
+								 span_notice("You flip [src]. It lands on [coinflip]."), \
+								 span_notice("You hear the clattering of loose change."))
 
 #undef GIBTONITE_QUALITY_LOW
 #undef GIBTONITE_QUALITY_MEDIUM

@@ -77,9 +77,9 @@
 
 			var/slices_lost = 0
 			if(!inaccurate)
-				user.visible_message("<span class='notice'>[user] slices [src] with [O]!</span>", "<span class='notice'>You slice [src]!</span>")
+				user.visible_message(span_notice("[user] slices [src] with [O]!"), span_notice("You slice [src]!"))
 			else
-				user.visible_message("<span class='notice'>[user] crudely slices [src] with [O]!</span>", "<span class='notice'>You crudely slice [src] with your [O]!</span>")
+				user.visible_message(span_notice("[user] crudely slices [src] with [O]!"), span_notice("You crudely slice [src] with your [O]!"))
 				slices_lost = rand(1, min(1, round(slices_num / 2)))
 
 			var/reagents_per_slice = reagents.total_volume/slices_num
@@ -182,7 +182,7 @@
 	if(trash)
 		var/obj/item/T = generate_trash()
 		user.put_in_hands(T)
-		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")
+		to_chat(user, span_notice("You open [src]\'s shell, revealing \a [T]."))
 	qdel(src)
 
 // Diona Nymphs can eat these as well as weeds to gain nutrition.

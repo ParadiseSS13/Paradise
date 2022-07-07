@@ -44,7 +44,7 @@
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 
-	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>")
+	to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a [initial(src.name)]."))
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()

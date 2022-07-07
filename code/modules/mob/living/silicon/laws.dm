@@ -90,7 +90,7 @@
 
 /mob/living/silicon/proc/dostatelaws(method, prefix, datum/ai_laws/laws)
 	if(stating_laws[prefix])
-		to_chat(src, "<span class='notice'>[method]: Already stating laws using this communication method.</span>")
+		to_chat(src, span_notice("[method]: Already stating laws using this communication method."))
 		return
 
 	stating_laws[prefix] = 1

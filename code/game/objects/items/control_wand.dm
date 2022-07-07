@@ -39,11 +39,11 @@
 		if(WAND_SPEED)
 			mode = WAND_OPEN
 
-	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
+	to_chat(user, span_notice("Now in mode: [mode]."))
 
 /obj/item/door_remote/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's current mode is: [mode]</span>"
+	. += span_notice("It's current mode is: [mode]")
 
 /obj/item/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
@@ -78,7 +78,7 @@
 				D.update_icon()
 			if(WAND_SPEED)
 				D.normalspeed = !D.normalspeed
-				to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
+				to_chat(user, span_notice("[D] is now in [D.normalspeed ? "normal" : "fast"] mode."))
 	else
 		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
 
@@ -146,7 +146,7 @@
 		return
 	icon_state = "hacktool-g"
 	busy = TRUE
-	to_chat(user, "<span class='notice'>[src] is attempting to interface with [D]...</span>")
+	to_chat(user, span_notice("[src] is attempting to interface with [D]..."))
 	if(do_after(user, hack_speed, target = D))
 		. = ..()
 	busy = FALSE

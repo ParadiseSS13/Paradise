@@ -64,7 +64,7 @@
 	icon_state = "shadow_mend"
 
 /datum/status_effect/shadow_mend/on_apply()
-	owner.visible_message("<span class='notice'>Violet light wraps around [owner]'s body!</span>", "<span class='notice'>Violet light wraps around your body!</span>")
+	owner.visible_message(span_notice("Violet light wraps around [owner]'s body!"), span_notice("Violet light wraps around your body!"))
 	playsound(owner, 'sound/magic/teleport_app.ogg', 50, 1)
 	return ..()
 
@@ -238,7 +238,7 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
 	tick_interval = 25
-	examine_text = "<span class='notice'>They seem to have an aura of healing and helpfulness about them.</span>"
+	examine_text = span_notice("They seem to have an aura of healing and helpfulness about them.")
 	alert_type = null
 	var/deathTick = 0
 	/// How many points the rod has to heal with, maxes at 50, or whatever heal_points_max is set to.
@@ -263,7 +263,7 @@
 		if(deathTick < 4)
 			deathTick += 1
 		else
-			owner.visible_message("<span class='notice'>[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.</span>")
+			owner.visible_message(span_notice("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty."))
 			var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
 			var/list/chems = list("bicaridine", "perfluorodecalin", "kelotane")
 			healSnake.poison_type = pick(chems)
@@ -379,14 +379,14 @@
 
 /datum/status_effect/speedlegs/before_remove()
 	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
-		to_chat(owner, "<span class='notice'>Our muscles just tensed up, they will not relax so fast.</span>")
+		to_chat(owner, span_notice("Our muscles just tensed up, they will not relax so fast."))
 		return FALSE
 	return TRUE
 
 /datum/status_effect/speedlegs/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
 	if(!owner.IsWeakened())
-		to_chat(owner, "<span class='notice'>Our muscles relax.</span>")
+		to_chat(owner, span_notice("Our muscles relax."))
 		if(stacks >= 7)
 			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
 			owner.Weaken(6 SECONDS)

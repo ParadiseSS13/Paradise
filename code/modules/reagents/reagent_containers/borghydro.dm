@@ -88,8 +88,8 @@
 	if(!istype(M))
 		return
 	if(R.total_volume && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick = bypass_protection))
-		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
-		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
+		to_chat(user, span_notice("You inject [M] with the injector."))
+		to_chat(M, span_notice("You feel a tiny prick!"))
 
 		R.add_reagent(M)
 		if(M.reagents)
@@ -97,7 +97,7 @@
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
+			to_chat(user, span_notice("[trans] units injected. [R.total_volume] units remaining."))
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
@@ -107,7 +107,7 @@
 
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
-	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
+	to_chat(user, span_notice("Synthesizer is now producing '[R.name]'."))
 	return
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
@@ -118,11 +118,11 @@
 		for(var/datum/reagents/RS in reagent_list)
 			var/datum/reagent/R = locate() in RS.reagent_list
 			if(R)
-				. += "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>"
+				. += span_notice("It currently has [R.volume] units of [R.name] stored.")
 				empty = FALSE
 
 		if(empty)
-			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"
+			. += span_notice("It is currently empty. Allow some time for the internal syntheszier to produce more.")
 
 /obj/item/reagent_containers/borghypo/basic
 	name = "Basic Medical Hypospray"

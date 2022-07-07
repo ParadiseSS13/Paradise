@@ -11,7 +11,7 @@
 /obj/item/reagent_containers/food/drinks/cans/examine(mob/user)
 	. = ..()
 	if(canopened)
-		. += "<span class='notice'>It has been opened.</span>"
+		. += span_notice("It has been opened.")
 	else
 		. += "<span class='info'>Alt-click to shake it up!</span>"
 
@@ -24,7 +24,7 @@
 	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 	canopened = TRUE
 	container_type |= OPENCONTAINER
-	to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+	to_chat(user, span_notice("You open the drink with an audible pop!"))
 	return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/proc/crush(mob/user)
@@ -52,7 +52,7 @@
 	if(src == H.l_hand || src == H.r_hand)
 		can_shake = FALSE
 		addtimer(CALLBACK(src, .proc/reset_shakable), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-		to_chat(H, "<span class='notice'>You start shaking up [src].</span>")
+		to_chat(H, span_notice("You start shaking up [src]."))
 		if(do_after(H, 1 SECONDS, target = H))
 			visible_message("<span class='warning'>[user] shakes up [src]!</span>")
 			if(times_shaken == 0)
@@ -70,17 +70,17 @@
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
 	if(!canopened)
-		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
+		to_chat(user, span_notice("You need to open the drink!"))
 		return
 	else if(M == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
-		user.visible_message("<span class='warning'>[user] crushes [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush [src] on your forehead.</span>")
+		user.visible_message("<span class='warning'>[user] crushes [src] on [user.p_their()] forehead!</span>", span_notice("You crush [src] on your forehead."))
 		crush(user)
 		return
 	return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash/cyborg))
-		user.visible_message("<span class='notice'>[user] crushes [src] in [user.p_their()] trash compactor.</span>", "<span class='notice'>You crush [src] in your trash compactor.</span>")
+		user.visible_message(span_notice("[user] crushes [src] in [user.p_their()] trash compactor."), span_notice("You crush [src] in your trash compactor."))
 		var/obj/can = crush(user)
 		can.attackby(I, user, params)
 		return 1
@@ -90,10 +90,10 @@
 	if(!proximity)
 		return
 	if(istype(target, /obj/structure/reagent_dispensers) && !canopened)
-		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
+		to_chat(user, span_notice("You need to open the drink!"))
 		return
 	else if(target.is_open_container() && !canopened)
-		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
+		to_chat(user, span_notice("You need to open the drink!"))
 		return
 	else
 		return ..(target, user, proximity)
@@ -111,7 +111,7 @@
 	container_type |= OPENCONTAINER
 
 	if(!burstopen && user)
-		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+		to_chat(user, span_notice("You open the drink with an audible pop!"))
 	else
 		visible_message("<span class='warning'>[src] bursts open!</span>")
 

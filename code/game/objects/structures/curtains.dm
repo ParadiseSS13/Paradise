@@ -50,15 +50,15 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(anchored)
-		user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", span_notice("You start to unscrew [src] from the floor..."), "You hear rustling noises.")
 		if(I.use_tool(src, user, 50, volume = I.tool_volume) && anchored)
 			anchored = FALSE
-			to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
+			to_chat(user, span_notice("You unscrew [src] from the floor."))
 	else
-		user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", span_notice("You start to screw [src] to the floor..."), "You hear rustling noises.")
 		if(I.use_tool(src, user, 50, volume = I.tool_volume) && !anchored)
 			anchored = TRUE
-			to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
+			to_chat(user, span_notice("You screw [src] to the floor."))
 
 
 

@@ -32,12 +32,12 @@
 		to_chat(user, "<span class='warning'>Your golem fingers are too large to press the switch on [src].</span>")
 		return
 	if(requires_master && !imprinted_master)
-		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
+		to_chat(user, span_notice("You press your thumb on [src] and imprint your user information."))
 		imprinted_master = user
 		return
 	if(brainmob && !brainmob.key && !searching)
 		//Start the process of searching for a new user.
-		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start [src]'s boot process.</span>")
+		to_chat(user, span_notice("You carefully locate the manual activation switch and start [src]'s boot process."))
 		icon_state = searching_icon
 		ghost_volunteers.Cut()
 		searching = TRUE
@@ -52,7 +52,7 @@
 			reset_search()
 	else
 		silenced = !silenced
-		to_chat(user, "<span class='notice'>You toggle the speaker [silenced ? "off" : "on"].</span>")
+		to_chat(user, span_notice("You toggle the speaker [silenced ? "off" : "on"]."))
 		if(brainmob && brainmob.key)
 			to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled [silenced ? "off" : "on"].</span>")
 
@@ -103,7 +103,7 @@
 		brainmob.mind.assigned_role = "Positronic Brain"
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
-	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [ejected_flavor_text].</span>")
+	to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a [ejected_flavor_text]."))
 	become_occupied(occupied_icon)
 	if(radio)
 		radio_action.ApplyIcon()
@@ -123,7 +123,7 @@
 	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve [imprinted_master]'s every word, unless lawed  or placed into a mech in the future.</b>")
 	brainmob.mind.assigned_role = "Positronic Brain"
 
-	visible_message("<span class='notice'>[src] chimes quietly.</span>")
+	visible_message(span_notice("[src] chimes quietly."))
 	become_occupied(occupied_icon)
 
 
@@ -134,7 +134,7 @@
 	searching = FALSE
 	icon_state = blank_icon
 
-	visible_message("<span class='notice'>[src] buzzes quietly as the light fades out. Perhaps you could try again?</span>")
+	visible_message(span_notice("[src] buzzes quietly as the light fades out. Perhaps you could try again?"))
 
 /obj/item/mmi/robotic_brain/Topic(href, href_list)
 	if("signup" in href_list)
@@ -151,7 +151,7 @@
 		to_chat(O, "<span class='warning'>Error.</span>")
 		return
 	if(O in ghost_volunteers)
-		to_chat(O, "<span class='notice'>Removed from registration list.</span>")
+		to_chat(O, span_notice("Removed from registration list."))
 		ghost_volunteers.Remove(O)
 		return
 	if(!check_observer(O))
@@ -163,7 +163,7 @@
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O, "nonhumandept"))
 		to_chat(O, "<span class='warning'>You are job banned from this role.</span>")
 		return
-	to_chat(O, "<span class='notice'>You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer.</span>")
+	to_chat(O, span_notice("You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer."))
 	ghost_volunteers.Add(O)
 
 
@@ -224,7 +224,7 @@
 	if(check_observer(O) && (world.time >= next_ping_at))
 		next_ping_at = world.time + (20 SECONDS)
 		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
-		visible_message("<span class='notice'>[src] pings softly.</span>")
+		visible_message(span_notice("[src] pings softly."))
 
 /obj/item/mmi/robotic_brain/positronic
 	name = "positronic brain"

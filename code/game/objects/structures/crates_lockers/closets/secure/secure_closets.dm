@@ -43,20 +43,20 @@
 
 /obj/structure/closet/secure_closet/proc/togglelock(mob/user)
 	if(opened)
-		to_chat(user, "<span class='notice'>Close the locker first.</span>")
+		to_chat(user, span_notice("Close the locker first."))
 		return
 	if(broken)
 		to_chat(user, "<span class='warning'>The locker appears to be broken.</span>")
 		return
 	if(user.loc == src)
-		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
+		to_chat(user, span_notice("You can't reach the lock from inside."))
 		return
 	if(allowed(user))
 		locked = !locked
-		visible_message("<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>")
+		visible_message(span_notice("The locker has been [locked ? null : "un"]locked by [user]."))
 		update_icon()
 	else
-		to_chat(user, "<span class='notice'>Access Denied</span>")
+		to_chat(user, span_notice("Access Denied"))
 
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
@@ -72,7 +72,7 @@
 		broken = TRUE
 		locked = FALSE
 		add_overlay("sparking")
-		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
+		to_chat(user, span_notice("You break the lock on [src]."))
 		addtimer(CALLBACK(src, .proc/update_icon), 1 SECONDS)
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)

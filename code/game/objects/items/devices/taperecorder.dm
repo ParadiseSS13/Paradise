@@ -51,14 +51,14 @@
 		if(user.drop_item())
 			I.forceMove(src)
 			mytape = I
-			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+			to_chat(user, span_notice("You insert [I] into [src]."))
 			playsound(src, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
 			update_icon()
 
 /obj/item/taperecorder/proc/eject(mob/user)
 	if(mytape)
 		playsound(src, 'sound/items/taperecorder/taperecorder_open.ogg', 50, FALSE)
-		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
+		to_chat(user, span_notice("You remove [mytape] from [src]."))
 		stop()
 		user.put_in_hands(mytape)
 		mytape = null
@@ -246,7 +246,7 @@
 	if(!mytape)
 		return
 	if(!canprint)
-		to_chat(usr, "<span class='notice'>The recorder can't print that fast!</span>")
+		to_chat(usr, span_notice("The recorder can't print that fast!"))
 		return
 	if(recording || playing)
 		return
@@ -293,7 +293,7 @@
 
 /obj/item/tape/attack_self(mob/user)
 	if(!ruined)
-		to_chat(user, "<span class='notice'>You pull out all the tape!</span>")
+		to_chat(user, span_notice("You pull out all the tape!"))
 		ruin()
 
 /obj/item/tape/verb/wipe()
@@ -305,7 +305,7 @@
 	if(ruined)
 		return
 
-	to_chat(usr, "<span class='notice'>You erase the data from [src].</span>")
+	to_chat(usr, span_notice("You erase the data from [src]."))
 	clear()
 
 /obj/item/tape/proc/clear()
@@ -327,9 +327,9 @@
 
 /obj/item/tape/attackby(obj/item/I, mob/user)
 	if(ruined && istype(I, /obj/item/screwdriver))
-		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
+		to_chat(user, span_notice("You start winding the tape back in."))
 		if(do_after(user, 120 * I.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
+			to_chat(user, span_notice("You wound the tape back in!"))
 			fix()
 	else if(istype(I, /obj/item/pen))
 		rename_interactive(user, I)

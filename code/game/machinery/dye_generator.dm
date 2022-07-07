@@ -56,7 +56,7 @@
 
 	if(istype(I, /obj/item/hair_dye_bottle))
 		var/obj/item/hair_dye_bottle/HD = I
-		user.visible_message("<span class='notice'>[user] fills [HD] up with some dye.</span>","<span class='notice'>You fill [HD] up with some hair dye.</span>")
+		user.visible_message(span_notice("[user] fills [HD] up with some dye."),span_notice("You fill [HD] up with some hair dye."))
 		HD.dye_color = dye_color
 		HD.update_dye_overlay()
 		return
@@ -113,7 +113,7 @@
 		if(!user.Adjacent(M))
 			to_chat(user, "You are too far away!")
 			return
-		user.visible_message("<span class='notice'>[user] starts dying [M]'s [what_to_dye]!</span>", "<span class='notice'>You start dying [M]'s [what_to_dye]!</span>")
+		user.visible_message(span_notice("[user] starts dying [M]'s [what_to_dye]!"), span_notice("You start dying [M]'s [what_to_dye]!"))
 		if(do_after(user, 50, target = H))
 			switch(what_to_dye)
 				if("hair")
@@ -127,4 +127,4 @@
 				if("body")
 					H.change_skin_color(dye_color)
 			H.update_dna()
-		user.visible_message("<span class='notice'>[user] finishes dying [M]'s [what_to_dye]!</span>", "<span class='notice'>You finish dying [M]'s [what_to_dye]!</span>")
+		user.visible_message(span_notice("[user] finishes dying [M]'s [what_to_dye]!"), span_notice("You finish dying [M]'s [what_to_dye]!"))

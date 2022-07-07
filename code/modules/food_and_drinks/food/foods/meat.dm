@@ -159,7 +159,7 @@
 	tastes = list("tough meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goliath/burn()
-	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	visible_message(span_notice("[src] finishes cooking!"))
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
@@ -300,10 +300,10 @@
 		if(fingerprintslast)
 			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [GLOB.configuration.general.monkey_cube_cap] monkeys on the station at one time!</span>")
 		else
-			visible_message("<span class='notice'>[src] fails to expand!</span>")
+			visible_message(span_notice("[src] fails to expand!"))
 		return
 	if(!QDELETED(src))
-		visible_message("<span class='notice'>[src] expands!</span>")
+		visible_message(span_notice("[src] expands!"))
 		if(fingerprintslast)
 			log_game("Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
 		else

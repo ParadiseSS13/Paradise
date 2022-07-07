@@ -23,14 +23,14 @@
 	if(isabductor(target))
 		return
 	if(occupant)
-		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
+		to_chat(user, span_notice("[src] is already occupied."))
 		return //occupied
 	if(target.buckled)
 		return
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head.</span>")
 		return
-	visible_message("<span class='notice'>[user] puts [target] into [src].</span>")
+	visible_message(span_notice("[user] puts [target] into [src]."))
 
 	target.forceMove(src)
 	occupant = target
@@ -142,7 +142,7 @@
 		SSticker.mode.abductees += H.mind
 		H.mind.objectives += O
 		var/obj_count = 1
-		to_chat(H, "<span class='notice'>Your current objectives:</span>")
+		to_chat(H, span_notice("Your current objectives:"))
 		for(var/datum/objective/objective in H.mind.objectives)
 			to_chat(H, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 			obj_count++
@@ -187,12 +187,12 @@
 		if(isabductor(grabbed.affecting))
 			return
 		if(occupant)
-			to_chat(user, "<span class='notice'>[src] is already occupied!</span>")
+			to_chat(user, span_notice("[src] is already occupied!"))
 			return
 		if(grabbed.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head.</span>")
 			return
-		visible_message("<span class='notice'>[user] puts [grabbed.affecting] into [src].</span>")
+		visible_message(span_notice("[user] puts [grabbed.affecting] into [src]."))
 		var/mob/living/carbon/human/H = grabbed.affecting
 		H.forceMove(src)
 		occupant = H

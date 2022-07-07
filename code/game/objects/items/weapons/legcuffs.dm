@@ -44,7 +44,7 @@
 	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
 		update_icon()
-		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
+		to_chat(user, span_notice("[src] is now [armed ? "armed" : "disarmed"]"))
 
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
 	if(istype(I, /obj/item/grenade/iedcasing))
@@ -59,7 +59,7 @@
 		IED = I
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		log_game("[key_name(user)] has rigged a beartrap with an IED.")
-		to_chat(user, "<span class='notice'>You sneak [IED] underneath the pressure plate and connect the trigger wire.</span>")
+		to_chat(user, span_notice("You sneak [IED] underneath the pressure plate and connect the trigger wire."))
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
 	if(istype(I, /obj/item/assembly/signaler))
 		if(IED)
@@ -70,23 +70,23 @@
 			return
 		sig = I
 		if(sig.secured)
-			to_chat(user, "<span class='notice'>The signaler is secured.</span>")
+			to_chat(user, span_notice("The signaler is secured."))
 			sig = null
 			return
 		user.drop_item()
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You sneak [sig] underneath the pressure plate and connect the trigger wire.</span>")
+		to_chat(user, span_notice("You sneak [sig] underneath the pressure plate and connect the trigger wire."))
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
 	if(istype(I, /obj/item/screwdriver))
 		if(IED)
 			IED.forceMove(get_turf(src))
 			IED = null
-			to_chat(user, "<span class='notice'>You remove the IED from [src].</span>")
+			to_chat(user, span_notice("You remove the IED from [src]."))
 			return
 		if(sig)
 			sig.forceMove(get_turf(src))
 			sig = null
-			to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
+			to_chat(user, span_notice("You remove the signaler from [src]."))
 			return
 	..()
 

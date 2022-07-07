@@ -54,7 +54,7 @@
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
 	if(panel_open)
-		. += "<span class='notice'>The maintenance panel is open.</span>"
+		. += span_notice("The maintenance panel is open.")
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
@@ -162,7 +162,7 @@
 		if(allowed(user))
 			if(active)
 				locked = !locked
-				to_chat(user, "<span class='notice'>The controls are now [locked ? "locked" : "unlocked"].</span>")
+				to_chat(user, span_notice("The controls are now [locked ? "locked" : "unlocked"]."))
 			else
 				locked = FALSE //just in case it somehow gets locked
 				to_chat(user, "<span class='warning'>The controls can only be locked when [src] is online!</span>")
@@ -191,15 +191,15 @@
 				return
 		state = EMITTER_NEEDS_WELDER
 		anchored = TRUE
-		user.visible_message("<span class='notice'>[user] secures [src] to the floor.</span>",
-			"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>",
-			"<span class='notice'>You hear a ratchet.</span>")
+		user.visible_message(span_notice("[user] secures [src] to the floor."),
+			span_notice("You secure the external reinforcing bolts to the floor."),
+			span_notice("You hear a ratchet."))
 	else
 		state = EMITTER_NEEDS_WRENCH
 		anchored = FALSE
-		user.visible_message("<span class='notice'>[user] unsecures [src]'s reinforcing bolts from the floor.</span>",
-			"<span class='notice'>You undo the external reinforcing bolts.</span>",
-			"<span class='notice'>You hear a ratchet.</span>")
+		user.visible_message(span_notice("[user] unsecures [src]'s reinforcing bolts from the floor."),
+			span_notice("You undo the external reinforcing bolts."),
+			span_notice("You hear a ratchet."))
 	playsound(src, I.usesound, I.tool_volume, TRUE)
 
 /obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I)
@@ -216,7 +216,7 @@
 /obj/machinery/power/emitter/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(active)
-		to_chat(user, "<span class='notice'>Turn off [src] first.</span>")
+		to_chat(user, span_notice("Turn off [src] first."))
 		return
 	if(state == EMITTER_NEEDS_WRENCH)
 		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor.</span>")

@@ -213,7 +213,7 @@
 		if(!pda.silent)
 			playsound(pda, 'sound/machines/terminal_success.ogg', 15, TRUE)
 	else
-		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
+		to_chat(U, span_notice("ERROR: Messaging server is not responding."))
 		if(!pda.silent)
 			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 

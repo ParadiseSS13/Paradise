@@ -106,7 +106,7 @@
 	button_icon_state = "mech_defense_mode_[chassis.defence_mode ? "on" : "off"]"
 	if(chassis.defence_mode)
 		chassis.deflect_chance = chassis.defence_mode_deflect_chance
-		chassis.occupant_message("<span class='notice'>You enable [chassis] defence mode.</span>")
+		chassis.occupant_message(span_notice("You enable [chassis] defence mode."))
 	else
 		chassis.deflect_chance = initial(chassis.deflect_chance)
 		chassis.occupant_message("<span class='danger'>You disable [chassis] defence mode.</span>")
@@ -140,7 +140,7 @@
 		// chassis.bumpsmash = 0
 		chassis.step_in = initial(chassis.step_in)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
-		chassis.occupant_message("<span class='notice'>You disable leg actuators overload.</span>")
+		chassis.occupant_message(span_notice("You disable leg actuators overload."))
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_toggle_thrusters

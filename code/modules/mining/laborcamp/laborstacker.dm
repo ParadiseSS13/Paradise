@@ -41,11 +41,11 @@
 				return
 			I.forceMove(src)
 			inserted_id = I
-			to_chat(user, "<span class='notice'>You insert [I].</span>")
+			to_chat(user, span_notice("You insert [I]."))
 			SStgui.update_uis(src)
 			return
 		else
-			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
+			to_chat(user, span_notice("There's an ID inserted already."))
 		return
 	return ..()
 
@@ -111,16 +111,16 @@
 			else
 				switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, usr))
 					if(1)
-						to_chat(usr, "<span class='notice'>Shuttle not found.</span>")
+						to_chat(usr, span_notice("Shuttle not found."))
 					if(2)
-						to_chat(usr, "<span class='notice'>Shuttle already at station.</span>")
+						to_chat(usr, span_notice("Shuttle already at station."))
 					if(3)
-						to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
+						to_chat(usr, span_notice("No permission to dock could be granted."))
 					else
 						if(!emagged)
 							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
 							announcer.autosay(message, "Labor Camp Controller", "Security")
-						to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+						to_chat(usr, span_notice("Shuttle received message and will be sent shortly."))
 						usr.create_log(MISC_LOG, "used [src] to call the laborcamp shuttle")
 
 	return TRUE
@@ -171,9 +171,9 @@
 		if(istype(I, /obj/item/card/id/prisoner))
 			var/obj/item/card/id/prisoner/prisoner_id = I
 			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
-			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
-			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
-			to_chat(user, "<span class='notice'>Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release.</span>")
+			to_chat(user, span_notice("Points Collected:[prisoner_id.mining_points]"))
+			to_chat(user, span_notice("Point Quota: [prisoner_id.goal]"))
+			to_chat(user, span_notice("Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release."))
 		else
 			to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
 		return

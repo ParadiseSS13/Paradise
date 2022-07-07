@@ -109,7 +109,7 @@
 				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
 				return
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
-		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
+		to_chat(user, span_notice("You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!"))
 		user.adjust_nutrition(5)
 		if(uses)
 			uses -= 5
@@ -267,7 +267,7 @@
 	var/choice = input(user,"Spraycan options") in list("Toggle Cap","Change Drawing","Change Color")
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")
+			to_chat(user, span_notice("You [capped ? "remove" : "replace"] the cap of [src]."))
 			capped = !capped
 			icon_state = "spraycan[capped ? "_cap" : ""]"
 			update_icon()

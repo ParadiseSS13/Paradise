@@ -67,7 +67,7 @@
 						ghost_can_reenter = 1
 						break
 			if(!ghost_can_reenter)
-				to_chat(user, "<span class='notice'>[B] is completely unresponsive; there's no point.</span>")
+				to_chat(user, span_notice("[B] is completely unresponsive; there's no point."))
 				return
 
 		if(B.brainmob.stat == DEAD)
@@ -78,7 +78,7 @@
 			to_chat(user, "<span class='warning'>[B] does not seem to fit.</span>")
 			return
 
-		to_chat(user, "<span class='notice'>You install [B] in [src]!</span>")
+		to_chat(user, span_notice("You install [B] in [src]!"))
 
 		user.drop_item()
 		B.forceMove(src)
@@ -106,7 +106,7 @@
 			id_card = pda.id
 
 		if(ACCESS_ROBOTICS in id_card.access)
-			to_chat(user, "<span class='notice'>You swipe your access card and pop the brain out of [src].</span>")
+			to_chat(user, span_notice("You swipe your access card and pop the brain out of [src]."))
 			eject_brain()
 			return 1
 		else
@@ -129,7 +129,7 @@
 		return
 	adjustHealth(-5)
 	add_fingerprint(user)
-	user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
+	user.visible_message("[user] repairs [src]!",span_notice("You repair [src]."))
 
 /mob/living/simple_animal/spiderbot/emag_act(mob/living/user)
 	if(emagged)
@@ -137,7 +137,7 @@
 		return 0
 	else
 		emagged = 1
-		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
+		to_chat(user, span_notice("You short out the security protocols and rewrite [src]'s internal memory."))
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!</span>")
 		emagged_master = user
 		add_attack_logs(user, src, "Emagged")

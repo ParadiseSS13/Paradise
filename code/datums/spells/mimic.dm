@@ -85,7 +85,7 @@
 	forms += available_forms.Copy()
 	var/what = input(user, "Which form do you want to become?", "Mimic") as null|anything in forms
 	if(!what)
-		to_chat(user, "<span class='notice'>You decide against changing forms.</span>")
+		to_chat(user, span_notice("You decide against changing forms."))
 		revert_cast(user)
 		return
 
@@ -200,11 +200,11 @@
 
 /obj/effect/proc_holder/spell/mimic/morph/show_change_form_message(mob/user, old_name, new_name)
 	user.visible_message("<span class='warning'>[old_name] suddenly twists and changes shape, becoming a copy of [new_name]!</span>", \
-					"<span class='notice'>You twist your body and assume the form of [new_name].</span>")
+					span_notice("You twist your body and assume the form of [new_name]."))
 
 /obj/effect/proc_holder/spell/mimic/morph/show_restore_form_message(mob/user, old_name, new_name)
 	user.visible_message("<span class='warning'>[old_name] suddenly collapses in on itself, dissolving into a pile of green flesh!</span>", \
-					"<span class='notice'>You reform to your normal body.</span>")
+					span_notice("You reform to your normal body."))
 
 /obj/effect/proc_holder/spell/mimic/morph/show_death_message(mob/user)
 	user.visible_message("<span class='warning'>[user] twists and dissolves into a pile of green flesh!</span>", \

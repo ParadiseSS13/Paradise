@@ -178,7 +178,7 @@ GLOBAL_LIST_EMPTY(safes)
 		if(I.flags && ABSTRACT)
 			return
 		if(broken && istype(I, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
-			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
+			to_chat(user, span_notice("You replace the broken mechanism."))
 			qdel(I)
 			broken = FALSE
 			update_icon()
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(safes)
 				return
 			space += I.w_class
 			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+			to_chat(user, span_notice("You put [I] in [src]."))
 			SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='warning'>[I] won't fit in [src].</span>")
@@ -254,7 +254,7 @@ GLOBAL_LIST_EMPTY(safes)
 	switch(action)
 		if("open")
 			if(check_unlocked() || open || broken)
-				to_chat(usr, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
+				to_chat(usr, span_notice("You [open ? "close" : "open"] [src]."))
 				open = !open
 				update_icon()
 			else

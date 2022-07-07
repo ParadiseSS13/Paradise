@@ -100,7 +100,7 @@
 			return
 		beaker = I
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
+		to_chat(user, span_notice("You add the beaker to the machine!"))
 		SStgui.update_uis(src)
 		update_icon()
 
@@ -115,7 +115,7 @@
 
 		loaded_pill_bottle = I
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You add [I] into the dispenser slot!</span>")
+		to_chat(user, span_notice("You add [I] into the dispenser slot!"))
 		SStgui.update_uis(src)
 	else
 		return ..()
@@ -178,7 +178,7 @@
 			var/datum/reagent/R = reagent_list[idx]
 
 			printing = TRUE
-			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
+			visible_message(span_notice("[src] rattles and prints out a sheet of paper."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -448,7 +448,7 @@
 					var/amount_per_pill = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_PILL)
 					while(count--)
 						if(reagents.total_volume <= 0)
-							to_chat(usr, "<span class='notice'>Not enough reagents to create these pills!</span>")
+							to_chat(usr, span_notice("Not enough reagents to create these pills!"))
 							return
 
 						var/obj/item/reagent_containers/food/pill/P = new(loc)
@@ -482,7 +482,7 @@
 					var/is_medical_patch = chemical_safety_check(reagents)
 					while(count--)
 						if(reagents.total_volume <= 0)
-							to_chat(usr, "<span class='notice'>Not enough reagents to create these patches!</span>")
+							to_chat(usr, span_notice("Not enough reagents to create these patches!"))
 							return
 
 						var/obj/item/reagent_containers/food/pill/patch/P = new(loc)

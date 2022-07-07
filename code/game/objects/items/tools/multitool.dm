@@ -40,7 +40,7 @@
 		to_chat(user, "<span class='warning'>That's not a machine!</span>")
 		return
 	buffer = M
-	to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")
+	to_chat(user, span_notice("You load [M] into [src]'s internal buffer."))
 	return TRUE
 
 /obj/item/multitool/Destroy()

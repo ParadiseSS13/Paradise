@@ -137,8 +137,8 @@
 /mob/living/simple_animal/hostile/winter/santa/stage_4/death(gibbed)
 	if(can_die())
 		to_chat(world, "<span class='notice'><hr></span>")
-		to_chat(world, "<span class='notice'>THE FAT MAN HAS FALLEN!</span>")
-		to_chat(world, "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>")
+		to_chat(world, span_notice("THE FAT MAN HAS FALLEN!"))
+		to_chat(world, span_notice("SANTA CLAUS HAS BEEN DEFEATED!"))
 		to_chat(world, "<span class='notice'><hr></span>")
 	// Only execute the below if we successfully died
 	. = ..()

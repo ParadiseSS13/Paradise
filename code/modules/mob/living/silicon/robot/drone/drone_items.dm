@@ -57,8 +57,8 @@
 			H.stand_up()
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
-				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
-				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
+				span_notice("[user] shakes [H] trying to wake [H.p_them()] up!"),\
+				span_notice("You shake [H] trying to wake [H.p_them()] up!"),\
 				)
 
 /obj/item/gripper/New()
@@ -115,7 +115,7 @@
 	else if(istype(target, /obj/item)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
-			to_chat(user, "<span class='notice'>You collect [I].</span>")
+			to_chat(user, span_notice("You collect [I]."))
 			I.forceMove(src)
 			gripped_item = I
 		else
@@ -174,7 +174,7 @@
 			grabbed_something = TRUE
 
 	if(grabbed_something)
-		to_chat(user, "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].</span>")
+		to_chat(user, span_notice("You deploy your decompiler and clear out the contents of \the [T]."))
 	else
 		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
 	return

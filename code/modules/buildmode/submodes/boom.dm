@@ -8,9 +8,9 @@
 	var/flames = -1
 
 /datum/buildmode_mode/boom/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Mouse Button on obj  = Kaboom</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_notice("***********************************************************"))
+	to_chat(user, span_notice("Mouse Button on obj  = Kaboom"))
+	to_chat(user, span_notice("***********************************************************"))
 
 /datum/buildmode_mode/boom/change_settings(mob/user)
 	devastation = input("Range of total devastation. -1 to none", text("Input"))  as num|null

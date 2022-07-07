@@ -31,9 +31,9 @@
 		if(target.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
 			if(target.revive())
 				target.grab_ghost(force = TRUE) // even suicides
-				to_chat(target, "<span class='notice'>You rise with a start, you're undead!!!</span>")
+				to_chat(target, span_notice("You rise with a start, you're undead!!!"))
 			else if(target.stat != DEAD)
-				to_chat(target, "<span class='notice'>You feel great!</span>")
+				to_chat(target, span_notice("You feel great!"))
 			return
 		if(ismachineperson(target)) //speshul snowfleks deserv speshul treetment
 			target.adjustFireLoss(6969)  //remember - slimes love fire
@@ -95,9 +95,9 @@
 						ghost.reenter_corpse()
 						break
 			if(old_stat != DEAD)
-				to_chat(target, "<span class='notice'>You feel great!</span>")
+				to_chat(target, span_notice("You feel great!"))
 			else
-				to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
+				to_chat(target, span_notice("You rise with a start, you're alive!!!"))
 
 /obj/item/projectile/magic/teleport
 	name = "bolt of teleportation"
@@ -345,7 +345,7 @@
 	else if(isliving(target))
 		var/mob/living/L = target
 		if(!L.IsStunned())
-			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
+			to_chat(target, span_notice("You get splatted by [src]."))
 			L.Weaken(slip_weaken)
 			L.Stun(slip_stun)
 	. = ..()

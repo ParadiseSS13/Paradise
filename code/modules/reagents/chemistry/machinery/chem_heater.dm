@@ -66,13 +66,13 @@
 
 	if(istype(I, /obj/item/reagent_containers/glass))
 		if(beaker)
-			to_chat(user, "<span class='notice'>A beaker is already loaded into the machine.</span>")
+			to_chat(user, span_notice("A beaker is already loaded into the machine."))
 			return
 
 		if(user.drop_item())
 			beaker = I
 			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
+			to_chat(user, span_notice("You add the beaker to the machine!"))
 			icon_state = "mixer1b"
 			SStgui.update_uis(src)
 			return

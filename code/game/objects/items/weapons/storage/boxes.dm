@@ -744,7 +744,7 @@
 			return
 		if(design == switchDesign)
 			return
-		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
+		to_chat(usr, span_notice("You make some modifications to [src] using your pen."))
 		design = switchDesign
 		icon_state = "paperbag_[design]"
 		item_state = "paperbag_[design]"
@@ -763,12 +763,12 @@
 	else if(is_sharp(W))
 		if(!contents.len)
 			if(item_state == "paperbag_None")
-				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
+				to_chat(user, span_notice("You cut eyeholes into [src]."))
 				new /obj/item/clothing/head/papersack(user.loc)
 				qdel(src)
 				return
 			else if(item_state == "paperbag_SmileyFace")
-				to_chat(user, "<span class='notice'>You cut eyeholes into [src] and modify the design.</span>")
+				to_chat(user, span_notice("You cut eyeholes into [src] and modify the design."))
 				new /obj/item/clothing/head/papersack/smiley(user.loc)
 				qdel(src)
 				return
@@ -873,7 +873,7 @@
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, "rustle", 50, 1, -5)
-	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
+	user.visible_message(span_notice("[user] hugs \the [src]."),span_notice("You hug \the [src]."))
 
 /obj/item/storage/box/wizard
 	name = "magical box"

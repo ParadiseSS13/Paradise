@@ -137,7 +137,7 @@
 /obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
 		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
-			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
+			to_chat(user, span_notice("Something is already attached to [src]."))
 			return FALSE
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>You are unable to insert [W] into [src].</span>")
@@ -146,10 +146,10 @@
 		trigger.forceMove(src)
 		trigger.master = src
 		trigger.holder = src
-		to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
+		to_chat(user, span_notice("You attach [W] to [src]."))
 		return TRUE
 	else if(istype(W, /obj/item/assembly))
-		to_chat(user, "<span class='notice'>That won't fit in [src]. Perhaps a signaler or voice analyzer would?</span>")
+		to_chat(user, span_notice("That won't fit in [src]. Perhaps a signaler or voice analyzer would?"))
 		return FALSE
 
 	return ..()
@@ -160,7 +160,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You remove [trigger] from [src].</span>")
+	to_chat(user, span_notice("You remove [trigger] from [src]."))
 	trigger.forceMove(get_turf(user))
 	trigger.master = null
 	trigger.holder = null

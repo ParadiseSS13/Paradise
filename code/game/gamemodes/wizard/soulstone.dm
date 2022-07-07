@@ -153,7 +153,7 @@
 	if(istype(O, /obj/item/storage/bible) && !iscultist(user) && user.mind.isholy)
 		if(purified)
 			return
-		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
+		to_chat(user, span_notice("You begin to exorcise [src]."))
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
 		if(do_after(user, 40, target = src))
 			usability = TRUE
@@ -175,12 +175,12 @@
 			for(var/mob/living/simple_animal/shade/EX in src)
 				EX.holy = TRUE
 				EX.icon_state = "shade_angelic"
-			user.visible_message("<span class='notice'>[user] purifies [src]!</span>", "<span class='notice'>You purify [src]!</span>")
+			user.visible_message(span_notice("[user] purifies [src]!"), span_notice("You purify [src]!"))
 
 	else if(istype(O, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		if(!purified)
 			return
-		to_chat(user, "<span class='notice'>You begin to cleanse [src] of holy magic.</span>")
+		to_chat(user, span_notice("You begin to cleanse [src] of holy magic."))
 		if(do_after(user, 40, target = src))
 			usability = FALSE
 			purified = FALSE
@@ -195,7 +195,7 @@
 			for(var/mob/living/simple_animal/shade/EX in src)
 				EX.holy = FALSE
 				EX.icon_state = SSticker.cultdat?.shade_icon_state
-			to_chat(user, "<span class='notice'>You have cleansed [src] of holy magic.</span>")
+			to_chat(user, span_notice("You have cleansed [src] of holy magic."))
 	else
 		..()
 
@@ -307,7 +307,7 @@
 					T.health = T.maxHealth
 					icon_state = icon_state_full
 					name = "soulstone : [T.name]"
-					to_chat(T, "<span class='notice'>Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form</span>")
+					to_chat(T, span_notice("Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form"))
 					to_chat(user, "<span class='notice'>Capture successful!</span> [T.name]'s has been recaptured and stored within the soul stone.")
 
 		if("CONSTRUCT")

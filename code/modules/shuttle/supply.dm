@@ -413,7 +413,7 @@
 
 /obj/machinery/computer/supplycomp/emag_act(user as mob)
 	if(!hacked)
-		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
+		to_chat(user, span_notice("Special supplies unlocked."))
 		hacked = TRUE
 		return
 

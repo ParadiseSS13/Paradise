@@ -38,7 +38,7 @@
 	//Guest Checking
 	if(GLOB.configuration.general.guest_ban && check_guest && IsGuestKey(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
-		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
+		// message_admins(span_notice("Failed Login: [key] - Guests not allowed"))
 		if(log_info)
 			INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")

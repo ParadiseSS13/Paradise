@@ -35,8 +35,8 @@
 /datum/surgery_step/augment/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'>[user] has finished augmenting [affected] with [tool].</span>",	\
-	"<span class='notice'>You augment [affected] with [tool].</span>")
+	user.visible_message(span_notice("[user] has finished augmenting [affected] with [tool]."),	\
+	span_notice("You augment [affected] with [tool]."))
 
 	if(L.part)
 		for(var/part_name in L.part)

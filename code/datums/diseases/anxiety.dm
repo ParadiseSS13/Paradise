@@ -16,12 +16,12 @@
 	switch(stage)
 		if(2) //also changes say, see say.dm
 			if(prob(5))
-				to_chat(affected_mob, "<span class='notice'>You feel anxious.</span>")
+				to_chat(affected_mob, span_notice("You feel anxious."))
 		if(3)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='notice'>Your stomach flutters.</span>")
+				to_chat(affected_mob, span_notice("Your stomach flutters."))
 			if(prob(5))
-				to_chat(affected_mob, "<span class='notice'>You feel panicky.</span>")
+				to_chat(affected_mob, span_notice("You feel panicky."))
 			if(prob(2))
 				to_chat(affected_mob, "<span class='danger'>You're overtaken with panic!</span>")
 				affected_mob.AdjustConfused(rand(4 SECONDS, 6 SECONDS))
@@ -44,6 +44,6 @@
  * Made so severe anxiety does not overload the SSmob while keeping it's effect
  */
 /mob/living/simple_animal/butterfly/proc/decompose()
-	visible_message("<span class='notice'>[src] decomposes due to being outside of its original habitat for too long!</span>",
+	visible_message(span_notice("[src] decomposes due to being outside of its original habitat for too long!"),
 					"<span class='userdanger'>You decompose for being too long out of your habitat!</span>")
 	melt()

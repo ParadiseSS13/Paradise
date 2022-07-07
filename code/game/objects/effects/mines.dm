@@ -146,7 +146,7 @@
 	victim.flash_screen_color(red_splash, 10)
 
 	spawn(duration)
-		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
+		to_chat(victim, span_notice("Your bloodlust seeps back into the bog of your subconscious and you regain self control."))
 		qdel(chainsaw)
 		qdel(src)
 
@@ -158,7 +158,7 @@
 /obj/effect/mine/pickup/healing/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='notice'>You feel great!</span>")
+	to_chat(victim, span_notice("You feel great!"))
 	victim.revive()
 
 /obj/effect/mine/pickup/speed
@@ -170,8 +170,8 @@
 /obj/effect/mine/pickup/speed/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='notice'>You feel fast!</span>")
+	to_chat(victim, span_notice("You feel fast!"))
 	ADD_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
 	spawn(duration)
 		REMOVE_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
-		to_chat(victim, "<span class='notice'>You slow down.</span>")
+		to_chat(victim, span_notice("You slow down."))

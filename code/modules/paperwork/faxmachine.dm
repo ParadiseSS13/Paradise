@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(!emagged)
 		emagged = 1
 		req_one_access = list()
-		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
+		to_chat(user, span_notice("The transmitters realign to an unknown source!"))
 	else
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
@@ -179,7 +179,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				if(ishuman(usr))
 					if(!usr.get_active_hand() && Adjacent(usr))
 						usr.put_in_hands(copyitem)
-				to_chat(usr, "<span class='notice'>You eject [copyitem] from [src].</span>")
+				to_chat(usr, span_notice("You eject [copyitem] from [src]."))
 				copyitem = null
 			else
 				var/obj/item/I = usr.get_active_hand()
@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					usr.drop_item()
 					copyitem = I
 					I.forceMove(src)
-					to_chat(usr, "<span class='notice'>You insert [I] into [src].</span>")
+					to_chat(usr, span_notice("You insert [I] into [src]."))
 					flick(insert_anim, src)
 				else
 					to_chat(usr, "<span class='warning'>[src] only accepts paper, paper bundles, and photos.</span>")

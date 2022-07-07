@@ -37,7 +37,7 @@
 
 /obj/item/rcs/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There are [round(rcell.charge/chargecost)] charge\s left.</span>"
+	. += span_notice("There are [round(rcell.charge/chargecost)] charge\s left.")
 
 /obj/item/rcs/Destroy()
 	QDEL_NULL(rcell)
@@ -126,7 +126,7 @@
 
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
-	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
+	to_chat(user, span_notice("Teleporting [C]..."))
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
 	if(!do_after(user, 50 * toolspeed, target = C))
@@ -137,4 +137,4 @@
 	rcell.use(chargecost)
 	do_sparks(5, TRUE, C)
 	do_teleport(C, target)
-	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")
+	to_chat(user, span_notice("Teleport successful. [round(rcell.charge/chargecost)] charge\s left."))

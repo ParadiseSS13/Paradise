@@ -115,8 +115,8 @@
 	..()
 
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
-	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
-	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
+	var/msg = span_notice("You attach [I] into the assembly inner circuits.")
+	var/msg2 = span_notice("The camera already has that upgrade!")
 
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
 		if(!user.drop_item())
@@ -190,7 +190,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+	to_chat(user, span_notice("You screw [src]'s panel [panel_open ? "open" : "closed"]."))
 
 /obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE

@@ -161,8 +161,8 @@
 				blade_status = GUILLOTINE_BLADE_SHARPENING
 				if(do_after(user, 7, target = src))
 					blade_status = GUILLOTINE_BLADE_RAISED
-					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",
-						                 "<span class='notice'>You sharpen the large blade of the guillotine.</span>")
+					user.visible_message(span_notice("[user] sharpens the large blade of the guillotine."),
+						                 span_notice("You sharpen the large blade of the guillotine."))
 					blade_sharpness += 1
 					playsound(src, 'sound/items/screwdriver.ogg', 100, 1)
 					return
@@ -193,7 +193,7 @@
 		return
 
 	current_action = 0
-	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
+	to_chat(user, span_notice("You [anchored ? "un" : ""]secure [src]."))
 	anchored = !anchored
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 	dir = SOUTH

@@ -103,7 +103,7 @@
 		T.use(loaded)
 		amount += loaded
 		if(loaded > 0)
-			to_chat(user, "<span class='notice'>You load [loaded] tiles into the floorbot. [p_they(TRUE)] now contains [amount] tiles.</span>")
+			to_chat(user, span_notice("You load [loaded] tiles into the floorbot. [p_they(TRUE)] now contains [amount] tiles."))
 			nagged = 0
 			update_icon()
 		else
@@ -315,7 +315,7 @@
 	icon_state = "[toolbox_color]floorbot-c"
 	if(istype(target_turf, /turf/space/)) //If we are fixing an area not part of pure space, it is
 		icon_state = "[toolbox_color]floorbot-c"
-		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
+		visible_message(span_notice("[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] "))
 		mode = BOT_REPAIRING
 		spawn(50)
 			if(mode == BOT_REPAIRING)
@@ -332,7 +332,7 @@
 		var/turf/simulated/floor/F = target_turf
 		mode = BOT_REPAIRING
 		icon_state = "[toolbox_color]floorbot-c"
-		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
+		visible_message(span_notice("[src] begins repairing the floor."))
 		spawn(50)
 			if(mode == BOT_REPAIRING)
 				F.broken = 0
@@ -347,7 +347,7 @@
 /mob/living/simple_animal/bot/floorbot/proc/eattile(obj/item/stack/tile/plasteel/T)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
-	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
+	visible_message(span_notice("[src] begins to collect tiles."))
 	mode = BOT_REPAIRING
 	spawn(20)
 		if(isnull(T))
@@ -368,7 +368,7 @@
 /mob/living/simple_animal/bot/floorbot/proc/maketile(obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
-	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
+	visible_message(span_notice("[src] begins to create tiles."))
 	mode = BOT_REPAIRING
 	spawn(20)
 		if(isnull(M))

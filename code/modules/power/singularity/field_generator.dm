@@ -68,7 +68,7 @@ field_generator power level display
 				return 1
 			else
 				user.visible_message("[user] turns on [src].", \
-					"<span class='notice'>You turn on [src].</span>", \
+					span_notice("You turn on [src]."), \
 					"<span class='italics'>You hear heavy droning.</span>")
 				turn_on()
 				investigate_log("<font color='green'>activated</font> by [user.key].","singulo")
@@ -89,14 +89,14 @@ field_generator power level display
 				state = FG_SECURED
 				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] secures [name] to the floor.", \
-					"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
+					span_notice("You secure the external reinforcing bolts to the floor."), \
 					"<span class='italics'>You hear ratchet.</span>")
 				anchored = 1
 			if(FG_SECURED)
 				state = FG_UNSECURED
 				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
-					"<span class='notice'>You undo the external reinforcing bolts.</span>", \
+					span_notice("You undo the external reinforcing bolts."), \
 					"<span class='italics'>You hear ratchet.</span>")
 				anchored = 0
 			if(FG_WELDED)

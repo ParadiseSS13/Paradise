@@ -297,7 +297,7 @@
 		return
 	if(B.point_return)
 		add_points(B.point_return)
-		to_chat(src, "<span class='notice'>Gained [B.point_return] resources from removing \the [B].</span>")
+		to_chat(src, span_notice("Gained [B.point_return] resources from removing \the [B]."))
 	qdel(B)
 	return
 

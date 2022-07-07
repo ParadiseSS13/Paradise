@@ -51,13 +51,13 @@
 			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
 			return TRUE
 		else
-			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
+			to_chat(user, span_notice("You begin reinforcing the floor..."))
 			if(do_after(user, 30 * C.toolspeed, target = src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, C.usesound, 80, 1)
 					R.use(2)
-					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
+					to_chat(user, span_notice("You reinforce the floor."))
 				return TRUE
 
 	else if(istype(C, /obj/item/stack/tile))
@@ -79,7 +79,7 @@
 		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two sheets to build a [C.name] floor!</span>")
 			return TRUE
-		to_chat(user, "<span class='notice'>You begin swapping the plating for [C]...</span>")
+		to_chat(user, span_notice("You begin swapping the plating for [C]..."))
 		if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
 			if(R.get_amount() >= 2 && !transparent_floor)
 				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
@@ -96,7 +96,7 @@
 					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium/plasma)
 				playsound(src, C.usesound, 80, TRUE)
 				R.use(2)
-				to_chat(user, "<span class='notice'>You swap the plating for [C].</span>")
+				to_chat(user, span_notice("You swap the plating for [C]."))
 				new /obj/item/stack/sheet/metal(src, 2)
 			return TRUE
 
@@ -104,11 +104,11 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
+	to_chat(user, span_notice("You start [unfastened ? "fastening" : "unfastening"] [src]."))
 	. = TRUE
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
+	to_chat(user, span_notice("You [unfastened ? "fasten" : "unfasten"] [src]."))
 	unfastened = !unfastened
 
 /turf/simulated/floor/plating/welder_act(mob/user, obj/item/I)
@@ -125,7 +125,7 @@
 		remove_plating(user)
 		return
 	if(I.use_tool(src, user, volume = I.tool_volume)) //If we got this far, something needs fixing
-		to_chat(user, "<span class='notice'>You fix some dents on the broken plating.</span>")
+		to_chat(user, span_notice("You fix some dents on the broken plating."))
 		overlays -= current_overlay
 		current_overlay = null
 		burnt = FALSE
@@ -185,7 +185,7 @@
 	if(!C || !user)
 		return
 	if(istype(C, /obj/item/wrench))
-		to_chat(user, "<span class='notice'>You begin removing rods...</span>")
+		to_chat(user, span_notice("You begin removing rods..."))
 		playsound(src, C.usesound, 80, 1)
 		if(do_after(user, 30 * C.toolspeed, target = src))
 			if(!istype(src, /turf/simulated/floor/engine))
@@ -346,7 +346,7 @@
 /turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)
 	if(M.melee_damage_upper == 0)
-		M.visible_message("<span class='notice'>[M] nudges \the [src].</span>")
+		M.visible_message(span_notice("[M] nudges \the [src]."))
 	else
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)

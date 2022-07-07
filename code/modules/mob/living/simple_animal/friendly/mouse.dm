@@ -97,7 +97,7 @@
 	if(ishuman(AM))
 		if(!stat)
 			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
+			to_chat(M, span_notice("[bicon(src)] Squeek!"))
 	..()
 
 /mob/living/simple_animal/mouse/proc/toast()
@@ -204,7 +204,7 @@
 
 /mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!(istype(user, /mob/living/silicon/robot/drone)))
-		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
+		user.visible_message(span_notice("[user] sucks [src] into its decompiler. There's a horrible crunching noise."), \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
 		C.stored_comms["wood"] += 2

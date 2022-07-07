@@ -57,9 +57,9 @@
 	. = ..()
 	if(!in_range(user, src))
 		if(active)
-			. += "<span class='notice'>The generator is on.</span>"
+			. += span_notice("The generator is on.")
 		else
-			. += "<span class='notice'>The generator is off.</span>"
+			. += span_notice("The generator is off.")
 
 /obj/machinery/power/port_gen/emp_act(severity)
 	var/duration = 6000 //ten minutes
@@ -277,9 +277,9 @@
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
-			to_chat(user, "<span class='notice'>[src] is full!</span>")
+			to_chat(user, span_notice("[src] is full!"))
 			return
-		to_chat(user, "<span class='notice'>You add [amount] sheet\s to [src].</span>")
+		to_chat(user, span_notice("You add [amount] sheet\s to [src]."))
 		sheets += amount
 		addstack.use(amount)
 		SStgui.update_uis(src)
@@ -289,10 +289,10 @@
 
 			if(!anchored)
 				connect_to_network()
-				to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
+				to_chat(user, span_notice("You secure the generator to the floor."))
 			else
 				disconnect_from_network()
-				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
+				to_chat(user, span_notice("You unsecure the generator from the floor."))
 
 			playsound(src.loc, O.usesound, 50, 1)
 			anchored = !anchored
@@ -301,9 +301,9 @@
 			panel_open = !panel_open
 			playsound(src.loc, O.usesound, 50, 1)
 			if(panel_open)
-				to_chat(user, "<span class='notice'>You open the access panel.</span>")
+				to_chat(user, span_notice("You open the access panel."))
 			else
-				to_chat(user, "<span class='notice'>You close the access panel.</span>")
+				to_chat(user, span_notice("You close the access panel."))
 		else if(istype(O, /obj/item/storage/part_replacer) && panel_open)
 			exchange_parts(user, O)
 			return

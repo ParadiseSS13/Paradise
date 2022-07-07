@@ -300,7 +300,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/attack_alien(mob/user)
 	if(!welded || !(do_after(user, 20, target = src)))
 		return
-	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the vent.</span>", "<span class='italics'>You hear loud scraping noises.</span>")
+	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", span_notice("You manage to clear away the stuff blocking the vent."), "<span class='italics'>You hear loud scraping noises.</span>")
 	welded = FALSE
 	update_icon()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
@@ -311,13 +311,13 @@
 	if(istype(W, /obj/item/screwdriver))
 		if(!welded)
 			if(open)
-				to_chat(user, "<span class='notice'>Now closing the vent.</span>")
+				to_chat(user, span_notice("Now closing the vent."))
 				if(do_after(user, 20 * W.toolspeed, target = src))
 					playsound(loc, W.usesound, 100, 1)
 					open = 0
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 			else
-				to_chat(user, "<span class='notice'>Now opening the vent.</span>")
+				to_chat(user, span_notice("Now opening the vent."))
 				if(do_after(user, 20 * W.toolspeed, target = src))
 					playsound(loc, W.usesound, 100, 1)
 					open = 1
@@ -351,12 +351,12 @@
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		if(!welded)
 			welded = TRUE
-			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
-				"<span class='notice'>You weld [src] shut!</span>")
+			user.visible_message(span_notice("[user] welds [src] shut!"),\
+				span_notice("You weld [src] shut!"))
 		else
 			welded = FALSE
-			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
-				"<span class='notice'>You unweld [src]!</span>")
+			user.visible_message(span_notice("[user] unwelds [src]!"),\
+				span_notice("You unweld [src]!"))
 		update_icon()
 
 

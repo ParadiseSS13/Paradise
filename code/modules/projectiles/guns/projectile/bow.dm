@@ -40,7 +40,7 @@
 /obj/item/gun/projectile/bow/attackby(obj/item/A, mob/user, params)
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You ready \the [A] into \the [src].</span>")
+		to_chat(user, span_notice("You ready \the [A] into \the [src]."))
 		update_icon()
 		chamber_round()
 

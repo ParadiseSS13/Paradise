@@ -63,7 +63,7 @@
 	usr.set_machine(src)
 	add_fingerprint(usr)
 	if(processing == 1)
-		to_chat(usr, "<span class='notice'>The machine is processing.</span>")
+		to_chat(usr, span_notice("The machine is processing."))
 		return
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	if(href_list["choose"])
@@ -83,7 +83,7 @@
 
 		while(coinsToProduce > 0 && materials.can_use_amount(coin_mat, chosen))
 			if(!create_coins(M.coin_type))
-				visible_message("<span class='notice'>[src] stops printing to prevent an overflow.</span>")
+				visible_message(span_notice("[src] stops printing to prevent an overflow."))
 				break
 			materials.use_amount_type(coin_mat, chosen)
 			coinsToProduce--

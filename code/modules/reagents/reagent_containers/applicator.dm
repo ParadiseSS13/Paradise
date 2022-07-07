@@ -67,9 +67,9 @@
 
 	if(ignore_flags || M.can_inject(user, TRUE))
 		if(M == user)
-			M.visible_message("[user] begins mending [user.p_them()]self with [src].", "<span class='notice'>You begin mending yourself with [src].</span>")
+			M.visible_message("[user] begins mending [user.p_them()]self with [src].", span_notice("You begin mending yourself with [src]."))
 		else
-			user.visible_message("<span class='warning'>[user] begins mending [M] with [src].</span>", "<span class='notice'>You begin mending [M] with [src].</span>")
+			user.visible_message("<span class='warning'>[user] begins mending [M] with [src].</span>", span_notice("You begin mending [M] with [src]."))
 		if(M.reagents)
 			applying = TRUE
 			icon_state = "mender-active"
@@ -78,10 +78,10 @@
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)
 				if(measured_health == M.health)
-					to_chat(user, "<span class='notice'>[M] is finished healing and [src] powers down automatically.</span>")
+					to_chat(user, span_notice("[M] is finished healing and [src] powers down automatically."))
 					break
 				if(!reagents.total_volume)
-					to_chat(user, "<span class='notice'>[src] is out of reagents and powers down automatically.</span>")
+					to_chat(user, span_notice("[src] is out of reagents and powers down automatically."))
 					break
 		applying = FALSE
 		icon_state = "mender"
@@ -118,7 +118,7 @@
 	if(alert(usr, "Are you sure you want to empty [src]?", "Empty Applicator:", "Yes", "No") != "Yes")
 		return
 	if(!usr.incapacitated() && isturf(usr.loc) && loc == usr)
-		to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
+		to_chat(usr, span_notice("You empty [src] onto the floor."))
 		reagents.reaction(usr.loc)
 		reagents.clear_reagents()
 

@@ -33,7 +33,7 @@
 
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to [opened ? "close":"open"] it.</span>"
+	. += span_notice("Alt-click to [opened ? "close":"open"] it.")
 
 /obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
@@ -72,7 +72,7 @@
 			contents += O
 			has_extinguisher = O
 			update_icon()
-			to_chat(user, "<span class='notice'>You place [O] in [src].</span>")
+			to_chat(user, span_notice("You place [O] in [src]."))
 			return TRUE
 		else
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
@@ -102,7 +102,7 @@
 
 /obj/structure/extinguisher_cabinet/attack_hand(mob/user)
 	if(isrobot(user) || isalien(user))
-		to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_notice("You don't have the dexterity to do this!"))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -116,7 +116,7 @@
 		if(icon_state == "extinguisher_closed")
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		user.put_in_hands(has_extinguisher)
-		to_chat(user, "<span class='notice'>You take [has_extinguisher] from [src].</span>")
+		to_chat(user, span_notice("You take [has_extinguisher] from [src]."))
 		has_extinguisher = null
 		opened = 1
 	else
@@ -129,7 +129,7 @@
 		if(icon_state == "extinguisher_closed")
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		has_extinguisher.loc = loc
-		to_chat(user, "<span class='notice'>You telekinetically remove [has_extinguisher] from [src].</span>")
+		to_chat(user, span_notice("You telekinetically remove [has_extinguisher] from [src]."))
 		has_extinguisher = null
 		opened = 1
 	else

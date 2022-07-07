@@ -250,7 +250,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
+	to_chat(user, span_notice("You [panel_open ? "open":"close"] the maintenance panel of the [src.name]."))
 
 
 /obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
@@ -288,7 +288,7 @@
 				else
 					WA.name = "wired windoor assembly"
 
-				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+				to_chat(user, span_notice("You remove the airlock electronics."))
 
 				var/obj/item/airlock_electronics/ae
 				if(!electronics)

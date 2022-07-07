@@ -7,7 +7,7 @@
 		switch(_key)
 			if("Delete")
 				if(!pulling)
-					to_chat(src, "<span class='notice'>You are not pulling anything.</span>")
+					to_chat(src, span_notice("You are not pulling anything."))
 				else
 					stop_pulling()
 				return
@@ -40,7 +40,7 @@
 		switch(_key)
 			if("Delete")
 				if(!pulling)
-					to_chat(src, "<span class='notice'>You are not pulling anything.</span>")
+					to_chat(src, span_notice("You are not pulling anything."))
 				else
 					stop_pulling()
 				return

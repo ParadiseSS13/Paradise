@@ -385,7 +385,7 @@
 		target.visible_message("<span class='danger'>[target] recoils backwards and falls flat!</span>",
 							   "<span class='userdanger'>[name] pounces on you!</span>")
 
-		to_chat(target, "<span class='notice'>[name] begins climbing into the ventilation system...</span>")
+		to_chat(target, span_notice("[name] begins climbing into the ventilation system..."))
 		QDEL_IN(src, 2 SECONDS)
 
 /**

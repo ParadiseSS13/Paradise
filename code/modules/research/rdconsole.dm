@@ -209,7 +209,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(!user.drop_item())
 			return
 		D.loc = src
-		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
+		to_chat(user, span_notice("You add the disk to the machine!"))
 	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		..()
 	SStgui.update_uis(src)
@@ -220,7 +220,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		to_chat(user, span_notice("You disable the security protocols"))
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)

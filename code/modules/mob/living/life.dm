@@ -82,7 +82,7 @@
 					var/view = client ? client.view : world.view
 					if(get_dist(src, A) > view || !(src in viewers(view, A)))
 						forced_look = null
-						to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+						to_chat(src, span_notice("Your direction target has left your view, you are no longer facing anything."))
 						return
 			setDir()
 

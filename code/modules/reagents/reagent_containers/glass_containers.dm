@@ -23,7 +23,7 @@
 /obj/item/reagent_containers/glass/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2 && !is_open_container())
-		. += "<span class='notice'>Airtight lid seals it completely.</span>"
+		. += span_notice("Airtight lid seals it completely.")
 
 /obj/item/reagent_containers/glass/attack(mob/M, mob/user, def_zone)
 	if(!is_open_container())
@@ -60,7 +60,7 @@
 				M.visible_message("<span class='danger'>[user] feeds something to [M].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
 				add_attack_logs(user, M, "Fed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
 			else
-				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
+				to_chat(user, span_notice("You swallow a gulp of [src]."))
 
 			var/fraction = min(5 / reagents.total_volume, 1)
 			reagents.reaction(M, REAGENT_INGEST, fraction)
@@ -87,7 +87,7 @@
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution to [target].</span>")
+		to_chat(user, span_notice("You transfer [trans] unit\s of the solution to [target]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!target.reagents.total_volume)
@@ -99,12 +99,12 @@
 			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
+		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
 			user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
-								"<span class='notice'>You splash the contents of [src] onto [target].</span>")
+								span_notice("You splash the contents of [src] onto [target]."))
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.clear_reagents()
 
@@ -170,12 +170,12 @@
 	if(usr.incapacitated())
 		return
 	if(assembly)
-		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
+		to_chat(usr, span_notice("You detach [assembly] from [src]"))
 		usr.put_in_hands(assembly)
 		assembly = null
 		update_icon()
 	else
-		to_chat(usr, "<span class='notice'>There is no assembly to remove.</span>")
+		to_chat(usr, span_notice("There is no assembly to remove."))
 
 /obj/item/reagent_containers/glass/beaker/proc/heat_beaker()
 	if(reagents)

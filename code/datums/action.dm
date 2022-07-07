@@ -404,7 +404,7 @@
 /datum/action/item_action/toggle_research_scanner/Trigger()
 	if(IsAvailable())
 		owner.research_scanner = !owner.research_scanner
-		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
+		to_chat(owner, span_notice("Research analyzer is now [owner.research_scanner ? "active" : "deactivated"]."))
 		return TRUE
 
 /datum/action/item_action/toggle_research_scanner/Remove(mob/living/L)

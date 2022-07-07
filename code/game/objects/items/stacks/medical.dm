@@ -47,7 +47,7 @@
 			return TRUE
 
 		if(M == user && !unique_handling)
-			user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]...</span>")
+			user.visible_message(span_notice("[user] starts to apply [src] on [H]..."))
 			if(!do_mob(user, H, self_delay))
 				return TRUE
 		return
@@ -55,13 +55,13 @@
 	if(isanimal(M))
 		var/mob/living/simple_animal/critter = M
 		if(!(critter.healable))
-			to_chat(user, "<span class='notice'>You cannot use [src] on [critter]!</span>")
+			to_chat(user, span_notice("You cannot use [src] on [critter]!"))
 			return
 		else if (critter.health == critter.maxHealth)
-			to_chat(user, "<span class='notice'>[critter] is at full health.</span>")
+			to_chat(user, span_notice("[critter] is at full health."))
 			return
 		else if(heal_brute < 1)
-			to_chat(user, "<span class='notice'>[src] won't help [critter] at all.</span>")
+			to_chat(user, span_notice("[src] won't help [critter] at all."))
 			return
 
 		critter.heal_organ_damage(heal_brute, heal_burn)
@@ -131,7 +131,7 @@
 			return
 		new /obj/item/stack/sheet/cloth(user.drop_location())
 		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
-					 "<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
+					 span_notice("You cut [src] into pieces of cloth with [I]."), \
 					 "<span class='italics'>You hear cutting.</span>")
 		use(2)
 	else
@@ -285,21 +285,21 @@
 			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal.", "Yes", "No") == "Yes")
 				affecting.status &= ~ORGAN_SPLINTED
 				H.handle_splints()
-				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
+				to_chat(user, span_notice("You remove the splint from [H]'s [limb]."))
 			return TRUE
 
 		if((M == user && self_delay > 0) || (M != user && other_delay > 0))
-			user.visible_message("<span class='notice'>[user] starts to apply [src] to [H]'s [limb].</span>", \
-									"<span class='notice'>You start to apply [src] to [H]'s [limb].</span>", \
-									"<span class='notice'>You hear something being wrapped.</span>")
+			user.visible_message(span_notice("[user] starts to apply [src] to [H]'s [limb]."), \
+									span_notice("You start to apply [src] to [H]'s [limb]."), \
+									span_notice("You hear something being wrapped."))
 
 		if(M == user && !do_mob(user, H, self_delay))
 			return TRUE
 		else if(!do_mob(user, H, other_delay))
 			return TRUE
 
-		user.visible_message("<span class='notice'>[user] applies [src] to [H]'s [limb].</span>", \
-								"<span class='notice'>You apply [src] to [H]'s [limb].</span>")
+		user.visible_message(span_notice("[user] applies [src] to [H]'s [limb]."), \
+								span_notice("You apply [src] to [H]'s [limb]."))
 
 		affecting.status |= ORGAN_SPLINTED
 		affecting.splinted_count = H.step_count

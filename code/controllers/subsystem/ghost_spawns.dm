@@ -253,7 +253,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	signed_up += M
 	if(!silent)
-		to_chat(M, "<span class='notice'>You have signed up for this role! A candidate will be picked randomly soon.</span>")
+		to_chat(M, span_notice("You have signed up for this role! A candidate will be picked randomly soon."))
 		// Sign them up for any other polls with the same mob type
 		for(var/existing_poll in SSghost_spawns.currently_polling)
 			var/datum/candidate_poll/P = existing_poll
@@ -285,7 +285,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	signed_up -= M
 	if(!silent)
-		to_chat(M, "<span class='notice'>You have been unregistered as a candidate for this role. You can freely sign up again before the poll ends.</span>")
+		to_chat(M, span_notice("You have been unregistered as a candidate for this role. You can freely sign up again before the poll ends."))
 
 		for(var/existing_poll in SSghost_spawns.currently_polling)
 			var/datum/candidate_poll/P = existing_poll

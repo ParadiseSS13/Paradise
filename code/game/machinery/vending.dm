@@ -316,14 +316,14 @@
 			return
 		I.forceMove(src)
 		coin = I
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+		to_chat(user, span_notice("You insert [I] into [src]."))
 		SStgui.update_uis(src)
 		return
 	if(refill_canister && istype(I, refill_canister))
 		if(!panel_open)
 			to_chat(user, "<span class='warning'>You should probably unscrew the service panel first!</span>")
 		else if (stat & (BROKEN|NOPOWER))
-			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
+			to_chat(user, span_notice("[src] does not respond."))
 		else
 			//if the panel is open we attempt to refill the machine
 			var/obj/item/vending_refill/canister = I
@@ -333,7 +333,7 @@
 				// instantiate canister if needed
 				var/transferred = restock(canister)
 				if(transferred)
-					to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
+					to_chat(user, span_notice("You loaded [transferred] items in [src]."))
 				else
 					to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
 		return
@@ -430,7 +430,7 @@
 		return
 	inserted_item = I
 	I.forceMove(src)
-	to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+	to_chat(user, span_notice("You insert [I] into [src]."))
 	SStgui.update_uis(src)
 
 /obj/machinery/vending/proc/eject_item(mob/user)
@@ -636,7 +636,7 @@
 			if(istype(usr, /mob/living/silicon))
 				to_chat(usr, "<span class='warning'>You lack hands.</span>")
 				return
-			to_chat(usr, "<span class='notice'>You remove [coin] from [src].</span>")
+			to_chat(usr, span_notice("You remove [coin] from [src]."))
 			usr.put_in_hands(coin)
 			coin = null
 			. = TRUE
@@ -712,7 +712,7 @@
 				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
 				paid = pay_with_card(C, usr)
 			else if(usr.can_advanced_admin_interact())
-				to_chat(usr, "<span class='notice'>Vending object due to admin interaction.</span>")
+				to_chat(usr, span_notice("Vending object due to admin interaction."))
 				paid = TRUE
 			else
 				to_chat(usr, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
@@ -746,14 +746,14 @@
 
 	if(coin_records.Find(R))
 		if(!coin)
-			to_chat(user, "<span class='notice'>You need to insert a coin to get this item.</span>")
+			to_chat(user, span_notice("You need to insert a coin to get this item."))
 			vend_ready = TRUE
 			return
 		if(coin.string_attached)
 			if(prob(50))
-				to_chat(user, "<span class='notice'>You successfully pull the coin out before [src] could swallow it.</span>")
+				to_chat(user, span_notice("You successfully pull the coin out before [src] could swallow it."))
 			else
-				to_chat(user, "<span class='notice'>You weren't able to pull the coin out fast enough, the machine ate it, string and all.</span>")
+				to_chat(user, span_notice("You weren't able to pull the coin out fast enough, the machine ate it, string and all."))
 				QDEL_NULL(coin)
 		else
 			QDEL_NULL(coin)

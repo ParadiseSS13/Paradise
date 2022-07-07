@@ -97,25 +97,25 @@
 		C.forceMove(src)
 		cell = C
 		visible_message("[user] inserts a cell into [src].",
-						"<span class='notice'>You insert the new cell into [src].</span>")
+						span_notice("You insert the new cell into [src]."))
 		update_controls()
 	else if(istype(I, /obj/item/crowbar) && open && cell)
 		cell.add_fingerprint(usr)
 		cell.forceMove(loc)
 		cell = null
 		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the powercell out of [src].</span>")
+						span_notice("You pry the powercell out of [src]."))
 		update_controls()
 	else if(istype(I, /obj/item/wrench))
 		if(health < maxHealth)
 			adjustBruteLoss(-25)
 			updatehealth()
 			user.visible_message(
-				"<span class='notice'>[user] repairs [src]!</span>",
-				"<span class='notice'>You repair [src]!</span>"
+				span_notice("[user] repairs [src]!"),
+				span_notice("You repair [src]!")
 			)
 		else
-			to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
+			to_chat(user, span_notice("[src] does not need a repair!"))
 	else if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
 		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
@@ -136,7 +136,7 @@
 		emagged = 1
 	if(!open)
 		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src]'s controls!</span>")
+		to_chat(user, span_notice("You [locked ? "lock" : "unlock"] [src]'s controls!"))
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, 0)
 
@@ -197,7 +197,7 @@
 				cell.add_fingerprint(usr)
 				cell = null
 
-				usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
+				usr.visible_message(span_notice("[usr] removes the power cell from [src]."), span_notice("You remove the power cell from [src]."))
 		if("cellinsert")
 			if(open && !cell)
 				var/obj/item/stock_parts/cell/C = usr.get_active_hand()
@@ -207,7 +207,7 @@
 					C.forceMove(src)
 					C.add_fingerprint(usr)
 
-					usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+					usr.visible_message(span_notice("[usr] inserts a power cell into [src]."), span_notice("You insert the power cell into [src]."))
 		if("stop")
 			if(mode >= BOT_DELIVER)
 				bot_reset()
@@ -609,7 +609,7 @@
 		if(pathset) //The AI called us here, so notify it of our arrival.
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
-				to_chat(calling_ai, "<span class='notice'>[bicon(src)] [src] wirelessly plays a chiming sound!</span>")
+				to_chat(calling_ai, span_notice("[bicon(src)] [src] wirelessly plays a chiming sound!"))
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
 				calling_ai = null
 				radio_channel = "AI Private" //Report on AI Private instead if the AI is controlling us.

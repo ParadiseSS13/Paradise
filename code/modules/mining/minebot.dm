@@ -114,7 +114,7 @@
 		return
 	. = TRUE
 	if(health == maxHealth)
-		to_chat(user, "<span class='notice'>[src] doesn't need repairing!</span>")
+		to_chat(user, span_notice("[src] doesn't need repairing!"))
 		return
 	if(!I.tool_use_check(user, 1))
 		return
@@ -203,7 +203,7 @@
 			to_chat(src, "<span class='warning'>You attempt to dump your stored ore, but you have none.</span>")
 		return
 	if(message)
-		to_chat(src, "<span class='notice'>You dump your stored ore.</span>")
+		to_chat(src, span_notice("You dump your stored ore."))
 	for(var/obj/item/stack/ore/O in contents)
 		O.forceMove(drop_location())
 
@@ -237,7 +237,7 @@
 	else
 		user.set_light(6)
 	user.light_on = !user.light_on
-	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
+	to_chat(user, span_notice("You toggle your light [user.light_on ? "on" : "off"]."))
 
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
@@ -256,7 +256,7 @@
 		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
 		user.update_sight()
 
-	to_chat(user, "<span class='notice'>You toggle your meson vision [!is_active ? "on" : "off"].</span>")
+	to_chat(user, span_notice("You toggle your meson vision [!is_active ? "on" : "off"]."))
 
 /datum/action/innate/minedrone/toggle_meson_vision/proc/update_user_sight(mob/living/user)
 	user.sight |= sight_flags

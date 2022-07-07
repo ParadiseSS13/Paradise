@@ -11,7 +11,7 @@
 
 		if(INTENT_HELP)
 			if(health > 0)
-				visible_message("<span class='notice'>[M] [response_help] [src].</span>", "<span class='notice'>[M] [response_help] you.</span>")
+				visible_message(span_notice("[M] [response_help] [src]."), span_notice("[M] [response_help] you."))
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if(INTENT_GRAB)

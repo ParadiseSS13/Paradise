@@ -32,7 +32,7 @@
 
 /obj/item/gun/throw/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is [to_launch ? "loaded with \a [to_launch]" : "not loaded"].</span>"
+	. += span_notice("It is [to_launch ? "loaded with \a [to_launch]" : "not loaded"].")
 	. += notify_ammo_count()
 
 /obj/item/gun/throw/Destroy()
@@ -50,7 +50,7 @@
 			user.drop_item()
 			I.forceMove(src)
 			loaded_projectiles += I
-			to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
+			to_chat(user, span_notice("You load [I] into [src]."))
 			if(!to_launch)
 				process_chamber()
 			to_chat(user, notify_ammo_count())

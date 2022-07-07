@@ -74,7 +74,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(get_turf(src), W.usesound, 50, 1)
 		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
+			to_chat(user, span_notice("You detach \the [src] from the wall."))
 			new/obj/item/mounted/frame/driver_button(get_turf(src))
 			qdel(src)
 		return 1

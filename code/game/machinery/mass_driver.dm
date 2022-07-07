@@ -21,7 +21,7 @@
 		return 1
 
 	if(istype(W, /obj/item/screwdriver))
-		to_chat(user, "<span class='notice'>You begin to unscrew the bolts off [src]...</span>")
+		to_chat(user, span_notice("You begin to unscrew the bolts off [src]..."))
 		playsound(get_turf(src), W.usesound, 50, 1)
 		if(do_after(user, 30 * W.toolspeed, target = src))
 			var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
@@ -105,7 +105,7 @@
 				to_chat(user, "You begin to anchor \the [src] on the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 0))
-					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
+					to_chat(user, span_notice("You anchor \the [src]!"))
 					anchored = TRUE
 					build++
 				return 1
@@ -117,7 +117,7 @@
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 1))
 					build--
 					anchored = FALSE
-					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
+					to_chat(user, span_notice("You de-anchored \the [src]!"))
 				return 1
 		if(2) // Welded to the floor
 			if(istype(W, /obj/item/stack/cable_coil))
@@ -126,7 +126,7 @@
 				playsound(get_turf(src), C.usesound, 50, 1)
 				if(do_after(user, 20 * C.toolspeed, target = src) && (C.get_amount() >= 2) && (build == 2))
 					C.use(2)
-					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
+					to_chat(user, span_notice("You've added cables to \the [src]."))
 					build++
 			return
 		if(3) // Wired
@@ -135,7 +135,7 @@
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 3))
 					new /obj/item/stack/cable_coil(loc,2)
 					playsound(get_turf(src), W.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
+					to_chat(user, span_notice("You've removed the cables from \the [src]."))
 					build--
 				return 1
 			if(istype(W, /obj/item/stack/rods))
@@ -144,7 +144,7 @@
 				playsound(get_turf(src), R.usesound, 50, 1)
 				if(do_after(user, 20 * R.toolspeed, target = src) && (R.get_amount() >= 2) && (build == 3))
 					R.use(2)
-					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
+					to_chat(user, span_notice("You've added the grille to \the [src]."))
 					build++
 				return 1
 			return

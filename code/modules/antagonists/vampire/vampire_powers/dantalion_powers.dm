@@ -56,10 +56,10 @@
 		to_chat(user, "<span class='warning'>You don't have enough power to enthrall any more people!</span>")
 		return FALSE
 	if(ismindshielded(C) || C.mind.has_antag_datum(/datum/antagonist/vampire) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
-		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
+		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", span_notice("You feel a familiar sensation in your skull that quickly dissipates."))
 		return FALSE
 	if(C.mind.isholy)
-		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
+		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", span_notice("Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil."))
 		return FALSE
 	return TRUE
 

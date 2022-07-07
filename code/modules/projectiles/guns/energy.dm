@@ -24,7 +24,7 @@
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
+		. += span_notice("It is [round(cell.percent())]% charged.")
 
 
 /obj/item/gun/energy/detailed_examine()
@@ -131,7 +131,7 @@
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if(shot.select_name)
-		to_chat(user, "<span class='notice'>[src] is now set to [shot.select_name].</span>")
+		to_chat(user, span_notice("[src] is now set to [shot.select_name]."))
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)

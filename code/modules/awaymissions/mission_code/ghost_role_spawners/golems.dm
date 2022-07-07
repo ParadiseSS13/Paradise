@@ -140,7 +140,7 @@
 		if(QDELETED(src) || uses <= 0)
 			return
 		log_game("[key_name(user)] golem-swapped into [src]")
-		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
+		user.visible_message(span_notice("A faint light leaves [user], moving to [src] and animating it!"),span_notice("You leave your old body behind, and transfer into [src]!"))
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
 		return
@@ -165,8 +165,8 @@
 				has_owner = FALSE
 				owner = null
 		flavour_text = null
-		user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>",
-		"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
+		user.visible_message(span_notice("As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!"),
+		span_notice("You apply the potion to [src], feeling your mind leave your body!"))
 		message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()  //Keeps brain intact to prevent forcing redtext

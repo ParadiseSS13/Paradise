@@ -49,7 +49,7 @@
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(!L)
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
+				to_chat(user, span_notice("You construct a lattice."))
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				ReplaceWithLattice()
 			else
@@ -62,7 +62,7 @@
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>You build a floor.</span>")
+				to_chat(user, span_notice("You build a floor."))
 				ChangeTurf(/turf/simulated/floor/plating)
 			else
 				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")

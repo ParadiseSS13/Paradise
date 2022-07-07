@@ -36,14 +36,14 @@
 	user.drop_item()
 	I.forceMove(src)
 	updateUsrDialog()
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	to_chat(user, span_notice("You put [I] into [src]."))
 	return
 
 /obj/structure/janitorialcart/on_reagent_change()
 	update_icon()
 
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
-	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
+	var/fail_msg = span_notice("There is already one of those in [src].")
 
 	if(!I.is_robot_module())
 		if(istype(I, /obj/item/mop))
@@ -81,11 +81,11 @@
 				signs++
 				update_icon()
 			else
-				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
+				to_chat(user, span_notice("[src] can't hold any more signs."))
 		else if(istype(I, /obj/item/crowbar))
 			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
 			if(do_after(user, 30 * I.toolspeed, target = src))
-				to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
+				to_chat(usr, span_notice("You empty the contents of [src]'s bucket onto the floor."))
 				reagents.reaction(src.loc)
 				src.reagents.clear_reagents()
 		else if(istype(I, /obj/item/wrench))
@@ -93,14 +93,14 @@
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
+					span_notice(" You have tightened \the [src]'s casters."), \
 					"You hear ratchet.")
 				anchored = 1
 			else if(anchored)
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
-					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+					span_notice(" You have loosened \the [src]'s casters."), \
 					"You hear ratchet.")
 				anchored = 0
 		else if(mybag)
@@ -135,29 +135,29 @@
 	if(href_list["garbage"])
 		if(mybag)
 			user.put_in_hands(mybag)
-			to_chat(user, "<span class='notice'>You take [mybag] from [src].</span>")
+			to_chat(user, span_notice("You take [mybag] from [src]."))
 			mybag = null
 	if(href_list["mop"])
 		if(mymop)
 			user.put_in_hands(mymop)
-			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
+			to_chat(user, span_notice("You take [mymop] from [src]."))
 			mymop = null
 	if(href_list["spray"])
 		if(myspray)
 			user.put_in_hands(myspray)
-			to_chat(user, "<span class='notice'>You take [myspray] from [src].</span>")
+			to_chat(user, span_notice("You take [myspray] from [src]."))
 			myspray = null
 	if(href_list["replacer"])
 		if(myreplacer)
 			user.put_in_hands(myreplacer)
-			to_chat(user, "<span class='notice'>You take [myreplacer] from [src].</span>")
+			to_chat(user, span_notice("You take [myreplacer] from [src]."))
 			myreplacer = null
 	if(href_list["sign"])
 		if(signs)
 			var/obj/item/caution/Sign = locate() in src
 			if(Sign)
 				user.put_in_hands(Sign)
-				to_chat(user, "<span class='notice'>You take \a [Sign] from [src].</span>")
+				to_chat(user, span_notice("You take \a [Sign] from [src]."))
 				signs--
 			else
 				WARNING("Signs ([signs]) didn't match contents")

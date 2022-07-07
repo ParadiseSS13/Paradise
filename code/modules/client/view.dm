@@ -83,8 +83,8 @@
 
 	RemoveViewMod("custom")
 	if(view_range == "RESET")
-		to_chat(src, "<span class='notice'>View range reset.</span>")
+		to_chat(src, span_notice("View range reset."))
 		return
 
-	to_chat(src, "<span class='notice'>View range set to [viewNum_to_text(view_range)]</span>")
+	to_chat(src, span_notice("View range set to [viewNum_to_text(view_range)]"))
 	AddViewMod("custom", view_range)

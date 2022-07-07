@@ -272,7 +272,7 @@
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
 				H.key = C.key
-				to_chat(H, "<span class='notice'>You are a servant of [user.real_name]. You must do everything in your power to follow their orders.</span>")
+				to_chat(H, span_notice("You are a servant of [user.real_name]. You must do everything in your power to follow their orders."))
 
 			var/obj/effect/proc_holder/spell/summonmob/S = new
 			S.target_mob = H
@@ -341,10 +341,10 @@
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
 		user.visible_message("[user] has thrown [src]. It lands on [result]. [comment]",
-							 "<span class='notice'>You throw [src]. It lands on [result]. [comment]</span>",
+							 span_notice("You throw [src]. It lands on [result]. [comment]"),
 							 "<span class='italics'>You hear [src] rolling, it sounds like a [fake_result].</span>")
 	else if(!throwing) //Dice was thrown and is coming to rest
-		visible_message("<span class='notice'>[src] rolls to a stop, landing on [result]. [comment]</span>")
+		visible_message(span_notice("[src] rolls to a stop, landing on [result]. [comment]"))
 
 /obj/item/dice/d20/e20/diceroll(mob/user, thrown)
 	if(triggered)
@@ -358,7 +358,7 @@
 		add_attack_logs(src, user, "detonated with a roll of [result], gibbing them!", ATKLOG_FEW)
 	else
 		triggered = TRUE
-		visible_message("<span class='notice'>You hear a quiet click.</span>")
+		visible_message(span_notice("You hear a quiet click."))
 		addtimer(CALLBACK(src, .proc/boom, user, result), 4 SECONDS)
 
 /obj/item/dice/d20/e20/proc/boom(mob/user, result)

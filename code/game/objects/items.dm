@@ -277,7 +277,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(istype(H))
 			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
 				extinguish()
-				to_chat(user, "<span class='notice'>You put out the fire on [src].</span>")
+				to_chat(user, span_notice("You put out the fire on [src]."))
 			else
 				to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
@@ -364,11 +364,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 						success = 1
 						S.handle_item_insertion(IT, 1)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
 					if(success && !failure)
-						to_chat(user, "<span class='notice'>You put everything in [S].</span>")
+						to_chat(user, span_notice("You put everything in [S]."))
 					else if(success)
-						to_chat(user, "<span class='notice'>You put some things in [S].</span>")
+						to_chat(user, span_notice("You put some things in [S]."))
 					else
-						to_chat(user, "<span class='notice'>You fail to pick anything up with [S].</span>")
+						to_chat(user, span_notice("You fail to pick anything up with [S]."))
 
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src)
@@ -382,15 +382,15 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		var/x_offset = text2num(clickparams["icon-x"])
 		var/y_offset = text2num(clickparams["icon-y"])
 		if(GetComponent(/datum/component/ducttape))
-			to_chat(user, "<span class='notice'>[src] already has some tape attached!</span>")
+			to_chat(user, span_notice("[src] already has some tape attached!"))
 			return
 		if(TR.use(1))
-			to_chat(user, "<span class='notice'>You apply some tape to [src].</span>")
+			to_chat(user, span_notice("You apply some tape to [src]."))
 			AddComponent(/datum/component/ducttape, src, user, x_offset, y_offset)
 			anchored = TRUE
 			user.transfer_fingerprints_to(src)
 		else
-			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
+			to_chat(user, span_notice("You don't have enough tape to do that!"))
 	else
 		return ..()
 
@@ -676,13 +676,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/wash(mob/user, atom/source)
 	if(flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
-	to_chat(user, "<span class='notice'>You start washing [src]...</span>")
+	to_chat(user, span_notice("You start washing [src]..."))
 	if(!do_after(user, 40, target = source))
 		return
 	clean_blood()
 	acid_level = 0
-	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
-						"<span class='notice'>You wash [src] using [source].</span>")
+	user.visible_message(span_notice("[user] washes [src] using [source]."), \
+						span_notice("You wash [src] using [source]."))
 	return 1
 
 /obj/item/proc/is_crutch() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?

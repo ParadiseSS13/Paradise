@@ -41,7 +41,7 @@ LINEN BINS
 		transfer_fingerprints_to(C)
 		C.add_fingerprint(user)
 		qdel(src)
-		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
+		to_chat(user, span_notice("You tear [src] up."))
 	else
 		return ..()
 
@@ -284,21 +284,21 @@ LINEN BINS
 /obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
 		if(!user.drop_item())
-			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+			to_chat(user, span_notice("[I] is stuck to your hand!"))
 			return
 		I.forceMove(src)
 		sheets.Add(I)
 		amount++
-		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+		to_chat(user, span_notice("You put [I] in [src]."))
 	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 		if(I.flags & ABSTRACT)
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+			to_chat(user, span_notice("[I] is stuck to your hand!"))
 			return
 		I.forceMove(src)
 		hidden = I
-		to_chat(user, "<span class='notice'>You hide [I] among the sheets.</span>")
+		to_chat(user, span_notice("You hide [I] among the sheets."))
 
 
 
@@ -316,11 +316,11 @@ LINEN BINS
 
 		B.loc = user.loc
 		user.put_in_hands(B)
-		to_chat(user, "<span class='notice'>You take [B] out of [src].</span>")
+		to_chat(user, span_notice("You take [B] out of [src]."))
 
 		if(hidden)
 			hidden.loc = user.loc
-			to_chat(user, "<span class='notice'>[hidden] falls out of [B]!</span>")
+			to_chat(user, span_notice("[hidden] falls out of [B]!"))
 			hidden = null
 
 
@@ -340,7 +340,7 @@ LINEN BINS
 			B = new /obj/item/bedsheet(loc)
 
 		B.loc = loc
-		to_chat(user, "<span class='notice'>You telekinetically remove [B] from [src].</span>")
+		to_chat(user, span_notice("You telekinetically remove [B] from [src]."))
 		update_icon()
 
 		if(hidden)

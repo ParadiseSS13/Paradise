@@ -94,16 +94,16 @@
 		switch(det_time)
 			if("1")
 				det_time = 10
-				to_chat(user, "<span class='notice'>You set [src] for 1 second detonation time.</span>")
+				to_chat(user, span_notice("You set [src] for 1 second detonation time."))
 			if("10")
 				det_time = 30
-				to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
+				to_chat(user, span_notice("You set [src] for 3 second detonation time."))
 			if("30")
 				det_time = 50
-				to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
+				to_chat(user, span_notice("You set [src] for 5 second detonation time."))
 			if("50")
 				det_time = 1
-				to_chat(user, "<span class='notice'>You set [src] for instant detonation.</span>")
+				to_chat(user, span_notice("You set [src] for instant detonation."))
 		add_fingerprint(user)
 	..()
 

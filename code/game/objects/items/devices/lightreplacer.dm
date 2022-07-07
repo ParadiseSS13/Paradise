@@ -79,7 +79,7 @@
 			return
 		else if(G.use(decrement))
 			AddUses(increment)
-			to_chat(user, "<span class='notice'>You insert a piece of glass into [src]. You have [uses] light\s remaining.</span>")
+			to_chat(user, span_notice("You insert a piece of glass into [src]. You have [uses] light\s remaining."))
 			return
 		else
 			to_chat(user, "<span class='warning'>You need one sheet of glass to replace lights!</span>")
@@ -92,7 +92,7 @@
 		if(!user.unEquip(I))
 			return
 		AddUses(round(increment * 0.75))
-		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
+		to_chat(user, span_notice("You insert a shard of glass into [src]. You have [uses] light\s remaining."))
 		qdel(I)
 		return
 
@@ -107,7 +107,7 @@
 		else
 			if(!user.unEquip(L))
 				return
-			to_chat(user, "<span class='notice'>You insert [L] into [src].</span>")
+			to_chat(user, span_notice("You insert [L] into [src]."))
 			AddShards(1, user)
 			qdel(L)
 		return
@@ -141,7 +141,7 @@
 			to_chat(user, "<span class='warning'>[src] is full!</span>")
 			return
 
-		to_chat(user, "<span class='notice'>You fill [src] with lights from [S]. " + status_string() + "</span>")
+		to_chat(user, span_notice("You fill [src] with lights from [S]. " + status_string() + ""))
 		return
 	return ..()
 
@@ -176,7 +176,7 @@
 		AddUses(new_bulbs)
 	bulb_shards = bulb_shards % shards_required
 	if(new_bulbs != 0)
-		to_chat(user, "<span class='notice'>[src] has fabricated a new bulb from the broken glass it has stored. It now has [uses] uses.</span>")
+		to_chat(user, span_notice("[src] has fabricated a new bulb from the broken glass it has stored. It now has [uses] uses."))
 		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	return new_bulbs
 
@@ -191,7 +191,7 @@
 		if(CanUse(U))
 			if(!Use(U))
 				return
-			to_chat(U, "<span class='notice'>You replace the light [target.fitting] with [src].</span>")
+			to_chat(U, span_notice("You replace the light [target.fitting] with [src]."))
 
 			if(target.status != LIGHT_EMPTY)
 				AddShards(1, U)

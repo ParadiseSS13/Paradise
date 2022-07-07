@@ -168,7 +168,7 @@
 			var/index = text2num(params["remove_from_queue"])
 			if(isnum(index) && ISINRANGE(index, 1, queue.len))
 				remove_from_queue(index)
-				to_chat(usr, "<span class='notice'>Removed item from queue.</span>")
+				to_chat(usr, span_notice("Removed item from queue."))
 		if("make")
 			BuildTurf = loc
 			var/datum/design/design_last_ordered

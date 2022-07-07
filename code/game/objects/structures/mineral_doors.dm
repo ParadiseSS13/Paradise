@@ -129,9 +129,9 @@
 /obj/structure/mineral_door/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pickaxe))
 		var/obj/item/pickaxe/digTool = W
-		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
+		to_chat(user, span_notice("You start digging \the [src]."))
 		if(do_after(user, 40 * digTool.toolspeed * hardness, target = src) && src)
-			to_chat(user, "<span class='notice'>You finished digging.</span>")
+			to_chat(user, span_notice("You finished digging."))
 			deconstruct(TRUE)
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)

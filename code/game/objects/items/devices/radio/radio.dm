@@ -555,9 +555,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
-			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
+			. += span_notice("\the [src] can be attached and modified!")
 		else
-			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
+			. += span_notice("\the [src] can not be modified or attached!")
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -567,9 +567,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	b_stat = !b_stat
 	if(!istype(src, /obj/item/radio/beacon))
 		if(b_stat)
-			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
+			user.show_message(span_notice("The radio can now be attached and modified!"))
 		else
-			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
+			user.show_message(span_notice("The radio can no longer be modified or attached!"))
 		updateDialog()
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/I)

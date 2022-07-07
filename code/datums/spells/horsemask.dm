@@ -11,8 +11,8 @@
 	invocation_type = "shout"
 	cooldown_min = 30 //30 deciseconds reduction per rank
 
-	selection_activated_message = "<span class='notice'>You start to quietly neigh an incantation. Click on or near a target to cast the spell.</span>"
-	selection_deactivated_message = "<span class='notice'>You stop neighing to yourself.</span>"
+	selection_activated_message = span_notice("You start to quietly neigh an incantation. Click on or near a target to cast the spell.")
+	selection_deactivated_message = span_notice("You stop neighing to yourself.")
 
 	action_icon_state = "barn"
 	sound = 'sound/magic/HorseHead_curse.ogg'
@@ -25,7 +25,7 @@
 
 /obj/effect/proc_holder/spell/horsemask/cast(list/targets, mob/user = usr)
 	if(!targets.len)
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, span_notice("No target found in range."))
 		return
 
 	var/mob/living/carbon/human/target = targets[1]

@@ -146,7 +146,7 @@
 			return
 		loaded_item = O
 		O.loc = src
-		to_chat(user, "<span class='notice'>You add [O] to the machine.</span>")
+		to_chat(user, span_notice("You add [O] to the machine."))
 		flick("h_lathe_load", src)
 
 	return
@@ -217,7 +217,7 @@
 /obj/machinery/r_n_d/experimentor/proc/ejectItem(delete=FALSE)
 	if(loaded_item)
 		if(cloneMode && cloneCount > 0)
-			visible_message("<span class='notice'>A duplicate [loaded_item] pops out!</span>")
+			visible_message(span_notice("A duplicate [loaded_item] pops out!"))
 			var/type_to_make = loaded_item.type
 			new type_to_make(get_turf(pick(oview(1,src))))
 			--cloneCount
@@ -650,7 +650,7 @@
 			spawn(cooldownMax)
 				cooldown = FALSE
 	else
-		to_chat(user, "<span class='notice'>You aren't quite sure what to do with this, yet.</span>")
+		to_chat(user, span_notice("You aren't quite sure what to do with this, yet."))
 
 //////////////// RELIC PROCS /////////////////////////////
 
@@ -719,17 +719,17 @@
 	to_chat(user, "<span class='danger'>[src] begins to heat up!</span>")
 	spawn(rand(35,100))
 		if(src.loc == user)
-			visible_message("<span class='notice'>[src]'s top opens, releasing a powerful blast!</span>")
+			visible_message(span_notice("[src]'s top opens, releasing a powerful blast!"))
 			explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2)
 			warn_admins(user, "Explosion")
 			qdel(src) //Comment this line to produce a light grenade (the bomb that keeps on exploding when used)!!
 
 /obj/item/relic/proc/teleport(mob/user)
-	to_chat(user, "<span class='notice'>[src] begins to vibrate!</span>")
+	to_chat(user, span_notice("[src] begins to vibrate!"))
 	spawn(rand(10,30))
 		var/turf/userturf = get_turf(user)
 		if(src.loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
-			visible_message("<span class='notice'>[src] twists and bends, relocating itself!</span>")
+			visible_message(span_notice("[src] twists and bends, relocating itself!"))
 			throwSmoke(userturf)
 			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')
 			throwSmoke(get_turf(user))

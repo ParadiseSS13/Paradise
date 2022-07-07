@@ -35,7 +35,7 @@
 
 	var/desc = input("Please select a location to lock in.", "Telegun Target Interface") in L
 	teleport_target = L[desc]
-	to_chat(user, "<span class='notice'>The [src] is now set to [desc].</span>")
+	to_chat(user, span_notice("The [src] is now set to [desc]."))
 	//Process the shot without draining the cell
 	if(chambered)
 		if(chambered.BB)

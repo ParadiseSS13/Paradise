@@ -57,7 +57,7 @@
 		var/can_become_addicted = M.reagents.reaction_check(M, src)
 		if(can_become_addicted)
 			if(is_type_in_list(src, M.reagents.addiction_list))
-				to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
+				to_chat(M, span_notice("You feel slightly better, but for how long?")) //sate_addiction handles this now, but kept this for the feed back.
 
 	var/mob/living/carbon/C = M
 	if(method == REAGENT_INGEST && istype(C) && C.get_blood_id() == id)
@@ -175,20 +175,20 @@
 /datum/reagent/proc/addiction_act_stage2(mob/living/M)
 	if(minor_addiction)
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You briefly think about getting some more [name].</span>")
+			to_chat(M, span_notice("You briefly think about getting some more [name]."))
 	else
 		if(prob(8))
 			M.emote("shiver")
 		if(prob(8))
 			M.emote("sneeze")
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
+			to_chat(M, span_notice("You feel a dull headache."))
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage3(mob/living/M)
 	if(minor_addiction)
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+			to_chat(M, span_notice("You could really go for some [name] right now."))
 	else
 		if(prob(8))
 			M.emote("twitch_s")
@@ -203,7 +203,7 @@
 /datum/reagent/proc/addiction_act_stage4(mob/living/M)
 	if(minor_addiction)
 		if(prob(8))
-			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+			to_chat(M, span_notice("You could really go for some [name] right now."))
 	else
 		if(prob(8))
 			M.emote("twitch")
@@ -219,7 +219,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(minor_addiction)
 		if(prob(8))
-			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
+			to_chat(M, span_notice("You can't stop thinking about [name]..."))
 		if(prob(4))
 			M.emote(pick("twitch"))
 	else

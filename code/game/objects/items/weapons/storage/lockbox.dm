@@ -56,7 +56,7 @@
 	if(!locked)
 		return ..()
 	if(!stop_messages)
-		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
+		to_chat(usr, span_notice("[src] is locked!"))
 	return 0
 
 /obj/item/storage/lockbox/emag_act(user as mob)
@@ -65,7 +65,7 @@
 		locked = 0
 		desc = "It appears to be broken."
 		icon_state = icon_broken
-		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+		to_chat(user, span_notice("You unlock \the [src]."))
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		return
 

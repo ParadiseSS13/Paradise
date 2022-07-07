@@ -37,13 +37,13 @@
 /datum/disease/critical/shock/stage_act()
 	if(..())
 		if(affected_mob.health >= 25 && affected_mob.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA)
-			to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+			to_chat(affected_mob, span_notice("You feel better."))
 			cure()
 			return
 		switch(stage)
 			if(1)
 				if(prob(1) && prob(10))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, span_notice("You feel better."))
 					cure()
 					return
 				if(prob(8))
@@ -52,7 +52,7 @@
 					to_chat(affected_mob, "<span class='danger'>You feel weak!</span>")
 			if(2)
 				if(prob(1) && prob(10))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, span_notice("You feel better."))
 					cure()
 					return
 				if(prob(8))
@@ -63,7 +63,7 @@
 					affected_mob.emote("faint", "collapse", "groan")
 			if(3)
 				if(prob(1) && prob(10))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, span_notice("You feel better."))
 					cure()
 					return
 				if(prob(8))
@@ -108,7 +108,7 @@
 		switch(stage)
 			if(1)
 				if(prob(1) && prob(10))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, span_notice("You feel better."))
 					cure()
 					return
 				if(prob(8))
@@ -119,7 +119,7 @@
 					to_chat(affected_mob, "<span class='danger'>Your chest hurts!</span>")
 			if(2)
 				if(prob(1) && prob(10))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, span_notice("You feel better."))
 					cure()
 					return
 				if(prob(8))
@@ -168,7 +168,7 @@
 		if(isLivingSSD(affected_mob)) // We don't want AFK people dying from this.
 			return
 		if(affected_mob.nutrition > NUTRITION_LEVEL_HYPOGLYCEMIA)
-			to_chat(affected_mob, "<span class='notice'>You feel a lot better!</span>")
+			to_chat(affected_mob, span_notice("You feel a lot better!"))
 			cure()
 			return
 		switch(stage)

@@ -36,7 +36,7 @@
 /obj/item/tank/jetpack/proc/toggle_stabilization(mob/user)
 	if(on)
 		stabilizers = !stabilizers
-		to_chat(user, "<span class='notice'>You turn [src]'s stabilization [stabilizers ? "on" : "off"].</span>")
+		to_chat(user, span_notice("You turn [src]'s stabilization [stabilizers ? "on" : "off"]."))
 
 /obj/item/tank/jetpack/proc/cycle(mob/user)
 	if(user.incapacitated())
@@ -44,10 +44,10 @@
 
 	if(!on)
 		turn_on(user)
-		to_chat(user, "<span class='notice'>You turn the jetpack on.</span>")
+		to_chat(user, span_notice("You turn the jetpack on."))
 	else
 		turn_off(user)
-		to_chat(user, "<span class='notice'>You turn the jetpack off.</span>")
+		to_chat(user, span_notice("You turn the jetpack off."))
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -88,7 +88,7 @@
 
 /obj/item/tank/jetpack/improvised/allow_thrust(num, mob/living/user)
 	if(rand(0, 250) == 0)
-		to_chat(user, "<span class='notice'>You feel your jetpack's engines cut out.</span>")
+		to_chat(user, span_notice("You feel your jetpack's engines cut out."))
 		turn_off(user)
 		return
 	return ..()

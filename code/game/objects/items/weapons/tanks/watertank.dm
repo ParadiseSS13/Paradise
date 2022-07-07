@@ -37,7 +37,7 @@
 	set name = "Toggle Mister"
 	set category = "Object"
 	if(usr.get_item_by_slot(slot_back) != src)
-		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
+		to_chat(usr, span_notice("The watertank needs to be on your back to use."))
 		return
 	if(usr.incapacitated())
 		return
@@ -51,7 +51,7 @@
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
 			on = 0
-			to_chat(user, "<span class='notice'>You need a free hand to hold the mister.</span>")
+			to_chat(user, span_notice("You need a free hand to hold the mister."))
 			return
 		noz.loc = user
 	else
@@ -142,7 +142,7 @@
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
 	..()
-	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
+	to_chat(user, span_notice("The mister snaps back onto the watertank."))
 	tank.on = 0
 	loc = tank
 
@@ -192,7 +192,7 @@
 
 /obj/item/reagent_containers/spray/mister/janitor/attack_self(mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	to_chat(user, span_notice("You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray."))
 
 //ATMOS FIRE FIGHTING BACKPACK
 
@@ -275,7 +275,7 @@
 
 /obj/item/extinguisher/mini/nozzle/dropped(mob/user as mob)
 	..()
-	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
+	to_chat(user, span_notice("The nozzle snaps back onto the tank!"))
 	tank.on = 0
 	loc = tank
 

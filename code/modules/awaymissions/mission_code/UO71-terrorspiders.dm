@@ -191,7 +191,7 @@
 /obj/item/gun/energy/laser/awaymission_aeg/onTransitZ(old_z, new_z)
 	if(is_away_level(new_z))
 		if(ismob(loc))
-			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
+			to_chat(loc, span_notice("Your [src] activates, starting to draw power from a nearby wireless power source."))
 		selfcharge = TRUE
 	else
 		if(selfcharge)
@@ -222,7 +222,7 @@
 	if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/D = I
 		if(!access_to_give.len)
-			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
+			to_chat(user, span_notice("This machine appears to be configured incorrectly."))
 			return
 		var/did_upgrade = 0
 		var/list/id_access = D.GetAccess()
@@ -232,7 +232,7 @@
 				D.access |= this_access
 				did_upgrade = 1
 		if(did_upgrade)
-			to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
+			to_chat(user, span_notice("An access type was added to your ID card."))
 			if(beenused)
 				return
 			spawn(1)
@@ -245,6 +245,6 @@
 				if(unlocked_something)
 					to_chat(user, "<span class='danger'>Activating the machine has unlocked a way forward!</span>")
 		else
-			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
+			to_chat(user, span_notice("Your ID card already has all the access this machine can give."))
 		return
 	return ..()

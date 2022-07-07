@@ -23,11 +23,11 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 /datum/action/changeling/proc/dna_upload(mob/user)
 	var/datum/dna/chosen_dna = cling.select_dna("Select a DNA to channel: ", "Channel DNA", TRUE)
 	if(!chosen_dna)
-		to_chat(user, "<span class='notice'>The airwaves already have all of our DNA.</span>")
+		to_chat(user, span_notice("The airwaves already have all of our DNA."))
 		return FALSE
 
 	GLOB.hivemind_bank += chosen_dna
-	to_chat(user, "<span class='notice'>We channel the DNA of [chosen_dna.real_name] to the air.</span>")
+	to_chat(user, span_notice("We channel the DNA of [chosen_dna.real_name] to the air."))
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 			names[DNA.real_name] = DNA
 
 	if(!length(names))
-		to_chat(user, "<span class='notice'>There's no new DNA to absorb from the air.</span>")
+		to_chat(user, span_notice("There's no new DNA to absorb from the air."))
 		return
 
 	var/S = input("Select a DNA absorb from the air: ", "Absorb DNA", null) as null|anything in names
@@ -47,6 +47,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	var/datum/dna/chosen_dna = names[S]
 	cling.store_dna(chosen_dna)
-	to_chat(user, "<span class='notice'>We absorb the DNA of [S] from the air.</span>")
+	to_chat(user, span_notice("We absorb the DNA of [S] from the air."))
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

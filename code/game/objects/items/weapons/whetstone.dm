@@ -38,7 +38,7 @@
 	if(I.force > initial(I.force))
 		to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
 		return
-	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
+	user.visible_message(span_notice("[user] sharpens [I] with [src]!"), span_notice("You sharpen [I], making it much more deadly than before."))
 	if(!requires_sharpness)
 		I.sharp = 1
 	I.force = clamp(I.force + increment, 0, max)
@@ -62,7 +62,7 @@
 			if(!C.has_been_sharpened)
 				C.has_been_sharpened = TRUE
 				attack.damage += claw_damage_increase
-				H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on [src]!</span>", "<span class='notice'>You sharpen your claws on [src].</span>")
+				H.visible_message(span_notice("[H] sharpens [H.p_their()] claws on [src]!"), span_notice("You sharpen your claws on [src]."))
 				playsound(get_turf(H), usesound, 50, 1)
 				name = "worn out [name]"
 				desc = "[desc] At least, it used to."

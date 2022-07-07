@@ -111,25 +111,25 @@
 		return
 
 	if(isfloorturf(target))
-		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
+		to_chat(user, span_notice("You hit the floor with the bible."))
 		if(user.mind?.isholy)
 			for(var/obj/O in target)
 				O.cult_reveal()
 	if(istype(target, /obj/machinery/door/airlock))
-		to_chat(user, "<span class='notice'>You hit the airlock with the bible.</span>")
+		to_chat(user, span_notice("You hit the airlock with the bible."))
 		if(user.mind?.isholy)
 			var/obj/airlock = target
 			airlock.cult_reveal()
 
 	if(user.mind?.isholy && target.reagents)
 		if(target.reagents.has_reagent("water")) //blesses all the water in the holder
-			to_chat(user, "<span class='notice'>You bless [target].</span>")
+			to_chat(user, span_notice("You bless [target]."))
 			var/water2holy = target.reagents.get_reagent_amount("water")
 			target.reagents.del_reagent("water")
 			target.reagents.add_reagent("holywater", water2holy)
 
 		if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
-			to_chat(user, "<span class='notice'>You purify [target].</span>")
+			to_chat(user, span_notice("You purify [target]."))
 			var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
 			target.reagents.del_reagent("unholywater")
 			target.reagents.add_reagent("holywater", unholy2clean)

@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/starts_charged = TRUE //Does this spell start ready to go?
 	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
 	var/should_recharge_after_cast = TRUE
-	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
+	var/still_recharging_msg = span_notice("The spell is still recharging.")
 
 	var/holder_var_type = "bruteloss" //only used if charge_type equals to "holder_var"
 	var/holder_var_amount = 20 //same. The amount adjusted with the mob's var when the spell is used
@@ -129,9 +129,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/gain_desc = null
 
 	/// The message displayed when a click based spell gets activated
-	var/selection_activated_message		= "<span class='notice'>Click on a target to cast the spell.</span>"
+	var/selection_activated_message		= span_notice("Click on a target to cast the spell.")
 	/// The message displayed when a click based spell gets deactivated
-	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
+	var/selection_deactivated_message	= span_notice("You choose to not cast this spell.")
 
 	/// does this spell generate attack logs?
 	var/create_attack_logs = TRUE
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/New()
 	..()
 	action = new(src)
-	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
+	still_recharging_msg = span_notice("[name] is still recharging.")
 	if(starts_charged)
 		charge_counter = charge_max
 	else
@@ -522,12 +522,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			if("charges")
 				if(!charge_counter)
 					if(show_message)
-						to_chat(user, "<span class='notice'>[name] has no charges left.</span>")
+						to_chat(user, span_notice("[name] has no charges left."))
 					return FALSE
 	if(!ghost)
 		if(user.stat && !stat_allowed)
 			if(show_message)
-				to_chat(user, "<span class='notice'>You can't cast this spell while incapacitated.</span>")
+				to_chat(user, span_notice("You can't cast this spell while incapacitated."))
 			return FALSE
 		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
 			if(show_message)
@@ -544,20 +544,20 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			var/obj/item/clothing/shoes = H.shoes
 			if(!robe || !hat || !shoes)
 				if(show_message)
-					to_chat(user, "<span class='notice'>Your outfit isn't complete, you should put on your robe and wizard hat, as well as sandals.</span>")
+					to_chat(user, span_notice("Your outfit isn't complete, you should put on your robe and wizard hat, as well as sandals."))
 				return FALSE
 			if(!robe.magical || !hat.magical || !shoes.magical)
 				if(show_message)
-					to_chat(user, "<span class='notice'>Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals.</span>")
+					to_chat(user, span_notice("Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals."))
 				return FALSE
 	else
 		if(clothes_req || human_req)
 			if(show_message)
-				to_chat(user, "<span class='notice'>This spell can only be cast by humans!</span>")
+				to_chat(user, span_notice("This spell can only be cast by humans!"))
 			return FALSE
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))
 			if(show_message)
-				to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
+				to_chat(user, span_notice("This spell can only be cast by physical beings!"))
 			return FALSE
 
 	if(custom_handler && !custom_handler.can_cast(user, charge_check, show_message, src))

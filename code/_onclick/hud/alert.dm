@@ -456,9 +456,9 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.connect(target))
-		to_chat(usr, "<span class='notice'>[M] connects to the port.</span>")
+		to_chat(usr, span_notice("[M] connects to the port."))
 	else
-		to_chat(usr, "<span class='notice'>[M] failed to connect to the port.</span>")
+		to_chat(usr, span_notice("[M] failed to connect to the port."))
 
 /obj/screen/alert/mech_port_disconnect
 	name = "Disconnect from Port"
@@ -472,9 +472,9 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.disconnect())
-		to_chat(usr, "<span class='notice'>[M] disconnects from the port.</span>")
+		to_chat(usr, span_notice("[M] disconnects from the port."))
 	else
-		to_chat(usr, "<span class='notice'>[M] is not connected to a port at the moment.</span>")
+		to_chat(usr, span_notice("[M] is not connected to a port at the moment."))
 
 /obj/screen/alert/mech_nocell
 	name = "Missing Power Cell"

@@ -59,7 +59,7 @@
 		return TRUE
 	if("toggle_bolts" in href_list)
 		bolts = !bolts
-		visible_message("<span class='notice'>You hear a quiet click as [src][bolts ? " bolts to the floor" : "'s bolts raise"].</span>", "<span class='notice>You hear a quiet click.</span>")
+		visible_message(span_notice("You hear a quiet click as [src][bolts ? " bolts to the floor" : "'s bolts raise"]."), "<span class='notice>You hear a quiet click.</span>")
 		return TRUE
 
 /obj/machinery/air_sensor/attackby(obj/item/W as obj, mob/user as mob)
@@ -71,9 +71,9 @@
 			to_chat(usr, "[src] is bolted to the floor! You can't detach it like this.")
 			return 1
 		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+		to_chat(user, span_notice("You begin to unfasten \the [src]..."))
 		if(do_after(user, 40 * W.toolspeed, target = src))
-			user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")
+			user.visible_message("[user] unfastens \the [src].", span_notice("You have unfastened \the [src]."), "You hear ratchet.")
 			new /obj/item/pipe_gsensor(src.loc)
 			qdel(src)
 			return 1

@@ -52,13 +52,13 @@
 			user.drop_item()
 			W.loc = src
 			diode = W
-			to_chat(user, "<span class='notice'>You install [diode] in [src].</span>")
+			to_chat(user, span_notice("You install [diode] in [src]."))
 		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			to_chat(user, span_notice("[src] already has a cell."))
 
 	else if(istype(W, /obj/item/screwdriver))
 		if(diode)
-			to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
+			to_chat(user, span_notice("You remove [diode] from [src]."))
 			diode.loc = get_turf(src.loc)
 			diode = null
 			return
@@ -72,7 +72,7 @@
 
 /obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
 	if(!diode)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
+		to_chat(user, span_notice("You point [src] at [target], but nothing happens!"))
 		return
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
@@ -88,7 +88,7 @@
 
 	//nothing happens if the battery is drained
 	if(recharge_locked)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
+		to_chat(user, span_notice("You point [src] at [target], but it's still charging."))
 		return
 
 	var/outmsg
@@ -108,7 +108,7 @@
 
 			//20% chance to actually hit the eyes
 			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
-				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
+				outmsg = span_notice("You blind [C] by shining [src] in [C.p_their()] eyes.")
 			else
 				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
 
@@ -120,18 +120,18 @@
 			S.flash_eyes(affect_silicon = 1)
 			S.Weaken(rand(10 SECONDS, 20 SECONDS))
 			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
-			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+			outmsg = span_notice("You overload [S] by shining [src] at [S.p_their()] sensors.")
 
 			add_attack_logs(user, S, "shone [src] in their eyes")
 		else
-			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+			outmsg = span_notice("You fail to overload [S] by shining [src] at [S.p_their()] sensors.")
 
 	//cameras
 	else if(istype(target, /obj/machinery/camera))
 		var/obj/machinery/camera/C = target
 		if(prob(effectchance * diode.rating))
 			C.emp_act(1)
-			outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
+			outmsg = span_notice("You hit the lens of [C] with [src], temporarily disabling the camera!")
 
 			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
 			user.create_attack_log("[key_name(user)] EMPd a camera with a laser pointer")

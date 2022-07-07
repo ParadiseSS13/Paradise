@@ -13,7 +13,7 @@
 
 /obj/item/pizza_bomb/attack_self(mob/user)
 	if(disarmed)
-		to_chat(user, "<span class='notice'>\The [src] is disarmed.</span>")
+		to_chat(user, span_notice("\The [src] is disarmed."))
 		return
 	if(!timer_set)
 		name = "pizza bomb"
@@ -68,7 +68,7 @@
 		sleep(5)
 		if(chosen_wire == correct_wire)
 			src.audible_message("<span class='warning'>[bicon(src)] \The [src] suddenly stops beeping and seems lifeless.</span>")
-			to_chat(user, "<span class='notice'>You did it!</span>")
+			to_chat(user, span_notice("You did it!"))
 			icon_state = "pizzabox_bomb_[correct_wire]"
 			name = "pizza bomb"
 			desc = "A devious contraption, made of a small explosive payload hooked up to pressure-sensitive wires. It's disarmed."
@@ -83,11 +83,11 @@
 		if(!in_range(user, src))
 			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
 			return
-		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from \the [src].</span>")
+		user.visible_message(span_notice("[user] starts removing the payload and wires from \the [src]."))
 		if(do_after(user, 40 * I.toolspeed, target = src))
 			playsound(src, I.usesound, 50, 1, 1)
 			user.unEquip(src)
-			user.visible_message("<span class='notice'>[user] removes the insides of \the [src]!</span>")
+			user.visible_message(span_notice("[user] removes the insides of \the [src]!"))
 			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(src.loc)
 			C.amount = 3
 			new /obj/item/bombcore/miniature(src.loc)

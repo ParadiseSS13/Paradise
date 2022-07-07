@@ -113,7 +113,7 @@
 /obj/item/organ/internal/heart/gland/heals/activate()
 	if(!(owner.mob_biotypes & MOB_ORGANIC))
 		return
-	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
+	to_chat(owner, span_notice("You feel curiously revitalized."))
 	owner.adjustToxLoss(-20)
 	owner.adjustBruteLoss(-20)
 	owner.adjustOxyLoss(-20)
@@ -150,7 +150,7 @@
 	mind_control_duration = 6000
 
 /obj/item/organ/internal/heart/gland/mindshock/activate()
-	to_chat(owner, "<span class='notice'>You get a headache.</span>")
+	to_chat(owner, span_notice("You get a headache."))
 
 	var/turf/T = get_turf(owner)
 	for(var/mob/living/carbon/H in orange(4,T))
@@ -177,7 +177,7 @@
 	mind_control_duration = 3000
 
 /obj/item/organ/internal/heart/gland/pop/activate()
-	to_chat(owner, "<span class='notice'>You feel unlike yourself.</span>")
+	to_chat(owner, span_notice("You feel unlike yourself."))
 	var/species = pick(/datum/species/unathi, /datum/species/skrell, /datum/species/diona, /datum/species/tajaran, /datum/species/vulpkanin, /datum/species/kidan, /datum/species/grey)
 	owner.set_species(species)
 
@@ -191,7 +191,7 @@
 	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/ventcrawling/activate()
-	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
+	to_chat(owner, span_notice("You feel very stretchy."))
 	owner.ventcrawler = 2
 
 

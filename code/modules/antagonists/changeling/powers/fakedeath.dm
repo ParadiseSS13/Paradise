@@ -11,7 +11,7 @@
 //Fake our own death and fully heal. You will appear to be dead but regenerate fully after a short delay.
 /datum/action/changeling/fakedeath/sting_action(mob/living/user)
 
-	to_chat(user, "<span class='notice'>We begin our stasis, preparing energy to arise once more.</span>")
+	to_chat(user, span_notice("We begin our stasis, preparing energy to arise once more."))
 	if(user.stat != DEAD)
 		user.emote("deathgasp")
 		user.timeofdeath = world.time
@@ -25,7 +25,7 @@
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
 	if(user?.mind && cling?.acquired_powers)
-		to_chat(user, "<span class='notice'>We are ready to regenerate.</span>")
+		to_chat(user, span_notice("We are ready to regenerate."))
 		cling.give_power(new /datum/action/changeling/revive)
 
 /datum/action/changeling/fakedeath/can_sting(mob/user)

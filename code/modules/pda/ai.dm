@@ -59,7 +59,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
-	to_chat(usr, "<span class='notice'>PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!</span>")
+	to_chat(usr, span_notice("PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!"))
 
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
@@ -71,7 +71,7 @@
 		return
 
 	silent = !silent
-	to_chat(usr, "<span class='notice'>PDA ringer toggled [(silent ? "Off" : "On")]!</span>")
+	to_chat(usr, span_notice("PDA ringer toggled [(silent ? "Off" : "On")]!"))
 
 /obj/item/pda/silicon/attack_self(mob/user as mob)
 	if((honkamt > 0) && (prob(60)))//For clown virus.

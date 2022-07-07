@@ -150,14 +150,14 @@
 			return
 		if(do_after(user, 10 * coil.toolspeed, target = src) && buildstage == 1)
 			coil.use(5)
-			to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
+			to_chat(user, span_notice("You wire \the [src]!"))
 			buildstage = 2
 		return 1
 	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
 		playsound(get_turf(src), W.usesound, 50, 1)
 		if(do_after(user, 10 * W.toolspeed, target = src) && buildstage == 0)
 			qdel(W)
-			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
+			to_chat(user, span_notice("You insert \the [W] into \the [src]!"))
 			buildstage = 1
 		return 1
 	else
@@ -169,11 +169,11 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You begin removing the electronics...</span>")
+	to_chat(user, span_notice("You begin removing the electronics..."))
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 1)
 		return
 	new /obj/item/intercom_electronics(get_turf(src))
-	to_chat(user, "<span class='notice'>The circuit board pops out!</span>")
+	to_chat(user, span_notice("The circuit board pops out!"))
 	buildstage = 0
 
 /obj/item/radio/intercom/screwdriver_act(mob/user, obj/item/I)
@@ -188,7 +188,7 @@
 	on = 1
 	b_stat = 0
 	buildstage = 3
-	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
+	to_chat(user, span_notice("You secure the electronics!"))
 	update_icon()
 	update_operating_status()
 	for(var/i, i<= 5, i++)
@@ -214,9 +214,9 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 3))
 		return
-	to_chat(user, "<span class='notice'>You start slicing [src] from the wall...</span>")
+	to_chat(user, span_notice("You start slicing [src] from the wall..."))
 	if(I.use_tool(src, user, 10, amount = 3, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You cut [src] free from the wall!</span>")
+		to_chat(user, span_notice("You cut [src] free from the wall!"))
 		new /obj/item/mounted/frame/intercom(get_turf(src))
 		qdel(src)
 

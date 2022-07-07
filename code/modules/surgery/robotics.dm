@@ -93,8 +93,8 @@
 
 /datum/surgery_step/robotics/external/unscrew_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>", \
-	"<span class='notice'> You have opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",)
+	user.visible_message(span_notice(" [user] has opened the maintenance hatch on [target]'s [affected.name] with \the [tool]."), \
+	span_notice(" You have opened the maintenance hatch on [target]'s [affected.name] with \the [tool]."),)
 	affected.open = 1
 	return TRUE
 
@@ -129,8 +129,8 @@
 
 /datum/surgery_step/robotics/external/open_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] opens the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>", \
-	 "<span class='notice'> You open the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>" )
+	user.visible_message(span_notice(" [user] opens the maintenance hatch on [target]'s [affected.name] with \the [tool]."), \
+	 span_notice(" You open the maintenance hatch on [target]'s [affected.name] with \the [tool].") )
 	affected.open = 2
 	return TRUE
 
@@ -165,8 +165,8 @@
 
 /datum/surgery_step/robotics/external/close_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
-	"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message(span_notice(" [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool]."), \
+	span_notice(" You close and secure the hatch on [target]'s [affected.name] with \the [tool]."))
 	affected.open = 0
 	return TRUE
 
@@ -244,17 +244,17 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	switch(current_type)
 		if("brute")
-			user.visible_message("<span class='notice'> [user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>", \
-			"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>")
+			user.visible_message(span_notice(" [user] finishes patching damage to [target]'s [affected.name] with \the [tool]."), \
+			span_notice(" You finish patching damage to [target]'s [affected.name] with \the [tool]."))
 			affected.heal_damage(rand(30,50),0,1,1)
 			affected.status &= ~ORGAN_DISFIGURED
 		if("burn")
-			user.visible_message("<span class='notice'> [user] finishes splicing cable into [target]'s [affected.name].</span>", \
-			"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")
+			user.visible_message(span_notice(" [user] finishes splicing cable into [target]'s [affected.name]."), \
+			span_notice(" You finishes splicing new cable into [target]'s [affected.name]."))
 			affected.heal_damage(0,rand(30,50),1,1)
 		if("finish")
-			user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
-			"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
+			user.visible_message(span_notice(" [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool]."), \
+			span_notice(" You close and secure the hatch on [target]'s [affected.name] with \the [tool]."))
 			affected.open = 0
 			return TRUE
 	return FALSE
@@ -305,14 +305,14 @@
 		var/obj/item/organ/internal/I = tool
 
 		if(!I.is_robotic())
-			to_chat(user, "<span class='notice'>You can only implant cybernetic organs.</span>")
+			to_chat(user, span_notice("You can only implant cybernetic organs."))
 
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
-			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
+			to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(target_zone)]!"))
 			return -1
 
 		if(I.damage > (I.max_damage * 0.75))
-			to_chat(user, "<span class='notice'> \The [I] is in no state to be transplanted.</span>")
+			to_chat(user, span_notice(" \The [I] is in no state to be transplanted."))
 			return -1
 
 		if(target.get_int_organ(I))
@@ -326,7 +326,7 @@
 		current_type = "install"
 
 		if(target_zone != "chest")
-			to_chat(user, "<span class='notice'> You must target the chest cavity.</span>")
+			to_chat(user, span_notice(" You must target the chest cavity."))
 
 			return -1
 		var/obj/item/mmi/M = tool
@@ -367,7 +367,7 @@
 		if(!(affected && affected.is_robotic()))
 			return -1
 		if(!organs.len)
-			to_chat(user, "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
+			to_chat(user, span_notice("There is no removeable organs in [target]'s [parse_zone(target_zone)]!"))
 			return -1
 		else
 			for(var/obj/item/organ/internal/O in organs)
@@ -421,8 +421,8 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage)
 				if(I.is_robotic())
-					user.visible_message("<span class='notice'> [user] repairs [target]'s [I.name] with [tool].</span>", \
-					"<span class='notice'> You repair [target]'s [I.name] with [tool].</span>" )
+					user.visible_message(span_notice(" [user] repairs [target]'s [I.name] with [tool]."), \
+					span_notice(" You repair [target]'s [I.name] with [tool].") )
 					I.damage = 0
 					I.surgeryize()
 	else if(current_type == "insert")
@@ -434,12 +434,12 @@
 
 		user.drop_item()
 		I.insert(target)
-		user.visible_message("<span class='notice'> [user] has reattached [target]'s [I].</span>" , \
-		"<span class='notice'> You have reattached [target]'s [I].</span>")
+		user.visible_message(span_notice(" [user] has reattached [target]'s [I].") , \
+		span_notice(" You have reattached [target]'s [I]."))
 
 	else if(current_type == "install")
-		user.visible_message("<span class='notice'> [user] has installed \the [tool] into [target]'s [affected.name].</span>", \
-		"<span class='notice'> You have installed \the [tool] into [target]'s [affected.name].</span>")
+		user.visible_message(span_notice(" [user] has installed \the [tool] into [target]'s [affected.name]."), \
+		span_notice(" You have installed \the [tool] into [target]'s [affected.name]."))
 
 		var/obj/item/mmi/M = tool
 
@@ -448,8 +448,8 @@
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)
-			user.visible_message("<span class='notice'> [user] has decoupled [target]'s [I] with \the [tool].</span>" , \
-		"<span class='notice'> You have decoupled [target]'s [I] with \the [tool].</span>")
+			user.visible_message(span_notice(" [user] has decoupled [target]'s [I] with \the [tool].") , \
+		span_notice(" You have decoupled [target]'s [I] with \the [tool]."))
 
 			add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user)
@@ -460,11 +460,11 @@
 				user.put_in_hands(thing)
 		else
 			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
-				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+				span_notice("You can't extract anything from [target]'s [parse_zone(target_zone)]!"))
 	else if(current_type == "finish")
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
+		user.visible_message(span_notice(" [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool]."), \
+		span_notice(" You close and secure the hatch on [target]'s [affected.name] with \the [tool]."))
 		affected.open = 0
 		affected.germ_level = 0
 		return TRUE
@@ -523,8 +523,8 @@
 
 /datum/surgery_step/robotics/external/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has decoupled [target]'s [affected.name] with \the [tool].</span>" , \
-	"<span class='notice'> You have decoupled [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message(span_notice(" [user] has decoupled [target]'s [affected.name] with \the [tool].") , \
+	span_notice(" You have decoupled [target]'s [affected.name] with \the [tool]."))
 
 
 	add_attack_logs(user, target, "Surgically removed [affected.name] from. INTENT: [uppertext(user.a_intent)]")//log it
@@ -587,8 +587,8 @@
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
-	user.visible_message("<span class='notice'> [user] reprograms the appearance of [target]'s [affected.name] with [tool].</span>", \
-	"<span class='notice'> You reprogram the appearance of [target]'s [affected.name] with [tool].</span>")
+	user.visible_message(span_notice(" [user] reprograms the appearance of [target]'s [affected.name] with [tool]."), \
+	span_notice(" You reprogram the appearance of [target]'s [affected.name] with [tool]."))
 	affected.open = 0
 	return TRUE
 

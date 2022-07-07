@@ -224,7 +224,7 @@
 		if(method == REAGENT_TOUCH)
 			M.adjustFireLoss(-volume)
 			if(show_message)
-				to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
+				to_chat(M, span_notice("The silver sulfadiazine soothes your burns."))
 		if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
@@ -251,7 +251,7 @@
 		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-volume)
 			if(show_message)
-				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
+				to_chat(M, span_notice("The styptic powder stings like hell as it closes some of your wounds!"))
 				M.emote("scream")
 		if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
@@ -295,7 +295,7 @@
 			M.adjustBruteLoss(-1.5*volume)
 			M.adjustFireLoss(-1.5*volume)
 			if(show_message)
-				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
+				to_chat(M, span_notice("The synthetic flesh integrates itself into your wounds, healing you."))
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
@@ -590,7 +590,7 @@
 	if(prob(3))
 
 		M.AdjustDrowsy(2 SECONDS)
-		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
+		M.visible_message(span_notice("[M] looks a bit dazed."))
 	return ..()
 
 /datum/reagent/medicine/morphine
@@ -1305,7 +1305,7 @@
 				for(var/obj/item/organ/external/E in M.bodyparts)
 					if(E.is_broken())
 						if(prob(50)) // Each tick has a 50% chance of repearing a bone.
-							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
+							to_chat(M, span_notice("You feel a burning sensation in your [E.name] as it straightens involuntarily!"))
 							E.rejuvenate() //Repair it completely.
 							break
 	return ..() | update_flags

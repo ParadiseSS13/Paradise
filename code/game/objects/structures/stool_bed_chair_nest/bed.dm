@@ -90,11 +90,11 @@
 		if(has_buckled_mobs())
 			if(buckled_mobs.len > 1)
 				unbuckle_all_mobs()
-				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")
+				user.visible_message(span_notice("[user] unbuckles all creatures from [src]."))
 			else
 				user_unbuckle_mob(buckled_mobs[1], user)
 		else
-			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
+			user.visible_message(span_notice("[user] collapses \the [name]."), span_notice("You collapse \the [name]."))
 			new folded(get_turf(src))
 			qdel(src)
 	else
@@ -144,7 +144,7 @@
 	if(istype(W, /obj/item/roller_holder))
 		var/obj/item/roller_holder/RH = W
 		if(!RH.held)
-			user.visible_message("<span class='notice'>[user] collects \the [name].</span>", "<span class='notice'>You collect \the [name].</span>")
+			user.visible_message(span_notice("[user] collects \the [name]."), span_notice("You collect \the [name]."))
 			forceMove(RH)
 			RH.held = src
 
@@ -166,7 +166,7 @@
 			return
 		if(has_buckled_mobs())
 			return 0
-		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
+		usr.visible_message(span_notice("[usr] collapses \the [name]."), span_notice("You collapse \the [name]."))
 		new folded(get_turf(src))
 		qdel(src)
 
@@ -186,7 +186,7 @@
 		to_chat(user, "<span class='info'> The rack is empty.</span>")
 		return
 
-	to_chat(user, "<span class='notice'>You deploy the roller bed.</span>")
+	to_chat(user, span_notice("You deploy the roller bed."))
 	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(user.loc)
 	R.add_fingerprint(user)
 	QDEL_NULL(held)

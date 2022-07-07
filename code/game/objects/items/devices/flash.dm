@@ -31,14 +31,14 @@
 	if(can_overcharge)
 		if(istype(I, /obj/item/screwdriver))
 			if(battery_panel)
-				to_chat(user, "<span class='notice'>You close the battery compartment on [src].</span>")
+				to_chat(user, span_notice("You close the battery compartment on [src]."))
 				battery_panel = 0
 			else
-				to_chat(user, "<span class='notice'>You open the battery compartment on [src].</span>")
+				to_chat(user, span_notice("You open the battery compartment on [src]."))
 				battery_panel = 1
 		if(battery_panel && !overcharged)
 			if(istype(I, /obj/item/stock_parts/cell))
-				to_chat(user, "<span class='notice'>You jam [I] into the battery compartment on [src].</span>")
+				to_chat(user, span_notice("You jam [I] into the battery compartment on [src]."))
 				qdel(I)
 				overcharged = 1
 				overlays += "overcharge"
@@ -52,7 +52,7 @@
 /obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = 1
 	icon_state = "[initial(icon_state)]burnt"
-	visible_message("<span class='notice'>[src] burns out!</span>")
+	visible_message(span_notice("[src] burns out!"))
 
 
 /obj/item/flash/proc/flash_recharge(mob/user)

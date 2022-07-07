@@ -180,10 +180,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
+	user.visible_message(span_notice("[user] begins slowly prying up [src]..."), span_notice("You begin painstakingly prying up [src]..."))
 	if(!I.use_tool(src, user, 70, volume = I.tool_volume))
 		return
-	user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
+	user.visible_message(span_notice("[user] pries up [src]!"), span_notice("You pry up [src]!"))
 	make_plating()
 
 /turf/simulated/floor/clockwork/make_plating()

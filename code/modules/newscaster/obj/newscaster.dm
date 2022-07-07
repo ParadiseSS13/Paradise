@@ -123,7 +123,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
+	to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]"))
 	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
@@ -133,7 +133,7 @@
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
 	else
-		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
+		to_chat(user, span_notice("You [anchored ? "un" : ""]secure [name]."))
 		new /obj/item/mounted/frame/newscaster_frame(loc)
 	qdel(src)
 
@@ -362,8 +362,8 @@
 				if(istype(P) && usr.unEquip(P))
 					photo = P
 					P.forceMove(src)
-					usr.visible_message("<span class='notice'>[usr] inserts [P] into [src]'s photo slot.</span>",\
-										"<span class='notice'>You insert [P] into [src]'s photo slot.</span>")
+					usr.visible_message(span_notice("[usr] inserts [P] into [src]'s photo slot."),\
+										span_notice("You insert [P] into [src]'s photo slot."))
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 			else if(issilicon(usr))
 				var/mob/living/silicon/M = usr
@@ -374,7 +374,7 @@
 				P.construct(selection)
 				P.forceMove(src)
 				photo = P
-				visible_message("<span class='notice'>[src]'s photo slot quietly whirs as it prints [P] inside it.</span>")
+				visible_message(span_notice("[src]'s photo slot quietly whirs as it prints [P] inside it."))
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, TRUE)
 		if("eject_photo")
 			eject_photo(usr)
@@ -652,7 +652,7 @@
 	// Print it
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
+	visible_message(span_notice("[src] whirs as it prints a newspaper."))
 	addtimer(CALLBACK(src, .proc/print_newspaper_finish), 5 SECONDS)
 
 /**

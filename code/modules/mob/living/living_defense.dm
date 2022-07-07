@@ -270,7 +270,7 @@
 
 	for(var/obj/item/grab/G in grabbed_by)
 		if(G.assailant == user)
-			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
+			to_chat(user, span_notice("You already grabbed [src]."))
 			return
 
 	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
@@ -334,7 +334,7 @@
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
 	switch(L.a_intent)
 		if(INTENT_HELP)
-			visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>")
+			visible_message(span_notice("[L.name] rubs its head against [src]."))
 			return 0
 
 		else
@@ -357,7 +357,7 @@
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
+			visible_message(span_notice("[M] caresses [src] with its scythe like arm."))
 			return FALSE
 		if(INTENT_GRAB)
 			grabbedby(M)

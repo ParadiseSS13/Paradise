@@ -191,7 +191,7 @@ Pipelines + Other Objects -> Pipe network
 		var/internal_pressure = I - E
 
 		playsound(src.loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+		to_chat(user, span_notice("You begin to unfasten \the [src]..."))
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
 			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
@@ -199,7 +199,7 @@ Pipelines + Other Objects -> Pipe network
 		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
-				"<span class='notice'>You have unfastened \the [src].</span>", \
+				span_notice("You have unfastened \the [src]."), \
 				"<span class='italics'>You hear ratcheting.</span>")
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
 
@@ -392,7 +392,7 @@ Pipelines + Other Objects -> Pipe network
 	on = !on
 	update_icon()
 	if(user)
-		to_chat(user, "<span class='notice'>You toggle [src] [on ? "on" : "off"].</span>")
+		to_chat(user, span_notice("You toggle [src] [on ? "on" : "off"]."))
 
 /**
  * Maxes the output pressure of the machine. If this is done by a user, display a message to them.
@@ -408,4 +408,4 @@ Pipelines + Other Objects -> Pipe network
 	target_pressure = MAX_OUTPUT_PRESSURE
 	update_icon()
 	if(user)
-		to_chat(user, "<span class='notice'>You set the target pressure of [src] to maximum.</span>")
+		to_chat(user, span_notice("You set the target pressure of [src] to maximum."))

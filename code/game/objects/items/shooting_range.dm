@@ -35,7 +35,7 @@
 	if(!use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	overlays.Cut()
-	to_chat(user, "<span class='notice'>You slice off [src]'s uneven chunks of aluminium and scorch marks.</span>")
+	to_chat(user, span_notice("You slice off [src]'s uneven chunks of aluminium and scorch marks."))
 
 /obj/item/target/attack_hand(mob/user)
 	// taking pinned targets off!

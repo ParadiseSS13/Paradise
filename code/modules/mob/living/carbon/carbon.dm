@@ -210,8 +210,8 @@
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	if(stat == DEAD)
 		if(M != src)
-			M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
-			"<span class='notice'>You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!</span>")
+			M.visible_message(span_notice("[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!"), \
+			span_notice("You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!"))
 		return
 	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
@@ -219,7 +219,7 @@
 		else
 			if(player_logged)
 				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
-				"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
+				span_notice("You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD."))
 			if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 				if(ishuman(src))
@@ -236,22 +236,22 @@
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
-						"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
-						"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
+						span_notice("[M] shakes [src] trying to wake [p_them()] up!"),\
+						span_notice("You shake [src] trying to wake [p_them()] up!"),\
 						)
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(M.zone_selected == "head")
 					M.visible_message(\
-					"<span class='notice'>[M] pats [src] on the head.</span>",\
-					"<span class='notice'>You pat [src] on the head.</span>",\
+					span_notice("[M] pats [src] on the head."),\
+					span_notice("You pat [src] on the head."),\
 					)
 				else
 
 					M.visible_message(\
-					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-					"<span class='notice'>You hug [src].</span>",\
+					span_notice("[M] gives [src] a [pick("hug","warm embrace")]."),\
+					span_notice("You hug [src]."),\
 					)
 					if(ishuman(src))
 						var/mob/living/carbon/human/H = src
@@ -288,8 +288,8 @@
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
-	visible_message("<span class='notice'>[src] examines [H.p_them()]self.</span>", \
-		"<span class='notice'>You check yourself for injuries.</span>" \
+	visible_message(span_notice("[src] examines [H.p_them()]self."), \
+		span_notice("You check yourself for injuries.") \
 		)
 	var/list/status_list = list()
 
@@ -322,7 +322,7 @@
 		if(LB.status & ORGAN_MUTATED)
 			status = "weirdly shapen"
 
-		var/msg = "<span class='notice'>Your [LB.name] is OK.</span>"
+		var/msg = span_notice("Your [LB.name] is OK.")
 		if(!isnull(status))
 			msg = "<span class='warning'>Your [LB.name] is [status].</span>"
 		status_list += msg
@@ -404,7 +404,7 @@
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
-			to_chat(src, "<span class='notice'>Something bright flashes in the corner of your vision!</span>")
+			to_chat(src, span_notice("Something bright flashes in the corner of your vision!"))
 
 
 /mob/living/carbon/proc/tintcheck()
@@ -471,8 +471,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	if(vent_found)
 		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
-			visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
-							"<span class='notice'>You begin climbing into the ventilation system...</span>")
+			visible_message(span_notice("[src] begins climbing into the ventilation system..."), \
+							span_notice("You begin climbing into the ventilation system..."))
 
 			if(!do_after(src, 45, target = src))
 				return
@@ -643,7 +643,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(throwable_mob)
 			thrown_thing = throwable_mob
 			if(HAS_TRAIT(src, TRAIT_PACIFISM))
-				to_chat(src, "<span class='notice'>You gently let go of [throwable_mob].</span>")
+				to_chat(src, span_notice("You gently let go of [throwable_mob]."))
 				return
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
@@ -659,7 +659,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		unEquip(I, silent = TRUE)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
-			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
+			to_chat(src, span_notice("You set [I] down gently on the ground."))
 			return
 
 	if(thrown_thing)
@@ -844,7 +844,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	var/time = I.breakouttime
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>",
-				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
+				span_notice("You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)"))
 	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, .proc/buckle_check))))
 		if(src && buckled)
 			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
@@ -863,11 +863,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	Weaken(3, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	spin(32, 2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>",
-		"<span class='notice'>You stop, drop, and roll!</span>")
+		span_notice("You stop, drop, and roll!"))
 	sleep(3 SECONDS)
 	if(fire_stacks <= 0)
 		visible_message("<span class='danger'>[src] has successfully extinguished [p_them()]self!</span>",
-			"<span class='notice'>You extinguish yourself.</span>")
+			span_notice("You extinguish yourself."))
 		ExtinguishMob()
 
 
@@ -890,10 +890,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "[I] is too well made, you'll need hands for this one!")
 	else
 		visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
-		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
+		to_chat(src, span_notice("You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)"))
 		if(do_after(src, time, 0, target = src))
 			visible_message("<span class='warning'>[src] removes [I]!</span>")
-			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
+			to_chat(src, span_notice("You get rid of [I]!"))
 			if(I.security_lock)
 				I.do_break()
 			unEquip(I)
@@ -905,12 +905,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	var/displaytime = breakouttime / 10
 	if(!cuff_break)
 		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
-		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [displaytime] seconds and you need to stand still.)</span>")
+		to_chat(src, span_notice("You attempt to remove [I]... (This will take around [displaytime] seconds and you need to stand still.)"))
 		if(do_after(src, breakouttime, 0, target = src))
 			if(I.loc != src || buckled)
 				return
 			visible_message("<span class='danger'>[src] manages to remove [I]!</span>")
-			to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
+			to_chat(src, span_notice("You successfully remove [I]."))
 
 			if(I == handcuffed)
 				handcuffed.forceMove(drop_location())
@@ -937,12 +937,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else
 		breakouttime = 50
 		visible_message("<span class='warning'>[src] is trying to break [I]!</span>")
-		to_chat(src, "<span class='notice'>You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)</span>")
+		to_chat(src, span_notice("You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)"))
 		if(do_after(src, breakouttime, 0, target = src))
 			if(!I.loc || buckled)
 				return
 			visible_message("<span class='danger'>[src] manages to break [I]!</span>")
-			to_chat(src, "<span class='notice'>You successfully break [I].</span>")
+			to_chat(src, span_notice("You successfully break [I]."))
 			qdel(I)
 
 			if(I == handcuffed)
@@ -1057,7 +1057,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				step(src, dir)
 
 	stop_pulling()
-	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
+	to_chat(src, span_notice("You [slipVerb]ped on [description]!"))
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
@@ -1093,16 +1093,16 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
 		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
-			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
+			to_chat(src, span_notice("You don't feel like eating any more junk food at the moment."))
 			return 0
 		if(fullness <= 50)
 			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
 		else if(fullness > 50 && fullness < 150)
-			to_chat(src, "<span class='notice'>You hungrily begin to eat [toEat].</span>")
+			to_chat(src, span_notice("You hungrily begin to eat [toEat]."))
 		else if(fullness > 150 && fullness < 500)
-			to_chat(src, "<span class='notice'>You take a bite of [toEat].</span>")
+			to_chat(src, span_notice("You take a bite of [toEat]."))
 		else if(fullness > 500 && fullness < 600)
-			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
+			to_chat(src, span_notice("You unwillingly chew a bit of [toEat]."))
 		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
 			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
 			return 0

@@ -126,7 +126,7 @@
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
+		to_chat(user, span_notice("You transfer [trans] units of the solution to [target]."))
 
 	else if(istype(target, /obj/item/reagent_containers/glass) && !target.is_open_container())
 		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")

@@ -112,7 +112,7 @@
 			if(!user.drop_item())
 				return
 			insert_seed(I)
-			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
+			to_chat(user, span_notice("You add [I] to the machine."))
 			interact(user)
 		return
 	else if(istype(I, /obj/item/disk/plantgene))
@@ -123,7 +123,7 @@
 				return
 			disk = I
 			disk.forceMove(src)
-			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
+			to_chat(user, span_notice("You add [I] to the machine."))
 			interact(user)
 	else
 		return ..()
@@ -308,7 +308,7 @@
 				if(!usr.drop_item())
 					return
 				insert_seed(I)
-				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
+				to_chat(usr, span_notice("You add [I] to the machine."))
 		update_icon()
 	else if(href_list["eject_disk"] && !operation)
 		if(disk)
@@ -323,7 +323,7 @@
 					return
 				disk = I
 				disk.forceMove(src)
-				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
+				to_chat(usr, span_notice("You add [I] to the machine."))
 	else if(href_list["op"] == "insert" && disk && disk.gene && seed)
 		if(!operation) // Wait for confirmation
 			operation = "insert"
@@ -407,7 +407,7 @@
 			return
 		seed.variant = null
 		seed.apply_variant_name()
-		to_chat(usr, "<span class='notice'>You remove the [seed.plantname]'s variant designation.</span>")
+		to_chat(usr, span_notice("You remove the [seed.plantname]'s variant designation."))
 
 	interact(usr)
 
@@ -485,7 +485,7 @@
 
 /obj/item/disk/plantgene/attack_self(mob/user)
 	read_only = !read_only
-	to_chat(user, "<span class='notice'>You flip the write-protect tab to [read_only ? "protected" : "unprotected"].</span>")
+	to_chat(user, span_notice("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
 
 /obj/item/disk/plantgene/examine(mob/user)
 	. = ..()

@@ -27,7 +27,7 @@
 	if(!choice)
 		return
 	paint_setting = choice
-	to_chat(user, "<span class='notice'>The [paint_setting] paint setting has been selected.</span>")
+	to_chat(user, span_notice("The [paint_setting] paint setting has been selected."))
 
 /datum/painter/airlock/paint_atom(atom/target, mob/user)
 	if(!istype(target, /obj/machinery/door/airlock))
@@ -46,7 +46,7 @@
 	var/obj/structure/door_assembly/assembly = initial(airlock.assemblytype)
 
 	if(A.assemblytype == assembly)
-		to_chat(user, "<span class='notice'>This airlock is already painted with the \"[paint_setting]\" color scheme!</span>")
+		to_chat(user, span_notice("This airlock is already painted with the \"[paint_setting]\" color scheme!"))
 		return
 
 	if(A.airlock_material == "glass" && initial(assembly.noglass)) // prevents painting glass airlocks with a paint job that doesn't have a glass version, such as the freezer

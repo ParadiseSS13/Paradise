@@ -141,7 +141,7 @@
 						entry_vent = null
 						return
 					if(prob(50))
-						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+						audible_message(span_notice("You hear something squeezing through the ventilation ducts."))
 					spawn(travel_time)
 						if(!exit_vent || exit_vent.welded)
 							forceMove(original_location)

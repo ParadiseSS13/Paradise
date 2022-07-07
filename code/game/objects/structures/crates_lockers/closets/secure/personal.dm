@@ -48,7 +48,7 @@
 		return
 
 	if(src == user.loc)
-		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
+		to_chat(user, span_notice("You can't reach the lock from inside."))
 
 	else if(allowed(user) || !registered_name || (istype(I) && (registered_name == I.registered_name)))
 		//they can open all lockers, or nobody owns this, or they own this locker

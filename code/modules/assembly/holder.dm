@@ -154,9 +154,9 @@
 	a_right.toggle_secure()
 	secured = !secured
 	if(secured)
-		to_chat(user, "<span class='notice'>[src] is ready!</span>")
+		to_chat(user, span_notice("[src] is ready!"))
 	else
-		to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
+		to_chat(user, span_notice("[src] can now be taken apart!"))
 	update_icon()
 
 /obj/item/assembly_holder/attack_self(mob/user)

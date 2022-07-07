@@ -40,5 +40,5 @@
 			new_xeno.mind.name = new_xeno.name
 			qdel(src)
 		else
-			to_chat(src, "<span class='notice'>We already have an alive queen.</span>")
+			to_chat(src, span_notice("We already have an alive queen."))
 	return

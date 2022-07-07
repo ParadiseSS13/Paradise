@@ -16,10 +16,10 @@
 	switch(stage)
 		if(2) //also changes say, see say.dm // no it doesn't, that's horrifyingly snowflakey
 			if(prob(2))
-				to_chat(affected_mob, "<span class='notice'>You taste honey in your mouth.</span>")
+				to_chat(affected_mob, span_notice("You taste honey in your mouth."))
 		if(3)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='notice'>Your stomach rumbles.</span>")
+				to_chat(affected_mob, span_notice("Your stomach rumbles."))
 			if(prob(2))
 				to_chat(affected_mob, "<span class='danger'>Your stomach stings painfully.</span>")
 				if(prob(20))

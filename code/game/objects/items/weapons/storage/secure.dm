@@ -43,7 +43,7 @@
 		if(istype(W, /obj/item/screwdriver))
 			if(do_after(user, 20 * W.toolspeed, target = src))
 				open = !open
-				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
+				user.show_message(span_notice("You [open ? "open" : "close"] the service panel."), 1)
 			return
 
 		if((istype(W, /obj/item/multitool)) && (open == 1) && (!l_hacking))
@@ -168,7 +168,7 @@
 	if(!locked)
 		return ..()
 	if(!stop_messages)
-		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
+		to_chat(usr, span_notice("[src] is locked!"))
 	return 0
 
 /obj/item/storage/secure/hear_talk(mob/living/M as mob, list/message_pieces)

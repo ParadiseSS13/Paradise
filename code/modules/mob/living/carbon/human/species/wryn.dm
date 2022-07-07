@@ -77,13 +77,13 @@
 		return
 	var/mob/living/carbon/user = owner
 	if((user.restrained() && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
-		to_chat(user, "<span class='notice'>You need freedom of movement to sting someone!</span>")
+		to_chat(user, span_notice("You need freedom of movement to sting someone!"))
 		return
 	if(user.wear_suit)	//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
-		to_chat(user, "<span class='notice'>You must remove your hardsuit, labcoat, or jacket before using your Wryn stinger.</span>")
+		to_chat(user, span_notice("You must remove your hardsuit, labcoat, or jacket before using your Wryn stinger."))
 		return
 	if(user.getStaminaLoss() >= 50)	//Does your Wryn have enough Stamina to sting?
-		to_chat(user, "<span class='notice'>You feel too tired to use your Wryn Stinger at the moment.</span>")
+		to_chat(user, span_notice("You feel too tired to use your Wryn Stinger at the moment."))
 		return
 	else
 		button_on = TRUE
@@ -155,14 +155,14 @@
 /datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.handcuffed && target.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
 
-		user.visible_message("<span class='notice'>[user] begins to violently pull off [target]'s antennae.</span>")
+		user.visible_message(span_notice("[user] begins to violently pull off [target]'s antennae."))
 		to_chat(target, "<span class='danger'><B>[user] grips your antennae and starts violently pulling!<B></span>")
 		if(do_mob(user, target, 250))
 			var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
 			target.remove_language("Wryn Hivemind")
 			node.remove(target)
 			node.forceMove(user.loc)
-			to_chat(user, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [target]'s antennae.</span>")
+			to_chat(user, span_notice("You hear a loud crunch as you mercilessly pull off [target]'s antennae."))
 			to_chat(target, "<span class='danger'>You hear a loud crunch as your antennae is ripped off your head by [user].</span>")
 			to_chat(target, "<span class='danger'><B>It's so quiet...</B></span>")
 			var/obj/item/organ/external/head/head_organ = target.get_organ("head")

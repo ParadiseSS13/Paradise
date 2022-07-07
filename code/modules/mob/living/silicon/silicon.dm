@@ -199,7 +199,7 @@
 		return
 	. = TRUE
 	if(!getBruteLoss())
-		to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+		to_chat(user, span_notice("Nothing to fix!"))
 		return
 	else if(!getBruteLoss(TRUE))
 		to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
@@ -338,13 +338,13 @@
 	switch(sensor_type)
 		if("Security")
 			add_sec_hud()
-			to_chat(src, "<span class='notice'>Security records overlay enabled.</span>")
+			to_chat(src, span_notice("Security records overlay enabled."))
 		if("Medical")
 			add_med_hud()
-			to_chat(src, "<span class='notice'>Life signs monitor overlay enabled.</span>")
+			to_chat(src, span_notice("Life signs monitor overlay enabled."))
 		if("Diagnostic")
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+			to_chat(src, span_notice("Robotics diagnostic overlay enabled."))
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 

@@ -119,10 +119,10 @@
 			if(!user.drop_item())
 				return
 			payload = I
-			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
+			to_chat(user, span_notice("You place [payload] into [src]."))
 			payload.forceMove(src)
 		else
-			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
+			to_chat(user, span_notice("[payload] is already loaded into [src], you'll have to remove it first."))
 	else
 		return ..()
 
@@ -134,12 +134,12 @@
 		return
 	if(!anchored)
 		if(!isturf(loc) || isspaceturf(loc))
-			to_chat(user, "<span class='notice'>The bomb must be placed on solid ground to attach it.</span>")
+			to_chat(user, span_notice("The bomb must be placed on solid ground to attach it."))
 		else
 			WRENCH_ANCHOR_MESSAGE
 			anchored = TRUE
 			if(active)
-				to_chat(user, "<span class='notice'>The bolts lock in place.</span>")
+				to_chat(user, span_notice("The bolts lock in place."))
 	else
 		if(!active)
 			WRENCH_UNANCHOR_MESSAGE
@@ -153,7 +153,7 @@
 		return
 	open_panel = !open_panel
 	update_icon()
-	to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")
+	to_chat(user, span_notice("You [open_panel ? "open" : "close"] the wire panel."))
 
 /obj/machinery/syndicatebomb/wirecutter_act(mob/user, obj/item/I)
 	if(!open_panel)
@@ -177,7 +177,7 @@
 		return
 	if(open_panel && wires.is_all_cut())
 		if(payload)
-			to_chat(user, "<span class='notice'>You carefully pry out [payload].</span>")
+			to_chat(user, span_notice("You carefully pry out [payload]."))
 			payload.loc = user.loc
 			payload = null
 		else
@@ -217,7 +217,7 @@
 				settings(user)
 				return
 		else if(anchored)
-			to_chat(user, "<span class='notice'>The bomb is bolted to the floor!</span>")
+			to_chat(user, span_notice("The bomb is bolted to the floor!"))
 
 /obj/machinery/syndicatebomb/proc/can_interact(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -245,11 +245,11 @@
 	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
 	if(can_interact(user)) //No running off and setting bombs from across the station
 		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
-		loc.visible_message("<span class='notice'>[bicon(src)] timer set for [timer_set] seconds.</span>")
+		loc.visible_message(span_notice("[bicon(src)] timer set for [timer_set] seconds."))
 	if(alert(user,"Would you like to start the countdown now?",,"Yes","No") == "Yes" && can_interact(user))
 		if(defused || active)
 			if(defused)
-				loc.visible_message("<span class='notice'>[bicon(src)] Device error: User intervention required.</span>")
+				loc.visible_message(span_notice("[bicon(src)] Device error: User intervention required."))
 			return
 		else
 			loc.visible_message("<span class='danger'>[bicon(src)] [timer_set] seconds until detonation, please clear the area.</span>")
@@ -379,7 +379,7 @@
 	if(istype(holder))
 		attempts++
 		defusals++
-		holder.loc.visible_message("<span class='notice'>[bicon(holder)] Alert: Bomb has been defused. Your score is now [defusals] for [attempts]! Resetting wires in 5 seconds...</span>")
+		holder.loc.visible_message(span_notice("[bicon(holder)] Alert: Bomb has been defused. Your score is now [defusals] for [attempts]! Resetting wires in 5 seconds..."))
 		sleep(50)	//Just in case someone is trying to remove the bomb core this gives them a little window to crowbar it out
 		if(istype(holder))
 			reset()
@@ -537,7 +537,7 @@
 			if(!user.drop_item())
 				return
 			beakers += I
-			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
+			to_chat(user, span_notice("You load [src] with [I]."))
 			I.loc = src
 		else
 			to_chat(user, "<span class='warning'>[I] won't fit! [src] can only hold up to [max_beakers] containers.</span>")
@@ -607,7 +607,7 @@
 		if(!ttv && !check_attached(I))
 			if(!user.drop_item())
 				return
-			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
+			to_chat(user, span_notice("You load [src] with [I]."))
 			ttv = I
 			I.forceMove(src)
 		else if (ttv)
@@ -666,7 +666,7 @@
 				detonated++
 			existant++
 		playsound(user, 'sound/machines/click.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
+		to_chat(user, span_notice("[existant] found, [detonated] triggered."))
 		if(detonated)
 			var/turf/T = get_turf(src)
 			var/area/A = get_area(T)

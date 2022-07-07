@@ -107,13 +107,13 @@ SUBSYSTEM_DEF(changelog)
 /datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)
 	// If SQL isnt enabled, dont even queue them, just tell them it wont work
 	if(!SSdbcore.IsConnected())
-		to_chat(C, "<span class='notice'>This server is not running with an SQL backend. Changelog is unavailable.</span>")
+		to_chat(C, span_notice("This server is not running with an SQL backend. Changelog is unavailable."))
 		return
 
 	// If SQL is enabled but we aint ready, queue them up
 	if(!ss_ready)
 		startup_clients_open |= C
-		to_chat(C, "<span class='notice'>The changelog system is still initializing. The changelog will open for you once it has initialized.</span>")
+		to_chat(C, span_notice("The changelog system is still initializing. The changelog will open for you once it has initialized."))
 		return
 
 	UpdatePlayerChangelogDate(C)

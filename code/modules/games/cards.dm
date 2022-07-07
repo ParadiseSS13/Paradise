@@ -34,7 +34,7 @@
 	throwforce = 0
 	force = 0
 	/// Inherited card hit sound
-	var/card_hitsound 
+	var/card_hitsound
 	/// Inherited card force
 	var/card_force = 0
 	/// Inherited card throw force
@@ -76,7 +76,7 @@
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
-	. +="<span class='notice'>It contains [length(cards) ? length(cards) : "no"] cards</span>"
+	. +=span_notice("It contains [length(cards) ? length(cards) : "no"] cards")
 
 /obj/item/deck/attack_hand(mob/user as mob)
 	draw_card(user)
@@ -141,7 +141,7 @@
 		return
 
 	if(!length(cards))
-		to_chat(user,"<span class='notice'>There are no cards in the deck.</span>")
+		to_chat(user,span_notice("There are no cards in the deck."))
 		return
 
 	var/obj/item/cardhand/H = M.is_in_hands(/obj/item/cardhand)
@@ -163,8 +163,8 @@
 	H.parentdeck = src
 	H.update_values()
 	H.update_icon()
-	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
-	to_chat(user,"<span class='notice'>It's the [P].</span>")
+	user.visible_message(span_notice("[user] draws a card."),span_notice("You draw a card."))
+	to_chat(user,span_notice("It's the [P]."))
 
 /obj/item/deck/verb/deal_card()
 
@@ -177,7 +177,7 @@
 		return
 
 	if(!length(cards))
-		to_chat(usr,"<span class='notice'>There are no cards in the deck.</span>")
+		to_chat(usr,span_notice("There are no cards in the deck."))
 		return
 
 	var/list/players = list()
@@ -202,7 +202,7 @@
 		return
 
 	if(!length(cards))
-		to_chat(usr,"<span class='notice'>There are no cards in the deck.</span>")
+		to_chat(usr,span_notice("There are no cards in the deck."))
 		return
 
 	var/list/players = list()
@@ -230,9 +230,9 @@
 		H.concealed = TRUE
 		H.update_icon()
 	if(user == target)
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to \himself.</span>")
+		user.visible_message(span_notice("[user] deals [dcard] card(s) to \himself."))
 	else
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [target].</span>")
+		user.visible_message(span_notice("[user] deals [dcard] card(s) to [target]."))
 	H.throw_at(get_step(target,target.dir),3,1,H)
 
 
@@ -251,7 +251,7 @@
 	var/mob/living/user = usr
 	if(cooldown < world.time - 5 SECONDS)
 		cards = shuffle(cards)
-		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
+		user.visible_message(span_notice("[user] shuffles [src]."))
 		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
 		cooldown = world.time
 
@@ -276,7 +276,7 @@
 			M.put_in_hands(src)
 
 		add_fingerprint(M)
-		usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+		usr.visible_message(span_notice("[usr] picks up the deck."))
 
 /obj/item/pack
 	name = "card pack"
@@ -290,7 +290,7 @@
 
 
 /obj/item/pack/attack_self(mob/user as mob)
-	user.visible_message("<span class='notice'>[name] rips open [src]!</span>", "<span class='notice'>You rip open [src]!</span>")
+	user.visible_message(span_notice("[name] rips open [src]!"), span_notice("You rip open [src]!"))
 	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards
@@ -313,7 +313,7 @@
 	var/concealed = FALSE
 	var/list/cards = list()
 	/// Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
-	var/direction = NORTH 
+	var/direction = NORTH
 	var/parentdeck = null
 	/// The player's picked card they want to take out. Stored in the hand so it can be passed onto the verb
 	var/pickedcard = null
@@ -334,7 +334,7 @@
 	if(length(cards) == 1 && istype(O, /obj/item/pen))
 		var/datum/playingcard/P = cards[1]
 		if(P.name != "Blank Card")
-			to_chat(user,"<span class='notice'>You cannot write on that card.</span>")
+			to_chat(user,span_notice("You cannot write on that card."))
 			return
 		var/t = rename_interactive(user, P, use_prefix = FALSE, actually_rename = FALSE)
 		if(t && P.name == "Blank Card")
@@ -355,7 +355,7 @@
 			H.update_icon()
 			return
 		else
-			to_chat(user,"<span class='notice'>You cannot mix cards from other deck!</span>")
+			to_chat(user,span_notice("You cannot mix cards from other deck!"))
 			return
 	..()
 
@@ -369,7 +369,7 @@
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
 	update_icon()
-	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
+	user.visible_message(span_notice("[user] [concealed ? "conceals" : "reveals"] their hand."))
 
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
@@ -400,9 +400,9 @@
 /obj/item/cardhand/examine(mob/user)
 	. = ..()
 	if(!concealed && length(cards))
-		. +="<span class='notice'>It contains:</span>"
+		. +=span_notice("It contains:")
 		for(var/datum/playingcard/P in cards)
-			. +="<span class='notice'>the [P.name].</span>"
+			. +=span_notice("the [P.name].")
 
 // Datum action here
 
@@ -454,7 +454,7 @@
 		return
 
 	var/datum/playingcard/card = pickablecards[pickedcard]
-	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [pickedcard] from your hand.</span>")
+	user.visible_message(span_notice("[user] draws a card from [user.p_their()] hand."), span_notice("You take the [pickedcard] from your hand."))
 	pickedcard = null
 
 	var/obj/item/cardhand/H = new(get_turf(src))
@@ -505,7 +505,7 @@
 		if(length(cards))
 			update_icon()
 		if(length(H.cards))
-			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
+			user.visible_message(span_notice("[user] plays the [discarding]."), span_notice("You play the [discarding]."))
 		H.loc = get_step(user, user.dir)
 
 	if(!length(cards))

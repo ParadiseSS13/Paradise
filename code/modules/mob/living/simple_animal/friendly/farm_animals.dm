@@ -49,7 +49,7 @@
 	if(enemies.len && prob(10))
 		enemies = list()
 		LoseTarget()
-		visible_message("<span class='notice'>[src] calms down.</span>")
+		visible_message(span_notice("[src] calms down."))
 
 	eat_plants()
 	if(!pulledby)
@@ -161,7 +161,7 @@
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
-		M.visible_message("<span class='warning'>[M] tips over [src].</span>","<span class='notice'>You tip over [src].</span>")
+		M.visible_message("<span class='warning'>[M] tips over [src].</span>",span_notice("You tip over [src]."))
 		Weaken(60 SECONDS)
 		icon_state = icon_dead
 		spawn(rand(20,50))
@@ -514,6 +514,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		return
 	var/transfered = reagents.trans_to(O, rand(5,10))
 	if(transfered)
-		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
+		user.visible_message("[user] milks [src] using \the [O].", span_notice("You milk [src] using \the [O]."))
 	else
 		to_chat(user, "<span class='danger'>The udder is dry. Wait a bit longer...</span>")

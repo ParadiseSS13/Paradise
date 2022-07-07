@@ -92,7 +92,7 @@
 	clothes_req = TRUE
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
-	message = "<span class='notice'>You feel strong! You feel a pressure building behind your eyes!</span>"
+	message = span_notice("You feel strong! You feel a pressure building behind your eyes!")
 	centcom_cancast = FALSE
 
 	traits = list(TRAIT_LASEREYES)
@@ -314,7 +314,7 @@
 	clothes_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
-	message = "<span class='notice'>Your eyes cry out in pain!</span>"
+	message = span_notice("Your eyes cry out in pain!")
 	cooldown_min = 50 //12 deciseconds reduction per rank
 
 	starting_spells = list("/obj/effect/proc_holder/spell/inflict_handler/blind","/obj/effect/proc_holder/spell/genetic/blind")
@@ -351,7 +351,7 @@
 	cooldown_min = 20 //10 deciseconds reduction per rank
 
 	selection_activated_message		= "<span class='notice'>Your prepare to cast your fireball spell! <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You extinguish your fireball...for now.</span>"
+	selection_deactivated_message	= span_notice("You extinguish your fireball...for now.")
 
 	var/fireball_type = /obj/item/projectile/magic/fireball
 	action_icon_state = "fireball0"

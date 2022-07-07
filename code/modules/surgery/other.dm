@@ -86,8 +86,8 @@
 
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message(span_notice(" [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool]."), \
+		span_notice(" You have patched the damaged vein in [target]'s [affected.name] with \the [tool]."))
 
 	affected.fix_internal_bleeding()
 	if(ishuman(user) && prob(40))
@@ -139,8 +139,8 @@
 
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message(span_notice(" [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool]."), \
+		span_notice(" You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool]."))
 	affected.open = 3
 
 	return TRUE
@@ -215,8 +215,8 @@
 			affected.status &= ~ORGAN_DEAD
 			target.update_body()
 
-		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \
-			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>")
+		user.visible_message(span_notice(" [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]"), \
+			span_notice(" You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool]."))
 
 	return TRUE
 

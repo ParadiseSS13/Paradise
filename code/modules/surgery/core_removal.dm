@@ -20,8 +20,8 @@
 	user.visible_message("[user] starts cutting through [target]'s flesh with \the [tool].", "You start cutting through [target]'s flesh with \the [tool].")
 
 /datum/surgery_step/slime/cut_flesh/end_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='notice'> [user] cuts through [target]'s flesh with \the [tool].</span>",
-	"<span class='notice'> You cut through [target]'s flesh with \the [tool], revealing its silky innards.</span>")
+	user.visible_message(span_notice(" [user] cuts through [target]'s flesh with \the [tool]."),
+	span_notice(" You cut through [target]'s flesh with \the [tool], revealing its silky innards."))
 	return TRUE
 
 /datum/surgery_step/slime/cut_flesh/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
@@ -35,14 +35,14 @@
 	time = 16
 
 /datum/surgery_step/slime/extract_core/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='notice'>[user] begins to extract a core from [target].</span>",
-						 "<span class='notice'>You begin to extract a core from [target]...</span>")
+	user.visible_message(span_notice("[user] begins to extract a core from [target]."),
+						 span_notice("You begin to extract a core from [target]..."))
 
 /datum/surgery_step/slime/extract_core/end_step(mob/user, mob/living/simple_animal/slime/slime, target_zone, obj/item/tool)
 	if(slime.cores > 0)
 		slime.cores--
-		user.visible_message("<span class='notice'>[user] successfully extracts a core from [slime]!</span>",
-			"<span class='notice'>You successfully extract a core from [slime]. [slime.cores] core\s remaining.</span>")
+		user.visible_message(span_notice("[user] successfully extracts a core from [slime]!"),
+			span_notice("You successfully extract a core from [slime]. [slime.cores] core\s remaining."))
 
 		new slime.coretype(slime.loc)
 

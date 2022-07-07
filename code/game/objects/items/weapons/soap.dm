@@ -21,17 +21,17 @@
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
-		to_chat(user, "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>")
+		to_chat(user, span_notice("You need to take that [target.name] off before cleaning it."))
 	else if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
 		if(muncher && isdrask(muncher))
-			to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
+			to_chat(user, span_notice("You take a bite of [src]. Delicious!"))
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.adjust_nutrition(2)
 	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, cleanspeed, target = target) && target)
-			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
+			to_chat(user, span_notice("You scrub \the [target.name] out."))
 			if(issimulatedturf(target.loc))
 				clean_turf(target.loc)
 				return
@@ -39,12 +39,12 @@
 	else if(issimulatedturf(target))
 		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
 		if(do_after(user, cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			to_chat(user, span_notice("You clean \the [target.name]."))
 			clean_turf(target)
 	else
 		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
 		if(do_after(user, cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			to_chat(user, span_notice("You clean \the [target.name]."))
 			var/obj/effect/decal/cleanable/C = locate() in target
 			qdel(C)
 			target.clean_blood()
@@ -78,11 +78,11 @@
 	if(!proximity) return
 
 	if(user.client && (target in user.client.screen))
-		to_chat(user, "<span class='notice'>You need to take that [target.name] off before 'cleaning' it.</span>")
+		to_chat(user, span_notice("You need to take that [target.name] off before 'cleaning' it."))
 	else
 		user.visible_message("<span class='warning'>[user] begins to smear [src] on \the [target.name].</span>")
 		if(do_after(user, cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You 'clean' \the [target.name].</span>")
+			to_chat(user, span_notice("You 'clean' \the [target.name]."))
 			if(istype(target, /turf/simulated))
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)
 			else if(istype(target,/mob/living/carbon))

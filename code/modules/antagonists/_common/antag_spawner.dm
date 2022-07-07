@@ -45,7 +45,7 @@
 
 	checking = TRUE
 
-	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
+	to_chat(user, span_notice("You activate [src] and wait for confirmation."))
 	var/image/I = new('icons/mob/simple_human.dmi', "syndicate_space_sword")
 	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = I)
 	if(length(nuke_candidates))
@@ -169,14 +169,14 @@
 
 /obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
-		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		to_chat(user, span_notice("You should probably wait until you reach the station."))
 		return
 
 	if(used)
-		to_chat(user, "<span class='notice'>This bottle already has a broken seal.</span>")
+		to_chat(user, span_notice("This bottle already has a broken seal."))
 		return
 	used = TRUE
-	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
+	to_chat(user, span_notice("You break the seal on the bottle, calling upon the dire spirits of the underworld..."))
 
 	var/type = "slaughter"
 	if(demon_type == /mob/living/simple_animal/slaughter/laughter)
@@ -192,7 +192,7 @@
 		qdel(src)
 	else
 		used = FALSE
-		to_chat(user, "<span class='notice'>The demons do not respond to your summon. Perhaps you should try again later.</span>")
+		to_chat(user, span_notice("The demons do not respond to your summon. Perhaps you should try again later."))
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
@@ -244,14 +244,14 @@
 
 /obj/item/antag_spawner/morph/attack_self(mob/user)
 	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a morph from the Den..
-		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		to_chat(user, span_notice("You should probably wait until you reach the station."))
 		return
 
 	if(used)
-		to_chat(user, "<span class='notice'>This bottle already has a broken seal.</span>")
+		to_chat(user, span_notice("This bottle already has a broken seal."))
 		return
 	used = TRUE
-	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire sludge to awaken...</span>")
+	to_chat(user, span_notice("You break the seal on the bottle, calling upon the dire sludge to awaken..."))
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a magical morph awakened by [user.real_name]?", ROLE_MORPH, 1, 10 SECONDS, source = morph_type)
 
@@ -264,7 +264,7 @@
 		qdel(src)
 	else
 		used = FALSE
-		to_chat(user, "<span class='notice'>The sludge does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
+		to_chat(user, span_notice("The sludge does not respond to your attempt to awake it. Perhaps you should try again later."))
 
 /obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))

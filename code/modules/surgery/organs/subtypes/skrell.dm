@@ -23,18 +23,18 @@
 	..()
 	var/obj/item/organ/external/head/head = owner.get_organ("head")
 	if(held_item && !findtextEx(head.h_style, "Tentacles"))
-		owner.visible_message("<span class='notice'>[held_item] falls from [owner]'s [name]!</span>", "<span class='notice'>[held_item] falls from your [name]!</span>")
+		owner.visible_message(span_notice("[held_item] falls from [owner]'s [name]!"), span_notice("[held_item] falls from your [name]!"))
 		empty_contents()
 
 /obj/item/organ/internal/headpocket/ui_action_click()
 	if(held_item)
-		owner.visible_message("<span class='notice'>[owner] removes [held_item] from [owner.p_their()] [name].</span>", "<span class='notice'>You remove [held_item] from your [name].</span>")
+		owner.visible_message(span_notice("[owner] removes [held_item] from [owner.p_their()] [name]."), span_notice("You remove [held_item] from your [name]."))
 		owner.put_in_hands(held_item)
 		held_item = null
 	else
 		var/obj/item/I = owner.get_active_hand()
 		if(I && I.w_class <= WEIGHT_CLASS_SMALL && !istype(I, /obj/item/disk/nuclear) && owner.unEquip(I))
-			owner.visible_message("<span class='notice'>[owner] places [I] into [owner.p_their()] [name].</span>", "<span class='notice'>You place [I] into your [name].</span>")
+			owner.visible_message(span_notice("[owner] places [I] into [owner.p_their()] [name]."), span_notice("You place [I] into your [name]."))
 			I.forceMove(src)
 			held_item = I
 

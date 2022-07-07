@@ -91,7 +91,7 @@
 	if(!cause || !imp_in)	return 0
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb implant? This will cause you to explode and gib!", "Macrobomb Implant Confirmation", "Yes", "No") != "Yes")
 		return 0
-	to_chat(imp_in, "<span class='notice'>You activate your macrobomb implant.</span>")
+	to_chat(imp_in, span_notice("You activate your macrobomb implant."))
 	timed_explosion()
 
 /obj/item/implant/explosive/macro/implant(mob/source)
@@ -164,7 +164,7 @@
 		return 0
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your dusting implant? This will turn you to ash!", "Dusting Confirmation", "Yes", "No") != "Yes")
 		return 0
-	to_chat(imp_in, "<span class='notice'>Your dusting implant activates!</span>")
+	to_chat(imp_in, span_notice("Your dusting implant activates!"))
 	imp_in.visible_message("<span class = 'warning'>[imp_in] burns up in a flash!</span>")
 	for(var/obj/item/I in imp_in.contents)
 		if(I == src)

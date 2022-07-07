@@ -90,7 +90,7 @@
 	can_distill = FALSE
 
 /obj/item/reagent_containers/food/snacks/grown/meatwheat/attack_self(mob/living/user)
-	user.visible_message("<span class='notice'>[user] crushes [src] into meat.</span>", "<span class='notice'>You crush [src] into something that resembles meat.</span>")
+	user.visible_message(span_notice("[user] crushes [src] into meat."), span_notice("You crush [src] into something that resembles meat."))
 	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
 	var/obj/item/reagent_containers/food/snacks/meat/meatwheat/M = new(get_turf(user))
 	user.drop_item()

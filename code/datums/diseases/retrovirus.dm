@@ -31,7 +31,7 @@
 		if(1)
 			if(restcure)
 				if(IS_HORIZONTAL(affected_mob) && prob(30))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, span_notice("You feel better."))
 					cure()
 					return
 			if(prob(8))
@@ -43,7 +43,7 @@
 		if(2)
 			if(restcure)
 				if(IS_HORIZONTAL(affected_mob) && prob(20))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, span_notice("You feel better."))
 					cure()
 					return
 			if(prob(8))
@@ -58,7 +58,7 @@
 		if(3)
 			if(restcure)
 				if(IS_HORIZONTAL(affected_mob) && prob(20))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, span_notice("You feel better."))
 					cure()
 					return
 			if(prob(10))
@@ -73,7 +73,7 @@
 		if(4)
 			if(restcure)
 				if(IS_HORIZONTAL(affected_mob) && prob(5))
-					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+					to_chat(affected_mob, span_notice("You feel better."))
 					cure()
 					return
 			if(prob(60))

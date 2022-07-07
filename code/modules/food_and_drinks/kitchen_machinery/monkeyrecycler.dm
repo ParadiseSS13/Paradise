@@ -74,11 +74,11 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 				if(5)
 					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 					cycle_through = 0
-			to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
+			to_chat(user, span_notice("You change the monkeycube type to [initial(cube_type.name)]."))
 		else
 			var/obj/item/multitool/M = O
 			M.buffer = src
-			to_chat(user, "<span class='notice'>You log [src] in [M]'s buffer.</span>")
+			to_chat(user, span_notice("You log [src] in [M]'s buffer."))
 		return
 	if(stat != 0) //NOPOWER etc
 		return
@@ -93,7 +93,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 				else
 					user.drop_item()
 					qdel(target)
-					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
+					to_chat(user, span_notice("You stuff the monkey in the machine."))
 					playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 					var/offset = prob(50) ? -2 : 2
 					animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 					grinded++
 					sleep(50)
 					pixel_x = initial(pixel_x)
-					to_chat(user, "<span class='notice'>The machine now has [grinded] monkey\s worth of material stored.</span>")
+					to_chat(user, span_notice("The machine now has [grinded] monkey\s worth of material stored."))
 			else
 				to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
 		else
@@ -113,12 +113,12 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(stat != 0) //NOPOWER etc
 		return
 	if(grinded >= required_grind)
-		to_chat(user, "<span class='notice'>The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube.</span>")
+		to_chat(user, span_notice("The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube."))
 		playsound(loc, 'sound/machines/hiss.ogg', 50, 1)
 		grinded -= required_grind
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
 			new cube_type(loc)
-		to_chat(user, "<span class='notice'>The machine's display flashes that it has [grinded] monkey\s worth of material left.</span>")
+		to_chat(user, span_notice("The machine's display flashes that it has [grinded] monkey\s worth of material left."))
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
 		to_chat(user, "<span class='warning'>The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded].</span>")
 	return

@@ -28,10 +28,10 @@
 		return
 	if(!I.tool_start_check(user, amount = 0))
 		return
-	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
+	to_chat(user, span_notice("You begin repairing [src]..."))
 	if(I.use_tool(src, user, 40, volume = 50))
 		obj_integrity = max_integrity
-		to_chat(user, "<span class='notice'>You repair [src].</span>")
+		to_chat(user, span_notice("You repair [src]."))
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	if(anchored)
@@ -51,10 +51,10 @@
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
 		return
-	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
+	to_chat(user, span_notice("You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor..."))
 	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
 		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
+		to_chat(user, span_notice("You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor."))
 	return TRUE
 
 /obj/structure/railing/corner/CanPass()

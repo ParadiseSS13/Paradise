@@ -14,10 +14,10 @@
 /datum/action/changeling/digitalcamo/sting_action(mob/user)
 	if(HAS_TRAIT_FROM(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 		REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT)
-		to_chat(user, "<span class='notice'>We return to normal.</span>")
+		to_chat(user, span_notice("We return to normal."))
 	else
 		ADD_TRAIT(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT)
-		to_chat(user, "<span class='notice'>We distort our form to prevent AI-tracking.</span>")
+		to_chat(user, span_notice("We distort our form to prevent AI-tracking."))
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

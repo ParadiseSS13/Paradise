@@ -43,7 +43,7 @@
 		step_away(src, L)
 		LoseTarget()
 		step_away(src, L)
-		visible_message("<span class='notice'>[src] jumps away from [L]!</span>")
+		visible_message(span_notice("[src] jumps away from [L]!"))
 
 
 /obj/structure/spider/terrorweb/black

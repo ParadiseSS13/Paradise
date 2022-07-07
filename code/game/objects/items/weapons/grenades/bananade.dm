@@ -44,7 +44,7 @@
 			fillamt += 1
 			qdel(I)
 		else
-			to_chat(usr, "<span class='notice'>The bananade is full, screwdriver it shut to lock it down.</span>")
+			to_chat(usr, span_notice("The bananade is full, screwdriver it shut to lock it down."))
 	if(istype(I, /obj/item/screwdriver))
 		if(fillamt)
 			var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
@@ -54,6 +54,6 @@
 			to_chat(user, "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>")
 			qdel(src)
 		else
-			to_chat(usr, "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>")
+			to_chat(usr, span_notice("You need to add banana peels before you can ready the grenade!."))
 	else
-		to_chat(usr, "<span class='notice'>Only banana peels fit in this assembly, up to 9.</span>")
+		to_chat(usr, span_notice("Only banana peels fit in this assembly, up to 9."))

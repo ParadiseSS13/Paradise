@@ -159,7 +159,7 @@
 
 	var/obj/item/rcd_ammo/R = W
 	if((matter + R.ammoamt) > max_matter)
-		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
+		to_chat(user, span_notice("The RCD can't hold any more matter-units."))
 		return
 
 	if(!user.unEquip(R))
@@ -169,7 +169,7 @@
 	matter += R.ammoamt
 	qdel(R)
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
+	to_chat(user, span_notice("The RCD now holds [matter]/[max_matter] matter-units."))
 	SStgui.update_uis(src)
 
 /**
@@ -214,7 +214,7 @@
 		else
 			return
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)
-	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
+	to_chat(user, span_notice("You change [src]'s mode to '[choice]'."))
 
 
 /obj/item/rcd/attack_self(mob/user)

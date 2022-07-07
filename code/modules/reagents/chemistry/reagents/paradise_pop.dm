@@ -30,7 +30,7 @@
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
 		goonchem_vortex(T, TRUE, 0, TRUE) // Ignore the 0 volume
-		to_chat(M, "<span class='notice'>You briefly feel super-massive, like a black hole. Probably just your imagination...</span>")
+		to_chat(M, span_notice("You briefly feel super-massive, like a black hole. Probably just your imagination..."))
 	return ..()
 
 //Berry Banned: This one is tasty and safe to drink, might have a low chance of healing a random damage type?
@@ -59,7 +59,7 @@
 				update_flags |= M.adjustCloneLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			if(5)
 				update_flags |= M.adjustBrainLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		to_chat(M, "<span class='notice'>You feel slightly rejuvinated!</span>")
+		to_chat(M, span_notice("You feel slightly rejuvinated!"))
 	return ..() | update_flags
 
 //Berry Banned 2: This one is tasty and toxic. Deals toxin damage and MAYBE plays the "BWOINK!" sound if it kills someone?
@@ -76,7 +76,7 @@
 	if(prob(50))
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)		//double strength of poison berry juice alone, because it's concentrated (this is equal to the damage of normal toxin, less often)
 	if(prob(10))
-		to_chat(M, "<span class='notice'>You feel slightly rejuvinated!</span>")		//meta this!
+		to_chat(M, span_notice("You feel slightly rejuvinated!"))		//meta this!
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_death(mob/living/M)
@@ -122,7 +122,7 @@
 		var/turf/simulated/T = get_turf(M)
 		goonchem_vortex(T, FALSE, 0, TRUE) // Ignore the 0 volume
 		M.emote("burp")
-		to_chat(M, "<span class='notice'>You feel ready to burst! Oh wait, just a burp...</span>")
+		to_chat(M, span_notice("You feel ready to burst! Oh wait, just a burp..."))
 	else if(prob(25))
 		M.emote("burp")
 	return ..()

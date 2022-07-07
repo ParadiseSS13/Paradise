@@ -259,13 +259,13 @@
 /obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message("<span class='warning'>[user] has analyzed the floor's vitals!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
-		to_chat(user, "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Healthy</span>")
-		to_chat(user, "<span class='notice'>\t Damage Specifics: [0]-[0]-[0]-[0]</span>")
-		to_chat(user, "<span class='notice'>Key: Suffocation/Toxin/Burns/Brute</span>")
-		to_chat(user, "<span class='notice'>Body Temperature: ???</span>")
+		to_chat(user, span_notice("Analyzing Results for The floor:\n\t Overall Status: Healthy"))
+		to_chat(user, span_notice("\t Damage Specifics: [0]-[0]-[0]-[0]"))
+		to_chat(user, span_notice("Key: Suffocation/Toxin/Burns/Brute"))
+		to_chat(user, span_notice("Body Temperature: ???"))
 		return
 
-	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components.</span>","<span class='notice'>You have analyzed [M]'s components.</span>")
+	user.visible_message(span_notice("[user] has analyzed [M]'s components."),span_notice("You have analyzed [M]'s components."))
 	robot_healthscan(user, M)
 	add_fingerprint(user)
 
@@ -285,17 +285,17 @@
 		if("robot")
 			var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
 			var/BR = M.getBruteLoss() > 50 	? 	"<b>[M.getBruteLoss()]</b>" 	: M.getBruteLoss()
-			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health]% functional"]</span>")
+			to_chat(user, span_notice("Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health]% functional"]"))
 			to_chat(user, "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
 			to_chat(user, "\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 			if(M.timeofdeath && M.stat == DEAD)
-				to_chat(user, "<span class='notice'>Time of Disable: [station_time_timestamp("hh:mm:ss", M.timeofdeath)]</span>")
+				to_chat(user, span_notice("Time of Disable: [station_time_timestamp("hh:mm:ss", M.timeofdeath)]"))
 			var/mob/living/silicon/robot/H = M
 			var/list/damaged = H.get_damaged_components(TRUE, TRUE, TRUE) // Get all except the missing ones
 			var/list/missing = H.get_missing_components()
-			to_chat(user, "<span class='notice'>Localized Damage:</span>")
+			to_chat(user, span_notice("Localized Damage:"))
 			if(!LAZYLEN(damaged) && !LAZYLEN(missing))
-				to_chat(user, "<span class='notice'>\t Components are OK.</span>")
+				to_chat(user, span_notice("\t Components are OK."))
 			else
 				if(LAZYLEN(damaged))
 					for(var/datum/robot_component/org in damaged)
@@ -305,7 +305,7 @@
 						(org.electronics_damage > 0)	?	"<font color='#FFA500'>[org.electronics_damage]</font>"	:0,	\
 						(org.brute_damage > 0)	?	"<font color='red'>[org.brute_damage]</font>"							:0,		\
 						(org.toggled)	?	"Toggled ON"	:	"<font color='red'>Toggled OFF</font>",\
-						(org.powered)	?	"Power ON"		:	"<font color='red'>Power OFF</font>"),1)
+						(org.powered)	?	"Power ON"		:	"<font color='red'>Power OFF</font>"), 1)
 				if(LAZYLEN(missing))
 					for(var/datum/robot_component/org in missing)
 						user.show_message("<span class='warning'>\t [capitalize(org.name)]: MISSING</span>")
@@ -315,10 +315,10 @@
 
 		if("prosthetics")
 			var/mob/living/carbon/human/H = M
-			to_chat(user, "<span class='notice'>Analyzing Results for \the [H]:</span>")
+			to_chat(user, span_notice("Analyzing Results for \the [H]:"))
 			to_chat(user, "Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
 
-			to_chat(user, "<span class='notice'>External prosthetics:</span>")
+			to_chat(user, span_notice("External prosthetics:"))
 			var/organ_found
 			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/external/E in H.bodyparts)
@@ -329,7 +329,7 @@
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
 			to_chat(user, "<hr>")
-			to_chat(user, "<span class='notice'>Internal prosthetics:</span>")
+			to_chat(user, span_notice("Internal prosthetics:"))
 			organ_found = null
 			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/internal/O in H.internal_organs)

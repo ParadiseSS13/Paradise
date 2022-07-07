@@ -157,7 +157,7 @@
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
 		return
 	if(IsSleeping())
-		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
+		. += span_notice("Upon closer examination, [p_they()] appear[p_s()] to be asleep.")
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
 	..(reason)
@@ -613,7 +613,7 @@
 	pcollar = P
 	regenerate_icons()
 	if(user)
-		to_chat(user, "<span class='notice'>You put [P] around [src]'s neck.</span>")
+		to_chat(user, span_notice("You put [P] around [src]'s neck."))
 	if(P.tagname && !unique_pet)
 		name = P.tagname
 		real_name = P.tagname

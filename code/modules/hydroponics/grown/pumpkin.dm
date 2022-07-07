@@ -28,7 +28,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/pumpkin/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(is_sharp(W))
-		user.show_message("<span class='notice'>You carve a face into [src]!</span>", 1)
+		user.show_message(span_notice("You carve a face into [src]!"), 1)
 		new /obj/item/clothing/head/hardhat/pumpkinhead(user.loc)
 		qdel(src)
 		return

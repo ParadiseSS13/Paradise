@@ -33,7 +33,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/green/proc/DoLayGreenEggs()
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
-		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
+		to_chat(src, span_notice("There is already a cluster of eggs here!"))
 		return
 	if(fed < feedings_to_lay)
 		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
@@ -58,7 +58,7 @@
 		// We have to check this again after the popup, to account for people spam-clicking the button, then doing all the popups at once.
 		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
 		return
-	visible_message("<span class='notice'>[src] lays a cluster of eggs.</span>")
+	visible_message(span_notice("[src] lays a cluster of eggs."))
 	if(eggtype == TS_DESC_RED)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 1)
 	else if(eggtype == TS_DESC_GRAY)

@@ -147,7 +147,7 @@
 	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
 		if(user.drop_item())
 			monkeys++
-			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
+			to_chat(user, span_notice("You feed [O] to [src]. It now has [monkeys] monkey cubes stored."))
 			qdel(O)
 		return
 	else if(istype(O, /obj/item/slimepotion/slime))
@@ -157,7 +157,7 @@
 				current_potion.forceMove(drop_location())
 				replaced = TRUE
 			current_potion = O
-			to_chat(user, "<span class='notice'>You load [O] in the console's potion slot[replaced ? ", replacing the one that was there before" : ""].</span>")
+			to_chat(user, span_notice("You load [O] in the console's potion slot[replaced ? ", replacing the one that was there before" : ""]."))
 		return
 	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
 		var/obj/item/storage/P = O
@@ -168,7 +168,7 @@
 			P.remove_from_storage(MC)
 			qdel(MC)
 		if(loaded)
-			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [O]. [src] now has [monkeys] monkey cubes stored.</span>")
+			to_chat(user, span_notice("You fill [src] with the monkey cubes stored in [O]. [src] now has [monkeys] monkey cubes stored."))
 		return
 	return ..()
 
@@ -182,7 +182,7 @@
 	if(istype(M.buffer, /obj/machinery/monkey_recycler))
 		connected_recycler = M.buffer
 		connected_recycler.connected += src
-		to_chat(user, "<span class='notice'>You link [src] to the recycler stored in [M]'s buffer.</span>")
+		to_chat(user, span_notice("You link [src] to the recycler stored in [M]'s buffer."))
 
 /datum/action/innate/slime_place
 	name = "Place Slimes"
@@ -204,7 +204,7 @@
 			S.visible_message("[S] warps in!")
 			X.stored_slimes -= S
 	else
-		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
+		to_chat(owner, span_notice("Target is not near a camera. Cannot proceed."))
 
 /datum/action/innate/slime_pick_up
 	name = "Pick up Slime"
@@ -224,11 +224,11 @@
 			if(!S.ckey)
 				if(S.buckled)
 					S.Feedstop(silent = TRUE)
-				S.visible_message("<span class='notice'>[S] vanishes in a flash of light!</span>")
+				S.visible_message(span_notice("[S] vanishes in a flash of light!"))
 				S.forceMove(X)
 				X.stored_slimes += S
 	else
-		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
+		to_chat(owner, span_notice("Target is not near a camera. Cannot proceed."))
 
 /datum/action/innate/feed_slime
 	name = "Feed Slimes"
@@ -258,7 +258,7 @@
 			X.monkeys --
 			to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
 	else
-		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
+		to_chat(owner, span_notice("Target is not near a camera. Cannot proceed."))
 
 /datum/action/innate/monkey_recycle
 	name = "Recycle Monkeys"
@@ -273,7 +273,7 @@
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 
 	if(!recycler)
-		to_chat(owner, "<span class='notice'>There is no connected monkey recycler.  Use a multitool to link one.</span>")
+		to_chat(owner, span_notice("There is no connected monkey recycler.  Use a multitool to link one."))
 		return
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
@@ -283,7 +283,7 @@
 				X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 				qdel(M)
 	else
-		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
+		to_chat(owner, span_notice("Target is not near a camera. Cannot proceed."))
 
 /datum/action/innate/slime_scan
 	name = "Scan Slime"
@@ -322,7 +322,7 @@
 			X.current_potion.attack(S, C)
 			break
 	else
-		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
+		to_chat(owner, span_notice("Target is not near a camera. Cannot proceed."))
 
 /datum/action/innate/hotkey_help
 	name = "Hotkey Help"
@@ -417,7 +417,7 @@
 			return
 		if(S.buckled)
 			S.Feedstop(silent = TRUE)
-		S.visible_message("<span class='notice'>[S] vanishes in a flash of light!</span>")
+		S.visible_message(span_notice("[S] vanishes in a flash of light!"))
 		S.forceMove(X)
 		X.stored_slimes += S
 
@@ -436,7 +436,7 @@
 	else if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
 			S.forceMove(T)
-			S.visible_message("<span class='notice'>[S] warps in!</span>")
+			S.visible_message(span_notice("[S] warps in!"))
 			X.stored_slimes -= S
 
 //Place monkey
@@ -470,7 +470,7 @@
 	var/area/mobarea = get_area(M.loc)
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 	if(!recycler)
-		to_chat(C, "<span class='notice'>There is no connected monkey recycler.  Use a multitool to link one.</span>")
+		to_chat(C, span_notice("There is no connected monkey recycler.  Use a multitool to link one."))
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		if(issmall(M) && M.stat)

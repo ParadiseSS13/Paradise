@@ -99,10 +99,10 @@
 
 	if(istype(I, /obj/item/wrench))
 		if(anchored)
-			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
+			to_chat(user, span_notice("You lean down and unwrench [src]."))
 			anchored = 0
 		else
-			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
+			to_chat(user, span_notice("You wrench [src] into place."))
 			anchored = 1
 		return
 	return ..()
@@ -118,7 +118,7 @@
 	if(!user.put_in_hands(T))
 		T.forceMove(loc) // If the user's hands are full, place it on the tile of the dispenser.
 
-	to_chat(user, "<span class='notice'>You take [T] out of [src].</span>")
+	to_chat(user, span_notice("You take [T] out of [src]."))
 	update_icon()
 
 /// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
@@ -134,7 +134,7 @@
 	T.forceMove(src)
 	tank_list.Add(T)
 	update_icon()
-	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")
+	to_chat(user, span_notice("You put [T] in [src]."))
 	SStgui.update_uis(src)
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)

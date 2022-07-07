@@ -41,10 +41,10 @@
 				if(hand_items)
 					message = "<span class='caution'>You aren't holding anything that can be marked for recall.</span>"
 				else
-					message = "<span class='notice'>You must hold the desired item in your hands to mark it for recall.</span>"
+					message = span_notice("You must hold the desired item in your hands to mark it for recall.")
 
 		else if(marked_item && (marked_item in hand_items)) //unlinking item to the spell
-			message = "<span class='notice'>You remove the mark on [marked_item] to use elsewhere.</span>"
+			message = span_notice("You remove the mark on [marked_item] to use elsewhere.")
 			name = "Instant Summons"
 			marked_item = 		null
 

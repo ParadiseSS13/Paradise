@@ -104,7 +104,7 @@
 		storedpda.desc = colorlist[P]
 
 	else
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, span_notice("[src] is empty."))
 
 
 /obj/machinery/pdapainter/verb/ejectpda()
@@ -120,7 +120,7 @@
 		storedpda = null
 		update_icon()
 	else
-		to_chat(usr, "<span class='notice'>[src] is empty.</span>")
+		to_chat(usr, span_notice("[src] is empty."))
 
 
 /obj/machinery/pdapainter/power_change()

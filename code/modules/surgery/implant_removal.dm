@@ -52,8 +52,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	I = locate(/obj/item/implant) in target
 	if(I && (target_zone == "chest")) //implant removal only works on the chest.
-		user.visible_message("<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'>You take [I] out of [target]'s [affected.name]s with \the [tool].</span>" )
+		user.visible_message(span_notice("[user] takes something out of [target]'s [affected.name] with \the [tool]."), \
+		span_notice("You take [I] out of [target]'s [affected.name]s with \the [tool].") )
 
 		I.removed(target)
 
@@ -70,10 +70,10 @@
 			case.imp = I
 			I.forceMove(case)
 			case.update_icon()
-			user.visible_message("[user] places [I] into [case]!", "<span class='notice'>You place [I] into [case].</span>")
+			user.visible_message("[user] places [I] into [case]!", span_notice("You place [I] into [case]."))
 		else
 			qdel(I)
 	else
-		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
-		"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>")
+		user.visible_message(span_notice(" [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out."), \
+		span_notice("You could not find anything inside [target]'s [affected.name]."))
 	return TRUE

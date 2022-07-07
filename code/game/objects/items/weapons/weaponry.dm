@@ -133,7 +133,7 @@
 		user.unEquip(I)
 
 		user.put_in_hands(S)
-		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
+		to_chat(user, span_notice("You fasten the glass shard to the top of the rod with the cable."))
 		qdel(I)
 		qdel(src)
 
@@ -145,7 +145,7 @@
 		user.unEquip(I)
 
 		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You fasten [I] to the top of the rod with the cable.</span>")
+		to_chat(user, span_notice("You fasten [I] to the top of the rod with the cable."))
 		qdel(I)
 		qdel(src)
 
@@ -232,16 +232,16 @@
 /obj/item/melee/baseball_bat/attack_self(mob/user)
 	if(!homerun_able)
 		if(!deflectmode && world.time >= lastdeflect)
-			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
+			to_chat(user, span_notice("You prepare to deflect objects thrown at you. You cannot attack during this time."))
 			deflectmode = TRUE
 		else if(deflectmode && world.time >= lastdeflect)
-			to_chat(user, "<span class='notice'>You no longer deflect objects thrown at you. You can attack during this time</span>")
+			to_chat(user, span_notice("You no longer deflect objects thrown at you. You can attack during this time"))
 			deflectmode = FALSE
 		else
 			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "mm:ss")]</span>")
 		return ..()
 	if(homerun_ready)
-		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
+		to_chat(user, span_notice("You're already ready to do a home run!"))
 		return ..()
 	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)

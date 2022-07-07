@@ -21,7 +21,7 @@
 	cling.regenerating = FALSE
 	user.UpdateAppearance() //Ensures that the user's appearance matches their DNA.
 
-	to_chat(user, "<span class='notice'>We have regenerated.</span>")
+	to_chat(user, span_notice("We have regenerated."))
 
 	user.regenerate_icons()
 

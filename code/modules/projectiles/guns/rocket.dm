@@ -17,7 +17,7 @@
 
 /obj/item/gun/rocketlauncher/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>"
+	. += span_notice("[rockets.len] / [max_rockets] rockets.")
 
 /obj/item/gun/rocketlauncher/Destroy()
 	QDEL_LIST(rockets)
@@ -33,10 +33,10 @@
 			user.drop_item()
 			I.loc = src
 			rockets += I
-			to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
-			to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
+			to_chat(user, span_notice("You put the rocket in [src]."))
+			to_chat(user, span_notice("[rockets.len] / [max_rockets] rockets."))
 		else
-			to_chat(user, "<span class='notice'>[src] cannot hold more rockets.</span>")
+			to_chat(user, span_notice("[src] cannot hold more rockets."))
 	else
 		return ..()
 

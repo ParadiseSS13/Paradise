@@ -42,7 +42,7 @@
 	else
 		parent_organ = "r_arm"
 	slot = parent_organ + "_device"
-	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
+	to_chat(user, span_notice("You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm."))
 	update_icon()
 
 
@@ -71,8 +71,8 @@
 	if(!holder || (holder in src) || check_cuffs())
 		return
 
-	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
-		"<span class='notice'>[holder] snaps back into your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
+	owner.visible_message(span_notice("[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm."),
+		span_notice("[holder] snaps back into your [parent_organ == "r_arm" ? "right" : "left"] arm."),
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 
 	if(istype(holder, /obj/item/flash/armimplant))
@@ -108,7 +108,7 @@
 			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
 			return
 		else
-			to_chat(owner, "<span class='notice'>You drop [arm_item] to activate [src]!</span>")
+			to_chat(owner, span_notice("You drop [arm_item] to activate [src]!"))
 
 	if(parent_organ == "r_arm" ? !owner.put_in_r_hand(holder) : !owner.put_in_l_hand(holder))
 		to_chat(owner, "<span class='warning'>Your [src] fails to activate!</span>")
@@ -118,8 +118,8 @@
 	if(parent_organ == "r_arm" ? owner.hand : !owner.hand)
 		owner.swap_hand()
 
-	owner.visible_message("<span class='notice'>[owner] extends [holder] from [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
-		"<span class='notice'>You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
+	owner.visible_message(span_notice("[owner] extends [holder] from [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm."),
+		span_notice("You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm."),
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
@@ -211,7 +211,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
 	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
-		to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
+		to_chat(user, span_notice("You unlock [src]'s integrated knife!"))
 		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
 		return TRUE
 	return FALSE
@@ -334,7 +334,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/power_cord/surgeryize()
 	if(crit_fail && owner)
-		to_chat(owner, "<span class='notice'>Your [src] feels functional again.</span>")
+		to_chat(owner, span_notice("Your [src] feels functional again."))
 	crit_fail = FALSE
 
 
@@ -371,7 +371,7 @@
 		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
-	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
+	H.visible_message(span_notice("[H] inserts a power connector into \the [A]."), span_notice("You begin to draw power from \the [A]."))
 	drawing_power = TRUE
 	while(do_after(H, 10, target = A))
 		if(loc != H)
@@ -384,16 +384,16 @@
 		if(A.cell.charge >= 500)
 			H.adjust_nutrition(50)
 			A.cell.charge -= 500
-			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
+			to_chat(H, span_notice("You siphon off some of the stored charge for your own use."))
 		else
 			H.adjust_nutrition(A.cell.charge * 0.1)
 			A.cell.charge = 0
-			to_chat(H, "<span class='notice'>You siphon off the last of \the [A]'s charge.</span>")
+			to_chat(H, span_notice("You siphon off the last of \the [A]'s charge."))
 			break
 		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
-			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+			to_chat(H, span_notice("You are now fully charged."))
 			break
-	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
+	H.visible_message(span_notice("[H] unplugs from \the [A]."), span_notice("You unplug from \the [A]."))
 	drawing_power = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/telebaton

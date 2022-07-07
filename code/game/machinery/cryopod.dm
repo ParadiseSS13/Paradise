@@ -107,7 +107,7 @@
 		if(!allow_items) return
 
 		if(frozen_items.len == 0)
-			to_chat(user, "<span class='notice'>There is nothing to recover from storage.</span>")
+			to_chat(user, span_notice("There is nothing to recover from storage."))
 			return
 
 		var/obj/item/I = input(usr, "Please choose which object to retrieve.","Object recovery",null) as null|anything in frozen_items
@@ -115,10 +115,10 @@
 			return
 
 		if(!(I in frozen_items))
-			to_chat(user, "<span class='notice'>\The [I] is no longer in storage.</span>")
+			to_chat(user, span_notice("\The [I] is no longer in storage."))
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges [I].</span>")
+		visible_message(span_notice("The console beeps happily as it disgorges [I]."))
 
 		dispense_item(I)
 
@@ -130,10 +130,10 @@
 			return
 
 		if(frozen_items.len == 0)
-			to_chat(user, "<span class='notice'>There is nothing to recover from storage.</span>")
+			to_chat(user, span_notice("There is nothing to recover from storage."))
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>")
+		visible_message(span_notice("The console beeps happily as it disgorges the desired objects."))
 
 		for(var/obj/item/I in frozen_items)
 			dispense_item(I)
@@ -424,7 +424,7 @@
 					announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
 				else
 					announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-	visible_message("<span class='notice'>[src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
+	visible_message(span_notice("[src] hums and hisses as it moves [occupant.real_name] into storage."))
 
 	// Ghost and delete the mob.
 	if(!occupant.get_ghost(TRUE))
@@ -443,7 +443,7 @@
 		var/obj/item/grab/G = I
 
 		if(occupant)
-			to_chat(user, "<span class='notice'>[src] is in use.</span>")
+			to_chat(user, span_notice("[src] is in use."))
 			return
 
 		if(!ismob(G.affecting))
@@ -457,7 +457,7 @@
 		time_till_despawn = initial(time_till_despawn)
 
 		if(!istype(M) || M.stat == DEAD)
-			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
+			to_chat(user, span_notice("Dead people can not be put into cryo."))
 			return
 
 		if(M.client)
@@ -482,12 +482,12 @@
 				take_occupant(M, willing)
 
 			else //because why the fuck would you keep going if the mob isn't in the pod
-				to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
+				to_chat(user, span_notice("You stop putting [M] into the cryopod."))
 				return
 
 			icon_state = occupied_icon_state
 
-			to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
+			to_chat(M, span_notice("[on_enter_occupant_message]"))
 			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 
 			take_occupant(M, willing)
@@ -523,7 +523,7 @@
 		return
 
 	if(L.stat == DEAD)
-		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
+		to_chat(user, span_notice("Dead people can not be put into cryo."))
 		return
 
 	if(L.has_buckled_mobs()) //mob attached to us
@@ -558,7 +558,7 @@
 				return
 			take_occupant(L, willing)
 		else
-			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
+			to_chat(user, span_notice("You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]"))
 
 /obj/machinery/cryopod/proc/take_occupant(mob/living/carbon/E, willing_factor = 1)
 	if(occupant)
@@ -568,7 +568,7 @@
 	E.forceMove(src)
 	time_till_despawn = initial(time_till_despawn) / willing_factor
 	icon_state = occupied_icon_state
-	to_chat(E, "<span class='notice'>[on_enter_occupant_message]</span>")
+	to_chat(E, span_notice("[on_enter_occupant_message]"))
 	to_chat(E, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 	occupant = E
 	name = "[name] ([occupant.name])"
@@ -579,7 +579,7 @@
 			if(Gh.key == FT)
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
 					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
-	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
+	log_admin(span_notice("[key_name(E)] entered a stasis pod."))
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 
@@ -645,7 +645,7 @@
 		occupant = usr
 		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
 		icon_state = occupied_icon_state
-		to_chat(usr, "<span class='notice'>[on_enter_occupant_message]</span>")
+		to_chat(usr, span_notice("[on_enter_occupant_message]"))
 		to_chat(usr, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 		occupant = usr
 		time_entered = world.time

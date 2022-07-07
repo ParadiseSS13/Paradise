@@ -413,7 +413,7 @@
 				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
 					var/obj/item/clothing/glasses/meson/MS = H.glasses
 					if(MS.vision_flags == SEE_TURFS)
-						to_chat(H, "<span class='notice'>You look directly into [src], good thing you had your protective eyewear on!</span>")
+						to_chat(H, span_notice("You look directly into [src], good thing you had your protective eyewear on!"))
 						return
 
 		M.Stun(6 SECONDS)

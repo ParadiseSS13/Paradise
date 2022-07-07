@@ -7,7 +7,7 @@
 
 /obj/item/mecha_modkit/proc/install(obj/mecha/mech, mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>You install [src] into [mech].</span>")
+		to_chat(user, span_notice("You install [src] into [mech]."))
 	return TRUE
 
 /obj/item/mecha_modkit/voice

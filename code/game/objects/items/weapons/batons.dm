@@ -176,7 +176,7 @@
 		force = force_on //stunbaton damage
 		attack_verb = attack_verb_on
 	else
-		to_chat(user, "<span class='notice'>You collapse [src].</span>")
+		to_chat(user, span_notice("You collapse [src]."))
 		item_state = null //no sprite for concealment even when in hand
 		slot_flags = SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL

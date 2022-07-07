@@ -382,7 +382,7 @@
 		if(!user.unEquip(A))
 			return
 		add_pen(A)
-		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
+		to_chat(user, span_notice("You insert [A] into [src]."))
 	return
 
 /obj/item/ammo_casing/caseless/foam_dart/proc/add_pen(obj/item/pen/P)
@@ -400,7 +400,7 @@
 		FD.damage = initial(FD.damage)
 		FD.nodamage = initial(FD.nodamage)
 		user.put_in_hands(FD.pen)
-		to_chat(user, "<span class='notice'>You remove [FD.pen] from [src].</span>")
+		to_chat(user, span_notice("You remove [FD.pen] from [src]."))
 		FD.pen = null
 
 /obj/item/ammo_casing/caseless/foam_dart/riot

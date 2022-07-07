@@ -38,7 +38,7 @@
 			add_overlay("bodybag_label")
 		return
 	if(istype(I, /obj/item/wirecutters))
-		to_chat(user, "<span class='notice'>You cut the tag off the bodybag.</span>")
+		to_chat(user, span_notice("You cut the tag off the bodybag."))
 		name = initial(name)
 		cut_overlays()
 		return
@@ -63,7 +63,7 @@
 	if(over_object == usr && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr) || opened || length(contents))
 			return FALSE
-		visible_message("<span class='notice'>[usr] folds up [src].</span>")
+		visible_message(span_notice("[usr] folds up [src]."))
 		new item_path(get_turf(src))
 		qdel(src)
 
@@ -74,4 +74,4 @@
 	// Make it possible to escape from bodybags in morgues and crematoriums
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		if(!open())
-			to_chat(user, "<span class='notice'>It won't budge!</span>")
+			to_chat(user, span_notice("It won't budge!"))

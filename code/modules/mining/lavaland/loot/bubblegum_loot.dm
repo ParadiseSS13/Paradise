@@ -26,7 +26,7 @@
 		spawn()
 			var/obj/effect/mine/pickup/bloodbath/B = new(H)
 			B.mineEffect(H)
-	to_chat(user, "<span class='notice'>You shatter the bottle!</span>")
+	to_chat(user, span_notice("You shatter the bottle!"))
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 	qdel(src)
 

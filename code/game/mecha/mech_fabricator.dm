@@ -96,7 +96,7 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	output_dir = turn(output_dir, -90)
-	to_chat(user, "<span class='notice'>You change [src] to output to the [dir2text(output_dir)].</span>")
+	to_chat(user, span_notice("You change [src] to output to the [dir2text(output_dir)]."))
 
 /obj/machinery/mecha_part_fabricator/RefreshParts()
 	var/coef_mats = 0

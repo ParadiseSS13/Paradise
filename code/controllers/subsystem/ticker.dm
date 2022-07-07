@@ -443,23 +443,23 @@ SUBSYSTEM_DEF(ticker)
 			if(length(S.contents) < S.storage_slots)
 				I.forceMove(H.back)
 				ok = TRUE
-				to_chat(H, "<span class='notice'>Your [I.name] has been added to your [H.back.name].</span>")
+				to_chat(H, span_notice("Your [I.name] has been added to your [H.back.name]."))
 
 		if(!ok)
 			for(var/obj/item/storage/S in H.contents) // Try to place it in any item that can store stuff, on the mob.
 				if(length(S.contents) < S.storage_slots)
 					I.forceMove(S)
 					ok = TRUE
-					to_chat(H, "<span class='notice'>Your [I.name] has been added to your [S.name].</span>")
+					to_chat(H, span_notice("Your [I.name] has been added to your [S.name]."))
 					break
 
 		if(!ok) // Finally, since everything else failed, place it on the ground
 			var/turf/T = get_turf(H)
 			if(T)
 				I.forceMove(T)
-				to_chat(H, "<span class='notice'>Your [I.name] is on the [T.name] below you.</span>")
+				to_chat(H, span_notice("Your [I.name] is on the [T.name] below you."))
 			else
-				to_chat(H, "<span class='notice'>Your [I.name] couldnt spawn anywhere on you or even on the floor below you. Please file a bug report.</span>")
+				to_chat(H, span_notice("Your [I.name] couldnt spawn anywhere on you or even on the floor below you. Please file a bug report."))
 				qdel(I)
 
 

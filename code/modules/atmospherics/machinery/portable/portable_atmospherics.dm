@@ -92,13 +92,13 @@
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	if(holding)
-		to_chat(user, "<span class='notice'>You remove [holding] from [src].</span>")
+		to_chat(user, span_notice("You remove [holding] from [src]."))
 		replace_tank(user, TRUE)
 
 /obj/machinery/portable_atmospherics/examine(mob/user)
 	. = ..()
 	if(holding)
-		. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>"
+		. += span_notice("\The [src] contains [holding]. Alt-click [src] to remove it.")
 
 /obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
 	if(holding)
@@ -120,7 +120,7 @@
 			var/obj/item/tank/T = W
 			user.drop_item()
 			if(src.holding)
-				to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
+				to_chat(user, span_notice("[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"]."))
 				replace_tank(user, FALSE)
 			T.loc = src
 			src.holding = T
@@ -137,20 +137,20 @@
 		return
 	if(connected_port)
 		disconnect()
-		to_chat(user, "<span class='notice'>You disconnect [name] from the port.</span>")
+		to_chat(user, span_notice("You disconnect [name] from the port."))
 		update_icon()
 	else
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector/) in loc
 		if(possible_port)
 			if(connect(possible_port))
-				to_chat(user, "<span class='notice'>You connect [src] to the port.</span>")
+				to_chat(user, span_notice("You connect [src] to the port."))
 				update_icon()
 				return
 			else
-				to_chat(user, "<span class='notice'>[src] failed to connect to the port.</span>")
+				to_chat(user, span_notice("[src] failed to connect to the port."))
 				return
 		else
-			to_chat(user, "<span class='notice'>Nothing happens.</span>")
+			to_chat(user, span_notice("Nothing happens."))
 
 /obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
 	if(I.force < 10 && !(stat & BROKEN))

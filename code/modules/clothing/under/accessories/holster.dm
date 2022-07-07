@@ -53,7 +53,7 @@
 	user.unEquip(holstered)
 	holstered.loc = src
 	holstered.add_fingerprint(user)
-	user.visible_message("<span class='notice'>[user] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
+	user.visible_message(span_notice("[user] holsters [holstered]."), span_notice("You holster [holstered]."))
 
 /obj/item/clothing/accessory/holster/proc/unholster(mob/user as mob)
 	if(!holstered)
@@ -66,8 +66,8 @@
 			usr.visible_message("<span class='warning'>[user] draws [holstered], ready to shoot!</span></span>", \
 			"<span class='warning'>You draw [holstered], ready to shoot!</span>")
 		else
-			user.visible_message("<span class='notice'>[user] draws [holstered], pointing it at the ground.</span>", \
-			"<span class='notice'>You draw [holstered], pointing it at the ground.</span>")
+			user.visible_message(span_notice("[user] draws [holstered], pointing it at the ground."), \
+			span_notice("You draw [holstered], pointing it at the ground."))
 		user.put_in_hands(holstered)
 		holstered.add_fingerprint(user)
 		holstered = null

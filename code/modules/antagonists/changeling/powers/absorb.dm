@@ -32,12 +32,12 @@
 	for(var/stage in 1 to 3)
 		switch(stage)
 			if(1)
-				to_chat(user, "<span class='notice'>This creature is compatible. We must hold still...</span>")
+				to_chat(user, span_notice("This creature is compatible. We must hold still..."))
 			if(2)
-				to_chat(user, "<span class='notice'>We extend a proboscis.</span>")
+				to_chat(user, span_notice("We extend a proboscis."))
 				user.visible_message("<span class='warning'>[user] extends a proboscis!</span>")
 			if(3)
-				to_chat(user, "<span class='notice'>We stab [target] with the proboscis.</span>")
+				to_chat(user, span_notice("We stab [target] with the proboscis."))
 				user.visible_message("<span class='danger'>[user] stabs [target] with the proboscis!</span>")
 				to_chat(target, "<span class='danger'>You feel a sharp stabbing pain!</span>")
 				target.take_overall_damage(40)
@@ -47,7 +47,7 @@
 			cling.is_absorbing = FALSE
 			return FALSE
 
-	to_chat(user, "<span class='notice'>We have absorbed [target]!</span>")
+	to_chat(user, span_notice("We have absorbed [target]!"))
 	user.visible_message("<span class='danger'>[user] sucks the fluids from [target]!</span>")
 	to_chat(target, "<span class='danger'>You have been absorbed by the changeling!</span>")
 
@@ -75,7 +75,7 @@
 			to_chat(user, "<span class='boldnotice'>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</span>")
 			for(var/spoken_memory in recent_speech)
 				user.mind.store_memory("\"[spoken_memory]\"")
-				to_chat(user, "<span class='notice'>\"[spoken_memory]\"</span>")
+				to_chat(user, span_notice("\"[spoken_memory]\""))
 			user.mind.store_memory("<B>We have no more knowledge of [target]'s speech patterns.</B>")
 			to_chat(user, "<span class='boldnotice'>We have no more knowledge of [target]'s speech patterns.</span>")
 

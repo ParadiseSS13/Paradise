@@ -962,7 +962,7 @@
 
 /obj/machinery/computer/arcade/orion_trail/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode.</span>")
+		to_chat(user, span_notice("You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode."))
 		name = "The Orion Trail: Realism Edition"
 		desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
 		add_hiddenprint(user)
@@ -988,9 +988,9 @@
 	. = ..()
 	if(in_range(user, src))
 		if(!active)
-			. += "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>"
+			. += span_notice("There's a little switch on the bottom. It's flipped down.")
 		else
-			. += "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>"
+			. += span_notice("There's a little switch on the bottom. It's flipped up.")
 
 /obj/item/orion_ship/attack_self(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
 	if(active)
@@ -1001,7 +1001,7 @@
 
 	to_chat(user, "<span class='warning'>You flip the switch on the underside of [src].</span>")
 	active = TRUE
-	visible_message("<span class='notice'>[src] softly beeps and whirs to life!</span>")
+	visible_message(span_notice("[src] softly beeps and whirs to life!"))
 	playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
 	atom_say("This is ship ID #[rand(1,1000)] to Orion Port Authority. We're coming in for landing, over.")
 	sleep(20)

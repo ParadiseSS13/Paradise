@@ -31,18 +31,18 @@
 		if(istype(I, /obj/item/organ/internal/heart))
 			IC = I
 			break
-	user.visible_message("[user] starts to remove [target]'s organs.", "<span class='notice'>You start to remove [target]'s organs...</span>")
+	user.visible_message("[user] starts to remove [target]'s organs.", span_notice("You start to remove [target]'s organs..."))
 	..()
 
 /datum/surgery_step/internal/extract_organ/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/AB = target
 	if(IC)
-		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
+		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", span_notice("You pull [IC] out of [target]'s [target_zone]."))
 		user.put_in_hands(IC)
 		IC.remove(target, special = 1)
 		return TRUE
 	if(NO_INTORGANS in AB.dna.species.species_traits)
-		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")
+		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", span_notice("You prepare [target]'s [target_zone] for further dissection."))
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")

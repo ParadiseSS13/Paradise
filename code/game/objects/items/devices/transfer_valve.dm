@@ -33,7 +33,7 @@
 				return
 			tank_one = I
 			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
+			to_chat(user, span_notice("You attach the tank to the transfer valve."))
 			if(I.w_class > w_class)
 				w_class = I.w_class
 		else if(!tank_two)
@@ -41,7 +41,7 @@
 				return
 			tank_two = I
 			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
+			to_chat(user, span_notice("You attach the tank to the transfer valve."))
 			if(I.w_class > w_class)
 				w_class = I.w_class
 
@@ -51,7 +51,7 @@
 	else if(isassembly(I))
 		var/obj/item/assembly/A = I
 		if(A.secured)
-			to_chat(user, "<span class='notice'>The device is secured.</span>")
+			to_chat(user, span_notice("The device is secured."))
 			return
 		if(attached_device)
 			to_chat(user, "<span class='warning'>There is already a device attached to the valve, remove it first.</span>")
@@ -59,7 +59,7 @@
 		user.remove_from_mob(A)
 		attached_device = A
 		A.forceMove(src)
-		to_chat(user, "<span class='notice'>You attach [A] to the valve controls and secure it.</span>")
+		to_chat(user, span_notice("You attach [A] to the valve controls and secure it."))
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
 

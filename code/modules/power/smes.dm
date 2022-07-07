@@ -109,7 +109,7 @@
 			if(term && term.dir == turn(dir, 180))
 				terminal = term
 				terminal.master = src
-				to_chat(user, "<span class='notice'>Terminal found.</span>")
+				to_chat(user, span_notice("Terminal found."))
 				break
 		if(!terminal)
 			to_chat(user, "<span class='alert'>No power source found.</span>")
@@ -166,7 +166,7 @@
 				to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
 				return
 
-		to_chat(user, "<span class='notice'>You start adding cable to [src].</span>")
+		to_chat(user, span_notice("You start adding cable to [src]."))
 		playsound(loc, C.usesound, 50, 1)
 
 		if(do_after(user, 50, target = src))
@@ -179,8 +179,8 @@
 
 				C.use(10) // make sure the cable gets used up
 				user.visible_message(\
-					"<span class='notice'>[user.name] adds the cables and connects the power terminal.</span>",\
-					"<span class='notice'>You add the cables and connect the power terminal.</span>")
+					span_notice("[user.name] adds the cables and connects the power terminal."),\
+					span_notice("You add the cables and connect the power terminal."))
 
 				make_terminal(user, tempDir, tempLoc)
 				terminal.connect_to_network()
@@ -193,7 +193,7 @@
 			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
 			return
 
-		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
+		to_chat(user, span_notice("You begin to dismantle the power terminal..."))
 		playsound(src.loc, I.usesound, 50, 1)
 
 		if(do_after(user, 50 * I.toolspeed, target = src))
@@ -206,7 +206,7 @@
 				new /obj/item/stack/cable_coil(T,10)
 				user.visible_message(\
 					"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
-					"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
+					span_notice("You cut the cables and dismantle the power terminal."))
 				inputting = 0 //stop inputting, since we have don't have a terminal anymore
 				qdel(terminal)
 				return

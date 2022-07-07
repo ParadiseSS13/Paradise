@@ -127,15 +127,15 @@
 	else
 		. += "<span class='warning'>It is too far away.</span>"
 	if(guest_pass)
-		. += "<span class='notice'>There is a guest pass attached to this ID card</span>"
+		. += span_notice("There is a guest pass attached to this ID card")
 		if(world.time < guest_pass.expiration_time)
-			. += "<span class='notice'>It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
+			. += span_notice("It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].")
 		else
 			. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
-		. += "<span class='notice'>It grants access to following areas:</span>"
+		. += span_notice("It grants access to following areas:")
 		for(var/A in guest_pass.temp_access)
-			. += "<span class='notice'>[get_access_desc(A)].</span>"
-		. += "<span class='notice'>Issuing reason: [guest_pass.reason].</span>"
+			. += span_notice("[get_access_desc(A)].")
+		. += span_notice("Issuing reason: [guest_pass.reason].")
 
 /obj/item/card/id/proc/show(mob/user as mob)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -278,7 +278,7 @@
 		return
 
 	if(guest_pass)
-		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
+		to_chat(usr, span_notice("You remove the guest pass from this ID."))
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
@@ -358,7 +358,7 @@
 		var/obj/item/card/id/I = O
 		if(istype(user, /mob/living) && user.mind)
 			if(user.mind.special_role)
-				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
+				to_chat(usr, span_notice("The card's microscanners activate as you pass it over \the [I], copying its access."))
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/syndicate/attack_self(mob/user as mob)
@@ -376,7 +376,7 @@
 			return
 		src.assignment = u
 		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
-		to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
+		to_chat(user, span_notice("You successfully forge the ID card."))
 		registered_user = user
 	else if(!registered_user || registered_user == user)
 		if(!registered_user)
@@ -393,7 +393,7 @@
 							return
 						src.registered_name = new_name
 						UpdateName()
-						to_chat(user, "<span class='notice'>Name changed to [new_name].</span>")
+						to_chat(user, span_notice("Name changed to [new_name]."))
 						RebuildHTML()
 
 					if("Photo")
@@ -406,7 +406,7 @@
 						if(!newphoto)
 							return
 						photo = newphoto
-						to_chat(user, "<span class='notice'>Photo changed. Select another occupation and take a new photo if you wish to appear with different clothes.</span>")
+						to_chat(user, span_notice("Photo changed. Select another occupation and take a new photo if you wish to appear with different clothes."))
 						RebuildHTML()
 
 					if("Appearance")
@@ -459,14 +459,14 @@
 								desc = "An ID straight from Central Command."
 							else
 								desc = "A card used to provide ID and determine access across the station."
-						to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
+						to_chat(usr, span_notice("Appearance changed to [choice]."))
 
 					if("Sex")
 						var/new_sex = sanitize(stripped_input(user,"What sex would you like to put on this card?","Agent Card Sex", ishuman(user) ? capitalize(user.gender) : "Male", MAX_MESSAGE_LEN))
 						if(!Adjacent(user))
 							return
 						sex = new_sex
-						to_chat(user, "<span class='notice'>Sex changed to [new_sex].</span>")
+						to_chat(user, span_notice("Sex changed to [new_sex]."))
 						RebuildHTML()
 
 					if("Age")
@@ -478,7 +478,7 @@
 						if(!Adjacent(user))
 							return
 						age = new_age
-						to_chat(user, "<span class='notice'>Age changed to [new_age].</span>")
+						to_chat(user, span_notice("Age changed to [new_age]."))
 						RebuildHTML()
 
 					if("Occupation")
@@ -516,7 +516,7 @@
 						if(!Adjacent(user))
 							return
 						assignment = new_job
-						to_chat(user, "<span class='notice'>Occupation changed to [new_job].</span>")
+						to_chat(user, span_notice("Occupation changed to [new_job]."))
 						UpdateName()
 						RebuildHTML()
 
@@ -525,7 +525,7 @@
 						if(!Adjacent(user))
 							return
 						associated_account_number = new_account
-						to_chat(user, "<span class='notice'>Linked money account changed to [new_account].</span>")
+						to_chat(user, span_notice("Linked money account changed to [new_account]."))
 
 					if("Blood Type")
 						var/default = "\[UNSET\]"
@@ -538,7 +538,7 @@
 						if(!Adjacent(user))
 							return
 						blood_type = new_blood_type
-						to_chat(user, "<span class='notice'>Blood type changed to [new_blood_type].</span>")
+						to_chat(user, span_notice("Blood type changed to [new_blood_type]."))
 						RebuildHTML()
 
 					if("DNA Hash")
@@ -552,7 +552,7 @@
 						if(!Adjacent(user))
 							return
 						dna_hash = new_dna_hash
-						to_chat(user, "<span class='notice'>DNA hash changed to [new_dna_hash].</span>")
+						to_chat(user, span_notice("DNA hash changed to [new_dna_hash]."))
 						RebuildHTML()
 
 					if("Fingerprint Hash")
@@ -566,14 +566,14 @@
 						if(!Adjacent(user))
 							return
 						fingerprint_hash = new_fingerprint_hash
-						to_chat(user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
+						to_chat(user, span_notice("Fingerprint hash changed to [new_fingerprint_hash]."))
 						RebuildHTML()
 
 					if("Reset Access")
 						var/response = alert(user, "Are you sure you want to reset access saved on the card?","Reset Access", "No", "Yes")
 						if(response == "Yes")
 							access = initial_access.Copy() // Initial() doesn't work on lists
-							to_chat(user, "<span class='notice'>Card access reset.</span>")
+							to_chat(user, span_notice("Card access reset."))
 
 					if("Delete Card Information")
 						var/response = alert(user, "Are you sure you want to delete all information saved on the card?","Delete Card Information", "No", "Yes")
@@ -590,7 +590,7 @@
 							fingerprint_hash = initial(fingerprint_hash)
 							photo = null
 							registered_user = null
-							to_chat(user, "<span class='notice'>All information has been deleted from \the [src].</span>")
+							to_chat(user, span_notice("All information has been deleted from \the [src]."))
 							RebuildHTML()
 	else
 		..()
@@ -830,7 +830,7 @@
 		UpdateName()
 		desc = "A card used to claim mining points and buy gear."
 		registered = TRUE
-		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
+		to_chat(user, span_notice("The ID is now registered as yours."))
 	else
 		..()
 

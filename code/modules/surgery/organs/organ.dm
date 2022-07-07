@@ -68,7 +68,7 @@
 		var/obj/item/stack/nanopaste/nano = I
 		nano.use(1)
 		rejuvenate()
-		to_chat(user, "<span class='notice'>You repair the damage on [src].</span>")
+		to_chat(user, span_notice("You repair the damage on [src]."))
 		return
 	return ..()
 
@@ -148,9 +148,9 @@
 	. = ..()
 	if(status & ORGAN_DEAD)
 		if(!is_robotic())
-			. += "<span class='notice'>The decay has set in.</span>"
+			. += span_notice("The decay has set in.")
 		else
-			. += "<span class='notice'>It looks in need of repairs.</span>"
+			. += span_notice("It looks in need of repairs.")
 
 /obj/item/organ/proc/handle_germs()
 	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))

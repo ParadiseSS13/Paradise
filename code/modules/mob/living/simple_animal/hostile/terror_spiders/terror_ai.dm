@@ -125,7 +125,7 @@
 					CreatePath(entry_vent)
 					step_to(src,entry_vent)
 					if(spider_debug)
-						visible_message("<span class='notice'>[src] moves towards the vent [entry_vent].</span>")
+						visible_message(span_notice("[src] moves towards the vent [entry_vent]."))
 			else
 				path_to_vent = FALSE
 		else if(ai_break_lights && world.time > (last_break_light + freq_break_light))
@@ -143,7 +143,7 @@
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(!T)
 				new web_type(loc)
-				visible_message("<span class='notice'>[src] puts up some spider webs.</span>")
+				visible_message(span_notice("[src] puts up some spider webs."))
 		else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
 			if(prob(idle_ventcrawl_chance))
 				last_ventcrawl_time = world.time
@@ -212,7 +212,7 @@
 				CreatePath(cocoon_target)
 				step_to(src,cocoon_target)
 				if(spider_debug)
-					visible_message("<span class='notice'>[src] moves towards [cocoon_target] to cocoon it.</span>")
+					visible_message(span_notice("[src] moves towards [cocoon_target] to cocoon it."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/seek_cocoon_target()
 	last_cocoon_object = world.time
@@ -279,7 +279,7 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			visible_message("<B>[src] scrambles into the ventillation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+			visible_message("<B>[src] scrambles into the ventillation ducts!</B>", span_notice("You hear something squeezing through the ventilation ducts."))
 			spawn(rand(20,60))
 				var/original_location = loc
 				forceMove(exit_vent)
@@ -290,7 +290,7 @@
 						entry_vent = null
 						return
 					if(prob(50))
-						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+						audible_message(span_notice("You hear something squeezing through the ventilation ducts."))
 					spawn(travel_time)
 						if(!exit_vent || (exit_vent.welded && !ai_ventbreaker))
 							forceMove(original_location)

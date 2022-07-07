@@ -38,9 +38,9 @@
 /datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = surgery.organ_ref
 	if(L)
-		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]...</span>")
+		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].", span_notice("You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]..."))
 	else
-		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for [target]'s [parse_zone(user.zone_selected)]...</span>")
+		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
 
 
 /datum/surgery_step/remove_object/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -56,7 +56,7 @@
 				H.clear_alert("embeddedobject")
 
 			if(objects > 0)
-				user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L]!", "<span class='notice'>You successfully remove [objects] objects from [H]'s [L.name].</span>")
+				user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L]!", span_notice("You successfully remove [objects] objects from [H]'s [L.name]."))
 			else
 				to_chat(user, "<span class='warning'>You find no objects embedded in [H]'s [L]!</span>")
 

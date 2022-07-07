@@ -39,7 +39,7 @@
 	return
 
 /obj/machinery/computer/syndicate_depot/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/computer/syndicate_depot/allowed(mob/user)
@@ -174,16 +174,16 @@
 		pub_access = !pub_access
 		if(pub_access)
 			depotarea.set_emergency_access(TRUE)
-			to_chat(user, "<span class='notice'>Emergency Access enabled.</span>")
+			to_chat(user, span_notice("Emergency Access enabled."))
 		else
 			depotarea.set_emergency_access(FALSE)
-			to_chat(user, "<span class='notice'>Emergency Access disabled.</span>")
+			to_chat(user, span_notice("Emergency Access disabled."))
 		playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/doors/secondary(mob/user, subcommand)
 	if(depotarea)
 		depotarea.toggle_falsewalls(src)
-		to_chat(user, "<span class='notice'>False walls toggled.</span>")
+		to_chat(user, span_notice("False walls toggled."))
 		playsound(user, sound_yes, 50, 0)
 
 
@@ -494,7 +494,7 @@
 
 /obj/machinery/computer/syndicate_depot/teleporter/primary(mob/user)
 	if(!mybeacon && user)
-		to_chat(user, "<span class='notice'>Unable to connect to teleport beacon.</span>")
+		to_chat(user, span_notice("Unable to connect to teleport beacon."))
 		return
 	var/bresult = mybeacon.toggle()
 	to_chat(user, "<span class='notice'>Syndicate Teleporter Beacon: [bresult ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
@@ -502,7 +502,7 @@
 
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(mob/user)
 	if(!portal_enabled && myportal)
-		to_chat(user, "<span class='notice'>Outgoing Teleport Portal: deactivating... please wait...</span>")
+		to_chat(user, span_notice("Outgoing Teleport Portal: deactivating... please wait..."))
 		return
 	toggle_portal()
 	to_chat(user, "<span class='notice'>Outgoing Teleport Portal: [portal_enabled ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")

@@ -147,7 +147,7 @@
 			if(candidates.len)
 				var/obj/item/organ/external/O = pick(candidates)
 				O.mutate()
-				to_chat(src, "<span class='notice'>Something is not right with your [O.name]...</span>")
+				to_chat(src, span_notice("Something is not right with your [O.name]..."))
 				O.add_autopsy_data("Mutation", amount)
 				return
 
@@ -156,7 +156,7 @@
 			for(var/obj/item/organ/external/O in bodyparts)
 				if(O.status & ORGAN_MUTATED)
 					O.unmutate()
-					to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+					to_chat(src, span_notice("Your [O.name] is shaped normally again."))
 					return
 
 
@@ -164,7 +164,7 @@
 		for(var/obj/item/organ/external/O in bodyparts)
 			if(O.status & ORGAN_MUTATED)
 				O.unmutate()
-				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+				to_chat(src, span_notice("Your [O.name] is shaped normally again."))
 
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.

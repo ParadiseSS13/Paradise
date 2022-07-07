@@ -30,7 +30,7 @@
 		if(user.mind in SSticker.mode.wizards)
 			user.flying = wielded ? 1 : 0
 			if(wielded)
-				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")
+				to_chat(user, span_notice("You hold \the [src] between your legs."))
 				user.say("QUID 'ITCH")
 				animate(user, pixel_y = pixel_y + 10 , time = 10, loop = 1, easing = SINE_EASING)
 			else
@@ -39,7 +39,7 @@
 				animate(user)
 		else
 			if(wielded)
-				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")
+				to_chat(user, span_notice("You hold \the [src] between your legs."))
 
 /obj/item/twohanded/staff/broom/attackby(obj/O, mob/user)
 	if(istype(O, /obj/item/clothing/mask/horsehead))

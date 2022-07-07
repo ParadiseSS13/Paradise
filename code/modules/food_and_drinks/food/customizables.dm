@@ -363,7 +363,7 @@ do {\
 		to_chat(user, "<span class='warning'>[snack] is stuck to your hand!</span>")
 		return
 
-	to_chat(user, "<span class='notice'>You add [snack] to [src].</span>")
+	to_chat(user, span_notice("You add [snack] to [src]."))
 	snack.reagents.trans_to(src, snack.reagents.total_volume)
 
 	var/list/added_ingredients = list(snack)
@@ -428,7 +428,7 @@ do {\
 	. = ..()
 	if(LAZYLEN(ingredients))
 		var/whatsinside = pick(ingredients)
-		. += "<span class='notice'> You think you can see [whatsinside] in there.</span>"
+		. += span_notice(" You think you can see [whatsinside] in there.")
 
 
 /obj/item/reagent_containers/food/snacks/customizable/proc/newname()

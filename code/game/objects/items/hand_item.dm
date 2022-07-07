@@ -14,7 +14,7 @@
 /obj/item/slapper/attack(mob/M, mob/living/carbon/human/user)
 	user.do_attack_animation(M)
 	playsound(M, hitsound, 50, TRUE, -1)
-	user.visible_message("<span class='danger'>[user] slaps [M]!</span>", "<span class='notice'>You slap [M]!</span>", "<span class='hear'>You hear a slap.</span>")
+	user.visible_message("<span class='danger'>[user] slaps [M]!</span>", span_notice("You slap [M]!"), "<span class='hear'>You hear a slap.</span>")
 	if(force)
 		return ..()
 
@@ -40,7 +40,7 @@
 	else
 		user.do_attack_animation(the_table)
 		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 40, TRUE)
-		user.visible_message("<span class='notice'>[user] slaps [user.p_their()] hand on [the_table].</span>", "<span class='notice'>You slap your hand on [the_table].</span>")
+		user.visible_message(span_notice("[user] slaps [user.p_their()] hand on [the_table]."), span_notice("You slap your hand on [the_table]."))
 		table_smacks_left--
 		if(table_smacks_left <= 0)
 			qdel(src)

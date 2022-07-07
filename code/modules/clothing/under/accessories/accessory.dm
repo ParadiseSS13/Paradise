@@ -50,7 +50,7 @@
 	has_suit.armor = has_suit.armor.attachArmor(armor)
 
 	if(user)
-		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
+		to_chat(user, span_notice("You attach [src] to [has_suit]."))
 	src.add_fingerprint(user)
 
 /obj/item/clothing/accessory/proc/on_removed(mob/user)
@@ -80,9 +80,9 @@
 			return 1
 		var/obj/item/clothing/under/U = H.w_uniform
 		if(istype(U))
-			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
+			user.visible_message(span_notice("[user] is putting a [src.name] on [H]'s [U.name]!"), span_notice("You begin to put a [src.name] on [H]'s [U.name]..."))
 			if(do_after(user, 40, target=H) && H.w_uniform == U)
-				user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
+				user.visible_message(span_notice("[user] puts a [src.name] on [H]'s [U.name]!"), span_notice("You finish putting a [src.name] on [H]'s [U.name]."))
 				U.attackby(src, user)
 		else
 			to_chat(user, "[H] is not wearing anything to attach \the [src] to.")
@@ -300,7 +300,7 @@
 			id_card = pda.id
 
 		if(ACCESS_SEC_DOORS in id_card.access || emagged)
-			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
+			to_chat(user, span_notice("You imprint your ID details onto the badge."))
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"
 			desc = "This glowing blue badge marks [stored_name] as THE LAW."
@@ -336,7 +336,7 @@
 /obj/item/clothing/accessory/lawyers_badge/attack_self(mob/user)
 	if(prob(1))
 		user.say("The testimony contradicts the evidence!")
-	user.visible_message("<span class='notice'>[user] shows [user.p_their()] attorney's badge.</span>", "<span class='notice'>You show your attorney's badge.</span>")
+	user.visible_message(span_notice("[user] shows [user.p_their()] attorney's badge."), span_notice("You show your attorney's badge."))
 
 /obj/item/clothing/accessory/lawyers_badge/on_attached(obj/item/clothing/under/S, mob/user)
 	..()
@@ -697,7 +697,7 @@
 	user.drop_item()
 	W.forceMove(src)
 	access_id = W
-	to_chat(user, "<span class='notice'>\The [W] clips onto \the [src] snugly.</span>")
+	to_chat(user, span_notice("\The [W] clips onto \the [src] snugly."))
 
 /obj/item/clothing/accessory/petcollar/GetAccess()
 	return access_id ? access_id.GetAccess() : ..()

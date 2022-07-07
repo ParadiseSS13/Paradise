@@ -77,23 +77,23 @@
 					M.attack_hand(user, modifiers) //This enables borgs to get the floating heart icon and mob emote from simple_animal's that have petbonus == true.
 					return
 				if(user.zone_selected == BODY_ZONE_HEAD)
-					user.visible_message("<span class='notice'>[user] playfully boops [M] on the head!</span>", "<span class='notice'>You playfully boop [M] on the head!</span>")
+					user.visible_message(span_notice("[user] playfully boops [M] on the head!"), span_notice("You playfully boop [M] on the head!"))
 					user.do_attack_animation(M, ATTACK_EFFECT_BOOP)
 					playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
 				else if(ishuman(M))
 					if(M.resting)
-						user.visible_message("<span class='notice'>[user] shakes [M] trying to get [M.p_them()] up!</span>", "<span class='notice'>You shake [M] trying to get [M.p_them()] up!</span>")
+						user.visible_message(span_notice("[user] shakes [M] trying to get [M.p_them()] up!"), span_notice("You shake [M] trying to get [M.p_them()] up!"))
 						M.stand_up()
 					else
-						user.visible_message("<span class='notice'>[user] hugs [M] to make [M.p_them()] feel better!</span>", "<span class='notice'>You hug [M] to make [M.p_them()] feel better!</span>")
+						user.visible_message(span_notice("[user] hugs [M] to make [M.p_them()] feel better!"), span_notice("You hug [M] to make [M.p_them()] feel better!"))
 				else
-					user.visible_message("<span class='notice'>[user] pets [M]!</span>", "<span class='notice'>You pet [M]!</span>")
+					user.visible_message(span_notice("[user] pets [M]!"), span_notice("You pet [M]!"))
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		if(CYBORG_HUG)
 			if(M.health >= 0)
 				if(ishuman(M))
 					if(M.resting)
-						user.visible_message("<span class='notice'>[user] shakes [M] trying to get [M.p_them()] up!</span>", "<span class='notice'>You shake [M] trying to get [M.p_them()] up!</span>")
+						user.visible_message(span_notice("[user] shakes [M] trying to get [M.p_them()] up!"), span_notice("You shake [M] trying to get [M.p_them()] up!"))
 						M.resting = FALSE
 						M.stand_up()
 					else if(user.zone_selected == BODY_ZONE_HEAD)

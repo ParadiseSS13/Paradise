@@ -26,7 +26,7 @@
 			return
 		if(armed)
 			armed = 0
-			to_chat(user, "<span class='notice'>You disarm \the [src].</span>")
+			to_chat(user, span_notice("You disarm \the [src]."))
 			return
 		timing = !timing
 		if(timing)
@@ -34,7 +34,7 @@
 		else
 			armed = 0
 			timepassed = 0
-		to_chat(H, "<span class='notice'>You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]</span>")
+		to_chat(H, span_notice("You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]"))
 
 /obj/item/caution/proximity_sign/process()
 	if(!timing)

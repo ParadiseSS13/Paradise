@@ -65,7 +65,7 @@
 /obj/machinery/photocopier/proc/papercopy(obj/item/paper/copy, scanning = FALSE, bundled = FALSE)
 	if(!scanning)
 		if(toner < 1)
-			visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			visible_message(span_notice("A yellow light on [src] flashes, indicating there's not enough toner to finish the operation."))
 			return null
 		total_copies++
 	var/obj/item/paper/c = new /obj/item/paper (loc)
@@ -112,7 +112,7 @@
 /obj/machinery/photocopier/proc/photocopy(obj/item/photo/photocopy, scanning = FALSE, bundled = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
 		if(toner < 5)
-			visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			visible_message(span_notice("A yellow light on [src] flashes, indicating there's not enough toner to finish the operation."))
 			return null
 		total_copies++
 
@@ -136,7 +136,7 @@
 /obj/machinery/photocopier/proc/copyass(scanning = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
 		if(toner < 5)
-			visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			visible_message(span_notice("A yellow light on [src] flashes, indicating there's not enough toner to finish the operation."))
 			return null
 		total_copies++
 
@@ -150,7 +150,7 @@
 			H.emote("scream")
 		else
 			copymob.apply_damage(30, BURN)
-		to_chat(copymob, "<span class='notice'>Something smells toasty...</span>")
+		to_chat(copymob, span_notice("Something smells toasty..."))
 	if(ishuman(copymob)) //Suit checks are in check_mob
 		var/mob/living/carbon/human/H = copymob
 		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
@@ -230,11 +230,11 @@
 		copyitem.forceMove(get_turf(src))
 		if(ishuman(usr))
 			usr.put_in_hands(copyitem)
-		to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
+		to_chat(usr, span_notice("You take \the [copyitem] out of \the [src]."))
 		copyitem = null
 
 	else if(check_mob())
-		to_chat(copymob, "<span class='notice'>You feel a slight pressure on your ass.</span>")
+		to_chat(copymob, span_notice("You feel a slight pressure on your ass."))
 		atom_say("Attention: Unable to remove large object!")
 
 /obj/machinery/photocopier/proc/remove_folder()
@@ -245,7 +245,7 @@
 		folder.forceMove(get_turf(src))
 		if(ishuman(usr))
 			usr.put_in_hands(folder)
-		to_chat(usr, "<span class='notice'>You take \the [folder] out of \the [src].</span>")
+		to_chat(usr, span_notice("You take \the [folder] out of \the [src]."))
 		folder = null
 
 /**
@@ -264,7 +264,7 @@
 		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
 		return
 	if(!scancopy && toner <= 0) //if we're not scanning lets check early that we actually have toner
-		visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>")
+		visible_message(span_notice("A yellow light on [src] flashes, indicating there's not enough toner for the operation."))
 		return
 	if(max_copies_reached)
 		visible_message("<span class='warning'>The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
@@ -274,7 +274,7 @@
 		message_admins("Photocopier cap of [MAX_COPIES_PRINTABLE] paper copies reached, all photocopiers are now disabled.")
 		max_copies_reached = TRUE
 	if(!check_mob() && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
-		visible_message("<span class='notice'>A red light on [src] flashes, indicating there's nothing in [src] to copy.</span>")
+		visible_message(span_notice("A red light on [src] flashes, indicating there's nothing in [src] to copy."))
 		return
 	return TRUE
 
@@ -450,27 +450,27 @@
 			user.drop_item()
 			copyitem = O
 			O.forceMove(src)
-			to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
+			to_chat(user, span_notice("You insert \the [O] into \the [src]."))
 			flick(insert_anim, src)
 		else
-			to_chat(user, "<span class='notice'>There is already something in \the [src].</span>")
+			to_chat(user, span_notice("There is already something in \the [src]."))
 	else if(istype(O, /obj/item/toner))
 		if(toner <= 10) //allow replacing when low toner is affecting the print darkness
 			user.drop_item()
-			to_chat(user, "<span class='notice'>You insert the toner cartridge into \the [src].</span>")
+			to_chat(user, span_notice("You insert the toner cartridge into \the [src]."))
 			var/obj/item/toner/T = O
 			toner += T.toner_amount
 			qdel(O)
 		else
-			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
+			to_chat(user, span_notice("This cartridge is not yet ready for replacement! Use up the rest of the toner."))
 	else if(istype(O, /obj/item/folder))
 		if(!folder) //allow replacing when low toner is affecting the print darkness
 			user.drop_item()
-			to_chat(user, "<span class='notice'>You slide the [O] into \the [src].</span>")
+			to_chat(user, span_notice("You slide the [O] into \the [src]."))
 			folder = O
 			O.forceMove(src)
 		else
-			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
+			to_chat(user, span_notice("This cartridge is not yet ready for replacement! Use up the rest of the toner."))
 	else if(istype(O, /obj/item/grab)) //For ass-copying.
 		var/obj/item/grab/G = O
 		if(ismob(G.affecting) && G.affecting != copymob)
@@ -510,7 +510,7 @@
 	copymob = target
 	if(copyitem)
 		copyitem.forceMove(get_turf(src))
-		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [copymob]!</span>")
+		visible_message(span_notice("[copyitem] is shoved out of the way by [copymob]!"))
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 	atom_say("Attention: Posterior Placed on Printing Plaque!")
@@ -536,9 +536,9 @@
 /obj/machinery/photocopier/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
+		to_chat(user, span_notice("You overload [src]'s laser printing mechanism."))
 	else
-		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
+		to_chat(user, span_notice("[src]'s laser printing mechanism is already overloaded!"))
 
 
 //TODO: Add an emp_act effect for photocopiers -sirryan

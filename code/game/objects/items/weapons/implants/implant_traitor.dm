@@ -39,7 +39,7 @@
 
 	// Mindslaving yourself.
 	if(mindslave_target == user)
-		to_chat(user, "<span class='notice'>Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot.</span>")
+		to_chat(user, span_notice("Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot."))
 		user.adjustBrainLoss(20)
 		removed(mindslave_target)
 		qdel(src)

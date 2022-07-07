@@ -53,7 +53,7 @@
 
 		I.forceMove(src)
 		bag = I
-		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
+		to_chat(user, span_notice("You attach [I] to [src]."))
 		update_icon()
 		START_PROCESSING(SSmachines, src)
 	else if (bag && istype(I, /obj/item/reagent_containers))

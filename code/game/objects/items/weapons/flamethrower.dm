@@ -110,7 +110,7 @@
 				I.forceMove(src)
 				ptank.forceMove(get_turf(src))
 				ptank = I
-				to_chat(user, "<span class='notice'>You swap the plasma tank in [src]!</span>")
+				to_chat(user, span_notice("You swap the plasma tank in [src]!"))
 			return
 		if(!user.drop_item())
 			return
@@ -150,7 +150,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	status = !status
-	to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
+	to_chat(user, span_notice("[igniter] is now [status ? "secured" : "unsecured"]!"))
 	update_icon()
 
 /obj/item/flamethrower/attack_self(mob/user)
@@ -160,22 +160,22 @@
 	if(ptank && isliving(user) && user.Adjacent(src))
 		user.put_in_hands(ptank)
 		ptank = null
-		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
+		to_chat(user, span_notice("You remove the plasma tank from [src]!"))
 		update_icon()
 
 /obj/item/flamethrower/examine(mob/user)
 	. = ..()
 	if(ptank)
-		. += "<span class='notice'>[src] has \a [ptank] attached. Alt-click to remove it.</span>"
+		. += span_notice("[src] has \a [ptank] attached. Alt-click to remove it.")
 
 /obj/item/flamethrower/proc/toggle_igniter(mob/user)
 	if(!ptank)
-		to_chat(user, "<span class='notice'>Attach a plasma tank first!</span>")
+		to_chat(user, span_notice("Attach a plasma tank first!"))
 		return
 	if(!status)
-		to_chat(user, "<span class='notice'>Secure the igniter first!</span>")
+		to_chat(user, span_notice("Secure the igniter first!"))
 		return
-	to_chat(user, "<span class='notice'>You [lit ? "extinguish" : "ignite"] [src]!</span>")
+	to_chat(user, span_notice("You [lit ? "extinguish" : "ignite"] [src]!"))
 	lit = !lit
 	if(lit)
 		START_PROCESSING(SSobj, src)

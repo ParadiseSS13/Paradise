@@ -313,7 +313,7 @@
 		var/obj/item/nanomob_card/card = O
 		var/datum/data/pda/app/mob_hunter_game/my_game = programs[1]
 		if(my_game.register_capture(card.mob_data))
-			to_chat(user, "<span class='notice'>Transfer successful!</span>")
+			to_chat(user, span_notice("Transfer successful!"))
 			qdel(card)
 		else
 			to_chat(user, "<span class='warning'>Transfer failed. Could not read mob data from card.</span>")

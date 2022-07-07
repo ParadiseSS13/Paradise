@@ -236,5 +236,5 @@
 		to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")
 		return
 	W.current_charges += 8
-	to_chat(user, "<span class='notice'>You charge [W]. It can now absorb [W.current_charges] hits.</span>")
+	to_chat(user, span_notice("You charge [W]. It can now absorb [W.current_charges] hits."))
 	qdel(src)

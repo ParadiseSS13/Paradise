@@ -187,7 +187,7 @@
 		to_chat(H, "<span class='danger'>We can't readapt our evolutions in this form!</span>")
 		return FALSE
 	if(can_respec)
-		to_chat(H, "<span class='notice'>We have removed our evolutions from this form, and are now ready to readapt.</span>")
+		to_chat(H, span_notice("We have removed our evolutions from this form, and are now ready to readapt."))
 		respec()
 		can_respec = FALSE
 		return TRUE

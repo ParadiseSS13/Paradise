@@ -509,9 +509,9 @@
 			P.on_construction(dir, pipe_dir, color)
 
 	user.visible_message( \
-		"<span class='notice'>[user] fastens [src].</span>",
-		"<span class='notice'>You fasten [src].</span>",
-		"<span class='notice'>You hear a ratchet.</span>")
+		span_notice("[user] fastens [src]."),
+		span_notice("You fasten [src]."),
+		span_notice("You hear a ratchet."))
 	qdel(src)	// remove the pipe item
 
 /obj/item/pipe_meter
@@ -530,7 +530,7 @@
 		return 1
 	new /obj/machinery/meter(loc)
 	playsound(src.loc, W.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
+	to_chat(user, span_notice("You have fastened the meter to the pipe."))
 	qdel(src)
 
 /obj/item/pipe_meter/rpd_act(mob/user, obj/item/rpd/our_rpd)
@@ -552,7 +552,7 @@
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )
 	playsound(get_turf(src), W.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
+	to_chat(user, span_notice("You have fastened the gas sensor."))
 	qdel(src)
 
 /obj/item/pipe_gsensor/rpd_act(mob/user, obj/item/rpd/our_rpd)

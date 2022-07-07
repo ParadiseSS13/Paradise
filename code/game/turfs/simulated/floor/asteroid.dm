@@ -34,7 +34,7 @@
 	if(!dug)
 		return TRUE
 	if(user)
-		to_chat(user, "<span class='notice'>Looks like someone has dug here already.</span>")
+		to_chat(user, span_notice("Looks like someone has dug here already."))
 
 /turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -76,13 +76,13 @@
 		if(!istype(T))
 			return
 
-		to_chat(user, "<span class='notice'>You start digging...</span>")
+		to_chat(user, span_notice("You start digging..."))
 
 		playsound(src, I.usesound, 50, TRUE)
 		if(do_after(user, 40 * I.toolspeed, target = src))
 			if(!can_dig(user))
 				return TRUE
-			to_chat(user, "<span class='notice'>You dig a hole.</span>")
+			to_chat(user, span_notice("You dig a hole."))
 			getDug()
 			return TRUE
 

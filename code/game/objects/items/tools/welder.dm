@@ -74,14 +74,14 @@
 
 /obj/item/weldingtool/attack_self(mob/user)
 	if(tool_enabled) //Turn off the welder if it's on
-		to_chat(user, "<span class='notice'>You switch off [src].</span>")
+		to_chat(user, span_notice("You switch off [src]."))
 		toggle_welder()
 		return
 	else if(GET_FUEL) //The welder is off, but we need to check if there is fuel in the tank
-		to_chat(user, "<span class='notice'>You switch on [src].</span>")
+		to_chat(user, span_notice("You switch on [src]."))
 		toggle_welder()
 	else //The welder is off and unfuelled
-		to_chat(user, "<span class='notice'>[src] is out of fuel!</span>")
+		to_chat(user, span_notice("[src] is out of fuel!"))
 
 /obj/item/weldingtool/proc/toggle_welder(turn_off = FALSE) //Turn it on or off, forces it to deactivate
 	tool_enabled = turn_off ? FALSE : !tool_enabled
@@ -109,7 +109,7 @@
 // If welding tool ran out of fuel during a construction task, construction fails.
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount)
 	if(!tool_enabled)
-		to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
+		to_chat(user, span_notice("[src] has to be on to complete this task!"))
 		return FALSE
 	if(GET_FUEL >= amount * requires_fuel)
 		return TRUE
@@ -157,11 +157,11 @@
 	if(!A.reagents)
 		return
 	if(GET_FUEL >= maximum_fuel)
-		to_chat(user, "<span class='notice'>[src] is already full!</span>")
+		to_chat(user, span_notice("[src] is already full!"))
 		return
 	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
 	if(amount_transferred)
-		to_chat(user, "<span class='notice'>You refuel [src] by [amount_transferred] unit\s.</span>")
+		to_chat(user, span_notice("You refuel [src] by [amount_transferred] unit\s."))
 		playsound(src, 'sound/effects/refill.ogg', 50, 1)
 		update_icon()
 		return amount_transferred

@@ -176,7 +176,7 @@
 		S.use(1)
 		cell.give(1000)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
+		to_chat(user, span_notice("You insert [A] in [src], recharging it."))
 	else if(istype(A, /obj/item/stack/ore/plasma))
 		if(cell.charge >= cell.maxcharge)
 			to_chat(user,"<span class='notice'>[src] is already fully charged.")
@@ -185,7 +185,7 @@
 		S.use(1)
 		cell.give(500)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
+		to_chat(user, span_notice("You insert [A] in [src], recharging it."))
 	else
 		return ..()
 
@@ -351,7 +351,7 @@
 		return
 	if(charging)
 		return
-	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
+	to_chat(user, span_notice("You begin to overload [src]."))
 	charging = TRUE
 	if(do_after(user, 2.5 SECONDS, target = src))
 		select_fire(user)
@@ -466,7 +466,7 @@
 /obj/item/gun/energy/bsg/examine(mob/user)
 	. = ..()
 	if(core && has_bluespace_crystal)
-		. += "<span class='notice'>[src] is fully operational!</span>"
+		. += span_notice("[src] is fully operational!")
 	else if(core)
 		. += "<span class='warning'>It has a flux anomaly core installed, but no bluespace crystal installed.</span>"
 	else if(has_bluespace_crystal)
@@ -477,12 +477,12 @@
 /obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
 		if(has_bluespace_crystal)
-			to_chat(user, "<span class='notice'>[src] already has a bluespace crystal installed.</span>")
+			to_chat(user, span_notice("[src] already has a bluespace crystal installed."))
 			return
 		var/obj/item/stack/S = O
 		if(!loc || !S || S.get_amount() < 1)
 			return
-		to_chat(user, "<span class='notice'>You load [O] into [src].</span>")
+		to_chat(user, span_notice("You load [O] into [src]."))
 		S.use(1)
 		has_bluespace_crystal = TRUE
 		update_icon()
@@ -490,12 +490,12 @@
 
 	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
 		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [O]!</span>")
+			to_chat(user, span_notice("[src] already has a [O]!"))
 			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand!</span>")
 			return
-		to_chat(user, "<span class='notice'>You insert [O] into [src], and [src] starts to warm up.</span>")
+		to_chat(user, span_notice("You insert [O] into [src], and [src] starts to warm up."))
 		O.forceMove(src)
 		core = O
 		update_icon()
@@ -793,7 +793,7 @@
 
 /obj/item/gun/energy/detective/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Ctrl-click to clear active tracked target or clear linked pinpointer.</span>"
+	. += span_notice("Ctrl-click to clear active tracked target or clear linked pinpointer.")
 
 /obj/item/gun/energy/detective/CtrlClick(mob/user)
 	. = ..()
@@ -802,11 +802,11 @@
 	var/tracking_target = locateUID(tracking_target_UID)
 	if(tracking_target)
 		if(alert("Do you want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
-			to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
+			to_chat(user, span_notice("[src] stops tracking [tracking_target]"))
 			stop_pointing()
 	if(linked_pinpointer_UID)
 		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
-			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
+			to_chat(user, span_notice("[src] is ready to be linked to a new pinpointer."))
 			var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
 			C.linked_gun_UID = null
 			if(C.mode == MODE_DET)
@@ -818,9 +818,9 @@
 
 /obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	user.visible_message("<span class='notice'>[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].</span>", "<span class='notice'>You start [overcharged ? "restoring" : "removing"] the safety limits on [src]</span>")
+	user.visible_message(span_notice("[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src]."), span_notice("You start [overcharged ? "restoring" : "removing"] the safety limits on [src]"))
 	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume))
-		user.visible_message("<span class='notice'>[user] stops modifying the safety limits on [src].", "You stop modifying the [src]'s safety limits</span>")
+		user.visible_message(span_notice("[user] stops modifying the safety limits on [src]."), span_notice("You stop modifying the [src]'s safety limits."))
 		return
 	if(!overcharged)
 		overcharged = TRUE
@@ -832,7 +832,7 @@
 		ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
 		update_ammo_types()
 		select_fire(user)
-	user.visible_message("<span class='notice'>[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]</span>")
+	user.visible_message(span_notice("[user] [overcharged ? "removes" : "restores"] the safety limits on [src]."), span_notice("You [overcharged ? "remove" : "restore" ] the safety limits on [src]."))
 	update_icon()
 
 /obj/item/gun/energy/detective/attackby(obj/item/I, mob/user, params)
@@ -841,10 +841,10 @@
 		return
 	var/obj/item/ammo_box/magazine/detective/speedcharger/S = I
 	if(!S.charge)
-		to_chat(user, "<span class='notice'>[S] has no charge to give!</span>")
+		to_chat(user, span_notice("[S] has no charge to give!"))
 		return
 	if(cell.charge == cell.maxcharge)
-		to_chat(user, "<span class='notice'>[src] is already at full power!</span>")
+		to_chat(user, span_notice("[src] is already at full power!"))
 		return
 	var/new_speedcharger_charge = cell.give(S.charge)
 	S.charge -= new_speedcharger_charge

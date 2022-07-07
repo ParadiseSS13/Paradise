@@ -256,7 +256,7 @@
 			if(!card_style)
 				return
 			nttc.job_indicator_type = card_style
-			to_chat(usr, "<span class='notice'>Jobs will now have the style of [card_style].</span>")
+			to_chat(usr, span_notice("Jobs will now have the style of [card_style]."))
 			log_action(usr, "has set NTTC job card format to [card_style]")
 
 		// Language Settings
@@ -266,10 +266,10 @@
 				return
 			if(new_language == "--DISABLE--")
 				nttc.setting_language = null
-				to_chat(usr, "<span class='notice'>Language conversion disabled.</span>")
+				to_chat(usr, span_notice("Language conversion disabled."))
 			else
 				nttc.setting_language = new_language
-				to_chat(usr, "<span class='notice'>Messages will now be converted to [new_language].</span>")
+				to_chat(usr, span_notice("Messages will now be converted to [new_language]."))
 
 			log_action(usr, new_language == "--DISABLE--" ? "disabled NTTC language conversion" : "set NTTC language conversion to [new_language]", TRUE)
 

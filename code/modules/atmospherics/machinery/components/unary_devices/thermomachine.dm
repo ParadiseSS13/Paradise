@@ -84,7 +84,7 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).</span>"
+	. += span_notice("The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).")
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.</span>"
 		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.</span>"
@@ -133,7 +133,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		to_chat(user, span_notice("Open the maintenance panel first."))
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
@@ -155,7 +155,7 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/attack_hand(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
 	ui_interact(user)
 

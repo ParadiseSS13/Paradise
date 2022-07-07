@@ -33,8 +33,8 @@
 		insisting = TRUE
 
 	else
-		to_chat(user, "<span class='notice'>You speak. [pick("I want the station to disappear", "Humanity is corrupt, mankind must be destroyed", "I want to be rich", "I want to rule the world", "I want immortality.")]. The Wish Granter answers.</span>")
-		to_chat(user, "<span class='notice'>Your head pounds for a moment, before your vision clears.  You are the avatar of the Wish Granter, and your power is LIMITLESS!  And it's all yours.  You need to make sure no one can take it from you.  No one can know, first.</span>")
+		to_chat(user, span_notice("You speak. [pick("I want the station to disappear", "Humanity is corrupt, mankind must be destroyed", "I want to be rich", "I want to rule the world", "I want immortality.")]. The Wish Granter answers."))
+		to_chat(user, span_notice("Your head pounds for a moment, before your vision clears.  You are the avatar of the Wish Granter, and your power is LIMITLESS!  And it's all yours.  You need to make sure no one can take it from you.  No one can know, first."))
 
 		charges--
 		insisting = FALSE
@@ -61,7 +61,7 @@
 		to_chat(user, "<span class='warning'>Something instinctual makes you pull away.</span>")
 		return TRUE
 
-	to_chat(user, "<span class='notice'>Your touch makes the Wish Granter stir. Are you really sure you want to do this?</span>")
+	to_chat(user, span_notice("Your touch makes the Wish Granter stir. Are you really sure you want to do this?"))
 
 	for(var/supname in GLOB.all_superheroes)
 		types += supname
@@ -84,7 +84,7 @@
 	S.activated = TRUE //sets this superhero as taken so we don't have duplicates
 
 	playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1)
-	visible_message("<span class='notice'>The wishgranter fades into mist..</span>")
+	visible_message(span_notice("The wishgranter fades into mist.."))
 	add_attack_logs(user, user, "Became [GLOB.all_superheroes[wish]]")
 	notify_ghosts("[GLOB.all_superheroes[wish]] has appeared in [get_area(user)].", source = user)
 	qdel(src)

@@ -223,14 +223,14 @@
 		return
 
 	if(active)
-		user.visible_message("<span class='notice'>[bicon(src)] [user] deactivated the shield generator.</span>", \
-			"<span class='notice'>[bicon(src)] You deactivate the shield generator.</span>", \
+		user.visible_message(span_notice("[bicon(src)] [user] deactivated the shield generator."), \
+			span_notice("[bicon(src)] You deactivate the shield generator."), \
 			"You hear heavy droning fade out.")
 		shields_down()
 	else
 		if(anchored)
-			user.visible_message("<span class='notice'>[bicon(src)] [user] activated the shield generator.</span>", \
-				"<span class='notice'>[bicon(src)] You activate the shield generator.</span>", \
+			user.visible_message(span_notice("[bicon(src)] [user] activated the shield generator."), \
+				span_notice("[bicon(src)] You activate the shield generator."), \
 				"You hear heavy droning.")
 			shields_up()
 		else
@@ -243,7 +243,7 @@
 
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
-		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
+		to_chat(user, span_notice("You begin to replace the wires."))
 		if(do_after(user, 30 * coil.toolspeed, target = src))
 			if(!src || !coil)
 				return
@@ -251,7 +251,7 @@
 			health = max_health
 			malfunction = TRUE
 			playsound(loc, coil.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You repair [src]!</span>")
+			to_chat(user, span_notice("You repair [src]!"))
 			update_icon()
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))

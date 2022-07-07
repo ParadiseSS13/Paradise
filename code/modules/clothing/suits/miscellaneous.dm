@@ -1020,7 +1020,7 @@
 
 	linked_staff.faith += 5
 	if(linked_staff.faith >= 100)	//if this charge puts the staff at or above full, notify the wearer
-		to_chat(H, "<span class='notice'>Faith renewed; ready to convert new followers.</span>")
+		to_chat(H, span_notice("Faith renewed; ready to convert new followers."))
 
 /obj/item/clothing/suit/tailcoat
 	name = "victorian tailcoat"

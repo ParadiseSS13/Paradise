@@ -60,7 +60,7 @@
 
 /obj/item/lipstick/attack_self(mob/user)
 	cut_overlays()
-	to_chat(user, "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>")
+	to_chat(user, span_notice("You twist \the [src] [open ? "closed" : "open"]."))
 	open = !open
 	if(open)
 		var/mutable_appearance/colored = mutable_appearance('icons/obj/items.dmi', "lipstick_uncap_color")
@@ -77,25 +77,25 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.lip_style)	// If they already have lipstick on
-			to_chat(user, "<span class='notice'>You need to wipe off the old lipstick first!</span>")
+			to_chat(user, span_notice("You need to wipe off the old lipstick first!"))
 			return
 		if(H == user)
-			user.visible_message("<span class='notice'>[user] does [user.p_their()] lips with [src].</span>", \
-								 "<span class='notice'>You take a moment to apply [src]. Perfect!</span>")
+			user.visible_message(span_notice("[user] does [user.p_their()] lips with [src]."), \
+								 span_notice("You take a moment to apply [src]. Perfect!"))
 			H.lip_style = "lipstick"
 			H.lip_color = lipstick_colors[colour]
 			H.update_body()
 		else
 			user.visible_message("<span class='warning'>[user] begins to do [H]'s lips with \the [src].</span>", \
-								 "<span class='notice'>You begin to apply \the [src].</span>")
+								 span_notice("You begin to apply \the [src]."))
 			if(do_after(user, 20, target = H))
-				user.visible_message("<span class='notice'>[user] does [H]'s lips with \the [src].</span>", \
-									 "<span class='notice'>You apply \the [src].</span>")
+				user.visible_message(span_notice("[user] does [H]'s lips with \the [src]."), \
+									 span_notice("You apply \the [src]."))
 				H.lip_style = "lipstick"
 				H.lip_color = lipstick_colors[colour]
 				H.update_body()
 	else
-		to_chat(user, "<span class='notice'>Where are the lips on that?</span>")
+		to_chat(user, span_notice("Where are the lips on that?"))
 
 /obj/item/razor
 	name = "electric razor"
@@ -120,14 +120,14 @@
 				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of facial hair.</span>")
 				return
 			if(C.f_style == "Shaved")
-				to_chat(user, "<span class='notice'>Already clean-shaven.</span>")
+				to_chat(user, span_notice("Already clean-shaven."))
 				return
 			if(H == user) //shaving yourself
-				user.visible_message("<span class='notice'>[user] starts to shave [user.p_their()] facial hair with [src].</span>", \
-				"<span class='notice'>You take a moment shave your facial hair with \the [src].</span>")
+				user.visible_message(span_notice("[user] starts to shave [user.p_their()] facial hair with [src]."), \
+				span_notice("You take a moment shave your facial hair with \the [src]."))
 				if(do_after(user, 50 * toolspeed, target = H))
-					user.visible_message("<span class='notice'>[user] shaves [user.p_their()] facial hair clean with [src].</span>", \
-					"<span class='notice'>You finish shaving with [src]. Fast and clean!</span>")
+					user.visible_message(span_notice("[user] shaves [user.p_their()] facial hair clean with [src]."), \
+					span_notice("You finish shaving with [src]. Fast and clean!"))
 					C.f_style = "Shaved"
 					H.update_fhair()
 					playsound(src.loc, usesound, 20, 1)
@@ -139,7 +139,7 @@
 				if(do_after(user, 50 * toolspeed, target = H))
 					if(user_loc == user.loc && H_loc == H.loc)
 						user.visible_message("<span class='danger'>[user] shaves off [H]'s facial hair with \the [src].</span>", \
-						"<span class='notice'>You shave [H]'s facial hair clean off.</span>")
+						span_notice("You shave [H]'s facial hair clean off."))
 						C.f_style = "Shaved"
 						H.update_fhair()
 						playsound(src.loc, usesound, 20, 1)
@@ -151,7 +151,7 @@
 				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of hair.</span>")
 				return
 			if(C.h_style == "Bald" || C.h_style == "Balding Hair" || C.h_style == "Skinhead")
-				to_chat(user, "<span class='notice'>There is not enough hair left to shave...</span>")
+				to_chat(user, span_notice("There is not enough hair left to shave..."))
 				return
 			if(isskrell(M))
 				to_chat(user, "<span class='warning'>Your razor isn't going to cut through tentacles.</span>")
@@ -160,8 +160,8 @@
 				user.visible_message("<span class='warning'>[user] starts to shave [user.p_their()] head with [src].</span>", \
 				"<span class='warning'>You start to shave your head with \the [src].</span>")
 				if(do_after(user, 50 * toolspeed, target = H))
-					user.visible_message("<span class='notice'>[user] shaves [user.p_their()] head with [src].</span>", \
-					"<span class='notice'>You finish shaving with \the [src].</span>")
+					user.visible_message(span_notice("[user] shaves [user.p_their()] head with [src]."), \
+					span_notice("You finish shaving with \the [src]."))
 					C.h_style = "Skinhead"
 					H.update_hair()
 					playsound(src.loc, usesound, 40, 1)

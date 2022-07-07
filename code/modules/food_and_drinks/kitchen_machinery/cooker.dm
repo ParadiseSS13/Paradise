@@ -37,7 +37,7 @@
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is still active!</span>")
+		to_chat(user, span_notice("[src] is still active!"))
 		return 0
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
 		return 1
@@ -86,7 +86,7 @@
 
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
 	icon_state = onicon
-	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
+	to_chat(chef, span_notice("You put [tocook] into [src]."))
 	on = 1
 	chef.drop_item()
 	tocook.loc = src

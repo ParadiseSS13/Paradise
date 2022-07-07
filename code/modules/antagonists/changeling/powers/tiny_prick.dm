@@ -58,7 +58,7 @@
 /datum/action/changeling/sting/sting_feedback(mob/user, mob/target)
 	if(!target)
 		return
-	to_chat(user, "<span class='notice'>We stealthily sting [target.name].</span>")
+	to_chat(user, span_notice("We stealthily sting [target.name]."))
 	if(ischangeling(target))
 		to_chat(target, "<span class='warning'>You feel a tiny prick.</span>")
 		add_attack_logs(user, target, "Unsuccessful sting (changeling)")

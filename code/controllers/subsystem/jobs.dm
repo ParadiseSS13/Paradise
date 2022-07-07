@@ -788,25 +788,25 @@ SUBSYSTEM_DEF(jobs)
 			added_living += minutes
 
 			if(announce)
-				to_chat(C.mob, "<span class='notice'>You got: [minutes] Living EXP!</span>")
+				to_chat(C.mob, span_notice("You got: [minutes] Living EXP!"))
 
 			for(var/category in GLOB.exp_jobsmap)
 				if(GLOB.exp_jobsmap[category]["titles"])
 					if(myrole in GLOB.exp_jobsmap[category]["titles"])
 						play_records[C.ckey][category] += minutes
 						if(announce)
-							to_chat(C.mob, "<span class='notice'>You got: [minutes] [category] EXP!</span>")
+							to_chat(C.mob, span_notice("You got: [minutes] [category] EXP!"))
 
 			if(C.mob.mind.special_role)
 				play_records[C.ckey][EXP_TYPE_SPECIAL] += minutes
 				if(announce)
-					to_chat(C.mob, "<span class='notice'>You got: [minutes] Special EXP!</span>")
+					to_chat(C.mob, span_notice("You got: [minutes] Special EXP!"))
 
 		else if(isobserver(C.mob))
 			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
 			added_ghost += minutes
 			if(announce)
-				to_chat(C.mob, "<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+				to_chat(C.mob, span_notice("You got: [minutes] Ghost EXP!"))
 		else
 			continue
 

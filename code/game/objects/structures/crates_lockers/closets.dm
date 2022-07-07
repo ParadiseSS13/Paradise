@@ -150,7 +150,7 @@
 
 /obj/structure/closet/proc/toggle(mob/user)
 	if(!(opened ? close() : open()))
-		to_chat(user, "<span class='notice'>It won't budge!</span>")
+		to_chat(user, span_notice("It won't budge!"))
 
 /obj/structure/closet/proc/bust_open()
 	welded = FALSE //applies to all lockers
@@ -179,7 +179,7 @@
 			if(large)
 				MouseDrop_T(G.affecting, user)      //act like they were dragged onto the closet
 			else
-				to_chat(user, "<span class='notice'>[src] is too small to stuff [G.affecting] into!</span>")
+				to_chat(user, span_notice("[src] is too small to stuff [G.affecting] into!"))
 		if(istype(W, /obj/item/tk_grab))
 			return FALSE
 		if(user.a_intent != INTENT_HELP) // Stops you from putting your baton in the closet on accident
@@ -187,7 +187,7 @@
 		if(isrobot(user))
 			return
 		if(!user.drop_item()) //couldn't drop the item
-			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
+			to_chat(user, span_notice("\The [W] is stuck to your hand, you cannot put it in \the [src]!"))
 			return
 		if(W)
 			W.forceMove(loc)
@@ -220,12 +220,12 @@
 			return
 	else
 		var/adjective = welded ? "open" : "shut"
-		user.visible_message("<span class='notice'>[user] begins welding [src] [adjective]...</span>", "<span class='notice'>You begin welding [src] [adjective]...</span>", "<span class='warning'>You hear welding.</span>")
+		user.visible_message(span_notice("[user] begins welding [src] [adjective]..."), span_notice("You begin welding [src] [adjective]..."), "<span class='warning'>You hear welding.</span>")
 		if(I.use_tool(src, user, 15, volume = I.tool_volume))
 			if(opened)
-				to_chat(user, "<span class='notice'>Keep [src] shut while doing that!</span>")
+				to_chat(user, span_notice("Keep [src] shut while doing that!"))
 				return
-			user.visible_message("<span class='notice'>[user] welds [src] [adjective]!</span>", "<span class='notice'>You weld [src] [adjective]!</span>")
+			user.visible_message(span_notice("[user] welds [src] [adjective]!"), span_notice("You weld [src] [adjective]!"))
 			welded = !welded
 			update_icon()
 			return
@@ -262,7 +262,7 @@
 		return
 
 	if(!open())
-		to_chat(user, "<span class='notice'>It won't budge!</span>")
+		to_chat(user, span_notice("It won't budge!"))
 		if(!lastbang)
 			lastbang = 1
 			for(var/mob/M in hearers(src, null))
@@ -282,7 +282,7 @@
 /obj/structure/closet/attack_self_tk(mob/user)
 	add_fingerprint(user)
 	if(!toggle())
-		to_chat(usr, "<span class='notice'>It won't budge!</span>")
+		to_chat(usr, span_notice("It won't budge!"))
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)

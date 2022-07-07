@@ -559,7 +559,7 @@
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
 				C.update_handcuffed()
 				C.Silence(12 SECONDS)
-				to_chat(user, "<span class='notice'>You shackle [C].</span>")
+				to_chat(user, span_notice("You shackle [C]."))
 				add_attack_logs(user, C, "shackled")
 				uses--
 			else

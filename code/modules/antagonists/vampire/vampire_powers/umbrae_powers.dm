@@ -31,7 +31,7 @@
 			H.physiology.burn_mod /= 1.3
 
 	update_name()
-	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
+	to_chat(user, span_notice("You will now be [V.iscloaking ? "hidden" : "seen"] in darkness."))
 
 /mob/living/proc/update_vampire_cloak()
 	SIGNAL_HANDLER
@@ -94,7 +94,7 @@
 		obj_integrity -= 50
 
 	if(obj_integrity <= 0)
-		visible_message("<span class='notice'>[src] withers away.</span>")
+		visible_message(span_notice("[src] withers away."))
 		qdel(src)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/Initialize(mapload)

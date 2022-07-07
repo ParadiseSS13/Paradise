@@ -5,11 +5,11 @@
 	var/valueholder = "value"
 
 /datum/buildmode_mode/varedit/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select var(type) & value</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Set var(type) & value</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on turf/obj/mob     = Reset var's value</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_notice("***********************************************************"))
+	to_chat(user, span_notice("Right Mouse Button on buildmode button = Select var(type) & value"))
+	to_chat(user, span_notice("Left Mouse Button on turf/obj/mob      = Set var(type) & value"))
+	to_chat(user, span_notice("Right Mouse Button on turf/obj/mob     = Reset var's value"))
+	to_chat(user, span_notice("***********************************************************"))
 
 // FIXME: This needs to use a standard var-editing interface instead of
 // doing its own thing here
@@ -21,7 +21,7 @@
 	var/temp_value = user.client.vv_get_value()
 	if(isnull(temp_value["class"]))
 		Reset()
-		to_chat(user, "<span class='notice'>Variable unset.</span>")
+		to_chat(user, span_notice("Variable unset."))
 		return
 	// we assign this once all user input is done, since things could get wonky otherwise
 	varholder = temp_varname

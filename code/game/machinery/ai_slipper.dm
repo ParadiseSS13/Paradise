@@ -14,7 +14,7 @@
 
 /obj/machinery/ai_slipper/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A small counter shows it has: [uses] use\s remaining.</span>"
+	. += span_notice("A small counter shows it has: [uses] use\s remaining.")
 
 /obj/machinery/ai_slipper/power_change()
 	if(powered())

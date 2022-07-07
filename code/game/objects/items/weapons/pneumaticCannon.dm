@@ -25,10 +25,10 @@
 /obj/item/pneumatic_cannon/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src))
-		. += "<span class='notice'>You'll need to get closer to see any more.</span>"
+		. += span_notice("You'll need to get closer to see any more.")
 	else
 		if(tank)
-			. += "<span class='notice'>[bicon(tank)] It has \the [tank] mounted onto it.</span>"
+			. += span_notice("[bicon(tank)] It has \the [tank] mounted onto it.")
 		for(var/obj/item/I in loadedItems)
 			. += "<span class='info'>[bicon(I)] It has \the [I] loaded.</span>"
 
@@ -51,7 +51,7 @@
 				pressureSetting = 3
 			if(3)
 				pressureSetting = 1
-		to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressureSetting].</span>")
+		to_chat(user, span_notice("You tweak \the [src]'s pressure output to [pressureSetting]."))
 		return
 	if(istype(W, /obj/item/screwdriver) && tank)
 		updateTank(tank, 1, user)
@@ -72,7 +72,7 @@
 			return
 		if(!user.unEquip(W))
 			return
-		to_chat(user, "<span class='notice'>You load \the [IW] into \the [src].</span>")
+		to_chat(user, span_notice("You load \the [IW] into \the [src]."))
 		loadedItems.Add(IW)
 		loadedWeightClass += IW.w_class
 		IW.loc = src
@@ -153,7 +153,7 @@
 	if(removing)
 		if(!src.tank)
 			return
-		to_chat(user, "<span class='notice'>You detach \the [thetank] from \the [src].</span>")
+		to_chat(user, span_notice("You detach \the [thetank] from \the [src]."))
 		src.tank.loc = get_turf(user)
 		user.put_in_hands(tank)
 		src.tank = null
@@ -163,7 +163,7 @@
 			return
 		if(!user.unEquip(thetank))
 			return
-		to_chat(user, "<span class='notice'>You hook \the [thetank] up to \the [src].</span>")
+		to_chat(user, span_notice("You hook \the [thetank] up to \the [src]."))
 		src.tank = thetank
 		thetank.loc = src
 	src.update_icons()

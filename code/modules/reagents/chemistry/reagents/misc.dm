@@ -418,7 +418,7 @@
 /datum/reagent/love/on_mob_life(mob/living/M)
 	if(prob(8))
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
-		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
+		to_chat(M, span_notice("You feel [lovely_phrase]."))
 
 	else if(!M.restrained())
 		for(var/mob/living/carbon/C in orange(1, M))
@@ -426,7 +426,7 @@
 				if(C == M)
 					continue
 				if(!C.stat)
-					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
+					M.visible_message(span_notice("[M] gives [C] a [pick("hug","warm embrace")]."))
 					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					break
 	return ..()
@@ -436,7 +436,7 @@
 	..()
 
 /datum/reagent/love/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	to_chat(M, "<span class='notice'>You feel loved!</span>")
+	to_chat(M, span_notice("You feel loved!"))
 
 /datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
 	name = "Jestosterone"
@@ -452,7 +452,7 @@
 		return
 	if(C.mind)
 		if(C.mind.assigned_role == "Clown")
-			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
+			to_chat(C, span_notice("Whatever that was, it feels great!"))
 		else if(C.mind.assigned_role == "Mime")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
@@ -673,7 +673,7 @@
 
 		if(method == REAGENT_INGEST)
 			if(show_message)
-				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
+				to_chat(M, span_notice("That tasted horrible."))
 	..()
 
 /datum/reagent/spraytan/overdose_process(mob/living/M)

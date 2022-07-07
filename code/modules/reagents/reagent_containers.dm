@@ -64,10 +64,10 @@
 /obj/item/reagent_containers/attack_self(mob/user)
 	if(has_lid)
 		if(is_open_container())
-			to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+			to_chat(usr, span_notice("You put the lid on [src]."))
 			add_lid()
 		else
-			to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+			to_chat(usr, span_notice("You take the lid off [src]."))
 			remove_lid()
 
 /obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
@@ -81,7 +81,7 @@
 			return
 		else
 			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
-			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
+			to_chat(user, span_notice("You fill [src] from [source]."))
 			return
 	..()
 

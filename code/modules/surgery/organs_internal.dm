@@ -104,11 +104,11 @@
 			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
 			return -1
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
-			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
+			to_chat(user, span_notice("There is no room for [I] in [target]'s [parse_zone(target_zone)]!"))
 			return -1
 
 		if(I.damage > (I.max_damage * 0.75))
-			to_chat(user, "<span class='notice'> [I] is in no state to be transplanted.</span>")
+			to_chat(user, span_notice(" [I] is in no state to be transplanted."))
 			return -1
 
 		if(target.get_int_organ(I))
@@ -167,7 +167,7 @@
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
 		if(!length(organs))
-			to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
+			to_chat(user, span_notice("There are no removeable organs in [target]'s [parse_zone(target_zone)]!"))
 			return -1
 
 		for(var/obj/item/organ/internal/O in organs)
@@ -244,12 +244,12 @@
 				I.surgeryize()
 			if(I && I.damage)
 				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
+					user.visible_message(span_notice(" [user] treats damage to [target]'s [I.name] with [tool_name]."), \
+					span_notice(" You treat damage to [target]'s [I.name] with [tool_name].") )
 					I.damage = 0
 				else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
+					user.visible_message(span_notice(" [user] treats damage to [target]'s [I.name] with [tool_name]."), \
+					span_notice(" You treat damage to [target]'s [I.name] with [tool_name].") )
 					I.damage = 0
 
 	else if(current_type == "insert")
@@ -264,16 +264,16 @@
 		spread_germs_to_organ(I, user, tool)
 
 		if(affected)
-			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [affected.name].</span>",
-			"<span class='notice'> You have transplanted [tool] into [target]'s [affected.name].</span>")
+			user.visible_message(span_notice(" [user] has transplanted [tool] into [target]'s [affected.name]."),
+			span_notice(" You have transplanted [tool] into [target]'s [affected.name]."))
 		else
-			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>",
-			"<span class='notice'> You have transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>")
+			user.visible_message(span_notice(" [user] has transplanted [tool] into [target]'s [parse_zone(target_zone)]."),
+			span_notice(" You have transplanted [tool] into [target]'s [parse_zone(target_zone)]."))
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)
-			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with [tool].</span>",
-			"<span class='notice'> You have separated and extracted [target]'s [I] with [tool].</span>")
+			user.visible_message(span_notice(" [user] has separated and extracts [target]'s [I] with [tool]."),
+			span_notice(" You have separated and extracted [target]'s [I] with [tool]."))
 
 			add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user, tool)
@@ -285,8 +285,8 @@
 					thing.forceMove(get_turf(target))
 			target.update_icons()
 		else
-			user.visible_message("<span class='notice'>[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!</span>",
-				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+			user.visible_message(span_notice("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!"),
+				span_notice("You can't extract anything from [target]'s [parse_zone(target_zone)]!"))
 
 	else if(current_type == "clean")
 		if(!hasorgans(target))
@@ -321,23 +321,23 @@
 					else
 						I.germ_level = max(I.germ_level-ethanol, 0)
 					if(istype(C,/obj/item/reagent_containers/syringe))
-						user.visible_message("<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
-					"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>")
+						user.visible_message(span_notice(" [user] has injected [tool] into [target]'s [I.name]."),
+					span_notice(" You have injected [tool] into [target]'s [I.name]."))
 					else
-						user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
-					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
+						user.visible_message(span_notice(" [user] has poured some of [tool] over [target]'s [I.name]."),
+					span_notice(" You have poured some of [tool] over [target]'s [I.name]."))
 					R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
 					R.reaction(target, REAGENT_INGEST)
 
 	else if(current_type == "finish")
 		if(affected && affected.encased)
-			var/msg = "<span class='notice'> [user] bends [target]'s [affected.encased] back into place with [tool].</span>"
-			var/self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with [tool].</span>"
+			var/msg = span_notice(" [user] bends [target]'s [affected.encased] back into place with [tool].")
+			var/self_msg = span_notice(" You bend [target]'s [affected.encased] back into place with [tool].")
 			user.visible_message(msg, self_msg)
 			affected.open = 2.5
 		else
-			var/msg = "<span class='notice'>[user] pulls [target]'s flesh back into place with [tool].</span>"
-			var/self_msg = "<span class='notice'>You pull [target]'s flesh back into place with [tool].</span>"
+			var/msg = span_notice("[user] pulls [target]'s flesh back into place with [tool].")
+			var/self_msg = span_notice("You pull [target]'s flesh back into place with [tool].")
 			user.visible_message(msg, self_msg)
 
 		return TRUE
@@ -414,7 +414,7 @@
 				"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>")
 		else
 			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
-				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+				span_notice("You can't extract anything from [target]'s [parse_zone(target_zone)]!"))
 		return FALSE
 
 	else if(current_type == "finish")
@@ -458,8 +458,8 @@
 
 /datum/surgery_step/saw_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
-	user.visible_message("<span class='notice'> [user] has cut [target]'s [target_zone] open with [tool].</span>",		\
-	"<span class='notice'> You have cut [target]'s [target_zone] open with [tool].</span>")
+	user.visible_message(span_notice(" [user] has cut [target]'s [target_zone] open with [tool]."),		\
+	span_notice(" You have cut [target]'s [target_zone] open with [tool]."))
 	return TRUE
 
 /datum/surgery_step/saw_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -491,8 +491,8 @@
 
 /datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
-	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [target_zone] with [tool].</span>", \
-	"<span class='notice'> You have made an incision on [target]'s [target_zone] with [tool].</span>",)
+	user.visible_message(span_notice(" [user] has made an incision on [target]'s [target_zone] with [tool]."), \
+	span_notice(" You have made an incision on [target]'s [target_zone] with [tool]."),)
 	return TRUE
 
 /datum/surgery_step/cut_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -527,13 +527,13 @@
 
 /datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with [tool]</span>."
-	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [target_zone] with [tool].</span>"
+	var/self_msg = span_notice(" You keep the incision open on [target]'s [target_zone] with [tool].")
 	if(target_zone == "chest")
-		msg = "<span class='notice'> [user] keeps the ribcage open on [target]'s torso with [tool].</span>"
-		self_msg = "<span class='notice'> You keep the ribcage open on [target]'s torso with [tool].</span>"
+		msg = span_notice(" [user] keeps the ribcage open on [target]'s torso with [tool].")
+		self_msg = span_notice(" You keep the ribcage open on [target]'s torso with [tool].")
 	if(target_zone == "groin")
-		msg = "<span class='notice'> [user] keeps the incision open on [target]'s lower abdomen with [tool].</span>"
-		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with [tool].</span>"
+		msg = span_notice(" [user] keeps the incision open on [target]'s lower abdomen with [tool].")
+		self_msg = span_notice(" You keep the incision open on [target]'s lower abdomen with [tool].")
 	user.visible_message(msg, self_msg)
 	return TRUE
 

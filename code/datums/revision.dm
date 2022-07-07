@@ -74,7 +74,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 /datum/code_revision/proc/get_testmerge_chatmessage(header = FALSE)
 	var/list/msg = list()
 	if(header)
-		msg += "<span class='notice'>The following PRs are currently testmerged:</span>"
+		msg += span_notice("The following PRs are currently testmerged:")
 
 	for(var/pr in GLOB.revision_info.testmerges)
 		var/datum/tgs_revision_information/test_merge/tm = pr

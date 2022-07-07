@@ -98,12 +98,12 @@
 		if("radio")
 			AI.aiRadio.disabledAi = !AI.aiRadio.disabledAi
 			to_chat(AI, "<span class='warning'>Your Subspace Transceiver has been [AI.aiRadio.disabledAi ? "disabled" : "enabled"]!</span>")
-			to_chat(user, "<span class='notice'>You [AI.aiRadio.disabledAi ? "disable" : "enable"] the AI's Subspace Transceiver.</span>")
+			to_chat(user, span_notice("You [AI.aiRadio.disabledAi ? "disable" : "enable"] the AI's Subspace Transceiver."))
 
 		if("wireless")
 			AI.control_disabled = !AI.control_disabled
 			to_chat(AI, "<span class='warning'>Your wireless interface has been [AI.control_disabled ? "disabled" : "enabled"]!</span>")
-			to_chat(user, "<span class='notice'>You [AI.control_disabled ? "disable" : "enable"] the AI's wireless interface.</span>")
+			to_chat(user, span_notice("You [AI.control_disabled ? "disable" : "enable"] the AI's wireless interface."))
 			update_icon()
 
 	return TRUE

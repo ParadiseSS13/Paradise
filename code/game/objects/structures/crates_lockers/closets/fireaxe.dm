@@ -25,9 +25,9 @@
 /obj/structure/closet/fireaxecabinet/examine(mob/user)
 	. = ..()
 	if(!smashed)
-		. += "<span class='notice'>Use a multitool to lock/unlock it.</span>"
+		. += span_notice("Use a multitool to lock/unlock it.")
 	else
-		. += "<span class='notice'>It is damaged beyond repair.</span>"
+		. += span_notice("It is damaged beyond repair.")
 
 /obj/structure/closet/fireaxecabinet/attackby(obj/item/O as obj, mob/living/user as mob)  //Marker -Agouri
 	if(isrobot(user) || locked)
@@ -50,7 +50,7 @@
 				user.do_attack_animation(src)
 				playsound(user, 'sound/effects/Glasshit.ogg', 100, 1) //We don't want this playing every time
 			if(W.force < 15)
-				to_chat(user, "<span class='notice'>The cabinet's protective glass glances off the hit.</span>")
+				to_chat(user, span_notice("The cabinet's protective glass glances off the hit."))
 			else
 				hitstaken++
 				if(hitstaken == 4)
@@ -72,7 +72,7 @@
 			fireaxe = F
 			has_axe = "full"
 			contents += F
-			to_chat(user, "<span class='notice'>You place \the [F] back in the [name].</span>")
+			to_chat(user, span_notice("You place \the [F] back in the [name]."))
 			update_icon()
 		else
 			if(smashed)
@@ -102,7 +102,7 @@
 		return
 	if(localopened && fireaxe)
 		user.put_in_hands(fireaxe)
-		to_chat(user, "<span class='notice'>You take \the [fireaxe] from [src].</span>")
+		to_chat(user, span_notice("You take \the [fireaxe] from [src]."))
 		has_axe = "empty"
 		fireaxe = null
 
@@ -116,7 +116,7 @@
 /obj/structure/closet/fireaxecabinet/attack_tk(mob/user as mob)
 	if(localopened && fireaxe)
 		fireaxe.forceMove(loc)
-		to_chat(user, "<span class='notice'>You telekinetically remove \the [fireaxe].</span>")
+		to_chat(user, span_notice("You telekinetically remove \the [fireaxe]."))
 		has_axe = "empty"
 		fireaxe = null
 		update_icon()
@@ -131,7 +131,7 @@
 		if(locked)
 			to_chat(usr, "<span class='warning'>The cabinet won't budge!</span>")
 		else if(smashed)
-			to_chat(usr, "<span class='notice'>The protective glass is broken!</span>")
+			to_chat(usr, span_notice("The protective glass is broken!"))
 		return
 
 	operate_panel()
@@ -146,13 +146,13 @@
 	if(localopened)
 		if(fireaxe)
 			usr.put_in_hands(fireaxe)
-			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from [src].</span>")
+			to_chat(usr, span_notice("You take \the [fireaxe] from [src]."))
 			has_axe = "empty"
 			fireaxe = null
 		else
-			to_chat(usr, "<span class='notice'>[src] is empty.</span>")
+			to_chat(usr, span_notice("[src] is empty."))
 	else
-		to_chat(usr, "<span class='notice'>[src] is closed.</span>")
+		to_chat(usr, span_notice("[src] is closed."))
 	update_icon()
 
 /obj/structure/closet/fireaxecabinet/attack_ai(mob/user as mob)
@@ -164,7 +164,7 @@
 		if(locked)
 			to_chat(user, "<span class='warning'>Cabinet locked.</span>")
 		else
-			to_chat(user, "<span class='notice'>Cabinet unlocked.</span>")
+			to_chat(user, span_notice("Cabinet unlocked."))
 
 /obj/structure/closet/fireaxecabinet/proc/operate_panel()
 	if(operating)

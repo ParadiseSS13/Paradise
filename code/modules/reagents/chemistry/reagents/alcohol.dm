@@ -19,12 +19,12 @@
 	if(istype(O,/obj/item/paper))
 		var/obj/item/paper/paperaffected = O
 		paperaffected.clearpaper()
-		paperaffected.visible_message("<span class='notice'>The solution melts away the ink on the paper.</span>")
+		paperaffected.visible_message(span_notice("The solution melts away the ink on the paper."))
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
 			affectedbook.dat = null
-			affectedbook.visible_message("<span class='notice'>The solution melts away the ink on the book.</span>")
+			affectedbook.visible_message(span_notice("The solution melts away the ink on the book."))
 		else
 			O.visible_message("<span class='warning'>It wasn't enough...</span>")
 
@@ -1109,7 +1109,7 @@
 		if(prob(50))
 			M.say("[sonic_message]")
 		else
-			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
+			to_chat(M, span_notice("[sonic_message ]"))
 	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/applejack
@@ -1175,7 +1175,7 @@
 /datum/reagent/consumable/ethanol/dragons_breath/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(M.reagents.has_reagent("milk"))
-		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
+		to_chat(M, span_notice("The milk stops the burning. Ahhh."))
 		M.reagents.del_reagent("milk")
 		M.reagents.del_reagent("dragonsbreath")
 		return

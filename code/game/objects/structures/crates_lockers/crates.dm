@@ -92,16 +92,16 @@
 
 /obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
 	if(!(opened ? close() : open(by_hand)))
-		to_chat(user, "<span class='notice'>It won't budge!</span>")
+		to_chat(user, span_notice("It won't budge!"))
 
 /obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		if(rigged)
-			to_chat(user, "<span class='notice'>[src] is already rigged!</span>")
+			to_chat(user, span_notice("[src] is already rigged!"))
 			return TRUE
 		if(C.use(15))
-			to_chat(user, "<span class='notice'>You rig [src].</span>")
+			to_chat(user, span_notice("You rig [src]."))
 			rigged = TRUE
 		else
 			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
@@ -111,7 +111,7 @@
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
 				return TRUE
-			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
+			to_chat(user, span_notice("You attach [W] to [src]."))
 			W.forceMove(src)
 		return TRUE
 
@@ -122,7 +122,7 @@
 		return
 
 	if(I.use_tool(src, user))
-		to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
+		to_chat(user, span_notice("You cut away the wiring."))
 		playsound(loc, I.usesound, 100, 1)
 		rigged = FALSE
 		return TRUE
@@ -132,7 +132,7 @@
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
+		to_chat(user, span_notice("You tear the manifest off of the crate."))
 		playsound(loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove(loc)
 		if(ishuman(user))
@@ -206,17 +206,17 @@
 
 /obj/structure/closet/crate/secure/proc/togglelock(mob/user)
 	if(opened)
-		to_chat(user, "<span class='notice'>Close the crate first.</span>")
+		to_chat(user, span_notice("Close the crate first."))
 		return
 	if(broken)
 		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
 		return
 	if(allowed(user))
 		locked = !locked
-		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
+		visible_message(span_notice("The crate has been [locked ? null : "un"]locked by [user]."))
 		update_icon()
 	else
-		to_chat(user, "<span class='notice'>Access Denied</span>")
+		to_chat(user, span_notice("Access Denied"))
 
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
 	set src in oview(1) // One square distance
@@ -234,7 +234,7 @@
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
+		to_chat(user, span_notice("You tear the manifest off of the crate."))
 		playsound(loc, 'sound/items/poster_ripped.ogg', 75, 1)
 		manifest.forceMove(loc)
 		if(ishuman(user))
@@ -256,7 +256,7 @@
 		broken = TRUE
 		update_icon()
 		do_sparks(2, 1, src)
-		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+		to_chat(user, span_notice("You unlock \the [src]."))
 
 /obj/structure/closet/crate/secure/emp_act(severity)
 	for(var/obj/O in src)

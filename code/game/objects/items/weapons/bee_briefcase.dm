@@ -37,7 +37,7 @@
 			to_chat(user, "<span class='warning'>The briefcase is empty, so there is no point in injecting something into it.</span>")
 			return
 		if(S.reagents && S.reagents.total_volume)
-			to_chat(user, "<span class='notice'>You inject [src] with [S].</span>")
+			to_chat(user, span_notice("You inject [src] with [S]."))
 			for(var/datum/reagent/A in S.reagents.reagent_list)
 				if(A.id == "blood")
 					if(!(A.data["donor"] in blood_list))

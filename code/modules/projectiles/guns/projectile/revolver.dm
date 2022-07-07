@@ -32,7 +32,7 @@
 		return
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src].</span>")
+		to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]."))
 		A.update_icon()
 		update_icon()
 		chamber_round(0)
@@ -50,7 +50,7 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 	if(num_unloaded)
-		to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
+		to_chat(user, span_notice("You unload [num_unloaded] shell\s from [src]."))
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
@@ -69,7 +69,7 @@
 		C.spin()
 		chamber_round(0)
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
-		usr.visible_message("[usr] spins [src]'s chamber.", "<span class='notice'>You spin [src]'s chamber.</span>")
+		usr.visible_message("[usr] spins [src]'s chamber.", span_notice("You spin [src]'s chamber."))
 	else
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
@@ -129,7 +129,7 @@
 	return
 
 /obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
-	to_chat(usr, "<span class='notice'>You holster your fingers. Another time.</span>")
+	to_chat(usr, span_notice("You holster your fingers. Another time."))
 	qdel(src)
 	return
 
@@ -179,9 +179,9 @@
 /obj/item/gun/projectile/revolver/russian/attackby(obj/item/A, mob/user, params)
 	var/num_loaded = ..()
 	if(num_loaded)
-		user.visible_message("[user] loads a single bullet into the revolver and spins the chamber.", "<span class='notice'>You load a single bullet into the chamber and spin it.</span>")
+		user.visible_message("[user] loads a single bullet into the revolver and spins the chamber.", span_notice("You load a single bullet into the chamber and spin it."))
 	else
-		user.visible_message("[user] spins the chamber of the revolver.", "<span class='notice'>You spin the revolver's chamber.</span>")
+		user.visible_message("[user] spins the chamber of the revolver.", span_notice("You spin the revolver's chamber."))
 	if(get_ammo() > 0)
 		Spin()
 	update_icon()
@@ -190,7 +190,7 @@
 
 /obj/item/gun/projectile/revolver/russian/attack_self(mob/user)
 	if(!spun && can_shoot())
-		user.visible_message("[user] spins the chamber of the revolver.", "<span class='notice'>You spin the revolver's chamber.</span>")
+		user.visible_message("[user] spins the chamber of the revolver.", span_notice("You spin the revolver's chamber."))
 		Spin()
 	else
 		var/num_unloaded = 0
@@ -203,9 +203,9 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 		if(num_unloaded)
-			to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
+			to_chat(user, span_notice("You unload [num_unloaded] shell\s from [src]."))
 		else
-			to_chat(user, "<span class='notice'>[src] is empty.</span>")
+			to_chat(user, span_notice("[src] is empty."))
 
 /obj/item/gun/projectile/revolver/russian/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)
 	if(flag)
@@ -330,7 +330,7 @@
 	if(num_unloaded)
 		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
 	else
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, span_notice("[src] is empty."))
 
 // IMPROVISED SHOTGUN //
 
@@ -359,7 +359,7 @@
 			slot_flags = SLOT_BACK
 			icon_state = "ishotgunsling"
 			item_state = "ishotgunsling"
-			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
+			to_chat(user, span_notice("You tie the lengths of cable to the shotgun, making a sling."))
 			slung = 1
 			update_icon()
 		else

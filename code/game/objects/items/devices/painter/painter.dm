@@ -40,7 +40,7 @@
 
 /obj/item/painter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Ctrl+click it in your hand to change the type!</span>"
+	. += span_notice("Ctrl+click it in your hand to change the type!")
 
 
 /**

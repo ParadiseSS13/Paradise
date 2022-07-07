@@ -125,14 +125,14 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
+		to_chat(user, span_notice("You deconstruct the table."))
 		new /obj/item/stack/sheet/plasteel(loc, 5)
 		qdel(src)
 
 /obj/machinery/optable/proc/check_table()
 	update_patient()
 	if(patient != null)
-		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
+		to_chat(usr, span_notice("The table is already occupied!"))
 		return FALSE
 	else
 		return TRUE

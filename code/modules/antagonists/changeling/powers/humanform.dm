@@ -12,7 +12,7 @@
 	var/datum/dna/chosen_dna = cling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!chosen_dna || !user)
 		return FALSE
-	to_chat(user, "<span class='notice'>We transform our appearance.</span>")
+	to_chat(user, span_notice("We transform our appearance."))
 	user.dna.SetSEState(GLOB.monkeyblock,0,1)
 	singlemutcheck(user,GLOB.monkeyblock, MUTCHK_FORCED)
 	if(istype(user))

@@ -53,7 +53,7 @@
 			overlays += stampoverlay
 
 /obj/item/paperplane/attack_self(mob/user) // Unfold the paper plane
-	to_chat(user, "<span class='notice'>You unfold [src].</span>")
+	to_chat(user, span_notice("You unfold [src]."))
 	if(internal_paper)
 		internal_paper.forceMove(get_turf(src))
 		user.put_in_hands(internal_paper)
@@ -64,7 +64,7 @@
 	..()
 
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
-		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
+		to_chat(user, span_notice("You should unfold [src] before changing it."))
 		return
 
 	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
@@ -122,9 +122,9 @@
 	if(istype(user))
 		if((!in_range(src, user)) || user.stat || user.restrained())
 			return
-		to_chat(user, "<span class='notice'>You fold [src] into the shape of a plane!</span>")
+		to_chat(user, span_notice("You fold [src] into the shape of a plane!"))
 		user.unEquip(src)
 		I = new /obj/item/paperplane(user, src)
 		user.put_in_hands(I)
 	else
-		to_chat(user, "<span class='notice'>You lack the dexterity to fold [src].</span>")
+		to_chat(user, span_notice("You lack the dexterity to fold [src]."))

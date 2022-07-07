@@ -58,9 +58,9 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	user.visible_message("[user] begins to take the glass off the solar panel.", "<span class='notice'>You begin to take the glass off the solar panel...</span>")
+	user.visible_message("[user] begins to take the glass off the solar panel.", span_notice("You begin to take the glass off the solar panel..."))
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		user.visible_message("[user] takes the glass off the solar panel.", "<span class='notice'>You take the glass off the solar panel.</span>")
+		user.visible_message("[user] takes the glass off the solar panel.", span_notice("You take the glass off the solar panel."))
 		deconstruct(TRUE)
 
 /obj/machinery/power/solar/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -206,13 +206,13 @@
 	if(!anchored && isturf(loc))
 		if(istype(W, /obj/item/wrench))
 			anchored = 1
-			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
+			user.visible_message("[user] wrenches the solar assembly into place.", span_notice("You wrench the solar assembly into place."))
 			playsound(src.loc, W.usesound, 50, 1)
 			return 1
 	else
 		if(istype(W, /obj/item/wrench))
 			anchored = 0
-			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
+			user.visible_message("[user] unwrenches the solar assembly from its place.", span_notice("You unwrench the solar assembly from its place."))
 			playsound(src.loc, W.usesound, 50, 1)
 			return 1
 
@@ -221,7 +221,7 @@
 			if(S.use(2))
 				glass_type = S.merge_type
 				playsound(loc, S.usesound, 50, 1)
-				user.visible_message("[user] places the glass on the solar assembly.", "<span class='notice'>You place the glass on the solar assembly.</span>")
+				user.visible_message("[user] places the glass on the solar assembly.", span_notice("You place the glass on the solar assembly."))
 				if(tracker)
 					new /obj/machinery/power/tracker(get_turf(src), src)
 				else
@@ -237,13 +237,13 @@
 				return
 			tracker = 1
 			qdel(W)
-			user.visible_message("[user] inserts the electronics into the solar assembly.", "<span class='notice'>You insert the electronics into the solar assembly.</span>")
+			user.visible_message("[user] inserts the electronics into the solar assembly.", span_notice("You insert the electronics into the solar assembly."))
 			return 1
 	else if(istype(W, /obj/item/crowbar))
 		new /obj/item/tracker_electronics(src.loc)
 		tracker = 0
 		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
+		user.visible_message("[user] takes out the electronics from the solar assembly.", span_notice("You take out the electronics from the solar assembly."))
 		return 1
 	else
 		return ..()
@@ -430,11 +430,11 @@
 	for(var/obj/C in src)
 		C.forceMove(loc)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+		to_chat(user, span_notice("The broken glass falls out."))
 		A.state = 4	// STATE_WIRES
 		new /obj/item/shard(drop_location())
 	else
-		to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+		to_chat(user, span_notice("You disconnect the monitor."))
 		A.state = 5	// STATE_GLASS
 	A.dir = dir
 	A.circuit = M

@@ -138,7 +138,7 @@
 
 /obj/machinery/recharge_station/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		to_chat(user, span_notice("The maintenance panel is locked."))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", I))
 		return TRUE
@@ -226,7 +226,7 @@
 		can_accept_user = 1
 
 	if(!can_accept_user)
-		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
+		to_chat(user, span_notice("Only non-organics may enter the recharger!"))
 		return
 
 	user.stop_pulling()

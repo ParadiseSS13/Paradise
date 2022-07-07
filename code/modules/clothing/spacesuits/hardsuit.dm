@@ -134,7 +134,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_geiger_counter()
 	scanning = !scanning
 	if(ishuman(loc))
-		to_chat(loc, "<span class='notice'>You toggle [src]'s internal geiger counter [scanning ? "on" : "off"].</span>")
+		to_chat(loc, span_notice("You toggle [src]'s internal geiger counter [scanning ? "on" : "off"]."))
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	..()
@@ -193,7 +193,7 @@
 		if(user.unEquip(I))
 			I.forceMove(src)
 			jetpack = I
-			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
+			to_chat(user, span_notice("You successfully install the jetpack into [src]."))
 			return
 	return ..()
 
@@ -210,7 +210,7 @@
 	jetpack.turn_off(user)
 	jetpack.forceMove(drop_location())
 	jetpack = null
-	to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
+	to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	..()
@@ -355,7 +355,7 @@
 		return
 	on = !on
 	if(on)
-		to_chat(user, "<span class='notice'>You switch your hardsuit to EVA mode, sacrificing speed for space protection.</span>")
+		to_chat(user, span_notice("You switch your hardsuit to EVA mode, sacrificing speed for space protection."))
 		name = initial(name)
 		desc = initial(desc)
 		set_light(brightness_on)
@@ -364,7 +364,7 @@
 		flags_inv |= visor_flags_inv
 		cold_protection |= HEAD
 	else
-		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode and can now run at full speed.</span>")
+		to_chat(user, span_notice("You switch your hardsuit to combat mode and can now run at full speed."))
 		name += " (combat)"
 		desc = alt_desc
 		set_light(0)

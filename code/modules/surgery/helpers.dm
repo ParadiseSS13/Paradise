@@ -15,7 +15,7 @@
 			return // no self surgery
 
 		if(M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-			to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
+			to_chat(user, span_notice("You realise that a ghost probably doesn't have any useful organs."))
 			return //no cult ghost surgery please
 
 		if(istype(M, /mob/living/carbon/human))
@@ -73,7 +73,7 @@
 							M.surgeries += procedure
 							procedure.organ_ref = affecting
 							user.visible_message("[user] prepares to operate on [M]'s [parse_zone(selected_zone)].", \
-							"<span class='notice'>You prepare to operate on [M]'s [parse_zone(selected_zone)].</span>")
+							span_notice("You prepare to operate on [M]'s [parse_zone(selected_zone)]."))
 
 			else if(!current_surgery.step_in_progress  && ishuman(M)) //early surgery cautery
 				var/datum/surgery_step/generic/cauterize/C = new
@@ -111,7 +111,7 @@
 								C.fail_step(user, H, selected_zone, cautery_tool, current_surgery)
 
 					else if(!isrobot(user))
-						to_chat(user, "<span class='notice'>You need to hold a cautery or equivalent in your inactive hand to stop the surgery in progress.</span>")
+						to_chat(user, span_notice("You need to hold a cautery or equivalent in your inactive hand to stop the surgery in progress."))
 
 			return TRUE
 	return FALSE

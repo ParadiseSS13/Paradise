@@ -125,7 +125,7 @@
 
 /obj/structure/morgue/wirecutter_act(mob/user)
 	if(name != initial(name))
-		to_chat(user, "<span class='notice'>You cut the tag off the morgue.</span>")
+		to_chat(user, span_notice("You cut the tag off the morgue."))
 		name = initial(name)
 		update()
 		return TRUE

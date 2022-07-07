@@ -143,7 +143,7 @@
 	var/turf/T = get_turf(src)
 	var/ladder_x = T.x
 	var/ladder_y = T.y
-	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
+	to_chat(user, span_notice("You unfold the ladder. It extends much farther than you were expecting."))
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
 		if(is_admin_level(i) || is_away_level(i))
@@ -245,25 +245,25 @@
 	if(wisp.loc == src)
 		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
 
-		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
+		to_chat(user, span_notice("You release the wisp. It begins to bob around your head."))
 		icon_state = "lantern"
 		wisp.orbit(user, 20)
 		set_light(0)
 
 		user.update_sight()
-		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
+		to_chat(user, span_notice("The wisp enhances your vision."))
 
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 	else
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 
-		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
+		to_chat(user, span_notice("You return the wisp to the lantern."))
 		wisp.stop_orbit()
 		wisp.forceMove(src)
 		set_light(initial(light_range))
 
 		user.update_sight()
-		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
+		to_chat(user, span_notice("Your vision returns to normal."))
 
 		icon_state = "lantern-blue"
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
@@ -277,7 +277,7 @@
 		if(wisp.loc == src)
 			qdel(wisp)
 		else
-			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
+			wisp.visible_message(span_notice("[wisp] has a sad feeling for a moment, then it passes."))
 	return ..()
 
 /obj/item/wisp_lantern/proc/update_user_sight(mob/user)

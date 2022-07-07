@@ -112,7 +112,7 @@
 			P.dir = turn(iconrotation, -45)
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
-	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	to_chat(user, span_notice("[src] rapidly dispenses [P]!"))
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
@@ -124,7 +124,7 @@
 		P.dir = user.dir
 	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 		P.flip()
-	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	to_chat(user, span_notice("[src] rapidly dispenses [P]!"))
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
@@ -160,10 +160,10 @@
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
 		activate_rpd()
 	else
-		to_chat(user, "<span class='notice'>There were no loose pipes on [T].</span>")
+		to_chat(user, span_notice("There were no loose pipes on [T]."))
 
 /obj/item/rpd/proc/delete_single_pipe(mob/user, obj/P) //Delete a single pipe
-	to_chat(user, "<span class='notice'>[src] sucks up [P].</span>")
+	to_chat(user, span_notice("[src] sucks up [P]."))
 	QDEL_NULL(P)
 	activate_rpd()
 
@@ -225,7 +225,7 @@
 
 /obj/item/rpd/proc/radial_menu(mob/user)
 	if(!check_menu(user))
-		to_chat(user, "<span class='notice'>You can't do that right now!</span>")
+		to_chat(user, span_notice("You can't do that right now!"))
 		return
 	var/list/choices = list(
 		RPD_MENU_ROTATE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_rotate"),
@@ -248,7 +248,7 @@
 				mode = RPD_DELETE_MODE
 			else
 				return //Either nothing was selected, or an invalid mode was selected
-		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
+		to_chat(user, span_notice("You set [src]'s mode."))
 
 /obj/item/rpd/afterattack(atom/target, mob/user, proximity)
 	..()

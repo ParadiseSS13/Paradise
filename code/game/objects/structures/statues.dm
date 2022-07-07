@@ -17,12 +17,12 @@
 		if(istype(W, /obj/item/gun/energy/plasmacutter))
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
-								 "<span class='notice'>You are slicing apart the [name]...</span>")
+								 span_notice("You are slicing apart the [name]..."))
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \
-									 "<span class='notice'>You slice apart the [name].</span>")
+									 span_notice("You slice apart the [name]."))
 				deconstruct(TRUE)
 			return
 	return ..()
@@ -44,7 +44,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	user.visible_message("[user] rubs some dust off from the [name]'s surface.", \
-						 "<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
+						 span_notice("You rub some dust off from the [name]'s surface."))
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -328,7 +328,7 @@
 
 /obj/structure/snowman/built/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
-		to_chat(user, "<span class='notice'>You patch some of the damage on [src] with [I].</span>")
+		to_chat(user, span_notice("You patch some of the damage on [src] with [I]."))
 		obj_integrity = max_integrity
 		qdel(I)
 	else

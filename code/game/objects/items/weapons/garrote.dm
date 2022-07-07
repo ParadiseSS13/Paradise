@@ -39,7 +39,7 @@
 
 /obj/item/twohanded/garrote/wield(mob/living/carbon/user)
 	if(strangling)
-		user.visible_message("<span class='notice'>[user] removes [src] from [strangling]'s neck.</span>",
+		user.visible_message(span_notice("[user] removes [src] from [strangling]'s neck."),
 				"<span class='warning'>You remove [src] from [strangling]'s neck.</span>")
 
 		strangling = null

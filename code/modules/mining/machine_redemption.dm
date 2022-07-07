@@ -158,7 +158,7 @@
 	..()
 	update_icon()
 	if(inserted_id && !powered())
-		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
+		visible_message(span_notice("The ID slot indicator light flickers on [src] as it spits out a card before powering down."))
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
@@ -210,8 +210,8 @@
 		inserted_disk = I
 		SStgui.update_uis(src)
 		interact(user)
-		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
-						 	 "<span class='notice'>You insert [I] into [src].</span>")
+		user.visible_message(span_notice("[user] inserts [I] into [src]."),
+						 	 span_notice("You insert [I] into [src]."))
 		return
 	return ..()
 
@@ -229,7 +229,7 @@
 		return
 	input_dir = turn(input_dir, -90)
 	output_dir = turn(output_dir, -90)
-	to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
+	to_chat(user, span_notice("You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)]."))
 
 /obj/machinery/mineral/ore_redemption/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", I))
@@ -305,7 +305,7 @@
 				return
 			if(anyone_claim || (req_access_claim in inserted_id.access))
 				inserted_id.mining_points += points
-				to_chat(usr, "<span class='notice'>[points] points claimed.</span>")
+				to_chat(usr, span_notice("[points] points claimed."))
 				points = 0
 			else
 				to_chat(usr, "<span class='warning'>Required access not found.</span>")
@@ -348,8 +348,8 @@
 				return FALSE
 			if(ishuman(usr))
 				usr.put_in_hands(inserted_id)
-				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_id] from [src].</span>", \
-									"<span class='notice'>You retrieve [inserted_id] from [src].</span>")
+				usr.visible_message(span_notice("[usr] retrieves [inserted_id] from [src]."), \
+									span_notice("You retrieve [inserted_id] from [src]."))
 			else
 				inserted_id.forceMove(get_turf(src))
 			inserted_id = null
@@ -358,8 +358,8 @@
 				return FALSE
 			if(ishuman(usr))
 				usr.put_in_hands(inserted_disk)
-				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_disk] from [src].</span>", \
-									"<span class='notice'>You retrieve [inserted_disk] from [src].</span>")
+				usr.visible_message(span_notice("[usr] retrieves [inserted_disk] from [src]."), \
+									span_notice("You retrieve [inserted_disk] from [src]."))
 			else
 				inserted_disk.forceMove(get_turf(src))
 			inserted_disk = null
@@ -494,8 +494,8 @@
 	inserted_id = I
 	SStgui.update_uis(src)
 	interact(user)
-	user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>", \
-							"<span class='notice'>You insert [I] into [src].</span>")
+	user.visible_message(span_notice("[user] inserts [I] into [src]."), \
+							span_notice("You insert [I] into [src]."))
 	return TRUE
 
 /**

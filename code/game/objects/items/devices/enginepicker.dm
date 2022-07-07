@@ -82,10 +82,10 @@
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			announcer.say(";Engine delivery detected. Type: [engtype].")	//Let's announce the terrible choice to everyone
 
-		visible_message("<span class='notice'>\The [src] begins to violently vibrate and hiss, then promptly disintegrates!</span>")
+		visible_message(span_notice("\The [src] begins to violently vibrate and hiss, then promptly disintegrates!"))
 		qdel(src)	//Self-destructs to prevent crew from spawning multiple engines.
 	else
-		visible_message("<span class='notice'>\The [src] buzzes! No beacon found or selected!</span>")
+		visible_message(span_notice("\The [src] buzzes! No beacon found or selected!"))
 		isactive = FALSE
 		return
 

@@ -119,7 +119,7 @@
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)
 			else
-				to_chat(H, "<span class='notice'>Not enough charge!</span>")
+				to_chat(H, span_notice("Not enough charge!"))
 			return TRUE
 	return FALSE
 
@@ -138,10 +138,10 @@
 				return
 			W.forceMove(src)
 			cell = W
-			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
+			to_chat(user, span_notice("You attach [W] to [src]."))
 			update_icon()
 		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			to_chat(user, span_notice("[src] already has a cell."))
 	else
 		return ..()
 
@@ -150,7 +150,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(cell)
-		to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
+		to_chat(user, span_notice("You cut [cell] away from [src]."))
 		cell.forceMove(get_turf(loc))
 		cell = null
 		update_icon()

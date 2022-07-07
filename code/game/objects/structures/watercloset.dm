@@ -32,7 +32,7 @@
 
 	if(cistern && !open)
 		if(!contents.len)
-			to_chat(user, "<span class='notice'>The cistern is empty.</span>")
+			to_chat(user, span_notice("The cistern is empty."))
 			return
 		else
 			var/obj/item/I = pick(contents)
@@ -40,7 +40,7 @@
 				user.put_in_hands(I)
 			else
 				I.loc = get_turf(src)
-			to_chat(user, "<span class='notice'>You find [I] in the cistern.</span>")
+			to_chat(user, span_notice("You find [I] in the cistern."))
 			w_items -= I.w_class
 			return
 
@@ -72,7 +72,7 @@
 				to_chat(user, "<span class='warning'>[RG] is full.</span>")
 			else
 				RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
-				to_chat(user, "<span class='notice'>You fill [RG] from [src]. Gross.</span>")
+				to_chat(user, span_notice("You fill [RG] from [src]. Gross."))
 			return
 
 	if(istype(I, /obj/item/grab))
@@ -115,10 +115,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]...</span>")
+	to_chat(user, span_notice("You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]..."))
 	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
-		user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", "<span class='notice'>You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!</span>", "<span class='italics'>You hear grinding porcelain.</span>")
+		user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", span_notice("You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!"), "<span class='italics'>You hear grinding porcelain.</span>")
 		cistern = !cistern
 		update_icon()
 		return
@@ -143,18 +143,18 @@
 		if("Stash")
 			stash_goods(I, user)
 		if("Disconnect")
-			user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
+			user.visible_message(span_notice("[user] starts disconnecting [src]."), span_notice("You begin disconnecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || !anchored)
 					return
-				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
+				user.visible_message(span_notice("[user] disconnects [src]!"), span_notice("You disconnect [src]!"))
 				anchored = 0
 		if("Connect")
-			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
+			user.visible_message(span_notice("[user] starts connecting [src]."), span_notice("You begin connecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
-				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
+				user.visible_message(span_notice("[user] connects [src]!"), span_notice("You connect [src]!"))
 				anchored = 1
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
@@ -176,7 +176,7 @@
 		return
 	I.loc = src
 	w_items += I.w_class
-	to_chat(user, "<span class='notice'>You carefully place [I] into the cistern.</span>")
+	to_chat(user, span_notice("You carefully place [I] into the cistern."))
 
 /obj/structure/toilet/secret
 	var/secret_type = null
@@ -208,7 +208,7 @@
 			var/mob/living/GM = G.affecting
 			if(G.state >= GRAB_AGGRESSIVE)
 				if(GM.loc != get_turf(src))
-					to_chat(user, "<span class='notice'>[GM.name] needs to be on [src].</span>")
+					to_chat(user, span_notice("[GM.name] needs to be on [src]."))
 					return
 				user.changeNext_move(CLICK_CD_MELEE)
 				playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
@@ -222,20 +222,20 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(anchored)
-		user.visible_message("<span class='notice'>[user] begins disconnecting [src]...</span>", "<span class='notice'>You begin to disconnect [src]...</span>")
+		user.visible_message(span_notice("[user] begins disconnecting [src]..."), span_notice("You begin to disconnect [src]..."))
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!loc || !anchored)
 				return
-			user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
+			user.visible_message(span_notice("[user] disconnects [src]!"), span_notice("You disconnect [src]!"))
 			anchored = 0
 			pixel_x = 0
 			pixel_y = 0
 	else
-		user.visible_message("<span class='notice'>[user] begins connecting [src]...</span>", "<span class='notice'>You begin to connect [src]...</span>")
+		user.visible_message(span_notice("[user] begins connecting [src]..."), span_notice("You begin to connect [src]..."))
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!loc || anchored)
 				return
-			user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
+			user.visible_message(span_notice("[user] connects [src]!"), span_notice("You connect [src]!"))
 			anchored = 1
 			pixel_x = 0
 			pixel_y = 32
@@ -307,12 +307,12 @@
 
 /obj/machinery/shower/attackby(obj/item/I, mob/user, params)
 	if(I.type == /obj/item/analyzer)
-		to_chat(user, "<span class='notice'>The water temperature seems to be [current_temperature].</span>")
+		to_chat(user, span_notice("The water temperature seems to be [current_temperature]."))
 	return ..()
 
 /obj/machinery/shower/wrench_act(mob/user, obj/item/I)
 	..()
-	to_chat(user, "<span class='notice'>You begin to adjust the temperature valve with [I].</span>")
+	to_chat(user, span_notice("You begin to adjust the temperature valve with [I]."))
 	if(I.use_tool(src, user, 50))
 		switch(current_temperature)
 			if(SHOWER_NORMAL)
@@ -321,7 +321,7 @@
 				current_temperature = SHOWER_BOILING
 			if(SHOWER_BOILING)
 				current_temperature = SHOWER_NORMAL
-		user.visible_message("<span class='notice'>[user] adjusts the shower with \the [I].</span>", "<span class='notice'>You adjust the shower with \the [I] to [current_temperature] temperature.</span>")
+		user.visible_message(span_notice("[user] adjusts the shower with \the [I]."), span_notice("You adjust the shower with \the [I] to [current_temperature] temperature."))
 		add_hiddenprint(user)
 	handle_mist()
 	return TRUE
@@ -333,9 +333,9 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	visible_message("<span class='notice'>[user] begins slicing [src] free...</span>", "<span class='notice'>You begin slicing [src] free...</span>", "<span class='warning'>You hear welding.</span>")
+	visible_message(span_notice("[user] begins slicing [src] free..."), span_notice("You begin slicing [src] free..."), "<span class='warning'>You hear welding.</span>")
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
-		user.visible_message("<span class='notice'>[user] cuts [src] loose!</span>", "<span class='notice'>You cut [src] loose!</span>")
+		user.visible_message(span_notice("[user] cuts [src] loose!"), span_notice("You cut [src] loose!"))
 		var/obj/item/mounted/shower/S = new /obj/item/mounted/shower(get_turf(user))
 		transfer_prints_to(S, TRUE)
 		qdel(src)
@@ -472,14 +472,14 @@
 			return
 
 	if(busy)
-		to_chat(user, "<span class='notice'>Someone's already washing here.</span>")
+		to_chat(user, span_notice("Someone's already washing here."))
 		return
 	var/selected_area = parse_zone(user.zone_selected)
 	var/washing_face = 0
 	if(selected_area in list("head", "mouth", "eyes"))
 		washing_face = 1
-	user.visible_message("<span class='notice'>[user] starts washing [user.p_their()] [washing_face ? "face" : "hands"]...</span>", \
-						"<span class='notice'>You start washing your [washing_face ? "face" : "hands"]...</span>")
+	user.visible_message(span_notice("[user] starts washing [user.p_their()] [washing_face ? "face" : "hands"]..."), \
+						span_notice("You start washing your [washing_face ? "face" : "hands"]..."))
 	busy = 1
 
 	if(!do_after(user, 40, target = src))
@@ -488,8 +488,8 @@
 
 	busy = 0
 
-	user.visible_message("<span class='notice'>[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src].</span>", \
-						"<span class='notice'>You wash your [washing_face ? "face" : "hands"] using [src].</span>")
+	user.visible_message(span_notice("[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src]."), \
+						span_notice("You wash your [washing_face ? "face" : "hands"] using [src]."))
 	if(washing_face)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -546,18 +546,18 @@
 			if(wateract)
 				I.water_act(20, COLD_WATER_TEMPERATURE, src)
 		if("Disconnect")
-			user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
+			user.visible_message(span_notice("[user] starts disconnecting [src]."), span_notice("You begin disconnecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || !anchored)
 					return
-				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
+				user.visible_message(span_notice("[user] disconnects [src]!"), span_notice("You disconnect [src]!"))
 				anchored = FALSE
 		if("Connect")
-			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
+			user.visible_message(span_notice("[user] starts connecting [src]."), span_notice("You begin connecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
-				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
+				user.visible_message(span_notice("[user] connects [src]!"), span_notice("You connect [src]!"))
 				anchored = TRUE
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
@@ -674,9 +674,9 @@
 	if(result in T.contents)
 		to_chat(user, "<span class='warning'>There's already \an [result_name] here.</span>")
 		return
-	user.visible_message("<span class='notice'>[user] begins assembling a new [result_name].</span>", "<span class='notice'>You begin assembling a new [result_name].</span>")
+	user.visible_message(span_notice("[user] begins assembling a new [result_name]."), span_notice("You begin assembling a new [result_name]."))
 	if(do_after(user, 30, target = user))
-		user.visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
+		user.visible_message(span_notice("[user] finishes building a new [result_name]!"), span_notice("You finish building a new [result_name]!"))
 		var/obj/structure/S = new result(T)
 		S.anchored = 0
 		S.dir = user.dir

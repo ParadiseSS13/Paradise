@@ -202,16 +202,16 @@
 				B.remove_from_storage(G, src)
 				holdingitems += G
 				if(holdingitems && holdingitems.len >= limit) //Sanity checking so the blender doesn't overfill
-					to_chat(user, "<span class='notice'>You fill the All-In-One grinder to the brim.</span>")
+					to_chat(user, span_notice("You fill the All-In-One grinder to the brim."))
 					break
 
 		if(B.contents.len == original_contents_len)
 			to_chat(user, "<span class='warning'>Nothing in [B] can be put into the All-In-One grinder.</span>")
 			return FALSE
 		else if(!B.contents.len)
-			to_chat(user, "<span class='notice'>You empty all of [B]'s contents into the All-In-One grinder.</span>")
+			to_chat(user, span_notice("You empty all of [B]'s contents into the All-In-One grinder."))
 		else
-			to_chat(user, "<span class='notice'>You empty some of [B]'s contents into the All-In-One grinder.</span>")
+			to_chat(user, span_notice("You empty some of [B]'s contents into the All-In-One grinder."))
 
 		updateUsrDialog()
 		return TRUE

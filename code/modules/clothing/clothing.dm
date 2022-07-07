@@ -41,7 +41,7 @@
 
 	visor_toggling()
 
-	to_chat(user, "<span class='notice'>You adjust \the [src] [up ? "up" : "down"].</span>")
+	to_chat(user, span_notice("You adjust \the [src] [up ? "up" : "down"]."))
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
@@ -244,7 +244,7 @@ BLIND     // can't see anything
 			action_fluff = "You remove \the [src] and adjust it"
 
 	over_mask = !over_mask
-	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
+	to_chat(user, span_notice("[action_fluff] to be worn [over_mask ? "over" : "under"] a mask."))
 
 //Gloves
 /obj/item/clothing/gloves
@@ -281,7 +281,7 @@ BLIND     // can't see anything
 			desc = "[desc] They have had the fingertips cut off of them."
 			update_icon()
 		else
-			to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
+			to_chat(user, span_notice("[src] have already been clipped!"))
 		return
 	else
 		return ..()
@@ -388,7 +388,7 @@ BLIND     // can't see anything
 		icon_state = initial(icon_state)
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
 		permeability_coefficient = initial(permeability_coefficient)
-		to_chat(user, "<span class='notice'>You push \the [src] back into place.</span>")
+		to_chat(user, span_notice("You push \the [src] back into place."))
 		mask_adjusted = 0
 		slot_flags = initial(slot_flags)
 		if(flags_inv != initial(flags_inv))
@@ -408,7 +408,7 @@ BLIND     // can't see anything
 				user.put_in_hands(src)
 	else
 		icon_state += "_up"
-		to_chat(user, "<span class='notice'>You push \the [src] out of the way.</span>")
+		to_chat(user, span_notice("You push \the [src] out of the way."))
 		gas_transfer_coefficient = null
 		permeability_coefficient = null
 		mask_adjusted = 1
@@ -490,7 +490,7 @@ BLIND     // can't see anything
 				desc = "[desc] They have had their toes opened up."
 				update_icon()
 			else
-				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
+				to_chat(user, span_notice("[src] have already had [p_their()] toes cut open!"))
 		return
 	else
 		return ..()
@@ -562,7 +562,7 @@ BLIND     // can't see anything
 					return
 			user.update_inv_wear_suit()
 	else
-		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
+		to_chat(user, span_notice("You attempt to button up the velcro on \the [src], before promptly realising how foolish you are."))
 
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
@@ -734,7 +734,7 @@ BLIND     // can't see anything
 
 		return TRUE
 	else
-		to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
+		to_chat(user, span_notice("You cannot attach more accessories of this type to [src]."))
 
 	return FALSE
 
@@ -775,9 +775,9 @@ BLIND     // can't see anything
 			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 			usr.update_inv_w_uniform()
 		else
-			to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
+			to_chat(usr, span_notice("You cannot roll down this uniform!"))
 	else
-		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
+		to_chat(usr, span_notice("You cannot roll down the uniform!"))
 
 /obj/item/clothing/under/verb/removetie()
 	set name = "Remove Accessory"
@@ -811,7 +811,7 @@ BLIND     // can't see anything
 	if(!Adjacent(user))
 		return
 	detach_accessory(A, user)
-	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
+	to_chat(user, span_notice("You remove [A] from [src]."))
 
 /obj/item/clothing/under/emp_act(severity)
 	if(accessories.len)

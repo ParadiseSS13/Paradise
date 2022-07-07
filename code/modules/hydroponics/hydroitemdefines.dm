@@ -194,7 +194,7 @@
 		//Extend sound (blade unsheath)
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
 	else
-		to_chat(user, "<span class='notice'>You collapse the scythe, folding it away for easy storage.</span>")
+		to_chat(user, span_notice("You collapse the scythe, folding it away for easy storage."))
 		icon_state = "tscythe0"
 		item_state = null	//no sprite for folded version, like a tele-baton
 		slot_flags = SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back

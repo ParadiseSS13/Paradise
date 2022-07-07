@@ -46,11 +46,11 @@
 /obj/structure/displaycase/examine(mob/user)
 	. = ..()
 	if(alert)
-		. += "<span class='notice'>Hooked up with an anti-theft system.</span>"
+		. += span_notice("Hooked up with an anti-theft system.")
 	if(emagged)
 		. += "<span class='warning'>The ID lock has been shorted out.</span>"
 	if(showpiece)
-		. += "<span class='notice'>There's [showpiece] inside.</span>"
+		. += span_notice("There's [showpiece] inside.")
 	if(trophy_message)
 		. += "The plaque reads:\n [trophy_message]"
 
@@ -110,7 +110,7 @@
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(I.GetID() && !broken && openable)
 		if(allowed(user) || emagged)
-			to_chat(user, "<span class='notice'>You [open ? "close":"open"] [src].</span>")
+			to_chat(user, span_notice("You [open ? "close":"open"] [src]."))
 			toggle_lock()
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -118,14 +118,14 @@
 		if(!(I.flags & (ABSTRACT | DROPDEL)) && user.drop_item())
 			I.forceMove(src)
 			showpiece = I
-			to_chat(user, "<span class='notice'>You put [I] on display</span>")
+			to_chat(user, span_notice("You put [I] on display"))
 			update_icon()
 	else if(istype(I, /obj/item/stack/sheet/glass) && broken)
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two glass sheets to fix the case!</span>")
 			return
-		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
+		to_chat(user, span_notice("You start fixing [src]..."))
 		if(do_after(user, 20, target = src))
 			G.use(2)
 			broken = FALSE
@@ -145,7 +145,7 @@
 		return
 	if((open || broken) && user.a_intent == INTENT_HARM)
 		if(showpiece)
-			to_chat(user, "<span class='notice'>Remove the displayed object first.</span>")
+			to_chat(user, span_notice("Remove the displayed object first."))
 			return
 		if(!I.use_tool(src, user, 15, volume = I.tool_volume))
 			return
@@ -153,7 +153,7 @@
 			new /obj/item/stack/sheet/glass(drop_location(), 10)
 		else
 			new /obj/item/shard(drop_location())
-		to_chat(user, "<span class='notice'>You start dismantling the case.</span>")
+		to_chat(user, span_notice("You start dismantling the case."))
 		var/obj/structure/displaycase_chassis/display = new(loc)
 		if(electronics)
 			electronics.forceMove(display)
@@ -161,10 +161,10 @@
 		qdel(src)
 		return
 	if(!alert)
-		to_chat(user, "<span class='notice'>You start to [open ? "close":"open"] [src].</span>")
+		to_chat(user, span_notice("You start to [open ? "close":"open"] [src]."))
 		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 			return
-		to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
+		to_chat(user,  span_notice("You [open ? "close":"open"] [src]."))
 		toggle_lock()
 
 /obj/structure/displaycase/welder_act(mob/user, obj/item/I)
@@ -179,7 +179,7 @@
 /obj/structure/displaycase/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(showpiece && (broken || open))
-		to_chat(user, "<span class='notice'>You deactivate the hover field built into the case.</span>")
+		to_chat(user, span_notice("You deactivate the hover field built into the case."))
 		dump()
 		add_fingerprint(user)
 		update_icon()
@@ -203,20 +203,20 @@
 
 /obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/airlock_electronics))
-		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
+		to_chat(user, span_notice("You start installing the electronics into [src]..."))
 		playsound(loc, I.usesound, 50, 1)
 		if(do_after(user, 30, target = src))
 			if(user.drop_item())
 				I.forceMove(src)
 				electronics = I
-				to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
+				to_chat(user, span_notice("You install the airlock electronics."))
 
 	else if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 10)
 			to_chat(user, "<span class='warning'>You need ten glass sheets to do this!</span>")
 			return
-		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
+		to_chat(user, span_notice("You start adding [G] to [src]..."))
 		if(do_after(user, 20, target = src))
 			G.use(10)
 			var/obj/structure/displaycase/display = new(loc)
@@ -238,7 +238,7 @@
 		return
 	if(electronics)
 		if(I.use_tool(src, user, 0, volume = I.tool_volume))
-			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+			to_chat(user, span_notice("You remove the airlock electronics."))
 			new /obj/item/airlock_electronics(drop_location(), 1)
 			electronics = null
 
@@ -247,7 +247,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(electronics)
-		to_chat(user, "<span class='notice'>Remove the airlock electronics first.</span>")
+		to_chat(user, span_notice("Remove the airlock electronics first."))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))

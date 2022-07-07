@@ -46,7 +46,7 @@
 			return 1
 		else
 			if(!user.unEquip(O))
-				to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
+				to_chat(user, span_notice("\the [O] is stuck to your hand, you cannot put it in \the [src]"))
 				return 0
 			O.forceMove(src)
 			beaker = O
@@ -58,7 +58,7 @@
 		to_chat(user, "It doesn't look like that contains any juice.")
 		return 1
 	if(!user.unEquip(O))
-		to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
+		to_chat(user, span_notice("\the [O] is stuck to your hand, you cannot put it in \the [src]"))
 		return 0
 	O.forceMove(src)
 	updateUsrDialog()

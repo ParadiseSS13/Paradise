@@ -106,7 +106,7 @@
 					return
 				O.forceMove(src)
 				beaker = O
-				to_chat(user, "<span class='notice'>You add the container to the machine.</span>")
+				to_chat(user, span_notice("You add the container to the machine."))
 				update_icon()
 				updateUsrDialog()
 		else

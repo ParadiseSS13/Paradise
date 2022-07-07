@@ -20,12 +20,12 @@
 		for(var/obj/item/stack/ore/O in S.contents)
 			S.remove_from_storage(O, src) //This will move the item to this item's contents
 			CHECK_TICK
-		to_chat(user, "<span class='notice'>You empty the satchel into the box.</span>")
+		to_chat(user, span_notice("You empty the satchel into the box."))
 	else if(istype(W, /obj/item/crowbar))
 		playsound(src, W.usesound, 50, 1)
 		var/obj/item/crowbar/C = W
 		if(do_after(user, 50 * C.toolspeed, target = src))
-			user.visible_message("<span class='notice'>[user] pries [src] apart.</span>", "<span class='notice'>You pry apart [src].</span>", "<span class='italics'>You hear splitting wood.</span>")
+			user.visible_message(span_notice("[user] pries [src] apart."), span_notice("You pry apart [src]."), "<span class='italics'>You hear splitting wood.</span>")
 			deconstruct(TRUE, user)
 	else
 		return ..()
@@ -59,7 +59,7 @@
 	add_fingerprint(usr)
 	if(href_list["removeall"])
 		dump_box_contents()
-		to_chat(usr, "<span class='notice'>You empty the box.</span>")
+		to_chat(usr, span_notice("You empty the box."))
 	updateUsrDialog()
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
@@ -100,4 +100,4 @@
 		return
 
 	dump_box_contents()
-	to_chat(usr, "<span class='notice'>You empty the ore box.</span>")
+	to_chat(usr, span_notice("You empty the ore box."))

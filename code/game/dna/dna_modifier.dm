@@ -150,7 +150,7 @@
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!ishuman(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into [src].</span>")
+		to_chat(usr, span_notice("Try as you might, you can not climb up into [src]."))
 		return
 	if(occupant)
 		to_chat(usr, "<span class='boldnotice'>[src] is already occupied!</span>")
@@ -200,9 +200,9 @@
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
 		return
 	if(L == user)
-		visible_message("<span class='notice'>[user] climbs into [src].</span>")
+		visible_message(span_notice("[user] climbs into [src]."))
 	else
-		visible_message("<span class='notice'>[user] puts [L.name] into [src].</span>")
+		visible_message(span_notice("[user] puts [L.name] into [src]."))
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
@@ -253,7 +253,7 @@
 
 /obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		to_chat(user, span_notice("The maintenance panel is locked."))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE

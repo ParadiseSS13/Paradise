@@ -26,7 +26,7 @@
 
 /obj/machinery/ticket_machine/Destroy()
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-		ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+		ticket.visible_message(span_notice("\the [ticket] disperses!"))
 		qdel(ticket)
 	tickets.Cut()
 	return ..()
@@ -39,7 +39,7 @@
 	current_number = ticket_number
 	emagged = TRUE
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-		ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+		ticket.visible_message(span_notice("\the [ticket] disperses!"))
 		qdel(ticket)
 	tickets.Cut()
 	update_icon()
@@ -53,7 +53,7 @@
 		return
 	if(current_number && !(emagged) && tickets[current_number])
 		var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
-		ticket.audible_message("<span class='notice'>\the [tickets[current_number]] disperses!</span>")
+		ticket.audible_message(span_notice("\the [tickets[current_number]] disperses!"))
 		qdel(ticket)
 	if(current_number < ticket_number)
 		current_number ++ //Increment the one we're serving.
@@ -61,7 +61,7 @@
 		atom_say("Now serving ticket #[current_number]!")
 		if(!(emagged) && tickets[current_number])
 			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
-			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
+			ticket.audible_message(span_notice("\the [tickets[current_number]] vibrates!"))
 		update_icon() //Update our icon here rather than when they take a ticket to show the current ticket number being served
 
 /obj/machinery/door_control/ticket_machine_button
@@ -120,17 +120,17 @@
 /obj/machinery/ticket_machine/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
 		if(!(ticket_number >= max_number))
-			to_chat(user, "<span class='notice'>[src] refuses [I]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!</span>")
+			to_chat(user, span_notice("[src] refuses [I]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!"))
 			return
-		to_chat(user, "<span class='notice'>You start to refill [src]'s ticket holder (doing this will reset its ticket count!).</span>")
+		to_chat(user, span_notice("You start to refill [src]'s ticket holder (doing this will reset its ticket count!)."))
 		if(do_after(user, 30, target = src))
-			to_chat(user, "<span class='notice'>You insert [I] into [src] as it whirs nondescriptly.</span>")
+			to_chat(user, span_notice("You insert [I] into [src] as it whirs nondescriptly."))
 			user.drop_item()
 			qdel(I)
 			ticket_number = 0
 			current_number = 0
 			for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-				ticket.audible_message("<span class='notice'>\the [ticket] disperses!</span>")
+				ticket.audible_message(span_notice("\the [ticket] disperses!"))
 				qdel(ticket)
 			tickets.Cut()
 			max_number = initial(max_number)
@@ -140,7 +140,7 @@
 		var/obj/item/card/id/heldID = I
 		if(ACCESS_HOP in heldID.access)
 			dispense_enabled = !dispense_enabled
-			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
+			to_chat(user, span_notice("You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!"))
 			handle_maptext()
 			return
 		to_chat(user, "<span class='warning'>You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine.</span>")
@@ -166,7 +166,7 @@
 		return
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 100, FALSE)
 	ticket_number ++
-	to_chat(user, "<span class='notice'>You take a ticket from [src], looks like you're ticket number #[ticket_number]...</span>")
+	to_chat(user, span_notice("You take a ticket from [src], looks like you're ticket number #[ticket_number]..."))
 	var/obj/item/ticket_machine_ticket/theirticket = new /obj/item/ticket_machine_ticket(get_turf(src))
 	theirticket.name = "Ticket #[ticket_number]"
 	theirticket.maptext = "<font color='#000000' face='Small Fonts'>[ticket_number]</font>"

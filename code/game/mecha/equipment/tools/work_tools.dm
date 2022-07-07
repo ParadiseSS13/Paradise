@@ -45,7 +45,7 @@
 		if(length(cargo_holder.cargo) >= cargo_holder.cargo_capacity)
 			occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
 			return
-		chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into cargo compartment.</span>")
+		chassis.visible_message(span_notice("[chassis] lifts [target] and starts to load it into cargo compartment."))
 		var/anchor_state_before_load = O.anchored
 		O.anchored = TRUE
 		if(!do_after_cooldown(target))
@@ -54,7 +54,7 @@
 		cargo_holder.cargo += O
 		O.forceMove(chassis)
 		O.anchored = FALSE
-		occupant_message("<span class='notice'>[target] was successfully loaded.</span>")
+		occupant_message(span_notice("[target] was successfully loaded."))
 		log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - length(cargo_holder.cargo)]")
 		return
 
@@ -74,8 +74,8 @@
 			start_cooldown()
 			return
 		step_away(M, chassis)
-		occupant_message("<span class='notice'>You push [target] out of the way.</span>")
-		chassis.visible_message("<span class='notice'>[chassis] pushes [target] out of the way.</span>")
+		occupant_message(span_notice("You push [target] out of the way."))
+		chassis.visible_message(span_notice("[chassis] pushes [target] out of the way."))
 
 
 //This is pretty much just for the death-ripley
@@ -97,7 +97,7 @@
 					cargo_holder.cargo += O
 					O.loc = chassis
 					O.anchored = 0
-					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+					occupant_message(span_notice("[target] successfully loaded."))
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 				else
 					O.anchored = initial(O.anchored)
@@ -143,7 +143,7 @@
 	if(istype(target, /obj/structure/reagent_dispensers/watertank) && get_dist(chassis,target) <= 1)
 		var/obj/structure/reagent_dispensers/watertank/WT = target
 		WT.reagents.trans_to(src, 1000)
-		occupant_message("<span class='notice'>Extinguisher refilled.</span>")
+		occupant_message(span_notice("Extinguisher refilled."))
 		playsound(chassis, 'sound/effects/refill.ogg', 50, 1, -6)
 	else
 		if(reagents.total_volume > 0)
@@ -366,7 +366,7 @@
 				cable.amount = 0
 			cable.amount += to_load
 			target.use(to_load)
-			occupant_message("<span class='notice'>[to_load] meters of cable successfully loaded.</span>")
+			occupant_message(span_notice("[to_load] meters of cable successfully loaded."))
 			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",src.get_equip_info())
 		else
 			occupant_message("<span class='warning'>Reel is full.</span>")

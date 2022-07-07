@@ -193,7 +193,7 @@ th.cost.toomuch {background:maroon;}
 		if(!GLOB.global_prizes.PlaceOrder(src, itemID))
 			to_chat(usr, "<span class='warning'>Unable to complete the exchange.</span>")
 		else
-			to_chat(usr, "<span class='notice'>You've successfully purchased the item.</span>")
+			to_chat(usr, span_notice("You've successfully purchased the item."))
 
 	interact(usr)
 	return

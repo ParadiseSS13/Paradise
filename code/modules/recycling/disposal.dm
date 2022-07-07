@@ -1033,7 +1033,7 @@
 			name = GLOB.TAGGERLOCATIONS[O.currTag]
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
-			to_chat(user, "<span class='notice'>Changed filter to [tag]</span>")
+			to_chat(user, span_notice("Changed filter to [tag]"))
 			updatedesc()
 
 
@@ -1249,7 +1249,7 @@
 
 /obj/structure/disposalpipe/broken/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, 0, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You remove [src]!</span>")
+		to_chat(user, span_notice("You remove [src]!"))
 		I.play_tool_sound(src, I.tool_volume)
 		qdel(src)
 		return TRUE

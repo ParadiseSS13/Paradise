@@ -69,7 +69,7 @@ FIRE ALARM
 		emagged = TRUE
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
-								"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
+								span_notice("You emag [src], disabling its thermal sensors."))
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
@@ -101,11 +101,11 @@ FIRE ALARM
 					return
 				buildstage = FIRE_ALARM_READY
 				playsound(get_turf(src), I.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You wire [src]!</span>")
+				to_chat(user, span_notice("You wire [src]!"))
 				update_icon()
 		if(buildstage == FIRE_ALARM_FRAME)
 			if(istype(I, /obj/item/firealarm_electronics))
-				to_chat(user, "<span class='notice'>You insert the circuit!</span>")
+				to_chat(user, span_notice("You insert the circuit!"))
 				qdel(I)
 				buildstage = FIRE_ALARM_UNWIRED
 				update_icon()

@@ -54,14 +54,14 @@
 	. = ..()
 	if(iscultist(user) && cooldowntime > world.time)
 		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
-	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
+	. += span_notice("[src] is [anchored ? "":"not "]secured to the floor.")
 
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		if(user.holy_check())
 			return
 		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
+		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
 		if(!anchored)
 			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]_off")
 		else

@@ -141,8 +141,8 @@
 
 /obj/structure/grille/proc/repair(mob/user, obj/item/stack/rods/R)
 	if(R.get_amount() >= 1)
-		user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>",
-			"<span class='notice'>You rebuild the broken grille.</span>")
+		user.visible_message(span_notice("[user] rebuilds the broken grille."),
+			span_notice("You rebuild the broken grille."))
 		new grille_type(loc)
 		R.use(1)
 		qdel(src)
@@ -167,8 +167,8 @@
 	var/support = locate(/obj/structure/lattice) in get_turf(src)
 	if(!support)
 		support = get_turf(src)
-	user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
-							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] \the [support].</span>")
+	user.visible_message(span_notice("[user] [anchored ? "fastens" : "unfastens"] [src]."), \
+							span_notice("You [anchored ? "fasten [src] to" : "unfasten [src] from"] \the [support]."))
 
 /obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)
 	var/dir_to_set = SOUTHWEST
@@ -186,7 +186,7 @@
 	for(var/obj/structure/window/WINDOW in loc)
 		to_chat(user, "<span class='warning'>There is already a window there!</span>")
 		return
-	to_chat(user, "<span class='notice'>You start placing the window...</span>")
+	to_chat(user, span_notice("You start placing the window..."))
 	if(do_after(user, 20, target = src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
@@ -201,7 +201,7 @@
 		W.update_nearby_icons()
 		W.state = WINDOW_OUT_OF_FRAME
 		S.use(2)
-		to_chat(user, "<span class='notice'>You place [W] on [src].</span>")
+		to_chat(user, span_notice("You place [W] on [src]."))
 
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				if(I.type == path && UI.refundable && I.check_uplink_validity())
 					uses += cost
 					used_TC -= cost
-					to_chat(user, "<span class='notice'>[I] refunded.</span>")
+					to_chat(user, span_notice("[I] refunded."))
 					qdel(I)
 					return
 		// If we are here, we didnt refund

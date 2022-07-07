@@ -124,7 +124,7 @@
 		return
 
 	lid_state = !lid_state
-	to_chat(user, "<span class='notice'>You [lid_state ? "close" : "open"] the tray's lid.</span>")
+	to_chat(user, span_notice("You [lid_state ? "close" : "open"] the tray's lid."))
 	update_icon()
 
 
@@ -507,13 +507,13 @@
 			if(41 to 65)
 				mutate()
 			if(21 to 41)
-				to_chat(user, "<span class='notice'>The plants don't seem to react...</span>")
+				to_chat(user, span_notice("The plants don't seem to react..."))
 			if(11 to 20)
 				mutateweed()
 			if(1 to 10)
 				mutatepest(user)
 			else
-				to_chat(user, "<span class='notice'>Nothing happens...</span>")
+				to_chat(user, span_notice("Nothing happens..."))
 
 	// 2 or 1 units is enough to change the yield and other stats.// Can change the yield and other stats, but requires more than mutagen
 	else if(S.has_reagent("mutagen", 2) || S.has_reagent("radium", 5) || S.has_reagent("uranium", 5))
@@ -557,7 +557,7 @@
 		if(self_sufficiency_progress >= self_sufficiency_req)
 			become_self_sufficient()
 		else if(!self_sustaining)
-			to_chat(user, "<span class='notice'>[src] warms as it might on a spring day under a genuine Sun.</span>")
+			to_chat(user, span_notice("[src] warms as it might on a spring day under a genuine Sun."))
 
 	// Antitoxin binds shit pretty well. So the tox goes significantly down
 	if(S.has_reagent("charcoal", 1))
@@ -744,7 +744,7 @@
 				return
 
 		if(!reagent_source.reagents.total_volume)
-			to_chat(user, "<span class='notice'>[reagent_source] is empty.</span>")
+			to_chat(user, span_notice("[reagent_source] is empty."))
 			return 1
 
 		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
@@ -784,7 +784,7 @@
 				visi_msg += ", setting off the irrigation system"
 
 		if(visi_msg)
-			visible_message("<span class='notice'>[visi_msg].</span>")
+			visible_message(span_notice("[visi_msg]."))
 
 		var/split = round(transfer_amount/trays.len)
 
@@ -812,7 +812,7 @@
 			if(istype(O, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
 			user.unEquip(O)
-			to_chat(user, "<span class='notice'>You plant [O].</span>")
+			to_chat(user, span_notice("You plant [O]."))
 			dead = 0
 			myseed = O
 			age = 1
@@ -843,7 +843,7 @@
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
-			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
+			user.visible_message("[user] uproots the weeds.", span_notice("You remove the weeds from [src]."))
 			adjustWeeds(-10)
 			update_icon()
 		else
@@ -861,11 +861,11 @@
 		if(!myseed && !weedlevel)
 			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
 			return
-		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
+		user.visible_message(span_notice("[user] starts digging out [src]'s plants..."), span_notice("You start digging out [src]'s plants..."))
 		playsound(src, O.usesound, 50, 1)
 		if(!do_after(user, 25 * O.toolspeed, target = src) || (!myseed && !weedlevel))
 			return
-		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
+		user.visible_message(span_notice("[user] digs out the plants in [src]!"), span_notice("You dig out all of [src]'s plants!"))
 		playsound(src, O.usesound, 50, 1)
 		if(myseed) //Could be that they're just using it as a de-weeder
 			age = 0
@@ -889,8 +889,8 @@
 		return
 	else if(wrenchable)
 		using_irrigation = !using_irrigation
-		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
-		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
+		user.visible_message(span_notice("[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses."), \
+		span_notice("You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses."))
 		for(var/obj/machinery/hydroponics/h in range(1,src))
 			h.update_icon()
 
@@ -904,22 +904,22 @@
 			return
 
 		if(!anchored && !isinspace())
-			user.visible_message("[user] begins to wrench [src] into place.", "<span class='notice'>You begin to wrench [src] in place...</span>")
+			user.visible_message("[user] begins to wrench [src] into place.", span_notice("You begin to wrench [src] in place..."))
 			if(I.use_tool(src, user, 20, volume = I.tool_volume))
 				if(anchored)
 					return
 				anchored = TRUE
 				user.visible_message("[user] wrenches [src] into place.", \
-									"<span class='notice'>You wrench [src] in place.</span>")
+									span_notice("You wrench [src] in place."))
 		else if(anchored)
 			user.visible_message("[user] begins to unwrench [src].", \
-								"<span class='notice'>You begin to unwrench [src]...</span>")
+								span_notice("You begin to unwrench [src]..."))
 			if(I.use_tool(src, user, 20, volume = I.tool_volume))
 				if(!anchored)
 					return
 				anchored = FALSE
 				user.visible_message("[user] unwrenches [src].", \
-									"<span class='notice'>You unwrench [src].</span>")
+									span_notice("You unwrench [src]."))
 
 /obj/machinery/hydroponics/attack_hand(mob/user)
 	if(issilicon(user)) //How does AI know what plant is?
@@ -931,7 +931,7 @@
 		myseed.harvest(user)
 	else if(dead)
 		dead = 0
-		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
+		to_chat(user, span_notice("You remove the dead plant from [src]."))
 		QDEL_NULL(myseed)
 		update_icon()
 		plant_hud_set_status()
@@ -943,11 +943,11 @@
 	harvest = 0
 	lastproduce = age
 	if(istype(myseed,/obj/item/seeds/replicapod))
-		to_chat(user, "<span class='notice'>You harvest from the [myseed.plantname].</span>")
+		to_chat(user, span_notice("You harvest from the [myseed.plantname]."))
 	else if(myseed.getYield() <= 0)
 		to_chat(user, "<span class='warning'>You fail to harvest anything useful!</span>")
 	else
-		to_chat(user, "<span class='notice'>You harvest [myseed.getYield()] items from the [myseed.plantname].</span>")
+		to_chat(user, span_notice("You harvest [myseed.getYield()] items from the [myseed.plantname]."))
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		QDEL_NULL(myseed)
 		dead = 0
@@ -1036,7 +1036,7 @@
 
 /obj/machinery/hydroponics/soil/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/shovel) && !istype(O, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
-		to_chat(user, "<span class='notice'>You clear up [src]!</span>")
+		to_chat(user, span_notice("You clear up [src]!"))
 		qdel(src)
 	else
 		return ..()

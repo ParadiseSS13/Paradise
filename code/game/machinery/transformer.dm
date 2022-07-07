@@ -320,7 +320,7 @@
 			to_chat(user, "<span class='warning'>Error: No data found.</span>")
 			return FALSE
 		template = D.buf.dna.Clone()
-		to_chat(user, "<span class='notice'>Upload of gene template for '[template.real_name]' complete!</span>")
+		to_chat(user, span_notice("Upload of gene template for '[template.real_name]' complete!"))
 		return TRUE
 	else
 		return ..()

@@ -42,7 +42,7 @@
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The safety is [safety ? "on" : "off"].</span>"
+	. += span_notice("The safety is [safety ? "on" : "off"].")
 
 
 /obj/item/extinguisher/New()
@@ -69,18 +69,18 @@
 		var/safety_save = safety
 		safety = 1
 		if(reagents.total_volume == reagents.maximum_volume)
-			to_chat(user, "<span class='notice'>\The [src] is already full!</span>")
+			to_chat(user, span_notice("\The [src] is already full!"))
 			safety = safety_save
 			return 1
 		var/obj/structure/reagent_dispensers/watertank/W = target
 		var/transferred = W.reagents.trans_to(src, max_water)
 		if(transferred > 0)
-			to_chat(user, "<span class='notice'>\The [src] has been refilled by [transferred] units</span>")
+			to_chat(user, span_notice("\The [src] has been refilled by [transferred] units"))
 			playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 			for(var/datum/reagent/water/R in reagents.reagent_list)
 				R.cooling_temperature = cooling_power
 		else
-			to_chat(user, "<span class='notice'>\The [W] is empty!</span>")
+			to_chat(user, span_notice("\The [W] is empty!"))
 		safety = safety_save
 		return 1
 	else

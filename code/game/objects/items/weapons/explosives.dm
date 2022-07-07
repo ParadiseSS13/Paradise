@@ -31,7 +31,7 @@
 		A.master = src
 		A.loc = src
 		assemblyattacher = user.ckey
-		to_chat(user, "<span class='notice'>You add [A] to [src].</span>")
+		to_chat(user, span_notice("You add [A] to [src]."))
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
 		update_icon()
 		return
@@ -72,7 +72,7 @@
 	if(iscarbon(AM))
 		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]!</span>")
 		return
-	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
+	to_chat(user, span_notice("You start planting [src]. The timer is set to [det_time]..."))
 
 	if(do_after(user, 50 * toolspeed, target = AM))
 		if(!user.unEquip(src))
@@ -85,7 +85,7 @@
 
 		target.overlays += image_overlay
 		if(!nadeassembly)
-			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
+			to_chat(user, span_notice("You plant the bomb. Timer counting down from [det_time]."))
 			addtimer(CALLBACK(src, .proc/prime), det_time*10)
 
 /obj/item/grenade/plastic/suicide_act(mob/user)

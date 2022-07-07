@@ -88,7 +88,7 @@ To draw a rune, use a ritual dagger.
 		var/obj/item/melee/cultblade/dagger/D = I
 		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
 		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, target = src))
-			to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
+			to_chat(user, span_notice("You carefully erase the [lowertext(cultist_name)] rune."))
 			qdel(src)
 		return
 	if(istype(I, /obj/item/nullrod))

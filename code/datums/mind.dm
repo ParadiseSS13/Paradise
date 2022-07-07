@@ -819,7 +819,7 @@
 					SSticker.mode.update_rev_icons_removed(src)
 					to_chat(current, "<span class='userdanger'>You have proven your devotion to revolution! You are a head revolutionary now!</span>")
 				else if(!(src in SSticker.mode.head_revolutionaries))
-					to_chat(current, "<span class='notice'>You are a member of the revolutionaries' leadership now!</span>")
+					to_chat(current, span_notice("You are a member of the revolutionaries' leadership now!"))
 				else
 					return
 				if(SSticker.mode.head_revolutionaries.len>0)
@@ -946,7 +946,7 @@
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
 				SSticker.mode.forge_wizard_objectives(src)
-				to_chat(usr, "<span class='notice'>The objectives for wizard [key] have been generated. You can edit them and announce manually.</span>")
+				to_chat(usr, span_notice("The objectives for wizard [key] have been generated. You can edit them and announce manually."))
 				log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
 
@@ -968,7 +968,7 @@
 			if("autoobjectives")
 				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
 				cling.give_objectives()
-				to_chat(usr, "<span class='notice'>The objectives for changeling [key] have been generated. You can edit them and announce manually.</span>")
+				to_chat(usr, span_notice("The objectives for changeling [key] have been generated. You can edit them and announce manually."))
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
@@ -1067,7 +1067,7 @@
 			if("autoobjectives")
 				var/datum/antagonist/vampire/V = has_antag_datum(/datum/antagonist/vampire)
 				V.give_objectives()
-				to_chat(usr, "<span class='notice'>The objectives for vampire [key] have been generated. You can edit them and announce manually.</span>")
+				to_chat(usr, span_notice("The objectives for vampire [key] have been generated. You can edit them and announce manually."))
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
@@ -1103,7 +1103,7 @@
 					else
 						current.real_name = "[syndicate_name()] Operative #[SSticker.mode.syndicates.len-1]"
 					special_role = SPECIAL_ROLE_NUKEOPS
-					to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
+					to_chat(current, span_notice("You are a [syndicate_name()] agent!"))
 					SSticker.mode.forge_syndicate_objectives(src)
 					SSticker.mode.greet_syndicate(src)
 					log_admin("[key_name(usr)] has nuke op'd [key_name(current)]")
@@ -1182,7 +1182,7 @@
 			if("autoobjectives")
 				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
 				T.give_objectives()
-				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
+				to_chat(usr, span_notice("The objectives for traitor [key] have been generated. You can edit them and announce manually."))
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
@@ -1544,7 +1544,7 @@
 
 /datum/mind/proc/announce_objectives()
 	if(current)
-		to_chat(current, "<span class='notice'>Your current objectives:</span>")
+		to_chat(current, span_notice("Your current objectives:"))
 		for(var/line in splittext(gen_objective_text(), "<br>"))
 			to_chat(current, line)
 
@@ -1574,7 +1574,7 @@
 			current.real_name = "[syndicate_name()] Operative #[SSticker.mode.syndicates.len-1]"
 		special_role = SPECIAL_ROLE_NUKEOPS
 		assigned_role = SPECIAL_ROLE_NUKEOPS
-		to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
+		to_chat(current, span_notice("You are a [syndicate_name()] agent!"))
 		SSticker.mode.forge_syndicate_objectives(src)
 		SSticker.mode.greet_syndicate(src)
 

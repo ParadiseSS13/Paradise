@@ -149,7 +149,7 @@
 		var/adminckey = query_find_note_edit.item[3]
 		var/automated = query_find_note_edit.item[4]
 		if(automated)
-			to_chat(usr, "<span class='notice'>That note is generated automatically. You can't edit it.</span>")
+			to_chat(usr, span_notice("That note is generated automatically. You can't edit it."))
 			return
 		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
 		if(!new_note)
@@ -242,7 +242,7 @@
 		if(!query_list_notes.warn_execute())
 			qdel(query_list_notes)
 			return
-		to_chat(usr, "<span class='notice'>Started regex note search for [search]. Please wait for results...</span>")
+		to_chat(usr, span_notice("Started regex note search for [search]. Please wait for results..."))
 		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]

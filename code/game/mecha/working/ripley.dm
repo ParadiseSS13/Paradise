@@ -139,7 +139,7 @@
 	if(href_list["drop_from_cargo"])
 		var/obj/O = locate(href_list["drop_from_cargo"])
 		if(O && (O in cargo))
-			occupant_message("<span class='notice'>You unload [O].</span>")
+			occupant_message(span_notice("You unload [O]."))
 			O.loc = get_turf(src)
 			cargo -= O
 			var/turf/T = get_turf(O)
@@ -199,7 +199,7 @@
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You slide the card through [src]'s ID slot.</span>")
+		to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
 		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
 	else

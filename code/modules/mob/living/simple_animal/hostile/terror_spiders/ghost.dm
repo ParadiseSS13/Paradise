@@ -39,7 +39,7 @@
 		to_chat(user, "Cannot inhabit spider: [error_on_humanize]")
 		return
 	if(key)
-		to_chat(user, "<span class='notice'>Someone else already took this spider.</span>")
+		to_chat(user, span_notice("Someone else already took this spider."))
 		return
 	key = user.key
 	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span>")

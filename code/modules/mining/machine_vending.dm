@@ -97,7 +97,7 @@
 	..()
 	update_icon()
 	if(inserted_id && !powered())
-		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
+		visible_message(span_notice("The ID slot indicator light flickers on \the [src] as it spits out a card before powering down."))
 		inserted_id.forceMove(loc)
 
 /obj/machinery/mineral/equipment_vendor/update_icon()

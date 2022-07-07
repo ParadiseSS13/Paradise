@@ -305,8 +305,8 @@
 	clothes_req = FALSE
 	stat_allowed = FALSE
 
-	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
-	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
+	selection_activated_message		= span_notice("Your mind grow cold. Click on a target to cast the spell.")
+	selection_deactivated_message	= span_notice("Your mind returns to normal.")
 	invocation_type = "none"
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
@@ -336,7 +336,7 @@
 				handle_suit = TRUE
 				if(H.internal)
 					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [H]!</span>",
-										"<span class='notice'>[user] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
+										span_notice("[user] sprays a cloud of fine ice crystals over your [H.head]'s visor."))
 				else
 					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
 										"<span class='warning'>[user] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
@@ -414,7 +414,7 @@
 
 /obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)
 	if(!targets.len)
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, span_notice("No target found in range."))
 		return
 
 	var/atom/movable/the_item = targets[1]
@@ -510,7 +510,7 @@
 			user.Weaken(10 SECONDS)
 			user.visible_message("<span class='warning'>[user] attempts to leap away but is slammed back down to the ground!</span>",
 								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
-								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
+								span_notice("You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor."))
 			return FALSE
 		var/prevLayer = user.layer
 		var/prevFlying = user.flying
@@ -575,8 +575,8 @@
 	clothes_req = FALSE
 	stat_allowed = FALSE
 
-	selection_activated_message		= "<span class='notice'>You body becomes unstable. Click on a target to cast transform into them.</span>"
-	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
+	selection_activated_message		= span_notice("You body becomes unstable. Click on a target to cast transform into them.")
+	selection_deactivated_message	= span_notice("Your body calms down again.")
 
 	invocation_type = "none"
 
@@ -890,7 +890,7 @@
 
 	M.update_dna()
 
-	M.visible_message("<span class='notice'>[M] morphs and changes [M.p_their()] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
+	M.visible_message(span_notice("[M] morphs and changes [M.p_their()] appearance!"), span_notice("You change your appearance!"), "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
 
 /datum/mutation/grant_spell/remotetalk
 	name = "Telepathy"

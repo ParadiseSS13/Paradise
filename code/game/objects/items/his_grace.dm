@@ -87,7 +87,7 @@
 /obj/item/his_grace/relaymove(mob/living/user, direction) //Allows changelings, etc. to climb out of Him after they revive, provided He isn't active
 	if(!awakened)
 		user.forceMove(get_turf(src))
-		user.visible_message("<span class='warning'>[user] scrambles out of [src]!</span>", "<span class='notice'>You climb out of [src]!</span>")
+		user.visible_message("<span class='warning'>[user] scrambles out of [src]!</span>", span_notice("You climb out of [src]!"))
 
 /obj/item/his_grace/process()
 	if(!bloodthirst)

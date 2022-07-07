@@ -67,5 +67,5 @@
 		affected_mob.updateappearance(mutcolor_update=1)
 		affected_mob.domutcheck()
 
-		to_chat(affected_mob, "<span class='notice'>You feel more like yourself.</span>")
+		to_chat(affected_mob, span_notice("You feel more like yourself."))
 	return ..()

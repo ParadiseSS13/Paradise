@@ -160,7 +160,7 @@
 			to_chat(user, "<span class='warning'>Unroll it first!</span>")
 			return
 		if(scribble_page == curr_page)
-			to_chat(user, "<span class='notice'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</span>")
+			to_chat(user, span_notice("There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?"))
 		else
 			var/s = strip_html(input(user, "Write something", "Newspaper", ""))
 			s = sanitize(copytext(s, 1, MAX_MESSAGE_LEN))
@@ -168,8 +168,8 @@
 				return
 			scribble_page = curr_page
 			scribble = s
-			user.visible_message("<span class='notice'>[user] scribbles something on [src].</span>",\
-								 "<span class='notice'>You scribble on page number [curr_page] of [src].</span>")
+			user.visible_message(span_notice("[user] scribbles something on [src]."),\
+								 span_notice("You scribble on page number [curr_page] of [src]."))
 			attack_self(user)
 		return
 	return ..()
@@ -180,8 +180,8 @@
 		icon_state = "newspaper[rolled ? "_rolled" : ""]"
 		update_icon()
 		var/verbtext = "[rolled ? "" : "un"]roll"
-		user.visible_message("<span class='notice'>[user] [verbtext]s [src].</span>",\
-								"<span class='notice'>You [verbtext] [src].</span>")
+		user.visible_message(span_notice("[user] [verbtext]s [src]."),\
+								span_notice("You [verbtext] [src]."))
 		name = "[rolled ? "rolled" : ""] [initial(name)]"
 	return ..()
 

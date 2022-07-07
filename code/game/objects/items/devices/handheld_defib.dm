@@ -33,7 +33,7 @@
 		return
 
 	if(emagged || (H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
-		user.visible_message("<span class='notice'>[user] shocks [H] with [src].</span>", "<span class='notice'>You shock [H] with [src].</span>")
+		user.visible_message(span_notice("[user] shocks [H] with [src]."), span_notice("You shock [H] with [src]."))
 		add_attack_logs(user, H, "defibrillated with [src]")
 		playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
 
@@ -46,7 +46,7 @@
 				if(total_damage >= 90)
 					to_chat(user, "<span class='danger'>[H] looks horribly injured. Resuscitation alone may not help revive them.</span>")
 				if(prob(66))
-					to_chat(user, "<span class='notice'>[H] inhales deeply!</span>")
+					to_chat(user, span_notice("[H] inhales deeply!"))
 					H.adjustOxyLoss(-50)
 				else
 					to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
@@ -67,7 +67,7 @@
 		addtimer(CALLBACK(src, .proc/recharge), charge_time)
 
 	else
-		to_chat(user, "<span class='notice'>[src]'s on board medical scanner indicates that no shock is required.</span>")
+		to_chat(user, span_notice("[src]'s on board medical scanner indicates that no shock is required."))
 
 /obj/item/handheld_defibrillator/proc/short_charge()
 	icon_state = "[icon_base]-off"

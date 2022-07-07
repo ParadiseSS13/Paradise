@@ -184,7 +184,7 @@
 	M.move_to_delay -= round(seed.production / 50)
 	M.health = M.maxHealth
 	qdel(src)
-	to_chat(user, "<span class='notice'>You plant the walking mushroom.</span>")
+	to_chat(user, span_notice("You plant the walking mushroom."))
 
 
 // Chanterelle
@@ -266,7 +266,7 @@
 		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
 		return FALSE
 	new effect_path(user.loc, seed)
-	to_chat(user, "<span class='notice'>You plant [src].</span>")
+	to_chat(user, span_notice("You plant [src]."))
 	qdel(src)
 	return TRUE
 

@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 /datum/admins/proc/delete_outfit(mob/admin,datum/outfit/O)
 	GLOB.custom_outfits -= O
 	qdel(O)
-	to_chat(admin,"<span class='notice'>Outfit deleted.</span>")
+	to_chat(admin,span_notice("Outfit deleted."))
 	outfit_manager(admin)
 
 /datum/admins/proc/load_outfit(mob/admin)

@@ -68,7 +68,7 @@
 /obj/item/detective_scanner/proc/print_scanner_report()
 	if(length(log) && !scanning)
 		scanning = TRUE
-		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
+		to_chat(usr, span_notice("Printing report, please wait..."))
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 
 		addtimer(CALLBACK(src, .proc/make_paper, log), 10 SECONDS) // Create our paper
@@ -88,14 +88,14 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.put_in_hands(P)
-		to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
+		to_chat(M, span_notice("Report printed. Log cleared."))
 
 
 /obj/item/detective_scanner/proc/clear_scanner()
 	if(length(log) && !scanning)
 		log = list()
 		playsound(loc, 'sound/machines/ding.ogg', 40)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, usr, "<span class='notice'>Scanner logs cleared.</span>"), 1.5 SECONDS) //Timer so that it clears on the 'ding'
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, usr, span_notice("Scanner logs cleared.")), 1.5 SECONDS) //Timer so that it clears on the 'ding'
 	else
 		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
 
@@ -118,7 +118,7 @@
 		scanning = TRUE
 
 		user.visible_message("[user] points [src] at [A] and performs a forensic scan.",
-		"<span class='notice'>You scan [A]. The scanner is now analysing the results...</span>")
+		span_notice("You scan [A]. The scanner is now analysing the results..."))
 
 
 		// GATHER INFORMATION
@@ -209,10 +209,10 @@
 		if(!found_something)
 			add_log("<I># No forensic traces found #</I>", FALSE) // Don't display this to the holder user
 			if(holder)
-				to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on [A]!</span>")
+				to_chat(holder, span_notice("Unable to locate any fingerprints, materials, fibers, or blood on [A]!"))
 		else
 			if(holder)
-				to_chat(holder, "<span class='notice'>You finish scanning [A].</span>")
+				to_chat(holder, span_notice("You finish scanning [A]."))
 
 		add_log("---------------------------------------------------------", FALSE)
 		scanning = FALSE

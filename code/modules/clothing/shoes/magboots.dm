@@ -107,10 +107,10 @@
 		to_chat(user, "You must hold [src] in your hand to do this.")
 		return
 	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		to_chat(user, span_notice("You switch off the waddle dampeners!"))
 		enabled_waddle = TRUE
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		to_chat(user, span_notice("You switch on the waddle dampeners!"))
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
@@ -131,7 +131,7 @@
 				set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
 			..()
 		else
-			to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+			to_chat(user, span_notice("You poke the gem on [src]. Nothing happens."))
 
 
 /obj/item/clothing/shoes/magboots/gravity
@@ -164,8 +164,8 @@
 /obj/item/clothing/shoes/magboots/gravity/examine(mob/user)
 	. = ..()
 	if(core && cell)
-		. += "<span class='notice'>[src] are fully operational!</span>"
-		. += "<span class='notice'>The boots are [round(cell.percent())]% charged.</span>"
+		. += span_notice("[src] are fully operational!")
+		. += span_notice("The boots are [round(cell.percent())]% charged.")
 	else if(core)
 		. += "<span class='warning'>It has a gravitational anomaly core installed, but no power cell installed.</span>"
 	else if(cell)
@@ -210,7 +210,7 @@
 		return
 
 	user.put_in_hands(cell)
-	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
+	to_chat(user, span_notice("You remove [cell] from [src]."))
 	cell.update_icon()
 	cell = null
 	update_icon()
@@ -224,18 +224,18 @@
 			return
 		I.forceMove(src)
 		cell = I
-		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
+		to_chat(user, span_notice("You install [I] into [src]."))
 		update_icon()
 		return
 
 	if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
 		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
+			to_chat(user, span_notice("[src] already has a [I]!"))
 			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
+		to_chat(user, span_notice("You insert [I] into [src], and [src] starts to warm up."))
 		I.forceMove(src)
 		core = I
 	else
@@ -256,7 +256,7 @@
 	if(H.get_item_by_slot(slot_shoes) == src)
 		style.remove(H)
 		if(magpulse)
-			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
+			to_chat(user, span_notice("As [src] are removed, they deactivate."))
 			attack_self(user)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)

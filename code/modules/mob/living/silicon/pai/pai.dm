@@ -246,7 +246,7 @@
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
 	force_fold_out()
 
-	visible_message("<span class='notice'>[src] folds outwards, expanding into a mobile form.</span>", "<span class='notice'>You fold outwards, expanding into a mobile form.</span>")
+	visible_message(span_notice("[src] folds outwards, expanding into a mobile form."), span_notice("You fold outwards, expanding into a mobile form."))
 
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(istype(card.loc, /mob))
@@ -338,7 +338,7 @@
 	else
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
 
-	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
+	to_chat(src, span_notice("You are now [resting ? "resting" : "getting up"]"))
 
 	update_icons()
 
@@ -351,10 +351,10 @@
 		else if(getBruteLoss() || getFireLoss())
 			heal_overall_damage(15, 15)
 			N.use(1)
-			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
-				"<span class='notice'>You apply some [W] at [name]'s damaged areas.</span>")
+			user.visible_message(span_notice("[user.name] applied some [W] at [src]'s damaged areas."),\
+				span_notice("You apply some [W] at [name]'s damaged areas."))
 		else
-			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
+			to_chat(user, span_notice("All [name]'s systems are nominal."))
 
 		return
 	else if(W.force)
@@ -374,7 +374,7 @@
 	if(stat == DEAD)
 		return
 	if(user.a_intent == INTENT_HELP)
-		user.visible_message("<span class='notice'>[user] pets [src].</span>")
+		user.visible_message(span_notice("[user] pets [src]."))
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	else
 		visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
@@ -389,7 +389,7 @@
 	if(loc == card)
 		return
 
-	visible_message("<span class='notice'>[src] neatly folds inwards, compacting down to a rectangular card.</span>", "<span class='notice'>You neatly fold inwards, compacting down to a rectangular card.</span>")
+	visible_message(span_notice("[src] neatly folds inwards, compacting down to a rectangular card."), span_notice("You neatly fold inwards, compacting down to a rectangular card."))
 
 	stop_pulling()
 	reset_perspective(card)

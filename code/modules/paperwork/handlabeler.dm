@@ -27,8 +27,8 @@
 		to_chat(user, "<span class='warning'>You can't label creatures!</span>") // use a collar
 		return
 
-	user.visible_message("<span class='notice'>[user] labels [A] as [label].</span>", \
-						 "<span class='notice'>You label [A] as [label].</span>")
+	user.visible_message(span_notice("[user] labels [A] as [label]."), \
+						 span_notice("You label [A] as [label]."))
 	investigate_log("[key_name(user)] labelled [A] as [label].", INVESTIGATE_LABEL) // Investigate goes BEFORE rename so the original name is preserved in the log
 	A.AddComponent(/datum/component/label, label)
 	playsound(A, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
@@ -38,20 +38,20 @@
 	mode = !mode
 	icon_state = "labeler[mode]"
 	if(mode)
-		to_chat(user, "<span class='notice'>You turn on \the [src].</span>")
+		to_chat(user, span_notice("You turn on \the [src]."))
 		//Now let them chose the text.
 		var/str = copytext(reject_bad_text(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
 		if(!str || !length(str))
-			to_chat(user, "<span class='notice'>Invalid text.</span>")
+			to_chat(user, span_notice("Invalid text."))
 			return
 		label = str
-		to_chat(user, "<span class='notice'>You set the text to '[str]'.</span>")
+		to_chat(user, span_notice("You set the text to '[str]'."))
 	else
-		to_chat(user, "<span class='notice'>You turn off \the [src].</span>")
+		to_chat(user, span_notice("You turn off \the [src]."))
 
 /obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+		to_chat(user, span_notice("You insert [I] into [src]."))
 		user.drop_item()
 		qdel(I)
 		labels_left = initial(labels_left)	//Yes, it's capped at its initial value

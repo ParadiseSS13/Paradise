@@ -56,7 +56,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(M) && M.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(M)
-		light("<span class='notice'>[user] coldly lights [src] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>")
+		light(span_notice("[user] coldly lights [src] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards..."))
 		return TRUE
 	else
 		return ..()
@@ -79,7 +79,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light("<span class='notice'>[user] casually lights [src] with [I], what a badass.</span>")
+		light(span_notice("[user] casually lights [src] with [I], what a badass."))
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/user, params)
 	..()
@@ -91,12 +91,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else if(istype(I, /obj/item/lighter))
 		var/obj/item/lighter/L = I
 		if(L.lit)
-			light("<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [name] with [L].</span>")
+			light(span_notice("After some fiddling, [user] manages to light [user.p_their()] [name] with [L]."))
 
 	else if(istype(I, /obj/item/match))
 		var/obj/item/match/M = I
 		if(M.lit)
-			light("<span class='notice'>[user] lights [user.p_their()] [name] with [user.p_their()] [M].</span>")
+			light(span_notice("[user] lights [user.p_their()] [name] with [user.p_their()] [M]."))
 
 	else if(istype(I, /obj/item/melee/energy/sword/saber))
 		var/obj/item/melee/energy/sword/saber/S = I
@@ -104,13 +104,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 			light("<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] with [S] in the process.</span>")
 
 	else if(istype(I, /obj/item/assembly/igniter))
-		light("<span class='notice'>[user] fiddles with [I], and manages to light [user.p_their()] [name].</span>")
+		light(span_notice("[user] fiddles with [I], and manages to light [user.p_their()] [name]."))
 
 	else if(istype(I, /obj/item/gun/magic/wand/fireball))
 		var/obj/item/gun/magic/wand/fireball/F = I
 		if(F.charges)
 			if(prob(50) || user.mind.assigned_role == "Wizard")
-				light("<span class='notice'>Holy shit, did [user] just manage to light [user.p_their()] [name] with [F], with only moderate eyebrow singing?</span>")
+				light(span_notice("Holy shit, did [user] just manage to light [user.p_their()] [name] with [F], with only moderate eyebrow singing?"))
 			else
 				to_chat(user, "<span class='warning'>Unsure which end of the wand is which, [user] fails to light [name] with [F].</span>")
 				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
@@ -129,12 +129,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(glass))	//you can dip cigarettes into beakers
 		var/transfered = glass.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
-			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
+			to_chat(user, span_notice("You dip \the [src] into \the [glass]."))
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
-				to_chat(user, "<span class='notice'>[glass] is empty.</span>")
+				to_chat(user, span_notice("[glass] is empty."))
 			else
-				to_chat(user, "<span class='notice'>[src] is full.</span>")
+				to_chat(user, span_notice("[src] is full."))
 
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
@@ -191,7 +191,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
-		user.visible_message("<span class='notice'>[user] calmly drops and treads on the lit [src], putting it out instantly.</span>")
+		user.visible_message(span_notice("[user] calmly drops and treads on the lit [src], putting it out instantly."))
 		die()
 	return ..()
 
@@ -213,7 +213,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
 			if(!reagents.total_volume) // There were reagents, but now they're gone
-				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
+				to_chat(C, span_notice("Your [name] loses its flavor."))
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
 
@@ -224,7 +224,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))
 		var/mob/living/M = loc
-		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
+		to_chat(M, span_notice("Your [name] goes out."))
 		M.unEquip(src, 1)		//Force the un-equip so the overlays update
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
@@ -345,7 +345,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(I, /obj/item/match))
 		..()
 	else
-		to_chat(user, "<span class='notice'>[src] straight out REFUSES to be lit by such uncivilized means.</span>")
+		to_chat(user, span_notice("[src] straight out REFUSES to be lit by such uncivilized means."))
 
 /////////////////
 //SMOKING PIPES//
@@ -380,7 +380,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		new /obj/effect/decal/cleanable/ash(location)
 		if(ismob(loc))
 			var/mob/living/M = loc
-			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
+			to_chat(M, span_notice("Your [name] goes out, and you empty the ash."))
 			lit = FALSE
 			icon_state = icon_off
 			item_state = icon_off
@@ -391,14 +391,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) //Refills the pipe. Can be changed to an attackby later, if loose tobacco is added to vendors or something.
 	if(lit)
-		user.visible_message("<span class='notice'>[user] puts out [src].</span>")
+		user.visible_message(span_notice("[user] puts out [src]."))
 		lit = FALSE
 		icon_state = icon_off
 		item_state = icon_off
 		STOP_PROCESSING(SSobj, src)
 		return
 	if(smoketime <= 0)
-		to_chat(user, "<span class='notice'>You refill the pipe with tobacco.</span>")
+		to_chat(user, span_notice("You refill the pipe with tobacco."))
 		reagents.add_reagent("nicotine", chem_volume)
 		smoketime = initial(smoketime)
 		first_puff = TRUE
@@ -409,7 +409,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(I, /obj/item/match))
 		..()
 	else
-		to_chat(user, "<span class='notice'>[src] straight out REFUSES to be lit by such means.</span>")
+		to_chat(user, span_notice("[src] straight out REFUSES to be lit by such means."))
 
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
@@ -444,7 +444,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			R.chem_volume = target.reagents.total_volume
 			target.reagents.trans_to(R, R.chem_volume)
 			user.put_in_active_hand(R)
-			to_chat(user, "<span class='notice'>You roll the [target.name] into a rolling paper.</span>")
+			to_chat(user, span_notice("You roll the [target.name] into a rolling paper."))
 			R.desc = "Dried [target.name] rolled up in a thin piece of paper."
 			qdel(target)
 			qdel(src)

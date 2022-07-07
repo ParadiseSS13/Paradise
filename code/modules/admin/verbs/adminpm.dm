@@ -232,7 +232,7 @@
 
 	if(length(msg) > 400) // Dont want them super spamming
 		to_chat(src, "<span class='warning'>Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting</span>")
-		to_chat(src, "<span class='notice'>[msg]</span>")
+		to_chat(src, span_notice("[msg]"))
 		return
 
 	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
@@ -401,7 +401,7 @@
 			C.pm_tracker.forced = TRUE // We forced it open
 			window_flash(C)
 			C.pm_tracker.show_ui(C.mob)
-			to_chat(usr, "<span class='notice'>Forced open [C]'s messages window.</span>")
+			to_chat(usr, span_notice("Forced open [C]'s messages window."))
 		return
 
 	if(href_list["reply"])

@@ -14,16 +14,16 @@
 	add_fingerprint(user)
 	if(istype(I, /obj/item/wrench))
 		if(anchored)
-			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			to_chat(user, span_notice("You unwrench [src] from the floor."))
 			anchored = 0
 		else
-			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
+			to_chat(user, span_notice("You wrench [src] into place."))
 			anchored = 1
 	else if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
 			R.use(4)
-			to_chat(user, "<span class='notice'>You add spikes to the frame.</span>")
+			to_chat(user, span_notice("You add spikes to the frame."))
 			new /obj/structure/kitchenspike(loc)
 			add_fingerprint(user)
 			qdel(src)
@@ -56,10 +56,10 @@
 		if(!has_buckled_mobs())
 			playsound(loc, G.usesound, 100, 1)
 			if(do_after(user, 20 * G.toolspeed, target = src))
-				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
+				to_chat(user, span_notice("You pry the spikes out of the frame."))
 				deconstruct(TRUE)
 		else
-			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
+			to_chat(user, span_notice("You can't do that while something's on the spike!"))
 		return
 	if(!istype(G, /obj/item/grab) || !G.affecting)
 		return
@@ -107,18 +107,18 @@
 	if(buckled_mob)
 		var/mob/living/M = buckled_mob
 		if(M != user)
-			M.visible_message("<span class='notice'>[user] tries to pull [M] free of [src]!</span>",\
-				"<span class='notice'>[user] is trying to pull you off [src], opening up fresh wounds!</span>",\
+			M.visible_message(span_notice("[user] tries to pull [M] free of [src]!"),\
+				span_notice("[user] is trying to pull you off [src], opening up fresh wounds!"),\
 				"<span class='italics'>You hear a squishy wet noise.</span>")
 			if(!do_after(user, 300, target = src))
 				if(M && M.buckled)
-					M.visible_message("<span class='notice'>[user] fails to free [M]!</span>",\
-					"<span class='notice'>[user] fails to pull you off of [src].</span>")
+					M.visible_message(span_notice("[user] fails to free [M]!"),\
+					span_notice("[user] fails to pull you off of [src]."))
 				return
 
 		else
 			M.visible_message("<span class='warning'>[M] struggles to break free from [src]!</span>",\
-			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
+			span_notice("You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)"),\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
 			M.adjustBruteLoss(30)
 			if(!do_after(M, 1200, target = src))

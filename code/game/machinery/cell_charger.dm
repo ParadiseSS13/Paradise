@@ -65,7 +65,7 @@
 
 			I.forceMove(src)
 			charging = I
-			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
+			user.visible_message("[user] inserts a cell into the charger.", span_notice("You insert a cell into the charger."))
 			chargelevel = -1
 			updateicon()
 	else
@@ -98,7 +98,7 @@
 	user.put_in_hands(charging)
 	charging.add_fingerprint(user)
 
-	user.visible_message("[user] removes [charging] from [src].", "<span class='notice'>You remove [charging] from [src].</span>")
+	user.visible_message("[user] removes [charging] from [src].", span_notice("You remove [charging] from [src]."))
 
 	removecell()
 
@@ -107,7 +107,7 @@
 		return
 
 	charging.forceMove(loc)
-	to_chat(user, "<span class='notice'>You telekinetically remove [charging] from [src].</span>")
+	to_chat(user, span_notice("You telekinetically remove [charging] from [src]."))
 
 	removecell()
 

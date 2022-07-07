@@ -33,7 +33,7 @@
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	flags ^= NODROP
 	if(ismob(loc))
-		to_chat(loc, "<span class='notice'>Your vest is now [flags & NODROP ? "locked" : "unlocked"].</span>")
+		to_chat(loc, span_notice("Your vest is now [flags & NODROP ? "locked" : "unlocked"]."))
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
 	switch(mode)
@@ -172,7 +172,7 @@
 	else
 		mode = GIZMO_SCAN
 		icon_state = "gizmo_scan"
-	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
+	to_chat(user, span_notice("You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE"))
 
 /obj/item/abductor/gizmo/attack(mob/living/M, mob/user)
 	if(!ScientistCheck(user))
@@ -206,7 +206,7 @@
 /obj/item/abductor/gizmo/proc/scan(atom/target, mob/living/user)
 	if(ishuman(target))
 		console.AddSnapshot(target)
-		to_chat(user, "<span class='notice'>You scan [target] and add [target.p_them()] to the database.</span>")
+		to_chat(user, span_notice("You scan [target] and add [target.p_them()] to the database."))
 
 /obj/item/abductor/gizmo/proc/mark(atom/target, mob/living/user)
 	if(marked == target)
@@ -215,7 +215,7 @@
 	if(ishuman(target))
 		if(isabductor(target))
 			marked = target
-			to_chat(user, "<span class='notice'>You mark [target] for future retrieval.</span>")
+			to_chat(user, span_notice("You mark [target] for future retrieval."))
 		else
 			prepare(target,user)
 	else
@@ -225,10 +225,10 @@
 	if(get_dist(target,user)>1)
 		to_chat(user, "<span class='warning'>You need to be next to the specimen to prepare it for transport!</span>")
 		return
-	to_chat(user, "<span class='notice'>You begin preparing [target] for transport...</span>")
+	to_chat(user, span_notice("You begin preparing [target] for transport..."))
 	if(do_after(user, 100, target = target))
 		marked = target
-		to_chat(user, "<span class='notice'>You finish preparing [target] for transport.</span>")
+		to_chat(user, span_notice("You finish preparing [target] for transport."))
 
 /obj/item/abductor/gizmo/Destroy()
 	if(console)
@@ -265,7 +265,7 @@
 	for(M in view(2,targloc))
 		if(M == user)
 			continue
-		to_chat(user, "<span class='notice'>You silence [M]'s radio devices.</span>")
+		to_chat(user, span_notice("You silence [M]'s radio devices."))
 		radio_off_mob(M)
 
 /obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
@@ -294,7 +294,7 @@
 	else
 		mode = MIND_DEVICE_MESSAGE
 		icon_state = "mind_device_message"
-	to_chat(user, "<span class='notice'>You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE</span>")
+	to_chat(user, span_notice("You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE"))
 
 /obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, params)
 	if(!ScientistCheck(user))
@@ -332,7 +332,7 @@
 			return
 
 		G.mind_control(command, user)
-		to_chat(user, "<span class='notice'>You send the command to your target.</span>")
+		to_chat(user, span_notice("You send the command to your target."))
 
 /obj/item/abductor/mind_device/proc/mind_message(atom/target, mob/living/user)
 	if(isliving(target))
@@ -347,7 +347,7 @@
 			return
 
 		to_chat(L, "<span class='italics'>You hear a voice in your head saying: </span><span class='abductor'>[message]</span>")
-		to_chat(user, "<span class='notice'>You send the message to your target.</span>")
+		to_chat(user, span_notice("You send the message to your target."))
 		log_say("[key_name(user)] sent an abductor mind message to [key_name(L)]: '[message]'", user)
 
 /obj/item/gun/energy/alien
@@ -421,7 +421,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			txt = "probing"
 
-	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
+	to_chat(usr, span_notice("You switch the baton to [txt] mode."))
 	update_icon()
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -523,7 +523,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
 				C.update_handcuffed()
-				to_chat(user, "<span class='notice'>You handcuff [C].</span>")
+				to_chat(user, span_notice("You handcuff [C]."))
 				add_attack_logs(user, C, "Handcuffed ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
@@ -544,7 +544,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(temp)
 			helptext = "<span class='warning'>Experimental gland detected!</span>"
 		else
-			helptext = "<span class='notice'>Subject suitable for experiments.</span>"
+			helptext = span_notice("Subject suitable for experiments.")
 
 	to_chat(user,"<span class='notice'>Probing result: </span>[species]")
 	to_chat(user, "[helptext]")
@@ -692,7 +692,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(P.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
 			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
+		to_chat(user, span_notice("You start adding [P] to [src]..."))
 		if(do_after(user, 50, target = src))
 			P.use(1)
 			new /obj/structure/table/abductor(loc)
@@ -703,7 +703,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(P.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
 			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
+		to_chat(user, span_notice("You start adding [P] to [src]..."))
 		if(do_after(user, 50, target = src))
 			P.use(1)
 			new /obj/machinery/optable/abductor(loc)

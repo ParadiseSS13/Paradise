@@ -44,7 +44,7 @@
 	if(used == FALSE)
 		var/turf/UT = get_turf(usr)
 		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
-			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
+			to_chat(usr, span_notice("Error. Deployment was attempted on the station sector. Deployment aborted."))
 			playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
 			return
 		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
@@ -188,7 +188,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
-						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
+						span_notice("You start to disassemble the gps..."), "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			new /obj/item/gps(loc)
 			qdel(src)
@@ -280,7 +280,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
-							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
+							 span_notice("You start to disassemble the fan..."), "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			deconstruct()
 			return ..()
@@ -323,7 +323,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+							 span_notice("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			new /obj/item/stack/rods(loc)
 			qdel(src)

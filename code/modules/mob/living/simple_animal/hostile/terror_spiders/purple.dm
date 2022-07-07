@@ -41,7 +41,7 @@
 				if(!degenerate && !spider_myqueen.degenerate)
 					degenerate = TRUE
 					spider_myqueen.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 1)
-					visible_message("<span class='notice'>[src] chitters in the direction of [spider_myqueen]!</span>")
+					visible_message(span_notice("[src] chitters in the direction of [spider_myqueen]!"))
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/Life(seconds, times_fired)
@@ -69,7 +69,7 @@
 			if(queen_visible)
 				cycles_noqueen = 0
 				if(spider_debug)
-					to_chat(src, "<span class='notice'>[Q] visible.</span>")
+					to_chat(src, span_notice("[Q] visible."))
 			else
 				cycles_noqueen++
 				if(spider_debug)

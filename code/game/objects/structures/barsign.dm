@@ -71,11 +71,11 @@
 /obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
 	if( istype(I, /obj/item/screwdriver))
 		if(!panel_open)
-			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+			to_chat(user, span_notice("You open the maintenance panel."))
 			set_sign(new /datum/barsign/hiddensigns/signoff)
 			panel_open = 1
 		else
-			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+			to_chat(user, span_notice("You close the maintenance panel."))
 			if(!broken && !emagged)
 				set_sign(pick(barsigns))
 			else if(emagged)
@@ -94,7 +94,7 @@
 			return
 
 		if(C.use(2))
-			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
+			to_chat(user, span_notice("You replace the burnt wiring."))
 			broken = 0
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
@@ -114,7 +114,7 @@
 	if(broken || emagged)
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
-	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
+	to_chat(user, span_notice("You emag the barsign. Takeover in progress..."))
 	addtimer(CALLBACK(src, .proc/post_emag), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()

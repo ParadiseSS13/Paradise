@@ -16,7 +16,7 @@
 			return
 		H.unEquip(I)
 		I.loc = src // Store the glasses for later removal
-		to_chat(H, "<span class='notice'>You fit [src] with lenses from [I].</span>")
+		to_chat(H, span_notice("You fit [src] with lenses from [I]."))
 		prescription = TRUE
 		name = "prescription [initial(name)]"
 
@@ -25,7 +25,7 @@
 		var/obj/item/clothing/glasses/regular/G = locate() in src
 		if(!G)
 			G = new(src)
-		to_chat(H, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
+		to_chat(H, span_notice("You salvage the prescription lenses from [src]."))
 		prescription = FALSE
 		name = initial(name)
 		H.put_in_hands(G)
@@ -484,7 +484,7 @@
 				var/mob/living/carbon/C = user
 				C.update_inv_wear_mask()
 		else
-			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
+			to_chat(user, span_notice("The eye winks at you and vanishes into the abyss, you feel really unlucky."))
 		qdel(src)
 	..()
 

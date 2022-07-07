@@ -272,7 +272,7 @@
 			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 			for(var/mob/living/M in range (get_turf(holder.my_atom), 7))
 				M.bodytemperature -= 240
-				to_chat(M, "<span class='notice'>You feel a chill!</span>")
+				to_chat(M, span_notice("You feel a chill!"))
 
 
 /datum/chemical_reaction/slimefireproof
@@ -575,7 +575,7 @@
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	if(holder.my_atom)
 		var/obj/item/stack/ore/bluespace_crystal/BC = new(get_turf(holder.my_atom))
-		BC.visible_message("<span class='notice'>[BC] appears out of thin air!</span>")
+		BC.visible_message(span_notice("[BC] appears out of thin air!"))
 
 //Cerulean
 /datum/chemical_reaction/slimepsteroid2

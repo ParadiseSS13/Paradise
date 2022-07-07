@@ -16,7 +16,7 @@
 			if(I && I.imp_in)
 				I.hidden_uplink.uses += amount
 				use(amount)
-				to_chat(user, "<span class='notice'>You press [src] onto yourself and charge your hidden uplink.</span>")
+				to_chat(user, span_notice("You press [src] onto yourself and charge your hidden uplink."))
 
 /obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity)
 	if(!proximity)
@@ -24,15 +24,15 @@
 	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
 		I.hidden_uplink.uses += amount
 		use(amount)
-		to_chat(user, "<span class='notice'>You slot [src] into [I] and charge its internal uplink.</span>")
+		to_chat(user, span_notice("You slot [src] into [I] and charge its internal uplink."))
 	else if(istype(I, /obj/item/cartridge/frame))
 		var/obj/item/cartridge/frame/cart = I
 		if(!cart.charges)
-			to_chat(user, "<span class='notice'>[cart] is out of charges, it's refusing to accept [src]</span>")
+			to_chat(user, span_notice("[cart] is out of charges, it's refusing to accept [src]"))
 			return
 		cart.telecrystals += amount
 		use(amount)
-		to_chat(user, "<span class='notice'>You slot [src] into [cart].  The next time it's used, it will also give telecrystals</span>")
+		to_chat(user, span_notice("You slot [src] into [cart].  The next time it's used, it will also give telecrystals"))
 
 /obj/item/stack/telecrystal/detailed_examine_antag()
 	return "Telecrystals can be activated by utilizing them on devices with an actively running uplink. They will not activate on unactivated uplinks."

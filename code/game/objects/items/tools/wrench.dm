@@ -63,7 +63,7 @@
 /obj/item/wrench/power/attack_self(mob/user)
 	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wirecutters/power/s_drill = new /obj/item/screwdriver/power
-	to_chat(user, "<span class='notice'>You attach the screwdriver bit to [src].</span>")
+	to_chat(user, span_notice("You attach the screwdriver bit to [src]."))
 	qdel(src)
 	user.put_in_active_hand(s_drill)
 

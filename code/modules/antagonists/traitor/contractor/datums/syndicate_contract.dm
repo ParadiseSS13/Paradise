@@ -270,16 +270,16 @@
 	else if(!contract.can_start_extraction_process(M, target))
 		return "You and the target must be standing in the extraction area to start the extraction process."
 
-	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
-					  "<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
+	M.visible_message(span_notice("[M] starts entering a cryptic series of characters on [U]."),\
+					  span_notice("You start entering an extraction signal to your handlers on [U]..."))
 	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))
 		extraction_flare = F
 		extraction_deadline = world.time + extraction_cooldown
-		M.visible_message("<span class='notice'>[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it.</span>",\
-						  "<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
+		M.visible_message(span_notice("[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it."),\
+						  span_notice("You finish entering the signal on [U] and light an extraction flare, initiating the extraction process."))
 		addtimer(CALLBACK(src, .proc/open_extraction_portal, U, M, F), EXTRACTION_PHASE_PORTAL)
 		extraction_timer_handle = addtimer(CALLBACK(src, .proc/deadline_reached), portal_duration, TIMER_STOPPABLE)
 
@@ -520,7 +520,7 @@
 
 	// Chance for souvenir or bruises
 	if(prob(RETURN_SOUVENIR_CHANCE))
-		to_chat(M, "<span class='notice'>Your captors left you a souvenir for your troubles!</span>")
+		to_chat(M, span_notice("Your captors left you a souvenir for your troubles!"))
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)
 	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
@@ -528,7 +528,7 @@
 		M.adjustBruteLoss(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.
-	M.visible_message("<span class='notice'>[M] vanishes...</span>")
+	M.visible_message(span_notice("[M] vanishes..."))
 	M.forceMove(closet)
 	M.Paralyse(3 SECONDS)
 	M.EyeBlurry(5 SECONDS)

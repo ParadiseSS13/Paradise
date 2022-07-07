@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 		var/atom/droploc = drop_location()
 		if(use(1))
 			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
-			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
+			to_chat(user, span_notice("You stamp the cardboard! It's a clown box! Honk!"))
 			new/obj/item/storage/box/clown(droploc) //bugfix
 	else
 		. = ..()

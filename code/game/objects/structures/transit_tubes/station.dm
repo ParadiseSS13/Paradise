@@ -63,7 +63,7 @@
 	if(!length(pod.contents) || user.loc == pod)
 		return
 	user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>", \
-		"<span class='notice'>You start emptying [pod]'s contents onto the floor.</span>", "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
+		span_notice("You start emptying [pod]'s contents onto the floor."), "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
 	if(!do_after(user, 20, target = pod))
 		return
 	for(var/atom/movable/AM in pod)

@@ -49,7 +49,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
 		if(on)
-			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
+			to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
 			on = FALSE
 			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
 			update_icon()
@@ -79,7 +79,7 @@
 	if(on)
 		if(!up)
 			if(istype(H))
-				to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
+				to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
 			set_light(0)
 		else
 			set_light(brightness_on)

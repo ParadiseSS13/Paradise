@@ -69,7 +69,7 @@
 	. = ..()
 
 	if(!damage)
-		. += "<span class='notice'>It looks fully intact.</span>"
+		. += span_notice("It looks fully intact.")
 	else
 		var/dam = damage / damage_cap
 		if(dam <= 0.3)
@@ -210,7 +210,7 @@
 	if(our_rpd.mode == RPD_ATMOS_MODE)
 		if(!our_rpd.ranged)
 			playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
-			user.visible_message("<span class='notice'>[user] starts drilling a hole in [src]...</span>", "<span class='notice'>You start drilling a hole in [src]...</span>", "<span class='warning'>You hear drilling.</span>")
+			user.visible_message(span_notice("[user] starts drilling a hole in [src]..."), span_notice("You start drilling a hole in [src]..."), "<span class='warning'>You hear drilling.</span>")
 			if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
 				return
 		our_rpd.create_atmos_pipe(user, src)
@@ -288,11 +288,11 @@
 			dismantle_wall(1)
 			to_chat(M, "<span class='info'>You smash through the wall.</span>")
 		else
-			to_chat(M, text("<span class='notice'>You smash against the wall.</span>"))
+			to_chat(M, span_notice("You smash against the wall."))
 			take_damage(rand(25, 75))
 			return
 
-	to_chat(M, "<span class='notice'>You push the wall but nothing happens!</span>")
+	to_chat(M, span_notice("You push the wall but nothing happens!"))
 	return
 
 /turf/simulated/wall/attack_hulk(mob/user, does_attack_animation = FALSE)
@@ -305,21 +305,21 @@
 	else
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		add_dent(WALL_DENT_HIT)
-		to_chat(user, text("<span class='notice'>You punch the wall.</span>"))
+		to_chat(user, span_notice("You punch the wall."))
 	return TRUE
 
 /turf/simulated/wall/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(rotting)
 		if(hardness <= 10)
-			to_chat(user, "<span class='notice'>This wall feels rather unstable.</span>")
+			to_chat(user, span_notice("This wall feels rather unstable."))
 			return
 		else
-			to_chat(user, "<span class='notice'>The wall crumbles under your touch.</span>")
+			to_chat(user, span_notice("The wall crumbles under your touch."))
 			dismantle_wall()
 			return
 
-	to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
+	to_chat(user, span_notice("You push the wall but nothing happens!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 	return ..()
@@ -357,7 +357,7 @@
 			for(var/obj/effect/overlay/wall_rot/WR in src)
 				qdel(WR)
 			rotting = FALSE
-			to_chat(user, "<span class='notice'>You burn off the fungi with [I].</span>")
+			to_chat(user, span_notice("You burn off the fungi with [I]."))
 		return
 
 	// Wall repair stuff
@@ -395,18 +395,18 @@
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
 	if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
-		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
+		to_chat(user, span_notice("[src] crumbles away under the force of your [I.name]."))
 		dismantle_wall(1)
 		return TRUE
 	return FALSE
 
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gun/energy/plasmacutter))
-		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
+		to_chat(user, span_notice("You begin slicing through the outer plating."))
 		playsound(src, I.usesound, 100, 1)
 
 		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.toolspeed : 60 * I.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
+			to_chat(user, span_notice("You remove the outer plating."))
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] slices apart [src]!</span>", "<span class='warning'>You hear metal being sliced apart.</span>")
 			return TRUE
@@ -417,19 +417,19 @@
 	var/isdiamond = istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) // snowflake bullshit
 
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
-		to_chat(user, "<span class='notice'>You begin to drill though the wall.</span>")
+		to_chat(user, span_notice("You begin to drill though the wall."))
 
 		if(do_after(user, isdiamond ? 480 * I.toolspeed : 240 * I.toolspeed, target = src)) // Diamond pickaxe has 0.25 toolspeed, so 120/60
-			to_chat(user, "<span class='notice'>Your [I.name] tears though the last of the reinforced plating.</span>")
+			to_chat(user, span_notice("Your [I.name] tears though the last of the reinforced plating."))
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] drills through [src]!</span>", "<span class='warning'>You hear the grinding of metal.</span>")
 			return TRUE
 
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
-		to_chat(user, "<span class='notice'>You begin to disintegrates the wall.</span>")
+		to_chat(user, span_notice("You begin to disintegrates the wall."))
 
 		if(do_after(user, isdiamond ? 600 * I.toolspeed : 300 * I.toolspeed, target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
-			to_chat(user, "<span class='notice'>Your [I.name] disintegrates the reinforced plating.</span>")
+			to_chat(user, span_notice("Your [I.name] disintegrates the reinforced plating."))
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 			return TRUE
@@ -450,15 +450,15 @@
 		if(P.pipe_type != -1) // ANY PIPE
 			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
 			user.visible_message(
-				"<span class='notice'>[user] starts drilling a hole in [src].</span>",
-				"<span class='notice'>You start drilling a hole in [src].</span>",
-				"<span class='notice'>You hear a drill.</span>")
+				span_notice("[user] starts drilling a hole in [src]."),
+				span_notice("You start drilling a hole in [src]."),
+				span_notice("You hear a drill."))
 
 			if(do_after(user, 80 * P.toolspeed, target = src))
 				user.visible_message(
-					"<span class='notice'>[user] drills a hole in [src] and pushes [P] into the void.</span>",
-					"<span class='notice'>You finish drilling [src] and push [P] into the void.</span>",
-					"<span class='notice'>You hear a ratchet.</span>")
+					span_notice("[user] drills a hole in [src] and pushes [P] into the void."),
+					span_notice("You finish drilling [src] and push [P] into the void."),
+					span_notice("You hear a ratchet."))
 
 				user.drop_item()
 				if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm

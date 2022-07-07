@@ -65,7 +65,7 @@
 	if(istype(I, /obj/item/storage/bag/trash))
 		if(!user.drop_item())
 			return
-		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
+		to_chat(user, span_notice("You hook [I] onto [src]."))
 		I.forceMove(src)
 		mybag = I
 		update_icon()
@@ -73,7 +73,7 @@
 	if(istype(I, /obj/item/janiupgrade))
 		floorbuffer = TRUE
 		qdel(I)
-		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
+		to_chat(user,span_notice("You upgrade [src] with [I]."))
 		update_icon()
 		return
 	return ..()

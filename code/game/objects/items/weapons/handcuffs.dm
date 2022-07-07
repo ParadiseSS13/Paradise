@@ -54,7 +54,7 @@
 		playsound(loc, cuffsound, 30, 1, -2)
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
-			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
+			to_chat(user, span_notice("You handcuff [C]."))
 			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 			add_attack_logs(user, C, "Handcuffed ([src])")
@@ -157,7 +157,7 @@
 			if(!remove_item_from_storage(user))
 				user.unEquip(src)
 			user.put_in_hands(W)
-			to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
+			to_chat(user, span_notice("You wrap the cable restraint around the top of the rod."))
 			qdel(src)
 		else
 			to_chat(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
@@ -166,12 +166,12 @@
 		if(M.amount < 6)
 			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
 			return
-		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
+		to_chat(user, span_notice("You begin to apply [I] to [src]..."))
 		if(do_after(user, 35 * M.toolspeed, target = src))
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
 			M.use(6)
 			user.put_in_hands(S)
-			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
+			to_chat(user, span_notice("You make some weights out of [I] and tie them to [src]."))
 			if(!remove_item_from_storage(user))
 				user.unEquip(src)
 			qdel(src)

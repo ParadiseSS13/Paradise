@@ -14,7 +14,7 @@
 	var/obj/item/organ/internal/eyes/E = user.get_organ_slot("eyes")
 	if(E)
 		E.flash_protect = FLASH_PROTECTION_WELDER //Adjust the user's eyes' flash protection
-		to_chat(user, "<span class='notice'>We adjust our eyes to protect them from bright lights.</span>")
+		to_chat(user, span_notice("We adjust our eyes to protect them from bright lights."))
 	else
 		to_chat(user, "<span class='warning'>We can't adjust our eyes if we don't have any!</span>")
 
@@ -27,12 +27,12 @@
 		if(!active)
 			E.vision_flags |= SEE_MOBS | SEE_OBJS | SEE_TURFS //Add sight flags to the user's eyes
 			E.flash_protect = FLASH_PROTECTION_SENSITIVE //Adjust the user's eyes' flash protection
-			to_chat(user, "<span class='notice'>We adjust our eyes to sense prey through walls.</span>")
+			to_chat(user, span_notice("We adjust our eyes to sense prey through walls."))
 			active = TRUE
 		else
 			E.vision_flags ^= SEE_MOBS | SEE_OBJS | SEE_TURFS //Remove sight flags from the user's eyes
 			E.flash_protect = FLASH_PROTECTION_WELDER //Adjust the user's eyes' flash protection
-			to_chat(user, "<span class='notice'>We adjust our eyes to protect them from bright lights.</span>")
+			to_chat(user, span_notice("We adjust our eyes to protect them from bright lights."))
 			active = FALSE
 		user.update_sight()
 	else

@@ -40,7 +40,7 @@
 	if(!active_dummy)
 		if(istype(target,/obj/item) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
-			to_chat(user, "<span class='notice'>Scanned [target].</span>")
+			to_chat(user, span_notice("Scanned [target]."))
 			saved_item = target.type
 			saved_icon = target.icon
 			saved_icon_state = target.icon_state
@@ -57,7 +57,7 @@
 		eject_all()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		QDEL_NULL(active_dummy)
-		to_chat(usr, "<span class='notice'>You deactivate [src].</span>")
+		to_chat(usr, span_notice("You deactivate [src]."))
 		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
 		T.icon = 'icons/effects/effects.dmi'
 		flick("emppulse",T)
@@ -71,7 +71,7 @@
 		var/obj/effect/dummy/chameleon/C = new/obj/effect/dummy/chameleon(usr.loc)
 		C.activate(O, usr, saved_icon, saved_icon_state, saved_overlays, saved_underlays, src)
 		qdel(O)
-		to_chat(usr, "<span class='notice'>You activate [src].</span>")
+		to_chat(usr, span_notice("You activate [src]."))
 		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
 		T.icon = 'icons/effects/effects.dmi'
 		flick("emppulse",T)
@@ -208,14 +208,14 @@
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, -6)
-		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
+		to_chat(user, span_notice("You deactivate [src]."))
 		deactivate(user)
 	else
-		to_chat(user, "<span class='notice'>You activate [src].</span>")
+		to_chat(user, span_notice("You activate [src]."))
 		apply_wibbly_filters(user)
 		if(do_after(user, 50, target = user) && user.cell.use(activationCost))
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
-			to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen engineering cyborg.</span>")
+			to_chat(user, span_notice("You are now disguised as a Nanotrasen engineering cyborg."))
 			activate(user)
 		else
 			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")

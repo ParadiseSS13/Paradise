@@ -27,7 +27,7 @@
 /obj/item/voice_changer/attack_self(mob/user)
 	active = !active
 	icon_state = "voice_changer_[active ? "on" : "off"]"
-	to_chat(user, "<span class='notice'>You toggle [src] [active ? "on" : "off"].</span>")
+	to_chat(user, span_notice("You toggle [src] [active ? "on" : "off"]."))
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -37,7 +37,7 @@
 	var/chosen_voice = clean_input("What voice would you like to mimic? Leave this empty to use the voice on your ID card.", "Set Voice Changer", voice, user)
 	if(!chosen_voice)
 		voice = null
-		to_chat(user, "<span class='notice'>You are now mimicking the voice on your ID card.</span>")
+		to_chat(user, span_notice("You are now mimicking the voice on your ID card."))
 		return
 
 	voice = sanitize(copytext(chosen_voice, 1, MAX_MESSAGE_LEN))

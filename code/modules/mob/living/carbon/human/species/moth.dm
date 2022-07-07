@@ -137,12 +137,12 @@
 	if(H.nutrition < COCOON_NUTRITION_AMOUNT)
 		to_chat(H, "<span class='warning'>You are too hungry to cocoon!</span>")
 		return
-	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
+	H.visible_message(span_notice("[H] begins to hold still and concentrate on weaving a cocoon..."), span_notice("You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)"))
 	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
 		if(H.incapacitated())
 			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
 			return
-		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
+		H.visible_message(span_notice("[H] finishes weaving a cocoon!"), span_notice("You finish weaving your cocoon."))
 		var/obj/structure/moth/cocoon/C = new(get_turf(H))
 		H.forceMove(C)
 		C.preparing_to_emerge = TRUE

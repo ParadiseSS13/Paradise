@@ -24,7 +24,7 @@
 		if(target.mind in SSticker.mode.cult)
 			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
 		else
-			to_chat(target, "<span class='notice'>Your mind feels hardened - more resistant to brainwashing.</span>")
+			to_chat(target, span_notice("Your mind feels hardened - more resistant to brainwashing."))
 		return TRUE
 	return FALSE
 

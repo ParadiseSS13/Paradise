@@ -118,7 +118,7 @@
 /obj/machinery/power/singularity_beacon/proc/Activate(mob/user = null)
 	if(surplus() < 1500)
 		if(user)
-			to_chat(user, "<span class='notice'>The connected wire doesn't have enough current.</span>")
+			to_chat(user, span_notice("The connected wire doesn't have enough current."))
 		return
 	for(var/thing in GLOB.singularities)
 		var/obj/singularity/singulo = thing
@@ -128,7 +128,7 @@
 	active = TRUE
 	START_PROCESSING(SSmachines, src)
 	if(user)
-		to_chat(user, "<span class='notice'>You activate the beacon.</span>")
+		to_chat(user, span_notice("You activate the beacon."))
 
 
 /obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user = null)
@@ -139,7 +139,7 @@
 	icon_state = "[icontype]0"
 	active = FALSE
 	if(user)
-		to_chat(user, "<span class='notice'>You deactivate the beacon.</span>")
+		to_chat(user, span_notice("You deactivate the beacon."))
 
 
 /obj/machinery/power/singularity_beacon/attack_ai(mob/user as mob)
@@ -163,7 +163,7 @@
 		return
 	if(anchored)
 		anchored = FALSE
-		to_chat(user, "<span class='notice'>You unscrew the beacon from the floor.</span>")
+		to_chat(user, span_notice("You unscrew the beacon from the floor."))
 		disconnect_from_network()
 		return
 	else
@@ -171,7 +171,7 @@
 			to_chat(user, "This device must be placed over an exposed cable.")
 			return
 		anchored = TRUE
-		to_chat(user, "<span class='notice'>You screw the beacon to the floor and attach the cable.</span>")
+		to_chat(user, span_notice("You screw the beacon to the floor and attach the cable."))
 
 /obj/machinery/power/singularity_beacon/Destroy()
 	if(active)

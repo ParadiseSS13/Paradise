@@ -136,7 +136,7 @@
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
 			if(prob(50))
 				visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
-								"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+								span_notice("You hear something squeezing through the ventilation ducts."))
 
 			spawn(rand(20,60))
 				loc = exit_vent
@@ -149,7 +149,7 @@
 						return
 
 					if(prob(50))
-						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+						audible_message(span_notice("You hear something squeezing through the ventilation ducts."))
 					sleep(travel_time)
 
 					if(!exit_vent || exit_vent.welded)
@@ -165,7 +165,7 @@
 
 	else if(prob(33))
 		if(random_skitter() && prob(40))
-			visible_message("<span class='notice'>[src] skitters[pick(" away"," around","")].</span>")
+			visible_message(span_notice("[src] skitters[pick(" away"," around","")]."))
 	else if(prob(10))
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
@@ -214,7 +214,7 @@
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!istype(user, /mob/living/silicon/robot/drone))
-		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
+		user.visible_message(span_notice("[user] sucks [src] into its decompiler. There's a horrible crunching noise."), \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		C.stored_comms["wood"] += 2
 		C.stored_comms["glass"] += 2

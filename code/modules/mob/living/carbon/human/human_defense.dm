@@ -81,7 +81,7 @@ emp_act
 		return
 
 	if(!S.brute_dam)
-		to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+		to_chat(user, span_notice("Nothing to fix!"))
 		return
 
 	var/surgery_time = 0
@@ -268,7 +268,7 @@ emp_act
 				update_inv_wear_mask()
 				update_inv_head()
 			else
-				to_chat(src, "<span class='notice'>Your [head_clothes.name] protects your head and face from the acid!</span>")
+				to_chat(src, span_notice("Your [head_clothes.name] protects your head and face from the acid!"))
 		else
 			. = get_organ("head")
 			if(.)
@@ -291,7 +291,7 @@ emp_act
 				update_inv_w_uniform()
 				update_inv_wear_suit()
 			else
-				to_chat(src, "<span class='notice'>Your [chest_clothes.name] protects your body from the acid!</span>")
+				to_chat(src, span_notice("Your [chest_clothes.name] protects your body from the acid!"))
 		else
 			. = get_organ("chest")
 			if(.)
@@ -325,7 +325,7 @@ emp_act
 				update_inv_w_uniform()
 				update_inv_wear_suit()
 			else
-				to_chat(src, "<span class='notice'>Your [arm_clothes.name] protects your arms and hands from the acid!</span>")
+				to_chat(src, span_notice("Your [arm_clothes.name] protects your arms and hands from the acid!"))
 		else
 			. = get_organ("r_arm")
 			if(.)
@@ -351,7 +351,7 @@ emp_act
 				update_inv_w_uniform()
 				update_inv_wear_suit()
 			else
-				to_chat(src, "<span class='notice'>Your [leg_clothes.name] protects your legs and feet from the acid!</span>")
+				to_chat(src, span_notice("Your [leg_clothes.name] protects your legs and feet from the acid!"))
 		else
 			. = get_organ("r_leg")
 			if(.)

@@ -265,7 +265,7 @@
 		return
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
-		to_chat(user, "<span class='notice'>You climb out from [src].</span>")
+		to_chat(user, span_notice("You climb out from [src]."))
 		return 0
 	if(connected_port)
 		if(world.time - last_message > 20)
@@ -458,11 +458,11 @@
 	internal_damage &= ~int_dam_flag
 	switch(int_dam_flag)
 		if(MECHA_INT_TEMP_CONTROL)
-			occupant_message("<span class='notice'>Life support system reactivated.</span>")
+			occupant_message(span_notice("Life support system reactivated."))
 		if(MECHA_INT_FIRE)
-			occupant_message("<span class='notice'>Internal fire extinquished.</span>")
+			occupant_message(span_notice("Internal fire extinquished."))
 		if(MECHA_INT_TANK_BREACH)
-			occupant_message("<span class='notice'>Damaged internal tank has been sealed.</span>")
+			occupant_message(span_notice("Damaged internal tank has been sealed."))
 	diag_hud_set_mechstat()
 
 
@@ -527,7 +527,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
-	user.visible_message("<span class='notice'>[user] hits [name]. Nothing happens</span>", "<span class='notice'>You hit [name] with no visible effect.</span>")
+	user.visible_message(span_notice("[user] hits [name]. Nothing happens"), span_notice("You hit [name] with no visible effect."))
 	log_message("Attack by hand/paw. Attacker - [user].")
 
 
@@ -675,7 +675,7 @@
 				if(!user.drop_item())
 					return
 				E.attach(src)
-				user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
+				user.visible_message("[user] attaches [W] to [src].", span_notice("You attach [W] to [src]."))
 			else
 				to_chat(user, "<span class='warning'>You were unable to attach [W] to [src]!</span>")
 		return
@@ -712,21 +712,21 @@
 			if(!cell)
 				if(!user.drop_item())
 					return
-				to_chat(user, "<span class='notice'>You install the powercell.</span>")
+				to_chat(user, span_notice("You install the powercell."))
 				W.forceMove(src)
 				cell = W
 				log_message("Powercell installed")
 			else
-				to_chat(user, "<span class='notice'>There's already a powercell installed.</span>")
+				to_chat(user, span_notice("There's already a powercell installed."))
 		return
 
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
 		if(!user.unEquip(W))
-			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
+			to_chat(user, span_notice("\the [W] is stuck to your hand, you cannot put it in \the [src]"))
 			return
 		W.forceMove(src)
 		trackers += W
-		user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
+		user.visible_message("[user] attaches [W] to [src].", span_notice("You attach [W] to [src]."))
 		diag_hud_set_mechtracking()
 		return
 
@@ -759,13 +759,13 @@
 
 	else if(istype(W, /obj/item/mecha_modkit))
 		if(occupant)
-			to_chat(user, "<span class='notice'>You can't access the mech's modification port while it is occupied.</span>")
+			to_chat(user, span_notice("You can't access the mech's modification port while it is occupied."))
 			return
 		var/obj/item/mecha_modkit/M = W
 		if(do_after_once(user, M.install_time, target = src))
 			M.install(src, user)
 		else
-			to_chat(user, "<span class='notice'>You stop installing [M].</span>")
+			to_chat(user, span_notice("You stop installing [M]."))
 
 	else
 		if(W.force)
@@ -787,10 +787,10 @@
 		to_chat(user, "You close the hatch to the power unit")
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
-		user.visible_message("<span class='notice'>[user] begins levering out the MMI from [src].</span>", "<span class='notice'>You begin to lever out the MMI from [src].</span>")
+		user.visible_message(span_notice("[user] begins levering out the MMI from [src]."), span_notice("You begin to lever out the MMI from [src]."))
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
 		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
-			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
+			user.visible_message(span_notice("[user] pries the MMI out of [src]!"), span_notice("You finish removing the MMI from [src]!"))
 			go_out()
 
 /obj/mecha/screwdriver_act(mob/user, obj/item/I)
@@ -803,16 +803,16 @@
 		return
 	if(hasInternalDamage(MECHA_INT_TEMP_CONTROL))
 		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
-		to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
+		to_chat(user, span_notice("You repair the damaged temperature controller."))
 	else if(state==3 && cell)
 		cell.forceMove(loc)
 		cell = null
 		state = 4
-		to_chat(user, "<span class='notice'>You unscrew and pry out the powercell.</span>")
+		to_chat(user, span_notice("You unscrew and pry out the powercell."))
 		log_message("Powercell removed")
 	else if(state==4 && cell)
 		state=3
-		to_chat(user, "<span class='notice'>You screw the cell in place.</span>")
+		to_chat(user, span_notice("You screw the cell in place."))
 
 /obj/mecha/wrench_act(mob/user, obj/item/I)
 	if(state != 1 && state != 2)
@@ -834,10 +834,10 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if((obj_integrity >= max_integrity) && !internal_damage)
-		to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
+		to_chat(user, span_notice("[src] is at full integrity!"))
 		return
 	if(repairing)
-		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
+		to_chat(user, span_notice("[src] is currently being repaired!"))
 		return
 	if(state == 0) // If maint protocols are not active, the state is zero
 		to_chat(user, "<span class='warning'>[src] can not be repaired without maintenance protocols active!</span>")
@@ -847,12 +847,12 @@
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
-			user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
+			user.visible_message(span_notice("[user] repairs the damaged gas tank."), span_notice("You repair the damaged gas tank."))
 		else if(obj_integrity < max_integrity)
-			user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
+			user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [name]."))
 			obj_integrity += min(10, max_integrity - obj_integrity)
 		else
-			to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
+			to_chat(user, span_notice("[src] is at full integrity!"))
 	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
@@ -1150,7 +1150,7 @@
 		else
 			to_chat(user, "<span class='warning'>Occupant detected!</span>")
 	else
-		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
+		to_chat(user, span_notice("You stop inserting the MMI."))
 	return FALSE
 
 /obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
@@ -1162,7 +1162,7 @@
 			to_chat(user, "Beta-rhythm below acceptable level.")
 			return FALSE
 		if(!user.unEquip(mmi_as_oc))
-			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
+			to_chat(user, span_notice("\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]"))
 			return FALSE
 		var/mob/living/carbon/brain/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_perspective(src)
@@ -1231,7 +1231,7 @@
 				to_chat(AI, "<span class='userdanger'>Inactive core destroyed. Unable to return.</span>")
 				AI.linked_core = null
 				return
-			to_chat(AI, "<span class='notice'>Returning to core...</span>")
+			to_chat(AI, span_notice("Returning to core..."))
 			AI.controlled_mech = null
 			AI.remote_control = null
 			RemoveActions(occupant, 1)
@@ -1256,7 +1256,7 @@
 			if(istype(mmi, /obj/item/mmi/robotic_brain))
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
-					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
+					to_chat(L, span_notice("Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands."))
 		icon_state = initial(icon_state)+"-open"
 		dir = dir_in
 
@@ -1531,7 +1531,7 @@
 	var/obj/item/mecha_parts/mecha_equipment/new_sel = LAZYACCESS(choices_to_refs, choice)
 	if(istype(new_sel))
 		selected = new_sel
-		occupant_message("<span class='notice'>You switch to [selected].</span>")
+		occupant_message(span_notice("You switch to [selected]."))
 		visible_message("[src] raises [selected]")
 		send_byjax(occupant, "exosuit.browser", "eq_list", get_equipment_list())
 

@@ -27,7 +27,7 @@
 	if(state == ASSEMBLY_WELDED && iscoil(I))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(2))
-			to_chat(user, "<span class='notice'>You add wires to the assembly.</span>")
+			to_chat(user, span_notice("You add wires to the assembly."))
 			playsound(loc, I.usesound, 50, 1)
 			state = ASSEMBLY_WIRED
 		else
@@ -39,7 +39,7 @@
 		if(!user.unEquip(I))
 			to_chat(user, "<span class='warning'>[I] is stuck!</span>")
 			return
-		to_chat(user, "<span class='notice'>You attach [I] into the assembly inner circuits.</span>")
+		to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
 		upgrades += I
 		user.drop_item()
 		I.loc = src
@@ -55,7 +55,7 @@
 		return
 	var/obj/U = locate(/obj) in upgrades
 	if(U)
-		to_chat(user, "<span class='notice'>You unattach an upgrade from the assembly.</span>")
+		to_chat(user, span_notice("You unattach an upgrade from the assembly."))
 		playsound(loc, I.usesound, 50, 1)
 		U.loc = get_turf(src)
 		upgrades -= U
@@ -147,12 +147,12 @@
 	if(state == ASSEMBLY_WRENCHED)
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 			return
-		to_chat(user, "<span class='notice'>You weld [src] into place.</span>")
+		to_chat(user, span_notice("You weld [src] into place."))
 		state = ASSEMBLY_WELDED
 	else if(state == ASSEMBLY_WELDED)
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 			return
-		to_chat(user, "<span class='notice'>You unweld [src] from its place.</span>")
+		to_chat(user, span_notice("You unweld [src] from its place."))
 		state = ASSEMBLY_WRENCHED
 
 /obj/item/camera_assembly/update_icon()

@@ -31,22 +31,22 @@
 		user.put_in_active_hand(gift)
 		src.gift.add_fingerprint(user)
 	else
-		to_chat(user, "<span class='notice'>The gift was empty!</span>")
+		to_chat(user, span_notice("The gift was empty!"))
 	qdel(src)
 
 /obj/effect/spresent/relaymove(mob/user as mob)
 	if(user.stat)
 		return
-	to_chat(user, "<span class='notice'>You cant move.</span>")
+	to_chat(user, span_notice("You cant move."))
 
 /obj/effect/spresent/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	if(!istype(W, /obj/item/wirecutters))
-		to_chat(user, "<span class='notice'>I need wirecutters for that.</span>")
+		to_chat(user, span_notice("I need wirecutters for that."))
 		return
 
-	to_chat(user, "<span class='notice'>You cut open the present.</span>")
+	to_chat(user, span_notice("You cut open the present."))
 
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.forceMove(loc)
@@ -137,4 +137,4 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")
+	to_chat(user, span_notice("You need to use it on a package that has already been wrapped!"))

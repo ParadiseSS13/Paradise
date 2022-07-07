@@ -80,7 +80,7 @@
 			processing_selection = FALSE
 			deselect_region()
 		else if(cornerA || cornerB)
-			to_chat(user, "<span class='notice'>Region selection canceled!</span>")
+			to_chat(user, span_notice("Region selection canceled!"))
 			deselect_region()
 
 /datum/buildmode_mode/proc/handle_selected_region(mob/user, params)

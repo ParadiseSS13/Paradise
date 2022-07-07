@@ -39,9 +39,9 @@
 			qdel(C)
 			light_broken = FALSE
 			update_icon()
-			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
+			to_chat(user, span_notice("You replace the light bulb."))
 		else
-			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
+			to_chat(user, span_notice("The light bulb seems fine, no need to replace it."))
 	else
 		return ..()
 
@@ -66,7 +66,7 @@
 		var/list/rgb = hsl2rgb(arglist(hsl))
 		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
 
-		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+		to_chat(user, span_notice("You change [src]'s light bulb color."))
 		update_icon()
 	else
 		to_chat(user, "<span class='warning'>[src]'s light bulb appears to have burned out.</span>")

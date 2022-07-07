@@ -215,7 +215,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 	if(shock(user, 50))
 		return
-	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
+	user.visible_message("[user] cuts the cable.", span_notice("You cut the cable."))
 	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
 	deconstruct()
 
@@ -539,7 +539,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			return
 
 		if(!S.burn_dam)
-			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+			to_chat(user, span_notice("Nothing to fix!"))
 			return
 
 		if(H == user)

@@ -6,15 +6,15 @@
 // of the currently selected path
 
 /datum/buildmode_mode/advanced/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Set object type</span>")
+	to_chat(user, span_notice("***********************************************************"))
+	to_chat(user, span_notice("Right Mouse Button on buildmode button = Set object type"))
 	to_chat(user, "<span class='notice'>Left Mouse Button + alt on turf/obj    = Copy object type")
-	to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj          = Place objects</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button                     = Delete objects</span>")
+	to_chat(user, span_notice("Left Mouse Button on turf/obj          = Place objects"))
+	to_chat(user, span_notice("Right Mouse Button                     = Delete objects"))
 	to_chat(user, "")
-	to_chat(user, "<span class='notice'>Use the button in the upper left corner to</span>")
-	to_chat(user, "<span class='notice'>change the direction of built objects.</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_notice("Use the button in the upper left corner to"))
+	to_chat(user, span_notice("change the direction of built objects."))
+	to_chat(user, span_notice("***********************************************************"))
 
 /datum/buildmode_mode/advanced/change_settings(mob/user)
 	var/target_path = input(user,"Enter typepath:" ,"Typepath","/obj/structure/closet")
@@ -38,9 +38,9 @@
 	if(left_click && alt_click)
 		if (isturf(object) || isobj(object) || ismob(object))
 			objholder = object.type
-			to_chat(user, "<span class='notice'>[initial(object.name)] ([object.type]) selected.</span>")
+			to_chat(user, span_notice("[initial(object.name)] ([object.type]) selected."))
 		else
-			to_chat(user, "<span class='notice'>[initial(object.name)] is not a turf, object, or mob! Please select again.</span>")
+			to_chat(user, span_notice("[initial(object.name)] is not a turf, object, or mob! Please select again."))
 	else if(left_click)
 		if(ispath(objholder,/turf))
 			var/turf/T = get_turf(object)
@@ -56,4 +56,4 @@
 		if(isobj(object))
 			log_admin("Build Mode: [key_name(user)] deleted [object] at ([object.x],[object.y],[object.z])")
 			qdel(object)
-	
+

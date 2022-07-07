@@ -140,7 +140,7 @@
 		M.visible_message("<span class='danger'>[user] injects [M] with the syringe with [src]!", \
 						"<span class='userdanger'>[user] injects [M] with the syringe with [src]!")
 	else
-		to_chat(user, "<span class='notice'>You inject yourself with [src].</span>")
+		to_chat(user, span_notice("You inject yourself with [src]."))
 
 	add_attack_logs(user, M, attack_log, ATKLOG_ALL)
 

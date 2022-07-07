@@ -833,7 +833,7 @@
 		A.var_edited = TRUE
 		A.makeSpeedProcess()
 		log_admin("[key_name(usr)] has made [A] speed process")
-		message_admins("<span class='notice'>[key_name(usr)] has made [A] speed process</span>")
+		message_admins(span_notice("[key_name(usr)] has made [A] speed process"))
 		return TRUE
 
 	else if(href_list["makenormalspeed"])
@@ -845,7 +845,7 @@
 		A.var_edited = TRUE
 		A.makeNormalProcess()
 		log_admin("[key_name(usr)] has made [A] process normally")
-		message_admins("<span class='notice'>[key_name(usr)] has made [A] process normally</span>")
+		message_admins(span_notice("[key_name(usr)] has made [A] process normally"))
 		return TRUE
 
 	else if(href_list["modifyarmor"])
@@ -933,7 +933,7 @@
 				if(amount)
 					A.reagents.add_reagent(chosen_id, amount)
 					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]")
-					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
+					message_admins(span_notice("[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]"))
 
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return

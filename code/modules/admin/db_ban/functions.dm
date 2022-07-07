@@ -114,7 +114,7 @@
 
 	// Check validity of the CID. Some have a lot of collisions due to bad industry practices (thanks walmart)
 	if(computerid && (computerid in GLOB.configuration.admin.common_cid_map))
-		to_chat(usr, "<span class='notice'>You attempted to apply a ban that includes the CID [computerid]. This CID has been ignored for the following reason: [GLOB.configuration.admin.common_cid_map[computerid]]</span>")
+		to_chat(usr, span_notice("You attempted to apply a ban that includes the CID [computerid]. This CID has been ignored for the following reason: [GLOB.configuration.admin.common_cid_map[computerid]]"))
 		// Cancel it out. DO NOT USE NULL HERE. IT MAKES THE DB CRY. USE AN EMPTY STRING.
 		computerid = ""
 
@@ -174,7 +174,7 @@
 		return
 
 	qdel(query_insert)
-	to_chat(usr, "<span class='notice'>Ban saved to database.</span>")
+	to_chat(usr, span_notice("Ban saved to database."))
 	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
 
 	if(announce_in_discord)

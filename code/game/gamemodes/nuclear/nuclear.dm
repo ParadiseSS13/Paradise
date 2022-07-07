@@ -243,7 +243,7 @@
 /datum/game_mode/proc/greet_syndicate(datum/mind/syndicate, you_are=1)
 	SEND_SOUND(syndicate.current, sound('sound/ambience/antag/ops.ogg'))
 	if(you_are)
-		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
+		to_chat(syndicate.current, span_notice("You are a [syndicate_name()] agent!"))
 	var/obj_count = 1
 	for(var/datum/objective/objective in syndicate.objectives)
 		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")

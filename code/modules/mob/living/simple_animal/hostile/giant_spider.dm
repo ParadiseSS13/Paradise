@@ -157,7 +157,7 @@
 
 	if(busy != SPINNING_WEB)
 		busy = SPINNING_WEB
-		src.visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance.</span>")
+		src.visible_message(span_notice("\the [src] begins to secrete a sticky substance."))
 		stop_automated_movement = TRUE
 		spawn(40)
 			if(busy == SPINNING_WEB && src.loc == T)
@@ -197,7 +197,7 @@
 
 	if(cocoon_target && busy != SPINNING_COCOON)
 		busy = SPINNING_COCOON
-		src.visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance around \the [cocoon_target].</span>")
+		src.visible_message(span_notice("\the [src] begins to secrete a sticky substance around \the [cocoon_target]."))
 		stop_automated_movement = TRUE
 		walk(src,0)
 		spawn(50)
@@ -243,12 +243,12 @@
 
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
-		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
+		to_chat(src, span_notice("There is already a cluster of eggs here!"))
 	else if(!fed)
 		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
 	else if(busy != LAYING_EGGS)
 		busy = LAYING_EGGS
-		src.visible_message("<span class='notice'>\the [src] begins to lay a cluster of eggs.</span>")
+		src.visible_message(span_notice("\the [src] begins to lay a cluster of eggs."))
 		stop_automated_movement = TRUE
 		spawn(50)
 			if(busy == LAYING_EGGS)

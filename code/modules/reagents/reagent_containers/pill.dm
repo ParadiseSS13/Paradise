@@ -34,7 +34,7 @@
 /obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
 	if(!proximity || !target.is_open_container())
 		return
-	to_chat(user, "<span class='notice'>You [!target.reagents.total_volume ? "break open" : "dissolve"] [src] in [target].</span>")
+	to_chat(user, span_notice("You [!target.reagents.total_volume ? "break open" : "dissolve"] [src] in [target]."))
 	for(var/mob/O in oviewers(2, user))
 		O.show_message("<span class='warning'>[user] puts something in [target].</span>", 1)
 	reagents.trans_to(target, reagents.total_volume)

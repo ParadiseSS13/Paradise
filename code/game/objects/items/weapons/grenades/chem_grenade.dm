@@ -139,7 +139,7 @@
 	if(istype(I, /obj/item/screwdriver))
 		if(stage == WIRED)
 			if(beakers.len)
-				to_chat(user, "<span class='notice'>You lock the assembly.</span>")
+				to_chat(user, span_notice("You lock the assembly."))
 				playsound(loc, prime_sound, 25, -3)
 				stage = READY
 				update_icon()
@@ -161,25 +161,25 @@
 				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_MOST)
 				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
 			else
-				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
+				to_chat(user, span_notice("You need to add at least one beaker before locking the assembly."))
 		else if(stage == READY && !nadeassembly)
 			det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
-			to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
+			to_chat(user, span_notice("You modify the time delay. It's set for [det_time / 10] second\s."))
 		else if(stage == EMPTY)
-			to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
+			to_chat(user, span_notice("You need to add an activation mechanism."))
 
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
 		if(beakers.len == 2)
-			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
+			to_chat(user, span_notice("[src] can not hold more containers."))
 			return
 		else
 			if(I.reagents.total_volume)
-				to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
+				to_chat(user, span_notice("You add [I] to the assembly."))
 				user.drop_item()
 				I.forceMove(src)
 				beakers += I
 			else
-				to_chat(user, "<span class='notice'>[I] is empty.</span>")
+				to_chat(user, span_notice("[I] is empty."))
 
 	else if(stage == EMPTY && istype(I, /obj/item/assembly_holder))
 		var/obj/item/assembly_holder/A = I
@@ -194,7 +194,7 @@
 		A.forceMove(src)
 		assemblyattacher = user.ckey
 		stage = WIRED
-		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
+		to_chat(user, span_notice("You add [A] to [src]!"))
 		update_icon()
 
 	else if(stage == EMPTY && istype(I, /obj/item/stack/cable_coil))
@@ -202,16 +202,16 @@
 		C.use(1)
 
 		stage = WIRED
-		to_chat(user, "<span class='notice'>You rig [src].</span>")
+		to_chat(user, span_notice("You rig [src]."))
 		update_icon()
 
 	else if(stage == READY && istype(I, /obj/item/wirecutters))
-		to_chat(user, "<span class='notice'>You unlock the assembly.</span>")
+		to_chat(user, span_notice("You unlock the assembly."))
 		stage = WIRED
 		update_icon()
 
 	else if(stage == WIRED && istype(I, /obj/item/wrench))
-		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
+		to_chat(user, span_notice("You open the grenade and remove the contents."))
 		stage = EMPTY
 		payload_name = null
 		label = null
@@ -359,7 +359,7 @@
 	//make a special case you might as well do it explicitly. -Sayu
 /obj/item/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == WIRED)
-		to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
+		to_chat(user, span_notice("You add [I] to the assembly."))
 		user.drop_item()
 		I.loc = src
 		beakers += I
@@ -399,7 +399,7 @@
 			unit_spread += 25
 		else
 			unit_spread = 5
-	to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
+	to_chat(user, span_notice(" You set the time release to [unit_spread] units per detonation."))
 
 /obj/item/grenade/chem_grenade/adv_release/prime()
 	if(stage != READY)

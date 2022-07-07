@@ -21,10 +21,10 @@
 /mob/living/simple_animal/hostile/guardian/fire/ToggleMode()
 	if(loc == summoner)
 		if(toggle)
-			to_chat(src, "<span class='notice'>You switch to dispersion mode, and will teleport victims away from your master.</span>")
+			to_chat(src, span_notice("You switch to dispersion mode, and will teleport victims away from your master."))
 			toggle = FALSE
 		else
-			to_chat(src, "<span class='notice'>You switch to deception mode, and will turn your victims against their allies.</span>")
+			to_chat(src, span_notice("You switch to deception mode, and will turn your victims against their allies."))
 			toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()

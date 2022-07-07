@@ -82,8 +82,8 @@
 
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>", \
-	"<span class='notice'> You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>" )
+	user.visible_message(span_notice(" [user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool]."), \
+	span_notice(" You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].") )
 
 	return TRUE
 
@@ -108,8 +108,8 @@
 
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>", \
-	"<span class='notice'> You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>" )
+	user.visible_message(span_notice(" [user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool]."), \
+	span_notice(" You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].") )
 
 	return TRUE
 
@@ -147,14 +147,14 @@
 	if(!IC && affected.hidden)
 		IC = affected.hidden
 	if(istype(tool,/obj/item/cautery))
-		to_chat(user, "<span class='notice'>You prepare to close the cavity wall.</span>")
+		to_chat(user, span_notice("You prepare to close the cavity wall."))
 	else if(tool)
 		user.visible_message("[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
 		"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
 	else if(IC)
-		user.visible_message("[user] checks for items in [target]'s [target_zone].", "<span class='notice'>You check for items in [target]'s [target_zone]...</span>")
+		user.visible_message("[user] checks for items in [target]'s [target_zone].", span_notice("You check for items in [target]'s [target_zone]..."))
 	else //no internal items..but we still need a message!
-		user.visible_message("[user] checks for items in [target]'s [target_zone].", "<span class='notice'>You check for items in [target]'s [target_zone]...</span>")
+		user.visible_message("[user] checks for items in [target]'s [target_zone].", span_notice("You check for items in [target]'s [target_zone]..."))
 
 	target.custom_pain("The pain in your [target_zone] is living hell!")
 	..()
@@ -183,11 +183,11 @@
 		return TRUE//god this is ugly....
 	else if(tool)
 		if(IC)
-			to_chat(user, "<span class='notice'>There seems to be something in there already!</span>")
+			to_chat(user, span_notice("There seems to be something in there already!"))
 			return TRUE
 		else
-			user.visible_message("<span class='notice'> [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>", \
-			"<span class='notice'> You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>" )
+			user.visible_message(span_notice(" [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity."), \
+			span_notice(" You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.") )
 			if((tool.w_class > get_max_wclass(affected) / 2 && prob(50) && !affected.is_robotic()))
 				to_chat(user, "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>")
 				affected.cause_internal_bleeding()
@@ -197,7 +197,7 @@
 			return TRUE
 	else
 		if(IC)
-			user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
+			user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", span_notice("You pull [IC] out of [target]'s [target_zone]."))
 			user.put_in_hands(IC)
 			affected.hidden = null
 			return TRUE

@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			return TRUE
 	else if(iswrench(I))
 		if(loaded_tank)
-			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
+			to_chat(user, span_notice("Remove the plasma tank first."))
 			return TRUE
 		playsound(loc, I.usesound, 75, TRUE)
 		anchored = !anchored

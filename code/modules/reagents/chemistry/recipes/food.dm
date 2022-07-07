@@ -148,7 +148,7 @@
 
 /datum/chemical_reaction/fake_cheese/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='notice'>A faint cheese-ish smell drifts through the air...</span>")
+	T.visible_message(span_notice("A faint cheese-ish smell drifts through the air..."))
 
 /datum/chemical_reaction/weird_cheese
 	name = "Weird cheese"

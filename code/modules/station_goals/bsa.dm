@@ -41,7 +41,7 @@
 	if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
 		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
+		to_chat(user, span_notice("You store linkage information in [W]'s buffer."))
 	else if(istype(W, /obj/item/wrench))
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
@@ -57,7 +57,7 @@
 	if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
 		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
+		to_chat(user, span_notice("You store linkage information in [W]'s buffer."))
 	else if(istype(W, /obj/item/wrench))
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
@@ -78,11 +78,11 @@
 			if(istype(M.buffer,/obj/machinery/bsa/back))
 				back = M.buffer
 				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
+				to_chat(user, span_notice("You link [src] with [back]."))
 			else if(istype(M.buffer,/obj/machinery/bsa/front))
 				front = M.buffer
 				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
+				to_chat(user, span_notice("You link [src] with [front]."))
 	else if(istype(W, /obj/item/wrench))
 		default_unfasten_wrench(user, W, 10)
 		return TRUE

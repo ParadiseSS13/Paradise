@@ -22,7 +22,7 @@
 	if(!emagged)
 		emagged = 1
 		syndicate = 1
-		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+		to_chat(user, span_notice("The This beacon now only be locked on to by emagged teleporters!"))
 
 /obj/item/radio/beacon/hear_talk()
 	return
@@ -69,7 +69,7 @@
 
 /obj/item/radio/beacon/syndicate/attack_self(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
+		to_chat(user, span_notice("Locked In"))
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		user.drop_item()
@@ -81,7 +81,7 @@
 
 /obj/item/radio/beacon/syndicate/power_sink/attack_self(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
+		to_chat(user, span_notice("Locked In"))
 		new /obj/item/powersink(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()
@@ -95,7 +95,7 @@
 
 /obj/item/radio/beacon/syndicate/bomb/attack_self(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
+		to_chat(user, span_notice("Locked In"))
 		new bomb(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		user.drop_item()

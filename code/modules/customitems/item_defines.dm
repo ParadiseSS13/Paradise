@@ -65,10 +65,10 @@
 		to_chat(user, "<span class= 'notice'>You use [src] to apply a [tattoo_name] to yourself!</span>")
 
 	else
-		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with [src].</span>", "<span class='notice'>You begin to tattoo [target] with [src]!</span>")
+		user.visible_message(span_notice("[user] begins to apply a [tattoo_name] [target] with [src]."), span_notice("You begin to tattoo [target] with [src]!"))
 		if(!do_after(user, 30 * toolspeed, target = M))
 			return
-		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
+		user.visible_message(span_notice("[user] finishes the [tattoo_name] on [target]."), span_notice("You finish the [tattoo_name]."))
 
 	if(!used) // No exploiting do_after to tattoo multiple folks.
 		target.change_markings(tattoo_icon, "body")
@@ -108,12 +108,12 @@
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)
 
-			to_chat(user, "<span class='notice'>You change the color setting on [src].</span>")
+			to_chat(user, span_notice("You change the color setting on [src]."))
 
 			update_icon()
 
 	else
-		to_chat(user, "<span class='notice'>[src] is out of ink!</span>")
+		to_chat(user, span_notice("[src] is out of ink!"))
 
 /obj/item/fluff/bird_painter // BirdtTalon: Kahkiri
 	name = "Orb of Onyx"
@@ -193,7 +193,7 @@
 		return
 
 	if(istype(target, /obj/structure/chair/wheelchair) && !istype(target, /obj/structure/chair/wheelchair/bike))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, span_notice("You modify the appearance of [target]."))
 		var/obj/structure/chair/wheelchair/chair = target
 		chair.icon = 'icons/obj/custom_items.dmi'
 		chair.icon_state = "vox_wheelchair"
@@ -238,7 +238,7 @@
 	force = 2
 
 /obj/item/fluff/dogwhistle/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>",  "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
+	user.visible_message(span_notice("[user] blows on the whistle, but no sound comes out."),  span_notice("You blow on the whistle, but don't hear anything."))
 	addtimer(CALLBACK(src, .proc/summon_sax, user), 20)
 
 /obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
@@ -248,7 +248,7 @@
 	var/obj/item/clothing/head/det_hat/D = new
 	D.flags |= NODROP
 	C.place_on_head(D)
-	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
+	C.visible_message(span_notice("[C] suddenly winks into existence at [user]'s feet!"))
 	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
 	user.drop_item()
 	qdel(src)
@@ -292,7 +292,7 @@
 		return
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
-		to_chat(target, "<span class='notice'>You comb your tail with [src].</span>")
+		to_chat(target, span_notice("You comb your tail with [src]."))
 		used = 1
 
 /obj/item/fluff/desolate_coat_kit //DesolateG: Micheal Smith
@@ -309,7 +309,7 @@
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 		return
 
-	to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+	to_chat(user, span_notice("You modify the appearance of [target]."))
 	var/obj/item/clothing/suit/armor/jacket = target
 	jacket.icon_state = "desolate_coat_open"
 	jacket.icon = 'icons/obj/custom_items.dmi'
@@ -337,7 +337,7 @@
 		return
 
 	if(istype(target, /obj/item/clothing/mask/gas) && !istype(target, /obj/item/clothing/mask/gas/welding))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, span_notice("You modify the appearance of [target]."))
 		var/obj/item/clothing/mask/gas/M = target
 		M.name = "Prescription Gas Mask"
 		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words \"Property of Yon-Dale\" can be seen on the inner band."
@@ -364,7 +364,7 @@
 		return
 
 	if(istype(target, /obj/item/melee/baton) && !istype(target, /obj/item/melee/baton/cattleprod))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, span_notice("You modify the appearance of [target]."))
 		var/obj/item/melee/baton/the_baton = target
 		the_baton.base_icon = "desolate_baton"
 		the_baton.item_state = "desolate_baton"
@@ -391,7 +391,7 @@
 		return
 
 	if(istype(target, /obj/item/clothing/head/welding))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(user, span_notice("You modify the appearance of [target]."))
 
 		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
 		target.transfer_fingerprints_to(P)
@@ -436,7 +436,7 @@
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
 		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, 1)
-		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
+		to_chat(user, span_notice("You modify [target] with [src]."))
 		H.update_inv_head()
 		qdel(target)
 		qdel(src)
@@ -460,7 +460,7 @@
 		var/obj/item/clothing/suit/storage/S = target
 		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
 		webbing.allowed = S.allowed
-		to_chat(user, "<span class='notice'>You modify [S] with [src].</span>")
+		to_chat(user, span_notice("You modify [S] with [src]."))
 		H.update_inv_wear_suit()
 		qdel(S)
 		qdel(src)
@@ -481,9 +481,9 @@
 
 	if(istype(target, /obj/item/clothing/head/helmet/space/hardsuit/security))
 		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			to_chat(H, span_notice("The kit's helmet modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, span_notice("You modify the appearance of [target]."))
 		used |= USED_MOD_HELM
 
 		var/obj/item/clothing/head/helmet/space/hardsuit/security/P = target
@@ -501,9 +501,9 @@
 		return
 	if(istype(target, /obj/item/clothing/suit/space/hardsuit/security))
 		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			to_chat(user, span_notice("The kit's suit modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, span_notice("You modify the appearance of [target]."))
 		used |= USED_MOD_SUIT
 
 		var/obj/item/clothing/suit/space/hardsuit/security/P = target
@@ -534,9 +534,9 @@
 
 	if(istype(target, /obj/item/clothing/head/helmet/space/hardsuit/security))
 		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			to_chat(H, span_notice("The kit's helmet modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, span_notice("You modify the appearance of [target]."))
 		used |= USED_MOD_HELM
 
 		var/obj/item/clothing/head/helmet/space/hardsuit/security/P = target
@@ -557,9 +557,9 @@
 
 	if(istype(target, /obj/item/clothing/suit/space/hardsuit/security))
 		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			to_chat(user, span_notice("The kit's suit modifier has already been used."))
 			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		to_chat(H, span_notice("You modify the appearance of [target]."))
 		used |= USED_MOD_SUIT
 
 		var/obj/item/clothing/suit/space/hardsuit/security/P = target
@@ -1021,7 +1021,7 @@
 		return
 
 	if(target.change_hair("Sasook Hair", 1))
-		to_chat(target, "<span class='notice'>You dump some of [src] on your head and style it around.</span>")
+		to_chat(target, span_notice("You dump some of [src] on your head and style it around."))
 
 
 
@@ -1446,7 +1446,7 @@
 		return
 
 	if(target.change_hair("Zekes Tentacles", 1))
-		to_chat(target, "<span class='notice'>You take time to admire yourself in [src], brushing your tendrils down and revealing their true length.</span>")
+		to_chat(target, span_notice("You take time to admire yourself in [src], brushing your tendrils down and revealing their true length."))
 
 
 /obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace //Fethas: Sefra'neem
@@ -1505,7 +1505,7 @@
 
 		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
 		used |= USED_MOD_HELM
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
+		to_chat(H, span_notice("You modify the appearance of [P]."))
 		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
 		if(P == H.head)
@@ -1521,7 +1521,7 @@
 
 		var/obj/item/clothing/under/plasmaman/P = target
 		used |= USED_MOD_SUIT
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
+		to_chat(H, span_notice("You modify the appearance of [P]."))
 		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		P.icon_state = "ikelos_envirosuit"
 		P.item_color = "ikelos_envirosuit"

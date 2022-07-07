@@ -82,7 +82,7 @@
 			emergency_mode = FALSE
 			update_icon()
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
+		to_chat(user, span_notice("You use the cryptographic sequencer on [src]."))
 
 /obj/machinery/recycler/update_icon()
 	..()
@@ -209,7 +209,7 @@
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 270)
-	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
+	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
 	return 1
 
 /obj/machinery/recycler/verb/rotateccw()
@@ -225,7 +225,7 @@
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 90)
-	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
+	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
 	return 1
 
 

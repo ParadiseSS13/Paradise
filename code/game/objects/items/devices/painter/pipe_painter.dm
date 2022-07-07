@@ -23,7 +23,7 @@
 		return
 
 	if(P.pipe_color == GLOB.pipe_colors[paint_setting])
-		to_chat(user, "<span class='notice'>This pipe is aready painted [paint_setting]!</span>")
+		to_chat(user, span_notice("This pipe is aready painted [paint_setting]!"))
 		return
 
 	var/turf/T = get_turf(P)

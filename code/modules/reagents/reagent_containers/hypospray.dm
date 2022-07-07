@@ -27,7 +27,7 @@
 
 	if(reagents.total_volume && (ignore_flags || M.can_inject(user, TRUE))) // Ignore flag should be checked first or there will be an error message.
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
-		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
+		to_chat(user, span_notice("You inject [M] with [src]."))
 
 		if(M.reagents)
 			var/list/injected = list()
@@ -41,7 +41,7 @@
 				visible_message("<span class='warning'>[user] injects [M] with [trans] units of [primary_reagent_name].</span>")
 				playsound(loc, 'sound/goonstation/items/hypo.ogg', 80, 0)
 
-			to_chat(user, "<span class='notice'>[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src].</span>")
+			to_chat(user, span_notice("[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src]."))
 
 			var/contained = english_list(injected)
 
@@ -128,9 +128,9 @@
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
 	if(reagents && reagents.reagent_list.len)
-		. += "<span class='notice'>It is currently loaded.</span>"
+		. += span_notice("It is currently loaded.")
 	else
-		. += "<span class='notice'>It is spent.</span>"
+		. += span_notice("It is spent.")
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"

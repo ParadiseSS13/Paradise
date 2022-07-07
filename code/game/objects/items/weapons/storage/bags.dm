@@ -453,9 +453,9 @@
 							sleep(rand(2,4))
 		if( droppedSomething )
 			if( foundtable )
-				user.visible_message("<span class='notice'>[user] unloads [user.p_their()] service tray.</span>")
+				user.visible_message(span_notice("[user] unloads [user.p_their()] service tray."))
 			else
-				user.visible_message("<span class='notice'>[user] drops all the items on [user.p_their()] tray.</span>")
+				user.visible_message(span_notice("[user] drops all the items on [user.p_their()] tray."))
 
 	return ..()
 

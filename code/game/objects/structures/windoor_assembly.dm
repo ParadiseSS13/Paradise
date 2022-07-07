@@ -29,7 +29,7 @@
 
 /obj/structure/windoor_assembly/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
+	. += span_notice("Alt-click to rotate it clockwise.")
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
 	. = ..()
@@ -95,7 +95,7 @@
 				if(P.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need more plasteel to do this!</span>")
 					return
-				to_chat(user, "<span class='notice'>You start to reinforce the windoor with plasteel...</span>")
+				to_chat(user, span_notice("You start to reinforce the windoor with plasteel..."))
 
 				if(do_after(user, 40 * P.toolspeed, target = src))
 					if(!src || secure || P.get_amount() < 2)
@@ -103,7 +103,7 @@
 					playsound(loc, P.usesound, 100, 1)
 
 					P.use(2)
-					to_chat(user, "<span class='notice'>You reinforce the windoor.</span>")
+					to_chat(user, span_notice("You reinforce the windoor."))
 					secure = TRUE
 					if(anchored)
 						name = "secure anchored windoor assembly"
@@ -119,7 +119,7 @@
 						return
 					var/obj/item/stack/cable_coil/CC = W
 					CC.use(1)
-					to_chat(user, "<span class='notice'>You wire the windoor.</span>")
+					to_chat(user, span_notice("You wire the windoor."))
 					playsound(loc, CC.usesound, 100, 1)
 					state = "02"
 					if(secure)
@@ -141,7 +141,7 @@
 					if(!src || electronics)
 						W.forceMove(loc)
 						return
-					to_chat(user, "<span class='notice'>You install the windoor electronics.</span>")
+					to_chat(user, span_notice("You install the windoor electronics."))
 					name = "near finished windoor assembly"
 					electronics = W
 				else
@@ -178,7 +178,7 @@
 				return
 
 		density = TRUE //Shouldn't matter but just incase
-		to_chat(user, "<span class='notice'>You finish the windoor.</span>")
+		to_chat(user, span_notice("You finish the windoor."))
 		var/obj/machinery/door/window/windoor
 		if(secure)
 			windoor = new /obj/machinery/door/window/brigdoor(src.loc)
@@ -221,7 +221,7 @@
 	user.visible_message("[user] removes the electronics from the windoor assembly.", "You start to uninstall the electronics from the windoor assembly...")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+	to_chat(user, span_notice("You remove the airlock electronics."))
 	name = "wired windoor assembly"
 	var/obj/item/airlock_electronics/ae
 	ae = electronics
@@ -237,7 +237,7 @@
 	user.visible_message("[user] cuts the wires from the windoor assembly.", "You start to cut the wires from windoor assembly...")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != "02")
 		return
-	to_chat(user, "<span class='notice'>You cut the windoor wires.</span>")
+	to_chat(user, span_notice("You cut the windoor wires."))
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = "01"
 	if(secure)
@@ -265,7 +265,7 @@
 			if(WD.dir == dir)
 				to_chat(user, "<span class='warning'>There is already a windoor in that location!</span>")
 				return
-		to_chat(user, "<span class='notice'>You secure the windoor assembly.</span>")
+		to_chat(user, span_notice("You secure the windoor assembly."))
 		anchored = TRUE
 		if(secure)
 			name = "secure anchored windoor assembly"
@@ -276,7 +276,7 @@
 		user.visible_message("[user] unsecures the windoor assembly from the floor.", "You start to unsecure the windoor assembly from the floor...")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !anchored || state != "01")
 			return
-		to_chat(user, "<span class='notice'>You unsecure the windoor assembly.</span>")
+		to_chat(user, span_notice("You unsecure the windoor assembly."))
 		anchored = FALSE
 		if(secure)
 			name = "secure windoor assembly"

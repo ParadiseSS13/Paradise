@@ -17,7 +17,7 @@
 	if(!broken)
 		broken = TRUE
 		locked = FALSE
-		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
+		to_chat(user, span_notice("You break the lock on [src]."))
 		update_icon()
 
 /obj/structure/closet/secure_closet/guncabinet/update_overlays()

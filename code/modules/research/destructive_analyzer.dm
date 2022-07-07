@@ -86,7 +86,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		busy = 1
 		loaded_item = O
 		O.loc = src
-		to_chat(user, "<span class='notice'>You add [O] to [src]!</span>")
+		to_chat(user, span_notice("You add [O] to [src]!"))
 		flick("d_analyzer_la", src)
 		spawn(10)
 			icon_state = "d_analyzer_l"

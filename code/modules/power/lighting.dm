@@ -59,7 +59,7 @@
 	. = TRUE
 	switch(stage)
 		if(1)
-			to_chat(user, "<span class='notice'>You begin to dismantle [src].</span>")
+			to_chat(user, span_notice("You begin to dismantle [src]."))
 			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 				return
 			new /obj/item/stack/sheet/metal(get_turf(loc), sheets_refunded)
@@ -97,8 +97,8 @@
 		if("bulb")
 			icon_state = "bulb-empty"
 	stage = 3
-	user.visible_message("<span class='notice'>[user] closes [src]'s casing.</span>", \
-		"<span class='notice'>You close [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
+	user.visible_message(span_notice("[user] closes [src]'s casing."), \
+		span_notice("You close [src]'s casing."), span_notice("You hear a screwdriver."))
 
 	switch(fixture_type)
 		if("tube")
@@ -123,8 +123,8 @@
 				icon_state = "bulb-construct-stage2"
 		stage = 2
 		playsound(loc, coil.usesound, 50, 1)
-		user.visible_message("<span class='notice'>[user.name] adds wires to [src].</span>", \
-			"<span class='notice'>You add wires to [src].</span>", "<span class='notice'>You hear a noise.</span>")
+		user.visible_message(span_notice("[user.name] adds wires to [src]."), \
+			span_notice("You add wires to [src]."), span_notice("You hear a noise."))
 		return
 
 	return ..()
@@ -436,7 +436,7 @@
 			var/obj/item/light/L = W
 			if(istype(L, light_type))
 				status = L.status
-				to_chat(user, "<span class='notice'>You insert [L].</span>")
+				to_chat(user, span_notice("You insert [L]."))
 				switchcount = L.switchcount
 				rigged = L.rigged
 				brightness_range = L.brightness_range
@@ -482,8 +482,8 @@
 	if(status == LIGHT_EMPTY)
 		if(istype(W, /obj/item/screwdriver)) //If it's a screwdriver open it.
 			playsound(loc, W.usesound, W.tool_volume, 1)
-			user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
-				"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
+			user.visible_message(span_notice("[user] opens [src]'s casing."), \
+				span_notice("You open [src]'s casing."), span_notice("You hear a screwdriver."))
 			deconstruct()
 			return
 
@@ -619,7 +619,7 @@
 // ai attack - toggle emergency lighting
 /obj/machinery/light/attack_ai(mob/user)
 	no_emergency = !no_emergency
-	to_chat(user, "<span class='notice'>Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"].</span>")
+	to_chat(user, span_notice("Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"]."))
 	update(FALSE)
 
 // attack with hand - remove tube/bulb
@@ -646,9 +646,9 @@
 			prot = 1
 
 		if(prot > 0 ||  HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
-			to_chat(user, "<span class='notice'>You remove the light [fitting]</span>")
+			to_chat(user, span_notice("You remove the light [fitting]"))
 		else if(HAS_TRAIT(user, TRAIT_TELEKINESIS))
-			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
+			to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
 				to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
@@ -659,10 +659,10 @@
 				H.updatehealth()
 				return
 			else
-				to_chat(user, "<span class='notice'>You try to remove the light [fitting], but it's too hot to touch!</span>")
+				to_chat(user, span_notice("You try to remove the light [fitting], but it's too hot to touch!"))
 				return
 	else
-		to_chat(user, "<span class='notice'>You remove the light [fitting]</span>")
+		to_chat(user, span_notice("You remove the light [fitting]"))
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
 
@@ -935,7 +935,7 @@
 	update(FALSE)
 
 /obj/machinery/light/proc/enable_emergency_lighting()
-	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")
+	visible_message(span_notice("[src]'s emergency lighting flickers back to life."))
 	extinguished = FALSE
 	no_emergency = FALSE
 	update(FALSE)
