@@ -231,7 +231,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(istype(M.loc, /obj/structure/morgue))
 		Morgue = M.loc
 	if(Morgue)
-		Morgue.update()
+		Morgue.update_state()
 
 	// If mob in cryopod, despawn mob
 	if(P)
@@ -297,7 +297,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(istype(mind.current.loc,/obj/structure/morgue))
 		Morgue = mind.current.loc
 	if(Morgue)
-		Morgue.update()
+		Morgue.update_state()
 
 	return 1
 
