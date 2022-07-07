@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 			return
 	message_admins("<span class='notice'>[key_name_admin(proccaller)] has started to spawn a DeathSquad.</span>")
 	log_admin("[key_name_admin(proccaller)] has started to spawn a DeathSquad.")
-	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.")
+	to_chat(proccaller, "<span class='boldwarning'>This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle or use the end round verb when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.</span>")
 
 	var/mission = sanitize(copytext(input(src, "Please specify which mission the Deathsquad shall undertake.", "Specify Mission", "",), 1, MAX_MESSAGE_LEN))
 	if(!mission)
@@ -28,16 +28,16 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 			log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
 			return
 
-	var/is_leader = TRUE // set to FALSE after leader is spawned
+	var/is_leader = TRUE
 	var/commando_number = input(src, "How many Deathsquad Commandos would you like to send? (Recommended is 6, Max is [MAX_COMMANDOS])", "Specify Commandos") as num|null
 	if(!commando_number)
 		message_admins("[key_name_admin(proccaller)] cancelled their Deathsquad.")
 		log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
 		return
-	commando_number = clamp(commando_number, 0, MAX_COMMANDOS)
+	commando_number = clamp(commando_number, 1, MAX_COMMANDOS)
 
 	if(GLOB.deathsquad_sent)
-		if(alert("A Deathsquad leader has previously been sent with an unrestricted NAD, would you like to spawn another?",, "Yes", "No") != "Yes")
+		if(alert("A Deathsquad leader has previously been sent with an unrestricted NAD, would you like to spawn another unrestricted NAD?",, "Yes", "No") != "Yes")
 			is_leader = FALSE
 	GLOB.deathsquad_sent = TRUE
 	message_admins("[key_name_admin(proccaller)] has sent a Deathsquad with [commando_number] commandos.")
@@ -53,7 +53,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	if(!nuke_code)
 		message_admins("No nuclear warheads have been detected, the Deathsquad will not be provided detonation codes.")
 
-	// Find ghosts willing to be DS
+	// Find ghosts willing to be Deathsquad
 	var/list/commando_ghosts = list()
 	if(alert("Would you like to custom pick your Deathsquad?",, "Yes", "No") == "Yes")
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
@@ -70,7 +70,6 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		return
 
 	// Spawns commandos and equips them.
-
 	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list) //Despite obj/effect/landmark/spawner/ds being in the exact same location and doing the exact same thing as obj/effect/landmark/spawner/ert, switching them breaks it?
 		if(commando_number == 0)
 			break
