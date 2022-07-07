@@ -48,6 +48,6 @@
 	if(!required_blood)
 		return
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	to_chat(user, "<span class='boldnotice'>You have [vampire.bloodusable] left to use.</span>")
+	to_chat(user, span_boldnotice("You have [vampire.bloodusable] left to use."))
 	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]") // Only log abilities which require blood
 

@@ -476,7 +476,7 @@
 					return
 
 				if(occupant)
-					to_chat(user, "<span class='boldnotice'>[src] is in use.</span>")
+					to_chat(user, span_boldnotice("[src] is in use."))
 					return
 
 				take_occupant(M, willing)
@@ -488,7 +488,7 @@
 			icon_state = occupied_icon_state
 
 			to_chat(M, span_notice("[on_enter_occupant_message]"))
-			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+			to_chat(M, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
 
 			take_occupant(M, willing)
 	else
@@ -514,7 +514,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
+		to_chat(user, span_boldnotice("The cryo pod is already occupied!"))
 		return
 
 
@@ -543,7 +543,7 @@
 
 	if(willing)
 		if(!Adjacent(L) && !Adjacent(user))
-			to_chat(user, "<span class='boldnotice'>You're not close enough to [src].</span>")
+			to_chat(user, span_boldnotice("You're not close enough to [src]."))
 			return
 		if(L == user)
 			visible_message("[user] starts climbing into the cryo pod.")
@@ -554,7 +554,7 @@
 			if(!L) return
 
 			if(occupant)
-				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
+				to_chat(user, span_boldnotice("\The [src] is in use."))
 				return
 			take_occupant(L, willing)
 		else
@@ -569,7 +569,7 @@
 	time_till_despawn = initial(time_till_despawn) / willing_factor
 	icon_state = occupied_icon_state
 	to_chat(E, span_notice("[on_enter_occupant_message]"))
-	to_chat(E, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+	to_chat(E, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
 	occupant = E
 	name = "[name] ([occupant.name])"
 	time_entered = world.time
@@ -619,7 +619,7 @@
 		return
 
 	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
+		to_chat(usr, span_boldnotice("\The [src] is in use."))
 		return
 
 	if(usr.has_buckled_mobs()) //mob attached to us
@@ -637,7 +637,7 @@
 			return
 
 		if(occupant)
-			to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
+			to_chat(usr, span_boldnotice("\The [src] is in use."))
 			return
 
 		usr.stop_pulling()
@@ -646,7 +646,7 @@
 		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
 		icon_state = occupied_icon_state
 		to_chat(usr, span_notice("[on_enter_occupant_message]"))
-		to_chat(usr, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+		to_chat(usr, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
 		occupant = usr
 		time_entered = world.time
 

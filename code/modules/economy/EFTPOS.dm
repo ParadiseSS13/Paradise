@@ -165,7 +165,7 @@
 /obj/item/eftpos/proc/scan_card(obj/item/card/I, mob/user)
 	if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/C = I
-		visible_message("<span class='info'>[user] swipes a card through [src].</span>")
+		visible_message(span_info("[user] swipes a card through [src]."))
 
 		if(!transaction_locked || transaction_paid)
 			return

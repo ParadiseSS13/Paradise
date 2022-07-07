@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(changelog)
 		// If we are ready, process the button style
 		if(C.prefs.lastchangelog != current_cl_timestamp)
 			winset(C, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
-			to_chat(C, "<span class='info'>Changelog has changed since your last visit.</span>")
+			to_chat(C, span_info("Changelog has changed since your last visit."))
 		else
 			if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
 				winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")

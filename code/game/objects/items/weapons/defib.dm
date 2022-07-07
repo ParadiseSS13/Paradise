@@ -360,7 +360,7 @@
 		playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		return
 	if(!wielded)
-		to_chat(user, "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>")
+		to_chat(user, span_boldnotice("You need to wield the paddles in both hands before you can use them on someone!"))
 		return
 	if(cooldown)
 		to_chat(user, span_notice("[defib] is recharging."))
@@ -419,7 +419,7 @@
 							return
 				if(H.undergoing_cardiac_arrest())
 					if(!H.get_int_organ(/obj/item/organ/internal/heart) && !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
-						user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
+						user.visible_message(span_boldnotice("[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity."))
 						playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 						busy = FALSE
 						update_icon()
@@ -427,14 +427,14 @@
 					else
 						var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
 						if(heart.status & ORGAN_DEAD)
-							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
+							user.visible_message(span_boldnotice("[defib] buzzes: Resuscitation failed - Heart necrosis detected."))
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							busy = FALSE
 							update_icon()
 							return
 						H.set_heartattack(FALSE)
 						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
-						user.visible_message("<span class='boldnotice'>[defib] pings: Cardiac arrhythmia corrected.</span>")
+						user.visible_message(span_boldnotice("[defib] pings: Cardiac arrhythmia corrected."))
 						M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 						playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 						playsound(get_turf(src), "bodyfall", 50, 1)
@@ -463,10 +463,10 @@
 						if(H.get_int_organ(/obj/item/organ/internal/brain) && H.getBrainLoss() >= 100)
 							// If you want to treat this with mannitol, it'll have to metabolize while the patient is alive, so it's alright to bring them back up for a minute
 							playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, 0)
-							user.visible_message("<span class='boldnotice'>[defib] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation.</span>")
+							user.visible_message(span_boldnotice("[defib] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation."))
 						else
 							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
-						user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
+						user.visible_message(span_boldnotice("[defib] pings: Resuscitation successful."))
 						H.update_revive()
 						H.KnockOut()
 						H.Paralyse(10 SECONDS)
@@ -480,20 +480,20 @@
 						add_attack_logs(user, M, "Revived with [src]")
 					else
 						if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
-							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
+							user.visible_message(span_boldnotice("[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation."))
 						else if(total_burn >= 180 || total_brute >= 180)
-							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
+							user.visible_message(span_boldnotice("[defib] buzzes: Resuscitation failed - Severe tissue damage detected."))
 						else if(HAS_TRAIT(H, TRAIT_HUSK))
-							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Subject is husked.</span>")
+							user.visible_message(span_boldnotice("[defib] buzzes: Resuscitation failed: Subject is husked."))
 						else if (H.blood_volume < BLOOD_VOLUME_SURVIVE)
-							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient blood volume critically low.</span>")
+							user.visible_message(span_boldnotice("[defib] buzzes: Resuscitation failed: Patient blood volume critically low."))
 						else if(ghost)
 							if(!ghost.can_reenter_corpse) // DNR or AntagHUD
-								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resucitation failed: No electrical brain activity detected.</span>")
+								user.visible_message(span_boldnotice("[defib] buzzes: Resucitation failed: No electrical brain activity detected."))
 							else
-								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
+								user.visible_message(span_boldnotice("[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed."))
 						else
-							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed.</span>")
+							user.visible_message(span_boldnotice("[defib] buzzes: Resuscitation failed."))
 						playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 						defib.deductcharge(revivecost)
 					update_icon()

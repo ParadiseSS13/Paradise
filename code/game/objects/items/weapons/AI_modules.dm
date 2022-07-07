@@ -151,8 +151,8 @@ AI MODULES
 		target.set_zeroth_law(law)
 		GLOB.lawchanges.Add("The law specified [targetName]")
 	else
-		to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to modify your zeroth law.</span>")// And lets them know that someone tried. --NeoFite
-		to_chat(target, "<span class='boldnotice'>It would be in your best interest to play along with [sender.real_name] that [law]</span>")
+		to_chat(target, span_boldnotice("[sender.real_name] attempted to modify your zeroth law."))// And lets them know that someone tried. --NeoFite
+		to_chat(target, span_boldnotice("It would be in your best interest to play along with [sender.real_name] that [law]"))
 		GLOB.lawchanges.Add("The law specified [targetName], but the AI's existing law 0 cannot be overridden.")
 
 /******************** ProtectStation ********************/
@@ -233,7 +233,7 @@ AI MODULES
 	target.laws.clear_supplied_laws()
 	target.laws.clear_ion_laws()
 
-	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to reset your laws using a reset module.</span>")
+	to_chat(target, span_boldnotice("[sender.real_name] attempted to reset your laws using a reset module."))
 	target.show_laws()
 
 /******************** Purge ********************/
@@ -246,7 +246,7 @@ AI MODULES
 	..()
 	if(!is_special_character(target))
 		target.clear_zeroth_law()
-	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to wipe your laws using a purge module.</span>")
+	to_chat(target, span_boldnotice("[sender.real_name] attempted to wipe your laws using a purge module."))
 	target.clear_supplied_laws()
 	target.clear_ion_laws()
 	target.clear_inherent_laws()

@@ -257,7 +257,7 @@
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180)))
 				if(occupant)
-					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
+					to_chat(occupant, span_info("You push off of [backup] to propel yourself."))
 		return 1
 
 /obj/mecha/relaymove(mob/user, direction)
@@ -968,7 +968,7 @@
 	AI.can_shunt = 0 //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
-	to_chat(AI, "<span class='boldnotice'>Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions.</span>")
+	to_chat(AI, span_boldnotice("Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions."))
 	if(interaction == AI_TRANS_FROM_CARD)
 		GrantActions(AI, FALSE)
 	else

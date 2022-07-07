@@ -153,10 +153,10 @@
 		to_chat(usr, span_notice("Try as you might, you can not climb up into [src]."))
 		return
 	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>[src] is already occupied!</span>")
+		to_chat(usr, span_boldnotice("[src] is already occupied!"))
 		return
 	if(usr.abiotic())
-		to_chat(usr, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
+		to_chat(usr, span_boldnotice("Subject may not hold anything in their hands."))
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, span_warning("[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head."))
@@ -188,7 +188,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
+		to_chat(user, span_boldnotice("[src] is already occupied!"))
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
@@ -229,16 +229,16 @@
 		if(!ismob(G.affecting))
 			return
 		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
+			to_chat(user, span_boldnotice("The scanner is already occupied!"))
 			return
 		if(G.affecting.abiotic())
-			to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
+			to_chat(user, span_boldnotice("Subject may not hold anything in their hands."))
 			return
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, span_warning("[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head."))
 			return
 		if(panel_open)
-			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			to_chat(usr, span_boldnotice("Close the maintenance panel first."))
 			return
 		put_in(G.affecting)
 		add_fingerprint(user)

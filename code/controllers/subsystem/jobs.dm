@@ -600,7 +600,7 @@ SUBSYSTEM_DEF(jobs)
 	H.mind.initial_account = M
 
 	spawn(0)
-		to_chat(H, "<span class='boldnotice'>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</span>")
+		to_chat(H, span_boldnotice("Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]"))
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()

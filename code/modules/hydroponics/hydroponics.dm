@@ -351,20 +351,20 @@
 		if (dead)
 			. += span_warning("It's dead!")
 		else if (harvest)
-			. += "<span class='info'>It's ready to harvest.</span>"
+			. += span_info("It's ready to harvest.")
 		else if (plant_health <= (myseed.endurance / 2))
 			. += span_warning("It looks unhealthy.")
 	else
-		. += "<span class='info'>[src] is empty.</span>"
+		. += span_info("[src] is empty.")
 
 	if(!self_sustaining)
-		. += "<span class='info'>Water: [waterlevel]/[maxwater]</span>"
-		. += "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>"
+		. += span_info("Water: [waterlevel]/[maxwater]")
+		. += span_info("Nutrient: [nutrilevel]/[maxnutri]")
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
-			. += "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
+			. += span_info("Treatment for self-sustenance are [percent_progress]% complete.")
 	else
-		. += "<span class='info'>It doesn't require any water or nutrients.</span>"
+		. += span_info("It doesn't require any water or nutrients.")
 
 	if(weedlevel >= 5)
 		. += span_warning("[src] is filled with weeds!")
@@ -990,7 +990,7 @@
 	C.faction = list("plants")
 
 /obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
-	visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")
+	visible_message(span_boldnotice("[src] begins to glow with a beautiful light!"))
 	self_sustaining = TRUE
 	update_icon()
 

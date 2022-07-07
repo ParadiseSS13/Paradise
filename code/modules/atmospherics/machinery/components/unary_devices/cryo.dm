@@ -136,7 +136,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The cryo cell is already occupied!</span>")
+		to_chat(user, span_boldnotice("The cryo cell is already occupied!"))
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
@@ -207,7 +207,7 @@
 		return
 
 	if(panel_open)
-		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+		to_chat(usr, span_boldnotice("Close the maintenance panel first."))
 		return
 
 	ui_interact(user)
@@ -316,7 +316,7 @@
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/GG = G
 		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			to_chat(user, span_boldnotice("Close the maintenance panel first."))
 			return
 		if(!ismob(GG.affecting))
 			return
@@ -469,7 +469,7 @@
 	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.IsSleeping()))
-		to_chat(M, "<span class='boldnotice'>You feel a cold liquid surround you. Your skin starts to freeze up.</span>")
+		to_chat(M, span_boldnotice("You feel a cold liquid surround you. Your skin starts to freeze up."))
 	occupant = M
 //	M.metabslow = 1
 	add_fingerprint(usr)

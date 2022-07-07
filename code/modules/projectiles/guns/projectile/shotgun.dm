@@ -110,7 +110,7 @@
 		to_chat(user, span_warning("[src] has already been shortened!"))
 		return
 	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
-		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
+		to_chat(user, span_info("How do you plan to modify [src] while it's in a bag."))
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
@@ -153,7 +153,7 @@
 		to_chat(user, span_warning("[src] has not been shortened!"))
 		return
 	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
-		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
+		to_chat(user, span_info("How do you plan to modify [src] while it's in a bag."))
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)

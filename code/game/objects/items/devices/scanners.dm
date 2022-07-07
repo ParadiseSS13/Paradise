@@ -101,10 +101,10 @@ REAGENT SCANNER
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message(span_warning("[user] analyzes the floor's vitals!"), span_notice("You stupidly try to analyze the floor's vitals!"))
-		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: Healthy</span>")
+		to_chat(user, span_info("Analyzing results for The floor:\n\tOverall status: Healthy"))
 		to_chat(user, "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burn</font>/<font color='red'>Brute</font></span>")
 		to_chat(user, "<span class='info'>\tDamage specifics: <font color='blue'>0</font> - <font color='green'>0</font> - <font color='#FFA500'>0</font> - <font color='red'>0</font></span>")
-		to_chat(user, "<span class='info'>Body temperature: ???</span>")
+		to_chat(user, span_info("Body temperature: ???"))
 		return
 
 	user.visible_message(span_notice("[user] analyzes [M]'s vitals."), span_notice("You analyze [M]'s vitals."))
@@ -191,7 +191,7 @@ REAGENT SCANNER
 			to_chat(user, "<span class='alert'><b>Subject has no heart.</b></span>")
 
 	if(H.getStaminaLoss())
-		to_chat(user, "<span class='info'>Subject appears to be suffering from fatigue.</span>")
+		to_chat(user, span_info("Subject appears to be suffering from fatigue."))
 	if(H.getCloneLoss())
 		to_chat(user, span_warning("Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage."))
 
@@ -244,7 +244,7 @@ REAGENT SCANNER
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
 			to_chat(user, "<span class='danger'>CRITICAL blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
 		else
-			to_chat(user, "<span class='info'>Blood level [blood_percent] %, [H.blood_volume] cl, type: [blood_type]</span>")
+			to_chat(user, span_info("Blood level [blood_percent] %, [H.blood_volume] cl, type: [blood_type]"))
 
 	to_chat(user, "<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
 	var/implant_detect
@@ -334,7 +334,7 @@ REAGENT SCANNER
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Alt-click [src] to activate the barometer function.</span>"
+	. += span_info("Alt-click [src] to activate the barometer function.")
 
 /obj/item/analyzer/attack_self(mob/user as mob)
 
@@ -352,7 +352,7 @@ REAGENT SCANNER
 
 	to_chat(user, "<span class='info'><B>Results:</B></span>")
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(user, "<span class='info'>Pressure: [round(pressure,0.1)] kPa</span>")
+		to_chat(user, span_info("Pressure: [round(pressure,0.1)] kPa"))
 	else
 		to_chat(user, "<span class='alert'>Pressure: [round(pressure,0.1)] kPa</span>")
 	if(total_moles)
@@ -363,27 +363,27 @@ REAGENT SCANNER
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100)] %</span>")
+			to_chat(user, span_info("Nitrogen: [round(n2_concentration*100)] %"))
 		else
 			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100)] %</span>")
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100)] %</span>")
+			to_chat(user, span_info("Oxygen: [round(o2_concentration*100)] %"))
 		else
 			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100)] %</span>")
 
 		if(co2_concentration > 0.01)
 			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100)] %</span>")
 		else
-			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100)] %</span>")
+			to_chat(user, span_info("CO2: [round(co2_concentration*100)] %"))
 
 		if(plasma_concentration > 0.01)
-			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100)] %</span>")
+			to_chat(user, span_info("Plasma: [round(plasma_concentration*100)] %"))
 
 		if(unknown_concentration > 0.01)
 			to_chat(user, "<span class='alert'>Unknown: [round(unknown_concentration*100)] %</span>")
 
-		to_chat(user, "<span class='info'>Temperature: [round(environment.temperature-T0C)] &deg;C</span>")
+		to_chat(user, span_info("Temperature: [round(environment.temperature-T0C)] &deg;C"))
 
 	add_fingerprint(user)
 

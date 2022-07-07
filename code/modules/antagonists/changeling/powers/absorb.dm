@@ -72,12 +72,12 @@
 
 		if(length(recent_speech))
 			user.mind.store_memory("<B>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</B>")
-			to_chat(user, "<span class='boldnotice'>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</span>")
+			to_chat(user, span_boldnotice("Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!"))
 			for(var/spoken_memory in recent_speech)
 				user.mind.store_memory("\"[spoken_memory]\"")
 				to_chat(user, span_notice("\"[spoken_memory]\""))
 			user.mind.store_memory("<B>We have no more knowledge of [target]'s speech patterns.</B>")
-			to_chat(user, "<span class='boldnotice'>We have no more knowledge of [target]'s speech patterns.</span>")
+			to_chat(user, span_boldnotice("We have no more knowledge of [target]'s speech patterns."))
 
 		var/datum/antagonist/changeling/target_cling = target.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(target_cling)//If the target was a changeling, suck out their extra juice and objective points!

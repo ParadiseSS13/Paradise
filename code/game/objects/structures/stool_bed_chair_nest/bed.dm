@@ -183,7 +183,7 @@
 
 /obj/item/roller_holder/attack_self(mob/user as mob)
 	if(!held)
-		to_chat(user, "<span class='info'> The rack is empty.</span>")
+		to_chat(user, span_info(" The rack is empty."))
 		return
 
 	to_chat(user, span_notice("You deploy the roller bed."))

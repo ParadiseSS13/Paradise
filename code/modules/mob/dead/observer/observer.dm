@@ -394,7 +394,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/choice = alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Are you sure?", "Yes", "No")
 	if(choice == "Yes")
-		to_chat(src, "<span class='boldnotice'>Do Not Revive state enabled.</span>")
+		to_chat(src, span_boldnotice("Do Not Revive state enabled."))
 		create_log(MISC_LOG, "DNR Enabled")
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
@@ -550,7 +550,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/pressure = environment.return_pressure()
 	var/total_moles = environment.total_moles()
 
-	to_chat(src, "<span class='boldnotice'>Results:</span>")
+	to_chat(src, span_boldnotice("Results:"))
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
 		to_chat(src, span_notice("Pressure: [round(pressure,0.1)] kPa"))
 	else

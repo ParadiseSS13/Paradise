@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		var/datum/armor/current_armor = C.armor
 		if(current_armor.getRating(MELEE) < 60)
 			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			to_chat(user, span_info("You strengthen [target], improving its resistance against melee attacks."))
 			use(1)
 		else
 			to_chat(user, span_warning("You can't improve [C] any further!"))
@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			to_chat(user, span_info("You strengthen [target], improving its resistance against melee attacks."))
 			D.update_icon()
 			if(D.hides == 3)
 				D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."

@@ -219,10 +219,10 @@
 		if(!(p in old_powers))
 			if(istype(p, /obj/effect/proc_holder/spell))
 				var/obj/effect/proc_holder/spell/power = p
-				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
+				to_chat(owner.current, span_boldnotice("[power.gain_desc]"))
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
-				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
+				to_chat(owner.current, span_boldnotice("[power.gain_desc]"))
 
 /datum/antagonist/vampire/proc/check_sun()
 	var/ax = owner.current.x

@@ -116,7 +116,7 @@
 		load(core, user)
 
 /obj/item/nuke_core_container/proc/crack_open()
-	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
+	visible_message(span_boldnotice("[src] bursts open!"))
 	if(core)
 		START_PROCESSING(SSobj, core)
 		icon_state = "core_container_cracked_loaded"
@@ -287,7 +287,7 @@
 		return ..()
 
 /obj/item/nuke_core_container/supermatter/crack_open()
-	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
+	visible_message(span_boldnotice("[src] bursts open!"))
 	if(sliver)
 		START_PROCESSING(SSobj, sliver)
 		icon_state = "supermatter_container_cracked_loaded"

@@ -101,7 +101,7 @@
 			to_chat(usr, span_notice("You issue a maintenance request for all active drones, highlighting [drone_call_area]."))
 			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 				if(D.client && D.stat == CONSCIOUS)
-					to_chat(D, "<span class='boldnotice'>-- Maintenance drone presence requested in: [drone_call_area].</span>")
+					to_chat(D, span_boldnotice("-- Maintenance drone presence requested in: [drone_call_area]."))
 
 		if("resync")
 			var/mob/living/silicon/robot/drone/D = locateUID(params["uid"])

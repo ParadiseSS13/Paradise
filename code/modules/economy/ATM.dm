@@ -100,7 +100,7 @@ log transactions
 
 			authenticated_account.credit(C.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
 
-			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
+			to_chat(user, span_info("You insert [C] into [src]."))
 			SStgui.update_uis(src)
 			C.use(C.amount)
 	else

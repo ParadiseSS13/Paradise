@@ -337,9 +337,9 @@
 		status_list += span_danger("You are bleeding!")
 	if(staminaloss)
 		if(staminaloss > 30)
-			status_list += "<span class='info'>You're completely exhausted.</span>"
+			status_list += span_info("You're completely exhausted.")
 		else
-			status_list += "<span class='info'>You feel fatigued.</span>"
+			status_list += span_info("You feel fatigued.")
 
 	var/output = status_list.Join("\n")
 	to_chat(src, output)

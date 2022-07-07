@@ -377,10 +377,10 @@
 		if(points)
 			var/obj/item/card/id/C = I
 			C.mining_points += points
-			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")
+			to_chat(user, span_info("You transfer [points] points to [C]."))
 			points = 0
 		else
-			to_chat(user, "<span class='info'>There's no points left on [src].</span>")
+			to_chat(user, span_info("There's no points left on [src]."))
 	..()
 
 /obj/item/card/mining_point_card/examine(mob/user)

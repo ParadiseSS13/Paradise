@@ -320,7 +320,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/proc/check_unlocked()
 	if(current_tumbler_index > number_of_tumblers)
 		locked = FALSE
-		visible_message("<span class='boldnotice'>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</span>")
+		visible_message(span_boldnotice("[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!"))
 		return TRUE
 	locked = TRUE
 	return FALSE

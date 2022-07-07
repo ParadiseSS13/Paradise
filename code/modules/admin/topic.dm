@@ -1014,7 +1014,7 @@
 		GLOB.master_mode = href_list["c_mode2"]
 		log_admin("[key_name(usr)] set the mode as [GLOB.master_mode].")
 		message_admins(span_notice("[key_name_admin(usr)] set the mode as [GLOB.master_mode]."), 1)
-		to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
+		to_chat(world, span_boldnotice("The mode is now: [GLOB.master_mode]"))
 		Game() // updates the main game menu
 		world.save_mode(GLOB.master_mode)
 		.(href, list("c_mode"=1))

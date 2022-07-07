@@ -127,11 +127,11 @@
 				PB.remove_from_storage(G, src)
 				i++
 			if(i<max_items)
-				to_chat(user, "<span class='info'>You empty the plant bag into the biogenerator.</span>")
+				to_chat(user, span_info("You empty the plant bag into the biogenerator."))
 			else if(PB.contents.len == 0)
-				to_chat(user, "<span class='info'>You empty the plant bag into the biogenerator, filling it to its capacity.</span>")
+				to_chat(user, span_info("You empty the plant bag into the biogenerator, filling it to its capacity."))
 			else
-				to_chat(user, "<span class='info'>You fill the biogenerator to its capacity.</span>")
+				to_chat(user, span_info("You fill the biogenerator to its capacity."))
 		return 1 //no afterattack
 
 	else if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
@@ -143,7 +143,7 @@
 		else
 			user.unEquip(O)
 			O.forceMove(src)
-			to_chat(user, "<span class='info'>You put [O.name] in [name]</span>")
+			to_chat(user, span_info("You put [O.name] in [name]"))
 		return 1 //no afterattack
 	else if (istype(O, /obj/item/disk/design_disk))
 		user.visible_message("[user] begins to load [O] in [src]...",

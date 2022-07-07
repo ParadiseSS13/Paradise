@@ -39,9 +39,9 @@
 /mob/living/simple_animal/hostile/mushroom/examine(mob/user)
 	. = ..()
 	if(health >= maxHealth)
-		. += "<span class='info'>It looks healthy.</span>"
+		. += span_info("It looks healthy.")
 	else
-		. += "<span class='info'>It looks like it's been roughed up.</span>"
+		. += span_info("It looks like it's been roughed up.")
 
 /mob/living/simple_animal/hostile/mushroom/Life(seconds, times_fired)
 	..()

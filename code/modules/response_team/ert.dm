@@ -52,7 +52,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return 0
 
 	if(cannotPossess(src))
-		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		to_chat(src, span_boldnotice("Upon using the antagHUD you forfeited the ability to join the round."))
 		return 0
 
 	return 1

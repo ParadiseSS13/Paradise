@@ -60,7 +60,7 @@
 	. = ..()
 	if(!scanning)
 		return
-	. += "<span class='info'>Alt-click it to clear stored radiation levels.</span>"
+	. += span_info("Alt-click it to clear stored radiation levels.")
 	if(emagged)
 		. += span_warning("The display seems to be incomprehensible.")
 		return

@@ -286,7 +286,7 @@
 	if((M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
 		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			dismantle_wall(1)
-			to_chat(M, "<span class='info'>You smash through the wall.</span>")
+			to_chat(M, span_info("You smash through the wall."))
 		else
 			to_chat(M, span_notice("You smash against the wall."))
 			take_damage(rand(25, 75))

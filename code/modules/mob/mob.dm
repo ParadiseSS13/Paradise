@@ -767,12 +767,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 
 	if(stat != DEAD || !SSticker)
-		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
+		to_chat(usr, span_boldnotice("You must be dead to use this!"))
 		return
 
 	log_game("[key_name(usr)] has respawned.")
 
-	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
+	to_chat(usr, span_boldnotice("Make sure to play a different character, and please roleplay correctly!"))
 
 	if(!client)
 		log_game("[key_name(usr)] respawn failed due to disconnect.")
@@ -1179,7 +1179,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/obj/vent_found = pick(found_vents)
 		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
 		host.ckey = src.ckey
-		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
+		to_chat(host, span_info("You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent."))
 	else
 		to_chat(src, span_warning("Unable to find any unwelded vents to spawn mice at."))
 

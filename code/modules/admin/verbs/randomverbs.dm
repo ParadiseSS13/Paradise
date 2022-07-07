@@ -69,7 +69,7 @@
 				to_chat(M, "<b>You hear a voice in your head... <i>[msg]</i></b>")
 
 	log_admin("SubtlePM: [key_name(usr)] -> [key_name(M)] : [msg]")
-	message_admins("<span class='boldnotice'>SubtleMessage: [key_name_admin(usr)] -> [key_name_admin(M)] : [msg]</span>", 1)
+	message_admins(span_boldnotice("SubtleMessage: [key_name_admin(usr)] -> [key_name_admin(M)] : [msg]"), 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Subtle Message") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_mentor_check_new_players()	//Allows mentors / admins to determine who the newer players are.
@@ -299,11 +299,11 @@
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
-				to_chat(g, "<span class='boldnotice'>The Administrators have enabled AntagHUD </span>")// Notify all observers they can now use AntagHUD
+				to_chat(g, span_boldnotice("The Administrators have enabled AntagHUD "))// Notify all observers they can now use AntagHUD
 
 		GLOB.configuration.general.allow_antag_hud = TRUE
 		action = "enabled"
-		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled</span>")
+		to_chat(src, span_boldnotice("AntagHUD usage has been enabled"))
 
 
 	log_admin("[key_name(usr)] has [action] antagHUD usage for observers")
@@ -320,10 +320,10 @@
 	var/action=""
 	if(GLOB.configuration.general.restrict_antag_hud_rejoin)
 		for(var/mob/dead/observer/g in get_ghosts())
-			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD</span>")
+			to_chat(g, span_boldnotice("The administrator has lifted restrictions on joining the round if you use AntagHUD"))
 		action = "lifted restrictions"
 		GLOB.configuration.general.restrict_antag_hud_rejoin = FALSE
-		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted</span>")
+		to_chat(src, span_boldnotice("AntagHUD restrictions have been lifted"))
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
 			to_chat(g, span_danger("The administrator has placed restrictions on joining the round if you use AntagHUD"))

@@ -463,7 +463,7 @@
 	// This is really dirty, but there's no superclass for all bills, so we
 	// just assume that all spacecash that's not something else is a bill
 
-	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
+	visible_message(span_info("[usr] inserts a credit chip into [src]."))
 	cashmoney.use(currently_vending.price)
 
 	// Vending machines have no idea who paid with cash
@@ -472,7 +472,7 @@
 
 
 /obj/machinery/vending/proc/pay_with_card(obj/item/card/id/I, mob/M)
-	visible_message("<span class='info'>[M] swipes a card through [src].</span>")
+	visible_message(span_info("[M] swipes a card through [src]."))
 	return pay_with_account(get_card_account(I), M)
 
 /obj/machinery/vending/proc/pay_with_account(datum/money_account/customer_account, mob/M)

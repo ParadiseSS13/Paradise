@@ -95,12 +95,12 @@
 	if(cashmoney.amount < token_price)
 		to_chat(user, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
 		return 0
-	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
+	visible_message(span_info("[usr] inserts a credit chip into [src]."))
 	cashmoney.use(token_price)
 	return 1
 
 /obj/machinery/arcade/proc/pay_with_card(obj/item/card/id/I, mob/user)
-	visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
+	visible_message(span_info("[usr] swipes a card through [src]."))
 	var/datum/money_account/customer_account = attempt_account_access_nosec(I.associated_account_number)
 	if(!customer_account)
 		to_chat(user, "Error: Unable to access account. Please contact technical support if problem persists.")

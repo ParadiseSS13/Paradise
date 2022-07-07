@@ -30,7 +30,7 @@
 		if(tank)
 			. += span_notice("[bicon(tank)] It has \the [tank] mounted onto it.")
 		for(var/obj/item/I in loadedItems)
-			. += "<span class='info'>[bicon(I)] It has \the [I] loaded.</span>"
+			. += span_info("[bicon(I)] It has \the [I] loaded.")
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
 	..()

@@ -20,8 +20,8 @@
 
 /datum/spell_handler/morph/before_cast(list/targets, mob/living/simple_animal/hostile/morph/user, obj/effect/proc_holder/spell/spell)
 	if(hunger_cost)
-		to_chat(user, "<span class='boldnotice'>You have [user.gathered_food] left to use.</span>")
+		to_chat(user, span_boldnotice("You have [user.gathered_food] left to use."))
 
 /datum/spell_handler/morph/revert_cast(mob/living/simple_animal/hostile/morph/user, obj/effect/proc_holder/spell/spell)
 	user.add_food(hunger_cost)
-	to_chat(user, "<span class='boldnotice'>You have [user.gathered_food] left to use.</span>")
+	to_chat(user, span_boldnotice("You have [user.gathered_food] left to use."))

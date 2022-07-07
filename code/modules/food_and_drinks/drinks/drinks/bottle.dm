@@ -364,7 +364,7 @@
 		message_admins("[key_name(user)][ADMIN_QUE(user,"?")] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[bombarea] (JMP)</a>.")
 		log_game("[key_name(user)] has primed a [name] for detonation at [bombarea] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 
-		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
+		to_chat(user, span_info("You light [src] on fire."))
 		overlays += GLOB.fire_overlay
 		if(!isGlass)
 			spawn(50)
@@ -386,6 +386,6 @@
 		if(!isGlass)
 			to_chat(user, span_danger("The flame's spread too far on it!"))
 			return
-		to_chat(user, "<span class='info'>You snuff out the flame on \the [src].</span>")
+		to_chat(user, span_info("You snuff out the flame on \the [src]."))
 		overlays -= GLOB.fire_overlay
 		active = 0

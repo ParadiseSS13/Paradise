@@ -190,7 +190,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		return FALSE
 
 	if(!silent && message)
-		to_chat(clown, "<span class='boldnotice'>[message]</span>")
+		to_chat(clown, span_boldnotice("[message]"))
 	return TRUE
 
 /**
