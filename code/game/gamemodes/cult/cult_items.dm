@@ -32,7 +32,7 @@
 	..()
 
 /obj/item/melee/cultblade/detailed_examine()
-	return "This blade is a powerful weapon, capable of severing limbs easily, if they are targeted. Nonbelievers are unable to use this weapon."
+	return "This blade is a powerful weapon, capable of severing limbs easily, if they are targeted. Nonbelievers are unable to use this weapon. Striking a nonbeliever after downing them with your cult magic, will stun them completely."
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
@@ -46,6 +46,10 @@
 		else
 			user.adjustBruteLoss(rand(force/2, force))
 		return
+	if(!iscultist(target))
+		var/datum/status_effect/cult_stun_mark/S = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
+		if(S)
+			S.trigger()
 	..()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
