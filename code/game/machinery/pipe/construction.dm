@@ -565,17 +565,12 @@
 		..()
 
 /obj/item/pipe/AltClick(mob/user)
-	. = ..()
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(user.incapacitated() || !(user.Adjacent(src)))
 		return
-	if(user.Adjacent(src))
-		rotate()
+	rotate()
 
 /obj/item/pipe/AltShiftClick(mob/user)
 	. = ..()
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(user.incapacitated() || !(user.Adjacent(src)))
 		return
-	if(user.Adjacent(src))
-		flip()
+	flip()
