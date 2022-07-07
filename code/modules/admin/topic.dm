@@ -1898,14 +1898,14 @@
 		switch(blessing)
 			if("To Arrivals")
 				M.forceMove(pick(GLOB.latejoin))
-				to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+				to_chat(M, span_userdanger("You are abruptly pulled through space!"))
 				logmsg = "a teleport to arrivals."
 			if("Moderate Heal")
 				M.adjustBruteLoss(-25)
 				M.adjustFireLoss(-25)
 				M.adjustToxLoss(-25)
 				M.adjustOxyLoss(-25)
-				to_chat(M,"<span class='userdanger'>You feel invigorated!</span>")
+				to_chat(M,span_userdanger("You feel invigorated!"))
 				logmsg = "a moderate heal."
 			if("Heal Over Time")
 				H.reagents.add_reagent("salglu_solution", 30)
@@ -2026,10 +2026,10 @@
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(10 SECONDS)
-				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
+				to_chat(M, span_userdanger("The gods have punished you for your sins!"))
 				logmsg = "a lightning bolt."
 			if("Fire Death")
-				to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+				to_chat(M,span_userdanger("You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?"))
 				var/turf/simulated/T = get_turf(M)
 				new /obj/effect/hotspot(T)
 				M.adjustFireLoss(150)
@@ -2048,7 +2048,7 @@
 			if("Honk Tumor")
 				if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
 					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
-					to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
+					to_chat(H, span_userdanger("Life seems funnier, somehow."))
 					organ.insert(H)
 				logmsg = "a honk tumor."
 			if("Hallucinate")

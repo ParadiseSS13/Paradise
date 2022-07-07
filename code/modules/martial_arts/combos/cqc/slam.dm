@@ -8,7 +8,7 @@
 	if(target.IsWeakened() || IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL
 	target.visible_message(span_warning("[user] slams [target] into the ground!"), \
-						"<span class='userdanger'>[user] slams you into the ground!</span>")
+						span_userdanger("[user] slams you into the ground!"))
 	playsound(get_turf(user), 'sound/weapons/slam.ogg', 50, 1, -1)
 	target.apply_damage(10, BRUTE)
 	target.Weaken(12 SECONDS)

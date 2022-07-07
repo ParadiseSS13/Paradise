@@ -61,7 +61,7 @@
 	if(affecting)
 		if(affecting.receive_damage(0, force))
 			H.UpdateDamageIcon()
-	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
+	to_chat(H, span_userdanger("The nettle burns your bare hand!"))
 	return TRUE
 
 
@@ -100,7 +100,7 @@
 	if(..())
 		if(prob(50))
 			user.Weaken(10 SECONDS)
-			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
+			to_chat(user, span_userdanger("You are stunned by the Deathnettle when you try picking it up!"))
 
 /obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
 	..()

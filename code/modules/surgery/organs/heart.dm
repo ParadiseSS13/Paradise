@@ -87,7 +87,7 @@
 /obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
 	if(H == user && istype(H))
 		if(NO_BLOOD in H.dna.species.species_traits)
-			to_chat(H, "<span class='userdanger'>[src] is not compatible with your form!</span>")
+			to_chat(H, span_userdanger("[src] is not compatible with your form!"))
 			return
 		playsound(user,'sound/effects/singlebeat.ogg', 40, 1)
 		user.drop_item()
@@ -101,7 +101,7 @@
 			var/mob/living/carbon/human/H = owner
 			if(!(NO_BLOOD in H.dna.species.species_traits))
 				H.blood_volume = max(H.blood_volume - blood_loss, 0)
-				to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
+				to_chat(H, span_userdanger("You have to keep pumping your blood!"))
 				if(H?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
 					H.client.color = "red" //bloody screen so real
 		else
@@ -110,7 +110,7 @@
 /obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(owner)
-		to_chat(owner, "<span class='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
+		to_chat(owner, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
 
 /datum/action/item_action/organ_action/cursed_heart
 	name = "pump your blood"
@@ -122,7 +122,7 @@
 		var/obj/item/organ/internal/heart/cursed/cursed_heart = target
 
 		if(world.time < (cursed_heart.last_pump + (cursed_heart.pump_delay - 10))) //no spam
-			to_chat(owner, "<span class='userdanger'>Too soon!</span>")
+			to_chat(owner, span_userdanger("Too soon!"))
 			return
 
 		cursed_heart.last_pump = world.time

@@ -292,7 +292,7 @@
 					playsound(src, 'sound/effects/clownstep1.ogg', 30, 1)
 
 			if(prob(5))
-				to_chat(H, "<span class='userdanger'>WHAT THE FUCK IS THAT?!</span>")
+				to_chat(H, span_userdanger("WHAT THE FUCK IS THAT?!"))
 				to_chat(H, "<font face='Comic Sans MS'><i>.KNOH !nuf hcum os si uoy htiw gniyalP .KNOH KNOH KNOH</i></font>")
 				H.playsound_local(src,'sound/hallucinations/im_here1.ogg', 25)
 				H.reagents.add_reagent("lsd", 3)
@@ -319,7 +319,7 @@
 						H.buckled.unbuckle_mob(H, force = TRUE)
 				manifested = TRUE
 				Manifest()
-				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")
+				to_chat(H, span_userdanger("You feel the floor closing in on your feet!"))
 				H.Weaken(60 SECONDS)
 				H.emote("scream")
 				H.adjustBruteLoss(10)
@@ -333,7 +333,7 @@
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Grab(mob/living/carbon/human/H)
-	to_chat(H, "<span class='userdanger'>You feel a cold, gloved hand clamp down on your ankle!</span>")
+	to_chat(H, span_userdanger("You feel a cold, gloved hand clamp down on your ankle!"))
 	for(var/I in 1 to get_dist(src, H))
 
 		if(do_after(src, 10, target = H))
@@ -354,7 +354,7 @@
 			H.density = FALSE
 			H.anchored = TRUE
 			addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Kill, H), 100)
-			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
+			H.visible_message(span_userdanger("[src] pulls [H] under the floor!"))
 		else//some fuck pulled away our food
 			stage = STAGE_TORMENT
 			eating = FALSE

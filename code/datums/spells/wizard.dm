@@ -424,13 +424,13 @@
 				var/mob/living/M = AM
 				M.Weaken(10 SECONDS)
 				M.adjustBruteLoss(5)
-				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
+				to_chat(M, span_userdanger("You're slammed into the floor by a mystical force!"))
 		else
 			new sparkle_path(get_turf(AM), get_dir(user, AM)) //created sparkles will disappear on their own
 			if(isliving(AM))
 				var/mob/living/M = AM
 				M.Weaken(stun_amt)
-				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
+				to_chat(M, span_userdanger("You're thrown back by a mystical force!"))
 			spawn(0)
 				AM.throw_at(throwtarget, ((clamp((maxthrow - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
 

@@ -56,7 +56,7 @@
 			has_focus = 0
 			A.face_atom(D)
 			D.visible_message(span_warning("[A] grabs [D]'s wrist and wrenches it sideways!"), \
-							  "<span class='userdanger'>[A] grabs your wrist and violently wrenches it to the side!</span>")
+							  span_userdanger("[A] grabs your wrist and violently wrenches it to the side!"))
 			playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			D.emote("scream")
 			D.drop_item()
@@ -85,7 +85,7 @@
 		var/hold_name = "[pick(attack_names)] [pick("grip", "hold", "vise", "press")]"
 
 		D.visible_message(span_warning("[A] comes from behind and puts [D] in a [hold_name]!"), \
-						  "<span class='userdanger'>[A]\ puts you in a [hold_name]! You are unable to speak!</span>")
+						  span_userdanger("[A]\ puts you in a [hold_name]! You are unable to speak!"))
 		step_to(D,get_step(D,D.dir),1)
 
 		var/obj/item/grab/G = D.grabbedby(A, 1)
@@ -99,14 +99,14 @@
 				D.adjustOxyLoss(1)
 			else
 				D.visible_message(span_warning("[A] loses [A.p_their()] grip on [D]'s neck!"), \
-									"<span class='userdanger'>[A] loses [A.p_their()] grip on your neck!</span>")
+									span_userdanger("[A] loses [A.p_their()] grip on your neck!"))
 				has_choke_hold = 0
 				return 0
 			I++
 			sleep(5)
 
 		to_chat(A, span_warning("You feel [D] go limp in your grip."))
-		to_chat(D, "<span class='userdanger'>You feel your consciousness slip away as [A] strangles you!</span>")
+		to_chat(D, span_userdanger("You feel your consciousness slip away as [A] strangles you!"))
 		D.AdjustParalysis(40 SECONDS)
 
 		has_choke_hold = 0
@@ -122,7 +122,7 @@
 
 			var/strike_adjective = pick(attack_names)
 			D.visible_message(span_danger("[A] sends [D] flying backwards with a [strike_adjective] palm strike!"), \
-				"<span class='userdanger'>[A] delivers a [strike_adjective] palm strike to you and sends you flying!</span>")
+				span_userdanger("[A] delivers a [strike_adjective] palm strike to you and sends you flying!"))
 
 			var/atom/throw_target = get_ranged_target_turf(D, get_dir(D, get_step_away(D, A)), 3) // Get a turf 3 tiles away from the target relative to our direction from him.
 			D.throw_at(throw_target, 200, 4) // Throw the poor bastard at the target we just gabbed.
@@ -146,7 +146,7 @@
 /datum/martial_art/ninja_martial_art/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D) // 10 damage punches
 	var/strike_name = "[pick(attack_names)] [pick("punches", "kicks", "chops", "slams", "strikes")]"
 	D.visible_message(span_danger("[A] [strike_name] on [D]!"), \
-					  "<span class='userdanger'>[A] [strike_name] you!</span>")
+					  span_userdanger("[A] [strike_name] you!"))
 	D.apply_damage(10, BRUTE)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 	return 1

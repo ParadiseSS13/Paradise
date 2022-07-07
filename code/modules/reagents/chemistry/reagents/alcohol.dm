@@ -1165,7 +1165,7 @@
 	color = "#DC0000"
 	alcohol_perc = 1
 	can_synth = FALSE
-	taste_description = "<span class='userdanger'>LIQUID FUCKING DEATH OH GOD WHAT THE FUCK</span>"
+	taste_description = span_userdanger("LIQUID FUCKING DEATH OH GOD WHAT THE FUCK")
 
 /datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST && prob(20))
@@ -1180,7 +1180,7 @@
 		M.reagents.del_reagent("dragonsbreath")
 		return
 	if(prob(8))
-		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
+		to_chat(M, span_userdanger("Oh god! Oh GODD!!"))
 	if(prob(50))
 		to_chat(M, span_danger("Your throat burns terribly!"))
 		M.emote(pick("scream","cry","choke","gasp"))
@@ -1194,7 +1194,7 @@
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
 		if(prob(50))
-			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
+			to_chat(M, span_userdanger("IT BURNS!!!!"))
 			M.visible_message(span_danger("[M] is consumed in flames!"))
 			M.dust()
 			return

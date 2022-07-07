@@ -115,7 +115,7 @@
 	falling_atoms[AM] = TRUE
 	var/turf/T = locate(drop_x, drop_y, drop_z)
 	if(T)
-		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
+		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", span_userdanger("GAH! Ah... where are you?"))
 		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
 		AM.forceMove(T)
 		if(isliving(AM))

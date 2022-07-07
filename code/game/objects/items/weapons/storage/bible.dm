@@ -40,7 +40,7 @@
 	if(QDELETED(M) || M.stat == DEAD)
 		return
 	M.visible_message(span_danger("[M] farts on \the [name]!"))
-	M.visible_message("<span class='userdanger'>A mysterious force smites [M]!</span>")
+	M.visible_message(span_userdanger("A mysterious force smites [M]!"))
 	M.suiciding = TRUE
 	do_sparks(3, 1, M)
 	M.gib()

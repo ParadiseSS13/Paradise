@@ -28,7 +28,7 @@ In all, this is a lot like the monkey code. /N
 				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				visible_message(span_danger("[M.name] bites [src]!"), \
-						"<span class='userdanger'>[M.name] bites [src]!</span>")
+						span_userdanger("[M.name] bites [src]!"))
 				adjustBruteLoss(1)
 				add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
 			else

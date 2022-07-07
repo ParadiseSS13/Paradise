@@ -122,11 +122,11 @@
 /obj/effect/hallucination/chaser/attacker/proc/attack_effects()
 	do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 	target.playsound_local(get_turf(src), get_sfx("punch"), 25, TRUE)
-	to_chat(target, "<span class='userdanger'>[name] has punched [target]!</span>")
+	to_chat(target, span_userdanger("[name] has punched [target]!"))
 
 /**
   * Called when one of our attacks put the target in stamina crit.
   */
 /obj/effect/hallucination/chaser/attacker/proc/on_knockdown()
 	target.visible_message(span_warning("[target] recoils as if hit by something, before suddenly collapsing!"),
-					  	   "<span class='userdanger'>[src]'s blow was too much for you, causing you to collapse!</span>")
+					  	   span_userdanger("[src]'s blow was too much for you, causing you to collapse!"))

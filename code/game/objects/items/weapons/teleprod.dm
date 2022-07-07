@@ -12,7 +12,7 @@
 		return
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src]!"),
-			"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
+			span_userdanger("You accidentally hit yourself with [src]!"))
 		deductcharge(hitcost)
 		do_teleport(user, get_turf(user), 50)//honk honk
 	else if(iscarbon(M) && !M.anchored)

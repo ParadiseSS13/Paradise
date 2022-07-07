@@ -691,7 +691,7 @@
 		return
 	add_attack_logs(src, H, "Run over (DAMTYPE: [uppertext(BRUTE)])")
 	H.visible_message(span_danger("[src] drives over [H]!"), \
-					"<span class='userdanger'>[src] drives over you!</span>")
+					span_userdanger("[src] drives over you!"))
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 	var/damage = rand(5,15)
@@ -825,7 +825,7 @@
 
 
 /mob/living/simple_animal/bot/mulebot/explode()
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(span_userdanger("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 
 	new /obj/item/assembly/prox_sensor(Tsec)

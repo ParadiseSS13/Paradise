@@ -247,7 +247,7 @@
 		bloodusable -= 10
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
-		to_chat(owner.current, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
+		to_chat(owner.current, span_userdanger("Your body is turning to ash, get out of the light now!"))
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
 		if(owner.current.cloneloss >= 100)

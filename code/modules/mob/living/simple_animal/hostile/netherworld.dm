@@ -93,7 +93,7 @@
 		to_chat(user, span_notice("You don't feel like going home yet..."))
 	else
 		user.visible_message(span_warning("[user] is violently pulled into the link!"), \
-							"<span class='userdanger'>Touching the portal, you are quickly pulled through into a world of unimaginable horror!</span>")
+							span_userdanger("Touching the portal, you are quickly pulled through into a world of unimaginable horror!"))
 		contents.Add(user)
 
 /obj/structure/spawner/nether/process()

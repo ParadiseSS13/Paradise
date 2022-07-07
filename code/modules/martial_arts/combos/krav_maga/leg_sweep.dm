@@ -13,7 +13,7 @@
 		return MARTIAL_COMBO_DONE_CLEAR_COMBOS
 	user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 	target.visible_message(span_warning("[user] leg sweeps [target]!"), \
-					  	"<span class='userdanger'>[user] leg sweeps you!</span>")
+					  	span_userdanger("[user] leg sweeps you!"))
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 	target.apply_damage(5, BRUTE)
 	target.Weaken(4 SECONDS)

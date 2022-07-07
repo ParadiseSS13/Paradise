@@ -84,7 +84,7 @@
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_tk(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		to_chat(user, "<span class='userdanger'>The snare sends a psychic backlash!</span>")
+		to_chat(user, span_userdanger("The snare sends a psychic backlash!"))
 		C.EyeBlind(20 SECONDS)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/process()

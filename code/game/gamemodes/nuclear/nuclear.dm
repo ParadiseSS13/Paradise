@@ -69,9 +69,9 @@
 		operative_mind.current.create_attack_log(span_danger("No longer nuclear operative"))
 		operative_mind.current.create_log(CONVERSION_LOG, "No longer nuclear operative")
 		if(issilicon(operative_mind.current))
-			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
+			to_chat(operative_mind.current, span_userdanger("You have been turned into a robot! You are no longer a Syndicate operative."))
 		else
-			to_chat(operative_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a Syndicate operative.</span>")
+			to_chat(operative_mind.current, span_userdanger("You have been brainwashed! You are no longer a Syndicate operative."))
 		SSticker.mode.update_synd_icons_removed(operative_mind)
 
 ////////////////////////////////////////////////////////////////////////////////////////

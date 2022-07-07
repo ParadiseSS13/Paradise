@@ -14,7 +14,7 @@
 				step_away(src, user, 15)
 			hitverb = "slammed"
 		playsound(loc, "punch", 25, 1, -1)
-		visible_message(span_danger("[user] has [hitverb] [src]!"), "<span class='userdanger'>[user] has [hitverb] [src]!</span>")
+		visible_message(span_danger("[user] has [hitverb] [src]!"), span_userdanger("[user] has [hitverb] [src]!"))
 		return TRUE
 
 /mob/living/carbon/alien/humanoid/attack_hand(mob/living/carbon/human/M)
@@ -25,11 +25,11 @@
 				if(prob(90))
 					playsound(loc, "punch", 25, 1, -1)
 					visible_message(span_danger("[M] has punched [src]!"), \
-							"<span class='userdanger'>[M] has punched [src]!</span>")
+							span_userdanger("[M] has punched [src]!"))
 					if((stat != DEAD) && (damage > 9||prob(5)))//Regular humans have a very small chance of weakening an alien.
 						Paralyse(4 SECONDS)
 						visible_message(span_danger("[M] has weakened [src]!"), \
-								"<span class='userdanger'>[M] has weakened [src]!</span>", \
+								span_userdanger("[M] has weakened [src]!"), \
 								span_danger("You hear someone fall."))
 					adjustBruteLoss(damage)
 					add_attack_logs(M, src, "Melee attacked with fists")
@@ -44,13 +44,13 @@
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "Pushed over")
 						visible_message(span_danger("[M] has pushed down [src]!"), \
-								"<span class='userdanger'>[M] has pushed down [src]!</span>")
+								span_userdanger("[M] has pushed down [src]!"))
 					else
 						if(prob(50))
 							drop_item()
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 							visible_message(span_danger("[M] has disarmed [src]!"), \
-								"<span class='userdanger'>[M] has disarmed [src]!</span>")
+								span_userdanger("[M] has disarmed [src]!"))
 						else
 							playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 							visible_message(span_danger("[M] has attempted to disarm [src]!"))

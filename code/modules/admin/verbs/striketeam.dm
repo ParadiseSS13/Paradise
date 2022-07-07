@@ -5,10 +5,10 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 /client/proc/strike_team()
 	if(!SSticker)
-		to_chat(usr, "<span class='userdanger'>The game hasn't started yet!</span>")
+		to_chat(usr, span_userdanger("The game hasn't started yet!"))
 		return
 	if(GLOB.sent_strike_team == 1)
-		to_chat(usr, "<span class='userdanger'>CentComm is already sending a team.</span>")
+		to_chat(usr, span_userdanger("CentComm is already sending a team."))
 		return
 	if(alert("Do you want to send in the CentComm death squad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
@@ -40,7 +40,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
 	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, COMMANDOS_POSSIBLE, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 	if(!length(commando_ghosts))
-		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
+		to_chat(usr, span_userdanger("Nobody volunteered to join the DeathSquad."))
 		return
 
 	GLOB.sent_strike_team = 1

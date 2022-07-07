@@ -32,13 +32,13 @@
 				to_chat(affected_mob, span_danger("Your stomach barks?!"))
 			if(prob(5))
 				affected_mob.visible_message(span_danger("[affected_mob] howls!"), \
-												"<span class='userdanger'>You howl!</span>")
+												span_userdanger("You howl!"))
 				affected_mob.AdjustConfused(rand(12 SECONDS, 16 SECONDS))
 			if(prob(3) && barklimit <= 10)
 				var/list/puppytype = list(/mob/living/simple_animal/pet/dog/corgi/puppy, /mob/living/simple_animal/pet/dog/pug, /mob/living/simple_animal/pet/dog/fox)
 				var/mob/living/puppypicked = pick(puppytype)
 				affected_mob.visible_message(span_danger("[affected_mob] coughs up [initial(puppypicked.name)]!"), \
-													"<span class='userdanger'>You cough up [initial(puppypicked.name)]?!</span>")
+													span_userdanger("You cough up [initial(puppypicked.name)]?!"))
 				new puppypicked(affected_mob.loc)
 				new puppypicked(affected_mob.loc)
 				barklimit ++
@@ -47,7 +47,7 @@
 				var/obj/item/toy/plushie/coughfox = pick(plushtype)
 				new coughfox(affected_mob.loc)
 				affected_mob.visible_message(span_danger("[affected_mob] coughs up a [initial(coughfox.name)]!"), \
-													"<span class='userdanger'>You cough [initial(coughfox.name)] up ?!</span>")
+													span_userdanger("You cough [initial(coughfox.name)] up ?!"))
 
 			affected_mob.emote("cough")
 			affected_mob.adjustBruteLoss(5)

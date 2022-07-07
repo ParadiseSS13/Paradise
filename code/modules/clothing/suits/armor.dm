@@ -430,13 +430,13 @@
 				if(isliving(AM))
 					var/mob/living/M = AM
 					M.Weaken(6 SECONDS)
-					to_chat(M, "<span class='userdanger'>You're slammed into the floor by [owner]'s reactive armor!</span>")
+					to_chat(M, span_userdanger("You're slammed into the floor by [owner]'s reactive armor!"))
 					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
 			else
 				new sparkle_path(get_turf(AM), get_dir(owner, AM))
 				if(isliving(AM))
 					var/mob/living/M = AM
-					to_chat(M, "<span class='userdanger'>You're thrown back by [owner]'s reactive armor!</span>")
+					to_chat(M, span_userdanger("You're thrown back by [owner]'s reactive armor!"))
 					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
 				INVOKE_ASYNC(AM, /atom/movable/.proc/throw_at, throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
 		disable(rand(2, 5))

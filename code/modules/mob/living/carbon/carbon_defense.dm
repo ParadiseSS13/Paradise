@@ -57,7 +57,7 @@
 				if(M.powerlevel < 0)
 					M.powerlevel = 0
 
-				visible_message(span_danger("[M] has shocked [src]!"), "<span class='userdanger'>[M] has shocked you!</span>")
+				visible_message(span_danger("[M] has shocked [src]!"), span_userdanger("[M] has shocked you!"))
 
 				do_sparks(5, TRUE, src)
 				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT

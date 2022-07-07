@@ -386,7 +386,7 @@
 
 /mob/living/simple_animal/bot/ed209/explode()
 	walk_to(src,0)
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(span_userdanger("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 
 	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
@@ -580,13 +580,13 @@
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 	C.visible_message(span_danger("[src] has stunned [C]!"),\
-							"<span class='userdanger'>[src] has stunned you!</span>")
+							span_userdanger("[src] has stunned you!"))
 
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 	C.visible_message(span_danger("[src] is trying to put zipties on [C]!"),\
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+						span_userdanger("[src] is trying to put zipties on you!"))
 
 	spawn(60)
 		if( !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.

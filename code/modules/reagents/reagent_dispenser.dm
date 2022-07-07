@@ -188,7 +188,7 @@
 		to_chat(user, span_warning("[src] is out of fuel!"))
 		return
 	if(I.tool_enabled && I.use_tool(src, user, volume = I.tool_volume)) //check it's enabled first to prevent duplicate messages when refuelling
-		user.visible_message(span_danger("[user] catastrophically fails at refilling [user.p_their()] [I]!"), "<span class='userdanger'>That was stupid of you.</span>")
+		user.visible_message(span_danger("[user] catastrophically fails at refilling [user.p_their()] [I]!"), span_userdanger("That was stupid of you."))
 		message_admins("[key_name_admin(user)] triggered a fueltank explosion at [COORD(loc)]")
 		log_game("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]")
 		add_attack_logs(user, src, "hit with lit welder")

@@ -7,7 +7,7 @@
 	. = MARTIAL_COMBO_FAIL
 	if(!target.stat || !target.IsWeakened())
 		target.visible_message(span_warning("[user] kicks [target] back!"), \
-							"<span class='userdanger'>[user] kicks you back!</span>")
+							span_userdanger("[user] kicks you back!"))
 		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		target.throw_at(throw_target, 1, 14, user)
@@ -16,7 +16,7 @@
 		. = MARTIAL_COMBO_DONE
 	if(target.IsWeakened() && !target.stat)
 		target.visible_message(span_warning("[user] kicks [target]'s head, knocking [target.p_them()] out!"), \
-					  		"<span class='userdanger'>[user] kicks your head, knocking you out!</span>")
+					  		span_userdanger("[user] kicks your head, knocking you out!"))
 		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
 		target.SetSleeping(30 SECONDS)
 		target.adjustBrainLoss(15)

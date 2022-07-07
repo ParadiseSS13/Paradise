@@ -100,12 +100,12 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.spider_tier < spider_tier)
 			T.degenerate = TRUE
-			to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")
+			to_chat(T, span_userdanger("Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!"))
 	for(var/obj/structure/spider/eggcluster/terror_eggcluster/T in GLOB.ts_egg_list)
 		qdel(T)
 	for(var/obj/structure/spider/spiderling/terror_spiderling/T in GLOB.ts_spiderling_list)
 		qdel(T)
-	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
+	to_chat(src, span_userdanger("All Terror Spiders, except yourself, will die off shortly."))
 
 /obj/item/projectile/terrorqueenspit/empress
 	damage = 90

@@ -25,7 +25,7 @@
 	M.apply_effect(STUTTER, 10 SECONDS)
 
 	M.visible_message(span_danger("[user] has prodded [M] with [src]!"), \
-					"<span class='userdanger'>[user] has prodded you with [src]!</span>")
+					span_userdanger("[user] has prodded you with [src]!"))
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 	add_attack_logs(user, M, "Stunned with [src] ([uppertext(user.a_intent)])")
@@ -109,13 +109,13 @@
 				if(M.health >= 0)
 					if(ishuman(M))
 						M.electrocute_act(5, "[user]", flags = SHOCK_NOGLOVES)
-						user.visible_message("<span class='userdanger'>[user] electrocutes [M] with [user.p_their()] touch!</span>", span_danger("You electrocute [M] with your touch!"))
+						user.visible_message(span_userdanger("[user] electrocutes [M] with [user.p_their()] touch!"), span_danger("You electrocute [M] with your touch!"))
 					else
 						if(!isrobot(M))
 							M.adjustFireLoss(10)
-							user.visible_message("<span class='userdanger'>[user] shocks [M]!</span>", span_danger("You shock [M]!"))
+							user.visible_message(span_userdanger("[user] shocks [M]!"), span_danger("You shock [M]!"))
 						else
-							user.visible_message("<span class='userdanger'>[user] shocks [M]. It does not seem to have an effect</span>", span_danger("You shock [M] to no effect."))
+							user.visible_message(span_userdanger("[user] shocks [M]. It does not seem to have an effect"), span_danger("You shock [M] to no effect."))
 					playsound(loc, 'sound/effects/sparks2.ogg', 50, TRUE, -1)
 					user.cell.use(500)
 					scooldown = world.time + 20
@@ -123,9 +123,9 @@
 			if(ccooldown < world.time)
 				if(M.health >= 0)
 					if(ishuman(M))
-						user.visible_message("<span class='userdanger'>[user] crushes [M] in [user.p_their()] grip!</span>", span_danger("You crush [M] in your grip!"))
+						user.visible_message(span_userdanger("[user] crushes [M] in [user.p_their()] grip!"), span_danger("You crush [M] in your grip!"))
 					else
-						user.visible_message("<span class='userdanger'>[user] crushes [M]!</span>", span_danger("You crush [M]!"))
+						user.visible_message(span_userdanger("[user] crushes [M]!"), span_danger("You crush [M]!"))
 					playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE, -1)
 					M.adjustBruteLoss(15)
 					user.cell.use(300)

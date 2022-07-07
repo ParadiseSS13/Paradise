@@ -9,7 +9,7 @@
 	var/telegraph_sound //The sound file played to everyone on an affected z-level
 	var/telegraph_overlay //The overlay applied to all tiles on the z-level
 
-	var/weather_message = "<span class='userdanger'>The wind begins to blow ferociously!</span>" //Displayed in chat once the weather begins in earnest
+	var/weather_message = span_userdanger("The wind begins to blow ferociously!") //Displayed in chat once the weather begins in earnest
 	var/weather_duration = 1200 //In deciseconds, how long the weather lasts once it begins
 	var/weather_duration_lower = 1200 //See above - this is the lowest possible duration
 	var/weather_duration_upper = 1500 //See above - this is the highest possible duration

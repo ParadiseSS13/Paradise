@@ -372,7 +372,7 @@
 		if(user.a_intent == INTENT_HARM && !defib.safety)
 			busy = TRUE
 			H.visible_message(span_danger("[user] has touched [H.name] with [src]!"), \
-					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
+					span_userdanger("[user] has touched [H.name] with [src]!"))
 			H.adjustStaminaLoss(50)
 			H.Weaken(10 SECONDS)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -536,7 +536,7 @@
 		if(user.a_intent == INTENT_HARM && !safety)
 			busy = TRUE
 			H.visible_message(span_danger("[user] has touched [H.name] with [src]!"), \
-					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
+					span_userdanger("[user] has touched [H.name] with [src]!"))
 			H.adjustStaminaLoss(50)
 			H.Weaken(10 SECONDS)
 			if(!H.undergoing_cardiac_arrest() && prob(10)) // Your heart explodes.

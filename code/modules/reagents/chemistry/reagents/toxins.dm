@@ -271,7 +271,7 @@
 	reagent_state = LIQUID
 	color = "#00FF32"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "<span class='userdanger'>ACID</span>"
+	taste_description = span_userdanger("ACID")
 	var/acidpwr = 10 //the amount of protection removed from the armour
 
 /datum/reagent/acid/on_mob_life(mob/living/M)

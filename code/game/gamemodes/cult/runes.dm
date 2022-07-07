@@ -777,7 +777,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/atom/I = L.null_rod_check()
 			if(I)
 				if(isitem(I))
-					to_chat(L, "<span class='userdanger'>[I] suddenly burns hotly before returning to normal!</span>")
+					to_chat(L, span_userdanger("[I] suddenly burns hotly before returning to normal!"))
 				continue
 			targets += L
 
@@ -791,7 +791,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	for(var/I in targets)
-		to_chat(I, "<span class='userdanger'>Your blood boils in your veins!</span>")
+		to_chat(I, span_userdanger("Your blood boils in your veins!"))
 	do_area_burn(T, 1)
 	animate(src, color = "#FFDF80", time = 5 SECONDS)
 	sleep(5 SECONDS)

@@ -34,7 +34,7 @@ Bonus
 			if(1, 2, 3, 4)
 				to_chat(M, span_warning("[pick("Your head hurts.", "Your mind blanks for a moment.")]"))
 			else
-				to_chat(M, "<span class='userdanger'>You can't think straight!</span>")
+				to_chat(M, span_userdanger("You can't think straight!"))
 				M.AdjustConfused(16 SECONDS, bound_lower = 0, bound_upper = 200 SECONDS)
 
 	return

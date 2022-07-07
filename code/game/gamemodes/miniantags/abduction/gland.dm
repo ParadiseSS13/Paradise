@@ -48,7 +48,7 @@
 	if(!ownerCheck() || !mind_control_uses || active_mind_control)
 		return
 	mind_control_uses--
-	to_chat(owner, "<span class='userdanger'>You suddenly feel an irresistible compulsion to follow an order...</span>")
+	to_chat(owner, span_userdanger("You suddenly feel an irresistible compulsion to follow an order..."))
 	to_chat(owner, "<span class='mind_control'>[command]</span>")
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
@@ -62,7 +62,7 @@
 /obj/item/organ/internal/heart/gland/proc/clear_mind_control()
 	if(!ownerCheck() || !active_mind_control)
 		return
-	to_chat(owner, "<span class='userdanger'>You feel the compulsion fade, and you completely forget about your previous orders.</span>")
+	to_chat(owner, span_userdanger("You feel the compulsion fade, and you completely forget about your previous orders."))
 	active_mind_control = FALSE
 	update_gland_hud()
 
@@ -158,7 +158,7 @@
 			continue
 		switch(pick(1,3))
 			if(1)
-				to_chat(H, "<span class='userdanger'>You hear a loud buzz in your head, silencing your thoughts!</span>")
+				to_chat(H, span_userdanger("You hear a loud buzz in your head, silencing your thoughts!"))
 				H.Stun(6 SECONDS)
 			if(2)
 				to_chat(H, span_warning("You hear an annoying buzz in your head."))
@@ -320,7 +320,7 @@
 /obj/item/organ/internal/heart/gland/bloody/activate()
 	owner.blood_volume = max(owner.blood_volume - 20, 0)
 	owner.visible_message(span_danger("[owner]'s skin erupts with blood!"),\
-	"<span class='userdanger'>Blood pours from your skin!</span>")
+	span_userdanger("Blood pours from your skin!"))
 
 	for(var/turf/T in oview(3,owner)) //Make this respect walls and such
 		owner.add_splatter_floor(T)
@@ -342,7 +342,7 @@
 		sleep(150)
 		if(!owner)
 			return
-		to_chat(owner, "<span class='userdanger'>A massive stomachache overcomes you.</span>")
+		to_chat(owner, span_userdanger("A massive stomachache overcomes you."))
 		sleep(50)
 		if(!owner)
 			return

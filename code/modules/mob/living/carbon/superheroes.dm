@@ -183,7 +183,7 @@
 		return
 	recruiting = TRUE
 	to_chat(user, span_danger("This target is valid. You begin the recruiting process."))
-	to_chat(target, "<span class='userdanger'>[user] focuses in concentration. Your head begins to ache.</span>")
+	to_chat(target, span_userdanger("[user] focuses in concentration. Your head begins to ache."))
 
 	for(var/progress = 0, progress <= 3, progress++)
 		switch(progress)

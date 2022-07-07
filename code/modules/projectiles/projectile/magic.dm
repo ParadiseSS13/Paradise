@@ -306,7 +306,7 @@
 				if(H.mind)
 					H.mind.transfer_to(S)
 					to_chat(S, span_warning("You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!"))
-					to_chat(S, "<span class='userdanger'>Do not harm [firer.name], your creator.</span>")
+					to_chat(S, span_userdanger("Do not harm [firer.name], your creator."))
 				H = change
 				H.loc = S
 				qdel(src)

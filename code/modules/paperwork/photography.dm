@@ -492,10 +492,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	set src in usr
 
 	if(saved_pictures.len == 0)
-		to_chat(usr, "<span class='userdanger'>No images saved.</span>")
+		to_chat(usr, span_userdanger("No images saved."))
 		return
 	if(pictures_left == 0)
-		to_chat(usr, "<span class='userdanger'>There is no film left to print.</span>")
+		to_chat(usr, span_userdanger("There is no film left to print."))
 		return
 
 	var/datum/picture/P = null
@@ -510,7 +510,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	set src in usr
 
 	if(saved_pictures.len == 0)
-		to_chat(usr, "<span class='userdanger'>No images saved</span>")
+		to_chat(usr, span_userdanger("No images saved"))
 		return
 	var/datum/picture/P = null
 	P = input("Select image to delete:",P) as null|anything in saved_pictures

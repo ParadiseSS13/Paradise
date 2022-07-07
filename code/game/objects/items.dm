@@ -579,11 +579,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	if(M != user)
 		M.visible_message(span_danger("[user] has stabbed [M] in the eye with [src]!"), \
-							"<span class='userdanger'>[user] stabs you in the eye with [src]!</span>")
+							span_userdanger("[user] stabs you in the eye with [src]!"))
 	else
 		user.visible_message( \
 			span_danger("[user] has stabbed [user.p_them()]self in the eyes with [src]!"), \
-			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
+			span_userdanger("You stab yourself in the eyes with [src]!") \
 		)
 
 	add_attack_logs(user, M, "Eye-stabbed with [src] ([uppertext(user.a_intent)])")

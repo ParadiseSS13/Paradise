@@ -505,7 +505,7 @@
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message(span_danger("[user] has knocked down [target]!"), \
-							"<span class='userdanger'>[user] has knocked down [target]!</span>")
+							span_userdanger("[user] has knocked down [target]!"))
 			target.KnockDown(4 SECONDS)
 			target.forcesay(GLOB.hit_appends)
 		else if(IS_HORIZONTAL(target))

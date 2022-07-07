@@ -111,10 +111,10 @@
 			if(T.spider_myqueen != src)
 				continue
 			if(prob(50) || T.spider_tier >= spider_tier)
-				to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] crashes into your mind! Somehow... you find a way to keep going!</span>")
+				to_chat(T, span_userdanger("\The psychic backlash from the death of [src] crashes into your mind! Somehow... you find a way to keep going!"))
 				continue
 			T.visible_message(span_danger("[T] writhes in pain!"))
-			to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you...</span>")
+			to_chat(T, span_userdanger("\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you..."))
 			T.degenerate = TRUE
 		for(var/thing in GLOB.ts_spiderling_list)
 			var/obj/structure/spider/spiderling/terror_spiderling/T = thing
@@ -337,7 +337,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(light_range, light_chance, camera_range, camera_chance)
-	visible_message("<span class='userdanger'>[src] emits a bone-chilling shriek!</span>")
+	visible_message(span_userdanger("[src] emits a bone-chilling shriek!"))
 	for(var/obj/machinery/light/L in orange(light_range, src))
 		if(L.on && prob(light_chance))
 			L.break_light_tube()

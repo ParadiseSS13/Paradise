@@ -5,7 +5,7 @@
 
 /datum/martial_combo/plasma_fist/throwback/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	target.visible_message(span_danger("[user] has hit [target] with Plasma Punch!"), \
-								"<span class='userdanger'>[user] has hit [target] with Plasma Punch!</span>")
+								span_userdanger("[user] has hit [target] with Plasma Punch!"))
 	playsound(target.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(target, get_step_away(target, user)))
 	target.throw_at(throw_target, 200, 4, user)

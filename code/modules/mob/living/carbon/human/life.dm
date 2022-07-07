@@ -636,7 +636,7 @@
 				if(-99 to -80)
 					adjustOxyLoss(1)
 					if(prob(4))
-						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
+						to_chat(src, span_userdanger("Your chest hurts..."))
 						Paralyse(4 SECONDS)
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
@@ -649,7 +649,7 @@
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
 					if(prob(6))
-						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
+						to_chat(src, span_userdanger("You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!"))
 						Weaken(6 SECONDS)
 					if(prob(3))
 						Paralyse(4 SECONDS)
@@ -659,7 +659,7 @@
 						var/datum/disease/D = new /datum/disease/critical/shock
 						ForceContractDisease(D)
 					if(prob(5))
-						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
+						to_chat(src, span_userdanger("You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!"))
 						Weaken(6 SECONDS)
 
 /mob/living/carbon/human/update_health_hud()
@@ -747,13 +747,13 @@
 		for(var/obj/item/I in BP.embedded_objects)
 			if(prob(I.embedded_pain_chance))
 				BP.receive_damage(I.w_class*I.embedded_pain_multiplier)
-				to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
+				to_chat(src, span_userdanger("[I] embedded in your [BP.name] hurts!"))
 
 			if(prob(I.embedded_fall_chance))
 				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
 				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
-				visible_message(span_danger("[I] falls out of [name]'s [BP.name]!"),"<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
+				visible_message(span_danger("[I] falls out of [name]'s [BP.name]!"),span_userdanger("[I] falls out of your [BP.name]!"))
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 

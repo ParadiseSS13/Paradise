@@ -32,7 +32,7 @@
 			spawn()
 				G.throw_at(get_edge_target_turf(H, pick(GLOB.alldirs)), rand(1, 10), 5)
 			H.apply_damage(10, BRUTE, "chest")
-			to_chat(H, "<span class='userdanger'>You have no appendix, but something had to give! Holy shit, what was that?</span>")
+			to_chat(H, span_userdanger("You have no appendix, but something had to give! Holy shit, what was that?"))
 			H.Weaken(6 SECONDS)
 			for(var/obj/item/organ/external/E in H.bodyparts)
 				if(istype(E, /obj/item/organ/external/head))
@@ -42,5 +42,5 @@
 				if(istype(E, /obj/item/organ/external/groin))
 					continue
 				if(prob(7))
-					to_chat(H, "<span class='userdanger'>Your [E] was severed by the explosion!</span>")
+					to_chat(H, span_userdanger("Your [E] was severed by the explosion!"))
 					E.droplimb(1, DROPLIMB_SHARP, 0, 1)

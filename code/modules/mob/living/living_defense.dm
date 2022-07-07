@@ -17,20 +17,20 @@
 	if(armor && armor < 100 && armour_penetration) // Armor with 100+ protection can not be penetrated for admin items
 		armor = max(0, armor - armour_penetration)
 		if(penetrated_text)
-			to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
+			to_chat(src, span_userdanger("[penetrated_text]"))
 		else
-			to_chat(src, "<span class='userdanger'>Your armor was penetrated!</span>")
+			to_chat(src, span_userdanger("Your armor was penetrated!"))
 
 	if(armor >= 100)
 		if(absorb_text)
-			to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
+			to_chat(src, span_userdanger("[absorb_text]"))
 		else
-			to_chat(src, "<span class='userdanger'>Your armor absorbs the blow!</span>")
+			to_chat(src, span_userdanger("Your armor absorbs the blow!"))
 	else if(armor > 0)
 		if(soften_text)
-			to_chat(src, "<span class='userdanger'>[soften_text]</span>")
+			to_chat(src, span_userdanger("[soften_text]"))
 		else
-			to_chat(src, "<span class='userdanger'>Your armor softens the blow!</span>")
+			to_chat(src, span_userdanger("Your armor softens the blow!"))
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
@@ -72,7 +72,7 @@
 		if(shock_damage > 200)
 			visible_message(
 				span_danger("[src] was arc flashed by \the [source]!"),
-				"<span class='userdanger'>\The [source] arc flashes and electrocutes you!</span>",
+				span_userdanger("\The [source] arc flashes and electrocutes you!"),
 				"<span class='italics'>You hear a lightning-like crack!</span>")
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
 			explosion(loc, -1, 0, 2, 2)
@@ -80,7 +80,7 @@
 		adjustStaminaLoss(shock_damage)
 	visible_message(
 		span_danger("[src] was shocked by \the [source]!"), \
-		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
+		span_userdanger("You feel a powerful shock coursing through your body!"), \
 		"<span class='hear'>You hear a heavy electrical crack.</span>" \
 	)
 	return shock_damage
@@ -115,7 +115,7 @@
 			add_attack_logs(thrower, src, "Hit with thrown [thrown_item]", !thrown_item.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
 		if(nosell_hit)
 			return ..()
-		visible_message(span_danger("[src] is hit by [thrown_item]!"), "<span class='userdanger'>You're hit by [thrown_item]!</span>")
+		visible_message(span_danger("[src] is hit by [thrown_item]!"), span_userdanger("You're hit by [thrown_item]!"))
 		if(!thrown_item.throwforce)
 			return
 		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration)
@@ -150,7 +150,7 @@
 				return
 		updatehealth("mech melee attack")
 		M.occupant_message(span_danger("You hit [src]."))
-		visible_message(span_danger("[M.name] hits [src]!"), "<span class='userdanger'>[M.name] hits you!</span>")
+		visible_message(span_danger("[M.name] hits [src]!"), span_userdanger("[M.name] hits you!"))
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		step_away(src,M)
@@ -162,7 +162,7 @@
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire && !HAS_TRAIT(src, TRAIT_NOFIRE))
 		on_fire = TRUE
-		visible_message(span_warning("[src] catches fire!"), "<span class='userdanger'>You're set on fire!</span>")
+		visible_message(span_warning("[src] catches fire!"), span_userdanger("You're set on fire!"))
 		set_light(light_range + 3,l_color = "#ED9200")
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
@@ -311,7 +311,7 @@
 	if(stat != DEAD)
 		add_attack_logs(M, src, "Slime'd")
 		M.do_attack_animation(src)
-		visible_message(span_danger("\The [M.name] glomps [src]!"), "<span class='userdanger'>\The [M.name] glomps you!</span>")
+		visible_message(span_danger("\The [M.name] glomps [src]!"), span_userdanger("\The [M.name] glomps you!"))
 		return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
@@ -327,7 +327,7 @@
 		playsound(loc, M.attack_sound, 50, 1, 1)
 	M.do_attack_animation(src)
 	visible_message(span_danger("\The [M] [M.attacktext] [src]!"), \
-					"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
+					span_userdanger("\The [M] [M.attacktext] [src]!"))
 	add_attack_logs(M, src, "Animal attacked")
 	return TRUE
 
@@ -346,12 +346,12 @@
 			if(prob(90))
 				add_attack_logs(L, src, "Larva attacked")
 				visible_message(span_danger("[L.name] bites [src]!"), \
-						"<span class='userdanger'>[L.name] bites [src]!</span>")
+						span_userdanger("[L.name] bites [src]!"))
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				return 1
 			else
 				visible_message(span_danger("[L.name] has attempted to bite [src]!"), \
-					"<span class='userdanger'>[L.name] has attempted to bite [src]!</span>")
+					span_userdanger("[L.name] has attempted to bite [src]!"))
 	return 0
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)

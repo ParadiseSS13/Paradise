@@ -170,7 +170,7 @@
 
 /obj/item/reagent_containers/food/snacks/popcorn/On_Consume(mob/M, mob/user)
 	if(prob(unpopped))	//lol ...what's the point?
-		to_chat(user, "<span class='userdanger'>You bite down on an un-popped kernel!</span>")
+		to_chat(user, span_userdanger("You bite down on an un-popped kernel!"))
 		unpopped = max(0, unpopped-1)
 	..()
 

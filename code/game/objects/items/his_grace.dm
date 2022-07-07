@@ -213,7 +213,7 @@
 	switch(bloodthirst)
 		if(HIS_GRACE_CONSUME_OWNER to HIS_GRACE_FALL_ASLEEP)
 			if(HIS_GRACE_CONSUME_OWNER > prev_bloodthirst)
-				master.visible_message("<span class='userdanger'>[src] enters a frenzy!</span>")
+				master.visible_message(span_userdanger("[src] enters a frenzy!"))
 		if(HIS_GRACE_STARVING to HIS_GRACE_CONSUME_OWNER)
 			flags |= NODROP
 			if(HIS_GRACE_STARVING > prev_bloodthirst)

@@ -105,7 +105,7 @@
 		to_chat(user, span_warning("\The [src] lets out a weak hiss and doesn't react!"))
 		return
 	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
-		user.visible_message(span_warning("[user] loses [user.p_their()] grip on [src], causing it to go off!"), "<span class='userdanger'>[src] slips out of your hands and goes off!</span>")
+		user.visible_message(span_warning("[user] loses [user.p_their()] grip on [src], causing it to go off!"), span_userdanger("[src] slips out of your hands and goes off!"))
 		user.drop_item()
 		if(prob(10))
 			target = get_turf(user)

@@ -175,14 +175,14 @@
 	if(clumsy_check)
 		if(istype(user))
 			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
+				to_chat(user, span_userdanger("You shoot yourself in the foot with \the [src]!"))
 				var/shot_leg = pick("l_foot", "r_foot")
 				process_fire(user, user, 0, params, zone_override = shot_leg)
 				user.drop_item()
 				return
 
 	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
-		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
+		to_chat(user, span_userdanger("You need both hands free to fire \the [src]!"))
 		return
 
 	//DUAL WIELDING
@@ -437,10 +437,10 @@
 
 	if(user == target)
 		target.visible_message(span_warning("[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger..."), \
-			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
+			span_userdanger("You stick [src] in your mouth, ready to pull the trigger..."))
 	else
 		target.visible_message(span_warning("[user] points [src] at [target]'s head, ready to pull the trigger..."), \
-			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>")
+			span_userdanger("[user] points [src] at your head, ready to pull the trigger..."))
 
 	semicd = 1
 
@@ -455,7 +455,7 @@
 
 	semicd = 0
 
-	target.visible_message(span_warning("[user] pulls the trigger!"), "<span class='userdanger'>[user] pulls the trigger!</span>")
+	target.visible_message(span_warning("[user] pulls the trigger!"), span_userdanger("[user] pulls the trigger!"))
 
 	if(chambered && chambered.BB)
 		chambered.BB.damage *= 5

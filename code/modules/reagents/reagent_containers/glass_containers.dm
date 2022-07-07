@@ -41,7 +41,7 @@
 
 		if(user.a_intent == INTENT_HARM)
 			M.visible_message(span_danger("[user] splashes the contents of [src] onto [M]!"), \
-							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
+							span_userdanger("[user] splashes the contents of [src] onto [M]!"))
 			add_attack_logs(user, M, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
 
 			reagents.reaction(M, REAGENT_TOUCH)
@@ -52,12 +52,12 @@
 				return
 			if(M != user)
 				M.visible_message(span_danger("[user] attempts to feed something to [M]."), \
-							"<span class='userdanger'>[user] attempts to feed something to you.</span>")
+							span_userdanger("[user] attempts to feed something to you."))
 				if(!do_mob(user, M))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
-				M.visible_message(span_danger("[user] feeds something to [M]."), "<span class='userdanger'>[user] feeds something to you.</span>")
+				M.visible_message(span_danger("[user] feeds something to [M]."), span_userdanger("[user] feeds something to you."))
 				add_attack_logs(user, M, "Fed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
 			else
 				to_chat(user, span_notice("You swallow a gulp of [src]."))
@@ -311,7 +311,7 @@
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
     ..()
     if(slot == slot_head && reagents.total_volume)
-        to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
+        to_chat(user, span_userdanger("[src]'s contents spill all over you!"))
         reagents.reaction(user, REAGENT_TOUCH)
         reagents.clear_reagents()
 

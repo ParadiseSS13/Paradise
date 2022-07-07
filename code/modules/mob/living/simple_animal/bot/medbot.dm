@@ -510,7 +510,7 @@
 			soft_reset()
 			return
 		C.visible_message(span_danger("[src] is trying to inject [patient]!"), \
-			"<span class='userdanger'>[src] is trying to inject you!</span>")
+			span_userdanger("[src] is trying to inject you!"))
 
 		spawn(30)//replace with do mob
 			if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
@@ -522,7 +522,7 @@
 				else
 					patient.reagents.add_reagent(reagent_id,injection_amount)
 				C.visible_message(span_danger("[src] injects [patient] with its syringe!"), \
-					"<span class='userdanger'>[src] injects you with its syringe!</span>")
+					span_userdanger("[src] injects you with its syringe!"))
 			else
 				visible_message("[src] retracts its syringe.")
 			update_icon()
@@ -543,7 +543,7 @@
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = 0
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(span_userdanger("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 
 	if(drops_parts)

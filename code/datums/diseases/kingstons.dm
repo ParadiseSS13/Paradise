@@ -37,11 +37,11 @@
 			if(prob(5))
 				if(istajaran(affected_mob))
 					affected_mob.visible_message(span_danger("[affected_mob] coughs up a hairball!"), \
-													"<span class='userdanger'>You cough up a hairball!</span>")
+													span_userdanger("You cough up a hairball!"))
 					affected_mob.Stun(10 SECONDS)
 				else
 					affected_mob.visible_message(span_danger("[affected_mob]'s form contorts into something more feline!"), \
-													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")
+													span_userdanger("YOU TURN INTO A TAJARAN!"))
 					var/mob/living/carbon/human/catface = affected_mob
 					catface.set_species(/datum/species/tajaran, retain_damage = TRUE)
 
@@ -88,10 +88,10 @@
 				if(prob(5))
 					if(!istype(twisted.dna.species, chosentype))
 						twisted.visible_message(span_danger("[twisted]'s skin splits and form contorts!"), \
-														"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>")
+														span_userdanger("Your body mutates into a [initial(chosentype.name)]!"))
 						twisted.set_species(chosentype, retain_damage = TRUE)
 					else
 						twisted.visible_message(span_danger("[twisted] scratches at thier skin!"), \
-														"<span class='userdanger'>You scratch your skin to try not to itch!</span>")
+														span_userdanger("You scratch your skin to try not to itch!"))
 						twisted.adjustBruteLoss(-5)
 						twisted.adjustStaminaLoss(5)

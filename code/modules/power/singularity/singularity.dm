@@ -283,10 +283,10 @@
 		set_light(10)
 	if(istype(A, /obj/singularity/narsie))
 		if(current_size == STAGE_SIX)
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
+			visible_message(span_userdanger("[SSticker.cultdat?.entity_name] is consumed by [src]!"))
 			qdel(A)
 		else
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
+			visible_message(span_userdanger("[SSticker.cultdat?.entity_name] strikes down [src]!"))
 			investigate_log("has been destroyed by Nar'Sie","singulo")
 			qdel(src)
 
@@ -396,7 +396,7 @@
 /obj/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
 		C.visible_message(span_warning("[C]'s skin bursts into flame!"), \
-						  "<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
+						  span_userdanger("You feel an inner fire as your skin bursts into flames!"))
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
@@ -418,7 +418,7 @@
 
 		M.Stun(6 SECONDS)
 		M.visible_message(span_danger("[M] stares blankly at [src]!"), \
-						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
+						span_userdanger("You look directly into [src] and feel weak."))
 	return
 
 

@@ -33,6 +33,6 @@ Bonus
 			if(1, 2, 3, 4)
 				to_chat(M, span_warning("[pick("You feel dizzy.", "Your head spins.")]"))
 			else
-				to_chat(M, "<span class='userdanger'>A wave of dizziness washes over you!</span>")
+				to_chat(M, span_userdanger("A wave of dizziness washes over you!"))
 				M.Dizzy(10 SECONDS)
 	return

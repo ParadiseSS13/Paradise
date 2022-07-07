@@ -65,7 +65,7 @@
 
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	adjustHealth(100 / severity)
-	to_chat(src, "<span class='userdanger'>NOTICE: EMP detected, systems damaged!</span>")
+	to_chat(src, span_userdanger("NOTICE: EMP detected, systems damaged!"))
 	visible_message(span_warning("[src] crackles and buzzes violently!"))
 
 /mob/living/simple_animal/hostile/mining_drone/sentience_act()

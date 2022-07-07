@@ -155,7 +155,7 @@
 
 /obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]
-	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
+	to_chat(victim, span_userdanger("You feel an awful sense of being watched..."))
 	victim.Stun(6 SECONDS) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
@@ -262,7 +262,7 @@
 	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
 	if(!HAS_TRAIT(user, TRAIT_BLOODCRAWL))
 		user.visible_message(span_warning("[user]'s eyes flare a deep crimson!"), \
-						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
+						 span_userdanger("You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!"))
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL, "bloodcrawl")
 		user.drop_item()
 		insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E.

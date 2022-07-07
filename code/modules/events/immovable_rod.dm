@@ -82,7 +82,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(ishuman(clong))
 			var/mob/living/carbon/human/H = clong
 			H.visible_message(span_danger("[H.name] is penetrated by an immovable rod!") ,
-				"<span class='userdanger'>The rod penetrates you!</span>" ,
+				span_userdanger("The rod penetrates you!") ,
 				"<span class ='danger'>You hear a CLANG!</span>")
 			H.adjustBruteLoss(160)
 		if(clong.density || prob(10))

@@ -60,7 +60,7 @@
 		return
 
 	if(get_dist(get_turf(src), get_turf(injection_target)) > 1)
-		to_chat(injection_target, "<span class='userdanger'>[src]'s needle is ripped out of you!</span>")
+		to_chat(injection_target, span_userdanger("[src]'s needle is ripped out of you!"))
 		injection_target.apply_damage(3, BRUTE, pick("r_arm", "l_arm"))
 		end_processing()
 		return
@@ -95,11 +95,11 @@
 				return
 			if(L != user)
 				L.visible_message(span_danger("[user] is trying to remove [src]'s needle from [L]'s arm!"), \
-								"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
+								span_userdanger("[user] is trying to remove [src]'s needle from [L]'s arm!"))
 				if(!do_mob(user, L))
 					return
 			L.visible_message(span_danger("[user] removes [src]'s needle from [L]'s arm!"), \
-								"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
+								span_userdanger("[user] removes [src]'s needle from [L]'s arm!"))
 			end_processing()
 		else // Inserting the needle
 			if(!L.can_inject(user, TRUE))
@@ -109,11 +109,11 @@
 				return
 			if(L != user)
 				L.visible_message(span_danger("[user] is trying to insert [src]'s needle into [L]'s arm!"), \
-									"<span class='userdanger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>")
+									span_userdanger("[user] is trying to insert [src]'s needle into [L]'s arm!"))
 				if(!do_mob(user, L))
 					return
 			L.visible_message(span_danger("[user] inserts [src]'s needle into [L]'s arm!"), \
-									"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")
+									span_userdanger("[user] inserts [src]'s needle into [L]'s arm!"))
 			begin_processing(L)
 
 	else if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers

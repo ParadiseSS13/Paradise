@@ -138,7 +138,7 @@
 	else
 		emagged = 1
 		to_chat(user, span_notice("You short out the security protocols and rewrite [src]'s internal memory."))
-		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!</span>")
+		to_chat(src, span_userdanger("You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!"))
 		emagged_master = user
 		add_attack_logs(user, src, "Emagged")
 		maxHealth = 60
@@ -153,7 +153,7 @@
 	ckey = M.brainmob.ckey
 	name = "Spider-bot ([M.brainmob.name])"
 	if(emagged)
-		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!</span>")
+		to_chat(src, span_userdanger("You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!"))
 
 /mob/living/simple_animal/spiderbot/proc/update_icon()
 	if(mmi)

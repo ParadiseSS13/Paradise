@@ -240,7 +240,7 @@
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 	C.visible_message(span_danger("[src] is trying to put zipties on [C]!"),\
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+						span_userdanger("[src] is trying to put zipties on you!"))
 	INVOKE_ASYNC(src, .proc/cuff_callback, C)
 
 /mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
@@ -269,7 +269,7 @@
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 	C.visible_message(span_danger("[src] has [harmbaton ? "beaten" : "stunned"] [C]!"),\
-							"<span class='userdanger'>[src] has [harmbaton ? "beaten" : "stunned"] you!</span>")
+							span_userdanger("[src] has [harmbaton ? "beaten" : "stunned"] you!"))
 
 /mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
 	. = ..()
@@ -429,7 +429,7 @@
 
 /mob/living/simple_animal/bot/secbot/explode()
 	walk_to(src,0)
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(span_userdanger("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1

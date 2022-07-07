@@ -71,7 +71,7 @@
 			if(do_mob(user, src, 120))
 				var/mob/living/affected = G.affecting
 				if(spike(affected))
-					affected.visible_message(span_danger("[user] slams [affected] onto the meat spike!"), "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
+					affected.visible_message(span_danger("[user] slams [affected] onto the meat spike!"), span_userdanger("[user] slams you onto the meat spike!"), "<span class='italics'>You hear a squishy wet noise.</span>")
 		return
 	return ..()
 

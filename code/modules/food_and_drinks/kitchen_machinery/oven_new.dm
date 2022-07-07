@@ -55,7 +55,7 @@
 			to_chat(user, span_warning("This person doesn't have a head!"))
 			return 0
 		C.visible_message(span_danger("[user] bashes [C]'s head in [src]'s door!"), \
-						"<span class='userdanger'>[user] bashes your head in [src]'s door! It feels rather hot in the oven!</span>")
+						span_userdanger("[user] bashes your head in [src]'s door! It feels rather hot in the oven!"))
 		C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)
 		C.apply_damage(5, BURN, "head") //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!

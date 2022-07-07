@@ -29,7 +29,7 @@
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
 
 	D.visible_message(span_danger("[A] has hit [D] with a [atk_verb]!"), \
-								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
+								span_userdanger("[A] has hit [D] with a [atk_verb]!"))
 
 	D.apply_damage(damage, STAMINA, affecting, armor_block)
 	add_attack_logs(A, D, "Melee attacked with [src]", ATKLOG_ALL)
@@ -37,7 +37,7 @@
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message(span_danger("[A] has knocked [D] out with a haymaker!"), \
-								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
+								span_userdanger("[A] has knocked [D] out with a haymaker!"))
 			D.Weaken(10 SECONDS)
 			D.forcesay(GLOB.hit_appends)
 		else if(IS_HORIZONTAL(D))
@@ -55,7 +55,7 @@
 	var/obj/item/grab/G = D.grabbedby(A,1)
 	if(G)
 		D.visible_message(span_danger("[A] grabs ahold of [D] drunkenly!"), \
-								"<span class='userdanger'>[A] grabs ahold of [D] drunkenly!</span>")
+								span_userdanger("[A] grabs ahold of [D] drunkenly!"))
 	return 1
 
 /datum/martial_art/drunk_brawling/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -87,7 +87,7 @@
 
 
 	D.visible_message(span_danger("[A] has hit [D] with a [atk_verb]!"), \
-								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
+								span_userdanger("[A] has hit [D] with a [atk_verb]!"))
 
 	D.apply_damage(damage, BRUTE, null, armor_block)
 	D.apply_effect(damage, STAMINA, armor_block)
@@ -95,7 +95,7 @@
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message(span_danger("[A] has knocked [D] out with a haymaker!"), \
-								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
+								span_userdanger("[A] has knocked [D] out with a haymaker!"))
 			D.Paralyse(10 SECONDS)
 			D.forcesay(GLOB.hit_appends)
 		else if(IS_HORIZONTAL(D))

@@ -265,7 +265,7 @@
 		to_chat(src, span_notice("Cancelled direction lock."))
 		return
 	forced_look = face_dir
-	to_chat(src, "<span class='userdanger'>You are now facing [dir2text(forced_look)]. To cancel this, shift-middleclick yourself.</span>")
+	to_chat(src, span_userdanger("You are now facing [dir2text(forced_look)]. To cancel this, shift-middleclick yourself."))
 
 /*
 	Middle shift-control-click
@@ -281,7 +281,7 @@
 		to_chat(src, span_notice("Cancelled direction lock."))
 		return
 	forced_look = face_uid
-	to_chat(src, "<span class='userdanger'>You are now facing [A]. To cancel this, shift-middleclick yourself.</span>")
+	to_chat(src, span_userdanger("You are now facing [A]. To cancel this, shift-middleclick yourself."))
 
 // In case of use break glass
 /*

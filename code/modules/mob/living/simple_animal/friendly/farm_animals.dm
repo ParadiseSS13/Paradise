@@ -99,7 +99,7 @@
 	if(. && isdiona(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/NB = pick(H.bodyparts)
-		H.visible_message(span_warning("[src] takes a big chomp out of [H]!"), "<span class='userdanger'>[src] takes a big chomp out of your [NB.name]!</span>")
+		H.visible_message(span_warning("[src] takes a big chomp out of [H]!"), span_userdanger("[src] takes a big chomp out of your [NB.name]!"))
 		NB.droplimb()
 
 /mob/living/simple_animal/hostile/retaliate/goat/chef

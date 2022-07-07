@@ -44,11 +44,11 @@
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	D.visible_message(span_danger("[A] [picked_hit_type] [D]!"), \
-					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+					  span_userdanger("[A] [picked_hit_type] you!"))
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(IS_HORIZONTAL(A) && !D.stat && !D.IsWeakened())
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
-							"<span class='userdanger'>[A] leg sweeps you!</span>")
+							span_userdanger("[A] leg sweeps you!"))
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
 		D.Weaken(6 SECONDS)
@@ -60,7 +60,7 @@
 	var/obj/item/grab/G = A.get_inactive_hand()
 	if(restraining && istype(G) && G.affecting == D)
 		D.visible_message(span_danger("[A] puts [D] into a chokehold!"), \
-							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
+							span_userdanger("[A] puts you into a chokehold!"))
 		D.SetSleeping(40 SECONDS)
 		restraining = FALSE
 		if(G.state < GRAB_NECK)
@@ -75,14 +75,14 @@
 		if(!D.stat || !D.IsWeakened() || !restraining)
 			I = D.get_active_hand()
 			D.visible_message(span_warning("[A] strikes [D]'s jaw with their hand!"), \
-								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
+								span_userdanger("[A] strikes your jaw, disorienting you!"))
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 			if(D.unEquip(I) && !(QDELETED(I) || (I.flags & ABSTRACT)))
 				A.put_in_hands(I)
 			D.Jitter(4 SECONDS)
 			D.apply_damage(5, BRUTE)
 	else
-		D.visible_message(span_danger("[A] attempted to disarm [D]!"), "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
+		D.visible_message(span_danger("[A] attempted to disarm [D]!"), span_userdanger("[A] attempted to disarm [D]!"))
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)

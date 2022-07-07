@@ -39,7 +39,7 @@
 		to_chat(user, span_warning("The body swap has been interrupted!"))
 		return
 
-	to_chat(target, "<span class='userdanger'>[user] tightens [user.p_their()] grip as a painful sensation invades your body.</span>")
+	to_chat(target, span_userdanger("[user] tightens [user.p_their()] grip as a painful sensation invades your body."))
 
 	var/datum/dna/DNA = cling.get_dna(user.dna)
 	cling.absorbed_dna -= DNA

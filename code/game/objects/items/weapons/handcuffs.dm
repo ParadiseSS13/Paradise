@@ -49,7 +49,7 @@
 
 	if(!C.handcuffed)
 		C.visible_message(span_danger("[user] is trying to put [src.name] on [C]!"), \
-							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
+							span_userdanger("[user] is trying to put [src.name] on [C]!"))
 
 		playsound(loc, cuffsound, 30, 1, -2)
 		if(do_mob(user, C, 30))

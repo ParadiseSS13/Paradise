@@ -871,7 +871,7 @@
 	color = "#C8A5DC"
 	harmless = FALSE
 	can_synth = FALSE
-	taste_description = "<span class='userdanger'>an unstoppable force</span>"
+	taste_description = span_userdanger("an unstoppable force")
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

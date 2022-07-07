@@ -37,7 +37,7 @@ Bonus
 				Choke_stage_3_4(M, A)
 				M.emote("gasp")
 			else
-				to_chat(M, "<span class='userdanger'>[pick("You're choking!", "You can't breathe!")]</span>")
+				to_chat(M, span_userdanger("[pick("You're choking!", "You can't breathe!")]"))
 				Choke(M, A)
 				M.emote("gasp")
 	return

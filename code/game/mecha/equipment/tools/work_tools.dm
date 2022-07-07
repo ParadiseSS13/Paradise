@@ -35,7 +35,7 @@
 		if(istype(target, /obj/machinery/power/supermatter_crystal)) //No, you can't pick up the SM with this you moron, did you think you were clever?
 			var/obj/mecha/working/ripley/R = chassis
 			QDEL_LIST(R.cargo) //We don't want to drop cargo that just spam hits the SM, let's delete it
-			occupant_message("<span class='userdanger'>You realise in horror what you have done as [chassis] starts warping around you!</span>")
+			occupant_message(span_userdanger("You realise in horror what you have done as [chassis] starts warping around you!"))
 			chassis.occupant.dust()
 			target.Bumped(chassis)
 			return
@@ -68,7 +68,7 @@
 				return
 			M.adjustOxyLoss(round(dam_force/2))
 			target.visible_message(span_danger("[chassis] squeezes [target]."), \
-								"<span class='userdanger'>[chassis] squeezes [target].</span>",\
+								span_userdanger("[chassis] squeezes [target]."),\
 								"<span class='italics'>You hear something crack.</span>")
 			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
@@ -111,11 +111,11 @@
 		if(M.stat == DEAD) return
 		if(chassis.occupant.a_intent == INTENT_HARM)
 			target.visible_message(span_danger("[chassis] destroys [target] in an unholy fury."),
-								"<span class='userdanger'>[chassis] destroys [target] in an unholy fury.</span>")
+								span_userdanger("[chassis] destroys [target] in an unholy fury."))
 			M.gib()
 		/*if(chassis.occupant.a_intent == INTENT_DISARM)
 			target.visible_message(span_danger("[chassis] rips [target]'s arms off."),
-								"<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")*/
+								span_userdanger("[chassis] rips [target]'s arms off."))*/
 		else
 			step_away(M,chassis)
 			target.visible_message("[chassis] tosses [target] like a piece of paper.")

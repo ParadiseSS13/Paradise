@@ -143,7 +143,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 			continue
 		if(isliving(thing))
 			var/mob/living/living_thing = thing
-			living_thing.visible_message(span_warning("[src] slams into [living_thing]."), "<span class='userdanger'>[src] slams into you!</span>")
+			living_thing.visible_message(span_warning("[src] slams into [living_thing]."), span_userdanger("[src] slams into you!"))
 		A.ex_act(hitpwr)
 
 	//then, ram the turf if it still exists

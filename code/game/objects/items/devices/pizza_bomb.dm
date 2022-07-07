@@ -53,7 +53,7 @@
 		visible_message(span_danger("[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on [src], but it's disarmed!"))
 		return
 	atom_say("Enjoy the pizza!")
-	visible_message("<span class='userdanger'>[src] violently explodes!</span>")
+	visible_message(span_userdanger("[src] violently explodes!"))
 	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
 	qdel(src)
 
@@ -76,7 +76,7 @@
 			primed = 0
 			return
 		else
-			to_chat(user, "<span class='userdanger'>WRONG WIRE!</span>")
+			to_chat(user, span_userdanger("WRONG WIRE!"))
 			go_boom()
 			return
 	if(istype(I, /obj/item/wirecutters) && disarmed)

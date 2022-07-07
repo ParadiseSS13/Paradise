@@ -58,7 +58,7 @@
 			if(Q.stat == DEAD)
 				spider_myqueen = null
 				degenerate = TRUE
-				to_chat(src, "<span class='userdanger'>[Q] has died! Her power no longer sustains you!</span>")
+				to_chat(src, span_userdanger("[Q] has died! Her power no longer sustains you!"))
 				return
 
 			if(get_dist(src, Q) < vision_range)
@@ -85,7 +85,7 @@
 				if(18)
 					// three minutes without queen sighted, kill them.
 					degenerate = TRUE
-					to_chat(src, "<span class='userdanger'>Your link to [Q] has been broken! Your life force starts to drain away!</span>")
+					to_chat(src, span_userdanger("Your link to [Q] has been broken! Your life force starts to drain away!"))
 					melee_damage_lower = 5
 					melee_damage_upper = 10
 

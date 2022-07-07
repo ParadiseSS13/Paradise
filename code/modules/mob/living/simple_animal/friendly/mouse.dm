@@ -181,7 +181,7 @@
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(!is_station_level(T.z) || isspaceturf(T))
-		to_chat(src, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
+		to_chat(src, span_userdanger("You feel ready to burst, but this isn't an appropriate place!  You must return to the station!"))
 		return FALSE
 	has_burst = TRUE
 	var/datum/mind/blobmind = mind

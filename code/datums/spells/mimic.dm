@@ -208,4 +208,4 @@
 
 /obj/effect/proc_holder/spell/mimic/morph/show_death_message(mob/user)
 	user.visible_message(span_warning("[user] twists and dissolves into a pile of green flesh!"), \
-						"<span class='userdanger'>Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--</span>")
+						span_userdanger("Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--"))

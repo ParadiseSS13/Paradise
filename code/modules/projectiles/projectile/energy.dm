@@ -124,12 +124,12 @@
 			M.apply_damage((rand(15, 30) * (1.1 - distance / 10)), BURN) //reduced by 10% per tile
 			add_attack_logs(src, M, "Hit heavily by [src]")
 			if(floored)
-				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
+				to_chat(M, span_userdanger("You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!"))
 				M.Weaken(2 SECONDS)
 			else
-				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
+				to_chat(M, span_userdanger("You see a flash of briliant blue light as [src] explodes, burning you!"))
 		else
-			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
+			to_chat(M, span_userdanger("You feel the heat of the explosion of [src], but the blast mostly misses you."))
 			add_attack_logs(src, M, "Hit lightly by [src]")
 			M.apply_damage(rand(1, 5), BURN)
 

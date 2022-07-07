@@ -151,7 +151,7 @@
 	if(prob(50 / severity))
 		if(istype(loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/user = loc
-			to_chat(user, "<span class='userdanger'>[src] buzzes and activates!</span>")
+			to_chat(user, span_userdanger("[src] buzzes and activates!"))
 			attempt_teleport(user, TRUE)
 		else //Well, it either is on a floor / locker, and won't teleport someone, OR it's in someones bag. As such, we need to check the turf to see if people are there.
 			var/turf/teleport_turf = get_turf(src)

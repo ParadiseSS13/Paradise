@@ -447,19 +447,19 @@
 			switch(event)
 				if(ORION_TRAIL_RAIDERS)
 					if(prob(50))
-						to_chat(usr, "<span class='userdanger'>You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?</span>")
+						to_chat(usr, span_userdanger("You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?"))
 						M.AdjustHallucinate(30 SECONDS)
 					else
-						to_chat(usr, "<span class='userdanger'>Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there...</span>")
+						to_chat(usr, span_userdanger("Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there..."))
 						M.take_organ_damage(30)
 						playsound(loc, 'sound/weapons/genhit2.ogg', 100, TRUE)
 				if(ORION_TRAIL_ILLNESS)
 					var/severity = rand(1,3) //pray to RNGesus. PRAY, PIGS
 					if(severity == 1)
-						to_chat(M, "<span class='userdanger'>You suddenly feel slightly nauseous.</span>")//got off lucky
+						to_chat(M, span_userdanger("You suddenly feel slightly nauseous."))//got off lucky
 
 					if(severity == 2)
-						to_chat(usr, "<span class='userdanger'>You suddenly feel extremely nauseous and hunch over until it passes.</span>")
+						to_chat(usr, span_userdanger("You suddenly feel extremely nauseous and hunch over until it passes."))
 						M.Stun(6 SECONDS)
 					if(severity >= 3) //you didn't pray hard enough
 						to_chat(M, span_warning("An overpowering wave of nausea consumes over you. You hunch over, your stomach's contents preparing for a spectacular exit."))
@@ -478,7 +478,7 @@
 						M.take_organ_damage(25)
 						playsound(loc, 'sound/weapons/genhit.ogg', 100, TRUE)
 					else
-						to_chat(M, "<span class='userdanger'>A violent gale blows past you, and you barely manage to stay standing!</span>")
+						to_chat(M, span_userdanger("A violent gale blows past you, and you barely manage to stay standing!"))
 				if(ORION_TRAIL_COLLISION) //by far the most damaging event
 					if(prob(90))
 						playsound(loc, 'sound/effects/bang.ogg', 100, TRUE)
@@ -1011,7 +1011,7 @@
 	atom_say("Oh, God! Code Eight! CODE EIGHT! IT'S GONNA BL-")
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 	sleep(3.6)
-	visible_message("<span class='userdanger'>[src] explodes!</span>")
+	visible_message(span_userdanger("[src] explodes!"))
 	explosion(src.loc, 1,2,4, flame_range = 3)
 	qdel(src)
 

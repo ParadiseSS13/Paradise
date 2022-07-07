@@ -27,12 +27,12 @@
 		if(4)
 			if(prob(10))
 				affected_mob.visible_message(span_danger("[affected_mob] buzzes."), \
-												"<span class='userdanger'>Your stomach buzzes violently!</span>")
+												span_userdanger("Your stomach buzzes violently!"))
 			if(prob(5))
 				to_chat(affected_mob, span_danger("You feel something moving in your throat."))
 			if(prob(1))
 				affected_mob.visible_message(span_danger("[affected_mob] coughs up a swarm of bees!"), \
-													"<span class='userdanger'>You cough up a swarm of bees!</span>")
+													span_userdanger("You cough up a swarm of bees!"))
 				new /mob/living/simple_animal/hostile/poison/bees(affected_mob.loc)
 		//if(5)
 		//Plus if you die, you explode into bees

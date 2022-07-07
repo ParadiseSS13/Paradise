@@ -35,5 +35,5 @@ Bonus
 			if(3, 4)
 				to_chat(M, span_warning("[pick("You hear a ringing in your ear.", "Your ears pop.")]"))
 			if(5)
-				to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
+				to_chat(M, span_userdanger("Your ears pop and begin ringing loudly!"))
 				ears.deaf = min(20, ears.deaf + 15)

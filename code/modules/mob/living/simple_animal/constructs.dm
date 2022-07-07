@@ -146,7 +146,7 @@
 			if((P.damage_type == BRUTE || P.damage_type == BURN))
 				adjustBruteLoss(P.damage * 0.5)
 			visible_message(span_danger("[P] gets reflected by [src]'s shell!"), \
-							"<span class='userdanger'>[P] gets reflected by [src]'s shell!</span>")
+							span_userdanger("[P] gets reflected by [src]'s shell!"))
 
 			P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 

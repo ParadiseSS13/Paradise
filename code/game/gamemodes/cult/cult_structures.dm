@@ -201,7 +201,7 @@
 			return FALSE
 
 		C.visible_message(span_danger("[user] dunks [C]'s face into [src]'s lava!"),
-						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
+						span_userdanger("[user] dunks your face into [src]'s lava!"))
 		C.emote("scream")
 		C.apply_damage(30, BURN, "head") // 30 fire damage because it's FUCKING LAVA
 		head.disfigure() // Your face is unrecognizable because it's FUCKING LAVA

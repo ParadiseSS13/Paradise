@@ -25,7 +25,7 @@
 	if(stat == DEAD)
 		return
 	else
-		show_message("<span class='userdanger'>The blob attacks!</span>")
+		show_message(span_userdanger("The blob attacks!"))
 		adjustBruteLoss(10)
 
 /mob/living/carbon/Move(NewLoc, direct)
@@ -99,13 +99,13 @@
 	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message(span_warning("[src] dry heaves!"), \
-							"<span class='userdanger'>You try to throw up, but there's nothing your stomach!</span>")
+							span_userdanger("You try to throw up, but there's nothing your stomach!"))
 		if(stun)
 			Weaken(20 SECONDS)
 	else
 		if(message)
 			visible_message(span_danger("[src] throws up!"), \
-							"<span class='userdanger'>You throw up!</span>")
+							span_userdanger("You throw up!"))
 		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
 		var/turf/T = get_turf(src)
 		for(var/i=0 to distance)
@@ -576,7 +576,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				T.dismantle_wall(TRUE)
 				hit_something = TRUE
 		if(hit_something)
-			visible_message(span_danger("[src] slams into [hit_atom]!"), "<span class='userdanger'>You slam into [hit_atom]!</span>")
+			visible_message(span_danger("[src] slams into [hit_atom]!"), span_userdanger("You slam into [hit_atom]!"))
 			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 		return
 
@@ -600,7 +600,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			take_organ_damage(10)
 			victim.Weaken(2 SECONDS)
 			Weaken(2 SECONDS)
-			visible_message(span_danger("[src] crashes into [victim], knocking them both over!"), "<span class='userdanger'>You violently crash into [victim]!</span>")
+			visible_message(span_danger("[src] crashes into [victim], knocking them both over!"), span_userdanger("You violently crash into [victim]!"))
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 
 /mob/living/carbon/proc/toggle_throw_mode()
@@ -753,7 +753,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/obj/item/ITEM = get_item_by_slot(slot)
 		if(ITEM && istype(ITEM, /obj/item/tank))
 			visible_message(span_danger("[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM]."), \
-							"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
+							span_userdanger("[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM]."))
 
 			var/no_mask
 			if(!get_organ_slot("breathing_tube"))
@@ -781,7 +781,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					update_action_buttons_icon()
 
 				visible_message(span_danger("[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM]."), \
-								"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
+								span_userdanger("[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM]."))
 
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)

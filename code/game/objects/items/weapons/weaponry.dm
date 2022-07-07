@@ -246,7 +246,7 @@
 	to_chat(user, span_warning("You begin gathering strength..."))
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
 	if(do_after(user, 90, target = user))
-		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
+		to_chat(user, span_userdanger("You gather power! Time for a home run!"))
 		homerun_ready = 1
 	..()
 
@@ -257,7 +257,7 @@
 	. = ..()
 	if(homerun_ready)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
-		user.visible_message("<span class='userdanger'>It's a home run!</span>")
+		user.visible_message(span_userdanger("It's a home run!"))
 		target.throw_at(throw_target, rand(8,10), 14, user)
 		target.ex_act(2)
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)

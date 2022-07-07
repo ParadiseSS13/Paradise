@@ -16,7 +16,7 @@
 		var/armor_block = target.run_armor_check(affecting, MELEE)
 
 		target.visible_message(span_danger("[user] has hit [target] with invisible nunchucks!"), \
-								"<span class='userdanger'>[user] has hit [target] with a with invisible nunchuck!</span>")
+								span_userdanger("[user] has hit [target] with a with invisible nunchuck!"))
 		playsound(get_turf(user), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		target.apply_damage(damage, STAMINA, affecting, armor_block)

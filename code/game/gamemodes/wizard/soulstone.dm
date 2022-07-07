@@ -74,7 +74,7 @@
 	if(!can_use(user))
 		user.Weaken(10 SECONDS)
 		user.emote("scream")
-		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
+		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
 
 	if(spent)
@@ -206,7 +206,7 @@
 	if(!can_use(user))
 		user.Weaken(10 SECONDS)
 		user.emote("scream")
-		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
+		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
 
 	release_shades(user)
@@ -222,9 +222,9 @@
 			icon_state = "soulstone"
 		name = initial(name)
 		if(iscultist(A))
-			to_chat(A, "<span class='userdanger'>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</span>")
+			to_chat(A, span_userdanger("You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs."))
 		else
-			to_chat(A, "<span class='userdanger'>You have been released from your prison, but you are still bound to your [purified ? "saviour" : "creator"]'s will.</span>")
+			to_chat(A, span_userdanger("You have been released from your prison, but you are still bound to your [purified ? "saviour" : "creator"]'s will."))
 		was_used()
 
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
@@ -293,7 +293,7 @@
 			var/mob/living/simple_animal/shade/T = target
 			if(!can_use(user))
 				user.Weaken(10 SECONDS)
-				to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
+				to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 				return
 			if(T.stat == DEAD)
 				to_chat(user, "<span class='danger'>Capture failed!</span> The shade has already been banished!")
@@ -357,9 +357,9 @@
 		CC.Grant(src)
 		D.Grant(src)
 		SSticker.mode.cult_objs.study(src) // Display objectives again
-		to_chat(src, "<span class='userdanger'>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</span>")
+		to_chat(src, span_userdanger("You are still bound to serve the cult, follow their orders and help them complete their goals at all costs."))
 	else
-		to_chat(src, "<span class='userdanger'>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</span>")
+		to_chat(src, span_userdanger("You are still bound to serve your creator, follow their orders and help them complete their goals at all costs."))
 	cancel_camera()
 	qdel(shell)
 	qdel(shade)
@@ -399,10 +399,10 @@
 			SSticker.mode.add_cultist(S.mind)
 			S.mind.special_role = SPECIAL_ROLE_CULTIST
 			S.mind.store_memory("<b>Serve the cult's will.</b>")
-			to_chat(S, "<span class='userdanger'>Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs.</span>")
+			to_chat(S, span_userdanger("Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs."))
 		else
 			S.mind.store_memory("<b>Serve [user.real_name], your creator.</b>")
-			to_chat(S, "<span class='userdanger'>Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs.</span>")
+			to_chat(S, span_userdanger("Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs."))
 	if(forced && user)
 		to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
 	if(isrobot(M))//Robots have to dust or else they spill out an empty robot brain, and unequiping them spills robot components that shouldn't spawn.

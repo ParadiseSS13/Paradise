@@ -39,11 +39,11 @@
 /obj/effect/hallucination/chaser/attacker/terror_spider/attack_effects()
 	do_attack_animation(target, ATTACK_EFFECT_BITE)
 	target.playsound_local(get_turf(src), 'sound/weapons/bite.ogg', 50, TRUE)
-	to_chat(target, "<span class='userdanger'>[name] bites you!</span>")
+	to_chat(target, span_userdanger("[name] bites you!"))
 
 /obj/effect/hallucination/chaser/attacker/terror_spider/on_knockdown()
 	target.visible_message(span_warning("[target] recoils as if hit by something, before suddenly collapsing!"),
-						   "<span class='userdanger'>[name] bites you!</span>")
+						   span_userdanger("[name] bites you!"))
 
 /**
   * # Hallucination - Spider Web
@@ -66,7 +66,7 @@
 
 /obj/effect/hallucination/tripper/spider_web/on_crossed()
 	target.visible_message(span_warning("[target] trips over nothing."),
-					  	   "<span class='userdanger'>You get stuck in [src]!</span>")
+					  	   span_userdanger("You get stuck in [src]!"))
 
 /obj/effect/hallucination/tripper/spider_web/attackby(obj/item/I, mob/user, params)
 	if(user != target)
@@ -75,7 +75,7 @@
 	step_towards(target, get_turf(src))
 	target.Weaken(4 SECONDS)
 	target.visible_message(span_warning("[target] flails [target.p_their()] [I.name] as if striking something, only to trip!"),
-					  	   "<span class='userdanger'>[src] vanishes as you strike it with [I], causing you to stumble forward!</span>")
+					  	   span_userdanger("[src] vanishes as you strike it with [I], causing you to stumble forward!"))
 	qdel(src)
 
 /**
@@ -183,7 +183,7 @@
 
 /obj/effect/hallucination/chaser/attacker/abductor/on_knockdown()
 	target.visible_message(span_warning("[target] recoils as if hit by something, before suddenly collapsing!"),
-						   "<span class='userdanger'>[name] has stunned you with the advanced baton!</span>")
+						   span_userdanger("[name] has stunned you with the advanced baton!"))
 	if(!QDELETED(owning_hallucination))
 		owning_hallucination.spawn_scientist()
 	else
@@ -323,11 +323,11 @@
 /obj/effect/hallucination/chaser/attacker/assaulter/attack_effects()
 	do_attack_animation(target)
 	target.playsound_local(get_turf(src), istext(attack_sound) ? get_sfx(attack_sound) : attack_sound, 25, TRUE)
-	to_chat(target, "<span class='userdanger'>[name] has [attack_verb] [target]!</span>")
+	to_chat(target, span_userdanger("[name] has [attack_verb] [target]!"))
 
 /obj/effect/hallucination/chaser/attacker/assaulter/on_knockdown()
 	target.visible_message(span_warning("[target] recoils as if hit by something, before suddenly collapsing!"),
-						   "<span class='userdanger'>[name] has [attack_verb] [target]!</span>")
+						   span_userdanger("[name] has [attack_verb] [target]!"))
 	QDEL_IN(src, 3 SECONDS)
 
 /**
@@ -383,7 +383,7 @@
 		forceMove(get_turf(target))
 		target.Weaken(10 SECONDS)
 		target.visible_message(span_danger("[target] recoils backwards and falls flat!"),
-							   "<span class='userdanger'>[name] pounces on you!</span>")
+							   span_userdanger("[name] pounces on you!"))
 
 		to_chat(target, span_notice("[name] begins climbing into the ventilation system..."))
 		QDEL_IN(src, 2 SECONDS)

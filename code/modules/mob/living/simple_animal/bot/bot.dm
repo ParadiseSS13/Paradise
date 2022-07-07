@@ -234,7 +234,7 @@
 		locked = 1 //Access denied forever!
 		bot_reset()
 		turn_on() //The bot automatically turns on when emagged, unless recently hit with EMP.
-		to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
+		to_chat(src, span_userdanger("(#$*#$^^( OVERRIDE DETECTED"))
 		show_laws()
 		add_attack_logs(user, src, "Emagged")
 		return
@@ -900,7 +900,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		bot_reset()
 		add_attack_logs(M, src, "Hacked")
 	else if(!hacked)
-		to_chat(M, "<span class='userdanger'>[text_dehack_fail]</span>")
+		to_chat(M, span_userdanger("[text_dehack_fail]"))
 	else
 		emagged = FALSE
 		hacked = FALSE

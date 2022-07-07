@@ -255,7 +255,7 @@ REAGENT SCANNER
 		to_chat(user, span_notice("Detected cybernetic modifications:"))
 		to_chat(user, span_notice("[implant_detect]"))
 	if(H.gene_stability < 40)
-		to_chat(user, "<span class='userdanger'>Subject's genes are quickly breaking down!</span>")
+		to_chat(user, span_userdanger("Subject's genes are quickly breaking down!"))
 	else if(H.gene_stability < 70)
 		to_chat(user, span_danger("Subject's genes are showing signs of spontaneous breakdown."))
 	else if(H.gene_stability < 85)

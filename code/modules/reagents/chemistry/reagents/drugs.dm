@@ -403,9 +403,9 @@
 	else if(check < 16)
 		M.AdjustHallucinate(30 SECONDS)
 	else if(check < 24)
-		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
+		to_chat(M, span_userdanger("They're coming for you!"))
 	else if(check < 28)
-		to_chat(M, "<span class='userdanger'>THEY'RE GONNA GET YOU!</span>")
+		to_chat(M, span_userdanger("THEY'RE GONNA GET YOU!"))
 	return ..() | update_flags
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)

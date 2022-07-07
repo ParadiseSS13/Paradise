@@ -185,7 +185,7 @@
 	description = "This shit goes in pepperspray."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
-	taste_description = "<span class='userdanger'>PURE FIRE</span>"
+	taste_description = span_userdanger("PURE FIRE")
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/M)
 	if(prob(5))

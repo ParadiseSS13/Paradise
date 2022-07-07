@@ -35,12 +35,12 @@ Bonus
 			if(4)
 				Firestacks_stage_4(M, A)
 				M.IgniteMob()
-				to_chat(M, "<span class='userdanger'>Your skin bursts into flames!</span>")
+				to_chat(M, span_userdanger("Your skin bursts into flames!"))
 				M.emote("scream")
 			if(5)
 				Firestacks_stage_5(M, A)
 				M.IgniteMob()
-				to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
+				to_chat(M, span_userdanger("Your skin erupts into an inferno!"))
 				M.emote("scream")
 	return
 

@@ -41,7 +41,7 @@
 	if(reagents.has_reagent("hydrocodone"))
 		return
 
-	var/msg = "<span class='userdanger'>[message]</span>"
+	var/msg = span_userdanger("[message]")
 
 	// Anti message spam checks
 	if(msg && ((msg != last_pain_message) || (world.time >= next_pain_time)))

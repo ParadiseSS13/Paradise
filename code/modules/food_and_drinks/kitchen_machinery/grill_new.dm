@@ -51,7 +51,7 @@
 			return 0
 		var/mob/living/carbon/human/C = G.affecting
 		C.visible_message(span_danger("[user] forces [C] onto [src], searing [C]'s body!"), \
-						"<span class='userdanger'>[user] forces you onto [src]! It burns!</span>")
+						span_userdanger("[user] forces you onto [src]! It burns!"))
 		C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)
 		C.adjustFireLoss(30)

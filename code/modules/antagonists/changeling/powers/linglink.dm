@@ -47,10 +47,10 @@
 				to_chat(user, span_notice("This creature is compatible. We must hold still..."))
 			if(2)
 				to_chat(user, span_notice("We stealthily stab [target] with a minor proboscis..."))
-				to_chat(target, "<span class='userdanger'>You experience a stabbing sensation and your ears begin to ring...</span>")
+				to_chat(target, span_userdanger("You experience a stabbing sensation and your ears begin to ring..."))
 			if(3)
 				to_chat(user, span_notice("You mold [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!"))
-				to_chat(target, "<span class='userdanger'>A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!</span>")
+				to_chat(target, span_userdanger("A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!"))
 				for(var/mob/M in GLOB.mob_list)
 					if(GLOB.all_languages["Changeling"] in M.languages)
 						to_chat(M, "<span class='changeling'>We can sense a foreign presence in the hivemind...</span>")
@@ -73,5 +73,5 @@
 	cling.is_linking = FALSE
 	target.mind.linglink = FALSE
 	to_chat(user, span_notice("You cannot sustain the connection any longer, your victim fades from the hivemind"))
-	to_chat(target, "<span class='userdanger'>The link cannot be sustained any longer, your connection to the hivemind has faded!</span>")
+	to_chat(target, span_userdanger("The link cannot be sustained any longer, your connection to the hivemind has faded!"))
 	return TRUE

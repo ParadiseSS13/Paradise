@@ -78,7 +78,7 @@
 				if(istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
 					var/mob/living/simple_animal/slaughter/demon = src
 					demon.devoured++
-					to_chat(kidnapped, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
+					to_chat(kidnapped, span_userdanger("You feel teeth sink into your flesh, and the--"))
 					kidnapped.adjustBruteLoss(1000)
 					kidnapped.forceMove(src)
 					demon.consumed_mobs.Add(kidnapped)

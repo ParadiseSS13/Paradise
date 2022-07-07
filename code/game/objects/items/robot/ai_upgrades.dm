@@ -14,9 +14,9 @@
 		return
 	if(AI.malf_picker)
 		AI.malf_picker.processing_time += 50
-		to_chat(AI, "<span class='userdanger'>[user] has attempted to upgrade you with combat software that you already possess. You gain 50 points to spend on Malfunction Modules instead.</span>")
+		to_chat(AI, span_userdanger("[user] has attempted to upgrade you with combat software that you already possess. You gain 50 points to spend on Malfunction Modules instead."))
 	else
-		to_chat(AI, "<span class='userdanger'>[user] has upgraded you with combat software!</span>")
+		to_chat(AI, span_userdanger("[user] has upgraded you with combat software!"))
 		AI.add_malf_picker()
 	to_chat(user, span_notice("You upgrade [AI]. [src] is consumed in the process."))
 	qdel(src)
@@ -34,7 +34,7 @@
 		return
 	if(AI.eyeobj)
 		AI.eyeobj.relay_speech = 1
-		to_chat(AI, "<span class='userdanger'>[user] has upgraded you with surveillance software!</span>")
+		to_chat(AI, span_userdanger("[user] has upgraded you with surveillance software!"))
 		to_chat(AI, "Via a combination of hidden microphones and lip reading software, you are able to use your cameras to listen in on conversations.")
 	to_chat(user, span_notice("You upgrade [AI]. [src] is consumed in the process."))
 	qdel(src)

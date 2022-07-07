@@ -105,10 +105,10 @@
 	//Display an attack message.
 	if(target != user)
 		target.visible_message(span_danger("[user] has hit [target][head_attack_message] with a bottle of [name]!"), \
-				"<span class='userdanger'>[user] has hit [target][head_attack_message] with a bottle of [name]!</span>")
+				span_userdanger("[user] has hit [target][head_attack_message] with a bottle of [name]!"))
 	else
 		user.visible_message(span_danger("[target] hits [target.p_them()]self with a bottle of [name][head_attack_message]!"), \
-				"<span class='userdanger'>[target] hits [target.p_them()]self with a bottle of [name][head_attack_message]!</span>")
+				span_userdanger("[target] hits [target.p_them()]self with a bottle of [name][head_attack_message]!"))
 
 	//Attack logs
 	add_attack_logs(user, target, "Hit with [src]")

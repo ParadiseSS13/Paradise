@@ -105,7 +105,7 @@
 	var/obj_count = 1
 	update_rev_icons_added(rev_mind)
 	if(you_are)
-		to_chat(rev_mind.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership!</span>")
+		to_chat(rev_mind.current, span_userdanger("You are a member of the revolutionaries' leadership!"))
 	for(var/datum/objective/objective in rev_mind.objectives)
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV

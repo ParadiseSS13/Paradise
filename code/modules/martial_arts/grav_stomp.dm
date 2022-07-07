@@ -13,5 +13,5 @@
 	playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 	D.apply_damage(bonus_damage, BRUTE)
 	D.visible_message(span_danger("[A] [picked_hit_type] [D]!"), \
-					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+					  span_userdanger("[A] [picked_hit_type] you!"))
 	return TRUE

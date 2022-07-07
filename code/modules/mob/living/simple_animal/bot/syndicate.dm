@@ -153,7 +153,7 @@
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
 		walk_to(src,0)
-		visible_message("<span class='userdanger'>[src] blows apart!</span>")
+		visible_message(span_userdanger("[src] blows apart!"))
 		do_sparks(3, 1, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)

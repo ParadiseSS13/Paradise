@@ -154,7 +154,7 @@
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		if(baton_stun(user, user, skip_cooldown = TRUE)) // for those super edge cases where you clumsy baton yourself in quick succession
 			user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src]!"),
-							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
+							span_userdanger("You accidentally hit yourself with [src]!"))
 		return
 
 	if(issilicon(M)) // Can't stunbaton borgs and AIs
@@ -211,7 +211,7 @@
 		L.lastattacker = user.real_name
 		L.lastattackerckey = user.ckey
 		L.visible_message(span_danger("[user] has stunned [L] with [src]!"),
-			"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>")
+			span_userdanger("[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!"))
 		add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
@@ -231,7 +231,7 @@
 		flick("baton_active", source)
 		baton_stun(user, user, skip_cooldown = TRUE)
 		user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [src]!"),
-							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
+							span_userdanger("You unwisely attempt to wash [src] while it's still on."))
 		return TRUE
 	..()
 

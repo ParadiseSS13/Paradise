@@ -98,7 +98,7 @@
 			update_icon()
 			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 			L.visible_message(span_danger("[L] triggers \the [src]."), \
-					"<span class='userdanger'>You trigger \the [src]!</span>")
+					span_userdanger("You trigger \the [src]!"))
 
 			if(IED && isturf(src.loc))
 				IED.active = 1
@@ -176,7 +176,7 @@
 		forceMove(C)
 		C.update_inv_legcuffed()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
+		to_chat(C, span_userdanger("[src] ensnares you!"))
 		C.KnockDown(knockdown_duration)
 		playsound(loc, hitsound, 50, TRUE)
 

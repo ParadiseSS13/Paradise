@@ -40,4 +40,4 @@
 		if(prob(12))
 			C.Weaken(6 SECONDS)
 			C.visible_message(span_danger("\The [src] knocks down \the [C]!"), \
-					"<span class='userdanger'>\The [src] knocks you down!</span>")
+					span_userdanger("\The [src] knocks you down!"))

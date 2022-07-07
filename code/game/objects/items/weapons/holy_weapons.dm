@@ -459,7 +459,7 @@
 				var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
 				if(V?.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
 					V.adjust_nullification(120, 50)
-					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
+					to_chat(target, span_userdanger("[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!"))
 					praying = FALSE
 					return
 
@@ -518,7 +518,7 @@
 					H.Silence(20 SECONDS)
 					animate_fade_grayscale(H,20)
 					if(prob(10))
-						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
+						to_chat(H, span_userdanger("Being in the presence of [holder]'s [src] is interfering with your honk!"))
 
 
 /obj/item/nullrod/missionary_staff
@@ -591,7 +591,7 @@
 	if(!target.mind)	//no mind means no conversion, but also means no faith lost.
 		to_chat(missionary, span_warning("You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile."))
 		return
-	to_chat(target, "<span class='userdanger'>Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good...</span>")
+	to_chat(target, span_userdanger("Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good..."))
 	if(do_after(missionary, 80))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
 		if(faith < 100)		//to stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes
 			to_chat(missionary, span_warning("You don't have enough faith to complete the conversion on [target]!"))

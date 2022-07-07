@@ -123,7 +123,7 @@
 /datum/species/golem/plasma/handle_life(mob/living/carbon/human/H)
 	if(H.bodytemperature > 750)
 		if(!boom_warning && H.on_fire)
-			to_chat(H, "<span class='userdanger'>You feel like you could blow up at any moment!</span>")
+			to_chat(H, span_userdanger("You feel like you could blow up at any moment!"))
 			boom_warning = TRUE
 	else
 		if(boom_warning)
@@ -381,7 +381,7 @@
 		if(P.flag == BULLET || P.flag == BOMB)
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
 			H.visible_message(span_danger("[P] sinks harmlessly in [H]'s sandy body!"), \
-			"<span class='userdanger'>[P] sinks harmlessly in [H]'s sandy body!</span>")
+			span_userdanger("[P] sinks harmlessly in [H]'s sandy body!"))
 			return FALSE
 	return TRUE
 
@@ -414,7 +414,7 @@
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
 		if(P.is_reflectable(REFLECTABILITY_ENERGY))
 			H.visible_message(span_danger("[P] gets reflected by [H]'s glass skin!"), \
-			"<span class='userdanger'>[P] gets reflected by [H]'s glass skin!</span>")
+			span_userdanger("[P] gets reflected by [H]'s glass skin!"))
 
 			P.reflect_back(H)
 
@@ -753,7 +753,7 @@
 	cloth_golem.grab_ghost() //won't pull if it's a suicide
 	sleep(20)
 	cloth_golem.forceMove(get_turf(src))
-	cloth_golem.visible_message(span_danger("[src] rises and reforms into [cloth_golem]!"), "<span class='userdanger'>You reform into yourself!</span>")
+	cloth_golem.visible_message(span_danger("[src] rises and reforms into [cloth_golem]!"), span_userdanger("You reform into yourself!"))
 	cloth_golem = null
 	qdel(src)
 

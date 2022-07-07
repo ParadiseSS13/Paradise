@@ -489,7 +489,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	L.Stuttering(14 SECONDS)
 
 	L.visible_message(span_danger("[user] has stunned [L] with [src]!"), \
-							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
+							span_userdanger("[user] has stunned you with [src]!"))
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 
 	if(ishuman(L))
@@ -501,7 +501,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
 	if(L.IsStunned() || L.IsSleeping())
 		L.visible_message(span_danger("[user] has induced sleep in [L] with [src]!"), \
-							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
+							span_userdanger("You suddenly feel very drowsy!"))
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 		L.Sleeping(120 SECONDS)
 		add_attack_logs(user, L, "Put to sleep with [src]")
@@ -509,7 +509,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		L.AdjustDrowsy(2 SECONDS)
 		to_chat(user, span_warning("Sleep inducement works fully only on stunned specimens! "))
 		L.visible_message(span_danger("[user] tried to induce sleep in [L] with [src]!"), \
-							"<span class='userdanger'>You suddenly feel drowsy!</span>")
+							span_userdanger("You suddenly feel drowsy!"))
 
 /obj/item/abductor_baton/proc/CuffAttack(mob/living/L,mob/living/user)
 	if(!iscarbon(L))
@@ -518,7 +518,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(!C.handcuffed)
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 		C.visible_message(span_danger("[user] begins restraining [C] with [src]!"), \
-								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
+								span_userdanger("[user] begins shaping an energy field around your hands!"))
 		if(do_mob(user, C, 30))
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
@@ -530,7 +530,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/abductor_baton/proc/ProbeAttack(mob/living/L,mob/living/user)
 	L.visible_message(span_danger("[user] probes [L] with [src]!"), \
-						"<span class='userdanger'>[user] probes you!</span>")
+						span_userdanger("[user] probes you!"))
 
 	var/species = span_warning("Unknown species")
 	var/helptext = span_warning("Species unsuitable for experiments.")
@@ -563,7 +563,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/restraints/handcuffs/energy/used/dropped(mob/user)
 	user.visible_message(span_danger("[src] restraining [user] breaks in a discharge of energy!"), \
-							"<span class='userdanger'>[src] restraining [user] breaks in a discharge of energy!</span>")
+							span_userdanger("[src] restraining [user] breaks in a discharge of energy!"))
 	do_sparks(4, 0, user.loc)
 	. = ..()
 

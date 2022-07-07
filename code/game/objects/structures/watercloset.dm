@@ -26,7 +26,7 @@
 	if(swirlie)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, 1)
-		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), "<span class='userdanger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='italics'>You hear reverberating porcelain.</span>")
+		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), span_userdanger("[user] slams the toilet seat onto [swirlie]'s head!"), "<span class='italics'>You hear reverberating porcelain.</span>")
 		swirlie.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 		return
 
@@ -88,10 +88,10 @@
 					return
 				if(!swirlie)
 					if(open)
-						GM.visible_message(span_danger("[user] starts to give [GM] a swirlie!"), "<span class='userdanger'>[user] starts to give [GM] a swirlie...</span>")
+						GM.visible_message(span_danger("[user] starts to give [GM] a swirlie!"), span_userdanger("[user] starts to give [GM] a swirlie..."))
 						swirlie = GM
 						if(do_after(user, 30, 0, target = src))
-							GM.visible_message(span_danger("[user] gives [GM] a swirlie!"), "<span class='userdanger'>[user] gives [GM] a swirlie!</span>", "<span class='italics'>You hear a toilet flushing.</span>")
+							GM.visible_message(span_danger("[user] gives [GM] a swirlie!"), span_userdanger("[user] gives [GM] a swirlie!"), "<span class='italics'>You hear a toilet flushing.</span>")
 							if(iscarbon(GM))
 								var/mob/living/carbon/C = GM
 								if(!C.internal)
@@ -101,7 +101,7 @@
 						swirlie = null
 					else
 						playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-						GM.visible_message(span_danger("[user] slams [GM.name]'s head into [src]!"), "<span class='userdanger'>[user] slams [GM.name]'s head into [src]!</span>")
+						GM.visible_message(span_danger("[user] slams [GM.name]'s head into [src]!"), span_userdanger("[user] slams [GM.name]'s head into [src]!"))
 						GM.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 			else
 				to_chat(user, span_warning("You need a tighter grip!"))

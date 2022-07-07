@@ -491,7 +491,7 @@
 			do_sparks(3, 1, src)
 			if(prob(75)) // If electrocuted
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
-				to_chat(user, "<span class='userdanger'>You are electrocuted by [src]!</span>")
+				to_chat(user, span_userdanger("You are electrocuted by [src]!"))
 			else // If not electrocuted
 				to_chat(user, span_danger("You stick [W] into the light socket!"))
 			return

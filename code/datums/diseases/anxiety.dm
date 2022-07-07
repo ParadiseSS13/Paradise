@@ -30,12 +30,12 @@
 				to_chat(affected_mob, span_danger("You feel butterflies in your stomach."))
 			if(prob(5))
 				affected_mob.visible_message(span_danger("[affected_mob] stumbles around in a panic."), \
-												"<span class='userdanger'>You have a panic attack!</span>")
+												span_userdanger("You have a panic attack!"))
 				affected_mob.AdjustConfused(rand(12 SECONDS, 16 SECONDS))
 				affected_mob.AdjustJitter(rand(12 SECONDS, 16 SECONDS))
 			if(prob(2))
 				affected_mob.visible_message(span_danger("[affected_mob] coughs up butterflies!"), \
-													"<span class='userdanger'>You cough up butterflies!</span>")
+													span_userdanger("You cough up butterflies!"))
 				for(var/i in 1 to 2)
 					var/mob/living/simple_animal/butterfly/B = new(affected_mob.loc)
 					addtimer(CALLBACK(B, /mob/living/simple_animal/butterfly/.proc/decompose), rand(5, 25) SECONDS)
@@ -45,5 +45,5 @@
  */
 /mob/living/simple_animal/butterfly/proc/decompose()
 	visible_message(span_notice("[src] decomposes due to being outside of its original habitat for too long!"),
-					"<span class='userdanger'>You decompose for being too long out of your habitat!</span>")
+					span_userdanger("You decompose for being too long out of your habitat!"))
 	melt()

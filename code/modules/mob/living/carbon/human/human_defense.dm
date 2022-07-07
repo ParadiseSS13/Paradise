@@ -26,7 +26,7 @@ emp_act
 
 		if(reflected)
 			visible_message(span_danger("[P] gets reflected by [src]!"), \
-				   "<span class='userdanger'>[P] gets reflected by [src]!</span>")
+				   span_userdanger("[P] gets reflected by [src]!"))
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
 			return -1
@@ -46,10 +46,10 @@ emp_act
 				var/turf/T = get_turf(src)
 				P.firer = src
 				T.bullet_act(P)
-				visible_message(span_danger("[src] deflects the projectile into the ground!"), "<span class='userdanger'>You deflect the projectile towards the ground beneath your feet!</span>")
+				visible_message(span_danger("[src] deflects the projectile into the ground!"), span_userdanger("You deflect the projectile towards the ground beneath your feet!"))
 				return FALSE
 
-			visible_message(span_danger("[src] deflects the projectile!"), "<span class='userdanger'>You deflect the projectile!</span>")
+			visible_message(span_danger("[src] deflects the projectile!"), span_userdanger("You deflect the projectile!"))
 			if(mind.martial_art.reroute_deflection)
 				P.firer = src
 				P.set_angle(rand(0, 360))
@@ -552,7 +552,7 @@ emp_act
 					L.add_embedded_object(I)
 					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
 					L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
-					visible_message(span_danger("[I] embeds itself in [src]'s [L.name]!"),"<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+					visible_message(span_danger("[I] embeds itself in [src]'s [L.name]!"),span_userdanger("[I] embeds itself in your [L.name]!"))
 					hitpush = FALSE
 					skipcatch = TRUE //can't catch the now embedded item
 	return ..()
@@ -587,7 +587,7 @@ emp_act
 		..(user, TRUE)
 		playsound(loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
 		var/message = "[user] has [hulk_verb]ed [src]!"
-		visible_message(span_danger("[message]"), "<span class='userdanger'>[message]</span>")
+		visible_message(span_danger("[message]"), span_userdanger("[message]"))
 		adjustBruteLoss(15)
 		return TRUE
 
@@ -627,7 +627,7 @@ emp_act
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[M] has slashed at [src]!"), \
- 				"<span class='userdanger'>[M] has slashed at [src]!</span>")
+ 				span_userdanger("[M] has slashed at [src]!"))
 
 			apply_damage(damage, BRUTE, affecting, armor_block)
 			add_attack_logs(M, src, "Alien attacked")
@@ -641,7 +641,7 @@ emp_act
 			var/obj/item/I = get_active_hand()
 			if(I && unEquip(I))
 				playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
-				visible_message(span_danger("[M] disarms [src]!"), "<span class='userdanger'>[M] disarms you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
+				visible_message(span_danger("[M] disarms [src]!"), span_userdanger("[M] disarms you!"), "<span class='hear'>You hear aggressive shuffling!</span>")
 				to_chat(M, span_danger("You disarm [src]!"))
 			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
@@ -714,7 +714,7 @@ emp_act
 			updatehealth("mech melee attack")
 
 		M.occupant_message(span_danger("You hit [src]."))
-		visible_message(span_danger("[M.name] hits [src]!"), "<span class='userdanger'>[M.name] hits you!</span>")
+		visible_message(span_danger("[M.name] hits [src]!"), span_userdanger("[M.name] hits you!"))
 
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else

@@ -159,7 +159,7 @@ Difficulty: Medium
 		var/mob/living/L = target
 		if(L.stat == DEAD)
 			visible_message(span_danger("[src] butchers [L]!"),
-			"<span class='userdanger'>You butcher [L], restoring your health!</span>")
+			span_userdanger("You butcher [L], restoring your health!"))
 			if(!is_station_level(z) || client) //NPC monsters won't heal while on station
 				if(guidance)
 					adjustHealth(-L.maxHealth)

@@ -167,7 +167,7 @@
 		Retract()
 		owner.visible_message(span_danger("A loud bang comes from [owner]\'s [parent_organ == "r_arm" ? "right" : "left"] arm!"))
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
-		to_chat(owner, "<span class='userdanger'>You feel an explosion erupt inside your [parent_organ == "r_arm" ? "right" : "left"] arm as your implant breaks!</span>")
+		to_chat(owner, span_userdanger("You feel an explosion erupt inside your [parent_organ == "r_arm" ? "right" : "left"] arm as your implant breaks!"))
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)

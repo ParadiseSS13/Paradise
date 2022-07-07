@@ -192,7 +192,7 @@
 			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntime)
 			add_attack_logs(src, C, "honked by [src]")
 			C.visible_message(span_danger("[src] has honked [C]!"),\
-					"<span class='userdanger'>[src] has honked you!</span>")
+					span_userdanger("[src] has honked you!"))
 		else
 			C.Stuttering(40 SECONDS)
 			C.Stun(20 SECONDS)

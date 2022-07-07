@@ -273,9 +273,9 @@
 		abductor_mind.current.create_attack_log(span_danger("No longer abductor"))
 		abductor_mind.current.create_log(CONVERSION_LOG, "No longer abductor")
 		if(issilicon(abductor_mind.current))
-			to_chat(abductor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer an abductor.</span>")
+			to_chat(abductor_mind.current, span_userdanger("You have been turned into a robot! You are no longer an abductor."))
 		else
-			to_chat(abductor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer an abductor.</span>")
+			to_chat(abductor_mind.current, span_userdanger("You have been brainwashed! You are no longer an abductor."))
 		SSticker.mode.update_abductor_icons_removed(abductor_mind)
 
 /datum/game_mode/proc/update_abductor_icons_added(datum/mind/alien_mind)

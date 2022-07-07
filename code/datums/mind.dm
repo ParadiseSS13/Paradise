@@ -817,7 +817,7 @@
 				if(src in SSticker.mode.revolutionaries)
 					SSticker.mode.revolutionaries -= src
 					SSticker.mode.update_rev_icons_removed(src)
-					to_chat(current, "<span class='userdanger'>You have proven your devotion to revolution! You are a head revolutionary now!</span>")
+					to_chat(current, span_userdanger("You have proven your devotion to revolution! You are a head revolutionary now!"))
 				else if(!(src in SSticker.mode.head_revolutionaries))
 					to_chat(current, span_notice("You are a member of the revolutionaries' leadership now!"))
 				else

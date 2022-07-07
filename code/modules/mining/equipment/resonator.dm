@@ -101,7 +101,7 @@
 	for(var/mob/living/L in T)
 		if(creator)
 			add_attack_logs(creator, L, "Resonance field'ed")
-		to_chat(L, "<span class='userdanger'>[src] ruptured with you in it!</span>")
+		to_chat(L, span_userdanger("[src] ruptured with you in it!"))
 		L.apply_damage(resonance_damage, BRUTE)
 	qdel(src)
 

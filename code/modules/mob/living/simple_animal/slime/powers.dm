@@ -106,7 +106,7 @@
 	if(M.buckle_mob(src, force = TRUE))
 		layer = M.layer + 0.01 //appear above the target mob
 		M.visible_message(span_danger("[name] has latched onto [M]!"), \
-						"<span class='userdanger'>[name] has latched onto [M]!</span>")
+						span_userdanger("[name] has latched onto [M]!"))
 	else
 		to_chat(src, "<span class='warning'><i>I have failed to latch onto the subject!</i></span>")
 

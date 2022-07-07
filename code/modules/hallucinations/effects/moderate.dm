@@ -105,7 +105,7 @@
 
 	user.Weaken(4 SECONDS)
 	user.visible_message(span_warning("[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!"),
-						 "<span class='userdanger'>[src] vanishes as you try grabbing it, causing you to stumble!</span>")
+						 span_userdanger("[src] vanishes as you try grabbing it, causing you to stumble!"))
 	qdel(src)
 
 /**
@@ -221,7 +221,7 @@
 
 /obj/effect/hallucination/tripper/chasm/on_crossed()
 	target.visible_message(span_warning("[target] trips over nothing and flails on [get_turf(target)] as if they were falling!"),
-					  	   "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark!</span>")
+					  	   span_userdanger("You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark!"))
 
 /**
   * # Hallucination - Delamination Alarm

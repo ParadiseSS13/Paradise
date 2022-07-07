@@ -185,7 +185,7 @@
 		owner.emote("scream")	//getting hit on broken hand hurts
 	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
 		status &= ~ORGAN_SPLINTED
-		owner.visible_message(span_danger("The splint on [owner]'s left arm unravels from [owner.p_their()] [name]!"),"<span class='userdanger'>The splint on your [name] unravels!</span>")
+		owner.visible_message(span_danger("The splint on [owner]'s left arm unravels from [owner.p_their()] [name]!"),span_userdanger("The splint on your [name] unravels!"))
 		owner.handle_splints()
 	if(used_weapon)
 		add_autopsy_data("[used_weapon]", brute + burn)
@@ -455,7 +455,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner.step_count >= splinted_count + SPLINT_LIFE)
 		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
-		owner.visible_message(span_danger("[owner] screams in pain as [owner.p_their()] splint pops off their [name]!"),"<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
+		owner.visible_message(span_danger("[owner] screams in pain as [owner.p_their()] splint pops off their [name]!"),span_userdanger("You scream in pain as your splint pops off your [name]!"))
 		owner.emote("scream")
 		owner.Stun(4 SECONDS)
 		owner.handle_splints()
@@ -625,7 +625,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			span_warning("You hear a sickening crack coming from \the [owner]."),
 			span_danger("[owner]'s [name] appears to buckle unnaturally!")
 		)
-		to_chat(owner, "<span class='userdanger'>Something feels like it shattered in your [name]!</span>")
+		to_chat(owner, span_userdanger("Something feels like it shattered in your [name]!"))
 		playsound(owner, "bonebreak", 150, 1)
 		if(!HAS_TRAIT(owner, TRAIT_NOPAIN) && !owner.stat)
 			owner.emote("scream")
@@ -761,7 +761,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(is_robotic() && sabotaged)
 		victim.visible_message(
 			span_danger("\The [victim]'s [name] explodes violently!"),\
-			"<span class='userdanger'>Your [name] explodes!</span>",\
+			span_userdanger("Your [name] explodes!"),\
 			span_danger("You hear an explosion!"))
 		explosion(get_turf(owner),-1,-1,2,3)
 		do_sparks(5, 0, victim)
@@ -772,7 +772,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner)
 		owner.visible_message(span_warning("\The [owner]'s [name] turns into a mangled mess!"),	\
-							  "<span class='userdanger'>Your [name] becomes a mangled mess!</span>",	\
+							  span_userdanger("Your [name] becomes a mangled mess!"),	\
 							  span_warning("You hear a sickening sound."))
 
 	status |= ORGAN_DISFIGURED

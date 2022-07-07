@@ -73,7 +73,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	log_game("[key_name(blob)] has been selected as a Blob")
 	greet_blob(blobmind)
-	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
+	to_chat(blob, span_userdanger("You feel very tired and bloated!  You don't have long before you burst!"))
 	addtimer(CALLBACK(src, .proc/burst_blob, blobmind), 60 SECONDS)
 	return 1
 
@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 
 /datum/game_mode/blob/proc/greet_blob(datum/mind/blob)
-	to_chat(blob.current, "<span class='userdanger'>You are infected by the Blob!</span>")
+	to_chat(blob.current, span_userdanger("You are infected by the Blob!"))
 	to_chat(blob.current, "<b>Your body is ready to give spawn to a new blob core which will eat this station.</b>")
 	to_chat(blob.current, "<b>Find a good location to spawn the core and then take control and overwhelm the station!</b>")
 	to_chat(blob.current, "<b>When you have found a location, wait until you spawn; this will happen automatically and you cannot speed up the process.</b>")
@@ -124,7 +124,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			location = get_turf(C)
 			if(!is_station_level(location.z) || istype(location, /turf/space))
 				if(!warned)
-					to_chat(C, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
+					to_chat(C, span_userdanger("You feel ready to burst, but this isn't an appropriate place!  You must return to the station!"))
 					message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if [C.p_they()] [C.p_do()] not return to the station.")
 					addtimer(CALLBACK(src, .proc/burst_blob, blob, 1), 30 SECONDS)
 				else
@@ -164,11 +164,11 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 		sleep(100)
 
-		show_message("<span class='userdanger'>You feel tired and bloated.</span>")
+		show_message(span_userdanger("You feel tired and bloated."))
 
 		sleep(wait_time)
 
-		show_message("<span class='userdanger'>You feel like you are about to burst.</span>")
+		show_message(span_userdanger("You feel like you are about to burst."))
 
 		addtimer(CALLBACK(src, .proc/burst_blobs), (wait_time / 2))
 

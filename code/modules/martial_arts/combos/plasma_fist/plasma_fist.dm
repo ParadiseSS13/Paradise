@@ -8,6 +8,6 @@
 	playsound(target.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	user.say("PLASMA FIST!")
 	target.visible_message(span_danger("[user] has hit [target] with THE PLASMA FIST TECHNIQUE!"), \
-								"<span class='userdanger'>[user] has hit [target] with THE PLASMA FIST TECHNIQUE!</span>")
+								span_userdanger("[user] has hit [target] with THE PLASMA FIST TECHNIQUE!"))
 	target.gib()
 	return MARTIAL_COMBO_DONE

@@ -115,7 +115,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/attack_self(mob/living/user)
 	var/area/A = get_area(user)
-	user.visible_message(span_warning("[user] primes [src]!"), "<span class='userdanger'>You prime [src]!</span>")
+	user.visible_message(span_warning("[user] primes [src]!"), span_userdanger("You prime [src]!"))
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
 	log_game("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].")

@@ -54,7 +54,7 @@
 			to_chat(user, span_warning("This person doesn't have a head!"))
 			return 0
 		C.visible_message(span_danger("[user] dunks [C]'s face into [src]!"), \
-						"<span class='userdanger'>[user] dunks your face into [src]!</span>")
+						span_userdanger("[user] dunks your face into [src]!"))
 		C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)
 		C.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!

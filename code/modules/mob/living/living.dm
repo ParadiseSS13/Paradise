@@ -256,7 +256,7 @@
 			visible_message("<b>[src]</b> points to [A] with [hand_item]")
 			return TRUE
 		A.visible_message(span_danger("[src] points [hand_item] at [A]!"),
-											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
+											span_userdanger("[src] points [hand_item] at you!"))
 		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
 		return TRUE
 	visible_message("<b>[src]</b> points to [A]")
@@ -852,7 +852,7 @@
 		return
 	if(!silent)
 		who.visible_message(span_danger("[src] tries to remove [who]'s [item_name]."), \
-						"<span class='userdanger'>[src] tries to remove [who]'s [item_name].</span>")
+						span_userdanger("[src] tries to remove [who]'s [item_name]."))
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))

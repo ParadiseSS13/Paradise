@@ -124,7 +124,7 @@
 	if(charged)
 		new /obj/effect/rend(get_turf(user), spawn_type, spawn_amt, rend_desc)
 		charged = 0
-		user.visible_message("<span class='userdanger'>[src] hums with power as [user] deals a blow to [activate_descriptor] itself!</span>")
+		user.visible_message(span_userdanger("[src] hums with power as [user] deals a blow to [activate_descriptor] itself!"))
 	else
 		to_chat(user, span_danger("The unearthly energies that powered the blade are now dormant."))
 
@@ -687,7 +687,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		equip_skeleton(M)
 	spooky_scaries |= M
 	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
-	to_chat(M, "<span class='userdanger'>[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>")
+	to_chat(M, span_userdanger("[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!"))
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
 
 /obj/item/necromantic_stone/proc/check_spooky()
@@ -809,15 +809,15 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/voodoo/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(target && cooldown < world.time)
 		if(is_hot(I))
-			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
+			to_chat(target, span_userdanger("You suddenly feel very hot"))
 			target.bodytemperature += 50
 			GiveHint(target)
 		else if(is_pointed(I))
-			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_selected)]!</span>")
+			to_chat(target, span_userdanger("You feel a stabbing pain in [parse_zone(user.zone_selected)]!"))
 			target.Weaken(4 SECONDS)
 			GiveHint(target)
 		else if(istype(I,/obj/item/bikehorn))
-			to_chat(target, "<span class='userdanger'>HONK</span>")
+			to_chat(target, span_userdanger("HONK"))
 			SEND_SOUND(target, sound('sound/items/airhorn.ogg'))
 			target.AdjustEarDamage(0, 3)
 			GiveHint(target)

@@ -281,7 +281,7 @@ Difficulty: Medium
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
-			to_chat(L, "<span class='userdanger'>You're hit by [source]'s fire breath!</span>")
+			to_chat(L, span_userdanger("You're hit by [source]'s fire breath!"))
 
 		// deals damage to mechs
 		for(var/obj/mecha/M in T.contents)
@@ -443,7 +443,7 @@ Difficulty: Medium
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
 			continue
 		L.adjustFireLoss(10)
-		to_chat(L, "<span class='userdanger'>You fall directly into the pool of lava!</span>")
+		to_chat(L, span_userdanger("You fall directly into the pool of lava!"))
 
 	// deals damage to mechs
 	for(var/obj/mecha/M in T.contents)
@@ -569,7 +569,7 @@ Difficulty: Medium
 			continue
 		if(islist(flame_hit) && !flame_hit[L])
 			L.adjustFireLoss(40)
-			to_chat(L, "<span class='userdanger'>You're hit by the drake's fire breath!</span>")
+			to_chat(L, span_userdanger("You're hit by the drake's fire breath!"))
 			flame_hit[L] = TRUE
 		else
 			L.adjustFireLoss(10) //if we've already hit them, do way less damage

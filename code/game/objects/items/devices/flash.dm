@@ -96,7 +96,7 @@
 				M.Stun(2 SECONDS)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 				to_chat(user, span_danger("You blind [M] with the flash!"))
-				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
+				to_chat(M, span_userdanger("[user] blinds you with the flash!"))
 			else
 				visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 				to_chat(user, span_warning("You fail to blind [M] with the flash!"))

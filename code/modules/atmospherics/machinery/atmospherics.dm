@@ -233,7 +233,7 @@ Pipelines + Other Objects -> Pipe network
 
 	var/fuck_you_dir = get_dir(src, user)
 	var/turf/general_direction = get_edge_target_turf(user, fuck_you_dir)
-	user.visible_message(span_danger("[user] is sent flying by pressure!"),"<span class='userdanger'>The pressure sends you flying!</span>")
+	user.visible_message(span_danger("[user] is sent flying by pressure!"),span_userdanger("The pressure sends you flying!"))
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
 	user.throw_at(general_direction, pressures/10, pressures/50)
 

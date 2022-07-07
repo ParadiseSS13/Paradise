@@ -122,12 +122,12 @@
 	if(!sterile)
 		M.take_organ_damage(strength, 0) //done here so that even borgs and humans in helmets take damage
 	M.visible_message(span_danger("[src] leaps at [M]'s face!"), \
-						"<span class='userdanger'>[src] leaps at [M]'s face!</span>")
+						span_userdanger("[src] leaps at [M]'s face!"))
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.head && H.head.flags_cover & HEADCOVERSMOUTH)
 			H.visible_message(span_danger("[src] smashes against [H]'s [H.head]!"), \
-								"<span class='userdanger'>[src] smashes against [H]'s [H.head]!</span>")
+								span_userdanger("[src] smashes against [H]'s [H.head]!"))
 			Die()
 			return FALSE
 	if(iscarbon(M))
@@ -139,14 +139,14 @@
 				var/obj/item/clothing/mask/muzzle/S = target.wear_mask
 				if(S.do_break())
 					target.visible_message(span_danger("[src] spits acid onto [S] melting the lock!"), \
-									"<span class='userdanger'>[src] spits acid onto [S] melting the lock!</span>")
+									span_userdanger("[src] spits acid onto [S] melting the lock!"))
 			var/obj/item/clothing/W = target.wear_mask
 			if(W.flags & NODROP)
 				return FALSE
 			target.unEquip(W)
 
 			target.visible_message(span_danger("[src] tears [W] off of [target]'s face!"), \
-									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
+									span_userdanger("[src] tears [W] off of [target]'s face!"))
 
 		src.loc = target
 		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
@@ -177,7 +177,7 @@
 	if(!sterile)
 		//target.contract_disease(new /datum/disease/alien_embryo(0)) //so infection chance is same as virus infection chance
 		target.visible_message(span_danger("[src] falls limp after violating [target]'s face!"), \
-								"<span class='userdanger'>[src] falls limp after violating [target]'s face!</span>")
+								span_userdanger("[src] falls limp after violating [target]'s face!"))
 
 		Die()
 		icon_state = "[initial(icon_state)]_impregnated"
@@ -186,7 +186,7 @@
 			new /obj/item/organ/internal/body_egg/alien_embryo(target)
 	else
 		target.visible_message(span_danger("[src] violates [target]'s face!"), \
-								"<span class='userdanger'>[src] violates [target]'s face!</span>")
+								span_userdanger("[src] violates [target]'s face!"))
 
 /obj/item/clothing/mask/facehugger/proc/GoActive()
 	if(stat == DEAD || stat == CONSCIOUS)

@@ -35,7 +35,7 @@ Bonus
 			if(3, 4)
 				to_chat(M, "<span class='warning'><b>[pick("Something is following you.", "You are being watched.", "You hear a whisper in your ear.", "Thumping footsteps slam toward you from nowhere.")]</b></span>")
 			else
-				to_chat(M, "<span class='userdanger'>[pick("Oh, your head...", "Your head pounds.", "They're everywhere! Run!", "Something in the shadows...")]</span>")
+				to_chat(M, span_userdanger("[pick("Oh, your head...", "Your head pounds.", "They're everywhere! Run!", "Something in the shadows...")]"))
 				M.AdjustHallucinate(5 SECONDS)
 
 	return

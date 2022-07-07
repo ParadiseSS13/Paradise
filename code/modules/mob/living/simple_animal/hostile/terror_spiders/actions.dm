@@ -188,7 +188,7 @@
 	..()
 	if(isliving(AM) && !isterrorspider(AM))
 		var/mob/living/M = AM
-		to_chat(M, "<span class='userdanger'>You get stuck in [src] for a moment.</span>")
+		to_chat(M, span_userdanger("You get stuck in [src] for a moment."))
 		M.Weaken(8 SECONDS)
 		if(iscarbon(M))
 			web_special_ability(M)

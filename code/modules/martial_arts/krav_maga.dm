@@ -105,7 +105,7 @@
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.visible_message(span_danger("[A] [picked_hit_type] [D]!"), \
-					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+					  span_userdanger("[A] [picked_hit_type] you!"))
 	return TRUE
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -116,11 +116,11 @@
 		if(!(QDELETED(I) || (I.flags & ABSTRACT)))
 			A.put_in_hands(I)
 		D.visible_message(span_danger("[A] has disarmed [D]!"), \
-							"<span class='userdanger'>[A] has disarmed [D]!</span>")
+							span_userdanger("[A] has disarmed [D]!"))
 		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	else
 		D.visible_message(span_danger("[A] attempted to disarm [D]!"), \
-							"<span class='userdanger'>[A] attempted to disarm [D]!</span>")
+							span_userdanger("[A] attempted to disarm [D]!"))
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	return TRUE
 

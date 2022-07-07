@@ -856,7 +856,7 @@
 		return ..()
 	if(prob(clamp((100 - ((cell.charge / cell.maxcharge) * 100)), 10, 70)))	//minimum probability of 10, maximum of 70
 		playsound(user, fire_sound, 50, 1)
-		visible_message("<span class='userdanger'>[src]'s energy cell overloads!</span>")
+		visible_message(span_userdanger("[src]'s energy cell overloads!"))
 		user.apply_damage(60, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
 		user.EyeBlurry(10 SECONDS)
 		user.flash_eyes(2, TRUE)

@@ -13,7 +13,7 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("punches", "kicks", "chops", "hits", "slams")
 	D.visible_message(span_danger("[A] [atk_verb] [D]!"),
-					  "<span class='userdanger'>[A] [atk_verb] you!</span>")
+					  span_userdanger("[A] [atk_verb] you!"))
 	D.apply_damage(rand(10, 15), BRUTE, A.zone_selected)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)

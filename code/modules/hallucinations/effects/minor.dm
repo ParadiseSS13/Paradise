@@ -174,7 +174,7 @@
 
 /obj/effect/hallucination/fake_danger/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
-	to_chat(target, "<span class='userdanger'>[pick(messages)]</span>")
+	to_chat(target, span_userdanger("[pick(messages)]"))
 
 /**
   * # Hallucination - Fake Health

@@ -189,7 +189,7 @@
 			if(!can_control(usr, R, TRUE))
 				return
 			if(R.mind && R.mind.special_role && R.emagged)
-				to_chat(R, "<span class='userdanger'>Extreme danger!  Termination codes detected.  Scrambling security codes and automatic AI unlink triggered.</span>")
+				to_chat(R, span_userdanger("Extreme danger!  Termination codes detected.  Scrambling security codes and automatic AI unlink triggered."))
 				R.ResetSecurityCodes()
 				. = TRUE
 				return

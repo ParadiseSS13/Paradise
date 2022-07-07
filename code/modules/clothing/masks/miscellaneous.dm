@@ -23,7 +23,7 @@
 	else if(security_lock && locked)
 		if(do_unlock(user))
 			visible_message(span_danger("[user] unlocks [user.p_their()] [src.name]."), \
-								"<span class='userdanger'>[user] unlocks [user.p_their()] [src.name].</span>")
+								span_userdanger("[user] unlocks [user.p_their()] [src.name]."))
 	..()
 	return 1
 
@@ -65,7 +65,7 @@
 		var/success = 0
 		if(ishuman(usr))
 			visible_message(span_danger("[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name]."), \
-							"<span class='userdanger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
+							span_userdanger("[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name]."))
 			if(do_mob(usr, wearer, POCKET_STRIP_DELAY))
 				if(locked)
 					success = do_unlock(usr)
@@ -73,7 +73,7 @@
 					success = do_lock(usr)
 			if(success)
 				visible_message(span_danger("[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name]."), \
-									"<span class='userdanger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>")
+									span_userdanger("[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name]."))
 				if(usr.machine == wearer && in_range(src, usr))
 					wearer.show_inv(usr)
 		else

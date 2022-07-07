@@ -74,7 +74,7 @@
 	else if(is_hot(P))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(span_warning("[user] accidentally ignites [user.p_them()]self!"), \
-				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
+				span_userdanger("You miss [src] and accidentally light yourself on fire!"))
 			user.unEquip(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()

@@ -98,7 +98,7 @@
 			marked_for_death |= M.current
 	for(var/mob/living/L in marked_for_death)
 		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
-			to_chat(L, "<span class='userdanger'>STOP FIGHTING.</span>")
+			to_chat(L, span_userdanger("STOP FIGHTING."))
 		L.ghostize()
 		if(istype(L, /mob/living/carbon/brain))
 			// diediedie

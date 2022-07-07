@@ -43,7 +43,7 @@
 	print_command_report(sentience_report, "NAS Trurl Update", FALSE)
 
 /datum/event/sentience/proc/greet_sentient(mob/living/carbon/human/M)
-	to_chat(M, "<span class='userdanger'>Hello world!</span>")
+	to_chat(M, span_userdanger("Hello world!"))
 	to_chat(M, "<span class='warning'>Due to freak radiation, you have gained \
 							human level intelligence and the ability to speak and understand \
 							human language!</span>")

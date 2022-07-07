@@ -202,7 +202,7 @@
 		G.affecting.Weaken(4 SECONDS)
 		item_placed(G.affecting)
 		G.affecting.visible_message(span_danger("[G.assailant] pushes [G.affecting] onto [src]."), \
-									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
+									span_userdanger("[G.assailant] pushes [G.affecting] onto [src]."))
 		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
 		qdel(G)
 		return TRUE

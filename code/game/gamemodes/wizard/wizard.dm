@@ -62,9 +62,9 @@
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been turned into a robot! You can feel your magical powers fading away..."))
 		else
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard.</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been brainwashed! You are no longer a wizard."))
 		SSticker.mode.update_wiz_icons_removed(wizard_mind)
 
 /datum/game_mode/proc/update_wiz_icons_added(datum/mind/wiz_mind)

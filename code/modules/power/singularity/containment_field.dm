@@ -109,7 +109,7 @@
 				user.Stun(4 SECONDS)
 			user.take_overall_damage(0, shock_damage)
 			user.visible_message(span_danger("[user.name] was shocked by [src]!"), \
-			"<span class='userdanger'>Energy pulse detected, system damaged!</span>", \
+			span_userdanger("Energy pulse detected, system damaged!"), \
 			"<span class='italics'>You hear an electrical crack.</span>")
 
 		user.updatehealth()

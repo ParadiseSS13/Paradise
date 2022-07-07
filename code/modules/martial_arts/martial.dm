@@ -119,7 +119,7 @@
 
 	playsound(D.loc, attack.attack_sound, 25, 1, -1)
 	D.visible_message(span_danger("[A] has [atk_verb]ed [D]!"), \
-								"<span class='userdanger'>[A] has [atk_verb]ed [D]!</span>")
+								span_userdanger("[A] has [atk_verb]ed [D]!"))
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
 
@@ -127,7 +127,7 @@
 
 	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
 		D.visible_message(span_danger("[A] has weakened [D]!!"), \
-								"<span class='userdanger'>[A] has weakened [D]!</span>")
+								span_userdanger("[A] has weakened [D]!"))
 		D.apply_effect(8 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
 	else if(IS_HORIZONTAL(D))
@@ -366,18 +366,18 @@
 										  "[user] beats [H] with front of [src]!", \
 										  "[user] twirls and slams [H] with [src]!")
 			H.visible_message(span_warning("[pick(fluffmessages)]"), \
-								   "<span class='userdanger'>[pick(fluffmessages)]</span>")
+								   span_userdanger("[pick(fluffmessages)]"))
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
 			H.adjustStaminaLoss(rand(13,20))
 			if(prob(10))
 				H.visible_message(span_warning("[H] collapses!"), \
-									   "<span class='userdanger'>Your legs give out!</span>")
+									   span_userdanger("Your legs give out!"))
 				H.Weaken(8 SECONDS)
 			if(H.staminaloss && !H.IsSleeping())
 				var/total_health = (H.health - H.staminaloss)
 				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
 					H.visible_message(span_warning("[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!"), \
-										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
+										   span_userdanger("[user] knocks you unconscious!"))
 					H.SetSleeping(60 SECONDS)
 					H.adjustBrainLoss(25)
 			return

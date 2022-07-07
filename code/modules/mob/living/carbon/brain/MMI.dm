@@ -42,7 +42,7 @@
 			to_chat(user, span_warning("You aren't sure where this brain came from, but you're pretty sure it's a useless brain."))
 			return
 		if(held_brain)
-			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
+			to_chat(user, span_userdanger("Somehow, this MMI still has a brain in it. Report this to the bug tracker."))
 			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
 			return
 		if(user.drop_item())
@@ -158,7 +158,7 @@
 /obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
 		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
-		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
+		to_chat(brainmob, span_userdanger("Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!"))
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()
 		held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
@@ -324,16 +324,16 @@
 		var/datum/mind/master = locateUID(master_uid)
 
 		if(master)
-			to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will!</span>")
+			to_chat(brainmob, span_userdanger("You feel the MMI overriding your free will!"))
 			brainmob.mind.add_antag_datum(new /datum/antagonist/mindslave(master))
 			return
 
 	//Edgecase handling, shouldn't get here
-	to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities.</span>")
+	to_chat(brainmob, span_userdanger("You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities."))
 	message_admins("[src] received a brain but has no master. A generic syndicate zeroth law will be installed instead of a full mindslaving.")
 
 /obj/item/mmi/syndie/dropbrain(turf/dropspot)
 	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave)
 	master_uid = null
-	to_chat(brainmob, "<span class='userdanger'>You are no longer a mindslave: You have complete and free control of your own faculties once more!</span>")
+	to_chat(brainmob, span_userdanger("You are no longer a mindslave: You have complete and free control of your own faculties once more!"))
 	..()

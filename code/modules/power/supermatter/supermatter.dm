@@ -655,7 +655,7 @@
 	var/gain = 100
 	investigate_log("Supermatter shard consumed by singularity.", "singulo")
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
-	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
+	visible_message(span_userdanger("[src] is consumed by the singularity!"))
 	var/supermatter_sound = sound('sound/effects/supermatter.ogg')
 	for(var/M in GLOB.player_list)
 		if(atoms_share_level(M, src))
@@ -680,7 +680,7 @@
 /obj/machinery/power/supermatter_crystal/attack_tk(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		to_chat(C, "<span class='userdanger'>That was a really dense idea.</span>")
+		to_chat(C, span_userdanger("That was a really dense idea."))
 		var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
 		C.ghostize(0)
 		if(B)
@@ -698,7 +698,7 @@
 		murder = S.attacktext
 	dust_mob(S, \
 	span_danger("[S] unwisely [murder] [src], and [S.p_their()] body burns brilliantly before flashing into ash!"), \
-	"<span class='userdanger'>You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops.</span>", \
+	span_userdanger("You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops."), \
 	"simple animal attack")
 
 /obj/machinery/power/supermatter_crystal/attack_robot(mob/user)
@@ -718,7 +718,7 @@
 	if(!vis_msg)
 		vis_msg = span_danger("[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!")
 	if(!mob_msg)
-		mob_msg = "<span class='userdanger'>You reach out and touch [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>"
+		mob_msg = span_userdanger("You reach out and touch [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"")
 	if(!cause)
 		cause = "contact"
 	nom.visible_message(vis_msg, mob_msg, "<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
@@ -772,7 +772,7 @@
 /obj/machinery/power/supermatter_crystal/Bumped(atom/movable/AM)
 	if(isliving(AM))
 		AM.visible_message(span_danger("[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!"),\
-		"<span class='userdanger'>You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
+		span_userdanger("You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\""),\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
 	else if(isobj(AM) && !iseffect(AM))
 		AM.visible_message(span_danger("[AM] smacks into [src] and rapidly flashes to ash."), null,\

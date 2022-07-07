@@ -248,6 +248,6 @@
 	stage3	= list(span_danger("Your appendages are melting away."), span_danger("Your limbs begin to lose their shape."))
 	stage4	= list(span_danger("You're ravenous."))
 	stage5	= list(span_danger("You have become a morph."))
-	transformation_text = "<span class='userdanger'>This transformation does NOT make you an antagonist if you were not one already. If you were not an antagonist, you should not eat any steal objectives or the contents of the armory.</span>"
+	transformation_text = span_userdanger("This transformation does NOT make you an antagonist if you were not one already. If you were not an antagonist, you should not eat any steal objectives or the contents of the armory.")
 	new_form = /mob/living/simple_animal/hostile/morph
 	job_role = ROLE_MORPH

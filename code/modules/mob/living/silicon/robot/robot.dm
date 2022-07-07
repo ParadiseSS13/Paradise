@@ -522,7 +522,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Show Alerts"
 	if(usr.stat == DEAD)
-		to_chat(src, "<span class='userdanger'>Alert: You are dead.</span>")
+		to_chat(src, span_userdanger("Alert: You are dead."))
 		return //won't work if dead
 	robot_alerts()
 
@@ -1336,7 +1336,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
-		visible_message(span_danger("[P] gets reflected by [src]!"), "<span class='userdanger'>[P] gets reflected by [src]!</span>")
+		visible_message(span_danger("[P] gets reflected by [src]!"), span_userdanger("[P] gets reflected by [src]!"))
 		P.reflect_back(src)
 		return -1
 	return ..(P)
@@ -1515,21 +1515,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				if(makes_sound)
 					audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\""))
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
+				to_chat(src, span_userdanger("SYSTEM ERROR: Module 3 OFFLINE."))
 
 			if(health < 0)
 				if(uneq_module(module_state_2))
 					if(makes_sound)
 						audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\""))
 						playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, TRUE)
-					to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
+					to_chat(src, span_userdanger("SYSTEM ERROR: Module 2 OFFLINE."))
 
 				if(health < -50)
 					if(uneq_module(module_state_1))
 						if(makes_sound)
 							audible_message(span_warning("[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\""))
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
-						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
+						to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
 
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents

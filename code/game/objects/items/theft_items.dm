@@ -199,7 +199,7 @@
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)] via throw impact.")
 		investigate_log("has consumed [key_name(victim)] via throw impact.", "supermatter")
 	victim.visible_message(span_danger("As [victim] is hit by [src], both flash into dust and silence fills the room..."),
-		"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] flashes into dust, and soon as you can register this, you do as well.</span>",
+		span_userdanger("You're hit by [src] and everything suddenly goes silent.\n[src] flashes into dust, and soon as you can register this, you do as well."),
 		"<span class='hear'>Everything suddenly goes silent.</span>")
 	victim.dust()
 	radiation_pulse(src, 500, 2)
@@ -211,7 +211,7 @@
 	if(!isliving(user) || user.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
 		return FALSE
 	user.visible_message(span_danger("[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!"),
-			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",
+			span_userdanger("You reach for [src] with your hands. That was dumb."),
 			"<span class='hear'>Everything suddenly goes silent.</span>")
 	radiation_pulse(user, 500, 2)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -273,7 +273,7 @@
 		if(!isliving(user) || user.status_flags & GODMODE)
 			return FALSE
 		user.visible_message(span_danger("[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!"),
-				"<span class='userdanger'>You reach for [sliver] with your hands. That was dumb.</span>",
+				span_userdanger("You reach for [sliver] with your hands. That was dumb."),
 				"<span class='italics'>Everything suddenly goes silent.</span>")
 		radiation_pulse(user, 500, 2)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -365,7 +365,7 @@
 	if(user)
 		add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user]")
 		user.visible_message(span_danger("As [user] touches [AM] with [src], both flash into dust and silence fills the room..."),
-			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",
+			span_userdanger("You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well."),
 			"<span class='hear'>Everything suddenly goes silent.</span>")
 		user.dust()
 	radiation_pulse(src, 500, 2)

@@ -77,7 +77,7 @@
 				var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 				if(target != user)
 					target.visible_message(span_danger("[user] is trying to take a blood sample from [target]!"), \
-									"<span class='userdanger'>[user] is trying to take a blood sample from [target]!</span>")
+									span_userdanger("[user] is trying to take a blood sample from [target]!"))
 					busy = TRUE
 					if(!do_mob(user, target))
 						busy = FALSE
@@ -124,7 +124,7 @@
 					return
 				if(L != user)
 					L.visible_message(span_danger("[user] is trying to inject [L]!"), \
-											"<span class='userdanger'>[user] is trying to inject you!</span>")
+											span_userdanger("[user] is trying to inject you!"))
 					if(!do_mob(user, L))
 						return
 					if(!reagents.total_volume)

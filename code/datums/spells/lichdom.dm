@@ -117,7 +117,7 @@
 				marked_item.name = "Ensouled [marked_item.name]"
 				marked_item.desc = "A terrible aura surrounds this item, its very existence is offensive to life itself..."
 				marked_item.color = "#003300"
-				to_chat(M, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!</span>")
+				to_chat(M, span_userdanger("With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!"))
 				current_body = M.mind.current
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M

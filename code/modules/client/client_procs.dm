@@ -742,7 +742,7 @@
 			// Change detected, they are randomizing
 			cidcheck -= ckey	// To allow them to try again after removing CID randomization
 
-			to_chat(src, "<span class='userdanger'>Connection Error:</span>")
+			to_chat(src, span_userdanger("Connection Error:"))
 			to_chat(src, span_danger("Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again."))
 
 			if(!cidcheck_failedckeys[ckey])

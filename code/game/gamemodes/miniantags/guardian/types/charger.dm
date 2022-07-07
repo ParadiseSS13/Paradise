@@ -63,7 +63,7 @@
 					blocked = TRUE
 			if(!blocked)
 				L.Stun(2 SECONDS)
-				L.visible_message(span_danger("[src] slams into [L]!"), "<span class='userdanger'>[src] slams into you!</span>")
+				L.visible_message(span_danger("[src] slams into [L]!"), span_userdanger("[src] slams into you!"))
 				L.apply_damage(20, BRUTE)
 				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, 1)
 				shake_camera(L, 4, 3)

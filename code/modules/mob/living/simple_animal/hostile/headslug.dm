@@ -52,10 +52,10 @@
 		var/mob/living/carbon/C = target
 		if(C.stat == DEAD)
 			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
-				to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
+				to_chat(src, span_userdanger("A foreign presence repels us from this body. Perhaps we should try to infest another?"))
 				return
 			Infect(target)
-			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
+			to_chat(src, span_userdanger("With our egg laid, our death approaches rapidly..."))
 			addtimer(CALLBACK(src, .proc/death), 10 SECONDS)
 
 /obj/item/organ/internal/body_egg/changeling_egg

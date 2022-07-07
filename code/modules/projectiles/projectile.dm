@@ -156,13 +156,13 @@
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
 		if(suppressed)
 			playsound(loc, hitsound, 5, 1, -1)
-			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
+			to_chat(L, span_userdanger("You're shot by \a [src][organ_hit_text]!"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
 				playsound(loc, hitsound, volume, 1, -1)
 			L.visible_message(span_danger("[L] is hit by \a [src][organ_hit_text]!"), \
-								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+								span_userdanger("[L] is hit by \a [src][organ_hit_text]!"))	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
 	var/additional_log_text
 	if(blocked)
