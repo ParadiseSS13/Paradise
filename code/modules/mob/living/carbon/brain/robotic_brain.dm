@@ -59,7 +59,7 @@
 /obj/item/mmi/robotic_brain/proc/request_player()
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(check_observer(O))
-			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
+			to_chat(O, span_boldnotice("\A [src] has been activated. (<a href='?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)"))
 
 /obj/item/mmi/robotic_brain/proc/check_observer(mob/dead/observer/O)
 	if(cannotPossess(O))

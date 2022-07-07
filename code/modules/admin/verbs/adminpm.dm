@@ -155,7 +155,7 @@
 				return
 
 
-	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
+	var/emoji_msg = span_emoji_enabled("[msg]")
 	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>: [emoji_msg]</span>"
 	to_chat(C, recieve_message)
 	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
@@ -237,14 +237,14 @@
 
 	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
-	to_chat(src, "<span class='pmsend'>PM to-<b>Discord Admins</b>: [msg]</span>")
+	to_chat(src, span_pmsend("PM to-<b>Discord Admins</b>: [msg]"))
 
 	log_admin("PM: [key_name(src)]->Discord: [msg]")
 	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN, 0, X.mob))
-			to_chat(X, "<span class='pmsend'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span></span>")
+			to_chat(X, span_pmsend("<b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span>"))
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"

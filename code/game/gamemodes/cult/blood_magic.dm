@@ -35,10 +35,10 @@
 		break
 	if(length(spells) >= limit)
 		if(rune)
-			to_chat(owner, "<span class='cultitalic'>You cannot store more than [MAX_BLOODCHARGE] spell\s. <b>Pick a spell to remove.</b></span>")
+			to_chat(owner, span_cultitalic("You cannot store more than [MAX_BLOODCHARGE] spell\s. <b>Pick a spell to remove.</b>"))
 			remove_spell("You cannot store more than [MAX_BLOODCHARGE] spell\s, pick a spell to remove.")
 		else
-			to_chat(owner, "<span class='cultitalic'>You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spell\s without an empowering rune! <b>Pick a spell to remove.</b></span>")
+			to_chat(owner, span_cultitalic("You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spell\s without an empowering rune! <b>Pick a spell to remove.</b>"))
 			remove_spell("You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spell\s without an empowering rune, pick a spell to remove.")
 		return
 	var/entered_spell_name
@@ -298,7 +298,7 @@
 		attached_action.desc = attached_action.base_desc
 		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
 		attached_action.UpdateButtonIcon()
-		user.ranged_ability.remove_ranged_ability(user, "<span class='cult'><b>[H] has been cursed with living nightmares!</b></span>")
+		user.ranged_ability.remove_ranged_ability(user, span_cult("<b>[H] has been cursed with living nightmares!</b>"))
 		if(attached_action.charges <= 0)
 			to_chat(ranged_ability_user, span_cult("You have exhausted the spell's power!"))
 			qdel(src)

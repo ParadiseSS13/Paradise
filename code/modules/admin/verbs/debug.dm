@@ -129,7 +129,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	try
 		. = world.WrapAdminProcCall(target, procname, arguments)
 	catch
-		to_chat(usr, "<span class='adminnotice'>Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you.</span>")
+		to_chat(usr, span_adminnotice("Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you."))
 
 	if(--GLOB.AdminProcCallCount == 0)
 		GLOB.AdminProcCaller = null

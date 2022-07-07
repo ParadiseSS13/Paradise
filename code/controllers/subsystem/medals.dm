@@ -17,7 +17,7 @@ SUBSYSTEM_DEF(medals)
 		log_game("MEDAL ERROR: Could not contact hub to award medal [medal] to player [player.ckey].")
 		message_admins("Error! Failed to contact hub to award [medal] medal to [player.ckey]!")
 		return
-	to_chat(player, "<span class='greenannounce'><B>Achievement unlocked: [medal]!</B></span>")
+	to_chat(player, span_greenannounce("<B>Achievement unlocked: [medal]!</B>"))
 
 /datum/controller/subsystem/medals/proc/SetScore(score, client/player, increment, force)
 	set waitfor = FALSE

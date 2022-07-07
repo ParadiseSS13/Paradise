@@ -58,7 +58,7 @@
 	var/datum/game_mode/gamemode = SSticker.mode
 
 	if(gamemode.cult_objs.cult_status < NARSIE_NEEDS_SUMMONING)
-		to_chat(user, "<span class='cultitalic'><b>[SSticker.cultdat.entity_name]</b> is not ready to be summoned yet!</span>")
+		to_chat(user, span_cultitalic("<b>[SSticker.cultdat.entity_name]</b> is not ready to be summoned yet!"))
 		return FALSE
 	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		to_chat(user, span_cultlarge("\"I am already here. There is no need to try to summon me now.\""))
@@ -72,7 +72,7 @@
 	"Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
 	if(user)
 		if(confirm_final == "No" || confirm_final == null)
-			to_chat(user, "<span class='cultitalic'><b>You decide to prepare further before scribing the rune.</b></span>")
+			to_chat(user, span_cultitalic("<b>You decide to prepare further before scribing the rune.</b>"))
 			return FALSE
 		else
 			if(locate(/obj/effect/rune) in range(1, user))

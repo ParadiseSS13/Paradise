@@ -90,7 +90,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			if(nuke_code)
 				R.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
 			R.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
-			to_chat(R, "<span class='userdanger'>You are a Special Operations cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[input]</span></span>")
+			to_chat(R, span_userdanger("You are a Special Operations cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[input]</span>"))
 		else
 			var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
 			new_commando.mind.key = ghost_mob.key
@@ -100,7 +100,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			if(nuke_code)
 				new_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
 			new_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
-			to_chat(new_commando, "<span class='userdanger'>You are a Special Ops [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[input]</span></span>")
+			to_chat(new_commando, span_userdanger("You are a Special Ops [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[input]</span>"))
 
 		is_leader = FALSE
 		commando_number--

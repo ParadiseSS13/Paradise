@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 		SStickets.newHelpRequest(src, msg) // Ahelp
 
 	//show it to the person adminhelping too
-	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [msg]</span>")
+	to_chat(src, span_boldnotice("[selected_type]</b>: [msg]"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Adminhelp") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	switch(selected_type)

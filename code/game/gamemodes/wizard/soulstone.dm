@@ -241,9 +241,9 @@
 	if(in_range(user, src) && (iscultist(user) || iswizard(user) || user.stat == DEAD))
 		. += span_cult("A construct shell, used to house bound souls from a soulstone.")
 		. += span_cult("Placing a soulstone with a soul into this shell allows you to produce your choice of the following:")
-		. += "<span class='cultitalic'>An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.</span>"
-		. += "<span class='cultitalic'>A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.</span>"
-		. += "<span class='cultitalic'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
+		. += span_cultitalic("An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.")
+		. += span_cultitalic("A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.")
+		. += span_cultitalic("A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.")
 
 /obj/structure/constructshell/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/soulstone))

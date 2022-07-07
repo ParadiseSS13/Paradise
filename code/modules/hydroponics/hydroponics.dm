@@ -345,9 +345,9 @@
 	. = ..()
 	if(myseed)
 		if(myseed.variant)
-			. += "<span class='info'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
+			. += span_info("It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.")
 		else
-			. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+			. += span_info("It has <span class='name'>[myseed.plantname]</span> planted.")
 		if (dead)
 			. += span_warning("It's dead!")
 		else if (harvest)

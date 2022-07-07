@@ -291,7 +291,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			to_chat(user, span_notice("The gate is already calibrated, there is no work for you to do here."))
 			return
 		else
-			to_chat(user, "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>")
+			to_chat(user, span_boldnotice("Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target."))
 			calibrated = 1
 		return
 	return ..()

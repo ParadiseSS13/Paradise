@@ -248,7 +248,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	..()
 	for(var/M in invokers)
 		var/mob/living/L = M
-		to_chat(L, "<span class='cultitalic'><b>You feel your life force draining. [SSticker.cultdat.entity_title3] is displeased.</b></span>")
+		to_chat(L, span_cultitalic("<b>You feel your life force draining. [SSticker.cultdat.entity_title3] is displeased.</b>"))
 	qdel(src)
 
 /mob/proc/null_rod_check() //The null rod, if equipped, will protect the holder from the effects of most runes
@@ -329,7 +329,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 	else
 		convertee.visible_message(span_warning("[convertee] writhes in pain as the markings below them glow a bloody red!"), \
-								"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
+								span_cultlarge("<i>AAAAAAAAAAAAAA-</i>"))
 		SSticker.mode.add_cultist(convertee.mind)
 		convertee.mind.special_role = "Cultist"
 		to_chat(convertee, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
@@ -737,7 +737,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	cultist_to_summon.visible_message(span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
-									  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
+									  span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>"))
 	..()
 	INVOKE_ASYNC(src, .proc/teleport_effect, cultist_to_summon, get_turf(cultist_to_summon), src)
 	visible_message(span_warning("[src] begins to bubble and rises into the form of [cultist_to_summon]!"))
@@ -1035,7 +1035,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/mob/M in GLOB.player_list)
 		if(!isnewplayer(M)) // exclude people in the lobby
 			SEND_SOUND(M, sound('sound/effects/dimensional_rend.ogg'))
-			to_chat(M, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
+			to_chat(M, span_cultitalic("<b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b>"))
 
 	icon_state = "rune_large_distorted"
 	var/turf/T = get_turf(src)

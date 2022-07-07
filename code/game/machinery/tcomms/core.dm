@@ -297,7 +297,7 @@
 					log_action(usr, "has unlinked tcomms relay with ID [R.network_id] from tcomms core with ID [network_id]", TRUE)
 					R.Reset()
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Relay not found. Please file an issue report.</span>")
+				to_chat(usr, span_alert("<b>ERROR:</b> Relay not found. Please file an issue report."))
 
 		if("change_password")
 			var/new_password = input(usr, "Please enter a new password","New Password", link_password)
@@ -311,7 +311,7 @@
 			if(name_to_add == "")
 				return
 			if(name_to_add in nttc.filtering)
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> User already in filtering list.</span>")
+				to_chat(usr, span_alert("<b>ERROR:</b> User already in filtering list."))
 			else
 				nttc.filtering |= name_to_add
 				log_action(usr, "has added [name_to_add] to the NTTC filter list on core with ID [network_id]", TRUE)
@@ -320,7 +320,7 @@
 		if("remove_filter")
 			var/name_to_remove = params["user"]
 			if(!(name_to_remove in nttc.filtering))
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Name does not exist in filter list. Please file an issue report.</span>")
+				to_chat(usr, span_alert("<b>ERROR:</b> Name does not exist in filter list. Please file an issue report."))
 			else
 				var/confirm = alert(usr, "Are you sure you want to remove [name_to_remove] from the filtering list?", "Confirm Removal", "Yes", "No")
 				if(confirm == "Yes")

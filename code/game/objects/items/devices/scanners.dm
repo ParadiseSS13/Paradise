@@ -102,8 +102,8 @@ REAGENT SCANNER
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message(span_warning("[user] analyzes the floor's vitals!"), span_notice("You stupidly try to analyze the floor's vitals!"))
 		to_chat(user, span_info("Analyzing results for The floor:\n\tOverall status: Healthy"))
-		to_chat(user, "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burn</font>/<font color='red'>Brute</font></span>")
-		to_chat(user, "<span class='info'>\tDamage specifics: <font color='blue'>0</font> - <font color='green'>0</font> - <font color='#FFA500'>0</font> - <font color='red'>0</font></span>")
+		to_chat(user, span_info("Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burn</font>/<font color='red'>Brute</font>"))
+		to_chat(user, span_info("\tDamage specifics: <font color='blue'>0</font> - <font color='green'>0</font> - <font color='#FFA500'>0</font> - <font color='red'>0</font>"))
 		to_chat(user, span_info("Body temperature: ???"))
 		return
 
@@ -178,17 +178,17 @@ REAGENT SCANNER
 			continue
 		// Snowflaking heart problems, because they are special (and common).
 		if(istype(D, /datum/disease/critical))
-			to_chat(user, "<span class='alert'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
+			to_chat(user, span_alert("<b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]"))
 			continue
-		to_chat(user, "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
+		to_chat(user, span_alert("<b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]"))
 	if(H.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
 		if(heart && !(heart.status & ORGAN_DEAD))
-			to_chat(user, "<span class='alert'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</span>")
+			to_chat(user, span_alert("<b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock"))
 		else if(heart && (heart.status & ORGAN_DEAD))
-			to_chat(user, "<span class='alert'><b>Subject's heart is necrotic.</b></span>")
+			to_chat(user, span_alert("<b>Subject's heart is necrotic.</b>"))
 		else if(!heart)
-			to_chat(user, "<span class='alert'><b>Subject has no heart.</b></span>")
+			to_chat(user, span_alert("<b>Subject has no heart.</b>"))
 
 	if(H.getStaminaLoss())
 		to_chat(user, span_info("Subject appears to be suffering from fatigue."))
@@ -350,7 +350,7 @@ REAGENT SCANNER
 	var/pressure = environment.return_pressure()
 	var/total_moles = environment.total_moles()
 
-	to_chat(user, "<span class='info'><B>Results:</B></span>")
+	to_chat(user, span_info("<B>Results:</B>"))
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
 		to_chat(user, span_info("Pressure: [round(pressure,0.1)] kPa"))
 	else

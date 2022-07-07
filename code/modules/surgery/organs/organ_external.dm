@@ -480,20 +480,20 @@ Note that amputating the affected organ does in fact remove the infection from t
 				var/gore_sound = "[is_robotic() ? "tortured metal" : "ripping tendons and flesh"]"
 				owner.visible_message(
 					span_danger("\The [owner]'s [name] flies off in an arc!"),\
-					"<span class='moderate'><b>Your [name] goes flying off!</b></span>",\
+					span_moderate("<b>Your [name] goes flying off!</b>"),\
 					span_danger("You hear a terrible sound of [gore_sound]."))
 		if(DROPLIMB_BURN)
 			var/gore = "[is_robotic() ? "" : " of burning flesh"]"
 			owner.visible_message(
 				span_danger("\The [owner]'s [name] flashes away into ashes!"),\
-				"<span class='moderate'><b>Your [name] flashes away into ashes!</b></span>",\
+				span_moderate("<b>Your [name] flashes away into ashes!</b>"),\
 				span_danger("You hear a crackling sound[gore]."))
 		if(DROPLIMB_BLUNT)
 			var/gore = "[is_robotic() ? "": " in shower of gore"]"
 			var/gore_sound = "[is_robotic() ? "rending sound of tortured metal" : "sickening splatter of gore"]"
 			owner.visible_message(
 				span_danger("\The [owner]'s [name] explodes[gore]!"),\
-				"<span class='moderate'><b>Your [name] explodes[gore]!</b></span>",\
+				span_moderate("<b>Your [name] explodes[gore]!</b>"),\
 				span_danger("You hear the [gore_sound]."))
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().

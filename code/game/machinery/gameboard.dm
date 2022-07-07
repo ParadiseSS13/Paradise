@@ -83,7 +83,7 @@
 		if(cooling_down)
 			message_admins("Too many checkmates on chessboard, possible HREF exploits: [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			return
-		visible_message("<span class='info'><span class='name'>[src.name]</span> beeps, \"WINNER!\"</span>")
+		visible_message(span_info("<span class='name'>[src.name]</span> beeps, \"WINNER!\""))
 		new prize(get_turf(src), 80)
 		close_game()
 		cooling_down = 1

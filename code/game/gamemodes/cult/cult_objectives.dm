@@ -34,7 +34,7 @@
 			to_chat(M, span_cult("Current goal: [obj_summon.explanation_text]"))
 		if(NARSIE_HAS_RISEN)
 			to_chat(M, span_cultlarge("\"I am here.\""))
-			to_chat(M, "<span class='cult'>Current goal:</span> <span class='cultlarge'>\"Feed me.\"</span>")
+			to_chat(M, span_cult("Current goal:</span> <span class='cultlarge'>\"Feed me.\""))
 		if(NARSIE_HAS_FALLEN)
 			to_chat(M, span_cultlarge("[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!"))
 			to_chat(M, span_cult("Current goal: Slaughter the unbelievers!"))

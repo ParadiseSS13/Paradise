@@ -193,8 +193,8 @@
 		return
 
 	// Show the message to the host and to the guardian.
-	to_chat(summoner, "<span class='changeling'><i>[src]:</i> [input]</span>")
-	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
+	to_chat(summoner, span_changeling("<i>[src]:</i> [input]"))
+	to_chat(src, span_changeling("<i>[src]:</i> [input]"))
 	log_say("(GUARDIAN to [key_name(summoner)]): [input]", src)
 	create_log(SAY_LOG, "GUARDIAN to HOST: [input]", summoner)
 

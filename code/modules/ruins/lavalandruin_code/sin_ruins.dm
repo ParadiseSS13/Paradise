@@ -151,7 +151,7 @@
 			user.real_name = H.dna.real_name
 			H.dna.transfer_identity(user)
 			user.visible_message(span_warning("[user]'s appearance shifts into [H]'s!"), \
-			"<span class='boldannounce'>[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't.</span>")
+			span_boldannounce("[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't."))
 
 // Sloth
 /obj/item/paper/fluff/stations/lavaland/sloth/note

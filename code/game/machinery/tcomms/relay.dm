@@ -222,8 +222,8 @@
 					AddLink(C)
 					to_chat(usr, span_notice("Successfully linked to <b>[C.network_id]</b>."))
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, span_alert("<b>ERROR:</b> Password incorrect."))
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Core not found. Please file an issue report.</span>")
+				to_chat(usr, span_alert("<b>ERROR:</b> Core not found. Please file an issue report."))
 
 

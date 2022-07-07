@@ -1190,7 +1190,7 @@
 	if(prob(8))
 		to_chat(M, span_danger("ARGHHHH!"))
 	if(prob(2 * volume))
-		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</b></span>")
+		to_chat(M, span_userdanger("OH GOD OH GOD PLEASE NO!!</b>"))
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
 		if(prob(50))

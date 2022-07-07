@@ -191,7 +191,7 @@
 
 /obj/machinery/ticket_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
+	. += span_info("Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.")
 
 /obj/item/ticket_machine_ticket
 	name = "Ticket"

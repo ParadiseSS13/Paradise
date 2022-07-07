@@ -761,7 +761,7 @@
 		to_chat(user, span_notice("[I] bounces off [src], you need to cut a sliver off first!"))
 	else if(user.drop_item())
 		user.visible_message(span_danger("As [user] touches [src] with \a [I], silence fills the room..."),\
-			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
+			span_userdanger("You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src]."),\
 			span_italics("Everything suddenly goes silent."))
 		investigate_log("has been attacked ([I]) by [key_name(user)]", "supermatter")
 		Consume(I)

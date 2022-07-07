@@ -95,7 +95,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 						display_name = holder.fakekey
 
 			if(GLOB.configuration.general.enable_ooc_emoji)
-				msg = "<span class='emoji_enabled'>[msg]</span>"
+				msg = span_emoji_enabled("[msg]")
 
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
 
@@ -247,7 +247,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					prefix = "(R)"
 
 			if(send)
-				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><EM>[display_name][admin_stuff]:</EM> <span class='message'>[msg]</span></span></span>")
+				to_chat(target, span_ooc("<span class='looc'>LOOC<span class='prefix'>[prefix]: </span><EM>[display_name][admin_stuff]:</EM> <span class='message'>[msg]</span></span>"))
 
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.

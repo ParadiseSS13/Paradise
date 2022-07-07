@@ -120,7 +120,7 @@
 
 	var/rendered
 	for(var/mob/M in GLOB.mob_list)
-		rendered = "<span class='revennotice'><b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] says, \"[message]\"</span>"
+		rendered = span_revennotice("<b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] says, \"[message]\"")
 		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
 			to_chat(M, rendered)
 
@@ -176,7 +176,7 @@
 			mind.wipe_memory()
 			SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 			to_chat(src, "<br>")
-			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
+			to_chat(src, span_deadsay("<font size=3><b>You are a revenant.</b></font>"))
 			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
 			to_chat(src, "<b>You are not dead, not alive, but somewhere in between. You are capable of limited interaction with both worlds.</b>")
 			to_chat(src, "<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")

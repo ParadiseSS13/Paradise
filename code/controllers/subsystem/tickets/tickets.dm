@@ -529,7 +529,7 @@ UI STUFF
 		if(TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
 			msg = span_admin_channel("ADMIN TICKET: [msg]")
 		if(TICKET_STAFF_MESSAGE_PREFIX)
-			msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
+			msg = span_adminticket("<span class='prefix'>ADMIN TICKET:</span> [msg]")
 	message_adminTicket(msg, important)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)

@@ -32,8 +32,8 @@
 		return
 
 	// Show the message to our guardian and to host.
-	to_chat(guardian, "<span class='changeling'><i>[owner]:</i> [input]</span>")
-	to_chat(owner, "<span class='changeling'><i>[owner]:</i> [input]</span>")
+	to_chat(guardian, span_changeling("<i>[owner]:</i> [input]"))
+	to_chat(owner, span_changeling("<i>[owner]:</i> [input]"))
 	log_say("(HOST to [key_name(guardian)]): [input]", owner)
 	owner.create_log(SAY_LOG, "HOST to GUARDIAN: [input]", guardian)
 

@@ -35,7 +35,7 @@
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
 		user.visible_message(span_warning("[user] stabs [M] with [src]!"), span_warning("You stab [M] with [src]!"))
-		to_chat(M, "<span class='userdanger'>[user] stabs you with [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
+		to_chat(M, span_userdanger("[user] stabs you with [src]!") + "<br>" + span_warning("You feel a tiny prick!"))
 		return
 
 	if(used)

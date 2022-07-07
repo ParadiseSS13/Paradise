@@ -315,7 +315,7 @@ That prevents a few funky behaviors.
 		AI.aiRadio.disabledAi = FALSE
 		AI.forceMove(loc)//To replace the terminal.
 		to_chat(AI, "You have been uploaded to a stationary terminal. Remote device connection restored.")
-		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.</span>")
+		to_chat(user, span_boldnotice("Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed."))
 		qdel(src)
 	else //If for some reason you use an empty card on an empty AI terminal.
 		to_chat(user, "There is no AI loaded on this terminal!")

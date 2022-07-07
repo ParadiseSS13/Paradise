@@ -14,30 +14,30 @@
 		suitBusy = 1
 
 		if(suitActive && (alert("Confirm suit systems shutdown? This cannot be halted once it has started.", "Confirm Shutdown", "Yes", "No") == "Yes"))
-			to_chat(usr, "<span class='darkmblue'>Now de-initializing...</span>")
+			to_chat(usr, span_darkmblue("Now de-initializing..."))
 
 			sleep(15)
-			to_chat(usr, "<span class='darkmblue'>Logging off, [usr.real_name]. Shutting down <b>SpiderOS</b>.</span>")
+			to_chat(usr, span_darkmblue("Logging off, [usr.real_name]. Shutting down <b>SpiderOS</b>."))
 
 			sleep(10)
-			to_chat(usr, "<span class='darkmblue'>Primary system status: <B>OFFLINE</B>.\nBackup system status: <b>OFFLINE</b>.</span>")
+			to_chat(usr, span_darkmblue("Primary system status: <B>OFFLINE</B>.\nBackup system status: <b>OFFLINE</b>."))
 
 			sleep(5)
-			to_chat(usr, "<span class='darkmblue'>VOID-shift device status: <B>OFFLINE</B>.\nCLOAK-tech device status: <B>OFFLINE</B>.</span>")
+			to_chat(usr, span_darkmblue("VOID-shift device status: <B>OFFLINE</B>.\nCLOAK-tech device status: <B>OFFLINE</B>."))
 			//TODO: Shut down any active abilities
 
 			sleep(10)
-			to_chat(usr, "<span class='darkmblue'>Disconnecting neural-net interface...</span> <span style='color: #32CD32'><b>Success</b>.</span>")
+			to_chat(usr, span_darkmblue("Disconnecting neural-net interface...</span> <span style='color: #32CD32'><b>Success</b>."))
 
 			QDEL_NULL(usr.hud_used)
 			usr.create_mob_hud()
 			usr.regenerate_icons()
 
 			sleep(5)
-			to_chat(usr, "<span class='darkmblue'>Disengaging neural-net interface...</span> <span style='color: #32CD32'><b>Success</b>.</span>")
+			to_chat(usr, span_darkmblue("Disengaging neural-net interface...</span> <span style='color: #32CD32'><b>Success</b>."))
 
 			sleep(10)
-			to_chat(usr, "<span class='darkmblue'>Unsecuring external locking mechanism...\nNeural-net abolished.\nOperation status: <B>FINISHED</B>.</span>")
+			to_chat(usr, span_darkmblue("Unsecuring external locking mechanism...\nNeural-net abolished.\nOperation status: <B>FINISHED</B>."))
 			//TODO: Grant verbs
 			toggle_suit_lock(usr)
 			usr.regenerate_icons()
@@ -45,7 +45,7 @@
 			suitActive = 0
 
 		else if(!suitActive) // Activate the suit.
-			to_chat(usr, "<span class='darkmblue'>Now initializing...</span>")
+			to_chat(usr, span_darkmblue("Now initializing..."))
 
 			sleep(15)
 			to_chat(usr, "<span class='darkmblue'>Now establishing neural-net interface...")
@@ -54,15 +54,15 @@
 				return
 
 			sleep(10)
-			to_chat(usr, "<span class='darkmblue'>Neural-net established. Now monitoring brainwave pattern. \nBrainwave pattern</span> <span style='color: #32CD32;'><b>GREEN</b></span><span class='darkmblue'>, proceeding.</span>")
+			to_chat(usr, span_darkmblue("Neural-net established. Now monitoring brainwave pattern. \nBrainwave pattern</span> <span style='color: #32CD32;'><b>GREEN</b></span><span class='darkmblue'>, proceeding."))
 
 			sleep(10)
-			to_chat(usr, "<span class='darkmblue'>Securing external locking mechanism...</span>")
+			to_chat(usr, span_darkmblue("Securing external locking mechanism..."))
 			if(!toggle_suit_lock(usr))
 				return
 
 			sleep(5)
-			to_chat(usr, "<span class='darkmblue'>Suit secured, extending neural-net interface...</span>")
+			to_chat(usr, span_darkmblue("Suit secured, extending neural-net interface..."))
 
 			QDEL_NULL(usr.hud_used)
 			usr.hud_used = new /datum/hud/human(usr, 'icons/mob/screen_ninja.dmi', "#ffffff", 255)
@@ -71,22 +71,22 @@
 			usr.regenerate_icons()
 
 			sleep(10)
-			to_chat(usr, "<span class='darkmblue'>VOID-shift device status: <b>ONLINE</b>.\nCLOAK-tech device status:<b>ONLINE</b></span>")
+			to_chat(usr, span_darkmblue("VOID-shift device status: <b>ONLINE</b>.\nCLOAK-tech device status:<b>ONLINE</b>"))
 
 			sleep(5)
-			to_chat(usr, "<span class='darkmblue'>Primary system status: <b>ONLINE</b>.\nBackup system status: <b>ONLINE</b>.</span>")
+			to_chat(usr, span_darkmblue("Primary system status: <b>ONLINE</b>.\nBackup system status: <b>ONLINE</b>."))
 			if(suitCell)
-				to_chat(usr, "<span class='darkmblue'>Current energy capacity: <b>[suitCell.charge]/[suitCell.maxcharge]</b>.</span>")
+				to_chat(usr, span_darkmblue("Current energy capacity: <b>[suitCell.charge]/[suitCell.maxcharge]</b>."))
 
 			sleep(10)
-			to_chat(usr, "<span class='darkmblue'>All systems operational. Welcome to <b>SpiderOS</b>, [usr.real_name].</span>")
+			to_chat(usr, span_darkmblue("All systems operational. Welcome to <b>SpiderOS</b>, [usr.real_name]."))
 			//TODO: Grant ninja verbs here.
 			suitBusy = 0
 			suitActive = 1
 
 		else
 			suitBusy = 0
-			to_chat(usr, "<span class='darkmblue'><b>NOTICE: </b>Suit de-activation protocals aborted.</span>")
+			to_chat(usr, span_darkmblue("<b>NOTICE: </b>Suit de-activation protocals aborted."))
 	else
 		to_chat(usr, "<span style='color: #ff0000;'><b>FĆAL �Rr�R</b>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
 		return

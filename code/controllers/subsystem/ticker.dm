@@ -261,11 +261,11 @@ SUBSYSTEM_DEF(ticker)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
-	to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
+	to_chat(world, span_darkmblue("<B>Enjoy the game!</B>"))
 	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
 
 	if(SSholiday.holidays)
-		to_chat(world, "<span class='darkmblue'>and...</span>")
+		to_chat(world, span_darkmblue("and..."))
 		for(var/holidayname in SSholiday.holidays)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
@@ -476,7 +476,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
+		to_chat(world, span_purple("<b>Tip of the round: </b>[html_encode(m)]"))
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.

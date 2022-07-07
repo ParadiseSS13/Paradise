@@ -53,7 +53,7 @@
 				visible_message(span_danger("[src] jumps back to its user."))
 				Recall(TRUE)
 			else
-				to_chat(summoner, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from <b>[src]</b>!</span>")
+				to_chat(summoner, span_holoparasite("You moved out of range, and were pulled back! You can only move [range] meters from <b>[src]</b>!"))
 				summoner.visible_message(span_danger("[summoner] jumps back to [summoner.p_their()] protector."))
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))

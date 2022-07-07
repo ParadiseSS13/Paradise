@@ -101,22 +101,22 @@
 			t += "<A href='?src=[UID()];ejectGPS=1'>Eject GPS</A>"
 			t += "<A href='?src=[UID()];setMemory=1'>Set GPS memory</A>"
 		else
-			t += "<span class='linkOff'>Eject GPS</span>"
-			t += "<span class='linkOff'>Set GPS memory</span>"
+			t += span_linkOff("Eject GPS")
+			t += span_linkOff("Set GPS memory")
 		t += "<div class='statusDisplay'>[temp_msg]</div><BR>"
 		t += "<A href='?src=[UID()];setrotation=1'>Set Bearing</A>"
 		t += "<div class='statusDisplay'>[rotation] degrees</div>"
 		t += "<A href='?src=[UID()];setangle=1'>Set Elevation</A>"
 		t += "<div class='statusDisplay'>[angle] degrees</div>"
-		t += "<span class='linkOn'>Set Power</span>"
+		t += span_linkOn("Set Power")
 		t += "<div class='statusDisplay'>"
 
 		for(var/i = 1; i <= power_options.len; i++)
 			if(crystals + telepad.efficiency < i)
-				t += "<span class='linkOff'>[power_options[i]]</span>"
+				t += span_linkOff("[power_options[i]]")
 				continue
 			if(power == power_options[i])
-				t += "<span class='linkOn'>[power_options[i]]</span>"
+				t += span_linkOn("[power_options[i]]")
 				continue
 			t += "<A href='?src=[UID()];setpower=[i]'>[power_options[i]]</A>"
 		t += "</div>"

@@ -178,7 +178,7 @@
 			user.visible_message(span_suicide("[user] panics and starts choking to death!"))
 			return OXYLOSS
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		user.visible_message(span_suicide("[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b>"))
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return OXYLOSS
 

@@ -7,7 +7,7 @@
 	telegraph_duration = 300
 	telegraph_overlay = "light_snow"
 
-	weather_message = "<span class='userdanger'><i>Harsh winds pick up as dense snow begins to fall from the sky! Seek shelter!</i></span>"
+	weather_message = span_userdanger("<i>Harsh winds pick up as dense snow begins to fall from the sky! Seek shelter!</i>")
 	weather_overlay = "snow_storm"
 	weather_duration_lower = 600
 	weather_duration_upper = 1500

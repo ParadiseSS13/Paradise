@@ -93,7 +93,7 @@
 	to_chat(owner.current, span_danger("Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them."))
 
 /datum/antagonist/changeling/farewell()
-	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
+	to_chat(owner.current, span_biggerdanger("<B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!"))
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()

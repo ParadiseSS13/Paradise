@@ -1650,10 +1650,10 @@
 
 		for(var/datum/mind/H in SSticker.mode.cult)
 			if(H.current)
-				to_chat(H.current, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
+				to_chat(H.current, span_cult("[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\""))
 
 		for(var/mob/dead/observer/O in GLOB.player_list)
-			to_chat(O, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
+			to_chat(O, span_cult("[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\""))
 
 		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [SSticker.cultdat.entity_name].")
 		log_admin("[key_name(usr)] Voice of [SSticker.cultdat.entity_name]: [input]")
@@ -2286,7 +2286,7 @@
 				to_chat(owner, span_warning("The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent."))
 				return
 			to_chat(owner, span_notice("You sent [reason] to [H] via a secure channel."))
-			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
+			to_chat(H, span_specialnoticebold("Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason]."))
 		else
 			owner.response_team()
 

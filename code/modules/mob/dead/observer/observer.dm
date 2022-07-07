@@ -317,7 +317,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.overlays += source
 				source.layer = old_layer
 				source.plane = old_plane
-	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
+	to_chat(src, span_ghostalert("<a href=?src=[UID()];reenter=1>(Click to re-enter)</a>"))
 	if(sound)
 		src << sound(sound)
 
@@ -750,7 +750,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/follow_link
 	if(invisibility) // Only show the button if the ghost is not visible to the living
 		follow_link = " ([ghost_follow_link(A, src)])"
-	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>")
+	usr.visible_message(span_deadsay("<b>[src]</b> points to [A][follow_link]."))
 	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost()

@@ -5,7 +5,7 @@
 	telegraph_duration = 40 SECONDS
 	telegraph_message = null // handled via event announcement
 
-	weather_message = "<span class='userdanger'><i>A solar flare has arrived! Do not conduct space walks or approach windows until the flare has passed!</i></span>"
+	weather_message = span_userdanger("<i>A solar flare has arrived! Do not conduct space walks or approach windows until the flare has passed!</i>")
 	weather_overlay = "light_ash"
 	weather_duration_lower = 1 MINUTES
 	weather_duration_upper = 5 MINUTES

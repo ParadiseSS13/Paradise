@@ -145,7 +145,7 @@ Doesn't work on other aliens/AI.*/
 			for(var/mob/M in src)
 				LAZYREMOVE(stomach_contents, M)
 				M.forceMove(drop_location())
-			visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
+			visible_message(span_alertalien("<B>[src] hurls out the contents of [p_their()] stomach!"))
 
 /mob/living/carbon/proc/getPlasma()
  	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)

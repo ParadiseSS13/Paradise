@@ -968,7 +968,7 @@
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
 		user.show_message(span_abductor("You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"]."))
-		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
+		target.show_message(span_abductor("<A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a>"))
 		available_targets += target
 		addtimer(CALLBACK(src, .proc/removeAvailability, target), 100)
 

@@ -89,7 +89,7 @@
 	return scrambled_text
 
 /datum/language/proc/format_message(message)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
+	return span_message("<span class='[colour]'>[message]</span>")
 
 /datum/language/proc/format_message_radio(message)
 	return "<span class='[colour]'>[message]</span>"
@@ -141,7 +141,7 @@
 	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG|NO_STUTTER
 
 /datum/language/noise/format_message(message)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
+	return span_message("<span class='[colour]'>[message]</span>")
 
 /datum/language/noise/format_message_radio(message)
 	return "<span class='[colour]'>[message]</span>"
@@ -592,7 +592,7 @@
 	speaker.create_log(SAY_LOG, log_message)
 
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
+	var/message_body = span_message("[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span>")
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
