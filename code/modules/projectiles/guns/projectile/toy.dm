@@ -30,8 +30,7 @@
 	can_holster = TRUE
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/toy/pistol/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/toy/pistol/riot
