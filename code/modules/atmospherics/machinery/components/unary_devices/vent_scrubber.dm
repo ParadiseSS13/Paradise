@@ -12,7 +12,7 @@
 	idle_power_usage = 10
 	active_power_usage = 60
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	var/area/initial_loc
 
@@ -20,17 +20,17 @@
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
-	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
-	var/scrub_O2 = 0
-	var/scrub_N2 = 0
-	var/scrub_CO2 = 1
-	var/scrub_Toxins = 0
-	var/scrub_N2O = 0
+	var/scrubbing = TRUE //FALSE = siphoning, TRUE = scrubbing
+	var/scrub_O2 = FALSE
+	var/scrub_N2 = FALSE
+	var/scrub_CO2 = TRUE
+	var/scrub_Toxins = FALSE
+	var/scrub_N2O = FALSE
 
 	var/volume_rate = 200
-	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
+	var/widenet = FALSE //is this scrubber acting on the 3x3 area around it.
 
-	var/welded = 0
+	var/welded = FALSE
 
 	var/area_uid
 	var/radio_filter_out
@@ -201,7 +201,7 @@
 		return
 
 	if(!node)
-		on = 0
+		on = FALSE
 
 	if(welded)
 		return 0

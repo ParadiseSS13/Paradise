@@ -9,7 +9,7 @@ Pipes -> Pipelines
 Pipelines + Other Objects -> Pipe network
 */
 /obj/machinery/atmospherics
-	anchored = 1
+	anchored = TRUE
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
@@ -18,8 +18,8 @@ Pipelines + Other Objects -> Pipe network
 	active_power_usage = 0
 	power_channel = ENVIRON
 	on_blueprints = TRUE
-	var/nodealert = 0
-	var/can_unwrench = 0
+	var/nodealert = FALSE
+	var/can_unwrench = FALSE
 	/// If the machine is currently operating or not.
 	var/on = FALSE
 	/// The amount of pressure the machine wants to operate at.

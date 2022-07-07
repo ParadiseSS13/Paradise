@@ -13,7 +13,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 360
-	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
+	universal_speak = TRUE //So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
 	gold_core_spawnable = NO_SPAWN
 	can_be_on_fire = TRUE

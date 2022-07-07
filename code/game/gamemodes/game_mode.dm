@@ -16,11 +16,11 @@
 /datum/game_mode
 	var/name = "invalid"
 	var/config_tag = null
-	var/intercept_hacked = 0
-	var/votable = 1
+	var/intercept_hacked = FALSE
+	var/votable = TRUE
 	var/probability = 0
-	var/station_was_nuked = 0 //see nuclearbomb.dm and malfunction.dm
-	var/explosion_in_progress = 0 //sit back and relax
+	var/station_was_nuked = FALSE //see nuclearbomb.dm and malfunction.dm
+	var/explosion_in_progress = FALSE //sit back and relax
 	var/list/datum/mind/modePlayer = new
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
 	var/list/secondary_restricted_jobs = list() // Same as above, but for secondary antagonists
@@ -33,7 +33,7 @@
 	var/secondary_enemies = 0
 	var/secondary_enemies_scaling = 0 // Scaling rate of secondary enemies
 	var/newscaster_announcements = null
-	var/ert_disabled = 0
+	var/ert_disabled = FALSE
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
 
