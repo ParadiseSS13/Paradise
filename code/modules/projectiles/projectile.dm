@@ -45,6 +45,7 @@
 	//Effects
 	var/stun = 0
 	var/weaken = 0
+	var/knockdown = 0
 	var/paralyze = 0
 	var/irradiate = 0
 	var/stutter = 0
@@ -176,7 +177,7 @@
 
 	if(!log_override && firer && !alwayslog)
 		add_attack_logs(firer, L, "Shot with a [type][additional_log_text]")
-	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+	return L.apply_effects(stun, weaken, knockdown, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
