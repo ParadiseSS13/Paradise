@@ -121,7 +121,7 @@
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
-	dissipate()
+	do_dissipate()
 	check_energy()
 
 	return
@@ -138,7 +138,7 @@
 		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]","singulo")
 
-/obj/singularity/proc/dissipate()
+/obj/singularity/proc/do_dissipate()
 	if(!dissipate)
 		return
 	if(dissipate_track >= dissipate_delay)
