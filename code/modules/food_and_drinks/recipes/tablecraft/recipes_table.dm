@@ -287,3 +287,62 @@
 	result = list(/mob/living/simple_animal/pet/cat/cak)
 	category = CAT_FOOD
 	subcategory = CAT_CAKE //Cat! Haha, get it? CAT? GET IT? We get it - Love Felines -Foxes are better
+
+
+/* PIZZA RECIPIES */
+/datum/crafting_recipe/margheritapizza
+	name = "Margherita Pizza"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough = 1,
+		/obj/item/reagent_containers/food/snacks/grown/tomato = 2,
+		/obj/item/reagent_containers/food/snacks/cheesewedge = 2,
+	)
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita)
+	category = CAT_FOOD
+	subcategory = CAT_PIZZA
+
+/datum/crafting_recipe/cheesepizza
+	name = "Cheese Pizza"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough = 1,
+		/obj/item/reagent_containers/food/snacks/grown/tomato = 1,
+		/obj/item/reagent_containers/food/snacks/cheesewedge = 4,
+	)
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/pizza/cheesepizza)
+	category = CAT_FOOD
+	subcategory = CAT_PIZZA
+
+/datum/crafting_recipe/pepperonipizza
+	name = "Pepperoni Pizza"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough = 1,
+		/obj/item/reagent_containers/food/snacks/grown/tomato = 1,
+		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
+		/obj/item/reagent_containers/food/snacks/sausage = 1,
+	)
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/pizza/pepperonipizza)
+	category = CAT_FOOD
+	subcategory = CAT_PIZZA
+
+/datum/crafting_recipe/macpizza
+	name = "Mac 'n' Cheese Pizza"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough = 1,
+		/obj/item/reagent_containers/food/snacks/cheesewedge = 2,
+		/obj/item/reagent_containers/food/snacks/macncheese = 1,
+	)
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza)
+	category = CAT_FOOD
+	subcategory = CAT_PIZZA
+
+/datum/crafting_recipe/meatpizza
+	name = "Meat Pizza"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough = 1,
+		/obj/item/reagent_containers/food/snacks/cheesewedge = 2,
+		/obj/item/reagent_containers/food/snacks/macncheese = 1,
+		/obj/item/reagent_containers/food/snacks/meat = 3,
+	)
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza)
+	category = CAT_FOOD
+	subcategory = CAT_PIZZA
