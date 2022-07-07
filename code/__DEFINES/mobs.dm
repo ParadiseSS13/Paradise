@@ -176,6 +176,12 @@
 #define INVISIBILITY_ABSTRACT 101
 #define UNHEALING_EAR_DAMAGE 100
 
+// Incorporeal movement
+#define INCORPOREAL_NONE 0
+#define INCORPOREAL_NORMAL 1
+#define INCORPOREAL_NINJA 2
+#define INCORPOREAL_REVENANT 3
+
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
 #define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))

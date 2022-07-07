@@ -210,10 +210,10 @@
 		return
 	var/mob/living/L = mob
 	switch(L.incorporeal_move)
-		if(1)
+		if(INCORPOREAL_NORMAL)
 			L.forceMove(get_step(L, direct))
 			L.dir = direct
-		if(2)
+		if(INCORPOREAL_NINJA)
 			if(prob(50))
 				var/locx
 				var/locy
@@ -253,7 +253,7 @@
 				new /obj/effect/temp_visual/dir_setting/ninja/shadow(mobloc, L.dir)
 				L.forceMove(get_step(L, direct))
 			L.dir = direct
-		if(3) //Incorporeal move, but blocked by holy-watered tiles
+		if(INCORPOREAL_REVENANT) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & NOJAUNT)
 				to_chat(L, "<span class='warning'>Святые силы блокируют ваш путь.</span>")

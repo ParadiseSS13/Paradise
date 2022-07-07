@@ -34,7 +34,7 @@
 			environment_smash = initial(environment_smash)
 			alpha = 255
 			range = 13
-			incorporeal_move = 0
+			incorporeal_move = INCORPOREAL_NONE
 			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
 			toggle = FALSE
 		else
@@ -45,7 +45,7 @@
 			environment_smash = ENVIRONMENT_SMASH_NONE
 			alpha = 60
 			range = 255
-			incorporeal_move = 1
+			incorporeal_move = INCORPOREAL_NORMAL
 			to_chat(src, "<span class='danger'>You switch to scout mode.</span>")
 			toggle = TRUE
 	else
