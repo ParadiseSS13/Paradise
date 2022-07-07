@@ -134,7 +134,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/hardened/Initialize(mapload)
 	. = ..()
-	desc += " The implant has been hardened. It is invulnerable to EMPs."
+	desc += "This implant will automatically give you back control over your central nervous system, reducing downtime when fatigued. Incompatible with the Neural Jumpstarter. The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/brain/anti_stam/on_life()
 	..()
