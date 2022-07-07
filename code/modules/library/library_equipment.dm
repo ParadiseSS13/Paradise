@@ -341,6 +341,20 @@
 	playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
 	to_chat(user, "<span class='notice'>[src] mode: [modedesc]</span>")
 
+/obj/item/barcodescanner/proc/connect(obj/machinery/computer/library/library_computer)
+	if(!library_computer || !istype(library_computer))
+		return FALSE
+	if(computer == library_computer)
+		return TRUE //we're succesfully connected already, let player know it was a "succesful connection"
+
+	UnregisterSignal(computer, COMSIG_PARENT_QDELETING)
+	computer = library_computer
+	RegisterSignal(library_computer, COMSIG_PARENT_QDELETING, .proc/disconnect)
+	return TRUE
+
+/obj/item/barcodescanner/proc/disconnect()
+	computer = null
+
 /obj/item/barcodescanner/proc/scanID(obj/item/card/id/ID, mob/user)
 	if(!check_connection(user))
 		return
