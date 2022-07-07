@@ -879,6 +879,7 @@
 	name = "magical box"
 	desc = "It's just an ordinary magical box."
 	icon_state = "box_wizard"
+	w_class = WEIGHT_CLASS_GIGANTIC
 
 /obj/item/storage/box/breaching
 	name = "breaching charges"
