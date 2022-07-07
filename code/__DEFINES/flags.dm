@@ -27,6 +27,9 @@
 ///Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS			32768
 
+/// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
+#define SURGICALTOOL 			65536
+
 
 /* Secondary atom flags, for the flags_2 var, denoted with a _2 */
 
