@@ -17,7 +17,7 @@ export const DestinationTagger = (props, context) => {
       <Window.Content scrollable>
         <Section title="TagMaster 3.0">
           <LabeledListItem>
-            <LabeledListItem label="Selected">{selected_destination.name ? selected_destination.name : "None"}</LabeledListItem>
+            <LabeledListItem label="Selected">{selected_destination.name ?? "None"}</LabeledListItem>
           </LabeledListItem>
           <br />
           <Box>
@@ -34,9 +34,9 @@ export const DestinationTagger = (props, context) => {
                     width="115px"
                     textAlign="center"
                     content={destination.name}
-                    selected={destination.id === selected_destination?.id}
+                    selected={destination.id === selected_destination_id}
                     onClick={() => act("select_destination", {
-                      destination:destination.id
+                      destination: destination.id
                     })}
                   />
                 </Flex.Item>

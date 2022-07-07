@@ -240,7 +240,7 @@
 	//The whole system for the sorttype var is determined based on the order of this list,
 	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
 
-/obj/item/destTagger/attack_self(mob/user as mob)
+/obj/item/destTagger/attack_self(mob/user)
 	ui_interact(user)
 
 /obj/item/destTagger/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
