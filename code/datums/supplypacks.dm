@@ -1918,6 +1918,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 	containername = "hygiene station crate"
 
+/datum/supply_packs/misc/washing
+	name = "Washing Machine Crate"
+	cost = 10
+	containertype = /obj/structure/closet/critter
+	contains = list(
+					/obj/machinery/washing_machine,
+					/obj/machinery/washing_machine
+					)
+	containername = "washing machine crate"
+
 /datum/supply_packs/misc/snow_machine
 	name = "Snow Machine Crate"
 	cost = 20
