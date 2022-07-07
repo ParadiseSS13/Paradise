@@ -332,6 +332,9 @@
 		..()
 
 /atom/proc/AltClick(var/mob/user)
+	return
+
+/atom/proc/turf_examine(var/mob/user)
 	var/turf/T = get_turf(src)
 	if(T)
 		if(user.TurfAdjacent(T))
