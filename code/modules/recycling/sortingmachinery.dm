@@ -263,7 +263,7 @@
 			"id"   = destination_index,
 		)
 		static_data["destinations"] += list(destination_data)
-	return data
+	return static_data
 
 /obj/item/destTagger/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
