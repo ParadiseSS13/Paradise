@@ -7,15 +7,15 @@
 
 	pass_flags = PASSTABLE 	// Floating past tables is pretty damn spooky.
 	status_flags = null 	// No canpush to prevent grabs ...
-	density = 0 			//  ... But a density of 0 means we won't be blocking anyone's way.
-	healable = 0			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
-	wander = 0				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
+	density = FALSE 		//  ... But a density of 0 means we won't be blocking anyone's way.
+	healable = FALSE			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
+	wander = FALSE				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
 
-	universal_speak = 1		// Tell the humans spooky things about the afterlife
+	universal_speak = TRUE	// Tell the humans spooky things about the afterlife
 	speak_emote = list("mumbles", "moans", "whispers", "laments", "screeches")
 
 	allow_spin = 0			// No spinning. Spinning breaks our floating animation.
-	no_spin_thrown = 1
+	no_spin_thrown = TRUE
 	del_on_death = TRUE
 
 	var/obj/item/possessed_item

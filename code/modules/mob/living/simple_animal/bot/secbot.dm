@@ -3,8 +3,8 @@
 	desc = "A little security robot.  He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
-	density = 0
-	anchored = 0
+	density = FALSE
+	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -27,22 +27,22 @@
 	var/threatlevel = 0
 	var/target_lastloc //Loc of target when arrested.
 	var/last_found //There's a delay
-	var/declare_arrests = 1 //When making an arrest, should it notify everyone on the security channel?
-	var/idcheck = 0 //If true, arrest people with no IDs
-	var/weaponscheck = 0 //If true, arrest people for weapons if they lack access
-	var/check_records = 1 //Does it check security records?
-	var/arrest_type = 0 //If true, don't handcuff
-	var/harmbaton = 0 //If true, beat instead of stun
-	var/flashing_lights = 0 //If true, flash lights
-	var/prev_flashing_lights = 0
-	allow_pai = 0
+	var/declare_arrests = TRUE //When making an arrest, should it notify everyone on the security channel?
+	var/idcheck = FALSE //If true, arrest people with no IDs
+	var/weaponscheck = FALSE //If true, arrest people for weapons if they lack access
+	var/check_records = TRUE //Does it check security records?
+	var/arrest_type = FALSE //If true, don't handcuff
+	var/harmbaton = FALSE //If true, beat instead of stun
+	var/flashing_lights = FALSE //If true, flash lights
+	var/prev_flashing_lights = FALSE
+	allow_pai = FALSE
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
 	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey."
-	idcheck = 0
-	weaponscheck = 0
-	auto_patrol = 1
+	idcheck = FALSE
+	weaponscheck = FALSE
+	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/turf/Tsec = get_turf(src)
@@ -60,26 +60,26 @@
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
 	desc = "It's Prison Ofitser! Powered by the tears and sweat of prisoners."
-	idcheck = 0
-	weaponscheck = 1
-	auto_patrol = 1
+	idcheck = FALSE
+	weaponscheck = TRUE
+	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/buzzsky
 	name = "Officer Buzzsky"
 	desc = "It's Officer Buzzsky! Rusted and falling apart, he seems less than thrilled with the crew for leaving him in his current state."
 	base_icon = "rustbot"
 	icon_state = "rustbot0"
-	declare_arrests = 0
-	arrest_type = 1
-	harmbaton = 1
+	declare_arrests = FALSE
+	arrest_type = TRUE
+	harmbaton = TRUE
 	emagged = 2
 
 /mob/living/simple_animal/bot/secbot/armsky
 	name = "Sergeant-at-Armsky"
 	health = 45
-	idcheck = 1
-	arrest_type = 1
-	weaponscheck = 1
+	idcheck = TRUE
+	arrest_type = TRUE
+	weaponscheck = TRUE
 
 /mob/living/simple_animal/bot/secbot/New()
 	..()
@@ -106,7 +106,7 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = 0
+	anchored = FALSE
 	walk_to(src,0)
 	last_found = world.time
 
@@ -203,7 +203,7 @@
 			to_chat(user, "<span class='danger'>You short out [src]'s target assessment circuits.</span>")
 			oldtarget_name = user.name
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
-		declare_arrests = 0
+		declare_arrests = FALSE
 		icon_state = "[base_icon][on]"
 
 /mob/living/simple_animal/bot/secbot/bullet_act(obj/item/projectile/Proj)
@@ -318,7 +318,7 @@
 					stun_attack(target)
 
 					mode = BOT_PREP_ARREST
-					anchored = 1
+					anchored = TRUE
 					target_lastloc = target.loc
 					return
 
@@ -351,7 +351,7 @@
 
 		if(BOT_ARREST)
 			if(!target)
-				anchored = 0
+				anchored = FALSE
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
@@ -366,7 +366,7 @@
 				return
 			else //Try arresting again if the target escapes.
 				mode = BOT_PREP_ARREST
-				anchored = 0
+				anchored = FALSE
 
 		if(BOT_START_PATROL)
 			look_for_perp()
@@ -380,7 +380,7 @@
 	return
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_idle()
-	anchored = 0
+	anchored = FALSE
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -389,7 +389,7 @@
 		handle_automated_action() //ensure bot quickly responds
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
-	anchored = 0
+	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
 	spawn(0)
@@ -397,7 +397,7 @@
 // look for a criminal in view of the bot
 
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
-	anchored = 0
+	anchored = FALSE
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
