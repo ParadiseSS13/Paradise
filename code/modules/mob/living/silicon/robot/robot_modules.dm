@@ -464,7 +464,7 @@
 			if(!IS_HORIZONTAL(cleaned_human))
 				continue
 			cleaned_human.clean_blood()
-			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
+			to_chat(cleaned_human, span_danger("[src] cleans your face!"))
 
 /obj/item/reagent_containers/spray/cyborg_lube
 	name = "Lube spray"

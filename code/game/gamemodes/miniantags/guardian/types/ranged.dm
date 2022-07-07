@@ -37,7 +37,7 @@
 			range = 13
 			incorporeal_move = 0
 			can_strip = TRUE
-			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
+			to_chat(src, span_danger("You switch to combat mode."))
 			toggle = FALSE
 		else
 			ranged = FALSE
@@ -49,10 +49,10 @@
 			range = 255
 			incorporeal_move = 1
 			can_strip = FALSE  //spiritual pickpocketting is forbidden
-			to_chat(src, "<span class='danger'>You switch to scout mode.</span>")
+			to_chat(src, span_danger("You switch to scout mode."))
 			toggle = TRUE
 	else
-		to_chat(src, "<span class='danger'>You have to be recalled to toggle modes!</span>")
+		to_chat(src, span_danger("You have to be recalled to toggle modes!"))
 
 /mob/living/simple_animal/hostile/guardian/ranged/ToggleLight()
 	var/msg
@@ -84,9 +84,9 @@
 		S.spawner = src
 		S.name = "[get_area(snare_loc)] trap ([rand(1, 1000)])"
 		snares |= S
-		to_chat(src, "<span class='danger'>Surveillance trap deployed!</span>")
+		to_chat(src, span_danger("Surveillance trap deployed!"))
 	else
-		to_chat(src, "<span class='danger'>You have too many traps deployed. Delete some first.</span>")
+		to_chat(src, span_danger("You have too many traps deployed. Delete some first."))
 
 /mob/living/simple_animal/hostile/guardian/ranged/verb/DisarmSnare()
 	set name = "Remove Surveillance Trap"
@@ -96,7 +96,7 @@
 	if(picked_snare)
 		snares -= picked_snare
 		qdel(picked_snare)
-		to_chat(src, "<span class='danger'>Snare disarmed.</span>")
+		to_chat(src, span_danger("Snare disarmed."))
 
 /obj/item/effect/snare
 	name = "snare"
@@ -114,8 +114,8 @@
 	if(isliving(AM))
 		var/turf/snare_loc = get_turf(loc)
 		if(spawner)
-			to_chat(spawner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
+			to_chat(spawner, span_danger("[AM] has crossed your surveillance trap at [get_area(snare_loc)]."))
 			if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 				var/mob/living/simple_animal/hostile/guardian/G = spawner
 				if(G.summoner)
-					to_chat(G.summoner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
+					to_chat(G.summoner, span_danger("[AM] has crossed your surveillance trap at [get_area(snare_loc)]."))

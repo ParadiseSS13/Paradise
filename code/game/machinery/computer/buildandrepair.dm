@@ -405,7 +405,7 @@
 			format_board_name()
 			to_chat(user, span_notice("Access protocols set to [console_choice]."))
 		else
-			to_chat(user, "<span class='warning'>Access Denied</span>")
+			to_chat(user, span_warning("Access Denied"))
 		return
 	return ..()
 
@@ -433,12 +433,12 @@
 
 /obj/structure/computerframe/AltClick(mob/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='warning'>The frame is anchored to the floor!</span>")
+		to_chat(user, span_warning("The frame is anchored to the floor!"))
 		return
 	setDir(turn(dir, 90))
 
@@ -553,7 +553,7 @@
 
 			var/obj/item/circuitboard/B = I
 			if(B.board_type != "computer")
-				to_chat(user, "<span class='warning'>[src] does not accept circuit boards of this type!</span>")
+				to_chat(user, span_warning("[src] does not accept circuit boards of this type!"))
 				return
 
 			B.play_tool_sound(src)
@@ -572,7 +572,7 @@
 
 			var/obj/item/stack/cable_coil/C = I
 			if(C.get_amount() < 5)
-				to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
+				to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
 				return
 
 			C.play_tool_sound(src)
@@ -580,7 +580,7 @@
 			if(!do_after(user, 2 SECONDS * C.toolspeed, target = src))
 				return
 			if(C.get_amount() < 5 || !C.use(5))
-				to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
+				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
 				return
 
 			to_chat(user, span_notice("You add cables to the frame."))
@@ -594,7 +594,7 @@
 
 			var/obj/item/stack/sheet/glass/G = I
 			if(G.get_amount() < 2)
-				to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
+				to_chat(user, span_warning("You need two sheets of glass for this."))
 				return
 
 			G.play_tool_sound(src)
@@ -602,7 +602,7 @@
 			if(!do_after(user, 2 SECONDS * G.toolspeed, target = src))
 				return
 			if(G.get_amount() < 2 || !G.use(2))
-				to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")
+				to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))
 				return
 
 			to_chat(user, span_notice("You put in the glass panel."))

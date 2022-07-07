@@ -4,7 +4,7 @@
 
 /datum/martial_combo/krav_maga/neck_chop/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-	target.visible_message("<span class='warning'>[user] karate chops [target]'s neck!</span>", \
+	target.visible_message(span_warning("[user] karate chops [target]'s neck!"), \
 		"<span class='userdanger'>[user] karate chops your neck, rendering you unable to speak for a short time!</span>")
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	target.apply_damage(5, BRUTE, BODY_ZONE_HEAD)

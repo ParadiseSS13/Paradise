@@ -49,7 +49,7 @@
 			marked_item = 		null
 
 		else if(marked_item && !marked_item.loc) //the item was destroyed at some point
-			message = "<span class='warning'>You sense your marked item has been destroyed!</span>"
+			message = span_warning("You sense your marked item has been destroyed!")
 			name = "Instant Summons"
 			marked_item = 		null
 
@@ -62,7 +62,7 @@
 					var/mob/M = item_to_retrieve.loc
 
 					if(issilicon(M) || !M.unEquip(item_to_retrieve)) //Items in silicons warp the whole silicon
-						M.visible_message("<span class='warning'>[M] suddenly disappears!</span>", "<span class='danger'>A force suddenly pulls you away!</span>")
+						M.visible_message(span_warning("[M] suddenly disappears!"), span_danger("A force suddenly pulls you away!"))
 						M.forceMove(target.loc)
 						M.loc.visible_message("<span class='caution'>[M] suddenly appears!</span>")
 						item_to_retrieve = null
@@ -81,7 +81,7 @@
 							var/obj/item/organ/external/part = X
 							if(item_to_retrieve in part.embedded_objects)
 								part.remove_embedded_object(item_to_retrieve)
-								to_chat(C, "<span class='warning'>\The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
+								to_chat(C, span_warning("\The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!"))
 								if(!C.has_embedded_objects())
 									C.clear_alert("embeddedobject")
 								break
@@ -100,7 +100,7 @@
 			if(!item_to_retrieve)
 				return
 
-			item_to_retrieve.loc.visible_message("<span class='warning'>\The [item_to_retrieve] suddenly disappears!</span>")
+			item_to_retrieve.loc.visible_message(span_warning("\The [item_to_retrieve] suddenly disappears!"))
 
 
 			if(target.hand) //left active hand

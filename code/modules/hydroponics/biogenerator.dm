@@ -79,7 +79,7 @@
 		return ..()
 
 	if(processing)
-		to_chat(user, "<span class='warning'>The biogenerator is currently processing.</span>")
+		to_chat(user, span_warning("The biogenerator is currently processing."))
 		return
 
 	if(default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", O))
@@ -100,7 +100,7 @@
 		. = 1 //no afterattack
 		if(!panel_open)
 			if(beaker)
-				to_chat(user, "<span class='warning'>A container is already loaded into the machine.</span>")
+				to_chat(user, span_warning("A container is already loaded into the machine."))
 			else
 				if(!user.drop_item())
 					return
@@ -110,7 +110,7 @@
 				update_icon()
 				updateUsrDialog()
 		else
-			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
+			to_chat(user, span_warning("Close the maintenance panel first."))
 		return
 
 	else if(istype(O, /obj/item/storage/bag/plants))
@@ -119,7 +119,7 @@
 		for(var/obj/item/reagent_containers/food/snacks/grown/G in contents)
 			i++
 		if(i >= max_items)
-			to_chat(user, "<span class='warning'>The biogenerator is already full! Activate it.</span>")
+			to_chat(user, span_warning("The biogenerator is already full! Activate it."))
 		else
 			for(var/obj/item/reagent_containers/food/snacks/grown/G in PB.contents)
 				if(i >= max_items)
@@ -139,7 +139,7 @@
 		for(var/obj/item/reagent_containers/food/snacks/grown/G in contents)
 			i++
 		if(i >= max_items)
-			to_chat(user, "<span class='warning'>The biogenerator is full! Activate it.</span>")
+			to_chat(user, span_warning("The biogenerator is full! Activate it."))
 		else
 			user.unEquip(O)
 			O.forceMove(src)
@@ -156,7 +156,7 @@
 		processing = 0
 		return 1
 	else
-		to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
+		to_chat(user, span_warning("You cannot put this in [name]!"))
 
 /obj/machinery/biogenerator/interact(mob/user)
 	if(stat & BROKEN || panel_open)
@@ -224,7 +224,7 @@
 	if(stat != 0) //NOPOWER etc
 		return
 	if(processing)
-		to_chat(usr, "<span class='warning'>The biogenerator is in the process of working.</span>")
+		to_chat(usr, span_warning("The biogenerator is in the process of working."))
 		return
 	var/S = 0
 	for(var/obj/item/reagent_containers/food/snacks/grown/I in contents)

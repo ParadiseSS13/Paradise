@@ -21,7 +21,7 @@
 	if(!iscarbon(user)) //Look ma, no hands
 		return
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't reach out!</span>")
+		to_chat(user, span_warning("You can't reach out!"))
 		return
 	..()
 
@@ -97,7 +97,7 @@
 		return
 
 	if(iswizard(target))
-		to_chat(user, "<span class='warning'>The spell has no effect on [target].</span>")
+		to_chat(user, span_warning("The spell has no effect on [target]."))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new

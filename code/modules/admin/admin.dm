@@ -56,12 +56,12 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			for(var/mob/O in GLOB.mob_list)
 				if(O.ckey && O.ckey == ckey_to_find)
 					if(admin_to_notify)
-						to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob.</span>")
+						to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob."))
 						return O
 			if(admin_to_notify)
-				to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error.</span>")
+				to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error."))
 		else if(admin_to_notify)
-			to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: No mob or ckey detected.</span>")
+			to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: No mob or ckey detected."))
 	return M
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels

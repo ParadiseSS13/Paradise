@@ -27,7 +27,7 @@
 	playsound(get_turf(user), sound1, 50, 1, -1)
 	for(var/mob/living/target in targets)
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
-			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
+			to_chat(target, span_warning("You are somehow too bound to your current location to abandon it."))
 			continue
 		INVOKE_ASYNC(src, .proc/do_jaunt, target)
 
@@ -105,7 +105,7 @@
 	if(can_move(newLoc))
 		forceMove(newLoc)
 	else
-		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
+		to_chat(user, span_warning("Something is blocking the way!"))
 	movedelay = world.time + movespeed
 
 /obj/effect/dummy/spell_jaunt/proc/can_move(turf/T)

@@ -105,7 +105,7 @@
 	M.unbuckle_all_mobs(force = TRUE) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
 	if(M.buckle_mob(src, force = TRUE))
 		layer = M.layer + 0.01 //appear above the target mob
-		M.visible_message("<span class='danger'>[name] has latched onto [M]!</span>", \
+		M.visible_message(span_danger("[name] has latched onto [M]!"), \
 						"<span class='userdanger'>[name] has latched onto [M]!</span>")
 	else
 		to_chat(src, "<span class='warning'><i>I have failed to latch onto the subject!</i></span>")
@@ -118,7 +118,7 @@
 			"I am not satisified", "I can not feed from this subject", \
 			"I do not feel nourished", "This subject is not food")]!</span>")
 		if(!silent)
-			visible_message("<span class='warning'>[src] has let go of [buckled]!</span>", \
+			visible_message(span_warning("[src] has let go of [buckled]!"), \
 							"<span class='notice'><i>I stopped feeding.</i></span>")
 		layer = initial(layer)
 		buckled.unbuckle_mob(src,force=TRUE)

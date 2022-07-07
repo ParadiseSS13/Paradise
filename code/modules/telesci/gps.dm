@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
 		return //user not valid to use gps
 	if(emped)
-		to_chat(user, "<span class='warning'>It's busted!</span>")
+		to_chat(user, span_warning("It's busted!"))
 		return
 
 	tracking = !tracking

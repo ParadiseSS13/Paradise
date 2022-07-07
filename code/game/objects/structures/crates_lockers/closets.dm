@@ -208,7 +208,7 @@
 /obj/structure/closet/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!opened && user.loc == src)
-		to_chat(user, "<span class='warning'>You can't weld [src] from inside!</span>")
+		to_chat(user, span_warning("You can't weld [src] from inside!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -220,7 +220,7 @@
 			return
 	else
 		var/adjective = welded ? "open" : "shut"
-		user.visible_message(span_notice("[user] begins welding [src] [adjective]..."), span_notice("You begin welding [src] [adjective]..."), "<span class='warning'>You hear welding.</span>")
+		user.visible_message(span_notice("[user] begins welding [src] [adjective]..."), span_notice("You begin welding [src] [adjective]..."), span_warning("You hear welding."))
 		if(I.use_tool(src, user, 15, volume = I.tool_volume))
 			if(opened)
 				to_chat(user, span_notice("Keep [src] shut while doing that!"))
@@ -250,7 +250,7 @@
 		return
 	step_towards(O, loc)
 	if(user != O)
-		user.visible_message("<span class='danger'>[user] stuffs [O] into [src]!</span>", "<span class='danger'>You stuff [O] into [src]!</span>")
+		user.visible_message(span_danger("[user] stuffs [O] into [src]!"), span_danger("You stuff [O] into [src]!"))
 	add_fingerprint(user)
 
 /obj/structure/closet/attack_ai(mob/user)
@@ -296,7 +296,7 @@
 		add_fingerprint(usr)
 		toggle(usr)
 		return
-	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+	to_chat(usr, span_warning("This mob type can't use this verb."))
 
 /obj/structure/closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	if(!opened)
@@ -338,9 +338,9 @@
 	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
 
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
+	to_chat(L, span_warning("You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)"))
 	for(var/mob/O in viewers(usr.loc))
-		O.show_message("<span class='danger'>[src] begins to shake violently!</span>", 1)
+		O.show_message(span_danger("[src] begins to shake violently!"), 1)
 
 
 	spawn(0)
@@ -355,9 +355,9 @@
 			//Well then break it!
 			welded = FALSE
 			update_icon()
-			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
+			to_chat(usr, span_warning("You successfully break out!"))
 			for(var/mob/O in viewers(L.loc))
-				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
+				O.show_message(span_danger("\the [usr] successfully broke out of \the [src]!"), 1)
 			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)

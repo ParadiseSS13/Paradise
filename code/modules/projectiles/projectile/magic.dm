@@ -39,7 +39,7 @@
 			target.adjustFireLoss(6969)  //remember - slimes love fire
 		target.death(FALSE)
 
-		target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
+		target.visible_message(span_danger("[target] topples backwards as the death bolt impacts [target.p_them()]!"))
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -84,7 +84,7 @@
 	if(ismob(target))
 		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
 			target.death(FALSE)
-			target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
+			target.visible_message(span_danger("[target] topples backwards as the death bolt impacts [target.p_them()]!"))
 		else
 			var/old_stat = target.stat
 			target.suiciding = FALSE
@@ -305,7 +305,7 @@
 				S.icon = change.icon
 				if(H.mind)
 					H.mind.transfer_to(S)
-					to_chat(S, "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>")
+					to_chat(S, span_warning("You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!"))
 					to_chat(S, "<span class='userdanger'>Do not harm [firer.name], your creator.</span>")
 				H = change
 				H.loc = S
@@ -340,7 +340,7 @@
 	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
 		if(!R.incapacitated())
-			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
+			to_chat(target, span_warning("You get splatted by [src], HONKING your sensors!"))
 			R.Stun(slip_stun)
 	else if(isliving(target))
 		var/mob/living/L = target

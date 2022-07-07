@@ -47,10 +47,10 @@
 /obj/machinery/kitchen_machine/grill/special_attack(obj/item/grab/G, mob/user)
 	if(ishuman(G.affecting))
 		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, span_warning("You need a better grip to do that!"))
 			return 0
 		var/mob/living/carbon/human/C = G.affecting
-		C.visible_message("<span class='danger'>[user] forces [C] onto [src], searing [C]'s body!</span>", \
+		C.visible_message(span_danger("[user] forces [C] onto [src], searing [C]'s body!"), \
 						"<span class='userdanger'>[user] forces you onto [src]! It burns!</span>")
 		C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)

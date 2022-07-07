@@ -117,12 +117,12 @@
 
 /obj/effect/dummy/chameleon/attackby()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
+		to_chat(M, span_danger("Your [src] deactivates."))
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_hand()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
+		to_chat(M, span_danger("Your [src] deactivates."))
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_animal()
@@ -136,14 +136,14 @@
 
 /obj/effect/dummy/chameleon/ex_act(severity) //no longer bomb-proof
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
+		to_chat(M, span_danger("Your [src] deactivates."))
 		spawn()
 			M.ex_act(severity)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/bullet_act()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
+		to_chat(M, span_danger("Your [src] deactivates."))
 	..()
 	master.disrupt()
 
@@ -201,9 +201,9 @@
 		if(isturf(user.loc))
 			toggle(user)
 		else
-			to_chat(user, "<span class='warning'>You can't use [src] while inside something!</span>")
+			to_chat(user, span_warning("You can't use [src] while inside something!"))
 	else
-		to_chat(user, "<span class='warning'>You need at least [activationCost] charge in your cell to use [src]!</span>")
+		to_chat(user, span_warning("You need at least [activationCost] charge in your cell to use [src]!"))
 
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
@@ -218,7 +218,7 @@
 			to_chat(user, span_notice("You are now disguised as a Nanotrasen engineering cyborg."))
 			activate(user)
 		else
-			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
+			to_chat(user, span_warning("The chameleon field fizzles."))
 			do_sparks(3, FALSE, user)
 		remove_wibbly_filters(user)
 
@@ -250,5 +250,5 @@
 
 /obj/item/borg_chameleon/proc/disrupt(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
-		to_chat(user, "<span class='danger'>Your chameleon field deactivates.</span>")
+		to_chat(user, span_danger("Your chameleon field deactivates."))
 		deactivate(user)

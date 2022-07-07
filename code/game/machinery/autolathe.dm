@@ -174,21 +174,21 @@
 			var/datum/design/design_last_ordered
 			design_last_ordered = locateUID(params["make"])
 			if(!istype(design_last_ordered))
-				to_chat(usr, "<span class='warning'>Invalid design</span>")
+				to_chat(usr, span_warning("Invalid design"))
 				return
 			if(!(design_last_ordered.id in files.known_designs))
-				to_chat(usr, "<span class='warning'>Invalid design (not in autolathe's known designs, report this error.)</span>")
+				to_chat(usr, span_warning("Invalid design (not in autolathe's known designs, report this error.)"))
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/coeff = get_coeff(design_last_ordered)
 			if(design_last_ordered.materials["$metal"] / coeff > materials.amount(MAT_METAL))
-				to_chat(usr, "<span class='warning'>Invalid design (not enough metal)</span>")
+				to_chat(usr, span_warning("Invalid design (not enough metal)"))
 				return
 			if(design_last_ordered.materials["$glass"] / coeff > materials.amount(MAT_GLASS))
-				to_chat(usr, "<span class='warning'>Invalid design (not enough glass)</span>")
+				to_chat(usr, span_warning("Invalid design (not enough glass)"))
 				return
 			if(!hacked && ("hacked" in design_last_ordered.category))
-				to_chat(usr, "<span class='warning'>Invalid design (lathe requires hacking)</span>")
+				to_chat(usr, span_warning("Invalid design (lathe requires hacking)"))
 				return
 			//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 			var/multiplier = text2num(params["multiplier"])
@@ -203,7 +203,7 @@
 			if((queue.len + 1) < queue_max_len)
 				add_to_queue(design_last_ordered, multiplier)
 			else
-				to_chat(usr, "<span class='warning'>The autolathe queue is full!</span>")
+				to_chat(usr, span_warning("The autolathe queue is full!"))
 			if(!busy)
 				busy = TRUE
 				process_queue()
@@ -266,11 +266,11 @@
 				var/datum/design/design = D.blueprint // READ ONLY!!
 
 				if(design.id in files.known_designs)
-					to_chat(user, "<span class='warning'>This design has already been loaded into the autolathe.</span>")
+					to_chat(user, span_warning("This design has already been loaded into the autolathe."))
 					return 1
 
 				if(!files.CanAddDesign2Known(design))
-					to_chat(user, "<span class='warning'>This design is not compatible with the autolathe.</span>")
+					to_chat(user, span_warning("This design is not compatible with the autolathe."))
 					return 1
 				user.visible_message("[user] begins to load \the [O] in \the [src]...",
 					"You begin to load a design from \the [O]...",
@@ -284,11 +284,11 @@
 					SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 				busy = FALSE
 			else
-				to_chat(user, "<span class='warning'>That disk does not have a design on it!</span>")
+				to_chat(user, span_warning("That disk does not have a design on it!"))
 			return 1
 		else
 			// So that people who are bad at computers don't shred their disks
-			to_chat(user, "<span class='warning'>This is not the correct type of disk for the autolathe!</span>")
+			to_chat(user, span_warning("This is not the correct type of disk for the autolathe!"))
 			return 1
 
 	return ..()

@@ -252,7 +252,7 @@ Class Procs:
 				message_admins("set_tag HREF (var attempted to edit: [href_list["set_tag"]]) exploit attempted by [key_name_admin(user)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				return FALSE
 			if(!(href_list["set_tag"] in vars))
-				to_chat(usr, "<span class='warning'>Something went wrong: Unable to find [href_list["set_tag"]] in vars!</span>")
+				to_chat(usr, span_warning("Something went wrong: Unable to find [href_list["set_tag"]] in vars!"))
 				return FALSE
 			var/current_tag = vars[href_list["set_tag"]]
 			var/newid = copytext(reject_bad_text(input(usr, "Specify the new value", src, current_tag) as null|text),1,MAX_MESSAGE_LEN)
@@ -269,13 +269,13 @@ Class Procs:
 			if(!O)
 				return FALSE
 			if(!canLink(O))
-				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
+				to_chat(usr, span_warning("You can't link with that device."))
 				return FALSE
 
 			if(unlinkFrom(usr, O))
 				to_chat(usr, span_notice("A green light flashes on \the [P], confirming the link was removed."))
 			else
-				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.</span>")
+				to_chat(usr, span_warning("A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices."))
 			update_mt_menu = TRUE
 
 		if("link" in href_list)
@@ -283,16 +283,16 @@ Class Procs:
 			if(!O)
 				return FALSE
 			if(!canLink(O,href_list))
-				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
+				to_chat(usr, span_warning("You can't link with that device."))
 				return FALSE
 			if(isLinkedWith(O))
-				to_chat(usr, "<span class='warning'>A red light flashes on \the [P]. The two devices are already linked.</span>")
+				to_chat(usr, span_warning("A red light flashes on \the [P]. The two devices are already linked."))
 				return FALSE
 
 			if(linkWith(usr, O, href_list))
 				to_chat(usr, span_notice("A green light flashes on \the [P], confirming the link was added."))
 			else
-				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when linking the two devices.</span>")
+				to_chat(usr, span_warning("A red light flashes on \the [P].  It appears something went wrong when linking the two devices."))
 			update_mt_menu = TRUE
 
 		if("buffer" in href_list)
@@ -366,16 +366,16 @@ Class Procs:
 		return TRUE
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return TRUE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
-			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")
+			visible_message(span_warning("[H] stares cluelessly at [src] and drools."))
 			return TRUE
 		else if(prob(H.getBrainLoss()))
-			to_chat(user, "<span class='warning'>You momentarily forget how to use [src].</span>")
+			to_chat(user, span_warning("You momentarily forget how to use [src]."))
 			return TRUE
 
 	if(panel_open)
@@ -486,7 +486,7 @@ Class Procs:
 		if(being_repaired)
 			return
 		if(N.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
+			to_chat(user, span_warning("You don't have enough to complete this task!"))
 			return
 		to_chat(user, span_notice("You start applying [O] to [src]."))
 		being_repaired = TRUE
@@ -495,7 +495,7 @@ Class Procs:
 		if(!result)
 			return
 		if(!N.use(1))
-			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
+			to_chat(user, span_warning("You don't have enough to complete this task!")) // this is here, as we don't want to use nanopaste until you finish applying
 			return
 		obj_integrity = min(obj_integrity + 50, max_integrity)
 		user.visible_message(span_notice("[user] applied some [O] at [src]'s damaged areas."),\
@@ -558,7 +558,7 @@ Class Procs:
 		. += span_notice("It looks broken and non-functional.")
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			. += "<span class='warning'>It's on fire!</span>"
+			. += span_warning("It's on fire!")
 		var/healthpercent = (obj_integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
@@ -566,7 +566,7 @@ Class Procs:
 			if(25 to 50)
 				. +=  "It appears heavily damaged."
 			if(0 to 25)
-				. +=  "<span class='warning'>It's falling apart!</span>"
+				. +=  span_warning("It's falling apart!")
 	if(user.research_scanner && component_parts)
 		. += display_parts(user)
 
@@ -665,7 +665,7 @@ Class Procs:
  */
 /obj/machinery/proc/can_use_shortcut(mob/living/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return FALSE
 	if(ishuman(user) && in_range(src, user))
 		return TRUE

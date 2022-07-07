@@ -23,9 +23,9 @@
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
-		. += "<span class='warning'>[src] appears to be floating without any support!</span>"
+		. += span_warning("[src] appears to be floating without any support!")
 	else
-		. += "<span class='warning'>[src] appears to be having trouble staying afloat!</span>"
+		. += span_warning("[src] appears to be having trouble staying afloat!")
 
 
 /mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
@@ -35,7 +35,7 @@
 
 /mob/living/simple_animal/possessed_object/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
 	if(show_message)
-		to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
+		to_chat(src, span_warning("You are unable to pull [AM]!"))
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.

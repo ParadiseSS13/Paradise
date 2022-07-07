@@ -38,7 +38,7 @@
 	if(!iscultist(user))
 		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
-		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
+		user.visible_message(span_warning("A powerful force shoves [user] away from [target]!"),
 							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -52,12 +52,12 @@
 	. = ..()
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
-		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
+		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.Confused(20 SECONDS)
 		user.Jitter(12 SECONDS)
 
 	if(HAS_TRAIT(user, TRAIT_HULK))
-		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
+		to_chat(user, span_danger("You can't seem to hold the blade properly!"))
 		user.unEquip(src, TRUE)
 
 /obj/item/restraints/legcuffs/bola/cult
@@ -71,7 +71,7 @@
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
-		hit_atom.visible_message("<span class='warning'>[src] bounces off of [hit_atom], as if repelled by an unseen force!</span>")
+		hit_atom.visible_message(span_warning("[src] bounces off of [hit_atom], as if repelled by an unseen force!"))
 		return
 	. = ..()
 
@@ -157,14 +157,14 @@
 	..()
 	if(!iscultist(user)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
-		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
+		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.unEquip(src, 1)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(current_charges && !owner.holy_check())
-		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
+		owner.visible_message(span_danger("[attack_text] is deflected in a burst of blood-red sparks!"))
 		current_charges--
 		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
@@ -173,7 +173,7 @@
 			if(P.shield_buster)
 				current_charges = 0 //Change it to remove 3 charges if it ever has its max shield limit increased above 3.
 		if(!current_charges)
-			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
+			owner.visible_message(span_danger("The runed shield around [owner] suddenly disappears!"))
 			shield_state = "broken"
 			owner.update_inv_wear_suit()
 		return TRUE
@@ -203,7 +203,7 @@
 	..()
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
-		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
+		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.unEquip(src, 1)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
@@ -286,20 +286,20 @@
 	if(!iscultist(user))
 		user.unEquip(src, 1)
 		user.Weaken(10 SECONDS)
-		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
+		to_chat(user, span_warning("A powerful force shoves you away from [src]!"))
 		return
 	if(curselimit > 1)
 		to_chat(user, span_notice("We have exhausted our ability to curse the shuttle."))
 		return
 	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
-		to_chat(user, "<span class='danger'>Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
+		to_chat(user, span_danger("Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things."))
 		return
 
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 3 MINUTES
 		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
 		SSshuttle.emergency.setTimer(timer)
-		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
+		to_chat(user,span_danger("You shatter the orb! A dark essence spirals into the air, then disappears."))
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
 		var/message = pick(CULT_CURSES)
@@ -331,12 +331,12 @@
 /obj/item/cult_shift/attack_self(mob/user)
 
 	if(!uses || !iscarbon(user))
-		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
+		to_chat(user, span_warning("[src] is dull and unmoving in your hands."))
 		return
 	if(!iscultist(user))
 		user.unEquip(src, TRUE)
 		step(src, pick(GLOB.alldirs))
-		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
+		to_chat(user, span_warning("[src] flickers out of your hands, too eager to move!"))
 		return
 	if(user.holy_check())
 		return
@@ -374,7 +374,7 @@
 		playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	else
-		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
+		to_chat(C, span_danger("The veil cannot be torn here!"))
 
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
@@ -451,7 +451,7 @@
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	// Incase they get one by some magic
 	if(!SSticker.cultdat.mirror_shields_active)
-		to_chat(owner, "<span class='warning'>This shield is powerless! You must perform the required sacrifice to empower it!</span>")
+		to_chat(owner, span_warning("This shield is powerless! You must perform the required sacrifice to empower it!"))
 		return
 
 	if(iscultist(owner) && !owner.holy_check()) // Cultist holding the shield
@@ -473,7 +473,7 @@
 
 			if(prob(shatter_chance) || P.shield_buster)
 				var/turf/T = get_turf(owner)
-				T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
+				T.visible_message(span_warning("The sheer force from [P] shatters the mirror shield!"))
 				new /obj/effect/temp_visual/cult/sparks(T)
 				playsound(T, 'sound/effects/glassbr3.ogg', 100)
 				owner.Weaken(6 SECONDS)
@@ -510,7 +510,7 @@
 		else
 			H.Copy_Parent(user, 100, 20, 5)
 			H.GiveTarget(user)
-			to_chat(user, "<span class='danger'>[src] betrays you!</span>")
+			to_chat(user, span_danger("[src] betrays you!"))
 	else
 		var/mob/living/simple_animal/hostile/illusion/escape/cult/E = new(user.loc)
 		E.Copy_Parent(user, 70, 10)
@@ -571,9 +571,9 @@
 		if(iscultist(L))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			if(!L.restrained() && L.put_in_active_hand(src))
-				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
+				L.visible_message(span_warning("[L] catches [src] out of the air!"))
 			else
-				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
+				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
 		else if(!..())
 			if(!L.null_rod_check())
 				L.Weaken(6 SECONDS)
@@ -585,7 +585,7 @@
 	if(!T)
 		T = get_turf(src)
 	if(T)
-		T.visible_message("<span class='warning'>[src] shatters and melts back into blood!</span>")
+		T.visible_message(span_warning("[src] shatters and melts back into blood!"))
 		new /obj/effect/temp_visual/cult/sparks(T)
 		new /obj/effect/decal/cleanable/blood/splatter(T)
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
@@ -596,12 +596,12 @@
 		final_block_chance *= 2
 	if(prob(final_block_chance))
 		if(attack_type == PROJECTILE_ATTACK)
-			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
+			owner.visible_message(span_danger("[owner] deflects [attack_text] with [src]!"))
 			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, TRUE)
 			return TRUE
 		else
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
-			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+			owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
 			return TRUE
 	return FALSE
 
@@ -623,13 +623,13 @@
 	var/ST = get_turf(spear)
 	var/OT = get_turf(owner)
 	if(get_dist(OT, ST) > 10)
-		to_chat(owner,"<span class='warning'>The spear is too far away!</span>")
+		to_chat(owner,span_warning("The spear is too far away!"))
 	else
 		cooldown = world.time + 20
 		if(isliving(spear.loc))
 			var/mob/living/L = spear.loc
 			L.unEquip(spear)
-			L.visible_message("<span class='warning'>An unseen force pulls the blood spear from [L]'s hands!</span>")
+			L.visible_message(span_warning("An unseen force pulls the blood spear from [L]'s hands!"))
 		spear.throw_at(owner, 10, 2, null)
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
@@ -702,7 +702,7 @@
 			return
 		var/mob/living/carbon/M = user
 		to_chat(M, "<span class='cultlarge'>\"So, you want to explore space?\"</span>")
-		to_chat(M, "<span class='warning'>Space flashes around you as you are moved somewhere else!</span>")
+		to_chat(M, span_warning("Space flashes around you as you are moved somewhere else!"))
 		M.Confused(20 SECONDS)
 		M.flash_eyes(override_blindness_check = TRUE)
 		M.EyeBlind(20 SECONDS)
@@ -712,10 +712,10 @@
 
 	if(istype(O, /obj/effect/rune))
 		if(!istype(O, /obj/effect/rune/teleport))
-			to_chat(user, "<span class='warning'>[src] only works on teleport runes.</span>")
+			to_chat(user, span_warning("[src] only works on teleport runes."))
 			return
 		if(!proximity)
-			to_chat(user, "<span class='warning'>You are too far away from the teleport rune.</span>")
+			to_chat(user, span_warning("You are too far away from the teleport rune."))
 			return
 		var/obj/effect/rune/teleport/R = O
 		attempt_portal(R, user)
@@ -740,7 +740,7 @@
 		potential_runes[result_key] = target
 
 	if(!length(potential_runes))
-		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
+		to_chat(user, span_warning("There are no valid runes to teleport to!"))
 		return
 
 	if(!is_level_reachable(user.z))

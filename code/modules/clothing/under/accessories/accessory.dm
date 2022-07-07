@@ -176,7 +176,7 @@
 						color = "warning"
 				to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
 		else
-			to_chat(user, "<span class='warning'>You don't hear anything.</span>")
+			to_chat(user, span_warning("You don't hear anything."))
 		return
 	return ..(M,user)
 
@@ -285,8 +285,8 @@
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>",
-		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
+		user.visible_message(span_warning("[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security."),
+		span_warning("You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security."))
 
 /obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -305,21 +305,21 @@
 			name = "holobadge ([stored_name])"
 			desc = "This glowing blue badge marks [stored_name] as THE LAW."
 		else
-			to_chat(user, "<span class='warning'>[src] rejects your insufficient access rights.</span>")
+			to_chat(user, span_warning("[src] rejects your insufficient access rights."))
 		return
 	..()
 
 /obj/item/clothing/accessory/holobadge/emag_act(mob/user)
 	if(emagged)
-		to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
+		to_chat(user, span_warning("[src] is already cracked."))
 	else
 		emagged = TRUE
-		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
+		to_chat(user, span_warning("You swipe the card and crack the holobadge security checks."))
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
-		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are the law.</span>")
+		user.visible_message(span_warning("[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently."),
+		span_warning("You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are the law."))
 
 //////////////
 //OBJECTION!//
@@ -682,9 +682,9 @@
 				name = "[initial(name)] - [tagname]"
 		if("Remove ID")
 			if(access_id)
-				user.visible_message("<span class='warning'>[user] starts unclipping \the [access_id] from \the [src].</span>")
+				user.visible_message(span_warning("[user] starts unclipping \the [access_id] from \the [src]."))
 				if(do_after(user, 50, target = user) && access_id)
-					user.visible_message("<span class='warning'>[user] unclips \the [access_id] from \the [src].</span>")
+					user.visible_message(span_warning("[user] unclips \the [access_id] from \the [src]."))
 					access_id.forceMove(get_turf(user))
 					user.put_in_hands(access_id)
 					access_id = null
@@ -693,7 +693,7 @@
 	if(!istype(W))
 		return ..()
 	if(access_id)
-		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto \the [src]</span>")
+		to_chat(user, span_warning("There is already \a [access_id] clipped onto \the [src]"))
 	user.drop_item()
 	W.forceMove(src)
 	access_id = W

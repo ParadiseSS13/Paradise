@@ -275,7 +275,7 @@
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
 	if(disabled)
-		to_chat(user, "<span class='warning'>[src] is disabled and rebooting!</span>")
+		to_chat(user, span_warning("[src] is disabled and rebooting!"))
 		return
 	if(active)
 		to_chat(user, span_notice("[src] is now active."))
@@ -338,7 +338,7 @@
 	if(reaction_check(hitby) && is_teleport_allowed(owner.z))
 		var/mob/living/carbon/human/H = owner
 		if(do_teleport(owner, owner, 6, safe_turf_pick = TRUE)) //Teleport on the same spot with a precision of 6 gets a random tile near the owner.
-			owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
+			owner.visible_message(span_danger("The reactive teleport system flings [H] clear of [attack_text]!"))
 			return TRUE
 		return FALSE
 	return FALSE
@@ -353,7 +353,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby))
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out jets of flame!</span>")
+		owner.visible_message(span_danger("[src] blocks [attack_text], sending out jets of flame!"))
 		for(var/mob/living/carbon/C in range(6, owner))
 			if(C != owner)
 				C.fire_stacks += 8
@@ -375,7 +375,7 @@
 		E.Copy_Parent(owner, 50)
 		E.GiveTarget(owner) //so it starts running right away
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
-		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
+		owner.visible_message(span_danger("[owner] is hit by [attack_text] in the chest!")) //We pretend to be hit, since blocking it would stop the message otherwise
 		owner.make_invisible()
 		addtimer(CALLBACK(owner, /mob/living/.proc/reset_visibility), 4 SECONDS)
 		return TRUE
@@ -388,7 +388,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby))
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
+		owner.visible_message(span_danger("[src] blocks [attack_text], sending out arcs of lightning!"))
 		for(var/mob/living/M in view(6, owner))
 			if(M == owner)
 				continue
@@ -413,7 +413,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby))
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
+		owner.visible_message(span_danger("[src] blocks [attack_text], converting the attack into a wave of force!"))
 		var/list/thrown_atoms = list()
 		for(var/turf/T in range(repulse_range, owner)) //Done this way so things don't get thrown all around hilariously.
 			for(var/atom/movable/AM in T)

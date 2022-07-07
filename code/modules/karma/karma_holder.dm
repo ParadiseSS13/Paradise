@@ -101,7 +101,7 @@
 	))
 
 	if(!insert_query.warn_execute())
-		to_chat(usr, "<span class='warning'>Failed to purchase [package.friendly_name]. Please contact the server host.</span>")
+		to_chat(usr, span_warning("Failed to purchase [package.friendly_name]. Please contact the server host."))
 		qdel(insert_query)
 		return
 
@@ -143,7 +143,7 @@
 	))
 
 	if(!insert_query.warn_execute())
-		to_chat(user, "<span class='warning'>Failed to refund [package.friendly_name]. Please contact the server host.</span>")
+		to_chat(user, span_warning("Failed to refund [package.friendly_name]. Please contact the server host."))
 		qdel(insert_query)
 		return
 
@@ -214,11 +214,11 @@
 		if("makepurchase")
 			var/purchase_id = params["id"]
 			if(!(purchase_id in GLOB.karma_packages))
-				to_chat(usr, "<span class='warning'>That isnt a purchaseable package. What the heck? Please make an issue report.</span>")
+				to_chat(usr, span_warning("That isnt a purchaseable package. What the heck? Please make an issue report."))
 				return FALSE
 			var/datum/karma_package/kp = GLOB.karma_packages[purchase_id]
 			if(kp.refundable)
-				to_chat(usr, "<span class='warning'>That isnt a purchaseable package. What the heck? Please make an issue report.</span>")
+				to_chat(usr, span_warning("That isnt a purchaseable package. What the heck? Please make an issue report."))
 				return FALSE
 
 			make_purchase(kp)

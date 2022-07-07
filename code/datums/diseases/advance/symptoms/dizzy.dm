@@ -31,7 +31,7 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
-				to_chat(M, "<span class='warning'>[pick("You feel dizzy.", "Your head spins.")]</span>")
+				to_chat(M, span_warning("[pick("You feel dizzy.", "Your head spins.")]"))
 			else
 				to_chat(M, "<span class='userdanger'>A wave of dizziness washes over you!</span>")
 				M.Dizzy(10 SECONDS)

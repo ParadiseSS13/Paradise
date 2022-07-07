@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	. = ..()
 	emitted_light = new(loc)
 	visible_message("<span class='boldannounce'>The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!</span>")
-	visible_message("<span class='warning'>Something falls free of the tendril!</span>")
+	visible_message(span_warning("Something falls free of the tendril!"))
 	playsound(loc, 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
 	addtimer(CALLBACK(src, .proc/collapse), 50)
 

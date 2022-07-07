@@ -37,7 +37,7 @@
 				to_chat(user, "<span class='boldnotice'>VOID-Shift</span> translocation successful")
 
 			if("No")
-				to_chat(user, "<span class='danger'>Process aborted!</span>")
+				to_chat(user, span_danger("Process aborted!"))
 				return
 
 			else

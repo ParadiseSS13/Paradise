@@ -39,7 +39,7 @@
 
 /obj/item/newspaper/attack_self(mob/user)
 	if(rolled)
-		to_chat(user, "<span class='warning'>Unroll it first!</span>")
+		to_chat(user, span_warning("Unroll it first!"))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
@@ -124,7 +124,7 @@
 		human_user << browse(dat, "window=newspaper_main;size=300x400")
 		onclose(human_user, "newspaper_main")
 	else
-		to_chat(user, "<span class='warning'>The paper is full of unintelligible symbols!</span>")
+		to_chat(user, span_warning("The paper is full of unintelligible symbols!"))
 
 /obj/item/newspaper/Topic(href, href_list)
 	if(..())
@@ -157,7 +157,7 @@
 /obj/item/newspaper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
 		if(rolled)
-			to_chat(user, "<span class='warning'>Unroll it first!</span>")
+			to_chat(user, span_warning("Unroll it first!"))
 			return
 		if(scribble_page == curr_page)
 			to_chat(user, span_notice("There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?"))

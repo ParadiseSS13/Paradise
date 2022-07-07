@@ -533,17 +533,17 @@
 				M.visible_message(span_notice("[M.name] stares at into [src] while sitting perfectly still."), span_notice("The lid is closed, so you stare into [src] intently."))
 			else
 				if(fish_count)								//Tank must actually have fish to try catching one
-					M.visible_message("<span class='warning'>[M.name] leaps up onto [src] and attempts to fish through the opening!</span>", span_notice("You jump up onto [src] and begin fishing through the opening!"))
+					M.visible_message(span_warning("[M.name] leaps up onto [src] and attempts to fish through the opening!"), span_notice("You jump up onto [src] and begin fishing through the opening!"))
 					if(water_level && prob(45))			//If there is water, there is a chance the cat will slip, Syndicat will spark like E-N when this happens
 						M.visible_message(span_notice("[M.name] slipped and got soaked!"), span_notice("You slipped and got soaked!"))
 						if(istype(M, /mob/living/simple_animal/pet/cat/Syndi))
 							do_sparks(3, 1, src)
 					else								//No water or didn't slip, get that fish!
-						M.visible_message("<span class='warning'>[M.name] catches and devours a live fish!</span>", span_notice("You catch and devour a live fish, yum!"))
+						M.visible_message(span_warning("[M.name] catches and devours a live fish!"), span_notice("You catch and devour a live fish, yum!"))
 						kill_fish()						//Kill a random fish
 						M.health = M.maxHealth			//Eating fish heals the predator
 				else
-					to_chat(M, "<span class='warning'>There are no fish in [src]!</span>")
+					to_chat(M, span_warning("There are no fish in [src]!"))
 		else
 			return ..()
 	else if(istype(M, /mob/living/simple_animal/hostile/bear))
@@ -552,15 +552,15 @@
 				M.visible_message(span_notice("[M.name] scrapes it's claws along [src]'s lid."), span_notice("The lid is closed, so you scrape your claws against [src]'s lid."))
 			else
 				if(fish_count)								//Tank must actually have fish to try catching one
-					M.visible_message("<span class='warning'>[M.name] reaches into [src] and attempts to fish through the opening!</span>", "<span class='warning'>You reach into [src] and begin fishing through the opening!</span>")
+					M.visible_message(span_warning("[M.name] reaches into [src] and attempts to fish through the opening!"), span_warning("You reach into [src] and begin fishing through the opening!"))
 					if(water_level && prob(5))			//Bears are good at catching fish, only a 5% chance to fail
-						M.visible_message("<span class='warning'>[M.name] swipes at the water!</span>", span_notice("You just barely missed that fish!"))
+						M.visible_message(span_warning("[M.name] swipes at the water!"), span_notice("You just barely missed that fish!"))
 					else								//No water or didn't slip, get that fish!
-						M.visible_message("<span class='warning'>[M.name] catches and devours a live fish!</span>", span_notice("You catch and devour a live fish, yum!"))
+						M.visible_message(span_warning("[M.name] catches and devours a live fish!"), span_notice("You catch and devour a live fish, yum!"))
 						kill_fish()						//Kill a random fish
 						M.health = M.maxHealth			//Eating fish heals the predator
 				else
-					to_chat(M, "<span class='warning'>There are no fish in [src]!</span>")
+					to_chat(M, span_warning("There are no fish in [src]!"))
 		else
 			return ..()
 	else
@@ -572,8 +572,8 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, TRUE)
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message("<span class='danger'>[user] bangs against [src]!</span>",
-							"<span class='danger'>You bang against [src]!</span>",
+		user.visible_message(span_danger("[user] bangs against [src]!"),
+							span_danger("You bang against [src]!"),
 							"You hear a banging sound.")
 	else
 		user.visible_message(span_notice("[user] taps on [src]."),
@@ -651,7 +651,7 @@
 		var/obj/item/fish_eggs/egg = O
 		//Don't add eggs if there is no water (they kinda need that to live)
 		if(!water_level)
-			to_chat(user, "<span class='warning'>[src] has no water; [egg.name] won't hatch without water!</span>")
+			to_chat(user, span_warning("[src] has no water; [egg.name] won't hatch without water!"))
 		else
 			//Don't add eggs if the tank already has the max number of fish
 			if(fish_count >= max_fish)
@@ -692,7 +692,7 @@
 	//Tank brush
 	else if(istype(O, /obj/item/tank_brush))
 		if(filth_level == 0)
-			to_chat(user, "<span class='warning'>[src] is already spotless!</span>")
+			to_chat(user, span_warning("[src] is already spotless!"))
 		else
 			adjust_filth_level(-filth_level)
 			user.visible_message(span_notice("[user.name] scrubs the inside of [src], cleaning the filth."), span_notice("You scrub the inside of [src], cleaning the filth."))
@@ -702,7 +702,7 @@
 /obj/machinery/fishtank/wrench_act(mob/user, obj/item/I) //Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
 	. = TRUE
 	if(water_level)
-		to_chat(user, "<span class='warning'>[src] must be empty before you disassemble it!</span>")
+		to_chat(user, span_warning("[src] must be empty before you disassemble it!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return

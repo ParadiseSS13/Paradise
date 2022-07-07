@@ -47,9 +47,9 @@
 		return
 	var/mob/living/carbon/human/H = usr
 	if(H.mind.miming)
-		still_recharging_msg = "<span class='warning'>You can't break your vow of silence that fast!</span>"
+		still_recharging_msg = span_warning("You can't break your vow of silence that fast!")
 	else
-		still_recharging_msg = "<span class='warning'>You'll have to wait before you can give your vow of silence again!</span>"
+		still_recharging_msg = span_warning("You'll have to wait before you can give your vow of silence again!")
 	..()
 
 /obj/effect/proc_holder/spell/mime/speak/cast(list/targets,mob/user = usr)

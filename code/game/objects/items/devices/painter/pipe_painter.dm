@@ -28,7 +28,7 @@
 
 	var/turf/T = get_turf(P)
 	if(P.level < 2 && T.level == 1 && T.intact && !T.transparent_floor)
-		to_chat(user, "<span class='warning'>You must remove the flooring first.</span>")
+		to_chat(user, span_warning("You must remove the flooring first."))
 		return
 
 	P.change_color(GLOB.pipe_colors[paint_setting])

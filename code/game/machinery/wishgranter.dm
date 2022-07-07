@@ -18,18 +18,18 @@
 		return ..()
 
 	if(charges <= 0)
-		to_chat(user, "<span class='warning'>The Wish Granter lies silent.</span>")
+		to_chat(user, span_warning("The Wish Granter lies silent."))
 		return TRUE
 
 	else if(!ishuman(user))
-		to_chat(user, "<span class='warning'>You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's..</span>")
+		to_chat(user, span_warning("You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's.."))
 		return
 
 	else if(is_special_character(user))
-		to_chat(user, "<span class='warning'>Even to a heart as dark as yours, you know nothing good will come of this. Something instinctual makes you pull away.</span>")
+		to_chat(user, span_warning("Even to a heart as dark as yours, you know nothing good will come of this. Something instinctual makes you pull away."))
 
 	else if(!insisting)
-		to_chat(user, "<span class='warning'>Your first touch makes the Wish Granter stir, listening to you. Are you really sure you want to do this?</span>")
+		to_chat(user, span_warning("Your first touch makes the Wish Granter stir, listening to you. Are you really sure you want to do this?"))
 		insisting = TRUE
 
 	else
@@ -58,7 +58,7 @@
 		return TRUE
 
 	if(is_special_character(user) || jobban_isbanned(user, ROLE_TRAITOR) || jobban_isbanned(user, ROLE_SYNDICATE))
-		to_chat(user, "<span class='warning'>Something instinctual makes you pull away.</span>")
+		to_chat(user, span_warning("Something instinctual makes you pull away."))
 		return TRUE
 
 	to_chat(user, span_notice("Your touch makes the Wish Granter stir. Are you really sure you want to do this?"))
@@ -77,7 +77,7 @@
 
 	var/datum/superheroes/S = GLOB.all_superheroes[wish]
 	if(S.activated)
-		to_chat(user,"<span class='warning'>There can only be one! Pick something else!</span>")
+		to_chat(user,span_warning("There can only be one! Pick something else!"))
 		return
 
 	S.create(user)

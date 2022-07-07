@@ -41,11 +41,11 @@
 
 	if(method == REAGENT_TOUCH)
 		if(H.wear_mask)
-			to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+			to_chat(H, span_danger("Your [H.wear_mask] protects you from the acid!"))
 			return
 
 		if(H.head)
-			to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+			to_chat(H, span_danger("Your [H.wear_mask] protects you from the acid!"))
 			return
 
 		if(volume > 25)

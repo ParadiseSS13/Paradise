@@ -39,7 +39,7 @@
 /obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	if(placing)
 		if(containedpen)
-			to_chat(user, "<span class='warning'>There's already a pen in [src]!</span>")
+			to_chat(user, span_warning("There's already a pen in [src]!"))
 			return
 		if(!is_pen(P))
 			return
@@ -49,7 +49,7 @@
 		containedpen = P
 	else
 		if(!containedpen)
-			to_chat(user, "<span class='warning'>There isn't a pen in [src] for you to remove!</span>")
+			to_chat(user, span_warning("There isn't a pen in [src] for you to remove!"))
 			return
 		to_chat(user, span_notice("You remove [containedpen] from [src]."))
 		user.put_in_hands(containedpen)

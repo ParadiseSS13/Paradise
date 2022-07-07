@@ -28,7 +28,7 @@
 	if(target.buckled)
 		return
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head.</span>")
+		to_chat(user, span_warning("[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head."))
 		return
 	visible_message(span_notice("[user] puts [target] into [src]."))
 
@@ -129,11 +129,11 @@
 		sleep(5)
 		switch(text2num(type))
 			if(1)
-				to_chat(H, "<span class='warning'>You feel violated.</span>")
+				to_chat(H, span_warning("You feel violated."))
 			if(2)
-				to_chat(H, "<span class='warning'>You feel yourself being sliced apart and put back together.</span>")
+				to_chat(H, span_warning("You feel yourself being sliced apart and put back together."))
 			if(3)
-				to_chat(H, "<span class='warning'>You feel intensely watched.</span>")
+				to_chat(H, span_warning("You feel intensely watched."))
 		sleep(5)
 		to_chat(H, "<span class='warning'><b>Your mind snaps!</b></span>")
 		to_chat(H, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
@@ -190,7 +190,7 @@
 			to_chat(user, span_notice("[src] is already occupied!"))
 			return
 		if(grabbed.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head.</span>")
+			to_chat(user, span_warning("[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head."))
 			return
 		visible_message(span_notice("[user] puts [grabbed.affecting] into [src]."))
 		var/mob/living/carbon/human/H = grabbed.affecting

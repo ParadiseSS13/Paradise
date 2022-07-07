@@ -90,14 +90,14 @@
 		SStgui.close_uis(src)
 	else
 		used = FALSE
-		to_chat(H, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
+		to_chat(H, span_warning("Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later."))
 
 /obj/item/contract/attack_self(mob/user as mob)
 	if(..())
 		return
 
 	if(used)
-		to_chat(user, "<span class='warning'> You've already summoned an apprentice or you are in process of summoning one. </span>")
+		to_chat(user, span_warning(" You've already summoned an apprentice or you are in process of summoning one. "))
 		return
 
 	ui_interact(user)
@@ -126,7 +126,7 @@
 		charged = 0
 		user.visible_message("<span class='userdanger'>[src] hums with power as [user] deals a blow to [activate_descriptor] itself!</span>")
 	else
-		to_chat(user, "<span class='danger'>The unearthly energies that powered the blade are now dormant.</span>")
+		to_chat(user, span_danger("The unearthly energies that powered the blade are now dormant."))
 
 
 /obj/effect/rend
@@ -162,7 +162,7 @@
 
 /obj/effect/rend/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/nullrod))
-		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
+		user.visible_message(span_danger("[user] seals \the [src] with \the [I]."))
 		qdel(src)
 		return
 	return ..()
@@ -246,7 +246,7 @@
 
 /obj/item/scrying/attack_self(mob/user as mob)
 	to_chat(user, span_notice(" You can see...everything!"))
-	visible_message("<span class='danger'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>")
+	visible_message(span_danger("[user] stares into [src], [user.p_their()] eyes glazing over."))
 	user.ghostize(1)
 
 /////////////////////Multiverse Blade////////////////////
@@ -285,13 +285,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
 	if(M.real_name == user.real_name)
-		to_chat(user, "<span class='warning'>[src] detects benevolent energies in your target and redirects your attack!</span>")
+		to_chat(user, span_warning("[src] detects benevolent energies in your target and redirects your attack!"))
 		return
 	..()
 
 /obj/item/multisword/attack_self(mob/user)
 	if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
-		to_chat(user, "<span class='warning'>You know better than to touch your teacher's stuff.</span>")
+		to_chat(user, span_warning("You know better than to touch your teacher's stuff."))
 		return
 	if(cooldown < world.time)
 		var/faction_check = 0
@@ -665,17 +665,17 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 
 	if(M.stat != DEAD)
-		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
+		to_chat(user, span_warning("This artifact can only affect the dead!"))
 		return
 
 	if((!M.mind || !M.client) && !M.grab_ghost())
-		to_chat(user,"<span class='warning'>There is no soul connected to this body...</span>")
+		to_chat(user,span_warning("There is no soul connected to this body..."))
 		return
 
 	check_spooky()//clean out/refresh the list
 
 	if(spooky_scaries.len >= 3 && !unlimited)
-		to_chat(user, "<span class='warning'>This artifact can only affect three undead at a time!</span>")
+		to_chat(user, span_warning("This artifact can only affect three undead at a time!"))
 		return
 	if(heresy)
 		spawnheresy(M)//oh god why
@@ -887,7 +887,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if("head")
 				to_chat(user, span_notice("You smack the doll's head with your hand."))
 				target.Dizzy(20 SECONDS)
-				to_chat(target, "<span class='warning'>You suddenly feel as if your head was hit with a hammer!</span>")
+				to_chat(target, span_warning("You suddenly feel as if your head was hit with a hammer!"))
 				GiveHint(target,user)
 		cooldown = world.time + cooldown_time
 

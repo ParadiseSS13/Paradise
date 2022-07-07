@@ -90,22 +90,22 @@
 		return FALSE //something is terribly wrong
 
 	if(jobban_isbanned(src, "nonhumandept") || jobban_isbanned(src, "Drone"))
-		to_chat(usr, "<span class='warning'>You are banned from playing drones, and cannot spawn as one.</span>")
+		to_chat(usr, span_warning("You are banned from playing drones, and cannot spawn as one."))
 		return
 
 	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(src, "<span class='warning'>You can't join as a drone before the game starts!</span>")
+		to_chat(src, span_warning("You can't join as a drone before the game starts!"))
 		return
 
 	var/player_age_check = check_client_age(usr.client, 14) // 14 days to play as a drone
 	if(player_age_check && GLOB.configuration.gamemode.antag_account_age_restriction)
-		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
+		to_chat(usr, span_warning("This role is not yet available to you. You need to wait another [player_age_check] days."))
 		return
 
 	var/pt_req = role_available_in_playtime(client, "Drone")
 	if(pt_req)
 		var/pt_req_string = get_exp_format(pt_req)
-		to_chat(usr, "<span class='warning'>This role is not yet available to you. Play another [pt_req_string] to unlock it.</span>")
+		to_chat(usr, span_warning("This role is not yet available to you. Play another [pt_req_string] to unlock it."))
 		return
 
 	var/deathtime = world.time - timeofdeath
@@ -113,7 +113,7 @@
 	if(isobserver(src))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
-			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			to_chat(usr, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
 			return
 		if(G.started_as_observer == TRUE)
 			joinedasobserver = TRUE
@@ -130,7 +130,7 @@
 
 	if(deathtime < 6000 && joinedasobserver == 0)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, "<span class='warning'>You must wait 10 minutes to respawn as a drone!</span>")
+		to_chat(usr, span_warning("You must wait 10 minutes to respawn as a drone!"))
 		return
 
 	if(alert("Are you sure you want to respawn as a drone?", "Are you sure?", "Yes", "No") != "Yes")
@@ -141,14 +141,14 @@
 			continue
 
 		if(DF.count_drones() >= MAX_MAINT_DRONES)
-			to_chat(src, "<span class='warning'>There are too many active drones in the world for you to spawn.</span>")
+			to_chat(src, span_warning("There are too many active drones in the world for you to spawn."))
 			return
 
 		if(DF.drone_progress >= 100)
 			DF.create_drone(client)
 			return
 
-	to_chat(src, "<span class='warning'>There are no available drone spawn points, sorry.</span>")
+	to_chat(src, span_warning("There are no available drone spawn points, sorry."))
 
 #undef DRONE_BUILD_TIME
 #undef MAX_MAINT_DRONES

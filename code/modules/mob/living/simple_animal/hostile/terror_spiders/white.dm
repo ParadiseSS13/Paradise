@@ -43,13 +43,13 @@
 	L.attack_animal(src)
 	if(L.IsStunned() || L.IsParalyzed() || L.can_inject(null, FALSE, inject_target, FALSE))
 		if(!IsTSInfected(L) && ishuman(L))
-			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
+			visible_message(span_danger("[src] buries its long fangs deep into the [inject_target] of [L]!"))
 			new /obj/item/organ/internal/body_egg/terror_eggs(L)
 			if(!ckey)
 				LoseTarget()
 				walk_away(src,L,2,1)
 		else if(prob(25))
-			visible_message("<span class='danger'>[src] pounces on [L]!</span>")
+			visible_message(span_danger("[src] pounces on [L]!"))
 			L.Weaken(10 SECONDS)
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
@@ -67,5 +67,5 @@
 		if(!IsTSInfected(C) && ishuman(C))
 			var/inject_target = pick("chest","head")
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
-				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
+				to_chat(C, span_danger("[src] slices into you!"))
 				new /obj/item/organ/internal/body_egg/terror_eggs(C)

@@ -274,7 +274,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		user.show_message(span_notice("CO2: [round(co2_concentration*100)] % ([round(air_contents.carbon_dioxide,0.01)] moles)"), 1)
 		user.show_message(span_notice("Plasma: [round(plasma_concentration*100)] % ([round(air_contents.toxins,0.01)] moles)"), 1)
 		if(unknown_concentration>0.01)
-			user.show_message("<span class='danger'>Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)</span>", 1)
+			user.show_message(span_danger("Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)"), 1)
 		user.show_message(span_notice("Total: [round(total_moles,0.01)] moles"), 1)
 		user.show_message(span_notice("Temperature: [round(air_contents.temperature-T0C)] &deg;C"), 1)
 	else

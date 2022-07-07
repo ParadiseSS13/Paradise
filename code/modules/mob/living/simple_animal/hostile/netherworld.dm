@@ -92,7 +92,7 @@
 	if(isskeleton(user))
 		to_chat(user, span_notice("You don't feel like going home yet..."))
 	else
-		user.visible_message("<span class='warning'>[user] is violently pulled into the link!</span>", \
+		user.visible_message(span_warning("[user] is violently pulled into the link!"), \
 							"<span class='userdanger'>Touching the portal, you are quickly pulled through into a world of unimaginable horror!</span>")
 		contents.Add(user)
 
@@ -107,5 +107,5 @@
 				blank = new(loc)
 				blank.name = "[M]"
 				blank.desc = "It's [M], but [M.p_their()] flesh has an ashy texture, and [M.p_their()] face is featureless save an eerie smile."
-				visible_message("<span class='warning'>[M] reemerges from the link!</span>")
+				visible_message(span_warning("[M] reemerges from the link!"))
 				qdel(M)

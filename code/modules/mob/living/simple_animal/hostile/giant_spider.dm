@@ -227,7 +227,7 @@
 						C.pixel_x = L.pixel_x
 						C.pixel_y = L.pixel_y
 						fed++
-						visible_message("<span class='danger'>\the [src] sticks a proboscis into \the [L] and sucks a viscous substance out.</span>")
+						visible_message(span_danger("\the [src] sticks a proboscis into \the [L] and sucks a viscous substance out."))
 
 						break
 					if(large_cocoon)
@@ -245,7 +245,7 @@
 	if(E)
 		to_chat(src, span_notice("There is already a cluster of eggs here!"))
 	else if(!fed)
-		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
+		to_chat(src, span_warning("You are too hungry to do this!"))
 	else if(busy != LAYING_EGGS)
 		busy = LAYING_EGGS
 		src.visible_message(span_notice("\the [src] begins to lay a cluster of eggs."))

@@ -37,7 +37,7 @@
 	if(iscultist(M))
 		if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
 			if(M == user) // Targeting yourself
-				to_chat(user, "<span class='warning'>You can't remove holy water from yourself!</span>")
+				to_chat(user, span_warning("You can't remove holy water from yourself!"))
 			else // Targeting someone else
 				to_chat(user, "<span class='cult'>You remove the taint from [M].</span>")
 				to_chat(M, "<span class='cult'>[user] removes the taint from your body.</span>")
@@ -50,7 +50,7 @@
 
 /obj/item/melee/cultblade/dagger/attack_self(mob/user)
 	if(!iscultist(user))
-		to_chat(user, "<span class='warning'>[src] is covered in unintelligible shapes and markings.</span>")
+		to_chat(user, span_warning("[src] is covered in unintelligible shapes and markings."))
 		return
 	scribe_rune(user)
 
@@ -85,14 +85,14 @@
 	if(!src || !user || loc != user || user.incapacitated())
 		return FALSE
 	if(drawing_rune)
-		to_chat(user, "<span class='warning'>You're already drawing a rune!</span>")
+		to_chat(user, span_warning("You're already drawing a rune!"))
 		return FALSE
 
 	var/turf/T = get_turf(user)
 	if(isspaceturf(T))
 		return FALSE
 	if((locate(/obj/effect/rune) in T) || (locate(/obj/effect/rune/narsie) in range(1, T)))
-		to_chat(user, "<span class='warning'>There's already a rune here!</span>")
+		to_chat(user, span_warning("There's already a rune here!"))
 		return FALSE
 	return TRUE
 
@@ -164,7 +164,7 @@
 	H.cult_self_harm(initial(rune.scribe_damage))
 	var/others_message
 	if(!narsie_rune)
-		others_message = "<span class='warning'>[user] cuts [user.p_their()] body and begins writing in [user.p_their()] own blood!</span>"
+		others_message = span_warning("[user] cuts [user.p_their()] body and begins writing in [user.p_their()] own blood!")
 	else
 		others_message = "<span class='biggerdanger'>[user] cuts [user.p_their()] body and begins writing something particularly ominous in [user.p_their()] own blood!</span>"
 	user.visible_message(others_message,
@@ -181,7 +181,7 @@
 	if(!scribe_successful)
 		return
 
-	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
+	user.visible_message(span_warning("[user] creates a strange circle in [user.p_their()] own blood."),
 						 "<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
 
 	var/obj/effect/rune/R = new rune(runeturf, keyword)

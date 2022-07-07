@@ -27,7 +27,7 @@
 		return
 	if(user && imp)
 		if(M != user)
-			M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>")
+			M.visible_message(span_warning("[user] is attempting to implant [M]."))
 
 		var/turf/T = get_turf(M)
 		if(T && (M == user || do_after(user, 50 * toolspeed, target = M)))

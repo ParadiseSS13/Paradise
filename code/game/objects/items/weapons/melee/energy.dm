@@ -39,7 +39,7 @@
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+		to_chat(user, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 		user.take_organ_damage(5,5)
 	active = !active
 	if(active)
@@ -206,7 +206,7 @@
 		if(hacked == 0)
 			hacked = 1
 			item_color = "rainbow"
-			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
+			to_chat(user, span_warning("RNBW_ENGAGE"))
 
 			if(active)
 				icon_state = "swordrainbow"
@@ -218,7 +218,7 @@
 					user.update_inv_l_hand()
 
 		else
-			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+			to_chat(user, span_warning("It's already fabulous!"))
 
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
@@ -298,7 +298,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(50))
-			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+			to_chat(H, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 			H.take_organ_damage(10,10)
 	active = !active
 	if(active)

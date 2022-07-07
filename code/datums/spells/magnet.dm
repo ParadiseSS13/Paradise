@@ -51,7 +51,7 @@
 /obj/effect/proc_holder/spell/charge_up/bounce/magnet/proc/try_throw_object(mob/user, mob/thrower, obj/item/to_throw)
 	if(!(to_throw.flags & CONDUCT) || !thrower.unEquip(to_throw, silent = TRUE))
 		return FALSE
-	thrower.visible_message("<span class='warning'>[to_throw] gets thrown out of [thrower] [thrower.p_their()] hands!</span>",
-		"<span class='danger'>[to_throw] suddenly gets thrown out of your hands!</span>")
+	thrower.visible_message(span_warning("[to_throw] gets thrown out of [thrower] [thrower.p_their()] hands!"),
+		span_danger("[to_throw] suddenly gets thrown out of your hands!"))
 	to_throw.throw_at(user, to_throw.throw_range, 4)
 	return TRUE

@@ -196,7 +196,7 @@
 	else
 		if(selfcharge)
 			if(ismob(loc))
-				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
+				to_chat(loc, span_danger("Your [src] deactivates, as it is out of range from its power source."))
 			cell.charge = 0
 			selfcharge = FALSE
 			update_icon()
@@ -243,7 +243,7 @@
 						P.open()
 						unlocked_something = 1
 				if(unlocked_something)
-					to_chat(user, "<span class='danger'>Activating the machine has unlocked a way forward!</span>")
+					to_chat(user, span_danger("Activating the machine has unlocked a way forward!"))
 		else
 			to_chat(user, span_notice("Your ID card already has all the access this machine can give."))
 		return

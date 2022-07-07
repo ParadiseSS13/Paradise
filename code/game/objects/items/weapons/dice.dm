@@ -147,7 +147,7 @@
 	. = ..()
 	if(!used)
 		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
-			to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans!</span>")
+			to_chat(user, span_warning("You feel the magic of the dice is restricted to ordinary humans!"))
 			return
 
 		if(!reusable)
@@ -160,7 +160,7 @@
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
-		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
+		to_chat(user, span_warning("You feel the magic of the dice is restricted to ordinary humans! You should leave it alone."))
 		user.unEquip(src)
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
@@ -353,7 +353,7 @@
 	. = ..()
 
 	if(result == 1)
-		to_chat(user, "<span class='danger'>Rocks fall, you die.</span>")
+		to_chat(user, span_danger("Rocks fall, you die."))
 		user.gib()
 		add_attack_logs(src, user, "detonated with a roll of [result], gibbing them!", ATKLOG_FEW)
 	else

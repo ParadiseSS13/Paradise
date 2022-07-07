@@ -23,11 +23,11 @@
 
 /obj/item/stack/tile/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 4)
-		to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
+		to_chat(user, span_warning("You need at least four tiles to do this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>You can not reform this!</span>")
+		to_chat(user, span_warning("You can not reform this!"))
 		return
 	if (mineralType == "metal")
 		var/obj/item/stack/sheet/metal/new_item = new(user.loc)

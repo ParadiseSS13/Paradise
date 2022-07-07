@@ -33,7 +33,7 @@
 	if(check_power_on())
 		active = TRUE
 	else
-		visible_message("<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
+		visible_message(span_warning("Error: Another relay is already active in this sector. Power-up cancelled due to radio interference."))
 	update_icon()
 	if(mapload && autolink_id)
 		return INITIALIZE_HINT_LATELOAD
@@ -182,7 +182,7 @@
 				if(linked_core)
 					linked_core.refresh_zlevels()
 			else
-				to_chat(usr, "<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
+				to_chat(usr, span_warning("Error: Another relay is already active in this sector. Power-up cancelled due to radio interference."))
 
 		// Set network ID
 		if("network_id")

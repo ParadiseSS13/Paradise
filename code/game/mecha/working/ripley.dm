@@ -203,4 +203,4 @@
 		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
 	else
-		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+		to_chat(user, span_warning("[src]'s ID slot rejects the card."))

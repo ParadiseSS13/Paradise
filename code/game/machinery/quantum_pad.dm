@@ -73,27 +73,27 @@
 
 /obj/machinery/quantumpad/attack_hand(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>The panel must be closed before operating this machine!</span>")
+		to_chat(user, span_warning("The panel must be closed before operating this machine!"))
 		return
 
 	if(!linked_pad || QDELETED(linked_pad))
-		to_chat(user, "<span class='warning'>There is no linked pad!</span>")
+		to_chat(user, span_warning("There is no linked pad!"))
 		return
 
 	if(world.time < last_teleport + teleport_cooldown)
-		to_chat(user, "<span class='warning'>[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds.</span>")
+		to_chat(user, span_warning("[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds."))
 		return
 
 	if(teleporting)
-		to_chat(user, "<span class='warning'>[src] is charging up. Please wait.</span>")
+		to_chat(user, span_warning("[src] is charging up. Please wait."))
 		return
 
 	if(linked_pad.teleporting)
-		to_chat(user, "<span class='warning'>Linked pad is busy. Please wait.</span>")
+		to_chat(user, span_warning("Linked pad is busy. Please wait."))
 		return
 
 	if(linked_pad.stat & NOPOWER)
-		to_chat(user, "<span class='warning'>Linked pad is not responding to ping.</span>")
+		to_chat(user, span_warning("Linked pad is not responding to ping."))
 		return
 	add_fingerprint(user)
 	doteleport(user)
@@ -115,11 +115,11 @@
 				teleporting = FALSE
 				return
 			if(stat & NOPOWER)
-				to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
+				to_chat(user, span_warning("[src] is unpowered!"))
 				teleporting = FALSE
 				return
 			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
-				to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
+				to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
 				teleporting = FALSE
 				return
 
@@ -151,4 +151,4 @@
 						continue
 				tele_success = do_teleport(ROI, get_turf(linked_pad))
 			if(!tele_success)
-				to_chat(user, "<span class='warning'>Teleport failed due to bluespace interference.</span>")
+				to_chat(user, span_warning("Teleport failed due to bluespace interference."))

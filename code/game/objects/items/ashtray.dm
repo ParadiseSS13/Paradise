@@ -56,7 +56,7 @@
 
 /obj/item/ashtray/throw_impact(atom/hit_atom)
 	if(contents.len)
-		visible_message("<span class='warning'>[src] slams into [hit_atom] spilling its contents!</span>")
+		visible_message(span_warning("[src] slams into [hit_atom] spilling its contents!"))
 	empty_tray()
 	return ..()
 

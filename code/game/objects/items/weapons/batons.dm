@@ -40,7 +40,7 @@
 
 	add_fingerprint(user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_them()]self with [src]!</span>", \
+		user.visible_message(span_danger("[user] accidentally clubs [user.p_them()]self with [src]!"), \
 							 "<span class='userdanger'>You accidentally club yourself with [src]!</span>")
 		user.KnockDown(knockdown_duration)
 		if(ishuman(user))
@@ -68,8 +68,8 @@
   */
 /obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
 	if(issilicon(target))
-		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
-							 "<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
+		user.visible_message(span_danger("[user] pulses [target]'s sensors with [src]!"),\
+							 span_danger("You pulse [target]'s sensors with [src]!"))
 		on_silicon_stun(target, user)
 	else
 		// Check for shield/countering
@@ -79,8 +79,8 @@
 				return FALSE
 			if(check_martial_counter(H, user))
 				return FALSE
-		user.visible_message("<span class='danger'>[user] knocks down [target] with [src]!</span>",\
-							 "<span class='danger'>You knock down [target] with [src]!</span>")
+		user.visible_message(span_danger("[user] knocks down [target] with [src]!"),\
+							 span_danger("You knock down [target] with [src]!"))
 		on_non_silicon_stun(target, user)
 	// Visuals and sound
 	user.do_attack_animation(target)
@@ -170,7 +170,7 @@
 	on = !on
 	icon_state = on ? icon_state_on : icon_state_off
 	if(on)
-		to_chat(user, "<span class='warning'>You extend [src].</span>")
+		to_chat(user, span_warning("You extend [src]."))
 		item_state = item_state_on
 		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
 		force = force_on //stunbaton damage

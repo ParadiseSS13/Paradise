@@ -51,7 +51,7 @@
 		REMOVE_TRAIT(M, thing, GENETIC_MUTATION)
 	if(length(deactivation_messages))
 		var/msg = pick(deactivation_messages)
-		to_chat(M, "<span class='warning'>[msg]</span>")
+		to_chat(M, span_warning("[msg]"))
 
 // This section inspired by goone's bioEffects.
 

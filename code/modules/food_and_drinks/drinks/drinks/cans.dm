@@ -54,7 +54,7 @@
 		addtimer(CALLBACK(src, .proc/reset_shakable), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		to_chat(H, span_notice("You start shaking up [src]."))
 		if(do_after(H, 1 SECONDS, target = H))
-			visible_message("<span class='warning'>[user] shakes up [src]!</span>")
+			visible_message(span_warning("[user] shakes up [src]!"))
 			if(times_shaken == 0)
 				times_shaken++
 				addtimer(CALLBACK(src, .proc/reset_shaken), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
@@ -65,7 +65,7 @@
 				addtimer(CALLBACK(src, .proc/reset_shaken), 20 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 				handle_bursting(user)
 	else
-		to_chat(H, "<span class='warning'>You need to hold [src] in order to shake it.</span>")
+		to_chat(H, span_warning("You need to hold [src] in order to shake it."))
 	return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
@@ -73,7 +73,7 @@
 		to_chat(user, span_notice("You need to open the drink!"))
 		return
 	else if(M == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
-		user.visible_message("<span class='warning'>[user] crushes [src] on [user.p_their()] forehead!</span>", span_notice("You crush [src] on your forehead."))
+		user.visible_message(span_warning("[user] crushes [src] on [user.p_their()] forehead!"), span_notice("You crush [src] on your forehead."))
 		crush(user)
 		return
 	return ..()
@@ -113,10 +113,10 @@
 	if(!burstopen && user)
 		to_chat(user, span_notice("You open the drink with an audible pop!"))
 	else
-		visible_message("<span class='warning'>[src] bursts open!</span>")
+		visible_message(span_warning("[src] bursts open!"))
 
 	if(times_shaken < 5)
-		visible_message("<span class='warning'>[src] fizzes violently!</span>")
+		visible_message(span_warning("[src] fizzes violently!"))
 	else
 		visible_message("<span class='boldwarning'>[src] erupts into foam!</span>")
 		if(reagents.total_volume)
@@ -125,7 +125,7 @@
 			sodafizz.start()
 
 	for(var/mob/living/carbon/C in range(1, get_turf(src)))
-		to_chat(C, "<span class='warning'>You are splattered with [name]!</span>")
+		to_chat(C, span_warning("You are splattered with [name]!"))
 		reagents.reaction(C, REAGENT_TOUCH)
 		C.wetlevel = max(C.wetlevel + 1, times_shaken)
 

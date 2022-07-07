@@ -177,8 +177,8 @@
 			take_organ_damage(10)
 			Stun(6 SECONDS)
 	flash_eyes(affect_silicon = 1)
-	to_chat(src, "<span class='danger'>*BZZZT*</span>")
-	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
+	to_chat(src, span_danger("*BZZZT*"))
+	to_chat(src, span_warning("Warning: Electromagnetic pulse detected."))
 
 
 /mob/living/silicon/proc/damage_mob(brute = 0, fire = 0, tox = 0)
@@ -202,7 +202,7 @@
 		to_chat(user, span_notice("Nothing to fix!"))
 		return
 	else if(!getBruteLoss(TRUE))
-		to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
+		to_chat(user, span_warning("The damaged components are beyond saving!"))
 		return
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return

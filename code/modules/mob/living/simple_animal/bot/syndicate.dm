@@ -48,7 +48,7 @@
 	update_icon()
 
 /mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	to_chat(user, "<span class='warning'>[src] has no accessible control panel!</span>")
+	to_chat(user, span_warning("[src] has no accessible control panel!"))
 	return
 
 /mob/living/simple_animal/bot/ed209/syndicate/ui_data(mob/user)
@@ -67,7 +67,7 @@
 	mode = BOT_HUNT
 
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>[src] has no card reader slot!</span>")
+	to_chat(user, span_warning("[src] has no card reader slot!"))
 
 /mob/living/simple_animal/bot/ed209/syndicate/ed209_ai()
 	var/turf/current_turf = get_turf(src)

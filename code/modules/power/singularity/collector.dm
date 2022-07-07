@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			user.visible_message("[user.name] turns the [name] [active ? "on" : "off"].", "You turn the [name] [active ? "on" : "off"].")
 			investigate_log("turned [active ? "<font color='green'>on</font>" : "<font color='red'>off</font>"] by [user.key]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins / 0.29)]%" : "<font color='red'>It is empty</font>"].", "singulo")
 		else
-			to_chat(user, "<span class='warning'>The controls are locked!</span>")
+			to_chat(user, span_warning("The controls are locked!"))
 
 
 /obj/machinery/power/rad_collector/attackby(obj/item/I, mob/user, params)
@@ -63,10 +63,10 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		atmosanalyzer_scan(loaded_tank.air_contents, user)
 	else if(istype(I, /obj/item/tank/internals/plasma))
 		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first.</span>")
+			to_chat(user, span_warning("[src] needs to be secured to the floor first."))
 			return TRUE
 		if(loaded_tank)
-			to_chat(user, "<span class='warning'>There's already a plasma tank loaded.</span>")
+			to_chat(user, span_warning("There's already a plasma tank loaded."))
 			return TRUE
 		if(user.drop_item())
 			loaded_tank = I
@@ -94,9 +94,9 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 				to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 			else
 				locked = FALSE //just in case it somehow gets locked
-				to_chat(user, "<span class='warning'>The controls can only be locked when [src] is active</span>")
+				to_chat(user, span_warning("The controls can only be locked when [src] is active"))
 		else
-			to_chat(user, "<span class='warning'>Access denied!</span>")
+			to_chat(user, span_warning("Access denied!"))
 			return TRUE
 	else
 		return ..()

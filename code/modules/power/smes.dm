@@ -147,7 +147,7 @@
 			return
 
 		if(user.loc == loc)
-			to_chat(user, "<span class='warning'>You must not be on the same tile as [src].</span>")
+			to_chat(user, span_warning("You must not be on the same tile as [src]."))
 			return
 
 		//Direction the terminal will face to
@@ -159,11 +159,11 @@
 				tempDir = WEST
 		var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
 		if(istype(tempLoc, /turf/space))
-			to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
+			to_chat(user, span_warning("You can't build a terminal on space."))
 			return
 		else if(istype(tempLoc))
 			if(tempLoc.intact)
-				to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
+				to_chat(user, span_warning("You must remove the floor plating first."))
 				return
 
 		to_chat(user, span_notice("You start adding cable to [src]."))
@@ -422,7 +422,7 @@
 	if(is_station_level(src.z))
 		if(prob(1)) //explosion
 			for(var/mob/M in viewers(src))
-				M.show_message("<span class='warning'>[src] is making strange noises!</span>", 3, "<span class='warning'>You hear sizzling electronics.</span>", 2)
+				M.show_message(span_warning("[src] is making strange noises!"), 3, span_warning("You hear sizzling electronics."), 2)
 			sleep(10*pick(4,5,6,7,10,14))
 			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(3, 0, src.loc)

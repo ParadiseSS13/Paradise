@@ -64,13 +64,13 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.dna.species.is_small)
-			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
+			to_chat(user, span_warning("It's too heavy for you to wield fully."))
 			return FALSE
 	if(user.get_inactive_hand())
-		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
+		to_chat(user, span_warning("You need your other hand to be empty!"))
 		return FALSE
 	if(!user.has_both_hands())
-		to_chat(user, "<span class='warning'>You need both hands to wield this!</span>")
+		to_chat(user, span_warning("You need both hands to wield this!"))
 		return FALSE
 	wielded = TRUE
 	force = force_wielded
@@ -147,7 +147,7 @@
 
 /obj/item/twohanded/required/mob_can_equip(mob/M, slot)
 	if(wielded && !slot_flags)
-		to_chat(M, "<span class='warning'>[src] is too cumbersome to carry with anything but your hands!</span>")
+		to_chat(M, span_warning("[src] is too cumbersome to carry with anything but your hands!"))
 		return FALSE
 	return ..()
 
@@ -255,7 +255,7 @@
 			var/mob/living/target = M
 			charge = 0
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
-			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
+			user.visible_message(span_danger("[user] slams the charged axe into [M.name] with all [user.p_their()] might!"))
 			do_sparks(1, 1, src)
 			target.Weaken(8 SECONDS)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
@@ -309,12 +309,12 @@
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HULK))
-		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
+		to_chat(user, span_warning("You grip the blade too hard and accidentally close it!"))
 		unwield()
 		return
 	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && prob(40))
-		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
+		to_chat(user, span_warning("You twirl around a bit before losing your balance and impaling yourself on [src]."))
 		user.take_organ_damage(20, 25)
 		return
 	if((wielded) && prob(50))
@@ -334,7 +334,7 @@
 
 /obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(wielded)
-		to_chat(user, "<span class='warning'>You can't pick up such a dangerous item with your meaty hands without losing fingers, better not to!</span>")
+		to_chat(user, span_warning("You can't pick up such a dangerous item with your meaty hands without losing fingers, better not to!"))
 		return TRUE
 
 /obj/item/twohanded/dualsaber/green
@@ -362,7 +362,7 @@
 
 /obj/item/twohanded/dualsaber/wield(mob/living/carbon/M) //Specific wield () hulk checks due to reflection chance for balance issues and switches hitsounds.
 	if(HAS_TRAIT(M, TRAIT_HULK))
-		to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
+		to_chat(M, span_warning("You lack the grace to wield this!"))
 		return
 	. = ..()
 	if(!.)
@@ -376,11 +376,11 @@
 		return
 	if(!hacked)
 		hacked = TRUE
-		to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
+		to_chat(user, span_warning("2XRNBW_ENGAGE"))
 		blade_color = "rainbow"
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
+		to_chat(user, span_warning("It's starting to look like a triple rainbow - no, nevermind."))
 
 //spears
 /obj/item/twohanded/spear
@@ -508,7 +508,7 @@
 	return ..()
 
 /obj/structure/headspear/attack_hand(mob/living/user)
-	user.visible_message("<span class='warning'>[user] kicks over [src]!</span>", "<span class='danger'>You kick down [src]!</span>")
+	user.visible_message(span_warning("[user] kicks over [src]!"), span_danger("You kick down [src]!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	var/turf/T = get_turf(src)
 	if(contained_spear)
@@ -577,13 +577,13 @@
 
 /obj/item/twohanded/required/chainsaw/doomslayer
 	name = "OOOH BABY"
-	desc = "<span class='warning'>VRRRRRRR!!!</span>"
+	desc = span_warning("VRRRRRRR!!!")
 	armour_penetration = 100
 	force_on = 30
 
 /obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
-		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
+		owner.visible_message(span_danger("Ranged attacks just make [owner] angrier!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return TRUE
 	return FALSE
@@ -731,9 +731,9 @@
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
 	do_sparks(5, 1, target.loc)
-	target.visible_message("<span class='danger'>[target] was shocked by [src]!</span>",
+	target.visible_message(span_danger("[target] was shocked by [src]!"),
 		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>",
-		"<span class='danger'>You hear a heavy electrical crack!</span>")
+		span_danger("You hear a heavy electrical crack!"))
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 
@@ -796,16 +796,16 @@
 		if(isliving(A))
 			var/mob/living/Z = A
 			if(Z.health >= 1)
-				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from [src]!</span>",
+				Z.visible_message(span_danger("[Z.name] was sent flying by a blow from [src]!"),
 					"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>",
-					"<span class='danger'>You hear something heavy impact flesh!.</span>")
+					span_danger("You hear something heavy impact flesh!."))
 				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 				Z.throw_at(throw_target, 200, 4)
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if(wielded && Z.health < 1)
-				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [src]!</span>",
+				Z.visible_message(span_danger("[Z.name] was blown to pieces by the power of [src]!"),
 					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>",
-					"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
+					span_danger("You hear a heavy impact and the sound of ripping flesh!."))
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 		if(wielded)

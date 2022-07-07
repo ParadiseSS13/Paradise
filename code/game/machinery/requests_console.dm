@@ -296,7 +296,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
 			else
 				reset_message()
-				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
+				to_chat(user, span_warning("You are not authorized to send announcements."))
 			SStgui.update_uis(src)
 		if(screen == RCS_SHIPPING)
 			var/obj/item/card/id/T = I

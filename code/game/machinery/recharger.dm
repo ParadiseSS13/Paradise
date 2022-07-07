@@ -76,7 +76,7 @@
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(charging)
-		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
+		to_chat(user, span_warning("Remove the charging item first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -192,7 +192,7 @@
 /obj/machinery/recharger/examine(mob/user)
 	. = ..()
 	if(charging && (!in_range(user, src) && !issilicon(user) && !isobserver(user)))
-		. += "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>"
+		. += span_warning("You're too far away to examine [src]'s contents and display!")
 		return
 
 	if(charging)

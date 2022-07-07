@@ -22,7 +22,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
+		to_chat(usr, span_warning("Cannot use messenger!"))
 	var/list/plist = M.available_pdas()
 	if(plist)
 		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
@@ -40,7 +40,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
+		to_chat(usr, span_warning("Cannot use messenger!"))
 	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
 	for(var/index in M.tnote)
 		if(index["sent"])
@@ -99,6 +99,6 @@
 	if(!istype(pAI))
 		return FALSE
 	if(!pAI.installed_software["messenger"])
-		to_chat(usr, "<span class='warning'>You have not purchased the digital messenger!</span>")
+		to_chat(usr, span_warning("You have not purchased the digital messenger!"))
 		return FALSE
 	return ..() && !pAI.silence_time

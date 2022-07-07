@@ -87,17 +87,17 @@
 	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
 		var/obj/item/stack/cable_coil/C = I
 		if(emagged) //Emagged, not broken by EMP
-			to_chat(user, "<span class='warning'>Sign has been damaged beyond repair!</span>")
+			to_chat(user, span_warning("Sign has been damaged beyond repair!"))
 			return
 		else if(!broken)
-			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
+			to_chat(user, span_warning("This sign is functioning properly!"))
 			return
 
 		if(C.use(2))
 			to_chat(user, span_notice("You replace the burnt wiring."))
 			broken = 0
 		else
-			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
+			to_chat(user, span_warning("You need at least two lengths of cable!"))
 	else
 		return ..()
 
@@ -112,7 +112,7 @@
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)
-		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
+		to_chat(user, span_warning("Nothing interesting happens!"))
 		return
 	to_chat(user, span_notice("You emag the barsign. Takeover in progress..."))
 	addtimer(CALLBACK(src, .proc/post_emag), 100)

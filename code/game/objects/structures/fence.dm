@@ -90,19 +90,19 @@
 	if(shock(user, 100))
 		return
 	if(invulnerable)
-		to_chat(user, "<span class='warning'>This fence is too strong to cut through!</span>")
+		to_chat(user, span_warning("This fence is too strong to cut through!"))
 		return
 	if(!cuttable)
-		user.visible_message("<span class='warning'>[user] starts dismantling [src] with [W].</span>",\
-		"<span class='warning'>You start dismantling [src] with [W].</span>")
+		user.visible_message(span_warning("[user] starts dismantling [src] with [W]."),\
+		span_warning("You start dismantling [src] with [W]."))
 		if(W.use_tool(src, user, FULL_CUT_TIME, volume = W.tool_volume))
 			user.visible_message(span_notice("[user] completely dismantles [src]."),\
 			"<span class='info'>You completely dismantle [src].</span>")
 			qdel(src)
 		return
 	var/current_stage = hole_size
-	user.visible_message("<span class='warning'>[user] starts cutting through [src] with [W].</span>",\
-	"<span class='warning'>You start cutting through [src] with [W].</span>")
+	user.visible_message(span_warning("[user] starts cutting through [src] with [W]."),\
+	span_warning("You start cutting through [src] with [W]."))
 	if(W.use_tool(src, user, CUT_TIME * W.toolspeed, volume = W.tool_volume))
 		if(current_stage == hole_size)
 			switch(hole_size)
@@ -129,7 +129,7 @@
 			return
 		var/obj/item/stack/rods/R = C
 		if(R.get_amount() < HOLE_REPAIR)
-			to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
+			to_chat(user, span_warning("You need [HOLE_REPAIR] rods to fix this fence!"))
 			return
 		to_chat(user, span_notice("You begin repairing the fence..."))
 		if(do_after(user, 3 SECONDS * C.toolspeed, target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))

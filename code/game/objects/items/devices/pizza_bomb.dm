@@ -40,8 +40,8 @@
 		name = "pizza bomb"
 		desc = "OH GOD THAT'S NOT A PIZZA"
 		icon_state = "pizzabox_bomb"
-		audible_message("<span class='warning'>[bicon(src)] *beep* *beep*</span>")
-		to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")
+		audible_message(span_warning("[bicon(src)] *beep* *beep*"))
+		to_chat(user, span_danger("That's no pizza! That's a bomb!"))
 		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [armer] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 		log_game("[key_name(usr)] has triggered a pizza bomb armed by [armer] ([loc.x],[loc.y],[loc.z]).")
 		primed = 1
@@ -50,7 +50,7 @@
 
 /obj/item/pizza_bomb/proc/go_boom()
 	if(disarmed)
-		visible_message("<span class='danger'>[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on [src], but it's disarmed!</span>")
+		visible_message(span_danger("[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on [src], but it's disarmed!"))
 		return
 	atom_say("Enjoy the pizza!")
 	visible_message("<span class='userdanger'>[src] violently explodes!</span>")
@@ -59,15 +59,15 @@
 
 /obj/item/pizza_bomb/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/wirecutters) && primed)
-		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
+		to_chat(user, span_danger("Oh God, what wire do you cut?!"))
 		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
 		if(!in_range(src, usr) || issilicon(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 			return
 		playsound(src, I.usesound, 50, 1, 1)
-		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")
+		user.visible_message(span_warning("[user] cuts the [chosen_wire] wire!"), span_danger("You cut the [chosen_wire] wire!"))
 		sleep(5)
 		if(chosen_wire == correct_wire)
-			src.audible_message("<span class='warning'>[bicon(src)] \The [src] suddenly stops beeping and seems lifeless.</span>")
+			src.audible_message(span_warning("[bicon(src)] \The [src] suddenly stops beeping and seems lifeless."))
 			to_chat(user, span_notice("You did it!"))
 			icon_state = "pizzabox_bomb_[correct_wire]"
 			name = "pizza bomb"
@@ -81,7 +81,7 @@
 			return
 	if(istype(I, /obj/item/wirecutters) && disarmed)
 		if(!in_range(user, src))
-			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
+			to_chat(user, span_warning("You can't see the box well enough to cut the wires out."))
 			return
 		user.visible_message(span_notice("[user] starts removing the payload and wires from \the [src]."))
 		if(do_after(user, 40 * I.toolspeed, target = src))

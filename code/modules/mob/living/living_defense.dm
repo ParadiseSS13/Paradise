@@ -71,7 +71,7 @@
 		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
 		if(shock_damage > 200)
 			visible_message(
-				"<span class='danger'>[src] was arc flashed by \the [source]!</span>",
+				span_danger("[src] was arc flashed by \the [source]!"),
 				"<span class='userdanger'>\The [source] arc flashes and electrocutes you!</span>",
 				"<span class='italics'>You hear a lightning-like crack!</span>")
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
@@ -79,7 +79,7 @@
 	else
 		adjustStaminaLoss(shock_damage)
 	visible_message(
-		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
+		span_danger("[src] was shocked by \the [source]!"), \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
 		"<span class='hear'>You hear a heavy electrical crack.</span>" \
 	)
@@ -115,7 +115,7 @@
 			add_attack_logs(thrower, src, "Hit with thrown [thrown_item]", !thrown_item.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
 		if(nosell_hit)
 			return ..()
-		visible_message("<span class='danger'>[src] is hit by [thrown_item]!</span>", "<span class='userdanger'>You're hit by [thrown_item]!</span>")
+		visible_message(span_danger("[src] is hit by [thrown_item]!"), "<span class='userdanger'>You're hit by [thrown_item]!</span>")
 		if(!thrown_item.throwforce)
 			return
 		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration)
@@ -131,7 +131,7 @@
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM))
-			to_chat(M.occupant, "<span class='warning'>You don't want to harm other living beings!</span>")
+			to_chat(M.occupant, span_warning("You don't want to harm other living beings!"))
 			return
 		M.do_attack_animation(src)
 		if(M.damtype == "brute")
@@ -149,20 +149,20 @@
 			else
 				return
 		updatehealth("mech melee attack")
-		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='userdanger'>[M.name] hits you!</span>")
+		M.occupant_message(span_danger("You hit [src]."))
+		visible_message(span_danger("[M.name] hits [src]!"), "<span class='userdanger'>[M.name] hits you!</span>")
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		step_away(src,M)
 		add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
-		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
-		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
+		M.occupant_message(span_warning("You push [src] out of the way."))
+		visible_message(span_warning("[M] pushes [src] out of the way."))
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire && !HAS_TRAIT(src, TRAIT_NOFIRE))
 		on_fire = TRUE
-		visible_message("<span class='warning'>[src] catches fire!</span>", "<span class='userdanger'>You're set on fire!</span>")
+		visible_message(span_warning("[src] catches fire!"), "<span class='userdanger'>You're set on fire!</span>")
 		set_light(light_range + 3,l_color = "#ED9200")
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
@@ -287,10 +287,10 @@
 		G.state = GRAB_AGGRESSIVE
 		G.last_upgrade = world.time
 		if(!supress_message)
-			visible_message("<span class='warning'>[user] has grabbed [src] from behind!</span>")
+			visible_message(span_warning("[user] has grabbed [src] from behind!"))
 	else*///This is an example of how you can make special types of grabs simply based on direction.
 	if(!supress_message)
-		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
+		visible_message(span_warning("[user] has grabbed [src] passively!"))
 
 	return G
 
@@ -305,13 +305,13 @@
 		return // can't attack while eating!
 
 	if(HAS_TRAIT(src, TRAIT_PACIFISM))
-		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		to_chat(M, span_warning("You don't want to hurt anyone!"))
 		return FALSE
 
 	if(stat != DEAD)
 		add_attack_logs(M, src, "Slime'd")
 		M.do_attack_animation(src)
-		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", "<span class='userdanger'>\The [M.name] glomps you!</span>")
+		visible_message(span_danger("\The [M.name] glomps [src]!"), "<span class='userdanger'>\The [M.name] glomps you!</span>")
 		return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
@@ -320,13 +320,13 @@
 		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src].")
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		to_chat(M, span_warning("You don't want to hurt anyone!"))
 		return FALSE
 
 	if(M.attack_sound)
 		playsound(loc, M.attack_sound, 50, 1, 1)
 	M.do_attack_animation(src)
-	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
+	visible_message(span_danger("\The [M] [M.attacktext] [src]!"), \
 					"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
 	add_attack_logs(M, src, "Animal attacked")
 	return TRUE
@@ -339,18 +339,18 @@
 
 		else
 			if(HAS_TRAIT(L, TRAIT_PACIFISM))
-				to_chat(L, "<span class='warning'>You don't want to hurt anyone!</span>")
+				to_chat(L, span_warning("You don't want to hurt anyone!"))
 				return
 
 			L.do_attack_animation(src)
 			if(prob(90))
 				add_attack_logs(L, src, "Larva attacked")
-				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
+				visible_message(span_danger("[L.name] bites [src]!"), \
 						"<span class='userdanger'>[L.name] bites [src]!</span>")
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				return 1
 			else
-				visible_message("<span class='danger'>[L.name] has attempted to bite [src]!</span>", \
+				visible_message(span_danger("[L.name] has attempted to bite [src]!"), \
 					"<span class='userdanger'>[L.name] has attempted to bite [src]!</span>")
 	return 0
 
@@ -364,7 +364,7 @@
 			return FALSE
 		if(INTENT_HARM)
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+				to_chat(M, span_warning("You don't want to hurt anyone!"))
 				return FALSE
 			M.do_attack_animation(src)
 			return TRUE

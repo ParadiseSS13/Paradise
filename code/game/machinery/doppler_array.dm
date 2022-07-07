@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	if(!Adjacent(user))
 		return
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do that!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do that!"))
 		return
 	dir = turn(dir, 90)
 	to_chat(user, span_notice("You rotate [src]."))

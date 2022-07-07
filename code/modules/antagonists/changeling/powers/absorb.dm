@@ -12,15 +12,15 @@
 		return FALSE
 
 	if(cling.is_absorbing)
-		to_chat(user, "<span class='warning'>We are already absorbing!</span>")
+		to_chat(user, span_warning("We are already absorbing!"))
 		return FALSE
 
 	var/obj/item/grab/G = user.get_active_hand()
 	if(!istype(G))
-		to_chat(user, "<span class='warning'>We must be grabbing a creature in our active hand to absorb them.</span>")
+		to_chat(user, span_warning("We must be grabbing a creature in our active hand to absorb them."))
 		return FALSE
 	if(G.state <= GRAB_NECK)
-		to_chat(user, "<span class='warning'>We must have a tighter grip to absorb this creature.</span>")
+		to_chat(user, span_warning("We must have a tighter grip to absorb this creature."))
 		return FALSE
 
 	return cling.can_absorb_dna(G.affecting)
@@ -35,21 +35,21 @@
 				to_chat(user, span_notice("This creature is compatible. We must hold still..."))
 			if(2)
 				to_chat(user, span_notice("We extend a proboscis."))
-				user.visible_message("<span class='warning'>[user] extends a proboscis!</span>")
+				user.visible_message(span_warning("[user] extends a proboscis!"))
 			if(3)
 				to_chat(user, span_notice("We stab [target] with the proboscis."))
-				user.visible_message("<span class='danger'>[user] stabs [target] with the proboscis!</span>")
-				to_chat(target, "<span class='danger'>You feel a sharp stabbing pain!</span>")
+				user.visible_message(span_danger("[user] stabs [target] with the proboscis!"))
+				to_chat(target, span_danger("You feel a sharp stabbing pain!"))
 				target.take_overall_damage(40)
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
 		if(!do_mob(user, target, 150))
-			to_chat(user, "<span class='warning'>Our absorption of [target] has been interrupted!</span>")
+			to_chat(user, span_warning("Our absorption of [target] has been interrupted!"))
 			cling.is_absorbing = FALSE
 			return FALSE
 
 	to_chat(user, span_notice("We have absorbed [target]!"))
-	user.visible_message("<span class='danger'>[user] sucks the fluids from [target]!</span>")
-	to_chat(target, "<span class='danger'>You have been absorbed by the changeling!</span>")
+	user.visible_message(span_danger("[user] sucks the fluids from [target]!"))
+	to_chat(target, span_danger("You have been absorbed by the changeling!"))
 
 	if(!cling.get_dna(target.dna))
 		cling.absorb_dna(target)

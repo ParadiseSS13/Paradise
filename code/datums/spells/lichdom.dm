@@ -51,14 +51,14 @@
 				return
 
 			if(!marked_item || QDELETED(marked_item)) //Wait nevermind
-				to_chat(M, "<span class='warning'>Your phylactery is gone!</span>")
+				to_chat(M, span_warning("Your phylactery is gone!"))
 				return
 
 			var/turf/user_turf = get_turf(M)
 			var/turf/item_turf = get_turf(marked_item)
 
 			if(user_turf.z != item_turf.z)
-				to_chat(M, "<span class='warning'>Your phylactery is out of range!</span>")
+				to_chat(M, span_warning("Your phylactery is out of range!"))
 				return
 
 			if(isobserver(M))
@@ -70,7 +70,7 @@
 			lich.real_name = M.mind.name
 			M.mind.transfer_to(lich)
 			lich.set_species(/datum/species/skeleton)
-			to_chat(lich, "<span class='warning'>Your bones clatter and shutter as they're pulled back into this world!</span>")
+			to_chat(lich, span_warning("Your bones clatter and shutter as they're pulled back into this world!"))
 			charge_max += 600
 			var/mob/old_body = current_body
 			var/turf/body_turf = get_turf(old_body)
@@ -87,7 +87,7 @@
 						C.unEquip(W)
 				var/wheres_wizdo = dir2text(get_dir(body_turf, item_turf))
 				if(wheres_wizdo)
-					old_body.visible_message("<span class='warning'>Suddenly [old_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!</span>")
+					old_body.visible_message(span_warning("Suddenly [old_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!"))
 					body_turf.Beam(item_turf,icon_state="lichbeam",icon='icons/effects/effects.dmi',time=10+10*resurrections,maxdistance=INFINITY)
 				old_body.dust()
 
@@ -97,7 +97,7 @@
 				if((ABSTRACT in item.flags) || (NODROP in item.flags))
 					continue
 				marked_item = item
-				to_chat(M, "<span class='warning'>You begin to focus your very being into [item]...</span>")
+				to_chat(M, span_warning("You begin to focus your very being into [item]..."))
 				break
 
 			if(!marked_item)
@@ -106,7 +106,7 @@
 
 			spawn(50)
 				if(marked_item.loc != M) //I changed my mind I don't want to put my soul in a cheeseburger!
-					to_chat(M, "<span class='warning'>Your soul snaps back to your body as you drop [marked_item]!</span>")
+					to_chat(M, span_warning("Your soul snaps back to your body as you drop [marked_item]!"))
 					marked_item = null
 					return
 				name = "RISE!"

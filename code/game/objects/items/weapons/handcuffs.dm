@@ -27,11 +27,11 @@
 		return
 
 	if(flags & NODROP)
-		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
+		to_chat(user, span_warning("[src] is stuck to your hand!"))
 		return
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (!ignoresClumsy))
-		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
+		to_chat(user, span_warning("Uh... how do those things work?!"))
 		apply_cuffs(user, user)
 		return
 
@@ -44,11 +44,11 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!(H.has_left_hand() || H.has_right_hand()))
-			to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
+			to_chat(user, span_warning("How do you suggest handcuffing someone with no hands?"))
 			return
 
 	if(!C.handcuffed)
-		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
+		C.visible_message(span_danger("[user] is trying to put [src.name] on [C]!"), \
 							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
 
 		playsound(loc, cuffsound, 30, 1, -2)
@@ -59,7 +59,7 @@
 
 			add_attack_logs(user, C, "Handcuffed ([src])")
 		else
-			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
+			to_chat(user, span_warning("You fail to handcuff [C]."))
 
 /obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, remove_src = TRUE)
 	if(!target.handcuffed)
@@ -160,11 +160,11 @@
 			to_chat(user, span_notice("You wrap the cable restraint around the top of the rod."))
 			qdel(src)
 		else
-			to_chat(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
+			to_chat(user, span_warning("You need one rod to make a wired rod!"))
 	else if(istype(I, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/metal/M = I
 		if(M.amount < 6)
-			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
+			to_chat(user, span_warning("You need at least six metal sheets to make good enough weights!"))
 			return
 		to_chat(user, span_notice("You begin to apply [I] to [src]..."))
 		if(do_after(user, 35 * M.toolspeed, target = src))

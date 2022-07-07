@@ -41,9 +41,9 @@
 					to_chat(user, span_notice("You inject the contents of the syringe into the seeds."))
 					contains_sample = 1
 				else
-					to_chat(user, "<span class='warning'>The seeds reject the sample!</span>")
+					to_chat(user, span_warning("The seeds reject the sample!"))
 		else
-			to_chat(user, "<span class='warning'>The seeds already contain a genetic sample!</span>")
+			to_chat(user, span_warning("The seeds already contain a genetic sample!"))
 	else
 		return ..()
 

@@ -34,7 +34,7 @@
 		if(!tank)
 			var/obj/item/tank/internals/IT = W
 			if(IT.volume <= 3)
-				to_chat(user, "<span class='warning'>[IT] is too small for [src].</span>")
+				to_chat(user, span_warning("[IT] is too small for [src]."))
 				return
 			updateTank(W, 0, user)
 			return
@@ -72,7 +72,7 @@
 		tank = null
 	if(!removing)
 		if(tank)
-			to_chat(user, "<span class='warning'>[src] already has a tank.</span>")
+			to_chat(user, span_warning("[src] already has a tank."))
 			return
 		if(!user.unEquip(thetank))
 			return
@@ -83,17 +83,17 @@
 
 /obj/item/melee/powerfist/attack(mob/living/target, mob/living/user)
 	if(!tank)
-		to_chat(user, "<span class='warning'>[src] can't operate without a source of gas!</span>")
+		to_chat(user, span_warning("[src] can't operate without a source of gas!"))
 		return
 	if(tank && !tank.air_contents.remove(gasperfist * fisto_setting))
-		to_chat(user, "<span class='warning'>[src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
+		to_chat(user, span_warning("[src]'s piston-ram lets out a weak hiss, it needs more gas!"))
 		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
 		return
 
 	user.do_attack_animation(target)
 
 	target.apply_damage(force * fisto_setting, BRUTE)
-	target.visible_message("<span class='danger'>[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!</span>", \
+	target.visible_message(span_danger("[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
 		"<span class='userdanger'>You cry out in pain as [user]'s punch flings you backwards!</span>")
 	new /obj/effect/temp_visual/kinetic_blast(target.loc)
 	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)

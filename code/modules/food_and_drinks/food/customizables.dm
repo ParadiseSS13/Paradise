@@ -336,7 +336,7 @@ do {\
 
 /obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/reagent_containers/food/snacks))
-		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")
+		to_chat(user, span_warning("[I] isn't exactly something that you would want to eat."))
 		return
 
 	add_ingredient(I, user)
@@ -349,18 +349,18 @@ do {\
  */
 /obj/item/reagent_containers/food/snacks/customizable/proc/add_ingredient(obj/item/reagent_containers/food/snacks/snack, mob/user)
 	if(length(ingredients) > ingredient_limit)
-		to_chat(user, "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>")
+		to_chat(user, span_warning("If you put anything else in or on [src] it's going to make a mess."))
 		return
 
 	// Fully custom snacks don't add the ingredients. So no need to check
 	if(!fullycustom && istype(snack, /obj/item/reagent_containers/food/snacks/customizable))
 		var/obj/item/reagent_containers/food/snacks/customizable/origin = snack
 		if(length(ingredients) + length(origin.ingredients) > ingredient_limit)
-			to_chat(user, "<span class='warning'>Merging [snack] and [src] together is going to make a mess.</span>")
+			to_chat(user, span_warning("Merging [snack] and [src] together is going to make a mess."))
 			return
 
 	if(!user.unEquip(snack))
-		to_chat(user, "<span class='warning'>[snack] is stuck to your hand!</span>")
+		to_chat(user, span_warning("[snack] is stuck to your hand!"))
 		return
 
 	to_chat(user, span_notice("You add [snack] to [src]."))

@@ -20,13 +20,13 @@
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return
 	if(!iscarbon(M))
 		return
 
 	if(reagents.total_volume && (ignore_flags || M.can_inject(user, TRUE))) // Ignore flag should be checked first or there will be an error message.
-		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
+		to_chat(M, span_warning("You feel a tiny prick!"))
 		to_chat(user, span_notice("You inject [M] with [src]."))
 
 		if(M.reagents)
@@ -38,7 +38,7 @@
 			var/trans = reagents.trans_to(M, amount_per_transfer_from_this)
 
 			if(safety_hypo)
-				visible_message("<span class='warning'>[user] injects [M] with [trans] units of [primary_reagent_name].</span>")
+				visible_message(span_warning("[user] injects [M] with [trans] units of [primary_reagent_name]."))
 				playsound(loc, 'sound/goonstation/items/hypo.ogg', 80, 0)
 
 			to_chat(user, span_notice("[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src]."))
@@ -58,15 +58,15 @@
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
 			if(ismob(loc))
-				to_chat(loc, "<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+				to_chat(loc, span_warning("[src] identifies and removes a harmful substance."))
 			else
-				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+				visible_message(span_warning("[src] identifies and removes a harmful substance."))
 
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
 		emagged = TRUE
 		ignore_flags = TRUE
-		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		to_chat(user, span_warning("You short out the safeties on [src]."))
 
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
@@ -113,7 +113,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return
 	..()
 	update_icon()

@@ -33,7 +33,7 @@
 		T.visible_message("[bicon(src)] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
 	else if(findtext(msg, recorded) && type == recorded_type)
 		var/turf/T = get_turf(src)  //otherwise it won't work in hand
-		T.visible_message("<span class='warning'>[bicon(src)] beeps!</span>")
+		T.visible_message(span_warning("[bicon(src)] beeps!"))
 		pulse(0)
 
 /obj/item/assembly/voice/activate()
@@ -74,4 +74,4 @@
 /obj/item/assembly/voice/noise/hear_message(mob/living/M as mob, msg)
 	pulse(0)
 	var/turf/T = get_turf(src)  //otherwise it won't work in hand
-	T.visible_message("<span class='warning'>[bicon(src)] beeps!</span>")
+	T.visible_message(span_warning("[bicon(src)] beeps!"))

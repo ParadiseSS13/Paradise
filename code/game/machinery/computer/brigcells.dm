@@ -19,7 +19,7 @@
     if(stat & (BROKEN|NOPOWER))
         return
     if(!allowed(user))
-        to_chat(user, "<span class='warning'>Access denied.</span>")
+        to_chat(user, span_warning("Access denied."))
         return
     ui_interact(user)
 
@@ -51,7 +51,7 @@
 		return FALSE
 
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return FALSE
 
 	if (action == "release")

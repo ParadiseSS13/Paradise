@@ -167,21 +167,21 @@
 		. += span_notice("[src] are fully operational!")
 		. += span_notice("The boots are [round(cell.percent())]% charged.")
 	else if(core)
-		. += "<span class='warning'>It has a gravitational anomaly core installed, but no power cell installed.</span>"
+		. += span_warning("It has a gravitational anomaly core installed, but no power cell installed.")
 	else if(cell)
-		. += "<span class='warning'>It has a power installed, but no gravitational anomaly core installed.</span>"
+		. += span_warning("It has a power installed, but no gravitational anomaly core installed.")
 	else
-		. += "<span class='warning'>It is missing a gravitational anomaly core and a power cell.</span>"
+		. += span_warning("It is missing a gravitational anomaly core and a power cell.")
 
 /obj/item/clothing/shoes/magboots/gravity/attack_self(mob/user)
 	if(!cell)
-		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
+		to_chat(user, span_warning("Your boots do not have a power cell!"))
 		return
 	else if(cell.charge <= power_consumption_rate && !magpulse)
-		to_chat(user, "<span class='warning'>Your boots do not have enough charge!</span>")
+		to_chat(user, span_warning("Your boots do not have enough charge!"))
 		return
 	if(!core)
-		to_chat(user, "<span class='warning'>There's no core installed!</span>")
+		to_chat(user, span_warning("There's no core installed!"))
 		return
 
 	..()
@@ -192,18 +192,18 @@
 	if(cell.charge <= power_consumption_rate * 2)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
-			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
+			to_chat(user, span_warning("[src] has ran out of charge, and turned off!"))
 			attack_self(user)
 	else
 		cell.use(power_consumption_rate)
 
 /obj/item/clothing/shoes/magboots/gravity/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
-		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
+		to_chat(user, span_warning("There's no cell installed!"))
 		return
 
 	if(magpulse)
-		to_chat(user, "<span class='warning'>Turn off the boots first!</span>")
+		to_chat(user, span_warning("Turn off the boots first!"))
 		return
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -218,7 +218,7 @@
 /obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(cell)
-			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
+			to_chat(user, span_warning("[src] already has a cell!"))
 			return
 		if(!user.unEquip(I))
 			return
@@ -233,7 +233,7 @@
 			to_chat(user, span_notice("[src] already has a [I]!"))
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		to_chat(user, span_notice("You insert [I] into [src], and [src] starts to warm up."))
 		I.forceMove(src)
@@ -269,26 +269,26 @@
 
 	if(cell)
 		if(cell.charge <= dash_cost)
-			to_chat(user, "<span class='warning'>Your boots do not have enough charge to dash!</span>")
+			to_chat(user, span_warning("Your boots do not have enough charge to dash!"))
 			return
 	else
-		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
+		to_chat(user, span_warning("Your boots do not have a power cell!"))
 		return
 
 	if(!core)
-		to_chat(user, "<span class='warning'>There's no core installed!</span>")
+		to_chat(user, span_warning("There's no core installed!"))
 		return
 
 	if(recharging_time > world.time)
-		to_chat(user, "<span class='warning'>The boot's gravitational pulse needs to recharge still!</span>")
+		to_chat(user, span_warning("The boot's gravitational pulse needs to recharge still!"))
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
 	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
-		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		user.visible_message(span_warning("[usr] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)
 	else
-		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		to_chat(user, span_warning("Something prevents you from dashing forward!"))

@@ -527,11 +527,11 @@
 	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)
 		var/obj/item/grab/G = W
 		if(G.state<2)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
 		G.affecting.loc = src.loc
 		G.affecting.Weaken(10 SECONDS)
-		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
+		visible_message(span_warning("[G.assailant] dunks [G.affecting] into [src]!"))
 		qdel(W)
 		return
 	else if(istype(W, /obj/item) && get_dist(src,user)<2)
@@ -546,7 +546,7 @@
 			AM.forceMove(get_turf(src))
 			visible_message(span_notice("Swish! [AM] lands in [src]."))
 		else
-			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
+			visible_message(span_danger("[AM] bounces off of [src]'s rim!"))
 			return ..()
 	else
 		return ..()

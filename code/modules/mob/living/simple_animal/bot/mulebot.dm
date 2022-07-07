@@ -121,10 +121,10 @@
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
-			user.visible_message("<span class='danger'>[user] knocks [load] off [src] with \the [I]!</span>",
-									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>")
+			user.visible_message(span_danger("[user] knocks [load] off [src] with \the [I]!"),
+									span_danger("You knock [load] off [src] with \the [I]!"))
 		else
-			to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
+			to_chat(user, span_warning("You hit [src] with \the [I] but to no effect!"))
 			..()
 	else
 		..()
@@ -170,7 +170,7 @@
 		if(prob(50) && !isnull(load))
 			unload(0)
 		if(prob(25))
-			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
+			visible_message(span_danger("Something shorts out inside [src]!"))
 			wires.cut_random()
 
 /mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
@@ -185,7 +185,7 @@
 				turn_off()
 			else if(cell && !open)
 				if(!turn_on())
-					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
+					to_chat(usr, span_warning("You can't switch on [src]!"))
 					return
 			else
 				return
@@ -249,7 +249,7 @@
 		update_controls()
 		return 1
 	else
-		to_chat(user, "<span class='danger'>Access denied.</span>")
+		to_chat(user, span_danger("Access denied."))
 		return 0
 
 // TODO: remove this; PDAs currently depend on it
@@ -677,11 +677,11 @@
 		var/mob/living/L = obs
 		if(ismob(L))
 			if(istype(L,/mob/living/silicon/robot))
-				visible_message("<span class='danger'>[src] bumps into [L]!</span>")
+				visible_message(span_danger("[src] bumps into [L]!"))
 			else
 				if(!paicard)
 					add_attack_logs(src, L, "Knocked down")
-					visible_message("<span class='danger'>[src] knocks over [L]!</span>")
+					visible_message(span_danger("[src] knocks over [L]!"))
 					L.stop_pulling()
 					L.Weaken(16 SECONDS)
 	return ..()
@@ -690,7 +690,7 @@
 	if(H.player_logged)//No running over SSD people
 		return
 	add_attack_logs(src, H, "Run over (DAMTYPE: [uppertext(BRUTE)])")
-	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
+	H.visible_message(span_danger("[src] drives over [H]!"), \
 					"<span class='userdanger'>[src] drives over you!</span>")
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 

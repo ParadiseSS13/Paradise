@@ -426,12 +426,12 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!iscultist(user))
-		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
+		to_chat(user, span_warning("Only one with forbidden knowledge could hope to work this metal..."))
 		return
 	if(usr.holy_check())
 		return
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		to_chat(user, span_warning("The energies of this place interfere with the metal shaping!"))
 		return
 
 	return ..()

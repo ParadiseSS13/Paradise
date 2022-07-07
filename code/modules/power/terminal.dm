@@ -53,7 +53,7 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		if(T.intact)
-			to_chat(user, "<span class='warning'>You must first expose the power terminal!</span>")
+			to_chat(user, span_warning("You must first expose the power terminal!"))
 			return
 
 		if(!master || master.can_terminal_dismantle())

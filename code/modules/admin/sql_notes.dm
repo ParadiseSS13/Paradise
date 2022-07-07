@@ -10,7 +10,7 @@
 
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 
 	if(!target_ckey)
@@ -95,7 +95,7 @@
 	var/adminckey
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
@@ -131,7 +131,7 @@
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return

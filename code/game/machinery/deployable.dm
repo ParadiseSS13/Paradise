@@ -90,7 +90,7 @@
 	if(istype(I,/obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/W = I
 		if(W.get_amount() < 5)
-			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
+			to_chat(user, span_warning("You need at least five wooden planks to make a wall!"))
 			return
 		else
 			to_chat(user, span_notice("You start adding [I] to [src]..."))
@@ -155,7 +155,7 @@
 	density = TRUE
 	anchored = TRUE
 	if(deploy_message)
-		visible_message("<span class='warning'>[src] deploys!</span>")
+		visible_message(span_warning("[src] deploys!"))
 
 
 /obj/item/grenade/barrier
@@ -334,7 +334,7 @@
 
 /obj/structure/dropwall_generator/attacked_by(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
 	if(protected)
-		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
+		visible_message(span_warning("[src]'s shield absorbs the blow!"))
 		core_shield.take_damage(I.force, I.damtype, MELEE, TRUE)
 	else
 		return ..()
@@ -343,7 +343,7 @@
 	if(!protected)
 		return ..()
 	else
-		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
+		visible_message(span_warning("[src]'s shield absorbs the blow!"))
 		core_shield.take_damage(P.damage, P.damage_type, P.flag)
 
 /obj/structure/dropwall_generator/emp_act(severity)
@@ -355,7 +355,7 @@
 		qdel(src)
 
 /obj/structure/dropwall_generator/proc/power_out()
-	visible_message("<span class='warning'>[src] runs out of power, causing its shields to fail!</span>")
+	visible_message(span_warning("[src] runs out of power, causing its shields to fail!"))
 	new /obj/item/used_dropwall(get_turf(src))
 	qdel(src)
 

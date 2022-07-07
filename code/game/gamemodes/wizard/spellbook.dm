@@ -26,7 +26,7 @@
 	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
 		if(initial(newspell.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
 			if(aspell.spell_level >= aspell.level_max)
-				to_chat(user, "<span class='warning'>This spell cannot be improved further.</span>")
+				to_chat(user, span_warning("This spell cannot be improved further."))
 				return FALSE
 			else
 				aspell.name = initial(aspell.name)
@@ -69,7 +69,7 @@
 /datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book) //return point value or -1 for failure
 	var/area/wizard_station/A = locate()
 	if(!(user in A.contents))
-		to_chat(user, "<span class='warning'>You can only refund spells at the wizard lair.</span>")
+		to_chat(user, span_warning("You can only refund spells at the wizard lair."))
 		return -1
 	if(!S) //This happens when the spell's source is from another spellbook, from loadouts, or adminery, this create a new template temporary spell
 		S = new spell_type()
@@ -241,7 +241,7 @@
 	return ..()
 
 /datum/spellbook_entry/sacred_flame/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
-	to_chat(user, "<span class='warning'>You no longer feel fireproof.</span>")
+	to_chat(user, span_warning("You no longer feel fireproof."))
 	REMOVE_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 	REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
@@ -698,7 +698,7 @@
 	if(istype(O, /obj/item/contract))
 		var/obj/item/contract/contract = O
 		if(contract.used)
-			to_chat(user, "<span class='warning'>The contract has been used, you can't get your points back now!</span>")
+			to_chat(user, span_warning("The contract has been used, you can't get your points back now!"))
 		else
 			to_chat(user, span_notice("You feed the contract back into the spellbook, refunding your points."))
 			uses+=2
@@ -802,7 +802,7 @@
 		owner = user
 		return
 	if(user != owner)
-		to_chat(user, "<span class='warning'>[src] does not recognize you as it's owner and refuses to open!</span>")
+		to_chat(user, span_warning("[src] does not recognize you as it's owner and refuses to open!"))
 		return
 	user.set_machine(src)
 	var/dat = ""
@@ -938,7 +938,7 @@
 		onlearned(user)
 
 /obj/item/spellbook/oneuse/proc/recoil(mob/user)
-	user.visible_message("<span class='warning'>[src] glows in a black light!</span>")
+	user.visible_message(span_warning("[src] glows in a black light!"))
 
 /obj/item/spellbook/oneuse/proc/onlearned(mob/user)
 	used = TRUE
@@ -979,7 +979,7 @@
 	..()
 	if(isliving(user))
 		var/mob/living/L = user
-		to_chat(user, "<span class='warning'>You go blind!</span>")
+		to_chat(user, span_warning("You go blind!"))
 		L.EyeBlind(20 SECONDS)
 
 /obj/item/spellbook/oneuse/mindswap
@@ -1001,7 +1001,7 @@
 		stored_swap = null
 	if(!stored_swap)
 		stored_swap = user
-		to_chat(user, "<span class='warning'>For a moment you feel like you don't even know who you are anymore.</span>")
+		to_chat(user, span_warning("For a moment you feel like you don't even know who you are anymore."))
 		return
 	if(stored_swap == user)
 		to_chat(user, span_notice("You stare at the book some more, but there doesn't seem to be anything else to learn..."))
@@ -1010,8 +1010,8 @@
 	var/obj/effect/proc_holder/spell/mind_transfer/swapper = new
 	swapper.cast(user, stored_swap)
 
-	to_chat(stored_swap, "<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")
-	to_chat(user, "<span class='warning'>Suddenly you're staring at [src] again... where are you, who are you?!</span>")
+	to_chat(stored_swap, span_warning("You're suddenly somewhere else... and someone else?!"))
+	to_chat(user, span_warning("Suddenly you're staring at [src] again... where are you, who are you?!"))
 	stored_swap = null
 
 /obj/item/spellbook/oneuse/forcewall
@@ -1022,7 +1022,7 @@
 
 /obj/item/spellbook/oneuse/forcewall/recoil(mob/user as mob)
 	..()
-	to_chat(user, "<span class='warning'>You suddenly feel very solid!</span>")
+	to_chat(user, span_warning("You suddenly feel very solid!"))
 	var/obj/structure/closet/statue/S = new /obj/structure/closet/statue(user.loc, user)
 	S.timer = 30
 	user.drop_item()
@@ -1035,7 +1035,7 @@
 
 /obj/item/spellbook/oneuse/knock/recoil(mob/living/user)
 	..()
-	to_chat(user, "<span class='warning'>You're knocked down!</span>")
+	to_chat(user, span_warning("You're knocked down!"))
 	user.Weaken(40 SECONDS)
 
 /obj/item/spellbook/oneuse/horsemask
@@ -1066,7 +1066,7 @@
 
 /obj/item/spellbook/oneuse/charge/recoil(mob/user as mob)
 	..()
-	to_chat(user, "<span class='warning'>[src] suddenly feels very warm!</span>")
+	to_chat(user, span_warning("[src] suddenly feels very warm!"))
 	empulse(src, 1, 1)
 
 /obj/item/spellbook/oneuse/summonitem
@@ -1077,7 +1077,7 @@
 
 /obj/item/spellbook/oneuse/summonitem/recoil(mob/user as mob)
 	..()
-	to_chat(user, "<span class='warning'>[src] suddenly vanishes!</span>")
+	to_chat(user, span_warning("[src] suddenly vanishes!"))
 	qdel(src)
 
 /obj/item/spellbook/oneuse/fake_gib

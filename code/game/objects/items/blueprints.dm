@@ -192,20 +192,20 @@
 	if(!istype(res,/list))
 		switch(res)
 			if(ROOM_ERR_SPACE)
-				to_chat(usr, "<span class='warning'>The new area must be completely airtight.</span>")
+				to_chat(usr, span_warning("The new area must be completely airtight."))
 				return area_created
 			if(ROOM_ERR_TOOLARGE)
-				to_chat(usr, "<span class='warning'>The new area is too large.</span>")
+				to_chat(usr, span_warning("The new area is too large."))
 				return area_created
 			else
-				to_chat(usr, "<span class='warning'>Error! Please notify administration.</span>")
+				to_chat(usr, span_warning("Error! Please notify administration."))
 				return area_created
 	var/list/turf/turfs = res
 	var/str = trim(stripped_input(usr,"New area name:", "Blueprint Editing", "", MAX_NAME_LEN))
 	if(!str || !length(str)) //cancel
 		return area_created
 	if(length(str) > 50)
-		to_chat(usr, "<span class='warning'>The given name is too long. The area remains undefined.</span>")
+		to_chat(usr, span_warning("The given name is too long. The area remains undefined."))
 		return area_created
 	var/area/A = new
 	A.name = str
@@ -240,7 +240,7 @@
 	if(!str || !length(str) || str==prevname) //cancel
 		return
 	if(length(str) > 50)
-		to_chat(usr, "<span class='warning'>The given name is too long.  The area's name is unchanged.</span>")
+		to_chat(usr, span_warning("The given name is too long.  The area's name is unchanged."))
 		return
 	set_area_machinery_title(A,str,prevname)
 	A.name = str

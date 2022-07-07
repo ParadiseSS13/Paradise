@@ -25,9 +25,9 @@
 	if(!M.check_has_mouth())
 		to_chat(user, "[M.p_they(TRUE)] [M.p_have()] no mouth to tape over!")
 		return
-	user.visible_message("<span class='warning'>[user] is taping [M]'s mouth closed!</span>",
+	user.visible_message(span_warning("[user] is taping [M]'s mouth closed!"),
 	span_notice("You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!"),
-	"<span class='warning'>You hear tape ripping.</span>")
+	span_warning("You hear tape ripping."))
 	if(!do_after(user, 50, target = M))
 		return
 	if(!use(2))
@@ -36,7 +36,7 @@
 	if(M.wear_mask)
 		to_chat(user, span_notice("[M == user ? user : M]'s mouth is already covered!"))
 		return
-	user.visible_message("<span class='warning'>[user] tapes [M]'s mouth shut!</span>",
+	user.visible_message(span_warning("[user] tapes [M]'s mouth shut!"),
 	span_notice("You cover [M == user ? "your own" : "[M]'s"] mouth with a piece of duct tape.[M == user ? null : " That will shut them up."]"))
 	var/obj/item/clothing/mask/muzzle/G = new /obj/item/clothing/mask/muzzle/tapegag
 	M.equip_to_slot(G, slot_wear_mask)

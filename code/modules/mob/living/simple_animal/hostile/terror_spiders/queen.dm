@@ -113,7 +113,7 @@
 			if(prob(50) || T.spider_tier >= spider_tier)
 				to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] crashes into your mind! Somehow... you find a way to keep going!</span>")
 				continue
-			T.visible_message("<span class='danger'>[T] writhes in pain!</span>")
+			T.visible_message(span_danger("[T] writhes in pain!"))
 			to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you...</span>")
 			T.degenerate = TRUE
 		for(var/thing in GLOB.ts_spiderling_list)
@@ -168,10 +168,10 @@
 				if(ok_to_nest && entry_vent)
 					nest_vent = entry_vent
 					neststep = 1
-					visible_message("<span class='danger'>\The [src] settles down, starting to build a nest.</span>")
+					visible_message(span_danger("\The [src] settles down, starting to build a nest."))
 				else if(entry_vent)
 					if(!path_to_vent)
-						visible_message("<span class='danger'>\The [src] looks around warily - then seeks a better nesting ground.</span>")
+						visible_message(span_danger("\The [src] looks around warily - then seeks a better nesting ground."))
 						path_to_vent = TRUE
 				else
 					neststep = -1
@@ -251,7 +251,7 @@
 	if(stat == DEAD)
 		return
 	if(!hasnested)
-		to_chat(src, "<span class='danger'>You must nest before doing this.</span>")
+		to_chat(src, span_danger("You must nest before doing this."))
 		return
 	if(canlay < 1)
 		show_egg_timer()
@@ -262,10 +262,10 @@
 	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
 	if(canlay < 1)
 		// this was checked before input() but we have to check again to prevent them spam-clicking the popup.
-		to_chat(src, "<span class='danger'>Too soon to lay another egg.</span>")
+		to_chat(src, span_danger("Too soon to lay another egg."))
 		return
 	if(!(eggtype in eggtypes))
-		to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
+		to_chat(src, span_danger("Unrecognized egg type."))
 		return 0
 
 	// Multiple of eggtypes_uncapped can be laid at once. Other types must be laid one at a time (to prevent exploits)
@@ -278,15 +278,15 @@
 		else if(canlay == 2)
 			numlings = input("How many in the batch?") as null|anything in list(1, 2)
 	if(eggtype == null || numlings == null)
-		to_chat(src, "<span class='danger'>Cancelled.</span>")
+		to_chat(src, span_danger("Cancelled."))
 		return
 	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
+		to_chat(src, span_danger("Eggs can only be laid while standing on a floor."))
 		return
 	// Actually lay the eggs.
 	if(canlay < numlings)
 		// We have to check this again after the popups, to account for people spam-clicking the button, then doing all the popups at once.
-		to_chat(src, "<span class='warning'>Too soon to do this again!</span>")
+		to_chat(src, span_warning("Too soon to do this again!"))
 		return
 	canlay -= numlings
 	eggslaid += numlings
@@ -310,14 +310,14 @@
 		if(TS_DESC_PRINCESS)
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess, numlings)
 		else
-			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
+			to_chat(src, span_danger("Unrecognized egg type."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/show_egg_timer()
 	var/remainingtime = round(((spider_lastspawn + spider_spawnfrequency) - world.time) / 10, 1)
 	if(remainingtime > 0)
-		to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait another [num2text(remainingtime)] seconds.</span>")
+		to_chat(src, span_danger("Too soon to attempt that again. Wait another [num2text(remainingtime)] seconds."))
 	else
-		to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait just a few more seconds...</span>")
+		to_chat(src, span_danger("Too soon to attempt that again. Wait just a few more seconds..."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ListAvailableEggTypes()
 	if(MinutesAlive() >= 20)

@@ -16,7 +16,7 @@
 			eligible = FALSE
 			break
 	if(!eligible)
-		to_chat(user, "<span class='warning'>All of your contracts must be completed in the hardest location to be eligible for this item.</span>")
+		to_chat(user, span_warning("All of your contracts must be completed in the hardest location to be eligible for this item."))
 		return FALSE
 	return ..()
 

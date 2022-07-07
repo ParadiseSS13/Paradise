@@ -107,7 +107,7 @@
 
 	if(istype(I, /obj/item/seeds))
 		if(seed)
-			to_chat(user, "<span class='warning'>A sample is already loaded into the machine!</span>")
+			to_chat(user, span_warning("A sample is already loaded into the machine!"))
 		else
 			if(!user.drop_item())
 				return
@@ -117,7 +117,7 @@
 		return
 	else if(istype(I, /obj/item/disk/plantgene))
 		if(disk)
-			to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
+			to_chat(user, span_warning("A data disk is already loaded into the machine!"))
 		else
 			if(!user.drop_item())
 				return

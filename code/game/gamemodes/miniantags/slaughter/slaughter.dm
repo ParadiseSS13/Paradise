@@ -159,7 +159,7 @@
 	victim.Stun(6 SECONDS) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
-		to_chat(user, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		to_chat(user, span_warning("You could not locate any sapient heretics for the Slaughter."))
 		return 0
 	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
 
@@ -168,7 +168,7 @@
 	spawn(5)
 		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/slaughter/cult)
 		if(!demon_candidates.len)
-			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
+			visible_message(span_warning("[src] disappears in a flash of red light!"))
 			qdel(src)
 			return
 		if(QDELETED(src)) // Just in case
@@ -176,7 +176,7 @@
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/slaughter/cult/S = src
 		if(!M || !M.client)
-			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
+			visible_message(span_warning("[src] disappears in a flash of red light!"))
 			qdel(src)
 			return
 		var/client/C = M.client
@@ -217,7 +217,7 @@
 			validtargets += M
 
 	if(!validtargets.len)
-		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
+		to_chat(usr, span_warning("There are no valid targets!"))
 		return
 
 	var/mob/living/target = input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
@@ -255,13 +255,13 @@
 	return // Just so people don't accidentally waste it
 
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
-						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
+	user.visible_message(span_warning("[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!"), \
+						 span_danger("An unnatural hunger consumes you. You raise [src] to your mouth and devour it!"))
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
 
 	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
 	if(!HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
+		user.visible_message(span_warning("[user]'s eyes flare a deep crimson!"), \
 						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL, "bloodcrawl")
 		user.drop_item()
@@ -276,7 +276,7 @@
 		return TRUE
 
 	// Eating any more than 2 demon hearts does nothing.
-	to_chat(user, "<span class='warning'>...and you don't feel any different.</span>")
+	to_chat(user, span_warning("...and you don't feel any different."))
 	qdel(src)
 
 /obj/item/organ/internal/heart/demon/insert(mob/living/carbon/M, special = 0)

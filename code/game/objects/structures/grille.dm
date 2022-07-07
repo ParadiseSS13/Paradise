@@ -96,14 +96,14 @@
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	user.visible_message("<span class='warning'>[user] hits [src].</span>")
+	user.visible_message(span_warning("[user] hits [src]."))
 	if(!shock(user, 70))
 		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/attack_alien(mob/living/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.visible_message("<span class='warning'>[user] mangles [src].</span>")
+	user.visible_message(span_warning("[user] mangles [src]."))
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, MELEE, 1)
 
@@ -175,23 +175,23 @@
 	if(!istype(S) || !user)
 		return
 	if(broken)
-		to_chat(user, "<span class='warning'>You must repair or replace [src] first!</span>")
+		to_chat(user, span_warning("You must repair or replace [src] first!"))
 		return
 	if(S.get_amount() < 2)
-		to_chat(user, "<span class='warning'>You need at least two sheets of glass for that!</span>")
+		to_chat(user, span_warning("You need at least two sheets of glass for that!"))
 		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor first!</span>")
+		to_chat(user, span_warning("[src] needs to be fastened to the floor first!"))
 		return
 	for(var/obj/structure/window/WINDOW in loc)
-		to_chat(user, "<span class='warning'>There is already a window there!</span>")
+		to_chat(user, span_warning("There is already a window there!"))
 		return
 	to_chat(user, span_notice("You start placing the window..."))
 	if(do_after(user, 20, target = src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
 		for(var/obj/structure/window/WINDOW in loc) //checking this for a 2nd time to check if a window was made while we were waiting.
-			to_chat(user, "<span class='warning'>There is already a window there!</span>")
+			to_chat(user, span_warning("There is already a window there!"))
 			return
 		var/obj/structure/window/W = new S.full_window(drop_location())
 		W.setDir(dir_to_set)

@@ -336,7 +336,7 @@ update_flag
 					else
 						name = "canister"
 				else
-					to_chat(usr, "<span class='warning'>As you attempted to rename it the pressure rose!</span>")
+					to_chat(usr, span_warning("As you attempted to rename it the pressure rose!"))
 					. = FALSE
 		if("pressure")
 			var/pressure = params["pressure"]

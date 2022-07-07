@@ -161,14 +161,14 @@
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(5, instability * 0.67))
-			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
+			to_chat(src, span_danger("You feel like your skin is burning and bubbling off!"))
 		if(gene_stability < GENETIC_DAMAGE_STAGE_2)
 			if(prob(instability * 0.83))
 				adjustCloneLoss(min(4, instability * 0.05))
-				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
+				to_chat(src, span_danger("You feel as if your body is warping."))
 			if(prob(instability * 0.1))
 				adjustToxLoss(min(5, instability * 0.67))
-				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
+				to_chat(src, span_danger("You feel weak and nauseous."))
 			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
 				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
 				spawn(300)
@@ -753,7 +753,7 @@
 				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
 				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
-				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
+				visible_message(span_danger("[I] falls out of [name]'s [BP.name]!"),"<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 
@@ -836,7 +836,7 @@
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
 				continue //too cool for puke
-			to_chat(H, "<span class='warning'>You smell something foul...</span>")
+			to_chat(H, span_warning("You smell something foul..."))
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()

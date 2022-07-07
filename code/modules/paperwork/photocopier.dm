@@ -224,7 +224,7 @@
 
 /obj/machinery/photocopier/proc/remove_document()
 	if(copying)
-		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		to_chat(usr, span_warning("[src] is busy, try again in a few seconds."))
 		return
 	if(copyitem)
 		copyitem.forceMove(get_turf(src))
@@ -239,7 +239,7 @@
 
 /obj/machinery/photocopier/proc/remove_folder()
 	if(copying)
-		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		to_chat(usr, span_warning("[src] is busy, try again in a few seconds."))
 		return
 	if(folder)
 		folder.forceMove(get_turf(src))
@@ -261,16 +261,16 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(copying) //are we in the process of copying something already?
-		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		to_chat(usr, span_warning("[src] is busy, try again in a few seconds."))
 		return
 	if(!scancopy && toner <= 0) //if we're not scanning lets check early that we actually have toner
 		visible_message(span_notice("A yellow light on [src] flashes, indicating there's not enough toner for the operation."))
 		return
 	if(max_copies_reached)
-		visible_message("<span class='warning'>The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
+		visible_message(span_warning("The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\"."))
 		return
 	if(total_copies >= MAX_COPIES_PRINTABLE)
-		visible_message("<span class='warning'>The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
+		visible_message(span_warning("The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\"."))
 		message_admins("Photocopier cap of [MAX_COPIES_PRINTABLE] paper copies reached, all photocopiers are now disabled.")
 		max_copies_reached = TRUE
 	if(!check_mob() && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
@@ -319,7 +319,7 @@
 				break
 			toner -= 5
 	else
-		to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src], ejecting.</span>")
+		to_chat(usr, span_warning("\The [copyitem] can't be copied by \the [src], ejecting."))
 		copyitem.forceMove(loc) //fuckery detected! get off my photocopier... shitbird!
 
 	copying = FALSE
@@ -328,7 +328,7 @@
 	if(!cancopy())
 		return
 	if(length(saved_documents) >= max_saved_documents)
-		to_chat(usr, "<span class='warning'>\The [copyitem] can't be scanned because the max file limit has been reached. Please delete a file to make room.</span>")
+		to_chat(usr, span_warning("\The [copyitem] can't be scanned because the max file limit has been reached. Please delete a file to make room."))
 		return
 	copying = TRUE
 	var/obj/item/O
@@ -342,7 +342,7 @@
 	else if(copymob && copymob.loc == loc)
 		O = copyass(scanning = TRUE)
 	else
-		to_chat(usr, "<span class='warning'>\The [copyitem] can't be scanned by \the [src].</span>")
+		to_chat(usr, span_warning("\The [copyitem] can't be scanned by \the [src]."))
 		copying = FALSE
 		return
 	use_power(active_power_usage)
@@ -475,7 +475,7 @@
 		var/obj/item/grab/G = O
 		if(ismob(G.affecting) && G.affecting != copymob)
 			var/mob/GM = G.affecting
-			visible_message("<span class='warning'>[usr] drags [GM.name] onto the photocopier!</span>")
+			visible_message(span_warning("[usr] drags [GM.name] onto the photocopier!"))
 			GM.forceMove(get_turf(src))
 			copymob = GM
 			if(copyitem)
@@ -501,11 +501,11 @@
 		return
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
-		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
+		visible_message(span_warning("[usr] jumps onto [src]!"))
 	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 		if(target.anchored) return
 		if(!ishuman(user)) return
-		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
+		visible_message(span_warning("[usr] drags [target.name] onto [src]!"))
 	target.forceMove(get_turf(src))
 	copymob = target
 	if(copyitem)

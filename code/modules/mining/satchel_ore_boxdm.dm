@@ -96,7 +96,7 @@
 	add_fingerprint(usr)
 
 	if(contents.len < 1)
-		to_chat(usr, "<span class='warning'>The ore box is empty.</span>")
+		to_chat(usr, span_warning("The ore box is empty."))
 		return
 
 	dump_box_contents()

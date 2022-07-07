@@ -25,7 +25,7 @@
 				loaded.forceMove(src)
 				loaded.max_amount = max_amount //We store a lot.
 			else
-				to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
+				to_chat(user, span_warning("[user.get_active_hand()] is stuck to your hand!"))
 				return
 		else
 			if(loaded.amount < max_amount)
@@ -126,7 +126,7 @@
 
 /obj/item/twohanded/rcl/proc/trigger(mob/user)
 	if(is_empty(user, 0))
-		to_chat(user, "<span class='warning'>\The [src] is empty!</span>")
+		to_chat(user, span_warning("\The [src] is empty!"))
 		return
 	if(last)
 		if(get_dist(last, user) == 1) //hacky, but it works

@@ -74,9 +74,9 @@ REAGENT SCANNER
 			else
 				to_chat(user, "<span class = 'notice'>Subject contains no reagents.</span>")
 			if(H.reagents.addiction_list.len)
-				to_chat(user, "<span class='danger'>Subject is addicted to the following reagents:</span>")
+				to_chat(user, span_danger("Subject is addicted to the following reagents:"))
 				for(var/datum/reagent/R in H.reagents.addiction_list)
-					to_chat(user, "<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>")
+					to_chat(user, span_danger("[R.name] Stage: [R.addiction_stage]/5"))
 			else
 				to_chat(user, span_notice("Subject is not addicted to any reagents."))
 
@@ -100,7 +100,7 @@ REAGENT SCANNER
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
-		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", span_notice("You stupidly try to analyze the floor's vitals!"))
+		user.visible_message(span_warning("[user] analyzes the floor's vitals!"), span_notice("You stupidly try to analyze the floor's vitals!"))
 		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: Healthy</span>")
 		to_chat(user, "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burn</font>/<font color='red'>Brute</font></span>")
 		to_chat(user, "<span class='info'>\tDamage specifics: <font color='blue'>0</font> - <font color='green'>0</font> - <font color='#FFA500'>0</font> - <font color='red'>0</font></span>")
@@ -151,7 +151,7 @@ REAGENT SCANNER
 		to_chat(user, span_notice("Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]"))
 		var/tdelta = round(world.time - H.timeofdeath)
 		if(tdelta < DEFIB_TIME_LIMIT && !DNR)
-			to_chat(user, "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>")
+			to_chat(user, span_danger("Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!"))
 		else
 			to_chat(user, "<font color='red'>Subject died [DisplayTimeText(tdelta)] ago.</font>")
 
@@ -167,7 +167,7 @@ REAGENT SCANNER
 	BU = H.getFireLoss() > 50 ? 	"<font color='#FFA500'><b>Severe burn damage detected</b></font>" 			:	"Subject burn injury status O.K"
 	BR = H.getBruteLoss() > 50 ? "<font color='red'><b>Severe anatomical damage detected</b></font>" 		: 	"Subject brute-force injury status O.K"
 	if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
-		OX = fake_oxy > 50 ? 		"<span class='danger'>Severe oxygen deprivation detected</span>" 	: 	span_notice("Subject bloodstream oxygen level normal")
+		OX = fake_oxy > 50 ? 		span_danger("Severe oxygen deprivation detected") 	: 	span_notice("Subject bloodstream oxygen level normal")
 	to_chat(user, "[OX] | [TX] | [BU] | [BR]")
 
 	if(advanced)
@@ -193,17 +193,17 @@ REAGENT SCANNER
 	if(H.getStaminaLoss())
 		to_chat(user, "<span class='info'>Subject appears to be suffering from fatigue.</span>")
 	if(H.getCloneLoss())
-		to_chat(user, "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>")
+		to_chat(user, span_warning("Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage."))
 
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
 		if(H.getBrainLoss() >= 100)
-			to_chat(user, "<span class='warning'>Subject is brain dead.</span>")
+			to_chat(user, span_warning("Subject is brain dead."))
 		else if(H.getBrainLoss() >= 60)
-			to_chat(user, "<span class='warning'>Severe brain damage detected. Subject likely to have dementia.</span>")
+			to_chat(user, span_warning("Severe brain damage detected. Subject likely to have dementia."))
 		else if(H.getBrainLoss() >= 10)
-			to_chat(user, "<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>")
+			to_chat(user, span_warning("Significant brain damage detected. Subject may have had a concussion."))
 	else
-		to_chat(user, "<span class='warning'>Subject has no brain.</span>")
+		to_chat(user, span_warning("Subject has no brain."))
 
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
@@ -212,25 +212,25 @@ REAGENT SCANNER
 		var/limb = e.name
 		if(e.status & ORGAN_BROKEN)
 			if((e.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")) && !(e.status & ORGAN_SPLINTED))
-				to_chat(user, "<span class='warning'>Unsecured fracture in subject [limb]. Splinting recommended for transport.</span>")
+				to_chat(user, span_warning("Unsecured fracture in subject [limb]. Splinting recommended for transport."))
 		if(e.has_infected_wound())
-			to_chat(user, "<span class='warning'>Infected wound detected in subject [limb]. Disinfection recommended.</span>")
+			to_chat(user, span_warning("Infected wound detected in subject [limb]. Disinfection recommended."))
 
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 		if(!e)
 			continue
 		if(e.status & ORGAN_BROKEN)
-			to_chat(user, "<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>")
+			to_chat(user, span_warning("Bone fractures detected. Advanced scanner required for location."))
 			break
 	for(var/obj/item/organ/external/e in H.bodyparts)
 		if(e.status & ORGAN_INT_BLEEDING)
-			to_chat(user, "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>")
+			to_chat(user, span_warning("Internal bleeding detected. Advanced scanner required for location."))
 			break
 	var/blood_id = H.get_blood_id()
 	if(blood_id)
 		if(H.bleed_rate)
-			to_chat(user, "<span class='danger'>Subject is bleeding!</span>")
+			to_chat(user, span_danger("Subject is bleeding!"))
 		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 		var/blood_type = H.dna.blood_type
 		if(blood_id != "blood")//special blood substance
@@ -257,17 +257,17 @@ REAGENT SCANNER
 	if(H.gene_stability < 40)
 		to_chat(user, "<span class='userdanger'>Subject's genes are quickly breaking down!</span>")
 	else if(H.gene_stability < 70)
-		to_chat(user, "<span class='danger'>Subject's genes are showing signs of spontaneous breakdown.</span>")
+		to_chat(user, span_danger("Subject's genes are showing signs of spontaneous breakdown."))
 	else if(H.gene_stability < 85)
-		to_chat(user, "<span class='warning'>Subject's genes are showing minor signs of instability.</span>")
+		to_chat(user, span_warning("Subject's genes are showing minor signs of instability."))
 	else
 		to_chat(user, span_notice("Subject's genes are stable."))
 
 	if(HAS_TRAIT(H, TRAIT_HUSK))
-		to_chat(user, "<span class='danger'>Subject is husked. Application of synthflesh is recommended.</span>")
+		to_chat(user, span_danger("Subject is husked. Application of synthflesh is recommended."))
 
 	if(H.radiation > RAD_MOB_SAFE)
-		to_chat(user, "<span class='danger'>Subject is irradiated.</span>")
+		to_chat(user, span_danger("Subject is irradiated."))
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	toggle_mode()
@@ -393,7 +393,7 @@ REAGENT SCANNER
 	if(!user.incapacitated() && Adjacent(user))
 
 		if(cooldown)
-			to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")
+			to_chat(user, span_warning("[src]'s barometer function is prepraring itself."))
 			return
 
 		var/turf/T = get_turf(user)
@@ -405,7 +405,7 @@ REAGENT SCANNER
 		var/datum/weather/ongoing_weather = null
 
 		if(!user_area.outdoors)
-			to_chat(user, "<span class='warning'>[src]'s barometer function won't work indoors!</span>")
+			to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
 			return
 
 		for(var/V in SSweather.processing)
@@ -416,19 +416,19 @@ REAGENT SCANNER
 
 		if(ongoing_weather)
 			if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-				to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]</span>")
+				to_chat(user, span_warning("[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
 				return
 
 			to_chat(user, span_notice("The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)]."))
 			if(ongoing_weather.aesthetic)
-				to_chat(user, "<span class='warning'>[src]'s barometer function says that the next storm will breeze on by.</span>")
+				to_chat(user, span_warning("[src]'s barometer function says that the next storm will breeze on by."))
 		else
 			var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
 			var/fixed = next_hit ? next_hit - world.time : -1
 			if(fixed < 0)
-				to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")
+				to_chat(user, span_warning("[src]'s barometer function was unable to trace any weather patterns."))
 			else
-				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
+				to_chat(user, span_warning("[src]'s barometer function says a storm will land in approximately [butchertime(fixed)]."))
 		cooldown = TRUE
 		addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
 
@@ -473,7 +473,7 @@ REAGENT SCANNER
 	if(user.stat)
 		return
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	if(!istype(O))
 		return
@@ -507,7 +507,7 @@ REAGENT SCANNER
 
 /obj/item/reagent_scanner/proc/print_report()
 	if(!scanning)
-		usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+		usr.visible_message(span_warning("[src] rattles and prints out a sheet of paper."))
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(50)
 
@@ -544,7 +544,7 @@ REAGENT SCANNER
 	if(user.incapacitated() || user.AmountBlinded())
 		return
 	if(!isslime(M))
-		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
+		to_chat(user, span_warning("This device can only scan slimes!"))
 		return
 	var/mob/living/simple_animal/slime/T = M
 	slime_scan(T, user)
@@ -555,9 +555,9 @@ REAGENT SCANNER
 	to_chat(user, span_notice("[T.colour] [T.is_adult ? "adult" : "baby"] slime"))
 	to_chat(user, "Nutrition: [T.nutrition]/[T.get_max_nutrition()]")
 	if(T.nutrition < T.get_starve_nutrition())
-		to_chat(user, "<span class='warning'>Warning: slime is starving!</span>")
+		to_chat(user, span_warning("Warning: slime is starving!"))
 	else if(T.nutrition < T.get_hunger_nutrition())
-		to_chat(user, "<span class='warning'>Warning: slime is hungry</span>")
+		to_chat(user, span_warning("Warning: slime is hungry"))
 	to_chat(user, "Electric change strength: [T.powerlevel]")
 	to_chat(user, "Health: [round(T.health/T.maxHealth,0.01)*100]%")
 	if(T.slime_mutation[4] == T.colour)

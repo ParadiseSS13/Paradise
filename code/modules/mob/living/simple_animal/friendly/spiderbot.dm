@@ -50,10 +50,10 @@
 	if(istype(O, /obj/item/mmi))
 		var/obj/item/mmi/B = O
 		if(mmi) //There's already a brain in it.
-			to_chat(user, "<span class='warning'>There's already a brain in [src]!</span>")
+			to_chat(user, span_warning("There's already a brain in [src]!"))
 			return
 		if(!B.brainmob)
-			to_chat(user, "<span class='warning'>Sticking an empty MMI into the frame would sort of defeat the purpose.</span>")
+			to_chat(user, span_warning("Sticking an empty MMI into the frame would sort of defeat the purpose."))
 			return
 		if(!B.brainmob.key)
 			var/ghost_can_reenter = 0
@@ -71,11 +71,11 @@
 				return
 
 		if(B.brainmob.stat == DEAD)
-			to_chat(user, "<span class='warning'>[B] is dead. Sticking it into the frame would sort of defeat the purpose.</span>")
+			to_chat(user, span_warning("[B] is dead. Sticking it into the frame would sort of defeat the purpose."))
 			return
 
 		if(jobban_isbanned(B.brainmob, "Cyborg") || jobban_isbanned(B.brainmob, "nonhumandept"))
-			to_chat(user, "<span class='warning'>[B] does not seem to fit.</span>")
+			to_chat(user, span_warning("[B] does not seem to fit."))
 			return
 
 		to_chat(user, span_notice("You install [B] in [src]!"))
@@ -90,11 +90,11 @@
 
 	else if(istype(O, /obj/item/card/id) || istype(O, /obj/item/pda))
 		if(!mmi)
-			to_chat(user, "<span class='warning'>There's no reason to swipe your ID - the spiderbot has no brain to remove.</span>")
+			to_chat(user, span_warning("There's no reason to swipe your ID - the spiderbot has no brain to remove."))
 			return 0
 
 		if(emagged)
-			to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
+			to_chat(user, span_warning("[src] doesn't seem to respond."))
 			return 0
 
 		var/obj/item/card/id/id_card
@@ -110,7 +110,7 @@
 			eject_brain()
 			return 1
 		else
-			to_chat(user, "<span class='warning'>You swipe your card, with no effect.</span>")
+			to_chat(user, span_warning("You swipe your card, with no effect."))
 			return 0
 
 	else
@@ -122,7 +122,7 @@
 	if(user == src) //No self-repair dummy
 		return
 	if(health >= maxHealth)
-		to_chat(user, "<span class='warning'>[src] does not need repairing!</span>")
+		to_chat(user, span_warning("[src] does not need repairing!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -133,7 +133,7 @@
 
 /mob/living/simple_animal/spiderbot/emag_act(mob/living/user)
 	if(emagged)
-		to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
+		to_chat(user, span_warning("[src] doesn't seem to respond."))
 		return 0
 	else
 		emagged = 1

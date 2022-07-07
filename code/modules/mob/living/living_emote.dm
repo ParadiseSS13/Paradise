@@ -395,7 +395,7 @@
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
-		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+		to_chat(user, span_danger("Invalid emote."))
 		return TRUE
 	return FALSE
 
@@ -418,7 +418,7 @@
 				if("Hearable")
 					custom_emote_type = EMOTE_AUDIBLE
 				else
-					to_chat(user,"<span class='warning'>Unable to use this emote, must be either hearable or visible.</span>")
+					to_chat(user,span_warning("Unable to use this emote, must be either hearable or visible."))
 					return
 	else
 		custom_emote = params

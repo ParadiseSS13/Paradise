@@ -123,7 +123,7 @@
 /obj/machinery/satellite/proc/toggle(mob/user)
 	if(!active && !isinspace())
 		if(user)
-			to_chat(user, "<span class='warning'>You can only activate satellites which are in space.</span>")
+			to_chat(user, span_warning("You can only activate satellites which are in space."))
 		return FALSE
 	if(user)
 		to_chat(user, span_notice("You [active ? "deactivate": "activate"] [src]"))
@@ -195,7 +195,7 @@
 
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='danger'>You override the shield's circuits, causing it to attract meteors instead of destroying them.</span>")
+		to_chat(user, span_danger("You override the shield's circuits, causing it to attract meteors instead of destroying them."))
 		emagged = 1
 		if(active)
 			change_meteor_chance(2)

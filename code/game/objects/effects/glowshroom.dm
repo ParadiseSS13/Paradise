@@ -16,7 +16,7 @@
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
 /obj/structure/glowshroom/extinguish_light()
-	visible_message("<span class='warning'>[src] withers away!</span>")
+	visible_message(span_warning("[src] withers away!"))
 	qdel(src)
 
 /obj/structure/glowshroom/glowcap
@@ -169,7 +169,7 @@
 
 /obj/structure/glowshroom/acid_act(acidpwr, acid_volume)
 	. = 1
-	visible_message("<span class='danger'>[src] melts away!</span>")
+	visible_message(span_danger("[src] melts away!"))
 	var/obj/effect/decal/cleanable/molten_object/I = new (get_turf(src))
 	I.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)

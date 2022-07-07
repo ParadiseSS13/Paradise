@@ -462,7 +462,7 @@
 						to_chat(usr, "<span class='userdanger'>You suddenly feel extremely nauseous and hunch over until it passes.</span>")
 						M.Stun(6 SECONDS)
 					if(severity >= 3) //you didn't pray hard enough
-						to_chat(M, "<span class='warning'>An overpowering wave of nausea consumes over you. You hunch over, your stomach's contents preparing for a spectacular exit.</span>")
+						to_chat(M, span_warning("An overpowering wave of nausea consumes over you. You hunch over, your stomach's contents preparing for a spectacular exit."))
 						M.Stun(10 SECONDS)
 						sleep(30)
 						atom_say("[M] violently throws up!")
@@ -498,7 +498,7 @@
 						playsound(loc, 'sound/effects/bang.ogg', 50, TRUE)
 				if(ORION_TRAIL_MALFUNCTION)
 					playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
-					visible_message("<span class='danger'>[src] malfunctions, randomizing in-game stats!</span>")
+					visible_message(span_danger("[src] malfunctions, randomizing in-game stats!"))
 					var/oldfood = food
 					var/oldfuel = fuel
 					food = rand(10,80) / rand(1,2)
@@ -506,9 +506,9 @@
 					if(electronics)
 						sleep(10)
 						if(oldfuel > fuel && oldfood > food)
-							audible_message("<span class='danger'>[src] lets out a somehow reassuring chime.</span>")
+							audible_message(span_danger("[src] lets out a somehow reassuring chime."))
 						else if(oldfuel < fuel || oldfood < food)
-							audible_message("<span class='danger'>[src] lets out a somehow ominous chime.</span>")
+							audible_message(span_danger("[src] lets out a somehow ominous chime."))
 						food = oldfood
 						fuel = oldfuel
 						playsound(loc, 'sound/machines/chime.ogg', 50, TRUE)
@@ -999,13 +999,13 @@
 	message_admins("[key_name_admin(usr)] primed an explosive Orion ship for detonation.")
 	log_game("[key_name(usr)] primed an explosive Orion ship for detonation.")
 
-	to_chat(user, "<span class='warning'>You flip the switch on the underside of [src].</span>")
+	to_chat(user, span_warning("You flip the switch on the underside of [src]."))
 	active = TRUE
 	visible_message(span_notice("[src] softly beeps and whirs to life!"))
 	playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
 	atom_say("This is ship ID #[rand(1,1000)] to Orion Port Authority. We're coming in for landing, over.")
 	sleep(20)
-	visible_message("<span class='warning'>[src] begins to vibrate...</span>")
+	visible_message(span_warning("[src] begins to vibrate..."))
 	atom_say("Uh, Port? Having some issues with our reactor, could you check it out? Over.")
 	sleep(30)
 	atom_say("Oh, God! Code Eight! CODE EIGHT! IT'S GONNA BL-")

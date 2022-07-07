@@ -145,7 +145,7 @@
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	else if(isliving(loc))
-		to_chat(loc, "<span class='warning'>[src] silently charges up.</span>")
+		to_chat(loc, span_warning("[src] silently charges up."))
 	update_icon()
 	overheat = FALSE
 

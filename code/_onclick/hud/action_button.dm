@@ -7,7 +7,7 @@
 /obj/screen/movable/action_button/MouseDrop(over_object)
 	if((istype(over_object, /obj/screen/movable/action_button) && !istype(over_object, /obj/screen/movable/action_button/hide_toggle)))
 		if(locked)
-			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
+			to_chat(usr, span_warning("Action button \"[name]\" is locked, unlock it first."))
 			closeToolTip(usr)
 			return
 		var/obj/screen/movable/action_button/B = over_object
@@ -29,7 +29,7 @@
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"])
 		if(locked)
-			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
+			to_chat(usr, span_warning("Action button \"[name]\" is locked, unlock it first."))
 			return TRUE
 		moved = FALSE
 		usr.update_action_buttons(TRUE) //redraw buttons that are no longer considered "moved"
@@ -63,7 +63,7 @@
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"])
 		if(locked)
-			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
+			to_chat(usr, span_warning("Action button \"[name]\" is locked, unlock it first."))
 			return TRUE
 		moved = FALSE
 		usr.update_action_buttons(TRUE)

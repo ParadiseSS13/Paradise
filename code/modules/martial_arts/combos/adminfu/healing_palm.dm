@@ -6,7 +6,7 @@
 
 /datum/martial_combo/adminfu/healing_palm/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target)
-	target.visible_message("<span class='warning'>[user] smacks [target] in the forehead!</span>")
+	target.visible_message(span_warning("[user] smacks [target] in the forehead!"))
 
 		//its the staff of healing code..hush
 	if(istype(target,/mob))

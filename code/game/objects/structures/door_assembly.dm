@@ -65,7 +65,7 @@
 	else if(iscoil(W) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored)
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one length of cable to wire the airlock assembly!</span>")
+			to_chat(user, span_warning("You need one length of cable to wire the airlock assembly!"))
 			return
 		user.visible_message("[user] wires the airlock assembly.", "You start to wire the airlock assembly...")
 		if(do_after(user, 40 * coil.toolspeed, target = src))
@@ -123,11 +123,11 @@
 									var/obj/structure/door_assembly/MA = new mineralassembly(loc)
 									transfer_assembly_vars(src, MA, TRUE)
 							else
-								to_chat(user, "<span class='warning'>You need at least two sheets to add a mineral cover!</span>")
+								to_chat(user, span_warning("You need at least two sheets to add a mineral cover!"))
 					else
-						to_chat(user, "<span class='warning'>You cannot add [S] to [src]!</span>")
+						to_chat(user, span_warning("You cannot add [S] to [src]!"))
 				else
-					to_chat(user, "<span class='warning'>You cannot add [S] to [src]!</span>")
+					to_chat(user, span_warning("You cannot add [S] to [src]!"))
 	else
 		return ..()
 	update_name()
@@ -228,7 +228,7 @@
 		var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 		user.visible_message(span_notice("[user] welds the [mineral] plating off [src]."),\
 			span_notice("You start to weld the [mineral] plating off [src]..."),\
-			"<span class='warning'>You hear welding.</span>")
+			span_warning("You hear welding."))
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 			return
 		to_chat(user, span_notice("You weld the [mineral] plating off."))
@@ -238,7 +238,7 @@
 	else if(glass)
 		user.visible_message(span_notice("[user] welds the glass panel out of [src]."),\
 			span_notice("You start to weld the glass panel out of the [src]..."),\
-			"<span class='warning'>You hear welding.</span>")
+			span_warning("You hear welding."))
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 			return
 		to_chat(user, span_notice("You weld the glass panel out."))
@@ -249,9 +249,9 @@
 			new /obj/item/stack/sheet/glass(get_turf(src))
 		glass = FALSE
 	else if(!anchored)
-		visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+		visible_message(span_warning("[user] disassembles [src]."), \
 			span_notice("You start to disassemble [src]..."),\
-			"<span class='warning'>You hear welding.</span>")
+			span_warning("You hear welding."))
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 			return
 		to_chat(user, span_notice("You disassemble the airlock assembly."))

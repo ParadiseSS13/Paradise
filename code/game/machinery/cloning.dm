@@ -373,10 +373,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	if(I.GetID())
 		if(!check_access(I))
-			to_chat(user, "<span class='danger'>Access Denied.</span>")
+			to_chat(user, span_danger("Access Denied."))
 			return
 		if(!(occupant || mess))
-			to_chat(user, "<span class='danger'>Error: Pod has no occupant.</span>")
+			to_chat(user, span_danger("Error: Pod has no occupant."))
 			return
 		else
 			connected_message("Authorized Ejection")
@@ -417,7 +417,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(occupant)
-		to_chat(user, "<span class='warning'>Can not do that while [src] is in use.</span>")
+		to_chat(user, span_warning("Can not do that while [src] is in use."))
 		return
 	if(anchored)
 		WRENCH_UNANCHOR_MESSAGE
@@ -511,7 +511,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			var/message
 			message += "<b>Agony blazes across your consciousness as your body is torn apart.</b><br>"
 			message += "<i>Is this what dying is like? Yes it is.</i>"
-			to_chat(occupant, "<span class='warning'>[message]</span>")
+			to_chat(occupant, span_warning("[message]"))
 			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
 		QDEL_LIST(missing_organs)
 		clonemind = null

@@ -68,11 +68,11 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if("[id]" in cached_books)
 		var/datum/cachedbook/CB = cached_books["[id]"]
 		if(CB.programmatic)
-			to_chat(user, "<span class='danger'>That book cannot be flagged in the system, as it does not actually exist in the database.</span>")
+			to_chat(user, span_danger("That book cannot be flagged in the system, as it does not actually exist in the database."))
 			return
 
 	if("[id]" in books_flagged_this_round)
-		to_chat(user, "<span class='danger'>This book has already been flagged this shift.</span>")
+		to_chat(user, span_danger("This book has already been flagged this shift."))
 		return
 
 	books_flagged_this_round["[id]"] = 1
@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if("[id]" in cached_books)
 		var/datum/cachedbook/CB = cached_books["[id]"]
 		if(CB.programmatic)
-			to_chat(user, "<span class='danger'>That book cannot be removed from the system, as it does not actually exist in the database.</span>")
+			to_chat(user, span_danger("That book cannot be removed from the system, as it does not actually exist in the database."))
 			return
 
 	var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE id=:id", list(
@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 
 /obj/machinery/libraryscanner/attack_hand(mob/user)
 	if(istype(user,/mob/dead))
-		to_chat(user, "<span class='danger'>Nope.</span>")
+		to_chat(user, span_danger("Nope."))
 		return
 	usr.set_machine(src)
 	var/dat = "<HEAD><TITLE>Scanner Control Interface</TITLE></HEAD><BODY>\n" // <META HTTP-EQUIV='Refresh' CONTENT='10'>

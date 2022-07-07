@@ -24,7 +24,7 @@
 	M.Weaken(10 SECONDS)
 	M.apply_effect(STUTTER, 10 SECONDS)
 
-	M.visible_message("<span class='danger'>[user] has prodded [M] with [src]!</span>", \
+	M.visible_message(span_danger("[user] has prodded [M] with [src]!"), \
 					"<span class='userdanger'>[user] has prodded you with [src]!</span>")
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
@@ -97,25 +97,25 @@
 						M.resting = FALSE
 						M.stand_up()
 					else if(user.zone_selected == BODY_ZONE_HEAD)
-						user.visible_message("<span class='warning'>[user] bops [M] on the head!</span>", "<span class='warning'>You bop [M] on the head!</span>")
+						user.visible_message(span_warning("[user] bops [M] on the head!"), span_warning("You bop [M] on the head!"))
 						user.do_attack_animation(M, ATTACK_EFFECT_PUNCH)
 					else
-						user.visible_message("<span class='warning'>[user] hugs [M] in a firm bear-hug! [M] looks uncomfortable...</span>", "<span class='warning'>You hug [M] firmly to make [M.p_them()] feel better! [M] looks uncomfortable...</span>")
+						user.visible_message(span_warning("[user] hugs [M] in a firm bear-hug! [M] looks uncomfortable..."), span_warning("You hug [M] firmly to make [M.p_them()] feel better! [M] looks uncomfortable..."))
 				else
-					user.visible_message("<span class='warning'>[user] bops [M] on the head!</span>", "<span class='warning'>You bop [M] on the head!</span>")
+					user.visible_message(span_warning("[user] bops [M] on the head!"), span_warning("You bop [M] on the head!"))
 				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
 		if(CYBORG_SHOCK)
 			if(scooldown < world.time)
 				if(M.health >= 0)
 					if(ishuman(M))
 						M.electrocute_act(5, "[user]", flags = SHOCK_NOGLOVES)
-						user.visible_message("<span class='userdanger'>[user] electrocutes [M] with [user.p_their()] touch!</span>", "<span class='danger'>You electrocute [M] with your touch!</span>")
+						user.visible_message("<span class='userdanger'>[user] electrocutes [M] with [user.p_their()] touch!</span>", span_danger("You electrocute [M] with your touch!"))
 					else
 						if(!isrobot(M))
 							M.adjustFireLoss(10)
-							user.visible_message("<span class='userdanger'>[user] shocks [M]!</span>", "<span class='danger'>You shock [M]!</span>")
+							user.visible_message("<span class='userdanger'>[user] shocks [M]!</span>", span_danger("You shock [M]!"))
 						else
-							user.visible_message("<span class='userdanger'>[user] shocks [M]. It does not seem to have an effect</span>", "<span class='danger'>You shock [M] to no effect.</span>")
+							user.visible_message("<span class='userdanger'>[user] shocks [M]. It does not seem to have an effect</span>", span_danger("You shock [M] to no effect."))
 					playsound(loc, 'sound/effects/sparks2.ogg', 50, TRUE, -1)
 					user.cell.use(500)
 					scooldown = world.time + 20
@@ -123,9 +123,9 @@
 			if(ccooldown < world.time)
 				if(M.health >= 0)
 					if(ishuman(M))
-						user.visible_message("<span class='userdanger'>[user] crushes [M] in [user.p_their()] grip!</span>", "<span class='danger'>You crush [M] in your grip!</span>")
+						user.visible_message("<span class='userdanger'>[user] crushes [M] in [user.p_their()] grip!</span>", span_danger("You crush [M] in your grip!"))
 					else
-						user.visible_message("<span class='userdanger'>[user] crushes [M]!</span>", "<span class='danger'>You crush [M]!</span>")
+						user.visible_message("<span class='userdanger'>[user] crushes [M]!</span>", span_danger("You crush [M]!"))
 					playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE, -1)
 					M.adjustBruteLoss(15)
 					user.cell.use(300)

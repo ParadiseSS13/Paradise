@@ -96,10 +96,10 @@
 
 /obj/machinery/implantchair/proc/put_mob(mob/living/carbon/M)
 	if(!iscarbon(M))
-		to_chat(usr, "<span class='warning'>[src] cannot hold this!</span>")
+		to_chat(usr, span_warning("[src] cannot hold this!"))
 		return
 	if(src.occupant)
-		to_chat(usr, "<span class='warning'>[src] is already occupied!</span>")
+		to_chat(usr, span_warning("[src] is already occupied!"))
 		return
 	M.stop_pulling()
 	M.forceMove(src)
@@ -118,7 +118,7 @@
 		if(!imp)
 			continue
 		if(istype(imp, /obj/item/implant/mindshield))
-			visible_message("<span class='warning'>[src] implants [M].</span>")
+			visible_message(span_warning("[src] implants [M]."))
 
 			if(imp.implant(M))
 				implant_list -= imp

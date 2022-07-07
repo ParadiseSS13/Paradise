@@ -124,7 +124,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
 		return FALSE
 	else
-		to_chat(H, "<span class='danger'>You have a [item_name] in your [where].</span>")
+		to_chat(H, span_danger("You have a [item_name] in your [where]."))
 		return TRUE
 
 
@@ -148,7 +148,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 		SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
-		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
+		cult_mind.current.create_attack_log(span_danger("Has been converted to the cult!"))
 		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
 
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))

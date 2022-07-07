@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		dna_upload(user)
 	if(channel_pick == "Absorb")
 		if(cling.using_stale_dna())//If our current DNA is the stalest, we gotta ditch it.
-			to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
+			to_chat(user, span_warning("We have reached our capacity to store genetic information! We must transform before absorbing more."))
 			return FALSE
 		else
 			dna_absorb(user)

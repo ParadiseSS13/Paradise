@@ -60,7 +60,7 @@
 	if(!patient_insertion_check(target))
 		return
 	occupant_message(span_notice("You start putting [target] into [src]..."))
-	chassis.visible_message("<span class='warning'>[chassis] starts putting [target] into \the [src].</span>")
+	chassis.visible_message(span_warning("[chassis] starts putting [target] into \the [src]."))
 	if(do_after_cooldown(target))
 		if(!patient_insertion_check(target))
 			return
@@ -69,18 +69,18 @@
 		START_PROCESSING(SSobj, src)
 		update_equip_info()
 		occupant_message(span_notice("[target] successfully loaded into [src]. Life support functions engaged."))
-		chassis.visible_message("<span class='warning'>[chassis] loads [target] into [src].</span>")
+		chassis.visible_message(span_warning("[chassis] loads [target] into [src]."))
 		log_message("[target] loaded. Life support functions engaged.")
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/patient_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
-		occupant_message("<span class='warning'>[target] will not fit into the sleeper because [target.p_they()] [target.p_are()] buckled to [target.buckled]!</span>")
+		occupant_message(span_warning("[target] will not fit into the sleeper because [target.p_they()] [target.p_are()] buckled to [target.buckled]!"))
 		return
 	if(target.has_buckled_mobs())
-		occupant_message("<span class='warning'>[target] will not fit into the sleeper because of the creatures attached to it!</span>")
+		occupant_message(span_warning("[target] will not fit into the sleeper because of the creatures attached to it!"))
 		return
 	if(patient)
-		occupant_message("<span class='warning'>The sleeper is already occupied!</span>")
+		occupant_message(span_warning("The sleeper is already occupied!"))
 		return
 	return 1
 
@@ -96,7 +96,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/detach()
 	if(patient)
-		occupant_message("<span class='warning'>Unable to detach [src] - equipment occupied!</span>")
+		occupant_message(span_warning("Unable to detach [src] - equipment occupied!"))
 		return
 	STOP_PROCESSING(SSobj, src)
 	return ..()

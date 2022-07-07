@@ -85,7 +85,7 @@
 	icon = "exclamation-circle"
 
 /datum/data/pda/utility/scanmode/halogen/scan_mob(mob/living/C as mob, mob/living/user as mob)
-	C.visible_message("<span class='warning'>[user] has analyzed [C]'s radiation levels!</span>")
+	C.visible_message(span_warning("[user] has analyzed [C]'s radiation levels!"))
 
 	user.show_message(span_notice("Analyzing Results for [C]:"))
 	if(C.radiation)

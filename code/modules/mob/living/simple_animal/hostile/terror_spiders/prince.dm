@@ -39,7 +39,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
 	if(prob(15))
-		visible_message("<span class='danger'>[src] rams into [L], knocking [L.p_them()] to the floor!</span>")
+		visible_message(span_danger("[src] rams into [L], knocking [L.p_them()] to the floor!"))
 		do_attack_animation(L)
 		L.Weaken(10 SECONDS)
 	else

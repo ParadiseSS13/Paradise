@@ -519,7 +519,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
 	if(emagged)
-		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+		. += span_warning("Its access panel is smoking slightly.")
 	if(note)
 		if(!in_range(user, src))
 			. += "There's a [note.name] pinned to the front. You can't [note_type() == "note" ? "read" : "see"] it from here."
@@ -675,7 +675,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 
 	if(panel_open)
 		if(security_level)
-			to_chat(user, "<span class='warning'>Wires are protected!</span>")
+			to_chat(user, span_warning("Wires are protected!"))
 			return
 		wires.Interact(user)
 	else
@@ -689,13 +689,13 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		if(H.getBrainLoss() >= 60 && Adjacent(user))
 			playsound(loc, 'sound/effects/bang.ogg', 25, 1)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
-				visible_message("<span class='warning'>[user] headbutts the airlock.</span>")
+				visible_message(span_warning("[user] headbutts the airlock."))
 				var/obj/item/organ/external/affecting = H.get_organ("head")
 				H.Weaken(10 SECONDS)
 				if(affecting.receive_damage(10, 0))
 					H.UpdateDamageIcon()
 			else
-				visible_message("<span class='warning'>[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet.</span>")
+				visible_message(span_warning("[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet."))
 			return TRUE
 	return FALSE
 
@@ -708,7 +708,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 
 	if(panel_open)
 		if(security_level)
-			to_chat(user, "<span class='warning'>Wires are protected!</span>")
+			to_chat(user, span_warning("Wires are protected!"))
 			return
 		wires.Interact(user)
 	else
@@ -718,16 +718,16 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	if(!issilicon(user))
 		return TRUE
 	if(emagged)
-		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
+		to_chat(user, span_warning("Unable to interface: Internal error."))
 		return FALSE
 	if(!canAIControl())
 		if(canAIHack(user))
 			hack(user)
 		else
 			if(isAllPowerLoss())
-				to_chat(user, "<span class='warning'>Unable to interface: Connection timed out.</span>")
+				to_chat(user, span_warning("Unable to interface: Connection timed out."))
 			else
-				to_chat(user, "<span class='warning'>Unable to interface: Connection refused.</span>")
+				to_chat(user, span_warning("Unable to interface: Connection refused."))
 		return FALSE
 	return TRUE
 
@@ -735,7 +735,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	if(..())
 		return
 	if(!issilicon(usr) && !usr.can_admin_interact())
-		to_chat(usr, "<span class='warning'>Access denied. Only silicons may use this interface.</span>")
+		to_chat(usr, span_warning("Access denied. Only silicons may use this interface."))
 		return
 	if(!ai_control_check(usr))
 		return
@@ -746,32 +746,32 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 				loseMainPower()
 				update_icon()
 			else
-				to_chat(usr, "<span class='warning'>Main power is already offline.</span>")
+				to_chat(usr, span_warning("Main power is already offline."))
 				. = FALSE
 		if("disrupt-backup")
 			if(!backup_power_lost_until)
 				loseBackupPower()
 				update_icon()
 			else
-				to_chat(usr, "<span class='warning'>Backup power is already offline.</span>")
+				to_chat(usr, span_warning("Backup power is already offline."))
 		if("shock-restore")
 			electrify(0, usr, TRUE)
 		if("shock-temp")
 			if(wires.is_cut(WIRE_ELECTRIFY))
-				to_chat(usr, "<span class='warning'>The electrification wire is cut - Door permanently electrified.</span>")
+				to_chat(usr, span_warning("The electrification wire is cut - Door permanently electrified."))
 				. = FALSE
 			else
 				//electrify door for 30 seconds
 				electrify(30, usr, TRUE)
 		if("shock-perm")
 			if(wires.is_cut(WIRE_ELECTRIFY))
-				to_chat(usr, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
+				to_chat(usr, span_warning("The electrification wire is cut - Cannot electrify the door."))
 				. = FALSE
 			else
 				electrify(-1, usr, TRUE)
 		if("idscan-toggle")
 			if(wires.is_cut(WIRE_IDSCAN))
-				to_chat(usr, "<span class='warning'>The IdScan wire has been cut - IdScan feature permanently disabled.</span>")
+				to_chat(usr, span_warning("The IdScan wire has been cut - IdScan feature permanently disabled."))
 				. = FALSE
 			else if(aiDisabledIdScanner)
 				aiDisabledIdScanner = FALSE
@@ -787,7 +787,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 			toggle_light(usr)
 		if("safe-toggle")
 			if(wires.is_cut(WIRE_SAFETY))
-				to_chat(usr, "<span class='warning'>The safety wire is cut - Cannot secure the door.</span>")
+				to_chat(usr, span_warning("The safety wire is cut - Cannot secure the door."))
 			else if(safe)
 				safe = 0
 				to_chat(usr, span_notice("The door safeties have been disabled."))
@@ -803,10 +803,10 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 
 /obj/machinery/door/airlock/proc/open_close(mob/user)
 	if(welded)
-		to_chat(user, "<span class='warning'>The airlock has been welded shut!</span>")
+		to_chat(user, span_warning("The airlock has been welded shut!"))
 		return FALSE
 	else if(locked)
-		to_chat(user, "<span class='warning'>The door bolts are down!</span>")
+		to_chat(user, span_warning("The door bolts are down!"))
 		return FALSE
 	else if(density)
 		return open()
@@ -815,7 +815,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 
 /obj/machinery/door/airlock/proc/toggle_light(mob/user)
 	if(wires.is_cut(WIRE_BOLT_LIGHT))
-		to_chat(user, "<span class='warning'>The bolt lights wire has been cut - The door bolt lights are permanently disabled.</span>")
+		to_chat(user, span_warning("The bolt lights wire has been cut - The door bolt lights are permanently disabled."))
 	else if(lights)
 		lights = FALSE
 		to_chat(user, span_notice("The door bolt lights have been disabled."))
@@ -826,7 +826,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 
 /obj/machinery/door/airlock/proc/toggle_bolt(mob/user)
 	if(wires.is_cut(WIRE_DOOR_BOLTS))
-		to_chat(user, "<span class='warning'>The door bolt control wire has been cut - Door bolts permanently dropped.</span>")
+		to_chat(user, span_warning("The door bolt control wire has been cut - Door bolts permanently dropped."))
 		return
 
 	if(unlock()) // Trying to unbolt
@@ -848,7 +848,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 
 /obj/machinery/door/airlock/proc/toggle_speed(mob/user)
 	if(wires.is_cut(WIRE_SPEED))
-		to_chat(user, "<span class='warning'>The timing wire has been cut - Cannot alter timing.</span>")
+		to_chat(user, span_warning("The timing wire has been cut - Cannot alter timing."))
 		return
 	normalspeed = !normalspeed
 
@@ -867,7 +867,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 				if(istype(C, /obj/item/stack/sheet/metal))
 					var/obj/item/stack/sheet/metal/S = C
 					if(S.get_amount() < 2)
-						to_chat(user, "<span class='warning'>You need at least 2 metal sheets to reinforce [src].</span>")
+						to_chat(user, span_warning("You need at least 2 metal sheets to reinforce [src]."))
 						return
 					to_chat(user, span_notice("You start reinforcing [src]..."))
 					if(do_after(user, 20, 1, target = src))
@@ -881,7 +881,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 				else if(istype(C, /obj/item/stack/sheet/plasteel))
 					var/obj/item/stack/sheet/plasteel/S = C
 					if(S.get_amount() < 2)
-						to_chat(user, "<span class='warning'>You need at least 2 plasteel sheets to reinforce [src].</span>")
+						to_chat(user, span_warning("You need at least 2 plasteel sheets to reinforce [src]."))
 						return
 					to_chat(user, span_notice("You start reinforcing [src]..."))
 					if(do_after(user, 20, 1, target = src))
@@ -902,10 +902,10 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		cable.plugin(src, user)
 	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
-			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
+			to_chat(user, span_warning("There's already something pinned to this airlock! Use wirecutters or your hands to remove it."))
 			return
 		if(!user.unEquip(C))
-			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
+			to_chat(user, span_warning("For some reason, you can't attach [C]!"))
 			return
 		C.add_fingerprint(user)
 		user.create_log(MISC_LOG, "put [C] on", src)
@@ -1078,9 +1078,9 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 				if(result)
 					open(TRUE)
 					if(density && !open(TRUE))
-						to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+						to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		else
-			to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
+			to_chat(user, span_warning("You need to be wielding the fire axe to do that!"))
 		return
 	var/beingcrowbarred = FALSE
 	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0))
@@ -1092,10 +1092,10 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 			deconstruct(TRUE, user)
 		return
 	if(welded)
-		to_chat(user, "<span class='warning'>[src] is welded shut!</span>")
+		to_chat(user, span_warning("[src] is welded shut!"))
 		return
 	if(locked)
-		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
+		to_chat(user, span_warning("The airlock's bolts prevent it from being forced!"))
 		return
 	else if(!arePowerSystemsOn())
 		spawn(0)
@@ -1105,7 +1105,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 				close(1)
 		return
 	else if(!ispowertool(I))
-		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
+		to_chat(user, span_warning("The airlock's motors resist your efforts to force it!"))
 		return
 	if(isElectrified())
 		shock(user, 100)//it's like sticking a forck in a power socket
@@ -1124,7 +1124,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		if(result)
 			open(1)
 			if(density && !open(1))
-				to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+				to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 
 /obj/machinery/door/airlock/open(forced=0)
 	if(operating || welded || locked || emagged)
@@ -1279,11 +1279,11 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	if(!density) //Already open
 		return
 	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
-		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
+		to_chat(user, span_warning("[src] refuses to budge!"))
 		return
-	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
+	user.visible_message(span_warning("[user] begins prying open [src]."),\
 						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
-						"<span class='warning'>You hear groaning metal...</span>")
+						span_warning("You hear groaning metal..."))
 	var/time_to_open = 5
 	if(arePowerSystemsOn())
 		time_to_open = 50 //Powered airlocks take longer to open, and are loud.
@@ -1292,7 +1292,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 
 	if(do_after(user, time_to_open, TRUE, src))
 		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
-			to_chat(user, "<span class='warning'>Despite your efforts, [src] managed to resist your attempts to open it!</span>")
+			to_chat(user, span_warning("Despite your efforts, [src] managed to resist your attempts to open it!"))
 
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
 	..()

@@ -80,11 +80,11 @@
 		return
 
 	if(operating)
-		to_chat(user, "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>")
+		to_chat(user, span_danger("The gibber is locked and running, wait for it to finish."))
 		return
 
 	if(locked)
-		to_chat(user, "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>")
+		to_chat(user, span_warning("Wait for [occupant.name] to finish being loaded!"))
 		return
 
 	startgibbing(user)
@@ -93,7 +93,7 @@
 	if(istype(P, /obj/item/grab))
 		var/obj/item/grab/G = P
 		if(G.state < 2)
-			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
+			to_chat(user, span_danger("You need a better grip to do that!"))
 			return
 		move_into_gibber(user,G.affecting)
 		qdel(G)
@@ -128,25 +128,25 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)
-		to_chat(user, "<span class='danger'>[src] is full, empty it first!</span>")
+		to_chat(user, span_danger("[src] is full, empty it first!"))
 		return
 
 	if(operating)
-		to_chat(user, "<span class='danger'>[src] is locked and running, wait for it to finish.</span>")
+		to_chat(user, span_danger("[src] is locked and running, wait for it to finish."))
 		return
 
 	if(!ishuman(victim))
-		to_chat(user, "<span class='danger'>This is not suitable for [src]!</span>")
+		to_chat(user, span_danger("This is not suitable for [src]!"))
 		return
 
 	if(victim.abiotic(TRUE))
-		to_chat(user, "<span class='danger'>Subject may not have anything on their body.</span>")
+		to_chat(user, span_danger("Subject may not have anything on their body."))
 		return
 
-	user.visible_message("<span class='danger'>[user] starts to put [victim] into [src]!</span>")
+	user.visible_message(span_danger("[user] starts to put [victim] into [src]!"))
 	add_fingerprint(user)
 	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
+		user.visible_message(span_danger("[user] stuffs [victim] into [src]!"))
 
 		victim.forceMove(src)
 		occupant = victim
@@ -241,11 +241,11 @@
 		return
 
 	if(!occupant)
-		visible_message("<span class='danger'>You hear a loud metallic grinding sound.</span>")
+		visible_message(span_danger("You hear a loud metallic grinding sound."))
 		return
 
 	use_power(1000)
-	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
+	visible_message(span_danger("You hear a loud squelchy grinding sound."))
 
 	operating = 1
 	update_icon()
@@ -354,7 +354,7 @@
 		victim_targets += H
 
 	if(victim_targets.len)
-		visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
+		visible_message(span_danger("\The [src] states, \"Food detected!\""))
 		sleep(consumption_delay)
 		for(var/mob/living/carbon/H in victim_targets)
 			if(H.loc == lturf) //still standing there
@@ -369,7 +369,7 @@
 
 /obj/machinery/gibber/autogibber/proc/force_move_into_gibber(mob/living/carbon/human/victim)
 	if(!istype(victim))	return 0
-	visible_message("<span class='danger'>\The [victim.name] gets sucked into \the [src]!</span>")
+	visible_message(span_danger("\The [victim.name] gets sucked into \the [src]!"))
 
 	victim.forceMove(src)
 	occupant = victim
@@ -416,4 +416,4 @@
 			spats++
 			sleep(1)
 	if(spats)
-		visible_message("<span class='warning'>\The [src] spits out more possessions!</span>")
+		visible_message(span_warning("\The [src] spits out more possessions!"))

@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 			var/mob/living/carbon/human/target = grabbed
 			if(issmall(target))
 				if(target.stat == 0)
-					to_chat(user, "<span class='warning'>The monkey is struggling far too much to put it in the recycler.</span>")
+					to_chat(user, span_warning("The monkey is struggling far too much to put it in the recycler."))
 				else
 					user.drop_item()
 					qdel(target)
@@ -103,9 +103,9 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 					pixel_x = initial(pixel_x)
 					to_chat(user, span_notice("The machine now has [grinded] monkey\s worth of material stored."))
 			else
-				to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
+				to_chat(user, span_warning("The machine only accepts monkeys!"))
 		else
-			to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
+			to_chat(user, span_warning("The machine only accepts monkeys!"))
 		return
 	return ..()
 
@@ -120,5 +120,5 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 			new cube_type(loc)
 		to_chat(user, span_notice("The machine's display flashes that it has [grinded] monkey\s worth of material left."))
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
-		to_chat(user, "<span class='warning'>The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded].</span>")
+		to_chat(user, span_warning("The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded]."))
 	return

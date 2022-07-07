@@ -49,7 +49,7 @@
 		var/obj/item/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
 			if(!user.unEquip(L))
-				to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in [src]</span>")
+				to_chat(user, span_warning("[I] is stuck to your hand, you cannot put it in [src]"))
 				return
 			L.forceMove(src)
 			locked = L
@@ -366,7 +366,7 @@
 		return
 	if(power_station && power_station.engaged && !panel_open && !blockAI(M))
 		if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
-			visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
+			visible_message(span_warning("[src] emits a loud buzz, as its teleport portal flickers and fails!"))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			power_station.toggle() // turn off the portal.
 		use_power(5000)
@@ -441,13 +441,13 @@
 */
 /obj/machinery/teleport/proc/blockAI(atom/A)
 	if(istype(A, /mob/living/silicon/ai) || istype(A, /obj/structure/AIcore))
-		visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
+		visible_message(span_warning("The teleporter rejects the AI unit."))
 		if(istype(A, /mob/living/silicon/ai))
 			var/mob/living/silicon/ai/T = A
-			var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
-			"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
-			"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
-			"<span class='warning'>Your AI core's anti-bluespace failsafes trigger and prevent teleportation!</span>")
+			var/list/TPError = list(span_warning("Firmware instructions dictate you must remain on your assigned station!"),
+			span_warning("You cannot interface with this technology and get rejected!"),
+			span_warning("External firewalls prevent you from utilizing this machine!"),
+			span_warning("Your AI core's anti-bluespace failsafes trigger and prevent teleportation!"))
 			to_chat(T, "[pick(TPError)]")
 		return TRUE
 	return FALSE

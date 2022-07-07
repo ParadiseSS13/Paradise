@@ -283,7 +283,7 @@
 	switch(action)
 		if("vend")
 			if(is_secure && !emagged && scan_id && !allowed(usr)) //secure fridge check
-				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				to_chat(usr, span_warning("Access denied."))
 				return FALSE
 
 			var/index = text2num(params["index"])
@@ -337,7 +337,7 @@
 				var/mob/M = I.loc
 				if(M.get_active_hand() == I)
 					if(!M.drop_item())
-						to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
+						to_chat(user, span_warning("\The [I] is stuck to you!"))
 						return FALSE
 				else
 					M.unEquip(I)
@@ -372,7 +372,7 @@
 		return FALSE
 
 	INVOKE_ASYNC(throw_item, /atom/movable.proc/throw_at, target, 16, 3, src)
-	visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
+	visible_message(span_warning("[src] launches [throw_item.name] at [target.name]!"))
 	return TRUE
 
 /**

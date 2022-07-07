@@ -102,7 +102,7 @@
 					I.loc = src
 					inserted_id = I
 				else
-					to_chat(usr, "<span class='warning'>No valid ID.</span>")
+					to_chat(usr, span_warning("No valid ID."))
 			if("1")
 				inserted_id.loc = get_step(src,get_turf(usr))
 				inserted_id = null
@@ -128,7 +128,7 @@
 		if(src.allowed(usr))
 			authenticated = !authenticated
 		else
-			to_chat(usr, "<span class='warning'>Unauthorized access.</span>")
+			to_chat(usr, span_warning("Unauthorized access."))
 
 	else if(href_list["warn"])
 		var/warning = sanitize(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN))

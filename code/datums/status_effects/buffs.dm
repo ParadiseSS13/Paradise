@@ -73,7 +73,7 @@
 	owner.adjustFireLoss(-15)
 
 /datum/status_effect/shadow_mend/on_remove()
-	owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
+	owner.visible_message(span_warning("The violet light around [owner] glows black!"), span_warning("The tendrils around you cinch tightly and reap their toll..."))
 	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
 	owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
@@ -368,14 +368,14 @@
 
 /datum/status_effect/speedlegs/tick()
 	if(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)
-		to_chat(owner, "<span class='danger'>Our muscles relax without the energy to strengthen them.</span>")
+		to_chat(owner, span_danger("Our muscles relax without the energy to strengthen them."))
 		owner.Weaken(6 SECONDS)
 		qdel(src)
 	else
 		stacks++
 		cling.chem_charges -= stacks * 3 //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
 		if(stacks == 7) //Warning message that the stacks are getting too high
-			to_chat(owner, "<span class='warning'>Our legs are really starting to hurt...</span>")
+			to_chat(owner, span_warning("Our legs are really starting to hurt..."))
 
 /datum/status_effect/speedlegs/before_remove()
 	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
@@ -388,7 +388,7 @@
 	if(!owner.IsWeakened())
 		to_chat(owner, span_notice("Our muscles relax."))
 		if(stacks >= 7)
-			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
+			to_chat(owner, span_danger("We collapse in exhaustion."))
 			owner.Weaken(6 SECONDS)
 			owner.emote("gasp")
 	cling.genetic_damage += stacks

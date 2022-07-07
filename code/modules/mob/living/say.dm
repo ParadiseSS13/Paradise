@@ -111,7 +111,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
 		if(check_mute(client.ckey, MUTE_IC))
-			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
+			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return
 
 	if(sanitize)
@@ -168,7 +168,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
 		if(G.mute == MUZZLE_MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
-			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
+			to_chat(src, span_danger("You're muzzled and cannot speak!"))
 			return
 		else if(G.mute == MUZZLE_MUTE_MUFFLE)
 			muffledspeech_all(message_pieces)
@@ -315,7 +315,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/proc/whisper_say(list/message_pieces, verb = "whispers")
 	if(client)
 		if(check_mute(client.ckey, MUTE_IC))
-			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
+			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return
 
 	if(stat)
@@ -323,9 +323,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	if(is_muzzled())
 		if(istype(wear_mask, /obj/item/clothing/mask/muzzle/tapegag)) //just for tape
-			to_chat(src, "<span class='danger'>Your mouth is taped and you cannot speak!</span>")
+			to_chat(src, span_danger("Your mouth is taped and you cannot speak!"))
 		else
-			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
+			to_chat(src, span_danger("You're muzzled and cannot speak!"))
 		return
 
 	var/message = multilingual_to_message(message_pieces)

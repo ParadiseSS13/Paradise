@@ -126,7 +126,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/living/user, action)
 	if(recharging_time > world.time)
-		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		to_chat(user, span_warning("The boot's internal propulsion needs to recharge still!"))
 		return
 	var/prev_dir = user.dir
 	var/prev_pass_flags = user.pass_flags
@@ -135,7 +135,7 @@
 	user.dir = prev_dir
 	playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 	recharging_time = world.time + recharging_rate
-	user.visible_message("<span class='warning'>[user] slips forward!</span>")
+	user.visible_message(span_warning("[user] slips forward!"))
 	for(var/i in 1 to slide_distance)
 		step(user, user.dir)
 		sleep(1)
@@ -384,17 +384,17 @@
 		return
 
 	if(recharging_time > world.time)
-		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		to_chat(user, span_warning("The boot's internal propulsion needs to recharge still!"))
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
 	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
-		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		user.visible_message(span_warning("[usr] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
-		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		to_chat(user, span_warning("Something prevents you from dashing forward!"))
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"

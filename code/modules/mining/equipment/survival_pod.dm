@@ -18,11 +18,11 @@
 
 /obj/item/survivalcapsule/emag_act()
 	if(!emagged)
-		to_chat(usr, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
+		to_chat(usr, span_warning("You short out the safeties, allowing it to be placed in the station sector."))
 		emagged = TRUE
 		return
 
-	to_chat(usr, "<span class='warning'>The safeties are already shorted out!</span>")
+	to_chat(usr, span_warning("The safeties are already shorted out!"))
 
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
@@ -47,18 +47,18 @@
 			to_chat(usr, span_notice("Error. Deployment was attempted on the station sector. Deployment aborted."))
 			playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
 			return
-		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
+		loc.visible_message(span_warning("[src] begins to shake. Stand back!"))
 		used = TRUE
 		sleep(50)
 		var/turf/deploy_location = get_turf(src)
 		var/status = template.check_deploy(deploy_location)
 		switch(status)
 			if(SHELTER_DEPLOY_BAD_AREA)
-				loc.visible_message("<span class='warning'>[src] will not function in this area.</span>")
+				loc.visible_message(span_warning("[src] will not function in this area."))
 			if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
 				var/width = template.width
 				var/height = template.height
-				loc.visible_message("<span class='warning'>[src] doesn't have room to deploy! You need to clear a [width]x[height] area!</span>")
+				loc.visible_message(span_warning("[src] doesn't have room to deploy! You need to clear a [width]x[height] area!"))
 
 		if(status != SHELTER_DEPLOY_ALLOWED)
 			used = FALSE
@@ -187,7 +187,7 @@
 /obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
+		user.visible_message(span_warning("[user] disassembles the gps."), \
 						span_notice("You start to disassemble the gps..."), "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			new /obj/item/gps(loc)
@@ -279,7 +279,7 @@
 /obj/structure/fans/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
+		user.visible_message(span_warning("[user] disassembles the fan."), \
 							 span_notice("You start to disassemble the fan..."), "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			deconstruct()
@@ -322,7 +322,7 @@
 /obj/structure/tubes/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+		user.visible_message(span_warning("[user] disassembles [src]."), \
 							 span_notice("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			new /obj/item/stack/rods(loc)

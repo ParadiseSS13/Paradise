@@ -71,13 +71,13 @@
 	if(summoner)
 		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
 			summoner.remove_guardian_actions()
-			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
-			visible_message("<span class='danger'>[src] dies along with its user!</span>")
+			to_chat(src, span_danger("Your summoner has died!"))
+			visible_message(span_danger("[src] dies along with its user!"))
 			ghostize()
 			qdel(src)
 	snapback()
 	if(summoned && !summoner && !admin_spawned)
-		to_chat(src, "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>")
+		to_chat(src, span_danger("You somehow lack a summoner! As a result, you dispel!"))
 		ghostize()
 		qdel(src)
 
@@ -88,7 +88,7 @@
 			return
 		else
 			to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
-			visible_message("<span class='danger'>\The [src] jumps back to its user.</span>")
+			visible_message(span_danger("\The [src] jumps back to its user."))
 			if(istype(summoner.loc, /obj/effect))
 				Recall(TRUE)
 			else
@@ -101,7 +101,7 @@
 
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
 	if(!is_deployed() && a_intent == INTENT_HARM)
-		to_chat(src, "<span class='danger'>You must be manifested to attack!</span>")
+		to_chat(src, span_danger("You must be manifested to attack!"))
 		return FALSE
 	else if(!is_deployed() && a_intent == INTENT_HELP)
 		return FALSE
@@ -117,7 +117,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
+	to_chat(summoner, span_danger("Your [name] died somehow!"))
 	summoner.death()
 
 
@@ -138,10 +138,10 @@
 			return
 		summoner.adjustBruteLoss(damage)
 		if(damage)
-			to_chat(summoner, "<span class='danger'>Your [name] is under attack! You take damage!</span>")
-			summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
+			to_chat(summoner, span_danger("Your [name] is under attack! You take damage!"))
+			summoner.visible_message(span_danger("Blood sprays from [summoner] as [src] takes damage!"))
 		if(summoner.stat == UNCONSCIOUS)
-			to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
+			to_chat(summoner, span_danger("Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!"))
 			summoner.adjustCloneLoss(damage/2)
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
@@ -157,7 +157,7 @@
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
-		to_chat(summoner, "<span class='danger'>Your [src] was blown up!</span>")
+		to_chat(summoner, span_danger("Your [src] was blown up!"))
 		summoner.Weaken(20 SECONDS)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
@@ -211,7 +211,7 @@
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
-	to_chat(src, "<span class='danger'>You dont have another mode!</span>")
+	to_chat(src, span_danger("You dont have another mode!"))
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
@@ -262,7 +262,7 @@
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
 	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
 	if(choice == "No")
-		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
+		to_chat(user, span_warning("You decide against using the [name]."))
 		used = FALSE
 		return
 	to_chat(user, "[use_message]")
@@ -275,7 +275,7 @@
 	else
 		guardian_type = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
 		if(!guardian_type)
-			to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
+			to_chat(user, span_warning("You decide against using the [name]."))
 			used = FALSE
 			return
 

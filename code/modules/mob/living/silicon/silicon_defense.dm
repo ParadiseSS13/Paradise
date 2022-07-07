@@ -6,7 +6,7 @@
 		var/damage = 20
 		if(prob(90))
 			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", "<span class='userdanger'>[M] has slashed at [src]!</span>")
+			visible_message(span_danger("[M] has slashed at [src]!"), "<span class='userdanger'>[M] has slashed at [src]!</span>")
 			if(prob(8))
 				flash_eyes(affect_silicon = 1)
 			add_attack_logs(M, src, "Alien attacked")
@@ -14,7 +14,7 @@
 			updatehealth()
 		else
 			playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-			visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
+			visible_message(span_danger("[M] took a swipe at [src]!"), \
 							"<span class='userdanger'>[M] took a swipe at [src]!</span>")
 	return
 
@@ -44,12 +44,12 @@
 /mob/living/silicon/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
+			to_chat(user, span_warning("You don't want to hurt [src]!"))
 			return FALSE
 		..(user, TRUE)
 		adjustBruteLoss(rand(10, 15))
 		playsound(loc, "punch", 25, 1, -1)
-		visible_message("<span class='danger'>[user] has punched [src]!</span>", "<span class='userdanger'>[user] has punched [src]!</span>")
+		visible_message(span_danger("[user] has punched [src]!"), "<span class='userdanger'>[user] has punched [src]!</span>")
 		return TRUE
 	return FALSE
 

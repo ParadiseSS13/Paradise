@@ -26,7 +26,7 @@
 			affectedbook.dat = null
 			affectedbook.visible_message(span_notice("The solution melts away the ink on the book."))
 		else
-			O.visible_message("<span class='warning'>It wasn't enough...</span>")
+			O.visible_message(span_warning("It wasn't enough..."))
 
 /datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
 	if(method == REAGENT_TOUCH)
@@ -741,7 +741,7 @@
 	drink_icon = "demonsblood"
 	drink_name = "Demons Blood"
 	drink_desc = "Just looking at this thing makes the hair at the back of your neck stand up."
-	taste_description = "<span class='warning'>evil</span>"
+	taste_description = span_warning("evil")
 
 /datum/reagent/consumable/ethanol/vodkatonic
 	name = "Vodka and Tonic"
@@ -1182,20 +1182,20 @@
 	if(prob(8))
 		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
 	if(prob(50))
-		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
+		to_chat(M, span_danger("Your throat burns terribly!"))
 		M.emote(pick("scream","cry","choke","gasp"))
 		M.Stun(2 SECONDS, FALSE)
 	if(prob(8))
-		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
+		to_chat(M, span_danger("Why!? WHY!?"))
 	if(prob(8))
-		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
+		to_chat(M, span_danger("ARGHHHH!"))
 	if(prob(2 * volume))
 		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</b></span>")
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
 		if(prob(50))
 			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
-			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")
+			M.visible_message(span_danger("[M] is consumed in flames!"))
 			M.dust()
 			return
 	return ..() | update_flags
@@ -1439,10 +1439,10 @@
 	if(!M.nutrition)
 		switch(rand(1, 3))
 			if(1)
-				to_chat(M, "<span class='warning'>You feel hungry...</span>")
+				to_chat(M, span_warning("You feel hungry..."))
 			if(2)
 				update_flags |= M.adjustToxLoss(1, FALSE)
-				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
+				to_chat(M, span_warning("Your stomach grumbles painfully!"))
 			else
 				pass()
 	else

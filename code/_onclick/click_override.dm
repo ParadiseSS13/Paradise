@@ -27,7 +27,7 @@
 
 /obj/item/badminBook/attack_self(mob/living/user as mob)
 	if(user.middleClickOverride)
-		to_chat(user, "<span class='warning'>You try to draw power from [src], but you cannot hold the power at this time!</span>")
+		to_chat(user, span_warning("You try to draw power from [src], but you cannot hold the power at this time!"))
 		return
 	user.middleClickOverride = clickBehavior
 	to_chat(user, "<span class='notice'>You draw a bit of power from [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
@@ -51,13 +51,13 @@
 		return
 	var/obj/item/clothing/gloves/color/yellow/power/P = user.gloves
 	if(world.time < P.last_shocked + P.shock_delay)
-		to_chat(user, "<span class='warning'>The gloves are still recharging.</span>")
+		to_chat(user, span_warning("The gloves are still recharging."))
 		return
 	var/turf/T = get_turf(user)
 	var/obj/structure/cable/C = locate() in T
 	if(!P.unlimited_power)
 		if(!C || !istype(C))
-			to_chat(user, "<span class='warning'>There is no cable here to power the gloves.</span>")
+			to_chat(user, span_warning("There is no cable here to power the gloves."))
 			return
 	var/turf/target_turf = get_turf(A)
 	target_turf.hotspot_expose(2000, 400)

@@ -22,7 +22,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		return
 
 	ui_interact(user)
@@ -113,7 +113,7 @@
 		if("shutdown")
 			var/mob/living/silicon/robot/drone/D = locateUID(params["uid"])
 			if(D)
-				to_chat(usr, "<span class='warning'>You issue a kill command for the unfortunate drone.</span>")
+				to_chat(usr, span_warning("You issue a kill command for the unfortunate drone."))
 				if(D != usr) // Don't need to bug admins about a suicide
 					message_admins("[key_name_admin(usr)] issued kill order for drone [key_name_admin(D)] from control console.")
 				log_game("[key_name(usr)] issued kill order for [key_name(D)] from control console.")
@@ -134,4 +134,4 @@
 		return
 
 	if(user)
-		to_chat(user, "<span class='warning'>Unable to locate drone fabricator.</span>")
+		to_chat(user, span_warning("Unable to locate drone fabricator."))

@@ -16,7 +16,7 @@
 					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
 						user << link("[GLOB.configuration.url.wiki_url]/index.php/Job_Selection_and_Assignment")
 				else
-					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
+					to_chat(user, span_danger("The Wiki URL is not set in the server configuration."))
 			if("random")
 				if(active_character.alternate_option == GET_RANDOM_JOB || active_character.alternate_option == BE_ASSISTANT)
 					active_character.alternate_option += 1
@@ -101,7 +101,7 @@
 				active_character.loadout_gear -= TG.type
 			else
 				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
+					to_chat(user, span_warning("That gear is only available at a higher donation tier than you are on."))
 					return
 				build_loadout(TG)
 
@@ -227,7 +227,7 @@
 					var/datum/species/NS = GLOB.all_species[active_character.species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						active_character.species = prev_species
-						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
+						to_chat(user, span_warning("Invalid species, please pick something else."))
 						return
 					if(prev_species != active_character.species)
 						if(NS.has_gender && active_character.gender == PLURAL)

@@ -37,7 +37,7 @@
 
 /obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user))
 		return
@@ -87,10 +87,10 @@
 
 /obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I)
 	if(has_extinguisher)
-		to_chat(user, "<span class='warning'>You need to remove the extinguisher before deconstructing [src]!</span>")
+		to_chat(user, span_warning("You need to remove the extinguisher before deconstructing [src]!"))
 		return
 	if(!opened)
-		to_chat(user, "<span class='warning'>Open the cabinet before cutting it apart!</span>")
+		to_chat(user, span_warning("Open the cabinet before cutting it apart!"))
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))

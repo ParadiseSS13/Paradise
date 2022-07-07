@@ -86,7 +86,7 @@ Bonus
 			for(var/res in M.resistances)
 				if(res in cured_diseases)
 					M.resistances -= res
-		to_chat(M, "<span class='warning'>You feel weaker.</span>")
+		to_chat(M, span_warning("You feel weaker."))
 
 /*
 //////////////////////////////////////

@@ -247,7 +247,7 @@
 	add_fingerprint(usr)
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 
 	else if(radio_connection)
 		var/datum/signal/signal = new

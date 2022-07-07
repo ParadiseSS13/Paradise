@@ -26,7 +26,7 @@
 			if("A", "Northwest") // Northwest is Home
 				var/obj/item/I = get_active_hand()
 				if(!I)
-					to_chat(src, "<span class='warning'>You have nothing to drop in your hand!</span>")
+					to_chat(src, span_warning("You have nothing to drop in your hand!"))
 				else
 					drop_item(I)
 				return
@@ -59,7 +59,7 @@
 			if("Q", "Northwest") // Northwest is Home
 				var/obj/item/I = get_active_hand()
 				if(!I)
-					to_chat(src, "<span class='warning'>You have nothing to drop in your hand!</span>")
+					to_chat(src, span_warning("You have nothing to drop in your hand!"))
 				else
 					drop_item(I)
 				return

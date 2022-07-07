@@ -50,9 +50,9 @@
 	if(istype(A, /obj/structure/reagent_dispensers))
 		var/obj/structure/reagent_dispensers/RD = A
 		if(RD.reagents.total_volume <= 0)
-			to_chat(user, "<span class='warning'>[RD] is empty.</span>")
+			to_chat(user, span_warning("[RD] is empty."))
 		else if(reagents.total_volume >= 10)
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, span_warning("[src] is full."))
 		else
 			A.reagents.trans_to(src, 10)
 			to_chat(user, span_notice("You fill the balloon with the contents of [A]."))
@@ -86,7 +86,7 @@
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom)
 	if(reagents.total_volume >= 1)
-		visible_message("<span class='warning'>[src] bursts!</span>","You hear a pop and a splash.")
+		visible_message(span_warning("[src] bursts!"),"You hear a pop and a splash.")
 		reagents.reaction(get_turf(hit_atom))
 		for(var/atom/A in get_turf(hit_atom))
 			reagents.reaction(A)
@@ -256,7 +256,7 @@
 	..()
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
-	visible_message("<span class='warning'>[src] explodes!</span>","<span class='warning'>You hear a bang!</span>")
+	visible_message(span_warning("[src] explodes!"),span_warning("You hear a bang!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -274,7 +274,7 @@
 /obj/item/toy/snappop/proc/pop_burst(n=3, c=1)
 	do_sparks(n, c, src)
 	new ash_type(loc)
-	visible_message("<span class='warning'>[src] explodes!</span>",
+	visible_message(span_warning("[src] explodes!"),
 		"<span class='italics'>You hear a snap!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
@@ -291,7 +291,7 @@
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
 		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
-			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
+			to_chat(M, span_danger("You step on the snap pop!"))
 			pop_burst(2, 0)
 
 /obj/item/toy/snappop/phoenix
@@ -322,7 +322,7 @@
 /obj/item/toy/nuke/attack_self(mob/user)
 	if(cooldown < world.time)
 		cooldown = world.time + 1800 //3 minutes
-		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", span_notice("You activate [src], it plays a loud noise!"), span_notice("You hear the click of a button."))
+		user.visible_message(span_warning("[user] presses a button on [src]"), span_notice("You activate [src], it plays a loud noise!"), span_notice("You hear the click of a button."))
 		spawn(5) //gia said so
 			icon_state = "nuketoy"
 			playsound(src, 'sound/machines/alarm.ogg', 100, 0, 0)
@@ -644,7 +644,7 @@
 	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
 	addtimer(CALLBACK(src, .proc/reset_screamdown), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
 	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
-	visible_message("<span class='danger'>AAAAAAH!</span>")
+	visible_message(span_danger("AAAAAAH!"))
 	if(singed)
 		return
 	singed = TRUE
@@ -665,9 +665,9 @@
 	hug_cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/reset_hugdown), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
 	if(singed)//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
-		visible_message("<span class='danger'>Ow...</span>")
+		visible_message(span_danger("Ow..."))
 	else//If the plushie has not touched water they'll say Greetings in wingdings.
-		visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
+		visible_message(span_danger("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎"))
 
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
@@ -679,7 +679,7 @@
 /obj/item/toy/plushie/voxplushie/attack_self(mob/user)
 	if(!cooldown)
 		playsound(user, 'sound/voice/shriek1.ogg', 10, 0)
-		visible_message("<span class='danger'>Skreee!</span>")
+		visible_message(span_danger("Skreee!"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -738,7 +738,7 @@
 		return ..()
 
 	playsound(src, 'sound/voice/scream_moth.ogg', 10, 0)
-	visible_message("<span class='danger'>Buzzzz!</span>")
+	visible_message(span_danger("Buzzzz!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -791,12 +791,12 @@
 		animate_rumble(src)
 		addtimer(CALLBACK(src, .proc/stopRumble), 60 SECONDS)
 	else
-		to_chat(user, "<span class='warning'>[src] is already active!</span>")
+		to_chat(user, span_warning("[src] is already active!"))
 
 /obj/item/toy/windup_toolbox/proc/stopRumble()
 	active = FALSE
 	update_icon()
-	visible_message("<span class='warning'>[src] slowly stops rattling and falls still, its latch snapping shut.</span>") //subtle difference
+	visible_message(span_warning("[src] slowly stops rattling and falls still, its latch snapping shut.")) //subtle difference
 	playsound(loc, 'sound/weapons/batonextend.ogg', 100, TRUE)
 	animate(src, transform = matrix())
 
@@ -831,7 +831,7 @@
 /obj/item/toy/redbutton/attack_self(mob/user)
 	if(cooldown < world.time)
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
-		user.visible_message("<span class='warning'>[user] presses the big red button.</span>", span_notice("You press the button, it plays a loud noise!"), span_notice("The button clicks loudly."))
+		user.visible_message(span_warning("[user] presses the big red button."), span_notice("You press the button, it plays a loud noise!"), span_notice("The button clicks loudly."))
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0, 0)
 		for(var/mob/M in range(10, src)) // Checks range
 			if(!M.stat && !istype(M, /mob/living/silicon/ai)) // Checks to make sure whoever's getting shaken is alive/not the AI
@@ -858,7 +858,7 @@
 		var/message = generate_ion_law()
 		to_chat(user, span_notice("You press the button on [src]."))
 		playsound(user, 'sound/machines/click.ogg', 20, 1)
-		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+		visible_message(span_danger("[bicon(src)] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -883,7 +883,7 @@
 		cooldown = TRUE
 		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 60)
 		for(var/message in pick(messages))
-			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+			user.loc.visible_message(span_danger("[bicon(src)] [message]"))
 			sleep(10)
 
 // DND Character minis. Use the naming convention (type)character for the icon states.
@@ -973,7 +973,7 @@
 /obj/item/toy/minigibber/attack_self(mob/user)
 
 	if(stored_minature)
-		to_chat(user, "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>")
+		to_chat(user, span_danger("\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!"))
 		QDEL_NULL(stored_minature)
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
@@ -995,7 +995,7 @@
 				O.forceMove(src)
 				stored_minature = O
 		else
-			to_chat(user, "<span class='warning'>You stop feeding \the [O] into \the [src]'s mini-input.</span>")
+			to_chat(user, span_warning("You stop feeding \the [O] into \the [src]'s mini-input."))
 	else ..()
 
 /obj/item/toy/russian_revolver
@@ -1031,10 +1031,10 @@
 
 /obj/item/toy/russian_revolver/attack_self(mob/user)
 	if(!bullets_left)
-		user.visible_message("<span class='warning'>[user] loads a bullet into [src]'s cylinder before spinning it.</span>")
+		user.visible_message(span_warning("[user] loads a bullet into [src]'s cylinder before spinning it."))
 		spin_cylinder()
 	else
-		user.visible_message("<span class='warning'>[user] spins the cylinder on [src]!</span>")
+		user.visible_message(span_warning("[user] spins the cylinder on [src]!"))
 		spin_cylinder()
 
 /obj/item/toy/russian_revolver/attack(mob/M, mob/living/user)
@@ -1057,7 +1057,7 @@
 /obj/item/toy/russian_revolver/proc/shoot_gun(mob/living/carbon/human/user)
 	if(bullets_left > 1)
 		bullets_left--
-		user.visible_message("<span class='danger'>*click*</span>")
+		user.visible_message(span_danger("*click*"))
 		playsound(src, 'sound/weapons/empty.ogg', 100, 1)
 		return FALSE
 	if(bullets_left == 1)
@@ -1066,14 +1066,14 @@
 		if(!(user.has_organ(zone))) // If they somehow don't have a head.
 			zone = "chest"
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
-		user.visible_message("<span class='danger'>[src] goes off!</span>")
+		user.visible_message(span_danger("[src] goes off!"))
 		post_shot(user)
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
 		user.bleed(BLOOD_VOLUME_NORMAL)
 		user.death() // Just in case
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>[src] needs to be reloaded.</span>")
+		to_chat(user, span_warning("[src] needs to be reloaded."))
 		return FALSE
 
 /obj/item/toy/russian_revolver/trick_revolver
@@ -1097,7 +1097,7 @@
 			will tell you what caliber you need."
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
-	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
+	to_chat(user, span_danger("[src] did look pretty dodgey!"))
 	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
 
 /*
@@ -1419,7 +1419,7 @@
 	icon_state = "[initial(icon_state)]"
 
 /obj/item/toy/figure/xeno/on_cooldown(mob/user)
-	to_chat(user, "<span class='warning'>The string on [src] hasn't rewound all the way!</span>")
+	to_chat(user, span_warning("The string on [src] hasn't rewound all the way!"))
 
 /obj/item/toy/figure/owl
 	name = "\improper Owl action figure"
@@ -1430,7 +1430,7 @@
 	var/message = pick("You won't get away this time, Griffin!", "Stop right there, criminal!", "Hoot! Hoot!", "I am the night!")
 	to_chat(user, span_notice("You pull the string on [src]."))
 	playsound(src, 'sound/creatures/hoot.ogg', 25, TRUE)
-	atom_say("<span class='danger'>[message]</span>")
+	atom_say(span_danger("[message]"))
 
 /obj/item/toy/figure/griffin
 	name = "\improper Griffin action figure"
@@ -1442,7 +1442,7 @@
 	var/message = pick("You can't stop me, Owl!", "My plan is flawless! The vault is mine!", "Caaaawwww!", "You will never catch me!")
 	to_chat(user, span_notice("You pull the string on [src]."))
 	playsound(src, 'sound/creatures/caw.ogg', 25, TRUE)
-	atom_say("<span class='danger'>[message]</span>")
+	atom_say(span_danger("[message]"))
 
 /*
  * Mech prizes

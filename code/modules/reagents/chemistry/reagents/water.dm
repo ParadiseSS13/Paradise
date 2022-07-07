@@ -84,7 +84,7 @@
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
-	taste_description = "<span class='warning'>blood</span>"
+	taste_description = span_warning("blood")
 	taste_mult = 1.3
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -240,7 +240,7 @@
 			if(prob(10))
 				M.say(pick("*gasp", "*cough", "*sneeze"))
 			if(prob(5)) //Same as cult, for the real big tell
-				M.visible_message("<span class='warning'>A fog lifts from [M]'s eyes for a moment, but soon returns.</span>")
+				M.visible_message(span_warning("A fog lifts from [M]'s eyes for a moment, but soon returns."))
 
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(6 SECONDS)
@@ -293,8 +293,8 @@
 						M.emote("scream")
 					vamp.adjust_nullification(20, 4)
 				if(13 to INFINITY)
-					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
-									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
+					M.visible_message(span_danger("[M] suddenly bursts into flames!"),
+									span_danger("You suddenly ignite in a holy fire!"))
 					M.fire_stacks = min(5, M.fire_stacks + 3)
 					M.IgniteMob()
 					update_flags |= M.adjustFireLoss(3, FALSE)
@@ -313,13 +313,13 @@
 		var/mob/living/carbon/human/H = M
 		if(method == REAGENT_TOUCH)
 			if(H.wear_mask)
-				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
+				to_chat(H, span_warning("Your mask protects you from the holy water!"))
 				return
 			else if(H.head)
-				to_chat(H, "<span class='warning'>Your helmet protects you from the holy water!</span>")
+				to_chat(H, span_warning("Your helmet protects you from the holy water!"))
 				return
 			else
-				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
+				to_chat(M, span_warning("Something holy interferes with your powers!"))
 				V.adjust_nullification(5, 2)
 
 

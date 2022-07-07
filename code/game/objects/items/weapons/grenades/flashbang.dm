@@ -44,7 +44,7 @@
 	for(var/mob/living/M in hearers(range, T))
 		if(M.stat == DEAD)
 			continue
-		M.show_message("<span class='warning'>BANG</span>", 2)
+		M.show_message(span_warning("BANG"), 2)
 
 		var/distance = max(1, get_dist(source_turf, get_turf(M)))
 		var/stun_amount = max(20 SECONDS / distance, 6 SECONDS)
@@ -67,8 +67,8 @@
 					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 					if(istype(ears))
 						if(ears.ear_damage >= 15)
-							to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+							to_chat(M, span_warning("Your ears start to ring badly!"))
 							if(prob(ears.ear_damage - 5))
-								to_chat(M, "<span class='warning'>You can't hear anything!</span>")
+								to_chat(M, span_warning("You can't hear anything!"))
 						else if(ears.ear_damage >= 5)
-							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+							to_chat(M, span_warning("Your ears start to ring!"))

@@ -100,8 +100,8 @@
 
 /datum/surgery_step/robotics/external/unscrew_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to unscrew [target]'s [affected.name].</span>", \
-	"<span class='warning'> Your [tool] slips, failing to unscrew [target]'s [affected.name].</span>")
+	user.visible_message(span_warning(" [user]'s [tool.name] slips, failing to unscrew [target]'s [affected.name]."), \
+	span_warning(" Your [tool] slips, failing to unscrew [target]'s [affected.name]."))
 	return FALSE
 
 /datum/surgery_step/robotics/external/open_hatch
@@ -136,8 +136,8 @@
 
 /datum/surgery_step/robotics/external/open_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to open the hatch on [target]'s [affected.name].</span>",
-	"<span class='warning'> Your [tool] slips, failing to open the hatch on [target]'s [affected.name].</span>")
+	user.visible_message(span_warning(" [user]'s [tool.name] slips, failing to open the hatch on [target]'s [affected.name]."),
+	span_warning(" Your [tool] slips, failing to open the hatch on [target]'s [affected.name]."))
 	return FALSE
 
 /datum/surgery_step/robotics/external/close_hatch
@@ -172,8 +172,8 @@
 
 /datum/surgery_step/robotics/external/close_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
-	"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
+	user.visible_message(span_warning(" [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name]."),
+	span_warning(" Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name]."))
 	return FALSE
 
 /datum/surgery_step/robotics/external/repair
@@ -209,12 +209,12 @@
 		current_type = "burn"
 		var/obj/item/stack/cable_coil/C = tool
 		if(!(affected.burn_dam > 0))
-			to_chat(user, "<span class='warning'>\The [affected] does not have any burn damage!</span>")
+			to_chat(user, span_warning("\The [affected] does not have any burn damage!"))
 			return -1
 		if(!istype(C))
 			return -1
 		if(!C.get_amount() >= 3)
-			to_chat(user, "<span class='warning'>You need three or more cable pieces to repair this damage.</span>")
+			to_chat(user, span_warning("You need three or more cable pieces to repair this damage."))
 			return -1
 		C.use(3)
 		user.visible_message("[user] begins to splice new cabling into [target]'s [affected.name]." , \
@@ -223,7 +223,7 @@
 	else if(implement_type in implements_heal_brute)
 		current_type = "brute"
 		if(!(affected.brute_dam > 0 || (affected.status & ORGAN_DISFIGURED)))
-			to_chat(user, "<span class='warning'>\The [affected] does not require welding repair!</span>")
+			to_chat(user, span_warning("\The [affected] does not require welding repair!"))
 			return -1
 		if(tool.tool_behaviour == TOOL_WELDER)
 			if(!tool.use(1))
@@ -263,16 +263,16 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	switch(current_type)
 		if("brute")
-			user.visible_message("<span class='warning'> [user]'s [tool.name] slips, damaging the internal structure of [target]'s [affected.name].</span>",
-			"<span class='warning'> Your [tool.name] slips, damaging the internal structure of [target]'s [affected.name].</span>")
+			user.visible_message(span_warning(" [user]'s [tool.name] slips, damaging the internal structure of [target]'s [affected.name]."),
+			span_warning(" Your [tool.name] slips, damaging the internal structure of [target]'s [affected.name]."))
 			target.apply_damage(rand(5,10), BURN, affected)
 		if("burn")
-			user.visible_message("<span class='warning'> [user] causes a short circuit in [target]'s [affected.name]!</span>",
-			"<span class='warning'> You cause a short circuit in [target]'s [affected.name]!</span>")
+			user.visible_message(span_warning(" [user] causes a short circuit in [target]'s [affected.name]!"),
+			span_warning(" You cause a short circuit in [target]'s [affected.name]!"))
 			target.apply_damage(rand(5,10), BURN, affected)
 		if("finish")
-			user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
-			"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
+			user.visible_message(span_warning(" [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name]."),
+			span_warning(" Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name]."))
 	return FALSE
 
 ///////condenseing remove/extract/repair here.	/////////////
@@ -316,7 +316,7 @@
 			return -1
 
 		if(target.get_int_organ(I))
-			to_chat(user, "<span class='warning'> \The [target] already has [I].</span>")
+			to_chat(user, span_warning(" \The [target] already has [I]."))
 			return -1
 
 		user.visible_message("[user] begins reattaching [target]'s [tool].", \
@@ -339,23 +339,23 @@
 			return -1
 
 		if(!M.brainmob || !M.brainmob.client || !M.brainmob.ckey || M.brainmob.stat >= DEAD)
-			to_chat(user, "<span class='danger'>That brain is not usable.</span>")
+			to_chat(user, span_danger("That brain is not usable."))
 			return -1
 
 		if(!affected.is_robotic())
-			to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
+			to_chat(user, span_danger("You cannot install a computer brain into a meat enclosure."))
 			return -1
 
 		if(!target.dna.species)
-			to_chat(user, "<span class='danger'>You have no idea what species this person is. Report this on the bug tracker.</span>")
+			to_chat(user, span_danger("You have no idea what species this person is. Report this on the bug tracker."))
 			return -1
 
 		if(!target.dna.species.has_organ["brain"])
-			to_chat(user, "<span class='danger'>You're pretty sure [target.dna.species.name_plural] don't normally have a brain.</span>")
+			to_chat(user, span_danger("You're pretty sure [target.dna.species.name_plural] don't normally have a brain."))
 			return -1
 
 		if(target.get_int_organ(/obj/item/organ/internal/brain/))
-			to_chat(user, "<span class='danger'>Your subject already has a brain.</span>")
+			to_chat(user, span_danger("Your subject already has a brain."))
 			return -1
 
 		user.visible_message("[user] starts installing \the [tool] into [target]'s [affected.name].", \
@@ -429,7 +429,7 @@
 		var/obj/item/organ/internal/I = tool
 
 		if(!user.canUnEquip(I, 0))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
+			to_chat(user, span_warning("[I] is stuck to your hand, you can't put it in [target]!"))
 			return FALSE
 
 		user.drop_item()
@@ -477,8 +477,8 @@
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-		user.visible_message("<span class='warning'> [user]'s hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!</span>", \
-		"<span class='warning'> Your hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!</span>")
+		user.visible_message(span_warning(" [user]'s hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!"), \
+		span_warning(" Your hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!"))
 
 		target.adjustToxLoss(5)
 		affected.receive_damage(5)
@@ -488,20 +488,20 @@
 				I.receive_damage(rand(3,5),0)
 
 	else if(current_type == "insert")
-		user.visible_message("<span class='warning'> [user]'s hand slips, disconnecting \the [tool].</span>", \
-		"<span class='warning'> Your hand slips, disconnecting \the [tool].</span>")
+		user.visible_message(span_warning(" [user]'s hand slips, disconnecting \the [tool]."), \
+		span_warning(" Your hand slips, disconnecting \the [tool]."))
 
 	else if(current_type == "extract")
-		user.visible_message("<span class='warning'> [user]'s hand slips, disconnecting \the [tool].</span>", \
-		"<span class='warning'> Your hand slips, disconnecting \the [tool].</span>")
+		user.visible_message(span_warning(" [user]'s hand slips, disconnecting \the [tool]."), \
+		span_warning(" Your hand slips, disconnecting \the [tool]."))
 
 	else if(current_type == "install")
 		user.visible_message("<span class='warning'> [user]'s hand slips!</span>.", \
-		"<span class='warning'> Your hand slips!</span>")
+		span_warning(" Your hand slips!"))
 	else if(current_type == "finish")
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
-		"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
+		user.visible_message(span_warning(" [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name]."),
+		span_warning(" Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name]."))
 	return FALSE
 
 
@@ -537,8 +537,8 @@
 
 /datum/surgery_step/robotics/external/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
-	user.visible_message("<span class='warning'> [user]'s hand slips!</span>", \
-	"<span class='warning'> Your hand slips!</span>")
+	user.visible_message(span_warning(" [user]'s hand slips!"), \
+	span_warning(" Your hand slips!"))
 	return FALSE
 
 /datum/surgery/cybernetic_customization
@@ -594,6 +594,6 @@
 
 /datum/surgery_step/robotics/external/customize_appearance/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>",
-	"<span class='warning'> Your [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>")
+	user.visible_message(span_warning(" [user]'s [tool.name] slips, failing to reprogram [target]'s [affected.name]."),
+	span_warning(" Your [tool.name] slips, failing to reprogram [target]'s [affected.name]."))
 	return FALSE

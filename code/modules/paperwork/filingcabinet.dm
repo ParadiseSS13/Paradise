@@ -47,7 +47,7 @@
 		icon_state = initial(icon_state)
 		updateUsrDialog()
 	else if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>You can't put [P] in [src]!</span>")
+		to_chat(user, span_warning("You can't put [P] in [src]!"))
 	else
 		return ..()
 

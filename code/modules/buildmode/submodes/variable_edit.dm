@@ -33,23 +33,23 @@
 	var/right_click = pa.Find("right")
 
 	if(isnull(varholder))
-		to_chat(user, "<span class='warning'>Choose a variable to modify first.</span>")
+		to_chat(user, span_warning("Choose a variable to modify first."))
 		return
 	if(left_click)
 		if(object.vars.Find(varholder))
 			if(!object.vv_edit_var(varholder, valueholder))
-				to_chat(user, "<span class='warning'>Your edit was rejected by [object].</span>")
+				to_chat(user, span_warning("Your edit was rejected by [object]."))
 				return
 			log_admin("Build Mode: [key_name(user)] modified [object.name]'s [varholder] to [valueholder]")
 		else
-			to_chat(user, "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>")
+			to_chat(user, span_warning("[initial(object.name)] does not have a var called '[varholder]'"))
 	if(right_click)
 		if(object.vars.Find(varholder))
 			var/reset_value = object.vars[varholder] // Can't use initial() on a list index so just hope for the best I guess
 			if(!object.vv_edit_var(varholder, reset_value))
-				to_chat(user, "<span class='warning'>Your edit was rejected by [object].</span>")
+				to_chat(user, span_warning("Your edit was rejected by [object]."))
 				return
 			log_admin("Build Mode: [key_name(user)] modified [object.name]'s [varholder] to [reset_value]")
 		else
-			to_chat(user, "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>")
+			to_chat(user, span_warning("[initial(object.name)] does not have a var called '[varholder]'"))
 

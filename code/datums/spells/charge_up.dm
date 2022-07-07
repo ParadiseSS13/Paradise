@@ -42,7 +42,7 @@
 		start_recharge()
 		return TRUE
 	else
-		to_chat(user, "<span class='danger'>[stop_charging_fail_text]</span>")
+		to_chat(user, span_danger("[stop_charging_fail_text]"))
 		return FALSE
 
 /obj/effect/proc_holder/spell/charge_up/proc/get_energy_charge()
@@ -71,7 +71,7 @@
 	..()
 
 /obj/effect/proc_holder/spell/charge_up/proc/Discharge(mob/user)
-	to_chat(user, "<span class='danger'>You lose control over the spell!</span>")
+	to_chat(user, span_danger("You lose control over the spell!"))
 	Reset(user)
 	spend_spell_cost(user)
 	start_recharge()

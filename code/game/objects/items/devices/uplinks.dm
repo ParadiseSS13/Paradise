@@ -81,12 +81,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink/proc/buy(datum/uplink_item/UI, reference)
 	if(is_jammed)
-		to_chat(usr, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+		to_chat(usr, span_warning("[src] seems to be jammed - it cannot be used here!"))
 		return
 	if(!UI)
 		return
 	if(UI.limited_stock == 0)
-		to_chat(usr, "<span class='warning'>You have redeemed this discount already.</span>")
+		to_chat(usr, span_warning("You have redeemed this discount already."))
 		return
 	UI.buy(src,usr)
 	if(UI.limited_stock > 0) // only decrement it if it's actually limited
@@ -110,7 +110,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 					qdel(I)
 					return
 		// If we are here, we didnt refund
-		to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
+		to_chat(user, span_warning("[I] is not refundable."))
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!
@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 // current item's menu.
 /obj/item/uplink/hidden/proc/check_trigger(mob/user, value, target)
 	if(is_jammed)
-		to_chat(user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+		to_chat(user, span_warning("[src] seems to be jammed - it cannot be used here!"))
 		return
 	if(value == target)
 		trigger(user)

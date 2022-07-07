@@ -37,7 +37,7 @@ BONUS
 					H.s_tone = -85
 					H.update_body()
 				else
-					H.visible_message("<span class='warning'>[H] looks a bit pale...</span>", span_notice("Your skin suddenly appears lighter..."))
+					H.visible_message(span_warning("[H] looks a bit pale..."), span_notice("Your skin suddenly appears lighter..."))
 
 	return
 
@@ -81,6 +81,6 @@ BONUS
 					H.s_tone = 85
 					H.update_body()
 				else
-					H.visible_message("<span class='warning'>[H] looks a bit dark...</span>", span_notice("Your skin suddenly appears darker..."))
+					H.visible_message(span_warning("[H] looks a bit dark..."), span_notice("Your skin suddenly appears darker..."))
 
 	return

@@ -70,7 +70,7 @@
 
 /obj/item/stack/nanopaste/cyborg/attack(mob/living/M, mob/user)
 	if(get_amount() <= 0)
-		to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [name]!</span>")
+		to_chat(user, span_warning("You don't have enough energy to dispense more [name]!"))
 	else
 		return ..()
 

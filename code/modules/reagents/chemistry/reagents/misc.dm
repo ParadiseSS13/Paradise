@@ -454,10 +454,10 @@
 		if(C.mind.assigned_role == "Clown")
 			to_chat(C, span_notice("Whatever that was, it feels great!"))
 		else if(C.mind.assigned_role == "Mime")
-			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
+			to_chat(C, span_warning("You feel nauseous."))
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 		else
-			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
+			to_chat(C, span_warning("Something doesn't feel right..."))
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 	ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
@@ -488,7 +488,7 @@
 			"Sinister laughter echoes in your ears.",
 			"Your legs feel like jelly.",
 			"You feel like telling a pun.")
-			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
+			to_chat(M, span_warning("[pick(clown_message)]"))
 		if(M.mind.assigned_role == "Mime")
 			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
 	return ..() | update_flags

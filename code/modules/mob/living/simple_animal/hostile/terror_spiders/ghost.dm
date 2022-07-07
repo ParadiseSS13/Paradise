@@ -29,7 +29,7 @@
 	else if(!(user in GLOB.respawnable_list))
 		error_on_humanize = "You are not able to rejoin the round."
 	if(jobban_isbanned(user, ROLE_SYNDICATE) || jobban_isbanned(user, ROLE_TSPIDER))
-		to_chat(user, "<span class='warning'>You are jobbanned from role of syndicate and/or terror spider.</span>")
+		to_chat(user, span_warning("You are jobbanned from role of syndicate and/or terror spider."))
 		return
 	if(error_on_humanize == "")
 		var/spider_ask = alert(humanize_prompt, "Join as Terror Spider?", "Yes", "No")

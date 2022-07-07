@@ -44,7 +44,7 @@
 				pod.move_into(L)
 				return
 		if(failed)
-			to_chat(L, "<span class='warning'>The pod is already occupied.</span>")
+			to_chat(L, span_warning("The pod is already occupied."))
 
 
 
@@ -62,8 +62,8 @@
 	// Can't empty it when inside or when there is nothing inside
 	if(!length(pod.contents) || user.loc == pod)
 		return
-	user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>", \
-		span_notice("You start emptying [pod]'s contents onto the floor."), "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
+	user.visible_message(span_warning("[user] starts emptying [pod]'s contents onto the floor!"), \
+		span_notice("You start emptying [pod]'s contents onto the floor."), span_warning("You hear a loud noise! As if somebody is throwing stuff on the floor!"))
 	if(!do_after(user, 20, target = pod))
 		return
 	for(var/atom/movable/AM in pod)
@@ -79,7 +79,7 @@
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
 			var/mob/living/GM = G.affecting
 			for(var/obj/structure/transit_tube_pod/pod in loc)
-				pod.visible_message("<span class='warning'>[user] starts putting [GM] into [pod]!</span>")
+				pod.visible_message(span_warning("[user] starts putting [GM] into [pod]!"))
 				if(do_after(user, 30, target = GM) && GM && G && G.affecting == GM)
 					GM.Weaken(10 SECONDS)
 					Bumped(GM)

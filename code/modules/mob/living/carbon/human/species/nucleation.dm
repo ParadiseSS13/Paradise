@@ -36,6 +36,6 @@
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
-	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
+	H.visible_message(span_warning("[H]'s body explodes, leaving behind a pile of microscopic crystals!"))
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death
 	qdel(H)

@@ -77,22 +77,22 @@
 /datum/action/changeling/proc/can_sting(mob/user, mob/target)
 	SHOULD_CALL_PARENT(TRUE)
 	if(req_human && (!ishuman(user) || issmall(user)))
-		to_chat(user, "<span class='warning'>We cannot do that in this form!</span>")
+		to_chat(user, span_warning("We cannot do that in this form!"))
 		return FALSE
 	if(cling.chem_charges < chemical_cost)
-		to_chat(user, "<span class='warning'>We require at least [chemical_cost] unit\s of chemicals to do that!</span>")
+		to_chat(user, span_warning("We require at least [chemical_cost] unit\s of chemicals to do that!"))
 		return FALSE
 	if(cling.absorbed_count < req_dna)
-		to_chat(user, "<span class='warning'>We require at least [req_dna] sample\s of compatible DNA.</span>")
+		to_chat(user, span_warning("We require at least [req_dna] sample\s of compatible DNA."))
 		return FALSE
 	if(req_stat < user.stat)
-		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
+		to_chat(user, span_warning("We are incapacitated."))
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)
-		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
+		to_chat(user, span_warning("We are incapacitated."))
 		return FALSE
 	if(cling.genetic_damage > max_genetic_damage)
-		to_chat(user, "<span class='warning'>Our genomes are still reassembling. We need time to recover first.</span>")
+		to_chat(user, span_warning("Our genomes are still reassembling. We need time to recover first."))
 		return FALSE
 	return TRUE
 

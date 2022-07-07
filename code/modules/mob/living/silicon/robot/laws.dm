@@ -68,20 +68,20 @@
 /mob/living/silicon/robot/set_zeroth_law()
 	if(mmi.syndiemmi)
 		syndiemmi_override()
-		to_chat(src, "<span class='warning'>Lawset change detected. Syndicate override engaged.</span>")
+		to_chat(src, span_warning("Lawset change detected. Syndicate override engaged."))
 		return
 	..()
 
 /mob/living/silicon/robot/clear_zeroth_law()
 	if(mmi.syndiemmi)
 		syndiemmi_override()
-		to_chat(src, "<span class='warning'>Lawset cleanse detected. Syndicate override engaged.</span>")
+		to_chat(src, span_warning("Lawset cleanse detected. Syndicate override engaged."))
 		return
 	..()
 
 /mob/living/silicon/robot/sync_zeroth()
 	if(mmi.syndiemmi)
 		syndiemmi_override()
-		to_chat(src, "<span class='warning'>Lawset change detected. Syndicate override engaged.</span>")
+		to_chat(src, span_warning("Lawset change detected. Syndicate override engaged."))
 		return
 	..()

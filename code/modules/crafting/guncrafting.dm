@@ -137,6 +137,6 @@
 			to_chat(user, span_notice("You tie the wrapping paper around the stock and the barrel to secure it."))
 			qdel(src)
 		else
-			to_chat(user, "<span class='warning'>You need at least five feet of wrapping paper to secure the stock.</span>")
+			to_chat(user, span_warning("You need at least five feet of wrapping paper to secure the stock."))
 			return
 

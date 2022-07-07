@@ -87,7 +87,7 @@
 	switch(action)
 		if("wipe")
 			if(flush) // Don't doublewipe.
-				to_chat(user, "<span class='warning'>You are already wiping this AI!</span>")
+				to_chat(user, span_warning("You are already wiping this AI!"))
 				return
 			var/confirm = alert("Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", "Yes", "No")
 			if(confirm == "Yes" && (ui_status(user, GLOB.inventory_state) == STATUS_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
@@ -97,12 +97,12 @@
 
 		if("radio")
 			AI.aiRadio.disabledAi = !AI.aiRadio.disabledAi
-			to_chat(AI, "<span class='warning'>Your Subspace Transceiver has been [AI.aiRadio.disabledAi ? "disabled" : "enabled"]!</span>")
+			to_chat(AI, span_warning("Your Subspace Transceiver has been [AI.aiRadio.disabledAi ? "disabled" : "enabled"]!"))
 			to_chat(user, span_notice("You [AI.aiRadio.disabledAi ? "disable" : "enable"] the AI's Subspace Transceiver."))
 
 		if("wireless")
 			AI.control_disabled = !AI.control_disabled
-			to_chat(AI, "<span class='warning'>Your wireless interface has been [AI.control_disabled ? "disabled" : "enabled"]!</span>")
+			to_chat(AI, span_warning("Your wireless interface has been [AI.control_disabled ? "disabled" : "enabled"]!"))
 			to_chat(user, span_notice("You [AI.control_disabled ? "disable" : "enable"] the AI's wireless interface."))
 			update_icon()
 

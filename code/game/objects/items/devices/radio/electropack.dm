@@ -67,7 +67,7 @@
 				sleep(50)
 				if(M)
 					M.moved_recently = 0
-		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
+		to_chat(M, span_danger("You feel a sharp shock!"))
 		do_sparks(3, 1, M)
 
 		M.Weaken(10 SECONDS)

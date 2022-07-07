@@ -111,7 +111,7 @@
 
 /obj/item/dnainjector/attack(mob/M, mob/user)
 	if(used)
-		to_chat(user, "<span class='warning'>This injector is used up!</span>")
+		to_chat(user, span_warning("This injector is used up!"))
 		return
 	if(!M.dna || HAS_TRAIT(M, TRAIT_GENELESS) || HAS_TRAIT(M, TRAIT_BADDNA)) //You know what would be nice? If the mob you're injecting has DNA, and so doesn't cause runtimes.
 		return FALSE
@@ -134,7 +134,7 @@
 
 
 	if(M != user)
-		M.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>", "<span class='userdanger'>[user] is trying to inject [M] with [src]!</span>")
+		M.visible_message(span_danger("[user] is trying to inject [M] with [src]!"), "<span class='userdanger'>[user] is trying to inject [M] with [src]!</span>")
 		if(!do_mob(user, M))
 			return
 		M.visible_message("<span class='danger'>[user] injects [M] with the syringe with [src]!", \

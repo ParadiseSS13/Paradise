@@ -61,7 +61,7 @@
 		light_amount = 10
 
 	if(light_amount > 2)
-		to_chat(M, "<span class='warning'>It's too bright here to use [src.name]!</span>")
+		to_chat(M, span_warning("It's too bright here to use [src.name]!"))
 		return 0
 
 	//mobs in range check
@@ -69,12 +69,12 @@
 	for(var/mob/living/L in orange(1,src))
 		if(L.ckey && L.client)
 			if((world.time - L.client.inactivity) < (world.time - 300) || L.stat != CONSCIOUS || L.restrained())//no playing with braindeads or corpses or handcuffed dudes.
-				to_chat(M, "<span class='warning'>[L] doesn't seem to be paying attention...</span>")
+				to_chat(M, span_warning("[L] doesn't seem to be paying attention..."))
 			else
 				users_in_range++
 
 	if(users_in_range < 2)
-		to_chat(M, "<span class='warning'>There aren't enough people to use [src]!</span>")
+		to_chat(M, span_warning("There aren't enough people to use [src]!"))
 		return 0
 
 	return 1

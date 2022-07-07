@@ -21,8 +21,8 @@
 	var/obj/item/stack/sheet/welded_type = /obj/item/stack/sheet/glass
 
 /obj/item/shard/suicide_act(mob/user)
-		to_chat(viewers(user), pick("<span class='danger'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
-									"<span class='danger'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
+		to_chat(viewers(user), pick(span_danger("[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide."),
+									span_danger("[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide.")))
 		return BRUTELOSS
 
 /obj/item/shard/Initialize(mapload)
@@ -55,7 +55,7 @@
 			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 			if(affecting.is_robotic())
 				return
-			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
+			to_chat(H, span_warning("[src] cuts into your hand!"))
 			if(affecting.receive_damage(force * 0.5))
 				H.UpdateDamageIcon()
 

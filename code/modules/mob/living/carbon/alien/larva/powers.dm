@@ -23,7 +23,7 @@
 		return
 
 	if(handcuffed || legcuffed)
-		to_chat(src, "<span class='warning'>You cannot evolve when you are cuffed.</span>")
+		to_chat(src, span_warning("You cannot evolve when you are cuffed."))
 
 	if(amount_grown >= max_grown)	//TODO ~Carn
 		//green is impossible to read, so i made these blue and changed the formatting slightly
@@ -50,5 +50,5 @@
 		qdel(src)
 		return
 	else
-		to_chat(src, "<span class='warning'>You are not fully grown.</span>")
+		to_chat(src, span_warning("You are not fully grown."))
 		return

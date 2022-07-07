@@ -171,18 +171,18 @@
 						ears = null
 						update_speak()
 					else
-						to_chat(usr, "<span class='warning'>There is nothing to remove from its [remove_from].</span>")
+						to_chat(usr, span_warning("There is nothing to remove from its [remove_from]."))
 						return
 			show_inv(usr)
 		else if(href_list["add_inv"])
 			var/add_to = href_list["add_inv"]
 			if(!usr.get_active_hand())
-				to_chat(usr, "<span class='warning'>You have nothing in your hand to put on its [add_to].</span>")
+				to_chat(usr, span_warning("You have nothing in your hand to put on its [add_to]."))
 				return
 			switch(add_to)
 				if("ears")
 					if(ears)
-						to_chat(usr, "<span class='warning'>It's already wearing something.</span>")
+						to_chat(usr, span_warning("It's already wearing something."))
 						return
 					else
 						var/obj/item/item_to_add = usr.get_active_hand()
@@ -190,7 +190,7 @@
 							return
 
 						if(!istype(item_to_add, /obj/item/radio/headset))
-							to_chat(usr, "<span class='warning'>This object won't fit.</span>")
+							to_chat(usr, span_warning("This object won't fit."))
 							return
 
 						var/obj/item/radio/headset/headset_to_add = item_to_add
@@ -561,10 +561,10 @@
 		return -1
 
 	if(held_item)
-		to_chat(src, "<span class='warning'>You are already holding [held_item]</span>")
+		to_chat(src, span_warning("You are already holding [held_item]"))
 		return 1
 	if(istype(loc, /obj/machinery/disposal) || istype(loc, /obj/structure/disposalholder))
-		to_chat(src, "<span class='warning'>You are inside a disposal chute!</span>")
+		to_chat(src, span_warning("You are inside a disposal chute!"))
 		return 1
 	for(var/obj/item/I in view(1, src))
 		//Make sure we're not already holding it and it's small enough
@@ -589,7 +589,7 @@
 		return -1
 
 	if(held_item)
-		to_chat(src, "<span class='warning'>You are already holding [held_item]</span>")
+		to_chat(src, span_warning("You are already holding [held_item]"))
 		return 1
 
 	var/obj/item/stolen_item = null
@@ -606,7 +606,7 @@
 			visible_message(span_notice("[src] grabs [held_item] out of [C]'s hand!"), span_notice("You snag [held_item] out of [C]'s hand!"), "You hear the sounds of wings flapping furiously.")
 			return held_item
 
-	to_chat(src, "<span class='warning'>There is nothing of interest to take.</span>")
+	to_chat(src, span_warning("There is nothing of interest to take."))
 	return 0
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
@@ -629,7 +629,7 @@
 		return -1
 
 	if(!held_item)
-		to_chat(src, "<span class='warning'>You have nothing to drop!</span>")
+		to_chat(src, span_warning("You have nothing to drop!"))
 		return 0
 
 	if(!drop_gently)
@@ -663,7 +663,7 @@
 				forceMove(AM.loc)
 				icon_state = "parrot_sit"
 				return
-	to_chat(src, "<span class='warning'>There is no perch nearby to sit on.</span>")
+	to_chat(src, span_warning("There is no perch nearby to sit on."))
 	return
 
 /**

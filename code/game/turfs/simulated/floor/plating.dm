@@ -36,7 +36,7 @@
 	. = ..()
 
 	if(unfastened)
-		. += "<span class='warning'>It has been unfastened.</span>"
+		. += span_warning("It has been unfastened.")
 
 /turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
 	if(..())
@@ -44,11 +44,11 @@
 
 	if(istype(C, /obj/item/stack/rods))
 		if(broken || burnt)
-			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			to_chat(user, span_warning("Repair the plating first!"))
 			return TRUE
 		var/obj/item/stack/rods/R = C
 		if(R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
+			to_chat(user, span_warning("You need two rods to make a reinforced floor!"))
 			return TRUE
 		else
 			to_chat(user, span_notice("You begin reinforcing the floor..."))
@@ -68,16 +68,16 @@
 			ChangeTurf(W.turf_type)
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 		else
-			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
+			to_chat(user, span_warning("This section is too damaged to support a tile! Use a welder to fix the damage."))
 		return TRUE
 
 	else if(is_glass_sheet(C))
 		if(broken || burnt)
-			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			to_chat(user, span_warning("Repair the plating first!"))
 			return TRUE
 		var/obj/item/stack/sheet/R = C
 		if(R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two sheets to build a [C.name] floor!</span>")
+			to_chat(user, span_warning("You need two sheets to build a [C.name] floor!"))
 			return TRUE
 		to_chat(user, span_notice("You begin swapping the plating for [C]..."))
 		if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
@@ -118,7 +118,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(unfastened)
-		to_chat(user, "<span class='warning'>You start removing [src], exposing space after you're done!</span>")
+		to_chat(user, span_warning("You start removing [src], exposing space after you're done!"))
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume * 2)) //extra loud to let people know something's going down
 			return
 		new /obj/item/stack/tile/plasteel(get_turf(src))
@@ -338,10 +338,10 @@
 		var/smash_prob = max(0, C.force*17 - metal*25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
 		if(prob(smash_prob))
 			// YAR BE CAUSIN A HULL BREACH
-			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [C]!</span>")
+			visible_message(span_danger("[user] smashes through \the [src] with \the [C]!"))
 			smash()
 		else
-			visible_message("<span class='warning'>[user]'s [C.name] bounces against \the [src]!</span>")
+			visible_message(span_warning("[user]'s [C.name] bounces against \the [src]!"))
 
 /turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)
@@ -350,11 +350,11 @@
 	else
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
-		M.visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>")
+		M.visible_message(span_danger("\The [M] [M.attacktext] [src]!"))
 		smash(src)
 
 /turf/simulated/floor/plating/metalfoam/attack_alien(mob/living/carbon/alien/humanoid/M)
-	M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>")
+	M.visible_message(span_danger("[M] tears apart \the [src]!"))
 	smash(src)
 
 /turf/simulated/floor/plating/metalfoam/burn_tile()

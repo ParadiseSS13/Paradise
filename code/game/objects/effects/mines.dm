@@ -8,7 +8,7 @@
 	var/faction = "syndicate"
 
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
-	to_chat(victim, "<span class='danger'>*click*</span>")
+	to_chat(victim, span_danger("*click*"))
 
 /obj/effect/mine/Crossed(AM as mob|obj, oldloc)
 	if(!isliving(AM))
@@ -23,7 +23,7 @@
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
 		return
-	visible_message("<span class='danger'>[victim] sets off [bicon(src)] [src]!</span>")
+	visible_message(span_danger("[victim] sets off [bicon(src)] [src]!"))
 	do_sparks(3, 1, src)
 	mineEffect(victim)
 	triggered = TRUE

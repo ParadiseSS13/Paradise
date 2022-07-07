@@ -63,7 +63,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
+		to_chat(user, span_warning("[S] can't hold [initial(name)] while it's lit!")) // initial(name) so it doesn't say "lit" twice in a row
 		return FALSE
 	else
 		return TRUE
@@ -74,7 +74,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/catch_fire()
 	if(!lit)
-		light("<span class='warning'>[src] is lit by the flames!</span>")
+		light(span_warning("[src] is lit by the flames!"))
 
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -101,7 +101,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else if(istype(I, /obj/item/melee/energy/sword/saber))
 		var/obj/item/melee/energy/sword/saber/S = I
 		if(S.active)
-			light("<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] with [S] in the process.</span>")
+			light(span_warning("[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] with [S] in the process."))
 
 	else if(istype(I, /obj/item/assembly/igniter))
 		light(span_notice("[user] fiddles with [I], and manages to light [user.p_their()] [name]."))
@@ -112,7 +112,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			if(prob(50) || user.mind.assigned_role == "Wizard")
 				light(span_notice("Holy shit, did [user] just manage to light [user.p_their()] [name] with [F], with only moderate eyebrow singing?"))
 			else
-				to_chat(user, "<span class='warning'>Unsure which end of the wand is which, [user] fails to light [name] with [F].</span>")
+				to_chat(user, span_warning("Unsure which end of the wand is which, [user] fails to light [name] with [F]."))
 				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 			F.charges--
 
@@ -449,6 +449,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 			qdel(target)
 			qdel(src)
 		else
-			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+			to_chat(user, span_warning("You need to dry this first!"))
 	else
 		..()

@@ -344,10 +344,10 @@
 
 /obj/item/gun/energy/plasma_pistol/attack_self(mob/living/user)
 	if(overloaded)
-		to_chat(user, "<span class='warning'>[src] is already overloaded!</span>")
+		to_chat(user, span_warning("[src] is already overloaded!"))
 		return
 	if(cell.charge <= 140) //at least 6 seconds of charge time
-		to_chat(user, "<span class='warning'>[src] does not have enough charge to be overloaded.</span>")
+		to_chat(user, span_warning("[src] does not have enough charge to be overloaded."))
 		return
 	if(charging)
 		return
@@ -405,7 +405,7 @@
 	do_sparks(2, 1, src)
 	update_icon()
 	if(prob(25))
-		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+		visible_message(span_danger("[src] vents heated plasma!"))
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
 			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
@@ -417,10 +417,10 @@
 		if(length(mob_targets))
 			var/mob/living/target = pick(mob_targets)
 			shootAt(target)
-			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+			visible_message(span_danger("[src] discharges a plasma bolt!"))
 			return
 
-	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+	visible_message(span_danger("[src] discharges a plasma bolt!"))
 	var/list/turf_targets = list()
 	for(var/turf/T in orange(get_turf(src), 7))
 		turf_targets += T
@@ -468,11 +468,11 @@
 	if(core && has_bluespace_crystal)
 		. += span_notice("[src] is fully operational!")
 	else if(core)
-		. += "<span class='warning'>It has a flux anomaly core installed, but no bluespace crystal installed.</span>"
+		. += span_warning("It has a flux anomaly core installed, but no bluespace crystal installed.")
 	else if(has_bluespace_crystal)
-		. += "<span class='warning'>It has a bluespace crystal installed, but no flux anomaly core installed.</span>"
+		. += span_warning("It has a bluespace crystal installed, but no flux anomaly core installed.")
 	else
-		. += "<span class='warning'>It is missing a flux anomaly core and bluespace crystal to be operational.</span>"
+		. += span_warning("It is missing a flux anomaly core and bluespace crystal to be operational.")
 
 /obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
@@ -493,7 +493,7 @@
 			to_chat(user, span_notice("[src] already has a [O]!"))
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[O] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[O] is stuck to your hand!"))
 			return
 		to_chat(user, span_notice("You insert [O] into [src], and [src] starts to warm up."))
 		O.forceMove(src)
@@ -504,10 +504,10 @@
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
-		to_chat(user, "<span class='warning'>[src] has no bluespace crystal to power it!</span>")
+		to_chat(user, span_warning("[src] has no bluespace crystal to power it!"))
 		return
 	if(!core)
-		to_chat(user, "<span class='warning'>[src] has no flux anomaly core to power it!</span>")
+		to_chat(user, span_warning("[src] has no flux anomaly core to power it!"))
 		return
 	return ..()
 
@@ -538,7 +538,7 @@
 /obj/item/gun/energy/bsg/proc/shatter()
 	if(admin_model)
 		return
-	visible_message("<span class='warning'>[src]'s bluespace crystal shatters!</span>")
+	visible_message(span_warning("[src]'s bluespace crystal shatters!"))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
 	has_bluespace_crystal = FALSE
 	update_icon()

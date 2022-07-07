@@ -66,7 +66,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
-	visible_message("<span class='danger'>[src] gets an evil-looking gleam in their eye.</span>")
+	visible_message(span_danger("[src] gets an evil-looking gleam in their eye."))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Move()
 	. = ..()
@@ -99,7 +99,7 @@
 	if(. && isdiona(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/NB = pick(H.bodyparts)
-		H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", "<span class='userdanger'>[src] takes a big chomp out of your [NB.name]!</span>")
+		H.visible_message(span_warning("[src] takes a big chomp out of [H]!"), "<span class='userdanger'>[src] takes a big chomp out of your [NB.name]!</span>")
 		NB.droplimb()
 
 /mob/living/simple_animal/hostile/retaliate/goat/chef
@@ -161,7 +161,7 @@
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
-		M.visible_message("<span class='warning'>[M] tips over [src].</span>",span_notice("You tip over [src]."))
+		M.visible_message(span_warning("[M] tips over [src]."),span_notice("You tip over [src]."))
 		Weaken(60 SECONDS)
 		icon_state = icon_dead
 		spawn(rand(20,50))
@@ -309,7 +309,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 			eggsleft += rand(1, 4)
 			//world << eggsleft
 		else
-			to_chat(user, "<span class='warning'>[name] doesn't seem hungry!</span>")
+			to_chat(user, span_warning("[name] doesn't seem hungry!"))
 	else
 		..()
 
@@ -510,10 +510,10 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /obj/item/udder/proc/milkAnimal(obj/O, mob/user)
 	var/obj/item/reagent_containers/glass/G = O
 	if(G.reagents.total_volume >= G.volume)
-		to_chat(user, "<span class='danger'>[O] is full.</span>")
+		to_chat(user, span_danger("[O] is full."))
 		return
 	var/transfered = reagents.trans_to(O, rand(5,10))
 	if(transfered)
 		user.visible_message("[user] milks [src] using \the [O].", span_notice("You milk [src] using \the [O]."))
 	else
-		to_chat(user, "<span class='danger'>The udder is dry. Wait a bit longer...</span>")
+		to_chat(user, span_danger("The udder is dry. Wait a bit longer..."))

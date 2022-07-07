@@ -93,7 +93,7 @@
 		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[id]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
-			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
+			to_chat(M, span_danger("You suddenly feel invigorated and guilty..."))
 			var/datum/reagent/new_reagent = new type()
 			new_reagent.last_addiction_dose = world.timeofday
 			M.reagents.addiction_list.Add(new_reagent)
@@ -195,9 +195,9 @@
 		if(prob(8))
 			M.emote("shiver")
 		if(prob(4))
-			to_chat(M, "<span class='warning'>Your head hurts.</span>")
+			to_chat(M, span_warning("Your head hurts."))
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
+			to_chat(M, span_warning("You begin craving [name]!"))
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage4(mob/living/M)
@@ -208,11 +208,11 @@
 		if(prob(8))
 			M.emote("twitch")
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
+			to_chat(M, span_warning("You have a pounding headache."))
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
+			to_chat(M, span_warning("You have the strong urge for some [name]!"))
 		else if(prob(4))
-			to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
+			to_chat(M, span_warning("You REALLY crave some [name]!"))
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage5(mob/living/M)
@@ -224,17 +224,17 @@
 			M.emote(pick("twitch"))
 	else
 		if(prob(6))
-			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
-			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
+			to_chat(M, span_warning("Your stomach lurches painfully!"))
+			M.visible_message(span_warning("[M] gags and retches!"))
 			M.Weaken(rand(4 SECONDS, 8 SECONDS))
 		if(prob(8))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
 		if(prob(4))
-			to_chat(M, "<span class='warning'>Your head is killing you!</span>")
+			to_chat(M, span_warning("Your head is killing you!"))
 		if(prob(5))
-			to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
+			to_chat(M, span_warning("You feel like you can't live without [name]!"))
 		else if(prob(5))
-			to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
+			to_chat(M, span_warning("You would DIE for some [name] right now!"))
 	return update_flags
 
 /datum/reagent/proc/fakedeath(mob/living/M)

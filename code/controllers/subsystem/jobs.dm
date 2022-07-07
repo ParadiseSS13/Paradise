@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(jobs)
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
-		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found</span>")
+		to_chat(world, span_warning("Error setting up jobs, no job datums found"))
 		return 0
 
 	for(var/J in all_jobs)

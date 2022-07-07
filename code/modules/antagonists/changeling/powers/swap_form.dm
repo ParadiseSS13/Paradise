@@ -13,17 +13,17 @@
 		return FALSE
 	var/obj/item/grab/G = user.get_active_hand()
 	if(!istype(G) || (G.state < GRAB_AGGRESSIVE))
-		to_chat(user, "<span class='warning'>We must have an aggressive grab on creature in our active hand to do this!</span>")
+		to_chat(user, span_warning("We must have an aggressive grab on creature in our active hand to do this!"))
 		return FALSE
 	var/mob/living/carbon/human/target = G.affecting
 	if(HAS_TRAIT(target, TRAIT_BADDNA) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_SKELETONIZED))
-		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
+		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
 		return FALSE
 	if(!istype(target) || !target.mind || issmall(target) || HAS_TRAIT(target, TRAIT_GENELESS))
-		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
+		to_chat(user, span_warning("[target] is not compatible with this ability."))
 		return FALSE
 	if(ischangeling(target))
-		to_chat(user, "<span class='warning'>We are unable to swap forms with another changeling!</span>")
+		to_chat(user, span_warning("We are unable to swap forms with another changeling!"))
 		return FALSE
 	return TRUE
 
@@ -36,7 +36,7 @@
 	user.Jitter(1000 SECONDS)
 
 	if(!do_mob(user, target, 10 SECONDS))
-		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
+		to_chat(user, span_warning("The body swap has been interrupted!"))
 		return
 
 	to_chat(target, "<span class='userdanger'>[user] tightens [user.p_their()] grip as a painful sensation invades your body.</span>")
@@ -61,5 +61,5 @@
 	if(target.stat == DEAD && target.suiciding)  //If Target committed suicide, unset flag for User
 		target.suiciding = FALSE
 
-	to_chat(target, "<span class='warning'>Our genes cry out as we swap our [user] form for [target].</span>")
+	to_chat(target, span_warning("Our genes cry out as we swap our [user] form for [target]."))
 	return TRUE

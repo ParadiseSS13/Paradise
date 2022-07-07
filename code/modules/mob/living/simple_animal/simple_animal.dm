@@ -360,9 +360,9 @@
 		if(death_sound)
 			playsound(get_turf(src),death_sound, 200, 1)
 		if(deathmessage)
-			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
+			visible_message(span_danger("\The [src] [deathmessage]"))
 		else if(!del_on_death)
-			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+			visible_message(span_danger("\The [src] stops moving..."))
 	if(xenobiology_spawned)
 		SSmobs.xenobiology_mobs--
 	if(del_on_death)

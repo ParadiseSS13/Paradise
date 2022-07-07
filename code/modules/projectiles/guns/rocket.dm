@@ -55,4 +55,4 @@
 		rockets -= I
 		qdel(I)
 	else
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		to_chat(user, span_warning("[src] is empty."))

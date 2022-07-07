@@ -68,7 +68,7 @@ FIRE ALARM
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
+			user.visible_message(span_warning("Sparks fly out of [src]!"),
 								span_notice("You emag [src], disabling its thermal sensors."))
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
 
@@ -97,7 +97,7 @@ FIRE ALARM
 			if(istype(I, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil = I
 				if(!coil.use(5))
-					to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
+					to_chat(user, span_warning("You need a total of five cables to wire [src]!"))
 					return
 				buildstage = FIRE_ALARM_READY
 				playsound(get_turf(src), I.usesound, 50, 1)
@@ -131,15 +131,15 @@ FIRE ALARM
 		return
 	. = TRUE
 	if(!wiresexposed)
-		to_chat(user, "<span class='warning'>You need to expose the wires first!</span>")
+		to_chat(user, span_warning("You need to expose the wires first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	detecting = !detecting
 	if(detecting)
-		user.visible_message("<span class='warning'>[user] has reconnected [src]'s detecting unit!</span>", "You have reconnected [src]'s detecting unit.")
+		user.visible_message(span_warning("[user] has reconnected [src]'s detecting unit!"), "You have reconnected [src]'s detecting unit.")
 	else
-		user.visible_message("<span class='warning'>[user] has disconnected [src]'s detecting unit!</span>", "You have disconnected [src]'s detecting unit.")
+		user.visible_message(span_warning("[user] has disconnected [src]'s detecting unit!"), "You have disconnected [src]'s detecting unit.")
 
 /obj/machinery/firealarm/screwdriver_act(mob/user, obj/item/I)
 	if(buildstage != FIRE_ALARM_READY)
@@ -159,7 +159,7 @@ FIRE ALARM
 		return
 	. = TRUE
 	if(!wiresexposed)
-		to_chat(user, "<span class='warning'>You need to expose the wires first!</span>")
+		to_chat(user, span_warning("You need to expose the wires first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -230,7 +230,7 @@ FIRE ALARM
 		return 1
 
 	if(fingerprintslast == user.ckey && world.time < last_time_pulled + 2 SECONDS) //no spamming >:C
-		to_chat(user, "<span class='warning'>[src] is still processing your earlier command.</span>")
+		to_chat(user, span_warning("[src] is still processing your earlier command."))
 		return
 
 	toggle_alarm(user)

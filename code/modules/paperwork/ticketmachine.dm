@@ -34,7 +34,7 @@
 /obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
 	if(emagged)
 		return
-	to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
+	to_chat(user, span_warning("You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting."))
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
 	emagged = TRUE
@@ -86,7 +86,7 @@
 				M.increment()
 				addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
 	else
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		flick("doorctrl-denied", src)
 
 /obj/machinery/door_control/ticket_machine_button/update_icon()
@@ -143,7 +143,7 @@
 			to_chat(user, span_notice("You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!"))
 			handle_maptext()
 			return
-		to_chat(user, "<span class='warning'>You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine.</span>")
+		to_chat(user, span_warning("You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine."))
 		return
 	return ..()
 
@@ -153,16 +153,16 @@
 /obj/machinery/ticket_machine/attack_hand(mob/living/carbon/user)
 	. = ..()
 	if(!ready)
-		to_chat(user,"<span class='warning'>You press the button, but nothing happens...</span>")
+		to_chat(user,span_warning("You press the button, but nothing happens..."))
 		return
 	if(!dispense_enabled)
-		to_chat(user, "<span class='warning'>[src] is disabled.</span>")
+		to_chat(user, span_warning("[src] is disabled."))
 		return
 	if(ticket_number >= max_number)
-		to_chat(user,"<span class='warning'>Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!</span>")
+		to_chat(user,span_warning("Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!"))
 		return
 	if((user.UID() in ticket_holders) && !(emagged))
-		to_chat(user, "<span class='warning'>You already have a ticket!</span>")
+		to_chat(user, span_warning("You already have a ticket!"))
 		return
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 100, FALSE)
 	ticket_number ++
@@ -216,13 +216,13 @@
 	..()
 	if(is_hot(P))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
+			user.visible_message(span_warning("[user] accidentally ignites [user.p_them()]self!"), \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
 			user.drop_item()
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
-		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		user.visible_message(span_danger("[user] lights [src] ablaze with [P]!"), span_danger("You light [src] on fire!"))
 		fire_act()
 
 /obj/item/paper/extinguish()

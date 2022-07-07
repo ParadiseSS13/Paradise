@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	set name = "Check my playtime"
 
 	if(!GLOB.configuration.jobs.enable_exp_tracking)
-		to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
+		to_chat(src, span_warning("Playtime tracking is not enabled."))
 		return
 
 	to_chat(src, span_notice("Your [EXP_TYPE_CREW] playtime is [get_exp_type(EXP_TYPE_CREW)]."))

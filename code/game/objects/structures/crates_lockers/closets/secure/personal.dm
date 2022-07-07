@@ -40,7 +40,7 @@
 		return ..()
 
 	if(broken)
-		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+		to_chat(user, span_warning("It appears to be broken."))
 		return
 
 	var/obj/item/card/id/I = W
@@ -65,4 +65,4 @@
 			registered_name = I.registered_name
 			desc = "Owned by [I.registered_name]."
 	else
-		to_chat(user, "<span class='warning'>Access Denied</span>")
+		to_chat(user, span_warning("Access Denied"))

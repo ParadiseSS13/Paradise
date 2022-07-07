@@ -35,4 +35,4 @@
 	if(world.time > next_gavel_hit)
 		playsound(loc, 'sound/items/gavel.ogg', 100, 1)
 		next_gavel_hit = world.time + 5 SECONDS
-		user.visible_message("<span class='warning'>[user] strikes \the [src] with \the [I].</span>")
+		user.visible_message(span_warning("[user] strikes \the [src] with \the [I]."))

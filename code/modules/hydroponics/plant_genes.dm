@@ -316,14 +316,14 @@
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
 	if(do_teleport(C, T, teleport_radius))
-		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
+		to_chat(C, span_warning("You slip through spacetime!"))
 		if(prob(50))
 			do_teleport(G, T, teleport_radius)
 		else
 			new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 			qdel(G)
 	else
-		to_chat(C, "<span class='warning'>[src] sparks, and burns up!</span>")
+		to_chat(C, span_warning("[src] sparks, and burns up!"))
 		new /obj/effect/decal/cleanable/molten_object(T)
 		qdel(G)
 
@@ -371,7 +371,7 @@
 
 			qdel(G)
 		else
-			to_chat(user, "<span class='warning'>You need five lengths of cable to make a [G] battery!</span>")
+			to_chat(user, span_warning("You need five lengths of cable to make a [G] battery!"))
 
 
 /datum/plant_gene/trait/stinging
@@ -389,7 +389,7 @@
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 			G.reagents.reaction(L, REAGENT_INGEST, fraction)
 			G.reagents.trans_to(L, injecting_amount)
-			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
+			to_chat(target, span_danger("You are pricked by [G]!"))
 
 /datum/plant_gene/trait/smoke
 	name = "gaseous decomposition"

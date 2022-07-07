@@ -47,18 +47,18 @@
 			return
 
 		if((istype(W, /obj/item/multitool)) && (open == 1) && (!l_hacking))
-			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
+			user.show_message(span_danger("Now attempting to reset internal memory, please hold."), 1)
 			l_hacking = 1
 			if(do_after(usr, 100 * W.toolspeed, target = src))
 				if(prob(40))
 					l_setshort = 1
 					l_set = 0
-					user.show_message("<span class='danger'>Internal memory reset. Please give it a few seconds to reinitialize.</span>", 1)
+					user.show_message(span_danger("Internal memory reset. Please give it a few seconds to reinitialize."), 1)
 					sleep(80)
 					l_setshort = 0
 					l_hacking = 0
 				else
-					user.show_message("<span class='danger'>Unable to reset internal memory.</span>", 1)
+					user.show_message(span_danger("Unable to reset internal memory."), 1)
 					l_hacking = 0
 			else
 				l_hacking = 0
@@ -99,7 +99,7 @@
 /obj/item/storage/secure/proc/try_to_open()
 	if(locked)
 		add_fingerprint(usr)
-		to_chat(usr, "<span class='warning'>It's locked!</span>")
+		to_chat(usr, span_warning("It's locked!"))
 		return FALSE
 	return TRUE
 
@@ -198,7 +198,7 @@
 
 /obj/item/storage/secure/briefcase/attack_hand(mob/user as mob)
 	if((loc == user) && (locked == 1))
-		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
+		to_chat(usr, span_warning("[src] is locked and cannot be opened!"))
 	else if((loc == user) && !locked)
 		playsound(loc, "rustle", 50, 1, -5)
 		if(user.s_active)

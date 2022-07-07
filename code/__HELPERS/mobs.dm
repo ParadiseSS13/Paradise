@@ -354,11 +354,11 @@
 	var/endtime = world.time+time
 	var/starttime = world.time
 	. = 1
-	
+
 	var/mob/living/L
 	if(isliving(user))
 		L = user
-	
+
 	while(world.time < endtime)
 		sleep(1)
 		if(progress)
@@ -472,7 +472,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	var/cache_key = "[user.UID()][target.UID()]"
 	if(GLOB.do_after_once_tracker[cache_key])
 		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
-		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
+		to_chat(user, span_warning("[attempt_cancel_message]"))
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
 	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, .proc/do_after_once_checks, cache_key)))
@@ -570,10 +570,10 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		if(!.)
 			. = M
 		else
-			to_chat(user, "<span class='warning'>Multiple mobs in [A], using first mob found...</span>")
+			to_chat(user, span_warning("Multiple mobs in [A], using first mob found..."))
 			break
 	if(!.)
-		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
+		to_chat(user, span_warning("No mob located in [A]."))
 
 // Suppress the mouse macros
 /client/var/next_mouse_macro_warning

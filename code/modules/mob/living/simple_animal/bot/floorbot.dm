@@ -107,7 +107,7 @@
 			nagged = 0
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You need at least one floor tile to put into [src]!</span>")
+			to_chat(user, span_warning("You need at least one floor tile to put into [src]!"))
 	else
 		..()
 
@@ -115,7 +115,7 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
+			to_chat(user, span_danger("[src] buzzes and beeps."))
 
 /mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
 	if(..())
@@ -246,7 +246,7 @@
 					F.break_tile_to_plating()
 				else
 					F.ReplaceWithLattice()
-				audible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
+				audible_message(span_danger("[src] makes an excited booping sound."))
 				spawn(50)
 					amount ++
 					anchored = FALSE

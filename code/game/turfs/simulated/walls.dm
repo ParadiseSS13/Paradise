@@ -73,14 +73,14 @@
 	else
 		var/dam = damage / damage_cap
 		if(dam <= 0.3)
-			. += "<span class='warning'>It looks slightly damaged.</span>"
+			. += span_warning("It looks slightly damaged.")
 		else if(dam <= 0.6)
-			. += "<span class='warning'>It looks moderately damaged.</span>"
+			. += span_warning("It looks moderately damaged.")
 		else
-			. += "<span class='danger'>It looks heavily damaged.</span>"
+			. += span_danger("It looks heavily damaged.")
 
 	if(rotting)
-		. += "<span class='warning'>There is fungus growing on [src].</span>"
+		. += span_warning("There is fungus growing on [src].")
 
 /turf/simulated/wall/detailed_examine()
 	return "You can deconstruct this by welding it, and then wrenching the girder.<br>\
@@ -210,7 +210,7 @@
 	if(our_rpd.mode == RPD_ATMOS_MODE)
 		if(!our_rpd.ranged)
 			playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
-			user.visible_message(span_notice("[user] starts drilling a hole in [src]..."), span_notice("You start drilling a hole in [src]..."), "<span class='warning'>You hear drilling.</span>")
+			user.visible_message(span_notice("[user] starts drilling a hole in [src]..."), span_notice("You start drilling a hole in [src]..."), span_warning("You hear drilling."))
 			if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
 				return
 		our_rpd.create_atmos_pipe(user, src)
@@ -224,7 +224,7 @@
 	switch(M.damtype)
 		if(BRUTE)
 			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-			M.visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='danger'>You hit [src]!</span>")
+			M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"))
 			if(prob(hardness + M.force) && M.force > 20)
 				dismantle_wall(1)
 				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -272,7 +272,7 @@
 	F.burn_tile()
 	F.icon_state = "plating"
 	if(user)
-		to_chat(user, "<span class='warning'>The thermite starts melting through the wall.</span>")
+		to_chat(user, span_warning("The thermite starts melting through the wall."))
 
 	spawn(wait)
 		if(O)	qdel(O)
@@ -380,7 +380,7 @@
 			time = max(5, damage / 5)
 			WELDER_ATTEMPT_REPAIR_MESSAGE
 		else
-			to_chat(user, "<span class='warning'>[src] doesn't need repairing.</span>")
+			to_chat(user, span_warning("[src] doesn't need repairing."))
 			return
 
 	if(I.use_tool(src, user, time, volume = I.tool_volume))
@@ -408,7 +408,7 @@
 		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.toolspeed : 60 * I.toolspeed, target = src))
 			to_chat(user, span_notice("You remove the outer plating."))
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] slices apart [src]!</span>", "<span class='warning'>You hear metal being sliced apart.</span>")
+			visible_message(span_warning("[user] slices apart [src]!"), span_warning("You hear metal being sliced apart."))
 			return TRUE
 
 	return FALSE
@@ -422,7 +422,7 @@
 		if(do_after(user, isdiamond ? 480 * I.toolspeed : 240 * I.toolspeed, target = src)) // Diamond pickaxe has 0.25 toolspeed, so 120/60
 			to_chat(user, span_notice("Your [I.name] tears though the last of the reinforced plating."))
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] drills through [src]!</span>", "<span class='warning'>You hear the grinding of metal.</span>")
+			visible_message(span_warning("[user] drills through [src]!"), span_warning("You hear the grinding of metal."))
 			return TRUE
 
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
@@ -431,7 +431,7 @@
 		if(do_after(user, isdiamond ? 600 * I.toolspeed : 300 * I.toolspeed, target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
 			to_chat(user, span_notice("Your [I.name] disintegrates the reinforced plating."))
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
+			visible_message(span_warning("[user] disintegrates [src]!"),span_warning("You hear the grinding of metal."))
 			return TRUE
 
 	return FALSE

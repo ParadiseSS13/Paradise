@@ -49,7 +49,7 @@
 	if(istype(W, /obj/item/stack/ore/bluespace_crystal))
 		var/obj/item/stack/ore/bluespace_crystal/B = W
 		if(crystals >= max_crystals)
-			to_chat(user, "<span class='warning'>There are not enough crystal slots.</span>")
+			to_chat(user, span_warning("There are not enough crystal slots."))
 			return
 		crystals += 1
 		user.visible_message(span_notice("[user] inserts a [B.singular_name] into [src]'s crystal slot."))
@@ -77,14 +77,14 @@
 		to_chat(user, span_notice("You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"))
 		emagged = 1
 	else
-		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
+		to_chat(user, span_warning("The machine seems unaffected by the card swipe..."))
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)
 	src.attack_hand(user)
 
 /obj/machinery/computer/telescience/attack_hand(mob/user)
 	if(isgolem(user)) //this is why we can't have nice things free golems
-		to_chat(user, "<span class='warning'>You can't make sense of the console or how to use it.</span>")
+		to_chat(user, span_warning("You can't make sense of the console or how to use it."))
 		return
 	if(..())
 		return
@@ -151,7 +151,7 @@
 
 /obj/machinery/computer/telescience/proc/telefail()
 	sparks()
-	visible_message("<span class='warning'>The telepad weakly fizzles.</span>")
+	visible_message(span_warning("The telepad weakly fizzles."))
 	return
 
 /obj/machinery/computer/telescience/proc/doteleport(mob/user)

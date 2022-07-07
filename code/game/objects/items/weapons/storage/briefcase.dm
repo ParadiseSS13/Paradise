@@ -49,13 +49,13 @@
 /obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user)
 	if(bottom_open)
 		if(stored_item)
-			to_chat(user, "<span class='warning'>There's already something in the false bottom!</span>")
+			to_chat(user, span_warning("There's already something in the false bottom!"))
 			return
 		if(I.w_class > WEIGHT_CLASS_NORMAL)
-			to_chat(user, "<span class='warning'>[I] is too big to fit in the false bottom!</span>")
+			to_chat(user, span_warning("[I] is too big to fit in the false bottom!"))
 			return
 		if(!user.drop_item(I))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hands!</span>")
+			to_chat(user, span_warning("[I] is stuck to your hands!"))
 			return
 
 		stored_item = I

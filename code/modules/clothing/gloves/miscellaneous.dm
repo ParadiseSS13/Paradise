@@ -114,7 +114,7 @@
 				do_sparks(5, 0, loc)
 				playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 				H.do_attack_animation(C)
-				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
+				visible_message(span_danger("[C] has been touched with [src] by [H]!"))
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)
@@ -134,7 +134,7 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell)
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[W] is stuck to you!</span>")
+				to_chat(user, span_warning("[W] is stuck to you!"))
 				return
 			W.forceMove(src)
 			cell = W

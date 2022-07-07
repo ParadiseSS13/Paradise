@@ -43,7 +43,7 @@
 	// Internal organs of this body part
 	var/list/internal_organs = list()
 
-	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
+	var/damage_msg = span_warning("You feel an intense pain")
 	var/broken_description
 
 	var/open = 0  // If the body part has an open incision from surgery
@@ -101,7 +101,7 @@
 	for(var/obj/item/I in embedded_objects)
 		embedded_names += "[I]"
 	if(length(embedded_names))
-		. += "<span class='warning'>You can see [english_list(embedded_names)] embedded.</span>"
+		. += span_warning("You can see [english_list(embedded_names)] embedded.")
 
 /obj/item/organ/external/update_health()
 	damage = min(max_damage, (brute_dam + burn_dam))
@@ -185,7 +185,7 @@
 		owner.emote("scream")	//getting hit on broken hand hurts
 	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
 		status &= ~ORGAN_SPLINTED
-		owner.visible_message("<span class='danger'>The splint on [owner]'s left arm unravels from [owner.p_their()] [name]!</span>","<span class='userdanger'>The splint on your [name] unravels!</span>")
+		owner.visible_message(span_danger("The splint on [owner]'s left arm unravels from [owner.p_their()] [name]!"),"<span class='userdanger'>The splint on your [name] unravels!</span>")
 		owner.handle_splints()
 	if(used_weapon)
 		add_autopsy_data("[used_weapon]", brute + burn)
@@ -455,7 +455,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner.step_count >= splinted_count + SPLINT_LIFE)
 		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
-		owner.visible_message("<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off their [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
+		owner.visible_message(span_danger("[owner] screams in pain as [owner.p_their()] splint pops off their [name]!"),"<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
 		owner.emote("scream")
 		owner.Stun(4 SECONDS)
 		owner.handle_splints()
@@ -479,22 +479,22 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(!clean)
 				var/gore_sound = "[is_robotic() ? "tortured metal" : "ripping tendons and flesh"]"
 				owner.visible_message(
-					"<span class='danger'>\The [owner]'s [name] flies off in an arc!</span>",\
+					span_danger("\The [owner]'s [name] flies off in an arc!"),\
 					"<span class='moderate'><b>Your [name] goes flying off!</b></span>",\
-					"<span class='danger'>You hear a terrible sound of [gore_sound].</span>")
+					span_danger("You hear a terrible sound of [gore_sound]."))
 		if(DROPLIMB_BURN)
 			var/gore = "[is_robotic() ? "" : " of burning flesh"]"
 			owner.visible_message(
-				"<span class='danger'>\The [owner]'s [name] flashes away into ashes!</span>",\
+				span_danger("\The [owner]'s [name] flashes away into ashes!"),\
 				"<span class='moderate'><b>Your [name] flashes away into ashes!</b></span>",\
-				"<span class='danger'>You hear a crackling sound[gore].</span>")
+				span_danger("You hear a crackling sound[gore]."))
 		if(DROPLIMB_BLUNT)
 			var/gore = "[is_robotic() ? "": " in shower of gore"]"
 			var/gore_sound = "[is_robotic() ? "rending sound of tortured metal" : "sickening splatter of gore"]"
 			owner.visible_message(
-				"<span class='danger'>\The [owner]'s [name] explodes[gore]!</span>",\
+				span_danger("\The [owner]'s [name] explodes[gore]!"),\
 				"<span class='moderate'><b>Your [name] explodes[gore]!</b></span>",\
-				"<span class='danger'>You hear the [gore_sound].</span>")
+				span_danger("You hear the [gore_sound]."))
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
 	// Let people make limbs become fun things when removed
@@ -576,10 +576,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!contents.len)
-			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
+			to_chat(user, span_warning("There is nothing left inside [src]!"))
 			return
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
+		user.visible_message(span_warning("[user] begins to cut open [src]."),\
 			span_notice("You begin to cut open [src]..."))
 		if(do_after(user, 54, target = src))
 			drop_organs(user)
@@ -622,8 +622,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner && !silent)
 		owner.audible_message(
-			"<span class='warning'>You hear a sickening crack coming from \the [owner].</span>",
-			"<span class='danger'>[owner]'s [name] appears to buckle unnaturally!</span>"
+			span_warning("You hear a sickening crack coming from \the [owner]."),
+			span_danger("[owner]'s [name] appears to buckle unnaturally!")
 		)
 		to_chat(owner, "<span class='userdanger'>Something feels like it shattered in your [name]!</span>")
 		playsound(owner, "bonebreak", 150, 1)
@@ -760,9 +760,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged)
 		victim.visible_message(
-			"<span class='danger'>\The [victim]'s [name] explodes violently!</span>",\
+			span_danger("\The [victim]'s [name] explodes violently!"),\
 			"<span class='userdanger'>Your [name] explodes!</span>",\
-			"<span class='danger'>You hear an explosion!</span>")
+			span_danger("You hear an explosion!"))
 		explosion(get_turf(owner),-1,-1,2,3)
 		do_sparks(5, 0, victim)
 		qdel(src)
@@ -771,9 +771,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(status & ORGAN_DISFIGURED)
 		return
 	if(owner)
-		owner.visible_message("<span class='warning'>\The [owner]'s [name] turns into a mangled mess!</span>",	\
+		owner.visible_message(span_warning("\The [owner]'s [name] turns into a mangled mess!"),	\
 							  "<span class='userdanger'>Your [name] becomes a mangled mess!</span>",	\
-							  "<span class='warning'>You hear a sickening sound.</span>")
+							  span_warning("You hear a sickening sound."))
 
 	status |= ORGAN_DISFIGURED
 

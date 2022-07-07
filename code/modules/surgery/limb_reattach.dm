@@ -93,18 +93,18 @@
 	var/obj/item/organ/external/E = tool
 	if(target.get_organ(E.limb_name))
 		// This catches attaching an arm to a missing hand while the arm is still there
-		to_chat(user, "<span class='warning'>[target] already has an [E.name]!</span>")
+		to_chat(user, span_warning("[target] already has an [E.name]!"))
 		return FALSE
 	if(E.limb_name != target_zone)
 		// This ensures you must be aiming at the appropriate location to attach
 		// this limb. (Can't aim at a missing foot to re-attach a missing arm)
-		to_chat(user, "<span class='warning'>The [E.name] does not go there.</span>")
+		to_chat(user, span_warning("The [E.name] does not go there."))
 		return FALSE
 	// if(E.parent_organ && !target.get_organ(E.parent_organ))
 	// 	// No rayman allowed
 	// 	return FALSE
 	if(!is_correct_limb(E))
-		to_chat(user, "<span class='warning'>This is not the correct limb type for this surgery!</span>")
+		to_chat(user, span_warning("This is not the correct limb type for this surgery!"))
 		return FALSE
 
 	return TRUE
@@ -216,7 +216,7 @@
 		var/obj/item/robot_parts/p = tool
 		if(p.part)
 			if(!(target_zone in p.part))
-				to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
+				to_chat(user, span_warning("\The [tool] does not go there!"))
 				return FALSE
 		return isnull(target.get_organ(target_zone))
 

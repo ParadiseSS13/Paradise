@@ -145,7 +145,7 @@
 
 /obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/I)
 	if(!a_left || !a_right)
-		to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
+		to_chat(user, span_warning("BUG:Assembly part missing, please report this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -163,7 +163,7 @@
 	add_fingerprint(user)
 	if(secured)
 		if(!a_left || !a_right)
-			to_chat(user, "<span class='warning'>Assembly part missing!</span>")
+			to_chat(user, span_warning("Assembly part missing!"))
 			return
 		if(istype(a_left, a_right.type))//If they are the same type it causes issues due to window code
 			switch(alert("Which side would you like to use?",,"Left","Right"))

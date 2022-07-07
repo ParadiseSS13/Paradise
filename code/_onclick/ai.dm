@@ -212,7 +212,7 @@
 	if(!ai_control_check(user))
 		return
 	if(wires.is_cut(WIRE_ELECTRIFY))
-		to_chat(user, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
+		to_chat(user, span_warning("The electrification wire is cut - Cannot electrify the door."))
 	if(isElectrified())
 		electrify(0, user, TRUE) // un-shock
 	else

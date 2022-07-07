@@ -175,7 +175,7 @@
 		return
 
 	if(modelocked)
-		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
+		to_chat(usr, span_warning("[src] is locked. It can only track one specific target."))
 		return
 
 	mode = MODE_OFF
@@ -229,7 +229,7 @@
 							break
 
 					if(!target)
-						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
+						to_chat(usr, span_warning("Failed to locate [targetitem]!"))
 						return
 					to_chat(usr, span_notice("You set the pinpointer to locate [targetitem]."))
 				if("DNA")

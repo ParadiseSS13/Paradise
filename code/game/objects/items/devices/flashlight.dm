@@ -298,7 +298,7 @@
 	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
 /obj/item/flashlight/flare/extinguish_light()
-	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+	visible_message(span_danger("[src] dims slightly before scattering the shadows around it."))
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
@@ -336,7 +336,7 @@
 	return //Bio-luminescence does not toggle.
 
 /obj/item/flashlight/slime/extinguish_light()
-	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+	visible_message(span_danger("[src] dims slightly before scattering the shadows around it."))
 
 /obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"
@@ -379,7 +379,7 @@
 		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
 		A.emp_act(1)
 	else
-		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
+		to_chat(user, span_warning("\The [src] needs time to recharge!"))
 	return
 
 /obj/item/flashlight/spotlight //invisible lighting source

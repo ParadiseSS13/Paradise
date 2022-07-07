@@ -21,11 +21,11 @@
 	if(proximity_flag != 1) //if we aren't next to the wall
 		return
 	if(!( get_dir(on_wall,user) in GLOB.cardinal))
-		to_chat(user, "<span class='warning'>You need to be standing next to a wall to place \the [src].</span>")
+		to_chat(user, span_warning("You need to be standing next to a wall to place \the [src]."))
 		return
 
 	if(gotwallitem(get_turf(user), get_dir(on_wall,user)))
-		to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
+		to_chat(user, span_warning("There's already an item on this wall!"))
 		return
 
 	return 1

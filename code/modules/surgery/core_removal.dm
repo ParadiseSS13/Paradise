@@ -25,8 +25,8 @@
 	return TRUE
 
 /datum/surgery_step/slime/cut_flesh/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='warning'> [user]'s hand slips, tearing [target]'s flesh with \the [tool]!</span>", \
-	"<span class='warning'> Your hand slips, tearing [target]'s flesh with \the [tool]!</span>")
+	user.visible_message(span_warning(" [user]'s hand slips, tearing [target]'s flesh with \the [tool]!"), \
+	span_warning(" Your hand slips, tearing [target]'s flesh with \the [tool]!"))
 	return FALSE
 
 /datum/surgery_step/slime/extract_core
@@ -52,10 +52,10 @@
 		else
 			return FALSE
 	else
-		to_chat(user, "<span class='warning'>There aren't any cores left in [slime]!</span>")
+		to_chat(user, span_warning("There aren't any cores left in [slime]!"))
 		return TRUE
 
 /datum/surgery_step/slime/extract_core/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='warning'> [user]'s hand slips, tearing [target]'s flesh with \the [tool]!</span>", \
-	"<span class='warning'> Your hand slips, tearing [target]'s flesh with \the [tool]!</span>")
+	user.visible_message(span_warning(" [user]'s hand slips, tearing [target]'s flesh with \the [tool]!"), \
+	span_warning(" Your hand slips, tearing [target]'s flesh with \the [tool]!"))
 	return FALSE

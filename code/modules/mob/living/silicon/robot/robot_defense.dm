@@ -5,13 +5,13 @@
 			var/obj/item/I = get_active_hand()
 			if(I)
 				uneq_active()
-				visible_message("<span class='danger'>[M] disarmed [src]!</span>", "<span class='userdanger'>[M] has disabled [src]'s active module!</span>")
+				visible_message(span_danger("[M] disarmed [src]!"), "<span class='userdanger'>[M] has disabled [src]'s active module!</span>")
 				add_attack_logs(M, src, "alien disarmed")
 			else
 				Stun(2)
 				step(src, get_dir(M,src))
 				add_attack_logs(M, src, "Alien pushed over")
-				visible_message("<span class='danger'>[M] forces back [src]!</span>", "<span class='userdanger'>[M] forces back [src]!</span>")
+				visible_message(span_danger("[M] forces back [src]!"), "<span class='userdanger'>[M] forces back [src]!</span>")
 			playsound(loc, 'sound/weapons/pierce.ogg', 50, TRUE, -1)
 	else
 		..()

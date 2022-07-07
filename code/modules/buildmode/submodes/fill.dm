@@ -27,7 +27,7 @@
 
 /datum/buildmode_mode/fill/handle_click(mob/user, params, obj/object)
 	if(isnull(objholder))
-		to_chat(user, "<span class='warning'>Select an object type first.</span>")
+		to_chat(user, span_warning("Select an object type first."))
 		deselect_region()
 		return
 	..()

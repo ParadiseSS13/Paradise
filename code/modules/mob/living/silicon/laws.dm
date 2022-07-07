@@ -19,7 +19,7 @@
 /mob/living/silicon/robot/set_zeroth_law(law, law_borg)
 	..()
 	if(tracking_entities)
-		to_chat(src, "<span class='warning'>Internal camera is currently being accessed.</span>")
+		to_chat(src, span_warning("Internal camera is currently being accessed."))
 
 /mob/living/silicon/proc/add_ion_law(law)
 	throw_alert("newlaw", /obj/screen/alert/newlaw)
@@ -103,7 +103,7 @@
 			break
 
 	if(!can_state)
-		to_chat(src, "<span class='danger'>[method]: Unable to state laws. Communication method unavailable.</span>")
+		to_chat(src, span_danger("[method]: Unable to state laws. Communication method unavailable."))
 	stating_laws[prefix] = 0
 
 /mob/living/silicon/proc/statelaw(law)

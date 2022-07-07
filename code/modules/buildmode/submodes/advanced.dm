@@ -51,7 +51,7 @@
 			A.setDir(BM.build_dir)
 			log_admin("Build Mode: [key_name(user)] modified [A]'s ([A.x],[A.y],[A.z]) dir to [BM.build_dir]")
 		else
-			to_chat(user, "<span class='warning'>Select object type first.</span>")
+			to_chat(user, span_warning("Select object type first."))
 	else if(right_click)
 		if(isobj(object))
 			log_admin("Build Mode: [key_name(user)] deleted [object] at ([object.x],[object.y],[object.z])")

@@ -207,7 +207,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	if(prob(75 - metal * 25))
-		user.visible_message("<span class='warning'>[user] smashes through [src].</span>", span_notice("You smash through [src]."))
+		user.visible_message(span_warning("[user] smashes through [src]."), span_notice("You smash through [src]."))
 		qdel(src)
 	else
 		to_chat(user, span_notice("You hit the metal foam but bounce off it."))

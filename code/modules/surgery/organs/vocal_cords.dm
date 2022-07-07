@@ -113,7 +113,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		if(owner.stat)
 			return FALSE
 	if(istype(owner.loc, /obj/effect/dummy/spell_jaunt))
-		to_chat(owner, "<span class='warning'>No one can hear you when you are jaunting, no point in talking now!</span>")
+		to_chat(owner, span_warning("No one can hear you when you are jaunting, no point in talking now!"))
 		return FALSE
 	return TRUE
 
@@ -138,12 +138,12 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	if(!owner)
 		return FALSE
 	if(!owner.can_speak())
-		to_chat(owner, "<span class='warning'>You are unable to speak!</span>")
+		to_chat(owner, span_warning("You are unable to speak!"))
 		return FALSE
 	if(owner.stat)
 		return FALSE
 	if(istype(owner.loc, /obj/effect/dummy/spell_jaunt))
-		to_chat(owner, "<span class='warning'>No one can hear you when you are jaunting, no point in talking now!</span>")
+		to_chat(owner, span_warning("No one can hear you when you are jaunting, no point in talking now!"))
 		return FALSE
 	return TRUE
 

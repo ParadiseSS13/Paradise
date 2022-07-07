@@ -75,13 +75,13 @@
 		to_chat(user, span_notice("You point [src] at [target], but nothing happens!"))
 		return
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
-		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
+		to_chat(user, span_warning("Your fingers can't press the button!"))
 		return
 	if(!(target in view(7, get_turf(src)))) // Use the turf as center so it won't use the potential xray of the user
-		to_chat(user, "<span class='warning'>There is something in the way!</span>")
+		to_chat(user, span_warning("There is something in the way!"))
 		return
 
 	add_fingerprint(user)
@@ -110,7 +110,7 @@
 			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
 				outmsg = span_notice("You blind [C] by shining [src] in [C.p_their()] eyes.")
 			else
-				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
+				outmsg = span_warning("You fail to blind [C] by shining [src] at [C.p_their()] eyes!")
 
 	//robots and AI
 	else if(issilicon(target))
@@ -119,7 +119,7 @@
 		if(prob(effectchance * diode.rating))
 			S.flash_eyes(affect_silicon = 1)
 			S.Weaken(rand(10 SECONDS, 20 SECONDS))
-			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
+			to_chat(S, span_warning("Your sensors were overloaded by a laser!"))
 			outmsg = span_notice("You overload [S] by shining [src] at [S.p_their()] sensors.")
 
 			add_attack_logs(user, S, "shone [src] in their eyes")
@@ -167,7 +167,7 @@
 			recharging = 1
 			START_PROCESSING(SSobj, src)
 		if(energy <= 0)
-			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
+			to_chat(user, span_warning("You've overused the battery of [src], now it needs time to recharge!"))
 			recharge_locked = 1
 
 	flick_overlay(I, showto, 10)

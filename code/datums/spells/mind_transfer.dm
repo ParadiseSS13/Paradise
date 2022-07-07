@@ -35,7 +35,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 	var/mob/living/target = targets[1]
 
 	if(user.suiciding)
-		to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")
+		to_chat(user, span_warning("You're killing yourself! You can't concentrate enough to do this!"))
 		return
 
 	if(target.mind.special_role in protected_roles)

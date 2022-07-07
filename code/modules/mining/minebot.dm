@@ -66,7 +66,7 @@
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	adjustHealth(100 / severity)
 	to_chat(src, "<span class='userdanger'>NOTICE: EMP detected, systems damaged!</span>")
-	visible_message("<span class='warning'>[src] crackles and buzzes violently!</span>")
+	visible_message(span_warning("[src] crackles and buzzes violently!"))
 
 /mob/living/simple_animal/hostile/mining_drone/sentience_act()
 	..()
@@ -79,7 +79,7 @@
 	var/t_s = p_s()
 	if(health < maxHealth)
 		if(health >= maxHealth * 0.5)
-			. += "<span class='warning'>[t_He] look[t_s] slightly dented.</span>"
+			. += span_warning("[t_He] look[t_s] slightly dented.")
 		else
 			. += "<span class='boldwarning'>[t_He] look[t_s] severely dented!</span>"
 	. += {"<span class='notice'>Using a mining scanner on [t_him] will instruct [t_him] to drop stored ore. <b>[max(0, LAZYLEN(contents) - 1)] Stored Ore</b>\n
@@ -200,7 +200,7 @@
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
 	if(!contents.len)
 		if(message)
-			to_chat(src, "<span class='warning'>You attempt to dump your stored ore, but you have none.</span>")
+			to_chat(src, span_warning("You attempt to dump your stored ore, but you have none."))
 		return
 	if(message)
 		to_chat(src, span_notice("You dump your stored ore."))
@@ -354,8 +354,8 @@
 	item_state = "electronic"
 
 /obj/item/mining_drone_cube/attack_self(mob/user)
-	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \
-	"<span class='warning'>You press center button on \the [src]. The device suddenly expands into a fully functional mining drone!</span>")
+	user.visible_message(span_warning("\The [src] suddenly expands into a fully functional mining drone!"), \
+	span_warning("You press center button on \the [src]. The device suddenly expands into a fully functional mining drone!"))
 	new /mob/living/simple_animal/hostile/mining_drone(get_turf(src))
 	qdel(src)
 

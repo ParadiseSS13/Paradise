@@ -34,7 +34,7 @@ Bonus
 			return
 		switch(A.stage)
 			if(1, 2)
-				to_chat(M, "<span class='warning'>Your eyes itch.</span>")
+				to_chat(M, span_warning("Your eyes itch."))
 			if(3, 4)
 				to_chat(M, "<span class='warning'><b>Your eyes burn!</b></span>")
 				M.EyeBlurry(40 SECONDS)

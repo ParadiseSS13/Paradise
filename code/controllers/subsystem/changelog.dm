@@ -272,5 +272,5 @@ SUBSYSTEM_DEF(changelog)
 			var/url = "[GLOB.configuration.url.github_url]/pull/[href_list["openPR"]]"
 			usr << link(url)
 		else
-			to_chat(usr, "<span class='danger'>The GitHub URL is not set in the server configuration. PRs cannot be opened from changelog view. Please inform the server host.</span>")
+			to_chat(usr, span_danger("The GitHub URL is not set in the server configuration. PRs cannot be opened from changelog view. Please inform the server host."))
 

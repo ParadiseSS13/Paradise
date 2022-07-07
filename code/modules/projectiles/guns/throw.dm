@@ -55,9 +55,9 @@
 				process_chamber()
 			to_chat(user, notify_ammo_count())
 		else
-			to_chat(user, "<span class='warning'>[src] cannot hold any more projectiles.</span>")
+			to_chat(user, span_warning("[src] cannot hold any more projectiles."))
 	else
-		to_chat(user, "<span class='warning'>You cannot load [I] into [src]!</span>")
+		to_chat(user, span_warning("You cannot load [I] into [src]!"))
 
 /obj/item/gun/throw/process_chamber()
 	if(!to_launch && loaded_projectiles.len)

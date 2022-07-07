@@ -14,24 +14,24 @@
 	var/obj/item/grab/G = user.get_active_hand()
 
 	if(cling.is_linking)
-		to_chat(user, "<span class='warning'>We have already formed a link with the victim!</span>")
+		to_chat(user, span_warning("We have already formed a link with the victim!"))
 		return FALSE
 	if(!istype(G))
-		to_chat(user, "<span class='warning'>We must be tightly grabbing a creature in our active hand to link with them!</span>")
+		to_chat(user, span_warning("We must be tightly grabbing a creature in our active hand to link with them!"))
 		return FALSE
 	if(G.state <= GRAB_AGGRESSIVE)
-		to_chat(user, "<span class='warning'>We must have a tighter grip to link with this creature!</span>")
+		to_chat(user, span_warning("We must have a tighter grip to link with this creature!"))
 		return FALSE
 	if(iscarbon(G.affecting))
 		var/mob/living/carbon/target = G.affecting
 		if(!target.mind)
-			to_chat(user, "<span class='warning'>The victim has no mind to link to!</span>")
+			to_chat(user, span_warning("The victim has no mind to link to!"))
 			return FALSE
 		if(target.stat == DEAD)
-			to_chat(user, "<span class='warning'>The victim is dead, you cannot link to a dead mind!</span>")
+			to_chat(user, span_warning("The victim is dead, you cannot link to a dead mind!"))
 			return FALSE
 		if(target.mind.has_antag_datum(/datum/antagonist/changeling))
-			to_chat(user, "<span class='warning'>The victim is already a part of the hivemind!</span>")
+			to_chat(user, span_warning("The victim is already a part of the hivemind!"))
 			return FALSE
 		return cling.can_absorb_dna(target)
 
@@ -62,7 +62,7 @@
 				addtimer(CALLBACK(src, .proc/end_link, user, target), 180 SECONDS)
 
 		if(!do_mob(user, target, 2 SECONDS))
-			to_chat(user, "<span class='warning'>Our link with [target] has ended!</span>")
+			to_chat(user, span_warning("Our link with [target] has ended!"))
 			target.remove_language("Changeling")
 			cling.is_linking = FALSE
 			target.mind.linglink = FALSE

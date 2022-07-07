@@ -5,7 +5,7 @@
 
 /datum/martial_combo/cqc/consecutive/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat)
-		target.visible_message("<span class='warning'>[user] strikes [target]'s abdomen, neck and back consecutively</span>", \
+		target.visible_message(span_warning("[user] strikes [target]'s abdomen, neck and back consecutively"), \
 							"<span class='userdanger'>[user] strikes your abdomen, neck and back consecutively!</span>")
 		playsound(get_turf(target), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
 		var/obj/item/I = target.get_active_hand()

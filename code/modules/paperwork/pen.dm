@@ -121,7 +121,7 @@
 	var/transfered = 0
 	if(reagents.total_volume && M.reagents)
 		transfered = reagents.trans_to(M, 50)
-	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
+	to_chat(user, span_warning("You sneakily stab [M] with the pen."))
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
 	return TRUE
 
@@ -154,7 +154,7 @@
 		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
-		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
+		to_chat(user, span_warning("[src] can now be concealed."))
 		set_light(0)
 	else
 		on = 1
@@ -167,7 +167,7 @@
 		embed_chance = 100 //rule of cool
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
-		to_chat(user, "<span class='warning'>[src] is now active.</span>")
+		to_chat(user, span_warning("[src] is now active."))
 		set_light(brightness_on, 1)
 	update_icon()
 
@@ -187,13 +187,13 @@
 
 /obj/item/pen/poison/on_write(obj/item/paper/P, mob/user)
 	if(P.contact_poison_volume)
-		to_chat(user, "<span class='warning'>[P] is already coated.</span>")
+		to_chat(user, span_warning("[P] is already coated."))
 	else if(uses_left)
 		uses_left--
 		P.contact_poison = "amanitin"
 		P.contact_poison_volume = 15
 		P.contact_poison_poisoner = user.name
 		add_attack_logs(user, P, "Poison pen'ed")
-		to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
+		to_chat(user, span_warning("You apply the poison to [P]."))
 	else
-		to_chat(user, "<span class='warning'>[src] clicks. It seems to be depleted.</span>")
+		to_chat(user, span_warning("[src] clicks. It seems to be depleted."))

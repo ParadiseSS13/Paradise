@@ -45,11 +45,11 @@
 		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", span_notice("You prepare [target]'s [target_zone] for further dissection."))
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")
+		to_chat(user, span_warning("You don't find anything in [target]'s [target_zone]!"))
 		return TRUE
 
 /datum/surgery_step/internal/extract_organ/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("<span class='warning'>[user]'s hand slips, failing to extract anything!</span>", "<span class='warning'>Your hand slips, failing to extract anything!</span>")
+	user.visible_message(span_warning("[user]'s hand slips, failing to extract anything!"), span_warning("Your hand slips, failing to extract anything!"))
 	return FALSE
 
 /datum/surgery_step/internal/gland_insert
@@ -71,7 +71,7 @@
 	return TRUE
 
 /datum/surgery_step/internal/gland_insert/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("<span class='warning'>[user]'s hand slips, failing to insert the gland!</span>", "<span class='warning'>Your hand slips, failing to insert the gland!</span>")
+	user.visible_message(span_warning("[user]'s hand slips, failing to insert the gland!"), span_warning("Your hand slips, failing to insert the gland!"))
 	return FALSE
 
 //IPC Gland Surgery//

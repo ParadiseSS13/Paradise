@@ -34,7 +34,7 @@
 			to_chat(user, span_notice("A container is already inside [src]."))
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
+			to_chat(user, span_warning("\The [I] is stuck to you!"))
 			return
 		beaker = I
 		I.forceMove(src)

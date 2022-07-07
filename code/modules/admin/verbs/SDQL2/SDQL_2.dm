@@ -19,7 +19,7 @@
 	set category = "Debug"
 
 	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
-		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute a SDQL query!</span>")
+		message_admins(span_danger("ERROR: Non-admin [key_name_admin(usr)] attempted to execute a SDQL query!"))
 		log_admin("Non-admin [key_name(usr)] attempted to execute a SDQL query!")
 
 	var/query_text = input("SDQL2 query") as message
@@ -140,7 +140,7 @@
 										break
 
 	catch(var/exception/e)
-		to_chat(usr, "<span class='danger'>An exception has occured during the execution of your query and your query has been aborted.</span>")
+		to_chat(usr, span_danger("An exception has occured during the execution of your query and your query has been aborted."))
 		to_chat(usr, "  [e.name]")
 		to_chat(usr, "  at: [e.file]:[e.line]")
 
@@ -168,7 +168,7 @@
 				querys[querys_pos] = parsed_tree
 				querys_pos++
 			else //There was an error so don't run anything, and tell the user which query has errored.
-				to_chat(usr, "<span class='danger'>Parsing error on [querys_pos]\th query. Nothing was executed.</span>")
+				to_chat(usr, span_danger("Parsing error on [querys_pos]\th query. Nothing was executed."))
 				return list()
 			query_tree = list()
 			do_parse = 0
@@ -325,7 +325,7 @@
 				if("or", "||")
 					result = (result || val)
 				else
-					to_chat(usr, "<span class='danger'>SDQL2: Unknown op [op]</span>")
+					to_chat(usr, span_danger("SDQL2: Unknown op [op]"))
 					result = null
 		else
 			result = val
@@ -389,11 +389,11 @@
 
 	if(expression[start] == "\[" && long)
 		if(lowertext(copytext(expression[start + 1], 1, 3)) != "0x")
-			to_chat(usr, "<span class='danger'>Invalid ref syntax: [expression[start + 1]]</span>")
+			to_chat(usr, span_danger("Invalid ref syntax: [expression[start + 1]]"))
 			return null
 		v = locate("\[[expression[start + 1]]\]")
 		if(!v)
-			to_chat(usr, "<span class='danger'>Invalid ref: [expression[start + 1]]</span>")
+			to_chat(usr, span_danger("Invalid ref: [expression[start + 1]]"))
 			return null
 		start++
 
@@ -431,7 +431,7 @@
 			var/list/L = v
 			var/index = SDQL_expression(source, expression[start + 2])
 			if(isnum(index) && (!ISINTEGER(index) || L.len < index))
-				to_chat(world, "<span class='danger'>Invalid list index: [index]</span>")
+				to_chat(world, span_danger("Invalid list index: [index]"))
 				return null
 			return L[index]
 

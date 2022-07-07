@@ -216,7 +216,7 @@
 	if(C.opened)
 		return
 	if(amount < 3)
-		to_chat(user, "<span class='warning'>You need more paper.</span>")
+		to_chat(user, span_warning("You need more paper."))
 		return
 	if(!do_after_once(user, 1.5 SECONDS, target = C) || C.opened || !use(3)) // Checking these again since it's after a delay
 		return
@@ -393,7 +393,7 @@
 		return
 	if(istype(O, /obj/item) && !istype(O, /obj/item/storage) && !istype(O, /obj/item/shippingPackage))
 		if(!user.canUnEquip(O))
-			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
+			to_chat(user, span_warning("[O] is stuck to your hand, you cannot put it in [src]!"))
 			return
 		if(O.w_class > 3)
 			to_chat(user, span_notice("[O] is too large to fit in [src]."))

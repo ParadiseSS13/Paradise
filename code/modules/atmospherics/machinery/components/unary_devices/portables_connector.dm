@@ -36,7 +36,7 @@
 /obj/machinery/atmospherics/unary/portables_connector/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/wrench))
 		if(connected_device)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], detach [connected_device] first.</span>")
+			to_chat(user, span_danger("You cannot unwrench this [src], detach [connected_device] first."))
 			return 1
 	return ..()
 

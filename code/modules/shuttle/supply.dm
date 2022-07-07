@@ -404,7 +404,7 @@
 
 /obj/machinery/computer/supplycomp/attack_hand(mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		return 1
 
 	post_signal("supply")
@@ -502,7 +502,7 @@
 			if(is_public)
 				return
 			if(SSshuttle.supply.canMove())
-				to_chat(usr, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>")
+				to_chat(usr, span_warning("For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons."))
 			else if(SSshuttle.supply.getDockedId() == "supply_home")
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
 				investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
@@ -579,7 +579,7 @@
 						investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", "cargo")
 						SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, P.name)
 					else
-						to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
+						to_chat(usr, span_warning("There are insufficient supply points for this request."))
 					break
 
 		if("deny")

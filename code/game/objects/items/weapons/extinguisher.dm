@@ -98,7 +98,7 @@
 
 	if(!safety)
 		if(src.reagents.total_volume < 1)
-			to_chat(usr, "<span class='danger'>\The [src] is empty.</span>")
+			to_chat(usr, span_danger("\The [src] is empty."))
 			return
 
 		if(world.time < src.last_use + 20)

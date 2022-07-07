@@ -34,9 +34,9 @@
 	var/inject_target = pick("chest", "head")
 	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.reagents.add_reagent("terror_black_toxin", 30) // inject our special poison
-		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
+		visible_message(span_danger("[src] buries its long fangs deep into the [inject_target] of [target]!"))
 	else
-		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!</span>")
+		visible_message(span_danger("[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!"))
 	L.attack_animal(src)
 	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 60)))
 		step_away(src, L)
@@ -55,5 +55,5 @@
 		if(!C.reagents.has_reagent("terror_black_toxin", 60))
 			var/inject_target = pick("chest","head")
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
-				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
+				to_chat(C, span_danger("[src] slices into you!"))
 				C.reagents.add_reagent("terror_black_toxin", 30)

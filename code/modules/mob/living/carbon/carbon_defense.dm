@@ -9,7 +9,7 @@
 				if(get_inactive_hand())
 					return FALSE
 			put_in_active_hand(AM)
-			visible_message("<span class='warning'>[src] catches [AM]!</span>")
+			visible_message(span_warning("[src] catches [AM]!"))
 			throw_mode_off()
 			return TRUE
 	return ..()
@@ -57,7 +57,7 @@
 				if(M.powerlevel < 0)
 					M.powerlevel = 0
 
-				visible_message("<span class='danger'>[M] has shocked [src]!</span>", "<span class='userdanger'>[M] has shocked you!</span>")
+				visible_message(span_danger("[M] has shocked [src]!"), "<span class='userdanger'>[M] has shocked you!</span>")
 
 				do_sparks(5, TRUE, src)
 				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT

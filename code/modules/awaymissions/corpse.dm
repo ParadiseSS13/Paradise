@@ -39,13 +39,13 @@
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
-		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
+		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
 	if(jobban_isbanned(user, banType))
-		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		to_chat(user, span_warning("You are jobanned!"))
 		return
 	if(cannotPossess(user))
-		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		to_chat(user, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
 		return
 	if(time_check(user))
 		return
@@ -55,7 +55,7 @@
 	if(!species_prompt())
 		return
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
-		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
+		to_chat(user, span_warning("The [name] is no longer usable!"))
 		return
 	log_game("[user.ckey] became [mob_name]")
 	create(ckey = user.ckey)
@@ -105,7 +105,7 @@
 
 	if(deathtime <= death_cooldown && !joinedasobserver)
 		to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(user, "<span class='warning'>You must wait [death_cooldown / 600] minutes to respawn!</span>")
+		to_chat(user, span_warning("You must wait [death_cooldown / 600] minutes to respawn!"))
 		return TRUE
 	return FALSE
 

@@ -23,7 +23,7 @@
 
 /obj/item/grenade/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
+		to_chat(user, span_warning("Huh? How does this thing work?"))
 		active = 1
 		icon_state = initial(icon_state) + "_active"
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
@@ -39,7 +39,7 @@
 	if(istype(target, /obj/item/storage)) return ..() // Trying to put it in a full container
 	if(istype(target, /obj/item/gun/grenadelauncher)) return ..()
 	if((user.is_in_active_hand(src)) && (!active) && (clown_check(user)) && target.loc != src.loc)
-		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
+		to_chat(user, span_warning("You prime the [name]! [det_time/10] seconds!"))
 		active = 1
 		icon_state = initial(icon_state) + "_active"
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
@@ -64,7 +64,7 @@
 /obj/item/grenade/attack_self(mob/user as mob)
 	if(!active)
 		if(clown_check(user))
-			to_chat(user, "<span class='warning'>You prime [src]! [det_time/10] seconds!</span>")
+			to_chat(user, span_warning("You prime [src]! [det_time/10] seconds!"))
 			active = 1
 			icon_state = initial(icon_state) + "_active"
 			add_fingerprint(user)

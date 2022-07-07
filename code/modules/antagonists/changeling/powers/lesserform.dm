@@ -17,12 +17,12 @@
 	var/mob/living/carbon/human/H = user
 
 	if(!istype(H) || !H.dna.species.primitive_form)
-		to_chat(H, "<span class='warning'>We cannot perform this ability in this form!</span>")
+		to_chat(H, span_warning("We cannot perform this ability in this form!"))
 		return FALSE
 
-	H.visible_message("<span class='warning'>[H] transforms!</span>")
+	H.visible_message(span_warning("[H] transforms!"))
 	cling.genetic_damage = 30
-	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
+	to_chat(H, span_warning("Our genes cry out!"))
 	H.monkeyize()
 
 	cling.give_power(new /datum/action/changeling/humanform)

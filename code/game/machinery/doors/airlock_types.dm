@@ -419,7 +419,7 @@
 	welded = !welded
 	visible_message(span_notice("[user] [welded ? null : "un"]welds [src]!"),\
 					span_notice("You [welded ? null : "un"]weld [src]!"),\
-					"<span class='warning'>You hear welding.</span>")
+					span_warning("You hear welding."))
 	update_icon()
 
 /obj/machinery/door/airlock/maintenance_hatch
@@ -473,7 +473,7 @@
 	welded = !welded
 	visible_message(span_notice("[user] [welded ? null : "un"]welds [src]!"),\
 					span_notice("You [welded ? null : "un"]weld [src]!"),\
-					"<span class='warning'>You hear welding.</span>")
+					span_warning("You hear welding."))
 	update_icon()
 
 /obj/machinery/door/airlock/abductor

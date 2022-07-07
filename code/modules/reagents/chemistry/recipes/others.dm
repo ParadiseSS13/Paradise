@@ -17,7 +17,7 @@
 
 /datum/chemical_reaction/foam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	holder.my_atom.visible_message("<span class='warning'>The solution spews out foam!</span>")
+	holder.my_atom.visible_message(span_warning("The solution spews out foam!"))
 
 	var/datum/effect_system/foam_spread/s = new()
 	s.set_up(created_volume, location, holder, 0)
@@ -35,7 +35,7 @@
 /datum/chemical_reaction/metalfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 
-	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
+	holder.my_atom.visible_message(span_warning("The solution spews out a metalic foam!"))
 
 	var/datum/effect_system/foam_spread/s = new()
 	s.set_up(created_volume, location, holder, MFOAM_ALUMINUM)
@@ -52,7 +52,7 @@
 /datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 
-	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
+	holder.my_atom.visible_message(span_warning("The solution spews out a metalic foam!"))
 
 	var/datum/effect_system/foam_spread/s = new()
 	s.set_up(created_volume, location, holder, MFOAM_IRON)

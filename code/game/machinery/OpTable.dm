@@ -37,7 +37,7 @@
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		..(user, TRUE)
-		visible_message("<span class='warning'>[user] destroys the operating table!</span>")
+		visible_message(span_warning("[user] destroys the operating table!"))
 		qdel(src)
 		return TRUE
 
@@ -78,7 +78,7 @@
 /obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(iscarbon(AM) && LAZYLEN(injected_reagents))
-		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
+		to_chat(AM, span_danger("You feel a series of tiny pricks!"))
 
 /obj/machinery/optable/process()
 	update_patient()

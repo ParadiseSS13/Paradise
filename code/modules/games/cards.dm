@@ -69,7 +69,7 @@
 			update_icon()
 			return
 		else
-			to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
+			to_chat(user,span_warning("You can't mix cards from different decks!"))
 			return
 
 	..()
@@ -146,7 +146,7 @@
 
 	var/obj/item/cardhand/H = M.is_in_hands(/obj/item/cardhand)
 	if(H && (H.parentdeck != src))
-		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
+		to_chat(user,span_warning("You can't mix cards from different decks!"))
 		return
 	if(H && length(H.cards) >= H.maxcardlen)
 		to_chat(user,"<span class = 'warning'>You can't hold that many cards in one hand!</span>")
@@ -345,7 +345,7 @@
 	else if(istype(O,/obj/item/cardhand))
 		var/obj/item/cardhand/H = O
 		if((length(H.cards) + length(cards)) > maxcardlen)
-			to_chat(user,"<span class='warning'>You can't hold that many cards in one hand!</span>")
+			to_chat(user,span_warning("You can't hold that many cards in one hand!"))
 			return
 		if(H.parentdeck == parentdeck)
 			for(var/datum/playingcard/P in cards)

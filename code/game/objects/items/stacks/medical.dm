@@ -19,15 +19,15 @@
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 	if(get_amount() <= 0)
 		if(is_cyborg)
-			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [singular_name]\s!</span>")
+			to_chat(user, span_warning("You don't have enough energy to dispense more [singular_name]\s!"))
 		return TRUE
 
 	if(!iscarbon(M) && !isanimal(M))
-		to_chat(user, "<span class='danger'>[src] cannot be applied to [M]!</span>")
+		to_chat(user, span_danger("[src] cannot be applied to [M]!"))
 		return TRUE
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_danger("You don't have the dexterity to do this!"))
 		return TRUE
 
 
@@ -39,11 +39,11 @@
 			return TRUE
 
 		if(!affecting)
-			to_chat(user, "<span class='danger'>That limb is missing!</span>")
+			to_chat(user, span_danger("That limb is missing!"))
 			return TRUE
 
 		if(affecting.is_robotic())
-			to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
+			to_chat(user, span_danger("This can't be used on a robotic limb."))
 			return TRUE
 
 		if(M == user && !unique_handling)
@@ -127,7 +127,7 @@
 /obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
 		if(get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
+			to_chat(user, span_warning("You need at least two gauzes to do this!"))
 			return
 		new /obj/item/stack/sheet/cloth(user.drop_location())
 		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
@@ -157,7 +157,7 @@
 			H.UpdateDamageIcon()
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than a bandage!</span>")
+			to_chat(user, span_warning("[affecting] is cut open, you'll need more than a bandage!"))
 
 /obj/item/stack/medical/bruise_pack/improvised
 	name = "improvised gauze"
@@ -212,7 +212,7 @@
 			H.UpdateDamageIcon()
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than some ointment!</span>")
+			to_chat(user, span_warning("[affecting] is cut open, you'll need more than some ointment!"))
 
 
 /obj/item/stack/medical/ointment/advanced
@@ -277,11 +277,11 @@
 		var/limb = affecting.name
 
 		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
-			to_chat(user, "<span class='danger'>You can't apply a splint there!</span>")
+			to_chat(user, span_danger("You can't apply a splint there!"))
 			return TRUE
 
 		if(affecting.status & ORGAN_SPLINTED)
-			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
+			to_chat(user, span_danger("[H]'s [limb] is already splinted!"))
 			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal.", "Yes", "No") == "Yes")
 				affecting.status &= ~ORGAN_SPLINTED
 				H.handle_splints()

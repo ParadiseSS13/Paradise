@@ -31,15 +31,15 @@
 
 /obj/item/mmi/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal))
-		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with [src].</span>")
+		to_chat(user, span_warning(" This brain is too malformed to be able to use with [src]."))
 		return
 	if(istype(O, /obj/item/organ/internal/brain/golem))
-		to_chat(user, "<span class='warning'>You can't find a way to plug [O] into [src].</span>")
+		to_chat(user, span_warning("You can't find a way to plug [O] into [src]."))
 		return
 	if(istype(O,/obj/item/organ/internal/brain) && !brainmob) //Time to stick a brain in it --NEO
 		var/obj/item/organ/internal/brain/B = O
 		if(!B.brainmob)
-			to_chat(user, "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>")
+			to_chat(user, span_warning("You aren't sure where this brain came from, but you're pretty sure it's a useless brain."))
 			return
 		if(held_brain)
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
@@ -75,13 +75,13 @@
 				radio_action.UpdateButtonIcon()
 			SSblackbox.record_feedback("amount", "mmis_filled", 1)
 		else
-			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
+			to_chat(user, span_warning("You can't drop [B]!"))
 
 		return
 
 	if(istype(O, /obj/item/mmi_radio_upgrade))
 		if(radio)
-			to_chat(user, "<span class='warning'>[src] already has a radio installed.</span>")
+			to_chat(user, span_warning("[src] already has a radio installed."))
 		else
 			user.visible_message(span_notice("[user] begins to install [O] into [src]..."), \
 				span_notice("You start to install [O] into [src]..."))
@@ -94,7 +94,7 @@
 					install_radio()
 					qdel(O)
 				else
-					to_chat(user, "<span class='warning'>You can't drop [O]!</span>")
+					to_chat(user, span_warning("You can't drop [O]!"))
 		return
 
 	// Maybe later add encryption key support, but that's a pain in the neck atm
@@ -111,21 +111,21 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(!radio)
-		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
+		to_chat(user, span_warning("There is no radio in [src]!"))
 		return
-	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
+	user.visible_message(span_warning("[user] begins to uninstall the radio from [src]..."), \
 							 span_notice("You start to uninstall the radio from [src]..."))
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
-	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
+	user.visible_message(span_warning("[user] uninstalls the radio from [src]."), \
 						 span_notice("You uninstall the radio from [src]."))
 
 
 /obj/item/mmi/attack_self(mob/user as mob)
 	if(!brainmob)
-		to_chat(user, "<span class='warning'>You upend the MMI, but there's nothing in it.</span>")
+		to_chat(user, span_warning("You upend the MMI, but there's nothing in it."))
 	else
 		to_chat(user, span_notice("You unlock and upend the MMI, spilling the brain onto the floor."))
 		dropbrain(get_turf(user))

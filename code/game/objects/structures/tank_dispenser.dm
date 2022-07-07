@@ -124,11 +124,11 @@
 /// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
 /obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/T)
 	if(LAZYLEN(tank_list) >= MAX_TANK_STORAGE)
-		to_chat(user, "<span class='warning'>[src] is full.</span>")
+		to_chat(user, span_warning("[src] is full."))
 		return
 
 	if(!user.drop_item()) // Antidrop check
-		to_chat(user, "<span class='warning'>[T] is stuck to your hand!</span>")
+		to_chat(user, span_warning("[T] is stuck to your hand!"))
 		return
 
 	T.forceMove(src)

@@ -15,7 +15,7 @@
 	else
 		..()
 	if(toggle)
-		visible_message("<span class='danger'>The explosion glances off [src]'s energy shielding!</span>")
+		visible_message(span_danger("The explosion glances off [src]'s energy shielding!"))
 
 /mob/living/simple_animal/hostile/guardian/protector/ToggleMode()
 	if(cooldown > world.time)
@@ -28,7 +28,7 @@
 		obj_damage = initial(obj_damage)
 		speed = initial(speed)
 		damage_transfer = 0.4
-		to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
+		to_chat(src, span_danger("You switch to combat mode."))
 		toggle = FALSE
 	else
 		var/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
@@ -39,7 +39,7 @@
 		obj_damage = 6 //40/7.5 rounded up, we don't want a protector guardian 2 shotting blob tiles while taking 5% damage, thats just silly.
 		speed = 1
 		damage_transfer = 0.05 //damage? what's damage?
-		to_chat(src, "<span class='danger'>You switch to protection mode.</span>")
+		to_chat(src, span_danger("You switch to protection mode."))
 		toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/protector/snapback() //snap to what? snap to the guardian!
@@ -50,11 +50,11 @@
 		else
 			if(istype(summoner.loc, /obj/effect))
 				to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
-				visible_message("<span class='danger'>[src] jumps back to its user.</span>")
+				visible_message(span_danger("[src] jumps back to its user."))
 				Recall(TRUE)
 			else
 				to_chat(summoner, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from <b>[src]</b>!</span>")
-				summoner.visible_message("<span class='danger'>[summoner] jumps back to [summoner.p_their()] protector.</span>")
+				summoner.visible_message(span_danger("[summoner] jumps back to [summoner.p_their()] protector."))
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector

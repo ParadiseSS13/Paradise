@@ -33,20 +33,20 @@
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user as mob)
 	if(holstered)
-		to_chat(user, "<span class='warning'>There is already a [holstered] holstered here!</span>")
+		to_chat(user, span_warning("There is already a [holstered] holstered here!"))
 		return
 
 	if(!istype(I, /obj/item/gun))
-		to_chat(user, "<span class='warning'>Only guns can be holstered!</span>")
+		to_chat(user, span_warning("Only guns can be holstered!"))
 		return
 
 	var/obj/item/gun/W = I
 	if(!can_holster(W))
-		to_chat(user, "<span class='warning'>This [W.name] won't fit in [src]!</span>")
+		to_chat(user, span_warning("This [W.name] won't fit in [src]!"))
 		return
 
 	if(!user.canUnEquip(W, 0))
-		to_chat(user, "<span class='warning'>You can't let go of [W]!</span>")
+		to_chat(user, span_warning("You can't let go of [W]!"))
 		return
 
 	holstered = W
@@ -60,11 +60,11 @@
 		return
 
 	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
-		to_chat(user, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
+		to_chat(user, span_warning("You need an empty hand to draw [holstered]!"))
 	else
 		if(user.a_intent == INTENT_HARM)
 			usr.visible_message("<span class='warning'>[user] draws [holstered], ready to shoot!</span></span>", \
-			"<span class='warning'>You draw [holstered], ready to shoot!</span>")
+			span_warning("You draw [holstered], ready to shoot!"))
 		else
 			user.visible_message(span_notice("[user] draws [holstered], pointing it at the ground."), \
 			span_notice("You draw [holstered], pointing it at the ground."))
@@ -120,11 +120,11 @@
 			H = locate() in S.accessories
 
 	if(!H)
-		to_chat(usr, "<span class='warning'>Something is very wrong.</span>")
+		to_chat(usr, span_warning("Something is very wrong."))
 
 	if(!H.holstered)
 		if(!istype(usr.get_active_hand(), /obj/item/gun))
-			to_chat(usr, "<span class='warning'>You need your gun equiped to holster it.</span>")
+			to_chat(usr, span_warning("You need your gun equiped to holster it."))
 			return
 		var/obj/item/gun/W = usr.get_active_hand()
 		H.holster(W, usr)

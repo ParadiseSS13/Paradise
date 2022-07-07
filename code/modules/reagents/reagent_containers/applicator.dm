@@ -19,7 +19,7 @@
 	if(!emagged)
 		emagged = TRUE
 		ignore_flags = TRUE
-		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		to_chat(user, span_warning("You short out the safeties on [src]."))
 
 /obj/item/reagent_containers/applicator/set_APTFT()
 	set hidden = TRUE
@@ -33,9 +33,9 @@
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
 			if(ismob(loc))
-				to_chat(loc, "<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+				to_chat(loc, span_warning("[src] identifies and removes a harmful substance."))
 			else
-				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+				visible_message(span_warning("[src] identifies and removes a harmful substance."))
 	update_icon()
 
 /obj/item/reagent_containers/applicator/update_icon()
@@ -57,10 +57,10 @@
 
 /obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return
 	if(applying)
-		to_chat(user, "<span class='warning'>You're already applying [src].</span>")
+		to_chat(user, span_warning("You're already applying [src]."))
 		return
 	if(!iscarbon(M))
 		return
@@ -69,7 +69,7 @@
 		if(M == user)
 			M.visible_message("[user] begins mending [user.p_them()]self with [src].", span_notice("You begin mending yourself with [src]."))
 		else
-			user.visible_message("<span class='warning'>[user] begins mending [M] with [src].</span>", span_notice("You begin mending [M] with [src]."))
+			user.visible_message(span_warning("[user] begins mending [M] with [src]."), span_notice("You begin mending [M] with [src]."))
 		if(M.reagents)
 			applying = TRUE
 			icon_state = "mender-active"

@@ -23,7 +23,7 @@
 				user.visible_message(span_notice("[user] has scrubbed [src] clean."), span_notice("You have scrubbed [src] clean."))
 			return 1
 		else
-			to_chat(user, "<span class='warning'>You should clean [src] before you use it for food prep.</span>")
+			to_chat(user, span_warning("You should clean [src] before you use it for food prep."))
 		return 0
 	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]))
 		if(contents.len>=max_n_of_items)

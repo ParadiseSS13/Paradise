@@ -103,7 +103,7 @@
 /obj/item/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
 	if(slot==slot_head && contents.len)
-		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
+		to_chat(M, span_warning("You need to empty the bag first!"))
 		return 0
 	return ..()
 
@@ -222,7 +222,7 @@
 		current += S.amount
 	if(capacity == current)//If it's full, you're done
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>The snatcher is full.</span>")
+			to_chat(usr, span_warning("The snatcher is full."))
 		return 0
 	return 1
 

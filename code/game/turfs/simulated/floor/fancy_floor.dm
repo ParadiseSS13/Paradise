@@ -34,7 +34,7 @@
 				new floor_tile(src)
 		else
 			if(user && !silent)
-				to_chat(user, "<span class='warning'>You forcefully pry off the planks, destroying them in the process.</span>")
+				to_chat(user, span_warning("You forcefully pry off the planks, destroying them in the process."))
 	return make_plating()
 
 /turf/simulated/floor/wood/cold

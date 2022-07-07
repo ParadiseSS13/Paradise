@@ -25,7 +25,7 @@
 /obj/item/transfer_valve/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank))
 		if(tank_one && tank_two)
-			to_chat(user, "<span class='warning'>There are already two tanks attached, remove one first.</span>")
+			to_chat(user, span_warning("There are already two tanks attached, remove one first."))
 			return
 
 		if(!tank_one)
@@ -54,7 +54,7 @@
 			to_chat(user, span_notice("The device is secured."))
 			return
 		if(attached_device)
-			to_chat(user, "<span class='warning'>There is already a device attached to the valve, remove it first.</span>")
+			to_chat(user, span_warning("There is already a device attached to the valve, remove it first."))
 			return
 		user.remove_from_mob(A)
 		attached_device = A

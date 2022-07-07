@@ -59,7 +59,7 @@
 	if(istype(I, /obj/item/screwdriver))
 		if(displayed)
 			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class='warning'>You unfasten \the [displayed] out of \the [src].</span>")
+			user.visible_message(span_warning("[user] unfastens \the [displayed] out of \the [src]."), span_warning("You unfasten \the [displayed] out of \the [src]."))
 
 			if(istype(displayed, /obj/structure/sign/poster))
 				var/obj/structure/sign/poster/P = displayed
@@ -73,7 +73,7 @@
 			to_chat(user, span_notice("There is nothing to remove from \the [src]."))
 	else if(istype(I, /obj/item/crowbar))
 		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class='warning'>[user] breaks down \the [src].</span>", "<span class='warning'>You break down \the [src].</span>")
+		user.visible_message(span_warning("[user] breaks down \the [src]."), span_warning("You break down \the [src]."))
 		for(var/A in contents)
 			if(istype(A, /obj/structure/sign/poster))
 				var/obj/structure/sign/poster/P = A
@@ -212,10 +212,10 @@
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/screwdriver))
 		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
+		user.visible_message(span_warning("[user] begins to unfasten \the [src] from the wall."), span_warning("You begin to unfasten \the [src] from the wall."))
 		if(do_after(user, 100 * I.toolspeed, target = src))
 			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
+			user.visible_message(span_warning("[user] unfastens \the [src] from the wall."), span_warning("You unfasten \the [src] from the wall."))
 			frame.forceMove(user.loc)
 			frame = null
 			if(explosive)
@@ -224,12 +224,12 @@
 			qdel(src)
 	if(istype(I, /obj/item/grenade) || istype(I, /obj/item/grenade/plastic/c4))
 		if(explosive)
-			to_chat(user, "<span class='warning'>There is already a device attached behind \the [src], remove it first.</span>")
+			to_chat(user, span_warning("There is already a device attached behind \the [src], remove it first."))
 			return 1
 		if(!tilted)
-			to_chat(user, "<span class='warning'>\The [src] needs to be already tilted before being rigged with \the [I].</span>")
+			to_chat(user, span_warning("\The [src] needs to be already tilted before being rigged with \the [I]."))
 			return 1
-		user.visible_message("<span class='warning'>[user] is fiddling around behind \the [src].</span>", "<span class='warning'>You begin to secure \the [I] behind \the [src].</span>")
+		user.visible_message(span_warning("[user] is fiddling around behind \the [src]."), span_warning("You begin to secure \the [I] behind \the [src]."))
 		if(do_after(user, 150, target = src))
 			if(explosive || !tilted)
 				return

@@ -7,7 +7,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	if(!D.stat)//do not kill what is dead...
 		A.do_attack_animation(D)
-		D.visible_message("<span class='warning'>[A] manifests a large glowing toolbox and shoves it in [D]'s chest!</span>", \
+		D.visible_message(span_warning("[A] manifests a large glowing toolbox and shoves it in [D]'s chest!"), \
 							"<spac class='userdanger'>[A] shoves a mystical toolbox in your chest!</span>")
 		D.death()
 

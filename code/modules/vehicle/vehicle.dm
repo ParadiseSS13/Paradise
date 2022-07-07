@@ -48,7 +48,7 @@
 		else
 			. += span_notice("Alt-click [src] to remove the key.")
 	if(resistance_flags & ON_FIRE)
-		. += "<span class='warning'>It's on fire!</span>"
+		. += span_warning("It's on fire!")
 	var/healthpercent = obj_integrity/max_integrity * 100
 	switch(healthpercent)
 		if(50 to 99)
@@ -56,7 +56,7 @@
 		if(25 to 50)
 			. += "It appears heavily damaged."
 		if(0 to 25)
-			. += "<span class='warning'>It's falling apart!</span>"
+			. += span_warning("It's falling apart!")
 
 /obj/vehicle/attackby(obj/item/I, mob/user, params)
 	if(key_type && !is_key(inserted_key) && is_key(I))
@@ -67,14 +67,14 @@
 				inserted_key.forceMove(drop_location())
 			inserted_key = I
 		else
-			to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
+			to_chat(user, span_warning("[I] seems to be stuck to your hand!"))
 		return
 	return ..()
 
 /obj/vehicle/AltClick(mob/user)
 	if(inserted_key && user.Adjacent(user))
 		if(!(user in buckled_mobs))
-			to_chat(user, "<span class='warning'>You must be riding [src] to remove [src]'s key!</span>")
+			to_chat(user, span_warning("You must be riding [src] to remove [src]'s key!"))
 			return
 		to_chat(user, span_notice("You remove [inserted_key] from [src]."))
 		inserted_key.forceMove(drop_location())
@@ -153,7 +153,7 @@
 //MOVEMENT
 /obj/vehicle/relaymove(mob/user, direction)
 	if(key_type && !is_key(inserted_key))
-		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
+		to_chat(user, span_warning("[src] has no key inserted!"))
 		return
 
 	if(user.incapacitated())
@@ -190,7 +190,7 @@
 		handle_vehicle_layer()
 		handle_vehicle_offsets()
 	else
-		to_chat(user, "<span class='warning'>You'll need the keys in one of your hands to drive [src].</span>")
+		to_chat(user, span_warning("You'll need the keys in one of your hands to drive [src]."))
 
 
 /obj/vehicle/Move(NewLoc, Dir = 0, movetime)

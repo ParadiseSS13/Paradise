@@ -78,7 +78,7 @@
 				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
 						   "<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
 			else
-				M.visible_message("<span class='danger'>[M] repairs some of its own dents.</span>", \
+				M.visible_message(span_danger("[M] repairs some of its own dents."), \
 						   "<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
 		else
 			if(src != M)
@@ -97,8 +97,8 @@
 /mob/living/simple_animal/hostile/construct/Life(seconds, times_fired)
 	if(holy_check(src))
 		throw_alert("holy_fire", /obj/screen/alert/holy_fire, override = TRUE)
-		visible_message("<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
-			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>")
+		visible_message(span_danger("[src] slowly crumbles to dust in this holy place!"), \
+			span_danger("Your shell burns as you crumble to dust in this holy place!"))
 		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
 		adjustBruteLoss(maxHealth/8)
 	else
@@ -145,7 +145,7 @@
 		if(prob(reflectchance))
 			if((P.damage_type == BRUTE || P.damage_type == BURN))
 				adjustBruteLoss(P.damage * 0.5)
-			visible_message("<span class='danger'>[P] gets reflected by [src]'s shell!</span>", \
+			visible_message(span_danger("[P] gets reflected by [src]'s shell!"), \
 							"<span class='userdanger'>[P] gets reflected by [src]'s shell!</span>")
 
 			P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))

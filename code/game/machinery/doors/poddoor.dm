@@ -68,9 +68,9 @@
 			if(!hasPower())
 				open()
 			else
-				to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+				to_chat(user, span_warning("[src] resists your efforts to force it!"))
 	else
-		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 
  // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
  // Wise words. - Bxil

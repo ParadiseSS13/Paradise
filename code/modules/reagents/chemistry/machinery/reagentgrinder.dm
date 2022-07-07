@@ -165,9 +165,9 @@
 
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
 		if(beaker)
-			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
+			to_chat(user, span_warning("There's already a container inside."))
 		else if(panel_open)
-			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
+			to_chat(user, span_warning("Close the maintenance panel first."))
 		else
 			if(!user.drop_item())
 				return FALSE
@@ -181,7 +181,7 @@
 		if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
 			var/obj/item/reagent_containers/food/snacks/grown/G = I
 			if(!G.dry)
-				to_chat(user, "<span class='warning'>You must dry that first!</span>")
+				to_chat(user, span_warning("You must dry that first!"))
 				return FALSE
 
 	if(holdingitems && holdingitems.len >= limit)
@@ -192,7 +192,7 @@
 	if(istype(I, /obj/item/storage/bag))
 		var/obj/item/storage/bag/B = I
 		if(!B.contents.len)
-			to_chat(user, "<span class='warning'>[B] is empty.</span>")
+			to_chat(user, span_warning("[B] is empty."))
 			return FALSE
 
 		var/original_contents_len = B.contents.len
@@ -206,7 +206,7 @@
 					break
 
 		if(B.contents.len == original_contents_len)
-			to_chat(user, "<span class='warning'>Nothing in [B] can be put into the All-In-One grinder.</span>")
+			to_chat(user, span_warning("Nothing in [B] can be put into the All-In-One grinder."))
 			return FALSE
 		else if(!B.contents.len)
 			to_chat(user, span_notice("You empty all of [B]'s contents into the All-In-One grinder."))
@@ -220,7 +220,7 @@
 		if(user.a_intent == INTENT_HARM)
 			return ..()
 		else
-			to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
+			to_chat(user, span_warning("Cannot refine into a reagent!"))
 			return TRUE
 
 	if(user.drop_item())

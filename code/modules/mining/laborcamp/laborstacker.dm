@@ -107,7 +107,7 @@
 			to_chat(usr, "Points transferred.")
 		if("move_shuttle")
 			if(!alone_in_area(get_area(src), usr))
-				to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
+				to_chat(usr, span_warning("Prisoners are only allowed to be released while alone."))
 			else
 				switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, usr))
 					if(1)
@@ -133,7 +133,7 @@
 /obj/machinery/mineral/labor_claim_console/emag_act(mob/user)
 	if(!(emagged))
 		emagged = TRUE
-		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+		to_chat(user, span_warning("PZZTTPFFFT"))
 
 
 /**********************Prisoner Collection Unit**************************/
@@ -175,6 +175,6 @@
 			to_chat(user, span_notice("Point Quota: [prisoner_id.goal]"))
 			to_chat(user, span_notice("Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release."))
 		else
-			to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
+			to_chat(user, span_warning("Error: Invalid ID"))
 		return
 	return ..()

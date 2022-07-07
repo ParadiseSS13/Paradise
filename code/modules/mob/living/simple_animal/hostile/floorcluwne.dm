@@ -221,13 +221,13 @@
 				var/obj/item/I = locate() in orange(H, 8)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
-					to_chat(H, "<span class='warning'>What threw that?</span>")
+					to_chat(H, span_warning("What threw that?"))
 
 		if(STAGE_SPOOK)
 
 			if(prob(4))
 				H.slip("???", 10 SECONDS)
-				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
+				to_chat(H, span_warning("The floor shifts underneath you!"))
 
 			if(prob(3))
 				H.playsound_local(src,'sound/spookoween/scary_horn.ogg', 2)
@@ -243,7 +243,7 @@
 				var/obj/item/I = locate() in orange(H, 8)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
-					to_chat(H, "<span class='warning'>What threw that?</span>")
+					to_chat(H, span_warning("What threw that?"))
 
 			if(prob(4))
 				to_chat(H, "<font face='Comic Sans MS'><i>yalp ot tnaw I</i></font>")
@@ -255,7 +255,7 @@
 
 			if(prob(5))
 				H.slip("???", 10 SECONDS)
-				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
+				to_chat(H, span_warning("The floor shifts underneath you!"))
 
 			if(prob(5))
 				playsound(src, pick('sound/spookoween/scary_horn.ogg', 'sound/spookoween/scary_horn2.ogg', 'sound/spookoween/scary_horn3.ogg'), 30, 1)
@@ -268,16 +268,16 @@
 				for(var/obj/item/I in orange(H, 5))
 					if(I && !I.anchored)
 						I.throw_at(H, 4, 3)
-				to_chat(H, "<span class='warning'>What the hell?!</span>")
+				to_chat(H, span_warning("What the hell?!"))
 
 			if(prob(5))
-				to_chat(H, "<span class='warning'>Something feels very wrong...</span>")
+				to_chat(H, span_warning("Something feels very wrong..."))
 				H.playsound_local(src,'sound/hallucinations/behind_you1.ogg', 25)
 				H.flash_eyes()
 
 			if(prob(5))
 				to_chat(H, "<font face='Comic Sans MS'><i>!?REHTOMKNOH eht esiarp uoy oD</i></font>")
-				to_chat(H, "<span class='warning'>Something grabs your foot!</span>")
+				to_chat(H, span_warning("Something grabs your foot!"))
 				H.playsound_local(src,'sound/hallucinations/i_see_you1.ogg', 25)
 				H.Stun(20 SECONDS)
 
@@ -344,7 +344,7 @@
 				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg', 'sound/items/bikehorn.ogg'), 50, 1)
 
 	if(get_dist(src,H) <= 1)
-		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
+		visible_message(span_danger("[src] begins dragging [H] under the floor!"))
 
 		if(do_after(src, 50, target = H) && eating)
 			H.become_blind(FLOORCLUWNE)

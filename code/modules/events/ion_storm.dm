@@ -28,7 +28,7 @@
 			if(message)
 				M.add_ion_law(message)
 				to_chat(M, "<br>")
-				to_chat(M, "<span class='danger'>[message] ...LAWS UPDATED</span>")
+				to_chat(M, span_danger("[message] ...LAWS UPDATED"))
 				to_chat(M, "<br>")
 
 				for(var/player in GLOB.dead_mob_list)

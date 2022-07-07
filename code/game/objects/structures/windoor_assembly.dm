@@ -93,7 +93,7 @@
 			if(istype(W, /obj/item/stack/sheet/plasteel) && !secure)
 				var/obj/item/stack/sheet/plasteel/P = W
 				if(P.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need more plasteel to do this!</span>")
+					to_chat(user, span_warning("You need more plasteel to do this!"))
 					return
 				to_chat(user, span_notice("You start to reinforce the windoor with plasteel..."))
 
@@ -163,7 +163,7 @@
 		return
 	. = TRUE
 	if(!electronics)
-		to_chat(user, "<span class='warning'>[src] is missing electronics!</span>")
+		to_chat(user, span_warning("[src] is missing electronics!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -255,7 +255,7 @@
 	if(!anchored)	//Wrenching an unsecure assembly anchors it in place. Step 4 complete
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
-				to_chat(user, "<span class='warning'>There is already a windoor in that location!</span>")
+				to_chat(user, span_warning("There is already a windoor in that location!"))
 				return
 		user.visible_message("[user] secures the windoor assembly to the floor.", "You start to secure the windoor assembly to the floor...")
 
@@ -263,7 +263,7 @@
 			return
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
-				to_chat(user, "<span class='warning'>There is already a windoor in that location!</span>")
+				to_chat(user, span_warning("There is already a windoor in that location!"))
 				return
 		to_chat(user, span_notice("You secure the windoor assembly."))
 		anchored = TRUE
@@ -309,12 +309,12 @@
 	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(anchored)
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		to_chat(usr, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
 	var/target_dir = turn(dir, 270)
 
 	if(!valid_window_location(loc, target_dir))
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
+		to_chat(usr, span_warning("[src] cannot be rotated in that direction!"))
 		return FALSE
 
 	setDir(target_dir)
@@ -326,7 +326,7 @@
 /obj/structure/windoor_assembly/AltClick(mob/user)
 	..()
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user))
 		return

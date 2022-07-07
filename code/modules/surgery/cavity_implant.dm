@@ -59,8 +59,8 @@
 
 /datum/surgery_step/cavity/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>", \
-	"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>")
+	user.visible_message(span_warning(" [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!"), \
+	span_warning(" Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!"))
 	affected.receive_damage(20)
 
 /datum/surgery_step/cavity/make_space
@@ -129,12 +129,12 @@
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected)
-		to_chat(user, "<span class='warning'>\The [target] lacks a [parse_zone(target_zone)]!</span>")
+		to_chat(user, span_warning("\The [target] lacks a [parse_zone(target_zone)]!"))
 		return FALSE
 	if(tool)
 		var/can_fit = !affected.hidden && tool.w_class <= get_max_wclass(affected)
 		if(!can_fit)
-			to_chat(user, "<span class='warning'>\The [tool] won't fit in \The [affected.name]!</span>")
+			to_chat(user, span_warning("\The [tool] won't fit in \The [affected.name]!"))
 			return FALSE
 	return ..()
 
@@ -163,20 +163,20 @@
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 
 	if(istype(tool, /obj/item/disk/nuclear))
-		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone.</span>")
+		to_chat(user, span_warning("Central command would kill you if you implanted the disk into someone."))
 		return FALSE//fail
 
 	var/obj/item/disk/nuclear/datdisk = locate() in tool
 	if(datdisk)
-		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone. Even if in a box. Especially in a box.</span>")
+		to_chat(user, span_warning("Central command would kill you if you implanted the disk into someone. Even if in a box. Especially in a box."))
 		return FALSE//fail
 
 	if(istype(tool,/obj/item/organ))
-		to_chat(user, "<span class='warning'>This isn't the type of surgery for organ transplants!</span>")
+		to_chat(user, span_warning("This isn't the type of surgery for organ transplants!"))
 		return FALSE//fail
 
 	if(!user.canUnEquip(tool, 0))
-		to_chat(user, "<span class='warning'>[tool] is stuck to your hand, you can't put it in [target]!</span>")
+		to_chat(user, span_warning("[tool] is stuck to your hand, you can't put it in [target]!"))
 		return FALSE
 
 	if(istype(tool,/obj/item/cautery))
@@ -189,7 +189,7 @@
 			user.visible_message(span_notice(" [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity."), \
 			span_notice(" You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.") )
 			if((tool.w_class > get_max_wclass(affected) / 2 && prob(50) && !affected.is_robotic()))
-				to_chat(user, "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>")
+				to_chat(user, span_warning(" You tear some vessels trying to fit the object in the cavity."))
 				affected.cause_internal_bleeding()
 			user.drop_item()
 			affected.hidden = tool
@@ -202,5 +202,5 @@
 			affected.hidden = null
 			return TRUE
 		else
-			to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>")
+			to_chat(user, span_warning("You don't find anything in [target]'s [target_zone]."))
 			return FALSE

@@ -57,7 +57,7 @@
 /datum/money_account/proc/charge(transaction_amount = 0, datum/money_account/dest, transaction_purpose,
  terminal_name = "", dest_name = "UNKNOWN", dest_purpose, dest_target_name)
 	if(suspended)
-		to_chat(usr, "<span class='warning'>Unable to access source account: account suspended.</span>")
+		to_chat(usr, span_warning("Unable to access source account: account suspended."))
 		return 0
 
 	if(transaction_amount <= money)
@@ -70,7 +70,7 @@
 			dest_purpose ? dest_purpose : transaction_purpose, terminal_name, dest_target_name ? dest_target_name : dest_name, FALSE)
 		return 1
 	else
-		to_chat(usr, "<span class='warning'>Insufficient funds in account.</span>")
+		to_chat(usr, span_warning("Insufficient funds in account."))
 		return 0
 
 // phantom_charge is for when you want to charge an account, without making any corresponding log (e.g. you make it yourself with custom date

@@ -334,10 +334,10 @@
 				aggressiveness = 1
 				phrase = 1
 			if(5)
-				to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
+				to_chat(user, span_warning("You adjust the restrictor but nothing happens, probably because its broken."))
 	else if(istype(W, /obj/item/wirecutters))
 		if(aggressiveness != 5)
-			to_chat(user, "<span class='warning'>You broke it!</span>")
+			to_chat(user, span_warning("You broke it!"))
 			aggressiveness = 5
 	else
 		..()

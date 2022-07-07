@@ -9,7 +9,7 @@
 	if(!s_busy)
 		display_spideros()
 	else
-		to_chat(affecting, "<span class='danger'>The interface is locked!</span>")
+		to_chat(affecting, span_danger("The interface is locked!"))
 
 
 /obj/item/clothing/suit/space/space_ninja/proc/display_spideros()
@@ -194,7 +194,7 @@
 
 
 	if(!affecting||U.stat||!s_initialized)//Check to make sure the guy is wearing the suit after clicking and it's on.
-		to_chat(U, "<span class='danger'>Your suit must be worn and active to use this function.</span>")
+		to_chat(U, span_danger("Your suit must be worn and active to use this function."))
 		U << browse(null, "window=spideros")//Closes the window.
 		return
 
@@ -217,16 +217,16 @@
 				display_to << browse(null, "window=spideros")
 				return
 			if(isnull(P)||P.toff)//So it doesn't freak out if the object no-longer exists.
-				to_chat(display_to, "<span class='danger'>Error: unable to deliver message.</span>")
+				to_chat(display_to, span_danger("Error: unable to deliver message."))
 				display_spideros()
 				return
-			
+
 			var/datum/data/pda/app/messenger/M = P.find_program(/datum/data/pda/app/messenger)
 			M.notify("<b>Message from unknown source: </b>\"[t]\" (Unable to Reply)", 0)
 
 		if("Inject")
 			if( (href_list["tag"]=="radium"? (reagents.get_reagent_amount("radium"))<=(a_boost*a_transfer) : !reagents.get_reagent_amount(href_list["tag"])) )//Special case for radium. If there are only a_boost*a_transfer radium units left.
-				to_chat(display_to, "<span class='danger'>Error: the suit cannot perform this function. Out of [href_list["name"]].</span>")
+				to_chat(display_to, span_danger("Error: the suit cannot perform this function. Out of [href_list["name"]]."))
 			else
 				reagents.reaction(U, 2)
 				reagents.trans_id_to(U, href_list["tag"], href_list["tag"]=="nutriment"?5:a_transfer)//Nutriment is a special case since it's very potent. Shouldn't influence actual refill amounts or anything.

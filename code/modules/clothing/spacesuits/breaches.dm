@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(breach_burn_descriptors, list(
 	if(istype(W,/obj/item/stack/sheet/plastic) || istype(W,/obj/item/stack/sheet/metal))
 
 		if(istype(src.loc,/mob/living))
-			to_chat(user, "<span class='warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>")
+			to_chat(user, span_warning("How do you intend to patch a hardsuit while someone is wearing it?"))
 			return
 
 		if(!damage || !burn_damage)
@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(breach_burn_descriptors, list(
 /obj/item/clothing/suit/space/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(istype(src.loc,/mob/living))
-		to_chat(user, "<span class='warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>")
+		to_chat(user, span_warning("How do you intend to patch a hardsuit while someone is wearing it?"))
 		return
 	if(!damage || ! brute_damage)
 		to_chat(user, "There is no structural damage on \the [src] to repair.")
@@ -211,4 +211,4 @@ GLOBAL_LIST_INIT(breach_burn_descriptors, list(
 	. = ..()
 	if(can_breach && breaches && breaches.len)
 		for(var/datum/breach/B in breaches)
-			. += "<span class='danger'>It has \a [B.descriptor].</span>"
+			. += span_danger("It has \a [B.descriptor].")

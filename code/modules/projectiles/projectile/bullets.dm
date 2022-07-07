@@ -240,7 +240,7 @@
 				return 1
 			else
 				blocked = 100
-				target.visible_message("<span class='danger'>[src] was deflected!</span>", \
+				target.visible_message(span_danger("[src] was deflected!"), \
 									"<span class='userdanger'>You were protected against [src]!</span>")
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)

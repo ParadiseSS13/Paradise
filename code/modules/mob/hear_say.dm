@@ -105,7 +105,7 @@
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 		// if(!language || !(language.flags & INNATE))
 		if(speaker == src)
-			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
+			to_chat(src, span_warning("You cannot hear yourself speak!"))
 		else
 			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
 	else
@@ -141,7 +141,7 @@
 
 	if(!can_hear())
 		if(prob(20))
-			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
+			to_chat(src, span_warning("You feel your headset vibrate but can hear nothing from it!"))
 	else if(track)
 		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 	else

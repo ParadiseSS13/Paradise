@@ -86,7 +86,7 @@
 			H.lip_color = lipstick_colors[colour]
 			H.update_body()
 		else
-			user.visible_message("<span class='warning'>[user] begins to do [H]'s lips with \the [src].</span>", \
+			user.visible_message(span_warning("[user] begins to do [H]'s lips with \the [src]."), \
 								 span_notice("You begin to apply \the [src]."))
 			if(do_after(user, 20, target = H))
 				user.visible_message(span_notice("[user] does [H]'s lips with \the [src]."), \
@@ -114,10 +114,10 @@
 		var/datum/robolimb/robohead = GLOB.all_robolimbs[C.model]
 		if(user.zone_selected == "mouth")
 			if(!get_location_accessible(H, "mouth"))
-				to_chat(user, "<span class='warning'>The mask is in the way.</span>")
+				to_chat(user, span_warning("The mask is in the way."))
 				return
 			if((C.dna.species.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
-				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of facial hair.</span>")
+				to_chat(user, span_warning("You find yourself disappointed at the appalling lack of facial hair."))
 				return
 			if(C.f_style == "Shaved")
 				to_chat(user, span_notice("Already clean-shaven."))
@@ -134,31 +134,31 @@
 			else
 				var/turf/user_loc = user.loc
 				var/turf/H_loc = H.loc
-				user.visible_message("<span class='danger'>[user] tries to shave [H]'s facial hair with \the [src].</span>", \
-				"<span class='warning'>You start shaving [H]'s facial hair.</span>")
+				user.visible_message(span_danger("[user] tries to shave [H]'s facial hair with \the [src]."), \
+				span_warning("You start shaving [H]'s facial hair."))
 				if(do_after(user, 50 * toolspeed, target = H))
 					if(user_loc == user.loc && H_loc == H.loc)
-						user.visible_message("<span class='danger'>[user] shaves off [H]'s facial hair with \the [src].</span>", \
+						user.visible_message(span_danger("[user] shaves off [H]'s facial hair with \the [src]."), \
 						span_notice("You shave [H]'s facial hair clean off."))
 						C.f_style = "Shaved"
 						H.update_fhair()
 						playsound(src.loc, usesound, 20, 1)
 		if(user.zone_selected == "head")
 			if(!get_location_accessible(H, "head"))
-				to_chat(user, "<span class='warning'>The headgear is in the way.</span>")
+				to_chat(user, span_warning("The headgear is in the way."))
 				return
 			if((C.dna.species.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
-				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of hair.</span>")
+				to_chat(user, span_warning("You find yourself disappointed at the appalling lack of hair."))
 				return
 			if(C.h_style == "Bald" || C.h_style == "Balding Hair" || C.h_style == "Skinhead")
 				to_chat(user, span_notice("There is not enough hair left to shave..."))
 				return
 			if(isskrell(M))
-				to_chat(user, "<span class='warning'>Your razor isn't going to cut through tentacles.</span>")
+				to_chat(user, span_warning("Your razor isn't going to cut through tentacles."))
 				return
 			if(H == user) //shaving yourself
-				user.visible_message("<span class='warning'>[user] starts to shave [user.p_their()] head with [src].</span>", \
-				"<span class='warning'>You start to shave your head with \the [src].</span>")
+				user.visible_message(span_warning("[user] starts to shave [user.p_their()] head with [src]."), \
+				span_warning("You start to shave your head with \the [src]."))
 				if(do_after(user, 50 * toolspeed, target = H))
 					user.visible_message(span_notice("[user] shaves [user.p_their()] head with [src]."), \
 					span_notice("You finish shaving with \the [src]."))
@@ -168,12 +168,12 @@
 			else
 				var/turf/user_loc = user.loc
 				var/turf/H_loc = H.loc
-				user.visible_message("<span class='danger'>[user] tries to shave [H]'s head with \the [src]!</span>", \
-				"<span class='warning'>You start shaving [H]'s head.</span>")
+				user.visible_message(span_danger("[user] tries to shave [H]'s head with \the [src]!"), \
+				span_warning("You start shaving [H]'s head."))
 				if(do_after(user, 50 * toolspeed, target = H))
 					if(user_loc == user.loc && H_loc == H.loc)
-						user.visible_message("<span class='danger'>[user] shaves [H]'s head bald with \the [src]!</span>", \
-						"<span class='warning'>You shave [H]'s head bald.</span>")
+						user.visible_message(span_danger("[user] shaves [H]'s head bald with \the [src]!"), \
+						span_warning("You shave [H]'s head bald."))
 						C.h_style = "Skinhead"
 						H.update_hair()
 						playsound(src.loc, usesound, 40, 1)

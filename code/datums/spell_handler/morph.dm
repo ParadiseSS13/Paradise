@@ -5,12 +5,12 @@
 /datum/spell_handler/morph/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message, obj/effect/proc_holder/spell/spell)
 	if(!istype(user))
 		if(show_message)
-			to_chat(user, "<span class='warning'>You should not be able to use this abilty! Report this as a bug on github please.</span>")
+			to_chat(user, span_warning("You should not be able to use this abilty! Report this as a bug on github please."))
 		return FALSE
 
 	if(user.gathered_food < hunger_cost)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You require at least [hunger_cost] stored food to use this ability!</span>")
+			to_chat(user, span_warning("You require at least [hunger_cost] stored food to use this ability!"))
 		return FALSE
 
 	return TRUE

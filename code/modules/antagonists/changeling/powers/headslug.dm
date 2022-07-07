@@ -41,7 +41,7 @@
 		if(crab.origin)
 			crab.origin.active = 1
 			crab.origin.transfer_to(crab)
-			to_chat(crab, "<span class='warning'>You burst out of the remains of your former body in a shower of gore!</span>")
+			to_chat(crab, span_warning("You burst out of the remains of your former body in a shower of gore!"))
 
 	// This is done because after the original changeling gibs below, ALL of their actions are qdeleted
 	// We need to store their power types so we can re-create them later.

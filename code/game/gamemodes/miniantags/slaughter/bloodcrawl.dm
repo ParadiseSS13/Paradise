@@ -7,7 +7,7 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		if(C.l_hand || C.r_hand)
-			to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
+			to_chat(C, span_warning("You may not hold items while blood crawling!"))
 			return 0
 		var/obj/item/bloodcrawl/B1 = new(C)
 		var/obj/item/bloodcrawl/B2 = new(C)
@@ -21,7 +21,7 @@
 	var/turf/mobloc = get_turf(loc)
 	notransform = TRUE
 	spawn(0)
-		visible_message("<span class='danger'>[src] sinks into [B].</span>")
+		visible_message(span_danger("[src] sinks into [B]."))
 		playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
 		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(mobloc)
@@ -39,7 +39,7 @@
 			if(isliving(pulling))
 				var/mob/living/victim = pulling
 				if(victim.stat == CONSCIOUS)
-					visible_message("<span class='warning'>[victim] kicks free of [B] just before entering it!</span>")
+					visible_message(span_warning("[victim] kicks free of [B] just before entering it!"))
 					stop_pulling()
 				else
 					victim.forceMove(holder)//holder
@@ -91,7 +91,7 @@
 					kidnapped.ghostize()
 					qdel(kidnapped)
 			else
-				to_chat(src, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
+				to_chat(src, span_danger("You happily devour... nothing? Your meal vanished at some point!"))
 		else
 			sleep(6)
 			if(animation)
@@ -108,9 +108,9 @@
 /mob/living/proc/phasein(obj/effect/decal/cleanable/B)
 
 	if(notransform)
-		to_chat(src, "<span class='warning'>Finish eating first!</span>")
+		to_chat(src, span_warning("Finish eating first!"))
 		return 0
-	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
+	B.visible_message(span_warning("[B] starts to bubble..."))
 	if(!do_after(src, 20, target = B))
 		return
 	if(!B)

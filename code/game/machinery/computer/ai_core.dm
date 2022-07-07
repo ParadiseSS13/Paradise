@@ -40,7 +40,7 @@
 						state = CABLED_CORE
 						update_icon()
 				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the AI core!</span>")
+					to_chat(user, span_warning("You need five lengths of cable to wire the AI core!"))
 				return
 		if(CABLED_CORE)
 			if(istype(P, /obj/item/stack/sheet/rglass))
@@ -53,7 +53,7 @@
 						state = GLASS_CORE
 						update_icon()
 				else
-					to_chat(user, "<span class='warning'>You need two sheets of reinforced glass to insert them into the AI core!</span>")
+					to_chat(user, span_warning("You need two sheets of reinforced glass to insert them into the AI core!"))
 				return
 
 			if(istype(P, /obj/item/aiModule/purge))
@@ -82,7 +82,7 @@
 			if(istype(P, /obj/item/aiModule))
 				var/obj/item/aiModule/M = P
 				if(!M.laws)
-					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
+					to_chat(usr, span_warning("This AI module can not be applied directly to AI cores."))
 					return
 				laws = M.laws
 				to_chat(usr, span_notice("Added [M.laws.name] laws."))
@@ -91,26 +91,26 @@
 			if(istype(P, /obj/item/mmi) && !brain)
 				var/obj/item/mmi/M = P
 				if(!M.brainmob)
-					to_chat(user, "<span class='warning'>Sticking an empty [P] into the frame would sort of defeat the purpose.</span>")
+					to_chat(user, span_warning("Sticking an empty [P] into the frame would sort of defeat the purpose."))
 					return
 				if(M.brainmob.stat == DEAD)
-					to_chat(user, "<span class='warning'>Sticking a dead [P] into the frame would sort of defeat the purpose.</span>")
+					to_chat(user, span_warning("Sticking a dead [P] into the frame would sort of defeat the purpose."))
 					return
 
 				if(!M.brainmob.client)
-					to_chat(user, "<span class='warning'>Sticking an inactive [M.name] into the frame would sort of defeat the purpose.</span>")
+					to_chat(user, span_warning("Sticking an inactive [M.name] into the frame would sort of defeat the purpose."))
 					return
 
 				if(jobban_isbanned(M.brainmob, "AI") || jobban_isbanned(M.brainmob, "nonhumandept"))
-					to_chat(user, "<span class='warning'>This [P] does not seem to fit.</span>")
+					to_chat(user, span_warning("This [P] does not seem to fit."))
 					return
 
 				if(!M.brainmob.mind)
-					to_chat(user, "<span class='warning'>This [M.name] is mindless!</span>")
+					to_chat(user, span_warning("This [M.name] is mindless!"))
 					return
 
 				if(istype(P, /obj/item/mmi/syndie))
-					to_chat(user, "<span class='warning'>This MMI does not seem to fit!</span>")
+					to_chat(user, span_warning("This MMI does not seem to fit!"))
 					return
 
 				if(!user.drop_item())
@@ -195,7 +195,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(brain)
-		to_chat(user, "<span class='warning'>Get that [brain.name] out of there first!</span>")
+		to_chat(user, span_warning("Get that [brain.name] out of there first!"))
 	else
 		to_chat(user, span_notice("You remove the cables."))
 		state = SCREWED_CORE

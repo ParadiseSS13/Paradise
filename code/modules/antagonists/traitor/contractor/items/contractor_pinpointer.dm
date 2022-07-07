@@ -40,7 +40,7 @@
 /obj/item/pinpointer/crew/contractor/attack_self(mob/living/user)
 	if(owner)
 		if(owner != user)
-			to_chat(user, "<span class='warning'>[src] refuses to do anything.</span>")
+			to_chat(user, span_warning("[src] refuses to do anything."))
 			return
 	else
 		owner = user

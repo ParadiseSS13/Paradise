@@ -48,7 +48,7 @@
 	if(!proximity) return
 
 	if(reagents.total_volume < 1)
-		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
+		to_chat(user, span_warning("Your mop is dry!"))
 		return
 
 	var/turf/simulated/T = get_turf(A)

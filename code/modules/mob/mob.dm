@@ -62,7 +62,7 @@
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	var/t = span_notice("Coordinates: [x],[y] \n")
-	t+= "<span class='warning'>Temperature: [environment.temperature] \n</span>"
+	t+= span_warning("Temperature: [environment.temperature] \n")
 	t+= span_notice("Nitrogen: [environment.nitrogen] \n")
 	t+= span_notice("Oxygen: [environment.oxygen] \n")
 	t+= span_notice("Plasma : [environment.toxins] \n")
@@ -207,7 +207,7 @@
 			qdel(W)
 		else
 			if(!disable_warning)
-				to_chat(src, "<span class='warning'>You are unable to equip that.</span>")//Only print if del_on_fail is false
+				to_chat(src, span_warning("You are unable to equip that."))//Only print if del_on_fail is false
 
 		return 0
 
@@ -347,7 +347,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(slot_belt)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, span_warning("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if( !(slot_flags & SLOT_BELT) )
 					return 0
@@ -405,7 +405,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(slot_wear_id)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, span_warning("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if( !(slot_flags & SLOT_ID) )
 					return 0
@@ -420,7 +420,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, span_warning("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
 					return 1
@@ -429,7 +429,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, span_warning("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
 					return 1
@@ -437,7 +437,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(slot_s_store)
 				if(!H.wear_suit)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a suit before you can attach this [name].</span>")
+						to_chat(H, span_warning("You need a suit before you can attach this [name]."))
 					return 0
 				if(!H.wear_suit.allowed)
 					if(!disable_warning)
@@ -763,7 +763,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "OOC"
 
 	if(!GLOB.configuration.general.respawn_enabled)
-		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
+		to_chat(usr, span_warning("Respawning is disabled."))
 		return
 
 	if(stat != DEAD || !SSticker)
@@ -1138,11 +1138,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "Ghost"
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
-		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
+		to_chat(usr, span_warning("You are banned from playing as sentient animals."))
 		return
 
 	if(!SSticker || SSticker.current_state < 3)
-		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
+		to_chat(src, span_warning("You can't respawn as an NPC before the game starts!"))
 		return
 
 	if((usr in GLOB.respawnable_list) && (stat == DEAD || isobserver(usr)))
@@ -1170,7 +1170,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(client.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
 		var/timedifference_text
 		timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
-		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>")
+		to_chat(src, span_warning("You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left."))
 		return
 
 	//find a viable mouse candidate
@@ -1181,7 +1181,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		host.ckey = src.ckey
 		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
 	else
-		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
+		to_chat(src, span_warning("Unable to find any unwelded vents to spawn mice at."))
 
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return 5
@@ -1209,11 +1209,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(istype(location, /turf/simulated))
 		if(green)
 			if(!no_text)
-				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
+				visible_message(span_warning("[src] vomits up some green goo!"),span_warning("You vomit up some green goo!"))
 			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
+				visible_message(span_warning("[src] pukes all over [p_them()]self!"),span_warning("You puke all over yourself!"))
 			location.add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
@@ -1538,7 +1538,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(isconstruct(src) && !iscultist(src))
 		return FALSE
 
-	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+	to_chat(src, span_warning("Your powers are useless on this holy ground."))
 	return TRUE
 
 /mob/proc/reset_visibility()

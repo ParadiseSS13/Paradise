@@ -132,7 +132,7 @@
 	if(!destination)
 		var/list/L = get_destinations(user)
 		if(!length(L))
-			to_chat(user, "<span class='warning'>[src] found no beacons in the sector to target.</span>")
+			to_chat(user, span_warning("[src] found no beacons in the sector to target."))
 			return
 		destination = pick(L)
 	var/obj/effect/temp_visual/getaway_flare/F = new(get_turf(src))
@@ -148,7 +148,7 @@
 	qdel(src)
 
 /obj/item/wormhole_jaunter/contractor/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>Emagging [src] has no effect.</span>")
+	to_chat(user, span_warning("Emagging [src] has no effect."))
 
 /obj/item/wormhole_jaunter/contractor/chasm_react(mob/user)
 	return //This is not an instant getaway portal like the jaunter

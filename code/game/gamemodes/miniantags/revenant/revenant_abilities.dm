@@ -70,11 +70,11 @@
 					return //hey, wait a minute...
 				to_chat(src, "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>")
 				if(target.stat != DEAD)
-					to_chat(target, "<span class='warning'>You feel a horribly unpleasant draining sensation as your grip on life weakens...</span>")
+					to_chat(target, span_warning("You feel a horribly unpleasant draining sensation as your grip on life weakens..."))
 				icon_state = "revenant_draining"
 				reveal(27)
 				stun(27)
-				target.visible_message("<span class='warning'>[target] suddenly rises slightly into the air, [target.p_their()] skin turning an ashy gray.</span>")
+				target.visible_message(span_warning("[target] suddenly rises slightly into the air, [target.p_their()] skin turning an ashy gray."))
 				target.Beam(src,icon_state="drain_life",icon='icons/effects/effects.dmi',time=26)
 				if(do_after(src, 30, 0, target)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
 					change_essence_amount(essence_drained, 0, target)
@@ -83,7 +83,7 @@
 						perfectsouls += 1
 						to_chat(src, "<span class='revenboldnotice'>The perfection of [target]'s soul has increased your maximum essence level. Your new maximum essence is [essence_regen_cap].</span>")
 					to_chat(src, "<span class='revennotice'>[target]'s soul has been considerably weakened and will yield no more essence for the time being.</span>")
-					target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
+					target.visible_message(span_warning("[target] slumps onto the ground."), \
  										   "<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
 					drained_mobs.Add(mob_UID)
 					add_attack_logs(src, target, "revenant harvested soul")
@@ -93,7 +93,7 @@
 					draining = 0
 					essence_drained = 0
 					if(target) //Wait, target is WHERE NOW?
-						target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
+						target.visible_message(span_warning("[target] slumps onto the ground."), \
 											   "<span class='revenwarning'>Violets lights, dancing in your vision, receding--</span>")
 					return
 			else
@@ -291,7 +291,7 @@
 	return
 
 /mob/living/carbon/human/rev_malfunction(cause_emp = TRUE)
-	to_chat(src, "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>")
+	to_chat(src, span_warning("You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")]."))
 	new /obj/effect/temp_visual/revenant(loc)
 	if(cause_emp)
 		emp_act(1)
@@ -348,7 +348,7 @@
 		rust()
 
 /mob/living/carbon/human/defile()
-	to_chat(src, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
+	to_chat(src, span_warning("You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")]."))
 	adjustStaminaLoss(25)
 	adjustToxLoss(5)
 	AdjustConfused(40 SECONDS, bound_lower = 0, bound_upper = 60 SECONDS)

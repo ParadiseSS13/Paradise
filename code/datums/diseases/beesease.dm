@@ -21,17 +21,17 @@
 			if(prob(10))
 				to_chat(affected_mob, span_notice("Your stomach rumbles."))
 			if(prob(2))
-				to_chat(affected_mob, "<span class='danger'>Your stomach stings painfully.</span>")
+				to_chat(affected_mob, span_danger("Your stomach stings painfully."))
 				if(prob(20))
 					affected_mob.adjustToxLoss(2)
 		if(4)
 			if(prob(10))
-				affected_mob.visible_message("<span class='danger'>[affected_mob] buzzes.</span>", \
+				affected_mob.visible_message(span_danger("[affected_mob] buzzes."), \
 												"<span class='userdanger'>Your stomach buzzes violently!</span>")
 			if(prob(5))
-				to_chat(affected_mob, "<span class='danger'>You feel something moving in your throat.</span>")
+				to_chat(affected_mob, span_danger("You feel something moving in your throat."))
 			if(prob(1))
-				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up a swarm of bees!</span>", \
+				affected_mob.visible_message(span_danger("[affected_mob] coughs up a swarm of bees!"), \
 													"<span class='userdanger'>You cough up a swarm of bees!</span>")
 				new /mob/living/simple_animal/hostile/poison/bees(affected_mob.loc)
 		//if(5)

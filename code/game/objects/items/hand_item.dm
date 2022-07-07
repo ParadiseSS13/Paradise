@@ -14,7 +14,7 @@
 /obj/item/slapper/attack(mob/M, mob/living/carbon/human/user)
 	user.do_attack_animation(M)
 	playsound(M, hitsound, 50, TRUE, -1)
-	user.visible_message("<span class='danger'>[user] slaps [M]!</span>", span_notice("You slap [M]!"), "<span class='hear'>You hear a slap.</span>")
+	user.visible_message(span_danger("[user] slaps [M]!"), span_notice("You slap [M]!"), "<span class='hear'>You hear a slap.</span>")
 	if(force)
 		return ..()
 

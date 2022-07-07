@@ -132,7 +132,7 @@
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil = W
 				if(coil.get_amount() < 1)
-					to_chat(user, "<span class='warning'>You need one length of cable to wire the ED-209!</span>")
+					to_chat(user, span_warning("You need one length of cable to wire the ED-209!"))
 					return
 				to_chat(user, span_notice("You start to wire [src]..."))
 				if(do_after(user, 40 * W.toolspeed, target = src))
@@ -217,7 +217,7 @@
 	if(!istype(src, /obj/item/storage/toolbox))
 		return
 	if(contents.len >= 1)
-		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside.</span>")
+		to_chat(user, span_warning("They won't fit in, as there is already stuff inside."))
 		return
 	if(T.use(10))
 		if(user.s_active)
@@ -245,7 +245,7 @@
 		user.unEquip(src, 1)
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>You need 10 floor tiles to start building a floorbot.</span>")
+		to_chat(user, span_warning("You need 10 floor tiles to start building a floorbot."))
 		return
 
 /obj/item/toolbox_tiles/attackby(obj/item/W, mob/user, params)
@@ -292,7 +292,7 @@
 
 	//Making a medibot!
 	if(contents.len)
-		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
+		to_chat(user, span_warning("You need to empty [src] out first!"))
 		return
 
 	var/obj/item/firstaid_arm_assembly/A = new /obj/item/firstaid_arm_assembly(loc, med_bot_skin)
@@ -547,7 +547,7 @@
 		robot_arm = W.type
 
 	if(contents.len)
-		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
+		to_chat(user, span_warning("You need to empty [src] out first!"))
 		return
 
 	var/obj/item/honkbot_arm_assembly/A = new /obj/item/honkbot_arm_assembly

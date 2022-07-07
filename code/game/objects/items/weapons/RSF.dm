@@ -67,11 +67,11 @@ RSF
 	if(isrobot(user))
 		var/mob/living/silicon/robot/engy = user
 		if(!engy.cell.use(configured_items[mode][2]))
-			to_chat(user, "<span class='warning'>Insufficient energy.</span>")
+			to_chat(user, span_warning("Insufficient energy."))
 			return
 	else
 		if(!matter)
-			to_chat(user, "<span class='warning'>Insufficient matter.</span>")
+			to_chat(user, span_warning("Insufficient matter."))
 			return
 		matter--
 		to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")

@@ -22,7 +22,7 @@
 		if(target.mind in SSticker.mode.revolutionaries)
 			SSticker.mode.remove_revolutionary(target.mind)
 		if(target.mind in SSticker.mode.cult)
-			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
+			to_chat(target, span_warning("You feel the corporate tendrils of Nanotrasen try to invade your mind!"))
 		else
 			to_chat(target, span_notice("Your mind feels hardened - more resistant to brainwashing."))
 		return TRUE

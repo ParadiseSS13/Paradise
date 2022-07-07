@@ -26,8 +26,8 @@
 /obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/target = targets[1]
-	user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
-	to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
+	user.visible_message(span_warning("[user] bites [target]'s neck!"), span_warning("You bite [target]'s neck and begin the flow of power."))
+	to_chat(target, span_warning("You feel the tendrils of evil invade your mind."))
 	if(do_mob(user, target, 15 SECONDS))
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
@@ -36,7 +36,7 @@
 			vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
 	else
 		revert_cast(user)
-		to_chat(user, "<span class='warning'>You or your target moved.</span>")
+		to_chat(user, span_warning("You or your target moved."))
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	if(!C)
@@ -45,21 +45,21 @@
 	if(!user.mind.som)
 		CRASH("Dantalion Thrall datum ended up null.")
 	if(!ishuman(C))
-		to_chat(user, "<span class='warning'>You can only enthrall sentient humanoids!</span>")
+		to_chat(user, span_warning("You can only enthrall sentient humanoids!"))
 		return FALSE
 	if(!C.mind)
-		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
+		to_chat(user, span_warning("[C.name]'s mind is not there for you to enthrall."))
 		return FALSE
 
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.subclass.thrall_cap <= length(user.mind.som.serv))
-		to_chat(user, "<span class='warning'>You don't have enough power to enthrall any more people!</span>")
+		to_chat(user, span_warning("You don't have enough power to enthrall any more people!"))
 		return FALSE
 	if(ismindshielded(C) || C.mind.has_antag_datum(/datum/antagonist/vampire) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
-		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", span_notice("You feel a familiar sensation in your skull that quickly dissipates."))
+		C.visible_message(span_warning("[C] seems to resist the takeover!"), span_notice("You feel a familiar sensation in your skull that quickly dissipates."))
 		return FALSE
 	if(C.mind.isholy)
-		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", span_notice("Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil."))
+		C.visible_message(span_warning("[C] seems to resist the takeover!"), span_notice("Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil."))
 		return FALSE
 	return TRUE
 

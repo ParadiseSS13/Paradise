@@ -49,10 +49,10 @@
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
 	if(istype(I, /obj/item/grenade/iedcasing))
 		if(IED)
-			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
+			to_chat(user, span_warning("This beartrap already has an IED hooked up to it!"))
 			return
 		if(sig)
-			to_chat(user, "<span class='warning'>This beartrap already has a signaler hooked up to it!</span>")
+			to_chat(user, span_warning("This beartrap already has a signaler hooked up to it!"))
 			return
 		user.drop_item()
 		I.forceMove(src)
@@ -63,10 +63,10 @@
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
 	if(istype(I, /obj/item/assembly/signaler))
 		if(IED)
-			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
+			to_chat(user, span_warning("This beartrap already has an IED hooked up to it!"))
 			return
 		if(sig)
-			to_chat(user, "<span class='warning'>This beartrap already has a signaler hooked up to it!</span>")
+			to_chat(user, span_warning("This beartrap already has a signaler hooked up to it!"))
 			return
 		sig = I
 		if(sig.secured)
@@ -97,7 +97,7 @@
 			armed = 0
 			update_icon()
 			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
+			L.visible_message(span_danger("[L] triggers \the [src]."), \
 					"<span class='userdanger'>You trigger \the [src]!</span>")
 
 			if(IED && isturf(src.loc))
@@ -171,7 +171,7 @@
 		return//abort
 	var/mob/living/carbon/C = hit_atom
 	if(!C.legcuffed && C.get_num_legs() >= 2)
-		visible_message("<span class='danger'>[src] ensnares [C]!</span>")
+		visible_message(span_danger("[src] ensnares [C]!"))
 		C.legcuffed = src
 		forceMove(C)
 		C.update_inv_legcuffed()

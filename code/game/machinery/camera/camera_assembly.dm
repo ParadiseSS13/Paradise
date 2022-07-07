@@ -31,13 +31,13 @@
 			playsound(loc, I.usesound, 50, 1)
 			state = ASSEMBLY_WIRED
 		else
-			to_chat(user, "<span class='warning'>You need 2 coils of wire to wire the assembly.</span>")
+			to_chat(user, span_warning("You need 2 coils of wire to wire the assembly."))
 		return
 
 	// Upgrades!
 	else if(is_type_in_list(I, possible_upgrades) && !is_type_in_list(I, upgrades)) // Is a possible upgrade and isn't in the camera already.
 		if(!user.unEquip(I))
-			to_chat(user, "<span class='warning'>[I] is stuck!</span>")
+			to_chat(user, span_warning("[I] is stuck!"))
 			return
 		to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
 		upgrades += I
@@ -70,13 +70,13 @@
 	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Seperate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
 	if(!input)
 		state = ASSEMBLY_WIRED
-		to_chat(usr, "<span class='warning'>No input found please hang up and try your call again.</span>")
+		to_chat(usr, span_warning("No input found please hang up and try your call again."))
 		return
 
 	var/list/tempnetwork = splittext(input, ",")
 	if(tempnetwork.len < 1)
 		state = ASSEMBLY_WIRED
-		to_chat(usr, "<span class='warning'>No network found please hang up and try your call again.</span>")
+		to_chat(usr, span_warning("No network found please hang up and try your call again."))
 		return
 
 	var/area/camera_area = get_area(src)
@@ -135,7 +135,7 @@
 		update_icon()
 		state = ASSEMBLY_UNBUILT
 	else
-		to_chat(user, "<span class='warning'>[src] can't fit here!</span>")
+		to_chat(user, span_warning("[src] can't fit here!"))
 
 /obj/item/camera_assembly/welder_act(mob/user, obj/item/I)
 	if(state == ASSEMBLY_UNBUILT)

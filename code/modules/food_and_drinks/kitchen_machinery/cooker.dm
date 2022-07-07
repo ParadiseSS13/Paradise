@@ -67,7 +67,7 @@
 /obj/machinery/cooker/proc/burn_food(mob/user, obj/item/reagent_containers/props)
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
-	to_chat(user, "<span class='warning'>You smell burning coming from [src]!</span>")
+	to_chat(user, span_warning("You smell burning coming from [src]!"))
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
 	smoke.set_up(5, 0, src)
 	smoke.start()
@@ -106,14 +106,14 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(panel_open)
-		to_chat(user, "<span class='warning'>Close the panel first!</span>")
+		to_chat(user, span_warning("Close the panel first!"))
 		return
 	if(!checkValid(I, user))
 		return
 	if(!burns)
 		if(istype(I, /obj/item/reagent_containers/food/snacks))
 			if(checkCooked(I))
-				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
+				to_chat(user, span_warning("That is already [thiscooktype], it would do nothing!"))
 				return
 	putIn(I, user)
 	sleep(cooktime)

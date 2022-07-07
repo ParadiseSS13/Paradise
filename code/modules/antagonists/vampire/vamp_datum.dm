@@ -112,11 +112,11 @@
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	if(owner.current.is_muzzled())
-		to_chat(owner.current, "<span class='warning'>[owner.current.wear_mask] prevents you from biting [H]!</span>")
+		to_chat(owner.current, span_warning("[owner.current.wear_mask] prevents you from biting [H]!"))
 		draining = null
 		return
 	add_attack_logs(owner.current, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
-	owner.current.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", span_notice("You hear a soft puncture and a wet sucking noise."))
+	owner.current.visible_message(span_danger("[owner] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!"), span_danger("You sink your fangs into [H] and begin to drain [H.p_their()] blood."), span_notice("You hear a soft puncture and a wet sucking noise."))
 	if(!iscarbon(owner.current))
 		H.LAssailant = null
 	else
@@ -125,7 +125,7 @@
 		owner.current.do_attack_animation(H, ATTACK_EFFECT_BITE)
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-				to_chat(owner.current, "<span class='warning'>You have drained most of the life force from [H]'s blood, and you will get no more useable blood from them!</span>")
+				to_chat(owner.current, span_warning("You have drained most of the life force from [H]'s blood, and you will get no more useable blood from them!"))
 				H.blood_volume = max(H.blood_volume - 25, 0)
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
@@ -140,12 +140,12 @@
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(H.blood_volume)
 			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
-				to_chat(owner.current, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
+				to_chat(owner.current, span_danger("Your victim's blood volume is dangerously low."))
 			else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
-				to_chat(owner.current, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
+				to_chat(owner.current, span_warning("Your victim's blood is at an unsafe level."))
 			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
 		else
-			to_chat(owner.current, "<span class='warning'>You have bled your victim dry!</span>")
+			to_chat(owner.current, span_warning("You have bled your victim dry!"))
 			break
 		if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
 			to_chat(owner.current, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
@@ -243,7 +243,7 @@
 		if(T.density)
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
-		to_chat(owner.current, "<span class='warning'>The starlight saps your strength!</span>")
+		to_chat(owner.current, span_warning("The starlight saps your strength!"))
 		bloodusable -= 10
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
@@ -313,16 +313,16 @@
 	if(prob(burn_chance) && owner.current.health >= 50)
 		switch(owner.current.health)
 			if(75 to 100)
-				to_chat(owner.current, "<span class='warning'>Your skin flakes away...</span>")
+				to_chat(owner.current, span_warning("Your skin flakes away..."))
 			if(50 to 75)
-				to_chat(owner.current, "<span class='warning'>Your skin sizzles!</span>")
+				to_chat(owner.current, span_warning("Your skin sizzles!"))
 		owner.current.adjustFireLoss(3)
 	else if(owner.current.health < 50)
 		if(!owner.current.on_fire)
-			to_chat(owner.current, "<span class='danger'>Your skin catches fire!</span>")
+			to_chat(owner.current, span_danger("Your skin catches fire!"))
 			owner.current.emote("scream")
 		else
-			to_chat(owner.current, "<span class='danger'>You continue to burn!</span>")
+			to_chat(owner.current, span_danger("You continue to burn!"))
 		owner.current.adjust_fire_stacks(5)
 		owner.current.IgniteMob()
 

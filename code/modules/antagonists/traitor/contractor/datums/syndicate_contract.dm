@@ -167,7 +167,7 @@
 	if(status != CONTRACT_STATUS_INACTIVE || !ISINDEXSAFE(reward_tc, difficulty))
 		return
 	else if(owning_hub.current_contract)
-		to_chat(M, "<span class='warning'>You already have an ongoing contract!</span>")
+		to_chat(M, span_warning("You already have an ongoing contract!"))
 		return
 
 	if(!contract.choose_difficulty(difficulty, src))
@@ -463,20 +463,20 @@
 		// Heal them up - gets them out of crit/soft crit.
 		M.reagents.add_reagent("omnizine", 20)
 
-		to_chat(M, "<span class='warning'>You feel strange...</span>")
+		to_chat(M, span_warning("You feel strange..."))
 		M.Paralyse(30 SECONDS)
 		M.EyeBlind(35 SECONDS)
 		M.EyeBlurry(35 SECONDS)
 		M.AdjustConfused(35 SECONDS)
 
 		sleep(6 SECONDS)
-		to_chat(M, "<span class='warning'>That portal did something to you...</span>")
+		to_chat(M, span_warning("That portal did something to you..."))
 
 		sleep(6.5 SECONDS)
-		to_chat(M, "<span class='warning'>Your head pounds... It feels like it's going to burst out your skull!</span>")
+		to_chat(M, span_warning("Your head pounds... It feels like it's going to burst out your skull!"))
 
 		sleep(3 SECONDS)
-		to_chat(M, "<span class='warning'>Your head pounds...</span>")
+		to_chat(M, span_warning("Your head pounds..."))
 
 		sleep(10 SECONDS)
 		to_chat(M, "<span class='specialnotice'>A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
@@ -524,7 +524,7 @@
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)
 	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
-		to_chat(M, "<span class='warning'>You were roughed up a little by your captors before being sent back!</span>")
+		to_chat(M, span_warning("You were roughed up a little by your captors before being sent back!"))
 		M.adjustBruteLoss(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.

@@ -57,14 +57,14 @@
 	if(emp_proof)
 		return
 	if(prob(15/severity) && owner)
-		to_chat(owner, "<span class='warning'>[src] is hit by EMP!</span>")
+		to_chat(owner, span_warning("[src] is hit by EMP!"))
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()
 
 /obj/item/organ/internal/cyberimp/arm/proc/check_cuffs()
 	if(owner.handcuffed)
-		to_chat(owner, "<span class='warning'>The handcuffs interfere with [src]!</span>")
+		to_chat(owner, span_warning("The handcuffs interfere with [src]!"))
 		return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
@@ -105,13 +105,13 @@
 
 	if(arm_item)
 		if(!owner.unEquip(arm_item))
-			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
+			to_chat(owner, span_warning("Your [arm_item] interferes with [src]!"))
 			return
 		else
 			to_chat(owner, span_notice("You drop [arm_item] to activate [src]!"))
 
 	if(parent_organ == "r_arm" ? !owner.put_in_r_hand(holder) : !owner.put_in_l_hand(holder))
-		to_chat(owner, "<span class='warning'>Your [src] fails to activate!</span>")
+		to_chat(owner, span_warning("Your [src] fails to activate!"))
 		return
 
 	// Activate the hand that now holds our item.
@@ -125,7 +125,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
 	if(crit_fail || (!holder && !contents.len))
-		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
+		to_chat(owner, span_warning("The implant doesn't respond. It seems to be broken..."))
 		return
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
@@ -165,7 +165,7 @@
 		return
 	if(prob(30/severity) && owner && !crit_fail)
 		Retract()
-		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [parent_organ == "r_arm" ? "right" : "left"] arm!</span>")
+		owner.visible_message(span_danger("A loud bang comes from [owner]\'s [parent_organ == "r_arm" ? "right" : "left"] arm!"))
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
 		to_chat(owner, "<span class='userdanger'>You feel an explosion erupt inside your [parent_organ == "r_arm" ? "right" : "left"] arm as your implant breaks!</span>")
 		owner.adjust_fire_stacks(20)
@@ -350,7 +350,7 @@
 	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)
-		to_chat(user, "<span class='warning'>You're already charging.</span>")
+		to_chat(user, span_warning("You're already charging."))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
@@ -358,27 +358,27 @@
 	if(H.get_int_organ(/obj/item/organ/internal/cell))
 		if(A.emagged || A.stat & BROKEN)
 			do_sparks(3, 1, A)
-			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
+			to_chat(H, span_warning("The APC power currents surge erratically, damaging your chassis!"))
 			H.adjustFireLoss(10,0)
 		else if(A.cell && A.cell.charge > 0)
 			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
-				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+				to_chat(user, span_warning("You are already fully charged!"))
 			else
 				INVOKE_ASYNC(src, .proc/powerdraw_loop, A, H)
 		else
-			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
+			to_chat(user, span_warning("There is no charge to draw from that APC."))
 	else
-		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
+		to_chat(user, span_warning("You lack a cell in which to store charge!"))
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message(span_notice("[H] inserts a power connector into \the [A]."), span_notice("You begin to draw power from \the [A]."))
 	drawing_power = TRUE
 	while(do_after(H, 10, target = A))
 		if(loc != H)
-			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
+			to_chat(H, span_warning("You must keep your connector out while charging!"))
 			break
 		if(A.cell.charge == 0)
-			to_chat(H, "<span class='warning'>\The [A] has no more charge.</span>")
+			to_chat(H, span_warning("\The [A] has no more charge."))
 			break
 		A.charging = 1
 		if(A.cell.charge >= 500)

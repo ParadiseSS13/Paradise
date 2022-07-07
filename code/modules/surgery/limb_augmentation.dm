@@ -24,7 +24,7 @@
 	var/obj/item/robot_parts/p = tool
 	if(p.part)
 		if(!(target_zone in p.part))
-			to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
+			to_chat(user, span_warning("[tool] cannot be used to augment this limb!"))
 			return FALSE
 	return TRUE
 

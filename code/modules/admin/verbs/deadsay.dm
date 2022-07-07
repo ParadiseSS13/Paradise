@@ -10,11 +10,11 @@
 		return
 
 	if(check_mute(ckey, MUTE_DEADCHAT))
-		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
+		to_chat(src, span_warning("You cannot send DSAY messages (muted)."))
 		return
 
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
+		to_chat(src, span_warning("You have deadchat muted."))
 		return
 
 	if(handle_spam_prevention(msg,MUTE_DEADCHAT))

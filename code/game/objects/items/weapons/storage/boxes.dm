@@ -733,14 +733,14 @@
 	if(istype(W, /obj/item/pen))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)
-			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
+			to_chat(user, span_warning("You can't modify [src] with items still inside!"))
 			return
 		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
 		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) as null|anything in designs
 		if(!switchDesign)
 			return
 		if(get_dist(usr, src) > 1 && !usr.incapacitated())
-			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+			to_chat(usr, span_warning("You have moved too far away!"))
 			return
 		if(design == switchDesign)
 			return

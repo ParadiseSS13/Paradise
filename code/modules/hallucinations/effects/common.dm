@@ -128,5 +128,5 @@
   * Called when one of our attacks put the target in stamina crit.
   */
 /obj/effect/hallucination/chaser/attacker/proc/on_knockdown()
-	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
+	target.visible_message(span_warning("[target] recoils as if hit by something, before suddenly collapsing!"),
 					  	   "<span class='userdanger'>[src]'s blow was too much for you, causing you to collapse!</span>")

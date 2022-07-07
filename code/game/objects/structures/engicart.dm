@@ -98,7 +98,7 @@
 					"You hear ratchet.")
 				anchored = 0
 	else
-		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
+		to_chat(usr, span_warning("You cannot interface your modules [src]!"))
 
 /obj/structure/engineeringcart/attack_hand(mob/user)
 	user.set_machine(src)

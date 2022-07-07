@@ -46,14 +46,14 @@
 /obj/machinery/cooker/deepfryer/special_attack(obj/item/grab/G, mob/user)
 	if(ishuman(G.affecting))
 		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, span_warning("You need a better grip to do that!"))
 			return 0
 		var/mob/living/carbon/human/C = G.affecting
 		var/obj/item/organ/external/head/head = C.get_organ("head")
 		if(!head)
-			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+			to_chat(user, span_warning("This person doesn't have a head!"))
 			return 0
-		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]!</span>", \
+		C.visible_message(span_danger("[user] dunks [C]'s face into [src]!"), \
 						"<span class='userdanger'>[user] dunks your face into [src]!</span>")
 		C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)

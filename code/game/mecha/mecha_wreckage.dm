@@ -97,7 +97,7 @@
 	if(interaction != AI_TRANS_TO_CARD) //AIs can only be transferred in one direction, from the wreck to the card.
 		return
 	if(!AI) //No AI in the wreck
-		to_chat(user, "<span class='warning'>No AI backups found.</span>")
+		to_chat(user, span_warning("No AI backups found."))
 		return
 	cut_overlays() //Remove the recovery beacon overlay
 	AI.forceMove(card) //Move the dead AI to the card.

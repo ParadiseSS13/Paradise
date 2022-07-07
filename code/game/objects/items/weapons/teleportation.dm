@@ -50,7 +50,7 @@ Frequency:
 
 	var/turf/current_location = get_turf(usr)//What turf is the user on?
 	if(!current_location || is_admin_level(current_location.z))//If turf was not found or they're in the admin zone
-		to_chat(usr, "<span class='warning'>\The [src] is malfunctioning.</span>")
+		to_chat(usr, span_warning("\The [src] is malfunctioning."))
 		return 1
 
 	if(href_list["refresh"])

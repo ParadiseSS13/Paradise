@@ -51,7 +51,7 @@
 	if(T.intact)
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)
-		T.visible_message("<span class='warning'>The floortile is ripped from the floor!</span>", "<span class='warning'>You hear a loud bang!</span>")
+		T.visible_message(span_warning("The floortile is ripped from the floor!"), span_warning("You hear a loud bang!"))
 	if(trunk)
 		trunk.remove_trunk_links()
 	var/obj/structure/disposalconstruct/C = new (loc)
@@ -116,7 +116,7 @@
 			if(do_after(usr, 20, target = GM))
 				GM.forceMove(src)
 				for(var/mob/C in viewers(src))
-					C.show_message("<span class='warning'>[GM] has been placed in [src] by [user].</span>", 3)
+					C.show_message(span_warning("[GM] has been placed in [src] by [user]."), 3)
 				qdel(G)
 				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
@@ -238,7 +238,7 @@
 		return
 
 	if(user && user.loc == src)
-		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
+		to_chat(usr, span_warning("You cannot reach the controls from inside."))
 		return
 
 	// Clumsy folks can only flush it.
@@ -270,11 +270,11 @@
 	if(..())
 		return
 	if(usr.loc == src)
-		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
+		to_chat(usr, span_warning("You cannot reach the controls from inside."))
 		return
 
 	if(mode==-1 && action != "eject") // If the mode is -1, only allow ejection
-		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
+		to_chat(usr, span_warning("The disposal units power is disabled."))
 		return
 
 	if(stat & BROKEN)
@@ -882,7 +882,7 @@
 /obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
 	var/turf/T = get_turf(src)
 	if(T.intact || T.transparent_floor)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
 
 	add_fingerprint(user)
@@ -893,7 +893,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(T.transparent_floor)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
@@ -1343,7 +1343,7 @@
 	if(T.intact)
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)
-		T.visible_message("<span class='warning'>The floortile is ripped from the floor!</span>", "<span class='warning'>You hear a loud bang!</span>")
+		T.visible_message(span_warning("The floortile is ripped from the floor!"), span_warning("You hear a loud bang!"))
 	if(linkedtrunk)
 		linkedtrunk.remove_trunk_links()
 	var/obj/structure/disposalconstruct/C = new (loc)

@@ -125,13 +125,13 @@
 	if(in_range(user, src))
 		show(usr)
 	else
-		. += "<span class='warning'>It is too far away.</span>"
+		. += span_warning("It is too far away.")
 	if(guest_pass)
 		. += span_notice("There is a guest pass attached to this ID card")
 		if(world.time < guest_pass.expiration_time)
 			. += span_notice("It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].")
 		else
-			. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
+			. += span_warning("It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].")
 		. += span_notice("It grants access to following areas:")
 		for(var/A in guest_pass.temp_access)
 			. += span_notice("[get_access_desc(A)].")
@@ -282,7 +282,7 @@
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID</span>")
+		to_chat(usr, span_warning("There is no guest pass attached to this ID"))
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()
@@ -365,13 +365,13 @@
 	if(!src.registered_name)
 		var/t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name), TRUE)
 		if(!t)
-			to_chat(user, "<span class='warning'>Invalid name.</span>")
+			to_chat(user, span_warning("Invalid name."))
 			return
 		src.registered_name = t
 
 		var/u = sanitize(stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than maintenance.", "Agent Card Job Assignment", "Agent", MAX_MESSAGE_LEN))
 		if(!u)
-			to_chat(user, "<span class='warning'>Invalid assignment.</span>")
+			to_chat(user, span_warning("Invalid assignment."))
 			src.registered_name = ""
 			return
 		src.assignment = u

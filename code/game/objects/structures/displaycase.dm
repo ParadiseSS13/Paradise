@@ -37,7 +37,7 @@
 
 /obj/structure/displaycase/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='warning'>You override the ID lock on [src].</span>")
+		to_chat(user, span_warning("You override the ID lock on [src]."))
 		trigger_alarm()
 
 		emagged = TRUE
@@ -48,7 +48,7 @@
 	if(alert)
 		. += span_notice("Hooked up with an anti-theft system.")
 	if(emagged)
-		. += "<span class='warning'>The ID lock has been shorted out.</span>"
+		. += span_warning("The ID lock has been shorted out.")
 	if(showpiece)
 		. += span_notice("There's [showpiece] inside.")
 	if(trophy_message)
@@ -89,7 +89,7 @@
 	if(alert && is_station_contact(z))
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)
-		visible_message("<span class='danger'>The burglar alarm goes off!</span>")
+		visible_message(span_danger("The burglar alarm goes off!"))
 		// Play the burglar alarm three times
 		for(var/i = 0, i < 4, i++)
 			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, 0)
@@ -113,7 +113,7 @@
 			to_chat(user, span_notice("You [open ? "close":"open"] [src]."))
 			toggle_lock()
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 	else if(open && !showpiece)
 		if(!(I.flags & (ABSTRACT | DROPDEL)) && user.drop_item())
 			I.forceMove(src)
@@ -123,7 +123,7 @@
 	else if(istype(I, /obj/item/stack/sheet/glass) && broken)
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two glass sheets to fix the case!</span>")
+			to_chat(user, span_warning("You need two glass sheets to fix the case!"))
 			return
 		to_chat(user, span_notice("You start fixing [src]..."))
 		if(do_after(user, 20, target = src))
@@ -188,7 +188,7 @@
 	    //prevents remote "kicks" with TK
 		if(!Adjacent(user))
 			return
-		user.visible_message("<span class='danger'>[user] kicks the display case.</span>")
+		user.visible_message(span_danger("[user] kicks the display case."))
 		user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 		take_damage(2)
 
@@ -214,7 +214,7 @@
 	else if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 10)
-			to_chat(user, "<span class='warning'>You need ten glass sheets to do this!</span>")
+			to_chat(user, span_warning("You need ten glass sheets to do this!"))
 			return
 		to_chat(user, span_notice("You start adding [G] to [src]..."))
 		if(do_after(user, 20, target = src))

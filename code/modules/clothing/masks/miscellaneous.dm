@@ -22,7 +22,7 @@
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
-			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>", \
+			visible_message(span_danger("[user] unlocks [user.p_their()] [src.name]."), \
 								"<span class='userdanger'>[user] unlocks [user.p_their()] [src.name].</span>")
 	..()
 	return 1
@@ -39,16 +39,16 @@
 
 /obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
 	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
-		to_chat(user, "<span class='warning'>The lock vibrates as the card forces its locking system open.</span>")
+		to_chat(user, span_warning("The lock vibrates as the card forces its locking system open."))
 		do_break()
 		return TRUE
 	else if(ACCESS_BRIG in user.get_access())
-		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
+		to_chat(user, span_warning("The muzzle unlocks with a click."))
 		locked = FALSE
 		flags &= ~NODROP
 		return TRUE
 
-	to_chat(user, "<span class='warning'>You must be wearing a security ID card or have one in your inactive hand to remove the muzzle.</span>")
+	to_chat(user, span_warning("You must be wearing a security ID card or have one in your inactive hand to remove the muzzle."))
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
@@ -64,7 +64,7 @@
 		var/mob/living/carbon/wearer = locate(href_list["locked"])
 		var/success = 0
 		if(ishuman(usr))
-			visible_message("<span class='danger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>", \
+			visible_message(span_danger("[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name]."), \
 							"<span class='userdanger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
 			if(do_mob(usr, wearer, POCKET_STRIP_DELAY))
 				if(locked)
@@ -72,7 +72,7 @@
 				else
 					success = do_lock(usr)
 			if(success)
-				visible_message("<span class='danger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>", \
+				visible_message(span_danger("[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name]."), \
 									"<span class='userdanger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>")
 				if(usr.machine == wearer && in_range(src, usr))
 					wearer.show_inv(usr)
@@ -140,7 +140,7 @@
 			to_chat(user, span_notice("Something is already attached to [src]."))
 			return FALSE
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>You are unable to insert [W] into [src].</span>")
+			to_chat(user, span_warning("You are unable to insert [W] into [src]."))
 			return FALSE
 		trigger = W
 		trigger.forceMove(src)
@@ -179,7 +179,7 @@
 	var/mob/living/L = can_shock(loc)
 	if(!L)
 		return
-	to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
+	to_chat(L, span_danger("You feel a sharp shock!"))
 	do_sparks(3, 1, L)
 
 	L.Weaken(10 SECONDS)
@@ -247,7 +247,7 @@
 		return 1
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
-	user.visible_message("<span class='danger'>\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
+	user.visible_message(span_danger("\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!"))
 
 //scarves (fit in in mask slot)
 
@@ -513,12 +513,12 @@
 	..()
 	var/mob/living/carbon/human/H = user
 	if(istype(H) && slot == slot_wear_mask)
-		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
+		to_chat(H, span_danger("[src] grips your face!"))
 		if(H.mind && H.mind.assigned_role != "Cluwne")
 			H.makeCluwne()
 
 /obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] gazes into the eyes of [src]. [src] gazes back!</span>")
+	user.visible_message(span_danger("[user] gazes into the eyes of [src]. [src] gazes back!"))
 	spawn(10)
 		if(user)
 			user.gib()

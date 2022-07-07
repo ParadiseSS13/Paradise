@@ -153,12 +153,12 @@
 /obj/item/gun/syringe/rapidsyringe/proc/insert_single_syringe(obj/item/reagent_containers/syringe/new_syringe, mob/user)
 	if(new_syringe.reagents.total_volume)
 		if(user)
-			to_chat(user, "<span class='warning'>[src] only accepts empty syringes.</span>")
+			to_chat(user, span_warning("[src] only accepts empty syringes."))
 		return FALSE
 	var/in_clip = length(syringes) + (chambered?.BB ? 1 : 0)
 	if(in_clip >= max_syringes)
 		if(user)
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
+			to_chat(user, span_warning("[src] is full!"))
 		return FALSE
 
 	if(user)
@@ -178,10 +178,10 @@
 		// Boxes can be dumped in.
 		var/obj/item/storage/container = A
 		if(!length(container.contents))
-			to_chat(user, "<span class='warning'>[A] is empty!</span>")
+			to_chat(user, span_warning("[A] is empty!"))
 			return TRUE
 		if(length(syringes) + (chambered?.BB ? 1 : 0) == max_syringes)
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
+			to_chat(user, span_warning("[src] is full!"))
 			return TRUE
 
 		var/total_inserted = 0
@@ -204,7 +204,7 @@
 			process_chamber()
 
 		else if(!found_any_syringe)
-			to_chat(user, "<span class='warning'>There are no empty syringes in [A]!</span>")
+			to_chat(user, span_warning("There are no empty syringes in [A]!"))
 			return TRUE
 
 	else if(istype(A, /obj/item/reagent_containers/syringe))
@@ -218,11 +218,11 @@
 			return
 
 		if(!incoming.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[incoming] is empty!</span>")
+			to_chat(user, span_warning("[incoming] is empty!"))
 			return
 
 		if(reagents.holder_full())
-			to_chat(user, "<span class='warning'>[src]'s internal reservoir is full!</span>")
+			to_chat(user, span_warning("[src]'s internal reservoir is full!"))
 			return
 
 		var/trans = incoming.reagents.trans_to(src, incoming.amount_per_transfer_from_this)
@@ -244,11 +244,11 @@
 			return
 
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>[src]'s internal reservoir is empty!</span>")
+			to_chat(user, span_warning("[src]'s internal reservoir is empty!"))
 			return
 
 		if(destination.reagents.holder_full())
-			to_chat(user, "<span class='warning'>[destination] is full.</span>")
+			to_chat(user, span_warning("[destination] is full."))
 			return
 
 		var/transfer_source = "[src]'s internal reservoir"
@@ -345,14 +345,14 @@
 /obj/item/gun/syringe/rapidsyringe/suicide_act(mob/user)
 
 	if(!chambered?.BB)
-		visible_message("<span class='danger'>[user] puts [user.p_their()] mouth to [src]'s reagent port and swings [user.p_their()] head back, it looks like [user.p_theyre()] trying to commit suicide!</span>")
+		visible_message(span_danger("[user] puts [user.p_their()] mouth to [src]'s reagent port and swings [user.p_their()] head back, it looks like [user.p_theyre()] trying to commit suicide!"))
 		if(!reagents.total_volume)
-			visible_message("<span class='danger'>...but there was nothing inside!</span>")
+			visible_message(span_danger("...but there was nothing inside!"))
 			return SHAME
 		else
 			reagents.trans_to(user, reagents.total_volume)
 	else
-		visible_message("<span class='danger'>[user] raises [src] to [user.p_their()] shoulder, it looks like [user.p_theyre()] trying to lose their medical license!</span>")
+		visible_message(span_danger("[user] raises [src] to [user.p_their()] shoulder, it looks like [user.p_theyre()] trying to lose their medical license!"))
 		handle_suicide(user, user)
 	return TOXLOSS
 

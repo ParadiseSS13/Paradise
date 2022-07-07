@@ -177,10 +177,10 @@
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 			var/obj/item/clothing/glasses/sunglasses/blindfold/B = H.glasses
 			if(B.tint)
-				to_chat(user, "<span class='warning'>You're blindfolded!</span>")
+				to_chat(user, span_warning("You're blindfolded!"))
 				return
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
-	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
+	user.visible_message(span_warning("[user]'s eyes emit a blinding flash!"))
 
 	for(var/mob/living/target in targets)
 		if(!target.affects_vampire(user))
@@ -204,7 +204,7 @@
 			target.Weaken(12 SECONDS)
 			target.AdjustSilence(6 SECONDS)
 			target.flash_eyes(1, TRUE, TRUE)
-		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
+		to_chat(target, span_warning("You are blinded by [user]'s glare."))
 		add_attack_logs(user, target, "(Vampire) Glared at")
 
 /obj/effect/proc_holder/spell/vampire/glare/proc/calculate_deviation(mob/victim, mob/attacker)
@@ -272,7 +272,7 @@
 /obj/effect/proc_holder/spell/vampire/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
-	to_chat(user, "<span class='warning'>You call out within bluespace, summoning more vampiric spirits to aid you!</span>")
+	to_chat(user, span_warning("You call out within bluespace, summoning more vampiric spirits to aid you!"))
 	for(var/mob/living/carbon/human/H in targets)
 		T.Beam(H, "sendbeam", 'icons/effects/effects.dmi', time = 30, maxdistance = 7, beam_type = /obj/effect/ebeam)
 		new /obj/effect/temp_visual/cult/sparks(H.loc)
@@ -300,10 +300,10 @@
 		return
 	if(H.stat != DEAD)
 		if(H.IsWeakened())
-			visible_message("<span class='warning'>[H] looks to be in pain!</span>")
+			visible_message(span_warning("[H] looks to be in pain!"))
 			H.adjustBrainLoss(60)
 		else
-			visible_message("<span class='warning'>[H] looks to be stunned by the energy!</span>")
+			visible_message(span_warning("[H] looks to be stunned by the energy!"))
 			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in H)
@@ -312,7 +312,7 @@
 	for(var/obj/item/implant/traitor/T in H)
 		if(T && T.implanted)
 			qdel(T)
-	visible_message("<span class='warning'>[H] gets an eerie red glow in their eyes!</span>")
+	visible_message(span_warning("[H] gets an eerie red glow in their eyes!"))
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = H.mind
 	protect_objective.target = M.mind

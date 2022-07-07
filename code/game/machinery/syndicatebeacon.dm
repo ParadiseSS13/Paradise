@@ -150,14 +150,14 @@
 	if(anchored)
 		return active ? Deactivate(user) : Activate(user)
 	else
-		to_chat(user, "<span class='warning'>You need to screw the beacon to the floor first!</span>")
+		to_chat(user, span_warning("You need to screw the beacon to the floor first!"))
 		return
 
 
 /obj/machinery/power/singularity_beacon/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(active)
-		to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
+		to_chat(user, span_warning("You need to deactivate the beacon first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

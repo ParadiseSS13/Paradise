@@ -36,7 +36,7 @@
 		to_chat(src, span_notice("There is already a cluster of eggs here!"))
 		return
 	if(fed < feedings_to_lay)
-		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
+		to_chat(src, span_warning("You must wrap more humanoid prey before you can do this!"))
 		return
 	var/list/eggtypes = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 	var/list/spider_array = CountSpidersDetailed(FALSE)
@@ -48,15 +48,15 @@
 	if(client)
 		eggtype = input("What kind of eggs?") as null|anything in eggtypes
 		if(!(eggtype in eggtypes))
-			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
+			to_chat(src, span_danger("Unrecognized egg type."))
 			return 0
 	if(!isturf(loc))
 		// This has to be checked after we ask the user what egg type. Otherwise they could trigger prompt THEN move into a vent.
-		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
+		to_chat(src, span_danger("Eggs can only be laid while standing on a floor."))
 		return
 	if(fed < feedings_to_lay)
 		// We have to check this again after the popup, to account for people spam-clicking the button, then doing all the popups at once.
-		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
+		to_chat(src, span_warning("You must wrap more humanoid prey before you can do this!"))
 		return
 	visible_message(span_notice("[src] lays a cluster of eggs."))
 	if(eggtype == TS_DESC_RED)
@@ -70,7 +70,7 @@
 	else if(eggtype == TS_DESC_BROWN)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 1)
 	else
-		to_chat(src, "<span class='warning'>Unrecognized egg type!</span>")
+		to_chat(src, span_warning("Unrecognized egg type!"))
 		fed += feedings_to_lay
 	fed -= feedings_to_lay
 
@@ -90,9 +90,9 @@
 	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.AdjustEyeBlurry(20 SECONDS, 0, 120 SECONDS)
 		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.
-		visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
+		visible_message(span_danger("[src] buries its fangs deep into the [inject_target] of [target]!"))
 	else
-		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!</span>")
+		visible_message(span_danger("[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!"))
 	L.attack_animal(src)
 
 /obj/structure/spider/terrorweb/green

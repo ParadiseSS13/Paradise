@@ -12,17 +12,17 @@
 	var/obj/item/grab/G = A.get_active_hand()
 	if(G && prob(50))
 		G.state = GRAB_AGGRESSIVE
-		D.visible_message("<span class='danger'>[A] has [D] in a clinch!</span>", \
+		D.visible_message(span_danger("[A] has [D] in a clinch!"), \
 								"<span class='userdanger'>[A] has [D] in a clinch!</span>")
 	else
-		D.visible_message("<span class='danger'>[A] fails to get [D] in a clinch!</span>", \
+		D.visible_message(span_danger("[A] fails to get [D] in a clinch!"), \
 								"<span class='userdanger'>[A] fails to get [D] in a clinch!</span>")
 	return 1
 
 
 /datum/martial_art/wrestling/proc/Suplex(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
-	D.visible_message("<span class='danger'>[A] suplexes [D]!</span>", \
+	D.visible_message(span_danger("[A] suplexes [D]!"), \
 								"<span class='userdanger'>[A] suplexes [D]!</span>")
 	D.forceMove(A.loc)
 	var/armor_block = D.run_armor_check(null, MELEE)
@@ -49,7 +49,7 @@
 
 /datum/martial_art/wrestling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	D.grabbedby(A,1)
-	D.visible_message("<span class='danger'>[A] holds [D] down!</span>", \
+	D.visible_message(span_danger("[A] holds [D] down!"), \
 								"<span class='userdanger'>[A] holds [D] down!</span>")
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)

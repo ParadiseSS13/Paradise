@@ -204,7 +204,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(istype(D, /obj/item/disk/tech_disk)) t_disk = D
 		else if(istype(D, /obj/item/disk/design_disk)) d_disk = D
 		else
-			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
+			to_chat(user, span_danger("Machine cannot accept disks in that format."))
 			return
 		if(!user.drop_item())
 			return
@@ -297,11 +297,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(linked_destroy.busy)
-		to_chat(user, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+		to_chat(user, span_danger("[linked_destroy] is busy at the moment."))
 		return
 
 	if(!linked_destroy.loaded_item)
-		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+		to_chat(user, span_danger("[linked_destroy] appears to be empty."))
 		return
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
@@ -343,7 +343,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
-			to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+			to_chat(user, span_danger("[linked_destroy] appears to be empty."))
 		else
 			for(var/T in temp_tech)
 				files.UpdateTech(T, temp_tech[T])
@@ -375,23 +375,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)
-		to_chat(usr, "<span class='danger'>No linked device detected.</span>")
+		to_chat(usr, span_danger("No linked device detected."))
 		return
 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
 	if(!is_lathe && !is_imprinter)
-		to_chat(usr, "<span class='danger'>Unexpected linked device type.</span>")
+		to_chat(usr, span_danger("Unexpected linked device type."))
 		return
 
 	if(machine.busy)
-		to_chat(usr, "<span class='danger'>[machine] is busy at the moment.</span>")
+		to_chat(usr, span_danger("[machine] is busy at the moment."))
 		return
 
 	var/datum/design/being_built = files.known_designs[design_id]
 	if(!being_built)
-		to_chat(usr, "<span class='danger'>Unknown design specified.</span>")
+		to_chat(usr, span_danger("Unknown design specified."))
 		return
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
@@ -578,7 +578,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("eject_item") //Eject the item inside the destructive analyzer.
 			if(linked_destroy)
 				if(linked_destroy.busy)
-					to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+					to_chat(usr, span_danger("[linked_destroy] is busy at the moment."))
 
 				else if(linked_destroy.loaded_item)
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
@@ -601,7 +601,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+				to_chat(usr, span_danger("You must connect to the network first!"))
 			else
 				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
 				griefProtection() //Putting this here because I dont trust the sync process
@@ -695,7 +695,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(..())
 		return 1
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		return TRUE
 	ui_interact(user)
 

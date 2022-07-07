@@ -17,19 +17,19 @@
 		emagged = TRUE
 		desc += " The screen only shows the word KILL flashing over and over."
 		if(user)
-			to_chat(user, "<span class='warning'>you short out the safeties on [src]</span>")
+			to_chat(user, span_warning("you short out the safeties on [src]"))
 	else
 		emagged = FALSE
 		desc = "Used to restart stopped hearts."
 		if(user)
-			to_chat(user, "<span class='warning'>You restore the safeties on [src]</span>")
+			to_chat(user, span_warning("You restore the safeties on [src]"))
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))
 		return ..()
 
 	if(cooldown)
-		to_chat(user, "<span class='warning'>[src] is still charging!</span>")
+		to_chat(user, span_warning("[src] is still charging!"))
 		return
 
 	if(emagged || (H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
@@ -38,27 +38,27 @@
 		playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
 
 		if(H.stat == DEAD)
-			to_chat(user, "<span class='danger'>[H] doesn't respond at all!</span>")
+			to_chat(user, span_danger("[H] doesn't respond at all!"))
 		else
 			H.set_heartattack(FALSE)
 			var/total_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss()
 			if(H.health <= HEALTH_THRESHOLD_CRIT)
 				if(total_damage >= 90)
-					to_chat(user, "<span class='danger'>[H] looks horribly injured. Resuscitation alone may not help revive them.</span>")
+					to_chat(user, span_danger("[H] looks horribly injured. Resuscitation alone may not help revive them."))
 				if(prob(66))
 					to_chat(user, span_notice("[H] inhales deeply!"))
 					H.adjustOxyLoss(-50)
 				else
-					to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
+					to_chat(user, span_danger("[H] doesn't respond!"))
 
 			H.AdjustParalysis(6 SECONDS)
 			H.AdjustWeakened(10 SECONDS)
 			H.AdjustStuttering(20 SECONDS)
-			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
+			to_chat(H, span_danger("You feel a powerful jolt!"))
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 
 			if(emagged && prob(10))
-				to_chat(user, "<span class='danger'>[src]'s on board scanner indicates that the target is undergoing a cardiac arrest!</span>")
+				to_chat(user, span_danger("[src]'s on board scanner indicates that the target is undergoing a cardiac arrest!"))
 				H.set_heartattack(TRUE)
 
 		cooldown = TRUE

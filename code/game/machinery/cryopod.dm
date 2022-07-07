@@ -102,7 +102,7 @@
 
 	else if(href_list["item"])
 		if(!allowed(user))
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			to_chat(user, span_warning("Access Denied."))
 			return
 		if(!allow_items) return
 
@@ -124,7 +124,7 @@
 
 	else if(href_list["allitems"])
 		if(!allowed(user))
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			to_chat(user, span_warning("Access Denied."))
 			return
 		if(!allow_items)
 			return
@@ -161,10 +161,10 @@
 /obj/machinery/computer/cryopod/emag_act(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(!objective_items.len)
-		visible_message("<span class='warning'>The console buzzes in an annoyed manner.</span>")
+		visible_message(span_warning("The console buzzes in an annoyed manner."))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return
-	visible_message("<span class='warning'>The console sparks, and some items fall out!</span>")
+	visible_message(span_warning("The console sparks, and some items fall out!"))
 	do_sparks(5, 1, src)
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
@@ -527,7 +527,7 @@
 		return
 
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		to_chat(user, span_warning("[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head."))
 		return
 
 
@@ -623,7 +623,7 @@
 		return
 
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		to_chat(usr, span_warning("[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head."))
 		return
 
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other

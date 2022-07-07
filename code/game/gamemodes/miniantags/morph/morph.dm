@@ -85,23 +85,23 @@
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/A)
 	var/food_value = calc_food_gained(A)
 	if(food_value + gathered_food < 0)
-		to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
+		to_chat(src, span_warning("You can't force yourself to eat more disgusting items. Eat some living things first."))
 		return
 	var/eat_self_message
 	if(food_value < 0)
-		eat_self_message = "<span class='warning'>You start eating [A]... disgusting....</span>"
+		eat_self_message = span_warning("You start eating [A]... disgusting....")
 	else
 		eat_self_message = span_notice("You start eating [A].")
-	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
+	visible_message(span_warning("[src] starts eating [target]!"), eat_self_message, "You hear loud crunching!")
 	if(do_after(src, 3 SECONDS, target = A))
 		if(food_value + gathered_food < 0)
-			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
+			to_chat(src, span_warning("You can't force yourself to eat more disgusting items. Eat some living things first."))
 			return
 		eat(A)
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
 	if(A && A.loc != src)
-		visible_message("<span class='warning'>[src] swallows [A] whole!</span>")
+		visible_message(span_warning("[src] swallows [A] whole!"))
 
 		var/mob/living/carbon/human/H = A
 		if(istype(H) && H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under))
@@ -164,7 +164,7 @@
 	melee_damage_upper = initial(melee_damage_upper)
 	speed = initial(speed)
 	if(ambush_prepared)
-		to_chat(src, "<span class='warning'>The ambush potential has faded as you take your true form.</span>")
+		to_chat(src, span_warning("The ambush potential has faded as you take your true form."))
 	failed_ambush()
 	pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_STRONG // Return to their fatness
@@ -190,7 +190,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/on_move()
 	failed_ambush()
-	to_chat(src, "<span class='warning'>You moved out of your ambush spot!</span>")
+	to_chat(src, span_warning("You moved out of your ambush spot!"))
 
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
@@ -215,7 +215,7 @@
 
 /mob/living/simple_animal/hostile/morph/attackby(obj/item/O, mob/living/user)
 	if(user.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(user, "<span class='warning'>You try to use [O] on [src]... it seems different than no-</span>")
+		to_chat(user, span_warning("You try to use [O] on [src]... it seems different than no-"))
 		ambush_attack(user, TRUE)
 		return TRUE
 	MORPH_ATTACKED
@@ -256,7 +256,7 @@
 	L.apply_damage(total_damage, BRUTE)
 	add_attack_logs(src, L, "morph ambush attacked")
 	do_attack_animation(L, ATTACK_EFFECT_BITE)
-	visible_message("<span class='danger'>[src] suddenly leaps towards [L]!</span>", "<span class='warning'>You strike [L] when [L.p_they()] least expected it!</span>", "You hear a horrible crunch!")
+	visible_message(span_danger("[src] suddenly leaps towards [L]!"), span_warning("You strike [L] when [L.p_they()] least expected it!"), "You hear a horrible crunch!")
 
 	mimic_spell.restore_form(src)
 

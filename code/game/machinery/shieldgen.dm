@@ -259,7 +259,7 @@
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 
 	else
 		return ..()
@@ -284,7 +284,7 @@
 	if(anchored)
 		WRENCH_UNANCHOR_MESSAGE
 		if(active)
-			visible_message("<span class='warning'>[src] shuts off!</span>")
+			visible_message(span_warning("[src] shuts off!"))
 			shields_down()
 		anchored = FALSE
 	else
@@ -356,13 +356,13 @@
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user)
 	if(state != 1)
-		to_chat(user, "<span class='warning'>The shield generator needs to be firmly secured to the floor first.</span>")
+		to_chat(user, span_warning("The shield generator needs to be firmly secured to the floor first."))
 		return 1
 	if(locked && !issilicon(user))
-		to_chat(user, "<span class='warning'>The controls are locked!</span>")
+		to_chat(user, span_warning("The controls are locked!"))
 		return 1
 	if(power != 1)
-		to_chat(user, "<span class='warning'>The shield generator needs to be powered by wire underneath.</span>")
+		to_chat(user, span_warning("The shield generator needs to be powered by wire underneath."))
 		return 1
 
 	if(active >= 1)
@@ -407,7 +407,7 @@
 		active = 2
 	if(active >= 1)
 		if(power == 0)
-			visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
+			visible_message(span_warning("[name] shuts down due to lack of power!"), \
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0
@@ -484,7 +484,7 @@
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 
 	else
 		add_fingerprint(user)

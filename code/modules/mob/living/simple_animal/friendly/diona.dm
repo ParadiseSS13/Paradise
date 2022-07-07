@@ -125,7 +125,7 @@
 		choices += H
 
 	if(!choices.len)
-		to_chat(src, "<span class='warning'>No suitable diona nearby.</span>")
+		to_chat(src, span_warning("No suitable diona nearby."))
 		return FALSE
 
 	var/mob/living/M = input(src,"Who do you wish to merge with?") in null|choices
@@ -169,17 +169,17 @@
 		return FALSE
 
 	if(donors.len < evolve_donors)
-		to_chat(src, "<span class='warning'>You need more blood in order to ascend to a new state of consciousness...</span>")
+		to_chat(src, span_warning("You need more blood in order to ascend to a new state of consciousness..."))
 		return FALSE
 
 	if(nutrition < nutrition_need)
-		to_chat(src, "<span class='warning'>You need to binge on weeds in order to have the energy to grow...</span>")
+		to_chat(src, span_warning("You need to binge on weeds in order to have the energy to grow..."))
 		return FALSE
 
 	if(isdiona(loc) && !split()) //if it's merged with diona, needs to able to split before evolving
 		return FALSE
 
-	visible_message("<span class='danger'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.</span>","<span class='danger'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.</span>")
+	visible_message(span_danger("[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea."),span_danger("You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form."))
 
 	var/mob/living/carbon/human/diona/adult = new(get_turf(loc))
 	adult.set_species(/datum/species/diona)
@@ -207,7 +207,7 @@
 // Consumes plant matter other than weeds to evolve
 /mob/living/simple_animal/diona/proc/consume(obj/item/reagent_containers/food/snacks/grown/G)
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
-		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
+		to_chat(src, span_warning("You're too full to consume this! Perhaps it's time to grow bigger..."))
 	else
 		if(do_after_once(src, 20, target = G))
 			visible_message("[src] ravenously consumes [G].", "You ravenously devour [G].")
@@ -228,7 +228,7 @@
 			choices += H
 
 	if(!choices.len)
-		to_chat(src, "<span class='warning'>No suitable blood donors nearby.</span>")
+		to_chat(src, span_warning("No suitable blood donors nearby."))
 		return FALSE
 
 	var/mob/living/carbon/human/M = input(src,"Who do you wish to take a sample from?") in null|choices
@@ -237,14 +237,14 @@
 		return FALSE
 
 	if(!M.dna || (NO_BLOOD in M.dna.species.species_traits))
-		to_chat(src, "<span class='warning'>That donor has no blood to take.</span>")
+		to_chat(src, span_warning("That donor has no blood to take."))
 		return FALSE
 
 	if(donors.Find(M.real_name))
-		to_chat(src, "<span class='warning'>That donor offers you nothing new.</span>")
+		to_chat(src, span_warning("That donor offers you nothing new."))
 		return FALSE
 
-	visible_message("<span class='danger'>[src] flicks out a feeler and neatly steals a sample of [M]'s blood.</span>","<span class='danger'>You flick out a feeler and neatly steal a sample of [M]'s blood.</span>")
+	visible_message(span_danger("[src] flicks out a feeler and neatly steals a sample of [M]'s blood."),span_danger("You flick out a feeler and neatly steal a sample of [M]'s blood."))
 	donors += M.real_name
 	for(var/datum/language/L in M.languages)
 		if(!(L.flags & HIVEMIND))
@@ -273,7 +273,7 @@
 	W.dropped()
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)
-	to_chat(src, "<span class='warning'>You don't have any hands!</span>")
+	to_chat(src, span_warning("You don't have any hands!"))
 	return
 
 /mob/living/simple_animal/diona/npc_safe(mob/user)

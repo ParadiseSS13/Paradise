@@ -12,7 +12,7 @@
 	action_icon_state = "clown"
 
 /mob/living/carbon/human/proc/makeCluwne()
-	to_chat(src, "<span class='danger'>You feel funny.</span>")
+	to_chat(src, span_danger("You feel funny."))
 	if(!get_int_organ(/obj/item/organ/internal/brain/cluwne))
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new
 		idiot_brain.insert(src, make_cluwne = 0)
@@ -41,7 +41,7 @@
 	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, slot_shoes, TRUE, TRUE)
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
-	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
+	to_chat(src, span_danger("You don't feel very funny."))
 	adjustBrainLoss(-120)
 	set_nutrition(NUTRITION_LEVEL_STARVING)
 	overeatduration = 0

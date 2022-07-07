@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
 			if(!A.healable)//simple approximation of being animal not a robot or similar
-				to_chat(user, "<span class='warning'>No compatible DNA detected</span>")
+				to_chat(user, span_warning("No compatible DNA detected"))
 				return
 		if(animals[target.type])
 			to_chat(user, span_notice("Animal data already present in local storage."))
@@ -297,7 +297,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	if(!completed)
 		return
 	if(!istype(H) || HAS_TRAIT(H, TRAIT_GENELESS))
-		to_chat(H, "<span class='warning'>Error, no DNA detected.</span>")
+		to_chat(H, span_warning("Error, no DNA detected."))
 		return
 
 	var/datum/species/S = H.dna.species

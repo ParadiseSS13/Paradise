@@ -342,7 +342,7 @@
 	if(istype(I, /obj/item/hatchet) && !stump)
 		if(indestructable)
 			//this bush marks the edge of the map, you can't destroy it
-			to_chat(user, "<span class='warning'>You flail away at the undergrowth, but it's too thick here.</span>")
+			to_chat(user, span_warning("You flail away at the undergrowth, but it's too thick here."))
 		else
 			user.visible_message("<span class='danger'>[user] begins clearing away [src].</b>","<span class='warning'><b>You begin clearing away [src].</span></span>")
 			spawn(rand(15,30))

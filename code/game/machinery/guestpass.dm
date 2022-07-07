@@ -21,7 +21,7 @@
 	if(world.time < expiration_time)
 		. += span_notice("This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].")
 	else
-		. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
+		. += span_warning("It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].")
 	. += span_notice("It grants access to following areas:")
 	for(var/A in temp_access)
 		. += span_notice("[get_access_desc(A)].")
@@ -57,7 +57,7 @@
 				scan = I
 				updateUsrDialog()
 		else
-			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
+			to_chat(user, span_warning("There is already ID card inside."))
 		return
 	return ..()
 
@@ -151,7 +151,7 @@
 				if(dur > 0 && dur <= 30)
 					duration = dur
 				else
-					to_chat(usr, "<span class='warning'>Invalid duration.</span>")
+					to_chat(usr, span_warning("Invalid duration."))
 		if("print")
 			var/dat = "<h3>Activity log of guest pass terminal #[uid]</h3><br>"
 			for(var/entry in internal_log)

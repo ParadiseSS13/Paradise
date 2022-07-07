@@ -31,7 +31,7 @@
 	wizard.special_role = SPECIAL_ROLE_WIZARD
 	wizard.set_original_mob(wizard.current)
 	if(GLOB.wizardstart.len == 0)
-		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
+		to_chat(wizard.current, span_danger("A starting location for you could not be found, please report this bug!"))
 		return 0
 	return 1
 
@@ -57,7 +57,7 @@
 	if(wizard_mind in wizards)
 		SSticker.mode.wizards -= wizard_mind
 		wizard_mind.special_role = null
-		wizard_mind.current.create_attack_log("<span class='danger'>De-wizarded</span>")
+		wizard_mind.current.create_attack_log(span_danger("De-wizarded"))
 		wizard_mind.current.create_log(CONVERSION_LOG, "De-wizarded")
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
@@ -101,7 +101,7 @@
 /datum/game_mode/proc/greet_wizard(datum/mind/wizard, you_are=1)
 	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	if(you_are)
-		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
+		to_chat(wizard.current, span_danger("You are the Space Wizard!"))
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
 
 	var/obj_count = 1

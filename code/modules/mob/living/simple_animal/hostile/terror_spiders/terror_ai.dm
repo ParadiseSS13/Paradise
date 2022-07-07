@@ -136,7 +136,7 @@
 					L.on = TRUE
 					L.break_light_tube()
 					do_attack_animation(L)
-					visible_message("<span class='danger'>[src] smashes the [L.name].</span>")
+					visible_message(span_danger("[src] smashes the [L.name]."))
 					return
 		else if(ai_spins_webs && web_type && world.time > (last_spins_webs + freq_spins_webs))
 			last_spins_webs = world.time
@@ -251,7 +251,7 @@
 							try_open_airlock(A)
 				for(var/obj/machinery/door/firedoor/F in view(1, src))
 					if(tgt_dir == get_dir(src, F) && F.density && !F.welded)
-						visible_message("<span class='danger'>[src] pries open the firedoor!</span>")
+						visible_message(span_danger("[src] pries open the firedoor!"))
 						F.open()
 
 	else
@@ -271,7 +271,7 @@
 			if(ai_ventbreaker && entry_vent.welded)
 				entry_vent.welded = FALSE
 				entry_vent.update_icon()
-				entry_vent.visible_message("<span class='danger'>[src] smashes the welded cover off [entry_vent]!</span>")
+				entry_vent.visible_message(span_danger("[src] smashes the welded cover off [entry_vent]!"))
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
@@ -300,7 +300,7 @@
 							exit_vent.welded = FALSE
 							exit_vent.update_icon()
 							exit_vent.update_pipe_image()
-							exit_vent.visible_message("<span class='danger'>[src] smashes the welded cover off [exit_vent]!</span>")
+							exit_vent.visible_message(span_danger("[src] smashes the welded cover off [exit_vent]!"))
 							playsound(exit_vent.loc, 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 						forceMove(exit_vent.loc)
 						entry_vent = null

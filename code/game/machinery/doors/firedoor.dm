@@ -91,7 +91,7 @@
 		return
 
 	if(welded)
-		to_chat(user, "<span class='warning'>[src] is welded shut!</span>")
+		to_chat(user, span_warning("[src] is welded shut!"))
 		return
 
 	add_fingerprint(user)
@@ -187,7 +187,7 @@
 /obj/machinery/door/firedoor/attack_alien(mob/user)
 	add_fingerprint(user)
 	if(welded)
-		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
+		to_chat(user, span_warning("[src] refuses to budge!"))
 		return
 	open()
 
@@ -354,10 +354,10 @@
 			if(istype(C, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/P = C
 				if(reinforced)
-					to_chat(user, "<span class='warning'>[src] is already reinforced.</span>")
+					to_chat(user, span_warning("[src] is already reinforced."))
 					return
 				if(P.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need more plasteel to reinforce [src].</span>")
+					to_chat(user, span_warning("You need more plasteel to reinforce [src]."))
 					return
 				user.visible_message(span_notice("[user] begins reinforcing [src]..."), \
 									 span_notice("You begin reinforcing [src]..."))
@@ -375,7 +375,7 @@
 			if(iscoil(C))
 				var/obj/item/stack/cable_coil/B = C
 				if(B.get_amount() < 5)
-					to_chat(user, "<span class='warning'>You need more wires to add wiring to [src].</span>")
+					to_chat(user, span_warning("You need more wires to add wiring to [src]."))
 					return
 				user.visible_message(span_notice("[user] begins wiring [src]..."), \
 									 span_notice("You begin adding wires to [src]..."))
@@ -473,7 +473,7 @@
 		return
 	. = TRUE
 	if(locate(/obj/machinery/door/firedoor) in get_turf(src))
-		to_chat(user, "<span class='warning'>There's already a firelock there.</span>")
+		to_chat(user, span_warning("There's already a firelock there."))
 		return
 	if(!I.tool_start_check(src, user, 0))
 		return

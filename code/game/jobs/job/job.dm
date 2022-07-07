@@ -189,7 +189,7 @@
 					permitted = TRUE
 
 				if(!permitted)
-					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [G.display_name]!</span>")
+					to_chat(H, span_warning("Your current job or whitelist status does not permit you to spawn with [G.display_name]!"))
 					continue
 
 				if(G.slot)
@@ -225,7 +225,7 @@
 			if(H.put_in_hands(G))
 				to_chat(H, span_notice("Placing [G.display_name] in your hands!"))
 				continue
-			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+			to_chat(H, span_danger("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
 			qdel(G)
 
 		gear_leftovers.Cut()

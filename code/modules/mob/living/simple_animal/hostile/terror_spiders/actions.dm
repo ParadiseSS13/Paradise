@@ -138,7 +138,7 @@
 	if(!web_type)
 		return
 	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>Webs can only be spun while standing on a floor.</span>")
+		to_chat(src, span_danger("Webs can only be spun while standing on a floor."))
 		return
 	var/turf/mylocation = loc
 	visible_message(span_notice("[src] begins to secrete a sticky substance."))
@@ -146,11 +146,11 @@
 		if(loc != mylocation)
 			return
 		else if(istype(loc, /turf/space))
-			to_chat(src, "<span class='danger'>Webs cannot be spun in space.</span>")
+			to_chat(src, span_danger("Webs cannot be spun in space."))
 		else
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(T)
-				to_chat(src, "<span class='danger'>There is already a web here.</span>")
+				to_chat(src, span_danger("There is already a web here."))
 			else
 				var/obj/structure/spider/terrorweb/W = new web_type(loc)
 				W.creator_ckey = ckey
@@ -206,7 +206,7 @@
 
 /obj/structure/spider/terrorweb/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
-		visible_message("<span class='danger'>[src] is undamaged by [Proj]!</span>")
+		visible_message(span_danger("[src] is undamaged by [Proj]!"))
 		// Webs don't care about disablers, tasers, etc. Or toxin damage. They're organic, but not alive.
 		return
 	..()
@@ -243,7 +243,7 @@
 		if(choices.len)
 			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
 		else
-			to_chat(src, "<span class='danger'>There is nothing nearby you can wrap.</span>")
+			to_chat(src, span_danger("There is nothing nearby you can wrap."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoWrap()
 	if(cocoon_target && busy != SPINNING_COCOON)
@@ -277,10 +277,10 @@
 						if(iscarbon(L))
 							regen_points += regen_points_per_kill
 							fed++
-							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
+							visible_message(span_danger("[src] sticks a proboscis into [L] and sucks a viscous substance out."))
 							to_chat(src, span_notice("You feel invigorated!"))
 						else
-							visible_message("<span class='danger'>[src] wraps [L] in a web.</span>")
+							visible_message(span_danger("[src] wraps [L] in a web."))
 						large_cocoon = 1
 						last_cocoon_object = 0
 						L.loc = C
@@ -302,7 +302,7 @@
 		if(C.welded)
 			valid_target = TRUE
 	if(!valid_target)
-		to_chat(src, "<span class='warning'>No welded vent or scrubber nearby!</span>")
+		to_chat(src, span_warning("No welded vent or scrubber nearby!"))
 		return
 	playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 	if(do_after(src, 40, target = loc))
@@ -312,7 +312,7 @@
 				P.update_icon()
 				P.update_pipe_image()
 				forceMove(P.loc)
-				P.visible_message("<span class='danger'>[src] smashes the welded cover off [P]!</span>")
+				P.visible_message(span_danger("[src] smashes the welded cover off [P]!"))
 				return
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
 			if(C.welded)
@@ -320,7 +320,7 @@
 				C.update_icon()
 				C.update_pipe_image()
 				forceMove(C.loc)
-				C.visible_message("<span class='danger'>[src] smashes the welded cover off [C]!</span>")
+				C.visible_message(span_danger("[src] smashes the welded cover off [C]!"))
 				return
-		to_chat(src, "<span class='danger'>There is no welded vent or scrubber close enough to do this.</span>")
+		to_chat(src, span_danger("There is no welded vent or scrubber close enough to do this."))
 

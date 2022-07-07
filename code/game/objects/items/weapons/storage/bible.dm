@@ -39,7 +39,7 @@
 /obj/item/storage/bible/fart_act(mob/living/M)
 	if(QDELETED(M) || M.stat == DEAD)
 		return
-	M.visible_message("<span class='danger'>[M] farts on \the [name]!</span>")
+	M.visible_message(span_danger("[M] farts on \the [name]!"))
 	M.visible_message("<span class='userdanger'>A mysterious force smites [M]!</span>")
 	M.suiciding = TRUE
 	do_sparks(3, 1, M)
@@ -76,15 +76,15 @@
 		M.LAssailant = user
 
 	if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	if(!user.mind?.isholy)
-		to_chat(user, "<span class='warning'>The book sizzles in your hands.</span>")
+		to_chat(user, span_warning("The book sizzles in your hands."))
 		user.take_organ_damage(0, 10)
 		return
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>[src] slips out of your hand and hits your head.</span>")
+		to_chat(user, span_warning("[src] slips out of your hand and hits your head."))
 		user.take_organ_damage(10)
 		user.Paralyse(40 SECONDS)
 		return
@@ -94,15 +94,15 @@
 		if(prob(60))
 			bless(H)
 			H.visible_message("<span class='danger>[user] heals [H == user ? "[user.p_them()]self" : "[H]"] with the power of [deity_name]!</span>",
-				"<span class='danger'>May the power of [deity_name] compel you to be healed!</span>")
+				span_danger("May the power of [deity_name] compel you to be healed!"))
 			playsound(loc, "punch", 25, 1, -1)
 		else
 			M.adjustBrainLoss(10)
-			to_chat(M, "<span class='warning'>You feel dumber.</span>")
-			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!</span>")
+			to_chat(M, span_warning("You feel dumber."))
+			H.visible_message(span_danger("[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!"))
 			playsound(src.loc, "punch", 25, 1, -1)
 	else
-		M.visible_message("<span class='danger'>[user] smacks [M]'s lifeless corpse with [src].</span>")
+		M.visible_message(span_danger("[user] smacks [M]'s lifeless corpse with [src]."))
 		playsound(src.loc, "punch", 25, 1, -1)
 
 

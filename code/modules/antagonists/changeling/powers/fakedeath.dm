@@ -30,7 +30,7 @@
 
 /datum/action/changeling/fakedeath/can_sting(mob/user)
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
-		to_chat(user, "<span class='warning'>We are already regenerating.</span>")
+		to_chat(user, span_warning("We are already regenerating."))
 		return FALSE
 	if(!user.stat)//Confirmation for living changelings if they want to fake their death
 		switch(alert("Are we sure we wish to fake our death?",,"Yes","No"))

@@ -18,7 +18,7 @@
 
 /datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
 	if(you_are)
-		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
+		to_chat(wizard.current, span_danger("You are the Space Wizard!"))
 	to_chat(wizard.current, "<B>The Space Wizard Federation has given you the following tasks:</B>")
 
 	var/obj_count = 1
@@ -37,26 +37,26 @@
 			continue
 		if(!istype(wizard.current,/mob/living/carbon))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(istype(wizard.current,/mob/living/carbon/brain))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(wizard.current.stat==DEAD)
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(wizard.current.stat==UNCONSCIOUS)
 			if(wizard.current.health < 0)
 				if(istype(get_area(wizard.current), /area/wizard_station))
-					to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+					to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
 					end_squabble(get_area(wizard.current))
 				else

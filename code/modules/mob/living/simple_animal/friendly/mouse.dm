@@ -48,11 +48,11 @@
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
 				if(C.avail() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
-					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
+					visible_message(span_warning("[src] chews through [C]. It's toast!"))
 					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
 					toast() // mmmm toasty.
 				else
-					visible_message("<span class='warning'>[src] chews through [C].</span>")
+					visible_message(span_warning("[src] chews through [C]."))
 				investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
 				C.deconstruct()
 
@@ -90,7 +90,7 @@
 	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
 		return ..() // Get dem
 	if(show_message)
-		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
+		to_chat(src, span_warning("You are too small to pull anything except cheese."))
 	return
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
@@ -169,7 +169,7 @@
 	else if(timeleft < 1) // if timer expired, burst.
 		burst(FALSE)
 	else if(cycles_alive % 2 == 0) // give the mouse/player a countdown reminder every 2 cycles
-		to_chat(src, "<span class='warning'>[timeleft] seconds until you burst, and become a blob...</span>")
+		to_chat(src, span_warning("[timeleft] seconds until you burst, and become a blob..."))
 	return ..()
 
 /mob/living/simple_animal/mouse/blobinfected/death(gibbed)
@@ -199,13 +199,13 @@
 		gib()
 
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
-	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
-	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
+	to_chat(grabber, span_warning("You try to pick up [src], but they slip out of your grasp!"))
+	to_chat(src, span_warning("[src] tries to pick you up, but you wriggle free of their grasp!"))
 
 /mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!(istype(user, /mob/living/silicon/robot/drone)))
 		user.visible_message(span_notice("[user] sucks [src] into its decompiler. There's a horrible crunching noise."), \
-		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		span_warning("It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises."))
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
 		C.stored_comms["wood"] += 2
 		C.stored_comms["glass"] += 2

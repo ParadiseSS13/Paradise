@@ -50,15 +50,15 @@
 
 /obj/effect/proc_holder/spell/mimic/proc/remember_form(atom/movable/A, mob/user)
 	if(A.name in available_forms)
-		to_chat(user, "<span class='warning'>[A] is already an available form.</span>")
+		to_chat(user, span_warning("[A] is already an available form."))
 		revert_cast(user)
 		return
 	if(length(available_forms) >= max_forms)
-		to_chat(user, "<span class='warning'>You start to forget the form of [available_forms[next_override_index]] to learn a new one.</span>")
+		to_chat(user, span_warning("You start to forget the form of [available_forms[next_override_index]] to learn a new one."))
 
 	to_chat(user, "<span class='sinister'>You start remembering the form of [A].</span>")
 	if(!do_after(user, 2 SECONDS, FALSE, user))
-		to_chat(user, "<span class='warning'>You lose focus.</span>")
+		to_chat(user, span_warning("You lose focus."))
 		return
 
 	// Forget the old form if needed
@@ -74,7 +74,7 @@
 
 /obj/effect/proc_holder/spell/mimic/proc/pick_form(mob/user)
 	if(!length(available_forms) && !selected_form)
-		to_chat(user, "<span class='warning'>No available forms. Learn more forms by using this spell on other objects first.</span>")
+		to_chat(user, span_warning("No available forms. Learn more forms by using this spell on other objects first."))
 		revert_cast(user)
 		return
 
@@ -94,7 +94,7 @@
 		return
 	to_chat(user, "<span class='sinister'>You start becoming [what].</span>")
 	if(!do_after(user, 2 SECONDS, FALSE, user))
-		to_chat(user, "<span class='warning'>You lose focus.</span>")
+		to_chat(user, span_warning("You lose focus."))
 		return
 	take_form(available_forms[what], user)
 
@@ -122,7 +122,7 @@
 	selected_form = form
 
 /obj/effect/proc_holder/spell/mimic/proc/show_change_form_message(mob/user, old_name, new_name)
-	user.visible_message("<span class='warning'>[old_name] contorts and slowly becomes [new_name]!</span>", "<span class='sinister'>You take form of [new_name].</span>", "You hear loud cracking noises!")
+	user.visible_message(span_warning("[old_name] contorts and slowly becomes [new_name]!"), "<span class='sinister'>You take form of [new_name].</span>", "You hear loud cracking noises!")
 
 /obj/effect/proc_holder/spell/mimic/proc/restore_form(mob/user, show_message = TRUE)
 	selected_form = null
@@ -147,13 +147,13 @@
 	UnregisterSignal(user, list(COMSIG_PARENT_EXAMINE, COMSIG_MOB_DEATH))
 
 /obj/effect/proc_holder/spell/mimic/proc/show_restore_form_message(mob/user, old_name, new_name)
-	user.visible_message("<span class='warning'>[old_name] shakes and contorts and quickly becomes [new_name]!</span>", "<span class='sinister'>You take return to your normal self.</span>", "You hear loud cracking noises!")
+	user.visible_message(span_warning("[old_name] shakes and contorts and quickly becomes [new_name]!"), "<span class='sinister'>You take return to your normal self.</span>", "You hear loud cracking noises!")
 
 /obj/effect/proc_holder/spell/mimic/proc/examine_override(datum/source, mob/user, list/examine_list)
 	examine_list.Cut()
 	examine_list += selected_form.examine_text
 	if(!perfect_disguise && get_dist(user, source) <= 3)
-		examine_list += "<span class='warning'>It doesn't look quite right...</span>"
+		examine_list += span_warning("It doesn't look quite right...")
 
 /obj/effect/proc_holder/spell/mimic/proc/on_death(mob/user, gibbed)
 	if(!gibbed)
@@ -161,7 +161,7 @@
 		show_death_message(user)
 
 /obj/effect/proc_holder/spell/mimic/proc/show_death_message(mob/user)
-	user.visible_message("<span class='warning'>[user] shakes and contorts as [user.p_they()] die[user.p_s()], returning to [user.p_their()] true form!</span>", "<span class='deadsay'>Your disguise fails as your life forces drain away.</span>", "You hear loud cracking noises followed by a thud!")
+	user.visible_message(span_warning("[user] shakes and contorts as [user.p_they()] die[user.p_s()], returning to [user.p_their()] true form!"), "<span class='deadsay'>Your disguise fails as your life forces drain away.</span>", "You hear loud cracking noises followed by a thud!")
 
 
 /datum/mimic_form
@@ -199,13 +199,13 @@
 	user.restore()
 
 /obj/effect/proc_holder/spell/mimic/morph/show_change_form_message(mob/user, old_name, new_name)
-	user.visible_message("<span class='warning'>[old_name] suddenly twists and changes shape, becoming a copy of [new_name]!</span>", \
+	user.visible_message(span_warning("[old_name] suddenly twists and changes shape, becoming a copy of [new_name]!"), \
 					span_notice("You twist your body and assume the form of [new_name]."))
 
 /obj/effect/proc_holder/spell/mimic/morph/show_restore_form_message(mob/user, old_name, new_name)
-	user.visible_message("<span class='warning'>[old_name] suddenly collapses in on itself, dissolving into a pile of green flesh!</span>", \
+	user.visible_message(span_warning("[old_name] suddenly collapses in on itself, dissolving into a pile of green flesh!"), \
 					span_notice("You reform to your normal body."))
 
 /obj/effect/proc_holder/spell/mimic/morph/show_death_message(mob/user)
-	user.visible_message("<span class='warning'>[user] twists and dissolves into a pile of green flesh!</span>", \
+	user.visible_message(span_warning("[user] twists and dissolves into a pile of green flesh!"), \
 						"<span class='userdanger'>Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--</span>")

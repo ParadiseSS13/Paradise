@@ -30,7 +30,7 @@
 		if(!reagents.total_volume)
 			return
 		if(user != C)
-			visible_message("<span class='danger'>[user] begins to drip something into [C]'s eyes!</span>")
+			visible_message(span_danger("[user] begins to drip something into [C]'s eyes!"))
 			if(!do_mob(user, C, 30))
 				return
 		if(ishuman(target))
@@ -47,7 +47,7 @@
 					safe_thing = H.head
 
 			if(safe_thing)
-				visible_message("<span class='danger'>[user] tries to drip something into [H]'s eyes, but fails!</span>")
+				visible_message(span_danger("[user] tries to drip something into [H]'s eyes, but fails!"))
 
 				reagents.reaction(safe_thing, REAGENT_TOUCH)
 				to_transfer = reagents.remove_any(amount_per_transfer_from_this)
@@ -55,7 +55,7 @@
 				to_chat(user, span_notice("You transfer [to_transfer] units of the solution."))
 				return
 
-		visible_message("<span class='danger'>[user] drips something into [C]'s eyes!</span>")
+		visible_message(span_danger("[user] drips something into [C]'s eyes!"))
 		reagents.reaction(C, REAGENT_TOUCH)
 
 		var/list/injected = list()
@@ -73,11 +73,11 @@
 
 		if(reagents.total_volume)
 			if(!target.is_open_container() && !(istype(target, /obj/item/reagent_containers/food) && !istype(target, /obj/item/reagent_containers/food/pill)) && !istype(target, /obj/item/clothing/mask/cigarette))
-				to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
+				to_chat(user, span_warning("You cannot directly fill this object."))
 				return
 
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				to_chat(user, "<span class='warning'>[target] is full.</span>")
+				to_chat(user, span_warning("[target] is full."))
 				return
 
 			to_transfer = reagents.trans_to(target, amount_per_transfer_from_this)
@@ -85,11 +85,11 @@
 
 		else
 			if(!target.is_open_container() && !istype(target, /obj/structure/reagent_dispensers))
-				to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target].</span>")
+				to_chat(user, span_warning("You cannot directly remove reagents from [target]."))
 				return
 
 			if(!target.reagents.total_volume)
-				to_chat(user, "<span class='warning'>[target] is empty.</span>")
+				to_chat(user, span_warning("[target] is empty."))
 				return
 
 			to_transfer = target.reagents.trans_to(src, amount_per_transfer_from_this)
@@ -116,7 +116,7 @@
 
 /obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/M, mob/living/user, def_zone)
 	if(M.can_inject(user, TRUE))
-		to_chat(user, "<span class='warning'>You stealthily stab [M] with [src].</span>")
+		to_chat(user, span_warning("You stealthily stab [M] with [src]."))
 		if(reagents.total_volume && M.reagents)
 			var/list/injected = list()
 			for(var/datum/reagent/R in reagents.reagent_list)

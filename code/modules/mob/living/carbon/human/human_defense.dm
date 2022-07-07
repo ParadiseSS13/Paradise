@@ -25,7 +25,7 @@ emp_act
 				reflected = is_type_in_list(P, safe_list) //And it's safe
 
 		if(reflected)
-			visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", \
+			visible_message(span_danger("[P] gets reflected by [src]!"), \
 				   "<span class='userdanger'>[P] gets reflected by [src]!</span>")
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
@@ -46,10 +46,10 @@ emp_act
 				var/turf/T = get_turf(src)
 				P.firer = src
 				T.bullet_act(P)
-				visible_message("<span class='danger'>[src] deflects the projectile into the ground!</span>", "<span class='userdanger'>You deflect the projectile towards the ground beneath your feet!</span>")
+				visible_message(span_danger("[src] deflects the projectile into the ground!"), "<span class='userdanger'>You deflect the projectile towards the ground beneath your feet!</span>")
 				return FALSE
 
-			visible_message("<span class='danger'>[src] deflects the projectile!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+			visible_message(span_danger("[src] deflects the projectile!"), "<span class='userdanger'>You deflect the projectile!</span>")
 			if(mind.martial_art.reroute_deflection)
 				P.firer = src
 				P.set_angle(rand(0, 360))
@@ -77,7 +77,7 @@ emp_act
 		return
 	. = TRUE
 	if(S.brute_dam > ROBOLIMB_SELF_REPAIR_CAP)
-		to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
+		to_chat(user, span_danger("The damage is far too severe to patch over externally."))
 		return
 
 	if(!S.brute_dam)
@@ -399,12 +399,12 @@ emp_act
 	if(!istype(affecting))
 		return
 	if(!affecting.is_robotic())
-		to_chat(user, "<span class='warning'>That limb isn't robotic.</span>")
+		to_chat(user, span_warning("That limb isn't robotic."))
 		return
 	if(affecting.sabotaged)
-		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
+		to_chat(user, span_warning("[src]'s [affecting.name] is already sabotaged!"))
 	else
-		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
+		to_chat(user, span_warning("You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties."))
 		affecting.sabotaged = 1
 	return 1
 
@@ -427,14 +427,14 @@ emp_act
 		reagents.trans_to(newmeat, round((reagents.total_volume) / 3, 1))
 		add_mob_blood(src)
 		--meatleft
-		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [name]</span>")
+		to_chat(user, span_warning("You hack off a chunk of meat from [name]"))
 		if(!meatleft)
 			add_attack_logs(user, src, "Chopped up into meat")
 			qdel(src)
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
 	if(!affecting)
-		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
+		to_chat(user, span_danger("They are missing that limb!"))
 		return 1
 	var/hit_area = parse_zone(affecting.limb_name)
 
@@ -444,7 +444,7 @@ emp_act
 			return 0
 
 	if(check_block())
-		visible_message("<span class='warning'>[src] blocks [I]!</span>")
+		visible_message(span_warning("[src] blocks [I]!"))
 		return FALSE
 
 	if(istype(I,/obj/item/card/emag))
@@ -455,7 +455,7 @@ emp_act
 	if(!I.force)
 		return 0 //item force is zero
 
-	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
+	var/armor = run_armor_check(affecting, MELEE, span_warning("Your armour has protected your [hit_area]."), span_warning("Your armour has softened hit to your [hit_area]."), armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
 	if(weapon_sharp && prob(getarmor(user.zone_selected, MELEE)))
 		weapon_sharp = 0
@@ -552,7 +552,7 @@ emp_act
 					L.add_embedded_object(I)
 					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
 					L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
-					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+					visible_message(span_danger("[I] embeds itself in [src]'s [L.name]!"),"<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 					hitpush = FALSE
 					skipcatch = TRUE //can't catch the now embedded item
 	return ..()
@@ -579,7 +579,7 @@ emp_act
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
+			to_chat(user, span_warning("You don't want to hurt [src]!"))
 			return FALSE
 		var/hulk_verb = pick("smash", "pummel")
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
@@ -587,7 +587,7 @@ emp_act
 		..(user, TRUE)
 		playsound(loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
 		var/message = "[user] has [hulk_verb]ed [src]!"
-		visible_message("<span class='danger'>[message]</span>", "<span class='userdanger'>[message]</span>")
+		visible_message(span_danger("[message]"), "<span class='userdanger'>[message]</span>")
 		adjustBruteLoss(15)
 		return TRUE
 
@@ -610,7 +610,7 @@ emp_act
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(check_shields(M, 0, M.name))
-		visible_message("<span class='danger'>[M] attempted to touch [src]!</span>")
+		visible_message(span_danger("[M] attempted to touch [src]!"))
 		return 0
 
 	if(..())
@@ -620,13 +620,13 @@ emp_act
 			var/damage = prob(90) ? 20 : 0
 			if(!damage)
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 50, TRUE, -1)
-				visible_message("<span class='danger'>[M] has lunged at [src]!</span>")
+				visible_message(span_danger("[M] has lunged at [src]!"))
 				return 0
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 			var/armor_block = run_armor_check(affecting, MELEE, armour_penetration = 10)
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
-			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
+			visible_message(span_danger("[M] has slashed at [src]!"), \
  				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
 			apply_damage(damage, BRUTE, affecting, armor_block)
@@ -635,20 +635,20 @@ emp_act
 
 		if(M.a_intent == INTENT_DISARM) //If not absorbed, always drop item in hand, if no item, get stun instead.
 			if(absorb_stun(0))
-				visible_message("<span class='warning'>[src] is not affected by [M]'s disarm attempt!</span>")
+				visible_message(span_warning("[src] is not affected by [M]'s disarm attempt!"))
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				return FALSE
 			var/obj/item/I = get_active_hand()
 			if(I && unEquip(I))
 				playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
-				visible_message("<span class='danger'>[M] disarms [src]!</span>", "<span class='userdanger'>[M] disarms you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
-				to_chat(M, "<span class='danger'>You disarm [src]!</span>")
+				visible_message(span_danger("[M] disarms [src]!"), "<span class='userdanger'>[M] disarms you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
+				to_chat(M, span_danger("You disarm [src]!"))
 			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 				apply_effect(10 SECONDS, WEAKEN, run_armor_check(affecting, MELEE))
 				add_attack_logs(M, src, "Alien tackled")
-				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
+				visible_message(span_danger("[M] has tackled down [src]!"))
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -685,7 +685,7 @@ emp_act
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM))
-			to_chat(M.occupant, "<span class='warning'>You don't want to harm other living beings!</span>")
+			to_chat(M.occupant, span_warning("You don't want to harm other living beings!"))
 			return
 		M.do_attack_animation(src)
 		if(M.damtype == "brute")
@@ -713,8 +713,8 @@ emp_act
 				UpdateDamageIcon()
 			updatehealth("mech melee attack")
 
-		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='userdanger'>[M.name] hits you!</span>")
+		M.occupant_message(span_danger("You hit [src]."))
+		visible_message(span_danger("[M.name] hits [src]!"), "<span class='userdanger'>[M.name] hits you!</span>")
 
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
@@ -742,10 +742,10 @@ emp_act
 
 /mob/living/carbon/human/proc/reagent_safety_check(hot = TRUE)
 	if(wear_mask)
-		to_chat(src, "<span class='danger'>Your [wear_mask.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
+		to_chat(src, span_danger("Your [wear_mask.name] protects you from the [hot ? "hot" : "cold"] liquid!"))
 		return FALSE
 	if(head)
-		to_chat(src, "<span class='danger'>Your [head.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
+		to_chat(src, span_danger("Your [head.name] protects you from the [hot ? "hot" : "cold"] liquid!"))
 		return FALSE
 	return TRUE
 

@@ -53,12 +53,12 @@
 			difficulty += 2
 
 		if(!P.detonate || P.hidden_uplink)
-			user.show_message("<span class='warning'>The target PDA does not seem to respond to the detonation command.</span>", 1)
+			user.show_message(span_warning("The target PDA does not seem to respond to the detonation command."), 1)
 			pda.cartridge.charges++
 		else if(prob(difficulty * 12))
-			user.show_message("<span class='warning'>An error flashes on your [pda].</span>", 1)
+			user.show_message(span_warning("An error flashes on your [pda]."), 1)
 		else if(prob(difficulty * 3))
-			user.show_message("<span class='danger'>Energy feeds back into your [pda]!</span>", 1)
+			user.show_message(span_danger("Energy feeds back into your [pda]!"), 1)
 			pda.close(user)
 			pda.explode()
 			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up")

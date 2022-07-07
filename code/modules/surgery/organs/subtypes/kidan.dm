@@ -33,7 +33,7 @@
 	if(glowing)//i hate this but i couldnt figure out a better way
 		if(owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 			toggle_biolum(1)
-			to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
+			to_chat(owner, span_warning("You're too hungry to be bioluminescent!"))
 			return
 
 		if(owner.stat)
@@ -60,11 +60,11 @@
 
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You cannot alter your bioluminescence in your current state.</span>")
+		to_chat(owner, span_warning("You cannot alter your bioluminescence in your current state."))
 		return FALSE
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)
-		to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
+		to_chat(owner, span_warning("You're too hungry to be bioluminescent!"))
 		return FALSE
 
 	if(!colour)

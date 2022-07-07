@@ -62,7 +62,7 @@
 		return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='warning'>Failed to establish database connection</span>")
+		to_chat(usr, span_warning("Failed to establish database connection"))
 		return
 
 	if(!adm_ckey || !new_rank)
@@ -151,7 +151,7 @@
 		return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='warning'>Failed to establish database connection</span>")
+		to_chat(usr, span_warning("Failed to establish database connection"))
 		return
 
 	if(!adm_ckey || !new_permission)

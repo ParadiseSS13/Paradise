@@ -62,7 +62,7 @@
 	do_boom(rigtrigger, log_attack)
 
 /obj/structure/reagent_dispensers/proc/do_boom(rigtrigger = FALSE, log_attack = FALSE)
-	visible_message("<span class='danger'>[src] ruptures!</span>")
+	visible_message(span_danger("[src] ruptures!"))
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)
 
@@ -159,7 +159,7 @@
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly_holder) && accepts_rig)
 		if(rig)
-			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
+			to_chat(user, span_warning("There is another device in the way."))
 			return ..()
 		user.visible_message("[user] begins rigging [I] to [src].", "You begin rigging [I] to [src]")
 		if(do_after(user, 20, target = src))
@@ -185,10 +185,10 @@
 /obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!reagents.has_reagent("fuel"))
-		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
+		to_chat(user, span_warning("[src] is out of fuel!"))
 		return
 	if(I.tool_enabled && I.use_tool(src, user, volume = I.tool_volume)) //check it's enabled first to prevent duplicate messages when refuelling
-		user.visible_message("<span class='danger'>[user] catastrophically fails at refilling [user.p_their()] [I]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
+		user.visible_message(span_danger("[user] catastrophically fails at refilling [user.p_their()] [I]!"), "<span class='userdanger'>That was stupid of you.</span>")
 		message_admins("[key_name_admin(user)] triggered a fueltank explosion at [COORD(loc)]")
 		log_game("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]")
 		add_attack_logs(user, src, "hit with lit welder")
@@ -249,7 +249,7 @@
 
 /obj/structure/reagent_dispensers/water_cooler/attack_hand(mob/living/user)
 	if(!paper_cups)
-		to_chat(user, "<span class='warning'>There aren't any cups left!</span>")
+		to_chat(user, span_warning("There aren't any cups left!"))
 		return
 	user.visible_message(span_notice("[user] takes a cup from [src]."), span_notice("You take a paper cup from [src]."))
 	var/obj/item/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))

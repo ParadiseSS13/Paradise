@@ -185,7 +185,7 @@
 		R = locate(/obj/item/radio) in traitor_mob.contents
 
 	if(!R)
-		to_chat(traitor_mob, "<span class='warning'>Unfortunately, the Syndicate wasn't able to give you an uplink.</span>")
+		to_chat(traitor_mob, span_warning("Unfortunately, the Syndicate wasn't able to give you an uplink."))
 		return FALSE // They had no PDA or radio for whatever reason.
 
 	if(istype(R, /obj/item/radio))

@@ -124,9 +124,9 @@
 		if(R.id != "cleaner") //all chems other than space cleaner are filthy.
 			reagents.del_reagent(R.id)
 			if(ismob(loc))
-				to_chat(loc, "<span class='warning'>[src] identifies and removes a filthy substance.</span>")
+				to_chat(loc, span_warning("[src] identifies and removes a filthy substance."))
 			else
-				visible_message("<span class='warning'>[src] identifies and removes a filthy substance.</span>")
+				visible_message(span_warning("[src] identifies and removes a filthy substance."))
 
 /obj/item/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"

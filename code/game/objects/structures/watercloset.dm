@@ -26,7 +26,7 @@
 	if(swirlie)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, 1)
-		swirlie.visible_message("<span class='danger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='userdanger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='italics'>You hear reverberating porcelain.</span>")
+		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), "<span class='userdanger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='italics'>You hear reverberating porcelain.</span>")
 		swirlie.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 		return
 
@@ -69,7 +69,7 @@
 		var/obj/item/reagent_containers/RG = I
 		if(RG.is_refillable())
 			if(RG.reagents.holder_full())
-				to_chat(user, "<span class='warning'>[RG] is full.</span>")
+				to_chat(user, span_warning("[RG] is full."))
 			else
 				RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
 				to_chat(user, span_notice("You fill [RG] from [src]. Gross."))
@@ -84,14 +84,14 @@
 			var/mob/living/GM = G.affecting
 			if(G.state >= GRAB_AGGRESSIVE)
 				if(GM.loc != get_turf(src))
-					to_chat(user, "<span class='warning'>[GM] needs to be on [src]!</span>")
+					to_chat(user, span_warning("[GM] needs to be on [src]!"))
 					return
 				if(!swirlie)
 					if(open)
-						GM.visible_message("<span class='danger'>[user] starts to give [GM] a swirlie!</span>", "<span class='userdanger'>[user] starts to give [GM] a swirlie...</span>")
+						GM.visible_message(span_danger("[user] starts to give [GM] a swirlie!"), "<span class='userdanger'>[user] starts to give [GM] a swirlie...</span>")
 						swirlie = GM
 						if(do_after(user, 30, 0, target = src))
-							GM.visible_message("<span class='danger'>[user] gives [GM] a swirlie!</span>", "<span class='userdanger'>[user] gives [GM] a swirlie!</span>", "<span class='italics'>You hear a toilet flushing.</span>")
+							GM.visible_message(span_danger("[user] gives [GM] a swirlie!"), "<span class='userdanger'>[user] gives [GM] a swirlie!</span>", "<span class='italics'>You hear a toilet flushing.</span>")
 							if(iscarbon(GM))
 								var/mob/living/carbon/C = GM
 								if(!C.internal)
@@ -101,10 +101,10 @@
 						swirlie = null
 					else
 						playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-						GM.visible_message("<span class='danger'>[user] slams [GM.name]'s head into [src]!</span>", "<span class='userdanger'>[user] slams [GM.name]'s head into [src]!</span>")
+						GM.visible_message(span_danger("[user] slams [GM.name]'s head into [src]!"), "<span class='userdanger'>[user] slams [GM.name]'s head into [src]!</span>")
 						GM.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 			else
-				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
+				to_chat(user, span_warning("You need a tighter grip!"))
 
 	if(cistern)
 		stash_goods(I, user)
@@ -166,13 +166,13 @@
 	if(!I)
 		return
 	if(I.w_class > WEIGHT_CLASS_NORMAL)
-		to_chat(user, "<span class='warning'>[I] does not fit!</span>")
+		to_chat(user, span_warning("[I] does not fit!"))
 		return
 	if(w_items + I.w_class > WEIGHT_CLASS_HUGE)
-		to_chat(user, "<span class='warning'>The cistern is full!</span>")
+		to_chat(user, span_warning("The cistern is full!"))
 		return
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the cistern!</span>")
+		to_chat(user, span_warning("[I] is stuck to your hand, you cannot put it in the cistern!"))
 		return
 	I.loc = src
 	w_items += I.w_class
@@ -212,10 +212,10 @@
 					return
 				user.changeNext_move(CLICK_CD_MELEE)
 				playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-				user.visible_message("<span class='danger'>[user] slams [GM]'s head into [src]!</span>", "<span class='danger'>You slam [GM]'s head into [src]!</span>")
+				user.visible_message(span_danger("[user] slams [GM]'s head into [src]!"), span_danger("You slam [GM]'s head into [src]!"))
 				GM.apply_damage(8, BRUTE, BODY_ZONE_HEAD)
 			else
-				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
+				to_chat(user, span_warning("You need a tighter grip!"))
 
 /obj/structure/urinal/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -329,11 +329,11 @@
 /obj/machinery/shower/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(on)
-		to_chat(user, "<span class='warning'>Turn [src] off before you attempt to cut it loose.</span>")
+		to_chat(user, span_warning("Turn [src] off before you attempt to cut it loose."))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	visible_message(span_notice("[user] begins slicing [src] free..."), span_notice("You begin slicing [src] free..."), "<span class='warning'>You hear welding.</span>")
+	visible_message(span_notice("[user] begins slicing [src] free..."), span_notice("You begin slicing [src] free..."), span_warning("You hear welding."))
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		user.visible_message(span_notice("[user] cuts [src] loose!"), span_notice("You cut [src] loose!"))
 		var/obj/item/mounted/shower/S = new /obj/item/mounted/shower(get_turf(user))
@@ -422,12 +422,12 @@
 
 		if(current_temperature == SHOWER_FREEZING)
 			//C.bodytemperature = max(80, C.bodytemperature - 80)
-			to_chat(C, "<span class='warning'>The water is freezing!</span>")
+			to_chat(C, span_warning("The water is freezing!"))
 
 		else if(current_temperature == SHOWER_BOILING)
 			//C.bodytemperature = min(500, C.bodytemperature + 35)
 			C.adjustFireLoss(5)
-			to_chat(C, "<span class='danger'>The water is searing!</span>")
+			to_chat(C, span_danger("The water is searing!"))
 
 #undef SHOWER_FREEZING
 #undef SHOWER_NORMAL
@@ -460,7 +460,7 @@
 	if(!Adjacent(user))
 		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] isn't connected, wrench it into position first!</span>")
+		to_chat(user, span_warning("[src] isn't connected, wrench it into position first!"))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -503,14 +503,14 @@
 
 /obj/structure/sink/attackby(obj/item/O, mob/user, params)
 	if(busy)
-		to_chat(user, "<span class='warning'>Someone's already washing here!</span>")
+		to_chat(user, span_warning("Someone's already washing here!"))
 		return
 
 	if(!(istype(O)))
 		return
 
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] isn't connected, wrench it into position first!</span>")
+		to_chat(user, span_warning("[src] isn't connected, wrench it into position first!"))
 		return
 
 	busy = 1
@@ -633,7 +633,7 @@
 	if(proximity_flag != 1) //if we aren't next to the wall
 		return
 	if(!(get_dir(on_wall, user) in GLOB.cardinal))
-		to_chat(user, "<span class='warning'>You need to be standing next to a wall to place \the [src].</span>")
+		to_chat(user, span_warning("You need to be standing next to a wall to place \the [src]."))
 		return
 	return 1
 
@@ -669,10 +669,10 @@
 /obj/item/bathroom_parts/attack_self(mob/user)
 	var/turf/T = get_turf(user)
 	if(!T)
-		to_chat(user, "<span class='warning'>You can't build that here!</span>")
+		to_chat(user, span_warning("You can't build that here!"))
 		return
 	if(result in T.contents)
-		to_chat(user, "<span class='warning'>There's already \an [result_name] here.</span>")
+		to_chat(user, span_warning("There's already \an [result_name] here."))
 		return
 	user.visible_message(span_notice("[user] begins assembling a new [result_name]."), span_notice("You begin assembling a new [result_name]."))
 	if(do_after(user, 30, target = user))

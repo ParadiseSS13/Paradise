@@ -76,12 +76,12 @@
 	if(gripped_item)
 		gripped_item.attack_self(user)
 	else
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		to_chat(user, span_warning("[src] is empty."))
 
 /obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
 	if(gripped_item)
 		if(!silent)
-			to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
+			to_chat(loc, span_warning("You drop [gripped_item]."))
 		gripped_item.forceMove(get_turf(src))
 		gripped_item = null
 
@@ -119,7 +119,7 @@
 			I.forceMove(src)
 			gripped_item = I
 		else
-			to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
+			to_chat(user, span_warning("Your gripper cannot hold [target]."))
 			return FALSE
 
 	else if(istype(target,/obj/machinery/power/apc))
@@ -137,7 +137,7 @@
 				A.charging = 0
 				A.update_icon()
 
-				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
+				user.visible_message(span_warning("[user] removes the power cell from [A]!"), "You remove the power cell.")
 	return TRUE
 
 //TODO: Matter decompiler.
@@ -176,7 +176,7 @@
 	if(grabbed_something)
 		to_chat(user, span_notice("You deploy your decompiler and clear out the contents of \the [T]."))
 	else
-		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
+		to_chat(user, span_warning("Nothing on \the [T] is useful to you."))
 	return
 
 //Putting the decompiler here to avoid doing list checks every tick.

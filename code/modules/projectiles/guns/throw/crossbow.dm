@@ -48,7 +48,7 @@
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
 		var/obj/item/arrow/rod/R = I
-		visible_message("<span class='danger'>[R] plinks and crackles as it begins to glow red-hot.</span>")
+		visible_message(span_danger("[R] plinks and crackles as it begins to glow red-hot."))
 		R.throwforce = 15
 		R.superheated = 1
 		cell.use(500)
@@ -85,7 +85,7 @@
 	if(user.incapacitated())
 		return
 	if(!to_launch)
-		to_chat(user, "<span class='warning'>You can't draw [src] without a bolt nocked.</span>")
+		to_chat(user, span_warning("You can't draw [src] without a bolt nocked."))
 		return
 
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")

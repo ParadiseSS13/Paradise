@@ -39,7 +39,7 @@
 		if(no_den_usage)
 			var/area/A = get_area(user)
 			if(istype(A, /area/wizard_station))
-				to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].</span>")
+				to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 				return
 			else
 				no_den_usage = FALSE
@@ -49,7 +49,7 @@
 	update_icon()
 
 /obj/item/gun/magic/wand/proc/zap_self(mob/living/user)
-	user.visible_message("<span class='danger'>[user] zaps [user.p_them()]self with [src].</span>")
+	user.visible_message(span_danger("[user] zaps [user.p_them()]self with [src]."))
 	playsound(user, fire_sound, 50, 1)
 	user.create_attack_log("<b>[key_name(user)]</b> zapped [user.p_them()]self with a <b>[src]</b>")
 	add_attack_logs(user, user, "zapped [user.p_them()]self with a [src]", ATKLOG_ALL)
@@ -75,7 +75,7 @@
 			user.revive()
 			to_chat(user, span_notice("You feel great!"))
 			return
-	to_chat(user, "<span class='warning'>You irradiate yourself with pure negative energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]</span>")
+	to_chat(user, span_warning("You irradiate yourself with pure negative energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]"))
 	if(ismachineperson(user)) //speshul snowfleks deserv speshul treetment
 		user.adjustFireLoss(6969)
 	user.death(FALSE)
@@ -98,7 +98,7 @@
 	charges--
 	if(isliving(user))
 		if(user.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
-			to_chat(user, "<span class='warning'>You irradiate yourself with pure positive energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]</span>")
+			to_chat(user, span_warning("You irradiate yourself with pure positive energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]"))
 			user.death(FALSE)
 			return
 	user.revive()

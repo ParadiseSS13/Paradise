@@ -15,7 +15,7 @@
 /datum/rep_purchase/blackout/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	if(next_blackout > world.time)
 		var/timeleft = (next_blackout - world.time) / 10
-		to_chat(user, "<span class='warning'>Another blackout may not be requested for [seconds_to_clock(timeleft)].</span>")
+		to_chat(user, span_warning("Another blackout may not be requested for [seconds_to_clock(timeleft)]."))
 		return FALSE
 	return ..()
 

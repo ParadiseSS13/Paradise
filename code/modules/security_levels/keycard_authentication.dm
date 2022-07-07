@@ -26,7 +26,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
-	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
+	to_chat(user, span_warning("The station AI is not to interact with these devices."))
 	return
 
 /obj/machinery/keycard_auth/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -44,13 +44,13 @@
 					SStgui.update_uis(src)
 			else if(swiping)
 				if(event == "Emergency Response Team" && !ert_reason)
-					to_chat(user, "<span class='warning'>Supply a reason for calling the ERT first!</span>")
+					to_chat(user, span_warning("Supply a reason for calling the ERT first!"))
 					return
 				event_triggered_by = usr
 				SStgui.update_uis(src)
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 		return
 	return ..()
 
@@ -92,10 +92,10 @@
 	if(..())
 		return
 	if(busy)
-		to_chat(usr, "<span class='warning'>This device is busy.</span>")
+		to_chat(usr, span_warning("This device is busy."))
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	. = TRUE
 	switch(action)

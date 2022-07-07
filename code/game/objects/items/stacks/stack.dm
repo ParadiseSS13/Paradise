@@ -111,7 +111,7 @@
 	if(get_amount() <= 0)
 		user << browse(null, "window=stack")
 		if(is_cyborg)
-			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [name]!</span>")
+			to_chat(user, span_warning("You don't have enough energy to dispense more [name]!"))
 		return
 
 	user.set_machine(src) //for correct work of onclose
@@ -194,34 +194,34 @@
 
 		if(get_amount() < R.req_amount * multiplier)
 			if(R.req_amount * multiplier > 1)
-				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount * multiplier] [R.title]\s!</span>")
+				to_chat(usr, span_warning("You haven't got enough [src] to build \the [R.req_amount * multiplier] [R.title]\s!"))
 			else
-				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
+				to_chat(usr, span_warning("You haven't got enough [src] to build \the [R.title]!"))
 			return FALSE
 
 		if(R.window_checks && !valid_window_location(get_turf(src), usr.dir))
-			to_chat(usr, "<span class='warning'>\The [R.title] won't fit here!</span>")
+			to_chat(usr, span_warning("\The [R.title] won't fit here!"))
 			return FALSE
 
 		if(R.one_per_turf && (locate(R.result_type) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
+			to_chat(usr, span_warning("There is another [R.title] here!"))
 			return FALSE
 
 		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
+			to_chat(usr, span_warning("\The [R.title] must be constructed on the floor!"))
 			return FALSE
 		if(R.on_floor_or_lattice && !(istype(get_turf(src), /turf/simulated) || locate(/obj/structure/lattice) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
+			to_chat(usr, span_warning("\The [R.title] must be constructed on the floor or lattice!"))
 			return FALSE
 
 		if(R.cult_structure)
 			if(usr.holy_check())
 				return
 			if(!is_level_reachable(usr.z))
-				to_chat(usr, "<span class='warning'>\The energies of this place interfere with the metal shaping!</span>")
+				to_chat(usr, span_warning("\The energies of this place interfere with the metal shaping!"))
 				return
 			if(locate(/obj/structure/cult) in get_turf(src))
-				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+				to_chat(usr, span_warning("There is a structure here!"))
 				return FALSE
 
 		if(R.time)
@@ -230,7 +230,7 @@
 				return FALSE
 
 		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			to_chat(usr, span_warning("There is a structure here!"))
 			return FALSE
 
 		if(get_amount() < R.req_amount * multiplier)
@@ -311,7 +311,7 @@
 
 /obj/item/stack/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user))
 		return

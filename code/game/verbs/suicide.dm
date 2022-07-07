@@ -102,7 +102,7 @@
 					do_suicide(damagetype, O)
 					return
 
-		to_chat(viewers(src), "<span class='danger'>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
+		to_chat(viewers(src), span_danger("[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide."))
 		do_suicide(0)
 
 /mob/living/carbon/brain/verb/suicide()
@@ -124,7 +124,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(loc), "<span class='danger'>[src]'s brain is growing dull and lifeless. It looks like it's lost the will to live.</span>")
+		to_chat(viewers(loc), span_danger("[src]'s brain is growing dull and lifeless. It looks like it's lost the will to live."))
 		spawn(50)
 			death(0)
 			suiciding = 0
@@ -145,7 +145,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
+		to_chat(viewers(src), span_danger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."))
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
@@ -164,7 +164,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
+		to_chat(viewers(src), span_danger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."))
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
@@ -200,7 +200,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide.</span>")
+		to_chat(viewers(src), span_danger("[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide."))
 		//put em at -175
 		adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
@@ -239,5 +239,5 @@
 
 	if(confirm == "Yes")
 		suiciding = TRUE
-		visible_message("<span class='danger'>[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide.</span>")
+		visible_message(span_danger("[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide."))
 		adjustOxyLoss(max(100 - getBruteLoss(100), 0))

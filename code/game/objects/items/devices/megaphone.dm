@@ -14,28 +14,28 @@
 
 /obj/item/megaphone/attack_self(mob/living/user as mob)
 	if(check_mute(user.ckey, MUTE_IC))
-		to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
+		to_chat(src, span_warning("You cannot speak in IC (muted)."))
 		return
 	if(!ishuman(user))
-		to_chat(user, "<span class='warning'>You don't know how to use this!</span>")
+		to_chat(user, span_warning("You don't know how to use this!"))
 		return
 	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>You find yourself unable to speak at all.</span>")
+		to_chat(user, span_warning("You find yourself unable to speak at all."))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/abductor/H = user
 		if(isabductor(H))
-			to_chat(user, "<span class='warning'>Megaphones can't project psionic communication!</span>")
+			to_chat(user, span_warning("Megaphones can't project psionic communication!"))
 			return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H && H.mind && H.mind.miming)
-			to_chat(user, "<span class='warning'>Your vow of silence prevents you from speaking.</span>")
+			to_chat(user, span_warning("Your vow of silence prevents you from speaking."))
 			return
 		if(HAS_TRAIT(H, TRAIT_COMIC_SANS))
 			span = "sans"
 	if(spamcheck)
-		to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
+		to_chat(user, span_warning("\The [src] needs to recharge!"))
 		return
 
 	var/message = input(user, "Shout a message:", "Megaphone") as text|null
@@ -54,7 +54,7 @@
 				saymsg(user, pick(insultmsg))
 				insults--
 			else
-				to_chat(user, "<span class='warning'>*BZZZZzzzzzt*</span>")
+				to_chat(user, span_warning("*BZZZZzzzzzt*"))
 		else
 			if(span)
 				message = "<span class='[span]'>[message]</span>"
@@ -76,6 +76,6 @@
 
 /obj/item/megaphone/emag_act(user as mob)
 	if(!emagged)
-		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
+		to_chat(user, span_warning("You overload \the [src]'s voice synthesizer."))
 		emagged = 1
 		insults = rand(1, 3)//to prevent dickflooding

@@ -107,7 +107,7 @@
 
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
-		to_chat(user, "<span class='warning'>[src] has already been shortened!</span>")
+		to_chat(user, span_warning("[src] has already been shortened!"))
 		return
 	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
 		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
@@ -115,13 +115,13 @@
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
 			process_fire(user, user)
-			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+			user.visible_message(span_danger("\The [src] goes off!"), span_danger("\The [src] goes off in your face!"))
 			return
 		else
 			afterattack(user, user)
 			user.visible_message("[src] goes click!", span_notice("[src] you are holding goes click."))
 	if(magazine.ammo_count())	//Spill the mag onto the floor
-		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
+		user.visible_message(span_danger("[user.name] opens [src] up and the shells go goes flying around!"), "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
 		while(get_ammo(0) > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
@@ -150,7 +150,7 @@
 
 /obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
 	if(sawn_state == SAWN_INTACT)
-		to_chat(user, "<span class='warning'>[src] has not been shortened!</span>")
+		to_chat(user, span_warning("[src] has not been shortened!"))
 		return
 	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
 		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
@@ -158,13 +158,13 @@
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
 			afterattack(user, user)
-			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+			user.visible_message(span_danger("\The [src] goes off!"), span_danger("\The [src] goes off in your face!"))
 			return
 		else
 			afterattack(user, user)
 			user.visible_message("[src] goes click!", span_notice("[src] you are holding goes click."))
 	if(magazine.ammo_count())	//Spill the mag onto the floor
-		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
+		user.visible_message(span_danger("[user.name] opens [src] up and the shells go goes flying around!"), "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
 		while(get_ammo() > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
@@ -283,7 +283,7 @@
 		discard_gun(user)
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/proc/discard_gun(mob/living/user)
-	user.visible_message("<span class='warning'>[user] tosses aside the spent rifle!</span>")
+	user.visible_message(span_warning("[user] tosses aside the spent rifle!"))
 	user.throw_item(pick(oview(7, get_turf(user))))
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage

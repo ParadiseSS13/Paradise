@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_name)
 		return 0
 	if(!allow_rename)
-		to_chat(src, "<span class='warning'>Rename functionality is not enabled on this unit.</span>")
+		to_chat(src, span_warning("Rename functionality is not enabled on this unit."))
 		return 0
 	rename_self(braintype, 1)
 
@@ -502,7 +502,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/datum/robot_component/C = components[toggle]
 	C.toggle()
-	to_chat(src, "<span class='warning'>You [C.toggled ? "enable" : "disable"] [C.name].</span>")
+	to_chat(src, span_warning("You [C.toggled ? "enable" : "disable"] [C.name]."))
 
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -663,7 +663,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			var/datum/robot_component/C = components[V]
 			if(C.is_missing() && istype(W, C.external_type))
 				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
+					to_chat(user, span_warning("[W] seems to be stuck in your hand!"))
 					return
 				C.install(W)
 				W.loc = null
@@ -683,7 +683,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, span_notice("Nothing to fix!"))
 			return
 		else if(!getFireLoss(TRUE))
-			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
+			to_chat(user, span_warning("The damaged components are beyond saving!"))
 			return
 		var/obj/item/stack/cable_coil/coil = W
 		adjustFireLoss(-30)
@@ -727,14 +727,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				to_chat(src, span_notice("[user] [ locked ? "locked" : "unlocked"] your interface."))
 				update_icons()
 			else
-				to_chat(user, "<span class='warning'>Access denied.</span>")
+				to_chat(user, span_warning("Access denied."))
 
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
-			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
+			to_chat(user, span_warning("You must access the borg's internals!"))
 		else if(!src.module && U.require_module)
-			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
+			to_chat(user, span_warning("The borg must choose a module before it can be upgraded!"))
 		else
 			if(!user.drop_item())
 				return
@@ -744,13 +744,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	else if(istype(W, /obj/item/mmi_radio_upgrade))
 		if(!opened)
-			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
+			to_chat(user, span_warning("You must access the borg's internals!"))
 			return
 		else if(!mmi)
-			to_chat(user, "<span class='warning'>This cyborg does not have an MMI to augment!</span>")
+			to_chat(user, span_warning("This cyborg does not have an MMI to augment!"))
 			return
 		else if(mmi.radio)
-			to_chat(user, "<span class='warning'>A radio upgrade is already installed in the MMI!</span>")
+			to_chat(user, span_warning("A radio upgrade is already installed in the MMI!"))
 			return
 		else if(user.drop_item())
 			to_chat(user, span_notice("You apply the upgrade to [src]."))
@@ -917,19 +917,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("Only [M.real_name] and people [M.p_they()] designate[M.p_s()] as being such are Syndicate Agents.")
 			playsound_local(src, 'sound/voice/aisyndihack.ogg', 75, FALSE)
-			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
+			to_chat(src, span_warning("ALERT: Foreign software detected."))
 			sleep(5)
-			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
+			to_chat(src, span_warning("Initiating diagnostics..."))
 			sleep(20)
-			to_chat(src, "<span class='warning'>SynBorg v1.7 loaded.</span>")
+			to_chat(src, span_warning("SynBorg v1.7 loaded."))
 			sleep(5)
-			to_chat(src, "<span class='warning'>LAW SYNCHRONISATION ERROR</span>")
+			to_chat(src, span_warning("LAW SYNCHRONISATION ERROR"))
 			sleep(5)
-			to_chat(src, "<span class='warning'>Would you like to send a report to NanoTraSoft? Y/N</span>")
+			to_chat(src, span_warning("Would you like to send a report to NanoTraSoft? Y/N"))
 			sleep(10)
-			to_chat(src, "<span class='warning'>> N</span>")
+			to_chat(src, span_warning("> N"))
 			sleep(25)
-			to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
+			to_chat(src, span_warning("ERRORERRORERROR"))
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
 			if(!mmi.syndiemmi)
@@ -960,7 +960,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(usr, span_notice("You [locked ? "lock" : "unlock"] your cover."))
 		return
 	if(!locked)
-		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a robotocist.</span>")
+		to_chat(usr, span_warning("You cannot lock your cover yourself. Find a robotocist."))
 		return
 	if(alert("You cannnot lock your own cover again. Are you sure?\n           You will need a robotocist to re-lock you.", "Unlock Own Cover", "Yes", "No") == "Yes")
 		locked = !locked
@@ -1068,7 +1068,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/control_headlamp()
 	if(stat || lamp_recharging || low_power_mode)
-		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
+		to_chat(src, span_danger("This function is currently offline."))
 		return
 	if(is_ventcrawling(src))
 		return
@@ -1083,7 +1083,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(lamp_intensity && (turn_off || stat || low_power_mode))
 		if(show_warning)
-			to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
+			to_chat(src, span_danger("Your headlamp has been deactivated."))
 		lamp_intensity = 0
 		lamp_recharging = 1
 		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
@@ -1336,7 +1336,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
-		visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", "<span class='userdanger'>[P] gets reflected by [src]!</span>")
+		visible_message(span_danger("[P] gets reflected by [src]!"), "<span class='userdanger'>[P] gets reflected by [src]!</span>")
 		P.reflect_back(src)
 		return -1
 	return ..(P)
@@ -1513,21 +1513,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(health < 50) //Gradual break down of modules as more damage is sustained
 			if(uneq_module(module_state_3))
 				if(makes_sound)
-					audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\"</span>")
+					audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\""))
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
 
 			if(health < 0)
 				if(uneq_module(module_state_2))
 					if(makes_sound)
-						audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\"</span>")
+						audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\""))
 						playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, TRUE)
 					to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
 
 				if(health < -50)
 					if(uneq_module(module_state_1))
 						if(makes_sound)
-							audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
+							audible_message(span_warning("[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\""))
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
 
@@ -1542,10 +1542,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		if(!start_audio_emote_cooldown(10 SECONDS))
-			to_chat(src, "<span class='warning'>The low-power capacitor for your speaker system is still recharging, please try again later.</span>")
+			to_chat(src, span_warning("The low-power capacitor for your speaker system is still recharging, please try again later."))
 			return
 		visible_message("<span class='warning'>The power warning light on <span class='name'>[src]</span> flashes urgently.</span>",\
-						 "<span class='warning'>You announce you are operating in low power mode.</span>")
+						 span_warning("You announce you are operating in low power mode."))
 		playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 	else
-		to_chat(src, "<span class='warning'>You can only use this emote when you're out of charge.</span>")
+		to_chat(src, span_warning("You can only use this emote when you're out of charge."))

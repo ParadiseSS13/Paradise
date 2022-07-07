@@ -163,7 +163,7 @@
 		return
 
 	if(!user.unEquip(R))
-		to_chat(user, "<span class='warning'>[R] is stuck to your hand!</span>")
+		to_chat(user, span_warning("[R] is stuck to your hand!"))
 		return
 
 	matter += R.ammoamt
@@ -286,7 +286,7 @@
 
 		if("set_lock")
 			if(!allowed(usr))
-				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				to_chat(usr, span_warning("Access denied."))
 				return FALSE
 			locked = params["new_lock"] == "lock" ? TRUE : FALSE
 
@@ -357,7 +357,7 @@
 			var/turf/AT = get_turf(A)
 			AT.ChangeTurf(/turf/simulated/floor/plating)
 			return TRUE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this floor!</span>")
+		to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this floor!"))
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		return FALSE
 
@@ -373,10 +373,10 @@
 				AT.ChangeTurf(/turf/simulated/wall)
 				return TRUE
 			return FALSE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this wall!</span>")
+		to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this wall!"))
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		return FALSE
-	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for wall construction!</span>")
+	to_chat(user, span_warning("ERROR! Location unsuitable for wall construction!"))
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	return FALSE
 
@@ -409,10 +409,10 @@
 					T.req_access = selected_accesses.Copy()
 				return FALSE
 			return FALSE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this airlock!</span>")
+		to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this airlock!"))
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		return FALSE
-	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for airlock construction!</span>")
+	to_chat(user, span_warning("ERROR! Location unsuitable for airlock construction!"))
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	return FALSE
 
@@ -443,7 +443,7 @@
 				AT.ChangeTurf(/turf/simulated/floor/plating)
 				return TRUE
 			return FALSE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this wall!</span>")
+		to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this wall!"))
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		return FALSE
 
@@ -459,7 +459,7 @@
 				AT.ChangeTurf(AT.baseturf)
 				return TRUE
 			return FALSE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this floor!</span>")
+		to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this floor!"))
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		return FALSE
 
@@ -474,7 +474,7 @@
 				qdel(A)
 				return TRUE
 			return FALSE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this airlock!</span>")
+		to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this airlock!"))
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		return FALSE
 
@@ -482,7 +482,7 @@
 		A = locate(/obj/structure/grille) in A.loc
 	if(istype(A, /obj/structure/grille))
 		if(!checkResource(2, user))
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this window!</span>")
+			to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this window!"))
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
 		to_chat(user, "Deconstructing window...")
@@ -513,7 +513,7 @@
 		if(locate(/obj/structure/grille) in A)
 			return FALSE // We already have window
 		if(!checkResource(2, user))
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this window!</span>")
+			to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this window!"))
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
 		to_chat(user, "Constructing window...")
@@ -532,7 +532,7 @@
 		var/turf/AT = A
 		AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
 		return TRUE
-	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for window construction!</span>")
+	to_chat(user, span_warning("ERROR! Location unsuitable for window construction!"))
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	return FALSE
 

@@ -16,7 +16,7 @@
 		E.flash_protect = FLASH_PROTECTION_WELDER //Adjust the user's eyes' flash protection
 		to_chat(user, span_notice("We adjust our eyes to protect them from bright lights."))
 	else
-		to_chat(user, "<span class='warning'>We can't adjust our eyes if we don't have any!</span>")
+		to_chat(user, span_warning("We can't adjust our eyes if we don't have any!"))
 
 /datum/action/changeling/augmented_eyesight/sting_action(mob/living/carbon/user)
 	if(!istype(user))
@@ -36,7 +36,7 @@
 			active = FALSE
 		user.update_sight()
 	else
-		to_chat(user, "<span class='warning'>We can't adjust our eyes if we don't have any!</span>")
+		to_chat(user, span_warning("We can't adjust our eyes if we don't have any!"))
 	return TRUE
 
 

@@ -27,12 +27,12 @@ In all, this is a lot like the monkey code. /N
 			if(health > 0)
 				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
+				visible_message(span_danger("[M.name] bites [src]!"), \
 						"<span class='userdanger'>[M.name] bites [src]!</span>")
 				adjustBruteLoss(1)
 				add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
 			else
-				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
+				to_chat(M, span_warning("[name] is too injured for that."))
 
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
 	return attack_alien(L)

@@ -70,7 +70,7 @@
 	if(..())
 		return TRUE
 	if(!storedorgan)
-		to_chat(user, "<span class='warning'>There's no implant in [src] for you to remove!</span>")
+		to_chat(user, span_warning("There's no implant in [src] for you to remove!"))
 	else
 		storedorgan.forceMove(user.drop_location())
 

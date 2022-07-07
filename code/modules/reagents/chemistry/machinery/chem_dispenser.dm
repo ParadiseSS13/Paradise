@@ -243,7 +243,7 @@
 		return
 
 	if(beaker)
-		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
+		to_chat(user, span_warning("Something is already loaded into the machine."))
 		return
 
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
@@ -251,7 +251,7 @@
 			to_chat(user, span_notice("Close the maintenance panel first."))
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
+			to_chat(user, span_warning("[I] is stuck to you!"))
 			return
 		beaker =  I
 		I.forceMove(src)
@@ -323,10 +323,10 @@
 	if(!is_drink || !Adjacent(user))
 		return
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] is anchored to the floor!</span>")
+		to_chat(user, span_warning("[src] is anchored to the floor!"))
 		return
 	pixel_x = 0
 	pixel_y = 0
@@ -455,7 +455,7 @@
 				to_chat(user, span_notice("You dispense [actual] unit\s of [current_reagent] into [target]."))
 				update_icon()
 			else if(free) // If actual is nil and there's still free space, it means we're out of juice
-				to_chat(user, "<span class='warning'>Insufficient energy to complete operation.</span>")
+				to_chat(user, span_warning("Insufficient energy to complete operation."))
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
 				to_chat(user, span_notice("You remove [amount] unit\s of [current_reagent] from [target]."))
@@ -467,7 +467,7 @@
 	if(cell)
 		ui_interact(user)
 	else
-		to_chat(user, "<span class='warning'>[src] lacks a power cell!</span>")
+		to_chat(user, span_warning("[src] lacks a power cell!"))
 
 
 /obj/item/handheld_chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)

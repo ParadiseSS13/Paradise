@@ -284,7 +284,7 @@
 				H.apply_damage_type(TC * CM * cold_damage_types[D], D)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
+				to_chat(H, span_warning("You feel [cold_message] in your [name]!"))
 
 	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/HM = abs(H.dna.species.heatmod)
@@ -300,7 +300,7 @@
 				H.apply_damage_type(TH * HM * heat_damage_types[D], D)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
+				to_chat(H, span_warning("You feel [hot_message] in your [name]!"))
 
 /obj/item/organ/internal/lungs/prepare_eat()
 	var/obj/S = ..()

@@ -15,9 +15,9 @@
 		if(stat & BROKEN)
 			return ..()
 		if(stat & NOPOWER)
-			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge.</span>")
+			to_chat(user, span_warning("The screws on [name]'s screen won't budge."))
 		else
-			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep!.</span>")
+			to_chat(user, span_warning("The screws on [name]'s screen won't budge and it emits a warning beep!."))
 		return TRUE
 	else
 		return ..()
@@ -62,7 +62,7 @@
 	switch(action)
 		if("fix")
 			if(active) // Prevent from starting a fix while fixing.
-				to_chat(usr, "<span class='warning'>You are already fixing this AI!</span>")
+				to_chat(usr, span_warning("You are already fixing this AI!"))
 				return
 			active = TRUE
 			INVOKE_ASYNC(src, .proc/fix_ai)

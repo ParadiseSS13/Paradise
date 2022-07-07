@@ -31,7 +31,7 @@
 		var/mob/living/carbon/C = mob
 		C.toggle_throw_mode()
 	else
-		to_chat(usr, "<span class='danger'>This mob type cannot throw items.</span>")
+		to_chat(usr, span_danger("This mob type cannot throw items."))
 
 /client/proc/Move_object(direct)
 	if(mob && mob.control_object)
@@ -121,7 +121,7 @@
 		for(var/mob/M in orange(1, mob))
 			if(M.pulling == mob)
 				if(!M.incapacitated() && mob.Adjacent(M))
-					to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
+					to_chat(src, span_warning("You're restrained! You can't move!"))
 					move_delay = world.time + 10
 					return 0
 				else
@@ -223,14 +223,14 @@
 					move_delay = world.time + 10
 					if(!prob(25))
 						return TRUE
-					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s grip!</span>")
+					mob.visible_message(span_danger("[mob] has broken free of [G.assailant]'s grip!"))
 					qdel(G)
 
 				if(GRAB_NECK)
 					move_delay = world.time + 10
 					if(!prob(5))
 						return TRUE
-					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s headlock!</span>")
+					mob.visible_message(span_danger("[mob] has broken free of [G.assailant]'s headlock!"))
 					qdel(G)
 	return FALSE
 
@@ -289,7 +289,7 @@
 		if(3) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & NOJAUNT)
-				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
+				to_chat(L, span_warning("Holy energies block your path."))
 				L.notransform = 1
 				spawn(2)
 					L.notransform = 0

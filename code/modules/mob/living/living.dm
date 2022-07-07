@@ -90,7 +90,7 @@
 		var/mob/living/L = M
 		if(L.pulledby && L.pulledby != src && L.restrained())
 			if(!(world.time % 5))
-				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
+				to_chat(src, span_warning("[L] is restrained, you cannot push past."))
 			return TRUE
 
 		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
@@ -101,7 +101,7 @@
 				var/mob/P = L.pulling
 				if(P.restrained())
 					if(!(world.time % 5))
-						to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
+						to_chat(src, span_warning("[L] is restrained, you cannot push past."))
 					return TRUE
 
 	if(moving_diagonally) //no mob swap during diagonal moves.
@@ -255,7 +255,7 @@
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [A] with [hand_item]")
 			return TRUE
-		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
+		A.visible_message(span_danger("[src] points [hand_item] at [A]!"),
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
 		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
 		return TRUE
@@ -756,16 +756,16 @@
 
 			if(GRAB_AGGRESSIVE)
 				if(prob(60))
-					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s grip!</span>")
+					visible_message(span_danger("[src] has broken free of [G.assailant]'s grip!"))
 					qdel(G)
 
 			if(GRAB_NECK)
 				if(prob(5))
-					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s headlock!</span>")
+					visible_message(span_danger("[src] has broken free of [G.assailant]'s headlock!"))
 					qdel(G)
 
 	if(resisting)
-		visible_message("<span class='danger'>[src] resists!</span>")
+		visible_message(span_danger("[src] resists!"))
 		return 1
 
 /mob/living/proc/resist_buckle()
@@ -848,10 +848,10 @@
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = 0)
 	var/item_name = get_strip_slot_name_override(where) || what.name
 	if(what.flags & NODROP)
-		to_chat(src, "<span class='warning'>You can't remove \the [item_name], it appears to be stuck!</span>")
+		to_chat(src, span_warning("You can't remove \the [item_name], it appears to be stuck!"))
 		return
 	if(!silent)
-		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [item_name].</span>", \
+		who.visible_message(span_danger("[src] tries to remove [who]'s [item_name]."), \
 						"<span class='userdanger'>[src] tries to remove [who]'s [item_name].</span>")
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
@@ -866,11 +866,11 @@
 /mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = 0)
 	what = get_active_hand()
 	if(what && (what.flags & NODROP))
-		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
+		to_chat(src, span_warning("You can't put \the [what.name] on [who], it's stuck to your hand!"))
 		return
 	if(what)
 		if(!what.mob_can_equip(who, where, 1))
-			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
+			to_chat(src, span_warning("\The [what.name] doesn't fit in that place!"))
 			return
 		if(!silent)
 			visible_message(span_notice("[src] tries to put [what] on [who]."))
@@ -999,7 +999,7 @@
 
 /mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(src, span_warning("You don't have the dexterity to do this!"))
 		return 0
 	return 1
 
@@ -1017,7 +1017,7 @@
 			return
 		stop_pulling()
 		if(AM.pulledby)
-			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
+			visible_message(span_danger("[src] has pulled [AM] from [AM.pulledby]'s grip."))
 			AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
 	AM.pulledby = src

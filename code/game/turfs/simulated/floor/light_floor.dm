@@ -69,7 +69,7 @@
 		to_chat(user, span_notice("You change [src]'s light bulb color."))
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>[src]'s light bulb appears to have burned out.</span>")
+		to_chat(user, span_warning("[src]'s light bulb appears to have burned out."))
 
 /turf/simulated/floor/light/proc/toggle_light(light)
 	// 0 = OFF
@@ -79,7 +79,7 @@
 
 /turf/simulated/floor/light/extinguish_light()
 	toggle_light(FALSE)
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+	visible_message(span_danger("[src] flickers and falls dark."))
 
 /turf/simulated/floor/light/clean(floor_only)
 	var/color_save = color

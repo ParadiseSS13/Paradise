@@ -22,15 +22,15 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return
 
 	if(!SSticker)
-		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
+		to_chat(usr, span_warning("The game hasn't started yet!"))
 		return
 
 	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
+		to_chat(usr, span_warning("The round hasn't started yet!"))
 		return
 
 	if(GLOB.send_emergency_team)
-		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
+		to_chat(usr, span_warning("Central Command has already dispatched an emergency response team!"))
 		return
 
 	var/datum/ui_module/ert_manager/E = new()
@@ -39,16 +39,16 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
-		to_chat(src, "<span class='warning'>No emergency response team is currently being sent.</span>")
+		to_chat(src, span_warning("No emergency response team is currently being sent."))
 		return 0
 
 	if(jobban_isbanned(src, ROLE_ERT))
-		to_chat(src, "<span class='warning'>You are jobbanned from playing on an emergency response team!</span>")
+		to_chat(src, span_warning("You are jobbanned from playing on an emergency response team!"))
 		return 0
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && GLOB.configuration.gamemode.antag_account_age_restriction)
-		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
+		to_chat(src, span_warning("This role is not yet available to you. You need to wait another [player_age_check] days."))
 		return 0
 
 	if(cannotPossess(src))

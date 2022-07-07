@@ -17,7 +17,7 @@
 		return
 	. = COMPONENT_NO_AFTERATTACK
 	if(spraycan.capped)
-		to_chat(user, "<span class='warning'>Take the cap off first!</span>")
+		to_chat(user, span_warning("Take the cap off first!"))
 		return
 	if(spraycan.uses < 2)
 		to_chat(user, "<span class ='warning'>There is not enough paint in the can!")

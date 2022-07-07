@@ -325,10 +325,10 @@
 		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
 		var/obj/item/organ/external/lhand = S.get_organ("l_hand")
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
-			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
+			to_chat(speaker,span_warning("You can't communicate without the ability to use your hands!"))
 			return FALSE
 	if(HAS_TRAIT(speaker, TRAIT_HANDS_BLOCKED))
-		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
+		to_chat(speaker,span_warning("You can't communicate while unable to move your hands to your head!"))
 		return FALSE
 
 	speaker.visible_message(span_notice("[speaker] touches [speaker.p_their()] fingers to [speaker.p_their()] temple.")) //If placed in grey/broadcast, it will happen regardless of the success of the action.

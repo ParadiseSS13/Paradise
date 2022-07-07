@@ -58,9 +58,9 @@
 			if(objects > 0)
 				user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L]!", span_notice("You successfully remove [objects] objects from [H]'s [L.name]."))
 			else
-				to_chat(user, "<span class='warning'>You find no objects embedded in [H]'s [L]!</span>")
+				to_chat(user, span_warning("You find no objects embedded in [H]'s [L]!"))
 
 	else
-		to_chat(user, "<span class='warning'>You can't find [target]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!</span>")
+		to_chat(user, span_warning("You can't find [target]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!"))
 
 	return TRUE

@@ -29,7 +29,7 @@
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.adjust_nutrition(2)
 	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
-		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
+		user.visible_message(span_warning("[user] begins to scrub \the [target.name] out with [src]."))
 		if(do_after(user, cleanspeed, target = target) && target)
 			to_chat(user, span_notice("You scrub \the [target.name] out."))
 			if(issimulatedturf(target.loc))
@@ -37,12 +37,12 @@
 				return
 			qdel(target)
 	else if(issimulatedturf(target))
-		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
+		user.visible_message(span_warning("[user] begins to clean \the [target.name] with [src]."))
 		if(do_after(user, cleanspeed, target = target))
 			to_chat(user, span_notice("You clean \the [target.name]."))
 			clean_turf(target)
 	else
-		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
+		user.visible_message(span_warning("[user] begins to clean \the [target.name] with [src]."))
 		if(do_after(user, cleanspeed, target = target))
 			to_chat(user, span_notice("You clean \the [target.name]."))
 			var/obj/effect/decal/cleanable/C = locate() in target
@@ -57,7 +57,7 @@
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
-		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [name]!</span>")
+		user.visible_message(span_warning("\the [user] washes \the [target]'s mouth out with [name]!"))
 		return
 	..()
 
@@ -80,7 +80,7 @@
 	if(user.client && (target in user.client.screen))
 		to_chat(user, span_notice("You need to take that [target.name] off before 'cleaning' it."))
 	else
-		user.visible_message("<span class='warning'>[user] begins to smear [src] on \the [target.name].</span>")
+		user.visible_message(span_warning("[user] begins to smear [src] on \the [target.name]."))
 		if(do_after(user, cleanspeed, target = target))
 			to_chat(user, span_notice("You 'clean' \the [target.name]."))
 			if(istype(target, /turf/simulated))

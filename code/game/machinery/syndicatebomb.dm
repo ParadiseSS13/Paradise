@@ -145,7 +145,7 @@
 			WRENCH_UNANCHOR_MESSAGE
 			anchored = FALSE
 		else
-			to_chat(user, "<span class='warning'>The bolts are locked down!</span>")
+			to_chat(user, span_warning("The bolts are locked down!"))
 
 /obj/machinery/syndicatebomb/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -181,11 +181,11 @@
 			payload.loc = user.loc
 			payload = null
 		else
-			to_chat(user, "<span class='warning'>There isn't anything in here to remove!</span>")
+			to_chat(user, span_warning("There isn't anything in here to remove!"))
 	else if(open_panel)
-		to_chat(user, "<span class='warning'>The wires connecting the shell to the explosives are holding it down!</span>")
+		to_chat(user, span_warning("The wires connecting the shell to the explosives are holding it down!"))
 	else
-		to_chat(user, "<span class='warning'>The cover is screwed on, it won't pry off!</span>")
+		to_chat(user, span_warning("The cover is screwed on, it won't pry off!"))
 
 /obj/machinery/syndicatebomb/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -229,7 +229,7 @@
 	if(!Adjacent(user))
 		return FALSE
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied!</span>")
+		to_chat(user, span_warning("Access denied!"))
 		return FALSE
 	return TRUE
 
@@ -252,7 +252,7 @@
 				loc.visible_message(span_notice("[bicon(src)] Device error: User intervention required."))
 			return
 		else
-			loc.visible_message("<span class='danger'>[bicon(src)] [timer_set] seconds until detonation, please clear the area.</span>")
+			loc.visible_message(span_danger("[bicon(src)] [timer_set] seconds until detonation, please clear the area."))
 			activate()
 			update_icon()
 			add_fingerprint(user)
@@ -369,7 +369,7 @@
 	var/obj/machinery/syndicatebomb/holder = loc
 	if(istype(holder))
 		attempts++
-		holder.loc.visible_message("<span class='danger'>[bicon(holder)] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires...</span>")
+		holder.loc.visible_message(span_danger("[bicon(holder)] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires..."))
 		reset()
 	else
 		qdel(src)
@@ -459,7 +459,7 @@
 		adminlogged = TRUE
 	empulse(src, heavy_emp, light_emp, 1)
 	if(pulse_number <= 1)
-		src.visible_message("<span class='warning'>The bomb's core burns out, and the bomb disintegrates into ash.</span>")
+		src.visible_message(span_warning("The bomb's core burns out, and the bomb disintegrates into ash."))
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		if(loc && istype(loc, /obj/machinery/syndicatebomb))
 			qdel(loc)
@@ -540,7 +540,7 @@
 			to_chat(user, span_notice("You load [src] with [I]."))
 			I.loc = src
 		else
-			to_chat(user, "<span class='warning'>[I] won't fit! [src] can only hold up to [max_beakers] containers.</span>")
+			to_chat(user, span_warning("[I] won't fit! [src] can only hold up to [max_beakers] containers."))
 			return
 	else
 		return ..()
@@ -611,9 +611,9 @@
 			ttv = I
 			I.forceMove(src)
 		else if (ttv)
-			to_chat(user, "<span class='warning'>Another tank transfer valve is already loaded.</span>")
+			to_chat(user, span_warning("Another tank transfer valve is already loaded."))
 		else
-			to_chat(user, "<span class='warning'>Remove the attached assembly component first.</span>")
+			to_chat(user, span_warning("Remove the attached assembly component first."))
 	else
 		return ..()
 

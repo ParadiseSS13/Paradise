@@ -50,15 +50,15 @@
 	if(client)
 		if(!check_rights(R_ADMIN, FALSE))
 			if(!GLOB.dsay_enabled)
-				to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
+				to_chat(src, span_danger("Deadchat is globally muted."))
 				return
 
 		if(check_mute(client.ckey, MUTE_DEADCHAT))
-			to_chat(src, "<span class='warning'>You cannot talk in deadchat (muted).</span>")
+			to_chat(src, span_warning("You cannot talk in deadchat (muted)."))
 			return
 
 		if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-			to_chat(src, "<span class='danger'>You have deadchat muted.</span>")
+			to_chat(src, span_danger("You have deadchat muted."))
 			return
 
 		if(client.handle_spam_prevention(message, MUTE_DEADCHAT))

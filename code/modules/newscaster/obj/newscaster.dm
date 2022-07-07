@@ -128,7 +128,7 @@
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
+		to_chat(user, span_warning("The broken remains of [src] fall on the ground."))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)

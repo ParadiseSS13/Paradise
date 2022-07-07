@@ -203,7 +203,7 @@
 				got_cig = 1
 				break
 		if(!got_cig)
-			to_chat(user, "<span class='warning'>There are no smokables in the pack!</span>")
+			to_chat(user, span_warning("There are no smokables in the pack!"))
 	else
 		..()
 

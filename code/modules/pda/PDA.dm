@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(id)
 			remove_id(user)
 		else
-			to_chat(user, "<span class='warning'>This PDA does not have an ID in it!</span>")
+			to_chat(user, span_warning("This PDA does not have an ID in it!"))
 
 /obj/item/pda/CtrlClick(mob/user)
 	..()
@@ -226,7 +226,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 					return
 			O.forceMove(get_turf(src))
 		else
-			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
+			to_chat(user, span_warning("This PDA does not have a pen in it."))
 	else
 		to_chat(user, span_notice("You cannot do this while restrained."))
 
@@ -325,7 +325,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class='danger'>Your [src] explodes!</span>", 1)
+		M.show_message(span_danger("Your [src] explodes!"), 1)
 
 	if(T)
 		T.hotspot_expose(700,125)

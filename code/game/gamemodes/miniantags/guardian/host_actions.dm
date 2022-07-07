@@ -73,7 +73,7 @@
 
 /datum/action/guardian/reset_guardian/Trigger()
 	if(cooldown_timer)
-		to_chat(owner, "<span class='warning'>This ability is still recharging.</span>")
+		to_chat(owner, span_warning("This ability is still recharging."))
 		return
 
 	var/confirm = alert("Are you sure you want replace your guardian's player?", "Confirm", "Yes", "No")
@@ -84,18 +84,18 @@
 	cooldown_timer = addtimer(CALLBACK(src, .proc/reset_cooldown), 5 MINUTES)
 	UpdateButtonIcon()
 
-	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")
+	to_chat(owner, span_danger("Searching for a replacement ghost..."))
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as [guardian.real_name]?", ROLE_GUARDIAN, FALSE, 15 SECONDS, source = guardian)
 
 	if(!length(candidates))
-		to_chat(owner, "<span class='danger'>There were no ghosts willing to take control of your guardian. You can try again in 5 minutes.</span>")
+		to_chat(owner, span_danger("There were no ghosts willing to take control of your guardian. You can try again in 5 minutes."))
 		return
 	if(QDELETED(guardian)) // Just in case
 		return
 
 	var/mob/dead/observer/new_stand = pick(candidates)
-	to_chat(guardian, "<span class='danger'>Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.</span>")
-	to_chat(owner, "<span class='danger'>Your guardian has been successfully reset.</span>")
+	to_chat(guardian, span_danger("Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance."))
+	to_chat(owner, span_danger("Your guardian has been successfully reset."))
 	message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(guardian)])")
 	guardian.ghostize()
 	guardian.key = new_stand.key

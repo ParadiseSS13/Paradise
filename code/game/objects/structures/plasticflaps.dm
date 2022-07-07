@@ -22,14 +22,14 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(state == PLASTIC_FLAPS_NORMAL)
-		user.visible_message("<span class='warning'>[user] starts unscrewing [src] from the floor...</span>", span_notice("You start to unscrew [src] from the floor..."), "You hear rustling noises.")
+		user.visible_message(span_warning("[user] starts unscrewing [src] from the floor..."), span_notice("You start to unscrew [src] from the floor..."), "You hear rustling noises.")
 		if(!I.use_tool(src, user, 180, volume = I.tool_volume) || state != PLASTIC_FLAPS_NORMAL)
 			return
 		state = PLASTIC_FLAPS_DETACHED
 		anchored = FALSE
 		to_chat(user, span_notice("You unscrew [src] from the floor."))
 	else if(state == PLASTIC_FLAPS_DETACHED)
-		user.visible_message("<span class='warning'>[user] starts screwing [src] to the floor.</span>", span_notice("You start to screw [src] to the floor..."), "You hear rustling noises.")
+		user.visible_message(span_warning("[user] starts screwing [src] to the floor."), span_notice("You start to screw [src] to the floor..."), "You hear rustling noises.")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != PLASTIC_FLAPS_DETACHED)
 			return
 		state = PLASTIC_FLAPS_NORMAL

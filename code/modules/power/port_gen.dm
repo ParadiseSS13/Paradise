@@ -158,9 +158,9 @@
 	. += "\The [src] appears to be producing [power_gen*power_output] W."
 	. += "There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper."
 	if(IsBroken())
-		. += "<span class='warning'>\The [src] seems to have broken down.</span>"
+		. += span_warning("\The [src] seems to have broken down.")
 	if(overheating)
-		. += "<span class='danger'>\The [src] is overheating!</span>"
+		. += span_danger("\The [src] is overheating!")
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	var/needed_sheets = power_output / time_per_sheet

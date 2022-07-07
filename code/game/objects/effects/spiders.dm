@@ -45,7 +45,7 @@
 		return TRUE
 	else if(istype(mover, /mob/living))
 		if(prob(50))
-			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
+			to_chat(mover, span_danger("You get stuck in [src] for a moment."))
 			return FALSE
 	else if(istype(mover, /obj/item/projectile))
 		return prob(30)
@@ -215,7 +215,7 @@
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!istype(user, /mob/living/silicon/robot/drone))
 		user.visible_message(span_notice("[user] sucks [src] into its decompiler. There's a horrible crunching noise."), \
-		"<span class='warning'>It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		span_warning("It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises."))
 		C.stored_comms["wood"] += 2
 		C.stored_comms["glass"] += 2
 		qdel(src)
@@ -239,7 +239,7 @@
 	icon_state = pick("cocoon1","cocoon2","cocoon3")
 
 /obj/structure/spider/cocoon/Destroy()
-	visible_message("<span class='danger'>[src] splits open.</span>")
+	visible_message(span_danger("[src] splits open."))
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
 	return ..()

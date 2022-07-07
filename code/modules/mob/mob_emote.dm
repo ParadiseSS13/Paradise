@@ -141,7 +141,7 @@
 			var/obj/item/grab/G = H.get_active_hand()
 			if(G && G.affecting)
 				if(H.buckled || G.affecting.buckled)
-					to_chat(user, "<span class='warning'>[G.affecting] is buckled, you can't flip around [G.affecting.p_them()]!</span>")
+					to_chat(user, span_warning("[G.affecting] is buckled, you can't flip around [G.affecting.p_them()]!"))
 					return TRUE
 				var/turf/oldloc = user.loc
 				var/turf/newloc = G.affecting.loc
@@ -185,7 +185,7 @@
 		return TRUE
 
 	user.spin(32, 1)
-	to_chat(user, "<span class='warning'>You spin too much!</span>")
+	to_chat(user, span_warning("You spin too much!"))
 	var/mob/living/L = user
 	if(istype(L))
 		L.Dizzy(24 SECONDS)

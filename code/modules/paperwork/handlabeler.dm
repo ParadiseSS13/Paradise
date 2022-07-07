@@ -15,16 +15,16 @@
 		return
 
 	if(!labels_left)
-		to_chat(user, "<span class='warning'>No labels left!</span>")
+		to_chat(user, span_warning("No labels left!"))
 		return
 	if(!label || !length(label))
-		to_chat(user, "<span class='warning'>No text set!</span>")
+		to_chat(user, span_warning("No text set!"))
 		return
 	if(length(A.name) + length(label) > 64)
-		to_chat(user, "<span class='warning'>Label too big!</span>")
+		to_chat(user, span_warning("Label too big!"))
 		return
 	if(ismob(A))
-		to_chat(user, "<span class='warning'>You can't label creatures!</span>") // use a collar
+		to_chat(user, span_warning("You can't label creatures!")) // use a collar
 		return
 
 	user.visible_message(span_notice("[user] labels [A] as [label]."), \

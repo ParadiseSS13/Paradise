@@ -7,7 +7,7 @@
 /datum/martial_combo/cqc/slam/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.IsWeakened() || IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL
-	target.visible_message("<span class='warning'>[user] slams [target] into the ground!</span>", \
+	target.visible_message(span_warning("[user] slams [target] into the ground!"), \
 						"<span class='userdanger'>[user] slams you into the ground!</span>")
 	playsound(get_turf(user), 'sound/weapons/slam.ogg', 50, 1, -1)
 	target.apply_damage(10, BRUTE)

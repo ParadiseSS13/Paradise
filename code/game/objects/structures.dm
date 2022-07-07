@@ -63,13 +63,13 @@
 		return FALSE
 	var/blocking_object = density_check()
 	if(blocking_object)
-		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
+		to_chat(user, span_warning("You cannot climb [src], as it is blocked by \a [blocking_object]!"))
 		return FALSE
 
 	var/turf/T = src.loc
 	if(!T || !istype(T)) return FALSE
 
-	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+	usr.visible_message(span_warning("[user] starts climbing onto \the [src]!"))
 	climber = user
 	if(!do_after(user, 50, target = src))
 		climber = null
@@ -83,7 +83,7 @@
 	usr.loc = get_turf(src)
 	usr.Moved(old_loc, get_dir(old_loc, usr.loc), FALSE)
 	if(get_turf(user) == get_turf(src))
-		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+		usr.visible_message(span_warning("[user] climbs onto \the [src]!"))
 
 	climber = null
 	return TRUE
@@ -96,14 +96,14 @@
 			return //No spamming this on people.
 
 		M.Weaken(10 SECONDS)
-		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
+		to_chat(M, span_warning("You topple as \the [src] moves under you!"))
 
 		if(prob(25))
 
 			var/damage = rand(15,30)
 			var/mob/living/carbon/human/H = M
 			if(!istype(H))
-				to_chat(H, "<span class='warning'>You land heavily!</span>")
+				to_chat(H, span_warning("You land heavily!"))
 				M.adjustBruteLoss(damage)
 				return
 
@@ -122,12 +122,12 @@
 					affecting = H.get_organ("head")
 
 			if(affecting)
-				to_chat(M, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
+				to_chat(M, span_warning("You land heavily on your [affecting.name]!"))
 				affecting.receive_damage(damage, 0)
 				if(affecting.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
 			else
-				to_chat(H, "<span class='warning'>You land heavily!</span>")
+				to_chat(H, span_warning("You land heavily!"))
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()
@@ -152,7 +152,7 @@
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			. += "<span class='warning'>It's on fire!</span>"
+			. += span_warning("It's on fire!")
 		if(broken)
 			. += span_notice("It appears to be broken.")
 		var/examine_status = examine_status(user)
@@ -168,7 +168,7 @@
 			return  "It appears heavily damaged."
 		if(0 to 25)
 			if(!broken)
-				return  "<span class='warning'>It's falling apart!</span>"
+				return  span_warning("It's falling apart!")
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE

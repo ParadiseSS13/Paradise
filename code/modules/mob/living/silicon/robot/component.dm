@@ -258,7 +258,7 @@
 
 /obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
-		user.visible_message("<span class='warning'>[user] has analyzed the floor's vitals!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
+		user.visible_message(span_warning("[user] has analyzed the floor's vitals!"), span_warning("You try to analyze the floor's vitals!"))
 		to_chat(user, span_notice("Analyzing Results for The floor:\n\t Overall Status: Healthy"))
 		to_chat(user, span_notice("\t Damage Specifics: [0]-[0]-[0]-[0]"))
 		to_chat(user, span_notice("Key: Suffocation/Toxin/Burns/Brute"))
@@ -277,7 +277,7 @@
 	else if(istype(M, /mob/living/carbon/human))
 		scan_type = "prosthetics"
 	else
-		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
+		to_chat(user, span_warning("You can't analyze non-robotic things!"))
 		return
 
 
@@ -308,10 +308,10 @@
 						(org.powered)	?	"Power ON"		:	"<font color='red'>Power OFF</font>"), 1)
 				if(LAZYLEN(missing))
 					for(var/datum/robot_component/org in missing)
-						user.show_message("<span class='warning'>\t [capitalize(org.name)]: MISSING</span>")
+						user.show_message(span_warning("\t [capitalize(org.name)]: MISSING"))
 
 			if(H.emagged && prob(5))
-				to_chat(user, "<span class='warning'>\t ERROR: INTERNAL SYSTEMS COMPROMISED</span>")
+				to_chat(user, span_warning("\t ERROR: INTERNAL SYSTEMS COMPROMISED"))
 
 		if("prosthetics")
 			var/mob/living/carbon/human/H = M
@@ -327,7 +327,7 @@
 					organ_found = TRUE
 					to_chat(user, "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>")
 			if(!organ_found)
-				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
+				to_chat(user, span_warning("No prosthetics located."))
 			to_chat(user, "<hr>")
 			to_chat(user, span_notice("Internal prosthetics:"))
 			organ_found = null
@@ -338,4 +338,4 @@
 					organ_found = TRUE
 					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
 			if(!organ_found)
-				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
+				to_chat(user, span_warning("No prosthetics located."))

@@ -82,17 +82,17 @@
 
 /datum/action/changeling/evolution_menu/proc/try_purchase_power(power_type)
 	if(power_type in purchased_abilities)
-		to_chat(owner, "<span class='warning'>We have already evolved this ability!</span>")
+		to_chat(owner, span_warning("We have already evolved this ability!"))
 		return FALSE
 	var/datum/action/changeling/power = power_type
 	if(cling.absorbed_count < initial(power.req_dna))
-		to_chat(owner, "<span class='warning'>We must absorb more victims before we can evolve this ability!</span>")
+		to_chat(owner, span_warning("We must absorb more victims before we can evolve this ability!"))
 		return FALSE
 	if(cling.genetic_points < initial(power.dna_cost))
-		to_chat(owner, "<span class='warning'>We cannot afford to evolve this ability!</span>")
+		to_chat(owner, span_warning("We cannot afford to evolve this ability!"))
 		return FALSE
 	if(HAS_TRAIT(owner, TRAIT_FAKEDEATH)) // To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
-		to_chat(owner, "<span class='warning'>We lack the energy to evolve new abilities right now.</span>")
+		to_chat(owner, span_warning("We lack the energy to evolve new abilities right now."))
 		return FALSE
 
 	cling.give_power(new power_type)

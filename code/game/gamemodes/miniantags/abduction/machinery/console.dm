@@ -42,7 +42,7 @@
 	if(..())
 		return
 	if(!isabductor(user))
-		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
+		to_chat(user, span_warning("You start mashing alien buttons at random!"))
 		if(do_after(user, 100, target = src))
 			TeleporterSend()
 		return
@@ -149,7 +149,7 @@
 
 /obj/machinery/abductor/console/proc/SetDroppoint(turf/location,user)
 	if(!istype(location))
-		to_chat(user, "<span class='warning'>That place is not safe for the specimen.</span>")
+		to_chat(user, span_warning("That place is not safe for the specimen."))
 		return
 
 	if(pad)

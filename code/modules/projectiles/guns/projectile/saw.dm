@@ -55,7 +55,7 @@
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
 			if(!cover_open)
-				to_chat(user, "<span class='warning'>[src]'s cover is closed! You can't insert a new mag.</span>")
+				to_chat(user, span_warning("[src]'s cover is closed! You can't insert a new mag."))
 				return
 	return ..()
 

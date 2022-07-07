@@ -150,8 +150,8 @@
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src, 'sound/effects/glassbang.ogg', 100, 1)
-		user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
-							"<span class='warning'>You bang against [src]!</span>", \
+		user.visible_message(span_warning("[user] bangs against [src]!"), \
+							span_warning("You bang against [src]!"), \
 							"You hear a banging sound.")
 		add_fingerprint(user)
 	else
@@ -188,11 +188,11 @@
 			qdel(I)	//gotta delete it here because if window breaks, it won't get deleted
 			switch(state)
 				if(1)
-					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
+					M.visible_message(span_warning("[user] slams [M] against \the [src]!"))
 					M.apply_damage(7)
 					take_damage(10)
 				if(2)
-					M.visible_message("<span class='danger'>[user] bashes [M] against \the [src]!</span>")
+					M.visible_message(span_danger("[user] bashes [M] against \the [src]!"))
 					if(prob(50))
 						M.Weaken(2 SECONDS)
 					M.apply_damage(10)
@@ -288,7 +288,7 @@
 	if(!can_be_reached(user))
 		return
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
+		to_chat(user, span_warning("[src] is already in good condition!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -366,12 +366,12 @@
 		return
 
 	if(anchored)
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		to_chat(usr, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
 
 	var/target_dir = turn(dir, 90)
 	if(!valid_window_location(loc, target_dir))
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
+		to_chat(usr, span_warning("[src] cannot be rotated in that direction!"))
 		return FALSE
 
 	setDir(target_dir)
@@ -389,13 +389,13 @@
 		return
 
 	if(anchored)
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		to_chat(usr, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
 
 	var/target_dir = turn(dir, 270)
 
 	if(!valid_window_location(loc, target_dir))
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
+		to_chat(usr, span_warning("[src] cannot be rotated in that direction!"))
 		return FALSE
 
 	setDir(target_dir)
@@ -407,15 +407,15 @@
 	if(fulltile) // Can't rotate these.
 		return ..()
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 
 	if(!Adjacent(user))
-		to_chat(user, "<span class='warning'>Move closer to the window!</span>")
+		to_chat(user, span_warning("Move closer to the window!"))
 		return
 
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		to_chat(user, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
 
 	var/target_dir = turn(dir, 270)
@@ -423,7 +423,7 @@
 	if(!valid_window_location(loc, target_dir))
 		target_dir = turn(dir, 90)
 	if(!valid_window_location(loc, target_dir))
-		to_chat(user, "<span class='warning'>There is no room to rotate [src].</span>")
+		to_chat(user, span_warning("There is no room to rotate [src]."))
 		return FALSE
 
 	setDir(target_dir)
@@ -543,7 +543,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message(span_notice("[user] starts unwrenching [src] from the wall..."), span_notice("You are unwrenching [src] from the wall..."), "<span class='warning'>You hear ratcheting.</span>")
+	user.visible_message(span_notice("[user] starts unwrenching [src] from the wall..."), span_notice("You are unwrenching [src] from the wall..."), span_warning("You hear ratcheting."))
 	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE

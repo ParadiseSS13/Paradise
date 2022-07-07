@@ -38,7 +38,7 @@
 
 /datum/mutation/disability/epilepsy/on_life(mob/living/carbon/human/H)
 	if((prob(1) && !H.IsParalyzed()))
-		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
+		H.visible_message(span_danger("[H] starts having a seizure!"),"<span class='alert'>You have a seizure!</span>")
 		H.Paralyse(20 SECONDS)
 		H.Jitter(2000 SECONDS)
 

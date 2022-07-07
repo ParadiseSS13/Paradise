@@ -435,7 +435,7 @@
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
+		target.visible_message(span_warning("[target] blocks [user]'s grab attempt!"))
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
@@ -445,19 +445,19 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+		to_chat(user, span_warning("You don't want to harm [target]!"))
 		return FALSE
 	//Vampire code
 	var/datum/antagonist/vampire/V = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V && !V.draining && user.zone_selected == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || !target.blood_volume)
-			to_chat(user, "<span class='warning'>They have no blood!</span>")
+			to_chat(user, span_warning("They have no blood!"))
 			return
 		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
-			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
+			to_chat(user, span_warning("Your fangs fail to pierce [target.name]'s cold flesh"))
 			return
 		if(HAS_TRAIT(target, TRAIT_SKELETONIZED))
-			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
+			to_chat(user, span_warning("There is no blood in a skeleton!"))
 			return
 		//we're good to suck the blood, blaah
 		V.handle_bloodsucking(target)
@@ -465,7 +465,7 @@
 		return
 		//end vampire codes
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
+		target.visible_message(span_warning("[target] blocks [user]'s attack!"))
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
@@ -475,7 +475,7 @@
 		user.do_attack_animation(target, attack.animation_type)
 		if(attack.harmless)
 			playsound(target.loc, attack.attack_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+			target.visible_message(span_danger("[user] [pick(attack.attack_verb)]ed [target]!"))
 			return FALSE
 		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
@@ -492,7 +492,7 @@
 		damage += user.physiology.melee_bonus
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] tried to [pick(attack.attack_verb)] [target]!</span>")
+			target.visible_message(span_danger("[user] tried to [pick(attack.attack_verb)] [target]!"))
 			return FALSE
 
 
@@ -501,10 +501,10 @@
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
-		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+		target.visible_message(span_danger("[user] [pick(attack.attack_verb)]ed [target]!"))
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
-			target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
+			target.visible_message(span_danger("[user] has knocked down [target]!"), \
 							"<span class='userdanger'>[user] has knocked down [target]!</span>")
 			target.KnockDown(4 SECONDS)
 			target.forcesay(GLOB.hit_appends)
@@ -514,10 +514,10 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
+		target.visible_message(span_warning("[target] blocks [user]'s disarm attempt!"))
 		return FALSE
 	if(target.absorb_stun(0))
-		target.visible_message("<span class='warning'>[target] is not affected by [user]'s disarm attempt!</span>")
+		target.visible_message(span_warning("[target] is not affected by [user]'s disarm attempt!"))
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		return FALSE
@@ -533,7 +533,7 @@
 		if(randn <= 25)
 			target.apply_effect(4 SECONDS, WEAKEN, target.run_armor_check(affecting, MELEE))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
+			target.visible_message(span_danger("[user] has pushed [target]!"))
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
 			if(!iscarbon(user))
 				target.LAssailant = null
@@ -546,7 +546,7 @@
 		if(randn <= 60)
 			//BubbleWrap: Disarming breaks a pull
 			if(target.pulling)
-				target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [target.pulling]!</span>")
+				target.visible_message(span_danger("[user] has broken [target]'s grip on [target.pulling]!"))
 				talked = 1
 				target.stop_pulling()
 
@@ -554,14 +554,14 @@
 			if(istype(target.l_hand, /obj/item/grab))
 				var/obj/item/grab/lgrab = target.l_hand
 				if(lgrab.affecting)
-					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [lgrab.affecting]!</span>")
+					target.visible_message(span_danger("[user] has broken [target]'s grip on [lgrab.affecting]!"))
 					talked = 1
 				spawn(1)
 					qdel(lgrab)
 			if(istype(target.r_hand, /obj/item/grab))
 				var/obj/item/grab/rgrab = target.r_hand
 				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [rgrab.affecting]!</span>")
+					target.visible_message(span_danger("[user] has broken [target]'s grip on [rgrab.affecting]!"))
 					talked = 1
 				spawn(1)
 					qdel(rgrab)
@@ -569,13 +569,13 @@
 
 			if(!talked)	//BubbleWrap
 				if(target.drop_item())
-					target.visible_message("<span class='danger'>[user] has disarmed [target]!</span>")
+					target.visible_message(span_danger("[user] has disarmed [target]!"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
 
 	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
+	target.visible_message(span_danger("[user] attempted to disarm [target]!"))
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
@@ -586,7 +586,7 @@
 		if(M.hand)
 			temp = M.bodyparts_by_name["l_hand"]
 		if(!temp || !temp.is_usable())
-			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
+			to_chat(M, span_warning("You can't use your hand."))
 			return
 
 	if(M.mind)
@@ -594,7 +594,7 @@
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
-		H.visible_message("<span class='warning'>[M] attempted to touch [H]!</span>")
+		H.visible_message(span_warning("[M] attempted to touch [H]!"))
 		return FALSE
 
 	switch(M.a_intent)
@@ -769,7 +769,7 @@
 				return FALSE
 			if(I.w_class > WEIGHT_CLASS_BULKY)
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>[I] is too big to attach.</span>")
+					to_chat(H, span_warning("[I] is too big to attach."))
 				return FALSE
 			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
@@ -787,12 +787,12 @@
 		if(slot_tie)
 			if(!H.w_uniform)
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			var/obj/item/clothing/under/uniform = H.w_uniform
 			if(uniform.accessories.len && !uniform.can_attach_accessory(H))
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
+					to_chat(H, span_warning("You already have an accessory of this type attached to your [uniform]."))
 				return FALSE
 			if(!(I.slot_flags & SLOT_TIE))
 				return FALSE
@@ -815,14 +815,14 @@
 		if(!H.IsWeakened())
 			H.emote("collapse")
 		H.Weaken(RAD_MOB_KNOCKDOWN_AMOUNT)
-		to_chat(H, "<span class='danger'>You feel weak.</span>")
+		to_chat(H, span_danger("You feel weak."))
 
 	if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
 		H.vomit(10, TRUE)
 
 	if(radiation > RAD_MOB_MUTATE)
 		if(prob(1))
-			to_chat(H, "<span class='danger'>You mutate!</span>")
+			to_chat(H, span_danger("You mutate!"))
 			randmutb(H)
 			H.emote("gasp")
 			domutcheck(H)
@@ -832,7 +832,7 @@
 		if(!head_organ || (NO_HAIR in species_traits))
 			return
 		if(prob(15) && head_organ.h_style != "Bald")
-			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps...</span>")
+			to_chat(H, span_danger("Your hair starts to fall out in clumps..."))
 			addtimer(CALLBACK(src, .proc/go_bald, H), 5 SECONDS)
 
 /datum/species/proc/go_bald(mob/living/carbon/human/H)

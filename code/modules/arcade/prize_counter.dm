@@ -38,7 +38,7 @@
 			tickets += T.amount
 			qdel(T)
 		else
-			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
+			to_chat(user, span_warning("\The [T] seems stuck to your hand!"))
 		return
 	if(istype(O, /obj/item/screwdriver) && anchored)
 		playsound(src.loc, O.usesound, 50, 1)
@@ -191,7 +191,7 @@ th.cost.toomuch {background:maroon;}
 			updateUsrDialog()
 			return
 		if(!GLOB.global_prizes.PlaceOrder(src, itemID))
-			to_chat(usr, "<span class='warning'>Unable to complete the exchange.</span>")
+			to_chat(usr, span_warning("Unable to complete the exchange."))
 		else
 			to_chat(usr, span_notice("You've successfully purchased the item."))
 

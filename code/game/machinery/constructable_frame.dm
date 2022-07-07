@@ -84,10 +84,10 @@
 							state = 2
 							icon_state = "box_1"
 						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
+							to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
 							return
 				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
+					to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
 				return
 
 			if(istype(P, /obj/item/wrench))
@@ -112,7 +112,7 @@
 					update_namelist()
 					update_req_desc()
 				else
-					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
+					to_chat(user, span_danger("This frame does not accept circuit boards of this type!"))
 				return
 			if(istype(P, /obj/item/wirecutters))
 				playsound(src.loc, P.usesound, 50, 1)
@@ -211,7 +211,7 @@
 						update_req_desc()
 						return 1
 				if(!success)
-					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
+					to_chat(user, span_danger("You cannot add that to the machine!"))
 					return 0
 				return
 	if(user.a_intent == INTENT_HARM)

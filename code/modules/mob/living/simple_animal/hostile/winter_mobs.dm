@@ -94,7 +94,7 @@
 	health = 150
 	desc = "GET THE FAT MAN!"
 	next_stage = /mob/living/simple_animal/hostile/winter/santa/stage_2
-	death_message = "<span class='danger'>HO HO HO! YOU THOUGHT IT WOULD BE THIS EASY?!?</span>"
+	death_message = span_danger("HO HO HO! YOU THOUGHT IT WOULD BE THIS EASY?!?")
 	speed = 2
 	melee_damage_lower = 10
 	melee_damage_upper = 20
@@ -102,7 +102,7 @@
 /mob/living/simple_animal/hostile/winter/santa/stage_2		//stage 2: slow ranged
 	desc = "GET THE FAT MAN AGAIN!"
 	next_stage = /mob/living/simple_animal/hostile/winter/santa/stage_3
-	death_message = "<span class='danger'>YOU'VE BEEN VERY NAUGHTY! PREPARE TO DIE!</span>"
+	death_message = span_danger("YOU'VE BEEN VERY NAUGHTY! PREPARE TO DIE!")
 	maxHealth = 200		//DID YOU REALLY BELIEVE IT WOULD BE THIS EASY!??!!
 	health = 200
 	ranged = TRUE
@@ -113,7 +113,7 @@
 /mob/living/simple_animal/hostile/winter/santa/stage_3		//stage 3: fast rapidfire ranged
 	desc = "WHY WON'T HE DIE ALREADY!?"
 	next_stage = /mob/living/simple_animal/hostile/winter/santa/stage_4
-	death_message = "<span class='danger'>FACE MY FINAL FORM AND KNOW DESPAIR!</span>"
+	death_message = span_danger("FACE MY FINAL FORM AND KNOW DESPAIR!")
 	maxHealth = 250
 	health = 250
 	ranged = TRUE

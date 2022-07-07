@@ -183,7 +183,7 @@
 /obj/item/scythe/tele/attack_self(mob/user)
 	extend = !extend
 	if(extend)
-		to_chat(user, "<span class='warning'>With a flick of your wrist, you extend the scythe. It's reaping time!</span>")
+		to_chat(user, span_warning("With a flick of your wrist, you extend the scythe. It's reaping time!"))
 		icon_state = "tscythe1"
 		item_state = "scythe0"	//use the normal scythe in-hands
 		slot_flags = SLOT_BACK	//won't fit on belt, but can be worn on belt when extended

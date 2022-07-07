@@ -75,19 +75,19 @@
 	if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
 		if(uses >= max_uses)
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, span_warning("[src] is full."))
 			return
 		else if(G.use(decrement))
 			AddUses(increment)
 			to_chat(user, span_notice("You insert a piece of glass into [src]. You have [uses] light\s remaining."))
 			return
 		else
-			to_chat(user, "<span class='warning'>You need one sheet of glass to replace lights!</span>")
+			to_chat(user, span_warning("You need one sheet of glass to replace lights!"))
 		return
 
 	if(istype(I, /obj/item/shard))
 		if(uses >= max_uses)
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, span_warning("[src] is full."))
 			return
 		if(!user.unEquip(I))
 			return
@@ -134,11 +134,11 @@
 					qdel(L)
 
 		if(!found_lightbulbs)
-			to_chat(user, "<span class='warning'>[S] contains no bulbs.</span>")
+			to_chat(user, span_warning("[S] contains no bulbs."))
 			return
 
 		if(!replaced_something && uses == max_uses)
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
+			to_chat(user, span_warning("[src] is full!"))
 			return
 
 		to_chat(user, span_notice("You fill [src] with lights from [S]. " + status_string() + ""))
@@ -211,7 +211,7 @@
 			to_chat(U, "[src]'s refill light blinks red.")
 			return
 	else
-		to_chat(U, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
+		to_chat(U, span_warning("There is a working [target.fitting] already inserted!"))
 		return
 
 /obj/item/lightreplacer/proc/Emag()

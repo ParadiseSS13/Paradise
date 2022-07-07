@@ -219,7 +219,7 @@
 	add_fingerprint(usr)
 	usr.set_machine(src)
 	if(!src.allowed(usr) && !emagged)
-		to_chat(usr, "<span class='warning'>You do not have the required access level</span>")
+		to_chat(usr, span_warning("You do not have the required access level"))
 		return
 
 	if(href_list["main"])

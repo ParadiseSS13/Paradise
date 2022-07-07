@@ -34,8 +34,8 @@
 	magichead.flags |= NODROP | DROPDEL	//curses!
 	magichead.flags_inv = null	//so you can still see their face
 	magichead.voicechange = TRUE	//NEEEEIIGHH
-	target.visible_message(	"<span class='danger'>[target]'s face  lights up in fire, and after the event a horse's head takes its place!</span>", \
-							"<span class='danger'>Your face burns up, and shortly after the fire you realise you have the face of a horse!</span>")
+	target.visible_message(	span_danger("[target]'s face  lights up in fire, and after the event a horse's head takes its place!"), \
+							span_danger("Your face burns up, and shortly after the fire you realise you have the face of a horse!"))
 	if(!target.unEquip(target.wear_mask))
 		qdel(target.wear_mask)
 	target.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)

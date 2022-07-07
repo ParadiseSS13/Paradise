@@ -307,10 +307,10 @@
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/coin))
 		if(!premium.len)
-			to_chat(user, "<span class='warning'>[src] does not accept coins.</span>")
+			to_chat(user, span_warning("[src] does not accept coins."))
 			return
 		if(coin)
-			to_chat(user, "<span class='warning'>There is already a coin in this machine!</span>")
+			to_chat(user, span_warning("There is already a coin in this machine!"))
 			return
 		if(!user.drop_item())
 			return
@@ -321,21 +321,21 @@
 		return
 	if(refill_canister && istype(I, refill_canister))
 		if(!panel_open)
-			to_chat(user, "<span class='warning'>You should probably unscrew the service panel first!</span>")
+			to_chat(user, span_warning("You should probably unscrew the service panel first!"))
 		else if (stat & (BROKEN|NOPOWER))
 			to_chat(user, span_notice("[src] does not respond."))
 		else
 			//if the panel is open we attempt to refill the machine
 			var/obj/item/vending_refill/canister = I
 			if(canister.get_part_rating() == 0)
-				to_chat(user, "<span class='warning'>[canister] is empty!</span>")
+				to_chat(user, span_warning("[canister] is empty!"))
 			else
 				// instantiate canister if needed
 				var/transferred = restock(canister)
 				if(transferred)
 					to_chat(user, span_notice("You loaded [transferred] items in [src]."))
 				else
-					to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
+					to_chat(user, span_warning("There's nothing to restock!"))
 		return
 	if(item_slot_check(user, I))
 		insert_item(user, I)
@@ -382,7 +382,7 @@
 	if(!item_slot)
 		return FALSE
 	if(inserted_item)
-		to_chat(user, "<span class='warning'>There is something already inserted!</span>")
+		to_chat(user, span_warning("There is something already inserted!"))
 		return FALSE
 	return TRUE
 
@@ -391,7 +391,7 @@
 	if(!..())
 		return FALSE
 	if(!istype(I, /obj/item/toy))
-		to_chat(user, "<span class='warning'>[I] isn't compatible with this machine's slot.</span>")
+		to_chat(user, span_warning("[I] isn't compatible with this machine's slot."))
 		return FALSE
 	return TRUE
 */
@@ -426,7 +426,7 @@
 	if(!item_slot || inserted_item)
 		return
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't seem to put it down!</span>")
+		to_chat(user, span_warning("[I] is stuck to your hand, you can't seem to put it down!"))
 		return
 	inserted_item = I
 	I.forceMove(src)
@@ -477,10 +477,10 @@
 
 /obj/machinery/vending/proc/pay_with_account(datum/money_account/customer_account, mob/M)
 	if(!customer_account)
-		to_chat(M, "<span class='warning'>Error: Unable to access account. Please contact technical support if problem persists.</span>")
+		to_chat(M, span_warning("Error: Unable to access account. Please contact technical support if problem persists."))
 		return FALSE
 	if(customer_account.suspended)
-		to_chat(M, "<span class='warning'>Unable to access account: account suspended.</span>")
+		to_chat(M, span_warning("Unable to access account: account suspended."))
 		return FALSE
 	// Have the customer punch in the PIN before checking if there's enough money.
 	// Prevents people from figuring out acct is empty at high security levels
@@ -488,10 +488,10 @@
 		// If card requires pin authentication (ie seclevel 1 or 2)
 		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
 		if(!attempt_account_access(customer_account.account_number, attempt_pin, 2))
-			to_chat(M, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
+			to_chat(M, span_warning("Unable to access account: incorrect credentials."))
 			return FALSE
 	if(currently_vending.price > customer_account.money)
-		to_chat(M, "<span class='warning'>Your bank account has insufficient money to purchase this.</span>")
+		to_chat(M, span_warning("Your bank account has insufficient money to purchase this."))
 		return FALSE
 	// Okay to move the money at this point
 	customer_account.charge(currently_vending.price, GLOB.vendor_account,
@@ -619,7 +619,7 @@
 	if(.)
 		return
 	if(issilicon(usr) && !isrobot(usr))
-		to_chat(usr, "<span class='warning'>The vending machine refuses to interface with you, as you are not in its target demographic!</span>")
+		to_chat(usr, span_warning("The vending machine refuses to interface with you, as you are not in its target demographic!"))
 		return
 	switch(action)
 		if("toggle_voice")
@@ -631,10 +631,10 @@
 			. = TRUE
 		if("remove_coin")
 			if(!coin)
-				to_chat(usr, "<span class='warning'>There is no coin in this machine.</span>")
+				to_chat(usr, span_warning("There is no coin in this machine."))
 				return
 			if(istype(usr, /mob/living/silicon))
-				to_chat(usr, "<span class='warning'>You lack hands.</span>")
+				to_chat(usr, span_warning("You lack hands."))
 				return
 			to_chat(usr, span_notice("You remove [coin] from [src]."))
 			usr.put_in_hands(coin)
@@ -642,32 +642,32 @@
 			. = TRUE
 		if("vend")
 			if(!vend_ready)
-				to_chat(usr, "<span class='warning'>The vending machine is busy!</span>")
+				to_chat(usr, span_warning("The vending machine is busy!"))
 				return
 			if(panel_open)
-				to_chat(usr, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
+				to_chat(usr, span_warning("The vending machine cannot dispense products while its service panel is open!"))
 				return
 			var/key = text2num(params["inum"])
 			var/list/display_records = product_records + coin_records
 			if(extended_inventory)
 				display_records = product_records + coin_records + hidden_records
 			if(key < 1 || key > length(display_records))
-				to_chat(usr, "<span class='warning'>ERROR: invalid inum passed to vendor. Report this bug.</span>")
+				to_chat(usr, span_warning("ERROR: invalid inum passed to vendor. Report this bug."))
 				return
 			var/datum/data/vending_product/R = display_records[key]
 			if(!istype(R))
-				to_chat(usr, "<span class='warning'>ERROR: unknown vending_product record. Report this bug.</span>")
+				to_chat(usr, span_warning("ERROR: unknown vending_product record. Report this bug."))
 				return
 			var/list/record_to_check = product_records + coin_records
 			if(extended_inventory)
 				record_to_check = product_records + coin_records + hidden_records
 			if(!R || !istype(R) || !R.product_path)
-				to_chat(usr, "<span class='warning'>ERROR: unknown product record. Report this bug.</span>")
+				to_chat(usr, span_warning("ERROR: unknown product record. Report this bug."))
 				return
 			if(R in hidden_records)
 				if(!extended_inventory)
 					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
-					to_chat(usr, "<span class='warning'>ERROR: machine does not allow extended_inventory in current state. Report this bug.</span>")
+					to_chat(usr, span_warning("ERROR: machine does not allow extended_inventory in current state. Report this bug."))
 					return
 			else if (!(R in record_to_check))
 				// Exploit prevention, stop the user
@@ -732,13 +732,13 @@
 
 /obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
-		to_chat(user, "<span class='warning'>Access denied.</span>")//Unless emagged of course
+		to_chat(user, span_warning("Access denied."))//Unless emagged of course
 		flick(icon_deny, src)
 		vend_ready = TRUE
 		return
 
 	if(!R.amount)
-		to_chat(user, "<span class='warning'>The vending machine has ran out of that product.</span>")
+		to_chat(user, span_warning("The vending machine has ran out of that product."))
 		vend_ready = TRUE
 		return
 
@@ -891,7 +891,7 @@
 	if(!throw_item)
 		return
 	throw_item.throw_at(target, 16, 3)
-	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
+	visible_message(span_danger("[src] launches [throw_item.name] at [target.name]!"))
 
 /obj/machinery/vending/onTransitZ()
 	return
@@ -990,7 +990,7 @@
 	if(!..())
 		return FALSE
 	if(!I.is_open_container())
-		to_chat(user, "<span class='warning'>You need to open [I] before inserting it.</span>")
+		to_chat(user, span_warning("You need to open [I] before inserting it."))
 		return FALSE
 	return TRUE
 

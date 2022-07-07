@@ -88,15 +88,15 @@
 		return
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
+		to_chat(user, span_warning("You can't use [src] while it's panel is opened!"))
 		return TRUE
 
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
+			to_chat(user, span_warning("A beaker is already loaded into the machine."))
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
+			to_chat(user, span_warning("[I] is stuck to you!"))
 			return
 		beaker = I
 		I.forceMove(src)
@@ -106,11 +106,11 @@
 
 	else if(istype(I, /obj/item/storage/pill_bottle))
 		if(loaded_pill_bottle)
-			to_chat(user, "<span class='warning'>A [loaded_pill_bottle] is already loaded into the machine.</span>")
+			to_chat(user, span_warning("A [loaded_pill_bottle] is already loaded into the machine."))
 			return
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
+			to_chat(user, span_warning("[I] is stuck to you!"))
 			return
 
 		loaded_pill_bottle = I

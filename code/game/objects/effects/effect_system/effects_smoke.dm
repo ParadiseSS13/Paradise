@@ -165,12 +165,12 @@
 			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
 				V.welded = TRUE
 				V.update_icon()
-				V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
+				V.visible_message(span_danger("[V] was frozen shut!"))
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/U in T)
 			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent scrubber.
 				U.welded = TRUE
 				U.update_icon()
-				U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
+				U.visible_message(span_danger("[U] was frozen shut!"))
 		for(var/mob/living/L in T)
 			L.ExtinguishMob()
 		for(var/obj/item/Item in T)

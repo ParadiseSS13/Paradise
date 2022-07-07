@@ -43,7 +43,7 @@
 		var/obj/item/stack/sheet/S = W
 		if(istype(W, /obj/item/stack/sheet/glass))
 			if(S.get_amount() < 5)
-				to_chat(user, "<span class='warning'>You need five sheets of glass to create a reflector!</span>")
+				to_chat(user, span_warning("You need five sheets of glass to create a reflector!"))
 				return
 			else
 				S.use(5)
@@ -51,7 +51,7 @@
 				qdel(src)
 		if(istype(W,/obj/item/stack/sheet/rglass))
 			if(S.get_amount() < 10)
-				to_chat(user, "<span class='warning'>You need ten sheets of reinforced glass to create a double reflector!</span>")
+				to_chat(user, span_warning("You need ten sheets of reinforced glass to create a double reflector!"))
 				return
 			else
 				S.use(10)
@@ -109,7 +109,7 @@
 	if(usr.incapacitated())
 		return
 	if(anchored)
-		to_chat(usr, "<span class='warning'>It is fastened to the floor!</span>")
+		to_chat(usr, span_warning("It is fastened to the floor!"))
 		return 0
 	dir = turn(dir, 270)
 	return 1
@@ -118,7 +118,7 @@
 /obj/structure/reflector/AltClick(mob/user)
 	..()
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user))
 		return

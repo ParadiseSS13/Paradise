@@ -40,7 +40,7 @@
 /obj/item/twohanded/garrote/wield(mob/living/carbon/user)
 	if(strangling)
 		user.visible_message(span_notice("[user] removes [src] from [strangling]'s neck."),
-				"<span class='warning'>You remove [src] from [strangling]'s neck.</span>")
+				span_warning("You remove [src] from [strangling]'s neck."))
 
 		strangling = null
 		update_icon()
@@ -71,7 +71,7 @@
 		return
 
 	if(M.dir != U.dir)
-		to_chat(user, "<span class='warning'>You cannot use [src] on [M] from that angle!</span>")
+		to_chat(user, span_warning("You cannot use [src] on [M] from that angle!"))
 		return
 
 	if(improvised && ((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
@@ -103,7 +103,7 @@
 
 	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
 
-	M.visible_message("<span class='danger'>[U] comes from behind and begins garroting [M] with [src]!</span>", \
+	M.visible_message(span_danger("[U] comes from behind and begins garroting [M] with [src]!"), \
 				  "<span class='userdanger'>[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]</span>", \
 				  "You hear struggling and wire strain against flesh!")
 
@@ -133,8 +133,8 @@
 		G = user.r_hand
 
 	else
-		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
-				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
+		user.visible_message(span_warning("[user] loses [user.p_their()] grip on [strangling]'s neck."), \
+				 span_warning("You lose your grip on [strangling]'s neck."))
 
 		strangling = null
 		update_icon()
@@ -143,8 +143,8 @@
 		return
 
 	if(!G.affecting)
-		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
-				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
+		user.visible_message(span_warning("[user] loses [user.p_their()] grip on [strangling]'s neck."), \
+				span_warning("You lose your grip on [strangling]'s neck."))
 
 		strangling = null
 		update_icon()

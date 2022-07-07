@@ -330,7 +330,7 @@
 		if(stat & (NOPOWER|BROKEN))
 			return
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine!</span>")
+			to_chat(user, span_warning("A beaker is already loaded into the machine!"))
 			return
 		if(!user.drop_item())
 			return

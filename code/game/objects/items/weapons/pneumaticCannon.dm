@@ -36,12 +36,12 @@
 	..()
 	if(istype(W, /obj/item/tank/internals/) && !tank)
 		if(istype(W, /obj/item/tank/internals/emergency_oxygen))
-			to_chat(user, "<span class='warning'>\The [W] is too small for \the [src].</span>")
+			to_chat(user, span_warning("\The [W] is too small for \the [src]."))
 			return
 		updateTank(W, 0, user)
 		return
 	if(W.type == type)
-		to_chat(user, "<span class='warning'>You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption.</span>")
+		to_chat(user, span_warning("You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption."))
 		return
 	if(istype(W, /obj/item/wrench))
 		switch(pressureSetting)
@@ -57,18 +57,18 @@
 		updateTank(tank, 1, user)
 		return
 	if(loadedWeightClass >= maxWeightClass)
-		to_chat(user, "<span class='warning'>\The [src] can't hold any more items!</span>")
+		to_chat(user, span_warning("\The [src] can't hold any more items!"))
 		return
 	if(istype(W, /obj/item))
 		var/obj/item/IW = W
 		if(IW.flags & (ABSTRACT | NODROP | DROPDEL))
-			to_chat(user, "<span class='warning'>You can't put [IW] into [src]!</span>")
+			to_chat(user, span_warning("You can't put [IW] into [src]!"))
 			return
 		if((loadedWeightClass + IW.w_class) > maxWeightClass)
-			to_chat(user, "<span class='warning'>\The [IW] won't fit into \the [src]!</span>")
+			to_chat(user, span_warning("\The [IW] won't fit into \the [src]!"))
 			return
 		if(IW.w_class > src.w_class)
-			to_chat(user, "<span class='warning'>\The [IW] is too large to fit into \the [src]!</span>")
+			to_chat(user, span_warning("\The [IW] is too large to fit into \the [src]!"))
 			return
 		if(!user.unEquip(W))
 			return
@@ -96,16 +96,16 @@
 		return
 	var/discharge = 0
 	if(!loadedItems || !loadedWeightClass)
-		to_chat(user, "<span class='warning'>\The [src] has nothing loaded.</span>")
+		to_chat(user, span_warning("\The [src] has nothing loaded."))
 		return
 	if(!tank)
-		to_chat(user, "<span class='warning'>\The [src] can't fire without a source of gas.</span>")
+		to_chat(user, span_warning("\The [src] can't fire without a source of gas."))
 		return
 	if(tank && !tank.air_contents.remove(gasPerThrow * pressureSetting))
-		to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss and doesn't react!</span>")
+		to_chat(user, span_warning("\The [src] lets out a weak hiss and doesn't react!"))
 		return
 	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
-		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [src], causing it to go off!</span>", "<span class='userdanger'>[src] slips out of your hands and goes off!</span>")
+		user.visible_message(span_warning("[user] loses [user.p_their()] grip on [src], causing it to go off!"), "<span class='userdanger'>[src] slips out of your hands and goes off!</span>")
 		user.drop_item()
 		if(prob(10))
 			target = get_turf(user)
@@ -114,8 +114,8 @@
 			target = pick(possible_targets)
 		discharge = 1
 	if(!discharge)
-		user.visible_message("<span class='danger'>[user] fires \the [src]!</span>", \
-				    		 "<span class='danger'>You fire \the [src]!</span>")
+		user.visible_message(span_danger("[user] fires \the [src]!"), \
+				    		 span_danger("You fire \the [src]!"))
 	add_attack_logs(user, target, "Fired [src]")
 	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
 	for(var/obj/item/ITD in loadedItems) //Item To Discharge
@@ -126,7 +126,7 @@
 			ITD.loc = get_turf(src)
 			ITD.throw_at(target, pressureSetting * 5, pressureSetting * 2,user)
 	if(pressureSetting >= 3 && user)
-		user.visible_message("<span class='warning'>[user] is thrown down by the force of the cannon!</span>", "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
+		user.visible_message(span_warning("[user] is thrown down by the force of the cannon!"), "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
 		user.Weaken(3)
 
 
@@ -159,7 +159,7 @@
 		src.tank = null
 	if(!removing)
 		if(src.tank)
-			to_chat(user, "<span class='warning'>\The [src] already has a tank.</span>")
+			to_chat(user, span_warning("\The [src] already has a tank."))
 			return
 		if(!user.unEquip(thetank))
 			return

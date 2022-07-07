@@ -97,14 +97,14 @@
 		if(user.hand)
 			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp)
-			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
+			to_chat(user, span_warning("You try to use your hand, but it's missing!"))
 			return
 		if(!temp.is_usable())
-			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
+			to_chat(user, span_warning("You try to move your [temp.name], but cannot!"))
 			return
 
 	user.Weaken(4 SECONDS)
-	user.visible_message("<span class='warning'>[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!</span>",
+	user.visible_message(span_warning("[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!"),
 						 "<span class='userdanger'>[src] vanishes as you try grabbing it, causing you to stumble!</span>")
 	qdel(src)
 
@@ -220,7 +220,7 @@
 	weaken = 8 SECONDS
 
 /obj/effect/hallucination/tripper/chasm/on_crossed()
-	target.visible_message("<span class='warning'>[target] trips over nothing and flails on [get_turf(target)] as if they were falling!</span>",
+	target.visible_message(span_warning("[target] trips over nothing and flails on [get_turf(target)] as if they were falling!"),
 					  	   "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark!</span>")
 
 /**

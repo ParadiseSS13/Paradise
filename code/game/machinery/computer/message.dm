@@ -16,7 +16,7 @@
 	var/obj/machinery/message_server/linkedServer = null
 	//Messages - Saves me time if I want to change something.
 	var/noserver = "<span class='alert'>ALERT: No server detected.</span>"
-	var/incorrectkey = "<span class='warning'>ALERT: Incorrect decryption key!</span>"
+	var/incorrectkey = span_warning("ALERT: Incorrect decryption key!")
 	var/defaultmsg = span_notice("Welcome. Please select an option.")
 	var/rebootmsg = "<span class='warning'>%$&(�: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
 	//Computer properties
@@ -55,7 +55,7 @@
 
 /obj/machinery/computer/message_monitor/screwdriver_act(mob/user, obj/item/I)
 	if(emag) //Stops people from just unscrewing the monitor and putting it back to get the console working again.
-		to_chat(user, "<span class='warning'>It is too hot to mess with!</span>")
+		to_chat(user, span_warning("It is too hot to mess with!"))
 		return
 	return ..()
 
@@ -260,10 +260,10 @@
 
 /obj/machinery/computer/message_monitor/proc/BruteForce(mob/user as mob)
 	if(isnull(linkedServer))
-		to_chat(user, "<span class='warning'>Could not complete brute-force: Linked Server Disconnected!</span>")
+		to_chat(user, span_warning("Could not complete brute-force: Linked Server Disconnected!"))
 	else
 		var/currentKey = src.linkedServer.decryptkey
-		to_chat(user, "<span class='warning'>Brute-force completed! The key is '[currentKey]'.</span>")
+		to_chat(user, span_warning("Brute-force completed! The key is '[currentKey]'."))
 	src.hacking = 0
 	src.icon_screen = normal_icon
 	src.screen = 0 // Return the screen back to normal
@@ -444,7 +444,7 @@
 						var/datum/data/pda/app/messenger/recipient_messenger = customrecepient.find_program(/datum/data/pda/app/messenger)
 
 						if(!recipient_messenger)
-							message = "<span class='warning'>ERROR: Message could not be transmitted!</span>"
+							message = span_warning("ERROR: Message could not be transmitted!")
 							return src.attack_hand(usr)
 
 						var/obj/item/pda/PDARec = null

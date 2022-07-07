@@ -83,7 +83,7 @@
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
-		to_chat(user, "<span class='warning'>The injector is empty.</span>")
+		to_chat(user, span_warning("The injector is empty."))
 		return
 	if(!istype(M))
 		return

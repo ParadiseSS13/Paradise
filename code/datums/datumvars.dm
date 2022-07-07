@@ -84,7 +84,7 @@
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
 	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
+		to_chat(usr, span_warning("You need to be an administrator to access this."))
 		return
 
 	if(!D)
@@ -749,7 +749,7 @@
 
 		var/mob/living/carbon/C = locateUID(href_list["hallucinate"])
 		if(!istype(C))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon</span>")
+			to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon"))
 			return
 
 		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in subtypesof(/obj/effect/hallucination)
@@ -925,7 +925,7 @@
 							if(ID == chosen_id)
 								valid_id = 1
 						if(!valid_id)
-							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
+							to_chat(usr, span_warning("A reagent with that ID doesn't exist!"))
 				if("Choose ID")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in reagent_options
 			if(chosen_id)

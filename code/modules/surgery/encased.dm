@@ -58,8 +58,8 @@
 		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	user.visible_message("<span class='warning'> [user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" , \
-	"<span class='warning'> Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" )
+	user.visible_message(span_warning(" [user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!") , \
+	span_warning(" Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!") )
 
 	affected.receive_damage(20)
 	affected.fracture()
@@ -109,8 +109,8 @@
 		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	var/msg = "<span class='warning'> [user]'s hand slips, cracking [target]'s [affected.encased]!</span>"
-	var/self_msg = "<span class='warning'> Your hand slips, cracking [target]'s  [affected.encased]!</span>"
+	var/msg = span_warning(" [user]'s hand slips, cracking [target]'s [affected.encased]!")
+	var/self_msg = span_warning(" Your hand slips, cracking [target]'s  [affected.encased]!")
 	user.visible_message(msg, self_msg)
 
 	affected.receive_damage(20)
@@ -160,8 +160,8 @@
 		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	var/msg = "<span class='warning'> [user]'s hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
-	var/self_msg = "<span class='warning'> Your hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
+	var/msg = span_warning(" [user]'s hand slips, bending [target]'s [affected.encased] the wrong way!")
+	var/self_msg = span_warning(" Your hand slips, bending [target]'s [affected.encased] the wrong way!")
 	user.visible_message(msg, self_msg)
 
 	affected.receive_damage(20)

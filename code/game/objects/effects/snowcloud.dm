@@ -102,7 +102,7 @@
 /obj/effect/snow/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/shovel))
 		var/obj/item/shovel/S = I
-		user.visible_message(span_notice("[user] is clearing away [src]..."), span_notice("You begin clearing away [src]..."), "<span class='warning'>You hear a wettish digging sound.</span>")
+		user.visible_message(span_notice("[user] is clearing away [src]..."), span_notice("You begin clearing away [src]..."), span_warning("You hear a wettish digging sound."))
 		playsound(loc, S.usesound, 50, TRUE)
 		if(!do_after(user, 50 * S.toolspeed, target = src))
 			return

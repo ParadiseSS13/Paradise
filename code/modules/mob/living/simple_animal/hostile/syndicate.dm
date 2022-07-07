@@ -62,15 +62,15 @@
 			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user]. </span>")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
-		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-		visible_message("<span class='warning'>[user] gently taps [src] with [O]. </span>")
+		to_chat(usr, span_warning("This weapon is ineffective, it does no damage."))
+		visible_message(span_warning("[user] gently taps [src] with [O]. "))
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
-		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
+		visible_message(span_danger("[src] blocks [Proj] with its shield!"))
 	else
 		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 			adjustHealth(Proj.damage)

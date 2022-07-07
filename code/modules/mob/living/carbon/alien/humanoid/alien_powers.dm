@@ -121,7 +121,7 @@ Doesn't work on other aliens/AI.*/
 		if(!choice || !powerc(55))	return
 		var/obj/structure/alien/resin/T = locate() in get_turf(src)
 		if(T)
-			to_chat(src, "<span class='danger'>There is already a resin construction here.</span>")
+			to_chat(src, span_danger("There is already a resin construction here."))
 			return
 		adjustPlasma(-55)
 		for(var/mob/O in viewers(src, null))

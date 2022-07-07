@@ -281,13 +281,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!client)
 		return
 	if(!mind || QDELETED(mind.current))
-		to_chat(src, "<span class='warning'>You have no body.</span>")
+		to_chat(src, span_warning("You have no body."))
 		return
 	if(!can_reenter_corpse)
-		to_chat(src, "<span class='warning'>You cannot re-enter your body.</span>")
+		to_chat(src, span_warning("You cannot re-enter your body."))
 		return
 	if(mind.current.key && copytext(mind.current.key,1,2)!="@")	//makes sure we don't accidentally kick any clients
-		to_chat(usr, "<span class='warning'>Another consciousness is in your body...It is resisting you.</span>")
+		to_chat(usr, span_warning("Another consciousness is in your body...It is resisting you."))
 		return
 
 	mind.current.key = key
@@ -383,13 +383,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(src)) // Somehow
 		return
 	if(!can_reenter_corpse)
-		to_chat(src, "<span class='warning'>You are already set to DNR!</span>")
+		to_chat(src, span_warning("You are already set to DNR!"))
 		return
 	if(!mind || QDELETED(mind.current))
-		to_chat(src, "<span class='warning'>You have no body.</span>")
+		to_chat(src, span_warning("You have no body."))
 		return
 	if(mind.current.stat != DEAD)
-		to_chat(src, "<span class='warning'>Your body is still alive!</span>")
+		to_chat(src, span_warning("Your body is still alive!"))
 		return
 
 	var/choice = alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Are you sure?", "Yes", "No")
@@ -420,7 +420,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		turfs += T
 
 	if(!length(turfs))
-		to_chat(src, "<span class='warning'>Nowhere to jump to!</span>")
+		to_chat(src, span_warning("Nowhere to jump to!"))
 		return
 	forceMove(pick(turfs))
 	update_parallax_contents()
@@ -516,11 +516,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/memory()
 	set hidden = 1
-	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
+	to_chat(src, span_warning("You are dead! You have no mind to store memory!"))
 
 /mob/dead/observer/add_memory()
 	set hidden = 1
-	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
+	to_chat(src, span_warning("You are dead! You have no mind to store memory!"))
 
 
 /mob/dead/observer/verb/toggle_health_scan()
@@ -554,7 +554,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
 		to_chat(src, span_notice("Pressure: [round(pressure,0.1)] kPa"))
 	else
-		to_chat(src, "<span class='warning'>Pressure: [round(pressure,0.1)] kPa</span>")
+		to_chat(src, span_warning("Pressure: [round(pressure,0.1)] kPa"))
 	if(total_moles)
 		var/o2_concentration = environment.oxygen/total_moles
 		var/n2_concentration = environment.nitrogen/total_moles
@@ -565,23 +565,23 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(abs(n2_concentration - N2STANDARD) < 20)
 			to_chat(src, span_notice("Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)"))
 		else
-			to_chat(src, "<span class='warning'>Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)</span>")
+			to_chat(src, span_warning("Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)"))
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
 			to_chat(src, span_notice("Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)"))
 		else
-			to_chat(src, "<span class='warning'>Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)</span>")
+			to_chat(src, span_warning("Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)"))
 
 		if(co2_concentration > 0.01)
-			to_chat(src, "<span class='warning'>CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)</span>")
+			to_chat(src, span_warning("CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)"))
 		else
 			to_chat(src, span_notice("CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)"))
 
 		if(plasma_concentration > 0.01)
-			to_chat(src, "<span class='warning'>Plasma: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)</span>")
+			to_chat(src, span_warning("Plasma: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)"))
 
 		if(unknown_concentration > 0.01)
-			to_chat(src, "<span class='warning'>Unknown: [round(unknown_concentration*100)]% ([round(unknown_concentration*total_moles,0.01)] moles)</span>")
+			to_chat(src, span_warning("Unknown: [round(unknown_concentration*100)]% ([round(unknown_concentration*total_moles,0.01)] moles)"))
 
 		to_chat(src, span_notice("Temperature: [round(environment.temperature-T0C,0.1)]&deg;C"))
 		to_chat(src, span_notice("Heat Capacity: [round(environment.heat_capacity(),0.1)]"))

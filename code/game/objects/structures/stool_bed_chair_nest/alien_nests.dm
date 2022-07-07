@@ -29,16 +29,16 @@
 					span_notice("[user.name] pulls you free from the gelatinous resin."),\
 					"<span class='italics'>You hear squelching...</span>")
 			else
-				M.visible_message("<span class='warning'>[M.name] struggles to break free from the gelatinous resin!</span>",\
+				M.visible_message(span_warning("[M.name] struggles to break free from the gelatinous resin!"),\
 					span_notice("You struggle to break free from the gelatinous resin... (Stay still for two minutes.)"),\
 					"<span class='italics'>You hear squelching...</span>")
 				if(!do_after(M, 1200, target = src))
 					if(M && M.buckled)
-						to_chat(M, "<span class='warning'>You fail to escape \the [src]!</span>")
+						to_chat(M, span_warning("You fail to escape \the [src]!"))
 					return
 				if(!M.buckled)
 					return
-				M.visible_message("<span class='warning'>[M.name] breaks free from the gelatinous resin!</span>",\
+				M.visible_message(span_warning("[M.name] breaks free from the gelatinous resin!"),\
 					span_notice("You break free from the gelatinous resin!"),\
 					"<span class='italics'>You hear squelching...</span>")
 
@@ -61,7 +61,7 @@
 
 	if(buckle_mob(M))
 		M.visible_message(span_notice("[user.name] secretes a thick vile goo, securing [M.name] into [src]!"),\
-			"<span class='danger'>[user.name] drenches you in a foul-smelling resin, trapping you in [src]!</span>",\
+			span_danger("[user.name] drenches you in a foul-smelling resin, trapping you in [src]!"),\
 			"<span class='italics'>You hear squelching...</span>")
 
 

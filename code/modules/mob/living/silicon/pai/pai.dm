@@ -175,7 +175,7 @@
 	if(prob(20))
 		var/turf/T = get_turf_or_move(loc)
 		for(var/mob/M in viewers(T))
-			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
+			M.show_message(span_warning("A shower of sparks spray from [src]'s inner workings."), 3, span_warning("You hear and smell the ozone hiss of electrical sparks being expelled violently."), 2)
 		return death(0)
 
 	switch(pick(1,2,3))
@@ -234,11 +234,11 @@
 		return
 
 	if(loc != card)
-		to_chat(src, "<span class='warning'>You are already in your mobile form!</span>")
+		to_chat(src, span_warning("You are already in your mobile form!"))
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before folding your chassis out again!</span>")
+		to_chat(src, span_warning("You must wait before folding your chassis out again!"))
 		return
 
 	last_special = world.time + 200
@@ -269,11 +269,11 @@
 		return
 
 	if(loc == card)
-		to_chat(src, "<span class='warning'>You are already in your card form!</span>")
+		to_chat(src, span_warning("You are already in your card form!"))
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before returning to your card form!</span>")
+		to_chat(src, span_warning("You must wait before returning to your card form!"))
 		return
 
 	close_up()
@@ -297,7 +297,7 @@
 		my_choices["Custom"] = "[ckey]-pai"
 
 	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
-		to_chat(src, "<span class='warning'>You must be in your mobile form to reconfigure your chassis.</span>")
+		to_chat(src, span_warning("You must be in your mobile form to reconfigure your chassis."))
 		return
 
 	while(finalized == "No" && client)
@@ -347,7 +347,7 @@
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if(stat == DEAD)
-			to_chat(user, "<span class='danger'>\The [src] is beyond help, at this point.</span>")
+			to_chat(user, span_danger("\The [src] is beyond help, at this point."))
 		else if(getBruteLoss() || getFireLoss())
 			heal_overall_damage(15, 15)
 			N.use(1)
@@ -358,10 +358,10 @@
 
 		return
 	else if(W.force)
-		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
+		visible_message(span_danger("[user.name] attacks [src] with [W]!"))
 		adjustBruteLoss(W.force)
 	else
-		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
+		visible_message(span_warning("[user.name] bonks [src] harmlessly with [W]."))
 	spawn(1)
 		if(stat != 2)
 			close_up()
@@ -377,7 +377,7 @@
 		user.visible_message(span_notice("[user] pets [src]."))
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	else
-		visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
+		visible_message(span_danger("[user.name] boops [src] on the head."))
 		spawn(1)
 			close_up()
 
@@ -495,9 +495,9 @@
 				if(Adjacent(H))
 					get_scooped(H)
 				else
-					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+					to_chat(src, span_warning("You need to stay in reaching distance to be picked up."))
 			if("No")
-				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+				to_chat(src, span_warning("[H] decided not to pick you up."))
 	else
 		if(Adjacent(H))
 			get_scooped(H)

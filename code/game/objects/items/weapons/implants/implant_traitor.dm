@@ -31,8 +31,8 @@
 	// Fails if they're already a mindslave of someone, or if they're mindshielded.
 	if(ismindslave(mindslave_target) || ismindshielded(mindslave_target))
 		mindslave_target.visible_message(
-			"<span class='warning'>[mindslave_target] seems to resist the implant!</span>", \
-			"<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
+			span_warning("[mindslave_target] seems to resist the implant!"), \
+			span_warning("You feel a strange sensation in your head that quickly dissipates."))
 		removed(mindslave_target)
 		qdel(src)
 		return FALSE

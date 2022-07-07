@@ -190,10 +190,10 @@
 				safe_turf_first = FALSE
 			else
 				precision = max(rand(1, 100) * length(bagholding), 100)
-			
+
 			if(istype(teleatom, /mob/living))
 				var/mob/living/MM = teleatom
-				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
+				to_chat(MM, span_warning("The bluespace interface on your bag of holding interferes with the teleport!"))
 	return 1
 
 // Random safe location finder

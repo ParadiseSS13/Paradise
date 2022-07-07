@@ -64,7 +64,7 @@ field_generator power level display
 	if(state == FG_WELDED)
 		if(get_dist(src, user) <= 1)//Need to actually touch the thing to turn it on
 			if(active >= FG_CHARGING)
-				to_chat(user, "<span class='warning'>You are unable to turn off [src] once it is online!</span>")
+				to_chat(user, span_warning("You are unable to turn off [src] once it is online!"))
 				return 1
 			else
 				user.visible_message("[user] turns on [src].", \
@@ -75,12 +75,12 @@ field_generator power level display
 
 				add_fingerprint(user)
 	else
-		to_chat(user, "<span class='warning'>[src] needs to be firmly secured to the floor first!</span>")
+		to_chat(user, span_warning("[src] needs to be firmly secured to the floor first!"))
 
 
 /obj/machinery/field/generator/attackby(obj/item/W, mob/user, params)
 	if(active)
-		to_chat(user, "<span class='warning'>[src] needs to be off!</span>")
+		to_chat(user, span_warning("[src] needs to be off!"))
 		return
 	else if(istype(W, /obj/item/wrench))
 		switch(state)
@@ -100,7 +100,7 @@ field_generator power level display
 					"<span class='italics'>You hear ratchet.</span>")
 				anchored = 0
 			if(FG_WELDED)
-				to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
+				to_chat(user, span_warning("[src] needs to be unwelded from the floor!"))
 	else
 		return ..()
 
@@ -108,7 +108,7 @@ field_generator power level display
 /obj/machinery/field/generator/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(state == FG_UNSECURED)
-		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor!</span>")
+		to_chat(user, span_warning("[src] needs to be wrenched to the floor!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -131,7 +131,7 @@ field_generator power level display
 	if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS && active == FG_OFFLINE && state != FG_UNSECURED)
 		state = FG_UNSECURED
 		anchored = FALSE
-		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
+		M.visible_message(span_warning("[M] rips [src] free from its moorings!"))
 	else
 		..()
 	if(!anchored)
@@ -188,7 +188,7 @@ field_generator power level display
 		check_power_level()
 		return 1
 	else
-		visible_message("<span class='danger'>[src] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
+		visible_message(span_danger("[src] shuts down!"), "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
 		investigate_log("ran out of power and <font color='red'>deactivated</font>","singulo")
 		power = 0

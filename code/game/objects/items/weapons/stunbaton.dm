@@ -74,7 +74,7 @@
 	if(cell)
 		. += span_notice("The baton is [round(cell.percent())]% charged.")
 	else
-		. += "<span class='warning'>The baton does not have a power source installed.</span>"
+		. += span_warning("The baton does not have a power source installed.")
 
 /obj/item/melee/baton/detailed_examine()
 	return "The baton needs to be turned on to apply the stunning effect. Use it in your hand to toggle it on or off.  If your intent is \
@@ -108,10 +108,10 @@
 	if(istype(I, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = I
 		if(cell)
-			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
+			to_chat(user, span_warning("[src] already has a cell!"))
 			return
 		if(C.maxcharge < hitcost)
-			to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
+			to_chat(user, span_warning("[src] requires a higher capacity cell!"))
 			return
 		if(!user.unEquip(I))
 			return
@@ -122,7 +122,7 @@
 
 /obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
-		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
+		to_chat(user, span_warning("There's no cell installed!"))
 		return
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
@@ -141,11 +141,11 @@
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		if(isrobot(loc))
-			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge [src]!</span>")
+			to_chat(user, span_warning("You do not have enough reserve power to charge [src]!"))
 		else if(!cell)
-			to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
+			to_chat(user, span_warning("[src] does not have a power source!"))
 		else
-			to_chat(user, "<span class='warning'>[src] is out of charge.</span>")
+			to_chat(user, span_warning("[src] is out of charge."))
 	update_icon()
 	add_fingerprint(user)
 
@@ -153,7 +153,7 @@
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		if(baton_stun(user, user, skip_cooldown = TRUE)) // for those super edge cases where you clumsy baton yourself in quick succession
-			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
+			user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src]!"),
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		return
 
@@ -175,8 +175,8 @@
 		return ..() // Whack them too if in harm intent
 
 	if(!turned_on)
-		L.visible_message("<span class='warning'>[user] has prodded [L] with [src]. Luckily it was off.</span>",
-			"<span class='danger'>[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>")
+		L.visible_message(span_warning("[user] has prodded [L] with [src]. Luckily it was off."),
+			span_danger("[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off."))
 		return
 
 	if(baton_stun(L, user))
@@ -210,7 +210,7 @@
 	if(user)
 		L.lastattacker = user.real_name
 		L.lastattackerckey = user.ckey
-		L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>",
+		L.visible_message(span_danger("[user] has stunned [L] with [src]!"),
 			"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>")
 		add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
@@ -230,7 +230,7 @@
 	if(turned_on && cell?.charge)
 		flick("baton_active", source)
 		baton_stun(user, user, skip_cooldown = TRUE)
-		user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>",
+		user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [src]!"),
 							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 		return TRUE
 	..()

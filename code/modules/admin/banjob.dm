@@ -43,17 +43,17 @@
 	jbh.reload_jobbans(usr.client)
 
 	if(!length(jbh.job_bans))
-		to_chat(src, "<span class='warning'>You have no active jobbans!</span>")
+		to_chat(src, span_warning("You have no active jobbans!"))
 		return
 
 	for(var/ban in jbh.job_bans)
 		var/datum/job_ban/JB = jbh.job_bans[ban] // Remember. Its assoc.
 		switch(JB.bantype)
 			if("JOB_PERMABAN")
-				to_chat(src, "<span class='warning'>[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]</span>")
+				to_chat(src, span_warning("[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]"))
 			if("JOB_TEMPBAN")
-				to_chat(src, "<span class='warning'>[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]; [JB.duration]; expires [JB.expiration_time]</span>")
+				to_chat(src, span_warning("[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]; [JB.duration]; expires [JB.expiration_time]"))
 
 	if(GLOB.configuration.url.banappeals_url)
-		to_chat(src, "<span class='warning'>You can appeal the bans at: [GLOB.configuration.url.banappeals_url]</span>")
+		to_chat(src, span_warning("You can appeal the bans at: [GLOB.configuration.url.banappeals_url]"))
 

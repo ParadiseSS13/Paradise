@@ -100,7 +100,7 @@
 	set src in usr
 
 	if(HAS_TRAIT(usr, TRAIT_CLUMSY) && prob(50))
-		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
+		to_chat(usr, span_warning("You cut yourself on the paper."))
 		return
 	if(!usr.is_literate())
 		to_chat(usr, span_notice("You don't know how to read."))
@@ -150,7 +150,7 @@
 		if(H == user)
 			to_chat(user, span_notice("You wipe off your face with [src]."))
 		else
-			user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>",
+			user.visible_message(span_warning("[user] begins to wipe [H]'s face clean with \the [src]."),
 							 	 span_notice("You begin to wipe off [H]'s face."))
 			if(!do_after(user, 1 SECONDS, target = H) || !do_after(H, 1 SECONDS, FALSE)) // user needs to keep their active hand, H does not.
 				return
@@ -169,18 +169,18 @@
 	var/mob/living/simple_animal/pet/dog/D = M
 	D.changeNext_move(CLICK_CD_MELEE)
 	if(world.time < D.last_eaten + 30 SECONDS)
-		to_chat(D, "<span class='warning'>You are too full to try eating [src] now.</span>")
+		to_chat(D, span_warning("You are too full to try eating [src] now."))
 		return
 
-	D.visible_message("<span class='warning'>[D] starts chewing the corner of [src]!</span>",
+	D.visible_message(span_warning("[D] starts chewing the corner of [src]!"),
 		span_notice("You start chewing the corner of [src]."),
-		"<span class='warning'>You hear a quiet gnawing, and the sound of paper rustling.</span>")
+		span_warning("You hear a quiet gnawing, and the sound of paper rustling."))
 	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
 	if(!do_after(D, 10 SECONDS, FALSE, src))
 		return
 
 	if(world.time < D.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
-		to_chat(D, "<span class='warning'>You are too full to try eating [src] now.</span>")
+		to_chat(D, span_warning("You are too full to try eating [src] now."))
 		return
 	D.last_eaten = world.time
 
@@ -197,13 +197,13 @@
 		P.update_icon()
 		qdel(src)
 
-		D.visible_message("<span class='warning'>[D] finishes eating [src][message_ending]</span>",
+		D.visible_message(span_warning("[D] finishes eating [src][message_ending]"),
 			span_notice("You finish eating [src][message_ending]"))
 		D.emote("bark")
 
 	// 10% chance of the paper just being eaten entirely.
 	else
-		D.visible_message("<span class='warning'>[D] swallows [src] whole!</span>", span_notice("You swallow [src] whole. Tasty!"))
+		D.visible_message(span_warning("[D] swallows [src] whole!"), span_notice("You swallow [src] whole. Tasty!"))
 		playsound(D, 'sound/items/eatfood.ogg', 50, TRUE)
 		qdel(src)
 
@@ -421,7 +421,7 @@
 			//openhelp(user)
 			return
 		else
-			to_chat(user, "<span class='warning'>You don't know how to write!</span>")
+			to_chat(user, span_warning("You don't know how to write!"))
 
 	else if(istype(P, /obj/item/stamp))
 		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard) ) && loc.loc != user && user.get_active_hand() != P))
@@ -438,7 +438,7 @@
 
 	if(is_hot(P))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
+			user.visible_message(span_warning("[user] accidentally ignites [user.p_them()]self!"), \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
 			user.unEquip(P)
 			user.adjust_fire_stacks(1)
@@ -449,7 +449,7 @@
 			return
 
 		user.unEquip(src)
-		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		user.visible_message(span_danger("[user] lights [src] ablaze with [P]!"), span_danger("You light [src] on fire!"))
 		fire_act()
 
 	add_fingerprint(user)
@@ -766,7 +766,7 @@
 		evilpaper_selfdestruct()
 
 /obj/item/paper/evilfax/proc/evilpaper_selfdestruct()
-	visible_message("<span class='danger'>[src] spontaneously catches fire, and burns up!</span>")
+	visible_message(span_danger("[src] spontaneously catches fire, and burns up!"))
 	qdel(src)
 
 /obj/item/paper/pickup(user)

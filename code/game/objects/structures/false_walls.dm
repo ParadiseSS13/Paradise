@@ -40,11 +40,11 @@
 		if(100)
 			return span_notice("It looks fully intact.")
 		if(70 to 99)
-			return  "<span class='warning'>It looks slightly damaged.</span>"
+			return  span_warning("It looks slightly damaged.")
 		if(40 to 70)
-			return  "<span class='warning'>It looks moderately damaged.</span>"
+			return  span_warning("It looks moderately damaged.")
 		if(0 to 40)
-			return "<span class='danger'>It looks heavily damaged.</span>"
+			return span_danger("It looks heavily damaged.")
 
 /obj/structure/falsewall/Destroy()
 	density = 0
@@ -110,22 +110,22 @@
 
 /obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
 	if(opening)
-		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
+		to_chat(user, span_warning("You must wait until the door has stopped moving."))
 		return
 
 	if(density)
 		var/turf/T = get_turf(src)
 		if(T.density)
-			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
+			to_chat(user, span_warning("[src] is blocked!"))
 			return
 		if(istype(W, /obj/item/screwdriver))
 			if(!istype(T, /turf/simulated/floor))
-				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
+				to_chat(user, span_warning("[src] bolts must be tightened on the floor!"))
 				return
-			user.visible_message(span_notice("[user] tightens some bolts on the wall."), "<span class='warning'>You tighten the bolts on the wall.</span>")
+			user.visible_message(span_notice("[user] tightens some bolts on the wall."), span_warning("You tighten the bolts on the wall."))
 			ChangeToWall()
 	else
-		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
+		to_chat(user, span_warning("You can't reach, close it first!"))
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
 		dismantle(user, TRUE)
@@ -139,7 +139,7 @@
 	dismantle(user, TRUE)
 
 /obj/structure/falsewall/proc/dismantle(mob/user, disassembled = TRUE)
-	user.visible_message(span_notice("[user] dismantles the false wall."), "<span class='warning'>You dismantle the false wall.</span>")
+	user.visible_message(span_notice("[user] dismantles the false wall."), span_warning("You dismantle the false wall."))
 	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 	deconstruct(disassembled)
 

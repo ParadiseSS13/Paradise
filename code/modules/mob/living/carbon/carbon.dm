@@ -55,7 +55,7 @@
 			last_stomach_attack = world.time
 			for(var/mob/M in hearers(4, src))
 				if(M.client)
-					M.show_message(text("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>"), 2)
+					M.show_message(text(span_warning("You hear something rumbling inside [src]'s stomach...")), 2)
 
 			var/obj/item/I = user.get_active_hand()
 			if(I && I.force)
@@ -92,19 +92,19 @@
 		return FALSE
 	if(is_muzzled())
 		if(message)
-			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
+			to_chat(src, span_warning("The muzzle prevents you from vomiting!"))
 		return FALSE
 	if(stun)
 		Stun(8 SECONDS)
 	if(nutrition < 100 && !blood)
 		if(message)
-			visible_message("<span class='warning'>[src] dry heaves!</span>", \
+			visible_message(span_warning("[src] dry heaves!"), \
 							"<span class='userdanger'>You try to throw up, but there's nothing your stomach!</span>")
 		if(stun)
 			Weaken(20 SECONDS)
 	else
 		if(message)
-			visible_message("<span class='danger'>[src] throws up!</span>", \
+			visible_message(span_danger("[src] throws up!"), \
 							"<span class='userdanger'>You throw up!</span>")
 		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
 		var/turf/T = get_turf(src)
@@ -138,7 +138,7 @@
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
 		M.forceMove(drop_location())
-		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
+		visible_message(span_danger("[M] bursts out of [src]!"))
 
 ///Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
 /mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
@@ -182,7 +182,7 @@
 	if(item_in_hand) //this segment checks if the item in your hand is twohanded.
 		if(istype(item_in_hand,/obj/item/twohanded))
 			if(item_in_hand:wielded == 1)
-				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
+				to_chat(usr, span_warning("Your other hand is too busy holding the [item_in_hand.name]"))
 				return
 	src.hand = !( src.hand )
 	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
@@ -269,7 +269,7 @@
   * * target - The mob who is currently on fire
   */
 /mob/living/carbon/proc/pat_out(mob/living/target)
-	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
+	var/self_message = span_warning("You try to extinguish [target]!")
 	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
 		var/mob/living/carbon/human/H = src
 		var/protected = FALSE // Protected from the fire
@@ -279,10 +279,10 @@
 		var/obj/item/organ/external/active_hand = H.get_active_hand()
 		if(active_hand && !protected) // Wouldn't really work without a hand
 			active_hand.receive_damage(0, 5)
-			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
+			self_message = span_danger("You burn your hand trying to extinguish [target]!")
 			H.update_icons()
 
-	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
+	target.visible_message(span_warning("[src] tries to extinguish [target]!"), self_message)
 	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	target.adjust_fire_stacks(-0.5)
 
@@ -324,7 +324,7 @@
 
 		var/msg = span_notice("Your [LB.name] is OK.")
 		if(!isnull(status))
-			msg = "<span class='warning'>Your [LB.name] is [status].</span>"
+			msg = span_warning("Your [LB.name] is [status].")
 		status_list += msg
 
 		for(var/obj/item/I in LB.embedded_objects)
@@ -334,7 +334,7 @@
 		status_list += "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>"
 
 	if(H.bleed_rate)
-		status_list += "<span class='danger'>You are bleeding!</span>"
+		status_list += span_danger("You are bleeding!")
 	if(staminaloss)
 		if(staminaloss > 30)
 			status_list += "<span class='info'>You're completely exhausted.</span>"
@@ -373,12 +373,12 @@
 
 		switch(damage)
 			if(1)
-				to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
+				to_chat(src, span_warning("Your eyes sting a little."))
 				var/minor_damage_multiplier = min(40 + extra_prob, 100) / 100
 				var/minor_damage = minor_damage_multiplier * (1 + extra_damage)
 				E.receive_damage(minor_damage, 1)
 			if(2)
-				to_chat(src, "<span class='warning'>Your eyes burn.</span>")
+				to_chat(src, span_warning("Your eyes burn."))
 				E.receive_damage(rand(2, 4) + extra_damage, 1)
 
 			else
@@ -391,15 +391,15 @@
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())
-					to_chat(src, "<span class='warning'>Your eyes start to burn badly!</span>")
+					to_chat(src, span_warning("Your eyes start to burn badly!"))
 				else //snowflake conditions piss me off for the record
-					to_chat(src, "<span class='warning'>The flash blinds you!</span>")
+					to_chat(src, span_warning("The flash blinds you!"))
 
 			else if(E.damage >= E.min_broken_damage)
-				to_chat(src, "<span class='warning'>You can't see anything!</span>")
+				to_chat(src, span_warning("You can't see anything!"))
 
 			else
-				to_chat(src, "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>")
+				to_chat(src, span_warning("Your eyes are really starting to hurt. This can't be good for you!"))
 		return 1
 
 	else if(damage == 0) // just enough protection
@@ -443,10 +443,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 
 	if(has_buckled_mobs())
-		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+		to_chat(src, span_warning("You can't vent crawl with other creatures on you!"))
 		return
 	if(buckled)
-		to_chat(src, "<span class='warning'>You can't vent crawl while buckled!</span>")
+		to_chat(src, span_warning("You can't vent crawl while buckled!"))
 		return
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
@@ -478,11 +478,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 
 			if(has_buckled_mobs())
-				to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+				to_chat(src, span_warning("You can't vent crawl with other creatures on you!"))
 				return
 
 			if(buckled)
-				to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
+				to_chat(src, span_warning("You cannot crawl into a vent while buckled to something!"))
 				return
 
 			if(!client)
@@ -501,7 +501,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 						failed++
 
 					if(failed)
-						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
+						to_chat(src, span_warning("You can't crawl around in the ventilation ducts with items!"))
 						return
 
 			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
@@ -511,7 +511,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			add_ventcrawl(vent_found)
 
 	else
-		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
+		to_chat(src, span_warning("This ventilation duct is not connected to anything!"))
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
@@ -576,7 +576,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				T.dismantle_wall(TRUE)
 				hit_something = TRUE
 		if(hit_something)
-			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+			visible_message(span_danger("[src] slams into [hit_atom]!"), "<span class='userdanger'>You slam into [hit_atom]!</span>")
 			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 		return
 
@@ -600,7 +600,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			take_organ_damage(10)
 			victim.Weaken(2 SECONDS)
 			Weaken(2 SECONDS)
-			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
+			visible_message(span_danger("[src] crashes into [victim], knocking them both over!"), "<span class='userdanger'>You violently crash into [victim]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 
 /mob/living/carbon/proc/toggle_throw_mode()
@@ -663,7 +663,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return
 
 	if(thrown_thing)
-		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
+		visible_message(span_danger("[src] has thrown [thrown_thing]."))
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 
@@ -752,7 +752,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/slot = text2num(href_list["internal"])
 		var/obj/item/ITEM = get_item_by_slot(slot)
 		if(ITEM && istype(ITEM, /obj/item/tank))
-			visible_message("<span class='danger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>", \
+			visible_message(span_danger("[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM]."), \
 							"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
 
 			var/no_mask
@@ -761,7 +761,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					if(!(head && head.flags & AIRTIGHT))
 						no_mask = 1
 			if(no_mask)
-				to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
+				to_chat(usr, span_warning("[src] is not wearing a suitable mask or helmet!"))
 				return
 
 			if(do_mob(usr, src, POCKET_STRIP_DELAY))
@@ -775,12 +775,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 							if(!(head && head.flags & AIRTIGHT))
 								no_mask2 = 1
 					if(no_mask2)
-						to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
+						to_chat(usr, span_warning("[src] is not wearing a suitable mask or helmet!"))
 						return
 					internal = ITEM
 					update_action_buttons_icon()
 
-				visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
+				visible_message(span_danger("[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM]."), \
 								"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
 
 /mob/living/carbon/get_item_by_slot(slot_id)
@@ -843,11 +843,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 
 	var/time = I.breakouttime
-	visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>",
+	visible_message(span_warning("[src] attempts to unbuckle [p_them()]self!"),
 				span_notice("You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)"))
 	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, .proc/buckle_check))))
 		if(src && buckled)
-			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
+			to_chat(src, span_warning("You fail to unbuckle yourself!"))
 	else
 		if(!buckled)
 			return
@@ -862,11 +862,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	fire_stacks -= 5
 	Weaken(3, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	spin(32, 2)
-	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>",
+	visible_message(span_danger("[src] rolls on the floor, trying to put [p_them()]self out!"),
 		span_notice("You stop, drop, and roll!"))
 	sleep(3 SECONDS)
 	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src] has successfully extinguished [p_them()]self!</span>",
+		visible_message(span_danger("[src] has successfully extinguished [p_them()]self!"),
 			span_notice("You extinguish yourself."))
 		ExtinguishMob()
 
@@ -889,10 +889,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(I.resist_time == 0)//if it's 0, you can't get out of it
 		to_chat(src, "[I] is too well made, you'll need hands for this one!")
 	else
-		visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
+		visible_message(span_warning("[src] gnaws on [I], trying to remove it!"))
 		to_chat(src, span_notice("You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)"))
 		if(do_after(src, time, 0, target = src))
-			visible_message("<span class='warning'>[src] removes [I]!</span>")
+			visible_message(span_warning("[src] removes [I]!"))
 			to_chat(src, span_notice("You get rid of [I]!"))
 			if(I.security_lock)
 				I.do_break()
@@ -904,12 +904,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	var/displaytime = breakouttime / 10
 	if(!cuff_break)
-		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
+		visible_message(span_warning("[src] attempts to remove [I]!"))
 		to_chat(src, span_notice("You attempt to remove [I]... (This will take around [displaytime] seconds and you need to stand still.)"))
 		if(do_after(src, breakouttime, 0, target = src))
 			if(I.loc != src || buckled)
 				return
-			visible_message("<span class='danger'>[src] manages to remove [I]!</span>")
+			visible_message(span_danger("[src] manages to remove [I]!"))
 			to_chat(src, span_notice("You successfully remove [I]."))
 
 			if(I == handcuffed)
@@ -932,16 +932,16 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				I.dropped()
 				return
 		else
-			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
+			to_chat(src, span_warning("You fail to remove [I]!"))
 
 	else
 		breakouttime = 50
-		visible_message("<span class='warning'>[src] is trying to break [I]!</span>")
+		visible_message(span_warning("[src] is trying to break [I]!"))
 		to_chat(src, span_notice("You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)"))
 		if(do_after(src, breakouttime, 0, target = src))
 			if(!I.loc || buckled)
 				return
-			visible_message("<span class='danger'>[src] manages to break [I]!</span>")
+			visible_message(span_danger("[src] manages to break [I]!"))
 			to_chat(src, span_notice("You successfully break [I]."))
 			qdel(I)
 
@@ -956,7 +956,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			return 1
 		else
-			to_chat(src, "<span class='warning'>You fail to break [I]!</span>")
+			to_chat(src, span_warning("You fail to break [I]!"))
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
@@ -1096,7 +1096,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			to_chat(src, span_notice("You don't feel like eating any more junk food at the moment."))
 			return 0
 		if(fullness <= 50)
-			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
+			to_chat(src, span_warning("You hungrily chew out a piece of [toEat] and gobble it!"))
 		else if(fullness > 50 && fullness < 150)
 			to_chat(src, span_notice("You hungrily begin to eat [toEat]."))
 		else if(fullness > 150 && fullness < 500)
@@ -1104,7 +1104,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		else if(fullness > 500 && fullness < 600)
 			to_chat(src, span_notice("You unwillingly chew a bit of [toEat]."))
 		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
-			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
+			to_chat(src, span_warning("You cannot force any more of [toEat] to go down your throat."))
 			return 0
 	return 1
 
@@ -1114,15 +1114,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
-			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
+			visible_message(span_warning("[user] attempts to force [src] to [toEat.apply_method] [toEat]."))
 	else
-		visible_message("<span class='warning'>[user] cannot force anymore of [toEat] down [src]'s throat.</span>")
+		visible_message(span_warning("[user] cannot force anymore of [toEat] down [src]'s throat."))
 		return 0
 	if(!toEat.instant_application)
 		if(!do_mob(user, src))
 			return 0
 	forceFedAttackLog(toEat, user)
-	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
+	visible_message(span_warning("[user] forces [src] to [toEat.apply_method] [toEat]."))
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(obj/item/reagent_containers/food/toEat, mob/user)

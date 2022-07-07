@@ -56,7 +56,7 @@
 	durability -= 1
 	if(durability <= 0)
 		qdel(src)
-		to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+		to_chat(user, span_warning("Your claws shatter!"))
 
 /obj/item/twohanded/required/vamp_claws/Initialize(mapload)
 	. = ..()
@@ -119,7 +119,7 @@
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
-			L.visible_message("<span class='warning'>[L] gets ensared in blood tendrils, restricting [L.p_their()] movement!</span>")
+			L.visible_message(span_warning("[L] gets ensared in blood tendrils, restricting [L.p_their()] movement!"))
 			new /obj/effect/temp_visual/blood_tendril/long(get_turf(L))
 
 /obj/effect/temp_visual/blood_tendril

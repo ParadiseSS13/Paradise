@@ -17,6 +17,6 @@
 					cell = CELL
 					to_chat(U, "<span class='notice'>Upgrade complete. Maximum capacity: <b>[round(cell.maxcharge/100)]</b>%</span>")
 				else
-					to_chat(U, "<span class='danger'>Procedure interrupted. Protocol terminated.</span>")
+					to_chat(U, span_danger("Procedure interrupted. Protocol terminated."))
 			return
 	..()

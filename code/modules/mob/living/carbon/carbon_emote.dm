@@ -25,7 +25,7 @@
 	if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 		if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] && !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 			// no arms...
-			to_chat(user, "<span class='warning'>You need arms to be able to clap.</span>")
+			to_chat(user, span_warning("You need arms to be able to clap."))
 		else
 			// well, we've got at least one
 			user.visible_message("[user] makes the sound of one hand clapping.")

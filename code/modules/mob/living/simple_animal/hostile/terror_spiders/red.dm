@@ -38,7 +38,7 @@
 	if(enrage == 0)
 		if(health < maxHealth)
 			enrage = 1
-			visible_message("<span class='danger'>[src] growls, flexing its fangs!</span>")
+			visible_message(span_danger("[src] growls, flexing its fangs!"))
 			melee_damage_lower = melee_damage_lower_rage1
 			melee_damage_upper = melee_damage_upper_rage1
 	else if(enrage == 1)
@@ -49,7 +49,7 @@
 			melee_damage_upper = melee_damage_upper_rage0
 		else if(health < (maxHealth/2))
 			enrage = 2
-			visible_message("<span class='danger'>[src] growls, spreading its fangs wide!</span>")
+			visible_message(span_danger("[src] growls, spreading its fangs wide!"))
 			melee_damage_lower = melee_damage_lower_rage2
 			melee_damage_upper = melee_damage_upper_rage2
 	else if(enrage == 2)

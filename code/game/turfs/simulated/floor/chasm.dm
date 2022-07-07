@@ -53,7 +53,7 @@
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				ReplaceWithLattice()
 			else
-				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
+				to_chat(user, span_warning("You need one rod to build a lattice."))
 			return
 	if(istype(C, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
@@ -65,9 +65,9 @@
 				to_chat(user, span_notice("You build a floor."))
 				ChangeTurf(/turf/simulated/floor/plating)
 			else
-				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
+				to_chat(user, span_warning("You need one floor tile to build a floor!"))
 		else
-			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
+			to_chat(user, span_warning("The plating is going to need some support! Place metal rods first."))
 
 /turf/simulated/floor/chasm/is_safe()
 	if(find_safeties() && ..())

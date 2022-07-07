@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	if(active)
 		active = FALSE
 		// This needs a timer because otherwise its on the shuttle Z and the message is missed
-		addtimer(CALLBACK(src, /atom.proc/visible_message, "<span class='warning'>Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.</span>"), 5)
+		addtimer(CALLBACK(src, /atom.proc/visible_message, span_warning("Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.")), 5)
 	update_icon()
 
 

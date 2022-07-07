@@ -31,7 +31,7 @@
 		return
 	var/stun_amount = (5 + (severity-1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
 	owner.Stun(stun_amount)
-	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
+	to_chat(owner, span_warning("Your body seizes up!"))
 	return stun_amount
 
 
@@ -245,7 +245,7 @@
 	if(emp_proof)
 		return
 	if(owner && active && !crit_fail)
-		to_chat(owner, "<span class='danger'>Your translator implant shuts down with a harsh buzz.</span>")
+		to_chat(owner, span_danger("Your translator implant shuts down with a harsh buzz."))
 		addtimer(CALLBACK(src, .proc/reboot), 60 SECONDS)
 		crit_fail = TRUE
 		active = FALSE
@@ -258,7 +258,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click()
 	if(owner && crit_fail)
-		to_chat(owner, "<span class='warning'>The implant is still rebooting.</span>")
+		to_chat(owner, span_warning("The implant is still rebooting."))
 	else if(owner && !active)
 		to_chat(owner, span_notice("You turn on your translator implant."))
 		active = TRUE
@@ -282,7 +282,7 @@
 	if(emp_proof)
 		return
 	if(prob(60/severity) && owner)
-		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
+		to_chat(owner, span_warning("Your breathing tube suddenly closes!"))
 		owner.AdjustLoseBreath(4 SECONDS)
 
 //[[[[CHEST]]]]
@@ -335,9 +335,9 @@
 	if(!owner || emp_proof)
 		return
 	owner.vomit(100, FALSE, TRUE, 3, FALSE)	// because when else do we ever use projectile vomiting
-	owner.visible_message("<span class='warning'>The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!</span>",
-		"<span class='warning'>You feel like your insides are burning as you vomit profusely!</span>",
-		"<span class='warning'>You hear vomiting and a sickening splattering against the floor!</span>")
+	owner.visible_message(span_warning("The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!"),
+		span_warning("You feel like your insides are burning as you vomit profusely!"),
+		span_warning("You hear vomiting and a sickening splattering against the floor!"))
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	disabled_by_emp = TRUE		// Disable the implant for a little bit so this effect actually matters
 	synthesizing = FALSE

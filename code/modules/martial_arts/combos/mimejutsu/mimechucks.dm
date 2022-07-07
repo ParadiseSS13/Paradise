@@ -8,14 +8,14 @@
 		var/damage = rand(5, 8) + user.dna.species.punchdamagelow
 		if(!damage)
 			playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-			target.visible_message("<span class='warning'>[user] swings invisible nunchcuks at [target]..and misses?</span>")
+			target.visible_message(span_warning("[user] swings invisible nunchcuks at [target]..and misses?"))
 			return MARTIAL_COMBO_DONE
 
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/armor_block = target.run_armor_check(affecting, MELEE)
 
-		target.visible_message("<span class='danger'>[user] has hit [target] with invisible nunchucks!</span>", \
+		target.visible_message(span_danger("[user] has hit [target] with invisible nunchucks!"), \
 								"<span class='userdanger'>[user] has hit [target] with a with invisible nunchuck!</span>")
 		playsound(get_turf(user), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 

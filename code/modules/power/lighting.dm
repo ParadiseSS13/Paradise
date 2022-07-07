@@ -66,9 +66,9 @@
 			TOOL_DISMANTLE_SUCCESS_MESSAGE
 			qdel(src)
 		if(2)
-			to_chat(user, "<span class='warning'>You have to remove the wires first.</span>")
+			to_chat(user, span_warning("You have to remove the wires first."))
 		if(3)
-			to_chat(user, "<span class='warning'>You have to unscrew the case first.</span>")
+			to_chat(user, span_warning("You have to unscrew the case first."))
 
 /obj/machinery/light_construct/wirecutter_act(mob/living/user, obj/item/I)
 	if(stage != 2)
@@ -430,7 +430,7 @@
 	// attempt to insert light
 	if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)
-			to_chat(user, "<span class='warning'>There is a [fitting] already inserted.</span>")
+			to_chat(user, span_warning("There is a [fitting] already inserted."))
 		else
 			add_fingerprint(user)
 			var/obj/item/light/L = W
@@ -456,7 +456,7 @@
 
 					explode()
 			else
-				to_chat(user, "<span class='warning'>This type of light requires a [fitting].</span>")
+				to_chat(user, span_warning("This type of light requires a [fitting]."))
 		return
 
 		// attempt to break the light
@@ -466,15 +466,15 @@
 		user.do_attack_animation(src)
 		if(prob(1 + W.force * 5))
 
-			user.visible_message("<span class='danger'>[user] smashed the light!</span>", "<span class='danger'>You hit the light, and it smashes!</span>", \
-			"<span class='danger'>You hear the tinkle of breaking glass.</span>")
+			user.visible_message(span_danger("[user] smashed the light!"), span_danger("You hit the light, and it smashes!"), \
+			span_danger("You hear the tinkle of breaking glass."))
 			if(on && (W.flags & CONDUCT))
 				if(prob(12))
 					electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 			break_light_tube()
 		else
-			user.visible_message("<span class='danger'>[user] hits the light.</span>", "<span class='danger'>You hit the light.</span>", \
-			"<span class='danger'>You hear someone hitting a light.</span>")
+			user.visible_message(span_danger("[user] hits the light."), span_danger("You hit the light."), \
+			span_danger("You hear someone hitting a light."))
 			playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
 		return
 
@@ -493,7 +493,7 @@
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
 				to_chat(user, "<span class='userdanger'>You are electrocuted by [src]!</span>")
 			else // If not electrocuted
-				to_chat(user, "<span class='danger'>You stick [W] into the light socket!</span>")
+				to_chat(user, span_danger("You stick [W] into the light socket!"))
 			return
 
 	return ..()
@@ -651,7 +651,7 @@
 			to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
-				to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
+				to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))
 
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 				if(affecting.receive_damage(0, 5)) // 5 burn damage
@@ -886,7 +886,7 @@
 			return
 
 		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
-			to_chat(user, "<span class='danger'>You inject the solution into [src], rigging it to explode!</span>")
+			to_chat(user, span_danger("You inject the solution into [src], rigging it to explode!"))
 			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
 			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
 
@@ -894,7 +894,7 @@
 			S.reagents.clear_reagents()
 
 		else // If it has a reagent, but it's not plasma
-			to_chat(user, "<span class='warning'>You fail to rig [src] with the solution.</span>")
+			to_chat(user, span_warning("You fail to rig [src] with the solution."))
 
 	else // If it's not a syringe
 		return ..()
@@ -909,7 +909,7 @@
 
 /obj/item/light/proc/shatter()
 	if(status == LIGHT_OK || status == LIGHT_BURNED)
-		visible_message("<span class='warning'>[src] shatters.</span>", "<span class='warning'>You hear a small glass object shatter.</span>")
+		visible_message(span_warning("[src] shatters."), span_warning("You hear a small glass object shatter."))
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = TRUE
@@ -931,7 +931,7 @@
 	emergency_mode = FALSE
 	no_emergency = TRUE
 	addtimer(CALLBACK(src, .proc/enable_emergency_lighting), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+	visible_message(span_danger("[src] flickers and falls dark."))
 	update(FALSE)
 
 /obj/machinery/light/proc/enable_emergency_lighting()

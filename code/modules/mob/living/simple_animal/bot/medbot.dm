@@ -239,10 +239,10 @@
 	if(istype(W, /obj/item/reagent_containers/glass))
 		. = 1 //no afterattack
 		if(locked)
-			to_chat(user, "<span class='warning'>You cannot insert a beaker because the panel is locked!</span>")
+			to_chat(user, span_warning("You cannot insert a beaker because the panel is locked!"))
 			return
 		if(!isnull(reagent_glass))
-			to_chat(user, "<span class='warning'>There is already a beaker loaded!</span>")
+			to_chat(user, span_warning("There is already a beaker loaded!"))
 			return
 		if(!user.drop_item())
 			return
@@ -264,7 +264,7 @@
 		declare_crit = 0
 		if(user)
 			to_chat(user, span_notice("You short out [src]'s reagent synthesis circuits."))
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+		audible_message(span_danger("[src] buzzes oddly!"))
 		flick("medibot_spark", src)
 		if(user)
 			oldpatient = user
@@ -272,7 +272,7 @@
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
 	if(buckled)
 		if((last_warning + 300) < world.time)
-			speak("<span class='danger'>Movement restrained! Unit on standby!</span>")
+			speak(span_danger("Movement restrained! Unit on standby!"))
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			last_warning = world.time
 		return
@@ -509,7 +509,7 @@
 		if(!emagged && check_overdose(patient,reagent_id,injection_amount))
 			soft_reset()
 			return
-		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
+		C.visible_message(span_danger("[src] is trying to inject [patient]!"), \
 			"<span class='userdanger'>[src] is trying to inject you!</span>")
 
 		spawn(30)//replace with do mob
@@ -521,7 +521,7 @@
 						reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
 				else
 					patient.reagents.add_reagent(reagent_id,injection_amount)
-				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
+				C.visible_message(span_danger("[src] injects [patient] with its syringe!"), \
 					"<span class='userdanger'>[src] injects you with its syringe!</span>")
 			else
 				visible_message("[src] retracts its syringe.")

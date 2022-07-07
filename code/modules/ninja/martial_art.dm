@@ -31,7 +31,7 @@
 		desc = "A strange autoinjector made of a black metal.<br>It appears to be used up and empty."
 		return 0
 	else
-		to_chat(user, "<span class='warning'>[src] has been used already!</span>")
+		to_chat(user, span_warning("[src] has been used already!"))
 		return 1
 
 // Ninja martial art datum
@@ -55,7 +55,7 @@
 		if(has_focus)
 			has_focus = 0
 			A.face_atom(D)
-			D.visible_message("<span class='warning'>[A] grabs [D]'s wrist and wrenches it sideways!</span>", \
+			D.visible_message(span_warning("[A] grabs [D]'s wrist and wrenches it sideways!"), \
 							  "<span class='userdanger'>[A] grabs your wrist and violently wrenches it to the side!</span>")
 			playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			D.emote("scream")
@@ -65,7 +65,7 @@
 			spawn(50)
 				has_focus = 1
 			return 1
-		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
+		to_chat(A, span_warning("You are not focused enough to use that move yet!"))
 		return 0
 	return A.pointed(D)
 
@@ -73,18 +73,18 @@
 	if(!D.stat && !D.weakened)
 		A.face_atom(D)
 		if(A.dir != D.dir) // If the user's direction is not the same as the target's after A.face_atom(D) you are not behind them, and cannot use this ability.
-			to_chat(A, "<span class='warning'>You cannot grab [D] from that angle!</span>")
+			to_chat(A, span_warning("You cannot grab [D] from that angle!"))
 			return 0
 
 		if(has_choke_hold) // Are we already choking someone?
-			to_chat(A, "<span class='warning'>You already have a target in your grip!</span>")
+			to_chat(A, span_warning("You already have a target in your grip!"))
 			return 0
 
 		has_choke_hold = 1
 
 		var/hold_name = "[pick(attack_names)] [pick("grip", "hold", "vise", "press")]"
 
-		D.visible_message("<span class='warning'>[A] comes from behind and puts [D] in a [hold_name]!</span>", \
+		D.visible_message(span_warning("[A] comes from behind and puts [D] in a [hold_name]!"), \
 						  "<span class='userdanger'>[A]\ puts you in a [hold_name]! You are unable to speak!</span>")
 		step_to(D,get_step(D,D.dir),1)
 
@@ -98,14 +98,14 @@
 				D.silent += 1
 				D.adjustOxyLoss(1)
 			else
-				D.visible_message("<span class='warning'>[A] loses [A.p_their()] grip on [D]'s neck!</span>", \
+				D.visible_message(span_warning("[A] loses [A.p_their()] grip on [D]'s neck!"), \
 									"<span class='userdanger'>[A] loses [A.p_their()] grip on your neck!</span>")
 				has_choke_hold = 0
 				return 0
 			I++
 			sleep(5)
 
-		to_chat(A, "<span class='warning'>You feel [D] go limp in your grip.</span>")
+		to_chat(A, span_warning("You feel [D] go limp in your grip."))
 		to_chat(D, "<span class='userdanger'>You feel your consciousness slip away as [A] strangles you!</span>")
 		D.AdjustParalysis(40 SECONDS)
 
@@ -121,7 +121,7 @@
 			A.face_atom(D)
 
 			var/strike_adjective = pick(attack_names)
-			D.visible_message("<span class='danger'>[A] sends [D] flying backwards with a [strike_adjective] palm strike!</span>", \
+			D.visible_message(span_danger("[A] sends [D] flying backwards with a [strike_adjective] palm strike!"), \
 				"<span class='userdanger'>[A] delivers a [strike_adjective] palm strike to you and sends you flying!</span>")
 
 			var/atom/throw_target = get_ranged_target_turf(D, get_dir(D, get_step_away(D, A)), 3) // Get a turf 3 tiles away from the target relative to our direction from him.
@@ -132,7 +132,7 @@
 			spawn(50)
 				has_focus = 1
 			return 1
-		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
+		to_chat(A, span_warning("You are not focused enough to use that move yet!"))
 		return 0
 	return A.pointed(D)
 
@@ -145,7 +145,7 @@
 
 /datum/martial_art/ninja_martial_art/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D) // 10 damage punches
 	var/strike_name = "[pick(attack_names)] [pick("punches", "kicks", "chops", "slams", "strikes")]"
-	D.visible_message("<span class='danger'>[A] [strike_name] on [D]!</span>", \
+	D.visible_message(span_danger("[A] [strike_name] on [D]!"), \
 					  "<span class='userdanger'>[A] [strike_name] you!</span>")
 	D.apply_damage(10, BRUTE)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)

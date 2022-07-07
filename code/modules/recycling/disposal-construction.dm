@@ -91,7 +91,7 @@
 
 /obj/structure/disposalconstruct/AltClick(mob/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return

@@ -23,24 +23,24 @@
 		if(2)
 			if(prob(10))
 				if(istajaran(affected_mob))
-					to_chat(affected_mob, "<span class='danger'>Something in your throat itches.</span>")
+					to_chat(affected_mob, span_danger("Something in your throat itches."))
 				else
-					to_chat(affected_mob, "<span class='danger'>You NEED to find a mouse.</span>")
+					to_chat(affected_mob, span_danger("You NEED to find a mouse."))
 		if(3)
 			if(prob(10))
 				if(istajaran(affected_mob))
-					to_chat(affected_mob, "<span class='danger'>You feel something in your throat!</span>")
+					to_chat(affected_mob, span_danger("You feel something in your throat!"))
 					affected_mob.emote("cough")
 				else
 					affected_mob.say(pick(list("Mew", "Meow!", "Nya!~")))
 		if(4)
 			if(prob(5))
 				if(istajaran(affected_mob))
-					affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up a hairball!</span>", \
+					affected_mob.visible_message(span_danger("[affected_mob] coughs up a hairball!"), \
 													"<span class='userdanger'>You cough up a hairball!</span>")
 					affected_mob.Stun(10 SECONDS)
 				else
-					affected_mob.visible_message("<span class='danger'>[affected_mob]'s form contorts into something more feline!</span>", \
+					affected_mob.visible_message(span_danger("[affected_mob]'s form contorts into something more feline!"), \
 													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")
 					var/mob/living/carbon/human/catface = affected_mob
 					catface.set_species(/datum/species/tajaran, retain_damage = TRUE)
@@ -79,19 +79,19 @@
 					to_chat(twisted, span_notice("You feel awkward."))
 			if(2)
 				if(prob(10))
-					to_chat(twisted, "<span class='danger'>You itch.</span>")
+					to_chat(twisted, span_danger("You itch."))
 			if(3)
 				if(prob(10))
-					to_chat(twisted, "<span class='danger'>Your skin starts to flake!</span>")
+					to_chat(twisted, span_danger("Your skin starts to flake!"))
 
 			if(4)
 				if(prob(5))
 					if(!istype(twisted.dna.species, chosentype))
-						twisted.visible_message("<span class='danger'>[twisted]'s skin splits and form contorts!</span>", \
+						twisted.visible_message(span_danger("[twisted]'s skin splits and form contorts!"), \
 														"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>")
 						twisted.set_species(chosentype, retain_damage = TRUE)
 					else
-						twisted.visible_message("<span class='danger'>[twisted] scratches at thier skin!</span>", \
+						twisted.visible_message(span_danger("[twisted] scratches at thier skin!"), \
 														"<span class='userdanger'>You scratch your skin to try not to itch!</span>")
 						twisted.adjustBruteLoss(-5)
 						twisted.adjustStaminaLoss(5)

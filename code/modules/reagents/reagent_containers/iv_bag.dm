@@ -55,7 +55,7 @@
 		return
 
 	if(amount_per_transfer_from_this > 10) // Prevents people from switching to illegal transfer values while the IV is already in someone, i.e. anything over 10
-		visible_message("<span class='danger'>The IV bag's needle pops out of [injection_target]'s arm. The transfer amount is too high!</span>")
+		visible_message(span_danger("The IV bag's needle pops out of [injection_target]'s arm. The transfer amount is too high!"))
 		end_processing()
 		return
 
@@ -94,42 +94,42 @@
 				to_chat(user, "<span class='notice'>[src] is already inserted into [injection_target]'s arm!")
 				return
 			if(L != user)
-				L.visible_message("<span class='danger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>", \
+				L.visible_message(span_danger("[user] is trying to remove [src]'s needle from [L]'s arm!"), \
 								"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
 				if(!do_mob(user, L))
 					return
-			L.visible_message("<span class='danger'>[user] removes [src]'s needle from [L]'s arm!</span>", \
+			L.visible_message(span_danger("[user] removes [src]'s needle from [L]'s arm!"), \
 								"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
 			end_processing()
 		else // Inserting the needle
 			if(!L.can_inject(user, TRUE))
 				return
 			if(amount_per_transfer_from_this > 10) // We only want to be able to transfer 1, 5, or 10 units to people. Higher numbers are for transfering to other containers
-				to_chat(user, "<span class='warning'>The IV bag can only be used on someone with a transfer amount of 1, 5 or 10.</span>")
+				to_chat(user, span_warning("The IV bag can only be used on someone with a transfer amount of 1, 5 or 10."))
 				return
 			if(L != user)
-				L.visible_message("<span class='danger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>", \
+				L.visible_message(span_danger("[user] is trying to insert [src]'s needle into [L]'s arm!"), \
 									"<span class='userdanger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>")
 				if(!do_mob(user, L))
 					return
-			L.visible_message("<span class='danger'>[user] inserts [src]'s needle into [L]'s arm!</span>", \
+			L.visible_message(span_danger("[user] inserts [src]'s needle into [L]'s arm!"), \
 									"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")
 			begin_processing(L)
 
 	else if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>[src] is empty.</span>")
+			to_chat(user, span_warning("[src] is empty."))
 			return
 
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>[target] is full.</span>")
+			to_chat(user, span_warning("[target] is full."))
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, span_notice("You transfer [trans] units of the solution to [target]."))
 
 	else if(istype(target, /obj/item/reagent_containers/glass) && !target.is_open_container())
-		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
+		to_chat(user, span_warning("You cannot fill [target] while it is sealed."))
 		return
 
 

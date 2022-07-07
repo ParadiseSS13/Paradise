@@ -108,7 +108,7 @@
 /datum/species/moth/proc/check_burn_wings(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
 	SIGNAL_HANDLER
 	if(H.on_fire && !H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) && H.bodytemperature >= 400 && H.fire_stacks > 0)
-		to_chat(H, "<span class='warning'>Your precious wings burn to a crisp!</span>")
+		to_chat(H, span_warning("Your precious wings burn to a crisp!"))
 		H.apply_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
 /datum/species/moth/proc/on_aheal(mob/living/carbon/human/H)
@@ -135,12 +135,12 @@
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/human/moth/H = owner
 	if(H.nutrition < COCOON_NUTRITION_AMOUNT)
-		to_chat(H, "<span class='warning'>You are too hungry to cocoon!</span>")
+		to_chat(H, span_warning("You are too hungry to cocoon!"))
 		return
 	H.visible_message(span_notice("[H] begins to hold still and concentrate on weaving a cocoon..."), span_notice("You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)"))
 	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
 		if(H.incapacitated())
-			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
+			to_chat(H, span_warning("You cannot weave a cocoon in your current state."))
 			return
 		H.visible_message(span_notice("[H] finishes weaving a cocoon!"), span_notice("You finish weaving your cocoon."))
 		var/obj/structure/moth/cocoon/C = new(get_turf(H))
@@ -150,7 +150,7 @@
 		H.KnockOut()
 		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
-		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
+		to_chat(H, span_warning("You need to hold still in order to weave a cocoon!"))
 
 /**
  * Removes moth from cocoon, restores burnt wings
@@ -177,9 +177,9 @@
 
 /obj/structure/moth/cocoon/Destroy()
 	if(!preparing_to_emerge)
-		visible_message("<span class='danger'>[src] splits open from within!</span>")
+		visible_message(span_danger("[src] splits open from within!"))
 	else
-		visible_message("<span class='danger'>[src] is smashed open, harming the Nian within!</span>")
+		visible_message(span_danger("[src] is smashed open, harming the Nian within!"))
 		for(var/mob/living/carbon/human/H in contents)
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT)
 			H.adjustFireLoss(COCOON_HARM_AMOUNT)

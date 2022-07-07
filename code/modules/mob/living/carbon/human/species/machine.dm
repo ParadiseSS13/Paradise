@@ -123,7 +123,7 @@
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 
 	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
-		to_chat(H, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
+		to_chat(H, span_warning("Where's your head at? Can't change your monitor/display without one."))
 		return
 
 	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
@@ -132,7 +132,7 @@
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
 		if(H.incapacitated(TRUE, TRUE))
-			to_chat(H, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
+			to_chat(H, span_warning("You were interrupted while changing the colour of your optics."))
 			return
 		if(optic_colour)
 			H.change_markings(optic_colour, "head")
@@ -154,7 +154,7 @@
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
 		if(H.incapacitated(TRUE, TRUE))
-			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
+			to_chat(H, span_warning("You were interrupted while changing your monitor display."))
 			return
 
 		if(new_style)

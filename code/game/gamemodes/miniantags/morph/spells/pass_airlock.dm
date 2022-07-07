@@ -23,27 +23,27 @@
 
 	if(user.morphed)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You can only pass through airlocks in your true form!</span>")
+			to_chat(user, span_warning("You can only pass through airlocks in your true form!"))
 		return FALSE
 
 /obj/effect/proc_holder/spell/morph_spell/pass_airlock/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	var/obj/machinery/door/airlock/A = targets[1]
 	if(A.locked)
-		to_chat(user, "<span class='warning'>[A] is bolted shut! You're unable to create a crack to pass through!</span>")
+		to_chat(user, span_warning("[A] is bolted shut! You're unable to create a crack to pass through!"))
 		revert_cast(user)
 		return
-	user.visible_message("<span class='warning'>[user] starts pushing itself against [A]!</span>", "<span class='sinister'>You try to pry [A] open enough to get through.</span>")
+	user.visible_message(span_warning("[user] starts pushing itself against [A]!"), "<span class='sinister'>You try to pry [A] open enough to get through.</span>")
 	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, .proc/pass_check, user, A)), FALSE))
 		if(user.morphed)
-			to_chat(user, "<span class='warning'>You need to stay in your true form to pass through [A]!</span>")
+			to_chat(user, span_warning("You need to stay in your true form to pass through [A]!"))
 		else if(A.locked)
-			to_chat(user, "<span class='warning'>[A] is bolted shut! You're unable to create a crack to pass through!</span>")
+			to_chat(user, span_warning("[A] is bolted shut! You're unable to create a crack to pass through!"))
 		else
-			to_chat(user, "<span class='warning'>You need to stay still to pass through [A]!</span>")
+			to_chat(user, span_warning("You need to stay still to pass through [A]!"))
 		revert_cast(user)
 		return
 
-	user.visible_message("<span class='warning'>[user] briefly opens [A] slightly and passes through!</span>", "<span class='sinister'>You slide through the open crack in [A].</span>")
+	user.visible_message(span_warning("[user] briefly opens [A] slightly and passes through!"), "<span class='sinister'>You slide through the open crack in [A].</span>")
 	user.forceMove(A.loc) // Move into the turf of the airlock
 
 

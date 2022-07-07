@@ -190,7 +190,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
+			to_chat(user, span_warning("You can't improve [C] any further!"))
 	else if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
 		if(D.hides < 3)
@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 				D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+			to_chat(user, span_warning("You can't improve [D] any further!"))
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"

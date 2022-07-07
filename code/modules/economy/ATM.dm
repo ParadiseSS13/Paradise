@@ -110,7 +110,7 @@ log transactions
 	if(..())
 		return TRUE
 	if(issilicon(user))
-		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
+		to_chat(user, span_warning("Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005."))
 		return
 	if(!linked_db)
 		reconnect_database()

@@ -28,7 +28,7 @@
 			to_chat(user, span_notice("You put the grenade in [src]."))
 			to_chat(user, span_notice("[grenades.len] / [max_grenades] grenades."))
 		else
-			to_chat(user, "<span class='warning'>The grenade launcher cannot hold more grenades.</span>")
+			to_chat(user, span_warning("The grenade launcher cannot hold more grenades."))
 	else
 		return ..()
 
@@ -39,11 +39,11 @@
 	if(grenades.len)
 		fire_grenade(target,user)
 	else
-		to_chat(user, "<span class='danger'>The grenade launcher is empty.</span>")
+		to_chat(user, span_danger("The grenade launcher is empty."))
 
 /obj/item/gun/grenadelauncher/proc/fire_grenade(atom/target, mob/user)
-	user.visible_message("<span class='danger'>[user] fired a grenade!</span>", \
-						"<span class='danger'>You fire the grenade launcher!</span>")
+	user.visible_message(span_danger("[user] fired a grenade!"), \
+						span_danger("You fire the grenade launcher!"))
 	var/obj/item/grenade/chem_grenade/F = grenades[1] //Now with less copypasta!
 	grenades -= F
 	F.loc = user.loc

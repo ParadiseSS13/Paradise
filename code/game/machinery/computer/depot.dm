@@ -31,7 +31,7 @@
 
 /obj/machinery/computer/syndicate_depot/attack_ai(mob/user)
 	if(length(req_access) && !("syndicate" in user.faction))
-		to_chat(user, "<span class='warning'>A firewall blocks your access.</span>")
+		to_chat(user, span_warning("A firewall blocks your access."))
 		return TRUE
 	return ..()
 
@@ -110,7 +110,7 @@
 		return
 	. = FALSE
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	switch(action)
 		if("primary")
@@ -327,7 +327,7 @@
 		return
 	if(message_sent)
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 0)
-		to_chat(user, "<span class='warning'>[src] has already been used to transmit a message to the Syndicate.</span>")
+		to_chat(user, span_warning("[src] has already been used to transmit a message to the Syndicate."))
 		return
 	message_sent = TRUE
 	var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This function may only be used ONCE.", "To abort, send an empty message.", "")
@@ -341,22 +341,22 @@
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/secondary(mob/user)
 	if(!istype(depotarea))
-		to_chat(user, "<span class='warning'>ERROR: [src] is unable to uplink to depot network.</span>")
+		to_chat(user, span_warning("ERROR: [src] is unable to uplink to depot network."))
 		return
 	if(depotarea.local_alarm || depotarea.called_backup || depotarea.used_self_destruct)
-		to_chat(user, "<span class='warning'>Visitor sign-in is not possible while the depot is on security alert.</span>")
+		to_chat(user, span_warning("Visitor sign-in is not possible while the depot is on security alert."))
 		return
 	if(depotarea.something_looted)
-		to_chat(user, "<span class='warning'>Visitor sign-in is not possible after supplies have been taken from a locker in the depot.</span>")
+		to_chat(user, span_warning("Visitor sign-in is not possible after supplies have been taken from a locker in the depot."))
 		return
 	if("syndicate" in user.faction)
-		to_chat(user, "<span class='warning'>You are already recognized as a member of the Syndicate, and do not need to sign in.</span>")
+		to_chat(user, span_warning("You are already recognized as a member of the Syndicate, and do not need to sign in."))
 		return
 	if(!user.mind || user.mind.special_role != SPECIAL_ROLE_TRAITOR)
-		to_chat(user, "<span class='warning'>Only verified agents of the Syndicate may sign in as visitors. Everyone else will be shot on sight.</span>")
+		to_chat(user, span_warning("Only verified agents of the Syndicate may sign in as visitors. Everyone else will be shot on sight."))
 		return
 	if(depotarea.list_includes(user, depotarea.peaceful_list))
-		to_chat(user, "<span class='warning'>[user] is already signed in as a visiting agent.</span>")
+		to_chat(user, span_warning("[user] is already signed in as a visiting agent."))
 		return
 	if(!depotarea.on_peaceful)
 		depotarea.peaceful_mode(TRUE, TRUE)

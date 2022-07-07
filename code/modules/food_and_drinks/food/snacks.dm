@@ -53,7 +53,7 @@
 
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
-		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
+		to_chat(user, span_warning("None of [src] left, oh no!"))
 		M.unEquip(src)	//so icons update :[
 		qdel(src)
 		return FALSE
@@ -184,19 +184,19 @@
 	if(!I)
 		return
 	if(I.w_class > WEIGHT_CLASS_SMALL)
-		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
+		to_chat(user, span_warning("You cannot fit [I] in [src]!"))
 		return
 	var/newweight = GetTotalContentsWeight() + I.GetTotalContentsWeight() + I.w_class
 	if(newweight > MAX_WEIGHT_CLASS)
 		// Nope, no bluespace slice food
-		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
+		to_chat(user, span_warning("You cannot fit [I] in [src]!"))
 		return
 	if(!iscarbon(user))
 		return
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")
+		to_chat(user, span_warning("You cannot slip [I] inside [src]!"))
 		return
-	to_chat(user, "<span class='warning'>You slip [I] inside [src].</span>")
+	to_chat(user, span_warning("You slip [I] inside [src]."))
 	total_w_class += I.w_class
 	add_fingerprint(user)
 	I.forceMove(src)
@@ -213,7 +213,7 @@
 		return TRUE
 	if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && \
 			!(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
-		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
+		to_chat(user, span_warning("You cannot slice [src] here! You need a table or at least a tray to do it."))
 		return TRUE
 	var/slices_lost = 0
 	if(!inaccurate)

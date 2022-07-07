@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 
 /obj/item/stack/rods/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 2)
-		to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
+		to_chat(user, span_warning("You need at least two rods to do this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -80,7 +80,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 		new_item = locate() in user.loc
 	visible_message(span_notice("[user.name] shapes [src] into metal with [I]!"), \
 				 	span_notice("You shape [src] into metal with [I]!"), \
-					"<span class='warning'>You hear welding.</span>")
+					span_warning("You hear welding."))
 	var/replace = user.is_in_inactive_hand(src)
 	use(2)
 	if(get_amount() <= 0 && replace)

@@ -34,7 +34,7 @@
 
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='warning'>You stab [M] with [src]!</span>")
+		user.visible_message(span_warning("[user] stabs [M] with [src]!"), span_warning("You stab [M] with [src]!"))
 		to_chat(M, "<span class='userdanger'>[user] stabs you with [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
 		return
 
@@ -203,7 +203,7 @@
 		qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
@@ -249,7 +249,7 @@
 	D.flags |= NODROP
 	C.place_on_head(D)
 	C.visible_message(span_notice("[C] suddenly winks into existence at [user]'s feet!"))
-	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
+	to_chat(user, span_danger("[src] crumbles to dust in your hands!"))
 	user.drop_item()
 	qdel(src)
 
@@ -306,7 +306,7 @@
 		return
 
 	if(!istype(target, /obj/item/clothing/suit/armor/hos))
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, span_warning("You can't modify [target]!"))
 		return
 
 	to_chat(user, span_notice("You modify the appearance of [target]."))
@@ -350,7 +350,7 @@
 		qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/fluff/desolate_baton_kit //DesolateG: Micheal Smith
 	name = "stun baton conversion kit"
@@ -376,7 +376,7 @@
 		qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/fluff/cardgage_helmet_kit //captain cardgage: Richard Ulery
 	name = "welding helmet modkit"
@@ -398,7 +398,7 @@
 		qdel(target)
 		qdel(src)
 		return
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/fluff/merchant_sallet_modkit //Travelling Merchant: Trav Noble. This is what they spawn in with
 	name = "SG Helmet modkit"
@@ -441,7 +441,7 @@
 		qdel(target)
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/fluff/k3_webbing_modkit //IK3I: Yakikatachi
 	name = "webbing modkit"
@@ -465,7 +465,7 @@
 		qdel(S)
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, span_warning("You can't modify [target]!"))
 
 
 /obj/item/fluff/pyro_wintersec_kit //DarkLordpyro: Valthorne Haliber
@@ -518,7 +518,7 @@
 		if(P == H.wear_suit)
 			H.update_inv_wear_suit()
 		return
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 
 /obj/item/fluff/sylus_conversion_kit //Decemviri: Sylus Cain
@@ -577,7 +577,7 @@
 			qdel(src)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You can't modify [target]!"))
 
 
 //////////////////////////////////
@@ -1500,7 +1500,7 @@
 
 	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
 		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='warning'>The kit's helmet modifier has already been used!</span>")
+			to_chat(H, span_warning("The kit's helmet modifier has already been used!"))
 			return
 
 		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
@@ -1516,7 +1516,7 @@
 
 	else if(istype(target, /obj/item/clothing/under/plasmaman))
 		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='warning'>The kit's suit modifier has already been used!</span>")
+			to_chat(user, span_warning("The kit's suit modifier has already been used!"))
 			return
 
 		var/obj/item/clothing/under/plasmaman/P = target
@@ -1531,7 +1531,7 @@
 			H.update_inv_w_uniform()
 
 	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		to_chat(user, span_warning("You can't modify [target]!"))
 
 /obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff // LightFire53: Ikelos
 	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.

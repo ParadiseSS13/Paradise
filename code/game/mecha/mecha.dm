@@ -186,10 +186,10 @@
 	if(user.incapacitated())
 		return
 	if(phasing)
-		occupant_message("<span class='warning'>Unable to interact with objects while phasing.</span>")
+		occupant_message(span_warning("Unable to interact with objects while phasing."))
 		return
 	if(state)
-		occupant_message("<span class='warning'>Maintenance protocols in effect.</span>")
+		occupant_message(span_warning("Maintenance protocols in effect."))
 		return
 	if(!get_charge())
 		return
@@ -209,15 +209,15 @@
 	if(!target.Adjacent(src))
 		if(selected && selected.is_ranged())
 			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
-				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
+				to_chat(L, span_warning("You don't want to harm other living beings!"))
 				return
 			if(user.mind?.martial_art?.no_guns)
-				to_chat(L, "<span class='warning'>[L.mind.martial_art.no_guns_message]</span>")
+				to_chat(L, span_warning("[L.mind.martial_art.no_guns_message]"))
 				return
 			selected.action(target, params)
 	else if(selected && selected.is_melee())
 		if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+			to_chat(user, span_warning("You don't want to harm other living beings!"))
 			return
 		selected.action(target, params)
 	else
@@ -269,11 +269,11 @@
 		return 0
 	if(connected_port)
 		if(world.time - last_message > 20)
-			occupant_message("<span class='warning'>Unable to move while connected to the air system port!</span>")
+			occupant_message(span_warning("Unable to move while connected to the air system port!"))
 			last_message = world.time
 		return 0
 	if(state)
-		occupant_message("<span class='danger'>Maintenance protocols in effect.</span>")
+		occupant_message(span_danger("Maintenance protocols in effect."))
 		return
 	return domove(direction)
 
@@ -286,12 +286,12 @@
 		return 0
 	if(defence_mode)
 		if(world.time - last_message > 20)
-			occupant_message("<span class='danger'>Unable to move while in defence mode.</span>")
+			occupant_message(span_danger("Unable to move while in defence mode."))
 			last_message = world.time
 		return 0
 	if(zoom_mode)
 		if(world.time - last_message > 20)
-			occupant_message("<span class='danger'>Unable to move while in zoom mode.</span>")
+			occupant_message(span_danger("Unable to move while in zoom mode."))
 			last_message = world.time
 		return 0
 
@@ -517,7 +517,7 @@
 		booster_damage_modifier /= facing_modifier
 		booster_deflection_modifier *= facing_modifier
 	if(prob(deflect_chance * booster_deflection_modifier))
-		visible_message("<span class='danger'>[src]'s armour deflects the attack!</span>")
+		visible_message(span_danger("[src]'s armour deflects the attack!"))
 		log_message("Armor saved.")
 		return 0
 	if(.)
@@ -677,7 +677,7 @@
 				E.attach(src)
 				user.visible_message("[user] attaches [W] to [src].", span_notice("You attach [W] to [src]."))
 			else
-				to_chat(user, "<span class='warning'>You were unable to attach [W] to [src]!</span>")
+				to_chat(user, span_warning("You were unable to attach [W] to [src]!"))
 		return
 
 	if(W.GetID())
@@ -692,9 +692,9 @@
 				output_maintenance_dialog(id_card, user)
 				return
 			else
-				to_chat(user, "<span class='warning'>Invalid ID: Access denied.</span>")
+				to_chat(user, span_warning("Invalid ID: Access denied."))
 		else
-			to_chat(user, "<span class='warning'>Maintenance protocols disabled by operator.</span>")
+			to_chat(user, span_warning("Maintenance protocols disabled by operator."))
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		if(state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
@@ -788,7 +788,7 @@
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 		user.visible_message(span_notice("[user] begins levering out the MMI from [src]."), span_notice("You begin to lever out the MMI from [src]."))
-		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
+		to_chat(occupant, span_warning("[user] is prying you out of the exosuit!"))
 		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
 			user.visible_message(span_notice("[user] pries the MMI out of [src]!"), span_notice("You finish removing the MMI from [src]!"))
 			go_out()
@@ -840,7 +840,7 @@
 		to_chat(user, span_notice("[src] is currently being repaired!"))
 		return
 	if(state == 0) // If maint protocols are not active, the state is zero
-		to_chat(user, "<span class='warning'>[src] can not be repaired without maintenance protocols active!</span>")
+		to_chat(user, span_warning("[src] can not be repaired without maintenance protocols active!"))
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
@@ -864,7 +864,7 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+	to_chat(user, span_warning("[src]'s ID slot rejects the card."))
 	return
 
 
@@ -887,7 +887,7 @@
 	else
 		examine(user)
 		if(occupant)
-			to_chat(user, "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>")
+			to_chat(user, span_warning("This exosuit has a pilot and cannot be controlled."))
 			return
 		var/can_control_mech = FALSE
 		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in trackers)
@@ -896,7 +896,7 @@
 				[A.get_mecha_info_text()]")
 			break
 		if(!can_control_mech)
-			to_chat(user, "<span class='warning'>You cannot control exosuits without AI control beacons installed.</span>")
+			to_chat(user, span_warning("You cannot control exosuits without AI control beacons installed."))
 			return
 		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'><span class='boldnotice'>Take control of exosuit?</span></a><br>")
 
@@ -908,11 +908,11 @@
 	switch(interaction)
 		if(AI_TRANS_TO_CARD) //Upload AI from mech to AI card.
 			if(!maint_access) //Mech must be in maint mode to allow carding.
-				to_chat(user, "<span class='warning'>[name] must have maintenance protocols active in order to allow a transfer.</span>")
+				to_chat(user, span_warning("[name] must have maintenance protocols active in order to allow a transfer."))
 				return
 			AI = occupant
 			if(!AI || !isAI(occupant)) //Mech does not have an AI for a pilot
-				to_chat(user, "<span class='warning'>No AI detected in the [name] onboard computer.</span>")
+				to_chat(user, span_warning("No AI detected in the [name] onboard computer."))
 				return
 			if(AI.mind.special_role) //Malf AIs cannot leave mechs. Except through death.
 				to_chat(user, "<span class='boldannounce'>ACCESS DENIED.</span>")
@@ -933,17 +933,17 @@
 			if(AI.can_dominate_mechs)
 				if(occupant) //Oh, I am sorry, were you using that?
 					to_chat(AI, "<span class='warning'>Pilot detected! Forced ejection initiated!")
-					to_chat(occupant, "<span class='danger'>You have been forcibly ejected!</span>")
+					to_chat(occupant, span_danger("You have been forcibly ejected!"))
 					go_out(1) //IT IS MINE, NOW. SUCK IT, RD!
 			ai_enter_mech(AI, interaction)
 
 		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
 			AI = locate(/mob/living/silicon/ai) in card
 			if(!AI)
-				to_chat(user, "<span class='warning'>There is no AI currently installed on this device.</span>")
+				to_chat(user, span_warning("There is no AI currently installed on this device."))
 				return
 			else if(AI.stat || !AI.client)
-				to_chat(user, "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>")
+				to_chat(user, span_warning("[AI.name] is currently unresponsive, and cannot be uploaded."))
 				return
 			else if(occupant || dna) //Normal AIs cannot steal mechs!
 				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].")
@@ -1058,7 +1058,7 @@
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if(frozen)
-		to_chat(user, "<span class='warning'>Do not enter Admin-Frozen mechs.</span>")
+		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
 		return
 	if(user.incapacitated())
 		return
@@ -1066,7 +1066,7 @@
 		return
 	log_message("[user] tries to move in.")
 	if(occupant)
-		to_chat(user, "<span class='warning'>[src] is already occupied!</span>")
+		to_chat(user, span_warning("[src] is already occupied!"))
 		log_append_to_last("Permission denied.")
 		return
 	var/passed
@@ -1077,32 +1077,32 @@
 	else if(operation_allowed(user))
 		passed = 1
 	if(!passed)
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		log_append_to_last("Permission denied.")
 		return
 	if(user.buckled)
-		to_chat(user, "<span class='warning'>You are currently buckled and cannot move.</span>")
+		to_chat(user, span_warning("You are currently buckled and cannot move."))
 		log_append_to_last("Permission denied.")
 		return
 	if(user.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
+		to_chat(user, span_warning("You can't enter the exosuit with other creatures attached to you!"))
 		return
 
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
 
 	if(do_after(user, 40, target = src))
 		if(obj_integrity <= 0)
-			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
+			to_chat(user, span_warning("You cannot get in the [name], it has been destroyed!"))
 		else if(occupant)
-			to_chat(user, "<span class='danger'>[occupant] was faster! Try better next time, loser.</span>")
+			to_chat(user, span_danger("[occupant] was faster! Try better next time, loser."))
 		else if(user.buckled)
-			to_chat(user, "<span class='warning'>You can't enter the exosuit while buckled.</span>")
+			to_chat(user, span_warning("You can't enter the exosuit while buckled."))
 		else if(user.has_buckled_mobs())
-			to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
+			to_chat(user, span_warning("You can't enter the exosuit with other creatures attached to you!"))
 		else
 			moved_inside(user)
 	else
-		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
+		to_chat(user, span_warning("You stop entering the exosuit!"))
 
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H as mob)
 	if(H && H.client && (H in range(1)))
@@ -1129,26 +1129,26 @@
 
 /obj/mecha/proc/mmi_move_inside(obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
-		to_chat(user, "<span class='warning'>Consciousness matrix not detected!</span>")
+		to_chat(user, span_warning("Consciousness matrix not detected!"))
 		return FALSE
 	else if(mmi_as_oc.brainmob.stat)
-		to_chat(user, "<span class='warning'>Beta-rhythm below acceptable level!</span>")
+		to_chat(user, span_warning("Beta-rhythm below acceptable level!"))
 		return FALSE
 	else if(occupant)
-		to_chat(user, "<span class='warning'>Occupant detected!</span>")
+		to_chat(user, span_warning("Occupant detected!"))
 		return FALSE
 	else if(dna && dna != mmi_as_oc.brainmob.dna.unique_enzymes)
-		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
+		to_chat(user, span_warning("Access denied. [name] is secured with a DNA lock."))
 		return FALSE
 	else if(!operation_allowed(user))
-		to_chat(user, "<span class='warning'>Access denied. [name] is secured with an ID lock.</span>")
+		to_chat(user, span_warning("Access denied. [name] is secured with an ID lock."))
 		return FALSE
 
 	if(do_after(user, 40, target = src))
 		if(!occupant)
 			return mmi_moved_inside(mmi_as_oc,user)
 		else
-			to_chat(user, "<span class='warning'>Occupant detected!</span>")
+			to_chat(user, span_warning("Occupant detected!"))
 	else
 		to_chat(user, span_notice("You stop inserting the MMI."))
 	return FALSE

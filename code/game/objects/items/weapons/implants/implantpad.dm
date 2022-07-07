@@ -25,7 +25,7 @@
 	if(!user || !C)
 		return
 	if(case)
-		to_chat(user, "<span class='warning'>There's already an implant in the pad!</span>")
+		to_chat(user, span_warning("There's already an implant in the pad!"))
 		return
 	user.unEquip(C)
 	C.forceMove(src)
@@ -34,7 +34,7 @@
 
 /obj/item/implantpad/proc/dropcase(mob/user as mob)
 	if(!case)
-		to_chat(user, "<span class='warning'>There's no implant in the pad!</span>")
+		to_chat(user, span_warning("There's no implant in the pad!"))
 		return
 	if(user)
 		if(user.put_in_hands(case))

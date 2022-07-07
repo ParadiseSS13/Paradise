@@ -164,11 +164,11 @@
 /obj/effect/proc_holder/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(SSticker.mode.greyshirts.len >= 3)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
+			to_chat(user, span_warning("You have already recruited the maximum number of henchmen."))
 		return FALSE
 	if(recruiting)
 		if(show_message)
-			to_chat(user, "<span class='danger'>You are already recruiting!</span>")
+			to_chat(user, span_danger("You are already recruiting!"))
 		return FALSE
 	return ..()
 
@@ -178,37 +178,37 @@
 /obj/effect/proc_holder/spell/recruit/cast(list/targets,mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 	if(target.mind.assigned_role != "Assistant")
-		to_chat(user, "<span class='warning'>You can only recruit Assistants.</span>")
+		to_chat(user, span_warning("You can only recruit Assistants."))
 		revert_cast(user)
 		return
 	recruiting = TRUE
-	to_chat(user, "<span class='danger'>This target is valid. You begin the recruiting process.</span>")
+	to_chat(user, span_danger("This target is valid. You begin the recruiting process."))
 	to_chat(target, "<span class='userdanger'>[user] focuses in concentration. Your head begins to ache.</span>")
 
 	for(var/progress = 0, progress <= 3, progress++)
 		switch(progress)
 			if(1)
 				to_chat(user, span_notice("You begin by introducing yourself and explaining what you're about."))
-				user.visible_message("<span class='danger'>[user] introduces [user.p_them()]self and explains [user.p_their()] plans.</span>")
+				user.visible_message(span_danger("[user] introduces [user.p_them()]self and explains [user.p_their()] plans."))
 			if(2)
 				to_chat(user, span_notice("You begin the recruitment of [target]."))
-				user.visible_message("<span class='danger'>[user] leans over towards [target], whispering excitedly as [user.p_they()] give[user.p_s()] a speech.</span>")
-				to_chat(target, "<span class='danger'>You feel yourself agreeing with [user], and a surge of loyalty begins building.</span>")
+				user.visible_message(span_danger("[user] leans over towards [target], whispering excitedly as [user.p_they()] give[user.p_s()] a speech."))
+				to_chat(target, span_danger("You feel yourself agreeing with [user], and a surge of loyalty begins building."))
 				target.Weaken(24 SECONDS)
 				sleep(20)
 				if(ismindshielded(target))
 					to_chat(user, span_notice("[target.p_they(TRUE)] are enslaved by Nanotrasen. You feel [target.p_their()] interest in your cause wane and disappear."))
-					user.visible_message("<span class='danger'>[user] stops talking for a moment, then moves back away from [target].</span>")
-					to_chat(target, "<span class='danger'>Your mindshield implant activates, protecting you from conversion.</span>")
+					user.visible_message(span_danger("[user] stops talking for a moment, then moves back away from [target]."))
+					to_chat(target, span_danger("Your mindshield implant activates, protecting you from conversion."))
 					return
 			if(3)
 				to_chat(user, span_notice("You begin filling out the application form with [target]."))
-				user.visible_message("<span class='danger'>[user] pulls out a pen and paper and begins filling an application form with [target].</span>")
-				to_chat(target, "<span class='danger'>You are being convinced by [user] to fill out an application form to become a henchman.</span>")//Ow the edge
+				user.visible_message(span_danger("[user] pulls out a pen and paper and begins filling an application form with [target]."))
+				to_chat(target, span_danger("You are being convinced by [user] to fill out an application form to become a henchman."))//Ow the edge
 
 		if(!do_mob(user, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield implant
-			to_chat(user, "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>")
-			to_chat(target, "<span class='warning'>You move away and are no longer under the charm of [user]. The application form is null and void.</span>")
+			to_chat(user, span_danger("The enrollment process has been interrupted - you have lost the attention of [target]."))
+			to_chat(target, span_warning("You move away and are no longer under the charm of [user]. The application form is null and void."))
 			recruiting = FALSE
 			return
 

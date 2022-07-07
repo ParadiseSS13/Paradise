@@ -57,7 +57,7 @@
 		<i>Fingerprint:</i><span class='notice'> [fingerprint]</span><br>\
 		<i>Blood DNA:</i><span class='notice'> [dna]</span>")
 	else
-		to_chat(user, "<span class='warning'>No match found in station records.</span>")
+		to_chat(user, span_warning("No match found in station records."))
 
 /obj/item/detective_scanner/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/print_forensic_report)
@@ -75,7 +75,7 @@
 		log = list() // Clear the logs
 		scanning = FALSE
 	else
-		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
+		to_chat(usr, span_warning("The scanner has no logs or is in use."))
 
 /obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
 	var/obj/item/paper/P = new(get_turf(src))
@@ -97,7 +97,7 @@
 		playsound(loc, 'sound/machines/ding.ogg', 40)
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, usr, span_notice("Scanner logs cleared.")), 1.5 SECONDS) //Timer so that it clears on the 'ding'
 	else
-		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
+		to_chat(usr, span_warning("The scanner has no logs or is in use."))
 
 
 /obj/item/detective_scanner/attack()

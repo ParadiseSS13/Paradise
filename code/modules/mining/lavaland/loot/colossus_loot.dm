@@ -219,14 +219,14 @@
 		if(!istype(user)) // No revs allowed
 			return
 		if(cannotPossess(user))
-			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			to_chat(user, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
 			return
 		var/be_helper = alert("Become a Lightgeist? (Warning, You can no longer be cloned!)",,"Yes","No")
 		if(be_helper == "No")
 			return
 		if(!loc || QDELETED(src) || QDELETED(user))
 			if(user)
-				to_chat(user, "<span class='warning'>[src] is no longer usable!</span>")
+				to_chat(user, span_warning("[src] is no longer usable!"))
 			return
 		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
 		W.key = user.key

@@ -59,7 +59,7 @@
 //Fetching a message if needed. src is the sender and C is the target client
 /client/proc/cmd_admin_pm(whom, msg, type = "PM")
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>")
+		to_chat(src, span_danger("Error: Private-Message: You are unable to use PM-s (muted)."))
 		return
 
 	var/client/C
@@ -70,7 +70,7 @@
 
 	if(!C)
 		if(holder)
-			to_chat(src, "<span class='danger'>Error: Private-Message: Client not found.</span>")
+			to_chat(src, span_danger("Error: Private-Message: Client not found."))
 		else
 			adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
@@ -93,7 +93,7 @@
 			return
 		if(!C)
 			if(holder)
-				to_chat(src, "<span class='danger'>Error: Admin-PM: Client not found.</span>")
+				to_chat(src, span_danger("Error: Admin-PM: Client not found."))
 			else
 				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
@@ -126,7 +126,7 @@
 			recieve_pm_type = holder.rank
 
 	else if(!C.holder)
-		to_chat(src, "<span class='danger'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</span>")
+		to_chat(src, span_danger("Error: Admin-PM: Non-admin to non-admin PM communication is forbidden."))
 		return
 
 	var/recieve_message = ""
@@ -213,11 +213,11 @@
 
 /client/proc/cmd_admin_discord_pm()
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PMs (muted).</span>")
+		to_chat(src, span_danger("Error: Private-Message: You are unable to use PMs (muted)."))
 		return
 
 	if(last_discord_pm_time > world.time)
-		to_chat(usr, "<span class='warning'>Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord.</span>")
+		to_chat(usr, span_warning("Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord."))
 		return
 
 	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
@@ -231,7 +231,7 @@
 	sanitize(msg)
 
 	if(length(msg) > 400) // Dont want them super spamming
-		to_chat(src, "<span class='warning'>Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting</span>")
+		to_chat(src, span_warning("Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting"))
 		to_chat(src, span_notice("[msg]"))
 		return
 

@@ -13,12 +13,12 @@
 /obj/item/flag/attackby(obj/item/W, mob/user, params)
 	. = ..()
 	if(is_hot(W) && !(resistance_flags & ON_FIRE))
-		user.visible_message(span_notice("[user] lights [src] with [W]."), span_notice("You light [src] with [W]."), "<span class='warning'>You hear a low whoosh.</span>")
+		user.visible_message(span_notice("[user] lights [src] with [W]."), span_notice("You light [src] with [W]."), span_warning("You hear a low whoosh."))
 		fire_act()
 
 /obj/item/flag/attack_self(mob/user)
 	rolled = !rolled
-	user.visible_message(span_notice("[user] [rolled ? "rolls up" : "unfurls"] [src]."), span_notice("You [rolled ? "roll up" : "unfurl"] [src]."), "<span class='warning'>You hear fabric rustling.</span>")
+	user.visible_message(span_notice("[user] [rolled ? "rolls up" : "unfurls"] [src]."), span_notice("You [rolled ? "roll up" : "unfurl"] [src]."), span_warning("You hear fabric rustling."))
 	update_icon()
 
 /obj/item/flag/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)

@@ -308,10 +308,10 @@
 				to_chat(usr, span_notice("[points] points claimed."))
 				points = 0
 			else
-				to_chat(usr, "<span class='warning'>Required access not found.</span>")
+				to_chat(usr, span_warning("Required access not found."))
 		if("sheet", "alloy")
 			if(!(check_access(inserted_id) || allowed(usr)))
-				to_chat(usr, "<span class='warning'>Required access not found.</span>")
+				to_chat(usr, span_warning("Required access not found."))
 				return FALSE
 			var/id = params["id"]
 			var/amount = round(text2num(params["amount"]))
@@ -486,7 +486,7 @@
 	if(!istype(I))
 		return
 	if(inserted_id)
-		to_chat(user, "<span class='warning'>There is already an ID inside!</span>")
+		to_chat(user, span_warning("There is already an ID inside!"))
 		return
 	if(!user.drop_item())
 		return

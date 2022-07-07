@@ -9,7 +9,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prizes/proc/PlaceOrder(obj/machinery/prize_counter/prize_counter, itemID)
 	if(!prize_counter.Adjacent(usr))
-		to_chat(usr, "<span class='warning'>You need to be closer!</span>")
+		to_chat(usr, span_warning("You need to be closer!"))
 		return
 	if(!prize_counter)
 		return 0
@@ -22,7 +22,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 		prize_counter.visible_message(span_notice("Enjoy your prize!"))
 		return 1
 	else
-		prize_counter.visible_message("<span class='warning'>Not enough tickets!</span>")
+		prize_counter.visible_message(span_warning("Not enough tickets!"))
 		return 0
 
 //////////////////////////////////////

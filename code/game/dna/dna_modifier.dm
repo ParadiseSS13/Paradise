@@ -159,7 +159,7 @@
 		to_chat(usr, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		to_chat(usr, span_warning("[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head."))
 		return
 	usr.stop_pulling()
 	usr.forceMove(src)
@@ -194,10 +194,10 @@
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject may not hold anything in their hands.</span>")
+		to_chat(user, span_danger("Subject may not hold anything in their hands."))
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		to_chat(user, span_warning("[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head."))
 		return
 	if(L == user)
 		visible_message(span_notice("[user] climbs into [src]."))
@@ -212,11 +212,11 @@
 		return
 	else if(istype(I, /obj/item/reagent_containers/glass))
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
+			to_chat(user, span_warning("A beaker is already loaded into the machine."))
 			return
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
+			to_chat(user, span_warning("\The [I] is stuck to you!"))
 			return
 
 		beaker = I
@@ -235,7 +235,7 @@
 			to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
 			return
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
+			to_chat(user, span_warning("[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head."))
 			return
 		if(panel_open)
 			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
@@ -280,11 +280,11 @@
 /obj/machinery/dna_scannernew/proc/go_out(mob/user, force)
 	if(!occupant)
 		if(user)
-			to_chat(user, "<span class='warning'>The scanner is empty!</span>")
+			to_chat(user, span_warning("The scanner is empty!"))
 		return
 	if(locked && !force)
 		if(user)
-			to_chat(user, "<span class='warning'>The scanner is locked!</span>")
+			to_chat(user, span_warning("The scanner is locked!"))
 		return
 	occupant.forceMove(loc)
 	occupant = null

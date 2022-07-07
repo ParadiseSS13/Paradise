@@ -107,6 +107,6 @@
 	if(!isliving(M))
 		return
 
-	to_chat(M, "<span class='danger'>You flinch as you are struck by \the [src]!</span>")
+	to_chat(M, span_danger("You flinch as you are struck by \the [src]!"))
 	add_attack_logs(user, M, "Hit with [src]")
 	M.AdjustEyeBlurry(force * 2) // Maximum duration 5 seconds per hit.

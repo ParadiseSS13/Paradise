@@ -65,7 +65,7 @@
 				to_chat(user, span_notice("You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s."))
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
-				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
+				to_chat(user, span_warning("You fail to collect anything!"))
 	else
 		if(istype(I, /obj/item/screwdriver))
 			if(BB)

@@ -75,10 +75,10 @@
 //defib interaction
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/user)
 	if(!defib)
-		to_chat(user, "<span class='warning'>There's no defibrillator unit loaded!</span>")
+		to_chat(user, span_warning("There's no defibrillator unit loaded!"))
 		return
 	if(defib.paddles.loc != defib)
-		to_chat(user, "<span class='warning'>[defib.paddles.loc == user ? "You are already" : "Someone else is"] holding [defib]'s paddles!</span>")
+		to_chat(user, span_warning("[defib.paddles.loc == user ? "You are already" : "Someone else is"] holding [defib]'s paddles!"))
 		return
 	defib.paddles_on_defib = FALSE
 	user.put_in_hands(defib.paddles)
@@ -86,10 +86,10 @@
 /obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/defibrillator))
 		if(defib)
-			to_chat(user, "<span class='warning'>There's already a defibrillator in [src]!</span>")
+			to_chat(user, span_warning("There's already a defibrillator in [src]!"))
 			return
 		if(I.flags & NODROP || !user.drop_item() || !I.forceMove(src))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		user.visible_message(span_notice("[user] hooks up [I] to [src]!"), \
 		span_notice("You press [I] into the mount, and it clicks into place."))
@@ -104,20 +104,20 @@
 	if(id)
 		if(check_access(id) || GLOB.security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
 			if(!defib)
-				to_chat(user, "<span class='warning'>You can't engage the clamps on a defibrillator that isn't there.</span>")
+				to_chat(user, span_warning("You can't engage the clamps on a defibrillator that isn't there."))
 				return
 			clamps_locked = !clamps_locked
 			to_chat(user, span_notice("Clamps [clamps_locked ? "" : "dis"]engaged."))
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>Insufficient access.</span>")
+			to_chat(user, span_warning("Insufficient access."))
 		return
 	return ..()
 
 /obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(defib)
-		to_chat(user, "<span class='warning'>[defib] is blocking access to the bolts!</span>")
+		to_chat(user, span_warning("[defib] is blocking access to the bolts!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -133,10 +133,10 @@
 	if(!Adjacent(user))
 		return
 	if(!defib)
-		to_chat(user, "<span class='warning'>It'd be hard to remove a defib unit from a mount that has none.</span>")
+		to_chat(user, span_warning("It'd be hard to remove a defib unit from a mount that has none."))
 		return
 	if(clamps_locked)
-		to_chat(user, "<span class='warning'>You try to tug out [defib], but the mount's clamps are locked tight!</span>")
+		to_chat(user, span_warning("You try to tug out [defib], but the mount's clamps are locked tight!"))
 		return
 	user.put_in_hands(defib)
 	user.visible_message(span_notice("[user] unhooks [defib] from [src]."), \

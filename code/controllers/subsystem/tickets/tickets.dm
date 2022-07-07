@@ -178,7 +178,7 @@ SUBSYSTEM_DEF(tickets)
 		return
 	var/datum/ticket/T = allTickets[ticketId]
 	if(T.ticket_converted)
-		to_chat(usr, "<span class='warning'>This ticket has already been converted!</span>")
+		to_chat(usr, span_warning("This ticket has already been converted!"))
 		return
 	convert_ticket(T)
 
@@ -571,7 +571,7 @@ UI STUFF
 	if(href_list["detailclose"])
 		var/indexNum = text2num(href_list["detailclose"])
 		if(!check_rights(close_rights))
-			to_chat(usr, "<span class='warning'>Not enough rights to close this ticket.</span>")
+			to_chat(usr, span_warning("Not enough rights to close this ticket."))
 			return
 		if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
 			return

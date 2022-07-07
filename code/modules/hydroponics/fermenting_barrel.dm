@@ -42,10 +42,10 @@
 	var/obj/item/reagent_containers/food/snacks/grown/G = I
 	if(istype(G))
 		if(!G.can_distill)
-			to_chat(user, "<span class='warning'>You can't distill this into anything...</span>")
+			to_chat(user, span_warning("You can't distill this into anything..."))
 			return FALSE
 		else if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[G] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[G] is stuck to your hand!"))
 			return FALSE
 		G.forceMove(src)
 		to_chat(user, span_notice("You place [G] into [src] to start the fermentation process."))

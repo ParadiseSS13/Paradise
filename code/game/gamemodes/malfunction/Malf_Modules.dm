@@ -34,7 +34,7 @@
 		to_chat(owner, "<span class='notice'>[name] now has <b>[uses]</b> use[uses > 1 ? "s" : ""] remaining.</span>")
 	if(!uses)
 		if(initial(uses) > 1) //no need to tell 'em if it was one-use anyway!
-			to_chat(owner, "<span class='warning'>[name] has run out of uses!</span>")
+			to_chat(owner, span_warning("[name] has run out of uses!"))
 		qdel(src)
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
@@ -59,7 +59,7 @@
 		to_chat(owner, "<span class='notice'>[name] now has <b>[uses]</b> use[uses > 1 ? "s" : ""] remaining.</span>")
 	if(!uses)
 		if(initial(uses) > 1) //no need to tell 'em if it was one-use anyway!
-			to_chat(owner, "<span class='warning'>[name] has run out of uses!</span>")
+			to_chat(owner, span_warning("[name] has run out of uses!"))
 		Remove(owner)
 		QDEL_IN(src, 100) //let any active timers on us finish up
 
@@ -74,7 +74,7 @@
 //The actual ranged proc holder.
 /obj/effect/proc_holder/ranged_ai
 	var/enable_text = span_notice("Hello World!") //Appears when the user activates the ability
-	var/disable_text = "<span class='danger'>Goodbye Cruel World!</span>" //Context clues!
+	var/disable_text = span_danger("Goodbye Cruel World!") //Context clues!
 	var/datum/action/innate/ai/ranged/attached_action
 
 /obj/effect/proc_holder/ranged_ai/proc/toggle(mob/user)
@@ -148,7 +148,7 @@
 	var/mob/living/silicon/ai/A = usr
 
 	if(A.stat == DEAD)
-		to_chat(A, "<span class='warning'>You are already dead!</span>")
+		to_chat(A, span_warning("You are already dead!"))
 		return
 
 	for(var/datum/AI_Module/AM in possible_modules)
@@ -233,7 +233,7 @@
 /datum/action/innate/ai/nuke_station/Activate()
 	var/turf/T = get_turf(owner)
 	if(!istype(T) || !is_station_level(T.z))
-		to_chat(owner, "<span class='warning'>You cannot activate the doomsday device while off-station!</span>")
+		to_chat(owner, span_warning("You cannot activate the doomsday device while off-station!"))
 		return
 	if(alert(owner, "Send arming signal? (true = arm, false = cancel)", "purge_all_life()", "confirm = TRUE;", "confirm = FALSE;") != "confirm = TRUE;")
 		return
@@ -358,7 +358,7 @@
 	uses = 1
 
 /datum/action/innate/ai/lockdown/Activate()
-	to_chat(owner, "<span class='warning'>Lockdown Initiated. Network reset in 90 seconds.</span>")
+	to_chat(owner, span_warning("Lockdown Initiated. Network reset in 90 seconds."))
 	new /datum/event/door_runtime()
 
 //Destroy RCDs: Detonates all non-cyborg RCDs on the station.
@@ -383,7 +383,7 @@
 		if(!istype(RCD, /obj/item/rcd/borg)) //Ensures that cyborg RCDs are spared.
 			RCD.detonate_pulse()
 
-	to_chat(owner, "<span class='danger'>RCD detonation pulse emitted.</span>")
+	to_chat(owner, span_danger("RCD detonation pulse emitted."))
 	owner.playsound_local(owner, 'sound/machines/twobeep.ogg', 50, FALSE, use_reverb = FALSE)
 
 //Unlock Mech Domination: Unlocks the ability to dominate mechs. Big shocker, right?
@@ -491,10 +491,10 @@
 		remove_ranged_ability()
 		return
 	if(!istype(target))
-		to_chat(ranged_ability_user, "<span class='warning'>You can only overload machines!</span>")
+		to_chat(ranged_ability_user, span_warning("You can only overload machines!"))
 		return
 	if(target.flags_2 & NO_MALF_EFFECT_2)
-		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overloaded!</span>")
+		to_chat(ranged_ability_user, span_warning("That machine can't be overloaded!"))
 		return
 
 	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
@@ -504,7 +504,7 @@
 		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/overload_machine.proc/detonate_machine, target), 50) //kaboom!
-	remove_ranged_ability(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
+	remove_ranged_ability(ranged_ability_user, span_warning("Overloading machine circuitry..."))
 	return TRUE
 
 
@@ -546,10 +546,10 @@
 		remove_ranged_ability()
 		return
 	if(!istype(target))
-		to_chat(ranged_ability_user, "<span class='warning'>You can only animate machines!</span>")
+		to_chat(ranged_ability_user, span_warning("You can only animate machines!"))
 		return
 	if(target.flags_2 & NO_MALF_EFFECT_2)
-		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overridden!</span>")
+		to_chat(ranged_ability_user, span_warning("That machine can't be overridden!"))
 		return
 
 	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
@@ -559,7 +559,7 @@
 		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/override_machine.proc/animate_machine, target), 50) //kabeep!
-	remove_ranged_ability(ranged_ability_user, "<span class='danger'>Sending override signal...</span>")
+	remove_ranged_ability(ranged_ability_user, span_danger("Sending override signal..."))
 	return TRUE
 
 
@@ -602,7 +602,7 @@
 	new /obj/machinery/transformer(T, owner_AI)
 	playsound(T, 'sound/effects/phasein.ogg', 100, 1)
 	owner_AI.can_shunt = FALSE
-	to_chat(owner, "<span class='warning'>You are no longer able to shunt your core to APCs.</span>")
+	to_chat(owner, span_warning("You are no longer able to shunt your core to APCs."))
 	adjust_uses(-1)
 
 /mob/living/silicon/ai/proc/remove_transformer_image(client/C, image/I, turf/T)
@@ -634,7 +634,7 @@
 		I.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
 		addtimer(CALLBACK(src, .proc/remove_transformer_image, client, I, T), 30)
 	if(!success)
-		to_chat(src, "<span class='warning'>[alert_msg]</span>")
+		to_chat(src, span_warning("[alert_msg]"))
 	return success
 
 //Blackout: Overloads a random number of lights across the station. Three uses.

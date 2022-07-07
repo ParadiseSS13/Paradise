@@ -242,12 +242,12 @@ SUBSYSTEM_DEF(ghost_spawns)
 		return
 	if(M in signed_up)
 		if(!silent)
-			to_chat(M, "<span class='warning'>You have already signed up for this!</span>")
+			to_chat(M, span_warning("You have already signed up for this!"))
 		return
 
 	if(time_left() <= 0)
 		if(!silent)
-			to_chat(M, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
+			to_chat(M, span_danger("Sorry, you were too late for the consideration!"))
 			SEND_SOUND(M, sound('sound/machines/buzz-sigh.ogg'))
 		return
 
@@ -275,12 +275,12 @@ SUBSYSTEM_DEF(ghost_spawns)
 		return
 	if(!(M in signed_up))
 		if(!silent)
-			to_chat(M, "<span class='warning'>You aren't signed up for this!</span>")
+			to_chat(M, span_warning("You aren't signed up for this!"))
 		return
 
 	if(time_left() <= 0)
 		if(!silent)
-			to_chat(M, "<span class='danger'>It's too late to unregister yourself, selection has already begun!</span>")
+			to_chat(M, span_danger("It's too late to unregister yourself, selection has already begun!"))
 		return
 
 	signed_up -= M

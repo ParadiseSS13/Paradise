@@ -50,7 +50,7 @@
 /obj/structure/chair/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct [src]."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -68,13 +68,13 @@
 		if(!item_chair || has_buckled_mobs())
 			return
 		if(usr.incapacitated())
-			to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
+			to_chat(usr, span_warning("You can't do that right now!"))
 			return
 		if(!usr.has_right_hand() && !usr.has_left_hand())
-			to_chat(usr, "<span class='warning'>You try to grab the chair, but you are missing both of your hands!</span>")
+			to_chat(usr, span_warning("You try to grab the chair, but you are missing both of your hands!"))
 			return
 		if(usr.get_active_hand() && usr.get_inactive_hand())
-			to_chat(usr, "<span class='warning'>You try to grab the chair, but your hands are already full!</span>")
+			to_chat(usr, span_warning("You try to grab the chair, but your hands are already full!"))
 			return
 		if(!ishuman(usr))
 			return
@@ -135,7 +135,7 @@
 
 /obj/structure/chair/AltClick(mob/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return
@@ -261,7 +261,7 @@
 			buckled_mob.Stuttering(12 SECONDS)
 			buckled_mob.take_organ_damage(10)
 			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-			buckled_mob.visible_message("<span class='danger'>[buckled_mob] crashed into [A]!</span>")
+			buckled_mob.visible_message(span_danger("[buckled_mob] crashed into [A]!"))
 
 /obj/structure/chair/office/light
 	icon_state = "officechair_white"
@@ -505,7 +505,7 @@
 		return
 	for(var/obj/A in get_turf(loc))
 		if(istype(A, /obj/structure/chair))
-			to_chat(user, "<span class='warning'>There is already \a [A] here.</span>")
+			to_chat(user, span_warning("There is already \a [A] here."))
 			return
 
 	user.visible_message(span_notice("[user] rights [src]."), span_notice("You right [src]."))
@@ -526,7 +526,7 @@
 
 /obj/item/chair/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == UNARMED_ATTACK && prob(hit_reaction_chance))
-		owner.visible_message("<span class='danger'>[owner] fends off [attack_text] with [src]!</span>")
+		owner.visible_message(span_danger("[owner] fends off [attack_text] with [src]!"))
 		return 1
 	return 0
 
@@ -535,7 +535,7 @@
 	if(!proximity)
 		return
 	if(prob(break_chance))
-		user.visible_message("<span class='danger'>[user] smashes \the [src] to pieces against \the [target]</span>")
+		user.visible_message(span_danger("[user] smashes \the [src] to pieces against \the [target]"))
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
 			if(C.health < C.maxHealth*0.5)
@@ -546,7 +546,7 @@
 
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
 	if(prob(5) && istype(M,/mob/living))
-		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
+		user.visible_message(span_danger("[user] breaks [src] over [M]'s back!."))
 		user.unEquip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)

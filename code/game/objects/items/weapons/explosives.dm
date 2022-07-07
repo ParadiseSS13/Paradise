@@ -70,7 +70,7 @@
 	if(!flag)
 		return
 	if(iscarbon(AM))
-		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]!</span>")
+		to_chat(user, span_warning("You can't get the [src] to stick to [AM]!"))
 		return
 	to_chat(user, span_notice("You start planting [src]. The timer is set to [det_time]..."))
 

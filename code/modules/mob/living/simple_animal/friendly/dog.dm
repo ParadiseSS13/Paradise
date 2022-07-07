@@ -145,10 +145,10 @@
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/razor))
 		if(shaved)
-			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
+			to_chat(user, span_warning("You can't shave this corgi, it's already been shaved!"))
 			return
 		if(nofur)
-			to_chat(user, "<span class='warning'>You can't shave this corgi, it doesn't have a fur coat!</span>")
+			to_chat(user, span_warning("You can't shave this corgi, it doesn't have a fur coat!"))
 			return
 		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].", span_notice("You start to shave [src] using \the [O]..."))
 		if(do_after(user, 50, target = src))
@@ -178,26 +178,26 @@
 			if("head")
 				if(inventory_head)
 					if(inventory_head.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
+						to_chat(usr, span_warning("\The [inventory_head] is stuck too hard to [src] for you to remove!"))
 						return
 					usr.put_in_hands(inventory_head)
 					inventory_head = null
 					update_corgi_fluff()
 					regenerate_icons()
 				else
-					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
+					to_chat(usr, span_danger("There is nothing to remove from its [remove_from]."))
 					return
 			if("back")
 				if(inventory_back)
 					if(inventory_back.flags & NODROP)
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
+						to_chat(usr, span_warning("\The [inventory_head] is stuck too hard to [src] for you to remove!"))
 						return
 					usr.put_in_hands(inventory_back)
 					inventory_back = null
 					update_corgi_fluff()
 					regenerate_icons()
 				else
-					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
+					to_chat(usr, span_danger("There is nothing to remove from its [remove_from]."))
 					return
 			if("collar")
 				if(pcollar)
@@ -224,7 +224,7 @@
 
 			if("back")
 				if(inventory_back)
-					to_chat(usr, "<span class='warning'>It's already wearing something!</span>")
+					to_chat(usr, span_warning("It's already wearing something!"))
 					return
 				else
 					var/obj/item/item_to_add = usr.get_active_hand()
@@ -234,7 +234,7 @@
 						return
 
 					if(!usr.unEquip(item_to_add))
-						to_chat(usr, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s back!</span>")
+						to_chat(usr, span_warning("\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s back!"))
 						return
 
 					if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
@@ -247,7 +247,7 @@
 						allowed = TRUE
 
 					if(!allowed)
-						to_chat(usr, "<span class='warning'>You set [item_to_add] on [src]'s back, but it falls off!</span>")
+						to_chat(usr, span_warning("You set [item_to_add] on [src]'s back, but it falls off!"))
 						item_to_add.forceMove(drop_location())
 						if(prob(25))
 							step_rand(item_to_add)
@@ -278,7 +278,7 @@
 
 	if(inventory_head)
 		if(user)
-			to_chat(user, "<span class='warning'>You can't put more than one hat on [src]!</span>")
+			to_chat(user, span_warning("You can't put more than one hat on [src]!"))
 		return
 	if(!item_to_add)
 		user.visible_message(span_notice("[user] pets [src]."), span_notice("You rest your hand on [src]'s head for a moment."))
@@ -287,7 +287,7 @@
 		return
 
 	if(user && !user.unEquip(item_to_add))
-		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
+		to_chat(user, span_warning("\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!"))
 		return 0
 
 	var/valid = FALSE
@@ -308,7 +308,7 @@
 		update_corgi_fluff()
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
+		to_chat(user, span_warning("You set [item_to_add] on [src]'s head, but it falls off!"))
 		item_to_add.forceMove(drop_location())
 		if(prob(25))
 			step_rand(item_to_add)
@@ -557,7 +557,7 @@
 	..()
 	for(var/mob/living/simple_animal/pet/P in range(1, src))
 		if(P != src && !istype(P, /mob/living/simple_animal/pet/dog/corgi/narsie))
-			visible_message("<span class='warning'>[src] devours [P]!</span>", \
+			visible_message(span_warning("[src] devours [P]!"), \
 			"<span class='cult big bold'>DELICIOUS SOULS</span>")
 			playsound(src, 'sound/misc/demon_attack1.ogg', 75, TRUE)
 			narsie_act()
@@ -673,11 +673,11 @@
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", span_notice("You overload [src]s internal reactor."))
+		visible_message(span_warning("[user] swipes a card through [src]."), span_notice("You overload [src]s internal reactor."))
 		addtimer(CALLBACK(src, .proc/explode), 1000)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
-	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
+	visible_message(span_warning("[src] makes an odd whining noise."))
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death()
 

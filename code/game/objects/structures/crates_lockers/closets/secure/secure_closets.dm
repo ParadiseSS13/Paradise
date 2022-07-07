@@ -46,7 +46,7 @@
 		to_chat(user, span_notice("Close the locker first."))
 		return
 	if(broken)
-		to_chat(user, "<span class='warning'>The locker appears to be broken.</span>")
+		to_chat(user, span_warning("The locker appears to be broken."))
 		return
 	if(user.loc == src)
 		to_chat(user, span_notice("You can't reach the lock from inside."))
@@ -94,7 +94,7 @@
 		add_fingerprint(usr)
 		togglelock(usr)
 		return
-	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+	to_chat(usr, span_warning("This mob type can't use this verb."))
 
 /obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	cut_overlays()
@@ -120,9 +120,9 @@
 		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
 
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
+	to_chat(L, span_warning("You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)"))
 	for(var/mob/O in viewers(src))
-		O.show_message("<span class='danger'>[src] begins to shake violently!</span>", 1)
+		O.show_message(span_danger("[src] begins to shake violently!"), 1)
 
 
 	spawn(0)
@@ -140,9 +140,9 @@
 			locked = FALSE
 			welded = FALSE
 			update_icon()
-			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
+			to_chat(usr, span_warning("You successfully break out!"))
 			for(var/mob/O in viewers(L.loc))
-				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
+				O.show_message(span_danger("\the [usr] successfully broke out of \the [src]!"), 1)
 			if(istype(loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)

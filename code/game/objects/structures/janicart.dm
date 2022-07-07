@@ -83,7 +83,7 @@
 			else
 				to_chat(user, span_notice("[src] can't hold any more signs."))
 		else if(istype(I, /obj/item/crowbar))
-			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
+			user.visible_message(span_warning("[user] begins to empty the contents of [src]."))
 			if(do_after(user, 30 * I.toolspeed, target = src))
 				to_chat(usr, span_notice("You empty the contents of [src]'s bucket onto the floor."))
 				reagents.reaction(src.loc)
@@ -106,7 +106,7 @@
 		else if(mybag)
 			mybag.attackby(I, user, params)
 	else
-		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
+		to_chat(usr, span_warning("You cannot interface your modules [src]!"))
 
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	user.set_machine(src)

@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(safes)
 					STOP_PROCESSING(SSobj, src)
 			if("Remove Drill")
 				if(drill_timer)
-					to_chat(user, "<span class='warning'>You cannot remove the drill while it's running!</span>")
+					to_chat(user, span_warning("You cannot remove the drill while it's running!"))
 				else if(do_after(user, 2 SECONDS, target = src))
 					user.put_in_hands(drill)
 					drill = null
@@ -184,31 +184,31 @@ GLOBAL_LIST_EMPTY(safes)
 			update_icon()
 		else if(I.w_class + space <= maxspace)
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
+				to_chat(user, span_warning("\The [I] is stuck to your hand, you cannot put it in the safe!"))
 				return
 			space += I.w_class
 			I.forceMove(src)
 			to_chat(user, span_notice("You put [I] in [src]."))
 			SStgui.update_uis(src)
 		else
-			to_chat(user, "<span class='warning'>[I] won't fit in [src].</span>")
+			to_chat(user, span_warning("[I] won't fit in [src]."))
 	else
 		if(istype(I, /obj/item/clothing/accessory/stethoscope))
 			attack_hand(user)
 			return
 		else if(istype(I, /obj/item/thermal_drill))
 			if(drill)
-				to_chat(user, "<span class='warning'>There is already a drill attached!</span>")
+				to_chat(user, span_warning("There is already a drill attached!"))
 			else if(do_after(user, 2 SECONDS, target = src))
 				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the safe!</span>")
+					to_chat(user, span_warning("[I] is stuck to your hand, you cannot put it in the safe!"))
 					return
 				I.forceMove(src)
 				drill = I
 				time_to_drill = DRILL_TIME * drill.time_multiplier
 				update_icon()
 		else
-			to_chat(user, "<span class='warning'>You can't put [I] into the safe while it is closed!</span>")
+			to_chat(user, span_warning("You can't put [I] into the safe while it is closed!"))
 			return
 
 /obj/structure/safe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
@@ -241,7 +241,7 @@ GLOBAL_LIST_EMPTY(safes)
 		return
 
 	if(!usr.IsAdvancedToolUser() && !isobserver(usr))
-		to_chat(usr, "<span class='warning'>You are not able to operate the safe.</span>")
+		to_chat(usr, span_warning("You are not able to operate the safe."))
 		return
 
 	var/canhear = FALSE
@@ -258,12 +258,12 @@ GLOBAL_LIST_EMPTY(safes)
 				open = !open
 				update_icon()
 			else
-				to_chat(usr, "<span class='warning'>You cannot open [src], as its lock is engaged!</span>")
+				to_chat(usr, span_warning("You cannot open [src], as its lock is engaged!"))
 		if("turnright")
 			if(open)
 				return
 			if(broken)
-				to_chat(usr, "<span class='warning'>The dial will not turn, as the mechanism is destroyed!</span>")
+				to_chat(usr, span_warning("The dial will not turn, as the mechanism is destroyed!"))
 				return
 			var/ticks = text2num(params["num"])
 			for(var/i = 1 to ticks)
@@ -283,7 +283,7 @@ GLOBAL_LIST_EMPTY(safes)
 			if(open)
 				return
 			if(broken)
-				to_chat(usr, "<span class='warning'>The dial will not turn, as the mechanism is destroyed!</span>")
+				to_chat(usr, span_warning("The dial will not turn, as the mechanism is destroyed!"))
 				return
 			var/ticks = text2num(params["num"])
 			for(var/i = 1 to ticks)

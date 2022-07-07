@@ -6,13 +6,13 @@
 	if(target.stat || target.IsWeakened())
 		return FALSE
 	if(!user.get_num_legs())
-		to_chat(user, "<span class='warning'>You suddenly notice you have no legs with which to sweep - how did that happen?!</span>")
+		to_chat(user, span_warning("You suddenly notice you have no legs with which to sweep - how did that happen?!"))
 		return MARTIAL_COMBO_DONE_CLEAR_COMBOS
 	if(!target.get_num_legs())
-		to_chat(user, "<span class='warning'>[target] has no legs to sweep!</span>")
+		to_chat(user, span_warning("[target] has no legs to sweep!"))
 		return MARTIAL_COMBO_DONE_CLEAR_COMBOS
 	user.do_attack_animation(target, ATTACK_EFFECT_KICK)
-	target.visible_message("<span class='warning'>[user] leg sweeps [target]!</span>", \
+	target.visible_message(span_warning("[user] leg sweeps [target]!"), \
 					  	"<span class='userdanger'>[user] leg sweeps you!</span>")
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 	target.apply_damage(5, BRUTE)

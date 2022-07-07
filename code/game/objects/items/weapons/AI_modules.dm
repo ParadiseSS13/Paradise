@@ -34,19 +34,19 @@ AI MODULES
 	if(istype(C, /obj/machinery/computer/aiupload))
 		var/obj/machinery/computer/aiupload/comp = C
 		if(comp.stat & NOPOWER)
-			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
+			to_chat(usr, span_warning("The upload computer has no power!"))
 			return
 		if(comp.stat & BROKEN)
-			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
+			to_chat(usr, span_warning("The upload computer is broken!"))
 			return
 		if(!comp.current)
-			to_chat(usr, "<span class='warning'>You haven't selected an AI to transmit laws to!</span>")
+			to_chat(usr, span_warning("You haven't selected an AI to transmit laws to!"))
 			return
 
 		if(comp.current.stat == DEAD || comp.current.control_disabled == 1)
-			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the AI.</span>")
+			to_chat(usr, span_warning("Upload failed. No signal is being detected from the AI."))
 		else if(comp.current.see_in_dark == 0)
-			to_chat(usr, "<span class='warning'>Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power.</span>")
+			to_chat(usr, span_warning("Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power."))
 		else
 			src.transmitInstructions(comp.current, usr)
 			to_chat(comp.current, "These are your laws now:")
@@ -60,19 +60,19 @@ AI MODULES
 	else if(istype(C, /obj/machinery/computer/borgupload))
 		var/obj/machinery/computer/borgupload/comp = C
 		if(comp.stat & NOPOWER)
-			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
+			to_chat(usr, span_warning("The upload computer has no power!"))
 			return
 		if(comp.stat & BROKEN)
-			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
+			to_chat(usr, span_warning("The upload computer is broken!"))
 			return
 		if(!comp.current)
-			to_chat(usr, "<span class='warning'>You haven't selected a robot to transmit laws to!</span>")
+			to_chat(usr, span_warning("You haven't selected a robot to transmit laws to!"))
 			return
 
 		if(comp.current.stat == DEAD || comp.current.emagged)
-			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the robot.</span>")
+			to_chat(usr, span_warning("Upload failed. No signal is being detected from the robot."))
 		else if(comp.current.connected_ai)
-			to_chat(usr, "<span class='warning'>Upload failed. The robot is slaved to an AI.</span>")
+			to_chat(usr, span_warning("Upload failed. The robot is slaved to an AI."))
 		else
 			src.transmitInstructions(comp.current, usr)
 			to_chat(comp.current, "These are your laws now:")
@@ -396,7 +396,7 @@ AI MODULES
 	log_law_changes(target, sender)
 
 	GLOB.lawchanges.Add("The law is '[newFreeFormLaw]'")
-	to_chat(target, "<span class='warning'>BZZZZT</span>")
+	to_chat(target, span_warning("BZZZZT"))
 	var/law = "[newFreeFormLaw]"
 	target.add_ion_law(law)
 	target.show_laws()
@@ -418,7 +418,7 @@ AI MODULES
 
 /obj/item/aiModule/toyAI/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	//..()
-	to_chat(target, "<span class='warning'>KRZZZT</span>")
+	to_chat(target, span_warning("KRZZZT"))
 	target.add_ion_law(laws[1])
 	return laws[1]
 
@@ -426,4 +426,4 @@ AI MODULES
 	laws[1] = generate_ion_law()
 	to_chat(user, span_notice("You press the button on [src]."))
 	playsound(user, 'sound/machines/click.ogg', 20, 1)
-	src.loc.visible_message("<span class='warning'>[bicon(src)] [laws[1]]</span>")
+	src.loc.visible_message(span_warning("[bicon(src)] [laws[1]]"))

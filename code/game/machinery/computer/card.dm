@@ -402,7 +402,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(istype(I, /obj/item/card/id))
 					if(!check_access(I))
 						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-						to_chat(usr, "<span class='warning'>This card does not have access.</span>")
+						to_chat(usr, span_warning("This card does not have access."))
 						return FALSE
 					usr.drop_item()
 					I.forceMove(src)
@@ -438,7 +438,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	// Everything below HERE requires auth
 	if(!is_authenticated(usr))
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-		to_chat(usr, "<span class='warning'>This function is not available unless you are logged in.</span>")
+		to_chat(usr, span_warning("This function is not available unless you are logged in."))
 		return FALSE
 
 	// 2nd, handle the functions that are available to head-level consoles (department consoles)
@@ -450,11 +450,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(target_dept)
 				if(modify.assignment == "Demoted")
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-					visible_message("<span class='warning'>[src]: Reassigning a demoted individual requires a full ID computer.</span>")
+					visible_message(span_warning("[src]: Reassigning a demoted individual requires a full ID computer."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-					visible_message("<span class='warning'>[src]: Reassigning someone outside your department requires a full ID computer.</span>")
+					visible_message(span_warning("[src]: Reassigning someone outside your department requires a full ID computer."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(t1)))
 					return FALSE
@@ -480,7 +480,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							jobdatum = J
 							break
 					if(!jobdatum)
-						to_chat(usr, "<span class='warning'>No log exists for this job: [t1]</span>")
+						to_chat(usr, span_warning("No log exists for this job: [t1]"))
 						return
 
 					access = jobdatum.get_access()
@@ -602,10 +602,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/tempname = params["remote_demote"]
 					var/temprank = E.fields["real_rank"]
 					if(!j)
-						visible_message("<span class='warning'>[src]: This employee has either no job, or a customized job ([temprank]).</span>")
+						visible_message(span_warning("[src]: This employee has either no job, or a customized job ([temprank])."))
 						return FALSE
 					if(!job_in_department(j, FALSE))
-						visible_message("<span class='warning'>[src]: Only the head of this employee may demote them.</span>")
+						visible_message(span_warning("[src]: Only the head of this employee may demote them."))
 						return FALSE
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
@@ -617,7 +617,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								SSjobs.notify_by_name(tempname, "[scan.registered_name] ([scan.assignment]) has ordered your demotion. Report to their office, or the HOP. Reason given: \"[reason]\"")
 							else
 								playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-								to_chat(usr, "<span class='warning'>[src]: Cannot demote, due to their current security status.</span>")
+								to_chat(usr, span_warning("[src]: Cannot demote, due to their current security status."))
 								return FALSE
 							return
 			return
@@ -625,7 +625,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	// Everything below here requires a full ID computer (dept consoles do not qualify)
 	if(target_dept)
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-		to_chat(usr, "<span class='warning'>This function is not available on department-level consoles.</span>")
+		to_chat(usr, span_warning("This function is not available on department-level consoles."))
 		return
 
 	// 3rd, handle the functions that require a full ID computer

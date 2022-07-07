@@ -156,7 +156,7 @@
 		M.update_mutations()		//update our mutation overlays
 		M.update_body()
 		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
-		to_chat(M, "<span class='danger'>You suddenly feel very weak.</span>")
+		to_chat(M, span_danger("You suddenly feel very weak."))
 
 /datum/mutation/tk
 	name = "Telekenesis"
@@ -326,7 +326,7 @@
 	var/mob/living/carbon/C = targets[1]
 
 	if(HAS_TRAIT(C, TRAIT_RESISTCOLD))
-		C.visible_message("<span class='warning'>A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!</span>")
+		C.visible_message(span_warning("A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!"))
 		return
 	var/handle_suit = FALSE
 	if(ishuman(C))
@@ -335,11 +335,11 @@
 			if(istype(H.wear_suit, /obj/item/clothing/suit/space))
 				handle_suit = TRUE
 				if(H.internal)
-					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [H]!</span>",
+					H.visible_message(span_warning("[user] sprays a cloud of fine ice crystals, engulfing [H]!"),
 										span_notice("[user] sprays a cloud of fine ice crystals over your [H.head]'s visor."))
 				else
-					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
-										"<span class='warning'>[user] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
+					H.visible_message(span_warning("[user] sprays a cloud of fine ice crystals engulfing, [H]!"),
+										span_warning("[user] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!."))
 
 					H.bodytemperature = max(0, H.bodytemperature - 100)
 				add_attack_logs(user, C, "Cryokinesis")
@@ -347,7 +347,7 @@
 		C.bodytemperature = max(0, C.bodytemperature - 200)
 		C.ExtinguishMob()
 
-		C.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [C]!</span>")
+		C.visible_message(span_warning("[user] sprays a cloud of fine ice crystals, engulfing [C]!"))
 		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -392,7 +392,7 @@
 		var/mob/living/carbon/C = user
 		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.mask_adjusted))
 			if(show_message)
-				to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+				to_chat(C, span_warning("Your mouth is covered, preventing you from eating!"))
 			can_eat = FALSE
 	return can_eat
 
@@ -422,35 +422,35 @@
 		var/mob/living/carbon/human/H = the_item
 		var/obj/item/organ/external/limb = H.get_organ(user.zone_selected)
 		if(!istype(limb))
-			to_chat(user, "<span class='warning'>You can't eat this part of them!</span>")
+			to_chat(user, span_warning("You can't eat this part of them!"))
 			revert_cast()
 			return FALSE
 		if(istype(limb,/obj/item/organ/external/head))
 			// Bullshit, but prevents being unable to clone someone.
-			to_chat(user, "<span class='warning'>You try to put \the [limb] in your mouth, but [the_item.p_their()] ears tickle your throat!</span>")
+			to_chat(user, span_warning("You try to put \the [limb] in your mouth, but [the_item.p_their()] ears tickle your throat!"))
 			revert_cast()
 			return FALSE
 		if(istype(limb,/obj/item/organ/external/chest))
 			// Bullshit, but prevents being able to instagib someone.
-			to_chat(user, "<span class='warning'>You try to put [the_item.p_their()] [limb] in your mouth, but it's too big to fit!</span>")
+			to_chat(user, span_warning("You try to put [the_item.p_their()] [limb] in your mouth, but it's too big to fit!"))
 			revert_cast()
 			return FALSE
-		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [user.p_their()] gaping maw!</span>")
+		user.visible_message(span_danger("[user] begins stuffing [the_item]'s [limb.name] into [user.p_their()] gaping maw!"))
 		var/oldloc = H.loc
 		if(!do_mob(user,H,EAT_MOB_DELAY))
-			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
+			to_chat(user, span_danger("You were interrupted before you could eat [the_item]!"))
 		else
 			if(!limb || !H)
 				return
 			if(H.loc != oldloc)
-				to_chat(user, "<span class='danger'>\The [limb] moved away from your mouth!</span>")
+				to_chat(user, span_danger("\The [limb] moved away from your mouth!"))
 				return
-			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
+			user.visible_message(span_danger("[user] [pick("chomps","bites")] off [the_item]'s [limb]!"))
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			limb.droplimb(0, DROPLIMB_SHARP)
 			doHeal(user)
 	else
-		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
+		user.visible_message(span_danger("[user] eats \the [the_item]."))
 		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 		qdel(the_item)
 		doHeal(user)
@@ -492,7 +492,7 @@
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
 	if(istype(user.loc,/mob/) || IS_HORIZONTAL(user) || user.IsStunned() || user.buckled || user.stat)
-		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
+		to_chat(user, span_warning("You can't jump right now!"))
 		return
 
 	if(istype(user.loc,/turf/))
@@ -508,8 +508,8 @@
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
 			user.Weaken(10 SECONDS)
-			user.visible_message("<span class='warning'>[user] attempts to leap away but is slammed back down to the ground!</span>",
-								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
+			user.visible_message(span_warning("[user] attempts to leap away but is slammed back down to the ground!"),
+								span_warning("You attempt to leap away but are suddenly slammed back down to the ground!"),
 								span_notice("You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor."))
 			return FALSE
 		var/prevLayer = user.layer
@@ -534,7 +534,7 @@
 
 	if(istype(user.loc,/obj/))
 		var/obj/container = user.loc
-		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
+		to_chat(user, span_warning("You leap and slam your head against the inside of [container]! Ouch!"))
 		user.AdjustParalysis(6 SECONDS)
 		user.AdjustWeakened(10 SECONDS)
 		container.visible_message("<span class='danger'>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
@@ -593,7 +593,7 @@
 /obj/effect/proc_holder/spell/polymorph/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 
-	user.visible_message("<span class='warning'>[user]'s body shifts and contorts.</span>")
+	user.visible_message(span_warning("[user]'s body shifts and contorts."))
 
 	spawn(10)
 		if(target && user)
@@ -639,18 +639,18 @@
 /obj/effect/proc_holder/spell/empath/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/M in targets)
 		if(!iscarbon(M))
-			to_chat(user, "<span class='warning'>You may only use this on other organic beings.</span>")
+			to_chat(user, span_warning("You may only use this on other organic beings."))
 			return
 
 		if(M.dna?.GetSEState(GLOB.psyresistblock))
-			to_chat(user, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
+			to_chat(user, span_warning("You can't see into [M.name]'s mind at all!"))
 			return
 
 		if(M.stat == 2)
-			to_chat(user, "<span class='warning'>[M.name] is dead and cannot have [M.p_their()] mind read.</span>")
+			to_chat(user, span_warning("[M.name] is dead and cannot have [M.p_their()] mind read."))
 			return
 		if(M.health < 0)
-			to_chat(user, "<span class='warning'>[M.name] is dying, and [M.p_their()] thoughts are too scrambled to read.</span>")
+			to_chat(user, span_warning("[M.name] is dying, and [M.p_their()] thoughts are too scrambled to read."))
 			return
 
 		to_chat(user, "<span class='notice'>Mind Reading of <b>[M.name]:</b></span>")
@@ -710,9 +710,9 @@
 		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
 		if(M.dna?.GetSEState(GLOB.empathblock))
-			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
+			to_chat(M, span_warning("You sense [user.name] reading your mind."))
 		else if(prob(5) || M.mind?.assigned_role=="Chaplain")
-			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
+			to_chat(M, span_warning("You sense someone intruding upon your thoughts..."))
 
 ///////////////////Vanilla Morph////////////////////////////////////
 
@@ -748,7 +748,7 @@
 		return
 
 	if(istype(user.loc,/mob/))
-		to_chat(user, "<span class='warning'>You can't change your appearance right now!</span>")
+		to_chat(user, span_warning("You can't change your appearance right now!"))
 		return
 	var/mob/living/carbon/human/M = user
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
@@ -890,7 +890,7 @@
 
 	M.update_dna()
 
-	M.visible_message(span_notice("[M] morphs and changes [M.p_their()] appearance!"), span_notice("You change your appearance!"), "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
+	M.visible_message(span_notice("[M] morphs and changes [M.p_their()] appearance!"), span_notice("You change your appearance!"), span_warning("Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!"))
 
 /datum/mutation/grant_spell/remotetalk
 	name = "Telepathy"
@@ -1045,7 +1045,7 @@
 	var/mob/target
 
 	if(istype(H.l_hand, /obj/item/tk_grab) || istype(H.r_hand, /obj/item/tk_grab))
-		to_chat(H, "<span class='warning'>Your mind is too busy with that telekinetic grab.</span>")
+		to_chat(H, span_warning("Your mind is too busy with that telekinetic grab."))
 		H.remoteview_target = null
 		H.reset_perspective()
 		return

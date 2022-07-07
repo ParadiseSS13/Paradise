@@ -58,7 +58,7 @@
 			update_icon()
 			to_chat(user, span_notice("You replace the outer grille."))
 		else
-			to_chat(user, "<span class='warning'>You don't have enough rods for that!</span>")
+			to_chat(user, span_warning("You don't have enough rods for that!"))
 		return
 	else if(d_state)
 		// Repairing
@@ -67,7 +67,7 @@
 			to_chat(user, span_notice("You begin patching-up the wall with [MS]..."))
 			if(do_after(user, max(20 * d_state, 100) * MS.toolspeed, target = src) && d_state)
 				if(!MS.use(1))
-					to_chat(user, "<span class='warning'>You don't have enough [MS.name] for that!</span>")
+					to_chat(user, span_warning("You don't have enough [MS.name] for that!"))
 					return
 				d_state = RWALL_INTACT
 				update_icon()

@@ -57,9 +57,9 @@
 /obj/item/soulstone/pickup(mob/living/user)
 	. = ..()
 	if(iscultist(user) && purified && !iswizard(user))
-		to_chat(user, "<span class='danger'>[src] reeks of holy magic. You will need to cleanse it with a ritual dagger before anything can be done with it.</span>")
+		to_chat(user, span_danger("[src] reeks of holy magic. You will need to cleanse it with a ritual dagger before anything can be done with it."))
 	if(!can_use(user))
-		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up [src].</span>")
+		to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you pick up [src]."))
 
 /obj/item/soulstone/Destroy() //Stops the shade from being qdel'd immediately and their ghost being sent back to the arrival shuttle.
 	for(var/mob/living/simple_animal/shade/A in src)
@@ -78,18 +78,18 @@
 		return
 
 	if(spent)
-		to_chat(user, "<span class='warning'>There is no power left in the shard.</span>")
+		to_chat(user, span_warning("There is no power left in the shard."))
 		return
 
 	if(!ishuman(M)) //If target is not a human
 		return ..()
 
 	if(!M.mind)
-		to_chat(user, "<span class='warning'>This being has no soul!</span>")
+		to_chat(user, span_warning("This being has no soul!"))
 		return ..()
 
 	if(jobban_isbanned(M, ROLE_CULTIST) || jobban_isbanned(M, ROLE_SYNDICATE))
-		to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
+		to_chat(user, span_warning("A mysterious force prevents you from trapping this being's soul."))
 		return ..()
 
 	if(iscultist(user) && iscultist(M))
@@ -97,22 +97,22 @@
 		return ..()
 
 	if(M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT)
-		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
+		to_chat(user, span_warning("This being's soul seems worthless. Not even the stone will absorb it."))
 		return ..()
 
 	if(optional)
 		if(!M.ckey)
-			to_chat(user, "<span class='warning'>They have no soul!</span>")
+			to_chat(user, span_warning("They have no soul!"))
 			return
 
-		to_chat(user, "<span class='warning'>You attempt to channel [M]'s soul into [src]. You must give the soul some time to react and stand still...</span>")
+		to_chat(user, span_warning("You attempt to channel [M]'s soul into [src]. You must give the soul some time to react and stand still..."))
 
 		var/mob/player_mob = M
 		var/ghost = M.get_ghost()
 		if(ghost) // In case our player ghosted and we need to throw the alert at their ghost instead
 			player_mob = ghost
 		var/client/player_client = player_mob.client
-		to_chat(player_mob, "<span class='warning'>[user] is trying to capture your soul into [src]! Click the button in the top right of the game window to respond.</span>")
+		to_chat(player_mob, span_warning("[user] is trying to capture your soul into [src]! Click the button in the top right of the game window to respond."))
 		SEND_SOUND(player_client, sound('sound/misc/notice2.ogg'))
 		window_flash(player_client)
 
@@ -137,7 +137,7 @@
 		sleep(10 SECONDS)
 
 		if(!opt_in)
-			to_chat(user, "<span class='warning'>The soul resists your attempts at capturing it!</span>")
+			to_chat(user, span_warning("The soul resists your attempts at capturing it!"))
 			return
 
 		opt_in = FALSE
@@ -168,9 +168,9 @@
 						SSticker.mode.remove_cultist(M.mind, FALSE)
 						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] \
 									and the memories of your time as their servant with it.</span>")
-						to_chat(M, "<span class='danger'>Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
+						to_chat(M, span_danger("Assist [user], your saviour, and get vengeance on those who enslaved you!"))
 					else
-						to_chat(M, "<span class='danger'>Your soulstone has been exorcised, and you are now bound to obey [user]. </span>")
+						to_chat(M, span_danger("Your soulstone has been exorcised, and you are now bound to obey [user]. "))
 
 			for(var/mob/living/simple_animal/shade/EX in src)
 				EX.holy = TRUE
@@ -249,7 +249,7 @@
 	if(istype(I, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = I
 		if(!SS.can_use(user))
-			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell.</span>")
+			to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell."))
 			user.Confused(20 SECONDS)
 			return
 		SS.transfer_soul("CONSTRUCT", src, user)
@@ -278,7 +278,7 @@
 				to_chat(user, "<span class='danger'>Capture failed!</span> Kill or maim the victim first!")
 			else
 				if(!length(T.client_mobs_in_contents))
-					to_chat(user, "<span class='warning'>They have no soul!</span>")
+					to_chat(user, span_warning("They have no soul!"))
 				else
 					if(T.client == null)
 						to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
@@ -437,7 +437,7 @@
 	if(!M)
 		return FALSE
 	if(!chosen_ghost)
-		to_chat(user, "<span class='danger'>There were no spirits willing to become a shade.</span>")
+		to_chat(user, span_danger("There were no spirits willing to become a shade."))
 		return FALSE
 	if(length(contents)) //If they used the soulstone on someone else in the meantime
 		return FALSE

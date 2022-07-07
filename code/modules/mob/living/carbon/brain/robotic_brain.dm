@@ -29,7 +29,7 @@
 
 /obj/item/mmi/robotic_brain/attack_self(mob/user)
 	if(isgolem(user))
-		to_chat(user, "<span class='warning'>Your golem fingers are too large to press the switch on [src].</span>")
+		to_chat(user, span_warning("Your golem fingers are too large to press the switch on [src]."))
 		return
 	if(requires_master && !imprinted_master)
 		to_chat(user, span_notice("You press your thumb on [src] and imprint your user information."))
@@ -54,7 +54,7 @@
 		silenced = !silenced
 		to_chat(user, span_notice("You toggle the speaker [silenced ? "off" : "on"]."))
 		if(brainmob && brainmob.key)
-			to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled [silenced ? "off" : "on"].</span>")
+			to_chat(brainmob, span_warning("Your internal speaker has been toggled [silenced ? "off" : "on"]."))
 
 /obj/item/mmi/robotic_brain/proc/request_player()
 	for(var/mob/dead/observer/O in GLOB.player_list)
@@ -148,20 +148,20 @@
 		to_chat(O, "Not looking for a ghost, yet.")
 		return
 	if(!istype(O))
-		to_chat(O, "<span class='warning'>Error.</span>")
+		to_chat(O, span_warning("Error."))
 		return
 	if(O in ghost_volunteers)
 		to_chat(O, span_notice("Removed from registration list."))
 		ghost_volunteers.Remove(O)
 		return
 	if(!check_observer(O))
-		to_chat(O, "<span class='warning'>You cannot be \a [src].</span>")
+		to_chat(O, span_warning("You cannot be \a [src]."))
 		return
 	if(cannotPossess(O))
-		to_chat(O, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		to_chat(O, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
 		return
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O, "nonhumandept"))
-		to_chat(O, "<span class='warning'>You are job banned from this role.</span>")
+		to_chat(O, span_warning("You are job banned from this role."))
 		return
 	to_chat(O, span_notice("You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer."))
 	ghost_volunteers.Add(O)

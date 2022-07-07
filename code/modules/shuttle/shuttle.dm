@@ -810,7 +810,7 @@
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))
-		to_chat(usr, "<span class='danger'>Access denied.</span>")
+		to_chat(usr, span_danger("Access denied."))
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
 		return TRUE
@@ -829,7 +829,7 @@
 				add_fingerprint(usr)
 				return TRUE
 			if(1)
-				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+				to_chat(usr, span_warning("Invalid shuttle requested."))
 			else
 				to_chat(usr, span_notice("Unable to comply."))
 

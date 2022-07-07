@@ -91,7 +91,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		..()
 		SStgui.update_uis(src)
 	else if(istype(item, /obj/item/folder))
-		to_chat(user, "<span class='warning'>The [src] can't accept folders!</span>")
+		to_chat(user, span_warning("The [src] can't accept folders!"))
 		return //early return so the parent proc doesn't suck up and items that a photocopier would take
 	else
 		return ..()
@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		req_one_access = list()
 		to_chat(user, span_notice("The transmitters realign to an unknown source!"))
 	else
-		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
+		to_chat(user, span_warning("You swipe the card through [src], but nothing happens."))
 
 /obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
 	if(authenticated)
@@ -162,13 +162,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if("auth") // log in/out
 			if(!is_authenticated && scan)
 				if(scan.registered_name in GLOB.fax_blacklist)
-					to_chat(usr, "<span class='warning'>Login rejected: individual is blacklisted from fax network.</span>")
+					to_chat(usr, span_warning("Login rejected: individual is blacklisted from fax network."))
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 					. = FALSE
 				else if(check_access(scan))
 					authenticated = TRUE
 				else // ID doesn't have access to this machine
-					to_chat(usr, "<span class='warning'>Login rejected: ID card does not have required access.</span>")
+					to_chat(usr, span_warning("Login rejected: ID card does not have required access."))
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 					. = FALSE
 			else if(is_authenticated)
@@ -190,7 +190,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					to_chat(usr, span_notice("You insert [I] into [src]."))
 					flick(insert_anim, src)
 				else
-					to_chat(usr, "<span class='warning'>[src] only accepts paper, paper bundles, and photos.</span>")
+					to_chat(usr, span_warning("[src] only accepts paper, paper bundles, and photos."))
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
@@ -236,7 +236,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				var/cooldown_seconds = cooldown_seconds()
 				if(cooldown_seconds > 0)
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-					to_chat(usr, "<span class='warning'>[src] is not ready for another [cooldown_seconds] seconds.</span>")
+					to_chat(usr, span_warning("[src] is not ready for another [cooldown_seconds] seconds."))
 					return
 				send_admin_fax(usr, destination)
 				sendcooldown = world.time + cooldown_time

@@ -150,12 +150,12 @@
 			switch(hit_zone)
 				/*if("mouth")
 					if(announce)
-						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s mouth!</span>")
+						assailant.visible_message(span_warning("[assailant] covers [affecting]'s mouth!"))
 					if(affecting.silent < 3)
 						affecting.silent = 3
 				if("eyes")
 					if(announce)
-						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s eyes!</span>")
+						assailant.visible_message(span_warning("[assailant] covers [affecting]'s eyes!"))
 					if(affecting.eye_blind < 3)
 						affecting.eye_blind = 3*///These are being left in the code as an example for adding new hit-zone based things.
 
@@ -238,7 +238,7 @@
 	if(!affecting)
 		return
 	if(state >= GRAB_AGGRESSIVE && HAS_TRAIT(assailant, TRAIT_PACIFISM))
-		to_chat(assailant, "<span class='warning'>You don't want to risk hurting [affecting]!</span>")
+		to_chat(assailant, span_warning("You don't want to risk hurting [affecting]!"))
 		return
 	if(state == GRAB_UPGRADING)
 		return
@@ -256,9 +256,9 @@
 		if(!allow_upgrade)
 			return
 		//if(!affecting.lying)
-		assailant.visible_message("<span class='warning'>[assailant] has grabbed [affecting] aggressively (now hands)!</span>")
+		assailant.visible_message(span_warning("[assailant] has grabbed [affecting] aggressively (now hands)!"))
 		/* else
-			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
+			assailant.visible_message(span_warning("[assailant] pins [affecting] down to the ground (now hands)!"))
 			force_down = 1
 			affecting.Weaken(6 SECONDS)
 			step_to(assailant, affecting)
@@ -274,7 +274,7 @@
 			to_chat(assailant, span_notice("You squeeze [affecting], but nothing interesting happens."))
 			return
 
-		assailant.visible_message("<span class='warning'>[assailant] has reinforced [assailant.p_their()] grip on [affecting] (now neck)!</span>")
+		assailant.visible_message(span_warning("[assailant] has reinforced [assailant.p_their()] grip on [affecting] (now neck)!"))
 		state = GRAB_NECK
 		icon_state = "grabbed+1"
 
@@ -287,11 +287,11 @@
 		hud.name = "kill"
 		affecting.Stun(20 SECONDS) //10 ticks of ensured grab
 	else if(state < GRAB_UPGRADING)
-		assailant.visible_message("<span class='danger'>[assailant] starts to tighten [assailant.p_their()] grip on [affecting]'s neck!</span>")
+		assailant.visible_message(span_danger("[assailant] starts to tighten [assailant.p_their()] grip on [affecting]'s neck!"))
 		hud.icon_state = "kill1"
 
 		state = GRAB_KILL
-		assailant.visible_message("<span class='danger'>[assailant] has tightened [assailant.p_their()] grip on [affecting]'s neck!</span>")
+		assailant.visible_message(span_danger("[assailant] has tightened [assailant.p_their()] grip on [affecting]'s neck!"))
 		add_attack_logs(assailant, affecting, "Strangled")
 
 		assailant.next_move = world.time + 10
@@ -324,7 +324,7 @@
 			switch(assailant.a_intent)
 				if(INTENT_HELP)
 					/*if(force_down)
-						to_chat(assailant, "<span class='warning'>You no longer pin [affecting] to the ground.</span>")
+						to_chat(assailant, span_warning("You no longer pin [affecting] to the ground."))
 						force_down = 0
 						return*///This is a very basic demonstration of a new feature based on attacking someone with the grab, based on intent.
 								//This specific example would allow you to stop pinning people to the floor without moving away from them.
@@ -337,7 +337,7 @@
 					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
 						if(IS_HORIZONTAL(affecting))
 							return
-						assailant.visible_message("<span class='danger'>[assailant] thrusts [assailant.p_their()] head into [affecting]'s skull!</span>") //A visible message for what is going on.
+						assailant.visible_message(span_danger("[assailant] thrusts [assailant.p_their()] head into [affecting]'s skull!")) //A visible message for what is going on.
 						var/damage = 5
 						var/obj/item/clothing/hat = attacker.head
 						if(istype(hat))
@@ -349,33 +349,33 @@
 
 					/*if(last_hit_zone == "eyes")
 						if(state < GRAB_NECK)
-							to_chat(assailant, "<span class='warning'>You require a better grab to do this.</span>")
+							to_chat(assailant, span_warning("You require a better grab to do this."))
 							return
 						if((affected.head && affected.head.flags_cover & HEADCOVERSEYES) || \
 							(affected.wear_mask && affected.wear_mask.flags_cover & MASKCOVERSEYES) || \
 							(affected.glasses && affected.glasses.flags_cover & GLASSESCOVERSEYES))
-							to_chat(assailant, "<span class='danger'>You're going to need to remove the eye covering first.</span>")
+							to_chat(assailant, span_danger("You're going to need to remove the eye covering first."))
 							return
 						if(!affected.internal_bodyparts_by_name["eyes"])
-							to_chat(assailant, "<span class='danger'>You cannot locate any eyes on [affecting]!</span>")
+							to_chat(assailant, span_danger("You cannot locate any eyes on [affecting]!"))
 							return
-						assailant.visible_message("<span class='danger'>[assailant] presses [assailant.p_their()] fingers into [affecting]'s eyes!</span>")
-						to_chat(affecting, "<span class='danger'>You feel immense pain as digits are being pressed into your eyes!</span>")
+						assailant.visible_message(span_danger("[assailant] presses [assailant.p_their()] fingers into [affecting]'s eyes!"))
+						to_chat(affecting, span_danger("You feel immense pain as digits are being pressed into your eyes!"))
 						add_attack_logs(assailant, affecting, "Eye-fucked with their fingers")
 						var/obj/item/organ/internal/eyes/eyes = affected.get_int_organ(/obj/item/organ/internal/eyes)
 						eyes.damage += rand(3,4)
 						if(eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
-								to_chat(M, "<span class='warning'>You go blind!</span>")*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
+								to_chat(M, span_warning("You go blind!"))*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
 
 															//This specific example would allow you to squish people's eyes with a GRAB_NECK.
 
 				if(INTENT_DISARM) //This checks that the user is on disarm intent.
 				/*	if(state < GRAB_AGGRESSIVE)
-						to_chat(assailant, "<span class='warning'>You require a better grab to do this.</span>")
+						to_chat(assailant, span_warning("You require a better grab to do this."))
 						return
 					if(!force_down)
-						assailant.visible_message("<span class='danger'>[user] is forcing [affecting] to the ground!</span>")
+						assailant.visible_message(span_danger("[user] is forcing [affecting] to the ground!"))
 						force_down = 1
 						affecting.Weaken(6 SECONDS)
 						affecting.lying = 1
@@ -384,7 +384,7 @@
 						affecting.setDir(SOUTH) //face up
 						return
 					else
-						to_chat(assailant, "<span class='warning'>You are already pinning [affecting] to the ground.</span>")
+						to_chat(assailant, span_warning("You are already pinning [affecting] to the ground."))
 						return*///This is an example of something being done with an agressive grab + disarm intent.
 					return
 
@@ -394,18 +394,18 @@
 			var/mob/living/carbon/attacker = user
 
 			if(affecting.buckled)
-				to_chat(user, "<span class='warning'>[affecting] is buckled!</span>")
+				to_chat(user, span_warning("[affecting] is buckled!"))
 				return
 
-			user.visible_message("<span class='danger'>[user] is attempting to devour \the [affecting]!</span>")
+			user.visible_message(span_danger("[user] is attempting to devour \the [affecting]!"))
 
 			if(!do_after(user, checktime(user, affecting), target = affecting)) return
 
 			if(affecting.buckled)
-				to_chat(user, "<span class='warning'>[affecting] is buckled!</span>")
+				to_chat(user, span_warning("[affecting] is buckled!"))
 				return
 
-			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
+			user.visible_message(span_danger("[user] devours \the [affecting]!"))
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
 

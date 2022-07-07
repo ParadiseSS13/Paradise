@@ -347,17 +347,17 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	else if((istype(I, /obj/item/wrench)))
 		if(enabled || raised)
-			to_chat(user, "<span class='warning'>You cannot unsecure an active turret!</span>")
+			to_chat(user, span_warning("You cannot unsecure an active turret!"))
 			return
 		if(wrenching)
-			to_chat(user, "<span class='warning'>Someone is already [anchored ? "un" : ""]securing the turret!</span>")
+			to_chat(user, span_warning("Someone is already [anchored ? "un" : ""]securing the turret!"))
 			return
 		if(!anchored && isinspace())
-			to_chat(user, "<span class='warning'>Cannot secure turrets in space!</span>")
+			to_chat(user, span_warning("Cannot secure turrets in space!"))
 			return
 
 		user.visible_message( \
-				"<span class='warning'>[user] begins [anchored ? "un" : ""]securing the turret.</span>", \
+				span_warning("[user] begins [anchored ? "un" : ""]securing the turret."), \
 				span_notice("You begin [anchored ? "un" : ""]securing the turret.") \
 			)
 
@@ -405,10 +405,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(M.melee_damage_upper == 0 || (M.melee_damage_type != BRUTE && M.melee_damage_type != BURN))
 		return
 	if(!(stat & BROKEN))
-		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
+		visible_message(span_danger("[M] [M.attacktext] [src]!"))
 		take_damage(M.melee_damage_upper)
 	else
-		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
+		to_chat(M, span_danger("That object is useless to you."))
 	return
 
 /obj/machinery/porta_turret/attack_alien(mob/living/carbon/alien/humanoid/M)
@@ -416,7 +416,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	M.do_attack_animation(src)
 	if(!(stat & BROKEN))
 		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-		visible_message("<span class='danger'>[M] has slashed at [src]!</span>")
+		visible_message(span_danger("[M] has slashed at [src]!"))
 		take_damage(15)
 	else
 		to_chat(M, "<span class='noticealien'>That object is useless to you.</span>")
@@ -427,7 +427,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		//Emagging the turret makes it go bonkers and stun everyone. It also makes
 		//the turret shoot much, much faster.
 		if(user)
-			to_chat(user, "<span class='warning'>You short out [src]'s threat assessment circuits.</span>")
+			to_chat(user, span_warning("You short out [src]'s threat assessment circuits."))
 			visible_message("[src] hums oddly...")
 		emagged = TRUE
 		iconholder = 1
@@ -842,7 +842,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					build_step = 2
 					icon_state = "turret_frame2"
 				else
-					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
+					to_chat(user, span_warning("You need two sheets of metal to continue construction."))
 				return
 
 			else if(istype(I, /obj/item/wrench))
@@ -921,7 +921,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, span_notice("You add some metal armor to the exterior frame."))
 					build_step = 7
 				else
-					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
+					to_chat(user, span_warning("You need two sheets of metal to continue construction."))
 				return
 
 			else if(istype(I, /obj/item/screwdriver))

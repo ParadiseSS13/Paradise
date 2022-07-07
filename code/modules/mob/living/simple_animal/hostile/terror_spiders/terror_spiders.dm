@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			if(F.welded)
 				to_chat(src, "The fire door is welded shut.")
 			else
-				visible_message("<span class='danger'>[src] pries open the firedoor!</span>")
+				visible_message(span_danger("[src] pries open the firedoor!"))
 				F.open()
 		else
 			to_chat(src, "Closing fire doors does not help.")
@@ -229,10 +229,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/consume_jelly(obj/structure/spider/royaljelly/J)
 	if(regen_points_per_tick >= regen_points_per_hp)
-		to_chat(src, "<span class='warning'>Your spider type would not get any benefit from consuming royal jelly.</span>")
+		to_chat(src, span_warning("Your spider type would not get any benefit from consuming royal jelly."))
 		return
 	if(regen_points > 200)
-		to_chat(src, "<span class='warning'>You aren't hungry for jelly right now.</span>")
+		to_chat(src, span_warning("You aren't hungry for jelly right now."))
 		return
 	to_chat(src, span_notice("You consume the royal jelly! Regeneration speed increased!"))
 	regen_points += regen_points_per_jelly
@@ -247,21 +247,21 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	. = ..()
 	if(stat != DEAD)
 		if(key)
-			. += "<span class='warning'>[p_they(TRUE)] regards [p_their()] surroundings with a curious intelligence.</span>"
+			. += span_warning("[p_they(TRUE)] regards [p_their()] surroundings with a curious intelligence.")
 		if(health > (maxHealth*0.95))
 			. += span_notice("[p_they(TRUE)] is in excellent health.")
 		else if(health > (maxHealth*0.75))
 			. += span_notice("[p_they(TRUE)] has a few injuries.")
 		else if(health > (maxHealth*0.55))
-			. += "<span class='warning'>[p_they(TRUE)] has many injuries.</span>"
+			. += span_warning("[p_they(TRUE)] has many injuries.")
 		else if(health > (maxHealth*0.25))
-			. += "<span class='warning'>[p_they(TRUE)] is barely clinging on to life!</span>"
+			. += span_warning("[p_they(TRUE)] is barely clinging on to life!")
 		if(degenerate)
-			. += "<span class='warning'>[p_they(TRUE)] appears to be dying.</span>"
+			. += span_warning("[p_they(TRUE)] appears to be dying.")
 		else if(health < maxHealth && regen_points > regen_points_per_kill)
 			. += span_notice("[p_they(TRUE)] appears to be regenerating quickly.")
 		if(killcount >= 1)
-			. += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
+			. += span_warning("[p_they(TRUE)] has blood dribbling from [p_their()] mouth.")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
@@ -390,9 +390,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(D.operating)
 		return
 	if(D.welded)
-		to_chat(src, "<span class='warning'>The door is welded.</span>")
+		to_chat(src, span_warning("The door is welded."))
 	else if(D.locked)
-		to_chat(src, "<span class='warning'>The door is bolted.</span>")
+		to_chat(src, span_warning("The door is bolted."))
 	else if(D.allowed(src))
 		if(D.density)
 			D.open(TRUE)
@@ -400,11 +400,11 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			D.close(TRUE)
 		return TRUE
 	else if(D.arePowerSystemsOn() && (spider_opens_doors != 2))
-		to_chat(src, "<span class='warning'>The door's motors resist your efforts to force it.</span>")
+		to_chat(src, span_warning("The door's motors resist your efforts to force it."))
 	else if(!spider_opens_doors)
-		to_chat(src, "<span class='warning'>Your type of spider is not strong enough to force open doors.</span>")
+		to_chat(src, span_warning("Your type of spider is not strong enough to force open doors."))
 	else
-		visible_message("<span class='danger'>[src] forces the door!</span>")
+		visible_message(span_danger("[src] forces the door!"))
 		playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(D.density)
 			D.open(TRUE)
@@ -449,13 +449,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoRemoteView()
 	if(!isturf(loc))
 		// This check prevents spiders using this ability while inside an atmos pipe, which will mess up their vision
-		to_chat(src, "<span class='warning'>You must be standing on a floor to do this.</span>")
+		to_chat(src, span_warning("You must be standing on a floor to do this."))
 		return
 	if(client && (client.eye != client.mob))
 		reset_perspective()
 		return
 	if(health != maxHealth)
-		to_chat(src, "<span class='warning'>You must be at full health to do this!</span>")
+		to_chat(src, span_warning("You must be at full health to do this!"))
 		return
 	var/list/targets = list()
 	targets += src // ensures that self is always at top of the list
@@ -472,7 +472,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/adjustHealth(amount, updating_health = TRUE)
 	if(client && (client.eye != client.mob) && ismob(client.eye)) // the ismob check is required because client.eye can = atmos machines if a spider is in the vent
-		to_chat(src, "<span class='warning'>Cancelled remote view due to being under attack!</span>")
+		to_chat(src, span_warning("Cancelled remote view due to being under attack!"))
 		reset_perspective()
 	. = ..()
 

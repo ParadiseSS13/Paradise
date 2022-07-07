@@ -104,9 +104,9 @@
 				if(dna.unique_enzymes == pai_holder.master_dna)
 					to_chat(usr, span_notice("DNA is a match to stored Master DNA."))
 				else
-					to_chat(usr, "<span class='warning'>DNA does not match stored Master DNA.</span>")
+					to_chat(usr, span_warning("DNA does not match stored Master DNA."))
 			else
-				to_chat(usr, "<span class='warning'>[M] does not seem like [M.p_they()] [M.p_are()] going to provide a DNA sample willingly.</span>")
+				to_chat(usr, span_warning("[M] does not seem like [M.p_they()] [M.p_are()] going to provide a DNA sample willingly."))
 
 // Crew Manifest //
 /datum/pai_software/crew_manifest
@@ -314,7 +314,7 @@
 			if(cable && cable.machine)
 				hackdoor = cable.machine
 				if(hacking)
-					to_chat(usr, "<span class='warning'>You are already hacking that door!</span>")
+					to_chat(usr, span_warning("You are already hacking that door!"))
 				else
 					hacking = TRUE
 					INVOKE_ASYNC(src, .proc/hackloop)
@@ -323,11 +323,11 @@
 		if("cable")
 			playsound(pai_holder, 'sound/mecha/mechmove03.ogg', 25, TRUE)
 			if(cable) // Retracting
-				pai_holder.visible_message("<span class='warning'>[cable] is pulled back into [pai_holder] with a quick snap.</span>")
+				pai_holder.visible_message(span_warning("[cable] is pulled back into [pai_holder] with a quick snap."))
 				QDEL_NULL(cable)
 			else // Extending
 				cable = new /obj/item/pai_cable(get_turf(pai_holder))
-				pai_holder.visible_message("<span class='warning'>A port on [pai_holder] opens to reveal [cable], which promptly falls to the floor.</span>")
+				pai_holder.visible_message(span_warning("A port on [pai_holder] opens to reveal [cable], which promptly falls to the floor."))
 
 /**
   * Door jack hack loop

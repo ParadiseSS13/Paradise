@@ -91,7 +91,7 @@
 /obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
 
 	if(using_irrigation)
-		to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
+		to_chat(user, span_warning("Disconnect the hoses first!"))
 		return TRUE
 	if(default_deconstruction_crowbar(user, I, 1))
 		return TRUE
@@ -349,11 +349,11 @@
 		else
 			. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
 		if (dead)
-			. += "<span class='warning'>It's dead!</span>"
+			. += span_warning("It's dead!")
 		else if (harvest)
 			. += "<span class='info'>It's ready to harvest.</span>"
 		else if (plant_health <= (myseed.endurance / 2))
-			. += "<span class='warning'>It looks unhealthy.</span>"
+			. += span_warning("It looks unhealthy.")
 	else
 		. += "<span class='info'>[src] is empty.</span>"
 
@@ -367,9 +367,9 @@
 		. += "<span class='info'>It doesn't require any water or nutrients.</span>"
 
 	if(weedlevel >= 5)
-		. += "<span class='warning'>[src] is filled with weeds!</span>"
+		. += span_warning("[src] is filled with weeds!")
 	if(pestlevel >= 5)
-		. += "<span class='warning'>[src] is filled with tiny worms!</span>"
+		. += span_warning("[src] is filled with tiny worms!")
 	. += "" // Empty line for readability.
 
 
@@ -407,7 +407,7 @@
 	update_icon()
 	plant_hud_set_health()
 	plant_hud_set_status()
-	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
+	visible_message(span_warning("The [oldPlantName] is overtaken by some [myseed.plantname]!"))
 
 
 /obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
@@ -442,7 +442,7 @@
 
 	sleep(5) // Wait a while
 	update_icon()
-	visible_message("<span class='warning'>[oldPlantName] suddenly mutates into [myseed.plantname]!</span>")
+	visible_message(span_warning("[oldPlantName] suddenly mutates into [myseed.plantname]!"))
 
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
@@ -462,9 +462,9 @@
 
 		sleep(5) // Wait a while
 		update_icon()
-		visible_message("<span class='warning'>The mutated weeds in [src] spawn some [myseed.plantname]!</span>")
+		visible_message(span_warning("The mutated weeds in [src] spawn some [myseed.plantname]!"))
 	else
-		to_chat(usr, "<span class='warning'>The few weeds in [src] seem to react, but only for a moment...</span>")
+		to_chat(usr, span_warning("The few weeds in [src] seem to react, but only for a moment..."))
 
 
 /obj/machinery/hydroponics/proc/plantdies() // OH NOES!!!!! I put this all in one function to make things easier
@@ -483,12 +483,12 @@
 	if(pestlevel > 5)
 		message_admins("[ADMIN_LOOKUPFLW(user)] caused spiderling pests to spawn in a hydro tray")
 		log_game("[key_name(user)] caused spiderling pests to spawn in a hydro tray")
-		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
+		visible_message(span_warning("The pests seem to behave oddly..."))
 		for(var/i in 1 to 3)
 			var/obj/structure/spider/spiderling/S = new(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 	else
-		to_chat(user, "<span class='warning'>The pests seem to behave oddly, but quickly settle down...</span>")
+		to_chat(user, span_warning("The pests seem to behave oddly, but quickly settle down..."))
 
 /obj/machinery/hydroponics/proc/applyChemicals(datum/reagents/S, mob/user)
 	if(myseed)
@@ -499,7 +499,7 @@
 		switch(rand(100))
 			if(91 to 100)
 				adjustHealth(-10)
-				to_chat(user, "<span class='warning'>The plant shrivels and burns.</span>")
+				to_chat(user, span_warning("The plant shrivels and burns."))
 			if(81 to 90)
 				mutatespecie()
 			if(66 to 80)
@@ -730,7 +730,7 @@
 			if(1   to 32)
 				mutatepest(user)
 			else
-				to_chat(user, "<span class='warning'>Nothing happens...</span>")
+				to_chat(user, span_warning("Nothing happens..."))
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
@@ -740,7 +740,7 @@
 		if(istype(reagent_source, /obj/item/reagent_containers/syringe))
 			var/obj/item/reagent_containers/syringe/syr = reagent_source
 			if(syr.mode != 1)
-				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")		//That. Gives me an idea...
+				to_chat(user, span_warning("You can't get any extract out of this plant."))		//That. Gives me an idea...
 				return
 
 		if(!reagent_source.reagents.total_volume)
@@ -748,7 +748,7 @@
 			return 1
 
 		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
-			to_chat(user, "<span class='warning'>You need to open [O] first!</span>")
+			to_chat(user, span_warning("You need to open [O] first!"))
 			return TRUE
 
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
@@ -823,7 +823,7 @@
 			O.forceMove(src)
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
+			to_chat(user, span_warning("[src] already has seeds in it!"))
 
 	else if(istype(O, /obj/item/plant_analyzer))
 		if(myseed)
@@ -847,7 +847,7 @@
 			adjustWeeds(-10)
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
+			to_chat(user, span_warning("This plot is completely devoid of weeds! It doesn't need uprooting."))
 
 	else if(istype(O, /obj/item/storage/bag/plants))
 		attack_hand(user)
@@ -859,7 +859,7 @@
 
 	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
-			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
+			to_chat(user, span_warning("[src] doesn't have any plants or weeds!"))
 			return
 		user.visible_message(span_notice("[user] starts digging out [src]'s plants..."), span_notice("You start digging out [src]'s plants..."))
 		playsound(src, O.usesound, 50, 1)
@@ -900,7 +900,7 @@
 		return
 	if(wrenchable)
 		if(using_irrigation)
-			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
+			to_chat(user, span_warning("Disconnect the hoses first!"))
 			return
 
 		if(!anchored && !isinspace())
@@ -925,7 +925,7 @@
 	if(issilicon(user)) //How does AI know what plant is?
 		return
 	if(lid_state)
-		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
+		to_chat(user, span_warning("You can't reach the plant through the cover."))
 		return
 	if(harvest)
 		myseed.harvest(user)
@@ -945,7 +945,7 @@
 	if(istype(myseed,/obj/item/seeds/replicapod))
 		to_chat(user, span_notice("You harvest from the [myseed.plantname]."))
 	else if(myseed.getYield() <= 0)
-		to_chat(user, "<span class='warning'>You fail to harvest anything useful!</span>")
+		to_chat(user, span_warning("You fail to harvest anything useful!"))
 	else
 		to_chat(user, span_notice("You harvest [myseed.getYield()] items from the [myseed.plantname]."))
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
@@ -1010,12 +1010,12 @@
 			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)
 			update_icon()
-			visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
+			visible_message(span_danger("[user] begins rooting through [src], ripping out weeds and eating them noisily."),span_danger("You begin rooting through [src], ripping out weeds and eating them noisily."))
 		else if(nutrilevel < 10)
 			user.adjust_nutrition(-((10 - nutrilevel) * 5))
 			adjustNutri(10)
 			update_icon()
-			visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>","<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")
+			visible_message(span_danger("[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray."),span_danger("You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray."))
 	else
 		return ..()
 

@@ -37,7 +37,7 @@
 	medium = round(medium)
 	weak = round(weak)
 	detonating = TRUE
-	to_chat(imp_in, "<span class='danger'>You activate your microbomb implant.</span>")
+	to_chat(imp_in, span_danger("You activate your microbomb implant."))
 //If the delay is short, just blow up already jeez
 	if(delay <= 7)
 		explosion(src, heavy, medium, weak, weak, flame_range = weak)

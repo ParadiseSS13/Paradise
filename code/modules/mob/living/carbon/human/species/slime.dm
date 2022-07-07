@@ -126,7 +126,7 @@
 /datum/action/innate/regrow/Activate()
 	var/mob/living/carbon/human/H = owner
 	if(H.nutrition < SLIMEPERSON_MINHUNGER)
-		to_chat(H, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
+		to_chat(H, span_warning("You're too hungry to regenerate a limb!"))
 		return
 
 	var/list/missing_limbs = list()
@@ -142,7 +142,7 @@
 			missing_limbs[initial(limb.name)] = l
 
 	if(!missing_limbs.len)
-		to_chat(H, "<span class='warning'>You're not missing any limbs!</span>")
+		to_chat(H, span_warning("You're not missing any limbs!"))
 		return
 
 	var/limb_select = input(H, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
@@ -153,11 +153,11 @@
 	H.visible_message(span_notice("[H] begins to hold still and concentrate on [H.p_their()] missing [limb_select]..."), span_notice("You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)"))
 	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob/living.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 		if(H.incapacitated(extra_checks = list(CALLBACK(H, /mob/living.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-			to_chat(H, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
+			to_chat(H, span_warning("You cannot regenerate missing limbs in your current state."))
 			return
 
 		if(H.nutrition < SLIMEPERSON_MINHUNGER)
-			to_chat(H, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
+			to_chat(H, span_warning("You're too hungry to regenerate a limb!"))
 			return
 
 		var/obj/item/organ/external/O = H.bodyparts_by_name[chosen_limb]
@@ -165,7 +165,7 @@
 		var/stored_brute = 0
 		var/stored_burn = 0
 		if(istype(O))
-			to_chat(H, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
+			to_chat(H, span_warning("You distribute the damaged tissue around your body, out of the way of your new pseudopod!"))
 			var/obj/item/organ/external/doomedStump = O
 			stored_brute = doomedStump.brute_dam
 			stored_burn = doomedStump.burn_dam
@@ -176,7 +176,7 @@
 		// Parent check
 		var/obj/item/organ/external/potential_parent = H.bodyparts_by_name[initial(limb_path.parent_organ)]
 		if(!istype(potential_parent))
-			to_chat(H, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
+			to_chat(H, span_danger("You've lost the organ that you've been growing your new part on!"))
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
@@ -191,7 +191,7 @@
 		H.visible_message(span_notice("[H] finishes regrowing [H.p_their()] missing [new_limb]!"), span_notice("You finish regrowing your [limb_select]"))
 		new_limb.add_limb_flags()
 	else
-		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
+		to_chat(H, span_warning("You need to hold still in order to regrow a limb!"))
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD

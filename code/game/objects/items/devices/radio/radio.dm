@@ -590,7 +590,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	addtimer(CALLBACK(src, .proc/enable_radio), rand(100, 200))
 
 	if(listening)
-		visible_message("<span class='warning'>[src] buzzes violently!</span>")
+		visible_message(span_warning("[src] buzzes violently!"))
 
 	broadcasting = 0
 	listening = 0

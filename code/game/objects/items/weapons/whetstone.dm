@@ -15,28 +15,28 @@
 
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
 	if(used)
-		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
+		to_chat(user, span_warning("The whetstone is too worn to use again!"))
 		return
 	if(I.force >= max || I.throwforce >= max)//no esword sharpening
-		to_chat(user, "<span class='warning'>[I] is much too powerful to sharpen further!</span>")
+		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
 		return
 	if(requires_sharpness && !I.sharp)
-		to_chat(user, "<span class='warning'>You can only sharpen items that are already sharp, such as knives!</span>")
+		to_chat(user, span_warning("You can only sharpen items that are already sharp, such as knives!"))
 		return
 	if(istype(I, /obj/item/twohanded))//some twohanded items should still be sharpenable, but handle force differently. therefore i need this stuff
 		var/obj/item/twohanded/TH = I
 		if(TH.force_wielded >= max)
-			to_chat(user, "<span class='warning'>[TH] is much too powerful to sharpen further!</span>")
+			to_chat(user, span_warning("[TH] is much too powerful to sharpen further!"))
 			return
 		if(TH.wielded)
-			to_chat(user, "<span class='warning'>[TH] must be unwielded before it can be sharpened!</span>")
+			to_chat(user, span_warning("[TH] must be unwielded before it can be sharpened!"))
 			return
 		if(TH.force_wielded > initial(TH.force_wielded))
-			to_chat(user, "<span class='warning'>[TH] has already been refined before. It cannot be sharpened further!</span>")
+			to_chat(user, span_warning("[TH] has already been refined before. It cannot be sharpened further!"))
 			return
 		TH.force_wielded = clamp(TH.force_wielded + increment, 0, max)//wieldforce is increased since normal force wont stay
 	if(I.force > initial(I.force))
-		to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
+		to_chat(user, span_warning("[I] has already been refined before. It cannot be sharpened further!"))
 		return
 	user.visible_message(span_notice("[user] sharpens [I] with [src]!"), span_notice("You sharpen [I], making it much more deadly than before."))
 	if(!requires_sharpness)
@@ -52,7 +52,7 @@
 
 /obj/item/whetstone/attack_self(mob/user)
 	if(used)
-		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
+		to_chat(user, span_warning("The whetstone is too worn to use again!"))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -69,7 +69,7 @@
 				used = TRUE
 				update_icon()
 			else
-				to_chat(user, "<span class='warning'>You can not sharpen your claws any further!</span>")
+				to_chat(user, span_warning("You can not sharpen your claws any further!"))
 
 /obj/item/whetstone/super
 	name = "super whetstone block"

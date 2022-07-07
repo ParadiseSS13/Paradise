@@ -32,7 +32,7 @@
 /obj/structure/closet/fireaxecabinet/attackby(obj/item/O as obj, mob/living/user as mob)  //Marker -Agouri
 	if(isrobot(user) || locked)
 		if(istype(O, /obj/item/multitool))
-			to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
+			to_chat(user, span_warning("Resetting circuitry..."))
 			playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
 			if(do_after(user, 20 * O.toolspeed, target = src))
 				locked = FALSE
@@ -64,10 +64,10 @@
 		if(!fireaxe)
 			var/obj/item/twohanded/fireaxe/F = O
 			if(F.wielded)
-				to_chat(user, "<span class='warning'>Unwield \the [F] first.</span>")
+				to_chat(user, span_warning("Unwield \the [F] first."))
 				return
 			if(!user.unEquip(F, FALSE))
-				to_chat(user, "<span class='warning'>\The [F] stays stuck to your hands!</span>")
+				to_chat(user, span_warning("\The [F] stays stuck to your hands!"))
 				return
 			fireaxe = F
 			has_axe = "full"
@@ -87,7 +87,7 @@
 				operate_panel()
 				return
 			else
-				to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
+				to_chat(user, span_warning("Resetting circuitry..."))
 				playsound(user, 'sound/machines/lockenable.ogg', 50, 1)
 				if(do_after(user, 20 * O.toolspeed, target = src))
 					locked = TRUE
@@ -98,7 +98,7 @@
 
 /obj/structure/closet/fireaxecabinet/attack_hand(mob/user as mob)
 	if(locked)
-		to_chat(user, "<span class='warning'>The cabinet won't budge!</span>")
+		to_chat(user, span_warning("The cabinet won't budge!"))
 		return
 	if(localopened && fireaxe)
 		user.put_in_hands(fireaxe)
@@ -129,7 +129,7 @@
 
 	if(isrobot(usr) || locked || smashed)
 		if(locked)
-			to_chat(usr, "<span class='warning'>The cabinet won't budge!</span>")
+			to_chat(usr, span_warning("The cabinet won't budge!"))
 		else if(smashed)
 			to_chat(usr, span_notice("The protective glass is broken!"))
 		return
@@ -157,12 +157,12 @@
 
 /obj/structure/closet/fireaxecabinet/attack_ai(mob/user as mob)
 	if(smashed)
-		to_chat(user, "<span class='warning'>The security of the cabinet is compromised.</span>")
+		to_chat(user, span_warning("The security of the cabinet is compromised."))
 		return
 	else
 		locked = !locked
 		if(locked)
-			to_chat(user, "<span class='warning'>Cabinet locked.</span>")
+			to_chat(user, span_warning("Cabinet locked."))
 		else
 			to_chat(user, span_notice("Cabinet unlocked."))
 

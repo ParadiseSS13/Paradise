@@ -120,7 +120,7 @@
 
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		if(!isEmpProof())
 			var/obj/item/stack/sheet/mineral/plasma/P = I
@@ -131,7 +131,7 @@
 			to_chat(user, "[msg2]")
 	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		if(!isMotion())
 			upgradeMotion()
@@ -143,7 +143,7 @@
 	// OTHER
 	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
 		if (!can_use())
-			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
+			to_chat(user, span_warning("You can't show something to a disabled camera!"))
 			return
 
 		var/mob/living/U = user
@@ -214,8 +214,8 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
-						"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
+		visible_message(span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
+						span_warning("You unweld [src], leaving it as just a frame bolted to the wall"))
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -272,10 +272,10 @@
 		change_msg = "reactivates"
 	if(displaymessage)
 		if(user)
-			visible_message("<span class='danger'>[user] [change_msg] [src]!</span>")
+			visible_message(span_danger("[user] [change_msg] [src]!"))
 			add_hiddenprint(user)
 		else
-			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
+			visible_message(span_danger("\The [src] [change_msg]!"))
 
 		playsound(loc, toggle_sound, 100, 1)
 	update_icon()

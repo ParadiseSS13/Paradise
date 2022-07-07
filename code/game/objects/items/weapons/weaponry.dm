@@ -212,7 +212,7 @@
 					lastdeflect = world.time + 3000
 				return TRUE
 			else if(prob(30))
-				visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
+				visible_message(span_warning("[owner] swings! And [p_they()] miss[p_es()]! How embarassing."), span_warning("You swing! You miss! Oh no!"))
 				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
 				deflectmode = FALSE
@@ -220,7 +220,7 @@
 					lastdeflect = world.time + 3000
 				return FALSE
 			else
-				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect [I]!</span>")
+				visible_message(span_warning("[owner] swings and deflects [I]!"), span_warning("You swing and deflect [I]!"))
 				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, 1, -1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
@@ -238,12 +238,12 @@
 			to_chat(user, span_notice("You no longer deflect objects thrown at you. You can attack during this time"))
 			deflectmode = FALSE
 		else
-			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "mm:ss")]</span>")
+			to_chat(user, span_warning("You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "mm:ss")]"))
 		return ..()
 	if(homerun_ready)
 		to_chat(user, span_notice("You're already ready to do a home run!"))
 		return ..()
-	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
+	to_chat(user, span_warning("You begin gathering strength..."))
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
 	if(do_after(user, 90, target = user))
 		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
@@ -252,7 +252,7 @@
 
 /obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
 	if(deflectmode)
-		to_chat(user, "<span class='warning'>You cannot attack in deflect mode!</span>")
+		to_chat(user, span_warning("You cannot attack in deflect mode!"))
 		return
 	. = ..()
 	if(homerun_ready)

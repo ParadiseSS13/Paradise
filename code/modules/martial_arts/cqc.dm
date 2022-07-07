@@ -43,7 +43,7 @@
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
+	D.visible_message(span_danger("[A] [picked_hit_type] [D]!"), \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(IS_HORIZONTAL(A) && !D.stat && !D.IsWeakened())
@@ -59,7 +59,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = A.get_inactive_hand()
 	if(restraining && istype(G) && G.affecting == D)
-		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
+		D.visible_message(span_danger("[A] puts [D] into a chokehold!"), \
 							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
 		D.SetSleeping(40 SECONDS)
 		restraining = FALSE
@@ -74,7 +74,7 @@
 	if(prob(65))
 		if(!D.stat || !D.IsWeakened() || !restraining)
 			I = D.get_active_hand()
-			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
+			D.visible_message(span_warning("[A] strikes [D]'s jaw with their hand!"), \
 								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 			if(D.unEquip(I) && !(QDELETED(I) || (I.flags & ABSTRACT)))
@@ -82,7 +82,7 @@
 			D.Jitter(4 SECONDS)
 			D.apply_damage(5, BRUTE)
 	else
-		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
+		D.visible_message(span_danger("[A] attempted to disarm [D]!"), "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)

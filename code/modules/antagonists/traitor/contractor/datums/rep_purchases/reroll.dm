@@ -14,7 +14,7 @@
 			eligible = TRUE
 			break
 	if(!eligible)
-		to_chat(user, "<span class='warning'>There are no inactive contracts that can be rerolled.</span>")
+		to_chat(user, span_warning("There are no inactive contracts that can be rerolled."))
 		return FALSE
 	return ..()
 

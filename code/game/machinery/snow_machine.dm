@@ -129,7 +129,7 @@
 /obj/machinery/snow_machine/proc/turn_on_or_off(activate, give_message = FALSE)
 	active = activate ? TRUE : FALSE
 	if(!active && give_message)
-		visible_message("<span class='warning'>[src] switches off!</span>")
+		visible_message(span_warning("[src] switches off!"))
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	update_icon()
 	return TRUE

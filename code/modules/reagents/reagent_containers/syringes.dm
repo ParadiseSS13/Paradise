@@ -76,7 +76,7 @@
 			if(L) //living mob
 				var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 				if(target != user)
-					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
+					target.visible_message(span_danger("[user] is trying to take a blood sample from [target]!"), \
 									"<span class='userdanger'>[user] is trying to take a blood sample from [target]!</span>")
 					busy = TRUE
 					if(!do_mob(user, target))
@@ -88,15 +88,15 @@
 				if(L.transfer_blood_to(src, drawn_amount))
 					user.visible_message(span_notice("[user] takes a blood sample from [L]."))
 				else
-					to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
+					to_chat(user, span_warning("You are unable to draw any blood from [L]!"))
 
 			else //if not mob
 				if(!target.reagents.total_volume)
-					to_chat(user, "<span class='warning'>[target] is empty!</span>")
+					to_chat(user, span_warning("[target] is empty!"))
 					return
 
 				if(!target.is_drawable(user))
-					to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target]!</span>")
+					to_chat(user, span_warning("You cannot directly remove reagents from [target]!"))
 					return
 
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
@@ -112,7 +112,7 @@
 				return
 
 			if(!L && !target.is_injectable(user)) //only checks on non-living mobs, due to how can_inject() handles
-				to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
+				to_chat(user, span_warning("You cannot directly fill [target]!"))
 				return
 
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
@@ -123,7 +123,7 @@
 				if(!L.can_inject(user, TRUE))
 					return
 				if(L != user)
-					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
+					L.visible_message(span_danger("[user] is trying to inject [L]!"), \
 											"<span class='userdanger'>[user] is trying to inject you!</span>")
 					if(!do_mob(user, L))
 						return

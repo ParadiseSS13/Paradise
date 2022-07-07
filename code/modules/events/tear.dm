@@ -84,4 +84,4 @@
 /obj/effect/tear/proc/spawn_leader()
 	var/mob/M = new /mob/living/simple_animal/hostile/hellhound/tear(get_turf(src))
 	playsound(M, 'sound/goonstation/voice/growl2.ogg', 100)
-	visible_message("<span class='danger'>With a terrifying growl, \a [M] steps out of the portal!</span>")
+	visible_message(span_danger("With a terrifying growl, \a [M] steps out of the portal!"))

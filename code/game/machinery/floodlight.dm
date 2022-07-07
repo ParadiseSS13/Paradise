@@ -32,7 +32,7 @@
 /obj/machinery/floodlight/process()
 	if(!cell && on)
 		on = FALSE
-		visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+		visible_message(span_warning("[src] shuts down due to lack of power!"))
 		update_icon()
 		set_light(0)
 	if(on)
@@ -41,7 +41,7 @@
 			on = FALSE
 			updateicon()
 			set_light(0)
-			visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+			visible_message(span_warning("[src] shuts down due to lack of power!"))
 
 /obj/machinery/floodlight/attack_ai()
 	return
@@ -61,7 +61,7 @@
 		to_chat(user, "You remove the power cell.")
 		if(on)
 			on = FALSE
-			visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+			visible_message(span_warning("[src] shuts down due to lack of power!"))
 			set_light(0)
 		updateicon()
 		return

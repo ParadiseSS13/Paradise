@@ -111,14 +111,14 @@
 
 	if(!damage)
 		playsound(D.loc, attack.miss_sound, 25, 1, -1)
-		D.visible_message("<span class='warning'>[A] has attempted to [atk_verb] [D]!</span>")
+		D.visible_message(span_warning("[A] has attempted to [atk_verb] [D]!"))
 		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
 	playsound(D.loc, attack.attack_sound, 25, 1, -1)
-	D.visible_message("<span class='danger'>[A] has [atk_verb]ed [D]!</span>", \
+	D.visible_message(span_danger("[A] has [atk_verb]ed [D]!"), \
 								"<span class='userdanger'>[A] has [atk_verb]ed [D]!</span>")
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
@@ -126,7 +126,7 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
 	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
-		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
+		D.visible_message(span_danger("[A] has weakened [D]!!"), \
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(8 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
@@ -165,7 +165,7 @@
 	set category = "Martial Arts"
 	var/mob/living/carbon/human/H = usr
 	if(!istype(H))
-		to_chat(usr, "<span class='warning'>You shouldn't have access to this verb. Report this as a bug to the github please.</span>")
+		to_chat(usr, span_warning("You shouldn't have access to this verb. Report this as a bug to the github please."))
 		return
 	H.mind.martial_art.give_explaination(H)
 
@@ -223,7 +223,7 @@
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat("<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
+			to_chat(span_warning("In spite of the grandiosity of the belt, you don't feel like getting into any fights."))
 			return
 		style.teach(H,1)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
@@ -279,7 +279,7 @@
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
 	user.drop_item()
-	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
+	visible_message(span_warning("[src] lights up in fire and quickly burns to ash."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
@@ -294,20 +294,20 @@
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
 		if(ischangeling(user))
-			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
+			to_chat(user, span_warning("We try multiple times, but we simply cannot grasp the basics of CQC!"))
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
-			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
+			to_chat(user, span_warning("Your blood lust distracts you from the basics of CQC!"))
 			return
 		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
+			to_chat(user, span_warning("The mere thought of combat, let alone CQC, makes your head spin!"))
 			return
 
 	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.drop_item()
-	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+	visible_message(span_warning("[src] beeps ominously, and a moment later it bursts up in flames."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
@@ -346,10 +346,10 @@
 		return ..()
 	var/mob/living/carbon/C = target
 	if(C.stat)
-		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while [C.p_they()] cannot retaliate.</span>")
+		to_chat(user, span_warning("It would be dishonorable to attack a foe while [C.p_they()] cannot retaliate."))
 		return
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You feel violence is not the answer.</span>")
+		to_chat(user, span_warning("You feel violence is not the answer."))
 		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
@@ -365,18 +365,18 @@
 										  "[user] smashes [H]'s head with [src]!", \
 										  "[user] beats [H] with front of [src]!", \
 										  "[user] twirls and slams [H] with [src]!")
-			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
+			H.visible_message(span_warning("[pick(fluffmessages)]"), \
 								   "<span class='userdanger'>[pick(fluffmessages)]</span>")
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
 			H.adjustStaminaLoss(rand(13,20))
 			if(prob(10))
-				H.visible_message("<span class='warning'>[H] collapses!</span>", \
+				H.visible_message(span_warning("[H] collapses!"), \
 									   "<span class='userdanger'>Your legs give out!</span>")
 				H.Weaken(8 SECONDS)
 			if(H.staminaloss && !H.IsSleeping())
 				var/total_health = (H.health - H.staminaloss)
 				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
-					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
+					H.visible_message(span_warning("[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!"), \
 										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
 					H.SetSleeping(60 SECONDS)
 					H.adjustBrainLoss(25)

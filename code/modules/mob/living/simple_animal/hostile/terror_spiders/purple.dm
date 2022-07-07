@@ -73,15 +73,15 @@
 			else
 				cycles_noqueen++
 				if(spider_debug)
-					to_chat(src, "<span class='danger'>[Q] NOT visible. Cycles: [cycles_noqueen].</span>")
+					to_chat(src, span_danger("[Q] NOT visible. Cycles: [cycles_noqueen]."))
 			var/area/A = get_area(spider_myqueen)
 			switch(cycles_noqueen)
 				if(6)
 					// one minute without queen sighted
-					to_chat(src, "<span class='danger'>You have become separated from [Q]. Return to her in [A].</span>")
+					to_chat(src, span_danger("You have become separated from [Q]. Return to her in [A]."))
 				if(12)
 					// two minutes without queen sighted
-					to_chat(src, "<span class='danger'>Your long separation from [Q] weakens you. Return to her in [A].</span>")
+					to_chat(src, span_danger("Your long separation from [Q] weakens you. Return to her in [A]."))
 				if(18)
 					// three minutes without queen sighted, kill them.
 					degenerate = TRUE

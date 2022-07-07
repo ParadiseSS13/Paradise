@@ -209,19 +209,19 @@
 /datum/emote/living/carbon/human/johnny/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/human/H = user
 	if(!istype(H.wear_mask, /obj/item/clothing/mask/cigarette))
-		to_chat(user, "<span class='warning'>You can't be that cool without a cigarette between your lips.</span>")
+		to_chat(user, span_warning("You can't be that cool without a cigarette between your lips."))
 		return TRUE
 
 	var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
 
 	if(!cig.lit)
-		to_chat(user, "<span class='warning'>You have to light that [cig] first, cool cat.</span>")
+		to_chat(user, span_warning("You have to light that [cig] first, cool cat."))
 		return TRUE
 
 	if(H.getOxyLoss() > 30)
 		user.visible_message(
-			"<span class='warning'>[user] gasps for air and swallows their cigarette!</span>",
-			"<span class='warning'>You gasp for air and accidentally swallow your [cig]!</span>"
+			span_warning("[user] gasps for air and swallows their cigarette!"),
+			span_warning("You gasp for air and accidentally swallow your [cig]!")
 		)
 		if(cig.lit)
 			to_chat(user, "<span class='userdanger'>The lit [cig] burns on the way down!")
@@ -261,7 +261,7 @@
 		to_chat(user, span_notice("You ready your slapping hand."))
 	else
 		qdel(N)
-		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+		to_chat(user, span_warning("You're incapable of slapping in your current state."))
 
 /datum/emote/living/carbon/human/wink
 	key = "wink"

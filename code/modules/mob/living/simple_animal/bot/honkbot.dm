@@ -113,9 +113,9 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits. It gives out an evil laugh!!</span>")
+			to_chat(user, span_warning("You short out [src]'s target assessment circuits. It gives out an evil laugh!!"))
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] gives out an evil laugh!</span>")
+		audible_message(span_danger("[src] gives out an evil laugh!"))
 		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, 1, -1) // evil laughter
 		update_icon()
 
@@ -191,7 +191,7 @@
 				threatlevel = 6 // will never let you go
 			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntime)
 			add_attack_logs(src, C, "honked by [src]")
-			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
+			C.visible_message(span_danger("[src] has honked [C]!"),\
 					"<span class='userdanger'>[src] has honked you!</span>")
 		else
 			C.Stuttering(40 SECONDS)

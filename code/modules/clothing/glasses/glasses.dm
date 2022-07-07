@@ -12,7 +12,7 @@
 	// Adding prescription glasses
 	if(istype(I, /obj/item/clothing/glasses/regular))
 		if(prescription)
-			to_chat(H, "<span class='warning'>You can't possibly imagine how adding more lenses would improve [src].</span>")
+			to_chat(H, span_warning("You can't possibly imagine how adding more lenses would improve [src]."))
 			return
 		H.unEquip(I)
 		I.loc = src // Store the glasses for later removal
@@ -54,7 +54,7 @@
 		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot("eyes")
 		if(!H.AmountBlinded() && eyes)
 			if(H.glasses == src)
-				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
+				to_chat(H, span_danger("[src] overloads and blinds you!"))
 				H.flash_eyes(visual = TRUE)
 				H.EyeBlind(6 SECONDS)
 				H.EyeBlurry(10 SECONDS)

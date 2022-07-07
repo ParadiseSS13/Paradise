@@ -61,8 +61,8 @@
 
 /datum/surgery_step/glue_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>" , \
-		"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
+		user.visible_message(span_warning(" [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!") , \
+		span_warning(" Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"))
 		return FALSE
 
 /datum/surgery_step/set_bone
@@ -99,8 +99,8 @@
 
 /datum/surgery_step/set_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!</span>" , \
-		"<span class='warning'> Your hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!</span>")
+	user.visible_message(span_warning(" [user]'s hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!") , \
+		span_warning(" Your hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!"))
 	affected.receive_damage(5)
 	return FALSE
 
@@ -132,8 +132,8 @@
 
 /datum/surgery_step/mend_skull/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'>[user]'s hand slips, damaging [target]'s face with \the [tool]!</span>"  , \
-		"<span class='warning'>Your hand slips, damaging [target]'s face with \the [tool]!</span>")
+	user.visible_message(span_warning("[user]'s hand slips, damaging [target]'s face with \the [tool]!")  , \
+		span_warning("Your hand slips, damaging [target]'s face with \the [tool]!"))
 	var/obj/item/organ/external/head/h = affected
 	h.receive_damage(10)
 	h.disfigure()
@@ -170,6 +170,6 @@
 
 /datum/surgery_step/finish_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>" , \
-	"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
+	user.visible_message(span_warning(" [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!") , \
+	span_warning(" Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"))
 	return FALSE

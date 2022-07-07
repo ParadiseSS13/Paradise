@@ -138,7 +138,7 @@
 		for(var/chemID in chemtraces)
 			scan_data += chemID
 			scan_data += "<br>"
-	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+	user.visible_message(span_warning("[src] rattles and prints out a sheet of paper."))
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	sleep(10)
@@ -163,15 +163,15 @@
 		wdata.Cut()
 		chemtraces.Cut()
 		timeofdeath = null
-		to_chat(user, "<span class='warning'>A new patient has been registered. Purging data for previous patient.</span>")
+		to_chat(user, span_warning("A new patient has been registered. Purging data for previous patient."))
 
 	timeofdeath = M.timeofdeath
 
 	var/obj/item/organ/external/S = M.get_organ(user.zone_selected)
 	if(!S)
-		to_chat(user, "<span class='warning'>You can't scan this body part.</span>")
+		to_chat(user, span_warning("You can't scan this body part."))
 		return
-	M.visible_message("<span class='warning'>[user] scans the wounds on [M]'s [S.name] with [src]</span>")
+	M.visible_message(span_warning("[user] scans the wounds on [M]'s [S.name] with [src]"))
 
 	add_data(S)
 	return 1

@@ -65,7 +65,7 @@
 				return TRUE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return
 
 	if(!force)
@@ -101,7 +101,7 @@
 /obj/attacked_by(obj/item/I, mob/living/user)
 	var/damage = I.force
 	if(I.force)
-		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
+		user.visible_message(span_danger("[user] has hit [src] with [I]!"), span_danger("You hit [src] with [I]!"))
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		damage += H.physiology.melee_bonus
@@ -126,11 +126,11 @@
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
 	if(!I.force)
-		user.visible_message("<span class='warning'>[user] gently taps [src] with [I].</span>",\
-						"<span class='warning'>This weapon is ineffective, it does no damage!</span>")
+		user.visible_message(span_warning("[user] gently taps [src] with [I]."),\
+						span_warning("This weapon is ineffective, it does no damage!"))
 	else if(I.force < force_threshold || I.damtype == STAMINA)
-		visible_message("<span class='warning'>[I] bounces harmlessly off of [src].</span>",\
-					"<span class='warning'>[I] bounces harmlessly off of [src]!</span>")
+		visible_message(span_warning("[I] bounces harmlessly off of [src]."),\
+					span_warning("[I] bounces harmlessly off of [src]!"))
 	else
 		return ..()
 

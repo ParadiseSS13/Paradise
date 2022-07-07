@@ -214,20 +214,20 @@
 		if(check_completion())
 			Interact(user)
 		else
-			to_chat(user, "<span class='warning'>The endoskeleton must be assembled before debugging can begin!</span>")
+			to_chat(user, span_warning("The endoskeleton must be assembled before debugging can begin!"))
 
 	if(istype(W, /obj/item/mmi))
 		var/obj/item/mmi/M = W
 		if(check_completion())
 			if(!isturf(loc))
-				to_chat(user, "<span class='warning'>You can't put [M] in, the frame has to be standing on the ground to be perfectly precise.</span>")
+				to_chat(user, span_warning("You can't put [M] in, the frame has to be standing on the ground to be perfectly precise."))
 				return
 			if(!M.brainmob)
-				to_chat(user, "<span class='warning'>Sticking an empty [M] into the frame would sort of defeat the purpose.</span>")
+				to_chat(user, span_warning("Sticking an empty [M] into the frame would sort of defeat the purpose."))
 				return
 
 			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob, "nonhumandept"))
-				to_chat(user, "<span class='warning'>This [W] is not fit to serve as a cyborg!</span>")
+				to_chat(user, span_warning("This [W] is not fit to serve as a cyborg!"))
 				return
 
 			if(!M.brainmob.key)
@@ -243,15 +243,15 @@
 				if(!ghost_can_reenter)
 					to_chat(user, span_notice("[M] is completely unresponsive; there's no point."))
 				else
-					to_chat(user, "<span class='warning'>[M] is currently inactive. Try again later.</span>")
+					to_chat(user, span_warning("[M] is currently inactive. Try again later."))
 				return
 
 			if(M.brainmob.stat == DEAD)
-				to_chat(user, "<span class='warning'>Sticking a dead [M] into the frame would sort of defeat the purpose.</span>")
+				to_chat(user, span_warning("Sticking a dead [M] into the frame would sort of defeat the purpose."))
 				return
 
 			if(M.brainmob.mind in SSticker.mode.head_revolutionaries)
-				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept [M].</span>")
+				to_chat(user, span_warning("The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept [M]."))
 				return
 
 
@@ -287,7 +287,7 @@
 			if(O.mind && O.mind.special_role && !M.syndiemmi)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
-				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
+				to_chat(O, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
 
 			O.job = "Cyborg"
 
@@ -300,8 +300,8 @@
 			O.mmi = W
 			if(O.mmi.syndiemmi)
 				O.syndiemmi_override()
-				to_chat(O, "<span class='warning'>ALERT: Foreign hardware detected.</span>")
-				to_chat(O, "<span class='warning'>ERRORERRORERROR</span>")
+				to_chat(O, span_warning("ALERT: Foreign hardware detected."))
+				to_chat(O, span_warning("ERRORERRORERROR"))
 				to_chat(O, "<span class='boldwarning'>Obey these laws:</span>")
 				O.laws.show_laws(O)
 			O.Namepick()
@@ -313,13 +313,13 @@
 
 			if(!locomotion)
 				O.lockcharge = 1
-				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
+				to_chat(O, span_warning("Error: Servo motors unresponsive."))
 
 		else
-			to_chat(user, "<span class='warning'>The MMI must go in after everything else!</span>")
+			to_chat(user, span_warning("The MMI must go in after everything else!"))
 
 	if(istype(W,/obj/item/pen))
-		to_chat(user, "<span class='warning'>You need to use a multitool to name [src]!</span>")
+		to_chat(user, span_warning("You need to use a multitool to name [src]!"))
 	return
 
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
@@ -340,7 +340,7 @@
 		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(!istype(item_in_hand, /obj/item/multitool))
-		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")
+		to_chat(living_user, span_warning("You need a multitool!"))
 		return
 
 	if(href_list["Name"])
@@ -396,7 +396,7 @@
 	..()
 	if(istype(W, /obj/item/flash))
 		if(istype(user,/mob/living/silicon/robot))
-			to_chat(user, "<span class='warning'>How do you propose to do that?</span>")
+			to_chat(user, span_warning("How do you propose to do that?"))
 			return
 		else if(flash1 && flash2)
 			to_chat(user, span_notice("You have already inserted the eyes!"))
@@ -420,7 +420,7 @@
 
 /obj/item/robot_parts/emag_act(user)
 	if(sabotaged)
-		to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
+		to_chat(user, span_warning("[src] is already sabotaged!"))
 	else
-		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
+		to_chat(user, span_warning("You slide the emag into the dataport on [src] and short out the safeties."))
 		sabotaged = 1

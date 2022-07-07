@@ -96,7 +96,7 @@
 			if(uses)
 				uses--
 				if(!uses)
-					to_chat(user, "<span class='danger'>You used up your [name]!</span>")
+					to_chat(user, span_danger("You used up your [name]!"))
 					qdel(src)
 		busy = FALSE
 
@@ -106,7 +106,7 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(!H.check_has_mouth())
-				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
+				to_chat(user, span_warning("You do not have a mouth!"))
 				return
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		to_chat(user, span_notice("You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!"))
@@ -114,7 +114,7 @@
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
-				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+				to_chat(user, span_warning("There is no more of [name] left!"))
 				qdel(src)
 	else
 		..()
@@ -287,7 +287,7 @@
 			if(uses-10 > 0)
 				uses = uses - 10
 				var/mob/living/carbon/human/C = target
-				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
+				user.visible_message(span_danger(" [user] sprays [src] into the face of [target]!"))
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(2 SECONDS)

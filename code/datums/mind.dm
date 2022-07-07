@@ -607,7 +607,7 @@
 					if(!new_target)
 						return
 				else
-					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					to_chat(usr, span_warning("No possible target found. Defaulting to a Free objective."))
 					new_target = "Free objective"
 
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
@@ -847,7 +847,7 @@
 
 			if("flash")
 				if(!SSticker.mode.equip_revolutionary(current))
-					to_chat(usr, "<span class='warning'>Spawning flash failed!</span>")
+					to_chat(usr, span_warning("Spawning flash failed!"))
 				log_admin("[key_name(usr)] has given [key_name(current)] a flash")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a flash")
 
@@ -855,7 +855,7 @@
 				var/list/L = current.get_contents()
 				var/obj/item/flash/flash = locate() in L
 				if(!flash)
-					to_chat(usr, "<span class='warning'>Deleting flash failed!</span>")
+					to_chat(usr, span_warning("Deleting flash failed!"))
 				qdel(flash)
 				log_admin("[key_name(usr)] has taken [key_name(current)]'s flash")
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s flash")
@@ -864,7 +864,7 @@
 				var/list/L = current.get_contents()
 				var/obj/item/flash/flash = locate() in L
 				if(!flash)
-					to_chat(usr, "<span class='warning'>Repairing flash failed!</span>")
+					to_chat(usr, span_warning("Repairing flash failed!"))
 				else
 					flash.broken = 0
 					log_admin("[key_name(usr)] has repaired [key_name(current)]'s flash")
@@ -878,7 +878,7 @@
 				var/fail = 0
 				fail |= !SSticker.mode.equip_revolutionary(current)
 				if(fail)
-					to_chat(usr, "<span class='warning'>Reequipping revolutionary goes wrong!</span>")
+					to_chat(usr, span_warning("Reequipping revolutionary goes wrong!"))
 					return
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a revolutionary")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a revolutionary")
@@ -900,12 +900,12 @@
 			if("dagger")
 				var/mob/living/carbon/human/H = current
 				if(!SSticker.mode.cult_give_item(/obj/item/melee/cultblade/dagger, H))
-					to_chat(usr, "<span class='warning'>Spawning dagger failed!</span>")
+					to_chat(usr, span_warning("Spawning dagger failed!"))
 				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a cult dagger")
 			if("runedmetal")
 				var/mob/living/carbon/human/H = current
 				if(!SSticker.mode.cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H))
-					to_chat(usr, "<span class='warning'>Spawning runed metal failed!</span>")
+					to_chat(usr, span_warning("Spawning runed metal failed!"))
 				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 runed metal sheets")
 
 	else if(href_list["wizard"])
@@ -928,7 +928,7 @@
 					//ticker.mode.learn_basic_spells(current)
 					SSticker.mode.update_wiz_icons_added(src)
 					SEND_SOUND(current, sound('sound/ambience/antag/ragesmages.ogg'))
-					to_chat(current, "<span class='danger'>You are a Space Wizard!</span>")
+					to_chat(current, span_danger("You are a Space Wizard!"))
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
@@ -975,7 +975,7 @@
 			if("initialdna")
 				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
 				if(!cling || !length(cling.absorbed_dna))
-					to_chat(usr, "<span class='warning'>Resetting DNA failed!</span>")
+					to_chat(usr, span_warning("Resetting DNA failed!"))
 				else
 					current.dna = cling.absorbed_dna[1]
 					current.real_name = current.dna.real_name
@@ -1126,7 +1126,7 @@
 				qdel(H.w_uniform)
 
 				if(!SSticker.mode.equip_syndicate(current))
-					to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
+					to_chat(usr, span_warning("Equipping a syndicate failed!"))
 					return
 				SSticker.mode.update_syndicate_id(current.mind, SSticker.mode.syndicates.len == 1)
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
@@ -1144,7 +1144,7 @@
 					log_admin("[key_name(usr)] has given [key_name(current)] the nuclear authorization code")
 					message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] the nuclear authorization code")
 				else
-					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
+					to_chat(usr, span_warning("No valid nuke found!"))
 
 	else if(href_list["eventmisc"])
 		switch(href_list["eventmisc"])
@@ -1396,14 +1396,14 @@
 				//ticker.mode.update_abductor_icons_removed(src)
 			if("abductor")
 				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
+					to_chat(usr, span_warning("This only works on humans!"))
 					return
 				make_Abductor()
 				log_admin("[key_name(usr)] turned [current] into abductor.")
 				SSticker.mode.update_abductor_icons_added(src)
 			if("equip")
 				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
+					to_chat(usr, span_warning("This only works on humans!"))
 					return
 
 				var/mob/living/carbon/human/H = current
@@ -1462,7 +1462,7 @@
 				if(has_antag_datum(/datum/antagonist/traitor))
 					var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
 					if(!T.give_uplink())
-						to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
+						to_chat(usr, span_warning("Equipping a syndicate failed!"))
 						return
 				log_admin("[key_name(usr)] has given [key_name(current)] an uplink")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")

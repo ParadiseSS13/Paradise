@@ -347,18 +347,18 @@
 
 	if(length(contents) >= storage_slots)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[I] won't fit in [src], make some space!</span>")
+			to_chat(usr, span_warning("[I] won't fit in [src], make some space!"))
 		return FALSE //Storage item is full
 
 	if(length(can_hold))
 		if(!is_type_in_typecache(I, can_hold))
 			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
+				to_chat(usr, span_warning("[src] cannot hold [I]."))
 			return FALSE
 
 	if(is_type_in_typecache(I, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
+			to_chat(usr, span_warning("[src] cannot hold [I]."))
 		return FALSE
 
 	if(length(cant_hold) && istype(I, /obj/item/storage)) //Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
@@ -366,12 +366,12 @@
 		for(var/obj/A in S.return_inv())
 			if(is_type_in_typecache(A, cant_hold))
 				if(!stop_messages)
-					to_chat(usr, "<span class='warning'>[src] rejects [I] because of its contents.</span>")
+					to_chat(usr, span_warning("[src] rejects [I] because of its contents."))
 				return FALSE
 
 	if(I.w_class > max_w_class)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")
+			to_chat(usr, span_warning("[I] is too big for [src]."))
 		return FALSE
 
 	var/sum_w_class = I.w_class
@@ -380,17 +380,17 @@
 
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[src] is full, make some space.</span>")
+			to_chat(usr, span_warning("[src] is full, make some space."))
 		return FALSE
 
 	if(I.w_class >= w_class && istype(I, /obj/item/storage))
 		if(!istype(src, /obj/item/storage/backpack/holding))	//BoHs should be able to hold backpacks again. The override for putting a BoH in a BoH is in backpack.dm.
 			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>[src] cannot hold [I] as it's a storage item of the same size.</span>")
+				to_chat(usr, span_warning("[src] cannot hold [I] as it's a storage item of the same size."))
 			return FALSE //To prevent the stacking of same sized storage items.
 
 	if(I.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
-		to_chat(usr, "<span class='warning'>[I] is stuck to your hand, you can't put it in [src]</span>")
+		to_chat(usr, span_warning("[I] is stuck to your hand, you can't put it in [src]"))
 		return FALSE
 
 	return TRUE
@@ -617,7 +617,7 @@
 
 /obj/item/storage/proc/fold(mob/user)
 	if(length(contents))
-		to_chat(user, "<span class='warning'>You can't fold this [name] with items still inside!</span>")
+		to_chat(user, span_warning("You can't fold this [name] with items still inside!"))
 		return
 	if(!ispath(foldable))
 		return

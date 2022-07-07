@@ -116,7 +116,7 @@ GLOBAL_VAR(bomb_set)
 			core = O
 
 	else if(istype(O, /obj/item/disk/plantgene))
-		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
+		to_chat(user, span_warning("You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!"))
 		return
 	return ..()
 
@@ -220,7 +220,7 @@ GLOBAL_VAR(bomb_set)
 	if(removal_stage == NUKE_INTACT)
 		visible_message(span_notice("[user] starts cutting loose the anchoring bolt covers on [src]."),\
 		span_notice("You start cutting loose the anchoring bolt covers with [I]..."),\
-		"<span class='warning'>You hear welding.</span>")
+		span_warning("You hear welding."))
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_INTACT)
 			return
 		visible_message(span_notice("[user] cuts through the bolt covers on [src]."),\
@@ -242,7 +242,7 @@ GLOBAL_VAR(bomb_set)
 	if(removal_stage == NUKE_COVER_OPEN)
 		visible_message(span_notice("[user] starts cutting apart the anchoring system sealant on [src]."),\
 		span_notice("You start cutting apart the anchoring system's sealant with [I]..."),\
-		"<span class='warning'>You hear welding.</span>")
+		span_warning("You hear welding."))
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_COVER_OPEN)
 			return
 		visible_message(span_notice("[user] cuts apart the anchoring system sealant on [src]."),\
@@ -258,7 +258,7 @@ GLOBAL_VAR(bomb_set)
 	if(removal_stage != NUKE_CORE_FULLY_EXPOSED || !core)
 		return wires.Interact(user)
 	if(timing) //removing the core is less risk then cutting wires, and doesnt take long, so we should not let crew do it while the nuke is armed. You can however get to it, without the special screwdriver, if you put the NAD in.
-		to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
+		to_chat(user, span_warning("[core] won't budge, metal clamps keep it in!"))
 		return
 	user.visible_message(span_notice("[user] starts to pull [core] out of [src]!"), span_notice("You start to pull [core] out of [src]!"))
 	if(do_after(user, 5 SECONDS, target = src))
@@ -313,9 +313,9 @@ GLOBAL_VAR(bomb_set)
 		if("deploy")
 			if(removal_stage != NUKE_MOBILE)
 				anchored = TRUE
-				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
+				visible_message(span_warning("With a steely snap, bolts slide out of [src] and anchor it to the flooring!"))
 			else
-				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
+				visible_message(span_warning("[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut."))
 			if(!lighthack)
 				flick("nuclearbombc", src)
 				icon_state = "nuclearbomb1"
@@ -357,19 +357,19 @@ GLOBAL_VAR(bomb_set)
 		if("toggle_anchor")
 			if(removal_stage == NUKE_MOBILE)
 				anchored = FALSE
-				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
+				visible_message(span_warning("[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut."))
 			else if(isinspace())
-				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
+				to_chat(usr, span_warning("There is nothing to anchor to!"))
 				return FALSE
 			else
 				if(!yes_code && anchored && timing)
-					to_chat(usr, "<span class='warning'>The code is required to unanchor [src] when armed!</span>")
+					to_chat(usr, span_warning("The code is required to unanchor [src] when armed!"))
 					return
 				anchored = !(anchored)
 				if(anchored)
-					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
+					visible_message(span_warning("With a steely snap, bolts slide out of [src] and anchor it to the flooring."))
 				else
-					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
+					visible_message(span_warning("The anchoring bolts slide back into the depths of [src]."))
 			return
 
 	if(!yes_code) // All requests below here require both NAD inserted AND code correct
@@ -392,7 +392,7 @@ GLOBAL_VAR(bomb_set)
 				to_chat(usr, span_notice("The safety is still on."))
 				return
 			if(!core)
-				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
+				to_chat(usr, span_danger("[src]'s screen blinks red! There is no plutonium core in [src]!"))
 				return
 			timing = !(timing)
 			if(timing)
@@ -523,7 +523,7 @@ GLOBAL_VAR(bomb_set)
 	if(!check_disk_loc())
 		var/holder = get(src, /mob)
 		if(holder)
-			to_chat(holder, "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
+			to_chat(holder, span_danger("You can't help but feel that you just lost something back there..."))
 		qdel(src)
 
  //station disk is allowed on the station level, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise

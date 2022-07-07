@@ -43,7 +43,7 @@
 	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(last_time + delay_time > world.time)
-		to_chat(usr, "<span class='warning'>\The [src] is not ready yet!</span>")
+		to_chat(usr, span_warning("\The [src] is not ready yet!"))
 		return
 	to_chat(usr, span_notice("You activate \the [src]."))
 	shock()
@@ -74,12 +74,12 @@
 
 	flick("echair_shock", src)
 	do_sparks(12, 1, src)
-	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
+	visible_message(span_danger("The electric chair went off!"), span_danger("You hear a deep sharp shock!"))
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			buckled_mob.electrocute_act(110, src, 1)
-			to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
+			to_chat(buckled_mob, span_danger("You feel a deep shock course through your body!"))
 			spawn(1)
 				buckled_mob.electrocute_act(110, src, 1)
 	A.power_light = light

@@ -46,10 +46,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon/attack_self(mob/user)
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need more space to place a [singular_name] here.</span>")
+		to_chat(user, span_warning("You need more space to place a [singular_name] here."))
 		return
 	if(locate(/obj/structure/marker_beacon) in user.loc)
-		to_chat(user, "<span class='warning'>There is already a [singular_name] here.</span>")
+		to_chat(user, span_warning("There is already a [singular_name] here."))
 		return
 	if(use(1))
 		to_chat(user, span_notice("You activate and anchor [amount ? "a":"the"] [singular_name] in place."))
@@ -109,7 +109,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	if(.)
 		return
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	to_chat(user, span_notice("You start picking [src] up..."))
 	if(do_after(user, remove_speed, target = src))

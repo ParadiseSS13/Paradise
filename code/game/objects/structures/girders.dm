@@ -68,23 +68,23 @@
 
 	else if(istype(W, /obj/item/stack))
 		if(iswallturf(loc))
-			to_chat(user, "<span class='warning'>There is already a wall present!</span>")
+			to_chat(user, span_warning("There is already a wall present!"))
 			return
 		if(!isfloorturf(loc))
-			to_chat(user, "<span class='warning'>A floor must be present to build a false wall!</span>")
+			to_chat(user, span_warning("A floor must be present to build a false wall!"))
 			return
 		if (locate(/obj/structure/falsewall) in loc.contents)
-			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
+			to_chat(user, span_warning("There is already a false wall present!"))
 			return
 		if(istype(W, /obj/item/stack/sheet/runed_metal))
-			to_chat(user, "<span class='warning'>You can't seem to make the metal bend.</span>")
+			to_chat(user, span_warning("You can't seem to make the metal bend."))
 			return
 
 		if(istype(W,/obj/item/stack/rods))
 			var/obj/item/stack/rods/S = W
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 5)
-					to_chat(user, "<span class='warning'>You need at least five rods to create a false wall!</span>")
+					to_chat(user, span_warning("You need at least five rods to create a false wall!"))
 					return
 				to_chat(user, span_notice("You start building a reinforced false wall..."))
 				if(do_after(user, 20, target = src))
@@ -97,7 +97,7 @@
 					qdel(src)
 			else
 				if(S.get_amount() < 5)
-					to_chat(user, "<span class='warning'>You need at least five rods to add plating!</span>")
+					to_chat(user, span_warning("You need at least five rods to add plating!"))
 					return
 				to_chat(user, span_notice("You start adding plating..."))
 				if (do_after(user, 40, target = src))
@@ -116,13 +116,13 @@
 
 		var/obj/item/stack/sheet/S = W
 		if(!S.wall_allowed)
-			to_chat(user, "<span class='warning'>You don't think that is good material for a wall!</span>")
+			to_chat(user, span_warning("You don't think that is good material for a wall!"))
 			return
 
 		if(istype(S, /obj/item/stack/sheet/wood))
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need two planks of wood to create a false wall!</span>")
+					to_chat(user, span_warning("You need two planks of wood to create a false wall!"))
 					return
 				to_chat(user, span_notice("You start building a false wall..."))
 				if(do_after(user, 20, target = src))
@@ -135,7 +135,7 @@
 					qdel(src)
 			else
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need two planks of wood to finish a wall!</span>")
+					to_chat(user, span_warning("You need two planks of wood to finish a wall!"))
 					return
 				to_chat(user, span_notice("You start adding plating..."))
 				if(do_after(user, 40 * W.toolspeed, target = src))
@@ -154,7 +154,7 @@
 		else if(istype(S, /obj/item/stack/sheet/metal))
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need two sheets of metal to create a false wall!</span>")
+					to_chat(user, span_warning("You need two sheets of metal to create a false wall!"))
 					return
 				to_chat(user, span_notice("You start building a false wall..."))
 				if(do_after(user, 20, target = src))
@@ -167,7 +167,7 @@
 					qdel(src)
 			else
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need two sheets of metal to finish a wall!</span>")
+					to_chat(user, span_warning("You need two sheets of metal to finish a wall!"))
 					return
 				to_chat(user, span_notice("You start adding plating..."))
 				if(do_after(user, 40 * W.toolspeed, target = src))
@@ -186,7 +186,7 @@
 		if(istype(S, /obj/item/stack/sheet/plasteel))
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
+					to_chat(user, span_warning("You need at least two sheets to create a false wall!"))
 					return
 				to_chat(user, span_notice("You start building a reinforced false wall..."))
 				if(do_after(user, 20, target = src))
@@ -232,7 +232,7 @@
 			var/M = S.sheettype
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
+					to_chat(user, span_warning("You need at least two sheets to create a false wall!"))
 					return
 				if(do_after(user, 20, target = src))
 					if(!loc || !S || S.get_amount() < 2)
@@ -245,7 +245,7 @@
 					qdel(src)
 			else
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two sheets to add plating!</span>")
+					to_chat(user, span_warning("You need at least two sheets to add plating!"))
 					return
 				to_chat(user, span_notice("You start adding plating..."))
 				if(do_after(user,40, target = src))
@@ -347,7 +347,7 @@
 		qdel(src)
 	else
 		if(!isfloorturf(loc))
-			to_chat(user, "<span class='warning'>A floor must be present to secure the girder!</span>")
+			to_chat(user, span_warning("A floor must be present to secure the girder!"))
 			return
 		to_chat(user, span_notice("You start securing the girder..."))
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_DISPLACED)
@@ -429,7 +429,7 @@
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/melee/cultblade/dagger) && iscultist(user)) //Cultists can demolish cult girders instantly with their dagger
-		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", span_notice("You demolish [src]."))
+		user.visible_message(span_warning("[user] strikes [src] with [W]!"), span_notice("You demolish [src]."))
 		refundMetal(metalUsed)
 		qdel(src)
 	else if(istype(W, /obj/item/gun/energy/plasmacutter))
@@ -453,7 +453,7 @@
 	else if(istype(W, /obj/item/stack/sheet/runed_metal))
 		var/obj/item/stack/sheet/runed_metal/R = W
 		if(R.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
+			to_chat(user, span_warning("You need at least one sheet of runed metal to construct a runed wall!"))
 			return 0
 		user.visible_message(span_notice("[user] begins laying runed metal on [src]..."), span_notice("You begin constructing a runed wall..."))
 		if(do_after(user, 10, target = src))

@@ -94,7 +94,7 @@
 			victim.Stuttering(12 SECONDS)
 			victim.take_organ_damage(10)
 
-		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
+		occupant.visible_message(span_danger("[occupant] crashed into \the [A]!"))
 
 /obj/structure/chair/wheelchair/bike
 	name = "bicycle"

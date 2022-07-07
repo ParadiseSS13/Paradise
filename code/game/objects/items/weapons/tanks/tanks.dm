@@ -59,7 +59,7 @@
 			// If the "mask" isn't actually a mask OR That mask isn't internals compatible AND Their headgear isn't internals compatible
 			if(!istype(M) || (!(initial(M.flags) & AIRTIGHT) && !(C.head && C.head.flags & AIRTIGHT)))
 				if(!silent)
-					to_chat(C, "<span class='warning'>You are not wearing a suitable mask or helmet.</span>")
+					to_chat(C, span_warning("You are not wearing a suitable mask or helmet."))
 				return FALSE
 			if(M.mask_adjusted) // If the mask is equipped but pushed down
 				M.adjustmask(C) // Adjust it back

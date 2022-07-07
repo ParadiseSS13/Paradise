@@ -222,7 +222,7 @@
 	var/mob/living/carbon/human/H = user
 	var/immune = istype(H.glasses, /obj/item/clothing/glasses/meson)
 	if(!immune && !HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
-		. += "<span class='danger'>You get headaches just from looking at it.</span>"
+		. += span_danger("You get headaches just from looking at it.")
 
 /obj/machinery/power/supermatter_crystal/detailed_examine()
 	return "When energized by a laser (or something hitting it), it emits radiation and heat. If the heat reaches above 7000 kelvin, it will send an alert and start taking damage. \
@@ -380,7 +380,7 @@
 	if(T.density)
 		var/turf/did_it_melt = T.ChangeTurf(T.baseturf)
 		if(!did_it_melt.density) //In case some joker finds way to place these on indestructible walls
-			visible_message("<span class='warning'>[src] melts through [T]!</span>")
+			visible_message(span_warning("[src] melts through [T]!"))
 		return
 
 	//We vary volume by power, and handle OH FUCK FUSION IN COOLING LOOP noises.
@@ -669,11 +669,11 @@
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 		damage += B.obj_integrity * 0.5 //take damage equal to 50% of remaining blob health before it tried to eat us
 		if(B.obj_integrity > 100)
-			B.visible_message("<span class='danger'>[B] strikes at [src] and flinches away!</span>",\
+			B.visible_message(span_danger("[B] strikes at [src] and flinches away!"),\
 			"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 			B.take_damage(100, BURN)
 		else
-			B.visible_message("<span class='danger'>[B] strikes at [src] and rapidly flashes to ash.</span>",\
+			B.visible_message(span_danger("[B] strikes at [src] and rapidly flashes to ash."),\
 			"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 			Consume(B)
 
@@ -697,7 +697,7 @@
 	else
 		murder = S.attacktext
 	dust_mob(S, \
-	"<span class='danger'>[S] unwisely [murder] [src], and [S.p_their()] body burns brilliantly before flashing into ash!</span>", \
+	span_danger("[S] unwisely [murder] [src], and [S.p_their()] body burns brilliantly before flashing into ash!"), \
 	"<span class='userdanger'>You unwisely touch [src], and your vision glows brightly as your body crumbles to dust. Oops.</span>", \
 	"simple animal attack")
 
@@ -716,7 +716,7 @@
 	if(nom.incorporeal_move || nom.status_flags & GODMODE)
 		return
 	if(!vis_msg)
-		vis_msg = "<span class='danger'>[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!</span>"
+		vis_msg = span_danger("[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!")
 	if(!mob_msg)
 		mob_msg = "<span class='userdanger'>You reach out and touch [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>"
 	if(!cause)
@@ -738,7 +738,7 @@
 			to_chat(M, span_notice("You carefully begin to scrape [src] with [I]..."))
 			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
 				if(scalpel.uses_left)
-					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
+					to_chat(M, span_danger("You extract a sliver from [src], and it begins to react violently!"))
 					matter_power += 800
 					scalpel.uses_left--
 					if(!scalpel.uses_left)
@@ -755,12 +755,12 @@
 						tongs.item_state = "supermatter_tongs_loaded"
 						to_chat(M, span_notice("You pick up [S] with [tongs]!"))
 				else
-					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+					to_chat(user, span_warning("You fail to extract a sliver from [src]! [I] isn't sharp enough anymore."))
 		return
 	if(istype(I, /obj/item/retractor/supermatter))
 		to_chat(user, span_notice("[I] bounces off [src], you need to cut a sliver off first!"))
 	else if(user.drop_item())
-		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
+		user.visible_message(span_danger("As [user] touches [src] with \a [I], silence fills the room..."),\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
 		investigate_log("has been attacked ([I]) by [key_name(user)]", "supermatter")
@@ -771,11 +771,11 @@
 
 /obj/machinery/power/supermatter_crystal/Bumped(atom/movable/AM)
 	if(isliving(AM))
-		AM.visible_message("<span class='danger'>[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
+		AM.visible_message(span_danger("[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!"),\
 		"<span class='userdanger'>You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
 	else if(isobj(AM) && !iseffect(AM))
-		AM.visible_message("<span class='danger'>[AM] smacks into [src] and rapidly flashes to ash.</span>", null,\
+		AM.visible_message(span_danger("[AM] smacks into [src] and rapidly flashes to ash."), null,\
 		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 	else
 		return
@@ -806,7 +806,7 @@
 				power += 5000//releases A LOT of power
 				matter_power += 500000
 				damage += 180//drops the integrety by 20%
-				AM.visible_message("<span class='danger'>[AM] smacks into [src], rapidly flashing blasts of pure energy. The energy inside [src] undergoes superradiance scattering!</span>", null,\
+				AM.visible_message(span_danger("[AM] smacks into [src], rapidly flashing blasts of pure energy. The energy inside [src] undergoes superradiance scattering!"), null,\
 				"<span class='italics'>You hear a loud crack as a wave of heat washes over you.</span>")
 		qdel(AM)
 	if(!iseffect(AM) && power_changes)
@@ -817,8 +817,8 @@
 	for(var/mob/living/L in range(10))
 		investigate_log("has irradiated [key_name(L)] after consuming [AM].", "supermatter")
 		if(L in view())
-			L.show_message("<span class='danger'>As [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,
-				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
+			L.show_message(span_danger("As [src] slowly stops resonating, you find your skin covered in new radiation burns."), 1,
+				span_danger("The unearthly ringing subsides and you notice you have new radiation burns."), 2)
 		else
 			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", 2)
 
@@ -873,7 +873,7 @@
 			else if(M.buckled)
 				var/atom/movable/buckler = M.buckled
 				if(buckler.unbuckle_mob(M, TRUE))
-					visible_message("<span class='danger'>[src]'s sheer force rips [M] away from [buckler]!</span>")
+					visible_message(span_danger("[src]'s sheer force rips [M] away from [buckler]!"))
 		step_towards(P,center)
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5)

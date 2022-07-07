@@ -38,11 +38,11 @@
  */
 /obj/item/borg/upgrade/proc/pre_install_checks(mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
-		to_chat(usr, "<span class='warning'>[src] will not function on a deceased cyborg.</span>")
+		to_chat(usr, span_warning("[src] will not function on a deceased cyborg."))
 		return FALSE
 	if(module_type && !istype(R.module, module_type))
-		to_chat(R, "<span class='warning'>Upgrade mounting error!  No suitable hardpoint detected!</span>")
-		to_chat(usr, "<span class='warning'>There's no mounting point for the module!</span>")
+		to_chat(R, span_warning("Upgrade mounting error!  No suitable hardpoint detected!"))
+		to_chat(usr, span_warning("There's no mounting point for the module!"))
 		return FALSE
 	return TRUE
 
@@ -98,7 +98,7 @@
 
 /obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
 	if(!R.allow_rename)
-		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
+		to_chat(R, span_warning("Internal diagnostic error: incompatible upgrade module detected."))
 		return 0
 	R.notify_ai(3, R.name, heldname)
 	R.name = heldname
@@ -115,7 +115,7 @@
 
 /obj/item/borg/upgrade/restart/do_install(mob/living/silicon/robot/R)
 	if(R.health < 0)
-		to_chat(usr, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
+		to_chat(usr, span_warning("You have to repair the cyborg before using this module!"))
 		return 0
 
 	if(!R.key)
@@ -254,7 +254,7 @@
 	if(R.weapons_unlock)
 		return // They already had the safety override upgrade, or they're a cyborg type which has this by default.
 	R.weapons_unlock = TRUE
-	to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have be disabled.</span>")
+	to_chat(R, span_warning("Warning: Safety Overide Protocols have be disabled."))
 	return TRUE
 
 /obj/item/borg/upgrade/lavaproof
@@ -285,7 +285,7 @@
 /obj/item/borg/upgrade/selfrepair/do_install(mob/living/silicon/robot/R)
 	var/obj/item/borg/upgrade/selfrepair/U = locate() in R
 	if(U)
-		to_chat(usr, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
+		to_chat(usr, span_warning("This unit is already equipped with a self-repair module."))
 		return 0
 
 	cyborg = R
@@ -331,12 +331,12 @@
 
 	if(cyborg && (cyborg.stat != DEAD) && on)
 		if(!cyborg.cell)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please, insert the power cell.</span>")
+			to_chat(cyborg, span_warning("Self-repair module deactivated. Please, insert the power cell."))
 			deactivate()
 			return
 
 		if(cyborg.cell.charge < powercost * 2)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please recharge.</span>")
+			to_chat(cyborg, span_warning("Self-repair module deactivated. Please recharge."))
 			deactivate()
 			return
 

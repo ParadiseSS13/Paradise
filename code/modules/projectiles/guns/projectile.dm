@@ -109,10 +109,10 @@
 				update_icon()
 				return
 			else
-				to_chat(user, "<span class='warning'>[src] already has a suppressor.</span>")
+				to_chat(user, span_warning("[src] already has a suppressor."))
 				return
 		else
-			to_chat(user, "<span class='warning'>You can't seem to figure out how to fit [S] on [src].</span>")
+			to_chat(user, span_warning("You can't seem to figure out how to fit [S] on [src]."))
 			return
 	else
 		return ..()
@@ -184,17 +184,17 @@
 
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
-		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")
+		to_chat(user, span_warning("\The [src] is already shortened!"))
 		return
 	if(bayonet)
-		to_chat(user, "<span class='warning'>You cannot saw-off [src] with [bayonet] attached!</span>")
+		to_chat(user, span_warning("You cannot saw-off [src] with [bayonet] attached!"))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", span_notice("You begin to shorten \the [src]..."))
 
 	//if there's any live ammo inside the gun, makes it go off
 	if(blow_up(user))
-		user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+		user.visible_message(span_danger("\The [src] goes off!"), span_danger("\The [src] goes off in your face!"))
 		return
 
 	if(do_after(user, 30, target = src))

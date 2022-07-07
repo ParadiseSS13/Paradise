@@ -129,7 +129,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack(mob/M, mob/user, def_zone)
 	if(awakening)
-		to_chat(user, "<span class='warning'>The tomato is twitching and shaking, preventing you from eating it.</span>")
+		to_chat(user, span_warning("The tomato is twitching and shaking, preventing you from eating it."))
 		return
 	..()
 

@@ -61,13 +61,13 @@
 	if(!new_card)
 		return
 	if(card)
-		to_chat(user, "<span class='warning'>The card slot is currently filled.</span>")
+		to_chat(user, span_warning("The card slot is currently filled."))
 		return
 	if(!new_card.mob_data)
-		to_chat(user, "<span class='danger'>This is a blank mob card.</span>")
+		to_chat(user, span_danger("This is a blank mob card."))
 		return
 	if(new_card.mob_data && !new_card.mob_data.cur_health)
-		to_chat(user, "<span class='warning'>This mob is incapacitated! Heal it before attempting to use it in battle!</span>")
+		to_chat(user, span_warning("This mob is incapacitated! Heal it before attempting to use it in battle!"))
 		return
 	user.unEquip(new_card)
 	new_card.forceMove(src)
@@ -111,7 +111,7 @@
 	interact(user)
 
 /obj/machinery/computer/mob_battle_terminal/attack_ai(mob/user)
-	to_chat(user, "<span class='warning'>You cannot interface with this portion of the simulation.</span>")
+	to_chat(user, span_warning("You cannot interface with this portion of the simulation."))
 	return
 
 /obj/machinery/computer/mob_battle_terminal/interact(mob/user)
@@ -296,10 +296,10 @@
 	if(!patient)
 		return
 	if(!patient.mob_data)
-		to_chat(user, "<span class='danger'>This is a blank mob card.</span>")
+		to_chat(user, span_danger("This is a blank mob card."))
 		return
 	if(patient.mob_data && patient.mob_data.cur_health == patient.mob_data.max_health)
-		to_chat(user, "<span class='warning'>This mob is already at maximum health!</span>")
+		to_chat(user, span_warning("This mob is already at maximum health!"))
 		return
 	patient.mob_data.cur_health = patient.mob_data.max_health
 	to_chat(user, "<span class='notify'>[patient.mob_data.nickname ? patient.mob_data.nickname : patient.mob_data.mob_name] has been restored to full health!</span>")

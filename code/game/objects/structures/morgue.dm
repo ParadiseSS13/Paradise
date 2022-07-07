@@ -211,7 +211,7 @@
 		return
 	O.forceMove(loc)
 	if(user != O)
-		user.visible_message("<span class='warning'>[user] stuffs [O] into [src]!</span>")
+		user.visible_message(span_warning("[user] stuffs [O] into [src]!"))
 	return
 
 /obj/structure/m_tray/Destroy()
@@ -294,7 +294,7 @@
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if(cremating)
-		to_chat(usr, "<span class='warning'>It's locked.</span>")
+		to_chat(usr, span_warning("It's locked."))
 		return
 	if((connected) && (locked == 0))
 		for(var/atom/movable/A in connected.loc)
@@ -340,12 +340,12 @@
 
 	if(contents.len <= 0)
 		for(var/mob/M in viewers(src))
-			M.show_message("<span class='warning'>You hear a hollow crackle.</span>", 1)
+			M.show_message(span_warning("You hear a hollow crackle."), 1)
 			return
 
 	else
 		for(var/mob/M in viewers(src))
-			M.show_message("<span class='warning'>You hear a roar as the crematorium activates.</span>", 1)
+			M.show_message(span_warning("You hear a roar as the crematorium activates."), 1)
 
 		cremating = 1
 		locked = 1
@@ -434,7 +434,7 @@
 		return
 	O.forceMove(loc)
 	if(user != O)
-		user.visible_message("<span class='warning'>[user] stuffs [O] into [src]!</span>")
+		user.visible_message(span_warning("[user] stuffs [O] into [src]!"))
 			//Foreach goto(99)
 	return
 
@@ -476,7 +476,7 @@
 
 
 		else
-			to_chat(usr, "<span class='warning'>Access denied.</span>")
+			to_chat(usr, span_warning("Access denied."))
 
 /mob/proc/update_morgue()
 	if(stat == DEAD)

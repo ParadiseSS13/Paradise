@@ -71,7 +71,7 @@
 			if(do_mob(user, src, 120))
 				var/mob/living/affected = G.affecting
 				if(spike(affected))
-					affected.visible_message("<span class='danger'>[user] slams [affected] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
+					affected.visible_message(span_danger("[user] slams [affected] onto the meat spike!"), "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
 		return
 	return ..()
 
@@ -117,13 +117,13 @@
 				return
 
 		else
-			M.visible_message("<span class='warning'>[M] struggles to break free from [src]!</span>",\
+			M.visible_message(span_warning("[M] struggles to break free from [src]!"),\
 			span_notice("You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)"),\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
 			M.adjustBruteLoss(30)
 			if(!do_after(M, 1200, target = src))
 				if(M && M.buckled)
-					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
+					to_chat(M, span_warning("You fail to free yourself!"))
 				return
 		if(!M.buckled)
 			return
@@ -131,7 +131,7 @@
 
 /obj/structure/kitchenspike/proc/release_mob(mob/living/M)
 	M.adjustBruteLoss(30)
-	src.visible_message(text("<span class='danger'>[M] falls free of [src]!</span>"))
+	src.visible_message(text(span_danger("[M] falls free of [src]!")))
 	unbuckle_mob(M, force = TRUE)
 	M.emote("scream")
 	M.AdjustWeakened(20 SECONDS)

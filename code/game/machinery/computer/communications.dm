@@ -56,7 +56,7 @@
 	if(authenticated)
 		return COMM_AUTHENTICATION_HEAD
 	if(message)
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 	return COMM_AUTHENTICATION_NONE
 
 /obj/machinery/computer/communications/proc/change_security_level(new_level)
@@ -76,14 +76,14 @@
 	if(..())
 		return
 	if(!is_secure_level(z))
-		to_chat(usr, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
+		to_chat(usr, span_warning("Unable to establish a connection: You're too far away from the station!"))
 		return
 
 	. = TRUE
 
 	if(action == "auth")
 		if(!ishuman(usr))
-			to_chat(usr, "<span class='warning'>Access denied, no humanoid lifesign detected.</span>")
+			to_chat(usr, span_warning("Access denied, no humanoid lifesign detected."))
 			return FALSE
 		// Logout function.
 		if(authenticated != COMM_AUTHENTICATION_NONE)
@@ -102,7 +102,7 @@
 			if(istype(id))
 				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
 		if(authenticated == COMM_AUTHENTICATION_NONE)
-			to_chat(usr, "<span class='warning'>You need to wear a command or Captain-level ID.</span>")
+			to_chat(usr, span_warning("You need to wear a command or Captain-level ID."))
 		return
 
 	// All functions below this point require authentication.
@@ -115,13 +115,13 @@
 
 		if("newalertlevel")
 			if(isAI(usr) || isrobot(usr))
-				to_chat(usr, "<span class='warning'>Firewalls prevent you from changing the alert level.</span>")
+				to_chat(usr, span_warning("Firewalls prevent you from changing the alert level."))
 				return
 			else if(usr.can_admin_interact())
 				change_security_level(text2num(params["level"]))
 				return
 			else if(!ishuman(usr))
-				to_chat(usr, "<span class='warning'>Security measures prevent you from changing the alert level.</span>")
+				to_chat(usr, span_warning("Security measures prevent you from changing the alert level."))
 				return
 
 			var/mob/living/carbon/human/H = usr
@@ -130,21 +130,21 @@
 				if(ACCESS_CAPTAIN in I.access)
 					change_security_level(text2num(params["level"]))
 				else
-					to_chat(usr, "<span class='warning'>You are not authorized to do this.</span>")
+					to_chat(usr, span_warning("You are not authorized to do this."))
 				setMenuState(usr, COMM_SCREEN_MAIN)
 			else
-				to_chat(usr, "<span class='warning'>You need to wear your ID.</span>")
+				to_chat(usr, span_warning("You need to wear your ID."))
 
 		if("announce")
 			if(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT)
 				if(message_cooldown > world.time)
-					to_chat(usr, "<span class='warning'>Please allow at least one minute to pass between announcements.</span>")
+					to_chat(usr, span_warning("Please allow at least one minute to pass between announcements."))
 					return
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement") as null|message
 				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
-					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_MSGLEN_MINIMUM] character minimum.</span>")
+					to_chat(usr, span_warning("Message '[input]' is too short. [COMM_MSGLEN_MINIMUM] character minimum."))
 					return
 				crew_announcement.Announce(input)
 				message_cooldown = world.time + 600 //One minute
@@ -160,7 +160,7 @@
 
 		if("cancelshuttle")
 			if(isAI(usr) || isrobot(usr))
-				to_chat(usr, "<span class='warning'>Firewalls prevent you from recalling the shuttle.</span>")
+				to_chat(usr, span_warning("Firewalls prevent you from recalling the shuttle."))
 				return
 			var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
 			if(response == "Yes")
@@ -222,13 +222,13 @@
 		if("nukerequest")
 			if(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT)
 				if(centcomm_message_cooldown > world.time)
-					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
+					to_chat(usr, span_warning("Arrays recycling. Please stand by."))
 					return
 				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","")
 				if(!input || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
+					to_chat(usr, span_warning("Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum."))
 					return
 				Nuke_request(input, usr)
 				to_chat(usr, span_notice("Request sent."))
@@ -240,13 +240,13 @@
 		if("MessageCentcomm")
 			if(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT)
 				if(centcomm_message_cooldown > world.time)
-					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
+					to_chat(usr, span_warning("Arrays recycling. Please stand by."))
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
+					to_chat(usr, span_warning("Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum."))
 					return
 				Centcomm_announce(input, usr)
 				print_centcom_report(input, station_time_timestamp() + " Captain's Message")
@@ -265,7 +265,7 @@
 				if(!input || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
+					to_chat(usr, span_warning("Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum."))
 					return
 				Syndicate_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
@@ -286,9 +286,9 @@
 										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
 					to_chat(usr, span_notice("Restarting Nano-Mob Hunter GO! game server. [loading_msg]..."))
 				else
-					to_chat(usr, "<span class='warning'>Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting.</span>")
+					to_chat(usr, span_warning("Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting."))
 			else
-				to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
+				to_chat(usr, span_danger("Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired."))
 
 
 
@@ -309,7 +309,7 @@
 		return
 
 	if(!is_secure_level(src.z))
-		to_chat(user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
+		to_chat(user, span_warning("Unable to establish a connection: You're too far away from the station!"))
 		return
 
 	ui_interact(user)
@@ -415,19 +415,19 @@
 
 /proc/call_shuttle_proc(mob/user, reason, sanitized = FALSE)
 	if(GLOB.sent_strike_team == 1)
-		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
+		to_chat(user, span_warning("Central Command will not allow the shuttle to be called. Consider all contracts terminated."))
 		return
 
 	if(SSshuttle.emergencyNoEscape)
-		to_chat(user, "<span class='warning'>The emergency shuttle may not be sent at this time. Please try again later.</span>")
+		to_chat(user, span_warning("The emergency shuttle may not be sent at this time. Please try again later."))
 		return
 
 	if(SSshuttle.emergency.mode > SHUTTLE_ESCAPE)
-		to_chat(user, "<span class='warning'>The emergency shuttle may not be called while returning to Central Command.</span>")
+		to_chat(user, span_warning("The emergency shuttle may not be called while returning to Central Command."))
 		return
 
 	if(SSticker.mode.name == "blob")
-		to_chat(user, "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>")
+		to_chat(user, span_warning("Under directive 7-10, [station_name()] is quarantined until further notice."))
 		return
 
 	if(!sanitized)
@@ -475,7 +475,7 @@
 		log_game("[key_name(user)] has recalled the shuttle.")
 		message_admins("[key_name_admin(user)] has recalled the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 	else
-		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
+		to_chat(user, span_warning("Central Command has refused the recall request!"))
 		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
 		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 

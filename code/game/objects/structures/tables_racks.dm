@@ -94,7 +94,7 @@
 	..()
 	if(climber)
 		climber.Weaken(4 SECONDS)
-		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
+		climber.visible_message(span_warning("[climber.name] has been knocked off the table"), "You've been knocked off the table", "You hear [climber.name] get knocked off the table")
 	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
 		if(user.pulling.loc == loc)
@@ -183,25 +183,25 @@
 
 /obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='danger'>Throwing [G.affecting] onto the table might hurt them!</span>")
+		to_chat(user, span_danger("Throwing [G.affecting] onto the table might hurt them!"))
 		return
 	if(get_dist(src, user) < 2)
 		if(G.affecting.buckled)
-			to_chat(user, "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>")
+			to_chat(user, span_warning("[G.affecting] is buckled to [G.affecting.buckled]!"))
 			return FALSE
 		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, span_warning("You need a better grip to do that!"))
 			return FALSE
 		if(!G.confirm())
 			return FALSE
 		var/blocking_object = density_check()
 		if(blocking_object)
-			to_chat(user, "<span class='warning'>You cannot do this there is \a [blocking_object] in the way!</span>")
+			to_chat(user, span_warning("You cannot do this there is \a [blocking_object] in the way!"))
 			return FALSE
 		G.affecting.forceMove(get_turf(src))
 		G.affecting.Weaken(4 SECONDS)
 		item_placed(G.affecting)
-		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
+		G.affecting.visible_message(span_danger("[G.assailant] pushes [G.affecting] onto [src]."), \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
 		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
 		qdel(G)
@@ -294,7 +294,7 @@
 		to_chat(usr, span_notice("It won't budge."))
 		return
 
-	usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
+	usr.visible_message(span_warning("[usr] flips \the [src]!"))
 
 	if(climbable)
 		structure_shaken()
@@ -428,8 +428,8 @@
 	deconstruct(FALSE)
 
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
-	visible_message("<span class='warning'>[src] breaks!</span>",
-		"<span class='danger'>You hear breaking glass.</span>")
+	visible_message(span_warning("[src] breaks!"),
+		span_danger("You hear breaking glass."))
 	var/turf/T = get_turf(src)
 	playsound(T, "shatter", 50, 1)
 	for(var/I in debris)
@@ -754,7 +754,7 @@
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
+		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct this."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -765,8 +765,8 @@
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
-							 "<span class='danger'>You kick [src].</span>")
+	user.visible_message(span_warning("[user] kicks [src]."), \
+							 span_danger("You kick [src]."))
 	take_damage(rand(4,8), BRUTE, MELEE, 1)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

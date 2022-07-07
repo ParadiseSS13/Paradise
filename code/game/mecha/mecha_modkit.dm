@@ -22,10 +22,10 @@
 
 /obj/item/mecha_modkit/voice/install(obj/mecha/mech, mob/living/carbon/user)
 	if(istype(mech, /obj/mecha/combat/reticence) && user)
-		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but an invisible barrier prevents you from doing so!</span>")
+		to_chat(user, span_warning("You attempt to install [src] into [mech], but an invisible barrier prevents you from doing so!"))
 		return FALSE
 	if(istype(mech, /obj/mecha/combat/honker) && user)
-		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but you somehow trip before you get it in!</span>")
+		to_chat(user, span_warning("You attempt to install [src] into [mech], but you somehow trip before you get it in!"))
 		user.slip("your own foot", 16 SECONDS, 0, 0, 1, "trip")
 		return FALSE
 	mech.nominalsound = nominalsound

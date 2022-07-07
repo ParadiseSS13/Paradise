@@ -17,23 +17,23 @@
 /obj/item/storage/lockbox/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(broken)
-			to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+			to_chat(user, span_warning("It appears to be broken."))
 			return
 		if(check_access(W))
 			locked = !locked
 			if(locked)
 				icon_state = icon_locked
-				to_chat(user, "<span class='warning'>You lock \the [src]!</span>")
+				to_chat(user, span_warning("You lock \the [src]!"))
 				if(user.s_active)
 					user.s_active.close(user)
 				return
 			else
 				icon_state = icon_closed
-				to_chat(user, "<span class='warning'>You unlock \the [src]!</span>")
+				to_chat(user, span_warning("You unlock \the [src]!"))
 				origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 				return
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 			return
 	else if((istype(W, /obj/item/card/emag) || (istype(W, /obj/item/melee/energy/blade)) && !broken))
 		emag_act(user)
@@ -41,13 +41,13 @@
 	if(!locked)
 		..()
 	else
-		to_chat(user, "<span class='warning'>It's locked!</span>")
+		to_chat(user, span_warning("It's locked!"))
 	return
 
 
 /obj/item/storage/lockbox/show_to(mob/user as mob)
 	if(locked)
-		to_chat(user, "<span class='warning'>It's locked!</span>")
+		to_chat(user, span_warning("It's locked!"))
 	else
 		..()
 	return

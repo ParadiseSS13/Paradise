@@ -124,7 +124,7 @@
 	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()
-	visible_message("<span class='warning'>[src] flickers and fails due to bluespace interference!</span>")
+	visible_message(span_warning("[src] flickers and fails due to bluespace interference!"))
 	do_sparks(5, 0, loc)
 	qdel(src)
 

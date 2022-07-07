@@ -276,7 +276,7 @@
 
 	for(var/obj/O in T)
 		if(O.rpd_blocksusage() == TRUE)
-			to_chat(user, "<span class='warning'>[O] blocks [src]!</span>")
+			to_chat(user, span_warning("[O] blocks [src]!"))
 			return
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.

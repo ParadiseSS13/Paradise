@@ -43,7 +43,7 @@
 					M.Paralyse(intensity * 40/3)
 				M.rad_act(intensity * 10)
 	else
-		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
+		to_chat(user, span_warning("The radioactive microlaser is still recharging."))
 
 /obj/item/rad_laser/proc/handle_cooldown(cooldown)
 	spawn(cooldown)
@@ -157,18 +157,18 @@
 			var/turf/teleport_turf = get_turf(src)
 			for(var/mob/living/user in teleport_turf)
 				if(!teleported_something)
-					teleport_turf.visible_message("<span class='danger'>[src] activates sporadically, teleporting everyone around it!</span>")
+					teleport_turf.visible_message(span_danger("[src] activates sporadically, teleporting everyone around it!"))
 					teleported_something = TRUE
 				attempt_teleport(user, TRUE)
 			if(!teleported_something)
-				visible_message("<span class='danger'>[src] activates and blinks out of existence!</span>")
+				visible_message(span_danger("[src] activates and blinks out of existence!"))
 				do_sparks(2, 1, src)
 				qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	dir_correction(user)
 	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
-		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
+		to_chat(user, span_warning("[src] is still recharging."))
 		return
 
 	var/mob/living/M = user
@@ -194,7 +194,7 @@
 
 	if(found_turf)
 		if(user.loc != mobloc) // No locker / mech / sleeper teleporting, that breaks stuff
-			to_chat(M, "<span class='danger'>[src] will not work here!</span>")
+			to_chat(M, span_danger("[src] will not work here!"))
 		if(charges > 0) //While we want EMP triggered teleports to drain charge, we also do not want it to go negative charge, as such we need this check here
 			charges--
 		var/turf/destination = pick(turfs)
@@ -212,7 +212,7 @@
 		else // Emp activated? Bag of holding? No saving throw for you
 			get_fragged(user, destination)
 	else
-		to_chat(M, "<span class='danger'>[src] will not work here!</span>")
+		to_chat(M, span_danger("[src] will not work here!"))
 
 /obj/item/teleporter/proc/tile_check(turf/T)
 	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space))

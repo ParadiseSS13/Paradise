@@ -11,7 +11,7 @@
 	. = ..()
 	var/obj/item/organ/internal/regenerative_core/C = M
 	if(!istype(C, /obj/item/organ/internal/regenerative_core))
-		to_chat(user, "<span class='warning'>The stabilizer only works on certain types of monster organs, generally regenerative in nature.</span>")
+		to_chat(user, span_warning("The stabilizer only works on certain types of monster organs, generally regenerative in nature."))
 		return ..()
 
 	C.preserved()

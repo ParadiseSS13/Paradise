@@ -81,12 +81,12 @@ To draw a rune, use a ritual dagger.
 		if(istype(src, /obj/effect/rune/teleport))
 			var/obj/effect/rune/teleport/T = src // Can't erase telerunes if they have a portal open
 			if(T.inner_portal || T.outer_portal)
-				to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
+				to_chat(user, span_warning("The portal needs to close first!"))
 				return
 
 		// Everything else
 		var/obj/item/melee/cultblade/dagger/D = I
-		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
+		user.visible_message(span_warning("[user] begins to erase [src] with [I]."))
 		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, target = src))
 			to_chat(user, span_notice("You carefully erase the [lowertext(cultist_name)] rune."))
 			qdel(src)
@@ -94,10 +94,10 @@ To draw a rune, use a ritual dagger.
 	if(istype(I, /obj/item/nullrod))
 		if(iscultist(user))//cultist..what are doing..cultist..staph...
 			user.drop_item()
-			user.visible_message("<span class='warning'>[I] suddenly glows with a white light, forcing [user] to drop it in pain!</span>", \
-			"<span class='danger'>[I] suddenly glows with a white light that sears your hand, forcing you to drop it!</span>") // TODO: Make this actually burn your hand
+			user.visible_message(span_warning("[I] suddenly glows with a white light, forcing [user] to drop it in pain!"), \
+			span_danger("[I] suddenly glows with a white light that sears your hand, forcing you to drop it!")) // TODO: Make this actually burn your hand
 			return
-		to_chat(user,"<span class='danger'>You disrupt the magic of [src] with [I].</span>")
+		to_chat(user,span_danger("You disrupt the magic of [src] with [I]."))
 		qdel(src)
 		return
 	return ..()
@@ -105,7 +105,7 @@ To draw a rune, use a ritual dagger.
 /obj/effect/rune/attack_hand(mob/living/user)
 	user.Move_Pulled(src) // So that you can still drag things onto runes
 	if(!iscultist(user))
-		to_chat(user, "<span class='warning'>You aren't able to understand the words of [src].</span>")
+		to_chat(user, span_warning("You aren't able to understand the words of [src]."))
 		return
 	var/list/invokers = can_invoke(user)
 	if(length(invokers) >= req_cultists)
@@ -118,16 +118,16 @@ To draw a rune, use a ritual dagger.
 		if(construct_invoke || !iscultist(M)) //if you're not a cult construct we want the normal fail message
 			attack_hand(M)
 		else
-			to_chat(M, "<span class='warning'>You are unable to invoke the rune!</span>")
+			to_chat(M, span_warning("You are unable to invoke the rune!"))
 
 /obj/effect/rune/cult_conceal() //for concealing spell
-	visible_message("<span class='danger'>[src] fades away.</span>")
+	visible_message(span_danger("[src] fades away."))
 	invisibility = INVISIBILITY_HIDDEN_RUNES
 	alpha = 100 //To help ghosts distinguish hidden runes
 
 /obj/effect/rune/cult_reveal() //for revealing spell
 	invisibility = 0
-	visible_message("<span class='danger'>[src] suddenly appears!</span>")
+	visible_message(span_danger("[src] suddenly appears!"))
 	alpha = initial(alpha)
 
 /obj/effect/rune/is_cleanable()
@@ -224,7 +224,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/proc/fail_invoke()
 	//This proc contains the effects of a rune if it is not invoked correctly, through either invalid wording or not enough cultists. By default, it's just a basic fizzle.
 	if(!invisibility) // No visible messages if not visible
-		visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
+		visible_message(span_warning("The markings pulse with a small flash of red light, then fall dark."))
 	animate(src, color = rgb(255, 0, 0), time = 0)
 	animate(src, color = rune_blood_color, time = 5)
 
@@ -325,10 +325,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(length(invokers) < 2)
 		fail_invoke()
 		for(var/I in invokers)
-			to_chat(I, "<span class='warning'>You need at least two invokers to convert!</span>")
+			to_chat(I, span_warning("You need at least two invokers to convert!"))
 		return
 	else
-		convertee.visible_message("<span class='warning'>[convertee] writhes in pain as the markings below them glow a bloody red!</span>", \
+		convertee.visible_message(span_warning("[convertee] writhes in pain as the markings below them glow a bloody red!"), \
 								"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
 		SSticker.mode.add_cultist(convertee.mind)
 		convertee.mind.special_role = "Cultist"
@@ -346,10 +346,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 				H.adjustBruteLoss(-(brutedamage * 0.9), robotic = TRUE)
 				H.adjustFireLoss(-(burndamage * 0.9), robotic = TRUE)
 				if(ismachineperson(H))
-					H.visible_message("<span class='warning'>A dark force repairs [convertee]!</span>",
+					H.visible_message(span_warning("A dark force repairs [convertee]!"),
 					"<span class='cultitalic'>Your damage has been repaired. Now spread the blood to others.</span>")
 				else
-					H.visible_message("<span class='warning'>[convertee]'s wounds heal and close!</span>",
+					H.visible_message(span_warning("[convertee]'s wounds heal and close!"),
 					"<span class='cultitalic'>Your wounds have been healed. Now spread the blood to others.</span>")
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						E.mend_fracture()
@@ -462,7 +462,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			potential_runes[resultkey] = R
 
 	if(!length(potential_runes))
-		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
+		to_chat(user, span_warning("There are no valid runes to teleport to!"))
 		log_game("Teleport rune failed - no other teleport runes")
 		fail_invoke()
 		return
@@ -505,7 +505,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			actual_selected_rune.handle_portal("lava")
 		else if(!is_station_level(z) || istype(get_area(src), /area/space))
 			actual_selected_rune.handle_portal("space", T)
-		user.visible_message("<span class='warning'>There is a sharp crack of inrushing air, and everything above the rune disappears!</span>",
+		user.visible_message(span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"),
 							"<span class='cult'>You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].</span>")
 		if(moveuser)
 			user.forceMove(target)
@@ -629,7 +629,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>")
-	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes.</span>", \
+	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
 								  "<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
 	rune_in_use = FALSE
 
@@ -654,7 +654,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	rune_in_use = FALSE
 	for(var/mob/living/M in range(0, src))
 		if(iscultist(M) && M.stat == DEAD)
-			M.visible_message("<span class='warning'>[M] twitches.</span>")
+			M.visible_message(span_warning("[M] twitches."))
 
 //Rite of the Corporeal Shield: When invoked, becomes solid and cannot be passed. Invoke again to undo.
 /obj/effect/rune/wall
@@ -736,11 +736,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		log_game("Summon Cultist rune failed - target in away mission")
 		return
 
-	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
+	cultist_to_summon.visible_message(span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
 									  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 	..()
 	INVOKE_ASYNC(src, .proc/teleport_effect, cultist_to_summon, get_turf(cultist_to_summon), src)
-	visible_message("<span class='warning'>[src] begins to bubble and rises into the form of [cultist_to_summon]!</span>")
+	visible_message(span_warning("[src] begins to bubble and rises into the form of [cultist_to_summon]!"))
 	cultist_to_summon.forceMove(get_turf(src))
 	qdel(src)
 
@@ -782,7 +782,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			targets += L
 
 	// Six seconds buildup
-	visible_message("<span class='warning'>A haze begins to form above [src]!</span>")
+	visible_message(span_warning("A haze begins to form above [src]!"))
 	animate(src, color = "#FC9A6D", time = 6 SECONDS)
 	set_light(6, 1, color)
 	sleep(6 SECONDS)
@@ -831,7 +831,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			cultists += M
 
 	if(length(cultists) < req_cultists) // Stop the rune there's not enough invokers
-		visible_message("<span class='warning'>[src] loses its glow and dissipates!</span>")
+		visible_message(span_warning("[src] loses its glow and dissipates!"))
 		qdel(src)
 
 /obj/effect/rune/manifest
@@ -914,7 +914,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		current_organ.limb_flags |= CANNOT_DISMEMBER //you can't chop of the limbs of a ghost, silly
 	ghosts++
 	playsound(src, 'sound/misc/exit_blood.ogg', 50, TRUE)
-	user.visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo" : ""]man.</span>",
+	user.visible_message(span_warning("A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo" : ""]man."),
 						"<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")
 
 	var/obj/machinery/shield/cult/weak/shield = new(T)
@@ -939,7 +939,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(shield)
 	ghosts--
 	if(new_human)
-		new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>",
+		new_human.visible_message(span_warning("[new_human] suddenly dissolves into bones and ashes."),
 								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/item/I in new_human.get_all_slots())
 			new_human.unEquip(I)
@@ -948,7 +948,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/manifest/proc/ghostify(mob/living/user, turf/T)
 	user.add_atom_colour(RUNE_COLOR_DARKRED, ADMIN_COLOUR_PRIORITY)
-	user.visible_message("<span class='warning'>[user] freezes statue-still, glowing an unearthly red.</span>",
+	user.visible_message(span_warning("[user] freezes statue-still, glowing an unearthly red."),
 					"<span class='cult'>You see what lies beyond. All is revealed. In this form you find that your voice booms above all others.</span>")
 	ghost = user.ghostize(TRUE)
 	var/datum/action/innate/cult/comm/spirit/CM = new
@@ -961,15 +961,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//GM.Grant(ghost)
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
-			user.visible_message("<span class='warning'>[user] slowly relaxes, the glow around [user.p_them()] dimming.</span>",
-								"<span class='danger'>You are re-united with your physical form. [src] releases its hold over you.</span>")
+			user.visible_message(span_warning("[user] slowly relaxes, the glow around [user.p_them()] dimming."),
+								span_danger("You are re-united with your physical form. [src] releases its hold over you."))
 			user.Weaken(6 SECONDS)
 			break
 		if(user.health <= 10)
 			to_chat(ghost, "<span class='cultitalic'>Your body can no longer sustain the connection!</span>")
 			break
 		if(!(user in T))
-			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls [user.p_them()] back to the rune!</span>")
+			user.visible_message(span_warning("A spectral tendril wraps around [user] and pulls [user.p_them()] back to the rune!"))
 			Beam(user, icon_state = "drainbeam", time = 2)
 			user.forceMove(get_turf(src)) //NO ESCAPE :^)
 		sleep(5)

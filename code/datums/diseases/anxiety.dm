@@ -23,18 +23,18 @@
 			if(prob(5))
 				to_chat(affected_mob, span_notice("You feel panicky."))
 			if(prob(2))
-				to_chat(affected_mob, "<span class='danger'>You're overtaken with panic!</span>")
+				to_chat(affected_mob, span_danger("You're overtaken with panic!"))
 				affected_mob.AdjustConfused(rand(4 SECONDS, 6 SECONDS))
 		if(4)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You feel butterflies in your stomach.</span>")
+				to_chat(affected_mob, span_danger("You feel butterflies in your stomach."))
 			if(prob(5))
-				affected_mob.visible_message("<span class='danger'>[affected_mob] stumbles around in a panic.</span>", \
+				affected_mob.visible_message(span_danger("[affected_mob] stumbles around in a panic."), \
 												"<span class='userdanger'>You have a panic attack!</span>")
 				affected_mob.AdjustConfused(rand(12 SECONDS, 16 SECONDS))
 				affected_mob.AdjustJitter(rand(12 SECONDS, 16 SECONDS))
 			if(prob(2))
-				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up butterflies!</span>", \
+				affected_mob.visible_message(span_danger("[affected_mob] coughs up butterflies!"), \
 													"<span class='userdanger'>You cough up butterflies!</span>")
 				for(var/i in 1 to 2)
 					var/mob/living/simple_animal/butterfly/B = new(affected_mob.loc)

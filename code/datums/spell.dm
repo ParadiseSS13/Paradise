@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/try_perform(list/targets, mob/user)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No suitable target found.</span>")
+		to_chat(user, span_warning("No suitable target found."))
 		return FALSE
 
 	remove_ranged_ability(user) // Targeting succeeded. So remove the click interceptor if there is one. Even if the cast didn't succeed afterwards
@@ -501,7 +501,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		if(show_message)
-			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
+			to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
 		return FALSE
 
 	if(!centcom_cancast) //Certain spells are not allowed on the centcom zlevel

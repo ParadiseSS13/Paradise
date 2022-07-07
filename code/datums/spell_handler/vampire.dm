@@ -13,21 +13,21 @@
 
 	if(user.stat >= DEAD) // TODO check if needed
 		if(show_message)
-			to_chat(user, "<span class='warning'>Not while you're dead!</span>")
+			to_chat(user, span_warning("Not while you're dead!"))
 		return FALSE
 
 	if(vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION && !fullpower) // above 100 nullification vampire powers are useless
 		if(show_message)
-			to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
+			to_chat(user, span_warning("Something is blocking your powers!"))
 		return FALSE
 	if(vampire.bloodusable < required_blood)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
+			to_chat(user, span_warning("You require at least [required_blood] units of usable blood to do that!"))
 		return FALSE
 	//chapel check
 	if(istype(get_area(user), /area/chapel) && !fullpower)
 		if(show_message)
-			to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+			to_chat(user, span_warning("Your powers are useless on this holy ground."))
 		return FALSE
 	return TRUE
 

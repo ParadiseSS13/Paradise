@@ -385,7 +385,7 @@
 			if(reagents.total_volume)
 				. += span_notice("It has [reagents.total_volume] unit\s left.")
 			else
-				. += "<span class='danger'>It's empty.</span>"
+				. += span_danger("It's empty.")
 
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	. = build_base_description(infix, suffix)
@@ -433,7 +433,7 @@
 //Check if the multitool has an item in its data buffer
 /atom/proc/multitool_check_buffer(user, silent = FALSE)
 	if(!silent)
-		to_chat(user, "<span class='warning'>[src] has no data buffer!</span>")
+		to_chat(user, span_warning("[src] has no data buffer!"))
 	return FALSE
 
 /atom/proc/screwdriver_act(mob/living/user, obj/item/I)
@@ -1144,13 +1144,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!user)
 		return null
 	else if(implement && implement.loc != user)
-		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
+		to_chat(user, span_warning("You no longer have the pen to rename [src]."))
 		return null
 	else if(!in_range(src, user))
-		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
+		to_chat(user, span_warning("You cannot rename [src] from here."))
 		return null
 	else if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
+		to_chat(user, span_warning("You cannot rename [src] in your current state."))
 		return null
 
 

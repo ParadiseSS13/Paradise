@@ -49,13 +49,13 @@
 	if(!istype(D))
 		return
 	if(D.is_special)
-		to_chat(user, "<span class='danger'>[src] cannot access this kind of door!</span>")
+		to_chat(user, span_danger("[src] cannot access this kind of door!"))
 		return
 	if(!(D.arePowerSystemsOn()))
-		to_chat(user, "<span class='danger'>[D] has no power!</span>")
+		to_chat(user, span_danger("[D] has no power!"))
 		return
 	if(!D.requiresID())
-		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
+		to_chat(user, span_danger("[D]'s ID scan is disabled!"))
 		return
 	if(D.check_access(src.ID))
 		D.add_hiddenprint(user)
@@ -80,7 +80,7 @@
 				D.normalspeed = !D.normalspeed
 				to_chat(user, span_notice("[D] is now in [D.normalspeed ? "normal" : "fast"] mode."))
 	else
-		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
+		to_chat(user, span_danger("[src] does not have access to this door."))
 
 /obj/item/door_remote/omni
 	name = "omni door remote"
@@ -142,7 +142,7 @@
 	if(!istype(D))
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is alreading interfacing with a door!</span>")
+		to_chat(user, span_warning("[src] is alreading interfacing with a door!"))
 		return
 	icon_state = "hacktool-g"
 	busy = TRUE

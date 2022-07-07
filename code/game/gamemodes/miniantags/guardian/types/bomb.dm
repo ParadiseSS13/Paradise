@@ -20,20 +20,20 @@
 	if(!istype(A))
 		return
 	if(get_dist(get_turf(src), get_turf(A)) > 1)
-		to_chat(src, "<span class='danger'>You're too far from [A] to disguise it as a bomb.</span>")
+		to_chat(src, span_danger("You're too far from [A] to disguise it as a bomb."))
 		return
 	if(istype(A, /obj/))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
-			to_chat(src, "<span class='danger'>Success! Bomb on [A] armed!</span>")
+			to_chat(src, span_danger("Success! Bomb on [A] armed!"))
 			if(summoner)
-				to_chat(summoner, "<span class='warning'>Your guardian has primed [A] to explode!</span>")
+				to_chat(summoner, span_warning("Your guardian has primed [A] to explode!"))
 			bomb_cooldown = world.time + default_bomb_cooldown
 			B.spawner = src
 			B.disguise (A)
 		else
-			to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place next bomb.</span>")
+			to_chat(src, span_danger("Your power is on cooldown! You must wait another [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place next bomb."))
 
 /obj/item/guardian_bomb
 	name = "bomb"
@@ -57,23 +57,23 @@
 	add_attack_logs(null, stored_obj, "booby trap expired")
 	stored_obj.forceMove(get_turf(src))
 	if(spawner)
-		to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
+		to_chat(spawner, span_danger("Failure! Your trap on [stored_obj] didn't catch anyone this time."))
 	qdel(src)
 
 /obj/item/guardian_bomb/proc/detonate(mob/living/user)
 	if(!istype(user))
 		return
-	to_chat(user, "<span class='danger'>[src] was boobytrapped!</span>")
+	to_chat(user, span_danger("[src] was boobytrapped!"))
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
 			add_attack_logs(user, stored_obj, "booby trap defused")
-			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
+			to_chat(user, span_danger("You knew this because of your link with your guardian, so you smartly defuse the bomb."))
 			stored_obj.forceMove(get_turf(loc))
 			qdel(src)
 			return
 	add_attack_logs(user, stored_obj, "booby trap TRIGGERED (spawner: [spawner])")
-	to_chat(spawner, "<span class='danger'>Success! Your trap on [src] caught [user]!</span>")
+	to_chat(spawner, span_danger("Success! Your trap on [src] caught [user]!"))
 	stored_obj.forceMove(get_turf(loc))
 	playsound(get_turf(src),'sound/effects/explosion2.ogg', 200, 1)
 	user.ex_act(2)

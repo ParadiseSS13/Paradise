@@ -335,9 +335,9 @@
 		if(user.a_intent != INTENT_HELP)
 			return ..()
 		if(panel_open)
-			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
+			to_chat(usr, span_warning("Close the maintenance panel first."))
 		else
-			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
+			to_chat(usr, span_warning("The unit is not operational."))
 		return
 	if(panel_open)
 		wires.Interact(user)
@@ -348,7 +348,7 @@
 			SStgui.update_uis(src)
 			to_chat(user, span_notice("You load [I] into the storage compartment."))
 		else
-			to_chat(user, "<span class='warning'>You can't fit [I] into [src]!</span>")
+			to_chat(user, span_warning("You can't fit [I] into [src]!"))
 		return
 	return ..()
 
@@ -429,25 +429,25 @@
 		return
 	var/mob/living/target = A
 	if(!state_open)
-		to_chat(user, "<span class='warning'>[src]'s doors are shut!</span>")
+		to_chat(user, span_warning("[src]'s doors are shut!"))
 		return
 	if(!is_operational())
-		to_chat(user, "<span class='warning'>[src] is not operational!</span>")
+		to_chat(user, span_warning("[src] is not operational!"))
 		return
 	if(occupant || helmet || suit || storage)
-		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")
+		to_chat(user, span_warning("It's too cluttered inside to fit in!"))
 		return
 
 	if(target == user)
-		user.visible_message("<span class='warning'>[user] starts squeezing into [src]!</span>", span_notice("You start working your way into [src]..."))
+		user.visible_message(span_warning("[user] starts squeezing into [src]!"), span_notice("You start working your way into [src]..."))
 	else
-		target.visible_message("<span class='warning'>[user] starts shoving [target] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
+		target.visible_message(span_warning("[user] starts shoving [target] into [src]!"), "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
 
 	if(do_mob(user, target, 30))
 		if(occupant || helmet || suit || storage)
 			return
 		if(target == user)
-			user.visible_message("<span class='warning'>[user] slips into [src] and closes the door behind [user.p_them()]!</span>", span_notice("You slip into [src]'s cramped space and shut its door."))
+			user.visible_message(span_warning("[user] slips into [src] and closes the door behind [user.p_them()]!"), span_notice("You slip into [src]'s cramped space and shut its door."))
 		else
 			target.visible_message("<span class='warning'>[user] pushes [target] into [src] and shuts its door!<span>", "<span class='userdanger'>[user] shoves you into [src] and shuts the door!</span>")
 		close_machine(target)
@@ -472,7 +472,7 @@
 			A.clean_blood(radiation_clean = FALSE)	// we invoke the radiation cleaning proc directly
 			A.clean_radiation(12)	// instead of letting clean_blood do it
 		if(uv_super)
-			visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
+			visible_message(span_warning("[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber."))
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, 1)
 			if(suit && !(suit.resistance_flags & LAVA_PROOF))
 				qdel(suit)
@@ -494,7 +494,7 @@
 			if(!occupant)
 				visible_message(span_notice("[src]'s door slides open. The glowing yellow lights dim to a gentle green."))
 			else
-				visible_message("<span class='warning'>[src]'s door slides open, barraging you with the nauseating smell of charred flesh.</span>")
+				visible_message(span_warning("[src]'s door slides open, barraging you with the nauseating smell of charred flesh."))
 			playsound(src, 'sound/machines/airlock_close.ogg', 25, 1)
 		if(occupant)
 			dump_contents()
@@ -505,7 +505,7 @@
 	if(locked)
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50
-			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
+			to_chat(user, span_warning("[src]'s door won't budge!"))
 		return
 	open_machine()
 	dump_contents()
@@ -521,7 +521,7 @@
 	if(do_after(user,(breakout_time), target = src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src )
 			return
-		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
+		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
 			span_notice("You successfully break out of [src]!"))
 		open_machine()
 		dump_contents()
@@ -583,7 +583,7 @@
 
 /obj/machinery/suit_storage_unit/proc/check_allowed(user)
 	if(!(allowed(user) || !secure))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		return FALSE
 	return TRUE
 
@@ -700,7 +700,7 @@
 
 /obj/machinery/suit_storage_unit/proc/toggle_open(mob/user as mob)
 	if(locked || uv)
-		to_chat(user, "<span class='danger'>Unable to open unit.</span>")
+		to_chat(user, span_danger("Unable to open unit."))
 		return
 	if(occupant)
 		eject_occupant(user)
@@ -709,7 +709,7 @@
 
 /obj/machinery/suit_storage_unit/proc/toggle_lock(mob/user as mob)
 	if(occupant && safeties)
-		to_chat(user, "<span class='warning'>The unit's safety protocols disallow locking when a biological form is detected inside its compartments.</span>")
+		to_chat(user, span_warning("The unit's safety protocols disallow locking when a biological form is detected inside its compartments."))
 		return
 	if(state_open)
 		return
@@ -724,9 +724,9 @@
 
 	if(user)
 		if(user != occupant)
-			to_chat(occupant, "<span class='warning'>The machine kicks you out!</span>")
+			to_chat(occupant, span_warning("The machine kicks you out!"))
 		if(user.loc != loc)
-			to_chat(occupant, "<span class='warning'>You leave the not-so-cozy confines of [src].</span>")
+			to_chat(occupant, span_warning("You leave the not-so-cozy confines of [src]."))
 	occupant.forceMove(loc)
 	occupant = null
 	if(!state_open)
@@ -760,13 +760,13 @@
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!state_open)
-		to_chat(usr, "<span class='warning'>The unit's doors are shut.</span>")
+		to_chat(usr, span_warning("The unit's doors are shut."))
 		return
 	if(broken)
-		to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
+		to_chat(usr, span_warning("The unit is not operational."))
 		return
 	if((occupant) || (helmet) || (suit) || (storage))
-		to_chat(usr, "<span class='warning'>It's too cluttered inside for you to fit in!</span>")
+		to_chat(usr, span_warning("It's too cluttered inside for you to fit in!"))
 		return
 	visible_message("[usr] starts squeezing into the suit storage unit!")
 	if(do_after(usr, 10, target = usr))

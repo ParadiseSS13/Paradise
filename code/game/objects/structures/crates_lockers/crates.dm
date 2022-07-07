@@ -104,12 +104,12 @@
 			to_chat(user, span_notice("You rig [src]."))
 			rigged = TRUE
 		else
-			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
+			to_chat(user, span_warning("You need atleast 15 wires to rig [src]!"))
 		return TRUE
 	if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
+				to_chat(user, span_warning("[W] seems to be stuck to your hand!"))
 				return TRUE
 			to_chat(user, span_notice("You attach [W] to [src]."))
 			W.forceMove(src)
@@ -193,7 +193,7 @@
 
 /obj/structure/closet/crate/secure/proc/boom(mob/user)
 	if(user)
-		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
+		to_chat(user, span_danger("The crate's anti-tamper system activates!"))
 		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
@@ -209,7 +209,7 @@
 		to_chat(user, span_notice("Close the crate first."))
 		return
 	if(broken)
-		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
+		to_chat(user, span_warning("The crate appears to be broken."))
 		return
 	if(allowed(user))
 		locked = !locked
@@ -230,7 +230,7 @@
 		add_fingerprint(usr)
 		togglelock(usr)
 		return
-	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+	to_chat(usr, span_warning("This mob type can't use this verb."))
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)

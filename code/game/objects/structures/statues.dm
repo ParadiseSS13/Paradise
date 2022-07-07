@@ -137,9 +137,9 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
-						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
-						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+	user.visible_message(span_danger("[user] sets [src] on fire!"),\
+						span_danger("[src] disintegrates into a cloud of plasma!"),\
+						span_warning("You hear a 'whoompf' and a roar."))
 	message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
 	log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
 	investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
@@ -275,7 +275,7 @@
 
 /obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return

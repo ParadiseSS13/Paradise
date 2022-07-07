@@ -49,14 +49,14 @@
 		update_icon()
 		return TRUE
 	else if(istype(O, /obj/item/wrench))
-		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
+		user.visible_message(span_warning("[user] starts disassembling \the [src]."), \
 		span_notice("You start disassembling \the [src]."))
 		playsound(get_turf(src), O.usesound, 50, 1)
 		busy = TRUE
 
 		if(do_after(user, 50 * O.toolspeed, target = src))
 			playsound(get_turf(src), O.usesound, 75, 1)
-			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
+			user.visible_message(span_warning("[user] disassembles \the [src]."), \
 			span_notice("You disassemble \the [src]."))
 			busy = FALSE
 			density = 0
