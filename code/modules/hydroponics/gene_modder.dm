@@ -166,7 +166,7 @@
 				dat += "<span class='highlight'>[target.get_name()]</span> gene from \the <span class='highlight'>[seed]</span>?<br>"
 			if("extract")
 				dat += "<span class='highlight'>[target.get_name()]</span> gene from \the <span class='highlight'>[seed]</span>?<br>"
-				dat += "<span class='bad'>The sample will be destroyed in process!</span>"
+				dat += span_bad("The sample will be destroyed in process!")
 				if(istype(target, /datum/plant_gene/core))
 					var/datum/plant_gene/core/gene = target
 					if(istype(target, /datum/plant_gene/core/potency))

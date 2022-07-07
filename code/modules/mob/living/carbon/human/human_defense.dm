@@ -114,10 +114,10 @@ emp_act
 		E.heal_damage(rembrute,0,0,1)
 		UpdateDamageIcon()
 		rembrute = nrembrute
-		user.visible_message("<span class='alert'>[user] patches some dents on [src]'s [E.name] with [I].</span>")
+		user.visible_message(span_alert("[user] patches some dents on [src]'s [E.name] with [I]."))
 	if(bleed_rate && ismachineperson(src))
 		bleed_rate = 0
-		user.visible_message("<span class='alert'>[user] patches some leaks on [src] with [I].</span>")
+		user.visible_message(span_alert("[user] patches some leaks on [src] with [I]."))
 	if(IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
 		log_game("[key_name(user)] set [key_name(src)] on fire with [I]")
@@ -641,7 +641,7 @@ emp_act
 			var/obj/item/I = get_active_hand()
 			if(I && unEquip(I))
 				playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
-				visible_message(span_danger("[M] disarms [src]!"), span_userdanger("[M] disarms you!"), "<span class='hear'>You hear aggressive shuffling!</span>")
+				visible_message(span_danger("[M] disarms [src]!"), span_userdanger("[M] disarms you!"), span_warning("You hear aggressive shuffling!"))
 				to_chat(M, span_danger("You disarm [src]!"))
 			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))

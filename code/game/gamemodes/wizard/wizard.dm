@@ -108,7 +108,7 @@
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
-	to_chat(wizard.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Wizard)</span>")
+	to_chat(wizard.current, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Wizard)"))
 	return
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)

@@ -53,7 +53,7 @@
 				to_chat(target, span_userdanger("A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!"))
 				for(var/mob/M in GLOB.mob_list)
 					if(GLOB.all_languages["Changeling"] in M.languages)
-						to_chat(M, "<span class='changeling'>We can sense a foreign presence in the hivemind...</span>")
+						to_chat(M, span_changeling("We can sense a foreign presence in the hivemind..."))
 				target.mind.linglink = TRUE
 				target.add_language("Changeling")
 				target.say(":g AAAAARRRRGGGGGHHHHH!!")

@@ -151,7 +151,7 @@
 
 			// I know its a very rare occurance, but I wouldnt doubt people using this to withdraw consent right when sec captures them
 			message_admins("[key_name_admin(usr)] was disconnected due to withdrawing their ToS consent.")
-			to_chat(usr, "<span class='boldannounce'>Your ToS consent has been withdrawn. You have been kicked from the server</span>")
+			to_chat(usr, span_boldannounce("Your ToS consent has been withdrawn. You have been kicked from the server"))
 			qdel(src)
 
 	switch(href_list["action"])
@@ -369,7 +369,7 @@
 	if(GLOB.custom_event_msg && GLOB.custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
 		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(GLOB.custom_event_msg)]</span>")
+		to_chat(src, span_alert("[html_encode(GLOB.custom_event_msg)]"))
 		to_chat(src, "<br>")
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
@@ -595,14 +595,14 @@
 			// This needs to happen after their account is put into the DB
 			// This way, admins can then note people
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
-				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
+				message_admins(span_adminnotice("IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]"))
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
 				if(GLOB.configuration.url.banappeals_url)
 					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [GLOB.configuration.url.banappeals_url]"
 				to_chat(src, blockmsg)
 				qdel(src)
 		else
-			message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]</span>")
+			message_admins(span_adminnotice("IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]"))
 
 
 /client/proc/check_forum_link()
@@ -672,7 +672,7 @@
 	if(fromban)
 		url += "&fwd=appeal"
 		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
-		to_chat(src, "<span class='boldannounce'>If you are screenshotting this screen for your ban appeal, please blur/draw over the token in the above link.</span>")
+		to_chat(src, span_boldannounce("If you are screenshotting this screen for your ban appeal, please blur/draw over the token in the above link."))
 	else
 		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
 	src << link(url)
@@ -729,7 +729,7 @@
 	else
 		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
 			if (!cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name(src)] appears to have attempted to spoof a cid randomizer check.</span>")
+				message_admins(span_adminnotice("[key_name(src)] appears to have attempted to spoof a cid randomizer check."))
 				cidcheck_spoofckeys[ckey] = TRUE
 			cidcheck[ckey] = computer_id
 			tokens[ckey] = cid_check_reconnect()
@@ -746,7 +746,7 @@
 			to_chat(src, span_danger("Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again."))
 
 			if(!cidcheck_failedckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
+				message_admins(span_adminnotice("[key_name(src)] has been detected as using a CID randomizer. Connection rejected."))
 				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
@@ -759,7 +759,7 @@
 			// don't shoot, I'm innocent
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
-				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
+				message_admins(span_adminnotice("[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer"))
 				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])

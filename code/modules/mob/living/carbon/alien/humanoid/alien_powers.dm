@@ -8,13 +8,13 @@ Doesn't work on other aliens/AI.*/
 
 /mob/living/carbon/proc/powerc(X, Y)//Y is optional, checks for weed planting. X can be null.
 	if(stat)
-		to_chat(src, "<span class='noticealien'>You must be conscious to do this.</span>")
+		to_chat(src, span_noticealien("You must be conscious to do this."))
 		return 0
 	else if(X && getPlasma() < X)
-		to_chat(src, "<span class='noticealien'>Not enough plasma stored.</span>")
+		to_chat(src, span_noticealien("Not enough plasma stored."))
 		return 0
 	else if(Y && (!isturf(src.loc) || istype(src.loc, /turf/space)))
-		to_chat(src, "<span class='noticealien'>You can't place that here!</span>")
+		to_chat(src, span_noticealien("You can't place that here!"))
 		return 0
 	else	return 1
 
@@ -24,13 +24,13 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(locate(/obj/structure/alien/weeds/node) in get_turf(src))
-		to_chat(src, "<span class='noticealien'>There's already a weed node here.</span>")
+		to_chat(src, span_noticealien("There's already a weed node here."))
 		return
 
 	if(powerc(50,1))
 		adjustPlasma(-50)
 		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] has planted some alien weeds!</span>"), 1)
+			O.show_message(span_alertalien("[src] has planted some alien weeds!"), 1)
 		new /obj/structure/alien/weeds/node(loc)
 	return
 
@@ -45,7 +45,7 @@ Doesn't work on other aliens/AI.*/
 		if(msg)
 			log_say("(AWHISPER to [key_name(M)]) [msg]", src)
 			to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]")
-			to_chat(src, "<span class='noticealien'>You said: [msg] to [M]</span>")
+			to_chat(src, span_noticealien("You said: [msg] to [M]"))
 			for(var/mob/dead/observer/G in GLOB.player_list)
 				G.show_message("<i>Alien message from <b>[src]</b> ([ghost_follow_link(src, ghost=G)]) to <b>[M]</b> ([ghost_follow_link(M, ghost=G)]): [msg]</i>")
 	return
@@ -63,10 +63,10 @@ Doesn't work on other aliens/AI.*/
 				if(get_dist(src,M) <= 1)
 					M.adjustPlasma(amount)
 					adjustPlasma(-amount)
-					to_chat(M, "<span class='noticealien'>[src] has transfered [amount] plasma to you.</span>")
-					to_chat(src, {"<span class='noticealien'>You have trasferred [amount] plasma to [M]</span>"})
+					to_chat(M, span_noticealien("[src] has transfered [amount] plasma to you."))
+					to_chat(src, span_noticealien("You have trasferred [amount] plasma to [M]"))
 				else
-					to_chat(src, "<span class='noticealien'>You need to be closer.</span>")
+					to_chat(src, span_noticealien("You need to be closer."))
 	return
 
 
@@ -78,12 +78,12 @@ Doesn't work on other aliens/AI.*/
 	if(powerc(200))
 		if(target in oview(1))
 			if(target.acid_act(200, 100))
-				visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
+				visible_message(span_alertalien("[src] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!"))
 				adjustPlasma(-200)
 			else
-				to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
+				to_chat(src, span_noticealien("You cannot dissolve this object."))
 		else
-			to_chat(src, "<span class='noticealien'>[target] is too far away.</span>")
+			to_chat(src, span_noticealien("[target] is too far away."))
 
 /mob/living/carbon/alien/humanoid/proc/neurotoxin() // ok
 	set name = "Spit Neurotoxin (50)"
@@ -92,7 +92,7 @@ Doesn't work on other aliens/AI.*/
 
 	if(powerc(50))
 		adjustPlasma(-50)
-		src.visible_message("<span class='danger'>[src] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
+		src.visible_message("<span class='danger'>[src] spits neurotoxin!", span_alertalien("You spit neurotoxin."))
 
 		var/turf/T = loc
 		var/turf/U = get_step(src, dir) // Get the tile infront of the move, based on their direction
@@ -125,7 +125,7 @@ Doesn't work on other aliens/AI.*/
 			return
 		adjustPlasma(-55)
 		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] vomits up a thick purple substance and shapes it!</span>"), 1)
+			O.show_message(span_alertalien("[src] vomits up a thick purple substance and shapes it!"), 1)
 		switch(choice)
 			if("resin wall")
 				new /obj/structure/alien/resin/wall(loc)

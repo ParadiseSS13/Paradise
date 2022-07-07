@@ -259,6 +259,7 @@ em				{font-style: normal;font-weight: bold;}
 .adminobserver			{color: #996600;font-weight: bold;}
 .admin				{color: #386aff;font-weight: bold;}
 .adminsay			{color: #9611D4;font-weight: bold;}
+.adminnotice 		{color: #6685f5;}
 .mentorhelp			{color: #0077bb;font-weight: bold;}
 .adminhelp			{color: #aa0000;font-weight: bold;}
 .playerreply			{color: #8800bb;font-weight: bold;}
@@ -266,6 +267,8 @@ em				{font-style: normal;font-weight: bold;}
 .name				{font-weight: bold;}
 .say				{color: #E8EBED}
 .yell				{font-weight: bold;}
+.hear 				{color: #6685f5;font-style: italic;}
+.unconscious 		{color: #a4bad6;font-weight: bold;}
 .siliconsay			{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #e2c1ff;}
 .radio				{color: #20b142;}
@@ -319,6 +322,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .alertalien				{color: #00c000; font-weight: bold;}
 .terrorspider			{color: #CF52FA;}
 .dantalion				{color: #8b2c5e;}
+.holoparasite 			{color: #88809c;}
 
 
 .sinister				{color: #800080;font-weight: bold;font-style: italic;} /* /vg/ */

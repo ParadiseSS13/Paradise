@@ -11,14 +11,14 @@
 		var/turf/loc = get_turf(usr)
 		var/area/A = loc.loc
 		if(!istype(loc, /turf/simulated/floor))
-			to_chat(usr, "<span class='alert'>Newscaster cannot be placed on this spot.</span>")
+			to_chat(usr, span_alert("Newscaster cannot be placed on this spot."))
 			return
 		if(A.requires_power == 0 || A.name == "Space")
-			to_chat(usr, "<span class='alert'>Newscaster cannot be placed in this area.</span>")
+			to_chat(usr, span_alert("Newscaster cannot be placed in this area."))
 			return
 
 		for(var/obj/machinery/newscaster/T in loc)
-			to_chat(usr, "<span class='alert'>There is another newscaster here.</span>")
+			to_chat(usr, span_alert("There is another newscaster here."))
 			return
 
 		return 1

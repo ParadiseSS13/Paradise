@@ -22,6 +22,6 @@
 	// Send to online admins
 	for(var/client/C in GLOB.admins)
 		if(C.holder.rights & R_ADMIN)
-			to_chat(C, "<span class='admin_channel'>GSAY: [usr.ckey]@[GLOB.configuration.system.instance_id]: [msg]</span>")
+			to_chat(C, span_admin_channel("GSAY: [usr.ckey]@[GLOB.configuration.system.instance_id]: [msg]"))
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "gsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

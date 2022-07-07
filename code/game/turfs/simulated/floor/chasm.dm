@@ -103,7 +103,7 @@
 		if(istype(H.belt, /obj/item/wormhole_jaunter))
 			var/obj/item/wormhole_jaunter/J = H.belt
 			//To freak out any bystanders
-			visible_message("<span class='boldwarning'>[H] falls into [src]!</span>")
+			visible_message(span_boldwarning("[H] falls into [src]!"))
 			J.chasm_react(H)
 			return FALSE
 	return TRUE
@@ -115,8 +115,8 @@
 	falling_atoms[AM] = TRUE
 	var/turf/T = locate(drop_x, drop_y, drop_z)
 	if(T)
-		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", span_userdanger("GAH! Ah... where are you?"))
-		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
+		AM.visible_message(span_boldwarning("[AM] falls into [src]!"), span_userdanger("GAH! Ah... where are you?"))
+		T.visible_message(span_boldwarning("[AM] falls from above!"))
 		AM.forceMove(T)
 		if(isliving(AM))
 			var/mob/living/L = AM
@@ -145,7 +145,7 @@
 	if(!AM || QDELETED(AM))
 		return
 	falling_atoms[AM] = TRUE
-	AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
+	AM.visible_message(span_boldwarning("[AM] falls into [src]!"), "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
 	into the enveloping dark.</span>")
 	if(isliving(AM))
 		var/mob/living/L = AM
@@ -175,7 +175,7 @@
 	qdel(AM)
 
 	if(AM && !QDELETED(AM))	//It's indestructible
-		visible_message("<span class='boldwarning'>[src] spits out [AM]!</span>")
+		visible_message(span_boldwarning("[src] spits out [AM]!"))
 		AM.alpha = oldalpha
 		AM.color = oldcolor
 		AM.transform = oldtransform

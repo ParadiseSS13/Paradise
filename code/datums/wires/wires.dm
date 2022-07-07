@@ -165,7 +165,7 @@
 		 // Toggles the cut/mend status.
 		if("cut")
 			if(!istype(I, /obj/item/wirecutters) && !user.can_admin_interact())
-				to_chat(user, "<span class='error'>You need wirecutters!</span>")
+				to_chat(user, span_warning("You need wirecutters!"))
 				return
 
 			if(istype(I))
@@ -176,7 +176,7 @@
 		// Pulse a wire.
 		if("pulse")
 			if(!istype(I, /obj/item/multitool) && !user.can_admin_interact())
-				to_chat(user, "<span class='error'>You need a multitool!</span>")
+				to_chat(user, span_warning("You need a multitool!"))
 				return
 
 			playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
@@ -197,7 +197,7 @@
 					return TRUE
 
 			if(!istype(I, /obj/item/assembly/signaler))
-				to_chat(user, "<span class='error'>You need a remote signaller!</span>")
+				to_chat(user, span_warning("You need a remote signaller!"))
 				return
 
 			if(user.drop_item())

@@ -895,7 +895,7 @@
 				if(!(src in SSticker.mode.cult))
 					to_chat(current, CULT_GREETING)
 					SSticker.mode.add_cultist(src)
-					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
+					to_chat(current, span_cultitalic("Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back."))
 					log_and_message_admins("[key_name(usr)] has culted [key_name(current)]")
 			if("dagger")
 				var/mob/living/carbon/human/H = current
@@ -961,7 +961,7 @@
 			if("changeling")
 				if(!ischangeling(current))
 					add_antag_datum(/datum/antagonist/changeling)
-					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</span>")
+					to_chat(current, span_biggerdanger("Your powers have awoken. A flash of memory returns to us... we are a changeling!"))
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 

@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(changelog)
 	qdel(latest_cl_date)
 
 	if(!GenerateChangelogHTML()) // if this failed to generate
-		to_chat(world, "<span class='alert'>WARNING: Changelog failed to generate. Please inform a coder/server dev</span>")
+		to_chat(world, span_alert("WARNING: Changelog failed to generate. Please inform a coder/server dev"))
 		return ..()
 
 	ss_ready = TRUE

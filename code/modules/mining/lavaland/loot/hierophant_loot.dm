@@ -28,14 +28,14 @@
 
 /obj/item/hierophant_club/examine(mob/user)
 	. = ..()
-	. += "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>"
+	. += span_hierophant_warning("The[beacon ? " beacon is not currently":"re is a beacon"] attached.")
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	atom_say("Xverwpsgexmrk...")
-	user.visible_message("<span class='suicide'>[user] holds [src] into the air! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] holds [src] into the air! It looks like [user.p_theyre()] trying to commit suicide!"))
 	new/obj/effect/temp_visual/hierophant/telegraph(get_turf(user))
 	playsound(user,'sound/machines/airlock_open.ogg', 75, TRUE)
-	user.visible_message("<span class='hierophant_warning'>[user] fades out, leaving [user.p_their()] belongings behind!</span>")
+	user.visible_message(span_hierophant_warning("[user] fades out, leaving [user.p_their()] belongings behind!"))
 	for(var/obj/item/I in user)
 		if(I != src)
 			user.unEquip(I)
@@ -137,7 +137,7 @@
 		return
 	if(!beacon || QDELETED(beacon))
 		if(isturf(user.loc))
-			user.visible_message("<span class='hierophant_warning'>[user] starts fiddling with [src]'s pommel...</span>", \
+			user.visible_message(span_hierophant_warning("[user] starts fiddling with [src]'s pommel..."), \
 			span_notice("You start detaching the hierophant beacon..."))
 			timer = world.time + 51
 			INVOKE_ASYNC(src, .proc/prepare_icon_update)
@@ -147,7 +147,7 @@
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 				beacon = new/obj/effect/hierophant(T)
 				user.update_action_buttons_icon()
-				user.visible_message("<span class='hierophant_warning'>[user] places a strange machine beneath [user.p_their()] feet!</span>", \
+				user.visible_message(span_hierophant_warning("[user] places a strange machine beneath [user.p_their()] feet!"), \
 				"<span class='hierophant'>You detach the hierophant beacon, allowing you to teleport yourself and any allies to it at any time!</span>\n\
 				<span class='notice'>You can remove the beacon to place it again by striking it with the club.</span>")
 			else
@@ -167,7 +167,7 @@
 		return
 	teleporting = TRUE //start channel
 	user.update_action_buttons_icon()
-	user.visible_message("<span class='hierophant_warning'>[user] starts to glow faintly...</span>")
+	user.visible_message(span_hierophant_warning("[user] starts to glow faintly..."))
 	timer = world.time + 50
 	INVOKE_ASYNC(src, .proc/prepare_icon_update)
 	beacon.icon_state = "hierophant_tele_on"
@@ -238,7 +238,7 @@
 	sleep(1)
 	if(!M)
 		return
-	M.visible_message("<span class='hierophant_warning'>[M] fades out!</span>")
+	M.visible_message(span_hierophant_warning("[M] fades out!"))
 	sleep(2)
 	if(!M)
 		return
@@ -250,7 +250,7 @@
 	sleep(1)
 	if(!M)
 		return
-	M.visible_message("<span class='hierophant_warning'>[M] fades in!</span>")
+	M.visible_message(span_hierophant_warning("[M] fades in!"))
 	if(user != M)
 		add_attack_logs(user, M, "Teleported from ([source.x],[source.y],[source.z])")
 

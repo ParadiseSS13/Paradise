@@ -302,7 +302,7 @@
 		else if(user)
 			user.visible_message(span_notice("[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once."),
 				span_notice("You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks."),
-				"<span class='italics'>You hear a friendly-sounding bark.</span>")
+				span_italics("You hear a friendly-sounding bark."))
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_corgi_fluff()

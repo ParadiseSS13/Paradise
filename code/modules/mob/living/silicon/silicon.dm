@@ -186,7 +186,7 @@
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	if(error_msg)
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+		to_chat(user, span_alert("[p_their(TRUE)] outer shell is too tough."))
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
@@ -208,7 +208,7 @@
 		return
 	adjustBruteLoss(-30)
 	add_fingerprint(user)
-	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
+	user.visible_message(span_alert("[user] patches some dents on [src] with [I]."))
 
 
 /mob/living/silicon/bullet_act(obj/item/projectile/Proj)

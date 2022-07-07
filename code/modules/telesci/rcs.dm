@@ -101,7 +101,7 @@
 	if(!emagged)
 		emagged = TRUE
 		do_sparks(3, TRUE, src)
-		to_chat(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
+		to_chat(user, span_boldwarning("Warning: Safeties disabled."))
 		return
 
 

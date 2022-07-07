@@ -324,7 +324,7 @@
 	if(!punused)//one per round
 		punused = 1
 		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
-		usr.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
+		usr.visible_message(span_biggerdanger("YEEEAAAAAHHHHHHHHHHHHH!!"))
 	else
 		to_chat(usr, "The moment is gone.")
 

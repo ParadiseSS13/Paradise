@@ -79,11 +79,11 @@
 		dat += "[occupant.name] => "
 		switch(occupant.stat)
 			if(0)
-				dat += "<span class='good'>Conscious</span>"
+				dat += span_good("Conscious")
 			if(1)
-				dat += "<span class='average'>Unconscious</span>"
+				dat += span_average("Unconscious")
 			else
-				dat += "<span class='bad'>Deceased</span>"
+				dat += span_bad("Deceased")
 	dat += "<br>"
 	dat += "[flash]"
 	dat += "<br>"
@@ -114,14 +114,14 @@
 	var/mob/living/carbon/human/H = occupant
 	var/point_reward = 0
 	if(H in history)
-		return "<span class='bad'>Specimen already in database.</span>"
+		return span_bad("Specimen already in database.")
 	if(H.stat == DEAD)
 		atom_say("Specimen deceased - please provide fresh sample.")
-		return "<span class='bad'>Specimen deceased.</span>"
+		return span_bad("Specimen deceased.")
 	var/obj/item/organ/internal/heart/gland/GlandTest = locate() in H.internal_organs
 	if(!GlandTest)
 		atom_say("Experimental dissection not detected!")
-		return "<span class='bad'>No glands detected!</span>"
+		return span_bad("No glands detected!")
 	if(H.mind != null && H.ckey != null)
 		history += H
 		abductee_minds += H.mind
@@ -157,15 +157,15 @@
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 			points += point_reward
 			credits += point_reward
-			return "<span class='good'>Experiment successful! [point_reward] new data-points collected.</span>"
+			return span_good("Experiment successful! [point_reward] new data-points collected.")
 		else
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
-			return "<span class='bad'>Experiment failed! No replacement organ detected.</span>"
+			return span_bad("Experiment failed! No replacement organ detected.")
 	else
 		atom_say("Brain activity nonexistant - disposing sample...")
 		eject_abductee()
 		SendBack(H)
-		return "<span class='bad'>Specimen braindead - disposed.</span>"
+		return span_bad("Specimen braindead - disposed.")
 
 
 /obj/machinery/abductor/experiment/proc/SendBack(mob/living/carbon/human/H)

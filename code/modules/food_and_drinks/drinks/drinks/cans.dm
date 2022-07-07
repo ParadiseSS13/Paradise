@@ -118,7 +118,7 @@
 	if(times_shaken < 5)
 		visible_message(span_warning("[src] fizzes violently!"))
 	else
-		visible_message("<span class='boldwarning'>[src] erupts into foam!</span>")
+		visible_message(span_boldwarning("[src] erupts into foam!"))
 		if(reagents.total_volume)
 			var/datum/effect_system/foam_spread/sodafizz = new
 			sodafizz.set_up(1, get_turf(src), reagents)

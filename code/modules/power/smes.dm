@@ -112,7 +112,7 @@
 				to_chat(user, span_notice("Terminal found."))
 				break
 		if(!terminal)
-			to_chat(user, "<span class='alert'>No power source found.</span>")
+			to_chat(user, span_alert("No power source found."))
 			return
 		stat &= ~BROKEN
 		update_icon()
@@ -129,21 +129,21 @@
 			return
 
 		if(terminal) //is there already a terminal ?
-			to_chat(user, "<span class='alert'>This SMES already has a power terminal!</span>")
+			to_chat(user, span_alert("This SMES already has a power terminal!"))
 			return
 
 		if(!panel_open) //is the panel open ?
-			to_chat(user, "<span class='alert'>You must open the maintenance panel first!</span>")
+			to_chat(user, span_alert("You must open the maintenance panel first!"))
 			return
 
 		var/turf/T = get_turf(user)
 		if(T.intact) //is the floor plating removed ?
-			to_chat(user, "<span class='alert'>You must first remove the floor plating!</span>")
+			to_chat(user, span_alert("You must first remove the floor plating!"))
 			return
 
 		var/obj/item/stack/cable_coil/C = I
 		if(C.get_amount() < 10)
-			to_chat(user, "<span class='alert'>You need more wires.</span>")
+			to_chat(user, span_alert("You need more wires."))
 			return
 
 		if(user.loc == loc)
@@ -190,7 +190,7 @@
 	if(istype(I, /obj/item/wirecutters) && terminal && panel_open)
 		var/turf/T = get_turf(terminal)
 		if(T.intact) //is the floor plating removed ?
-			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
+			to_chat(user, span_alert("You must first expose the power terminal!"))
 			return
 
 		to_chat(user, span_notice("You begin to dismantle the power terminal..."))
@@ -205,7 +205,7 @@
 				//give the wires back and delete the terminal
 				new /obj/item/stack/cable_coil(T,10)
 				user.visible_message(\
-					"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
+					span_alert("[user.name] cuts the cables and dismantles the power terminal."),\
 					span_notice("You cut the cables and dismantle the power terminal."))
 				inputting = 0 //stop inputting, since we have don't have a terminal anymore
 				qdel(terminal)

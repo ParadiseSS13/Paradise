@@ -45,7 +45,7 @@
 			else if(prob(30))
 				new/obj/item/instrument/trombone/spectral(T)
 			else
-				to_chat(H, "<span class='boldwarning'>The spooky gods forgot to ship your instrument. Better luck next unlife.</span>")
+				to_chat(H, span_boldwarning("The spooky gods forgot to ship your instrument. Better luck next unlife."))
 		to_chat(H, span_boldnotice("You are the spooky skeleton!"))
 		to_chat(H, span_boldnotice("A new life and identity has begun. Help your fellow skeletons into bringing out the spooky-pocalypse. You haven't forgotten your past life, and are still beholden to past loyalties."))
 		change_name(H)	//time for a new name!

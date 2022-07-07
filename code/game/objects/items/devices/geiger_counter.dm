@@ -68,15 +68,15 @@
 		if(-INFINITY to RAD_LEVEL_NORMAL)
 			. += span_notice("Ambient radiation level count reports that all is well.")
 		if(RAD_LEVEL_NORMAL + 1 to RAD_LEVEL_MODERATE)
-			. += "<span class='alert'>Ambient radiation levels slightly above average.</span>"
+			. += span_alert("Ambient radiation levels slightly above average.")
 		if(RAD_LEVEL_MODERATE + 1 to RAD_LEVEL_HIGH)
 			. += span_warning("Ambient radiation levels above average.")
 		if(RAD_LEVEL_HIGH + 1 to RAD_LEVEL_VERY_HIGH)
 			. += span_danger("Ambient radiation levels highly above average.")
 		if(RAD_LEVEL_VERY_HIGH + 1 to RAD_LEVEL_CRITICAL)
-			. += "<span class='suicide'>Ambient radiation levels nearing critical level.</span>"
+			. += span_suicide("Ambient radiation levels nearing critical level.")
 		if(RAD_LEVEL_CRITICAL + 1 to INFINITY)
-			. += "<span class='boldannounce'>Ambient radiation levels above critical level!</span>"
+			. += span_boldannounce("Ambient radiation levels above critical level!")
 
 	. += span_notice("The last radiation amount detected was [last_tick_amount]")
 
@@ -140,10 +140,10 @@
 		if(!M.radiation)
 			to_chat(user, span_notice("[bicon(src)] Radiation levels within normal boundaries."))
 		else
-			to_chat(user, "<span class='boldannounce'>[bicon(src)] Subject is irradiated. Radiation levels: [M.radiation].</span>")
+			to_chat(user, span_boldannounce("[bicon(src)] Subject is irradiated. Radiation levels: [M.radiation]."))
 
 	if(rad_strength)
-		to_chat(user, "<span class='boldannounce'>[bicon(src)] Target contains radioactive contamination. Radioactive strength: [rad_strength]</span>")
+		to_chat(user, span_boldannounce("[bicon(src)] Target contains radioactive contamination. Radioactive strength: [rad_strength]"))
 	else
 		to_chat(user, span_notice("[bicon(src)] Target is free of radioactive contamination."))
 

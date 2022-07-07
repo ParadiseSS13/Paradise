@@ -88,7 +88,7 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/necropolis_gate/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, "<span class='boldannounce'>It's [open ? "stuck open":"locked"].</span>")
+		to_chat(user, span_boldannounce("It's [open ? "stuck open":"locked"]."))
 		return
 	toggle_the_gate(user)
 	return ..()
@@ -100,7 +100,7 @@
 	var/turf/T = get_turf(src)
 	if(open)
 		new /obj/effect/temp_visual/necropolis(T)
-		visible_message("<span class='boldwarning'>The door slams closed!</span>")
+		visible_message(span_boldwarning("The door slams closed!"))
 		sleep(1)
 		playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 80000)
 		sleep(1)
@@ -160,7 +160,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		var/safety = alert(user, "You think this might be a bad idea...", "Knock on the door?", "Proceed", "Abort")
 		if(safety == "Abort" || !in_range(src, user) || !src || open || changing_openness || user.incapacitated())
 			return
-		user.visible_message(span_warning("[user] knocks on [src]..."), "<span class='boldannounce'>You tentatively knock on [src]...</span>")
+		user.visible_message(span_warning("[user] knocks on [src]..."), span_boldannounce("You tentatively knock on [src]..."))
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 100, 1)
 		sleep(50)
 	return ..()

@@ -21,7 +21,7 @@
 					return
 				ckey = ckey(ckey)
 			if(get_stickyban_from_ckey(ckey))
-				to_chat(usr, "<span class='adminnotice'>Error: Can not add a stickyban: User already has a current sticky ban</span>")
+				to_chat(usr, span_adminnotice("Error: Can not add a stickyban: User already has a current sticky ban"))
 
 			if(data["reason"])
 				ban["message"] = data["reason"]
@@ -34,7 +34,7 @@
 			world.SetConfig("ban", ckey, list2stickyban(ban))
 
 			log_admin("[key_name(usr)] has stickybanned [ckey].\nReason: [ban["message"]]")
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has stickybanned [ckey].\nReason: [ban["message"]]</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] has stickybanned [ckey].\nReason: [ban["message"]]"))
 
 		if("remove")
 			if(!data["ckey"])
@@ -43,17 +43,17 @@
 
 			var/ban = get_stickyban_from_ckey(ckey)
 			if(!ban)
-				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!</span>")
+				to_chat(usr, span_adminnotice("Error: No sticky ban for [ckey] found!"))
 				return
 			if(alert("Are you sure you want to remove the sticky ban on [ckey]?","Are you sure","Yes","No") == "No")
 				return
 			if(!get_stickyban_from_ckey(ckey))
-				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
+				to_chat(usr, span_adminnotice("Error: The ban disappeared."))
 				return
 			world.SetConfig("ban", ckey, null)
 
 			log_admin("[key_name(usr)] removed [ckey]'s stickyban")
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] removed [ckey]'s stickyban</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] removed [ckey]'s stickyban"))
 
 		if("remove_alt")
 			if(!data["ckey"])
@@ -64,7 +64,7 @@
 			var/alt = ckey(data["alt"])
 			var/ban = get_stickyban_from_ckey(ckey)
 			if(!ban)
-				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!</span>")
+				to_chat(usr, span_adminnotice("Error: No sticky ban for [ckey] found!"))
 				return
 
 			var/found = 0
@@ -75,7 +75,7 @@
 					break
 
 			if(!found)
-				to_chat(usr, "<span class='adminnotice'>Error: [alt] is not linked to [ckey]'s sticky ban!</span>")
+				to_chat(usr, span_adminnotice("Error: [alt] is not linked to [ckey]'s sticky ban!"))
 				return
 
 			if(alert("Are you sure you want to disassociate [alt] from [ckey]'s sticky ban? \nNote: Nothing stops byond from re-linking them","Are you sure","Yes","No") == "No")
@@ -84,7 +84,7 @@
 			//we have to do this again incase something changes
 			ban = get_stickyban_from_ckey(ckey)
 			if(!ban)
-				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
+				to_chat(usr, span_adminnotice("Error: The ban disappeared."))
 				return
 
 			found = 0
@@ -95,13 +95,13 @@
 					break
 
 			if(!found)
-				to_chat(usr, "<span class='adminnotice'>Error: [alt] link to [ckey]'s sticky ban disappeared.</span>")
+				to_chat(usr, span_adminnotice("Error: [alt] link to [ckey]'s sticky ban disappeared."))
 				return
 
 			world.SetConfig("ban",ckey,list2stickyban(ban))
 
 			log_admin("[key_name(usr)] has disassociated [alt] from [ckey]'s sticky ban")
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has disassociated [alt] from [ckey]'s sticky ban</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] has disassociated [alt] from [ckey]'s sticky ban"))
 
 		if("edit")
 			if(!data["ckey"])
@@ -118,14 +118,14 @@
 			//we have to do this again incase something changed while we waited for input
 			ban = get_stickyban_from_ckey(ckey)
 			if(!ban)
-				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
+				to_chat(usr, span_adminnotice("Error: The ban disappeared."))
 				return
 			ban["message"] = "[reason]"
 
 			world.SetConfig("ban",ckey,list2stickyban(ban))
 
 			log_admin("[key_name(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]")
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]"))
 
 	spawn(10)
 		stickyban_show()

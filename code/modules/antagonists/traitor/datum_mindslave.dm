@@ -61,14 +61,14 @@
 	var/mob/living/carbon/human/mindslave = owner.current
 	// Show them the custom greeting text if it exists.
 	if(greet_text)
-		to_chat(mindslave, "<span class='biggerdanger'>[greet_text]</span>")
+		to_chat(mindslave, span_biggerdanger("[greet_text]"))
 	else // Default greeting text if nothing is given.
 		to_chat(mindslave, "<span class='biggerdanger'><B>You are now completely loyal to [master.current.name]!</B> \
 							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>")
 
 /datum/antagonist/mindslave/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current, "<span class='biggerdanger'>You are no longer a mindslave of [master]!</span>")
+		to_chat(owner.current, span_biggerdanger("You are no longer a mindslave of [master]!"))
 
 /datum/antagonist/mindslave/add_antag_hud(mob/living/antag_mob)
 	. = ..()

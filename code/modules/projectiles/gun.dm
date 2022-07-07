@@ -129,7 +129,7 @@
 		playsound(user, fire_sound, 50, 1)
 		if(message)
 			if(pointblank)
-				user.visible_message(span_danger("[user] fires [src] point blank at [target]!"), span_danger("You fire [src] point blank at [target]!"), "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+				user.visible_message(span_danger("[user] fires [src] point blank at [target]!"), span_danger("You fire [src] point blank at [target]!"), span_italics("You hear \a [fire_sound_text]!"))
 			else
 				user.visible_message(span_danger("[user] fires [src]!"), span_danger("You fire [src]!"), "You hear \a [fire_sound_text]!")
 	if(chambered.muzzle_flash_effect)

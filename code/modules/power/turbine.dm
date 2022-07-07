@@ -118,7 +118,7 @@
 			to_chat(user, span_notice("Turbine connected."))
 			stat &= ~BROKEN
 		else
-			to_chat(user, "<span class='alert'>Turbine not connected.</span>")
+			to_chat(user, span_alert("Turbine not connected."))
 			stat |= BROKEN
 		return
 
@@ -282,7 +282,7 @@
 			to_chat(user, span_notice("Compressor connected."))
 			stat &= ~BROKEN
 		else
-			to_chat(user, "<span class='alert'>Compressor not connected.</span>")
+			to_chat(user, span_alert("Compressor not connected."))
 			stat |= BROKEN
 		return
 

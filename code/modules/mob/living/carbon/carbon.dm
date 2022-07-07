@@ -55,7 +55,7 @@
 			last_stomach_attack = world.time
 			for(var/mob/M in hearers(4, src))
 				if(M.client)
-					M.show_message(text(span_warning("You hear something rumbling inside [src]'s stomach...")), 2)
+					M.show_message(span_warning("You hear something rumbling inside [src]'s stomach..."), 2)
 
 			var/obj/item/I = user.get_active_hand()
 			if(I && I.force)
@@ -331,7 +331,7 @@
 			status_list += "<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
-		status_list += "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>"
+		status_list += span_boldannounce("Your [parse_zone(t)] is missing!")
 
 	if(H.bleed_rate)
 		status_list += span_danger("You are bleeding!")
@@ -1090,7 +1090,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
-		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
+		to_chat(src, span_notice("You [toEat.apply_method] [toEat]."))
 	else
 		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
 			to_chat(src, span_notice("You don't feel like eating any more junk food at the moment."))

@@ -73,7 +73,7 @@
 			visible_message(
 				span_danger("[src] was arc flashed by \the [source]!"),
 				span_userdanger("\The [source] arc flashes and electrocutes you!"),
-				"<span class='italics'>You hear a lightning-like crack!</span>")
+				span_italics("You hear a lightning-like crack!"))
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
 			explosion(loc, -1, 0, 2, 2)
 	else
@@ -81,7 +81,7 @@
 	visible_message(
 		span_danger("[src] was shocked by \the [source]!"), \
 		span_userdanger("You feel a powerful shock coursing through your body!"), \
-		"<span class='hear'>You hear a heavy electrical crack.</span>" \
+		span_notice("You hear a heavy electrical crack.") \
 	)
 	return shock_damage
 

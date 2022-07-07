@@ -588,7 +588,7 @@
 						user.visible_message(\
 							"[user.name] has broken the power control board inside [name]!",
 							span_notice("You break the charred power control board and remove the remains."),
-							"<span class='italics'>You hear a crack.</span>")
+							span_italics("You hear a crack."))
 						return
 						//SSticker.mode:apcs-- //XSI said no and I agreed. -rastaf0
 					else if(emagged) // We emag board, not APC's frame

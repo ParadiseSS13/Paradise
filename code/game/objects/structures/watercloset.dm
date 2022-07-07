@@ -26,7 +26,7 @@
 	if(swirlie)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, 1)
-		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), span_userdanger("[user] slams the toilet seat onto [swirlie]'s head!"), "<span class='italics'>You hear reverberating porcelain.</span>")
+		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), span_userdanger("[user] slams the toilet seat onto [swirlie]'s head!"), span_italics("You hear reverberating porcelain."))
 		swirlie.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 		return
 
@@ -91,7 +91,7 @@
 						GM.visible_message(span_danger("[user] starts to give [GM] a swirlie!"), span_userdanger("[user] starts to give [GM] a swirlie..."))
 						swirlie = GM
 						if(do_after(user, 30, 0, target = src))
-							GM.visible_message(span_danger("[user] gives [GM] a swirlie!"), span_userdanger("[user] gives [GM] a swirlie!"), "<span class='italics'>You hear a toilet flushing.</span>")
+							GM.visible_message(span_danger("[user] gives [GM] a swirlie!"), span_userdanger("[user] gives [GM] a swirlie!"), span_italics("You hear a toilet flushing."))
 							if(iscarbon(GM))
 								var/mob/living/carbon/C = GM
 								if(!C.internal)
@@ -118,7 +118,7 @@
 	to_chat(user, span_notice("You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]..."))
 	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
-		user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", span_notice("You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!"), "<span class='italics'>You hear grinding porcelain.</span>")
+		user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", span_notice("You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!"), span_italics("You hear grinding porcelain."))
 		cistern = !cistern
 		update_icon()
 		return

@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/Initialize()
 	if(!close_messages)
 		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
-				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
+				span_boldnotice("Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking."),
 				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
 	return ..()
 
@@ -527,7 +527,7 @@ UI STUFF
 /datum/controller/subsystem/tickets/proc/message_staff(msg, prefix_type = TICKET_STAFF_MESSAGE_PREFIX, important = FALSE)
 	switch(prefix_type)
 		if(TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
-			msg = "<span class='admin_channel'>ADMIN TICKET: [msg]</span>"
+			msg = span_admin_channel("ADMIN TICKET: [msg]")
 		if(TICKET_STAFF_MESSAGE_PREFIX)
 			msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
 	message_adminTicket(msg, important)
@@ -612,7 +612,7 @@ UI STUFF
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")
 		else
-			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
+			message_staff(span_admin_channel("[usr.client] / ([usr]) has taken [ticket_name] number [index]"), TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
 		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] is being handled by [usr.client].</span>")
 
 /datum/controller/subsystem/tickets/proc/unassignTicket(index)
@@ -623,7 +623,7 @@ UI STUFF
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>")
 		else
-			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
+			message_staff(span_admin_channel("[usr.client] / ([usr]) has unassigned [ticket_name] number [index]"), TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
 
 #undef TICKET_STAFF_MESSAGE_ADMIN_CHANNEL
 #undef TICKET_STAFF_MESSAGE_PREFIX

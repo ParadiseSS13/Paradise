@@ -197,7 +197,7 @@
 						if(C)
 							S.key = C.key
 							if(S.master_commander)
-								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+								to_chat(S, span_biggerdanger("You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost."))
 			qdel(src)
 
 /obj/structure/spider/spiderling/proc/random_skitter()

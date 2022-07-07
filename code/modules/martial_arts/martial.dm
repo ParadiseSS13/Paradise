@@ -226,7 +226,7 @@
 			to_chat(span_warning("In spite of the grandiosity of the belt, you don't feel like getting into any fights."))
 			return
 		style.teach(H,1)
-		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
+		to_chat(user, span_sciradio("You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab."))
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
@@ -236,7 +236,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_belt) == src)
 		style.remove(H)
-		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
+		to_chat(user, span_sciradio("You no longer have an urge to flex your muscles."))
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"
@@ -253,7 +253,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
+		to_chat(H, span_boldannounce("You have learned the ancient martial art of Plasma Fist."))
 		used = 1
 		desc = "It's completely blank."
 		name = "empty scroll"
@@ -303,7 +303,7 @@
 			to_chat(user, span_warning("The mere thought of combat, let alone CQC, makes your head spin!"))
 			return
 
-	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
+	to_chat(user, span_boldannounce("You remember the basics of CQC."))
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.drop_item()

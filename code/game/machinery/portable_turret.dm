@@ -419,7 +419,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		visible_message(span_danger("[M] has slashed at [src]!"))
 		take_damage(15)
 	else
-		to_chat(M, "<span class='noticealien'>That object is useless to you.</span>")
+		to_chat(M, span_noticealien("That object is useless to you."))
 	return
 
 /obj/machinery/porta_turret/emag_act(user as mob)

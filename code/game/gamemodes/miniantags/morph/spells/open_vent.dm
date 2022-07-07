@@ -25,7 +25,7 @@
 		to_chat(user, span_warning("No nearby welded vents found!"))
 		revert_cast(user)
 		return
-	to_chat(user, "<span class='sinister'>You begin regurgitating up some acidic puke!</span>")
+	to_chat(user, span_sinister("You begin regurgitating up some acidic puke!"))
 	if(!do_after(user, 2 SECONDS, FALSE, user))
 		to_chat(user, span_warning("You swallow the acid again."))
 		revert_cast(user)

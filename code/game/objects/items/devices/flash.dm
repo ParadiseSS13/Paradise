@@ -94,11 +94,11 @@
 				M.AdjustConfused(power)
 				terrible_conversion_proc(M, user)
 				M.Stun(2 SECONDS)
-				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
+				visible_message(span_disarm("[user] blinds [M] with the flash!"))
 				to_chat(user, span_danger("You blind [M] with the flash!"))
 				to_chat(M, span_userdanger("[user] blinds you with the flash!"))
 			else
-				visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
+				visible_message(span_disarm("[user] fails to blind [M] with the flash!"))
 				to_chat(user, span_warning("You fail to blind [M] with the flash!"))
 				to_chat(M, span_danger("[user] fails to blind you with the flash!"))
 			return
@@ -120,15 +120,15 @@
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(M.flash_eyes(affect_silicon = 1))
 			M.Weaken(rand(8 SECONDS, 12 SECONDS))
-			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with [src]!</span>", span_danger("You overload [M]'s sensors with [src]!"))
+			user.visible_message(span_disarm("[user] overloads [M]'s sensors with [src]!"), span_danger("You overload [M]'s sensors with [src]!"))
 		return 1
-	user.visible_message("<span class='disarm'>[user] fails to blind [M] with [src]!</span>", span_warning("You fail to blind [M] with [src]!"))
+	user.visible_message(span_disarm("[user] fails to blind [M] with [src]!"), span_warning("You fail to blind [M] with [src]!"))
 
 
 /obj/item/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!try_use_flash(user))
 		return 0
-	user.visible_message("<span class='disarm'>[user]'s [src] emits a blinding light!</span>", span_danger("Your [src] emits a blinding light!"))
+	user.visible_message(span_disarm("[user]'s [src] emits a blinding light!"), span_danger("Your [src] emits a blinding light!"))
 	for(var/mob/living/carbon/M in oviewers(3, null))
 		flash_carbon(M, user, 6 SECONDS, 0)
 

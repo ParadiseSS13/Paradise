@@ -342,9 +342,9 @@
 			SEND_SOUND(M, super_matter_charge_sound)
 
 			if(atoms_share_level(M, src))
-				to_chat(M, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
+				to_chat(M, span_boldannounce("You feel reality distort for a moment..."))
 			else
-				to_chat(M, "<span class='boldannounce'>You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe.</span>")
+				to_chat(M, span_boldannounce("You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe."))
 
 	if(combined_gas > MOLE_PENALTY_THRESHOLD)
 		investigate_log("has collapsed into a singularity.", "supermatter")
@@ -660,7 +660,7 @@
 	for(var/M in GLOB.player_list)
 		if(atoms_share_level(M, src))
 			SEND_SOUND(M, supermatter_sound) //everyone goan know bout this
-			to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
+			to_chat(M, span_boldannounce("A horrible screeching fills your ears, and a wave of dread washes over you..."))
 	qdel(src)
 	return gain
 
@@ -670,11 +670,11 @@
 		damage += B.obj_integrity * 0.5 //take damage equal to 50% of remaining blob health before it tried to eat us
 		if(B.obj_integrity > 100)
 			B.visible_message(span_danger("[B] strikes at [src] and flinches away!"),\
-			"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+			span_italics("You hear a loud crack as you are washed with a wave of heat."))
 			B.take_damage(100, BURN)
 		else
 			B.visible_message(span_danger("[B] strikes at [src] and rapidly flashes to ash."),\
-			"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+			span_italics("You hear a loud crack as you are washed with a wave of heat."))
 			Consume(B)
 
 /obj/machinery/power/supermatter_crystal/attack_tk(mob/user)
@@ -721,7 +721,7 @@
 		mob_msg = span_userdanger("You reach out and touch [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"")
 	if(!cause)
 		cause = "contact"
-	nom.visible_message(vis_msg, mob_msg, "<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
+	nom.visible_message(vis_msg, mob_msg, span_italics("You hear an unearthly noise as a wave of heat washes over you."))
 	investigate_log("has been attacked ([cause]) by [key_name(nom)]", "supermatter")
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(nom)
@@ -742,7 +742,7 @@
 					matter_power += 800
 					scalpel.uses_left--
 					if(!scalpel.uses_left)
-						to_chat(M, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
+						to_chat(M, span_boldwarning("A tiny piece of [I] falls off, rendering it useless!"))
 
 					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
 
@@ -762,7 +762,7 @@
 	else if(user.drop_item())
 		user.visible_message(span_danger("As [user] touches [src] with \a [I], silence fills the room..."),\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
-			"<span class='italics'>Everything suddenly goes silent.</span>")
+			span_italics("Everything suddenly goes silent."))
 		investigate_log("has been attacked ([I]) by [key_name(user)]", "supermatter")
 		Consume(I)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -773,10 +773,10 @@
 	if(isliving(AM))
 		AM.visible_message(span_danger("[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!"),\
 		span_userdanger("You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\""),\
-		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
+		span_italics("You hear an unearthly noise as a wave of heat washes over you."))
 	else if(isobj(AM) && !iseffect(AM))
 		AM.visible_message(span_danger("[AM] smacks into [src] and rapidly flashes to ash."), null,\
-		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+		span_italics("You hear a loud crack as you are washed with a wave of heat."))
 	else
 		return
 
@@ -807,7 +807,7 @@
 				matter_power += 500000
 				damage += 180//drops the integrety by 20%
 				AM.visible_message(span_danger("[AM] smacks into [src], rapidly flashing blasts of pure energy. The energy inside [src] undergoes superradiance scattering!"), null,\
-				"<span class='italics'>You hear a loud crack as a wave of heat washes over you.</span>")
+				span_italics("You hear a loud crack as a wave of heat washes over you."))
 		qdel(AM)
 	if(!iseffect(AM) && power_changes)
 		matter_power += 200
@@ -820,7 +820,7 @@
 			L.show_message(span_danger("As [src] slowly stops resonating, you find your skin covered in new radiation burns."), 1,
 				span_danger("The unearthly ringing subsides and you notice you have new radiation burns."), 2)
 		else
-			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", 2)
+			L.show_message(span_italics("You hear an unearthly ringing and notice your skin is covered in fresh radiation burns."), 2)
 
 /obj/machinery/power/supermatter_crystal/engine
 	is_main_engine = TRUE

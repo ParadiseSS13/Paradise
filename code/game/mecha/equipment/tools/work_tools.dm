@@ -69,7 +69,7 @@
 			M.adjustOxyLoss(round(dam_force/2))
 			target.visible_message(span_danger("[chassis] squeezes [target]."), \
 								span_userdanger("[chassis] squeezes [target]."),\
-								"<span class='italics'>You hear something crack.</span>")
+								span_italics("You hear something crack."))
 			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
 			return

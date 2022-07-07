@@ -286,7 +286,7 @@
 			reactor.overload(containment_failure)
 	else
 		log_debug("Depot: [src] called activate_self_destruct with no reactor.")
-		message_admins("<span class='adminnotice'>Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually.</span>")
+		message_admins(span_adminnotice("Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually."))
 	updateicon()
 
 /area/syndicate_depot/core/proc/activate_lockdown()

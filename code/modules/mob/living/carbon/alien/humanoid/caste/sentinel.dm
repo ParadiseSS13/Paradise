@@ -51,7 +51,7 @@
 		adjustToxLoss(-250)
 		to_chat(src, "<span class=notice'>You begin to evolve!</span>")
 		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
+			O.show_message(text(span_alertalien("[src] begins to twist and contort!")), 1)
 		var/mob/living/carbon/alien/humanoid/sentinel/praetorian/new_xeno = new(loc)
 		if(mind)
 			mind.transfer_to(new_xeno)

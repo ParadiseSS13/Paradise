@@ -53,7 +53,7 @@
 				return
 			L.forceMove(src)
 			locked = L
-			to_chat(user, "<span class='caution'>You insert the GPS device into [src]'s slot.</span>")
+			to_chat(user, span_notice("You insert the GPS device into [src]'s slot."))
 	else
 		return ..()
 
@@ -391,11 +391,11 @@
 	if(!com)
 		return
 	if(!com.target)
-		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
+		visible_message(span_alert("Cannot authenticate locked on coordinates. Please reinstate coordinate matrix."))
 		return
 	if(istype(M, /atom/movable))
 		if(!calibrated && com.cc_beacon)
-			visible_message("<span class='alert'>Cannot lock on target. Please calibrate the teleporter before attempting long range teleportation.</span>")
+			visible_message(span_alert("Cannot lock on target. Please calibrate the teleporter before attempting long range teleportation."))
 		else if(!calibrated && prob(25 - ((accurate) * 10)) && !com.cc_beacon) //oh dear a problem
 			var/list/target_z = levels_by_trait(SPAWN_RUINS)
 			target_z -= M.z //Where to sir? Anywhere but here.
@@ -556,7 +556,7 @@
 	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
 		var/obj/item/circuitboard/teleporter_perma/C = I
 		C.target = teleporter_console.target
-		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
+		to_chat(user, span_notice("You copy the targeting information from [src] to [C]"))
 		return
 	return ..()
 
@@ -576,9 +576,9 @@
 			if(linked_stations.len < efficiency)
 				linked_stations.Add(M.buffer)
 				M.buffer = null
-				to_chat(user, "<span class='caution'>You upload the data from [M]'s buffer.</span>")
+				to_chat(user, span_notice("You upload the data from [M]'s buffer."))
 			else
-				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
+				to_chat(user, span_alert("This station can't hold more information, try to use better parts."))
 		return
 	M.set_multitool_buffer(user, src)
 
@@ -593,7 +593,7 @@
 		return
 	if(panel_open)
 		link_console_and_hub()
-		to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
+		to_chat(user, span_notice("You reconnect the station to nearby machinery."))
 
 
 /obj/machinery/teleport/station/attack_ai()
@@ -616,7 +616,7 @@
 		use_power(5000)
 		visible_message(span_notice("Teleporter [engaged ? "" : "dis"]engaged!"))
 	else
-		visible_message("<span class='alert'>No target detected.</span>")
+		visible_message(span_alert("No target detected."))
 		engaged = FALSE
 	teleporter_hub.update_icon()
 	if(istype(user))

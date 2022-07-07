@@ -68,7 +68,7 @@
 	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
 	log_say(message, user)
 	for(var/obj/O in oview(14, get_turf(src)))
-		O.hear_talk(user, message_to_multilingual("<span class='reallybig'>[message]</span>"))
+		O.hear_talk(user, message_to_multilingual(span_reallybig("[message]")))
 
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())

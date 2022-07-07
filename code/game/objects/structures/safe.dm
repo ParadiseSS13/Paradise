@@ -333,9 +333,9 @@ GLOBAL_LIST_EMPTY(safes)
 		return
 
 	if(current_tick == 2)
-		to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
+		to_chat(user, span_italics("The sounds from [src] are too fast and blend together."))
 	if(total_ticks == 1 || prob(SOUND_CHANCE))
-		to_chat(user, "<span class='italics'>You hear a [pick(sounds)] from [src].</span>")
+		to_chat(user, span_italics("You hear a [pick(sounds)] from [src]."))
 
 /**
   * Returns the combination to unlock the safe as text.

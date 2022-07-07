@@ -406,7 +406,7 @@
 	if(QDELETED(user))
 		return FALSE
 	else if(check_mute(user?.client?.ckey, MUTE_IC))
-		to_chat(user, "<span class='boldwarning'>You cannot send IC messages (muted).</span>")
+		to_chat(user, span_boldwarning("You cannot send IC messages (muted)."))
 		return FALSE
 	else if(!params)
 		custom_emote = copytext(sanitize(input("Choose an emote to display.") as text|null), 1, MAX_MESSAGE_LEN)

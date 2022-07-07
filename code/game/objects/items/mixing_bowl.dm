@@ -27,7 +27,7 @@
 		return 0
 	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]))
 		if(contents.len>=max_n_of_items)
-			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
+			to_chat(user, span_alert("This [src] is full of ingredients, you cannot put more."))
 			return 1
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
@@ -44,10 +44,10 @@
 			return 1
 		for(var/datum/reagent/R in I.reagents.reagent_list)
 			if(!(R.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(R.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(R.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(R.id in GLOB.cooking_reagents[RECIPE_CANDY]))
-				to_chat(user, "<span class='alert'>Your [I] contains components unsuitable for cookery.</span>")
+				to_chat(user, span_alert("Your [I] contains components unsuitable for cookery."))
 				return 1
 	else
-		to_chat(user, "<span class='alert'>You have no idea what you can cook with [I].</span>")
+		to_chat(user, span_alert("You have no idea what you can cook with [I]."))
 		return 1
 
 /obj/item/mixing_bowl/proc/add_item(obj/item/I, mob/user)

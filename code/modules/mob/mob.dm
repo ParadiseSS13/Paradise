@@ -930,7 +930,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!Adjacent(usr))
 		return
 	if(IsFrozen(src) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, span_boldannounce("Interacting with admin-frozen players is not permitted."))
 		return
 	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
 		return

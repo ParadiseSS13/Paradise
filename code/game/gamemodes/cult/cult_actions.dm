@@ -75,13 +75,13 @@
 	if(!message)
 		return
 	var/title = "The [user.name]"
-	living_message = "<span class='cultlarge'>[title]: [message]</span>"
+	living_message = span_cultlarge("[title]: [message]")
 
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultlarge'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
+			to_chat(M, span_cultlarge("[title] ([ghost_follow_link(user, ghost=M)]): [message]"))
 
 
 //Objectives
@@ -107,7 +107,7 @@
 	if(SSticker && SSticker.mode)
 		SSticker.mode.cult_objs.study(usr, TRUE)
 	else
-		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
+		to_chat(usr, span_cultitalic("You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)"))
 
 
 //Draw rune
@@ -133,4 +133,4 @@
 		owner.put_in_hands(D)
 		D.attack_self(owner)
 	else
-		to_chat(usr, "<span class='cultitalic'>You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell.</span>")
+		to_chat(usr, span_cultitalic("You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell."))

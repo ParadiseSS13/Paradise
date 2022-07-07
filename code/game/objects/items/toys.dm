@@ -234,7 +234,7 @@
 
 /obj/item/toy/katana/suicide_act(mob/user)
 	var/dmsg = pick("[user] tries to stab \the [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to stab \the [src] into [user.p_their()] abdomen, but \the [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
-	user.visible_message("<span class='suicide'>[dmsg] It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[dmsg] It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS
 
 
@@ -275,7 +275,7 @@
 	do_sparks(n, c, src)
 	new ash_type(loc)
 	visible_message(span_warning("[src] explodes!"),
-		"<span class='italics'>You hear a snap!</span>")
+		span_italics("You hear a snap!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -814,7 +814,7 @@
 /obj/item/toy/flash/attack(mob/living/M, mob/user)
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[initial(icon_state)]2", src)
-	user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
+	user.visible_message(span_disarm("[user] blinds [M] with the flash!"))
 
 
 /*
@@ -839,7 +839,7 @@
 				shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
 
 	else
-		to_chat(user, "<span class='alert'>Nothing happens.</span>")
+		to_chat(user, span_alert("Nothing happens."))
 
 
 /*
@@ -988,7 +988,7 @@
 		to_chat(user, span_notice("You start feeding \the [O] [bicon(O)] into \the [src]'s mini-input."))
 		if(do_after(user, 10, target = src))
 			if(O.loc != user)
-				to_chat(user, "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>")
+				to_chat(user, span_alert("\The [O] is too far away to feed into \the [src]!"))
 			else
 				to_chat(user, span_notice("You feed \the [O] [bicon(O)] into \the [src]!"))
 				user.unEquip(O)
@@ -1021,7 +1021,7 @@
 	var/max_shots = 6
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide."))
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 	return BRUTELOSS
 

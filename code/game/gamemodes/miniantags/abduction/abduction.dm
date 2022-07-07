@@ -158,7 +158,7 @@
 	to_chat(abductor.current, span_notice("You are an agent of [team_name]!"))
 	to_chat(abductor.current, span_notice("With the help of your teammate, kidnap and experiment on station crew members!"))
 	to_chat(abductor.current, span_notice("Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve."))
-	to_chat(abductor.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)</span>")
+	to_chat(abductor.current, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)"))
 
 	abductor.announce_objectives()
 
@@ -171,7 +171,7 @@
 	to_chat(abductor.current, span_notice("You are a scientist of [team_name]!"))
 	to_chat(abductor.current, span_notice("With the help of your teammate, kidnap and experiment on station crew members!"))
 	to_chat(abductor.current, span_notice("Use your tool and ship consoles to support the agent and retrieve human specimens."))
-	to_chat(abductor.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)</span>")
+	to_chat(abductor.current, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)"))
 
 	abductor.announce_objectives()
 
@@ -198,9 +198,9 @@
 		var/datum/objective/objective = team_objectives[team_number]
 		var/team_name = team_names[team_number]
 		if(console.experiment.points >= objective.target_amount)
-			to_chat(world, "<span class='greenannounce'>[team_name] team fulfilled its mission!</span>")
+			to_chat(world, span_greenannounce("[team_name] team fulfilled its mission!"))
 		else
-			to_chat(world, "<span class='boldannounce'>[team_name] team failed its mission.</span>")
+			to_chat(world, span_boldannounce("[team_name] team failed its mission."))
 	..()
 	return 1
 

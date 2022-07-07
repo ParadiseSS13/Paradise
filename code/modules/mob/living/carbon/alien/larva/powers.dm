@@ -9,7 +9,7 @@
 
 	if(layer != ABOVE_NORMAL_TURF_LAYER)
 		layer = ABOVE_NORMAL_TURF_LAYER
-		visible_message("<B>[src] scurries to the ground!</B>", "<span class='noticealien'>You are now hiding.</span>")
+		visible_message("<B>[src] scurries to the ground!</B>", span_noticealien("You are now hiding."))
 	else
 		layer = MOB_LAYER
 		visible_message("[src] slowly peeks up from the ground...", "<span class=notice'>You have stopped hiding.</span>")

@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_mind.objectives += obj
 
 		if(cult_mind.assigned_role == "Clown")
-			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
+			to_chat(cult_mind.current, span_cultitalic("A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself."))
 			cult_mind.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
 			singlemutcheck(cult_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
 		cult_objs.study(cult_mind.current)
-		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
+		to_chat(cult_mind.current, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)"))
 	cult_threshold_check()
 	addtimer(CALLBACK(src, .proc/cult_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
@@ -110,7 +110,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	. += cult_give_item(/obj/item/melee/cultblade/dagger, H)
 	if(metal)
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
-	to_chat(H, "<span class='cult'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
+	to_chat(H, span_cult("These will help you start the cult on this station. Use them well, and remember - you are not the only one."))
 
 /datum/game_mode/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
@@ -142,7 +142,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_mind.special_role = SPECIAL_ROLE_CULTIST
 
 		if(cult_mind.assigned_role == "Clown")
-			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
+			to_chat(cult_mind.current, span_cultitalic("A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself."))
 			cult_mind.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
 			singlemutcheck(cult_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
@@ -167,7 +167,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				ascend(cult_mind.current)
 		check_cult_size()
 		cult_objs.study(cult_mind.current)
-		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
+		to_chat(cult_mind.current, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)"))
 		return TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE)
@@ -198,7 +198,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 					H.unEquip(I)
 	check_cult_size()
 	if(show_message)
-		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
+		cultist.visible_message(span_cult("[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!"),
 		span_userdanger("An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it."))
 
 
@@ -257,7 +257,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			if(!M.current || !ishuman(M.current))
 				continue
 			SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
-			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
+			to_chat(M.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
 			addtimer(CALLBACK(src, .proc/rise, M.current), 20 SECONDS)
 
 	else if(cult_players >= ascend_number)

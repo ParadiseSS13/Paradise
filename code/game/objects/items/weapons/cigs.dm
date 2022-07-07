@@ -86,7 +86,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(I, /obj/item/lighter/zippo))
 		var/obj/item/lighter/zippo/Z = I
 		if(Z.lit)
-			light("<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [name] with [user.p_their()] [Z]. Damn [user.p_theyre()] cool.</span>")
+			light(span_rose("With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [name] with [user.p_their()] [Z]. Damn [user.p_theyre()] cool."))
 
 	else if(istype(I, /obj/item/lighter))
 		var/obj/item/lighter/L = I

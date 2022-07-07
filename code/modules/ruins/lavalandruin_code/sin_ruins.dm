@@ -39,11 +39,11 @@
 		playsound(src, 'sound/lavaland/cursed_slot_machine_jackpot.ogg', 50, 0)
 		new/obj/structure/cursed_money(get_turf(src))
 		if(user)
-			to_chat(user, "<span class='boldwarning'>You've hit jackpot. Laughter echoes around you as your reward appears in the machine's place.</span>")
+			to_chat(user, span_boldwarning("You've hit jackpot. Laughter echoes around you as your reward appears in the machine's place."))
 		qdel(src)
 	else
 		if(user)
-			to_chat(user, "<span class='boldwarning'>Fucking machine! Must be rigged. Still... one more try couldn't hurt, right?</span>")
+			to_chat(user, span_boldwarning("Fucking machine! Must be rigged. Still... one more try couldn't hurt, right?"))
 
 /obj/structure/cursed_money
 	name = "bag of money"

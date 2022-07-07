@@ -35,10 +35,10 @@
 
 /obj/item/autosurgeon/organ/attack_self(mob/user) //when the object it used...
 	if(!uses)
-		to_chat(user, "<span class='alert'>[src] has already been used. The tools are dull and won't reactivate.</span>")
+		to_chat(user, span_alert("[src] has already been used. The tools are dull and won't reactivate."))
 		return
 	else if(!storedorgan)
-		to_chat(user, "<span class='alert'>[src] currently has no implant stored.</span>")
+		to_chat(user, span_alert("[src] currently has no implant stored."))
 		return
 	storedorgan.insert(user) //insert stored organ into the user
 	user.visible_message(span_notice("[user] presses a button on [src], and you hear a short mechanical noise."), span_notice("You feel a sharp sting as [src] plunges into your body."))
@@ -53,10 +53,10 @@
 /obj/item/autosurgeon/organ/attackby(obj/item/I, mob/user, params)
 	if(istype(I, organ_type))
 		if(storedorgan)
-			to_chat(user, "<span class='alert'>[src] already has an implant stored.</span>")
+			to_chat(user, span_alert("[src] already has an implant stored."))
 			return
 		else if(!uses)
-			to_chat(user, "<span class='alert'>[src] has already been used up.</span>")
+			to_chat(user, span_alert("[src] has already been used up."))
 			return
 		if(!user.drop_item())
 			return

@@ -688,7 +688,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, span_alert("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(!(I.slot_flags & SLOT_BELT))
 				return
@@ -710,7 +710,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, span_alert("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(!(I.slot_flags & SLOT_ID))
 				return FALSE
@@ -722,7 +722,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, span_alert("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(!(I.slot_flags & SLOT_PDA))
 				return FALSE
@@ -736,7 +736,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, span_alert("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
 				return TRUE
@@ -749,7 +749,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
+					to_chat(H, span_alert("You need a jumpsuit before you can attach this [I.name]."))
 				return FALSE
 			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
 				return TRUE
@@ -761,7 +761,7 @@
 				return FALSE
 			if(!H.wear_suit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a suit before you can attach this [I.name].</span>")
+					to_chat(H, span_alert("You need a suit before you can attach this [I.name]."))
 				return FALSE
 			if(!H.wear_suit.allowed)
 				if(!disable_warning)

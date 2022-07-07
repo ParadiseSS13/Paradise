@@ -497,7 +497,7 @@
 		to_chat(user, span_notice("Unable to connect to teleport beacon."))
 		return
 	var/bresult = mybeacon.toggle()
-	to_chat(user, "<span class='notice'>Syndicate Teleporter Beacon: [bresult ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
+	to_chat(user, "<span class='notice'>Syndicate Teleporter Beacon: [bresult ? span_green("ON") : span_red("OFF")]</span>")
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(mob/user)
@@ -505,7 +505,7 @@
 		to_chat(user, span_notice("Outgoing Teleport Portal: deactivating... please wait..."))
 		return
 	toggle_portal()
-	to_chat(user, "<span class='notice'>Outgoing Teleport Portal: [portal_enabled ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
+	to_chat(user, "<span class='notice'>Outgoing Teleport Portal: [portal_enabled ? span_green("ON") : span_red("OFF")]</span>")
 	updateUsrDialog()
 	playsound(user, sound_yes, 50, 0)
 

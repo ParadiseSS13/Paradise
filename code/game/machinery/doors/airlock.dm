@@ -1008,7 +1008,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 					return
 				visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
-					"<span class='italics'>You hear welding.</span>")
+					span_italics("You hear welding."))
 				security_level = AIRLOCK_SECURITY_NONE
 				spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
@@ -1017,7 +1017,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 					return
 				visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
-					"<span class='italics'>You hear welding.</span>")
+					span_italics("You hear welding."))
 				security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
 			if(AIRLOCK_SECURITY_PLASTEEL_I)
 				to_chat(user, span_notice("You begin cutting the inner layer of shielding..."))
@@ -1025,13 +1025,13 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 					return
 				user.visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
-					"<span class='italics'>You hear welding.</span>")
+					span_italics("You hear welding."))
 				security_level = AIRLOCK_SECURITY_PLASTEEL_I_S
 	else
 		if(user.a_intent != INTENT_HELP)
 			user.visible_message(span_notice("[user] is [welded ? "unwelding":"welding"] the airlock."), \
 				span_notice("You begin [welded ? "unwelding":"welding"] the airlock..."), \
-				"<span class='italics'>You hear welding.</span>")
+				span_italics("You hear welding."))
 
 			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
 				if(!density && !welded)
@@ -1043,7 +1043,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		else if(obj_integrity < max_integrity)
 			user.visible_message(span_notice("[user] is welding the airlock."), \
 				span_notice("You begin repairing the airlock..."), \
-				"<span class='italics'>You hear welding.</span>")
+				span_italics("You hear welding."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
 				obj_integrity = max_integrity
 				stat &= ~BROKEN
@@ -1282,7 +1282,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		to_chat(user, span_warning("[src] refuses to budge!"))
 		return
 	user.visible_message(span_warning("[user] begins prying open [src]."),\
-						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
+						span_noticealien("You begin digging your claws into [src] with all your might!"),\
 						span_warning("You hear groaning metal..."))
 	var/time_to_open = 5
 	if(arePowerSystemsOn())

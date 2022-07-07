@@ -278,7 +278,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	apply_innate_effects()
 	finalize_antag()
 	if(wiki_page_name)
-		to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
+		to_chat(owner.current, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])"))
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, .proc/replace_banned_player)
 	return TRUE

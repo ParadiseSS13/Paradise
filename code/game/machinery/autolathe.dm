@@ -251,7 +251,7 @@
 
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return 1
 	if(exchange_parts(user, O))
 		return
@@ -300,7 +300,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	if(panel_open)
 		default_deconstruction_crowbar(user, I)
@@ -310,7 +310,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
 
@@ -321,7 +321,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	interact(user)
 
@@ -332,7 +332,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	interact(user)
 

@@ -66,8 +66,8 @@
 		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
 
 	if(pad)
-		dat += "<span class='bad'>Emergency Teleporter System.</span>"
-		dat += "<span class='bad'>Consider using primary observation console first.</span>"
+		dat += span_bad("Emergency Teleporter System.")
+		dat += span_bad("Consider using primary observation console first.")
 		dat += "<a href='?src=[UID()];teleporter_send=1'>Activate Teleporter</A><br>"
 		if(gizmo && gizmo.marked)
 			dat += "<a href='?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</A><br>"
@@ -90,7 +90,7 @@
 		dat += "<a href='?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"
 		dat += "<a href='?src=[UID()];toggle_vest=1'>[vest.flags & NODROP ? "Unlock" : "Lock"] Vest</a><br>"
 	else
-		dat += "<span class='bad'>NO AGENT VEST DETECTED</span>"
+		dat += span_bad("NO AGENT VEST DETECTED")
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))

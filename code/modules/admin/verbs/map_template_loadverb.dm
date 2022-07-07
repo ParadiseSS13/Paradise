@@ -48,11 +48,11 @@
 		return
 
 	var/timer = start_watch()
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] has begun uploading a map template ([map])</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)] has begun uploading a map template ([map])"))
 	var/datum/map_template/M = new(map=map, rename="[map]")
 	if(M.preload_size(map))
 		to_chat(usr, "Map template '[map]' ready to place ([M.width]x[M.height])")
 		GLOB.map_templates[M.name] = M
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has uploaded a map template ([map]). Took [stop_watch(timer)]s.</span>")
+		message_admins(span_adminnotice("[key_name_admin(usr)] has uploaded a map template ([map]). Took [stop_watch(timer)]s."))
 	else
 		to_chat(usr, "Map template '[map]' failed to load properly")

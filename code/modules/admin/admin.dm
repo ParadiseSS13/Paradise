@@ -517,7 +517,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/msg = ""
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
-		message_admins("<span class='darkmblue'>[usr.key] has started the game.[msg]</span>")
+		message_admins(span_darkmblue("[usr.key] has started the game.[msg]"))
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Game") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return 1
 	else
@@ -905,7 +905,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
+		message_admins(span_adminnotice("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name]."))
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
@@ -931,7 +931,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		if(tomob.client) //no need to ghostize if there is no client
 			tomob.ghostize(0)
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
+		message_admins(span_adminnotice("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name]."))
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 

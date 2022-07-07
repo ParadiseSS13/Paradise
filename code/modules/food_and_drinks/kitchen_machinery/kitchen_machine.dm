@@ -71,11 +71,11 @@
 		playsound(src, O.usesound, 50, 1)
 		if(anchored)
 			anchored = 0
-			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
+			to_chat(user, span_alert("\The [src] can now be moved."))
 			return
 		else if(!anchored)
 			anchored = 1
-			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
+			to_chat(user, span_alert("\The [src] is now secured."))
 			return
 
 	default_deconstruction_crowbar(user, O)
@@ -95,7 +95,7 @@
 				dirty = 0 // just to be sure
 				container_type = OPENCONTAINER
 		else
-			to_chat(user, "<span class='alert'>It's broken!</span>")
+			to_chat(user, span_alert("It's broken!"))
 			return 1
 	else if(dirty==100) // The machine is all dirty so can't be used!
 		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap)) // If they're trying to clean it then let them
@@ -107,11 +107,11 @@
 				icon_state = off_icon
 				container_type = OPENCONTAINER
 		else //Otherwise bad luck!!
-			to_chat(user, "<span class='alert'>It's dirty!</span>")
+			to_chat(user, span_alert("It's dirty!"))
 			return 1
 	else if(is_type_in_list(O, GLOB.cooking_ingredients[recipe_type]) || istype(O, /obj/item/mixing_bowl))
 		if(contents.len>=max_n_of_items)
-			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
+			to_chat(user, span_alert("This [src] is full of ingredients, you cannot put more."))
 			return 1
 		if(istype(O,/obj/item/stack))
 			var/obj/item/stack/S = O
@@ -128,13 +128,13 @@
 			return 1
 		for(var/datum/reagent/R in O.reagents.reagent_list)
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
-				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
+				to_chat(user, span_alert("Your [O] contains components unsuitable for cookery."))
 				return 1
 		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
 	else if(istype(O,/obj/item/grab))
 		return special_attack(O, user)
 	else
-		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
+		to_chat(user, span_alert("You have no idea what you can cook with this [O]."))
 		return 1
 	updateUsrDialog()
 
@@ -154,7 +154,7 @@
 	interact(user)
 
 /obj/machinery/kitchen_machine/proc/special_attack(obj/item/grab/G, mob/user)
-	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
+	to_chat(user, span_alert("This is ridiculous. You can not fit [G.affecting] in this [src]."))
 	return 0
 
 /********************
@@ -391,7 +391,7 @@
 
 /obj/machinery/kitchen_machine/proc/muck_finish()
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	visible_message("<span class='alert'>\The [src] gets covered in muck!</span>")
+	visible_message(span_alert("\The [src] gets covered in muck!"))
 	dirty = 100 // Make it dirty so it can't be used util cleaned
 	flags = null //So you can't add condiments
 	icon_state = dirty_icon // Make it look dirty too
@@ -401,7 +401,7 @@
 /obj/machinery/kitchen_machine/proc/broke()
 	do_sparks(2, 1, src)
 	icon_state = broken_icon // Make it look all busted up and shit
-	visible_message("<span class='alert'>[src] breaks!</span>") //Let them know they're stupid
+	visible_message(span_alert("[src] breaks!")) //Let them know they're stupid
 	broken = 2 // Make it broken so it can't be used util fixed
 	flags = null //So you can't add condiments
 	operating = 0 // Turn it off again aferwards

@@ -231,7 +231,7 @@
 		if(iscultist(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
-					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
+					to_chat(M, span_cultlarge("Your blood rites falter as holy water scours your body!"))
 					qdel(BS)
 			if(prob(5))
 				M.AdjustCultSlur(10 SECONDS)//5 seems like a good number...
@@ -247,7 +247,7 @@
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
-			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
+			M.visible_message(span_biggerdanger("[M] recoils, their skin flushes with colour, regaining their sense of control!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)

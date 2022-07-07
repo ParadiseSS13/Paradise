@@ -436,10 +436,10 @@
 	. = ..()
 	. += "<span class='info'>*---------*\nThis is [bicon(src)] \a <EM>[src]</EM>!"
 	if(stat == DEAD)
-		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
+		. += span_deadsay("It is limp and unresponsive.")
 	else
 		if(stat == UNCONSCIOUS) // Slime stasis
-			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
+			. += span_deadsay("It appears to be alive but unresponsive.")
 		if(getBruteLoss())
 			. += "<span class='warning'>"
 			if (getBruteLoss() < 40)

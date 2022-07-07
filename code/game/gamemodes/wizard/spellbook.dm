@@ -942,7 +942,7 @@
 
 /obj/item/spellbook/oneuse/proc/onlearned(mob/user)
 	used = TRUE
-	user.visible_message("<span class='caution'>[src] glows dark for a second!</span>")
+	user.visible_message(span_warning("[src] glows dark for a second!"))
 
 /obj/item/spellbook/oneuse/attackby()
 	return
@@ -966,7 +966,7 @@
 
 /obj/item/spellbook/oneuse/smoke/recoil(mob/user as mob)
 	..()
-	to_chat(user, "<span class='caution'>Your stomach rumbles...</span>")
+	to_chat(user, span_warning("Your stomach rumbles..."))
 	user.adjust_nutrition(-200)
 
 /obj/item/spellbook/oneuse/blind

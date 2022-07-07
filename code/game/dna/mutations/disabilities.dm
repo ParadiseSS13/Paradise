@@ -38,7 +38,7 @@
 
 /datum/mutation/disability/epilepsy/on_life(mob/living/carbon/human/H)
 	if((prob(1) && !H.IsParalyzed()))
-		H.visible_message(span_danger("[H] starts having a seizure!"),"<span class='alert'>You have a seizure!</span>")
+		H.visible_message(span_danger("[H] starts having a seizure!"),span_alert("You have a seizure!"))
 		H.Paralyse(20 SECONDS)
 		H.Jitter(2000 SECONDS)
 
@@ -197,7 +197,7 @@
 /datum/mutation/disability/comic
 	name = "Comic"
 	desc = "This will only bring death and destruction."
-	activation_messages = list("<span class='sans'>Uh oh!</span>")
+	activation_messages = list(span_sans("Uh oh!"))
 	deactivation_messages = list("Well thank god that's over with.")
 	traits_to_add = list(TRAIT_COMIC_SANS)
 
@@ -208,7 +208,7 @@
 /datum/mutation/disability/wingdings
 	name = "Alien Voice"
 	desc = "Garbles the subject's voice into an incomprehensible speech."
-	activation_messages = list("<span class='wingdings'>Your vocal cords feel alien.</span>")
+	activation_messages = list(span_wingdings("Your vocal cords feel alien."))
 	deactivation_messages = list("Your vocal cords no longer feel alien.")
 	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_WINGDINGS)

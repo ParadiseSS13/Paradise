@@ -286,7 +286,7 @@
 				continue
 			if(!user.unEquip(W))
 				qdel(W)
-	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
+	to_chat(user, span_biggerdanger("You teleport into the wall, the teleporter tries to save you, but--"))
 	user.gib()
 
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)

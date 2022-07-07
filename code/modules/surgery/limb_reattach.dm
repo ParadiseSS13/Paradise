@@ -124,8 +124,8 @@
 
 /datum/surgery_step/limb/attach/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = tool
-	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
-	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
+	user.visible_message(span_alert("[user]'s hand slips, damaging [target]'s [E.amputation_point]!"), \
+	span_alert("Your hand slips, damaging [target]'s [E.amputation_point]!"))
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return FALSE
 
@@ -200,8 +200,8 @@
 
 /datum/surgery_step/limb/connect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
-	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
-	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
+	user.visible_message(span_alert("[user]'s hand slips, damaging [target]'s [E.amputation_point]!"), \
+	span_alert("Your hand slips, damaging [target]'s [E.amputation_point]!"))
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return FALSE
 
@@ -254,7 +254,7 @@
 	return TRUE
 
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>", \
-	"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>")
+	user.visible_message(span_alert("[user]'s hand slips, damaging [target]'s flesh!"), \
+	span_alert("Your hand slips, damaging [target]'s flesh!"))
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return FALSE

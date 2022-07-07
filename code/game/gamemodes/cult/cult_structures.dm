@@ -53,7 +53,7 @@
 /obj/structure/cult/functional/examine(mob/user)
 	. = ..()
 	if(iscultist(user) && cooldowntime > world.time)
-		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
+		. += span_cultitalic("The magic in [src] is weak, it will be ready to use again in [get_ETA()].")
 	. += span_notice("[src] is [anchored ? "":"not "]secured to the floor.")
 
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
@@ -74,16 +74,16 @@
 		to_chat(user, "[heathen_message]")
 		return
 	if(invisibility)
-		to_chat(user, "<span class='cultitalic'>The magic in [src] is being channeled into Redspace, reveal the structure first!</span>")
+		to_chat(user, span_cultitalic("The magic in [src] is being channeled into Redspace, reveal the structure first!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, span_danger("You cannot seem to manipulate this structure with your bulky hands!"))
 		return
 	if(!anchored)
-		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with a dagger first.</span>")
+		to_chat(user, span_cultitalic("You need to anchor [src] to the floor with a dagger first."))
 		return
 	if(cooldowntime > world.time)
-		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>")
+		to_chat(user, span_cultitalic("The magic in [src] is weak, it will be ready to use again in [get_ETA()]."))
 		return
 
 
@@ -148,7 +148,7 @@
 	heathen_message = span_warning("There is a foreboding aura to the altar and you want nothing to do with it.")
 	selection_prompt = "You study the rituals on the altar..."
 	selection_title = "Altar"
-	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with a %ITEM%!</span>"
+	creation_message = span_cultitalic("You kneel before the altar and your faith is rewarded with a %ITEM%!")
 	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater,
 							"Construct Shell" = /obj/structure/constructshell)
 
@@ -168,7 +168,7 @@
 	heathen_message = span_warning("Your hand feels like it's melting off as you try to touch the forge.")
 	selection_prompt = "You study the schematics etched on the forge..."
 	selection_title = "Forge"
-	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating a %ITEM%!</span>"
+	creation_message = span_cultitalic("You work the forge as dark knowledge guides your hands, creating a %ITEM%!")
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe)
 
 /obj/structure/cult/functional/forge/get_choosable_items()
@@ -316,10 +316,10 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	max_integrity = 125 //Slightly sturdy
 	death_message = span_danger("The desk breaks apart, its books falling to the floor.")
 	death_sound = 'sound/effects/wood_break.ogg'
-	heathen_message = "<span class='cultlarge'>What do you hope to seek?</span>"
+	heathen_message = span_cultlarge("What do you hope to seek?")
 	selection_prompt = "You flip through the black pages of the archives..."
 	selection_title = "Archives"
-	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating a %ITEM%!</span>"
+	creation_message = span_cultitalic("You invoke the dark magic of the tomes creating a %ITEM%!")
 	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
 							"Veil Shifter" = /obj/item/cult_shift, "Reality sunderer" = /obj/item/portal_amulet) //Add void torch to veil shifter spawn
 

@@ -27,7 +27,7 @@
 			return
 	target.visible_message(span_warning("[chassis] starts to drill [target]."),
 					span_userdanger("[chassis] starts to drill [target]..."),
-					 "<span class='italics'>You hear drilling.</span>")
+					 span_italics("You hear drilling."))
 
 	if(do_after_cooldown(target))
 		set_ready_state(FALSE)

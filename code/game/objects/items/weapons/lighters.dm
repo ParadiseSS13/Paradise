@@ -89,7 +89,7 @@
 			cig.attackby(src, user)
 		else
 			if(istype(src, /obj/item/lighter/zippo))
-				cig.light("<span class='rose'>[user] whips [src] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
+				cig.light(span_rose("[user] whips [src] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with."))
 			else
 				cig.light(span_notice("[user] holds [src] out for [M], and lights [cig]."))
 			M.update_inv_wear_mask()
@@ -116,7 +116,7 @@
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
 	if(world.time > next_on_message)
-		user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
+		user.visible_message(span_rose("Without even breaking stride, [user] flips open and lights [src] in one smooth movement."))
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
 		next_on_message = world.time + 5 SECONDS
 	else

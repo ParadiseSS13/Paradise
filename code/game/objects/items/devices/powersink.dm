@@ -96,7 +96,7 @@
 			user.visible_message( \
 				"[user] activates \the [src]!", \
 				span_notice("You activate \the [src]."),
-				"<span class='italics'>You hear a click.</span>")
+				span_italics("You hear a click."))
 			message_admins("Power sink activated by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(src)]")
 			log_game("Power sink activated by [key_name(user)] at [AREACOORD(src)]")
 			set_mode(OPERATING)
@@ -105,7 +105,7 @@
 			user.visible_message( \
 				"[user] deactivates \the [src]!", \
 				span_notice("You deactivate \the [src]."),
-				"<span class='italics'>You hear a click.</span>")
+				span_italics("You hear a click."))
 			set_mode(CLAMPED_OFF)
 
 /obj/item/powersink/process()

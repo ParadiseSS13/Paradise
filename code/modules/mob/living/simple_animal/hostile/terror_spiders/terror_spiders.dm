@@ -378,7 +378,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat != DEAD)
-			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
+			to_chat(T, span_terrorspider("TerrorSense: [msgtext]"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
 	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)

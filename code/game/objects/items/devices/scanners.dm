@@ -354,7 +354,7 @@ REAGENT SCANNER
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
 		to_chat(user, span_info("Pressure: [round(pressure,0.1)] kPa"))
 	else
-		to_chat(user, "<span class='alert'>Pressure: [round(pressure,0.1)] kPa</span>")
+		to_chat(user, span_alert("Pressure: [round(pressure,0.1)] kPa"))
 	if(total_moles)
 		var/o2_concentration = environment.oxygen/total_moles
 		var/n2_concentration = environment.nitrogen/total_moles
@@ -365,15 +365,15 @@ REAGENT SCANNER
 		if(abs(n2_concentration - N2STANDARD) < 20)
 			to_chat(user, span_info("Nitrogen: [round(n2_concentration*100)] %"))
 		else
-			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100)] %</span>")
+			to_chat(user, span_alert("Nitrogen: [round(n2_concentration*100)] %"))
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
 			to_chat(user, span_info("Oxygen: [round(o2_concentration*100)] %"))
 		else
-			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100)] %</span>")
+			to_chat(user, span_alert("Oxygen: [round(o2_concentration*100)] %"))
 
 		if(co2_concentration > 0.01)
-			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100)] %</span>")
+			to_chat(user, span_alert("CO2: [round(co2_concentration*100)] %"))
 		else
 			to_chat(user, span_info("CO2: [round(co2_concentration*100)] %"))
 
@@ -381,7 +381,7 @@ REAGENT SCANNER
 			to_chat(user, span_info("Plasma: [round(plasma_concentration*100)] %"))
 
 		if(unknown_concentration > 0.01)
-			to_chat(user, "<span class='alert'>Unknown: [round(unknown_concentration*100)] %</span>")
+			to_chat(user, span_alert("Unknown: [round(unknown_concentration*100)] %"))
 
 		to_chat(user, span_info("Temperature: [round(environment.temperature-T0C)] &deg;C"))
 

@@ -504,9 +504,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/chair/stool) in user.loc)
-		user.visible_message("<span class='suicide'>[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message(span_suicide("[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide."))
 	else
-		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
 
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, paramcolor = null)
@@ -570,7 +570,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 				cable_used += 1
 				E.heal_damage(0, HEALPERCABLE, 0, TRUE)
 			H.UpdateDamageIcon()
-			user.visible_message("<span class='alert'>[user] repairs some burn damage on [M]'s [E.name] with [src].</span>")
+			user.visible_message(span_alert("[user] repairs some burn damage on [M]'s [E.name] with [src]."))
 		return 1
 
 	else

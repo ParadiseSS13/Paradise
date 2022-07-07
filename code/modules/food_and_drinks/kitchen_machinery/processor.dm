@@ -211,7 +211,7 @@
 	processing = 1
 	user.visible_message("[user] turns on [src].", \
 		span_notice("You turn on [src]."), \
-		"<span class='italics'>You hear a food processor.</span>")
+		span_italics("You hear a food processor."))
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(500)
 	var/total_time = 0

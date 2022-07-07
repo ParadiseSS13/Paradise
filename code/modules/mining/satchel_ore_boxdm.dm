@@ -25,7 +25,7 @@
 		playsound(src, W.usesound, 50, 1)
 		var/obj/item/crowbar/C = W
 		if(do_after(user, 50 * C.toolspeed, target = src))
-			user.visible_message(span_notice("[user] pries [src] apart."), span_notice("You pry apart [src]."), "<span class='italics'>You hear splitting wood.</span>")
+			user.visible_message(span_notice("[user] pries [src] apart."), span_notice("You pry apart [src]."), span_italics("You hear splitting wood."))
 			deconstruct(TRUE, user)
 	else
 		return ..()

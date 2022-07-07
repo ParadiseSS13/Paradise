@@ -29,46 +29,46 @@
 	if(!castcheck(0))
 		return
 	if(draining)
-		to_chat(src, "<span class='revenwarning'>You are already siphoning the essence of a soul!</span>")
+		to_chat(src, span_revenwarning("You are already siphoning the essence of a soul!"))
 		return
 	var/mob_UID = target.UID()
 	if(mob_UID in drained_mobs)
-		to_chat(src, "<span class='revenwarning'>[target]'s soul is dead and empty.</span>")
+		to_chat(src, span_revenwarning("[target]'s soul is dead and empty."))
 		return
 	if(!target.stat)
-		to_chat(src, "<span class='revennotice'>This being's soul is too strong to harvest.</span>")
+		to_chat(src, span_revennotice("This being's soul is too strong to harvest."))
 		if(prob(10))
 			to_chat(target, "You feel as if you are being watched.")
 		return
 	draining = TRUE
 	essence_drained = rand(15, 20)
-	to_chat(src, "<span class='revennotice'>You search for the soul of [target].</span>")
+	to_chat(src, span_revennotice("You search for the soul of [target]."))
 	if(do_after(src, 10, 0, target = target)) //did they get deleted in that second?
 		if(target.ckey)
-			to_chat(src, "<span class='revennotice'>Their soul burns with intelligence.</span>")
+			to_chat(src, span_revennotice("Their soul burns with intelligence."))
 			essence_drained += rand(20, 30)
 		if(target.stat != DEAD)
-			to_chat(src, "<span class='revennotice'>Their soul blazes with life!</span>")
+			to_chat(src, span_revennotice("Their soul blazes with life!"))
 			essence_drained += rand(40, 50)
 		else
-			to_chat(src, "<span class='revennotice'>Their soul is weak and faltering.</span>")
+			to_chat(src, span_revennotice("Their soul is weak and faltering."))
 		if(do_after(src, 20, 0, target = target)) //did they get deleted NOW?
 			switch(essence_drained)
 				if(1 to 30)
-					to_chat(src, "<span class='revennotice'>[target] will not yield much essence. Still, every bit counts.</span>")
+					to_chat(src, span_revennotice("[target] will not yield much essence. Still, every bit counts."))
 				if(30 to 70)
-					to_chat(src, "<span class='revennotice'>[target] will yield an average amount of essence.</span>")
+					to_chat(src, span_revennotice("[target] will yield an average amount of essence."))
 				if(70 to 90)
-					to_chat(src, "<span class='revenboldnotice'>Such a feast! [target] will yield much essence to you.</span>")
+					to_chat(src, span_revenboldnotice("Such a feast! [target] will yield much essence to you."))
 				if(90 to INFINITY)
-					to_chat(src, "<span class='revenbignotice'>Ah, the perfect soul. [target] will yield massive amounts of essence to you.</span>")
+					to_chat(src, span_revenbignotice("Ah, the perfect soul. [target] will yield massive amounts of essence to you."))
 			if(do_after(src, 20, 0, target = target)) //how about now
 				if(!target.stat)
-					to_chat(src, "<span class='revenwarning'>They are now powerful enough to fight off your draining.</span>")
-					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
+					to_chat(src, span_revenwarning("They are now powerful enough to fight off your draining."))
+					to_chat(target, span_boldannounce("You feel something tugging across your body before subsiding."))
 					draining = FALSE
 					return //hey, wait a minute...
-				to_chat(src, "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>")
+				to_chat(src, span_revenminor("You begin siphoning essence from [target]'s soul."))
 				if(target.stat != DEAD)
 					to_chat(target, span_warning("You feel a horribly unpleasant draining sensation as your grip on life weakens..."))
 				icon_state = "revenant_draining"
@@ -81,23 +81,23 @@
 					if(essence_drained > 90)
 						essence_regen_cap += 25
 						perfectsouls += 1
-						to_chat(src, "<span class='revenboldnotice'>The perfection of [target]'s soul has increased your maximum essence level. Your new maximum essence is [essence_regen_cap].</span>")
-					to_chat(src, "<span class='revennotice'>[target]'s soul has been considerably weakened and will yield no more essence for the time being.</span>")
+						to_chat(src, span_revenboldnotice("The perfection of [target]'s soul has increased your maximum essence level. Your new maximum essence is [essence_regen_cap]."))
+					to_chat(src, span_revennotice("[target]'s soul has been considerably weakened and will yield no more essence for the time being."))
 					target.visible_message(span_warning("[target] slumps onto the ground."), \
- 										   "<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
+ 										   span_revenwarning("Violets lights, dancing in your vision, getting clo--"))
 					drained_mobs.Add(mob_UID)
 					add_attack_logs(src, target, "revenant harvested soul")
 					target.death(0)
 				else
-					to_chat(src, "<span class='revenwarning'>[target ? "[target] has":"They have"] been drawn out of your grasp. The link has been broken.</span>")
+					to_chat(src, span_revenwarning("[target ? "[target] has":"They have"] been drawn out of your grasp. The link has been broken."))
 					draining = 0
 					essence_drained = 0
 					if(target) //Wait, target is WHERE NOW?
 						target.visible_message(span_warning("[target] slumps onto the ground."), \
-											   "<span class='revenwarning'>Violets lights, dancing in your vision, receding--</span>")
+											   span_revenwarning("Violets lights, dancing in your vision, receding--"))
 					return
 			else
-				to_chat(src, "<span class='revenwarning'>You are not close enough to siphon [target ? "[target]'s":"their"] soul. The link has been broken.</span>")
+				to_chat(src, span_revenwarning("You are not close enough to siphon [target ? "[target]'s":"their"] soul. The link has been broken."))
 				draining = FALSE
 				essence_drained = 0
 				return
@@ -109,7 +109,7 @@
 /obj/effect/proc_holder/spell/night_vision/revenant
 	charge_max = 0
 	panel = "Revenant Abilities"
-	message = "<span class='revennotice'>You toggle your night vision.</span>"
+	message = span_revennotice("You toggle your night vision.")
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
 
@@ -176,7 +176,7 @@
 			charge_counter = charge_max
 			return FALSE
 		name = "[initial(name)] ([cast_amount]E)"
-		to_chat(user, "<span class='revennotice'>You have unlocked [initial(name)]!</span>")
+		to_chat(user, span_revennotice("You have unlocked [initial(name)]!"))
 		panel = "Revenant Abilities"
 		locked = FALSE
 		charge_counter = charge_max

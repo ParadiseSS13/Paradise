@@ -25,7 +25,7 @@
 	pressure_resistance = 2
 
 /obj/item/pen/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
+	to_chat(viewers(user), span_suicide("[user] starts scribbling numbers over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku."))
 	return BRUTELOSS
 
 /obj/item/pen/blue

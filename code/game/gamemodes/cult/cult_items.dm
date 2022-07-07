@@ -39,7 +39,7 @@
 		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
 		user.visible_message(span_warning("A powerful force shoves [user] away from [target]!"),
-							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
+							 span_cultlarge("\"You shouldn't play with sharp things. You'll poke someone's eye out.\""))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
@@ -51,7 +51,7 @@
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	. = ..()
 	if(!iscultist(user))
-		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
+		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.Confused(20 SECONDS)
 		user.Jitter(12 SECONDS)
@@ -156,7 +156,7 @@
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
 	if(!iscultist(user)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
-		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
+		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.unEquip(src, 1)
 		user.Confused(20 SECONDS)
@@ -202,7 +202,7 @@
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot)
 	..()
 	if(!iscultist(user))
-		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
+		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.unEquip(src, 1)
 		user.Confused(20 SECONDS)
@@ -269,7 +269,7 @@
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
 	..()
 	if(!iscultist(user))
-		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
+		to_chat(user, span_cultlarge("\"You want to be blind, do you?\""))
 		user.unEquip(src, 1)
 		user.Confused(60 SECONDS)
 		user.Weaken(10 SECONDS)
@@ -316,9 +316,9 @@
 /obj/item/cult_shift/examine(mob/user)
 	. = ..()
 	if(uses)
-		. += "<span class='cult'>It has [uses] use\s remaining.</span>"
+		. += span_cult("It has [uses] use\s remaining.")
 	else
-		. += "<span class='cult'>It seems drained.</span>"
+		. += span_cult("It seems drained.")
 
 /obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
 	var/mob/living/carbon/C = user
@@ -523,7 +523,7 @@
 	else if(isliving(loc))
 		var/mob/living/holder = loc
 		if(iscultist(holder))
-			to_chat(holder, "<span class='cultitalic'>The shield's illusions are back at full strength!</span>")
+			to_chat(holder, span_cultitalic("The shield's illusions are back at full strength!"))
 		else
 			to_chat(holder, "<span class='warning'>[src] vibrates slightly, and starts glowing.")
 
@@ -701,7 +701,7 @@
 		if(!iscarbon(user))
 			return
 		var/mob/living/carbon/M = user
-		to_chat(M, "<span class='cultlarge'>\"So, you want to explore space?\"</span>")
+		to_chat(M, span_cultlarge("\"So, you want to explore space?\""))
 		to_chat(M, span_warning("Space flashes around you as you are moved somewhere else!"))
 		M.Confused(20 SECONDS)
 		M.flash_eyes(override_blindness_check = TRUE)
@@ -744,7 +744,7 @@
 		return
 
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		to_chat(user, span_cultitalic("You are not in the right dimension!"))
 		return
 
 	var/input_rune_key = input(user, "Choose a rune to make a portal to.", "Rune to make a portal to") as null|anything in potential_runes //we know what key they picked
@@ -757,7 +757,7 @@
 	else if(!is_station_level(R.z) || istype(get_area(src), /area/space))
 		actual_selected_rune.handle_portal("space", T)
 	new /obj/effect/portal/cult(get_turf(R), get_turf(actual_selected_rune), src, 4 MINUTES)
-	to_chat(user, "<span class='cultitalic'>You use the magic of the amulet to turn [R] into a portal.</span>")
+	to_chat(user, span_cultitalic("You use the magic of the amulet to turn [R] into a portal."))
 	playsound(src, 'sound/magic/cult_spell.ogg', 100, TRUE)
 	qdel(R)
 	qdel(src)

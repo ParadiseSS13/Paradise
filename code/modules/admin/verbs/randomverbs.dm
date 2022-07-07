@@ -848,7 +848,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Call Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-called the emergency shuttle.</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)] admin-called the emergency shuttle."))
 	return
 
 /client/proc/admin_cancel_shuttle()
@@ -876,7 +876,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Cancel Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)] admin-recalled the emergency shuttle."))
 	return
 
 /client/proc/admin_deny_shuttle()
@@ -906,7 +906,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(usr, text(span_danger("Attack Log for []"), mob))
+	to_chat(usr, span_danger("Attack Log for [mob]"))
 	for(var/t in M.attack_log_old)
 		to_chat(usr, t)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Attack Log") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

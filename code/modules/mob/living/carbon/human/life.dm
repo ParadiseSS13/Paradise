@@ -170,7 +170,7 @@
 				adjustToxLoss(min(5, instability * 0.67))
 				to_chat(src, span_danger("You feel weak and nauseous."))
 			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
-				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
+				to_chat(src, span_biggerdanger("You feel incredibly sick... Something isn't right!"))
 				spawn(300)
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()

@@ -122,7 +122,7 @@
 	REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 
 /mob/living/carbon/human/proc/becomeFat()
-	to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
+	to_chat(src, span_alert("You suddenly feel blubbery!"))
 	ADD_TRAIT(src, TRAIT_FAT, OBESITY)
 
 //Handles chem traces

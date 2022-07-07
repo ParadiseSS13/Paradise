@@ -915,7 +915,7 @@
 				to_chat(user, span_warning("No AI detected in the [name] onboard computer."))
 				return
 			if(AI.mind.special_role) //Malf AIs cannot leave mechs. Except through death.
-				to_chat(user, "<span class='boldannounce'>ACCESS DENIED.</span>")
+				to_chat(user, span_boldannounce("ACCESS DENIED."))
 				return
 			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
 			AI.control_disabled = 1
@@ -966,7 +966,7 @@
 	AI.controlled_mech = src
 	AI.remote_control = src
 	AI.can_shunt = 0 //ONE AI ENTERS. NO AI LEAVES.
-	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
+	to_chat(AI, "[AI.can_dominate_mechs ? span_announce("Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!") \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
 	to_chat(AI, span_boldnotice("Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions."))
 	if(interaction == AI_TRANS_FROM_CARD)
@@ -1171,7 +1171,7 @@
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
 			if(R.imprinted_master)
-				to_chat(brainmob, "<span class='biggerdanger'>Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm.</span>")
+				to_chat(brainmob, span_biggerdanger("Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm."))
 		mmi_as_oc.loc = src
 		mmi_as_oc.mecha = src
 		Entered(mmi_as_oc)

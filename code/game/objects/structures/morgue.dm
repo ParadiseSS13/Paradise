@@ -166,7 +166,7 @@
 	if(CM.stat || CM.restrained())
 		return
 
-	to_chat(CM, "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>")
+	to_chat(CM, span_alert("You attempt to slide yourself out of \the [src]..."))
 	src.attack_hand(CM)
 
 
@@ -391,7 +391,7 @@
 	if(CM.stat || CM.restrained())
 		return
 
-	to_chat(CM, "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>")
+	to_chat(CM, span_alert("You attempt to slide yourself out of \the [src]..."))
 	src.attack_hand(CM)
 
 /obj/structure/crematorium/get_remote_view_fullscreens(mob/user)

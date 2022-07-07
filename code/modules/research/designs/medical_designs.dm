@@ -477,7 +477,7 @@
 
 /datum/design/cyberimp_clownvoice
 	name = "Comical implant"
-	desc = "<span class='sans'>Uh oh.</span>"
+	desc = span_sans("Uh oh.")
 	id = "ci-clownvoice"
 	req_tech = list("materials" = 2, "biotech" = 2)
 	build_type = PROTOLATHE | MECHFAB

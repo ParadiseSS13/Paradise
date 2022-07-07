@@ -49,7 +49,7 @@
 		return
 	mind_control_uses--
 	to_chat(owner, span_userdanger("You suddenly feel an irresistible compulsion to follow an order..."))
-	to_chat(owner, "<span class='mind_control'>[command]</span>")
+	to_chat(owner, span_mind_control("[command]"))
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
 	message_admins("[key_name_admin(user)] sent an abductor mind control message to [key_name_admin(owner)]: [command]")
@@ -266,7 +266,7 @@
 	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/egg/activate()
-	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
+	owner.visible_message(span_alertalien("[owner] [pick(EGG_LAYING_MESSAGES)]"))
 	new /obj/item/reagent_containers/food/snacks/egg/gland(get_turf(owner))
 
 /obj/item/organ/internal/heart/gland/electric

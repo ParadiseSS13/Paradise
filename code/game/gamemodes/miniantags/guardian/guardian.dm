@@ -87,7 +87,7 @@
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
+			to_chat(src, span_holoparasite("You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!"))
 			visible_message(span_danger("\The [src] jumps back to its user."))
 			if(istype(summoner.loc, /obj/effect))
 				Recall(TRUE)
@@ -343,7 +343,7 @@
 	to_chat(G, "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there.")
 	to_chat(G, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
 	to_chat(G, "[G.playstyle_string]")
-	to_chat(G, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Guardian)</span>")
+	to_chat(G, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Guardian)"))
 	G.faction = user.faction
 
 	var/color = pick(color_list)

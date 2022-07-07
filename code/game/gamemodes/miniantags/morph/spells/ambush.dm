@@ -24,7 +24,7 @@
 		return FALSE
 
 /obj/effect/proc_holder/spell/morph_spell/ambush/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
-	to_chat(user, "<span class='sinister'>You start preparing an ambush.</span>")
+	to_chat(user, span_sinister("You start preparing an ambush."))
 	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, .proc/prepare_check, user)), FALSE))
 		if(!user.morphed)
 			to_chat(user, span_warning("You need to stay morphed to prepare the ambush!"))

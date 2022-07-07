@@ -110,7 +110,7 @@
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 		obj_count++
-	to_chat(rev_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revolution)</span>")
+	to_chat(rev_mind.current, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revolution)"))
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
@@ -326,10 +326,10 @@
 /datum/game_mode/revolution/declare_completion()
 	if(finished == 1)
 		SSticker.mode_result = "revolution win - heads killed"
-		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
+		to_chat(world, span_redtext("The heads of staff were killed or exiled! The revolutionaries win!"))
 	else if(finished == 2)
 		SSticker.mode_result = "revolution loss - rev heads killed"
-		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")
+		to_chat(world, span_redtext("The heads of staff managed to stop the revolution!"))
 	..()
 	return TRUE
 
@@ -365,7 +365,7 @@
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			if(target)
-				text += "<span class='boldannounce'>Target</span>"
+				text += span_boldannounce("Target")
 			text += printplayer(head, 1)
 		text += "<br>"
 		to_chat(world, text)

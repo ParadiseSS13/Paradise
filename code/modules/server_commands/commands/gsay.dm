@@ -8,7 +8,7 @@
 	// Send to online admins
 	for(var/client/C in GLOB.admins)
 		if(C.holder.rights & R_ADMIN)
-			to_chat(C, "<span class='admin_channel'>GSAY: [user]@[source]: [message]</span>")
+			to_chat(C, span_admin_channel("GSAY: [user]@[source]: [message]"))
 
 /datum/server_command/gsay/custom_dispatch(ackey, message)
 	var/list/cmd_args = list()

@@ -6,7 +6,7 @@
 	action_icon_state = "morph_airlock"
 	clothes_req = FALSE
 	charge_max = 10 SECONDS
-	selection_activated_message = "<span class='sinister'>Click on an airlock to try pass it.</span>"
+	selection_activated_message = span_sinister("Click on an airlock to try pass it.")
 
 /obj/effect/proc_holder/spell/morph_spell/pass_airlock/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -32,7 +32,7 @@
 		to_chat(user, span_warning("[A] is bolted shut! You're unable to create a crack to pass through!"))
 		revert_cast(user)
 		return
-	user.visible_message(span_warning("[user] starts pushing itself against [A]!"), "<span class='sinister'>You try to pry [A] open enough to get through.</span>")
+	user.visible_message(span_warning("[user] starts pushing itself against [A]!"), span_sinister("You try to pry [A] open enough to get through."))
 	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, .proc/pass_check, user, A)), FALSE))
 		if(user.morphed)
 			to_chat(user, span_warning("You need to stay in your true form to pass through [A]!"))
@@ -43,7 +43,7 @@
 		revert_cast(user)
 		return
 
-	user.visible_message(span_warning("[user] briefly opens [A] slightly and passes through!"), "<span class='sinister'>You slide through the open crack in [A].</span>")
+	user.visible_message(span_warning("[user] briefly opens [A] slightly and passes through!"), span_sinister("You slide through the open crack in [A]."))
 	user.forceMove(A.loc) // Move into the turf of the airlock
 
 

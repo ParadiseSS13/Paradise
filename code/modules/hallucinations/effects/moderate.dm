@@ -442,7 +442,7 @@
 	I.override = TRUE
 	add_icon(I)
 
-	to_chat(target, "<span class='italics'>...wabbajack...wabbajack...</span>")
+	to_chat(target, span_italics("...wabbajack...wabbajack..."))
 	target.playsound_local(get_turf(target), 'sound/magic/staff_change.ogg', 50, TRUE, -1)
 
 /**

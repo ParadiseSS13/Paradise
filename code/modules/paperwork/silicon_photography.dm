@@ -29,12 +29,12 @@
 	if(C.connected_ai)
 		var/mob/A = P.fields["author"]
 		C.connected_ai.aiCamera.injectaialbum(P, " (taken by [A.name])")
-		to_chat(C.connected_ai, "<span class='unconscious'>Image recorded and saved by [name]</span>")
-		to_chat(usr, "<span class='unconscious'>Image recorded and saved to remote database</span>")//feedback to the Cyborg player that the picture was taken
+		to_chat(C.connected_ai, span_unconscious("Image recorded and saved by [name]"))
+		to_chat(usr, span_unconscious("Image recorded and saved to remote database"))//feedback to the Cyborg player that the picture was taken
 
 	else
 		injectaialbum(P)
-		to_chat(usr, "<span class='unconscious'>Image recorded</span>")
+		to_chat(usr, span_unconscious("Image recorded"))
 
 /obj/item/camera/siliconcam/proc/selectpicture(obj/item/camera/siliconcam/cam)
 	if(!cam)
@@ -74,7 +74,7 @@
 		return
 
 	cam.aipictures -= selection
-	to_chat(usr, "<span class='unconscious'>Image deleted</span>")
+	to_chat(usr, span_unconscious("Image deleted"))
 
 /obj/item/camera/siliconcam/ai_camera/can_capture_turf(turf/T, mob/user)
 	var/mob/living/silicon/ai = user
@@ -96,7 +96,7 @@
 
 /obj/item/camera/siliconcam/ai_camera/printpicture(mob/user, datum/picture/P)
 	injectaialbum(P)
-	to_chat(usr, "<span class='unconscious'>Image recorded</span>")
+	to_chat(usr, span_unconscious("Image recorded"))
 
 /obj/item/camera/siliconcam/robot_camera/printpicture(mob/user, datum/picture/P)
 	injectmasteralbum(P)

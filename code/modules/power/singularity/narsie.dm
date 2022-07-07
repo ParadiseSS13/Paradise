@@ -63,8 +63,8 @@
 		gamemode.cult_objs.narsie_death()
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
 			if(cult_mind && cult_mind.current)
-				to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
-				to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
+				to_chat(cult_mind.current, span_cultlarge("RETRIBUTION!"))
+				to_chat(cult_mind.current, span_cult("Current goal: Slaughter the heretics!"))
 	..()
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
@@ -156,7 +156,7 @@
 		return
 	if(!target)
 		return
-	to_chat(target, "<span class='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
+	to_chat(target, span_cultlarge("[uppertext(SSticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU"))
 	target = food
 	if(ishuman(target))
 		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HUNGERS FOR YOUR SOUL</span>")

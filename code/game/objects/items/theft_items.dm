@@ -36,7 +36,7 @@
 		radiation_pulse(src, 400, 2)
 
 /obj/item/nuke_core/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS
 
 /obj/item/nuke_core/plutonium //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
@@ -200,7 +200,7 @@
 		investigate_log("has consumed [key_name(victim)] via throw impact.", "supermatter")
 	victim.visible_message(span_danger("As [victim] is hit by [src], both flash into dust and silence fills the room..."),
 		span_userdanger("You're hit by [src] and everything suddenly goes silent.\n[src] flashes into dust, and soon as you can register this, you do as well."),
-		"<span class='hear'>Everything suddenly goes silent.</span>")
+		span_hear("Everything suddenly goes silent."))
 	victim.dust()
 	radiation_pulse(src, 500, 2)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -212,7 +212,7 @@
 		return FALSE
 	user.visible_message(span_danger("[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!"),
 			span_userdanger("You reach for [src] with your hands. That was dumb."),
-			"<span class='hear'>Everything suddenly goes silent.</span>")
+			span_hear("Everything suddenly goes silent."))
 	radiation_pulse(user, 500, 2)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.dust()
@@ -274,7 +274,7 @@
 			return FALSE
 		user.visible_message(span_danger("[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!"),
 				span_userdanger("You reach for [sliver] with your hands. That was dumb."),
-				"<span class='italics'>Everything suddenly goes silent.</span>")
+				span_italics("Everything suddenly goes silent."))
 		radiation_pulse(user, 500, 2)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
@@ -366,7 +366,7 @@
 		add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user]")
 		user.visible_message(span_danger("As [user] touches [AM] with [src], both flash into dust and silence fills the room..."),
 			span_userdanger("You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well."),
-			"<span class='hear'>Everything suddenly goes silent.</span>")
+			span_hear("Everything suddenly goes silent."))
 		user.dust()
 	radiation_pulse(src, 500, 2)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)

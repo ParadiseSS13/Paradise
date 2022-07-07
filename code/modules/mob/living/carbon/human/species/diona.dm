@@ -117,7 +117,7 @@
 			if(prob(15))
 				H.rad_act(rand(30, 80))
 				H.Weaken(10 SECONDS)
-				H.visible_message(span_warning("[H] writhes in pain as [H.p_their()] vacuoles boil."), span_userdanger("You writhe in pain as your vacuoles boil!"), "<span class='italics'>You hear the crunching of leaves.</span>")
+				H.visible_message(span_warning("[H] writhes in pain as [H.p_their()] vacuoles boil."), span_userdanger("You writhe in pain as your vacuoles boil!"), span_italics("You hear the crunching of leaves."))
 				if(prob(80))
 					randmutb(H)
 					domutcheck(H)

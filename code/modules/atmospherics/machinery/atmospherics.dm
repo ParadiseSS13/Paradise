@@ -200,7 +200,7 @@ Pipelines + Other Objects -> Pipe network
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				span_notice("You have unfastened \the [src]."), \
-				"<span class='italics'>You hear ratcheting.</span>")
+				span_italics("You hear ratcheting."))
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
 
 			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
@@ -210,7 +210,7 @@ Pipelines + Other Objects -> Pipe network
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
 				if(safefromgusts)
-					to_chat(user, "<span class='italics'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
+					to_chat(user, span_italics("Your magboots cling to the floor as a great burst of wind bellows against you."))
 				else
 					unsafe_pressure_release(user,internal_pressure)
 			deconstruct(TRUE)

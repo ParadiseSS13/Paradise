@@ -417,10 +417,10 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
     ```DM
     //Bad
     for(var/mob/M in viewers(user))
-        M.show_message("<span class='warning'>Arbitrary text</span>")
+        M.show_message(span_warning("Arbitrary text"))
 
     //Good
-    user.visible_message("<span class='warning'>Arbitrary text</span>")
+    user.visible_message(span_warning("Arbitrary text"))
     ```
   * You should not use color macros (`\red, \blue, \green, \black`) to color text,
   instead, you should use span classes. `<span class='warning'>Red text</span>`, `<span class='notice'>Blue text</span>`.

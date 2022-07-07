@@ -29,6 +29,6 @@
 	SSticker.mode.update_blob_icons_added(B.mind)
 
 	to_chat(B, span_userdanger("You are now a mouse, infected with blob spores. Find somewhere isolated... before you burst and become the blob! Use ventcrawl (alt-click on vents) to move around."))
-	to_chat(B, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Blob)</span>")
+	to_chat(B, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Blob)"))
 	notify_ghosts("Infected Mouse has appeared in [get_area(B)].", source = B, action = NOTIFY_FOLLOW)
 	successSpawn = TRUE

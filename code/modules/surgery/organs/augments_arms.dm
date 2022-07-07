@@ -73,7 +73,7 @@
 
 	owner.visible_message(span_notice("[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm."),
 		span_notice("[holder] snaps back into your [parent_organ == "r_arm" ? "right" : "left"] arm."),
-		"<span class='italics'>You hear a short mechanical noise.</span>")
+		span_italics("You hear a short mechanical noise."))
 
 	if(istype(holder, /obj/item/flash/armimplant))
 		var/obj/item/flash/F = holder
@@ -120,7 +120,7 @@
 
 	owner.visible_message(span_notice("[owner] extends [holder] from [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm."),
 		span_notice("You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm."),
-		"<span class='italics'>You hear a short mechanical noise.</span>")
+		span_italics("You hear a short mechanical noise."))
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()

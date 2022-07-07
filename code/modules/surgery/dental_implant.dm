@@ -48,7 +48,7 @@
 /datum/action/item_action/hands_free/activate_pill/Trigger()
 	if(!..())
 		return
-	to_chat(owner, "<span class='caution'>You grit your teeth and burst the implanted [target]!</span>")
+	to_chat(owner, span_userdanger("You grit your teeth and burst the implanted [target]!"))
 	add_attack_logs(owner, owner, "Swallowed implanted [target]")
 	if(target.reagents.total_volume)
 		target.reagents.reaction(owner, REAGENT_INGEST)

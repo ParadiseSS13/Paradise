@@ -32,7 +32,7 @@
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] stares into [name] and attempts to transcend understanding of the universe!</span>")
+	user.visible_message(span_suicide("[user] stares into [name] and attempts to transcend understanding of the universe!"))
 	user.dust()
 	return OBLITERATION
 

@@ -236,7 +236,7 @@
 				if(zone == "head" || zone == "eyes" || zone == "mouth")
 					shoot_self(user, zone)
 				else
-					user.visible_message(span_danger("[user.name] cowardly fires [src] at [user.p_their()] [zone]!"), span_userdanger("You cowardly fire [src] at your [zone]!"), "<span class='italics'>You hear a gunshot!</span>")
+					user.visible_message(span_danger("[user.name] cowardly fires [src] at [user.p_their()] [zone]!"), span_userdanger("You cowardly fire [src] at your [zone]!"), span_italics("You hear a gunshot!"))
 				return
 
 		user.visible_message(span_danger("*click*"))
@@ -244,7 +244,7 @@
 
 /obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = "head")
 	user.apply_damage(300, BRUTE, affecting)
-	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), "<span class='italics'>You hear a gunshot!</span>")
+	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italics("You hear a gunshot!"))
 
 /obj/item/gun/projectile/revolver/russian/soul
 	name = "cursed Russian revolver"

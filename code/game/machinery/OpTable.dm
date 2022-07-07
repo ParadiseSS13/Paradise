@@ -92,7 +92,7 @@
 	if(new_patient == user)
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
-		visible_message("<span class='alert'>[new_patient] has been laid on the operating table by [user].</span>")
+		visible_message(span_alert("[new_patient] has been laid on the operating table by [user]."))
 	new_patient.resting = TRUE
 	new_patient.lay_down()
 	new_patient.forceMove(loc)

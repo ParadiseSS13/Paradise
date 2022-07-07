@@ -780,7 +780,7 @@ to destroy them and players will be able to make replacements.
 		var/obj/item/gps/L = I
 		if(L.locked_location)
 			target = get_turf(L.locked_location)
-			to_chat(user, "<span class='caution'>You upload the data from [L]</span>")
+			to_chat(user, span_warning("You upload the data from [L]"))
 		return
 	return ..()
 

@@ -101,7 +101,7 @@
 				break
 
 			if(!marked_item)
-				to_chat(M, "<span class='caution'>You must hold an item you wish to make your phylactery...</span>")
+				to_chat(M, span_warning("You must hold an item you wish to make your phylactery..."))
 				return
 
 			spawn(50)

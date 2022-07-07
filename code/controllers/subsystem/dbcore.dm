@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(dbcore)
 // This is in Initialize() so that its actually seen in chat
 /datum/controller/subsystem/dbcore/Initialize()
 	if(!schema_valid)
-		to_chat(world, "<span class='boldannounce'>Database schema ([GLOB.configuration.database.version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.</span>")
+		to_chat(world, span_boldannounce("Database schema ([GLOB.configuration.database.version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed."))
 
 	return ..()
 
@@ -249,7 +249,7 @@ SUBSYSTEM_DEF(dbcore)
   */
 /datum/controller/subsystem/dbcore/proc/NewQuery(sql_query, arguments)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>DB query blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounce("DB query blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		return FALSE

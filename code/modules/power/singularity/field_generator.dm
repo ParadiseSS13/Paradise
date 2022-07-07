@@ -69,7 +69,7 @@ field_generator power level display
 			else
 				user.visible_message("[user] turns on [src].", \
 					span_notice("You turn on [src]."), \
-					"<span class='italics'>You hear heavy droning.</span>")
+					span_italics("You hear heavy droning."))
 				turn_on()
 				investigate_log("<font color='green'>activated</font> by [user.key].","singulo")
 
@@ -90,14 +90,14 @@ field_generator power level display
 				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] secures [name] to the floor.", \
 					span_notice("You secure the external reinforcing bolts to the floor."), \
-					"<span class='italics'>You hear ratchet.</span>")
+					span_italics("You hear ratchet."))
 				anchored = 1
 			if(FG_SECURED)
 				state = FG_UNSECURED
 				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 					span_notice("You undo the external reinforcing bolts."), \
-					"<span class='italics'>You hear ratchet.</span>")
+					span_italics("You hear ratchet."))
 				anchored = 0
 			if(FG_WELDED)
 				to_chat(user, span_warning("[src] needs to be unwelded from the floor!"))
@@ -188,7 +188,7 @@ field_generator power level display
 		check_power_level()
 		return 1
 	else
-		visible_message(span_danger("[src] shuts down!"), "<span class='italics'>You hear something shutting down.</span>")
+		visible_message(span_danger("[src] shuts down!"), span_italics("You hear something shutting down."))
 		turn_off()
 		investigate_log("ran out of power and <font color='red'>deactivated</font>","singulo")
 		power = 0

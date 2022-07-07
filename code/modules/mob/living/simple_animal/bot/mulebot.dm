@@ -267,17 +267,17 @@
 		dat += "<div class='statusDisplay'>"
 		switch(mode)
 			if(BOT_IDLE)
-				dat += "<span class='good'>Ready</span>"
+				dat += span_good("Ready")
 			if(BOT_DELIVER)
-				dat += "<span class='good'>[mode_name[BOT_DELIVER]]</span>"
+				dat += span_good("[mode_name[BOT_DELIVER]]")
 			if(BOT_GO_HOME)
-				dat += "<span class='good'>[mode_name[BOT_GO_HOME]]</span>"
+				dat += span_good("[mode_name[BOT_GO_HOME]]")
 			if(BOT_BLOCKED)
-				dat += "<span class='average'>[mode_name[BOT_BLOCKED]]</span>"
+				dat += span_average("[mode_name[BOT_BLOCKED]]")
 			if(BOT_NAV,BOT_WAIT_FOR_NAV)
-				dat += "<span class='average'>[mode_name[BOT_NAV]]</span>"
+				dat += span_average("[mode_name[BOT_NAV]]")
 			if(BOT_NO_ROUTE)
-				dat += "<span class='bad'>[mode_name[BOT_NO_ROUTE]]</span>"
+				dat += span_bad("[mode_name[BOT_NO_ROUTE]]")
 		dat += "</div>"
 
 		dat += "<b>Current Load:</b> [load ? load.name : "<i>none</i>"]<BR>"

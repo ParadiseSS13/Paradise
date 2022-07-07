@@ -111,7 +111,7 @@
 					L.visible_message(
 						span_danger("[L] was shocked by the lightning chain!"), \
 						span_userdanger("You are shocked by the lightning chain!"), \
-						"<span class='italics'>You hear a heavy electrical crack.</span>" \
+						span_italics("You hear a heavy electrical crack.") \
 					)
 				L.adjustFireLoss(1.2) //adds up very rapidly
 				. = 1

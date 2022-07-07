@@ -93,7 +93,7 @@
 		return ..()
 
 	if(iscultist(user) && iscultist(M))
-		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
+		to_chat(user, span_cultlarge("\"Come now, do not capture your fellow's soul.\""))
 		return ..()
 
 	if(M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT)
@@ -191,7 +191,7 @@
 				if(M.mind)
 					icon_state = "soulstone2"
 					SSticker.mode.add_cultist(M.mind)
-					to_chat(M, "<span class='cult'>Your shard has been cleansed of holy magic, and you are now bound to the cult's will. Obey them and assist in their goals.</span>")
+					to_chat(M, span_cult("Your shard has been cleansed of holy magic, and you are now bound to the cult's will. Obey them and assist in their goals."))
 			for(var/mob/living/simple_animal/shade/EX in src)
 				EX.holy = FALSE
 				EX.icon_state = SSticker.cultdat?.shade_icon_state
@@ -239,8 +239,8 @@
 /obj/structure/constructshell/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) && (iscultist(user) || iswizard(user) || user.stat == DEAD))
-		. += "<span class='cult'>A construct shell, used to house bound souls from a soulstone.</span>"
-		. += "<span class='cult'>Placing a soulstone with a soul into this shell allows you to produce your choice of the following:</span>"
+		. += span_cult("A construct shell, used to house bound souls from a soulstone.")
+		. += span_cult("Placing a soulstone with a soul into this shell allows you to produce your choice of the following:")
 		. += "<span class='cultitalic'>An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.</span>"
 		. += "<span class='cultitalic'>A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.</span>"
 		. += "<span class='cultitalic'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
@@ -328,7 +328,7 @@
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
 					to_chat(C, C.playstyle_string)
-					to_chat(C, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Construct)</span>")
+					to_chat(C, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Construct)"))
 			else
 				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 

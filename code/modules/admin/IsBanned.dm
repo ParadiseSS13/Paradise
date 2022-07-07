@@ -182,11 +182,11 @@
 		if(admin)
 			if(bantype == "ADMIN_PERMABAN" || bantype == "ADMIN_TEMPBAN")
 				log_admin("The admin [key] is admin banned, and has been disallowed access")
-				message_admins("<span class='adminnotice'>The admin [key] is admin banned, and has been disallowed access</span>")
+				message_admins(span_adminnotice("The admin [key] is admin banned, and has been disallowed access"))
 			else
 				log_admin("The admin [key] has been allowed to bypass a matching ban on [pckey]")
-				message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban on [pckey]</span>")
-				addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [pckey].</span>")
+				message_admins(span_adminnotice("The admin [key] has been allowed to bypass a matching ban on [pckey]"))
+				addclientmessage(ckey,span_adminnotice("You have been allowed to bypass a matching ban on [pckey]."))
 				continue
 		var/expires = ""
 		if(text2num(duration) > 0)
@@ -215,8 +215,8 @@
 		//So it's safe to let admins walk thru host/sticky bans here
 		if(admin)
 			log_admin("The admin [key] has been allowed to bypass a matching host/sticky ban")
-			message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching host/sticky ban</span>")
-			addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching host/sticky ban.</span>")
+			message_admins(span_adminnotice("The admin [key] has been allowed to bypass a matching host/sticky ban"))
+			addclientmessage(ckey,span_adminnotice("You have been allowed to bypass a matching host/sticky ban."))
 			return null
 		else
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["message"]]")

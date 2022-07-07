@@ -15,7 +15,7 @@
 	//Server linked to.
 	var/obj/machinery/message_server/linkedServer = null
 	//Messages - Saves me time if I want to change something.
-	var/noserver = "<span class='alert'>ALERT: No server detected.</span>"
+	var/noserver = span_alert("ALERT: No server detected.")
 	var/incorrectkey = span_warning("ALERT: Incorrect decryption key!")
 	var/defaultmsg = span_notice("Welcome. Please select an option.")
 	var/rebootmsg = "<span class='warning'>%$&(�: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
@@ -302,7 +302,7 @@
 		if(href_list["find"])
 			if(GLOB.message_servers && GLOB.message_servers.len > 1)
 				src.linkedServer = input(usr,"Please select a server.", "Select a server.", null) as null|anything in GLOB.message_servers
-				message = "<span class='alert'>NOTICE: Server selected.</span>"
+				message = span_alert("NOTICE: Server selected.")
 			else if(GLOB.message_servers && GLOB.message_servers.len > 0)
 				linkedServer = GLOB.message_servers[1]
 				message =  span_notice("NOTICE: Only Single Server Detected - Server selected.")

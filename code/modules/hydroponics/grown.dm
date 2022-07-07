@@ -138,7 +138,7 @@
 	if(trash)
 		generate_trash(T)
 
-	visible_message(span_warning("[src] has been squashed."),"<span class='italics'>You hear a smack.</span>")
+	visible_message(span_warning("[src] has been squashed."),span_italics("You hear a smack."))
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)

@@ -91,7 +91,7 @@
 			mind.objectives += fluffObjective
 			to_chat(src, "<B>Objective #[1]</B>: [objective.explanation_text]")
 			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
-		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
+		to_chat(src, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)"))
 
 
 /obj/effect/decal/cleanable/blood/innards
@@ -328,7 +328,7 @@
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
 		playsound(get_turf(src), feast_sound, 50, 1, -1)
-		to_chat(M, "<span class='clown'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
+		to_chat(M, span_clown("You leave [src]'s warm embrace, and feel ready to take on the world."))
 	..(M)
 
 

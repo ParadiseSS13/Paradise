@@ -115,7 +115,7 @@ Difficulty: Medium
 
 		L.GiveTarget(target)
 
-		visible_message("<span class='boldannounce'>[src] splits in twain!</span>")
+		visible_message(span_boldannounce("[src] splits in twain!"))
 		return FALSE // not dead
 	else
 		// this must come before the parent call due to the setting of `loot` here

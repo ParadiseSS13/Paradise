@@ -124,7 +124,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, span_alert("Access denied."))
 		return
 
 	add_fingerprint(user)
@@ -177,6 +177,6 @@
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(on)
-		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
+		to_chat(user, span_alert("You cannot unwrench this [src], turn it off first."))
 		return 1
 	return ..()

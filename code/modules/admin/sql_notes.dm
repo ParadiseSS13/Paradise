@@ -3,7 +3,7 @@
 		return
 	if(IsAdminAdvancedProcCall() && !sanitise_html)
 		// *sigh*
-		to_chat(usr, "<span class='boldannounce'>Unsanitized note add blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounce("Unsanitized note add blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to possibly inject HTML into notes via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to possibly inject HTML into notes via advanced proc-call")
 		return
@@ -39,7 +39,7 @@
 
 	if(!ckey_found)
 		if(usr)
-			to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
+			to_chat(usr, span_redtext("[target_ckey] has not been seen before, you can only add notes to known players."))
 		return
 
 	var/crew_number = 0

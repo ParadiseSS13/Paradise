@@ -39,7 +39,7 @@
 
 			if(!marked_item)
 				if(hand_items)
-					message = "<span class='caution'>You aren't holding anything that can be marked for recall.</span>"
+					message = span_warning("You aren't holding anything that can be marked for recall.")
 				else
 					message = span_notice("You must hold the desired item in your hands to mark it for recall.")
 
@@ -64,7 +64,7 @@
 					if(issilicon(M) || !M.unEquip(item_to_retrieve)) //Items in silicons warp the whole silicon
 						M.visible_message(span_warning("[M] suddenly disappears!"), span_danger("A force suddenly pulls you away!"))
 						M.forceMove(target.loc)
-						M.loc.visible_message("<span class='caution'>[M] suddenly appears!</span>")
+						M.loc.visible_message(span_warning("[M] suddenly appears!"))
 						item_to_retrieve = null
 						break
 
@@ -113,10 +113,10 @@
 						butterfingers = 1
 			if(butterfingers)
 				item_to_retrieve.loc = target.loc
-				item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears!</span>")
+				item_to_retrieve.loc.visible_message(span_warning("\The [item_to_retrieve] suddenly appears!"))
 				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
 			else
-				item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears in [target]'s hand!</span>")
+				item_to_retrieve.loc.visible_message(span_warning("\The [item_to_retrieve] suddenly appears in [target]'s hand!"))
 				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
 
 		if(message)

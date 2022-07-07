@@ -46,7 +46,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/adminfu/F = new/datum/martial_art/adminfu(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of the Admins.</span>")
+		to_chat(H, span_boldannounce("You have learned the ancient martial art of the Admins."))
 		used = 1
 		desc = "It's completely blank."
 		name = "empty scroll"

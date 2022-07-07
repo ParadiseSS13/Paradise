@@ -50,16 +50,16 @@
 	user.do_attack_animation(src)
 	if(O.force)
 		if(prob(melee_block_chance))
-			visible_message("<span class='boldwarning'>[src] blocks [O] with its shield! </span>")
+			visible_message(span_boldwarning("[src] blocks [O] with its shield! "))
 		else
 			var/damage = O.force
 			if(O.damtype == STAMINA)
 				damage = 0
 			if(force_threshold && damage < force_threshold)
-				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
+				visible_message(span_boldwarning("[src] is unharmed by [O]!"))
 				return
 			adjustHealth(damage)
-			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user]. </span>")
+			visible_message(span_boldwarning("[src] has been attacked with [O] by [user]. "))
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
 		to_chat(usr, span_warning("This weapon is ineffective, it does no damage."))
@@ -163,7 +163,7 @@
 			if(istype(loc, /obj/structure/closet))
 				var/obj/structure/closet/O = loc
 				forceMove(get_turf(src))
-				visible_message("<span class='boldwarning'>[src] smashes their way out of [O]!</span>")
+				visible_message(span_boldwarning("[src] smashes their way out of [O]!"))
 				qdel(O)
 				raise_alert("[src] reported being trapped in a locker.")
 				raised_alert = FALSE

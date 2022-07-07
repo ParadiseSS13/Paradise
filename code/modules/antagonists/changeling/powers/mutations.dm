@@ -151,7 +151,7 @@
 
 		if(A.arePowerSystemsOn())
 			user.visible_message(span_warning("[user] jams [src] into the airlock and starts prying it open!"), span_warning("We start forcing the airlock open."), \
-			"<span class='italics'>You hear a metal screeching sound.</span>")
+			span_italics("You hear a metal screeching sound."))
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
 			if(!do_after(user, 100, target = A))
 				return
@@ -204,7 +204,7 @@
 	..()
 	if(ismob(loc))
 		if(!silent)
-			loc.visible_message(span_warning("[loc.name]\'s arm starts stretching inhumanly!"), span_warning("Our arm twists and mutates, transforming it into a tentacle."), "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+			loc.visible_message(span_warning("[loc.name]\'s arm starts stretching inhumanly!"), span_warning("Our arm twists and mutates, transforming it into a tentacle."), span_italics("You hear organic matter ripping and tearing!"))
 		else
 			to_chat(loc, span_notice("You prepare to extend a tentacle."))
 
@@ -212,7 +212,7 @@
 	to_chat(user, span_warning("[src] is not ready yet."))
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
 
 /obj/item/ammo_casing/magic/tentacle

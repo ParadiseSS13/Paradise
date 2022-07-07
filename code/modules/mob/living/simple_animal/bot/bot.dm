@@ -116,11 +116,11 @@
 		else
 			return "<b>Autonomous</b>"
 	else if(!on)
-		return "<span class='bad'>Inactive</span>"
+		return span_bad("Inactive")
 	else if(!mode)
-		return "<span class='good'>Idle</span>"
+		return span_good("Idle")
 	else
-		return "<span class='average'>[mode_name[mode]]</span>"
+		return span_average("[mode_name[mode]]")
 
 /mob/living/simple_animal/bot/proc/turn_on()
 	if(stat)
@@ -941,7 +941,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/hack
 	if(issilicon(user) || user.can_admin_interact()) //Allows silicons or admins to toggle the emag status of a bot.
 		hack += "[emagged == 2 ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
-		hack += "Harm Prevention Safety System: <A href='?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
+		hack += "Harm Prevention Safety System: <A href='?src=[UID()];operation=hack'>[emagged ? span_bad("DANGER") : "Engaged"]</A><BR>"
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
 		hack += "Remote network control radio: <A href='?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
 	return hack

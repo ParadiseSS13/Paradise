@@ -71,7 +71,7 @@
 				return
 			else if(!cornerB)
 				cornerB = select_tile(get_turf(object), AREASELECT_CORNERB)
-				to_chat(user, "<span class='boldwarning'>Region selected, if you're happy with your selection left click again, otherwise right click.</span>")
+				to_chat(user, span_boldwarning("Region selected, if you're happy with your selection left click again, otherwise right click."))
 				return
 			if(processing_selection)
 				return

@@ -321,7 +321,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	remove_admin_verbs()
 	verbs += /client/proc/show_verbs
 
-	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
+	to_chat(src, span_interface("Almost all of your adminverbs have been hidden."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
@@ -335,7 +335,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	verbs -= /client/proc/show_verbs
 	add_admin_verbs()
 
-	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
+	to_chat(src, span_interface("All of your adminverbs are now visible."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/admin_ghost()
@@ -539,7 +539,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)] created an admin explosion at [epicenter.loc]"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
@@ -576,7 +576,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	T.ForceContractDisease(new D)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)] gave [key_name(T)] the disease [D]."))
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
 	set category = "Event"
@@ -637,7 +637,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	deadmin()
 	verbs += /client/proc/readmin
 	GLOB.deadmins += ckey
-	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
+	to_chat(src, span_interface("You are now a normal player."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/readmin()

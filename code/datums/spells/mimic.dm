@@ -4,7 +4,7 @@
 	clothes_req = FALSE
 	charge_max = 3 SECONDS
 	action_icon_state = "genetic_morph"
-	selection_activated_message = "<span class='sinister'>Click on a target to remember it's form. Click on yourself to change form.</span>"
+	selection_activated_message = span_sinister("Click on a target to remember it's form. Click on yourself to change form.")
 	create_attack_logs = FALSE
 	action_icon_state = "morph_mimic"
 	/// Which form is currently selected
@@ -56,7 +56,7 @@
 	if(length(available_forms) >= max_forms)
 		to_chat(user, span_warning("You start to forget the form of [available_forms[next_override_index]] to learn a new one."))
 
-	to_chat(user, "<span class='sinister'>You start remembering the form of [A].</span>")
+	to_chat(user, span_sinister("You start remembering the form of [A]."))
 	if(!do_after(user, 2 SECONDS, FALSE, user))
 		to_chat(user, span_warning("You lose focus."))
 		return
@@ -70,7 +70,7 @@
 			next_override_index = 1
 
 	available_forms[A.name] = new /datum/mimic_form(A, user)
-	to_chat(user, "<span class='sinister'>You learn the form of [A].</span>")
+	to_chat(user, span_sinister("You learn the form of [A]."))
 
 /obj/effect/proc_holder/spell/mimic/proc/pick_form(mob/user)
 	if(!length(available_forms) && !selected_form)
@@ -92,7 +92,7 @@
 	if(what == "Original Form")
 		restore_form(user)
 		return
-	to_chat(user, "<span class='sinister'>You start becoming [what].</span>")
+	to_chat(user, span_sinister("You start becoming [what]."))
 	if(!do_after(user, 2 SECONDS, FALSE, user))
 		to_chat(user, span_warning("You lose focus."))
 		return
@@ -122,7 +122,7 @@
 	selected_form = form
 
 /obj/effect/proc_holder/spell/mimic/proc/show_change_form_message(mob/user, old_name, new_name)
-	user.visible_message(span_warning("[old_name] contorts and slowly becomes [new_name]!"), "<span class='sinister'>You take form of [new_name].</span>", "You hear loud cracking noises!")
+	user.visible_message(span_warning("[old_name] contorts and slowly becomes [new_name]!"), span_sinister("You take form of [new_name]."), "You hear loud cracking noises!")
 
 /obj/effect/proc_holder/spell/mimic/proc/restore_form(mob/user, show_message = TRUE)
 	selected_form = null
@@ -147,7 +147,7 @@
 	UnregisterSignal(user, list(COMSIG_PARENT_EXAMINE, COMSIG_MOB_DEATH))
 
 /obj/effect/proc_holder/spell/mimic/proc/show_restore_form_message(mob/user, old_name, new_name)
-	user.visible_message(span_warning("[old_name] shakes and contorts and quickly becomes [new_name]!"), "<span class='sinister'>You take return to your normal self.</span>", "You hear loud cracking noises!")
+	user.visible_message(span_warning("[old_name] shakes and contorts and quickly becomes [new_name]!"), span_sinister("You take return to your normal self."), "You hear loud cracking noises!")
 
 /obj/effect/proc_holder/spell/mimic/proc/examine_override(datum/source, mob/user, list/examine_list)
 	examine_list.Cut()
@@ -161,7 +161,7 @@
 		show_death_message(user)
 
 /obj/effect/proc_holder/spell/mimic/proc/show_death_message(mob/user)
-	user.visible_message(span_warning("[user] shakes and contorts as [user.p_they()] die[user.p_s()], returning to [user.p_their()] true form!"), "<span class='deadsay'>Your disguise fails as your life forces drain away.</span>", "You hear loud cracking noises followed by a thud!")
+	user.visible_message(span_warning("[user] shakes and contorts as [user.p_they()] die[user.p_s()], returning to [user.p_their()] true form!"), span_deadsay("Your disguise fails as your life forces drain away."), "You hear loud cracking noises followed by a thud!")
 
 
 /datum/mimic_form

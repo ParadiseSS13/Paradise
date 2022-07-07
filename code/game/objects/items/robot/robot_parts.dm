@@ -302,7 +302,7 @@
 				O.syndiemmi_override()
 				to_chat(O, span_warning("ALERT: Foreign hardware detected."))
 				to_chat(O, span_warning("ERRORERRORERROR"))
-				to_chat(O, "<span class='boldwarning'>Obey these laws:</span>")
+				to_chat(O, span_boldwarning("Obey these laws:"))
 				O.laws.show_laws(O)
 			O.Namepick()
 
@@ -355,7 +355,7 @@
 	else if(href_list["Master"])
 		forced_ai = select_active_ai(usr)
 		if(!forced_ai)
-			to_chat(usr, "<span class='error'>No active AIs detected.</span>")
+			to_chat(usr, span_warning("No active AIs detected."))
 
 	else if(href_list["Law"])
 		lawsync = !lawsync

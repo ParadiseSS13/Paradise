@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			mind.transfer_to(mmi.brainmob)
 			mmi.update_icon()
 		else
-			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
+			to_chat(src, span_boldannounce("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
 			ghostize()
 			log_runtime(EXCEPTION("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey]."), src)
 		mmi = null
@@ -690,7 +690,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		updatehealth()
 		add_fingerprint(user)
 		coil.use(1)
-		user.visible_message("<span class='alert'>\The [user] fixes some of the burnt wires on \the [src] with \the [coil].</span>")
+		user.visible_message(span_alert("\The [user] fixes some of the burnt wires on \the [src] with \the [coil]."))
 
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		var/datum/robot_component/cell/C = components["power cell"]
@@ -933,11 +933,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
 			if(!mmi.syndiemmi)
-				to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
+				to_chat(src, span_boldwarning("ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands."))
 			else if(mmi.syndiemmi && mmi.master_uid)
-				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
+				to_chat(src, span_boldwarning("Your allegiance has not been compromised. Keep serving your current master."))
 			else
-				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
+				to_chat(src, span_boldwarning("Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities."))
 
 			SetLockdown(0)
 			if(module)

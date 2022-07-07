@@ -223,7 +223,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 
 /obj/item/stack/sheet/animalhide/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.sharp)
-		user.visible_message("[user] starts cutting hair off \the [src].", span_notice("You start cutting the hair off \the [src]..."), "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
+		user.visible_message("[user] starts cutting hair off \the [src].", span_notice("You start cutting the hair off \the [src]..."), span_italics("You hear the sound of a knife rubbing against flesh."))
 		if(do_after(user, 50 * W.toolspeed, target = src))
 			to_chat(user, span_notice("You cut the hair from this [src.singular_name]."))
 			//Try locating an exisitng stack on the tile and add to there if possible

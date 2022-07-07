@@ -172,7 +172,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/prepare_ambush()
 	ambush_prepared = TRUE
-	to_chat(src, "<span class='sinister'>You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus. Standing still will perfect your disguise.</span>")
+	to_chat(src, span_sinister("You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus. Standing still will perfect your disguise."))
 	apply_status_effect(/datum/status_effect/morph_ambush)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/on_move)
 
@@ -185,7 +185,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
-	to_chat(src, "<span class='sinister'>You've perfected your disguise. Making you indistinguishable from the real form!</span>")
+	to_chat(src, span_sinister("You've perfected your disguise. Making you indistinguishable from the real form!"))
 
 
 /mob/living/simple_animal/hostile/morph/proc/on_move()
@@ -298,14 +298,14 @@
 	mind.special_role = SPECIAL_ROLE_MORPH
 	SSticker.mode.traitors |= mind
 	to_chat(src, "<b><font size=3 color='red'>You are a morph.</font><br></b>")
-	to_chat(src, "<span class='sinister'>You hunger for living beings and desire to procreate. Achieve this goal by ambushing unsuspecting pray using your abilities.</span>")
+	to_chat(src, span_sinister("You hunger for living beings and desire to procreate. Achieve this goal by ambushing unsuspecting pray using your abilities."))
 	to_chat(src, "<span class='specialnotice'>As an abomination created primarily with changeling cells you may take the form of anything nearby by using your <span class='specialnoticebold'>Mimic ability</span>.</span>")
-	to_chat(src, "<span class='specialnotice'>The transformation will not go unnoticed for bystanding observers.</span>")
+	to_chat(src, span_specialnotice("The transformation will not go unnoticed for bystanding observers."))
 	to_chat(src, "<span class='specialnoticebold'>While morphed</span><span class='specialnotice'>, you move slower and do less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you.</span>")
 	to_chat(src, "<span class='specialnotice'>From this form you can however <span class='specialnoticebold'>Prepare an Ambush</span> using your ability.</span>")
-	to_chat(src, "<span class='specialnotice'>This will allow you to deal a lot of damage the first hit. And if they touch you then even more.</span>")
+	to_chat(src, span_specialnotice("This will allow you to deal a lot of damage the first hit. And if they touch you then even more."))
 	to_chat(src, "<span class='specialnotice'>Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health and will add to your stored food while eating items will reduce your stored food</span>.")
-	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Morph)</span>")
+	to_chat(src, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Morph)"))
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 	if(give_default_objectives)
 		var/datum/objective/eat = new /datum/objective

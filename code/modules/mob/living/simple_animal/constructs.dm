@@ -84,7 +84,7 @@
 			if(src != M)
 				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
 			else
-				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
+				to_chat(M, span_cult("You cannot repair your own dents, as you have none!"))
 	else if(src != M)
 		return ..()
 

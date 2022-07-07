@@ -65,22 +65,22 @@
 			return
 
 		critter.heal_organ_damage(heal_brute, heal_burn)
-		user.visible_message("<span class='green'>[user] applies [src] on [critter].</span>", \
-							 "<span class='green'>You apply [src] on [critter].</span>")
+		user.visible_message(span_green("[user] applies [src] on [critter]."), \
+							 span_green("You apply [src] on [critter]."))
 
 		use(1)
 
 	else
 		M.heal_organ_damage(heal_brute, heal_burn)
-		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", \
-							 "<span class='green'>You apply [src] on [M].</span>")
+		user.visible_message(span_green("[user] applies [src] on [M]."), \
+							 span_green("You apply [src] on [M]."))
 		use(1)
 
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
 	var/mob/living/carbon/human/H = M
 	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
-	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
-						 "<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
+	user.visible_message(span_green("[user] [healverb]s the wounds on [H]'s [affecting.name]."), \
+						 span_green("You [healverb] the wounds on [H]'s [affecting.name].") )
 
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
 	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
@@ -109,8 +109,8 @@
 		E.heal_damage(rembrute, remburn)
 		rembrute = nrembrute
 		remburn = nremburn
-		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
-							 "<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+		user.visible_message(span_green("[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication."), \
+							 span_green("You [healverb] the wounds on [H]'s [E.name] with the remaining medication.") )
 
 //Bruise Packs//
 
@@ -132,7 +132,7 @@
 		new /obj/item/stack/sheet/cloth(user.drop_location())
 		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
 					 span_notice("You cut [src] into pieces of cloth with [I]."), \
-					 "<span class='italics'>You hear cutting.</span>")
+					 span_italics("You hear cutting."))
 		use(2)
 	else
 		return ..()

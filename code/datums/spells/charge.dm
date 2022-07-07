@@ -44,8 +44,8 @@
 						charged_item = I
 						break
 				else
-					to_chat(L, "<span class='caution'>Glowing red letters appear on the front cover...</span>")
-					to_chat(L, span_warning("[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]"))
+					to_chat(L, span_warning("Glowing red letters appear on the front cover..."))
+					to_chat(L, span_boldwarning("[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]"))
 					burnt_out = TRUE
 			else if(istype(item, /obj/item/gun/magic))
 				var/obj/item/gun/magic/I = item
@@ -89,6 +89,6 @@
 		if(!charged_item)
 			to_chat(L, span_notice("You feel magical power surging to your hands, but the feeling rapidly fades..."))
 		else if(burnt_out)
-			to_chat(L, "<span class='caution'>[charged_item] doesn't seem to be reacting to the spell...</span>")
+			to_chat(L, span_warning("[charged_item] doesn't seem to be reacting to the spell..."))
 		else
 			to_chat(L, span_notice("[charged_item] suddenly feels very warm!"))

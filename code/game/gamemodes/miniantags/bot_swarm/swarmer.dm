@@ -47,7 +47,7 @@
 		return
 	user.visible_message(span_warning("[usr.name] deactivates [src]."),
 		span_notice("After some fiddling, you find a way to disable [src]'s power source."),
-		"<span class='italics'>You hear clicking.</span>")
+		span_italics("You hear clicking."))
 	new /obj/item/deactivated_swarmer(get_turf(src))
 	qdel(src)
 
@@ -112,7 +112,7 @@
 	to_chat(src, "1. Consume resources and replicate until there are no more resources left.")
 	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
 	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
-	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Swarmer)</span>")
+	to_chat(src, span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Swarmer)"))
 
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
