@@ -62,10 +62,12 @@
 	..()
 
 /datum/surgery_step/internal/gland_insert/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] inserts [tool] into [target].", "<span class ='notice'>You insert [tool] into [target].</span>")
 	user.drop_item()
 	var/obj/item/organ/internal/heart/gland/gland = tool
 	gland.insert(target, 2)
+	affected.mend_fracture() // Look, any sufficiently advanced technology is indistinguishable from magic.
 	return TRUE
 
 /datum/surgery_step/internal/gland_insert/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -78,7 +80,7 @@
 	name = "Experimental Robotic Dissection"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/extract_organ/synth,/datum/surgery_step/internal/gland_insert,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest")
-	requires_organic_bodypart = 0
+	requires_organic_bodypart = FALSE
 
 /datum/surgery/organ_extraction/synth/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!ishuman(user))

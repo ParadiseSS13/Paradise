@@ -23,7 +23,7 @@
 	maxHealth =  INFINITY
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	universal_understand = 1
+	universal_understand = TRUE
 	response_help   = "passes through"
 	response_disarm = "swings at"
 	response_harm   = "punches"
@@ -33,8 +33,8 @@
 	harm_intent_damage = 0
 	friendly = "touches"
 	status_flags = 0
-	wander = 0
-	density = 0
+	wander = FALSE
+	density = FALSE
 	flying = TRUE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
@@ -84,7 +84,7 @@
 		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
-		notransform = 0
+		notransform = FALSE
 		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")
 	update_spooky_icon()
 
@@ -217,7 +217,7 @@
 		return FALSE
 
 	to_chat(src, "<span class='revendanger'>NO! No... it's too late, you can feel your essence breaking apart...</span>")
-	notransform = 1
+	notransform = TRUE
 	revealed = 1
 	invisibility = 0
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
@@ -290,7 +290,7 @@
 /mob/living/simple_animal/revenant/proc/stun(time)
 	if(time <= 0)
 		return
-	notransform = 1
+	notransform = TRUE
 	if(!unstun_time)
 		to_chat(src, "<span class='revendanger'>You cannot move!</span>")
 		unstun_time = world.time + time
@@ -429,7 +429,7 @@
 				visible_message("<span class='revenwarning'>[src] settles down and seems lifeless.</span>")
 				return
 		var/datum/mind/player_mind = new /datum/mind(key_of_revenant)
-		player_mind.active = 1
+		player_mind.active = TRUE
 		player_mind.transfer_to(R)
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT
 		player_mind.special_role = SPECIAL_ROLE_REVENANT

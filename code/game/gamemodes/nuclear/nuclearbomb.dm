@@ -16,7 +16,7 @@ GLOBAL_VAR(bomb_set)
 	desc = "Uh oh. RUN!!!!"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = NO_MALF_EFFECT_2
 	anchored = TRUE
@@ -447,7 +447,7 @@ GLOBAL_VAR(bomb_set)
 		icon_state = "nuclearbomb3"
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	if(SSticker && SSticker.mode)
-		SSticker.mode.explosion_in_progress = 1
+		SSticker.mode.explosion_in_progress = TRUE
 	sleep(100)
 
 	GLOB.enter_allowed = 0
@@ -469,7 +469,7 @@ GLOBAL_VAR(bomb_set)
 			SSticker.mode:nuke_off_station = off_station
 		SSticker.station_explosion_cinematic(off_station,null)
 		if(SSticker.mode)
-			SSticker.mode.explosion_in_progress = 0
+			SSticker.mode.explosion_in_progress = FALSE
 			if(SSticker.mode.name == "nuclear emergency")
 				SSticker.mode:nukes_left --
 			else if(off_station == 1)
