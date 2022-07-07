@@ -6,7 +6,7 @@
 /datum/surgery_step/generic/
 	can_infect = TRUE
 
-/datum/surgery_step/generic/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/generic/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!hasorgans(target))
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -21,7 +21,7 @@
 	name = "make incision"
 
 	allowed_tools = list(
-	/obj/item/scalpel = 100,		\
+	TOOL_SCALPEL = 100,		\
 	/obj/item/kitchen/knife = 90,	\
 	/obj/item/shard = 60, 		\
 	/obj/item/scissors = 12,		\
@@ -177,6 +177,9 @@
 	"<span class='warning'> Your hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!</span>")
 	target.apply_damage(3, BURN, affected)
 	return FALSE
+
+/datum/surgery_step/generic/cauterize/premature
+	name = "cauterize incision (early)"
 
 //drill bone
 /datum/surgery_step/generic/drill

@@ -24,7 +24,7 @@
 	var/requires_bodypart = TRUE
 	/// Surgery step speed modifier
 	var/speed_modifier = 0
-	/// Some surgeries might work on limbs that don't really exist
+	/// Some surgeries might work on limbs that don't really exist (like chainsaw arms or flashlight eyes)
 	var/requires_real_bodypart = FALSE
 	/// Does the victim (patient) need to be lying down?
 	var/lying_required = TRUE
