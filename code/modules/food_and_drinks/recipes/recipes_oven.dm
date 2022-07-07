@@ -215,6 +215,7 @@
 		qdel(P)
 	return being_cooked
 
+// Pizzas
 /datum/recipe/oven/pizzamargherita
 	items = list(
 		/obj/item/reagent_containers/food/snacks/rawpizza/margherita,
@@ -226,7 +227,6 @@
 		/obj/item/reagent_containers/food/snacks/rawpizza/meatpizza,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza
-
 
 /datum/recipe/oven/mushroompizza
 	items = list(
@@ -248,9 +248,53 @@
 
 /datum/recipe/oven/macncheesepizza
 	items = list(
-		//obj/item/reagent_containers/food/snacks/rawpizza/macpizza,
+		/obj/item/reagent_containers/food/snacks/rawpizza/macpizza,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
+
+/datum/recipe/oven/cheesepizza
+	items = list(
+		/obj/item/reagent_containers/food/snacks/rawpizza/cheesepizza,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/cheesepizza
+
+/datum/recipe/oven/pepperonipizza
+	items = list(
+		/obj/item/reagent_containers/food/snacks/rawpizza/pepperonipizza,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/pepperonipizza
+
+/datum/recipe/oven/donkpocketpizza
+	items = list(
+		/obj/item/reagent_containers/food/snacks/rawpizza/donkpocketpizza,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/donkpocketpizza
+
+/datum/recipe/oven/dankpizza
+	items = list(
+		/obj/item/reagent_containers/food/snacks/rawpizza/dankpizza,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/dankpizza
+
+/datum/recipe/oven/firecrackerpizza
+	items = list(
+		/obj/item/reagent_containers/food/snacks/rawpizza/firecrackerpizza
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/firecrackerpizza
+
+/datum/recipe/oven/pestopizza
+	items = list(
+		/obj/item/reagent_containers/food/snacks/rawpizza/pestopizza,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/pestopizza
+
+/datum/recipe/oven/garlicpizza
+	items = list(
+		/obj/item/reagent_containers/food/snacks/rawpizza/garlicpizza,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/garlicpizza
+
+
 
 /datum/recipe/oven/amanita_pie
 	items = list(

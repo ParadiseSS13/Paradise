@@ -10,7 +10,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/rawpizza
-	icon = 'icon/obj/food/pizza.dmi'
+	icon = 'icons/obj/food/pizza.dmi'
 	desc = "An uncooked pizza. Probably better to bake it than eat it."
 	filling_color = "#BAA14C"
 	tastes = list("uncooked dough" = 1, "sadness" = 1)
