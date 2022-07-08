@@ -169,7 +169,6 @@
 /datum/status_effect/cult_stun_mark/proc/trigger()
 	owner.adjustStaminaLoss(60)
 	owner.Silence(6 SECONDS) // refresh the silence
-	to_chat(world, "cowabunga")
 	qdel(src)
 
 // start of `living` level status procs.
