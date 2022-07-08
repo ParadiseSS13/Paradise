@@ -322,11 +322,14 @@
 
 	user.drop_item()
 	I.forceMove(src)
-	RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/remove_stored_item) //ensure proper GC'ing
+	RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/clear_stored_item) //ensure proper GC'ing
 	store = I
 	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
 	return TRUE
 
+///needed for proper GC'ing
+/obj/item/book/proc/clear_stored_item()
+	store = null
 
 /obj/item/book/proc/remove_stored_item(mob/user, display_message = TRUE)
 	if(!store)
@@ -336,8 +339,9 @@
 	if(display_message)
 		to_chat(user, "<span class='notice'>You carefully remove [store] from [name]!</span>")
 	store.forceMove(get_turf(store.loc))
+	clear_stored_item()
 	UnregisterSignal(store, COMSIG_PARENT_QDELETING)
-	store = null
+
 	return TRUE
 
  //* Book Spawners n'stuff *//

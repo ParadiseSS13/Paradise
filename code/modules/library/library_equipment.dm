@@ -166,10 +166,12 @@
 /obj/machinery/bookbinder/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
+/obj/machinery/bookbinder/wrench_act(mob/living/user, obj/item/I)
+	. = ..()
 	if(default_unfasten_wrench(user, I))
 		power_change()
-		return
+
+/obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/paper))
 		select_paper(I)
 	if(istype(I, /obj/item/paper_bundle))

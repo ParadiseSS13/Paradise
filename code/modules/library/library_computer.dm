@@ -390,7 +390,7 @@
 							"title" = CB.title,
 							"author" = CB.author,
 							"summary" = CB.summary ? CB.summary : "No Summary Provided",
-							"rating" = CB.rating ? CB.rating : "No Rating Provided",
+							"rating" = CB.rating ? CB.rating : 0,
 							"categories" = category_names,
 						))
 				if("report_book")
@@ -571,10 +571,10 @@
 	visible_message("<span class='notice'>[src]'s printer hums as it produces a completely bound book. How did it do that?</span>")
 
 /obj/machinery/computer/library/proc/make_programmatic_book(datum/programmatic_book/newbook)
-	if(!newbook?.path)
+	if(!newbook?.book_type)
 		return
 
-	new newbook.path(loc)
+	new newbook.book_type(loc)
 	visible_message("<span class='notice'>[src]'s printer hums as it produces a completely bound book. How did it do that?</span>")
 
 #undef LIBRARY_BOOKS_PER_PAGE

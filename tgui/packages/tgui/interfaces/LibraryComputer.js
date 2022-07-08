@@ -10,10 +10,22 @@ import {
   Section,
   Table,
   Tabs,
-  NoticeBox,} from '../components';
+  NoticeBox } from '../components';
 import { Window } from '../layouts';
-import { ComplexModal, modalOpen, modalRegisterBodyOverride} from './common/ComplexModal';
+import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 import { FlexItem } from '../components/Flex';
+
+export const LibraryComputer = (props, context) => {
+  return (
+    <Window resizable>
+      <ComplexModal/>
+      <Window.Content scrollable className="Layout__content--flexColumn">
+        <LibraryComputerNavigation />
+        <LibraryPageContent />
+      </Window.Content>
+    </Window>
+  );
+};
 
 const expandModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
@@ -29,16 +41,17 @@ const expandModalBodyOverride = (modal, context) => {
         <LabeledList.Item label="Title">{expandinfo.title}</LabeledList.Item>
         <LabeledList.Item label="Author">{expandinfo.author}</LabeledList.Item>
         <LabeledList.Item label="Summary">{expandinfo.summary}</LabeledList.Item>
-        <LabeledList.Item label="Rating">{expandinfo.rating}<Icon name="star" verticalAlign="middle"/></LabeledList.Item>
+        <LabeledList.Item label="Rating">{expandinfo.rating}<Icon name="star" color="yellow" verticalAlign="top"/></LabeledList.Item>
         {!expandinfo.isProgrammatic &&
-        <LabeledList.Item label="Categories">{expandinfo.categories.join(", ")}</LabeledList.Item>}
+          <LabeledList.Item label="Categories">{expandinfo.categories.join(", ")}</LabeledList.Item>
+        }
       </LabeledList>
       <br />
       {user_ckey === expandinfo.ckey && //  we only want the book author to be able to delete the book
         <Button
           content="Delete Book"
           icon="trash"
-          color="bad"
+          color="red"
           disabled={expandinfo.isProgrammatic}
           onClick={() => act('delete_book',{
             bookid: expandinfo.id,
@@ -49,7 +62,7 @@ const expandModalBodyOverride = (modal, context) => {
       <Button
         content="Report Book"
         icon="flag"
-        color="bad"
+        color="red"
         disabled={expandinfo.isProgrammatic}
         onClick={() => modalOpen(context, 'report_book',{
           bookid: expandinfo.id,
@@ -84,8 +97,8 @@ const reportModalBodyOverride = (modal, context) => {
         <LabeledList.Item label="Reasons">
             <Box>
               {report_categories
-                .map(report_categories => (
-                <Fragment key={report_categories.category_id}>
+                .map((report_categories, index) => (
+                <Fragment key={index}>
                   <Button
                     content={report_categories.description}
                     selected={report_categories.category_id === selected_report}
@@ -99,7 +112,8 @@ const reportModalBodyOverride = (modal, context) => {
             </Box>
           </LabeledList.Item>
       </LabeledList>
-      <Button.Confirm bold
+      <Button.Confirm
+        bold
         icon="paper-plane"
         content="Submit Report"
         onClick={() => act('submit_report', {
@@ -120,23 +134,24 @@ const RatingTools = (properties, context) => {
 
   let ratingVals = Array(10).fill().map((_, n) => 1 + n)
   return (
-      <Fragment>
-        <Box bold margin-left="2em" fontSize="150%">{selected_rating + "/10"}<Icon name="star" verticalAlign="middle"/></Box>
-        <Flex>
-          {ratingVals.map(rating_num => (
-            <FlexItem key={rating_num}>
-              <Button key={rating_num}
+    <Flex>
+        {ratingVals.map((rating_num, index) => (
+          <FlexItem key={index}>
+            <Button
               bold
               icon="star"
               color={selected_rating >= rating_num ? "caution" : "default"}
               onClick={() => act('set_rating',{
                 rating_value: rating_num,
-              })}
-              />
-            </FlexItem>
-          ))}
-        </Flex>
-      </Fragment>
+            })}
+            />
+          </FlexItem>
+        ))}
+        <FlexItem bold ml={2} fontSize="150%">
+          {selected_rating + "/10"}
+          <Icon name="star" color="yellow" ml={.5} verticalAlign="top"/>
+        </FlexItem>
+      </Flex>
   );
 };
 
@@ -147,18 +162,17 @@ const rateModalBodyOverride = (modal, context) => {
   const {
     user_ckey,
   } = data;
+
   return (
     <Section level={2} m="-1rem" pb="1rem">
       <LabeledList>
         <LabeledList.Item label="Title">{rate_content.title}</LabeledList.Item>
         <LabeledList.Item label="Author">{rate_content.author}</LabeledList.Item>
-        <LabeledList.Item label="Rating">{rate_content.current_rating ? rate_content.current_rating : 0}<Icon name="star" verticalAlign="middle"/></LabeledList.Item>
+        <LabeledList.Item label="Rating">{rate_content.current_rating ? rate_content.current_rating : 0}<Icon name="star" color="yellow" ml={.5} verticalAlign="middle"/></LabeledList.Item>
         <LabeledList.Item label="Total Ratings">{rate_content.total_ratings ? rate_content.total_ratings : 0}</LabeledList.Item>
       </LabeledList>
-      <br />
       <RatingTools/>
-      <br />
-      <Button.Confirm
+      <Button.Confirm mt={2}
         content="Submit"
         icon="paper-plane"
         onClick={() => act('rate_book', {
@@ -167,18 +181,6 @@ const rateModalBodyOverride = (modal, context) => {
         })}
       />
     </Section>
-  );
-};
-
-export const LibraryComputer = (props, context) => {
-  return (
-    <Window resizable>
-      <ComplexModal/>
-      <Window.Content scrollable className="Layout__content--flexColumn">
-        <LibraryComputerNavigation />
-        <LibraryPageContent />
-      </Window.Content>
-    </Window>
   );
 };
 
@@ -209,12 +211,12 @@ const LibraryComputerNavigation = (properties, context) => {
         Upload Book
       </Tabs.Tab>
       {login_state === 1 &&
-      <Tabs.Tab
-        selected={3 === tabIndex}
-        onClick={() => setTabIndex(3)}>
-        <Icon name="list" />
-        Patron Manager
-      </Tabs.Tab>
+        <Tabs.Tab
+          selected={3 === tabIndex}
+          onClick={() => setTabIndex(3)}>
+          <Icon name="list" />
+          Patron Manager
+        </Tabs.Tab>
       }
       <Tabs.Tab
         selected={4 === tabIndex}
@@ -227,7 +229,7 @@ const LibraryComputerNavigation = (properties, context) => {
 };
 
 const LibraryPageContent = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [tabIndex] = useLocalState(context, 'tabIndex', 0);
   switch (tabIndex) {
     case 0:
       return <LibraryBooksList />;
@@ -240,7 +242,7 @@ const LibraryPageContent = (props, context) => {
     case 4:
       return <Inventory />;
     default:
-      return "WE SHOULDN'T BE HERE!";
+      return "You are somehow on a tab that doesn't exist! Please let a coder know.";
   }
 };
 
@@ -266,8 +268,7 @@ const SearchTools = (properties, context) => {
             name="edit"
             verticalAlign="middle"
             size={1.5}
-            mr="1rem"
-          />
+            mr="1rem"/>
           Search Inputs
         </Box>
         <LabeledList>
@@ -276,7 +277,7 @@ const SearchTools = (properties, context) => {
               textAlign="left"
               icon="pen"
               width="auto"
-              content={searchcontent.title ? searchcontent.title : "Input Title"}
+              content={searchcontent.title || "Input Title"}
               onClick={() => modalOpen(context, 'edit_search_title')} />
           </LabeledList.Item>
           <LabeledList.Item label="Author">
@@ -284,7 +285,7 @@ const SearchTools = (properties, context) => {
               textAlign="left"
               icon="pen"
               width="auto"
-              content={searchcontent.author ? searchcontent.author : "Input Author"}
+              content={searchcontent.author || "Input Author"}
               onClick={() => modalOpen(context, 'edit_search_author')} />
           </LabeledList.Item>
           <LabeledList.Item label="Ratings">
@@ -358,7 +359,7 @@ const SearchTools = (properties, context) => {
           onClick={() => act('clear_search')}
         />
         {searchcontent.ckey
-         ? <Button
+         ? <Button mb={.5}
               content="Stop Showing My Books"
               color="bad"
               icon="search"
@@ -431,22 +432,30 @@ const LibraryBooksList = (properties, context) => {
             <Table.Row
               key={external_booklist.id}>
               <Table.Cell>{external_booklist.id}</Table.Cell>
-              <Table.Cell textAlign="left"><Icon name="book" /> {external_booklist.title.length > 45
-                                                                ? external_booklist.title.substr(0,45) + "..."
-                                                                : external_booklist.title}
+              <Table.Cell textAlign="left">
+                <Icon name="book"  mr={.5}/>
+                {external_booklist.title.length > 45
+                  ? external_booklist.title.substr(0,45) + "..."
+                  : external_booklist.title
+                }
               </Table.Cell>
-              <Table.Cell textAlign="left">{external_booklist.author}</Table.Cell>
-              <Table.Cell>{external_booklist.rating}<Icon name="star" verticalAlign="middle"/></Table.Cell>
-              <Table.Cell>{external_booklist.categories.join(", ").substr(0,45)}</Table.Cell>
+              <Table.Cell textAlign="left">
+                {external_booklist.author.length > 30
+                  ? external_booklist.author.substr(0, 30) + "..." // we don't want obscenely long author names
+                  : external_booklist.author
+                }
+              </Table.Cell>
+              <Table.Cell>{external_booklist.rating}<Icon name="star" ml={.5} color="yellow" verticalAlign="middle"/></Table.Cell>
+              <Table.Cell>{external_booklist.categories.join(", ").substr(0, 45)}</Table.Cell>
               <Table.Cell textAlign="right">
                 {login_state === 1 &&
-                <Button
-                  content="Order"
-                  icon="print"
-                  onClick={() => act('order_external_book', {
-                    bookid: external_booklist.id,
-                  })}
-                />
+                  <Button
+                    content="Order"
+                    icon="print"
+                    onClick={() => act('order_external_book', {
+                      bookid: external_booklist.id,
+                    })}
+                  />
                 }
                 <Button
                   content="More..."
@@ -481,28 +490,28 @@ const ProgramatticBooks = (properties, context) => {
           <Table.Cell textAlign="middle">Actions</Table.Cell>
         </Table.Row>
         {programmatic_booklist
-          .map(programmatic_booklist => (
+          .map((programmatic_booklist, index) => (
             <Table.Row
-              key={programmatic_booklist.id}>
+              key={index}>
               <Table.Cell>{programmatic_booklist.id}</Table.Cell>
-              <Table.Cell textAlign="left"><Icon name="book" /> {programmatic_booklist.title}</Table.Cell>
+              <Table.Cell textAlign="left"><Icon name="book" mr={2}/>{programmatic_booklist.title}</Table.Cell>
               <Table.Cell textAlign="left">{programmatic_booklist.author}</Table.Cell>
               <Table.Cell textAlign="right">
-              {login_state === 1 &&
+                {login_state === 1 &&
+                  <Button
+                    content="Order"
+                    icon="print"
+                    onClick={() => act('order_programmatic_book', {
+                      bookid: programmatic_booklist.id,
+                    })}
+                  />
+                }
                 <Button
-                  content="Order"
-                  icon="print"
-                  onClick={() => act('order_programmatic_book', {
+                  content="More..."
+                  onClick={() => modalOpen(context, 'expand_info',{
                     bookid: programmatic_booklist.id,
                   })}
                 />
-              }
-              <Button
-                content="More..."
-                onClick={() => modalOpen(context, 'expand_info',{
-                  bookid: programmatic_booklist.id,
-                })}
-              />
               </Table.Cell>
             </Table.Row>
           ))}
@@ -530,7 +539,6 @@ const UploadBooks = (properties, context) => {
         ? <NoticeBox color="red">WARNING: You cannot upload or modify the attributes of a copyrighted book</NoticeBox>
         : <br />
       }
-
       <Box fontSize="1.2rem" bold>
         <Icon
           name="search-plus"
@@ -547,7 +555,6 @@ const UploadBooks = (properties, context) => {
               <Button
                 textAlign="left"
                 icon="pen"
-                width="auto"
                 disabled={selectedbook.copyright}
                 content={selectedbook.title}
                 onClick={() => modalOpen(context, 'edit_selected_title')} />
@@ -556,23 +563,22 @@ const UploadBooks = (properties, context) => {
               <Button
                 textAlign="left"
                 icon="pen"
-                width="auto"
                 disabled={selectedbook.copyright}
                 content={selectedbook.author}
                 onClick={() => modalOpen(context, 'edit_selected_author')} />
             </LabeledList.Item>
             <LabeledList.Item label="Select Categories">
               <Box mt={2}>
-              <Dropdown
+                <Dropdown
                   mt={0.6}
-                  width="190px"
                   options={book_categories.map((c) => c.description)}
                   onSelected={(val) => act('toggle_upload_category', {
                     category_id: categoryMap[val]
-                  })} />
-                </Box>
-              </LabeledList.Item>
-            </LabeledList>
+                  })}
+                />
+              </Box>
+            </LabeledList.Item>
+          </LabeledList>
             <br />
             {book_categories.filter(category => selectedbook.categories.includes(category.category_id))
               .map(book_categories => (
@@ -583,8 +589,9 @@ const UploadBooks = (properties, context) => {
                   selected
                   icon="unlink"
                   onClick={() => act('toggle_upload_category', {
-                  category_id: book_categories.category_id
-                  })} />
+                    category_id: book_categories.category_id
+                  })}
+                />
               ))}
         </FlexItem>
         <FlexItem>
@@ -597,22 +604,19 @@ const UploadBooks = (properties, context) => {
                 content="Edit Summary"
                 onClick={() => modalOpen(context, 'edit_selected_summary')} />
               </LabeledList.Item>
-              <LabeledList.Item>
-                {selectedbook.summary}
-              </LabeledList.Item>
+              <LabeledList.Item>{selectedbook.summary}</LabeledList.Item>
             </LabeledList>
         </FlexItem>
       </Flex>
-      <br />
       <Button.Confirm bold
+        mt={16}
         icon="upload"
         width="auto"
         disabled={selectedbook.copyright}
         content="Upload Book"
         onClick={() => act('uploadbook', {
-          user_ckey:user_ckey,
+          user_ckey: user_ckey,
         })} />
-
     </Section>
   );
 };
@@ -621,6 +625,7 @@ const UploadBooks = (properties, context) => {
 
 const PatronManager = (properties, context) => {
   const { act, data } = useBackend(context);
+
   const {
     checkout_data,
   } = data;
@@ -636,14 +641,15 @@ const PatronManager = (properties, context) => {
           <Table.Cell>Actions</Table.Cell>
         </Table.Row>
         {checkout_data
-          .map(checkout_data => (
+          .map((checkout_data, index) => (
             <Table.Row
-              key={checkout_data.libraryid}>
-              <Table.Cell><Icon name="user-tag" /> {checkout_data.patron_name}</Table.Cell>
-              <Table.Cell textAlign="left">{checkout_data.title}</Table.Cell>
+              key={index}>
               <Table.Cell>
-                {checkout_data.timeleft >= 0 ? checkout_data.timeleft : "LATE"}
+                <Icon name="user-tag" />
+                {checkout_data.patron_name}
               </Table.Cell>
+              <Table.Cell textAlign="left">{checkout_data.title}</Table.Cell>
+              <Table.Cell>{checkout_data.timeleft >= 0 ? checkout_data.timeleft : "LATE"}</Table.Cell>
               <Table.Cell textAlign="left">
                 <Button
                   content="Mark Lost"
@@ -651,7 +657,7 @@ const PatronManager = (properties, context) => {
                   color="bad"
                   disabled={checkout_data.timeleft >= 0}
                   onClick={() => act('reportlost', {
-                    libraryid:checkout_data.libraryid
+                    libraryid: checkout_data.libraryid
                   })}
                 />
               </Table.Cell>
@@ -680,9 +686,8 @@ const Inventory = (properties, context) => {
           <Table.Cell>Status</Table.Cell>
         </Table.Row>
         {inventory_list
-          .map(inventory_list => (
-            <Table.Row
-              key={inventory_list.id}>
+          .map((inventory_list, index) => (
+            <Table.Row key={index}>
               <Table.Cell>{inventory_list.libraryid}</Table.Cell>
               <Table.Cell textAlign="left"><Icon name="book" /> {inventory_list.title}</Table.Cell>
               <Table.Cell textAlign="left">{inventory_list.author}</Table.Cell>

@@ -94,7 +94,7 @@
 		PB.title = initial(B.name)
 		PB.author = initial(B.author)
 		PB.id = "M[newid]"
-		PB.path = typepath
+		PB.book_type = typepath
 		newid++
 		books += PB
 
