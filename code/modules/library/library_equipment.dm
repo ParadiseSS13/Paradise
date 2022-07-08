@@ -40,19 +40,20 @@
 
 	return ..()
 
-/obj/structure/bookcase/attack_hand(mob/user as mob)
+/obj/structure/bookcase/attack_hand(mob/user)
 	if(!length(contents))
 		return
 
-	var/obj/item/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
-	if(choice)
-		if(user.incapacitated() || !Adjacent(user))
-			return
-		if(!user.get_active_hand())
-			user.put_in_hands(choice)
-		else
-			choice.forceMove(get_turf(src))
-		update_icon()
+	var/obj/item/book/choice = input(user, "Which book would you like to remove from [src]?") as null|anything in contents
+	if(!choice)
+		return
+	if(user.incapacitated() || !Adjacent(user))
+		return
+	if(!user.get_active_hand())
+		user.put_in_hands(choice)
+	else
+		choice.forceMove(get_turf(src))
+	update_icon()
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/wood(loc, 5)
@@ -80,10 +81,7 @@
 /obj/structure/bookcase/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	anchored = !anchored
-	to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] [src].</span>")
+	default_unfasten_wrench(user, I, 0)
 
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
@@ -342,7 +340,7 @@
 	to_chat(user, "<span class='notice'>[src] mode: [modedesc]</span>")
 
 /obj/item/barcodescanner/proc/connect(obj/machinery/computer/library/library_computer)
-	if(!library_computer || !istype(library_computer))
+	if(!istype(library_computer))
 		return FALSE
 	if(computer == library_computer)
 		return TRUE //we're succesfully connected already, let player know it was a "succesful connection"
@@ -359,23 +357,21 @@
 	if(!check_connection(user))
 		return
 
-	if(ID.registered_name)
-		computer.user_data.patron_name = ID.registered_name
-	else
+	if(!ID.registered_name)
 		computer.user_data.patron_name = null
 		computer.user_data.patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		to_chat(user, "<span class='warning'>[src]'s screen flashes: 'ERROR! No name associated with this ID Card'</span>")
 		return //no point in continuing if the ID card has no associated name!
 
+	computer.user_data.patron_name = ID.registered_name
 	playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-	if(ID.associated_account_number)
-		computer.user_data.patron_account = ID.associated_account_number
-	else
+	if(!ID.associated_account_number)
 		computer.user_data.patron_account = null
 		to_chat(user, "<span class='warning'>[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'</span>")
 		return
 
+	computer.user_data.patron_account = ID.associated_account_number
 	to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Patron Selected'</span>")
 
 /obj/item/barcodescanner/proc/scanBook(obj/item/book/B, mob/user as mob)

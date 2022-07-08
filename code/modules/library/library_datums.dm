@@ -108,7 +108,7 @@
 	var/id
 	var/title
 	var/author
-	var/path //type path of book
+	var/book_type
 	var/summary
 
 /datum/flagged_book
