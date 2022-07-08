@@ -103,13 +103,13 @@
 				terrible_conversion_proc(M, user)
 				M.drop_l_hand()
 				M.drop_r_hand()
-				visible_message("<span class='disarm'>[user] blinds [M] with the [name]!</span>")
-				to_chat(user, "<span class='danger'>You blind [M] with the [name]!</span>")
-				to_chat(M, "<span class='userdanger'>[user] blinds you with the [name]!</span>")
+				visible_message("<span class='disarm'>[user] blinds [M] with [src]!</span>")
+				to_chat(user, "<span class='danger'>You blind [M] with [src]!</span>")
+				to_chat(M, "<span class='userdanger'>[user] blinds you with [src]!</span>")
 			else
-				visible_message("<span class='disarm'>[user] fails to blind [M] with the [name]!</span>")
-				to_chat(user, "<span class='warning'>You fail to blind [M] with the [name]!</span>")
-				to_chat(M, "<span class='danger'>[user] fails to blind you with the [name]!</span>")
+				visible_message("<span class='disarm'>[user] fails to blind [M] with [src]!</span>")
+				to_chat(user, "<span class='warning'>You fail to blind [M] with [src]!</span>")
+				to_chat(M, "<span class='danger'>[user] fails to blind you with [src]!</span>")
 			return
 
 	if(M.flash_eyes())
@@ -227,7 +227,7 @@
 
 /obj/item/flash/cameraflash/try_use_flash(mob/user = null)
 	if(!flash_cur_charges)
-		to_chat(user, "<span class='warning'>\The [name] needs time to recharge!</span>")
+		to_chat(user, "<span class='warning'>[src] needs time to recharge!</span>")
 		return FALSE
 	. = ..()
 	if(.)
