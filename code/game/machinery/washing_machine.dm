@@ -53,7 +53,7 @@
 	if(open && bloody)
 		if(!full)
 			to_chat(usr, "<span class='notice'>You start \the [src] to clean it out.</span>")
-		else()
+		else
 			to_chat(usr, "<span class='notice'>You start \the [src], covering the contents inside with blood.</span>")
 	else
 		if(!full)
