@@ -1,4 +1,9 @@
+
 //Hydraulic clamp, Kill clamp, Extinguisher, RCD, Mime RCD, Cable layer.
+
+#define MECH_RCD_MODE_DECONSTRUCT 0
+#define MECH_RCD_MODE_WALL_OR_FLOOR 1
+#define MECH_RCD_MODE_AIRLOCK 2
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
 	name = "hydraulic clamp"
@@ -13,8 +18,8 @@
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/working/ripley/M)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/attach(obj/mecha/M)
 	..()
@@ -188,8 +193,8 @@
 /obj/item/mecha_parts/mecha_equipment/extinguisher/can_attach(obj/mecha/working/M)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 
 /obj/item/mecha_parts/mecha_equipment/rcd
@@ -201,7 +206,7 @@
 	energy_drain = 250
 	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
-	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
+	var/mode = MECH_RCD_MODE_DECONSTRUCT
 	var/canRwall = 0
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
@@ -226,7 +231,7 @@
 	playsound(chassis, 'sound/machines/click.ogg', 50, 1)
 
 	switch(mode)
-		if(0)
+		if(MECH_RCD_MODE_DECONSTRUCT)
 			if(istype(target, /turf/simulated/wall))
 				if((istype(target, /turf/simulated/wall/r_wall) && !canRwall) || istype(target, /turf/simulated/wall/indestructible))
 					return 0
@@ -250,7 +255,7 @@
 					chassis.spark_system.start()
 					qdel(target)
 					playsound(target, usesound, 50, 1)
-		if(1)
+		if(MECH_RCD_MODE_WALL_OR_FLOOR)
 			if(istype(target, /turf/space))
 				var/turf/space/S = target
 				occupant_message("Building Floor...")
@@ -265,7 +270,7 @@
 					F.ChangeTurf(/turf/simulated/wall)
 					playsound(F, usesound, 50, 1)
 					chassis.spark_system.start()
-		if(2)
+		if(MECH_RCD_MODE_AIRLOCK)
 			if(istype(target, /turf/simulated/floor))
 				occupant_message("Building Airlock...")
 				if(do_after_cooldown(target))
@@ -281,11 +286,11 @@
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
 		switch(mode)
-			if(0)
+			if(MECH_RCD_MODE_DECONSTRUCT)
 				occupant_message("Switched RCD to Deconstruct.")
-			if(1)
+			if(MECH_RCD_MODE_WALL_OR_FLOOR)
 				occupant_message("Switched RCD to Construct.")
-			if(2)
+			if(MECH_RCD_MODE_AIRLOCK)
 				occupant_message("Switched RCD to Construct Airlock.")
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_equip_info()
@@ -304,8 +309,8 @@
 /obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/reticence/M)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/action(atom/target)
 	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
@@ -341,8 +346,8 @@
 /obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/working/M)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach()
 	..()
@@ -404,13 +409,13 @@
 		set_ready_state(1)
 		occupant_message("Cable depleted, [src] deactivated.")
 		log_message("Cable depleted, [src] deactivated.")
-		return
+		return FALSE
 	if(cable.amount < amount)
 		occupant_message("No enough cable to finish the task.")
-		return
+		return FALSE
 	cable.use(amount)
 	update_equip_info()
-	return 1
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/reset()
 	last_piece = null

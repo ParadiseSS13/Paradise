@@ -16,25 +16,25 @@
 	if(..())
 		if(istype(M))
 			if(size > M.maxsize)
-				return 0
-			return 1
+				return FALSE
+			return TRUE
 		else if(M.emagged)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
 
 /obj/item/mecha_parts/mecha_equipment/weapon/action(target, params)
 	if(!action_checks(target))
-		return 0
+		return
 
 	var/turf/curloc = get_turf(chassis)
 	var/turf/targloc = get_turf(target)
 	if(!targloc || !istype(targloc) || !curloc)
-		return 0
+		return
 	if(targloc == curloc)
-		return 0
+		return
 
 	set_ready_state(0)
 	for(var/i=1 to get_shot_amount())
@@ -63,7 +63,6 @@
 	add_attack_logs(chassis.occupant, target, "fired a [src]")
 	do_after_cooldown()
 	return
-
 /obj/item/mecha_parts/mecha_equipment/weapon/energy
 	name = "general energy weapon"
 	size = 2
@@ -194,16 +193,16 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/honker/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker/action(target, params)
 	if(!chassis)
-		return 0
+		return
 	if(energy_drain && chassis.get_charge() < energy_drain)
-		return 0
+		return
 	if(!equip_ready)
-		return 0
+		return
 
 	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
 	chassis.occupant_message("<font color='red' size='5'>HONK</font>")
@@ -250,8 +249,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/action_checks(atom/target)
 	if(..())
 		if(projectiles > 0)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_equip_info()
 	return "[..()]\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='?src=[UID()];rearm=1'>Rearm</a>":null]"
@@ -297,8 +296,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/can_attach(obj/mecha/combat/reticence/M as obj)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	name = "\improper LBX AC 10 \"Scattershot\""
@@ -441,8 +440,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/action(target, params)
 	if(!action_checks(target))
@@ -471,8 +470,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/action(target, params)
 	if(!action_checks(target))
@@ -503,8 +502,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/combat/gygax/M as obj)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, params)
 	if(!action_checks(target))
