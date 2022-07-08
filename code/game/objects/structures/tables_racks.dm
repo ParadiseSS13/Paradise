@@ -233,10 +233,15 @@
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
 	if(locate(/obj/structure/table) in get_turf(target))
 		return FALSE
-	add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
-	target.forceMove(get_turf(src))
-	target.Weaken(4 SECONDS)
-	return TRUE
+	var/pass_flags_cache = target.pass_flags
+	target.pass_flags |= PASSTABLE
+	if(target.Move(loc)) // moving onto a table smashes it, stunning them
+		. = TRUE
+		target.Weaken(4 SECONDS)
+		add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
+	else
+		. = FALSE
+	target.pass_flags = pass_flags_cache
 
 /obj/structure/table/screwdriver_act(mob/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
@@ -449,9 +454,14 @@
 	qdel(src)
 
 /obj/structure/table/glass/shove_impact(mob/living/target, mob/living/attacker)
-	add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
-	target.forceMove(get_turf(src)) // will break the table and then stun the person.
-	return TRUE
+	var/pass_flags_cache = target.pass_flags
+	target.pass_flags |= PASSTABLE
+	if(target.Move(loc)) // moving onto a table smashes it, stunning them
+		. = TRUE
+		add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
+	else
+		. = FALSE
+	target.pass_flags = pass_flags_cache
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))
