@@ -190,7 +190,7 @@
 	return ..()
 
 /obj/item/flashlight/flare/proc/turn_off()
-	on = 0
+	on = FALSE
 	src.force = initial(src.force)
 	src.damtype = initial(src.damtype)
 	if(ismob(loc))
