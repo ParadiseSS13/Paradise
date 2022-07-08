@@ -303,6 +303,3 @@
 		return
 	patient.mob_data.cur_health = patient.mob_data.max_health
 	to_chat(user, "<span class='notify'>[patient.mob_data.nickname ? patient.mob_data.nickname : patient.mob_data.mob_name] has been restored to full health!</span>")
-// 	patient.mob_data.save()
-	patient.save()
-	patient.update_health()
