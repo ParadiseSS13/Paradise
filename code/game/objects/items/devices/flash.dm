@@ -74,8 +74,8 @@
 
 /obj/item/flash/proc/try_use_flash(mob/user = null)
 	if(cooldown >= world.time)
-		to_chat(user, "<span class='warning'>Your [src] is recharging!</span>")
-		return
+		to_chat(user, "<span class='warning'>Your [src] is still too hot to use again!</span>")
+		return FALSE
 	cooldown = world.time + cooldown_duration
 	flash_recharge(user)
 
@@ -225,23 +225,14 @@
 	flash_cur_charges = min(flash_cur_charges+1, flash_max_charges)
 	return TRUE
 
-/obj/item/flash/cameraflash/attack(mob/living/M, mob/user)
-    if(flash_cur_charges > 0)
-        flash_cur_charges -= 1
-        to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
-        ..()
-    else
-        to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
-    return
-
-/obj/item/flash/cameraflash/attack_self(mob/living/carbon/user, flag = 0)
-    if(flash_cur_charges > 0)
-        flash_cur_charges -= 1
-        to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
-        ..()
-    else
-        to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
-    return
+/obj/item/flash/cameraflash/try_use_flash(mob/user = null)
+	if(!flash_cur_charges)
+		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
+		return FALSE
+	. = ..()
+	if(.)
+		flash_cur_charges--
+		to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
 
 /obj/item/flash/memorizer
 	name = "memorizer"
