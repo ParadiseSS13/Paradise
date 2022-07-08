@@ -565,12 +565,12 @@
 		..()
 
 /obj/item/pipe/AltClick(mob/user)
-	if(user.incapacitated() || !(user.Adjacent(src)))
+	if(user.incapacitated() || !user.Adjacent(src))
 		return
 	rotate()
 
 /obj/item/pipe/AltShiftClick(mob/user)
 	. = ..()
-	if(user.incapacitated() || !(user.Adjacent(src)))
+	if(user.incapacitated() || !user.Adjacent(src))
 		return
 	flip()
