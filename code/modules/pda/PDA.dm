@@ -158,7 +158,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
 /obj/item/pda/AltClick(mob/user)
-	..()
 	if(issilicon(user))
 		return
 

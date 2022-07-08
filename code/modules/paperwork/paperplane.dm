@@ -115,8 +115,6 @@
 		I = H.is_in_hands(/obj/item/paper)
 		if(I)
 			ProcFoldPlane(H, I)
-	else
-		..()
 
 /obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/I)
 	if(istype(user))

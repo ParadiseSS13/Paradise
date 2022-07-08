@@ -563,8 +563,6 @@ REAGENT SCANNER
 	add_fingerprint(user)
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
-	..()
-
 	if(!user.incapacitated() && Adjacent(user))
 
 		if(cooldown)

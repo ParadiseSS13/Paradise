@@ -179,7 +179,6 @@
 		user.visible_message("<span class='notice'>[user] [verbtext]s [src].</span>",\
 								"<span class='notice'>You [verbtext] [src].</span>")
 		name = "[rolled ? "rolled" : ""] [initial(name)]"
-	return ..()
 
 #undef SCREEN_COVER
 #undef SCREEN_PAGE_INNER

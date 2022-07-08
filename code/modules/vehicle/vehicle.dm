@@ -79,7 +79,6 @@
 		inserted_key.forceMove(drop_location())
 		user.put_in_hands(inserted_key)
 		inserted_key = null
-	return ..()
 
 /obj/vehicle/proc/is_key(obj/item/I)
 	return I ? (key_type_exact ? (I.type == key_type) : istype(I, key_type)) : FALSE

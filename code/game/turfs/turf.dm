@@ -523,7 +523,3 @@
 
 /turf/proc/water_act(volume, temperature, source)
  	return FALSE
-
-/turf/AltClick(mob/user)
-	turf_examine(user)
-	. = ..()

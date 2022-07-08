@@ -117,7 +117,6 @@
 	if(wrenchable && !usr.stat && !usr.lying && Adjacent(usr))
 		toggle_lid(usr)
 		return
-	return ..()
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
 	if(!user || user.stat || user.restrained())
@@ -371,7 +370,7 @@
 	if(weedlevel >= 5)
 		. += "<span class='warning'>[src] is filled with weeds!</span>"
 	if(pestlevel >= 5)
-		. += "<span class='warning'>[src] is filled with tiny worms!</span>"  	
+		. += "<span class='warning'>[src] is filled with tiny worms!</span>"
 	. += "" // Empty line for readability.
 
 

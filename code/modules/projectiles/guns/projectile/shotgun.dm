@@ -345,6 +345,7 @@
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)
+	. = ..()
 	if(user.incapacitated() || !Adjacent(user) || !istype(user))
 		return
 	pump()

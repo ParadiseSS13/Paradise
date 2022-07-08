@@ -287,10 +287,6 @@
 			return 0
 	return T.straight_table_check(direction)
 
-/obj/structure/table/AltClick(mob/user)
-	turf_examine(user)
-	. = ..()
-
 /obj/structure/table/verb/do_flip()
 	set name = "Flip table"
 	set desc = "Flips a non-reinforced table"

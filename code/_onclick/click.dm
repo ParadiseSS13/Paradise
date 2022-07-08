@@ -332,7 +332,7 @@
 		..()
 
 /atom/proc/AltClick(var/mob/user)
-	return
+	turf_examine(user)
 
 /atom/proc/turf_examine(var/mob/user)
 	var/turf/T = get_turf(src)

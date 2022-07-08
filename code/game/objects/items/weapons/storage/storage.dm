@@ -93,7 +93,6 @@
 		add_fingerprint(user)
 	else if(isobserver(user))
 		show_to(user)
-	return ..()
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()

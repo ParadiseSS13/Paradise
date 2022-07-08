@@ -414,7 +414,6 @@
 		azoom.Remove(user)
 
 /obj/item/gun/AltClick(mob/user)
-	..()
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
