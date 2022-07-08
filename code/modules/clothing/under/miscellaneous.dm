@@ -106,7 +106,7 @@
 
 /obj/item/clothing/under/rank/deathsquad
 	name = "\improper Deathsquad jumpsuit"
-	desc = "It's a jumpsuit worn by the Deathsquad, providing slight protection. A small tag at the bottom reads \"Not associated with Nanotrasen\". "
+	desc = "It's decorative jumpsuit worn by the Deathsquad. A small tag at the bottom reads \"Not associated with Nanotrasen\". "
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
