@@ -39,7 +39,7 @@
 		cmd_admin_say(msg)
 
 /client/proc/get_mentor_say()
-	if(check_rights(R_MENTOR))
+	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
 		var/msg = input(src, null, "msay \"text\"") as text|null
 		cmd_mentor_say(msg)
 
