@@ -1,9 +1,9 @@
 //NOT using the existing /obj/machinery/door type, since that has some complications on its own, mainly based on its machineryness
 /obj/structure/mineral_door
 	name = "metal door"
-	density = 1
-	anchored = 1
-	opacity = 1
+	density = TRUE
+	anchored = TRUE
+	opacity = TRUE
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
@@ -13,7 +13,7 @@
 	rad_insulation = RAD_MEDIUM_INSULATION
 	var/initial_state
 	var/state = 0 //closed, 1 == open
-	var/isSwitchingStates = 0
+	var/isSwitchingStates = FALSE
 	var/close_delay = -1 //-1 if does not auto close.
 
 	var/hardness = 1
@@ -29,7 +29,7 @@
 	air_update_turf(1)
 
 /obj/structure/mineral_door/Destroy()
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	return ..()
 
@@ -88,16 +88,16 @@
 		Open()
 
 /obj/structure/mineral_door/proc/Open()
-	isSwitchingStates = 1
+	isSwitchingStates = TRUE
 	playsound(loc, openSound, 100, 1)
 	flick("[initial_state]opening",src)
 	sleep(10)
-	density = 0
-	opacity = 0
+	density = FALSE
+	opacity = FALSE
 	state = 1
 	air_update_turf(1)
 	update_icon()
-	isSwitchingStates = 0
+	isSwitchingStates = FALSE
 
 	if(close_delay != -1)
 		spawn(close_delay)
@@ -109,16 +109,16 @@
 	var/turf/T = get_turf(src)
 	for(var/mob/living/L in T)
 		return
-	isSwitchingStates = 1
+	isSwitchingStates = TRUE
 	playsound(loc, closeSound, 100, 1)
 	flick("[initial_state]closing",src)
 	sleep(10)
-	density = 1
-	opacity = 1
+	density = TRUE
+	opacity = TRUE
 	state = 0
 	air_update_turf(1)
 	update_icon()
-	isSwitchingStates = 0
+	isSwitchingStates = FALSE
 
 /obj/structure/mineral_door/update_icon()
 	if(state)
@@ -177,7 +177,7 @@
 	max_integrity = 100
 
 /obj/structure/mineral_door/transparent
-	opacity = 0
+	opacity = FALSE
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 
 /obj/structure/mineral_door/transparent/Close()

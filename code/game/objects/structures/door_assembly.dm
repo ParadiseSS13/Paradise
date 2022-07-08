@@ -12,9 +12,9 @@
 	var/obj/item/airlock_electronics/electronics
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
 	var/glass_type = /obj/machinery/door/airlock/glass
-	var/glass = 0 // 0 = glass can be installed. 1 = glass is already installed.
+	var/glass = FALSE // FALSE = glass can be installed. TRUE = glass is already installed.
 	var/created_name
-	var/heat_proof_finished = 0 //whether to heat-proof the finished airlock
+	var/heat_proof_finished = FALSE //whether to heat-proof the finished airlock
 	var/previous_assembly = /obj/structure/door_assembly
 	var/noglass = FALSE //airlocks with no glass version, also cannot be modified with sheets
 	var/material_type = /obj/item/stack/sheet/metal
