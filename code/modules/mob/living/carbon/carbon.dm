@@ -975,6 +975,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else
 		REMOVE_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")
 		clear_alert("handcuffed")
+		changeNext_move(CLICK_CD_RAPID) //reset click cooldown from handcuffs
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
 	update_hud_handcuffed()

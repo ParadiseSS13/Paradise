@@ -4,10 +4,10 @@
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "oven_off"
 	layer = 2.9
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
-	var/candy = 0
+	var/candy = FALSE
 	idle_power_usage = 5
 	var/on = FALSE	//Is it making food already?
 	var/list/food_choices = list()
@@ -69,7 +69,7 @@
 	desc = "Get yer box of deep fried deep fried deep fried deep fried cotton candy cereal sandwich cookies here!"
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "mixer_off"
-	candy = 1
+	candy = TRUE
 
 /obj/machinery/cooking/candy/updatefood()
 	for(var/U in food_choices)
