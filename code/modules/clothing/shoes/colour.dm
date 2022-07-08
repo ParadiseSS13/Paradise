@@ -108,10 +108,10 @@
 	item_color = "hop"
 
 /obj/item/clothing/shoes/brown/ce
-	item_color = "chief"
+	item_color = "ce"
 
 /obj/item/clothing/shoes/brown/rd
-	item_color = "director"
+	item_color = "rd"
 
 /obj/item/clothing/shoes/white/medical
 	item_color = "med"

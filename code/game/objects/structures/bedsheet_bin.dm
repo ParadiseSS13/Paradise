@@ -129,7 +129,7 @@ LINEN BINS
 	name = "research director's bedsheet"
 	desc = "It appears to have a beaker emblem, and is made out of fire-resistant material, although it probably won't protect you in the event of fires you're familiar with every day."
 	icon_state = "sheetrd"
-	item_color = "director"
+	item_color = "rd"
 	dream_messages = list("authority", "a silvery ID", "a bomb", "a mech", "a facehugger", "maniacal laughter", "the research director")
 	nightmare_messages = list("toxins full of plasma", "UPGRADE THE SLEEPERS", "rogue ai")
 
@@ -174,7 +174,7 @@ LINEN BINS
 	name = "chief engineer's bedsheet"
 	desc = "It is decorated with a wrench emblem.  It's highly reflective and stain resistant, so you don't need to worry about ruining it with oil."
 	icon_state = "sheetce"
-	item_color = "chief"
+	item_color = "ce"
 	dream_messages = list("authority", "a silvery ID", "the engine", "power tools", "an APC", "a parrot", "the chief engineer")
 	nightmare_messages = list("forced airlock", "syndicate bomb", "explosion in research chem", "iT's LoOsE")
 

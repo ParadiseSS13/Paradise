@@ -249,10 +249,10 @@
 	item_color = "hos"
 
 /obj/item/clothing/gloves/color/black/ce
-	item_color = "chief"
+	item_color = "ce"
 
 /obj/item/clothing/gloves/color/grey/rd
-	item_color = "director"
+	item_color = "rd"
 
 /obj/item/clothing/gloves/color/grey/hop
 	item_color = "hop"

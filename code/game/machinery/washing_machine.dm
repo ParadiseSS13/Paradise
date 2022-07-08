@@ -258,7 +258,7 @@
 /obj/machinery/washing_machine/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/spray/cleaner) || istype(W, /obj/item/soap))
 		user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
-		if(do_after(user, 10 * W.toolspeed, target = src))
+		if(do_after(user, W.toolspeed SECONDS, target = src))
 			user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
 	if(bloody && open)
 		to_chat(user, "<span class='warning'>\The [src] is filled with blood! It won't clean anything until the blood is cleaned out.</span>")

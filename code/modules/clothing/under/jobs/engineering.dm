@@ -4,7 +4,7 @@
 	name = "chief engineer's jumpsuit"
 	icon_state = "chiefengineer"
 	item_state = "chief"
-	item_color = "chief"
+	item_color = "ce"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 80, ACID = 40)
 	resistance_flags = NONE
 

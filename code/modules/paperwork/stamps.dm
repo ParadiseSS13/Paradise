@@ -25,7 +25,7 @@
 /obj/item/stamp/law
 	name = "Law office's rubber stamp"
 	icon_state = "stamp-law"
-	item_color = "cargo"
+	item_color = "law"
 
 /obj/item/stamp/captain
 	name = "captain's rubber stamp"
@@ -45,12 +45,12 @@
 /obj/item/stamp/ce
 	name = "chief engineer's rubber stamp"
 	icon_state = "stamp-ce"
-	item_color = "chief"
+	item_color = "ce"
 
 /obj/item/stamp/rd
 	name = "research director's rubber stamp"
 	icon_state = "stamp-rd"
-	item_color = "director"
+	item_color = "rd"
 
 /obj/item/stamp/cmo
 	name = "chief medical officer's rubber stamp"
@@ -60,7 +60,7 @@
 /obj/item/stamp/granted
 	name = "\improper GRANTED rubber stamp"
 	icon_state = "stamp-ok"
-	item_color = "qm"
+	item_color = "cargo"
 
 /obj/item/stamp/denied
 	name = "\improper DENIED rubber stamp"
@@ -80,7 +80,7 @@
 /obj/item/stamp/magistrate
 	name = "Magistrate's rubber stamp"
 	icon_state = "stamp-magistrate"
-	item_color = "rep"
+	item_color = "magi"
 
 /obj/item/stamp/centcom
 	name = "Central Command rubber stamp"

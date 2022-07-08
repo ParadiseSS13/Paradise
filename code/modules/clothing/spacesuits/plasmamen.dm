@@ -181,7 +181,7 @@
 	desc = "A space-worthy helmet specially designed for plasmamen employed as the chief engineer."
 	icon_state = "ce_envirohelm"
 	item_state = "ce_envirohelm"
-	item_color = "chief"
+	item_color = "ce"
 
 /obj/item/clothing/head/helmet/space/plasmaman/atmospherics
 	name = "atmospherics plasma envirosuit helmet"

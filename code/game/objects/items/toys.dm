@@ -464,7 +464,7 @@
 
 /obj/item/toy/carpplushie/ice
 	icon_state = "icecarp"
-	item_color = "med"
+	item_color = "solblue"
 
 /obj/item/toy/carpplushie/silent
 	icon_state = "silentcarp"

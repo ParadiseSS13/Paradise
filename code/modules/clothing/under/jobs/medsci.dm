@@ -6,7 +6,7 @@
 	name = "research director's jumpsuit"
 	icon_state = "director"
 	item_state = "g_suit"
-	item_color = "director"
+	item_color = "rd"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 10, RAD = 0, FIRE = 0, ACID = 35)
 
 /obj/item/clothing/under/rank/scientist

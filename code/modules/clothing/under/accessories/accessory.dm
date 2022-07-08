@@ -394,7 +394,7 @@
 /obj/item/clothing/accessory/scarf/lightblue
 	name = "light blue scarf"
 	icon_state = "lightbluescarf"
-	item_color = "lightbluescarf"
+	item_color = "solblue"
 
 /obj/item/clothing/accessory/scarf/white
 	name = "white scarf"

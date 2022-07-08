@@ -11,7 +11,7 @@
 	desc = "An airtight suit designed to be used by plasmamen employed as the chief engineer."
 	icon_state = "ce_envirosuit"
 	item_state = "ce_envirosuit"
-	item_color = "chief"
+	item_color = "ce"
 
 /obj/item/clothing/under/plasmaman/atmospherics
 	name = "atmospherics plasma envirosuit"
