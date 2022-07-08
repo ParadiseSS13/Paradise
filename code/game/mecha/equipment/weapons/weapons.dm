@@ -18,7 +18,7 @@
 			if(size > M.maxsize)
 				return 0
 			return 1
-		else if(M.emagged == 1)
+		else if(M.emagged)
 			return 1
 	return 0
 
@@ -479,7 +479,7 @@
 		return
 	set_ready_state(0)
 	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
-	M.secured = 1
+	M.secured = TRUE
 	playsound(chassis, fire_sound, 60, 1)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
