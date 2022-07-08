@@ -316,13 +316,6 @@
 		apply_to_card(I, H, get_centcom_access("Deathsquad Commando"), "Deathsquad")
 	H.sec_hud_set_ID()
 
-	var/obj/item/radio/R = H.l_ear
-	if(istype(R))
-		R.set_frequency(DTH_FREQ)
-		R.requires_tcomms = FALSE
-		R.instant = TRUE
-		R.freqlock = TRUE
-
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
 
