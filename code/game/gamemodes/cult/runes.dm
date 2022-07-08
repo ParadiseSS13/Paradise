@@ -186,10 +186,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 			ghost_invokers++
 		if(invocation)
 			if(!L.IsVocal())
-				to_chat(world, "good")
 				L.custom_emote(EMOTE_VISIBLE, message = pick("draws arcane sigils in the air.","gestures ominously.","silently mouths out an invocation.","places their hands on the rune, activating it."))
 			else
-				to_chat(world, "FUCK")
 				L.say(invocation)
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
 		if(invoke_damage)
