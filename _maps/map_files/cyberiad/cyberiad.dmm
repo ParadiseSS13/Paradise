@@ -6606,6 +6606,10 @@
 	dir = 9
 	},
 /obj/machinery/meter,
+/obj/machinery/computer/cryopod{
+	pixel_y = -30;
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -69985,6 +69989,11 @@
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/space,
 /area/security/execution)
 "dbJ" = (
@@ -79527,10 +79536,6 @@
 	name = "prisoner supression system";
 	target_pressure = 4500
 	},
-/obj/machinery/computer/cryopod{
-	pixel_y = -30;
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -82626,6 +82631,28 @@
 	icon_state = "red"
 	},
 /area/security/prisonlockers)
+"wwL" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/security/permabrig)
 "wxp" = (
 /obj/machinery/alarm{
 	name = "north bump";
@@ -104648,9 +104675,9 @@ aQl
 aQl
 gUl
 ykx
-atA
-atA
-atA
+xFd
+wwL
+akL
 abN
 xFd
 puB
