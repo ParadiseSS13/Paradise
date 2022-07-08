@@ -13,6 +13,7 @@
 /client/proc/set_macros()
 	var/static/list/macro_set = list(
 		"Tab" = @{".winset \"input.focus=true ? map.focus=true : input.focus=true\""},
+		"Back" = @{".winset \"input.focus=true input.text=\"\""}, // This makes it so backspace can remove default inputs
 		"Any" = @"KeyDown [[*]]",
 		"Any+UP" = @"KeyUp [[*]]",
 	)
