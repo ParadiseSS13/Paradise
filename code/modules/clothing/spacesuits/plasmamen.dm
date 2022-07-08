@@ -121,7 +121,7 @@
 	desc = "An envirohelmet designed for plasmaman medical doctors, having two stripes down its length to denote as much."
 	icon_state = "doctor_envirohelm"
 	item_state = "doctor_envirohelm"
-	item_color = "medical"
+	item_color = "med"
 
 /obj/item/clothing/head/helmet/space/plasmaman/cmo
 	name = "chief medical officer's plasma envirosuit helmet"

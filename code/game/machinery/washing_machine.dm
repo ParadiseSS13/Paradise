@@ -37,7 +37,6 @@
 
 /obj/machinery/sleeper/power_change()
 	..()
-	if(!(stat & (BROKEN|NOPOWER)))
 	update_icon()
 
 /obj/machinery/washing_machine/AltClick(mob/living/user)
@@ -199,8 +198,8 @@
 							newcontents += J
 							break
 				if(istype(O, /obj/item/toy/carpplushie)) // carp plushies! was gonna add for fox plushies but their pathing makes it not an option currently
-					for(var/T in typesof(obj/item/toy/carpplushie))
-						obj/item/toy/carpplushie/J = new T
+					for(var/T in typesof(/obj/item/toy/carpplushie))
+						var/obj/item/toy/carpplushie/J = new T
 						if(wash_color == J.item_color)
 							qdel(O)
 							newcontents += J
