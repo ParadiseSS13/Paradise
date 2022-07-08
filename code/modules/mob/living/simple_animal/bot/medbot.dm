@@ -601,3 +601,16 @@
 
 /obj/machinery/bot_core/medbot/syndicate
 	req_one_access = list(ACCESS_SYNDICATE)
+
+// if the medibot has run out of medicine, ask for more
+/mob/living/simple_animal/bot/medbot/proc/check_medicine()
+	if(!medicine_list)
+		return
+	if(medicine_list.total_volume > 0)
+		return
+	if(!medicine_request_cooldown)
+		medicine_request_cooldown = 1
+		var/area/location = get_area(src)
+		speak("I'm out of medicine! I need more at [location]!", radio_channel)
+		spawn(200) //Twenty seconds
+			medicine_request_cooldown = 0
