@@ -8,6 +8,21 @@
 #define UPSTATE_WIREEXP 64
 #define UPSTATE_ALLGOOD 128
 
+//opened
+#define APC_CLOSED 0
+#define APC_OPENED 1
+#define APC_COVER_OFF 2
+
+//charging
+#define APC_NOT_CHARGING 0
+#define APC_IS_CHARGING 1
+#define APC_FULLY_CHARGED 2
+
+//electronics_state
+#define APC_ELECTRONICS_NONE 0
+#define APC_ELECTRONICS_INSTALLED 1
+#define APC_ELECTRONICS_SECURED 2
+
 //update_overlay
 #define APC_UPOVERLAY_CHARGEING0 1
 #define APC_UPOVERLAY_CHARGEING1 2
@@ -64,13 +79,13 @@
 	var/obj/item/stock_parts/cell/cell
 	var/start_charge = 90				// initial cell charge %
 	var/cell_type = 2500	//Base cell has 2500 capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
-	var/opened = 0 //0=closed, 1=opened, 2=cover removed
+	var/opened = APC_CLOSED
 	var/shorted = FALSE
 	var/lighting = 3
 	var/equipment = 3
 	var/environ = 3
 	var/operating = TRUE
-	var/charging = 0 // 0 is not charging, 1 is charging, 2 is fully charged
+	var/charging = APC_NOT_CHARGING
 	var/chargemode = 1
 	var/chargecount = 0
 	var/locked = TRUE
@@ -88,7 +103,7 @@
 	var/debug = FALSE
 	var/autoflag= 0		// 0 = off, 1= eqp and lights off, 2 = eqp off, 3 = all on.
 //	luminosity = 1
-	var/has_electronics = 0 // 0 - none, 1 - plugged in, 2 - secured by screwdriver
+	var/electronics_state = APC_ELECTRONICS_NONE
 	var/overload = 1 //used for the Blackout malf module
 	var/beenhit = 0 // used for counting how many times it has been hit, used for Aliens at the moment
 	var/mob/living/silicon/ai/occupier = null
@@ -154,6 +169,9 @@
 /obj/machinery/power/apc/get_cell()
 	return cell
 
+/obj/machinery/power/apc/proc/has_electronics()
+	return electronics_state != APC_ELECTRONICS_NONE
+
 /obj/machinery/power/apc/connect_to_network()
 	//Override because the APC does not directly connect to the network; it goes through a terminal.
 	//The terminal is what the power computer looks for anyway.
@@ -176,7 +194,7 @@
 
 		area = get_area(src)
 		area.apc |= src
-		opened = 1
+		opened = APC_OPENED
 		operating = FALSE
 		name = "[area.name] APC"
 		stat |= MAINT
@@ -211,7 +229,7 @@
 	. = ..()
 	if(!mapload)
 		return
-	has_electronics = 2 //installed and secured
+	electronics_state = APC_ELECTRONICS_SECURED
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
 		cell = new/obj/item/stock_parts/cell/upgraded(src)
@@ -245,13 +263,13 @@
 		if(stat & BROKEN)
 			. += "Looks broken."
 		else if(opened)
-			if(has_electronics && terminal)
-				. += "The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"]."
-			else if(!has_electronics && terminal)
+			if(has_electronics() && terminal)
+				. += "The cover is [opened == APC_OPENED ? "removed" : "open"] and the power cell is [ cell ? "installed" : "missing"]."
+			else if(!has_electronics() && terminal)
 				. += "There are some wires but no electronics."
-			else if(has_electronics && !terminal)
+			else if(has_electronics() && !terminal)
 				. += "Electronics installed but not wired."
-			else /* if(!has_electronics && !terminal) */
+			else /* if(!has_electronics() && !terminal) */
 				. += "There are no electronics nor connected wires."
 		else
 			if(stat & MAINT)
@@ -376,9 +394,9 @@
 	if(stat & MAINT)
 		update_state |= UPSTATE_MAINT
 	if(opened)
-		if(opened==1)
+		if(opened == APC_OPENED)
 			update_state |= UPSTATE_OPENED1
-		if(opened==2)
+		if(opened == APC_COVER_OFF)
 			update_state |= UPSTATE_OPENED2
 	else if(emagged || malfai)
 		update_state |= UPSTATE_BLUESCREEN
@@ -393,9 +411,9 @@
 
 		if(!charging)
 			update_overlay |= APC_UPOVERLAY_CHARGEING0
-		else if(charging == 1)
+		else if(charging == APC_IS_CHARGING)
 			update_overlay |= APC_UPOVERLAY_CHARGEING1
-		else if(charging == 2)
+		else if(charging == APC_FULLY_CHARGED)
 			update_overlay |= APC_UPOVERLAY_CHARGEING2
 
 		if(!equipment)
@@ -497,7 +515,7 @@
 		else if(terminal) // it already have terminal
 			to_chat(user, "<span class='warning'>This APC is already wired!</span>")
 			return
-		else if(has_electronics == 0)
+		else if(!has_electronics())
 			to_chat(user, "<span class='warning'>There is nothing to wire!</span>")
 			return
 
@@ -511,7 +529,7 @@
 		if(do_after(user, 20, target = src))
 			if(C.get_amount() < 10 || !C)
 				return
-			if(C.get_amount() >= 10 && !terminal && opened && has_electronics > 0)
+			if(C.get_amount() >= 10 && !terminal && opened && has_electronics())
 				var/turf/T = get_turf(src)
 				var/obj/structure/cable/N = T.get_cable_node()
 				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE))
@@ -523,7 +541,7 @@
 				terminal.connect_to_network()
 
 	else if(istype(W, /obj/item/apc_electronics) && opened)
-		if(has_electronics!=0) // there are already electronicks inside
+		if(has_electronics()) // there are already electronicks inside
 			to_chat(user, "<span class='warning'>You cannot put the board inside, there already is one!</span>")
 			return
 		else if(stat & BROKEN)
@@ -534,26 +552,26 @@
 							"<span class='notice'>You start to insert the power control board into the frame...</span>")
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		if(do_after(user, 10, target = src))
-			if(!has_electronics)
-				has_electronics = TRUE
+			if(!has_electronics())
+				electronics_state = APC_ELECTRONICS_INSTALLED
 				locked = FALSE
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
 				qdel(W)
 
 	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened)
-		if(!(stat & BROKEN || opened==2 || obj_integrity < max_integrity)) // There is nothing to repair
+		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity)) // There is nothing to repair
 			to_chat(user, "<span class='warning'>You found no reason for repairing this APC</span>")
 			return
-		if(!(stat & BROKEN) && opened==2) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
+		if(!(stat & BROKEN) && opened == APC_COVER_OFF) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
 			user.visible_message("[user.name] replaces missing APC's cover.",\
 							"<span class='notice'>You begin to replace APC's cover...</span>")
 			if(do_after(user, 20, target = src)) // replacing cover is quicker than replacing whole frame
 				to_chat(user, "<span class='notice'>You replace missing APC's cover.</span>")
 				qdel(W)
-				opened = 1
+				opened = APC_OPENED
 				update_icon()
 			return
-		if(has_electronics)
+		if(has_electronics())
 			to_chat(user, "<span class='warning'>You cannot repair this APC until you remove the electronics still inside!</span>")
 			return
 		user.visible_message("[user.name] replaces the damaged APC frame with a new one.",\
@@ -563,8 +581,8 @@
 			qdel(W)
 			stat &= ~BROKEN
 			obj_integrity = max_integrity
-			if(opened==2)
-				opened = 1
+			if(opened == APC_COVER_OFF)
+				opened = APC_OPENED
 			update_icon()
 		return
 	else
@@ -576,14 +594,14 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(opened) // a) on open apc
-		if(has_electronics==1)
+		if(electronics_state == APC_ELECTRONICS_INSTALLED)
 			if(terminal)
 				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 				return
 			to_chat(user, "<span class='notice'>You are trying to remove the power control board...</span>" )
 			if(I.use_tool(src, user, 50, volume = I.tool_volume))
-				if(has_electronics)
-					has_electronics = FALSE
+				if(has_electronics())
+					electronics_state = APC_ELECTRONICS_NONE
 					if(stat & BROKEN)
 						user.visible_message(\
 							"[user.name] has broken the power control board inside [name]!",
@@ -610,8 +628,8 @@
 							"<span class='notice'>You remove the power control board.</span>")
 						new /obj/item/apc_electronics(loc)
 						return
-		else if(opened!=2) //cover isn't removed
-			opened = 0
+		else if(opened != APC_COVER_OFF) //cover isn't removed
+			opened = APC_CLOSED
 			coverlocked = TRUE //closing cover relocks it
 			update_icon()
 			return
@@ -623,7 +641,7 @@
 			to_chat(user, "<span class='warning'>Exposed wires prevents you from opening it!</span>")
 			return
 		else
-			opened = 1
+			opened = APC_OPENED
 			update_icon()
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
@@ -635,12 +653,12 @@
 			to_chat(user, "<span class='warning'>Close the APC first!</span>") //Less hints more mystery!
 			return
 		else
-			if(has_electronics==1)
-				has_electronics = 2
+			if(electronics_state == APC_ELECTRONICS_INSTALLED)
+				electronics_state = APC_ELECTRONICS_SECURED
 				stat &= ~MAINT
 				to_chat(user, "<span class='notice'>You screw the circuit electronics into place.</span>")
-			else if(has_electronics==2)
-				has_electronics = 1
+			else if(electronics_state == APC_ELECTRONICS_SECURED)
+				electronics_state = APC_ELECTRONICS_INSTALLED
 				stat |= MAINT
 				to_chat(user, "<span class='notice'>You unfasten the electronics.</span>")
 			else
@@ -702,20 +720,20 @@
 		if(!(stat & BROKEN))
 			set_broken()
 		if(opened != 2)
-			opened = 2
+			opened = APC_COVER_OFF
 			coverlocked = FALSE
 			visible_message("<span class='warning'>The APC cover is knocked down!</span>")
 			update_icon()
 
 /obj/machinery/power/apc/welder_act(mob/user, obj/item/I)
-	if(!opened || has_electronics || terminal)
+	if(!opened || has_electronics() || terminal)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 3))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(I.use_tool(src, user, 50, amount = 3, volume = I.tool_volume))
-		if((stat & BROKEN) || opened==2)
+		if((stat & BROKEN) || opened == APC_COVER_OFF)
 			new /obj/item/stack/sheet/metal(loc)
 			user.visible_message(\
 				"[user.name] has cut [src] apart with [I].",\
@@ -755,7 +773,7 @@
 			cell.add_fingerprint(user)
 			cell.update_icon()
 			cell = null
-			charging = 0
+			charging = APC_NOT_CHARGING
 			update_icon()
 		return
 	if(stat & (BROKEN|MAINT))
@@ -1159,10 +1177,10 @@
 			if((cell.charge/GLOB.CELLRATE + excess) >= lastused_total)		// can we draw enough from cell+grid to cover last usage?
 				cell.charge = min(cell.maxcharge, cell.charge + GLOB.CELLRATE * excess)	//recharge with what we can
 				add_load(excess)		// so draw what we can from the grid
-				charging = 0
+				charging = APC_NOT_CHARGING
 
 			else	// not enough power available to run the last tick!
-				charging = 0
+				charging = APC_NOT_CHARGING
 				chargecount = 0
 				// This turns everything off in the case that there is still a charge left on the battery, just not enough to run the room.
 				equipment = autoset(equipment, 0)
@@ -1213,7 +1231,7 @@
 				autoflag = 0
 
 		// now trickle-charge the cell
-		if(chargemode && charging == 1 && operating)
+		if(chargemode && charging == APC_IS_CHARGING && operating)
 			if(excess > 0)		// check to make sure we have enough to charge
 				// Max charge is capped to % per second constant
 				var/ch = min(excess*GLOB.CELLRATE, cell.maxcharge*GLOB.CHARGELEVEL)
@@ -1221,13 +1239,13 @@
 				cell.give(ch) // actually recharge the cell
 
 			else
-				charging = 0		// stop charging
+				charging = APC_NOT_CHARGING		// stop charging
 				chargecount = 0
 
 		// show cell as fully charged if so
 		if(cell.charge >= cell.maxcharge)
 			cell.charge = cell.maxcharge
-			charging = 2
+			charging = APC_FULLY_CHARGED
 
 		if(chargemode)
 			if(!charging)
@@ -1239,10 +1257,10 @@
 				if(chargecount == 10)
 
 					chargecount = 0
-					charging = 1
+					charging = APC_IS_CHARGING
 
 		else // chargemode off
-			charging = 0
+			charging = APC_NOT_CHARGING
 			chargecount = 0
 
 		if(excess >= 2500000 && !shock_proof)
@@ -1264,7 +1282,7 @@
 
 	else // no cell, switch everything off
 
-		charging = 0
+		charging = APC_NOT_CHARGING
 		chargecount = 0
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
