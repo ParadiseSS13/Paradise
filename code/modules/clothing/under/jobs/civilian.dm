@@ -106,7 +106,7 @@
 	name = "botanist's jumpsuit"
 	icon_state = "hydroponics"
 	item_state = "g_suit"
-	item_color = "hydroponics"
+	item_color = "hydro"
 	permeability_coefficient = 0.50
 
 /obj/item/clothing/under/rank/internalaffairs

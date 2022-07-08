@@ -479,6 +479,7 @@
 	name = "botany bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
 	icon_state = "bandbotany"
+	item_color = "hydro"
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"
@@ -495,6 +496,7 @@
 	name = "durathread bandana"
 	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
 	icon_state = "banddurathread"
+	dyeable = FALSE
 
 /obj/item/clothing/mask/cursedclown
 	name = "cursed clown mask"

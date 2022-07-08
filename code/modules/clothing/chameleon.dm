@@ -198,6 +198,7 @@
 	sensor_mode = SENSOR_OFF //Hey who's this guy on the Syndicate Shuttle??
 	random_sensor = FALSE
 	resistance_flags = NONE
+	dyeable = FALSE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -362,6 +363,7 @@
 	desc = "It's a baseball hat in a tasteful grey colour."
 	icon_state = "greysoft"
 	item_color = "grey"
+	dyeable = FALSE
 
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -449,6 +451,7 @@
 	desc = "A pair of black shoes."
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
+	dyeable = FALSE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -475,6 +478,7 @@
 	item_color = "black"
 	desc = "A pair of black shoes."
 	flags = NOSLIP
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/chameleon/noslip/broken/Initialize(mapload)
 	. = ..()

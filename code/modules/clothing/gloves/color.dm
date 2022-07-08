@@ -10,6 +10,7 @@
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
+	dyeable = FALSE
 
 /obj/item/clothing/gloves/color/yellow/power
 	var/old_mclick_override
@@ -55,6 +56,7 @@
 /obj/item/clothing/gloves/color/yellow/fake
 	desc = "These gloves will protect the wearer from electric shock. They don't feel like rubber..."
 	siemens_coefficient = 1
+	dyeable = TRUE
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	name = "budget insulated gloves"
@@ -65,6 +67,7 @@
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
+	dyeable = FALSE
 
 /obj/item/clothing/gloves/color/fyellow/New()
 	..()
@@ -83,20 +86,13 @@
 	desc = "These gloves are fire-resistant."
 	icon_state = "black"
 	item_state = "bgloves"
-	item_color="black"
+	item_color = "black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	var/can_be_cut = 1
-
-
-/obj/item/clothing/gloves/color/black/hos
-	item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
-
-/obj/item/clothing/gloves/color/black/ce
-	item_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
 
 /obj/item/clothing/gloves/color/black/thief
 	pickpocket = 1
@@ -123,7 +119,7 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "orange"
 	item_state = "orangegloves"
-	item_color="orange"
+	item_color = "orange"
 
 /obj/item/clothing/gloves/color/red
 	name = "red gloves"
@@ -138,6 +134,7 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
+	dyeable = FALSE
 
 /obj/item/clothing/gloves/color/rainbow
 	name = "rainbow gloves"
@@ -175,30 +172,21 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "gray"
 	item_state = "graygloves"
-	item_color="grey"
-
-/obj/item/clothing/gloves/color/grey/rd
-	item_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
-
-/obj/item/clothing/gloves/color/grey/hop
-	item_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
+	item_color = "grey"
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "lightbrown"
 	item_state = "lightbrowngloves"
-	item_color="light brown"
+	item_color = "light brown"
 
 /obj/item/clothing/gloves/color/brown
 	name = "brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "brown"
 	item_state = "browngloves"
-	item_color="brown"
-
-/obj/item/clothing/gloves/color/brown/cargo
-	item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
+	item_color = "brown"
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
@@ -207,7 +195,8 @@
 	item_state = "lgloves"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
-	item_color="white"
+	item_color = "white"
+	dyeable = FALSE
 	transfer_prints = TRUE
 	resistance_flags = NONE
 
@@ -217,18 +206,15 @@
 	icon_state = "nitrile"
 	item_state = "nitrilegloves"
 	transfer_prints = FALSE
-	item_color = "medical"
+	item_color = "med"
+	dyeable = FALSE
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
 	desc = "These look pretty fancy."
 	icon_state = "white"
 	item_state = "wgloves"
-	item_color="mime"
-
-/obj/item/clothing/gloves/color/white/redcoat
-	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
-
+	item_color = "white"
 
 /obj/item/clothing/gloves/color/captain
 	name = "captain's gloves"
@@ -236,6 +222,7 @@
 	icon_state = "captain"
 	item_state = "egloves"
 	item_color = "captain"
+	dyeable = FALSE
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	cold_protection = HANDS
@@ -252,3 +239,26 @@
 	item_state = "furgloves"
 	transfer_prints = TRUE
 	transfer_blood = TRUE
+
+//Everything here exists for washing machines/chameleon stuff. Is not different in any way.
+
+/obj/item/clothing/gloves/color/brown/cargo
+	item_color = "cargo"
+
+/obj/item/clothing/gloves/color/black/hos
+	item_color = "hos"
+
+/obj/item/clothing/gloves/color/black/ce
+	item_color = "chief"
+
+/obj/item/clothing/gloves/color/grey/rd
+	item_color = "director"
+
+/obj/item/clothing/gloves/color/grey/hop
+	item_color = "hop"
+
+/obj/item/clothing/gloves/color/white/redcoat
+	item_color = "redcoat"
+
+/obj/item/clothing/gloves/color/white/mime
+	item_color = "mime"

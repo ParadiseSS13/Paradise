@@ -437,6 +437,7 @@
 	desc = "An adorable stuffed toy that resembles a space carp."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
+	item_color = "purple"
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	var/bitesound = 'sound/weapons/bite.ogg'
 	resistance_flags = FLAMMABLE
@@ -463,21 +464,27 @@
 
 /obj/item/toy/carpplushie/ice
 	icon_state = "icecarp"
+	item_color = "med"
 
 /obj/item/toy/carpplushie/silent
 	icon_state = "silentcarp"
+	item_color = "white"
 
 /obj/item/toy/carpplushie/electric
 	icon_state = "electriccarp"
+	item_color = "blue"
 
 /obj/item/toy/carpplushie/gold
 	icon_state = "goldcarp"
+	item_color = "yellow"
 
 /obj/item/toy/carpplushie/toxin
 	icon_state = "toxincarp"
+	item_color = "green"
 
 /obj/item/toy/carpplushie/dragon
 	icon_state = "dragoncarp"
+	item_color = "orange"
 
 /obj/item/toy/carpplushie/pink
 	icon_state = "pinkcarp"
@@ -487,9 +494,11 @@
 
 /obj/item/toy/carpplushie/nebula
 	icon_state = "nebulacarp"
+	item_color = "purple"
 
 /obj/item/toy/carpplushie/void
 	icon_state = "voidcarp"
+	item_color = "red"
 
 /*
  * Plushie

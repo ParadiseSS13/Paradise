@@ -359,36 +359,37 @@
 	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	dog_fashion = /datum/dog_fashion/head
+	dyeable = TRUE
 
 /obj/item/clothing/accessory/scarf/red
 	name = "red scarf"
 	icon_state = "redscarf"
-	item_color = "redscarf"
+	item_color = "red"
 
 /obj/item/clothing/accessory/scarf/green
 	name = "green scarf"
 	icon_state = "greenscarf"
-	item_color = "greenscarf"
+	item_color = "green"
 
 /obj/item/clothing/accessory/scarf/darkblue
 	name = "dark blue scarf"
 	icon_state = "darkbluescarf"
-	item_color = "darkbluescarf"
+	item_color = "blue"
 
 /obj/item/clothing/accessory/scarf/purple
 	name = "purple scarf"
 	icon_state = "purplescarf"
-	item_color = "purplescarf"
+	item_color = "purple"
 
 /obj/item/clothing/accessory/scarf/yellow
 	name = "yellow scarf"
 	icon_state = "yellowscarf"
-	item_color = "yellowscarf"
+	item_color = "yellow"
 
 /obj/item/clothing/accessory/scarf/orange
 	name = "orange scarf"
 	icon_state = "orangescarf"
-	item_color = "orangescarf"
+	item_color = "orange"
 
 /obj/item/clothing/accessory/scarf/lightblue
 	name = "light blue scarf"
@@ -398,12 +399,12 @@
 /obj/item/clothing/accessory/scarf/white
 	name = "white scarf"
 	icon_state = "whitescarf"
-	item_color = "whitescarf"
+	item_color = "white"
 
 /obj/item/clothing/accessory/scarf/black
 	name = "black scarf"
 	icon_state = "blackscarf"
-	item_color = "blackscarf"
+	item_color = "black"
 
 /obj/item/clothing/accessory/scarf/zebra
 	name = "zebra scarf"

@@ -121,7 +121,7 @@
 	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
 	icon_state = "hos"
 	item_state = "r_suit"
-	item_color = "hosred"
+	item_color = "hos"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 

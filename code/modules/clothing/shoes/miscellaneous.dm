@@ -1,8 +1,3 @@
-/obj/item/clothing/shoes/mime
-	name = "mime shoes"
-	icon_state = "mime"
-	item_color = "mime"
-
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
@@ -159,7 +154,7 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	item_color = "hosred"
+	item_color = "sec"
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
@@ -176,6 +171,7 @@
 	desc = "Thick-soled boots for industrial work environments."
 	can_cut_open = 1
 	icon_state = "workboots"
+	item_color = "engie"
 
 /obj/item/clothing/shoes/workboots/mining
 	name = "mining boots"
@@ -365,7 +361,7 @@
 	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid foward movement."
 	icon_state = "jetboots"
 	item_state = "jetboots"
-	item_color = "hosred"
+	dyeable = FALSE
 	resistance_flags = FIRE_PROOF
 	actions_types = list(/datum/action/item_action/bhop)
 	permeability_coefficient = 0.05

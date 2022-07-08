@@ -1924,7 +1924,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter
 	contains = list(
 					/obj/machinery/washing_machine,
-					/obj/machinery/washing_machine
+					/obj/machinery/washing_machine,
+					/obj/structure/bedsheetbin
 					)
 	containername = "washing machine crate"
 

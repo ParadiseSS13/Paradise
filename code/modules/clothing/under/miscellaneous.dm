@@ -735,6 +735,7 @@
 	icon_state = "atmos"
 	item_state = "atmos_suit"
 	item_color = "atmos"
+	dyeable = FALSE
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
@@ -853,6 +854,7 @@
 	icon_state = "durathread"
 	item_state = "durathread"
 	item_color = "durathread"
+	dyeable = FALSE
 	armor = list(melee = 10, bullet = 0, laser = 10, energy = 0, bomb = 5, bio = 0, rad = 0, fire = 0, acid = 0)
 
 /obj/item/clothing/under/cuban_suit

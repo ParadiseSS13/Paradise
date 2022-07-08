@@ -8,8 +8,8 @@
 /obj/item/clothing/accessory/armband/sec
 	name = "security armband"
 	desc = "An armband, worn by the crew to display which department they're assigned to. This one is white and red."
-	icon_state = "whitered"
-	item_color = "whitered"
+	icon_state = "sec"
+	item_color = "sec"
 
 /obj/item/clothing/accessory/armband/yb
 	name = "blue-yellow armband"
@@ -33,7 +33,7 @@
 	name = "science armband"
 	desc = "An armband, worn by the crew to display which department they're assigned to. This one is purple."
 	icon_state = "rnd"
-	item_color = "rnd"
+	item_color = "sci"
 
 /obj/item/clothing/accessory/armband/hydro
 	name = "hydroponics armband"
@@ -51,4 +51,4 @@
 	name = "EMT armband"
 	desc = "An armband, worn by the crew to display which department they're assigned to. This one is white and green."
 	icon_state = "medgreen"
-	item_color = "medgreen"
+	item_color = "med"

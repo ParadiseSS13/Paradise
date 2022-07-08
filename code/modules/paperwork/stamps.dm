@@ -40,7 +40,7 @@
 /obj/item/stamp/hos
 	name = "head of security's rubber stamp"
 	icon_state = "stamp-hos"
-	item_color = "hosred"
+	item_color = "hos"
 
 /obj/item/stamp/ce
 	name = "chief engineer's rubber stamp"
@@ -55,7 +55,7 @@
 /obj/item/stamp/cmo
 	name = "chief medical officer's rubber stamp"
 	icon_state = "stamp-cmo"
-	item_color = "medical"
+	item_color = "cmo"
 
 /obj/item/stamp/granted
 	name = "\improper GRANTED rubber stamp"

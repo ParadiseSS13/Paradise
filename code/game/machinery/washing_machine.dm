@@ -1,30 +1,28 @@
 /obj/machinery/washing_machine
 	name = "\improper washing machine"
-	desc = "An advanced washing machine, a washer and dryer all rolled up into one.\nGets rid of those pesky bloodstains, or your money back!"
+	desc = "An advanced washer and dryer all rolled up into one.\nGets rid of those pesky bloodstains, or your money back!"
 	icon = 'icons/obj/machines/washing_machine.dmi'
-	icon_state = "wm_10"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
+	idle_power_usage = 100
+	active_power_usage = 1000
+
 	var/state = 1
-	//1 = empty, open door
-	//2 = empty, closed door
-	//3 = full, open door
-	//4 = full, closed door
-	//5 = running
-	//6 = blood, open door
-	//7 = blood, closed door
-	//8 = blood, running
+		//1 = empty, open door
+		//2 = empty, closed door
+		//3 = full, open door
+		//4 = full, closed door
+		//5 = running
+		//6 = blood, open door
+		//7 = blood, closed door
+		//8 = blood, running
 	var/open = TRUE
 	var/full = FALSE // full means it contains any items at all, not meaning its reached its capacity
 	var/running = FALSE
 	var/bloody = FALSE
-	var/powered = 1 //update_icon () is based on 0/1s, keep powered not false/true
-	var/panel = 0
+	var/panel = FALSE
 
 	var/mobblooddna
-
-	//0 = closed
-	//1 = open
 	var/obj/crayon
 
 	var/washing_damage = 20 // how much damage a single cycle should do // 20 is just enough damage to kill Ian
@@ -34,33 +32,43 @@
 	var/resist_time = 5 SECONDS
 
 // todo: use alt click to start the washing machine [X]
-// Make washing machines more intuitive []
+// Make washing machines more intuitive [X]
 // Mouse drag to put simplemobs in them [X]
-// Clean up that damn color code lol [MAIN REASON FOR THIS]
-// Make it so you can resist out of washing machines []
+// Clean up that damn color code lol [X]
+// Make it so you can resist out of washing machines [X]
 // convert states to vars [X]
 // You can now drag small animals/people into washing machines [X]
 // you can now kill people with washing machines [X]
-// make washing machines require power []
+// make washing machines require power [X]
 // message for trying to put people/things/animals into the washing machine when the door is closed [X]
 // If the washing machine is bloody, make shit inside of it covered in blood of whoever bled in there []
-// Make washing machines release their contents when destroyed []
-// Make any person/clothes inside the washing machine very bloody if used []
+// Make washing machines release their contents when destroyed [X]
+// dyeable plushies [X]
 
-// Make showers not clean your clothes? []
+/obj/machinery/washing_machine/Initialize()
+	. = ..()
+	update_icon()
+
+/obj/machinery/sleeper/power_change()
+	..()
+	if(!(stat & (BROKEN|NOPOWER)))
+	update_icon()
 
 /obj/machinery/washing_machine/AltClick(mob/living/user)
 	if(!istype(usr, /mob/living))
 		return
-	if(powered)
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 5)
-		sleep(10)
+	if(stat & NOPOWER)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 15)
+		to_chat(usr, "<span class='notice'>\The [src] isn't powered.</span>")
 		return
 	if(running)
 		to_chat(usr, "<span class='notice'>\The [src] is already running.</span>")
 		return
 	if(open && bloody)
-		to_chat(usr, "<span class='notice'>You start \the [src] to clean it out.</span>")
+		if(!full)
+			to_chat(usr, "<span class='notice'>You start \the [src] to clean it out.</span>")
+		else()
+			to_chat(usr, "<span class='notice'>You start \the [src], covering the contents inside with blood.</span>")
 	else
 		if(!full)
 			to_chat(usr, "<span class='notice'>\The [src] is empty, there is nothing to clean.</span>")
@@ -92,7 +100,7 @@
 			sleep(damage_time)
 			I++
 
-	if(bloody)
+	if(!bloody) // if its filled with blood, its not gonna clean blood
 		for(var/atom/A in contents)
 			A.clean_blood()
 
@@ -110,6 +118,9 @@
 		else if(istype(crayon,/obj/item/stamp))
 			var/obj/item/stamp/ST = crayon
 			wash_color = ST.item_color
+		else if(istype(crayon,/obj/item/clothing/accessory/armband))
+			var/obj/item/clothing/accessory/armband/AR = crayon
+			wash_color = AR.item_color
 
 		if(wash_color)
 			var/list/newcontents = list()
@@ -124,44 +135,86 @@
 							break
 				if(shouldbreak)
 					continue
+				if(istype(O, /obj/item/clothing/under/plasmaman)) // plasmaman suits need to be before jumpsuits so they are not processed as a jumpsuit
+					for(var/T in typesof(/obj/item/clothing/under/plasmaman))
+						var/obj/item/clothing/under/plasmaman/J = new T
+						if((wash_color == J.item_color) && J.dyeable)
+							qdel(O)
+							newcontents += J
+							break
+				if(istype(O, /obj/item/clothing/head/helmet/space/plasmaman)) // plasmaman suits need to be before jumpsuits so they are not processed as a jumpsuit
+					for(var/T in typesof(/obj/item/clothing/head/helmet/space/plasmaman))
+						var/obj/item/clothing/head/helmet/space/plasmaman/J = new T
+						if((wash_color == J.item_color) && J.dyeable)
+							qdel(O)
+							newcontents += J
+							break
 				if(istype(O, /obj/item/clothing/under)) // jumpsuits
 					for(var/T in typesof(/obj/item/clothing/under))
 						var/obj/item/clothing/under/J = new T
-						if(wash_color == J.item_color)
+						if((wash_color == J.item_color) && J.dyeable)
 							qdel(O)
 							newcontents += J
 							break
 				if(istype(O, /obj/item/clothing/gloves/color)) //gloves
 					for(var/T in typesof(/obj/item/clothing/gloves/color))
 						var/obj/item/clothing/gloves/color/J = new T
-						if(wash_color == J.item_color)
+						if((wash_color == J.item_color) && J.dyeable)
 							qdel(O)
 							newcontents += J
 							break
 				if(istype(O, /obj/item/clothing/shoes)) //shoes
 					for(var/T in typesof(/obj/item/clothing/shoes))
 						var/obj/item/clothing/shoes/J = new T
-						if(wash_color == J.item_color)
+						if((wash_color == J.item_color) && J.dyeable)
 							qdel(O)
 							newcontents += J
 							break
 				if(istype(O, /obj/item/clothing/mask/bandana)) //bandanas
 					for(var/T in typesof(/obj/item/clothing/mask/bandana))
 						var/obj/item/clothing/mask/bandana/J = new T
-						if(wash_color == J.item_color)
+						if((wash_color == J.item_color) && J.dyeable)
 							qdel(O)
 							newcontents += J
 							break
 				if(istype(O, /obj/item/clothing/head/soft)) // soft-caps
 					for(var/T in typesof(/obj/item/clothing/head/soft))
 						var/obj/item/clothing/head/soft/J = new T
-						if(wash_color == J.item_color)
+						if((wash_color == J.item_color) && J.dyeable)
+							qdel(O)
+							newcontents += J
+							break
+				if(istype(O, /obj/item/clothing/head/beanie)) // non-striped beanies
+					for(var/T in typesof(/obj/item/clothing/head/beanie))
+						var/obj/item/clothing/head/beanie/J = new T
+						if((wash_color == J.item_color) && J.dyeable)
+							qdel(O)
+							newcontents += J
+							break
+				if(istype(O, /obj/item/clothing/accessory/scarf)) // scarves
+					for(var/T in typesof(/obj/item/clothing/accessory/scarf))
+						var/obj/item/clothing/accessory/scarf/J = new T
+						if((wash_color == J.item_color) && J.dyeable)
 							qdel(O)
 							newcontents += J
 							break
 				if(istype(O, /obj/item/bedsheet)) // bedsheets
 					for(var/T in typesof(/obj/item/bedsheet))
 						var/obj/item/bedsheet/J = new T
+						if(wash_color == J.item_color)
+							qdel(O)
+							newcontents += J
+							break
+				if(istype(O, /obj/item/storage/wallet/color)) // only for wallets from the arcade
+					for(var/T in typesof(/obj/item/storage/wallet/color))
+						var/obj/item/storage/wallet/color/J = new T
+						if(wash_color == J.item_color)
+							qdel(O)
+							newcontents += J
+							break
+				if(istype(O, /obj/item/toy/carpplushie)) // carp plushies! was gonna add for fox plushies but their pathing makes it not an option currently
+					for(var/T in typesof(obj/item/toy/carpplushie))
+						obj/item/toy/carpplushie/J = new T
 						if(wash_color == J.item_color)
 							qdel(O)
 							newcontents += J
@@ -176,8 +229,8 @@
 	else
 		playsound(src, 'sound/weapons/jug_filled_impact.ogg', 25)
 	update_icon()
-	sleep (5)
-	if(powered)
+	sleep(5)
+	if(stat & NOPOWER)
 		playsound(src, 'sound/machines/terminal_off.ogg', 45)
 	else
 		playsound(src, 'sound/machines/defib_success.ogg', 25)
@@ -206,16 +259,16 @@
 				else
 					state = 2
 
+	icon_state = "wm_[state]"
 	cut_overlays()
 	if(panel)
 		add_overlay("wires")
 	else
-		if(powered == 0)
+		if(stat & NOPOWER)
 			if(running)
-				add_overlay("power1")
-			else
 				add_overlay("power0")
-	icon_state = "wm_[state]"
+		else
+			add_overlay("power1")
 
 /obj/machinery/washing_machine/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/spray/cleaner) || istype(W, /obj/item/soap))
@@ -227,7 +280,7 @@
 	if(default_unfasten_wrench(user, W))
 		power_change()
 		return
-	if(istype(W,/obj/item/toy/crayon) || istype(W,/obj/item/stamp))
+	if(istype(W,/obj/item/toy/crayon) || istype(W,/obj/item/stamp) || istype(W,/obj/item/clothing/accessory/armband))
 		if(open && !bloody)
 			if(!crayon)
 				user.drop_item()
@@ -269,16 +322,15 @@
 		istype(W,/obj/item/clothing/gloves) || \
 		istype(W,/obj/item/clothing/shoes) || \
 		istype(W,/obj/item/clothing/suit) || \
-		istype(W,/obj/item/bedsheet))
+		istype(W,/obj/item/bedsheet) || \
+		istype(W,/obj/item/storage/wallet)) // yes forget your wallet in the washing machine
 
-		//var/list/prohibited = list(/obj/item/clothing/under/plasmaman, /obj/item/clothing/suit/space, /obj/item/clothing/suit/syndicatefake, /obj/item/clothing/suit/bomb_suit, /obj/item/clothing/suit/armor, /obj/item/clothing/mask/gas, /obj/item/clothing/head/syndicatefake, /obj/item/clothing/head/helmet, /obj/item/clothing/gloves/furgloves)
-		//var/list/prohibited2 = list(/obj/item/clothing/mask/cigarette, /obj/item/clothing/suit/cyborg_suit) // make the cig into a cig butt, make the cyborg suit into 4 cardboard, ADD INSULS
-/*		for(W in prohibited)
-			to_chat(user, "This item does not fit.")
-			return
-		for(W in prohibited2)
-			to_chat(user, "Washing this would be a bad idea...")
-			return */
+		var/list/prohibited = list(/obj/item/clothing/suit/space, /obj/item/clothing/suit/syndicatefake, /obj/item/clothing/suit/bomb_suit, /obj/item/clothing/suit/armor, /obj/item/clothing/mask/gas, /obj/item/clothing/head/syndicatefake, /obj/item/clothing/head/helmet, /obj/item/clothing/suit/cyborg_suit, /obj/item/clothing/mask/cigarette)
+		if(!istype(W, (/obj/item/clothing/head/helmet/space/plasmaman)))
+			for(var/I in 1 to length(prohibited))
+				if(istype(W, prohibited[I]))
+					to_chat(user, "This item does not fit.")
+					return
 		if(istype(W, /obj/item/clothing/gloves/color/black/krav_maga/sec))
 			to_chat(user, "<span class='warning'>Washing these gloves would fry the electronics!</span>")
 			return
@@ -287,7 +339,7 @@
 			return
 
 		if(contents.len < 10)
-			if(!locate(/mob,contents)) // This should block adding any extra items
+			if(!locate(/mob,contents)) // no placing items in the machine if theres a mob inside
 				if(open && !bloody)
 					user.drop_item()
 					W.loc = src
@@ -358,11 +410,11 @@
 			else
 				. += "<span class='warning'>\The [src] has 1 object inside and tons of blood!</span>"
 		else
-			if(length(contents) == 0)
+			if(length(contents) != 1)
 				. += "<span class='notice'>\The [src] has [length(contents)] objects inside.</span>"
 			else
-				. += "<span class='notice'>\The [src] has 1 object inside.!</span>"
-		if(powered)
+				. += "<span class='notice'>\The [src] has 1 object inside.</span>"
+		if(stat & NOPOWER)
 			. += "<span class='warning'>\The [src] is running on emergency power.</span>"
 	else
 		if(length(contents))
@@ -371,12 +423,11 @@
 			. += "<span class='notice'>\The [src] is empty.</span>"
 		if(bloody)
 			. += "<span class='warning'>\The [src] filled with blood!</span>"
-		if(powered)
+		if(stat & NOPOWER)
 			. += "<span class='warning'>\The [src] has no power.</span>"
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 5)
-	new /obj/item/stack/cable_coil(drop_location(), 5)
 	dropContents()
 	qdel(src)
 

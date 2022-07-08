@@ -79,7 +79,7 @@
 	name = "white cap"
 	desc = "It's a baseball hat in a tasteless white colour."
 	icon_state = "mimesoft"
-	item_color = "mime"
+	item_color = "white"
 	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/purple

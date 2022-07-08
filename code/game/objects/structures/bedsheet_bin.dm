@@ -24,8 +24,6 @@ LINEN BINS
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5
 
-
-
 /obj/item/bedsheet/attack_self(mob/user as mob)
 	user.drop_item()
 	if(layer == initial(layer))
@@ -144,7 +142,7 @@ LINEN BINS
 	name = "medical blanket"
 	desc = "It's a sterilized* blanket commonly used in the Medbay.  *Sterilization is voided if a virologist is present onboard the station."
 	icon_state = "sheetmedical"
-	item_color = "medical"
+	item_color = "med"
 	dream_messages = list("healing", "life", "surgery", "a doctor")
 	nightmare_messages = list("death", "no cryox", "cryo is off")
 
@@ -160,10 +158,9 @@ LINEN BINS
 	name = "head of security's bedsheet"
 	desc = "It is decorated with a shield emblem.  While crime doesn't sleep, you do, but you are still THE LAW!"
 	icon_state = "sheethos"
-	item_color = "hosred"
+	item_color = "hos"
 	dream_messages = list("authority", "a silvery ID", "handcuffs", "a baton", "a flashbang", "sunglasses", "the head of security")
 	nightmare_messages = list("the clown", "a toolbox", "sHiTcUrItY", "why did you put them in for 50 minutes")
-
 
 /obj/item/bedsheet/hop
 	name = "head of personnel's bedsheet"
@@ -219,7 +216,6 @@ LINEN BINS
 	dream_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 	nightmare_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 
-
 /obj/item/bedsheet/wiz
 	name = "wizard's bedsheet"
 	desc = "A special fabric enchanted with magic so you can have an enchanted night.  It even glows!"
@@ -227,8 +223,6 @@ LINEN BINS
 	item_color = "wiz"
 	dream_messages = list("a book", "an explosion", "lightning", "a staff", "a skeleton", "a robe", "magic")
 	nightmare_messages = list("a toolbox", "solars")
-
-
 
 /obj/structure/bedsheetbin
 	name = "linen bin"
@@ -249,7 +243,6 @@ LINEN BINS
 		hidden = null
 	return ..()
 
-
 /obj/structure/bedsheetbin/examine(mob/user)
 	. = ..()
 	if(amount < 1)
@@ -259,7 +252,6 @@ LINEN BINS
 	else
 		. += "There are [amount] bed sheets in the bin."
 
-
 /obj/structure/bedsheetbin/update_icon()
 	switch(amount)
 		if(0)
@@ -268,7 +260,6 @@ LINEN BINS
 			icon_state = "linenbin-half"
 		else
 			icon_state = "linenbin-full"
-
 
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
@@ -300,8 +291,6 @@ LINEN BINS
 		hidden = I
 		to_chat(user, "<span class='notice'>You hide [I] among the sheets.</span>")
 
-
-
 /obj/structure/bedsheetbin/attack_hand(mob/user)
 	if(amount >= 1)
 		amount--
@@ -322,10 +311,7 @@ LINEN BINS
 			hidden.loc = user.loc
 			to_chat(user, "<span class='notice'>[hidden] falls out of [B]!</span>")
 			hidden = null
-
-
 	add_fingerprint(user)
-
 
 /obj/structure/bedsheetbin/attack_tk(mob/user)
 	if(amount >= 1)

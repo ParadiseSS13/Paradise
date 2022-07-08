@@ -17,36 +17,43 @@
 	name = "black beanie"
 	icon_state = "beanie"
 	color = "#4A4A4B" //Grey but it looks black
+	item_color = "black"
 
 /obj/item/clothing/head/beanie/red
 	name = "red beanie"
 	icon_state = "beanie"
 	color = "#D91414" //Red
+	item_color = "red"
 
 /obj/item/clothing/head/beanie/green
 	name = "green beanie"
 	icon_state = "beanie"
 	color = "#5C9E54" //Green
+	item_color = "green"
 
 /obj/item/clothing/head/beanie/darkblue
 	name = "dark blue beanie"
 	icon_state = "beanie"
 	color = "#1E85BC" //Blue
+	item_color = "blue"
 
 /obj/item/clothing/head/beanie/purple
 	name = "purple beanie"
 	icon_state = "beanie"
 	color = "#9557C5" //purple
+	item_color = "purple"
 
 /obj/item/clothing/head/beanie/yellow
 	name = "yellow beanie"
 	icon_state = "beanie"
 	color = "#E0C14F" //Yellow
+	item_color = "yellow"
 
 /obj/item/clothing/head/beanie/orange
 	name = "orange beanie"
 	icon_state = "beanie"
 	color = "#C67A4B" //orange
+	item_color = "orange"
 
 /obj/item/clothing/head/beanie/cyan
 	name = "cyan beanie"
@@ -85,6 +92,7 @@
 	desc = "A beanie made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beaniedurathread"
 	item_color = null
+	dyeable = FALSE
 	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 5)
 
 /obj/item/clothing/head/beanie/waldo

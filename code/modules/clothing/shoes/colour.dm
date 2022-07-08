@@ -8,10 +8,6 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
-	dyeable = TRUE
-
-/obj/item/clothing/shoes/black/redcoat
-	item_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.
 
 /obj/item/clothing/shoes/black/greytide
 	flags = NODROP
@@ -20,24 +16,6 @@
 	name = "brown shoes"
 	desc = "A pair of brown shoes."
 	icon_state = "brown"
-
-/obj/item/clothing/shoes/brown/captain
-	item_color = "captain"	//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/hop
-	item_color = "hop"		//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/ce
-	item_color = "chief"		//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/rd
-	item_color = "director"	//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/cmo
-	item_color = "medical"	//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/qm
-	item_color = "cargo"		//Exists for washing machines. Is not different from brown shoes in any way.
 
 /obj/item/clothing/shoes/blue
 	name = "blue shoes"
@@ -114,3 +92,35 @@
 			icon_state = "orange1"
 			return
 	return ..()
+
+//Everything here exists for washing machines/chameleon stuff. Is not different in any way.
+
+/obj/item/clothing/shoes/white/mime
+	item_color = "mime"
+
+/obj/item/clothing/shoes/black/redcoat
+	item_color = "redcoat"
+
+/obj/item/clothing/shoes/brown/captain
+	item_color = "captain"
+
+/obj/item/clothing/shoes/brown/hop
+	item_color = "hop"
+
+/obj/item/clothing/shoes/brown/ce
+	item_color = "chief"
+
+/obj/item/clothing/shoes/brown/rd
+	item_color = "director"
+
+/obj/item/clothing/shoes/white/medical
+	item_color = "med"
+
+/obj/item/clothing/shoes/brown/cmo
+	item_color = "cmo"
+
+/obj/item/clothing/shoes/brown/qm
+	item_color = "cargo"
+
+/obj/item/clothing/shoes/jackboots/hos
+	item_color = "hos"

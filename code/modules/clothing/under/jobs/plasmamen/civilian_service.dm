@@ -3,15 +3,14 @@
 	desc = "An envirosuit used by plasmaman quartermasters and cargo techs alike, due to the logistical problems of differentiating the two by the length of their pant legs."
 	icon_state = "cargo_envirosuit"
 	item_state = "cargo_envirosuit"
-	item_color = "cargo_envirosuit"
+	item_color = "cargo"
 
 /obj/item/clothing/under/plasmaman/mining
 	name = "mining plasma envirosuit"
 	desc = "An airtight khaki suit designed for operations on Lavaland by plasmamen."
 	icon_state = "explorer_envirosuit"
 	item_state = "explorer_envirosuit"
-	item_color = "explorer_envirosuit"
-
+	item_color = "brown"
 
 /obj/item/clothing/under/plasmaman/chef
 	name = "chef's plasma envirosuit"
@@ -25,14 +24,14 @@
 	desc = "The pet project of a particularly posh plasmaman, this custom suit was quickly appropriated by Nanotrasen for its detectives, lawyers, and bartenders alike."
 	icon_state = "enviroslacks"
 	item_state = "enviroslacks"
-	item_color = "enviroslacks"
+	item_color = "white"
 
 /obj/item/clothing/under/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit"
 	desc = "An envirosuit specially designed for only the most pious of plasmamen."
 	icon_state = "chap_envirosuit"
 	item_state = "chap_envirosuit"
-	item_color = "chap_envirosuit"
+	item_color = "black"
 
 /obj/item/clothing/under/plasmaman/librarian
 	name = "librarian's plasma envirosuit"
@@ -46,29 +45,28 @@
 	desc = "A grey and purple envirosuit designated for plasmaman janitors."
 	icon_state = "janitor_envirosuit"
 	item_state = "janitor_envirosuit"
-	item_color = "janitor_envirosuit"
+	item_color = "purple"
 
 /obj/item/clothing/under/plasmaman/botany
 	name = "botany envirosuit"
 	desc = "A green and blue envirosuit designed to protect plasmamen from minor plant-related injuries."
 	icon_state = "botany_envirosuit"
 	item_state = "botany_envirosuit"
-	item_color = "botany_envirosuit"
-
+	item_color = "hydro"
 
 /obj/item/clothing/under/plasmaman/mime
 	name = "mime envirosuit"
 	desc = "It's not very colourful."
 	icon_state = "mime_envirosuit"
 	item_state = "mime_envirosuit"
-	item_color = "mime_envirosuit"
+	item_color = "mime"
 
 /obj/item/clothing/under/plasmaman/clown
 	name = "clown envirosuit"
 	desc = "<i>'HONK!'</i>"
 	icon_state = "clown_envirosuit"
 	item_state = "clown_envirosuit"
-	item_color = "clown_envirosuit"
+	item_color = "clown"
 
 /obj/item/clothing/under/plasmaman/assistant
 	name = "assistant's envirosuit"
@@ -97,14 +95,14 @@
 	desc = "An envirosuit designed for plasmamen employed as the head of personnel."
 	icon_state = "hop_envirosuit"
 	item_state = "hop_envirosuit"
-	item_color = "hop_envirosuit"
+	item_color = "hop"
 
 /obj/item/clothing/under/plasmaman/captain
 	name = "captain's envirosuit"
 	desc = "An envirosuit designed for plasmamen employed as the captain."
 	icon_state = "cap_envirosuit"
 	item_state = "cap_envirosuit"
-	item_color = "cap_envirosuit"
+	item_color = "captain"
 
 /obj/item/clothing/under/plasmaman/blueshield
 	name = "blueshield's envirosuit"
