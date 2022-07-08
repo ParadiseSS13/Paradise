@@ -218,9 +218,9 @@
 // Pizzas
 /datum/recipe/oven/pizzamargherita
 	items = list(
-		/obj/item/reagent_containers/food/snacks/rawpizza/margherita,
+		/obj/item/reagent_containers/food/snacks/rawpizza/margheritapizza,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/margheritapizza
 
 /datum/recipe/oven/meatpizza
 	items = list(

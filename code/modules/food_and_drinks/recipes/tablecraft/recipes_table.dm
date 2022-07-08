@@ -297,7 +297,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 2,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 2,
 	)
-	result = list(/obj/item/reagent_containers/food/snacks/rawpizza/margherita)
+	result = list(/obj/item/reagent_containers/food/snacks/rawpizza/margheritapizza)
 	category = CAT_FOOD
 	subcategory = CAT_PIZZA
 
@@ -421,7 +421,7 @@
 	subcategory = CAT_PIZZA
 
 /datum/crafting_recipe/pestopizza
-	name = "Uncooked Pesto Pizza"
+	name = "Uncooked \"Pesto\" Pizza"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough = 1,
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 2,
