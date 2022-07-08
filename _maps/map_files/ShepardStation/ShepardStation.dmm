@@ -10290,8 +10290,7 @@
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/paper{
-	desc = "";
-	info = "<font face="Verdana" color=black><ul><li> 1] Open valve. <li> 2] Wait until subject deceased. <li> 3] Close valve. Open vent to space. Wait until CO2 percentage below 1%. <li> 4] Close vent to space, chamber will refill automatically with breathable air. Open the interior windoor if any residual gases. <li> 5] Procedure complete. Close interior windoor before next use. <ul></font>";
+	info = " 1] Open valve. <br> 2] Wait until subject deceased. <br> 3] Close valve. Open vent to space. Wait until CO2 percentage below 1%. <br> 4] Close vent to space, chamber will refill automatically with breathable air. Open the interior windoor if any residual gases. <br> 5] Procedure complete. Close interior windoor before next use. ";
 	name = "Execution by Gas instructions"
 	},
 /turf/simulated/floor/engine,
@@ -54692,7 +54691,7 @@
 /area/maintenance/aft2)
 "lfA" = (
 /obj/item/paper{
-	info = "<B>Transcript:</B><BR><BR>[00:00] Recording started.<BR>[00:07] Amya Shupe says, "Start talking."<BR>[00:12] Delbert Honston exclaims, "You'll never find them!"<BR>[00:30] Amya Shupe asks, "Won't we? Unless you tell us where they are, you are going away for a long time... bub."<BR>[00:55] Delbert Honston says, "They're stached all over the station. Like I said, You'll never find them all.."<BR>[01:23] Amya Shupe asks, "You've got 10 seconds to start naming locations before this starts turning ugly."<BR>[01:28] Delbert Honston exclaims, "You don't even understand how valuable they are! They're originals!" <BR>[01:35] Delbert Honston screams in pain! <BR>[01:45] Recording stopped.";
+	info = "<b>Transcript:</b><br><br>[00:00] Recording started.<br>[00:07] Amya Shupe says, Start talking.<br>[00:12] Delbert Honston exclaims, You will never find them!<br>[00:30] Amya Shupe asks, Will we not? Unless you tell us where they are, you are going away for a long time... bub.<br>[00:55] Delbert Honston says, They are stached all over the station. Like I said, You will never find them all..<br>[01:23] Amya Shupe asks, You have got ten seconds to start naming locations before this starts turning ugly.<br>[01:28] Delbert Honston exclaims, You do not even understand how valuable they are! They are originals! <br>[01:35] Delbert Honston screams in pain! <br>[01:45] Recording stopped.";
 	name = "transcript";
 	layer = 3
 	},
