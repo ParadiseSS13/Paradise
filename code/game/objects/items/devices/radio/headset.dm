@@ -90,6 +90,7 @@
 	freqlock = TRUE
 
 /obj/item/radio/headset/alt/deathsquad/Initialize()
+	. = ..()
 	set_frequency(DTH_FREQ)
 
 /obj/item/radio/headset/syndicate
