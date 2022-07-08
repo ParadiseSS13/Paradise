@@ -1187,6 +1187,7 @@
 										keybindings_overrides[KB.name] = list()
 
 					init_keybindings(keybindings_overrides)
+					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
 
 
 	ShowChoices(user)
