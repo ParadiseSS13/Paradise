@@ -3,11 +3,11 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"
 	layer = 2.9
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 
 	var/broken = 0
-	var/processing = 0
+	var/processing = FALSE
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
@@ -208,7 +208,7 @@
 	if(contents.len == 0)
 		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
 		return 1
-	processing = 1
+	processing = TRUE
 	user.visible_message("[user] turns on [src].", \
 		"<span class='notice'>You turn on [src].</span>", \
 		"<span class='italics'>You hear a food processor.</span>")
@@ -229,7 +229,7 @@
 			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
 		P.process_food(loc, O, src)
-	processing = 0
+	processing = FALSE
 
 	visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
 		"<span class='notice'>\the [src] has finished processing.</span>", \
