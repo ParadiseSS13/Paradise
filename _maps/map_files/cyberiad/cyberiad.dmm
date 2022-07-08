@@ -7197,11 +7197,11 @@
 	},
 /area/security/evidence)
 "avH" = (
-/obj/effect/decal/warning_stripes/east,
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7698,25 +7698,11 @@
 /turf/simulated/wall/r_wall,
 /area/security/execution)
 "axc" = (
-/obj/structure/chair/office/dark,
-/obj/machinery/door_control{
-	id = "justice_blast";
-	name = "Space Vent";
-	pixel_x = -32;
-	req_access_txt = "2"
-	},
-/obj/machinery/flasher_button{
-	id = "Execution";
-	pixel_x = -32;
-	pixel_y = 7
-	},
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/wall,
 /area/security/execution)
 "axe" = (
 /turf/simulated/wall,
@@ -9157,6 +9143,9 @@
 /turf/simulated/wall/r_wall,
 /area/security/prison/cell_block/A)
 "aAy" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18525,8 +18514,7 @@
 /area/crew_quarters/dorms)
 "aWC" = (
 /obj/structure/chair/sofa/right{
-	dir = 4;
-	color = "#85130b"
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/dorms)
@@ -77991,12 +77979,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "hvN" = (
-/obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -78094,9 +78077,6 @@
 	},
 /area/security/permabrig)
 "hBZ" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
 /obj/machinery/power/apc{
 	cell_type = 25000;
 	dir = 1;
@@ -78112,9 +78092,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/table,
-/obj/item/screwdriver,
-/obj/item/wrench,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -79558,8 +79535,8 @@
 	},
 /area/security/brig)
 "mAw" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -79585,6 +79562,11 @@
 	dir = 4;
 	name = "prisoner supression system";
 	target_pressure = 4500
+	},
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -80244,16 +80226,15 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "oSM" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/table,
+/obj/item/screwdriver,
+/obj/item/wrench,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81403,6 +81384,17 @@
 	},
 /obj/item/reagent_containers/glass/bottle/morphine,
 /obj/item/reagent_containers/glass/bottle/facid,
+/obj/machinery/door_control{
+	id = "justice_blast";
+	name = "Space Vent";
+	pixel_x = -32;
+	req_access_txt = "2"
+	},
+/obj/machinery/flasher_button{
+	id = "Execution";
+	pixel_x = -32;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82395,6 +82387,16 @@
 	icon_state = "yellow"
 	},
 /area/engine/equipmentstorage)
+"vbv" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/permabrig)
 "vdo" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
@@ -82929,7 +82931,6 @@
 	dir = 6
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -106104,7 +106105,7 @@ ykx
 hBZ
 mAw
 hvN
-aCH
+vbv
 aCH
 ayC
 azv
