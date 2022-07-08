@@ -26,24 +26,10 @@
 	var/obj/crayon
 
 	var/washing_damage = 20 // how much damage a single cycle should do // 20 is just enough damage to kill Ian
-	var/washing_time = 2 SECONDS // how long a single cycle should take
+	var/washing_time = 15 SECONDS // how long a single cycle should take
 	var/damage_time = 1 SECONDS // how often to damage the occupant
 	var/hit_sound = list('sound/weapons/genhit1.ogg','sound/weapons/genhit2.ogg','sound/weapons/genhit3.ogg') // sounds made when occupant is damaged
 	var/resist_time = 5 SECONDS
-
-// todo: use alt click to start the washing machine [X]
-// Make washing machines more intuitive [X]
-// Mouse drag to put simplemobs in them [X]
-// Clean up that damn color code lol [X]
-// Make it so you can resist out of washing machines [X]
-// convert states to vars [X]
-// You can now drag small animals/people into washing machines [X]
-// you can now kill people with washing machines [X]
-// make washing machines require power [X]
-// message for trying to put people/things/animals into the washing machine when the door is closed [X]
-// If the washing machine is bloody, make shit inside of it covered in blood of whoever bled in there []
-// Make washing machines release their contents when destroyed [X]
-// dyeable plushies [X]
 
 /obj/machinery/washing_machine/Initialize()
 	. = ..()
@@ -425,6 +411,7 @@
 			. += "<span class='warning'>\The [src] filled with blood!</span>"
 		if(stat & NOPOWER)
 			. += "<span class='warning'>\The [src] has no power.</span>"
+		. += "<span class='notice'>You can Alt-Click to start \the [src].</span>"
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 5)
