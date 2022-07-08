@@ -3,8 +3,8 @@
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "human_male"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	max_integrity = 0 //destroying the statue kills the mob within
 	var/intialTox = 0 	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
 	var/intialFire = 0	//it's a little sloppy I know but it was this or the GODMODE flag. Lesser of two evils.
@@ -17,7 +17,7 @@
 	if(ishuman(L) || iscorgi(L))
 		if(L.buckled)
 			L.buckled = 0
-			L.anchored = 0
+			L.anchored = FALSE
 		L.forceMove(src)
 		ADD_TRAIT(L, TRAIT_MUTE, STATUE_MUTE)
 		max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
