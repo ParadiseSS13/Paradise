@@ -457,7 +457,7 @@
 			return ID.registered_name
 
 /proc/get_all_job_icons() //For all existing HUD icons
-	return GLOB.joblist + list("Prisoner","Deathsquad")
+	return GLOB.joblist + list("Prisoner")
 
 /obj/proc/GetJobName() //Used in secHUD icon generation
 	var/assignmentName = "Unknown"
