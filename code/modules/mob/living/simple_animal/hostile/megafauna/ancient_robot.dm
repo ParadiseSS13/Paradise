@@ -141,6 +141,12 @@ Difficulty: Hard
 	exploding = TRUE
 
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Life(seconds, times_fired)
+	..()
+	if(!exploding)
+		return
+	playsound(src, 'sound/items/timer.ogg', 70, 0)
+
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/drop_loot()
 	var/core_type = null
 	switch(mode)
@@ -182,6 +188,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/triple_charge()
 	if(mode == BLUESPACE)
+		charge(delay = 24) //An extra charge, to make up for the longer time between teleports
 		charge(delay = 18)
 		charge(delay = 12)
 		charge(delay = 6)
