@@ -74,7 +74,7 @@
 
 /obj/item/flash/proc/try_use_flash(mob/user = null)
 	if(cooldown >= world.time)
-		to_chat(user, "<span class='warning'>Your [src] is still too hot to use again!</span>")
+		to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
 		return FALSE
 	cooldown = world.time + cooldown_duration
 	flash_recharge(user)
@@ -103,13 +103,13 @@
 				terrible_conversion_proc(M, user)
 				M.drop_l_hand()
 				M.drop_r_hand()
-				visible_message("<span class='disarm'>[user] blinds [M] with the [src]!</span>")
-				to_chat(user, "<span class='danger'>You blind [M] with the [src]!</span>")
-				to_chat(M, "<span class='userdanger'>[user] blinds you with the [src]!</span>")
+				visible_message("<span class='disarm'>[user] blinds [M] with the [name]!</span>")
+				to_chat(user, "<span class='danger'>You blind [M] with the [name]!</span>")
+				to_chat(M, "<span class='userdanger'>[user] blinds you with the [name]!</span>")
 			else
-				visible_message("<span class='disarm'>[user] fails to blind [M] with the [src]!</span>")
-				to_chat(user, "<span class='warning'>You fail to blind [M] with the [src]!</span>")
-				to_chat(M, "<span class='danger'>[user] fails to blind you with the [src]!</span>")
+				visible_message("<span class='disarm'>[user] fails to blind [M] with the [name]!</span>")
+				to_chat(user, "<span class='warning'>You fail to blind [M] with the [name]!</span>")
+				to_chat(M, "<span class='danger'>[user] fails to blind you with the [name]!</span>")
 			return
 
 	if(M.flash_eyes())
@@ -137,7 +137,7 @@
 /obj/item/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!try_use_flash(user))
 		return 0
-	user.visible_message("<span class='disarm'>[user]'s [src] emits a blinding light!</span>", "<span class='danger'>Your [src] emits a blinding light!</span>")
+	user.visible_message("<span class='disarm'>[user]'s [name] emits a blinding light!</span>", "<span class='danger'>Your [name] emits a blinding light!</span>")
 	for(var/mob/living/carbon/M in oviewers(3, null))
 		flash_carbon(M, user, 6 SECONDS, 0)
 
@@ -227,7 +227,7 @@
 
 /obj/item/flash/cameraflash/try_use_flash(mob/user = null)
 	if(!flash_cur_charges)
-		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
+		to_chat(user, "<span class='warning'>\The [name] needs time to recharge!</span>")
 		return FALSE
 	. = ..()
 	if(.)
@@ -248,7 +248,7 @@
 
 /obj/item/flash/armimplant/burn_out()
 	if(I && I.owner)
-		to_chat(I.owner, "<span class='warning'>Your [src] implant overheats and deactivates!</span>")
+		to_chat(I.owner, "<span class='warning'>Your [name] implant overheats and deactivates!</span>")
 		I.Retract()
 
 /obj/item/flash/armimplant/Destroy()
