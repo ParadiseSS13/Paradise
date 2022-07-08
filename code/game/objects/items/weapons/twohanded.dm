@@ -620,13 +620,13 @@
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
-		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
 		if(isrobot(target))
 			..()
 			return
 		if(!isliving(target))
 			return
 		else
+			user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
 			target.KnockDown(8 SECONDS)
 			..()
 		return
