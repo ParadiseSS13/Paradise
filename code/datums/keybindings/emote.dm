@@ -9,6 +9,14 @@
 	. = ..()
 	user.mob.emote(initial(linked_emote.key))
 
+/datum/keybinding/emote/flip
+	linked_emote = /datum/emote/flip
+	name = "Flip"
+
+/datum/keybinding/emote/spin
+	linked_emote = /datum/emote/spin
+	name = "Spin"
+
 /datum/keybinding/emote/blush
 	linked_emote = /datum/emote/living/blush
 	name = "Blush"
