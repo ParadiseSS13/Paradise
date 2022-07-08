@@ -117,7 +117,7 @@
 	stat(null, "Move Mode: [m_intent]")
 	show_stat_emergency_shuttle_eta()
 
-/mob/living/carbon/alien/SetStunned(amount, updating = 1, force = 0)
+/mob/living/carbon/alien/SetStunned(amount, updating = TRUE, force = 0)
 	..()
 	if(!(status_flags & CANSTUN) && amount)
 		// add some movement delay
