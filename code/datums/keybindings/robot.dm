@@ -36,3 +36,12 @@
 	. = ..()
 	var/mob/living/silicon/robot/M = C.mob
 	M.cycle_modules()
+
+/datum/keybinding/robot/drop_held_object
+	name = "Store Selected Module"
+	keys = list("Q", "Northwest")
+
+/datum/keybinding/robot/drop_held_object/down(client/C)
+	. = ..()
+	var/mob/living/silicon/robot/M = C.mob
+	M.on_drop_hotkey_press()
