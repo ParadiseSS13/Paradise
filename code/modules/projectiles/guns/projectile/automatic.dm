@@ -3,7 +3,7 @@
 	var/alarmed = 0
 	var/select = 1
 	can_tactical = TRUE
-	can_suppress = 1
+	can_suppress = TRUE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
@@ -121,7 +121,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
-	can_suppress = 0
+	can_suppress = FALSE
 	burst_size = 1
 	actions_types = list()
 	can_bayonet = TRUE
@@ -153,7 +153,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
+	can_suppress = FALSE
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
@@ -227,7 +227,7 @@
 	origin_tech = "combat=5;materials=1;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
-	can_suppress = 0
+	can_suppress = FALSE
 	burst_size = 4
 	fire_delay = 1
 
@@ -243,7 +243,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
+	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 1
 
@@ -259,7 +259,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
+	can_suppress = FALSE
 	burst_size = 1
 	fire_delay = 0
 	actions_types = list()
@@ -307,7 +307,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
+	can_suppress = FALSE
 	burst_size = 2
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()

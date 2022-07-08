@@ -7,7 +7,7 @@
 	throw_range = 3
 	force = 5
 
-	clumsy_check = 0
+	clumsy_check = FALSE
 	valid_projectile_type = /obj/item/reagent_containers/food/snacks/pie
 	max_capacity = 5
 	projectile_speed = 2

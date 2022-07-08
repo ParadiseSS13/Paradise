@@ -12,11 +12,11 @@
 	var/charges = 0
 	var/recharge_rate = 4
 	var/charge_tick = 0
-	var/can_charge = 1
+	var/can_charge = TRUE
 	var/ammo_type
 	var/no_den_usage
 	origin_tech = null
-	clumsy_check = 0
+	clumsy_check = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
 	can_holster = FALSE // Nothing here is a gun, and therefore shouldn't really fit into a holster
 

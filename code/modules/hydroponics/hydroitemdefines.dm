@@ -172,7 +172,7 @@
 	icon_state = "tscythe0"
 	item_state = null	//no sprite for folded version, like a tele-baton
 	force = 3
-	sharp = 0
+	sharp = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	extend = FALSE
 	slot_flags = SLOT_BELT
