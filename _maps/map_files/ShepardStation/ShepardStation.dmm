@@ -3224,7 +3224,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "aJB" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5255,7 +5255,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
-/area/ntrep)
+/area/blueshield)
 "bdi" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -8325,7 +8325,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "bJC" = (
 /turf/simulated/floor/plasteel/grimy,
 /area/maintenance/starboard)
@@ -10290,7 +10290,7 @@
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/paper{
-	info = " 1] Open valve. <br> 2] Wait until subject deceased. <br> 3] Close valve. Open vent to space. Wait until CO2 percentage below 1%. <br> 4] Close vent to space, chamber will refill automatically with breathable air. Open the interior windoor if any residual gases. <br> 5] Procedure complete. Close interior windoor before next use. ";
+	info = " 1) Open valve. <br> 2) Wait until subject deceased. <br> 3) Close valve. Open vent to space. Wait until CO2 percentage below 1%. <br> 4) Close vent to space, chamber will refill automatically with breathable air. Open the interior windoor if any residual gases. <br> 5) Procedure complete. Close interior windoor before next use. ";
 	name = "Execution by Gas instructions"
 	},
 /turf/simulated/floor/engine,
@@ -15153,7 +15153,7 @@
 "dcH" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "dcR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -23227,7 +23227,7 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/ntrep)
+/area/blueshield)
 "eNx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -25994,7 +25994,7 @@
 	pixel_y = -2
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "fpt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -26098,7 +26098,7 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "fqT" = (
 /obj/machinery/door/airlock/public/glass{
 	id_tag = "permabolt1";
@@ -26883,7 +26883,7 @@
 "fwm" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "fwo" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -28001,7 +28001,7 @@
 /obj/structure/table/wood,
 /obj/item/paper/blueshield,
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "fJH" = (
 /obj/machinery/camera{
 	c_tag = "Brig Labor Camp Airlock North";
@@ -28911,7 +28911,7 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "fTe" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -30623,7 +30623,7 @@
 "gnk" = (
 /obj/structure/chair/office/light,
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "gnl" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -33269,7 +33269,7 @@
 	pixel_y = -4
 	},
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "gMY" = (
 /obj/structure/closet/emcloset,
 /obj/structure/cable/yellow{
@@ -34736,7 +34736,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "haD" = (
 /obj/effect/spawner/random_spawners/fungus_probably,
 /turf/simulated/wall,
@@ -35631,7 +35631,7 @@
 "hlY" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "hmd" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/arrows,
@@ -36779,7 +36779,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "hwR" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/effect/turf_decal/stripes/full,
@@ -36978,7 +36978,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "hzA" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
@@ -37213,7 +37213,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "hBv" = (
 /obj/machinery/computer/camera_advanced/xenobio{
 	dir = 4
@@ -37537,7 +37537,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
-/area/blueshield)
+/area/ntrep)
 "hFe" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -38114,7 +38114,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "hKM" = (
 /obj/machinery/newscaster{
 	name = "north bump";
@@ -38948,7 +38948,7 @@
 "hUJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "hUQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
@@ -40104,7 +40104,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/blueshield)
+/area/ntrep)
 "ihw" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -42061,7 +42061,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "iEP" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -48736,7 +48736,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "jTa" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -49685,7 +49685,7 @@
 "kdW" = (
 /obj/structure/closet/secure_closet/blueshield,
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "kea" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -50051,7 +50051,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "khD" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -54691,13 +54691,13 @@
 /area/maintenance/aft2)
 "lfA" = (
 /obj/item/paper{
-	info = "<b>Transcript:</b><br><br>[00:00] Recording started.<br>[00:07] Amya Shupe says, Start talking.<br>[00:12] Delbert Honston exclaims, You will never find them!<br>[00:30] Amya Shupe asks, Will we not? Unless you tell us where they are, you are going away for a long time... bub.<br>[00:55] Delbert Honston says, They are stached all over the station. Like I said, You will never find them all..<br>[01:23] Amya Shupe asks, You have got ten seconds to start naming locations before this starts turning ugly.<br>[01:28] Delbert Honston exclaims, You do not even understand how valuable they are! They are originals! <br>[01:35] Delbert Honston screams in pain! <br>[01:45] Recording stopped.";
+	info = "<b>Transcript:</b><br><br>(00:00) Recording started.<br>(00:07) Amya Shupe says, Start talking.<br>(00:12) Delbert Honston exclaims, You will never find them!<br>(00:30) Amya Shupe asks, Will we not? Unless you tell us where they are, you are going away for a long time... bub.<br>(00:55) Delbert Honston says, They are stached all over the station. Like I said, You will never find them all..<br>(01:23) Amya Shupe asks, You have got ten seconds to start naming locations before this starts turning ugly.<br>(01:28) Delbert Honston exclaims, You do not even understand how valuable they are! They are originals! <br>(01:35) Delbert Honston screams in pain! <br>(01:45) Recording stopped.";
 	name = "transcript";
-	layer = 3
+	layer = 2.5
 	},
 /obj/structure/falsewall,
 /turf/simulated/floor/plating,
-/area/blueshield)
+/area/ntrep)
 "lfN" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
@@ -56013,7 +56013,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "luy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -56741,7 +56741,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
-/area/blueshield)
+/area/ntrep)
 "lBi" = (
 /obj/effect/turf_decal/stripes/full,
 /obj/structure/sign/securearea{
@@ -56987,7 +56987,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "lEw" = (
 /obj/machinery/r_n_d/circuit_imprinter,
 /obj/item/reagent_containers/glass/beaker/sulphuric,
@@ -57394,7 +57394,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "lIj" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -58166,7 +58166,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "lRp" = (
 /turf/simulated/floor/wood,
 /area/medical/psych)
@@ -60013,7 +60013,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "mkQ" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -60663,7 +60663,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "mrx" = (
 /obj/machinery/light/small,
 /obj/machinery/flasher{
@@ -60815,7 +60815,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "msw" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -61052,7 +61052,7 @@
 "mvA" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "mvD" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -61749,7 +61749,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "mCz" = (
 /obj/machinery/door/window/northleft{
 	base_state = "right";
@@ -62422,7 +62422,7 @@
 /area/maintenance/storage)
 "mJo" = (
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "mJx" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -62789,7 +62789,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "mOc" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
@@ -67904,7 +67904,7 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "nQQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -70911,7 +70911,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "oyq" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -73686,7 +73686,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "paE" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/structure/cable/yellow{
@@ -74343,7 +74343,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "pix" = (
 /obj/machinery/door/airlock/glass{
 	name = "Entertainment Hall";
@@ -78502,7 +78502,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "qco" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -80953,7 +80953,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "qEG" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -82170,7 +82170,7 @@
 	req_access_txt = "73"
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "qRp" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
@@ -82657,7 +82657,7 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "qVA" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -83202,7 +83202,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/blueshield)
+/area/ntrep)
 "rcj" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -84450,7 +84450,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "rrD" = (
 /obj/effect/landmark/start/doctor,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -84849,7 +84849,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "rvE" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -85031,7 +85031,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "rxs" = (
 /obj/structure/window/reinforced,
 /obj/structure/coatrack,
@@ -88240,7 +88240,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "sgD" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -88735,7 +88735,7 @@
 /obj/item/book/manual/sop_service,
 /obj/item/book/manual/sop_supply,
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "slo" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
@@ -89620,7 +89620,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/ntrep)
+/area/blueshield)
 "suX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -90938,7 +90938,7 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/blueshield)
+/area/ntrep)
 "sIv" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -92324,7 +92324,7 @@
 	pixel_y = 7
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "sWS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -93793,7 +93793,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "tnk" = (
 /obj/item/toy/figure/crew/ian,
 /obj/structure/falsewall/reinforced,
@@ -94153,7 +94153,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "tqu" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -95278,7 +95278,7 @@
 /obj/item/folder,
 /obj/item/pen/multi/fountain,
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "tCX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -97928,7 +97928,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "uhw" = (
 /obj/machinery/camera{
 	c_tag = "Service Hall East";
@@ -99147,7 +99147,7 @@
 "uvI" = (
 /obj/effect/landmark/start/blueshield,
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "uvL" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1
@@ -99623,7 +99623,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "uAY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -101498,7 +101498,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "uXg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -102259,7 +102259,7 @@
 /obj/structure/table/wood,
 /obj/item/book/manual/sop_command,
 /turf/simulated/floor/wood,
-/area/ntrep)
+/area/blueshield)
 "vgE" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -103468,7 +103468,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
-/area/ntrep)
+/area/blueshield)
 "vrv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -105610,7 +105610,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "vMN" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -105838,7 +105838,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "vPt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -106701,7 +106701,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet/cyan,
-/area/ntrep)
+/area/blueshield)
 "vXK" = (
 /obj/structure/table,
 /obj/machinery/light_switch{
@@ -112163,7 +112163,7 @@
 /area/security/prison/cell_block/A)
 "xeo" = (
 /turf/simulated/floor/carpet/royalblack,
-/area/blueshield)
+/area/ntrep)
 "xeA" = (
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -113122,7 +113122,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "xpa" = (
 /obj/structure/sink{
 	pixel_y = 25
@@ -115836,7 +115836,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/blueshield)
+/area/ntrep)
 "xTe" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -147411,19 +147411,19 @@ oUU
 cjY
 bWs
 cRw
-xZn
-xZn
-xZn
+kFM
+kFM
+kFM
 suU
 bda
 eNv
 kFM
-kFM
+xZn
 ihq
 hFb
 sIp
-kFM
-kFM
+xZn
+xZn
 rHM
 mYu
 mfr
@@ -147668,19 +147668,19 @@ qwi
 nGB
 hSB
 eZa
-xZn
+kFM
 dcH
 qVx
 vgq
-bHp
+kUu
 mvA
 kFM
 piq
 mJo
-kUu
+bHp
 mJo
 fTd
-kFM
+xZn
 xYi
 mYu
 asj
@@ -147925,7 +147925,7 @@ cat
 qyy
 bWs
 eZa
-xZn
+kFM
 hwP
 gnk
 fJF
@@ -147937,7 +147937,7 @@ mCy
 vPj
 tCS
 mrw
-kFM
+xZn
 czc
 pGL
 ufs
@@ -148182,7 +148182,7 @@ hIV
 djT
 vYL
 iRj
-xZn
+kFM
 kdW
 qbU
 gMS
@@ -148194,7 +148194,7 @@ fpj
 haC
 uXe
 rxq
-kFM
+xZn
 ydz
 mYu
 mYu
@@ -148439,8 +148439,8 @@ cox
 iNG
 bWs
 cRw
-xZn
-xZn
+kFM
+kFM
 sgA
 hlY
 uAS
@@ -148451,9 +148451,9 @@ fwm
 mkP
 qRk
 iEL
-kFM
+xZn
 lfA
-kFM
+xZn
 saR
 mYu
 fJg
@@ -148697,7 +148697,7 @@ tEQ
 hSB
 cRw
 jTa
-xZn
+kFM
 uhv
 uvI
 vXH
@@ -148954,7 +148954,7 @@ tEQ
 bWs
 hNE
 qjJ
-xZn
+kFM
 vMK
 hUJ
 hzq
@@ -149211,20 +149211,20 @@ tEQ
 ldz
 cRw
 nxL
-xZn
-gGv
-fee
-tnc
-mvA
 kFM
 thE
 dUe
+tnc
+mvA
+kFM
+gGv
+fee
 qEF
 jSY
 jSY
 lRk
 paA
-kFM
+xZn
 saR
 mYu
 cZV
@@ -149468,20 +149468,20 @@ tEQ
 bWs
 ffM
 ffM
-xZn
-xZn
+kFM
+kFM
 suU
 vrq
 eNv
 kFM
-kFM
+xZn
 ihq
 lBg
 rbY
 sIp
-kFM
-kFM
-kFM
+xZn
+xZn
+xZn
 uVu
 uVu
 uVu
