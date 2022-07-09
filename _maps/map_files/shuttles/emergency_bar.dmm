@@ -436,8 +436,8 @@
 /area/shuttle/escape)
 "by" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
+	dir = 8;
+	pixel_x = 21
 	},
 /obj/structure/bed/roller,
 /turf/simulated/floor/mineral/titanium,

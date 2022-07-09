@@ -85,7 +85,7 @@
 	dir = 4;
 	layer = 5;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 22
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)

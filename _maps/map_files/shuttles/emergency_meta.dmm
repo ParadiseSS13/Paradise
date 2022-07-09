@@ -334,7 +334,8 @@
 /obj/structure/table,
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /obj/item/paper_bin{
 	pixel_x = -3;
@@ -353,7 +354,8 @@
 "bd" = (
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /obj/machinery/light,
 /obj/structure/chair/comfy/shuttle{
@@ -629,7 +631,8 @@
 	},
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -769,7 +772,8 @@
 "cd" = (
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/light,

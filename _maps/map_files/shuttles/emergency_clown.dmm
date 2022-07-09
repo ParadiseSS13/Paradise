@@ -169,8 +169,8 @@
 /area/shuttle/escape)
 "aL" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
+	dir = 8;
+	pixel_x = 21
 	},
 /turf/simulated/floor/chasm,
 /area/shuttle/escape)
@@ -192,8 +192,8 @@
 /area/shuttle/escape)
 "aQ" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
+	dir = 4;
+	pixel_x = -21
 	},
 /obj/machinery/light/spot{
 	dir = 8
@@ -329,8 +329,8 @@
 /area/shuttle/escape)
 "bi" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
+	dir = 8;
+	pixel_x = 21
 	},
 /obj/structure/bed/roller,
 /turf/simulated/floor/noslip,

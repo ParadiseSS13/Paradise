@@ -300,8 +300,8 @@
 /area/shuttle/escape)
 "aW" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
+	dir = 4;
+	pixel_x = -21
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -675,8 +675,8 @@
 /area/shuttle/escape)
 "cd" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
+	dir = 4;
+	pixel_x = -21
 	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{

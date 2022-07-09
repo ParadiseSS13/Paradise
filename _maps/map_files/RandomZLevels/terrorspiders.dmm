@@ -394,7 +394,7 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 19
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -986,7 +986,7 @@
 "cW" = (
 /obj/machinery/firealarm{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 14
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
@@ -1183,7 +1183,7 @@
 	},
 /obj/machinery/firealarm{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 14
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -2020,7 +2020,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /obj/machinery/camera{
 	c_tag = "Central Hallway";
@@ -2429,7 +2429,7 @@
 "gw" = (
 /obj/machinery/firealarm{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 14
 	},
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/r_arm,
@@ -2508,7 +2508,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -2962,7 +2962,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3058,7 +3058,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -3620,7 +3620,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4131,7 +4131,7 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 19
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4499,7 +4499,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4743,7 +4743,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4881,7 +4881,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -4933,7 +4933,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /obj/machinery/camera{
 	c_tag = "Research Division East";
@@ -5168,7 +5168,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -5325,7 +5325,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
@@ -6426,7 +6426,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
@@ -6719,7 +6719,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6974,7 +6974,7 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 19
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7634,7 +7634,7 @@
 	},
 /obj/machinery/firealarm{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 14
 	},
 /obj/item/multitool,
 /obj/machinery/light/small{
@@ -7869,7 +7869,7 @@
 "rH" = (
 /obj/machinery/firealarm{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 14
 	},
 /obj/structure/dispenser{
 	pixel_x = -1
@@ -8044,7 +8044,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -8632,7 +8632,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
@@ -8719,7 +8719,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -10006,7 +10006,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /obj/structure/closet/secure_closet/miner{
 	req_access = list(271)
@@ -10487,7 +10487,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10545,7 +10545,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
@@ -10897,7 +10897,7 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 19
 	},
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 6
@@ -11747,7 +11747,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)

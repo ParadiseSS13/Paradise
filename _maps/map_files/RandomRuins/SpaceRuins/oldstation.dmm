@@ -167,7 +167,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "Beta Engineering APC";
-	pixel_x = 24;
+	pixel_x = 22;
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -1021,7 +1021,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Thete Prototype Lab APC";
-	pixel_y = 24;
+	pixel_y = 14;
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -1064,7 +1064,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /obj/structure/chair{
 	dir = 1
@@ -1079,7 +1079,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "Charlie Main Corridor APC";
-	pixel_x = 24;
+	pixel_x = 22;
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -1361,7 +1361,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1415,7 +1415,7 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 19
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -1429,7 +1429,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "Charlie Command APC";
-	pixel_x = 24;
+	pixel_x = 22;
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -1548,7 +1548,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-dead"
@@ -2513,7 +2513,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Charlie Security APC";
-	pixel_x = -24;
+	pixel_x = -22;
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -3349,7 +3349,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /obj/structure/chair{
 	dir = 4
@@ -3430,7 +3430,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Theta Main Corridor APC";
-	pixel_y = 24;
+	pixel_y = 14;
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -3656,7 +3656,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -3825,7 +3825,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Charlie Hydroponics APC";
-	pixel_y = 24;
+	pixel_y = 14;
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -4109,7 +4109,7 @@
 	},
 /obj/machinery/power/apc{
 	name = "Charlie Kitchen APC";
-	pixel_y = -24;
+	pixel_y = -23;
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -4141,7 +4141,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "Theta RnD APC";
-	pixel_x = 24;
+	pixel_x = 22;
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -4196,7 +4196,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -4344,7 +4344,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
@@ -4692,7 +4692,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "Charlie Engineering APC";
-	pixel_x = 24;
+	pixel_x = 22;
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -4743,7 +4743,7 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -23
 	},
 /mob/living/simple_animal/hostile/hivebot,
 /turf/simulated/floor/plasteel,
@@ -4809,7 +4809,7 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 19
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4858,7 +4858,7 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -19
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
