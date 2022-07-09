@@ -2762,8 +2762,8 @@
 					spawn(0)
 						H.corgize()
 				ok = 1
-			if("striketeam")
-				if(usr.client.strike_team())
+			if("deathsquad")
+				if(usr.client.send_deathsquad())
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Deathsquad")
 			if("striketeam_syndicate")
 				if(usr.client.syndicate_strike_team())
