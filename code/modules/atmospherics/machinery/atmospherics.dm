@@ -290,7 +290,6 @@ Pipelines + Other Objects -> Pipe network
 		return
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
-	var/old_loc = user.loc
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
 			user.remove_ventcrawl()
