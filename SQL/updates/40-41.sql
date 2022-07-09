@@ -1,4 +1,4 @@
-# Updating DB from 37-38
+# Updating DB from 40-41
 # Adds player.keybindings (longtext) ~dearmochi
 
 # Add column to player
