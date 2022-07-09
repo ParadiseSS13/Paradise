@@ -24,6 +24,7 @@
 	var/visor_flags_inv = NONE		//same as visor_flags, but for flags_inv
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW //what to toggle when toggled with weldingvisortoggle()
 
+	var/can_toggle = FALSE
 	var/toggle_message = null
 	var/alt_toggle_message = null
 	var/active_sound = null
@@ -34,6 +35,13 @@
 	var/magical = FALSE
 	var/dyeable = FALSE
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/clothing/update_icon_state()
+	if(!can_toggle)
+		return
+	/// Done as such to not break chameleon gear since you can't rely on initial states
+	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
+	return TRUE
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
@@ -366,14 +374,9 @@ BLIND     // can't see anything
 	var/see_in_dark = 0
 	var/lighting_alpha
 
-	var/can_toggle = null
-
 /obj/item/clothing/head/update_icon_state()
-	if(!can_toggle)
-		return
-	/// Done as such to not break chameleon gear since you can't rely on initial states
-	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
-	item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
+	if(..())
+		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
 
 //Mask
 /obj/item/clothing/mask
@@ -384,13 +387,6 @@ BLIND     // can't see anything
 	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
-	var/can_toggle = null
-
-/obj/item/clothing/mask/update_icon_state()
-	if(!can_toggle)
-		return
-	/// Done as such to not break chameleon gear since you can't rely on initial states
-	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(mob/user)

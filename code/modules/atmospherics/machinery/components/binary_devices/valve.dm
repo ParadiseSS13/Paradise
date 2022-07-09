@@ -40,7 +40,7 @@
 
 /obj/machinery/atmospherics/binary/valve/proc/open()
 	open = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	parent1.update = 0
 	parent2.update = 0
 	parent1.reconcile_air()
@@ -49,7 +49,7 @@
 
 /obj/machinery/atmospherics/binary/valve/proc/close()
 	open = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	investigate_log("was closed by [usr ? key_name(usr) : "a remote signal"]", "atmos")
 	return
 
@@ -63,13 +63,13 @@
 /obj/machinery/atmospherics/binary/valve/attack_hand(mob/user)
 	add_fingerprint(usr)
 	animating = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	sleep(10)
+	animating = FALSE
 	if(open)
 		close()
 	else
 		open()
-	animating = FALSE
 	to_chat(user, "<span class='notice'>You [open ? "open" : "close"] [src].</span>")
 
 /obj/machinery/atmospherics/binary/valve/digital		// can be controlled by AI
@@ -106,11 +106,13 @@
 	var/old_stat = stat
 	..()
 	if(old_stat != stat)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/binary/valve/digital/update_icon_state()
 	if(!powered())
 		icon_state = "valve[open]nopower"
+		return
+	..()
 
 /obj/machinery/atmospherics/binary/valve/digital/atmos_init()
 	..()
