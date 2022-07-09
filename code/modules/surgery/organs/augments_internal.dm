@@ -29,7 +29,7 @@
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	if(!owner || emp_proof)
 		return
-	var/weaken_time = (5 + (severity-1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
+	var/weaken_time = (5 + (severity - 1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
 	owner.Weaken(weaken_time)
 	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
 	return weaken_time
