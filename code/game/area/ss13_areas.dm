@@ -1070,7 +1070,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/engine_smes
 	name = "\improper Engineering SMES"
 	icon_state = "engine_smes"
-	requires_power = FALSE //This area only covers the batteries and they deal with their own power
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/engine/engineering

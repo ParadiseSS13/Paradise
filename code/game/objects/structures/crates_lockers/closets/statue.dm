@@ -1,4 +1,4 @@
-/obj/structure/closet/statue
+/obj/structure/closet/statue //this type path is a crime, ponies what the fuck
 	name = "statue"
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'
@@ -16,11 +16,10 @@
 	. = ..()
 	if(ishuman(L) || iscorgi(L))
 		if(L.buckled)
-			L.buckled = 0
-			L.anchored = 0
+			L.unbuckle_mob()
 		L.forceMove(src)
 		ADD_TRAIT(L, TRAIT_MUTE, STATUE_MUTE)
-		max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
+		max_integrity = max(L.health + 100, 100) //stoning damaged mobs will result in easier to shatter statues
 		intialTox = L.getToxLoss()
 		intialFire = L.getFireLoss()
 		intialBrute = L.getBruteLoss()

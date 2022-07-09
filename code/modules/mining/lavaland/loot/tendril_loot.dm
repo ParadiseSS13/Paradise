@@ -433,11 +433,11 @@
 		Z.desc = "It's shaped an awful lot like [user.name]."
 		Z.setDir(user.dir)
 		user.forceMove(Z)
-		user.notransform = 1
+		user.notransform = TRUE
 		user.status_flags |= GODMODE
 		spawn(100)
 			user.status_flags &= ~GODMODE
-			user.notransform = 0
+			user.notransform = FALSE
 			user.forceMove(get_turf(Z))
 			user.visible_message("<span class='danger'>[user] pops back into reality!</span>")
 			Z.can_destroy = TRUE

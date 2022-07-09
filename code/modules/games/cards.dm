@@ -34,7 +34,7 @@
 	throwforce = 0
 	force = 0
 	/// Inherited card hit sound
-	var/card_hitsound 
+	var/card_hitsound
 	/// Inherited card force
 	var/card_force = 0
 	/// Inherited card throw force
@@ -162,7 +162,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	H.parentdeck = src
 	H.update_values()
-	H.update_appearance()
+	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
 	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
@@ -228,7 +228,7 @@
 		H.parentdeck = src
 		H.update_values()
 		H.concealed = TRUE
-		H.update_appearance()
+		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
 		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to \himself.</span>")
 	else
@@ -298,7 +298,7 @@
 	user.unEquip(src, force = 1)
 	qdel(src)
 
-	H.update_appearance()
+	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.put_in_hands(H)
 
 /obj/item/cardhand
@@ -313,7 +313,7 @@
 	var/concealed = FALSE
 	var/list/cards = list()
 	/// Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
-	var/direction = NORTH 
+	var/direction = NORTH
 	var/parentdeck = null
 	/// The player's picked card they want to take out. Stored in the hand so it can be passed onto the verb
 	var/pickedcard = null
@@ -341,7 +341,7 @@
 			P.name = t
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		P.card_icon = "cag_white_card"
-		update_appearance()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	else if(istype(O,/obj/item/cardhand))
 		var/obj/item/cardhand/H = O
 		if((length(H.cards) + length(cards)) > maxcardlen)
@@ -352,7 +352,7 @@
 				H.cards += P
 			H.concealed = concealed
 			qdel(src)
-			H.update_appearance()
+			H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 			return
 		else
 			to_chat(user,"<span class='notice'>You cannot mix cards from other deck!</span>")
@@ -368,7 +368,7 @@
 
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
 
 /obj/item/cardhand/interact(mob/user)
@@ -475,11 +475,11 @@
 	H.parentdeck = parentdeck
 	H.update_values()
 	H.concealed = concealed
-	H.update_appearance()
+	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(!length(cards))
 		qdel(src)
 		return
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
 /obj/item/cardhand/verb/discard()
 
@@ -515,9 +515,9 @@
 		H.parentdeck = parentdeck
 		H.update_values()
 		H.direction = user.dir
-		H.update_appearance()
+		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(cards))
-			update_appearance()
+			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(H.cards))
 			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
 		H.loc = get_step(user, user.dir)
@@ -596,10 +596,13 @@
 
 /obj/item/cardhand/dropped(mob/user)
 	..()
-	direction = user.dir
-	update_appearance()
+	if(user)
+		direction = user.dir
+	else
+		direction = NORTH
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
 /obj/item/cardhand/pickup(mob/user as mob)
 	. = ..()
 	direction = NORTH
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
