@@ -62,7 +62,6 @@
 	log_message("Fired from [name], targeting [target].")
 	add_attack_logs(chassis.occupant, target, "fired a [src]")
 	do_after_cooldown()
-	return
 /obj/item/mecha_parts/mecha_equipment/weapon/energy
 	name = "general energy weapon"
 	size = 2
@@ -170,7 +169,6 @@
 			add_attack_logs(src, M, "Mecha-shot with <b>[src]</b> (no firer)")
 	if(life <= 0)
 		qdel(src)
-	return
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
@@ -265,13 +263,11 @@
 	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 	log_message("Rearmed [name].")
 	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, 1)
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
 	..()
 	if(href_list["rearm"])
 		rearm()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	name = "\improper FNX-66 Carbine"
@@ -360,7 +356,6 @@
 	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
 	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
 	do_after_cooldown()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "\improper SRX-13 Heavy Missile Launcher"
@@ -382,7 +377,6 @@
 		qdel(src)
 	else
 		..()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	name = "\improper SGL-6 Flashbang Launcher"
@@ -408,7 +402,6 @@
 	spawn(det_time)
 		F.prime()
 	do_after_cooldown()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang//Because I am a heartless bastard -Sieve
 	name = "\improper SOB-3 Clusterbang Launcher"
@@ -453,7 +446,6 @@
 	projectiles--
 	log_message("Bananed from [name], targeting [target]. HONK!")
 	do_after_cooldown()
-	return
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
@@ -484,7 +476,6 @@
 	projectiles--
 	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")
 	do_after_cooldown()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
 	name = "\improper PCMK-6 Bola Launcher"
@@ -515,7 +506,6 @@
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
 	do_after_cooldown()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
 	equip_cooldown = 10

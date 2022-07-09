@@ -24,7 +24,6 @@
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/attach(obj/mecha/M)
 	..()
 	cargo_holder = M
-	return
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/detach(atom/moveto = null)
 	..()
@@ -124,7 +123,7 @@
 		else
 			step_away(M,chassis)
 			target.visible_message("[chassis] tosses [target] like a piece of paper.")
-			return 1
+			return
 
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher
@@ -139,7 +138,6 @@
 	create_reagents(1000)
 	reagents.add_reagent("water", 1000)
 	..()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -182,7 +180,7 @@
 						if(W.loc == my_target)
 							break
 						sleep(2)
-		return 1
+		return
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/get_equip_info()
 	return "[..()] \[[src.reagents.total_volume]\]"
@@ -352,7 +350,6 @@
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach()
 	..()
 	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, .proc/layCable)
-	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach()
 	UnregisterSignal(chassis, COMSIG_MOVABLE_MOVED)
@@ -396,13 +393,11 @@
 				CC.amount = m
 		else
 			occupant_message("There's no more cable on the reel.")
-	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/get_equip_info()
 	var/output = ..()
 	if(output)
 		return "[output] \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='?src=[UID()];cut=1'>Cut</a>" : null]"
-	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/use_cable(amount)
 	if(!cable || cable.amount<1)
@@ -461,3 +456,7 @@
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
 	return TRUE
+
+#undef MECH_RCD_MODE_DECONSTRUCT
+#undef MECH_RCD_MODE_WALL_OR_FLOOR
+#undef MECH_RCD_MODE_AIRLOCK

@@ -23,7 +23,7 @@
 	if(T)
 		chassis.use_power(energy_drain)
 		do_teleport(chassis, T, tele_precision)
-		return 1
+		return
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	name = "upgraded teleporter"
@@ -99,7 +99,6 @@
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-	return
 
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
@@ -388,7 +387,7 @@
 
 	else
 		occupant_message("<span class='warning'>[fuel_name] traces in target minimal! [I] cannot be used as fuel.</span>")
-		return
+		return 0
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
 	load_fuel(weapon)
@@ -416,7 +415,6 @@
 		chassis.give_power(power_per_cycle)
 	fuel_amount -= min(use_fuel, fuel_amount)
 	update_equip_info()
-	return 1
 
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear
@@ -435,3 +433,7 @@
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
 		radiation_pulse(get_turf(src), rad_per_cycle)
+
+
+#undef MECH_GRAVCAT_MODE_GRAVSLING
+#undef MECH_GRAVCAT_MODE_GRAVPUSH
