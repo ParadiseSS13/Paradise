@@ -157,7 +157,7 @@
 		if(in_range(src, user))
 			if(input == code)
 				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
-				locked = 0
+				locked = FALSE
 				overlays.Cut()
 				overlays += "securecrateg"
 			else if(input == null || length(input) != codelen)

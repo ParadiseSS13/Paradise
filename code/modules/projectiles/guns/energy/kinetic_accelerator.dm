@@ -5,10 +5,10 @@
 	item_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 	cell_type = /obj/item/stock_parts/cell/emproof
-	needs_permit = 0
+	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
 	weapon_weight = WEAPON_LIGHT
-	can_flashlight = 1
+	can_flashlight = TRUE
 	flight_x_offset = 15
 	flight_y_offset = 9
 	var/overheat_time = 16

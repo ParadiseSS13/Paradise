@@ -2762,8 +2762,8 @@
 					spawn(0)
 						H.corgize()
 				ok = 1
-			if("striketeam")
-				if(usr.client.strike_team())
+			if("deathsquad")
+				if(usr.client.send_deathsquad())
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Deathsquad")
 			if("striketeam_syndicate")
 				if(usr.client.syndicate_strike_team())
@@ -3272,64 +3272,6 @@
 		var/text = html_decode(href_list["showdetails"])
 		usr << browse("<HTML><HEAD><TITLE>Details</TITLE></HEAD><BODY><TT>[replacetext(text, "\n", "<BR>")]</TT></BODY></HTML>",
 			"window=show_details;size=500x200")
-
-	// Library stuff
-	else if(href_list["library_book_id"])
-		var/isbn = text2num(href_list["library_book_id"])
-
-		if(href_list["view_library_book"])
-			var/datum/db_query/query_view_book = SSdbcore.NewQuery("SELECT content, title FROM library WHERE id=:isbn", list(
-				"isbn" = isbn
-			))
-			if(!query_view_book.warn_execute())
-				qdel(query_view_book)
-				return
-
-			var/content = ""
-			var/title = ""
-			while(query_view_book.NextRow())
-				content = query_view_book.item[1]
-				title = html_encode(query_view_book.item[2])
-
-			var/dat = "<pre><code>"
-			dat += "[html_encode(html_to_pencode(content))]"
-			dat += "</code></pre>"
-
-			var/datum/browser/popup = new(usr, "admin_view_book", "[title]", 700, 400)
-			popup.set_content(dat)
-			popup.open(0)
-
-			qdel(query_view_book)
-			log_admin("[key_name(usr)] has viewed the book [isbn].")
-			message_admins("[key_name_admin(usr)] has viewed the book [isbn].")
-			return
-
-		else if(href_list["unflag_library_book"])
-			var/datum/db_query/query_unflag_book = SSdbcore.NewQuery("UPDATE library SET flagged = 0 WHERE id=:isbn", list(
-				"isbn" = isbn
-			))
-			if(!query_unflag_book.warn_execute())
-				qdel(query_unflag_book)
-				return
-
-			qdel(query_unflag_book)
-			log_admin("[key_name(usr)] has unflagged the book [isbn].")
-			message_admins("[key_name_admin(usr)] has unflagged the book [isbn].")
-
-		else if(href_list["delete_library_book"])
-			var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM library WHERE id=:isbn", list(
-				"isbn" = isbn
-			))
-			if(!query_delbook.warn_execute())
-				qdel(query_delbook)
-				return
-
-			qdel(query_delbook)
-			log_admin("[key_name(usr)] has deleted the book [isbn].")
-			message_admins("[key_name_admin(usr)] has deleted the book [isbn].")
-
-		// Refresh the page
-		src.view_flagged_books()
 
 	else if(href_list["create_outfit_finalize"])
 		if(!check_rights(R_EVENT))

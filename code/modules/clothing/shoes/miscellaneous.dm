@@ -14,7 +14,7 @@
 	strip_delay = 70
 	resistance_flags = NONE
 
-/obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
+/obj/item/clothing/shoes/combat/swat //overpowered gimmick boots
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
