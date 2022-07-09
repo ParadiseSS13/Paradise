@@ -108,6 +108,7 @@
 	desc = "A plasmaman containment helmet designed for the warden, a pair of white stripes being added to differentiate them from other members of security."
 	icon_state = "warden_envirohelm"
 	item_state = "warden_envirohelm"
+	item_color = "red"
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/hos
 	name = "security plasma envirosuit helmet"
@@ -202,6 +203,7 @@
 	desc = "A khaki helmet given to plasmaman miners operating on Lavaland."
 	icon_state = "explorer_envirohelm"
 	item_state = "explorer_envirohelm"
+	item_color = "green"
 	visor_icon = "explorer_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain

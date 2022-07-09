@@ -10,7 +10,7 @@
 	desc = "An airtight khaki suit designed for operations on Lavaland by plasmamen."
 	icon_state = "explorer_envirosuit"
 	item_state = "explorer_envirosuit"
-	item_color = "brown"
+	item_color = "green"
 
 /obj/item/clothing/under/plasmaman/chef
 	name = "chef's plasma envirosuit"
