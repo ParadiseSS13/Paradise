@@ -482,7 +482,7 @@
 		return FALSE
 
 	if(check_mute(user.client?.ckey, MUTE_EMOTE))
-		to_chat(src, "<span class='warning'>You cannot send emotes (muted).</span>")
+		to_chat(user, "<span class='warning'>You cannot send emotes (muted).</span>")
 		return FALSE
 
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
@@ -496,7 +496,7 @@
 			if(stat)
 				to_chat(user, "<span class='warning'>You cannot [key] while [stat]!</span>")
 			return FALSE
-		if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
+		if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
 			// Don't let people blow their cover by mistake
 			return FALSE
 		if(hands_use_check && !user.can_use_hands() && (iscarbon(user)))
@@ -512,14 +512,14 @@
 	else
 		// deadchat handling
 		if(check_mute(user.client?.ckey, MUTE_DEADCHAT))
-			to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
+			to_chat(user, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
 			return FALSE
 		if(!(user.client?.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-			to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
+			to_chat(user, "<span class='warning'>You have deadchat muted.</span>")
 			return FALSE
 		if(!check_rights(R_ADMIN, FALSE, user))
 			if(!GLOB.dsay_enabled)
-				to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
+				to_chat(user, "<span class='warning'>Deadchat is globally muted</span>")
 				return FALSE
 
 /**
