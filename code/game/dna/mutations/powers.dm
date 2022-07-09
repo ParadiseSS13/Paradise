@@ -26,8 +26,12 @@
 	block = GLOB.regenerateblock
 
 /datum/mutation/regenerate/on_life(mob/living/carbon/human/H)
-	H.adjustBruteLoss(-0.1, FALSE)
-	H.adjustFireLoss(-0.1)
+	if(!H.ignore_gene_stability && H.gene_stability < GENETIC_DAMAGE_STAGE_1)
+		H.adjustBruteLoss(-0.25, FALSE)
+		H.adjustFireLoss(-0.25)
+		return
+	H.adjustBruteLoss(-1, FALSE)
+	H.adjustFireLoss(-1)
 
 /datum/mutation/increaserun
 	name = "Super Speed"
