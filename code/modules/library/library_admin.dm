@@ -50,7 +50,7 @@
 /datum/ui_module/library_manager/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
-
+	. = TRUE
 	if(ui_act_modal(action, params))
 		return
 
