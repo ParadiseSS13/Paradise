@@ -128,6 +128,7 @@
 	origin_tech = "materials=5;programming=4;biotech=5"
 	var/last_stamina_damage = 0
 	var/max_stamina_increment = 40
+
 /obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	name = "Hardened CNS Rebooter implant"
 	emp_proof = TRUE
