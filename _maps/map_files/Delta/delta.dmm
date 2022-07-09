@@ -25691,10 +25691,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Mining Maintenance";
-	req_access_txt = "48"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -88531,17 +88527,6 @@
 	icon_state = "dark"
 	},
 /area/security/main)
-"fqy" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/lightsout,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/sleep)
 "frp" = (
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -90974,27 +90959,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
-"kGa" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -24;
-	pixel_y = -6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/hallway/primary/central)
 "kGF" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -91505,15 +91469,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
-"lYs" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -24;
-	pixel_y = -6
-	},
-/turf/simulated/floor/wood,
-/area/crew_quarters/captain)
 "lZw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -94427,7 +94382,7 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/crew_quarters/sleep)
+/area/hallway/primary/central)
 "rIy" = (
 /obj/machinery/door/airlock/research{
 	name = "Research Break Room"
@@ -132394,7 +132349,7 @@ bSi
 bva
 bva
 bva
-kGa
+byP
 byP
 bCf
 bva
@@ -138827,7 +138782,7 @@ bFN
 bWX
 bJj
 bLc
-lYs
+bLc
 bOV
 bWX
 bWX
@@ -141680,7 +141635,7 @@ bva
 bva
 bva
 bva
-fqy
+cDd
 bva
 bva
 cGD
