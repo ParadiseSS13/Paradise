@@ -72,9 +72,8 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		efficiency += M.rating
 
-	if(effeciency_prev >= 0 && effeciency_prev != efficiency)
+	if(effeciency_prev != efficiency)
 		update_ui_product_list() // We have have a higher `efficiency` now, and need to re-calc the product costs.
-		SStgui.update_uis(src, TRUE)
 
 /obj/machinery/biogenerator/update_icon()
 	if(panel_open)
@@ -169,7 +168,6 @@
 
 		processing = FALSE
 		update_ui_product_list()
-		SStgui.update_uis(src, TRUE)
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
@@ -193,7 +191,11 @@
 				"cost" = D.materials[MAT_BIOMASS] / efficiency
 			)
 
+	SStgui.update_uis(src, update_static_data = TRUE)
+
 /obj/machinery/biogenerator/attack_hand(mob/user)
+	if(..())
+		return
 	ui_interact(user)
 
 /obj/machinery/biogenerator/attack_ghost(mob/user)
