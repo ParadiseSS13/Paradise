@@ -24,7 +24,7 @@
 	icon_state = "anomaly_crystal"
 	light_range = 8
 	use_power = NO_POWER_USE
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/activation_method = "touch"
 	var/activation_damage_type = null
@@ -252,7 +252,7 @@
 	health = 2
 	harm_intent_damage = 1
 	friendly = "mends"
-	density = 0
+	density = FALSE
 	flying = TRUE
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -263,15 +263,15 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	luminosity = 4
 	faction = list("neutral")
-	universal_understand = 1
-	del_on_death = 1
+	universal_understand = TRUE
+	del_on_death = TRUE
 	unsuitable_atmos_damage = 0
-	flying = 1
+	flying = TRUE
 	minbodytemp = 0
 	maxbodytemp = 1500
 	environment_smash = 0
 	AIStatus = AI_OFF
-	stop_automated_movement = 1
+	stop_automated_movement = TRUE
 	var/heal_power = 5
 
 /mob/living/simple_animal/hostile/lightgeist/New()
@@ -341,8 +341,8 @@
 	name = "quantum entanglement stasis warp field"
 	desc = "You can hardly comprehend this thing... which is why you can't see it."
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
 
@@ -362,7 +362,7 @@
 /obj/structure/closet/stasis/Entered(atom/A)
 	if(isliving(A) && holder_animal)
 		var/mob/living/L = A
-		L.notransform = 1
+		L.notransform = TRUE
 		ADD_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags |= GODMODE
 		L.mind.transfer_to(holder_animal)
@@ -375,7 +375,7 @@
 	for(var/mob/living/L in src)
 		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags &= ~GODMODE
-		L.notransform = 0
+		L.notransform = FALSE
 		if(holder_animal && !QDELETED(holder_animal))
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)
@@ -393,7 +393,7 @@
 	name = "Exit Possession"
 	desc = "Exits the body you are possessing"
 	charge_max = 60
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation_type = "none"
 	action_icon_state = "exit_possession"
 	sound = null
