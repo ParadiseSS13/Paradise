@@ -48,7 +48,7 @@ var/global/list/geoip_ckey_updated = list()
 				proxy = "<span style='color: red'>true</span>"
 
 				if(config.proxy_autoban)
-					var/reason = "Ваш IP определяется как прокси. Прокси запрещены на сервере. Обратитесь к администрации за разрешением."
+					var/reason = "Ваш IP определяется как прокси. Прокси запрещены на сервере. Обратитесь к администрации за разрешением. Client ISP: ([isp])"
 					// var/list/play_records = params2list(C.prefs.exp)
 					// var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
 					// if(livingtime > 600) // 10 hours * 60 min
