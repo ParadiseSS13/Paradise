@@ -65417,7 +65417,6 @@
 /area/toxins/lab)
 "cYr" = (
 /obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
@@ -83881,7 +83880,6 @@
 /area/security/prison/cell_block)
 "dOD" = (
 /obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/structure/window/reinforced/polarized,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
