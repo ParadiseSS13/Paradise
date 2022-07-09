@@ -866,8 +866,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(inv)
 			inv.update_icon()
 
-	var/obscured_slots = check_obscured_slots()
-
 	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit))
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)					//if the inventory is open ...
