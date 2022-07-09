@@ -5,19 +5,20 @@
 	alwayslog = TRUE
 	damage_type = BURN
 	nodamage = 1
+	var/emp_range = 1
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
 
 /obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	empulse(target, 1, 1, 1, cause = "[type] fired by [key_name(firer)]")
+	. = ..()
+	empulse(target, emp_range, emp_range, 1, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/item/projectile/ion/weak
 
 /obj/item/projectile/ion/weak/on_hit(atom/target, blocked = 0)
-	..()
-	empulse(target, 0, 0, 1, cause = "[type] fired by [key_name(firer)]")
+	emp_range = 0
+	. = ..()
 	return 1
 
 /obj/item/projectile/bullet/gyro
