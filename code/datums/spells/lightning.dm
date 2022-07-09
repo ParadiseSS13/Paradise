@@ -1,7 +1,6 @@
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning
 	name = "Lightning Bolt"
 	desc = "Throws a lightning bolt at your enemies. Classic. When clicked will start to charge in power. Then click on a mob to send the bolt before it overloads with power."
-	charge_type = "recharge"
 	charge_max	= 30 SECONDS
 	clothes_req = TRUE
 	invocation = "UN'LTD P'WAH!"

@@ -45,11 +45,7 @@
 				if(summon_lifespan)
 					QDEL_IN(summoned_object, summon_lifespan)
 	else
-		switch(charge_type)
-			if("recharge")
-				charge_counter = charge_max - 5//So you don't lose charge for a failed spell(Also prevents most over-fill)
-			if("charges")
-				charge_counter++//Ditto, just for different spell types
+		charge_counter = charge_max - 5//So you don't lose charge for a failed spell(Also prevents most over-fill)
 
 
 	return

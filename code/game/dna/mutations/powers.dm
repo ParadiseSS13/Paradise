@@ -299,7 +299,6 @@
 	desc = "Drops the bodytemperature of another person."
 	panel = "Abilities"
 
-	charge_type = "recharge"
 	charge_max = 1200
 
 	clothes_req = FALSE
@@ -371,7 +370,6 @@
 	desc = "Eat just about anything!"
 	panel = "Abilities"
 
-	charge_type = "recharge"
 	charge_max = 300
 
 	clothes_req = 0
@@ -477,7 +475,6 @@
 	desc = "Leap great distances!"
 	panel = "Abilities"
 
-	charge_type = "recharge"
 	charge_max = 60
 
 	clothes_req = 0

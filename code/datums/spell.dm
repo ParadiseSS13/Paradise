@@ -81,7 +81,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	var/school = "evocation" //not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
 
-	var/charge_type = "recharge" //can be recharge or charges, see charge_max and charge_counter descriptions; can also be based on the holder's vars now, use "holder_var" for that
 
 	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
 	var/starts_charged = TRUE //Does this spell start ready to go?
@@ -189,13 +188,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  */
 /obj/effect/proc_holder/spell/proc/spend_spell_cost(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
-	switch(charge_type)
-		if("recharge")
-			charge_counter = 0 //doesn't start recharging until the targets selecting ends
-		if("charges")
-			charge_counter-- //returns the charge if the targets selecting fails
-		if("holdervar")
-			adjust_var(user, holder_var_type, holder_var_amount)
+
+	charge_counter = 0 //doesn't start recharging until the targets selecting ends
 
 	custom_handler?.spend_spell_cost(user, src)
 
@@ -350,8 +344,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		if(create_attack_logs)
 			add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
 	spawn(0)
-		if(charge_type == "recharge" && recharge)
-			start_recharge()
+		start_recharge()
 
 	if(sound)
 		playMagSound()
@@ -436,13 +429,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return
 
 /obj/effect/proc_holder/spell/proc/revert_cast(mob/user = usr) //resets recharge or readds a charge
-	switch(charge_type)
-		if("recharge")
-			charge_counter = charge_max
-		if("charges")
-			charge_counter++
-		if("holdervar")
-			adjust_var(user, holder_var_type, -holder_var_amount)
+
+	charge_counter = charge_max
 
 	custom_handler?.revert_cast(user, src)
 
@@ -474,19 +462,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return
 
 /obj/effect/proc_holder/spell/proc/get_availability_percentage()
-	switch(charge_type)
-		if("recharge")
-			if(charge_counter == 0)
-				return 0
-			if(charge_max == 0)
-				return 1
-			return charge_counter / charge_max
-		if("charges")
-			if(charge_counter)
-				return 1
-			return 0
-		if("holdervar")
-			return 1
+	if(charge_counter == 0)
+		return 0
+	if(charge_max == 0)
+		return 1
+	return charge_counter / charge_max
 
 
 /obj/effect/proc_holder/spell/aoe_turf
@@ -513,17 +493,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		return FALSE
 
 	if(charge_check)
-		switch(charge_type)
-			if("recharge")
-				if(charge_counter < charge_max)
-					if(show_message)
-						to_chat(user, still_recharging_msg)
-					return FALSE
-			if("charges")
-				if(!charge_counter)
-					if(show_message)
-						to_chat(user, "<span class='notice'>[name] has no charges left.</span>")
-					return FALSE
+		if(charge_counter < charge_max)
+			if(show_message)
+				to_chat(user, still_recharging_msg)
+			return FALSE
+
 	if(!ghost)
 		if(user.stat && !stat_allowed)
 			if(show_message)

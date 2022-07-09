@@ -89,8 +89,7 @@
 		S = new spell_type()
 	var/dat =""
 	dat += "<b>[name]</b>"
-	if(S.charge_type == "recharge")
-		dat += " Cooldown:[S.charge_max/10]"
+	dat += " Cooldown:[S.charge_max/10]"
 	dat += " Cost:[cost]<br>"
 	dat += "<i>[S.desc][desc]</i><br>"
 	dat += "[S.clothes_req?"Needs wizard garb":"Can be cast without wizard garb"]<br>"
