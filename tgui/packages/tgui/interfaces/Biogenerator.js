@@ -8,7 +8,7 @@ import {
   Collapsible,
   NumberInput,
   ProgressBar,
-  Dimmer} from "../components";
+  Dimmer } from "../components";
 import { Window } from "../layouts";
 
 export const Biogenerator = (props, context) => {
@@ -18,15 +18,13 @@ export const Biogenerator = (props, context) => {
   return (
     <Window>
       <Window.Content display="flex" className="Layout__content--flexColumn">
+        <Processing />
+        <Storage />
+        <Controls />
         {!container ? (
           <MissingContainer />
         ) : (
-          <>
-          <Processing />
-          <Storage />
-          <Controls />
           <Products />
-          </>
         )}
       </Window.Content>
     </Window>
@@ -38,14 +36,15 @@ const MissingContainer = (props, context) => {
     <Section flexGrow="1">
       <Flex height="100%">
         <Flex.Item
+          bold
           grow="1"
           textAlign="center"
           align="center"
           color="silver">
           <Icon
             name="flask"
-            size="5"
-            mb={3}
+            size={5}
+            mb="10px"
           /><br />
           The biogenerator is missing a container.
         </Flex.Item>
@@ -61,17 +60,16 @@ const Processing = (props, context) => {
   if (processing) {
     return (
       <Dimmer>
-        <Flex>
+        <Flex mb="30px">
           <Flex.Item
             bold
-            textColor="silver"
-            textAlign="center"
-            mb={2}>
+            color="silver"
+            textAlign="center">
             <Icon
               name="spinner"
-              spin={1}
+              spin
               size={4}
-              mb={4}
+              mb="15px"
             /><br />
             The biogenerator is processing...
           </Flex.Item>
@@ -85,8 +83,9 @@ const Storage = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     biomass,
+    container,
     container_curr_reagents,
-    container_max_reagents
+    container_max_reagents,
   } = data;
 
   return (
@@ -105,10 +104,11 @@ const Storage = (props, context) => {
           color="#3d8c40"
         />
       </Flex>
-      <Flex mt="8px">
+      <Flex height="21px" mt="8px"align="center">
         <Flex.Item mr="10px" color="silver">
           Container:
         </Flex.Item>
+        {container ? (
           <ProgressBar
             value={container_curr_reagents}
             maxValue={container_max_reagents}>
@@ -116,6 +116,11 @@ const Storage = (props, context) => {
               {container_curr_reagents + ' / ' + container_max_reagents + ' units'}
             </Box>
           </ProgressBar>
+        ) : (
+          <Flex.Item>
+            None
+          </Flex.Item>
+        )}
       </Flex>
     </Section>
   );
@@ -123,7 +128,10 @@ const Storage = (props, context) => {
 
 const Controls = (props, context) => {
   const { act, data } = useBackend(context);
-  const { has_plants } = data;
+  const {
+    has_plants,
+    container,
+  } = data;
 
   return (
     <Section title="Controls">
@@ -145,6 +153,9 @@ const Controls = (props, context) => {
             fluid
             textAlign="center"
             icon="flask"
+            disabled={!container}
+            tooltip={container ? "" : "The biogenerator does not have a container."}
+            tooltipPosition="top"
             content="Detach Container"
             onClick={() => act('detach_container')}
           />
@@ -171,7 +182,6 @@ const Products = (props, context) => {
   const {
     biomass,
     product_list,
-    efficiency,
   } = data;
 
   let [vendAmount, setVendAmount] = useSharedState(context, 'vendAmount', 1);
@@ -192,11 +202,11 @@ const Products = (props, context) => {
             py="2px"
             className="candystripe"
             align="center">
-            <Flex.Item width="50%" ml={0.5}>
+            <Flex.Item width="50%" ml="2px">
               {item.name}
             </Flex.Item>
             <Flex.Item textAlign="right" width="20%">
-              {(item.cost / efficiency) * vendAmount}
+              {item.cost * vendAmount}
               <Icon
                 ml="5px"
                 name="leaf"
@@ -207,7 +217,7 @@ const Products = (props, context) => {
             <Flex.Item textAlign="right" width="40%">
               <Button
                 content="Vend"
-                disabled={biomass < (item.cost / efficiency) * vendAmount}
+                disabled={biomass < (item.cost * vendAmount)}
                 icon="arrow-circle-down"
                 onClick={() => act('create', {
                   id: item.id,
