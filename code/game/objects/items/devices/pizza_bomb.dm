@@ -20,7 +20,7 @@
 		desc = "It seems inactive."
 		icon_state = "pizzabox_bomb"
 		timer_set = 1
-		timer = (input(user, "Set a timer, from one second to ten seconds.", "Timer", "[timer]") as num) * 10
+		timer = (input(user, "Set a timer, from one second to ten seconds.", "Timer", "[timer]") as num) SECONDS
 		if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
 			timer_set = 0
 			name = "pizza box"

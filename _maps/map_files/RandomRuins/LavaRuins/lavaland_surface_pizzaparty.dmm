@@ -243,7 +243,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "D" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/margheritaslice,
+/obj/item/reagent_containers/food/snacks/margheritapizzaslice,
 /obj/item/trash/plate,
 /turf/simulated/floor/wood{
 	nitrogen = 23;
