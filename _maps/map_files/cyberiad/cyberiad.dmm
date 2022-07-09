@@ -6932,6 +6932,10 @@
 	pixel_x = 3
 	},
 /obj/item/storage/box/teargas,
+/obj/item/megaphone{
+	pixel_y = -3;
+	pixel_x = -3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -77839,11 +77843,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/item/storage/fancy/donut_box,
-/obj/item/megaphone{
-	pixel_y = -3;
-	pixel_x = -3
+/obj/machinery/computer/area_atmos/area{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -78207,6 +78208,7 @@
 /obj/structure/table,
 /obj/item/screwdriver,
 /obj/item/wrench,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -78661,6 +78663,7 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/machinery/portable_atmospherics/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -80534,6 +80537,18 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"nVe" = (
+/obj/structure/sign/electricshock{
+	pixel_x = -32
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/scrubber/huge/stationary,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/security/permabrig)
 "nXr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/status_display{
@@ -81129,12 +81144,6 @@
 /obj/item/storage/fancy/egg_box,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/rice,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/sign/electricshock{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -83546,10 +83555,10 @@
 	name = "Prison Intercom (General)";
 	pixel_y = 25
 	},
-/obj/structure/flora/junglebush,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/portable_atmospherics/scrubber/huge/stationary,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "xHz" = (
@@ -100593,7 +100602,7 @@ srU
 imH
 nfU
 abN
-aaa
+abN
 aaa
 aaa
 aaa
@@ -100849,7 +100858,7 @@ tea
 iYo
 tea
 oza
-abN
+nVe
 abN
 aaa
 aaa
