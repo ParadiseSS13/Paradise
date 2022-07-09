@@ -13,11 +13,6 @@
 #define APC_OPENED 1
 #define APC_COVER_OFF 2
 
-//charging
-#define APC_NOT_CHARGING 0
-#define APC_IS_CHARGING 1
-#define APC_FULLY_CHARGED 2
-
 //electronics_state
 #define APC_ELECTRONICS_NONE 0
 #define APC_ELECTRONICS_INSTALLED 1
@@ -409,7 +404,7 @@
 		if(locked)
 			update_overlay |= APC_UPOVERLAY_LOCKED
 
-		if(!charging)
+		if(charging == APC_NOT_CHARGING)
 			update_overlay |= APC_UPOVERLAY_CHARGEING0
 		else if(charging == APC_IS_CHARGING)
 			update_overlay |= APC_UPOVERLAY_CHARGEING1
@@ -1192,7 +1187,7 @@
 		// Set channels depending on how much charge we have left
 
 		// Allow the APC to operate as normal if the cell can charge
-		if(charging && longtermpower < 10)
+		if(charging != APC_NOT_CHARGING && longtermpower < 10)
 			longtermpower += 1
 		else if(longtermpower > -10)
 			longtermpower -= 2
@@ -1248,7 +1243,7 @@
 			charging = APC_FULLY_CHARGED
 
 		if(chargemode)
-			if(!charging)
+			if(charging == APC_NOT_CHARGING)
 				if(excess > cell.maxcharge*GLOB.CHARGELEVEL)
 					chargecount++
 				else
