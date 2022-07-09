@@ -91,8 +91,8 @@
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
 	return cell
 
-/obj/item/clothing/gloves/color/yellow/stun/New()
-	..()
+/obj/item/clothing/gloves/color/yellow/stun/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/clothing/gloves/color/yellow/stun/Destroy()

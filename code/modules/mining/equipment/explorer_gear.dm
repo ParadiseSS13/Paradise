@@ -55,14 +55,18 @@
 	armor = list(MELEE = 70, BULLET = 40, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/melee/spellblade)
 
-/obj/item/clothing/suit/space/hostile_environment/New()
-	..()
-	AddComponent(/datum/component/spraycan_paintable)
+
+/obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/clothing/suit/space/hostile_environment/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/space/hostile_environment/process()
 	var/mob/living/carbon/C = loc
@@ -83,10 +87,12 @@
 	armor = list(MELEE = 70, BULLET = 40, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
-/obj/item/clothing/head/helmet/space/hostile_environment/New()
-	..()
-	AddComponent(/datum/component/spraycan_paintable)
+/obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
+	. = ..()
 	update_icon()
+
+/obj/item/clothing/head/helmet/space/hostile_environment/ComponentInitialize()
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/update_icon()
 	..()

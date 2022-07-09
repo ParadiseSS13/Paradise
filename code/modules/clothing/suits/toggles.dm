@@ -1,27 +1,5 @@
 //Hardsuit toggle code
-/obj/item/clothing/suit/space/hardsuit/New()
-	MakeHelmet()
-	..()
 
-/obj/item/clothing/suit/space/hardsuit/Destroy()
-	if(helmet)
-		helmet.suit = null
-		QDEL_NULL(helmet)
-	QDEL_NULL(jetpack)
-	return ..()
-
-/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
-	if(suit)
-		suit.helmet = null
-	return ..()
-
-/obj/item/clothing/suit/space/hardsuit/proc/MakeHelmet()
-	if(!helmettype)
-		return
-	if(!helmet)
-		var/obj/item/clothing/head/helmet/space/hardsuit/W = new helmettype(src)
-		W.suit = src
-		helmet = W
 
 /obj/item/clothing/suit/space/hardsuit/ui_action_click()
 	..()

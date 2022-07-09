@@ -11,8 +11,8 @@
 	var/stud = 0
 	var/ring_color = "iron"
 
-/obj/item/clothing/gloves/ring/New()
-	..()
+/obj/item/clothing/gloves/ring/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/clothing/gloves/ring/update_icon()
@@ -73,10 +73,10 @@
 	icon_state = "redring"
 	ring_color = "red"
 
-/obj/item/clothing/gloves/ring/plastic/random/New()
+/obj/item/clothing/gloves/ring/plastic/random/Initialize(mapload)
 	ring_color = pick("white","blue","red")
 	name = "[ring_color] plastic ring"
-	..()
+	. = ..()
 
 // weird
 /obj/item/clothing/gloves/ring/glass

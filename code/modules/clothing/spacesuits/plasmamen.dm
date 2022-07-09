@@ -24,8 +24,8 @@
 	species_restricted = list("Plasmaman")
 	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
 
-/obj/item/clothing/head/helmet/space/plasmaman/New()
-	..()
+/obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
+	. = ..()
 	visor_toggling()
 	update_icon()
 	cut_overlays()

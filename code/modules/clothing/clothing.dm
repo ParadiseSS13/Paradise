@@ -667,10 +667,10 @@ BLIND     // can't see anything
 	var/rolled_down = 0
 	var/basecolor
 
-/obj/item/clothing/under/rank/New()
+/obj/item/clothing/under/rank/Initialize(mapload)
+	. = ..()
 	if(random_sensor)
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
-	..()
 
 /obj/item/clothing/under/Destroy()
 	QDEL_LIST(accessories)
