@@ -65545,8 +65545,6 @@
 /area/medical/medbay)
 "cYN" = (
 /obj/structure/closet/wardrobe/coroner,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
-/obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
 "cYO" = (
@@ -74371,7 +74369,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/item/clothing/glasses/welding/superior,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -80404,9 +80401,6 @@
 	pixel_y = -28
 	},
 /obj/structure/closet/secure_closet/roboticist,
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
