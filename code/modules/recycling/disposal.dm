@@ -317,7 +317,7 @@
 // update the icon & overlays to reflect mode & status
 /obj/machinery/disposal/proc/update()
 	set_light(0)
-	overlays.Cut()
+	cut_overlays()
 	underlays.Cut()
 
 	if(stat & BROKEN)
@@ -328,7 +328,7 @@
 
 	// flush handle
 	if(flush)
-		overlays += image(icon, "dispover-handle")
+		add_overlay("dispover-handle")
 
 	// only handle is shown if no power
 	if(stat & NOPOWER || mode == -1)
@@ -336,19 +336,19 @@
 
 	// 	check for items in disposal - occupied light
 	if(contents.len > 0)
-		overlays += image(icon, "dispover-full")
+		add_overlay("dispover-full")
 
 	// charging and ready light
 	switch(mode)
 		if(-1)
-			overlays += image(icon, "dispover-unscrewed")
+			add_overlay("dispover-unscrewed")
 		if( 1)
-			overlays += image(icon, "dispover-charge")
+			add_overlay("dispover-charge")
+			add_overlay("dispover-panel")
 			underlays += emissive_appearance(icon, "dispover-charge")
-			overlays += image(icon, "dispover-panel")
 			set_light(1, 0.1)
 		if(2)
-			overlays += image(icon, "dispover-ready")
+			add_overlay("dispover-ready")
 			underlays += emissive_appearance(icon, "dispover-ready")
 			set_light(1, 0.1)
 

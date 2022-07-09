@@ -355,7 +355,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_undelays)
 	var/mutable_appearance/sparks_underlay
 
 	set_light(0)
-	//underlays.Cut() //unideal but I keep on getting buttons_underlay sticking around for some reason >>:C
 
 	switch(state)
 		if(AIRLOCK_CLOSED)

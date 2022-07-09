@@ -37,8 +37,9 @@ FIRE ALARM
 
 	var/last_time_pulled //used to prevent pulling spam by same persons
 
-/obj/machinery/firealarm/New(location, direction, building)
+/obj/machinery/firealarm/Initialize(mapload, direction, building)
 	. = ..()
+	name = "fire alarm"
 
 	if(building)
 		buildstage = 0
@@ -48,27 +49,15 @@ FIRE ALARM
 
 	if(is_station_contact(z) && show_alert_level)
 		if(GLOB.security_level)
-			overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
+			add_overlay("overlay_[get_security_level()]")
 		else
-			overlays += image('icons/obj/monitors.dmi', "overlay_green")
+			add_overlay("overlay_green")
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)
 
-/obj/machinery/firealarm/Initialize(mapload)
-	. = ..()
-	name = "fire alarm"
-	update_icon()
-
-/obj/machinery/firealarm/Destroy()
-	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
-	LAZYREMOVE(myArea.firealarms, src)
-	return ..()
-
-/obj/machinery/firealarm/Initialize(mapload)
-	. = ..()
-	name = "fire alarm"
 	set_light(1,0.1) //for emmissives (otherwise they get culled by byond (0.1 light level moment))
+	update_icon()
 
 /obj/machinery/firealarm/Destroy()
 	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
@@ -77,7 +66,7 @@ FIRE ALARM
 
 /obj/machinery/firealarm/update_icon()
 	underlays.Cut()
-	overlays.Cut()
+	cut_overlays()
 
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
@@ -93,7 +82,7 @@ FIRE ALARM
 		icon_state = "firealarm_on"
 
 	if(!(stat & NOPOWER) && is_station_contact(z))
-		overlays += icon(icon, "overlay_[get_security_level()]")
+		add_overlay("overlay_[get_security_level()]")
 
 	if(light)
 		if(overlays)

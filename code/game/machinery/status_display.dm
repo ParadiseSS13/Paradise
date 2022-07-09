@@ -72,6 +72,17 @@
 	underlays += emissive_appearance(icon, "lightmask")
 	set_light(1, 0.1)
 
+// timed process
+/obj/machinery/status_display/process()
+	if(stat & NOPOWER)
+		remove_display()
+		return
+	if(spookymode)
+		spookymode = FALSE
+		remove_display()
+		return
+	update()
+
 /obj/machinery/status_display/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
@@ -163,7 +174,7 @@
 /obj/machinery/status_display/proc/set_picture(state)
 	picture_state = state
 	remove_display()
-	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
+	add_overlay(picture_state)
 
 /obj/machinery/status_display/proc/update_display(line1, line2, warning = 0)
 	line1 = uppertext(line1)
@@ -174,7 +185,7 @@
 
 /obj/machinery/status_display/proc/remove_display()
 	if(overlays.len)
-		overlays.Cut()
+		cut_overlays()
 	if(maptext)
 		maptext = ""
 	update_icon()
@@ -243,7 +254,7 @@
 	var/new_display
 
 	set_light(0)
-	overlays.Cut()
+	cut_overlays()
 	underlays.Cut()
 
 	if(stat & NOPOWER)
@@ -291,7 +302,7 @@
 		if(2)	// BSOD
 			new_display ="ai_bsod"
 
-	overlays += image(icon, new_display)
+	add_overlay(new_display)
 	underlays += emissive_appearance(icon, "lightmask")
 	set_light(1, 0.1)
 

@@ -429,7 +429,7 @@
 				return
 			GLOB.news_network.wanted_issue = null
 			set_temp("Wanted notice cleared.", update_now = TRUE)
-			for(var/obj/machinery/newscaster/NC in GLOB.allNewscasters)
+			for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 				NC.update_icon()
 			return FALSE
 		if("toggle_mute")
@@ -542,7 +542,7 @@
 					SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 					var/announcement = FC.get_announce_text(title)
 					// Announce it
-					for(var/obj/machinery/newscaster/NC in GLOB.allNewscasters)
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(announcement)
 					// Redirect and eject photo
 					LAZYINITLIST(last_views[user_name])
@@ -575,7 +575,7 @@
 					WN.admin_locked = usr.can_admin_interact() && admin_locked
 					WN.publish_time = world.time
 					// Announce it and eject photo
-					for(var/obj/machinery/newscaster/NC in GLOB.allNewscasters)
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
 					set_temp("Wanted notice distributed.", "good")

@@ -351,20 +351,20 @@
 			overlays.len = 0
 
 		if(!(stat & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
-			set_light(1,0.1) //so byond doesnt cull the icon when we want to see emissives
-			var/image/statover_lock = status_overlays_lock[locked+1]
-			var/image/statover_charg = status_overlays_charging[charging+1]
-			var/image/statover_equip = status_overlays_equipment[equipment+1]
-			var/image/statover_light = status_overlays_lighting[lighting+1]
-			var/image/statover_envir = status_overlays_environ[environ+1]
-			overlays += statover_lock
-			overlays += statover_charg
+			set_light(1, 0.1) //so byond doesnt cull the icon when we want to see emissives
+			var/image/statover_lock = status_overlays_lock[locked + 1]
+			var/image/statover_charg = status_overlays_charging[charging + 1]
+			var/image/statover_equip = status_overlays_equipment[equipment + 1]
+			var/image/statover_light = status_overlays_lighting[lighting + 1]
+			var/image/statover_envir = status_overlays_environ[environ + 1]
+			add_overlay(statover_lock)
+			add_overlay(statover_charg)
 			underlays += emissive_appearance(icon, statover_lock.icon_state)
 			underlays += emissive_appearance(icon, statover_charg.icon_state)
 			if(operating)
-				overlays += statover_equip
-				overlays += statover_light
-				overlays += statover_envir
+				add_overlay(statover_equip)
+				add_overlay(statover_light)
+				add_overlay(statover_envir)
 				underlays += emissive_appearance(icon, statover_equip.icon_state)
 				underlays += emissive_appearance(icon, statover_light.icon_state)
 				underlays += emissive_appearance(icon, statover_envir.icon_state)
