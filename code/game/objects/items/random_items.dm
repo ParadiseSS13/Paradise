@@ -126,16 +126,22 @@
 	allow_wrap = FALSE
 	var/labelled = FALSE
 
-/obj/item/storage/pill_bottle/random_meds/New()
-	..()
+/obj/item/storage/pill_bottle/random_meds/Initialize(mapload)
+	. = ..()
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
+
+/obj/item/storage/pill_bottle/random_meds/populate_contents()
+	var/list/possible_meds_standard = GLOB.standard_medicines.Copy()
+	var/list/possible_meds_rare = GLOB.rare_medicines.Copy()
 	for(var/i in 1 to storage_slots)
-		var/list/possible_medicines = GLOB.standard_medicines.Copy()
-		if(prob(50))
-			possible_medicines += GLOB.rare_medicines.Copy()
-		var/datum/reagent/R = pick(possible_medicines)
+		var/is_rare = prob(33)
+		var/possible_meds = is_rare ? possible_meds_rare : possible_meds_standard
+
+		var/datum/reagent/R = pick(possible_meds)
 		var/obj/item/reagent_containers/food/pill/P = new(src)
 
-		if(GLOB.rare_medicines.Find(R))
+		if(is_rare)
 			P.reagents.add_reagent(R, 10)
 		else
 			P.reagents.add_reagent(R, rand(2, 5)*10)
@@ -145,8 +151,7 @@
 		else
 			P.name = "Unlabelled Pill"
 			P.desc = "Something about this pill entices you to try it, against your better judgement."
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
+
 
 /obj/item/storage/pill_bottle/random_meds/labelled
 	name = "variety pillbottle"
@@ -308,14 +313,21 @@
 	name = "tactical grenades"
 	desc = "A box with 6 tactical grenades."
 	icon_state = "flashbang"
-	var/list/grenadelist = list(/obj/item/grenade/chem_grenade/metalfoam, /obj/item/grenade/chem_grenade/incendiary,
-	/obj/item/grenade/chem_grenade/antiweed, /obj/item/grenade/chem_grenade/cleaner, /obj/item/grenade/chem_grenade/teargas,
-	/obj/item/grenade/chem_grenade/holywater, /obj/item/grenade/chem_grenade/meat,
-	/obj/item/grenade/chem_grenade/dirt, /obj/item/grenade/chem_grenade/lube, /obj/item/grenade/smokebomb,
-	/obj/item/grenade/chem_grenade/drugs, /obj/item/grenade/chem_grenade/ethanol) // holy list batman
 
-/obj/item/storage/box/grenades/New()
-	..()
+/obj/item/storage/box/grenades/populate_contents()
+	var/static/list/grenadelist = list(
+		/obj/item/grenade/chem_grenade/metalfoam,
+		/obj/item/grenade/chem_grenade/incendiary,
+		/obj/item/grenade/chem_grenade/antiweed,
+		/obj/item/grenade/chem_grenade/cleaner,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/grenade/chem_grenade/holywater,
+		/obj/item/grenade/chem_grenade/meat,
+		/obj/item/grenade/chem_grenade/dirt,
+		/obj/item/grenade/chem_grenade/lube,
+		/obj/item/grenade/smokebomb,
+		/obj/item/grenade/chem_grenade/drugs,
+		/obj/item/grenade/chem_grenade/ethanol) // holy list batman
 	for(var/i in 1 to 6)
 		var/nade = pick(grenadelist)
 		new nade(src)

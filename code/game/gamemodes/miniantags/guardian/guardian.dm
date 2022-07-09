@@ -472,8 +472,6 @@
 /obj/item/storage/box/syndie_kit/guardian
 	name = "holoparasite injector kit"
 
-/obj/item/storage/box/syndie_kit/guardian/New()
-	..()
+/obj/item/storage/box/syndie_kit/guardian/populate_contents()
 	new /obj/item/guardiancreator/tech/choose(src)
 	new /obj/item/paper/guardian(src)
-	return
