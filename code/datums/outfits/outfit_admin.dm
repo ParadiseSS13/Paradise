@@ -89,7 +89,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival_syndi = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
-		/obj/item/ammo_box/magazine/m10mm = 1,
+		/obj/item/ammo_box/magazine/m9mm = 1,
 		/obj/item/crowbar/red = 1,
 		/obj/item/grenade/plastic/c4 = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
@@ -438,7 +438,7 @@
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
-		/obj/item/ammo_box/magazine/m10mm = 1,
+		/obj/item/ammo_box/magazine/m9mm = 1,
 		/obj/item/suppressor = 1,
 		/obj/item/card/emag = 1,
 		/obj/item/radio/uplink = 1,

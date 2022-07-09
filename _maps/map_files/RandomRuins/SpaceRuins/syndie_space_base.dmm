@@ -2110,12 +2110,12 @@
 /obj/structure/closet/crate/secure/weapon{
 	req_access_txt = "150"
 	},
-/obj/item/ammo_box/magazine/m10mm/ap,
-/obj/item/ammo_box/magazine/m10mm/ap,
-/obj/item/ammo_box/magazine/m10mm/fire,
-/obj/item/ammo_box/magazine/m10mm/fire,
-/obj/item/ammo_box/magazine/m10mm/hp,
-/obj/item/ammo_box/magazine/m10mm/hp,
+/obj/item/ammo_box/magazine/m9mm/ap,
+/obj/item/ammo_box/magazine/m9mm/ap,
+/obj/item/ammo_box/magazine/m9mm/fire,
+/obj/item/ammo_box/magazine/m9mm/fire,
+/obj/item/ammo_box/magazine/m9mm/hp,
+/obj/item/ammo_box/magazine/m9mm/hp,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"

@@ -28,8 +28,8 @@
 	var/static/list/bond = list( // 33TC + three 0TC
 		/obj/item/gun/projectile/automatic/pistol, // 4TC
 		/obj/item/suppressor, // 1TC
-		/obj/item/ammo_box/magazine/m10mm/hp,  // 3TC
-		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
+		/obj/item/ammo_box/magazine/m9mm/hp,  // 3TC
+		/obj/item/ammo_box/magazine/m9mm/ap, // 2TC
 		/obj/item/clothing/under/suit_jacket/really_black, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
