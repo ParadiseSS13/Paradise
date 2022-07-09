@@ -480,9 +480,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</table>"
 
 		if(TAB_KEYS)
-			dat += "<b>All Key Bindings:&nbsp;</b>"
+			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
 			dat += "<a href='?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
-			dat += "<a href='?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br />"
+			dat += "<a href='?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Please note, some keybinds are overriden by other categories.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Ensure you bind all of them, or the specific one you want.</b></div></td></tr>"
 
 			dat += "<table align='center' width='100%'>"
 
@@ -495,6 +498,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					keybindings_by_cat["[KB.category]"] += list(KB)
 
 			for(var/cat in GLOB.keybindings_groups)
+				dat += "<tr><td colspan=4><hr></td></tr>"
 				dat += "<tr><td colspan=3><h2>[cat]</h2></td></tr>"
 				for(var/kb in keybindings_by_cat["[GLOB.keybindings_groups[cat]]"])
 					var/datum/keybinding/KB = kb
@@ -511,6 +515,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "<td style='width: 45%'>[keys_buttons]<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>"
 					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[KB.UID()]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[KB.UID()]'>Clear</a></td>"
 					dat += "</tr>"
+				dat += "<tr><td colspan=4><br></td></tr>"
 
 			dat += "</table>"
 

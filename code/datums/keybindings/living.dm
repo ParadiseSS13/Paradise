@@ -6,11 +6,12 @@
 
 /datum/keybinding/living/rest
 	name = "Rest"
+	keys = list("V")
 
 /datum/keybinding/living/rest/down(client/C)
 	. = ..()
 	var/mob/living/M = C.mob
-	M.lay_down()
+	M.rest()
 
 /datum/keybinding/living/resist
 	name = "Resist"
