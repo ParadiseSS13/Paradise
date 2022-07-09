@@ -24,7 +24,7 @@
 	var/burn_dam = 0
 	var/max_size = 0
 	var/icon/mob_icon
-	var/gendered_icon = 0
+	var/gendered_icon = FALSE
 	var/limb_name
 	var/limb_flags
 	var/s_tone = null
@@ -46,8 +46,8 @@
 	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
 	var/broken_description
 
-	var/open = 0  // If the body part has an open incision from surgery
-	var/sabotaged = 0 //If a prosthetic limb is emagged, it will detonate when it fails.
+	var/open = 0  // If the body part has an open incision from surgery. Can have values > 1.
+	var/sabotaged = FALSE //If a prosthetic limb is emagged, it will detonate when it fails.
 	var/encased       // Needs to be opened with a saw to access the organs.
 
 	var/obj/item/hidden = null
