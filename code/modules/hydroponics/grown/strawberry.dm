@@ -24,3 +24,4 @@
 	icon_state = "strawberry"
 	tastes = list("strawberry" = 3, "sweetness" = 1)
 	gender = PLURAL
+	bitesize = 2
