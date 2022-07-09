@@ -55,11 +55,6 @@
 /obj/item/clothing/gloves/color/yellow/fake
 	siemens_coefficient = 1
 
-/obj/item/clothing/gloves/color/yellow/fake/examine(mob/user)
-	. = ..()
-	if(user.Adjacent(src))
-		. += "<span class='notice'>They don't feel like rubber...</span>"
-
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	name = "budget insulated gloves"
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."

@@ -155,6 +155,11 @@
 		cell = null
 		update_icon()
 
+/obj/item/clothing/gloves/color/yellow/fake/examine(mob/user)
+	. = ..()
+	if(user.Adjacent(src))
+		. += "<span class='notice'>They don't feel like rubber...</span>"
+
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "gloves of the North Star"
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
