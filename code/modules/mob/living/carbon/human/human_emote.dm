@@ -146,6 +146,11 @@
 	else
 		return pick(H.dna.species.male_dying_gasp_sounds)
 
+/datum/emote/living/carbon/human/gasp/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
+	var/mob/living/carbon/human/H = user
+	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
+	playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(), ignore_walls = !isnull(user.mind))
+
 /datum/emote/living/carbon/human/shake
 	key = "shake"
 	key_third_person = "shakes"
@@ -327,7 +332,7 @@
 
 	var/mob/living/carbon/human/human_target = target
 
-	if(human_target.canmove && !human_target.r_hand && !human_target.restrained())
+	if(!HAS_TRAIT(human_target, TRAIT_HANDS_BLOCKED) && !human_target.r_hand && !human_target.restrained())
 		message_param = "shakes hands with %t."
 	else
 		message_param = "holds out [user.p_their()] hand to %t."
@@ -345,7 +350,7 @@
 		)
 		return TRUE
 
-	if(target.canmove && !target.r_hand && !target.restrained())
+	if(!HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) && !target.r_hand && !target.restrained())
 		message_param = "shakes hands with %t."
 	else
 		message_param = "holds out [user.p_their()] hand to %t."

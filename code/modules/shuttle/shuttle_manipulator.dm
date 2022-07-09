@@ -21,7 +21,7 @@
 	var/list/templates = list()
 	var/list/shuttle_data = list()
 
-/obj/machinery/shuttle_manipulator/New()
+/obj/machinery/shuttle_manipulator/Initialize(mapload)
 	. = ..()
 	update_icon()
 

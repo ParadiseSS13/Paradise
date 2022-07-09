@@ -23,7 +23,7 @@
 	spider_opens_doors = 2 // Breach specialist.
 	environment_smash = ENVIRONMENT_SMASH_RWALLS // Breaks anything.
 	spider_tier = TS_TIER_2
-	ai_ventbreaker = 1
+	ai_ventbreaker = TRUE
 	freq_ventcrawl_combat = 600 // Ventcrawls very frequently, breaking open vents as it goes.
 	freq_ventcrawl_idle =  1800
 	web_type = null

@@ -30,15 +30,15 @@ Difficulty: Medium
 	armour_penetration = 50
 	melee_damage_lower = 25
 	melee_damage_upper = 25
-	wander = 0
+	wander = FALSE
 	speed = 2
-	ranged = 1
-	del_on_death = 1
+	ranged = TRUE
+	del_on_death = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	ranged_cooldown_time = 20
 	var/size = 5
-	var/charging = 0
+	var/charging = FALSE
 	internal_type = /obj/item/gps/internal/legion
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
@@ -46,7 +46,7 @@ Difficulty: Medium
 	pixel_x = -75
 	loot = list(/obj/item/stack/sheet/bone = 3)
 	vision_range = 13
-	elimination = 1
+	elimination = TRUE
 	appearance_flags = 0
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
@@ -70,20 +70,20 @@ Difficulty: Medium
 		else
 			visible_message("<span class='warning'><b>[src] charges!</b></span>")
 			SpinAnimation(speed = 20, loops = 5, parallel = FALSE)
-			ranged = 0
+			ranged = FALSE
 			retreat_distance = 0
 			minimum_distance = 0
 			speed = 0
-			charging = 1
+			charging = TRUE
 			spawn(50)
 				reset_charge()
 
 /mob/living/simple_animal/hostile/megafauna/legion/proc/reset_charge()
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	speed = 2
-	charging = 0
+	charging = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/legion/can_die()
 	return ..() && health <= 0
@@ -126,7 +126,7 @@ Difficulty: Medium
 				break
 		if(last_legion)
 			loot = list(/obj/item/staff/storm)
-			elimination = 0
+			elimination = FALSE
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)
 			if(!true_spawn)

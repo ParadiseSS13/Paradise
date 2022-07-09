@@ -48,17 +48,17 @@
 				colour = rgb(0,0,0)
 
 			else
-				var/sense = 1
+				var/sense = TRUE
 				switch("[T.type]")
 					if("/turf/space")
 						colour = rgb(10,10,10)
-						sense = 0
+						sense = FALSE
 
 					if("/turf/simulated/floor")
 						colour = rgb(150,150,150)
 						var/turf/simulated/floor/TF = T
-						if(TF.burnt == 1)
-							sense = 0
+						if(TF.burnt)
+							sense = FALSE
 							colour = rgb(130,130,130)
 
 					if("/turf/simulated/floor/engine")
@@ -197,11 +197,11 @@
 				colour = rgb(0,0,0)
 
 			else
-				var/sense = 1
+				var/sense = TRUE
 				switch("[T.type]")
 					if("/turf/space")
 						colour = rgb(10,10,10)
-						sense = 0
+						sense = FALSE
 
 					if("/turf/simulated/floor", "/turf/simulated/floor/engine")
 						var/datum/gas_mixture/environment = T.return_air()

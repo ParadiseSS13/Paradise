@@ -12,5 +12,5 @@ SUBSYSTEM_DEF(chat_pings)
 		if(MC_TICK_CHECK)
 			return
 
-/datum/controller/subsystem/chat_pings/stat_entry()
-	..("P: [length(chat_datums)]")
+/datum/controller/subsystem/chat_pings/get_stat_details()
+	return "P: [length(chat_datums)]"

@@ -4,8 +4,8 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	pass_flags = PASSTABLE
 	icon_state = "dnamod"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 
 	var/obj/item/seeds/seed
 	var/obj/item/disk/plantgene/disk
@@ -23,8 +23,8 @@
 	var/min_wchance = 67
 	var/min_wrate = 10
 
-/obj/machinery/plantgenes/New()
-	..()
+/obj/machinery/plantgenes/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/plantgenes(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
@@ -33,8 +33,8 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
-/obj/machinery/plantgenes/seedvault/New()
-	..()
+/obj/machinery/plantgenes/seedvault/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/plantgenes/vault(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)

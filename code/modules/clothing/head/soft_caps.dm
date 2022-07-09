@@ -4,7 +4,7 @@
 	icon_state = "cargosoft"
 	item_state = "helmet"
 	item_color = "cargo"
-	var/flipped = 0
+	var/flipped = FALSE
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
 	sprite_sheets = list(
@@ -14,7 +14,7 @@
 
 /obj/item/clothing/head/soft/dropped()
 	icon_state = "[item_color]soft"
-	flipped = 0
+	flipped = FALSE
 	..()
 
 /obj/item/clothing/head/soft/attack_self(mob/user)

@@ -102,10 +102,12 @@
 /obj/item/tank/jetpack/void/grey
 	name = "Void Jetpack (Oxygen)"
 	icon_state = "jetpack-void-grey"
+	item_state = "jetpack-void-grey"
 
 /obj/item/tank/jetpack/void/gold
 	name = "Retro Jetpack (Oxygen)"
 	icon_state = "jetpack-void-gold"
+	item_state = "jetpack-void-gold"
 
 /obj/item/tank/jetpack/oxygen
 	name = "Jetpack (Oxygen)"

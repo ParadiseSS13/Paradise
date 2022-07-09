@@ -90,6 +90,7 @@
 			T.on_projectile_fire(D, user)
 		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
 		D.firer = user
+		D.firer_source_atom = src
 		D.hammer_synced = src
 		playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, 1)
 		D.fire()

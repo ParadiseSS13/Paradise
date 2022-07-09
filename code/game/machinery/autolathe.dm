@@ -6,18 +6,18 @@
 	name = "autolathe"
 	desc = "It produces items using metal and glass."
 	icon_state = "autolathe"
-	density = 1
+	density = TRUE
 
 	var/operating = 0.0
 	var/list/queue = list()
 	var/queue_max_len = 12
 	var/turf/BuildTurf
-	anchored = 1.0
+	anchored = TRUE
 	var/list/L = list()
 	var/list/LL = list()
-	var/hacked = 0
-	var/disabled = 0
-	var/shocked = 0
+	var/hacked = FALSE
+	var/disabled = FALSE
+	var/shocked = FALSE
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire

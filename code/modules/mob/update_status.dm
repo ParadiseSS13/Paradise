@@ -43,7 +43,7 @@
 /mob/proc/can_speak()
 	return 1
 
-/mob/proc/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+/mob/proc/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE)
 	return FALSE
 
 /mob/proc/restrained(ignore_grab)
@@ -60,6 +60,3 @@
 
 /mob/proc/update_health_hud()
 	return
-
-/mob/proc/update_canmove()
-	return 1

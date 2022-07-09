@@ -228,7 +228,7 @@
 	var/list/targets = list()
 	for(var/mob/living/carbon/C in view(7, src)) //Let's find us a target
 		var/threatlevel = 0
-		if((C.stat) || (C.lying))
+		if(C.stat || !(mobility_flags & MOBILITY_MOVE))
 			continue
 		threatlevel = C.assess_threat(src, lasercolor)
 		//speak(C.real_name + text(": threat: []", threatlevel))
@@ -240,9 +240,9 @@
 			continue
 
 		targets += C
-	if(targets.len>0)
+	if(length(targets))
 		var/mob/living/carbon/t = pick(targets)
-		if((t.stat!=2) && (t.lying != 1) && (!t.handcuffed)) //we don't shoot people who are dead, cuffed or lying down.
+		if(t.stat != DEAD && !HAS_TRAIT(t, TRAIT_FLOORED) && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
 			shootAt(t)
 	switch(mode)
 

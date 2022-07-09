@@ -4201,7 +4201,7 @@
 	pixel_x = 5;
 	pixel_y = -2
 	},
-/obj/item/toy/cards/deck/syndicate{
+/obj/item/deck/cards/syndicate{
 	pixel_x = -6;
 	pixel_y = 6
 	},
@@ -5018,7 +5018,7 @@
 /area/admin)
 "rs" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/black,
+/obj/item/deck/cards/black,
 /obj/item/lighter/zippo/nt_rep,
 /turf/simulated/floor/transparent/glass,
 /area/tdome/tdomeobserve)
@@ -6565,7 +6565,7 @@
 "wV" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/item/toy/cards/deck/syndicate/black,
+/obj/item/deck/cards/syndicate/black,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "wW" = (
@@ -6891,7 +6891,7 @@
 /area/admin)
 "Ad" = (
 /obj/structure/table/wood,
-/obj/item/toy/cards/deck/syndicate,
+/obj/item/deck/cards/syndicate,
 /turf/simulated/floor/wood,
 /area/admin)
 "Ae" = (

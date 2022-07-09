@@ -8,10 +8,10 @@
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
-	var/use_huds = 1
+	var/use_huds = TRUE
 
-	var/finished = 0
-	var/but_wait_theres_more = 0
+	var/finished = FALSE
+	var/but_wait_theres_more = FALSE
 
 /datum/game_mode/wizard/announce()
 	to_chat(world, "<B>The current game mode is - Wizard!</B>")
@@ -186,7 +186,7 @@
 	if(wizards_alive || apprentices_alive || but_wait_theres_more)
 		return ..()
 	else
-		finished = 1
+		finished = TRUE
 		return 1
 
 /datum/game_mode/wizard/declare_completion(ragin = 0)

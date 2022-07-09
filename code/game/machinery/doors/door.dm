@@ -4,7 +4,7 @@
 	icon = 'icons/obj/doors/doorint.dmi'
 	icon_state = "door1"
 	anchored = TRUE
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
@@ -13,10 +13,10 @@
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
-	var/visible = 1
+	var/visible = TRUE
 	/// Is it currently in the process of opening or closing.
 	var/operating = FALSE
-	var/autoclose = 0
+	var/autoclose = FALSE
 	/// Whether the door detects things and mobs in its way and reopen or crushes them.
 	var/safe = TRUE
 	// Whether the door is bolted or not.
@@ -39,16 +39,21 @@
 
 /obj/machinery/door/New()
 	..()
+	GLOB.airlocks += src
+	update_freelook_sight()
+
+/obj/machinery/door/Initialize(mapload)
+	. = ..()
 	set_init_door_layer()
 	update_dir()
-	update_freelook_sight()
-	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
+
+	air_update_turf(1)
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -73,12 +78,8 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-/obj/machinery/door/Initialize()
-	air_update_turf(1)
-	..()
-
 /obj/machinery/door/Destroy()
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
 	GLOB.airlocks -= src
@@ -255,8 +256,8 @@
 		flick("door_spark", src)
 		sleep(6)
 		open()
-		emagged = 1
-		return 1
+		emagged = TRUE
+		return TRUE
 
 /obj/machinery/door/update_icon()
 	if(density)
