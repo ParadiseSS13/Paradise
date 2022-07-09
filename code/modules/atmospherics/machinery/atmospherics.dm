@@ -290,7 +290,6 @@ Pipelines + Other Objects -> Pipe network
 		return
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
-	var/old_loc = user.loc
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
 			user.remove_ventcrawl()
@@ -306,8 +305,7 @@ Pipelines + Other Objects -> Pipe network
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
-			user.loc = target_move.loc
-			user.Moved(old_loc, get_dir(old_loc, user.loc), FALSE)
+			user.forceMove(loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out of the ventilation system.")
 	ADD_TRAIT(user, TRAIT_IMMOBILIZED, "ventcrawling")
 	spawn(1) // this is awful
