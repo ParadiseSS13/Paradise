@@ -28,9 +28,6 @@
 		if(TH.force_wielded >= max || TH.force_wielded > initial(TH.force_wielded))
 			to_chat(user, "<span class='warning'>[TH] is much too powerful to sharpen further!</span>")
 			return
-		if(TH.wielded)
-			to_chat(user, "<span class='warning'>[TH] must be unwielded before it can be sharpened!</span>")
-			return
 		TH.force_wielded = clamp(TH.force_wielded + increment, 0, max)//wieldforce is increased since normal force wont stay
 		TH.force_unwielded = clamp(TH.force_unwielded + increment, 0, max)
 
@@ -38,9 +35,6 @@
 		var/obj/item/melee/energy/E = I
 		if(E.force_on >= max || E.force_on > initial(E.force_on) || (E.force > initial(E.force)))
 			to_chat(user, "<span class='warning'>[E] is much too powerful to sharpen further!</span>")
-			return
-		if(E.active)
-			to_chat(user, "<span class='warning'>[E] must be reset to default before it can be sharpened!</span>") //You can't sharpen an esword, but a cleaving saw can be!
 			return
 		E.throwforce_on = clamp(E.throwforce_on + increment, 0, max)
 		E.throwforce_off = clamp(E.throwforce_off + increment, 0, max)
