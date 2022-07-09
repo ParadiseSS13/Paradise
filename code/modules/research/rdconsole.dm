@@ -82,7 +82,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/wait_message_timer = 0
 
 	var/id = 0			//ID of the computer (for server restrictions).
-	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
+	var/sync = TRUE		//If sync if FALSE, it doesn't show up on Server Control Console
 
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
