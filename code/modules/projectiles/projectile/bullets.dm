@@ -10,7 +10,7 @@
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	damage = 5
-	stamina = 80
+	stamina = 40
 
 /obj/item/projectile/bullet/weakbullet/booze
 
@@ -80,7 +80,7 @@
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
 	damage = 3
-	stamina = 25
+	stamina = 12.5
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/pellet/weak
