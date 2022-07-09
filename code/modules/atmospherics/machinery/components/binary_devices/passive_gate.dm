@@ -7,7 +7,7 @@
 	name = "passive gate"
 	desc = "A one-way air valve that does not require power"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	target_pressure = ONE_ATMOSPHERE
 

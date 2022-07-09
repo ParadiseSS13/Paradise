@@ -67,7 +67,7 @@
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakouttime = 45
-	weaken = 2 SECONDS
+	knockdown_duration = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -262,7 +262,7 @@
 	item_state = "blindfold"
 	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
-	flash_protect = TRUE
+	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
 	origin_tech = null
 

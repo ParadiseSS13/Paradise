@@ -4,7 +4,7 @@
 /obj/item/gun/projectile/revolver/grenadelauncher//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
 	desc = "A break-operated grenade launcher."
 	name = "grenade launcher"
-	icon_state = "dshotgun-sawn"
+	icon_state = "dbshotgun_sawn"
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
@@ -58,9 +58,10 @@
 	icon_state = "speargun"
 	item_state = "speargun"
 	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = SLOT_BACK
 	origin_tech = "combat=4;engineering=4"
 	force = 10
-	can_suppress = 0
+	can_suppress = FALSE
 	mag_type = /obj/item/ammo_box/magazine/internal/speargun
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	burst_size = 1

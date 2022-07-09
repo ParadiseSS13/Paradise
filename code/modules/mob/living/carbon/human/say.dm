@@ -39,9 +39,6 @@
 				winset(client, "input", "text=[null]")
 
 /mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
-	if(has_brain_worms()) //Brain worms translate everything. Even mice and alien speak.
-		return 1
-
 	if(dna.species.can_understand(other))
 		return 1
 
@@ -100,6 +97,8 @@
 	// how do species that don't breathe talk? magic, that's what.
 	var/breathes = (!HAS_TRAIT(src, TRAIT_NOBREATH))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
+	if(HAS_TRAIT(src, TRAIT_MUTE))
+		return FALSE
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
 	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)

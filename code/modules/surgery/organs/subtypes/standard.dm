@@ -12,7 +12,7 @@
 	body_part = UPPER_TORSO
 	vital = TRUE
 	amputation_point = "spine"
-	gendered_icon = 1
+	gendered_icon = TRUE
 	parent_organ = null
 	encased = "ribcage"
 	convertable_children = list(/obj/item/organ/external/groin)
@@ -39,7 +39,7 @@
 	vital = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
-	gendered_icon = 1
+	gendered_icon = TRUE
 
 /obj/item/organ/external/arm
 	limb_name = "l_arm"
@@ -204,7 +204,7 @@
 	body_part = HEAD
 	parent_organ = "chest"
 	amputation_point = "neck"
-	gendered_icon = 1
+	gendered_icon = TRUE
 	encased = "skull"
 	var/can_intake_reagents = 1
 	var/alt_head = "None"

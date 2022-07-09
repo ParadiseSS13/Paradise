@@ -6,7 +6,7 @@
 	charge_max = 150
 	charge_counter = 0
 	clothes_req = FALSE
-	stat_allowed = FALSE
+	stat_allowed = CONSCIOUS
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"
 	invocation_type = "shout"
 	cooldown_min = 30 //30 deciseconds reduction per rank

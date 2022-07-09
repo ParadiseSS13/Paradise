@@ -6,11 +6,11 @@
 	desc = "Lowers the body temperature so certain medications may take effect."
 	icon = 'icons/obj/cryogenics.dmi'
 	icon_state = "pod0"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
-	interact_offline = 1
+	interact_offline = TRUE
 	max_integrity = 350
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
 	var/temperature_archived
@@ -23,7 +23,7 @@
 	var/current_heat_capacity = 50
 	var/efficiency
 
-	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
+	var/running_bob_animation = FALSE // This is used to prevent threads from building up if update_icons is called multiple times
 
 	light_color = LIGHT_COLOR_WHITE
 
@@ -361,7 +361,7 @@
 		if(src.on && !running_bob_animation) //no bobbing if off
 			var/up = 0 //used to see if we are going up or down, 1 is down, 2 is up
 			spawn(0) // Without this, the icon update will block. The new thread will die once the occupant leaves.
-				running_bob_animation = 1
+				running_bob_animation = TRUE
 				while(occupant)
 					overlays -= "lid[on]" //have to remove the overlays first, to force an update- remove cloning pod overlay
 					overlays -= pickle //remove mob overlay
@@ -388,7 +388,7 @@
 					overlays += "lid[on]" //re-add the overlay of the pod, they are inside it, not floating
 
 					sleep(7) //don't want to jiggle violently, just slowly bob
-				running_bob_animation = 0
+				running_bob_animation = FALSE
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)

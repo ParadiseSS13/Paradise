@@ -3,8 +3,8 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gboard_on"
 	desc = "A holographic table allowing the crew to have fun(TM) on boring shifts! One player per board."
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	var/cooling_down = 0
 	light_color = LIGHT_COLOR_LIGHTBLUE

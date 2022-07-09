@@ -14,7 +14,7 @@
 	attack_verb = list("hit", "pierced", "sliced", "attacked")
 	var/list/digsound = list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')
 	var/drill_verb = "picking"
-	sharp = 1
+	sharp = TRUE
 	var/excavation_amount = 100
 	usesound = 'sound/effects/picaxe1.ogg'
 	toolspeed = 1

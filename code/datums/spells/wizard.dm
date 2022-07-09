@@ -4,7 +4,7 @@
 
 	school = "evocation"
 	charge_max = 200
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "FORTI GY AMA"
 	invocation_type = "shout"
 	cooldown_min = 60 //35 deciseconds reduction per rank
@@ -42,7 +42,7 @@
 
 	school = "evocation"
 	charge_max = 60
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "HONK GY AMA"
 	invocation_type = "shout"
 	cooldown_min = 60 //35 deciseconds reduction per rank
@@ -89,11 +89,11 @@
 
 	school = "transmutation"
 	charge_max = 400
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
 	message = "<span class='notice'>You feel strong! You feel a pressure building behind your eyes!</span>"
-	centcom_cancast = 0
+	centcom_cancast = FALSE
 
 	traits = list(TRAIT_LASEREYES)
 	duration = 300
@@ -115,7 +115,7 @@
 
 	school = "conjuration"
 	charge_max = 120
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
 	cooldown_min = 20 //25 deciseconds reduction per rank
@@ -132,7 +132,7 @@
 	name = "Disable Tech"
 	desc = "This spell disables all weapons, cameras and most other technology in range."
 	charge_max = 400
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "NEC CANTIO"
 	invocation_type = "shout"
 	cooldown_min = 200 //50 deciseconds reduction per rank
@@ -148,7 +148,7 @@
 
 	school = "abjuration"
 	charge_max = 20
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "none"
 	invocation_type = "none"
 	cooldown_min = 5 //4 deciseconds reduction per rank
@@ -160,7 +160,7 @@
 	inner_tele_radius = 0
 	outer_tele_radius = 6
 
-	centcom_cancast = 0 //prevent people from getting to centcom
+	centcom_cancast = FALSE //prevent people from getting to centcom
 
 	action_icon_state = "blink"
 
@@ -176,7 +176,7 @@
 
 	school = "abjuration"
 	charge_max = 600
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "SCYAR NILA"
 	invocation_type = "shout"
 	cooldown_min = 200 //100 deciseconds reduction per rank
@@ -233,7 +233,7 @@
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
 	charge_max = 500
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "TOKI WO TOMARE"
 	invocation_type = "shout"
 	cooldown_min = 100
@@ -253,7 +253,7 @@
 
 	school = "conjuration"
 	charge_max = 1200
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "NOUK FHUNMM SACP RISSKA"
 	invocation_type = "shout"
 
@@ -272,7 +272,7 @@
 
 	school = "conjuration"
 	charge_max = 600
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
 
@@ -292,7 +292,7 @@
 
 	school = "conjuration"
 	charge_max = 1200
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "IA IA"
 	invocation_type = "shout"
 	summon_amt = 10
@@ -311,7 +311,7 @@
 
 	school = "transmutation"
 	charge_max = 300
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
 	message = "<span class='notice'>Your eyes cry out in pain!</span>"
@@ -438,7 +438,7 @@
 	name = "Sacred Flame"
 	desc = "Makes everyone around you more flammable, and lights yourself on fire."
 	charge_max = 60
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "FI'RAN DADISKO"
 	invocation_type = "shout"
 	action_icon_state = "sacredflame"

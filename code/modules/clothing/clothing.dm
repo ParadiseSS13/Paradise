@@ -16,9 +16,9 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
-	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
+	var/flash_protect = FLASH_PROTECTION_NONE		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/tint = 0				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect
-	var/up = 0					//but seperated to allow items to protect but not impair vision, like space helmets
+	var/up = FALSE					//but seperated to allow items to protect but not impair vision, like space helmets
 
 	var/visor_flags = 0			//flags that are added/removed when an item is adjusted up/down
 	var/visor_flags_inv = 0		//same as visor_flags, but for flags_inv
@@ -207,7 +207,7 @@
 
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = 0
-	var/prescription_upgradable = 0
+	var/prescription_upgradable = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
@@ -602,7 +602,7 @@ BLIND     // can't see anything
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	species_restricted = list("exclude","Wryn")
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE

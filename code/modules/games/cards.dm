@@ -34,7 +34,7 @@
 	throwforce = 0
 	force = 0
 	/// Inherited card hit sound
-	var/card_hitsound 
+	var/card_hitsound
 	/// Inherited card force
 	var/card_force = 0
 	/// Inherited card throw force
@@ -313,7 +313,7 @@
 	var/concealed = FALSE
 	var/list/cards = list()
 	/// Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
-	var/direction = NORTH 
+	var/direction = NORTH
 	var/parentdeck = null
 	/// The player's picked card they want to take out. Stored in the hand so it can be passed onto the verb
 	var/pickedcard = null
@@ -567,7 +567,10 @@
 
 /obj/item/cardhand/dropped(mob/user)
 	..()
-	direction = user.dir
+	if(user)
+		direction = user.dir
+	else
+		direction = NORTH
 	update_icon()
 
 /obj/item/cardhand/pickup(mob/user as mob)

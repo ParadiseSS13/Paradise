@@ -10,11 +10,11 @@
 	level = 1		// underfloor
 	layer = WIRE_LAYER
 	plane = FLOOR_PLANE
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 500
 	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
-	var/open = 0		// true if cover is open
-	var/locked = 1		// true if controls are locked
+	var/open = FALSE		// true if cover is open
+	var/locked = TRUE		// true if controls are locked
 	var/location = ""	// location response text
 	var/list/codes		// assoc. list of transponder codes
 	var/codes_txt = ""	// codes as set on map: "tag1;tag2" or "tag1=value;tag2=value"

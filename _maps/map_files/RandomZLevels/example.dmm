@@ -649,7 +649,7 @@
 	pixel_y = 32
 	},
 /obj/item/book/manual/barman_recipes,
-/obj/item/book/manual/chef_recipes,
+/obj/item/book/manual/wiki/chef_recipes,
 /obj/item/book/manual/ripley_build_and_repair,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
