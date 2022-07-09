@@ -253,45 +253,31 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
 
 /datum/recipe/oven/cheesepizza
-	items = list(
-		/obj/item/reagent_containers/food/snacks/rawpizza/cheesepizza,
-	)
+	items = list(/obj/item/reagent_containers/food/snacks/rawpizza/cheesepizza)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/cheesepizza
 
 /datum/recipe/oven/pepperonipizza
-	items = list(
-		/obj/item/reagent_containers/food/snacks/rawpizza/pepperonipizza,
-	)
+	items = list(/obj/item/reagent_containers/food/snacks/rawpizza/pepperonipizza)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/pepperonipizza
 
 /datum/recipe/oven/donkpocketpizza
-	items = list(
-		/obj/item/reagent_containers/food/snacks/rawpizza/donkpocketpizza,
-	)
+	items = list(/obj/item/reagent_containers/food/snacks/rawpizza/donkpocketpizza)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/donkpocketpizza
 
 /datum/recipe/oven/dankpizza
-	items = list(
-		/obj/item/reagent_containers/food/snacks/rawpizza/dankpizza,
-	)
+	items = list(/obj/item/reagent_containers/food/snacks/rawpizza/dankpizza)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/dankpizza
 
 /datum/recipe/oven/firecrackerpizza
-	items = list(
-		/obj/item/reagent_containers/food/snacks/rawpizza/firecrackerpizza
-	)
+	items = list(/obj/item/reagent_containers/food/snacks/rawpizza/firecrackerpizza)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/firecrackerpizza
 
 /datum/recipe/oven/pestopizza
-	items = list(
-		/obj/item/reagent_containers/food/snacks/rawpizza/pestopizza,
-	)
+	items = list(/obj/item/reagent_containers/food/snacks/rawpizza/pestopizza)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/pestopizza
 
 /datum/recipe/oven/garlicpizza
-	items = list(
-		/obj/item/reagent_containers/food/snacks/rawpizza/garlicpizza,
-	)
+	items = list(/obj/item/reagent_containers/food/snacks/rawpizza/garlicpizza)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/garlicpizza
 
 
