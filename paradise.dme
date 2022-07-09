@@ -1699,6 +1699,7 @@
 #include "code\modules\hydroponics\grown\random.dm"
 #include "code\modules\hydroponics\grown\replicapod.dm"
 #include "code\modules\hydroponics\grown\root.dm"
+#include "code\modules\hydroponics\grown\strawberry.dm"
 #include "code\modules\hydroponics\grown\tea_coffee.dm"
 #include "code\modules\hydroponics\grown\tobacco.dm"
 #include "code\modules\hydroponics\grown\tomato.dm"
