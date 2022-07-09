@@ -53,8 +53,12 @@
 	unlimited_power = TRUE
 
 /obj/item/clothing/gloves/color/yellow/fake
-	desc = "These gloves will protect the wearer from electric shock. They don't feel like rubber..."
 	siemens_coefficient = 1
+
+/obj/item/clothing/gloves/color/yellow/fake/examine(mob/user)
+	. = ..()
+	if(user.Adjacent(src))
+		. += "<span class='notice'>They don't feel like rubber...</span>"
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	name = "budget insulated gloves"
