@@ -136,7 +136,7 @@
 	if(isturf(target))
 		var/turf/T = target
 		if(!T.density)
-			var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(T)
+			var/obj/structure/bed/roller/R = new extended(T)
 			R.add_fingerprint(user)
 			qdel(src)
 
