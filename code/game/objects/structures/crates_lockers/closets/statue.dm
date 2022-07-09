@@ -10,7 +10,7 @@
 	var/intialFire = 0	//it's a little sloppy I know but it was this or the GODMODE flag. Lesser of two evils.
 	var/intialBrute = 0
 	var/intialOxy = 0
-	var/timer = 240 //eventually the person will be freed
+	var/timer = 24 SECONDS //eventually the person will be freed
 
 /obj/structure/closet/statue/Initialize(mapload, mob/living/L)
 	. = ..()
