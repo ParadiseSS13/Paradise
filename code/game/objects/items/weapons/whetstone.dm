@@ -35,6 +35,27 @@
 			to_chat(user, "<span class='warning'>[TH] has already been refined before. It cannot be sharpened further!</span>")
 			return
 		TH.force_wielded = clamp(TH.force_wielded + increment, 0, max)//wieldforce is increased since normal force wont stay
+		TH.force_unwielded = clamp(TH.force_unwielded + increment, 0, max)
+
+	if(istype(I, /obj/item/melee/energy))
+		var/obj/item/melee/energy/E = I
+		if(E.force_on >= max)
+			to_chat(user, "<span class='warning'>[E] is much too powerful to sharpen further!</span>")
+			return
+		if(E.active)
+			to_chat(user, "<span class='warning'>[E] must be reset to default before it can be sharpened!</span>") //You can't sharpen an esword, but a cleaving saw can be!
+			return
+		if(E.force_on > initial(E.force_on))
+			to_chat(user, "<span class='warning'>[E] has already been refined before. It cannot be sharpened further!</span>")
+			return
+		if(E.force > initial(E.force))//Either have to istype a 3rd time or do an if twice, think if twice is better
+			to_chat(user, "<span class='warning'>[E] has already been refined before. It cannot be sharpened further!</span>")
+			return
+		E.throwforce_on = clamp(E.throwforce_on + increment, 0, max)
+		E.throwforce_off = clamp(E.throwforce_off + increment, 0, max)
+		E.force_on = clamp(E.force_on + increment, 0, max)
+		E.force_off = clamp(E.force_off + increment, 0, max)
+
 	if(I.force > initial(I.force))
 		to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
 		return
