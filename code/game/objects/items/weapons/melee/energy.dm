@@ -1,9 +1,9 @@
 /obj/item/melee/energy
 	var/active = 0
 	var/force_on = 30 //force when active
-	var/force_off = 0 //Used to properly reset the force
-	var/throwforce_off = 0
 	var/throwforce_on = 20
+	var/force_off //Used to properly reset the force
+	var/throwforce_off
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
 	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
 	stealthy_audio = TRUE //Most of these are antag weps so we dont want them to be /too/ overt.
@@ -24,7 +24,7 @@
 /obj/item/melee/energy/Initialize(mapload)
 	. = ..()
 	force_off = initial(force) //We want to check this only when initializing, not when swapping, so sharpening works.
-	throwforce_off = initial(force)
+	throwforce_off = initial(throwforce)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE

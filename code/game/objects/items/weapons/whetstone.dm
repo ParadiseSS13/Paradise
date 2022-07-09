@@ -25,28 +25,22 @@
 		return
 	if(istype(I, /obj/item/twohanded))//some twohanded items should still be sharpenable, but handle force differently. therefore i need this stuff
 		var/obj/item/twohanded/TH = I
-		if(TH.force_wielded >= max)
+		if(TH.force_wielded >= max || TH.force_wielded > initial(TH.force_wielded))
 			to_chat(user, "<span class='warning'>[TH] is much too powerful to sharpen further!</span>")
 			return
 		if(TH.wielded)
 			to_chat(user, "<span class='warning'>[TH] must be unwielded before it can be sharpened!</span>")
-			return
-		if(TH.force_wielded > initial(TH.force_wielded))
-			to_chat(user, "<span class='warning'>[TH] has already been refined before. It cannot be sharpened further!</span>")
 			return
 		TH.force_wielded = clamp(TH.force_wielded + increment, 0, max)//wieldforce is increased since normal force wont stay
 		TH.force_unwielded = clamp(TH.force_unwielded + increment, 0, max)
 
 	if(istype(I, /obj/item/melee/energy))
 		var/obj/item/melee/energy/E = I
-		if(E.force_on >= max)
+		if(E.force_on >= max || E.force_on > initial(E.force_on))
 			to_chat(user, "<span class='warning'>[E] is much too powerful to sharpen further!</span>")
 			return
 		if(E.active)
 			to_chat(user, "<span class='warning'>[E] must be reset to default before it can be sharpened!</span>") //You can't sharpen an esword, but a cleaving saw can be!
-			return
-		if(E.force_on > initial(E.force_on))
-			to_chat(user, "<span class='warning'>[E] has already been refined before. It cannot be sharpened further!</span>")
 			return
 		if(E.force > initial(E.force))//Either have to istype a 3rd time or do an if twice, think if twice is better
 			to_chat(user, "<span class='warning'>[E] has already been refined before. It cannot be sharpened further!</span>")
