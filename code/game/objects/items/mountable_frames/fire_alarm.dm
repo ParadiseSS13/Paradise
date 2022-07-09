@@ -1,8 +1,8 @@
 /obj/item/mounted/frame/firealarm
 	name = "fire alarm frame"
 	desc = "Used for building Fire Alarms"
-	icon = 'icons/obj/monitors.dmi'
-	icon_state = "firealarm_frame"
+	icon = 'icons/obj/fire_alarm.dmi'
+	icon_state = "casing"
 	mount_reqs = list("simfloor", "nospace")
 
 /obj/item/mounted/frame/firealarm/do_build(turf/on_wall, mob/user)

@@ -184,8 +184,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				set_frequency(text2num(freq))
 		if("listen")
 			listening = !listening
+			update_icon()
 		if("broadcast")
 			broadcasting = !broadcasting
+			update_icon()
 		if("channel")
 			var/channel = params["channel"]
 			if(!(channel in channels))

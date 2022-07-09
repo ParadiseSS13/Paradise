@@ -9,8 +9,8 @@ FIRE ALARM
 /obj/machinery/firealarm
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
-	icon = 'icons/obj/monitors.dmi'
-	icon_state = "firealarm_on"
+	icon = 'icons/obj/fire_alarm.dmi'
+	icon_state = "casing"
 	var/detecting = TRUE
 	var/working = TRUE
 	var/time = 10.0
@@ -47,22 +47,31 @@ FIRE ALARM
 
 /obj/machinery/firealarm/update_icon()
 	underlays.Cut()
+	cut_overlays()
 	if(light)
-		if(overlays)
+		if(show_alert_level && GLOB.security_level > SEC_LEVEL_BLUE)
 			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
-		if(!wiresexposed)
+		else if(!wiresexposed)
 			underlays += emissive_appearance(icon, "firealarm_lightmask")
 	if(wiresexposed)
-		icon_state = "firealarm_b[buildstage]"
+		add_overlay("b[buildstage]")
 		return
 	if(stat & BROKEN)
-		icon_state = "firealarm_broken"
-	else if(stat & NOPOWER)
-		icon_state = "firealarm_off"
-	else if(!detecting)
-		icon_state = "firealarm_detect"
-	else
-		icon_state = "firealarm_on"
+		add_overlay("broken")
+		return
+	if(stat & NOPOWER)
+		add_overlay("off")
+		return
+	add_overlay("[detecting ? "fire0" : "fire1"]")
+	if(is_station_contact(z) && show_alert_level)
+		switch(GLOB.security_level)
+			if(SEC_LEVEL_BLUE)
+				add_overlay(image(icon, "blue"))
+			if(SEC_LEVEL_RED)
+				add_overlay(image(icon, "red"))
+			if(SEC_LEVEL_GAMMA, SEC_LEVEL_DELTA, SEC_LEVEL_EPSILON)
+				add_overlay(image(icon, "gamma-delta-epsilon"))
+
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)
@@ -271,12 +280,6 @@ FIRE ALARM
 		wiresexposed = TRUE
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
-
-	if(is_station_contact(z) && show_alert_level)
-		if(GLOB.security_level)
-			overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
-		else
-			overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)

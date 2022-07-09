@@ -50,6 +50,7 @@
 /obj/machinery/power/apc
 	name = "area power controller"
 	desc = "A control terminal for the area electrical systems."
+	icon = 'icons/obj/apc.dmi'
 	icon_state = "apc0"
 	use_power = NO_POWER_USE
 	max_integrity = 200
