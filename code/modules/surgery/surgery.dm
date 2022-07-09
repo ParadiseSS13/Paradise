@@ -58,6 +58,13 @@
 	organ_ref = null
 	return ..()
 
+/// Get whether the target organ is compatible with the current surgery.
+/datum/surgery/proc/is_organ_compatible(obj/item/organ/external/affecting)
+	if(!affecting || !istype(affecting))
+		return FALSE
+	return requires_organic_bodypart && affecting.is_robotic() || !requires_organic_bodypart && !affecting.is_robotic()
+
+
 /**
  * Whether or not we can start this surgery.
  * If this returns FALSE, this surgery won't show up in the list.

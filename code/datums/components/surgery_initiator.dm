@@ -48,6 +48,12 @@
 
 		return
 
+	var/procedure = input("Begin which procedure?", "Surgery", null, null) as null|anything in available_surgeries(user, target)
+	if(!procedure)
+		return
+
+
+
 /datum/component/surgery_initiator/proc/get_available_surgeries(mob/user, mob/living/target)
 	var/list/available_surgeries = list()
 
@@ -177,7 +183,7 @@
 		to_chat(user, "<span class='warning'>That's not the right type of limb!</span>")
 		return
 
-	if (surgery.lying_required && !IS_HORIZONTAL(patient))
+	if (surgery.lying_required && !IS_HORIZONTAL(target))
 		to_chat(user, "<span class='warning'>Patient must be lying down for this operation.</span>")
 		return
 
@@ -201,6 +207,6 @@
 
 /datum/component/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target)
 
-	return !surgery.ignore_clothes && !get_location_accessible(target, user.zone_selected)
+	return !surgery.ignore_clothes && !get_location_accessible(target, target.zone_selected)
 
 

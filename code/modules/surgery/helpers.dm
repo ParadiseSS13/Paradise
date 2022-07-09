@@ -33,24 +33,7 @@
 
 	if(!current_surgery)
 		var/list/all_surgeries = GLOB.surgeries_list.Copy()
-		var/list/available_surgeries = list()
-
-		for(var/datum/surgery/S in all_surgeries)
-			if(!S.possible_locs.Find(selected_zone))
-				continue
-			if(affecting && S.requires_organic_bodypart && affecting.is_robotic())
-				continue
-
-			if(!S.can_start(user, target))
-				continue
-
-
-			for(var/path in S.allowed_mob)
-				if(istype(target, path))
-					// If there are multiple surgeries with the same name,
-					// prepare to cry
-					available_surgeries[S.name] = S
-					break
+		var/list/available_surgeries = get_available_surgeries()
 
 		if(override)
 			var/datum/surgery/S
@@ -120,6 +103,32 @@
 
 	return TRUE
 
+/**
+ * Get the surgeries that can be performed on a target, based on the currently targeted zone and organ.
+ */
+/mob/living/carbon/proc/get_available_surgeries(mob/user, mob/living/target, obj/item/I, obj/item/organ/external/affecting)
+	var/list/all_surgeries = GLOB.surgeries_list.Copy()
+	var/list/available_surgeries = list()
+	var/selected_zone = user.zone_selected
+
+	for(var/datum/surgery/S in all_surgeries)
+		// performing it in the right spot
+		if(!S.possible_locs.Find(selected_zone))
+			continue
+		if(affecting && !S.is_organ_compatible(affecting))
+			continue
+
+		if(!S.can_start(user, target))
+			continue
+
+		for(var/path in S.allowed_mob)
+			if(istype(target, path))
+				// If there are multiple surgeries with the same name,
+				// prepare to cry
+				available_surgeries[S.name] = S
+				break
+
+	return available_surgeries
 
 /proc/get_pain_modifier(mob/living/carbon/human/target) //returns modfier to make surgery harder if patient is conscious and feels pain
 	if(target.stat == DEAD) // Operating on dead people is easy
