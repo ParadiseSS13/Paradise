@@ -33,7 +33,7 @@
 
 	if(!current_surgery)
 		var/list/all_surgeries = GLOB.surgeries_list.Copy()
-		var/list/available_surgeries = get_available_surgeries()
+		var/list/available_surgeries = get_available_surgeries(user, target, I, affecting)
 
 		if(override)
 			var/datum/surgery/S
@@ -106,7 +106,7 @@
 /**
  * Get the surgeries that can be performed on a target, based on the currently targeted zone and organ.
  */
-/mob/living/carbon/proc/get_available_surgeries(mob/user, mob/living/target, obj/item/I, obj/item/organ/external/affecting)
+/proc/get_available_surgeries(mob/user, mob/living/target, obj/item/I, obj/item/organ/external/affecting)
 	var/list/all_surgeries = GLOB.surgeries_list.Copy()
 	var/list/available_surgeries = list()
 	var/selected_zone = user.zone_selected
