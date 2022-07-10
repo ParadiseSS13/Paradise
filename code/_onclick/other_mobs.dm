@@ -26,7 +26,7 @@
 
 /atom/proc/attack_hand(mob/user as mob)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
-			return TRUE
+		return TRUE
 
 /*
 /mob/living/carbon/human/RestrainedClickOn(atom/A) -- Handled by carbons

@@ -117,6 +117,10 @@
 		sync_colour_to_human(H)
 	get_icon()
 
+	// Robotic limbs can be easily slapped onto someone
+	if(is_robotic())
+		AddComponent(/datum/component/surgery_initiator)
+
 
 /obj/item/organ/external/proc/add_limb_flags()
 	if(HAS_TRAIT(owner, TRAIT_NO_BONES))
