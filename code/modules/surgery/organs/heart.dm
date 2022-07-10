@@ -54,12 +54,12 @@
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/item/organ/internal/heart/proc/Restart()
 	beating = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/item/organ/internal/heart/prepare_eat()

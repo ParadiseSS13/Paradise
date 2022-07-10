@@ -33,4 +33,4 @@
 
 /obj/item/gun/throw/piecannon/process_chamber()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
