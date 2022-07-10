@@ -41,7 +41,7 @@
 				to_chat(user, "<span class='notice'>You jam [I] into the battery compartment on [src].</span>")
 				qdel(I)
 				overcharged = TRUE
-				overlays += "overcharge"
+				add_overlay("overcharge")
 
 /obj/item/flash/random/New()
 	..()
