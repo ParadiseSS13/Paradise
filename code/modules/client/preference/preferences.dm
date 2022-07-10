@@ -127,10 +127,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	max_gear_slots = GLOB.configuration.general.base_loadout_points
 
+	parent?.set_macros()
+
 	if(!SSdbcore.IsConnected())
+		init_keybindings() //we want default keybinds, even if DB is not connected
 		return // Bail
 
-	parent?.set_macros()
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			unlock_content = C.IsByondMember()
@@ -139,7 +141,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 		successful_load = load_preferences(Q)
 		if(!successful_load)
-			init_keybindings()
 			to_chat(C, "<span class='narsie'>Your preferences failed to load. Please inform the server host immediately.</span>")
 
 /datum/preferences/proc/color_square(colour)
