@@ -293,3 +293,35 @@
 	suffix = "debris3.dmm"
 	name = "Debris field 3"
 	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
+
+/datum/map_template/ruin/space/blackmarketpackers
+	id = "blackmarketpackers"
+	suffix = "blackmarketpackers.dmm"
+	name = "Meat Packing Plant 56132"
+	description = "An abandoned meat packing facility, spooky!"
+	allow_duplicates = FALSE
+	cost = 5
+
+/datum/map_template/ruin/space/centcomAway
+	id = "centcomAway"
+	suffix = "centcomAway.dmm"
+	name = "Russian space base"
+	description = "A bizzare soviet twist on central command."
+	allow_duplicates = FALSE
+	cost = 5
+
+/datum/map_template/ruin/space/moonoutpost19
+	id = "moonoutpost19"
+	suffix = "moonoutpost19.dmm"
+	name = "Asteroid Outpost 19"
+	description = "Something smells very off about this place."
+	allow_duplicates = FALSE
+	cost = 5
+
+/datum/map_template/ruin/space/terrorspiders
+	id = "terrorspiders"
+	suffix = "terrorspiders.dmm"
+	name = "Research Facility 265"
+	description = "The screams of long-dead staff can still be heard at times."
+	allow_duplicates = FALSE
+	cost = 5
