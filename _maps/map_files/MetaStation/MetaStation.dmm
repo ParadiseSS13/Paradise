@@ -85363,10 +85363,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
 "tng" = (
-/obj/machinery/door/window/brigdoor/northleft{
-	id = "Cell 5";
-	name = "Cell 5"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -85383,6 +85379,14 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
+	icon_state = "rightsecure";
+	id = "Cell 5";
+	name = "Cell 5";
+	req_access_txt = "2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
