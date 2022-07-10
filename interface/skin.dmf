@@ -2,13 +2,13 @@ macro "default"
 
 
 menu "menu"
-	elem 
+	elem
 		name = "&File"
-	elem 
+	elem
 		name = "&Quick screenshot\tF2"
 		command = ".screenshot auto"
 		category = "&File"
-	elem 
+	elem
 		name = "&Save screenshot as...\tShift+F2"
 		command = ".screenshot"
 		category = "&File"
@@ -16,16 +16,16 @@ menu "menu"
 		name = "&Reconnect"
 		command = ".reconnect"
 		category = "&File"
-	elem 
+	elem
 		name = ""
 		category = "&File"
-	elem 
+	elem
 		name = "&Quit"
 		command = ".quit"
 		category = "&File"
-	elem 
+	elem
 		name = "&Icons"
-	elem 
+	elem
 		name = "&Size"
 		category = "&Icons"
 	elem "stretch"
@@ -65,7 +65,7 @@ menu "menu"
 		category = "&Size"
 		can-check = true
 		group = "size"
-	elem 
+	elem
 		name = "&Scaling"
 		category = "&Icons"
 	elem "NN"
@@ -73,6 +73,7 @@ menu "menu"
 		command = ".winset \"mapwindow.map.zoom-mode=distort\""
 		category = "&Scaling"
 		can-check = true
+		is-checked = true
 		group = "scale"
 	elem "PS"
 		name = "&Point Sampling"
@@ -91,9 +92,9 @@ menu "menu"
 		command = ".winset \"menu.textmode.is-checked=true?mapwindow.map.text-mode=true:mapwindow.map.text-mode=false\""
 		category = "&Icons"
 		can-check = true
-	elem 
+	elem
 		name = "&Options"
-	elem 
+	elem
 		name = "&Open Volume Mixer"
 		command = "Open-Volume-Mixer"
 		category = "&Options"
@@ -104,13 +105,13 @@ menu "menu"
 		is-checked = true
 		saved-params = "is-checked"
 		command = ".winset \"menu.statusbar.is-checked=true?mapwindow.status_bar.is-visible=true:mapwindow.status_bar.is-visible=false\""
-	elem 
+	elem
 		name = "&Help"
-	elem 
+	elem
 		name = "&Admin help\tF1"
 		command = "adminhelp"
 		category = "&Help"
-	elem 
+	elem
 		name = "&Hotkeys"
 		command = "Hotkey-Help"
 		category = "&Help"
@@ -162,6 +163,7 @@ window "mapwindow"
 		text-color = none
 		is-default = true
 		saved-params = "icon-size"
+		zoom-mode = "distort"
 		style = ".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie\t{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .vulpkanin {color: #B97A57;} .abductor {color: #800080; font-style: italic;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; }"
 		on-show = ".winset \"menu.statusbar.is-checked=true?mapwindow.status_bar.is-visible=true:mapwindow.status_bar.is-visible=false\""
 	elem "status_bar"
