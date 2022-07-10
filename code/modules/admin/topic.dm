@@ -1847,7 +1847,7 @@
 		P.myeffect = eviltype
 		P.mytarget = H
 		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",,"Yes", "No") == "Yes")
-			P.activate_on_timeout = 1
+			P.activate_on_timeout = TRUE
 		P.x = rand(-2, 0)
 		P.y = rand(-1, 2)
 		P.offset_x += P.x
@@ -1952,9 +1952,9 @@
 					theghost = pick(candidates)
 					P.key = theghost.key
 					P.master_commander = H
-					P.universal_speak = 1
-					P.universal_understand = 1
-					P.can_collar = 1
+					P.universal_speak = TRUE
+					P.universal_understand = TRUE
+					P.can_collar = TRUE
 					P.faction = list("neutral")
 					var/obj/item/clothing/accessory/petcollar/C = new
 					P.add_collar(C)
@@ -3364,7 +3364,7 @@
 		to_chat(usr, "<span class='warning'>ERROR: Could not create eventmob. Could not pick key.</span>")
 		return
 	var/datum/mind/hunter_mind = new /datum/mind(key_of_hunter)
-	hunter_mind.active = 1
+	hunter_mind.active = TRUE
 	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(GLOB.latejoin))
 	hunter_mind.transfer_to(hunter_mob)
 	hunter_mob.equipOutfit(O, FALSE)

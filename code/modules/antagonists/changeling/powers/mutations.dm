@@ -122,7 +122,7 @@
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	sharp = 1
+	sharp = TRUE
 	force = 25
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
