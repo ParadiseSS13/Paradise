@@ -204,7 +204,7 @@
 				playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		paddles.cooldown = FALSE
 		paddles.update_icon(UPDATE_ICON_STATE)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact
 	name = "compact defibrillator"
@@ -219,7 +219,7 @@
 /obj/item/defibrillator/compact/loaded/Initialize(mapload)
 	. = ..()
 	cell = new(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
 	if(slot == slot_belt)
@@ -426,7 +426,7 @@
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							busy = FALSE
-							update_icon()
+							update_icon(UPDATE_ICON_STATE)
 							return
 						H.set_heartattack(FALSE)
 						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)

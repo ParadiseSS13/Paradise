@@ -742,16 +742,16 @@
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 // hide called by levelupdate if turf intact status changes
 // change visibility status and force update of icon
 /obj/structure/disposalpipe/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM: 0	// hide if floor is intact
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 // update actual icon_state depending on visibility
 // if invisible, append "f" to icon_state to show faded version

@@ -23,7 +23,7 @@
 
 /obj/machinery/shuttle_manipulator/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/shuttle_manipulator/update_overlays()
 	. = ..()

@@ -13,7 +13,7 @@
 	volume = 30
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/glass/bottle/update_overlays()
 	. = ..()

@@ -25,7 +25,7 @@
 /obj/machinery/holosign/power_change()
 	if(stat & NOPOWER)
 		lit = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/holosign/surgery
 	name = "surgery holosign"

@@ -140,7 +140,7 @@
 
 	// Activate the cooldown
 	is_on_cooldown = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
 
 /obj/machinery/transformer/xray
@@ -166,7 +166,7 @@
 
 /obj/machinery/transformer/xray/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/transformer/xray/update_icon_state()
 	if(stat & (BROKEN|NOPOWER))

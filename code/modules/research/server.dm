@@ -52,7 +52,7 @@
 
 /obj/machinery/r_n_d/server/power_change()
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/r_n_d/server/proc/initialize_serv()
 	if(!files)

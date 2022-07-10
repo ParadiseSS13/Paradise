@@ -46,7 +46,7 @@
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	feedinTopanim()
 	addtimer(CALLBACK(src, .proc/startgibbing, user), 33)
 	return OBLITERATION
@@ -146,7 +146,7 @@
 		victim.forceMove(src)
 		occupant = victim
 
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		feedinTopanim()
 
 /obj/machinery/gibber/verb/eject()
@@ -173,7 +173,7 @@
 	occupant.forceMove(get_turf(src))
 	occupant = null
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 	return
 
@@ -243,7 +243,7 @@
 	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
 
 	operating = TRUE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
 
@@ -305,7 +305,7 @@
 
 		pixel_x = initial(pixel_x) //return to it's spot after shaking
 		operating = FALSE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 
 
@@ -369,7 +369,7 @@
 	victim.forceMove(src)
 	occupant = victim
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	feedinTopanim()
 	return 1
 

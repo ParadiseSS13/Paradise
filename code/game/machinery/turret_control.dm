@@ -215,7 +215,7 @@
 			if(faction == aTurret.faction)
 				aTurret.setState(TC)
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/power_change()
 	..()

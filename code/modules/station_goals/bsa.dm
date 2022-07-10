@@ -288,7 +288,7 @@
 
 /obj/machinery/computer/bsa_control/process()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/computer/bsa_control/update_icon_state()
 	if(stat & BROKEN)
@@ -301,6 +301,9 @@
 		icon_state = icon_state_active
 	else
 		icon_state = initial(icon_state)
+
+/obj/machinery/computer/bsa_control/update_overlays()
+	return list()
 
 /obj/machinery/computer/bsa_control/attack_hand(mob/user)
 	if(..())
@@ -342,7 +345,7 @@
 			fire(usr)
 		if("recalibrate")
 			calibrate(usr)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)

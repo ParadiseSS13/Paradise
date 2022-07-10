@@ -36,7 +36,13 @@
 				to_chat(loc, "<span class='warning'>[src] identifies and removes a harmful substance.</span>")
 			else
 				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/applicator/update_icon_state()
+	if(applying)
+		icon_state = "mender-active"
+	else
+		icon_state = "mender"
 
 /obj/item/reagent_containers/applicator/update_overlays()
 	. = ..()
@@ -72,7 +78,7 @@
 			user.visible_message("<span class='warning'>[user] begins mending [M] with [src].</span>", "<span class='notice'>You begin mending [M] with [src].</span>")
 		if(M.reagents)
 			applying = TRUE
-			icon_state = "mender-active"
+			update_icon(UPDATE_ICON_STATE)
 			apply_to(M, user, 0.2) // We apply a very weak application up front, then loop.
 			while(do_after(user, 10, target = M))
 				measured_health = M.health
@@ -84,7 +90,7 @@
 					to_chat(user, "<span class='notice'>[src] is out of reagents and powers down automatically.</span>")
 					break
 		applying = FALSE
-		icon_state = "mender"
+		update_icon()
 		user.changeNext_move(CLICK_CD_MELEE)
 
 

@@ -245,7 +245,7 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/on_reagent_change()
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	if(reagents.total_volume)
 		hitsound = 'sound/weapons/jug_filled_impact.ogg'
 		mob_throw_hit_sound = 'sound/weapons/jug_filled_impact.ogg'

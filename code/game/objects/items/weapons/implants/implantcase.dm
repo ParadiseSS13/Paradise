@@ -12,18 +12,22 @@
 	materials = list(MAT_GLASS=500)
 	var/obj/item/implant/imp = null
 
-
-/obj/item/implantcase/update_icon_state()
+/obj/item/implantcase/proc/update_state()
 	if(imp)
-		icon_state = "implantcase-[imp.item_color]"
 		origin_tech = imp.origin_tech
 		flags = imp.flags & ~DROPDEL
 		reagents = imp.reagents
 	else
-		icon_state = "implantcase-0"
 		origin_tech = initial(origin_tech)
 		flags = initial(flags)
 		reagents = null
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/implantcase/update_icon_state()
+	if(imp)
+		icon_state = "implantcase-[imp.item_color]"
+	else
+		icon_state = "implantcase-0"
 
 
 /obj/item/implantcase/attackby(obj/item/W, mob/user, params)
@@ -38,7 +42,7 @@
 			I.imp.loc = src
 			imp = I.imp
 			I.imp = null
-			update_icon(UPDATE_ICON_STATE)
+			update_state()
 			I.update_icon(UPDATE_ICON_STATE)
 		else
 			if(imp)
@@ -47,7 +51,7 @@
 				imp.loc = I
 				I.imp = imp
 				imp = null
-				update_icon(UPDATE_ICON_STATE)
+				update_state()
 			I.update_icon(UPDATE_ICON_STATE)
 
 	/*else if(istype(W, /obj/item/ammo_casing/shotgun/implanter))
@@ -57,7 +61,7 @@
 
 /obj/item/implantcase/New()
 	..()
-	update_icon(UPDATE_ICON_STATE)
+	update_state()
 
 
 /obj/item/implantcase/tracking

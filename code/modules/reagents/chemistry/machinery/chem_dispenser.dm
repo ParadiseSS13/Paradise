@@ -228,7 +228,7 @@
 			if(Adjacent(usr) && !issilicon(usr))
 				usr.put_in_hands(beaker)
 			beaker = null
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		else
 			return FALSE
 
@@ -257,7 +257,7 @@
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		SStgui.update_uis(src) // update all UIs attached to src
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 	return ..()
 
@@ -429,7 +429,7 @@
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
 	current_reagent = pick(dispensable_reagents)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/handheld_chem_dispenser/Destroy()
@@ -453,7 +453,7 @@
 				target.reagents.add_reagent(current_reagent, actual)
 				cell.charge -= actual / efficiency
 				to_chat(user, "<span class='notice'>You dispense [actual] unit\s of [current_reagent] into [target].</span>")
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else if(free) // If actual is nil and there's still free space, it means we're out of juice
 				to_chat(user, "<span class='warning'>Insufficient energy to complete operation.</span>")
 		if("remove")
@@ -511,7 +511,7 @@
 		if("dispense")
 			if(params["reagent"] in dispensable_reagents)
 				current_reagent = params["reagent"]
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 		if("mode")
 			switch(params["mode"])
 				if("remove")
@@ -520,7 +520,7 @@
 					mode = "dispense"
 				if("isolate")
 					mode = "isolate"
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			return FALSE
 
@@ -557,7 +557,7 @@
 			R.cell.charge -= actual
 			cell.charge += actual
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
 /obj/item/handheld_chem_dispenser/attackby(obj/item/W, mob/user, params)
@@ -574,7 +574,7 @@
 			W.loc = src
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(!isrobot(loc) && cell)
@@ -582,7 +582,7 @@
 		cell.loc = get_turf(src)
 		cell = null
 		to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	..()
 

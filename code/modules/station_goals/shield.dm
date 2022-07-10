@@ -134,7 +134,7 @@
 	else
 		animate(src, pixel_y = 0, time = 10)
 		anchored = 0
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/machinery/satellite/update_icon_state()

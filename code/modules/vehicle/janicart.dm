@@ -68,13 +68,13 @@
 		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
 		I.forceMove(src)
 		mybag = I
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	if(istype(I, /obj/item/janiupgrade))
 		floorbuffer = TRUE
 		qdel(I)
 		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	return ..()
 
@@ -93,4 +93,4 @@
 		mybag.forceMove(get_turf(user))
 		user.put_in_hands(mybag)
 		mybag = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)

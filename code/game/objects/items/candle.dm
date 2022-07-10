@@ -70,12 +70,12 @@
 
 /obj/item/candle/proc/start_flickering()
 	flickering = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, .proc/stop_flickering), 4 SECONDS, TIMER_UNIQUE)
 
 /obj/item/candle/proc/stop_flickering()
 	flickering = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/candle/process()
 	if(!lit)

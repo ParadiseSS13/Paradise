@@ -154,7 +154,7 @@
 	. = default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	if(!.)
 		return
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/I)
 	. = default_unfasten_wrench(user, I)
@@ -304,14 +304,14 @@
 						if(!user.put_in_hands(O))
 							O.forceMove(loc)
 							adjust_item_drop_location(O)
-						update_icon()
+						update_icon(UPDATE_OVERLAYS)
 						break
 			else
 				for(var/obj/O in contents)
 					if(O.name == K)
 						O.forceMove(loc)
 						adjust_item_drop_location(O)
-						update_icon()
+						update_icon(UPDATE_OVERLAYS)
 						i--
 						if(i <= 0)
 							return TRUE

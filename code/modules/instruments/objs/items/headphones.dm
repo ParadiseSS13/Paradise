@@ -25,9 +25,7 @@
 		ui_interact(user)
 	else
 		on = !on
-		icon_state = "headphones[on]"
-		item_state = "headphones[on]"
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/clothing/ears/headphones/ui_data(mob/user)
 	return song.ui_data(user)
@@ -58,14 +56,14 @@
   */
 /obj/item/clothing/ears/headphones/proc/start_playing()
 	on = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * Called by a component signal when our song stops playing.
   */
 /obj/item/clothing/ears/headphones/proc/stop_playing()
 	on = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * Whether the headphone's song should stop playing

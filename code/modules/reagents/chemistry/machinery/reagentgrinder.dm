@@ -126,7 +126,7 @@
 /obj/machinery/reagentgrinder/handle_atom_del(atom/A)
 	if(A == beaker)
 		beaker = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/reagentgrinder/update_icon_state()
 	if(beaker)
@@ -173,7 +173,7 @@
 				return FALSE
 			beaker =  I
 			beaker.loc = src
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			updateUsrDialog()
 		return TRUE //no afterattack
 
@@ -310,7 +310,7 @@
 		return
 	beaker.loc = src.loc
 	beaker = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
 
 /obj/machinery/reagentgrinder/proc/eject()

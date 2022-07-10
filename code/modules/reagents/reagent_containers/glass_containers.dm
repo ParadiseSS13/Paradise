@@ -129,7 +129,7 @@
 	var/can_assembly = 1
 
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/glass/beaker/update_overlays()
 	. = ..()
@@ -173,7 +173,7 @@
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
 		usr.put_in_hands(assembly)
 		assembly = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else
 		to_chat(usr, "<span class='notice'>There is no assembly to remove.</span>")
 
@@ -189,7 +189,7 @@
 		assembly = W
 		user.drop_item()
 		W.forceMove(src)
-		overlays += "assembly"
+		update_icon(UPDATE_OVERLAYS)
 	else
 		..()
 
