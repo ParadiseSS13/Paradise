@@ -9,7 +9,6 @@
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/list/barsigns=list()
 	var/list/hiddensigns
-	var/state = 0
 	var/prev_sign = ""
 	var/panel_open = 0
 

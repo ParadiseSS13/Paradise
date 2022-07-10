@@ -5,8 +5,8 @@
 	maxHealth = 20
 	gender = PLURAL //placeholder
 
-	universal_understand = 1
-	universal_speak = 0
+	universal_understand = TRUE
+	universal_speak = FALSE
 	status_flags = CANPUSH
 
 	var/icon_living = ""
@@ -79,7 +79,6 @@
 	var/current_offspring = 0
 	var/max_offspring = DEFAULT_MAX_OFFSPRING
 
-	var/buffed = 0 //In the event that you want to have a buffing effect on the mob, but don't want it to stack with other effects, any outside force that applies a buff to a simple mob should at least set this to 1, so we have something to check against
 	///Was this mob spawned by xenobiology magic? Used for mobcapping.
 	var/xenobiology_spawned = FALSE
 	var/gold_core_spawnable = NO_SPAWN //If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood
@@ -103,9 +102,6 @@
 	var/can_have_ai = TRUE //once we have become sentient, we can never go back
 
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
-
-	//domestication
-	var/tame = 0
 
 	var/my_z // I don't want to confuse this with client registered_z
 	///What kind of footstep this mob should have. Null if it shouldn't have any.

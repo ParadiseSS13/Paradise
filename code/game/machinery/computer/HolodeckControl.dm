@@ -7,7 +7,6 @@
 	var/area/target = null
 	var/active = FALSE
 	var/list/holographic_items = list()
-	var/damaged = 0
 	var/last_change = 0
 
 	light_color = LIGHT_COLOR_CYAN
@@ -206,7 +205,6 @@
 
 	if(active)
 		if(!checkInteg(linkedholodeck))
-			damaged = 1
 			target = locate(/area/holodeck/source_plating)
 			if(target)
 				loadProgram(target)
