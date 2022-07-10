@@ -561,7 +561,7 @@
 	var/obj/effect/proc_holder/spell/S = target
 	if(!istype(S))
 		return ..()
-	var/progress = S.get_availability_percentage()
+	var/progress = S.cooldown_handler.get_availability_percentage()
 	if(progress == 1)
 		return ..() // This means that the spell is charged but unavailable due to something else
 

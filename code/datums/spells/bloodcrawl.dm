@@ -38,4 +38,4 @@
 	else
 		if(user.phaseout(target))
 			phased = TRUE
-	start_recharge()
+	cooldown_handler.start_recharge()
