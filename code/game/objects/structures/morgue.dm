@@ -249,7 +249,7 @@
 	density = TRUE
 	var/obj/structure/c_tray/connected = null
 	anchored = TRUE
-	var/cremating = 0
+	var/cremating = FALSE
 	var/id = 1
 	var/locked = FALSE
 	var/open_sound = 'sound/items/deconstruct.ogg'
@@ -347,7 +347,7 @@
 		for(var/mob/M in viewers(src))
 			M.show_message("<span class='warning'>You hear a roar as the crematorium activates.</span>", 1)
 
-		cremating = 1
+		cremating = TRUE
 		locked = TRUE
 		update()
 
@@ -369,7 +369,7 @@
 
 		new /obj/effect/decal/cleanable/ash(src)
 		sleep(30)
-		cremating = 0
+		cremating = FALSE
 		locked = FALSE
 		update()
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)

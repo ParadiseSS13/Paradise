@@ -205,7 +205,7 @@
 
 /obj/structure/falsewall/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event + 15)
+		if(world.time > last_event + 1.5 SECONDS)
 			active = TRUE
 			radiation_pulse(src, 150)
 			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))

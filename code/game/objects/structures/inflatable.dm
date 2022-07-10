@@ -105,16 +105,13 @@
 
 /obj/structure/inflatable/door //Based on mineral door code
 	name = "inflatable door"
-	density = TRUE
-	anchored = TRUE
-	opacity = FALSE
 
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
 	intact = /obj/item/inflatable/door
 
-	var/state = 0 //closed, 1 == open
+	var/state_open = FALSE
 	var/isSwitchingStates = FALSE
 
 /obj/structure/inflatable/door/detailed_examine()
@@ -157,7 +154,7 @@
 		SwitchState()
 
 /obj/structure/inflatable/door/proc/SwitchState()
-	if(state)
+	if(state_open)
 		Close()
 	else
 		Open()
@@ -170,7 +167,7 @@
 	sleep(10)
 	density = FALSE
 	opacity = FALSE
-	state = 1
+	state_open = TRUE
 	update_icon()
 	isSwitchingStates = FALSE
 
@@ -181,12 +178,12 @@
 	sleep(10)
 	density = TRUE
 	opacity = FALSE
-	state = 0
+	state_open = FALSE
 	update_icon()
 	isSwitchingStates = FALSE
 
 /obj/structure/inflatable/door/update_icon()
-	if(state)
+	if(state_open)
 		icon_state = "door_open"
 	else
 		icon_state = "door_closed"

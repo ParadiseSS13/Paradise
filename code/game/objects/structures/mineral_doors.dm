@@ -12,7 +12,7 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
 	var/initial_state
-	var/state = 0 //closed, 1 == open
+	var/state_open = FALSE
 	var/isSwitchingStates = FALSE
 	var/close_delay = -1 //-1 if does not auto close.
 
@@ -40,7 +40,7 @@
 
 /obj/structure/mineral_door/Bumped(atom/user)
 	..()
-	if(!state)
+	if(!state_open)
 		return TryToSwitchState(user)
 
 /obj/structure/mineral_door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
@@ -82,7 +82,7 @@
 		SwitchState()
 
 /obj/structure/mineral_door/proc/SwitchState()
-	if(state)
+	if(state_open)
 		Close()
 	else
 		Open()
@@ -94,7 +94,7 @@
 	sleep(10)
 	density = FALSE
 	opacity = FALSE
-	state = 1
+	state_open = TRUE
 	air_update_turf(1)
 	update_icon()
 	isSwitchingStates = FALSE
@@ -104,7 +104,7 @@
 			Close()
 
 /obj/structure/mineral_door/proc/Close()
-	if(isSwitchingStates || state != 1)
+	if(isSwitchingStates || !state_open)
 		return
 	var/turf/T = get_turf(src)
 	for(var/mob/living/L in T)
@@ -115,13 +115,13 @@
 	sleep(10)
 	density = TRUE
 	opacity = TRUE
-	state = 0
+	state_open = FALSE
 	air_update_turf(1)
 	update_icon()
 	isSwitchingStates = FALSE
 
 /obj/structure/mineral_door/update_icon()
-	if(state)
+	if(state_open)
 		icon_state = "[initial_state]open"
 	else
 		icon_state = initial_state
