@@ -370,10 +370,6 @@
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
 	return FALSE
 
-/obj/machinery/gateway/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This bluespace source will be important to us later. Aborting.</span>")
-	return FALSE
-
 /obj/machinery/cryopod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This cryogenic sleeper should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
 	return FALSE

@@ -118,7 +118,6 @@
 			"Engineering Equipment Storage",
 			"Engineering Foyer",
 			"EVA Storage",
-			"Gateway",
 			"Genetics Lab",
 			"Gravity Generator",
 			"Head of Personnel's Office",

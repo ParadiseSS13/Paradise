@@ -73,7 +73,7 @@
 
 // ---------------------------------------
 // And here are some good things for free:
-// Now you can click through portals, wormholes, gateways, and teleporters while observing. -Sayu
+// Now you can click through portals, wormholes, and teleporters while observing. -Sayu
 
 /obj/machinery/teleport/hub/attack_ghost(mob/user as mob)
 	var/obj/machinery/teleport/station/S = power_station
@@ -85,15 +85,3 @@
 /obj/effect/portal/attack_ghost(mob/user as mob)
 	if(target)
 		user.forceMove(get_turf(target))
-
-/obj/machinery/gateway/centerstation/attack_ghost(mob/user as mob)
-	if(awaygate)
-		user.forceMove(awaygate.loc)
-	else
-		to_chat(user, "[src] has no destination.")
-
-/obj/machinery/gateway/centeraway/attack_ghost(mob/user as mob)
-	if(stationgate)
-		user.forceMove(stationgate.loc)
-	else
-		to_chat(user, "[src] has no destination.")

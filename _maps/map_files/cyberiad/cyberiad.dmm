@@ -18768,9 +18768,7 @@
 	name = "\improper Garden"
 	})
 "aTv" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -18785,18 +18783,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aTx" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
 /area/gateway)
 "aTy" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -19288,18 +19282,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aUC" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/gateway)
-"aUD" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/ants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -19309,6 +19293,8 @@
 /turf/simulated/wall/r_wall,
 /area/security/nuke_storage)
 "aUF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19327,12 +19313,6 @@
 	icon_state = "arrival"
 	},
 /area/crew_quarters/dorms)
-"aUH" = (
-/obj/machinery/gateway/centerstation,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/gateway)
 "aUI" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -19627,13 +19607,8 @@
 	},
 /area/crew_quarters/dorms)
 "aVr" = (
-/obj/machinery/gateway{
-	density = 0
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -21961,12 +21936,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bam" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -21974,6 +21945,7 @@
 /area/gateway)
 "ban" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -25071,9 +25043,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bgK" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
 /obj/machinery/camera{
 	c_tag = "Gateway";
 	dir = 4
@@ -25081,18 +25050,17 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
 /area/gateway)
 "bgL" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -25504,6 +25472,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
@@ -25517,6 +25486,7 @@
 	layer = 4;
 	pixel_x = -32
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -25527,17 +25497,14 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
 /area/gateway)
 "bhJ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
@@ -25610,6 +25577,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -25988,11 +25956,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "biH" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -27198,15 +27161,12 @@
 	},
 /area/hydroponics)
 "blf" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -27503,11 +27463,8 @@
 /turf/simulated/wall,
 /area/storage/emergency2)
 "blS" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/shreds,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -27687,6 +27644,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -27959,11 +27917,6 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bmN" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -29035,11 +28988,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -62806,11 +62754,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -62826,13 +62770,13 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "cGV" = (
-/obj/structure/closet/secure_closet/exile,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -62842,11 +62786,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -62877,16 +62817,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70467,6 +70399,7 @@
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70504,11 +70437,7 @@
 "cYS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70557,6 +70486,7 @@
 	pixel_y = -24;
 	req_access_txt = "62"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74051,6 +73981,7 @@
 	id_tag = "stationawaygate";
 	name = "Gateway Access Shutters"
 	},
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74099,16 +74030,12 @@
 "div" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Gateway Access";
+	name = "Abandoned Gateway Access";
 	req_access_txt = "62"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78753,6 +78680,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"gkO" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
+/area/gateway)
 "gmW" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -80014,6 +79945,13 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"mxH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/shreds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/gateway)
 "mzv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -80803,6 +80741,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"qHw" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "stationawaygate";
+	name = "Abandoned Gateway Access Shutters"
+	},
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/gateway)
 "qIn" = (
 /obj/structure/table,
 /obj/item/stack/sheet/metal/fifty,
@@ -81920,6 +81869,13 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"woc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/gateway)
 "wpH" = (
 /turf/simulated/floor/noslip,
 /area/engine/engineering)
@@ -82152,6 +82108,12 @@
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"xON" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/gateway)
 "xPo" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Atmospherics Maintenance";
@@ -106332,7 +106294,7 @@ aVD
 aMA
 aSA
 aSA
-aUF
+woc
 bfe
 bhH
 blf
@@ -106587,7 +106549,7 @@ aPw
 aPw
 aVE
 aQj
-aSA
+gkO
 aTv
 aUC
 bgK
@@ -106844,15 +106806,15 @@ aGb
 aTh
 aVD
 aPi
-aSA
+gkO
 aTy
-aUH
+xON
 aVr
 bhJ
 blS
 cGZ
-aUF
-din
+xON
+qHw
 bgP
 bmV
 bku
@@ -107101,9 +107063,9 @@ aEl
 aEl
 aVD
 aPi
-aSA
+gkO
 aTx
-aUD
+aVr
 bgL
 bhI
 ban
@@ -107360,11 +107322,11 @@ aVD
 aPi
 aSA
 aSA
-aUF
+xON
 bfe
 bhP
 bmk
-aUF
+mxH
 cZa
 aSA
 djW

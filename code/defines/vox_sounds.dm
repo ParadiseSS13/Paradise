@@ -473,7 +473,6 @@ GLOBAL_LIST_INIT(vox_sounds, list(
 "fuel" = 'sound/vox_fem/fuel.ogg',
 "g" = 'sound/vox_fem/g.ogg',
 "gas" = 'sound/vox_fem/gas.ogg',
-"gateway" = 'sound/vox_fem/gateway.ogg',
 "gave" = 'sound/vox_fem/gave.ogg',
 "generate" = 'sound/vox_fem/generate.ogg',
 "generated" = 'sound/vox_fem/generated.ogg',

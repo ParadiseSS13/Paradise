@@ -463,12 +463,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containername = "chemical implant crate"
 
-/datum/supply_packs/security/armory/exileimp
-	name = "Exile Implants Crate"
-	contains = list (/obj/item/storage/box/exileimp)
-	cost = 30
-	containername = "exile implant crate"
-
 /datum/supply_packs/security/securitybarriers
 	name = "Security Barriers Crate"
 	contains = list(/obj/item/grenade/barrier,

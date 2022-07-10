@@ -31320,6 +31320,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -32184,6 +32185,7 @@
 /obj/machinery/camera{
 	c_tag = "Gateway"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -32236,9 +32238,8 @@
 /turf/simulated/floor/engine/vacuum,
 /area/maintenance/incinerator)
 "bQB" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -32257,9 +32258,7 @@
 	},
 /area/crew_quarters/bar)
 "bQD" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -32696,9 +32695,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/gateway{
-	dir = 1
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -32862,26 +32859,17 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/maintenance/incinerator)
-"bSm" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/gateway)
 "bSn" = (
-/obj/machinery/gateway/centerstation,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/gateway)
 "bSo" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/shreds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -33471,35 +33459,27 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "bTS" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
 /area/gateway)
 "bTT" = (
-/obj/machinery/gateway,
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/gateway)
 "bTU" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -34580,16 +34560,13 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "bWV" = (
-/obj/structure/closet/secure_closet/exile,
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/shreds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -34599,26 +34576,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/gateway)
 "bWX" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -34626,36 +34589,29 @@
 	dir = 10
 	},
 /obj/machinery/hologram/holopad,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/gateway)
 "bWY" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/gateway)
 "bWZ" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Gateway Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/gateway,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral)
+/area/gateway)
 "bXb" = (
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/airlock/maintenance,
@@ -35185,11 +35141,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -35548,8 +35499,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
-	},
-/area/gateway)
+	})
 "bZt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
@@ -35598,6 +35548,8 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bZz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35645,6 +35597,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35711,12 +35665,13 @@
 "bZX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Gateway Access"
+	name = "Abandoned Gateway Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/gateway,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36641,6 +36596,7 @@
 	},
 /area/medical/reception)
 "ccl" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -36652,6 +36608,8 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/ants,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -37112,11 +37070,8 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "cdB" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -46736,8 +46691,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
-	},
-/area/gateway)
+	})
 "cGY" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -59325,6 +59279,10 @@
 	icon_state = "dark"
 	},
 /area/security/execution)
+"gbT" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
+/area/gateway)
 "gcq" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -61147,6 +61105,8 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"hdr" = (
+/turf/simulated/wall/r_wall)
 "hds" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Maintenance"
@@ -65028,6 +64988,7 @@
 	name = "Gateway Access Shutter"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -86469,6 +86430,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -89230,6 +89192,7 @@
 	id_tag = "gateshutter";
 	name = "Gateway Access Shutter"
 	},
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -91171,8 +91134,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
-	},
-/area/gateway)
+	})
 "wxE" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -123429,7 +123391,7 @@ bZn
 bZn
 bZn
 bZn
-bNh
+hdr
 caR
 nWH
 bcX
@@ -124966,7 +124928,7 @@ bLg
 wkM
 bNh
 bQB
-bSm
+bTT
 bTS
 ccl
 bWW
@@ -125736,9 +125698,9 @@ bJp
 daF
 bNh
 bNh
-bNh
-bNh
-bNh
+gbT
+gbT
+gbT
 bNh
 bWZ
 bNh

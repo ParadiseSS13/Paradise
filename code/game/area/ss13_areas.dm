@@ -1184,7 +1184,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambientsounds = ENGINEERING_SOUNDS
 
 /area/gateway
-	name = "\improper Gateway"
+	name = "\improper Abandoned Gateway"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
