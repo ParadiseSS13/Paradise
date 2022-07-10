@@ -7581,7 +7581,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "avE" = (
-/mob/living/simple_animal/mouse/brown/Tom,
+/mob/living/simple_animal/mouse/white,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -78579,6 +78579,11 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/apmaint)
+"hTR" = (
+/obj/structure/flora/rock/jungle,
+/mob/living/simple_animal/lizard,
+/turf/simulated/floor/grass,
+/area/security/permabrig)
 "hVA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -104726,7 +104731,7 @@ avo
 rBF
 eRp
 wWr
-dWB
+hTR
 eRp
 rtC
 avi
