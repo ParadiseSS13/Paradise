@@ -5,8 +5,8 @@
 	desc = "This is the alpha and omega of sanitation."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cart"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	face_while_pulling = FALSE
 	container_type = OPENCONTAINER
 	//copypaste sorry
@@ -95,14 +95,14 @@
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 1
+				anchored = TRUE
 			else if(anchored)
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 0
+				anchored = FALSE
 		else if(mybag)
 			mybag.attackby(I, user, params)
 	else
