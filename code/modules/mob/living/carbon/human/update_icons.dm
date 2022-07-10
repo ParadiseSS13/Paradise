@@ -914,7 +914,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
-	
+
 	update_inv_gloves()
 	update_inv_shoes()
 	update_inv_s_store()
@@ -1019,6 +1019,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/pinkcuffs))
 			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "pinkcuff1", layer = -HANDCUFF_LAYER)
+		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
+			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "cablecuff1", layer = -HANDCUFF_LAYER, color = handcuffed.color)
 		else
 			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", layer = -HANDCUFF_LAYER)
 	apply_overlay(HANDCUFF_LAYER)
