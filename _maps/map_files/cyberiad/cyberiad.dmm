@@ -1631,7 +1631,6 @@
 "ahX" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	security_level = 1;
 	id_tag = "prison_airlock_exterior";
 	frequency = 1379;
 	locked = 1
@@ -1676,7 +1675,6 @@
 "ahZ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	security_level = 1;
 	id_tag = "prison_airlock_interior";
 	frequency = 1379;
 	locked = 1
@@ -1702,11 +1700,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/full,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -2614,6 +2612,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -3502,6 +3503,9 @@
 "ams" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/caution{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -3832,7 +3836,6 @@
 "ane" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	security_level = 1;
 	id_tag = "prison_airlock_interior";
 	frequency = 1379;
 	locked = 1
@@ -3842,8 +3845,8 @@
 	name = "Prison Lockdown Blast Doors"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -3868,7 +3871,6 @@
 "anj" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	security_level = 1;
 	id_tag = "prison_airlock_exterior";
 	frequency = 1379;
 	locked = 1
@@ -3884,6 +3886,7 @@
 	dir = 1;
 	cover_color = "#85130b"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -6123,7 +6126,7 @@
 /area/security/permabrig)
 "ass" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -6858,6 +6861,8 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/screwdriver,
+/obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "auf" = (
@@ -7583,6 +7588,7 @@
 "avE" = (
 /mob/living/simple_animal/mouse/white,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "avF" = (
@@ -8310,6 +8316,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8686,6 +8693,7 @@
 	name = "HIGH VOLTAGE";
 	pixel_y = 32
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8731,6 +8739,7 @@
 /area/security/execution)
 "ayD" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9115,6 +9124,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
+/obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9178,6 +9188,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9460,6 +9471,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -9613,6 +9625,7 @@
 	dir = 8
 	},
 /obj/machinery/meter,
+/obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -77083,6 +77096,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/effect/turf_decal/caution{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -77092,6 +77108,10 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
+"ebV" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/security/brig)
 "edp" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -77770,6 +77790,7 @@
 	name = "Emergency NanoMed";
 	pixel_x = -28
 	},
+/obj/item/crowbar/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -78036,6 +78057,15 @@
 "goy" = (
 /turf/simulated/wall,
 /area/security/prisonlockers)
+"goV" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/security/brig)
 "gqA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -79515,6 +79545,7 @@
 "lmB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/trashcart,
+/obj/item/wirecutters,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -79822,6 +79853,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"mdi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "mdn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -80072,6 +80110,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_x = -32
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81817,6 +81856,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82513,6 +82553,9 @@
 /area/engine/hardsuitstorage)
 "umY" = (
 /obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/caution{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "uqo" = (
@@ -83076,6 +83119,15 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"vZV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/security/permabrig)
 "was" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -83751,9 +83803,11 @@
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
 	},
-/obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/wirerod,
+/obj/item/wirecutters,
+/obj/item/crowbar/large,
+/obj/effect/spawner/lootdrop/maintenance/three,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "yfL" = (
@@ -107028,7 +107082,7 @@ aaa
 aaa
 doV
 xmP
-auC
+goV
 xUu
 awB
 qkG
@@ -107286,13 +107340,13 @@ aaa
 aaa
 lbt
 mve
-aBA
+ebV
 eZA
 ank
 auc
 akm
-anf
-asi
+mdi
+vZV
 ant
 gPe
 asB
