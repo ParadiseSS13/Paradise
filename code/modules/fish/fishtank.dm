@@ -30,6 +30,8 @@
 	var/leaking = FALSE			// 0 if not leaking, 1 if minor leak, 2 if major leak (not leaking by default)
 	var/shard_count = 0			// Number of glass shards to salvage when broken (1 less than the number of sheets to build the tank)
 
+	var/mob/current_fisher = null // Only one person can fish in the tank at a time
+
 /obj/machinery/fishtank/bowl
 	name = "fish bowl"
 	desc = "A small bowl capable of housing a single fish, commonly found on desks. This one has a tiny treasure chest in it!"
@@ -326,6 +328,13 @@
 	if(fish_count <= 0)									//Can't catch non-existant fish!
 		to_chat(user, "There are no fish in [src] to catch!")
 		return
+	if(current_fisher)
+		if(current_fisher == user)
+			to_chat(user, "You are already fishing in [src]!")
+		else
+			to_chat(user, "[current_fisher.name] is already trying to fish in [src].")
+		return
+	current_fisher = user
 	var/list/fish_types = list()
 	var/list/fish_types_input = list()
 	for(var/datum/fish/F in fish_list) // Group up the fish first
@@ -337,6 +346,7 @@
 	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_types_input		//Select a fish from the tank
 	if(fish_count <= 0)
 		to_chat(user, "There are no fish in [src] to catch!")
+		current_fisher = null
 		return
 	else if(caught_fish)
 		var/list/fishes_of_type = fish_types_input[caught_fish]
@@ -356,6 +366,7 @@
 				fish_bag.handle_item_insertion(I)
 		user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 		kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
+		current_fisher = null
 
 /obj/machinery/fishtank/proc/spill_water()
 	var/turf/simulated/T = get_turf(src)
