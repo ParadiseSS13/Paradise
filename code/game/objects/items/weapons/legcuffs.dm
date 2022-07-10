@@ -112,7 +112,7 @@
 
 			if(ishuman(AM))
 				var/mob/living/carbon/H = AM
-				if(H.lying)
+				if(IS_HORIZONTAL(H))
 					H.apply_damage(trap_damage, BRUTE,"chest")
 				else
 					H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
@@ -158,8 +158,8 @@
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
-	///the duration of the stun in seconds
-	var/weaken = 0
+	///the duration of the knockdown in seconds
+	var/knockdown_duration = 0
 
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
 	playsound(loc,'sound/weapons/bolathrow.ogg', 50, TRUE)
@@ -177,7 +177,7 @@
 		C.update_inv_legcuffed()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
-		C.Weaken(weaken)
+		C.KnockDown(knockdown_duration)
 		playsound(loc, hitsound, 50, TRUE)
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
@@ -187,7 +187,7 @@
 	item_state = "bola_r"
 	breakouttime = 70
 	origin_tech = "engineering=4;combat=3"
-	weaken = 2 SECONDS
+	knockdown_duration = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/energy //For Security
 	name = "energy bola"
@@ -200,6 +200,9 @@
 
 /obj/item/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom)
 	if(iscarbon(hit_atom))
+		var/mob/living/carbon/C = hit_atom
+		if(C.legcuffed)
+			return
 		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy(get_turf(hit_atom))
 		B.Crossed(hit_atom, null)
 		qdel(src)

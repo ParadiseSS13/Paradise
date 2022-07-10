@@ -222,7 +222,7 @@
 	result = list(/datum/nothing = 13,
 		/obj/item/storage/toolbox/syndicate = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/toy/cards/deck/syndicate = 1,
+		/obj/item/deck/cards/syndicate = 1,
 		/obj/item/storage/secure/briefcase/syndie = 1,
 		/obj/item/toy/syndicateballoon = 1,
 		/obj/item/soap/syndie = 1,

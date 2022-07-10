@@ -2,8 +2,8 @@
 	name = "cyborg recharging station"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
@@ -24,8 +24,8 @@
 	go_out()
 	return ..()
 
-/obj/machinery/recharge_station/New()
-	..()
+/obj/machinery/recharge_station/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -35,8 +35,8 @@
 	RefreshParts()
 	build_icon()
 
-/obj/machinery/recharge_station/upgraded/New()
-	..()
+/obj/machinery/recharge_station/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)

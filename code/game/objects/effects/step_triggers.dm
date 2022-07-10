@@ -5,7 +5,6 @@
 	var/stopper = TRUE // stops throwers
 	var/mobs_only = FALSE
 	invisibility = INVISIBILITY_ABSTRACT // nope cant see this shit
-	anchored = TRUE
 
 /obj/effect/step_trigger/proc/Trigger(atom/movable/A)
 	return FALSE
@@ -60,10 +59,8 @@
 		if(AM in T.affecting)
 			return
 
-	if(isliving(AM))
-		var/mob/living/M = AM
-		if(immobilize)
-			M.canmove = FALSE
+	if(immobilize)
+		ADD_TRAIT(A, TRAIT_IMMOBILIZED, "[UID()]")
 
 	affecting.Add(AM)
 	while(AM && !stopthrow)
@@ -94,13 +91,7 @@
 				AM.setDir(predir)
 
 
-
-	affecting.Remove(AM)
-
-	if(isliving(AM))
-		var/mob/living/M = AM
-		if(immobilize)
-			M.canmove = TRUE
+	REMOVE_TRAIT(A, TRAIT_IMMOBILIZED, "[UID()]")
 
 /* Stops things thrown by a thrower, doesn't do anything */
 

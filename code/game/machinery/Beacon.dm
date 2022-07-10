@@ -6,17 +6,17 @@
 	level = 1		// underfloor
 	layer = WIRE_LAYER
 	plane = FLOOR_PLANE
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 0
-	var/syndicate = 0
+	var/syndicate = FALSE
 	var/area_bypass = FALSE
 	var/obj/item/radio/beacon/Beacon
 	var/enabled = TRUE
 	var/cc_beacon = FALSE //can be teleported to even if on zlevel2
 
-/obj/machinery/bluespace_beacon/New()
-	..()
+/obj/machinery/bluespace_beacon/Initialize(mapload)
+	. = ..()
 	create_beacon()
 
 /obj/machinery/bluespace_beacon/proc/create_beacon()
@@ -73,8 +73,8 @@
 	area_bypass = TRUE // This enables teleports to this beacon to bypass the tele_proof flag of /area/s. Intended for depot syndi teleport computer.
 	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
-/obj/machinery/bluespace_beacon/syndicate/New()
-	..()
+/obj/machinery/bluespace_beacon/syndicate/Initialize(mapload)
+	. = ..()
 	if(!GAMEMODE_IS_NUCLEAR && prob(50))
 		enabled = TRUE
 
@@ -86,6 +86,6 @@
 /obj/machinery/bluespace_beacon/syndicate/infiltrator //beacon guaranteed offline at roundstart for infiltrator base
 	cc_beacon = TRUE
 
-/obj/machinery/bluespace_beacon/syndicate/infiltrator/New()
-	..()
+/obj/machinery/bluespace_beacon/syndicate/infiltrator/Initialize(mapload)
+	. = ..()
 	enabled = FALSE

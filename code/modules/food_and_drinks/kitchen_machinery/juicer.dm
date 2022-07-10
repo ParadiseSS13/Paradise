@@ -4,8 +4,8 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
@@ -30,7 +30,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/pineapple = "pineapplejuice"
 	)
 
-/obj/machinery/juicer/New()
+/obj/machinery/juicer/Initialize(mapload)
 	. = ..()
 	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
 

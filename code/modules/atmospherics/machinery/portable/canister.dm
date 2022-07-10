@@ -43,13 +43,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	name = "canister"
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "yellow"
-	density = 1
+	density = TRUE
 	flags = CONDUCT
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 50)
 	max_integrity = 250
 	integrity_failure = 100
 
-	var/valve_open = 0
+	var/valve_open = FALSE
 	var/release_pressure = ONE_ATMOSPHERE
 
 	var/list/canister_color //variable that stores colours
@@ -61,13 +61,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	//passed to the ui to render the color lists
 	var/list/colorcontainer
 
-	var/can_label = 1
+	var/can_label = TRUE
 	var/filled = 0.5
 	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
 	volume = 1000
 	use_power = NO_POWER_USE
-	interact_offline = 1
+	interact_offline = TRUE
 	var/release_log = ""
 	var/update_flag = 0
 
@@ -254,9 +254,9 @@ update_flag
 
 
 	if(air_contents.return_pressure() < 1)
-		can_label = 1
+		can_label = TRUE
 	else
-		can_label = 0
+		can_label = FALSE
 
 	updateDialog()
 	return
@@ -396,31 +396,31 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"
 	icon_state = "orange" //See New()
-	can_label = 0
+	can_label = FALSE
 /obj/machinery/portable_atmospherics/canister/oxygen
 	name = "Canister: \[O2\]"
 	icon_state = "blue" //See New()
-	can_label = 0
+	can_label = FALSE
 /obj/machinery/portable_atmospherics/canister/sleeping_agent
 	name = "Canister: \[N2O\]"
 	icon_state = "redws" //See New()
-	can_label = 0
+	can_label = FALSE
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "Canister: \[N2\]"
 	icon_state = "red" //See New()
-	can_label = 0
+	can_label = FALSE
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
 	name = "Canister \[CO2\]"
 	icon_state = "black" //See New()
-	can_label = 0
+	can_label = FALSE
 /obj/machinery/portable_atmospherics/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See New()
-	can_label = 0
+	can_label = FALSE
 /obj/machinery/portable_atmospherics/canister/custom_mix
 	name = "Canister \[Custom\]"
 	icon_state = "whiters" //See New()
-	can_label = 0
+	can_label = FALSE
 
 
 /obj/machinery/portable_atmospherics/canister/toxins/New()

@@ -17,8 +17,8 @@
 	var/mob/living/carbon/occupant = null
 	var/injecting = 0
 
-/obj/machinery/implantchair/New()
-	..()
+/obj/machinery/implantchair/Initialize(mapload)
+	. = ..()
 	add_implants()
 
 

@@ -6,7 +6,7 @@
 	item_state = "wand"
 	belt_icon = "wand_nothing"
 	w_class = WEIGHT_CLASS_SMALL
-	can_charge = 0
+	can_charge = FALSE
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
 	var/variable_charges = 1
 

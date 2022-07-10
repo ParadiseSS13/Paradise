@@ -153,7 +153,7 @@
 "aC" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/item/folder/blue,
 /obj/item/pen,
 /turf/simulated/floor/plasteel,
@@ -1921,7 +1921,7 @@
 /area/ruin/ancientstation/sec)
 "fg" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;

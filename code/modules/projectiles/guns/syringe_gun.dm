@@ -9,7 +9,7 @@
 	throw_range = 7
 	force = 4
 	materials = list(MAT_METAL=2000)
-	clumsy_check = 0
+	clumsy_check = FALSE
 	fire_sound = 'sound/items/syringeproj.ogg'
 	var/list/syringes = list()
 	var/max_syringes = 1
@@ -93,8 +93,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=2;syndicate=2;biotech=3"
 	force = 2 //Also very weak because it's smaller
-	suppressed = 1 //Softer fire sound
-	can_unsuppress = 0 //Permanently silenced
+	suppressed = TRUE //Softer fire sound
+	can_unsuppress = FALSE //Permanently silenced
 
 // Not quite a syringe gun, but also not completely unlike one either.
 // Uses an internal reservoir instead of separately filled syringes, and can unload them

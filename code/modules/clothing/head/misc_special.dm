@@ -19,7 +19,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(MAT_METAL=1750, MAT_GLASS=400)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
@@ -63,7 +63,7 @@
 		flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 		icon_state = initial(icon_state)
 		to_chat(usr, "You flip [src] down to protect your eyes.")
-		flash_protect = 2
+		flash_protect = FLASH_PROTECTION_WELDER
 		tint = 2
 	else
 		up = !up
@@ -71,7 +71,7 @@
 		flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 		icon_state = "[initial(icon_state)]up"
 		to_chat(usr, "You push [src] up out of your face.")
-		flash_protect = 0
+		flash_protect = FLASH_PROTECTION_NONE
 		tint = 0
 	var/mob/living/carbon/user = usr
 	user.update_tint()
@@ -94,7 +94,7 @@
 	icon_state = "cake0"
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
-	var/onfire = 0.0
+	var/onfire = FALSE
 	var/status = 0
 	var/fire_resist = T0C+1300	//this is the max temp it can stand before you start to cook. although it might not burn away, you take damage
 	var/processing = 0 //I dont think this is used anywhere.
@@ -104,7 +104,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 
-	var/turf/location = src.loc
+	var/turf/location = loc
 	if(istype(location, /mob/))
 		var/mob/living/carbon/human/M = location
 		if(M.l_hand == src || M.r_hand == src || M.head == src)
@@ -113,19 +113,19 @@
 	if(istype(location, /turf))
 		location.hotspot_expose(700, 1)
 
-/obj/item/clothing/head/cakehat/attack_self(mob/user as mob)
-	if(status > 1)	return
-	src.onfire = !( src.onfire )
-	if(src.onfire)
-		src.force = 3
-		src.damtype = "fire"
-		src.icon_state = "cake1"
+/obj/item/clothing/head/cakehat/attack_self(mob/user)
+	if(status > 1)
+		return
+	onfire = !onfire
+	if(onfire)
+		force = 3
+		damtype = BURN
+		icon_state = "cake1"
 		START_PROCESSING(SSobj, src)
 	else
-		src.force = null
-		src.damtype = "brute"
-		src.icon_state = "cake0"
-	return
+		force = null
+		damtype = BRUTE
+		icon_state = "cake0"
 
 
 /*
@@ -145,13 +145,13 @@
 	)
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user as mob)
-	if(src.icon_state == "ushankadown")
-		src.icon_state = "ushankaup"
-		src.item_state = "ushankaup"
+	if(icon_state == "ushankadown")
+		icon_state = "ushankaup"
+		item_state = "ushankaup"
 		to_chat(user, "You raise the ear flaps on the ushanka.")
 	else
-		src.icon_state = "ushankadown"
-		src.item_state = "ushankadown"
+		icon_state = "ushankadown"
+		item_state = "ushankadown"
 		to_chat(user, "You lower the ear flaps on the ushanka.")
 
 /*

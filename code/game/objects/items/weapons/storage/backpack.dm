@@ -89,7 +89,7 @@
 	name = "Santa's Gift Bag"
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
-	item_state = "giftbag"
+	item_state = "giftbag0"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
@@ -98,6 +98,7 @@
 	name = "trophy rack"
 	desc = "It's useful for both carrying extra gear and proudly declaring your insanity."
 	icon_state = "cultpack"
+	item_state = "cultpack"
 
 /obj/item/storage/backpack/clown
 	name = "Giggles Von Honkerton"
@@ -207,6 +208,7 @@
 	name = "leather satchel"
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
+	item_state = "satchel"
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
@@ -218,7 +220,7 @@
 	if(usr.incapacitated())
 		return
 	strap_side_straight = !strap_side_straight
-	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"
+	item_state = strap_side_straight ? "satchel-flipped" : "satchel"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_back()
@@ -229,11 +231,13 @@
 	name = "leather satchel"
 	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
 	icon_state = "nt_deluxe"
+	item_state = "satchel"
 
 /obj/item/storage/backpack/satchel/lizard
 	name = "lizard skin handbag"
 	desc = "A handbag made out of what appears to be supple green Unathi skin. A face can be vaguely seen on the front."
 	icon_state = "satchel-lizard"
+	item_state = null
 
 /obj/item/storage/backpack/satchel/withwallet/populate_contents()
 	new /obj/item/storage/wallet/random(src)
@@ -242,70 +246,82 @@
 	name = "satchel"
 	desc = "A deluxe NT Satchel, made of the highest quality leather."
 	icon_state = "satchel-norm"
+	item_state = "satchel-norm"
 
 /obj/item/storage/backpack/satchel_eng
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
+	item_state = "satchel-eng"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel/explorer
 	name = "explorer satchel"
 	desc = "A robust satchel for stashing your loot."
 	icon_state = "satchel-explorer"
-	item_state = "securitypack"
+	item_state = "satchel-explorer"
 
 /obj/item/storage/backpack/satchel_med
 	name = "medical satchel"
 	desc = "A sterile satchel used in medical departments."
 	icon_state = "satchel-med"
+	item_state = "satchel-med"
 
 /obj/item/storage/backpack/satchel_vir
 	name = "virologist satchel"
 	desc = "A sterile satchel with virologist colours."
 	icon_state = "satchel-vir"
+	item_state = "satchel-vir"
 
 /obj/item/storage/backpack/satchel_chem
 	name = "chemist satchel"
 	desc = "A sterile satchel with chemist colours."
 	icon_state = "satchel-chem"
+	item_state = "satchel-chem"
 
 /obj/item/storage/backpack/satchel_gen
 	name = "geneticist satchel"
 	desc = "A sterile satchel with geneticist colours."
 	icon_state = "satchel-gen"
+	item_state = "satchel-gen"
 
 /obj/item/storage/backpack/satchel_tox
 	name = "scientist satchel"
 	desc = "Useful for holding research materials."
 	icon_state = "satchel-tox"
+	item_state = "satchel-tox"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_sec
 	name = "security satchel"
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
+	item_state = "satchel-sec"
 
 /obj/item/storage/backpack/satchel_hyd
 	name = "hydroponics satchel"
 	desc = "A green satchel for plant related work."
 	icon_state = "satchel-hyd"
+	item_state = "satchel-hyd"
 
 /obj/item/storage/backpack/satchel_cap
 	name = "captain's satchel"
 	desc = "An exclusive satchel for Nanotrasen officers."
 	icon_state = "satchel-cap"
+	item_state = "satchel-cap"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_blueshield
 	name = "blueshield satchel"
 	desc = "A robust satchel issued to Nanotrasen's finest."
 	icon_state = "satchel-blueshield"
+	item_state = "satchel-blueshield"
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
 	desc = "A very slim satchel that can easily fit into tight spaces."
 	icon_state = "satchel-flat"
+	item_state = "satchel-flat"
 	w_class = WEIGHT_CLASS_NORMAL //Can fit in backpacks itself.
 	max_combined_w_class = 15
 	level = 1
@@ -544,7 +560,7 @@
 	name = "emergency response team backpack"
 	desc = "A spacious backpack with lots of pockets, used by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ert_commander"
-	item_state = "backpack"
+	item_state = null
 	max_combined_w_class = 30
 	resistance_flags = FIRE_PROOF
 
@@ -582,3 +598,9 @@
 	name = "\improper TSF marine backpack"
 	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
 	icon_state = "ert_solgov"
+
+/obj/item/storage/backpack/ert/deathsquad
+	name = "Deathsquad backpack"
+	desc = "A spacious backpack with lots of pockets, worn by those working in Special Operations."
+	icon_state = "ert_security"
+

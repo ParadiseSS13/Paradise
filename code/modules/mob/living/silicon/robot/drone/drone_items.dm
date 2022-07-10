@@ -48,13 +48,13 @@
 	var/mob/living/carbon/human/H
 	if(!gripped_item && proximity && target && ishuman(target))
 		H = target
-		if(H.lying)
+		if(IS_HORIZONTAL(H))
 			H.AdjustSleeping(-10 SECONDS)
-			if(!H.IsSleeping())
-				H.StopResting()
 			H.AdjustParalysis(-6 SECONDS)
 			H.AdjustStunned(-6 SECONDS)
 			H.AdjustWeakened(-6 SECONDS)
+			H.AdjustKnockDown(-6 SECONDS)
+			H.stand_up()
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
 				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\

@@ -940,20 +940,20 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
-	var/on = 0
+	var/on = FALSE
 
 /obj/item/clothing/suit/advanced_protective_suit/Destroy()
 	if(on)
-		on = 0
+		on = FALSE
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
 	if(on)
-		on = 0
+		on = FALSE
 		to_chat(usr, "You turn the suit's special processes off.")
 	else
-		on = 1
+		on = TRUE
 		to_chat(usr, "You turn the suit's special processes on.")
 		START_PROCESSING(SSobj, src)
 

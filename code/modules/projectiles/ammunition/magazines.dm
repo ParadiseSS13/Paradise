@@ -263,14 +263,17 @@
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
+	icon_state = "46x30mmtA"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
 
 /obj/item/ammo_box/magazine/wt550m9/wttx
 	name = "wt550 magazine (Toxin Tipped 4.6x30mm)"
+	icon_state = "46x30mmtT"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
 
 /obj/item/ammo_box/magazine/wt550m9/wtic
 	name = "wt550 magazine (Incendiary 4.6x30mm)"
+	icon_state = "46x30mmtI"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 
 /obj/item/ammo_box/magazine/uzim9mm
@@ -305,13 +308,13 @@
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
 	materials = list(MAT_METAL = 3000)
 
-/obj/item/ammo_box/magazine/pistolm9mm
-	name = "pistol magazine (9mm)"
-	icon_state = "9x19p"
+/obj/item/ammo_box/magazine/apsm9mm
+	name = "stechkin aps magazine (9mm)"
+	icon_state = "9mmaps"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 15
-	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
+	multi_sprite_step = 5
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "\improper SMG magazine (.45)"
@@ -362,7 +365,7 @@
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
 	desc = "A drum magazine."
-	icon_state = "m12gb"
+	icon_state = "m12gsl"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	origin_tech = "combat=3;syndicate=1"
 	caliber = "shotgun"

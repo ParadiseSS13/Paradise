@@ -82,6 +82,17 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/alt/deathsquad
+	name = "Deathsquad headset"
+	desc = "Special Operations only. Protects ears from flashbangs."
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
+/obj/item/radio/headset/alt/deathsquad/Initialize()
+	. = ..()
+	set_frequency(DTH_FREQ)
+
 /obj/item/radio/headset/syndicate
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/syndicate/nukeops
