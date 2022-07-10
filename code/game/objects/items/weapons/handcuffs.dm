@@ -131,8 +131,24 @@
 	color = COLOR_WHITE
 
 /obj/item/restraints/handcuffs/cable/random/New()
-	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
-	item_state = "cuff_[color]"
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
+	switch(color)
+		if(COLOR_RED)
+			item_state = "cuff_red"
+		if(COLOR_BLUE)
+			item_state = "cuff_blue"
+		if(COLOR_GREEN)
+			item_state = "cuff_green"
+		if(COLOR_WHITE)
+			item_state = "cuff_white"
+		if(COLOR_PINK)
+			item_state = "cuff_pink"
+		if(COLOR_YELLOW)
+			item_state = "cuff_yellow"
+		if(COLOR_CYAN)
+			item_state = "cuff_cyan"
+		if(COLOR_ORANGE)
+			item_state = "cuff_orange"
 	..()
 
 /obj/item/restraints/handcuffs/cable/proc/cable_color(colorC)
