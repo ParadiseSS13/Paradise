@@ -309,7 +309,7 @@
 	var/power = FALSE
 	var/state = FALSE
 	var/steps = 0
-	var/locked = TRUE+
+	var/locked = TRUE
 	var/storedpower = 0
 	flags = CONDUCT
 	use_power = NO_POWER_USE
