@@ -388,7 +388,7 @@
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
-	density = 0
+	density = FALSE
 	icon_state = "bluespace"
 	open_door_sprite = "bluespace_door"
 	storage_capacity = 60
