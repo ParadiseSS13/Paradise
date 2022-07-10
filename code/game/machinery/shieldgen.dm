@@ -298,27 +298,21 @@
 ////FIELD GEN START //shameless copypasta from fieldgen, powersink, and grille
 #define maxstoredpower 500
 /obj/machinery/shieldwallgen
-		name = "Shield Generator"
-		desc = "A shield generator."
-		icon = 'icons/obj/stationobjs.dmi'
-		icon_state = "Shield_Gen"
-		anchored = FALSE
-		density = TRUE
-		req_access = list(ACCESS_TELEPORTER)
-		var/active = FALSE
-		var/power = FALSE
-		var/state = FALSE
-		var/steps = 0
-		var/last_check = 0
-		var/check_delay = 10
-		var/recalc = 0
-		var/locked = TRUE
-		var/destroyed = FALSE
-		var/directwired = TRUE
-		var/obj/structure/cable/attached		// the attached cable
-		var/storedpower = 0
-		flags = CONDUCT
-		use_power = NO_POWER_USE
+	name = "Shield Generator"
+	desc = "A shield generator."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "Shield_Gen"
+	anchored = FALSE
+	density = TRUE
+	req_access = list(ACCESS_TELEPORTER)
+	var/active = FALSE
+	var/power = FALSE
+	var/state = FALSE
+	var/steps = 0
+	var/locked = TRUE+
+	var/storedpower = 0
+	flags = CONDUCT
+	use_power = NO_POWER_USE
 
 /obj/machinery/shieldwallgen/update_icon_state()
 	icon_state = "Shield_Gen[active ? " +a" : ""]"
@@ -505,21 +499,19 @@
 
 ////////////// Containment Field START
 /obj/machinery/shieldwall
-		name = "Shield"
-		desc = "An energy shield."
-		icon = 'icons/effects/effects.dmi'
-		icon_state = "shieldwall"
-		anchored = TRUE
-		density = TRUE
-		move_resist = INFINITY
-		resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-		light_range = 3
-		var/needs_power = FALSE
-		var/active = TRUE
-		var/delay = 5
-		var/mob/U
-		var/obj/machinery/shieldwallgen/gen_primary
-		var/obj/machinery/shieldwallgen/gen_secondary
+	name = "Shield"
+	desc = "An energy shield."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "shieldwall"
+	anchored = TRUE
+	density = TRUE
+	move_resist = INFINITY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	light_range = 3
+	var/needs_power = FALSE
+	var/active = TRUE
+	var/obj/machinery/shieldwallgen/gen_primary
+	var/obj/machinery/shieldwallgen/gen_secondary
 
 /obj/machinery/shieldwall/New(obj/machinery/shieldwallgen/A, obj/machinery/shieldwallgen/B)
 	..()

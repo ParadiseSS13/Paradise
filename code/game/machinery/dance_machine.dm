@@ -25,7 +25,6 @@
 	var/song_path = null
 	var/song_length = 0
 	var/song_beat = 0
-	var/GBP_required = 0
 
 /datum/track/New(name, path, length, beat)
 	song_name = name

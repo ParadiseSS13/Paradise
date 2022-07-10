@@ -7,7 +7,7 @@
 	origin_tech = "magnets=1;bluespace=1"
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 
-	secured = 1
+	secured = TRUE
 	var/receiving = FALSE
 
 	bomb_name = "remote-control bomb"
