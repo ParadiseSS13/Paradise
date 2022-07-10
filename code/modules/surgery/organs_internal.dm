@@ -75,7 +75,7 @@
 // Internal surgeries.
 /datum/surgery_step/internal
 	can_infect = TRUE
-	blood_level = 1
+	blood_level = SURGERY_BLOODSPREAD_HANDS
 
 
 /datum/surgery_step/internal/manipulate_organs
@@ -456,12 +456,12 @@
 /datum/surgery_step/saw_carapace
 	name = "saw carapace"
 	allowed_tools = list(
-	TOOL_SAW = 100, \
-	/obj/item/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/hatchet = 90
+		TOOL_SAW = 100,
+		/obj/item/melee/energy/sword/cyborg/saw = 100,
+		/obj/item/hatchet = 90
 	)
 
-	time = 54
+	time = 5.4 SECONDS
 
 
 /datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -485,14 +485,14 @@
 /datum/surgery_step/cut_carapace
 	name = "cut carapace"
 	allowed_tools = list(
-	TOOL_SCALPEL = 100,		\
-	/obj/item/kitchen/knife = 90,	\
-	/obj/item/shard = 60, 		\
-	/obj/item/scissors = 12,		\
-	/obj/item/twohanded/chainsaw = 1, \
-	/obj/item/claymore = 6, \
-	/obj/item/melee/energy/ = 6, \
-	/obj/item/pen/edagger = 6, \
+		TOOL_SCALPEL = 100,
+		/obj/item/kitchen/knife = 90,
+		/obj/item/shard = 60,
+		/obj/item/scissors = 12,
+		/obj/item/twohanded/chainsaw = 1,
+		/obj/item/claymore = 6,
+		/obj/item/melee/energy = 6,
+		/obj/item/pen/edagger = 6
 	)
 
 	time = 16
@@ -519,13 +519,13 @@
 	name = "retract carapace"
 
 	allowed_tools = list(
-	/obj/item/scalpel/laser/manager = 100, \
-	TOOL_RETRACTOR = 100, 	\
-	/obj/item/crowbar = 90,	\
-	/obj/item/kitchen/utensil/fork = 60
+		/obj/item/scalpel/laser/manager = 100,
+		TOOL_RETRACTOR = 100,
+		/obj/item/crowbar = 90,
+		/obj/item/kitchen/utensil/fork = 60
 	)
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/msg = "[user] starts to pry open the incision on [target]'s [target_zone] with [tool]."

@@ -10,12 +10,26 @@
 
 /datum/surgery/bleeding
 	name = "Internal Bleeding"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_chest,
+		/datum/surgery_step/generic/cauterize
+	)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
 /datum/surgery/debridement
 	name = "Debridement"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_dead_tissue,/datum/surgery_step/treat_necrosis,/datum/surgery_step/generic/cauterize)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_chest,
+		/datum/surgery_step/fix_dead_tissue,
+		/datum/surgery_step/treat_necrosis,
+		/datum/surgery_step/generic/cauterize
+	)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
 /datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
@@ -33,8 +47,6 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return FALSE
 
 		if(affected.status & ORGAN_INT_BLEEDING)
 			return TRUE
@@ -48,9 +60,6 @@
 		if(!hasorgans(target))
 			return FALSE
 
-		if(!affected)
-			return FALSE
-
 		if(!(affected.status & ORGAN_DEAD))
 			return FALSE
 
@@ -61,13 +70,13 @@
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
 	allowed_tools = list(
-	/obj/item/FixOVein = 100, \
-	/obj/item/stack/cable_coil = 90
+		TOOL_FIXOVEIN = 100,
+		/obj/item/stack/cable_coil = 90
 	)
 	can_infect = TRUE
-	blood_level = 1
+	blood_level = SURGERY_BLOODSPREAD_HANDS
 
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -107,24 +116,21 @@
 /datum/surgery_step/fix_dead_tissue		//Debridement
 	name = "remove dead tissue"
 	allowed_tools = list(
-		/obj/item/scalpel = 100,		\
-		/obj/item/kitchen/knife = 90,	\
-		/obj/item/shard = 60, 		\
+		TOOL_SCALPEL = 100,
+		/obj/item/kitchen/knife = 90,
+		/obj/item/shard = 60
 	)
 
 	can_infect = TRUE
-	blood_level = 1
+	blood_level = SURGERY_BLOODSPREAD_HANDS
 
-	time = 16
+	time = 1.6 SECONDS
 
 /datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!hasorgans(target))
 		return FALSE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-	if(!affected)
-		return FALSE
 
 	if(!(affected.status & ORGAN_DEAD))
 		return FALSE
@@ -166,9 +172,9 @@
 	)
 
 	can_infect = FALSE
-	blood_level = 0
+	blood_level = SURGERY_BLOODSPREAD_NONE
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/treat_necrosis/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!istype(tool, /obj/item/reagent_containers))

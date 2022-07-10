@@ -4,12 +4,23 @@
 
 /datum/surgery/implant_removal
 	name = "Implant Removal"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,/datum/surgery_step/extract_implant,/datum/surgery_step/generic/cauterize)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_chest,
+		/datum/surgery_step/extract_implant,
+		/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest")
 
 /datum/surgery/implant_removal/synth
 	name = "Implant Removal"
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/extract_implant,/datum/surgery_step/robotics/external/close_hatch)
+	steps = list(
+		/datum/surgery_step/robotics/external/unscrew_hatch,
+		/datum/surgery_step/robotics/external/open_hatch,
+		/datum/surgery_step/extract_implant,
+		/datum/surgery_step/robotics/external/close_hatch
+	)
 	possible_locs = list("chest")
 	requires_organic_bodypart = FALSE
 
@@ -36,8 +47,9 @@
 
 /datum/surgery_step/extract_implant
 	name = "extract implant"
-	allowed_tools = list(TOOL_HEMOSTAT = 100, /obj/item/crowbar = 65)
-	time = 64
+	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
+	time = 6.4 SECONDS
+	repeatable = TRUE
 	var/obj/item/implant/I = null
 
 /datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

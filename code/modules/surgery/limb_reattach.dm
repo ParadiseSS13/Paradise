@@ -7,26 +7,25 @@
 	name = "Amputation"
 	steps = list(/datum/surgery_step/generic/amputate)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	requires_organic_bodypart = TRUE
 
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return FALSE
-		if(affected.is_robotic())
-			return FALSE
 		if(affected.limb_flags & CANNOT_DISMEMBER)
 			return FALSE
-
 		return TRUE
 
 
 /datum/surgery/reattach
 	name = "Limb Reattachment"
 	requires_bodypart = FALSE
-	steps = list(/datum/surgery_step/limb/attach,/datum/surgery_step/limb/connect)
+	steps = list(
+		/datum/surgery_step/limb/attach,
+		/datum/surgery_step/limb/connect
+	)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
@@ -46,33 +45,15 @@
 	steps = list(/datum/surgery_step/limb/attach/robo)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
-/datum/surgery/reattach_synth/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return TRUE
-
-		return FALSE
-
-
 /datum/surgery/robo_attach
 	name = "Apply Robotic Prosthetic"
 	requires_bodypart = FALSE
 	steps = list(/datum/surgery_step/limb/mechanize)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
-/datum/surgery/robo_attach/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return TRUE
-
-		return FALSE
-
 /datum/surgery_step/limb
 	can_infect = FALSE
+
 /datum/surgery_step/limb/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!hasorgans(target))
 		return FALSE
@@ -86,7 +67,7 @@
 	name = "attach limb"
 	allowed_tools = list(/obj/item/organ/external = 100)
 
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/limb/attach/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!..())
@@ -173,13 +154,13 @@
 /datum/surgery_step/limb/connect
 	name = "connect limb"
 	allowed_tools = list(
-	/obj/item/hemostat = 100,	\
-	/obj/item/stack/cable_coil = 90, 	\
-	/obj/item/assembly/mousetrap = 25
+		TOOL_HEMOSTAT = 100,
+		/obj/item/stack/cable_coil = 90,
+		/obj/item/assembly/mousetrap = 25
 	)
 	can_infect = TRUE
 
-	time = 32
+	time = 3.2 SECONDS
 
 
 /datum/surgery_step/limb/connect/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -212,7 +193,7 @@
 	name = "apply robotic prosthetic"
 	allowed_tools = list(/obj/item/robot_parts = 100)
 
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/limb/mechanize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(..())

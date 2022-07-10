@@ -1,37 +1,28 @@
 /datum/surgery/embedded_removal
 	name = "Removal of Embedded Objects"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/remove_object,/datum/surgery_step/generic/cauterize)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_chest,
+		/datum/surgery_step/remove_object,
+		/datum/surgery_step/generic/cauterize
+	)
 	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
 
 /datum/surgery/embedded_removal/synth
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/remove_object,/datum/surgery_step/robotics/external/close_hatch)
-	requires_organic_bodypart = 0
-
-/datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return FALSE
-	if(affected.is_robotic())
-		return FALSE
-	return TRUE
-
-/datum/surgery/embedded_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return FALSE
-	if(!affected.is_robotic())
-		return FALSE
-
-	return TRUE
+	steps = list(
+		/datum/surgery_step/robotics/external/unscrew_hatch,
+		/datum/surgery_step/robotics/external/open_hatch,
+		/datum/surgery_step/remove_object,
+		/datum/surgery_step/robotics/external/close_hatch
+	)
+	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/remove_object
 	name = "Remove Embedded Objects"
-	time = 32
-	accept_hand = 1
+	time = 3.2 SECONDS
+	accept_hand = TRUE
 	var/obj/item/organ/external/L = null
 
 
@@ -56,7 +47,7 @@
 				H.clear_alert("embeddedobject")
 
 			if(objects > 0)
-				user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L]!", "<span class='notice'>You successfully remove [objects] objects from [H]'s [L.name].</span>")
+				user.visible_message("[user] sucessfully removes [objects] object\s from [H]'s [L]!", "<span class='notice'>You successfully remove [objects] object\s from [H]'s [L.name].</span>")
 			else
 				to_chat(user, "<span class='warning'>You find no objects embedded in [H]'s [L]!</span>")
 

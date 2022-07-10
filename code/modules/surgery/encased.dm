@@ -4,10 +4,11 @@
 //////////////////////////////////////////////////////////////////
 /datum/surgery_step/open_encased
 	can_infect = TRUE
-	blood_level = 1
+	blood_level = SURGERY_BLOODSPREAD_HANDS
 
 /datum/surgery_step/open_encased/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
+	// TODO this seems unnecessary here; shouldn't the surgery itself be taking care of this?
 	if(!hasorgans(target))
 		return FALSE
 
@@ -26,7 +27,7 @@
 		/obj/item/hatchet = 90
 	)
 
-	time = 54
+	time = 5.4 SECONDS
 
 /datum/surgery_step/open_encased/saw/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -69,12 +70,12 @@
 /datum/surgery_step/open_encased/retract
 	name = "retract bone"
 	allowed_tools = list(
-	/obj/item/scalpel/laser/manager = 100, \
-	TOOL_RETRACTOR = 100, 	\
-	/obj/item/crowbar = 90
+		/obj/item/scalpel/laser/manager = 100,
+		TOOL_RETRACTOR = 100,
+		TOOL_CROWBAR = 90
 	)
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/open_encased/retract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -120,12 +121,12 @@
 /datum/surgery_step/open_encased/close
 	name = "unretract bone" //i suck at names okay? give me a new one
 	allowed_tools = list(
-	/obj/item/scalpel/laser/manager = 100, \
-	TOOL_RETRACTOR = 100, 	\
-	/obj/item/crowbar = 90
+		/obj/item/scalpel/laser/manager = 100,
+		TOOL_RETRACTOR = 100,
+		TOOL_CROWBAR = 90
 	)
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/open_encased/close/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -172,10 +173,10 @@
 	name = "mend bone"
 	allowed_tools = list(
 	TOOL_BONEGEL = 100,	\
-	/obj/item/screwdriver = 90
+	TOOL_SCREWDRIVER = 90
 	)
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/open_encased/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -199,6 +200,6 @@
 	var/self_msg = "<span class='notice'> You applied \the [tool] to [target]'s [affected.encased].</span>"
 	user.visible_message(msg, self_msg)
 
-	affected.open = 2
+	affected.open = 2 // TODO WHAT DO THESE OPEN VALUES EVEN MEAN
 
 	return TRUE

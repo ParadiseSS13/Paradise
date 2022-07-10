@@ -8,7 +8,6 @@
 /datum/surgery/cavity_implant/soft
 	name = "Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize)
-
 	possible_locs = list("groin")
 
 /datum/surgery/cavity_implant/synth
@@ -16,24 +15,6 @@
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest","head","groin")
 	requires_organic_bodypart = FALSE
-
-/datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return FALSE
-	if(affected.is_robotic())
-		return FALSE
-	return TRUE
-
-/datum/surgery/cavity_implant/synth/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return FALSE
-	return affected.is_robotic()
 
 /datum/surgery_step/cavity
 
@@ -66,12 +47,12 @@
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
 	allowed_tools = list(
-	/obj/item/surgicaldrill = 100,	\
-	/obj/item/pen = 90,	\
-	/obj/item/stack/rods = 60
+		TOOL_DRILL = 100,
+		/obj/item/pen = 90,
+		/obj/item/stack/rods = 60
 	)
 
-	time = 54
+	time = 5.4 SECONDS
 
 /datum/surgery_step/cavity/make_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -91,13 +72,13 @@
 	name = "close cavity space"
 	allowed_tools = list(
 	/obj/item/scalpel/laser = 100, \
-	/obj/item/cautery = 100,			\
+	TOOL_CAUTERY = 100,			\
 	/obj/item/clothing/mask/cigarette = 90,	\
 	/obj/item/lighter = 60,			\
-	/obj/item/weldingtool = 30
+	TOOL_WELDER = 30
 	)
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/cavity/close_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -121,7 +102,7 @@
 	var/obj/item/IC = null
 	allowed_tools = list(/obj/item = 100)
 
-	time = 32
+	time = 3.2 SECONDS
 
 
 /datum/surgery_step/cavity/place_item/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

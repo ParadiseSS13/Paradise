@@ -64,6 +64,7 @@
  * by adding new steps to the current surgery.
  */
 /datum/surgery_step/proxy
+	name = "Intermediate Operation"
 	/// Optional surgery TYPES that we can branch out to
 	/// Note that these must not share any starting tools.
 	var/list/branches = list()
@@ -83,7 +84,11 @@
 	for(var/branch_type in branches)
 		if(!ispath(branch_type, /datum/surgery))
 			CRASH("proxy surgery [src] was given a branch type [branch_type] that isn't a subtype of /datum/surgery!")
+		var/datum/surgery/new_surgery = new branch_type()
+		// Add our proxy step as well so we can choose to perform multiple branches after we finish this one.
+		new_surgery.steps.Add(src)
 		branches_init.Add(new branch_type())
+
 	. = ..()
 
 
@@ -138,7 +143,9 @@
 		// Let them try other tools if necessary.
 		return TRUE
 
-	// Insert the steps in our intermediate surgery into the current surgery
+	// Insert the steps in our intermediate surgery into the current surgery.
+
+
 	// Also, bump the status so we skip past this step.
 	surgery.steps.Insert(surgery.status + 1, next_surgery.steps)
 	surgery.status++
@@ -149,6 +156,7 @@
 
 
 /datum/surgery_step/proxy/open_chest
+	name = ""
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone

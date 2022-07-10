@@ -1,4 +1,6 @@
 ///Datum Surgery Helpers//
+
+
 /datum/surgery
 	/// Name of the surgery
 	var/name
@@ -25,7 +27,7 @@
 	/// Surgery step speed modifier
 	var/speed_modifier = 0
 	/// Some surgeries might work on limbs that don't really exist (like chainsaw arms or flashlight eyes)
-	var/requires_real_bodypart = FALSE
+	var/requires_real_bodypart = TRUE
 	/// Does the victim (patient) need to be lying down?
 	var/lying_required = TRUE
 	/// Can the surgery be performed on yourself?
@@ -157,7 +159,7 @@
 	/// Whether this surgery step can cause an infection.
 	var/can_infect = FALSE
 	/// How much blood this step can get on surgeon. 1 - hands, 2 - full body.
-	var/blood_level = 0
+	var/blood_level = SURGERY_BLOODSPREAD_NONE
 
 /datum/surgery_step/proc/is_valid_tool(mob/living/user, obj/item/tool)
 	var/success = FALSE
@@ -345,10 +347,11 @@
 			spread_germs_to_organ(affected, user, tool)
 	if(ishuman(user) && !istype(target,/mob/living/carbon/alien) && prob(60))
 		var/mob/living/carbon/human/H = user
-		if(blood_level)
-			H.bloody_hands(target, 0)
-		if(blood_level > 1)
-			H.bloody_body(target, 0)
+		switch(blood_level)
+			if(SURGERY_BLOODSPREAD_HANDS)
+				H.bloody_hands(target, 0)
+			if(SURGERY_BLOODSPREAD_FULLBODY)
+				H.bloody_body(target, 0)
 	return
 
 /**

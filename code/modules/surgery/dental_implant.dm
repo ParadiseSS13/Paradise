@@ -13,7 +13,7 @@
 /datum/surgery_step/insert_pill
 	name = "insert pill"
 	allowed_tools = list(/obj/item/reagent_containers/food/pill = 100)
-	time = 16
+	time = 1.6 SECONDS
 
 /datum/surgery_step/insert_pill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] begins to wedge \the [tool] in [target]'s [parse_zone(target_zone)].", "<span class='notice'>You begin to wedge [tool] in [target]'s [parse_zone(target_zone)]...</span>")

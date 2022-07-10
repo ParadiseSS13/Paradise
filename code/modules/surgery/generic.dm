@@ -3,7 +3,7 @@
 //						COMMON STEPS							//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/datum/surgery_step/generic/
+/datum/surgery_step/generic
 	can_infect = TRUE
 
 /datum/surgery_step/generic/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -215,6 +215,7 @@
 	time = 100
 
 /datum/surgery_step/generic/amputate/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	// TODO again, why is this here and not in the surgery itself?
 	if(target_zone == "eyes")	//there are specific steps for eye surgery
 		return FALSE
 	if(!hasorgans(target))

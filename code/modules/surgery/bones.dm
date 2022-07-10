@@ -7,7 +7,6 @@
 	name = "Bone Repair"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
-	requires_bodypart = TRUE
 
 /datum/surgery/bone_repair/skull
 	name = "Skull Repair"
@@ -18,10 +17,6 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return FALSE
-		if(affected.is_robotic())
-			return FALSE
 		if(affected.limb_flags & CANNOT_BREAK)
 			return FALSE
 		if(affected.status & ORGAN_BROKEN)
@@ -34,13 +29,13 @@
 	name = "mend bone"
 
 	allowed_tools = list(
-	/obj/item/bonegel = 100,	\
-	/obj/item/screwdriver = 90
+		TOOL_BONEGEL = 100,
+		TOOL_SCREWDRIVER = 90
 	)
 	can_infect = TRUE
-	blood_level = 1
+	blood_level = SURGERY_BLOODSPREAD_HANDS
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/glue_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -70,11 +65,11 @@
 	name = "set bone"
 
 	allowed_tools = list(
-	/obj/item/bonesetter = 100,	\
-	/obj/item/wrench = 90	\
+		TOOL_BONESET = 100,
+		TOOL_WRENCH = 90
 	)
 
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/set_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -109,11 +104,11 @@
 	name = "mend skull"
 
 	allowed_tools = list(
-	/obj/item/bonesetter = 100,	\
-	/obj/item/wrench = 90		\
+		TOOL_BONESET = 100,
+		TOOL_WRENCH = 90
 	)
 
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/mend_skull/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -144,13 +139,13 @@
 	name = "medicate bones"
 
 	allowed_tools = list(
-	/obj/item/bonegel = 100,	\
-	/obj/item/screwdriver = 90
+		TOOL_BONEGEL = 100,
+		TOOL_SCREWDRIVER = 90
 	)
 	can_infect = TRUE
-	blood_level = 1
+	blood_level = SURGERY_BLOODSPREAD_HANDS
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/finish_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
