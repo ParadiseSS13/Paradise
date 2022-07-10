@@ -94,9 +94,6 @@
 	if(!istype(T))
 		return
 
-	if(T.intact && node && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
-		vent_icon += "h"
-
 	if(welded)
 		vent_icon += "weld"
 	else if(!powered())
@@ -104,7 +101,7 @@
 	else
 		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
+	overlays += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
 
 	update_pipe_image()
 
@@ -121,6 +118,8 @@
 				add_underlay(T, node, dir, node.icon_connect_type)
 			else
 				add_underlay(T,, dir)
+			var/icon/frame = icon('icons/atmos/vent_pump.dmi', "frame")
+			underlays += frame
 
 /obj/machinery/atmospherics/unary/vent_pump/hide()
 	update_icon()

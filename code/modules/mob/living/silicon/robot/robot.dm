@@ -79,9 +79,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	//var/list/laws = list()
 	var/viewalerts = FALSE
 	var/modtype = "Default"
-	var/lower_mod = 0
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
-	var/jeton = 0
 	var/low_power_mode = FALSE //whether the robot has no charge left.
 	var/weapon_lock = FALSE
 	var/weaponlock_time = 120
