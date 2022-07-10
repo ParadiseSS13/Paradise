@@ -19,7 +19,6 @@
 
 	*/
 
-	var/exposedwires = 0
 	var/wires = 3
 	/*
 	Bitflag,	1=checkID

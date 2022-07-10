@@ -12,8 +12,6 @@
 
 	var/active = FALSE
 	var/power_gen = 5000
-	var/open = 0
-	var/recent_fault = 0
 	var/power_output = 1
 	var/base_icon = "portgen0"
 

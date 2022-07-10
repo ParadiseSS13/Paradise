@@ -7,7 +7,7 @@
 	item_state = "ionrifle"
 	origin_tech = "combat=6;materials=7;powerstorage=5;bluespace=5;syndicate=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/teleport)
-	shaded_charge = 1
+	shaded_charge = TRUE
 	var/teleport_target = null
 
 /obj/item/gun/energy/telegun/Destroy()
@@ -24,7 +24,7 @@
 			continue
 		if(!is_teleport_allowed(T.z))
 			continue
-		if(R.syndicate == 1)
+		if(R.syndicate)
 			continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])

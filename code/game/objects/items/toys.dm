@@ -1475,8 +1475,8 @@
 	icon_state = "fireripleytoy"
 
 /obj/item/toy/figure/mech/deathripley
-	name = "toy Death Squad Ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 3/11. This one is the black ripley used by the hero of DeathSquad, that TV drama about loose-cannon ERT officers!"
+	name = "toy Deathsquad Ripley"
+	desc = "Mini-Mecha action figure! Collect them all! 3/11. This one is the black ripley used by the hero of Deathsquad, that TV drama about loose-cannon ERT officers!"
 	icon_state = "deathripleytoy"
 
 /obj/item/toy/figure/mech/gygax
