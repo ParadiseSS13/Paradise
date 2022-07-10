@@ -2164,7 +2164,8 @@
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/white = 2,
 					/obj/item/clothing/shoes/black = 2,
-					/obj/item/clothing/accessory/waistcoat = 2)
+					/obj/item/clothing/accessory/waistcoat = 2,
+					/obj/item/reagent_containers/glass/rag = 3)
 	contraband = list(/obj/item/toy/figure/crew/chef = 1)
 	refill_canister = /obj/item/vending_refill/chefdrobe
 

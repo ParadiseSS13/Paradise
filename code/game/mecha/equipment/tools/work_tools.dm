@@ -1,4 +1,9 @@
+
 //Hydraulic clamp, Kill clamp, Extinguisher, RCD, Mime RCD, Cable layer.
+
+#define MECH_RCD_MODE_DECONSTRUCT 0
+#define MECH_RCD_MODE_WALL_OR_FLOOR 1
+#define MECH_RCD_MODE_AIRLOCK 2
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
 	name = "hydraulic clamp"
@@ -13,13 +18,12 @@
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/working/ripley/M)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/attach(obj/mecha/M)
 	..()
 	cargo_holder = M
-	return
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/detach(atom/moveto = null)
 	..()
@@ -92,11 +96,11 @@
 		if(!O.anchored)
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-				O.anchored = 1
+				O.anchored = TRUE
 				if(do_after_cooldown(target))
 					cargo_holder.cargo += O
-					O.loc = chassis
-					O.anchored = 0
+					O.forceMove(chassis)
+					O.anchored = FALSE
 					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 				else
@@ -119,7 +123,7 @@
 		else
 			step_away(M,chassis)
 			target.visible_message("[chassis] tosses [target] like a piece of paper.")
-			return 1
+			return
 
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher
@@ -134,7 +138,6 @@
 	create_reagents(1000)
 	reagents.add_reagent("water", 1000)
 	..()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -177,7 +180,7 @@
 						if(W.loc == my_target)
 							break
 						sleep(2)
-		return 1
+		return
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/get_equip_info()
 	return "[..()] \[[src.reagents.total_volume]\]"
@@ -188,8 +191,8 @@
 /obj/item/mecha_parts/mecha_equipment/extinguisher/can_attach(obj/mecha/working/M)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 
 /obj/item/mecha_parts/mecha_equipment/rcd
@@ -201,7 +204,7 @@
 	energy_drain = 250
 	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
-	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
+	var/mode = MECH_RCD_MODE_DECONSTRUCT
 	var/canRwall = 0
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
@@ -226,7 +229,7 @@
 	playsound(chassis, 'sound/machines/click.ogg', 50, 1)
 
 	switch(mode)
-		if(0)
+		if(MECH_RCD_MODE_DECONSTRUCT)
 			if(istype(target, /turf/simulated/wall))
 				if((istype(target, /turf/simulated/wall/r_wall) && !canRwall) || istype(target, /turf/simulated/wall/indestructible))
 					return 0
@@ -250,7 +253,7 @@
 					chassis.spark_system.start()
 					qdel(target)
 					playsound(target, usesound, 50, 1)
-		if(1)
+		if(MECH_RCD_MODE_WALL_OR_FLOOR)
 			if(istype(target, /turf/space))
 				var/turf/space/S = target
 				occupant_message("Building Floor...")
@@ -265,13 +268,13 @@
 					F.ChangeTurf(/turf/simulated/wall)
 					playsound(F, usesound, 50, 1)
 					chassis.spark_system.start()
-		if(2)
+		if(MECH_RCD_MODE_AIRLOCK)
 			if(istype(target, /turf/simulated/floor))
 				occupant_message("Building Airlock...")
 				if(do_after_cooldown(target))
 					chassis.spark_system.start()
 					var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock(target)
-					T.autoclose = 1
+					T.autoclose = TRUE
 					playsound(target, usesound, 50, 1)
 					playsound(target, 'sound/effects/sparks2.ogg', 50, 1)
 
@@ -281,11 +284,11 @@
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
 		switch(mode)
-			if(0)
+			if(MECH_RCD_MODE_DECONSTRUCT)
 				occupant_message("Switched RCD to Deconstruct.")
-			if(1)
+			if(MECH_RCD_MODE_WALL_OR_FLOOR)
 				occupant_message("Switched RCD to Construct.")
-			if(2)
+			if(MECH_RCD_MODE_AIRLOCK)
 				occupant_message("Switched RCD to Construct Airlock.")
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_equip_info()
@@ -304,8 +307,8 @@
 /obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/reticence/M)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/action(atom/target)
 	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
@@ -341,13 +344,12 @@
 /obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/working/M)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach()
 	..()
 	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, .proc/layCable)
-	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach()
 	UnregisterSignal(chassis, COMSIG_MOVABLE_MOVED)
@@ -391,26 +393,24 @@
 				CC.amount = m
 		else
 			occupant_message("There's no more cable on the reel.")
-	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/get_equip_info()
 	var/output = ..()
 	if(output)
 		return "[output] \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='?src=[UID()];cut=1'>Cut</a>" : null]"
-	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/use_cable(amount)
 	if(!cable || cable.amount<1)
 		set_ready_state(1)
 		occupant_message("Cable depleted, [src] deactivated.")
 		log_message("Cable depleted, [src] deactivated.")
-		return
+		return FALSE
 	if(cable.amount < amount)
 		occupant_message("No enough cable to finish the task.")
-		return
+		return FALSE
 	cable.use(amount)
 	update_equip_info()
-	return 1
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/reset()
 	last_piece = null
@@ -456,3 +456,7 @@
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
 	return TRUE
+
+#undef MECH_RCD_MODE_DECONSTRUCT
+#undef MECH_RCD_MODE_WALL_OR_FLOOR
+#undef MECH_RCD_MODE_AIRLOCK

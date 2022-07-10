@@ -47,7 +47,7 @@
 			return "<span class='danger'>It looks heavily damaged.</span>"
 
 /obj/structure/falsewall/Destroy()
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	return ..()
 
@@ -189,7 +189,7 @@
 	base_icon_state = "uranium_wall"
 	mineral = /obj/item/stack/sheet/mineral/uranium
 	walltype = /turf/simulated/wall/mineral/uranium
-	var/active = null
+	var/active = FALSE
 	var/last_event = 0
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
@@ -205,13 +205,13 @@
 
 /obj/structure/falsewall/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event + 15)
-			active = 1
+		if(world.time > last_event + 1.5 SECONDS)
+			active = TRUE
 			radiation_pulse(src, 150)
 			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time
-			active = null
+			active = FALSE
 /*
  * Other misc falsewall types
  */

@@ -105,16 +105,11 @@
 
 /obj/structure/inflatable/door //Based on mineral door code
 	name = "inflatable door"
-	density = TRUE
-	anchored = TRUE
-	opacity = FALSE
-
-	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
 	intact = /obj/item/inflatable/door
 
-	var/open = FALSE
+	var/state_open = FALSE
 	var/is_operating = FALSE
 
 /obj/structure/inflatable/door/detailed_examine()
@@ -159,20 +154,20 @@
 /obj/structure/inflatable/door/proc/operate()
 	is_operating = TRUE
 	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
-	if(!open)
+	if(!state_open)
 		flick("door_opening",src)
 	else
 		flick("door_closing",src)
 	sleep(10)
 	density = !density
 	opacity = !opacity
-	open = !open
+	state_open = !state_open
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 	air_update_turf(1)
 
 /obj/structure/inflatable/door/update_icon_state()
-	if(open)
+	if(state_open)
 		icon_state = "door_open"
 	else
 		icon_state = "door_closed"

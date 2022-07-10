@@ -388,7 +388,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, "Assistant")
 		else if(player.client.prefs.active_character.alternate_option == RETURN_TO_LOBBY)
-			player.ready = 0
+			player.ready = FALSE
 			unassigned -= player
 
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
@@ -539,7 +539,7 @@ SUBSYSTEM_DEF(jobs)
 		var/never = 0 //never
 		var/banned = 0 //banned
 		var/young = 0 //account too young
-		var/disabled = 0 //has disability rendering them ineligible
+		var/disabled = FALSE //has disability rendering them ineligible
 		for(var/mob/new_player/player in GLOB.player_list)
 			if(!(player.ready && player.mind && !player.mind.assigned_role))
 				continue //This player is not ready

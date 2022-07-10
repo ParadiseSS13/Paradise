@@ -12,7 +12,7 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
 	var/initial_state
-	var/open = FALSE
+	var/state_open = FALSE
 	var/is_operating = FALSE
 	var/close_delay = -1 //-1 if does not auto close.
 
@@ -40,7 +40,7 @@
 
 /obj/structure/mineral_door/Bumped(atom/user)
 	..()
-	if(!open)
+	if(!state_open)
 		return try_to_operate(user)
 
 /obj/structure/mineral_door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
@@ -83,7 +83,7 @@
 
 /obj/structure/mineral_door/proc/operate()
 	is_operating = TRUE
-	if(!open)
+	if(!state_open)
 		playsound(loc, openSound, 100, 1)
 		flick("[initial_state]opening",src)
 	else
@@ -95,16 +95,16 @@
 	sleep(10)
 	density = !density
 	opacity = !opacity
-	open = !open
+	state_open = !state_open
 	air_update_turf(1)
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 
-	if(open && close_delay != -1)
+	if(state_open && close_delay != -1)
 		addtimer(CALLBACK(src, .proc/operate), close_delay)
 
 /obj/structure/mineral_door/update_icon_state()
-	if(open)
+	if(state_open)
 		icon_state = "[initial_state]open"
 	else
 		icon_state = initial_state

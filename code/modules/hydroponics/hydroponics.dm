@@ -24,7 +24,7 @@
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
 	var/wrenchable = TRUE
-	var/lid_state = 0
+	var/lid_closed = FALSE
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
 	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
 	var/self_sufficiency_req = 20 //Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
@@ -123,8 +123,8 @@
 	if(!user || user.stat || user.restrained())
 		return
 
-	lid_state = !lid_state
-	to_chat(user, "<span class='notice'>You [lid_state ? "close" : "open"] the tray's lid.</span>")
+	lid_closed = !lid_closed
+	to_chat(user, "<span class='notice'>You [lid_closed ? "close" : "open"] the tray's lid.</span>")
 	update_icon()
 
 
@@ -285,7 +285,7 @@
 			. += "gaia_blessing"
 		set_light(3)
 
-	if(lid_state)
+	if(lid_closed)
 		. += "hydrocover"
 
 	if(myseed)
@@ -921,7 +921,7 @@
 /obj/machinery/hydroponics/attack_hand(mob/user)
 	if(issilicon(user)) //How does AI know what plant is?
 		return
-	if(lid_state)
+	if(lid_closed)
 		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
 		return
 	if(harvest)
@@ -1006,13 +1006,12 @@
 		if(weedlevel > 0)
 			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)
-			update_icon()
 			visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
 		else if(nutrilevel < 10)
 			user.adjust_nutrition(-((10 - nutrilevel) * 5))
 			adjustNutri(10)
-			update_icon()
 			visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>","<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")
+		update_icon()
 	else
 		return ..()
 

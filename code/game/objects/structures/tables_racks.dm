@@ -35,7 +35,7 @@
 	var/buildstackamount = 1
 	var/framestackamount = 2
 	var/deconstruction_ready = TRUE
-	var/flipped = 0
+	var/flipped = FALSE
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
@@ -336,7 +336,7 @@
 	dir = direction
 	if(dir != NORTH)
 		layer = 5
-	flipped = 1
+	flipped = TRUE
 	smoothing_flags = NONE
 	flags |= ON_BORDER
 	for(var/D in list(turn(direction, 90), turn(direction, -90)))
@@ -362,7 +362,7 @@
 	verbs +=/obj/structure/table/verb/do_flip
 
 	layer = initial(layer)
-	flipped = 0
+	flipped = FALSE
 	smoothing_flags = initial(smoothing_flags)
 	flags &= ~ON_BORDER
 	for(var/D in list(turn(dir, 90), turn(dir, -90)))
@@ -718,7 +718,7 @@
 /obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
 		return 1
-	if(density == 0) //Because broken racks -Agouri |TODO: SPRITE!|
+	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1

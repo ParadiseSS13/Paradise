@@ -10,7 +10,7 @@
 	var/list/barsigns=list()
 	var/list/hiddensigns
 	var/prev_sign = ""
-	var/panel_open = 0
+	var/panel_open = FALSE
 
 /obj/structure/sign/barsign/Initialize(mapload)
 	. = ..()
@@ -72,7 +72,7 @@
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
 			set_sign(new /datum/barsign/hiddensigns/signoff)
-			panel_open = 1
+			panel_open = TRUE
 		else
 			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
 			if(!broken && !emagged)
@@ -81,7 +81,7 @@
 				set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 			else
 				set_sign(new /datum/barsign/hiddensigns/empbarsign)
-			panel_open = 0
+			panel_open = FALSE
 
 	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
 		var/obj/item/stack/cable_coil/C = I
@@ -94,7 +94,7 @@
 
 		if(C.use(2))
 			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
-			broken = 0
+			broken = FALSE
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
 	else
@@ -104,7 +104,7 @@
 
 /obj/structure/sign/barsign/emp_act(severity)
     set_sign(new /datum/barsign/hiddensigns/empbarsign)
-    broken = 1
+    broken = TRUE
 
 
 
@@ -120,7 +120,7 @@
 	if(broken || emagged)
 		return
 	set_sign(new /datum/barsign/hiddensigns/syndibarsign)
-	emagged = 1
+	emagged = TRUE
 	req_access = list(ACCESS_SYNDICATE)
 
 

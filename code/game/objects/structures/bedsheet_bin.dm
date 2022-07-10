@@ -235,7 +235,7 @@ LINEN BINS
 	desc = "A linen bin. It looks rather cosy."
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "linenbin-full"
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	var/amount = 20

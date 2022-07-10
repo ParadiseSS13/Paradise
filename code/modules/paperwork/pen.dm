@@ -137,16 +137,16 @@
  */
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
-	var/on = 0
+	var/on = FALSE
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
 	armour_penetration = 20
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
-		on = 0
+		on = FALSE
 		force = initial(force)
-		sharp = 0
+		sharp = FALSE
 		w_class = initial(w_class)
 		name = initial(name)
 		attack_verb = list()
@@ -157,9 +157,9 @@
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
 		set_light(0)
 	else
-		on = 1
+		on = TRUE
 		force = 18
-		sharp = 1
+		sharp = TRUE
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")

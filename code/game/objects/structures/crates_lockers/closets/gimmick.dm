@@ -30,7 +30,7 @@
 	desc = "It's a storage unit for things that have no right being here."
 	icon_state = "syndicate1"
 	open_door_sprite = "syndicate1_door"
-	anchored = 0
+	anchored = FALSE
 
 /obj/structure/closet/gimmick/russian
 	name = "russian surplus closet"
@@ -79,7 +79,7 @@
 	desc = "Everything you need!"
 	icon_state = "syndicate"
 	open_door_sprite = "syndicate_door"
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/closet/thunderdome/tdred
 	name = "red-team Thunderdome closet"

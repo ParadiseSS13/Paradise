@@ -11,15 +11,15 @@
 
 /obj/machinery/mech_bay_recharge_port
 	name = "mech bay power port"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	dir = EAST
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "recharge_port"
 	var/obj/mecha/recharging_mecha
 	var/obj/machinery/computer/mech_bay_power_console/recharge_console
 	var/max_charge = 50
-	var/on = 0
+	var/on = FALSE
 	var/turf/recharging_turf = null
 
 /obj/machinery/mech_bay_recharge_port/Initialize(mapload)
@@ -112,8 +112,8 @@
 
 /obj/machinery/computer/mech_bay_power_console
 	name = "mech bay power control console"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "recharge_comp"
