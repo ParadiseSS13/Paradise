@@ -51,7 +51,7 @@
 /datum/status_effect/his_grace/on_remove()
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
 	if(islist(owner.stun_absorption) && owner.stun_absorption["hisgrace"])
-		owner.stun_absorption -= "hisgrace"
+		owner.remove_stun_absorption("hisgrace")
 
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
@@ -132,7 +132,7 @@
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
-		owner.stun_absorption -= "blooddrunk"
+		owner.remove_stun_absorption("blooddrunk")
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"
@@ -212,7 +212,7 @@
 	var/mob/living/carbon/human/H = owner
 	H.cut_overlay(shield)
 	if(islist(owner.stun_absorption) && owner.stun_absorption["[id]"])
-		owner.stun_absorption -= "[id]"
+		owner.remove_stun_absorption("[id]")
 	H.physiology.stamina_mod /= 0.1
 	H.physiology.brute_mod /= 0.5
 	H.physiology.burn_mod /= 0.5
@@ -420,13 +420,9 @@
 /datum/status_effect/chainsaw_slaying/on_remove()
 	add_attack_logs(owner, owner, "lost chainsaw stun immunity", ATKLOG_ALL)
 	if(islist(owner.stun_absorption) && owner.stun_absorption["chainsaw"])
-		owner.stun_absorption -= "chainsaw"
+		owner.remove_stun_absorption("chainsaw")
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.brute_mod /= 0.8
 		H.physiology.burn_mod /=0.8
 		H.physiology.stamina_mod /= 0.8
-		var/stamina = H.getStaminaLoss()
-		if(stamina < 100)
-			return
-		H.enter_stamcrit()

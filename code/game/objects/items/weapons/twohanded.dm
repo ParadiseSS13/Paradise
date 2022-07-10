@@ -605,7 +605,6 @@
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
 	armour_penetration = 35
-	block_chance = 80 //Melee only, only for 5 seconds after hittitng someone
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
@@ -637,8 +636,8 @@
 /obj/item/twohanded/chainsaw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		final_block_chance = 0 //It's a chainsaw, you try blocking bullets with it
-	if(!owner.has_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING))
-		final_block_chance = 0 //Need to be ready to ruuuummbllleeee
+	else if(owner.has_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING))
+		final_block_chance = 80 //Need to be ready to ruuuummbllleeee
 	return ..()
 
 /obj/item/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
