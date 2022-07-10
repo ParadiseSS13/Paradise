@@ -153,6 +153,7 @@
 /datum/status_effect/cult_stun_mark
 	id = "cult_stun"
 	duration = 10 SECONDS // the when they stand back up, it will be over
+	alert_type = null
 	var/mutable_appearance/overlay
 
 /datum/status_effect/cult_stun_mark/on_apply()
