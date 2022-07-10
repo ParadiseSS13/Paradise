@@ -90,7 +90,6 @@
 //	luminosity = 1
 	var/has_electronics = 0 // 0 - none, 1 - plugged in, 2 - secured by screwdriver
 	var/overload = 1 //used for the Blackout malf module
-	var/beenhit = 0 // used for counting how many times it has been hit, used for Aliens at the moment
 	var/mob/living/silicon/ai/occupier = null
 	var/longtermpower = 10
 	var/update_state = -1
@@ -98,14 +97,12 @@
 	var/global/status_overlays = 0
 	var/updating_icon = 0
 	var/datum/wires/apc/wires = null
-	//var/debug = 0
 	var/global/list/status_overlays_lock
 	var/global/list/status_overlays_charging
 	var/global/list/status_overlays_equipment
 	var/global/list/status_overlays_lighting
 	var/global/list/status_overlays_environ
-	var/indestructible = 0 // If set, prevents aliens from destroying it
-	var/keep_preset_name = 0
+	var/keep_preset_name = FALSE
 	/// Was this APC built instead of already existing? Used for malfhack to keep borgs from building apcs in space
 	var/constructed = FALSE
 

@@ -74,8 +74,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/machinery/r_n_d/protolathe/linked_lathe = null				//Linked Protolathe
 	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
 
-	var/screen = 1.0	//Which screen is currently showing.
-
 	var/menu = MENU_MAIN
 	var/submenu = SUBMENU_MAIN
 	var/wait_message = 0
