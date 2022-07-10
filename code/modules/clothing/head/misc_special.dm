@@ -36,6 +36,9 @@
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
+/obj/item/clothing/head/welding/attack_self(mob/user)
+	weldingvisortoggle(user)
+
 /obj/item/clothing/head/welding/flamedecal
 	name = "flame decal welding helmet"
 	desc = "A welding helmet adorned with flame decals, and several cryptic slogans of varying degrees of legibility."
