@@ -650,7 +650,11 @@
 	for(var/path in spells_path)
 		var/obj/effect/proc_holder/spell/S = new path()
 		LearnSpell(user, book, S)
+	OnBuy(user, book)
 	return TRUE
+
+/datum/spellbook_entry/loadout/proc/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	return
 
 /obj/item/spellbook
 	name = "spell book"
@@ -902,7 +906,7 @@
 /obj/item/spellbook/oneuse
 	var/spell = /obj/effect/proc_holder/spell/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
 	var/spellname = "sandbox"
-	var/used = 0
+	var/used = FALSE
 	name = "spellbook of "
 	uses = 1
 	desc = "This template spellbook was never meant for the eyes of man..."
@@ -937,7 +941,7 @@
 	user.visible_message("<span class='warning'>[src] glows in a black light!</span>")
 
 /obj/item/spellbook/oneuse/proc/onlearned(mob/user)
-	used = 1
+	used = TRUE
 	user.visible_message("<span class='caution'>[src] glows dark for a second!</span>")
 
 /obj/item/spellbook/oneuse/attackby()

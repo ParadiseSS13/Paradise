@@ -145,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 37
+sql_version = 40
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -558,6 +558,8 @@ mc_highpop_threshold_disable = 60
 base_run_speed = 1
 # Base walk speed before modifiers
 base_walk_speed = 4
+# Move delay added from crawling
+crawling_speed_reduction = 4
 # Move delay for humanoids
 human_delay = 1.5
 # Move delay for cyborgs
@@ -606,7 +608,7 @@ redis_connstring = "redis://127.0.0.1/"
 
 # Whether to load the lavaland Z-level.
 enable_lavaland = true
-# Globally enable and disable placing of space ruins. Lava ruins will still place.
+# Globally enable and disable placing of all ruins, including lavaland ruins and lavaland tendrils.
 enable_space_ruins = false
 # Minimum number of extra zlevels to generate and fill with ruins
 minimum_zlevels = 2

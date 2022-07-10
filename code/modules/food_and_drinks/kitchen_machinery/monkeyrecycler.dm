@@ -6,8 +6,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
 	layer = 2.9
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
@@ -18,8 +18,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	var/obj/item/reagent_containers/food/snacks/monkeycube/cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 	var/list/connected = list()
 
-/obj/machinery/monkey_recycler/New()
-	..()
+/obj/machinery/monkey_recycler/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/monkey_recycler(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)

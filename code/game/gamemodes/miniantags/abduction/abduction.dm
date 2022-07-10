@@ -14,7 +14,7 @@
 	var/list/datum/mind/agents = list()
 	var/list/datum/objective/team_objectives = list()
 	var/list/team_names = list()
-	var/finished = 0
+	var/finished = FALSE
 	var/list/datum/mind/possible_abductors = list()
 
 /datum/game_mode/abduction/announce()
@@ -188,7 +188,7 @@
 			if(con.experiment.points >= objective.target_amount)
 				SSshuttle.emergency.request(null, 0.5, reason = "Large amount of abnormal thought patterns detected. All crew are recalled for mandatory evaluation and reconditioning.")
 				SSshuttle.emergency.canRecall = FALSE
-				finished = 1
+				finished = TRUE
 				return ..()
 	return ..()
 

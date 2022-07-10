@@ -5,9 +5,9 @@
 	name = "manual valve"
 	desc = "A pipe valve."
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
-	var/open = 0
+	var/open = FALSE
 
 	req_one_access_txt = "24;10"
 
@@ -19,7 +19,7 @@
 	return "Click this to turn the valve. If red, the pipes on each end are separated. Otherwise, they are connected."
 
 /obj/machinery/atmospherics/binary/valve/open
-	open = 1
+	open = TRUE
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/update_icon(animation)
@@ -40,7 +40,7 @@
 		add_underlay(T, node2, get_dir(src, node2))
 
 /obj/machinery/atmospherics/binary/valve/proc/open()
-	open = 1
+	open = TRUE
 	update_icon()
 	parent1.update = 0
 	parent2.update = 0
@@ -49,7 +49,7 @@
 	return
 
 /obj/machinery/atmospherics/binary/valve/proc/close()
-	open = 0
+	open = FALSE
 	update_icon()
 	investigate_log("was closed by [usr ? key_name(usr) : "a remote signal"]", "atmos")
 	return
@@ -98,7 +98,7 @@
 	..()
 
 /obj/machinery/atmospherics/binary/valve/digital/open
-	open = 1
+	open = TRUE
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/digital/power_change()

@@ -37,6 +37,7 @@
 	M.SetWeakened(0)
 	M.SetStunned(0)
 	M.SetImmobilized(0)
+	M.SetKnockDown(0)
 	M.SetParalysis(0)
 	M.SetSilence(0)
 	M.SetHallucinate(0)

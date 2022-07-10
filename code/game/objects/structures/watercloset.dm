@@ -15,7 +15,7 @@
 
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
-	open = round(rand(0, 1))
+	open = prob(50)
 	update_icon()
 
 /obj/structure/toilet/Destroy()

@@ -479,7 +479,7 @@
 /mob/living/simple_animal/pet/dog/corgi/Ian/handle_automated_movement()
 	. = ..()
 	//Feeding, chasing food, FOOOOODDDD
-	if(resting || buckled)
+	if(IS_HORIZONTAL(src) || buckled)
 		return
 
 	if(++turns_since_scan > 5)
@@ -633,7 +633,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/Lisa/handle_automated_movement()
 	. = ..()
-	if(!resting && !buckled)
+	if(!IS_HORIZONTAL(src) && !buckled)
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("dances around.","chases her tail."))
 			spin(20, 1)
@@ -729,7 +729,7 @@
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()
-	if(!resting && !buckled)
+	if(!IS_HORIZONTAL(src) && !buckled)
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("chases its tail."))
 			spawn(0)

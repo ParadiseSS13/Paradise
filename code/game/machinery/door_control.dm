@@ -5,9 +5,10 @@
 	icon_state = "doorctrl0"
 	power_channel = ENVIRON
 	var/id = null
-	var/safety_z_check = 1
-	var/normaldoorcontrol = 0
-	var/desiredstate = 0 // Zero is closed, 1 is open.
+	var/safety_z_check = TRUE
+	var/normaldoorcontrol = FALSE
+	/// FALSE is closed, TRUE is open.
+	var/desiredstate_open = FALSE
 	var/specialfunctions = 1
 	/*
 	Bitflag, 	1= open
@@ -25,7 +26,7 @@
 				2=Network Access
 	*/
 
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
@@ -43,7 +44,7 @@
 
 /obj/machinery/door_control/emag_act(user as mob)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		req_access = list()
 		req_one_access = list()
 		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -80,7 +81,7 @@
 						spawn(0)
 							D.close()
 							return
-				if(desiredstate == 1)
+				if(desiredstate_open)
 					if(specialfunctions & IDSCAN)
 						D.aiDisabledIdScanner = 1
 					if(specialfunctions & BOLTS)
@@ -113,7 +114,7 @@
 						M.close()
 						return
 
-	desiredstate = !desiredstate
+	desiredstate_open = !desiredstate_open
 	spawn(15)
 		if(!(stat & NOPOWER))
 			icon_state = "doorctrl0"

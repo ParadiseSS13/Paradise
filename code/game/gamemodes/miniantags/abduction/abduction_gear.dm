@@ -112,6 +112,7 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
+		M.SetKnockDown(0)
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 
@@ -273,7 +274,7 @@
 	for(var/obj/I in all_items)
 		if(istype(I, /obj/item/radio))
 			var/obj/item/radio/R = I
-			R.listening = 0 // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
+			R.listening = FALSE // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
 			R.emp_act(1)
 
 /obj/item/abductor/mind_device

@@ -102,6 +102,7 @@ Doesn't work on other aliens/AI.*/
 		var/obj/item/projectile/bullet/neurotoxin/A = new /obj/item/projectile/bullet/neurotoxin(usr.loc)
 		A.current = U
 		A.firer = src
+		A.firer_source_atom = src
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x
 		A.fire()

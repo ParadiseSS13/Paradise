@@ -159,6 +159,9 @@
 		if(SS_SLEEPING)
 			state = SS_PAUSING
 
+// Gets extra details for the subsystem stat panes
+/datum/controller/subsystem/proc/get_stat_details()
+	return
 
 //used to initialize the subsystem AFTER the map has loaded
 /datum/controller/subsystem/Initialize(start_timeofday)
@@ -172,16 +175,18 @@
 	if(!statclick)
 		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
 
-
+	var/ss_info = get_stat_details()
 
 	if(can_fire && !(SS_NO_FIRE & flags))
-		msg = "[round(cost, 1)]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[msg]"
+		msg = "[round(cost, 1)]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[ss_info]"
 	else
-		msg = "OFFLINE\t[msg]"
+		msg = "OFFLINE\t[ss_info]"
 
 	var/title = name
 	if(can_fire)
 		title = "[state_colour()]\[[state_letter()]][title]</font>"
+	else
+		title = "\[O][title]"
 
 	stat(title, statclick.update(msg))
 

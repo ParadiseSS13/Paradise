@@ -167,7 +167,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 	var/list/obj/structure/fillers = list()
 
-/obj/machinery/dna_vault/New()
+/obj/machinery/dna_vault/Initialize(mapload)
+	. = ..()
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
 	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))
@@ -186,8 +187,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			plants_max = G.plant_count
 			dna_max = G.human_count
 			break
-
-	..()
 
 /obj/machinery/dna_vault/update_icon()
 	..()
@@ -297,10 +296,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 		return
 	if(!completed)
 		return
-	var/datum/species/S = H.dna.species
-	if(HAS_TRAIT(H, TRAIT_GENELESS))
+	if(!istype(H) || HAS_TRAIT(H, TRAIT_GENELESS))
 		to_chat(H, "<span class='warning'>Error, no DNA detected.</span>")
 		return
+
+	var/datum/species/S = H.dna.species
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
 			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")

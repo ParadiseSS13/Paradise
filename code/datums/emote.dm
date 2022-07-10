@@ -249,6 +249,7 @@
 /**
  * Play the sound effect in an emote.
  * If you want to change the way the playsound call works, override this.
+ * Note! If you want age_based to work, you need to force vary to TRUE.
  * * user - The user of the emote.
  * * intentional - Whether or not the emote was triggered intentionally.
  * * sound_path - Filesystem path to the audio clip to play.
@@ -257,7 +258,8 @@
 /datum/emote/proc/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
 	if(age_based && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		playsound(user.loc, sound_path, sound_volume, vary, frequency = H.get_age_pitch())
+		// Vary needs to be true as otherwise frequency changes get ignored deep within playsound_local :(
+		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch())
 	else
 		playsound(user.loc, sound_path, sound_volume, vary)
 
@@ -480,7 +482,7 @@
 		return FALSE
 
 	if(check_mute(user.client?.ckey, MUTE_EMOTE))
-		to_chat(src, "<span class='warning'>You cannot send emotes (muted).</span>")
+		to_chat(user, "<span class='warning'>You cannot send emotes (muted).</span>")
 		return FALSE
 
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
@@ -494,7 +496,7 @@
 			if(stat)
 				to_chat(user, "<span class='warning'>You cannot [key] while [stat]!</span>")
 			return FALSE
-		if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
+		if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
 			// Don't let people blow their cover by mistake
 			return FALSE
 		if(hands_use_check && !user.can_use_hands() && (iscarbon(user)))
@@ -510,14 +512,14 @@
 	else
 		// deadchat handling
 		if(check_mute(user.client?.ckey, MUTE_DEADCHAT))
-			to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
+			to_chat(user, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
 			return FALSE
 		if(!(user.client?.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-			to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
+			to_chat(user, "<span class='warning'>You have deadchat muted.</span>")
 			return FALSE
 		if(!check_rights(R_ADMIN, FALSE, user))
 			if(!GLOB.dsay_enabled)
-				to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
+				to_chat(user, "<span class='warning'>Deadchat is globally muted</span>")
 				return FALSE
 
 /**

@@ -166,6 +166,7 @@
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/flash(src)
+	new /obj/item/gun/syringe(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 	new /obj/item/door_remote/chief_medical_officer(src)

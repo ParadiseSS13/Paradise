@@ -43,6 +43,9 @@
 /obj/machinery/computer/communications/New()
 	GLOB.shuttle_caller_list += src
 	..()
+
+/obj/machinery/computer/communications/Initialize(mapload)
+	. = ..()
 	crew_announcement.newscast = 0
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = 1)
@@ -272,7 +275,7 @@
 
 		if("RestoreBackup")
 			to_chat(usr, "Backup routing data restored!")
-			src.emagged = 0
+			emagged = FALSE
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("RestartNanoMob")
@@ -291,7 +294,7 @@
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)
-		src.emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
 		SStgui.update_uis(src)
 
@@ -411,8 +414,8 @@
 		menu_state=value
 
 /proc/call_shuttle_proc(mob/user, reason, sanitized = FALSE)
-	if(GLOB.sent_strike_team == 1)
-		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
+	if(GLOB.deathsquad_sent)
+		to_chat(user, "<span class='warning'>Central Command does not allow the shuttle to be called at this time. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 		return
 
 	if(SSshuttle.emergencyNoEscape)
@@ -443,8 +446,8 @@
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
 			return
 
-		if(GLOB.sent_strike_team == 1)
-			to_chat(user, "Central Command will not allow the shuttle to be called. Consider all contracts terminated.")
+		if(GLOB.deathsquad_sent)
+			to_chat(user, "<span class='warning'>Central Command does not allow the shuttle to be called at this time. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 			return
 
 		if(world.time < 54000) // 30 minute grace period to let the game get going

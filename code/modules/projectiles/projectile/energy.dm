@@ -4,7 +4,7 @@
 	damage = 0
 	damage_type = BURN
 	flag = "energy"
-	is_reflectable = TRUE
+	reflectability = REFLECTABILITY_ENERGY
 
 /obj/item/projectile/energy/electrode
 	name = "electrode"
@@ -146,4 +146,4 @@
 	damage_type = BURN
 	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
-	is_reflectable = FALSE //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.
+	reflectability = REFLECTABILITY_PHYSICAL //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard. Carp still can reflect though, screw you.
