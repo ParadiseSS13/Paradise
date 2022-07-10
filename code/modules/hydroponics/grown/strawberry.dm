@@ -15,7 +15,7 @@
 	icon_grow = "strawberry-grow"
 	icon_dead = "strawberry-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list("vitamin" = 0.1, "plantmatter" = 0.1)
+	reagents_add = list("vitamin" = 0.1, "plantmatter" = 0.1, "water" = 0.04)
 
 /obj/item/reagent_containers/food/snacks/grown/strawberry
 	seed = /obj/item/seeds/strawberry
