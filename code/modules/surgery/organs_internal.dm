@@ -2,20 +2,46 @@
 
 /datum/surgery/organ_manipulation
 	name = "Organ Manipulation"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
-	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_chest,
+		/datum/surgery_step/open_encased/saw,
+		/datum/surgery_step/open_encased/retract,
+		/datum/surgery_step/internal/manipulate_organs,
+		/datum/surgery_step/glue_bone,
+		/datum/surgery_step/set_bone,
+		/datum/surgery_step/finish_bone,
+		/datum/surgery_step/proxy/open_chest,
+		/datum/surgery_step/generic/cauterize
+	)
 	possible_locs = list("chest","head")
 	requires_organic_bodypart = TRUE
+	requires_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list("groin", "eyes", "mouth")
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
-	requires_organic_bodypart = TRUE
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_chest,
+		/datum/surgery_step/internal/manipulate_organs,
+		/datum/surgery_step/generic/cauterize
+	)
 
 /datum/surgery/organ_manipulation_boneless
 	name = "Organ Manipulation"
 	possible_locs = list("chest","head","groin", "eyes", "mouth", "l_arm", "r_arm")
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_chest,
+		/datum/surgery_step/internal/manipulate_organs,
+		/datum/surgery_step/generic/cauterize
+	)
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/alien
@@ -29,11 +55,6 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			// I'd like to see you do surgery on LITERALLY NOTHING
-			return FALSE
-		if(affected.is_robotic())
-			return FALSE
 		if(!affected.encased) //no bone, problem.
 			return FALSE
 		return TRUE
@@ -42,13 +63,6 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-
-		if(affected && affected.is_robotic())
-			return FALSE//no operating on robotic limbs in an organic surgery
-		if(!affected)
-			// I'd like to see you do surgery on LITERALLY NOTHING
-			return FALSE
-
 		if(affected && affected.encased) //no bones no problem.
 			return FALSE
 		return TRUE
@@ -442,7 +456,7 @@
 /datum/surgery_step/saw_carapace
 	name = "saw carapace"
 	allowed_tools = list(
-	/obj/item/circular_saw = 100, \
+	TOOL_SAW = 100, \
 	/obj/item/melee/energy/sword/cyborg/saw = 100, \
 	/obj/item/hatchet = 90
 	)
@@ -471,7 +485,7 @@
 /datum/surgery_step/cut_carapace
 	name = "cut carapace"
 	allowed_tools = list(
-	/obj/item/scalpel = 100,		\
+	TOOL_SCALPEL = 100,		\
 	/obj/item/kitchen/knife = 90,	\
 	/obj/item/shard = 60, 		\
 	/obj/item/scissors = 12,		\
@@ -506,7 +520,7 @@
 
 	allowed_tools = list(
 	/obj/item/scalpel/laser/manager = 100, \
-	/obj/item/retractor = 100, 	\
+	TOOL_RETRACTOR = 100, 	\
 	/obj/item/crowbar = 90,	\
 	/obj/item/kitchen/utensil/fork = 60
 	)

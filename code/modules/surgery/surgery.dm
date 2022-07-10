@@ -38,6 +38,9 @@
 	var/mob/living/carbon/target
 	/// Body part the surgery is currently being performed on.
 	var/obj/item/organ/organ_ref
+	/// Whether or not this should be a selectable surgery at all
+	var/abstract = FALSE
+
 
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -114,7 +117,7 @@
  * Get the next step in the current surgery, or null if we're on the last one.
  */
 /datum/surgery/proc/get_surgery_next_step()
-	if(status < steps.len)
+	if(status < length(steps))
 		var/step_type = steps[status + 1]
 		return new step_type
 	else
@@ -140,8 +143,7 @@
 	var/accept_any_item = FALSE
 	/// duration of the step
 	var/time = 1 SECONDS
-	/// Is this step repeatable? Make sure it isn't the last step, or it's used in a cancellable surgery.
-	// TODO There's probably a better way to handle this
+	/// Is this step repeatable? Make sure it isn't the last step, or it's used in a cancellable surgery. Otherwise, you might get stuck in a loop!
 	var/repeatable = FALSE
 	/// List of chems needed in the mob to complete the step. Even on success, this step will have no effect if the required chems aren't in the mob.
 	var/list/chems_needed = list()
@@ -157,17 +159,7 @@
 	/// How much blood this step can get on surgeon. 1 - hands, 2 - full body.
 	var/blood_level = 0
 
-/**
- * Try to perform an operation on a user.
- * Arguments:
- * * user - The user performing the surgery.
- * * target - The user on whom the surgery is being performed.
- * * target_zone - the zone the user is targeting for the surgery.
- * * tool - The object that the user is using to perform the surgery (optional)
- * * surgery - The surgery being performed.
- * Returns TRUE if the step was a success, or FALSE if the step can't be performed for some reason.
- */
-/datum/surgery_step/proc/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/is_valid_tool(mob/living/user, obj/item/tool)
 	var/success = FALSE
 	if(accept_hand)
 		if(!tool)
@@ -192,7 +184,20 @@
 					success = TRUE
 					break
 
-	if(success)
+	return success
+
+/**
+ * Try to perform an operation on a user.
+ * Arguments:
+ * * user - The user performing the surgery.
+ * * target - The user on whom the surgery is being performed.
+ * * target_zone - the zone the user is targeting for the surgery.
+ * * tool - The object that the user is using to perform the surgery (optional)
+ * * surgery - The surgery being performed.
+ * Returns TRUE if the step was a success, or FALSE if the step can't be performed for some reason.
+ */
+/datum/surgery_step/proc/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(is_valid_tool(user, tool))
 		if(target_zone == surgery.location)
 			if(get_location_accessible(target, target_zone) || surgery.ignore_clothes)
 				initiate(user, target, target_zone, tool, surgery)
@@ -277,7 +282,7 @@
 		// if it's repeatable, don't let it truly "complete" though
 		if(advance && !repeatable)
 			surgery.status++
-			if(surgery.status > surgery.steps.len)
+			if(surgery.status > length(surgery.steps))
 				surgery.complete(target)
 
 	surgery.step_in_progress = FALSE
@@ -338,12 +343,12 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(can_infect && affected)
 			spread_germs_to_organ(affected, user, tool)
-	if(ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
+	if(ishuman(user) && !istype(target,/mob/living/carbon/alien) && prob(60))
 		var/mob/living/carbon/human/H = user
 		if(blood_level)
-			H.bloody_hands(target,0)
+			H.bloody_hands(target, 0)
 		if(blood_level > 1)
-			H.bloody_body(target,0)
+			H.bloody_body(target, 0)
 	return
 
 /**
@@ -404,11 +409,11 @@
 		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
 			germs++
 
-	if(tool && tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
+	if(tool && tool.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools
 		germs += 30
 
-	if(E.internal_organs.len)
-		germs = germs / (E.internal_organs.len + 1) // +1 for the external limb this eventually applies to; let's not multiply germs now.
+	if(length(E.internal_organs))
+		germs = germs / (length(E.internal_organs) + 1) // +1 for the external limb this eventually applies to; let's not multiply germs now.
 		for(var/obj/item/organ/internal/O in E.internal_organs)
 			if(!O.is_robotic())
 				O.germ_level += germs

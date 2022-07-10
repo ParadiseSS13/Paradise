@@ -41,6 +41,10 @@
 		return
 	if(user.a_intent != INTENT_HELP)
 		return
+	var/mob/living/L = user
+	if(istype(L) && L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
+		return //no cult ghost surgery please
 	INVOKE_ASYNC(src, .proc/do_initiate_surgery_moment, target, user)
 	return TRUE
 
@@ -98,6 +102,8 @@
 		affecting = carbon_target.get_organ(check_zone(user.zone_selected))
 
 	for(var/datum/surgery/surgery as anything in GLOB.surgeries_list)
+		if(surgery.abstract)  // no choosing abstract surgeries
+			continue
 		if(!surgery.possible_locs.Find(user.zone_selected))
 			continue
 		if(affecting)
@@ -223,6 +229,10 @@
 
 	if (surgery.lying_required && !IS_HORIZONTAL(target))
 		to_chat(user, "<span class='notice'>Patient must be lying down for this operation.</span>")
+		return
+
+	if(target == src && !surgery.self_operable)
+		to_chat(user, "<span class='notice'>You can't perform that operation on yourself!</span>")
 		return
 
 	if (!surgery.can_start(user, target))
