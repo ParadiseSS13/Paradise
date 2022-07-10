@@ -103,8 +103,8 @@
 	righthand_file = null
 	can_holster = FALSE // Get your fingers out of there!
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
-	clumsy_check = 0 //Stole your uplink! Honk!
-	needs_permit = 0 //go away beepsky
+	clumsy_check = FALSE //Stole your uplink! Honk!
+	needs_permit = FALSE //go away beepsky
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Pew pew pew!"
@@ -150,7 +150,7 @@
 	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
 	origin_tech = "combat=3"
-	can_suppress = 1
+	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 
 // A gun to play Russian Roulette!
@@ -395,15 +395,15 @@
 	sawn_state = SAWN_OFF
 	w_class = WEIGHT_CLASS_SMALL
 	force = 10
-	can_unsuppress = 0
+	can_unsuppress = FALSE
 	slot_flags = null
 	origin_tech = "" // NO GIVAWAYS
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
 	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
-	suppressed = 1
-	needs_permit = 0 //its just a cane beepsky.....
+	suppressed = TRUE
+	needs_permit = FALSE //its just a cane beepsky.....
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
 	return 1

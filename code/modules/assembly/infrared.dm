@@ -59,7 +59,7 @@
 /obj/item/assembly/infra/proc/arm() // Forces the device to arm no matter its current state.
 	if(!secured) // Checked because arm() might be called sometime after the object is spawned.
 		toggle_secure()
-	on = 1
+	on = TRUE
 
 /obj/item/assembly/infra/update_icon()
 	overlays.Cut()
@@ -89,7 +89,7 @@
 		emission_cycles = 0
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(T)
 		I.master = src
-		I.density = 1
+		I.density = TRUE
 		I.dir = dir
 		I.update_icon()
 		first = I
@@ -249,7 +249,7 @@
 	if(!next && (limit > 0))
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(loc)
 		I.master = master
-		I.density = 1
+		I.density = TRUE
 		I.dir = dir
 		I.update_icon()
 		I.previous = src

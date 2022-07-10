@@ -798,6 +798,7 @@
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
 	icon_state = "box_ert"
+	storage_slots = 8
 
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -808,6 +809,19 @@
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+
+/obj/item/storage/box/deathsquad
+	name = "boxed death kit"
+	icon_state = "box_of_doom"
+
+/obj/item/storage/box/deathsquad/populate_contents()
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	new /obj/item/ammo_box/a357(src)
+	new /obj/item/ammo_box/a357(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"

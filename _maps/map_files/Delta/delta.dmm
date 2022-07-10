@@ -2527,7 +2527,7 @@
 /area/security/checkpoint2)
 "apn" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/radio,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -11354,7 +11354,7 @@
 /area/security/permabrig)
 "aJC" = (
 /obj/structure/table,
-/obj/item/book/manual/chef_recipes,
+/obj/item/book/manual/wiki/chef_recipes,
 /obj/item/clothing/head/chefhat,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -11955,7 +11955,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20718,7 +20718,7 @@
 /obj/structure/rack,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
-/obj/item/book/manual/chef_recipes,
+/obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -23665,7 +23665,7 @@
 "bkr" = (
 /obj/structure/table/wood,
 /obj/item/storage/secure/briefcase,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -25690,10 +25690,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Mining Maintenance";
-	req_access_txt = "48"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -34970,7 +34966,7 @@
 /area/security/detectives_office)
 "bHL" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/camera{
 	desc = "A one use - polaroid camera. 30 photos left.";
 	name = "detectives camera";
@@ -36221,9 +36217,9 @@
 /area/storage/tech)
 "bKA" = (
 /obj/structure/rack,
-/obj/item/book/manual/engineering_hacking,
-/obj/item/book/manual/engineering_guide,
-/obj/item/book/manual/engineering_construction,
+/obj/item/book/manual/wiki/hacking,
+/obj/item/book/manual/wiki/engineering_guide,
+/obj/item/book/manual/wiki/engineering_construction,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
@@ -38027,7 +38023,7 @@
 /area/hallway/primary/central)
 "bOE" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -43405,15 +43401,15 @@
 /area/ntrep)
 "cae" = (
 /obj/structure/bookcase,
-/obj/item/book/manual/sop_command,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_legal,
-/obj/item/book/manual/sop_medical,
-/obj/item/book/manual/sop_science,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
+/obj/item/book/manual/wiki/sop_command,
+/obj/item/book/manual/wiki/sop_engineering,
+/obj/item/book/manual/wiki/sop_general,
+/obj/item/book/manual/wiki/sop_legal,
+/obj/item/book/manual/wiki/sop_medical,
+/obj/item/book/manual/wiki/sop_science,
+/obj/item/book/manual/wiki/sop_security,
+/obj/item/book/manual/wiki/sop_service,
+/obj/item/book/manual/wiki/sop_supply,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "caf" = (
@@ -43622,8 +43618,8 @@
 /area/crew_quarters/courtroom)
 "caG" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/taperecorder,
 /obj/item/clothing/glasses/sunglasses,
 /obj/structure/extinguisher_cabinet{
@@ -45125,7 +45121,7 @@
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/book/manual/sop_command,
+/obj/item/book/manual/wiki/sop_command,
 /obj/item/paper/blueshield,
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
@@ -46597,7 +46593,7 @@
 "chK" = (
 /obj/structure/table/reinforced,
 /obj/item/pen/multi/gold,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/machinery/light,
 /obj/item/gavelhammer,
 /obj/item/gavelblock,
@@ -46759,7 +46755,7 @@
 /area/space/nearstation)
 "cig" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/engineering_guide{
+/obj/item/book/manual/wiki/engineering_guide{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -46771,11 +46767,11 @@
 /area/engine/engineering)
 "cih" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/engineering_hacking{
+/obj/item/book/manual/wiki/hacking{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/book/manual/engineering_construction{
+/obj/item/book/manual/wiki/engineering_construction{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -47302,7 +47298,7 @@
 /area/maintenance/starboard)
 "cjo" = (
 /obj/structure/rack,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
@@ -49031,7 +49027,7 @@
 /area/library)
 "cnn" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /obj/machinery/newscaster{
 	name = "east bump";
 	pixel_x = 32
@@ -49532,7 +49528,6 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/obj/machinery/libraryscanner,
 /turf/simulated/floor/plasteel/grimy,
 /area/library)
 "coA" = (
@@ -49744,7 +49739,7 @@
 /obj/item/clothing/under/rank/security,
 /obj/item/clothing/under/rank/security,
 /obj/item/grenade/barrier,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
@@ -54202,15 +54197,15 @@
 /area/crew_quarters/locker)
 "cyL" = (
 /obj/structure/bookcase,
-/obj/item/book/manual/sop_legal,
-/obj/item/book/manual/sop_command,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_medical,
-/obj/item/book/manual/sop_science,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
+/obj/item/book/manual/wiki/sop_legal,
+/obj/item/book/manual/wiki/sop_command,
+/obj/item/book/manual/wiki/sop_engineering,
+/obj/item/book/manual/wiki/sop_general,
+/obj/item/book/manual/wiki/sop_medical,
+/obj/item/book/manual/wiki/sop_science,
+/obj/item/book/manual/wiki/sop_security,
+/obj/item/book/manual/wiki/sop_service,
+/obj/item/book/manual/wiki/sop_supply,
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "cyM" = (
@@ -59244,7 +59239,7 @@
 /area/maintenance/port)
 "cKg" = (
 /obj/structure/rack,
-/obj/item/book/manual/engineering_guide,
+/obj/item/book/manual/wiki/engineering_guide,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
@@ -65422,7 +65417,6 @@
 /area/toxins/lab)
 "cYr" = (
 /obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
@@ -65550,8 +65544,6 @@
 /area/medical/medbay)
 "cYN" = (
 /obj/structure/closet/wardrobe/coroner,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
-/obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
 "cYO" = (
@@ -69659,7 +69651,7 @@
 /area/toxins/explab)
 "dhL" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/experimentor,
+/obj/item/book/manual/wiki/experimentor,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -72081,7 +72073,7 @@
 /area/maintenance/port2)
 "dmW" = (
 /obj/structure/rack,
-/obj/item/book/manual/robotics_cyborgs,
+/obj/item/book/manual/wiki/robotics_cyborgs,
 /obj/item/storage/belt/utility,
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/effect/decal/warning_stripes/yellow,
@@ -74376,7 +74368,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/item/clothing/glasses/welding/superior,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -74547,7 +74538,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/book/manual/robotics_cyborgs,
+/obj/item/book/manual/wiki/robotics_cyborgs,
 /obj/item/book/manual/ripley_build_and_repair,
 /obj/item/storage/belt/utility/full,
 /obj/item/circuitboard/mecha/ripley/main,
@@ -80409,9 +80400,6 @@
 	pixel_y = -28
 	},
 /obj/structure/closet/secure_closet/roboticist,
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
@@ -83892,7 +83880,6 @@
 /area/security/prison/cell_block)
 "dOD" = (
 /obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/structure/window/reinforced/polarized,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -88523,7 +88510,7 @@
 "fqu" = (
 /obj/structure/table,
 /obj/item/folder/red,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -88532,17 +88519,6 @@
 	icon_state = "dark"
 	},
 /area/security/main)
-"fqy" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/lightsout,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/sleep)
 "frp" = (
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -90975,27 +90951,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
-"kGa" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -24;
-	pixel_y = -6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/hallway/primary/central)
 "kGF" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -91506,15 +91461,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
-"lYs" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -24;
-	pixel_y = -6
-	},
-/turf/simulated/floor/wood,
-/area/crew_quarters/captain)
 "lZw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -94428,7 +94374,7 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/crew_quarters/sleep)
+/area/hallway/primary/central)
 "rIy" = (
 /obj/machinery/door/airlock/research{
 	name = "Research Break Room"
@@ -96257,7 +96203,7 @@
 "vFf" = (
 /obj/structure/table/wood,
 /obj/item/crowbar/red,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/book/manual/detective,
 /obj/item/camera{
 	desc = "A one use - polaroid camera. 30 photos left.";
@@ -96444,7 +96390,7 @@
 /area/maintenance/fsmaint)
 "weF" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -132395,7 +132341,7 @@ bSi
 bva
 bva
 bva
-kGa
+byP
 byP
 bCf
 bva
@@ -138828,7 +138774,7 @@ bFN
 bWX
 bJj
 bLc
-lYs
+bLc
 bOV
 bWX
 bWX
@@ -141681,7 +141627,7 @@ bva
 bva
 bva
 bva
-fqy
+cDd
 bva
 bva
 cGD

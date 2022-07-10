@@ -8052,7 +8052,7 @@
 /area/ruin/space/derelict/arrival)
 "rX" = (
 /obj/structure/table,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},

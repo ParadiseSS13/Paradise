@@ -14,7 +14,6 @@
 	universal_speak = TRUE	// Tell the humans spooky things about the afterlife
 	speak_emote = list("mumbles", "moans", "whispers", "laments", "screeches")
 
-	allow_spin = 0			// No spinning. Spinning breaks our floating animation.
 	no_spin_thrown = TRUE
 	del_on_death = TRUE
 
