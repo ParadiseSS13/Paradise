@@ -682,7 +682,7 @@
 /area/holodeck/source_snowfield)
 "cP" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "cQ" = (

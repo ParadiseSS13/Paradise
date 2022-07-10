@@ -132,7 +132,6 @@
 
 /obj/item/restraints/handcuffs/cable/random/New()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
-	to_chat(world, "[color]")
 	item_state = "cuff_[color]"
 	..()
 
