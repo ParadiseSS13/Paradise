@@ -21,7 +21,7 @@
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
 	if(IS_HORIZONTAL(src) && surgeries.len)
-		if(user != src && user.a_intent == INTENT_HELP)
+		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
 					return 1

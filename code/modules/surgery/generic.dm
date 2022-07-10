@@ -58,6 +58,7 @@
 	name = "clamp bleeders"
 
 	allowed_tools = list(
+	TOOL_HEMOSTAT = 100, \
 	/obj/item/scalpel/laser = 100, \
 	/obj/item/hemostat = 100,	\
 	/obj/item/stack/cable_coil = 90, 	\
@@ -92,6 +93,7 @@
 	name = "retract skin"
 
 	allowed_tools = list(
+	TOOL_RETRACTOR = 100, \
 	/obj/item/scalpel/laser/manager = 100, \
 	/obj/item/retractor = 100, 	\
 	/obj/item/crowbar = 90,	\
@@ -148,10 +150,10 @@
 
 	allowed_tools = list(
 	/obj/item/scalpel/laser = 100, \
-	/obj/item/cautery = 100,			\
+	TOOL_CAUTERY = 100,			\
 	/obj/item/clothing/mask/cigarette = 90,	\
 	/obj/item/lighter = 60,			\
-	/obj/item/weldingtool = 30
+	TOOL_WELDER = 30
 	)
 
 	time = 24
@@ -184,7 +186,12 @@
 //drill bone
 /datum/surgery_step/generic/drill
 	name = "drill bone"
-	allowed_tools = list(/obj/item/surgicaldrill = 100, /obj/item/pickaxe/drill = 60, /obj/item/mecha_parts/mecha_equipment/drill = 60, /obj/item/screwdriver = 20)
+	allowed_tools = list(
+		TOOL_DRILL = 100,
+		/obj/item/pickaxe/drill = 60,
+		/obj/item/mecha_parts/mecha_equipment/drill = 60,
+		/obj/item/screwdriver = 20
+	)
 	time = 30
 
 /datum/surgery_step/generic/drill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -200,8 +207,7 @@
 	name = "amputate limb"
 
 	allowed_tools = list(
-	/obj/item/circular_saw = 100, \
-	/obj/item/melee/energy/sword/cyborg/saw = 100, \
+	TOOL_SAW = 100, \
 	/obj/item/hatchet = 90, \
 	/obj/item/melee/arm_blade = 75
 	)

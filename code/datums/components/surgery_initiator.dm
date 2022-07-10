@@ -4,6 +4,9 @@
 	/// Useful for things like limb reattachments that don't need a scalpel.
 	var/datum/surgery/forced_surgery
 
+	/// If true, the initial step will be cancellable by just using the tool again.
+	var/can_cancel_before_first = FALSE
+
 	/// Canceling surgery in-progress is pretty much a formality
 	var/static/list/cautery_tools = list(
 		TOOL_CAUTERY = 100, \
@@ -32,9 +35,11 @@
 /// Does the surgery initiation.
 /datum/component/surgery_initiator/proc/initiate_surgery_moment(datum/source, atom/target, mob/user)
 	SIGNAL_HANDLER	// COMSIG_ITEM_ATTACK
-	if(!isliving(target))
+	if(!isliving(user))
 		return
 	if(!user.Adjacent(target))
+		return
+	if(user.a_intent != INTENT_HELP)
 		return
 	INVOKE_ASYNC(src, .proc/do_initiate_surgery_moment, target, user)
 	return TRUE
@@ -51,8 +56,9 @@
 			break
 
 	if(!isnull(current_surgery) && !current_surgery.step_in_progress)
-		attempt_cancel_surgery(current_surgery, target, user)
-		return
+		if((can_cancel_before_first && current_surgery.status == 1) || current_surgery.status > 1)
+			attempt_cancel_surgery(current_surgery, target, user)
+			return
 
 	var/list/available_surgeries = get_available_surgeries(user, target)
 
@@ -61,9 +67,9 @@
 
 	if(!length(available_surgeries))
 		if(IS_HORIZONTAL(target))
-			to_chat(target, "<span class='notice'>There aren't any surgeries you can perform there right now.</span>")
+			to_chat(user, "<span class='notice'>There aren't any surgeries you can perform there right now.</span>")
 		else
-			to_chat(target, "<span class='notice'>You can't perform any surgeries there while [target] is standing.</span>")
+			to_chat(user, "<span class='notice'>You can't perform any surgeries there while [target] is standing.</span>")
 		return
 
 	// if we have a surgery that should be performed regardless with this item,
@@ -135,6 +141,10 @@
 	if(!the_surgery.can_cancel)
 		return
 
+	// Don't make a forced surgery implement cancel a surgery.
+	if(istype(the_surgery, forced_surgery))
+		return
+
 
 	var/obj/item/close_tool
 	var/obj/item/other_hand = user.get_inactive_hand()
@@ -148,13 +158,15 @@
 			to_chat(user, "<span class='warning'>You need a cauterizing tool in an inactive slot to stop the surgery!</span>")
 			return
 	else
-		if(is_robotic)
+		if(!other_hand)
+			close_tool = null
+		else if(is_robotic)
 			if(other_hand.tool_behaviour == TOOL_SCREWDRIVER)
 				close_tool = other_hand
 		else
 			for(var/key in cautery_tools)
 				if(ispath(key) && istype(other_hand, key) || other_hand.tool_behaviour == key)
-					close_tool = cautery_tools[key]
+					close_tool = other_hand
 					break
 
 	if(!close_tool)
@@ -163,7 +175,7 @@
 
 	var/datum/surgery_step/generic/cauterize/premature/step = new
 
-	if(step.try_op(user, patient, parse_zone(selected_zone), close_tool, the_surgery))
+	if(step.try_op(user, patient, selected_zone, close_tool, the_surgery))
 		patient.surgeries -= the_surgery
 		qdel(the_surgery)
 		// logging in case people wonder why they're cut up inside

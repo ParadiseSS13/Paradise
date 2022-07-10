@@ -25,6 +25,7 @@
 
 /datum/surgery/reattach
 	name = "Limb Reattachment"
+	requires_bodypart = FALSE
 	steps = list(/datum/surgery_step/limb/attach,/datum/surgery_step/limb/connect)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
@@ -41,6 +42,7 @@
 
 /datum/surgery/reattach_synth
 	name = "Synthetic Limb Reattachment"
+	requires_bodypart = FALSE
 	steps = list(/datum/surgery_step/limb/attach/robo)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
@@ -56,6 +58,7 @@
 
 /datum/surgery/robo_attach
 	name = "Apply Robotic Prosthetic"
+	requires_bodypart = FALSE
 	steps = list(/datum/surgery_step/limb/mechanize)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
@@ -68,7 +71,7 @@
 
 		return FALSE
 
-/datum/surgery_step/limb/
+/datum/surgery_step/limb
 	can_infect = FALSE
 /datum/surgery_step/limb/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!hasorgans(target))

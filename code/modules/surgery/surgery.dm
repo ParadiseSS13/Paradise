@@ -94,6 +94,10 @@
 		var/obj/item/tool = user.get_active_hand()
 		if(step.try_op(user, target, user.zone_selected, tool, src))
 			return TRUE
+		// If it's a surgery initiator, make sure it calls its attack chain down the line.
+		// Make sure this comes after the operation though, especially for things like scalpels
+		if(tool.GetComponent(/datum/component/surgery_initiator))
+			return FALSE
 		if(tool && tool.flags & SURGICALTOOL)
 			to_chat(user, "<span class='warning'>This step requires a different tool!</span>")
 			return TRUE
@@ -172,7 +176,7 @@
 			success = TRUE
 
 	if(accept_any_item)
-		if(tool && tool_quality(tool))
+		if(tool && tool_check(user, tool))
 			success = TRUE
 	else if(tool)
 		for(var/key in allowed_tools)
@@ -184,7 +188,7 @@
 
 			if(match)
 				implement_type = key
-				if(tool_quality(tool))
+				if(tool_check(user, tool))
 					success = TRUE
 					break
 
@@ -306,12 +310,9 @@
 			to_chat(H, "<span class='warning'>The surgery being performed on your [parse_zone(target_zone)] wakes you up.</span>")
 	return pain_mod //operating on conscious people is hard.
 
-//returns how well tool is suited for this step
-/datum/surgery_step/proc/tool_quality(obj/item/tool)
-	for(var/T in allowed_tools)
-		if(istype(tool,T))
-			return allowed_tools[T]
-	return 0
+/datum/surgery_step/proc/tool_check(mob/user, obj/item/tool)
+	return TRUE
+
 
 // Checks if this step applies to the user mob at all
 /datum/surgery_step/proc/is_valid_target(mob/living/carbon/human/target)

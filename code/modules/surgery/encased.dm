@@ -22,9 +22,8 @@
 /datum/surgery_step/open_encased/saw
 	name = "saw bone"
 	allowed_tools = list(
-	/obj/item/circular_saw = 100, \
-	/obj/item/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/hatchet = 90
+		TOOL_SAW = 100,
+		/obj/item/hatchet = 90
 	)
 
 	time = 54
@@ -71,7 +70,7 @@
 	name = "retract bone"
 	allowed_tools = list(
 	/obj/item/scalpel/laser/manager = 100, \
-	/obj/item/retractor = 100, 	\
+	TOOL_RETRACTOR = 100, 	\
 	/obj/item/crowbar = 90
 	)
 
@@ -122,7 +121,7 @@
 	name = "unretract bone" //i suck at names okay? give me a new one
 	allowed_tools = list(
 	/obj/item/scalpel/laser/manager = 100, \
-	/obj/item/retractor = 100, 	\
+	TOOL_RETRACTOR = 100, 	\
 	/obj/item/crowbar = 90
 	)
 
@@ -172,7 +171,7 @@
 /datum/surgery_step/open_encased/mend
 	name = "mend bone"
 	allowed_tools = list(
-	/obj/item/bonegel = 100,	\
+	TOOL_BONEGEL = 100,	\
 	/obj/item/screwdriver = 90
 	)
 
