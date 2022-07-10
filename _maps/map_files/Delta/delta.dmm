@@ -52294,12 +52294,8 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "cul" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "cum" = (

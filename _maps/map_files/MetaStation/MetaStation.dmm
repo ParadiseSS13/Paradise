@@ -34560,11 +34560,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "bWV" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/shreds,
 /turf/simulated/floor/plasteel{
@@ -35550,6 +35545,7 @@
 "bZz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
+/obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

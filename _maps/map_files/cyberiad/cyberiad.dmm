@@ -27161,11 +27161,6 @@
 	},
 /area/hydroponics)
 "blf" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -62777,6 +62772,7 @@
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/effect/decal/warning_stripes/northeast,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
