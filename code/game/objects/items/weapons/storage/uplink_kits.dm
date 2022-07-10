@@ -143,10 +143,6 @@
 /obj/item/storage/box/syndie_kit/conversion
 	name = "box (CK)"
 
-/obj/item/storage/box/syndie_kit/conversion/populate_contents()
-	new /obj/item/conversion_kit(src)
-	new /obj/item/ammo_box/a357(src)
-
 /obj/item/storage/box/syndie_kit/boolets
 	name = "shotgun shells"
 

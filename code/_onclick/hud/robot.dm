@@ -250,5 +250,5 @@
 			if( (A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3) )
 				//Module is not currently active
 				R.client.screen -= A
-		R.shown_robot_modules = 0
+		R.shown_robot_modules = FALSE
 		R.client.screen -= R.robot_modules_background

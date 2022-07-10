@@ -6,7 +6,6 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-	alien_talk_understand = TRUE
 
 	var/nightvision = FALSE
 	see_in_dark = 4
