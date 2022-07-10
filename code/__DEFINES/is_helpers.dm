@@ -22,6 +22,8 @@
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
+#define iscloset(A) (istype(A, /obj/structure/closet))
+
 #define is_pen(W) (istype(W, /obj/item/pen))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
