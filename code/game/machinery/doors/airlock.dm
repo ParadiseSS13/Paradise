@@ -70,14 +70,12 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/electrified_timer
 	var/main_power_timer
 	var/backup_power_timer
-	var/spawnPowerRestoreRunning = 0
 	var/lights = TRUE // bolt lights show by default
 	var/datum/wires/airlock/wires
 	var/aiDisabledIdScanner = FALSE
 	var/aiHacking = FALSE
 	var/obj/machinery/door/airlock/closeOther
 	var/closeOtherId
-	var/lockdownbyai = 0
 	var/justzap = FALSE
 	var/obj/item/airlock_electronics/electronics
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening

@@ -130,7 +130,7 @@
 
 /obj/item/assembly/mousetrap/armed
 	icon_state = "mousetraparmed"
-	armed = 1
+	armed = TRUE
 
 
 /obj/item/assembly/mousetrap/verb/hide_under()

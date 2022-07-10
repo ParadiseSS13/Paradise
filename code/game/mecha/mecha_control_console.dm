@@ -7,7 +7,6 @@
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
-	var/screen = 0
 	var/stored_data = list()
 
 /obj/machinery/computer/mecha/attack_ai(mob/user)
