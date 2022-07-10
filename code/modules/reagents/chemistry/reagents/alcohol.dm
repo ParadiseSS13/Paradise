@@ -23,7 +23,8 @@
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
-			affectedbook.dat = null
+			for(var/page in affectedbook.pages)
+				affectedbook.pages[page] = " " //we're blanking the pages not making em null
 			affectedbook.visible_message("<span class='notice'>The solution melts away the ink on the book.</span>")
 		else
 			O.visible_message("<span class='warning'>It wasn't enough...</span>")
@@ -1044,7 +1045,7 @@
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.2
 	drink_icon = "erikasurprise"
-	name = "Erika Surprise"
+	drink_name = "Erika Surprise"
 	drink_desc = "The surprise is, it's green!"
 	taste_description = "disappointment"
 

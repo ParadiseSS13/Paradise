@@ -9,7 +9,7 @@ Pipes -> Pipelines
 Pipelines + Other Objects -> Pipe network
 */
 /obj/machinery/atmospherics
-	anchored = 1
+	anchored = TRUE
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
@@ -18,8 +18,8 @@ Pipelines + Other Objects -> Pipe network
 	active_power_usage = 0
 	power_channel = ENVIRON
 	on_blueprints = TRUE
-	var/nodealert = 0
-	var/can_unwrench = 0
+	var/nodealert = FALSE
+	var/can_unwrench = FALSE
 	/// If the machine is currently operating or not.
 	var/on = FALSE
 	/// The amount of pressure the machine wants to operate at.
@@ -290,14 +290,13 @@ Pipelines + Other Objects -> Pipe network
 		return
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
-	var/old_loc = user.loc
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
 			user.remove_ventcrawl()
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
 		else if(target_move.can_crawl_through())
-			if(returnPipenet() != target_move.returnPipenet())
+			if(returnPipenet(target_move) != target_move.returnPipenet())
 				user.update_pipe_vision(target_move)
 			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
@@ -306,8 +305,7 @@ Pipelines + Other Objects -> Pipe network
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
-			user.loc = target_move.loc
-			user.Moved(old_loc, get_dir(old_loc, user.loc), FALSE)
+			user.forceMove(loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out of the ventilation system.")
 	ADD_TRAIT(user, TRAIT_IMMOBILIZED, "ventcrawling")
 	spawn(1) // this is awful

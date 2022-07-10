@@ -88,7 +88,6 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	density = TRUE
-	anchored = TRUE
 	var/hits = 4
 	var/hitpwr = EXPLODE_HEAVY //Level of ex_act to be called on hit.
 	var/dest

@@ -10,11 +10,11 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 
 	var/temptext = ""
-	var/selfdestructing = 0
+	var/selfdestructing = FALSE
 	var/charges = 1
 
 /obj/machinery/syndicate_beacon/attack_hand(mob/user as mob)
@@ -92,7 +92,7 @@
 
 
 /obj/machinery/syndicate_beacon/proc/selfdestruct()
-	selfdestructing = 1
+	selfdestructing = TRUE
 	spawn() explosion(src.loc, rand(3,8), rand(1,3), 1, 10)
 
 
@@ -106,12 +106,12 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "beacon"
 
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	layer = MOB_LAYER - 0.2 //so people can't hide it and it's REALLY OBVIOUS
 	stat = 0
 
-	var/active = 0
+	var/active = FALSE
 	var/icontype = "beacon"
 
 
@@ -125,7 +125,7 @@
 		if(singulo.z == z)
 			singulo.target = src
 	icon_state = "[icontype]1"
-	active = 1
+	active = TRUE
 	START_PROCESSING(SSmachines, src)
 	if(user)
 		to_chat(user, "<span class='notice'>You activate the beacon.</span>")
@@ -137,7 +137,7 @@
 		if(singulo.target == src)
 			singulo.target = null
 	icon_state = "[icontype]0"
-	active = 0
+	active = FALSE
 	if(user)
 		to_chat(user, "<span class='notice'>You deactivate the beacon.</span>")
 

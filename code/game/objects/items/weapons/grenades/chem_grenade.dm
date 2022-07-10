@@ -6,7 +6,7 @@
 	name = "grenade casing"
 	desc = "A do it yourself grenade casing!"
 	icon_state = "chemg"
-	item_state = "flashbang"
+	item_state = "grenade"
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
 	w_class = WEIGHT_CLASS_SMALL

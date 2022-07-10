@@ -261,11 +261,60 @@
 		R.name = "radio headset"
 		R.icon_state = "headset"
 
-/datum/outfit/admin/death_commando
-	name = "NT Death Commando"
+/datum/outfit/admin/deathsquad_commando
+	name = "NT Deathsquad"
 
-/datum/outfit/admin/death_commando/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	return H.equip_death_commando()
+	pda = /obj/item/pinpointer
+	box = /obj/item/storage/box/deathsquad
+	back = /obj/item/storage/backpack/ert/deathsquad
+	belt = /obj/item/gun/projectile/revolver/mateba
+	gloves = /obj/item/clothing/gloves/combat
+	uniform = /obj/item/clothing/under/rank/deathsquad
+	shoes = /obj/item/clothing/shoes/magboots/advance
+	suit = /obj/item/clothing/suit/space/deathsquad
+	suit_store = /obj/item/gun/energy/pulse
+	glasses = /obj/item/clothing/glasses/thermal
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	head = /obj/item/clothing/head/helmet/space/deathsquad
+	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
+	r_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
+	l_ear = /obj/item/radio/headset/alt/deathsquad
+	id = /obj/item/card/id/ert/deathsquad
+
+	backpack_contents = list(
+		/obj/item/storage/box/flashbangs,
+		/obj/item/ammo_box/a357,
+		/obj/item/flashlight/seclite,
+		/obj/item/grenade/plastic/c4/x4,
+		/obj/item/melee/energy/sword/saber,
+		/obj/item/shield/energy
+	)
+
+	implants = list(
+		/obj/item/implant/mindshield, // No death alarm, Deathsquad are silent
+		/obj/item/implant/dust
+	)
+
+/datum/outfit/admin/deathsquad_commando/leader
+	name = "NT Deathsquad Leader"
+	backpack_contents = list(
+		/obj/item/storage/box/flashbangs,
+		/obj/item/ammo_box/a357,
+		/obj/item/flashlight/seclite,
+		/obj/item/melee/energy/sword/saber,
+		/obj/item/shield/energy,
+		/obj/item/disk/nuclear/unrestricted
+	)
+
+/datum/outfit/admin/deathsquad_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_centcom_access("Deathsquad Commando"), "Deathsquad")
+	H.sec_hud_set_ID()
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"

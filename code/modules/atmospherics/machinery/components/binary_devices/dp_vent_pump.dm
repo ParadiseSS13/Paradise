@@ -84,9 +84,6 @@
 	if(!istype(T))
 		return
 
-	if(T.intact && node1 && node2 && node1.level == 1 && node2.level == 1 && istype(node1, /obj/machinery/atmospherics/pipe) && istype(node2, /obj/machinery/atmospherics/pipe))
-		vent_icon += "h"
-
 	if(!powered())
 		vent_icon += "off"
 	else
@@ -111,6 +108,8 @@
 				add_underlay(T, node2, dir, node2.icon_connect_type)
 			else
 				add_underlay(T, node2, dir)
+		var/icon/frame = icon('icons/atmos/vent_pump.dmi', "frame")
+		underlays += frame
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/process_atmos()
 	..()
