@@ -25,8 +25,8 @@
 	var/contained = "" // For logging
 	var/cores = "" // Also for logging
 
-/obj/item/grenade/chem_grenade/New()
-	..()
+/obj/item/grenade/chem_grenade/Initialize(mapload)
+	. = ..()
 	create_reagents(1000)
 	if(payload_name)
 		payload_name += " " // formatting, ignore me
@@ -437,8 +437,8 @@
 	desc = "Used for emergency sealing of air breaches."
 	stage = READY
 
-/obj/item/grenade/chem_grenade/metalfoam/New()
-	..()
+/obj/item/grenade/chem_grenade/metalfoam/Initialize(mapload)
+	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
@@ -456,8 +456,8 @@
 	desc = "Can help to put out dangerous fires from a distance."
 	stage = READY
 
-/obj/item/grenade/chem_grenade/firefighting/New()
-	..()
+/obj/item/grenade/chem_grenade/firefighting/Initialize(mapload)
+	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
@@ -473,8 +473,8 @@
 	desc = "Used for clearing rooms of living things."
 	stage = READY
 
-/obj/item/grenade/chem_grenade/incendiary/New()
-	..()
+/obj/item/grenade/chem_grenade/incendiary/Initialize(mapload)
+	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
@@ -493,8 +493,8 @@
 	desc = "Used for purging large areas of invasive plant species. Contents under pressure. Do not directly inhale contents."
 	stage = READY
 
-/obj/item/grenade/chem_grenade/antiweed/New()
-	..()
+/obj/item/grenade/chem_grenade/antiweed/Initialize(mapload)
+	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
@@ -515,8 +515,8 @@
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
 	stage = READY
 
-/obj/item/grenade/chem_grenade/cleaner/New()
-	..()
+/obj/item/grenade/chem_grenade/cleaner/Initialize(mapload)
+	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
@@ -534,8 +534,8 @@
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
 	stage = READY
 
-/obj/item/grenade/chem_grenade/teargas/New()
-	..()
+/obj/item/grenade/chem_grenade/teargas/Initialize(mapload)
+	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
@@ -553,8 +553,8 @@
 	desc = "Use to chew up opponents from the inside out."
 	stage = READY
 
-/obj/item/grenade/chem_grenade/facid/New()
-	..()
+/obj/item/grenade/chem_grenade/facid/Initialize(mapload)
+	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
@@ -573,8 +573,8 @@
 	desc = "Contains sarin gas; extremely deadly and fast acting; use with extreme caution."
 	stage = READY
 
-/obj/item/grenade/chem_grenade/saringas/New()
-	..()
+/obj/item/grenade/chem_grenade/saringas/Initialize(mapload)
+	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 

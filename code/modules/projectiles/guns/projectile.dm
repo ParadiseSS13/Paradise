@@ -10,13 +10,16 @@
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
 
-/obj/item/gun/projectile/New()
-	..()
+/obj/item/gun/projectile/Initialize(mapload)
+	. = ..()
 	if(!magazine)
 		magazine = new mag_type(src)
 	chamber_round()
 	update_icon()
-	return
+
+/obj/item/gun/projectile/Destroy()
+	QDEL_NULL(magazine)
+	return ..()
 
 /obj/item/gun/projectile/detailed_examine()
 	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \

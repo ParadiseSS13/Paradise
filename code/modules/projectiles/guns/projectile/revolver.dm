@@ -7,8 +7,8 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
 	can_holster = TRUE
 
-/obj/item/gun/projectile/revolver/New()
-	..()
+/obj/item/gun/projectile/revolver/Initialize(mapload)
+	. = ..()
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
@@ -110,8 +110,8 @@
 	desc = "Pew pew pew!"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 
-/obj/item/gun/projectile/revolver/fingergun/New()
-	..()
+/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
+	. = ..()
 	verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)
@@ -165,8 +165,8 @@
 	var/spun = 0
 
 
-/obj/item/gun/projectile/revolver/russian/New()
-	..()
+/obj/item/gun/projectile/revolver/russian/Initialize(mapload)
+	. = ..()
 	Spin()
 	update_icon()
 
@@ -289,8 +289,8 @@
 	can_holster = FALSE
 	unique_reskin = TRUE
 
-/obj/item/gun/projectile/revolver/doublebarrel/New()
-	..()
+/obj/item/gun/projectile/revolver/doublebarrel/Initialize(mapload)
+	. = ..()
 	options["Default"] = "dbshotgun"
 	options["Dark Red Finish"] = "dbshotgun_d"
 	options["Ash"] = "dbshotgun_f"
