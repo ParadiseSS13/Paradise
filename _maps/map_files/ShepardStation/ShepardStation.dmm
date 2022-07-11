@@ -23511,11 +23511,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"eQD" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/sop_medical,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint2)
 "eQO" = (
 /obj/machinery/air_sensor{
 	frequency = 1441;
@@ -36340,15 +36335,11 @@
 /area/crew_quarters/dorms)
 "hsd" = (
 /obj/structure/table,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_y = 32
-	},
-/obj/item/book/manual/wiki/sop_general,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
-/area/crew_quarters/dorms)
+/obj/item/book/manual/wiki/sop_service,
+/turf/simulated/floor/wood,
+/area/hydroponics/abandoned_garden{
+	name = "Service Hall"
+	})
 "hse" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable/orange{
@@ -37546,11 +37537,9 @@
 /area/maintenance/fsmaint2)
 "hEV" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/sop_supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "long"
-	},
-/area/quartermaster/office)
+/obj/item/book/manual/wiki/sop_medical,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint2)
 "hEX" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4;
@@ -54587,6 +54576,13 @@
 	icon_state = "rampbottom"
 	},
 /area/engine/equipmentstorage)
+"lcY" = (
+/obj/structure/table,
+/obj/item/book/manual/wiki/sop_supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "long"
+	},
+/area/quartermaster/office)
 "ldg" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel{
@@ -58178,7 +58174,7 @@
 /area/security/hos)
 "lQQ" = (
 /obj/machinery/portable_atmospherics/canister/custom_mix{
-	destroyed = 1
+	stat = 1
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
@@ -95089,11 +95085,15 @@
 /area/security/prisonlockers)
 "tzZ" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/sop_service,
-/turf/simulated/floor/wood,
-/area/hydroponics/abandoned_garden{
-	name = "Service Hall"
-	})
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
+/obj/item/book/manual/wiki/sop_general,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/crew_quarters/dorms)
 "tAf" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -140385,7 +140385,7 @@ uji
 jtG
 lqU
 kEP
-eQD
+hEV
 wqP
 aKf
 rNQ
@@ -150126,7 +150126,7 @@ fHc
 fHc
 mCo
 nzc
-hsd
+tzZ
 dlo
 jvQ
 cDD
@@ -165048,7 +165048,7 @@ eFX
 iBZ
 rTb
 drS
-hEV
+lcY
 nLF
 drS
 uTw
@@ -167566,7 +167566,7 @@ kWR
 nmX
 uSO
 wNI
-tzZ
+hsd
 tWf
 wds
 kfv
