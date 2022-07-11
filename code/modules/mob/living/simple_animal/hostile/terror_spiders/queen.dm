@@ -50,15 +50,13 @@
 	var/datum/action/innate/terrorspider/queen/queennest/queennest_action
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
-	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
-	..()
-	ventsmash_action = new()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Initialize(mapload)
+	. = ..()
+	var/datum/action/ventsmash_action = new /datum/action/innate/terrorspider/ventsmash/()
 	ventsmash_action.Grant(src)
-	remoteview_action = new()
+	var/datum/action/remoteview_action = new /datum/action/innate/terrorspider/remoteview()
 	remoteview_action.Grant(src)
 	grant_queen_subtype_abilities()
 	spider_myqueen = src

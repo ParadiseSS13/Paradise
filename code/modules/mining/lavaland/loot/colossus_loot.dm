@@ -274,8 +274,8 @@
 	stop_automated_movement = TRUE
 	var/heal_power = 5
 
-/mob/living/simple_animal/hostile/lightgeist/New()
-	..()
+/mob/living/simple_animal/hostile/lightgeist/Initialize(mapload)
+	. = ..()
 	verbs -= /mob/living/verb/pulled
 	verbs -= /mob/verb/me_verb
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
