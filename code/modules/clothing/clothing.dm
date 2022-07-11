@@ -678,7 +678,7 @@ BLIND     // can't see anything
 	return ..()
 
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
-	if(length(accessory) >= MAX_EQUIPABLE_ACCESSORIES) //this is neccesary to prevent chat spam when examining clothing
+	if(length(accessories) >= MAX_EQUIPABLE_ACCESSORIES) //this is neccesary to prevent chat spam when examining clothing
 		return FALSE
 	for(var/obj/item/clothing/accessory/AC in accessories)
 		if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
