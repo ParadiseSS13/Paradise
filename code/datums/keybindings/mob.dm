@@ -32,7 +32,7 @@
 
 /datum/keybinding/mob/swap_hands
 	name = "Swap Hands"
-	keys = list("X")
+	keys = list("X", "Northeast")
 
 /datum/keybinding/mob/swap_hands/down(client/C)
 	. = ..()
