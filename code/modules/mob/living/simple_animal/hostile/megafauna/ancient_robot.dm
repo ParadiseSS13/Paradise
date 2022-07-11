@@ -34,7 +34,7 @@ Finaly, for each mode, it has a special attack.
 	- Bluespace causes it's current target to have half attack speed for 10 seconds.
 	- Grav picks up rocks from the terrain, and throws them at the target.
 	- Pyro turns 3x3 areas around the target (but not too close) into lava.
-	- Flux shoots weakened tesla revolver shots at all humans nearbye.
+	- Flux shoots weakened tesla revolver shots at all humans nearby.
 	- Vortex causes a small earthquake, leading to rocks falling from the sky.
 
 Upon reaching critical HP (normally death), it preps a 10 second self destruct, before exploding. Large tell, hard to miss.
@@ -204,7 +204,7 @@ Difficulty: Hard
 		return
 	if(mode == BLUESPACE)
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
-		src.visible_message("<span class='danger'>[src] teleports somewhere nearbye!</span>")
+		src.visible_message("<span class='danger'>[src] teleports somewhere nearby!</span>")
 		do_teleport(src, target, 7, asoundin = 'sound/effects/phasein.ogg', safe_turf_pick = TRUE) //Teleport within 7 tiles of the target
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 
@@ -589,6 +589,13 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/beam_setup()
 	leg_part = Beam(core.beam, "leg_connection", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/onTransitZ(old_z,new_z)
+	..()
+	update_z(new_z)
+	if(leg_part)
+		QDEL_NULL(leg_part)
+	addtimer(CALLBACK(src, .proc/beam_setup), 1 SECONDS)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE)
 	var/damage = amount * transfer_rate
