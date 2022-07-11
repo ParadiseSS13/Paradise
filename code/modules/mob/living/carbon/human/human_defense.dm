@@ -405,7 +405,7 @@ emp_act
 		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
 	else
 		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
-		affecting.sabotaged = 1
+		affecting.sabotaged = TRUE
 	return 1
 
 /mob/living/carbon/human/grabbedby(mob/living/user)

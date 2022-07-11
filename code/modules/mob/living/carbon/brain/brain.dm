@@ -2,7 +2,7 @@
 	var/obj/item/container = null
 	var/timeofhostdeath = 0
 	var/emp_damage = 0//Handles a type of MMI damage
-	use_me = 0 //Can't use the me verb, it's a freaking immobile brain
+	use_me = FALSE //Can't use the me verb, it's a freaking immobile brain
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "brain1"
 
