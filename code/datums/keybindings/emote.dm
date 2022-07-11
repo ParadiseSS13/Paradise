@@ -7,7 +7,7 @@
 
 /datum/keybinding/emote/down(client/user)
 	. = ..()
-	user.mob.emote(initial(linked_emote.key))
+	user.mob.emote(initial(linked_emote.key), intentional = TRUE)
 
 /datum/keybinding/emote/flip
 	linked_emote = /datum/emote/flip
