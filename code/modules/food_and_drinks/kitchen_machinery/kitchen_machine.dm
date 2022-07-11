@@ -134,7 +134,7 @@
 	else if(istype(O,/obj/item/grab))
 		return special_attack(O, user)
 	else
-		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
+		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
 		return 1
 	updateUsrDialog()
 

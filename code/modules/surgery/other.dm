@@ -81,7 +81,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool]." , \
 	"You start patching the damaged vein in [target]'s [affected.name] with \the [tool].")
-	target.custom_pain("The pain in [affected.name] is unbearable!")
+	target.custom_pain("The pain in your [affected.name] is unbearable!")
 	..()
 
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

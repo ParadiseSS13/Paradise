@@ -3,7 +3,7 @@
 //*********//
 
 /mob/living/simple_animal/hostile/panther
-	name = "panther"
+	name = "\improper panther"
 	desc = "A long sleek, black cat with sharp teeth and claws."
 	icon = 'icons/mob/alienqueen.dmi'
 	icon_state = "panther"
@@ -15,9 +15,9 @@
 	speak_chance = 0
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
-	response_help = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm = "hits the"
+	response_help = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm = "hits"
 	stop_automated_movement_when_pulled = 0
 	maxHealth = 50
 	health = 50
