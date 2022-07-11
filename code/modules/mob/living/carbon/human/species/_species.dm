@@ -568,7 +568,7 @@
 	var/blocked_by_item = FALSE
 	if(!directional_blocked)
 		for(var/atom/movable/AM in shove_to)
-			if(AM.shove_impact(target, user))
+			if(AM.shove_impact(target, user)) // check for special interactions EG. tabling someone
 				blocked_by_item = TRUE
 				break // only hit one thing
 
@@ -578,8 +578,9 @@
 	var/moved = target.Move(shove_to, shove_dir)
 	if(!moved) //they got pushed into a dense object
 		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-		target.visible_message("<span class='warning'>[target] gets slammed into the wall!</span>", \
-								"<span class='warning'>You get slammed into the wall!</span>")
+		target.visible_message("<span class='warning'>[user] slams [target] into an obstacle!</span>", \
+								"<span class='userdanger'>You get slammed into the obstacle by [user]!</span>", \
+								"You hear a loud thud.")
 		if(!HAS_TRAIT(target, TRAIT_FLOORED))
 			target.KnockDown(3 SECONDS)
 			addtimer(CALLBACK(target, /mob/living.proc/SetKnockDown, 0), 3 SECONDS) // so you cannot chain stun someone

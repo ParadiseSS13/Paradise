@@ -233,6 +233,8 @@
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
 	if(locate(/obj/structure/table) in get_turf(target))
 		return FALSE
+	if(flipped)
+		return FALSE
 	var/pass_flags_cache = target.pass_flags
 	target.pass_flags |= PASSTABLE
 	if(target.Move(loc)) // moving onto a table smashes it, stunning them
