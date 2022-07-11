@@ -626,8 +626,8 @@
 			return
 		else
 			user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
-			target.KnockDown(8 SECONDS)
-			..()
+			if(..())
+				target.KnockDown(8 SECONDS)
 		return
 	else
 		playsound(loc, "swing_hit", 50, 1, -1)
