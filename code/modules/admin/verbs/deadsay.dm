@@ -47,5 +47,5 @@
 /client/proc/get_dead_say()
 	if(!check_rights(R_ADMIN))
 		return
-	var/msg = input(src, null, "dsay \"text\"") as text
+	var/msg = input(src, null, "dsay \"text\"") as text | null
 	dsay(msg)
