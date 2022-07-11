@@ -542,7 +542,7 @@
 
 /obj/item/twohanded/cult_spear
 	name = "blood halberd"
-	desc = "A sickening spear composed entirely of crystallized blood."
+	desc = "A sickening spear composed entirely of crystallized blood. Will stun people who have been recently marked if the spear is weilded."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "bloodspear0"
 	slot_flags = 0
@@ -608,6 +608,12 @@
 			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
 			return TRUE
 	return FALSE
+
+/obj/item/twohanded/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
+	. = ..()
+	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
+	if(S && wielded)
+		S.trigger()
 
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
