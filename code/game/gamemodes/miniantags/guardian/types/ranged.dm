@@ -9,7 +9,7 @@
 	friendly = "quietly assesses"
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	damage_transfer = 0.9
+	damage_transfer = 1
 	can_strip = TRUE
 	projectiletype = /obj/item/projectile/guardian
 	ranged_cooldown_time = 5 //fast!
