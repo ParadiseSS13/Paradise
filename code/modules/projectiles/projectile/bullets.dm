@@ -82,6 +82,15 @@
 	damage = 3
 	stamina = 12.5
 	icon_state = "bullet-r"
+	armour_penetration = -10
+
+/obj/item/projectile/bullet/pellet/rubber/on_hit(atom/target, blocked = 0)
+    . = ..()
+    if(!ishuman(target))
+        return
+    var/mob/living/carbon/human/H = target
+    if(H.getStaminaLoss() >= 60)
+        H.KnockDown(8 SECONDS)
 
 /obj/item/projectile/bullet/pellet/weak
 	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
