@@ -1481,10 +1481,9 @@
 /area/hallway/secondary/entry)
 "aqT" = (
 /obj/structure/bookcase,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_science,
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/wood,
 /area/assembly/showroom)
 "aqU" = (
@@ -2265,6 +2264,7 @@
 "azc" = (
 /obj/structure/table/wood,
 /obj/machinery/light/small,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/wood,
 /area/library)
 "azj" = (
@@ -2305,6 +2305,7 @@
 /area/crew_quarters/sleep)
 "azW" = (
 /obj/structure/table,
+/obj/item/book/manual/wiki/experimentor,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5168,10 +5169,6 @@
 	departmentType = 2;
 	name = "Kitchen Requests Console";
 	pixel_y = 32
-	},
-/obj/item/book/manual/chef_recipes{
-	pixel_x = 2;
-	pixel_y = 6
 	},
 /obj/machinery/camera{
 	c_tag = "Kitchen"
@@ -10899,7 +10896,7 @@
 /area/medical/morgue)
 "ciL" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /turf/simulated/floor/wood,
 /area/library)
 "ciS" = (
@@ -17105,7 +17102,6 @@
 /area/security/lobby)
 "dxd" = (
 /obj/structure/table,
-/obj/item/book/manual/engineering_construction,
 /obj/item/book/manual/atmospipes,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19258,10 +19254,6 @@
 /area/maintenance/fpmaint2)
 "dTK" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/red{
-	pixel_y = 3
-	},
-/obj/item/book/manual/sop_legal,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -19983,6 +19975,7 @@
 /area/medical/research)
 "ecW" = (
 /obj/structure/table/glass,
+/obj/item/book/manual/wiki/sop_science,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -21949,10 +21942,16 @@
 	},
 /area/engine/engineering)
 "eyJ" = (
-/obj/item/stamp/hop,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_command,
 /obj/structure/bookcase,
+/obj/item/book/manual/wiki/sop_command,
+/obj/item/book/manual/wiki/sop_engineering,
+/obj/item/book/manual/wiki/sop_general,
+/obj/item/book/manual/wiki/sop_legal,
+/obj/item/book/manual/wiki/sop_medical,
+/obj/item/book/manual/wiki/sop_science,
+/obj/item/book/manual/wiki/sop_security,
+/obj/item/book/manual/wiki/sop_service,
+/obj/item/book/manual/wiki/sop_supply,
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "eyN" = (
@@ -22146,7 +22145,6 @@
 /area/medical/genetics)
 "eAA" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/security_space_law,
 /obj/item/pen/multi/gold,
 /obj/machinery/camera{
 	c_tag = "Magistrate's Office";
@@ -23513,6 +23511,11 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
+"eQD" = (
+/obj/structure/table,
+/obj/item/book/manual/wiki/sop_medical,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint2)
 "eQO" = (
 /obj/machinery/air_sensor{
 	frequency = 1441;
@@ -24393,7 +24396,6 @@
 /area/security/seceqstorage)
 "eZH" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
 /obj/item/clothing/glasses/sunglasses,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
@@ -31166,7 +31168,6 @@
 "gsC" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/book/manual/experimentor,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -33965,10 +33966,10 @@
 /area/hydroponics)
 "gTm" = (
 /obj/structure/table,
-/obj/machinery/computer/library/public,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
+/obj/machinery/computer/library,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -36338,9 +36339,16 @@
 	},
 /area/crew_quarters/dorms)
 "hsd" = (
-/obj/machinery/libraryscanner,
-/turf/simulated/floor/carpet/green,
-/area/library)
+/obj/structure/table,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
+/obj/item/book/manual/wiki/sop_general,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/crew_quarters/dorms)
 "hse" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable/orange{
@@ -36868,6 +36876,7 @@
 /obj/structure/closet{
 	name = "Evidence Closet"
 	},
+/obj/item/book/manual/wiki/security_space_law/black,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -37537,11 +37546,11 @@
 /area/maintenance/fsmaint2)
 "hEV" = (
 /obj/structure/table,
-/obj/item/book/manual/sop_engineering,
+/obj/item/book/manual/wiki/sop_supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
-/area/engine/break_room)
+/area/quartermaster/office)
 "hEX" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4;
@@ -46356,7 +46365,6 @@
 "juH" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/packageWrap,
-/obj/item/book/manual/sop_service,
 /obj/item/pen/blue{
 	pixel_y = 4
 	},
@@ -48920,8 +48928,6 @@
 /area/space/nearstation)
 "jVH" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/engineering_construction,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/space/nearstation)
 "jVQ" = (
@@ -50828,6 +50834,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/item/book/manual/wiki/sop_engineering,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "yellow"
@@ -50836,6 +50843,7 @@
 "kpS" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "kqC" = (
@@ -55543,7 +55551,7 @@
 /area/security/lobby)
 "loo" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /turf/simulated/floor/carpet/green,
 /area/library)
 "lor" = (
@@ -55889,7 +55897,7 @@
 /area/security/main)
 "lrm" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/sop_general,
+/obj/item/book/manual/wiki/faxes,
 /turf/simulated/floor/carpet/blue,
 /area/bridge/meeting_room)
 "lrs" = (
@@ -57900,6 +57908,7 @@
 /area/medical/sleeper)
 "lMW" = (
 /obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -59482,7 +59491,6 @@
 /obj/item/folder/red{
 	pixel_y = 3
 	},
-/obj/item/book/manual/security_space_law,
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
@@ -60602,7 +60610,7 @@
 /area/quartermaster/office)
 "mpY" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/sop_command,
+/obj/item/book/manual/wiki/sop_command,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -62472,10 +62480,6 @@
 /area/hallway/primary/central/east)
 "mJm" = (
 /obj/structure/rack,
-/obj/item/book/manual/engineering_guide{
-	pixel_x = 3;
-	pixel_y = 4
-	},
 /obj/item/storage/box/lights/mixed,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -64054,11 +64058,15 @@
 /area/ai_monitored/storage/eva)
 "naB" = (
 /obj/structure/bookcase,
-/obj/item/book/manual/sop_command,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_legal,
-/obj/item/book/manual/sop_medical,
+/obj/item/book/manual/wiki/sop_command,
+/obj/item/book/manual/wiki/sop_engineering,
+/obj/item/book/manual/wiki/sop_general,
+/obj/item/book/manual/wiki/sop_legal,
+/obj/item/book/manual/wiki/sop_medical,
+/obj/item/book/manual/wiki/sop_science,
+/obj/item/book/manual/wiki/sop_security,
+/obj/item/book/manual/wiki/sop_service,
+/obj/item/book/manual/wiki/sop_supply,
 /turf/simulated/floor/wood,
 /area/assembly/showroom)
 "naC" = (
@@ -67676,6 +67684,8 @@
 	icon_state = "0-2"
 	},
 /obj/item/paicard,
+/obj/item/book/manual/ripley_build_and_repair,
+/obj/item/book/manual/wiki/robotics_cyborgs,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "nOc" = (
@@ -72259,10 +72269,7 @@
 	})
 "oKq" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/red{
-	pixel_y = 3
-	},
-/obj/item/book/manual/sop_security,
+/obj/item/book/manual/wiki/sop_security,
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
@@ -74182,7 +74189,6 @@
 /area/storage/tech)
 "pfY" = (
 /obj/structure/table/glass,
-/obj/item/book/manual/sop_medical,
 /obj/item/megaphone,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -74395,6 +74401,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/chef_recipes,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -78780,7 +78787,6 @@
 /area/engine/engineering)
 "qeR" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
 /turf/simulated/floor/carpet/blue,
 /area/bridge/meeting_room)
 "qeS" = (
@@ -80776,13 +80782,6 @@
 	})
 "qBU" = (
 /obj/structure/bookcase,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/sop_medical,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_legal,
 /obj/machinery/requests_console{
 	department = "Internal Affairs Office";
 	name = "Internal Affairs Requests Console";
@@ -80792,6 +80791,17 @@
 	c_tag = "Internal Affairs Office";
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sop_command,
+/obj/item/book/manual/wiki/sop_engineering,
+/obj/item/book/manual/wiki/sop_general,
+/obj/item/book/manual/wiki/sop_legal,
+/obj/item/book/manual/wiki/sop_medical,
+/obj/item/book/manual/wiki/sop_science,
+/obj/item/book/manual/wiki/sop_security,
+/obj/item/book/manual/wiki/sop_service,
+/obj/item/book/manual/wiki/sop_supply,
+/obj/item/book/manual/wiki/security_space_law/black,
+/obj/item/book/manual/wiki/security_space_law/black,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -84252,11 +84262,6 @@
 /area/maintenance/turbine)
 "roe" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/item/book/manual/sop_security,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -88805,15 +88810,16 @@
 /area/medical/surgery)
 "slj" = (
 /obj/structure/bookcase,
-/obj/item/book/manual/sop_command,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_legal,
-/obj/item/book/manual/sop_medical,
-/obj/item/book/manual/sop_science,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
+/obj/item/book/manual/wiki/sop_command,
+/obj/item/book/manual/wiki/sop_engineering,
+/obj/item/book/manual/wiki/sop_general,
+/obj/item/book/manual/wiki/sop_legal,
+/obj/item/book/manual/wiki/sop_medical,
+/obj/item/book/manual/wiki/sop_science,
+/obj/item/book/manual/wiki/sop_security,
+/obj/item/book/manual/wiki/sop_service,
+/obj/item/book/manual/wiki/sop_supply,
+/obj/item/book/manual/wiki/faxes,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "slo" = (
@@ -94262,8 +94268,6 @@
 /area/maintenance/asmaint)
 "tqC" = (
 /obj/structure/bookcase,
-/obj/item/book/manual/sop_legal,
-/obj/item/book/manual/sop_security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94679,6 +94683,7 @@
 "tvb" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
@@ -95083,10 +95088,12 @@
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
 "tzZ" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/faxes,
-/turf/simulated/floor/carpet/blue,
-/area/bridge/meeting_room)
+/obj/structure/table,
+/obj/item/book/manual/wiki/sop_service,
+/turf/simulated/floor/wood,
+/area/hydroponics/abandoned_garden{
+	name = "Service Hall"
+	})
 "tAf" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -96199,10 +96206,6 @@
 /area/engine/equipmentstorage)
 "tLP" = (
 /obj/structure/table,
-/obj/item/book/manual/chef_recipes{
-	pixel_x = 2;
-	pixel_y = 6
-	},
 /obj/item/clothing/head/chefhat,
 /obj/structure/cable{
 	d1 = 1;
@@ -96687,7 +96690,6 @@
 /area/space/nearstation)
 "tRL" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/sop_engineering,
 /obj/item/folder/yellow,
 /obj/item/stamp/ce,
 /obj/structure/cable{
@@ -98228,7 +98230,7 @@
 /area/security/lobby)
 "ujM" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/sop_science,
+/obj/item/book/manual/research_and_development,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -98856,7 +98858,6 @@
 /area/medical/sleeper)
 "upz" = (
 /obj/structure/table,
-/obj/item/book/manual/sop_service,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -102352,7 +102353,6 @@
 /area/security/warden)
 "vgq" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/sop_command,
 /turf/simulated/floor/wood,
 /area/blueshield)
 "vgE" = (
@@ -107129,10 +107129,6 @@
 /area/assembly/chargebay)
 "waV" = (
 /obj/structure/table,
-/obj/item/book/manual/robotics_cyborgs{
-	pixel_x = 2;
-	pixel_y = 5
-	},
 /obj/item/storage/belt/utility,
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/effect/decal/warning_stripes/east,
@@ -107598,6 +107594,7 @@
 /area/crew_quarters/locker)
 "wge" = (
 /obj/structure/table/wood,
+/obj/item/book/manual/detective,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -138468,7 +138465,7 @@ uJO
 lhl
 oNO
 lLe
-hEV
+oLh
 aMy
 oLh
 iEB
@@ -140388,7 +140385,7 @@ uji
 jtG
 lqU
 kEP
-pVc
+eQD
 wqP
 aKf
 rNQ
@@ -148053,7 +148050,7 @@ lba
 xQJ
 tiB
 krV
-tzZ
+qeR
 hEp
 vjO
 tiB
@@ -150129,7 +150126,7 @@ fHc
 fHc
 mCo
 nzc
-sjY
+hsd
 dlo
 jvQ
 cDD
@@ -154516,7 +154513,7 @@ xDb
 dzf
 xYa
 djH
-hsd
+bpk
 loo
 ekB
 gtn
@@ -165051,7 +165048,7 @@ eFX
 iBZ
 rTb
 drS
-nLF
+hEV
 nLF
 drS
 uTw
@@ -167569,7 +167566,7 @@ kWR
 nmX
 uSO
 wNI
-tWf
+tzZ
 tWf
 wds
 kfv
