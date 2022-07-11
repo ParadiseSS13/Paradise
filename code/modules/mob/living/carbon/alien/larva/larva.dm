@@ -16,15 +16,19 @@
 	death_sound = null
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
-/mob/living/carbon/alien/larva/New()
+/mob/living/carbon/alien/larva/Initialize(mapload)
+	. = ..()
 	if(name == "alien larva")
 		name = "alien larva ([rand(1, 1000)])"
 	real_name = name
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
-	..()
+
+/mob/living/carbon/alien/larva/get_caste_organs()
+	. = ..()
+	. += /obj/item/organ/internal/xenos/plasmavessel/larva
+
 
 //This needs to be fixed
 /mob/living/carbon/alien/larva/Stat()
