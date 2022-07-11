@@ -529,7 +529,7 @@
 	category = KB_CATEGORY_EMOTE_SILICON
 
 /datum/keybinding/emote/silicon/can_use(client/C, mob/M)
-	return issilicon(M) && ..()
+	return (issilicon(M) || ismachineperson(M)) && ..()
 
 /datum/keybinding/emote/silicon/scream
 	linked_emote = /datum/emote/living/silicon/scream
