@@ -97,6 +97,10 @@
 			user_data.patron_account = null
 			to_chat(user, "<span class='notice'>[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'</span>")
 		return
+
+	if(default_unfasten_wrench(user, O, time = 60))
+		return
+
 	return ..()
 
 /obj/machinery/computer/library/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
