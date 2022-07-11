@@ -131,7 +131,7 @@
 /obj/machinery/seed_extractor/ui_data(mob/user)
 	var/list/data = list()
 
-	for (var/datum/seed_pile/O in piles)
+	for(var/datum/seed_pile/O in piles)
 		var/obj/item/I = O.path
 		var/list/seed_info = list(
 			"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]",
@@ -166,7 +166,7 @@
 			vend_amount = clamp(text2num(params["vend_amount"]), 1, MAX_DISPENSE_SEEDS)
 			add_fingerprint(usr)
 
-/obj/machinery/seed_extractor/proc/vendSeed(seed_id, amount)
+/obj/machinery/seed_extractor/proc/vend_seed(seed_id, amount)
 	if(!seed_id)
 		return
 	var/datum/seed_pile/selected_pile
@@ -184,7 +184,7 @@
 	for(var/obj/item/seeds/O in contents)
 		if(amount_dispensed >= amount)
 			break
-		if (O.plantname == selected_pile.name && O.lifespan == selected_pile.lifespan && O.endurance == selected_pile.endurance && O.maturation == selected_pile.maturation && O.production == selected_pile.production && O.yield == selected_pile.yield && O.potency == selected_pile.potency)
+		if(O.plantname == selected_pile.name && O.lifespan == selected_pile.lifespan && O.endurance == selected_pile.endurance && O.maturation == selected_pile.maturation && O.production == selected_pile.production && O.yield == selected_pile.yield && O.potency == selected_pile.potency)
 			O.forceMove(loc)
 			amount_dispensed++
 
@@ -208,7 +208,7 @@
 			O.forceMove(src)
 			return
 
-	var/datum/seed_pile/new_pile = new (O.type, pile_count, O.plantname, O.variant, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
+	var/datum/seed_pile/new_pile = new(O.type, pile_count, O.plantname, O.variant, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
 	pile_count++
 	piles += new_pile
 	O.forceMove(src)
