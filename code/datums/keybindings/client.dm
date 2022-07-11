@@ -17,6 +17,14 @@
 	. = ..()
 	C.ooc()
 
+/datum/keybinding/client/looc
+	name = "Local OOC"
+	keys = list("L")
+
+/datum/keybinding/client/looc/down(client/C)
+	. = ..()
+	C.looc()
+
 /datum/keybinding/client/say
 	name = "Say"
 	keys = list("T")
