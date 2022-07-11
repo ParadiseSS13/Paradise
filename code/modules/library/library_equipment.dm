@@ -166,10 +166,6 @@
 /obj/machinery/bookbinder/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/bookbinder/wrench_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(default_unfasten_wrench(user, I))
-		power_change()
 
 /obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/paper))
@@ -178,8 +174,10 @@
 		select_paper_stack(I)
 	if(istype(I, /obj/item/book))
 		select_book(I)
-	else
-		return ..()
+	if(default_unfasten_wrench(user, I, time = 60))
+		return
+
+	return ..()
 
 /obj/machinery/bookbinder/proc/select_paper(obj/item/paper/P)
 	selected_content.title = P.name

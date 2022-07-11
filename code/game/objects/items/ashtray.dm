@@ -20,12 +20,12 @@
 
 		if(istype(I, /obj/item/clothing/mask/cigarette))
 			var/obj/item/clothing/mask/cigarette/cig = I
-			if(cig.lit == 1)
+			if(cig.lit)
 				visible_message("[user] crushes [cig] in [src], putting it out.")
 				var/obj/item/butt = new cig.type_butt(src)
 				cig.transfer_fingerprints_to(butt)
 				qdel(cig)
-			else if(cig.lit == 0)
+			else
 				to_chat(user, "You place [cig] in [src] without even smoking it. Why would you do that?")
 
 		visible_message("[user] places [I] in [src].")

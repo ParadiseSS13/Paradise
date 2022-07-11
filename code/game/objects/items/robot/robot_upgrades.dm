@@ -181,7 +181,7 @@
 		to_chat(usr, "<span class='notice'>This unit already has ion thrusters installed!</span>")
 		return
 
-	R.ionpulse = 1
+	R.ionpulse = TRUE
 	return TRUE
 
 /obj/item/borg/upgrade/ddrill
