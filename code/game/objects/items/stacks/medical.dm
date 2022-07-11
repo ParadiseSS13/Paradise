@@ -145,7 +145,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(affecting.open == FALSE)
+		if(affecting.open == ORGAN_CLOSED)
 			affecting.germ_level = 0
 
 			if(stop_bleeding)
@@ -204,7 +204,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(affecting.open == FALSE)
+		if(affecting.open == ORGAN_CLOSED)
 			affecting.germ_level = 0
 
 			heal(H, user)

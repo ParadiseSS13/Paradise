@@ -7,8 +7,6 @@
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
 /datum/surgery_step/open_encased/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-
-	// TODO this seems unnecessary here; shouldn't the surgery itself be taking care of this?
 	if(!hasorgans(target))
 		return FALSE
 

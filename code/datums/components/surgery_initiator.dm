@@ -4,10 +4,10 @@
 	/// Useful for things like limb reattachments that don't need a scalpel.
 	var/datum/surgery/forced_surgery
 
-	/// If true, the initial step will be cancellable by just using the tool again.
+	/// If true, the initial step will be cancellable by just using the tool again. Should be FALSE for any tool that actually has a first surgery step.
 	var/can_cancel_before_first = FALSE
 
-	/// Canceling surgery in-progress is pretty much a formality
+	/// Tools that, when in an off-hand while a surgery initiator is used, will stop a surgery.
 	var/static/list/cautery_tools = list(
 		TOOL_CAUTERY = 100, \
 		/obj/item/scalpel/laser = 100, \
@@ -129,13 +129,9 @@
 /// Does the surgery de-initiation.
 /datum/component/surgery_initiator/proc/attempt_cancel_surgery(datum/surgery/the_surgery, mob/living/patient, mob/user)
 	var/selected_zone = user.zone_selected
-
-	// TODO not really sure how this'll work with overriden surgeries/limbs
-
 	/// We haven't even started yet. Any surgery can be cancelled at this point.
 	if(the_surgery.status == 1)
 		patient.surgeries -= the_surgery
-		// TODO This message is still pretty reminiscent of drapes
 		user.visible_message(
 			"<span class='notice'>[user] draws [parent] away from [patient]'s [parse_zone(selected_zone)].</span>",
 			"<span class='notice'>You remove [parent] from [patient]'s [parse_zone(selected_zone)].</span>",
@@ -150,7 +146,6 @@
 	// Don't make a forced surgery implement cancel a surgery.
 	if(istype(the_surgery, forced_surgery))
 		return
-
 
 	var/obj/item/close_tool
 	var/obj/item/other_hand = user.get_inactive_hand()

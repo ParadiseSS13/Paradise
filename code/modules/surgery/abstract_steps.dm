@@ -156,9 +156,14 @@
 
 
 /datum/surgery_step/proxy/open_chest
-	name = ""
+	name = "mend internal bleeding or mend bone"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone
 	)
 
+/datum/surgery_step/proxy/ib
+	name = "mend internal bleeding"
+	branches = list(
+		/datum/surgery/intermediate/bleeding
+	)

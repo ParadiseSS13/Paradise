@@ -13,7 +13,12 @@
 	return istype(target) && target.stat == DEAD
 
 /datum/surgery_step/slime/cut_flesh
-	allowed_tools = list(TOOL_SCALPEL = 100, /obj/item/melee/energy/sword = 75, /obj/item/kitchen/knife = 65, /obj/item/shard = 45)
+	allowed_tools = list(
+		TOOL_SCALPEL = 100,
+		/obj/item/melee/energy/sword = 75,
+		/obj/item/kitchen/knife = 65,
+		/obj/item/shard = 45
+	)
 	time = 1.6 SECONDS
 
 /datum/surgery_step/slime/cut_flesh/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)

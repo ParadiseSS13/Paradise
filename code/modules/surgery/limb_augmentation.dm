@@ -33,6 +33,7 @@
 /datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts augmenting [affected] with [tool].", "You start augmenting [affected] with [tool].")
+	..()
 
 /datum/surgery_step/augment/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/L = tool
@@ -54,6 +55,6 @@
 
 	qdel(tool)
 
-	affected.open = 0
+	affected.open = ORGAN_CLOSED
 	affected.germ_level = 0
 	return TRUE

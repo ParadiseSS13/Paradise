@@ -98,6 +98,7 @@
 	var/obj/item/organ/external/E = tool
 	user.visible_message("[user] starts attaching [E.name] to [target]'s [E.amputation_point].", \
 	"You start attaching [E.name] to [target]'s [E.amputation_point].")
+	..()
 
 /datum/surgery_step/limb/attach/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = tool
@@ -172,6 +173,7 @@
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message("[user] starts connecting tendons and muscles in [target]'s [E.amputation_point] with [tool].", \
 	"You start connecting tendons and muscle in [target]'s [E.amputation_point].")
+	..()
 
 /datum/surgery_step/limb/connect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
@@ -207,6 +209,7 @@
 /datum/surgery_step/limb/mechanize/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		user.visible_message("[user] starts attaching \the [tool] to [target].", \
 		"You start attaching \the [tool] to [target].")
+		..()
 
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/L = tool

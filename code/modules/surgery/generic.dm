@@ -21,14 +21,14 @@
 	name = "make incision"
 
 	allowed_tools = list(
-	TOOL_SCALPEL = 100,		\
-	/obj/item/kitchen/knife = 90,	\
-	/obj/item/shard = 60, 		\
-	/obj/item/scissors = 12,		\
-	/obj/item/twohanded/chainsaw = 1, \
-	/obj/item/claymore = 6, \
-	/obj/item/melee/energy/ = 6, \
-	/obj/item/pen/edagger = 6,  \
+		TOOL_SCALPEL = 100,
+		/obj/item/kitchen/knife = 90,
+		/obj/item/shard = 60,
+		/obj/item/scissors = 12,
+		/obj/item/twohanded/chainsaw = 1,
+		/obj/item/claymore = 6,
+		/obj/item/melee/energy = 6,
+		/obj/item/pen/edagger = 6,
 	)
 
 	time = 16
@@ -44,7 +44,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>",)
-	affected.open = 1
+	affected.open = ORGAN_ORGANIC_OPEN
 	return TRUE
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -58,14 +58,13 @@
 	name = "clamp bleeders"
 
 	allowed_tools = list(
-	TOOL_HEMOSTAT = 100, \
-	/obj/item/scalpel/laser = 100, \
-	/obj/item/hemostat = 100,	\
-	/obj/item/stack/cable_coil = 90, 	\
-	/obj/item/assembly/mousetrap = 25
+		TOOL_HEMOSTAT = 100,
+		/obj/item/scalpel/laser = 100,
+		/obj/item/stack/cable_coil = 90,
+		/obj/item/assembly/mousetrap = 25
 	)
 
-	time = 24
+	time = 2.4 SECONDS
 
 
 /datum/surgery_step/generic/clamp_bleeders/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -93,14 +92,14 @@
 	name = "retract skin"
 
 	allowed_tools = list(
-	TOOL_RETRACTOR = 100, \
-	/obj/item/scalpel/laser/manager = 100, \
-	/obj/item/retractor = 100, 	\
-	/obj/item/crowbar = 90,	\
-	/obj/item/kitchen/utensil/fork = 60
+		TOOL_RETRACTOR = 100,
+		/obj/item/scalpel/laser/manager = 100,
+		/obj/item/retractor = 100,
+		/obj/item/crowbar = 90,
+		/obj/item/kitchen/utensil/fork = 60
 	)
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/generic/retract_skin/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -127,7 +126,7 @@
 		msg = "<span class='notice'> [user] keeps the incision open on [target]'s lower abdomen with \the [tool].</span>"
 		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with \the [tool].</span>"
 	user.visible_message(msg, self_msg)
-	affected.open = 2
+	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
 	return TRUE
 
 /datum/surgery_step/generic/retract_skin/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -149,14 +148,14 @@
 	name = "cauterize incision"
 
 	allowed_tools = list(
-	/obj/item/scalpel/laser = 100, \
-	TOOL_CAUTERY = 100,			\
-	/obj/item/clothing/mask/cigarette = 90,	\
-	/obj/item/lighter = 60,			\
-	TOOL_WELDER = 30
+		/obj/item/scalpel/laser = 100,
+		TOOL_CAUTERY = 100,
+		/obj/item/clothing/mask/cigarette = 90,
+		/obj/item/lighter = 60,
+		TOOL_WELDER = 30
 	)
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/generic/cauterize/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -169,7 +168,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] cauterizes the incision on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You cauterize the incision on [target]'s [affected.name] with \the [tool].</span>")
-	affected.open = 0
+	affected.open = ORGAN_CLOSED
 	affected.germ_level = 0
 	return TRUE
 
@@ -207,9 +206,9 @@
 	name = "amputate limb"
 
 	allowed_tools = list(
-	TOOL_SAW = 100, \
-	/obj/item/hatchet = 90, \
-	/obj/item/melee/arm_blade = 75
+		TOOL_SAW = 100,
+		/obj/item/hatchet = 90,
+		/obj/item/melee/arm_blade = 75
 	)
 
 	time = 100

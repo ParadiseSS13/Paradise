@@ -116,18 +116,18 @@
 		I = tool
 		if(I.requires_robotic_bodypart)
 			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
-			return -1
+			return SURGERY_BEGINSTEP_ABORT
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
-			return -1
+			return SURGERY_BEGINSTEP_ABORT
 
 		if(I.damage > (I.max_damage * 0.75))
 			to_chat(user, "<span class='notice'> [I] is in no state to be transplanted.</span>")
-			return -1
+			return SURGERY_BEGINSTEP_ABORT
 
 		if(target.get_int_organ(I))
 			to_chat(user, "<span class='warning'> [target] already has [I].</span>")
-			return -1
+			return SURGERY_BEGINSTEP_ABORT
 
 		if(affected)
 			user.visible_message("[user] starts transplanting [tool] into [target]'s [affected.name].", \
@@ -182,7 +182,7 @@
 		var/list/organs = target.get_organs_zone(target_zone)
 		if(!length(organs))
 			to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
-			return -1
+			return SURGERY_BEGINSTEP_ABORT
 
 		for(var/obj/item/organ/internal/O in organs)
 			if(O.unremovable)
@@ -195,13 +195,13 @@
 		if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 			I = organs[I]
 			if(!I)
-				return -1
+				return SURGERY_BEGINSTEP_ABORT
 			user.visible_message("[user] starts to separate [target]'s [I] with [tool].", \
 			"You start to separate [target]'s [I] with [tool] for removal." )
 			if(H && affected)
 				H.custom_pain("The pain in your [affected.name] is living hell!")
 		else
-			return -1
+			return SURGERY_BEGINSTEP_ABORT
 
 	else if(implement_type in implements_mend)
 		current_type = "mend"
@@ -236,7 +236,7 @@
 
 	else if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
 		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
-		return -1
+		return SURGERY_BEGINSTEP_ABORT
 
 	..()
 
@@ -348,7 +348,7 @@
 			var/msg = "<span class='notice'> [user] bends [target]'s [affected.encased] back into place with [tool].</span>"
 			var/self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with [tool].</span>"
 			user.visible_message(msg, self_msg)
-			affected.open = 2.5
+			affected.open = ORGAN_ORGANIC_ENCASED_OPEN
 		else
 			var/msg = "<span class='notice'>[user] pulls [target]'s flesh back into place with [tool].</span>"
 			var/self_msg = "<span class='notice'>You pull [target]'s flesh back into place with [tool].</span>"
