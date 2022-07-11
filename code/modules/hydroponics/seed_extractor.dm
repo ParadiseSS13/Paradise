@@ -92,7 +92,7 @@
 			if(length(contents) >= max_seeds)
 				break
 			loaded++
-			add_seed(G)
+			add_seed(G, user)
 
 		if (loaded)
 			to_chat(user, "<span class='notice'>You transfer [loaded] seeds from [O] into [src].</span>")
@@ -104,7 +104,7 @@
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
 	else if (istype(O,/obj/item/seeds))
-		if(add_seed(O))
+		if(add_seed(O, user))
 			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
 			updateUsrDialog()
 		return
@@ -157,9 +157,8 @@
 
 	switch(action)
 		if("vend")
-			vendSeed(text2num(params["seedid"]), vend_amount)
+			vend_seed(text2num(params["seedid"]), vend_amount)
 			add_fingerprint(usr)
-			SStgui.update_uis(src)
 		if("set_vend_amount")
 			if(!length(params["vend_amount"]))
 				return
@@ -188,19 +187,21 @@
 			O.forceMove(loc)
 			amount_dispensed++
 
-/obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/O)
+/obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/O, mob/user)
 	if(!O || !ishuman(usr) || !Adjacent(usr))
 		return
 	if(length(contents) >= max_seeds)
-		to_chat(usr, "<span class='notice'>[src] is full.</span>")
+		to_chat(user, "<span class='notice'>[src] is full.</span>")
 		return
 
 	if(ismob(O.loc))
 		var/mob/M = O.loc
-		M.drop_item()
+		if(!M.drop_item())
+			to_chat(user,"<span class='warning'>[O] appears to be stuck to your hand!</span>")
+			return
 	else if(isstorage(O.loc))
 		var/obj/item/storage/S = O.loc
-		S.remove_from_storage(O,src)
+		S.remove_from_storage(O, src)
 
 	for(var/datum/seed_pile/N in piles) //this for loop physically hurts me
 		if (O.plantname == N.name && O.variant == N.variant && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
