@@ -497,7 +497,7 @@
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
 	icon_state = "twindow"
-	opacity = 1
+	opacity = TRUE
 
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
@@ -519,7 +519,7 @@
 	desc = "A remote control switch for polarized windows."
 	var/range = 7
 	var/id = 0
-	var/active = 0
+	var/active = FALSE
 
 /obj/machinery/button/windowtint/Initialize(mapload, w_dir = null)
 	. = ..()
@@ -684,7 +684,7 @@
 	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
 	icon_state = "tinted_window-0"
 	base_icon_state = "tinted_window"
-	opacity = 1
+	opacity = TRUE
 
 /obj/structure/window/full/reinforced/ice
 	icon = 'icons/obj/smooth_structures/rice_window.dmi'

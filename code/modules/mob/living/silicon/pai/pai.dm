@@ -3,7 +3,6 @@
 	icon = 'icons/mob/pai.dmi'//
 	icon_state = "repairbot"
 
-	robot_talk_understand = 0
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE

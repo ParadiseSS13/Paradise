@@ -948,6 +948,7 @@
 	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
 	if(E)
 		number += E.flash_protect
+	number = clamp(number, -1, 2)
 	return number
 
 /mob/living/carbon/human/check_ear_prot()
@@ -1049,8 +1050,6 @@
 			obscured |= slot_w_uniform
 		if(wear_suit.flags_inv & HIDESHOES)
 			obscured |= slot_shoes
-		if(wear_suit.flags_inv & HIDESUITSTORAGE)
-			obscured |= slot_s_store
 
 	if(head)
 		if(head.flags_inv & HIDEMASK)

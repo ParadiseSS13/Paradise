@@ -79,7 +79,7 @@
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
 				if(prob(30))
 					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
-					P.rigged = 1
+					P.rigged = TRUE
 					P.updateinfolinks()
 
 		P.loc = user.loc
