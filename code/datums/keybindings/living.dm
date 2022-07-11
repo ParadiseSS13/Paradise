@@ -21,3 +21,16 @@
 	. = ..()
 	var/mob/living/M = C.mob
 	M.resist()
+
+/datum/keybinding/living/whisper
+	name = "Whisper"
+
+/datum/keybinding/living/whisper/down(client/C)
+	var/mob/M = C.mob
+	M.set_typing_indicator(TRUE)
+	M.hud_typing = 1
+	var/message = typing_input(M, "", "Whisper (text)")
+	M.hud_typing = 0
+	M.set_typing_indicator(FALSE)
+	if(message)
+		M.whisper(message)
