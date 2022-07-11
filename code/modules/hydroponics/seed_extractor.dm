@@ -154,16 +154,18 @@
 /obj/machinery/seed_extractor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-
+	. = FALSE
 	switch(action)
 		if("vend")
 			vend_seed(text2num(params["seedid"]), vend_amount)
 			add_fingerprint(usr)
+			. = TRUE
 		if("set_vend_amount")
 			if(!length(params["vend_amount"]))
 				return
 			vend_amount = clamp(text2num(params["vend_amount"]), 1, MAX_DISPENSE_SEEDS)
 			add_fingerprint(usr)
+			. = TRUE
 
 /obj/machinery/seed_extractor/proc/vend_seed(seed_id, amount)
 	if(!seed_id)
