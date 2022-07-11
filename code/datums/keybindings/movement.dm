@@ -47,7 +47,7 @@
 			if(!(ID.desired_move_dir_add & move_dir))
 				ID.desired_move_dir_sub |= move_dir
 		else if(move_dir)
-			SSinput.processing[src] = world.time
+			SSinput.processing[C] = world.time
 			ID.desired_move_dir |= move_dir
 			if(!(ID.desired_move_dir_sub & move_dir))
 				ID.desired_move_dir_add |= move_dir
