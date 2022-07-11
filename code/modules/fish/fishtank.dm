@@ -344,9 +344,9 @@
 		var/count = length(fish_types[key])
 		fish_types_input += list("[initial(fish_type.fish_name)][count > 1 ? " (x[count])" : ""]" = fish_types[key])
 	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_types_input		//Select a fish from the tank
+	current_fisher = null
 	if(fish_count <= 0)
 		to_chat(user, "There are no fish in [src] to catch!")
-		current_fisher = null
 		return
 	else if(caught_fish)
 		var/list/fishes_of_type = fish_types_input[caught_fish]
@@ -366,7 +366,6 @@
 				fish_bag.handle_item_insertion(I)
 		user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 		kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
-		current_fisher = null
 
 /obj/machinery/fishtank/proc/spill_water()
 	var/turf/simulated/T = get_turf(src)
