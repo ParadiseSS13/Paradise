@@ -467,7 +467,7 @@
 	examine_message += "<br>Food level: "
 
 	//Approximate food level
-	if(fish_count)							//Check if there are fish in the tank
+	if(!fish_count)								//Check if there are fish in the tank
 		if(food_level > 0)						//Don't report a tank that has neither fish nor food in it
 			examine_message += "There's some food in [src], but no fish! "
 	else										//We've got fish, report the food level
