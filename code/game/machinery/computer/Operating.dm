@@ -123,16 +123,16 @@
 			for(var/datum/surgery/procedure in occupant.surgeries)
 				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
 				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				occupantData["stepName"] = "[capitalize(surgery_step.name)]"
+				occupantData["stepName"] = "[capitalize(surgery_step.get_step_information(procedure))]"
 
 	data["occupant"] = occupantData
-	data["verbose"]=verbose
-	data["oxyAlarm"]=oxyAlarm
-	data["choice"]=choice
-	data["health"]=healthAnnounce
-	data["crit"]=crit
-	data["healthAlarm"]=healthAlarm
-	data["oxy"]=oxy
+	data["verbose"] = verbose
+	data["oxyAlarm"] = oxyAlarm
+	data["choice"] = choice
+	data["health"] = healthAnnounce
+	data["crit"] = crit
+	data["healthAlarm"] = healthAlarm
+	data["oxy"] = oxy
 
 	return data
 

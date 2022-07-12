@@ -386,6 +386,12 @@
 	return SURGERY_STEP_INCOMPLETE
 
 /**
+ * Get information on the surgery step in the context of a surgery.
+ */
+/datum/surgery_step/proc/get_step_information(datum/surgery/surgery)
+	return name
+
+/**
  * Spread some nasty germs to an organ.
  *
  * * target_organ - The organ to try spreading germs to.

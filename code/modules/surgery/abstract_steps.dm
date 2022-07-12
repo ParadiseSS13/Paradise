@@ -98,6 +98,14 @@
 
 	. = ..()
 
+/datum/surgery_step/proxy/get_step_information(datum/surgery/surgery)
+	var/datum/surgery_step/cur = surgery.get_surgery_next_step()
+	var/step_names = list(cur.name)
+	for(var/datum/surgery/surg in branches_init)
+		step_names += surg.get_surgery_step()
+
+	return english_list(step_names, "Nothing...? If you see this, tell a coder.", " or ")
+
 
 /datum/surgery_step/proxy/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	// Quickly peek into the first few steps of the surgeries that we've got to choose the surgery to pull from
@@ -163,14 +171,14 @@
 
 
 /datum/surgery_step/proxy/open_chest
-	name = "mend internal bleeding or mend bone"
+	name = "mend internal bleeding or mend bone (proxy)"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone
 	)
 
 /datum/surgery_step/proxy/ib
-	name = "mend internal bleeding"
+	name = "mend internal bleeding (proxy)"
 	branches = list(
 		/datum/surgery/intermediate/bleeding
 	)
