@@ -21,8 +21,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	heat_capacity = 10000
 	flags = NO_SCREENTIPS
 	var/lava = 0
-	var/broken = 0
-	var/burnt = 0
+	var/broken = FALSE
+	var/burnt = FALSE
 	var/current_overlay = null
 	var/floor_tile = null //tile that this floor drops
 	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
@@ -224,8 +224,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/proc/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)
-		broken = 0
-		burnt = 0
+		broken = FALSE
+		burnt = FALSE
 		current_overlay = null
 		if(user && !silent)
 			to_chat(user, "<span class='danger'>You remove the broken plating.</span>")

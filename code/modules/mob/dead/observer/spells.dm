@@ -21,8 +21,8 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	school = "transmutation"
 	charge_max = 2 MINUTES
 	starts_charged = FALSE
-	clothes_req = 0
-	stat_allowed = 1
+	clothes_req = FALSE
+	stat_allowed = UNCONSCIOUS
 	invocation = ""
 	invocation_type = "none"
 	// no need to spam admins regarding boo casts

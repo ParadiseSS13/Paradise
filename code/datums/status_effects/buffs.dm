@@ -51,7 +51,7 @@
 /datum/status_effect/his_grace/on_remove()
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
 	if(islist(owner.stun_absorption) && owner.stun_absorption["hisgrace"])
-		owner.stun_absorption -= "hisgrace"
+		owner.remove_stun_absorption("hisgrace")
 
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
@@ -132,7 +132,7 @@
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
-		owner.stun_absorption -= "blooddrunk"
+		owner.remove_stun_absorption("blooddrunk")
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"
@@ -212,7 +212,7 @@
 	var/mob/living/carbon/human/H = owner
 	H.cut_overlay(shield)
 	if(islist(owner.stun_absorption) && owner.stun_absorption["[id]"])
-		owner.stun_absorption -= "[id]"
+		owner.remove_stun_absorption("[id]")
 	H.physiology.stamina_mod /= 0.1
 	H.physiology.brute_mod /= 0.5
 	H.physiology.burn_mod /= 0.5
@@ -393,3 +393,36 @@
 			owner.emote("gasp")
 	cling.genetic_damage += stacks
 	cling = null
+
+/datum/status_effect/chainsaw_slaying
+	id = "chainsaw_slaying"
+	duration = 5 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /obj/screen/alert/status_effect/chainsaw
+
+/obj/screen/alert/status_effect/chainsaw
+	name = "Revved up!"
+	desc = "<span class='danger'>... guts, huge guts! Kill them... must kill them all!</span>"
+	icon_state = "chainsaw"
+
+/datum/status_effect/chainsaw_slaying/on_apply()
+	. = ..()
+	if(.)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			H.physiology.brute_mod *= 0.8
+			H.physiology.burn_mod *= 0.8
+			H.physiology.stamina_mod *= 0.8
+		add_attack_logs(owner, owner, "gained chainsaw stun immunity", ATKLOG_ALL)
+		owner.add_stun_absorption("chainsaw", INFINITY, 4)
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
+
+/datum/status_effect/chainsaw_slaying/on_remove()
+	add_attack_logs(owner, owner, "lost chainsaw stun immunity", ATKLOG_ALL)
+	if(islist(owner.stun_absorption) && owner.stun_absorption["chainsaw"])
+		owner.remove_stun_absorption("chainsaw")
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.brute_mod /= 0.8
+		H.physiology.burn_mod /=0.8
+		H.physiology.stamina_mod /= 0.8

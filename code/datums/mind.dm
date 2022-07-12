@@ -27,7 +27,7 @@
 	var/original_mob_UID
 	/// The original mob's name. Used in Dchat messages
 	var/original_mob_name
-	var/active = 0
+	var/active = FALSE
 
 	var/memory
 
@@ -866,7 +866,7 @@
 				if(!flash)
 					to_chat(usr, "<span class='warning'>Repairing flash failed!</span>")
 				else
-					flash.broken = 0
+					flash.broken = FALSE
 					log_admin("[key_name(usr)] has repaired [key_name(current)]'s flash")
 					message_admins("[key_name_admin(usr)] has repaired [key_name_admin(current)]'s flash")
 
@@ -1794,7 +1794,7 @@
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)
-	mind.active = 1    //indicates that the mind is currently synced with a client
+	mind.active = TRUE //indicates that the mind is currently synced with a client
 
 //slime
 /mob/living/simple_animal/slime/mind_initialize()

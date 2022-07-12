@@ -3,7 +3,7 @@
 	name = "mop bucket"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "mopbucket"
-	density = 1
+	density = TRUE
 	container_type = OPENCONTAINER
 	face_while_pulling = FALSE
 	var/obj/item/mop/mymop = null

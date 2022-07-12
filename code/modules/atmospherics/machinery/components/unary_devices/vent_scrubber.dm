@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber
 	icon = 'icons/atmos/vent_scrubber.dmi'
-	icon_state = "map_scrubber"
+	icon_state = "map_scrubber_off"
 
 	req_one_access_txt = "24;10"
 
@@ -40,6 +40,7 @@
 
 /obj/machinery/atmospherics/unary/vent_scrubber/on
 	on = TRUE
+	icon_state = "map_scrubber"
 
 /obj/machinery/atmospherics/unary/vent_scrubber/New()
 	..()
@@ -115,10 +116,13 @@
 		scrubber_icon += "off"
 	else
 		scrubber_icon += "[on ? "[scrubbing ? "on" : "in"]" : "off"]"
+		if(on && widenet)
+			scrubber_icon += "_expanded"
+
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", , , scrubber_icon)
+	overlays += SSair.icon_manager.get_atmos_icon("device", state = scrubber_icon)
 	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
@@ -134,6 +138,9 @@
 				add_underlay(T, node, dir, node.icon_connect_type)
 			else
 				add_underlay(T,, dir)
+			var/icon/frame = icon('icons/atmos/vent_scrubber.dmi', "frame")
+			underlays += frame
+
 
 /obj/machinery/atmospherics/unary/vent_scrubber/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)

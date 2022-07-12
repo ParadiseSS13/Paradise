@@ -296,10 +296,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 		return
 	if(!completed)
 		return
-	var/datum/species/S = H.dna.species
-	if(HAS_TRAIT(H, TRAIT_GENELESS))
+	if(!istype(H) || HAS_TRAIT(H, TRAIT_GENELESS))
 		to_chat(H, "<span class='warning'>Error, no DNA detected.</span>")
 		return
+
+	var/datum/species/S = H.dna.species
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
 			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
