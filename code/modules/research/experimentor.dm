@@ -534,7 +534,7 @@
 /obj/machinery/r_n_d/experimentor/Topic(href, href_list)
 	if(..())
 		return
-	if(!Adjacent(user) && !issilicon(user))
+	if(!Adjacent(usr) && !issilicon(usr))
 		return
 	usr.set_machine(src)
 
