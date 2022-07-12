@@ -144,7 +144,7 @@
 							   "I FOT AND DIED FOR MUH [pick("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gATEway LoOt")]",
 							   "KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!",
 							   "I CAN FORCE YOU TO SAY WHATEREVE!!?!?!")
-			if(prob((2/3)*100))
+			if(prob(66))
 				say(pick(crazysay))
 			else
 				emote("drool")
