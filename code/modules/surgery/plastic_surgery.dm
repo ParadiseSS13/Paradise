@@ -76,7 +76,7 @@
 		var/newname = target.real_name	//something about how the code handles names required that I use this instead of target.real_name
 		user.visible_message("[user] alters [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [newname]!", "<span class='notice'>You alter [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [newname].</span>")
 	target.sec_hud_set_ID()
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 
 /datum/surgery_step/reshape_face/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -84,4 +84,4 @@
 	user.visible_message("<span class='warning'> [user]'s hand slips, tearing skin on [target]'s face with [tool]!</span>", \
 						 "<span class='warning'> Your hand slips, tearing skin on [target]'s face with [tool]!</span>")
 	target.apply_damage(10, BRUTE, head, sharp = TRUE)
-	return FALSE
+	return SURGERY_STEP_RETRY

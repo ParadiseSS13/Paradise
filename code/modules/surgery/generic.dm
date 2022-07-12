@@ -45,14 +45,14 @@
 	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>",)
 	affected.open = ORGAN_ORGANIC_OPEN
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>")
 	affected.receive_damage(10)
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/clamp_bleeders
 	name = "clamp bleeders"
@@ -79,14 +79,14 @@
 	user.visible_message("<span class='notice'> [user] clamps bleeders in [target]'s [affected.name] with \the [tool]</span>.",	\
 	"<span class='notice'> You clamp bleeders in [target]'s [affected.name] with \the [tool].</span>")
 	spread_germs_to_organ(affected, user, tool)
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/clamp_bleeders/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",	\
 	"<span class='warning'> Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",)
 	affected.receive_damage(10)
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/retract_skin
 	name = "retract skin"
@@ -127,7 +127,7 @@
 		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with \the [tool].</span>"
 	user.visible_message(msg, self_msg)
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/retract_skin/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -141,7 +141,7 @@
 		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with \the [tool]!</span>"
 	user.visible_message(msg, self_msg)
 	target.apply_damage(12, BRUTE, affected, sharp = TRUE)
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/cauterize
 
@@ -170,14 +170,14 @@
 	"<span class='notice'> You cauterize the incision on [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = ORGAN_CLOSED
 	affected.germ_level = 0
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/cauterize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!</span>")
 	target.apply_damage(3, BURN, affected)
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/cauterize/premature
 	name = "cauterize incision (early)"
@@ -199,7 +199,7 @@
 
 /datum/surgery_step/generic/drill/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] drills into [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You drill into [target]'s [parse_zone(target_zone)].</span>")
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 
 /datum/surgery_step/generic/amputate
@@ -243,7 +243,7 @@
 	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))
 		user.put_in_hands(thing)
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -251,4 +251,4 @@
 	"<span class='warning'> Your hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>")
 	affected.receive_damage(30)
 	affected.fracture()
-	return FALSE
+	return SURGERY_STEP_RETRY

@@ -103,7 +103,7 @@
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/fix_vein/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -111,7 +111,7 @@
 	"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
 	affected.receive_damage(5, 0)
 
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/fix_dead_tissue		//Debridement
 	name = "remove dead tissue"
@@ -149,7 +149,7 @@
 		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = ORGAN_ORGANIC_OPEN
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -157,7 +157,7 @@
 	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")
 	affected.receive_damage(20)
 
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/treat_necrosis
 	name = "treat necrosis"
@@ -205,7 +205,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!istype(tool, /obj/item/reagent_containers))
-		return FALSE
+		return SURGERY_STEP_INCOMPLETE
 
 	var/obj/item/reagent_containers/container = tool
 	var/mitocholide = 0
@@ -224,13 +224,13 @@
 		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \
 			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>")
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/treat_necrosis/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!istype(tool, /obj/item/reagent_containers))
-		return
+		return SURGERY_STEP_INCOMPLETE
 
 	var/obj/item/reagent_containers/container = tool
 
@@ -241,3 +241,5 @@
 	"<span class='warning'> Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>")
 
 	//no damage or anything, just wastes medicine
+
+	return SURGERY_STEP_RETRY

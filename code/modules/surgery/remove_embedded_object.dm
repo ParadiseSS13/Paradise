@@ -55,4 +55,6 @@
 	else
 		to_chat(user, "<span class='warning'>You can't find [target]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!</span>")
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE
+
+// this could use a fail_step...

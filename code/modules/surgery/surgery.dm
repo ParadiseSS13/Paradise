@@ -101,7 +101,7 @@
 			return TRUE
 		// If it's a surgery initiator, make sure it calls its attack chain down the line.
 		// Make sure this comes after the operation though, especially for things like scalpels
-		if(tool.GetComponent(/datum/component/surgery_initiator))
+		if(tool && tool.GetComponent(/datum/component/surgery_initiator))
 			return FALSE
 		if(tool && tool.flags & SURGICALTOOL)
 			to_chat(user, "<span class='warning'>This step requires a different tool!</span>")
@@ -235,6 +235,7 @@
 
 	var/speed_mod = 1
 	var/advance = FALSE
+	var/retry = FALSE
 	var/prob_success = 100
 
 	// TODO Clean up the begin_step calls so they all return TRUE or some define
@@ -270,15 +271,24 @@
 		var/pain_mod = deal_pain(user, target, target_zone, tool, surgery)
 		prob_success *= pain_mod
 
-		if((prob(prob_success) || isrobot(user) && !silicons_obey_prob) && chem_check_result && !try_to_fail)
+		var/step_result
 
-			if(end_step(user, target, target_zone, tool, surgery))
+		if((prob(prob_success) || isrobot(user) && !silicons_obey_prob) && chem_check_result && !try_to_fail)
+			step_result = end_step(user, target, target_zone, tool, surgery)
+			if(step_result == SURGERY_STEP_CONTINUE)
 				advance = TRUE
+			else if(step_result == SURGERY_STEP_RETRY)
+				retry = TRUE
 		else
-			if(fail_step(user, target, target_zone, tool, surgery))
+			step_result = fail_step(user, target, target_zone, tool, surgery)
+			if(step_result == SURGERY_STEP_CONTINUE)
 				advance = TRUE
-			if(chem_check_result)
-				return .(user, target, target_zone, tool, surgery, try_to_fail) //automatically re-attempt if failed for reason other than lack of required chemical
+			else if(step_result == SURGERY_STEP_RETRY)
+				retry = TRUE
+
+		if(retry)
+			// if at first you don't succeed...
+			return .(user, target, target_zone, tool, surgery, try_to_fail)
 
 		// Bump the surgery status
 		// if it's repeatable, don't let it truly "complete" though
@@ -298,8 +308,11 @@
  */
 /datum/surgery_step/proc/deal_pain(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	. = 1
-	if(ispath(surgery.steps[surgery.status], /datum/surgery_step/robotics) || surgery.organ_ref)//Repairing robotic limbs doesn't hurt, and neither does cutting someone out of a rig
+	// TODO probably replace this check, it's gross to just check that it's a robotic surgery subpath
+	if(!surgery.requires_organic_bodypart)
 		return
+	// if(ispath(surgery.steps[surgery.status], /datum/surgery_step/robotics) || surgery.organ_ref)//Repairing robotic limbs doesn't hurt, and neither does cutting someone out of a rig
+	// 	return
 	if(!ishuman(target))
 		return
 
@@ -358,19 +371,19 @@
  * Finish a surgery step, performing anything that runs on the tail-end of a successful surgery.
  * This runs if the surgery step passes the probability check, and therefore is a success.
  *
- * Should return TRUE to advance the surgery, though may return FALSE to keep the surgery step from advancing.
+ * Should return SURGERY_STEP_CONTINUE to advance the surgery, though may return SURGERY_STEP_INCOMPLETE to keep the surgery step from advancing.
  */
 /datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /**
  * Play out the failure state of a surgery step.
  * This runs if the surgery step fails the probability check, the right chems weren't present, or if the user deliberately failed the surgery.
  *
- * Should return FALSE to prevent the surgery step from advancing, though may return TRUE to advance to the next step regardless.
+ * Should return SURGERY_STEP_INCOMPLETE to prevent the surgery step from advancing, though may return SURGERY_STEP_CONTINUE to advance to the next step regardless.
  */
 /datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	return FALSE
+	return SURGERY_STEP_INCOMPLETE
 
 /**
  * Spread some nasty germs to an organ.

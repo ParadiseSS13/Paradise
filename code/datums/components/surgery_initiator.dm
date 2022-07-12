@@ -96,7 +96,7 @@
 	var/list/available_surgeries = list()
 
 	var/mob/living/carbon/carbon_target
-	var/obj/item/organ/affecting
+	var/obj/item/organ/external/affecting
 	if (iscarbon(target))
 		carbon_target = target
 		affecting = carbon_target.get_organ(check_zone(user.zone_selected))
@@ -111,11 +111,13 @@
 				continue
 			if((surgery.requires_organic_bodypart && affecting.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting.is_robotic()))
 				continue
-			if(surgery.requires_real_bodypart && affecting.is_primary_organ())
+			if(surgery.requires_real_bodypart && !affecting.is_primary_organ())
 				continue
 		else if(carbon_target && surgery.requires_bodypart) //mob with no limb in surgery zone when we need a limb
 			continue
 		if(surgery.lying_required && target.body_position != LYING_DOWN)
+			continue
+		if(!surgery.self_operable && target == user)
 			continue
 		if(!surgery.can_start(user, target))
 			continue

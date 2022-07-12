@@ -58,6 +58,13 @@
 		to_chat(user, "<span class='warning'>The bones in [target]'s [parse_zone(affected)] look fully intact, they don't need mending.</span>")
 	return FALSE
 
+/datum/surgery/intermediate/robotics/internal_repair
+	name = "Robotic External Organ Repair (abstract)"
+	desc = "An intermediate robotic surgery to repair cybernetic body parts during another cybernetic operation."
+	steps = list(/datum/surgery_step/robotics/external/repair)
+	possible_locs = list("chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
+	requires_organic_bodypart = FALSE
+
 /**
  * Here's the special sauce: a surgery step that can pretend to be a few different surgery steps.
  * These proxy steps will, depending on the tool that's used, either continue to the next surgery step, or temporarily spin off a new surgery
@@ -166,4 +173,10 @@
 	name = "mend internal bleeding"
 	branches = list(
 		/datum/surgery/intermediate/bleeding
+	)
+
+/datum/surgery_step/proxy/robotics/limb_repair
+	name = "repair limbs"
+	branches = list(
+		/datum/surgery/intermediate/robotics/internal_repair
 	)

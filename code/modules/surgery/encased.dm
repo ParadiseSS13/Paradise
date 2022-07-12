@@ -46,9 +46,9 @@
 
 	user.visible_message("<span class='notice'> [user] has cut [target]'s [affected.encased] open with \the [tool].</span>",		\
 	"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>")
-	affected.open = 2.5
+	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
 	affected.fracture(silent = TRUE)
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/open_encased/saw/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -62,7 +62,7 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 
 /datum/surgery_step/open_encased/retract
@@ -97,9 +97,9 @@
 	var/self_msg = "<span class='notice'> You force open [target]'s [affected.encased] with \the [tool].</span>"
 	user.visible_message(msg, self_msg)
 
-	affected.open = 3
+	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/open_encased/retract/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -114,7 +114,7 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/open_encased/close
 	name = "unretract bone" //i suck at names okay? give me a new one
@@ -148,9 +148,7 @@
 	var/self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with \the [tool].</span>"
 	user.visible_message(msg, self_msg)
 
-	affected.open = 2.5
-
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/open_encased/close/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -165,7 +163,7 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/open_encased/mend
 	name = "mend bone"
@@ -198,6 +196,6 @@
 	var/self_msg = "<span class='notice'> You applied \the [tool] to [target]'s [affected.encased].</span>"
 	user.visible_message(msg, self_msg)
 
-	affected.open = 2 // TODO WHAT DO THESE OPEN VALUES EVEN MEAN
+	affected.open = ORGAN_ORGANIC_OPEN
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE

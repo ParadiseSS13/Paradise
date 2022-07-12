@@ -251,7 +251,7 @@
 			tool_name = "[tool]" //what else do you call nanopaste medically?
 
 		if(!hasorgans(target))
-			return
+			return SURGERY_STEP_INCOMPLETE
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
@@ -270,10 +270,10 @@
 		I = tool
 		if(I.requires_robotic_bodypart)
 			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
-			return FALSE
+			return SURGERY_STEP_INCOMPLETE
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
-			return FALSE
+			return SURGERY_STEP_INCOMPLETE
 		I.insert(target)
 		spread_germs_to_organ(I, user, tool)
 
@@ -304,19 +304,19 @@
 
 	else if(current_type == "clean")
 		if(!hasorgans(target))
-			return
-		if(!istype(tool,/obj/item/reagent_containers))
-			return
+			return SURGERY_STEP_INCOMPLETE
+		if(!istype(tool, /obj/item/reagent_containers))
+			return SURGERY_STEP_INCOMPLETE
 
 		var/obj/item/reagent_containers/C = tool
 		var/datum/reagents/R = C.reagents
 		var/ethanol = 0 //how much alcohol is in the thing
 		var/spaceacillin = 0 //how much actual antibiotic is in the thing
 
-		if(R.reagent_list.len)
+		if(length(R.reagent_list))
 			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
 				ethanol += alcohol.alcohol_perc * 300
-			ethanol /= R.reagent_list.len
+			ethanol /= length(R.reagent_list)
 
 			spaceacillin = R.get_reagent_amount("spaceacillin")
 
@@ -324,9 +324,8 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				if(R.total_volume < GHETTO_DISINFECT_AMOUNT)
-					user.visible_message("[user] notices there is not enough in [tool].", \
-					"You notice there is not enough in [tool].")
-					return FALSE
+					to_chat(user, "There is not enough in [tool].")
+					return SURGERY_STEP_INCOMPLETE
 				if(I.germ_level < INFECTION_LEVEL_ONE / 2)
 					to_chat(user, "[I] does not appear to be infected.")
 				if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
@@ -334,9 +333,11 @@
 						I.germ_level = 0
 					else
 						I.germ_level = max(I.germ_level-ethanol, 0)
-					if(istype(C,/obj/item/reagent_containers/syringe))
-						user.visible_message("<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
-					"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>")
+					if(istype(C, /obj/item/reagent_containers/syringe))
+						user.visible_message(
+							"<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
+							"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>"
+						)
 					else
 						user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
 					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
@@ -345,7 +346,7 @@
 
 	else if(current_type == "finish")
 		if(affected && affected.encased)
-			var/msg = "<span class='notice'> [user] bends [target]'s [affected.encased] back into place with [tool].</span>"
+			var/msg = "<span class='notice'>[user] bends [target]'s [affected.encased] back into place with [tool].</span>"
 			var/self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with [tool].</span>"
 			user.visible_message(msg, self_msg)
 			affected.open = ORGAN_ORGANIC_ENCASED_OPEN
@@ -354,14 +355,14 @@
 			var/self_msg = "<span class='notice'>You pull [target]'s flesh back into place with [tool].</span>"
 			user.visible_message(msg, self_msg)
 
-		return TRUE
+		return SURGERY_STEP_CONTINUE
 
-	return FALSE
+	return SURGERY_STEP_INCOMPLETE
 
 /datum/surgery_step/internal/manipulate_organs/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(current_type == "mend")
 		if(!hasorgans(target))
-			return
+			return SURGERY_STEP_INCOMPLETE
 
 		user.visible_message("<span class='warning'> [user]'s hand slips, getting mess and tearing the inside of [target]'s [affected.name] with [tool]!</span>", \
 		"<span class='warning'> Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with [tool]!</span>")
@@ -380,7 +381,7 @@
 			if(I && I.damage && !(I.tough))
 				I.receive_damage(dam_amt,0)
 
-		return FALSE
+		return SURGERY_STEP_RETRY
 
 	else if(current_type == "insert")
 		user.visible_message("<span class='warning'> [user]'s hand slips, damaging [tool]!</span>", \
@@ -389,13 +390,13 @@
 		if(istype(I) && !I.tough)
 			I.receive_damage(rand(3,5),0)
 
-		return FALSE
+		return SURGERY_STEP_RETRY
 
 	else if(current_type == "clean")
 		if(!hasorgans(target))
-			return
-		if(!istype(tool,/obj/item/reagent_containers))
-			return
+			return SURGERY_STEP_INCOMPLETE
+		if(!istype(tool, /obj/item/reagent_containers))
+			return SURGERY_STEP_INCOMPLETE
 
 		var/obj/item/reagent_containers/C = tool
 		var/datum/reagents/R = C.reagents
@@ -415,7 +416,7 @@
 
 		user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>", \
 		"<span class='warning'> Your hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>")
-		return FALSE
+		return SURGERY_STEP_INCOMPLETE
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)
@@ -429,7 +430,7 @@
 		else
 			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
-		return FALSE
+		return SURGERY_STEP_RETRY
 
 	else if(current_type == "finish")
 		if(affected && affected.encased)
@@ -443,10 +444,10 @@
 			user.visible_message(msg, self_msg)
 		if(affected)
 			affected.receive_damage(20)
-		return FALSE
+		return SURGERY_STEP_RETRY
 
 
-	return FALSE
+	return SURGERY_STEP_INCOMPLETE
 
 
 //////////////////////////////////////////////////////////////////
@@ -474,13 +475,13 @@
 
 	user.visible_message("<span class='notice'> [user] has cut [target]'s [target_zone] open with [tool].</span>",		\
 	"<span class='notice'> You have cut [target]'s [target_zone] open with [tool].</span>")
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/saw_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("<span class='warning'> [user]'s hand slips, cracking [target]'s [target_zone] with [tool]!</span>" , \
 	"<span class='warning'> Your hand slips, cracking [target]'s [target_zone] with [tool]!</span>" )
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/cut_carapace
 	name = "cut carapace"
@@ -507,13 +508,13 @@
 
 	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [target_zone] with [tool].</span>", \
 	"<span class='notice'> You have made an incision on [target]'s [target_zone] with [tool].</span>",)
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/cut_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("<span class='warning'> [user]'s hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!</span>", \
 	"<span class='warning'> Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!</span>")
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/retract_carapace
 	name = "retract carapace"
@@ -549,16 +550,16 @@
 		msg = "<span class='notice'> [user] keeps the incision open on [target]'s lower abdomen with [tool].</span>"
 		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with [tool].</span>"
 	user.visible_message(msg, self_msg)
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/msg = "<span class='warning'> [user]'s hand slips, tearing the edges of incision on [target]'s [target_zone] with [tool]!</span>"
 	var/self_msg = "<span class='warning'> Your hand slips, tearing the edges of incision on [target]'s [target_zone] with [tool]!</span>"
 	if(target_zone == "chest")
-		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s torso with [tool]!</span>"
-		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s torso with [tool]!</span>"
+		msg = "<span class='warning'> [user]'s hand slips, damaging several organs in [target]'s torso with [tool]!</span>"
+		self_msg = "<span class='warning'> Your hand slips, damaging several organs in [target]'s torso with [tool]!</span>"
 	if(target_zone == "groin")
-		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s lower abdomen with [tool]</span>"
-		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with [tool]!</span>"
+		msg = "<span class='warning'> [user]'s hand slips, damaging several organs in [target]'s lower abdomen with [tool]</span>"
+		self_msg = "<span class='warning'> Your hand slips, damaging several organs in [target]'s lower abdomen with [tool]!</span>"
 	user.visible_message(msg, self_msg)
-	return FALSE
+	return SURGERY_STEP_RETRY

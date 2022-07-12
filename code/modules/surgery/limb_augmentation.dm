@@ -57,4 +57,4 @@
 
 	affected.open = ORGAN_CLOSED
 	affected.germ_level = 0
-	return TRUE
+	return SURGERY_STEP_CONTINUE

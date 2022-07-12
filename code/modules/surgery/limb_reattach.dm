@@ -105,14 +105,14 @@
 	user.visible_message("<span class='notice'>[user] has attached [target]'s [E.name] to the [E.amputation_point].</span>",	\
 	"<span class='notice'>You have attached [target]'s [E.name] to the [E.amputation_point].</span>")
 	attach_limb(user, target, E)
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/limb/attach/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = tool
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 
 /datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/E)
@@ -182,14 +182,14 @@
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/limb/connect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/limb/mechanize
 	name = "apply robotic prosthetic"
@@ -238,10 +238,10 @@
 
 	qdel(tool)
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
-	return FALSE
+	return SURGERY_STEP_RETRY

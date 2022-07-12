@@ -18,6 +18,7 @@
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
+		/datum/surgery_step/proxy/robotics/limb_repair,
 		/datum/surgery_step/robotics/manipulate_robotic_organs
 	)
 	possible_locs = list("eyes", "mouth", "chest","head","groin","l_arm","r_arm")
@@ -89,13 +90,13 @@
 	user.visible_message("<span class='notice'> [user] has opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You have opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",)
 	affected.open = ORGAN_SYNTHETIC_LOOSENED
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/robotics/external/unscrew_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to unscrew [target]'s [affected.name].</span>", \
 	"<span class='warning'> Your [tool] slips, failing to unscrew [target]'s [affected.name].</span>")
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/robotics/external/open_hatch
 	name = "open hatch"
@@ -125,13 +126,13 @@
 	user.visible_message("<span class='notice'> [user] opens the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>", \
 	 "<span class='notice'> You open the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>" )
 	affected.open = ORGAN_SYNTHETIC_OPEN
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/robotics/external/open_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to open the hatch on [target]'s [affected.name].</span>",
 	"<span class='warning'> Your [tool] slips, failing to open the hatch on [target]'s [affected.name].</span>")
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/robotics/external/close_hatch
 	name = "close hatch"
@@ -161,13 +162,13 @@
 	user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = ORGAN_CLOSED
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/robotics/external/close_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
 	"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/robotics/external/repair
 	name = "repair damage internally"
@@ -249,8 +250,8 @@
 			user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
 			affected.open = ORGAN_CLOSED
-			return TRUE
-	return FALSE
+			return SURGERY_STEP_CONTINUE
+	return SURGERY_STEP_INCOMPLETE
 
 /datum/surgery_step/robotics/external/repair/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -266,7 +267,7 @@
 		if("finish")
 			user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
 			"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 ///////condenseing remove/extract/repair here.	/////////////
 /datum/surgery_step/robotics/manipulate_robotic_organs
@@ -436,7 +437,7 @@
 
 		if(!user.canUnEquip(I, 0))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
-			return FALSE
+			return SURGERY_STEP_INCOMPLETE
 
 		user.drop_item()
 		I.insert(target)
@@ -473,8 +474,8 @@
 		"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
 		affected.open = ORGAN_CLOSED
 		affected.germ_level = 0
-		return TRUE
-	return FALSE
+		return SURGERY_STEP_CONTINUE
+	return SURGERY_STEP_INCOMPLETE
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -508,7 +509,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
 		"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 
 /datum/surgery_step/robotics/external/amputate
@@ -540,13 +541,13 @@
 	if(istype(thing,/obj/item))
 		user.put_in_hands(thing)
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/robotics/external/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("<span class='warning'> [user]'s hand slips!</span>", \
 	"<span class='warning'> Your hand slips!</span>")
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery/cybernetic_customization
 	name = "Cybernetic Appearance Customization"
@@ -584,7 +585,7 @@
 /datum/surgery_step/robotics/external/customize_appearance/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/chosen_appearance = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
 	if(!chosen_appearance)
-		return FALSE
+		return SURGERY_STEP_INCOMPLETE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	affected.robotize(chosen_appearance, convert_all = FALSE)
 	if(istype(affected, /obj/item/organ/external/head))
@@ -597,10 +598,10 @@
 	user.visible_message("<span class='notice'> [user] reprograms the appearance of [target]'s [affected.name] with [tool].</span>", \
 	"<span class='notice'> You reprogram the appearance of [target]'s [affected.name] with [tool].</span>")
 	affected.open = ORGAN_CLOSED
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/robotics/external/customize_appearance/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>",
 	"<span class='warning'> Your [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>")
-	return FALSE
+	return SURGERY_STEP_RETRY

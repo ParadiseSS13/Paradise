@@ -29,9 +29,9 @@
 
 // Return these from end_step/fail_step to indicate the next move
 
-/// The surgery step needs to be retried.
+/// The surgery step was a failure, but can still be retried.
 #define SURGERY_STEP_INCOMPLETE 0
 /// The surgery should proceed to the next step.
 #define SURGERY_STEP_CONTINUE 1
-/// This step should be immediately retried.
+/// This step will automatically be retried.
 #define SURGERY_STEP_RETRY 2
