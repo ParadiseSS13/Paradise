@@ -1,5 +1,5 @@
 /datum/input_data
-	/// Associative list of currently held keys.
+	/// Associative list of currently held keys. Format: keys_held[key], associated value is world.time where key was pressed.
 	var/list/keys_held = list()
 	/// Associative list of currently held key combos.
 	var/list/key_combos_held = list()

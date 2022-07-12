@@ -62,7 +62,7 @@
 	winset(C, null, "input.focus=true")
 
 /datum/keybinding/client/input_remove
-	name = "Input Backspace"
+	name = "Clear Input Bar"
 	keys = list("Back")
 
 /datum/keybinding/client/input_remove/down(client/C)

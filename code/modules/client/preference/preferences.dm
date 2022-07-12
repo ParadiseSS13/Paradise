@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/ghost_darkness_level = LIGHTING_PLANE_ALPHA_VISIBLE
 	/// Colourblind mode
 	var/colourblind_mode = COLOURBLIND_MODE_NONE
-	/// Active keybindings
+	/// Active keybinds (currently useable by the mob/client)
 	var/list/datum/keybindings = list()
 	/// Keybinding overrides ("name" => ["key"...])
 	var/list/keybindings_overrides = null

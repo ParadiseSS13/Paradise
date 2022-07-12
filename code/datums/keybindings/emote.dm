@@ -141,10 +141,6 @@
 	linked_emote = /datum/emote/living/snore
 	name = "Snore"
 
-/datum/keybinding/emote/nightmare
-	linked_emote = /datum/emote/living/nightmare
-	name = "Nightmare"
-
 /datum/keybinding/emote/stare
 	linked_emote = /datum/emote/living/stare
 	name = "Stare"
@@ -209,7 +205,7 @@
 
 /datum/keybinding/emote/carbon/cross
 	linked_emote = /datum/emote/living/carbon/cross
-	name = "Cross"
+	name = "Cross Arms"
 
 /datum/keybinding/emote/carbon/chuckle
 	linked_emote = /datum/emote/living/carbon/chuckle
@@ -262,14 +258,6 @@
 /datum/keybinding/emote/carbon/scowl
 	linked_emote = /datum/emote/living/carbon/scowl
 	name = "Scowl"
-
-/datum/keybinding/emote/carbon/sign
-	linked_emote = /datum/emote/living/carbon/sign
-	name = "Sign"
-
-/datum/keybinding/emote/carbon/sign/signal
-	linked_emote = /datum/emote/living/carbon/sign/signal
-	name = "Signal"
 
 /datum/keybinding/emote/carbon/faint
 	linked_emote = /datum/emote/living/carbon/faint

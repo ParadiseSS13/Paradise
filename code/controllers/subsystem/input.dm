@@ -11,10 +11,12 @@ SUBSYSTEM_DEF(input)
 	/// List of clients whose input to process in loop.
 	var/list/client/processing = list()
 
+/datum/controller/subsystem/input/get_stat_details()
+	return "P: [length(processing)]"
+
 /datum/controller/subsystem/input/fire(resumed = FALSE)
 	var/list/to_cull
-	for(var/c in processing)
-		var/client/C = c
+	for(var/client/C in processing)
 		if(processing[C] + AUTO_CULL_TIME < world.time)
 			if(!length(C.input_data.keys_held))
 				LAZYADD(to_cull, C)
