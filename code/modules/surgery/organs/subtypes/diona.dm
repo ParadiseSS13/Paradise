@@ -4,14 +4,14 @@
 	min_broken_damage = 50
 	amputation_point = "trunk"
 	encased = null
-	gendered_icon = 0
+	gendered_icon = FALSE
 	convertable_children = list(/obj/item/organ/external/groin/diona)
 
 /obj/item/organ/external/groin/diona
 	name = "fork"
 	min_broken_damage = 50
 	amputation_point = "lower trunk"
-	gendered_icon = 0
+	gendered_icon = FALSE
 
 /obj/item/organ/external/arm/diona
 	name = "left upper tendril"
@@ -66,7 +66,7 @@
 	min_broken_damage = 25
 	encased = null
 	amputation_point = "upper trunk"
-	gendered_icon = 0
+	gendered_icon = FALSE
 
 /obj/item/organ/diona/process()
 	return

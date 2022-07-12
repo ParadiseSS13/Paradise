@@ -2,7 +2,7 @@
 /area/syndicate_depot
 	name = "Suspicious Supply Depot"
 	icon_state = "dark"
-	tele_proof = 1
+	tele_proof = TRUE
 
 /area/syndicate_depot/core
 	icon_state = "red"

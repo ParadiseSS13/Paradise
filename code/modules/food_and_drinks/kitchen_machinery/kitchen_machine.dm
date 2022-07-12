@@ -3,13 +3,13 @@
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
 	layer = 2.9
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	container_type = OPENCONTAINER
-	var/operating = 0 // Is it on?
+	var/operating = FALSE // Is it on?
 	var/dirty = 0 // = {0..100} Does it need cleaning?
 	var/broken = 0 // ={0,1,2} How broken is it???
 	var/efficiency = 0
@@ -70,11 +70,11 @@
 	if(!broken && istype(O, /obj/item/wrench))
 		playsound(src, O.usesound, 50, 1)
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
 			return
 		else if(!anchored)
-			anchored = 1
+			anchored = TRUE
 			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
 			return
 
@@ -361,18 +361,18 @@
 
 /obj/machinery/kitchen_machine/proc/start()
 	visible_message("<span class='notice'>\The [src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
-	operating = 1
+	operating = TRUE
 	icon_state = on_icon
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/abort()
-	operating = 0 // Turn it off again aferwards
+	operating = FALSE // Turn it off again aferwards
 	icon_state = off_icon
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/stop()
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	operating = 0 // Turn it off again aferwards
+	operating = FALSE // Turn it off again aferwards
 	icon_state = off_icon
 	updateUsrDialog()
 
@@ -395,7 +395,7 @@
 	dirty = 100 // Make it dirty so it can't be used util cleaned
 	flags = null //So you can't add condiments
 	icon_state = dirty_icon // Make it look dirty too
-	operating = 0 // Turn it off again aferwards
+	operating = FALSE // Turn it off again aferwards
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
@@ -404,7 +404,7 @@
 	visible_message("<span class='alert'>[src] breaks!</span>") //Let them know they're stupid
 	broken = 2 // Make it broken so it can't be used util fixed
 	flags = null //So you can't add condiments
-	operating = 0 // Turn it off again aferwards
+	operating = FALSE // Turn it off again aferwards
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/fail()

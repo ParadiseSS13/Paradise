@@ -61,7 +61,7 @@
 /area/ruin/space/powered)
 "o" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "p" = (

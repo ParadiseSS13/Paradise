@@ -95,7 +95,7 @@
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -129,7 +129,7 @@
 	origin_tech = "materials=3;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharp = 1
+	sharp = TRUE
 	var/extend = 1
 	var/swiping = FALSE
 
@@ -172,7 +172,7 @@
 	icon_state = "tscythe0"
 	item_state = null	//no sprite for folded version, like a tele-baton
 	force = 3
-	sharp = 0
+	sharp = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	extend = 0
 	slot_flags = SLOT_BELT

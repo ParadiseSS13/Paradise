@@ -2867,7 +2867,7 @@
 	level = 2
 	},
 /obj/structure/table,
-/obj/item/book/manual/chef_recipes,
+/obj/item/book/manual/wiki/chef_recipes,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -5465,7 +5465,7 @@
 	name = "custom placement";
 	pixel_x = -30
 	},
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
 	on = 1

@@ -186,49 +186,9 @@
 		if(prob(85))
 			var/datum/reagent/r = GLOB.chemical_reagents_list[chem]
 			B.name	= "[r.name] bottle"
-//			B.identify_probability = 100
 		else
 			B.name	= "unlabelled bottle"
 			B.desc	= "Looks like the label fell off."
-//			B.identify_probability = 0
-//
-/*
-/obj/structure/closet/crate/bin/flowers
-	name = "flower barrel"
-	desc = "A bin full of fresh flowers for the bereaved."
-	anchored = 0
-	New()
-		while(contents.len < 10)
-			var/flowertype = pick(/obj/item/grown/sunflower,/obj/item/grown/novaflower,/obj/item/reagent_containers/food/snacks/grown/poppy,
-				/obj/item/reagent_containers/food/snacks/grown/harebell,/obj/item/reagent_containers/food/snacks/grown/moonflower)
-			var/atom/movable/AM = new flowertype(src)
-			AM.pixel_x = rand(-10,10)
-			AM.pixel_y = rand(-5,5)
-
-/obj/structure/closet/crate/bin/plants
-	name = "plant barrel"
-	desc = "Caution: Contents may contain vitamins and minerals.  It is recommended that you deep fry them before eating."
-	anchored = 0
-	New()
-		while(contents.len < 10)
-			var/ptype = pick(/obj/item/reagent_containers/food/snacks/grown/apple,/obj/item/reagent_containers/food/snacks/grown/banana,
-							 /obj/item/reagent_containers/food/snacks/grown/berries, /obj/item/reagent_containers/food/snacks/grown/cabbage,
-							 /obj/item/reagent_containers/food/snacks/grown/carrot, /obj/item/reagent_containers/food/snacks/grown/cherries,
-							 /obj/item/reagent_containers/food/snacks/grown/chili, /obj/item/reagent_containers/food/snacks/grown/cocoapod,
-							 /obj/item/reagent_containers/food/snacks/grown/corn, /obj/item/reagent_containers/food/snacks/grown/eggplant,
-							 /obj/item/reagent_containers/food/snacks/grown/grapes, /obj/item/reagent_containers/food/snacks/grown/greengrapes,
-							 /obj/item/reagent_containers/food/snacks/grown/icepepper, /obj/item/reagent_containers/food/snacks/grown/lemon,
-							 /obj/item/reagent_containers/food/snacks/grown/lime, /obj/item/reagent_containers/food/snacks/grown/orange,
-							 /obj/item/reagent_containers/food/snacks/grown/potato, /obj/item/reagent_containers/food/snacks/grown/pumpkin,
-							 /obj/item/reagent_containers/food/snacks/grown/soybeans, /obj/item/reagent_containers/food/snacks/grown/sugarcane,
-							 /obj/item/reagent_containers/food/snacks/grown/tomato, /obj/item/reagent_containers/food/snacks/grown/watermelon,
-							 /obj/item/reagent_containers/food/snacks/grown/wheat, /obj/item/reagent_containers/food/snacks/grown/whitebeet,
-							 /obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle, /obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet)
-			var/obj/O = new ptype(src)
-			O.pixel_x = rand(-10,10)
-			O.pixel_y = rand(-5,5)
-*/
-
 /obj/structure/closet/secure_closet/random_drinks
 	name = "unlabelled booze closet"
 	req_access = list(ACCESS_BAR)

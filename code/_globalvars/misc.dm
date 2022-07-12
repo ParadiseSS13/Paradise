@@ -20,6 +20,9 @@ GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_co
     GLOB.command_announcer = new(null)
   return
 
+///Library Catalog global is for storing a library catalog datum that will track book, category, and report lists for the library
+GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
+
 GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
 	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
 	"table","td","th","tr"))

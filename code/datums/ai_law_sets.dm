@@ -194,7 +194,7 @@
 /datum/ai_laws/deathsquad/New()
 	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
 	add_inherent_law("You must obey orders given to you by Central Command officials.")
-	add_inherent_law("You must work with your commando team to accomplish your mission.")
+	add_inherent_law("You must work with your team to accomplish your mission.")
 	..()
 
 /******************** Syndicate ********************/

@@ -30,6 +30,17 @@
 	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 	requires_organic_bodypart = FALSE
 
+/datum/surgery/cybernetic_repair/can_start(mob/user, mob/living/carbon/target)
+
+	if(istype(target,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected)
+			return FALSE
+		if(!affected.is_robotic())
+			return FALSE
+		return TRUE
+
 /datum/surgery/cybernetic_amputation/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target

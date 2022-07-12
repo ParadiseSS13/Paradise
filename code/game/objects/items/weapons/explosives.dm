@@ -5,7 +5,7 @@
 	item_state = "plastic-explosive"
 	flags = NOBLUDGEON
 	det_time = 10
-	display_timer = 0
+	display_timer = FALSE
 	origin_tech = "syndicate=1"
 	toolspeed = 1
 	var/atom/target = null
@@ -108,7 +108,7 @@
 				message_say = "FOR THE FEDERATION!"
 			else if(role == ROLE_REV || role == "head revolutionary")
 				message_say = "FOR THE REVOLUTION!"
-			else if(role == "death commando" || role == ROLE_ERT)
+			else if(role == SPECIAL_ROLE_DEATHSQUAD || role == ROLE_ERT)
 				message_say = "FOR NANOTRASEN!"
 	user.say(message_say)
 	target = user

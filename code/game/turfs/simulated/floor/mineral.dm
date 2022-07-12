@@ -224,7 +224,7 @@
 	floor_tile = /obj/item/stack/tile/mineral/uranium
 	icons = list("uranium","uranium_dam")
 	var/last_event = 0
-	var/active = null
+	var/active = FALSE
 
 /turf/simulated/floor/mineral/uranium/Entered(mob/AM)
 	.=..()

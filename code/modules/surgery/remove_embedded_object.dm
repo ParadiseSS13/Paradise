@@ -19,6 +19,28 @@
 	)
 	requires_organic_bodypart = FALSE
 
+
+/datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/human/target)
+	if(!istype(target))
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(!affected)
+		return FALSE
+	if(affected.is_robotic())
+		return FALSE
+	return TRUE
+
+/datum/surgery/embedded_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
+	if(!istype(target))
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(!affected)
+		return FALSE
+	if(!affected.is_robotic())
+		return FALSE
+
+	return TRUE
+
 /datum/surgery_step/remove_object
 	name = "Remove Embedded Objects"
 	time = 3.2 SECONDS

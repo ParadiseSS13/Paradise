@@ -62,7 +62,7 @@
 		return
 	usr.set_machine(src)
 	add_fingerprint(usr)
-	if(processing == 1)
+	if(processing)
 		to_chat(usr, "<span class='notice'>The machine is processing.</span>")
 		return
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)

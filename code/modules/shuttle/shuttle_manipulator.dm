@@ -105,6 +105,8 @@
 	data["shuttles"] = list()
 	for(var/i in SSshuttle.mobile)
 		var/obj/docking_port/mobile/M = i
+		if(!M)
+			continue
 		var/list/L = list()
 		L["name"] = M.name
 		L["id"] = M.id
