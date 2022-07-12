@@ -677,11 +677,13 @@ BLIND     // can't see anything
 	QDEL_LIST(accessories)
 	return ..()
 
+/*
+  * # can_attach_accessory
+  *
+  * Arguments:
+  * * A - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+*/
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
-	if(istype(A))
-		. = TRUE
-	else
-		return FALSE
 	if(length(accessories) >= MAX_EQUIPABLE_ACCESSORIES) //this is neccesary to prevent chat spam when examining clothing
 		return FALSE
 	for(var/obj/item/clothing/accessory/AC in accessories)
@@ -723,6 +725,8 @@ BLIND     // can't see anything
 	..()
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
+	if(!istype(A))
+		return FALSE
 	if(can_attach_accessory(A))
 		if(unequip && !user.unEquip(A)) // Make absolutely sure this accessory is removed from hands
 			return FALSE

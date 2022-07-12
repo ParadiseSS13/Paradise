@@ -785,12 +785,14 @@
 					return TRUE
 			return FALSE
 		if(slot_tie)
-			if(!H.w_uniform)
+			if(!istype(I, /obj/item/clothing/accessory))
+				return FALSE
+			var/obj/item/clothing/under/uniform = H.w_uniform
+			if(!uniform)
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			var/obj/item/clothing/under/uniform = H.w_uniform
-			if(uniform.accessories.len && !uniform.can_attach_accessory(H))
+			if(length(uniform.accessories) && !uniform.can_attach_accessory(I))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
 				return FALSE
