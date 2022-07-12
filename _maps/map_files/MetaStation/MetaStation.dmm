@@ -372,7 +372,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "aes" = (
 /obj/machinery/disposal,
 /obj/machinery/ai_status_display{
@@ -612,7 +612,7 @@
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "agk" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -2228,9 +2228,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aoh" = (
 /turf/simulated/wall,
 /area/mimeoffice)
@@ -3416,7 +3414,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "atg" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5627,7 +5625,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "aAw" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
@@ -5734,9 +5732,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "aAP" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -7373,9 +7369,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aGw" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -7663,9 +7657,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aHk" = (
 /turf/simulated/wall,
 /area/construction)
@@ -7863,9 +7855,7 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aHV" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -8325,9 +8315,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aIY" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -8339,9 +8327,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aIZ" = (
 /obj/structure/cable/yellow{
 	d2 = 8;
@@ -8354,9 +8340,7 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aJa" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -8889,9 +8873,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aKi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -8915,9 +8897,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aKk" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/window/reinforced,
@@ -9581,9 +9561,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aLW" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -9594,9 +9572,7 @@
 	icon_state = "plant-25"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aLY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -9606,17 +9582,13 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aLZ" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/item/weldingtool,
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aMb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -10109,9 +10081,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aNf" = (
 /obj/structure/cable/yellow{
 	d2 = 4;
@@ -10134,9 +10104,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aNg" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
@@ -10172,9 +10140,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aNk" = (
 /obj/machinery/vending/assist,
 /obj/effect/decal/cleanable/dirt,
@@ -10491,9 +10457,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mineral_storage,
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aOg" = (
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
@@ -10586,9 +10550,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aOA" = (
 /turf/simulated/wall,
 /area/storage/primary)
@@ -11613,9 +11575,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aRx" = (
 /obj/structure/closet/wardrobe/orange,
 /turf/simulated/floor/plasteel{
@@ -11712,9 +11672,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aRH" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/beaker/waterbottle{
@@ -11763,7 +11721,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "aRS" = (
 /obj/machinery/light{
 	dir = 1
@@ -12805,9 +12763,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aUx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -13613,9 +13569,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aWv" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
@@ -14083,9 +14037,7 @@
 /area/turret_protected/aisat_interior)
 "aXL" = (
 /turf/simulated/wall/r_wall,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "aXN" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -14234,9 +14186,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aYk" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
@@ -14554,9 +14504,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "aYY" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -15451,9 +15399,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "bbe" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -15776,9 +15722,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bbX" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -15786,16 +15730,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bbY" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bbZ" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -15803,9 +15743,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bcb" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/airless,
@@ -16043,9 +15981,7 @@
 	dir = 8;
 	icon_state = "browncorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "bcH" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -16053,9 +15989,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "bcI" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -16498,9 +16432,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bdK" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -16524,9 +16456,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bdN" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/asmaint)
@@ -17127,9 +17057,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bfd" = (
 /obj/machinery/computer/atmos_alert,
 /obj/machinery/requests_console{
@@ -17558,9 +17486,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "bgm" = (
 /obj/structure/rack{
 	dir = 8;
@@ -17867,9 +17793,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bgT" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -17884,9 +17808,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bgU" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -17983,9 +17905,7 @@
 "bhe" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "bhf" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -18612,7 +18532,7 @@
 	},
 /obj/machinery/meter,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "biC" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -18734,9 +18654,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "biU" = (
 /obj/machinery/ai_slipper,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -18862,9 +18780,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "bjh" = (
 /obj/machinery/light{
 	dir = 1
@@ -19623,9 +19539,7 @@
 	dir = 10;
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "bkW" = (
 /turf/simulated/wall/r_wall,
 /area/bridge)
@@ -19646,7 +19560,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "bkZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/all_access{
@@ -19656,7 +19570,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "bla" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -19840,7 +19754,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "blx" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -19910,9 +19824,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "blF" = (
 /obj/machinery/ai_slipper,
 /turf/simulated/floor/plasteel{
@@ -20042,9 +19954,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "blP" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/machinery/light{
@@ -20353,9 +20263,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "bmu" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/preopen{
@@ -20676,7 +20584,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "bnn" = (
 /obj/machinery/alarm{
 	name = "north bump";
@@ -20828,9 +20736,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bnM" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -20857,9 +20763,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bnO" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -20876,9 +20780,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bnQ" = (
 /obj/machinery/ai_slipper,
 /turf/simulated/floor/bluegrid,
@@ -21095,9 +20997,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "bou" = (
 /obj/structure/table,
 /obj/item/storage/box/lights/mixed,
@@ -22280,9 +22180,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "brg" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -22303,9 +22201,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bri" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/aisat_interior)
@@ -22691,7 +22587,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "brY" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external{
@@ -22769,9 +22665,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bsi" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -22882,9 +22776,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bsH" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -23110,9 +23002,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "btm" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -23604,7 +23494,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "bum" = (
 /obj/machinery/keycard_auth{
 	pixel_y = 24
@@ -23802,9 +23692,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "buO" = (
 /obj/structure/transit_tube{
 	icon_state = "D-NE"
@@ -23826,9 +23714,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "buQ" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -23838,18 +23724,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "buS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "buT" = (
 /obj/machinery/ai_slipper,
 /obj/structure/cable/yellow{
@@ -23864,9 +23746,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "buU" = (
 /obj/machinery/bluespace_beacon,
 /turf/simulated/floor/plasteel{
@@ -24933,9 +24813,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bwX" = (
 /obj/structure/transit_tube{
 	icon_state = "D-SW"
@@ -24995,9 +24873,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bxi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -25024,9 +24900,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bxo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /obj/effect/spawner/window/reinforced,
@@ -25108,9 +24982,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bxv" = (
 /obj/item/flashlight/lamp/green{
 	pixel_x = 1;
@@ -25995,9 +25867,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bzi" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -26070,9 +25940,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bzo" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -26086,9 +25954,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bzp" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -26103,9 +25969,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bzs" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable/yellow{
@@ -26135,9 +25999,7 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bzw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -26744,9 +26606,7 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bBd" = (
 /obj/machinery/light/small,
 /obj/machinery/power/apc{
@@ -26758,18 +26618,14 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bBf" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bBg" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -26798,9 +26654,7 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bBj" = (
 /obj/machinery/light,
 /obj/item/radio/intercom{
@@ -28883,9 +28737,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bGN" = (
 /obj/structure/transit_tube{
 	icon_state = "W-NE"
@@ -29132,7 +28984,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "bHC" = (
 /obj/machinery/light,
 /obj/machinery/computer/security/telescreen{
@@ -30210,9 +30062,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bKp" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -30227,9 +30077,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bKq" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -30251,9 +30099,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bKt" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -30803,9 +30649,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bMt" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -30821,9 +30665,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bMB" = (
 /obj/machinery/light{
 	dir = 4
@@ -31300,7 +31142,7 @@
 	network = list("Turbine")
 	},
 /turf/space,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "bNS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -31333,9 +31175,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "bNY" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -32234,7 +32074,7 @@
 	pump_direction = 0
 	},
 /turf/simulated/floor/engine/vacuum,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "bQB" = (
 /obj/machinery/gateway{
 	dir = 9
@@ -32861,7 +32701,7 @@
 	name = "Auxiliary Incinerator Vent"
 	},
 /turf/simulated/floor/engine/vacuum,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "bSm" = (
 /obj/machinery/gateway{
 	dir = 8
@@ -34939,7 +34779,7 @@
 	dir = 5;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "bXR" = (
 /obj/machinery/camera{
 	c_tag = "Chapel - Funeral Parlour";
@@ -35118,7 +34958,7 @@
 /obj/structure/cable,
 /obj/machinery/power/turbine,
 /turf/simulated/floor/engine/vacuum,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "bYi" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/extinguisher_cabinet{
@@ -36270,7 +36110,7 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cbs" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -37417,9 +37257,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "ces" = (
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
@@ -37841,7 +37679,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cfG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -38331,7 +38169,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cgY" = (
 /obj/machinery/door_control{
 	id = "xeno_blastdoor";
@@ -38397,7 +38235,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "chi" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=13.3-Engineering-Central";
@@ -38461,7 +38299,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "chw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -38526,7 +38364,7 @@
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "chL" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -38602,7 +38440,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "chR" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -38683,7 +38521,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "chZ" = (
 /obj/structure/table,
 /obj/item/folder/white{
@@ -38782,7 +38620,7 @@
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cio" = (
 /obj/machinery/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
@@ -38849,7 +38687,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "ciz" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -38910,7 +38748,7 @@
 	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "ciH" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -38925,7 +38763,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "ciI" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -38957,7 +38795,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "ciK" = (
 /obj/structure/table/wood,
 /obj/item/paper/ntrep,
@@ -38989,7 +38827,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "ciW" = (
 /obj/effect/landmark/start/engineer,
 /turf/simulated/floor/plasteel,
@@ -39014,7 +38852,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "ciZ" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -39149,7 +38987,7 @@
 	name = "Fuel Pipe to Incinerator"
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cjt" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -39262,7 +39100,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cjD" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -39413,7 +39251,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "ckc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -39422,7 +39260,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "ckd" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -39873,20 +39711,20 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "clz" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "clA" = (
 /turf/simulated/wall/r_wall,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "clB" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/wall/r_wall,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "clC" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -39909,7 +39747,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "clG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -39929,7 +39767,7 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "clK" = (
 /obj/structure/closet,
 /obj/item/extinguisher,
@@ -40047,7 +39885,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cmc" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -40088,7 +39926,7 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cmm" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -40173,7 +40011,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cmG" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -40236,7 +40074,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cmN" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -40515,7 +40353,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cnK" = (
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
@@ -40693,7 +40531,7 @@
 	dir = 10;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cor" = (
 /obj/machinery/door_control{
 	id = "turbinevent";
@@ -40711,7 +40549,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cot" = (
 /obj/effect/landmark/spawner/rev,
 /obj/structure/morgue{
@@ -40755,7 +40593,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cov" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -41311,7 +41149,7 @@
 	tag_interior_door = "gas_turbine_interior"
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cqb" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -41433,7 +41271,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cqv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -41525,7 +41363,7 @@
 	},
 /obj/machinery/atmospherics/binary/pump/on,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cqK" = (
 /turf/simulated/floor/engine/n2,
 /area/atmos)
@@ -41555,13 +41393,13 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cqQ" = (
 /obj/machinery/atmospherics/binary/pump/on,
 /obj/structure/disposalpipe/segment,
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cqR" = (
 /obj/machinery/portable_atmospherics/canister/air{
 	anchored = 1
@@ -42006,9 +41844,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "csn" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -42022,7 +41858,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "csp" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -42080,9 +41916,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "csB" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/storage/hazardvest,
@@ -42305,7 +42139,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "ctp" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/white,
@@ -42339,7 +42173,7 @@
 	name = "Turbine Vent"
 	},
 /turf/simulated/floor/plating/airless,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "ctw" = (
 /obj/machinery/computer/arcade/orion_trail{
 	dir = 4
@@ -42436,7 +42270,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "ctV" = (
 /obj/structure/table/glass,
 /obj/structure/window/reinforced,
@@ -42807,7 +42641,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cuN" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -42834,7 +42668,7 @@
 	id = "air_in"
 	},
 /turf/simulated/floor/engine/vacuum,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cuP" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -42863,7 +42697,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine/vacuum,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cuS" = (
 /obj/structure/table/glass,
 /obj/item/circular_saw,
@@ -42948,7 +42782,7 @@
 "cvh" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/medical/medbay3)
+/area/medical/medbay)
 "cvj" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "CMO"
@@ -43306,7 +43140,7 @@
 	dir = 4;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cwr" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command,
@@ -43358,7 +43192,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine/vacuum,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cwC" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -43531,7 +43365,7 @@
 	dir = 6;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cwZ" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -43623,7 +43457,7 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cxr" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -43642,7 +43476,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cxu" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -43784,7 +43618,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cxL" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-10"
@@ -43870,9 +43704,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "cya" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
@@ -43943,7 +43775,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cyo" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -43985,7 +43817,7 @@
 "cyu" = (
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cyv" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -44401,7 +44233,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "czM" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
@@ -44716,7 +44548,7 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
-/area/medical/medbay3)
+/area/medical/medbay)
 "cAM" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -45121,7 +44953,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cCe" = (
 /obj/machinery/computer/card/minor/hos{
 	dir = 8
@@ -45991,7 +45823,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/meter,
 /turf/simulated/floor/plasteel,
-/area/maintenance/incinerator)
+/area/maintenance/turbine)
 "cEE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
@@ -48216,9 +48048,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "cLM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -48312,7 +48142,7 @@
 	dir = 8;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cMb" = (
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
@@ -49260,7 +49090,7 @@
 	dir = 4;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cPp" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
@@ -49310,7 +49140,7 @@
 /area/maintenance/aft)
 "cPy" = (
 /turf/simulated/wall,
-/area/medical/medbay3)
+/area/medical/medbay)
 "cPA" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -49505,9 +49335,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "cQd" = (
 /obj/structure/window/plasmareinforced{
 	dir = 4
@@ -49937,7 +49765,7 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cRM" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -49954,7 +49782,7 @@
 	dir = 4;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cRO" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -50627,7 +50455,7 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cUf" = (
 /obj/structure/closet/crate/sci,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -50867,9 +50695,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "cUK" = (
 /obj/effect/landmark/start/chaplain,
 /turf/simulated/floor/plasteel{
@@ -51267,9 +51093,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "cWj" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/camera/motion{
@@ -51281,9 +51105,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "cWl" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -51612,7 +51434,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "cXs" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/wall,
@@ -52474,7 +52296,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "daN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -52507,7 +52329,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "daQ" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -52632,7 +52454,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "dby" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
@@ -53110,7 +52932,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "des" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/stripes/white/line{
@@ -53579,9 +53401,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "dha" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -54419,9 +54239,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "dCV" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -54433,9 +54251,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "dDn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -54479,9 +54295,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "dEM" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "C9"
@@ -54659,7 +54473,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "dMo" = (
 /obj/structure/bed/roller,
 /obj/machinery/light,
@@ -54976,7 +54790,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "dVn" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -55553,7 +55367,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "ejB" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
@@ -56398,7 +56212,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "eFD" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -56473,7 +56287,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "eGG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -56729,7 +56543,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "ePy" = (
 /obj/structure/chair/comfy/beige,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -57070,7 +56884,7 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "eYw" = (
 /obj/item/flashlight{
 	pixel_x = 1;
@@ -57915,7 +57729,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "fsZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -58302,9 +58116,7 @@
 "fCQ" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "fCW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -58395,9 +58207,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "fFW" = (
 /obj/structure/closet/crate/engineering,
 /obj/item/solar_assembly,
@@ -58649,7 +58459,7 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "fLw" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/nitrogen,
@@ -59456,9 +59266,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on,
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "gfy" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -60236,7 +60044,7 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "gDi" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -60373,9 +60181,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "gHh" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -60541,7 +60347,7 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "gMh" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -60730,7 +60536,7 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "gSd" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Solitary Confinement 1"
@@ -61446,9 +61252,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "hjC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -61460,9 +61264,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "hjE" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -62082,7 +61884,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "hzB" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
@@ -62282,9 +62084,7 @@
 	})
 "hDK" = (
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "hDL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -62296,7 +62096,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "hEe" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -62482,9 +62282,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "hIK" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin{
@@ -62518,7 +62316,7 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "hIZ" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -63130,7 +62928,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "hZX" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -63492,9 +63290,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "iju" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon/dock_marker/collision,
@@ -63771,7 +63567,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "irb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -64211,7 +64007,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "iAO" = (
 /obj/machinery/mecha_part_fabricator{
 	output_dir = 4
@@ -64300,7 +64096,7 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "iBI" = (
 /obj/machinery/door/airlock/research{
 	name = "Sci Chem and Xenobio Access"
@@ -64703,9 +64499,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "iKZ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
@@ -65396,9 +65190,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "jgD" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -66712,9 +66504,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "jQo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -67299,7 +67089,7 @@
 	dir = 6;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "kgS" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/light/small{
@@ -67942,7 +67732,7 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "kzO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -68193,9 +67983,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "kFD" = (
 /obj/structure/table/reinforced,
 /obj/item/stamp/denied{
@@ -68507,7 +68295,7 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "kMZ" = (
 /obj/machinery/shower{
 	pixel_y = 12
@@ -68652,7 +68440,7 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "kPB" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -68668,9 +68456,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "kPI" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -69015,9 +68801,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "kXV" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -69366,7 +69150,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "lfG" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/light/small{
@@ -69517,9 +69301,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "lio" = (
 /turf/simulated/floor/plating/airless,
 /area/solar/port)
@@ -69739,7 +69521,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "lpb" = (
 /obj/machinery/access_button/airlock_exterior{
 	master_tag = "atmospherics_south";
@@ -69981,7 +69763,7 @@
 	dir = 8;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "lvc" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -70090,7 +69872,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "lzW" = (
 /obj/structure/rack,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -70156,7 +69938,7 @@
 	dir = 4;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "lBy" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -70178,9 +69960,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "lCA" = (
 /mob/living/simple_animal/mouse/brown/Tom,
 /obj/structure/sink{
@@ -70719,7 +70499,7 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "lNo" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -70789,9 +70569,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "lOk" = (
 /obj/structure/closet/crate/trashcart{
 	desc = "A heavy, metal laundrycart with wheels.";
@@ -71301,9 +71079,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "mcw" = (
 /obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
@@ -71591,7 +71367,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "miI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -71885,9 +71661,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "moV" = (
 /obj/effect/landmark/spawner/blob,
 /obj/structure/cable/yellow{
@@ -71989,9 +71763,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "mtr" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -72451,7 +72223,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "mFU" = (
 /obj/effect/turf_decal/loading_area,
 /obj/structure/disposalpipe/segment,
@@ -73790,9 +73562,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "nln" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -74461,7 +74231,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "nDF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -74785,9 +74555,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "nPD" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -75415,7 +75183,7 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "ofZ" = (
 /obj/machinery/computer/crew{
 	dir = 1
@@ -76226,9 +75994,7 @@
 	dir = 4;
 	icon_state = "browncorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "oHy" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/white/corner,
@@ -76465,9 +76231,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "oOv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -76489,7 +76253,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "oOJ" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -76551,7 +76315,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "oQz" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -76834,9 +76598,7 @@
 	dir = 8;
 	icon_state = "browncorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "oXd" = (
 /obj/structure/rack,
 /obj/item/storage/box/seccarts{
@@ -77110,7 +76872,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "pej" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -77259,9 +77021,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "pkw" = (
 /obj/structure/bed/roller,
 /obj/machinery/light{
@@ -77773,7 +77533,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "pAE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow,
@@ -78121,7 +77881,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "pJh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
@@ -78976,9 +78736,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "qbU" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
@@ -79073,7 +78831,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "qdr" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -79516,9 +79274,7 @@
 	dir = 1;
 	icon_state = "browncorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "qpO" = (
 /turf/simulated/wall,
 /area/engine/equipmentstorage{
@@ -79636,9 +79392,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "qub" = (
 /obj/machinery/r_n_d/server/core,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -80356,9 +80110,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "qSr" = (
 /obj/machinery/camera{
 	c_tag = "Prisoner Execution Chamber";
@@ -80391,7 +80143,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "qSE" = (
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen{
@@ -80855,7 +80607,7 @@
 	dir = 8;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "rgu" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -81043,9 +80795,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "rkr" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/centcom{
@@ -81217,7 +80967,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "roH" = (
 /obj/structure/closet/crate/internals,
 /obj/effect/turf_decal/bot,
@@ -81353,9 +81103,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "rsi" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/preopen{
@@ -81424,7 +81172,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "rtk" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -81681,7 +81429,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "ryN" = (
 /obj/structure/closet/cardboard,
 /turf/simulated/floor/plating,
@@ -81716,9 +81464,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "rzW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -81831,7 +81577,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "rCt" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -81877,9 +81623,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "rDW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -82258,9 +82002,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "rKC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -82273,7 +82015,7 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "rKM" = (
 /obj/structure/table/wood,
 /obj/machinery/light/small{
@@ -82862,9 +82604,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "rZN" = (
 /obj/machinery/camera{
 	c_tag = "Armory - External";
@@ -82894,9 +82634,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "sbG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -84041,9 +83779,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "sHf" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/machinery/light{
@@ -84119,9 +83855,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "sJC" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/lootdrop{
@@ -84211,7 +83945,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "sMo" = (
 /obj/machinery/computer/monitor{
 	name = "Grid Power Monitoring Computer"
@@ -84990,7 +84724,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "teE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -85849,7 +85583,7 @@
 	dir = 8;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "tAd" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "Port to Fuel Pipe"
@@ -88803,7 +88537,7 @@
 	dir = 4;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "veO" = (
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 4
@@ -88886,7 +88620,7 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "vjy" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -89462,7 +89196,7 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "vAc" = (
 /obj/machinery/door/window/westleft{
 	name = "Mass Driver Door"
@@ -90389,7 +90123,7 @@
 	dir = 8;
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "wcq" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -90785,7 +90519,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "wnf" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
@@ -90856,9 +90590,7 @@
 "wpu" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "wpL" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -90944,7 +90676,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "wri" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -90959,9 +90691,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
+/area/aisat)
 "wrW" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 8
@@ -92234,9 +91964,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "xaE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
@@ -93054,7 +92782,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "xyH" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -93509,9 +93237,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "xLm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -93603,9 +93329,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/construction/Storage{
-	name = "Storage Wing"
-	})
+/area/hallway/primary/central/ne)
 "xNy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -94195,7 +93919,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/medbay3)
+/area/medical/medbay)
 "ycU" = (
 /obj/machinery/firealarm{
 	dir = 4;

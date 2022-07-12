@@ -358,11 +358,11 @@
 
 /area/ruin/ancientstation/proto
 	name = "Theta Station Prototype Lab"
-	icon_state = "toxlab"
+	icon_state = "scilab"
 
 /area/ruin/ancientstation/rnd
 	name = "Theta Station Research and Development"
-	icon_state = "toxlab"
+	icon_state = "rnd"
 
 /area/ruin/ancientstation/hivebot
 	name = "Hivebot Mothership"
