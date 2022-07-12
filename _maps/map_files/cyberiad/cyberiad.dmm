@@ -1671,6 +1671,14 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "prison_airlock_control";
+	name = "Prison Wing Access Button";
+	req_access_txt = "2";
+	pixel_y = 21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -3506,15 +3514,6 @@
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "prison_airlock_control";
-	name = "Prison Wing Access Button";
-	req_access_txt = "2";
-	pixel_y = -21;
-	pixel_x = 21
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -3856,6 +3855,14 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/full,
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1379;
+	master_tag = "prison_airlock_control";
+	name = "Prison Wing Access Button";
+	req_access_txt = "2";
+	pixel_y = -21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -3886,6 +3893,14 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "prison_airlock_control";
+	name = "Prison Wing Access Button";
+	req_access_txt = "2";
+	pixel_y = -21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -5453,6 +5468,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -6003,11 +6022,11 @@
 /area/maintenance/fore)
 "asg" = (
 /obj/item/bikehorn/rubberducky,
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom/locked/prison{
+	name = "Prison Intercom (General)";
+	pixel_y = 25
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -7520,10 +7539,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "avo" = (
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light{
 	dir = 4
@@ -61979,7 +61994,7 @@
 "cHL" = (
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
-	pixel_x = 25
+	pixel_x = 28
 	},
 /obj/machinery/light{
 	dir = 4
@@ -77790,10 +77805,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -78496,6 +78507,14 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/full,
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1379;
+	master_tag = "prison_airlock_control";
+	name = "Prison Wing Access Button";
+	req_access_txt = "2";
+	pixel_y = 21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -78783,21 +78802,6 @@
 	icon_state = "red"
 	},
 /area/security/prisonlockers)
-"iBa" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "prison_airlock_control";
-	name = "Prison Wing Access Button";
-	req_access_txt = "2";
-	pixel_y = -21;
-	pixel_x = -21
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkredcorners"
-	},
-/area/security/brig)
 "iBS" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/plasteel,
@@ -79227,7 +79231,7 @@
 /obj/structure/flora/grass/jungle,
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
-	pixel_x = 25
+	pixel_x = 28
 	},
 /turf/simulated/floor/grass,
 /area/security/permabrig)
@@ -80537,15 +80541,6 @@
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "prison_airlock_control";
-	name = "Prison Wing Access Button";
-	req_access_txt = "2";
-	pixel_y = 21;
-	pixel_x = 21
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -80589,10 +80584,6 @@
 /obj/structure/chair/sofa/left{
 	color = "#85130b"
 	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "omz" = (
@@ -80618,11 +80609,6 @@
 	},
 /area/security/permabrig)
 "ouo" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -80645,18 +80631,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/security/permabrig)
-"owN" = (
-/obj/machinery/shower{
-	dir = 4
-	},
-/obj/item/radio/intercom/locked/prison{
-	name = "Prison Intercom (General)";
-	pixel_y = 25
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
 /area/security/permabrig)
 "oyv" = (
 /obj/machinery/hologram/holopad,
@@ -80849,7 +80823,7 @@
 	},
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
-	pixel_x = 25
+	pixel_x = 28
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -82451,15 +82425,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "prison_airlock_control";
-	name = "Prison Wing Access Button";
-	req_access_txt = "2";
-	pixel_y = 21;
-	pixel_x = -21
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -82661,6 +82626,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "uGG" = (
@@ -82948,7 +82916,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
-	pixel_x = 25
+	pixel_x = 28
 	},
 /turf/simulated/floor/grass,
 /area/security/permabrig)
@@ -102265,7 +102233,7 @@ hjX
 orU
 uVr
 rAe
-owN
+luh
 luh
 luh
 xPE
@@ -107914,7 +107882,7 @@ agk
 aoh
 tXE
 aqW
-iBa
+atg
 gVE
 aqX
 nuk
