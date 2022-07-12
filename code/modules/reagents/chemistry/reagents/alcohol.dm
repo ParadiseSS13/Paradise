@@ -23,7 +23,8 @@
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
-			affectedbook.dat = null
+			for(var/page in affectedbook.pages)
+				affectedbook.pages[page] = " " //we're blanking the pages not making em null
 			affectedbook.visible_message("<span class='notice'>The solution melts away the ink on the book.</span>")
 		else
 			O.visible_message("<span class='warning'>It wasn't enough...</span>")

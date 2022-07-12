@@ -4,12 +4,12 @@
 	desc = "The name isn't descriptive enough?"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
-	density = 1
-	anchored = 1
-	var/operating = 0 //Is it on?
-	var/dirty = 0 // Does it need cleaning?
+	density = TRUE
+	anchored = TRUE
+	var/operating = FALSE //Is it on?
+	var/dirty = FALSE // Does it need cleaning?
 	var/mob/living/occupant // Mob who has been put inside
-	var/locked = 0 //Used to prevent mobs from breaking the feedin anim
+	var/locked = FALSE //Used to prevent mobs from breaking the feedin anim
 
 	var/gib_throw_dir = WEST // Direction to spit meat and gibs in. Defaults to west.
 
@@ -186,7 +186,7 @@
 	if(!occupant)
 		return
 
-	locked = 1 //lock gibber
+	locked = TRUE //lock gibber
 
 	var/image/gibberoverlay = new //used to simulate 3D effects
 	gibberoverlay.icon = icon
@@ -204,14 +204,14 @@
 	holder.pixel_x = 2
 	holder.loc = get_turf(src)
 	holder.layer = MOB_LAYER //simulate mob-like layering
-	holder.anchored = 1
+	holder.anchored = TRUE
 
 	var/atom/movable/holder2 = new //holder for gibber overlay, used to simulate 3D effect
 	holder2.name = null
 	holder2.overlays += gibberoverlay
 	holder2.loc = get_turf(src)
 	holder2.layer = MOB_LAYER + 0.1 //3D, it's above the mob, rest of the gibber is behind
-	holder2.anchored = 1
+	holder2.anchored = TRUE
 
 	animate(holder, pixel_y = 16, time = animation_delay) //animate going down
 
@@ -226,7 +226,7 @@
 
 	qdel(holder) //get rid of holder object
 	qdel(holder2) //get rid of holder object
-	locked = 0 //unlock
+	locked = FALSE //unlock
 
 /obj/machinery/gibber/proc/startgibbing(mob/user, UserOverride=0)
 	if(!istype(user) && !UserOverride)
@@ -247,7 +247,7 @@
 	use_power(1000)
 	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
 
-	operating = 1
+	operating = TRUE
 	update_icon()
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
@@ -309,7 +309,7 @@
 				sleep(1)
 
 		pixel_x = initial(pixel_x) //return to it's spot after shaking
-		operating = 0
+		operating = FALSE
 		update_icon()
 
 
@@ -359,11 +359,11 @@
 		for(var/mob/living/carbon/H in victim_targets)
 			if(H.loc == lturf) //still standing there
 				if(force_move_into_gibber(H))
-					locked = 1 // no escape
+					locked = TRUE // no escape
 					ejectclothes(occupant)
 					cleanbay()
 					startgibbing(null, 1)
-					locked = 0
+					locked = FALSE
 			break
 	victim_targets.Cut()
 

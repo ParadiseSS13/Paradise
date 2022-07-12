@@ -18,7 +18,7 @@
 	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
 	origin_tech = "engineering=4"
-	var/armed = 0
+	var/armed = FALSE
 	var/trap_damage = 20
 	var/obj/item/grenade/iedcasing/IED = null
 	var/obj/item/assembly/signaler/sig = null
@@ -94,14 +94,14 @@
 	if(armed && isturf(src.loc))
 		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/hostile/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
-			armed = 0
+			armed = FALSE
 			update_icon()
 			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
 					"<span class='userdanger'>You trigger \the [src]!</span>")
 
 			if(IED && isturf(src.loc))
-				IED.active = 1
+				IED.active = TRUE
 				message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
 				log_game("[key_name(usr)] has triggered an IED-rigged [name].")
 				spawn(IED.det_time)
@@ -128,7 +128,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"
-	armed = 1
+	armed = TRUE
 	icon_state = "e_snare"
 	trap_damage = 0
 	flags = DROPDEL
@@ -158,8 +158,8 @@
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
-	///the duration of the stun in seconds
-	var/weaken = 0
+	///the duration of the knockdown in seconds
+	var/knockdown_duration = 0
 
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
 	playsound(loc,'sound/weapons/bolathrow.ogg', 50, TRUE)
@@ -177,7 +177,7 @@
 		C.update_inv_legcuffed()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
-		C.Weaken(weaken)
+		C.KnockDown(knockdown_duration)
 		playsound(loc, hitsound, 50, TRUE)
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
@@ -187,7 +187,7 @@
 	item_state = "bola_r"
 	breakouttime = 70
 	origin_tech = "engineering=4;combat=3"
-	weaken = 2 SECONDS
+	knockdown_duration = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/energy //For Security
 	name = "energy bola"

@@ -33,8 +33,8 @@
 	var/ico[0]      //Icons and
 	var/offset_x[0] //offsets stored for later
 	var/offset_y[0] //usage by the photocopier
-	var/rigged = 0
-	var/spam_flag = 0
+	var/rigged = FALSE
+	var/spam_flag = FALSE
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
@@ -118,11 +118,11 @@
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
-		if(spam_flag == 0)
-			spam_flag = 1
+		if(!spam_flag)
+			spam_flag = TRUE
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
 			spawn(20)
-				spam_flag = 0
+				spam_flag = FALSE
 	return
 
 /obj/item/paper/attack_ai(mob/living/silicon/ai/user as mob)
@@ -359,9 +359,9 @@
 	if(resistance_flags & ON_FIRE)
 		return
 
-	var/clown = 0
+	var/clown = FALSE
 	if(user.mind && (user.mind.assigned_role == "Clown"))
-		clown = 1
+		clown = TRUE
 
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
 		if(istype(P, /obj/item/paper/carbon))
@@ -512,7 +512,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -582,7 +582,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -658,9 +658,9 @@
 	info = ""
 	var/mytarget = null
 	var/myeffect = null
-	var/used = 0
+	var/used = FALSE
 	var/countdown = 60
-	var/activate_on_timeout = 0
+	var/activate_on_timeout = FALSE
 	var/faxmachineid = null
 
 /obj/item/paper/evilfax/show_content(mob/user, forceshow = 0, forcestars = 0, infolinks = 0, view = 1)
@@ -701,7 +701,7 @@
 				message_admins("[mytarget] ignored an evil fax until it timed out.")
 		else
 			message_admins("Evil paper '[src]' timed out, after not being assigned a target.")
-		used = 1
+		used = TRUE
 		evilpaper_selfdestruct()
 	else
 		countdown--
@@ -762,7 +762,7 @@
 					fax.become_mimic()
 			else
 				message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
-		used = 1
+		used = TRUE
 		evilpaper_selfdestruct()
 
 /obj/item/paper/evilfax/proc/evilpaper_selfdestruct()

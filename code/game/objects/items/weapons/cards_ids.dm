@@ -243,6 +243,11 @@
 		qdel(W)
 		return
 
+	else if(istype(W, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/B = W
+		B.scanID(src, user)
+		return
+
 	else if(istype (W,/obj/item/stamp))
 		if(!stamped)
 			dat+="<img src=large_[W.icon_state].png>"
@@ -807,12 +812,18 @@
 
 /obj/item/card/id/ert/commander
 	icon_state = "ERT_leader"
+
 /obj/item/card/id/ert/security
 	icon_state = "ERT_security"
+
 /obj/item/card/id/ert/engineering
 	icon_state = "ERT_engineering"
+
 /obj/item/card/id/ert/medic
 	icon_state = "ERT_medical"
+
+/obj/item/card/id/ert/deathsquad
+	icon_state = "deathsquad"
 
 /obj/item/card/id/golem
 	name = "Free Golem ID"
@@ -921,6 +932,8 @@
 			return "ERT Medical"
 		if("ERT_janitorial")
 			return "ERT Janitorial"
+		if("deathsquad")
+			return "Deathsquad"
 		if("syndie")
 			return "Syndicate"
 		if("TDred")

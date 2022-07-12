@@ -69,7 +69,7 @@
 
 		if(!l_hand_obj && !r_hand_obj)
 			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
-			active = 0
+			active = FALSE
 		else
 			var/msg = 0
 			msg += !l_hand_ignore && l_hand_obj ? 1 : 0

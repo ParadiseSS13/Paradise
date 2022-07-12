@@ -27,7 +27,7 @@
 	ai_ventcrawls = FALSE
 	idle_ventcrawl_chance = 0
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	projectilesound = 'sound/weapons/pierce.ogg'
@@ -172,7 +172,7 @@
 				else if(entry_vent)
 					if(!path_to_vent)
 						visible_message("<span class='danger'>\The [src] looks around warily - then seeks a better nesting ground.</span>")
-						path_to_vent = 1
+						path_to_vent = TRUE
 				else
 					neststep = -1
 					message_admins("Warning: [key_name_admin(src)] was spawned in an area without a vent! This is likely a mapping/spawn mistake. This mob's AI has been permanently deactivated.")

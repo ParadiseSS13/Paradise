@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(mobs)
 	.["custom"] = cust
 
 /datum/controller/subsystem/mobs/get_stat_details()
-	return "P:[length(GLOB.mob_living_list.len)]"
+	return "P:[length(GLOB.mob_living_list)]"
 
 /datum/controller/subsystem/mobs/Initialize(start_timeofday)
 	clients_by_zlevel = new /list(world.maxz,0)

@@ -3,7 +3,7 @@
 	desc = "Talk through this."
 	icon_state = "intercom"
 	layer = ABOVE_WINDOW_LAYER
-	anchored = 1
+	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
 	flags = CONDUCT
@@ -15,8 +15,8 @@
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
 	custom_name = TRUE
-	broadcasting = 0
-	listening = 0
+	broadcasting = FALSE
+	listening = FALSE
 
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"
@@ -41,8 +41,8 @@
 /obj/item/radio/intercom/department
 	canhear_range = 5
 	custom_name = TRUE
-	broadcasting = 0
-	listening = 1
+	broadcasting = FALSE
+	listening = TRUE
 
 /obj/item/radio/intercom/department/medbay
 	name = "station intercom (Medbay)"
@@ -62,7 +62,7 @@
 			setDir(direction)
 			set_pixel_offsets_from_dir(28, -28, 28, -28)
 		b_stat=1
-		on = 0
+		on = FALSE
 	GLOB.global_intercoms.Add(src)
 	update_icon()
 
@@ -185,7 +185,7 @@
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
 		return
 	update_icon()
-	on = 1
+	on = TRUE
 	b_stat = 0
 	buildstage = 3
 	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
@@ -202,7 +202,7 @@
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	new /obj/item/stack/cable_coil(get_turf(src),5)
-	on = 0
+	on = FALSE
 	b_stat = 1
 	buildstage = 1
 	update_icon()

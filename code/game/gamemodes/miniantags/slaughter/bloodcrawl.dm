@@ -26,8 +26,8 @@
 		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(mobloc)
 		animation.name = "odd blood"
-		animation.density = 0
-		animation.anchored = 1
+		animation.density = FALSE
+		animation.anchored = TRUE
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.icon_state = "jaunt"
 		animation.layer = 5
@@ -96,7 +96,7 @@
 			sleep(6)
 			if(animation)
 				qdel(animation)
-		notransform = 0
+		notransform = FALSE
 	return 1
 
 /obj/item/bloodcrawl
@@ -120,8 +120,8 @@
 
 	var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
 	animation.name = "odd blood"
-	animation.density = 0
-	animation.anchored = 1
+	animation.density = FALSE
+	animation.anchored = TRUE
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
 	animation.layer = 5
@@ -157,8 +157,8 @@
 	name = "odd blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 

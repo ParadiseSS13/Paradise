@@ -59,7 +59,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	return ..()
 
 /obj/effect/landmark/spawner/ds
-	name = "Commando"
+	name = "Deathsquad"
 	icon_state = "ERT"
 
 /obj/effect/landmark/spawner/wiz
@@ -205,7 +205,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	name = "Atmospheric Test Start"
 
 /obj/effect/landmark/spawner/commando_manual
-	name = "Commando_Manual"
+	name = "Deathsquad Commando Manual"
 
 /obj/effect/landmark/spawner/holding_facility
 	name = "Holding Facility"

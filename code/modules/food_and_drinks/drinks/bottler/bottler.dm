@@ -14,13 +14,13 @@
 	desc = "A machine that combines ingredients and bottles the resulting beverages."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "bottler_off"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/list/slots[3]
 	var/list/datum/bottler_recipe/available_recipes
 	var/list/acceptable_items
 	var/list/containers = list("glass bottle" = 10, "plastic bottle" = 20, "metal can" = 25)
-	var/bottling = 0
+	var/bottling = FALSE
 
 /obj/machinery/bottler/Initialize(mapload)
 	. = ..()
@@ -270,7 +270,7 @@
 		containers[con_type]--
 	//select and process a recipe based on inserted ingredients
 	visible_message("<span class='notice'>[src] hums as it processes the ingredients...</span>")
-	bottling = 1
+	bottling = TRUE
 	var/datum/bottler_recipe/recipe_to_use = select_recipe()
 	if(!recipe_to_use)
 		//bad recipe, ruins the drink
@@ -288,7 +288,7 @@
 	flick("bottler_on", src)
 	spawn(45)
 		resetSlots()
-		bottling = 0
+		bottling = FALSE
 		drink_container.forceMove(loc)
 		updateUsrDialog()
 

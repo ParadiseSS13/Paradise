@@ -119,8 +119,8 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "pizzabox1"
 
-	var/open = 0 // Is the box open?
-	var/ismessy = 0 // Fancy mess on the lid
+	var/open = FALSE // Is the box open?
+	var/ismessy = FALSE // Fancy mess on the lid
 	var/obj/item/reagent_containers/food/snacks/sliceable/pizza/pizza // Content pizza
 	var/list/boxes = list() // If the boxes are stacked, they come here
 	var/boxtag = ""
@@ -196,7 +196,7 @@
 		return
 	open = !open
 	if(open && pizza)
-		ismessy = 1
+		ismessy = TRUE
 	update_icon()
 
 /obj/item/pizzabox/attackby(obj/item/I, mob/user, params)

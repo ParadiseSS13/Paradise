@@ -625,12 +625,20 @@
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(8 SECONDS)
-			..()
+			user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
+			if(..())
+				target.KnockDown(8 SECONDS)
 		return
 	else
 		playsound(loc, "swing_hit", 50, 1, -1)
 		return ..()
+
+/obj/item/twohanded/chainsaw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //It's a chainsaw, you try blocking bullets with it
+	else if(owner.has_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING))
+		final_block_chance = 80 //Need to be ready to ruuuummbllleeee
+	return ..()
 
 /obj/item/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
 	. = ..()

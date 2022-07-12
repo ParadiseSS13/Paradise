@@ -103,8 +103,8 @@
 	righthand_file = null
 	can_holster = FALSE // Get your fingers out of there!
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
-	clumsy_check = 0 //Stole your uplink! Honk!
-	needs_permit = 0 //go away beepsky
+	clumsy_check = FALSE //Stole your uplink! Honk!
+	needs_permit = FALSE //go away beepsky
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Pew pew pew!"
@@ -150,7 +150,7 @@
 	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
 	origin_tech = "combat=3"
-	can_suppress = 1
+	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 
 // A gun to play Russian Roulette!
@@ -159,6 +159,7 @@
 /obj/item/gun/projectile/revolver/russian
 	name = "\improper Russian Revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
+	icon_state = "russian_revolver"
 	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/rus357
 	var/spun = 0
@@ -271,8 +272,8 @@
 /obj/item/gun/projectile/revolver/doublebarrel
 	name = "double-barreled shotgun"
 	desc = "A true classic."
-	icon_state = "dshotgun"
-	item_state = "shotgun_db"
+	icon_state = "dbshotgun"
+	item_state = null
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_guns_righthand.dmi'
 	inhand_x_dimension = 64
@@ -290,12 +291,12 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/New()
 	..()
-	options["Default"] = "dshotgun"
-	options["Dark Red Finish"] = "dshotgun-d"
-	options["Ash"] = "dshotgun-f"
-	options["Faded Grey"] = "dshotgun-g"
-	options["Maple"] = "dshotgun-l"
-	options["Rosewood"] = "dshotgun-p"
+	options["Default"] = "dbshotgun"
+	options["Dark Red Finish"] = "dbshotgun_d"
+	options["Ash"] = "dbshotgun_f"
+	options["Faded Grey"] = "dbshotgun_g"
+	options["Maple"] = "dbshotgun_l"
+	options["Rosewood"] = "dbshotgun_p"
 	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
@@ -305,10 +306,10 @@
 		var/obj/item/melee/energy/W = A
 		if(W.active)
 			sawoff(user)
-			item_state = "ishotgun_sawn"
+			item_state = icon_state
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
-		item_state = "ishotgun_sawn"
+		item_state = icon_state
 	else
 		return ..()
 
@@ -350,36 +351,33 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "I'm just here for the gasoline."
 	unique_reskin = FALSE
-	var/slung = 0
+	var/sling = FALSE
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
+	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
-		if(C.use(10))
+		if(sling)
+			to_chat(user, "<span class='warning'>The shotgun already has a sling!</span>")
+		else if(C.use(10))
 			slot_flags = SLOT_BACK
-			icon_state = "ishotgunsling"
-			item_state = "ishotgunsling"
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
-			slung = 1
+			sling = TRUE
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>")
-			return
-	else
-		return ..()
+			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
-	if(slung && (slot_flags & SLOT_BELT) )
-		slung = 0
-		icon_state = "ishotgun-sawn"
-		item_state = "ishotgun_sawn"
+	if(sling)
+		icon_state = "ishotgun_sling"
+		item_state = "ishotgun_sling"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
-	if(. && slung) //sawing off the gun removes the sling
+	if(. && sling) //sawing off the gun removes the sling
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
-		slung = 0
+		sling = FALSE
 		update_icon()
 
 //caneshotgun
@@ -397,15 +395,15 @@
 	sawn_state = SAWN_OFF
 	w_class = WEIGHT_CLASS_SMALL
 	force = 10
-	can_unsuppress = 0
+	can_unsuppress = FALSE
 	slot_flags = null
 	origin_tech = "" // NO GIVAWAYS
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
 	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
-	suppressed = 1
-	needs_permit = 0 //its just a cane beepsky.....
+	suppressed = TRUE
+	needs_permit = FALSE //its just a cane beepsky.....
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
 	return 1

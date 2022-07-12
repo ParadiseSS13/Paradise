@@ -24,7 +24,7 @@
 	var/burn_dam = 0
 	var/max_size = 0
 	var/icon/mob_icon
-	var/gendered_icon = 0
+	var/gendered_icon = FALSE
 	var/limb_name
 	var/limb_flags
 	var/s_tone = null
@@ -46,8 +46,8 @@
 	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
 	var/broken_description
 
-	var/open = 0  // If the body part has an open incision from surgery
-	var/sabotaged = 0 //If a prosthetic limb is emagged, it will detonate when it fails.
+	var/open = 0  // If the body part has an open incision from surgery. Can have values > 1.
+	var/sabotaged = FALSE //If a prosthetic limb is emagged, it will detonate when it fails.
 	var/encased       // Needs to be opened with a saw to access the organs.
 
 	var/obj/item/hidden = null
@@ -147,9 +147,9 @@
 
 /obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(parent_organ != parent.limb_name)
-		return 0
+		return FALSE
 	replaced(H)
-	return 1
+	return TRUE
 
 /****************************************************
 			   DAMAGE PROCS
@@ -666,7 +666,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_INT_BLEEDING
 	perma_injury = 0
 
-/obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
+/obj/item/organ/external/robotize(company, make_tough = FALSE, convert_all = TRUE)
 	..()
 	//robot limbs take reduced damage
 	if(!make_tough)
@@ -781,7 +781,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(isnull(O))
 		O = owner
 	if(!istype(O)) // You're not the primary organ of ANYTHING, bucko
-		return 0
+		return FALSE
 	return src == O.bodyparts_by_name[limb_name]
 
 /obj/item/organ/external/proc/infection_check()

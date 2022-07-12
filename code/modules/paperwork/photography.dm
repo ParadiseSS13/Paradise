@@ -161,12 +161,12 @@
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
-	var/on = 1
+	var/on = TRUE
 	var/blueprints = 0
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
 	var/size = 3
-	var/see_ghosts = 0 //for the spoop of it
+	var/see_ghosts = FALSE //for the spoop of it
 	var/current_photo_num = 1
 
 
@@ -185,7 +185,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/spooky
 	name = "camera obscura"
 	desc = "A polaroid camera, some say it can see ghosts!"
-	see_ghosts = 1
+	see_ghosts = TRUE
 
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -458,10 +458,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	desc = "A digital camera. A small screen shows that there are currently [saved_pictures.len] pictures stored."
 	icon_state = icon_off
-	on = 0
+	on = FALSE
 	spawn(64)
 		icon_state = icon_on
-		on = 1
+		on = TRUE
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
 	if(saved_pictures.len >= max_storage)
@@ -530,7 +530,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	var/on = 0
+	var/on = FALSE
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
@@ -539,7 +539,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam/attack_self(mob/user)
 	on = !on
 	if(camera)
-		if(on==0)
+		if(!on)
 			src.icon_state = icon_off
 			camera.c_tag = null
 			camera.network = list()

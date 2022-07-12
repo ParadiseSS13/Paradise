@@ -316,16 +316,16 @@
 	..(mimic_type)
 
 /obj/item/ammo_casing/energy/detective
-	projectile_type = /obj/item/projectile/energy/detective
+	projectile_type = /obj/item/projectile/beam/laser/detective
 	fire_sound = 'sound/weapons/gunshots/gunshot_det_energy.ogg'
 	select_name = "disabler"
 
 /obj/item/ammo_casing/energy/detective/tracker_warrant
-	projectile_type = /obj/item/projectile/energy/detective/tracker_warrant_shot
+	projectile_type = /obj/item/projectile/beam/laser/detective/tracker_warrant_shot
 	e_cost = 50
 	select_name = "tracker and warrant generator"
 
 /obj/item/ammo_casing/energy/detective/overcharge
-	projectile_type = /obj/item/projectile/energy/detective/overcharged
+	projectile_type = /obj/item/projectile/beam/laser/detective/overcharged
 	e_cost = 200
 	select_name = "overcharged"
