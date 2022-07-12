@@ -14,3 +14,12 @@
 #define KB_CATEGORY_EMOTE_SILICON	14
 #define KB_CATEGORY_EMOTE_ANIMAL	15
 #define KB_CATEGORY_UNSORTED		1000
+
+///Max length of a keypress command before it's considered to be a forged packet/bogus command
+#define MAX_KEYPRESS_COMMANDLENGTH 16
+///Max amount of keypress messages per second over two seconds before client is autokicked
+#define MAX_KEYPRESS_AUTOKICK 50
+///Length of held key rolling buffer
+#define HELD_KEY_BUFFER_LENGTH 15
+///Maximum keys that can be bound to one button
+#define MAX_COMMANDS_PER_KEY 5
