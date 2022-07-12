@@ -467,12 +467,24 @@
 	temperature = 254.95
 	},
 /area/space)
+"ang" = (
+/obj/vehicle/snowmobile/blue{
+	layer = 4.1;
+	vehicle_move_delay = 0.8
+	},
+/obj/item/key/snowmobile,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "ann" = (
 /obj/structure/flora/rock/pile{
 	icon_state = "rockpile4"
 	},
 /turf/simulated/mineral/iron,
 /area/space)
+"anp" = (
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "anT" = (
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-9"
@@ -677,6 +689,7 @@
 /obj/machinery/door/airlock/medical{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -879,7 +892,6 @@
 	color = "#0d8395";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "aBY" = (
@@ -961,6 +973,16 @@
 	temperature = 254.95
 	},
 /area/space)
+"aEE" = (
+/obj/machinery/cryopod/robot,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/shuttle/abandoned)
 "aEV" = (
 /turf/simulated/floor/engine{
 	temperature = 254.95
@@ -1039,6 +1061,20 @@
 	temperature = 254.95
 	},
 /area/lawoffice)
+"aHw" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South West";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/ironsand{
+	icon_state = "ironsand2";
+	temperature = 254.95
+	},
+/area/security/permabrig)
+"aIt" = (
+/turf/simulated/wall/mineral/wood,
+/area/quartermaster/sorting)
 "aIz" = (
 /obj/structure/window/reinforced/tinted{
 	dir = 8
@@ -1319,6 +1355,17 @@
 "aTF" = (
 /turf/simulated/wall/mineral/wood,
 /area/storage/office)
+"aVa" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow3";
+	temperature = 254.95
+	},
+/area/space)
 "aVs" = (
 /obj/structure/fence{
 	dir = 8
@@ -1443,6 +1490,16 @@
 	temperature = 254.95
 	},
 /area/medical/exam_room)
+"aYF" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/security/armoury)
 "aYV" = (
 /obj/item/stack/sheet/mineral/uranium{
 	pixel_x = -3;
@@ -1468,6 +1525,15 @@
 	icon_state = "smoothrocks-39"
 	},
 /area/space)
+"bam" = (
+/obj/machinery/door/airlock/hatch{
+	layer = 3.1
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/security/brig)
 "bax" = (
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-2"
@@ -1522,6 +1588,7 @@
 /obj/machinery/door/airlock/atmos/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -1616,6 +1683,10 @@
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Telecommunications Core";
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/medical/biostorage)
@@ -1851,8 +1922,19 @@
 	},
 /area/space)
 "bnY" = (
+/obj/machinery/camera{
+	c_tag = "Aft Starboard Solar Control";
+	dir = 4
+	},
 /turf/simulated/floor/grass{
 	icon_state = "grass-7";
+	temperature = 254.95
+	},
+/area/space)
+"bom" = (
+/obj/structure/snowman/built,
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow6";
 	temperature = 254.95
 	},
 /area/space)
@@ -2060,6 +2142,19 @@
 	temperature = 254.95
 	},
 /area/security/permabrig)
+"bwG" = (
+/obj/machinery/optable{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/medical/exam_room)
 "bwM" = (
 /turf/simulated/mineral/silver{
 	icon_state = "smoothrocks-137"
@@ -2132,6 +2227,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -2406,6 +2502,12 @@
 	temperature = 254.95
 	},
 /area/space)
+"bKC" = (
+/obj/machinery/atmospherics/unary/thermomachine/heater,
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/engine/engine_smes)
 "bKR" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/mineral/uranium,
@@ -2862,6 +2964,16 @@
 	temperature = 254.95
 	},
 /area/space)
+"bWb" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/atmos/control)
 "bWf" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/item/stack/sheet/mineral/uranium,
@@ -2876,6 +2988,15 @@
 /obj/item/stack/sheet/mineral/uranium,
 /turf/simulated/floor/plating/lava/smooth{
 	temperature = 300.05
+	},
+/area/space)
+"bWl" = (
+/obj/machinery/camera{
+	c_tag = "Telecommunications Core";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
 	},
 /area/space)
 "bWN" = (
@@ -2921,9 +3042,8 @@
 	},
 /area/space)
 "bXO" = (
-/obj/structure/table/reinforced{
-	icon_state = "reinforced_table-12"
-	},
+/obj/machinery/computer/security/wooden_tv,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -2954,6 +3074,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/machinery/recharger,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -3237,6 +3358,11 @@
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -3261,6 +3387,9 @@
 	icon_state = "smoothrocks-55"
 	},
 /area/space)
+"cmH" = (
+/turf/simulated/floor/engine,
+/area/aisat/entrance)
 "cmS" = (
 /obj/structure/flora/tree/pine,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -3282,6 +3411,14 @@
 	icon_state = "smoothrocks-207"
 	},
 /area/space)
+"cnA" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood,
+/area/toxins/rdoffice)
 "cok" = (
 /obj/item/clothing/head/helmet/riot,
 /obj/structure/alien/weeds,
@@ -3523,6 +3660,11 @@
 /area/space)
 "cxo" = (
 /obj/machinery/space_heater,
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -3634,6 +3776,22 @@
 "cCG" = (
 /turf/simulated/wall/r_wall,
 /area/medical/virology)
+"cCJ" = (
+/obj/structure/chair/office/light,
+/obj/machinery/camera,
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/security/interrogation)
+"cCQ" = (
+/obj/machinery/door/airlock/engineering/glass{
+	layer = 3.1
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/atmos)
 "cDi" = (
 /obj/item/fish/electric_eel,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -3781,6 +3939,17 @@
 	temperature = 254.95
 	},
 /area/space)
+"cGC" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
+	},
+/area/space)
 "cGR" = (
 /obj/structure/flora/tree/pine{
 	icon_state = "pine_2"
@@ -3829,7 +3998,7 @@
 /area/space)
 "cJN" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/item/reactive_armour_shell,
+/obj/item/clothing/suit/armor/reactive/random,
 /turf/simulated/floor/beach/water{
 	temperature = 254.95
 	},
@@ -4155,6 +4324,10 @@
 	temperature = 254.95
 	},
 /area/space)
+"cYn" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/engine,
+/area/aisat/entrance)
 "cYo" = (
 /obj/item/areaeditor/permit,
 /obj/item/areaeditor/permit,
@@ -4344,6 +4517,11 @@
 "ddZ" = (
 /obj/structure/table/wood,
 /obj/machinery/kitchen_machine/microwave,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -4371,13 +4549,6 @@
 	temperature = 254.95
 	},
 /area/space)
-"dfd" = (
-/obj/item/ammo_box/c38,
-/turf/simulated/floor/plating/asteroid/snow/temperature{
-	icon_state = "snow3";
-	temperature = 254.95
-	},
-/area/space)
 "dfh" = (
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/sepia,
@@ -4398,6 +4569,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/item/gun/energy/detective,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -4410,6 +4582,7 @@
 /area/space)
 "dgW" = (
 /obj/machinery/light/small,
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -4576,6 +4749,14 @@
 /obj/item/flamethrower,
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/plaza)
+"dmJ" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/ironsand,
+/area/space)
 "dmL" = (
 /obj/item/clothing/head/helmet/space/unathi/breacher,
 /turf/simulated/mineral/iron,
@@ -4696,6 +4877,17 @@
 	temperature = 254.95
 	},
 /area/space)
+"dpO" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Supermatter Starboard";
+	dir = 8;
+	network = list("SS13","engine")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow5";
+	temperature = 254.95
+	},
+/area/space)
 "dpT" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/vault,
@@ -4812,8 +5004,14 @@
 	},
 /area/security/armoury)
 "dwm" = (
-/turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/quartermaster/office)
+/obj/machinery/door/airlock/wood{
+	layer = 3.1
+	},
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/toxins/hallway)
 "dyb" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -5004,6 +5202,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -5060,6 +5259,10 @@
 	temperature = 254.95
 	},
 /area/space)
+"dGX" = (
+/obj/effect/landmark/start/ai,
+/turf/simulated/floor/engine,
+/area/aisat/entrance)
 "dHd" = (
 /obj/item/storage/backpack/quiver/full,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -5110,6 +5313,23 @@
 	temperature = 254.95
 	},
 /area/security/permabrig)
+"dJl" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = ""
+	},
+/turf/simulated/floor/plating/ironsand{
+	icon_state = "ironsand8";
+	temperature = 254.95
+	},
+/area/space)
 "dJA" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/engine{
@@ -5332,6 +5552,7 @@
 /obj/machinery/door/airlock/wood/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /turf/simulated/floor/wood,
 /area/mine/lobby)
 "dTH" = (
@@ -5438,7 +5659,6 @@
 	color = "#0d8395";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "dYD" = (
@@ -5526,6 +5746,14 @@
 	temperature = 254.95
 	},
 /area/space)
+"eee" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood,
+/area/quartermaster/office)
 "eek" = (
 /obj/item/areaeditor/blueprints,
 /obj/structure/table/reinforced,
@@ -5959,6 +6187,7 @@
 /obj/machinery/door/airlock/hatch{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/simulated/floor/grass{
 	icon_state = "grass-12";
 	temperature = 254.95
@@ -5978,6 +6207,19 @@
 	temperature = 254.95
 	},
 /area/medical/exam_room)
+"ess" = (
+/obj/structure/spider/stickyweb{
+	icon_state = "stickyweb2"
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/medical/virology)
 "esP" = (
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/beach/water{
@@ -6057,6 +6299,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/temperature{
 	icon_state = "snow2";
+	temperature = 254.95
+	},
+/area/space)
+"evY" = (
+/obj/machinery/camera,
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow4";
 	temperature = 254.95
 	},
 /area/space)
@@ -6404,6 +6653,11 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior West";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -6535,7 +6789,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "eFp" = (
@@ -6936,6 +7189,7 @@
 	layer = 3.1
 	},
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/engine,
 /area/medical/medbay)
 "eTQ" = (
@@ -7100,6 +7354,7 @@
 /obj/structure/spider/stickyweb{
 	icon_state = "stickyweb2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -7130,6 +7385,17 @@
 /obj/item/storage/box/syringes,
 /turf/simulated/floor/wood,
 /area/medical/medbreak)
+"eYQ" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/carpet{
+	icon_state = "carpet-21";
+	temperature = 254.95
+	},
+/area/space)
 "eZv" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -7203,6 +7469,7 @@
 	layer = 3.1
 	},
 /obj/structure/barricade/wooden/crude,
+/obj/effect/mapping_helpers/airlock/access/all/medical/surgery,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -7369,6 +7636,12 @@
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/plaza)
+"fhu" = (
+/obj/machinery/camera,
+/turf/simulated/floor/plating/ice{
+	temperature = 254.95
+	},
+/area/space)
 "fie" = (
 /obj/item/fish/electric_eel,
 /turf/simulated/floor/beach/away/water/deep/wood_floor{
@@ -7405,6 +7678,14 @@
 	temperature = 254.95
 	},
 /area/space)
+"fkI" = (
+/obj/vehicle/snowmobile/blue{
+	layer = 4.1;
+	vehicle_move_delay = 0.8
+	},
+/obj/item/key/snowmobile,
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "flu" = (
 /obj/item/clothing/suit/furcape,
 /obj/item/clothing/shoes/furboots,
@@ -7569,6 +7850,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava,
 /area/space)
+"fqu" = (
+/obj/machinery/camera{
+	c_tag = "Aft Starboard Solar Control";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow12";
+	temperature = 254.95
+	},
+/area/space)
 "fqH" = (
 /turf/simulated/mineral/gold,
 /area/space)
@@ -7578,6 +7869,15 @@
 	temperature = 254.95
 	},
 /area/space)
+"fro" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Delivery Office";
+	req_access_txt = "50"
+	},
+/obj/structure/spider/stickyweb,
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "frB" = (
 /turf/simulated/mineral/gold{
 	icon_state = "smoothrocks-29"
@@ -7658,6 +7958,7 @@
 /area/space)
 "fxj" = (
 /obj/machinery/computer/camera_advanced/xenobio,
+/obj/machinery/camera,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -8116,6 +8417,9 @@
 "fOs" = (
 /obj/structure/rack,
 /obj/item/gun/energy/laser,
+/obj/item/gun/energy/laser,
+/obj/item/gun/energy/laser,
+/obj/item/gun/energy/laser,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -8172,6 +8476,11 @@
 "fTF" = (
 /obj/structure/spider/stickyweb,
 /obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/engine,
 /area/atmos)
 "fTM" = (
@@ -8238,6 +8547,7 @@
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-12"
 	},
+/obj/item/gun/energy/detective,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -8656,6 +8966,16 @@
 	temperature = 254.95
 	},
 /area/medical/genetics)
+"giU" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Supermatter Starboard";
+	dir = 8;
+	network = list("SS13","engine")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
+	},
+/area/space)
 "gja" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/wood{
@@ -8664,9 +8984,6 @@
 /area/crew_quarters/kitchen)
 "gjg" = (
 /obj/structure/table/tray,
-/obj/item/toy/cards/deck/black{
-	icon_state = "deck_black_full"
-	},
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
 	pixel_x = 3;
 	pixel_y = -3
@@ -8736,6 +9053,7 @@
 /obj/machinery/door/airlock/hatch{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -8775,6 +9093,16 @@
 /obj/item/toy/plushie/black_cat,
 /turf/simulated/mineral/gold,
 /area/space)
+"gqq" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/chapel/main)
 "gqy" = (
 /obj/item/stock_parts/cell/infinite/abductor,
 /turf/simulated/floor/indestructible/necropolis{
@@ -8819,6 +9147,11 @@
 /obj/item/defibrillator/loaded,
 /obj/item/handheld_defibrillator,
 /obj/item/handheld_defibrillator,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Atmospherics";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/engine,
 /area/medical/biostorage)
 "gsp" = (
@@ -9055,6 +9388,8 @@
 /obj/structure/spider/stickyweb{
 	icon_state = "stickyweb2"
 	},
+/obj/structure/table/reinforced,
+/obj/machinery/reagentgrinder,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -9077,6 +9412,7 @@
 /area/space)
 "gCX" = (
 /obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/engine,
 /area/medical/paramedic)
 "gCY" = (
@@ -9229,6 +9565,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/atmos)
+"gHI" = (
+/obj/machinery/door/airlock/medical/glass{
+	layer = 3.1
+	},
+/obj/effect/mapping_helpers/airlock/access/all/medical,
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/medical/medbay)
 "gIf" = (
 /obj/item/shard{
 	pixel_x = 5
@@ -9356,6 +9701,17 @@
 	icon_state = "smoothrocks-223"
 	},
 /area/space)
+"gNu" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow10";
+	temperature = 254.95
+	},
+/area/space)
 "gNB" = (
 /obj/machinery/chem_heater,
 /obj/structure/spider/stickyweb,
@@ -9414,11 +9770,6 @@
 /area/shuttle/arrival/station)
 "gRj" = (
 /obj/structure/rack,
-/obj/item/gun/projectile/revolver/detective{
-	name = "Six-Shooter"
-	},
-/obj/item/ammo_box/c38,
-/obj/item/ammo_box/c38,
 /turf/simulated/floor/beach/away/water/deep/wood_floor{
 	temperature = 254.95
 	},
@@ -9666,6 +10017,7 @@
 /obj/machinery/door/airlock/hatch{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -9890,6 +10242,13 @@
 	},
 /turf/simulated/floor/sepia,
 /area/space)
+"hhm" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/ironsand,
+/area/space)
 "hhw" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -10081,12 +10440,14 @@
 	},
 /area/space)
 "hpi" = (
-/obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating/asteroid/snow/temperature{
-	icon_state = "snow4";
-	temperature = 254.95
+/obj/machinery/door/airlock/mining/glass{
+	name = "Delivery Office";
+	req_access_txt = "50"
 	},
-/area/quartermaster/office)
+/obj/structure/barricade/wooden/crude/snow,
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "hpv" = (
 /turf/simulated/mineral/uranium{
 	icon_state = "smoothrocks-12"
@@ -10231,6 +10592,15 @@
 	temperature = 254.95
 	},
 /area/space)
+"hwb" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
+	},
+/area/space)
 "hwe" = (
 /turf/simulated/mineral/gold{
 	icon_state = "smoothrocks-5"
@@ -10300,11 +10670,29 @@
 	temperature = 254.95
 	},
 /area/chapel/main)
+"hyo" = (
+/obj/machinery/recharge_station/upgraded,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/camera,
+/turf/simulated/floor/engine,
+/area/aisat/entrance)
 "hzc" = (
 /obj/structure/fence/end{
 	dir = 1
 	},
 /turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/space)
+"hzO" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior West";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
 	temperature = 254.95
 	},
 /area/space)
@@ -10481,8 +10869,8 @@
 /area/space)
 "hGB" = (
 /obj/structure/barricade/wooden,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/quartermaster/office)
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "hGF" = (
 /obj/machinery/pipedispenser,
 /obj/machinery/light,
@@ -10495,6 +10883,11 @@
 	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
 	},
 /turf/simulated/floor/engine{
 	temperature = 254.95
@@ -10654,6 +11047,13 @@
 "hME" = (
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/eng)
+"hNH" = (
+/obj/machinery/camera,
+/turf/simulated/floor/grass{
+	icon_state = "grass-110";
+	temperature = 254.95
+	},
+/area/hydroponics)
 "hOb" = (
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /obj/structure/spider/stickyweb,
@@ -10842,11 +11242,22 @@
 	temperature = 254.95
 	},
 /area/security/interrogation)
+"hUA" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/space)
 "hUG" = (
 /obj/machinery/door/airlock/hatch{
 	layer = 3.1
 	},
 /obj/structure/spider/stickyweb,
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -10978,6 +11389,11 @@
 "ibM" = (
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Atmospherics";
+	dir = 4;
+	network = list("SS13","MiniSat")
 	},
 /turf/simulated/floor/engine{
 	temperature = 254.95
@@ -11260,6 +11676,16 @@
 	temperature = 254.95
 	},
 /area/security/armoury)
+"ifM" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/crew_quarters/captain)
 "ifS" = (
 /obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden,
@@ -11408,6 +11834,10 @@
 /obj/machinery/recharge_station/upgraded,
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
 	},
 /turf/simulated/floor/wood,
 /area/bridge)
@@ -11567,6 +11997,7 @@
 /obj/machinery/door/airlock/medical{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -11649,6 +12080,9 @@
 	icon_state = "reinforced_table-4"
 	},
 /obj/item/gun/energy/gun/mini,
+/obj/item/gun/energy/gun/mini,
+/obj/item/gun/energy/gun/mini,
+/obj/item/gun/energy/gun/mini,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -11674,6 +12108,7 @@
 /obj/structure/flora/rock/pile{
 	icon_state = "rockpile4"
 	},
+/obj/machinery/camera,
 /turf/simulated/floor/plating/ice{
 	temperature = 254.95
 	},
@@ -11936,6 +12371,7 @@
 	},
 /area/space)
 "iKi" = (
+/obj/machinery/camera,
 /turf/simulated/floor/carpet{
 	icon_state = "carpet-110";
 	temperature = 254.95
@@ -12020,6 +12456,16 @@
 	temperature = 254.95
 	},
 /area/awaymission/UO71/medical)
+"iNp" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/toxins/lab)
 "iNt" = (
 /turf/simulated/floor/plating/ice{
 	icon_state = "ice_turf-9";
@@ -13118,6 +13564,7 @@
 /obj/structure/spider/stickyweb{
 	icon_state = "stickyweb2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -13235,14 +13682,23 @@
 /area/medical/paramedic)
 "jEw" = (
 /obj/machinery/door/airlock/engineering/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/engine,
 /area/engine/hardsuitstorage)
 "jEI" = (
 /obj/machinery/door/airlock/wood/glass,
+/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
 /area/toxins/xenobiology)
+"jEQ" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/camera,
+/turf/simulated/floor/engine,
+/area/aisat/entrance)
 "jES" = (
 /obj/structure/chair/wood,
 /obj/effect/landmark/start/paramedic,
@@ -13399,6 +13855,7 @@
 "jJA" = (
 /obj/machinery/door/airlock/engineering/glass,
 /obj/structure/barricade/wooden/crude,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/engine,
 /area/engine/hardsuitstorage)
 "jJF" = (
@@ -13526,6 +13983,16 @@
 	temperature = 254.95
 	},
 /area/medical/exam_room)
+"jLb" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/assembly/robotics)
 "jLr" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -13694,6 +14161,7 @@
 /obj/machinery/door/airlock/wood/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -14125,6 +14593,12 @@
 	icon_state = "alienpod3"
 	},
 /area/space)
+"kgZ" = (
+/obj/machinery/camera,
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
+	},
+/area/space)
 "khl" = (
 /turf/simulated/wall/mineral/iron,
 /area/medical/paramedic)
@@ -14159,7 +14633,6 @@
 	color = "#0d8395";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "kiA" = (
@@ -14383,6 +14856,13 @@
 	temperature = 254.95
 	},
 /area/toxins/server)
+"krM" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood,
+/area/mine/lobby)
 "ksa" = (
 /obj/structure/window/full/reinforced,
 /obj/structure/grille,
@@ -14655,6 +15135,10 @@
 /obj/machinery/optable{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Antechamber South";
+	dir = 4
+	},
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -14750,6 +15234,7 @@
 "kHf" = (
 /obj/machinery/door/airlock/wood,
 /obj/structure/barricade/wooden/crude,
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /turf/simulated/floor/wood,
 /area/quartermaster/office)
 "kHk" = (
@@ -14757,6 +15242,7 @@
 /area/bridge)
 "kHv" = (
 /obj/machinery/door/airlock/research,
+/obj/effect/mapping_helpers/airlock/access/any/science,
 /turf/simulated/floor/wood,
 /area/toxins/rdoffice)
 "kHA" = (
@@ -14769,6 +15255,14 @@
 	temperature = 254.95
 	},
 /area/space)
+"kHZ" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood,
+/area/bridge)
 "kIf" = (
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-4"
@@ -14982,6 +15476,17 @@
 	icon_state = "smoothrocks-137"
 	},
 /area/space)
+"kNb" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/ironsand{
+	icon_state = "ironsand8";
+	temperature = 254.95
+	},
+/area/space)
 "kNt" = (
 /obj/machinery/door/window{
 	dir = 1
@@ -15000,6 +15505,11 @@
 "kOa" = (
 /obj/machinery/suit_storage_unit/atmos,
 /obj/structure/spider/stickyweb,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/engine,
 /area/engine/hardsuitstorage)
 "kOb" = (
@@ -15214,6 +15724,17 @@
 	temperature = 254.95
 	},
 /area/hydroponics)
+"kUc" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
+	},
+/area/space)
 "kUk" = (
 /obj/structure/flora/tree/pine{
 	icon_state = "pine_2"
@@ -15292,6 +15813,11 @@
 	pixel_x = 5;
 	pixel_y = 4
 	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -15357,6 +15883,7 @@
 /obj/machinery/door/airlock/wood/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/captain)
 "kZi" = (
@@ -15604,6 +16131,26 @@
 	temperature = 254.95
 	},
 /area/space)
+"ljE" = (
+/obj/machinery/door/airlock/wood{
+	layer = 3.1
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/toxins/hallway)
+"ljP" = (
+/obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/assembly/robotics)
 "ljY" = (
 /obj/structure/barricade/sandbags{
 	icon_state = "sandbags-4"
@@ -15708,7 +16255,7 @@
 /obj/item/stack/sheet/wood,
 /obj/structure/spider/stickyweb,
 /obj/item/stack/rods,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/wood,
 /area/quartermaster/office)
 "loo" = (
 /obj/structure/window/full/reinforced{
@@ -15911,6 +16458,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/wood,
 /area/quartermaster/office)
 "ltA" = (
@@ -16020,6 +16571,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/camera,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/arrival/station)
 "lvH" = (
@@ -16053,6 +16605,17 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/engine,
 /area/atmos)
+"lxO" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Atmospherics";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow2";
+	temperature = 254.95
+	},
+/area/space)
 "lxP" = (
 /turf/simulated/mineral/random/high_chance/volcanic{
 	icon_state = "smoothrocks-239"
@@ -16306,6 +16869,12 @@
 /obj/structure/mineral_door,
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/bridge)
+"lEV" = (
+/obj/machinery/camera,
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/security/brig)
 "lFy" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -16702,6 +17271,7 @@
 	vehicle_move_delay = 0.7
 	},
 /obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/mask/gas/sechailer/swat,
 /turf/simulated/floor/engine,
 /area/security/seceqstorage)
 "lQt" = (
@@ -16798,6 +17368,17 @@
 	temperature = 300.05
 	},
 /area/space)
+"lUc" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior West";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow1";
+	temperature = 254.95
+	},
+/area/space)
 "lUl" = (
 /obj/structure/flora/rock/pile{
 	icon_state = "rockpile3"
@@ -16841,7 +17422,7 @@
 /area/space)
 "lVB" = (
 /obj/structure/stone_tile/slab/burnt,
-/obj/item/clothing/suit/armor/reactive,
+/obj/item/clothing/suit/armor/reactive/random,
 /turf/simulated/floor/plating/lava/smooth{
 	temperature = 300.05
 	},
@@ -17182,6 +17763,18 @@
 /obj/item/crowbar,
 /turf/simulated/floor/engine,
 /area/medical/paramedic)
+"mhE" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/camera,
+/turf/simulated/floor/plating/ironsand{
+	icon_state = "ironsand14";
+	temperature = 254.95
+	},
+/area/space)
 "mhO" = (
 /obj/structure/rack,
 /obj/item/gun/projectile/automatic/pistol,
@@ -17290,6 +17883,14 @@
 	temperature = 254.95
 	},
 /area/medical/genetics)
+"mlD" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/machinery/camera,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/arrival/station)
 "mmO" = (
 /obj/structure/spider/stickyweb{
 	icon_state = "stickyweb2"
@@ -17317,6 +17918,14 @@
 	temperature = 254.95
 	},
 /area/space)
+"mnu" = (
+/obj/structure/table/wood,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "mnD" = (
 /turf/simulated/mineral/titanium{
 	icon_state = "smoothrocks-38"
@@ -17405,6 +18014,11 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/item/clothing/mask/gas/sechailer/swat,
+/obj/item/clothing/mask/gas/sechailer/swat,
+/obj/item/clothing/mask/gas/sechailer/swat,
+/obj/item/clothing/mask/gas/sechailer/swat,
+/obj/item/clothing/mask/gas/sechailer/swat,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -17425,6 +18039,7 @@
 /obj/machinery/door/airlock/research/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -17434,6 +18049,7 @@
 	layer = 3.1
 	},
 /obj/structure/barricade/wooden/crude,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -17477,6 +18093,13 @@
 	temperature = 254.95
 	},
 /area/space)
+"mvL" = (
+/obj/structure/chair/office/light,
+/obj/machinery/camera,
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/security/brig)
 "mvN" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/wood,
@@ -17890,6 +18513,7 @@
 /obj/item/storage/belt/medical,
 /obj/item/storage/belt/medical,
 /obj/item/storage/belt/medical,
+/obj/machinery/camera,
 /turf/simulated/floor/wood,
 /area/medical/medbreak)
 "mHq" = (
@@ -17920,6 +18544,12 @@
 	icon_state = "smoothrocks-74"
 	},
 /area/toxins/xenobiology)
+"mJg" = (
+/obj/machinery/camera,
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/medical/medbay)
 "mJm" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -17937,7 +18567,6 @@
 	color = "#0d8395";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "mJo" = (
@@ -18309,9 +18938,15 @@
 	},
 /area/space)
 "mVD" = (
-/obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/quartermaster/office)
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
+	},
+/area/space)
 "mVE" = (
 /obj/item/gun/energy/laser,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -18559,6 +19194,18 @@
 	temperature = 254.95
 	},
 /area/space)
+"ncB" = (
+/mob/living/simple_animal/hostile/retaliate/carp,
+/turf/simulated/floor/beach/away/water/deep/wood_floor{
+	temperature = 254.95
+	},
+/area/space)
+"ncH" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/aisat/entrance)
 "ndo" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -18771,10 +19418,10 @@
 	},
 /area/space)
 "nmD" = (
+/obj/item/trash/pistachios,
 /obj/machinery/door/window/brigdoor/security/cell/eastleft{
 	dir = 2
 	},
-/obj/item/trash/pistachios,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -18788,6 +19435,17 @@
 	},
 /turf/simulated/floor/grass{
 	icon_state = "grass-0";
+	temperature = 254.95
+	},
+/area/space)
+"nnb" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow0";
 	temperature = 254.95
 	},
 /area/space)
@@ -18874,7 +19532,7 @@
 	},
 /area/space)
 "nqz" = (
-/obj/machinery/atmospherics/unary/thermomachine,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -18904,6 +19562,12 @@
 	temperature = 254.95
 	},
 /area/space)
+"nsN" = (
+/obj/machinery/camera,
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/toxins/hallway)
 "nte" = (
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/centralhall)
@@ -18936,6 +19600,7 @@
 /area/space)
 "nuT" = (
 /obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/camera,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -19118,6 +19783,10 @@
 	temperature = 254.95
 	},
 /area/space)
+"nzZ" = (
+/obj/machinery/defibrillator_mount/loaded,
+/turf/simulated/wall/r_wall,
+/area/medical/exam_room)
 "nAB" = (
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/wood{
@@ -19233,6 +19902,16 @@
 "nEV" = (
 /turf/simulated/wall/mineral/wood,
 /area/storage/art)
+"nEX" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/toxins/test_chamber)
 "nHa" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced,
@@ -19293,6 +19972,10 @@
 /obj/item/seeds/tomato,
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/science)
+"nIN" = (
+/obj/structure/reagent_dispensers/virusfood,
+/turf/simulated/wall/r_wall,
+/area/medical/virology)
 "nIX" = (
 /turf/simulated/wall/indestructible/boss{
 	name = "tomb wall"
@@ -19319,7 +20002,7 @@
 /obj/structure/grille/broken,
 /obj/item/shard,
 /turf/simulated/floor/wood,
-/area/quartermaster/office)
+/area/quartermaster/sorting)
 "nJz" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/plating/ironsand{
@@ -19338,6 +20021,15 @@
 /obj/effect/landmark/start/psychiatrist,
 /turf/simulated/floor/wood,
 /area/medical/medbreak)
+"nJT" = (
+/obj/structure/spider/stickyweb{
+	icon_state = "stickyweb2"
+	},
+/obj/machinery/camera,
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/storage/art)
 "nKd" = (
 /obj/structure/flora/ausbushes/sparsegrass{
 	icon_state = "sparsegrass_2"
@@ -19354,6 +20046,10 @@
 	temperature = 254.95
 	},
 /area/awaymission/UO71/science)
+"nKn" = (
+/obj/machinery/defibrillator_mount/loaded,
+/turf/simulated/wall/r_wall,
+/area/medical/genetics_cloning)
 "nKs" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -19556,11 +20252,8 @@
 "nPM" = (
 /obj/structure/girder,
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating/asteroid/snow/temperature{
-	icon_state = "snow6";
-	temperature = 254.95
-	},
-/area/quartermaster/office)
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "nPP" = (
 /obj/machinery/cryopod/robot,
 /turf/simulated/floor/wood{
@@ -19636,6 +20329,7 @@
 /area/space)
 "nSh" = (
 /obj/structure/spider/stickyweb,
+/obj/machinery/camera,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -20138,6 +20832,17 @@
 	icon_state = "smoothrocks-255"
 	},
 /area/space)
+"omk" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South West";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/ironsand{
+	icon_state = "ironsand4";
+	temperature = 254.95
+	},
+/area/space)
 "omP" = (
 /turf/simulated/floor/grass{
 	icon_state = "grass-127";
@@ -20200,6 +20905,18 @@
 	temperature = 254.95
 	},
 /area/space)
+"ooB" = (
+/obj/machinery/conveyor{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/janitor)
 "opb" = (
 /obj/structure/flora/tree/pine,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -20553,6 +21270,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -20640,6 +21362,16 @@
 	temperature = 254.95
 	},
 /area/space)
+"ozI" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Atmospherics";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/crew_quarters/kitchen)
 "ozP" = (
 /turf/simulated/floor/beach/sand{
 	temperature = 254.95
@@ -20733,6 +21465,7 @@
 /obj/machinery/door/airlock/wood{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -20995,8 +21728,7 @@
 	},
 /area/space)
 "oLj" = (
-/obj/item/stock_parts/cell/bluespace,
-/obj/item/areaeditor/permit,
+/obj/machinery/message_server,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/arrival/station)
 "oLs" = (
@@ -21059,6 +21791,19 @@
 	temperature = 254.95
 	},
 /area/space)
+"oOA" = (
+/obj/machinery/hydroponics/constructable{
+	icon_state = "hoses-0"
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/toxins/test_chamber)
 "oOH" = (
 /obj/structure/railing{
 	dir = 1
@@ -21157,6 +21902,14 @@
 	icon_state = "carpet-21";
 	temperature = 254.95
 	},
+/area/space)
+"oSF" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/ironsand,
 /area/space)
 "oSW" = (
 /obj/structure/table/reinforced{
@@ -21328,6 +22081,15 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/sepia,
 /area/space)
+"oZq" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics South-East";
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
+	},
+/area/space)
 "oZX" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
@@ -21350,6 +22112,7 @@
 	layer = 3.1
 	},
 /obj/structure/spider/stickyweb,
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -21553,6 +22316,19 @@
 	temperature = 254.95
 	},
 /area/toxins/test_chamber)
+"phm" = (
+/obj/machinery/hydroponics/constructable{
+	icon_state = "hoses-0"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/camera,
+/turf/simulated/floor/grass{
+	icon_state = "grass-110";
+	temperature = 254.95
+	},
+/area/hydroponics)
 "phn" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/required/kirbyplants{
@@ -21599,6 +22375,13 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/loot)
+"piV" = (
+/obj/machinery/camera,
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow9";
+	temperature = 254.95
+	},
+/area/space)
 "piX" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -21740,6 +22523,7 @@
 /obj/machinery/door/airlock/wood/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/captain)
 "poQ" = (
@@ -21756,6 +22540,15 @@
 "poV" = (
 /turf/simulated/wall/indestructible/rock/snow,
 /area/security/permabrig)
+"poX" = (
+/obj/structure/spider/stickyweb,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/engine,
+/area/engine/engine_smes)
 "ppt" = (
 /mob/living/simple_animal/hostile/russian,
 /turf/simulated/floor/wood{
@@ -21804,6 +22597,15 @@
 	temperature = 254.95
 	},
 /area/space)
+"pru" = (
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "psc" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -21959,6 +22761,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -22087,6 +22890,7 @@
 	dir = 1
 	},
 /obj/item/storage/bag/chemistry,
+/obj/machinery/camera,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -22151,13 +22955,6 @@
 	temperature = 254.95
 	},
 /area/medical/genetics)
-"pBq" = (
-/obj/structure/table/reinforced,
-/obj/item/toy/cards/deck/black{
-	icon_state = "deck_black_full"
-	},
-/turf/simulated/floor/engine,
-/area/medical/paramedic)
 "pBA" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava,
 /area/space)
@@ -22206,6 +23003,16 @@
 /obj/effect/mine/stun,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
 	icon_state = "snow8";
+	temperature = 254.95
+	},
+/area/space)
+"pEk" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
 	temperature = 254.95
 	},
 /area/space)
@@ -22480,6 +23287,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -22525,8 +23333,8 @@
 /area/medical/cmostore)
 "pQh" = (
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/space)
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "pQT" = (
 /turf/simulated/mineral/random/high_chance,
 /area/toxins/test_chamber)
@@ -22827,6 +23635,18 @@
 	temperature = 254.95
 	},
 /area/security/permabrig)
+"pWW" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior West";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow0";
+	temperature = 254.95
+	},
+/area/space)
 "pWX" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/utensil/fork{
@@ -22871,6 +23691,8 @@
 /area/space)
 "pYC" = (
 /obj/structure/rack,
+/obj/item/gun/energy/gun,
+/obj/item/gun/energy/gun,
 /obj/item/gun/energy/gun,
 /obj/item/gun/energy/gun,
 /turf/simulated/floor/engine{
@@ -22926,6 +23748,7 @@
 	layer = 3.1
 	},
 /obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -23194,6 +24017,16 @@
 	temperature = 254.95
 	},
 /area/space)
+"qjY" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
+	},
+/area/space)
 "qkA" = (
 /obj/structure/alien/weeds,
 /obj/structure/mineral_door/iron,
@@ -23237,6 +24070,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "qlN" = (
@@ -23298,6 +24132,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/clothing/mask/gas/sechailer/swat,
 /turf/simulated/floor/engine,
 /area/security/seceqstorage)
 "qog" = (
@@ -23715,8 +24550,8 @@
 "qzY" = (
 /obj/item/stack/sheet/wood,
 /obj/structure/barricade/wooden,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/quartermaster/office)
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "qAx" = (
 /obj/structure/flora/ausbushes/sparsegrass{
 	icon_state = "sparsegrass_2"
@@ -23963,6 +24798,20 @@
 	temperature = 254.95
 	},
 /area/space)
+"qJv" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/medical/exam_room)
 "qJB" = (
 /turf/simulated/floor/plating/ice{
 	icon_state = "ice_turf-191";
@@ -24355,6 +25204,14 @@
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/arrival/station)
+"qYx" = (
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/engine,
+/area/aisat/entrance)
 "qYI" = (
 /obj/item/storage/box/buck,
 /obj/structure/alien/weeds,
@@ -24552,6 +25409,15 @@
 	},
 /turf/simulated/floor/plating/abductor{
 	icon_state = "alienpod2"
+	},
+/area/space)
+"rdp" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Antechamber South";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
 	},
 /area/space)
 "rdq" = (
@@ -24855,6 +25721,9 @@
 	temperature = 254.95
 	},
 /area/space)
+"rku" = (
+/turf/simulated/wall/r_wall,
+/area/aisat/entrance)
 "rkz" = (
 /obj/item/gun/energy/decloner,
 /turf/simulated/mineral/random/high_chance,
@@ -24930,6 +25799,12 @@
 	temperature = 254.95
 	},
 /area/quartermaster/office)
+"roD" = (
+/obj/machinery/camera,
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/chapel/main)
 "roX" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -25179,6 +26054,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -25357,6 +26233,10 @@
 "rDe" = (
 /turf/simulated/wall/r_wall,
 /area/medical/medbreak)
+"rDW" = (
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "rEj" = (
 /obj/item/clothing/gloves/color/red/insulated,
 /turf/simulated/floor/wood{
@@ -25435,6 +26315,11 @@
 	temperature = 254.95
 	},
 /area/space)
+"rFL" = (
+/obj/machinery/door/airlock/centcom/glass,
+/obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
+/turf/simulated/floor/engine,
+/area/aisat/entrance)
 "rFQ" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -25760,6 +26645,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/melee/baton,
+/obj/item/melee/baton,
+/obj/item/melee/baton,
+/obj/item/melee/baton,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -25768,6 +26657,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -25819,8 +26709,14 @@
 /area/space)
 "rWU" = (
 /obj/item/shard,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/space)
+/obj/structure/table/wood,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "rWX" = (
 /obj/item/shard{
 	icon_state = "medium";
@@ -25860,6 +26756,19 @@
 	temperature = 254.95
 	},
 /area/space)
+"rXM" = (
+/obj/structure/spider/stickyweb{
+	icon_state = "stickyweb2"
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior West";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/medical/exam_room)
 "rXU" = (
 /turf/simulated/floor/plating/ice{
 	icon_state = "ice_turf-13";
@@ -25884,6 +26793,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/gun/energy/laser/retro,
+/obj/item/gun/energy/laser/retro,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -25923,6 +26834,18 @@
 /obj/effect/landmark/start/chaplain,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/arrival/station)
+"sch" = (
+/obj/vehicle/snowmobile/blue{
+	layer = 4.1;
+	vehicle_move_delay = 0.8
+	},
+/obj/item/key/snowmobile,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "scn" = (
 /obj/structure/sink,
 /turf/simulated/floor/plasteel{
@@ -26079,6 +27002,7 @@
 	},
 /area/space)
 "sgg" = (
+/obj/machinery/camera,
 /turf/simulated/floor/grass{
 	icon_state = "grass-2";
 	temperature = 254.95
@@ -26109,6 +27033,17 @@
 "shl" = (
 /turf/simulated/mineral/random/high_chance/volcanic{
 	icon_state = "smoothrocks-137"
+	},
+/area/space)
+"shr" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior West";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/grass{
+	icon_state = "grass-6";
+	temperature = 254.95
 	},
 /area/space)
 "sii" = (
@@ -26298,6 +27233,12 @@
 	temperature = 254.95
 	},
 /area/space)
+"snP" = (
+/obj/item/melee/baseball_bat,
+/turf/simulated/floor/beach/water{
+	temperature = 254.95
+	},
+/area/space)
 "spP" = (
 /obj/structure/chair/comfy/black,
 /obj/item/clothing/suit/hooded/wintercoat/medical,
@@ -26328,6 +27269,7 @@
 /obj/machinery/door/airlock/hatch{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -26494,6 +27436,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -26532,6 +27475,11 @@
 	icon_state = "reinforced_table-4"
 	},
 /obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Atmospherics";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -26579,6 +27527,7 @@
 /obj/structure/spider/stickyweb{
 	icon_state = "stickyweb2"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -26753,6 +27702,11 @@
 /obj/item/harpoon{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -26919,6 +27873,16 @@
 	temperature = 254.95
 	},
 /area/space)
+"sJH" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/space)
 "sJL" = (
 /obj/structure/flora/rock/icy{
 	icon_state = "rock2"
@@ -26950,6 +27914,7 @@
 	layer = 3.1
 	},
 /obj/structure/spider/stickyweb,
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/simulated/floor/grass{
 	icon_state = "grass-12";
 	temperature = 254.95
@@ -27364,6 +28329,7 @@
 	dir = 1;
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -27534,6 +28500,16 @@
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/simulated/floor/engine,
 /area/security/seceqstorage)
+"tdV" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/medical/medbay)
 "tdZ" = (
 /obj/machinery/door/airlock/research/glass{
 	layer = 3.1
@@ -27610,6 +28586,14 @@
 	temperature = 254.95
 	},
 /area/space)
+"thz" = (
+/obj/structure/table/wood,
+/obj/item/clothing/mask/gas/explorer/marines,
+/obj/item/clothing/mask/gas/explorer/marines,
+/obj/item/clothing/mask/gas/explorer/marines,
+/obj/item/clothing/mask/gas/explorer/marines,
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "thJ" = (
 /obj/structure/flora/tree/pine{
 	icon_state = "pine_3"
@@ -27740,6 +28724,11 @@
 /obj/item/reagent_containers/food/snacks/grown/apple,
 /obj/item/reagent_containers/food/snacks/grown/apple,
 /obj/item/reagent_containers/food/snacks/grown/apple,
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -27904,6 +28893,17 @@
 	temperature = 254.95
 	},
 /area/space)
+"tqb" = (
+/obj/vehicle/snowmobile/blue{
+	layer = 4.1;
+	vehicle_move_delay = 0.8
+	},
+/obj/item/key/snowmobile,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/quartermaster/sorting)
 "tqn" = (
 /obj/item/katana,
 /turf/simulated/floor/indestructible/necropolis{
@@ -27929,6 +28929,15 @@
 	temperature = 254.95
 	},
 /area/space)
+"trp" = (
+/obj/structure/spider/stickyweb{
+	icon_state = "stickyweb2"
+	},
+/obj/machinery/camera,
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/medical/medbay)
 "trY" = (
 /obj/effect/landmark/start/detective,
 /obj/structure/chair/wood{
@@ -28166,6 +29175,15 @@
 	temperature = 254.95
 	},
 /area/space)
+"tBE" = (
+/obj/machinery/camera{
+	c_tag = "Telecommunications Core";
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/space)
 "tBF" = (
 /obj/effect/landmark/start/barber,
 /turf/simulated/floor/carpet/royalblack,
@@ -28317,6 +29335,7 @@
 /obj/machinery/door/airlock/medical{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -28452,6 +29471,7 @@
 /obj/machinery/door/airlock/hatch{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -28637,6 +29657,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/camera,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/arrival/station)
 "tXt" = (
@@ -28739,6 +29760,20 @@
 /obj/structure/spider/stickyweb{
 	icon_state = "stickyweb2"
 	},
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
+/obj/item/clothing/accessory/holster/armpit,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -28775,6 +29810,7 @@
 /area/engine/engine_smes)
 "ubz" = (
 /obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -28786,6 +29822,9 @@
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-12"
 	},
+/obj/item/gun/energy/gun/mini,
+/obj/item/gun/energy/gun/mini,
+/obj/item/gun/energy/gun/mini,
 /obj/item/gun/energy/gun/mini,
 /turf/simulated/floor/engine{
 	temperature = 254.95
@@ -28815,10 +29854,32 @@
 	temperature = 254.95
 	},
 /area/space)
+"ucN" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow11";
+	temperature = 254.95
+	},
+/area/space)
 "udc" = (
 /obj/item/reagent_containers/glass/beaker/drugs,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/space)
+"udi" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Atmospherics";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow5";
 	temperature = 254.95
 	},
 /area/space)
@@ -28994,10 +30055,24 @@
 /area/lawoffice)
 "uib" = (
 /obj/machinery/vending/cigarette,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
 /area/lawoffice)
+"uij" = (
+/obj/machinery/camera{
+	c_tag = "Aft Starboard Solar Control";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
+	},
+/area/space)
 "uil" = (
 /obj/structure/flora/tree/dead{
 	icon_state = "tree_6"
@@ -29111,6 +30186,21 @@
 	temperature = 254.95
 	},
 /area/space)
+"ulf" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating/ironsand{
+	temperature = 254.95
+	},
+/area/space)
 "uln" = (
 /obj/structure/closet/crate/secure/unknownchemicals,
 /obj/machinery/space_heater,
@@ -29197,6 +30287,7 @@
 /area/toxins/xenobiology)
 "uoS" = (
 /obj/machinery/door/airlock/security/glass,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/engine,
 /area/security/seceqstorage)
 "upm" = (
@@ -29361,6 +30452,10 @@
 	temperature = 254.95
 	},
 /area/space)
+"utX" = (
+/obj/effect/landmark/start/cyborg,
+/turf/simulated/floor/engine,
+/area/aisat/entrance)
 "uup" = (
 /obj/structure/fence/door,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -29378,6 +30473,16 @@
 	temperature = 254.95
 	},
 /area/security/brig)
+"uuX" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics South-West";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow0";
+	temperature = 254.95
+	},
+/area/space)
 "uvA" = (
 /obj/structure/flora/tree/jungle,
 /turf/simulated/floor/grass{
@@ -29766,6 +30871,10 @@
 /obj/item/gps,
 /obj/item/gps,
 /obj/item/gps,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -30006,6 +31115,13 @@
 /obj/structure/sign/poster/official/fruit_bowl,
 /turf/simulated/wall/mineral/iron,
 /area/space)
+"uQq" = (
+/mob/living/simple_animal/hostile/winter/snowman,
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow9";
+	temperature = 254.95
+	},
+/area/space)
 "uQx" = (
 /turf/simulated/mineral/uranium{
 	icon_state = "smoothrocks-2"
@@ -30017,6 +31133,13 @@
 	},
 /turf/simulated/floor/sepia,
 /area/space)
+"uRD" = (
+/obj/machinery/door/airlock/hatch{
+	layer = 3.1
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/turf/simulated/floor/engine,
+/area/security/brig)
 "uRO" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -30239,6 +31362,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/camera,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -30408,6 +31532,7 @@
 /area/security/brig)
 "vgs" = (
 /obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/wood,
 /area/medical/medbreak)
 "vgv" = (
@@ -30451,10 +31576,18 @@
 /obj/machinery/door/airlock/wood/glass{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
 /area/quartermaster/office)
+"vhM" = (
+/obj/machinery/camera,
+/turf/simulated/floor/grass{
+	icon_state = "grass-4";
+	temperature = 254.95
+	},
+/area/space)
 "vhS" = (
 /obj/item/shard{
 	pixel_x = -2;
@@ -30524,6 +31657,16 @@
 	icon_state = "hoses-0"
 	},
 /turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/space)
+"vli" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/ironsand{
 	temperature = 254.95
 	},
 /area/space)
@@ -30817,6 +31960,13 @@
 	temperature = 254.95
 	},
 /area/space)
+"vvP" = (
+/mob/living/simple_animal/hostile/winter/snowman,
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow6";
+	temperature = 254.95
+	},
+/area/space)
 "vvV" = (
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/carpet/red{
@@ -30852,10 +32002,19 @@
 /obj/structure/spider/stickyweb{
 	icon_state = "stickyweb2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
 /area/engine/engineering)
+"vyn" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Supermatter Starboard";
+	dir = 8;
+	network = list("SS13","engine")
+	},
+/turf/simulated/floor/engine,
+/area/medical/paramedic)
 "vyL" = (
 /obj/structure/flora/rock{
 	icon_state = "rock2"
@@ -30892,6 +32051,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/reagent_containers/glass/bottle/flu_virion,
+/obj/item/reagent_containers/glass/bottle/flu_virion,
+/obj/item/reagent_containers/glass/bottle/pierrot_throat,
+/obj/item/reagent_containers/glass/bottle/pierrot_throat,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -30910,6 +32074,16 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/space)
+"vBx" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/ironsand{
 	temperature = 254.95
 	},
 /area/space)
@@ -31301,6 +32475,7 @@
 	layer = 3.1;
 	name = "Polar Seed Vault"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -31438,6 +32613,7 @@
 	name = "Polar Seed Vault"
 	},
 /obj/structure/barricade/wooden/crude/snow,
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -31548,6 +32724,7 @@
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/head/helmet/alt,
+/obj/item/melee/baton,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -31614,6 +32791,7 @@
 /obj/machinery/door/airlock/hatch{
 	layer = 3.1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -31772,6 +32950,17 @@
 	icon_state = "smoothrocks-191"
 	},
 /area/space)
+"wiI" = (
+/obj/machinery/camera{
+	c_tag = "Mini Satellite Teleporter";
+	dir = 1;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow0";
+	temperature = 254.95
+	},
+/area/space)
 "wjT" = (
 /obj/item/clothing/head/helmet/riot,
 /obj/structure/alien/weeds,
@@ -31791,6 +32980,15 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/ironsand{
 	icon_state = "ironsand15";
+	temperature = 254.95
+	},
+/area/space)
+"wkA" = (
+/obj/machinery/camera{
+	c_tag = "Aft Starboard Solar Access";
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
 	temperature = 254.95
 	},
 /area/space)
@@ -31870,6 +33068,12 @@
 	temperature = 254.95
 	},
 /area/space)
+"wna" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/medical/medbay)
 "wnn" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/hooded/wintercoat/science,
@@ -32011,9 +33215,6 @@
 /area/shuttle/arrival/station)
 "wtl" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/black{
-	icon_state = "deck_black_full"
-	},
 /obj/item/lighter/zippo/nt_rep,
 /turf/simulated/floor/carpet/purple,
 /area/awaymission/UO71/centralhall)
@@ -32175,14 +33376,6 @@
 /obj/structure/extinguisher_cabinet,
 /turf/simulated/wall/mineral/wood,
 /area/bridge)
-"wBv" = (
-/obj/item/gun/projectile/revolver/detective{
-	name = "Six-Shooter"
-	},
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
-/area/space)
 "wBL" = (
 /obj/structure/grille/broken,
 /obj/item/shard/plasma,
@@ -32218,6 +33411,14 @@
 	temperature = 254.95
 	},
 /area/medical/genetics)
+"wDk" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South";
+	network = list("SS13","MiniSat")
+	},
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/engine,
+/area/engine/engineering)
 "wDI" = (
 /obj/machinery/door/airlock/titanium/glass{
 	name = "farm airlock"
@@ -32555,6 +33756,17 @@
 	temperature = 254.95
 	},
 /area/space)
+"wPG" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood,
+/area/mine/lobby)
 "wQa" = (
 /obj/item/stack/spacecash/c1000,
 /turf/simulated/floor/wood,
@@ -32583,6 +33795,16 @@
 	temperature = 254.95
 	},
 /area/space)
+"wQR" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
+	temperature = 254.95
+	},
+/area/toxins/lab)
 "wRr" = (
 /obj/structure/fence,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -32670,11 +33892,19 @@
 "wTd" = (
 /obj/structure/spider/stickyweb,
 /obj/item/stack/rods,
-/turf/simulated/floor/plating/asteroid/snow/temperature{
-	icon_state = "snow12";
+/turf/simulated/floor/wood,
+/area/quartermaster/office)
+"wTg" = (
+/obj/structure/chair/sofa/pew/left,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/wood{
 	temperature = 254.95
 	},
-/area/quartermaster/office)
+/area/chapel/main)
 "wTm" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/flask/lithium,
@@ -32768,7 +33998,7 @@
 	},
 /area/space)
 "wYF" = (
-/obj/item/areaeditor/blueprints,
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/mineral/random/high_chance,
 /area/toxins/hallway)
 "wZd" = (
@@ -32892,6 +34122,15 @@
 	temperature = 254.95
 	},
 /area/space)
+"xdo" = (
+/obj/effect/landmark/start/cyborg,
+/obj/machinery/camera{
+	c_tag = "AI Satellite Service Bay";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/engine,
+/area/aisat/entrance)
 "xdt" = (
 /obj/item/seeds/berry{
 	pixel_x = 5;
@@ -33203,8 +34442,7 @@
 /turf/simulated/wall/mineral/wood,
 /area/quartermaster/office)
 "xlf" = (
-/obj/item/mounted/frame/apc_frame,
-/obj/item/apc_electronics,
+/obj/machinery/computer/message_monitor,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/arrival/station)
 "xlp" = (
@@ -33341,6 +34579,17 @@
 /obj/machinery/computer/rdconsole/core,
 /turf/simulated/mineral/titanium,
 /area/toxins/lab)
+"xqJ" = (
+/obj/machinery/camera{
+	c_tag = "Supermatter Chamber";
+	network = list("engine");
+	pixel_x = 23
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow12";
+	temperature = 254.95
+	},
+/area/space)
 "xqM" = (
 /obj/structure/window/full/reinforced{
 	icon_state = "reinforced_window-4"
@@ -33599,6 +34848,7 @@
 	icon_state = "stickyweb2"
 	},
 /obj/structure/barricade/wooden/crude,
+/obj/effect/mapping_helpers/airlock/access/all/medical/surgery,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -33629,6 +34879,10 @@
 /obj/structure/mirror,
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/bridge)
+"xEW" = (
+/obj/machinery/defibrillator_mount/loaded,
+/turf/simulated/wall/r_wall,
+/area/medical/cryo)
 "xEZ" = (
 /mob/living/simple_animal/bunny,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -33671,6 +34925,12 @@
 	temperature = 254.95
 	},
 /area/lawoffice)
+"xGp" = (
+/mob/living/simple_animal/hostile/winter/snowman,
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	temperature = 254.95
+	},
+/area/space)
 "xGy" = (
 /turf/simulated/floor/engine,
 /area/atmos)
@@ -34003,7 +35263,6 @@
 /obj/structure/chair/comfy/purp,
 /obj/item/clothing/suit/storage/det_suit,
 /obj/item/grenade/plastic/c4,
-/obj/item/gun/projectile/revolver/detective,
 /turf/simulated/floor/plasteel/dark{
 	temperature = 254.95
 	},
@@ -34236,6 +35495,14 @@
 	temperature = 254.95
 	},
 /area/engine/equipmentstorage)
+"xYk" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior South East";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/engine,
+/area/engine/engine_smes)
 "xYl" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -34521,6 +35788,10 @@
 	temperature = 254.95
 	},
 /area/awaymission/UO71/centralhall)
+"yhn" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/engine,
+/area/atmos)
 "yhG" = (
 /obj/item/shard,
 /turf/simulated/floor/beach/water{
@@ -34571,6 +35842,18 @@
 	temperature = 254.95
 	},
 /area/medical/medbay)
+"ykc" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/camera,
+/turf/simulated/floor/plating/ironsand{
+	icon_state = "ironsand15";
+	temperature = 254.95
+	},
+/area/space)
 "ykz" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/engine{
@@ -37211,7 +38494,7 @@ fnp
 rkz
 cVx
 qXf
-eKl
+ljP
 ebj
 aJO
 pQT
@@ -37262,7 +38545,7 @@ jor
 jor
 jor
 cgT
-brI
+wDk
 fIT
 brI
 smA
@@ -38500,7 +39783,7 @@ uHu
 ebj
 hcb
 uFK
-hcb
+nEX
 fKo
 hcb
 nYg
@@ -38755,7 +40038,7 @@ qHL
 qHL
 xLO
 pZS
-oBQ
+dwm
 pZS
 pZS
 pZS
@@ -39265,7 +40548,7 @@ vDf
 nmM
 nmM
 qHL
-qHL
+jLb
 dSK
 dAv
 pZS
@@ -39275,7 +40558,7 @@ toS
 pZS
 oLs
 vlG
-doI
+oOA
 sve
 doI
 lpm
@@ -39297,7 +40580,7 @@ stc
 pZt
 pZt
 pZt
-stc
+shr
 kmn
 xdg
 gIn
@@ -39521,7 +40804,7 @@ cFY
 deE
 dCh
 nmM
-oBQ
+ljE
 pZS
 pZS
 pZS
@@ -39786,7 +41069,7 @@ lyc
 nkn
 jvt
 nkn
-oBQ
+dwm
 gtb
 gtb
 gtb
@@ -39890,7 +41173,7 @@ pZt
 pZt
 hdv
 bXk
-pZt
+xGp
 pZt
 pZt
 pZt
@@ -40043,7 +41326,7 @@ cDP
 nkn
 oEF
 nkn
-oBQ
+dwm
 gtb
 gtb
 gtb
@@ -40088,7 +41371,7 @@ pZt
 fzZ
 gOu
 gOu
-afx
+xYk
 eol
 eSb
 wgv
@@ -40324,7 +41607,7 @@ etD
 stc
 stc
 pZt
-pZt
+qjY
 mJy
 cFv
 tag
@@ -40546,7 +41829,7 @@ bgt
 nmM
 aCk
 vpb
-vpb
+cnA
 nmM
 nmM
 ciq
@@ -40554,7 +41837,7 @@ ciq
 noK
 ciq
 fIl
-nkn
+nsN
 lyc
 wYF
 pZS
@@ -40609,8 +41892,8 @@ wgv
 wgv
 aRd
 wgv
-nqz
-nqz
+bKC
+bKC
 aRd
 wgv
 dJA
@@ -41068,7 +42351,7 @@ ciq
 ciq
 ciq
 pZS
-oBQ
+dwm
 pZS
 pZS
 pZS
@@ -41580,7 +42863,7 @@ jCP
 ciq
 ciq
 ciq
-ciq
+iNp
 flL
 krw
 gSs
@@ -42667,7 +43950,7 @@ wgv
 wgv
 jed
 wgv
-rPV
+poX
 uaC
 gOu
 gOu
@@ -43119,7 +44402,7 @@ rAb
 rAb
 flL
 lWx
-ciq
+wQR
 ciq
 aag
 uGK
@@ -44963,7 +46246,7 @@ hmq
 hmq
 hmq
 hmq
-hmq
+bWb
 hmq
 iQo
 hmq
@@ -45227,7 +46510,7 @@ hmq
 iQo
 hmq
 iRD
-lxs
+yhn
 xGy
 xGy
 xGy
@@ -46261,8 +47544,8 @@ pZt
 iRD
 iRD
 iRD
-pOp
-pOp
+cCQ
+cCQ
 iRD
 iRD
 iRD
@@ -47522,7 +48805,7 @@ tnj
 fzZ
 pZt
 lHR
-krs
+ykc
 pWJ
 awp
 bSH
@@ -47544,7 +48827,7 @@ gIn
 pZt
 pZt
 pZt
-vxv
+cGC
 pWJ
 geN
 mqk
@@ -49031,7 +50314,7 @@ pZt
 fzZ
 pZt
 pZt
-pZt
+mVD
 gMx
 pZt
 hdv
@@ -49553,7 +50836,7 @@ hAh
 hAh
 pZt
 pZt
-ssw
+gNu
 pZt
 pZt
 pZt
@@ -51343,7 +52626,7 @@ dAQ
 pZt
 hAh
 hXm
-uxx
+mlD
 usO
 sBW
 sBW
@@ -51634,7 +52917,7 @@ bXk
 gMx
 pZt
 lHR
-aDD
+mhE
 tWf
 pZt
 bXk
@@ -51674,7 +52957,7 @@ pZt
 pZt
 pZt
 pZt
-pZt
+giU
 gIn
 pZt
 fzZ
@@ -51873,7 +53156,7 @@ fYh
 fYh
 pZt
 dAQ
-eUR
+pWW
 pZt
 pZt
 sKL
@@ -52129,7 +53412,7 @@ meb
 meb
 meb
 meb
-pZt
+oZq
 sUU
 mXs
 nXB
@@ -52184,7 +53467,7 @@ tin
 pZt
 mec
 mec
-bbN
+ozI
 fEz
 xUw
 ddF
@@ -53656,7 +54939,7 @@ pZt
 hDc
 hAh
 hXm
-uxx
+mlD
 uxx
 sBW
 sBW
@@ -53926,7 +55209,7 @@ vzq
 wnx
 pZt
 pZt
-vxv
+kUc
 mqk
 aDk
 wzc
@@ -53949,9 +55232,9 @@ tzk
 ggE
 cKx
 bXO
-cKx
+jSQ
 moC
-cbj
+cCJ
 kOF
 lDB
 moC
@@ -54056,7 +55339,7 @@ vgH
 pZt
 pZt
 pZt
-pZt
+xGp
 tXt
 gMx
 vgH
@@ -54193,7 +55476,7 @@ tXt
 lcT
 lcT
 nEV
-eUD
+nJT
 dLC
 dLC
 sSm
@@ -54241,7 +55524,7 @@ vxv
 pZt
 pZt
 eca
-pZt
+bWl
 tSs
 sDK
 sDK
@@ -54975,7 +56258,7 @@ pZt
 ada
 nim
 nim
-cKx
+lEV
 cKx
 cKx
 uep
@@ -55208,7 +56491,7 @@ hAh
 qAx
 pZt
 pZt
-pZt
+uij
 pZt
 pZt
 lcT
@@ -55246,7 +56529,7 @@ kmn
 bmp
 sKL
 pVK
-tXt
+cmS
 aDD
 xdg
 kKr
@@ -55255,7 +56538,7 @@ pZt
 fYh
 pZt
 pZt
-pZt
+qjY
 xPs
 tag
 xdg
@@ -55496,13 +56779,13 @@ nim
 cKx
 cKx
 cKx
-tRa
+uRD
 kmn
 pdT
 pWJ
 wzc
 pZt
-aOs
+dAQ
 hDc
 vMS
 alW
@@ -55714,7 +56997,7 @@ pZt
 fzZ
 qAx
 pZt
-pVK
+fqu
 pZt
 pZt
 sKL
@@ -55781,7 +57064,7 @@ pZt
 pZt
 vxv
 pZt
-pZt
+nWN
 pZt
 pZt
 pZt
@@ -55998,7 +57281,7 @@ poV
 poV
 rAb
 bgt
-pZt
+mVD
 pZt
 ada
 lEg
@@ -56007,7 +57290,7 @@ cKx
 cKx
 psy
 ada
-kaJ
+mvL
 jAD
 jSQ
 ada
@@ -56053,7 +57336,7 @@ pZt
 pZt
 pZt
 pZt
-dAQ
+dpO
 pZt
 pZt
 pZt
@@ -56774,7 +58057,7 @@ sKL
 gMx
 oMI
 iEO
-cKx
+lEV
 oWd
 ada
 pZt
@@ -57020,7 +58303,7 @@ oDT
 vbI
 oDT
 uin
-vbI
+aHw
 iVZ
 ylh
 ilZ
@@ -57057,7 +58340,7 @@ pZt
 iXu
 pZt
 pZt
-pZt
+iXu
 fYh
 fYh
 meb
@@ -57109,7 +58392,7 @@ pZt
 pZt
 pZt
 pZt
-pZt
+xGp
 pZt
 pZt
 pZt
@@ -57548,7 +58831,7 @@ cKx
 cKx
 cKx
 cKx
-tRa
+bam
 eka
 sqb
 rzc
@@ -57596,12 +58879,12 @@ wTq
 khl
 ctm
 jES
-pBq
+ryB
 gYh
 ctm
 caY
 khl
-pVK
+xqJ
 pZt
 sKL
 pZt
@@ -57806,7 +59089,7 @@ cKx
 qhp
 xdx
 vgl
-rzc
+aYF
 cEx
 rzc
 fUZ
@@ -57832,7 +59115,7 @@ sxb
 pVj
 pVj
 pVj
-etD
+lUc
 pZt
 pZt
 sKL
@@ -58041,7 +59324,7 @@ dAQ
 hDc
 xdg
 dKU
-pZt
+wkA
 poV
 poV
 gJV
@@ -58062,7 +59345,7 @@ cKx
 kYD
 cKx
 cKx
-tRa
+bam
 rzc
 sqb
 rzc
@@ -58093,9 +59376,9 @@ pVj
 pVj
 pZt
 ssw
+nWN
 pZt
-pZt
-etD
+lUc
 gIn
 pZt
 pZt
@@ -58369,7 +59652,7 @@ khl
 fGo
 ctm
 ctm
-ctm
+vyn
 khl
 khl
 pZt
@@ -58582,7 +59865,7 @@ rwf
 eka
 rzc
 rzc
-rzc
+aYF
 rwf
 rwf
 gMx
@@ -59079,7 +60362,7 @@ bsh
 bgt
 gMx
 sJp
-tXt
+nnb
 dAQ
 pZt
 pZt
@@ -59137,7 +60420,7 @@ fYh
 vxv
 sKL
 pZt
-tXt
+uuX
 pZt
 pZt
 gMx
@@ -59376,7 +60659,7 @@ ubz
 ubz
 dOk
 lNG
-nTK
+qJv
 nTK
 uxJ
 lDq
@@ -59384,7 +60667,7 @@ ksa
 nPA
 dOk
 dOk
-lcT
+piV
 hDc
 pZt
 kMF
@@ -59618,7 +60901,7 @@ pZt
 pZt
 sJB
 kMF
-pZt
+qjY
 rDe
 gDB
 bbv
@@ -59627,7 +60910,7 @@ suo
 wgi
 vLo
 gGV
-wOs
+xEW
 wOs
 agr
 vLR
@@ -59639,7 +60922,7 @@ uxJ
 uxJ
 esi
 uxJ
-kDj
+bwG
 dOk
 tmz
 xSE
@@ -59888,7 +61171,7 @@ pGy
 wOs
 vLR
 vLR
-dOk
+nzZ
 uxJ
 uxJ
 uxJ
@@ -60526,7 +61809,7 @@ bgt
 pZt
 pZt
 pZt
-pZt
+xGp
 pZt
 pZt
 bgt
@@ -60628,10 +61911,10 @@ pZt
 pZt
 pZt
 eFx
-gat
-gat
-gat
-gat
+lQd
+lQd
+lQd
+lQd
 eFx
 dAQ
 pZt
@@ -60639,7 +61922,7 @@ pZt
 pZt
 pZt
 pZt
-pZt
+mVD
 pZt
 nWN
 pZt
@@ -60663,7 +61946,7 @@ pGz
 faq
 xLg
 jWi
-lNG
+rXM
 uxJ
 dOk
 dOk
@@ -61113,7 +62396,7 @@ pZt
 pZt
 jrG
 oDN
-aaX
+krM
 aaX
 gUM
 oDN
@@ -61427,7 +62710,7 @@ wOs
 wOs
 rHh
 wOs
-wOs
+xEW
 uFO
 vLR
 agr
@@ -61644,7 +62927,7 @@ lQZ
 pZt
 meb
 vMS
-pZt
+xPs
 pVK
 pZt
 dAQ
@@ -61901,7 +63184,7 @@ dzT
 pZt
 kMF
 cFv
-bXk
+pPT
 pZt
 tmz
 pVK
@@ -61922,7 +63205,7 @@ gMx
 pZt
 vgH
 pZt
-pZt
+qjY
 eMa
 nPP
 lBx
@@ -61951,7 +63234,7 @@ agr
 vLR
 vLR
 vLR
-vLR
+tdV
 uxV
 vLR
 eNp
@@ -62158,7 +63441,7 @@ bXk
 ipS
 tag
 sJB
-pZt
+wzc
 eis
 vgH
 pZt
@@ -62175,13 +63458,13 @@ pZt
 sKL
 pZt
 pZt
-bXk
+aVa
 pZt
 bXk
 pZt
 lcT
 eMa
-nPP
+aEE
 lBx
 lBx
 hqv
@@ -62458,7 +63741,7 @@ kXM
 qHI
 vLR
 vLR
-yjw
+wna
 lCJ
 pYY
 vsc
@@ -62663,7 +63946,7 @@ aaX
 dpD
 oDN
 oDN
-awp
+vhM
 dXD
 tnj
 tnj
@@ -62916,7 +64199,7 @@ oDN
 oDN
 oDN
 oDN
-bFK
+wPG
 aaX
 aaX
 hfS
@@ -62936,7 +64219,7 @@ pVK
 lcT
 pZt
 dAQ
-tXt
+wiI
 naM
 naM
 mST
@@ -63237,7 +64520,7 @@ uVh
 pem
 gYJ
 gYJ
-pZt
+kgZ
 pZt
 hCi
 pZt
@@ -63467,7 +64750,7 @@ xGo
 pZt
 pVK
 pZt
-dAQ
+udi
 pZt
 pZt
 fYh
@@ -64248,7 +65531,7 @@ sKL
 cCG
 opE
 hDK
-cCG
+nIN
 cCG
 ssw
 etD
@@ -64491,7 +65774,7 @@ jHi
 lia
 kxb
 naM
-pZt
+rdp
 pZt
 pZt
 pZt
@@ -64512,7 +65795,7 @@ ssw
 arL
 cCG
 cCG
-vLR
+mJg
 vLR
 gVN
 gYJ
@@ -64520,7 +65803,7 @@ scO
 gIn
 pVK
 mEd
-mEd
+nKn
 hCC
 aEV
 yic
@@ -64769,7 +66052,7 @@ cCG
 ssw
 gIn
 cCG
-svv
+gHI
 sWO
 fpg
 gYJ
@@ -64997,7 +66280,7 @@ pZt
 gIn
 lcT
 pZt
-pZt
+rdp
 kTe
 fzZ
 tag
@@ -65026,7 +66309,7 @@ cCG
 cCG
 cCG
 cCG
-agr
+trp
 vLR
 kQM
 gYJ
@@ -65226,7 +66509,7 @@ fJZ
 fJZ
 mHR
 biP
-igb
+hNH
 fJZ
 rTM
 bYW
@@ -65534,14 +66817,14 @@ cCG
 dCn
 rRJ
 hDK
-gBO
+ess
 hDK
 eXs
 lIs
 hGH
 cCG
 tKF
-vLR
+tKF
 vLR
 vSO
 vLR
@@ -65553,7 +66836,7 @@ aEV
 aEV
 kXl
 mEd
-pZt
+kgZ
 qLR
 xdg
 tWf
@@ -65734,7 +67017,7 @@ bQC
 gJe
 gJe
 bYW
-vJx
+phm
 fJZ
 fJZ
 fJZ
@@ -66040,7 +67323,7 @@ pZt
 pZt
 pZt
 fYh
-pZt
+hzO
 kSk
 tag
 fYh
@@ -66058,7 +67341,7 @@ pZt
 gIn
 bXk
 pVK
-fzZ
+lxO
 pGI
 pZt
 top
@@ -66276,9 +67559,9 @@ hhA
 alW
 oMI
 tin
-pZt
-oMI
-pZt
+umY
+pPT
+wzc
 bXk
 pZt
 etD
@@ -66562,7 +67845,7 @@ gMZ
 blT
 orN
 iPl
-blT
+dJl
 xOx
 pxp
 uOw
@@ -66819,7 +68102,7 @@ kMF
 kmn
 xdg
 kmn
-tag
+flH
 bId
 ouH
 alW
@@ -67076,7 +68359,7 @@ alW
 kMF
 tag
 alW
-sDK
+aDD
 alW
 tag
 kmn
@@ -67324,7 +68607,7 @@ pZt
 tXt
 pZt
 pZt
-pZt
+qjY
 dAA
 fYh
 fYh
@@ -67332,13 +68615,13 @@ wzc
 pZt
 pZt
 pZt
+wTq
+oSF
+wTq
+jJK
+wTq
 pZt
-fYh
-pZt
-pZt
-ssw
-pZt
-tXt
+ukR
 meb
 tYK
 fYh
@@ -67589,16 +68872,16 @@ pZt
 pZt
 pZt
 jrG
-vgH
-pZt
-pZt
-pZt
-pZt
+sDK
+bId
+dmJ
+wTq
+wTq
 qAx
 pZt
 meb
 tYK
-dAQ
+umY
 dAQ
 jrG
 pZt
@@ -67846,11 +69129,11 @@ jrG
 etD
 pZt
 vgH
-iXu
-sKL
-pZt
-pPr
-pZt
+rku
+rFL
+rku
+rFL
+rku
 pZt
 pZt
 meb
@@ -68097,19 +69380,19 @@ oMI
 pVK
 pZt
 vgH
-pZt
+hdv
 vgH
 pZt
 jnp
 pZt
-hDc
-pZt
-pZt
-tXt
-pZt
-gMx
-pZt
-sPZ
+rku
+rku
+cmH
+utX
+cmH
+rku
+rku
+wTq
 jJK
 tYK
 vxv
@@ -68325,7 +69608,7 @@ pZt
 gMx
 pZt
 etD
-sKL
+ucN
 pZt
 pZt
 aDD
@@ -68358,17 +69641,17 @@ pZt
 bXk
 pZt
 pZt
-pZt
-pZt
-pZt
-pZt
-pZt
-pZt
-jrG
-pZt
-pVK
-meb
-tYK
+rku
+rku
+qYx
+ncH
+xdo
+cmH
+cmH
+rFL
+wTq
+sRY
+ulf
 pZt
 pZt
 pZt
@@ -68567,7 +69850,7 @@ tkf
 ndE
 rZU
 biP
-igb
+hNH
 rBm
 gGw
 gZg
@@ -68614,16 +69897,16 @@ sKL
 pZt
 pZt
 pPr
-pZt
-pZt
-pZt
-pZt
-opG
-pZt
-pZt
-pZt
-pZt
-pZt
+qjY
+rku
+rku
+rFL
+rku
+rku
+cYn
+utX
+rku
+sDK
 meb
 tYK
 pZt
@@ -68872,16 +70155,16 @@ tin
 pZt
 pZt
 pZt
-pZt
-eWc
-bXk
-pZt
-pZt
-pFh
-pZt
-jrG
-pZt
-meb
+rku
+rku
+cmH
+dGX
+rku
+hyo
+utX
+rku
+hhm
+bId
 tYK
 pZt
 pZt
@@ -68948,7 +70231,7 @@ pZt
 pZt
 vgH
 pZt
-gIn
+vvP
 pZt
 pZt
 pZt
@@ -69129,15 +70412,15 @@ tnj
 tin
 pZt
 pZt
-tmz
-pZt
-gMx
-pZt
-pZt
-pZt
-pZt
-pZt
-pZt
+rku
+rku
+jEQ
+cmH
+rku
+cmH
+cmH
+rFL
+wTq
 meb
 fzq
 pZt
@@ -69386,15 +70669,15 @@ tin
 tin
 pZt
 pZt
-pZt
-pZt
-pZt
-vxv
-pZt
-pZt
-pZt
-pZt
-vxv
+rku
+rku
+rku
+cmH
+rFL
+cmH
+rku
+rku
+jJK
 meb
 tYK
 pZt
@@ -69627,7 +70910,7 @@ epC
 tnj
 cVq
 tnj
-pZt
+mVD
 meb
 xdg
 pZt
@@ -69643,14 +70926,14 @@ fUl
 tin
 oMI
 pZt
-pZt
-pZt
-pZt
-pZt
-jrG
-pZt
-pZt
-pZt
+rku
+rku
+rku
+rku
+rku
+rku
+rku
+iFj
 vxv
 meb
 tYK
@@ -69901,11 +71184,11 @@ tnj
 tin
 awp
 pZt
-opG
-pZt
-pZt
-pZt
-pZt
+rku
+rku
+rku
+rku
+iFj
 pZt
 pZt
 pZt
@@ -70159,7 +71442,7 @@ tin
 vCo
 pZt
 pZt
-pZt
+pEk
 pZt
 pZt
 iXu
@@ -70393,7 +71676,7 @@ bXk
 qAx
 hDc
 dAQ
-pZt
+qjY
 kHk
 gJx
 tKT
@@ -70620,7 +71903,7 @@ eOp
 eOp
 eOp
 pZt
-pPr
+pZt
 gIn
 bgt
 gSS
@@ -70631,7 +71914,7 @@ tPf
 wpP
 wpP
 wpP
-wpP
+eee
 por
 hCa
 tIK
@@ -70663,7 +71946,7 @@ jvc
 vZg
 vZg
 vZg
-pZt
+kgZ
 pZt
 pZt
 tin
@@ -70878,7 +72161,7 @@ iFj
 iFj
 iFj
 iFj
-gSS
+aIt
 gSS
 gSS
 ltp
@@ -71131,11 +72414,11 @@ eOp
 eOp
 eOp
 eOp
-iFj
-iFj
-iFj
-iFj
-gSS
+aIt
+aIt
+aIt
+aIt
+aIt
 frO
 wpP
 uAR
@@ -71152,7 +72435,7 @@ xdg
 tag
 ouH
 pZt
-pZt
+pEk
 oMI
 fgB
 pNw
@@ -71192,7 +72475,7 @@ pZt
 pZt
 qAx
 pZt
-pZt
+hdv
 bId
 adz
 jCo
@@ -71388,9 +72671,9 @@ pZt
 eOp
 eOp
 pZt
-etD
-iFj
-dAQ
+aIt
+ang
+rDW
 rWU
 nJr
 frO
@@ -71645,10 +72928,10 @@ pZt
 eOp
 eOp
 pZt
-iFj
-fzZ
-iFj
-iFj
+aIt
+sch
+rDW
+mnu
 nJr
 eqJ
 wET
@@ -71902,11 +73185,11 @@ eOp
 eOp
 eOp
 lsw
-iFj
-iFj
-iFj
-iFj
-gSS
+aIt
+pru
+anp
+thz
+aIt
 tPf
 wTd
 wpP
@@ -72159,14 +73442,14 @@ eOp
 eOp
 gMx
 pZt
-iFj
-iFj
-iFj
-iFj
+aIt
+tqb
+anp
+anp
 hGB
-mVD
+iRs
 lnZ
-dwm
+wpP
 wpP
 gJv
 wpP
@@ -72416,13 +73699,13 @@ pZt
 eOp
 eOp
 opG
-iFj
-gIn
-iFj
+aIt
+fkI
+anp
 pQh
 qzY
-hpi
-dwm
+iRs
+wpP
 iRs
 wpP
 wpP
@@ -72459,7 +73742,7 @@ myn
 sTq
 vZg
 vZg
-jXo
+ifM
 vLm
 fdx
 lcT
@@ -72673,10 +73956,10 @@ pZt
 eOp
 eOp
 pZt
-iFj
-iFj
-iFj
-ssw
+aIt
+fkI
+hGB
+rDW
 nPM
 gSS
 wpP
@@ -72930,11 +74213,11 @@ opb
 eOp
 eOp
 eOp
-iFj
-iFj
-iFj
-iFj
-iFj
+aIt
+aIt
+fro
+hpi
+aIt
 gSS
 gSS
 tph
@@ -72963,7 +74246,7 @@ irI
 tXt
 pZt
 pZt
-pZt
+oZq
 wAZ
 hDT
 tKT
@@ -72972,11 +74255,11 @@ nSm
 foB
 myn
 afX
-tKT
+kHZ
 vZg
 vZg
 vZg
-gMx
+evY
 pZt
 pZt
 jrG
@@ -73188,11 +74471,11 @@ pZt
 eOp
 eOp
 eOp
-pZt
-qAx
-pPr
-pZt
-meb
+aIt
+wTq
+wTq
+jJK
+vBx
 jJK
 mqk
 ouH
@@ -73201,7 +74484,7 @@ kMF
 meb
 ouH
 bId
-kmn
+kNb
 cZG
 tWf
 pWJ
@@ -73446,9 +74729,9 @@ eOp
 sKL
 eOp
 bLE
-pZt
-pZt
-kKr
+ouH
+jJK
+wTq
 meb
 jJK
 sDK
@@ -73703,9 +74986,9 @@ ssw
 ssw
 sKL
 tXt
-pZt
-gIn
-etD
+alW
+wTq
+wTq
 jJK
 alW
 xeA
@@ -74639,7 +75922,7 @@ brk
 vAq
 tXt
 pZt
-lcT
+uQq
 qZt
 tSq
 pZt
@@ -75236,7 +76519,7 @@ pZt
 tSs
 pPr
 pZt
-pZt
+mVD
 pZt
 pZt
 adm
@@ -76027,7 +77310,7 @@ dQh
 dQh
 krc
 dQh
-cZi
+wTg
 cZi
 cZi
 mXX
@@ -77034,7 +78317,7 @@ gJe
 jrG
 pZt
 rKO
-skT
+ooB
 qJG
 rfH
 sXg
@@ -77062,7 +78345,7 @@ uCH
 eGo
 dQh
 dQh
-dQh
+gqq
 tvU
 meb
 tWf
@@ -77088,7 +78371,7 @@ sFQ
 pZt
 nEt
 rSX
-meb
+vli
 jit
 jit
 brk
@@ -77354,7 +78637,7 @@ kVd
 brk
 tkp
 jit
-pZt
+hwb
 pZt
 pZt
 pZt
@@ -77812,7 +79095,7 @@ qJG
 qJG
 tCY
 rKO
-pZt
+kgZ
 jMW
 tin
 tnj
@@ -77849,7 +79132,7 @@ xax
 pZt
 gIn
 pZt
-pZt
+qjY
 jJU
 ios
 jJU
@@ -78092,7 +79375,7 @@ tvU
 tvU
 bqt
 bqt
-tin
+fhu
 lcT
 pZt
 etD
@@ -78320,7 +79603,7 @@ vxv
 pZt
 pZt
 pZt
-pZt
+pEk
 jrG
 jAi
 hPK
@@ -79621,7 +80904,7 @@ pZt
 pZt
 pZt
 gfj
-dQh
+roD
 dQh
 mCC
 tvU
@@ -79661,7 +80944,7 @@ pZt
 jBc
 jit
 jit
-brk
+sJH
 brk
 brk
 brk
@@ -79882,7 +81165,7 @@ wyk
 iXa
 dQh
 tvU
-pZt
+kgZ
 qAx
 pZt
 oMI
@@ -80161,7 +81444,7 @@ meb
 meb
 jJK
 meb
-jJK
+omk
 meb
 meb
 tYK
@@ -80179,7 +81462,7 @@ pZt
 pZt
 pZt
 pZt
-pZt
+bWl
 jrG
 pZt
 pZt
@@ -80203,7 +81486,7 @@ erj
 lwv
 lRR
 hbv
-cHJ
+eYQ
 jit
 pZt
 tXt
@@ -80417,8 +81700,8 @@ pZt
 bLE
 pZt
 ssw
-pZt
-pZt
+dAA
+xdc
 meb
 meb
 tYK
@@ -80675,7 +81958,7 @@ dAQ
 pZt
 vxv
 pZt
-pZt
+bWl
 meb
 meb
 fzq
@@ -82741,7 +84024,7 @@ odR
 fzZ
 iXu
 pZt
-pZt
+xGp
 pZt
 vgH
 pZt
@@ -83018,7 +84301,7 @@ siA
 meb
 brk
 brk
-brk
+hUA
 jit
 pmo
 brk
@@ -84308,7 +85591,7 @@ brk
 brk
 brk
 brk
-brk
+tBE
 brk
 brk
 brk
@@ -87493,7 +88776,7 @@ gJe
 gJe
 fUX
 imW
-wBv
+brk
 mFK
 dPX
 czc
@@ -87750,7 +89033,7 @@ gJe
 ceQ
 tYA
 qJB
-dfd
+bXk
 iNx
 gJe
 gJe
@@ -90771,7 +92054,7 @@ vkU
 jGZ
 jGZ
 jGZ
-jGZ
+ncB
 jGZ
 jGZ
 jGZ
@@ -93550,7 +94833,7 @@ vkU
 jGZ
 jHm
 jGZ
-jGZ
+ncB
 hXE
 hXE
 dyv
@@ -94342,7 +95625,7 @@ vkU
 vkU
 jGZ
 jGZ
-jGZ
+ncB
 jGZ
 utQ
 vkU
@@ -98255,7 +99538,7 @@ tnj
 tnj
 vkU
 vkU
-tnj
+snP
 vkU
 tnj
 eZL
@@ -98584,7 +99867,7 @@ pZt
 pZt
 pZt
 gIn
-gIn
+bom
 pZt
 pZt
 pZt
@@ -99351,7 +100634,7 @@ brk
 jit
 vgH
 pZt
-pZt
+xGp
 jBc
 pZt
 pZt
