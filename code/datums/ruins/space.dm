@@ -302,9 +302,9 @@
 	allow_duplicates = FALSE
 	cost = 5
 
-/datum/map_template/ruin/space/centcomAway
-	id = "centcomAway"
-	suffix = "centcomAway.dmm"
+/datum/map_template/ruin/space/centcomaway
+	id = "centcomaway"
+	suffix = "centcomaway.dmm"
 	name = "Russian space base"
 	description = "A bizzare soviet twist on central command."
 	allow_duplicates = FALSE

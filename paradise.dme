@@ -1378,7 +1378,7 @@
 #include "code\modules\awaymissions\mission_code\ghost_role_spawners\golems.dm"
 #include "code\modules\awaymissions\mission_code\ghost_role_spawners\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\blackmarketpackers.dm"
-#include "code\modules\awaymissions\mission_code\ruins\centcomAway.dm"
+#include "code\modules\awaymissions\mission_code\ruins\centcomaway.dm"
 #include "code\modules\awaymissions\mission_code\ruins\gps.dm"
 #include "code\modules\awaymissions\mission_code\ruins\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\snowbiodome.dm"

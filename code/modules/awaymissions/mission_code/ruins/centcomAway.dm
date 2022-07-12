@@ -1,40 +1,40 @@
-//centcomAway areas
+//centcomaway areas
 
-/area/ruin/space/centcomAway
+/area/ruin/space/centcomaway
 	name = "XCC-P5831"
 	icon_state = "away"
 	report_alerts = FALSE
 
-/area/ruin/space/centcomAway/general
+/area/ruin/space/centcomaway/general
 	name = "XCC-P5831"
 	ambientsounds = list('sound/ambience/ambigen3.ogg')
 
-/area/ruin/space/centcomAway/maint
+/area/ruin/space/centcomaway/maint
 	name = "XCC-P5831 Maintenance"
 	icon_state = "away1"
 	ambientsounds = list('sound/ambience/ambisin1.ogg')
 
-/area/ruin/space/centcomAway/thunderdome
+/area/ruin/space/centcomaway/thunderdome
 	name = "XCC-P5831 Thunderdome"
 	icon_state = "away2"
 	ambientsounds = list('sound/ambience/ambisin2.ogg')
 
-/area/ruin/space/centcomAway/cafe
+/area/ruin/space/centcomaway/cafe
 	name = "XCC-P5831 Kitchen Arena"
 	icon_state = "away3"
 	ambientsounds = list('sound/ambience/ambisin3.ogg')
 
-/area/ruin/space/centcomAway/courtroom
+/area/ruin/space/centcomaway/courtroom
 	name = "XCC-P5831 Courtroom"
 	icon_state = "away4"
 	ambientsounds = list('sound/ambience/ambisin4.ogg')
 
-/area/ruin/space/centcomAway/hangar
+/area/ruin/space/centcomaway/hangar
 	name = "XCC-P5831 Hangars"
 	icon_state = "away4"
 	ambientsounds = list('sound/ambience/ambigen5.ogg')
 
-//centcomAway items
+//centcomaway items
 
 /obj/item/paper/pamphlet/ccaInfo
 	name = "Visitor Info Pamphlet"
