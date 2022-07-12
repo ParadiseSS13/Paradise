@@ -5,8 +5,7 @@
 /datum/event/spawn_swarmer/announce()
 	if(prob(25)) //25% chance to announce it to the crew
 		var/swarmer_report = "<font size=3><b>NAS Trurl High-Priority Update</b></span>"
-		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station. We recommend immediate investigation, as something may have come \
-		through."
+		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station. We recommend immediate investigation, as something may have manifested from bluespace."
 		print_command_report(swarmer_report, "Classified NAS Trurl Update", FALSE)
 		GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
 
