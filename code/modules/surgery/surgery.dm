@@ -137,7 +137,7 @@
 	/// Type path of tools that can be used to complete this step. Format is `path = probability of success`.
 	/// If the tool has a specific surgery tooltype, you can use that as a key as well.
 	var/list/allowed_tools = null
-	/// The current type of implement used. This has to be stored, as the typepath of the tool might not match the list type.
+	/// The current type of implement from allowed_tools in use. This has to be stored, as the typepath of the tool might not match the list type (such as if we're using tool behavior)
 	var/implement_type = null
 	/// does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
 	var/accept_hand = FALSE
@@ -158,9 +158,17 @@
 
 	/// Whether this surgery step can cause an infection.
 	var/can_infect = FALSE
-	/// How much blood this step can get on surgeon. 1 - hands, 2 - full body.
+	/// How much blood this step can get on surgeon. See SURGERY_BLOODSPREAD_* defines
 	var/blood_level = SURGERY_BLOODSPREAD_NONE
 
+/**
+ * Whether or not the tool being used is usable for the surgery.
+ * Checks both the tool itself as well as any tool behaviors defined in allowed_tools.
+ * Arguments:
+ * * user - User handling the tool.
+ * * tool - The tool (or item) being used in this surgery step.
+ * Returns TRUE if the tool can be usd, or FALSE otherwise
+ */
 /datum/surgery_step/proc/is_valid_tool(mob/living/user, obj/item/tool)
 	var/success = FALSE
 	if(accept_hand)
@@ -227,7 +235,7 @@
  */
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 
-	// TODO See if we can't do away with this proc a bit, or at least see how /tg/ implements it.
+	// TODO This proc isn't really used by /tg/, and might cause some weird conflicts between surgeries and surgery steps if we aren't careful.
 	if(!can_use(user, target, target_zone, tool, surgery))
 		return
 
@@ -238,8 +246,7 @@
 	var/retry = FALSE
 	var/prob_success = 100
 
-	// TODO Clean up the begin_step calls so they all return TRUE or some define
-	if(begin_step(user, target, target_zone, tool, surgery) == -1)
+	if(begin_step(user, target, target_zone, tool, surgery) == SURGERY_BEGINSTEP_ABORT)
 		surgery.step_in_progress = FALSE
 		return
 
@@ -251,8 +258,6 @@
 	if(implement_type)
 		implement_speed_mod = allowed_tools[implement_type] / 100.0
 
-	// TODO Changing the speed here is a balance change, make sure that's followed up with
-	// TODO /tg/ code also has a mob_surgery_speed_mod, could be nice to add
 	// They also have some interesting ways that surgery success/fail prob get evaluated, maybe worth looking at
 	speed_mod /= (get_location_modifier(target) * 1 + surgery.speed_modifier) * implement_speed_mod
 	var/modded_time = time * speed_mod
@@ -386,7 +391,9 @@
 	return SURGERY_STEP_INCOMPLETE
 
 /**
- * Get information on the surgery step in the context of a surgery.
+ * Get the action that will be performed during this surgery step, in context of the surgery it is a part of.
+ *
+ * * surgery - A surgery in progress.
  */
 /datum/surgery_step/proc/get_step_information(datum/surgery/surgery)
 	return name

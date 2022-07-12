@@ -1,18 +1,16 @@
 /**
- * So this should probably be how we'll implement more "dynamic" surgeries.
- * For dynamic surgeries, the idea is more or less that we should be able to perform
- * certain steps once a given set of steps have been completed.
- * Fixing IB, for instance, should just require that the standard three are completed.
- * It's just a standard operation, though.
- * For something like organ manip or bone repair, you just need the first three steps, and then
- * from there it branches out.
+ * This file consists of how we manage somewhat non-linear surgeries.
+ * Essentially what goes on here is that we have some "proxy" surgery steps that get inserted into existing surgeries at key points.
+ * Depending on the tool used after that point, the proxy step chooses the next step(s) that should be executed.
  *
- * The way that I want to make this work, then, is to break out some "abstract" steps that
- * sit in between and function kind of like proxies.
- * Depending on the tool used, it can branch out in a few different ways,
- * but always comes back to the initial surgery.
- * This should (hopefully) still keep the linear surgery flow that /tg/ focuses on
- * while giving us some other flexibility.
+ * These proxy steps use a list of surgeries, so a full procedure can be inserted into an existing surgery. Just make sure that the user's state
+ * after an intermediate surgery is (in the context of the surgery) identical to before the intermediate surgery. Don't heal things that will
+ * need to be healed during the surgery, for example.
+ *
+ * Adding a new intermediate surgery:
+ * - Define a new intermediate surgery datum with the list of steps that you want to inject. This forms one surgery "branch"
+ * - Define a new proxy surgery step with branches containing the typepath of your new surgery datum
+ * - Insert that surgery step into an existing surgery.
  */
 
 /**
@@ -81,10 +79,10 @@
 	var/list/datum/surgery/branches_init = list()
 
 	/// These tools are just...special cases.
-	/// If we're using one of these tools and there's a conflict with the original surgery,
-	/// just send it to the original surgery.
+	/// If we're using one of these tools and there's a tool conflict with the original surgery,
+	/// just ignore any branches and continue with the original surgery.
 	var/list/overriding_tools = list(
-		/obj/item/scalpel/laser/manager
+		/obj/item/scalpel/laser/manager  // IMS
 	)
 
 /datum/surgery_step/proxy/New()
@@ -170,7 +168,7 @@
 	return next_step.try_op(user, target, target_zone, tool, surgery)
 
 
-/datum/surgery_step/proxy/open_chest
+/datum/surgery_step/proxy/open_organ
 	name = "mend internal bleeding or mend bone (proxy)"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,

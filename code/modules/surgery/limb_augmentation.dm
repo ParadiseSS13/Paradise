@@ -4,7 +4,7 @@
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
-		/datum/surgery_step/proxy/open_chest,
+		/datum/surgery_step/proxy/open_organ,
 		/datum/surgery_step/augment
 	)
 	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")
