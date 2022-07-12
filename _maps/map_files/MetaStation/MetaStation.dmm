@@ -35494,7 +35494,8 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
-	})
+	},
+/area/hallway/primary/central)
 "bZt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
@@ -46687,7 +46688,8 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
-	})
+	},
+/area/hallway/primary/central)
 "cGY" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -61101,8 +61103,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
-"hdr" = (
-/turf/simulated/wall/r_wall)
 "hds" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Maintenance"
@@ -91130,7 +91130,8 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
-	})
+	},
+/area/hallway/primary/central)
 "wxE" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -123387,7 +123388,7 @@ bZn
 bZn
 bZn
 bZn
-hdr
+aZJ
 caR
 nWH
 bcX
