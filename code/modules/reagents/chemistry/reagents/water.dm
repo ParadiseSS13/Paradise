@@ -347,7 +347,7 @@
 		M.AdjustStunned(-4 SECONDS)
 		M.AdjustWeakened(-4 SECONDS)
 		M.AdjustKnockDown(-4 SECONDS)
-		M.adjustStaminaLoss(-25)
+		update_flags |= M.adjustStaminaLoss(-25, FALSE)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
