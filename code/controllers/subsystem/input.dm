@@ -27,7 +27,4 @@ SUBSYSTEM_DEF(input)
 	if(to_cull)
 		processing -= to_cull
 
-/datum/controller/subsystem/input/stat_entry()
-	..("P: [length(processing)]")
-
 #undef AUTO_CULL_TIME
