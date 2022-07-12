@@ -12,8 +12,6 @@
 
 /client/proc/set_macros()
 	var/static/list/macro_set = list(
-		"Tab" = @{".winset \"input.focus=true ? map.focus=true : input.focus=true\""},
-		"Back" = @{".winset \"input.focus=true ? input.text=\"\""}, // This makes it so backspace can remove default inputs
 		"Any" = @"KeyDown [[*]]",
 		"Any+UP" = @"KeyUp [[*]]",
 	)
@@ -22,6 +20,7 @@
 		winset(src, "default-[key]", "parent=default;name=[key];command=\"[command]\"")
 	winset(src, null, "map.focus=true;mainwindow.macro=default")
 	winset(src, null, "input.on-focus=\"input-focus-change 1\";input.on-blur=\"input-focus-change 0\"")
+	input_focus_change(FALSE)
 
 /client/verb/KeyDown(_key as text)
 	set instant = TRUE
