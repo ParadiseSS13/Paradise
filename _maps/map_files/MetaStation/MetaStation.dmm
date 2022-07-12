@@ -32182,9 +32182,6 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/camera{
-	c_tag = "Gateway"
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -32859,14 +32856,6 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/maintenance/incinerator)
-"bSn" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/vomit,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/gateway)
 "bSo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/shreds,
@@ -37066,14 +37055,6 @@
 	},
 /turf/simulated/floor/engine/co2,
 /area/atmos)
-"cdB" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/vomit,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
-	},
-/area/gateway)
 "cdC" = (
 /obj/structure/sign/poster/official/ian,
 /turf/simulated/wall,
@@ -125182,9 +125163,9 @@ bLg
 bOY
 bNh
 bRP
-bSn
 bTT
-cdB
+bTT
+ccl
 bWX
 tST
 vtR

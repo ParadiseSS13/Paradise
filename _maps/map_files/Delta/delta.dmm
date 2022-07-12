@@ -54133,14 +54133,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/gateway)
-"cyy" = (
-/obj/machinery/camera{
-	c_tag = "Gateway";
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark,
-/area/gateway)
 "cyz" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -141299,7 +141291,7 @@ ctk
 csV
 cyx
 cxl
-cyy
+cyx
 mhU
 ufZ
 fUL
