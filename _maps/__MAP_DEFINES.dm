@@ -15,8 +15,6 @@
 	#define ADMIN_LEVEL "Admin Level"
 	// A level that can be navigated to through space
 	#define REACHABLE "Reachable"
-	// For away missions - used by some consoles
-	#define AWAY_LEVEL "Away"
 	// Allows weather
 	#define HAS_WEATHER "Weather"
 	// Enhances telecomms signals
@@ -37,7 +35,6 @@
 	#define EMPTY_AREA "Empty Area"
 	#define EMPTY_AREA_2 "Empty Area 2"
 	#define EMPTY_AREA_3 "Empty Area 3"
-	#define AWAY_MISSION "Away Mission"
 
 // Convenience define
 	#define DECLARE_LEVEL(NAME,LINKS,TRAITS) list("name" = NAME, "linkage" = LINKS, "attributes" = TRAITS)

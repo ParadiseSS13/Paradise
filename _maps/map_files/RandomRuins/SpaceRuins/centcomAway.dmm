@@ -2,12 +2,9 @@
 "aa" = (
 /turf/space,
 /area/template_noop)
-"ab" = (
-/turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/maint)
 "ac" = (
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ad" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -18,7 +15,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ae" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -26,7 +23,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "af" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -37,10 +34,10 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ag" = (
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "ah" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	req_access_txt = "101"
@@ -48,35 +45,35 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "ai" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aj" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ak" = (
 /turf/simulated/wall,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "al" = (
 /obj/structure/closet/chefcloset,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "am" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "an" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -84,7 +81,7 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ao" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/peppermill,
@@ -93,7 +90,7 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ap" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -101,7 +98,7 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aq" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/machinery/light{
@@ -112,7 +109,7 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ar" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker,
@@ -121,7 +118,7 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "as" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
@@ -133,7 +130,7 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "at" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -146,19 +143,19 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "au" = (
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "av" = (
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aw" = (
 /obj/machinery/light{
 	dir = 4
@@ -166,31 +163,31 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ax" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ay" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "az" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aA" = (
 /obj/structure/table,
 /obj/item/kitchen/knife/butcher,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aB" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -200,41 +197,41 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aC" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aD" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aE" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "aF" = (
 /obj/structure/table,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aG" = (
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aH" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aI" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aJ" = (
 /obj/machinery/light{
 	dir = 8
@@ -242,7 +239,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aK" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -256,13 +253,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aL" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aM" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
@@ -270,14 +267,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aN" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/shaker,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aO" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -288,27 +285,27 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aP" = (
 /obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "aQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aR" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aS" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aT" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -319,7 +316,7 @@
 	dir = 1
 	},
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "aU" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -327,7 +324,7 @@
 	dir = 1
 	},
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "aV" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -338,10 +335,10 @@
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "aW" = (
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "aX" = (
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/light{
@@ -350,7 +347,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aY" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -358,20 +355,20 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "aZ" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ba" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "bb" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -382,45 +379,45 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bc" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "bd" = (
 /obj/item/radio,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "be" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bf" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bg" = (
 /obj/structure/sink,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bh" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bi" = (
 /obj/structure/table,
 /obj/machinery/processor{
@@ -430,7 +427,7 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bj" = (
 /obj/machinery/light{
 	dir = 1;
@@ -440,16 +437,16 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bk" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bl" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/fire,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "bm" = (
 /obj/structure/lattice,
 /turf/space,
@@ -459,26 +456,26 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bo" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bp" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bq" = (
 /obj/machinery/door/airlock/freezer,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "br" = (
 /obj/machinery/chem_dispenser,
 /obj/item/storage/box/beakers,
@@ -486,7 +483,7 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bs" = (
 /obj/machinery/chem_master,
 /obj/machinery/light{
@@ -496,7 +493,7 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bt" = (
 /obj/machinery/door/poddoor{
 	id_tag = "XCCHangar1";
@@ -506,69 +503,69 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bu" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bv" = (
 /obj/machinery/vending/boozeomat{
 	req_access_txt = ""
 	},
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bw" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
 	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bx" = (
 /turf/simulated/wall/mineral/titanium,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "by" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
 	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bz" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bA" = (
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bB" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bC" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bE" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bF" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bG" = (
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo"
@@ -579,87 +576,87 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bH" = (
 /obj/machinery/door/airlock/external{
 	name = "Salvage Shuttle Dock"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bI" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bJ" = (
 /obj/structure/rack,
 /obj/item/extinguisher/mini,
 /obj/item/clothing/head/hardhat/red,
 /obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "bK" = (
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bS" = (
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bT" = (
 /obj/structure/reagent_dispensers/beerkeg,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bV" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bW" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "bX" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bY" = (
 /turf/simulated/floor/mineral/titanium,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "bZ" = (
 /obj/machinery/gibber,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ca" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cb" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cc" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -671,7 +668,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/awaymission/centcomAway/maint)
+/area/space/nearstation)
 "cf" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/toxin{
@@ -680,7 +677,7 @@
 	},
 /obj/item/storage/firstaid/toxin,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "cg" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
@@ -691,7 +688,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ch" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -706,7 +703,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ci" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/fire,
@@ -719,11 +716,11 @@
 	in_use = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "cj" = (
 /obj/structure/sign/botany,
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cl" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -736,28 +733,28 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "cm" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "co" = (
 /obj/item/paper_bin,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cp" = (
 /obj/item/clipboard,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cq" = (
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "cr" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/window/southright,
@@ -765,18 +762,18 @@
 	dir = 1;
 	icon_state = "greenfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cs" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ct" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -784,7 +781,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cv" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/spray/plantbgone{
@@ -793,12 +790,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cw" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cx" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -808,11 +805,11 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "cy" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "cz" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
@@ -822,13 +819,13 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "cA" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "cB" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -837,37 +834,34 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "cC" = (
 /turf/simulated/wall,
-/area/awaymission/centcomAway/hangar)
-"cD" = (
-/turf/simulated/wall,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/hangar)
 "cE" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "cF" = (
 /obj/machinery/door/window/westleft,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cG" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cH" = (
 /obj/machinery/seed_extractor,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cI" = (
 /obj/machinery/vending/hydroseeds{
 	slogan_delay = 700
@@ -875,19 +869,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cJ" = (
 /obj/machinery/vending/hydronutrients,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cK" = (
 /obj/machinery/biogenerator,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cL" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
@@ -897,7 +891,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "cM" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -906,7 +900,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "cN" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -916,7 +910,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/awaymission/centcomAway/maint)
+/area/space/nearstation)
 "cO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -938,39 +932,39 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/awaymission/centcomAway/maint)
+/area/space/nearstation)
 "cP" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "cQ" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "cS" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "cT" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "cU" = (
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "cV" = (
 /obj/item/pen,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -979,7 +973,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -991,11 +985,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "cY" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "cZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -1005,13 +999,13 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "da" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "db" = (
 /obj/machinery/light{
 	dir = 1;
@@ -1020,7 +1014,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1028,7 +1022,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "dd" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -1039,21 +1033,21 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "de" = (
 /obj/structure/table,
 /obj/item/flash,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "df" = (
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dg" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dj" = (
 /obj/machinery/light{
 	dir = 4
@@ -1062,7 +1056,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dk" = (
 /obj/machinery/power/solar_control{
 	name = "Solar Control";
@@ -1075,12 +1069,12 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "dm" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dn" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -1088,16 +1082,16 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "do" = (
 /obj/structure/table/reinforced,
 /obj/item/pen,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dp" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dr" = (
 /obj/machinery/light{
 	dir = 4
@@ -1106,37 +1100,37 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ds" = (
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "dt" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "du" = (
 /obj/structure/dresser,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dv" = (
 /obj/machinery/vending/boozeomat{
 	req_access_txt = ""
 	},
 /turf/simulated/wall,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dw" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -1145,7 +1139,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -1155,7 +1149,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dz" = (
 /obj/machinery/light{
 	dir = 8
@@ -1164,82 +1158,74 @@
 	dir = 9;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dA" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/stamp/granted,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dB" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/window/northright,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dC" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dD" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "dE" = (
 /obj/structure/bed,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dF" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dG" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dH" = (
 /obj/structure/reagent_dispensers/beerkeg,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dI" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dJ" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dK" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
-"dL" = (
-/mob/living/simple_animal/hostile/russian/ranged{
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dM" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dN" = (
 /obj/machinery/gibber,
 /obj/machinery/light{
@@ -1248,19 +1234,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dO" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dP" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1274,18 +1260,18 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "dR" = (
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "dS" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dT" = (
 /obj/machinery/door/window/northright{
 	dir = 4;
@@ -1293,7 +1279,7 @@
 	req_access_txt = "103"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dU" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1309,25 +1295,16 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/awaymission/centcomAway/maint)
+/area/space/nearstation)
 "dV" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
-"dW" = (
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
-"dX" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "101"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/hangar)
 "dY" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "dZ" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -1338,7 +1315,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ea" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -1349,7 +1326,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "eb" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -1357,7 +1334,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ec" = (
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo"
@@ -1365,13 +1342,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ed" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ee" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/machinery/light{
@@ -1380,12 +1357,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ef" = (
 /obj/structure/largecrate,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "eh" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1395,12 +1372,12 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/awaymission/centcomAway/maint)
+/area/space/nearstation)
 "ei" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ej" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light{
@@ -1409,44 +1386,44 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ek" = (
 /obj/machinery/chem_dispenser,
 /obj/item/storage/box/beakers,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "el" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "em" = (
 /obj/machinery/chem_master,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "en" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "eo" = (
 /obj/structure/cable,
 /obj/machinery/power/tracker,
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/awaymission/centcomAway/maint)
+/area/space/nearstation)
 "ep" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "eq" = (
 /obj/machinery/light{
 	dir = 4
@@ -1454,13 +1431,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "er" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "es" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -1474,7 +1451,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "et" = (
 /obj/structure/sink/kitchen{
 	pixel_y = 28
@@ -1482,7 +1459,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "eu" = (
 /obj/structure/table,
 /obj/machinery/processor{
@@ -1491,7 +1468,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ev" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1499,20 +1476,20 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "ew" = (
 /obj/structure/bed,
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ex" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ey" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -1522,22 +1499,22 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ez" = (
 /obj/structure/ore_box,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "eA" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/maint)
 "eB" = (
 /obj/machinery/shieldgen,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/maint)
 "eC" = (
 /obj/machinery/power/apc/noalarm{
 	cell_type = 15000;
@@ -1555,61 +1532,61 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "eD" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Rest Room"
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "eE" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/maint)
 "eF" = (
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "eG" = (
 /obj/structure/largecrate,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "eH" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "eI" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "eJ" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "eK" = (
 /obj/structure/table,
 /obj/item/radio/off,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "eL" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "eM" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "eN" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "eO" = (
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "eR" = (
 /obj/machinery/power/apc/noalarm{
 	cell_type = 15000;
@@ -1628,36 +1605,36 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "eS" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "eT" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "eU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "eV" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "eW" = (
 /obj/machinery/implantchair,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "eX" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/light{
@@ -1665,49 +1642,49 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/maint)
 "eY" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/maint)
 "eZ" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/maint)
 "fa" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "fb" = (
 /obj/structure/table,
 /obj/item/hand_labeler,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "fc" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "fd" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/maint)
 "fe" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid11";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ff" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid2";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fg" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -1721,7 +1698,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "fh" = (
 /obj/structure/chair{
 	dir = 1
@@ -1729,52 +1706,52 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "fi" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fj" = (
 /turf/simulated/wall,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "fk" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid3";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fl" = (
 /obj/structure/table,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "fm" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "fn" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid10";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fo" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid9";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fp" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fq" = (
 /obj/machinery/door/airlock/centcom,
 /obj/structure/cable{
@@ -1785,7 +1762,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fr" = (
 /obj/structure/table,
 /obj/item/radio/off,
@@ -1793,19 +1770,19 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "fs" = (
 /obj/structure/closet/chefcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "ft" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fu" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -1814,7 +1791,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fv" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/peppermill,
@@ -1822,33 +1799,33 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fw" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fx" = (
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "fy" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "fC" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fD" = (
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "fE" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker,
@@ -1856,11 +1833,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fF" = (
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "fG" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -1871,7 +1848,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "fH" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -1879,7 +1856,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "fI" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -1890,7 +1867,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "fJ" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -1901,7 +1878,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "fL" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
@@ -1912,7 +1889,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "fN" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1921,33 +1898,33 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "fQ" = (
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "fR" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Cockpit";
 	req_access_txt = "109"
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "fS" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "fT" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "fU" = (
 /obj/structure/chair,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "fV" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -1957,24 +1934,24 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "fW" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "fX" = (
 /obj/machinery/door/window/northleft,
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "fY" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "fZ" = (
 /obj/machinery/light{
 	dir = 8
@@ -1983,7 +1960,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ga" = (
 /obj/machinery/light{
 	dir = 4
@@ -1997,26 +1974,26 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gc" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gd" = (
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ge" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gf" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/light{
@@ -2027,20 +2004,20 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gg" = (
 /obj/structure/sign/science,
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gh" = (
 /obj/machinery/door/window/eastright,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gi" = (
 /obj/machinery/door/window/northleft,
 /obj/structure/chair,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gj" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -2049,7 +2026,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gk" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -2058,60 +2035,63 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gl" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gm" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "go" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gp" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gq" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gr" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gs" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "gt" = (
 /obj/machinery/autolathe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gu" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2122,7 +2102,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "gv" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2132,7 +2112,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gw" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2143,7 +2123,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gx" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2154,7 +2134,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gy" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2162,7 +2142,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gz" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2172,13 +2152,13 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gA" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gB" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/anesthetic,
@@ -2186,18 +2166,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gC" = (
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gD" = (
 /obj/structure/table,
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gE" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gF" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/adv,
@@ -2208,7 +2188,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gG" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/accessory/stethoscope,
@@ -2218,7 +2198,7 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gH" = (
 /obj/structure/table/reinforced,
 /obj/item/extinguisher/mini,
@@ -2226,18 +2206,18 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gI" = (
 /obj/machinery/shieldgen,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "gJ" = (
 /obj/machinery/computer/cloning,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gK" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -2248,11 +2228,11 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gL" = (
 /obj/machinery/pdapainter,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gM" = (
 /obj/machinery/clonepod,
 /obj/machinery/light{
@@ -2263,21 +2243,21 @@
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gN" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gO" = (
 /obj/machinery/dna_scannernew,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gP" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2291,15 +2271,15 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "gQ" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gR" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "gS" = (
 /obj/machinery/light,
 /obj/structure/cable{
@@ -2309,33 +2289,33 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "gT" = (
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gU" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/maint)
 "gV" = (
 /obj/structure/closet/secure_closet/courtroom,
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gW" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "gX" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "gY" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "gZ" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2344,7 +2324,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "ha" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
@@ -2352,24 +2332,24 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "hb" = (
 /obj/structure/table/reinforced,
 /obj/item/t_scanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hc" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "hd" = (
 /obj/structure/crematorium,
 /turf/simulated/floor/plasteel{
 	icon_state = "engine"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "he" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Access";
@@ -2382,17 +2362,17 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hf" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "engine"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hg" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hh" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2400,7 +2380,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hi" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2409,14 +2389,14 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hj" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hk" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2429,27 +2409,27 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "hl" = (
 /obj/machinery/computer/robotics,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hm" = (
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hn" = (
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ho" = (
 /obj/machinery/computer/med_data,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hp" = (
 /obj/machinery/door/airlock/centcom,
 /obj/structure/cable{
@@ -2461,29 +2441,29 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hq" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "hr" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "hs" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ht" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hu" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2491,24 +2471,24 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/wall,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "hv" = (
 /mob/living/simple_animal/hostile/russian/ranged{
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
 	},
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "hw" = (
 /obj/item/xenos_claw,
 /turf/simulated/floor/plasteel{
 	icon_state = "engine"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hx" = (
 /obj/structure/table,
 /obj/item/storage/lockbox,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "hy" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2518,29 +2498,29 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "hz" = (
 /obj/machinery/computer/card,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hA" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hB" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hC" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "hD" = (
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "hE" = (
 /obj/structure/chair{
 	dir = 4
@@ -2553,38 +2533,38 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "hG" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "hH" = (
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/pen,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "hI" = (
 /obj/structure/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "engine"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hJ" = (
 /obj/structure/closet/body_bag,
 /turf/simulated/floor/plasteel{
 	icon_state = "engine"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hK" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hL" = (
 /obj/structure/table,
 /obj/item/paper_bin,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "hM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2592,11 +2572,11 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hN" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hO" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -2606,11 +2586,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hP" = (
 /obj/machinery/computer/security,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2627,12 +2607,12 @@
 	dir = 10;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hR" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hS" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2643,7 +2623,7 @@
 	dir = 1
 	},
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "hT" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -2654,20 +2634,20 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "hU" = (
 /obj/structure/dispenser,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hV" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "hW" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2680,13 +2660,13 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "hY" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blackcorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "hZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2697,24 +2677,24 @@
 	dir = 4;
 	icon_state = "blackcorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ia" = (
 /obj/structure/table,
 /obj/item/storage/box/prisoner,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "ib" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ic" = (
 /turf/simulated/wall,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "id" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "ie" = (
 /obj/structure/chair{
 	dir = 4
@@ -2722,12 +2702,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "if" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "ig" = (
 /obj/structure/chair{
 	dir = 4
@@ -2735,7 +2715,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "ih" = (
 /obj/structure/chair{
 	dir = 8
@@ -2743,7 +2723,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "ii" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2753,7 +2733,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "ij" = (
 /obj/machinery/power/apc/noalarm{
 	cell_type = 15000;
@@ -2768,7 +2748,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "ik" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2777,7 +2757,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "il" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
@@ -2785,13 +2765,13 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "im" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "in" = (
 /obj/structure/toilet{
 	dir = 8
@@ -2799,7 +2779,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "io" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2814,13 +2794,13 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ip" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "iq" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering";
@@ -2832,7 +2812,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ir" = (
 /obj/machinery/power/apc/noalarm{
 	cell_type = 15000;
@@ -2854,11 +2834,11 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "is" = (
 /obj/structure/closet,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "it" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Med-Sci";
@@ -2867,84 +2847,84 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iu" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "iv" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/item/storage/box/monkeycubes,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iw" = (
 /obj/machinery/computer/scan_consolenew,
 /obj/item/dnainjector/telemut/darkbundle,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ix" = (
 /obj/machinery/dna_scannernew,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iy" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "iz" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "iA" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "iB" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "iC" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Centcom Security";
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "iD" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iE" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iF" = (
 /obj/structure/closet/secure_closet/injection,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "iG" = (
 /obj/structure/bed,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "iH" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2955,13 +2935,13 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "iI" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "iJ" = (
 /obj/structure/chair{
 	dir = 1
@@ -2969,13 +2949,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "iK" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "iL" = (
 /obj/machinery/power/smes{
 	charge = 5e+006;
@@ -2988,14 +2968,14 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iM" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "iN" = (
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/bluegrid,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "iO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3007,13 +2987,13 @@
 	dir = 6;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iP" = (
 /obj/structure/mecha_wreckage/ripley,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "iQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3025,23 +3005,23 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iR" = (
 /obj/structure/rack,
 /obj/item/clothing/glasses/night,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "iS" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "iT" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iU" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -3056,7 +3036,7 @@
 	tag = "90Curve"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iV" = (
 /obj/machinery/light{
 	dir = 1;
@@ -3072,14 +3052,14 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iW" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iX" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3091,7 +3071,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "iY" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3103,7 +3083,7 @@
 	dir = 4;
 	icon_state = "purplecorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ja" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -3111,7 +3091,7 @@
 	dir = 1
 	},
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "jb" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -3122,7 +3102,7 @@
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "jc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3137,11 +3117,11 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jd" = (
 /obj/structure/sign/lifestar,
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "je" = (
 /obj/machinery/light{
 	dir = 1;
@@ -3157,7 +3137,7 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jf" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3169,7 +3149,7 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jg" = (
 /obj/machinery/light{
 	dir = 8
@@ -3177,7 +3157,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "jh" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -3188,7 +3168,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ji" = (
 /obj/structure/chair{
 	dir = 8
@@ -3197,18 +3177,18 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "jj" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jk" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "jl" = (
 /obj/machinery/power/apc/noalarm{
 	cell_type = 15000;
@@ -3228,7 +3208,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "jn" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3237,7 +3217,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "jo" = (
 /obj/machinery/light{
 	dir = 8
@@ -3246,16 +3226,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
-"jp" = (
-/mob/living/simple_animal/hostile/russian/ranged{
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
-	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "jq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3267,7 +3238,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "jr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3276,7 +3247,7 @@
 	tag = ""
 	},
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "js" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	req_access_txt = "101"
@@ -3288,7 +3259,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "jt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3297,19 +3268,19 @@
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ju" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jv" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jw" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3318,13 +3289,13 @@
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jx" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jy" = (
 /obj/structure/chair{
 	dir = 4
@@ -3333,13 +3304,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "jz" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "jA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3348,7 +3319,7 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jB" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3364,51 +3335,51 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jC" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jD" = (
 /obj/machinery/photocopier,
 /obj/item/paper/ccaMemo,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jE" = (
 /obj/structure/table/reinforced,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jF" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jG" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jH" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
 	req_access_txt = "19"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jI" = (
 /obj/machinery/mecha_part_fabricator,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "jJ" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "jK" = (
 /obj/structure/table/wood{
 	dir = 10
@@ -3416,7 +3387,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jL" = (
 /obj/structure/chair{
 	dir = 1
@@ -3424,13 +3395,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jM" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jN" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Centcom Security";
@@ -3439,7 +3410,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "jO" = (
 /obj/machinery/crema_switch{
 	pixel_y = 25
@@ -3447,21 +3418,24 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "engine"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jP" = (
 /obj/item/reagent_containers/glass/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jQ" = (
 /obj/structure/chair{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jR" = (
 /obj/structure/closet/crate/trashcart,
 /obj/item/reagent_containers/spray/cleaner,
@@ -3469,7 +3443,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jS" = (
 /obj/machinery/light{
 	dir = 8
@@ -3478,7 +3452,7 @@
 	dir = 8;
 	icon_state = "blackcorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3487,13 +3461,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "jU" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/awaymission/centcomAway/cafe)
+/area/ruin/space/centcomAway/cafe)
 "jV" = (
 /obj/machinery/light{
 	dir = 4
@@ -3506,19 +3480,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "blackcorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jW" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "jX" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "jY" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -3526,14 +3500,14 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ka" = (
 /obj/structure/table,
 /obj/item/paper/ccaMemo,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "kb" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -3542,7 +3516,7 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "kc" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Special Operations";
@@ -3551,24 +3525,24 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kd" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil,
 /obj/item/rcd,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ke" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kf" = (
 /obj/machinery/door/window/northright,
 /obj/machinery/door/window/southleft,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kg" = (
 /obj/machinery/light{
 	dir = 8
@@ -3576,22 +3550,22 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kh" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ki" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/PDAs,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kj" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kk" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Centcom Security";
@@ -3600,11 +3574,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "kl" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kn" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
@@ -3612,7 +3586,7 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ko" = (
 /obj/structure/sink{
 	dir = 8;
@@ -3625,7 +3599,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kp" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -3638,7 +3612,7 @@
 /turf/simulated/floor/plasteel{
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kq" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -3648,7 +3622,7 @@
 /turf/simulated/floor/plasteel{
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kr" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -3661,7 +3635,7 @@
 /turf/simulated/floor/plasteel{
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ks" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -3672,39 +3646,39 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "kt" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ku" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kv" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/bodybags,
 /turf/simulated/floor/plasteel{
 	icon_state = "engine"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kw" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kx" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrival Airlock"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ky" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "kz" = (
 /obj/machinery/light{
 	dir = 4
@@ -3712,7 +3686,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "kA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3721,7 +3695,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kB" = (
 /obj/structure/rack,
 /obj/item/clothing/ears/earmuffs{
@@ -3729,7 +3703,7 @@
 	pixel_y = -2
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "kC" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -3740,47 +3714,23 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
-"kD" = (
-/obj/effect/landmark/awaystart,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/general)
 "kE" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kF" = (
 /obj/structure/chair/comfy/beige{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kH" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
-"kI" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
-"kJ" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
-"kK" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/general)
 "kL" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -3791,39 +3741,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
-"kM" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
-"kN" = (
-/obj/machinery/gateway/centeraway,
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
-"kO" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
-"kQ" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
-"kR" = (
-/obj/machinery/gateway,
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
-"kS" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/general)
 "kT" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3835,7 +3753,7 @@
 	dir = 8;
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kU" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -3849,7 +3767,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kV" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -3863,7 +3781,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kW" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -3874,7 +3792,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "kX" = (
 /obj/structure/table,
 /obj/item/flash,
@@ -3882,14 +3800,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "kY" = (
 /obj/structure/table,
 /obj/item/mmi,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "kZ" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -3900,7 +3818,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "la" = (
 /obj/machinery/light,
 /obj/structure/cable{
@@ -3912,7 +3830,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "blackcorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lb" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3924,15 +3842,18 @@
 	dir = 8;
 	icon_state = "blackcorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lc" = (
 /obj/structure/chair{
 	dir = 1
 	},
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ld" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3940,16 +3861,16 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "le" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lf" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /turf/simulated/floor/wood,
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "lg" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -3960,14 +3881,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lh" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "li" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3975,7 +3896,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lj" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Centcom Security";
@@ -3984,25 +3905,25 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lk" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ll" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lm" = (
 /mob/living/simple_animal/hostile/russian/ranged{
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "ln" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable{
@@ -4010,7 +3931,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "lo" = (
 /obj/machinery/light{
 	dir = 1;
@@ -4020,14 +3941,14 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "lp" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "lq" = (
 /obj/machinery/light{
 	dir = 1;
@@ -4036,7 +3957,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lr" = (
 /obj/structure/rack,
 /obj/item/storage/secure/briefcase,
@@ -4044,13 +3965,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ls" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
 /turf/simulated/wall/mineral/titanium,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "lu" = (
 /obj/structure/flora/ausbushes,
 /obj/machinery/light/small{
@@ -4060,7 +3981,7 @@
 	icon_state = "asteroid6";
 	name = "sand"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lv" = (
 /obj/machinery/door_control{
 	id = "XCCHangar1";
@@ -4071,7 +3992,7 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "lw" = (
 /obj/structure/rack,
 /obj/item/clothing/ears/earmuffs{
@@ -4080,7 +4001,7 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "lx" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -4093,28 +4014,24 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "ly" = (
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/medal,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "lz" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "lB" = (
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/medal/gold,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/general)
-"lC" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "lD" = (
 /turf/simulated/wall/r_wall,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "lE" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -4123,21 +4040,21 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lF" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "lG" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lH" = (
 /obj/machinery/light{
 	dir = 1;
@@ -4146,7 +4063,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lI" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -4165,11 +4082,11 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lJ" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "lK" = (
 /obj/machinery/light{
 	dir = 1;
@@ -4178,14 +4095,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "lM" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1;
 	icon_state = "ironsand3"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lN" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -4194,7 +4111,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lO" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -4203,14 +4120,14 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lP" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Administration";
 	req_access_txt = "102"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lQ" = (
 /obj/machinery/light{
 	dir = 1;
@@ -4220,7 +4137,7 @@
 	dir = 9;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lR" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -4234,7 +4151,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "lS" = (
 /obj/machinery/light{
 	dir = 1;
@@ -4244,7 +4161,7 @@
 	dir = 5;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lT" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4255,7 +4172,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lU" = (
 /obj/machinery/light{
 	dir = 1;
@@ -4265,28 +4182,28 @@
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lV" = (
 /obj/structure/closet/wardrobe/red,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lW" = (
 /obj/structure/mecha_wreckage/seraph,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "lX" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "lY" = (
 /mob/living/simple_animal/hostile/russian/ranged{
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
@@ -4295,40 +4212,40 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "lZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1;
 	icon_state = "ironsand11"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ma" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mb" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mc" = (
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "md" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1;
 	icon_state = "ironsand9"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "me" = (
 /obj/structure/table/wood{
 	dir = 5
@@ -4337,7 +4254,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mf" = (
 /obj/structure/table/wood{
 	dir = 9
@@ -4347,7 +4264,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mg" = (
 /obj/structure/table/wood{
 	dir = 5
@@ -4356,7 +4273,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mh" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control{
@@ -4366,7 +4283,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mi" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -4377,7 +4294,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mj" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -4385,7 +4302,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mk" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -4396,20 +4313,20 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "ml" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mm" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mn" = (
 /obj/machinery/driver_button{
 	id_tag = "XCCMechs";
@@ -4420,43 +4337,43 @@
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "mo" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1;
 	icon_state = "ironsand4"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mp" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mq" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mr" = (
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "ms" = (
 /obj/structure/table/reinforced,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mt" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "mu" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -4465,13 +4382,13 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mv" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mw" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4481,39 +4398,39 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mx" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "my" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mz" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mA" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mB" = (
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mC" = (
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mD" = (
 /obj/item/stamp/granted,
 /obj/structure/table/reinforced,
@@ -4521,48 +4438,48 @@
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mE" = (
 /obj/machinery/igniter/on,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mF" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "mG" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mH" = (
 /obj/structure/table,
 /obj/item/flashlight/flare,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "mI" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mJ" = (
 /obj/structure/table,
 /obj/item/firstaid_arm_assembly,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "mK" = (
 /obj/structure/table,
 /obj/item/flashlight/flare,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "mL" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass{
@@ -4575,14 +4492,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "mM" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "mN" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -4598,35 +4515,35 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mO" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid6";
 	name = "sand"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mP" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid10";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mQ" = (
 /obj/structure/sink/puddle,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid6";
 	name = "sand"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mR" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid4";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mS" = (
 /obj/structure/chair{
 	dir = 4
@@ -4635,7 +4552,7 @@
 	dir = 8;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mT" = (
 /obj/structure/chair{
 	dir = 8
@@ -4644,7 +4561,7 @@
 	dir = 4;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mU" = (
 /obj/structure/urinal{
 	pixel_y = 32
@@ -4652,7 +4569,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mV" = (
 /obj/machinery/shower{
 	dir = 8
@@ -4660,21 +4577,21 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mW" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mX" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid9";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "mY" = (
 /obj/machinery/shower{
 	dir = 4
@@ -4682,28 +4599,28 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "mZ" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid11";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "na" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid8";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nb" = (
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "nc" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -4717,7 +4634,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nd" = (
 /obj/machinery/vending/coffee,
 /obj/machinery/light{
@@ -4727,7 +4644,7 @@
 	dir = 8;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ne" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/light{
@@ -4737,12 +4654,12 @@
 	dir = 4;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nf" = (
 /obj/structure/table,
 /obj/item/paper/pamphlet/ccaInfo,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ng" = (
 /obj/machinery/door/poddoor{
 	id_tag = "XCCMechs";
@@ -4750,11 +4667,11 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "nh" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ni" = (
 /obj/machinery/light{
 	dir = 4
@@ -4762,7 +4679,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "nj" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
@@ -4770,7 +4687,7 @@
 	icon_state = "asteroid8";
 	name = "sand"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nk" = (
 /obj/structure/flora/ausbushes,
 /obj/machinery/light{
@@ -4780,7 +4697,7 @@
 	icon_state = "asteroid6";
 	name = "sand"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nl" = (
 /obj/structure/flora/ausbushes,
 /obj/machinery/light{
@@ -4790,26 +4707,26 @@
 	icon_state = "asteroid";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nm" = (
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid5";
 	name = "plating"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nn" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "no" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "np" = (
 /obj/structure/chair{
 	dir = 4
@@ -4821,7 +4738,7 @@
 	dir = 8;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nq" = (
 /obj/structure/chair{
 	dir = 8
@@ -4833,7 +4750,7 @@
 	dir = 4;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nr" = (
 /obj/machinery/mass_driver{
 	dir = 8;
@@ -4842,7 +4759,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "ns" = (
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 8
@@ -4851,7 +4768,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "nt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4861,7 +4778,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nu" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/pamphlet/ccaInfo,
@@ -4869,7 +4786,7 @@
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nv" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control{
@@ -4879,14 +4796,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nw" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nx" = (
 /obj/item/paper_bin,
 /obj/structure/table/reinforced,
@@ -4895,17 +4812,17 @@
 	in_use = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ny" = (
 /obj/structure/chair/comfy/teal,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "nz" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4916,18 +4833,18 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nB" = (
 /obj/machinery/computer/card,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nC" = (
 /obj/machinery/light,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/maint)
+/area/ruin/space/centcomAway/maint)
 "nD" = (
 /obj/machinery/photocopier,
 /obj/machinery/light{
@@ -4937,19 +4854,19 @@
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nE" = (
 /obj/structure/table,
 /obj/item/multitool,
 /obj/machinery/light,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "nF" = (
 /obj/machinery/door/window/northright{
 	dir = 2
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nG" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control{
@@ -4959,49 +4876,52 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nH" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nI" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nJ" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nK" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nL" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nM" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nN" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nO" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -5010,14 +4930,14 @@
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nP" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "nQ" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
@@ -5029,70 +4949,54 @@
 	dir = 6;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "nR" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup,
 /turf/simulated/floor/carpet,
-/area/awaymission/centcomAway/general)
-"nS" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
-	},
-/area/awaymission/centcomAway/general)
-"nT" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "nU" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
 	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "nV" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/courtroom)
+/area/ruin/space/centcomAway/courtroom)
 "nW" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
 	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "nX" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "nY" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "nZ" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "engine"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "oa" = (
 /mob/living/simple_animal/hostile/russian/ranged{
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ob" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5100,13 +5004,13 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/thunderdome)
 "oc" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "od" = (
 /obj/structure/table,
 /obj/item/stack/sheet/metal{
@@ -5114,11 +5018,11 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "oe" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "of" = (
 /obj/item/clipboard,
 /obj/structure/table,
@@ -5128,13 +5032,13 @@
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "og" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "oh" = (
 /obj/structure/table,
 /obj/item/paicard,
@@ -5142,7 +5046,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oi" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
@@ -5151,34 +5055,34 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oj" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "ok" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "ol" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "om" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "on" = (
 /obj/machinery/power/apc/noalarm{
 	cell_type = 15000;
@@ -5194,7 +5098,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oo" = (
 /obj/machinery/light{
 	dir = 1;
@@ -5204,48 +5108,48 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "op" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "oq" = (
 /obj/structure/safe/floor,
 /obj/item/clothing/suit/storage/det_suit,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "or" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "os" = (
 /obj/machinery/computer/card,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ot" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "ou" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "ov" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
@@ -5253,28 +5157,28 @@
 	heat_capacity = 1;
 	icon_state = "barber"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "ow" = (
 /obj/machinery/door/window/southleft,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "ox" = (
 /obj/machinery/door/window/southright,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oy" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oz" = (
 /obj/machinery/light{
 	dir = 1;
@@ -5285,14 +5189,14 @@
 	heat_capacity = 1;
 	icon_state = "barber"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oA" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1;
 	icon_state = "barber"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oB" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/popcorn,
@@ -5301,13 +5205,13 @@
 	heat_capacity = 1;
 	icon_state = "barber"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oC" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redbluefull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oD" = (
 /obj/machinery/light{
 	dir = 1;
@@ -5317,25 +5221,25 @@
 	dir = 8;
 	icon_state = "redbluefull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oE" = (
 /obj/machinery/light,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "oF" = (
 /obj/structure/reagent_dispensers/beerkeg,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redbluefull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oG" = (
 /obj/structure/closet/crate/trashcart,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redbluefull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oH" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/light{
@@ -5346,20 +5250,20 @@
 	dir = 8;
 	icon_state = "redbluefull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oI" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "oJ" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redbluefull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oK" = (
 /mob/living/simple_animal/hostile/russian/ranged{
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
@@ -5368,7 +5272,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oL" = (
 /obj/structure/table,
 /obj/item/lipstick,
@@ -5376,7 +5280,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oM" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/sugar,
@@ -5387,7 +5291,7 @@
 	heat_capacity = 1;
 	icon_state = "barber"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oN" = (
 /obj/machinery/icemachine,
 /turf/simulated/floor/plasteel{
@@ -5395,7 +5299,7 @@
 	heat_capacity = 1;
 	icon_state = "barber"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oO" = (
 /obj/structure/chair{
 	dir = 1
@@ -5404,20 +5308,20 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oP" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redbluefull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oR" = (
 /obj/structure/rack,
 /obj/item/restraints/legcuffs/beartrap,
@@ -5425,7 +5329,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oS" = (
 /obj/structure/rack,
 /obj/item/restraints/legcuffs/beartrap,
@@ -5436,13 +5340,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oT" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oU" = (
 /obj/machinery/light{
 	dir = 4
@@ -5451,7 +5355,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oV" = (
 /obj/effect/decal/warning_stripes/arrow{
 	dir = 8
@@ -5460,69 +5364,69 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "oW" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oX" = (
 /obj/machinery/portable_atmospherics/scrubber/huge,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oY" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "oZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pa" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pb" = (
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pc" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pd" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pe" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pf" = (
 /obj/machinery/portable_atmospherics/scrubber/huge,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pg" = (
 /obj/structure/sink{
 	dir = 8;
@@ -5535,7 +5439,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "ph" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -5544,7 +5448,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pi" = (
 /obj/machinery/light{
 	dir = 1;
@@ -5553,7 +5457,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pj" = (
 /obj/structure/table,
 /obj/item/camera,
@@ -5561,7 +5465,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pk" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "XCCFerry";
@@ -5571,7 +5475,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "pl" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -5580,7 +5484,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pm" = (
 /obj/machinery/light{
 	dir = 8
@@ -5589,7 +5493,7 @@
 	dir = 5;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pn" = (
 /obj/machinery/light{
 	dir = 4
@@ -5597,7 +5501,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "po" = (
 /obj/machinery/light{
 	dir = 8
@@ -5605,18 +5509,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pp" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pq" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pr" = (
 /obj/structure/mirror{
 	pixel_x = 28
@@ -5628,83 +5532,83 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "ps" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pt" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pu" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "plaque"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pv" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pw" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "px" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "py" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pz" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pA" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pB" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greencorner"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pC" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pD" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pE" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pF" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome";
@@ -5713,7 +5617,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pG" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "XCCsec1";
@@ -5721,50 +5625,50 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "pH" = (
 /obj/machinery/portable_atmospherics/scrubber/huge,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pI" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pJ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pK" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pL" = (
 /obj/machinery/portable_atmospherics/scrubber/huge,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pM" = (
 /obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pN" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pO" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -5773,7 +5677,7 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pP" = (
 /obj/structure/table/wood,
 /obj/item/radio/off,
@@ -5781,7 +5685,7 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pQ" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
@@ -5790,7 +5694,7 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pR" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Administration";
@@ -5800,7 +5704,7 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pS" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
@@ -5809,13 +5713,13 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pT" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "pU" = (
 /mob/living/simple_animal/hostile/russian/ranged{
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
@@ -5824,7 +5728,7 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pV" = (
 /obj/structure/table,
 /obj/machinery/light,
@@ -5832,7 +5736,7 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pW" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -5842,34 +5746,34 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pX" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pY" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "pZ" = (
 /obj/machinery/computer/area_atmos,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qa" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "qb" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -5877,14 +5781,14 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qc" = (
 /obj/structure/closet/secure_closet/bar,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qd" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
@@ -5892,7 +5796,7 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qe" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/popcorn,
@@ -5901,7 +5805,7 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qf" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -5909,7 +5813,7 @@
 	dir = 5;
 	icon_state = "redyellowfull"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qg" = (
 /obj/machinery/door_control{
 	id = "XCCtdomemelee";
@@ -5917,7 +5821,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qh" = (
 /obj/machinery/door_control{
 	id = "XCCtdomeguns";
@@ -5925,7 +5829,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qi" = (
 /obj/machinery/door_control{
 	id = "XCCtdome";
@@ -5933,14 +5837,14 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qj" = (
 /obj/structure/rack,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qk" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "XCCsec2";
@@ -5948,7 +5852,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "ql" = (
 /obj/machinery/door_control{
 	id = "XCCFerry";
@@ -5959,11 +5863,11 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "qm" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
 "qn" = (
 /obj/machinery/door/poddoor{
 	id_tag = "XCCtdomemelee";
@@ -5973,7 +5877,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qo" = (
 /obj/machinery/door/poddoor{
 	id_tag = "XCCtdome";
@@ -5983,7 +5887,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
 "qp" = (
 /obj/machinery/door/poddoor{
 	id_tag = "XCCtdomeguns";
@@ -5993,10 +5897,67 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcomAway/thunderdome)
+/area/ruin/space/centcomAway/thunderdome)
+"xn" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/centcomAway/hangar)
+"zt" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/centcomAway/cafe)
+"zM" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/centcomAway/maint)
+"Aj" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/centcomAway/general)
+"AE" = (
+/obj/structure/urinal{
+	pixel_y = 32
+	},
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/centcomAway/thunderdome)
+"AW" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/centcomAway/general)
+"Co" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/centcomAway/general)
 "Cs" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
 "Di" = (
 /obj/structure/chair{
 	dir = 4
@@ -6005,14 +5966,158 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaymission/centcomAway/hangar)
+/area/ruin/space/centcomAway/hangar)
+"Er" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "green"
+	},
+/area/ruin/space/centcomAway/general)
+"HO" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
+	},
+/area/ruin/space/centcomAway/general)
 "JB" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/tcomms/relay/ruskie{
 	network_id = "XCC-P5831-RELAY"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/centcomAway/general)
+/area/ruin/space/centcomAway/general)
+"Ng" = (
+/turf/simulated/wall,
+/area/ruin/space/centcomAway/general)
+"Nn" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/centcomAway/general)
+"OE" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/centcomAway/thunderdome)
+"PG" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
+	},
+/area/ruin/space/centcomAway/hangar)
+"Qh" = (
+/turf/simulated/wall,
+/area/ruin/space/centcomAway/maint)
+"QI" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/centcomAway/hangar)
+"Ta" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/centcomAway/cafe)
+"TS" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/centcomAway/hangar)
+"UX" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/centcomAway/cafe)
+"Vk" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/ruin/space/centcomAway/cafe)
+"VI" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/ruin/space/centcomAway/general)
+"Xk" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/space/centcomAway/hangar)
+"Yb" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redbluefull"
+	},
+/area/ruin/space/centcomAway/thunderdome)
+"ZN" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	heat_capacity = 1;
+	icon_state = "barber"
+	},
+/area/ruin/space/centcomAway/thunderdome)
+"ZP" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/centcomAway/general)
+"ZR" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/centcomAway/hangar)
 
 (1,1,1) = {"
 aa
@@ -6446,8 +6551,8 @@ aW
 nb
 gX
 gX
-kD
-kD
+gX
+gX
 gX
 cU
 cU
@@ -6541,12 +6646,12 @@ aW
 gX
 gX
 cU
-kD
-kD
+gX
+gX
 cU
-kI
-kM
-kQ
+ZR
+cU
+cU
 cU
 aW
 aa
@@ -6628,7 +6733,7 @@ iP
 gX
 gX
 jz
-jz
+Xk
 gX
 gX
 gX
@@ -6636,12 +6741,12 @@ aW
 cU
 cU
 gX
-kD
-kD
+gX
+gX
 cU
-kJ
-kN
-kR
+ZR
+cU
+cU
 cU
 aW
 aa
@@ -6729,14 +6834,14 @@ mt
 mt
 aW
 cU
+ZR
+gX
+gX
+gX
+gX
 cU
-gX
-kD
-kD
-gX
-kK
-kO
-kS
+cU
+cU
 cU
 aW
 aa
@@ -6994,7 +7099,7 @@ fl
 dF
 bn
 bn
-jp
+PG
 jz
 gX
 gX
@@ -7173,7 +7278,7 @@ cS
 cS
 cq
 cS
-cS
+QI
 bY
 cq
 ei
@@ -7198,7 +7303,7 @@ cU
 cC
 gX
 bn
-bn
+PG
 jI
 gX
 kY
@@ -7207,7 +7312,7 @@ gX
 gX
 gX
 gX
-gX
+TS
 gX
 gX
 gX
@@ -7261,7 +7366,7 @@ bn
 bH
 bY
 bY
-bY
+xn
 cq
 cq
 dg
@@ -7305,7 +7410,7 @@ gX
 gX
 gX
 gX
-cU
+ZR
 gX
 oc
 aW
@@ -7454,7 +7559,7 @@ cq
 cq
 dr
 cS
-cS
+QI
 bY
 cS
 cS
@@ -7808,7 +7913,7 @@ mx
 mx
 my
 lD
-mx
+OE
 mx
 pM
 lD
@@ -7856,7 +7961,7 @@ cU
 cU
 hG
 cU
-cU
+ZR
 iu
 aW
 aa
@@ -8065,7 +8170,7 @@ fG
 nk
 fG
 eO
-go
+Er
 eF
 bm
 bm
@@ -8107,9 +8212,9 @@ aa
 (23,1,1) = {"
 aa
 aa
-ab
-ab
-ab
+zM
+zM
+zM
 aW
 bn
 bE
@@ -8160,7 +8265,7 @@ fH
 nj
 fH
 eO
-go
+Er
 fG
 aa
 bm
@@ -8201,8 +8306,8 @@ aa
 "}
 (24,1,1) = {"
 aa
-ab
-ab
+zM
+zM
 aE
 aP
 aW
@@ -8255,7 +8360,7 @@ fH
 mO
 fH
 eO
-go
+Er
 fH
 aa
 aa
@@ -8295,8 +8400,8 @@ aa
 aa
 "}
 (25,1,1) = {"
-ab
-ab
+zM
+zM
 ag
 ag
 ag
@@ -8306,7 +8411,7 @@ ag
 ag
 ag
 ag
-cD
+Qh
 ds
 ag
 aW
@@ -8350,7 +8455,7 @@ fH
 mW
 fH
 eO
-go
+Er
 fH
 aa
 aa
@@ -8390,7 +8495,7 @@ aa
 aa
 "}
 (26,1,1) = {"
-ab
+zM
 ag
 ag
 ag
@@ -8445,7 +8550,7 @@ fH
 nm
 fH
 eO
-go
+Er
 jh
 aa
 aa
@@ -8485,7 +8590,7 @@ aa
 aa
 "}
 (27,1,1) = {"
-ab
+zM
 ag
 ak
 ak
@@ -8540,7 +8645,7 @@ jh
 nl
 jh
 eO
-go
+Er
 eF
 aa
 aa
@@ -8580,7 +8685,7 @@ aa
 aa
 "}
 (28,1,1) = {"
-ab
+zM
 ag
 ak
 aF
@@ -8675,7 +8780,7 @@ aa
 aa
 "}
 (29,1,1) = {"
-ab
+zM
 ag
 ak
 aG
@@ -8749,7 +8854,7 @@ om
 om
 lD
 oA
-oA
+ZN
 oN
 lD
 oR
@@ -8770,7 +8875,7 @@ aa
 aa
 "}
 (30,1,1) = {"
-ab
+zM
 ag
 ak
 aH
@@ -8865,7 +8970,7 @@ aa
 aa
 "}
 (31,1,1) = {"
-ab
+ac
 ah
 ak
 ak
@@ -8918,7 +9023,7 @@ ku
 nf
 nf
 kH
-eO
+oa
 eO
 eO
 qm
@@ -8936,7 +9041,7 @@ aa
 nW
 lD
 om
-om
+oK
 lD
 oB
 oB
@@ -9018,7 +9123,7 @@ eO
 eO
 qm
 ms
-lc
+AW
 hg
 hg
 hg
@@ -9096,7 +9201,7 @@ eO
 eF
 fD
 jj
-jj
+Co
 jj
 me
 jL
@@ -9273,12 +9378,12 @@ eO
 hb
 fH
 iV
-go
+Er
 gv
 gK
 jH
-hk
-hy
+Aj
+ZP
 gK
 eF
 kw
@@ -9308,11 +9413,11 @@ eO
 fg
 nI
 nJ
-eF
+lD
 lx
 hy
 ks
-eF
+lD
 aa
 lD
 om
@@ -9368,7 +9473,7 @@ eO
 hU
 fI
 iQ
-go
+Er
 gw
 gL
 eO
@@ -9387,8 +9492,8 @@ eF
 eF
 eF
 eF
-hk
-ks
+Aj
+Nn
 eF
 iD
 eF
@@ -9403,18 +9508,18 @@ lk
 nF
 eO
 nL
-eF
+lD
 ly
 nR
 nR
-eF
+lD
 aa
 lD
 om
 om
 lD
 oF
-oC
+Yb
 oC
 oP
 mj
@@ -9450,7 +9555,7 @@ ai
 ai
 ai
 ai
-ai
+zt
 ai
 ai
 ai
@@ -9463,7 +9568,7 @@ eF
 eF
 eF
 iX
-go
+Er
 eF
 jD
 eO
@@ -9498,7 +9603,7 @@ le
 fg
 eO
 nK
-eF
+lD
 hk
 hy
 hy
@@ -9536,7 +9641,7 @@ ai
 ai
 ai
 ai
-ai
+zt
 ai
 ai
 ai
@@ -9558,7 +9663,7 @@ hj
 hY
 eO
 ik
-go
+Er
 gx
 gN
 eO
@@ -9567,7 +9672,7 @@ hA
 hN
 fH
 kw
-go
+Er
 eF
 lE
 fg
@@ -9586,7 +9691,7 @@ eO
 eO
 eO
 eO
-go
+Er
 fJ
 nz
 nz
@@ -9594,11 +9699,11 @@ nz
 eO
 nM
 nP
-fY
-fY
-fY
-lC
-fD
+om
+om
+om
+lJ
+mC
 lJ
 om
 om
@@ -9653,7 +9758,7 @@ fg
 eO
 eO
 ik
-go
+Er
 gy
 jE
 kF
@@ -9675,23 +9780,23 @@ kf
 eO
 eO
 eO
+oa
 eO
 eO
+oa
 eO
 eO
-eO
-eO
-go
+Er
 fY
 fY
 fY
 fY
-hk
-ks
+Aj
+Nn
 ic
-fY
-fY
-nS
+om
+om
+ot
 lx
 ks
 lD
@@ -9743,12 +9848,12 @@ dI
 eR
 fq
 ga
-gu
+HO
 hp
 hZ
 ir
 jc
-go
+Er
 gw
 jF
 eO
@@ -9787,7 +9892,7 @@ nQ
 gu
 gu
 gu
-nT
+oi
 ob
 oi
 on
@@ -9843,7 +9948,7 @@ eF
 eF
 eF
 iY
-go
+Er
 eF
 gQ
 eO
@@ -9878,7 +9983,7 @@ le
 fg
 eO
 go
-eF
+lD
 hk
 hy
 hy
@@ -9903,7 +10008,7 @@ pJ
 mj
 pO
 pN
-pN
+pU
 pY
 lD
 lD
@@ -9938,7 +10043,7 @@ eU
 gA
 fG
 jf
-go
+Er
 gx
 gR
 eO
@@ -9957,8 +10062,8 @@ ml
 ms
 mz
 eF
-hk
-ks
+Aj
+Nn
 eF
 iD
 eF
@@ -9973,11 +10078,11 @@ ll
 nF
 eO
 oI
-eF
+lD
 lz
 nR
 lB
-eF
+lD
 aa
 lD
 om
@@ -10033,12 +10138,12 @@ eU
 eU
 fH
 je
-go
+Er
 gz
 gK
 jH
-hk
-hy
+Aj
+ZP
 gK
 eF
 kw
@@ -10068,11 +10173,11 @@ eO
 fg
 ju
 mq
-eF
+lD
 lx
 hy
 ks
-eF
+lD
 aa
 lD
 om
@@ -10080,7 +10185,7 @@ om
 lD
 oG
 oC
-oC
+Yb
 oP
 mj
 pc
@@ -10105,7 +10210,7 @@ ao
 aA
 aN
 ax
-dL
+UX
 ax
 ax
 bV
@@ -10171,7 +10276,7 @@ bm
 aa
 lD
 om
-om
+oK
 lD
 oF
 oC
@@ -10308,7 +10413,7 @@ ak
 dv
 ak
 dI
-ax
+UX
 ax
 ax
 fC
@@ -10420,9 +10525,9 @@ gT
 gT
 fS
 gT
-ic
+Ng
 im
-ic
+Ng
 eF
 bm
 bm
@@ -10494,7 +10599,7 @@ cu
 cs
 cu
 ak
-bI
+Ta
 bI
 bq
 dI
@@ -10884,7 +10989,7 @@ eV
 av
 eF
 gO
-ht
+VI
 ht
 ix
 ht
@@ -11072,7 +11177,7 @@ au
 aX
 au
 au
-ak
+Qh
 cB
 dc
 dc
@@ -11167,7 +11272,7 @@ ak
 ak
 ak
 ak
-ak
+Qh
 cM
 fj
 fj
@@ -11244,7 +11349,7 @@ aa
 aa
 aa
 aa
-ab
+zM
 ag
 bl
 bJ
@@ -11252,16 +11357,16 @@ ak
 cv
 cw
 cK
-cw
+Vk
 cv
 ak
 bJ
 dD
-ak
+Qh
 eA
 eX
 eY
-ak
+Qh
 eH
 cM
 fj
@@ -11352,11 +11457,11 @@ cv
 ak
 ag
 ag
-ak
+Qh
 eB
-dW
+ag
 eZ
-ak
+Qh
 eI
 cM
 fj
@@ -11447,11 +11552,11 @@ bb
 ac
 ag
 ag
-ak
+Qh
 eE
-dW
+ag
 fd
-ak
+Qh
 bd
 cM
 fj
@@ -11533,20 +11638,20 @@ aU
 bc
 ag
 ag
-ab
+zM
 aa
 aa
 aa
 aa
 aa
-ab
+zM
 ag
 ag
-ak
-ak
-dX
-ak
-ak
+Qh
+Qh
+cE
+Qh
+Qh
 ag
 cM
 fj
@@ -11628,13 +11733,13 @@ aV
 ag
 ag
 ag
-ab
+zM
 cl
 cx
 cx
 cx
 dd
-ab
+zM
 ag
 lm
 ba
@@ -11703,7 +11808,7 @@ mx
 mx
 my
 lD
-mU
+AE
 mx
 mx
 lD
@@ -11719,7 +11824,7 @@ aa
 aa
 aa
 aa
-ab
+zM
 bd
 ag
 ag
@@ -11814,10 +11919,10 @@ aa
 aa
 aa
 aa
-ab
-ab
+zM
+zM
 ag
-ag
+lm
 ag
 cB
 dc
@@ -11828,10 +11933,10 @@ dQ
 dc
 dc
 ev
-ab
-ab
-ab
-ab
+zM
+zM
+zM
+zM
 eJ
 gZ
 hu
@@ -11910,23 +12015,23 @@ aa
 aa
 aa
 aa
-ab
-ab
-ab
-ab
+zM
+zM
+zM
+zM
 cz
 cy
-ab
-ab
+zM
+zM
 cy
 cz
-ab
-ab
-ab
-ab
+zM
+zM
+zM
+zM
 aa
 aa
-ab
+zM
 ag
 ag
 fj
@@ -12008,20 +12113,20 @@ aa
 aa
 aa
 aa
-ab
+zM
 cM
-ab
+zM
 aa
 aa
-ab
+zM
 cM
-ab
+zM
 aa
 aa
 aa
 aa
 aa
-ab
+zM
 ag
 ag
 fj
@@ -12103,20 +12208,20 @@ aa
 aa
 bm
 bm
-ab
+zM
 cL
-ab
+zM
 bm
 bm
-ab
+zM
 cz
-ab
+zM
 bm
 bm
 bm
 bm
 bm
-ab
+zM
 ag
 ag
 fj
@@ -12211,7 +12316,7 @@ bm
 bm
 bm
 bm
-ab
+zM
 ag
 ag
 fj
@@ -12306,7 +12411,7 @@ aa
 aa
 aa
 aa
-ab
+zM
 ag
 ag
 fj
@@ -12781,7 +12886,7 @@ aa
 aa
 aa
 aa
-ab
+zM
 ag
 ag
 fj
@@ -12876,8 +12981,8 @@ aa
 aa
 aa
 aa
-ab
-ab
+zM
+zM
 ag
 ag
 ag
@@ -12972,7 +13077,7 @@ aa
 aa
 aa
 aa
-ab
+zM
 eI
 bd
 ag
@@ -12982,7 +13087,7 @@ gs
 ag
 aE
 hc
-fj
+Qh
 fy
 fy
 ih
@@ -13067,17 +13172,17 @@ aa
 aa
 aa
 aa
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-gT
+zM
+zM
+zM
+zM
+zM
+zM
+zM
+zM
+zM
+zM
+zM
 hC
 fy
 fy

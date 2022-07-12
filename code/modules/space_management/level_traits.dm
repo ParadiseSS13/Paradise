@@ -13,9 +13,6 @@
 /proc/is_admin_level(z)
 	return check_level_trait(z, ADMIN_LEVEL)
 
-/proc/is_away_level(z)
-	return check_level_trait(z, AWAY_LEVEL)
-
 /proc/is_mining_level(z)
 	return check_level_trait(z, ORE_LEVEL)
 

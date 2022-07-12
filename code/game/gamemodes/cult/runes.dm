@@ -730,11 +730,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target was deconverted")
 		return
-	if(is_away_level(cultist_to_summon.z))
-		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not in our dimension!</span>")
-		fail_invoke()
-		log_game("Summon Cultist rune failed - target in away mission")
-		return
 
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 									  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")

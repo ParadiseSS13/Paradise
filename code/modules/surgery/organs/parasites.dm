@@ -57,7 +57,7 @@
 /obj/item/organ/internal/body_egg/terror_eggs/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
-	if(istype(T) && is_away_level(T.z))
+	if(istype(T) && !is_station_level(T.z))
 		awaymission_infection = TRUE
 
 /obj/item/organ/internal/body_egg/terror_eggs/on_life()
@@ -94,7 +94,7 @@
 	// Detect & stop people attempting to bring a gateway white spider infection back to the main station.
 	if(awaymission_infection)
 		var/turf/T = get_turf(owner)
-		if(istype(T) && !is_away_level(T.z))
+		if(istype(T) && is_station_level(T.z))
 			owner.gib()
 			// give a hint of the cause of death
 			new /obj/effect/decal/cleanable/spiderling_remains(T)

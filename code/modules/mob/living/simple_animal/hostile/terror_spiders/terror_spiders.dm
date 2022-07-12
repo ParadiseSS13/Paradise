@@ -280,12 +280,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
-	if(is_away_level(z))
+	if(!is_station_level(z))
 		spider_awaymission = TRUE
 		GLOB.ts_count_alive_awaymission++
 		if(spider_tier >= 3)
 			ai_ventcrawls = FALSE // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
-		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
+		if(istype(get_area(src), /area/ruin/space/uo71)) // if we are playing the away mission with our special spiders...
 			spider_uo71 = TRUE
 			if(world.time < 600)
 				// these are static spiders, specifically for the UO71 away mission, make them stay in place

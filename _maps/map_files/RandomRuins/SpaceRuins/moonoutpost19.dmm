@@ -9,90 +9,21 @@
 	name = "plating"
 	},
 /area/ruin/space/unpowered)
-"ac" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "ag" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"ah" = (
-/obj/structure/alien/weeds,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "ai" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "aj" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"ak" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/alien/weeds,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"am" = (
-/obj/structure/alien/weeds/node,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "ap" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -107,32 +38,13 @@
 	icon_state = "gib1_flesh"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "ar" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"as" = (
-/turf/simulated/wall/r_wall,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "at" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/gibs{
@@ -140,14 +52,7 @@
 	icon_state = "gib1_flesh"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "av" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/gibs{
@@ -155,28 +60,14 @@
 	icon_state = "gib2_flesh"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "aw" = (
 /obj/structure/alien/weeds/node,
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "ax" = (
 /obj/structure/table,
 /obj/item/radio/off{
@@ -188,9 +79,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "ay" = (
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -208,18 +97,6 @@
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
-"aC" = (
-/obj/structure/alien/weeds/node,
-/obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "aD" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -237,21 +114,12 @@
 	icon_state = "gibdown1_flesh"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "aF" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "aG" = (
 /obj/item/stack/rods,
 /obj/item/shard{
@@ -267,14 +135,7 @@
 	icon_state = "gib1_flesh"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "aK" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
@@ -282,37 +143,21 @@
 	color = "red"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "aL" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/drone{
 	plants_off = 1
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "aM" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "aP" = (
 /obj/item/flashlight/lantern{
 	icon_state = "lantern-on";
@@ -351,19 +196,7 @@
 	plants_off = 1
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"aT" = (
-/turf/simulated/wall,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "aU" = (
 /obj/structure/alien/weeds,
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
@@ -379,16 +212,12 @@
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "aV" = (
 /obj/effect/decal/warning_stripes/north,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "aW" = (
 /obj/structure/disposaloutlet,
 /obj/structure/disposalpipe/trunk{
@@ -400,17 +229,6 @@
 	name = "plating"
 	},
 /area/ruin/space/unpowered)
-"aX" = (
-/obj/structure/toilet{
-	dir = 1
-	},
-/mob/living/simple_animal/hostile/alien,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
 "aY" = (
 /obj/item/trash/candy,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -426,22 +244,7 @@
 	color = "red"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"bc" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bd" = (
 /obj/machinery/vending/cigarette,
 /obj/structure/sign/poster/contraband/smoke{
@@ -450,31 +253,23 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "be" = (
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "bf" = (
 /obj/structure/alien/weeds/node,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "bg" = (
 /obj/structure/chair/office/dark,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "bh" = (
 /obj/machinery/door/airlock/highsecurity{
 	locked = 1;
@@ -482,9 +277,7 @@
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bi" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -499,44 +292,15 @@
 	color = "red"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "bj" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "bl" = (
 /turf/simulated/mineral/random/high_chance,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"bm" = (
-/obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bn" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -548,9 +312,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bo" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -563,9 +325,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bp" = (
 /obj/machinery/alarm/monitor{
 	pixel_y = 23;
@@ -574,9 +334,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bq" = (
 /obj/item/storage/bag/ore,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -594,9 +352,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bs" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -612,16 +368,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
-"bv" = (
-/obj/machinery/door/airlock{
-	name = "Unisex Restrooms"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
 "bw" = (
 /obj/structure/sink{
 	pixel_y = 28
@@ -633,16 +379,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
-"bx" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "by" = (
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -653,33 +390,21 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bz" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bA" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
-"bC" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bD" = (
 /obj/machinery/light{
 	dir = 4
@@ -691,14 +416,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
-"bE" = (
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bF" = (
 /obj/item/mining_scanner,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -710,14 +428,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
-"bG" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
 "bH" = (
 /obj/structure/closet/crate/can,
 /obj/item/trash/syndi_cakes,
@@ -725,49 +435,31 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bI" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
-"bJ" = (
-/obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bK" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bM" = (
 /obj/structure/closet/l3closet/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bN" = (
 /obj/structure/closet/emcloset,
 /obj/structure/window/reinforced{
@@ -776,32 +468,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bO" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Break Room"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
-"bP" = (
-/obj/structure/grille,
-/obj/structure/window/full/basic,
-/turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bQ" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/landmark/damageturf,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "bR" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -818,9 +497,7 @@
 /obj/item/multitool,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bS" = (
 /obj/machinery/power/smes{
 	input_level = 10000;
@@ -833,9 +510,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bT" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -850,9 +525,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bU" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/alarm/monitor{
@@ -861,28 +534,17 @@
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bV" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bW" = (
 /obj/structure/alien/weeds/node,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "bX" = (
 /obj/machinery/mineral/unloading_machine{
 	dir = 1;
@@ -894,26 +556,20 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "bY" = (
 /obj/machinery/conveyor{
 	id = "awaysyndie"
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "ca" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
@@ -922,9 +578,7 @@
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cc" = (
 /obj/machinery/alarm/monitor{
 	locked = 0;
@@ -935,9 +589,7 @@
 	icon_state = "floorscorched2";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
@@ -945,9 +597,7 @@
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "ce" = (
 /obj/structure/sign/biohazard{
 	pixel_y = 32
@@ -957,13 +607,11 @@
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cf" = (
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "cg" = (
 /obj/machinery/light/small{
 	active_power_usage = 0;
@@ -977,9 +625,7 @@
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "ch" = (
 /obj/structure/sign/securearea{
 	pixel_y = 32
@@ -988,9 +634,7 @@
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "ci" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1010,9 +654,7 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cj" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -1023,23 +665,17 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "ck" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cm" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -1049,31 +685,18 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
-"cn" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "co" = (
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cp" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cq" = (
 /obj/machinery/door/airlock/public/glass{
 	density = 0;
@@ -1090,27 +713,21 @@
 	oxygen = 0;
 	temperature = 2.7
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cr" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 4;
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cs" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "ct" = (
 /obj/item/stack/ore/iron{
 	pixel_x = -3;
@@ -1130,9 +747,7 @@
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1144,20 +759,7 @@
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
-"cw" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
-	},
-/turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cx" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1170,9 +772,7 @@
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1194,28 +794,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
-"cz" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
-	},
-/turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cA" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cB" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -1227,26 +812,20 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cD" = (
 /obj/machinery/mineral/processing_unit_console{
 	machinedir = 8
 	},
 /turf/simulated/wall,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cF" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
@@ -1256,9 +835,7 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
@@ -1266,27 +843,21 @@
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cH" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cI" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 10;
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cJ" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm{
@@ -1300,17 +871,13 @@
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cK" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cL" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel/airless{
@@ -1318,17 +885,13 @@
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cM" = (
 /obj/item/storage/box/lights/mixed,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cN" = (
 /obj/structure/cable,
 /obj/machinery/power/port_gen/pacman{
@@ -1337,9 +900,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cO" = (
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
@@ -1349,16 +910,12 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cP" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cQ" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "awaysyndie";
@@ -1369,18 +926,14 @@
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cR" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cS" = (
 /obj/machinery/alarm/monitor{
 	dir = 8;
@@ -1398,9 +951,7 @@
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cT" = (
 /obj/machinery/door/airlock{
 	density = 0;
@@ -1416,18 +967,14 @@
 	icon_state = "wood";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cU" = (
 /obj/machinery/door/airlock{
 	id_tag = "awaydorm5";
 	name = "Dorm 2"
 	},
 /turf/simulated/floor/wood,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cV" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless{
@@ -1435,18 +982,14 @@
 	icon_state = "red";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cW" = (
 /obj/structure/alien/weeds/node,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cX" = (
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/metal{
@@ -1458,9 +1001,7 @@
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cY" = (
 /obj/structure/closet/crate,
 /obj/item/storage/bag/ore,
@@ -1470,9 +1011,7 @@
 /obj/item/pickaxe,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "cZ" = (
 /obj/machinery/door_control{
 	id = "awaydorm4";
@@ -1488,9 +1027,7 @@
 	icon_state = "wood";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "da" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
@@ -1498,9 +1035,7 @@
 	icon_state = "wood";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "db" = (
 /obj/machinery/door_control{
 	id = "awaydorm5";
@@ -1512,28 +1047,17 @@
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dc" = (
 /turf/simulated/floor/wood,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dd" = (
 /obj/structure/alien/weeds/node,
 /mob/living/simple_animal/hostile/alien/drone{
 	plants_off = 1
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "de" = (
 /obj/machinery/mineral/stacking_machine{
 	dir = 1;
@@ -1542,17 +1066,13 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "df" = (
 /obj/machinery/mineral/stacking_unit_console{
 	machinedir = 8
 	},
 /turf/simulated/wall,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -1562,9 +1082,7 @@
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dh" = (
 /obj/structure/chair/wood,
 /obj/machinery/alarm/monitor{
@@ -1578,9 +1096,7 @@
 	icon_state = "wood";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "di" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -1590,9 +1106,7 @@
 	icon_state = "wood";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dj" = (
 /obj/machinery/alarm/monitor{
 	dir = 8;
@@ -1600,17 +1114,13 @@
 	req_access = "150"
 	},
 /turf/simulated/floor/wood,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dk" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dl" = (
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/glass{
@@ -1621,9 +1131,7 @@
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
@@ -1633,26 +1141,20 @@
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "do" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dp" = (
 /obj/machinery/power/port_gen/pacman/super{
 	desc = "A portable generator for emergency backup power.";
@@ -1664,7 +1166,7 @@
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "dq" = (
 /obj/structure/table/wood,
 /obj/structure/sign/poster/contraband/c20r{
@@ -1680,9 +1182,7 @@
 	icon_state = "wood";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dr" = (
 /obj/item/ammo_box/magazine/m10mm,
 /obj/structure/closet/cabinet,
@@ -1692,48 +1192,36 @@
 	icon_state = "wood";
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "ds" = (
 /obj/structure/closet/cabinet,
 /obj/item/stack/spacecash/c50,
 /turf/simulated/floor/wood,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dt" = (
 /obj/structure/bed,
 /obj/item/bedsheet/syndie,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "du" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dx" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dy" = (
 /obj/structure/dispenser/oxygen{
 	starting_oxygen_tanks = 9
@@ -1748,9 +1236,7 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dz" = (
 /obj/structure/toilet{
 	dir = 1
@@ -1759,9 +1245,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "dA" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
@@ -1774,7 +1258,7 @@
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "dC" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/syndicate/orange,
@@ -1785,9 +1269,7 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dD" = (
 /obj/structure/sign/vacuum{
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
@@ -1799,9 +1281,7 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dE" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -1810,9 +1290,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dF" = (
 /obj/item/pickaxe,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -1824,9 +1302,7 @@
 	icon_state = "asteroidplating";
 	name = "plating"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dI" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds/node,
@@ -1838,21 +1314,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
-"dL" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "plating"
-	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dM" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/alien,
@@ -1860,9 +1322,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "dN" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -1883,14 +1343,7 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "dO" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -1901,14 +1354,7 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "dS" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood{
@@ -1918,14 +1364,7 @@
 	plants_off = 1
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
+/area/ruin/space/unpowered)
 "dT" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1936,9 +1375,7 @@
 /obj/effect/landmark/damageturf,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "dU" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1949,26 +1386,10 @@
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
-"dY" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"dZ" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall/r_wall,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ea" = (
 /turf/simulated/wall/r_wall,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eb" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
@@ -1976,37 +1397,23 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "ec" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ed" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"ee" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ef" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eg" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4
@@ -2015,9 +1422,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eh" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -2025,9 +1430,7 @@
 /obj/machinery/portable_atmospherics/canister,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ei" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2042,9 +1445,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ej" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2057,9 +1458,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ek" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -2074,9 +1473,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "el" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -2088,15 +1485,11 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "en" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eo" = (
 /obj/machinery/light{
 	active_power_usage = 0;
@@ -2111,9 +1504,7 @@
 	network = list("MO19X")
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ep" = (
 /obj/machinery/sparker{
 	desc = "A wall-mounted ignition device. This one has been applied with an acid-proof coating.";
@@ -2124,16 +1515,12 @@
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eq" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "er" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -2143,22 +1530,7 @@
 	stat = 2
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"et" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"eu" = (
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ev" = (
 /obj/machinery/light/small{
 	active_power_usage = 0;
@@ -2168,9 +1540,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ex" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2185,9 +1555,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ey" = (
 /obj/structure/table/reinforced,
 /obj/structure/alien/weeds,
@@ -2201,9 +1569,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ez" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -2218,9 +1584,7 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eA" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
@@ -2228,9 +1592,7 @@
 	name = "HIGH VOLTAGE"
 	},
 /turf/simulated/wall/r_wall,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eB" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -2244,22 +1606,16 @@
 	icon_state = "gib2_flesh"
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eC" = (
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eG" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eH" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -2269,27 +1625,12 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"eJ" = (
-/turf/simulated/wall,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"eK" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eM" = (
 /obj/structure/grille,
 /obj/machinery/door/poddoor{
@@ -2299,9 +1640,7 @@
 	},
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eN" = (
 /obj/machinery/light/small{
 	active_power_usage = 0;
@@ -2318,9 +1657,7 @@
 	dir = 6;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2335,9 +1672,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eP" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control{
@@ -2357,35 +1692,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eQ" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eR" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"eT" = (
-/turf/simulated/wall,
-/area/awaycontent/a7)
-"eU" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/awaycontent/a7)
-"eV" = (
-/turf/simulated/wall/r_wall,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "eW" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -2395,9 +1714,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eX" = (
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2406,9 +1723,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "eY" = (
 /obj/machinery/power/port_gen/pacman{
 	desc = "A portable generator for emergency backup power.";
@@ -2419,7 +1734,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "eZ" = (
 /obj/machinery/space_heater,
 /obj/machinery/light/small{
@@ -2429,7 +1744,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fa" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2439,7 +1754,7 @@
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fb" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -2453,7 +1768,7 @@
 	outputting = 0
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fc" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -2467,7 +1782,7 @@
 	pixel_y = 23
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fd" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2484,9 +1799,7 @@
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fe" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2495,11 +1808,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
-"ff" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fg" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2509,16 +1818,14 @@
 	},
 /obj/item/newspaper,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fh" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fi" = (
 /obj/structure/closet/crate/freezer,
 /obj/structure/alien/weeds,
@@ -2530,9 +1837,7 @@
 /obj/item/xenos_claw,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fj" = (
 /obj/machinery/firealarm/no_alarm{
 	pixel_y = 24
@@ -2545,24 +1850,18 @@
 /obj/item/storage/box/syringes,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fk" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fl" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fm" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2574,9 +1873,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fn" = (
 /obj/structure/closet/l3closet/scientist,
 /obj/structure/window/reinforced,
@@ -2585,9 +1882,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fo" = (
 /obj/structure/cable,
 /obj/structure/cable{
@@ -2602,18 +1897,14 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fp" = (
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2622,7 +1913,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fs" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	desc = "Your instincts say you shouldn't be following these.";
@@ -2630,7 +1921,7 @@
 	icon_state = "ltrails_1"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "ft" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2647,7 +1938,7 @@
 	icon_state = "ltrails_1"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fu" = (
 /obj/structure/sign/securearea{
 	pixel_x = 32
@@ -2663,9 +1954,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fv" = (
 /obj/structure/table,
 /obj/item/stack/sheet/mineral/plasma{
@@ -2684,9 +1973,7 @@
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fw" = (
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
@@ -2701,9 +1988,7 @@
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2712,7 +1997,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2729,30 +2014,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
-"fz" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"fA" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fB" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2763,9 +2025,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fC" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2777,9 +2037,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fD" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2793,9 +2051,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fE" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
@@ -2813,9 +2069,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fF" = (
 /obj/machinery/door/poddoor/preopen{
 	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
@@ -2841,9 +2095,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fG" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
@@ -2852,9 +2104,7 @@
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fH" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
@@ -2866,9 +2116,7 @@
 	color = "red"
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fJ" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
@@ -2878,9 +2126,7 @@
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fK" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	desc = "Has a valve and pump attached to it. This one has been applied with an acid-proof coating.";
@@ -2891,9 +2137,7 @@
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fL" = (
 /obj/machinery/light{
 	active_power_usage = 0;
@@ -2908,9 +2152,7 @@
 	network = list("MO19X")
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fM" = (
 /obj/structure/table,
 /obj/item/paper{
@@ -2920,7 +2162,7 @@
 /obj/item/pickaxe,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2929,7 +2171,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2938,11 +2180,11 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fP" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2960,9 +2202,7 @@
 	req_access_txt = "271"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fR" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2981,14 +2221,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fS" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fT" = (
 /obj/structure/filingcabinet,
 /obj/item/paper{
@@ -2999,9 +2237,7 @@
 	dir = 9;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "fU" = (
 /obj/structure/sign/poster/official/safety_report{
 	pixel_y = 32
@@ -3014,33 +2250,14 @@
 	dir = 5;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"fV" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fW" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"fX" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"fY" = (
-/obj/item/cigbutt,
-/turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "fZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3055,19 +2272,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
-"ga" = (
-/turf/simulated/floor/plating,
-/area/awaycontent/a7)
-"gb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gc" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -3085,9 +2290,7 @@
 	item_state = "coil_red1"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gd" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood{
@@ -3098,9 +2301,7 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ge" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -3111,9 +2312,7 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gf" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -3125,9 +2324,7 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gg" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -3141,9 +2338,7 @@
 	icon_state = "gibdown1_flesh"
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gh" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3161,17 +2356,7 @@
 	color = "black"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
-"gi" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "gj" = (
 /obj/item/clothing/suit/armor/vest,
 /obj/item/reagent_containers/spray/pepper,
@@ -3190,9 +2375,7 @@
 	dir = 1;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gk" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -30
@@ -3201,17 +2384,13 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gl" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gm" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -3223,18 +2402,14 @@
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "go" = (
 /obj/structure/sign/biohazard{
 	pixel_x = 32
@@ -3253,9 +2428,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gp" = (
 /obj/machinery/door/firedoor,
 /obj/structure/extinguisher_cabinet{
@@ -3267,9 +2440,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gq" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3280,9 +2451,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gr" = (
 /obj/structure/table,
 /obj/item/scalpel{
@@ -3297,18 +2466,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gs" = (
 /obj/structure/alien/weeds/node,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gt" = (
 /obj/structure/sink{
 	dir = 8;
@@ -3318,17 +2483,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gu" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gv" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -3348,9 +2509,7 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gw" = (
 /obj/structure/disposalpipe/segment{
 	desc = "An underfloor disposal pipe. This one has been applied with an acid-proof coating.";
@@ -3360,9 +2519,7 @@
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gx" = (
 /obj/structure/disposalpipe/segment{
 	desc = "An underfloor disposal pipe. This one has been applied with an acid-proof coating.";
@@ -3372,17 +2529,7 @@
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"gy" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gz" = (
 /obj/structure/alien/weeds/node,
 /obj/structure/alien/resin/wall,
@@ -3398,18 +2545,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3417,9 +2560,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gD" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -3432,9 +2573,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gE" = (
 /obj/structure/chair{
 	dir = 4
@@ -3446,9 +2585,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gF" = (
 /obj/item/stack/rods,
 /obj/item/shard{
@@ -3463,26 +2600,20 @@
 	dir = 4;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gG" = (
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gH" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
 /obj/item/stack/rods,
 /obj/item/shard,
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gI" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
@@ -3491,9 +2622,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gJ" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -3506,9 +2635,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gK" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/light/small{
@@ -3541,13 +2668,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gL" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "gM" = (
 /obj/structure/table/reinforced,
 /obj/structure/alien/weeds,
@@ -3561,9 +2686,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gN" = (
 /obj/structure/disposalpipe/segment{
 	desc = "An underfloor disposal pipe. This one has been applied with an acid-proof coating.";
@@ -3571,9 +2694,7 @@
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gO" = (
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
@@ -3588,9 +2709,7 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gP" = (
 /obj/effect/decal/cleanable/blood/oil{
 	color = "black"
@@ -3612,7 +2731,7 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "gQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3623,7 +2742,7 @@
 /obj/item/stack/rods,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "gR" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -3633,9 +2752,7 @@
 	dir = 4;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gS" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -3645,9 +2762,7 @@
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gU" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Post";
@@ -3656,9 +2771,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gV" = (
 /obj/machinery/optable,
 /obj/structure/alien/weeds,
@@ -3666,9 +2779,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gW" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
@@ -3678,9 +2789,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gX" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/item/paper{
@@ -3703,17 +2812,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gY" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "gZ" = (
 /obj/machinery/computer/operating,
 /obj/structure/alien/weeds,
@@ -3721,9 +2826,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ha" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
@@ -3731,9 +2834,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hb" = (
 /obj/structure/disposaloutlet{
 	desc = "An outlet for the pneumatic disposal system. This one has been applied with an acid-proof coating.";
@@ -3747,9 +2848,7 @@
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hc" = (
 /obj/machinery/light{
 	active_power_usage = 0;
@@ -3763,9 +2862,7 @@
 	network = list("MO19X")
 	},
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hd" = (
 /obj/machinery/sparker{
 	desc = "A wall-mounted ignition device. This one has been applied with an acid-proof coating.";
@@ -3776,9 +2873,7 @@
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "he" = (
 /obj/machinery/shieldwallgen{
 	locked = 0;
@@ -3786,9 +2881,7 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3805,9 +2898,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hg" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -3815,12 +2906,12 @@
 /obj/item/stock_parts/cell/high,
 /obj/item/radio/off,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "hh" = (
 /obj/machinery/light/small,
 /obj/structure/closet/toolcloset,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "hi" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
@@ -3831,9 +2922,7 @@
 	dir = 10;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hj" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -3845,18 +2934,14 @@
 	dir = 6;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hk" = (
 /obj/structure/table,
 /obj/item/folder/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hl" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3869,16 +2954,16 @@
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "hm" = (
 /obj/machinery/computer/monitor/secret,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "hn" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "ho" = (
 /obj/structure/closet/crate/can,
 /obj/item/clothing/gloves/color/latex,
@@ -3893,9 +2978,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hp" = (
 /obj/structure/table,
 /obj/item/storage/box/gloves,
@@ -3903,9 +2986,7 @@
 	dir = 8;
 	icon_state = "whitecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hq" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm{
@@ -3921,9 +3002,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hr" = (
 /obj/structure/table,
 /obj/item/retractor,
@@ -3933,9 +3012,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hs" = (
 /obj/structure/table,
 /obj/item/cartridge/signal/toxins,
@@ -3950,9 +3027,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ht" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light/small{
@@ -3973,16 +3048,14 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hu" = (
 /obj/structure/closet/crate,
 /obj/item/storage/box/lights/mixed,
 /obj/item/poster/random_contraband,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "hv" = (
 /obj/machinery/door_control{
 	id = "Awaybiohazard";
@@ -4001,16 +3074,12 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hw" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hx" = (
 /obj/structure/grille,
 /obj/machinery/door/poddoor{
@@ -4019,9 +3088,7 @@
 	},
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hy" = (
 /obj/item/stack/rods,
 /obj/item/shard{
@@ -4030,9 +3097,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hz" = (
 /obj/effect/decal/cleanable/blood/gibs/robot,
 /obj/effect/decal/cleanable/blood/oil{
@@ -4053,9 +3118,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hA" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
@@ -4064,9 +3127,7 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hB" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/fire,
@@ -4078,26 +3139,14 @@
 	dir = 8;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"hC" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
-	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hE" = (
 /obj/machinery/light{
 	active_power_usage = 0;
@@ -4114,9 +3163,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hF" = (
 /obj/structure/noticeboard{
 	dir = 1;
@@ -4140,17 +3187,13 @@
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hH" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -4160,7 +3203,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "hI" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
@@ -4174,20 +3217,14 @@
 	dir = 8;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hJ" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "hK" = (
 /turf/simulated/wall,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "hL" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4197,7 +3234,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "hM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4207,16 +3244,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "hN" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hO" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
@@ -4229,18 +3264,14 @@
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hP" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hQ" = (
 /obj/structure/toilet{
 	dir = 4
@@ -4252,9 +3283,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "hR" = (
 /obj/structure/urinal{
 	pixel_y = 29
@@ -4262,9 +3291,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "hS" = (
 /obj/machinery/door/airlock{
 	name = "Unit 2"
@@ -4272,9 +3299,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "hT" = (
 /obj/structure/sink{
 	dir = 4;
@@ -4290,9 +3315,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "hU" = (
 /obj/machinery/shower{
 	pixel_y = 16
@@ -4301,9 +3324,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "hV" = (
 /obj/machinery/shower{
 	pixel_y = 16
@@ -4311,22 +3332,16 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "hW" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "hX" = (
 /obj/item/clothing/suit/storage/labcoat,
 /obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hY" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -4344,9 +3359,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "hZ" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -4357,9 +3370,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ia" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -4374,9 +3385,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ib" = (
 /obj/machinery/computer/aifixer,
 /obj/structure/window/reinforced{
@@ -4386,9 +3395,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ic" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
@@ -4401,9 +3408,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "id" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
@@ -4415,9 +3420,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ie" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced{
@@ -4428,17 +3431,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "if" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ig" = (
 /obj/structure/closet/l3closet/general,
 /obj/effect/decal/cleanable/dirt,
@@ -4446,9 +3445,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ih" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/hud/health,
@@ -4461,9 +3458,7 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ii" = (
 /obj/structure/closet/l3closet/general,
 /obj/machinery/light/small{
@@ -4475,18 +3470,14 @@
 	dir = 1;
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ij" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ik" = (
 /obj/machinery/alarm/monitor{
 	dir = 4;
@@ -4499,9 +3490,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "il" = (
 /obj/structure/sink{
 	dir = 4;
@@ -4516,16 +3505,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "im" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "in" = (
 /obj/item/soap/nanotrasen,
 /obj/machinery/light/small{
@@ -4534,9 +3519,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "io" = (
 /obj/machinery/shower{
 	dir = 8
@@ -4544,9 +3527,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ip" = (
 /obj/structure/rack,
 /obj/item/paicard{
@@ -4556,9 +3537,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iq" = (
 /obj/structure/window/reinforced,
 /obj/item/clothing/suit/storage/labcoat,
@@ -4567,9 +3546,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ir" = (
 /obj/structure/chair/office/light{
 	dir = 1;
@@ -4579,25 +3556,19 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "is" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "it" = (
 /obj/structure/rack,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iu" = (
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
@@ -4605,17 +3576,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iv" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iw" = (
 /obj/item/storage/secure/safe{
 	pixel_x = 32
@@ -4630,9 +3597,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ix" = (
 /obj/structure/toilet{
 	dir = 4
@@ -4643,9 +3608,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iy" = (
 /obj/machinery/door/airlock{
 	name = "Unit 1"
@@ -4653,9 +3616,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iz" = (
 /obj/machinery/door/airlock{
 	name = "Unisex Showers"
@@ -4663,17 +3624,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iA" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iB" = (
 /obj/machinery/shower{
 	dir = 8
@@ -4682,36 +3639,28 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iC" = (
 /obj/structure/table,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iD" = (
 /obj/structure/table,
 /obj/item/trash/plate,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iE" = (
 /obj/structure/table,
 /obj/item/trash/raisins,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iF" = (
 /obj/machinery/door/airlock{
 	name = "Private Restroom"
@@ -4719,9 +3668,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iG" = (
 /obj/machinery/vending/medical{
 	req_access_txt = "271"
@@ -4729,9 +3676,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iH" = (
 /obj/structure/sink{
 	pixel_y = 28
@@ -4742,9 +3687,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iI" = (
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
@@ -4763,9 +3706,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iJ" = (
 /obj/machinery/newscaster{
 	name = "custom placement";
@@ -4775,9 +3716,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iK" = (
 /obj/structure/table,
 /obj/item/radio/off,
@@ -4786,9 +3725,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iL" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4798,7 +3735,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "iM" = (
 /obj/structure/sign/securearea{
 	pixel_y = 32
@@ -4811,18 +3748,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iN" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iO" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -4833,18 +3766,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iP" = (
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "iQ" = (
 /obj/machinery/shower{
 	dir = 1
@@ -4852,9 +3781,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iR" = (
 /obj/structure/chair{
 	dir = 1
@@ -4863,9 +3790,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iS" = (
 /obj/structure/chair{
 	dir = 1
@@ -4873,9 +3798,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iT" = (
 /obj/structure/chair{
 	dir = 1
@@ -4886,25 +3809,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iU" = (
 /obj/machinery/computer/security/telescreen/entertainment,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iV" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iW" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -4912,9 +3829,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iX" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -4923,17 +3838,13 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iY" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "iZ" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -4941,9 +3852,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ja" = (
 /turf/simulated/mineral,
 /area/ruin/space/unpowered)
@@ -4964,9 +3873,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "jd" = (
 /obj/structure/sink{
 	dir = 8;
@@ -4978,18 +3885,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "je" = (
 /obj/machinery/vending/snack,
 /obj/structure/sign/poster/official/ue_no{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jf" = (
 /obj/machinery/door/airlock{
 	name = "Unisex Restrooms"
@@ -4997,33 +3900,25 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jg" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jh" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ji" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jj" = (
 /obj/structure/closet/crate/can,
 /obj/machinery/light/small{
@@ -5034,30 +3929,22 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jl" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jm" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jn" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/light/small,
@@ -5065,18 +3952,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "jo" = (
 /obj/effect/decal/cleanable/flour,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jp" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 4;
@@ -5088,9 +3971,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -5106,9 +3987,7 @@
 	name = "Serving Hatch"
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jr" = (
 /obj/item/storage/backpack/satchel_tox,
 /obj/item/clothing/gloves/color/latex,
@@ -5117,18 +3996,14 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "js" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jt" = (
 /obj/structure/closet/crate/can,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5138,9 +4013,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ju" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5152,30 +4025,22 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jv" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jw" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jx" = (
 /obj/structure/table,
 /obj/item/book/manual/detective,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jy" = (
 /obj/structure/sign/science{
 	pixel_y = 32
@@ -5185,17 +4050,13 @@
 	dir = 9;
 	icon_state = "purple"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jz" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5204,9 +4065,7 @@
 	dir = 1;
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "jB" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood{
@@ -5214,14 +4073,7 @@
 	},
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"jC" = (
-/turf/simulated/mineral,
-/area/awaycontent/a4{
-	name = "Syndicate Outpost"
-	})
+/area/ruin/space/unpowered)
 "jD" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -5233,9 +4085,7 @@
 	},
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "jE" = (
 /obj/item/twohanded/required/kirbyplants{
 	desc = "A plastic potted plant.";
@@ -5244,35 +4094,25 @@
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jG" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jH" = (
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jI" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jJ" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
@@ -5281,9 +4121,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "jK" = (
 /obj/structure/noticeboard{
 	pixel_y = 32
@@ -5294,18 +4132,14 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jL" = (
 /obj/machinery/alarm/monitor{
 	locked = 0;
 	pixel_y = 23
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jM" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -5315,32 +4149,24 @@
 /obj/item/newspaper,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jN" = (
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jO" = (
 /obj/structure/grille,
 /obj/structure/window/full/basic,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jP" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "jQ" = (
 /obj/structure/table,
 /obj/item/book/manual/barman_recipes{
@@ -5351,9 +4177,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jR" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
@@ -5364,18 +4188,14 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jS" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jT" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -5385,9 +4205,7 @@
 	name = "Serving Hatch"
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jU" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -5396,9 +4214,7 @@
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jV" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -5406,9 +4222,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jW" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5417,9 +4231,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "jX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5427,9 +4239,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "jY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -5444,18 +4254,14 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "jZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "ka" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Storage";
@@ -5464,13 +4270,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "kb" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "kc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5480,24 +4284,20 @@
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "kd" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ke" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kf" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
@@ -5507,18 +4307,14 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "kg" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kh" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5531,9 +4327,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ki" = (
 /obj/machinery/door/airlock/research{
 	id_tag = "";
@@ -5544,9 +4338,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "kj" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -5568,9 +4360,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
+/area/ruin/space/unpowered)
 "kk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5580,7 +4370,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "kl" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5590,9 +4380,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "km" = (
 /obj/structure/closet/crate/can,
 /obj/item/trash/candy,
@@ -5600,9 +4388,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5614,16 +4400,14 @@
 	color = "black"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "ko" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Diner"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kq" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
@@ -5632,9 +4416,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kr" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/chef_recipes{
@@ -5646,18 +4428,14 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ks" = (
 /obj/effect/decal/cleanable/plant_smudge,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kt" = (
 /obj/machinery/light{
 	dir = 4
@@ -5672,9 +4450,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ku" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5689,24 +4465,18 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kv" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kw" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kx" = (
 /obj/machinery/light/small,
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -5720,17 +4490,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ky" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitecorner"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kz" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
@@ -5738,9 +4504,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kA" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5753,9 +4517,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kB" = (
 /obj/machinery/door/firedoor{
 	density = 1;
@@ -5764,9 +4526,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5774,9 +4534,7 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kD" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -5792,16 +4550,12 @@
 	start_charge = 100
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kE" = (
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5815,9 +4569,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kG" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5831,9 +4583,7 @@
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kH" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5848,9 +4598,7 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kI" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5864,9 +4612,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kJ" = (
 /obj/machinery/door/firedoor{
 	density = 1;
@@ -5874,9 +4620,7 @@
 	opacity = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kK" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
@@ -5884,9 +4628,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kL" = (
 /obj/effect/decal/cleanable/blood/xeno{
 	color = "green"
@@ -5895,9 +4637,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kM" = (
 /obj/effect/decal/cleanable/blood/xeno{
 	color = "green"
@@ -5908,9 +4648,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kN" = (
 /obj/structure/closet/crate/can,
 /obj/item/trash/plate,
@@ -5919,17 +4657,13 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kO" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kP" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -5945,9 +4679,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5961,9 +4693,7 @@
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kR" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5982,9 +4712,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kS" = (
 /obj/machinery/door/firedoor{
 	density = 1;
@@ -5994,9 +4722,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kT" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/remains/human{
@@ -6006,9 +4732,7 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kU" = (
 /obj/machinery/light/small,
 /obj/structure/cable{
@@ -6022,9 +4746,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kV" = (
 /obj/machinery/door_control{
 	id = "awaydorm1";
@@ -6034,9 +4756,7 @@
 	specialfunctions = 4
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kW" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -6049,33 +4769,25 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kX" = (
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kY" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "blue"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "kZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "blue"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "la" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -6087,18 +4799,14 @@
 	dir = 0;
 	icon_state = "blue"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lb" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lc" = (
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
@@ -6113,32 +4821,24 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ld" = (
 /turf/simulated/wall/mineral/titanium,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "lg" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "li" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -6150,17 +4850,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
-"lj" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ll" = (
 /obj/item/stack/rods,
 /obj/structure/grille/broken,
@@ -6171,9 +4861,7 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lm" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
@@ -6181,29 +4869,21 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ln" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lo" = (
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lp" = (
 /obj/machinery/door/airlock{
 	id_tag = "awaydorm1";
 	name = "Dorm 1"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lq" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -6215,9 +4895,7 @@
 	pixel_x = 23
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lr" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -6232,9 +4910,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ls" = (
 /obj/structure/chair{
 	dir = 8
@@ -6242,9 +4918,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lt" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 4;
@@ -6259,9 +4933,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lu" = (
 /obj/machinery/door_control{
 	id = "awaykitchen";
@@ -6273,16 +4945,12 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lv" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lw" = (
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
@@ -6293,17 +4961,13 @@
 	icon_state = "showroomfloor";
 	temperature = 273.15
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lx" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ly" = (
 /obj/structure/closet/crate{
 	desc = "It's a storage unit for kitchen clothes and equipment.";
@@ -6315,9 +4979,7 @@
 	icon_state = "showroomfloor";
 	temperature = 273.15
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
@@ -6325,25 +4987,19 @@
 	icon_state = "neutral";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lF" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
 	icon_state = "burst_r"
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "lG" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lH" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
@@ -6351,16 +5007,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lJ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -6375,9 +5027,7 @@
 	dir = 1;
 	icon_state = "purplecorner"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lK" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -6386,25 +5036,19 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "lL" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lM" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lN" = (
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
@@ -6413,28 +5057,20 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lO" = (
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lP" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lQ" = (
 /obj/effect/decal/cleanable/blood/oil{
 	color = "black"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lR" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -6456,24 +5092,18 @@
 	dir = 4;
 	icon_state = "purplecorner"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lS" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lT" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lU" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -6481,9 +5111,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lV" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -6496,31 +5124,23 @@
 	icon_state = "showroomfloor";
 	temperature = 273.15
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "lX" = (
 /obj/structure/table,
 /obj/item/storage/lockbox,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "lY" = (
 /obj/structure/table,
 /obj/item/radio/off,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "ma" = (
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mb" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -6529,22 +5149,16 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mc" = (
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "md" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "me" = (
 /obj/machinery/newscaster{
 	name = "custom placement";
@@ -6554,47 +5168,35 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mf" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mg" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
 	icon_state = "burst_l"
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mi" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mj" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mk" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/cleanable/dirt,
@@ -6602,26 +5204,20 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ml" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mm" = (
 /obj/structure/table,
 /obj/item/storage/backpack/satchel/withwallet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -6637,9 +5233,7 @@
 	dir = 4;
 	icon_state = "purplecorner"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mo" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -6649,9 +5243,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mp" = (
 /obj/machinery/door/firedoor{
 	density = 1;
@@ -6668,16 +5260,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mq" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mr" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -6686,14 +5274,10 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "ms" = (
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mt" = (
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -6709,9 +5293,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mw" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 4;
@@ -6722,9 +5304,7 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mx" = (
 /obj/structure/grille,
 /obj/structure/sign/vacuum{
@@ -6733,9 +5313,7 @@
 	},
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "my" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -6745,16 +5323,12 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mz" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mA" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -6769,25 +5343,19 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mB" = (
 /obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mC" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mD" = (
 /obj/machinery/vending/cigarette,
 /obj/structure/sign/poster/contraband/smoke{
@@ -6796,9 +5364,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mE" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -6807,9 +5373,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mF" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey{
@@ -6826,88 +5390,55 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mG" = (
 /obj/structure/chair/comfy/beige,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mH" = (
 /obj/machinery/computer/shuttle,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mI" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Shuttle Cockpit"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mJ" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
-"mK" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
-/turf/simulated/floor/plating,
-/area/awaycontent/a7)
+/area/ruin/space/unpowered)
 "mL" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Shuttle Airlock"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mM" = (
 /obj/structure/closet/emcloset,
 /obj/structure/window/basic,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mN" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mO" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
-"mP" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mQ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
@@ -6916,9 +5447,7 @@
 	network = list("MO19")
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mS" = (
 /obj/machinery/firealarm/no_alarm{
 	dir = 4;
@@ -6926,9 +5455,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mT" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -6938,9 +5465,7 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mU" = (
 /obj/machinery/door/airlock{
 	id_tag = "awaydorm2";
@@ -6954,9 +5479,7 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mV" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -6967,49 +5490,37 @@
 	pixel_x = 23
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "mW" = (
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/pen,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mX" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "mZ" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "na" = (
 /obj/item/cigbutt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nb" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nc" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -7017,9 +5528,7 @@
 	color = "red"
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nd" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -7034,24 +5543,18 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ng" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "nh" = (
 /obj/machinery/light/small,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "ni" = (
 /obj/machinery/newscaster{
 	name = "custom placement";
@@ -7059,9 +5562,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "nj" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
@@ -7077,9 +5578,7 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nk" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -7092,30 +5591,22 @@
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nl" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/generic,
 /obj/structure/window/basic,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nm" = (
 /obj/item/cigbutt,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/candy,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "np" = (
 /obj/structure/sign/vacuum{
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
@@ -7123,24 +5614,18 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nq" = (
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 "nr" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ns" = (
 /obj/structure/table,
 /obj/item/deck/cards,
@@ -7150,28 +5635,20 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nt" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nu" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nv" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nx" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -7181,9 +5658,7 @@
 	icon_state = "asteroidplating";
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ny" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -7200,18 +5675,14 @@
 	icon_state = "barber";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nz" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "barber";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nA" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -7223,30 +5694,22 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nB" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nC" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nD" = (
 /obj/effect/landmark/damageturf,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nE" = (
 /obj/machinery/alarm/monitor{
 	dir = 8;
@@ -7257,31 +5720,23 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nG" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nI" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -7297,9 +5752,7 @@
 	layer = 4.1
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nJ" = (
 /obj/structure/dresser,
 /obj/item/paper{
@@ -7307,17 +5760,13 @@
 	name = "Note"
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nL" = (
 /obj/structure/sign/vacuum{
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
@@ -7325,23 +5774,17 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nM" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nO" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -7352,18 +5795,14 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nP" = (
 /obj/item/pen,
 /obj/item/storage/pill_bottle{
 	pixel_y = 6
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nQ" = (
 /obj/machinery/door/airlock{
 	icon_state = "door_locked";
@@ -7372,32 +5811,24 @@
 	name = "Dorm 3"
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nR" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nS" = (
 /obj/structure/closet,
 /obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nT" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 4;
 	icon_state = "neutral";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nU" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -7410,26 +5841,20 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nV" = (
 /obj/machinery/newscaster{
 	name = "custom placement";
 	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nW" = (
 /obj/structure/grille,
 /obj/structure/disposalpipe/segment,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nX" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7451,18 +5876,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nY" = (
 /turf/simulated/floor/plasteel/airless{
 	dir = 4;
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "nZ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -7472,22 +5893,16 @@
 	icon_state = "asteroidplating";
 	name = "plating"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oa" = (
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ob" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oc" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7497,9 +5912,7 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "od" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/airless{
@@ -7521,28 +5934,17 @@
 	icon_state = "neutral";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oi" = (
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/plating/airless,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ok" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
-"ol" = (
-/turf/simulated/mineral,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "om" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -7566,9 +5968,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "op" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -7576,9 +5976,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oq" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -7588,18 +5986,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "or" = (
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "os" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -7610,9 +6004,7 @@
 	dir = 5;
 	icon_state = "cafeteria"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ot" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -7628,44 +6020,32 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ou" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ov" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ow" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "ox" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oz" = (
 /obj/machinery/door/firedoor{
 	density = 1;
@@ -7677,16 +6057,12 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oA" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oB" = (
 /obj/structure/table,
 /obj/item/multitool,
@@ -7694,17 +6070,13 @@
 	dir = 0;
 	icon_state = "blue"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oD" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -7715,9 +6087,7 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oE" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen Cold Room";
@@ -7726,9 +6096,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oF" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -7739,9 +6107,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/airless{
@@ -7749,9 +6115,7 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
@@ -7761,9 +6125,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oI" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -7775,9 +6137,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oJ" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
@@ -7787,9 +6147,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oK" = (
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
@@ -7800,9 +6158,7 @@
 	icon_state = "showroomfloor";
 	temperature = 273.15
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oL" = (
 /obj/structure/closet/secure_closet{
 	locked = 0;
@@ -7817,9 +6173,7 @@
 	icon_state = "showroomfloor";
 	temperature = 273.15
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oM" = (
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
@@ -7830,9 +6184,7 @@
 	icon_state = "showroomfloor";
 	temperature = 273.15
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oO" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6;
@@ -7840,25 +6192,19 @@
 	},
 /obj/machinery/meter,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/wall,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
@@ -7869,15 +6215,11 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oT" = (
 /obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oU" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -7895,9 +6237,7 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oW" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -7906,17 +6246,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oX" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oY" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -7930,45 +6266,33 @@
 	icon_state = "neutralcorner";
 	name = "floor"
 	},
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "oZ" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/assistantformal,
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "pa" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "pe" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "271"
 	},
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "pg" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/suit_jacket/burgundy,
 /turf/simulated/floor/carpet,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/unpowered)
 "xB" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/awaycontent/a1{
-	name = "MO19 Arrivals"
-	})
+/area/ruin/space/powered)
 
 (1,1,1) = {"
 aa
@@ -8340,10 +6664,10 @@ ja
 ja
 ja
 ja
-ac
-ac
-ac
-ac
+aB
+aB
+aB
+aB
 ja
 ja
 ja
@@ -8428,14 +6752,14 @@ ja
 ja
 ja
 ja
-ac
-ac
-ac
+aB
+aB
+aB
 ag
 ag
-ac
-ac
-ac
+aB
+aB
+aB
 ja
 ja
 ja
@@ -8518,15 +6842,15 @@ ja
 ja
 ja
 ja
-ac
-ah
+aB
+gS
 ag
-ak
-ah
-ak
-ah
-ac
-ac
+mt
+gS
+mt
+gS
+aB
+aB
 ja
 ja
 ja
@@ -8607,16 +6931,16 @@ ja
 ja
 ja
 ja
-ac
-ac
-ak
-ah
-ah
-ak
+aB
+aB
+mt
+gS
+gS
+mt
 aL
-ah
+gS
 ag
-ac
+aB
 ja
 ja
 ja
@@ -8697,16 +7021,16 @@ ja
 ja
 ja
 ja
-ac
-ah
-ah
-aC
+aB
+gS
+gS
+gz
 aj
-ah
-ah
-aC
-ah
-ac
+gS
+gS
+gz
+gS
+aB
 ja
 ja
 ja
@@ -8787,16 +7111,16 @@ ja
 ja
 ja
 ja
-ac
-ah
-ah
+aB
+gS
+gS
 aj
-ah
+gS
 aS
 at
 bi
 bb
-ac
+aB
 ja
 ja
 ja
@@ -8877,16 +7201,16 @@ ja
 ja
 ja
 ja
-ac
+aB
 ag
 bj
-ah
-ah
-ah
+gS
+gS
+gS
 bb
 av
-ah
-ac
+gS
+aB
 ja
 ja
 ja
@@ -8967,16 +7291,16 @@ ja
 ja
 ja
 ja
-ac
+aB
 aj
 at
-ah
-ah
-am
-ah
+gS
+gS
+ay
+gS
 bj
-ak
-ac
+mt
+aB
 ja
 ja
 ja
@@ -9057,16 +7381,16 @@ ja
 ja
 ja
 ja
-ac
+aB
 ap
 aw
-ah
-ah
-ah
-ah
-ak
-ah
-ac
+gS
+gS
+gS
+gS
+mt
+gS
+aB
 ja
 ja
 ja
@@ -9147,16 +7471,16 @@ ja
 ja
 ja
 ja
-ac
-ah
+aB
+gS
 av
-ac
-ah
-ah
-ah
-aC
+aB
+gS
+gS
+gS
+gz
 ag
-ac
+aB
 ja
 ja
 ja
@@ -9237,16 +7561,16 @@ ja
 ja
 ja
 ja
-ac
-ac
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ac
+aB
+aB
+gS
+gS
+gS
+gS
+gS
+gS
+gS
+aB
 ja
 ja
 ja
@@ -9259,10 +7583,10 @@ ja
 ja
 ja
 ja
-ac
-ac
-ac
-ac
+aB
+aB
+aB
+aB
 ja
 ja
 ja
@@ -9328,15 +7652,15 @@ ja
 ja
 ja
 ja
-ac
+aB
 ag
-ah
-ah
-ah
-ah
-ah
-ah
-ac
+gS
+gS
+gS
+gS
+gS
+gS
+aB
 ja
 ja
 ja
@@ -9348,12 +7672,12 @@ ja
 ja
 ja
 ja
-ac
-ac
+aB
+aB
 dN
 aj
-ac
-ac
+aB
+aB
 ja
 ja
 ja
@@ -9418,15 +7742,15 @@ ja
 ja
 ja
 ja
-ac
-ac
-ah
-ah
-am
-ah
-ah
-ac
-ac
+aB
+aB
+gS
+gS
+ay
+gS
+gS
+aB
+aB
 ja
 ja
 ja
@@ -9437,13 +7761,13 @@ ja
 ja
 ja
 ja
-ac
-ac
+aB
+aB
 ag
 dO
 dS
-ah
-ac
+gS
+aB
 ja
 ja
 ja
@@ -9509,13 +7833,13 @@ ja
 ja
 ja
 ja
-ac
-ac
-ah
-ah
-ah
-ac
-ac
+aB
+aB
+gS
+gS
+gS
+aB
+aB
 ja
 ja
 ja
@@ -9527,13 +7851,13 @@ ja
 ja
 ja
 ja
-ac
+aB
 aj
-ah
-am
-ah
+gS
+ay
+gS
 ag
-ac
+aB
 ja
 ja
 ja
@@ -9600,11 +7924,11 @@ ja
 ja
 ja
 ja
-ac
-ac
-ac
-ac
-ac
+aB
+aB
+aB
+aB
+aB
 ja
 ja
 ja
@@ -9615,15 +7939,15 @@ ja
 ja
 ja
 ja
-ac
-ac
-ac
-ah
-ah
-ah
+aB
+aB
+aB
+gS
+gS
+gS
 aj
-ac
-ac
+aB
+aB
 ja
 ja
 ja
@@ -9690,10 +8014,10 @@ ja
 ja
 ja
 ja
-ac
-am
-am
-ac
+aB
+ay
+ay
+aB
 ja
 ja
 ja
@@ -9704,15 +8028,15 @@ ja
 ja
 ja
 ja
-ac
-ac
-ah
+aB
+aB
+gS
 ai
-ah
+gS
 ag
-ac
-ac
-ac
+aB
+aB
+aB
 ja
 ja
 ja
@@ -9780,27 +8104,27 @@ ja
 ja
 ja
 ja
-ac
-ah
-ah
-ac
-ac
+aB
+gS
+gS
+aB
+aB
 ja
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ah
-ah
-ac
-ac
-ac
-ac
+aB
+aB
+aB
+aB
+aB
+aB
+aB
+aB
+aB
+gS
+gS
+aB
+aB
+aB
+aB
 ja
 ja
 ja
@@ -9870,24 +8194,24 @@ ja
 ja
 ja
 ja
-ac
-ah
-ah
-ah
-ac
-ac
-ac
-ah
-ah
-ah
-ah
-ah
-ah
-ac
-ac
-ah
-ac
-ac
+aB
+gS
+gS
+gS
+aB
+aB
+aB
+gS
+gS
+gS
+gS
+gS
+gS
+aB
+aB
+gS
+aB
+aB
 ja
 ja
 ja
@@ -9960,23 +8284,23 @@ ja
 ja
 ja
 ja
-ac
-ac
-ah
-ah
-ah
-ac
-ah
-ah
-ah
-ah
-ah
-ah
-am
-ah
-ah
-ah
-ac
+aB
+aB
+gS
+gS
+gS
+aB
+gS
+gS
+gS
+gS
+gS
+gS
+ay
+gS
+gS
+gS
+aB
 ja
 ja
 ja
@@ -10044,29 +8368,29 @@ aa
 ja
 ja
 ja
-ac
-ac
-ac
-ac
+aB
+aB
+aB
+aB
 ja
 ja
 ja
-ac
-ac
-ah
-am
-ah
-ah
-ah
-ac
-ac
-ac
-ac
-ah
-ah
-ah
-ac
-ac
+aB
+aB
+gS
+ay
+gS
+gS
+gS
+aB
+aB
+aB
+aB
+gS
+gS
+gS
+aB
+aB
 ja
 ja
 ja
@@ -10133,29 +8457,29 @@ aa
 (25,1,1) = {"
 ja
 ja
-ac
-ac
+aB
+aB
 ag
 aj
-ac
-ac
-ac
-ac
-ac
-ac
-ah
-ah
-ah
-ah
-ac
-ac
+aB
+aB
+aB
+aB
+aB
+aB
+gS
+gS
+gS
+gS
+aB
+aB
 bl
 bl
-ac
-ac
-ah
-ah
-ac
+aB
+aB
+gS
+gS
+aB
 ja
 ja
 ja
@@ -10223,29 +8547,29 @@ ja
 (26,1,1) = {"
 ja
 ja
-ac
+aB
 ag
-ah
+gS
 ai
-ah
-ac
-ac
-ah
-ah
-ah
-ah
-ah
-ah
-ac
-ac
+gS
+aB
+aB
+gS
+gS
+gS
+gS
+gS
+gS
+aB
+aB
 bl
 bl
 bl
-ac
-ah
-ah
-ah
-ac
+aB
+gS
+gS
+gS
+aB
 ja
 ja
 ja
@@ -10313,29 +8637,29 @@ aa
 (27,1,1) = {"
 ja
 ja
-ac
+aB
 ag
-ah
-ak
-am
-ah
-ah
-ah
-ac
-ac
-ah
-ac
-ac
-ac
+gS
+mt
+ay
+gS
+gS
+gS
+aB
+aB
+gS
+aB
+aB
+aB
 bl
 bl
 bl
 bl
-ac
-ah
-ah
-ac
-ac
+aB
+gS
+gS
+aB
+aB
 ja
 ja
 ja
@@ -10403,28 +8727,28 @@ aa
 (28,1,1) = {"
 ja
 ja
-ac
-ac
-ac
+aB
+aB
+aB
 aj
 aj
-ac
-ac
-ac
-ac
-ac
-ah
-ac
+aB
+aB
+aB
+aB
+aB
+gS
+aB
 bl
 bl
 bl
 bl
 bl
 bl
-ac
-ah
-ah
-ac
+aB
+gS
+gS
+aB
 ja
 ja
 ja
@@ -10495,28 +8819,28 @@ ja
 ja
 ja
 ja
-ac
-ac
-ac
-ac
+aB
+aB
+aB
+aB
 ja
 ja
 ja
-ac
+aB
 aL
-ac
-ac
+aB
+aB
 bl
 bl
 bl
 bl
 bl
-ac
-ah
+aB
+gS
 dd
-ac
-ac
-ac
+aB
+aB
+aB
 ja
 ja
 ja
@@ -10592,23 +8916,23 @@ ja
 ja
 ja
 ja
-ac
-ah
-ah
-ac
+aB
+gS
+gS
+aB
 bl
 bl
 bl
 bl
 bl
-ac
-ah
-ah
-ah
-ah
-ac
-ac
-ac
+aB
+gS
+gS
+gS
+gS
+aB
+aB
+aB
 ja
 ja
 ja
@@ -10636,15 +8960,15 @@ ja
 ja
 ja
 ja
-eT
-eU
-eU
-eU
-eT
-eT
-eT
-eU
-eT
+hK
+hJ
+hJ
+hJ
+hK
+hK
+hK
+hJ
+hK
 dA
 dA
 ld
@@ -10680,26 +9004,26 @@ ja
 ja
 ja
 ja
-ac
-ac
-ac
-ah
-ah
-ac
-ac
+aB
+aB
+aB
+gS
+gS
+aB
+aB
 bl
 bl
 bl
 bl
-ac
-ac
-ah
-ah
-ah
-ah
-ah
-ac
-ac
+aB
+aB
+gS
+gS
+gS
+gS
+gS
+aB
+aB
 aB
 aB
 gz
@@ -10716,17 +9040,17 @@ ja
 ja
 ja
 ja
-eT
-eT
-eT
-eU
-eT
-eU
-eU
+hK
+hK
+hK
+hJ
+hK
+hJ
+hJ
 ja
 ja
 ja
-eU
+hJ
 hu
 fe
 fO
@@ -10734,7 +9058,7 @@ kk
 fO
 kn
 kc
-eT
+hK
 dA
 dA
 ld
@@ -10769,27 +9093,27 @@ ja
 ja
 ja
 ja
-ac
-ac
+aB
+aB
 aI
-ah
-ah
-am
+gS
+gS
+ay
 ag
-ac
+aB
 bl
 bl
 bl
-ac
-ac
-ah
-ah
-ac
-ac
-ah
-ah
-ah
-ac
+aB
+aB
+gS
+gS
+aB
+aB
+gS
+gS
+gS
+aB
 ay
 gS
 gS
@@ -10806,25 +9130,25 @@ ja
 ja
 ja
 ja
-eT
+hK
 eY
 fx
 fS
-ga
+lO
 hg
-eU
-eT
-eU
-eT
-eT
+hJ
+hK
+hJ
+hK
+hK
 kb
 iL
-eV
-eV
+ea
+ea
 fP
 fP
 fr
-eU
+hJ
 dA
 dA
 ld
@@ -10859,27 +9183,27 @@ ja
 ja
 ja
 ja
-ac
+aB
 aD
 aK
 ai
-ah
+gS
 ag
 aj
-ac
+aB
 bl
 bl
 bl
-ac
-ah
-ah
-ac
-ac
-ac
-ac
-ah
-am
-ac
+aB
+gS
+gS
+aB
+aB
+aB
+aB
+gS
+ay
+aB
 ay
 gS
 gS
@@ -10896,13 +9220,13 @@ ja
 ja
 ja
 ja
-eU
+hJ
 dp
 fy
-fY
+nm
 gL
 fM
-eT
+hK
 hH
 fO
 hl
@@ -10913,8 +9237,8 @@ fP
 iH
 dz
 fP
-gi
-eU
+oJ
+hJ
 hJ
 dA
 ld
@@ -10949,27 +9273,27 @@ ja
 ja
 ja
 ja
-ac
+aB
 aj
 av
-ah
+gS
 aj
 aj
-ac
-ac
+aB
+aB
 bl
 bl
 bl
-ac
-ah
-ac
-ac
+aB
+gS
+aB
+aB
 ja
 ja
-ac
-ac
-ac
-ac
+aB
+aB
+aB
+aB
 aB
 gz
 gS
@@ -10986,22 +9310,22 @@ ja
 ja
 ja
 ja
-eU
+hJ
 eZ
 fr
-fV
-mK
+lP
+mJ
 hh
-eT
+hK
 fr
-eV
-eV
+ea
+ea
 fP
 fP
-eV
-eV
+ea
+ea
 iF
-dZ
+fP
 ea
 kh
 km
@@ -11039,21 +9363,21 @@ ja
 ja
 ja
 ja
-ac
-ac
-ac
-ah
-ac
-ac
-ac
+aB
+aB
+aB
+gS
+aB
+aB
+aB
 bl
 bl
 bl
 bl
-ac
-ah
-ac
-ac
+aB
+gS
+aB
+aB
 ja
 ja
 ja
@@ -11076,20 +9400,20 @@ ja
 ja
 ja
 ja
-eU
+hJ
 fc
 fN
 cf
-ff
+ln
 hn
-eT
+hK
 fr
-eV
+ea
 jr
-hC
-hC
-hC
-hC
+iY
+iY
+iY
+iY
 hD
 ea
 jE
@@ -11131,19 +9455,19 @@ ja
 ja
 ja
 ja
-ac
-ah
-ac
+aB
+gS
+aB
 bl
 bl
 bl
 bl
 bl
 bl
-ac
-ah
-ah
-ac
+aB
+gS
+gS
+aB
 ja
 ja
 ja
@@ -11166,22 +9490,22 @@ ja
 ja
 ja
 ja
-eT
+hK
 fb
 fa
 fZ
 gP
 hm
-eU
+hJ
 hL
-eV
+ea
 hs
-hC
+iY
 hD
 hY
 kj
-hC
-dZ
+iY
+fP
 jI
 jW
 kv
@@ -11221,19 +9545,19 @@ ja
 ja
 ja
 ja
-ac
-ah
-ac
+aB
+gS
+aB
 bl
 bl
 bl
 bl
 bl
 bl
-ac
-ac
-am
-ac
+aB
+aB
+ay
+aB
 ja
 ja
 ja
@@ -11256,17 +9580,17 @@ ja
 ja
 ja
 ja
-eU
-eT
-eU
-gi
-eU
-eU
-eT
+hJ
+hK
+hJ
+oJ
+hJ
+hJ
+hK
 fr
-eV
+ea
 ht
-hC
+iY
 hN
 hZ
 ir
@@ -11311,9 +9635,9 @@ ja
 ja
 ja
 ja
-ac
-am
-ac
+aB
+ay
+aB
 bl
 bl
 bl
@@ -11321,9 +9645,9 @@ bl
 bl
 bl
 bl
-ac
-ah
-ac
+aB
+gS
+aB
 ja
 ja
 ja
@@ -11346,7 +9670,7 @@ ja
 ja
 ja
 ja
-eT
+hK
 fe
 fO
 gh
@@ -11401,9 +9725,9 @@ ja
 ja
 ja
 ja
-ac
-ah
-ac
+aB
+gS
+aB
 bl
 bl
 bl
@@ -11411,9 +9735,9 @@ bl
 bl
 bl
 bl
-ac
-ah
-ac
+aB
+gS
+aB
 ja
 ja
 ja
@@ -11436,20 +9760,20 @@ ja
 ja
 ja
 ja
-eT
+hK
 fg
-eV
-eV
-eV
+ea
+ea
+ea
 fP
 fP
-eV
-eV
+ea
+ea
 hx
 jY
 hx
 ib
-hC
+iY
 iK
 ea
 jw
@@ -11491,19 +9815,19 @@ ja
 ja
 ja
 ja
-ac
-ah
-ac
+aB
+gS
+aB
 bl
 bl
 bl
 bl
 bl
 bl
-ac
-ac
-ah
-ac
+aB
+aB
+gS
+aB
 ja
 ja
 ja
@@ -11526,22 +9850,22 @@ ja
 ja
 ja
 ja
-eT
+hK
 dB
-eV
+ea
 fT
 gk
 gE
 hv
 hi
-fX
+is
 jA
 gT
 hx
 ie
 iv
 iO
-dZ
+fP
 jI
 kW
 kv
@@ -11581,19 +9905,19 @@ ja
 ja
 ja
 ja
-ac
-ah
-ac
+aB
+gS
+aB
 bl
 bl
 bl
 bl
 bl
-ac
-ac
-ah
-ah
-ac
+aB
+aB
+gS
+gS
+aB
 ja
 ja
 ja
@@ -11616,15 +9940,15 @@ dA
 ja
 ja
 ja
-eU
+hJ
 fs
 fP
 gj
-eu
+jH
 gG
 bg
 hk
-fX
+is
 jA
 gT
 hx
@@ -11670,20 +9994,20 @@ ja
 ja
 ja
 ja
-ac
-ac
-ah
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ah
-ah
-ac
-ac
+aB
+aB
+gS
+aB
+aB
+aB
+aB
+aB
+aB
+aB
+gS
+gS
+aB
+aB
 ja
 ja
 ja
@@ -11703,18 +10027,18 @@ dA
 dA
 dA
 dA
-dZ
-dZ
+fP
+fP
 ea
-eV
+ea
 fr
-eV
+ea
 fU
 gl
 gF
 gR
 hj
-fX
+is
 jA
 gT
 hx
@@ -11759,20 +10083,20 @@ aa
 ja
 ja
 ja
-ac
-ac
-ah
-ah
-ak
-ac
-ac
-ah
-ah
+aB
+aB
+gS
+gS
+mt
+aB
+aB
+gS
+gS
 bW
-ah
-ah
-ac
-ac
+gS
+gS
+aB
+aB
 ja
 ja
 ja
@@ -11795,22 +10119,22 @@ dA
 dA
 ea
 ed
-et
-eV
+jh
+ea
 ft
-eV
-fX
+ea
+is
 gU
 gH
-fX
-fX
-fX
+is
+is
+is
 jA
 hF
-eJ
+hK
 ea
-dZ
-dZ
+fP
+fP
 ea
 hK
 lR
@@ -11849,19 +10173,19 @@ aa
 ja
 ja
 ja
-ac
+aB
 aj
 aL
-ah
-ah
-ah
-ah
-ah
-ac
-ac
-ac
-ac
-ac
+gS
+gS
+gS
+gS
+gS
+aB
+aB
+aB
+aB
+aB
 ja
 ja
 ja
@@ -11884,8 +10208,8 @@ dA
 dA
 dA
 eM
-ee
-eu
+jF
+jH
 eW
 fd
 fw
@@ -11901,7 +10225,7 @@ hO
 ea
 iM
 jd
-eJ
+hK
 jy
 lJ
 ky
@@ -11938,16 +10262,16 @@ aa
 aa
 ja
 ja
-ac
-ac
+aB
+aB
 ag
-ah
-am
-ah
+gS
+ay
+gS
 ag
-ac
-ac
-ac
+aB
+aB
+aB
 ja
 ja
 ja
@@ -12028,14 +10352,14 @@ aa
 aa
 ja
 ja
-ac
+aB
 ag
-ah
-ah
+gS
+gS
 aj
 aj
-ac
-ac
+aB
+aB
 ja
 ja
 ja
@@ -12062,17 +10386,17 @@ dA
 dA
 dA
 dA
-dY
+hW
 ea
 ea
-dZ
+fP
 ea
 ea
 fQ
 gn
 ea
-dZ
-dZ
+fP
+fP
 hX
 iq
 jJ
@@ -12081,7 +10405,7 @@ id
 ea
 iN
 jn
-eJ
+hK
 jz
 mn
 jF
@@ -12119,12 +10443,12 @@ aa
 ja
 ja
 ar
-ac
-ac
-ac
-ac
-ac
-ac
+aB
+aB
+aB
+aB
+aB
+aB
 ja
 ja
 ja
@@ -12158,17 +10482,17 @@ ja
 ja
 ea
 fh
-fz
-gy
+kl
+nN
 gr
 hr
-dZ
+fP
 ea
-fX
+is
 hA
 ka
-eJ
-dZ
+hK
+fP
 ea
 ea
 ea
@@ -12180,7 +10504,7 @@ hK
 hK
 is
 dA
-mP
+bu
 dA
 dA
 dA
@@ -12248,8 +10572,8 @@ ja
 ja
 ea
 fv
-fz
-gy
+kl
+nN
 gs
 fl
 gV
@@ -12259,7 +10583,7 @@ hy
 fl
 fl
 ig
-dZ
+fP
 ja
 ja
 hK
@@ -12336,20 +10660,20 @@ ja
 ja
 ja
 ja
-dZ
+fP
 fj
-fA
+jW
 gB
 gu
 fl
 gZ
-dZ
+fP
 ho
 fl
 fl
 fl
 ii
-dZ
+fP
 ja
 dA
 kd
@@ -12423,13 +10747,13 @@ ja
 ja
 ja
 ja
-dZ
-dZ
+fP
+fP
 ea
 ea
 fi
-fA
-gb
+jW
+lh
 gA
 gJ
 gW
@@ -12516,13 +10840,13 @@ ja
 ea
 eh
 eh
-eJ
+hK
 fk
 fB
 gp
-eK
-eJ
-eK
+hJ
+hK
+hJ
 ea
 hp
 hB
@@ -12603,7 +10927,7 @@ ja
 ja
 ja
 ja
-dZ
+fP
 eg
 eg
 eN
@@ -12614,11 +10938,11 @@ gt
 gK
 gX
 ea
-dZ
+fP
 ea
 ea
 ea
-dZ
+fP
 ea
 dA
 hW
@@ -12626,7 +10950,7 @@ hJ
 kP
 lH
 hJ
-lj
+on
 dA
 dA
 dA
@@ -12693,7 +11017,7 @@ ja
 ja
 ja
 ja
-dZ
+fP
 ei
 ex
 eO
@@ -12703,7 +11027,7 @@ gI
 fl
 fl
 gY
-dZ
+fP
 ja
 ja
 ja
@@ -12793,7 +11117,7 @@ gq
 gD
 gM
 ha
-dZ
+fP
 ja
 dA
 dA
@@ -12873,7 +11197,7 @@ ja
 ja
 ja
 ja
-dZ
+fP
 ek
 ez
 ez
@@ -12934,18 +11258,18 @@ ja
 ja
 ja
 ja
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-jC
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+ja
 ja
 ja
 ja
@@ -13024,10 +11348,10 @@ ja
 ja
 ja
 ja
-aT
+hK
 bw
-aX
-aT
+dz
+hK
 bY
 bY
 cC
@@ -13035,7 +11359,7 @@ bY
 bY
 de
 dm
-aT
+hK
 ja
 ja
 ja
@@ -13112,23 +11436,23 @@ ja
 ja
 ja
 ja
-aT
-aT
-aT
-bv
-aT
-aT
+hK
+hK
+hK
+jf
+hK
+hK
 bX
-cn
+is
 cD
-cn
-cn
+is
+is
 df
 dn
-aT
-aT
-aT
-aT
+hK
+hK
+hK
+hK
 ja
 ja
 dA
@@ -13202,12 +11526,12 @@ ja
 ja
 ja
 ja
-aT
-bc
+hK
+jg
 bn
-bx
+jl
 bH
-aT
+hK
 aU
 cp
 cE
@@ -13215,11 +11539,11 @@ cQ
 cW
 dg
 dx
-aT
+hK
 dy
 dD
-aT
-dL
+hK
+nZ
 dA
 dA
 dA
@@ -13271,7 +11595,7 @@ hK
 hJ
 hJ
 hK
-ol
+ja
 dA
 dA
 ja
@@ -13292,11 +11616,11 @@ ja
 ja
 ja
 ja
-aT
+hK
 bd
-bm
-bx
-bG
+jN
+jl
+jk
 bO
 ca
 co
@@ -13382,12 +11706,12 @@ ja
 ja
 ja
 ja
-aT
-aT
+hK
+hK
 bp
 bz
-bJ
-bP
+mj
+jO
 cb
 cr
 cG
@@ -13395,10 +11719,10 @@ cS
 cV
 cG
 cV
-aT
+hK
 dC
 eb
-aT
+hK
 ja
 dA
 dA
@@ -13473,22 +11797,22 @@ ja
 ja
 ja
 ja
-aT
+hK
 bo
 by
 bI
-aT
-bP
+hK
+jO
 cq
 cF
-aT
+hK
 cX
 dl
 cY
-aT
-aT
-aT
-aT
+hK
+hK
+hK
+hK
 ja
 ja
 dA
@@ -13563,19 +11887,19 @@ ja
 ja
 ja
 ja
-as
-as
-as
-as
-as
+ea
+ea
+ea
+ea
+ea
 cd
 cs
 cI
-aT
-aT
-aT
-aT
-aT
+hK
+hK
+hK
+hK
+hK
 ja
 ja
 ja
@@ -13653,19 +11977,19 @@ ja
 ja
 ja
 ja
-as
+ea
 ax
 bA
 bK
-as
+ea
 cc
 ca
 cH
-aT
+hK
 cZ
 dh
 dq
-aT
+hK
 ja
 ja
 ja
@@ -13743,11 +12067,11 @@ ja
 ja
 ja
 ja
-as
+ea
 br
-bC
+jF
 bL
-as
+ea
 ce
 ca
 cK
@@ -13755,7 +12079,7 @@ cT
 da
 di
 dr
-aT
+hK
 ja
 ja
 ja
@@ -13833,19 +12157,19 @@ ja
 ja
 ja
 ja
-as
+ea
 aV
-bC
-bC
+jF
+jF
 bh
 dn
 dU
 cJ
-aT
-aT
-aT
-aT
-aT
+hK
+hK
+hK
+hK
+hK
 ja
 ja
 ja
@@ -13923,11 +12247,11 @@ ja
 ja
 ja
 ja
-as
+ea
 dJ
-bE
+jH
 bN
-as
+ea
 ch
 cv
 cH
@@ -13935,7 +12259,7 @@ cU
 dc
 dk
 dt
-aT
+hK
 ja
 ja
 ja
@@ -14013,19 +12337,19 @@ ja
 ja
 ja
 ja
-as
+ea
 dE
 bD
 bM
-as
+ea
 cg
 cu
 cL
-aT
+hK
 db
 dj
 ds
-aT
+hK
 ja
 ja
 ja
@@ -14103,19 +12427,19 @@ ja
 ja
 ja
 ja
-as
-as
-as
-as
-as
-as
+ea
+ea
+ea
+ea
+ea
+ea
 cx
-as
-as
-aT
-aT
-aT
-aT
+ea
+ea
+hK
+hK
+hK
+hK
 ja
 ja
 ja
@@ -14196,12 +12520,12 @@ ja
 ja
 ja
 ja
-as
+ea
 bR
 ci
-cw
+fN
 cM
-as
+ea
 ja
 ja
 ja
@@ -14286,12 +12610,12 @@ ja
 ja
 ja
 ja
-as
+ea
 bT
 ck
-cz
+fe
 cN
-as
+ea
 ja
 ja
 ja
@@ -14376,12 +12700,12 @@ ja
 ja
 ja
 ja
-as
+ea
 bS
 cj
 cy
 cO
-as
+ea
 ja
 ja
 ja
@@ -14466,12 +12790,12 @@ ja
 ja
 ja
 ja
-as
+ea
 bU
 cl
 dT
 cN
-as
+ea
 ja
 ja
 ja
@@ -14556,12 +12880,12 @@ ja
 ja
 ja
 ja
-as
+ea
 bV
 cm
 cA
 cP
-as
+ea
 ja
 ja
 ja
@@ -14646,12 +12970,12 @@ ja
 ja
 ja
 ja
-as
-as
-as
-as
-as
-as
+ea
+ea
+ea
+ea
+ea
+ea
 ja
 ja
 ja
@@ -15061,7 +13385,7 @@ lU
 mm
 hJ
 hJ
-lj
+on
 dA
 dA
 dA

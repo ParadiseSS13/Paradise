@@ -25,7 +25,7 @@
 /obj/structure/spider/spiderling/terror_spiderling/Initialize(mapload)
 	. = ..()
 	GLOB.ts_spiderling_list += src
-	if(is_away_level(z))
+	if(!is_station_level(z))
 		spider_awaymission = TRUE
 
 /obj/structure/spider/spiderling/terror_spiderling/Destroy()
@@ -83,7 +83,7 @@
 	var/turf/T = get_turf(src)
 	amount_grown += rand(0,2)
 	if(amount_grown >= 100)
-		if(spider_awaymission && !is_away_level(T.z))
+		if(spider_awaymission && is_station_level(T.z))
 			stillborn = TRUE
 		if(stillborn)
 			if(amount_grown >= 300)

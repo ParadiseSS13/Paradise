@@ -40,9 +40,6 @@ GLOBAL_LIST_EMPTY(ninjastart)
 GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)
 
-//away missions
-GLOBAL_LIST_EMPTY(awaydestinations)	//a list of landmarks that the warpgate can take you to
-
 //List of preloaded templates
 GLOBAL_LIST_EMPTY(map_templates)
 GLOBAL_LIST_EMPTY(ruins_templates)

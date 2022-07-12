@@ -199,3 +199,15 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+
+/turf/simulated/wall/indestructible/asteroid
+	name = "solid rock"
+	icon = 'icons/turf/smoothrocks.dmi'
+	desc = "A wall made out of extremely robust rock, you doubt you could break this."
+	icon_state = "smoothrocks-0"
+	base_icon_state = "smoothrocks"
+	transform = matrix(1, 0, -4, 0, 1, -4)
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
+	layer = EDGED_TURF_LAYER

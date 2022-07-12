@@ -1,79 +1,26 @@
-/area/awaymission/UO71
+/area/ruin/space/uo71
 	name = "UO71"
 	icon_state = "away"
-	report_alerts = FALSE
 	tele_proof = TRUE
 
-
-/area/awaymission/UO71/plaza
-	name = "UO71 Plaza"
-	icon_state = "awaycontent1"
-	fire = TRUE
-
-/area/awaymission/UO71/centralhall
-	name = "UO71 Central"
-	icon_state = "awaycontent2"
-	fire = TRUE
-
-/area/awaymission/UO71/eng
-	name = "UO71 Engineering"
-	icon_state = "awaycontent3"
-	fire = TRUE
-
-/area/awaymission/UO71/mining
-	name = "UO71 Mining"
-	icon_state = "awaycontent4"
-	fire = TRUE
-
-/area/awaymission/UO71/science
-	name = "UO71 Science"
-	icon_state = "awaycontent5"
-	fire = TRUE
-
-/area/awaymission/UO71/medical
-	name = "UO71 Medical"
-	icon_state = "awaycontent6"
-	fire = TRUE
-
-/area/awaymission/UO71/gateway
-	name = "UO71 Gateway"
-	icon_state = "awaycontent7"
-	fire = TRUE
-
-/area/awaymission/UO71/outside
-	name = "UO71 Outside"
-	icon_state = "awaycontent8"
-
-/area/awaymission/UO71/bridge
+/area/ruin/space/uo71/bridge
 	name = "UO71 Bridge"
-	icon_state = "awaycontent21"
+	icon_state = "away1"
 	fire = TRUE
-	requires_power = FALSE
-	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/awaymission/UO71/queen
+/area/ruin/space/uo71/queen
 	name = "UO71 Queen Lair"
-	icon_state = "awaycontent9"
+	icon_state = "away2"
 	fire = TRUE
-	requires_power = FALSE
-	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/awaymission/UO71/prince
+/area/ruin/space/uo71/prince
 	name = "UO71 Prince Containment"
-	icon_state = "awaycontent10"
+	icon_state = "away3"
 	fire = TRUE
-	requires_power = FALSE
-	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/awaymission/UO71/loot
+/area/ruin/space/uo71/loot
 	name = "UO71 Loot Vault"
-	icon_state = "awaycontent11"
-	requires_power = FALSE
-	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	icon_state = "away4"
 
 /obj/item/paper/terrorspiders1
 	name = "paper - 'Sealed Facility'"
@@ -182,24 +129,27 @@
 	can_charge = 0
 	// Selfcharge is enabled and disabled, and used as the away mission tracker
 	selfcharge = TRUE
+	/// Origin Z level, so we can track charging
+	var/origin_z
 
 /obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
 	. = ..()
+	origin_z = z
 	// Force update it incase it spawns outside an away mission and shouldnt be charged
 	onTransitZ(new_z = loc.z)
 
 /obj/item/gun/energy/laser/awaymission_aeg/onTransitZ(old_z, new_z)
-	if(is_away_level(new_z))
+	if(new_z == origin_z)
 		if(ismob(loc))
 			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
 		selfcharge = TRUE
-	else
-		if(selfcharge)
-			if(ismob(loc))
-				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
-			cell.charge = 0
-			selfcharge = FALSE
-			update_icon()
+		return
+	if(selfcharge)
+		if(ismob(loc))
+			to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
+		cell.charge = 0
+		selfcharge = FALSE
+		update_icon()
 
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
@@ -208,7 +158,6 @@
 	..()
 	reagents.add_reagent("terror_black_toxin", 50)
 	update_icon()
-
 
 /obj/machinery/computer/id_upgrader
 	name = "ID Upgrade Machine"

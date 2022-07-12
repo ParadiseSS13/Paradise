@@ -16,8 +16,6 @@
 	end_message = "<span class='boldannounce'>The snowfall dies down, it should be safe to go outside again.</span>"
 
 //	area_type = /area/awaymission/snowdin/outside
-	target_trait = AWAY_LEVEL
-
 	immunity_type = "snow"
 
 	barometer_predictable = TRUE
