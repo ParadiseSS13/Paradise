@@ -513,7 +513,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						keys_buttons += "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
 					dat += "<tr>"
 					dat += "<td style='width: 25%'>[KB.name]</td>"
-					dat += "<td style='width: 45%'>[keys_buttons]<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[KB.UID()]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[KB.UID()]'>Clear</a></td>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
