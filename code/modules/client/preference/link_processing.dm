@@ -1114,9 +1114,7 @@
 									"ADD" = "Add",
 									"SUBTRACT" = "Subtract",
 									"DECIMAL" = "Decimal",
-									"CLEAR" = "Center",
-									"TAB" = "Tab",
-									"BACKSPACE" = "Back"
+									"CLEAR" = "Center"
 								)
 
 								new_key = key_map[new_key] || new_key

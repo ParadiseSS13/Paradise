@@ -48,23 +48,3 @@
 /datum/keybinding/client/toggle_min_hud/down(client/C)
 	. = ..()
 	C.mob.button_pressed_F12()
-
-/datum/keybinding/client/input_focus
-	name = "Focus Input Bar"
-	keys = list("Tab")
-
-/datum/keybinding/client/input_focus/down(client/C)
-	. = ..()
-	var/focus = winget(C, null, "focus")
-	if(focus == "outputwindow.input")
-		winset(C, null, "map.focus=true")
-		return
-	winset(C, null, "input.focus=true")
-
-/datum/keybinding/client/input_remove
-	name = "Clear Input Bar"
-	keys = list("Back")
-
-/datum/keybinding/client/input_remove/down(client/C)
-	. = ..()
-	winset(C, null, "input.focus=true ? input.text=\"\"")

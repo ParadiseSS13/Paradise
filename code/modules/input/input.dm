@@ -10,17 +10,94 @@
 /client/key_loop()
 	mob.input_focus?.key_loop(src)
 
+/client
+	var/list/macro_sets
+
 /client/proc/set_macros()
-	var/static/list/macro_set = list(
-		"Any" = @"KeyDown [[*]]",
-		"Any+UP" = @"KeyUp [[*]]",
-	)
-	for(var/key in macro_set)
-		var/command = macro_set[key]
-		winset(src, "default-[key]", "parent=default;name=[key];command=\"[command]\"")
-	winset(src, null, "map.focus=true;mainwindow.macro=default")
-	winset(src, null, "input.on-focus=\"input-focus-change 1\";input.on-blur=\"input-focus-change 0\"")
-	input_focus_change(FALSE)
+	set waitfor = FALSE
+	var/static/list/default_macro_sets
+
+	if(!default_macro_sets)
+		default_macro_sets = list(
+			"default" = list(
+				"Any" = "\"KeyDown \[\[*\]\]\"",
+				"Any+UP" = "\"KeyUp \[\[*\]\]\"",
+				"Tab" = "\".winset \\\"input.focus=true?map.focus=true input.background-color=[COLOR_INPUT_DISABLED]:input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
+				"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
+			),
+			"secondary_default" = list(
+				"Tab" = "\".winset \\\"mainwindow.macro=tertiary_default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"",
+				"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
+			),
+			"tertiary_default" = list(
+				"Any" = "\"KeyDown \[\[*\]\]\"",
+				"Any+UP" = "\"KeyUp \[\[*\]\]\"",
+				"Tab" = "\".winset \\\"mainwindow.macro=secondary_default input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
+				"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
+			),
+		)
+
+		// Because i'm lazy and don't want to type all these out twice
+		var/list/old_default = default_macro_sets["old_default"]
+
+		var/list/static/oldmode_keys = list(
+			"North", "East", "South", "West",
+			"Northeast", "Southeast", "Northwest", "Southwest",
+			"Insert", "Delete", "Ctrl", "Alt",
+			"F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
+			)
+
+		for(var/i in 1 to length(oldmode_keys))
+			var/key = oldmode_keys[i]
+			old_default[key] = "\"KeyDown [key]\""
+			old_default["[key]+UP"] = "\"KeyUp [key]\""
+
+		var/list/static/oldmode_ctrl_override_keys = list(
+			"W" = "W", "A" = "A", "S" = "S", "D" = "D", // movement
+			"1" = "1", "2" = "2", "3" = "3", "4" = "4", // intent
+			"B" = "B", // resist
+			"E" = "E", // quick equip
+			"F" = "F", // intent left
+			"G" = "G", // intent right
+			"H" = "H", // stop pulling
+			"Q" = "Q", // drop
+			"R" = "R", // throw
+			"X" = "X", // switch hands
+			"Y" = "Y", // activate item
+			"Z" = "Z", // activate item
+			)
+
+		for(var/i in 1 to length(oldmode_ctrl_override_keys))
+			var/key = oldmode_ctrl_override_keys[i]
+			var/override = oldmode_ctrl_override_keys[key]
+			old_default["Ctrl+[key]"] = "\"KeyDown [override]\""
+			old_default["Ctrl+[key]+UP"] = "\"KeyUp [override]\""
+
+	erase_all_macros()
+	macro_sets = default_macro_sets
+
+	for(var/i in 1 to length(macro_sets))
+		var/setname = macro_sets[i]
+		if(setname != "default")
+			winclone(src, "default", setname)
+		var/list/macro_set = macro_sets[setname]
+		for(var/k in 1 to length(macro_set))
+			var/key = macro_set[k]
+			var/command = macro_set[key]
+			winset(src, "[setname]-[key]", "parent=[setname];name=[key];command=[command]")
+	winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=secondary_default")
+
+/client/proc/erase_all_macros()
+	var/list/macro_sets = params2list(winget(src, null, "macros"))
+	var/erase_output = ""
+	for(var/i in 1 to length(macro_sets))
+		var/setname = macro_sets[i]
+		var/list/macro_set = params2list(winget(src, "[setname].*", "command")) // The third arg doesnt matter here as we're just removing them all
+		for(var/k in 1 to length(macro_set))
+			var/list/split_name = splittext(macro_set[k], ".")
+			var/macro_name = "[split_name[1]].[split_name[2]]" // [3] is "command"
+			erase_output = "[erase_output];[macro_name].parent=null"
+	winset(src, null, erase_output)
 
 /client/verb/KeyDown(_key as text)
 	set instant = TRUE

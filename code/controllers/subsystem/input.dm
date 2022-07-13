@@ -5,13 +5,19 @@
 SUBSYSTEM_DEF(input)
 	name = "Input"
 	wait = 1 // SS_TICKER means this runs every tick
-	flags = SS_TICKER | SS_NO_INIT
+	flags = SS_TICKER
+	init_order = INIT_ORDER_INPUT
 	priority = FIRE_PRIORITY_INPUT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	offline_implications = "Player input will no longer be recognised. Immediate server restart recommended."
 
 	/// List of clients whose input to process in loop.
 	var/list/client/processing = list()
+
+/datum/controller/subsystem/input/Initialize()
+	initialized = TRUE
+	refresh_client_macro_sets()
+	return ..()
 
 /datum/controller/subsystem/input/get_stat_details()
 	return "P: [length(processing)]"
@@ -28,5 +34,11 @@ SUBSYSTEM_DEF(input)
 
 	if(to_cull)
 		processing -= to_cull
+
+/datum/controller/subsystem/input/proc/refresh_client_macro_sets()
+	var/list/clients = GLOB.clients
+	for(var/i in 1 to length(clients))
+		var/client/user = clients[i]
+		user.set_macros()
 
 #undef AUTO_CULL_TIME
