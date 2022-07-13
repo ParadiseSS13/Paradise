@@ -166,6 +166,11 @@
 
 	GLOB.emote_list = init_emote_list()
 
+	// Keybindings
+	for(var/path in subtypesof(/datum/keybinding))
+		var/datum/keybinding/D = path
+		if(initial(D.name))
+			GLOB.keybindings += new path()
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
