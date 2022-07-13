@@ -39,7 +39,7 @@
 	/// Target of the surgery
 	var/mob/living/carbon/target
 	/// Body part the surgery is currently being performed on.
-	var/obj/item/organ/organ_ref
+	var/obj/item/organ/external/organ_ref
 	/// Whether or not this should be a selectable surgery at all
 	var/abstract = FALSE
 
@@ -246,9 +246,17 @@
 	var/retry = FALSE
 	var/prob_success = 100
 
-	if(begin_step(user, target, target_zone, tool, surgery) == SURGERY_BEGINSTEP_ABORT)
+	var/begin_step_result = begin_step(user, target, target_zone, tool, surgery)
+	if(begin_step_result == SURGERY_BEGINSTEP_ABORT)
 		surgery.step_in_progress = FALSE
 		return
+	if(begin_step_result == SURGERY_BEGINSTEP_SKIP)
+		surgery.status++
+		if(surgery.status > length(surgery.steps))
+			surgery.complete(target)
+
+		surgery.step_in_progress = FALSE
+		return TRUE
 
 	if(tool)
 		speed_mod = tool.toolspeed

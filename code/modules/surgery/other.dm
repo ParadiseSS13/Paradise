@@ -208,10 +208,10 @@
 		return SURGERY_STEP_INCOMPLETE
 
 	var/obj/item/reagent_containers/container = tool
-	var/mitocholide = 0
+	var/mitocholide = FALSE
 
 	if(container.reagents.has_reagent("mitocholide"))
-		mitocholide = 1
+		mitocholide = TRUE
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 	if(trans > 0)
@@ -219,6 +219,7 @@
 
 		if(mitocholide)
 			affected.status &= ~ORGAN_DEAD
+			affected.germ_level = 0
 			target.update_body()
 
 		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \

@@ -102,7 +102,7 @@
 	for(var/datum/surgery/surg in branches_init)
 		step_names += surg.get_surgery_step()
 
-	return english_list(step_names, "Nothing...? If you see this, tell a coder.", " or ")
+	return english_list(step_names, "Nothing...? If you see this, tell a coder.", ", or ")
 
 
 /datum/surgery_step/proxy/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -122,8 +122,21 @@
 	for(var/datum/surgery/S in branches_init)
 		first_step = S.get_surgery_step()
 
+		if(!tool && accept_hand)
+			if("hand" in starting_tools)
+				CRASH("[src] was provided with multiple branches that allow an empty hand.")
+			next_surgery = S
+			starting_tools.Add("hand")
+
+		else if(accept_any_item)
+			if("any" in starting_tools)
+				CRASH("[src] was provided with multiple branches that allow any tool.")
+			next_surgery = S
+			starting_tools.Add("any")
+
+
 		for(var/allowed in first_step.allowed_tools)
-			if(ispath(allowed) && istype(tool, allowed) || tool.tool_behaviour == allowed)
+			if(ispath(allowed) && istype(tool, allowed) || (tool && istype(tool) && tool.tool_behaviour == allowed))
 				next_surgery = S
 			if(allowed in starting_tools && !(allowed in overriding_tools))
 				CRASH("[src] was provided with multiple branches that start with tool [allowed].")
@@ -135,6 +148,12 @@
 	if(!isnull(next_surgery_step))
 		for(var/allowed in next_surgery_step.allowed_tools)
 
+			if("hand" in starting_tools && next_surgery_step.accept_hand)
+				CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both require an open hand.")
+
+			if("any" in starting_tools && next_surgery_step.accept_any_item)
+				CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both accept any item.")
+
 			if(allowed in starting_tools)
 				if(allowed in overriding_tools)
 					overridden_tool = TRUE
@@ -142,7 +161,7 @@
 				else
 					CRASH("[src] has a tool conflict ([allowed]) with the next step [next_surgery_step] in the surgery it was called from ([surgery])")
 
-			if(tool.type == allowed || tool.tool_behaviour == allowed)
+			if(tool && istype(tool) && (tool.type == allowed || tool.tool_behaviour == allowed))
 				next_surgery = surgery
 
 	if(overridden_tool || next_surgery == surgery || !next_surgery)
@@ -182,7 +201,7 @@
 	)
 
 /datum/surgery_step/proxy/robotics/limb_repair
-	name = "repair limbs"
+	name = "repair limbs (proxy)"
 	branches = list(
 		/datum/surgery/intermediate/robotics/internal_repair
 	)

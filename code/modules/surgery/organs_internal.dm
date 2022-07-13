@@ -1,4 +1,5 @@
 #define GHETTO_DISINFECT_AMOUNT 5 //Amount of units to transfer from the container to the organs during ghetto surgery disinfection step
+#define MITO_REVIVAL_COST 3
 
 /datum/surgery/organ_manipulation
 	name = "Organ Manipulation"
@@ -9,7 +10,8 @@
 		/datum/surgery_step/proxy/open_organ,
 		/datum/surgery_step/open_encased/saw,
 		/datum/surgery_step/open_encased/retract,
-		/datum/surgery_step/internal/manipulate_organs,
+		/datum/surgery_step/proxy/manipulate_organs,
+		/datum/surgery_step/internal/manipulate_organs/finish,
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
 		/datum/surgery_step/finish_bone,
@@ -27,7 +29,7 @@
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ,
-		/datum/surgery_step/internal/manipulate_organs,
+		/datum/surgery_step/proxy/manipulate_organs,
 		/datum/surgery_step/generic/cauterize
 	)
 
@@ -39,7 +41,7 @@
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ,
-		/datum/surgery_step/internal/manipulate_organs,
+		/datum/surgery_step/proxy/manipulate_organs,
 		/datum/surgery_step/generic/cauterize
 	)
 	requires_organic_bodypart = TRUE
@@ -48,11 +50,11 @@
 	name = "Alien Organ Manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
 	allowed_mob = list(/mob/living/carbon/alien/humanoid)
-	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace,/datum/surgery_step/internal/manipulate_organs)
+	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace,/datum/surgery_step/proxy/manipulate_organs,)
 
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
-	if(istype(target,/mob/living/carbon/human))
+	if(istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected.encased) //no bone, problem.
@@ -60,7 +62,7 @@
 		return TRUE
 
 /datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
-	if(istype(target,/mob/living/carbon/human))
+	if(istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(affected && affected.encased) //no bones no problem.
@@ -77,378 +79,496 @@
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
+// TODO Split manipulate organs up into a bunch of branches
 
-/datum/surgery_step/internal/manipulate_organs
-	name = "manipulate organs"
-	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/reagent_containers/food/snacks/organ = 0)
-	var/implements_extract = list(/obj/item/hemostat = 100, /obj/item/kitchen/utensil/fork = 70)
-	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
-	var/implements_clean = list(/obj/item/reagent_containers/dropper = 100,
-                /obj/item/reagent_containers/syringe = 100,
-								/obj/item/reagent_containers/glass/bottle = 90,
-								/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
-								/obj/item/reagent_containers/food/drinks/bottle = 80,
-								/obj/item/reagent_containers/glass/beaker = 75,
-								/obj/item/reagent_containers/spray = 60,
-								/obj/item/reagent_containers/glass/bucket = 50)
+/datum/surgery_step/internal/manipulate_organs/mend
+	name = "mend organs"
+	allowed_tools = list(
+		/obj/item/stack/medical/bruise_pack = 20,
+		/obj/item/stack/medical/bruise_pack/advanced = 100,
+		/obj/item/stack/nanopaste = 100
+	)
 
-	//Finish is just so you can close up after you do other things.
-	var/implements_finsh = list(/obj/item/scalpel/laser/manager = 100,/obj/item/retractor = 100 ,/obj/item/crowbar = 90)
-	var/current_type
-	var/obj/item/organ/internal/I = null
-	var/obj/item/organ/external/affected = null
-	time = 64
+/datum/surgery_step/internal/manipulate_organs/mend/proc/get_tool_name(obj/item/tool)
+	var/tool_name = "[tool]"
+	if(istype(tool, /obj/item/stack/medical/bruise_pack))
+		tool_name = "the bandaid"
+	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
+		tool_name = "regenerative membrane"
+	else if(istype(tool, /obj/item/stack/nanopaste))
+		tool_name = "[tool]" //what else do you call nanopaste medically?
 
-/datum/surgery_step/internal/manipulate_organs/New()
-	..()
-	allowed_tools = allowed_tools + implements_extract + implements_mend + implements_clean + implements_finsh
+	return tool_name
+
+/datum/surgery_step/internal/manipulate_organs/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/tool_name = get_tool_name(tool)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+	if(!hasorgans(target))
+		to_chat(user, "They do not have organs to mend!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	var/any_organs_damaged = FALSE
 
 
-/datum/surgery_step/internal/manipulate_organs/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	I = null
-	var/mob/living/carbon/human/H
-	if(ishuman(target))
-		H = target
-		affected = H.get_organ(target_zone)
+	for(var/obj/item/organ/internal/I in affected.internal_organs)
+		if(I && I.damage)
+			any_organs_damaged = TRUE
+			if(!I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste))
+				if(!(I.sterile))
+					spread_germs_to_organ(I, user, tool)
+				user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
+				"You start treating damage to [target]'s [I.name] with [tool_name]." )
+			else if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
+				user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
+				"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
-	if(is_int_organ(tool))
-		current_type = "insert"
-		I = tool
-		if(I.requires_robotic_bodypart)
-			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
-			return SURGERY_BEGINSTEP_ABORT
-		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
-			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
-			return SURGERY_BEGINSTEP_ABORT
-
-		if(I.damage > (I.max_damage * 0.75))
-			to_chat(user, "<span class='notice'> [I] is in no state to be transplanted.</span>")
-			return SURGERY_BEGINSTEP_ABORT
-
-		if(target.get_int_organ(I))
-			to_chat(user, "<span class='warning'> [target] already has [I].</span>")
-			return SURGERY_BEGINSTEP_ABORT
-
-		if(affected)
-			user.visible_message("[user] starts transplanting [tool] into [target]'s [affected.name].", \
-			"You start transplanting [tool] into [target]'s [affected.name].")
-			H.custom_pain("Someone's rooting around in your [affected.name]!")
 		else
-			user.visible_message("[user] starts transplanting [tool] into [target]'s [parse_zone(target_zone)].", \
-			"You start transplanting [tool] into [target]'s [parse_zone(target_zone)].")
+			to_chat(user, "[I] does not appear to be damaged.")
 
-	else if(implement_type in implements_clean)
-		current_type = "clean"
+	if(!any_organs_damaged)
+		return SURGERY_BEGINSTEP_SKIP
 
-		if(!istype(tool, /obj/item/reagent_containers))
-			return
+	if(affected)
+		var/mob/living/carbon/human/H = target
+		H.custom_pain("The pain in your [affected.name] is living hell!")
 
-		var/obj/item/reagent_containers/C = tool
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
-				if(C.reagents.total_volume <= 0) //end_step handles if there is not enough reagent
-					user.visible_message("[user] notices [tool] is empty.", \
-					"You notice [tool] is empty.")
-					return FALSE
-
-				var/msg = "[user] starts pouring some of [tool] over [target]'s [I.name]."
-				var/self_msg = "You start pouring some of [tool] over [target]'s [I.name]."
-				if(istype(C,/obj/item/reagent_containers/syringe))
-					msg = "[user] begins injecting [tool] into [target]'s [I.name]."
-					self_msg = "You begin injecting [tool] into [target]'s [I.name]."
-				user.visible_message(msg, self_msg)
-				if(H && affected)
-					H.custom_pain("Something burns horribly in your [affected.name]!")
-
-	else if(implement_type in implements_finsh)
-	//same as surgery step /datum/surgery_step/open_encased/close/
-		current_type = "finish"
-
-		if(affected && affected.encased)
-			var/msg = "[user] starts bending [target]'s [affected.encased] back into place with [tool]."
-			var/self_msg = "You start bending [target]'s [affected.encased] back into place with [tool]."
-			user.visible_message(msg, self_msg)
-		else
-			var/msg = "[user] starts pulling [target]'s skin back into place with [tool]."
-			var/self_msg = "You start pulling [target]'s skin back into place with [tool]."
-			user.visible_message(msg, self_msg)
-
-		if(H && affected)
-			H.custom_pain("Something hurts horribly in your [affected.name]!")
-
-	else if(implement_type in implements_extract)
-		current_type = "extract"
-		var/list/organs = target.get_organs_zone(target_zone)
-		if(!length(organs))
-			to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
-			return SURGERY_BEGINSTEP_ABORT
-
-		for(var/obj/item/organ/internal/O in organs)
-			if(O.unremovable)
-				continue
-			O.on_find(user)
-			organs -= O
-			organs[O.name] = O
-
-		I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
-		if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
-			I = organs[I]
-			if(!I)
-				return SURGERY_BEGINSTEP_ABORT
-			user.visible_message("[user] starts to separate [target]'s [I] with [tool].", \
-			"You start to separate [target]'s [I] with [tool] for removal." )
-			if(H && affected)
-				H.custom_pain("The pain in your [affected.name] is living hell!")
-		else
-			return SURGERY_BEGINSTEP_ABORT
-
-	else if(implement_type in implements_mend)
-		current_type = "mend"
-		var/tool_name = "[tool]"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack))
-			tool_name = "the bandaid"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			tool_name = "regenerative membrane"
-		else if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
-
-		if(!hasorgans(target))
-			to_chat(user, "They do not have organs to mend!")
-			return
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage)
-				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					if(!(I.sterile))
-						spread_germs_to_organ(I, user, tool)
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-					"You start treating damage to [target]'s [I.name] with [tool_name]." )
-				else if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-					"You start treating damage to [target]'s [I.name] with [tool_name]." )
-
-			else
-				to_chat(user, "[I] does not appear to be damaged.")
-
-		if(affected)
-			H.custom_pain("The pain in your [affected.name] is living hell!")
-
-	else if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
-		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
-		return SURGERY_BEGINSTEP_ABORT
-
-	..()
-
-/datum/surgery_step/internal/manipulate_organs/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(current_type == "mend")
-		var/tool_name = "[tool]"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			tool_name = "regenerative membrane"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack))
-			tool_name = "the bandaid"
-		if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
-
-		if(!hasorgans(target))
-			return SURGERY_STEP_INCOMPLETE
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
-				I.surgeryize()
-			if(I && I.damage)
-				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
-					I.damage = 0
-				else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
-					I.damage = 0
-
-	else if(current_type == "insert")
-		I = tool
-		if(I.requires_robotic_bodypart)
-			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
-			return SURGERY_STEP_INCOMPLETE
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
-			return SURGERY_STEP_INCOMPLETE
-		I.insert(target)
-		spread_germs_to_organ(I, user, tool)
-
-		if(affected)
-			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [affected.name].</span>",
-			"<span class='notice'> You have transplanted [tool] into [target]'s [affected.name].</span>")
-		else
-			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>",
-			"<span class='notice'> You have transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>")
-
-	else if(current_type == "extract")
-		if(I && I.owner == target)
-			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with [tool].</span>",
-			"<span class='notice'> You have separated and extracted [target]'s [I] with [tool].</span>")
-
-			add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
-			spread_germs_to_organ(I, user, tool)
-			var/obj/item/thing = I.remove(target)
-			if(thing) // some "organs", like egg infections, can have I.remove(target) return null, and so we can't use "thing" in that case
-				if(istype(thing))
-					user.put_in_hands(thing)
-				else
-					thing.forceMove(get_turf(target))
-			target.update_icons()
-		else
-			user.visible_message("<span class='notice'>[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!</span>",
-				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
-
-	else if(current_type == "clean")
-		if(!hasorgans(target))
-			return SURGERY_STEP_INCOMPLETE
-		if(!istype(tool, /obj/item/reagent_containers))
-			return SURGERY_STEP_INCOMPLETE
-
-		var/obj/item/reagent_containers/C = tool
-		var/datum/reagents/R = C.reagents
-		var/ethanol = 0 //how much alcohol is in the thing
-		var/spaceacillin = 0 //how much actual antibiotic is in the thing
-
-		if(length(R.reagent_list))
-			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
-				ethanol += alcohol.alcohol_perc * 300
-			ethanol /= length(R.reagent_list)
-
-			spaceacillin = R.get_reagent_amount("spaceacillin")
-
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
-				if(R.total_volume < GHETTO_DISINFECT_AMOUNT)
-					to_chat(user, "There is not enough in [tool].")
-					return SURGERY_STEP_INCOMPLETE
-				if(I.germ_level < INFECTION_LEVEL_ONE / 2)
-					to_chat(user, "[I] does not appear to be infected.")
-				if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
-					if(spaceacillin >= GHETTO_DISINFECT_AMOUNT)
-						I.germ_level = 0
-					else
-						I.germ_level = max(I.germ_level-ethanol, 0)
-					if(istype(C, /obj/item/reagent_containers/syringe))
-						user.visible_message(
-							"<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
-							"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>"
-						)
-					else
-						user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
-					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
-					R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
-					R.reaction(target, REAGENT_INGEST)
-
-	else if(current_type == "finish")
-		if(affected && affected.encased)
-			var/msg = "<span class='notice'>[user] bends [target]'s [affected.encased] back into place with [tool].</span>"
-			var/self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with [tool].</span>"
-			user.visible_message(msg, self_msg)
-			affected.open = ORGAN_ORGANIC_ENCASED_OPEN
-		else
-			var/msg = "<span class='notice'>[user] pulls [target]'s flesh back into place with [tool].</span>"
-			var/self_msg = "<span class='notice'>You pull [target]'s flesh back into place with [tool].</span>"
-			user.visible_message(msg, self_msg)
-
-		return SURGERY_STEP_CONTINUE
-
-	return SURGERY_STEP_INCOMPLETE
-
-/datum/surgery_step/internal/manipulate_organs/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(current_type == "mend")
-		if(!hasorgans(target))
-			return SURGERY_STEP_INCOMPLETE
-
-		user.visible_message("<span class='warning'> [user]'s hand slips, getting mess and tearing the inside of [target]'s [affected.name] with [tool]!</span>", \
-		"<span class='warning'> Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with [tool]!</span>")
-
-		var/dam_amt = 2
-
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			target.adjustToxLoss(5)
-
-		else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
-			dam_amt = 5
-			target.adjustToxLoss(10)
-			affected.receive_damage(5)
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage && !(I.tough))
-				I.receive_damage(dam_amt,0)
-
-		return SURGERY_STEP_RETRY
-
-	else if(current_type == "insert")
-		user.visible_message("<span class='warning'> [user]'s hand slips, damaging [tool]!</span>", \
-		"<span class='warning'> Your hand slips, damaging [tool]!</span>")
-		var/obj/item/organ/internal/I = tool
-		if(istype(I) && !I.tough)
-			I.receive_damage(rand(3,5),0)
-
-		return SURGERY_STEP_RETRY
-
-	else if(current_type == "clean")
-		if(!hasorgans(target))
-			return SURGERY_STEP_INCOMPLETE
-		if(!istype(tool, /obj/item/reagent_containers))
-			return SURGERY_STEP_INCOMPLETE
-
-		var/obj/item/reagent_containers/C = tool
-		var/datum/reagents/R = C.reagents
-		var/ethanol = 0 //how much alcohol is in the thing
-
-		if(R.reagent_list.len)
-			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
-				ethanol += alcohol.alcohol_perc * 300
-			ethanol /= C.reagents.reagent_list.len
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			I.germ_level = max(I.germ_level-ethanol, 0)
-			I.receive_damage(rand(4,8),0)
-
-		R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
-		R.reaction(target, REAGENT_INGEST)
-
-		user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>", \
-		"<span class='warning'> Your hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>")
+/datum/surgery_step/internal/manipulate_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/tool_name = get_tool_name(tool)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(!hasorgans(target))
 		return SURGERY_STEP_INCOMPLETE
 
-	else if(current_type == "extract")
-		if(I && I.owner == target)
-			if(affected)
-				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with [tool]!</span>", \
-				"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with [tool]!</span>")
-				affected.receive_damage(20)
-			else
-				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>", \
-				"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>")
-		else
-			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
-				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
-		return SURGERY_STEP_RETRY
+	for(var/obj/item/organ/internal/I in affected.internal_organs)
+		if(I)
+			I.surgeryize()
+		if(I && I.damage)
+			// TODO this outer surgery will need a check to make sure that it still works on robotic limbs
+			if(!I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste))
+				user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
+				"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
+				I.damage = 0
+			else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
+				user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
+				"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
+				I.damage = 0
+	return SURGERY_STEP_CONTINUE
 
-	else if(current_type == "finish")
-		if(affected && affected.encased)
-			var/msg = "<span class='warning'> [user]'s hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
-			var/self_msg = "<span class='warning'> Your hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
-			user.visible_message(msg, self_msg)
-			affected.fracture()
+/datum/surgery_step/internal/manipulate_organs/mend/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!hasorgans(target))
+		return SURGERY_STEP_INCOMPLETE
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+	user.visible_message("<span class='warning'> [user]'s hand slips, getting mess and tearing the inside of [target]'s [affected.name] with [tool]!</span>", \
+	"<span class='warning'> Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with [tool]!</span>")
+
+	var/dam_amt = 2
+
+	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
+		target.adjustToxLoss(5)
+
+	else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
+		dam_amt = 5
+		target.adjustToxLoss(10)
+		affected.receive_damage(5)
+
+	for(var/obj/item/organ/internal/I in affected.internal_organs)
+		if(I && I.damage && !(I.tough))
+			I.receive_damage(dam_amt,0)
+
+	return SURGERY_STEP_RETRY
+
+/datum/surgery_step/internal/manipulate_organs/extract
+	name = "extract organ"
+	allowed_tools = list(
+		TOOL_HEMOSTAT = 100,
+		/obj/item/kitchen/utensil/fork = 70
+	)
+
+	var/obj/item/organ/internal/extracting = null
+
+/datum/surgery_step/internal/manipulate_organs/extract/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/list/organs = target.get_organs_zone(target_zone)
+	if(!length(organs))
+		to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+	for(var/obj/item/organ/internal/O in organs)
+		if(O.unremovable)
+			continue
+		O.on_find(user)
+		organs -= O
+		organs[O.name] = O
+
+	var/obj/item/organ/internal/I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
+	if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
+		extracting = organs[I]
+		if(!extracting)
+			return SURGERY_BEGINSTEP_SKIP
+		user.visible_message(
+			"[user] starts to separate [target]'s [I] with [tool].",
+		"You start to separate [target]'s [I] with [tool] for removal."
+		)
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/affected = H.get_organ(user.zone_selected)
+		if(H && affected)
+
+			H.custom_pain("The pain in your [affected.name] is living hell!")
+	else
+		return SURGERY_BEGINSTEP_SKIP
+
+/datum/surgery_step/internal/manipulate_organs/extract/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!extracting || extracting.owner != target)
+		user.visible_message("<span class='notice'>[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!</span>",
+			"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+		return SURGERY_STEP_CONTINUE
+
+	user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [extracting] with [tool].</span>",
+	"<span class='notice'> You have separated and extracted [target]'s [extracting] with [tool].</span>")
+
+	add_attack_logs(user, target, "Surgically removed [extracting.name]. INTENT: [uppertext(user.a_intent)]")
+	spread_germs_to_organ(extracting, user, tool)
+	var/obj/item/thing = extracting.remove(target)
+	if(thing) // some "organs", like egg infections, can have I.remove(target) return null, and so we can't use "thing" in that case
+		if(istype(thing))
+			user.put_in_hands(thing)
 		else
-			var/msg = "<span class='warning'> [user]'s hand slips, tearing the skin!</span>"
-			var/self_msg = "<span class='warning'> Your hand slips, tearing skin!</span>"
-			user.visible_message(msg, self_msg)
+			thing.forceMove(get_turf(target))
+	target.update_icons()
+
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/extract/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(extracting && extracting.owner == target)
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/affected = H.get_organ(user.zone_selected)
 		if(affected)
+			user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with [tool]!</span>", \
+			"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with [tool]!</span>")
 			affected.receive_damage(20)
+		else
+			user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>", \
+			"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>")
 		return SURGERY_STEP_RETRY
+	else
+		user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
+			"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/implant
+	name = "implant an organ and/or implant"
+	allowed_tools = list(
+		/obj/item/organ/internal = 100,
+		/obj/item/reagent_containers/food/snacks/organ = 0  // there for the flavor text
+	)
+
+/datum/surgery_step/internal/manipulate_organs/implant/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
+		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+	var/obj/item/organ/internal/I = tool
+	if(!istype(I))
+		// dunno how you got here but okay
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(I.requires_robotic_bodypart)
+		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
+		to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(I.damage > (I.max_damage * 0.75))
+		to_chat(user, "<span class='notice'> [I] is in no state to be transplanted.</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(target.get_int_organ(I))
+		to_chat(user, "<span class='warning'> [target] already has [I].</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(affected)
+		user.visible_message("[user] starts transplanting [tool] into [target]'s [affected.name].", \
+		"You start transplanting [tool] into [target]'s [affected.name].")
+		var/mob/living/carbon/human/H = target
+		H.custom_pain("Someone's rooting around in your [affected.name]!")
+	else
+		user.visible_message("[user] starts transplanting [tool] into [target]'s [parse_zone(target_zone)].", \
+		"You start transplanting [tool] into [target]'s [parse_zone(target_zone)].")
+	return
+
+/datum/surgery_step/internal/manipulate_organs/implant/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/I = tool
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(!istype(tool))
+		return SURGERY_STEP_INCOMPLETE
+	if(I.requires_robotic_bodypart)
+		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
+		return SURGERY_STEP_INCOMPLETE
+	if(!user.drop_item())
+		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
+		return SURGERY_STEP_INCOMPLETE
+	I.insert(target)
+	spread_germs_to_organ(I, user, tool)
+
+	if(affected)
+		user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [affected.name].</span>",
+		"<span class='notice'> You have transplanted [tool] into [target]'s [affected.name].</span>")
+	else
+		user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>",
+		"<span class='notice'> You have transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>")
+
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/implant/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		"<span class='warning'>[user]'s hand slips, damaging [tool]!</span>",
+		"<span class='warning'>Your hand slips, damaging [tool]!</span>"
+	)
+	var/obj/item/organ/internal/I = tool
+	if(istype(I) && !I.tough)
+		I.receive_damage(rand(3,5),0)
+
+	return SURGERY_STEP_RETRY
 
 
-	return SURGERY_STEP_INCOMPLETE
+/datum/surgery_step/internal/manipulate_organs/clean
+	name = "clean and/or revive organs"
+	allowed_tools = list(
+		/obj/item/reagent_containers/dropper = 100,
+		/obj/item/reagent_containers/syringe = 100,
+		/obj/item/reagent_containers/glass/bottle = 90,
+		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
+		/obj/item/reagent_containers/food/drinks/bottle = 80,
+		/obj/item/reagent_containers/glass/beaker = 75,
+		/obj/item/reagent_containers/spray = 60,
+		/obj/item/reagent_containers/glass/bucket = 50
+	)
 
+/datum/surgery_step/internal/manipulate_organs/clean/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+
+	var/obj/item/reagent_containers/C = tool
+
+	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+
+	for(var/obj/item/organ/internal/I in affected.internal_organs)
+		if(I)
+			if(C.reagents.total_volume <= 0) //end_step handles if there is not enough reagent
+				user.visible_message("[user] notices [tool] is empty.", \
+				"You notice [tool] is empty.")
+				return SURGERY_BEGINSTEP_SKIP
+
+			var/msg = "[user] starts pouring some of [tool] over [target]'s [I.name]."
+			var/self_msg = "You start pouring some of [tool] over [target]'s [I.name]."
+			if(istype(C, /obj/item/reagent_containers/syringe))
+				msg = "[user] begins injecting [tool] into [target]'s [I.name]."
+				self_msg = "You begin injecting [tool] into [target]'s [I.name]."
+			user.visible_message(msg, self_msg)
+			if(H && affected)
+				H.custom_pain("Something burns horribly in your [affected.name]!")
+
+/datum/surgery_step/internal/manipulate_organs/clean/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!hasorgans(target))
+		return SURGERY_STEP_INCOMPLETE
+	if(!istype(tool, /obj/item/reagent_containers))
+		return SURGERY_STEP_INCOMPLETE
+
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+	var/obj/item/reagent_containers/C = tool
+	var/datum/reagents/R = C.reagents
+	var/ethanol = 0 //how much alcohol is in the thing
+	var/spaceacillin = 0 //how much actual antibiotic is in the thing
+	var/mito_tot = 0 // same for mito, thanks farie
+
+	if(length(R.reagent_list))
+		for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
+			ethanol += alcohol.alcohol_perc * 300
+		ethanol /= length(R.reagent_list)
+
+		mito_tot = R.get_reagent_amount("mitocholide")
+		spaceacillin = R.get_reagent_amount("spaceacillin")
+
+
+	for(var/obj/item/organ/internal/I in affected.internal_organs)
+		if(!I)
+			continue
+		if(R.total_volume < GHETTO_DISINFECT_AMOUNT)
+			to_chat(user, "There is not enough in [tool].")
+			return SURGERY_STEP_INCOMPLETE
+		if(I.germ_level < INFECTION_LEVEL_ONE / 2 && !(I.status & ORGAN_DEAD))  // not dead, don't need to inject mito either
+			to_chat(user, "[I] does not appear to be infected.")
+		var/success = FALSE
+		if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
+			if(spaceacillin || ethanol)
+				if(spaceacillin >= GHETTO_DISINFECT_AMOUNT)
+					I.germ_level = 0
+				else
+					I.germ_level = max(I.germ_level-ethanol, 0)
+				success = TRUE // we actually injected some chemicals
+
+			else if(!(I.status & ORGAN_DEAD)) // Not dead and got nothing to disinfect the organ with. Don't waste the other chems
+				to_chat(user, "<span class='warning'>[I] does appear mildly infected but [C] does not seem to contain disinfectants. You decide to not inject the chemicals into [I].</span>")
+				continue
+
+		var/mito_trans
+		if(mito_tot && (I.status & ORGAN_DEAD) && !I.is_robotic())
+			mito_trans = min(mito_tot, C.amount_per_transfer_from_this / length(R.reagent_list)) // How much mito is actually transfered
+			success = TRUE
+		if(!success)
+			to_chat(user, "<span class='warning'>[C] does not seem to have the chemicals needed to clean [I]. You decide against wasting chemicals.</span>")
+			continue
+
+		// now try actually injecting.
+
+		if(istype(C, /obj/item/reagent_containers/syringe))
+			user.visible_message(
+				"<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
+				"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>"
+			)
+		else
+			user.visible_message(
+				"<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
+				"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>"
+			)
+
+		R.reaction(target, REAGENT_INGEST, R.total_volume / C.amount_per_transfer_from_this)
+		R.trans_to(target, C.amount_per_transfer_from_this)
+
+		if(mito_trans)
+			mito_tot -= mito_trans
+			if(I.is_robotic()) // Get out cyborg people
+				continue
+			if(mito_trans >= MITO_REVIVAL_COST)
+				I.rejuvenate() // Just like splashing it onto it
+				user.visible_message("<span class='warning'>\The [I] seems to regain its lively luster!</span>")
+			else
+				to_chat(user, "<span class='warning'>[I] does not seem to respond to the amount of mitocholide inside the injection. Try injecting more next time.</span>")
+
+	return SURGERY_STEP_CONTINUE
+
+
+/datum/surgery_step/internal/manipulate_organs/clean/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!istype(tool, /obj/item/reagent_containers))
+		return SURGERY_STEP_INCOMPLETE
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/obj/item/reagent_containers/C = tool
+	var/datum/reagents/R = C.reagents
+	var/ethanol = 0 //how much alcohol is in the thing
+
+	if(length(R.reagent_list))
+		for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
+			ethanol += alcohol.alcohol_perc * 300
+		ethanol /= length(C.reagents.reagent_list)
+
+	for(var/obj/item/organ/internal/I in target.get_organs_zone(target_zone))
+		I.germ_level = max(I.germ_level-ethanol, 0)
+		I.receive_damage(rand(4, 8), 0)
+
+	R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
+	R.reaction(target, REAGENT_INGEST)
+
+	user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of [tool] all over [target][affected ? "'s [affected.name]" : ""] incision!</span>", \
+		"<span class='warning'> Your hand slips, splashing the contents of [tool] all over [target][affected ? "'s [affected.name]" : ""] incision!</span>")
+	return SURGERY_STEP_CONTINUE
+
+// FINISH
+/datum/surgery_step/internal/manipulate_organs/finish
+	name = "finish manipulation"
+	allowed_tools = list(
+		/obj/item/scalpel/laser/manager = 100,
+		TOOL_RETRACTOR = 100,
+		TOOL_CROWBAR = 90
+	)
+
+/datum/surgery_step/internal/manipulate_organs/finish/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(affected && affected.encased)
+		var/msg = "[user] starts bending [target]'s [affected.encased] back into place with [tool]."
+		var/self_msg = "You start bending [target]'s [affected.encased] back into place with [tool]."
+		user.visible_message(msg, self_msg)
+	else
+		var/msg = "[user] starts pulling [target]'s skin back into place with [tool]."
+		var/self_msg = "You start pulling [target]'s skin back into place with [tool]."
+		user.visible_message(msg, self_msg)
+
+	if(H && affected)
+		H.custom_pain("Something hurts horribly in your [affected.name]!")
+
+/datum/surgery_step/internal/manipulate_organs/finish/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/msg
+	var/self_msg
+	if(affected && affected.encased)
+		msg = "<span class='notice'>[user] bends [target]'s [affected.encased] back into place with [tool].</span>"
+		self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with [tool].</span>"
+		affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+	else
+		msg = "<span class='notice'>[user] pulls [target]'s flesh back into place with [tool].</span>"
+		self_msg = "<span class='notice'>You pull [target]'s flesh back into place with [tool].</span>"
+
+	user.visible_message(msg, self_msg)
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/finish/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/msg
+	var/self_msg
+	if(affected && affected.encased)
+		msg = "<span class='warning'> [user]'s hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
+		self_msg = "<span class='warning'> Your hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
+		affected.fracture()
+	else
+		msg = "<span class='warning'> [user]'s hand slips, tearing the skin!</span>"
+		self_msg = "<span class='warning'> Your hand slips, tearing skin!</span>"
+	if(affected)
+		affected.receive_damage(20)
+	user.visible_message(msg, self_msg)
+	return SURGERY_STEP_RETRY
+
+/datum/surgery/abstract/manipulate
+	requires_bodypart = TRUE
+
+
+/datum/surgery/abstract/manipulate/extract
+	steps = list(
+		/datum/surgery_step/internal/manipulate_organs/extract,
+		// call the manipulate organs step again to keep the cycle going
+		/datum/surgery_step/proxy/manipulate_organs
+	)
+
+/datum/surgery/abstract/manipulate/implant
+	steps = list(
+		/datum/surgery_step/internal/manipulate_organs/implant,
+		/datum/surgery_step/proxy/manipulate_organs
+	)
+
+/datum/surgery/abstract/manipulate/mend
+	steps = list(
+		/datum/surgery_step/internal/manipulate_organs/mend,
+		/datum/surgery_step/proxy/manipulate_organs
+	)
+
+/datum/surgery/abstract/manipulate/clean
+	steps = list(
+		/datum/surgery_step/internal/manipulate_organs/clean,
+		/datum/surgery_step/proxy/manipulate_organs
+	)
+
+/// The surgery step to trigger this whole situation
+/datum/surgery_step/proxy/manipulate_organs
+	name = "Manipulate Organs"
+	branches = list(
+		/datum/surgery/abstract/manipulate/extract,
+		/datum/surgery/abstract/manipulate/implant,
+		/datum/surgery/abstract/manipulate/mend,
+		/datum/surgery/abstract/manipulate/clean
+	)
 
 //////////////////////////////////////////////////////////////////
 //						SPESHUL AYLIUM STUPS					//
@@ -563,3 +683,5 @@
 		self_msg = "<span class='warning'> Your hand slips, damaging several organs in [target]'s lower abdomen with [tool]!</span>"
 	user.visible_message(msg, self_msg)
 	return SURGERY_STEP_RETRY
+
+#undef MITO_REVIVAL_COST

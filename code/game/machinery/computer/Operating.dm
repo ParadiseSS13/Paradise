@@ -118,7 +118,7 @@
 			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/occupant.max_blood), 0.01) //copy pasta ends here
 
 			occupantData["bloodType"] = occupant.dna.blood_type
-		if(occupant.surgeries.len)
+		if(length(occupant.surgeries))
 			occupantData["inSurgery"] = 1
 			for(var/datum/surgery/procedure in occupant.surgeries)
 				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
