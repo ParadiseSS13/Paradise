@@ -222,6 +222,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHANGELING_DRAIN "drain"
 #define TRAIT_HULK "hulk"
 #define STASIS_MUTE "stasis"
+#define SCRYING "scrying" // for ghosts that may return to their body (spirit rune, scrying orb, etc)
 #define SCRYING_ORB "scrying-orb"
 #define CULT_EYES "cult_eyes"
 #define DOGGO_SPACESUIT "doggo_spacesuit"

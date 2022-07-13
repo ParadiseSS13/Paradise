@@ -213,6 +213,7 @@
 	force = 15
 	hitsound = 'sound/items/welder2.ogg'
 	var/mob/current_owner
+	var/mob/dead/observer/ghost // owners ghost when active
 
 /obj/item/scrying/Initialize(mapload)
 	. = ..()
@@ -245,9 +246,25 @@
 		current_owner.update_icons()
 
 /obj/item/scrying/attack_self(mob/user as mob)
-	to_chat(user, "<span class='notice'> You can see...everything!</span>")
-	visible_message("<span class='danger'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>")
-	user.ghostize(1)
+	if(!in_use)
+		in_use = TRUE
+		ADD_TRAIT(user, SCRYING, SCRYING_ORB)
+		user.add_atom_colour(COLOR_BLUE, ADMIN_COLOUR_PRIORITY) // stolen spirit rune code
+		user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
+						"<span class='danger'> You stare into [src], you can see the entire universe!</span>")
+		ghost = user.ghostize(TRUE)
+		ghost.name = "Magic Spirit of [ghost.name]"
+		ghost.color = COLOR_BLUE
+		while(!QDELETED(user))
+			if(user.key || QDELETED(src))
+				user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
+									"<span class='danger'>You look away from [src].</span>")
+				break
+			sleep(5)
+		user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, COLOR_BLUE)
+		REMOVE_TRAIT(user, SCRYING, SCRYING_ORB)
+		user = null
+		in_use = FALSE
 
 /////////////////////Multiverse Blade////////////////////
 GLOBAL_LIST_EMPTY(multiverse)
