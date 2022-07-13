@@ -10,12 +10,12 @@
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
-	var/can_charge = 1
+	var/can_charge = TRUE
 	var/charge_sections = 4
 	var/inhand_charge_sections = 4
 	ammo_x_offset = 2
-	var/shaded_charge = 0 //if this gun uses a stateful charge bar for more detail
-	var/selfcharge = 0
+	var/shaded_charge = FALSE //if this gun uses a stateful charge bar for more detail
+	var/selfcharge = FALSE
 	var/charge_tick = 0
 	var/charge_delay = 4
 	/// Do you want the gun to fit into a turret, defaults to true, used for if a energy gun is too strong to be in a turret, or does not make sense to be in one.

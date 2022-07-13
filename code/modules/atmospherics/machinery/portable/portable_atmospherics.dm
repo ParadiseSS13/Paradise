@@ -9,7 +9,6 @@
 	var/obj/item/tank/holding
 
 	var/volume = 0
-	var/destroyed = 0
 
 	var/maximum_pressure = 90*ONE_ATMOSPHERE
 
@@ -65,7 +64,7 @@
 		connected_port.build_network()
 	connected_port.parent.reconcile_air()
 
-	anchored = 1 //Prevent movement
+	anchored = TRUE //Prevent movement
 
 	return 1
 
@@ -73,7 +72,7 @@
 	if(!connected_port)
 		return 0
 
-	anchored = 0
+	anchored = FALSE
 
 	connected_port.connected_device = null
 	connected_port = null

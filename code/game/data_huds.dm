@@ -186,7 +186,7 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	if(ismachineperson(src))
 		holder = hud_list[DIAG_STAT_HUD]
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
+
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable
@@ -204,8 +204,6 @@
 
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
-	else if(B && B.controlling)
-		holder.icon_state = "hudbrainworm"
 	else if(is_in_crit())
 		holder.icon_state = "huddefib"
 	else if(has_virus())

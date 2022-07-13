@@ -54,7 +54,7 @@
 	layer = MOB_LAYER + 0.9
 	health = 50
 	maxHealth = 50
-	ranged = 1
+	ranged = TRUE
 	harm_intent_damage = 5
 	obj_damage = 60
 	melee_damage_lower = 25
@@ -69,7 +69,7 @@
 	var/grasp_chance = 20
 	var/grasp_pull_chance = 85
 	var/grasp_range = 4
-	del_on_death = 1
+	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/venus_human_trap/handle_automated_action()
 	if(..())

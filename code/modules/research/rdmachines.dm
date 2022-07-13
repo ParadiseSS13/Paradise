@@ -4,13 +4,13 @@
 /obj/machinery/r_n_d
 	name = "R&D Device"
 	icon = 'icons/obj/machines/research.dmi'
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
-	var/busy = 0
-	var/hacked = 0
-	var/disabled = 0
-	var/shocked = 0
+	var/busy = FALSE
+	var/hacked = FALSE
+	var/disabled = FALSE
+	var/shocked = FALSE
 	var/list/wires = list()
 	var/hack_wire
 	var/disable_wire

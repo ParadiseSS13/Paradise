@@ -5,7 +5,7 @@
 	icon_state = "shock_kit"
 	var/obj/item/clothing/head/helmet/part1 = null
 	var/obj/item/radio/electropack/part2 = null
-	var/status = 0
+	var/status = FALSE
 	w_class = WEIGHT_CLASS_HUGE
 	flags = CONDUCT
 

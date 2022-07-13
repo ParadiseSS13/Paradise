@@ -9,9 +9,9 @@
 	icon_state = "launcherbtt"
 	desc = "A remote control switch for a mass driver."
 	var/id_tag = "default"
-	var/active = 0
+	var/active = FALSE
 	settagwhitelist = list("id_tag", "logic_id_tag")
-	anchored = 1.0
+	anchored = TRUE
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
@@ -19,7 +19,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	var/range = 7
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to, so you don't have to unlink from doors and stuff
-	var/logic_connect = 0							//Set this to allow the button to send out logic signals when pressed in addition to normal stuff
+	var/logic_connect = FALSE						//Set this to allow the button to send out logic signals when pressed in addition to normal stuff
 
 /obj/machinery/button/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -103,7 +103,7 @@
 	launch_sequence()
 
 /obj/machinery/driver_button/proc/launch_sequence()
-	active = 1
+	active = TRUE
 	icon_state = "launcheract"
 
 	if(logic_connect)
@@ -145,7 +145,7 @@
 				return
 
 	icon_state = "launcherbtt"
-	active = 0
+	active = FALSE
 
 /obj/machinery/driver_button/multitool_topic(mob/user, list/href_list, obj/O)
 	..()
@@ -162,8 +162,8 @@
 	icon_state = "launcherbtt"
 	desc = "A remote control switch for a mounted igniter."
 	var/id = null
-	var/active = 0
-	anchored = 1.0
+	var/active = FALSE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
@@ -183,7 +183,7 @@
 
 	use_power(5)
 
-	active = 1
+	active = TRUE
 	icon_state = "launcheract"
 
 	for(var/obj/machinery/sparker/M in GLOB.machines)
@@ -200,4 +200,4 @@
 	sleep(50)
 
 	icon_state = "launcherbtt"
-	active = 0
+	active = FALSE

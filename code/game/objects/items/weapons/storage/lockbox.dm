@@ -8,8 +8,8 @@
 	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 4
 	req_access = list(ACCESS_ARMORY)
-	var/locked = 1
-	var/broken = 0
+	var/locked = TRUE
+	var/broken = FALSE
 	var/icon_locked = "lockbox+l"
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
@@ -61,8 +61,8 @@
 
 /obj/item/storage/lockbox/emag_act(user as mob)
 	if(!broken)
-		broken = 1
-		locked = 0
+		broken = TRUE
+		locked = FALSE
 		desc = "It appears to be broken."
 		icon_state = icon_broken
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")

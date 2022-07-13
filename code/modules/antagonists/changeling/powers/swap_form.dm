@@ -25,9 +25,6 @@
 	if(ischangeling(target))
 		to_chat(user, "<span class='warning'>We are unable to swap forms with another changeling!</span>")
 		return FALSE
-	if(target.has_brain_worms() || user.has_brain_worms())
-		to_chat(user, "<span class='warning'>A foreign presence repels us from this body!</span>")
-		return FALSE
 	return TRUE
 
 /datum/action/changeling/swap_form/sting_action(mob/living/carbon/user)

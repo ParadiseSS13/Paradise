@@ -7,8 +7,8 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		if(!H.check_has_mouth())
-			return 0
-		return 1
+			return FALSE
+		return TRUE
 
 /datum/surgery_step/insert_pill
 	name = "insert pill"
@@ -21,14 +21,14 @@
 
 /datum/surgery_step/insert_pill/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
 	if(!istype(tool))
-		return 0
+		return FALSE
 
 	var/dental_implants = 0
 	for(var/obj/item/reagent_containers/food/pill in target.contents) // Can't give them more than 4 dental implants.
 		dental_implants++
 	if(dental_implants >= 4)
 		user.visible_message("[user] pulls \the [tool] back out of [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You pull \the [tool] back out of [target]'s [parse_zone(target_zone)], there wans't enough room...</span>")
-		return 0
+		return FALSE
 
 	user.drop_item()
 	tool.forceMove(target)
@@ -40,7 +40,7 @@
 	P.Grant(target)
 
 	user.visible_message("[user] wedges \the [tool] into [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You wedge [tool] into [target]'s [parse_zone(target_zone)].</span>")
-	return 1
+	return TRUE
 
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
@@ -55,4 +55,4 @@
 		target.reagents.trans_to(owner, target.reagents.total_volume)
 	Remove(owner)
 	qdel(target)
-	return 1
+	return TRUE

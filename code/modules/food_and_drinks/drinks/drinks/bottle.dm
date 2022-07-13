@@ -99,8 +99,8 @@
 		head_attack_message = " on the head"
 		//Weaken the target for the duration that we calculated and divide it by 5.
 		if(armor_duration)
-			var/stun_time = (min(armor_duration, 10)) STATUS_EFFECT_CONSTANT
-			target.Weaken(stun_time)
+			var/knockdown_time = (min(armor_duration, 10)) STATUS_EFFECT_CONSTANT
+			target.KnockDown(knockdown_time)
 
 	//Display an attack message.
 	if(target != user)
@@ -152,7 +152,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("stabbed", "slashed", "attacked")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 3
@@ -332,7 +332,7 @@
 	list_reagents = list()
 	var/list/accelerants = list(/datum/reagent/consumable/ethanol,/datum/reagent/fuel,/datum/reagent/clf3,/datum/reagent/phlogiston,
 							/datum/reagent/napalm,/datum/reagent/hellwater,/datum/reagent/plasma,/datum/reagent/plasma_dust)
-	var/active = 0
+	var/active = FALSE
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/CheckParts(list/parts_list)
 	..()
@@ -358,7 +358,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	if(is_hot(I) && !active)
-		active = 1
+		active = TRUE
 		var/turf/bombturf = get_turf(src)
 		var/area/bombarea = get_area(bombturf)
 		message_admins("[key_name(user)][ADMIN_QUE(user,"?")] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[bombarea] (JMP)</a>.")
@@ -388,4 +388,4 @@
 			return
 		to_chat(user, "<span class='info'>You snuff out the flame on \the [src].</span>")
 		overlays -= GLOB.fire_overlay
-		active = 0
+		active = FALSE

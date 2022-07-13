@@ -9,7 +9,7 @@
 	desc = "A controller for the nearby pool."
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
-	anchored = 1 //this is what I get for assuming /obj/machinery has anchored set to 1 by default
+	anchored = TRUE //this is what I get for assuming /obj/machinery has anchored set to 1 by default
 	var/list/linkedturfs = list() //List contains all of the linked pool turfs to this controller, assignment happens on New()
 	var/mobinpool = list() //List contains all of the mob in the pool, to prevent looping through the entire area to find mobs inside..
 	var/decalinpool = list() // List containing all of the cleanable decals in pool
@@ -54,7 +54,7 @@
 	if(!emagged) //If it is not already emagged, emag it.
 		to_chat(user, "<span class='warning'>You disable \the [src]'s temperature safeguards.</span>")//Inform the mob of what emagging does.
 
-		emagged = 1 //Set the emag var to true.
+		emagged = TRUE //Set the emag var to true.
 
 /obj/machinery/poolcontroller/multitool_act(mob/user, obj/item/I)
 	. = TRUE

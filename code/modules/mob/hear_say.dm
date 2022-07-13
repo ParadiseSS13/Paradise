@@ -95,11 +95,12 @@
 		if(client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS && (speaker in view(src)))
 			message = "<b>[message]</b>"
 
-	// Check if the language used is innate
-	for(var/datum/multilingual_say_piece/SP in message_pieces)
-		if(SP.speaking && SP.speaking.flags & INNATE)
-			custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
-			return
+	// Ensure only the speaker is forced to emote, and that the spoken language is inname
+	if(speaker == src)
+		for(var/datum/multilingual_say_piece/SP in message_pieces)
+			if(SP.speaking && SP.speaking.flags & INNATE)
+				custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
+				return
 
 	if(!can_hear())
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set

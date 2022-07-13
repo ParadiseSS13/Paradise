@@ -5,7 +5,7 @@
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/aiupload
 	var/mob/living/silicon/ai/current = null
-	var/opened = 0
+	var/opened = FALSE
 
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
