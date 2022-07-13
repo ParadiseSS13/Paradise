@@ -594,6 +594,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
 			take_organ_damage(7.5*speed) // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4
 			KnockDown(2 SECONDS)
+			playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
 		if(victim.flying)
