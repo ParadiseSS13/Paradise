@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(input)
 
 /datum/controller/subsystem/input/fire(resumed = FALSE)
 	var/list/to_cull
-	for(var/client/C as anything in processing)
+	for(var/client/C in processing)
 		if(processing[C] + AUTO_CULL_TIME < world.time)
 			if(!length(C.input_data.keys_held))
 				LAZYADD(to_cull, C)
