@@ -12,15 +12,15 @@
 	plane = FLOOR_PLANE
 	layer = GAS_SCRUBBER_LAYER
 
-	can_unwrench = 1
-	var/open = 0
+	can_unwrench = TRUE
+	var/open = FALSE
 
 	var/area/initial_loc
 	var/area_uid
 
 	req_one_access_txt = "24;10"
 
-	var/pump_direction = 1 //0 = siphoning, 1 = releasing
+	var/releasing = TRUE //FALSE = siphoning, TRUE = releasing
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
@@ -35,11 +35,11 @@
 	var/internal_pressure_bound_default = INTERNAL_PRESSURE_BOUND
 	var/pressure_checks_default = PRESSURE_CHECKS
 
-	var/welded = 0 // Added for aliens -- TLE
+	var/welded = FALSE // Added for aliens -- TLE
 	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE	//the (internal) pressure at which welded covers will burst off
 
 	frequency = ATMOS_VENTSCRUB
-	Mtoollink = 1
+	Mtoollink = TRUE
 
 	var/radio_filter_out
 	var/radio_filter_in
@@ -50,14 +50,14 @@
 	return "This pumps the contents of the attached pipe out into the atmosphere, if needed. It can be controlled from an Air Alarm."
 
 /obj/machinery/atmospherics/unary/vent_pump/on
-	on = 1
+	on = TRUE
 	icon_state = "map_vent_out"
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon
-	pump_direction = 0
+	releasing = FALSE
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on
-	on = 1
+	on = TRUE
 	icon_state = "map_vent_in"
 
 /obj/machinery/atmospherics/unary/vent_pump/New()
@@ -99,7 +99,7 @@
 	else if(!powered())
 		vent_icon += "off"
 	else
-		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
+		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
 	overlays += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
 
@@ -149,7 +149,7 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
-	if(pump_direction) //internal -> external
+	if(releasing) //internal -> external
 		var/pressure_delta = 10000
 		if(pressure_checks & 1)
 			pressure_delta = min(pressure_delta, (external_pressure_bound - environment_pressure))
@@ -208,7 +208,7 @@
 		"tag" = src.id_tag,
 		"device" = "AVP",
 		"power" = on,
-		"direction" = pump_direction?("release"):("siphon"),
+		"direction" = releasing?("release"):("siphon"),
 		"checks" = pressure_checks,
 		"internal" = internal_pressure_bound,
 		"external" = external_pressure_bound,
@@ -246,11 +246,11 @@
 
 	if("purge" in signal.data)
 		pressure_checks &= ~1
-		pump_direction = 0
+		releasing = FALSE
 
 	if("stabalize" in signal.data)
 		pressure_checks |= 1
-		pump_direction = 1
+		releasing = TRUE
 
 	if("power" in signal.data)
 		on = text2num(signal.data["power"])
@@ -265,7 +265,7 @@
 		pressure_checks = (pressure_checks ? 0 : 3)
 
 	if("direction" in signal.data)
-		pump_direction = text2num(signal.data["direction"])
+		releasing = text2num(signal.data["direction"])
 
 	if("set_internal_pressure" in signal.data)
 		internal_pressure_bound = clamp(text2num(signal.data["set_internal_pressure"]), 0, ONE_ATMOSPHERE * 50)
@@ -313,13 +313,13 @@
 				to_chat(user, "<span class='notice'>Now closing the vent.</span>")
 				if(do_after(user, 20 * W.toolspeed, target = src))
 					playsound(loc, W.usesound, 100, 1)
-					open = 0
+					open = FALSE
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 			else
 				to_chat(user, "<span class='notice'>Now opening the vent.</span>")
 				if(do_after(user, 20 * W.toolspeed, target = src))
 					playsound(loc, W.usesound, 100, 1)
-					open = 1
+					open = TRUE
 					user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
 		return
 	if(istype(W, /obj/item/paper))
