@@ -592,7 +592,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(hit_atom.density && isturf(hit_atom))
 		if(hurt)
 			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
-			take_organ_damage(7.5*speed) // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4
+			take_organ_damage(7.5 * speed) // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4
 			KnockDown(2 SECONDS)
 			playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
 	if(iscarbon(hit_atom) && hit_atom != src)
@@ -600,8 +600,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(victim.flying)
 			return
 		if(hurt)
-			victim.take_organ_damage(7.5*speed)// speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4
-			take_organ_damage(7.5*speed)
+			victim.take_organ_damage(7.5 * speed)// speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4
+			take_organ_damage(7.5 * speed)
 			victim.KnockDown(2 SECONDS)
 			KnockDown(2 SECONDS)
 			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
