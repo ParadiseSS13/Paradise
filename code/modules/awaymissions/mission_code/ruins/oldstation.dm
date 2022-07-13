@@ -3,8 +3,7 @@
 	icon_state = "firstaid"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
-/obj/item/storage/firstaid/ancient/New()
-	..()
+/obj/item/storage/firstaid/ancient/populate_contents()
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/bruise_pack(src)

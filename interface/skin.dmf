@@ -5,11 +5,11 @@ menu "menu"
 	elem 
 		name = "&File"
 	elem 
-		name = "&Quick screenshot\tF2"
+		name = "&Quick screenshot"
 		command = ".screenshot auto"
 		category = "&File"
 	elem 
-		name = "&Save screenshot as...\tShift+F2"
+		name = "&Save screenshot as..."
 		command = ".screenshot"
 		category = "&File"
 	elem "reconnectbutton"
@@ -108,12 +108,8 @@ menu "menu"
 	elem 
 		name = "&Help"
 	elem 
-		name = "&Admin help\tF1"
+		name = "&Admin help"
 		command = "adminhelp"
-		category = "&Help"
-	elem 
-		name = "&Hotkeys"
-		command = "Hotkey-Help"
 		category = "&Help"
 
 
