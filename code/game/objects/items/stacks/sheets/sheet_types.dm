@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		)), \
 	new /datum/stack_recipe("barber chair", /obj/structure/chair/barber, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("desk bell", /obj/structure/desk_bell, 2, time = 3),
+	new /datum/stack_recipe("desk bell", /obj/structure/desk_bell, 2, time = 0.3 SECONDS),
 	new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = 1, on_floor = 1),
 	null,
