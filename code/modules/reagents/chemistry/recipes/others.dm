@@ -99,7 +99,7 @@
 	result = null
 	required_reagents = list("oil" = 5, "sacid" = 2, "ash" = 3)
 	min_temp = T0C + 100
-	result_amount = 1
+	result_amount = 10
 
 /datum/chemical_reaction/plastic_polymers/on_reaction(datum/reagents/holder, created_volume)
 	var/loc = get_turf(holder.my_atom)
