@@ -1679,6 +1679,11 @@
 	req_access_txt = "2";
 	pixel_y = 21
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/obj/effect/turf_decal/stripes/red/full,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -3901,6 +3906,11 @@
 	req_access_txt = "2";
 	pixel_y = -21
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/obj/effect/turf_decal/stripes/red/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -4289,6 +4299,9 @@
 	},
 /area/security/lobby)
 "aoh" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -78298,6 +78311,17 @@
 	icon_state = "wood-broken5"
 	},
 /area/maintenance/apmaint2)
+"hgU" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/red{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/brig)
 "hhX" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Prison Cafeteria"
@@ -81237,6 +81261,10 @@
 "qkA" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/structure/cable,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "qmB" = (
@@ -82459,6 +82487,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/red{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -83208,6 +83242,15 @@
 "wpH" = (
 /turf/simulated/floor/noslip,
 /area/engine/engineering)
+"wrj" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/security/brig)
 "wro" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -83442,6 +83485,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83574,6 +83621,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"xAn" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/red{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkredcorners"
+	},
+/area/security/brig)
 "xAw" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -107915,9 +107974,9 @@ wsT
 agk
 aoh
 tXE
-aqW
-atg
-gVE
+hgU
+xAn
+wrj
 aqX
 nuk
 atg
