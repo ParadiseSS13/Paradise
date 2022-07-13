@@ -260,6 +260,10 @@
 				user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
 									"<span class='danger'>You look away from [src].</span>")
 				break
+			if(user.get_active_hand() != src)
+				user.visible_message("<span class='notice'>[user]'s focus is forced away from [src].</span>",
+									"<span class='danger'>Your vision is ripped away from [src].</span>")
+				break
 			sleep(5)
 		user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, COLOR_BLUE)
 		REMOVE_TRAIT(user, SCRYING, SCRYING_ORB)
