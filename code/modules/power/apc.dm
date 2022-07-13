@@ -1329,7 +1329,7 @@
 	operating = 0
 	if(occupier)
 		malfvacate(1)
-	update_icon()
+	update_icon(force_update = TRUE)
 	update()
 
 // overload all the lights in this APC area
