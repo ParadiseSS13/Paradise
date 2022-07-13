@@ -76,12 +76,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
-	if(islist(antag_datums))
-		for(var/i in antag_datums)
-			var/datum/antagonist/antag_datum = i
-			if(antag_datum.delete_on_mind_deletion)
-				qdel(i)
-		antag_datums = null
+	QDEL_LIST(antag_datums)
 	current = null
 	return ..()
 
@@ -1483,8 +1478,6 @@
  * * datum/team/team - the antag team that the src mind should join, if any
  */
 /datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team = null)
-	if(!datum_type_or_instance)
-		return
 	var/datum/antagonist/A
 	if(!ispath(datum_type_or_instance))
 		A = datum_type_or_instance
@@ -1512,18 +1505,15 @@
  * * datum_type - an antag datum typepath
  */
 /datum/mind/proc/remove_antag_datum(datum_type)
-	if(!datum_type)
-		return
 	var/datum/antagonist/A = has_antag_datum(datum_type)
+	LAZYREMOVE(antag_datums, A)
 	qdel(A)
 
 /**
  * Removes all antag datums from the src mind.
  */
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
-	for(var/a in antag_datums)
-		var/datum/antagonist/A = a
-		qdel(A)
+	QDEL_LIST(antag_datums)
 
 /**
  * Returns an antag datum instance if the src mind has the specified `datum_type`. Returns `null` otherwise.
@@ -1533,10 +1523,7 @@
  * * check_subtypes - TRUE if this proc will consider subtypes of `datum_type` as valid. FALSE if only the exact same type should be considered.
  */
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
-	if(!datum_type)
-		return
-	for(var/a in antag_datums)
-		var/datum/antagonist/A = a
+	for(var/datum/antagonist/A as anything in antag_datums)
 		if(check_subtypes && istype(A, datum_type))
 			return A
 		else if(A.type == datum_type)
