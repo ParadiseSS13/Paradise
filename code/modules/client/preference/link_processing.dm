@@ -936,16 +936,6 @@
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
 
-				if("legacy_keys")
-					toggles2 ^= PREFTOGGLE_2_LEGACY_KEYBINDS
-					if(toggles2 & PREFTOGGLE_2_LEGACY_KEYBINDS)
-						to_chat(user, "<span class='info'>You are now using legacy key mode. You can still rebind all keys, but only the following will be detected: \
-								Arrow Keys, Function Keys, Insert, Del, Home, End, PageUp, PageDn.</span>")
-						winset(user.client, null, "mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]")
-					else
-						to_chat(user, "<span class='info'>You are no longer using legacy key mode. All keys will function as intended.</span>")
-						winset(user.client, null, "mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]")
-
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
 						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \
@@ -1124,8 +1114,7 @@
 									"ADD" = "Add",
 									"SUBTRACT" = "Subtract",
 									"DECIMAL" = "Decimal",
-									"CLEAR" = "Center",
-									"TAB" = "Tab"
+									"CLEAR" = "Center"
 								)
 
 								new_key = key_map[new_key] || new_key
