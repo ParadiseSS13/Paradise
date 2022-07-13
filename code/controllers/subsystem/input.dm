@@ -1,4 +1,4 @@
-///Culling occurs when a client has not pressed a key in over 60 seconds. This can be an AFK player, or someone who's holding a key down. We stop processing their inputs until they press another key down.
+///Culling occurs when a client has not pressed a key in over 60 seconds. We stop processing their inputs until they press another key down.
 #define AUTO_CULL_TIME 60 SECONDS
 
 
