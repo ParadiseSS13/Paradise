@@ -167,10 +167,10 @@
 				return FALSE
 		if(welded)
 			to_chat(user, "<span class='warning'>The door is welded.</span>")
-			return
+			return FALSE
 		if(locked)
 			to_chat(user, "<span class='warning'>The door is bolted.</span>")
-			return
+			return FALSE
 		if(density)
 			visible_message("<span class='danger'>[user] forces the door open!</span>")
 			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

@@ -43,10 +43,6 @@
 	update_state()
 
 /obj/structure/morgue/proc/update_state()
-	check_status()
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/structure/morgue/proc/check_status()
 	if(connected)
 		status = EXTENDED_TRAY
 		return
@@ -69,6 +65,8 @@
 			status = GHOST_CONNECTED
 			return
 	status = UNREVIVABLE
+
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/morgue/update_overlays()
 	. = ..()

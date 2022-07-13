@@ -30,7 +30,7 @@
 /obj/structure/coatrack/CanPass(atom/movable/mover, turf/target, height=0)
 	var/can_hang = FALSE
 	for(var/T in allowed)
-		if(!istype(mover,T))
+		if(istype(mover,T))
 			can_hang = TRUE
 	if(can_hang && !coat)
 		visible_message("[mover] lands on \the [src].")

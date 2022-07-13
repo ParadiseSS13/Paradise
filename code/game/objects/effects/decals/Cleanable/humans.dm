@@ -146,6 +146,10 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
 
+/obj/effect/decal/cleanable/blood/gibs/Destroy()
+	giblets = null
+	return ..()
+
 /obj/effect/decal/cleanable/blood/gibs/update_icon()
 	giblets = new(base_icon, "[icon_state]_flesh", dir)
 	if(!fleshcolor || fleshcolor == "rainbow")

@@ -126,10 +126,6 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/update_overlays()
 	. = ..()
-	if(drill_timer)
-		progress_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
-		. += progress_bar
-
 	if(istype(drill, /obj/item/thermal_drill))
 		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
 		var/state = "[initial(icon_state)]_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
@@ -152,14 +148,14 @@ GLOBAL_LIST_EMPTY(safes)
 					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
 					drill.soundloop.start()
-					update_icon(UPDATE_ICON_STATE)
+					update_icon()
 					START_PROCESSING(SSobj, src)
 			if("Turn Off")
 				if(do_after(user, 2 SECONDS, target = src))
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
-					update_icon(UPDATE_ICON_STATE)
+					update_icon()
 					STOP_PROCESSING(SSobj, src)
 			if("Remove Drill")
 				if(drill_timer)
@@ -167,7 +163,7 @@ GLOBAL_LIST_EMPTY(safes)
 				else if(do_after(user, 2 SECONDS, target = src))
 					user.put_in_hands(drill)
 					drill = null
-					update_icon(UPDATE_ICON_STATE)
+					update_icon()
 			if("Cancel")
 				return
 	else
