@@ -82694,8 +82694,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/chair{
-	dir = 4
+/obj/structure/chair/comfy/shuttle{
+	dir = 4;
+	name = "prisoner transfer chair"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
