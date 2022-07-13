@@ -237,6 +237,17 @@
 	return FALSE
 
 /**
+ * Whether or not the step actually can repeat if given the go-ahead to (by returning the repeat define).
+ * Can and should vary on environmental conditions (or the tool).
+ *
+ */
+/datum/surgery_step/proc/can_repeat(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	// TODO Add a variable to tool that determines if they're an advanced surgery tool
+	// todo add IMS to this
+	// todo add another define return (or option in surgery_step) that basically says "yeah FORCE this retry it's not just a normal one"
+	return TRUE
+
+/**
  * Initiate and really perform the surgery itself.
  * This includes the main do-after and the checking of probabilities for successful surgeries.
  * If try_to_fail is TRUE, then this surgery will be deliberately failed out of.
@@ -309,7 +320,7 @@
 			else if(step_result == SURGERY_STEP_RETRY)
 				retry = TRUE
 
-		if(retry)
+		if(retry && can_repeat(user, target, target_zone, tool, surgery))
 			// if at first you don't succeed...
 			return .(user, target, target_zone, tool, surgery, try_to_fail)
 
@@ -319,6 +330,8 @@
 			surgery.status++
 			if(surgery.status > length(surgery.steps))
 				surgery.complete(target)
+
+		// TODO let a player cancel a currently repeating surgery by clicking again with the original tool used to start the repeating surgery
 
 	surgery.step_in_progress = FALSE
 	return advance
