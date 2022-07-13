@@ -283,5 +283,4 @@
 	for(var/obj/B in L)
 		if(B.type == path)
 			return B
-	return FALSE
 
