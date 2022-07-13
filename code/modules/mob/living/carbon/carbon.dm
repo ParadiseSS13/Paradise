@@ -552,7 +552,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 //Throwing stuff
 
-/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum)
+/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum, speed = 1)
 	. = ..()
 	if(has_status_effect(STATUS_EFFECT_CHARGING))
 		var/hit_something = FALSE
@@ -591,17 +591,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				hurt = FALSE*/
 	if(hit_atom.density && isturf(hit_atom))
 		if(hurt)
-			Weaken(2 SECONDS)
-			take_organ_damage(10)
+			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+			take_organ_damage(7.5*speed) // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4
+			KnockDown(2 SECONDS)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
 		if(victim.flying)
 			return
 		if(hurt)
-			victim.take_organ_damage(10)
-			take_organ_damage(10)
-			victim.Weaken(2 SECONDS)
-			Weaken(2 SECONDS)
+			victim.take_organ_damage(7.5*speed)// speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4
+			take_organ_damage(7.5*speed)
+			victim.KnockDown(2 SECONDS)
+			KnockDown(2 SECONDS)
 			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 
