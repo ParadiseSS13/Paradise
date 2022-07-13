@@ -2228,7 +2228,9 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aoh" = (
 /turf/simulated/wall,
 /area/mimeoffice)
@@ -7369,7 +7371,9 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aGw" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -7657,7 +7661,9 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aHk" = (
 /turf/simulated/wall,
 /area/construction)
@@ -7855,7 +7861,9 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aHV" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -8315,7 +8323,9 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aIY" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -8327,7 +8337,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aIZ" = (
 /obj/structure/cable/yellow{
 	d2 = 8;
@@ -8340,7 +8352,9 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aJa" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -8873,7 +8887,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aKi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -8897,7 +8913,9 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aKk" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/window/reinforced,
@@ -9561,7 +9579,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aLW" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -9572,7 +9592,9 @@
 	icon_state = "plant-25"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aLY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -9582,13 +9604,17 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aLZ" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/item/weldingtool,
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aMb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -10081,7 +10107,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aNf" = (
 /obj/structure/cable/yellow{
 	d2 = 4;
@@ -10104,7 +10132,9 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aNg" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
@@ -10140,7 +10170,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aNk" = (
 /obj/machinery/vending/assist,
 /obj/effect/decal/cleanable/dirt,
@@ -10457,7 +10489,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mineral_storage,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aOg" = (
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
@@ -10550,7 +10584,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aOA" = (
 /turf/simulated/wall,
 /area/storage/primary)
@@ -11575,7 +11611,9 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aRx" = (
 /obj/structure/closet/wardrobe/orange,
 /turf/simulated/floor/plasteel{
@@ -11672,7 +11710,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aRH" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/beaker/waterbottle{
@@ -12763,7 +12803,9 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aUx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -13569,7 +13611,9 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aWv" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
@@ -14186,7 +14230,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aYk" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
@@ -14504,7 +14550,9 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "aYY" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -15399,7 +15447,9 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "bbe" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -15981,7 +16031,9 @@
 	dir = 8;
 	icon_state = "browncorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "bcH" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -15989,7 +16041,9 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "bcI" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -17486,7 +17540,9 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "bgm" = (
 /obj/structure/rack{
 	dir = 8;
@@ -17905,7 +17961,9 @@
 "bhe" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "bhf" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -18654,7 +18712,9 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "biU" = (
 /obj/machinery/ai_slipper,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -18780,7 +18840,9 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "bjh" = (
 /obj/machinery/light{
 	dir = 1
@@ -19539,7 +19601,9 @@
 	dir = 10;
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "bkW" = (
 /turf/simulated/wall/r_wall,
 /area/bridge)
@@ -20263,7 +20327,9 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "bmu" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/preopen{
@@ -20997,7 +21063,9 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "bou" = (
 /obj/structure/table,
 /obj/item/storage/box/lights/mixed,
@@ -41916,7 +41984,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "csB" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/storage/hazardvest,
@@ -54239,7 +54309,9 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "dCV" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -54295,7 +54367,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "dEM" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "C9"
@@ -58116,7 +58190,9 @@
 "fCQ" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "fCW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61252,7 +61328,9 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "hjC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -61264,7 +61342,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "hjE" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -62084,7 +62164,9 @@
 	})
 "hDK" = (
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "hDL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -64499,7 +64581,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "iKZ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
@@ -65190,7 +65274,9 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "jgD" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -66504,7 +66590,9 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "jQo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -67983,7 +68071,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "kFD" = (
 /obj/structure/table/reinforced,
 /obj/item/stamp/denied{
@@ -68456,7 +68546,9 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "kPI" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -69301,7 +69393,9 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "lio" = (
 /turf/simulated/floor/plating/airless,
 /area/solar/port)
@@ -70569,7 +70663,9 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "lOk" = (
 /obj/structure/closet/crate/trashcart{
 	desc = "A heavy, metal laundrycart with wheels.";
@@ -71763,7 +71859,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "mtr" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -74555,7 +74653,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "nPD" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -75994,7 +76094,9 @@
 	dir = 4;
 	icon_state = "browncorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "oHy" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/white/corner,
@@ -76231,7 +76333,9 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "oOv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -76598,7 +76702,9 @@
 	dir = 8;
 	icon_state = "browncorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "oXd" = (
 /obj/structure/rack,
 /obj/item/storage/box/seccarts{
@@ -79274,7 +79380,9 @@
 	dir = 1;
 	icon_state = "browncorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "qpO" = (
 /turf/simulated/wall,
 /area/engine/equipmentstorage{
@@ -90590,7 +90698,9 @@
 "wpu" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "wpL" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -91964,7 +92074,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "xaE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
@@ -93237,7 +93349,9 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "xLm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -93329,7 +93443,9 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/central/ne)
+/area/construction/hallway{
+	name = "\improper Storage Wing"
+	})
 "xNy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
