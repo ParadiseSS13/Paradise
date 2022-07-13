@@ -18,6 +18,8 @@
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
+		// TODO limb repair here currently runtimes because it shares the finish step with manipulate_organs,
+		// This would be fixed if manipulate_organs was split up into a few more steps though
 		/datum/surgery_step/proxy/robotics/limb_repair,
 		/datum/surgery_step/robotics/manipulate_robotic_organs
 	)
@@ -172,6 +174,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
+	tool.play_tool_sound(target)
 	affected.open = ORGAN_CLOSED
 	return SURGERY_STEP_CONTINUE
 
@@ -181,6 +184,7 @@
 	"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
 	return SURGERY_STEP_RETRY
 
+// TODO REFACTOR THIS LIKE ORGAN MANIPULATION
 /datum/surgery_step/robotics/external/repair
 	name = "repair damage internally"
 	allowed_tools = list()
@@ -266,6 +270,7 @@
 			user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
 			affected.open = ORGAN_CLOSED
+			tool.play_tool_sound(target)
 			return SURGERY_STEP_CONTINUE
 	return SURGERY_STEP_INCOMPLETE
 
@@ -490,6 +495,7 @@
 		"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
 		affected.open = ORGAN_CLOSED
 		affected.germ_level = 0
+		tool.play_tool_sound(target)
 		return SURGERY_STEP_CONTINUE
 	return SURGERY_STEP_INCOMPLETE
 

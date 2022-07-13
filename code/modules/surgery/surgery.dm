@@ -170,6 +170,7 @@
  * Returns TRUE if the tool can be usd, or FALSE otherwise
  */
 /datum/surgery_step/proc/is_valid_tool(mob/living/user, obj/item/tool)
+
 	var/success = FALSE
 	if(accept_hand)
 		if(!tool)
@@ -181,6 +182,15 @@
 		if(tool && tool_check(user, tool))
 			success = TRUE
 	else if(tool)
+		if(istype(tool, /obj/item/scalpel/laser/manager/debug))
+			// ok this is a meme but only use it if we'd actually be replacing a tool
+			for(var/key in allowed_tools)
+				if(!ispath(key) && (key in GLOB.surgery_tool_behaviors))
+					allowed_tools[tool.type] = 100
+					implement_type = tool.type
+					success = TRUE
+					break
+
 		for(var/key in allowed_tools)
 			var/match = FALSE
 			if(ispath(key) && istype(tool, key))

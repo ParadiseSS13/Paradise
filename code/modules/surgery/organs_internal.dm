@@ -1,6 +1,8 @@
 #define GHETTO_DISINFECT_AMOUNT 5 //Amount of units to transfer from the container to the organs during ghetto surgery disinfection step
 #define MITO_REVIVAL_COST 3
 
+
+
 /datum/surgery/organ_manipulation
 	name = "Organ Manipulation"
 	steps = list(
@@ -73,6 +75,48 @@
 	if(istype(target,/mob/living/carbon/alien/humanoid))
 		return TRUE
 	return FALSE
+
+
+// Intermediate steps for branching organ manipulation.
+/datum/surgery/abstract/manipulate
+	requires_bodypart = TRUE
+
+
+/datum/surgery/abstract/manipulate/extract
+	steps = list(
+		/datum/surgery_step/internal/manipulate_organs/extract,
+		// call the manipulate organs step again to keep the cycle going
+		/datum/surgery_step/proxy/manipulate_organs
+	)
+
+/datum/surgery/abstract/manipulate/implant
+	steps = list(
+		/datum/surgery_step/internal/manipulate_organs/implant,
+		/datum/surgery_step/proxy/manipulate_organs
+	)
+
+/datum/surgery/abstract/manipulate/mend
+	steps = list(
+		/datum/surgery_step/internal/manipulate_organs/mend,
+		/datum/surgery_step/proxy/manipulate_organs
+	)
+
+/datum/surgery/abstract/manipulate/clean
+	steps = list(
+		/datum/surgery_step/internal/manipulate_organs/clean,
+		/datum/surgery_step/proxy/manipulate_organs
+	)
+
+/// The surgery step to trigger this whole situation
+/datum/surgery_step/proxy/manipulate_organs
+	name = "Manipulate Organs"
+	branches = list(
+		/datum/surgery/abstract/manipulate/extract,
+		/datum/surgery/abstract/manipulate/implant,
+		/datum/surgery/abstract/manipulate/mend,
+		/datum/surgery/abstract/manipulate/clean
+	)
+
 
 // Internal surgeries.
 /datum/surgery_step/internal
@@ -530,45 +574,6 @@
 		affected.receive_damage(20)
 	user.visible_message(msg, self_msg)
 	return SURGERY_STEP_RETRY
-
-/datum/surgery/abstract/manipulate
-	requires_bodypart = TRUE
-
-
-/datum/surgery/abstract/manipulate/extract
-	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/extract,
-		// call the manipulate organs step again to keep the cycle going
-		/datum/surgery_step/proxy/manipulate_organs
-	)
-
-/datum/surgery/abstract/manipulate/implant
-	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/implant,
-		/datum/surgery_step/proxy/manipulate_organs
-	)
-
-/datum/surgery/abstract/manipulate/mend
-	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/mend,
-		/datum/surgery_step/proxy/manipulate_organs
-	)
-
-/datum/surgery/abstract/manipulate/clean
-	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/clean,
-		/datum/surgery_step/proxy/manipulate_organs
-	)
-
-/// The surgery step to trigger this whole situation
-/datum/surgery_step/proxy/manipulate_organs
-	name = "Manipulate Organs"
-	branches = list(
-		/datum/surgery/abstract/manipulate/extract,
-		/datum/surgery/abstract/manipulate/implant,
-		/datum/surgery/abstract/manipulate/mend,
-		/datum/surgery/abstract/manipulate/clean
-	)
 
 //////////////////////////////////////////////////////////////////
 //						SPESHUL AYLIUM STUPS					//

@@ -18,6 +18,19 @@
 #define TOOL_BONEGEL "bonegel"
 #define TOOL_FIXOVEIN "fixovein"
 
+GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
+	TOOL_RETRACTOR,
+	TOOL_HEMOSTAT,
+	TOOL_CAUTERY,
+	TOOL_DRILL,
+	TOOL_SCALPEL,
+	TOOL_SAW,
+	TOOL_BONESET,
+	TOOL_BONEGEL,
+	TOOL_FIXOVEIN
+))
+
+GLOBAL_LIST_INIT(surgery_tool_behaviors_with_robotics, GLOB.surgery_tool_behaviors + list(TOOL_SCREWDRIVER, TOOL_CROWBAR))
 
 #define MIN_TOOL_SOUND_DELAY 20
 
