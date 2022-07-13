@@ -1208,7 +1208,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
@@ -4409,7 +4409,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "awv" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aww" = (
@@ -5893,7 +5893,7 @@
 /area/crew_quarters/mrchangs)
 "aBM" = (
 /obj/structure/rack,
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/storage/box/mousetraps,/obj/item/storage/box/lights/tubes,/obj/item/storage/box/lights/mixed,/obj/item/storage/box/lights/bulbs);
 	name = "Janitor Supplies Spawner"
@@ -10569,7 +10569,7 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12051,7 +12051,7 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12588,7 +12588,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aTX" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -20978,7 +20978,7 @@
 /area/engine/chiefs_office)
 "boc" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -21804,7 +21804,7 @@
 /area/maintenance/fpmaint)
 "bpU" = (
 /obj/structure/cable/yellow,
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
@@ -31801,7 +31801,7 @@
 	name = "south bump";
 	pixel_y = -32
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
@@ -31991,7 +31991,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "bPO" = (
@@ -32893,7 +32893,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "bSr" = (
@@ -42594,7 +42594,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -50346,7 +50346,7 @@
 	name = "\improper Departure Lounge"
 	})
 "cSY" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -58377,7 +58377,7 @@
 	},
 /area/hallway/primary/central)
 "fEw" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -64516,7 +64516,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -67586,7 +67586,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "kry" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "krF" = (
@@ -67854,7 +67854,7 @@
 	},
 /area/lawoffice)
 "kzg" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -71889,7 +71889,7 @@
 	name = "\improper MiniSat Exterior"
 	})
 "moV" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 4;
@@ -72781,7 +72781,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
@@ -74531,7 +74531,7 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "nET" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -77593,7 +77593,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "ptn" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "pts" = (
@@ -79747,7 +79747,7 @@
 	},
 /area/security/permabrig)
 "qvN" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
