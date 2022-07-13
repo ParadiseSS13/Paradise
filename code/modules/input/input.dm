@@ -63,10 +63,10 @@
 
 	macro_sets = null //not needed anymore, bye have a great time
 
-	if(prefs.toggles2 & PREFTOGGLE_2_LEGACY_KEYBINDS)
+	if(prefs?.toggles2 & PREFTOGGLE_2_LEGACY_KEYBINDS)
 		winset(src, null, "mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]")
-	else
-		winset(src, null, "mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]")
+		return
+	winset(src, null, "mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]")
 
 /client/verb/KeyDown(_key as text)
 	set instant = TRUE
