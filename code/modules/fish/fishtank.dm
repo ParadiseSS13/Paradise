@@ -338,35 +338,39 @@
 		var/count = length(fish_types[key])
 		fish_types_input += list("[initial(fish_type.fish_name)][count > 1 ? " (x[count])" : ""]" = key)
 	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_types_input		//Select a fish from the tank
+	if(!caught_fish)
+		return
+	if(!Adjacent(user))
+		to_chat(user, "<span class='warning'>You are no longer next to [src], so you can't catch fish!</span>")
+		return
 	if(get_num_fish() <= 0)
 		to_chat(user, "<span class='warning'>There are no fish in [src] to catch!</span>")
 		return
-	else if(caught_fish)
-		var/list/fish_type_caught = fish_types_input[caught_fish]
-		var/list/fishes_of_type = list()
-		for(var/datum/fish/F in fish_list)
-			if(F.type == fish_type_caught)
-				fishes_of_type += list(F)
-		if(length(fishes_of_type) == 0)
-			var/datum/fish/fish_type = fish_type_caught
-			to_chat(user, "<span class='warning'>There are no [fish_type.fish_name] in [src] to catch!</span>")
-			return
-		var/datum/fish/fish_to_scoop = pick(fishes_of_type)
-		// Is the user holding a fish bag?
-		var/obj/item/storage/bag/fish_bag
-		if(istype(user.r_hand, /obj/item/storage/bag/fish))
-			fish_bag = user.r_hand
-		else if(istype(user.l_hand, /obj/item/storage/bag/fish))
-			fish_bag = user.l_hand
-		var/fish_name = fish_to_scoop.fish_name
-		// Move the fish in
-		var/fish_item = fish_to_scoop.fish_item
-		if(fish_item)
-			var/obj/item/I = new fish_item(get_turf(user))
-			if(fish_bag?.can_be_inserted(I))
-				fish_bag.handle_item_insertion(I)
-		user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
-		kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
+	var/list/fish_type_caught = fish_types_input[caught_fish]
+	var/list/fishes_of_type = list()
+	for(var/datum/fish/F in fish_list)
+		if(F.type == fish_type_caught)
+			fishes_of_type += list(F)
+	if(length(fishes_of_type) == 0)
+		var/datum/fish/fish_type = fish_type_caught
+		to_chat(user, "<span class='warning'>There are no [fish_type.fish_name] in [src] to catch!</span>")
+		return
+	var/datum/fish/fish_to_scoop = pick(fishes_of_type)
+	// Is the user holding a fish bag?
+	var/obj/item/storage/bag/fish_bag
+	if(istype(user.r_hand, /obj/item/storage/bag/fish))
+		fish_bag = user.r_hand
+	else if(istype(user.l_hand, /obj/item/storage/bag/fish))
+		fish_bag = user.l_hand
+	var/fish_name = fish_to_scoop.fish_name
+	// Move the fish in
+	var/fish_item = fish_to_scoop.fish_item
+	if(fish_item)
+		var/obj/item/I = new fish_item(get_turf(user))
+		if(fish_bag?.can_be_inserted(I))
+			fish_bag.handle_item_insertion(I)
+	user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
+	kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
 
 /obj/machinery/fishtank/proc/spill_water()
 	var/turf/simulated/T = get_turf(src)
