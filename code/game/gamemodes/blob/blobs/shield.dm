@@ -12,28 +12,42 @@
 /obj/structure/blob/shield/core
 	point_return = 0
 
+/obj/structure/blob/shield/check_integrity()
+	var/old_compromised_integrity = compromised_integrity
+	if(obj_integrity < max_integrity * 0.5)
+		compromised_integrity = TRUE
+	else
+		compromised_integrity = FALSE
+	if(old_compromised_integrity != compromised_integrity)
+		update_state()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+
+/obj/structure/blob/shield/update_state()
+	if(compromised_integrity)
+		atmosblock = FALSE
+	else
+		atmosblock = TRUE
+	air_update_turf(1)
+
 /obj/structure/blob/shield/update_name()
 	. = ..()
-	if(obj_integrity < max_integrity * 0.5)
+	if(compromised_integrity)
 		name = "weakened [initial(name)]"
 	else
 		name = initial(name)
 
 /obj/structure/blob/shield/update_desc()
 	. = ..()
-	if(obj_integrity < max_integrity * 0.5)
+	if(compromised_integrity)
 		desc = "A wall of twitching tendrils."
 	else
 		desc = initial(desc)
 
 /obj/structure/blob/shield/update_icon_state()
-	if(obj_integrity < max_integrity * 0.5)
+	if(compromised_integrity)
 		icon_state = "[initial(icon_state)]_damaged"
-		atmosblock = FALSE
 	else
 		icon_state = initial(icon_state)
-		atmosblock = TRUE
-	air_update_turf(1)
 
 /obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1

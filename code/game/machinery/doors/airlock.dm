@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
-	/// State of the airlock, from being closed or open, operating, denied access and emmaged
+	/// State of the airlock, from being closed or open, operating, denied access and emagged
 	var/airlock_state
 
 	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating

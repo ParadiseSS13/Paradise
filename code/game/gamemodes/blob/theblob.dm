@@ -14,13 +14,15 @@
 	var/brute_resist = 0.5 //multiplies brute damage by this
 	var/fire_resist = 1 //multiplies burn damage by this
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
+	/// If a threshold is reached, resulting in shifting variables
+	var/compromised_integrity = FALSE
 	var/mob/camera/blob/overmind
 
 /obj/structure/blob/Initialize(mapload)
 	. = ..()
 	GLOB.blobs += src
 	setDir(pick(GLOB.cardinal))
-	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+	check_integrity()
 	if(atmosblock)
 		air_update_turf(TRUE)
 	ConsumeTile()
@@ -63,6 +65,9 @@
 /obj/structure/blob/proc/Life()
 	return
 
+/obj/structure/blob/proc/check_integrity()
+	return
+
 /obj/structure/blob/proc/update_state()
 	return
 
@@ -72,8 +77,7 @@
 		return 0
 	if(obj_integrity < max_integrity)
 		obj_integrity = min(max_integrity, obj_integrity + 1)
-		update_state()
-		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+		check_integrity()
 		health_timestamp = world.time + 10 // 1 seconds
 
 
@@ -190,8 +194,7 @@
 /obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. && obj_integrity > 0)
-		update_state()
-		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+		check_integrity()
 
 /obj/structure/blob/proc/change_to(type)
 	if(!ispath(type))
@@ -232,28 +235,38 @@
 	max_integrity = 25
 	brute_resist = 0.25
 
-/obj/structure/blob/normal/update_state()
+/obj/structure/blob/normal/check_integrity()
+	var/old_compromised_integrity = compromised_integrity
 	if(obj_integrity <= 15)
+		compromised_integrity = TRUE
+	else
+		compromised_integrity = FALSE
+	if(old_compromised_integrity != compromised_integrity)
+		update_state()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+
+/obj/structure/blob/normal/update_state()
+	if(compromised_integrity)
 		brute_resist = 0.5
 	else
 		brute_resist = 0.25
 
 /obj/structure/blob/normal/update_name()
 	. = ..()
-	if(obj_integrity <= 15)
+	if(compromised_integrity)
 		name = "fragile blob"
 	else
 		name = "[overmind ? "blob" : "dead blob"]"
 
 /obj/structure/blob/normal/update_desc()
 	. = ..()
-	if(obj_integrity <= 15)
+	if(compromised_integrity)
 		desc = "A thin lattice of slightly twitching tendrils."
 	else
 		desc = "A thick wall of [overmind ? "writhing" : "lifeless"] tendrils."
 
 /obj/structure/blob/normal/update_icon_state()
-	if(obj_integrity <= 15)
+	if(compromised_integrity)
 		icon_state = "blob_damaged"
 	else
 		icon_state = "blob"

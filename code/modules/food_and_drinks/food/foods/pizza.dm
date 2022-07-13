@@ -148,7 +148,6 @@
 			icon_state = "pizzabox_open"
 		return
 	icon_state = "pizzabox[boxes.len+1]"
-	return
 
 /obj/item/pizzabox/update_overlays()
 	. = ..()

@@ -9,6 +9,10 @@
 	RegisterSignal(parent, COMSIG_ATOM_ADD_EMISSIVE_BLOCKER, .proc/add_generic_block)
 	A.add_overlay(stored_blocker)
 
+/datum/component/emissive_blocker/Destroy()
+	stored_blocker = null
+	return ..()
+
 /// Updates the generic blocker when the icon_state is changed
 /datum/component/emissive_blocker/proc/update_generic_block(datum/source)
 	var/atom/movable/A = parent

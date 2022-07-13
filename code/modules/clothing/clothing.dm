@@ -587,7 +587,7 @@ BLIND     // can't see anything
 			A.UpdateButtonIcon()
 
 	suit_adjusted = !suit_adjusted
-	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE)
 	user.update_inv_wear_suit()
 
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
