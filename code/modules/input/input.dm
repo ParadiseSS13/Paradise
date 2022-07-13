@@ -13,69 +13,46 @@
 /client
 	var/list/macro_sets
 
+/// This proc sets the built in BYOND macros for keypresses to pass inputs on to the rebindable input system or the legacy system
+/// If you plan on ripping out the legacy system, see the set_macros() proc at the following commit: https://github.com/S34NW/Paradise/commit/83a0a0b0c633807cc5a88a630f623cec24e16027
 /client/proc/set_macros()
 	set waitfor = FALSE
 	var/static/list/default_macro_sets
 
-	if(!default_macro_sets)
+	if(!default_macro_sets) //If you ever remove legacy input mode, you can simplify this a lot
 		default_macro_sets = list(
 			"default" = list(
-				"Any" = "\"KeyDown \[\[*\]\]\"",
-				"Any+UP" = "\"KeyUp \[\[*\]\]\"",
-				"Tab" = "\".winset \\\"input.focus=true?map.focus=true input.background-color=[COLOR_INPUT_DISABLED]:input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
+				"Any" = "\"KeyDown \[\[*\]\]\"", // Passes any key down to the rebindable input system
+				"Any+UP" = "\"KeyUp \[\[*\]\]\"", // Passes any key up to the rebindable input system
+				"Tab" = "\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"", // Swaps us to legacy mode, forces input to the input bar, sets the input bar colour to salmon pink
 				"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
 			),
-			"secondary_default" = list(
-				"Tab" = "\".winset \\\"mainwindow.macro=tertiary_default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"",
-				"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
-			),
-			"tertiary_default" = list(
-				"Any" = "\"KeyDown \[\[*\]\]\"",
-				"Any+UP" = "\"KeyUp \[\[*\]\]\"",
-				"Tab" = "\".winset \\\"mainwindow.macro=secondary_default input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
+			"legacy" = list(
+				"Tab" = "\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"", // Swaps us to rebind mode, moves input away from input bar, sets input bar to white
 				"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
 			),
 		)
 
-		// Because i'm lazy and don't want to type all these out twice
-		var/list/old_default = default_macro_sets["old_default"]
+		var/list/legacy_default = default_macro_sets["legacy"]
 
-		var/list/static/oldmode_keys = list(
+		/// This list defines the keys in legacy mode that get passed on to the rebindable input system
+		/// It cannot be bigger since, while typing, the keys would be passed to whatever they are set in the rebind input system
+		var/list/static/legacy_keys = list(
 			"North", "East", "South", "West",
 			"Northeast", "Southeast", "Northwest", "Southwest",
-			"Insert", "Delete", "Ctrl", "Alt",
+			"Insert", "Delete",
 			"F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
 			)
 
-		for(var/i in 1 to length(oldmode_keys))
-			var/key = oldmode_keys[i]
-			old_default[key] = "\"KeyDown [key]\""
-			old_default["[key]+UP"] = "\"KeyUp [key]\""
+		// We use the static list to make only the keys in it passed to legacy mode
+		for(var/i in 1 to length(legacy_keys))
+			var/key = legacy_keys[i]
+			legacy_default[key] = "\"KeyDown [key]\""
+			legacy_default["[key]+UP"] = "\"KeyUp [key]\""
 
-		var/list/static/oldmode_ctrl_override_keys = list(
-			"W" = "W", "A" = "A", "S" = "S", "D" = "D", // movement
-			"1" = "1", "2" = "2", "3" = "3", "4" = "4", // intent
-			"B" = "B", // resist
-			"E" = "E", // quick equip
-			"F" = "F", // intent left
-			"G" = "G", // intent right
-			"H" = "H", // stop pulling
-			"Q" = "Q", // drop
-			"R" = "R", // throw
-			"X" = "X", // switch hands
-			"Y" = "Y", // activate item
-			"Z" = "Z", // activate item
-			)
-
-		for(var/i in 1 to length(oldmode_ctrl_override_keys))
-			var/key = oldmode_ctrl_override_keys[i]
-			var/override = oldmode_ctrl_override_keys[key]
-			old_default["Ctrl+[key]"] = "\"KeyDown [override]\""
-			old_default["Ctrl+[key]+UP"] = "\"KeyUp [override]\""
-
-	erase_all_macros()
 	macro_sets = default_macro_sets
 
+	//This next bit is black magic, if we only had one input system it could be much shorter
 	for(var/i in 1 to length(macro_sets))
 		var/setname = macro_sets[i]
 		if(setname != "default")
@@ -85,19 +62,9 @@
 			var/key = macro_set[k]
 			var/command = macro_set[key]
 			winset(src, "[setname]-[key]", "parent=[setname];name=[key];command=[command]")
-	winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=secondary_default")
 
-/client/proc/erase_all_macros()
-	var/list/macro_sets = params2list(winget(src, null, "macros"))
-	var/erase_output = ""
-	for(var/i in 1 to length(macro_sets))
-		var/setname = macro_sets[i]
-		var/list/macro_set = params2list(winget(src, "[setname].*", "command")) // The third arg doesnt matter here as we're just removing them all
-		for(var/k in 1 to length(macro_set))
-			var/list/split_name = splittext(macro_set[k], ".")
-			var/macro_name = "[split_name[1]].[split_name[2]]" // [3] is "command"
-			erase_output = "[erase_output];[macro_name].parent=null"
-	winset(src, null, erase_output)
+	winset(src, null, "input.background-color=[COLOR_INPUT_DISABLED]") //screw you, we start in hotkey mode now
+	macro_sets = null //not needed anymore, bye have a great time
 
 /client/verb/KeyDown(_key as text)
 	set instant = TRUE
@@ -193,9 +160,3 @@
 			KB.up(src)
 
 	mob.input_focus?.key_up(_key, src)
-
-/client/verb/input_focus_change(state as num)
-	set instant = TRUE
-	set hidden = TRUE
-
-	winset(src, "input", "background-color=[state ? COLOR_INPUT_ENABLED : COLOR_INPUT_DISABLED]")
