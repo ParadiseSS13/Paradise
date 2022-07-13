@@ -13,8 +13,7 @@
 	max_combined_w_class = 40
 	can_hold = list(/obj/item/coin, /obj/item/stack/spacecash)
 
-/obj/item/storage/bag/money/vault/New()
-	..()
+/obj/item/storage/bag/money/vault/populate_contents()
 	new /obj/item/coin/silver(src)
 	new /obj/item/coin/silver(src)
 	new /obj/item/coin/silver(src)

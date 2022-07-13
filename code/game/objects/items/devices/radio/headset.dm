@@ -350,7 +350,7 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ai_integrated
 	var/myAi = null    // Atlantis: Reference back to the AI which has this radio.
-	var/disabledAi = 0 // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
+	var/disabledAi = FALSE // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
 
 /obj/item/radio/headset/heads/ai_integrated/is_listening()
 	if(disabledAi)
