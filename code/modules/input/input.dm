@@ -24,11 +24,9 @@
 			"default" = list(
 				"Any" = "\"KeyDown \[\[*\]\]\"", // Passes any key down to the rebindable input system
 				"Any+UP" = "\"KeyUp \[\[*\]\]\"", // Passes any key up to the rebindable input system
-				"Tab" = "\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"", // Swaps us to legacy mode, forces input to the input bar, sets the input bar colour to salmon pink
 				"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
 			),
 			"legacy" = list(
-				"Tab" = "\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"", // Swaps us to rebind mode, moves input away from input bar, sets input bar to white
 				"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
 			),
 		)
@@ -63,8 +61,12 @@
 			var/command = macro_set[key]
 			winset(src, "[setname]-[key]", "parent=[setname];name=[key];command=[command]")
 
-	winset(src, null, "input.background-color=[COLOR_INPUT_DISABLED]") //screw you, we start in hotkey mode now
 	macro_sets = null //not needed anymore, bye have a great time
+
+	if(prefs.toggles2 & PREFTOGGLE_2_LEGACY_KEYBINDS)
+		winset(src, null, "mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]")
+	else
+		winset(src, null, "mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]")
 
 /client/verb/KeyDown(_key as text)
 	set instant = TRUE
