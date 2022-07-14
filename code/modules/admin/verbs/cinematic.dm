@@ -3,8 +3,6 @@
 	set category = "Debug"
 	set desc = "Shows a cinematic."	// Intended for testing but I thought it might be nice for events on the rare occasion Feel free to comment it out if it's not wanted.
 	set hidden = 1
-	if(!SSticker)
-		return
 
 	if(!check_rights(R_MAINTAINER))
 		return

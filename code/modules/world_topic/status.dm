@@ -35,7 +35,7 @@
 	
 	// Add more info if we are authed
 	if(key_valid)
-		if(SSticker && SSticker.mode)
+		if(SSticker.mode)
 			status_info["real_mode"] = SSticker.mode.name
 			status_info["security_level"] = get_security_level()
 			status_info["ticker_state"] = SSticker.current_state

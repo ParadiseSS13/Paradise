@@ -6,7 +6,7 @@
 		to_chat(usr, "This option is currently only usable during pregame. This may change at a later date.")
 		return
 
-	if(SSjobs && SSticker)
+	if(SSjobs)
 		var/datum/job/job = SSjobs.GetJob("AI")
 		if(!job)
 			to_chat(usr, "Unable to locate the AI job")

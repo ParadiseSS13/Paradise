@@ -446,7 +446,7 @@ GLOBAL_VAR(bomb_set)
 	if(!lighthack)
 		icon_state = "nuclearbomb3"
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
-	if(SSticker && SSticker.mode)
+	if(SSticker.mode)
 		SSticker.mode.explosion_in_progress = TRUE
 	sleep(100)
 
@@ -461,30 +461,29 @@ GLOBAL_VAR(bomb_set)
 	else
 		off_station = 2
 
-	if(SSticker)
-		if(SSticker.mode && SSticker.mode.name == "nuclear emergency")
-			var/obj/docking_port/mobile/syndie_shuttle = SSshuttle.getShuttle("syndicate")
-			if(syndie_shuttle)
-				SSticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
-			SSticker.mode:nuke_off_station = off_station
-		SSticker.station_explosion_cinematic(off_station,null)
-		if(SSticker.mode)
-			SSticker.mode.explosion_in_progress = FALSE
-			if(SSticker.mode.name == "nuclear emergency")
-				SSticker.mode:nukes_left --
-			else if(off_station == 1)
-				to_chat(world, "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>")
-			else if(off_station == 2)
-				to_chat(world, "<b>A nuclear device was set off, but the device was not on the station!</b>")
-			else
-				to_chat(world, "<b>The station was destroyed by the nuclear blast!</b>")
+	if(SSticker.mode && SSticker.mode.name == "nuclear emergency")
+		var/obj/docking_port/mobile/syndie_shuttle = SSshuttle.getShuttle("syndicate")
+		if(syndie_shuttle)
+			SSticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
+		SSticker.mode:nuke_off_station = off_station
+	SSticker.station_explosion_cinematic(off_station,null)
+	if(SSticker.mode)
+		SSticker.mode.explosion_in_progress = FALSE
+		if(SSticker.mode.name == "nuclear emergency")
+			SSticker.mode:nukes_left --
+		else if(off_station == 1)
+			to_chat(world, "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>")
+		else if(off_station == 2)
+			to_chat(world, "<b>A nuclear device was set off, but the device was not on the station!</b>")
+		else
+			to_chat(world, "<b>The station was destroyed by the nuclear blast!</b>")
 
-			SSticker.mode.station_was_nuked = (off_station < 2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
-															//kinda shit but I couldn't  get permission to do what I wanted to do.
+		SSticker.mode.station_was_nuked = (off_station < 2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
+														//kinda shit but I couldn't  get permission to do what I wanted to do.
 
-			if(!SSticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
-				SSticker.reboot_helper("Station destroyed by Nuclear Device.", "nuke - unhandled ending")
-				return
+		if(!SSticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
+			SSticker.reboot_helper("Station destroyed by Nuclear Device.", "nuke - unhandled ending")
+			return
 	return
 
 /obj/machinery/nuclearbomb/proc/reset_lighthack_callback()

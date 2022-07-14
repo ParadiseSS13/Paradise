@@ -4,7 +4,7 @@
 	var/list/datum/mind/syndicates = list()
 
 /proc/issyndicate(mob/living/M as mob)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.syndicates)
+	return istype(M) && M.mind && SSticker.mode && (M.mind in SSticker.mode.syndicates)
 
 /datum/game_mode/nuclear
 	name = "nuclear emergency"

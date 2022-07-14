@@ -169,7 +169,7 @@ SUBSYSTEM_DEF(vote)
 			if("gamemode")
 				if(GLOB.master_mode != .)
 					world.save_mode(.)
-					if(SSticker && SSticker.mode)
+					if(SSticker.mode)
 						restart = 1
 					else
 						GLOB.master_mode = .
@@ -221,17 +221,17 @@ SUBSYSTEM_DEF(vote)
 			if("restart")
 				choices.Add("Restart Round","Continue Playing")
 			if("gamemode")
-				if(SSticker.current_state >= 2)
+				if(SSticker.current_state >= GAME_STATE_SETTING_UP)
 					return 0
 				choices.Add(GLOB.configuration.gamemode.votable_modes)
 			if("crew transfer")
 				if(check_rights(R_ADMIN|R_MOD))
-					if(SSticker.current_state <= 2)
+					if(SSticker.current_state <= GAME_STATE_SETTING_UP)
 						return 0
 					question = "End the shift?"
 					choices.Add("Initiate Crew Transfer", "Continue The Round")
 				else
-					if(SSticker.current_state <= 2)
+					if(SSticker.current_state <= GAME_STATE_SETTING_UP)
 						return 0
 					question = "End the shift?"
 					choices.Add("Initiate Crew Transfer", "Continue The Round")

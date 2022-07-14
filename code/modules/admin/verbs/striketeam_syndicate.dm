@@ -9,7 +9,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 	if(GLOB.sent_syndicate_strike_team == 1)

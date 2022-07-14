@@ -163,7 +163,7 @@ GLOBAL_PROTECT(log_end)
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
 /proc/log_after_setup(message)
-	if(SSticker && SSticker.current_state > GAME_STATE_SETTING_UP)
+	if(SSticker.current_state > GAME_STATE_SETTING_UP)
 		to_chat(world, "<span class='danger'>[message]</span>")
 		log_world(message)
 

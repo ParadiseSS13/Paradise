@@ -75,7 +75,7 @@
 	else
 		M.LAssailant = user
 
-	if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")
+	if(!ishuman(user))
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	if(!user.mind?.isholy)
@@ -170,11 +170,10 @@
 					T.dir = carpet_dir*/
 
 	SSblackbox.record_feedback("text", "religion_book", 1, "[choice]", 1)
-
-	if(SSticker)
-		SSticker.Bible_name = name
-		SSticker.Bible_icon_state = icon_state
-		SSticker.Bible_item_state = item_state
+	
+	SSticker.Bible_name = name
+	SSticker.Bible_icon_state = icon_state
+	SSticker.Bible_item_state = item_state
 
 /obj/item/storage/bible/proc/radial_check(mob/user)
 	if(!user?.mind.isholy || !ishuman(user))

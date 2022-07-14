@@ -437,7 +437,7 @@
 		//         ^ whoever left this comment is literally a grammar nazi. stalin better. in russia grammar correct you.
 
 /datum/mind/proc/edit_memory()
-	if(!SSticker || !SSticker.mode)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Not before round-start!", "Alert")
 		return
 
@@ -1778,10 +1778,7 @@
 		mind.key = key
 	else
 		mind = new /datum/mind(key)
-		if(SSticker)
-			SSticker.minds += mind
-		else
-			error("mind_initialize(): No ticker ready yet! Please inform Carn")
+		SSticker.minds += mind
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src

@@ -58,10 +58,6 @@
 	add_fingerprint(usr)
 
 	var/dat
-
-	if(!( SSticker ))
-		return
-
 	dat += "<hr/><br/><b>[storage_name]</b><br/>"
 	dat += "<i>Welcome, [user.real_name].</i><br/><br/><hr/>"
 	dat += "<a href='?src=[UID()];log=1'>View storage log</a>.<br>"

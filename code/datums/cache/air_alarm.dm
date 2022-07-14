@@ -13,7 +13,7 @@ GLOBAL_DATUM_INIT(air_alarm_repository, /datum/repository/air_alarm, new())
 	if(!refresh && cache_entry.timestamp + AIR_ALARM_DATA_CACHE_DURATION > world.time)
 		return cache_entry.data
 
-	if(SSticker && SSticker.current_state < GAME_STATE_PLAYING && istype(passed_alarm)) // Generating the list for the first time as the game hasn't started - no need to run through the machines list everything every time
+	if(SSticker.current_state < GAME_STATE_PLAYING && istype(passed_alarm)) // Generating the list for the first time as the game hasn't started - no need to run through the machines list everything every time
 		alarms = cache_entry.data // Don't deleate the list
 		if(is_station_contact(passed_alarm.z) && passed_alarm.remote_control) // Still need sanity checks
 			alarms[++alarms.len] = passed_alarm.get_console_data()

@@ -231,7 +231,7 @@
 	terminal.master = src
 
 /obj/machinery/power/smes/Destroy()
-	if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
+	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/area/area = get_area(src)
 		if(area)
 			message_admins("SMES deleted at (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")

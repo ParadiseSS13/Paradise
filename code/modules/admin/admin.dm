@@ -503,10 +503,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	if(!SSticker)
-		alert("Unable to start the game as it is not set up.")
-		return
-
 	if(GLOB.configuration.general.start_now_confirmation)
 		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
 			return
@@ -587,7 +583,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	if(!SSticker || SSticker.current_state != GAME_STATE_PREGAME)
+	if(SSticker.current_state != GAME_STATE_PREGAME)
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)

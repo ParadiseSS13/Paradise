@@ -390,7 +390,7 @@
 	new /obj/structure/blob/core(get_turf(N), null, blob_core.point_rate, TRUE)
 	qdel(N)
 
-	if(SSticker && SSticker.mode.name == "blob")
+	if(SSticker.mode.name == "blob")
 		var/datum/game_mode/blob/BL = SSticker.mode
 		BL.blobwincount += initial(BL.blobwincount)
 

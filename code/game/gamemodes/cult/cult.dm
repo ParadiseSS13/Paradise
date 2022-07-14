@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/ascend_percent
 
 /proc/iscultist(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
+	return istype(M) && M.mind && SSticker.mode && (M.mind in SSticker.mode.cult)
 
 /proc/is_convertable_to_cult(datum/mind/mind)
 	if(!mind)

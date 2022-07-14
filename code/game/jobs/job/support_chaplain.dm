@@ -82,5 +82,4 @@
 
 	user.AddSpell(new /obj/effect/proc_holder/spell/chaplain_bless(null))
 
-	if(SSticker)
-		SSticker.Bible_deity_name = B.deity_name
+	SSticker.Bible_deity_name = B.deity_name

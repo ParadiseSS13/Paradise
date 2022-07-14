@@ -1,5 +1,5 @@
 /client/proc/only_one()
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 
@@ -64,7 +64,7 @@
 			SEND_SOUND(M, music)
 
 /client/proc/only_me()
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 

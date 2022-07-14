@@ -504,8 +504,7 @@
 	return 2
 
 /turf/proc/visibilityChanged()
-	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
+	GLOB.cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
 	if(can_lay_cable())
@@ -551,7 +550,7 @@
 	LAZYADD(blueprint_data, I)
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
+	if(SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
 /turf/proc/empty(turf_type = /turf/space)

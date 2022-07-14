@@ -982,7 +982,7 @@
 	else if(href_list["c_mode"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		for(var/mode in GLOB.configuration.gamemode.gamemodes)
@@ -995,7 +995,7 @@
 	else if(href_list["f_secret"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		if(GLOB.master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
@@ -1009,7 +1009,7 @@
 	else if(href_list["c_mode2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		GLOB.master_mode = href_list["c_mode2"]
 		log_admin("[key_name(usr)] set the mode as [GLOB.master_mode].")
@@ -1022,7 +1022,7 @@
 	else if(href_list["f_secret2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
-		if(SSticker && SSticker.mode)
+		if(SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		if(GLOB.master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
@@ -2556,7 +2556,7 @@
 	else if(href_list["traitor"])
 		if(!check_rights(R_ADMIN|R_MOD))	return
 
-		if(!SSticker || !SSticker.mode)
+		if(SSticker.current_state < GAME_STATE_PLAYING)
 			alert("The game hasn't started yet!")
 			return
 
@@ -2699,7 +2699,7 @@
 	else if(href_list["kick_all_from_lobby"])
 		if(!check_rights(R_ADMIN))
 			return
-		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
+		if(SSticker.current_state == GAME_STATE_PLAYING)
 			var/afkonly = text2num(href_list["afkonly"])
 			if(alert("Are you sure you want to kick all [afkonly ? "AFK" : ""] clients from the lobby?","Confirmation","Yes","Cancel") != "Yes")
 				return
@@ -2778,7 +2778,7 @@
 				usr.client.triple_ai()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
 			if("gravity")
-				if(!(SSticker && SSticker.mode))
+				if(SSticker.mode)
 					to_chat(usr, "<span class='warning'>Please wait until the game starts! Not sure how it will work otherwise.</span>")
 					return
 				GLOB.gravity_is_on = !GLOB.gravity_is_on
@@ -2822,7 +2822,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_and_message_admins("<span class='notice'>[key_name(usr)] made all SMESs powered</span>", 1)
 			if("prisonwarp")
-				if(!SSticker)
+				if(SSticker.current_state < GAME_STATE_PLAYING)
 					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
@@ -2861,7 +2861,7 @@
 						H.loc = pick(GLOB.prisonsecuritywarp)
 					GLOB.prisonwarped += H
 			if("traitor_all")
-				if(!SSticker)
+				if(SSticker.current_state < GAME_STATE_PLAYING)
 					alert("The game hasn't started yet!")
 					return
 				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
@@ -3133,7 +3133,7 @@
 			if("showailaws")
 				output_ai_laws()
 			if("showgm")
-				if(!SSticker)
+				if(SSticker.current_state < GAME_STATE_PLAYING)
 					alert("The game hasn't started yet!")
 				else if(SSticker.mode)
 					alert("The game mode is [SSticker.mode.name]")

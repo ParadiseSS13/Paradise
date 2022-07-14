@@ -21,12 +21,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	if(!check_rights(R_EVENT))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
-		return
-
-	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
 	if(GLOB.send_emergency_team)

@@ -278,4 +278,4 @@ Made a proc so this is not repeated 14 (or more) times.*/
 		return 1
 
 /proc/iswizard(mob/living/M as mob)
-	return istype(M) && M.mind && SSticker && SSticker.mode && ((M.mind in SSticker.mode.wizards) || (M.mind in SSticker.mode.apprentices))
+	return istype(M) && M.mind && SSticker.mode && ((M.mind in SSticker.mode.wizards) || (M.mind in SSticker.mode.apprentices))

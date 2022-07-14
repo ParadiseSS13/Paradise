@@ -536,21 +536,20 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
 	target_amount = rand (lowbound,highbound)
-	if(SSticker)
-		var/n_p = 1 //autowin
-		if(SSticker.current_state == GAME_STATE_SETTING_UP)
-			for(var/mob/new_player/P in GLOB.player_list)
-				if(P.client && P.ready && P.mind != owner)
-					if(P.client.prefs && (P.client.prefs.active_character.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
-						continue
-					n_p++
-		else if(SSticker.current_state == GAME_STATE_PLAYING)
-			for(var/mob/living/carbon/human/P in GLOB.player_list)
-				if(HAS_TRAIT(P, TRAIT_GENELESS))
+	var/n_p = 1 //autowin
+	if(SSticker.current_state == GAME_STATE_SETTING_UP)
+		for(var/mob/new_player/P in GLOB.player_list)
+			if(P.client && P.ready && P.mind != owner)
+				if(P.client.prefs && (P.client.prefs.active_character.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
 					continue
-				if(P.client && !(P.mind in SSticker.mode.changelings) && P.mind!=owner)
-					n_p++
-		target_amount = min(target_amount, n_p)
+				n_p++
+	else if(SSticker.current_state == GAME_STATE_PLAYING)
+		for(var/mob/living/carbon/human/P in GLOB.player_list)
+			if(HAS_TRAIT(P, TRAIT_GENELESS))
+				continue
+			if(P.client && !(P.mind in SSticker.mode.changelings) && P.mind!=owner)
+				n_p++
+	target_amount = min(target_amount, n_p)
 
 	explanation_text = "Acquire [target_amount] compatible genomes. The 'Extract DNA Sting' can be used to stealthily get genomes without killing somebody."
 	return target_amount

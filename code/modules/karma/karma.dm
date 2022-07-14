@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	if(!GLOB.configuration.general.enable_karma)
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
 		return FALSE
-	if(!SSticker || !GLOB.player_list.len || (SSticker.current_state == GAME_STATE_PREGAME))
+	if(!GLOB.player_list.len || (SSticker.current_state < GAME_STATE_PLAYING))
 		to_chat(src, "<span class='warning'>You can't award karma until the game has started.</span>")
 		return FALSE
 	if(ckey in GLOB.karma_spenders)

@@ -347,7 +347,7 @@
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))
 		return
-	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
+	if(SSticker.current_state >= GAME_STATE_PLAYING)
 		var/dat = "<html><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
 		dat += "Round Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)]:[add_zero(num2text(ROUND_TIME / 10 % 60), 2)]</B><BR>"

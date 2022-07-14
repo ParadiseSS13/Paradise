@@ -104,7 +104,7 @@
 /datum/action/innate/cult/check_progress/Activate()
 	if(!IsAvailable())
 		return
-	if(SSticker && SSticker.mode)
+	if(SSticker.mode)
 		SSticker.mode.cult_objs.study(usr, TRUE)
 	else
 		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")

@@ -766,7 +766,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
 		return
 
-	if(stat != DEAD || !SSticker)
+	if(stat != DEAD)
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
 
@@ -1014,8 +1014,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
 	if(client?.statpanel == "Status")
-		if(SSticker)
-			show_stat_station_time()
+		show_stat_station_time()
 		stat(null, "Players Connected: [length(GLOB.clients)]")
 
 // this function displays the station time in the status panel
@@ -1141,7 +1140,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
 		return
 
-	if(!SSticker || SSticker.current_state < 3)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 

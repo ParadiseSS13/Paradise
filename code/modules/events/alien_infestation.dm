@@ -34,7 +34,7 @@
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.amount_grown += (0.75 * new_xeno.max_grown)	//event spawned larva start off almost ready to evolve.
 			new_xeno.key = C.key
-			if(SSticker && SSticker.mode)
+			if(SSticker.mode)
 				SSticker.mode.xenos += new_xeno.mind
 
 			spawncount--
