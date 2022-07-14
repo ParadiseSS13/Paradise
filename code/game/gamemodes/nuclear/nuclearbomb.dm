@@ -469,7 +469,7 @@ GLOBAL_VAR(bomb_set)
 	SSticker.station_explosion_cinematic(off_station,null)
 	if(SSticker.mode)
 		SSticker.mode.explosion_in_progress = FALSE
-		if(SSticker.mode.name == "nuclear emergency")
+		if(GAMEMODE_IS_NUCLEAR)
 			SSticker.mode:nukes_left --
 		else if(off_station == 1)
 			to_chat(world, "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>")

@@ -426,7 +426,7 @@
 		to_chat(user, "<span class='warning'>The emergency shuttle may not be called while returning to Central Command.</span>")
 		return
 
-	if(SSticker.mode.name == "blob")
+	if(GAMEMODE_IS_BLOB)
 		to_chat(user, "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>")
 		return
 
