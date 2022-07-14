@@ -43,7 +43,7 @@ AI MODULES
 			to_chat(usr, "<span class='warning'>You haven't selected an AI to transmit laws to!</span>")
 			return
 
-		if(comp.current.stat == DEAD || comp.current.control_disabled == 1)
+		if(comp.current.stat == DEAD || comp.current.control_disabled)
 			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the AI.</span>")
 		else if(comp.current.see_in_dark == 0)
 			to_chat(usr, "<span class='warning'>Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power.</span>")
@@ -188,7 +188,7 @@ AI MODULES
 /****************** New Freeform ******************/
 /obj/item/aiModule/freeform // Slightly more dynamic freeform module -- TLE
 	name = "\improper Freeform AI module"
-	var/newFreeFormLaw = "freeform"
+	var/newFreeFormLaw = ""
 	var/lawpos = 15
 	desc = "A 'freeform' AI module: '<freeform>'"
 	origin_tech = "programming=4;materials=4"

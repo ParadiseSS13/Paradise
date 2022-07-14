@@ -51,7 +51,7 @@
 /datum/status_effect/his_grace/on_remove()
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
 	if(islist(owner.stun_absorption) && owner.stun_absorption["hisgrace"])
-		owner.stun_absorption -= "hisgrace"
+		owner.remove_stun_absorption("hisgrace")
 
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
@@ -132,7 +132,7 @@
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
-		owner.stun_absorption -= "blooddrunk"
+		owner.remove_stun_absorption("blooddrunk")
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"
@@ -187,6 +187,36 @@
 
 /datum/status_effect/blood_rush/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+
+/datum/status_effect/force_shield
+	id = "forceshield"
+	duration = 4 SECONDS
+	tick_interval = 0
+	var/mutable_appearance/shield
+
+/datum/status_effect/force_shield/on_apply()
+	. = ..()
+	if(!. || !ishuman(owner))
+		return
+	var/mutable_appearance/MA = mutable_appearance('icons/effects/effects.dmi', "shield-old", ABOVE_MOB_LAYER)
+	var/mob/living/carbon/human/H = owner
+	H.add_overlay(MA)
+	shield = MA
+	H.add_stun_absorption("[id]", INFINITY, 1)
+	H.physiology.stamina_mod *= 0.1
+	H.physiology.brute_mod *= 0.5
+	H.physiology.burn_mod *= 0.5
+
+/datum/status_effect/force_shield/on_remove()
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	H.cut_overlay(shield)
+	if(islist(owner.stun_absorption) && owner.stun_absorption["[id]"])
+		owner.remove_stun_absorption("[id]")
+	H.physiology.stamina_mod /= 0.1
+	H.physiology.brute_mod /= 0.5
+	H.physiology.burn_mod /= 0.5
+
 
 /datum/status_effect/exercised
 	id = "Exercised"
@@ -328,34 +358,71 @@
 	tick_interval = 4 SECONDS
 	alert_type = null
 	var/stacks = 0
+	/// A reference to the changeling's changeling antag datum.
+	var/datum/antagonist/changeling/cling
 
 /datum/status_effect/speedlegs/on_apply()
-	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, "changeling")
+	cling = owner.mind.has_antag_datum(/datum/antagonist/changeling)
+	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
 	return TRUE
 
 /datum/status_effect/speedlegs/tick()
-	if(owner.stat || owner.staminaloss >= 90 || owner.mind.changeling.chem_charges <= (stacks + 1) * 3)
+	if(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)
 		to_chat(owner, "<span class='danger'>Our muscles relax without the energy to strengthen them.</span>")
 		owner.Weaken(6 SECONDS)
-		owner.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)
+		qdel(src)
 	else
 		stacks++
-		owner.mind.changeling.chem_charges -= stacks * 3 //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
+		cling.chem_charges -= stacks * 3 //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
 		if(stacks == 7) //Warning message that the stacks are getting too high
 			to_chat(owner, "<span class='warning'>Our legs are really starting to hurt...</span>")
 
 /datum/status_effect/speedlegs/before_remove()
-	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || owner.mind.changeling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
+	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
 		to_chat(owner, "<span class='notice'>Our muscles just tensed up, they will not relax so fast.</span>")
 		return FALSE
 	return TRUE
 
 /datum/status_effect/speedlegs/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, "changeling")
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
 	if(!owner.IsWeakened())
 		to_chat(owner, "<span class='notice'>Our muscles relax.</span>")
 		if(stacks >= 7)
 			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
 			owner.Weaken(6 SECONDS)
 			owner.emote("gasp")
-	owner.mind.changeling.geneticdamage += stacks
+	cling.genetic_damage += stacks
+	cling = null
+
+/datum/status_effect/chainsaw_slaying
+	id = "chainsaw_slaying"
+	duration = 5 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /obj/screen/alert/status_effect/chainsaw
+
+/obj/screen/alert/status_effect/chainsaw
+	name = "Revved up!"
+	desc = "<span class='danger'>... guts, huge guts! Kill them... must kill them all!</span>"
+	icon_state = "chainsaw"
+
+/datum/status_effect/chainsaw_slaying/on_apply()
+	. = ..()
+	if(.)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			H.physiology.brute_mod *= 0.8
+			H.physiology.burn_mod *= 0.8
+			H.physiology.stamina_mod *= 0.8
+		add_attack_logs(owner, owner, "gained chainsaw stun immunity", ATKLOG_ALL)
+		owner.add_stun_absorption("chainsaw", INFINITY, 4)
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
+
+/datum/status_effect/chainsaw_slaying/on_remove()
+	add_attack_logs(owner, owner, "lost chainsaw stun immunity", ATKLOG_ALL)
+	if(islist(owner.stun_absorption) && owner.stun_absorption["chainsaw"])
+		owner.remove_stun_absorption("chainsaw")
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.brute_mod /= 0.8
+		H.physiology.burn_mod /=0.8
+		H.physiology.stamina_mod /= 0.8

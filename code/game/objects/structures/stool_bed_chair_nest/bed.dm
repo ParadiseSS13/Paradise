@@ -14,6 +14,7 @@
 	desc = "This is used to lie in, sleep in or strap on."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
+	dir = SOUTH
 	can_buckle = TRUE
 	anchored = TRUE
 	buckle_lying = TRUE
@@ -61,6 +62,11 @@
 			new buildstacktype(loc, buildstackamount)
 	..()
 
+/obj/structure/bed/post_buckle_mob(mob/living/M)
+	M.pixel_y = M.get_standard_pixel_y_offset()
+
+/obj/structure/bed/post_unbuckle_mob(mob/living/M)
+	M.pixel_y = M.get_standard_pixel_y_offset()
 
 /*
  * Roller beds
@@ -70,10 +76,14 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
+	buckle_offset = 0
 	face_while_pulling = FALSE
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
+	var/icon_up = "up"
+	var/icon_down = "down"
+	var/folded = /obj/item/roller
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
@@ -85,31 +95,38 @@
 				user_unbuckle_mob(buckled_mobs[1], user)
 		else
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
-			new/obj/item/roller(get_turf(src))
+			new folded(get_turf(src))
 			qdel(src)
 	else
 		return ..()
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	density = TRUE
-	icon_state = "up"
-	M.pixel_y = initial(M.pixel_y)
+	icon_state = icon_up
+	..()
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	density = FALSE
-	icon_state = "down"
-	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
-	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+	icon_state = icon_down
+	..()
+
+/obj/structure/bed/roller/holo
+	name = "holo stretcher"
+	icon_state = "holo_extended"
+	icon_up = "holo_extended"
+	icon_down = "holo_extended"
+	folded = /obj/item/roller/holo
 
 /obj/item/roller
 	name = "roller bed"
 	desc = "A collapsed roller bed that can be carried around."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
+	var/extended = /obj/structure/bed/roller
 
 /obj/item/roller/attack_self(mob/user)
-	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(user.loc)
+	var/obj/structure/bed/roller/R = new extended(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
 
@@ -119,7 +136,7 @@
 	if(isturf(target))
 		var/turf/T = target
 		if(!T.density)
-			var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(T)
+			var/obj/structure/bed/roller/R = new extended(T)
 			R.add_fingerprint(user)
 			qdel(src)
 
@@ -131,6 +148,17 @@
 			forceMove(RH)
 			RH.held = src
 
+/obj/item/roller/holo
+	name = "holo stretcher"
+	desc = "A retracted hardlight stretcher that can be carried around."
+	icon_state = "holo_retracted"
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "magnets=3;biotech=4;powerstorage=3"
+	extended = /obj/structure/bed/roller/holo
+
+/obj/item/roller/holo/attackby(obj/item/W, mob/user, params)
+	return
+
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
 	..()
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
@@ -139,7 +167,7 @@
 		if(has_buckled_mobs())
 			return 0
 		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
-		new/obj/item/roller(get_turf(src))
+		new folded(get_turf(src))
 		qdel(src)
 
 /obj/item/roller_holder

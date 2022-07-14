@@ -4,7 +4,7 @@
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
-	item_state = "flashbang"
+	item_state = "grenade"
 	var/spawn_contents = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 	var/spawn_amount = 100
 
@@ -29,13 +29,14 @@
 	icon_state = "oxygen"
 	spawn_contents = LINDA_SPAWN_20C | LINDA_SPAWN_OXYGEN
 	spawn_amount = 500
+	origin_tech = null
 
 /obj/item/grenade/gluon
 	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering. This extreme coldness will also wet any nearby floors."
 	name = "gluon grenade"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "gluon"
-	item_state = "flashbang"
+	item_state = "grenade"
 	var/freeze_range = 4
 	var/rad_damage = 350
 	var/stamina_damage = 30

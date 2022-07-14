@@ -81,8 +81,10 @@
 			if(L.IsStunned() || L.IsWeakened())
 				return FALSE
 	if(check_flags & AB_CHECK_LYING)
-		if(owner.lying)
-			return FALSE
+		if(isliving(owner))
+			var/mob/living/L = owner
+			if(IS_HORIZONTAL(L))
+				return FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
 			return FALSE
@@ -223,6 +225,9 @@
 
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
+
+/datum/action/item_action/toggle_music_notes
+	name = "Toggle Music Notes"
 
 /datum/action/item_action/toggle_helmet_light
 	name = "Toggle Helmet Light"
@@ -404,7 +409,7 @@
 
 /datum/action/item_action/toggle_research_scanner/Remove(mob/living/L)
 	if(owner)
-		owner.research_scanner = 0
+		owner.research_scanner = FALSE
 	..()
 
 /datum/action/item_action/toggle_research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)

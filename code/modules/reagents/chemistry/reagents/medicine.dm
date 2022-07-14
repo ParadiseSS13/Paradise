@@ -58,6 +58,7 @@
 	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
+	M.AdjustKnockDown(-2 SECONDS)
 	M.SetSleeping(0)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
@@ -534,6 +535,7 @@
 	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
+	M.AdjustKnockDown(-2 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 10 SECONDS)
 	if(M.getOxyLoss() > 75)
@@ -697,6 +699,7 @@
 		M.AdjustStunned(-2 SECONDS)
 	if(prob(20))
 		M.AdjustWeakened(-2 SECONDS)
+		M.AdjustKnockDown(-2 SECONDS)
 	if(prob(5))
 		M.SetSleeping(0)
 	if(prob(5))
@@ -855,8 +858,8 @@
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetSlur(0)
-	M.AdjustDrunk(-4)
-	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 8, 0, 1)
+	M.AdjustDrunk(-8 SECONDS)
+	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 8)
 	if(M.getToxLoss() <= 25)
 		update_flags |= M.adjustToxLoss(-2.0, FALSE)
 	return ..() | update_flags
@@ -919,6 +922,7 @@
 	M.AdjustParalysis(-6 SECONDS)
 	M.AdjustStunned(-6 SECONDS)
 	M.AdjustWeakened(-6 SECONDS)
+	M.AdjustKnockDown(-6 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
@@ -1125,6 +1129,7 @@
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
+		M.AdjustKnockDown(-2 SECONDS)
 		M.AdjustConfused(-10 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)

@@ -1,5 +1,5 @@
 /obj/item/melee/energy
-	var/active = 0
+	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
@@ -96,7 +96,7 @@
 	origin_tech = "combat=4;magnets=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
-	sharp = 1
+	sharp = TRUE
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
@@ -117,8 +117,8 @@
 	armour_penetration = 35
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50
-	sharp = 1
-	var/hacked = 0
+	sharp = TRUE
+	var/hacked = FALSE
 
 /obj/item/melee/energy/sword/New()
 	..()
@@ -153,7 +153,7 @@
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
 	force_on = 30
 	force = 18 //About as much as a spear
-	sharp = 1
+	sharp = TRUE
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "esaw_0"
@@ -195,7 +195,7 @@
 			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
 			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(user.loc)
 			if(src.hacked) // That's right, we'll only check the "original" esword.
-				newSaber.hacked = 1
+				newSaber.hacked = TRUE
 				newSaber.item_color = "rainbow"
 			user.unEquip(W)
 			user.unEquip(src)
@@ -203,8 +203,8 @@
 			qdel(src)
 			user.put_in_hands(newSaber)
 	else if(istype(W, /obj/item/multitool))
-		if(hacked == 0)
-			hacked = 1
+		if(!hacked)
+			hacked = TRUE
 			item_color = "rainbow"
 			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
 
@@ -233,12 +233,12 @@
 	icon_state = "blade"
 	force = 30	//Normal attacks deal esword damage
 	hitsound = 'sound/weapons/blade1.ogg'
-	active = 1
+	active = TRUE
 	throwforce = 1//Throwing or dropping the item deletes it.
 	throw_speed = 3
 	throw_range = 1
 	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/melee/energy/blade/attack_self(mob/user)
 	return

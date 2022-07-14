@@ -20,8 +20,8 @@ SUBSYSTEM_DEF(http)
 	active_async_requests = list()
 	return ..()
 
-/datum/controller/subsystem/http/stat_entry()
-	..("P: [length(active_async_requests)] | T: [total_requests]")
+/datum/controller/subsystem/http/get_stat_details()
+	return "P: [length(active_async_requests)] | T: [total_requests]"
 
 /datum/controller/subsystem/http/fire(resumed)
 	for(var/r in active_async_requests)

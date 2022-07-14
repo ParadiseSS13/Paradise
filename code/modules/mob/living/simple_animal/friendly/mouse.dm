@@ -30,7 +30,7 @@
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 223		//Below -50 Degrees Celcius
 	maxbodytemp = 323	//Above 50 Degrees Celcius
-	universal_speak = 0
+	universal_speak = FALSE
 	can_hide = 1
 	holder_type = /obj/item/holder/mouse
 	can_collar = 1
@@ -63,13 +63,13 @@
 
 /mob/living/simple_animal/mouse/handle_automated_movement()
 	. = ..()
-	if(resting)
+	if(IS_HORIZONTAL(src))
 		if(prob(1))
-			StopResting()
+			stand_up()
 		else if(prob(5))
-			custom_emote(2, "snuffles")
+			custom_emote(EMOTE_AUDIBLE, "snuffles")
 	else if(prob(0.5))
-		StartResting()
+		lay_down()
 
 /mob/living/simple_animal/mouse/New()
 	..()
@@ -118,31 +118,6 @@
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
-
-/mob/living/simple_animal/mouse/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("squeak")		//Mouse time
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("squeak")
-			message = "<B>\The [src]</B> [pick(emote_hear)]!"
-			m_type = 2 //audible
-			playsound(src, squeak_sound, 40, 1)
-		if("help")
-			to_chat(src, "scream, squeak")
-
-	..()
 
 /*
  * Mouse types

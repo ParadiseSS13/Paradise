@@ -1,3 +1,6 @@
+/obj/item/clothing/gloves/color
+	dyeable = TRUE
+
 /obj/item/clothing/gloves/color/yellow
 	name = "insulated gloves"
 	desc = "These gloves will protect the wearer from electric shock."
@@ -50,7 +53,6 @@
 	unlimited_power = TRUE
 
 /obj/item/clothing/gloves/color/yellow/fake
-	desc = "These gloves will protect the wearer from electric shock. They don't feel like rubber..."
 	siemens_coefficient = 1
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap

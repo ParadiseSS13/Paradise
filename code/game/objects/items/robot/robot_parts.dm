@@ -6,7 +6,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/list/part = null
-	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
+	var/sabotaged = FALSE //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
 	dir = SOUTH
 
@@ -279,7 +279,7 @@
 			if(laws_to_give)
 				O.laws = laws_to_give
 			else if(!lawsync)
-				O.lawupdate = 0
+				O.lawupdate = FALSE
 				O.make_laws()
 
 			M.brainmob.mind.transfer_to(O)
@@ -313,7 +313,6 @@
 
 			if(!locomotion)
 				O.lockcharge = 1
-				O.update_canmove()
 				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
 
 		else
@@ -337,7 +336,7 @@
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
 	var/mob/living/living_user = usr
-	if(living_user.lying || living_user.stat || living_user.IsStunned() || !Adjacent(living_user))
+	if(HAS_TRAIT(living_user, TRAIT_HANDS_BLOCKED) || living_user.stat || !Adjacent(living_user))
 		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(!istype(item_in_hand, /obj/item/multitool))
@@ -424,4 +423,4 @@
 		to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
 	else
 		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
-		sabotaged = 1
+		sabotaged = TRUE

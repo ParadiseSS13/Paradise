@@ -2,7 +2,7 @@
 	name = "fire alarm frame"
 	desc = "Used for building Fire Alarms"
 	icon = 'icons/obj/monitors.dmi'
-	icon_state = "fire_bitem"
+	icon_state = "firealarm_frame"
 	mount_reqs = list("simfloor", "nospace")
 
 /obj/item/mounted/frame/firealarm/do_build(turf/on_wall, mob/user)

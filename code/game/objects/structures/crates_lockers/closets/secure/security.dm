@@ -9,7 +9,7 @@
 		new /obj/item/storage/backpack/captain(src)
 	else
 		new /obj/item/storage/backpack/satchel_cap(src)
-	new /obj/item/book/manual/faxes(src)
+	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/backpack/duffel/captain(src)
 	new /obj/item/clothing/suit/captunic(src)
 	new /obj/item/clothing/suit/captunic/capjacket(src)
@@ -203,7 +203,7 @@
 	icon_opened = "hop_open"
 
 /obj/structure/closet/secure_closet/ntrep/populate_contents()
-	new /obj/item/book/manual/faxes(src)
+	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/paicard(src)
 	new /obj/item/flash(src)
@@ -272,9 +272,9 @@
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/detective_scanner(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
-	new /obj/item/ammo_box/c38(src)
-	new /obj/item/ammo_box/c38(src)
-	new /obj/item/gun/projectile/revolver/detective(src)
+	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
+	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
+	new /obj/effect/spawner/detgun(src)
 	new /obj/item/clothing/accessory/holster/armpit(src)
 	new /obj/item/clothing/glasses/sunglasses/yeah(src)
 	new /obj/item/flashlight/seclite(src)
@@ -295,7 +295,7 @@
 /obj/structure/closet/secure_closet/brig
 	name = "brig locker"
 	req_access = list(ACCESS_BRIG)
-	anchored = 1
+	anchored = TRUE
 	var/id = null
 
 /obj/structure/closet/secure_closet/brig/populate_contents()
@@ -326,7 +326,7 @@
 	open_door_sprite = "chaplain_door"
 
 /obj/structure/closet/secure_closet/magistrate/populate_contents()
-	new /obj/item/book/manual/faxes(src)
+	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/flash(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
@@ -351,7 +351,7 @@
 	open_door_sprite = "chaplain_door"
 
 /obj/structure/closet/secure_closet/iaa/populate_contents()
-	new /obj/item/book/manual/faxes(src)
+	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/storage/briefcase(src)

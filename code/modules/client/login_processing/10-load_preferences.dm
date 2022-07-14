@@ -22,7 +22,9 @@
 		2fa_status,
 		screentip_mode,
 		screentip_color,
-		ghost_darkness_level
+		ghost_darkness_level,
+		colourblind_mode,
+		keybindings
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey

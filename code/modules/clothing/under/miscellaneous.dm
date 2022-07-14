@@ -104,6 +104,15 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
+/obj/item/clothing/under/rank/deathsquad
+	name = "\improper Deathsquad jumpsuit"
+	desc = "It's decorative jumpsuit worn by the Deathsquad. A small tag at the bottom reads \"Not associated with Nanotrasen\". "
+	icon_state = "officer"
+	item_state = "g_suit"
+	item_color = "officer"
+	sensor_mode = SENSOR_OFF // You think the Deathsquad wants to be seen?
+	random_sensor = FALSE
+
 /obj/item/clothing/under/rank/centcom_commander
 	name = "\improper CentComm commander's jumpsuit"
 	desc = "It's a jumpsuit worn by CentComm's highest-tier Commanders."
@@ -649,7 +658,7 @@
 
 /obj/item/clothing/under/officeruniform
 	name = "clown officer's uniform"
-	desc = "For Clown officers, this uniform was designed by the great clown designer Hugo Boss."
+	desc = "For the officers of the Clown army."
 	icon_state = "officeruniform"
 	item_color = "officeruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO

@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.
 	ROLE_SENTIENT = 5,
 	ROLE_ERT = 40, // High, because they're team-based, and we want ERT to be robust
-	ROLE_DEATHSQUAD = 10,
+	ROLE_DEATHSQUAD = 50, // Higher, see ERT and also they're OP as heck
 	ROLE_TRADER = 20, // Very high, because they're an admin-spawned event with powerful items
 	ROLE_DRONE = 10, // High, because they're like mini engineering cyborgs that can ignore the AI, ventcrawl, and respawn themselves
 
@@ -17,7 +17,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_VAMPIRE = 5,
 	ROLE_BLOB = 20,
 	ROLE_REVENANT = 3,
-	ROLE_BORER = 3,
 	ROLE_NINJA = 20,
 	ROLE_MORPH = 5,
 	ROLE_DEMON = 5,

@@ -11,12 +11,11 @@ FIRE ALARM
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "firealarm_on"
-	var/detecting = 1.0
-	var/working = 1.0
+	var/detecting = TRUE
+	var/working = TRUE
 	var/time = 10.0
 	var/timing = 0.0
-	var/lockdownbyai = 0
-	anchored = 1.0
+	anchored = TRUE
 	max_integrity = 250
 	integrity_failure = 100
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
@@ -30,11 +29,13 @@ FIRE ALARM
 	light_range = 7
 	light_color = "#ff3232"
 
-	var/wiresexposed = 0
+	var/wiresexposed = FALSE
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
 
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
+
+	var/last_time_pulled //used to prevent pulling spam by same persons
 
 /obj/machinery/firealarm/no_alarm
 	report_fire_alarms = FALSE
@@ -53,7 +54,6 @@ FIRE ALARM
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
 		return
-	
 	if(stat & BROKEN)
 		icon_state = "firealarm_broken"
 	else if(stat & NOPOWER)
@@ -228,6 +228,10 @@ FIRE ALARM
 	if(user.incapacitated())
 		return 1
 
+	if(fingerprintslast == user.ckey && world.time < last_time_pulled + 2 SECONDS) //no spamming >:C
+		to_chat(user, "<span class='warning'>[src] is still processing your earlier command.</span>")
+		return
+
 	toggle_alarm(user)
 
 
@@ -235,6 +239,7 @@ FIRE ALARM
 	var/area/A = get_area(src)
 	if(istype(A))
 		add_fingerprint(user)
+		last_time_pulled = world.time
 		if(A.fire)
 			reset()
 		else
@@ -274,13 +279,14 @@ FIRE ALARM
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)
-	update_icon()
 
 /obj/machinery/firealarm/Initialize(mapload)
 	. = ..()
 	name = "fire alarm"
+	update_icon()
 
 /obj/machinery/firealarm/Destroy()
+	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
 	LAZYREMOVE(myArea.firealarms, src)
 	return ..()
 

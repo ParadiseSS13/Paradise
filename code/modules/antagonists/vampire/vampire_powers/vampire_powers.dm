@@ -59,6 +59,7 @@
 
 	U.SetWeakened(0)
 	U.SetStunned(0)
+	U.SetKnockDown(0)
 	U.SetParalysis(0)
 	U.SetSleeping(0)
 	U.SetConfused(0)
@@ -143,11 +144,12 @@
 			vamp.remove_ability(src)
 
 
-/datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE)
+/datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE, log_choice = TRUE)
 	var/datum/vampire_subclass/new_subclass = new subclass_to_add
 	subclass = new_subclass
 	check_vampire_upgrade(announce)
-	SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
+	if(log_choice)
+		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 
 /obj/effect/proc_holder/spell/vampire/glare
 	name = "Glare"
@@ -185,7 +187,7 @@
 			continue
 
 		var/deviation
-		if(user.IsWeakened() || user.resting)
+		if(user.IsWeakened() || IS_HORIZONTAL(user))
 			deviation = DEVIATION_PARTIAL
 		else
 			deviation = calculate_deviation(target, user)

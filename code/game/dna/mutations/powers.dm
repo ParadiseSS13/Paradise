@@ -26,8 +26,12 @@
 	block = GLOB.regenerateblock
 
 /datum/mutation/regenerate/on_life(mob/living/carbon/human/H)
-	H.adjustBruteLoss(-0.1, FALSE)
-	H.adjustFireLoss(-0.1)
+	if(!H.ignore_gene_stability && H.gene_stability < GENETIC_DAMAGE_STAGE_1)
+		H.adjustBruteLoss(-0.25, FALSE)
+		H.adjustFireLoss(-0.25)
+		return
+	H.adjustBruteLoss(-1, FALSE)
+	H.adjustFireLoss(-1)
 
 /datum/mutation/increaserun
 	name = "Super Speed"
@@ -254,8 +258,8 @@
 	..()
 	block = GLOB.chameleonblock
 
-/datum/mutation/stealth/chameleon/on_life(mob/M)
-	if((world.time - M.last_movement) >= 30 && !M.stat && M.canmove && !M.restrained())
+/datum/mutation/stealth/chameleon/on_life(mob/living/M) //look if a ghost gets this, its an admins problem
+	if((world.time - M.last_movement) >= 30 && !M.stat && (M.mobility_flags & MOBILITY_STAND) && !M.restrained())
 		if(M.invisibility != INVISIBILITY_OBSERVER)
 			M.alpha -= 25
 	else
@@ -303,7 +307,7 @@
 	charge_max = 1200
 
 	clothes_req = FALSE
-	stat_allowed = FALSE
+	stat_allowed = CONSCIOUS
 
 	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
@@ -374,8 +378,8 @@
 	charge_type = "recharge"
 	charge_max = 300
 
-	clothes_req = 0
-	stat_allowed = 0
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 
 	action_icon_state = "genetic_eat"
@@ -480,8 +484,8 @@
 	charge_type = "recharge"
 	charge_max = 60
 
-	clothes_req = 0
-	stat_allowed = 0
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 
 	action_icon_state = "genetic_jump"
@@ -491,15 +495,15 @@
 
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(istype(user.loc,/mob/) || user.lying || user.IsStunned() || user.buckled || user.stat)
+	if(istype(user.loc,/mob/) || IS_HORIZONTAL(user) || user.IsStunned() || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 
 	if(istype(user.loc,/turf/))
 		if(user.restrained())//Why being pulled while cuffed prevents you from moving
-			for(var/mob/M in range(user, 1))
+			for(var/mob/living/M in range(user, 1))
 				if(M.pulling == user)
-					if(!M.restrained() && M.stat == 0 && M.canmove && user.Adjacent(M))
+					if(!M.restrained() && M.stat == 0 && !(M.mobility_flags & MOBILITY_STAND) && user.Adjacent(M))
 						failure = TRUE
 					else
 						M.stop_pulling()
@@ -573,7 +577,7 @@
 	charge_max = 1800
 
 	clothes_req = FALSE
-	stat_allowed = FALSE
+	stat_allowed = CONSCIOUS
 
 	selection_activated_message		= "<span class='notice'>You body becomes unstable. Click on a target to cast transform into them.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
@@ -734,8 +738,8 @@
 	panel = "Abilities"
 	charge_max = 1800
 
-	clothes_req = 0
-	stat_allowed = 0
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 
 	action_icon_state = "genetic_morph"
@@ -919,8 +923,8 @@
 	desc = "Make people understand your thoughts!"
 	charge_max = 0
 
-	clothes_req = 0
-	stat_allowed = 0
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 
 	action_icon_state = "genetic_project"
@@ -951,8 +955,8 @@
 	name = "Scan Mind"
 	desc = "Offer people a chance to share their thoughts!"
 	charge_max = 0
-	clothes_req = 0
-	stat_allowed = 0
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 	action_icon_state = "genetic_mindscan"
 	var/list/available_targets = list()
@@ -1026,8 +1030,8 @@
 	desc = "Spy on people from any range!"
 	charge_max = 100
 
-	clothes_req = 0
-	stat_allowed = 0
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 
 	action_icon_state = "genetic_view"

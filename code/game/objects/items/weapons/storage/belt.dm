@@ -17,7 +17,9 @@
 	if(use_item_overlays)
 		cut_overlays()
 		for(var/obj/item/I in contents)
-			add_overlay("[I.belt_icon]")
+			var/image/belt_image = image(icon, I.belt_icon)
+			belt_image.color = I.color
+			add_overlay(belt_image)
 	..()
 
 /obj/item/storage/belt/proc/can_use()
@@ -482,7 +484,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/gun/projectile/automatic/pistol,
-		/obj/item/gun/projectile/revolver/detective
+		/obj/item/gun/energy/detective
 		)
 
 /obj/item/storage/belt/wands

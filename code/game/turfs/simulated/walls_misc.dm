@@ -33,22 +33,6 @@
 /turf/simulated/wall/cult/devastate_wall()
 	new sheet_type(get_turf(src), sheet_amount)
 
-/turf/simulated/wall/rust
-	name = "rusted wall"
-	desc = "A rusted metal wall."
-	icon = 'icons/turf/walls/rusty_wall.dmi'
-	icon_state = "rusty_wall-0"
-	base_icon_state = "rusty_wall"
-	smoothing_flags = SMOOTH_BITMASK
-
-/turf/simulated/wall/r_wall/rust
-	name = "rusted reinforced wall"
-	desc = "A huge chunk of rusted reinforced metal."
-	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
-	icon_state = "rusty_reinforced_wall-0"
-	base_icon_state = "rusty_reinforced_wall"
-	smoothing_flags = SMOOTH_BITMASK
-
 //Clockwork walls
 /turf/simulated/wall/clockwork
 	name = "clockwork wall"

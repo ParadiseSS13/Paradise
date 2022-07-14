@@ -3,7 +3,7 @@
 	desc = "Shoots things into space."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver"
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 50
@@ -26,7 +26,7 @@
 		if(do_after(user, 30 * W.toolspeed, target = src))
 			var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
 			F.dir = src.dir
-			F.anchored = 1
+			F.anchored = TRUE
 			F.build = 4
 			F.update_icon()
 			qdel(src)
@@ -68,7 +68,7 @@
 
 /obj/machinery/mass_driver/emag_act(mob/user)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "You hack the Mass Driver, radically increasing the force at which it'll throw things. Better not stand in its way.")
 		return 1
 	return -1
@@ -78,13 +78,13 @@
 /obj/machinery/mass_driver/bumper
 	name = "mass bumper"
 	desc = "Now you're here, now you're over there."
-	density = 1
+	density = TRUE
 
 /obj/machinery/mass_driver/bumper/Bumped(M as mob|obj)
-	density = 0
+	density = FALSE
 	step(M, get_dir(M,src))
 	spawn(1)
-		density = 1
+		density = TRUE
 	drive()
 	return
 
@@ -94,8 +94,8 @@
 	name = "mass driver frame"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver_frame"
-	density = 0
-	anchored = 0
+	density = FALSE
+	anchored = FALSE
 	var/build = 0
 
 /obj/machinery/mass_driver_frame/attackby(obj/item/W as obj, mob/user as mob)
@@ -106,7 +106,7 @@
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 0))
 					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
-					anchored = 1
+					anchored = TRUE
 					build++
 				return 1
 			return
@@ -116,7 +116,7 @@
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 1))
 					build--
-					anchored = 0
+					anchored = FALSE
 					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
 				return 1
 		if(2) // Welded to the floor

@@ -4,8 +4,8 @@
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "separator-AO1"
 	layer = MOB_LAYER+1 // Overhead
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	/// TRUE if the factory can transform dead mobs.
 	var/transform_dead = TRUE
 	/// TRUE if the mob can be standing and still be transformed.
@@ -76,7 +76,7 @@
 	var/mob/living/carbon/human/H = AM
 	var/move_dir = get_dir(loc, H.loc)
 
-	if((transform_standing || H.lying) && move_dir == acceptdir)
+	if((transform_standing || IS_HORIZONTAL(H)) && move_dir == acceptdir)
 		H.forceMove(drop_location())
 		do_transform(H)
 
@@ -186,7 +186,7 @@
 		var/mob/living/carbon/human/H = AM
 		var/move_dir = get_dir(loc, H.loc)
 
-		if(H.lying && move_dir == acceptdir)
+		if(IS_HORIZONTAL(H) && move_dir == acceptdir)
 			H.forceMove(drop_location())
 			irradiate(H)
 

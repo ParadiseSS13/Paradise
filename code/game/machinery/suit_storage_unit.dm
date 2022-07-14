@@ -111,6 +111,7 @@
 	name = "security suit storage unit"
 	suit_type	= /obj/item/clothing/suit/space/hardsuit/security
 	mask_type	= /obj/item/clothing/mask/gas/sechailer
+	storage_type	= /obj/item/tank/jetpack/oxygen/security
 	req_access	= list(ACCESS_SECURITY)
 
 /obj/machinery/suit_storage_unit/security/secure
@@ -120,6 +121,7 @@
 	name = "Head of Security's suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
+	storage_type = null
 	req_access = list(ACCESS_HOS)
 
 /obj/machinery/suit_storage_unit/security/hos/secure
@@ -274,13 +276,9 @@
 			suit_type = /obj/item/clothing/suit/space/nasavoid/ltblue
 	..()
 
-
-/obj/machinery/suit_storage_unit/New()
-	..()
-	wires = new(src)
-
 /obj/machinery/suit_storage_unit/Initialize()
 	. = ..()
+	wires = new(src)
 	if(suit_type)
 		suit = new suit_type(src)
 	if(helmet_type)
@@ -309,25 +307,25 @@
 
 	if(uv)
 		if(uv_super)
-			add_overlay("[base_icon_state]_uvstrong")
 			add_overlay("[base_icon_state]_super")
+			add_overlay("[base_icon_state]_[occupant ? "body" : "uvstrong"]")
 		else
-			add_overlay("[base_icon_state]_uv")
+			add_overlay("[base_icon_state]_[occupant ? "body" : "uv"]")
 		add_overlay("[base_icon_state]_lights_red")
 		return
 
 	if(state_open)
 		add_overlay("[base_icon_state]_open")
-		add_overlay("[base_icon_state]_ready")
 		if(suit)
 			add_overlay("[base_icon_state]_suit")
 		if(helmet)
 			add_overlay("[base_icon_state]_helm")
 		if(storage)
 			add_overlay("[base_icon_state]_storage")
-		return
-	add_overlay("[base_icon_state]_ready")
-	add_overlay("[base_icon_state]_lights_closed")
+	else
+		add_overlay("[base_icon_state]_lights_closed")
+
+	add_overlay("[base_icon_state]_[occupant ? "body" : "ready"]")
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
@@ -427,7 +425,7 @@
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user)
-	if(user.stat || user.lying || !Adjacent(user) || !Adjacent(A) || !isliving(A))
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	var/mob/living/target = A
 	if(!state_open)
@@ -556,9 +554,6 @@
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/A in contents)
 		A.forceMove(T)
-		if(isliving(A))
-			var/mob/living/L = A
-			L.update_canmove()
 	occupant = null
 
 /obj/machinery/suit_storage_unit/proc/close_machine(atom/movable/target = null)

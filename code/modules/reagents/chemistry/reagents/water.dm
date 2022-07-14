@@ -102,13 +102,9 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == "blood")
-			if((!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type))))
-				C.reagents.add_reagent("toxin", volume * 0.5)
-			else
-				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 		if(C.mind?.has_antag_datum(/datum/antagonist/vampire))
 			C.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, C.nutrition + 10))
+	..()
 
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
@@ -282,6 +278,8 @@
 				V.vomit(0, FALSE, FALSE)
 				return
 		else
+			if(!vamp.bloodtotal)
+				return ..() | update_flags
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
@@ -348,10 +346,12 @@
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-4 SECONDS)
 		M.AdjustWeakened(-4 SECONDS)
-		update_flags |= M.adjustToxLoss(-2, FALSE)
-		update_flags |= M.adjustFireLoss(-2, FALSE)
-		update_flags |= M.adjustOxyLoss(-2, FALSE)
-		update_flags |= M.adjustBruteLoss(-2, FALSE)
+		M.AdjustKnockDown(-4 SECONDS)
+		update_flags |= M.adjustStaminaLoss(-25, FALSE)
+		update_flags |= M.adjustToxLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustOxyLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	else
 		update_flags |= M.adjustBrainLoss(3, FALSE)
 		update_flags |= M.adjustToxLoss(1, FALSE)

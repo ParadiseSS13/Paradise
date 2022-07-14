@@ -83,11 +83,23 @@
 	..()
 	monitor = new()
 	monitor.Grant(H)
+	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
+		medhud.remove_from_hud(H)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.add_to_hud(H)
+	H.med_hud_set_health()
+	H.med_hud_set_status()
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/H)
 	..()
 	if(monitor)
 		monitor.Remove(H)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.remove_from_hud(H)
+	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
+		medhud.add_to_hud(H)
+	H.med_hud_set_health()
+	H.med_hud_set_status()
 
 /datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
@@ -119,7 +131,7 @@
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
-		if(H.incapacitated(TRUE, TRUE, TRUE))
+		if(H.incapacitated(TRUE, TRUE))
 			to_chat(H, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
 			return
 		if(optic_colour)
@@ -141,7 +153,7 @@
 		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
-		if(H.incapacitated(TRUE, TRUE, TRUE))
+		if(H.incapacitated(TRUE, TRUE))
 			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
 			return
 

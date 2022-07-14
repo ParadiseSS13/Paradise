@@ -85,6 +85,10 @@
 	display_name = "Grey Plushie"
 	path = /obj/item/toy/plushie/greyplushie
 
+/datum/gear/nianplushie
+	display_name = "Nian plushie"
+	path = /obj/item/toy/plushie/nianplushie
+
 /datum/gear/sechud
 	display_name = "Classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
@@ -104,7 +108,7 @@
 
 /datum/gear/doublecards
 	display_name = "Double deck of standard cards"
-	path = /obj/item/deck/doublecards
+	path = /obj/item/deck/cards/doublecards
 
 /datum/gear/tarot
 	display_name = "Deck of tarot cards"

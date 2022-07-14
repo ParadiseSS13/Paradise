@@ -1,7 +1,4 @@
 {
-	"workbench.editorAssociations": {
-		"*.dmi": "imagePreview.previewEditor"
-	},
 	"gitlens.advanced.blame.customArguments": [
 		"--ignore-revs-file", "${workspaceRoot}/.git-blame-ignore-revs"
 	],

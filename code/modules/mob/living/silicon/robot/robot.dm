@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	maxHealth = 100
 	health = 100
 	bubble_icon = "robot"
-	universal_understand = 1
+	universal_understand = TRUE
 	deathgasp_on_death = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
@@ -79,11 +79,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	//var/list/laws = list()
 	var/viewalerts = 0
 	var/modtype = "Default"
-	var/lower_mod = 0
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
-	var/jeton = 0
-	var/low_power_mode = 0 //whether the robot has no charge left.
-	var/weapon_lock = 0
+	var/low_power_mode = FALSE //whether the robot has no charge left.
+	var/weapon_lock = FALSE
 	var/weaponlock_time = 120
 	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
 	var/lockcharge //Used when locking down a borg to preserve cell charge
@@ -162,7 +160,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_robot_verbs()
 
 	// Remove inherited verbs that effectively do nothing for cyborgs, or lead to unintended behaviour.
-	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/rest
 	verbs -= /mob/living/verb/mob_sleep
 
 	// Install a default cell into the borg if none is there yet
@@ -1167,10 +1165,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	disconnect_from_ai()
 	lawupdate = 0
 	lockcharge = 0
-	canmove = 1
+	REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
-	QDEL_NULL(src.camera)
+	QDEL_NULL(camera)
 	// I'm trying to get the Cyborg to not be listed in the camera list
 	// Instead of being listed as "deactivated". The downside is that I'm going
 	// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
@@ -1208,7 +1206,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		clear_alert("locked")
 	lockcharge = state
-	update_canmove()
+	if(state) // turn them off
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKDOWN_TRAIT)
+		ADD_TRAIT(src, TRAIT_UI_BLOCKED, LOCKDOWN_TRAIT)
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LOCKDOWN_TRAIT)
+	else
+		REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
 
 /mob/living/silicon/robot/proc/choose_icon(triesleft, list/module_sprites)
 
@@ -1330,7 +1333,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
-	if(istype(P) && P.is_reflectable && P.starting)
+	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
 		visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", "<span class='userdanger'>[P] gets reflected by [src]!</span>")
 		P.reflect_back(src)
 		return -1
@@ -1494,7 +1497,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
-/// Used in `robot_bindings.dm` when the user presses "A" if on AZERTY mode, or "Q" on QWERTY mode.
+/// Used in `robot.dm` when the user presses "Q" by default.
 /mob/living/silicon/robot/proc/on_drop_hotkey_press()
 	var/obj/item/gripper/G = get_active_hand()
 	if(istype(G) && G.gripped_item)
@@ -1528,3 +1531,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
+
+/mob/living/silicon/robot/verb/powerwarn()
+	set category = "Robot Commands"
+	set name = "Power Warning"
+
+
+
+	if(!is_component_functioning("power cell") || !cell || !cell.charge)
+		if(!start_audio_emote_cooldown(10 SECONDS))
+			to_chat(src, "<span class='warning'>The low-power capacitor for your speaker system is still recharging, please try again later.</span>")
+			return
+		visible_message("<span class='warning'>The power warning light on <span class='name'>[src]</span> flashes urgently.</span>",\
+						 "<span class='warning'>You announce you are operating in low power mode.</span>")
+		playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
+	else
+		to_chat(src, "<span class='warning'>You can only use this emote when you're out of charge.</span>")

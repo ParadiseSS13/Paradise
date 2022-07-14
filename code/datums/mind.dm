@@ -27,7 +27,7 @@
 	var/original_mob_UID
 	/// The original mob's name. Used in Dchat messages
 	var/original_mob_name
-	var/active = 0
+	var/active = FALSE
 
 	var/memory
 
@@ -51,7 +51,6 @@
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
-	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
@@ -77,12 +76,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
-	if(islist(antag_datums))
-		for(var/i in antag_datums)
-			var/datum/antagonist/antag_datum = i
-			if(antag_datum.delete_on_mind_deletion)
-				qdel(i)
-		antag_datums = null
+	QDEL_LIST(antag_datums)
 	current = null
 	return ..()
 
@@ -93,9 +87,34 @@
 /datum/mind/proc/is_original_mob(mob/M)
 	return original_mob_UID == M.UID()
 
+// Do not use for admin related things as this can hide the mob's ckey
 /datum/mind/proc/get_display_key()
-	var/clientKey = current?.client?.get_display_key()
-	return clientKey ? clientKey : key
+	// Lets try find a client so we can check their prefs
+	var/client/C = null
+
+	var/cannonical_key = ckey(key)
+
+	if(current?.client)
+		// Active client
+		C = current.client
+	else if(cannonical_key in GLOB.directory)
+		// Do a directory lookup on the last ckey this mind had
+		// If theyre online we can grab them still and check prefs
+		C = GLOB.directory[cannonical_key]
+
+	// Ok we found a client, be it their active or their last
+	// Now we see if we need to respect their privacy
+	var/out_ckey
+	if(C)
+		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
+			out_ckey = "(Anon)"
+		else
+			out_ckey = C.ckey
+	else
+		// No client. Just mark as DC'd.
+		out_ckey = "(Disconnected)"
+
+	return out_ckey
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
@@ -278,12 +297,15 @@
 
 /datum/mind/proc/memory_edit_changeling(mob/living/carbon/human/H)
 	. = _memory_edit_header("changeling", list("traitorchan"))
-	if(src in SSticker.mode.changelings)
+	var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
+	if(cling)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
-		if(objectives.len==0)
+		if(!length(cling.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];changeling=autoobjectives'>Randomize!</a>"
-		if(changeling && changeling.absorbed_dna.len && (current.real_name != changeling.absorbed_dna[1]))
-			. += "<br><a href='?src=[UID()];changeling=initialdna'>Transform to initial appearance.</a>"
+		if(length(cling.absorbed_dna))
+			var/datum/dna/DNA = cling.absorbed_dna[1]
+			if(current.real_name != DNA.real_name)
+				. += "<br><a href='?src=[UID()];changeling=initialdna'>Transform to initial appearance.</a>"
 	else
 		. += "<a href='?src=[UID()];changeling=changeling'>changeling</a>|<b>NO</b>"
 
@@ -291,9 +313,16 @@
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("vampire", list("traitorvamp"))
-	if(has_antag_datum(/datum/antagonist/vampire))
+	var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+	if(vamp)
 		. += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=[UID()];vampire=clear'>no</a>"
-		if(objectives.len==0)
+		. += "<br>Usable blood: <a href='?src=[UID()];vampire=edit_usable_blood'>[vamp.bloodusable]</a>"
+		. += " | Total blood: <a href='?src=[UID()];vampire=edit_total_blood'>[vamp.bloodtotal]</a>"
+		var/has_subclass = !QDELETED(vamp.subclass)
+		. += "<br>Subclass: <a href='?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
+		if(has_subclass)
+			. += " | Force full power: <a href='?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
+		if(!length(vamp.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];vampire=vampire'>vampire</a>|<b>NO</b>"
@@ -857,7 +886,7 @@
 				if(!flash)
 					to_chat(usr, "<span class='warning'>Repairing flash failed!</span>")
 				else
-					flash.broken = 0
+					flash.broken = FALSE
 					log_admin("[key_name(usr)] has repaired [key_name(current)]'s flash")
 					message_admins("[key_name_admin(usr)] has repaired [key_name_admin(current)]'s flash")
 
@@ -945,41 +974,30 @@
 	else if(href_list["changeling"])
 		switch(href_list["changeling"])
 			if("clear")
-				if(src in SSticker.mode.changelings)
-					SSticker.mode.changelings -= src
-					special_role = null
-					if(changeling)
-						current.remove_changeling_powers()
-						qdel(current.middleClickOverride) // In case the old changeling has a targeted sting prepared (`datum/middleClickOverride`), delete it.
-						current.middleClickOverride = null
-						qdel(changeling)
-						changeling = null
-					SSticker.mode.update_change_icons_removed(src)
-					to_chat(current, "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>")
+				if(ischangeling(current))
+					remove_antag_datum(/datum/antagonist/changeling)
 					log_admin("[key_name(usr)] has de-changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-changelinged [key_name_admin(current)]")
 			if("changeling")
-				if(!(src in SSticker.mode.changelings))
-					SSticker.mode.changelings += src
-					SSticker.mode.grant_changeling_powers(current)
-					SSticker.mode.update_change_icons_added(src)
-					special_role = SPECIAL_ROLE_CHANGELING
-					SEND_SOUND(current, sound('sound/ambience/antag/ling_aler.ogg'))
-					to_chat(current, "<B><font color='red'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</font></B>")
+				if(!ischangeling(current))
+					add_antag_datum(/datum/antagonist/changeling)
+					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</span>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
 			if("autoobjectives")
-				SSticker.mode.forge_changeling_objectives(src)
+				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
+				cling.give_objectives()
 				to_chat(usr, "<span class='notice'>The objectives for changeling [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
 			if("initialdna")
-				if(!changeling || !changeling.absorbed_dna.len)
+				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
+				if(!cling || !length(cling.absorbed_dna))
 					to_chat(usr, "<span class='warning'>Resetting DNA failed!</span>")
 				else
-					current.dna = changeling.absorbed_dna[1]
+					current.dna = cling.absorbed_dna[1]
 					current.real_name = current.dna.real_name
 					current.UpdateAppearance()
 					domutcheck(current)
@@ -1000,6 +1018,71 @@
 					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
+
+			if("edit_usable_blood")
+				var/new_usable = input(usr, "Select a new value:", "Modify usable blood") as null|num
+				if(isnull(new_usable) || new_usable < 0)
+					return
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				vamp.bloodusable = new_usable
+				current.update_action_buttons_icon()
+				log_admin("[key_name(usr)] has set [key_name(current)]'s usable blood to [new_usable].")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s usable blood to [new_usable].")
+
+			if("edit_total_blood")
+				var/new_total = input(usr, "Select a new value:", "Modify total blood") as null|num
+				if(isnull(new_total) || new_total < 0)
+					return
+
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(new_total < vamp.bloodtotal)
+					if(alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", "Yes", "No") == "No")
+						return
+					vamp.remove_all_powers()
+
+				vamp.bloodtotal = new_total
+				vamp.check_vampire_upgrade()
+				log_admin("[key_name(usr)] has set [key_name(current)]'s total blood to [new_total].")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s total blood to [new_total].")
+
+			if("change_subclass")
+				var/list/subclass_selection = list()
+				for(var/subtype in subtypesof(/datum/vampire_subclass))
+					var/datum/vampire_subclass/subclass = subtype
+					subclass_selection[capitalize(initial(subclass.name))] = subtype
+				subclass_selection["Let them choose (remove current subclass)"] = NONE
+
+				var/new_subclass_name = input(usr, "Choose a new subclass:", "Change Vampire Subclass") as null|anything in subclass_selection
+				if(!new_subclass_name)
+					return
+
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				var/subclass_type = subclass_selection[new_subclass_name]
+
+				if(subclass_type == NONE)
+					vamp.clear_subclass()
+					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
+					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
+				else
+					vamp.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
+					vamp.change_subclass(subclass_type)
+					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
+					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
+
+			if("full_power_override")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(vamp.subclass.full_power_override)
+					vamp.subclass.full_power_override = FALSE
+					for(var/power in vamp.powers)
+						if(!is_type_in_list(power, vamp.subclass.fully_powered_abilities))
+							continue
+						vamp.remove_ability(power)
+				else
+					vamp.subclass.full_power_override = TRUE
+
+				vamp.check_full_power_upgrade()
+				log_admin("[key_name(usr)] set [key_name(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
+				message_admins("[key_name_admin(usr)] set [key_name_admin(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
 
 			if("autoobjectives")
 				var/datum/antagonist/vampire/V = has_antag_datum(/datum/antagonist/vampire)
@@ -1420,8 +1503,6 @@
  * * datum/team/team - the antag team that the src mind should join, if any
  */
 /datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team = null)
-	if(!datum_type_or_instance)
-		return
 	var/datum/antagonist/A
 	if(!ispath(datum_type_or_instance))
 		A = datum_type_or_instance
@@ -1449,18 +1530,15 @@
  * * datum_type - an antag datum typepath
  */
 /datum/mind/proc/remove_antag_datum(datum_type)
-	if(!datum_type)
-		return
 	var/datum/antagonist/A = has_antag_datum(datum_type)
+	LAZYREMOVE(antag_datums, A)
 	qdel(A)
 
 /**
  * Removes all antag datums from the src mind.
  */
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
-	for(var/a in antag_datums)
-		var/datum/antagonist/A = a
-		qdel(A)
+	QDEL_LIST(antag_datums)
 
 /**
  * Returns an antag datum instance if the src mind has the specified `datum_type`. Returns `null` otherwise.
@@ -1470,10 +1548,7 @@
  * * check_subtypes - TRUE if this proc will consider subtypes of `datum_type` as valid. FALSE if only the exact same type should be considered.
  */
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
-	if(!datum_type)
-		return
-	for(var/a in antag_datums)
-		var/datum/antagonist/A = a
+	for(var/datum/antagonist/A as anything in antag_datums)
 		if(check_subtypes && istype(A, datum_type))
 			return A
 		else if(A.type == datum_type)
@@ -1535,15 +1610,6 @@
 /datum/mind/proc/make_vampire()
 	if(!has_antag_datum(/datum/antagonist/vampire))
 		add_antag_datum(/datum/antagonist/vampire)
-
-/datum/mind/proc/make_Changeling()
-	if(!(src in SSticker.mode.changelings))
-		SSticker.mode.changelings += src
-		SSticker.mode.grant_changeling_powers(current)
-		special_role = SPECIAL_ROLE_CHANGELING
-		SSticker.mode.forge_changeling_objectives(src)
-		SSticker.mode.greet_changeling(src)
-		SSticker.mode.update_change_icons_added(src)
 
 /datum/mind/proc/make_Overmind()
 	if(!(src in SSticker.mode.blob_overminds))
@@ -1740,7 +1806,7 @@
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)
-	mind.active = 1    //indicates that the mind is currently synced with a client
+	mind.active = TRUE //indicates that the mind is currently synced with a client
 
 //slime
 /mob/living/simple_animal/slime/mind_initialize()

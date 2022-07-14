@@ -3,7 +3,7 @@
 	desc = "Lets you shoot your guns"
 	icon_state = "auth"
 	origin_tech = "magnets=2;programming=7;biotech=5;syndicate=5"
-	activated = 0
+	activated = IMPLANT_ACTIVATED_PASSIVE
 
 /obj/item/implant/weapons_auth/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -37,10 +37,10 @@
 	to_chat(imp_in, "<span class='notice'>You feel a sudden surge of energy!</span>")
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
+	imp_in.SetKnockDown(0)
 	imp_in.SetParalysis(0)
 	imp_in.adjustStaminaLoss(-75)
-	imp_in.lying = 0
-	imp_in.update_canmove()
+	imp_in.stand_up(TRUE)
 
 	imp_in.reagents.add_reagent("synaptizine", 10)
 	imp_in.reagents.add_reagent("omnizine", 10)

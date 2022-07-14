@@ -97,8 +97,7 @@
 	wrapper_color = COLOR_PALE_BTL_GREEN
 
 // Why the hell is this in the closets folder?
-/obj/item/storage/pill_bottle/psychiatrist/New()
-	..()
+/obj/item/storage/pill_bottle/psychiatrist/populate_contents()
 	new /obj/item/reagent_containers/food/pill/haloperidol(src)
 	new /obj/item/reagent_containers/food/pill/haloperidol(src)
 	new /obj/item/reagent_containers/food/pill/haloperidol(src)
@@ -166,6 +165,7 @@
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/flash(src)
+	new /obj/item/gun/syringe(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 	new /obj/item/door_remote/chief_medical_officer(src)

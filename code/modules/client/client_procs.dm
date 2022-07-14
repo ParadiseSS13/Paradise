@@ -162,7 +162,7 @@
 
 
 /client/proc/get_display_key()
-	var/fakekey = src?.holder?.fakekey
+	var/fakekey = holder?.fakekey
 	return fakekey ? fakekey : key
 
 /client/proc/is_content_unlocked()
@@ -283,7 +283,7 @@
 		// ToS accepted
 		tos_consent = TRUE
 
-
+	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
@@ -331,6 +331,8 @@
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	. = ..()	//calls mob.Login()
+
+	mob.update_client_colour(0) // Activate colourblind mode if they have one set
 
 
 	if(ckey in GLOB.clientmessages)
@@ -413,6 +415,7 @@
 
 /client/Destroy()
 	announce_leave() // Do not put this below
+	SSdebugview.stop_processing(src)
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -425,6 +428,7 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	SSambience.ambience_listening_clients -= src
+	SSinput.processing -= src
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW

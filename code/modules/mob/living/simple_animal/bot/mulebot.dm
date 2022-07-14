@@ -58,6 +58,7 @@
 	wires = new /datum/wires/mulebot(src)
 	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
 	access_card.access = J.get_access()
+	LAZYADD(access_card.access, ACCESS_CARGO_BOT)
 	prev_access = access_card.access
 	cell = new /obj/item/stock_parts/cell/upgraded(src)
 
@@ -338,7 +339,7 @@
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user)
 
-	if(user.incapacitated() || user.lying || get_dist(user, src) > 1)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || get_dist(user, src) > 1)
 		return
 
 	if(!istype(AM))

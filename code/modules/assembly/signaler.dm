@@ -7,7 +7,7 @@
 	origin_tech = "magnets=1;bluespace=1"
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 
-	secured = 1
+	secured = TRUE
 	var/receiving = FALSE
 
 	bomb_name = "remote-control bomb"
@@ -87,7 +87,7 @@
 /obj/item/assembly/signaler/Topic(href, href_list)
 	..()
 
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)|| usr.stat || usr.restrained() || !in_range(loc, usr))
 		usr << browse(null, "window=radio")
 		onclose(usr, "radio")
 		return

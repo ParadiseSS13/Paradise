@@ -21,7 +21,7 @@ If at half health it will start to charge from all sides with clones.
 
 When Bubblegum dies, it leaves behind a chest that contains:
  1. A H.E.C.K. mining suit
- 2. A spellblade that can slice off limbs at range
+ 2. A spellblade that can have a range of magical enchantments
 
 Difficulty: Hard
 
@@ -318,7 +318,7 @@ Difficulty: Hard
 		return TRUE
 	if(isliving(target))
 		var/mob/living/livingtarget = target
-		return (livingtarget.stat != CONSCIOUS || livingtarget.lying)
+		return (livingtarget.stat != CONSCIOUS || IS_HORIZONTAL(livingtarget))
 	return FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_retreat_distance()

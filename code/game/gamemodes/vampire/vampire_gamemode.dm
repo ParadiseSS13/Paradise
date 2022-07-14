@@ -55,7 +55,7 @@
 	for(var/datum/mind/vampire in vampires)
 		var/traitorwin = TRUE
 		var/datum/antagonist/vampire/V = vampire.has_antag_datum(/datum/antagonist/vampire)
-		text += "<br>[vampire.key] was [vampire.name] ("
+		text += "<br>[vampire.get_display_key()] was [vampire.name] ("
 		if(vampire.current)
 			if(vampire.current.stat == DEAD)
 				text += "died"
@@ -74,10 +74,18 @@
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-					SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
+					if(istype(objective, /datum/objective/steal))
+						var/datum/objective/steal/S = objective
+						SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
+					else
+						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-					SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
+					if(istype(objective, /datum/objective/steal))
+						var/datum/objective/steal/S = objective
+						SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
+					else
+						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
@@ -102,7 +110,7 @@
 
 	var/text = "<FONT size = 2><B>The Enthralled were:</B></FONT>"
 	for(var/datum/mind/mind in vampire_enthralled)
-		text += "<br>[mind.key] was [mind.name] ("
+		text += "<br>[mind.get_display_key()] was [mind.name] ("
 		if(mind.current)
 			if(mind.current.stat == DEAD)
 				text += "died"

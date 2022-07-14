@@ -2,14 +2,14 @@
 	name = "Blood Crawl"
 	desc = "Use pools of blood to phase out of existence."
 	charge_max = 0
-	clothes_req = 0
+	clothes_req = FALSE
 	cooldown_min = 0
 	should_recharge_after_cast = FALSE
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_demon"
 	panel = "Demon"
-	var/phased = 0
+	var/phased = FALSE
 
 /obj/effect/proc_holder/spell/bloodcrawl/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -34,8 +34,8 @@
 	var/obj/effect/decal/cleanable/target = targets[1] // TODO Test this spell
 	if(phased)
 		if(user.phasein(target))
-			phased = 0
+			phased = FALSE
 	else
 		if(user.phaseout(target))
-			phased = 1
+			phased = TRUE
 	start_recharge()

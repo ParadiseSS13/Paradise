@@ -40,7 +40,7 @@
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
-	var/other_mobs = null
+	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
 	var/notransform = null	//Carbon
@@ -50,14 +50,13 @@
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
-	var/lying = 0
 	var/lying_prev = 0
 	var/lastpuke = 0
 	var/can_strip = 1
 	var/list/languages = list()         // For speaking/listening.
 	var/list/abilities = list()         // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
-	var/emote_type = 1		// Define emote default type, 1 for seen emotes, 2 for heard emotes
+	var/emote_type = EMOTE_VISIBLE		// Define emote default type, 1 for seen emotes, 2 for heard emotes
 	var/name_archive //For admin things like possession
 
 	var/timeofdeath = 0 //Living
@@ -98,7 +97,17 @@
 
 	var/in_throw_mode = 0
 
-	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
+	// See /datum/emote
+
+	/// Cooldown on audio effects from emotes.
+	var/audio_emote_cd_status = EMOTE_READY
+
+	/// Override for cooldowns on non-audio emotes. Should be a number in deciseconds.
+	var/emote_cooldown_override = null
+
+	/// Tracks last uses of emotes for cooldown purposes
+	var/list/emotes_used
+	var/list/emotes_on_cooldown
 
 	var/job = null //Living
 
@@ -147,8 +156,6 @@
 
 	var/area/lastarea = null
 
-	var/digitalcamo = 0 // Can they be tracked by the AI?
-
 	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
 
 	var/atom/movable/remote_control //Calls relaymove() to whatever it is
@@ -156,10 +163,8 @@
 	var/obj/control_object //Used by admins to possess objects. All mobs should have this var
 
 	//Whether or not mobs can understand other mobtypes. These stay in /mob so that ghosts can hear everything.
-	var/universal_speak = 0 // Set to 1 to enable the mob to speak to everyone -- TLE
-	var/universal_understand = 0 // Set to 1 to enable the mob to understand everyone, not necessarily speak
-	var/robot_talk_understand = 0
-	var/alien_talk_understand = 0
+	var/universal_speak = FALSE // Set to TRUE to enable the mob to speak to everyone -- TLE
+	var/universal_understand = FALSE // Set to TRUE to enable the mob to understand everyone, not necessarily speak
 
 	var/has_limbs = 1 //Whether this mob have any limbs he can move with
 
@@ -203,3 +208,5 @@
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
 	/// A soft reference to the location where this mob's runechat message will appear. Uses `UID()`.
 	var/runechat_msg_location
+	/// The datum receiving keyboard input. parent mob by default.
+	var/datum/input_focus = null

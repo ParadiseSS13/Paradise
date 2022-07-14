@@ -176,13 +176,17 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/proc/invoke(list/invokers)
 	//This proc contains the effects of the rune as well as things that happen afterwards. If you want it to spawn an object and then delete itself, have both here.
+	SHOULD_CALL_PARENT(TRUE)
+	var/ghost_invokers = 0
 	for(var/M in invokers)
 		var/mob/living/L = M
 		if(!L)
 			return
+		if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+			ghost_invokers++
 		if(invocation)
 			if(!L.IsVocal())
-				L.emote("gestures ominously.")
+				L.custom_emote(EMOTE_VISIBLE, message = pick("draws arcane sigils in the air.","gestures ominously.","silently mouths out an invocation.","places their hands on the rune, activating it."))
 			else
 				L.say(invocation)
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
@@ -190,6 +194,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 			L.apply_damage(invoke_damage, BRUTE)
 			to_chat(L, "<span class='cultitalic'>[src] saps your strength!</span>")
 	do_invoke_glow()
+	SSblackbox.record_feedback("nested tally", "runes_invoked", 1, list("[initial(cultist_name)]", "[length(SSticker.mode.cult)]")) // the name of the rune, and the number of cultists in the cult when it was invoked
+	if(ghost_invokers)
+		SSblackbox.record_feedback("nested tally", "runes_invoked_with_ghost", 1, list("[initial(cultist_name)]", "[ghost_invokers]")) //the name of the rune and the number of ghosts used to invoke it.
 
 /**
   * Spawns the phase in/out effects for a cult teleport.
@@ -388,7 +395,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				to_chat(M, "<span class='cultitalic'>You are now able to construct mirror shields inside the daemon forge.</span>")
 				SSticker.cultdat.mirror_shields_active = TRUE
 		else
-			if(ishuman(offering) && offering.mind.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) //If you try it on a ghost role, you get nothing
+			if(ishuman(offering) && offering.mind?.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) //If you try it on a ghost role, you get nothing
 				to_chat(M, "<span class='cultlarge'>\"This soul is of no use to either of us.\"</span>")
 				worthless = TRUE
 			else if(ishuman(offering) || isrobot(offering))
@@ -1024,8 +1031,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 	used = TRUE
 	color = COLOR_RED
 	..()
-	SEND_SOUND(world, sound('sound/effects/dimensional_rend.ogg'))
-	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
+
+	for(var/mob/M in GLOB.player_list)
+		if(!isnewplayer(M)) // exclude people in the lobby
+			SEND_SOUND(M, sound('sound/effects/dimensional_rend.ogg'))
+			to_chat(M, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
+
 	icon_state = "rune_large_distorted"
 	var/turf/T = get_turf(src)
 	sleep(40)

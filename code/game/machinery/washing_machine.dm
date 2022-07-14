@@ -3,8 +3,8 @@
 	desc = "Gets rid of those pesky bloodstains, or your money back!"
 	icon = 'icons/obj/machines/washing_machine.dmi'
 	icon_state = "wm_10"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	var/state = 1
 	//1 = empty, open door
 	//2 = empty, closed door
@@ -14,12 +14,10 @@
 	//6 = blood, open door
 	//7 = blood, closed door
 	//8 = blood, running
-	var/panel = 0
-	//0 = closed
-	//1 = open
-	var/hacked = 1 //Bleh, screw hacking, let's have it hacked by default.
-	//0 = not hacked
-	//1 = hacked
+	var/panel = FALSE
+	//FALSE = closed
+	//TRUE = open
+	var/hacked = TRUE //Bleh, screw hacking, let's have it hacked by default.
 	var/gibs_ready = 0
 	var/obj/crayon
 
@@ -130,6 +128,8 @@
 				qdel(H)
 			if(new_jumpsuit_icon_state && new_jumpsuit_item_state && new_jumpsuit_name)
 				for(var/obj/item/clothing/under/J in contents)
+					if(!J.dyeable)
+						continue
 					J.item_state = new_jumpsuit_item_state
 					J.icon_state = new_jumpsuit_icon_state
 					J.item_color = wash_color
@@ -137,6 +137,8 @@
 					J.desc = new_desc
 			if(new_glove_icon_state && new_glove_item_state && new_glove_name)
 				for(var/obj/item/clothing/gloves/color/G in contents)
+					if(!G.dyeable)
+						continue
 					G.item_state = new_glove_item_state
 					G.icon_state = new_glove_icon_state
 					G.item_color = wash_color
@@ -145,6 +147,8 @@
 						G.desc = new_desc
 			if(new_shoe_icon_state && new_shoe_name)
 				for(var/obj/item/clothing/shoes/S in contents)
+					if(!S.dyeable)
+						continue
 					if(S.chained == 1)
 						S.chained = 0
 						S.slowdown = SHOES_SLOWDOWN
@@ -155,6 +159,8 @@
 					S.desc = new_desc
 			if(new_bandana_icon_state && new_bandana_name)
 				for(var/obj/item/clothing/mask/bandana/M in contents)
+					if(!M.dyeable)
+						continue
 					M.item_state = new_bandana_item_state
 					M.icon_state = new_bandana_icon_state
 					M.item_color = wash_color
@@ -168,6 +174,8 @@
 					B.desc = new_desc
 			if(new_softcap_icon_state && new_softcap_name)
 				for(var/obj/item/clothing/head/soft/H in contents)
+					if(!H.dyeable)
+						continue
 					H.icon_state = new_softcap_icon_state
 					H.item_color = wash_color
 					H.name = new_softcap_name
@@ -233,6 +241,9 @@
 		istype(W,/obj/item/bedsheet))
 
 		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
+		if( istype(W,/obj/item/clothing/under/plasmaman ) )
+			to_chat(user, "This item does not fit.")
+			return
 		if( istype(W,/obj/item/clothing/suit/space ) )
 			to_chat(user, "This item does not fit.")
 			return
@@ -246,9 +257,6 @@
 			to_chat(user, "This item does not fit.")
 			return
 		if( istype(W,/obj/item/clothing/suit/bomb_suit ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/armor ) )
 			to_chat(user, "This item does not fit.")
 			return
 		if( istype(W,/obj/item/clothing/suit/armor ) )

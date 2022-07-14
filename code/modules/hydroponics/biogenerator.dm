@@ -3,11 +3,11 @@
 	desc = "Converts plants into biomass, which can be used to construct useful items."
 	icon = 'icons/obj/biogenerator.dmi'
 	icon_state = "biogen-empty"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
-	var/processing = 0
+	var/processing = FALSE
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/points = 0
 	var/menustat = "menu"
@@ -18,8 +18,8 @@
 	var/list/show_categories = list("Food", "Botany Chemicals", "Organic Materials", "Leather and Cloth")
 	var/list/timesFiveCategories = list("Food", "Botany Chemicals", "Organic Materials")
 
-/obj/machinery/biogenerator/New()
-	..()
+/obj/machinery/biogenerator/Initialize(mapload)
+	. = ..()
 	files = new /datum/research/biogenerator(src)
 	create_reagents(1000)
 	component_parts = list()
@@ -149,11 +149,11 @@
 		user.visible_message("[user] begins to load [O] in [src]...",
 			"You begin to load a design from [O]...",
 			"You hear the chatter of a floppy drive.")
-		processing = 1
+		processing = TRUE
 		var/obj/item/disk/design_disk/D = O
 		if(do_after(user, 10, target = src))
 			files.AddDesign2Known(D.blueprint)
-		processing = 0
+		processing = FALSE
 		return 1
 	else
 		to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
@@ -235,13 +235,13 @@
 			points += (I.reagents.get_reagent_amount("nutriment")+I.reagents.get_reagent_amount("plantmatter"))*10*productivity
 		qdel(I)
 	if(S)
-		processing = 1
+		processing = TRUE
 		update_icon()
 		updateUsrDialog()
 		playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 		use_power(S*30)
 		sleep(S+15/productivity)
-		processing = 0
+		processing = FALSE
 		update_icon()
 	else
 		menustat = "void"
