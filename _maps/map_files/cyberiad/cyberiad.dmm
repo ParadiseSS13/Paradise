@@ -128,8 +128,7 @@
 "abY" = (
 /obj/machinery/camera/motion{
 	c_tag = "Armory Exterior";
-	dir = 1;
-	network = list("Prison","SS13")
+	dir = 1
 	},
 /turf/space,
 /area/security/securearmoury)
@@ -78373,6 +78372,11 @@
 	pixel_y = 22;
 	pixel_x = 16
 	},
+/obj/machinery/flasher_button{
+	id = "prison";
+	pixel_x = -10;
+	pixel_y = 20
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -79188,10 +79192,6 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "jSq" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -79207,6 +79207,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -79625,10 +79628,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/machinery/camera{
-	c_tag = "Prison Solitary 1";
-	network = list("Prison","SS13")
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -81310,8 +81309,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 1
+/obj/machinery/flasher{
+	id = "prison";
+	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -82530,11 +82530,6 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/camera{
-	c_tag = "Prison Solitary 2";
-	dir = 6;
-	network = list("Prison","SS13")
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -82797,7 +82792,15 @@
 /area/engine/hardsuitstorage)
 "uWf" = (
 /obj/structure/toilet{
-	dir = 8
+	pixel_y = 2
+	},
+/obj/machinery/camera{
+	c_tag = "Prison Solitary 2";
+	dir = 9;
+	network = list("Prison","SS13")
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -83433,8 +83436,16 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "wOM" = (
+/obj/machinery/camera{
+	c_tag = "Prison Solitary 1";
+	network = list("Prison","SS13");
+	dir = 5
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/toilet{
-	dir = 4
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -101561,10 +101572,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+aab
+aab
+aab
+aab
 aaa
 aGn
 aGn
@@ -101817,9 +101828,9 @@ abN
 abN
 abN
 abN
+aab
 aaa
-aaa
-aaa
+aab
 aaa
 aaa
 aaa
