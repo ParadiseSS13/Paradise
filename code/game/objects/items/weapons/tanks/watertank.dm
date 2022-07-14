@@ -287,7 +287,7 @@ obj/item/extinguisher/nozzle/attack(mob/living/M, mob/living/user, def_zone)
 
 /obj/item/extinguisher/nozzle/dropped(mob/user as mob)
 	..()
-	nozzle_mode = EXTINGUISHER // dropping the nozzle in any other mode makes it not reliably spawn back in
+	nozzle_mode = EXTINGUISHER // dropping the nozzle in any other mode makes it not reliably be created again
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
 	tank.on = FALSE
 	loc = tank
@@ -299,7 +299,7 @@ obj/item/extinguisher/nozzle/attack(mob/living/M, mob/living/user, def_zone)
 	if(user.Adjacent(target))
 		AttemptRefill(target, user)
 	if(nozzle_mode == NANOFROST)
-		if(!(istype(target, /obj/structure/reagent_dispensers/watertank) && target.Adjacent(user)))
+		if(istype(target, /obj/structure/reagent_dispensers/watertank) && target.Adjacent(user))
 			return //Safety check so you don't blast yourself trying to refill your tank
 		var/datum/reagents/R = reagents
 		if(R.total_volume < 100)
