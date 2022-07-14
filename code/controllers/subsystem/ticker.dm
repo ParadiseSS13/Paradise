@@ -491,16 +491,19 @@ SUBSYSTEM_DEF(ticker)
 
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
+		var/ai_ckey = safe_get_ckey(aiPlayer)
+
 		if(aiPlayer.stat != 2)
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>")
+			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>")
 		else
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws when it was deactivated were:</b>")
+			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>")
 		aiPlayer.show_laws(TRUE)
 
 		if(aiPlayer.connected_robots.len)
 			var/robolist = "<b>The AI's loyal minions were:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
-				robolist += "[robo.name][robo.stat?" (Deactivated) (Played by: [robo.key]), ":" (Played by: [robo.key]), "]"
+				var/robo_ckey = safe_get_ckey(robo)
+				robolist += "[robo.name][robo.stat ? " (Deactivated)" : ""] (Played by: [robo_ckey])"
 			to_chat(world, "[robolist]")
 
 	var/dronecount = 0
@@ -511,11 +514,13 @@ SUBSYSTEM_DEF(ticker)
 			dronecount++
 			continue
 
+		var/robo_ckey = safe_get_ckey(robo)
+
 		if(!robo.connected_ai)
 			if(robo.stat != 2)
-				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) survived as an AI-less borg! Its laws were:</b>")
+				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) survived as an AI-less borg! Its laws were:</b>")
 			else
-				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
+				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
 
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				robo.laws.show_laws(world)

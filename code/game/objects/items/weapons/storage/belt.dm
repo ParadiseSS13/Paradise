@@ -17,7 +17,9 @@
 	. = ..()
 	if(use_item_overlays)
 		for(var/obj/item/I in contents)
-			. += "[I.belt_icon]"
+			var/image/belt_image = image(icon, I.belt_icon)
+			belt_image.color = I.color
+			. += belt_image
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()

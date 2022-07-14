@@ -332,7 +332,7 @@
 	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
-/obj/item/clothing/head/stalhelm //Why do these exist
+/obj/item/clothing/head/stalhelm //Why do these exist - Because they aren't specifically Nazi Germany
 	name = "clown stalhelm"
 	desc = "The typical clown soldier's helmet."
 	icon_state = "stalhelm"
@@ -340,18 +340,18 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-/obj/item/clothing/head/panzer //Why
+/obj/item/clothing/head/foragecap
 	name = "clown HONKMech cap"
 	desc = "The softcap worn by HONK Mech pilots."
-	icon_state = "panzercap"
-	item_state = "panzercap"
+	icon_state = "foragecap"
+	item_state = "foragecap"
 	flags = BLOCKHAIR
 
-/obj/item/clothing/head/naziofficer //Ah, come on
+/obj/item/clothing/head/armyofficer
 	name = "clown officer cap"
-	desc = "The peaked clown officer's cap, disturbingly similar to the warden's."
-	icon_state = "officercap"
-	item_state = "officercap"
+	desc = "The peaked clown officer's cap."
+	icon_state = "armyofficer"
+	item_state = "armyofficer"
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
