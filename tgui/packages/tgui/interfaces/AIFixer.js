@@ -33,11 +33,11 @@ export const AIFixer = (props, context) => {
       integrityColor = 'red';
     }
 
-    let integrityFull = null; // If integrity >= 100, prevents overchar
-    if (data.integrity >= 100) {
-      integrityFull = true;
+    let repairable = null; // Is the AI repairable? (Stat 2 = dead)
+    if (data.integrity >= 100 && data.stat !== 2) {
+      repairable = false;
     } else {
-      integrityFull = false;
+      repairable = true;
     }
 
     return (
@@ -103,8 +103,8 @@ export const AIFixer = (props, context) => {
               <LabeledList.Item label="Start Repairs">
                 <Button
                   icon="wrench"
-                  disabled={integrityFull || data.active}
-                  content={integrityFull ? 'Already Repaired' : 'Repair'}
+                  disabled={repairable || data.active}
+                  content={repairable ? 'Already Repaired' : 'Repair'}
                   onClick={() => act('fix')}
                 />
               </LabeledList.Item>
