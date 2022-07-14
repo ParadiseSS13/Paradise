@@ -264,12 +264,12 @@
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
 	var/ticks = 0
-	var/slimey = TRUE
+	var/produces_slime = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/pyro
 
-/obj/effect/anomaly/pyro/Initialize(mapload, new_lifespan, drops_core = TRUE, _slimey = TRUE)
+/obj/effect/anomaly/pyro/Initialize(mapload, new_lifespan, drops_core = TRUE, _produces_slime = TRUE)
 	. = ..()
-	slimey = _slimey
+	produces_slime = _produces_slime
 
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
@@ -283,7 +283,7 @@
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
 
 /obj/effect/anomaly/pyro/detonate()
-	if(slimey)
+	if(produces_slime)
 		INVOKE_ASYNC(src, .proc/makepyroslime)
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()

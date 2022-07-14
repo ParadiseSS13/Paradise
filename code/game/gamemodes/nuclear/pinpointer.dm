@@ -494,9 +494,10 @@
 		target = null //Resets nearest_op every time it scans
 		var/closest_distance = 1000
 		for(var/obj/structure/spawner/lavaland/T in GLOB.tendrils)
-			if(get_dist(T, get_turf(src)) < closest_distance)
+			var/temp_distance = get_dist(T, get_turf(src))
+			if(temp_distance < closest_distance)
 				target = T
-				closest_distance = get_dist(T, get_turf(src))
+				closest_distance = temp_distance
 
 /obj/item/pinpointer/tendril/examine(mob/user)
 	. = ..()

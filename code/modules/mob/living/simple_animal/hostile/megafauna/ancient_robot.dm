@@ -101,7 +101,6 @@ Difficulty: Hard
 	BR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, BOTTOM_RIGHT)
 	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, BOTTOM_LEFT)
 	beam = new /obj/effect/abstract(loc)
-	addtimer(CALLBACK(src, .proc/leg_setup), 1 SECONDS)
 	mode = pick(BLUESPACE, GRAV, PYRO, FLUX, VORTEX) //picks one of the 5 cores.
 	if(mode == FLUX) // Main attack is shock, so flux makes it stronger
 		melee_damage_lower = 25
@@ -109,6 +108,13 @@ Difficulty: Hard
 	body_shield()
 	add_overlay("[mode]")
 	add_overlay("eyes")
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/LateInitialize()
+	fix_specific_leg(TOP_RIGHT)
+	fix_specific_leg(TOP_LEFT)
+	fix_specific_leg(BOTTOM_RIGHT)
+	fix_specific_leg(BOTTOM_LEFT)
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Destroy()
@@ -118,12 +124,6 @@ Difficulty: Hard
 	QDEL_NULL(BL)
 	QDEL_NULL(beam)
 	return ..()
-
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_setup()
-	fix_specific_leg(TOP_RIGHT)
-	fix_specific_leg(TOP_LEFT)
-	fix_specific_leg(BOTTOM_RIGHT)
-	fix_specific_leg(BOTTOM_LEFT)
 
 /obj/item/gps/internal/ancient
 	icon_state = null
@@ -192,12 +192,11 @@ Difficulty: Hard
 		charge(delay = 18)
 		charge(delay = 12)
 		charge(delay = 6)
-		SetRecoveryTime(15)
 	else
 		charge(delay = 9)
 		charge(delay = 6)
 		charge(delay = 3)
-		SetRecoveryTime(15)
+	SetRecoveryTime(15)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2) //add limb charge as well
 	if(!chargeat)
@@ -270,27 +269,26 @@ Difficulty: Hard
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/item/projectile/P)
-	if(body_shield_enabled)
-		do_sparks(2, 1, src)
-		visible_message("<span class='danger'>[src]'s shield deflects [P] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
-		if(P.damage)
-			disable_shield()
-		return
-	..()
+	if(!body_shield_enabled)
+		return ..()
+	do_sparks(2, 1, src)
+	visible_message("<span class='danger'>[src]'s shield deflects [P] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+	if(P.damage)
+		disable_shield()
+
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
-	if(body_shield_enabled)
-		do_sparks(2, 1, src)
-		visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attacl!</span>")
-		if(I.force)
-			disable_shield()
-		return
-	..()
+	if(!body_shield_enabled)
+		return ..()
+	do_sparks(2, 1, src)
+	visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attacl!</span>")
+	if(I.force)
+		disable_shield()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/devour(mob/living/L)
 	say(pick("JKYZXAIZOBK GTGREYKX GIZOBK", "OTZKMXGZOTM YAHPKIZ YZXKTMZNY", "JKIUSVOROTM GTJ RKGXTOTM", "LOTJOTM IXOZOIGR CKGQTKYYKY")) //what can I say, I like the trope of something talking in cypher
 	visible_message("<span class='userdanger'>[src] disintigrates [L]!</span>","<span class='userdanger'>You analyse [L], restoring your health!</span>")
-	if(!is_station_level(z) || client)
+	if(client || !is_station_level(z))
 		adjustHealth(-maxHealth * 0.1)
 	L.dust()
 
@@ -313,8 +311,7 @@ Difficulty: Hard
 					continue
 				turfs += T
 			while(rocks < 3 && length(turfs))
-				var/turf/spot = pick(turfs)
-				turfs -= spot
+				var/turf/spot = pick_n_take(turfs)
 				new /obj/effect/temp_visual/rock(spot)
 				addtimer(CALLBACK(src, .proc/throw_rock, spot, target), 2 SECONDS)
 				rocks++
@@ -329,8 +326,7 @@ Difficulty: Hard
 					continue
 				turfs += T
 			while(volcanos < 3 && length(turfs))
-				var/turf/spot = pick(turfs)
-				turfs -= spot
+				var/turf/spot = pick_n_take(turfs)
 				for(var/turf/around in range(1, spot))
 					new /obj/effect/temp_visual/lava_warning(around)
 				volcanos++
@@ -370,7 +366,7 @@ Difficulty: Hard
 				new /obj/effect/anomaly/grav(spot, 150, FALSE)
 			if(PYRO)
 				var/obj/effect/anomaly/pyro/A = new(spot, 150, FALSE)
-				A.slimey = FALSE
+				A.produces_slime = FALSE
 			if(FLUX)
 				var/obj/effect/anomaly/flux/A = new(spot, 150, FALSE)
 				A.explosive = FALSE
