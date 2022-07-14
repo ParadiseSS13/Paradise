@@ -142,6 +142,7 @@ SUBSYSTEM_DEF(throwing)
 
 	if(callback)
 		callback.Invoke()
+	thrownthing.end_throw()
 
 /datum/thrownthing/proc/hit_atom(atom/A)
 	finalize(hit = TRUE, target = A)
