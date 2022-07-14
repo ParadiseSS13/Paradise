@@ -237,15 +237,22 @@
 	return FALSE
 
 /**
- * Whether or not the step actually can repeat if given the go-ahead to (by returning the repeat define).
- * Can and should vary on environmental conditions (or the tool).
+ * Determines whether or not this surgery step can repeat if its end/fail steps returned SURGERY_STEP_RETRY.
+ *
+ * Arguments:
+ * * user - mob performing the surgery
+ * * target - mob the surgery is being performed on
+ * * target_zone - body zone of the surgery
+ * * tool - tool used for the surgery
+ * * surgery - the operation this surgery step is a part of
+ *
+ * If this returns TRUE, the step will automatically retry. If not, the user will have to manually start the step again.
  *
  */
 /datum/surgery_step/proc/can_repeat(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	// TODO Add a variable to tool that determines if they're an advanced surgery tool
-	// todo add IMS to this
-	// todo add another define return (or option in surgery_step) that basically says "yeah FORCE this retry it's not just a normal one"
-	return TRUE
+	if(tool && istype(tool) && (tool.flags & SURGICALTOOL_ADVANCED))
+		return TRUE
+	return FALSE
 
 /**
  * Initiate and really perform the surgery itself.
@@ -309,18 +316,18 @@
 
 		if((prob(prob_success) || isrobot(user) && !silicons_obey_prob) && chem_check_result && !try_to_fail)
 			step_result = end_step(user, target, target_zone, tool, surgery)
-			if(step_result == SURGERY_STEP_CONTINUE)
-				advance = TRUE
-			else if(step_result == SURGERY_STEP_RETRY)
-				retry = TRUE
 		else
 			step_result = fail_step(user, target, target_zone, tool, surgery)
-			if(step_result == SURGERY_STEP_CONTINUE)
+		switch(step_result)
+			if(SURGERY_STEP_CONTINUE)
 				advance = TRUE
-			else if(step_result == SURGERY_STEP_RETRY)
+			if(SURGERY_STEP_RETRY_ALWAYS)
 				retry = TRUE
+			if(SURGERY_STEP_RETRY)
+				if(can_repeat(user, target, target_zone, tool, surgery))
+					retry = TRUE
 
-		if(retry && can_repeat(user, target, target_zone, tool, surgery))
+		if(retry)
 			// if at first you don't succeed...
 			return .(user, target, target_zone, tool, surgery, try_to_fail)
 

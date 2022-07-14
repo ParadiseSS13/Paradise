@@ -89,4 +89,4 @@
 	else
 		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
 		"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>")
-	return SURGERY_STEP_RETRY
+	return SURGERY_STEP_RETRY_ALWAYS

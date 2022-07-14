@@ -259,13 +259,13 @@
 			affected.status &= ~ORGAN_DISFIGURED
 			if(affected.brute_dam)
 				// Keep trying until there's nothing left to patch up.
-				return SURGERY_STEP_RETRY
+				return SURGERY_STEP_RETRY_ALWAYS
 		if("burn")
 			user.visible_message("<span class='notice'> [user] finishes splicing cable into [target]'s [affected.name].</span>", \
 			"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")
 			affected.heal_damage(0, rand(30, 50), 1, 1)
 			if(affected.burn_dam)
-				return SURGERY_STEP_RETRY
+				return SURGERY_STEP_RETRY_ALWAYS
 		if("finish")
 			user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")

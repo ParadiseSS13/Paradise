@@ -30,6 +30,9 @@
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define SURGICALTOOL 			65536
 
+/// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
+#define SURGICALTOOL_ADVANCED 	(1<<17)
+
 
 /* Secondary atom flags, for the flags_2 var, denoted with a _2 */
 

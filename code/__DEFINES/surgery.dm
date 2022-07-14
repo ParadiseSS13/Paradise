@@ -33,9 +33,12 @@
 
 // Return these from end_step/fail_step to indicate the next move
 
-/// The surgery step was a failure, but can still be retried.
+/// The surgery step was not completed for some reason, and the next action will again be on this step.
 #define SURGERY_STEP_INCOMPLETE 0
-/// The surgery should proceed to the next step.
+/// The surgery step was completed, and the surgery should continue to the next step.
 #define SURGERY_STEP_CONTINUE 1
-/// This step will automatically be retried.
-#define SURGERY_STEP_RETRY 2
+/// This step will automatically be retried without question as long as this is returned
+#define SURGERY_STEP_RETRY_ALWAYS 2
+/// This surgery step will be conditionally retried, so long as the surgery step can_repeat returns TRUE.
+/// Otherwise, it'll behave just like SURGERY_STEP_INCOMPLETE.
+#define SURGERY_STEP_RETRY 3

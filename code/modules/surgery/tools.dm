@@ -142,6 +142,11 @@
 	icon_state = "scalpel_manager_on"
 	toolspeed = 0.2
 
+/obj/item/scalpel/laser/manager/Initialize(mapload)
+	. = ..()
+	// this one can automatically retry its steps, too!
+	flags |= SURGICALTOOL_ADVANCED
+
 /obj/item/scalpel/laser/manager/debug
 	name = "debug IMS"
 	desc = "A wonder of modern medicine. This tool functions as any other sort of surgery tool, and finishes in only a fraction of the time. Hey, how'd you get your hands on this, anyway?"

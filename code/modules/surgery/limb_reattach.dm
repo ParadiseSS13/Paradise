@@ -112,7 +112,7 @@
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
-	return SURGERY_STEP_RETRY
+	return SURGERY_STEP_RETRY_CONDITIONAL
 
 
 /datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/E)
@@ -189,7 +189,7 @@
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
-	return SURGERY_STEP_RETRY
+	return SURGERY_STEP_RETRY_CONDITIONAL
 
 /datum/surgery_step/limb/mechanize
 	name = "apply robotic prosthetic"
@@ -244,4 +244,4 @@
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
-	return SURGERY_STEP_RETRY
+	return SURGERY_STEP_RETRY_CONDITIONAL

@@ -203,7 +203,7 @@
 			user.put_in_hands(IC)
 			affected.hidden = null
 			// TODO VERIFY THIS STILL FLOWS CORRECTLY
-			return SURGERY_STEP_RETRY
+			return SURGERY_STEP_RETRY_ALWAYS
 		else
 			to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>")
-			return SURGERY_STEP_RETRY
+			return SURGERY_STEP_RETRY_ALWAYS
