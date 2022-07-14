@@ -40,9 +40,10 @@
 
 /obj/structure/morgue/Initialize()
 	. = ..()
-	update_state()
+	update_icon(update_state())
 
 /obj/structure/morgue/proc/update_state()
+	. = UPDATE_OVERLAYS
 	if(connected)
 		status = EXTENDED_TRAY
 		return
@@ -65,8 +66,6 @@
 			status = GHOST_CONNECTED
 			return
 	status = UNREVIVABLE
-
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/morgue/update_overlays()
 	. = ..()
@@ -114,7 +113,7 @@
 		playsound(loc, open_sound, 50, 1)
 		connect()
 	add_fingerprint(user)
-	update_state()
+	update_icon(update_state())
 	return
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
@@ -122,7 +121,7 @@
 		var/t = rename_interactive(user, P)
 		if(isnull(t))
 			return
-		update_state()
+		update_icon(UPDATE_OVERLAYS)
 		add_fingerprint(user)
 		return
 	return ..()
@@ -131,7 +130,7 @@
 	if(name != initial(name))
 		to_chat(user, "<span class='notice'>You cut the tag off the morgue.</span>")
 		name = initial(name)
-		update_state()
+		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 
 /obj/structure/morgue/relaymove(mob/user as mob)
@@ -200,7 +199,7 @@
 			if(!( A.anchored ))
 				A.forceMove(connected)
 		connected.connected = null
-		connected.update_state()
+		connected.update_icon(UPDATE_OVERLAYS)
 		add_fingerprint(user)
 		qdel(src)
 		return
