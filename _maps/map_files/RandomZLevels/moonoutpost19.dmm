@@ -4145,7 +4145,7 @@
 /area/awaycontent/a7)
 "hi" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
@@ -5993,7 +5993,7 @@
 	})
 "kr" = (
 /obj/structure/table,
-/obj/item/book/manual/chef_recipes{
+/obj/item/book/manual/wiki/chef_recipes{
 	pixel_x = 2;
 	pixel_y = 6
 	},

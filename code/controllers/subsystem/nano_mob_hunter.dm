@@ -133,8 +133,8 @@ SUBSYSTEM_DEF(mob_hunt)
 		loser_terminal = blue_terminal
 		winner_terminal = red_terminal
 	battle_turn = null
-	winner_terminal.ready = 0
-	loser_terminal.ready = 0
+	winner_terminal.ready = FALSE
+	loser_terminal.ready = FALSE
 	if(surrender)	//surrender doesn't give exp, to avoid people just farming exp without actually doing a battle
 		winner_terminal.atom_say("Your rival surrendered!")
 	else

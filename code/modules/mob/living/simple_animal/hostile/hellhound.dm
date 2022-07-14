@@ -20,14 +20,14 @@
 	maxHealth = 250 // same as sgt araneus
 	health = 250
 	obj_damage = 50
-	robust_searching = 1
+	robust_searching = TRUE
 	stat_attack = UNCONSCIOUS
 	attacktext = "savages"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")
 	see_in_dark = 9
-	universal_understand = 1
-	wander = 0
+	universal_understand = TRUE
+	wander = FALSE
 	var/life_regen_cycles = 0
 	var/life_regen_cycle_trigger = 10 // heal once for every X number of cycles spent resting
 	var/life_regen_amount = -10 // negative, because negative = healing
@@ -109,7 +109,7 @@
 	maxHealth = 400
 	health = 400
 	force_threshold = 5 // no punching
-	universal_speak = 1
+	universal_speak = TRUE
 	smoke_freq = 200
 	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20

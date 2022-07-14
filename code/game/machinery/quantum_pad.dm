@@ -3,14 +3,14 @@
 	desc = "A bluespace quantum-linked telepad used for teleporting objects to other quantum pads."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad-idle"
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
 	var/teleport_speed = 50
 	var/last_teleport //to handle the cooldown
-	var/teleporting = 0 //if it's in the process of teleporting
+	var/teleporting = FALSE //if it's in the process of teleporting
 	var/power_efficiency = 1
 	var/obj/machinery/quantumpad/linked_pad = null
 
@@ -108,22 +108,22 @@
 /obj/machinery/quantumpad/proc/doteleport(mob/user)
 	if(linked_pad)
 		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, 1)
-		teleporting = 1
+		teleporting = TRUE
 
 		spawn(teleport_speed)
 			if(!src || QDELETED(src))
-				teleporting = 0
+				teleporting = FALSE
 				return
 			if(stat & NOPOWER)
 				to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
-				teleporting = 0
+				teleporting = FALSE
 				return
 			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
 				to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
-				teleporting = 0
+				teleporting = FALSE
 				return
 
-			teleporting = 0
+			teleporting = FALSE
 			last_teleport = world.time
 
 			// use a lot of power

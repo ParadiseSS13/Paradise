@@ -32,11 +32,11 @@
 						  /obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
 						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
 						  /obj/item/stack/ore/titanium)
-	healable = 0
+	healable = FALSE
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
 	var/mode = MINEDRONE_COLLECT
-	var/light_on = 0
+	var/light_on = FALSE
 	var/mesons_active
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 
@@ -70,7 +70,7 @@
 
 /mob/living/simple_animal/hostile/mining_drone/sentience_act()
 	..()
-	check_friendly_fire = 0
+	check_friendly_fire = FALSE
 
 /mob/living/simple_animal/hostile/mining_drone/examine(mob/user)
 	. = ..()

@@ -1,6 +1,9 @@
 // Teleporter, Gravitational catapult, Armor booster modules,
 // Repair droid, Tesla Energy relay, Generators
 
+#define MECH_GRAVCAT_MODE_GRAVSLING 1
+#define MECH_GRAVCAT_MODE_GRAVPUSH 2
+
 ////////////////////////////////////////////// TELEPORTER ///////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/teleporter
@@ -20,7 +23,7 @@
 	if(T)
 		chassis.use_power(energy_drain)
 		do_teleport(chassis, T, tele_precision)
-		return 1
+		return
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	name = "upgraded teleporter"
@@ -41,7 +44,7 @@
 	range = MECHA_MELEE | MECHA_RANGED
 	var/atom/movable/locked
 	var/cooldown_timer = 0
-	var/mode = 1 //1 - gravsling 2 - gravpush
+	var/mode = MECH_GRAVCAT_MODE_GRAVSLING
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target)
 	if(!action_checks(target))
@@ -50,7 +53,7 @@
 		occupant_message("<span class='warning'>[src] is still recharging.</span>")
 		return
 	switch(mode)
-		if(1)
+		if(MECH_GRAVCAT_MODE_GRAVSLING)
 			if(!locked)
 				if(!istype(target) || target.anchored)
 					occupant_message("Unable to lock on [target]")
@@ -69,7 +72,7 @@
 					locked = null
 					occupant_message("Lock on [locked] disengaged.")
 					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		if(2)
+		if(MECH_GRAVCAT_MODE_GRAVPUSH)
 			var/list/atoms = list()
 			if(isturf(target))
 				atoms = range(3, target)
@@ -85,7 +88,7 @@
 			var/turf/T = get_turf(target)
 			cooldown_timer = world.time + 3 SECONDS
 			log_game("[key_name(chassis.occupant)] used a Gravitational Catapult in ([T.x],[T.y],[T.z])")
-			return 1
+			return
 
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_equip_info()
@@ -96,7 +99,6 @@
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-	return
 
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
@@ -115,7 +117,7 @@
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react(mob/user as mob)
 	if(action_checks(user))
 		start_cooldown()
-	return 1
+		return TRUE
 
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
@@ -133,7 +135,7 @@
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/proc/projectile_react()
 	if(action_checks(src))
 		start_cooldown()
-		return 1
+		return TRUE
 
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
@@ -244,7 +246,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_charge()
 	if(equip_ready) //disabled
-		return
+		return 0
 	var/area/A = get_area(chassis)
 	var/pow_chan = get_power_channel(A)
 	if(pow_chan)
@@ -385,7 +387,7 @@
 
 	else
 		occupant_message("<span class='warning'>[fuel_name] traces in target minimal! [I] cannot be used as fuel.</span>")
-		return
+		return 0
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
 	load_fuel(weapon)
@@ -413,7 +415,6 @@
 		chassis.give_power(power_per_cycle)
 	fuel_amount -= min(use_fuel, fuel_amount)
 	update_equip_info()
-	return 1
 
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear
@@ -432,3 +433,7 @@
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
 		radiation_pulse(get_turf(src), rad_per_cycle)
+
+
+#undef MECH_GRAVCAT_MODE_GRAVSLING
+#undef MECH_GRAVCAT_MODE_GRAVPUSH

@@ -114,9 +114,9 @@
 
 /obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(parent_organ != parent.limb_name)
-		return 0
+		return FALSE
 	insert(H)
-	return 1
+	return TRUE
 
 // Rendering!
 /obj/item/organ/internal/proc/render()

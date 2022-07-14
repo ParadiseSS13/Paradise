@@ -12,7 +12,7 @@
 	desc = "A device that uses station power to create points of magnetic energy."
 	level = 1		// underfloor
 	layer = WIRE_LAYER+0.001
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 
@@ -21,8 +21,8 @@
 	var/magnetic_field = 1 // the range of magnetic attraction
 	var/code = 0 // frequency code, they should be different unless you have a group of magnets working together or something
 	var/turf/center // the center of magnetic attraction
-	var/on = 0
-	var/magpulling = 0
+	var/on = FALSE
+	var/magpulling = FALSE
 
 	// x, y modifiers to the center turf; (0, 0) is centered on the magnet, whereas (1, -1) is one tile right, one tile down
 	var/center_x = 0
@@ -124,7 +124,7 @@
 
 /obj/machinery/magnetic_module/process()
 	if(stat & NOPOWER)
-		on = 0
+		on = FALSE
 
 	// Sanity checks:
 	if(electricity_level <= 0)
@@ -156,7 +156,7 @@
 	if(magpulling) return
 	while(on)
 
-		magpulling = 1
+		magpulling = TRUE
 		center = locate(x+center_x, y+center_y, z)
 		if(center)
 			for(var/obj/M in orange(magnetic_field, center))
@@ -170,14 +170,14 @@
 		use_power(electricity_level * 5)
 		sleep(13 - electricity_level)
 
-	magpulling = 0
+	magpulling = FALSE
 
 /obj/machinery/magnetic_controller
 	name = "Magnetic Control Console"
 	icon = 'icons/obj/airlock_machines.dmi' // uses an airlock machine icon, THINK GREEN HELP THE ENVIRONMENT - RECYCLING!
 	icon_state = "airlock_control_standby"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 45
 	frequency = AIRLOCK_FREQ

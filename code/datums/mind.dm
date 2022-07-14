@@ -27,7 +27,7 @@
 	var/original_mob_UID
 	/// The original mob's name. Used in Dchat messages
 	var/original_mob_name
-	var/active = 0
+	var/active = FALSE
 
 	var/memory
 
@@ -76,12 +76,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
-	if(islist(antag_datums))
-		for(var/i in antag_datums)
-			var/datum/antagonist/antag_datum = i
-			if(antag_datum.delete_on_mind_deletion)
-				qdel(i)
-		antag_datums = null
+	QDEL_LIST(antag_datums)
 	current = null
 	return ..()
 
@@ -866,7 +861,7 @@
 				if(!flash)
 					to_chat(usr, "<span class='warning'>Repairing flash failed!</span>")
 				else
-					flash.broken = 0
+					flash.broken = FALSE
 					log_admin("[key_name(usr)] has repaired [key_name(current)]'s flash")
 					message_admins("[key_name_admin(usr)] has repaired [key_name_admin(current)]'s flash")
 
@@ -1483,8 +1478,6 @@
  * * datum/team/team - the antag team that the src mind should join, if any
  */
 /datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team = null)
-	if(!datum_type_or_instance)
-		return
 	var/datum/antagonist/A
 	if(!ispath(datum_type_or_instance))
 		A = datum_type_or_instance
@@ -1512,18 +1505,15 @@
  * * datum_type - an antag datum typepath
  */
 /datum/mind/proc/remove_antag_datum(datum_type)
-	if(!datum_type)
-		return
 	var/datum/antagonist/A = has_antag_datum(datum_type)
+	LAZYREMOVE(antag_datums, A)
 	qdel(A)
 
 /**
  * Removes all antag datums from the src mind.
  */
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
-	for(var/a in antag_datums)
-		var/datum/antagonist/A = a
-		qdel(A)
+	QDEL_LIST(antag_datums)
 
 /**
  * Returns an antag datum instance if the src mind has the specified `datum_type`. Returns `null` otherwise.
@@ -1533,10 +1523,7 @@
  * * check_subtypes - TRUE if this proc will consider subtypes of `datum_type` as valid. FALSE if only the exact same type should be considered.
  */
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
-	if(!datum_type)
-		return
-	for(var/a in antag_datums)
-		var/datum/antagonist/A = a
+	for(var/datum/antagonist/A as anything in antag_datums)
 		if(check_subtypes && istype(A, datum_type))
 			return A
 		else if(A.type == datum_type)
@@ -1794,7 +1781,7 @@
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)
-	mind.active = 1    //indicates that the mind is currently synced with a client
+	mind.active = TRUE //indicates that the mind is currently synced with a client
 
 //slime
 /mob/living/simple_animal/slime/mind_initialize()

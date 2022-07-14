@@ -4,17 +4,17 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/surgery_step/generic/
-	can_infect = 1
+	can_infect = TRUE
 
 /datum/surgery_step/generic/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!hasorgans(target))
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected == null)
-		return 0
+		return FALSE
 	if(affected.is_robotic())
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 
 /datum/surgery_step/generic/cut_open
@@ -45,14 +45,14 @@
 	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>",)
 	affected.open = 1
-	return 1
+	return TRUE
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>")
 	affected.receive_damage(10)
-	return 0
+	return FALSE
 
 /datum/surgery_step/generic/clamp_bleeders
 	name = "clamp bleeders"
@@ -79,14 +79,14 @@
 	user.visible_message("<span class='notice'> [user] clamps bleeders in [target]'s [affected.name] with \the [tool]</span>.",	\
 	"<span class='notice'> You clamp bleeders in [target]'s [affected.name] with \the [tool].</span>")
 	spread_germs_to_organ(affected, user, tool)
-	return 1
+	return TRUE
 
 /datum/surgery_step/generic/clamp_bleeders/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",	\
 	"<span class='warning'> Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",)
 	affected.receive_damage(10)
-	return 0
+	return FALSE
 
 /datum/surgery_step/generic/retract_skin
 	name = "retract skin"
@@ -126,7 +126,7 @@
 		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with \the [tool].</span>"
 	user.visible_message(msg, self_msg)
 	affected.open = 2
-	return 1
+	return TRUE
 
 /datum/surgery_step/generic/retract_skin/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -139,8 +139,8 @@
 		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s lower abdomen with \the [tool]</span>"
 		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with \the [tool]!</span>"
 	user.visible_message(msg, self_msg)
-	target.apply_damage(12, BRUTE, affected, sharp = 1)
-	return 0
+	target.apply_damage(12, BRUTE, affected, sharp = TRUE)
+	return FALSE
 
 /datum/surgery_step/generic/cauterize
 
@@ -169,14 +169,14 @@
 	"<span class='notice'> You cauterize the incision on [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = 0
 	affected.germ_level = 0
-	return 1
+	return TRUE
 
 /datum/surgery_step/generic/cauterize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!</span>")
 	target.apply_damage(3, BURN, affected)
-	return 0
+	return FALSE
 
 //drill bone
 /datum/surgery_step/generic/drill
@@ -190,7 +190,7 @@
 
 /datum/surgery_step/generic/drill/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] drills into [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You drill into [target]'s [parse_zone(target_zone)].</span>")
-	return 1
+	return TRUE
 
 
 /datum/surgery_step/generic/amputate
@@ -207,12 +207,12 @@
 
 /datum/surgery_step/generic/amputate/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(target_zone == "eyes")	//there are specific steps for eye surgery
-		return 0
+		return FALSE
 	if(!hasorgans(target))
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected == null)
-		return 0
+		return FALSE
 	if(affected.limb_flags & CANNOT_DISMEMBER)
 		return FALSE
 	return TRUE
@@ -234,7 +234,7 @@
 	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))
 		user.put_in_hands(thing)
-	return 1
+	return TRUE
 
 /datum/surgery_step/generic/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -242,4 +242,4 @@
 	"<span class='warning'> Your hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>")
 	affected.receive_damage(30)
 	affected.fracture()
-	return 0
+	return FALSE

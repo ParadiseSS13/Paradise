@@ -181,7 +181,7 @@
 		to_chat(usr, "<span class='notice'>This unit already has ion thrusters installed!</span>")
 		return
 
-	R.ionpulse = 1
+	R.ionpulse = TRUE
 	return TRUE
 
 /obj/item/borg/upgrade/ddrill
@@ -278,7 +278,7 @@
 	var/repair_amount = -1
 	var/repair_tick = 1
 	var/msg_cooldown = 0
-	var/on = 0
+	var/on = FALSE
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
 
@@ -297,7 +297,7 @@
 /obj/item/borg/upgrade/selfrepair/Destroy()
 	cyborg = null
 	STOP_PROCESSING(SSobj, src)
-	on = 0
+	on = FALSE
 	return ..()
 
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
@@ -321,7 +321,7 @@
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate()
 	STOP_PROCESSING(SSobj, src)
-	on = 0
+	on = FALSE
 	update_icon()
 
 /obj/item/borg/upgrade/selfrepair/process()

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcl-0"
 	item_state = "rcl-0"
-	opacity = 0
+	opacity = FALSE
 	force = 5 //Plastic is soft
 	throwforce = 5
 	throw_speed = 1
@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=4;materials=2"
 	var/max_amount = 90
-	var/active = 0
+	var/active = FALSE
 	var/obj/structure/cable/last = null
 	var/obj/item/stack/cable_coil/loaded = null
 
@@ -68,7 +68,7 @@
 /obj/item/twohanded/rcl/Destroy()
 	QDEL_NULL(loaded)
 	last = null
-	active = 0
+	active = FALSE
 	return ..()
 
 /obj/item/twohanded/rcl/update_icon()
@@ -106,7 +106,7 @@
 
 /obj/item/twohanded/rcl/dropped(mob/wearer)
 	..()
-	active = 0
+	active = FALSE
 	last = null
 
 /obj/item/twohanded/rcl/attack_self(mob/user)

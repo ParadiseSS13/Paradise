@@ -52,7 +52,7 @@
 	slot_flags = SLOT_BELT
 	force = 40
 	throwforce = 10
-	sharp = 1
+	sharp = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
@@ -78,8 +78,8 @@
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 40
 	throwforce = 10
-	sharp = 1
-	w_class = WEIGHT_CLASS_NORMAL
+	sharp = TRUE
+	w_class = WEIGHT_CLASS_BULKY
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
@@ -97,7 +97,7 @@
 
 /obj/item/harpoon
 	name = "harpoon"
-	sharp = 1
+	sharp = TRUE
 	desc = "Tharr she blows!"
 	icon_state = "harpoon"
 	item_state = "harpoon"
@@ -161,7 +161,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	embed_chance = 100
 	embedded_fall_chance = 0 //Hahaha!
-	sharp = 1
+	sharp = TRUE
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	resistance_flags = FIRE_PROOF
 

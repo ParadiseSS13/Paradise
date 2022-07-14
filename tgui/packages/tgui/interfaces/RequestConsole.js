@@ -129,7 +129,7 @@ const DepartmentList = (props, context) => {
   const { act, data } = useBackend(context);
   const { department } = data;
 
-  let list2iterate;
+  let list2iterate = [];
   let sectionTitle;
   switch (props.purpose) {
     case 'ASSISTANCE':
