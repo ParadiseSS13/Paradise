@@ -606,7 +606,7 @@
 
 
 	log_emote(text, src)
-	create_log(EMOTE_LOG, msg)
+	create_log(EMOTE_LOG, text)
 
 	var/ghost_text = "<b>[src]</b> [text]"
 
