@@ -198,7 +198,7 @@
 
 /obj/item/book/manual/atmospipes
 	name = "Pipes and You: Getting To Know Your Scary Tools"
-	desc = "A plumbers guide on how to efficiently plumb and clean out old drone shells."
+	desc = "A plumber's guide on how to efficiently plumb and clean out old drone shells."
 	icon_state = "pipingbook"
 	author = "Maria Crash, Senior Atmospherics Technician"
 	title = "Pipes and You: Getting To Know Your Scary Tools"
@@ -773,7 +773,7 @@
 
 /obj/item/book/manual/wiki/chef_recipes
 	name = "Chef Recipes"
-	desc = "Knives, Ovens, and You:  A guide to cooking."
+	desc = "Knives, Ovens, and You: A guide to cooking."
 	icon_state = "cook_book"
 	author = "NanoTrasen"
 	title = "Chef Recipes"
