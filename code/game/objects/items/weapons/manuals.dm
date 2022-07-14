@@ -673,7 +673,7 @@
 
 /obj/item/book/manual/hydroponics_pod_people
 	name = "The Human Harvest - From seed to market"
-	desc = "Burry pictures of people coming out of pods are taped to the cover."
+	desc = "Blurry pictures of people coming out of pods are taped to the cover."
 	icon_state ="bookHydroponicsPodPeople"
 	author = "Farmer John"
 	title = "The Human Harvest - From seed to market"
@@ -789,7 +789,7 @@
 
 /obj/item/book/manual/wiki/faxes
 	name = "Guide to Faxes"
-	desc = "NanoTrasen's own manual on how to write faxefs."
+	desc = "NanoTrasen's own manual on how to write faxes."
 	icon_state ="bookEngineering"
 	author = "Nanotrasen"
 	title = "Faxes and You!"
