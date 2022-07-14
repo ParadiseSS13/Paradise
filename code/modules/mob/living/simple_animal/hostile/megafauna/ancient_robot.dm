@@ -172,8 +172,8 @@ Difficulty: Hard
 	if(exploding)
 		return
 
-	anger_modifier = clamp(((maxHealth - health)/50),0,20)
-	ranged_cooldown = world.time + (ranged_cooldown_time * ((10 - extra_player_anger)/10))
+	anger_modifier = clamp(((maxHealth - health) / 50), 0, 20)
+	ranged_cooldown = world.time + (ranged_cooldown_time * ((10 - extra_player_anger) / 10))
 
 	if(prob(30 + anger_modifier))
 		triple_charge()
@@ -317,7 +317,7 @@ Difficulty: Hard
 				turfs -= spot
 				new /obj/effect/temp_visual/rock(spot)
 				addtimer(CALLBACK(src, .proc/throw_rock, spot, target), 2 SECONDS)
-				rocks += 1
+				rocks++
 		if(PYRO)
 			visible_message("<span class='danger'>The ground begins to heat up around you!</span>")
 			var/list/turfs = new/list()
@@ -333,7 +333,7 @@ Difficulty: Hard
 				turfs -= spot
 				for(var/turf/around in range(1, spot))
 					new /obj/effect/temp_visual/lava_warning(around)
-				volcanos += 1
+				volcanos++
 		if(FLUX)
 			for(var/mob/living/carbon/human/H in view(7, src))
 				var/turf/T = get_turf(H)
@@ -376,7 +376,7 @@ Difficulty: Hard
 				A.explosive = FALSE
 			if(VORTEX)
 				new /obj/effect/anomaly/bhole(spot, 150, FALSE)
-		anomalies += 1
+		anomalies++
 	return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/throw_rock(turf/spot, mob/target)
@@ -395,7 +395,7 @@ Difficulty: Hard
 	for(var/mob/living/carbon/human/H in range(10, src))
 		if(stat == DEAD)
 			continue
-		anger += 1
+		anger++
 		cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
 	extra_player_anger = clamp(anger,1,cap) - 1
 

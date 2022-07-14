@@ -159,7 +159,7 @@
 	return ..()
 
 /datum/status_effect/bluespace_slowdown/on_remove()
-	owner.next_move_modifier *= 0.5
+	owner.next_move_modifier /= 2
 
 // start of `living` level status procs.
 
