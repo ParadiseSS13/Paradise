@@ -341,3 +341,11 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_SEE_ITEM_OUTLINES
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "now" : "no longer"] see item outlines on hover.")
+
+/mob/verb/toggle_anonmode()
+	set name = "Toggle Anonymous Mode"
+	set category = "Preferences"
+	set desc = "Toggles showing your key in various parts of the game (deadchat, end round, etc)."
+	client.prefs.toggles2 ^= PREFTOGGLE_2_ANON
+	to_chat(src, "Your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "no longer" : "now"] be shown in certain events (end round reports, deadchat, etc).</span>")
+	client.prefs.save_preferences(src)
