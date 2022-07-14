@@ -168,8 +168,8 @@
 /datum/surgery_step/open_encased/mend
 	name = "mend bone"
 	allowed_tools = list(
-	TOOL_BONEGEL = 100,	\
-	TOOL_SCREWDRIVER = 90
+		TOOL_BONEGEL = 100,
+		TOOL_SCREWDRIVER = 90
 	)
 
 	time = 2.4 SECONDS

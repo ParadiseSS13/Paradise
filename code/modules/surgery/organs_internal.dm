@@ -71,12 +71,6 @@
 			return FALSE
 		return TRUE
 
-/datum/surgery/organ_manipulation/alien/can_start(mob/user, mob/living/carbon/target)
-	if(istype(target,/mob/living/carbon/alien/humanoid))
-		return TRUE
-	return FALSE
-
-
 // Intermediate steps for branching organ manipulation.
 /datum/surgery/intermediate/manipulate
 	requires_bodypart = TRUE

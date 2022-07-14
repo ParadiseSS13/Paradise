@@ -31,17 +31,7 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
-
-/datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return FALSE
-		if(affected.is_robotic())
-			return FALSE
-		return TRUE
-	return FALSE
+	requires_organic_bodypart = TRUE
 
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))

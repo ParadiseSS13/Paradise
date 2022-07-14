@@ -15,12 +15,13 @@
 
 /**
  * A partial surgery that consists of a few steps that may be found in the middle of another operation.
- * An existing surgery can yield to a proxy surgery for a few steps
+ * An existing surgery can yield to an intermediate surgery for a few steps by way of a proxy surgery_step.
  */
 /datum/surgery/intermediate
 	abstract = TRUE
 
 /datum/surgery/intermediate/bleeding
+	// don't worry about these names, they won't appear anywhere.
 	name = "Internal Bleeding (abstract)"
 	desc = "An intermediate surgery to fix internal bleeding while a patient is undergoing another procedure."
 	steps = list(/datum/surgery_step/fix_vein)
@@ -168,10 +169,11 @@
 				next_surgery = surgery
 
 	if(!next_surgery)
+		// If we didn't find a match at all, it's probably just someone using a random tool.
 		return FALSE
 
 	if(overridden_tool || next_surgery == surgery || !next_surgery)
-		// Just fire off the next surgery step, but don't add any new steps.
+		// Fire off the step from the original surgery
 		surgery.status++
 		var/datum/surgery_step/next_step = surgery.get_surgery_step()
 		return next_step.try_op(user, target, target_zone, tool, surgery)

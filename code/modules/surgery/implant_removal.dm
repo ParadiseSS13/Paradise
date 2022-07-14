@@ -12,6 +12,7 @@
 		/datum/surgery_step/extract_implant,
 		/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest")
+	requires_organic_bodypart = TRUE
 
 /datum/surgery/implant_removal/synth
 	name = "Implant Removal"
@@ -24,27 +25,6 @@
 	)
 	possible_locs = list("chest")
 	requires_organic_bodypart = FALSE
-
-/datum/surgery/implant_removal/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return FALSE
-	if(affected.is_robotic())
-		return FALSE
-	return TRUE
-
-/datum/surgery/implant_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return FALSE
-	if(!affected.is_robotic())
-		return FALSE
-
-	return TRUE
 
 /datum/surgery_step/extract_implant
 	name = "extract implant"

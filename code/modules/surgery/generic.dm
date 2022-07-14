@@ -31,7 +31,7 @@
 		/obj/item/pen/edagger = 6,
 	)
 
-	time = 16
+	time = 1.6 SECONDS
 
 /datum/surgery_step/generic/cut_open/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -203,6 +203,7 @@
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/drill/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='warning'>[user]'s [tool] doesn't get a firm grip and tears at the bone in [target]'s [parse_zone(target_zone)]!</span>",
 		"<span class='warning'>Your [tool] doesn't get a firm grip and tears at the bone in [target]'s [parse_zone(target_zone)]!</span>"
