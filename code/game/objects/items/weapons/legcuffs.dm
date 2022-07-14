@@ -156,6 +156,8 @@
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
 	throw_range = 0 // increased when throw mode is enabled
+	/// is the bola reuseable?
+	var/reuseable = TRUE
 	///the duration of the knockdown in seconds
 	var/knockdown_duration = 0
 	/// the number of spins till the bola gets the maximum throw distance. each spin takes 1 second
@@ -227,6 +229,8 @@
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
 		C.KnockDown(knockdown_duration)
 		playsound(loc, hitsound, 50, TRUE)
+		if(!reuseable)
+			flags |= DROPDEL
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
 	name = "reinforced bola"
@@ -245,3 +249,4 @@
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 4 SECONDS
+	reuseable = FALSE
