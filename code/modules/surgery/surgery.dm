@@ -252,6 +252,8 @@
 /datum/surgery_step/proc/can_repeat(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(tool && istype(tool) && (tool.flags & SURGICALTOOL_ADVANCED))
 		return TRUE
+	if(HAS_TRAIT(user, TRAIT_REPEATSURGERY))
+		return TRUE
 	return FALSE
 
 /**
