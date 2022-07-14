@@ -37,7 +37,8 @@
 #define SURGERY_STEP_INCOMPLETE 0
 /// The surgery step was completed, and the surgery should continue to the next step.
 #define SURGERY_STEP_CONTINUE 1
-/// This step will automatically be retried without question as long as this is returned
+/// This step will automatically be retried without question as long as this is returned.
+/// Make sure you have some sort of exit condition on this or you'll get stuck in the surgery forever.
 #define SURGERY_STEP_RETRY_ALWAYS 2
 /// This surgery step will be conditionally retried, so long as the surgery step can_repeat returns TRUE.
 /// Otherwise, it'll behave just like SURGERY_STEP_INCOMPLETE.

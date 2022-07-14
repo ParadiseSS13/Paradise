@@ -182,7 +182,6 @@
 		if(I)
 			I.surgeryize()
 		if(I && I.damage)
-			// TODO this outer surgery will need a check to make sure that it still works on robotic limbs
 			if(!I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste))
 				user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 				"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )

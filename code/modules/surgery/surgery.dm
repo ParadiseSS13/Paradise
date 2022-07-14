@@ -85,13 +85,17 @@
  * This gets called in the attack chain, and as such returning FALSE in here means that the target
  * will be hit with whatever's in your hand.
  *
- * TODO Document what the return type here means
+ * The return is passed to the attack chain, so return TRUE to stop any sort of afterattack.
  */
 /datum/surgery/proc/next_step(mob/user, mob/living/carbon/target)
 	if(location != user.zone_selected)
 		return FALSE
 
 	if(step_in_progress)
+		return FALSE
+
+	if(!self_operable && user == target)
+		to_chat("<span class='warning'>You can't perform that operation on yourself!</span>!")
 		return FALSE
 
 	var/datum/surgery_step/step = get_surgery_step()
@@ -153,6 +157,8 @@
 	var/require_all_chems = TRUE
 	/// Whether silicons ignore any probabilities (and are therefore "perfect" surgeons)
 	var/silicons_obey_prob = FALSE
+	/// How many times this step has been automatically repeated.
+	var/times_repeated = 0
 
 	// evil infection stuff that will make everyone hate me
 
@@ -227,6 +233,7 @@
 
 	if(repeatable)
 		var/datum/surgery_step/next_step = surgery.get_surgery_next_step()
+		next_step.times_repeated = times_repeated + 1
 		if(next_step)
 			surgery.status++
 			if(next_step.try_op(user, target, user.zone_selected, user.get_active_hand(), surgery))
@@ -301,7 +308,6 @@
 	var/modded_time = time * speed_mod
 
 	if(slowdown_immune(user))
-		// TODO Also a balance change here, borgos wouldn't be any faster either...
 		modded_time = time
 
 	if(implement_type)	//this means it isn't a require nd or any item step.
@@ -353,11 +359,8 @@
  */
 /datum/surgery_step/proc/deal_pain(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	. = 1
-	// TODO probably replace this check, it's gross to just check that it's a robotic surgery subpath
 	if(!surgery.requires_organic_bodypart)
 		return
-	// if(ispath(surgery.steps[surgery.status], /datum/surgery_step/robotics) || surgery.organ_ref)//Repairing robotic limbs doesn't hurt, and neither does cutting someone out of a rig
-	// 	return
 	if(!ishuman(target))
 		return
 

@@ -116,6 +116,7 @@
 	accept_any_item = TRUE
 	var/obj/item/IC = null
 	allowed_tools = list(/obj/item = 100)
+	var/max_times_to_check = 5
 
 	time = 3.2 SECONDS
 
@@ -135,7 +136,16 @@
 	return ..()
 
 /datum/surgery_step/cavity/place_item/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(times_repeated >= max_times_to_check)
+		user.visible_message(
+				"<span class='notice'>[user] seems to have had enough and stops checking inside [target]'s [get_cavity(affected)] cavity.</span>",
+				"<span class='notice'>You stop checking inside [target]'s [get_cavity(affected)] cavity, there doesn't seem to be anything inside.</span>"
+		)
+		return SURGERY_BEGINSTEP_SKIP
+
+
 	for(var/obj/item/I in affected.contents)
 		if(!istype(I, /obj/item/organ))
 			IC = I

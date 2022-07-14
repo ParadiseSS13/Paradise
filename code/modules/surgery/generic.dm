@@ -187,11 +187,12 @@
 	name = "drill bone"
 	allowed_tools = list(
 		TOOL_DRILL = 100,
+		/obj/item/screwdriver/power = 80,
 		/obj/item/pickaxe/drill = 60,
 		/obj/item/mecha_parts/mecha_equipment/drill = 60,
 		/obj/item/screwdriver = 20
 	)
-	time = 30
+	time = 3 SECONDS
 
 /datum/surgery_step/generic/drill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] begins to drill into the bone in [target]'s [parse_zone(target_zone)].", "<span class='notice'>You begin to drill into the bone in [target]'s [parse_zone(target_zone)]...</span>")
@@ -200,6 +201,15 @@
 /datum/surgery_step/generic/drill/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] drills into [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You drill into [target]'s [parse_zone(target_zone)].</span>")
 	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/generic/drill/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		"<span class='warning'>[user]'s [tool] doesn't get a firm grip and tears at the bone in [target]'s [parse_zone(target_zone)]!</span>",
+		"<span class='warning'>Your [tool] doesn't get a firm grip and tears at the bone in [target]'s [parse_zone(target_zone)]!</span>"
+	)
+
+	affected.receive_damage(15)
+	return SURGERY_STEP_RETRY
 
 
 /datum/surgery_step/generic/amputate
@@ -211,10 +221,9 @@
 		/obj/item/melee/arm_blade = 75
 	)
 
-	time = 100
+	time = 10 SECONDS
 
-/datum/surgery_step/generic/amputate/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	// TODO again, why is this here and not in the surgery itself?
+/datum/surgery_step/generic/amputate/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(target_zone == "eyes")	//there are specific steps for eye surgery
 		return FALSE
 	if(!hasorgans(target))
@@ -226,26 +235,31 @@
 		return FALSE
 	return TRUE
 
-/datum/surgery_step/generic/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/generic/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] is beginning to amputate [target]'s [affected.name] with \the [tool]." , \
 	"You are beginning to cut through [target]'s [affected.amputation_point] with \the [tool].")
 	target.custom_pain("Your [affected.amputation_point] is being ripped apart!")
 	..()
 
-/datum/surgery_step/generic/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/generic/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool].</span>", \
 	"<span class='notice'> You amputate [target]'s [affected.name] with \the [tool].</span>")
 
 	add_attack_logs(user, target, "Surgically removed [affected.name]. INTENT: [uppertext(user.a_intent)]")//log it
 
-	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
-	if(istype(thing,/obj/item))
+	var/atom/movable/thing = affected.droplimb(1, DROPLIMB_SHARP)
+
+	if(istype(target) && target.can_feel_pain())
+		// okay if you can feel your arm getting chopped off you aren't gonna be singing
+		to_chat(target, "<span class='userdanger'>You feel an ungodly amount of pain as your [affected] is sliced away from your [affected.amputation_point]!</span>")
+		target.emote("scream")
+	if(istype(thing, /obj/item))
 		user.put_in_hands(thing)
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/generic/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/generic/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>")

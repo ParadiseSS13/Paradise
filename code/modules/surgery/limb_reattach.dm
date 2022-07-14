@@ -123,6 +123,8 @@
 /datum/surgery_step/limb/attach/proc/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/E)
 	user.unEquip(E)
 	E.replaced(target)
+	if(!E.is_robotic())
+		E.properly_attached = FALSE
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
@@ -179,6 +181,7 @@
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",	\
 	"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>")
+	E.properly_attached = TRUE
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()

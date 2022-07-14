@@ -32,6 +32,8 @@
 	var/list/child_icons = list()
 	var/perma_injury = 0
 	var/dismember_at_max_damage = FALSE
+	/// If the organ has been properly attached or not. Limbs on mobs and robotic ones
+	var/properly_attached = FALSE
 
 	var/obj/item/organ/external/parent
 	var/list/obj/item/organ/external/children
@@ -115,7 +117,22 @@
 		icobase = H.dna.species.icobase
 		replaced(H)
 		sync_colour_to_human(H)
+		properly_attached = TRUE
+
+	if(is_robotic())
+		// These can just be slapped on.
+		properly_attached = TRUE
+
 	get_icon()
+
+	// so you can just smack the limb onto a guy to start the "surgery"
+	var/application_surgery
+	if(!is_robotic())
+		application_surgery = /datum/surgery/reattach
+	else
+		application_surgery = /datum/surgery/reattach_synth
+
+	AddComponent(/datum/component/surgery_initiator, forced_surgery = application_surgery)
 
 
 /obj/item/organ/external/proc/add_limb_flags()
@@ -627,7 +644,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		)
 		to_chat(owner, "<span class='userdanger'>Something feels like it shattered in your [name]!</span>")
 		playsound(owner, "bonebreak", 150, 1)
-		if(!HAS_TRAIT(owner, TRAIT_NOPAIN) && !owner.stat)
+		if(owner.can_feel_pain())
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN

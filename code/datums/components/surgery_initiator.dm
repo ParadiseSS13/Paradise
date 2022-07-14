@@ -190,18 +190,19 @@
 
 	// The item was moved somewhere else
 	if (!(parent in user))
+		to_chat(user, "<span class='warning'>How are you supposed to start an operation if you aren't holding the tool anymore?.</span>")
 		return FALSE
 
 	// While we were choosing, another surgery was started at the same location
 	for (var/datum/surgery/surgery in target.surgeries)
 		if (surgery.location == user.zone_selected)
+			to_chat(user, "<span class='warning'>There's already another surgery in progress on their [surgery.location].</span>")
 			return FALSE
 
 	return TRUE
 
 /datum/component/surgery_initiator/proc/try_choose_surgery(mob/user, mob/living/target, datum/surgery/surgery)
 	if (!can_start_surgery(user, target))
-		to_chat(user, "<span class='warning'>Can't start the surgery!</span>")
 		return
 
 	var/obj/item/organ/affecting_limb

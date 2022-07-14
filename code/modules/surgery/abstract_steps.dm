@@ -167,6 +167,9 @@
 			if(tool && istype(tool) && (tool.type == allowed || tool.tool_behaviour == allowed))
 				next_surgery = surgery
 
+	if(!next_surgery)
+		return FALSE
+
 	if(overridden_tool || next_surgery == surgery || !next_surgery)
 		// Just fire off the next surgery step, but don't add any new steps.
 		surgery.status++
