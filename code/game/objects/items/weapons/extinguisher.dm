@@ -34,7 +34,7 @@
 	flags = null //doesn't CONDUCT
 	throwforce = 2
 	w_class = WEIGHT_CLASS_SMALL
-	force = 3.0
+	force = 3
 	materials = list()
 	max_water = 30
 	sprite_name = "miniFE"
@@ -44,7 +44,6 @@
 	. = ..()
 	. += "<span class='notice'>The safety is [safety ? "on" : "off"].</span>"
 
-
 /obj/item/extinguisher/New()
 	..()
 	create_reagents(max_water)
@@ -53,9 +52,13 @@
 /obj/item/extinguisher/attack_self(mob/user as mob)
 	safety = !safety
 	src.icon_state = "[sprite_name][!safety]"
-	src.desc = "The safety is [safety ? "on" : "off"]."
-	to_chat(user, "The safety is [safety ? "on" : "off"].")
+	to_chat(user, "<span class='notice'>You [safety ? "enable" : "disable"] the safety on [src].</span>")
 	return
+
+/obj/item/extinguisher/attack(mob/living/M, mob/living/user, def_zone)
+	if(!safety && user.a_intent == INTENT_HELP) //No hitting people when wanting to extinguish them
+		return FALSE
+	. = ..()
 
 /obj/item/extinguisher/attack_obj(obj/O, mob/living/user, params)
 	if(AttemptRefill(O, user))
@@ -153,9 +156,9 @@
 			var/turf/T4 = get_step(T2,turn(direction, -90))
 			the_targets = list(T,T1,T2,T3,T4)
 
-		for(var/a=0, a<5, a++)
+		for(var/a in 1 to 5)
 			spawn(0)
-				var/obj/effect/particle_effect/water/W = new /obj/effect/particle_effect/water( get_turf(src) )
+				var/obj/effect/particle_effect/water/W = new /obj/effect/particle_effect/water(get_turf(src))
 				var/turf/my_target = pick(the_targets)
 				if(precision)
 					the_targets -= my_target
@@ -165,7 +168,7 @@
 				R.my_atom = W
 				if(!W || !src) return
 				src.reagents.trans_to(W,1)
-				for(var/b=0, b<5, b++)
+				for(var/b=0 in 1 to 5)
 					step_towards(W,my_target)
 					if(!W || !W.reagents) return
 					W.reagents.reaction(get_turf(W))

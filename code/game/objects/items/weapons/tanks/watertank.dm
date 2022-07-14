@@ -202,7 +202,7 @@
 
 /obj/item/watertank/atmos
 	name = "backpack firefighter tank"
-	desc = "A refridgerated and pressurized backpack tank with extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
+	desc = "A refridgerated and pressurized backpack tank with extinguisher nozzle, intended to fight fires.\nA small dial on the nozzle allows you to swaps between extinguisher, nanofrost launcher, and metal foam dispenser modes."
 	icon_state = "waterbackpackatmos"
 	item_state = "waterbackpackatmos"
 	volume = 200
@@ -212,34 +212,44 @@
 	reagents.add_reagent("water", 200)
 
 /obj/item/watertank/atmos/make_noz()
-	return new /obj/item/extinguisher/mini/nozzle(src)
+	return new /obj/item/extinguisher/nozzle(src)
 
 /obj/item/watertank/atmos/dropped(mob/user as mob)
 	..()
-	icon_state = "waterbackpackatmos"
-	if(istype(noz, /obj/item/extinguisher/mini/nozzle))
-		var/obj/item/extinguisher/mini/nozzle/N = noz
+	if(istype(noz, /obj/item/extinguisher/nozzle))
+		var/obj/item/extinguisher/nozzle/N = noz
 		N.nozzle_mode = 0
 
-/obj/item/extinguisher/mini/nozzle
+/obj/item/extinguisher/nozzle
 	name = "extinguisher nozzle"
 	desc = "A heavy duty nozzle attached to a firefighter's backpack tank."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "atmos_nozzle"
 	item_state = "nozzleatmos"
+	hitsound = null
 	safety = 0
+	throwforce = 2
+	force = 3
 	max_water = 200
 	power = 8
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
-	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
 	var/obj/item/watertank/tank
 	var/nozzle_mode = 0
 	var/metal_synthesis_cooldown = 0
 	var/nanofrost_cooldown = 0
 
-/obj/item/extinguisher/mini/nozzle/New(parent_tank)
+/obj/item/extinguisher/nozzle/examine(mob/user)
+	. = ..()
+	if(nozzle_mode == EXTINGUISHER)
+		. += "<span class='notice'>The nozzle is on extinguisher mode, allowing you to put out fires with water.</span>"
+	if(nozzle_mode == NANOFROST)
+		. += "<span class='notice'>The nozzle is on nanofrost mode, allowing your to turn burning plasma gas into nitrogen.</span>"
+	else
+		. += "<span class='notice'>The nozzle is on metal foam mode, allowing you to quicking seal breaches.</span>"
+
+/obj/item/extinguisher/nozzle/New(parent_tank)
 	. = ..()
 	if(check_tank_exists(parent_tank, src))
 		tank = parent_tank
@@ -248,53 +258,55 @@
 		loc = tank
 	return
 
-/obj/item/extinguisher/mini/nozzle/Move()
+/obj/item/extinguisher/nozzle/Move()
 	..()
 	if(tank && loc != tank.loc)
 		loc = tank
 	return
 
-/obj/item/extinguisher/mini/nozzle/attack_self(mob/user as mob)
+obj/item/extinguisher/nozzle/attack(mob/living/M, mob/living/user, def_zone)
+	if(!safety && user.a_intent == INTENT_HELP && nozzle_mode == EXTINGUISHER) //No hitting people when wanting to extinguish them
+		return FALSE
+	. = ..()
+
+/obj/item/extinguisher/nozzle/attack_self(mob/user as mob)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
-			tank.icon_state = "waterbackpackatmos_1"
-			to_chat(user, "Swapped to nanofrost launcher")
+			to_chat(user, "<span class='notice'>You swap to nanofrost launcher mode.</span>")
 			return
 		if(NANOFROST)
 			nozzle_mode = METAL_FOAM
-			tank.icon_state = "waterbackpackatmos_2"
-			to_chat(user, "Swapped to metal foam synthesizer")
+			to_chat(user, "<span class='notice'>You swap to metal foam mode.</span>")
 			return
 		if(METAL_FOAM)
 			nozzle_mode = EXTINGUISHER
-			tank.icon_state = "waterbackpackatmos_0"
-			to_chat(user, "Swapped to water extinguisher")
+			to_chat(user, "<span class='notice'>You swap to extinguisher mode.</span>")
 			return
 	return
 
-/obj/item/extinguisher/mini/nozzle/dropped(mob/user as mob)
+/obj/item/extinguisher/nozzle/dropped(mob/user as mob)
 	..()
+	nozzle_mode = EXTINGUISHER // dropping the nozzle in any other mode makes it not reliably spawn back in
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
 	tank.on = FALSE
 	loc = tank
 
-/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)
+/obj/item/extinguisher/nozzle/afterattack(atom/target, mob/user)
 	if(nozzle_mode == EXTINGUISHER)
 		..()
 		return
-	var/Adj = user.Adjacent(target)
-	if(Adj)
+	if(user.Adjacent(target))
 		AttemptRefill(target, user)
 	if(nozzle_mode == NANOFROST)
-		if(Adj)
+		if(!(istype(target, /obj/structure/reagent_dispensers/watertank) && target.Adjacent(user)))
 			return //Safety check so you don't blast yourself trying to refill your tank
 		var/datum/reagents/R = reagents
 		if(R.total_volume < 100)
 			to_chat(user, "You need at least 100 units of water to use the nanofrost launcher!")
 			return
 		if(nanofrost_cooldown)
-			to_chat(user, "Nanofrost launcher is still recharging")
+			to_chat(user, "The nanofrost launcher is still recharging")
 			return
 		nanofrost_cooldown = 1
 		R.remove_any(100)
@@ -310,7 +322,7 @@
 				nanofrost_cooldown = 0
 		return
 	if(nozzle_mode == METAL_FOAM)
-		if(!Adj|| !istype(target, /turf))
+		if(!user.Adjacent(target) || !istype(target, /turf))
 			return
 		if(metal_synthesis_cooldown < 5)
 			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), 1)
