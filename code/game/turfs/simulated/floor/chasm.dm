@@ -120,6 +120,7 @@
 		AM.forceMove(T)
 		if(isliving(AM))
 			var/mob/living/L = AM
+			L.update_z(drop_z)
 			L.Weaken(10 SECONDS)
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
