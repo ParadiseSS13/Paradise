@@ -90112,12 +90112,14 @@
 /area/atmos)
 "imS" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/soldieruniform,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/item/clothing/suit/soldiercoat,
+/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/head/stalhelm,
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "inx" = (

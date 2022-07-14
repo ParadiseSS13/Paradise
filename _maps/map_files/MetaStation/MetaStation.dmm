@@ -86514,6 +86514,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/item/stamp/magistrate,
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "tHA" = (
