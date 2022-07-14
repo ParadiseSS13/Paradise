@@ -17,11 +17,9 @@ export const AIFixer = (props, context) => {
       </Window>
     );
   } else {
-    let workingAI = null; // If the AI is dead (stat = 2) or isn't existent
+    let workingAI = true; // If the AI is dead (stat = 2) or isn't existent
     if (data.stat === 2 || data.stat === null) {
       workingAI = false;
-    } else {
-      workingAI = true;
     }
 
     let integrityColor = null; // Handles changing color of the integrity bar
@@ -33,11 +31,9 @@ export const AIFixer = (props, context) => {
       integrityColor = 'red';
     }
 
-    let repairable = null; // Is the AI repairable? (Stat 2 = dead)
+    let repairable = true; // Is the AI repairable? (Stat 2 = dead)
     if (data.integrity >= 100 && data.stat !== 2) {
       repairable = false;
-    } else {
-      repairable = true;
     }
 
     return (
