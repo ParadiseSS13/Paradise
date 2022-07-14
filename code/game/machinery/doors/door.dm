@@ -204,7 +204,7 @@
 			open()
 		else
 			close()
-		return
+		return TRUE
 	if(density)
 		do_animate("deny")
 
@@ -270,10 +270,7 @@
 		return TRUE
 
 /obj/machinery/door/update_icon_state()
-	if(density)
-		icon_state = "door1"
-	else
-		icon_state = "door0"
+	icon_state = "door[density]"
 
 /obj/machinery/door/proc/do_animate(animation)
 	switch(animation)
