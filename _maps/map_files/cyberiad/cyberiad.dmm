@@ -16556,7 +16556,8 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
 "aOi" = (
-/obj/item/clothing/head/naziofficer,
+/obj/item/clothing/suit/officercoat,
+/obj/item/clothing/head/armyofficer,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aOj" = (
@@ -25288,12 +25289,14 @@
 /area/clownoffice)
 "bhj" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/soldieruniform,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/item/clothing/suit/soldiercoat,
+/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/head/stalhelm,
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "bhk" = (

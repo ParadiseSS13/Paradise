@@ -81,13 +81,6 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 
-/obj/item/clothing/suit/greatcoat
-	name = "great coat"
-	desc = "A Nazi great coat." //A what
-	icon_state = "nazi"
-	item_state = "nazi"
-
-
 /obj/item/clothing/suit/johnny_coat
 	name = "johnny~~ coat"
 	desc = "Johnny~~"
@@ -851,7 +844,7 @@
 
 /obj/item/clothing/suit/officercoat
 	name = "clown officer's coat"
-	desc = "A classy clown officer's overcoat, also designed by Hugo Boss." //What and why
+	desc = "An overcoat for the clown officer, to keep him warm during those cold winter nights on the front."
 	icon_state = "officersuit"
 	item_state = "officersuit"
 	ignore_suitadjust = 0
