@@ -41,7 +41,7 @@
 	var/list/topiclimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
-	control_freak = 1
+	control_freak = CONTROL_FREAK_ALL
 
 	var/ssd_warning_acknowledged = FALSE
 
