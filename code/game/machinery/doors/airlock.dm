@@ -462,6 +462,8 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 				update_icon(ALL, AIRLOCK_DENY)
 				playsound(src,doorDeni,50,FALSE,3)
 				addtimer(CALLBACK(src, /atom/proc/update_icon, ALL, AIRLOCK_CLOSED), AIRLOCK_DENY_ANIMATION_TIME)
+				sleep(1)
+				icon_state = "" // Why? Because interupting the deny animation will cause the door to bug out otherwise. 
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
