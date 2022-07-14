@@ -78,43 +78,38 @@
 
 
 // Intermediate steps for branching organ manipulation.
-/datum/surgery/abstract/manipulate
+/datum/surgery/intermediate/manipulate
 	requires_bodypart = TRUE
 
 
-/datum/surgery/abstract/manipulate/extract
+/datum/surgery/intermediate/manipulate/extract
 	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/extract,
-		// call the manipulate organs step again to keep the cycle going
-		/datum/surgery_step/proxy/manipulate_organs
+		/datum/surgery_step/internal/manipulate_organs/extract
 	)
 
-/datum/surgery/abstract/manipulate/implant
+/datum/surgery/intermediate/manipulate/implant
 	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/implant,
-		/datum/surgery_step/proxy/manipulate_organs
+		/datum/surgery_step/internal/manipulate_organs/implant
 	)
 
-/datum/surgery/abstract/manipulate/mend
+/datum/surgery/intermediate/manipulate/mend
 	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/mend,
-		/datum/surgery_step/proxy/manipulate_organs
+		/datum/surgery_step/internal/manipulate_organs/mend
 	)
 
-/datum/surgery/abstract/manipulate/clean
+/datum/surgery/intermediate/manipulate/clean
 	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/clean,
-		/datum/surgery_step/proxy/manipulate_organs
+		/datum/surgery_step/internal/manipulate_organs/clean
 	)
 
 /// The surgery step to trigger this whole situation
 /datum/surgery_step/proxy/manipulate_organs
 	name = "Manipulate Organs"
 	branches = list(
-		/datum/surgery/abstract/manipulate/extract,
-		/datum/surgery/abstract/manipulate/implant,
-		/datum/surgery/abstract/manipulate/mend,
-		/datum/surgery/abstract/manipulate/clean
+		/datum/surgery/intermediate/manipulate/extract,
+		/datum/surgery/intermediate/manipulate/implant,
+		/datum/surgery/intermediate/manipulate/mend,
+		/datum/surgery/intermediate/manipulate/clean
 	)
 
 

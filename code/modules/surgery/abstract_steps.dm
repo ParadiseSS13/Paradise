@@ -85,6 +85,9 @@
 		/obj/item/scalpel/laser/manager  // IMS
 	)
 
+	/// Whether or not we should add ourselves as a step after we run a branch
+	var/insert_self_after = TRUE
+
 /datum/surgery_step/proxy/New()
 	for(var/branch_type in branches)
 		if(!ispath(branch_type, /datum/surgery))
@@ -177,6 +180,9 @@
 
 	// Insert the steps in our intermediate surgery into the current surgery.
 
+	var/list/steps_to_insert = next_surgery.steps
+	if(insert_self_after)
+		steps_to_insert.Add(src.type)
 
 	// Also, bump the status so we skip past this step.
 	surgery.steps.Insert(surgery.status + 1, next_surgery.steps)
@@ -198,10 +204,4 @@
 	name = "mend internal bleeding (proxy)"
 	branches = list(
 		/datum/surgery/intermediate/bleeding
-	)
-
-/datum/surgery_step/proxy/robotics/limb_repair
-	name = "repair limbs (proxy)"
-	branches = list(
-		/datum/surgery/intermediate/robotics/internal_repair
 	)

@@ -65,6 +65,7 @@
 /obj/item/crowbar/power
 	name = "jaws of life"
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."
+	flags = CONDUCT | SURGICALTOOL_ADVANCED  // TODO make other power tools have this
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
 	belt_icon = "jaws"

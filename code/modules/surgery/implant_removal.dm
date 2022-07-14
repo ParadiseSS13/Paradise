@@ -18,7 +18,7 @@
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
-		/datum/surgery_step/proxy/robotics/limb_repair,
+		/datum/surgery_step/proxy/robotics/repair_limb,
 		/datum/surgery_step/extract_implant,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
