@@ -266,14 +266,14 @@ CREATE TABLE `player` (
   `UI_style` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT 'Midnight',
   `UI_style_color` varchar(7) COLLATE utf8mb4_unicode_ci DEFAULT '#ffffff',
   `UI_style_alpha` smallint(4) DEFAULT '255',
-  `be_role` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `be_role` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `default_slot` smallint(4) DEFAULT '1',
   `toggles` int(11) DEFAULT NULL,
   `toggles_2` int(11) DEFAULT NULL,
   `sound` mediumint(8) DEFAULT '31',
-  `volume_mixer` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `volume_mixer` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `exp` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `exp` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `clientfps` smallint(4) DEFAULT '63',
   `atklog` smallint(4) DEFAULT '0',
   `fuid` bigint(20) DEFAULT NULL,
@@ -285,6 +285,7 @@ CREATE TABLE `player` (
   `screentip_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#ffd391',
   `ghost_darkness_level` tinyint(1) UNSIGNED NOT NULL DEFAULT '255',
   `colourblind_mode` VARCHAR(48) NOT NULL DEFAULT 'None' COLLATE 'utf8mb4_general_ci',
+  `keybindings` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -367,17 +368,22 @@ DROP TABLE IF EXISTS `library`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `library` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `flagged` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `ckey` (`ckey`),
-  KEY `flagged` (`flagged`)
-) ENGINE=InnoDB AUTO_INCREMENT=4537 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`author` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`title` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`content` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`ckey` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`reports` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
+	`summary` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
+	`rating` DOUBLE NULL DEFAULT '0',
+	`raters` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
+	`primary_category` INT(11) NULL DEFAULT '0',
+	`secondary_category` INT(11) NOT NULL DEFAULT '0',
+	`tertiary_category` INT(11) NULL DEFAULT '0',
+	PRIMARY KEY (`id`) USING BTREE,
+	INDEX `ckey` (`ckey`) USING BTREE,
+	INDEX `flagged` (`reports`(1024)) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

@@ -3,7 +3,7 @@
 	desc = "A hefty wooden crate."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "largecrate"
-	density = 1
+	density = TRUE
 	var/obj/item/paper/manifest/manifest
 
 /obj/structure/largecrate/Initialize(mapload)

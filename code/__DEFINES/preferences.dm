@@ -19,7 +19,7 @@
 #define PREFTOGGLE_CHAT_GHOSTSIGHT			8
 #define PREFTOGGLE_CHAT_PRAYER				16
 #define PREFTOGGLE_CHAT_RADIO				32
-#define PREFTOGGLE_AZERTY					64
+#define PREFTOGGLE_AZERTY					64 // obsolete
 #define PREFTOGGLE_CHAT_DEBUGLOGS 			128
 #define PREFTOGGLE_CHAT_LOOC 				256
 #define PREFTOGGLE_CHAT_GHOSTRADIO 			512
@@ -36,7 +36,7 @@
 #define PREFTOGGLE_TYPING_ONCE 				1048576
 #define PREFTOGGLE_AMBIENT_OCCLUSION 		2097152
 #define PREFTOGGLE_CHAT_GHOSTPDA 			4194304
-#define PREFTOGGLE_NUMPAD_TARGET 			8388608
+#define PREFTOGGLE_NUMPAD_TARGET 			8388608 // Made obsolete with key bindings
 
 #define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
@@ -121,6 +121,7 @@
 #define TAB_CHAR 0
 #define TAB_GAME 1
 #define TAB_GEAR 2
+#define TAB_KEYS 3
 
 // Colourblind modes
 #define COLOURBLIND_MODE_NONE "None"

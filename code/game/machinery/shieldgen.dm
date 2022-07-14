@@ -317,9 +317,7 @@
 		var/steps = 0
 		var/last_check = 0
 		var/check_delay = 10
-		var/recalc = 0
 		var/locked = TRUE
-		var/destroyed = 0
 		var/directwired = 1
 		var/obj/structure/cable/attached		// the attached cable
 		var/storedpower = 0

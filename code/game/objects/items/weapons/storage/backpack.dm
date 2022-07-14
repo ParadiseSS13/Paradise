@@ -344,7 +344,7 @@
 /obj/item/storage/backpack/satchel_flat/hide(intact)
 	if(intact)
 		invisibility = INVISIBILITY_MAXIMUM
-		anchored = 1 //otherwise you can start pulling, cover it, and drag around an invisible backpack.
+		anchored = TRUE //otherwise you can start pulling, cover it, and drag around an invisible backpack.
 		icon_state = "[initial(icon_state)]2"
 	else
 		invisibility = initial(invisibility)
@@ -612,3 +612,9 @@
 	name = "\improper TSF marine backpack"
 	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
 	icon_state = "ert_solgov"
+
+/obj/item/storage/backpack/ert/deathsquad
+	name = "Deathsquad backpack"
+	desc = "A spacious backpack with lots of pockets, worn by those working in Special Operations."
+	icon_state = "ert_security"
+

@@ -3,7 +3,6 @@
 
 /obj/item/pipe
 	name = "pipe"
-	desc = "A pipe"
 	var/pipe_type = 0
 	var/pipename
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
@@ -150,6 +149,10 @@
 		our_rpd.delete_single_pipe(user, src)
 	else
 		return ..()
+
+/obj/item/pipe/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>Alt-click it to rotate, Alt-Shift-click it to flip!</span>"
 
 /obj/item/pipe/proc/update(obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
@@ -560,3 +563,13 @@
 		our_rpd.delete_single_pipe(user, src)
 	else
 		..()
+
+/obj/item/pipe/AltClick(mob/user)
+	if(user.incapacitated() || !user.Adjacent(src))
+		return
+	rotate()
+
+/obj/item/pipe/AltShiftClick(mob/user)
+	if(user.incapacitated() || !user.Adjacent(src))
+		return
+	flip()

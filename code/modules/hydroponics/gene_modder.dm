@@ -4,8 +4,8 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	pass_flags = PASSTABLE
 	icon_state = "dnamod"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 
 	var/obj/item/seeds/seed
 	var/obj/item/disk/plantgene/disk
@@ -499,7 +499,6 @@
 	name = "plant data disks box"
 	icon_state = "disk_kit"
 
-/obj/item/storage/box/disks_plantgene/New()
-	..()
+/obj/item/storage/box/disks_plantgene/populate_contents()
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)

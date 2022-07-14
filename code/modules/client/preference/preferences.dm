@@ -117,13 +117,20 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/ghost_darkness_level = LIGHTING_PLANE_ALPHA_VISIBLE
 	/// Colourblind mode
 	var/colourblind_mode = COLOURBLIND_MODE_NONE
+	/// Active keybinds (currently useable by the mob/client)
+	var/list/datum/keybindings = list()
+	/// Keybinding overrides ("name" => ["key"...])
+	var/list/keybindings_overrides = null
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
 
 	max_gear_slots = GLOB.configuration.general.base_loadout_points
 
+	parent?.set_macros()
+
 	if(!SSdbcore.IsConnected())
+		init_keybindings() //we want default keybinds, even if DB is not connected
 		return // Bail
 
 	if(istype(C))
@@ -152,6 +159,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GEAR]' [current_tab == TAB_GEAR ? "class='linkOn'" : ""]>Loadout</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_KEYS]' [current_tab == TAB_KEYS ? "class='linkOn'" : ""]>Key Bindings</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -472,6 +480,50 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					. += "</td></tr>"
 			dat += "</table>"
 
+		if(TAB_KEYS)
+			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
+			dat += "<a href='?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
+			dat += "<a href='?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Please note, some keybinds are overriden by other categories.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Ensure you bind all of them, or the specific one you want.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Users of legacy mode can only rebind and use the following keys:</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Arrow Keys, Function Keys, Insert, Del, Home, End, PageUp, PageDn.</b></div></td></tr>"
+
+			dat += "<table align='center' width='100%'>"
+
+			// Lookup lists to make our life easier
+			var/static/list/keybindings_by_cat
+			if(!keybindings_by_cat)
+				keybindings_by_cat = list()
+				for(var/kb in GLOB.keybindings)
+					var/datum/keybinding/KB = kb
+					keybindings_by_cat["[KB.category]"] += list(KB)
+
+			for(var/cat in GLOB.keybindings_groups)
+				dat += "<tr><td colspan=4><hr></td></tr>"
+				dat += "<tr><td colspan=3><h2>[cat]</h2></td></tr>"
+				for(var/kb in keybindings_by_cat["[GLOB.keybindings_groups[cat]]"])
+					var/datum/keybinding/KB = kb
+					var/override_keys = (keybindings_overrides && keybindings_overrides[KB.name])
+					var/list/keys = override_keys || KB.keys
+					var/keys_buttons = ""
+					for(var/key in keys)
+						var/disp_key = key
+						if(override_keys)
+							disp_key = "<b>[disp_key]</b>"
+						keys_buttons += "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
+					dat += "<tr>"
+					dat += "<td style='width: 25%'>[KB.name]</td>"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>" : "</td>"]"
+					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[KB.UID()]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[KB.UID()]'>Clear</a></td>"
+					dat += "</tr>"
+				dat += "<tr><td colspan=4><br></td></tr>"
+
+			dat += "</table>"
+
+
 	dat += "<hr><center>"
 	if(!IsGuestKey(user.key))
 		dat += "<a href='?_src_=prefs;preference=load'>Undo</a> - "
@@ -595,9 +647,51 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				added_cost = 0
 			else
 				type_blacklist += G.main_typepath
-
 		if((total_cost + added_cost) > max_gear_slots)
 			continue // If the final cost is too high, don't add the item.
 		active_character.loadout_gear += G.type
 		total_cost += added_cost
 	return total_cost
+
+
+/datum/preferences/proc/init_keybindings(overrides, raw)
+	if(raw)
+		try
+			overrides = json_decode(raw)
+		catch
+			overrides = list()
+	keybindings = list()
+	keybindings_overrides = overrides
+	for(var/kb in GLOB.keybindings)
+		var/datum/keybinding/KB = kb
+		var/list/keys = (overrides && overrides[KB.name]) || KB.keys
+		for(var/key in keys)
+			LAZYADD(keybindings[key], kb)
+
+	parent?.update_active_keybindings()
+	return keybindings
+
+/datum/preferences/proc/capture_keybinding(mob/user, datum/keybinding/KB, old)
+	var/HTML = {"
+	<div id='focus' style="outline: 0;" tabindex=0>Keybinding: [KB.name]<br><br><b>Press any key to change<br>Press ESC to clear</b></div>
+	<script>
+	var deedDone = false;
+	document.onkeyup = function(e) {
+		if(deedDone){ return; }
+		var alt = e.altKey ? 1 : 0;
+		var ctrl = e.ctrlKey ? 1 : 0;
+		var shift = e.shiftKey ? 1 : 0;
+		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
+		var escPressed = e.keyCode == 27 ? 1 : 0;
+		var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		window.location=url;
+		deedDone = true;
+	}
+	document.getElementById('focus').focus();
+	</script>
+	"}
+	winshow(user, "capturekeypress", TRUE)
+	var/datum/browser/popup = new(user, "capturekeypress", "<div align='center'>Keybindings</div>", 350, 300)
+	popup.set_content(HTML)
+	popup.open(FALSE)
+	onclose(user, "capturekeypress", src)
