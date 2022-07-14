@@ -2797,7 +2797,9 @@
 /area/security/hos)
 "akL" = (
 /obj/structure/flora/rock/jungle,
-/mob/living/simple_animal/lizard,
+/mob/living/simple_animal/lizard{
+	name = "Greentext"
+	},
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "akN" = (
