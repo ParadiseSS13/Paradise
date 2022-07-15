@@ -592,3 +592,40 @@
 /datum/keybinding/emote/simple_animal/pet/cat/purr
 	linked_emote = /datum/emote/living/simple_animal/pet/cat/purr
 	name = "Purr (Cat)"
+
+/datum/keybinding/emote/custom
+	category = KB_CATEGORY_EMOTE_CUSTOM
+	var/emote_text = "Insert custom me emote text."
+
+/datum/keybinding/emote/custom/can_use(client/C, mob/M)
+	return isliving(M) && ..()
+
+/datum/keybinding/emote/custom/one
+	name = "Custom Emote 1"
+
+/datum/keybinding/emote/custom/two
+	name = "Custom Emote 2"
+
+/datum/keybinding/emote/custom/three
+	name = "Custom Emote 3"
+
+/datum/keybinding/emote/custom/four
+	name = "Custom Emote 4"
+
+/datum/keybinding/emote/custom/five
+	name = "Custom Emote 5"
+
+/datum/keybinding/emote/custom/six
+	name = "Custom Emote 6"
+
+/datum/keybinding/emote/custom/seven
+	name = "Custom Emote 7"
+
+/datum/keybinding/emote/custom/eight
+	name = "Custom Emote 8"
+
+/datum/keybinding/emote/custom/nine
+	name = "Custom Emote 9"
+
+/datum/keybinding/emote/custom/ten
+	name = "Custom Emote 10"
