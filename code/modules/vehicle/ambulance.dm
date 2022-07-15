@@ -25,7 +25,6 @@
 	var/toggle_cooldown = 40
 	var/cooldown = 0
 
-
 /datum/action/ambulance_alarm/Trigger()
 	if(!..())
 		return FALSE
@@ -43,17 +42,17 @@
 	if(A.soundloop.muted)
 		A.soundloop.start()
 		A.set_light(4,3,"#F70027")
+		A.vehicle_move_delay = 0.5
 	else
 		A.soundloop.stop()
 		A.set_light(0)
-
+		A.vehicle_move_delay = initial(A.vehicle_move_delay)
 
 /datum/looping_sound/ambulance_alarm
     start_length = 0
     mid_sounds = list('sound/items/weeoo1.ogg' = 1)
     mid_length = 14
     volume = 100
-
 
 /obj/vehicle/ambulance/post_buckle_mob(mob/living/M)
     . = ..()
@@ -70,7 +69,6 @@
 	name = "ambulance key"
 	desc = "A keyring with a small steel key, and tag with a green cross on it."
 	icon_state = "keydoc"
-
 
 /obj/vehicle/ambulance/handle_vehicle_offsets()
 	..()
@@ -112,7 +110,7 @@
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>"
+	. += "<span class='info'>Drag [src]'s sprite over the ambulance to attach/detach it.</span>"
 
 /obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
 	..()
