@@ -59006,7 +59006,7 @@
 	volume_rate = 200
 	},
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/engine/engineering)
 "fTT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -69268,6 +69268,15 @@
 	icon_state = "white"
 	},
 /area/medical/reception)
+"kYl" = (
+/obj/machinery/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "kYQ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
@@ -79414,9 +79423,6 @@
 "qeD" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 4;
@@ -80258,6 +80264,9 @@
 	name = "custom placement";
 	pixel_x = -24;
 	pixel_y = -6
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -136993,7 +137002,7 @@ nRh
 nRh
 aZh
 nRh
-nRh
+kYl
 aCg
 qeD
 jvf
