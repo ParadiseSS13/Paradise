@@ -781,7 +781,7 @@
 
 /obj/item/book/manual/wiki/engineering_construction
 	name = "Station Repairs and Construction"
-	desc = "A guide on ow to fix things without duct tape."
+	desc = "A guide on how to fix things without duct tape."
 	icon_state ="bookEngineering"
 	author = "Engineering Encyclopedia"
 	title = "Station Repairs and Construction"
