@@ -145,7 +145,7 @@
 	/// Force when extended
 	var/force_on = 10
 	/// Item state when extended
-	var/item_state_on = "nullrod"
+	var/item_state_on = "tele_baton"
 	/// Icon state when concealed
 	var/icon_state_off = "telebaton_0"
 	/// Icon state when extended

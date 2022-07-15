@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
-	var/processing = 0
+	var/processing = FALSE
 
 /*
 
@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(symptoms && symptoms.len)
 
 		if(!processing)
-			processing = 1
+			processing = TRUE
 			for(var/datum/symptom/S in symptoms)
 				S.Start(src)
 

@@ -4,7 +4,7 @@
 	icon_state = "scissor"
 	item_state = "scissor"
 	force = 5
-	sharp = 1
+	sharp = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slices", "cuts", "stabs", "jabs")

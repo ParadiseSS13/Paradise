@@ -13,9 +13,9 @@
 	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
-	opacity = 0
-	density = 0
-	anchored = 0
+	opacity = FALSE
+	density = FALSE
+	anchored = FALSE
 	flags = CONDUCT
 	force = 10
 	throwforce = 10

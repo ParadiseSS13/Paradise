@@ -10,8 +10,8 @@
 
 /obj/structure/shuttle/engine
 	name = "engine"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 
 /obj/structure/shuttle/engine/heater
 	name = "heater"
@@ -24,7 +24,7 @@
 /obj/structure/shuttle/engine/propulsion
 	name = "propulsion"
 	icon_state = "propulsion"
-	opacity = 1
+	opacity = TRUE
 
 /obj/structure/shuttle/engine/propulsion/burst
 

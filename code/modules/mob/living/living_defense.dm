@@ -14,7 +14,7 @@
 	var/armor = getarmor(def_zone, attack_flag)
 
 	//the if "armor" check is because this is used for everything on /living, including humans
-	if(armor && armor < 100 && armour_penetration) // Armor with 100+ protection can not be penetrated for admin items
+	if(armor > 0 && armor < 100 && armour_penetration) // Armor with 100+ protection can not be penetrated for admin items, nor can you penetrate already negative armor
 		armor = max(0, armor - armour_penetration)
 		if(penetrated_text)
 			to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")

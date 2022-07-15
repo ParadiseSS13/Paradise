@@ -7,9 +7,7 @@
 	circuit = /obj/item/circuitboard/prisoner
 	var/id = 0.0
 	var/temp = null
-	var/status = 0
 	var/timeleft = 60
-	var/stop = 0.0
 	var/authenticated = FALSE // FALSE - No Access Denied, TRUE - Access allowed
 	var/obj/item/card/id/prisoner/inserted_id
 

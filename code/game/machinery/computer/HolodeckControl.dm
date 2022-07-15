@@ -7,7 +7,6 @@
 	var/area/target = null
 	var/active = FALSE
 	var/list/holographic_items = list()
-	var/damaged = 0
 	var/last_change = 0
 
 	light_color = LIGHT_COLOR_CYAN
@@ -206,7 +205,6 @@
 
 	if(active)
 		if(!checkInteg(linkedholodeck))
-			damaged = 1
 			target = locate(/area/holodeck/source_plating)
 			if(target)
 				loadProgram(target)
@@ -425,6 +423,13 @@
 /obj/item/holo
 	damtype = STAMINA
 
+//override block check, we don't want to block anything that's not a holo object
+/obj/item/holo/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby)
+	if(!istype(hitby, /obj/item/holo))
+		return FALSE
+	else
+		return ..()
+
 /obj/item/holo/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
@@ -436,6 +441,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
+
 
 /obj/item/holo/claymore/blue
 	icon_state = "claymoreblue"

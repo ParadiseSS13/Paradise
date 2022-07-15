@@ -485,7 +485,7 @@
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = 7
 	},
 /obj/item/pen/multi/gold{
@@ -1208,7 +1208,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
@@ -2794,7 +2794,7 @@
 	icon_state = "right";
 	name = "windoor"
 	},
-/obj/item/book/manual/engineering_hacking,
+/obj/item/book/manual/wiki/hacking,
 /obj/item/tape/random,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -3319,7 +3319,7 @@
 /area/storage/primary)
 "asN" = (
 /obj/structure/rack,
-/obj/item/book/manual/engineering_guide{
+/obj/item/book/manual/wiki/engineering_guide{
 	pixel_x = 3;
 	pixel_y = 4
 	},
@@ -4409,7 +4409,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "awv" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aww" = (
@@ -5537,13 +5537,13 @@
 /area/crew_quarters/mrchangs)
 "azY" = (
 /obj/structure/bookcase,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/sop_medical,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_legal,
+/obj/item/book/manual/wiki/sop_engineering,
+/obj/item/book/manual/wiki/sop_medical,
+/obj/item/book/manual/wiki/sop_security,
+/obj/item/book/manual/wiki/sop_service,
+/obj/item/book/manual/wiki/sop_supply,
+/obj/item/book/manual/wiki/sop_general,
+/obj/item/book/manual/wiki/sop_legal,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -5893,7 +5893,7 @@
 /area/crew_quarters/mrchangs)
 "aBM" = (
 /obj/structure/rack,
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/storage/box/mousetraps,/obj/item/storage/box/lights/tubes,/obj/item/storage/box/lights/mixed,/obj/item/storage/box/lights/bulbs);
 	name = "Janitor Supplies Spawner"
@@ -10569,7 +10569,7 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -11745,10 +11745,10 @@
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "aRO" = (
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 5
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 5
 	},
 /obj/item/cartridge/lawyer{
@@ -12051,7 +12051,7 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12588,7 +12588,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aTX" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -14769,11 +14769,11 @@
 	name = "\improper Garden"
 	})
 "aZB" = (
-/obj/item/book/manual/engineering_hacking{
+/obj/item/book/manual/wiki/hacking{
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/obj/item/book/manual/engineering_construction{
+/obj/item/book/manual/wiki/engineering_construction{
 	pixel_y = 3
 	},
 /obj/structure/closet/crate,
@@ -14962,7 +14962,7 @@
 /area/crew_quarters/courtroom)
 "aZW" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -14971,11 +14971,11 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -18549,7 +18549,7 @@
 	})
 "biv" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -20978,7 +20978,7 @@
 /area/engine/chiefs_office)
 "boc" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -21804,7 +21804,7 @@
 /area/maintenance/fpmaint)
 "bpU" = (
 /obj/structure/cable/yellow,
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
@@ -25755,7 +25755,7 @@
 	})
 "byC" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -27014,7 +27014,7 @@
 /area/bridge)
 "bBP" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /turf/simulated/floor/wood,
 /area/library)
 "bBQ" = (
@@ -27891,7 +27891,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -31395,7 +31395,7 @@
 	name = "Arrivals"
 	})
 "bOh" = (
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -31801,7 +31801,7 @@
 	name = "south bump";
 	pixel_y = -32
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
@@ -31991,7 +31991,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "bPO" = (
@@ -32231,7 +32231,7 @@
 	initialize_directions = 1;
 	internal_pressure_bound = 4000;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/maintenance/incinerator)
@@ -32448,7 +32448,7 @@
 	name = "requests board";
 	pixel_x = 32
 	},
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /turf/simulated/floor/wood,
 /area/library)
 "bRi" = (
@@ -32893,7 +32893,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "bSr" = (
@@ -33003,7 +33003,6 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/machinery/libraryscanner,
 /turf/simulated/floor/wood,
 /area/library)
 "bSA" = (
@@ -34244,7 +34243,7 @@
 /obj/machinery/camera{
 	c_tag = "Blueshield's Office"
 	},
-/obj/item/book/manual/sop_command,
+/obj/item/book/manual/wiki/sop_command,
 /obj/item/folder/blue{
 	pixel_x = 4;
 	pixel_y = 6
@@ -35133,7 +35132,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 5
 	},
 /obj/item/gun/projectile/revolver/capgun,
@@ -37397,7 +37396,7 @@
 /obj/item/stack/packageWrap,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
-/obj/item/book/manual/sop_service,
+/obj/item/book/manual/wiki/sop_service,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -41598,7 +41597,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/atmos)
@@ -42229,7 +42228,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/item/book/manual/sop_science{
+/obj/item/book/manual/wiki/sop_science{
 	pixel_x = 4;
 	pixel_y = 1
 	},
@@ -42595,7 +42594,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -50347,7 +50346,7 @@
 	name = "\improper Departure Lounge"
 	})
 "cSY" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -54582,7 +54581,7 @@
 	pixel_x = -12;
 	pixel_y = 6
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -55321,7 +55320,7 @@
 /area/crew_quarters/sleep)
 "edB" = (
 /obj/structure/table,
-/obj/item/book/manual/chef_recipes,
+/obj/item/book/manual/wiki/chef_recipes,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -55449,11 +55448,11 @@
 /area/library)
 "eht" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/engineering_hacking{
+/obj/item/book/manual/wiki/hacking{
 	pixel_x = 2;
 	pixel_y = 6
 	},
-/obj/item/book/manual/engineering_guide{
+/obj/item/book/manual/wiki/engineering_guide{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -58071,7 +58070,7 @@
 	})
 "fwi" = (
 /obj/structure/table,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -58378,7 +58377,7 @@
 	},
 /area/hallway/primary/central)
 "fEw" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -60491,8 +60490,6 @@
 /area/toxins/xenobiology)
 "gJw" = (
 /obj/structure/closet/wardrobe/coroner,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
-/obj/item/reagent_containers/dropper,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -61796,10 +61793,6 @@
 /obj/item/cartridge/signal/toxins{
 	pixel_y = 6
 	},
-/obj/item/clothing/glasses/welding/superior{
-	pixel_x = -6;
-	pixel_y = -12
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -62327,8 +62320,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/book/manual/sop_science,
-/obj/item/book/manual/robotics_cyborgs,
+/obj/item/book/manual/wiki/sop_science,
+/obj/item/book/manual/wiki/robotics_cyborgs,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -3;
 	pixel_y = 3
@@ -63921,15 +63914,15 @@
 	})
 "ivv" = (
 /obj/structure/rack,
-/obj/item/book/manual/sop_legal{
+/obj/item/book/manual/wiki/sop_legal{
 	pixel_x = 5;
 	pixel_y = 1
 	},
-/obj/item/book/manual/sop_security{
+/obj/item/book/manual/wiki/sop_security{
 	pixel_x = -5;
 	pixel_y = 7
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 4
 	},
 /obj/machinery/camera{
@@ -64523,7 +64516,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -67593,7 +67586,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "kry" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "krF" = (
@@ -67861,7 +67854,7 @@
 	},
 /area/lawoffice)
 "kzg" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -68750,7 +68743,7 @@
 "kRZ" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/syringe/antiviral,
-/obj/item/book/manual/sop_medical,
+/obj/item/book/manual/wiki/sop_medical,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/dropper/precision,
 /obj/item/reagent_containers/spray/cleaner,
@@ -69266,7 +69259,7 @@
 	pixel_y = -24;
 	req_access_txt = "55"
 	},
-/obj/item/book/manual/sop_science{
+/obj/item/book/manual/wiki/sop_science{
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -71196,7 +71189,7 @@
 	})
 "lZc" = (
 /obj/structure/table/glass,
-/obj/item/book/manual/sop_engineering{
+/obj/item/book/manual/wiki/sop_engineering{
 	pixel_y = 3
 	},
 /obj/structure/cable/yellow{
@@ -71896,7 +71889,7 @@
 	name = "\improper MiniSat Exterior"
 	})
 "moV" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 4;
@@ -72788,7 +72781,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
@@ -73866,7 +73859,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "nlQ" = (
-/obj/structure/reagent_dispensers/oil,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "nmh" = (
@@ -74538,7 +74531,7 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "nET" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -74957,7 +74950,7 @@
 	pixel_x = 29;
 	pixel_y = 1
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -75803,7 +75796,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/item/book/manual/sop_supply,
+/obj/item/book/manual/wiki/sop_supply,
 /obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -76636,7 +76629,7 @@
 "oRQ" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/book/manual/sop_service,
+/obj/item/book/manual/wiki/sop_service,
 /obj/item/book/manual/barman_recipes{
 	pixel_x = -4;
 	pixel_y = 7
@@ -77600,7 +77593,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "ptn" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "pts" = (
@@ -78567,7 +78560,7 @@
 /obj/item/hand_labeler,
 /obj/item/stack/packageWrap,
 /obj/item/stack/packageWrap,
-/obj/item/book/manual/sop_service,
+/obj/item/book/manual/wiki/sop_service,
 /obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/bar,
 /turf/simulated/floor/plasteel{
@@ -79754,7 +79747,7 @@
 	},
 /area/security/permabrig)
 "qvN" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
@@ -85370,10 +85363,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
 "tng" = (
-/obj/machinery/door/window/brigdoor/northleft{
-	id = "Cell 5";
-	name = "Cell 5"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -85390,6 +85379,14 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
+	icon_state = "rightsecure";
+	id = "Cell 5";
+	name = "Cell 5";
+	req_access_txt = "2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -86029,7 +86026,7 @@
 /area/security/warden)
 "tDM" = (
 /obj/structure/table/glass,
-/obj/item/book/manual/engineering_construction{
+/obj/item/book/manual/wiki/engineering_construction{
 	pixel_y = 4
 	},
 /obj/item/book/manual/supermatter_engine{
@@ -86139,6 +86136,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/item/stamp/magistrate,
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "tHA" = (
@@ -93445,7 +93443,7 @@
 	pixel_x = -8;
 	pixel_y = 11
 	},
-/obj/item/book/manual/chef_recipes{
+/obj/item/book/manual/wiki/chef_recipes{
 	pixel_x = 4;
 	pixel_y = 2
 	},
