@@ -525,7 +525,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						dat += "</tr>"
 						dat += "<tr>"
 						dat += "<td style='width: 80%'>[custom_emote.emote_text]</td>"
-						dat += "<td style='width: 10%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote.UID()]'>Change Text</a></td>
+						dat += "<td style='width: 10%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote.UID()]'>Change Text</a></td>"
 						dat += "<td style='width: 10%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote.UID()]'>Reset to Default</a></td>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
