@@ -461,7 +461,7 @@ GLOBAL_VAR(bomb_set)
 	else
 		off_station = 2
 
-	if(SSticker.mode && SSticker.mode.name == "nuclear emergency")
+	if(SSticker.mode && GAMEMODE_IS_NUCLEAR)
 		var/obj/docking_port/mobile/syndie_shuttle = SSshuttle.getShuttle("syndicate")
 		if(syndie_shuttle)
 			SSticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
