@@ -281,7 +281,7 @@ Difficulty: Hard
 	if(!body_shield_enabled)
 		return ..()
 	do_sparks(2, 1, src)
-	visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attacl!</span>")
+	visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attack!</span>")
 	if(I.force)
 		disable_shield()
 
