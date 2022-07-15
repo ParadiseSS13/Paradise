@@ -97,7 +97,7 @@
 				if("eyes")
 					if(HAS_TRAIT(src, SCRYING))
 						if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-							msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red and are glazed over!</span>\n"
+							msg += "<span class='boldwarning'>[p_their(TRUE)] glowing red eyes are glazed over!</span>\n"
 						else
 							msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glazed over.</span>\n"
 					else
