@@ -20,50 +20,6 @@
 /datum/surgery/intermediate
 	abstract = TRUE
 
-/datum/surgery/intermediate/bleeding
-	// don't worry about these names, they won't appear anywhere.
-	name = "Internal Bleeding (abstract)"
-	desc = "An intermediate surgery to fix internal bleeding while a patient is undergoing another procedure."
-	steps = list(/datum/surgery_step/fix_vein)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
-
-/datum/surgery/intermediate/bleeding/can_start(mob/user, mob/living/carbon/target)
-	. = ..()
-	var/mob/living/carbon/human/H = target
-	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-	if(affected.status & ORGAN_INT_BLEEDING)
-		return TRUE
-	else
-		// Since we aren't calling these surgeries in the normal way, it'll be okay to add a to_chat to their can_start.
-		to_chat(user, "<span class='warning'>The veins in [target]'s [parse_zone(affected)] seem to be in perfect condition, they don't need mending.</span>")
-
-	return FALSE
-
-/datum/surgery/intermediate/mendbone
-	name = "Mend Bone (abstract)"
-	desc = "An intermediate surgery to mend bones while a patient is undergoing another procedure."
-	steps = list(/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone)
-	possible_locs = list("chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
-
-/datum/surgery/intermediate/mendbone/can_start(mob/user, mob/living/carbon/target)
-	. = ..()
-	var/mob/living/carbon/human/H = target
-	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-	if(affected.limb_flags & CANNOT_BREAK)
-		return FALSE
-	if(affected.status & ORGAN_BROKEN)
-		return TRUE
-	else
-		to_chat(user, "<span class='warning'>The bones in [target]'s [parse_zone(affected)] look fully intact, they don't need mending.</span>")
-	return FALSE
-
-/datum/surgery/intermediate/robotics/internal_repair
-	name = "Robotic External Organ Repair (abstract)"
-	desc = "An intermediate robotic surgery to repair cybernetic body parts during another cybernetic operation."
-	steps = list(/datum/surgery_step/robotics/external/repair)
-	possible_locs = list("chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
-	requires_organic_bodypart = FALSE
-
 /**
  * Here's the special sauce: a surgery step that can pretend to be a few different surgery steps.
  * These proxy steps will, depending on the tool that's used, either continue to the next surgery step, or temporarily spin off a new surgery
@@ -197,7 +153,48 @@
 	var/datum/surgery_step/next_step = surgery.get_surgery_step()
 	return next_step.try_op(user, target, target_zone, tool, surgery)
 
+// Some intermediate surgeries
+/datum/surgery/intermediate/bleeding
+	// don't worry about these names, they won't appear anywhere.
+	name = "Internal Bleeding (abstract)"
+	desc = "An intermediate surgery to fix internal bleeding while a patient is undergoing another procedure."
+	steps = list(/datum/surgery_step/fix_vein)
+	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
+/datum/surgery/intermediate/bleeding/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	if(affected.status & ORGAN_INT_BLEEDING)
+		return TRUE
+	else
+		// Since we aren't calling these surgeries in the normal way, it'll be okay to add a to_chat to their can_start.
+		to_chat(user, "<span class='warning'>The veins in [target]'s [parse_zone(affected)] seem to be in perfect condition, they don't need mending.</span>")
+
+	return FALSE
+
+/datum/surgery/intermediate/mendbone
+	name = "Mend Bone (abstract)"
+	desc = "An intermediate surgery to mend bones while a patient is undergoing another procedure."
+	steps = list(/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone)
+	possible_locs = list("chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
+
+/datum/surgery/intermediate/mendbone/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	if(affected.limb_flags & CANNOT_BREAK)
+		return FALSE
+	if(affected.status & ORGAN_BROKEN)
+		return TRUE
+	else
+		to_chat(user, "<span class='warning'>The bones in [target]'s [parse_zone(affected)] look fully intact, they don't need mending.</span>")
+	return FALSE
+
+
+
+/// Proxy surgery step to allow healing bleeding and mending bones.
+/// Should be added into surgeries just after the first three standard steps.
 /datum/surgery_step/proxy/open_organ
 	name = "mend internal bleeding or mend bone (proxy)"
 	branches = list(
@@ -205,8 +202,17 @@
 		/datum/surgery/intermediate/mendbone
 	)
 
+/// Mend IB without healing bones
 /datum/surgery_step/proxy/ib
 	name = "mend internal bleeding (proxy)"
 	branches = list(
 		/datum/surgery/intermediate/bleeding
+	)
+
+/// The robotic equivalent
+/datum/surgery_step/proxy/robotics/repair_limb
+	name = "Repair Limb (proxy)"
+	branches = list(
+		/datum/surgery/intermediate/robotics/repair/burn,
+		/datum/surgery/intermediate/robotics/repair/brute
 	)

@@ -1,4 +1,5 @@
 #define GHETTO_DISINFECT_AMOUNT 5 //Amount of units to transfer from the container to the organs during ghetto surgery disinfection step
+/// Amount of mito necessary to revive an organ
 #define MITO_REVIVAL_COST 3
 
 
@@ -75,26 +76,19 @@
 /datum/surgery/intermediate/manipulate
 	requires_bodypart = TRUE
 
+// All these surgeries are necessary for slotting into proxy steps
 
 /datum/surgery/intermediate/manipulate/extract
-	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/extract
-	)
+	steps = list(/datum/surgery_step/internal/manipulate_organs/extract)
 
 /datum/surgery/intermediate/manipulate/implant
-	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/implant
-	)
+	steps = list(/datum/surgery_step/internal/manipulate_organs/implant)
 
 /datum/surgery/intermediate/manipulate/mend
-	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/mend
-	)
+	steps = list(/datum/surgery_step/internal/manipulate_organs/mend)
 
 /datum/surgery/intermediate/manipulate/clean
-	steps = list(
-		/datum/surgery_step/internal/manipulate_organs/clean
-	)
+	steps = list(/datum/surgery_step/internal/manipulate_organs/clean)
 
 /// The surgery step to trigger this whole situation
 /datum/surgery_step/proxy/manipulate_organs
@@ -111,8 +105,6 @@
 /datum/surgery_step/internal
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
-
-// TODO Split manipulate organs up into a bunch of branches
 
 /datum/surgery_step/internal/manipulate_organs/mend
 	name = "mend organs"

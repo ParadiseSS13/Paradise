@@ -221,16 +221,6 @@
 	"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
 	return SURGERY_STEP_RETRY
 
-
-
-/// The surgery step to trigger this whole situation
-/datum/surgery_step/proxy/robotics/repair_limb
-	name = "Repair Limb (proxy)"
-	branches = list(
-		/datum/surgery/intermediate/robotics/repair/burn,
-		/datum/surgery/intermediate/robotics/repair/brute
-	)
-
 /datum/surgery_step/robotics/external/repair
 	name = "repair damage"
 	time = 3.2 SECONDS
@@ -390,7 +380,7 @@
 
 	for(var/obj/item/organ/internal/I in affected.internal_organs)
 		if(I)
-			I.receive_damage(rand(3,5),0)
+			I.receive_damage(rand(3, 5), 0)
 	return SURGERY_STEP_RETRY
 
 
@@ -588,12 +578,12 @@
 	add_attack_logs(user, target, "Surgically removed [affected.name] from. INTENT: [uppertext(user.a_intent)]")//log it
 
 	var/atom/movable/thing = affected.droplimb(1, DROPLIMB_SHARP)
-	if(istype(thing,/obj/item))
+	if(istype(thing, /obj/item))
 		user.put_in_hands(thing)
 
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/robotics/external/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("<span class='warning'> [user]'s hand slips!</span>", \
 	"<span class='warning'> Your hand slips!</span>")

@@ -34,13 +34,11 @@
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 
-		if(affected.status & ORGAN_INT_BLEEDING)
-			return TRUE
-		return FALSE
+	if(affected.status & ORGAN_INT_BLEEDING)
+		return TRUE
+	return FALSE
 
 /datum/surgery/debridement/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))

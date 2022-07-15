@@ -232,6 +232,7 @@
 			return TRUE //returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)
+		// TODO repeatable is a bit misleading? It might need a whole lot more
 		var/datum/surgery_step/next_step = surgery.get_surgery_next_step()
 		next_step.times_repeated = times_repeated + 1
 		if(next_step)

@@ -37,6 +37,7 @@
 	return 0.5
 
 //check if mob is lying down on something we can operate him on.
+// TODO this isn't referenced anymore, are we still able to perform surgery like this?
 /proc/can_operate(mob/living/carbon/target)
 	if(locate(/obj/machinery/optable, target.loc) && IS_HORIZONTAL(target))
 		return TRUE

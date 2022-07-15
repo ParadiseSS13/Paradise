@@ -86,11 +86,11 @@
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
 	allowed_tools = list(
-	/obj/item/scalpel/laser = 100, \
-	TOOL_CAUTERY = 100,			\
-	/obj/item/clothing/mask/cigarette = 90,	\
-	/obj/item/lighter = 60,			\
-	TOOL_WELDER = 30
+		/obj/item/scalpel/laser = 100,
+		TOOL_CAUTERY = 100,
+		/obj/item/clothing/mask/cigarette = 90,
+		/obj/item/lighter = 60,
+		TOOL_WELDER = 30
 	)
 
 	time = 2.4 SECONDS

@@ -33,14 +33,12 @@
 	possible_locs = list("head")
 
 /datum/surgery/bone_repair/can_start(mob/user, mob/living/carbon/target)
-	if(istype(target,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(affected.limb_flags & CANNOT_BREAK)
-			return FALSE
-		if(affected.status & ORGAN_BROKEN)
-			return TRUE
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(affected.limb_flags & CANNOT_BREAK)
+		return FALSE
+	if(affected.status & ORGAN_BROKEN)
 		return TRUE
+	return TRUE
 
 
 //surgery steps
@@ -57,8 +55,8 @@
 	time = 2.4 SECONDS
 
 /datum/surgery_step/glue_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return affected && !affected.is_robotic() && !(affected.limb_flags & CANNOT_BREAK)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	return affected && !affected.is_robotic() && !(affected.limb_flags & CANNOT_BREAK)
 
 /datum/surgery_step/glue_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
