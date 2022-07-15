@@ -439,7 +439,7 @@
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
 	back = /obj/item/storage/backpack/clown
-	head = /obj/item/clothing/head/naziofficer
+	head = /obj/item/clothing/head/armyofficer
 
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"
