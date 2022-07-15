@@ -287,7 +287,7 @@
 		tank.on = FALSE
 		loc = tank
 	else
-		QDEL(src)
+		qdel(src)
 
 /obj/item/extinguisher/nozzle/afterattack(atom/target, mob/user)
 	if(nozzle_mode == EXTINGUISHER)
