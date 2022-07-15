@@ -565,15 +565,10 @@
 				directional_blocked = TRUE
 				break
 
-	var/blocked_by_item = FALSE
 	if(!directional_blocked)
 		for(var/atom/movable/AM in shove_to)
 			if(AM.shove_impact(target, user)) // check for special interactions EG. tabling someone
-				blocked_by_item = TRUE
-				break // only hit one thing
-
-	if(blocked_by_item)
-		return TRUE
+				return TRUE
 
 	var/moved = target.Move(shove_to, shove_dir)
 	if(!moved) //they got pushed into a dense object

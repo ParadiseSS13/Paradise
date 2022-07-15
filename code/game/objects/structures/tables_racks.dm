@@ -237,7 +237,7 @@
 		return FALSE
 	var/pass_flags_cache = target.pass_flags
 	target.pass_flags |= PASSTABLE
-	if(target.Move(loc)) // moving onto a table smashes it, stunning them
+	if(target.Move(loc))
 		. = TRUE
 		target.Weaken(4 SECONDS)
 		add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
