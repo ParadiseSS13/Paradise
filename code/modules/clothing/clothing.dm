@@ -504,13 +504,13 @@ BLIND     // can't see anything
 	. = ..()
 	if(!cut_open)
 		return
-	name = "mangled [name]"
+	name = "mangled [initial(name)]"
 
 /obj/item/clothing/shoes/update_desc()
 	. = ..()
 	if(!cut_open)
 		return
-	desc = "[desc] They have had their toes opened up."
+	desc = "[initial(desc)] They have had their toes opened up."
 
 /obj/item/clothing/shoes/update_icon_state()
 	if(!cut_open)

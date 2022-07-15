@@ -224,10 +224,8 @@
 		desc =  "[amount] papers clipped to each other."
 	else
 		desc = "A single sheet of paper."
-	for(var/obj/O in src)
-		if(istype(O, /obj/item/photo))
-			desc += "\nThere is a photo attached to it."
-			return
+	if(locate(/obj/item/photo) in src)
+		desc += "\nThere is a photo attached to it."
 
 /obj/item/paper_bundle/update_icon_state()
 	if(contents.len)

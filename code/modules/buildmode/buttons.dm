@@ -45,7 +45,7 @@
 
 /obj/screen/buildmode/bdir/update_icon(updates=UPDATE_ICON_STATE)
 	dir = bd.build_dir
-	..(updates)
+	..()
 
 /obj/screen/buildmode/bdir/Click()
 	bd.toggle_dirswitch()

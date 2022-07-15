@@ -42,7 +42,7 @@
 
 /obj/item/defibrillator/update_icon(updates=ALL)
 	update_power()
-	..(updates)
+	..()
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()

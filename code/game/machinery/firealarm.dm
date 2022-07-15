@@ -63,8 +63,6 @@ FIRE ALARM
 	if(is_station_contact(z) && show_alert_level)
 		if(GLOB.security_level)
 			. += "overlay_[get_security_level()]"
-		else
-			. += "overlay_green"
 		if(light)
 			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
 	if(light && !wiresexposed)

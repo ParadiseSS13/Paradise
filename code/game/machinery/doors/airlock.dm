@@ -515,14 +515,14 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 /obj/machinery/door/airlock/proc/get_note_state(frame_state)
 	if(!note)
 		return
-	else if(istype(note, /obj/item/paper))
+	if(istype(note, /obj/item/paper))
 		var/obj/item/paper/pinned_paper = note
 		if(pinned_paper.info)
 			return "note_words_[frame_state]"
 		else
 			return "note_[frame_state]"
 
-	else if(istype(note, /obj/item/photo))
+	if(istype(note, /obj/item/photo))
 		return "photo_[frame_state]"
 
 /obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

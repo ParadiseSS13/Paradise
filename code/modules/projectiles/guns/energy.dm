@@ -145,7 +145,7 @@
 	return
 
 /obj/item/gun/energy/update_icon(updates=ALL)
-	..(updates)
+	..()
 	var/mob/living/carbon/human/user = loc
 	if(istype(user))
 		if(user.hand) //this is kinda ew but whatever

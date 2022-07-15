@@ -167,7 +167,7 @@
 	dog_fashion = /datum/dog_fashion/head/kitty
 
 /obj/item/clothing/head/kitty/update_icon(updates=ALL, mob/living/carbon/human/user)
-	..(updates)
+	..()
 	if(!istype(user))
 		return
 	var/obj/item/organ/external/head/head_organ = user.get_organ("head")

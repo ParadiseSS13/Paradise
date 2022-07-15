@@ -277,7 +277,7 @@
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
 	dog_fashion = /datum/dog_fashion/head
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
