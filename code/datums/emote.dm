@@ -188,6 +188,7 @@
 			play_sound_effect(user, intentional, tmp_sound, sound_volume)
 
 	if(msg)
+		user.create_log(EMOTE_LOG, msg)
 		if(isobserver(user))
 			log_ghostemote(msg, user)
 		else
@@ -605,6 +606,7 @@
 
 
 	log_emote(text, src)
+	create_log(EMOTE_LOG, text)
 
 	var/ghost_text = "<b>[src]</b> [text]"
 
