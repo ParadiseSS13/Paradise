@@ -162,7 +162,7 @@
 
 
 /client/proc/get_display_key()
-	var/fakekey = src?.holder?.fakekey
+	var/fakekey = holder?.fakekey
 	return fakekey ? fakekey : key
 
 /client/proc/is_content_unlocked()

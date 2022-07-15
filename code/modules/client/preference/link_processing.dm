@@ -999,8 +999,8 @@
 				if("ghost_pda")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTPDA
 
-				if("ghost_anonsay")
-					toggles2 ^= PREFTOGGLE_2_ANONDCHAT
+				if("anonmode")
+					toggles2 ^= PREFTOGGLE_2_ANON
 
 				if("save")
 					save_preferences(user)
