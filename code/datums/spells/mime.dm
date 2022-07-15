@@ -8,9 +8,9 @@
 	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
 	summon_lifespan = 300
 	charge_max = 300
-	clothes_req = 0
+	clothes_req = FALSE
 	cast_sound = null
-	human_req = 1
+	human_req = TRUE
 
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
@@ -33,9 +33,9 @@
 	desc = "Make or break a vow of silence."
 	school = "mime"
 	panel = "Mime"
-	clothes_req = 0
+	clothes_req = FALSE
 	charge_max = 3000
-	human_req = 1
+	human_req = TRUE
 
 	action_icon_state = "mime_silence"
 	action_background_icon_state = "bg_mime"
@@ -93,9 +93,9 @@
 	desc = "Shoot lethal, silencing bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
 	school = "mime"
 	panel = "Mime"
-	clothes_req = 0
+	clothes_req = FALSE
 	charge_max = 300
-	human_req = 1
+	human_req = TRUE
 
 	action_icon_state = "fingergun"
 	action_background_icon_state = "bg_mime"
@@ -144,7 +144,7 @@
 	to_chat(user, "<span class='notice'>You flip through the pages. Nothing of interest to you.</span>")
 
 /obj/item/spellbook/oneuse/mime/onlearned(mob/user)
-	used = 1
+	used = TRUE
 	if(!locate(/obj/effect/proc_holder/spell/mime/speak) in user.mind.spell_list) //add vow of silence if not known by user
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak)
 		to_chat(user, "<span class='notice'>You have learned how to use silence to improve your performance.</span>")

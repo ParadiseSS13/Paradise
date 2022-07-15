@@ -106,7 +106,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 //AI versions of the swarmer mini-antag
 //This is an Abstract Base, it re-enables AI, but does not give the swarmer any goals/targets
 /mob/living/simple_animal/hostile/swarmer/ai
-	wander = 1
+	wander = TRUE
 	faction = list("swarmer", "mining")
 	weather_immunities = list("ash") //wouldn't be fun otherwise
 	AIStatus = AI_ON

@@ -4,7 +4,7 @@
 	icon_state = "voice"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 	origin_tech = "magnets=1;engineering=1"
-	var/listening = 0
+	var/listening = FALSE
 	var/recorded = null	//the activation message
 	var/recorded_type = 0 // 0 for say, 1 for emote
 
@@ -28,7 +28,7 @@
 	if(listening)
 		recorded = msg
 		recorded_type = type
-		listening = 0
+		listening = FALSE
 		var/turf/T = get_turf(src)	//otherwise it won't work in hand
 		T.visible_message("[bicon(src)] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
 	else if(findtext(msg, recorded) && type == recorded_type)
@@ -52,7 +52,7 @@
 
 /obj/item/assembly/voice/toggle_secure()
 	. = ..()
-	listening = 0
+	listening = FALSE
 
 /obj/item/assembly/voice/noise
 	name = "noise sensor"

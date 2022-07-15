@@ -1,6 +1,6 @@
 /obj/machinery/status_display/supply_display
 	name = "supply status display"
-	ignore_friendc = 1
+	ignore_friendc = TRUE
 
 /obj/machinery/status_display/supply_display/update()
 	if(!..() && mode == STATUS_DISPLAY_CUSTOM)

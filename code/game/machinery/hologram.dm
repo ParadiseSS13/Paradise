@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	name = "holopad"
 	desc = "It's a floor-mounted device for projecting holographic images."
 	icon_state = "holopad0"
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
@@ -363,10 +363,10 @@ GLOBAL_LIST_EMPTY(holopads)
 			hologram.alpha = 100
 			hologram.Impersonation = user
 
-		hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT//So you can't click on it.
-		hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
-		hologram.anchored = 1//So space wind cannot drag it.
-		hologram.name = "[user.name] (hologram)"//If someone decides to right click.
+		hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT //So you can't click on it.
+		hologram.layer = FLY_LAYER //Above all the other objects/mobs. Or the vast majority of them.
+		hologram.anchored = TRUE //So space wind cannot drag it.
+		hologram.name = "[user.name] (hologram)" //If someone decides to right click.
 		hologram.set_light(2)	//hologram lighting
 		move_hologram()
 

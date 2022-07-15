@@ -17,7 +17,7 @@
 	speed = -1
 	maxHealth = 50000
 	health = 50000
-	healable = 0
+	healable = FALSE
 
 	harm_intent_damage = 35
 	obj_damage = 100
@@ -47,7 +47,7 @@
 	pull_force = MOVE_FORCE_EXTREMELY_STRONG
 	status_flags = GODMODE // Cannot push also
 
-	var/cannot_be_seen = 1
+	var/cannot_be_seen = TRUE
 	var/mob/living/creator = null
 
 
@@ -161,7 +161,7 @@
 	desc = "You will trigger a large amount of lights around you to flicker."
 
 	charge_max = 300
-	clothes_req = 0
+	clothes_req = FALSE
 
 /obj/effect/proc_holder/spell/aoe_turf/flicker_lights/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
@@ -181,7 +181,7 @@
 
 	message = "<span class='notice'>You glare your eyes.</span>"
 	charge_max = 600
-	clothes_req = 0
+	clothes_req = FALSE
 
 /obj/effect/proc_holder/spell/aoe_turf/blindness/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()

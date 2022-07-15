@@ -83,6 +83,8 @@
 			Stun(effect * blocked)
 		if(WEAKEN)
 			Weaken(effect * blocked)
+		if(KNOCKDOWN)
+			KnockDown(effect * blocked)
 		if(PARALYZE)
 			Paralyse(effect * blocked)
 		if(IRRADIATE)
@@ -101,13 +103,15 @@
 	updatehealth("apply effect")
 	return TRUE
 
-/mob/living/proc/apply_effects(stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0)
+/mob/living/proc/apply_effects(stun = 0, weaken = 0, knockdown = 0, paralyze = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0)
 	if(blocked >= 100)
 		return FALSE
 	if(stun)
 		apply_effect(stun, STUN, blocked)
 	if(weaken)
 		apply_effect(weaken, WEAKEN, blocked)
+	if(knockdown)
+		apply_effect(knockdown, KNOCKDOWN, blocked)
 	if(paralyze)
 		apply_effect(paralyze, PARALYZE, blocked)
 	if(irradiate)

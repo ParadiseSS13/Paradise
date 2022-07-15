@@ -6,7 +6,7 @@
 	circuit = /obj/item/circuitboard/aifixer
 	req_access = list(ACCESS_CAPTAIN, ACCESS_ROBOTICS, ACCESS_HEADS)
 	var/mob/living/silicon/ai/occupant = null
-	var/active = 0
+	var/active = FALSE
 
 	light_color = LIGHT_COLOR_PURPLE
 
@@ -117,8 +117,8 @@
 			return
 		AI.forceMove(src)
 		occupant = AI
-		AI.control_disabled = 1
-		AI.aiRadio.disabledAi = 1
+		AI.control_disabled = TRUE
+		AI.aiRadio.disabledAi = TRUE
 		to_chat(AI, "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 		update_icon()

@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = TRUE
 
-			text += "<br>[changeling.key] was [changeling.name] ("
+			text += "<br>[changeling.get_display_key()] was [changeling.name] ("
 			if(changeling.current)
 				if(changeling.current.stat == DEAD)
 					text += "died"

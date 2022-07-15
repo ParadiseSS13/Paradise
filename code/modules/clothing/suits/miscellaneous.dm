@@ -81,13 +81,6 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 
-/obj/item/clothing/suit/greatcoat
-	name = "great coat"
-	desc = "A Nazi great coat." //A what
-	icon_state = "nazi"
-	item_state = "nazi"
-
-
 /obj/item/clothing/suit/johnny_coat
 	name = "johnny~~ coat"
 	desc = "Johnny~~"
@@ -851,7 +844,7 @@
 
 /obj/item/clothing/suit/officercoat
 	name = "clown officer's coat"
-	desc = "A classy clown officer's overcoat, also designed by Hugo Boss." //What and why
+	desc = "An overcoat for the clown officer, to keep him warm during those cold winter nights on the front."
 	icon_state = "officersuit"
 	item_state = "officersuit"
 	ignore_suitadjust = 0
@@ -940,20 +933,20 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
-	var/on = 0
+	var/on = FALSE
 
 /obj/item/clothing/suit/advanced_protective_suit/Destroy()
 	if(on)
-		on = 0
+		on = FALSE
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
 	if(on)
-		on = 0
+		on = FALSE
 		to_chat(usr, "You turn the suit's special processes off.")
 	else
-		on = 1
+		on = TRUE
 		to_chat(usr, "You turn the suit's special processes on.")
 		START_PROCESSING(SSobj, src)
 

@@ -30,7 +30,7 @@
 	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE
-	var/elimination = 0
+	var/elimination = FALSE
 	var/anger_modifier = 0
 	var/obj/item/gps/internal_gps
 	var/internal_type

@@ -25,9 +25,9 @@
 /obj/item/gun/projectile/update_icon()
 	..()
 	if(current_skin)
-		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "_sawn" : ""]"
 	else
-		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "_sawn" : ""]"
 	if(bayonet && can_bayonet)
 		overlays += knife_overlay
 
@@ -129,7 +129,7 @@
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
 			w_class = S.initial_w_class
-			suppressed = 0
+			suppressed = FALSE
 			update_icon()
 			return
 	..()

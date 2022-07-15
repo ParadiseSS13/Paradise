@@ -772,7 +772,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			standing = mutable_appearance('icons/mob/clothing/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
 
-
 		if(shoes.blood_DNA)
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
 			bloodsies.color = shoes.blood_color
@@ -979,13 +978,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(BACK_LAYER)
 	if(back)
 		//determine the icon to use
+		var/t_state = back.item_state
+		if(!t_state)
+			t_state = back.icon_state
 		var/mutable_appearance/standing
 		if(back.icon_override)
-			standing = mutable_appearance(back.icon_override, "[back.icon_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance(back.icon_override, "[t_state]", layer = -BACK_LAYER)
 		else if(back.sprite_sheets && back.sprite_sheets[dna.species.name])
-			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[back.icon_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[t_state]", layer = -BACK_LAYER)
 		else
-			standing = mutable_appearance('icons/mob/clothing/back.dmi', "[back.icon_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance('icons/mob/clothing/back.dmi', "[t_state]", layer = -BACK_LAYER)
 
 		//create the image
 		standing.alpha = back.alpha

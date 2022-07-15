@@ -398,6 +398,7 @@ const CloningConsoleStatus = (props, context) => {
     <Section
       title="Status"
       buttons={
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         <Fragment>
           {!!autoallowed && (
             <Fragment>
@@ -416,16 +417,6 @@ const CloningConsoleStatus = (props, context) => {
               />
             </Fragment>
           )}
-          <Button
-            disabled={!disk}
-            icon="eject"
-            content="Eject Disk"
-            onClick={() =>
-              act('disk', {
-                option: 'eject',
-              })
-            }
-          />
         </Fragment>
       }
     >

@@ -164,14 +164,14 @@
 /obj/machinery/portable_atmospherics/scrubber/huge
 	name = "Huge Air Scrubber"
 	icon_state = "scrubber:0"
-	anchored = 1
+	anchored = TRUE
 	volume = 50000
 	volume_rate = 5000
-	widenet = 1
+	widenet = TRUE
 
 	var/global/gid = 1
 	var/id = 0
-	var/stationary = 0
+	var/stationary = FALSE
 
 /obj/machinery/portable_atmospherics/scrubber/huge/New()
 	..()
@@ -212,6 +212,6 @@
 
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary
 	name = "Stationary Air Scrubber"
-	stationary = 1
+	stationary = TRUE
 
 #undef MAX_RATE

@@ -16,9 +16,9 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
-	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
+	var/flash_protect = FLASH_PROTECTION_NONE		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/tint = 0				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect
-	var/up = 0					//but seperated to allow items to protect but not impair vision, like space helmets
+	var/up = FALSE					//but seperated to allow items to protect but not impair vision, like space helmets
 
 	var/visor_flags = 0			//flags that are added/removed when an item is adjusted up/down
 	var/visor_flags_inv = 0		//same as visor_flags, but for flags_inv
@@ -207,7 +207,7 @@
 
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = 0
-	var/prescription_upgradable = 0
+	var/prescription_upgradable = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
@@ -602,7 +602,7 @@ BLIND     // can't see anything
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	species_restricted = list("exclude","Wryn")
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
@@ -654,7 +654,8 @@ BLIND     // can't see anything
 		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
 		)
 
-	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
+	///For the crew computer 2 = unable to change mode
+	var/has_sensor = TRUE
 	var/sensor_mode = SENSOR_OFF
 	var/random_sensor = TRUE
 		/*
@@ -664,7 +665,7 @@ BLIND     // can't see anything
 		*/
 	var/list/accessories = list()
 	var/displays_id = 1
-	var/rolled_down = 0
+	var/rolled_down = FALSE
 	var/basecolor
 
 /obj/item/clothing/under/rank/New()
@@ -676,18 +677,21 @@ BLIND     // can't see anything
 	QDEL_LIST(accessories)
 	return ..()
 
+/*
+  * # can_attach_accessory
+  *
+  * Arguments:
+  * * A - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+*/
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
-	if(istype(A))
-		. = TRUE
-	else
+	if(length(accessories) >= MAX_EQUIPABLE_ACCESSORIES) //this is neccesary to prevent chat spam when examining clothing
 		return FALSE
-
-	if(accessories.len)
-		for(var/obj/item/clothing/accessory/AC in accessories)
-			if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
-				return FALSE
-			if(!A.allow_duplicates && AC.type == A.type)
-				return FALSE
+	for(var/obj/item/clothing/accessory/AC in accessories)
+		if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
+			return FALSE
+		if(!A.allow_duplicates && AC.type == A.type)
+			return FALSE
+	return TRUE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
@@ -756,7 +760,7 @@ BLIND     // can't see anything
 			. += "Its vital tracker appears to be enabled."
 		if(3)
 			. += "Its vital tracker and tracking beacon appear to be enabled."
-	if(accessories.len)
+	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
 

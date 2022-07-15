@@ -21,7 +21,7 @@
 	maxHealth = 50
 	health = 50
 
-	stop_automated_movement = 1
+	stop_automated_movement = TRUE
 	animate_movement = SYNC_STEPS
 
 	minbodytemp = 0
@@ -73,7 +73,7 @@
 	animate_movement = SLIDE_STEPS
 
 	AIStatus = AI_ON//The head is conscious
-	stop_automated_movement = 0 //Ditto ^
+	stop_automated_movement = FALSE //Ditto ^
 
 	faction = list("spaceworms") //head and body both have this faction JIC
 

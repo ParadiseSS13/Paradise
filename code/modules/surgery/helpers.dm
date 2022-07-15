@@ -113,8 +113,8 @@
 					else if(!isrobot(user))
 						to_chat(user, "<span class='notice'>You need to hold a cautery or equivalent in your inactive hand to stop the surgery in progress.</span>")
 
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 
 /proc/get_pain_modifier(mob/living/carbon/human/M) //returns modfier to make surgery harder if patient is conscious and feels pain
@@ -147,12 +147,13 @@
 	var/turf/T = get_turf(M)
 	if(locate(/obj/machinery/optable, T))
 		return 1
-	else if(locate(/obj/structure/table, T))
+	if(locate(/obj/structure/bed/roller/holo, T))
+		return 0.9
+	if(locate(/obj/structure/table, T) || locate(/obj/structure/bed/roller, T))
 		return 0.8
-	else if(locate(/obj/structure/bed, T))
+	if(locate(/obj/structure/bed, T))
 		return 0.7
-	else
-		return 0.5
+	return 0.5
 
 //check if mob is lying down on something we can operate him on.
 /proc/can_operate(mob/living/carbon/M)

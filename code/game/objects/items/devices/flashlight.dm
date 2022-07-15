@@ -182,7 +182,7 @@
 	if(!fuel || !on)
 		turn_off()
 		if(!fuel)
-			src.icon_state = "[initial(icon_state)]-empty"
+			icon_state = "[initial(icon_state)]-empty"
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/Destroy()
@@ -190,9 +190,9 @@
 	return ..()
 
 /obj/item/flashlight/flare/proc/turn_off()
-	on = 0
-	src.force = initial(src.force)
-	src.damtype = initial(src.damtype)
+	on = FALSE
+	force = initial(force)
+	damtype = initial(damtype)
 	if(ismob(loc))
 		var/mob/U = loc
 		update_brightness(U)
@@ -220,8 +220,8 @@
 	// All good, turn it on.
 	if(.)
 		user.visible_message("<span class='notice'>[user] activates [src].</span>", "<span class='notice'>You activate [src].</span>")
-		src.force = on_damage
-		src.damtype = "fire"
+		force = on_damage
+		damtype = "fire"
 		START_PROCESSING(SSobj, src)
 
 // GLOWSTICKS

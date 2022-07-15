@@ -7,10 +7,8 @@
 	circuit = /obj/item/circuitboard/prisoner
 	var/id = 0.0
 	var/temp = null
-	var/status = 0
 	var/timeleft = 60
-	var/stop = 0.0
-	var/screen = 0 // 0 - No Access Denied, 1 - Access allowed
+	var/authenticated = FALSE // FALSE - No Access Denied, TRUE - Access allowed
 	var/obj/item/card/id/prisoner/inserted_id
 
 	light_color = LIGHT_COLOR_DARKRED
@@ -32,9 +30,9 @@
 	user.set_machine(src)
 	var/dat
 	dat += "<B>Prisoner Implant Manager System</B><BR>"
-	if(screen == 0)
+	if(!authenticated)
 		dat += "<HR><A href='?src=[UID()];lock=1'>Unlock Console</A>"
-	else if(screen == 1)
+	else
 		if(istype(inserted_id))
 			var/p = inserted_id:points
 			var/g = inserted_id:goal
@@ -126,7 +124,7 @@
 
 	else if(href_list["lock"])
 		if(src.allowed(usr))
-			screen = !screen
+			authenticated = !authenticated
 		else
 			to_chat(usr, "<span class='warning'>Unauthorized access.</span>")
 
