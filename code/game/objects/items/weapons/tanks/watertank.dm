@@ -130,7 +130,7 @@
 
 /obj/item/reagent_containers/spray/mister/New(parent_tank)
 	..()
-	if(check_tank_exists(parent_tank, src))
+	if(check_tank_exists(parent_tank, usr, src))
 		tank = parent_tank
 		reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
 		loc = tank
@@ -153,9 +153,9 @@
 	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
 		M.unEquip(O)
 		qdel(0)
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /obj/item/reagent_containers/spray/mister/Move()
 	..()
@@ -251,20 +251,14 @@
 
 /obj/item/extinguisher/nozzle/New(parent_tank)
 	. = ..()
-	if(check_tank_exists(parent_tank, src))
+	if(check_tank_exists(parent_tank, usr, src))
 		tank = parent_tank
 		reagents = tank.reagents
 		max_water = tank.volume
 		loc = tank
 	return
 
-/obj/item/extinguisher/nozzle/Move()
-	..()
-	if(tank && loc != tank.loc)
-		loc = tank
-	return
-
-obj/item/extinguisher/nozzle/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/extinguisher/nozzle/attack(mob/living/M, mob/living/user, def_zone)
 	if(!safety && user.a_intent == INTENT_HELP && nozzle_mode == EXTINGUISHER) //No hitting people when wanting to extinguish them
 		return FALSE
 	. = ..()
@@ -287,10 +281,13 @@ obj/item/extinguisher/nozzle/attack(mob/living/M, mob/living/user, def_zone)
 
 /obj/item/extinguisher/nozzle/dropped(mob/user as mob)
 	..()
-	nozzle_mode = EXTINGUISHER // dropping the nozzle in any other mode makes it not reliably be created again
-	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
-	tank.on = FALSE
-	loc = tank
+	if(tank)
+		nozzle_mode = EXTINGUISHER // dropping the nozzle in any other mode makes it not reliably be created again
+		to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
+		tank.on = FALSE
+		loc = tank
+	else
+		QDEL(src)
 
 /obj/item/extinguisher/nozzle/afterattack(atom/target, mob/user)
 	if(nozzle_mode == EXTINGUISHER)

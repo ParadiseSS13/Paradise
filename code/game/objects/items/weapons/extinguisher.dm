@@ -51,7 +51,7 @@
 
 /obj/item/extinguisher/attack_self(mob/user as mob)
 	safety = !safety
-	src.icon_state = "[sprite_name][!safety]"
+	icon_state = "[sprite_name][!safety]"
 	to_chat(user, "<span class='notice'>You [safety ? "enable" : "disable"] the safety on [src].</span>")
 	return
 
@@ -166,11 +166,13 @@
 				if(!W) return
 				W.reagents = R
 				R.my_atom = W
-				if(!W || !src) return
-				src.reagents.trans_to(W,1)
-				for(var/b=0 in 1 to 5)
-					step_towards(W,my_target)
-					if(!W || !W.reagents) return
+				if(!W || !src)
+					return
+				reagents.trans_to(W,1)
+				for(var/b in 1 to 5)
+					step_towards(W, my_target)
+					if(!W || !W.reagents)
+						return
 					W.reagents.reaction(get_turf(W))
 					for(var/atom/atm in get_turf(W))
 						if(!W) return
