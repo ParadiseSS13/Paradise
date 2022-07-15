@@ -5482,10 +5482,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 21
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -77105,12 +77101,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
-"dRF" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
-	},
-/area/security/brig)
 "dSM" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -78993,6 +78983,11 @@
 /obj/item/screwdriver,
 /obj/item/wrench,
 /obj/item/storage/fancy/donut_box,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -79031,15 +79026,16 @@
 	name = "Prison Access Console";
 	pixel_y = 22;
 	tag_exterior_door = "prison_airlock_exterior";
-	tag_interior_door = "prison_airlock_interior"
+	tag_interior_door = "prison_airlock_interior";
+	pixel_x = -22
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/door_control{
 	desc = "A remote control-switch to lock down the prison wing's blast doors";
 	id = "Prison Gate";
 	name = "Prison Wing Lockdown";
-	pixel_x = -21;
-	pixel_y = 21;
+	pixel_x = -32;
+	pixel_y = 22;
 	req_access_txt = "2"
 	},
 /obj/structure/cable{
@@ -79050,7 +79046,7 @@
 /obj/machinery/flasher_button{
 	id = "prison";
 	pixel_x = -20;
-	pixel_y = 28
+	pixel_y = 31
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -81607,8 +81603,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/decal/warning_stripes/west,
 /obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
@@ -82794,7 +82788,7 @@
 /area/engine/hardsuitstorage)
 "uWf" = (
 /obj/structure/toilet{
-	pixel_y = 2
+	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Prison Solitary 2";
@@ -83421,7 +83415,7 @@
 /area/security/brig)
 "wJc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/trashcart,
+/obj/structure/closet/crate/can,
 /obj/item/wirecutters,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -83447,7 +83441,7 @@
 	dir = 1
 	},
 /obj/structure/toilet{
-	pixel_y = 2
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -108002,7 +107996,7 @@ gVE
 gVE
 nsZ
 oSF
-dRF
+ayG
 gVE
 nlK
 aqI
