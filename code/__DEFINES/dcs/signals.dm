@@ -94,8 +94,6 @@
 #define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"
 ///from base of [/atom/update_icon]: (signalOut, did_anything)
 #define COMSIG_ATOM_UPDATED_ICON "atom_updated_icon"
-///Sent after overlays are cut by [atom/update_overlays] when called by [/atom/update_icon]: ()
-#define COMSIG_ATOM_ADD_EMISSIVE_BLOCKER "atom_add_emissive_blocker"
 ///from base of atom/Entered(): (atom/movable/entering, /atom)
 #define COMSIG_ATOM_ENTERED "atom_entered"
 ///from base of atom/Exit(): (/atom/movable/exiting, /atom/newloc)

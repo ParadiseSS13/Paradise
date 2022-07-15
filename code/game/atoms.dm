@@ -45,6 +45,8 @@
 	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
 	var/list/remove_overlays // a very temporary list of overlays to remove
 	var/list/add_overlays // a very temporary list of overlays to add
+	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
+	var/list/managed_overlays
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
@@ -188,6 +190,8 @@
 	invisibility = INVISIBILITY_MAXIMUM
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
+
+	managed_overlays = null
 
 	QDEL_NULL(light)
 
@@ -433,11 +437,15 @@
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
 
 	if(updates & UPDATE_OVERLAYS)
-		cut_overlays()
-		SEND_SIGNAL(src, COMSIG_ATOM_ADD_EMISSIVE_BLOCKER)
-		var/list/new_overlays = update_fire_overlay()
-		new_overlays += update_overlays(updates)
+		var/list/new_overlays = update_overlays(updates)
+		if(managed_overlays)
+			cut_overlay(managed_overlays)
+			managed_overlays = null
 		if(length(new_overlays))
+			if(length(new_overlays) == 1)
+				managed_overlays = new_overlays[1]
+			else
+				managed_overlays = new_overlays
 			add_overlay(new_overlays)
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS)
 
@@ -450,10 +458,6 @@
 /// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /atom/proc/update_overlays()
 	return list()
-
-/// Updates the fire overlay of the atom
-/atom/proc/update_fire_overlay()
-	return
 
 /atom/proc/relaymove()
 	return

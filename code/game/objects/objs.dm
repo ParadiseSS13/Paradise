@@ -170,11 +170,6 @@
 /obj/proc/interact(mob/user)
 	return
 
-/obj/update_fire_overlay()
-	. = list()
-	if(resistance_flags & ON_FIRE)
-		. += custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay
-
 /mob/proc/unset_machine()
 	if(machine)
 		UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
