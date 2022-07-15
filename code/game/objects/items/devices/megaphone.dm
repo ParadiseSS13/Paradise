@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 
-	var/spamcheck = 0
+	var/spamcheck = FALSE
 	var/insults = 0
 	var/span = ""
 	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
@@ -60,9 +60,9 @@
 				message = "<span class='[span]'>[message]</span>"
 			saymsg(user, message)
 
-		spamcheck = 1
+		spamcheck = TRUE
 		spawn(20)
-			spamcheck = 0
+			spamcheck = FALSE
 
 /obj/item/megaphone/proc/saymsg(mob/living/user as mob, message)
 	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
@@ -77,5 +77,5 @@
 /obj/item/megaphone/emag_act(user as mob)
 	if(!emagged)
 		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
-		emagged = 1
+		emagged = TRUE
 		insults = rand(1, 3)//to prevent dickflooding

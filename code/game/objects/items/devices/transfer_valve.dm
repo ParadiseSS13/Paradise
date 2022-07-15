@@ -8,8 +8,8 @@
 	var/obj/item/tank/tank_two = null
 	var/obj/item/assembly/attached_device = null
 	var/mob/living/attacher = null
-	var/valve_open = 0
-	var/toggle = 1
+	var/valve_open = FALSE
+	var/toggle = TRUE
 	origin_tech = "materials=1;engineering=1"
 
 /obj/item/transfer_valve/Destroy()
@@ -147,10 +147,10 @@
 
 /obj/item/transfer_valve/proc/process_activation(obj/item/D)
 	if(toggle)
-		toggle = 0
+		toggle = FALSE
 		toggle_valve()
 		spawn(50) // To stop a signal being spammed from a proxy sensor constantly going off or whatever
-			toggle = 1
+			toggle = TRUE
 
 /obj/item/transfer_valve/update_icon()
 	overlays.Cut()
@@ -192,7 +192,7 @@
 
 /obj/item/transfer_valve/proc/toggle_valve(mob/user)
 	if(!valve_open && tank_one && tank_two)
-		valve_open = 1
+		valve_open = TRUE
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 
@@ -218,5 +218,5 @@
 
 	else if(valve_open && tank_one && tank_two)
 		split_gases()
-		valve_open = 0
+		valve_open = FALSE
 		update_icon()

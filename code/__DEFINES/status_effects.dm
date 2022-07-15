@@ -43,6 +43,8 @@
 
 #define STATUS_EFFECT_BLOOD_RUSH /datum/status_effect/blood_rush // speed boost for gargantua vampires
 
+#define STATUS_EFFECT_CHAINSAW_SLAYING /datum/status_effect/chainsaw_slaying // Stun immunity, very slight damage resistance
+
 
 /////////////
 // DEBUFFS //

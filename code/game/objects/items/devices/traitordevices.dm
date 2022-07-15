@@ -27,14 +27,14 @@
 	origin_tech = "magnets=3;biotech=5;syndicate=3"
 	var/intensity = 5 // how much damage the radiation does
 	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
-	var/used = 0 // is it cooling down?
+	var/used = FALSE // is it cooling down?
 
 /obj/item/rad_laser/attack(mob/living/M, mob/living/user)
 	if(!used)
 		add_attack_logs(user, M, "Irradiated by [src]")
 		user.visible_message("<span class='notice'>[user] analyzes [M]'s vitals.</span>")
 		var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
-		used = 1
+		used = TRUE
 		icon_state = "health1"
 		handle_cooldown(cooldown) // splits off to handle the cooldown while handling wavelength
 		spawn((wavelength+(intensity*4))*10)
@@ -47,7 +47,7 @@
 
 /obj/item/rad_laser/proc/handle_cooldown(cooldown)
 	spawn(cooldown)
-		used = 0
+		used = FALSE
 		icon_state = "health2"
 
 /obj/item/rad_laser/attack_self(mob/user)
@@ -311,11 +311,9 @@
 /obj/item/storage/box/syndie_kit/teleporter
 	name = "syndicate teleporter kit"
 
-/obj/item/storage/box/syndie_kit/teleporter/New()
-	..()
+/obj/item/storage/box/syndie_kit/teleporter/populate_contents()
 	new /obj/item/teleporter(src)
 	new /obj/item/paper/teleporter(src)
-	return
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
