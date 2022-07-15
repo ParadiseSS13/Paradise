@@ -257,13 +257,11 @@
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
-	var/mob/living/carbon/human/H
-	if(ishuman(M))
-		H = M
 	switch(severity)
 		if(1)
 			if(prob(20))
-				if(H)
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
 					H.vomit(lost_nutrition = 0, blood = TRUE, stun = FALSE)
 				M.Weaken(1 SECONDS) // change to knockdown after crawling
 			else

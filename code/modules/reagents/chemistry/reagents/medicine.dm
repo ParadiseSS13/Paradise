@@ -893,7 +893,7 @@
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
 	..()
 
-//the end highest end antistun chem, removes stun and stamina rapidly.
+//the highest end antistun chem, removes stun and stamina rapidly.
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
