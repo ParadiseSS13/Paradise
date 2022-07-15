@@ -147,7 +147,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null
 	var/mylocation = null
 	var/chasecycles = 0
-	var/web_infects = 0
 	var/spider_creation_time = 0
 
 	var/datum/action/innate/terrorspider/web/web_action

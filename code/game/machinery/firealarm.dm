@@ -15,7 +15,6 @@ FIRE ALARM
 	var/working = TRUE
 	var/time = 10.0
 	var/timing = 0.0
-	var/lockdownbyai = 0
 	anchored = TRUE
 	max_integrity = 250
 	integrity_failure = 100

@@ -7,8 +7,8 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200
@@ -259,23 +259,23 @@
   */
 /obj/machinery/photocopier/proc/cancopy(scancopy = FALSE) //are we able to make a copy of a doc?
 	if(stat & (BROKEN|NOPOWER))
-		return
+		return FALSE
 	if(copying) //are we in the process of copying something already?
 		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
-		return
+		return FALSE
 	if(!scancopy && toner <= 0) //if we're not scanning lets check early that we actually have toner
 		visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>")
-		return
+		return FALSE
 	if(max_copies_reached)
 		visible_message("<span class='warning'>The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
-		return
+		return FALSE
 	if(total_copies >= MAX_COPIES_PRINTABLE)
 		visible_message("<span class='warning'>The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
 		message_admins("Photocopier cap of [MAX_COPIES_PRINTABLE] paper copies reached, all photocopiers are now disabled.")
 		max_copies_reached = TRUE
 	if(!check_mob() && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
 		visible_message("<span class='notice'>A red light on [src] flashes, indicating there's nothing in [src] to copy.</span>")
-		return
+		return FALSE
 	return TRUE
 
 /**
@@ -535,7 +535,7 @@
 
 /obj/machinery/photocopier/emag_act(user as mob)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")

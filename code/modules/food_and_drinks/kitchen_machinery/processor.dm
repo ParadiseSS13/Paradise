@@ -6,7 +6,6 @@
 	density = TRUE
 	anchored = TRUE
 
-	var/broken = 0
 	var/processing = FALSE
 
 	use_power = IDLE_POWER_USE

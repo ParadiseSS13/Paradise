@@ -623,7 +623,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -4;
 	pixel_y = 4
 	},
