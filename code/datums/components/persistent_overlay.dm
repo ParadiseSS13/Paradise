@@ -1,8 +1,10 @@
 /datum/component/persistent_overlay
 	var/image/persistent_overlay = null
 
-/datum/component/persistent_overlay/Initialize(image_overlay)
+/datum/component/persistent_overlay/Initialize(image_overlay, timer)
 	persistent_overlay = image_overlay
+	if(timer)
+		addtimer(CALLBACK(src, .proc/remove_persistent_overlay), timer)
 	RegisterSignal(parent, COMSIG_PARENT_QDELETING, .proc/remove_persistent_overlay)
 	add_persistent_overlay()
 
