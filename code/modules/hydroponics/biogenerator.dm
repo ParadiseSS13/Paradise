@@ -29,7 +29,7 @@
 	/// A list which holds all categories and items the biogenator has available. Used with the UI to save having to rebuild this every time someone opens it.
 	var/list/product_list = list()
 	/// The [/datum/design]'s categories which can be produced by this machine and can be uploaded via a disk.
-	var/list/categories = list("Food", "Botany Chemicals", "Organic Materials", "Leather and Cloth")
+	var/static/list/categories = list("Food", "Botany Chemicals", "Organic Materials", "Leather and Cloth")
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
@@ -233,7 +233,7 @@
 	. = TRUE
 	switch(action)
 		if("activate")
-			activate(usr)
+			process_plants(usr)
 		if("detach_container")
 			detach_container()
 		if("eject_plants")
@@ -251,7 +251,7 @@
  * Argumens:
  * * mob/user - the mob who activated the biogenerator
  */
-/obj/machinery/biogenerator/proc/activate(mob/user)
+/obj/machinery/biogenerator/proc/process_plants(mob/user)
 	if(stat & (NOPOWER | BROKEN))
 		return
 	if(processing)
@@ -271,7 +271,9 @@
 	stored_plants.Cut()
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(plants_processed * 150)
-	sleep((plants_processed * 5) / productivity)
+	addtimer(CALLBACK(src, .proc/end_processing), (plants_processed * 5) / productivity)
+
+/obj/machinery/biogenerator/proc/end_processing()
 	processing = FALSE
 	SStgui.update_uis(src)
 	update_icon()
