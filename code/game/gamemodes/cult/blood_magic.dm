@@ -461,6 +461,7 @@
 			C.Stuttering(16 SECONDS)
 			C.CultSlur(20 SECONDS)
 			C.Jitter(16 SECONDS)
+			to_chat(user, "<span class='boldnotice'>Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!</span>")
 	user.do_attack_animation(target)
 	uses--
 	..()

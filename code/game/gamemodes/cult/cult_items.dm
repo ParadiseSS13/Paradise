@@ -542,7 +542,7 @@
 
 /obj/item/twohanded/cult_spear
 	name = "blood halberd"
-	desc = "A sickening spear composed entirely of crystallized blood. Will stun people who have been recently marked if the spear is weilded."
+	desc = "A sickening spear composed entirely of crystallized blood. Will stun people who have been recently marked if the spear is wielded."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "bloodspear0"
 	slot_flags = 0

@@ -181,15 +181,15 @@
 // used to track if hitting someone with a cult dagger/sword should stamina crit.
 /datum/status_effect/cult_stun_mark
 	id = "cult_stun"
-	duration = 10 SECONDS // the when they stand back up, it will be over
+	duration = 10 SECONDS // when the knockdown ends, the mark disappears.
 	alert_type = null
 	var/mutable_appearance/overlay
 
 /datum/status_effect/cult_stun_mark/on_apply()
 	. = ..()
-	if(!. || !ishuman(owner))
+	if(!ishuman(owner))
 		return
-	overlay = mutable_appearance('icons/effects/cult_effects.dmi', "shield-cult", ABOVE_MOB_LAYER)
+	overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
 	var/mob/living/carbon/human/H = owner
 	H.add_overlay(overlay)
 
