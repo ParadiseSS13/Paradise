@@ -156,7 +156,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/inflict_handler/magic_missile/lesser
-	amt_knockdown = 6
+	amt_knockdown = 6 SECONDS
 	amt_stunned = 0
 
 /obj/effect/proc_holder/spell/smoke/disable

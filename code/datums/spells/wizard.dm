@@ -32,7 +32,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/inflict_handler/magic_missile
-	amt_weakened = 6
+	amt_weakened = 6 SECONDS
 	sound = 'sound/magic/mm_hit.ogg'
 
 
@@ -72,7 +72,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/inflict_handler/honk_missile
-	amt_weakened = 3
+	amt_weakened = 6 SECONDS
 	sound = 'sound/items/bikehorn.ogg'
 
 /obj/effect/proc_holder/spell/noclothes

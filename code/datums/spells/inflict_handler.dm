@@ -50,13 +50,13 @@
 		target.adjustToxLoss(amt_dam_tox)
 		target.adjustOxyLoss(amt_dam_oxy)
 		//disabling
-		target.Weaken(amt_weakened SECONDS)
-		target.Paralyse(amt_paralysis SECONDS)
-		target.Stun(amt_stunned SECONDS)
-		target.KnockDown(amt_knockdown SECONDS)
+		target.Weaken(amt_weakened)
+		target.Paralyse(amt_paralysis)
+		target.Stun(amt_stunned)
+		target.KnockDown(amt_knockdown)
 
-		target.AdjustEyeBlind(amt_eye_blind SECONDS)
-		target.AdjustEyeBlurry(amt_eye_blurry SECONDS)
+		target.AdjustEyeBlind(amt_eye_blind)
+		target.AdjustEyeBlurry(amt_eye_blurry)
 		//summoning
 		if(summon_type)
 			new summon_type(target.loc, target)
