@@ -23,21 +23,24 @@
 /// everything
 
 /proc/get_airlock_overlay(icon_state, icon_file, em_block)
-	var/iconkey = "[icon_state][icon_file]"
-	if(GLOB.airlock_overlays[iconkey])
-		return GLOB.airlock_overlays[iconkey]
-	GLOB.airlock_overlays[iconkey] = image(icon_file, icon_state)
-	if(isnull(em_block))
-		return GLOB.airlock_overlays[iconkey]
+	var/static/list/airlock_overlays = list()
 
-	var/em_block_key = "[iconkey][em_block]"
-	var/mutable_appearance/em_blocker = GLOB.airlock_overlays[em_block_key]
+	var/base_icon_key = "[icon_state][icon_file]"
+	if(!(. = airlock_overlays[base_icon_key]))
+		. = airlock_overlays[base_icon_key] = mutable_appearance(icon_file, icon_state)
+	if(isnull(em_block))
+		return
+
+	var/em_block_key = "[base_icon_key][em_block]"
+	var/mutable_appearance/em_blocker = airlock_overlays[em_block_key]
 	if(!em_blocker)
-		em_blocker = GLOB.airlock_overlays[em_block_key] = mutable_appearance(icon_file, icon_state, plane = EMISSIVE_PLANE, appearance_flags = EMISSIVE_APPEARANCE_FLAGS)
+		em_blocker = airlock_overlays[em_block_key] = mutable_appearance(icon_file, icon_state, plane = EMISSIVE_PLANE, appearance_flags = EMISSIVE_APPEARANCE_FLAGS)
 		em_blocker.color = em_block ? EM_BLOCK_COLOR : EMISSIVE_COLOR
 
-	return list(GLOB.airlock_overlays[iconkey], em_blocker)
+	return list(., em_blocker)
 
+// Before you say this is a bad implmentation, look at what it was before then ask yourself
+// "Would this be better with a global var"
 
 // Wires for the airlock are located in the datum folder, inside the wires datum folder.
 
@@ -462,8 +465,6 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 				update_icon(ALL, AIRLOCK_DENY)
 				playsound(src,doorDeni,50,FALSE,3)
 				addtimer(CALLBACK(src, /atom/proc/update_icon, ALL, AIRLOCK_CLOSED), AIRLOCK_DENY_ANIMATION_TIME)
-				sleep(1)
-				icon_state = "" // Why? Because interupting the deny animation will cause the door to bug out otherwise. 
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
