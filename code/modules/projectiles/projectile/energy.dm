@@ -51,7 +51,7 @@
 	nodamage = FALSE
 	stamina = 60
 	eyeblur = 20 SECONDS
-	weaken = 2 SECONDS
+	knockdown = 2 SECONDS
 	slur = 10 SECONDS
 
 /obj/item/projectile/energy/bolt/large
