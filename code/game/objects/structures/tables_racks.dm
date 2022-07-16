@@ -83,6 +83,7 @@
 
 	if(flipped)
 		clear_smooth_overlays()
+	return list()
 
 /obj/structure/table/narsie_act()
 	new /obj/structure/table/wood(loc)

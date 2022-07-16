@@ -534,7 +534,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/update_overlays()
 	. = ..()
 	if(panel_open)
-		add_overlay("panel_open")
+		. += "panel_open"
 
 /obj/machinery/clonepod/relaymove(mob/user)
 	if(user.stat == CONSCIOUS)
