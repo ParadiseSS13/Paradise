@@ -68,9 +68,9 @@
 /obj/item/clothing/under/color/orange/prison
 	name = "orange jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
-	icon_state = "orange"
-	item_state = "o_suit"
-	item_color = "orange"
+	icon_state = "prisoner"
+	item_state = "prisoner"
+	item_color = "prisoner"
 	has_sensor = 2
 	sensor_mode = 3
 

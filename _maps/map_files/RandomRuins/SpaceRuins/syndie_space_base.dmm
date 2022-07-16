@@ -1254,7 +1254,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "nf" = (
-/obj/item/book/manual/chef_recipes{
+/obj/item/book/manual/wiki/chef_recipes{
 	pixel_x = 2;
 	pixel_y = 6
 	},
@@ -1803,7 +1803,7 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "tW" = (
 /obj/structure/table,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

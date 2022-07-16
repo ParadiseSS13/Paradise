@@ -138,7 +138,7 @@ SUBSYSTEM_DEF(throwing)
 		thrownthing.newtonian_move(init_dir)
 
 	if(target)
-		thrownthing.throw_impact(target, src)
+		thrownthing.throw_impact(target, src, speed)
 
 	if(callback)
 		callback.Invoke()

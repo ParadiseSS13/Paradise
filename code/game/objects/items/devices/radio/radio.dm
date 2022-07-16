@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/role = ""
 	var/lifetime_timer
 	var/message = ""
-	universal_speak = 1
+	universal_speak = TRUE
 
 /mob/living/automatedannouncer/New()
 	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), 10 SECONDS, TIMER_STOPPABLE)
@@ -585,15 +585,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	interact(user)
 
 /obj/item/radio/emp_act(severity)
-	on = 0
+	on = FALSE
 	disable_timer++
 	addtimer(CALLBACK(src, .proc/enable_radio), rand(100, 200))
 
 	if(listening)
 		visible_message("<span class='warning'>[src] buzzes violently!</span>")
 
-	broadcasting = 0
-	listening = 0
+	broadcasting = FALSE
+	listening = FALSE
 	for(var/ch_name in channels)
 		channels[ch_name] = 0
 	..()
@@ -602,7 +602,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(disable_timer > 0)
 		disable_timer--
 	if(!disable_timer)
-		on = 1
+		on = TRUE
 
 /obj/item/radio/proc/recalculateChannels()
 	/// Exists so that borg radios and headsets can override it.
@@ -752,14 +752,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return
 
 /obj/item/radio/off
-	listening = 0
+	listening = FALSE
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/radio/phone
-	broadcasting = 0
+	broadcasting = FALSE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
-	listening = 1
+	listening = TRUE
 	name = "phone"
 	dog_fashion = null
 

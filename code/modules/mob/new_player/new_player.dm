@@ -1,13 +1,13 @@
 /mob/new_player
-	var/ready = 0
-	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
+	var/ready = FALSE
+	var/spawning = FALSE	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
-	universal_speak = 1
+	universal_speak = TRUE
 
 	invisibility = 101
 
-	density = 0
+	density = FALSE
 	stat = DEAD
 
 /mob/new_player/Initialize(mapload)
@@ -178,7 +178,7 @@
 				return 1
 			var/mob/dead/observer/observer = new(src)
 			src << browse(null, "window=playersetup")
-			spawning = 1
+			spawning = TRUE
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 
@@ -523,7 +523,7 @@
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
 /mob/new_player/proc/create_character()
-	spawning = 1
+	spawning = TRUE
 	close_spawn_windows()
 
 	check_prefs_are_sane()
@@ -539,7 +539,7 @@
 
 
 	if(mind)
-		mind.active = 0					//we wish to transfer the key manually
+		mind.active = FALSE					//we wish to transfer the key manually
 		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
 			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("clown")

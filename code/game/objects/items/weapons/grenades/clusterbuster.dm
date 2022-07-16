@@ -42,7 +42,7 @@
 	..()
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
-	active = 1
+	active = TRUE
 	walk_away(src,loc,rand(1,4))
 	spawn(rand(15,60))
 		prime()
@@ -64,7 +64,7 @@
 	for(var/loop = numspawned ,loop > 0, loop--)
 		var/obj/item/grenade/P = new type(loc)
 		if(istype(P, /obj/item/grenade))
-			P.active = 1
+			P.active = TRUE
 		walk_away(P,loc,rand(1,4))
 
 		spawn(rand(15,60))

@@ -5,8 +5,8 @@
 //trees
 /obj/structure/flora/tree
 	name = "tree"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	pixel_x = -16
 	layer = 9
 
@@ -62,7 +62,7 @@
 /obj/structure/flora/grass
 	name = "grass"
 	icon = 'icons/obj/flora/snowflora.dmi'
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 15
 
 /obj/structure/flora/grass/brown
@@ -93,7 +93,7 @@
 	name = "bush"
 	icon = 'icons/obj/flora/snowflora.dmi'
 	icon_state = "snowbush1"
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 15
 
 /obj/structure/flora/bush/Initialize(mapload)
@@ -106,7 +106,7 @@
 	name = "bush"
 	icon = 'icons/obj/flora/ausflora.dmi'
 	icon_state = "firstbush_1"
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 15
 
 /obj/structure/flora/ausbushes/Initialize(mapload)
@@ -223,7 +223,7 @@
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
-	anchored = 0
+	anchored = FALSE
 	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
@@ -262,7 +262,7 @@
 	icon_state = "rock1"
 	icon = 'icons/obj/flora/rocks.dmi'
 	resistance_flags = FIRE_PROOF
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/flora/rock/Initialize(mapload)
 	. = ..()
@@ -289,7 +289,7 @@
 	name = "corn stalk"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "cornstalk1"
-	anchored = 0
+	anchored = FALSE
 	layer = 5
 
 /obj/structure/flora/corn_stalk/alt_1
@@ -302,7 +302,7 @@
 	name = "straw bail"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawbail1"
-	density = 1
+	density = TRUE
 	climbable = 1 // you can climb all over them.
 
 /obj/structure/flora/straw_bail/alt_1
@@ -316,8 +316,8 @@
 	desc = "Pretty thick scrub, it'll take something sharp and a lot of determination to clear away."
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "bush1"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	layer = 3.2
 	var/indestructable = 0
 	var/stump = 0
@@ -325,7 +325,7 @@
 /obj/structure/bush/Initialize(mapload)
 	. = ..()
 	if(prob(20))
-		opacity = 1
+		opacity = TRUE
 
 /*
 /obj/structure/bush/Bumped(M as mob)
@@ -354,7 +354,7 @@
 						icon_state = "stump[rand(1,2)]"
 						name = "cleared foliage"
 						desc = "There used to be dense undergrowth here."
-						density = 0
+						density = FALSE
 						stump = 1
 						pixel_x = rand(-6,6)
 						pixel_y = rand(-6,6)
