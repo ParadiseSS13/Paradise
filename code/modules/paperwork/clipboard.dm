@@ -18,6 +18,9 @@
 	..()
 	update_icon()
 
+/obj/item/clipboard/AltClick(mob/user)
+	removePen(user)
+
 /obj/item/clipboard/verb/removePen(mob/user)
 	set category = "Object"
 	set name = "Remove clipboard pen"
@@ -77,6 +80,13 @@
 		overlays += toppaper.overlays
 	if(containedpen)
 		overlays += "clipboard_pen"
+	for(var/obj/O in src)
+		if(istype(O, /obj/item/photo))
+			var/image/img = image('icons/obj/bureaucracy.dmi')
+			var/obj/item/photo/Ph = O
+			img = Ph.tiny
+			overlays += img
+			break
 	overlays += "clipboard_over"
 	..()
 

@@ -27,7 +27,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "photo"
 	item_state = "paper"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	var/blueprints = 0 // Does this have the blueprints?
@@ -56,20 +56,17 @@
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
-		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!", \
-		"[class]You hold [P] up to [src], burning it slowly.")
+		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
+		"[class]You hold [P] up to [src], burning it slowly.</span>")
 
 		spawn(20)
 			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
-
+				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 				if(user.is_in_inactive_hand(src))
 					user.unEquip(src)
-
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				qdel(src)
-
 			else
 				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
 
@@ -117,11 +114,14 @@
 **************/
 /obj/item/storage/photo_album
 	name = "Photo album"
+	desc = "A slim book with little plastic coverings to keep photos from deteriorating."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "album"
-	item_state = "briefcase"
+	item_state = "syringe_kit"
 	can_hold = list(/obj/item/photo)
 	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
+	storage_slots = 14
 
 /obj/item/storage/photo_album/MouseDrop(obj/over_object as obj)
 
@@ -186,6 +186,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	name = "camera obscura"
 	desc = "A polaroid camera, some say it can see ghosts!"
 	see_ghosts = TRUE
+
+/obj/item/camera/AltClick(mob/user)
+	change_size()
 
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
