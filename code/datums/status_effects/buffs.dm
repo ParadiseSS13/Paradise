@@ -220,7 +220,7 @@
 
 /datum/status_effect/exercised
 	id = "Exercised"
-	duration = 1200
+	duration = 5 MINUTES
 	alert_type = null
 
 /datum/status_effect/exercised/on_creation(mob/living/new_owner, ...)
