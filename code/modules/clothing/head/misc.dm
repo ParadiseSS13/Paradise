@@ -373,10 +373,6 @@
 	icon_state = "beret_purple"
 	item_state = "purpleberet"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
 /obj/item/clothing/head/beret/centcom/officer
 	name = "officer beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
