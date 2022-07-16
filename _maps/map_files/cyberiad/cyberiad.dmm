@@ -1154,7 +1154,6 @@
 	},
 /area/security/securearmoury)
 "aeU" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -1293,28 +1292,15 @@
 	name = "west bump Important Area";
 	pixel_x = -24
 	},
-/obj/machinery/photocopier,
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
 	},
 /area/security/warden)
 "afl" = (
-/obj/machinery/door_control{
-	id = "Secure Gate";
-	name = "Brig Lockdown";
-	pixel_x = 3;
-	pixel_y = -28;
-	req_access_txt = "2"
-	},
-/obj/machinery/door_control{
-	desc = "A remote control-switch to lock down the prison wing's blast doors";
-	id = "Prison Gate";
-	name = "Prison Wing Lockdown";
-	pixel_x = -7;
-	pixel_y = -28;
-	req_access_txt = "2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3974,9 +3960,7 @@
 /turf/simulated/floor/plating,
 /area/security/warden)
 "amE" = (
-/obj/machinery/computer/prisoner{
-	dir = 8
-	},
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -4840,13 +4824,11 @@
 /turf/space,
 /area/space)
 "aos" = (
-/obj/structure/chair/office/dark,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/warden,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -4855,6 +4837,10 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/obj/effect/landmark/start/warden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4905,9 +4891,8 @@
 	},
 /area/security/prison/cell_block/A)
 "aox" = (
-/obj/machinery/computer/secure_data{
-	dir = 8
-	},
+/obj/structure/table,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -5265,12 +5250,6 @@
 	},
 /area/security/evidence)
 "ape" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -5285,27 +5264,28 @@
 	pixel_x = -28;
 	pixel_y = -10
 	},
+/obj/machinery/computer/security{
+	dir = 4;
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
 	},
 /area/security/warden)
 "apf" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/security_space_law{
-	pixel_x = -3;
-	pixel_y = 5
-	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
 /area/security/warden)
 "apg" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/sop_legal,
-/obj/item/paper/armory,
-/obj/item/clipboard,
+/obj/machinery/computer/prisoner{
+	req_access = null;
+	req_access_txt = "2"
+	},
 /turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "darkred"
 	},
 /area/security/warden)
@@ -5329,10 +5309,10 @@
 	},
 /area/security/warden)
 "apk" = (
-/obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/structure/table,
+/obj/item/book/manual/wiki/sop_legal,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -80017,6 +79997,14 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"mym" = (
+/obj/structure/table,
+/obj/item/clipboard,
+/obj/item/paper,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/security/warden)
 "mzv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -81078,6 +81066,21 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"rYZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/effect/landmark/start/warden,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/warden)
 "rZE" = (
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
@@ -82138,6 +82141,31 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"xKJ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door_control{
+	desc = "A remote control-switch to lock down the prison wing's blast doors";
+	id = "Prison Gate";
+	name = "Prison Wing Lockdown";
+	pixel_x = -7;
+	pixel_y = -28;
+	req_access_txt = "2"
+	},
+/obj/machinery/door_control{
+	id = "Secure Gate";
+	name = "Brig Lockdown";
+	pixel_x = 3;
+	pixel_y = -28;
+	req_access_txt = "2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/warden)
 "xLA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/east,
@@ -109900,7 +109928,7 @@ aei
 amy
 agD
 aos
-apg
+aph
 alU
 aqX
 ase
@@ -110156,8 +110184,8 @@ ali
 apP
 amz
 anz
-aou
-apf
+xKJ
+apj
 aqw
 aqX
 ase
@@ -110411,10 +110439,10 @@ ajk
 aqR
 alh
 agt
-amz
-anz
+apg
+rYZ
 aou
-aph
+api
 aqw
 aqX
 aiu
@@ -110928,7 +110956,7 @@ afm
 amC
 agL
 afl
-apj
+apf
 aqx
 ago
 ase
@@ -111185,7 +111213,7 @@ alV
 amB
 anB
 aov
-api
+mym
 aqx
 agN
 akV
