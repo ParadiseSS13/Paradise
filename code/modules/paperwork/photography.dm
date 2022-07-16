@@ -122,6 +122,8 @@
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_SMALL
 	storage_slots = 14
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 
 /obj/item/storage/photo_album/MouseDrop(obj/over_object as obj)
 
