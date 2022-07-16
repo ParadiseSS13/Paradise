@@ -114,7 +114,7 @@
 **************/
 /obj/item/storage/photo_album
 	name = "Photo album"
-	desc = "A slim book with little plastic coverings to keep photos from deteriorating."
+	desc = "A slim book with little plastic coverings to keep photos from deteriorating, it reminds you of the good ol' days."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "album"
 	item_state = "syringe_kit"
