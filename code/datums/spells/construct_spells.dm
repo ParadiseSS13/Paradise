@@ -158,7 +158,6 @@
 /obj/effect/proc_holder/spell/inflict_handler/magic_missile/lesser
 	amt_knockdown = 6
 	amt_stunned = 0
-	sound = 'sound/magic/mm_hit.ogg'
 
 /obj/effect/proc_holder/spell/smoke/disable
 	name = "Paralysing Smoke"
