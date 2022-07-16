@@ -158,55 +158,31 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/beret/sec
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
 /obj/item/clothing/head/beret/sec/warden
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
 	icon_state = "beret_warden"
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 50)
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
 /obj/item/clothing/head/beret/eng
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
 	icon_state = "beret_engineering"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
 
 /obj/item/clothing/head/beret/atmos
 	name = "atmospherics beret"
 	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
 	icon_state = "beret_atmospherics"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
 /obj/item/clothing/head/beret/ce
 	name = "chief engineer's beret"
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
 	icon_state = "beret_ce"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
 	icon_state = "beret_sci"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
 
 //Medical
 /obj/item/clothing/head/beret/med
