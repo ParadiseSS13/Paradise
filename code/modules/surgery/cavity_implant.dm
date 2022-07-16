@@ -41,7 +41,6 @@
 	possible_locs = list("chest","head")
 
 /datum/surgery/cavity_implant/boneless/can_start(mob/user, mob/living/carbon/target)
-	var/obj/item/organ/external/chest/affected = target.get_organ(user.zone_selected)
 	if(HAS_TRAIT(target, TRAIT_NO_BONES))
 		return FALSE
 
