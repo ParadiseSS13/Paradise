@@ -36,10 +36,6 @@
 /obj/item/clothing/head/beret/purple_normal
 	icon_state = "beret_purple_normal"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
 /obj/item/clothing/head/that
 	name = "top-hat"
 	desc = "It's an amish looking hat."
