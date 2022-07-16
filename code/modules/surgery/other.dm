@@ -35,7 +35,6 @@
 
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-
 	if(affected.status & ORGAN_INT_BLEEDING)
 		return TRUE
 	return FALSE
@@ -66,10 +65,8 @@
 
 	time = 3.2 SECONDS
 
-/datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected)
-		return FALSE
 
 	if(affected.status & ORGAN_INT_BLEEDING)
 		return TRUE

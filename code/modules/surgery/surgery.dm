@@ -35,11 +35,11 @@
 	/// Don't show this surgery if this type exists. Set to /datum/surgery if you want to hide a "base" surgery.
 	var/replaced_by
 	/// Mobs on which this can be performed
-	var/list/allowed_mob = list(/mob/living/carbon/human)
+	var/list/target_mobtypes = list(/mob/living/carbon/human)
 	/// Target of the surgery
 	var/mob/living/carbon/target
-	/// Body part the surgery is currently being performed on.
-	var/obj/item/organ/external/organ_ref
+	/// Body part the surgery is currently being performed on. Useful for checking to see if the organ desired is still in the body after the surgery has begun.
+	var/obj/item/organ/external/organ_to_manipulate
 	/// Whether or not this should be a selectable surgery at all
 	var/abstract = FALSE
 
@@ -54,13 +54,13 @@
 		location = surgery_location
 	if(!surgery_bodypart)
 		return
-	organ_ref = surgery_bodypart
+	organ_to_manipulate = surgery_bodypart
 
 /datum/surgery/Destroy()
 	if(target)
 		target.surgeries -= src
 	target = null
-	organ_ref = null
+	organ_to_manipulate = null
 	return ..()
 
 /// Get whether the target organ is compatible with the current surgery.
@@ -149,6 +149,8 @@
 	var/accept_any_item = FALSE
 	/// duration of the step
 	var/time = 1 SECONDS
+
+
 	/// Is this step repeatable? Make sure it isn't the last step, or it's used in a cancellable surgery. Otherwise, you might get stuck in a loop!
 	var/repeatable = FALSE
 	/// List of chems needed in the mob to complete the step. Even on success, this step will have no effect if the required chems aren't in the mob.
@@ -223,6 +225,11 @@
  * Returns TRUE if the step was a success, or FALSE if the step can't be performed for some reason.
  */
 /datum/surgery_step/proc/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+
+	// if(surgery.organ_to_manipulate && !target.get_organ_slot(surgery.organ_to_manipulate))
+	// 	to_chat(user, "<span class='warning'>[target] seems to be missing the organ necessary to complete this surgery!</span>")
+	// 	return FALSE
+
 	if(is_valid_tool(user, tool))
 		if(target_zone == surgery.location)
 			if(get_location_accessible(target, target_zone) || surgery.ignore_clothes)
@@ -232,7 +239,14 @@
 			return TRUE //returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)
-		// TODO repeatable is a bit misleading? It might need a whole lot more
+		// you can continuously, manually, perform a step, so long as you continue to use the correct tool.
+		// if you use the wrong tool, though, it'll try to start the next surgery step with the tool you have in your hand.
+
+		// Note that this separate from returning the surgery_step_* defines in end/fail_step, which will automatically retry the surgery.
+
+
+
+		// TODO Make sure we have support for it!
 		var/datum/surgery_step/next_step = surgery.get_surgery_next_step()
 		next_step.times_repeated = times_repeated + 1
 		if(next_step)

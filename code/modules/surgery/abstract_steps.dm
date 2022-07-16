@@ -106,13 +106,25 @@
 	var/overridden_tool = FALSE
 
 	if(!isnull(next_surgery_step))
+
+		if(next_surgery_step.accept_hand && ("hand" in starting_tools))
+			CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both require an open hand.")
+
+		if(("any" in starting_tools) && next_surgery_step.accept_any_item)
+			CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both accept any item.")
+
+		if(!tool && next_surgery_step.accept_hand && !("hand" in starting_tools))
+			next_surgery = surgery
+
+
 		for(var/allowed in next_surgery_step.allowed_tools)
-
-			if("hand" in starting_tools && next_surgery_step.accept_hand)
-				CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both require an open hand.")
-
-			if("any" in starting_tools && next_surgery_step.accept_any_item)
-				CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both accept any item.")
+			if(istype(tool, /obj/item/scalpel/laser/manager/debug))
+				if(!ispath(allowed) && (allowed in GLOB.surgery_tool_behaviors))
+					next_surgery = surgery
+					next_surgery_step.allowed_tools[tool.type] = 100
+					next_surgery_step.implement_type = tool.type
+					overridden_tool = TRUE
+					break
 
 			if(allowed in starting_tools)
 				if(allowed in overriding_tools)
@@ -123,6 +135,9 @@
 
 			if(tool && istype(tool) && (tool.type == allowed || tool.tool_behaviour == allowed))
 				next_surgery = surgery
+
+		if(tool && next_surgery_step.accept_any_item && !("any" in starting_tools))
+			next_surgery = surgery
 
 	if(!next_surgery)
 		// If we didn't find a match at all, it's probably just someone using a random tool.
@@ -183,6 +198,8 @@
 	. = ..()
 	var/mob/living/carbon/human/H = target
 	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	if(HAS_TRAIT(target, TRAIT_NO_BONES))
+		return FALSE
 	if(affected.limb_flags & CANNOT_BREAK)
 		return FALSE
 	if(affected.status & ORGAN_BROKEN)

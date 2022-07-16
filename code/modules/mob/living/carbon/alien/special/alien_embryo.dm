@@ -58,7 +58,7 @@
 
 	if(stage == 5 && prob(50))
 		for(var/datum/surgery/S in owner.surgeries)
-			if(S.location == "chest" && S.organ_ref.open >= ORGAN_ORGANIC_OPEN)
+			if(S.location == "chest" && S.organ_to_manipulate.open >= ORGAN_ORGANIC_OPEN)
 				AttemptGrow(0)
 				return
 		AttemptGrow()

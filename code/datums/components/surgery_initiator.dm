@@ -7,6 +7,9 @@
 	/// If true, the initial step will be cancellable by just using the tool again. Should be FALSE for any tool that actually has a first surgery step.
 	var/can_cancel_before_first = FALSE
 
+	/// If true, can be used with a cautery in the off-hand to cancel a surgery.
+	var/can_cancel = TRUE
+
 	/// Tools that, when in an off-hand while a surgery initiator is used, will stop a surgery.
 	var/static/list/cautery_tools = list(
 		TOOL_CAUTERY = 100, \
@@ -60,9 +63,14 @@
 			break
 
 	if(!isnull(current_surgery) && !current_surgery.step_in_progress)
+		if(istype(parent, /obj/item/scalpel/laser/manager/debug))
+			return
 		if((can_cancel_before_first && current_surgery.status == 1) || current_surgery.status > 1)
 			attempt_cancel_surgery(current_surgery, target, user)
 			return
+
+	if(!isnull(current_surgery) && current_surgery.step_in_progress)
+		return
 
 	var/list/available_surgeries = get_available_surgeries(user, target)
 
@@ -121,7 +129,7 @@
 			continue
 		if(!surgery.can_start(user, target))
 			continue
-		for(var/path in surgery.allowed_mob)
+		for(var/path in surgery.target_mobtypes)
 			if(istype(target, path))
 				available_surgeries += surgery
 				break
@@ -258,3 +266,6 @@
 		"<span class='notice'>[user] holds [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for surgery.</span>",
 		"<span class='notice'>You hold [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for \an [procedure.name].</span>",
 	)
+
+/datum/component/surgery_initiator/limb
+	can_cancel = FALSE  // don't let a leg cancel a surgery

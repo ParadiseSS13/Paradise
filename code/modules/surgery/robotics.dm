@@ -92,11 +92,12 @@
 /datum/surgery_step/robotics
 	can_infect = FALSE
 
-/datum/surgery_step/robotics/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(!istype(target))
-		return FALSE
-	if(!hasorgans(target))
-		return FALSE
+/datum/surgery_step/robotics/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	. = ..()
+	if(tool && tool.tool_behaviour)
+		tool.play_tool_sound(user, 30)
+
+/datum/surgery_step/robotics/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected == null)
 		return FALSE
@@ -104,7 +105,7 @@
 
 /datum/surgery_step/robotics/external
 
-/datum/surgery_step/robotics/external/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -120,14 +121,15 @@
 		/obj/item/kitchen/knife = 50
 	)
 
-	time = 16
+	time = 1.6 SECONDS
 
 /datum/surgery_step/robotics/external/unscrew_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(..())
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if(!affected)
-			return FALSE
-		return TRUE
+	if(!..())
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(!affected)
+		return FALSE
+	return TRUE
 
 /datum/surgery_step/robotics/external/unscrew_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -159,11 +161,12 @@
 	time = 2.4 SECONDS
 
 /datum/surgery_step/robotics/external/open_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(..())
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if(!affected)
-			return FALSE
-		return TRUE
+	if(!..())
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(!affected)
+		return FALSE
+	return TRUE
 
 /datum/surgery_step/robotics/external/open_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -245,6 +248,7 @@
 	C.use(3)
 	user.visible_message("[user] begins to splice new cabling into [target]'s [affected.name]." , \
 	"You begin to splice new cabling into [target]'s [affected.name].")
+	..()
 
 
 
@@ -286,6 +290,7 @@
 			return SURGERY_BEGINSTEP_SKIP
 	user.visible_message("[user] begins to patch damage to [target]'s [affected.name]'s support structure with \the [tool]." , \
 	"You begin to patch damage to [target]'s [affected.name]'s support structure with \the [tool].")
+	..()
 
 /datum/surgery_step/robotics/external/repair/brute/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -352,6 +357,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	target.custom_pain("The pain in your [affected.name] is living hell!")
+	..()
 
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -412,7 +418,7 @@
 	"You start reattaching [target]'s [tool].")
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	target.custom_pain("Someone's rooting around in your [affected.name]!")
-	return ..()
+	..()
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/internal/I = tool
@@ -439,13 +445,14 @@
 	var/obj/item/organ/internal/I
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	..()
 	var/list/organs = target.get_organs_zone(target_zone)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected && affected.is_robotic()))
-		return SURGERY_BEGINSTEP_SKIP
+		return SURGERY_BEGINSTEP_ABORT
 	if(!length(organs))
 		to_chat(user, "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
-		return SURGERY_BEGINSTEP_SKIP
+		return SURGERY_BEGINSTEP_ABORT
 	else
 		for(var/obj/item/organ/internal/O in organs)
 			O.on_find(user)
@@ -456,13 +463,13 @@
 		if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 			I = organs[I]
 			if(!I)
-				return SURGERY_BEGINSTEP_SKIP
+				return SURGERY_BEGINSTEP_ABORT
 			user.visible_message("[user] starts to decouple [target]'s [I] with \the [tool].", \
 			"You start to decouple [target]'s [I] with \the [tool]." )
 
 			target.custom_pain("The pain in your [affected.name] is living hell!")
 		else
-			return SURGERY_BEGINSTEP_SKIP
+			return SURGERY_BEGINSTEP_ABORT
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!I || I.owner != target)
@@ -532,6 +539,7 @@
 
 	user.visible_message("[user] starts installing \the [tool] into [target]'s [affected.name].", \
 	"You start installing \the [tool] into [target]'s [affected.name].")
+	..()
 
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

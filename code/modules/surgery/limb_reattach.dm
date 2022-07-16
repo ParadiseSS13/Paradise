@@ -37,6 +37,10 @@
 			return FALSE
 		if(!affected)
 			return TRUE
+		// make sure they can actually have this limb
+		var/list/organ_data = target.dna.species.has_limbs["[user.zone_selected]"]
+		return !isnull(organ_data)
+
 	return FALSE
 
 /datum/surgery/reattach_synth
@@ -55,8 +59,6 @@
 	can_infect = FALSE
 
 /datum/surgery_step/limb/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	if(!hasorgans(target))
-		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected)
 		return FALSE

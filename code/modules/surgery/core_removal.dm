@@ -1,7 +1,7 @@
 /datum/surgery/core_removal
 	name = "core removal"
 	steps = list(/datum/surgery_step/slime/cut_flesh, /datum/surgery_step/slime/extract_core)
-	allowed_mob = list(/mob/living/simple_animal/slime)
+	target_mobtypes = list(/mob/living/simple_animal/slime)
 	possible_locs = list("chest", "head", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
 
 /datum/surgery_step/slime

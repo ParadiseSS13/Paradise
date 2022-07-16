@@ -10,7 +10,8 @@
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ,
 		/datum/surgery_step/extract_implant,
-		/datum/surgery_step/generic/cauterize)
+		/datum/surgery_step/generic/cauterize
+	)
 	possible_locs = list("chest")
 	requires_organic_bodypart = TRUE
 

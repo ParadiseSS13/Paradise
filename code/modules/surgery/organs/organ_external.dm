@@ -132,7 +132,7 @@
 	else
 		application_surgery = /datum/surgery/reattach_synth
 
-	AddComponent(/datum/component/surgery_initiator, forced_surgery = application_surgery)
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = application_surgery)
 
 
 /obj/item/organ/external/proc/add_limb_flags()

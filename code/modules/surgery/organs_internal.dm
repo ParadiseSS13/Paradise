@@ -52,7 +52,7 @@
 /datum/surgery/organ_manipulation/alien
 	name = "Alien Organ Manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
-	allowed_mob = list(/mob/living/carbon/alien/humanoid)
+	target_mobtypes = list(/mob/living/carbon/alien/humanoid)
 	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace,/datum/surgery_step/proxy/manipulate_organs,)
 
 
@@ -62,6 +62,8 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected.encased) //no bone, problem.
 			return FALSE
+		if(HAS_TRAIT(target, TRAIT_NO_BONES))
+			return FALSE
 		return TRUE
 
 /datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
@@ -70,6 +72,8 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(affected && affected.encased) //no bones no problem.
 			return FALSE
+		if(HAS_TRAIT(target, TRAIT_NO_BONES))
+			return TRUE
 		return TRUE
 
 // Intermediate steps for branching organ manipulation.

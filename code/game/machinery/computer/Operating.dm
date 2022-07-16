@@ -123,7 +123,12 @@
 			for(var/datum/surgery/procedure in occupant.surgeries)
 				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
 				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				occupantData["stepName"] = "[capitalize(surgery_step.get_step_information(procedure))]"
+				var/surgery_desc = "[capitalize(surgery_step.get_step_information(procedure))]"
+				if(surgery_step.repeatable)
+					var/datum/surgery_step/next = procedure.get_surgery_next_step()
+					if(next)
+						surgery_desc += " or [capitalize(next.get_step_information(procedure))]"
+				occupantData["stepName"] = surgery_desc
 
 	data["occupant"] = occupantData
 	data["verbose"] = verbose
