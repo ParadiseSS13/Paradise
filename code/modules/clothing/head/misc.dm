@@ -181,6 +181,10 @@
 	icon_state = "bandana"
 	item_state = "bandana"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 //stylish bs12 hats
 
 /obj/item/clothing/head/bowlerhat
@@ -195,6 +199,10 @@
 	icon_state = "beaver_hat"
 	item_state = "beaver_hat"
 	desc = "Like a top hat, but made of beavers."
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/boaterhat
 	name = "boater hat"
@@ -298,6 +306,10 @@
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
 	flags = BLOCKHAIR
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/xenos
 	name = "xeno helmet"

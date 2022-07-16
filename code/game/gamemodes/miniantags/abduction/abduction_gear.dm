@@ -669,6 +669,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 // Operating Table / Beds / Lockers
 
 /obj/structure/bed/abductor
