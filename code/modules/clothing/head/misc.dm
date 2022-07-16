@@ -391,10 +391,6 @@
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
 /obj/item/clothing/head/beret/centcom/captain
 	name = "captain's beret"
 	desc = "A white beret adorned with the shield—a cobalt kite shield with an engraved sword—of the Nanotrasen security forces, worn only by those captaining a vessel of the Nanotrasen Navy."
