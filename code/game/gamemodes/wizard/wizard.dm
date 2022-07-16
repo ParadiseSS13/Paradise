@@ -202,7 +202,7 @@
 
 		for(var/datum/mind/wizard in wizards)
 
-			text += "<br><b>[wizard.key]</b> was <b>[wizard.name]</b> ("
+			text += "<br><b>[wizard.get_display_key()]</b> was <b>[wizard.name]</b> ("
 			if(wizard.current)
 				if(wizard.current.stat == DEAD)
 					text += "died"
