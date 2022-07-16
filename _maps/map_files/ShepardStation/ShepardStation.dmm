@@ -7130,7 +7130,6 @@
 /obj/structure/table/wood,
 /obj/item/ashtray/bronze,
 /obj/item/clothing/mask/cigarette/random,
-/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel/grimy,
 /area/maintenance/starboard)
 "bxL" = (
@@ -11415,7 +11414,6 @@
 /area/maintenance/storage)
 "cny" = (
 /obj/structure/table/wood/poker,
-/obj/effect/landmark/spawner/blob,
 /obj/item/clothing/head/fedora/brownfedora,
 /turf/simulated/floor/carpet/green,
 /area/maintenance/starboard)
@@ -17279,7 +17277,6 @@
 	},
 /area/security/permabrig)
 "dza" = (
-/obj/effect/landmark/spawner/blob,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -18582,7 +18579,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "dNg" = (
@@ -20448,9 +20444,12 @@
 	},
 /area/toxins/mixing)
 "eie" = (
-/obj/effect/landmark/spawner/blob,
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
+/obj/effect/landmark/spawner/nukedisc_respawn,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "long"
+	},
+/area/maintenance/fsmaint)
 "eig" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -31143,8 +31142,11 @@
 	},
 /area/hallway/primary/central/nw)
 "gsu" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/landmark/spawner/blob,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "gsB" = (
@@ -33948,10 +33950,9 @@
 	},
 /area/medical/research)
 "gTh" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
-/obj/effect/landmark/spawner/blob,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint2)
+/obj/effect/landmark/spawner/nukedisc_respawn,
+/turf/simulated/floor/wood,
+/area/maintenance/abandonedbar)
 "gTi" = (
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
@@ -36693,7 +36694,6 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "hul" = (
@@ -44190,7 +44190,6 @@
 	},
 /area/chapel/main)
 "iZn" = (
-/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -49781,14 +49780,7 @@
 	},
 /area/hallway/secondary/exit)
 "kem" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/spawner/blob,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ker" = (
@@ -51400,7 +51392,6 @@
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "kvL" = (
-/obj/effect/landmark/spawner/blob,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -52023,6 +52014,7 @@
 	name = "Sorting Office";
 	sortType = 2
 	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "kBM" = (
@@ -53416,7 +53408,6 @@
 /turf/simulated/floor/engine,
 /area/toxins/storage)
 "kQX" = (
-/obj/effect/landmark/spawner/blob,
 /obj/item/target,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -54319,6 +54310,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -55246,9 +55238,9 @@
 	},
 /area/security/lobby)
 "llp" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint)
+/area/maintenance/fpmaint2)
 "llr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -65192,7 +65184,6 @@
 /area/assembly/showroom)
 "nlQ" = (
 /obj/structure/chair/comfy/brown,
-/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel/dark,
 /area/library)
 "nlV" = (
@@ -66548,6 +66539,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "nBb" = (
@@ -73237,7 +73229,6 @@
 	icon_state = "rune5";
 	initialized = 1
 	},
-/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/apmaint2)
 "oUD" = (
@@ -74077,6 +74068,10 @@
 	icon_state = "stairs-r"
 	},
 /area/crew_quarters/fitness)
+"ped" = (
+/obj/effect/landmark/spawner/nukedisc_respawn,
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "peu" = (
 /obj/machinery/camera{
 	c_tag = "Aft Starboard Solar Access";
@@ -75550,7 +75545,7 @@
 	},
 /area/security/securearmoury)
 "puq" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "puI" = (
@@ -77044,6 +77039,7 @@
 /obj/item/cigbutt{
 	pixel_x = -13
 	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/carpet/green,
 /area/maintenance/starboard)
 "pLD" = (
@@ -79251,7 +79247,6 @@
 "qjk" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/item/reagent_containers/food/snacks/meat/slab,
-/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -79796,6 +79791,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "qqD" = (
@@ -91672,7 +91668,6 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/effect/landmark/spawner/blob,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -94276,7 +94271,7 @@
 /area/medical/morgue)
 "tqM" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -97135,6 +97130,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"tXq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/nukedisc_respawn,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "tXv" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
@@ -111050,6 +111050,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "wPP" = (
@@ -113355,6 +113356,7 @@
 	},
 /area/chapel/main)
 "xrg" = (
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -116332,10 +116334,17 @@
 	name = "Entertainment Hall"
 	})
 "xXZ" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
-/obj/effect/landmark/spawner/blob,
-/turf/simulated/wall,
-/area/maintenance/fsmaint2)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint2)
 "xYa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -128973,7 +128982,7 @@ pvf
 ftC
 beu
 oDu
-gXf
+xXZ
 jZn
 rDp
 fJt
@@ -130343,7 +130352,7 @@ ydF
 ttC
 ttC
 vUn
-wtt
+kem
 ttC
 ttC
 lXY
@@ -130626,7 +130635,7 @@ vNH
 vNH
 vNH
 uBt
-uuq
+gTh
 uuq
 uiT
 tIH
@@ -130865,7 +130874,7 @@ ctt
 cQJ
 cQJ
 cQJ
-kem
+cQJ
 cQJ
 ctt
 bxs
@@ -134117,7 +134126,7 @@ eFS
 maC
 oIX
 waB
-waB
+llp
 waB
 qRy
 sXc
@@ -139625,7 +139634,7 @@ nOf
 kbi
 maA
 oPT
-gTh
+bdl
 jjZ
 lqB
 wqP
@@ -159120,7 +159129,7 @@ duo
 duo
 rQQ
 uaH
-uaH
+ped
 uaH
 aIv
 xVS
@@ -161946,7 +161955,7 @@ duo
 duo
 xVS
 uaH
-eie
+uaH
 xVS
 uaH
 uaH
@@ -165182,7 +165191,7 @@ apc
 gEh
 nbh
 hhJ
-qsV
+tXq
 kah
 lBS
 cDz
@@ -167762,7 +167771,7 @@ elq
 fZD
 moo
 pEr
-xXZ
+nsX
 eVh
 nbh
 fcW
@@ -169357,7 +169366,7 @@ hnm
 gQt
 gQt
 fQZ
-gsu
+gQt
 gQt
 qna
 bTJ
@@ -170112,7 +170121,7 @@ iWj
 iWj
 tNI
 tHR
-tHR
+eie
 tHR
 wfc
 sYX
@@ -170148,7 +170157,7 @@ flV
 oaz
 qgz
 gQt
-bTJ
+gsu
 mfj
 mfj
 mfj
@@ -172231,7 +172240,7 @@ umA
 osv
 dRy
 umA
-llp
+umA
 umA
 sCZ
 umA
