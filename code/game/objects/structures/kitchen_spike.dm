@@ -42,7 +42,6 @@
 	buckle_lying = FALSE
 	can_buckle = TRUE
 	max_integrity = 250
-	buckle_offset = 0
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/kitchenspike/attack_hand(mob/user)
