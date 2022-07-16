@@ -11,7 +11,7 @@
 	maxHealth = 150
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	obj_damage = 60
-	environment_smash = ENVIRONMENT_SMASH_WALLS //Walls can't stop THE LAW //someone fix this please this is funny
+	environment_smash = ENVIRONMENT_SMASH_WALLS //Walls can't stop THE LAW
 	mob_size = MOB_SIZE_LARGE
 
 	radio_channel = "Security"
@@ -580,16 +580,13 @@
 	C.adjustStaminaLoss(60)
 	baton_delayed = TRUE
 	addtimer(CALLBACK(C, .proc/KnockDown, 10 SECONDS), 2.5 SECONDS)
-	addtimer(CALLBACK(src, .proc/reset_baton_cooldown), BATON_COOLDOWN)
+	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "batoned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 	C.visible_message("<span class='danger'>[src] has stunned [C]!</span>",\
 							"<span class='userdanger'>[src] has stunned you!</span>")
-
-/mob/living/simple_animal/bot/ed209/proc/reset_baton_cooldown()
-	baton_delayed = FALSE
 
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST

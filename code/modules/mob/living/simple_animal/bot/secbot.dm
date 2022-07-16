@@ -273,7 +273,7 @@
 	C.adjustStaminaLoss(60)
 	baton_delayed = TRUE
 	addtimer(CALLBACK(C, .proc/KnockDown, 10 SECONDS), 2.5 SECONDS)
-	addtimer(CALLBACK(src, .proc/reset_baton_cooldown), BATON_COOLDOWN)
+	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "batoned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
@@ -437,8 +437,6 @@
 		return 1
 	return 0
 
-/mob/living/simple_animal/bot/secbot/proc/reset_baton_cooldown()
-	baton_delayed = FALSE
 
 /mob/living/simple_animal/bot/secbot/explode()
 	walk_to(src,0)
