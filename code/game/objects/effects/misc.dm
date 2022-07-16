@@ -147,9 +147,9 @@
 /obj/effect/frosty_breath/Initialize(mapload, mob/living/carbon/C)
 	. = ..()
 	dir = C.dir
-	if(C.buckled) //dont need to offset when they are upsidedown+buckled (on meat spike)
-		pixel_y = (C.buckled.buckle_offset + 16)
+	if(C.buckled)
+		pixel_y = (C.buckled.buckle_offset + 10)
 	if(dir == NORTH)
 		layer = BELOW_MOB_LAYER
-	flick("breath_[istype(C.buckled, /obj/structure/kitchenspike) ? "180" : "[C.lying_prev]" ]", src) //you can thank the kitchenspike code not using lying_angle for this jank
+	flick("breath_[C.lying_prev]", src)
 	QDEL_IN(src, 2 SECONDS)
