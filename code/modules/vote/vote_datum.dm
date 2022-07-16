@@ -1,4 +1,3 @@
-#define VOTE_DURATION
 #define VOTE_RESULT_TYPE_MAJORITY "Majority"
 
 /datum/vote
@@ -191,6 +190,3 @@
 			else
 				message_admins("<span class='boldannounce'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
 
-
-#undef VOTE_DURATION
-#undef VOTE_RESULT_TYPE_MAJORITY
