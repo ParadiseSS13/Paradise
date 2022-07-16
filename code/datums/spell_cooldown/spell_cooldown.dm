@@ -20,10 +20,17 @@
 /datum/spell_cooldown/proc/is_on_cooldown()
 	return recharge_time > world.time
 
+/datum/spell_cooldown/proc/should_end_cooldown()
+	return !is_on_cooldown()
+
+/datum/spell_cooldown/proc/end_recharge()
+	return
+
 /datum/spell_cooldown/process()
 	if(spell_parent.action)
 		spell_parent.action.UpdateButtonIcon()
-	if(!is_on_cooldown())
+	if(should_end_cooldown())
+		end_recharge()
 		return PROCESS_KILL
 
 
@@ -34,7 +41,7 @@
  * then divides it by the total time.
 */
 /datum/spell_cooldown/proc/get_availability_percentage()
-	if(!is_on_cooldown()) // if off cooldown, we
+	if(!is_on_cooldown()) // if off cooldown, we don't bother with the maths
 		return 1
 	return (recharge_duration - (recharge_time - world.time)) / recharge_duration
 
