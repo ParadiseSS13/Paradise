@@ -54,7 +54,8 @@
 		var/finishmessage = pick("You feel stronger!","You feel like you can take on the world!","You feel robust!","You feel indestructible!")
 		icon_state = initial(icon_state)
 		to_chat(user, finishmessage)
-		user.apply_status_effect(STATUS_EFFECT_EXERCISED)
+		if (prob(100))
+			user.apply_status_effect(STATUS_EFFECT_EXERCISED)
 
 /obj/structure/weightmachine/stacklifter
 	icon = 'icons/goonstation/objects/fitness.dmi'
