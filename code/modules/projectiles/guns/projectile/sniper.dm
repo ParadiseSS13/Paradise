@@ -41,24 +41,6 @@
 	else
 		icon_state = "sniper"
 
-/obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
-	name = "compact sniper rifle"
-	desc = "A compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
-	icon_state = "snipercompact"
-	recoil = 0
-	weapon_weight = WEAPON_LIGHT
-	fire_delay = 0
-	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
-	can_unsuppress = FALSE
-	can_suppress = FALSE
-	zoomable = FALSE
-
-/obj/item/gun/projectile/automatic/sniper_rifle/compact/update_icon()
-	if(magazine)
-		icon_state = "snipercompact-mag"
-	else
-		icon_state = "snipercompact"
-
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
 	name = "sniper rounds (.50)"
@@ -187,22 +169,6 @@
 	forcedodge = 1
 	dismemberment = 0
 	weaken = 0
-
-//compact ammo
-/obj/item/ammo_box/magazine/sniper_rounds/compact
-	name = "sniper rounds (compact)"
-	desc = "An extremely powerful round capable of inflicting massive damage on a target."
-	ammo_type = /obj/item/ammo_casing/compact
-	max_ammo = 4
-
-/obj/item/ammo_casing/compact
-	desc = "A .50 caliber compact round casing."
-	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper //Same as the base sniper bullet, but can't be reloaded with any fancy sniper ammo in the mag, which only holds 4
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	icon_state = ".50"
-
 
 //toy magazine
 /obj/item/ammo_box/magazine/toy/sniper_rounds
