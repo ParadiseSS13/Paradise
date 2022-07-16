@@ -30,10 +30,6 @@
 /obj/item/clothing/head/beret/blue
 	icon_state = "beret_blue"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
 /obj/item/clothing/head/beret/black
 	icon_state = "beret_black"
 
