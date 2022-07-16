@@ -587,7 +587,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 
 	var/hurt = TRUE
-	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
+	// speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14. Clamped to 60 damage for not instacritting IPCs.
+	var/damage = clamp(10 + 1.5 * speed, 0, 60)
 	/*if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
 		if(isrobot(D.thrower))
