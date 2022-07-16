@@ -10,12 +10,11 @@
 	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
 
 /obj/structure/punching_bag/attack_hand(mob/user as mob)
-	. = ..()
-	if(world.time < cooldown)
- 	to_chat(user, "The bag is still swinging!")
+	if(cooldown >= world.time)
+		to_chat(user, "<span class='warning'>The bag is still swinging!</span>")
 		return
-		cooldown = world.time + 1 SECONDS
-		to_chat(user, "You punch the bag!")
+	cooldown = world.time + 1 SECONDS
+	. = ..()
 	if(.)
 		return
 	flick("[icon_state]2", src)
