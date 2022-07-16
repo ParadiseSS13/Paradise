@@ -133,7 +133,7 @@ SUBSYSTEM_DEF(ticker)
 			declare_completion()
 			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
 			if(GLOB.configuration.vote.enable_map_voting)
-				SSvote.initiate_vote("map", "the server", TRUE) // Start a map vote. Timing is a little tight here but we should be good.
+				new /datum/vote/map
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
