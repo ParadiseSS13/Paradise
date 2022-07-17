@@ -924,8 +924,7 @@
 	name = "Box of Miniatures"
 	desc = "The nerd's best friends."
 	icon_state = "box"
-/obj/item/storage/box/characters/New()
-	..()
+/obj/item/storage/box/characters/populate_contents()
 	new /obj/item/toy/character/alien(src)
 	new /obj/item/toy/character/cleric(src)
 	new /obj/item/toy/character/warrior(src)

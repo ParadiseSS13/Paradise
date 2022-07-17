@@ -17,7 +17,9 @@
 	if(use_item_overlays)
 		cut_overlays()
 		for(var/obj/item/I in contents)
-			add_overlay("[I.belt_icon]")
+			var/image/belt_image = image(icon, I.belt_icon)
+			belt_image.color = I.color
+			add_overlay(belt_image)
 	..()
 
 /obj/item/storage/belt/proc/can_use()

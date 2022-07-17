@@ -10680,7 +10680,7 @@
 	},
 /area/security/interrogation)
 "aAa" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aAb" = (
@@ -16556,7 +16556,8 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
 "aOi" = (
-/obj/item/clothing/head/naziofficer,
+/obj/item/clothing/suit/officercoat,
+/obj/item/clothing/head/armyofficer,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aOj" = (
@@ -17668,7 +17669,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "aQU" = (
@@ -17800,7 +17801,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aRi" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aRj" = (
@@ -19093,7 +19094,7 @@
 "aUe" = (
 /obj/structure/closet,
 /obj/item/reagent_containers/food/drinks/cans/badminbrew,
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -24018,7 +24019,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "beN" = (
@@ -25224,12 +25225,14 @@
 /area/clownoffice)
 "bhj" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/soldieruniform,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/item/clothing/suit/soldiercoat,
+/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/head/stalhelm,
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "bhk" = (
@@ -27826,7 +27829,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -34583,7 +34586,7 @@
 "bCp" = (
 /obj/item/clothing/suit/ianshirt,
 /obj/structure/closet,
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bCq" = (
@@ -36183,7 +36186,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bGc" = (
@@ -40343,7 +40346,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "bOp" = (
@@ -49987,7 +49990,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server_coldroom)
 "cgU" = (
@@ -52199,7 +52202,7 @@
 	},
 /area/medical/research)
 "clo" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
 "clp" = (
@@ -55059,7 +55062,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cqX" = (
@@ -59420,7 +59423,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "czx" = (
@@ -65253,7 +65256,7 @@
 /turf/space,
 /area/solar/port)
 "cMC" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
@@ -72570,7 +72573,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dev" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel,
@@ -73411,7 +73414,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dgy" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dgA" = (
@@ -80570,7 +80573,7 @@
 	},
 /area/engine/break_room)
 "pUZ" = (
-/obj/effect/landmark/spawner/blob,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81442,7 +81445,7 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "ufw" = (
-/obj/structure/closet/wardrobe/orange,
+/obj/structure/closet/wardrobe/orange/prison,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"

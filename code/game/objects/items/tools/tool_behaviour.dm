@@ -43,7 +43,7 @@
 	return tool_use_check(user, amount)
 
 // A check called by tool_start_check once, and by use_tool on every tick of delay.
-/obj/item/proc/tool_use_check(mob/living/user, amount)
+/obj/item/proc/tool_use_check(mob/living/user, amount, silent = FALSE)
 	return !amount
 
 /obj/item/proc/play_tool_sound(atom/target, volume = tool_volume)
