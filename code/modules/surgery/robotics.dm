@@ -39,7 +39,7 @@
 	steps = list(/datum/surgery_step/robotics/external/amputate)
 	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
-/datum/surgery/cybernetic_amputation/can_start(mob/user, mob/living/carbon/human/target)
+/datum/surgery/robotics/cybernetic_amputation/can_start(mob/user, mob/living/carbon/human/target)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -53,7 +53,7 @@
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch, /datum/surgery_step/robotics/external/open_hatch, /datum/surgery_step/robotics/external/customize_appearance)
 	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
 
-/datum/surgery/roboticscybernetic_customization/can_start(mob/user, mob/living/carbon/human/target)
+/datum/surgery/robotics/cybernetic_customization/can_start(mob/user, mob/living/carbon/human/target)
 	. = ..()
 	if(!.)
 		return FALSE
