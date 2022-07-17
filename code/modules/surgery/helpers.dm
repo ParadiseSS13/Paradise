@@ -36,9 +36,8 @@
 		return 0.7
 	return 0.5
 
-//check if mob is lying down on something we can operate him on.
-// TODO this isn't referenced anymore, are we still able to perform surgery like this?
-/proc/can_operate(mob/living/carbon/target)
+//check if mob is lying down on something we can operate on.
+/proc/on_operable_surface(mob/living/carbon/target)
 	if(locate(/obj/machinery/optable, target.loc) && IS_HORIZONTAL(target))
 		return TRUE
 	if(locate(/obj/structure/bed, target.loc) && (IS_HORIZONTAL(target) || target.IsWeakened() || target.IsStunned() || target.IsParalyzed() || target.IsSleeping() || target.stat))
