@@ -59,8 +59,8 @@
 		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
 		"[class]You hold [P] up to [src], burning it slowly.</span>")
 
-		spawn(20)
-			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
+		if(do_after(user, 50, target = src))
+			if(user.get_active_hand() == P && P.lit)
 				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 				if(user.is_in_inactive_hand(src))
