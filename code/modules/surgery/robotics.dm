@@ -43,7 +43,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(affected.limb_flags & CANNOT_DISMEMBER)
 		return FALSE
 	return TRUE
