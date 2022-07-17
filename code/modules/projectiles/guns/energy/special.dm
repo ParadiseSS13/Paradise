@@ -122,7 +122,7 @@
 			then click where you want to fire."
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine_antag()
-	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a stun effect, in \
+	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a knockdown effect, in \
 			addition to toxins. The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large

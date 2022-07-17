@@ -5,12 +5,12 @@
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
 	origin_tech = "magnets=1;engineering=1"
 
-	secured = 0
+	secured = FALSE
 
 	bomb_name = "proximity mine"
 
-	var/scanning = 0
-	var/timing = 0
+	var/scanning = FALSE
+	var/timing = FALSE
 	var/time = 10
 
 /obj/item/assembly/prox_sensor/ComponentInitialize()
@@ -34,8 +34,8 @@
 	if(secured)
 		START_PROCESSING(SSobj, src)
 	else
-		scanning = 0
-		timing = 0
+		scanning = FALSE
+		timing = FALSE
 		STOP_PROCESSING(SSobj, src)
 	update_icon()
 	return secured
@@ -60,7 +60,7 @@
 	if(timing && (time >= 0))
 		time--
 	if(timing && time <= 0)
-		timing = 0
+		timing = FALSE
 		toggle_scan()
 		time = 10
 

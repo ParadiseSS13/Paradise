@@ -39,18 +39,23 @@
 	desc = "Golden? Clearly, its made with bananium! Honk!"
 	icon_state = "gold_horn"
 	item_state = "gold_horn"
+	var/cooldown = 0
 
-/obj/item/bikehorn/golden/attack()
-	flip_mobs()
+/obj/item/bikehorn/golden/attack(mob/M, mob/user)
+	flip_mobs(user)
 	return ..()
 
 /obj/item/bikehorn/golden/attack_self(mob/user)
-	flip_mobs()
+	flip_mobs(user)
 	..()
 
-/obj/item/bikehorn/golden/proc/flip_mobs(mob/living/carbon/M, mob/user)
+/obj/item/bikehorn/golden/proc/flip_mobs(mob/user)
+	if(cooldown >= world.time)
+		to_chat(user, "<span class='warning'>You can't make others flip yet!</span>")
+		return
+	cooldown = world.time + 30 SECONDS
 	var/turf/T = get_turf(src)
-	for(M in ohearers(7, T))
+	for(var/mob/living/carbon/M in ohearers(7, T))
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
 			if(!H.can_hear())

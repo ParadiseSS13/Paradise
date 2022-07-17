@@ -1952,8 +1952,8 @@
 					theghost = pick(candidates)
 					P.key = theghost.key
 					P.master_commander = H
-					P.universal_speak = 1
-					P.universal_understand = 1
+					P.universal_speak = TRUE
+					P.universal_understand = TRUE
 					P.can_collar = 1
 					P.faction = list("neutral")
 					var/obj/item/clothing/accessory/petcollar/C = new

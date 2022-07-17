@@ -998,17 +998,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_handcuffed()
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
-		if(istype(handcuffed, /obj/item/restraints/handcuffs/pinkcuffs))
-			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "pinkcuff1", layer = -HANDCUFF_LAYER)
-		else
-			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", layer = -HANDCUFF_LAYER)
+		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', handcuffed.cuffed_state, layer = -HANDCUFF_LAYER, color = handcuffed.color)
 	apply_overlay(HANDCUFF_LAYER)
 
 /mob/living/carbon/human/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
 	clear_alert("legcuffed")
 	if(legcuffed)
-		overlays_standing[LEGCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "legcuff1", layer = -LEGCUFF_LAYER)
+		overlays_standing[LEGCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "legcuff", layer = -LEGCUFF_LAYER)
 		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
 		if(m_intent != MOVE_INTENT_WALK)
 			m_intent = MOVE_INTENT_WALK
@@ -1028,9 +1025,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/standing
 		if(r_hand.sprite_sheets_inhand && r_hand.sprite_sheets_inhand[dna.species.name])
 			t_state = "[t_state]_r"
-			standing = mutable_appearance(r_hand.sprite_sheets_inhand[dna.species.name], "[t_state]", layer = -R_HAND_LAYER)
+			standing = mutable_appearance(r_hand.sprite_sheets_inhand[dna.species.name], "[t_state]", layer = -R_HAND_LAYER, color = r_hand.color)
 		else
-			standing = mutable_appearance(r_hand.righthand_file, "[t_state]", layer = -R_HAND_LAYER)
+			standing = mutable_appearance(r_hand.righthand_file, "[t_state]", layer = -R_HAND_LAYER, color = r_hand.color)
 			standing = center_image(standing, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
 		overlays_standing[R_HAND_LAYER] = standing
 	apply_overlay(R_HAND_LAYER)
@@ -1047,9 +1044,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/standing
 		if(l_hand.sprite_sheets_inhand && l_hand.sprite_sheets_inhand[dna.species.name])
 			t_state = "[t_state]_l"
-			standing = mutable_appearance(l_hand.sprite_sheets_inhand[dna.species.name], "[t_state]", layer = -L_HAND_LAYER)
+			standing = mutable_appearance(l_hand.sprite_sheets_inhand[dna.species.name], "[t_state]", layer = -L_HAND_LAYER, color = l_hand.color)
 		else
-			standing = mutable_appearance(l_hand.lefthand_file, "[t_state]", layer = -L_HAND_LAYER)
+			standing = mutable_appearance(l_hand.lefthand_file, "[t_state]", layer = -L_HAND_LAYER, color = l_hand.color)
 			standing = center_image(standing, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
 		overlays_standing[L_HAND_LAYER] = standing
 	apply_overlay(L_HAND_LAYER)

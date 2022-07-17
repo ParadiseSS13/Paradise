@@ -7,8 +7,8 @@
 	distribute_pressure = ONE_ATMOSPHERE * O2STANDARD
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 	var/gas_type = "oxygen"
-	var/on = 0
-	var/stabilizers = 0
+	var/on = FALSE
+	var/stabilizers = FALSE
 	var/volume_rate = 500              //Needed for borg jetpack transfer
 
 /obj/item/tank/jetpack/populate_gas()

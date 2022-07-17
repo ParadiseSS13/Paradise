@@ -1,3 +1,5 @@
+#define BATON_COOLDOWN 3.5 SECONDS
+
 /mob/living/simple_animal/bot/ed209
 	name = "\improper ED-209 Security Robot"
 	desc = "A security robot.  He looks less than thrilled."
@@ -5,11 +7,11 @@
 	icon_state = "ed2090"
 	density = 1
 	anchored = 0
-	health = 100
-	maxHealth = 100
+	health = 150
+	maxHealth = 150
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	obj_damage = 60
-	environment_smash = 2 //Walls can't stop THE LAW
+	environment_smash = ENVIRONMENT_SMASH_WALLS //Walls can't stop THE LAW
 	mob_size = MOB_SIZE_LARGE
 
 	radio_channel = "Security"
@@ -42,6 +44,7 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/projectile = /obj/item/projectile/beam/disabler //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/taser.ogg'
+	var/baton_delayed = FALSE
 
 
 /mob/living/simple_animal/bot/ed209/New(loc, created_name, created_lasercolor)
@@ -260,7 +263,7 @@
 				back_to_idle()
 
 			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc)) // if right next to perp
+				if(Adjacent(target) && isturf(target.loc) && !baton_delayed) // if right next to perp
 					stun_attack(target)
 					if(!lasercolor)
 						mode = BOT_PREP_ARREST
@@ -286,7 +289,7 @@
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if(!Adjacent(target) || !isturf(target.loc) || target.AmountWeakened() < 4 SECONDS)
+			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
 				back_to_hunt()
 				return
 
@@ -313,7 +316,7 @@
 				back_to_idle()
 				return
 
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.AmountWeakened() < 4 SECONDS)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
+			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
 			else
@@ -547,7 +550,7 @@
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(!C.IsStunned() || arrest_type)
+		if(!C.IsStunned() || arrest_type && !baton_delayed)
 			stun_attack(A)
 		else if(C.canBeHandcuffed() && !C.handcuffed)
 			cuff(A)
@@ -574,8 +577,11 @@
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = C.assess_threat(src)
 	C.SetStuttering(10 SECONDS)
-	C.Weaken(10 SECONDS)
-	add_attack_logs(src, C, "stunned")
+	C.adjustStaminaLoss(60)
+	baton_delayed = TRUE
+	addtimer(CALLBACK(C, .proc/KnockDown, 10 SECONDS), 2.5 SECONDS)
+	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
+	add_attack_logs(src, C, "batoned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
@@ -595,3 +601,5 @@
 			C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
 			C.update_handcuffed()
 			back_to_idle()
+
+#undef BATON_COOLDOWN
