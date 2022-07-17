@@ -6,7 +6,7 @@ export const VotePanel = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     remaining,
-    vote_type,
+    question,
     choices,
     user_vote,
     counts,
@@ -14,14 +14,17 @@ export const VotePanel = (props, context) => {
    } = data;
   return (
     <Window>
-      <Window.Content>
-        <Section title={vote_type}>
+      <Window.Content scrollable>
+        <Section title={question}>
           <Box mb={1}>
-            Time remaining: {remaining / 10}s
+            Time remaining: {Math.round(remaining / 10)}s
           </Box>
-          {choices.map(c => (
-            <Box key={c}>
-              <Button content={(show_counts === 1 ? (c + " (" + (counts[c] || 0) + ")") : c)} onClick={() => act("vote", { "target": c })} selected={c === user_vote} />
+          {choices.map(choice => (
+            <Box key={choice}>
+              <Button
+                content={choice + (show_counts ? " (" + (counts[choice] || 0) + ")" : "")}
+                onClick={() => act("vote", { "target": choice })}
+                selected={choice === user_vote} />
             </Box>
           ))}
         </Section>

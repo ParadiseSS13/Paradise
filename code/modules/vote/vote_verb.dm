@@ -15,6 +15,10 @@
 	if(!check_rights(R_ADMIN))
 		return
 
+	if(SSvote.active_vote)
+		to_chat(usr, "A vote is already in progress")
+		return
+
 	// Ask admins which type of vote they want to start
 	var/vote_types = subtypesof(/datum/vote)
 	vote_types |= "\[CUSTOM]"
@@ -32,7 +36,7 @@
 	if(choice != "\[CUSTOM]")
 		// Not custom, figure it out
 		var/datum/vote/votetype = votemap["[choice]"]
-		new votetype(usr.ckey)
+		SSvote.start_vote(new votetype(usr.ckey))
 		return
 
 	// Its custom, lets ask
@@ -53,4 +57,5 @@
 	var/datum/vote/V = new /datum/vote(usr.ckey, question, choices, TRUE)
 	V.show_counts = (c2 == "Yes")
 	V.vote_result_type = c3
+	SSvote.start_vote(V)
 

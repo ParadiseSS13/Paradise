@@ -116,7 +116,7 @@ SUBSYSTEM_DEF(ticker)
 			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
-				SSvote.autotransfer()
+				SSvote.start_vote(new /datum/vote/crew_transfer)
 				next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_interval_time
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -133,7 +133,7 @@ SUBSYSTEM_DEF(ticker)
 			declare_completion()
 			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
 			if(GLOB.configuration.vote.enable_map_voting)
-				new /datum/vote/map
+				SSvote.start_vote(new /datum/vote/map)
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)

@@ -12,8 +12,10 @@ SUBSYSTEM_DEF(vote)
 	if(active_vote)
 		active_vote.tick()
 
-/datum/controller/subsystem/vote/proc/autotransfer()
-	new /datum/vote/crew_transfer
+/datum/controller/subsystem/vote/proc/start_vote(datum/vote/V)
+	// This will be fun if DM ever gets concurrency
+	active_vote = V
+	active_vote.start()
 
 /datum/controller/subsystem/vote/Topic(href, list/href_list)
 	if(href_list["vote"] == "open")

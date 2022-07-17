@@ -10,12 +10,8 @@
 	..()
 
 /datum/vote/crew_transfer/handle_result(result)
-	if(!(result in choices))
-		CRASH("Result for a crew transfer vote wasnt a valid result. What the heck?")
-
-	switch(result)
-		if("Initiate Crew Transfer")
-			init_shift_change(null, TRUE)
+	if(result == "Initiate Crew Transfer")
+		init_shift_change(null, TRUE)
 
 // Map vote
 /datum/vote/map

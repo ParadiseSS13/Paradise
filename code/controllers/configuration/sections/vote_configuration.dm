@@ -1,11 +1,11 @@
 /// Config holder for stuff relating to the ingame vote system
 /datum/configuration_section/vote_configuration
 	/// How long will a vote last for (deciseconds)
-	var/vote_time = 600 // 60 seconds
+	var/vote_time = 60 SECONDS // 60 seconds
 	/// Time before the first shuttle vote (deciseconds)
-	var/autotransfer_initial_time = 72000 // 2 hours
+	var/autotransfer_initial_time = 2 HOURS // 2 hours
 	/// Time between subsequent shuttle votes if the first one is not successful (deciseconds)
-	var/autotransfer_interval_time = 18000 // 30 mins
+	var/autotransfer_interval_time = 30 MINUTES // 30 mins
 	/// Prevent dead players from voting
 	var/prevent_dead_voting = FALSE
 	/// Default to players not voting

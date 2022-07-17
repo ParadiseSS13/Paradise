@@ -4,9 +4,9 @@
 	/// Person who started the vote
 	var/initiator = "the server"
 	/// world.time the vote started at
-	var/started_time = null
+	var/started_time
 	/// The question being asked
-	var/question = null
+	var/question
 	/// Vote type text, for showing in UIs and stuff
 	var/vote_type_text = "unset"
 	/// Do we want to show the vote counts as it goes
@@ -38,6 +38,7 @@
 	if(!length(choices))
 		generate_choices()
 
+/datum/vote/proc/start()
 	var/text = "[capitalize(vote_type_text)] vote started by [initiator]."
 	if(is_custom)
 		vote_type_text = "custom"
@@ -50,7 +51,6 @@
 
 	log_vote(text)
 	started_time = world.time
-	SSvote.active_vote = src
 	announce(text)
 
 /datum/vote/proc/remaining()
@@ -61,6 +61,10 @@
 /datum/vote/proc/calculate_result()
 	switch(vote_result_type)
 		if(VOTE_RESULT_TYPE_MAJORITY)
+			if(!length(voted))
+				to_chat(world, "<span class='interface'>No votes were cast. Do you all hate democracy?!</span>") // shame them
+				return null
+
 			var/list/results = list()
 
 			// Count up all votes
@@ -73,18 +77,13 @@
 			// Get the biggest vote count, since we can also use this to pick tiebreaks
 			var/maxvotes = 0
 			for(var/res in results)
-				if(results[res] > maxvotes)
-					maxvotes = results[res]
+				maxvotes = max(results[res], maxvotes)
 
 			var/list/winning_options = list()
 
 			for(var/res in results)
 				if(results[res] == maxvotes)
 					winning_options |= res
-
-			if(!length(winning_options))
-				to_chat(world, "<span class='interface'>No votes were cast. Do you all hate democracy?!</span>") // shame them
-				return null
 
 			// Print all results
 			for(var/res in results)
@@ -106,8 +105,14 @@
 
 			// If we got here there must only be one thing in the list
 			var/res = winning_options[1]
-			to_chat(world, "<span class='interface'><b><code>[res]</code> won the vote.</b></span>") // shame them
-			return res
+
+			if(res in choices)
+				to_chat(world, "<span class='interface'><b><code>[res]</code> won the vote.</b></span>")
+				return res
+
+			to_chat(world, "<span class='interface'>The winner of the vote ([sanitize(res)]) isnt a valid choice? What the heck?</span>")
+			return null
+
 
 
 /datum/vote/proc/announce(start_text)
@@ -156,10 +161,11 @@
 	if(user.ckey in voted)
 		data["user_vote"] = voted[user.ckey]
 
-	data["vote_type"] = question
+	data["question"] = question
 	data["choices"] = choices
 
-	if(show_counts)
+	// Admins see counts anyway
+	if(show_counts || check_rights(R_ADMIN, FALSE, user))
 		data["show_counts"] = TRUE
 
 		// Show counts
