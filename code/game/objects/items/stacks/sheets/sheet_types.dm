@@ -519,6 +519,14 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2), \
 	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty), \
 	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3), \
+	new /datum/stack_recipe("first-aid kit", /obj/item/storage/firstaid/regular, 4), \
+	new /datum/stack_recipe("brute trauma treatment kit", /obj/item/storage/firstaid/brute, 4), \
+	new /datum/stack_recipe("fire first-aid kit", /obj/item/storage/firstaid/fire, 4), \
+	new /datum/stack_recipe("toxin first aid kit", /obj/item/storage/firstaid/toxin, 4), \
+	new /datum/stack_recipe("oxygen deprivation first aid kit", /obj/item/storage/firstaid/o2, 4), \
+	new /datum/stack_recipe("advanced first-aid kit", /obj/item/storage/firstaid/adv, 4), \
+	new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle), \
+	new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2), \
 	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \

@@ -87,9 +87,34 @@
 /datum/mind/proc/is_original_mob(mob/M)
 	return original_mob_UID == M.UID()
 
+// Do not use for admin related things as this can hide the mob's ckey
 /datum/mind/proc/get_display_key()
-	var/clientKey = current?.client?.get_display_key()
-	return clientKey ? clientKey : key
+	// Lets try find a client so we can check their prefs
+	var/client/C = null
+
+	var/cannonical_key = ckey(key)
+
+	if(current?.client)
+		// Active client
+		C = current.client
+	else if(cannonical_key in GLOB.directory)
+		// Do a directory lookup on the last ckey this mind had
+		// If theyre online we can grab them still and check prefs
+		C = GLOB.directory[cannonical_key]
+
+	// Ok we found a client, be it their active or their last
+	// Now we see if we need to respect their privacy
+	var/out_ckey
+	if(C)
+		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
+			out_ckey = "(Anon)"
+		else
+			out_ckey = C.ckey
+	else
+		// No client. Just mark as DC'd.
+		out_ckey = "(Disconnected)"
+
+	return out_ckey
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
@@ -1847,17 +1872,17 @@
 	..()
 	mind.assigned_role = "Shade"
 
-/mob/living/simple_animal/construct/builder/mind_initialize()
+/mob/living/simple_animal/hostile/construct/builder/mind_initialize()
 	..()
 	mind.assigned_role = "Artificer"
 	mind.special_role = SPECIAL_ROLE_CULTIST
 
-/mob/living/simple_animal/construct/wraith/mind_initialize()
+/mob/living/simple_animal/hostile/construct/wraith/mind_initialize()
 	..()
 	mind.assigned_role = "Wraith"
 	mind.special_role = SPECIAL_ROLE_CULTIST
 
-/mob/living/simple_animal/construct/armoured/mind_initialize()
+/mob/living/simple_animal/hostile/construct/armoured/mind_initialize()
 	..()
 	mind.assigned_role = "Juggernaut"
 	mind.special_role = SPECIAL_ROLE_CULTIST

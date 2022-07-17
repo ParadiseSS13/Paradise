@@ -55,7 +55,7 @@
 		var/target_direction = get_dir(source_turf, target_turf)//The direction we clicked
 		// Snowflake diagonal handling
 		if(target_direction in GLOB.diagonals)
-			to_chat(user, "<span class='warning'>You cant reach [target_turf].</span>")
+			to_chat(user, "<span class='warning'>You can't reach [target_turf].</span>")
 			return
 		if(target_direction & EAST)
 			x_offset = 16

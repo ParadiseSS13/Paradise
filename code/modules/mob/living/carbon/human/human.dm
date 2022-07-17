@@ -6,6 +6,7 @@
 	icon_state = "body_m_s"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	deathgasp_on_death = TRUE
+	throw_range = 4
 
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.

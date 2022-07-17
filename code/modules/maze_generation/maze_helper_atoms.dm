@@ -8,7 +8,7 @@
 // Windows which cant be taken apart. Thes are subtypes of windows so you can have atoms you can walk in at some dirs bit not others
 /obj/structure/window/reinforced/mazeglass
 	name = "maze glass"
-	desc = "You cant take this down. Looks like you have to solve the maze."
+	desc = "You can't take this down. Looks like you have to solve the maze."
 	resistance_flags = INDESTRUCTIBLE
 
 // No taking apart
