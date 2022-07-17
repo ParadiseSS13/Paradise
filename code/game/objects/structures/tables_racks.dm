@@ -49,6 +49,10 @@
 /obj/structure/table/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
 
+/obj/structure/table/update_icon(updates=ALL)
+	. = ..()
+	update_smoothing()
+
 /obj/structure/table/update_icon_state()
 	if((smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) && !flipped)
 		icon_state = ""
@@ -76,14 +80,13 @@
 
 		icon_state = "[base]flip[type][type == 1 ? subtype : ""]"
 
-/obj/structure/table/update_overlays()
+/obj/structure/table/proc/update_smoothing()
 	if((smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) && !flipped)
 		QUEUE_SMOOTH(src)
 		QUEUE_SMOOTH_NEIGHBORS(src)
 
 	if(flipped)
 		clear_smooth_overlays()
-	return list()
 
 /obj/structure/table/narsie_act()
 	new /obj/structure/table/wood(loc)
