@@ -151,7 +151,8 @@
 	var/time = 1 SECONDS
 
 
-	/// Is this step repeatable? Make sure it isn't the last step, or it's used in a cancellable surgery. Otherwise, you might get stuck in a loop!
+	/// Is this step repeatable by using the same tool again after it's finished?
+	/// Make sure it isn't the last step, or it's used in a cancellable surgery. Otherwise, you might get stuck in a loop!
 	var/repeatable = FALSE
 	/// List of chems needed in the mob to complete the step. Even on success, this step will have no effect if the required chems aren't in the mob.
 	var/list/chems_needed = list()
@@ -175,7 +176,7 @@
  * Arguments:
  * * user - User handling the tool.
  * * tool - The tool (or item) being used in this surgery step.
- * Returns TRUE if the tool can be usd, or FALSE otherwise
+ * Returns TRUE if the tool can be used, or FALSE otherwise
  */
 /datum/surgery_step/proc/is_valid_tool(mob/living/user, obj/item/tool)
 
@@ -241,12 +242,7 @@
 	if(repeatable)
 		// you can continuously, manually, perform a step, so long as you continue to use the correct tool.
 		// if you use the wrong tool, though, it'll try to start the next surgery step with the tool you have in your hand.
-
 		// Note that this separate from returning the surgery_step_* defines in end/fail_step, which will automatically retry the surgery.
-
-
-
-		// TODO Make sure we have support for it!
 		var/datum/surgery_step/next_step = surgery.get_surgery_next_step()
 		next_step.times_repeated = times_repeated + 1
 		if(next_step)
@@ -287,10 +283,6 @@
  */
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 
-	// TODO This proc isn't really used by /tg/, and might cause some weird conflicts between surgeries and surgery steps if we aren't careful.
-	if(!can_use(user, target, target_zone, tool, surgery))
-		return
-
 	surgery.step_in_progress = TRUE
 
 	var/speed_mod = 1
@@ -325,7 +317,7 @@
 	if(slowdown_immune(user))
 		modded_time = time
 
-	if(implement_type)	//this means it isn't a require nd or any item step.
+	if(implement_type)	// If this is set, we aren't in an allow_hand or allow_any_item step.
 		prob_success = allowed_tools[implement_type]
 	prob_success *= get_location_modifier(target)
 
@@ -361,8 +353,6 @@
 			if(surgery.status > length(surgery.steps))
 				surgery.complete(target)
 
-		// TODO let a player cancel a currently repeating surgery by clicking again with the original tool used to start the repeating surgery
-
 	surgery.step_in_progress = FALSE
 	return advance
 
@@ -393,14 +383,15 @@
 			to_chat(H, "<span class='warning'>The surgery being performed on your [parse_zone(target_zone)] wakes you up.</span>")
 	return pain_mod //operating on conscious people is hard.
 
+/**
+ * Get whether the tool should be usable in its current state. Useful for checks to see if a welder is on, for example.
+ *
+ * Arguments:
+ * * user - The user using the tool.
+ * * tool - The tool in use.
+ *
+ */
 /datum/surgery_step/proc/tool_check(mob/user, obj/item/tool)
-	return TRUE
-
-
-// Checks if this step applies to the user mob at all
-/datum/surgery_step/proc/is_valid_target(mob/living/carbon/human/target)
-	if(!hasorgans(target))
-		return FALSE
 	return TRUE
 
 /**
@@ -410,10 +401,6 @@
 	if(isrobot(user))
 		return TRUE
 	return FALSE
-
-/// Checks whether this step can be applied with the given user and target
-/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	return TRUE
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
 /datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -427,7 +414,7 @@
 			if(SURGERY_BLOODSPREAD_HANDS)
 				H.bloody_hands(target, 0)
 			if(SURGERY_BLOODSPREAD_FULLBODY)
-				H.bloody_body(target, 0)
+				H.bloody_body(target)
 	return
 
 /**

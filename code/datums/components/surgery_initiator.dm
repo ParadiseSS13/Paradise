@@ -184,7 +184,7 @@
 		to_chat(user, "<span class='warning'>You need a [is_robotic ? "screwdriver": "cautery"] in your inactive hand to stop the surgery!</span>")
 		return
 
-	var/datum/surgery_step/generic/cauterize/premature/step = new
+	var/datum/surgery_step/generic/cauterize/step = new
 
 	if(step.try_op(user, patient, selected_zone, close_tool, the_surgery))
 		patient.surgeries -= the_surgery

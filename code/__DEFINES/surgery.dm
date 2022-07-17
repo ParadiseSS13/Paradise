@@ -1,3 +1,6 @@
+/// Defines for surgery and other stuff.
+
+
 // Used in surgery step to determine how blood should be spread to the doc
 /// Don't splash any blood.
 #define SURGERY_BLOODSPREAD_NONE 0
@@ -38,8 +41,9 @@
 /// The surgery step was completed, and the surgery should continue to the next step.
 #define SURGERY_STEP_CONTINUE 1
 /// This step will automatically be retried without question as long as this is returned.
-/// Be very cautious with this one, make sure that any flow where this is used has an exit condition where it will be canceled.
+/// Be very cautious with this one! Make sure that any flow where this is used has an exit condition where something else will be returned.
+/// Otherwise, the user will be stuck in a loop!
 #define SURGERY_STEP_RETRY_ALWAYS 2
-/// This surgery step will be conditionally retried, so long as the surgery step can_repeat returns TRUE.
+/// This surgery step will be conditionally retried, so long as the surgery step's can_repeat() proc returns TRUE.
 /// Otherwise, it'll behave just like SURGERY_STEP_INCOMPLETE.
 #define SURGERY_STEP_RETRY 3

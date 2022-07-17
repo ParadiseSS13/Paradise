@@ -4,13 +4,12 @@
 	target_mobtypes = list(/mob/living/simple_animal/slime)
 	possible_locs = list("chest", "head", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
 
+/datum/surgery/core_removal/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	return . && target.stat == DEAD
+
+
 /datum/surgery_step/slime
-
-/datum/surgery_step/slime/is_valid_target(mob/living/simple_animal/slime/target)
-	return istype(target, /mob/living/simple_animal/slime)
-
-/datum/surgery_step/slime/can_use(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	return istype(target) && target.stat == DEAD
 
 /datum/surgery_step/slime/cut_flesh
 	allowed_tools = list(
@@ -23,6 +22,7 @@
 
 /datum/surgery_step/slime/cut_flesh/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	user.visible_message("[user] starts cutting through [target]'s flesh with \the [tool].", "You start cutting through [target]'s flesh with \the [tool].")
+	return ..()
 
 /datum/surgery_step/slime/cut_flesh/end_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	user.visible_message("<span class='notice'> [user] cuts through [target]'s flesh with \the [tool].</span>",
@@ -40,8 +40,12 @@
 	time = 1.6 SECONDS
 
 /datum/surgery_step/slime/extract_core/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='notice'>[user] begins to extract a core from [target].</span>",
-						 "<span class='notice'>You begin to extract a core from [target]...</span>")
+	user.visible_message(
+		"<span class='notice'>[user] begins to extract a core from [target].</span>",
+		"<span class='notice'>You begin to extract a core from [target]...</span>"
+	)
+	return ..()
+
 
 /datum/surgery_step/slime/extract_core/end_step(mob/user, mob/living/simple_animal/slime/slime, target_zone, obj/item/tool)
 	if(slime.cores > 0)

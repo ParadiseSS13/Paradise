@@ -8,8 +8,8 @@
  * need to be healed during the surgery, for example.
  *
  * Adding a new intermediate surgery:
- * - Define a new intermediate surgery datum with the list of steps that you want to inject. This forms one surgery "branch"
- * - Define a new proxy surgery step with branches containing the typepath of your new surgery datum
+ * - Define a new intermediate surgery datum with the list of steps that you want to inject. This forms one surgery "branch".
+ * - Define a new proxy surgery step with branches containing the typepath of your new surgery datum.
  * - Insert that surgery step into an existing surgery.
  */
 
@@ -46,6 +46,10 @@
 	var/insert_self_after = TRUE
 
 /datum/surgery_step/proxy/New()
+
+	if(length(branches_init))
+		CRASH("Proxy surgery [src] was given some initialized branches. Branches must be specified in branches, not branches_init.")
+
 	for(var/branch_type in branches)
 		if(!ispath(branch_type, /datum/surgery))
 			CRASH("proxy surgery [src] was given a branch type [branch_type] that isn't a subtype of /datum/surgery!")
@@ -66,18 +70,18 @@
 
 
 /datum/surgery_step/proxy/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	// Quickly peek into the first few steps of the surgeries that we've got to choose the surgery to pull from
-
-	// sanity checks first though! Make sure we don't have any tool conflicts.
-	// A tool should only lead to one surgery step.
-	// (If it leads to more, make sure you put it into overriding tools...)
 
 	var/list/starting_tools = list()
 	var/datum/surgery/next_surgery
 
-
 	var/datum/surgery_step/next_surgery_step = surgery.get_surgery_next_step()
 	var/datum/surgery_step/first_step
+
+	// Check the tools that all of our branches expect to use, and see if any of them match the current tool.
+	// sanity checks first though! Make sure we don't have any tool conflicts.
+	// A tool should only lead to one surgery step.
+
+	// (If a tool can lead to more, make sure you put it into overriding tools)
 
 	for(var/datum/surgery/S in branches_init)
 		first_step = S.get_surgery_step()
@@ -105,8 +109,8 @@
 
 	var/overridden_tool = FALSE
 
+	// Also check the next surgery step.
 	if(!isnull(next_surgery_step))
-
 		if(next_surgery_step.accept_hand && ("hand" in starting_tools))
 			CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both require an open hand.")
 
@@ -116,8 +120,8 @@
 		if(!tool && next_surgery_step.accept_hand && !("hand" in starting_tools))
 			next_surgery = surgery
 
-
 		for(var/allowed in next_surgery_step.allowed_tools)
+			// debug IMS stuff, check it here so it forces the next surgery if it's being used
 			if(istype(tool, /obj/item/scalpel/laser/manager/debug))
 				if(!ispath(allowed) && (allowed in GLOB.surgery_tool_behaviors))
 					next_surgery = surgery
@@ -136,6 +140,7 @@
 			if(tool && istype(tool) && (tool.type == allowed || tool.tool_behaviour == allowed))
 				next_surgery = surgery
 
+		// Check if we allow any tool after checking everything. We don't want to accidentally miss a tool conflict.
 		if(tool && next_surgery_step.accept_any_item && !("any" in starting_tools))
 			next_surgery = surgery
 
@@ -144,7 +149,7 @@
 		return FALSE
 
 	if(overridden_tool || next_surgery == surgery || !next_surgery)
-		// Fire off the step from the original surgery
+		// Continue along with the original surgery
 		surgery.status++
 		var/datum/surgery_step/next_step = surgery.get_surgery_step()
 		return next_step.try_op(user, target, target_zone, tool, surgery)
@@ -155,12 +160,12 @@
 		return TRUE
 
 	// Insert the steps in our intermediate surgery into the current surgery.
-
+	// This is how we keep our surgeries still technically linear.
 	var/list/steps_to_insert = next_surgery.steps
 	if(insert_self_after)
-		steps_to_insert.Add(src.type)
+		steps_to_insert.Add(type)
 
-	// Also, bump the status so we skip past this step.
+	// Also, bump the status so we skip past this abstract step.
 	surgery.steps.Insert(surgery.status + 1, next_surgery.steps)
 	surgery.status++
 
