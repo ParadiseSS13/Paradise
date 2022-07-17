@@ -189,9 +189,8 @@ Pipelines + Other Objects -> Pipe network
 		var/I = int_air ? int_air.return_pressure() : 0
 		var/E = env_air ? env_air.return_pressure() : 0
 		var/internal_pressure = I - E
-		var/pipeslowdown = 1
 
-		playsound(src.loc, W.usesound, 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 
 		for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
@@ -206,9 +205,9 @@ Pipelines + Other Objects -> Pipe network
 			else
 				to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 
-		if(do_after(user, 40 * W.toolspeed * pipeslowdown, target = src) && !QDELETED(src))
+		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message( \
-				"[user] unfastens \the [src].", \
+				"<span class='notice'>[user] unfastens \the [src].</span>", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
 				"<span class='italics'>You hear ratcheting.</span>")
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
