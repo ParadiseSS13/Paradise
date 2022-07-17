@@ -619,7 +619,7 @@
 	time = 5.4 SECONDS
 
 
-/datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	user.visible_message(
 		"[user] begins to cut through [target]'s [target_zone] with [tool].",
@@ -627,7 +627,7 @@
 	)
 	return ..()
 
-/datum/surgery_step/saw_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/saw_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	user.visible_message(
 		"<span class='notice'> [user] has cut [target]'s [target_zone] open with [tool].</span>",
@@ -635,7 +635,7 @@
 	)
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/saw_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/saw_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	user.visible_message(
 		"<span class='warning'> [user]'s hand slips, cracking [target]'s [target_zone] with [tool]!</span>",
@@ -658,13 +658,13 @@
 
 	time = 1.6 SECONDS
 
-/datum/surgery_step/cut_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/cut_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	user.visible_message("[user] starts the incision on [target]'s [target_zone] with [tool].", \
 	"You start the incision on [target]'s [target_zone] with [tool].")
 	return ..()
 
-/datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	user.visible_message(
 		"<span class='notice'> [user] has made an incision on [target]'s [target_zone] with [tool].</span>",
@@ -672,7 +672,7 @@
 	)
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/cut_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/cut_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	user.visible_message(
 		"<span class='warning'>[user]'s hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!</span>",
@@ -692,7 +692,7 @@
 
 	time = 2.4 SECONDS
 
-/datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/msg = "[user] starts to pry open the incision on [target]'s [target_zone] with [tool]."
 	var/self_msg = "You start to pry open the incision on [target]'s [target_zone] with [tool]."
 	if(target_zone == "chest")
@@ -704,7 +704,7 @@
 	user.visible_message(msg, self_msg)
 	return ..()
 
-/datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with [tool]</span>."
 	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [target_zone] with [tool].</span>"
 	if(target_zone == "chest")
@@ -716,7 +716,7 @@
 	user.visible_message(msg, self_msg)
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/msg = "<span class='warning'> [user]'s hand slips, tearing the edges of incision on [target]'s [target_zone] with [tool]!</span>"
 	var/self_msg = "<span class='warning'> Your hand slips, tearing the edges of incision on [target]'s [target_zone] with [tool]!</span>"
 	if(target_zone == "chest")

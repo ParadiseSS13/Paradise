@@ -50,7 +50,12 @@
 
 /datum/surgery/robotics/cybernetic_customization
 	name = "Cybernetic Appearance Customization"
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch, /datum/surgery_step/robotics/external/open_hatch, /datum/surgery_step/robotics/external/customize_appearance)
+	steps = list(
+		/datum/surgery_step/robotics/external/unscrew_hatch,
+		/datum/surgery_step/robotics/external/open_hatch,
+		/datum/surgery_step/robotics/external/customize_appearance
+		/datum/surgery_step/robotics/external/close_hatch
+	)
 	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
 
 /datum/surgery/robotics/cybernetic_customization/can_start(mob/user, mob/living/carbon/human/target)
@@ -68,14 +73,12 @@
 /datum/surgery/intermediate/robotics/repair
 
 /datum/surgery/intermediate/robotics/repair/burn
-	steps = list(
-		/datum/surgery_step/robotics/external/repair/burn
-	)
+	steps = list(/datum/surgery_step/robotics/external/repair/burn)
 
 /datum/surgery/intermediate/robotics/repair/brute
-	steps = list(
-		/datum/surgery_step/robotics/external/repair/brute
-	)
+	steps = list(/datum/surgery_step/robotics/external/repair/brute)
+
+// Manipulate organs sub-surgeries
 
 /datum/surgery/intermediate/robotics/manipulate_organs/extract
 	steps = list(/datum/surgery_step/robotics/manipulate_robotic_organs/extract)
@@ -89,8 +92,6 @@
 	steps = list(/datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi)
 	possible_locs = list("chest")
 
-
-//to do, moar surgerys or condense down ala manipulate organs.
 /datum/surgery_step/robotics
 	can_infect = FALSE
 
@@ -112,7 +113,7 @@
 
 	time = 1.6 SECONDS
 
-/datum/surgery_step/robotics/external/unscrew_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/unscrew_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] starts to unscrew the maintenance hatch on [target]'s [affected.name] with \the [tool].",
@@ -120,7 +121,7 @@
 	)
 	return ..()
 
-/datum/surgery_step/robotics/external/unscrew_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/unscrew_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='notice'> [user] has opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",
@@ -129,7 +130,7 @@
 	affected.open = ORGAN_SYNTHETIC_LOOSENED
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/robotics/external/unscrew_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/unscrew_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='warning'> [user]'s [tool.name] slips, failing to unscrew [target]'s [affected.name].</span>",
@@ -147,7 +148,7 @@
 
 	time = 2.4 SECONDS
 
-/datum/surgery_step/robotics/external/open_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/open_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] starts to pry open the maintenance hatch on [target]'s [affected.name] with \the [tool].",
@@ -155,7 +156,7 @@
 	)
 	return ..()
 
-/datum/surgery_step/robotics/external/open_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/open_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='notice'> [user] opens the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",
@@ -164,7 +165,7 @@
 	affected.open = ORGAN_SYNTHETIC_OPEN
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/robotics/external/open_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/open_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='warning'> [user]'s [tool.name] slips, failing to open the hatch on [target]'s [affected.name].</span>",
@@ -182,7 +183,7 @@
 
 	time = 2.4 SECONDS
 
-/datum/surgery_step/robotics/external/close_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/close_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] begins to close and secure the hatch on [target]'s [affected.name] with \the [tool].",
@@ -190,7 +191,7 @@
 	)
 	return ..()
 
-/datum/surgery_step/robotics/external/close_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/close_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>",
@@ -200,7 +201,7 @@
 	affected.open = ORGAN_CLOSED
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/robotics/external/close_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/close_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
 	"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
@@ -641,7 +642,7 @@
 	affected.open = ORGAN_CLOSED
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/robotics/external/customize_appearance/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/external/customize_appearance/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>",
 	"<span class='warning'> Your [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>")

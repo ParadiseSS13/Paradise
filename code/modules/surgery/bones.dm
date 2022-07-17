@@ -168,7 +168,7 @@
 	)
 	return ..()
 
-/datum/surgery_step/finish_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/finish_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='notice'> [user] has mended the damaged bones in [target]'s [affected.name] with \the [tool].</span>",

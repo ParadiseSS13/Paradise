@@ -35,7 +35,7 @@
 	var/obj/item/implant/I = null
 	var/max_times_to_check = 5
 
-/datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
