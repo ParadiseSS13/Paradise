@@ -19,7 +19,7 @@
 	var/grille_type
 	var/broken_type = /obj/structure/grille/broken
 	var/shockcooldown = 0
-	var/my_shockcooldown = 1 SECONDS
+	var/my_shockcooldown = 2 SECONDS
 
 /obj/structure/grille/detailed_examine()
 	return "A powered and knotted wire underneath this will cause the grille to shock anyone not wearing insulated gloves.<br>\

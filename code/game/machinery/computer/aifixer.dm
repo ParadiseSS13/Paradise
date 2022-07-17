@@ -78,7 +78,7 @@
 	return TRUE
 
 /obj/machinery/computer/aifixer/proc/fix_ai() // Can we fix it? Probrably.
-	while(occupant.health < 100)
+	while(occupant.health < 100 || occupant.stat == DEAD)
 		occupant.adjustOxyLoss(-1, FALSE)
 		occupant.adjustFireLoss(-1, FALSE)
 		occupant.adjustToxLoss(-1, FALSE)
