@@ -2171,7 +2171,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_y = 32
+	pixel_y = 32;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3115,12 +3116,12 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 32
-	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5248,6 +5249,10 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
+/obj/machinery/newscaster/security_unit{
+	pixel_x = 32;
+	name = "east bump"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "apd" = (
@@ -7322,7 +7327,8 @@
 	},
 /obj/machinery/light,
 /obj/machinery/newscaster/security_unit{
-	pixel_y = -30
+	pixel_y = -32;
+	name = "south bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
@@ -12938,9 +12944,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/newscaster{
-	name = "south bump";
-	pixel_y = -32
+/obj/machinery/newscaster/security_unit{
+	pixel_y = -32;
+	name = "south bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -14552,8 +14558,9 @@
 	},
 /area/security/detectives_office)
 "aJo" = (
-/obj/machinery/light{
-	dir = 4
+/obj/machinery/newscaster/security_unit{
+	pixel_x = 32;
+	name = "east bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -14999,6 +15006,9 @@
 /area/security/detectives_office)
 "aKC" = (
 /obj/machinery/photocopier,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -32816,15 +32826,15 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bxY" = (
-/obj/machinery/newscaster{
-	name = "south bump";
-	pixel_y = -32
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_y = -32;
+	name = "south bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -33183,12 +33193,12 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "byI" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 32
-	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32;
+	name = "north bump"
 	},
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
@@ -38061,6 +38071,10 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/newscaster{
+	name = "north bump";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "bJP" = (
@@ -39469,12 +39483,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "bMN" = (
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -32
-	},
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Captain's Office"
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_x = -32;
+	name = "west bump"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
@@ -42932,7 +42947,8 @@
 "bTc" = (
 /obj/structure/table,
 /obj/machinery/newscaster/security_unit{
-	pixel_y = 32
+	pixel_y = 32;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
@@ -55973,7 +55989,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_y = -32
+	pixel_y = -32;
+	name = "south bump"
 	},
 /turf/simulated/floor/wood,
 /area/blueshield)
@@ -56036,7 +56053,8 @@
 	department = "NT Representative's Office"
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_y = -32
+	pixel_y = -32;
+	name = "south bump"
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
@@ -77668,7 +77686,8 @@
 	},
 /obj/machinery/newscaster/security_unit{
 	pixel_x = -32;
-	pixel_y = -32
+	pixel_y = -32;
+	name = "box AI newscaster"
 	},
 /obj/effect/landmark/start/ai,
 /turf/simulated/floor/bluegrid,
@@ -80861,6 +80880,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"qTO" = (
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "qUv" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
@@ -81186,6 +81212,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
+"sCm" = (
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/security/warden)
 "sFl" = (
 /obj/structure/chair,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -110411,7 +110447,7 @@ ajk
 aqR
 alh
 agt
-amz
+sCm
 anz
 aou
 aph
@@ -115805,7 +115841,7 @@ acx
 acE
 acE
 anA
-aoJ
+qTO
 alq
 afK
 amr
