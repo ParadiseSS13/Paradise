@@ -73,6 +73,9 @@
 	QDEL_NULL(cell)
 	return ..()
 
+/mob/living/simple_animal/bot/mulebot/can_buckle()
+	return FALSE //no ma'am, you cannot buckle mulebots to chairs
+
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(suffix)
 	src.suffix = suffix
 	if(paicard)
