@@ -658,7 +658,7 @@
 
 /obj/item/clothing/under/officeruniform
 	name = "clown officer's uniform"
-	desc = "For Clown officers, this uniform was designed by the great clown designer Hugo Boss."
+	desc = "For the officers of the Clown army."
 	icon_state = "officeruniform"
 	item_color = "officeruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO

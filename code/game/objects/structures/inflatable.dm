@@ -19,9 +19,9 @@
 /obj/structure/inflatable
 	name = "inflatable wall"
 	desc = "An inflated membrane. Do not puncture."
-	density = 1
-	anchored = 1
-	opacity = 0
+	density = TRUE
+	anchored = TRUE
+	opacity = FALSE
 	max_integrity = 50
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "wall"
@@ -105,17 +105,14 @@
 
 /obj/structure/inflatable/door //Based on mineral door code
 	name = "inflatable door"
-	density = 1
-	anchored = 1
-	opacity = 0
 
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
 	intact = /obj/item/inflatable/door
 
-	var/state = 0 //closed, 1 == open
-	var/isSwitchingStates = 0
+	var/state_open = FALSE
+	var/isSwitchingStates = FALSE
 
 /obj/structure/inflatable/door/detailed_examine()
 	return "Click the door to open or close it. It only stops air while closed.<br>\
@@ -157,36 +154,36 @@
 		SwitchState()
 
 /obj/structure/inflatable/door/proc/SwitchState()
-	if(state)
+	if(state_open)
 		Close()
 	else
 		Open()
 	air_update_turf(1)
 
 /obj/structure/inflatable/door/proc/Open()
-	isSwitchingStates = 1
+	isSwitchingStates = TRUE
 	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
 	flick("door_opening",src)
 	sleep(10)
-	density = 0
-	opacity = 0
-	state = 1
+	density = FALSE
+	opacity = FALSE
+	state_open = TRUE
 	update_icon()
-	isSwitchingStates = 0
+	isSwitchingStates = FALSE
 
 /obj/structure/inflatable/door/proc/Close()
-	isSwitchingStates = 1
+	isSwitchingStates = TRUE
 	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
 	flick("door_closing",src)
 	sleep(10)
-	density = 1
-	opacity = 0
-	state = 0
+	density = TRUE
+	opacity = FALSE
+	state_open = FALSE
 	update_icon()
-	isSwitchingStates = 0
+	isSwitchingStates = FALSE
 
 /obj/structure/inflatable/door/update_icon()
-	if(state)
+	if(state_open)
 		icon_state = "door_open"
 	else
 		icon_state = "door_closed"
@@ -219,8 +216,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/inflatable)
 
-/obj/item/storage/briefcase/inflatable/New()
-	..()
+/obj/item/storage/briefcase/inflatable/populate_contents()
 	new /obj/item/inflatable/door(src)
 	new /obj/item/inflatable/door(src)
 	new /obj/item/inflatable/door(src)

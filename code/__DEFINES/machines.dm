@@ -91,6 +91,11 @@
 #define SUPERMATTER_EMERGENCY 5		// Integrity < 50%
 #define SUPERMATTER_DELAMINATING 6	// Pretty obvious, Integrity < 25%
 
+//APC charging
+#define APC_NOT_CHARGING 0
+#define APC_IS_CHARGING 1
+#define APC_FULLY_CHARGED 2
+
 // Firelock states
 #define FD_OPEN 1
 #define FD_CLOSED 2

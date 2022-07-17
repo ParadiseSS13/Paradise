@@ -3,11 +3,11 @@
 	desc = "Used to implant occupants with mindshield implants."
 	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
-	density = 1
-	opacity = 0
-	anchored = 1
+	density = TRUE
+	opacity = FALSE
+	anchored = TRUE
 
-	var/ready = 1
+	var/ready = TRUE
 	var/malfunction = 0
 	var/list/obj/item/implant/mindshield/implant_list = list()
 	var/max_implants = 5
@@ -15,7 +15,7 @@
 	var/replenish_cooldown = 6000
 	var/replenishing = 0
 	var/mob/living/carbon/occupant = null
-	var/injecting = 0
+	var/injecting = FALSE
 
 /obj/machinery/implantchair/Initialize(mapload)
 	. = ..()
@@ -49,17 +49,17 @@
 		return
 	if(href_list["implant"])
 		if(src.occupant)
-			injecting = 1
+			injecting = TRUE
 			go_out()
-			ready = 0
+			ready = FALSE
 			spawn(injection_cooldown)
-				ready = 1
+				ready = TRUE
 
 	if(href_list["replenish"])
-		ready = 0
+		ready = FALSE
 		spawn(replenish_cooldown)
 			add_implants()
-			ready = 1
+			ready = TRUE
 
 	src.updateUsrDialog()
 	return
@@ -88,7 +88,7 @@
 	occupant.forceMove(loc)
 	if(injecting)
 		implant(src.occupant)
-		injecting = 0
+		injecting = FALSE
 	src.occupant = null
 	icon_state = "implantchair"
 	return

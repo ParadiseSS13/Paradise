@@ -8,13 +8,13 @@
 	desc = "A small wall mounted cabinet designed to hold a fire extinguisher."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "extinguisher_closed"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	max_integrity = 200
 	integrity_failure = 50
 	var/obj/item/extinguisher/has_extinguisher = null
 	var/extinguishertype
-	var/opened = 0
+	var/opened = FALSE
 	var/material_drop = /obj/item/stack/sheet/metal
 
 /obj/structure/extinguisher_cabinet/Initialize(mapload, direction = null)
@@ -118,7 +118,7 @@
 		user.put_in_hands(has_extinguisher)
 		to_chat(user, "<span class='notice'>You take [has_extinguisher] from [src].</span>")
 		has_extinguisher = null
-		opened = 1
+		opened = TRUE
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
@@ -131,7 +131,7 @@
 		has_extinguisher.loc = loc
 		to_chat(user, "<span class='notice'>You telekinetically remove [has_extinguisher] from [src].</span>")
 		has_extinguisher = null
-		opened = 1
+		opened = TRUE
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
@@ -139,8 +139,8 @@
 
 /obj/structure/extinguisher_cabinet/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
-		broken = 1
-		opened = 1
+		broken = TRUE
+		opened = TRUE
 		if(has_extinguisher)
 			has_extinguisher.forceMove(loc)
 			has_extinguisher = null

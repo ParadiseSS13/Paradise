@@ -5,7 +5,7 @@
 	item_state = "plastic-explosive"
 	flags = NOBLUDGEON
 	det_time = 10
-	display_timer = 0
+	display_timer = FALSE
 	origin_tech = "syndicate=1"
 	toolspeed = 1
 	var/atom/target = null
