@@ -12,10 +12,10 @@
 
 	/// Tools that, when in an off-hand while a surgery initiator is used, will stop a surgery.
 	var/static/list/cautery_tools = list(
-		TOOL_CAUTERY = 100, \
-		/obj/item/scalpel/laser = 100, \
-		/obj/item/clothing/mask/cigarette = 90,	\
-		/obj/item/lighter = 60,			\
+		TOOL_CAUTERY = 100,
+		/obj/item/scalpel/laser = 100,
+		/obj/item/clothing/mask/cigarette = 90,
+		/obj/item/lighter = 60,
 		/obj/item/weldingtool = 30
 	)
 
@@ -184,7 +184,7 @@
 		to_chat(user, "<span class='warning'>You need a [is_robotic ? "crowbar": "cauterizing tool"] in your inactive hand to stop the surgery!</span>")
 		return
 
-	var/datum/surgery_step/generic/cauterize/step = new
+	var/datum/surgery_step/generic/cauterize/premature/step = new
 
 	if(step.try_op(user, patient, selected_zone, close_tool, the_surgery))
 		log_attack(user, patient, "Prematurely finished a [the_surgery] surgery.")

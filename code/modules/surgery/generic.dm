@@ -186,6 +186,20 @@
 	target.apply_damage(3, BURN, affected)
 	return SURGERY_STEP_RETRY
 
+/datum/surgery_step/generic/cauterize/premature
+	name = "cauterize incision (premature)"
+
+/datum/surgery_step/generic/cauterize/premature/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	. = ..()
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message(
+		"<span class='warning'>[user] is interrupting the surgery</span> beginning to cauterize the incision on [target]'s [affected.name] with \the [tool].",
+		"<span class='warning'>You are interrupting the current surgery</span>, beginning to cauterize the incision on [target]'s [affected.name] with \the [tool]."
+	)
+	target.custom_pain("Your [affected.name] is being burned!")
+	return ..()
+
+
 //drill bone
 /datum/surgery_step/generic/drill
 	name = "drill bone"
