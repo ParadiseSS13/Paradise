@@ -499,7 +499,6 @@
 	name = "plant data disks box"
 	icon_state = "disk_kit"
 
-/obj/item/storage/box/disks_plantgene/New()
-	..()
+/obj/item/storage/box/disks_plantgene/populate_contents()
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)

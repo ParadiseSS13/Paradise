@@ -354,11 +354,11 @@
 	var/endtime = world.time+time
 	var/starttime = world.time
 	. = 1
-	
+
 	var/mob/living/L
 	if(isliving(user))
 		L = user
-	
+
 	while(world.time < endtime)
 		sleep(1)
 		if(progress)
@@ -669,3 +669,35 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 			if(player.stat == CONSCIOUS)
 				active++
 	return list(total, active, dead, antag)
+
+/**
+  * Safe ckey getter
+  *
+  * Should be used whenever broadcasting public information about a mob,
+  * as this proc will make a best effort to hide the users ckey if they request it.
+  * It will first check the mob for a client, then use the mobs last ckey as a directory lookup.
+  * If a client cant be found to check preferences on, it will just show as DC'd.
+  * This proc should only be used for public facing stuff, not administration related things.
+  *
+  * Arguments:
+  * * M - Mob to get a safe ckey of
+  */
+/proc/safe_get_ckey(mob/M)
+	var/client/C = null
+	if(M.client)
+		C = M.client
+	else if(M.last_known_ckey in GLOB.directory)
+		C = GLOB.directory[M.last_known_ckey]
+
+	// Now we see if we need to respect their privacy
+	var/out_ckey
+	if(C)
+		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
+			out_ckey = "(Anon)"
+		else
+			out_ckey = C.ckey
+	else
+		// No client. Just mark as DC'd.
+		out_ckey = "(Disconnected)"
+
+	return out_ckey
