@@ -103,7 +103,6 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		picked_color = pick(GLOB.marker_beacon_colors)
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]-on"
 	set_light(light_range, light_power, GLOB.marker_beacon_colors[picked_color])
-	return ..()
 
 /obj/structure/marker_beacon/attack_hand(mob/living/user)
 	. = ..()
@@ -150,12 +149,8 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	icon_state = "dockingmarker"
 	flags = NODECONSTRUCT
 
-/obj/structure/marker_beacon/Initialize(mapload)
-	. = ..()
-	set_light(light_range, light_power, LIGHT_COLOR_BLUE)
-
 /obj/structure/marker_beacon/dock_marker/update_icon_state()
-	return
+	set_light(light_range, light_power, LIGHT_COLOR_BLUE)
 
 /obj/structure/marker_beacon/dock_marker/attackby()
 	return
@@ -171,6 +166,5 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	desc = "A Prism-brand collision illumination device. It is anchored in place and glowing steadily."
 	icon_state = "markerburgundy-on"
 
-/obj/structure/marker_beacon/dock_marker/collision/update_icon()
+/obj/structure/marker_beacon/dock_marker/collision/update_icon_state()
 	set_light(light_range, light_power, LIGHT_COLOR_FLARE)
-	return ..(NONE)
