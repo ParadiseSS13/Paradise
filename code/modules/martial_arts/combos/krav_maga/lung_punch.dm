@@ -1,6 +1,6 @@
 /datum/martial_combo/krav_maga/lung_punch
 	name = "Lung Punch"
-	explaination_text = "Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
+	explaination_text = "Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time, and can be incapacitated with a few more punches."
 
 /datum/martial_combo/krav_maga/lung_punch/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)

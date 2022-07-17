@@ -1,6 +1,6 @@
 /datum/martial_combo/krav_maga/leg_sweep
 	name = "Leg Sweep"
-	explaination_text = "Trips the victim, rendering them prone and unable to move for a short time."
+	explaination_text = "Trips the victim, rendering them prone for a short time."
 
 /datum/martial_combo/krav_maga/leg_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.stat || target.IsWeakened())
