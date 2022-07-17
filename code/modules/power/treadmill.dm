@@ -121,20 +121,20 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
 
-	var/on = 0					// if we should be metering or not
+	var/on = FALSE					// if we should be metering or not
 	var/id = null				// id of treadmill
 	var/obj/machinery/power/treadmill/treadmill = null
 	var/total_joules = 0		// total power from prisoner
 	var/J_per_ticket = 45000	// amt of power charged for a ticket
 	var/line1 = ""
 	var/line2 = ""
-	var/frame = 0				// on 0, show labels, on 1 show numbers
+	var/frame = FALSE				// on 0, show labels, on 1 show numbers
 	var/redeem_immediately = 0	// redeem immediately for holding cell
 
 /obj/machinery/treadmill_monitor/Initialize(mapload)

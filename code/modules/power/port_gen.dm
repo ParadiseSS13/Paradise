@@ -6,11 +6,11 @@
 	desc = "A portable generator for emergency backup power"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "portgen0_0"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	use_power = NO_POWER_USE
 
-	var/active = 0
+	var/active = FALSE
 	var/power_gen = 5000
 	var/power_output = 1
 	var/base_icon = "portgen0"
@@ -38,7 +38,7 @@
 		add_avail(power_gen * power_output)
 		UseFuel()
 	else
-		active = 0
+		active = FALSE
 		handleInactive()
 		update_icon()
 
@@ -267,7 +267,7 @@
 		explode() //if they're foolish enough to emag while it's running
 
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		return 1
 
 /obj/machinery/power/port_gen/pacman/attackby(obj/item/O as obj, mob/user as mob)

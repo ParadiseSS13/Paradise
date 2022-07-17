@@ -168,7 +168,7 @@
 	var/base_state = "tube" // Base description and icon_state
 	icon_state = "tube1"
 	desc = "A lighting fixture."
-	anchored = 1
+	anchored = TRUE
 	layer = 5
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE
