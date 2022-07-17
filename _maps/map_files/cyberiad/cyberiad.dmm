@@ -36617,6 +36617,7 @@
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
 	},
+/obj/item/desk_bell,
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "bGM" = (
@@ -41302,6 +41303,7 @@
 /obj/structure/noticeboard{
 	pixel_y = 27
 	},
+/obj/item/desk_bell,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bQf" = (

@@ -16021,6 +16021,10 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/item/desk_bell{
+	pixel_x = 7;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bcC" = (
@@ -74817,6 +74821,9 @@
 	name = "Secondary Research and Development Shutter"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/item/desk_bell{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
