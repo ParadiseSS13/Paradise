@@ -10,6 +10,9 @@
 	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")
 
 /datum/surgery/limb_augmentation/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)

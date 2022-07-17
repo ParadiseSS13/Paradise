@@ -39,13 +39,14 @@
 	steps = list(/datum/surgery_step/robotics/external/amputate)
 	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
-/datum/surgery/cybernetic_amputation/can_start(mob/user, mob/living/carbon/target)
-	if(istype(target, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(affected.limb_flags & CANNOT_DISMEMBER)
-			return FALSE
-		return TRUE
+/datum/surgery/cybernetic_amputation/can_start(mob/user, mob/living/carbon/human/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	if(affected.limb_flags & CANNOT_DISMEMBER)
+		return FALSE
+	return TRUE
 
 /datum/surgery/robotics/cybernetic_customization
 	name = "Cybernetic Appearance Customization"
@@ -53,6 +54,9 @@
 	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
 
 /datum/surgery/roboticscybernetic_customization/can_start(mob/user, mob/living/carbon/human/target)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(ishuman(target))
 		var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 		if(!(affected.status & ORGAN_ROBOT))

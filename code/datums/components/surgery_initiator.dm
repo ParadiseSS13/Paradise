@@ -172,7 +172,7 @@
 		if(!other_hand)
 			close_tool = null
 		else if(is_robotic)
-			if(other_hand.tool_behaviour == TOOL_SCREWDRIVER)
+			if(other_hand.tool_behaviour == TOOL_CROWBAR)
 				close_tool = other_hand
 		else
 			for(var/key in cautery_tools)
@@ -181,16 +181,17 @@
 					break
 
 	if(!close_tool)
-		to_chat(user, "<span class='warning'>You need a [is_robotic ? "screwdriver": "cautery"] in your inactive hand to stop the surgery!</span>")
+		to_chat(user, "<span class='warning'>You need a [is_robotic ? "crowbar": "cauterizing tool"] in your inactive hand to stop the surgery!</span>")
 		return
 
 	var/datum/surgery_step/generic/cauterize/step = new
 
 	if(step.try_op(user, patient, selected_zone, close_tool, the_surgery))
+		log_attack(user, patient, "Prematurely finished a [the_surgery] surgery.")
 		patient.surgeries -= the_surgery
 		qdel(the_surgery)
 		// logging in case people wonder why they're cut up inside
-		log_attack(user, patient, "Prematurely finished a surgery.")
+
 
 /datum/component/surgery_initiator/proc/can_start_surgery(mob/user, mob/living/target)
 	if (!user.Adjacent(target))

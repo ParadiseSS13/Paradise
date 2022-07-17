@@ -21,6 +21,9 @@
 
 
 /datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/human/target)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(!istype(target))
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
@@ -31,6 +34,9 @@
 	return TRUE
 
 /datum/surgery/embedded_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(!istype(target))
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)

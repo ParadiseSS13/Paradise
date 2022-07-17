@@ -31,7 +31,6 @@
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
-		/datum/surgery_step/proxy/open_organ,
 		/datum/surgery_step/proxy/manipulate_organs,
 		/datum/surgery_step/generic/cauterize
 	)
@@ -57,6 +56,9 @@
 
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
@@ -67,6 +69,9 @@
 		return TRUE
 
 /datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
@@ -96,14 +101,24 @@
 
 /// The surgery step to trigger this whole situation
 /datum/surgery_step/proxy/manipulate_organs
-	name = "Manipulate Organs"
+	name = "Manipulate Organs (proxy)"
 	branches = list(
 		/datum/surgery/intermediate/manipulate/extract,
 		/datum/surgery/intermediate/manipulate/implant,
 		/datum/surgery/intermediate/manipulate/mend,
-		/datum/surgery/intermediate/manipulate/clean
+		/datum/surgery/intermediate/manipulate/clean,
+		/datum/surgery/intermediate/bleeding
 	)
 
+/datum/surgery_step/proxy/manipulate_organs/soft
+	name = "Manipulate Organs Soft (proxy)"
+	branches = list(
+		/datum/surgery/intermediate/manipulate/extract,
+		/datum/surgery/intermediate/manipulate/implant,
+		/datum/surgery/intermediate/manipulate/mend,
+		/datum/surgery/intermediate/manipulate/clean,
+		/datum/surgery/intermediate/bleeding
+	)
 
 // Internal surgeries.
 /datum/surgery_step/internal
@@ -304,7 +319,7 @@
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/manipulate_organs/implant
-	name = "implant an organ and/or implant"
+	name = "implant an organ"
 	allowed_tools = list(
 		/obj/item/organ/internal = 100,
 		/obj/item/reagent_containers/food/snacks/organ = 0  // there for the flavor text

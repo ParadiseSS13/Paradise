@@ -10,6 +10,9 @@
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(affected.limb_flags & CANNOT_DISMEMBER)
 		return FALSE
@@ -25,6 +28,9 @@
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
@@ -77,11 +83,9 @@
 		return SURGERY_BEGINSTEP_ABORT
 	var/list/organ_data = target.dna.species.has_limbs["[user.zone_selected]"]
 	if(isnull(organ_data))
-		var/mob/living/carbon/human/H = target
 		to_chat(user, "<span class='warning'>[target.dna.species] don't have the anatomy for [E.name]!")
 		return SURGERY_BEGINSTEP_ABORT
 
-	var/obj/item/organ/external/E = tool
 	user.visible_message(
 		"[user] starts attaching [E.name] to [target]'s [E.amputation_point].",
 		"You start attaching [E.name] to [target]'s [E.amputation_point]."

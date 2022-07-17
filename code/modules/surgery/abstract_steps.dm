@@ -111,6 +111,11 @@
 
 	// Also check the next surgery step.
 	if(!isnull(next_surgery_step))
+
+		if(istype(next_surgery_step, /datum/surgery_step/proxy))
+			// It might make sense to support this, but I think you should just be mindful not to cross the streams too hard.
+			CRASH("[src] was followed by another proxy surgery step in [surgery].")
+
 		if(next_surgery_step.accept_hand && ("hand" in starting_tools))
 			CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both require an open hand.")
 
