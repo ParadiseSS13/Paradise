@@ -64342,10 +64342,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/greengrid,
 /area/assembly/chargebay)
-"iDw" = (
-/obj/structure/lattice,
-/turf/space,
-/area/solar/auxstarboard)
 "iDK" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/westleft{
@@ -139803,7 +139799,7 @@ jQK
 afG
 adG
 coS
-asT
+abq
 dch
 jQK
 afG
@@ -140569,17 +140565,17 @@ aaa
 jLY
 abq
 abq
-iDw
-iDw
+abq
+abq
 aee
-iDw
-iDw
-asT
-iDw
-iDw
+abq
+abq
+abq
+abq
+abq
 aee
-iDw
-iDw
+abq
+abq
 abq
 abq
 aef
@@ -141345,7 +141341,7 @@ jQK
 cnV
 adG
 coS
-asT
+abq
 dch
 jQK
 afG
