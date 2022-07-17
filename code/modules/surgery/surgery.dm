@@ -78,9 +78,6 @@
 	if(replaced_by == /datum/surgery)
 		return FALSE
 
-	if(lying_required && !on_operable_surface(target))
-		return FALSE
-
 	return TRUE
 
 /**

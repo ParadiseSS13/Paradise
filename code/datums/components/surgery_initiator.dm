@@ -234,7 +234,7 @@
 		to_chat(user, "<span class='warning'>That's not the right type of limb for this operation!</span>")
 		return
 
-	if (surgery.lying_required && !IS_HORIZONTAL(target))
+	if (surgery.lying_required && !on_operable_surface(target))
 		to_chat(user, "<span class='notice'>Patient must be lying down for this operation.</span>")
 		return
 
