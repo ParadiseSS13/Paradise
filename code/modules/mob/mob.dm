@@ -2,7 +2,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
-	focus = null
+	input_focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -30,7 +30,8 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.alive_mob_list += src
-	set_focus(src)
+	input_focus = src
+	reset_perspective(src)
 	prepare_huds()
 	update_runechat_msg_location()
 	. = ..()
@@ -1063,8 +1064,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/canface()
 	if(client.moving)
 		return FALSE
-	if(world.time < client.move_delay)
-		return FALSE
 	if(stat == DEAD)
 		return FALSE
 	if(anchored)
@@ -1090,10 +1089,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/facedir(ndir)
 	if(!canface())
-		return 0
+		return FALSE
 	setDir(ndir)
-	client.move_delay += movement_delay()
-	return 1
+	return TRUE
 
 
 /mob/verb/eastface()

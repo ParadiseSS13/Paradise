@@ -127,18 +127,28 @@
 
 
 /obj/structure/closet/wardrobe/orange
-	name = "prison wardrobe"
-	desc = "It's a storage unit for Nanotrasen-regulation prisoner attire."
+	name = "orange wardrobe"
 	icon_state = "orange"
 
 /obj/structure/closet/wardrobe/orange/populate_contents()
-	new /obj/item/clothing/under/color/orange/prison(src)
-	new /obj/item/clothing/under/color/orange/prison(src)
-	new /obj/item/clothing/under/color/orange/prison(src)
+	new /obj/item/clothing/under/color/orange(src)
+	new /obj/item/clothing/under/color/orange(src)
+	new /obj/item/clothing/under/color/orange(src)
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/clothing/shoes/orange(src)
 
+/obj/structure/closet/wardrobe/orange/prison
+	name = "prison wardrobe"
+	desc = "It's a storage unit for Nanotrasen-regulation prisoner attire."
+
+/obj/structure/closet/wardrobe/orange/prison/populate_contents()
+	new /obj/item/clothing/under/color/orange/prison(src)
+	new /obj/item/clothing/under/color/orange/prison(src)
+	new /obj/item/clothing/under/color/orange/prison(src)
+	new /obj/item/clothing/shoes/orange(src)
+	new /obj/item/clothing/shoes/orange(src)
+	new /obj/item/clothing/shoes/orange(src)
 
 /obj/structure/closet/wardrobe/yellow
 	name = "yellow wardrobe"
