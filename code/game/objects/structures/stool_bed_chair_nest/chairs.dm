@@ -370,7 +370,7 @@
 	icon_state = "pewend_right"
 
 /obj/structure/chair/sofa/bench
-	name = "Bench"
+	name = "bench"
 	desc = "You sit in this. Either by will or force."
 	icon_state = "bench_middle_mapping"
 	base_icon_state = "bench_middle"
@@ -412,7 +412,7 @@
 	base_icon_state = "bench_right"
 
 /obj/structure/chair/sofa/bamboo
-	name = "Bamboo Bench"
+	name = "bamboo bench"
 	desc = "Not the most comfortable, but vegan!"
 	icon_state = "bamboo_sofamiddle"
 	color = null
