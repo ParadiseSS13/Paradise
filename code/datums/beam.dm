@@ -9,10 +9,10 @@
 	var/max_distance = 0
 	var/endtime = 0
 	var/sleep_time = 3
-	var/finished = 0
+	var/finished = FALSE
 	var/target_oldloc = null
 	var/origin_oldloc = null
-	var/static_beam = 0
+	var/static_beam = FALSE
 	var/beam_type = /obj/effect/ebeam //must be subtype
 
 /datum/beam/New(beam_origin,beam_target,beam_icon='icons/effects/beam.dmi',beam_icon_state="b_beam",time=50,maxdistance=10,btype = /obj/effect/ebeam,beam_sleep_time=3)
@@ -23,7 +23,7 @@
 	target_oldloc = get_turf(target)
 	sleep_time = beam_sleep_time
 	if(origin_oldloc == origin && target_oldloc == target)
-		static_beam = 1
+		static_beam = TRUE
 	max_distance = maxdistance
 	base_icon = new(beam_icon,beam_icon_state)
 	icon = beam_icon
@@ -45,7 +45,7 @@
 	qdel(src)
 
 /datum/beam/proc/End()
-	finished = 1
+	finished = TRUE
 
 /datum/beam/proc/Reset()
 	QDEL_LIST(elements)
@@ -111,7 +111,7 @@
 
 /obj/effect/ebeam
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = 1
+	anchored = TRUE
 	var/datum/beam/owner
 
 /obj/effect/ebeam/ex_act(severity)

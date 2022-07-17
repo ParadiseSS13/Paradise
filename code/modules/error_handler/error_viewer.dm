@@ -179,6 +179,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 	if(!istype(back_to))
 		back_to = error_source
 	var/html = buildHeader(back_to, linear)
+	html += "<div class='bad'><b>Be sure to censor out ckeys when copying runtimes!</b></div><br>"
 	html += "<div class='runtime'>[html_encode(name)]<br>[desc]</div>"
 	if(srcRef)
 		html += "<br>src: <a href='?_src_=vars;Vars=[srcUID]'>VV</a>"

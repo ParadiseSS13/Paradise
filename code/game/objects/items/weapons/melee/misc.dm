@@ -1,5 +1,5 @@
 /obj/item/melee
-	needs_permit = 1
+	needs_permit = TRUE
 
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	if(target.check_block())

@@ -126,16 +126,22 @@
 	allow_wrap = FALSE
 	var/labelled = FALSE
 
-/obj/item/storage/pill_bottle/random_meds/New()
-	..()
+/obj/item/storage/pill_bottle/random_meds/Initialize(mapload)
+	. = ..()
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
+
+/obj/item/storage/pill_bottle/random_meds/populate_contents()
+	var/list/possible_meds_standard = GLOB.standard_medicines.Copy()
+	var/list/possible_meds_rare = GLOB.rare_medicines.Copy()
 	for(var/i in 1 to storage_slots)
-		var/list/possible_medicines = GLOB.standard_medicines.Copy()
-		if(prob(50))
-			possible_medicines += GLOB.rare_medicines.Copy()
-		var/datum/reagent/R = pick(possible_medicines)
+		var/is_rare = prob(33)
+		var/possible_meds = is_rare ? possible_meds_rare : possible_meds_standard
+
+		var/datum/reagent/R = pick(possible_meds)
 		var/obj/item/reagent_containers/food/pill/P = new(src)
 
-		if(GLOB.rare_medicines.Find(R))
+		if(is_rare)
 			P.reagents.add_reagent(R, 10)
 		else
 			P.reagents.add_reagent(R, rand(2, 5)*10)
@@ -145,8 +151,7 @@
 		else
 			P.name = "Unlabelled Pill"
 			P.desc = "Something about this pill entices you to try it, against your better judgement."
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
+
 
 /obj/item/storage/pill_bottle/random_meds/labelled
 	name = "variety pillbottle"
@@ -186,49 +191,9 @@
 		if(prob(85))
 			var/datum/reagent/r = GLOB.chemical_reagents_list[chem]
 			B.name	= "[r.name] bottle"
-//			B.identify_probability = 100
 		else
 			B.name	= "unlabelled bottle"
 			B.desc	= "Looks like the label fell off."
-//			B.identify_probability = 0
-//
-/*
-/obj/structure/closet/crate/bin/flowers
-	name = "flower barrel"
-	desc = "A bin full of fresh flowers for the bereaved."
-	anchored = 0
-	New()
-		while(contents.len < 10)
-			var/flowertype = pick(/obj/item/grown/sunflower,/obj/item/grown/novaflower,/obj/item/reagent_containers/food/snacks/grown/poppy,
-				/obj/item/reagent_containers/food/snacks/grown/harebell,/obj/item/reagent_containers/food/snacks/grown/moonflower)
-			var/atom/movable/AM = new flowertype(src)
-			AM.pixel_x = rand(-10,10)
-			AM.pixel_y = rand(-5,5)
-
-/obj/structure/closet/crate/bin/plants
-	name = "plant barrel"
-	desc = "Caution: Contents may contain vitamins and minerals.  It is recommended that you deep fry them before eating."
-	anchored = 0
-	New()
-		while(contents.len < 10)
-			var/ptype = pick(/obj/item/reagent_containers/food/snacks/grown/apple,/obj/item/reagent_containers/food/snacks/grown/banana,
-							 /obj/item/reagent_containers/food/snacks/grown/berries, /obj/item/reagent_containers/food/snacks/grown/cabbage,
-							 /obj/item/reagent_containers/food/snacks/grown/carrot, /obj/item/reagent_containers/food/snacks/grown/cherries,
-							 /obj/item/reagent_containers/food/snacks/grown/chili, /obj/item/reagent_containers/food/snacks/grown/cocoapod,
-							 /obj/item/reagent_containers/food/snacks/grown/corn, /obj/item/reagent_containers/food/snacks/grown/eggplant,
-							 /obj/item/reagent_containers/food/snacks/grown/grapes, /obj/item/reagent_containers/food/snacks/grown/greengrapes,
-							 /obj/item/reagent_containers/food/snacks/grown/icepepper, /obj/item/reagent_containers/food/snacks/grown/lemon,
-							 /obj/item/reagent_containers/food/snacks/grown/lime, /obj/item/reagent_containers/food/snacks/grown/orange,
-							 /obj/item/reagent_containers/food/snacks/grown/potato, /obj/item/reagent_containers/food/snacks/grown/pumpkin,
-							 /obj/item/reagent_containers/food/snacks/grown/soybeans, /obj/item/reagent_containers/food/snacks/grown/sugarcane,
-							 /obj/item/reagent_containers/food/snacks/grown/tomato, /obj/item/reagent_containers/food/snacks/grown/watermelon,
-							 /obj/item/reagent_containers/food/snacks/grown/wheat, /obj/item/reagent_containers/food/snacks/grown/whitebeet,
-							 /obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle, /obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet)
-			var/obj/O = new ptype(src)
-			O.pixel_x = rand(-10,10)
-			O.pixel_y = rand(-5,5)
-*/
-
 /obj/structure/closet/secure_closet/random_drinks
 	name = "unlabelled booze closet"
 	req_access = list(ACCESS_BAR)
@@ -308,14 +273,21 @@
 	name = "tactical grenades"
 	desc = "A box with 6 tactical grenades."
 	icon_state = "flashbang"
-	var/list/grenadelist = list(/obj/item/grenade/chem_grenade/metalfoam, /obj/item/grenade/chem_grenade/incendiary,
-	/obj/item/grenade/chem_grenade/antiweed, /obj/item/grenade/chem_grenade/cleaner, /obj/item/grenade/chem_grenade/teargas,
-	/obj/item/grenade/chem_grenade/holywater, /obj/item/grenade/chem_grenade/meat,
-	/obj/item/grenade/chem_grenade/dirt, /obj/item/grenade/chem_grenade/lube, /obj/item/grenade/smokebomb,
-	/obj/item/grenade/chem_grenade/drugs, /obj/item/grenade/chem_grenade/ethanol) // holy list batman
 
-/obj/item/storage/box/grenades/New()
-	..()
+/obj/item/storage/box/grenades/populate_contents()
+	var/static/list/grenadelist = list(
+		/obj/item/grenade/chem_grenade/metalfoam,
+		/obj/item/grenade/chem_grenade/incendiary,
+		/obj/item/grenade/chem_grenade/antiweed,
+		/obj/item/grenade/chem_grenade/cleaner,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/grenade/chem_grenade/holywater,
+		/obj/item/grenade/chem_grenade/meat,
+		/obj/item/grenade/chem_grenade/dirt,
+		/obj/item/grenade/chem_grenade/lube,
+		/obj/item/grenade/smokebomb,
+		/obj/item/grenade/chem_grenade/drugs,
+		/obj/item/grenade/chem_grenade/ethanol) // holy list batman
 	for(var/i in 1 to 6)
 		var/nade = pick(grenadelist)
 		new nade(src)

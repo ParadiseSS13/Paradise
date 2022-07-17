@@ -38,7 +38,6 @@
 	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
 	can_hold = list(/obj/item/nanomob_card)
 
-/obj/item/storage/box/nanomob_booster_pack/New()
-	..()
+/obj/item/storage/box/nanomob_booster_pack/populate_contents()
 	for(var/i in 1 to 6)
 		new /obj/item/nanomob_card/booster(src)

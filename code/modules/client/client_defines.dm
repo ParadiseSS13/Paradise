@@ -81,11 +81,6 @@
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
 
-	var/client_keysend_amount = 0
-	var/next_keysend_reset = 0
-	var/next_keysend_trip_reset = 0
-	var/keysend_tripped = FALSE
-
 	/// Messages currently seen by this client
 	var/list/seen_messages
 
@@ -125,6 +120,13 @@
 
 	/// The client's job ban holder
 	var/datum/job_ban_holder/jbh = new()
+
+	/// Input datum, what the client is pressing.
+	var/datum/input_data/input_data = new()
+	/// The client's active keybindings, depending on their active mob.
+	var/list/active_keybindings = list()
+	/// The client's movement keybindings to directions, which work regardless of modifiers.
+	var/list/movement_kb_dirs = list()
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

@@ -11,9 +11,9 @@
 	slot_flags = SLOT_BELT
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
-	var/active = 0
+	var/active = FALSE
 	var/det_time = 50
-	var/display_timer = 1
+	var/display_timer = TRUE
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
@@ -24,7 +24,7 @@
 /obj/item/grenade/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
-		active = 1
+		active = TRUE
 		icon_state = initial(icon_state) + "_active"
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 		spawn(5)
@@ -40,7 +40,7 @@
 	if(istype(target, /obj/item/gun/grenadelauncher)) return ..()
 	if((user.is_in_active_hand(src)) && (!active) && (clown_check(user)) && target.loc != src.loc)
 		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
-		active = 1
+		active = TRUE
 		icon_state = initial(icon_state) + "_active"
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 		spawn(det_time)
@@ -65,7 +65,7 @@
 	if(!active)
 		if(clown_check(user))
 			to_chat(user, "<span class='warning'>You prime [src]! [det_time/10] seconds!</span>")
-			active = 1
+			active = TRUE
 			icon_state = initial(icon_state) + "_active"
 			add_fingerprint(user)
 			var/turf/bombturf = get_turf(src)

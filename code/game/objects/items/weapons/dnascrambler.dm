@@ -4,7 +4,7 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "syringe_0"
 	icon_state = "lepopen"
-	var/used = null
+	var/used = FALSE
 
 /obj/item/dnascrambler/update_icon()
 	if(used)
@@ -51,6 +51,6 @@
 	target.update_icons()
 
 	add_attack_logs(user, target, "injected with [src]")
-	used = 1
+	used = TRUE
 	update_icon()
 	name = "used " + name
