@@ -298,11 +298,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(holder.has_reagent("frostoil"))
 		holder.remove_reagent("frostoil", 5)
-	if(prob(50))
-		M.AdjustParalysis(-2 SECONDS)
-		M.AdjustStunned(-2 SECONDS)
-		M.AdjustWeakened(-2 SECONDS)
-		M.AdjustKnockDown(-2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)
