@@ -2078,6 +2078,7 @@
 	products = list(/obj/item/clothing/under/rank/engineer = 6,
 					/obj/item/clothing/under/rank/engineer/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
+					/obj/item/clothing/suit/jacket/engibomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/beret/eng = 3,
 					/obj/item/clothing/head/hardhat = 2,
@@ -2107,6 +2108,7 @@
 	products = list(/obj/item/clothing/under/rank/atmospheric_technician  = 6,
 					/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
+					/obj/item/clothing/suit/jacket/atmosbomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/beret/atmos = 3,
 					/obj/item/clothing/head/hardhat = 2,
@@ -2117,8 +2119,8 @@
 					/obj/item/clothing/accessory/armband/engine = 3,
 					/obj/item/clothing/shoes/laceup = 3,
 					/obj/item/clothing/shoes/workboots = 3,
-					/obj/item/storage/backpack/industrial = 2,
-					/obj/item/storage/backpack/satchel_eng = 2,
+					/obj/item/storage/backpack/industrial/atmos = 2,
+					/obj/item/storage/backpack/satchel_atmos = 2,
 					/obj/item/storage/backpack/duffel/atmos = 2,
 					/obj/item/storage/belt/utility = 2)
 	contraband = list(/obj/item/toy/figure/crew/atmos = 1)
