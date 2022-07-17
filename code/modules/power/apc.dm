@@ -285,6 +285,7 @@
 // update the APC icon to show the three base states
 // also add overlays for indicator lights
 /obj/machinery/power/apc/update_icon(force_update = FALSE)
+
 	if(!status_overlays || force_update)
 		status_overlays = TRUE
 		status_overlays_lock = new
@@ -320,10 +321,23 @@
 		status_overlays_environ[2] = image(icon, "apco2-1")
 		status_overlays_environ[3] = image(icon, "apco2-2")
 		status_overlays_environ[4] = image(icon, "apco2-3")
+
+	var/update = check_updates() 		//returns 0 if no need to update icons.
+						// 1 if we need to update the icon_state
+						// 2 if we need to update the overlays
+	if(!update && !force_update)
+		return
+
+	if(force_update || update & 1) // Updating the icon state
+		..(UPDATE_ICON_STATE)
 	
-	if(force_update)
-		return ..(ALL)
-	return ..(check_updates())
+	if(!(update_state & UPSTATE_ALLGOOD))
+		if(managed_overlays)
+			..(UPDATE_OVERLAYS)
+		return
+
+	if(force_update || update & 2)
+		..(UPDATE_OVERLAYS)
 
 /obj/machinery/power/apc/update_icon_state()
 	if(update_state & UPSTATE_ALLGOOD)
@@ -346,9 +360,12 @@
 
 /obj/machinery/power/apc/update_overlays()
 	. = ..()
+	if(!(update_state & UPSTATE_ALLGOOD))
+		return
+
 	if(!(stat & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
 		. += status_overlays_lock[locked+1]
-		overlays += status_overlays_charging[charging+1]
+		. += status_overlays_charging[charging+1]
 		if(operating)
 			. += status_overlays_equipment[equipment+1]
 			. += status_overlays_lighting[lighting+1]
@@ -380,45 +397,44 @@
 		update_state |= UPSTATE_ALLGOOD
 
 	if(update_state & UPSTATE_ALLGOOD)
-		if(!(stat & POWEROFF))
-			if(locked)
-				update_overlay |= APC_UPOVERLAY_LOCKED
+		if(locked)
+			update_overlay |= APC_UPOVERLAY_LOCKED
 
-			if(charging == APC_NOT_CHARGING)
-				update_overlay |= APC_UPOVERLAY_CHARGEING0
-			else if(charging == APC_IS_CHARGING)
-				update_overlay |= APC_UPOVERLAY_CHARGEING1
-			else if(charging == APC_FULLY_CHARGED)
-				update_overlay |= APC_UPOVERLAY_CHARGEING2
+		if(charging == APC_NOT_CHARGING)
+			update_overlay |= APC_UPOVERLAY_CHARGEING0
+		else if(charging == APC_IS_CHARGING)
+			update_overlay |= APC_UPOVERLAY_CHARGEING1
+		else if(charging == APC_FULLY_CHARGED)
+			update_overlay |= APC_UPOVERLAY_CHARGEING2
 
-			if(!equipment)
-				update_overlay |= APC_UPOVERLAY_EQUIPMENT0
-			else if(equipment == 1)
-				update_overlay |= APC_UPOVERLAY_EQUIPMENT1
-			else if(equipment == 2)
-				update_overlay |= APC_UPOVERLAY_EQUIPMENT2
+		if(!equipment)
+			update_overlay |= APC_UPOVERLAY_EQUIPMENT0
+		else if(equipment == 1)
+			update_overlay |= APC_UPOVERLAY_EQUIPMENT1
+		else if(equipment == 2)
+			update_overlay |= APC_UPOVERLAY_EQUIPMENT2
 
-			if(!lighting)
-				update_overlay |= APC_UPOVERLAY_LIGHTING0
-			else if(lighting == 1)
-				update_overlay |= APC_UPOVERLAY_LIGHTING1
-			else if(lighting == 2)
-				update_overlay |= APC_UPOVERLAY_LIGHTING2
+		if(!lighting)
+			update_overlay |= APC_UPOVERLAY_LIGHTING0
+		else if(lighting == 1)
+			update_overlay |= APC_UPOVERLAY_LIGHTING1
+		else if(lighting == 2)
+			update_overlay |= APC_UPOVERLAY_LIGHTING2
 
-			if(!environ)
-				update_overlay |= APC_UPOVERLAY_ENVIRON0
-			else if(environ==1)
-				update_overlay |= APC_UPOVERLAY_ENVIRON1
-			else if(environ==2)
-				update_overlay |= APC_UPOVERLAY_ENVIRON2
+		if(!environ)
+			update_overlay |= APC_UPOVERLAY_ENVIRON0
+		else if(environ==1)
+			update_overlay |= APC_UPOVERLAY_ENVIRON1
+		else if(environ==2)
+			update_overlay |= APC_UPOVERLAY_ENVIRON2
 
+	var/results = 0
 	if(last_update_state == update_state && last_update_overlay == update_overlay)
-		return NONE
-	var/results
+		return 0
 	if(last_update_state != update_state)
-		results |= UPDATE_ICON_STATE
+		results += 1
 	if(last_update_overlay != update_overlay)
-		results |= UPDATE_OVERLAYS
+		results += 2
 	return results
 
 // Used in process so it doesn't update the icon too much
@@ -438,8 +454,8 @@
 		return FALSE
 	if(!second_pass) //The first time, we just cut overlays
 		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.flicker, TRUE), 1)
-		stat |= POWEROFF
-		update_icon()
+		cut_overlays()
+		managed_overlays = null
 		// APC power distruptions have a chance to propogate to other machines on its network
 		for(var/obj/machinery/M in area)
 			// Please don't cascade, thanks
@@ -448,7 +464,6 @@
 			if(prob(10))
 				M.flicker()
 	else
-		stat &= ~POWEROFF
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
 		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.update_icon, TRUE), 10)
 
@@ -1342,7 +1357,7 @@
 	operating = FALSE
 	if(occupier)
 		malfvacate(1)
-	update_icon(force_update = TRUE)
+	update_icon()
 	update()
 
 // overload all the lights in this APC area
