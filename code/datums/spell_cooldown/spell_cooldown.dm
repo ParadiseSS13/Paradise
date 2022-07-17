@@ -51,3 +51,7 @@
 	if(spell_parent.action)
 		spell_parent.action.UpdateButtonIcon()
 		START_PROCESSING(SSfastprocess, src)
+
+/datum/spell_cooldown/proc/revert_cast()
+	recharge_time = world.time
+

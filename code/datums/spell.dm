@@ -82,9 +82,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/school = "evocation" //not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
 
 
-	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
+	var/base_cooldown = 10 SECONDS //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
 	var/starts_charged = TRUE //Does this spell start ready to go?
-	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
 	var/should_recharge_after_cast = TRUE
 	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
 
@@ -191,8 +190,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/spend_spell_cost(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 
-	charge_counter = 0 //doesn't start recharging until the targets selecting ends
-
 	custom_handler?.spend_spell_cost(user, src)
 
 	if(action)
@@ -269,7 +266,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/create_new_cooldown()
 	RETURN_TYPE(/datum/spell_cooldown)
 	var/datum/spell_cooldown/S = new
-	S.recharge_duration = charge_max
+	S.recharge_duration = base_cooldown
 	S.starts_off_cooldown = starts_charged
 	return S
 
@@ -427,9 +424,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return
 
 /obj/effect/proc_holder/spell/proc/revert_cast(mob/user = usr) //resets recharge or readds a charge
-
-	charge_counter = charge_max
-
+	cooldown_handler.revert_cast()
 	custom_handler?.revert_cast(user, src)
 
 	if(action)
@@ -531,7 +526,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/summonmob
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."
-	charge_max = 100
+	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "JE VES"
 	invocation_type = "whisper"

@@ -299,7 +299,7 @@
 	desc = "Drops the bodytemperature of another person."
 	panel = "Abilities"
 
-	charge_max = 1200
+	base_cooldown = 1200
 
 	clothes_req = FALSE
 	stat_allowed = FALSE
@@ -370,7 +370,7 @@
 	desc = "Eat just about anything!"
 	panel = "Abilities"
 
-	charge_max = 300
+	base_cooldown = 300
 
 	clothes_req = 0
 	stat_allowed = 0
@@ -475,7 +475,7 @@
 	desc = "Leap great distances!"
 	panel = "Abilities"
 
-	charge_max = 60
+	base_cooldown = 60
 
 	clothes_req = 0
 	stat_allowed = 0
@@ -567,7 +567,7 @@
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
 	panel = "Abilities"
-	charge_max = 1800
+	base_cooldown = 1800
 
 	clothes_req = FALSE
 	stat_allowed = FALSE
@@ -619,7 +619,7 @@
 /obj/effect/proc_holder/spell/empath
 	name = "Read Mind"
 	desc = "Read the minds of others for information."
-	charge_max = 180
+	base_cooldown = 180
 	clothes_req = FALSE
 	human_req = TRUE
 	stat_allowed = CONSCIOUS
@@ -729,7 +729,7 @@
 	name = "Morph"
 	desc = "Mimic the appearance of your choice!"
 	panel = "Abilities"
-	charge_max = 1800
+	base_cooldown = 1800
 
 	clothes_req = 0
 	stat_allowed = 0
@@ -914,7 +914,7 @@
 /obj/effect/proc_holder/spell/remotetalk
 	name = "Project Mind"
 	desc = "Make people understand your thoughts!"
-	charge_max = 0
+	base_cooldown = 0
 
 	clothes_req = 0
 	stat_allowed = 0
@@ -947,7 +947,7 @@
 /obj/effect/proc_holder/spell/mindscan
 	name = "Scan Mind"
 	desc = "Offer people a chance to share their thoughts!"
-	charge_max = 0
+	base_cooldown = 0
 	clothes_req = 0
 	stat_allowed = 0
 	invocation_type = "none"
@@ -1021,7 +1021,7 @@
 /obj/effect/proc_holder/spell/remoteview
 	name = "Remote View"
 	desc = "Spy on people from any range!"
-	charge_max = 100
+	base_cooldown = 100
 
 	clothes_req = 0
 	stat_allowed = 0

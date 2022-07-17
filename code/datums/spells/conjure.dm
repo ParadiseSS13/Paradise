@@ -45,7 +45,7 @@
 				if(summon_lifespan)
 					QDEL_IN(summoned_object, summon_lifespan)
 	else
-		charge_counter = charge_max - 5//So you don't lose charge for a failed spell(Also prevents most over-fill)
+		cooldown_handler.start_recharge(0.5 SECONDS)
 
 
 	return

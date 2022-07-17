@@ -3,7 +3,7 @@
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
 	school = "evocation"
-	charge_max = 200
+	base_cooldown = 200
 	clothes_req = TRUE
 	invocation = "FORTI GY AMA"
 	invocation_type = "shout"
@@ -41,7 +41,7 @@
 	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
 
 	school = "evocation"
-	charge_max = 60
+	base_cooldown = 60
 	clothes_req = FALSE
 	invocation = "HONK GY AMA"
 	invocation_type = "shout"
@@ -88,7 +88,7 @@
 	desc = "This spell causes you to turn into a hulk and gain laser vision for a short while."
 
 	school = "transmutation"
-	charge_max = 400
+	base_cooldown = 400
 	clothes_req = TRUE
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
@@ -114,7 +114,7 @@
 	desc = "This spell spawns a cloud of choking smoke at your location and does not require wizard garb."
 
 	school = "conjuration"
-	charge_max = 120
+	base_cooldown = 120
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
@@ -131,7 +131,7 @@
 /obj/effect/proc_holder/spell/emplosion/disable_tech
 	name = "Disable Tech"
 	desc = "This spell disables all weapons, cameras and most other technology in range."
-	charge_max = 400
+	base_cooldown = 400
 	clothes_req = TRUE
 	invocation = "NEC CANTIO"
 	invocation_type = "shout"
@@ -147,7 +147,7 @@
 	desc = "This spell randomly teleports you a short distance."
 
 	school = "abjuration"
-	charge_max = 20
+	base_cooldown = 20
 	clothes_req = TRUE
 	invocation = "none"
 	invocation_type = "none"
@@ -175,7 +175,7 @@
 	desc = "This spell teleports you to a type of area of your selection."
 
 	school = "abjuration"
-	charge_max = 600
+	base_cooldown = 600
 	clothes_req = TRUE
 	invocation = "SCYAR NILA"
 	invocation_type = "shout"
@@ -197,7 +197,7 @@
 	desc = "This spell creates a small unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
 
 	school = "transmutation"
-	charge_max = 100
+	base_cooldown = 100
 	clothes_req = FALSE
 	invocation = "TARCOL MINTI ZHERI"
 	invocation_type = "whisper"
@@ -232,7 +232,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
-	charge_max = 500
+	base_cooldown = 500
 	clothes_req = TRUE
 	invocation = "TOKI WO TOMARE"
 	invocation_type = "shout"
@@ -252,7 +252,7 @@
 	desc = "This spell conjures a simple carp."
 
 	school = "conjuration"
-	charge_max = 1200
+	base_cooldown = 1200
 	clothes_req = TRUE
 	invocation = "NOUK FHUNMM SACP RISSKA"
 	invocation_type = "shout"
@@ -271,7 +271,7 @@
 	desc = "This spell conjures a construct which may be controlled by Shades"
 
 	school = "conjuration"
-	charge_max = 600
+	base_cooldown = 600
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
@@ -291,7 +291,7 @@
 	desc = "This spell tears the fabric of reality, allowing horrific daemons to spill forth"
 
 	school = "conjuration"
-	charge_max = 1200
+	base_cooldown = 1200
 	clothes_req = FALSE
 	invocation = "IA IA"
 	invocation_type = "shout"
@@ -310,7 +310,7 @@
 	desc = "This spell temporarily blinds a single person and does not require wizard garb."
 
 	school = "transmutation"
-	charge_max = 300
+	base_cooldown = 300
 	clothes_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
@@ -344,7 +344,7 @@
 	desc = "This spell fires a fireball at a target and does not require wizard garb."
 
 	school = "evocation"
-	charge_max = 60
+	base_cooldown = 60
 	clothes_req = FALSE
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
@@ -388,7 +388,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
-	charge_max = 400
+	base_cooldown = 400
 	clothes_req = TRUE
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
@@ -437,7 +437,7 @@
 /obj/effect/proc_holder/spell/sacred_flame
 	name = "Sacred Flame"
 	desc = "Makes everyone around you more flammable, and lights yourself on fire."
-	charge_max = 60
+	base_cooldown = 60
 	clothes_req = FALSE
 	invocation = "FI'RAN DADISKO"
 	invocation_type = "shout"

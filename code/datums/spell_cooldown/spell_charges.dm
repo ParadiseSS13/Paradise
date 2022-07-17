@@ -31,3 +31,7 @@
 		charge_time = world.time + charge_duration
 	..()
 
+
+/datum/spell_cooldown/charges/revert_cast()
+	..()
+	charge_time = world.time
