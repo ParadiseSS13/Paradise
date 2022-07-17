@@ -1382,7 +1382,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/security/prison/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
-		temp_closet.locked = 0
+		temp_closet.locked = FALSE
 		temp_closet.close()
 		temp_closet.update_icon()
 	for(var/obj/machinery/door_timer/temp_timer in src)

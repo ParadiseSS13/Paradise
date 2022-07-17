@@ -64,11 +64,11 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	active_power_usage = 300
-	interact_offline = 1
+	interact_offline = TRUE
 	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
-	var/opened = 0
+	var/opened = FALSE
 	var/damage_coeff
 	var/scan_level
 	var/precision_coeff

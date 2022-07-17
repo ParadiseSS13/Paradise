@@ -8,7 +8,6 @@
 	icon_state = "autolathe"
 	density = TRUE
 
-	var/operating = 0.0
 	var/list/queue = list()
 	var/queue_max_len = 12
 	var/turf/BuildTurf
