@@ -53,7 +53,7 @@
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
-		/datum/surgery_step/robotics/external/customize_appearance
+		/datum/surgery_step/robotics/external/customize_appearance,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
 	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
