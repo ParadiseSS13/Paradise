@@ -1,3 +1,5 @@
+#define BATON_COOLDOWN 3.5 SECONDS
+
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
 	desc = "A little security robot.  He looks less than thrilled."
@@ -5,8 +7,8 @@
 	icon_state = "secbot0"
 	density = 0
 	anchored = 0
-	health = 25
-	maxHealth = 25
+	health = 60
+	maxHealth = 60
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	pass_flags = PASSMOB
 
@@ -34,6 +36,7 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/harmbaton = 0 //If true, beat instead of stun
 	var/flashing_lights = 0 //If true, flash lights
+	var/baton_delayed = FALSE
 	var/prev_flashing_lights = 0
 	allow_pai = 0
 
@@ -76,7 +79,8 @@
 
 /mob/living/simple_animal/bot/secbot/armsky
 	name = "Sergeant-at-Armsky"
-	health = 45
+	health = 100
+	maxHealth = 100
 	idcheck = 1
 	arrest_type = 1
 	weaponscheck = 1
@@ -213,13 +217,16 @@
 				retaliate(Proj.firer)
 	..()
 
+/mob/living/simple_animal/bot/secbot/projectile_hit_check(obj/item/projectile/P)
+	return FALSE
+
 
 /mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
 	if(!on)
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(!C.IsStunned() || arrest_type)
+		if((!C.IsWeakened() || arrest_type) && !baton_delayed)
 			stun_attack(A)
 		else if(C.canBeHandcuffed() && !C.handcuffed)
 			cuff(A)
@@ -263,8 +270,11 @@
 	if(ishuman(C) && harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
 		C.apply_damage(10, BRUTE)
 	C.SetStuttering(10 SECONDS)
-	C.Weaken(10 SECONDS)
-	add_attack_logs(src, C, "stunned")
+	C.adjustStaminaLoss(60)
+	baton_delayed = TRUE
+	addtimer(CALLBACK(C, .proc/KnockDown, 10 SECONDS), 2.5 SECONDS)
+	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
+	add_attack_logs(src, C, "batoned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
@@ -314,7 +324,7 @@
 				return
 
 			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc))	// if right next to perp
+				if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
 					stun_attack(target)
 
 					mode = BOT_PREP_ARREST
@@ -334,7 +344,7 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) ||  target.AmountWeakened() < 4 SECONDS)
+			if( !Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
 				back_to_hunt()
 				return
 
@@ -427,6 +437,7 @@
 		return 1
 	return 0
 
+
 /mob/living/simple_animal/bot/secbot/explode()
 	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
@@ -467,3 +478,5 @@
 
 /obj/machinery/bot_core/secbot
 	req_access = list(ACCESS_SECURITY)
+
+#undef BATON_COOLDOWN

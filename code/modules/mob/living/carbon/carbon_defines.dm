@@ -8,7 +8,7 @@
 
 	var/life_tick = 0      // The amount of life ticks that have processed on this mob.
 
-	var/obj/item/handcuffed = null //Whether or not the mob is handcuffed
+	var/obj/item/restraints/handcuffs/handcuffed = null //Whether or not the mob is handcuffed, restraints/handcuffs/ required for var/cuffed_state
 	var/obj/item/legcuffed = null  //Same as handcuffs but for legs. Bear traps use this.
 
 	var/obj/item/head = null

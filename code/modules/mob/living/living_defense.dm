@@ -374,3 +374,12 @@
 
 /mob/living/proc/cult_self_harm(damage)
 	return FALSE
+
+/mob/living/shove_impact(mob/living/target, mob/living/attacker)
+	if(IS_HORIZONTAL(src))
+		return FALSE
+	add_attack_logs(attacker, target, "pushed into [src]", ATKLOG_ALL)
+	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	target.KnockDown(1 SECONDS) // knock them both down
+	KnockDown(1 SECONDS)
+	return TRUE

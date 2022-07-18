@@ -200,7 +200,7 @@
 	countdown.start()
 	GLOB.poi_list |= src
 	radio = new(src)
-	radio.listening = 0
+	radio.listening = FALSE
 	radio.config(list("Engineering" = 0))
 	investigate_log("has been created.", "supermatter")
 

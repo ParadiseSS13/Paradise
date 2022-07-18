@@ -1,6 +1,6 @@
 //goat
 /mob/living/simple_animal/hostile/retaliate/goat
-	name = "goat"
+	name = "\improper goat"
 	desc = "Not known for their pleasant disposition."
 	icon_state = "goat"
 	icon_living = "goat"
@@ -109,7 +109,7 @@
 
 //cow
 /mob/living/simple_animal/cow
-	name = "cow"
+	name = "\improper cow"
 	desc = "Known for their milk, just don't tip them over."
 	icon_state = "cow"
 	icon_living = "cow"
@@ -123,9 +123,9 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
@@ -204,9 +204,9 @@
 	speak_chance = 2
 	turns_per_move = 2
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 3
 	maxHealth = 3
@@ -259,9 +259,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
 	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 15
 	maxHealth = 15
@@ -370,7 +370,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	return FALSE
 
 /mob/living/simple_animal/pig
-	name = "pig"
+	name = "\improper pig"
 	desc = "Oink oink."
 	icon_state = "pig"
 	icon_living = "pig"
@@ -383,9 +383,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/ham = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
@@ -396,7 +396,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/turkey
-	name = "turkey"
+	name = "\improper turkey"
 	desc = "Benjamin Franklin would be proud."
 	icon_state = "turkey"
 	icon_living = "turkey"
@@ -409,9 +409,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "pecks"
 	health = 50
 	maxHealth = 50
@@ -421,7 +421,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/goose
-	name = "goose"
+	name = "\improper goose"
 	desc = "A pretty goose. Would make a nice comforter."
 	icon_state = "goose"
 	icon_living = "goose"
@@ -434,9 +434,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
@@ -446,7 +446,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/seal
-	name = "seal"
+	name = "\improper seal"
 	desc = "A beautiful white seal."
 	icon_state = "seal"
 	icon_living = "seal"
@@ -459,9 +459,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
@@ -471,7 +471,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/walrus
-	name = "walrus"
+	name = "\improper walrus"
 	desc = "A big brown walrus."
 	icon_state = "walrus"
 	icon_living = "walrus"
@@ -484,9 +484,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
