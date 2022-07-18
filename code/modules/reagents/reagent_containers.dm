@@ -17,7 +17,7 @@
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
 	set category = "Object"
-	set src in range(0)
+	set src in usr
 
 	if(!usr.Adjacent(src) || usr.incapacitated())
 		return

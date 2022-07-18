@@ -352,6 +352,7 @@ BLIND     // can't see anything
 	set name = "Toggle Suit Sensors"
 	set category = "Object"
 	set src in usr
+
 	set_sensors(usr)
 
 /obj/item/clothing/under/AltShiftClick(mob/user)
