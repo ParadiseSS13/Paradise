@@ -593,39 +593,45 @@
 	linked_emote = /datum/emote/living/simple_animal/pet/cat/purr
 	name = "Purr (Cat)"
 
-/datum/keybinding/emote/custom
+/datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM
 	var/emote_text = "Insert custom me emote text."
 
-/datum/keybinding/emote/custom/can_use(client/C, mob/M)
+/datum/keybinding/custom/down(client/C)
+	. = ..()
+	if(emote_text == initial(emote_text))
+		return
+	C.mob.me_verb(emote_text)
+
+/datum/keybinding/custom/can_use(client/C, mob/M)
 	return isliving(M) && ..()
 
-/datum/keybinding/emote/custom/one
+/datum/keybinding/custom/one
 	name = "Custom Emote 1"
 
-/datum/keybinding/emote/custom/two
+/datum/keybinding/custom/two
 	name = "Custom Emote 2"
 
-/datum/keybinding/emote/custom/three
+/datum/keybinding/custom/three
 	name = "Custom Emote 3"
 
-/datum/keybinding/emote/custom/four
+/datum/keybinding/custom/four
 	name = "Custom Emote 4"
 
-/datum/keybinding/emote/custom/five
+/datum/keybinding/custom/five
 	name = "Custom Emote 5"
 
-/datum/keybinding/emote/custom/six
+/datum/keybinding/custom/six
 	name = "Custom Emote 6"
 
-/datum/keybinding/emote/custom/seven
+/datum/keybinding/custom/seven
 	name = "Custom Emote 7"
 
-/datum/keybinding/emote/custom/eight
+/datum/keybinding/custom/eight
 	name = "Custom Emote 8"
 
-/datum/keybinding/emote/custom/nine
+/datum/keybinding/custom/nine
 	name = "Custom Emote 9"
 
-/datum/keybinding/emote/custom/ten
+/datum/keybinding/custom/ten
 	name = "Custom Emote 10"

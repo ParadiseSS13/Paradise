@@ -26,6 +26,7 @@
 		ghost_darkness_level = query.item[20]
 		colourblind_mode = query.item[21]
 		keybindings = init_keybindings(raw = query.item[22])
+		custom_emote_text = init_custom_emote_text(raw = query.item[23])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -80,7 +81,8 @@
 		screentip_color=:screentip_color,
 		ghost_darkness_level=:ghost_darkness_level,
 		colourblind_mode=:colourblind_mode,
-		keybindings=:keybindings
+		keybindings=:keybindings,
+		custom_emotes=:custom_emotes
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -104,6 +106,7 @@
 			"ghost_darkness_level" = ghost_darkness_level,
 			"colourblind_mode" = colourblind_mode,
 			"keybindings" = json_encode(keybindings_overrides),
+			"custom_emotes" = json_encode(custom_emote_text),
 			"ckey" = C.ckey,
 		))
 

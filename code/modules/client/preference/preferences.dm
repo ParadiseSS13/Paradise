@@ -520,13 +520,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "<td style='width: 25%'>[KB.name]</td>"
 					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[KB.UID()]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[KB.UID()]'>Clear</a></td>"
-					if(cat == KB_CATEGORY_EMOTE_CUSTOM)
-						var/datum/keybinding/emote/custom/custom_emote = kb
+					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
+						var/datum/keybinding/custom/custom_emote = kb
 						dat += "</tr>"
 						dat += "<tr>"
-						dat += "<td style='width: 80%'>[custom_emote.emote_text]</td>"
-						dat += "<td style='width: 10%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote.UID()]'>Change Text</a></td>"
-						dat += "<td style='width: 10%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote.UID()]'>Reset to Default</a></td>"
+						dat += "<td style='width: 25%'>[custom_emote.emote_text]</td>"
+						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote.UID()]'>Change Text</a></td>"
+						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote.UID()]'>Reset to Default</a></td>"
+						dat += "<tr><td colspan=4><br></td></tr>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
 
@@ -679,6 +680,21 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	parent?.update_active_keybindings()
 	return keybindings
+
+/datum/preferences/proc/init_custom_emote_text(overrides, raw)
+	if(raw)
+		try
+			overrides = json_decode(raw)
+		catch
+			overrides = list()
+	custom_emote_text = list()
+	custom_emote_text = overrides
+	for(var/kb in GLOB.keybindings)
+		var/datum/keybinding/custom/custom_emote = kb
+		var/list/emote_text = overrides && overrides[custom_emote.name]
+		LAZYADD(custom_emote_text[emote_text], kb)
+
+	return custom_emote_text
 
 /datum/preferences/proc/capture_keybinding(mob/user, datum/keybinding/KB, old)
 	var/HTML = {"

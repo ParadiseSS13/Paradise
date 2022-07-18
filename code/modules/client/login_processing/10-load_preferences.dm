@@ -24,7 +24,8 @@
 		screentip_color,
 		ghost_darkness_level,
 		colourblind_mode,
-		keybindings
+		keybindings,
+		custom_emotes
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
