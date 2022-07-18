@@ -26,7 +26,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable
 	level = 1
-	anchored = 1
+	anchored = TRUE
 	on_blueprints = TRUE
 	var/datum/powernet/powernet
 	name = "power cable"
@@ -35,9 +35,12 @@ By design, d1 is the smallest direction and d2 is the highest
 	icon_state = "0-1"
 	var/d1 = 0
 	var/d2 = 1
-	plane = FLOOR_PLANE
-	layer = WIRE_LAYER //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
 	color = COLOR_RED
+
+	//The following vars are set here for the benefit of mapping - they are reset when the cable is spawned
+	alpha = 128	//is set to 255 when spawned
+	plane = GAME_PLANE //is set to FLOOR_PLANE when spawned
+	layer = LOW_OBJ_LAYER //isset to WIRE_LAYER when spawned
 
 /obj/structure/cable/yellow
 	color = COLOR_YELLOW
@@ -62,6 +65,9 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
+	plane = FLOOR_PLANE //move it down so ambient occlusion ignores it
+	alpha = 255 //make it not semi-transparent
+	layer = WIRE_LAYER //put it on the right level
 
 	// ensure d1 & d2 reflect the icon_state for entering and exiting cable
 	var/dash = findtext(icon_state, "-")
@@ -850,7 +856,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	color = COLOR_WHITE
 
 /obj/item/stack/cable_coil/random/New()
-	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
 	..()
 
 /obj/item/stack/cable_coil/proc/cable_color(colorC)
