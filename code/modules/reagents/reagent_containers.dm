@@ -25,6 +25,9 @@
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
 		default = amount_per_transfer_from_this
 	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
+	if(!usr.Adjacent(src))
+		to_chat(usr, "You have moved too far away.")
+		return
 	if(N)
 		amount_per_transfer_from_this = N
 
