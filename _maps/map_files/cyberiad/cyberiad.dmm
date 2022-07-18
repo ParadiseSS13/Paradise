@@ -8768,6 +8768,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75837,15 +75840,6 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/aisat_interior)
-"doV" = (
-/obj/machinery/holomap{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
-	},
-/area/hallway/primary/aft)
 "doW" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -78068,14 +78062,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"gzz" = (
-/obj/machinery/holomap{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bluecorner"
-	},
-/area/hallway/primary/fore)
 "gAm" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -79020,15 +79006,14 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
-"jmE" = (
+"jmy" = (
 /obj/machinery/holomap{
-	pixel_y = 32
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+	icon_state = "bluecorner"
 	},
-/area/crew_quarters/dorms)
+/area/hallway/primary/fore)
 "jnm" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Laser Room";
@@ -80668,6 +80653,12 @@
 "omz" = (
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
+"ord" = (
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "orF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81691,6 +81682,15 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"roj" = (
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/dorms)
 "ruR" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -81762,6 +81762,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"rES" = (
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "rFd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -83373,12 +83382,6 @@
 	icon_state = "dark"
 	},
 /area/security/execution)
-"wDd" = (
-/obj/machinery/holomap{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit)
 "wEP" = (
 /obj/machinery/newscaster{
 	name = "east bump";
@@ -112214,7 +112217,7 @@ cBp
 cAL
 cDY
 cvx
-doV
+rES
 mqV
 ePP
 ePP
@@ -113183,7 +113186,7 @@ aNc
 aHT
 aNT
 aQS
-gzz
+jmy
 aSc
 aHT
 aUq
@@ -120375,7 +120378,7 @@ aKO
 aMJ
 aOg
 aFI
-jmE
+roj
 aSM
 aVp
 aWT
@@ -134546,7 +134549,7 @@ bNv
 boD
 bSc
 bmm
-wDd
+ord
 bEG
 aaa
 aaa

@@ -2889,6 +2889,14 @@
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
 	})
+"aqU" = (
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/locker)
 "arf" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -65415,15 +65423,6 @@
 	},
 /turf/simulated/floor/grass/no_creep,
 /area/medical/genetics)
-"jgI" = (
-/obj/machinery/holomap{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "cautioncorner"
-	},
-/area/hallway/primary/starboard)
 "jgJ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -71017,6 +71016,17 @@
 "lSh" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/portsolar)
+"lSm" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "lSn" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -74396,6 +74406,15 @@
 	icon_state = "caution"
 	},
 /area/atmos/control)
+"nBc" = (
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "cautioncorner"
+	},
+/area/hallway/primary/starboard)
 "nBF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -85149,14 +85168,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
-"tgT" = (
-/obj/machinery/holomap{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/crew_quarters/locker)
 "tgV" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -87406,17 +87417,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"uwh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/holomap{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "uwk" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -119910,7 +119910,7 @@ bZU
 cXK
 cTD
 bZU
-uwh
+lSm
 mky
 cRt
 cVc
@@ -128316,7 +128316,7 @@ aTs
 spj
 aVR
 aXk
-tgT
+aqU
 aLl
 axb
 aEv
@@ -134493,7 +134493,7 @@ cfd
 bhU
 bjH
 bam
-jgI
+nBc
 bsY
 mGk
 bHN
