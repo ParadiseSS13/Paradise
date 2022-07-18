@@ -18,7 +18,6 @@
 	. = ..()
 	evolve_to_queen_action.Grant(src)
 
-
 //Drones use the same base as generic humanoids.
 //Drone verbs
 

@@ -13,6 +13,7 @@
 /mob/living/carbon/alien/humanoid/queen/GrantAlienActions()
 	. = ..()
 	lay_egg_queen_action.Grant(src)
+	neurotoxin_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	//there should only be one queen

@@ -9,7 +9,6 @@
 	plant_action.Grant(src)
 	whisper_action.Grant(src)
 	transfer_plasma_action.Grant(src)
-	neurotoxin_action.Grant(src)
 	regurgitate_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/hunter/New()

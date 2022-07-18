@@ -14,6 +14,7 @@
 /mob/living/carbon/alien/humanoid/empress/GrantAlienActions()
 	..()
 	lay_egg_action.Grant(src)
+	neurotoxin_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"

@@ -40,7 +40,6 @@
 	whisper_action.Grant(src)
 	transfer_plasma_action.Grant(src)
 	corrosive_acid_action.Grant(src)
-	neurotoxin_action.Grant(src)
 	resin_action.Grant(src)
 	regurgitate_action.Grant(src)
 	nigtvisiontoggle_action.Grant(src)
