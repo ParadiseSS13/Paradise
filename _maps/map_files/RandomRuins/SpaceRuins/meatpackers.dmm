@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /turf/template_noop,
-/area/space)
+/area/template_noop)
 "ab" = (
 /obj/item/circular_saw,
 /obj/structure/lattice,
@@ -457,19 +457,9 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
-"bD" = (
-/obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "carpetside"
-	},
-/area/ruin/unpowered/BMPship/Fore)
 "bE" = (
 /obj/machinery/door/airlock/silver,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "bF" = (
 /turf/simulated/wall/mineral/titanium,
@@ -544,11 +534,6 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
-"bR" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "carpet"
-	},
-/area/ruin/unpowered/BMPship/Fore)
 "bS" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -563,9 +548,7 @@
 	pixel_y = 24;
 	req_access = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "bT" = (
 /obj/structure/table,
@@ -714,30 +697,6 @@
 "cl" = (
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/unpowered/BMPship/Aft)
-"cm" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-13"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"cn" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-7"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"co" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-7"
-	},
-/area/ruin/unpowered/BMPship/Fore)
 "cp" = (
 /obj/item/reagent_containers/food/snacks/hugemushroomslice,
 /turf/simulated/floor/plasteel{
@@ -820,18 +779,6 @@
 "cC" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
-"cD" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-14"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"cE" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-11"
-	},
-/area/ruin/unpowered/BMPship/Fore)
 "cF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -839,10 +786,7 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-11"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "cG" = (
 /obj/structure/cable{
@@ -851,9 +795,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "cH" = (
 /obj/item/reagent_containers/food/snacks/hugemushroomslice,
@@ -970,41 +912,7 @@
 	info = "I'm no scientist, but judging from the design and components, it seems to be some kind of gateway. This thing is gonna be worth a lot of cash to the right man. The boys are excited, as they have every right to be, and I've let them crack into that case of beer we got. I normally wouldn't allow such a thing, but this is a time for celebration! It's not like a couple drinks will hurt anything.";
 	name = "Captain's log entry"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet6-0"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"cX" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet14-2"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"cY" = (
-/obj/structure/computerframe,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet14-8"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"cZ" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet10-0"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"da" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "db" = (
 /turf/simulated/floor/plasteel{
@@ -1181,37 +1089,16 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Aft)
 "ds" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-15"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "dt" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet5-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "du" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet13-1"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"dv" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet13-4"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"dw" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet9-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "dx" = (
 /obj/machinery/light{
@@ -1223,10 +1110,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "dy" = (
 /obj/machinery/light/small{
@@ -1320,17 +1204,11 @@
 /area/ruin/unpowered/BMPship/Fore)
 "dL" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "dM" = (
 /obj/item/shard,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "dN" = (
 /obj/structure/cable{
@@ -1345,9 +1223,7 @@
 	icon_state = "1-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "dO" = (
 /obj/machinery/door/airlock/silver,
@@ -1357,10 +1233,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Midship)
 "dP" = (
 /obj/structure/cable{
@@ -1562,28 +1435,19 @@
 /area/ruin/unpowered/BMPship/Aft)
 "ei" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet7-3"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "ej" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet11-12"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "ek" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-14"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "el" = (
 /obj/structure/cable{
@@ -1592,10 +1456,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-15"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "em" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1716,10 +1577,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-7"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "eC" = (
 /obj/structure/cable{
@@ -1728,22 +1586,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-13"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"eD" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-7"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "eE" = (
 /obj/structure/cable{
@@ -1752,10 +1595,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-15"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "eF" = (
 /obj/structure/cable{
@@ -1839,36 +1679,9 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
-"eN" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "carpetside"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"eO" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "carpetside"
-	},
-/area/ruin/unpowered/BMPship/Fore)
-"eP" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-11"
-	},
-/area/ruin/unpowered/BMPship/Fore)
 "eQ" = (
 /obj/machinery/door/airlock/silver,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Midship)
 "eR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1981,20 +1794,14 @@
 /area/ruin/unpowered/BMPship/Aft)
 "fd" = (
 /obj/structure/closet,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-15"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "fe" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/closet,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "ff" = (
 /obj/effect/gibspawner/xeno,
@@ -2034,9 +1841,7 @@
 /area/ruin/unpowered/BMPship/Aft)
 "fl" = (
 /obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plasteel{
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "fm" = (
 /obj/structure/cable{
@@ -2046,9 +1851,7 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plasteel{
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "fn" = (
 /obj/structure/window/reinforced{
@@ -2488,7 +2291,7 @@
 "gC" = (
 /obj/item/clothing/gloves/color/yellow,
 /turf/template_noop,
-/area/ruin/powered)
+/area/template_noop)
 "gD" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/plasteel,
@@ -3165,7 +2968,7 @@ ds
 dL
 ei
 ei
-eN
+ds
 ds
 aD
 aD
@@ -3211,12 +3014,12 @@ aa
 aa
 aD
 aD
-bR
+ds
 ds
 dM
 ej
 ej
-eO
+ds
 ds
 aD
 fA
@@ -3261,8 +3064,8 @@ aa
 aa
 aD
 aD
-bR
-bR
+ds
+ds
 ds
 ds
 ds
@@ -3311,14 +3114,14 @@ aO
 aO
 aD
 aD
-cm
-cD
+ds
+ds
 cW
 dt
-cm
+ds
 ek
-cm
-cD
+ds
+ds
 ds
 fl
 fA
@@ -3361,15 +3164,15 @@ aP
 bh
 bq
 aD
-bR
-cn
-cE
-cX
+ds
+ds
+ds
+ei
 du
-cn
-cE
+ds
+ds
 eB
-eP
+el
 el
 fm
 fC
@@ -3411,16 +3214,16 @@ aD
 aQ
 bi
 bh
-bD
-bR
-cm
-cD
-cY
-dv
-cm
-cD
+fl
+ds
+ds
+ds
+dL
+ds
+ds
+ds
 eC
-cD
+ds
 ds
 aD
 fD
@@ -3464,14 +3267,14 @@ aD
 aD
 aD
 bS
-co
+el
 cF
-cZ
-dw
-cn
-cE
-eD
-cE
+ds
+ds
+ds
+ds
+eC
+ds
 fd
 aD
 fE
@@ -3514,15 +3317,15 @@ aR
 bj
 bk
 bE
-bR
-bR
+ds
+ds
 cG
-da
+el
 dx
 dN
 el
 eE
-bR
+ds
 fe
 aD
 fF
