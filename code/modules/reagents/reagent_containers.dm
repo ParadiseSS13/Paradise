@@ -28,6 +28,10 @@
 	if(N)
 		amount_per_transfer_from_this = N
 
+/obj/item/reagent_containers/AltClick(mob/user)
+	if(user.Adjacent(src))
+		set_APTFT()
+
 /obj/item/reagent_containers/New()
 	create_reagents(volume, temperature_min, temperature_max)
 	..()
