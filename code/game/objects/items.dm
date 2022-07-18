@@ -107,6 +107,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
 	var/tip_timer = 0
 
+	// item hover FX
+	/// Is this item inside a storage object?
+	var/in_storage = FALSE
+	/// Holder var for the item outline filter, null when no outline filter on the item.
+	var/outline_filter
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -119,6 +125,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			hitsound = "swing_hit"
 	if(!move_resist)
 		determine_move_resist()
+
+/obj/item/Initialize(mapload)
+	. = ..()
+	if(istype(loc, /obj/item/storage)) //marks all items in storage as being such
+		in_storage = TRUE
 
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
@@ -387,6 +398,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if((flags & NODROP) && !(initial(flags) & NODROP)) //Remove NODROP is dropped
 		flags &= ~NODROP
 	in_inventory = FALSE
+	remove_outline()
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 
 // called just as an item is picked up (loc is not yet changed)
@@ -397,10 +409,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /obj/item/proc/on_exit_storage(obj/item/storage/S as obj)
+	in_storage = FALSE
 	return
 
 // called when this item is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
 /obj/item/proc/on_enter_storage(obj/item/storage/S as obj)
+	in_storage = TRUE
 	return
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
@@ -634,14 +648,24 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if(in_inventory)
+	if(in_inventory || in_storage)
 		var/timedelay = 8
-		var/user = usr
+		var/mob/user = usr
 		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)
+		if(QDELETED(src))
+			return
+		var/mob/living/L = user
+		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES))
+			return
+		if(istype(L) && L.incapacitated(ignore_lying = TRUE))
+			apply_outline(L, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
+		else
+			apply_outline(L) //if the player's alive and well we send the command with no color set, so it uses the theme's color
 
 /obj/item/MouseExited()
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
+	remove_outline()
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
 	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
@@ -650,6 +674,41 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, I, user)
+	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
+
+/obj/item/proc/apply_outline(mob/user, outline_color = null)
+	if(!(in_inventory || in_storage) || QDELETED(src) || isobserver(user)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
+		return
+	var/theme = lowertext(user.client.prefs.UI_style)
+	if(!outline_color) //if we weren't provided with a color, take the theme's color
+		switch(theme) //yeah it kinda has to be this way
+			if("midnight")
+				outline_color = COLOR_THEME_MIDNIGHT
+			if("plasmafire")
+				outline_color = COLOR_THEME_PLASMAFIRE
+			if("retro")
+				outline_color = COLOR_THEME_RETRO //just as garish as the rest of this theme
+			if("slimecore")
+				outline_color = COLOR_THEME_SLIMECORE
+			if("operative")
+				outline_color = COLOR_THEME_OPERATIVE
+			if("clockwork")
+				outline_color = COLOR_THEME_CLOCKWORK //if you want free gbp go fix the fact that clockwork's tooltip css is glass'
+			if("glass")
+				outline_color = COLOR_THEME_GLASS
+			else //this should never happen, hopefully
+				outline_color = COLOR_WHITE
+	if(color)
+		outline_color = COLOR_WHITE //if the item is recolored then the outline will be too, let's make the outline white so it becomes the same color instead of some ugly mix of the theme and the tint
+	if(outline_filter)
+		filters -= outline_filter
+	outline_filter = filter(type = "outline", size = 1, color = outline_color)
+	filters += outline_filter
+
+/obj/item/proc/remove_outline()
+	if(outline_filter)
+		filters -= outline_filter
+		outline_filter = null
 
 // Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
 /obj/item/proc/get_part_rating()
