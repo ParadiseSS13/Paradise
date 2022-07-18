@@ -19,9 +19,14 @@
 	pixel_y = rand(-5, 5)
 
 /obj/item/stack/ore/bluespace_crystal/attack_self(var/mob/user)
-	if(use(1))
-		blink_mob(user)
-		user.visible_message("<span class='notice'>[user] crushes a [singular_name]!</span>")
+	if(do_after(user, 1 SECONDS, target = user))
+		var/mob/living/carbon/human/bs_user = user
+		if(use(1))
+			blink_mob(bs_user)
+			bs_user.adjustStaminaLoss(33) // same as taser ; balance ideas - increase staminoloss / time to crush, move staminaLoss before blink or even do_after, replace if(do_after...) and if(use(1))
+			bs_user.visible_message("<span class='notice'>[bs_user] crushes a [singular_name]!</span>")
+	else
+		to_chat(user, "<span class='notice'>You need to hold still to crush [singular_name].</span>")
 
 /obj/item/stack/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
 	if(!is_teleport_allowed(L.z))
