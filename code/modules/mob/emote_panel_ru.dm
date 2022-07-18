@@ -380,6 +380,11 @@
 	set category = "Эмоции"
 	usr.emote("hiss")
 
+/mob/living/carbon/human/proc/emote_hisses()
+	set name = "< Шипеть >"
+	set category = "Эмоции"
+	usr.emote("hisses")
+
 /mob/living/carbon/human/proc/emote_quill()
 	set name = "< Шуршать перьями >"
 	set category = "Эмоции"
