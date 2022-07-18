@@ -53,6 +53,7 @@
 
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
+	desc = "A security Nanotrasen-licensed newsfeed handler for use in commercial space stations. It comes with a small slot for inserting photos."
 	is_security = TRUE
 
 /obj/machinery/newscaster/Initialize(mapload)
@@ -100,6 +101,8 @@
 			icon_state = "newscaster_normal"
 			if(alert) //new message alert overlay
 				add_overlay("newscaster_alert")
+		else
+			icon_state = "newscaster_wanted"
 	var/hp_percent = obj_integrity * 100 / max_integrity
 	switch(hp_percent)
 		if(75 to INFINITY)
@@ -418,6 +421,7 @@
 				return
 			GLOB.news_network.wanted_issue = null
 			set_temp("Wanted notice cleared.", update_now = TRUE)
+			update_icon()
 			return FALSE
 		if("toggle_mute")
 			is_silent = !is_silent
