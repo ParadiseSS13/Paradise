@@ -823,7 +823,7 @@ BLIND     // can't see anything
 			A.emp_act(severity)
 	..()
 
-/obj/item/clothing/under/AltClick()
+/obj/item/clothing/under/AltShiftClick()
 	handle_accessories_removal()
 
 /obj/item/clothing/obj_destruction(damage_flag)
