@@ -353,7 +353,7 @@ BLIND     // can't see anything
 	set src in usr
 	set_sensors(usr)
 
-/obj/item/clothing/under/AltClick(mob/user)
+/obj/item/clothing/under/AltShiftClick(mob/user)
 	if(user.Adjacent(src))
 		set_sensors(user)
 
@@ -827,7 +827,7 @@ BLIND     // can't see anything
 			A.emp_act(severity)
 	..()
 
-/obj/item/clothing/under/AltShiftClick()
+/obj/item/clothing/under/AltClick()
 	handle_accessories_removal()
 
 /obj/item/clothing/obj_destruction(damage_flag)
