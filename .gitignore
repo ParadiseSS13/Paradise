@@ -52,4 +52,3 @@ __pycache__/
 
 # pyenv
 .python-version
-config/example/config.toml
