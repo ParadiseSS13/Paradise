@@ -706,7 +706,9 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "cL" = (
-/obj/machinery/door/window,
+/obj/machinery/door/window{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
