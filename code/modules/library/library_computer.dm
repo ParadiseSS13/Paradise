@@ -444,7 +444,7 @@
 					user_data.search_rating["max"] = clamp(text2num(answer), user_data.search_rating["min"], 10)
 					populate_booklist()
 				if("edit_search_ratingmin")
-					if(!text2num(answer) && text2num(answer) != 0)
+					if(isnull(text2num(answer)))
 						return
 					user_data.search_rating["min"] = clamp(text2num(answer), 0, user_data.search_rating["max"])
 					populate_booklist()
