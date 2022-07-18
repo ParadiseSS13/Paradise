@@ -19,8 +19,9 @@
 	set category = "Object"
 	set src in range(0)
 
-	if(usr.incapacitated())
+	if(!usr.Adjacent(src) || usr.incapacitated())
 		return
+
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
 		default = amount_per_transfer_from_this
@@ -31,9 +32,8 @@
 	if(N)
 		amount_per_transfer_from_this = N
 
-/obj/item/reagent_containers/AltClick(mob/user)
-	if(user.Adjacent(src))
-		set_APTFT()
+/obj/item/reagent_containers/AltClick()
+	set_APTFT()
 
 /obj/item/reagent_containers/New()
 	create_reagents(volume, temperature_min, temperature_max)
