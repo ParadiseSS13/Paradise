@@ -586,14 +586,6 @@
 "adP" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 25;
-	pixel_x = 10
-	},
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 35;
-	pixel_x = 10
-	},
 /obj/machinery/vending/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -81699,6 +81691,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"rMI" = (
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = 30
+	},
+/turf/simulated/wall/r_wall,
+/area/security/securearmoury)
 "rNJ" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /obj/effect/spawner/random_spawners/blood_often,
@@ -114295,7 +114293,7 @@ aaa
 aiv
 ahG
 aiv
-aiv
+rMI
 aiv
 aiv
 ajK
