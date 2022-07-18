@@ -353,6 +353,10 @@ BLIND     // can't see anything
 	set src in usr
 	set_sensors(usr)
 
+/obj/item/clothing/under/AltClick(mob/user)
+	if(user.Adjacent(src))
+		set_sensors(user)
+
 //Head
 /obj/item/clothing/head
 	name = "head"
