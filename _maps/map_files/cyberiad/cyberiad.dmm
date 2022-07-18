@@ -25022,6 +25022,9 @@
 /obj/structure/sign/double/map/right{
 	pixel_y = 31
 	},
+/obj/machinery/holomap{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bgE" = (
@@ -80023,6 +80026,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"mBY" = (
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "mJT" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -80705,6 +80717,13 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"qqs" = (
+/obj/structure/table/wood,
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "qrr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81037,6 +81056,14 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"rQV" = (
+/obj/machinery/holomap{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/fore)
 "rTy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -81110,6 +81137,15 @@
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"sgE" = (
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/dorms)
 "shz" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81122,6 +81158,12 @@
 /obj/machinery/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"smo" = (
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "ssQ" = (
 /obj/structure/closet/radiation,
 /obj/machinery/light{
@@ -110503,7 +110545,7 @@ cBp
 cAL
 cDY
 cvx
-dpR
+mBY
 mqV
 ePP
 ePP
@@ -111469,7 +111511,7 @@ aIO
 aKz
 aHT
 aNc
-aHT
+rQV
 aNT
 aQS
 aHT
@@ -118664,7 +118706,7 @@ aKO
 aMJ
 aOg
 aFI
-aZs
+sgE
 aSM
 aVp
 aWT
@@ -125358,7 +125400,7 @@ aWg
 aYX
 bau
 bau
-btl
+qqs
 bih
 bia
 bju
@@ -132835,7 +132877,7 @@ bNv
 boD
 bSc
 bmm
-bmm
+smo
 bEG
 aaa
 aaa

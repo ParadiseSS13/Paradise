@@ -24263,6 +24263,15 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"blV" = (
+/obj/structure/table/wood,
+/obj/item/folder,
+/obj/item/pen,
+/obj/machinery/holomap{
+	pixel_x = -32
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "blW" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -55474,6 +55483,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/gateway)
+"cBz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/holomap{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "cBA" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -80415,6 +80436,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/machinery/holomap{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/aft)
 "dGl" = (
@@ -94134,6 +94158,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"qOj" = (
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/secondary/entry)
 "qOO" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -96223,6 +96255,15 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel/dark,
 /area/security/securearmoury)
+"uLe" = (
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "uNz" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
@@ -128718,7 +128759,7 @@ cbF
 cdx
 cfq
 cgW
-cgX
+blV
 cni
 clC
 cnh
@@ -138168,7 +138209,7 @@ aea
 aeJ
 aea
 awo
-ayy
+qOj
 ayA
 azx
 aAJ
@@ -142314,7 +142355,7 @@ bbe
 bbe
 boC
 bqA
-bEq
+cBz
 bSV
 bEq
 bEq
@@ -145173,7 +145214,7 @@ cnM
 coO
 cqt
 bYH
-cFa
+uLe
 cuu
 cvW
 cxn
