@@ -467,6 +467,8 @@
 	if(iswallturf(A))
 		if(istype(A, /turf/simulated/wall/r_wall) && !canRwall)
 			return FALSE
+		if(istype(A, /turf/simulated/wall/mineral/titanium/nodecon))
+			return FALSE
 		if(checkResource(5, user))
 			to_chat(user, "Deconstructing Wall...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
