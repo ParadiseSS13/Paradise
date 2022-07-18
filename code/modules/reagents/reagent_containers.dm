@@ -19,7 +19,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(!usr.Adjacent(src) || usr.incapacitated())
+	if(!usr.Adjacent(src) || !ishuman(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/default = null
