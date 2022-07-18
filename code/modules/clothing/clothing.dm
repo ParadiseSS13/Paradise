@@ -755,18 +755,26 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
-	switch(sensor_mode)
-		if(0)
-			. += "Its sensors appear to be disabled."
-		if(1)
-			. += "Its binary life sensors appear to be enabled."
-		if(2)
-			. += "Its vital tracker appears to be enabled."
-		if(3)
-			. += "Its vital tracker and tracking beacon appear to be enabled."
+
+	if(has_sensor >= 1)
+		switch(sensor_mode)
+			if(0)
+				. += "Its sensors appear to be disabled."
+			if(1)
+				. += "Its binary life sensors appear to be enabled."
+			if(2)
+				. += "Its vital tracker appears to be enabled."
+			if(3)
+				. += "Its vital tracker and tracking beacon appear to be enabled."
+		if(has_sensor == 1)
+			. += "Alt-shift-click to toggle the sensors mode."
+	else
+		. += "This suit does not have any sensors."
+
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
+		. += "Alt-click to remove an accessory."
 
 
 /obj/item/clothing/under/verb/rollsuit()

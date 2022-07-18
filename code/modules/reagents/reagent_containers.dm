@@ -98,4 +98,5 @@
 	// Food has no valid possible_transfer_amounts, and we don't want to show
 	// this message on examining food.
 	if(possible_transfer_amounts)
-		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this > 1 ? "s" : ""] at a time."
+		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this > 1 ? "s" : ""] at a time.</span>"
+		. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
