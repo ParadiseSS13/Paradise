@@ -293,3 +293,11 @@
 	suffix = "debris3.dmm"
 	name = "Debris field 3"
 	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
+
+/datum/map_template/ruin/space/meatpackers
+	id = "meatpackers"
+	suffix = "meatpackers.dmm"
+	name = "Meat Packers"
+	description = "An old transport ship, possibly with a dubious past. It smells faintly of meat."
+	allow_duplicates = FALSE
+	cost = 2 // Pretty big
