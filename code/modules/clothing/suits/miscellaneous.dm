@@ -573,6 +573,15 @@
 	strip_delay = 60
 	breakouttime = 3000
 
+/obj/item/clothing/suit/straight_jacket/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == slot_wear_suit)
+		ADD_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
+
+/obj/item/clothing/suit/straight_jacket/dropped(mob/user, silent)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
+
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
 	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it but it's pretty close. Good for sleeping in."
