@@ -72,6 +72,9 @@
 	if(iscarbon(AM))
 		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]!</span>")
 		return
+	if(isobserver(AM))
+		to_chat(user, "<span class='warning'>Your hand just phases through [AM]!</span>")
+		return
 	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
 
 	if(do_after(user, 50 * toolspeed, target = AM))
