@@ -297,8 +297,8 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/set_sensors(mob/user as mob)
 	var/mob/M = user
-	if(istype(M, /mob/dead/)) return
-	if(user.stat || user.restrained()) return
+	if(istype(M, /mob/dead/) || user.stat || user.restrained() || user.HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 	if(has_sensor >= 2)
 		to_chat(user, "The controls are locked.")
 		return 0
