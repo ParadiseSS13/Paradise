@@ -40617,7 +40617,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
 /obj/machinery/atmospherics/meter{
-	id = "mair_in_meter";
+	id_tag = "mair_in_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank In"
 	},
@@ -40627,7 +40627,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
 /obj/machinery/atmospherics/meter{
-	id = "mair_out_meter";
+	id_tag = "mair_out_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank Out"
 	},
@@ -86062,7 +86062,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/meter{
-	id = "wloop_atm_meter";
+	id_tag = "wloop_atm_meter";
 	name = "Waste Loop"
 	},
 /obj/structure/cable/yellow{
