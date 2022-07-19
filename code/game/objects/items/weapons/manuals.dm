@@ -30,6 +30,7 @@
 
 /obj/item/book/manual/detective
 	name = "The Film Noir: Proper Procedures for Investigations"
+	desc = "A gumshoe's guide to find out whodunnit, howdunnit, and wheredunnit."
 	icon_state ="bookDetective"
 	author = "Nanotrasen"
 	title = "The Film Noir: Proper Procedures for Investigations"
@@ -69,6 +70,7 @@
 
 /obj/item/book/manual/engineering_particle_accelerator
 	name = "Particle Accelerator User's Guide"
+	desc = "An engineer's guide to shooting relativistic particles out of a big gun."
 	icon_state ="bookParticleAccelerator"
 	author = "Engineering Encyclopedia"
 	title = "Particle Accelerator User's Guide"
@@ -112,6 +114,7 @@
 
 /obj/item/book/manual/supermatter_engine
 	name = "Supermatter Engine User's Guide"
+	desc = "An engineer's best tool for dealing with their worst frenemy: The Supermatter."
 	icon_state = "bookParticleAccelerator"
 	author = "Waleed Asad"
 	title = "Supermatter Engine User's Guide"
@@ -195,6 +198,7 @@
 
 /obj/item/book/manual/atmospipes
 	name = "Pipes and You: Getting To Know Your Scary Tools"
+	desc = "A plumber's guide on how to efficiently plumb and clean out old drone shells."
 	icon_state = "pipingbook"
 	author = "Maria Crash, Senior Atmospherics Technician"
 	title = "Pipes and You: Getting To Know Your Scary Tools"
@@ -278,6 +282,7 @@
 
 /obj/item/book/manual/evaguide
 	name = "EVA Gear and You: Not Spending All Day Inside"
+	desc = "An enterprising explorer's expedition explainer. Helmet not included!"
 	icon_state = "evabook"
 	author = "Maria Crash, Senior Atmospherics Technician"
 	title = "EVA Gear and You: Not Spending All Day Inside"
@@ -337,6 +342,7 @@
 
 /obj/item/book/manual/engineering_singularity_safety
 	name = "Singularity Safety in Special Circumstances"
+	desc = "A sufficiently succinct suppliment to securing singularities."
 	icon_state ="bookEngineeringSingularitySafety"
 	author = "Engineering Encyclopedia"
 	title = "Singularity Safety in Special Circumstances"
@@ -384,6 +390,7 @@
 
 /obj/item/book/manual/medical_cloning
 	name = "Cloning techniques of the 26th century"
+	desc = "A clinical explanation on how to resurrect your patients."
 	icon_state ="bookCloning"
 	author = "Medical Journal, volume 3"
 	title = "Cloning techniques of the 26th century"
@@ -460,6 +467,7 @@
 
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
+	desc = "A guide from a little-known corporation on how to operate a heavy lifter mech. It's filled with disclaimers and pre-signed waivers."
 	icon_state ="book"
 	author = "Weyland-Yutani Corp"
 	title = "APLU \"Ripley\" Construction and Operation Manual"
@@ -534,6 +542,7 @@
 
 /obj/item/book/manual/research_and_development
 	name = "Research and Development 101"
+	desc = "The mad scientist's second best friend, after coffee."
 	icon_state = "rdbook"
 	author = "Dr. L. Ight"
 	title = "Research and Development 101"
@@ -584,6 +593,7 @@
 
 /obj/item/book/manual/barman_recipes
 	name = "Barman Recipes"
+	desc = "A coffee-stained guide to mixing drinks."
 	icon_state = "barbook"
 	author = "Sir John Rose"
 	title = "Barman Recipes"
@@ -626,6 +636,7 @@
 //These are manuals that should not be available on-station through spawners or the library AT ALL
 /obj/item/book/manual/nuclear
 	name = "Fission Mailed: Nuclear Sabotage 101"
+	desc = "A blood-spattered book filled with block text, educating the reader on how to detonate nuclear bombs."
 	icon_state ="bookNuclear"
 	author = "Syndicate"
 	protected = TRUE
@@ -662,6 +673,7 @@
 
 /obj/item/book/manual/hydroponics_pod_people
 	name = "The Human Harvest - From seed to market"
+	desc = "Blurry pictures of people coming out of pods are taped to the cover."
 	icon_state ="bookHydroponicsPodPeople"
 	author = "Farmer John"
 	title = "The Human Harvest - From seed to market"
@@ -728,6 +740,7 @@
 //*    MISCELANIOUS WIKI PAGE MANUALS    *//
 /obj/item/book/manual/wiki/hacking
 	name = "Hacking"
+	desc = "H4ck3r's H3lp3r: How to rewire almost anything."
 	icon_state ="bookHacking"
 	author = "Greytider Supreme"
 	title = "Hacking"
@@ -735,6 +748,7 @@
 
 /obj/item/book/manual/wiki/engineering_guide
 	name = "Engineering Textbook"
+	desc = "A wrenches' guide to build simple structures."
 	icon_state ="bookEngineering2"
 	author = "Engineering Encyclopedia"
 	title = "Engineering Textbook"
@@ -743,6 +757,7 @@
 //This robotics manual used to take up 400+ lines of code, never again.
 /obj/item/book/manual/wiki/robotics_cyborgs
 	name = "Cyborgs for Dummies"
+	desc = "Precise instructions on how to construct your very own robotic friend."
 	icon_state = "borgbook"
 	author = "XISC"
 	title = "Cyborgs for Dummies"
@@ -750,6 +765,7 @@
 
 /obj/item/book/manual/wiki/experimentor
 	name = "Mentoring your Experiments"
+	desc = "A madman's ramblings on how to experiment with the E.X.P.E.R.I-MENTOR."
 	icon_state = "rdbook"
 	author = "Dr. H.P. Kritz"
 	title = "Mentoring your Experiments"
@@ -757,6 +773,7 @@
 
 /obj/item/book/manual/wiki/chef_recipes
 	name = "Chef Recipes"
+	desc = "Knives, Ovens, and You: A guide to cooking."
 	icon_state = "cook_book"
 	author = "NanoTrasen"
 	title = "Chef Recipes"
@@ -764,6 +781,7 @@
 
 /obj/item/book/manual/wiki/engineering_construction
 	name = "Station Repairs and Construction"
+	desc = "A guide on how to fix things without duct tape."
 	icon_state ="bookEngineering"
 	author = "Engineering Encyclopedia"
 	title = "Station Repairs and Construction"
@@ -771,6 +789,7 @@
 
 /obj/item/book/manual/wiki/faxes
 	name = "Guide to Faxes"
+	desc = "NanoTrasen's own manual on how to write faxes."
 	icon_state ="bookEngineering"
 	author = "Nanotrasen"
 	title = "Faxes and You!"

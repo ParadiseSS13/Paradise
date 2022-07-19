@@ -2,8 +2,8 @@
 	name = "thermoelectric generator"
 	desc = "It's a high efficiency thermoelectric generator."
 	icon_state = "teg"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	use_power = NO_POWER_USE
 
 	var/obj/machinery/atmospherics/binary/circulator/cold_circ

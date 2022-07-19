@@ -164,18 +164,18 @@
 	//Stun
 	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
 	if(should_stun)
-		Stun(4 SECONDS)
+		Stun(1 SECONDS)
 	//Jitter and other fluff.
 	AdjustJitter(2000 SECONDS)
 	AdjustStuttering(4 SECONDS)
-	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 2 SECONDS)
+	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 1 SECONDS)
 	return shock_damage
 
-///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
+///Called slightly after electrocute act to reduce jittering and apply a secondary knockdown.
 /mob/living/carbon/proc/secondary_shock(should_stun)
 	AdjustJitter(-2000 SECONDS, bound_lower = 20 SECONDS) //Still jittery, but vastly less
 	if(should_stun)
-		Weaken(6 SECONDS)
+		KnockDown(6 SECONDS)
 
 /mob/living/carbon/swap_hand()
 	var/obj/item/item_in_hand = get_active_hand()
