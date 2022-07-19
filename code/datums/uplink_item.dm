@@ -1611,9 +1611,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/cyber_implants/antistun
 	name = "Hardened CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. It is immune to EMP attacks. Comes with an autosurgeon."
+	desc = "This implant will help you get back up on your feet faster after being fatigued. It is immune to EMP attacks. Comes with an autosurgeon."
 	reference = "CIAS"
-	item = /obj/item/autosurgeon/organ/syndicate/anti_stun
+	item = /obj/item/autosurgeon/organ/syndicate/anti_stam
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver
