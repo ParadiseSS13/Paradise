@@ -378,14 +378,6 @@
 /obj/item/clothing/glasses/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
-/obj/item/clothing/glasses/welding/superior
-	name = "superior welding goggles"
-	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
-	icon_state = "rwelding-g"
-	item_state = "rwelding-g"
-	flash_protect = FLASH_PROTECTION_WELDER
-	tint = 0
-
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
 	desc = "Covers the eyes, preventing sight."
