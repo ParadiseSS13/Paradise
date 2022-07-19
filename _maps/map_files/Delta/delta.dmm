@@ -88073,16 +88073,11 @@
 	id_tag = "researchdesk1";
 	name = "Research Desk Shutters"
 	},
-/obj/machinery/autolathe,
-/obj/machinery/door/window/southleft{
-	name = "Research Lab Desk";
-	req_access_txt = "7"
-	},
-/obj/machinery/door/window/northleft,
 /obj/structure/window/reinforced{
 	dir = 8;
 	pixel_x = -4
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "enC" = (
