@@ -18,9 +18,11 @@
 	to_chat(src, "Instance Name: [world.TgsInstanceName()]")
 	to_chat(src, "Testmerges:")
 	for(var/datum/tgs_revision_information/test_merge/TM as anything in world.TgsTestMerges())
-		to_chat("#[TM.number] | [TM.author] - [TM.title]")
+		to_chat(src, "#[TM.number] | [TM.author] - [TM.title]")
 
-	to_chat(src, "Channel info: [json_encode(world.TgsChatChannelInfo())]")
+	to_chat(src, "Channel info:")
+	for(var/datum/tgs_chat_channel/CC as anything in world.TgsChatChannelInfo())
+		to_chat(src, "I:[CC.id] | FN:[CC.friendly_name] | AC:[CC.is_admin_channel] | PC: [CC.is_private_channel] | CT: [CC.custom_tag]")
 	to_chat(src, "Security level: [world.TgsSecurityLevel()]")
 
 /client/proc/dmapi_log()
