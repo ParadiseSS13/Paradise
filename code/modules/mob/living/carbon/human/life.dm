@@ -101,15 +101,12 @@
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
-			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
+			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
 							   "without oxigen blob don't evoluate?",
-							   "CAPTAINS A COMDOM",
-							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
+							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is kiling me HALP!!!",
 							   "can u give me [pick("telikesis","halk","eppilapse")]?",
-							   "THe saiyans screwed",
-							   "Bi is THE BEST OF BOTH WORLDS",
 							   "I WANNA PET TEH monkeyS",
-							   "stop grifing me!!!!",
+							   "stop hiting me!!!!",
 							   "SOTP IT!",
 							   "HALPZ SITCULITY",
 							   "VOXES caN't LOVE",
@@ -121,10 +118,8 @@
 							   "WAKE UP SHEEPLES!",
 							   "et wus my [pick("wittle brother!!","fiancee","friend staying over","entiRe orphanage","love interest","wife","husband","liTTle kids","sentient cAT","accidentally")]!")
 
-			var/list/s2 = list("FUS RO DAH",
-							   "fuckin tangerines!!!",
+			var/list/s2 = list("fuckin tangerines!!!",
 							   "stat me",
-							   ">my face",
 							   "roll it easy!",
 							   "waaaaaagh!!!",
 							   "red wonz go fasta",
