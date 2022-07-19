@@ -267,8 +267,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	else
 		can_label = FALSE
 
-	updateDialog()
-
 /obj/machinery/portable_atmospherics/canister/return_air()
 	return air_contents
 
