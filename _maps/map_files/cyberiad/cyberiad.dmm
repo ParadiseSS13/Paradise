@@ -3831,8 +3831,7 @@
 /area/space/nearstation)
 "anb" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -5652,8 +5651,7 @@
 /area/security/prison/cell_block/A)
 "arp" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -8679,8 +8677,7 @@
 /area/security/brig)
 "ayp" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10063,8 +10060,7 @@
 /area/crew_quarters/courtroom)
 "aBo" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/machinery/power/apc{
 	dir = 8;
@@ -17679,8 +17675,7 @@
 /area/crew_quarters/sleep)
 "aTD" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19065,8 +19060,7 @@
 /area/maintenance/fsmaint)
 "aWB" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 8
@@ -20475,8 +20469,7 @@
 /area/crew_quarters/dorms)
 "aZz" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -22763,8 +22756,7 @@
 /area/shuttle/arrival/station)
 "bet" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/effect/landmark/start/chaplain,
 /turf/simulated/floor/carpet/black,
@@ -34776,8 +34768,7 @@
 /area/quartermaster/office)
 "bFy" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -35169,8 +35160,7 @@
 /area/crew_quarters/locker)
 "bGo" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -48007,8 +47997,7 @@
 /area/medical/surgery2)
 "cfI" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -52395,8 +52384,7 @@
 /area/maintenance/apmaint)
 "coG" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/machinery/alarm{
 	name = "north bump";
@@ -54469,8 +54457,7 @@
 	})
 "csq" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
@@ -56041,9 +56028,9 @@
 	pixel_x = -32
 	},
 /obj/structure/safe/floor,
-/obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/item/coin/mythril,
 /obj/item/stack/spacecash/c1000,
+/obj/item/instrument/violin/golden,
 /turf/simulated/floor/carpet/royalblack,
 /area/maintenance/apmaint)
 "cvm" = (
@@ -65612,8 +65599,7 @@
 /area/maintenance/apmaint2)
 "cQz" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -66161,8 +66147,7 @@
 /area/maintenance/apmaint2)
 "cRH" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -68495,8 +68480,7 @@
 /area/hallway/secondary/exit)
 "cXo" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/machinery/alarm{
 	dir = 4;
@@ -68864,8 +68848,7 @@
 /area/maintenance/turbine)
 "cYh" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -68920,8 +68903,7 @@
 /area/hallway/secondary/exit)
 "cYp" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 8
@@ -69246,8 +69228,7 @@
 /area/hallway/primary/central/west)
 "cZk" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -69263,8 +69244,7 @@
 /area/hallway/secondary/exit)
 "cZn" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -69411,8 +69391,7 @@
 /area/hallway/secondary/exit)
 "cZI" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 8
@@ -77584,8 +77563,7 @@
 /area/maintenance/apmaint2)
 "fes" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/machinery/computer/mob_battle_terminal/red,
 /turf/simulated/floor/plasteel,
@@ -79279,6 +79257,26 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"jpa" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "jts" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 9
@@ -79483,8 +79481,7 @@
 	dir = 9
 	},
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -81982,6 +81979,15 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"qne" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "qnM" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -82256,8 +82262,7 @@
 /area/engine/hardsuitstorage)
 "qOo" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -82987,12 +82992,12 @@
 /obj/structure/closet/cabinet,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/item/clothing/accessory/stethoscope,
+/obj/item/crowbar,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "tbC" = (
 /obj/structure/chair{
-	dir = 4;
-	icon_state = "echair0"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -102506,7 +102511,7 @@ bIs
 bJx
 bKq
 bGW
-bDQ
+jpa
 bKw
 aaa
 aaa
@@ -105587,7 +105592,7 @@ bCr
 bCr
 bGU
 bnK
-bCk
+qne
 bnK
 bxb
 bIS
