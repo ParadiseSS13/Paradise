@@ -385,12 +385,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			// Gradient
 			var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[O.h_grad_style]
 			if(gradient)
-				var/mutable_appearance/img_gradient = mutable_appearance(gradient.icon, gradient.icon_state)
-				img_gradient.alpha = O.h_grad_alpha
-				img_gradient.color = COLOR_MATRIX_OVERLAY(O.h_grad_colour)
-				var/icon/icn_gradient = getFlatIcon(img_gradient)
+				var/icon/icn_gradient = icon(gradient.icon, "full")
+				var/list/icn_color = ReadRGB(O.h_grad_colour)
+				icn_gradient.MapColors(rgb(icn_color[1],0,0), rgb(0,icn_color[2],0), rgb(0,0,icn_color[3]))
+				icn_gradient.ChangeOpacity(O.h_grad_alpha/255)
 				icn_gradient.Shift(EAST, O.h_grad_offset_x)
 				icn_gradient.Shift(NORTH, O.h_grad_offset_y)
+				icn_gradient.AddAlphaMask(icon(gradient.icon, gradient.icon_state))
 				icn_gradient.AddAlphaMask(icon(hair.icon, "[hair.icon_state]_s"))
 
 				MA.overlays += icn_gradient
