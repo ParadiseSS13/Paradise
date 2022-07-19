@@ -131,6 +131,11 @@ REAGENT SCANNER
 	var/window_height = 85
 	var/testlength
 
+	var/reports_printed = 0
+	var/reports_per_device = 20
+
+	var/isPrinting = FALSE
+
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 //	healthscan(user, M, mode, advanced)
 	add_fingerprint(user)
@@ -156,7 +161,8 @@ REAGENT SCANNER
 		return
 
 	if(href_list["print"])
-		print_report(user)
+		if(!isPrinting)
+			print_report(user)
 		return 1
 	if(href_list["mode"])
 		toggle_mode()
@@ -184,6 +190,18 @@ REAGENT SCANNER
 	if(!scan_data)
 		to_chat(user, "Нет данных для печати.")
 		return
+	isPrinting = TRUE
+	if(reports_printed > reports_per_device || GLOB.copier_items_printed >= GLOB.copier_max_items)
+		visible_message("<span class='warning'>Nothing happens. Printing device is broken?</span>")
+		if(!GLOB.copier_items_printed_logged)
+			message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers/printers are now disabled. This may be the cause of any lag.")
+			GLOB.copier_items_printed_logged = TRUE
+		sleep(3 SECONDS)
+		isPrinting = FALSE
+		return
+
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	sleep(3 SECONDS)
 	var/obj/item/paper/P = new(get_turf(src))
 	P.name = scan_title
 	P.header += "<center><b>[scan_title]</b></center><br>"
@@ -193,6 +211,9 @@ REAGENT SCANNER
 	if(in_range(user, src))
 		user.put_in_hands(P)
 		user.visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] [pluralize_ru(src.gender,"выдаёт","выдают")] лист с отчётом.</span>")
+	GLOB.copier_items_printed++
+	reports_printed++
+	isPrinting = FALSE
 
 /obj/item/healthanalyzer/proc/show_results(mob/user)
 	var/datum/browser/popup = new(user, "scanner", scan_title, window_width, window_height)

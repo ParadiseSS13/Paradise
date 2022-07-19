@@ -10,6 +10,7 @@
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
+	var/isPrinting = FALSE
 
 /obj/machinery/bodyscanner/Destroy()
 	go_out()
@@ -339,15 +340,28 @@
 		if("ejectify")
 			eject()
 		if("print_p")
+			if(isPrinting)
+				return
+			isPrinting = TRUE
+			if(GLOB.copier_items_printed >= GLOB.copier_max_items)
+				visible_message("<span class='warning'>Nothing happens. Printing device is broken?</span>")
+				if(!GLOB.copier_items_printed_logged)
+					message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers/printers are now disabled. This may be the cause of any lag.")
+					GLOB.copier_items_printed_logged = TRUE
+				sleep(3 SECONDS)
+				isPrinting = FALSE
+				return
 			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
-			var/obj/item/paper/P = new /obj/item/paper(loc)
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+			sleep(3 SECONDS)
+			var/obj/item/paper/P = new /obj/item/paper(loc)
 			var/name = occupant ? occupant.name : "Unknown"
 			P.info = "<CENTER><B>Body Scan - [name]</B></CENTER><BR>"
 			P.info += "<b>Time of scan:</b> [station_time_timestamp()]<br><br>"
 			P.info += "[generate_printing_text()]"
 			P.info += "<br><br><b>Notes:</b><br>"
 			P.name = "Body Scan - [name]"
+			isPrinting = FALSE
 		else
 			return FALSE
 
