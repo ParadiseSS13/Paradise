@@ -48,6 +48,37 @@
 	origin_tech = "biotech=5"
 	distill_reagent = "bloodymary"
 
+/obj/item/seeds/tomato/debug
+	name = "pack of debugo-tomato seeds"
+	desc = "These seeds grow into blood-tomato plants."
+	icon_state = "seed-bloodtomato"
+	species = "bloodtomato"
+	plantname = "Blood-Tomato Plants"
+	product = /obj/item/reagent_containers/food/snacks/grown/tomato/debug
+	genes = list(
+		/datum/plant_gene/trait/squash,
+		/datum/plant_gene/trait/repeated_harvest,
+		/datum/plant_gene/trait/maxchem,
+		/datum/plant_gene/trait/smoke,
+		/datum/plant_gene/trait/noreact,
+		/datum/plant_gene/trait/slip,
+		/datum/plant_gene/trait/glow/berry,
+		/datum/plant_gene/trait/stinging,
+	)
+	mutatelist = list()
+	reagents_add = list("plasma" = 0.1, "sacid" = 0.5, "phosphorus" = 0.1, "facid" = 0.5)
+	rarity = 20
+
+/obj/item/reagent_containers/food/snacks/grown/tomato/debug
+	seed = /obj/item/seeds/tomato/debug
+	name = "debugo-tomato"
+	desc = "So bloody...so...very...bloody....AHHHH!!!!"
+	icon_state = "bloodtomato"
+	splat_type = /obj/effect/gibspawner/generic
+	filling_color = "#FF0000"
+	tastes = list("tomato" = 1, "blood" = 2)
+	origin_tech = "biotech=5"
+	distill_reagent = "bloodymary"
 
 // Blue Tomato
 /obj/item/seeds/tomato/blue
