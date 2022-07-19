@@ -4,7 +4,7 @@
 	desc = "A little floor repairing robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot0"
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	health = 25
 	maxHealth = 25
@@ -334,8 +334,8 @@
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		spawn(50)
 			if(mode == BOT_REPAIRING)
-				F.broken = 0
-				F.burnt = 0
+				F.broken = FALSE
+				F.burnt = FALSE
 				F.ChangeTurf(/turf/simulated/floor/plasteel)
 				mode = BOT_IDLE
 				amount -= 1
@@ -394,7 +394,7 @@
 		icon_state = "[toolbox_color]floorbot[on]e"
 
 /mob/living/simple_animal/bot/floorbot/explode()
-	on = 0
+	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/storage/toolbox/mechanical/N = new /obj/item/storage/toolbox/mechanical(Tsec)
