@@ -11,11 +11,12 @@
 	var/icon_base = "defib"
 	///Can the defib shock yet?
 	var/cooldown = FALSE
+	///How long will it take to recharge after a shock?
+	var/charge_time = 10 SECONDS
 	///How long until we can attack the same person with any emagged handheld defib or baton again?
 	var/attack_cooldown = 3.5 SECONDS
 	///How long does this knock the target down for?
 	var/knockdown_duration = 10 SECONDS
-	var/charge_time = 10 SECONDS
 
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)
