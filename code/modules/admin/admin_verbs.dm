@@ -171,6 +171,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/datum/proc/qdel_then_find_references,
 	/datum/proc/qdel_then_if_fail_find_references,
 	#endif
+	/client/proc/dmapi_debug,
+	/client/proc/dmapi_log,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
