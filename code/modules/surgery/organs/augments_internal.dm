@@ -129,14 +129,6 @@
 	var/last_stamina_damage = 0
 	var/max_stamina_increment = 40
 
-/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
-	name = "Hardened CNS Rebooter implant"
-	emp_proof = TRUE
-
-/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened/Initialize(mapload)
-	. = ..()
-	desc += "This implant will automatically give you back control over your central nervous system, reducing downtime when fatigued. Incompatible with the Neural Jumpstarter. The implant has been hardened. It is invulnerable to EMPs."
-
 /obj/item/organ/internal/cyberimp/brain/anti_stam/on_life()
 	..()
 	if(crit_fail)
