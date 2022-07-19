@@ -319,13 +319,13 @@ BLIND     // can't see anything
 
 	if(src.loc == user)
 		switch(sensor_mode)
-			if(0)
+			if(SUIT_SENSOR_OFF)
 				to_chat(user, "You disable your suit's remote sensing equipment.")
-			if(1)
+			if(SUIT_SENSOR_BINARY)
 				to_chat(user, "Your suit will now report whether you are live or dead.")
-			if(2)
+			if(SUIT_SENSOR_VITAL)
 				to_chat(user, "Your suit will now report your vital lifesigns.")
-			if(3)
+			if(SUIT_SENSOR_TRACKING)
 				to_chat(user, "Your suit will now report your vital lifesigns as well as your coordinate position.")
 		if(istype(user,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
@@ -334,16 +334,16 @@ BLIND     // can't see anything
 
 	else if(istype(src.loc, /mob))
 		switch(sensor_mode)
-			if(0)
+			if(SUIT_SENSOR_OFF)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("<span class='warning'>[user] disables [src.loc]'s remote sensing equipment.</span>", 1)
-			if(1)
+			if(SUIT_SENSOR_BINARY)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] turns [src.loc]'s remote sensors to binary.", 1)
-			if(2)
+			if(SUIT_SENSOR_VITAL)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] sets [src.loc]'s sensors to track vitals.", 1)
-			if(3)
+			if(SUIT_SENSOR_TRACKING)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
 		if(istype(src,/mob/living/carbon/human))
@@ -762,13 +762,13 @@ BLIND     // can't see anything
 
 	if(has_sensor >= 1)
 		switch(sensor_mode)
-			if(0)
+			if(SUIT_SENSOR_OFF)
 				. += "Its sensors appear to be disabled."
-			if(1)
+			if(SUIT_SENSOR_BINARY)
 				. += "Its binary life sensors appear to be enabled."
-			if(2)
+			if(SUIT_SENSOR_VITAL)
 				. += "Its vital tracker appears to be enabled."
-			if(3)
+			if(SUIT_SENSOR_TRACKING)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 		if(has_sensor == 1)
 			. += "Alt-shift-click to toggle the sensors mode."
