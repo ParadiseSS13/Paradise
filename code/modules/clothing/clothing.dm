@@ -307,9 +307,14 @@ BLIND     // can't see anything
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
+
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
+	if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
+		return
+
 	sensor_mode = modes.Find(switchMode) - 1
 
 	if(src.loc == user)
