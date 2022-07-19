@@ -258,7 +258,6 @@ update_flag
 	else
 		can_label = FALSE
 
-	return
 
 /obj/machinery/portable_atmospherics/canister/return_air()
 	return air_contents
