@@ -75169,10 +75169,10 @@
 	id_tag = "south_maint";
 	pixel_y = 25;
 	req_access_txt = "13";
-	tag_airpump = "port_pump";
-	tag_chamber_sensor = "port_sensor";
-	tag_exterior_door = "port_maint_outer";
-	tag_interior_door = "port_maint_inner"
+	tag_airpump = "south_pump";
+	tag_chamber_sensor = "south_sensor";
+	tag_exterior_door = "south_maint_outer";
+	tag_interior_door = "south_maint_inner"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
