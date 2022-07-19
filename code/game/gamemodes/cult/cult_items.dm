@@ -72,7 +72,7 @@
 /obj/item/restraints/legcuffs/bola/cult/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback)
 	. = ..()
 	if(!iscultist(thrower))
-		loc.visible_message("<span class='danger'>The bola glows, and boomarangs back at [thrower]!</span>")
+		thrower.visible_message("<span class='danger'>The bola glows, and boomarangs back at [thrower]!</span>")
 		throw_impact(thrower)
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
