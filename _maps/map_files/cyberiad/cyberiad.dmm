@@ -82812,7 +82812,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
 	frequency = 1379;
-	id_tag = "robotics_solar_pump"
+	id_tag = "port_pump"
 	},
 /obj/machinery/airlock_sensor{
 	frequency = 1450;
