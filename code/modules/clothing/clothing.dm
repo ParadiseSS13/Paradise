@@ -682,6 +682,22 @@ BLIND     // can't see anything
 		A.hit_reaction(owner, hitby, attack_text, final_block_chance, damage, attack_type)
 	return ..()
 
+/obj/item/clothing/under/dropped(mob/user, silent)
+	..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(slot_w_uniform) == src)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			A.attached_unequip()
+
+/obj/item/clothing/under/equipped(mob/user, slot, initial)
+	if(!ishuman(user))
+		return
+	if(slot == slot_w_uniform)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			A.attached_equip()
+
 /*
   * # can_attach_accessory
   *

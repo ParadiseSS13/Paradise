@@ -34,7 +34,7 @@
 
 //Prevents elites from attacking members of their faction (can't hurt themselves either) and lets them mine rock with an attack despite not being able to smash walls.
 
-/mob/living/simple_animal/hostile/asteroid/elite/AttackingTarget() // fix later
+/mob/living/simple_animal/hostile/asteroid/elite/AttackingTarget()
 	if(istype(target, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/M = target
 		if(faction_check_mob(M))
@@ -45,6 +45,7 @@
 			var/response = alert(src, "Re-enter the tumor?","Despawn yourself?", "Yes", "No")
 			if(response == "No" || QDELETED(src) || !Adjacent(T))
 				return
+			T.clear_activator(src)
 			T.mychild = null
 			T.activity = TUMOR_INACTIVE
 			T.icon_state = "advanced_tumor"
@@ -57,6 +58,11 @@
 	if(istype(target, /obj/mecha))
 		var/obj/mecha/M = target
 		M.take_damage(50, BRUTE, MELEE, 1)
+	if(. && isliving(target)) //Taken from megafauna. This exists purely to stop someone from cheesing a weaker melee fauna by letting it get punched.
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			if(!client && ranged && ranged_cooldown <= world.time)
+				OpenFire()
 
 //Elites can't talk (normally)!
 /mob/living/simple_animal/hostile/asteroid/elite/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
@@ -243,13 +249,13 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "clear activation")
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
-/obj/structure/elite_tumor/process(delta_time)
+/obj/structure/elite_tumor/process()
 	if(!isturf(loc))
 		return
 
 	for(var/mob/living/simple_animal/hostile/asteroid/elite/elitehere in loc)
 		if(elitehere == mychild && activity == TUMOR_PASSIVE)
-			mychild.adjustHealth(-mychild.maxHealth * 0.025*delta_time)
+			mychild.adjustHealth(-mychild.maxHealth * 0.025)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(mychild))
 			H.color = "#FF0000"
 
@@ -321,7 +327,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/proc/onEliteWon()
 	activity = TUMOR_PASSIVE
-	clear_activator(mychild)
 	mychild.revive()
 	if(boosted)
 		times_won++
@@ -354,7 +359,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS || !E.key)
 			user.visible_message("It appears [E] is unable to be revived right now. Perhaps try again later.")
 			return
-		E.faction = user.faction.Copy()
+		E.faction = list("\ref[user]")
+		E.friends += user
 		E.revive()
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
 		E.playsound_local(get_turf(E), 'sound/magic/cult_spell.ogg', 40, 0)

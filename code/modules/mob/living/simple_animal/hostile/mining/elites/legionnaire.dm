@@ -120,7 +120,7 @@
 		new /obj/effect/temp_visual/dragon_swoop/legionnaire(T)
 		T = get_step(T, dir_to_target)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, 1)
-	visible_message("<span class='danger'>[src] prepares to charge!,</span>")
+	visible_message("<span class='danger'>[src] prepares to charge!</span>")
 	addtimer(CALLBACK(src, .proc/legionnaire_charge_2, dir_to_target, 0), 4)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_2(move_dir, times_ran)
@@ -236,7 +236,7 @@
 //The legionnaire's head.  Basically the same as any legion head, but we have to tell our creator when we die so they can generate another head.
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead
 	name = "legionnaire head"
-	desc = "The legionnaire's head floating by itself.  One shouldn't get too close, though once it sees you, you really don't have a choice."
+	desc = "The legionnaire's head floating by itself. One shouldn't get too close, though once it sees you, you really don't have a choice."
 	icon_state = "legionnaire_head"
 	icon_living = "legionnaire_head"
 	icon_aggro = "legionnaire_head"
@@ -277,11 +277,11 @@
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
 /obj/structure/legionnaire_bonfire/Crossed(datum/source, atom/movable/mover)
-	if(isobj(mover))
-		var/obj/object = mover
+	if(isobj(source))
+		var/obj/object = source
 		object.fire_act(1000, 500)
-	if(isliving(mover))
-		var/mob/living/fire_walker = mover
+	if(isliving(source))
+		var/mob/living/fire_walker = source
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
 

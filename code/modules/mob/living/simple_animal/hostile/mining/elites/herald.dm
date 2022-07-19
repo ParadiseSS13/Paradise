@@ -158,7 +158,7 @@
 		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 14)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_circleshot(offset)
-	var/static/list/directional_shot_angles = list(0, 45, 90, 135, 180, 225, 270, 315)
+	var/static/list/directional_shot_angles = list(1, 45, 90, 135, 180, 225, 270, 315) //Trust me, use 1. It really doesn't like zero.
 	for(var/i in directional_shot_angles)
 		shoot_projectile(get_turf(src), i + offset, FALSE, FALSE)
 
@@ -235,11 +235,14 @@
 	damage = 0
 	color = rgb(255,255,102)
 
-/obj/item/projectile/herald/on_hit(atom/target, blocked = FALSE)
+/obj/item/projectile/herald/prehit(atom/target)
 	if(ismob(target) && ismob(firer))
 		var/mob/living/mob_target = target
 		if(mob_target.faction_check_mob(firer))
 			nodamage = TRUE
+			damage = 0
+
+/obj/item/projectile/herald/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/M = target
@@ -264,7 +267,7 @@
 	hit_reaction_chance = 20
 
 /obj/item/clothing/accessory/necklace/herald_cloak/proc/reactionshot(mob/living/carbon/owner)
-	var/static/list/directional_shot_angles = list(0, 45, 90, 135, 180, 225, 270, 315)
+	var/static/list/directional_shot_angles = list(1, 45, 90, 135, 180, 225, 270, 315)
 	for(var/i in directional_shot_angles)
 		shoot_projectile(get_turf(owner), i, owner)
 
