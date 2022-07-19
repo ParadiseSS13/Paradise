@@ -157,7 +157,7 @@
 
 /obj/effect/proc_holder/spell/inflict_handler/magic_missile/lesser
 	amt_knockdown = 6 SECONDS
-	amt_stunned = 0
+	amt_weakened = 0
 
 /obj/effect/proc_holder/spell/smoke/disable
 	name = "Paralysing Smoke"
