@@ -22,7 +22,7 @@
 
 	to_chat(src, "Channel info:")
 	for(var/datum/tgs_chat_channel/CC as anything in world.TgsChatChannelInfo())
-		to_chat(src, "I:[CC.id] | FN:[CC.friendly_name] | AC:[CC.is_admin_channel] | PC: [CC.is_private_channel] | CT: [CC.custom_tag]")
+		to_chat(src, "I:[CC.id] | FN:[CC.friendly_name] | AC:[CC.is_admin_channel] | PC:[CC.is_private_channel] | CT:[CC.custom_tag]")
 	to_chat(src, "Security level: [world.TgsSecurityLevel()]")
 
 /client/proc/dmapi_log()
