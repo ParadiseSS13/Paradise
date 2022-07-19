@@ -1080,6 +1080,16 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/eat(obj/item/reagent_containers/food/toEat, mob/user, bitesize_override)
 	if(!istype(toEat))
 		return 0
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
+		var/covered = ""
+		if(carbon_user.is_mouth_covered(head_only = TRUE))
+			covered = "headgear"
+		else if(carbon_user.is_mouth_covered(mask_only = TRUE))
+			covered = "mask"
+		if(covered)
+			to_chat(carbon_user, "<span class = 'warning'>You have to remove your [covered] first!</span>")
+			return FALSE
 	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
