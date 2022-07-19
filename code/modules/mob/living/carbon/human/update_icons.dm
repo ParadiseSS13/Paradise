@@ -389,9 +389,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				var/list/icn_color = ReadRGB(O.h_grad_colour)
 				icn_gradient.MapColors(rgb(icn_color[1],0,0), rgb(0,icn_color[2],0), rgb(0,0,icn_color[3]))
 				icn_gradient.ChangeOpacity(O.h_grad_alpha/255)
+				var/icon/icn_alpha_mask = icon(gradient.icon, gradient.icon_state)
 				icn_gradient.Shift(EAST, O.h_grad_offset_x)
 				icn_gradient.Shift(NORTH, O.h_grad_offset_y)
-				icn_gradient.AddAlphaMask(icon(gradient.icon, gradient.icon_state))
+				icn_alpha_mask.Shift(EAST, O.h_grad_offset_x)
+				icn_alpha_mask.Shift(NORTH, O.h_grad_offset_y)
+				icn_gradient.AddAlphaMask(icn_alpha_mask)
 				icn_gradient.AddAlphaMask(icon(hair.icon, "[hair.icon_state]_s"))
 
 				MA.overlays += icn_gradient
