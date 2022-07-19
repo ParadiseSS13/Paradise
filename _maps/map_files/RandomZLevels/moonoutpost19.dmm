@@ -8312,7 +8312,7 @@
 	dir = 6;
 	level = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"

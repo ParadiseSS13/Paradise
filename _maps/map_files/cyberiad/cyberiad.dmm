@@ -6933,7 +6933,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/computer/cryopod{
 	pixel_y = -30;
 	dir = 1
@@ -9657,7 +9657,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13582,7 +13582,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pod_1)
 "aJU" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -13928,7 +13928,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aKP" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -15679,7 +15679,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aPb" = (
@@ -18222,7 +18222,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aUS" = (
@@ -30891,7 +30891,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bwy" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -30946,7 +30946,7 @@
 	},
 /area/medical/medbay2)
 "bwK" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -32725,7 +32725,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -50438,7 +50438,7 @@
 /area/quartermaster/miningdock)
 "cjV" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -50479,7 +50479,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
@@ -51897,7 +51897,7 @@
 /area/toxins/mixing)
 "cne" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/structure/window/plasmareinforced,
@@ -51911,7 +51911,7 @@
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "cnf" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -56952,7 +56952,7 @@
 	},
 /area/hallway/primary/aft)
 "cwK" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -59144,7 +59144,7 @@
 	pixel_x = -24;
 	pixel_y = -6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -60476,7 +60476,7 @@
 	pixel_y = -24;
 	req_access_txt = "12"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -61577,7 +61577,7 @@
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "cGN" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/hidden/yellow{
 	dir = 1
 	},
@@ -65690,8 +65690,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/meter{
-	id = "wloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "wloop_atm_meter";
 	name = "Waste Loop"
 	},
 /obj/machinery/light_switch{
@@ -65714,8 +65714,8 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "cQh" = (
-/obj/machinery/meter{
-	id = "dloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "dloop_atm_meter";
 	name = "Distribution Loop"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
@@ -66102,7 +66102,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "cRb" = (
@@ -66157,7 +66157,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -66725,7 +66725,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
 /turf/simulated/wall/r_wall,
@@ -67216,7 +67216,7 @@
 	},
 /area/atmos/distribution)
 "cTv" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "waste_sensor";
 	output = 63
@@ -67633,7 +67633,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -68114,7 +68114,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/light,
 /obj/structure/disaster_counter/supermatter{
 	pixel_y = -32
@@ -68566,7 +68566,7 @@
 /area/hallway/secondary/exit)
 "cWR" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cWT" = (
@@ -68601,7 +68601,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cWX" = (
@@ -68616,7 +68616,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cWZ" = (
@@ -69080,7 +69080,7 @@
 	},
 /area/hallway/secondary/exit)
 "cYf" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "n2o_sensor"
 	},
@@ -69230,7 +69230,7 @@
 /area/hallway/secondary/exit)
 "cYy" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
@@ -69371,7 +69371,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cYW" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -70401,7 +70401,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dbN" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -70451,7 +70451,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "dbS" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "tox_sensor"
 	},
@@ -70655,7 +70655,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dcv" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
@@ -70965,7 +70965,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -71614,7 +71614,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "deH" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
 	},
@@ -71772,7 +71772,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "deX" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "co2_sensor"
 	},
@@ -71903,7 +71903,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/red{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -72076,7 +72076,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dfH" = (
@@ -72312,7 +72312,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dgy" = (
@@ -72564,7 +72564,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -73373,7 +73373,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "djw" = (
@@ -73412,7 +73412,7 @@
 "djB" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
 /turf/simulated/wall/r_wall,
@@ -73570,8 +73570,8 @@
 "djS" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
-	id = "mair_in_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "mair_in_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank In"
 	},
@@ -73586,8 +73586,8 @@
 "djU" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
-	id = "mair_out_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "mair_out_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank Out"
 	},
@@ -73734,7 +73734,7 @@
 	},
 /area/turret_protected/aisat_interior)
 "dkh" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "n2_sensor"
 	},
@@ -73799,7 +73799,7 @@
 	},
 /area/hallway/primary/central/ne)
 "dkp" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "o2_sensor"
 	},
@@ -73835,7 +73835,7 @@
 /turf/simulated/wall,
 /area/maintenance/aft)
 "dku" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "air_sensor";
 	output = 7
@@ -74039,7 +74039,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dkR" = (
@@ -75878,7 +75878,7 @@
 	name = "\improper AI Satellite Atmospherics"
 	})
 "dpe" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow{
 	dir = 10
 	},
@@ -77210,7 +77210,7 @@
 	},
 /area/security/prisonlockers)
 "egO" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
@@ -77233,7 +77233,7 @@
 /area/security/brig)
 "eil" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/structure/window/plasmareinforced,
@@ -77419,7 +77419,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -79522,7 +79522,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "kUR" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
@@ -81925,7 +81925,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 5
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "siM" = (
@@ -82286,7 +82286,7 @@
 	},
 /area/security/permabrig)
 "tAm" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4;
 	initialize_directions = 11
@@ -82659,7 +82659,7 @@
 /area/space/nearstation)
 "uBJ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/red,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/engine,
 /area/engine/engineering)

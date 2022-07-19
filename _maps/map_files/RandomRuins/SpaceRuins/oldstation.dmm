@@ -4055,7 +4055,7 @@
 /area/ruin/ancientstation)
 "jy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;

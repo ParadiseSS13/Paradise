@@ -6165,7 +6165,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "axK" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
@@ -7020,7 +7020,7 @@
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
 "azU" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -8339,7 +8339,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aCV" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -8353,7 +8353,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aCY" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
@@ -8368,7 +8368,7 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "aDa" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6;
 	level = 1
@@ -8387,7 +8387,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aDd" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
@@ -9582,7 +9582,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aFW" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
@@ -9642,7 +9642,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aGa" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -12016,7 +12016,7 @@
 	},
 /area/maintenance/incinerator)
 "aLe" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -12615,7 +12615,7 @@
 	},
 /area/engine/controlroom)
 "aMF" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel,
 /area/maintenance/incinerator)
@@ -15910,7 +15910,7 @@
 	},
 /area/atmos)
 "aUf" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 1
 	},
@@ -15955,7 +15955,7 @@
 /area/crew_quarters/bar)
 "aUk" = (
 /obj/structure/grille,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
@@ -16821,7 +16821,7 @@
 /turf/simulated/floor/plating,
 /area/atmos)
 "aVS" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "air_sensor";
 	output = 7
@@ -17473,7 +17473,7 @@
 /area/atmos)
 "aXd" = (
 /obj/structure/grille,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
@@ -17528,7 +17528,7 @@
 	},
 /area/atmos)
 "aXl" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -18023,7 +18023,7 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "aYw" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "co2_sensor"
 	},
@@ -18955,7 +18955,7 @@
 /area/atmos)
 "bah" = (
 /obj/structure/grille,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
 	},
@@ -19015,7 +19015,7 @@
 	},
 /area/atmos)
 "bao" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/item/wrench,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -19730,7 +19730,7 @@
 	},
 /area/atmos)
 "bbO" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -19804,7 +19804,7 @@
 	},
 /area/atmos)
 "bbY" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "o2_sensor"
 	},
@@ -20355,7 +20355,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bdp" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
@@ -20962,7 +20962,7 @@
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
 "beG" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "tox_sensor"
 	},
@@ -22019,7 +22019,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "bhj" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
@@ -22107,7 +22107,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/atmos)
 "bhs" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "n2_sensor"
 	},
@@ -23652,7 +23652,7 @@
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bkx" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "n2o_sensor"
 	},
@@ -23689,13 +23689,13 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bkB" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bkC" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -26975,7 +26975,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "bry" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "waste_sensor";
 	output = 63
@@ -27013,7 +27013,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "brB" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible/green,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -28188,7 +28188,7 @@
 	},
 /area/atmos)
 "bup" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 4;
 	initialize_directions = 11
@@ -28817,7 +28817,7 @@
 	},
 /area/atmos)
 "bvH" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -28834,7 +28834,7 @@
 	},
 /area/atmos)
 "bvJ" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -39807,7 +39807,7 @@
 	},
 /area/hallway/primary/port)
 "bSr" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -60363,7 +60363,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "cMV" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -61927,7 +61927,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/toxins/misc_lab)
 "cQx" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -76637,7 +76637,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/toxins/mixing)
 "dxm" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
@@ -92166,7 +92166,7 @@
 	},
 /area/security/permabrig)
 "mTO" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
@@ -93396,7 +93396,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -94202,7 +94202,7 @@
 	},
 /area/security/warden)
 "qWp" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.31
 	},
 /obj/structure/window/plasmareinforced{

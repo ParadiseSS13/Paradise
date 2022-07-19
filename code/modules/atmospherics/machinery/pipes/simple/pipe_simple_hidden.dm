@@ -7,7 +7,7 @@
 	name = "Scrubbers pipe"
 	desc = "A one meter section of scrubbers pipe"
 	icon_state = "intact-scrubbers"
-	connect_types = list(3)
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = 2.38
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
@@ -20,7 +20,7 @@
 	name = "Air supply pipe"
 	desc = "A one meter section of supply pipe"
 	icon_state = "intact-supply"
-	connect_types = list(2)
+	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
@@ -32,7 +32,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal
 	name="Universal pipe adapter"
 	desc = "An adapter for regular, supply and scrubbers pipes"
-	connect_types = list(1,2,3)
+	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, 3)
 	icon_state = "map_universal"
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/detailed_examine()

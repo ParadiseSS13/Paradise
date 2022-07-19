@@ -2280,7 +2280,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
@@ -7216,7 +7216,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aFY" = (
@@ -10879,7 +10879,7 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "aPv" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
@@ -11540,7 +11540,7 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "aRg" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8;
 	initialize_directions = 11
@@ -13878,7 +13878,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/red{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -18610,7 +18610,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/maintenance/incinerator)
 "biC" = (
@@ -19165,7 +19165,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bjN" = (
@@ -22287,7 +22287,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "brh" = (
@@ -24921,7 +24921,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/item/wrench,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -28933,7 +28933,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "bGW" = (
@@ -30141,7 +30141,7 @@
 	},
 /area/engine/engineering)
 "bKh" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "waste_sensor";
 	output = 63
@@ -30747,7 +30747,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
 /turf/simulated/wall/r_wall,
@@ -31871,7 +31871,7 @@
 "bPj" = (
 /obj/effect/landmark/spawner/xeno,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "bPl" = (
@@ -32466,7 +32466,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bRj" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "n2o_sensor"
 	},
@@ -34800,7 +34800,7 @@
 	},
 /area/library)
 "bXz" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "tox_sensor"
 	},
@@ -35047,7 +35047,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "bYb" = (
@@ -36599,7 +36599,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "cch" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "co2_sensor"
 	},
@@ -37149,7 +37149,7 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cdG" = (
@@ -40608,7 +40608,7 @@
 "cnY" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
 /turf/simulated/wall/r_wall,
@@ -40616,7 +40616,7 @@
 "cnZ" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "mair_in_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank In"
@@ -40626,7 +40626,7 @@
 "coa" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "mair_out_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank Out"
@@ -40987,7 +40987,7 @@
 /turf/simulated/floor/engine/n2,
 /area/atmos)
 "cpi" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "n2_sensor"
 	},
@@ -41012,7 +41012,7 @@
 /turf/simulated/floor/engine/o2,
 /area/atmos)
 "cpl" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "o2_sensor"
 	},
@@ -41038,7 +41038,7 @@
 /turf/simulated/floor/engine/air,
 /area/atmos)
 "cpo" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "air_sensor";
 	output = 7
@@ -45989,7 +45989,7 @@
 "cEC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/maintenance/incinerator)
 "cEE" = (
@@ -46719,7 +46719,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cGX" = (
@@ -53003,7 +53003,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "ddZ" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -53019,7 +53019,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -53350,7 +53350,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "dfo" = (
@@ -55054,7 +55054,7 @@
 	},
 /area/hallway/primary/aft)
 "dXb" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/line,
@@ -61861,7 +61861,7 @@
 	name = "\improper Cafe"
 	})
 "huo" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
@@ -62732,7 +62732,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/green{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
@@ -64324,7 +64324,7 @@
 /area/medical/research)
 "iBO" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "iBR" = (
@@ -65573,7 +65573,7 @@
 	},
 /area/medical/cmo)
 "jpF" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
@@ -69938,7 +69938,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "lug" = (
@@ -71760,7 +71760,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
@@ -73453,7 +73453,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "nej" = (
@@ -74362,7 +74362,7 @@
 /area/space/nearstation)
 "nzX" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
@@ -76804,7 +76804,7 @@
 /area/maintenance/fore2)
 "oWt" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "oWE" = (
@@ -77127,7 +77127,7 @@
 /area/quartermaster/office)
 "peo" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "pep" = (
@@ -77352,7 +77352,7 @@
 /turf/simulated/floor/wood,
 /area/security/hos)
 "pmh" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -81773,7 +81773,7 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "rAE" = (
@@ -82051,7 +82051,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "rGJ" = (
@@ -84243,7 +84243,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "sNb" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -84267,7 +84267,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/door/window/westleft{
 	dir = 1;
 	name = "gas ports"
@@ -86061,7 +86061,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 8
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "wloop_atm_meter";
 	name = "Waste Loop"
 	},
@@ -87887,8 +87887,8 @@
 /area/hallway/primary/port)
 "uJN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
-/obj/machinery/meter{
-	id = "dloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "dloop_atm_meter";
 	name = "Distribution Loop"
 	},
 /turf/simulated/floor/plasteel{
@@ -89027,7 +89027,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "vnt" = (
@@ -93280,7 +93280,7 @@
 	name = "Toxins Launch Room"
 	})
 "xDw" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/red,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -93731,7 +93731,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "xPR" = (

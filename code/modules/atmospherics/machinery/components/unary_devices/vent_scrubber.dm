@@ -36,7 +36,7 @@
 	var/radio_filter_out
 	var/radio_filter_in
 
-	connect_types = list(1,3) //connects to regular and scrubber pipes
+	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SCRUBBER) //connects to regular and scrubber pipes
 
 /obj/machinery/atmospherics/unary/vent_scrubber/on
 	on = TRUE

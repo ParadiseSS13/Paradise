@@ -12,29 +12,34 @@
 
 	var/maximum_pressure = 90*ONE_ATMOSPHERE
 
-/obj/machinery/portable_atmospherics/New()
-	..()
+/obj/machinery/portable_atmospherics/Initialize(mapload)
+	. = ..()
 	SSair.atmos_machinery += src
 
 	air_contents.volume = volume
 	air_contents.temperature = T20C
 
-	return 1
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/portable_atmospherics/Initialize()
-	. = ..()
-	spawn()
-		var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
-		if(port)
-			connect(port)
-			update_icon()
+	check_for_port()
+
+// Late init this otherwise it shares with the port and it tries to div temperature by 0
+/obj/machinery/portable_atmospherics/LateInitialize()
+	check_for_port()
+
+/obj/machinery/portable_atmospherics/proc/check_for_port()
+	var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
+	if(port)
+		connect(port)
 
 /obj/machinery/portable_atmospherics/process_atmos()
 	if(!connected_port) //only react when pipe_network will ont it do it for you
 		//Allow for reactions
 		air_contents.react()
-	else
-		update_icon()
+		return
+
+	update_icon()
 
 /obj/machinery/portable_atmospherics/Destroy()
 	SSair.atmos_machinery -= src

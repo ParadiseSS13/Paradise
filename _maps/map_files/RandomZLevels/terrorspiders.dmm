@@ -6811,7 +6811,7 @@
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO71/eng)
 "pv" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "UO71_air_sensor";
 	output = 7
@@ -7244,8 +7244,8 @@
 	},
 /area/awaymission/UO71/centralhall)
 "qr" = (
-/obj/machinery/meter{
-	id = "UO71_mair_out_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "UO71_mair_out_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank Out"
 	},
@@ -7254,8 +7254,8 @@
 /area/awaymission/UO71/eng)
 "qs" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/machinery/meter{
-	id = "UO71_mair_in_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "UO71_mair_in_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank In"
 	},
@@ -8478,8 +8478,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/meter{
-	id = "UO71_dloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "UO71_dloop_atm_meter";
 	name = "Distribution Loop"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8503,7 +8503,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/wall,
@@ -8893,7 +8893,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "tw" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -8914,7 +8914,7 @@
 	},
 /area/awaymission/UO71/eng)
 "ty" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "UO71_waste_sensor";
 	output = 63
@@ -9155,8 +9155,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "ud" = (
-/obj/machinery/meter{
-	id = "UO71_wloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "UO71_wloop_atm_meter";
 	name = "Waste Loop"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
@@ -9406,12 +9406,12 @@
 /area/awaymission/UO71/centralhall)
 "uB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "uC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "uD" = (
@@ -9690,14 +9690,14 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "vg" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "vh" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -10222,7 +10222,7 @@
 	},
 /area/awaymission/UO71/eng)
 "wl" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "UO71_n2_sensor"
 	},
@@ -10234,7 +10234,7 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO71/eng)
 "wn" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "UO71_o2_sensor"
 	},

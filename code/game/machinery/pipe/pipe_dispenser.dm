@@ -86,17 +86,22 @@
 
 	if(world.time < wait + 4)
 		return
+
 	wait = world.time
+
 	if(href_list["make"])
 		var/p_type = text2num(href_list["make"])
 		var/p_dir = text2num(href_list["dir"])
-		var/obj/item/pipe/P = new (loc, pipe_type=p_type, dir=p_dir)
+		var/obj/item/pipe/P = new(loc, p_type, p_dir)
 		P.update()
 		P.add_fingerprint(usr)
+
 	if(href_list["makemeter"])
 		new /obj/item/pipe_meter(loc)
+
 	if(href_list["makegsensor"])
 		new /obj/item/pipe_gsensor(loc)
+
 	return TRUE
 
 /obj/machinery/pipedispenser/wrench_act(mob/user, obj/item/I)
@@ -113,6 +118,7 @@
 			stat &= ~MAINT
 			unwrenched = FALSE
 			power_change()
+
 	else
 		playsound(loc, I.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
@@ -129,11 +135,13 @@
 
 /obj/machinery/pipedispenser/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(usr)
+
 	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
 		to_chat(usr, "<span class='notice'>You put [W] back to [src].</span>")
 		user.drop_item()
 		qdel(W)
 		return
+
 	return ..()
 
 
@@ -143,11 +151,11 @@
 	icon_state = "pipe_d"
 
 //Allow you to drag-drop disposal pipes into it
-/obj/machinery/pipedispenser/disposal/MouseDrop_T(obj/structure/disposalconstruct/pipe, mob/usr)
-	if(usr.incapacitated())
+/obj/machinery/pipedispenser/disposal/MouseDrop_T(obj/structure/disposalconstruct/pipe, mob/user)
+	if(user.incapacitated())
 		return
 
-	if(!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src, pipe) > 1 )
+	if(!istype(pipe) || get_dist(user, src) > 1 || get_dist(src, pipe) > 1 )
 		return
 
 	if(pipe.anchored)
