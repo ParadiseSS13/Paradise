@@ -414,7 +414,8 @@
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
 	S.set_up(G.reagents, splat_location)
-	S.start(smoke_amount)
+	// S.start(smoke_amount)
+	addtimer(CALLBACK(S, /datum/effect_system/smoke_spread/chem/.proc/start, smoke_amount), 1 * rand(1, 8), TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 /datum/plant_gene/trait/fire_resistance // Lavaland
 	name = "Fire Resistance"
