@@ -106,14 +106,13 @@
 /turf/simulated/wall/r_wall,
 /area/security/permabrig)
 "abO" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
-	d1 = 1;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -132,12 +131,8 @@
 	},
 /area/security/securearmoury)
 "abY" = (
-/obj/effect/decal/warning_stripes/southeast,
-/obj/structure/closet/l3closet/security,
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
 /area/security/securearmoury)
 "aca" = (
 /obj/effect/decal/warning_stripes/northwest,
@@ -212,27 +207,9 @@
 	},
 /area/security/range)
 "acp" = (
-/obj/structure/rack,
-/obj/effect/decal/warning_stripes/south,
-/obj/item/storage/box/teargas{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/handcuffs,
-/obj/item/storage/box/flashbangs{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/storage/box/handcuffs,
-/obj/item/storage/box/seccarts{
-	pixel_x = 3;
-	pixel_y = 2
-	},
+/obj/effect/decal/warning_stripes/southeast,
+/obj/structure/closet/l3closet/security,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -585,20 +562,12 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "adP" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Armory_South";
-	location = "Armory_North"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
+/turf/simulated/wall,
+/area/space/nearstation)
 "adQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
@@ -759,13 +728,20 @@
 	},
 /area/security/range)
 "aew" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/target/syndicate,
-/obj/item/target/syndicate,
-/obj/item/target/syndicate,
-/turf/simulated/floor/plasteel,
-/area/security/range)
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Armory_South";
+	location = "Armory_North"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "aey" = (
 /obj/machinery/computer/brigcells{
 	dir = 4
@@ -1296,16 +1272,40 @@
 	},
 /area/security/brig)
 "agR" = (
-/turf/space,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Armory_North";
+	location = "Armory_South"
+	},
+/mob/living/simple_animal/bot/secbot/armsky{
+	auto_patrol = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/security/securearmoury)
 "agS" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/south,
+/obj/item/storage/box/teargas{
+	pixel_x = -3;
+	pixel_y = -3
 	},
-/obj/machinery/hologram/holopad,
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/flashbangs{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/seccarts{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1495,12 +1495,21 @@
 	},
 /area/security/brig)
 "ahR" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/south,
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier{
+	pixel_y = 5;
+	pixel_x = 4
 	},
-/turf/simulated/wall,
-/area/space/nearstation)
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "ahS" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel{
@@ -1546,8 +1555,8 @@
 	},
 /area/security/securearmoury)
 "ahU" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1661,13 +1670,19 @@
 /turf/simulated/wall/r_wall,
 /area/security/hos)
 "ain" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Armory_North";
-	location = "Armory_South"
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/southwest,
+/obj/item/storage/lockbox/mindshield,
+/obj/item/storage/box/trackimp,
+/obj/item/storage/box/chemimp{
+	pixel_x = 4;
+	pixel_y = 3
 	},
-/mob/living/simple_animal/bot/secbot/armsky{
-	auto_patrol = 1
+/obj/item/storage/toolbox/mechanical,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2841,8 +2856,14 @@
 	},
 /area/lawoffice)
 "alg" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/warning_stripes/northwestcorner,
-/obj/effect/decal/warning_stripes/west,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4090,24 +4111,13 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "anW" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/southwest,
-/obj/item/storage/lockbox/mindshield,
-/obj/item/storage/box/trackimp,
-/obj/item/storage/box/chemimp{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/storage/toolbox/mechanical,
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
+/obj/item/target/syndicate,
+/obj/item/target/syndicate,
+/obj/item/target/syndicate,
+/turf/simulated/floor/plasteel,
+/area/security/range)
 "anX" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -19732,20 +19742,7 @@
 	},
 /area/medical/morgue)
 "aYm" = (
-/obj/structure/rack,
-/obj/effect/decal/warning_stripes/south,
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_y = 5;
-	pixel_x = 4
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier,
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/space,
 /area/security/securearmoury)
 "aYn" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -78460,6 +78457,13 @@
 	icon_state = "red"
 	},
 /area/security/prisonlockers)
+"hFR" = (
+/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "hIc" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -82824,10 +82828,6 @@
 	icon_state = "redfull"
 	},
 /area/security/permabrig)
-"vzj" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/security/securearmoury)
 "vBs" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -110420,7 +110420,7 @@ acH
 afO
 aab
 afO
-ahR
+adP
 aMr
 aab
 aab
@@ -112214,9 +112214,9 @@ afX
 afX
 afO
 aaa
-agR
+aYm
 afO
-vzj
+abY
 aiv
 aiv
 agt
@@ -112472,12 +112472,12 @@ afX
 afO
 aaa
 ali
-agR
+aYm
 aiv
 aiv
 adw
 akl
-anW
+ain
 abP
 ajk
 xWL
@@ -112729,12 +112729,12 @@ afX
 afO
 aaa
 ali
-agR
+aYm
 aiv
 acj
 aiw
 aiz
-aYm
+ahR
 adg
 ajj
 alj
@@ -112991,7 +112991,7 @@ aiv
 ahT
 ajj
 aiz
-acp
+agS
 adh
 ajj
 all
@@ -113245,8 +113245,8 @@ afO
 ali
 aiv
 alh
-alg
 ahU
+hFR
 aio
 acK
 ajo
@@ -113503,11 +113503,11 @@ aor
 aiv
 adb
 afe
-ain
+agR
 aiq
 aiN
 ajr
-agS
+abO
 aln
 alY
 amG
@@ -113756,7 +113756,7 @@ afX
 afO
 aaa
 aaa
-agR
+aYm
 aiv
 ajn
 afe
@@ -113764,7 +113764,7 @@ aiz
 aip
 aiB
 ajq
-adP
+aew
 alm
 alX
 amF
@@ -114013,7 +114013,7 @@ afX
 afX
 afO
 aaa
-agR
+aYm
 aiv
 aqR
 ahS
@@ -114021,7 +114021,7 @@ ahW
 air
 aiO
 ajL
-abO
+alg
 akf
 alZ
 amI
@@ -114273,7 +114273,7 @@ aab
 aaa
 aiv
 ahG
-abY
+acp
 aiv
 aiv
 aiv
@@ -115303,7 +115303,7 @@ akB
 acb
 aqd
 act
-aew
+aqd
 acM
 aqd
 tDv
@@ -116334,7 +116334,7 @@ acv
 aqd
 acP
 adm
-aqd
+anW
 anA
 ael
 aeB
