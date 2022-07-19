@@ -75048,7 +75048,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/simulated/floor/plating,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -127473,9 +127472,9 @@ qRm
 sWO
 qRm
 hgU
-avc
-apO
-apO
+awp
+awp
+awp
 awp
 dFD
 ajg
