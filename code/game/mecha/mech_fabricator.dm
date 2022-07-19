@@ -18,6 +18,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
+	req_access = list(ACCESS_ROBOTICS)
 	// Settings
 	/// Bitflags of design types that can be produced.
 	var/allowed_design_types = MECHFAB
@@ -97,6 +98,13 @@
 		return
 	output_dir = turn(output_dir, -90)
 	to_chat(user, "<span class='notice'>You change [src] to output to the [dir2text(output_dir)].</span>")
+
+/obj/machinery/mecha_part_fabricator/emag_act(mob/user)
+	if(!emagged)
+		playsound(loc, 'sound/effects/sparks4.ogg', 75, 1)
+		req_access = list()
+		emagged = TRUE
+		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
 /obj/machinery/mecha_part_fabricator/RefreshParts()
 	var/coef_mats = 0
