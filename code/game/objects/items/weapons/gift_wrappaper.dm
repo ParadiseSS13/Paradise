@@ -37,7 +37,7 @@
 /obj/effect/spresent/relaymove(mob/user as mob)
 	if(user.stat)
 		return
-	to_chat(user, "<span class='notice'>You cant move.</span>")
+	to_chat(user, "<span class='notice'>You can't move.</span>")
 
 /obj/effect/spresent/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()

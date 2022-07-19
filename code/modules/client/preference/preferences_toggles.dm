@@ -277,29 +277,6 @@
 		to_chat(usr, "<span class='notice'>You have disabled text popup limiting.")
 	return
 
-/client/verb/numpad_target()
-	set name = "Toggle Numpad Targeting"
-	set category = "Preferences"
-	set desc = "This button will allow you to enable or disable Numpad Targeting"
-	prefs.toggles ^= PREFTOGGLE_NUMPAD_TARGET
-	prefs.save_preferences(src)
-	if (prefs.toggles & PREFTOGGLE_NUMPAD_TARGET)
-		to_chat(usr, "<span class='notice'>You have enabled Numpad Targeting.")
-	else
-		to_chat(usr, "<span class='notice'>You have disabled Numpad Targeting.")
-	return
-
-/client/verb/azerty_toggle()
-	set name = "Toggle QWERTY/AZERTY"
-	set category = "Preferences"
-	set desc = "This button will switch you between QWERTY and AZERTY control sets"
-	prefs.toggles ^= PREFTOGGLE_AZERTY
-	prefs.save_preferences(src)
-	if (prefs.toggles & PREFTOGGLE_AZERTY)
-		to_chat(usr, "<span class='notice'>You are now in AZERTY mode.")
-	else
-		to_chat(usr, "<span class='notice'>You are now in QWERTY mode.")
-	return
 /client/verb/toggle_ghost_pda()
 	set name = "Show/Hide GhostPDA"
 	set category = "Preferences"
@@ -364,3 +341,11 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_SEE_ITEM_OUTLINES
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "now" : "no longer"] see item outlines on hover.")
+
+/mob/verb/toggle_anonmode()
+	set name = "Toggle Anonymous Mode"
+	set category = "Preferences"
+	set desc = "Toggles showing your key in various parts of the game (deadchat, end round, etc)."
+	client.prefs.toggles2 ^= PREFTOGGLE_2_ANON
+	to_chat(src, "Your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "no longer" : "now"] be shown in certain events (end round reports, deadchat, etc).</span>")
+	client.prefs.save_preferences(src)

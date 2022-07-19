@@ -6,9 +6,9 @@
 	item_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
 	var/wax = 200
-	var/lit = 0
-	var/infinite = 0
-	var/start_lit = 0
+	var/lit = FALSE
+	var/infinite = FALSE
+	var/start_lit = FALSE
 	var/flickering = FALSE
 	light_color = "#E09D37"
 
@@ -53,7 +53,7 @@
 
 /obj/item/candle/proc/light(show_message)
 	if(!lit)
-		lit = 1
+		lit = TRUE
 		if(show_message)
 			usr.visible_message(show_message)
 		set_light(CANDLE_LUM)
@@ -97,13 +97,13 @@
 /obj/item/candle/attack_self(mob/user)
 	if(lit)
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
-		lit = 0
+		lit = FALSE
 		update_icon()
 		set_light(0)
 
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
-	infinite = 1
+	infinite = TRUE
 
 /obj/item/candle/get_spooked()
 	if(lit)

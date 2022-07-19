@@ -654,7 +654,8 @@ BLIND     // can't see anything
 		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
 		)
 
-	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
+	///For the crew computer 2 = unable to change mode
+	var/has_sensor = TRUE
 	var/sensor_mode = SENSOR_OFF
 	var/random_sensor = TRUE
 		/*
@@ -664,7 +665,7 @@ BLIND     // can't see anything
 		*/
 	var/list/accessories = list()
 	var/displays_id = 1
-	var/rolled_down = 0
+	var/rolled_down = FALSE
 	var/basecolor
 
 /obj/item/clothing/under/rank/New()
@@ -676,18 +677,21 @@ BLIND     // can't see anything
 	QDEL_LIST(accessories)
 	return ..()
 
+/*
+  * # can_attach_accessory
+  *
+  * Arguments:
+  * * A - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+*/
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
-	if(istype(A))
-		. = TRUE
-	else
+	if(length(accessories) >= MAX_EQUIPABLE_ACCESSORIES) //this is neccesary to prevent chat spam when examining clothing
 		return FALSE
-
-	if(accessories.len)
-		for(var/obj/item/clothing/accessory/AC in accessories)
-			if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
-				return FALSE
-			if(!A.allow_duplicates && AC.type == A.type)
-				return FALSE
+	for(var/obj/item/clothing/accessory/AC in accessories)
+		if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
+			return FALSE
+		if(!A.allow_duplicates && AC.type == A.type)
+			return FALSE
+	return TRUE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
@@ -756,7 +760,7 @@ BLIND     // can't see anything
 			. += "Its vital tracker appears to be enabled."
 		if(3)
 			. += "Its vital tracker and tracking beacon appear to be enabled."
-	if(accessories.len)
+	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
 

@@ -178,6 +178,18 @@
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
 
+/datum/status_effect/bluespace_slowdown
+	id = "bluespace_slowdown"
+	alert_type = null
+	duration = 15 SECONDS
+
+/datum/status_effect/bluespace_slowdown/on_apply()
+	owner.next_move_modifier *= 2
+	return ..()
+
+/datum/status_effect/bluespace_slowdown/on_remove()
+	owner.next_move_modifier /= 2
+
 // start of `living` level status procs.
 
 /**

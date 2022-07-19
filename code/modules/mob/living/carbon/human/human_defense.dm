@@ -405,7 +405,7 @@ emp_act
 		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
 	else
 		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
-		affecting.sabotaged = 1
+		affecting.sabotaged = TRUE
 	return 1
 
 /mob/living/carbon/human/grabbedby(mob/living/user)
@@ -696,10 +696,11 @@ emp_act
 			var/dmg = rand(M.force/2, M.force)
 			switch(M.damtype)
 				if("brute")
+					adjustStaminaLoss(dmg)
 					if(M.force > 35) // durand and other heavy mechas
-						Paralyse(2 SECONDS)
-					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
-						Weaken(4 SECONDS)
+						KnockDown(6 SECONDS)
+					else if(M.force > 20 && !IsKnockedDown()) // lightweight mechas like gygax
+						KnockDown(4 SECONDS)
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")

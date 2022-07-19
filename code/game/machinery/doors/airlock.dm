@@ -307,7 +307,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	if(shockCooldown > world.time)
 		return FALSE	//Already shocked someone recently?
 	if(..())
-		shockCooldown = world.time + 10
+		shockCooldown = world.time + 2 SECONDS
 		return TRUE
 	else
 		return FALSE

@@ -2157,26 +2157,27 @@
 				log_admin("[key_name(usr)] despawned [M] in cryo.")
 				message_admins("[key_name_admin(usr)] despawned [M] in cryo.")
 		else
-			var/fast_despawn = FALSE
-			if(href_list["fast_despawn"])
+			var/area/mob_area = get_area(M)
+			var/should_despawn = FALSE
+			if(mob_area.fast_despawn)
 				if(alert(owner, "[M] is an area where players being AFK cryo'd should be despawned immediately. \
 						Do you wish to immediately de-spawn them, or just continue moving them to the cryopod?", "Cryo or De-Spawn", "De-Spawn", "Move to Cryopod") == "De-Spawn")
-					fast_despawn = TRUE
+					should_despawn = TRUE
 			if(!cryo_ssd(M))
 				return
 
 			if(human)
 				var/mob/living/carbon/human/H = M
-				var/msg = "[key_name(usr)] [fast_despawn ? "despawned" : "sent"] [H.job] [H] [fast_despawn ? "in" : "to"] cryo."
+				var/msg = "[key_name(usr)] [should_despawn ? "despawned" : "sent"] [H.job] [H] [should_despawn ? "in" : "to"] cryo."
 				log_admin(msg)
 				message_admins(msg)
 			else
-				var/msg = "[key_name(usr)] [fast_despawn ? "despawned" : "sent"] [M] [fast_despawn ? "in" : "to"] cryo."
+				var/msg = "[key_name(usr)] [should_despawn ? "despawned" : "sent"] [M] [should_despawn ? "in" : "to"] cryo."
 				log_admin(msg)
 				message_admins(msg)
 
-			if(fast_despawn)
-				var/obj/machinery/cryopod/P = M.loc // They're already in the cryopod because of `cryo_ssd(M)` above.
+			if(should_despawn)
+				var/obj/machinery/cryopod/P = M.loc // They've already been placed in the cryopod because of `cryo_ssd(M)` above.
 				P.despawn_occupant()
 				return
 

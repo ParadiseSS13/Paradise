@@ -40,7 +40,7 @@
 
 /obj/item/reagent_containers/food/snacks/icecreamsandwich
 	name = "icecream sandwich"
-	desc = "Portable Ice-cream in it's own packaging."
+	desc = "Portable ice cream in its own packaging."
 	icon_state = "icecreamsandwich"
 	list_reagents = list("nutriment" = 2, "ice" = 2)
 
