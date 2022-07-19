@@ -39,14 +39,10 @@
 		return
 
 	if(emagged)
-		if(attack_cooldown > world.time)
-			return
-
 		var/user_UID = user.UID()
 		if(HAS_TRAIT_FROM(H, TRAIT_WAS_BATONNED, user_UID)) // no following up with baton or dual wielding defibs for stunlock cheese purposes
 			return
 
-		cooldown = world.time + (cooldown)
 		user.visible_message("<span class='danger'>[user] violently shocks [H] with [src]!</span>", "<span class='danger'>You violently shock [H] with [src]!</span>")
 		add_attack_logs(user, H, "emag-defibbed with [src]")
 		playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
