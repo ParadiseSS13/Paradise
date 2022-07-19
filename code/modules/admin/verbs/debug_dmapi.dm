@@ -16,7 +16,10 @@
 	to_chat(src, "Version: [world.TgsVersion()]")
 	to_chat(src, "API Version: [world.TgsApiVersion()]")
 	to_chat(src, "Instance Name: [world.TgsInstanceName()]")
-	to_chat(src, "Testmerges: [json_encode(world.TgsTestMerges())]")
+	to_chat(src, "Testmerges:")
+	for(var/datum/tgs_revision_information/test_merge/TM as anything in world.TgsTestMerges())
+		to_chat("#[TM.number] | [TM.author] - [TM.title]")
+
 	to_chat(src, "Channel info: [json_encode(world.TgsChatChannelInfo())]")
 	to_chat(src, "Security level: [world.TgsSecurityLevel()]")
 
