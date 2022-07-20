@@ -80076,6 +80076,10 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"llD" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "llV" = (
 /obj/machinery/conveyor/west{
 	id = "garbage"
@@ -80825,7 +80829,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "nfE" = (
@@ -99700,7 +99704,7 @@ bNB
 blQ
 fyn
 neU
-bJt
+llD
 fyn
 cgQ
 aaa
