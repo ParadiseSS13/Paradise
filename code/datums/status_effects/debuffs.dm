@@ -178,6 +178,29 @@
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
 
+// used to track if hitting someone with a cult dagger/sword should stamina crit.
+/datum/status_effect/cult_stun_mark
+	id = "cult_stun"
+	duration = 10 SECONDS // when the knockdown ends, the mark disappears.
+	alert_type = null
+	var/mutable_appearance/overlay
+
+/datum/status_effect/cult_stun_mark/on_apply()
+	. = ..()
+	if(!ishuman(owner))
+		return
+	overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
+	var/mob/living/carbon/human/H = owner
+	H.add_overlay(overlay)
+
+/datum/status_effect/cult_stun_mark/on_remove()
+	owner.cut_overlay(overlay)
+
+/datum/status_effect/cult_stun_mark/proc/trigger()
+	owner.adjustStaminaLoss(60)
+	owner.Silence(6 SECONDS) // refresh the silence
+	qdel(src)
+
 /datum/status_effect/bluespace_slowdown
 	id = "bluespace_slowdown"
 	alert_type = null

@@ -81,7 +81,6 @@
 			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
 		else
 			STOP_PROCESSING(SSfastprocess, src)
-	SStgui.close_uis(src)
 	return ..()
 
 //user: The mob that is suiciding
