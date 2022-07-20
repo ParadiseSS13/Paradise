@@ -155,7 +155,7 @@
 /obj/item/camera
 	name = "camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "A polaroid camera. 10 photos left."
+	desc = "A polaroid camera. "
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
@@ -170,7 +170,12 @@
 	var/size = 3
 	var/see_ghosts = FALSE //for the spoop of it
 	var/current_photo_num = 1
+	var/digital = 0
 
+/obj/item/camera/examine(mob/user)
+	. = ..()
+	if(!digital)
+		. += "<span class='notice'>There is [pictures_left] photos left.</span>"
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
 	..()
@@ -218,7 +223,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
 			return
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-		desc = "A polaroid camera. It has [pictures_left] photos left."
 		user.drop_item()
 		qdel(I)
 		pictures_left = pictures_max
@@ -342,7 +346,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
 	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
 	pictures_left--
-	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
 	on = FALSE
@@ -451,10 +454,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 ******************/
 /obj/item/camera/digital
 	name = "digital camera"
-	desc = "A digital camera. A small screen shows there is space for 10 photos left."
+	desc = "A digital camera."
+	digital = 1
 	var/list/datum/picture/saved_pictures = list()
 	pictures_left = 30
 	var/max_storage = 10
+
+/obj/item/camera/digital/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A small screen shows that there are currently [saved_pictures.len] pictures stored.</span>"
 
 /obj/item/camera/digital/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
 	if(!on || !pictures_left || ismob(target.loc)) return
@@ -462,7 +470,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
 
-	desc = "A digital camera. A small screen shows that there are currently [saved_pictures.len] pictures stored."
+
 	icon_state = icon_off
 	on = FALSE
 	spawn(64)
