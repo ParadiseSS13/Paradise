@@ -75,6 +75,9 @@
 
 /obj/machinery/recharger/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(!anchored)
+		to_chat(user, "<span class='warning'>[src] needs to be secured down first!</span>")
+		return
 	if(charging)
 		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
 		return
@@ -90,6 +93,9 @@
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
+	if(panel_open)
+		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
+		return
 	if(charging)
 		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
 		return
