@@ -90,7 +90,7 @@
 	else
 		to_chat(user, "<span class='notice'>[src]'s on board medical scanner indicates that no shock is required.</span>")
 
-/obj/item/handheld_defibrillator/proc/allowhit(mob/living/target, user_UID, knockdown_duration)
+/obj/item/handheld_defibrillator/proc/allowhit(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
 /obj/item/handheld_defibrillator/proc/short_charge()
