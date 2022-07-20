@@ -145,7 +145,7 @@
 
 /obj/item/paper_bundle/Topic(href, href_list)
 	..()
-	if((src in usr.contents) || (istype(src.loc, /obj/item/folder) && (src.loc in usr.contents)))
+	if((src in usr.contents) || (istype(src.loc, /obj/item/folder) && (src.loc in usr.contents)) || (istype(src.loc, /obj/item/clipboard) && (src.loc in usr.contents)))
 		usr.set_machine(src)
 		if(href_list["next_page"])
 			if(page == amount)

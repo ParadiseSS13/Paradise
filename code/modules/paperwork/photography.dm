@@ -218,6 +218,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
 			return
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+		desc = "A polaroid camera. It has [pictures_left] photos left."
 		user.drop_item()
 		qdel(I)
 		pictures_left = pictures_max
