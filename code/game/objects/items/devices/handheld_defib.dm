@@ -49,7 +49,7 @@
 		H.KnockDown(knockdown_duration)
 		H.adjustStaminaLoss(60)
 		SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
-		ADD_TRAIT(H, TRAIT_WAS_BATONNED, user.UID())
+		ADD_TRAIT(H, TRAIT_WAS_BATONNED, user_UID)
 		cooldown = TRUE
 		icon_state = "[icon_base]-shock"
 		addtimer(CALLBACK(src, .proc/allowhit, H, user_UID), attack_cooldown)
