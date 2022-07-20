@@ -72,7 +72,6 @@
 	name = "Tourettes"
 	activation_messages = list("You twitch.")
 	deactivation_messages = list("Your mouth tastes like soap.")
-	instability = -GENE_INSTABILITY_MODERATE
 
 /datum/mutation/disability/tourettes/New()
 	..()
