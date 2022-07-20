@@ -13336,7 +13336,9 @@
 	},
 /obj/machinery/requests_console{
 	name = "Detective Requests Console";
-	pixel_y = -30
+	pixel_y = -30;
+	department = "Detective";
+	departmentType = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5

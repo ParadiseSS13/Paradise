@@ -36521,7 +36521,9 @@
 	},
 /obj/machinery/requests_console{
 	name = "Detective Requests Console";
-	pixel_x = 30
+	pixel_x = 30;
+	department = "Detective";
+	departmentType = 5
 	},
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
