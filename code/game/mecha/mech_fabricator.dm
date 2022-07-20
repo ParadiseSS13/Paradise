@@ -49,6 +49,7 @@
 	var/list/datum/design/build_queue = null
 	/// Whether the queue is currently being processed.
 	var/processing_queue = FALSE
+	var/circuit_type = /obj/item/circuitboard/mechfab
 
 /obj/machinery/mecha_part_fabricator/Initialize(mapload)
 	. = ..()
@@ -59,7 +60,7 @@
 
 	// Components
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/mechfab(null)
+	component_parts += new circuit_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -83,6 +84,10 @@
 		"Medical",
 		"Misc"
 	)
+
+/obj/machinery/mecha_part_fabricator/public
+	name = "public exosuit fabricator"
+	circuit_type = /obj/item/circuitboard/mecha/public
 
 /obj/machinery/mecha_part_fabricator/Destroy()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)

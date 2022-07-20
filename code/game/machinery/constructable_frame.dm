@@ -714,6 +714,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1)
 
+/obj/item/circuitboard/mechfab/public
+	board_name = "Exosuit Fabricator (Public)"
+	build_path = /obj/machinery/mecha_part_fabricator/public
+
 /obj/item/circuitboard/clonepod
 	board_name = "Clone Pod"
 	build_path = /obj/machinery/clonepod

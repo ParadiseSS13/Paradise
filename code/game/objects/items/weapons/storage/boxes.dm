@@ -845,6 +845,7 @@
 	new /obj/item/circuitboard/destructive_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
+	new /obj/item/circuitboard/mecha_part_fabricator/public(src)
 
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE

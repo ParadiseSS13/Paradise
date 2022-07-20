@@ -1484,7 +1484,7 @@
 /area/ruin/ancientstation/rnd)
 "ee" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/mecha_part_fabricator/public,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "ef" = (
