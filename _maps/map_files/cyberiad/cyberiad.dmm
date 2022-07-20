@@ -71868,8 +71868,7 @@
 	dir = 5
 	},
 /obj/structure/chair/sofa/bench/right{
-	dir = 4;
-	cover_color = "#85130b"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -72396,8 +72395,7 @@
 /area/assembly/assembly_line)
 "fLb" = (
 /obj/structure/chair/sofa/bench/left{
-	dir = 4;
-	cover_color = "#85130b"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -75025,8 +75023,7 @@
 /area/maintenance/asmaint)
 "hTn" = (
 /obj/structure/chair/sofa/bench{
-	dir = 4;
-	cover_color = "#85130b"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
