@@ -9,6 +9,21 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/obj/item/reagent_containers/iv_bag/bag = null
 
+/obj/machinery/iv_drip/Initialize(mapload)
+	. = ..()
+	if(mapload) // shamelessly stolen locker code
+		addtimer(CALLBACK(src, .proc/take_contents), 0) //  Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded, once every spawner is initialized this should be fine to remove
+	update_icon() // Set it to the right icon if needed
+
+/obj/machinery/iv_drip/proc/take_contents()
+	for(var/obj/item/I in loc)
+		if(istype(I, /obj/item/reagent_containers/iv_bag))
+			I.forceMove(src)
+			bag = I
+			update_icon()
+			START_PROCESSING(SSmachines, src)
+			break
+
 /obj/machinery/iv_drip/process()
 	if(istype(bag) && bag.injection_target)
 		update_icon()
