@@ -201,7 +201,7 @@
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)
 
-	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user.UID()) // so one person cannot hit the same person with two separate batons
+	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
 	addtimer(CALLBACK(src, .proc/baton_knockdown, L, user_UID, knockdown_duration), knockdown_delay)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
