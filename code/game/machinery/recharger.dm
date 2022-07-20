@@ -48,8 +48,8 @@
 		return
 
 	//Checks to make sure he's not in space doing it, and that the area got proper power.
-	var/area/a = get_area(src)
-	if(!isarea(a) || !a.power_equip)
+	var/area/A = get_area(src)
+	if(!istype(A) || !A.power_equip)
 		to_chat(user, "<span class='notice'>[src] blinks red as you try to insert [G].</span>")
 		return
 
@@ -61,6 +61,7 @@
 
 	if(!user.drop_item())
 		return
+
 	G.forceMove(src)
 	charging = G
 	use_power = ACTIVE_POWER_USE
@@ -84,6 +85,7 @@
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
 	else
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	
 	update_icon()
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
