@@ -7,6 +7,8 @@
 	target = _target
 	if(timer)
 		addtimer(CALLBACK(src, .proc/remove_persistent_overlay), timer)
+	if(target)
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/remove_persistent_overlay)
 	RegisterSignal(parent, COMSIG_PARENT_QDELETING, .proc/remove_persistent_overlay)
 	add_persistent_overlay()
 
