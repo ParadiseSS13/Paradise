@@ -39488,9 +39488,7 @@
 /area/medical/morgue)
 "bQI" = (
 /obj/structure/morgue,
-/obj/effect/landmark{
-	name = "revenantspawn"
-	},
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39499,9 +39497,7 @@
 /obj/structure/morgue{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "revenantspawn"
-	},
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -64259,9 +64255,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dev" = (
-/obj/effect/landmark{
-	name = "blobstart"
-	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse,
 /obj/machinery/hologram/holopad,
@@ -65569,10 +65562,7 @@
 	},
 /area/crew_quarters/kitchen)
 "dhY" = (
-/obj/effect/landmark{
-	name = "xeno_spawn";
-	pixel_x = -1
-	},
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dhZ" = (
@@ -67133,10 +67123,7 @@
 /area/maintenance/aft)
 "dlP" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark{
-	name = "xeno_spawn";
-	pixel_x = -1
-	},
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dlR" = (
@@ -69653,9 +69640,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark{
-	name = "revenantspawn"
-	},
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "dxX" = (
@@ -70039,12 +70024,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/aft)
-"dSV" = (
-/obj/effect/landmark{
-	name = "carpspawn"
-	},
-/turf/space,
-/area/space)
 "dTY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
@@ -73625,9 +73604,7 @@
 	},
 /area/security/brig)
 "gVY" = (
-/obj/effect/landmark{
-	name = "revenantspawn"
-	},
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "gWo" = (
@@ -76280,9 +76257,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "jLz" = (
-/obj/effect/landmark{
-	name = "revenantspawn"
-	},
+/obj/effect/landmark/spawner/rev,
 /mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
@@ -84049,10 +84024,7 @@
 "qZY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/landmark{
-	name = "xeno_spawn";
-	pixel_x = -1
-	},
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "raD" = (
@@ -84323,9 +84295,7 @@
 	},
 /obj/structure/morgue,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark{
-	name = "revenantspawn"
-	},
+/obj/effect/landmark/spawner/rev,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -86175,9 +86145,7 @@
 /obj/structure/morgue,
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark{
-	name = "revenantspawn"
-	},
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "tfg" = (
@@ -89038,9 +89006,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark{
-	name = "revenantspawn"
-	},
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "vwB" = (
@@ -147754,7 +147720,7 @@ aaa
 aaa
 aaa
 aaa
-dSV
+abp
 aaa
 aaa
 aaa
@@ -147764,7 +147730,7 @@ aaa
 aaa
 aab
 aaa
-dSV
+abp
 doE
 aaa
 aab
@@ -148826,7 +148792,7 @@ aaa
 aaa
 aaa
 aaa
-dSV
+abp
 aaa
 aaa
 aaa
@@ -149059,14 +149025,14 @@ cxm
 doE
 aaa
 aaa
-dSV
+abp
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-dSV
+abp
 aaa
 aaa
 aaa
@@ -154197,7 +154163,7 @@ aab
 aab
 aaa
 aaa
-dSV
+abp
 aaa
 aaa
 aaa
@@ -154438,7 +154404,7 @@ aaa
 aaa
 aaa
 aaa
-dSV
+abp
 aaa
 aaa
 aaa
