@@ -14,7 +14,7 @@
 #define USED_MOD_SUIT 2
 
 /obj/item/fluff
-	var/used = 0
+	var/used = FALSE
 
 /obj/item/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
 	name = "disposable tattoo pen"
@@ -75,7 +75,7 @@
 		target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
 
 		playsound(src.loc, usesound, 20, 1)
-		used = 1
+		used = TRUE
 		update_icon()
 
 /obj/item/fluff/tattoo_gun/update_overlays()
@@ -130,7 +130,7 @@
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
 	force = 5
-	sharp = 0
+	sharp = FALSE
 
 /obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
@@ -144,7 +144,7 @@
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	force = 5
-	sharp = 0
+	sharp = FALSE
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
@@ -289,7 +289,7 @@
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
 		to_chat(target, "<span class='notice'>You comb your tail with [src].</span>")
-		used = 1
+		used = TRUE
 
 /obj/item/fluff/desolate_coat_kit //DesolateG: Micheal Smith
 	name = "armored jacket conversion kit"

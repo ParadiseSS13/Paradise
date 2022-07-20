@@ -29,8 +29,8 @@
 
 /obj/machinery/bsa
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"

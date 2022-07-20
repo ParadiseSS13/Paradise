@@ -3,13 +3,13 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
-	var/operating = 0
+	var/operating = FALSE
 	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
 	var/limit = null
 	var/efficiency = null
@@ -375,11 +375,11 @@
 	playsound(src.loc, 'sound/machines/juicer.ogg', 20, 1)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
-	operating = 1
+	operating = TRUE
 	updateUsrDialog()
 	spawn(50)
 		pixel_x = initial(pixel_x) //return to its spot after shaking
-		operating = 0
+		operating = FALSE
 		updateUsrDialog()
 
 	//Snacks
@@ -413,11 +413,11 @@
 	playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
-	operating = 1
+	operating = TRUE
 	updateUsrDialog()
 	spawn(60)
 		pixel_x = initial(pixel_x) //return to its spot after shaking
-		operating = 0
+		operating = FALSE
 		updateUsrDialog()
 
 	//Snacks and Plants

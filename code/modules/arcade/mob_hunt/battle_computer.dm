@@ -200,7 +200,7 @@
 		if(option == 1)
 			start_battle()
 		else if(option == 2)
-			ready = 0
+			ready = FALSE
 			atom_say("[team] Player cancels their battle challenge.")
 
 	updateUsrDialog()
@@ -253,7 +253,7 @@
 		return
 	if(!card)	//don't do anything if there isn't a card inserted
 		return
-	ready = 1
+	ready = TRUE
 	atom_say("[team] Player is ready for battle! Waiting for rival...")
 	SSmob_hunt.start_check()
 
@@ -281,8 +281,8 @@
 	icon_state = "mob_battle_loaded"
 	icon_screen = null
 	icon_keyboard = null
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	dir = EAST
 
 /obj/machinery/computer/mob_healer_terminal/attackby(obj/item/O, mob/user)

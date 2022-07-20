@@ -4,11 +4,11 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
 	icon = 'icons/obj/machines/gateway.dmi'
 	icon_state = "off"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = NO_MALF_EFFECT_2
-	var/active = 0
+	var/active = FALSE
 
 /obj/machinery/gateway/Initialize()
 	..()
@@ -17,7 +17,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 /obj/machinery/gateway/proc/update_density_from_dir()
 	if(dir == 2)
-		density = 0
+		density = FALSE
 
 /obj/machinery/gateway/update_icon_state()
 	icon_state = active ? "on" : "off"
@@ -25,13 +25,13 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 //this is da important part wot makes things go
 /obj/machinery/gateway/centerstation
-	density = 1
+	density = TRUE
 	icon_state = "offcenter"
 	use_power = IDLE_POWER_USE
 
 	//warping vars
 	var/list/linked = list()
-	var/ready = 0				//have we got all the parts for a gateway?
+	var/ready = FALSE				//have we got all the parts for a gateway?
 	var/wait = 0				//this just grabs world.time at world start
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
@@ -80,12 +80,12 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			continue
 
 		//this is only done if we fail to find a part
-		ready = 0
+		ready = FALSE
 		toggleoff()
 		break
 
 	if(linked.len == 8)
-		ready = 1
+		ready = TRUE
 
 
 /obj/machinery/gateway/centerstation/proc/toggleon(mob/user as mob)
@@ -105,17 +105,17 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
-		G.active = 1
+		G.active = TRUE
 		G.update_icon(UPDATE_ICON_STATE)
-	active = 1
+	active = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/gateway/centerstation/proc/toggleoff()
 	for(var/obj/machinery/gateway/G in linked)
-		G.active = 0
+		G.active = FALSE
 		G.update_icon(UPDATE_ICON_STATE)
-	active = 0
+	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -161,12 +161,12 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centeraway
-	density = 1
+	density = TRUE
 	icon_state = "offcenter"
 	use_power = NO_POWER_USE
 	var/calibrated = 1
 	var/list/linked = list()	//a list of the connected gateway chunks
-	var/ready = 0
+	var/ready = FALSE
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
@@ -195,12 +195,12 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			continue
 
 		//this is only done if we fail to find a part
-		ready = 0
+		ready = FALSE
 		toggleoff()
 		break
 
 	if(linked.len == 8)
-		ready = 1
+		ready = TRUE
 
 
 /obj/machinery/gateway/centeraway/proc/toggleon(mob/user as mob)
@@ -215,17 +215,17 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			return
 
 	for(var/obj/machinery/gateway/G in linked)
-		G.active = 1
+		G.active = TRUE
 		G.update_icon(UPDATE_ICON_STATE)
-	active = 1
+	active = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/gateway/centeraway/proc/toggleoff()
 	for(var/obj/machinery/gateway/G in linked)
-		G.active = 0
+		G.active = FALSE
 		G.update_icon(UPDATE_ICON_STATE)
-	active = 0
+	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
 
