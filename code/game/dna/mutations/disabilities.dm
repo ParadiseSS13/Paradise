@@ -78,7 +78,7 @@
 	block = GLOB.twitchblock
 
 /datum/mutation/disability/tourettes/on_life(mob/living/carbon/human/H)
-	if((prob(10))
+	if(prob(10))
 		switch(rand(1, 3))
 			if(1)
 				H.emote("twitch")
