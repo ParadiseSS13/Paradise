@@ -440,6 +440,7 @@
 
 /obj/item/shield/mirror/Destroy()
 	GLOB.mirrors -= src
+	return ..()
 
 /**
   * Reflect/Block/Shatter proc.
