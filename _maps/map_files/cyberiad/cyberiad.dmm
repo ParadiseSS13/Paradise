@@ -76958,6 +76958,19 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
+"dVC" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "maint_house"
+	},
+/obj/structure/barricade/wooden,
+/obj/machinery/door_control{
+	id = "maint_house";
+	name = "shutter door controller";
+	pixel_y = 26
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "dXX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor_switch/oneway{
@@ -81714,19 +81727,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"pFH" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 8;
-	id_tag = "maint_house"
-	},
-/obj/structure/barricade/wooden,
-/obj/machinery/door_control{
-	id = "maint_house";
-	name = "shutter door controller";
-	pixel_y = -30
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "pHK" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -102543,9 +102543,9 @@ aaa
 aaa
 aaa
 kWF
+dVC
 ijx
 ijx
-pFH
 cgQ
 cgQ
 cgQ
