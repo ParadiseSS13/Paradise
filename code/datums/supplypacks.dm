@@ -758,7 +758,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "HEADER"
 	containertype = /obj/structure/closet/crate/medical
 	group = SUPPLY_MEDICAL
-	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"), "Security" = list("Brig Medbay"))
+	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"))
 
 
 /datum/supply_packs/medical/supplies
