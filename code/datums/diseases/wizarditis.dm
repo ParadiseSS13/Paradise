@@ -98,10 +98,8 @@ STI KALY - blind
 
 	var/list/teleport_turfs = list()
 	for(var/turf/T in get_area_turfs(chosen_area.type))
-		if(!is_teleport_allowed(T.z))
+		if(!is_teleport_allowed(T.z) || T.z != affected_mob.z)
 			break
-		if(T.z != affected_mob.z)
-			continue
 		if(T.name == "space")
 			continue
 		if(!T.density)
@@ -117,6 +115,6 @@ STI KALY - blind
 		return
 
 	affected_mob.say("SCYAR NILA [uppertext(chosen_area.name)]!")
-	affected_mob.loc = pick(teleport_turfs)
+	affected_mob.forceMove(pick(teleport_turfs))
 
 	return
