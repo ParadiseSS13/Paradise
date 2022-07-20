@@ -34973,6 +34973,9 @@
 /area/crew_quarters/toilet)
 "bFT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -46654,8 +46657,7 @@
 /area/quartermaster/miningdock)
 "ciq" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /obj/item/stack/ore/iron,
 /obj/effect/decal/warning_stripes/north,
@@ -51600,7 +51602,6 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/regular,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -52181,7 +52182,6 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bluecorner"
@@ -53035,8 +53035,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
@@ -54768,7 +54767,6 @@
 	},
 /obj/item/storage/firstaid/toxin,
 /obj/structure/table,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -55933,8 +55931,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
@@ -59836,7 +59833,6 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/toxin,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -63995,8 +63991,8 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/binary/pump{
-	dir = 8
+/obj/machinery/atmospherics/binary/valve/open{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/turbine)
@@ -65054,8 +65050,8 @@
 /area/maintenance/storage)
 "dfn" = (
 /obj/machinery/power/solar_control{
-	id = "starboardsolar";
-	name = "Aft Starboard Solar Control"
+	name = "Aft Starboard Solar Control";
+	dir = 1
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -67806,13 +67802,8 @@
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dmz" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	external_pressure_bound = 0;
-	initialize_directions = 1;
-	internal_pressure_bound = 4000;
-	pressure_checks = 2;
-	pump_direction = 0
+/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+	dir = 1
 	},
 /obj/structure/sign/vacuum{
 	pixel_y = -30
@@ -70412,19 +70403,6 @@
 	icon_state = "dark"
 	},
 /area/medical/cryo)
-"dSf" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/solar{
-	id = "starboardsolar";
-	name = "Starboard Solar Array"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/solar/starboard)
 "dSL" = (
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel{
@@ -73487,7 +73465,6 @@
 /area/maintenance/aft2)
 "gEA" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
-/obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74159,7 +74136,8 @@
 	desc = "A remote control switch for polarized windows.  For those private treatments.";
 	id = "coroner";
 	pixel_x = 8;
-	pixel_y = -25
+	pixel_y = -24;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -77885,7 +77863,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78693,7 +78670,6 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/fire,
-/obj/effect/turf_decal/bot_white,
 /obj/machinery/light,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -79126,8 +79102,7 @@
 /area/maintenance/asmaint)
 "meF" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -84109,7 +84084,6 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/brute,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -84607,6 +84581,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark{
 	name = "revenantspawn"
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/medical/morgue)
@@ -85373,7 +85350,6 @@
 	},
 /obj/item/storage/firstaid/fire,
 /obj/structure/table,
-/obj/effect/turf_decal/bot_white,
 /obj/machinery/light,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -91607,7 +91583,6 @@
 	},
 /obj/item/storage/firstaid/o2,
 /obj/structure/table,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -92336,19 +92311,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
-"ybC" = (
-/mob/living/simple_animal/hostile/retaliate/kangaroo{
-	desc = "the Ganja Wallaby. Has dangerously large hind legs.";
-	icon_dead = "kangaroo_rasta_dead";
-	icon_living = "kangaroo_rasta";
-	melee_damage_special = 25;
-	melee_damage_upper = 10;
-	name = "Wally"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "ybN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -134652,7 +134614,7 @@ bFV
 aZT
 jRd
 aZT
-aZT
+bFV
 aZT
 bEu
 bEu
@@ -140864,7 +140826,7 @@ cBP
 cBP
 cBP
 iDM
-ybC
+csL
 owf
 ciY
 ciY
@@ -141658,7 +141620,7 @@ mei
 ciY
 swj
 aaa
-dSf
+doh
 ddP
 doG
 aab
@@ -141915,7 +141877,7 @@ nKQ
 wIO
 ayi
 aab
-dSf
+doh
 ddQ
 doG
 aaa
@@ -142172,7 +142134,7 @@ sYO
 ciY
 aab
 aaa
-dSf
+doh
 ddQ
 doG
 aab
@@ -142429,7 +142391,7 @@ ciY
 ciY
 aab
 aab
-dSf
+doh
 ddQ
 doG
 aab
@@ -142686,7 +142648,7 @@ aaa
 aaa
 aab
 aaa
-dSf
+doh
 ddQ
 doG
 aab
@@ -143714,7 +143676,7 @@ aaa
 aaa
 aab
 aaa
-dSf
+doh
 ddU
 doG
 aab
@@ -143971,7 +143933,7 @@ aab
 aab
 aab
 aab
-dSf
+doh
 ddU
 doG
 aaa
@@ -144228,7 +144190,7 @@ aaa
 aaa
 aab
 aaa
-dSf
+doh
 ddU
 doG
 aab
@@ -144485,7 +144447,7 @@ aab
 aab
 aab
 aab
-dSf
+doh
 ddU
 doG
 aaa
@@ -144742,7 +144704,7 @@ aaa
 aaa
 amh
 aaa
-dSf
+doh
 deb
 doG
 aab
