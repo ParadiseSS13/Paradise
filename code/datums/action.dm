@@ -518,6 +518,10 @@
 	name = "View Storage"
 
 
+/datum/action/item_action/accessory/herald
+	name = "Mirror Walk"
+	desc = "Use near a mirror to enter it"
+
 //Preset for spells
 /datum/action/spell_action
 	check_flags = 0

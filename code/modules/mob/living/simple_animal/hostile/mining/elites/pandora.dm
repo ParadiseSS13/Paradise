@@ -98,13 +98,13 @@
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/Life(seconds, times_fired)
 	. = ..()
 	if(health >= maxHealth * 0.5)
-		cooldown_time = 2 SECONDS
+		cooldown_time = 2 SECONDS * revive_multiplier()
 		return
 	if(health < maxHealth * 0.5 && health > maxHealth * 0.25)
-		cooldown_time = 1.5 SECONDS
+		cooldown_time = 1.5 SECONDS * revive_multiplier()
 		return
 	else
-		cooldown_time = 1 SECONDS
+		cooldown_time = 1 SECONDS * revive_multiplier()
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot(target)
 	ranged_cooldown = world.time + (cooldown_time * 0.5)

@@ -41,6 +41,7 @@
 #define ROLE_DEATHSQUAD			"deathsquad"
 #define ROLE_EVENTMISC			"eventmisc"
 #define ROLE_GHOST				"ghost role"
+#define ROLE_ELITE				"lavaland elite"
 
 // Misc jobban categories
 #define ROLEBAN_AHUD			"AntagHUD"
@@ -64,6 +65,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_REV = /datum/game_mode/revolution, 			// Revolutionary
 	ROLE_SENTIENT, 										// Sentient animal
 	ROLE_DEMON, 										// Slaguther demon
+	ROLE_ELITE,											// Lavaland Elite
 	ROLE_NINJA, 										// Space ninja
 	ROLE_TRADER, 										// Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, 			// Traitor

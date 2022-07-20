@@ -112,7 +112,7 @@
 		myhead.Goto(T, myhead.move_to_delay)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge(target)
-	ranged_cooldown = world.time + 4.0 SECONDS
+	ranged_cooldown = world.time + 4.0 SECONDS * revive_multiplier()
 	charging = TRUE
 	var/dir_to_target = get_dir(get_turf(src), get_turf(target))
 	var/turf/T = get_step(get_turf(src), dir_to_target)
@@ -157,7 +157,7 @@
 	addtimer(CALLBACK(src, .proc/legionnaire_charge_2, move_dir, (times_ran + 1)), 0.7)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/head_detach(target)
-	ranged_cooldown = world.time + 1 SECONDS
+	ranged_cooldown = world.time + 1 SECONDS * revive_multiplier()
 	if(myhead != null)
 		myhead.adjustBruteLoss(600)
 		return
@@ -193,7 +193,7 @@
 	visible_message("<span class='danger'>The top of [src]'s spine leaks a black liquid, forming into a skull!</span>")
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/bonfire_teleport()
-	ranged_cooldown = world.time + 5
+	ranged_cooldown = world.time + 5 * revive_multiplier()
 	if(mypile == null)
 		var/obj/structure/legionnaire_bonfire/newpile = new /obj/structure/legionnaire_bonfire(loc)
 		mypile = newpile
@@ -216,7 +216,7 @@
 		mypile.forceMove(legionturf)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/spew_smoke()
-	ranged_cooldown = world.time + 4 SECONDS
+	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
 	var/turf/smoke_location = null
 	if(myhead != null)
 		smoke_location = myhead

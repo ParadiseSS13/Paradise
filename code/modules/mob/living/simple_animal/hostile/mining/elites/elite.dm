@@ -24,6 +24,7 @@
 	var/list/attack_action_types = list()
 	var/can_talk = FALSE
 	var/obj/loot_drop = null
+	var/revive_cooldown = FALSE
 
 //Gives player-controlled variants the ability to swap attacks
 /mob/living/simple_animal/hostile/asteroid/elite/Initialize(mapload)
@@ -70,6 +71,17 @@
 		. = ..()
 		return TRUE
 	return FALSE
+
+/mob/living/simple_animal/hostile/asteroid/elite/proc/revive_multiplier()
+	if(is_mining_level(z))
+		return 1
+	if(revive_cooldown)
+		return 10
+	return 1
+
+/mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(damage, updating_health)
+	. = ..()
+	maxHealth -= damage / 3
 
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
@@ -182,9 +194,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				addtimer(CALLBACK(src, .proc/spawn_elite), 30)
 				return
 			visible_message("<span class='danger'>Something within [src] stirs...</span>")
-			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a lavaland elite?", ROLE_DEMON, TRUE, 10 SECONDS, source = src)
+			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a lavaland elite?", ROLE_ELITE, TRUE, 10 SECONDS, source = src)
 			if(candidates.len)
-
 				audible_message("<span class='userdanger'>The stirring sounds increase in volume!</span>")
 				elitemind = pick(candidates)
 				elitemind.playsound_local(get_turf(elitemind), 'sound/magic/cult_spell.ogg', 40, 0)
@@ -324,15 +335,21 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			new mychild.loot_drop(lootbox)
 		else
 			new /obj/item/tumor_shard(lootbox)
+		SSblackbox.record_feedback("tally", "Player controlled Elite loss", 1, mychild.name)
+	else
+		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
 	qdel(src)
 
 /obj/structure/elite_tumor/proc/onEliteWon()
 	activity = TUMOR_PASSIVE
 	mychild.revive()
 	if(boosted)
+		SSblackbox.record_feedback("tally", "Player controlled Elite win", 1, mychild.name)
 		times_won++
 		mychild.maxHealth = mychild.maxHealth * 0.4
 		mychild.health = mychild.maxHealth
+	else
+		SSblackbox.record_feedback("tally", "AI controlled Elite win", 1, mychild.name)
 	if(times_won == 1)
 		mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
 		to_chat(mychild, "<span class='warning'><As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.\n\
@@ -367,10 +384,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.playsound_local(get_turf(E), 'sound/magic/cult_spell.ogg', 40, 0)
 		to_chat(E, "<span class='userdanger'>You have been revived by [user]. While you can't speak to them, you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
 		to_chat(E, "<span class='big bold'>Note that you now share the loyalties of [user].  You are expected not to intentionally sabotage their faction unless commanded to!</span>")
-		E.maxHealth = E.maxHealth * 0.4
-		E.health = E.maxHealth
+		if(user.mind.special_role)
+			E.maxHealth = 300
+			E.health = 300
+		else
+			E.maxHealth = 200
+			E.health = 200
+			E.revive_cooldown = TRUE
 		E.desc = "[E.desc]  However, this one appears appears less wild in nature, and calmer around people."
 		E.sentience_type = SENTIENCE_ORGANIC
+		E.del_on_death = TRUE
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[src] only works on the corpse of a sentient lavaland elite.</span>")

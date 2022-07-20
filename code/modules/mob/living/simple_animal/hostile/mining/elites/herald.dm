@@ -144,7 +144,7 @@
 		H.fire(set_angle)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_trishot(target)
-	ranged_cooldown = world.time + 30
+	ranged_cooldown = world.time + 30 * revive_multiplier()
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
@@ -168,7 +168,7 @@
 	icon_state = "herald"
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_directionalshot()
-	ranged_cooldown = world.time + 3 SECONDS
+	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
 	if(!is_mirror)
 		icon_state = "herald_enraged"
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
@@ -179,14 +179,14 @@
 	addtimer(CALLBACK(src, .proc/unenrage), 20)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_teleshot(target)
-	ranged_cooldown = world.time + 30
+	ranged_cooldown = world.time + 30 * revive_multiplier()
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
 	shoot_projectile(target_turf, angle_to_target, TRUE, FALSE)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_mirror()
-	ranged_cooldown = world.time + 4 SECONDS
+	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	if(my_mirror != null)
 		qdel(my_mirror)
@@ -241,6 +241,9 @@
 		if(mob_target.faction_check_mob(firer))
 			nodamage = TRUE
 			damage = 0
+			return
+		if(mob_target.buckled && mob_target.stat == DEAD)
+			mob_target.dust() //no body cheese
 
 /obj/item/projectile/herald/on_hit(atom/target, blocked = FALSE)
 	. = ..()
@@ -262,25 +265,64 @@
 	item_state = "herald_cloak"
 	item_color = "herald_cloak"
 	slot_flags = SLOT_TIE
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allow_duplicates = FALSE
-	hit_reaction_chance = 20
+	actions_types = list(/datum/action/item_action/accessory/herald)
 
-/obj/item/clothing/accessory/necklace/herald_cloak/proc/reactionshot(mob/living/carbon/owner)
-	var/static/list/directional_shot_angles = list(1, 45, 90, 135, 180, 225, 270, 315)
-	for(var/i in directional_shot_angles)
-		shoot_projectile(get_turf(owner), i, owner)
+/obj/item/clothing/accessory/necklace/herald_cloak/attack_self()
+	if(has_suit)
+		mirror_walk()
 
-/obj/item/clothing/accessory/necklace/herald_cloak/proc/shoot_projectile(turf/marker, set_angle, mob/living/carbon/owner)
-	var/turf/startloc = get_turf(owner)
-	var/obj/item/projectile/H = new /obj/item/projectile/herald(startloc)
-	H.preparePixelProjectile(marker, marker, owner)
-	H.firer = owner
-	H.fire(set_angle)
+/obj/item/clothing/accessory/necklace/herald_cloak/proc/mirror_walk()
+	var/found_mirror = FALSE
+	var/list/mirrors_to_use = list()
+	var/list/areaindex = list()
+	var/obj/starting_mirror = null
 
-/obj/item/clothing/accessory/necklace/herald_cloak/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	. = ..()
-	if(prob(hit_reaction_chance))
-		owner.visible_message("<span class='danger'>[owner]'s [src] emits a loud noise as [owner] is struck!</span>")
-		playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
-		addtimer(CALLBACK(src, .proc/reactionshot, owner), 10)
+	for(var/obj/i in GLOB.mirrors)
+		var/turf/T = get_turf(i)
+		if(!is_teleport_allowed(i.z))
+			continue
+		if(T.z != usr.z) //No crossing zlvls
+			continue
+		if(istype(i, /obj/item/shield/mirror) && !iscultist(usr)) //No teleporting to cult bases
+			continue
+		if(istype(i, /obj/structure/mirror))
+			var/obj/structure/mirror/B = i
+			if(B.broken)
+				return
+		var/tmpname = T.loc.name
+		if(areaindex[tmpname])
+			tmpname = "[tmpname] ([++areaindex[tmpname]])"
+		else
+			areaindex[tmpname] = 1
+		mirrors_to_use[tmpname] = i
+		if(get_dist(src, i) > 1)
+			continue
+		found_mirror = TRUE
+		starting_mirror = i
+
+	if(!found_mirror)
+		to_chat(usr, "<span class='warning'>You are not close enough to a working mirror to teleport!</span>")
+		return
+	var/input_mirror = input(usr, "Choose a mirror to teleport to.", "Mirror to Teleport to") as null|anything in mirrors_to_use
+	var/obj/chosen = mirrors_to_use[input_mirror]
+	if(do_after(usr, 2 SECONDS, target = usr))
+		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1))
+			return
+		var/turf/destination = get_turf(chosen)
+		usr.visible_message("<span class='warning'>[usr] crawls into the mirror, and [usr.p_they()] disappear into it!</span>", \
+			"<span class='notice'>You crawl into the mirror...</span>")
+		usr.forceMove(destination)
+		usr.visible_message("<span class='warning'>[usr] crawls out of [chosen], causing it to shatter!</span>", \
+			"<span class='warning'>You crawl out of your own reflection, shattering the mirror!</span>")
+		if(istype(chosen, /obj/structure/mirror))
+			var/obj/structure/mirror/M = chosen
+			M.obj_break("brute")
+		else if(istype(chosen, /obj/item/shield/mirror))
+			var/turf/T = get_turf(usr)
+			new /obj/effect/temp_visual/cult/sparks(T)
+			playsound(T, 'sound/effects/glassbr3.ogg', 100)
+			if(isliving(chosen.loc))
+				var/mob/living/shatterer = loc
+				shatterer.Weaken(6 SECONDS)
+			qdel(chosen)

@@ -434,6 +434,13 @@
 	/// Shatter threshold for Energy weapons
 	var/energy_threshold = 20
 
+/obj/item/shield/mirror/Initialize(mapload)
+	. = ..()
+	GLOB.mirrors += src
+
+/obj/item/shield/mirror/Destroy()
+	GLOB.mirrors -= src
+
 /**
   * Reflect/Block/Shatter proc.
   *
