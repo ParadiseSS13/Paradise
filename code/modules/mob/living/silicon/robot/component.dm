@@ -4,7 +4,7 @@
 	var/name = "Component"
 	var/installed = FALSE
 	var/powered = TRUE
-	var/toggled = 1
+	var/toggled = TRUE
 	var/brute_damage = 0
 	var/electronics_damage = 0
 	var/max_damage = 30
@@ -80,7 +80,7 @@
 	return isnull(wrapped)
 
 /datum/robot_component/proc/consume_power()
-	if(toggled == 0)
+	if(!toggled)
 		powered = FALSE
 		return
 	powered = TRUE
