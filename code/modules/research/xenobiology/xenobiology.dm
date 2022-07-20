@@ -211,7 +211,7 @@
 	if(candidates.len)
 		var/mob/C = pick(candidates)
 		SM.key = C.key
-		SM.universal_speak = 1
+		SM.universal_speak = TRUE
 		SM.faction = user.faction
 		SM.master_commander = user
 		SM.sentience_act()
@@ -266,7 +266,7 @@
 
 	to_chat(user, "<span class='notice'>You drink the potion then place your hands on [SM]...</span>")
 	user.mind.transfer_to(SM)
-	SM.universal_speak = 1
+	SM.universal_speak = TRUE
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience
 	SM.can_collar = 1

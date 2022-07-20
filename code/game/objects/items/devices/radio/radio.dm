@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/role = ""
 	var/lifetime_timer
 	var/message = ""
-	universal_speak = 1
+	universal_speak = TRUE
 
 /mob/living/automatedannouncer/New()
 	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), 10 SECONDS, TIMER_STOPPABLE)

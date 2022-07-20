@@ -2,8 +2,8 @@
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	pixel_y = 8
 	var/waterlevel = 100	//The amount of water in the tray (max 100)
 	var/maxwater = 100		//The maximum amount of water in the tray
@@ -15,15 +15,15 @@
 	var/mutmod = 1			//Nutriment's effect on mutations
 	var/toxic = 0			//Toxicity in the tray?
 	var/age = 0				//Current age
-	var/dead = 0			//Is it dead?
+	var/dead = FALSE		//Is it dead?
 	var/plant_health		//Its health
 	var/lastproduce = 0		//Last time it was harvested
 	var/lastcycle = 0		//Used for timing of cycles.
 	var/cycledelay = 200	//About 10 seconds / cycle
-	var/harvest = 0			//Ready to harvest?
+	var/harvest = FALSE		//Ready to harvest?
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
-	var/wrenchable = 1
+	var/wrenchable = TRUE
 	var/lid_state = 0
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
 	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
@@ -234,7 +234,7 @@
 			if(age > myseed.production && (age - lastproduce) > myseed.production && (!harvest && !dead))
 				nutrimentMutation()
 				if(myseed && myseed.yield != -1) // Unharvestable shouldn't be harvested
-					harvest = 1
+					harvest = TRUE
 					plant_hud_set_status()
 				else
 					lastproduce = age
@@ -374,7 +374,7 @@
 
 
 /obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient, this happens.
-	dead = 0
+	dead = FALSE
 	var/oldPlantName
 	if(myseed) // In case there's nothing in the tray beforehand
 		oldPlantName = myseed.plantname
@@ -401,7 +401,7 @@
 	age = 0
 	plant_health = myseed.endurance
 	lastcycle = world.time
-	harvest = 0
+	harvest = FALSE
 	adjustWeeds(-10) // Reset
 	adjustPests(-10) // Reset
 	update_icon()
@@ -435,7 +435,7 @@
 	age = 0
 	plant_health = myseed.endurance
 	lastcycle = world.time
-	harvest = 0
+	harvest = FALSE
 	plant_hud_set_health()
 	plant_hud_set_status()
 	adjustWeeds(-10) // Reset
@@ -450,12 +450,12 @@
 		QDEL_NULL(myseed)
 		var/newWeed = pick(/obj/item/seeds/liberty, /obj/item/seeds/angel, /obj/item/seeds/nettle/death, /obj/item/seeds/kudzu)
 		myseed = new newWeed
-		dead = 0
+		dead = FALSE
 		hardmutate()
 		age = 0
 		plant_health = myseed.endurance
 		lastcycle = world.time
-		harvest = 0
+		harvest = FALSE
 		plant_hud_set_health()
 		plant_hud_set_status()
 		adjustWeeds(-10) // Reset
@@ -469,11 +469,11 @@
 
 /obj/machinery/hydroponics/proc/plantdies() // OH NOES!!!!! I put this all in one function to make things easier
 	plant_health = 0
-	harvest = 0
+	harvest = FALSE
 	adjustPests(-10) // Pests die
 	if(!dead)
 		update_icon()
-		dead = 1
+		dead = TRUE
 	plant_hud_set_health()
 	plant_hud_set_status()
 
@@ -813,7 +813,7 @@
 				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
 			user.unEquip(O)
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
-			dead = 0
+			dead = FALSE
 			myseed = O
 			age = 1
 			plant_health = myseed.endurance
@@ -930,7 +930,7 @@
 	if(harvest)
 		myseed.harvest(user)
 	else if(dead)
-		dead = 0
+		dead = FALSE
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
 		QDEL_NULL(myseed)
 		update_icon()
@@ -940,7 +940,7 @@
 		examine(user)
 
 /obj/machinery/hydroponics/proc/update_tray(mob/user = usr)
-	harvest = 0
+	harvest = FALSE
 	lastproduce = age
 	if(istype(myseed,/obj/item/seeds/replicapod))
 		to_chat(user, "<span class='notice'>You harvest from the [myseed.plantname].</span>")
@@ -950,7 +950,7 @@
 		to_chat(user, "<span class='notice'>You harvest [myseed.getYield()] items from the [myseed.plantname].</span>")
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		QDEL_NULL(myseed)
-		dead = 0
+		dead = FALSE
 	plant_hud_set_status()
 	plant_hud_set_health()
 	update_icon()
@@ -1024,9 +1024,9 @@
 	name = "soil"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"
-	density = 0
+	density = FALSE
 	use_power = NO_POWER_USE
-	wrenchable = 0
+	wrenchable = FALSE
 
 /obj/machinery/hydroponics/soil/update_icon_hoses()
 	return // Has no hoses

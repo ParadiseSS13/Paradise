@@ -223,7 +223,7 @@
 "aN" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/barman_recipes,
-/obj/item/book/manual/engineering_hacking,
+/obj/item/book/manual/wiki/hacking,
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aO" = (

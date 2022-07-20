@@ -11,8 +11,8 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
-	var/cover_open = 0
-	can_suppress = 0
+	var/cover_open = FALSE
+	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 1
 
