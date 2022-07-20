@@ -44,6 +44,7 @@
 	icon_state = "voxmask"
 	item_state = "voxmask"
 	permeability_coefficient = 0.01
+	flags_cover = null
 	species_restricted = list("Vox", "Vox Armalis") //These should fit the "Mega Vox" just fine.
 	actions_types = list()
 
