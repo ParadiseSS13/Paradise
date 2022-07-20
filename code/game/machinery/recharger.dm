@@ -74,9 +74,6 @@
 
 /obj/machinery/recharger/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be secured down first!</span>")
-		return
 	if(charging)
 		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
 		return
@@ -93,9 +90,6 @@
 	. = TRUE
 	if(charging)
 		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
-		return
-	if(panel_open)
-		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -127,7 +121,7 @@
 		update_icon()
 
 /obj/machinery/recharger/process()
-	if(stat & (NOPOWER|BROKEN) || !anchored)
+	if(stat & (NOPOWER|BROKEN) || !anchored || panel_open)
 		return
 
 	using_power = try_recharging_if_possible()
