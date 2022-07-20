@@ -45655,10 +45655,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "cfw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10;
-	initialize_directions = 10
-	},
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -46281,7 +46277,6 @@
 	},
 /area/medical/cryo)
 "chk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -71473,6 +71468,9 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -73200,7 +73198,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "gEA" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80588,6 +80588,15 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
+"nQK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10;
+	initialize_directions = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/medical/cryo)
 "nQO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -126235,7 +126244,7 @@ bZk
 bWa
 ggA
 gEA
-chm
+chL
 fbi
 bWa
 pQL
@@ -126493,7 +126502,7 @@ bZv
 chm
 cfw
 chk
-chL
+nQK
 cjw
 ckV
 lFO
