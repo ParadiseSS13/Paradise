@@ -48,7 +48,7 @@
 		if(14)
 			new /obj/item/nullrod/armblade/mining(src)
 		if(15)
-			new /obj/item/guardiancreator(src)
+			new /obj/item/spellbook/oneuse/charge(src)
 		if(16)
 			if(prob(50))
 				new /obj/item/disk/design_disk/modkit_disk/mob_and_turf_aoe(src)
