@@ -33,7 +33,7 @@
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"
 	ranged_cooldown_time = 20 //Going to try this, it feels slow
-	speed = 3
+	speed = 2
 	move_to_delay = 10
 	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/magic/repulse.ogg'

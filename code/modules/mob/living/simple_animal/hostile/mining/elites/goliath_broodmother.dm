@@ -237,7 +237,7 @@
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "broodmother_tongue"
 	denied_type = /obj/item/crusher_trophy/broodmother_tongue
-	bonus_value = 10
+	bonus_value = 25
 	/// Time at which the item becomes usable again
 	var/use_time
 

@@ -31,7 +31,7 @@
 	attacktext = "slashes its arms at"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	throw_message = "doesn't affect the sturdiness of"
-	speed = 1
+	speed = 0.5 //Since it is mainly melee, this *should* be right
 	move_to_delay = 3
 	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/hallucinations/wail.ogg'
@@ -229,7 +229,7 @@
 	else
 		visible_message("<span class='danger'>[src] spews smoke from its maw!</span>")
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, 0, smoke_location.loc)
+	smoke.set_up(6, 0, smoke_location.loc)
 	smoke.attach(smoke_location)
 	smoke.start()
 
@@ -307,7 +307,7 @@
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "legionnaire_spine"
 	denied_type = /obj/item/crusher_trophy/legionnaire_spine
-	bonus_value = 20
+	bonus_value = 25
 	/// Time at which the item becomes usable again
 	var/next_use_time
 

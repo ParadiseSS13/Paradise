@@ -182,8 +182,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				addtimer(CALLBACK(src, .proc/spawn_elite), 30)
 				return
 			visible_message("<span class='danger'>Something within [src] stirs...</span>")
-			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a lavaland elite?", ROLE_DEMON, TRUE, 5 SECONDS, source = src)
+			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a lavaland elite?", ROLE_DEMON, TRUE, 10 SECONDS, source = src)
 			if(candidates.len)
+
 				audible_message("<span class='userdanger'>The stirring sounds increase in volume!</span>")
 				elitemind = pick(candidates)
 				elitemind.playsound_local(get_turf(elitemind), 'sound/magic/cult_spell.ogg', 40, 0)
@@ -217,7 +218,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	mychild.revive()
 	if(boosted)
-		mychild.maxHealth = mychild.maxHealth * 2
+		mychild.maxHealth = mychild.maxHealth * 2.5
 		mychild.health = mychild.maxHealth
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 

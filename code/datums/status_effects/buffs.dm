@@ -460,7 +460,7 @@
 		hope_message()
 
 /datum/status_effect/hope/proc/hope_message()
-	var/list/hope_messages = list("You are filled with [pick("hope", "determination", "strength", "peace", "confidence", "robust")].",
+	var/list/hope_messages = list("You are filled with [pick("hope", "determination", "strength", "peace", "confidence", "robustness")].",
 							"Don't give up!",
 							"You see your [pick("friends", "family", "coworkers", "self")] [pick("rooting for you", "cheering you on", "worrying about you")].",
 							"You can't give up now, keep going!",
