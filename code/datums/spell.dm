@@ -80,9 +80,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	opacity = FALSE
 
 	var/school = "evocation" //not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
-
-
-	var/base_cooldown = 10 SECONDS //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
+	///recharge time in deciseconds
+	var/base_cooldown = 10 SECONDS
 	var/starts_charged = TRUE //Does this spell start ready to go?
 	var/should_recharge_after_cast = TRUE
 	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"

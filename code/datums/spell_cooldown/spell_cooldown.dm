@@ -27,8 +27,10 @@
 	return
 
 /datum/spell_cooldown/process()
-	if(spell_parent.action)
-		spell_parent.action.UpdateButtonIcon()
+	if(!spell_parent.action)
+		stack_trace("[spell_parent.type] ended up with a null action")
+		return PROCESS_KILL
+	spell_parent.action.UpdateButtonIcon()
 	if(should_end_cooldown())
 		end_recharge()
 		return PROCESS_KILL
@@ -45,8 +47,8 @@
 		return 1
 	return (recharge_duration - (recharge_time - world.time)) / recharge_duration
 
-/datum/spell_cooldown/proc/start_recharge(recharge_override = 0)
-	var/recharge_increment = recharge_override || recharge_duration
+/datum/spell_cooldown/proc/start_recharge(recharge_duration_override = 0)
+	var/recharge_increment = recharge_duration_override || recharge_duration
 	recharge_time = world.time + recharge_increment
 	if(spell_parent.action)
 		spell_parent.action.UpdateButtonIcon()

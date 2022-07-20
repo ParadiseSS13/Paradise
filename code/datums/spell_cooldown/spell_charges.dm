@@ -14,13 +14,13 @@
 		current_charges = max_charges
 
 /datum/spell_cooldown/charges/is_on_cooldown()
-	return (!current_charges || charge_time >= world.time)
+	return !current_charges || charge_time >= world.time
 
 /datum/spell_cooldown/charges/should_end_cooldown()
 	if(recharge_time > world.time)
 		return FALSE
 	current_charges++
-	if(current_charges != max_charges) // we have more recharges to go
+	if(current_charges < max_charges) // we have more recharges to go
 		recharge_time = world.time + recharge_duration
 		return FALSE
 	return TRUE
