@@ -11,7 +11,7 @@
 	active_power_usage = 0
 	max_integrity = 150
 	integrity_failure = 50
-	var/obscured = 0
+	var/obscured = FALSE
 	var/sunfrac = 0
 	var/adir = SOUTH // actual dir
 	var/ndir = SOUTH // target dir
@@ -45,7 +45,7 @@
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
-		S.anchored = 1
+		S.anchored = TRUE
 	S.loc = src
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
@@ -167,10 +167,10 @@
 			break
 
 		if(T.density)			// if we hit a solid turf, panel is obscured
-			obscured = 1
+			obscured = TRUE
 			return
 
-	obscured = 0		// if hit the edge or stepped 20 times, not obscured
+	obscured = FALSE		// if hit the edge or stepped 20 times, not obscured
 	update_solar_exposure()
 
 
@@ -185,7 +185,7 @@
 	icon_state = "sp_base"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
-	anchored = 0
+	anchored = FALSE
 	var/tracker = 0
 	var/glass_type = null
 
@@ -205,13 +205,13 @@
 
 	if(!anchored && isturf(loc))
 		if(istype(W, /obj/item/wrench))
-			anchored = 1
+			anchored = TRUE
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return 1
 	else
 		if(istype(W, /obj/item/wrench))
-			anchored = 0
+			anchored = FALSE
 			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return 1

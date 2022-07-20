@@ -10,7 +10,7 @@
 	name = "\improper MULEbot"
 	desc = "A Multiple Utility Load Effector bot."
 	icon_state = "mulebot0"
-	density = 1
+	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	animate_movement = 1
 	health = 50
@@ -72,6 +72,9 @@
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
 	return ..()
+
+/mob/living/simple_animal/bot/mulebot/can_buckle()
+	return FALSE //no ma'am, you cannot buckle mulebots to chairs
 
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(suffix)
 	src.suffix = suffix
@@ -451,14 +454,14 @@
 		target = ai_waypoint //Target is the end point of the path, the waypoint set by the AI.
 		dest_area = get_area(target)
 		destination = format_text(dest_area.name)
-		pathset = 1 //Indicates the AI's custom path is initialized.
+		pathset = TRUE //Indicates the AI's custom path is initialized.
 		start()
 
 /mob/living/simple_animal/bot/mulebot/handle_automated_action()
 	diag_hud_set_botmode()
 
 	if(!has_power())
-		on = 0
+		on = FALSE
 		return
 	if(on)
 		var/speed = (!wires.is_cut(WIRE_MOTOR1) ? 1 : 0) + (!wires.is_cut(WIRE_MOTOR2) ? 2 : 0)
