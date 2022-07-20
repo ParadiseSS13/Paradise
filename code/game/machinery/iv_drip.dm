@@ -12,7 +12,7 @@
 /obj/machinery/iv_drip/Initialize(mapload)
 	. = ..()
 	if(mapload) // shamelessly stolen locker code
-		addtimer(CALLBACK(src, .proc/take_contents), 0) //  Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded, once every spawner is initialized this should be fine to remove
+		addtimer(CALLBACK(src, .proc/take_contents), 0) //  Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded, therefore solving the issue on mapload. During rounds, everything will happen as normal.
 	update_icon() // Set it to the right icon if needed
 
 /obj/machinery/iv_drip/proc/take_contents()
