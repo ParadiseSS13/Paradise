@@ -77391,17 +77391,6 @@
 	icon_state = "dark"
 	},
 /area/security/brig)
-"eSy" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "eTE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall,
@@ -124524,7 +124513,7 @@ eDY
 hlX
 aMz
 aLc
-aGY
+aNh
 aQL
 bcg
 bfQ
@@ -124779,7 +124768,7 @@ aQC
 aGY
 aGY
 aGY
-aQL
+aGY
 aGY
 aXW
 bjX
@@ -125036,7 +125025,7 @@ aVA
 aXW
 aZQ
 aZQ
-eSy
+aZQ
 aZQ
 bfP
 bkD
