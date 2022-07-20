@@ -18,7 +18,6 @@
 			if(istype(I, /obj/item/reagent_containers/iv_bag))
 				I.forceMove(src)
 				bag = I
-				update_icon()
 				START_PROCESSING(SSmachines, src)
 				break
 	update_icon()
