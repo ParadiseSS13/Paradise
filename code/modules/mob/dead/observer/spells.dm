@@ -46,4 +46,4 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 			cooldown_handler.start_recharge(cooldown_handler.recharge_duration / 2)
 		return
 
-	cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.9)
+	cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)
