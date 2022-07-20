@@ -83,7 +83,7 @@
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
 					H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(null, MELEE))
-					H.adjustStaminaLoss(30)
+					H.adjustStaminaLoss(40)
 				else
 					L.Weaken(10 SECONDS)
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
