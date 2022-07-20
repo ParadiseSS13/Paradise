@@ -55,16 +55,6 @@
 			playsound(src, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
 			update_icon()
 
-/obj/item/taperecorder/proc/eject(mob/user)
-	if(mytape)
-		playsound(src, 'sound/items/taperecorder/taperecorder_open.ogg', 50, FALSE)
-		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
-		stop()
-		user.put_in_hands(mytape)
-		mytape = null
-		update_icon()
-
-
 /obj/item/taperecorder/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	mytape?.ruin() //Fires destroy the tape
 	return ..()
@@ -78,19 +68,6 @@
 			eject(user)
 			return
 	..()
-
-
-/obj/item/taperecorder/verb/ejectverb()
-	set name = "Eject Tape"
-	set category = "Object"
-
-	if(usr.incapacitated())
-		return
-	if(!mytape)
-		return
-
-	eject(usr)
-
 
 /obj/item/taperecorder/update_icon()
 	if(!mytape)
@@ -127,7 +104,29 @@
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] [msg]"
 
-/obj/item/taperecorder/verb/record()
+/obj/item/taperecorder/attack_self(mob/user)
+	if(!mytape || mytape.ruined)
+		return
+	if(recording)
+		stop()
+	else
+		record()
+
+/obj/item/taperecorder/AltClick(mob/user)
+	var/list/options = list("Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
+							"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
+							"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
+							)
+	var/choice = show_radial_menu(usr, src, options)
+	switch(choice)
+		if("Playback Tape")
+			play()
+		if("Print Transcript")
+			print_transcript()
+		if("Eject Tape")
+			eject(user)
+
+/obj/item/taperecorder/proc/record()
 	set name = "Start Recording"
 	set category = "Object"
 
@@ -163,7 +162,7 @@
 		playsound(src, 'sound/items/taperecorder/taperecorder_stop.ogg', 50, FALSE)
 
 
-/obj/item/taperecorder/verb/stop()
+/obj/item/taperecorder/proc/stop()
 	set name = "Stop"
 	set category = "Object"
 
@@ -184,10 +183,7 @@
 	update_sound()
 
 
-/obj/item/taperecorder/verb/play()
-	set name = "Play Tape"
-	set category = "Object"
-
+/obj/item/taperecorder/proc/play()
 	if(usr.incapacitated())
 		return
 	if(!mytape || mytape.ruined)
@@ -227,20 +223,7 @@
 
 	stop()
 
-
-/obj/item/taperecorder/attack_self(mob/user)
-	if(!mytape || mytape.ruined)
-		return
-	if(recording)
-		stop()
-	else
-		record()
-
-
 /obj/item/taperecorder/verb/print_transcript()
-	set name = "Print Transcript"
-	set category = "Object"
-
 	if(usr.incapacitated())
 		return
 	if(!mytape)
@@ -263,6 +246,19 @@
 	canprint = 0
 	sleep(300)
 	canprint = 1
+
+/obj/item/taperecorder/proc/eject(mob/user)
+	if(usr.incapacitated())
+		return
+	if(!mytape)
+		return
+	if(mytape)
+		playsound(src, 'sound/items/taperecorder/taperecorder_open.ogg', 50, FALSE)
+		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
+		stop()
+		user.put_in_hands(mytape)
+		mytape = null
+		update_icon()
 
 //empty tape recorders
 /obj/item/taperecorder/empty
