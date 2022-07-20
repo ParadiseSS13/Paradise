@@ -46952,6 +46952,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -46977,6 +46978,7 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -49367,7 +49369,9 @@
 /area/medical/surgery1)
 "cpL" = (
 /obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /obj/machinery/camera{
 	c_tag = "Medbay Surgery Observation North"
 	},
@@ -49382,7 +49386,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -49940,10 +49946,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -49975,9 +49977,6 @@
 /area/toxins/server)
 "crr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50009,20 +50008,13 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-y"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
 /area/medical/surgeryobs)
 "crv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -50685,8 +50677,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -50733,6 +50724,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -50746,6 +50740,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -50770,6 +50767,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/structure/disposalpipe/junction{
+	dir = 8;
+	icon_state = "pipe-j2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -50792,6 +50793,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/disposalpipe/junction{
+	dir = 1;
+	icon_state = "pipe-y"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -50806,6 +50811,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -50813,7 +50821,9 @@
 /area/medical/surgeryobs)
 "ctd" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -50836,6 +50846,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -50853,8 +50866,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -51229,15 +51241,12 @@
 "cul" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -51254,16 +51263,6 @@
 	icon_state = "white"
 	},
 /area/medical/medbay)
-"cup" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
-	},
-/area/medical/surgeryobs)
 "cuq" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -53194,14 +53193,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/incinerator)
-"czI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/surgeryobs)
 "czJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -53228,9 +53219,6 @@
 /area/maintenance/apmaint)
 "czO" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/disposalpipe/junction{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -53317,10 +53305,6 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "czW" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -75246,6 +75230,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -77314,13 +77299,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"kSC" = (
-/obj/machinery/iv_drip,
-/obj/item/reagent_containers/iv_bag/salglu,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/sleeper)
 "kSH" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/effect/landmark/burnturf,
@@ -87929,9 +87907,6 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "uGb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -88431,6 +88406,7 @@
 	c_tag = "Medbay Exam Room";
 	dir = 8
 	},
+/obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -126319,8 +126295,8 @@ bZI
 cbN
 bZk
 bZk
-kSC
-kSC
+bZk
+bZk
 bWa
 lFy
 gEA
@@ -127875,7 +127851,7 @@ qas
 cnY
 kMo
 dRC
-czI
+cuj
 csY
 cuj
 dCb
@@ -128648,7 +128624,7 @@ fhP
 cpO
 crv
 ctd
-cup
+dRC
 nNt
 cDf
 cFz
@@ -128903,7 +128879,7 @@ jpH
 jpH
 lfQ
 cum
-czI
+cuj
 ctc
 cuj
 xEw
