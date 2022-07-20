@@ -59,6 +59,8 @@
 	message_admins("A pizza bomb set by [key_name_admin(armer)] and opened by [key_name_admin(opener)] has detonated at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 	log_game("Pizza bomb set by [key_name(armer)] and opened by [key_name(opener)]) detonated at ([loc.x],[loc.y],[loc.z]).")
 	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
+	armer = null
+	opener = null
 	qdel(src)
 
 /obj/item/pizza_bomb/attackby(obj/item/I, mob/user, params)
