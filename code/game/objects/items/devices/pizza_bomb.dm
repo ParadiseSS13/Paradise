@@ -10,6 +10,7 @@
 	var/wires = list("orange", "green", "blue", "yellow", "aqua", "purple")
 	var/correct_wire
 	var/armer //Used for admin purposes
+	var/opener //Ditto
 
 /obj/item/pizza_bomb/attack_self(mob/user)
 	if(disarmed)
@@ -42,8 +43,9 @@
 		icon_state = "pizzabox_bomb"
 		audible_message("<span class='warning'>[bicon(src)] *beep* *beep*</span>")
 		to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")
-		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [armer] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
-		log_game("[key_name(usr)] has triggered a pizza bomb armed by [armer] ([loc.x],[loc.y],[loc.z]).")
+		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [key_name_admin(armer)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
+		log_game("[key_name(usr)] has triggered a pizza bomb armed by [key_name(armer)] ([loc.x],[loc.y],[loc.z]).")
+		opener = usr
 		primed = 1
 		sleep(timer)
 		return go_boom()
@@ -54,6 +56,8 @@
 		return
 	atom_say("Enjoy the pizza!")
 	visible_message("<span class='userdanger'>[src] violently explodes!</span>")
+	message_admins("Pizza bomb (armed by [key_name_admin(armer)], opened by [key_name_admin(opener)]) detonated at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
+	log_game("Pizza bomb (armed by [key_name(armer)], opened by [key_name(opener)]) detonated at ([loc.x],[loc.y],[loc.z]).")
 	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
 	qdel(src)
 
