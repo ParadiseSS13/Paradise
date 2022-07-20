@@ -1224,6 +1224,7 @@
 #include "code\modules\admin\verbs\deadsay.dm"
 #include "code\modules\admin\verbs\deathsquad.dm"
 #include "code\modules\admin\verbs\debug.dm"
+#include "code\modules\admin\verbs\debug_dmapi.dm"
 #include "code\modules\admin\verbs\diagnostics.dm"
 #include "code\modules\admin\verbs\dice.dm"
 #include "code\modules\admin\verbs\freeze.dm"

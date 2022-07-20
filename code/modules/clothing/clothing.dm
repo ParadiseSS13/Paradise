@@ -304,10 +304,9 @@ BLIND     // can't see anything
 	return TRUE
 
 /obj/item/clothing/under/proc/set_sensors(mob/user as mob)
-	var/mob/M = user
-	if(istype(M, /mob/dead/)) return
-	if(user.stat || user.restrained()) return
-	if(has_sensor >= SUIT_SENSOR_VITAL)
+	if(!user.Adjacent(src) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	if(has_sensor >= 2)
 		to_chat(user, "The controls are locked.")
 		return
 	if(has_sensor <= SUIT_SENSOR_OFF)
@@ -316,9 +315,14 @@ BLIND     // can't see anything
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
-	if(get_dist(user, src) > 1)
-		to_chat(user, "You have moved too far away.")
+
+	if(!user.Adjacent(src))
+		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
+	if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
+		return
+
 	sensor_mode = modes.Find(switchMode) - 1
 
 	if(src.loc == user)
@@ -359,7 +363,11 @@ BLIND     // can't see anything
 	set name = "Toggle Suit Sensors"
 	set category = "Object"
 	set src in usr
+
 	set_sensors(usr)
+
+/obj/item/clothing/under/AltShiftClick(mob/user)
+	set_sensors(user)
 
 //Head
 /obj/item/clothing/head
@@ -777,18 +785,26 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
-	switch(sensor_mode)
-		if(SENSOR_OFF)
-			. += "Its sensors appear to be disabled."
-		if(SENSOR_LIVING)
-			. += "Its binary life sensors appear to be enabled."
-		if(SENSOR_VITALS)
-			. += "Its vital tracker appears to be enabled."
-		if(SENSOR_COORDS)
-			. += "Its vital tracker and tracking beacon appear to be enabled."
+
+	if(has_sensor >= 1)
+		switch(sensor_mode)
+			if(SUIT_SENSOR_OFF)
+				. += "Its sensors appear to be disabled."
+			if(SUIT_SENSOR_BINARY)
+				. += "Its binary life sensors appear to be enabled."
+			if(SUIT_SENSOR_VITAL)
+				. += "Its vital tracker appears to be enabled."
+			if(SUIT_SENSOR_TRACKING)
+				. += "Its vital tracker and tracking beacon appear to be enabled."
+		if(has_sensor == 1)
+			. += "Alt-shift-click to toggle the sensors mode."
+	else
+		. += "This suit does not have any sensors."
+
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
+		. += "Alt-click to remove an accessory."
 
 
 /obj/item/clothing/under/verb/rollsuit()
