@@ -41,7 +41,7 @@
 	T.air_update_turf(TRUE)
 
 /obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
-	return 0
+	return
 
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
@@ -105,14 +105,12 @@
 
 /obj/structure/inflatable/door //Based on mineral door code
 	name = "inflatable door"
-
-	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
 	intact = /obj/item/inflatable/door
 
 	var/state_open = FALSE
-	var/isSwitchingStates = FALSE
+	var/is_operating = FALSE
 
 /obj/structure/inflatable/door/detailed_examine()
 	return "Click the door to open or close it. It only stops air while closed.<br>\
@@ -123,10 +121,10 @@
 		return
 	else if(isrobot(user)) //but cyborgs can
 		if(get_dist(user,src) <= 1) //not remotely though
-			return TryToSwitchState(user)
+			return try_to_operate(user)
 
 /obj/structure/inflatable/door/attack_hand(mob/user as mob)
-	return TryToSwitchState(user)
+	return try_to_operate(user)
 
 /obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover, /obj/effect/beam))
@@ -136,8 +134,8 @@
 /obj/structure/inflatable/door/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/inflatable/door/proc/TryToSwitchState(atom/user)
-	if(isSwitchingStates)
+/obj/structure/inflatable/door/proc/try_to_operate(atom/user)
+	if(is_operating)
 		return
 	if(ismob(user))
 		var/mob/M = user
@@ -147,42 +145,28 @@
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
 				if(!C.handcuffed)
-					SwitchState()
+					operate()
 			else
-				SwitchState()
+				operate()
 	else if(istype(user, /obj/mecha))
-		SwitchState()
+		operate()
 
-/obj/structure/inflatable/door/proc/SwitchState()
-	if(state_open)
-		Close()
+/obj/structure/inflatable/door/proc/operate()
+	is_operating = TRUE
+	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
+	if(!state_open)
+		flick("door_opening",src)
 	else
-		Open()
+		flick("door_closing",src)
+	sleep(10)
+	density = !density
+	opacity = !opacity
+	state_open = !state_open
+	update_icon(UPDATE_ICON_STATE)
+	is_operating = FALSE
 	air_update_turf(1)
 
-/obj/structure/inflatable/door/proc/Open()
-	isSwitchingStates = TRUE
-	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
-	flick("door_opening",src)
-	sleep(10)
-	density = FALSE
-	opacity = FALSE
-	state_open = TRUE
-	update_icon()
-	isSwitchingStates = FALSE
-
-/obj/structure/inflatable/door/proc/Close()
-	isSwitchingStates = TRUE
-	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
-	flick("door_closing",src)
-	sleep(10)
-	density = TRUE
-	opacity = FALSE
-	state_open = FALSE
-	update_icon()
-	isSwitchingStates = FALSE
-
-/obj/structure/inflatable/door/update_icon()
+/obj/structure/inflatable/door/update_icon_state()
 	if(state_open)
 		icon_state = "door_open"
 	else

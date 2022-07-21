@@ -47,7 +47,7 @@
 	open = !open
 	update_icon()
 
-/obj/structure/toilet/update_icon()
+/obj/structure/toilet/update_icon_state()
 	icon_state = "toilet[open][cistern]"
 	if(!anchored)
 		pixel_x = 0
@@ -340,11 +340,11 @@
 		transfer_prints_to(S, TRUE)
 		qdel(src)
 
-/obj/machinery/shower/update_icon()
-	cut_overlays()
+/obj/machinery/shower/update_overlays()
+	. = ..()
 	if(on)
 		var/mutable_appearance/water_falling = mutable_appearance('icons/obj/watercloset.dmi', "water", ABOVE_MOB_LAYER)
-		add_overlay(water_falling)
+		. += water_falling
 
 /obj/machinery/shower/proc/handle_mist()
 	// If there is no mist, and the shower was turned on (on a non-freezing temp): make mist in 5 seconds
@@ -565,8 +565,7 @@
 			dir = dir_choices[selected]
 	update_icon()	//is this necessary? probably not
 
-/obj/structure/sink/update_icon()
-	..()
+/obj/structure/sink/update_icon_state()
 	layer = OBJ_LAYER
 	if(!anchored)
 		pixel_x = 0
