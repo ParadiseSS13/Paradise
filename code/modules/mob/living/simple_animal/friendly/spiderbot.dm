@@ -5,7 +5,7 @@
 	icon_state = "spiderbot-chassis"
 	icon_living = "spiderbot-chassis"
 	icon_dead = "spiderbot-smashed"
-	wander = 0
+	wander = FALSE
 	universal_speak = TRUE
 	health = 40
 	maxHealth = 40
@@ -29,12 +29,12 @@
 	minbodytemp = 0
 	maxbodytemp = 500
 
-	can_hide = 1
+	can_hide = TRUE
 	ventcrawler = 2
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
-	del_on_death = 1
+	del_on_death = TRUE
 
-	var/emagged = 0               //is it getting ready to explode?
+	var/emagged = FALSE               //is it getting ready to explode?
 	var/obj/item/mmi/mmi = null
 	var/mob/emagged_master = null //for administrative purposes, to see who emagged the spiderbot; also for a holder for if someone emags an empty frame first then inserts an MMI.
 
@@ -136,7 +136,7 @@
 		to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
 		return 0
 	else
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!</span>")
 		emagged_master = user
@@ -155,7 +155,7 @@
 	if(emagged)
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!</span>")
 
-/mob/living/simple_animal/spiderbot/proc/update_icon()
+/mob/living/simple_animal/spiderbot/update_icon_state()
 	if(mmi)
 		if(istype(mmi, /obj/item/mmi))
 			icon_state = "spiderbot-chassis-mmi"

@@ -30,8 +30,7 @@
 	can_holster = TRUE
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/toy/pistol/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/toy/pistol/riot
@@ -50,18 +49,16 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE
 
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
-	..()
-	overlays.Cut()
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_overlays()
+	. = ..()
 	if(gun_light)
-		var/iconF = "Enforcer_light"
+		var/flashlight = "Enforcer_light"
 		if(gun_light.on)
-			iconF = "Enforcer_light-on"
-		overlays += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = iconF, pixel_x = 0)
+			flashlight = "Enforcer_light-on"
+		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = flashlight, pixel_x = 0)
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
 	toggle_gunlight()

@@ -72,7 +72,7 @@
 		log_game("[key_name(user)] has emagged the emergency shuttle in ([x], [y], [z]): [time] seconds before launch.")
 		GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds", "SYSTEM ERROR:")
 		SSshuttle.emergency.setTimer(100)
-		emagged = 1
+		emagged = TRUE
 
 
 /obj/docking_port/mobile/emergency
@@ -341,10 +341,13 @@
 	possible_destinations = "pod_asteroid"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
-	density = 0
+	density = FALSE
 
-/obj/machinery/computer/shuttle/pod/update_icon()
+/obj/machinery/computer/shuttle/pod/update_icon_state()
 	return
+
+/obj/machinery/computer/shuttle/pod/update_overlays()
+	return list()
 
 /obj/machinery/computer/shuttle/pod/emag_act(mob/user as mob)
 	to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")

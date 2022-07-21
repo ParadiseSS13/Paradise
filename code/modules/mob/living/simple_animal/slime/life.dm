@@ -1,8 +1,8 @@
 
 /mob/living/simple_animal/slime
-	var/AIproc = 0 // determines if the AI loop is activated
-	var/Atkcool = 0 // attack cooldown
-	var/Tempstun = 0 // temporary temperature stuns
+	var/AIproc = FALSE // determines if the AI loop is activated
+	var/Atkcool = FALSE // attack cooldown
+	var/Tempstun = FALSE // temporary temperature stuns
 	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
 	var/SStun = 0 // stun variable
 
@@ -41,7 +41,7 @@
 	else if (nutrition < get_grow_nutrition() && prob(25) || nutrition < get_hunger_nutrition())
 		hungry = 1
 
-	AIproc = 1
+	AIproc = TRUE
 
 	while(AIproc && stat != DEAD && (attacked || hungry || rabid))
 		if(buckled)
@@ -55,13 +55,13 @@
 
 		if(Target.health <= -70 || Target.stat == DEAD)
 			Target = null
-			AIproc = 0
+			AIproc = FALSE
 			break
 
 		if(Target)
 			if(locate(/mob/living/simple_animal/slime) in Target.buckled_mobs)
 				Target = null
-				AIproc = 0
+				AIproc = FALSE
 				break
 			if(!AIproc)
 				break
@@ -99,7 +99,7 @@
 					step_to(src, Target)
 			else
 				Target = null
-				AIproc = 0
+				AIproc = FALSE
 				break
 
 		var/sleeptime = movement_delay()
@@ -108,7 +108,7 @@
 
 		sleep(sleeptime + 2) // this is about as fast as a player slime can go
 
-	AIproc = 0
+	AIproc = FALSE
 
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
 	if(!environment)
@@ -122,7 +122,7 @@
 
 	if(bodytemperature < (T0C + 5)) // start calculating temperature damage etc
 		if(bodytemperature <= (T0C - 40)) // stun temperature
-			Tempstun = 1
+			Tempstun = TRUE
 
 		if(bodytemperature <= (T0C - 50)) // hurt temperature
 			if(bodytemperature <= 50) // sqrting negative numbers is bad
@@ -131,7 +131,7 @@
 				adjustBruteLoss(round(sqrt(bodytemperature)) * 2)
 
 	else
-		Tempstun = 0
+		Tempstun = FALSE
 
 	updatehealth("handle environment")
 
@@ -182,7 +182,7 @@
 
 		if(M.client && ishuman(M))
 			if(prob(85))
-				rabid = 1 //we go rabid after finishing to feed on a human with a client.
+				rabid = TRUE //we go rabid after finishing to feed on a human with a client.
 
 		Feedstop()
 		return
@@ -277,7 +277,7 @@
 
 		if(Discipline >= 5 && rabid)
 			if(prob(60))
-				rabid = 0
+				rabid = FALSE
 
 		if(prob(10))
 			Discipline--

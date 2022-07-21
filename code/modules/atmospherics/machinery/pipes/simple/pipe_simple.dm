@@ -137,20 +137,13 @@
 	if(node2)
 		node2.update_underlays()
 
-/obj/machinery/atmospherics/pipe/simple/update_icon(safety = 0)
-	..()
-
-	if(!check_icon_cache())
-		return
-
+/obj/machinery/atmospherics/pipe/simple/update_overlays()
+	. = ..()
 	alpha = 255
-
-	overlays.Cut()
-
 	if(node1 && node2)
-		overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "intact" + icon_connect_type)
+		. += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "intact" + icon_connect_type)
 	else
-		overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
+		. += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
 
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/simple/check_nodes_exist()

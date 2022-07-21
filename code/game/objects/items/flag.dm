@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_integrity = 40
 	resistance_flags = FLAMMABLE
+	custom_fire_overlay = "fire"
 	var/rolled = FALSE
 
 /obj/item/flag/attackby(obj/item/W, mob/user, params)
@@ -29,18 +30,16 @@
 	..()
 	update_icon()
 
-/obj/item/flag/update_icon()
-	overlays.Cut()
+/obj/item/flag/update_icon_state()
 	updateFlagIcon()
 	item_state = icon_state
 	if(rolled)
 		icon_state = "[icon_state]_rolled"
+		custom_fire_overlay = "fire_rolled"
+	else
+		custom_fire_overlay = initial(custom_fire_overlay)
 	if(resistance_flags & ON_FIRE)
 		item_state = "[item_state]_fire"
-	if((resistance_flags & ON_FIRE) && rolled)
-		overlays += image('icons/obj/flag.dmi', src , "fire_rolled")
-	else if((resistance_flags & ON_FIRE) && !rolled)
-		overlays += image('icons/obj/flag.dmi', src , "fire")
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_r_hand()

@@ -202,9 +202,8 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
-	..()
 
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -221,7 +220,7 @@
 	force_wielded = 23
 	needs_permit = TRUE
 
-/obj/item/twohanded/fireaxe/boneaxe/update_icon()
+/obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
 	icon_state = "bone_axe[wielded]"
 
 /obj/item/twohanded/fireaxe/energized
@@ -231,7 +230,7 @@
 	var/charge = 30
 	var/max_charge = 30
 
-/obj/item/twohanded/fireaxe/energized/update_icon()
+/obj/item/twohanded/fireaxe/energized/update_icon_state()
 	if(wielded)
 		icon_state = "fireaxe2"
 	else
@@ -298,14 +297,13 @@
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
 
-/obj/item/twohanded/dualsaber/update_icon()
+/obj/item/twohanded/dualsaber/update_icon_state()
 	if(wielded)
 		icon_state = "dualsaber[blade_color][wielded]"
 		set_light(brightness_on, l_color=colormap[blade_color])
 	else
 		icon_state = "dualsaber0"
 		set_light(0)
-	..()
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HULK))
@@ -406,7 +404,7 @@
 	needs_permit = TRUE
 	var/icon_prefix = "spearglass"
 
-/obj/item/twohanded/spear/update_icon()
+/obj/item/twohanded/spear/update_icon_state()
 	icon_state = "[icon_prefix][wielded]"
 
 /obj/item/twohanded/spear/CheckParts(list/parts_list)
@@ -609,12 +607,11 @@
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
 
-/obj/item/twohanded/chainsaw/update_icon()
+/obj/item/twohanded/chainsaw/update_icon_state()
 	if(wielded)
 		icon_state = "chainsaw[wielded]"
 	else
 		icon_state = "chainsaw0"
-	..()
 
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
 	if(wielded)
@@ -685,9 +682,8 @@
 	if(charged < 2)
 		charged++
 
-/obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/singularityhammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "singulohammer[wielded]"
-	..()
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/X in orange(5, pull))
@@ -762,9 +758,8 @@
 		L.Stun(6 SECONDS)
 		shock(L)
 
-/obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/mjollnir/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
-	..()
 
 /obj/item/twohanded/knighthammer
 	name = "singuloth knight's hammer"
@@ -793,9 +788,8 @@
 	if(charged < 5)
 		charged++
 
-/obj/item/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/knighthammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer[wielded]"
-	..()
 
 /obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)

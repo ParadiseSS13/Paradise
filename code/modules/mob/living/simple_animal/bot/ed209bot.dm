@@ -5,8 +5,8 @@
 	desc = "A security robot.  He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed2090"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	health = 150
 	maxHealth = 150
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -25,23 +25,23 @@
 	path_image_color = "#FF0000"
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 
-	allow_pai = 0
+	allow_pai = FALSE
 
 	var/lastfired = 0
 	var/shot_delay = 3 //.3 seconds between shots
 	var/lasercolor = ""
-	var/disabled = 0//A holder for if it needs to be disabled, if true it will not seach for targets, shoot at targets, or move, currently only used for lasertag
+	var/disabled = FALSE //A holder for if it needs to be disabled, if true it will not seach for targets, shoot at targets, or move, currently only used for lasertag
 
 	var/mob/living/carbon/target
 	var/oldtarget_name
 	var/threatlevel = 0
 	var/target_lastloc //Loc of target when arrested.
 	var/last_found //There's a delay
-	var/declare_arrests = 1 //When making an arrest, should it notify everyone wearing sechuds?
-	var/idcheck = 0 //If true, arrest people with no IDs
-	var/weaponscheck = 1 //If true, arrest people for weapons if they don't have access
-	var/check_records = 1 //Does it check security records?
-	var/arrest_type = 0 //If true, don't handcuff
+	var/declare_arrests = TRUE //When making an arrest, should it notify everyone wearing sechuds?
+	var/idcheck = FALSE //If true, arrest people with no IDs
+	var/weaponscheck = TRUE //If true, arrest people for weapons if they don't have access
+	var/check_records = TRUE //Does it check security records?
+	var/arrest_type = FALSE //If true, don't handcuff
 	var/projectile = /obj/item/projectile/beam/disabler //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/taser.ogg'
 	var/baton_delayed = FALSE
@@ -58,10 +58,10 @@
 	setup_access()
 
 	if(lasercolor)
-		shot_delay = 6//Longer shot delay because JESUS CHRIST
-		check_records = 0//Don't actively target people set to arrest
-		arrest_type = 1//Don't even try to cuff
-		declare_arrests = 0 // Don't spam sec
+		shot_delay = 6 //Longer shot delay because JESUS CHRIST
+		check_records = FALSE //Don't actively target people set to arrest
+		arrest_type = TRUE //Don't even try to cuff
+		declare_arrests = FALSE // Don't spam sec
 		bot_core.req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
 		if(created_name == initial(name) || !created_name)
@@ -95,7 +95,7 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = 0
+	anchored = FALSE
 	walk_to(src,0)
 	last_found = world.time
 	set_weapon()
@@ -206,7 +206,7 @@
 			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits.</span>")
 			oldtarget_name = user.name
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
-		declare_arrests = 0
+		declare_arrests = FALSE
 		icon_state = "[lasercolor]ed209[on]"
 		set_weapon()
 
@@ -267,7 +267,7 @@
 					stun_attack(target)
 					if(!lasercolor)
 						mode = BOT_PREP_ARREST
-						anchored = 1
+						anchored = TRUE
 						target_lastloc = target.loc
 						return
 					else
@@ -306,7 +306,7 @@
 
 		if(BOT_ARREST)
 			if(!target)
-				anchored = 0
+				anchored = FALSE
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
@@ -321,7 +321,7 @@
 				return
 			else
 				mode = BOT_PREP_ARREST
-				anchored = 0
+				anchored = FALSE
 
 		if(BOT_START_PATROL)
 			look_for_perp()
@@ -335,7 +335,7 @@
 	return
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_idle()
-	anchored = 0
+	anchored = FALSE
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -344,7 +344,7 @@
 		handle_automated_action() //ensure bot quickly responds
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
-	anchored = 0
+	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
 	spawn(0)
@@ -355,7 +355,7 @@
 /mob/living/simple_animal/bot/ed209/proc/look_for_perp()
 	if(disabled)
 		return
-	anchored = 0
+	anchored = FALSE
 	threatlevel = 0
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
@@ -486,7 +486,7 @@
 		pulse2.icon = 'icons/effects/effects.dmi'
 		pulse2.icon_state = "empdisable"
 		pulse2.name = "emp sparks"
-		pulse2.anchored = 1
+		pulse2.anchored = TRUE
 		pulse2.dir = pick(GLOB.cardinal)
 		spawn(10)
 			qdel(pulse2)
@@ -527,11 +527,11 @@
 				lasertag_check++
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
-			disabled = 1
+			disabled = TRUE
 			walk_to(src, 0)
 			target = null
 			spawn(100)
-				disabled = 0
+				disabled = FALSE
 				icon_state = "[lasercolor]ed2091"
 			return 1
 		else

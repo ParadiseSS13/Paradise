@@ -12,7 +12,6 @@
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
-	genetic_damage = 1000
 	power_type = CHANGELING_UNOBTAINABLE_POWER
 	var/silent = FALSE
 	var/weapon_type
@@ -47,7 +46,6 @@
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
-	genetic_damage = 1000
 	power_type = CHANGELING_UNOBTAINABLE_POWER
 	var/helmet_type = /obj/item
 	var/suit_type = /obj/item
@@ -62,7 +60,7 @@
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
-		H.visible_message("<span class='warning'>[H] casts off [H.p_their()] [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple][genetic_damage > 0 ? ", temporarily weakening our genomes." : "."]</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
+		H.visible_message("<span class='warning'>[H] casts off [H.p_their()] [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple].</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
 		qdel(H.wear_suit)
 		qdel(H.head)
 		H.update_inv_wear_suit()
@@ -74,7 +72,6 @@
 			H.add_splatter_floor()
 			playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
 
-		cling.genetic_damage += genetic_damage //Casting off a space suit leaves you weak for a few seconds.
 		cling.chem_recharge_slowdown -= recharge_slowdown
 		return FALSE
 	..(H, target)
@@ -108,9 +105,7 @@
 	button_icon_state = "armblade"
 	chemical_cost = 25
 	dna_cost = 2
-	genetic_damage = 10
 	req_human = TRUE
-	max_genetic_damage = 20
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 	power_type = CHANGELING_PURCHASABLE_POWER
@@ -122,7 +117,7 @@
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	sharp = 1
+	sharp = TRUE
 	force = 25
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
@@ -176,9 +171,7 @@
 	button_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 2
-	genetic_damage = 5
 	req_human = TRUE
-	max_genetic_damage = 10
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
 	silent = TRUE
@@ -350,9 +343,7 @@
 	button_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 1
-	genetic_damage = 12
 	req_human = TRUE
-	max_genetic_damage = 20
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 	power_type = CHANGELING_PURCHASABLE_POWER
@@ -401,9 +392,7 @@
 	button_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 2
-	genetic_damage = 8
 	req_human = TRUE
-	max_genetic_damage = 20
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/space/changeling
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
@@ -449,9 +438,7 @@
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 25
 	dna_cost = 2
-	genetic_damage = 11
 	req_human = TRUE
-	max_genetic_damage = 20
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/armor/changeling
 	helmet_type = /obj/item/clothing/head/helmet/changeling

@@ -10,9 +10,7 @@
 	name = "thermal tansfer plate"
 	desc = "Transfers heat to and from an area"
 
-/obj/machinery/atmospherics/unary/thermal_plate/update_icon()
-	..()
-
+/obj/machinery/atmospherics/unary/thermal_plate/update_icon_state()
 	var/prefix = ""
 	//var/suffix="_idle" // Also available: _heat, _cool
 	if(level == 1 && istype(loc, /turf/simulated))
