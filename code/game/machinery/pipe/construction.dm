@@ -14,7 +14,7 @@
 	level = 2
 	var/flipped = FALSE
 
-/obj/item/pipe/Initialize(mapload, pipe_type, dir, obj/machinery/atmospherics/make_from)
+/obj/item/pipe/Initialize(mapload, new_pipe_type, new_dir, obj/machinery/atmospherics/make_from)
 	. = ..()
 	if(make_from)
 		dir = make_from.dir
@@ -153,8 +153,8 @@
 			flipped = TRUE
 
 	else
-		pipe_type = pipe_type
-		dir = dir
+		pipe_type = new_pipe_type
+		dir = new_dir
 		if(pipe_type == PIPE_SUPPLY_STRAIGHT || pipe_type == PIPE_SUPPLY_BENT || pipe_type == PIPE_SUPPLY_MANIFOLD || pipe_type == PIPE_SUPPLY_MANIFOLD4W || pipe_type == PIPE_SUPPLY_CAP)
 			connect_types = list(CONNECT_TYPE_SUPPLY)
 			color = PIPE_COLOR_BLUE
