@@ -2,8 +2,8 @@
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dyeable = TRUE
 
-/obj/item/clothing/under/color/random/New()
-	..()
+/obj/item/clothing/under/color/random/Initialize(mapload)
+	. = ..()
 	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color/blackf, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball, /obj/item/clothing/under/color/red/jersey, /obj/item/clothing/under/color/blue/jersey)
 	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - excluded)
 	name = initial(C.name)

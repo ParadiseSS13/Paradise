@@ -172,10 +172,28 @@
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
-/obj/item/clothing/suit/space/hardsuit/New()
-	if(jetpack && ispath(jetpack))
+/obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
+	. = ..()
+	MakeHelmet()
+	if(ispath(jetpack))
 		jetpack = new jetpack(src)
-	..()
+
+/obj/item/clothing/suit/space/hardsuit/Destroy()
+	QDEL_NULL(helmet)
+	QDEL_NULL(jetpack)
+	return ..()
+
+/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	suit = null
+	return ..()
+
+/obj/item/clothing/suit/space/hardsuit/proc/MakeHelmet()
+	if(!helmettype)
+		return
+	if(!helmet)
+		var/obj/item/clothing/head/helmet/space/hardsuit/W = new helmettype(src)
+		W.suit = src
+		helmet = W
 
 /obj/item/clothing/suit/space/hardsuit/attack_self(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -344,10 +362,14 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon_state()
 	icon_state = "hardsuit[on]-[item_color]"
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/New()
-	..()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize(mapload)
+	. = ..()
 	if(istype(loc, /obj/item/clothing/suit/space/hardsuit/syndi))
 		linkedsuit = loc
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/Destroy()
+	linkedsuit = null
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user) //Toggle Helmet
 	if(!isturf(user.loc))
