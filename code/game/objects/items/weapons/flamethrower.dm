@@ -48,14 +48,8 @@
 		igniter.flamethrower_process(location)
 
 
-/obj/item/flamethrower/update_icon()
-	cut_overlays()
-	if(igniter)
-		add_overlay("+igniter[status]")
-	if(ptank)
-		add_overlay("+ptank")
+/obj/item/flamethrower/update_icon_state()
 	if(lit)
-		add_overlay("+lit")
 		item_state = "flamethrower_1"
 	else
 		item_state = "flamethrower_0"
@@ -63,6 +57,15 @@
 		var/mob/M = loc
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
+
+/obj/item/flamethrower/update_overlays()
+	. = ..()
+	if(igniter)
+		. += "+igniter[status]"
+	if(ptank)
+		. += "+ptank"
+	if(lit)
+		. += "+lit"
 
 /obj/item/flamethrower/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)

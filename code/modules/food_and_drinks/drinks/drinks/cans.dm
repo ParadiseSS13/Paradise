@@ -1,28 +1,28 @@
 /obj/item/reagent_containers/food/drinks/cans
 	container_type = NONE
-	var/canopened = FALSE
-	var/is_glass = 0
-	var/is_plastic = 0
-	var/times_shaken = 0
+	var/can_opened = FALSE
+	var/is_glass = FALSE
+	var/is_plastic = FALSE
+	var/times_shaken = FALSE
 	var/can_shake = TRUE
 	var/can_burst = FALSE
 	var/burst_chance = 0
 
 /obj/item/reagent_containers/food/drinks/cans/examine(mob/user)
 	. = ..()
-	if(canopened)
+	if(can_opened)
 		. += "<span class='notice'>It has been opened.</span>"
 	else
 		. += "<span class='info'>Alt-click to shake it up!</span>"
 
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
-	if(canopened)
+	if(can_opened)
 		return ..()
 	if(times_shaken)
 		fizzy_open(user)
 		return ..()
 	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
-	canopened = TRUE
+	can_opened = TRUE
 	container_type |= OPENCONTAINER
 	to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 	return ..()
@@ -46,7 +46,7 @@
 	if(!can_shake || !ishuman(user))
 		return ..()
 	H = user
-	if(canopened)
+	if(can_opened)
 		to_chat(H, "<span class='warning'>You can't shake up an already opened drink!")
 		return ..()
 	if(src == H.l_hand || src == H.r_hand)
@@ -69,7 +69,7 @@
 	return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
-	if(!canopened)
+	if(!can_opened)
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
 	else if(M == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
@@ -83,16 +83,16 @@
 		user.visible_message("<span class='notice'>[user] crushes [src] in [user.p_their()] trash compactor.</span>", "<span class='notice'>You crush [src] in your trash compactor.</span>")
 		var/obj/can = crush(user)
 		can.attackby(I, user, params)
-		return 1
+		return TRUE
 	..()
 
 /obj/item/reagent_containers/food/drinks/cans/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(target, /obj/structure/reagent_dispensers) && !canopened)
+	if(istype(target, /obj/structure/reagent_dispensers) && !can_opened)
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
-	else if(target.is_open_container() && !canopened)
+	else if(target.is_open_container() && !can_opened)
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
 	else
@@ -107,7 +107,7 @@
 
 /obj/item/reagent_containers/food/drinks/cans/proc/fizzy_open(mob/user, burstopen = FALSE)
 	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), 1)
-	canopened = TRUE
+	can_opened = TRUE
 	container_type |= OPENCONTAINER
 
 	if(!burstopen && user)
@@ -132,7 +132,7 @@
 	reagents.remove_any(times_shaken / 5 * reagents.total_volume)
 
 /obj/item/reagent_containers/food/drinks/cans/proc/handle_bursting(mob/user)
-	if(times_shaken != 5 || canopened)
+	if(times_shaken != 5 || can_opened)
 		return
 
 	if(!can_burst)
@@ -170,28 +170,28 @@
 	name = "space beer"
 	desc = "Contains only water, malt and hops."
 	icon_state = "beer"
-	is_glass = 1
+	is_glass = TRUE
 	list_reagents = list("beer" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/adminbooze
 	name = "admin booze"
 	desc = "Bottled Griffon tears. Drink with caution."
 	icon_state = "adminbooze"
-	is_glass = 1
+	is_glass = TRUE
 	list_reagents = list("adminordrazine" = 5, "capsaicin" = 5, "methamphetamine"= 20, "thirteenloko" = 20)
 
 /obj/item/reagent_containers/food/drinks/cans/madminmalt
 	name = "madmin malt"
 	desc = "Bottled essence of angry admins. Drink with <i>EXTREME</i> caution."
 	icon_state = "madminmalt"
-	is_glass = 1
+	is_glass = TRUE
 	list_reagents = list("hell_water" = 20, "neurotoxin" = 15, "thirteenloko" = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/badminbrew
 	name = "badmin brew"
 	desc = "Bottled trickery and terrible admin work. Probably shouldn't drink this one at all."
 	icon_state = "badminbrew"
-	is_glass = 1
+	is_glass = TRUE
 	list_reagents = list("mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/ale
@@ -199,7 +199,7 @@
 	desc = "A true dorf's drink of choice."
 	icon_state = "alebottle"
 	item_state = "beer"
-	is_glass = 1
+	is_glass = TRUE
 	list_reagents = list("ale" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind
@@ -275,11 +275,10 @@
 	icon_state = "glass_bottle"
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/food/drinks/cans/bottler/update_icon()
-	overlays.Cut()
-
+/obj/item/reagent_containers/food/drinks/cans/bottler/update_overlays()
+	. = ..()
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
 
@@ -298,19 +297,19 @@
 				filling.icon_state = "[icon_state]50"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		overlays += filling
+		. += filling
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle
 	name = "glass bottle"
 	desc = "A glass bottle suitable for beverages."
 	icon_state = "glass_bottle"
-	is_glass = 1
+	is_glass = TRUE
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/plastic_bottle
 	name = "plastic bottle"
 	desc = "A plastic bottle suitable for beverages."
 	icon_state = "plastic_bottle"
-	is_plastic = 1
+	is_plastic = TRUE
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/metal_can
 	name = "metal can"

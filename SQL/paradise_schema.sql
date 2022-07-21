@@ -351,6 +351,7 @@ CREATE TABLE `karma_totals` (
 ) ENGINE=InnoDB AUTO_INCREMENT=25715 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+DROP TABLE IF EXISTS `karma_purchases`;
 CREATE TABLE `karma_purchases` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`ckey` VARCHAR(32) NOT NULL COLLATE 'utf8_general_ci',
@@ -591,6 +592,7 @@ CREATE TABLE `round` (
 --
 -- Table structure for table `2fa_secrets`
 --
+DROP TABLE IF EXISTS `2fa_secrets`;
 CREATE TABLE `2fa_secrets` (
 	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`secret` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -602,6 +604,7 @@ CREATE TABLE `2fa_secrets` (
 --
 -- Table structure for table `pai_saves`
 --
+DROP TABLE IF EXISTS `pai_saves`;
 CREATE TABLE `pai_saves` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -616,6 +619,7 @@ CREATE TABLE `pai_saves` (
 --
 -- Table structure for table `instance_data_cache`
 --
+DROP TABLE IF EXISTS `instance_data_cache`;
 CREATE TABLE `instance_data_cache` (
 	`server_id` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`key_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',

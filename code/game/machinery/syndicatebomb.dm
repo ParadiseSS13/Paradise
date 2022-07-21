@@ -74,7 +74,7 @@
 	if(active && !defused && ((detonation_timer <= world.time) || explode_now))
 		active = FALSE
 		timer_set = initial(timer_set)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		try_detonate(TRUE)
 	//Counter terrorists win
 	else if(defused)
@@ -87,7 +87,7 @@
 	wires = new(src)
 	if(payload)
 		payload = new payload(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	countdown = new(src)
 
 /obj/machinery/syndicatebomb/Destroy()
@@ -101,7 +101,7 @@
 	. = ..()
 	. += "A digital display on it reads \"[seconds_remaining()]\"."
 
-/obj/machinery/syndicatebomb/update_icon()
+/obj/machinery/syndicatebomb/update_icon_state()
 	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"
 
 /obj/machinery/syndicatebomb/proc/seconds_remaining()
@@ -152,7 +152,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	open_panel = !open_panel
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")
 
 /obj/machinery/syndicatebomb/wirecutter_act(mob/user, obj/item/I)
@@ -254,7 +254,7 @@
 		else
 			loc.visible_message("<span class='danger'>[bicon(src)] [timer_set] seconds until detonation, please clear the area.</span>")
 			activate()
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			add_fingerprint(user)
 
 			var/turf/bombturf = get_turf(src)
@@ -362,7 +362,7 @@
 		holder.delayedbig = FALSE
 		holder.delayedlittle = FALSE
 		holder.explode_now = FALSE
-		holder.update_icon()
+		holder.update_icon(UPDATE_ICON_STATE)
 		holder.updateDialog()
 
 /obj/item/bombcore/training/detonate()

@@ -45,7 +45,7 @@
 		return
 	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 	opened = !opened
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/extinguisher_cabinet/Destroy()
 	QDEL_NULL(has_extinguisher)
@@ -59,7 +59,7 @@
 /obj/structure/extinguisher_cabinet/handle_atom_del(atom/A)
 	if(A == has_extinguisher)
 		has_extinguisher = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/extinguisher_cabinet/attackby(obj/item/O, mob/user, params)
 	if(isrobot(user) || isalien(user))
@@ -71,17 +71,17 @@
 			user.drop_item(O)
 			contents += O
 			has_extinguisher = O
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			to_chat(user, "<span class='notice'>You place [O] in [src].</span>")
 			return TRUE
 		else
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 			opened = !opened
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	else if(user.a_intent != INTENT_HARM)
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		return ..()
 
@@ -122,7 +122,7 @@
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/extinguisher_cabinet/attack_tk(mob/user)
 	if(has_extinguisher)
@@ -135,7 +135,7 @@
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/extinguisher_cabinet/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
@@ -144,7 +144,7 @@
 		if(has_extinguisher)
 			has_extinguisher.forceMove(loc)
 			has_extinguisher = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/extinguisher_cabinet/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -154,7 +154,7 @@
 			has_extinguisher = null
 	qdel(src)
 
-/obj/structure/extinguisher_cabinet/update_icon()
+/obj/structure/extinguisher_cabinet/update_icon_state()
 	if(!opened)
 		icon_state = "extinguisher_closed"
 		return

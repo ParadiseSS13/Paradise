@@ -14,9 +14,9 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	lit = !lit
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/holosign/update_icon()
+/obj/machinery/holosign/update_icon_state()
 	if(!lit)
 		icon_state = "sign_off"
 	else
@@ -25,7 +25,7 @@
 /obj/machinery/holosign/power_change()
 	if(stat & NOPOWER)
 		lit = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/holosign/surgery
 	name = "surgery holosign"

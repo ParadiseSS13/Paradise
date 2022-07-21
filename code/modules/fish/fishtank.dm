@@ -16,9 +16,9 @@
 	var/tank_type = ""			// Type of aquarium, used for icon updating
 	var/water_capacity = 0		// Number of units the tank holds (varies with tank type)
 	var/water_level = 0			// Number of units currently in the tank (new tanks start empty)
-	var/light_switch = 0		// 0 = off, 1 = on (off by default)
+	var/light_switch = FALSE
 	var/filth_level = 0		// How dirty the tank is (max 10)
-	var/lid_switch = 0			// 0 = open, 1 = closed (open by default)
+	var/lid_switch = FALSE
 	var/max_fish = 0			// How many fish the tank can support (varies with tank type, 1 fish per 50 units sounds reasonable)
 	var/food_level = 0			// Amount of fishfood floating in the tank (max 10)
 	var/fish_count = 0			// Number of fish in the tank
@@ -94,7 +94,7 @@
 
 /obj/machinery/fishtank/proc/toggle_lid()
 	lid_switch = !lid_switch
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/fishtank/verb/toggle_light_verb()
 	set name = "Toggle Tank Light"
@@ -129,24 +129,23 @@
 //		ICON PROCS			//
 //////////////////////////////
 
-/obj/machinery/fishtank/update_icon()
-	cut_overlays()
-
+/obj/machinery/fishtank/update_overlays()
+	. = ..()
 	//Update Alert Lights
 	if(has_lid)											//Skip the alert lights for aquariums that don't have lids (fishbowls)
 		if(egg_count > 0)								//There is at least 1 egg to harvest
-			add_overlay("over_egg")
-		if(lid_switch == 1)								//Lid is closed, lid status light is red
-			add_overlay("over_lid_1")
+			. += "over_egg"
+		if(lid_switch)								//Lid is closed, lid status light is red
+			. += "over_lid_1"
 		else											//Lid is open, lid status light is green
-			add_overlay("over_lid_0")
+			. += "over_lid_0"
 		if(food_level > 5)								//Food_level is high and isn't a concern yet
-			add_overlay("over_food_0")
+			. += "over_food_0"
 		else if(food_level > 2)							//Food_level is starting to get low, but still above the breeding threshold
-			add_overlay("over_food_1")
+			. += "over_food_1"
 		else											//Food_level is below breeding threshold, or fully consumed, feed the fish!
-			add_overlay("over_food_2")
-		add_overlay("over_leak_[leaking]")				//Green if we aren't leaking, light blue and slow blink if minor link, dark blue and rapid flashing for major leak
+			. += "over_food_2"
+		. += "over_leak_[leaking]"				//Green if we aren't leaking, light blue and slow blink if minor link, dark blue and rapid flashing for major leak
 
 	//Update water overlay
 	if(!water_level)
@@ -154,23 +153,23 @@
 	var/water_type = "_clean"							//Default to clean water
 	if(filth_level > 5)	water_type = "_dirty"			//Show dirty water above filth_level 5 (breeding threshold)
 	if(water_level > (water_capacity * 0.85))			//Show full if the water_level is over 85% of water_capacity
-		add_overlay("over_[tank_type]_full[water_type]")
+		. += "over_[tank_type]_full[water_type]"
 	else if(water_level > (water_capacity * 0.35))		//Show half-full if the water_level is over 35% of water_capacity
-		add_overlay("over_[tank_type]_half[water_type]")
+		. += "over_[tank_type]_half[water_type]"
 
-/obj/machinery/fishtank/wall/update_icon()
-	..()
+/obj/machinery/fishtank/wall/update_overlays()
+	. = ..()
 	// Update fish overlay for wall tanks
 	var/num_fish = length(fish_list)
 	if(!num_fish)
 		return
 	switch(num_fish)
 		if(1 to 3)
-			add_overlay("over_tank_fish_33")
+			. += "over_tank_fish_33"
 		if(4 to 7)
-			add_overlay("over_tank_fish_66")
+			. += "over_tank_fish_66"
 		if(7 to INFINITY)
-			add_overlay("over_tank_fish_100")
+			. += "over_tank_fish_100"
 
 //////////////////////////////
 //		PROCESS PROC		//
@@ -183,7 +182,7 @@
 /obj/machinery/fishtank/process()
 	//Start by counting fish in the tank
 	fish_count = 0
-	var/ate_food = 0
+	var/ate_food = FALSE
 	for(var/fish in fish_list)
 		if(fish)
 			fish_count++
@@ -205,7 +204,7 @@
 			if(prob(((fish_count - 2) * 5)+10))		//Chances increase with each additional fish, 10% base + 5% per additional fish
 				breed_fish()
 				adjust_food_level(-0.1)				//Remove extra food for the breeding process
-				ate_food = 1
+				ate_food = TRUE
 
 	//Handle standard food and filth adjustments
 	if(food_level > 0 && prob(50))					//Chance for the fish to eat some food
@@ -213,7 +212,7 @@
 			adjust_food_level(fish_count * -0.05)
 		else										//Use up the last of the food
 			adjust_food_level(-food_level)
-		ate_food = 1
+		ate_food = TRUE
 
 	if(water_level > 0)								//Don't dirty the tank if it has no water
 		if(fish_count == 0)							//If the tank has no fish, algae growth can occur
@@ -284,7 +283,7 @@
 	if(istype(fish_type, /datum/fish/glofish))
 		adjust_tank_light()
 	qdel(fish_type)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/fishtank/proc/add_fish(datum/fish/fish_type = null)
 	//Check if we were passed a fish type
@@ -294,7 +293,7 @@
 		fish_count++								//Increase fish_count to reflect the introduction of a fish, so the everything else works fine
 		//Announce the new fish
 		visible_message("A new [fish_type.fish_name] has hatched in [src]!")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	//Null type fish are dud eggs, give a message to inform the player
 	else
 		to_chat(usr, "The eggs disolve in the water. They were duds!")
@@ -376,10 +375,10 @@
 	var/list/breed_candidates = fish_list.Copy()
 	var/datum/fish/parent1 = pick_n_take(breed_candidates)
 	if(!parent1.crossbreeder)							//fish with crossbreed = 0 will only breed with their own species, and only leave duds if they can't breed
-		var/match_found = 0
+		var/match_found = FALSE
 		for(var/datum/fish/possible in breed_candidates)
 			if(parent1.type == possible.type)
-				match_found = 1
+				match_found = TRUE
 				break
 		if(match_found)
 			egg_list.Add(parent1.egg_item)
@@ -523,7 +522,7 @@
 	. += "<span class='notice'>[examine_message]</span>"
 
 //////////////////////////////
-//		ATACK PROCS			//
+//		ATTACK PROCS		//
 //////////////////////////////
 
 /obj/machinery/fishtank/attack_animal(mob/living/simple_animal/M)

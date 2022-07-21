@@ -12,8 +12,8 @@
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
 	var/allow_duplicates = TRUE // Allow accessories of the same type.
 
-/obj/item/clothing/accessory/New()
-	..()
+/obj/item/clothing/accessory/Initialize(mapload)
+	. = ..()
 	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
 
 /obj/item/clothing/accessory/Moved(atom/OldLoc, Dir, Forced)

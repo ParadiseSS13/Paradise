@@ -330,7 +330,13 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		if(AIRLOCK_OPEN, AIRLOCK_CLOSED)
 		if(AIRLOCK_DENY, AIRLOCK_OPENING, AIRLOCK_CLOSING, AIRLOCK_EMAG)
 			icon_state = "nonexistenticonstate" //MADNESS
+
+	. = ..(UPDATE_ICON_STATE) // Sent after the icon_state is changed
+
 	set_airlock_overlays(state)
+
+/obj/machinery/door/airlock/update_icon_state()
+	return
 
 /obj/machinery/door/airlock/proc/set_airlock_overlays(state)
 	var/image/frame_overlay
@@ -1380,9 +1386,13 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
 	if(!note)
 		return
-	else if(istype(note, /obj/item/paper))
-		return "note"
-	else if(istype(note, /obj/item/photo))
+	if(istype(note, /obj/item/paper))
+		var/obj/item/paper/pinned_paper = note
+		if(pinned_paper.info)
+			return "note_words"
+		else
+			return "note"
+	if(istype(note, /obj/item/photo))
 		return "photo"
 
 //Removes the current note on the door if any. Returns if a note is removed

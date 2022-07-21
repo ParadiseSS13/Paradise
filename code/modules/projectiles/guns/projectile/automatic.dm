@@ -8,16 +8,15 @@
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 
-/obj/item/gun/projectile/automatic/update_icon()
-	..()
-	overlays.Cut()
-	if(!select)
-		overlays += "[initial(icon_state)]semi"
-	if(select == 1)
-		overlays += "[initial(icon_state)]burst"
+/obj/item/gun/projectile/automatic/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
-	if(bayonet && can_bayonet)
-		overlays += knife_overlay
+
+/obj/item/gun/projectile/automatic/update_overlays()
+	. = ..()
+	if(!select)
+		. += "[initial(icon_state)]semi"
+	if(select == 1)
+		. += "[initial(icon_state)]burst"
 
 /obj/item/gun/projectile/automatic/attackby(obj/item/A as obj, mob/user as mob, params)
 	. = ..()
@@ -108,8 +107,7 @@
 	..()
 	empty_alarm()
 
-/obj/item/gun/projectile/automatic/c20r/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 //WT550//
@@ -130,8 +128,7 @@
 	knife_x_offset = 25
 	knife_y_offset = 12
 
-/obj/item/gun/projectile/automatic/wt550/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/wt550/update_icon_state()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""]"
 
 //Type-U3 Uzi//
@@ -181,23 +178,24 @@
 	else
 		return ..()
 
-/obj/item/gun/projectile/automatic/m90/update_icon()
-	..()
-	overlays.Cut()
-	switch(select)
-		if(0)
-			overlays += "[initial(icon_state)]semi"
-		if(1)
-			overlays += "[initial(icon_state)]burst"
-		if(2)
-			overlays += "[initial(icon_state)]gren"
+/obj/item/gun/projectile/automatic/m90/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 	if(magazine)
-		overlays += image(icon = icon, icon_state = "m90-[CEILING(get_ammo(0)/6, 1)*6]")
 		item_state = "m90-[CEILING(get_ammo(0)/7.5, 1)]"
 	else
 		item_state = "m90-0"
-	return
+
+/obj/item/gun/projectile/automatic/m90/update_overlays()
+	. = ..()
+	switch(select)
+		if(0)
+			. += "[initial(icon_state)]semi"
+		if(1)
+			. += "[initial(icon_state)]burst"
+		if(2)
+			. += "[initial(icon_state)]gren"
+	if(magazine)
+		. += image(icon = icon, icon_state = "m90-[CEILING(get_ammo(0)/6, 1)*6]")
 
 /obj/item/gun/projectile/automatic/m90/burst_select()
 	var/mob/living/carbon/human/user = usr
@@ -270,10 +268,10 @@
 	..()
 	update_icon()
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/proc/update_magazine()
+/obj/item/gun/projectile/automatic/shotgun/bulldog/update_overlays()
+	. = ..()
 	if(magazine)
-		overlays.Cut()
-		overlays += "[magazine.icon_state]"
+		. += "[magazine.icon_state]"
 		if(istype(magazine, /obj/item/ammo_box/magazine/m12g/XtrLrg))
 			w_class = WEIGHT_CLASS_BULKY
 		else
@@ -281,9 +279,7 @@
 	else
 		w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon()
-	overlays.Cut()
-	update_magazine()
+/obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon_state()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/A as obj, mob/user as mob, params)
@@ -314,6 +310,5 @@
 	can_suppress = FALSE
 	burst_size = 2
 
-/obj/item/gun/projectile/automatic/lasercarbine/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"

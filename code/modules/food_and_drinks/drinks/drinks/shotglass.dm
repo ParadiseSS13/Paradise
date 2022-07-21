@@ -2,6 +2,7 @@
 	name = "shot glass"
 	desc = "No glasses were shot in the making of this glass."
 	icon_state = "shotglass"
+	custom_fire_overlay = "shotglass_fire"
 	amount_per_transfer_from_this = 15
 	volume = 15
 	materials = list(MAT_GLASS=100)
@@ -12,10 +13,19 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
 	if(!isShotFlammable() && (resistance_flags & ON_FIRE))
 		extinguish()
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_icon()
-	overlays.Cut()
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_name()
+	. = ..()
+	if(reagents.total_volume)
+		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
+		if(resistance_flags & ON_FIRE)
+			name = "flaming [name]"
+	else
+		name = "shot glass"
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_overlays()
+	. = ..()
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]1")
 
@@ -28,14 +38,7 @@
 			if(80 to INFINITY)
 				filling.icon_state = "[icon_state]12"
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		overlays += filling
-		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
-		if(resistance_flags & ON_FIRE)
-			cut_overlay(GLOB.fire_overlay, TRUE)
-			overlays += "shotglass_fire"
-			name = "flaming [name]"
-	else
-		name = "shot glass"
+		. += filling
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
 	if(!(resistance_flags & ON_FIRE))
@@ -59,14 +62,14 @@
 	..()
 	set_light(light_intensity, null, light_color)
 	visible_message("<span class = 'notice'>[src] begins to burn with a blue hue!</span>")
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/extinguish(silent = FALSE)
 	..()
 	set_light(0)
 	if(!silent)
 		visible_message("<span class = 'notice'>The dancing flame on [src] dies out.</span>")
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot
 	return
