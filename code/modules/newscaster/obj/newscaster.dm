@@ -84,7 +84,6 @@
 			/datum/job/assistant,
 			/datum/job/syndicateofficer
 		)
-	update_icon()
 
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
@@ -92,35 +91,29 @@
 	QDEL_NULL(photo)
 	return ..()
 
-/obj/machinery/newscaster/update_icon()
-	cut_overlays()
-	underlays.Cut()
-	set_light(0)
-
+/obj/machinery/newscaster/update_icon_state()
 	if(inoperable())
 		icon_state = "newscaster_off"
+		return
+	if(GLOB.news_network.wanted_issue)
+		icon_state = "newscaster_wanted"
 	else
-		set_light(1, 0.1)
-		underlays += emissive_appearance(icon, "newscaster_lightmask")
+		icon_state = "newscaster_normal"
 
-		if(!GLOB.news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
-			icon_state = "newscaster_normal"
-			if(alert) //new message alert overlay
-				add_overlay("newscaster_alert")
-		else
-			icon_state = "newscaster_wanted"
+/obj/machinery/newscaster/update_overlays()
+	. = ..()
+	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
+		. += "newscaster_alert"
 	var/hp_percent = obj_integrity * 100 / max_integrity
 	switch(hp_percent)
 		if(75 to INFINITY)
 			return
 		if(50 to 75)
-			add_overlay("crack1")
+			. += "crack1"
 		if(25 to 50)
-			add_overlay("crack2")
+			. += "crack2"
 		else
-			add_overlay("crack3")
-
-
+			. += "crack3"
 
 /obj/machinery/newscaster/power_change()
 	..()
@@ -429,8 +422,6 @@
 				return
 			GLOB.news_network.wanted_issue = null
 			set_temp("Wanted notice cleared.", update_now = TRUE)
-			for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
-				NC.update_icon()
 			return FALSE
 		if("toggle_mute")
 			is_silent = !is_silent
@@ -542,7 +533,8 @@
 					SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 					var/announcement = FC.get_announce_text(title)
 					// Announce it
-					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
+					for(var/nc in GLOB.allNewscasters)
+						var/obj/machinery/newscaster/NC = nc
 						NC.alert_news(announcement)
 					// Redirect and eject photo
 					LAZYINITLIST(last_views[user_name])
@@ -575,7 +567,8 @@
 					WN.admin_locked = usr.can_admin_interact() && admin_locked
 					WN.publish_time = world.time
 					// Announce it and eject photo
-					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
+					for(var/nc in GLOB.allNewscasters)
+						var/obj/machinery/newscaster/NC = nc
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
 					set_temp("Wanted notice distributed.", "good")

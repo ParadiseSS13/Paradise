@@ -172,18 +172,20 @@
 	set category = "pAI Commands"
 	set desc = "Kill yourself and become a ghost (You will receive a confirmation prompt)"
 	set name = "pAI Suicide"
-	var/answer = input("REALLY kill yourself? This action can't be undone.", "Suicide", "No") in list ("Yes", "No")
-	if(answer == "Yes")
-		if(mobility_flags & MOBILITY_MOVE)
-			close_up()
-		var/obj/item/paicard/card = loc
-		card.removePersonality()
-		var/turf/T = get_turf_or_move(card.loc)
-		for(var/mob/M in viewers(T))
-			M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
-		death(0, 1)
-	else
+
+	var/answer = input(src, "REALLY kill yourself? This action can't be undone.", "Suicide", "No") in list ("Yes", "No")
+	if(answer != "Yes")
 		to_chat(src, "Aborting suicide attempt.")
+		return
+
+	if(mobility_flags & MOBILITY_MOVE)
+		close_up()
+	card.removePersonality()
+	var/turf/T = get_turf(card.loc)
+	for(var/mob/M in viewers(T))
+		M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
+	death(gibbed = FALSE, cleanWipe = TRUE)
+
 
 /mob/living/carbon/alien/humanoid/verb/suicide()
 	set hidden = 1

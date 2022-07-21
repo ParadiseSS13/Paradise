@@ -59,7 +59,7 @@
 			charging = G
 			use_power = ACTIVE_POWER_USE
 			using_power = check_cell_needs_recharging(get_cell_from(G))
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return TRUE
@@ -97,7 +97,7 @@
 		user.put_in_hands(charging)
 		charging = null
 		use_power = IDLE_POWER_USE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharger/attack_tk(mob/user)
 	if(charging)
@@ -105,14 +105,14 @@
 		charging.forceMove(loc)
 		charging = null
 		use_power = IDLE_POWER_USE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharger/process()
 	if(stat & (NOPOWER|BROKEN) || !anchored)
 		return
 
 	using_power = try_recharging_if_possible()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharger/emp_act(severity)
 	if(stat & (NOPOWER|BROKEN) || !anchored)
@@ -132,27 +132,19 @@
 
 /obj/machinery/recharger/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/recharger/update_icon()	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
-	underlays.Cut()
-	set_light(0)
-
+/obj/machinery/recharger/update_icon_state()
 	if(stat & (NOPOWER|BROKEN) || !anchored)
 		icon_state = icon_state_off
 		return
-
-	set_light(1, 0.1)
 	if(charging)
 		if(using_power)
 			icon_state = icon_state_charging
-			underlays += emissive_appearance(icon, "[icon_state_charging]_lightmask")
 		else
 			icon_state = icon_state_charged
-			underlays += emissive_appearance(icon, "[icon_state_charged]_lightmask")
 		return
 	icon_state = icon_state_idle
-	underlays += emissive_appearance(icon, "[icon_state_idle]_lightmask")
 
 /obj/machinery/recharger/proc/get_cell_from(obj/item/I)
 	if(istype(I, /obj/item/gun/energy))

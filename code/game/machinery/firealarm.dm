@@ -37,41 +37,17 @@ FIRE ALARM
 
 	var/last_time_pulled //used to prevent pulling spam by same persons
 
-/obj/machinery/firealarm/Initialize(mapload, direction, building)
-	. = ..()
-	name = "fire alarm"
+/obj/machinery/firealarm/no_alarm
+	report_fire_alarms = FALSE
 
-	if(building)
-		buildstage = 0
-		wiresexposed = TRUE
-		setDir(direction)
-		set_pixel_offsets_from_dir(26, -26, 26, -26)
+/obj/machinery/firealarm/syndicate
+	report_fire_alarms = FALSE
+	show_alert_level = FALSE
 
-	if(is_station_contact(z) && show_alert_level)
-		if(GLOB.security_level)
-			add_overlay("overlay_[get_security_level()]")
-		else
-			add_overlay("overlay_green")
-
-	myArea = get_area(src)
-	LAZYADD(myArea.firealarms, src)
-
-	set_light(1,0.1) //for emmissives (otherwise they get culled by byond (0.1 light level moment))
-	update_icon()
-
-/obj/machinery/firealarm/Destroy()
-	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
-	LAZYREMOVE(myArea.firealarms, src)
-	return ..()
-
-/obj/machinery/firealarm/update_icon()
-	underlays.Cut()
-	cut_overlays()
-
+/obj/machinery/firealarm/update_icon_state()
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
 		return
-
 	if(stat & BROKEN)
 		icon_state = "firealarm_broken"
 	else if(stat & NOPOWER)
@@ -81,20 +57,16 @@ FIRE ALARM
 	else
 		icon_state = "firealarm_on"
 
-	if(!(stat & NOPOWER) && is_station_contact(z))
-		add_overlay("overlay_[get_security_level()]")
-
-	if(light)
-		if(overlays)
-			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
-		if(!wiresexposed)
-			underlays += emissive_appearance(icon, "firealarm_lightmask")
-	if(get_security_level() == "epsilon")
-		set_light(2, 1, COLOR_WHITE)
-
-/obj/machinery/firealarm/examine(mob/user)
+/obj/machinery/firealarm/update_overlays()
 	. = ..()
-	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
+	underlays.Cut()
+	if(is_station_contact(z) && show_alert_level)
+		if(GLOB.security_level)
+			. += "overlay_[get_security_level()]"
+		if(light)
+			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
+	if(light && !wiresexposed)
+		underlays += emissive_appearance(icon, "firealarm_lightmask")
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)
@@ -245,7 +217,7 @@ FIRE ALARM
 	if(fire)
 		set_light(l_power = 0.8)
 	else
-		set_light(l_power = 0.1)
+		set_light(l_power = 0)
 
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))
@@ -278,6 +250,10 @@ FIRE ALARM
 		else
 			alarm()
 
+/obj/machinery/firealarm/examine(mob/user)
+	. = ..()
+	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
+
 /obj/machinery/firealarm/proc/reset()
 	if(!working || !report_fire_alarms)
 		return
@@ -291,12 +267,27 @@ FIRE ALARM
 	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
 	update_icon()
 
-/obj/machinery/firealarm/no_alarm
-	report_fire_alarms = FALSE
+/obj/machinery/firealarm/New(location, direction, building)
+	. = ..()
 
-/obj/machinery/firealarm/syndicate
-	report_fire_alarms = FALSE
-	show_alert_level = FALSE
+	if(building)
+		buildstage = 0
+		wiresexposed = TRUE
+		setDir(direction)
+		set_pixel_offsets_from_dir(26, -26, 26, -26)
+
+	myArea = get_area(src)
+	LAZYADD(myArea.firealarms, src)
+
+/obj/machinery/firealarm/Initialize(mapload)
+	. = ..()
+	name = "fire alarm"
+	update_icon()
+
+/obj/machinery/firealarm/Destroy()
+	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
+	LAZYREMOVE(myArea.firealarms, src)
+	return ..()
 
 /*
 FIRE ALARM CIRCUIT

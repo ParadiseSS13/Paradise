@@ -66,7 +66,7 @@
 /obj/item/clothing/head/helmet/old
 	name = "degrading helmet"
 	desc = "Standard issue security helmet. Due to degradation the helmet's visor obstructs the users ability to see long distances."
-	tint = 2
+	tint = FLASH_PROTECTION_WELDER
 
 /obj/item/clothing/suit/armor/vest/old
 	name = "degrading armor vest"
@@ -289,7 +289,7 @@
 // Engines
 /obj/structure/shuttle/engine/large
 	name = "engine"
-	opacity = 1
+	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
 	desc = "A very large bluespace engine used to propel very large ships."

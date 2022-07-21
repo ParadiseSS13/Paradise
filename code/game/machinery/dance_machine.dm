@@ -70,18 +70,11 @@
 		WRENCH_UNANCHOR_MESSAGE
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
-/obj/machinery/disco/update_icon()
-	underlays.Cut()
-	set_light(0)
-
+/obj/machinery/disco/update_icon_state()
 	if(active)
 		icon_state = "disco1"
-		set_light(1, 0.1) //so byond doesnt cull the icon in complete darkness
-		underlays += emissive_appearance(icon, "disco_lightmask")
 	else
 		icon_state = "disco0"
-	..()
-
 
 /obj/machinery/disco/attack_hand(mob/user)
 	if(..())
@@ -132,7 +125,7 @@
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
 				active = TRUE
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				dance_setup()
 				START_PROCESSING(SSobj, src)
 				lights_spin()

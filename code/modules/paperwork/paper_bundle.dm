@@ -218,36 +218,36 @@
 	qdel(src)
 	return
 
-
-/obj/item/paper_bundle/update_icon()
-	..()
-	if(contents.len)
-		var/obj/item/paper/P = src[1]
-		icon_state = P.icon_state
-		overlays = P.overlays
-	underlays = 0
-	var/i = 0
-	var/photo
-	for(var/obj/O in src)
-		var/image/img = image('icons/obj/bureaucracy.dmi')
-		if(istype(O, /obj/item/paper))
-			img.icon_state = O.icon_state
-			img.pixel_x -= min(1*i, 2)
-			img.pixel_y -= min(1*i, 2)
-			pixel_x = min(0.5*i, 1)
-			pixel_y = min(  1*i, 2)
-			underlays += img
-			i++
-		else if(istype(O, /obj/item/photo))
-			var/obj/item/photo/Ph = O
-			img = Ph.tiny
-			photo = 1
-			overlays += img
-	if(i>1)
-		desc =  "[i] papers clipped to each other."
+/obj/item/paper_bundle/update_desc()
+	. = ..()
+	if(amount > 1)
+		desc =  "[amount] papers clipped to each other."
 	else
 		desc = "A single sheet of paper."
-	if(photo)
+	if(locate(/obj/item/photo) in src)
 		desc += "\nThere is a photo attached to it."
-	overlays += image('icons/obj/bureaucracy.dmi', "clip")
-	return
+
+/obj/item/paper_bundle/update_icon_state()
+	if(contents.len)
+		var/obj/item/paper/P = src[1]
+		icon_state = P.overlays
+
+/obj/item/paper_bundle/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(contents.len)
+		var/obj/item/paper/P = src[1]
+		. += P.overlays
+	for(var/obj/O in src)
+		var/image/sheet = image('icons/obj/bureaucracy.dmi')
+		if(istype(O, /obj/item/paper))
+			sheet.icon_state = O.icon_state
+			sheet.pixel_x -= min(1 * amount, 2)
+			sheet.pixel_y -= min(1 * amount, 2)
+			pixel_x = min(0.5 * amount, 1)
+			pixel_y = min(1 * amount, 2)
+			underlays += sheet
+		else if(istype(O, /obj/item/photo))
+			var/obj/item/photo/picture = O
+			. += picture.tiny
+	. += "clip"

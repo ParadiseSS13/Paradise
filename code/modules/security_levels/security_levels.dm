@@ -60,8 +60,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
 				if(R && is_station_level(R.z))
-					R.locked = FALSE
-					R.update_icon()
+					R.unlock(TRUE)
 
 				post_status("alert", "redalert")
 				update_firealarms()
@@ -73,8 +72,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in GLOB.airlocks)
 						if(is_station_level(R.z))
-							R.locked = FALSE
-							R.update_icon()
+							R.unlock(TRUE)
 
 				post_status("alert", "gammaalert")
 				update_firealarms()

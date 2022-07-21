@@ -87,7 +87,6 @@ GLOBAL_LIST_EMPTY(holopads)
 		stat |= NOPOWER
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
-	update_icon()
 
 /obj/machinery/hologram/holopad/obj_break()
 	. = ..()
@@ -291,7 +290,7 @@ GLOBAL_LIST_EMPTY(holopads)
 				playsound(src, 'sound/machines/twobeep.ogg', 100)	//bring, bring!
 				ringing = TRUE
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 //Try to transfer hologram to another pad that can project on T
@@ -406,34 +405,21 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
 	if(total_users)
 		set_light(2)
-		icon_state = "holopad1"
 	else
 		set_light(0)
-		icon_state = "holopad0"
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/hologram/holopad/update_icon()
-	underlays.Cut()
-	set_light(0)
-
-	if(stat & NOPOWER)
-		icon_state = "holopad0"
-		return
-
+/obj/machinery/hologram/holopad/update_icon_state()
+	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
 	if(icon_state == "holopad_open")
 		return
-
-	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
-	set_light(1, 0.1)
-
-	if(ringing)
+	else if(ringing)
 		icon_state = "holopad_ringing"
-		underlays += emissive_appearance(icon, "holopad_ringing_lightmask")
 	else if(total_users)
 		icon_state = "holopad1"
-		underlays += emissive_appearance(icon, "holopad1_lightmask")
 	else
 		icon_state = "holopad0"
+
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
 	masters[user] = h

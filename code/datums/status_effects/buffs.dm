@@ -227,6 +227,12 @@
 	. = ..()
 	STOP_PROCESSING(SSfastprocess, src)
 	START_PROCESSING(SSprocessing, src) //this lasts 20 minutes, so SSfastprocess isn't needed.
+	if(!ishuman(new_owner))
+		return .
+	var/mob/living/carbon/human/H = new_owner
+	if(H.physiology.melee_bonus < 0)
+		H.physiology.melee_bonus = min(H.physiology.melee_bonus + 1, 0)
+		to_chat(H, "<span class='notice'>You feel stronger!</span>")
 
 /datum/status_effect/exercised/Destroy()
 	. = ..()

@@ -8,7 +8,6 @@
 	status_info["mode"] = GLOB.master_mode
 	status_info["respawn"] = GLOB.configuration.general.respawn_enabled
 	status_info["enter"] = GLOB.enter_allowed
-	status_info["vote"] = GLOB.configuration.vote.allow_mode_votes
 	status_info["ai"] = GLOB.configuration.jobs.allow_ai
 	status_info["host"] = world.host ? world.host : null
 	status_info["players"] = list()
@@ -32,7 +31,7 @@
 	status_info["admins"] = admin_count
 	status_info["map_name"] = SSmapping.map_datum.fluff_name
 	status_info["round_id"] = GLOB.round_id
-	
+
 	// Add more info if we are authed
 	if(key_valid)
 		if(SSticker && SSticker.mode)

@@ -22,7 +22,6 @@
 	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70)
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -201,19 +200,21 @@
 			flick("door_closing", src)
 			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, 1)
 
-/obj/machinery/door/firedoor/update_icon()
-	overlays.Cut()
-
-	if(active_alarm && hasPower())
-		overlays += image('icons/obj/doors/doorfire.dmi', "alarmlights")
+/obj/machinery/door/firedoor/update_icon_state()
 	if(density)
 		icon_state = "door_closed"
-		if(welded)
-			overlays += "welded"
 	else
 		icon_state = "door_open"
-		if(welded)
-			overlays += "welded_open"
+
+/obj/machinery/door/firedoor/update_overlays()
+	. = ..()
+	if(active_alarm && hasPower())
+		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
+	if(density && welded)
+		. += "welded"
+		return
+	if(welded)
+		. += "welded_open"
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
@@ -346,8 +347,7 @@
 		if(CONSTRUCTION_NOCIRCUIT)
 			. += "<span class='notice'>There are no <i>firelock electronics</i> in the frame. The frame could be <b>cut</b> apart.</span>"
 
-/obj/structure/firelock_frame/update_icon()
-	..()
+/obj/structure/firelock_frame/update_icon_state()
 	icon_state = "frame[constructionStep]"
 
 /obj/structure/firelock_frame/attackby(obj/item/C, mob/user)
