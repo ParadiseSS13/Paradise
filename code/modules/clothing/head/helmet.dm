@@ -27,9 +27,8 @@
 			up = !up
 			flags ^= visor_flags
 			flags_inv ^= visor_flags_inv
-			icon_state = "[initial(icon_state)][up ? "up" : ""]"
 			to_chat(user, "[up ? alt_toggle_message : toggle_message] \the [src]")
-
+			update_icon(UPDATE_ICON_STATE)
 			user.update_inv_head()
 
 			if(active_sound)
@@ -38,7 +37,6 @@
 					sleep(15)
 			if(toggle_sound)
 				playsound(src.loc, "[toggle_sound]", 100, 0, 4)
-
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"

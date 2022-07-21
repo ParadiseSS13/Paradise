@@ -56,16 +56,10 @@
 	if(node)
 		node.update_underlays()
 
-/obj/machinery/atmospherics/pipe/cap/update_icon(safety = 0)
-	..()
-
-	if(!check_icon_cache())
-		return
-
+/obj/machinery/atmospherics/pipe/cap/update_overlays()
+	. = ..()
 	alpha = 255
-
-	overlays.Cut()
-	overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "cap" + icon_connect_type)
+	. += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "cap" + icon_connect_type)
 
 /obj/machinery/atmospherics/pipe/cap/atmos_init()
 	..()

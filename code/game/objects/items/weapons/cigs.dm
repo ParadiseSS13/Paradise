@@ -40,8 +40,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi')
 
 
-/obj/item/clothing/mask/cigarette/New()
-	..()
+/obj/item/clothing/mask/cigarette/Initialize(mapload)
+	. = ..()
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
@@ -261,8 +261,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	throw_speed = 0.5
 	item_state = "spliffoff"
 
-/obj/item/clothing/mask/cigarette/rollie/New()
-	..()
+/obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -275,8 +275,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A manky old roach, or for non-stoners, a used rollup."
 	icon_state = "roach"
 
-/obj/item/cigbutt/roach/New()
-	..()
+/obj/item/cigbutt/roach/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -322,8 +322,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 1
 
-/obj/item/cigbutt/New()
-	..()
+/obj/item/cigbutt/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	transform = turn(transform,rand(0,360))

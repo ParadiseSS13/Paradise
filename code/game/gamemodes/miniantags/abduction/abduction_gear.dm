@@ -384,7 +384,7 @@
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
-/obj/item/paper/abductor/update_icon()
+/obj/item/paper/abductor/update_icon_state()
 	return
 
 /obj/item/paper/abductor/AltClick()
@@ -422,12 +422,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			txt = "probing"
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/abductor_baton/update_icon()
+/obj/item/abductor_baton/update_icon_state()
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"

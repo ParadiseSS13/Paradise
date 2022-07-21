@@ -55,16 +55,13 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal/detailed_examine()
 	return "This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes."
 
-/obj/machinery/atmospherics/pipe/simple/visible/universal/update_icon(safety = 0)
-	..()
-
-	if(!check_icon_cache())
-		return
-
+/obj/machinery/atmospherics/pipe/simple/visible/universal/update_overlays()
+	. = list()
 	alpha = 255
+	. += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "universal")
+	update_underlays()
 
-	overlays.Cut()
-	overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "universal")
+/obj/machinery/atmospherics/pipe/simple/visible/universal/update_underlays()
 	underlays.Cut()
 
 	if(node1)
@@ -79,7 +76,3 @@
 	else
 		universal_underlays(,dir)
 		universal_underlays(,turn(dir, -180))
-
-/obj/machinery/atmospherics/pipe/simple/visible/universal/update_underlays()
-	..()
-	update_icon()

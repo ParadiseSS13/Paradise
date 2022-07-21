@@ -164,17 +164,17 @@
 	for(var/obj/item/vending_refill/VR in component_parts)
 		restock(VR)
 
-/obj/machinery/vending/update_icon()
-	cut_overlays()
+/obj/machinery/vending/update_overlays()
+	. = ..()
 	underlays.Cut()
 	if(panel_open)
-		add_overlay("[icon_panel ? "[icon_panel]_panel" : "[icon_state]_panel"]")
+		. += "[icon_panel ? "[icon_panel]_panel" : "[icon_state]_panel"]"
 	if(icon_addon)
-		add_overlay("[icon_addon]")
+		. += "[icon_addon]"
 	if((stat & (BROKEN|NOPOWER)) || force_no_power_icon_state)
-		add_overlay("[icon_off ? "[icon_off]_off" : "[icon_state]_off"]")
+		. += "[icon_off ? "[icon_off]_off" : "[icon_state]_off"]"
 		if(stat & BROKEN)
-			add_overlay("[icon_broken ? "[icon_broken]_broken" : "[icon_state]_broken"]")
+			. += "[icon_broken ? "[icon_broken]_broken" : "[icon_state]_broken"]"
 		return
 	if(light)
 		underlays += emissive_appearance(icon, "[icon_lightmask ? "[icon_lightmask]_lightmask" : "[icon_state]_off"]")
@@ -203,14 +203,14 @@
 	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
 		set_light(0)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 3))
 
 		force_no_power_icon_state = FALSE
 		set_light(light_range_on, light_power_on)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 10))
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	flickering = FALSE
 
 /**
@@ -363,7 +363,7 @@
 	if(anchored)
 		panel_open = !panel_open
 		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		SStgui.update_uis(src)
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
@@ -840,13 +840,13 @@
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
 		stat |= BROKEN
 		set_light(0)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 		var/dump_amount = 0
 		var/found_anything = TRUE

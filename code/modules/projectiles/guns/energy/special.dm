@@ -43,11 +43,14 @@
 	ammo_x_offset = 1
 	can_holster = TRUE
 
-/obj/item/gun/energy/decloner/update_icon()
-	..()
+/obj/item/gun/energy/decloner/update_icon_state()
+	return
+
+/obj/item/gun/energy/decloner/update_overlays()
+	. = list()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(cell.charge > shot.e_cost)
-		add_overlay("decloner_spin")
+		. += "decloner_spin"
 
 // Flora Gun //
 /obj/item/gun/energy/floragun
@@ -191,8 +194,8 @@
 	else
 		return ..()
 
-/obj/item/gun/energy/plasmacutter/update_icon()
-	return
+/obj/item/gun/energy/plasmacutter/update_overlays()
+	return list()
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -217,10 +220,9 @@
 	var/obj/effect/portal/orange
 
 
-/obj/item/gun/energy/wormhole_projector/update_icon()
+/obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
-	return
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
@@ -262,8 +264,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 
-/obj/item/gun/energy/printer/update_icon()
-	return
+/obj/item/gun/energy/printer/update_overlays()
+	return list()
 
 /obj/item/gun/energy/printer/emp_act()
 	return
@@ -519,8 +521,7 @@
 	..()
 	update_icon()
 
-/obj/item/gun/energy/bsg/update_icon()
-	. = ..()
+/obj/item/gun/energy/bsg/update_icon_state()
 	if(core)
 		if(has_bluespace_crystal)
 			icon_state = "bsg_finished"
@@ -691,7 +692,7 @@
 	dat += "Power cost: "
 	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
 
-/obj/item/gun/energy/temperature/proc/update_temperature()
+/obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
 		if(501 to INFINITY)
 			item_state = "tempgun_8"
@@ -713,32 +714,26 @@
 			item_state = "tempgun_0"
 	icon_state = item_state
 
-/obj/item/gun/energy/temperature/update_icon()
-	overlays = 0
-	update_temperature()
-	update_user()
-	update_charge()
-
-/obj/item/gun/energy/temperature/proc/update_user()
 	if(istype(loc,/mob/living/carbon))
 		var/mob/living/carbon/M = loc
 		M.update_inv_back()
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
-/obj/item/gun/energy/temperature/proc/update_charge()
+/obj/item/gun/energy/temperature/update_overlays()
+	. = ..()
 	var/charge = cell.charge
 	switch(charge)
-		if(900 to INFINITY)		overlays += "900"
-		if(800 to 900)			overlays += "800"
-		if(700 to 800)			overlays += "700"
-		if(600 to 700)			overlays += "600"
-		if(500 to 600)			overlays += "500"
-		if(400 to 500)			overlays += "400"
-		if(300 to 400)			overlays += "300"
-		if(200 to 300)			overlays += "200"
-		if(100 to 202)			overlays += "100"
-		if(-INFINITY to 100)	overlays += "0"
+		if(900 to INFINITY)		. += "900"
+		if(800 to 900)			. += "800"
+		if(700 to 800)			. += "700"
+		if(600 to 700)			. += "600"
+		if(500 to 600)			. += "500"
+		if(400 to 500)			. += "400"
+		if(300 to 400)			. += "300"
+		if(200 to 300)			. += "200"
+		if(100 to 200)			. += "100"
+		if(-INFINITY to 100)	. += "0"
 
 // Mimic Gun //
 /obj/item/gun/energy/mimicgun
@@ -850,7 +845,7 @@
 		return
 	var/new_speedcharger_charge = cell.give(S.charge)
 	S.charge -= new_speedcharger_charge
-	S.update_icon()
+	S.update_icon(UPDATE_OVERLAYS)
 	update_icon()
 
 /obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)

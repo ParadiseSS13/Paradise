@@ -22,7 +22,7 @@
 	if(anchored)
 		connect_to_network()
 
-/obj/machinery/power/treadmill/update_icon()
+/obj/machinery/power/treadmill/update_icon_state()
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
 /obj/machinery/power/treadmill/Crossed(mob/living/M, oldloc)
@@ -171,13 +171,13 @@
 	. = ..()
 	. += "The display reads:<div style='text-align: center'>[line1]<br>[line2]</div>"
 
-/obj/machinery/treadmill_monitor/update_icon()
-	overlays.Cut()
+/obj/machinery/treadmill_monitor/update_overlays()
+	. = ..()
 	if(stat & NOPOWER || !total_joules || !on)
 		line1 = ""
 		line2 = ""
 	else if(stat & BROKEN)
-		overlays += image('icons/obj/status_display.dmi', icon_state = "ai_bsod")
+		. += image('icons/obj/status_display.dmi', icon_state = "ai_bsod")
 		line1 = "A@#$A"
 		line2 = "729%!"
 	else
