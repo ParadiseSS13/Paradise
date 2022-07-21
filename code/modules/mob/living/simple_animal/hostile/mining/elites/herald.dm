@@ -259,7 +259,7 @@
 
 /obj/item/clothing/accessory/necklace/herald_cloak
 	name = "cloak of the prophet"
-	desc = "A cloak which protects you from the heresy of the world."
+	desc = "A cloak which lts you travel through a perfect reflection of the world."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "herald_cloak"
 	item_state = "herald_cloak"
@@ -306,12 +306,14 @@
 		return
 	var/input_mirror = input(usr, "Choose a mirror to teleport to.", "Mirror to Teleport to") as null|anything in mirrors_to_use
 	var/obj/chosen = mirrors_to_use[input_mirror]
+	usr.visible_message("<span class='warning'>[usr] starts to crawl into [starting_mirror]...</span>", \
+			"<span class='notice'>You start to crawl into the [starting_mirror]...</span>")
 	if(do_after(usr, 2 SECONDS, target = usr))
 		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1))
 			return
 		var/turf/destination = get_turf(chosen)
-		usr.visible_message("<span class='warning'>[usr] crawls into the mirror, and [usr.p_they()] disappear into it!</span>", \
-			"<span class='notice'>You crawl into the mirror...</span>")
+		usr.visible_message("<span class='warning'>[usr] crawls into the [starting_mirror], and [usr.p_they()] disappear into it!</span>", \
+			"<span class='notice'>You crawl into the [starting_mirror]...</span>")
 		usr.forceMove(destination)
 		usr.visible_message("<span class='warning'>[usr] crawls out of [chosen], causing it to shatter!</span>", \
 			"<span class='warning'>You crawl out of your own reflection, shattering the mirror!</span>")

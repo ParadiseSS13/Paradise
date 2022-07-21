@@ -72,11 +72,13 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/asteroid/elite/proc/revive_multiplier()
+/mob/living/simple_animal/hostile/asteroid/elite/proc/revive_multiplier() //If on lavaland, return 1, or 1x cooldown. 10 if revived by a non antag, 2 if by an antag. 1 otherwise
 	if(is_mining_level(z))
 		return 1
 	if(revive_cooldown)
 		return 10
+	if(del_on_death)
+		return 2
 	return 1
 
 /mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(damage, updating_health)
