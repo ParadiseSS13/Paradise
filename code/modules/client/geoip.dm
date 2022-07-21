@@ -110,9 +110,9 @@ var/global/list/geoip_ckey_updated = list()
 					ip = msg[data]
 		status = "updated"
 		if(proxy == "true")
-			proxy = isp in GLOB.isp_whitelist ? "false" : "true"
+			proxy = (isp in GLOB.isp_whitelist) ? "false" : "true"
 		else
-			proxy = isp in GLOB.isp_blacklist ? "true" : "false"
+			proxy = (isp in GLOB.isp_blacklist) ? "true" : "false"
 	return TRUE
 
 /proc/geoip_check(addr)
