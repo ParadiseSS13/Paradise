@@ -42,24 +42,34 @@
 
 /obj/mecha/working/ripley/go_out()
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/working/ripley/moved_inside(mob/living/carbon/human/H)
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/working/ripley/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/mecha/working/ripley/update_icon()
-	..()
-	if(hides)
-		cut_overlays()
-		if(hides < 3)
-			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
-		else
-			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
+/obj/mecha/working/ripley/update_desc()
+	. = ..()
+	if(!hides) // Just in case if hides are somehow removed
+		desc = initial(desc)
+		return
+	if(hides == 3)
+		desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
+	else
+		desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+
+/obj/mecha/working/ripley/update_overlays()
+	. = ..()
+	if(!hides)
+		return
+	if(hides == 3)
+		. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+	else
+		. += occupant ? "ripley-g" : "ripley-g-open"
 
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."

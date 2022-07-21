@@ -181,8 +181,8 @@
 	name = "\improper super-hero E-N suit"
 	icon_state = "ensuit"
 
-/obj/item/clothing/suit/corgisuit/super_hero/en/New()
-	..()
+/obj/item/clothing/suit/corgisuit/super_hero/en/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Destroy()

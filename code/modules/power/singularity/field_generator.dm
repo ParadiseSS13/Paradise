@@ -40,15 +40,14 @@ field_generator power level display
 	var/list/obj/machinery/field/generator/connected_gens
 	var/clean_up = FALSE
 
-/obj/machinery/field/generator/update_icon()
-	overlays.Cut()
+/obj/machinery/field/generator/update_overlays()
+	. = ..()
 	if(warming_up)
-		overlays += "+a[warming_up]"
+		. += "+a[warming_up]"
 	if(fields.len)
-		overlays += "+on"
+		. += "+on"
 	if(power_level)
-		overlays += "+p[power_level]"
-
+		. += "+p[power_level]"
 
 /obj/machinery/field/generator/Initialize(mapload)
 	. = ..()

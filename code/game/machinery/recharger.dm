@@ -66,7 +66,7 @@
 	charging = G
 	use_power = ACTIVE_POWER_USE
 	using_power = check_cell_needs_recharging(get_cell_from(G))
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	
 
 /obj/machinery/recharger/crowbar_act(mob/user, obj/item/I)
@@ -89,7 +89,7 @@
 	else
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -118,7 +118,7 @@
 		user.put_in_hands(charging)
 		charging = null
 		use_power = IDLE_POWER_USE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharger/attack_tk(mob/user)
 	if(charging)
@@ -126,14 +126,14 @@
 		charging.forceMove(loc)
 		charging = null
 		use_power = IDLE_POWER_USE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharger/process()
 	if(stat & (NOPOWER|BROKEN) || !anchored || panel_open)
 		return
 
 	using_power = try_recharging_if_possible()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharger/emp_act(severity)
 	if(stat & (NOPOWER|BROKEN) || !anchored)
@@ -153,9 +153,9 @@
 
 /obj/machinery/recharger/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/recharger/update_icon()	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
+/obj/machinery/recharger/update_icon_state()
 	if(panel_open)
 		icon_state = "[base_icon_state]open"
 		return
