@@ -12,13 +12,16 @@
 
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
-	update_icon()
+	if(does_emissive)
+		update_icon()
+		set_light(1, 0.1)
 
-/obj/structure/sign/update_icon()
+/obj/structure/sign/update_overlays()
 	. = ..()
+
 	if(!does_emissive)
 		return
-	set_light(1, 0.1) //for emissives, so byond doesnt cull in darkness
+
 	underlays |= emissive_appearance(icon,"[icon_state]_lightmask")
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

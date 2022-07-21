@@ -61,16 +61,25 @@
 		SSradio.add_object(src, frequency)
 	update_icon()
 
-/obj/machinery/status_display/update_icon()
+/obj/machinery/status_display/update_overlays()
 	. = ..()
 	underlays.Cut()
-	set_light(0)
 
 	if(stat & NOPOWER)
 		return
 
+	if(picture_state)
+		. += picture_state
+
 	underlays += emissive_appearance(icon, "lightmask")
-	set_light(1, 0.1)
+
+/obj/machinery/status_display/power_change()
+	..()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, 0.1)
+	update_icon(UPDATE_OVERLAYS)
 
 // timed process
 /obj/machinery/status_display/process()
@@ -172,9 +181,9 @@
 		index2 = 0
 
 /obj/machinery/status_display/proc/set_picture(state)
-	picture_state = state
 	remove_display()
-	add_overlay(picture_state)
+	picture_state = state
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/status_display/proc/update_display(line1, line2, warning = 0)
 	line1 = uppertext(line1)
@@ -184,11 +193,10 @@
 		maptext = new_text
 
 /obj/machinery/status_display/proc/remove_display()
-	if(overlays.len)
-		cut_overlays()
 	if(maptext)
 		maptext = ""
-	update_icon()
+	picture_state = null
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/status_display/receive_signal(datum/signal/signal)
 	switch(signal.data["command"])
@@ -242,6 +250,13 @@
 	update_icon()
 	..(severity)
 
+/obj/machinery/ai_status_display/power_change()
+	..()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, 0.1)
+
 /obj/machinery/ai_status_display/flicker()
 	if(stat & (NOPOWER | BROKEN))
 		return FALSE
@@ -250,10 +265,11 @@
 	update_icon()
 	return TRUE
 
-/obj/machinery/ai_status_display/update_icon()
+/obj/machinery/ai_status_display/update_overlays()
+	. = ..()
+
 	var/new_display
 
-	set_light(0)
 	cut_overlays()
 	underlays.Cut()
 
@@ -302,9 +318,8 @@
 		if(2)	// BSOD
 			new_display ="ai_bsod"
 
-	add_overlay(new_display)
+	. += new_display
 	underlays += emissive_appearance(icon, "lightmask")
-	set_light(1, 0.1)
 
 #undef FONT_SIZE
 #undef FONT_COLOR

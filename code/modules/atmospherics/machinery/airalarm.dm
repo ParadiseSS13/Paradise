@@ -392,6 +392,15 @@
 		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
 
+/obj/machinery/alarm/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER || buildstage != AIR_ALARM_READY || wiresexposed || shorted)
+		return
+
+	underlays += emissive_appearance(icon, "alarm_lightmask")
+
 /obj/machinery/alarm/proc/register_env_machine(m_id, device_type)
 	var/new_name
 	if(device_type=="AVP")
@@ -995,6 +1004,7 @@
 
 				buildstage = 2
 				update_icon(UPDATE_ICON_STATE)
+				update_icon(UPDATE_OVERLAYS)
 				first_run()
 				return
 		if(0)
@@ -1040,6 +1050,7 @@
 		return
 	wiresexposed = !wiresexposed
 	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 	if(wiresexposed)
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
 	else
@@ -1072,13 +1083,17 @@
 /obj/machinery/alarm/power_change()
 	if(powered(power_channel))
 		stat &= ~NOPOWER
+		set_light(1, 0.1)
 	else
 		stat |= NOPOWER
+		set_light(0)
 	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/obj_break(damage_flag)
 	..()
 	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -1100,6 +1115,7 @@
 	if(shorted)
 		shorted = FALSE
 		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/proc/enable_ai_control_callback()
 	if(aidisabled)

@@ -29,16 +29,26 @@
 	use_power(50)
 	on = !on
 	update_icon()
+	if(on)
+		set_light(1,1,"#ff821c")
+	else
+		set_light(0)
 	return
 
-/obj/machinery/igniter/update_icon()
+/obj/machinery/igniter/update_icon_state()
 	. = ..()
-	set_light(0)
-	underlays.Cut()
+
+	if(stat & (NOPOWER|BROKEN))
+		icon_state = "igniter0"
+		return
 
 	icon_state = "igniter[on]"
+
+/obj/machinery/igniter/update_overlays()
+	. = ..()
+	underlays.Cut()
+
 	if(on)
-		set_light(1,1,"#b4570b")
 		underlays += emissive_appearance(icon, "igniter_lightmask")
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()?
@@ -50,13 +60,13 @@
 
 /obj/machinery/igniter/Initialize(mapload)
 	. = ..()
-	icon_state = "igniter[on]"
+	update_icon()
 
 /obj/machinery/igniter/power_change()
-	if(!( stat & NOPOWER) )
-		icon_state = "igniter[src.on]"
-	else
-		icon_state = "igniter0"
+	. = ..()
+	if(stat & NOPOWER)
+		on = FALSE
+	update_icon()
 
 // Wall mounted remote-control igniter.
 

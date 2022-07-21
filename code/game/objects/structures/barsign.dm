@@ -9,9 +9,11 @@
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/list/barsigns=list()
 	var/list/hiddensigns
-	var/prev_sign = ""
+	var/datum/barsign/current_sign
+	var/datum/barsign/prev_sign
 	var/panel_open = FALSE
 	blocks_emissive = FALSE
+	does_emissive = TRUE
 
 /obj/structure/sign/barsign/Initialize(mapload)
 	. = ..()
@@ -28,20 +30,39 @@
 /obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
 	if(!istype(sign))
 		return
-	set_light(1, 0.1) //so it wont be culled in complete darkness by byond (for emissives)
-	icon_state = sign.icon
+	current_sign = sign
 	name = sign.name
-	underlays |= emissive_appearance(icon, "lightmask")
+
 	if(sign.desc)
 		desc = sign.desc
 	else
 		desc = "It displays \"[name]\"."
 
+	update_icon()
+
+/obj/structure/sign/barsign/update_icon_state()
+	. = ..()
+
+	if(!current_sign || broken)
+		icon_state = "empty"
+		return
+	icon_state = current_sign.icon
+
+/obj/structure/sign/barsign/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(current_sign == "empty" || broken || !current_sign)
+		return
+
+	underlays |= emissive_appearance(icon, current_sign.icon)
+
 /obj/structure/sign/barsign/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
 		broken = TRUE
+		prev_sign = current_sign
 		set_light(0)
-		underlays.Cut()
+		update_icon()
 
 /obj/structure/sign/barsign/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 2)
@@ -76,7 +97,8 @@
 		else
 			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
 			if(!broken && !emagged)
-				set_sign(pick(barsigns))
+				set_sign(prev_sign)
+				set_light(1, 0.1)
 			else if(emagged)
 				set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 			else

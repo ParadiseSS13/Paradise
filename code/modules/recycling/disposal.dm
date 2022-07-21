@@ -316,41 +316,47 @@
 
 // update the icon & overlays to reflect mode & status
 /obj/machinery/disposal/proc/update()
-	set_light(0)
-	cut_overlays()
-	underlays.Cut()
+	if(stat & BROKEN)
+		mode = 0
+		flush = 0
+
+	update_icon()
+
+/obj/machinery/disposal/update_icon_state()
+	. = ..()
 
 	if(stat & BROKEN)
 		icon_state = "disposal-broken"
-		mode = 0
-		flush = 0
 		return
 
-	// flush handle
-	if(flush)
-		add_overlay("dispover-handle")
+	icon_state = initial(icon_state)
 
-	// only handle is shown if no power
-	if(stat & NOPOWER || mode == -1)
+/obj/machinery/disposal/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(flush)
+		. += "dispover-handle"
+
+	if(stat & (NOPOWER|BROKEN) || mode == -1)
 		return
 
 	// 	check for items in disposal - occupied light
 	if(contents.len > 0)
-		add_overlay("dispover-full")
+		. +="dispover-full"
+		underlays += emissive_appearance(icon, "dispover-full")
 
 	// charging and ready light
 	switch(mode)
 		if(-1)
-			add_overlay("dispover-unscrewed")
+			. +="dispover-unscrewed"
 		if( 1)
-			add_overlay("dispover-charge")
-			add_overlay("dispover-panel")
+			. +="dispover-charge"
+			. +="dispover-panel"
 			underlays += emissive_appearance(icon, "dispover-charge")
-			set_light(1, 0.1)
 		if(2)
-			add_overlay("dispover-ready")
+			. +="dispover-ready"
 			underlays += emissive_appearance(icon, "dispover-ready")
-			set_light(1, 0.1)
 
 // timed process
 // charge the gas reservoir and perform flush if ready
@@ -448,6 +454,10 @@
 /obj/machinery/disposal/power_change()
 	..()	// do default setting/reset of stat NOPOWER bit
 	update()	// update icon
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, 0.1)
 	return
 
 

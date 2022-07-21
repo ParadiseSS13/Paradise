@@ -40,20 +40,31 @@ log transactions
 	. = ..()
 	machine_id = "[station_name()] RT #[GLOB.num_financial_terminals++]"
 	reconnect_database()
+	update_icon()
 
-/obj/machinery/atm/update_icon()
-	underlays.Cut()
-	set_light(0)
+/obj/machinery/atm/update_icon_state()
+	. = ..()
 
 	if(stat & NOPOWER)
 		icon_state = "atm_off"
 	else
 		icon_state = "atm"
-		set_light(1, 0.1)
-		underlays += emissive_appearance(icon, "atm_lightmask")
+
+/obj/machinery/atm/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	underlays += emissive_appearance(icon, "atm_lightmask")
 
 /obj/machinery/atm/power_change()
 	..()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, 0.1)
 	update_icon()
 
 /obj/machinery/atm/process()

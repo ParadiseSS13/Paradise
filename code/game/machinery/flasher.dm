@@ -36,21 +36,29 @@
 /obj/machinery/flasher/power_change()
 	if( powered() )
 		stat &= ~NOPOWER
+		set_light(1, 0.1)
 	else
 		stat |= ~NOPOWER
+		set_light(0)
 	update_icon()
 
-/obj/machinery/flasher/update_icon()
+/obj/machinery/flasher/update_icon_state()
 	. = ..()
-	set_light(0)
-	underlays.Cut()
 
 	if(stat & NOPOWER)
 		icon_state = "[base_state]1-p"
 	else
-		set_light(1, 0.1)
 		icon_state = "[base_state]1"
-		underlays += emissive_appearance(icon, "[base_state]_lightmask")
+
+/obj/machinery/flasher/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	underlays += emissive_appearance(icon, "[base_state]_lightmask")
+
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
