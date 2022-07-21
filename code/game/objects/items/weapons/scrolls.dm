@@ -60,7 +60,7 @@
 	if(user && user.buckled)
 		user.buckled.unbuckle_mob(user, force = TRUE)
 
-	if(user && user.has_buckled_mobs())
+	if(user?.has_buckled_mobs())
 		user.unbuckle_all_mobs(force = TRUE)
 
 	user.forceMove(pick(L))
