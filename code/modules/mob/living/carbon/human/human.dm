@@ -597,6 +597,11 @@
 
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags = NONE)
 
+/mob/living/carbon/human/rad_act(amount)
+	if(!dna.species.spec_rad_act(src, amount))
+		return
+	. = ..()
+
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.restrained() && in_range(src, usr))
 		var/thief_mode = 0

@@ -16,7 +16,7 @@
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
-	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
+	oxy_mod = 2 // die slightly faster in crit or areas without N2
 
 	breathid = "n2"
 

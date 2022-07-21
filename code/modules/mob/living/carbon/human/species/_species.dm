@@ -422,6 +422,10 @@
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return
 
+/// returning false will prevent the normal radiation behaviour.
+/datum/species/proc/spec_rad_act(mob/living/carbon/human/H, amount)
+	return TRUE
+
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
