@@ -6,7 +6,7 @@
 	/// does it start off cooldown?
 	var/starts_off_cooldown = TRUE
 	/// holds a ref to the spell
-	var/obj/effect/proc_holder/spell/spell_parent = null
+	var/obj/effect/proc_holder/spell/spell_parent
 
 /datum/spell_cooldown/Destroy()
 	spell_parent = null
