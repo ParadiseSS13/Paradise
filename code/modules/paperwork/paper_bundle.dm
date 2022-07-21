@@ -145,7 +145,7 @@
 
 /obj/item/paper_bundle/Topic(href, href_list)
 	..()
-	if((src in usr.contents) || (istype(src.loc, /obj/item/folder) && (src.loc in usr.contents)) || (istype(src.loc, /obj/item/clipboard) && (src.loc in usr.contents)))
+	if((src in usr.contents) || (istype(loc, /obj/item/folder) && (loc in usr.contents)) || (istype(loc, /obj/item/clipboard) && (loc in usr.contents)))
 		usr.set_machine(src)
 		if(href_list["next_page"])
 			if(page == amount)
@@ -155,7 +155,7 @@
 			else if(page == amount+1)
 				return
 			page++
-			playsound(src.loc, "pageturn", 50, 1)
+			playsound(loc, "pageturn", 50, 1)
 		if(href_list["prev_page"])
 			if(page == 1)
 				return
@@ -164,7 +164,7 @@
 			else if(page == amount+1)
 				screen = 1
 			page--
-			playsound(src.loc, "pageturn", 50, 1)
+			playsound(loc, "pageturn", 50, 1)
 		if(href_list["remove"])
 			var/obj/item/W = src[page]
 			usr.put_in_hands(W)
@@ -185,11 +185,9 @@
 			update_icon()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
-	if(istype(src.loc, /mob))
-		src.attack_self(src.loc)
+	if((istype(loc, /mob)) || (istype(loc, /obj/item/folder) || (istype(loc, /obj/item/clipboard))))
+		src.attack_self(usr)
 		updateUsrDialog()
-
-
 
 /obj/item/paper_bundle/verb/rename()
 	set name = "Rename bundle"
@@ -243,7 +241,7 @@
 			img = Ph.tiny
 			photo++
 			overlays += img
-	if(i>1)
+	if(i > 1)
 		desc =  "[i] papers clipped to each other."
 	else
 		desc = "A single sheet of paper."

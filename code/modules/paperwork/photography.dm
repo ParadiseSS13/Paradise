@@ -155,7 +155,7 @@
 /obj/item/camera
 	name = "camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "A polaroid camera. "
+	desc = "A polaroid camera."
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
@@ -170,7 +170,7 @@
 	var/size = 3
 	var/see_ghosts = FALSE //for the spoop of it
 	var/current_photo_num = 1
-	var/digital = 0
+	var/digital = FALSE
 
 /obj/item/camera/examine(mob/user)
 	. = ..()
@@ -455,14 +455,14 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/digital
 	name = "digital camera"
 	desc = "A digital camera."
-	digital = 1
+	digital = TRUE
 	var/list/datum/picture/saved_pictures = list()
 	pictures_left = 30
 	var/max_storage = 10
 
 /obj/item/camera/digital/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A small screen shows that there are currently [saved_pictures.len] pictures stored.</span>"
+	. += "<span class='notice'>A small screen shows that there are currently [length(saved_pictures)] pictures stored.</span>"
 
 /obj/item/camera/digital/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
 	if(!on || !pictures_left || ismob(target.loc)) return
