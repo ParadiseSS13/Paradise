@@ -700,6 +700,7 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hall.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_monster_nest.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm",
