@@ -200,7 +200,7 @@ Pipelines + Other Objects -> Pipe network
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
 			unsafe_wrenching = TRUE //Oh dear oh dear
 			if(internal_pressure > 1750 && !safefromgusts) // 1750 is the pressure limit to do 60 damage when thrown
-				to_chat(user, "<span class='userdanger'>As you struggle to unwrench \the [src] a huge gust of gas blows in your face! This seems like a terrible idea!</span>")// give them more time to decide this is a bad idea, since it might kill them
+				to_chat(user, "<span class='userdanger'>As you struggle to unwrench \the [src] a huge gust of gas blows in your face! This seems like a terrible idea!</span>")
 			else
 				to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 
