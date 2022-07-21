@@ -60,7 +60,7 @@
 		radio_connection.post_signal(src, signal)
 
 
-/obj/machinery/meter/update_icon_state()
+/obj/machinery/atmospherics/meter/update_icon_state()
 	if(!target)
 		icon_state = "meterX"
 		return

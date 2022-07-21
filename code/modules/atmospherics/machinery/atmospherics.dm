@@ -48,6 +48,11 @@ Pipelines + Other Objects -> Pipe network
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
 
+
+// TOOD - Path this to atmos machinery and repath canisters to be part of atmos machinery
+/obj/machinery/proc/process_atmos() //If you dont use process why are you here
+	return PROCESS_KILL
+
 /obj/machinery/atmospherics/proc/atmos_init()
 	// Updates all pipe overlays and underlays
 	update_underlays()

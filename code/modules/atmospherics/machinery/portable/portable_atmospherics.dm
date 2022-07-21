@@ -1,3 +1,4 @@
+// TOOD - Repath this to /obj/machinery/atmospherics
 /obj/machinery/portable_atmospherics
 	name = "atmoalter"
 	use_power = NO_POWER_USE
