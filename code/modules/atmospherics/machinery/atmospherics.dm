@@ -70,6 +70,12 @@ Pipelines + Other Objects -> Pipe network
 
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
+	if(check_icon_cache())
+		..(ALL)
+	else
+		..(UPDATE_ICON_STATE)
+
+/obj/machinery/atmospherics/update_icon_state()
 	var/turf/T = get_turf(loc)
 	if(T && T.transparent_floor)
 		plane = FLOOR_PLANE
@@ -112,10 +118,7 @@ Pipelines + Other Objects -> Pipe network
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
 
 /obj/machinery/atmospherics/proc/update_underlays()
-	if(check_icon_cache())
-		return 1
-	else
-		return 0
+	return check_icon_cache()
 
 // Connect types
 /obj/machinery/atmospherics/proc/check_connect_types(obj/machinery/atmospherics/atmos1, obj/machinery/atmospherics/atmos2)
@@ -290,14 +293,13 @@ Pipelines + Other Objects -> Pipe network
 		return
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
-	var/old_loc = user.loc
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
 			user.remove_ventcrawl()
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
 		else if(target_move.can_crawl_through())
-			if(returnPipenet() != target_move.returnPipenet())
+			if(returnPipenet(target_move) != target_move.returnPipenet())
 				user.update_pipe_vision(target_move)
 			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
@@ -306,8 +308,7 @@ Pipelines + Other Objects -> Pipe network
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
-			user.loc = target_move.loc
-			user.Moved(old_loc, get_dir(old_loc, user.loc), FALSE)
+			user.forceMove(loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out of the ventilation system.")
 	ADD_TRAIT(user, TRAIT_IMMOBILIZED, "ventcrawling")
 	spawn(1) // this is awful

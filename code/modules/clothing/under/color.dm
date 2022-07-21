@@ -56,7 +56,7 @@
 
 /obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	owner.forcesay(GLOB.hit_appends)
-	return 0
+	return
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
@@ -68,11 +68,11 @@
 /obj/item/clothing/under/color/orange/prison
 	name = "orange jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
-	icon_state = "orange"
-	item_state = "o_suit"
-	item_color = "orange"
+	icon_state = "prisoner"
+	item_state = "prisoner"
+	item_color = "prisoner"
 	has_sensor = 2
-	sensor_mode = 3
+	sensor_mode = SENSOR_COORDS
 
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"

@@ -12,19 +12,42 @@
 /obj/structure/blob/shield/core
 	point_return = 0
 
-/obj/structure/blob/shield/update_icon()
-	..()
+/obj/structure/blob/shield/check_integrity()
+	var/old_compromised_integrity = compromised_integrity
 	if(obj_integrity < max_integrity * 0.5)
-		icon_state = "[initial(icon_state)]_damaged"
-		name = "weakened [initial(name)]"
-		desc = "A wall of twitching tendrils."
+		compromised_integrity = TRUE
+	else
+		compromised_integrity = FALSE
+	if(old_compromised_integrity != compromised_integrity)
+		update_state()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+
+/obj/structure/blob/shield/update_state()
+	if(compromised_integrity)
 		atmosblock = FALSE
 	else
-		icon_state = initial(icon_state)
-		name = initial(name)
-		desc = initial(desc)
 		atmosblock = TRUE
 	air_update_turf(1)
+
+/obj/structure/blob/shield/update_name()
+	. = ..()
+	if(compromised_integrity)
+		name = "weakened [initial(name)]"
+	else
+		name = initial(name)
+
+/obj/structure/blob/shield/update_desc()
+	. = ..()
+	if(compromised_integrity)
+		desc = "A wall of twitching tendrils."
+	else
+		desc = initial(desc)
+
+/obj/structure/blob/shield/update_icon_state()
+	if(compromised_integrity)
+		icon_state = "[initial(icon_state)]_damaged"
+	else
+		icon_state = initial(icon_state)
 
 /obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1

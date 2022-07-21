@@ -18,9 +18,7 @@
 	. = ..()
 	broken_states = list("[initial(icon_state)]_dam")
 
-/turf/simulated/floor/mineral/update_icon()
-	if(!..())
-		return 0
+/turf/simulated/floor/mineral/update_icon_state()
 	if(!broken && !burnt)
 		if(!(icon_state in icons))
 			icon_state = initial(icon_state)
@@ -224,7 +222,7 @@
 	floor_tile = /obj/item/stack/tile/mineral/uranium
 	icons = list("uranium","uranium_dam")
 	var/last_event = 0
-	var/active = null
+	var/active = FALSE
 
 /turf/simulated/floor/mineral/uranium/Entered(mob/AM)
 	.=..()

@@ -18,7 +18,7 @@
 	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
 	origin_tech = "engineering=4"
-	var/armed = 0
+	var/armed = FALSE
 	var/trap_damage = 20
 	var/obj/item/grenade/iedcasing/IED = null
 	var/obj/item/assembly/signaler/sig = null
@@ -26,7 +26,7 @@
 /obj/item/restraints/legcuffs/beartrap/New()
 	..()
 
-/obj/item/restraints/legcuffs/beartrap/update_icon()
+/obj/item/restraints/legcuffs/beartrap/update_icon_state()
 	icon_state = "beartrap[armed]"
 
 /obj/item/restraints/legcuffs/beartrap/Destroy()
@@ -43,7 +43,7 @@
 	..()
 	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
@@ -94,14 +94,14 @@
 	if(armed && isturf(src.loc))
 		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/hostile/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
-			armed = 0
+			armed = FALSE
 			update_icon()
 			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
 					"<span class='userdanger'>You trigger \the [src]!</span>")
 
 			if(IED && isturf(src.loc))
-				IED.active = 1
+				IED.active = TRUE
 				message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
 				log_game("[key_name(usr)] has triggered an IED-rigged [name].")
 				spawn(IED.det_time)
@@ -128,7 +128,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"
-	armed = 1
+	armed = TRUE
 	icon_state = "e_snare"
 	trap_damage = 0
 	flags = DROPDEL

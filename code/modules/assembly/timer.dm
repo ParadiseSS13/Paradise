@@ -53,11 +53,11 @@
 		timer_end()
 		time = set_time
 
-/obj/item/assembly/timer/update_icon()
-	overlays.Cut()
+/obj/item/assembly/timer/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(timing)
-		overlays += "timer_timing"
+		. += "timer_timing"
 		attached_overlays += "timer_timing"
 	if(holder)
 		holder.update_icon()

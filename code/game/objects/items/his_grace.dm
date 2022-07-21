@@ -41,16 +41,18 @@
 	GLOB.poi_list -= src
 	return ..()
 
-/obj/item/his_grace/update_icon()
+/obj/item/his_grace/update_icon_state()
 	icon_state = ascended ? "gold" : "green"
 	item_state = ascended ? "toolbox_gold" : "artistic_toolbox"
-	cut_overlays()
+
+/obj/item/his_grace/update_overlays()
+	. = ..()
 	if(ascended)
-		add_overlay("triple_latch")
+		. += "triple_latch"
 	else if(awakened)
-		add_overlay("single_latch_open")
+		. += "single_latch_open"
 	else
-		add_overlay("single_latch")
+		. += "single_latch"
 
 /obj/item/his_grace/attack_self(mob/living/user)
 	if(!awakened)

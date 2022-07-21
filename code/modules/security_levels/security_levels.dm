@@ -60,8 +60,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
 				if(R && is_station_level(R.z))
-					R.locked = FALSE
-					R.update_icon()
+					R.unlock(TRUE)
 
 				post_status("alert", "redalert")
 				update_firealarms()
@@ -73,8 +72,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in GLOB.airlocks)
 						if(is_station_level(R.z))
-							R.locked = FALSE
-							R.update_icon()
+							R.unlock(TRUE)
 
 				post_status("alert", "gammaalert")
 				update_firealarms()
@@ -122,11 +120,9 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return "delta"
 
 /proc/update_firealarms()
-	var/security_level = get_security_level()
 	for(var/obj/machinery/firealarm/FA in GLOB.machines)
 		if(is_station_contact(FA.z))
-			FA.cut_overlays()
-			FA.add_overlay("overlay_[security_level]")
+			FA.update_icon()
 
 /proc/num2seclevel(num)
 	switch(num)

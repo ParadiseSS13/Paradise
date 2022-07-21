@@ -14,8 +14,8 @@
 	icon_state = "locator"
 	var/temp = null
 	var/frequency = 1451
-	var/broadcasting = null
-	var/listening = 1.0
+	var/broadcasting = FALSE
+	var/listening = TRUE
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
@@ -124,10 +124,13 @@ Frequency:
 	var/list/turfs = list(	)
 	var/area/A
 	for(var/turf/T in orange(10))
-		if(T.x>world.maxx-8 || T.x<8)	continue	//putting them at the edge is dumb
-		if(T.y>world.maxy-8 || T.y<8)	continue
+		if(T.x>world.maxx-8 || T.x<8)
+			continue	//putting them at the edge is dumb
+		if(T.y>world.maxy-8 || T.y<8)
+			continue
 		A = get_area(T)
-		if(A.tele_proof == 1) continue // Telescience-proofed areas require a beacon.
+		if(A.tele_proof)
+			continue // Telescience-proofed areas require a beacon.
 		turfs += T
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
@@ -143,7 +146,6 @@ Frequency:
 	try_move_adjacent(P)
 	active_portals++
 	add_fingerprint(user)
-	return
 
 /obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
     active_portals--

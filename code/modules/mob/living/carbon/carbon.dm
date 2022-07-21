@@ -164,27 +164,27 @@
 	//Stun
 	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
 	if(should_stun)
-		Stun(4 SECONDS)
+		Stun(1 SECONDS)
 	//Jitter and other fluff.
 	AdjustJitter(2000 SECONDS)
 	AdjustStuttering(4 SECONDS)
-	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 2 SECONDS)
+	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 1 SECONDS)
 	return shock_damage
 
-///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
+///Called slightly after electrocute act to reduce jittering and apply a secondary knockdown.
 /mob/living/carbon/proc/secondary_shock(should_stun)
 	AdjustJitter(-2000 SECONDS, bound_lower = 20 SECONDS) //Still jittery, but vastly less
 	if(should_stun)
-		Weaken(6 SECONDS)
+		KnockDown(6 SECONDS)
 
 /mob/living/carbon/swap_hand()
-	var/obj/item/item_in_hand = src.get_active_hand()
+	var/obj/item/item_in_hand = get_active_hand()
 	if(item_in_hand) //this segment checks if the item in your hand is twohanded.
 		if(istype(item_in_hand,/obj/item/twohanded))
 			if(item_in_hand:wielded == 1)
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
-	src.hand = !( src.hand )
+	hand = !hand
 	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
 		var/obj/screen/inventory/hand/H
 		H = hud_used.inv_slots[slot_l_hand]
@@ -204,7 +204,7 @@
 		if(selhand == "left" || selhand == "l")
 			selhand = 1
 
-	if(selhand != src.hand)
+	if(selhand != hand)
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
@@ -231,6 +231,7 @@
 				AdjustStunned(-6 SECONDS)
 				AdjustWeakened(-6 SECONDS)
 				AdjustKnockDown(-6 SECONDS)
+				adjustStaminaLoss(-10)
 				resting = FALSE
 				stand_up() // help them up if possible
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -269,6 +270,9 @@
   * * target - The mob who is currently on fire
   */
 /mob/living/carbon/proc/pat_out(mob/living/target)
+	if(target == src) // stop drop and roll, no trying to put out fire on yourself for free.
+		to_chat(src, "<span class='warning'>Stop drop and roll!</span>")
+		return
 	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
 	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
 		var/mob/living/carbon/human/H = src
@@ -364,8 +368,8 @@
 			extra_damage = extra_darkview
 
 		var/light_amount = 10 // assume full brightness
-		if(isturf(src.loc))
-			var/turf/T = src.loc
+		if(isturf(loc))
+			var/turf/T = loc
 			light_amount = round(T.get_lumcount() * 10)
 
 		// a dark view of 8, in full darkness, will result in maximum 1st tier damage
@@ -514,10 +518,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
 
 
-/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
-	if(!istype(starting_machine) || !starting_machine.returnPipenet() || !starting_machine.can_see_pipes())
+/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
+	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
 		return
-	var/datum/pipeline/pipeline = starting_machine.returnPipenet()
+	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
 	var/list/totalMembers = list()
 	totalMembers |= pipeline.members
 	totalMembers |= pipeline.other_atmosmch
@@ -539,18 +543,20 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /atom/proc/update_pipe_vision()
 	return
 
-/mob/living/update_pipe_vision()
-	if(pipes_shown.len)
+/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
+	if(pipes_shown.len && !(target_move))
 		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else
 		if(is_ventcrawling(src))
-			add_ventcrawl(loc)
+			if(target_move)
+				remove_ventcrawl()
+			add_ventcrawl(loc, target_move)
 
 
 //Throwing stuff
 
-/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum)
+/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum, speed = 1)
 	. = ..()
 	if(has_status_effect(STATUS_EFFECT_CHARGING))
 		var/hit_something = FALSE
@@ -581,6 +587,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 
 	var/hurt = TRUE
+	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
 	/*if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
 		if(isrobot(D.thrower))
@@ -589,17 +596,19 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				hurt = FALSE*/
 	if(hit_atom.density && isturf(hit_atom))
 		if(hurt)
-			Weaken(2 SECONDS)
-			take_organ_damage(10)
+			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+			take_organ_damage(damage)
+			KnockDown(3 SECONDS)
+			playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
 		if(victim.flying)
 			return
 		if(hurt)
-			victim.take_organ_damage(10)
-			take_organ_damage(10)
-			victim.Weaken(2 SECONDS)
-			Weaken(2 SECONDS)
+			victim.take_organ_damage(damage)
+			take_organ_damage(damage)
+			victim.KnockDown(3 SECONDS)
+			KnockDown(3 SECONDS)
 			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 
@@ -610,14 +619,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		throw_mode_on()
 
 /mob/living/carbon/proc/throw_mode_off()
-	src.in_throw_mode = 0
-	if(src.throw_icon) //in case we don't have the HUD and we use the hotkey
-		src.throw_icon.icon_state = "act_throw_off"
+	in_throw_mode = FALSE
+	if(throw_icon) //in case we don't have the HUD and we use the hotkey
+		throw_icon.icon_state = "act_throw_off"
 
 /mob/living/carbon/proc/throw_mode_on()
-	src.in_throw_mode = 1
-	if(src.throw_icon)
-		src.throw_icon.icon_state = "act_throw_on"
+	in_throw_mode = TRUE
+	if(throw_icon)
+		throw_icon.icon_state = "act_throw_on"
 
 /mob/proc/throw_item(atom/target)
 	return
@@ -627,7 +636,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		throw_mode_off()
 		return
 
-	var/obj/item/I = src.get_active_hand()
+	var/obj/item/I = get_active_hand()
 
 	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
 		throw_mode_off()
@@ -804,7 +813,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse(method)	//method 0 is for hands, 1 is for machines, more accurate
 	var/temp = 0								//see setup.dm:694
-	switch(src.pulse)
+	switch(pulse)
 		if(PULSE_NONE)
 			return "0"
 		if(PULSE_SLOW)
@@ -970,7 +979,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		drop_r_hand()
 		drop_l_hand()
 		stop_pulling()
-		throw_alert("handcuffed", /obj/screen/alert/restrained/handcuffed, new_master = src.handcuffed)
+		throw_alert("handcuffed", /obj/screen/alert/restrained/handcuffed, new_master = handcuffed)
 		ADD_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")
 	else
 		REMOVE_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")

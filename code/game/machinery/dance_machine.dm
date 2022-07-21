@@ -25,7 +25,6 @@
 	var/song_path = null
 	var/song_length = 0
 	var/song_beat = 0
-	var/GBP_required = 0
 
 /datum/track/New(name, path, length, beat)
 	song_name = name
@@ -71,13 +70,11 @@
 		WRENCH_UNANCHOR_MESSAGE
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
-/obj/machinery/disco/update_icon()
+/obj/machinery/disco/update_icon_state()
 	if(active)
 		icon_state = "disco1"
 	else
 		icon_state = "disco0"
-	..()
-
 
 /obj/machinery/disco/attack_hand(mob/user)
 	if(..())
@@ -128,7 +125,7 @@
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
 				active = TRUE
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				dance_setup()
 				START_PROCESSING(SSobj, src)
 				lights_spin()

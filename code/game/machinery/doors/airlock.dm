@@ -70,14 +70,12 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/electrified_timer
 	var/main_power_timer
 	var/backup_power_timer
-	var/spawnPowerRestoreRunning = 0
 	var/lights = TRUE // bolt lights show by default
 	var/datum/wires/airlock/wires
 	var/aiDisabledIdScanner = FALSE
 	var/aiHacking = FALSE
 	var/obj/machinery/door/airlock/closeOther
 	var/closeOtherId
-	var/lockdownbyai = 0
 	var/justzap = FALSE
 	var/obj/item/airlock_electronics/electronics
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
@@ -309,7 +307,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	if(shockCooldown > world.time)
 		return FALSE	//Already shocked someone recently?
 	if(..())
-		shockCooldown = world.time + 10
+		shockCooldown = world.time + 2 SECONDS
 		return TRUE
 	else
 		return FALSE
@@ -332,7 +330,13 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 		if(AIRLOCK_OPEN, AIRLOCK_CLOSED)
 		if(AIRLOCK_DENY, AIRLOCK_OPENING, AIRLOCK_CLOSING, AIRLOCK_EMAG)
 			icon_state = "nonexistenticonstate" //MADNESS
+
+	. = ..(UPDATE_ICON_STATE) // Sent after the icon_state is changed
+
 	set_airlock_overlays(state)
+
+/obj/machinery/door/airlock/update_icon_state()
+	return
 
 /obj/machinery/door/airlock/proc/set_airlock_overlays(state)
 	var/image/frame_overlay
@@ -1382,9 +1386,13 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
 	if(!note)
 		return
-	else if(istype(note, /obj/item/paper))
-		return "note"
-	else if(istype(note, /obj/item/photo))
+	if(istype(note, /obj/item/paper))
+		var/obj/item/paper/pinned_paper = note
+		if(pinned_paper.info)
+			return "note_words"
+		else
+			return "note"
+	if(istype(note, /obj/item/photo))
 		return "photo"
 
 //Removes the current note on the door if any. Returns if a note is removed

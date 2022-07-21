@@ -7,7 +7,7 @@
 
 	maxHealth = 25
 	health = 25
-	density = 0
+	density = FALSE
 
 	var/amount_grown = 0
 	var/max_grown = 200

@@ -15,7 +15,7 @@
 /obj/item/clothing/suit/space/hardsuit/proc/RemoveHelmet()
 	if(!helmet)
 		return
-	suittoggled = FALSE
+	suit_toggled = FALSE
 	if(ishuman(helmet.loc))
 		var/mob/living/carbon/H = helmet.loc
 		if(helmet.on)
@@ -38,7 +38,7 @@
 		return
 	if(!helmet)
 		return
-	if(!suittoggled)
+	if(!suit_toggled)
 		if(ishuman(src.loc))
 			if(H.wear_suit != src)
 				to_chat(H, "<span class='warning'>You must be wearing [src] to engage the helmet!</span>")
@@ -48,7 +48,7 @@
 				return
 			else if(H.equip_to_slot_if_possible(helmet, slot_head, FALSE, FALSE))
 				to_chat(H, "<span class='notice'>You engage the helmet on the hardsuit.</span>")
-				suittoggled = TRUE
+				suit_toggled = TRUE
 				H.update_inv_wear_suit()
 				playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	else

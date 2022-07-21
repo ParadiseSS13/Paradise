@@ -43,34 +43,17 @@
 	return "Measures the volume and temperature of the pipe under the meter."
 
 /obj/machinery/meter/process_atmos()
-	if(!target)
-		icon_state = "meterX"
-		return 0
-
-	if(stat & (BROKEN|NOPOWER))
-		icon_state = "meter0"
-		return 0
+	if(!target || (stat & (BROKEN|NOPOWER)))
+		update_icon(UPDATE_ICON_STATE)
+		return
 
 	var/datum/gas_mixture/environment = target.return_air()
 	if(!environment)
-		icon_state = "meterX"
-		return 0
+		update_icon(UPDATE_ICON_STATE)
+		return
 
+	update_icon(UPDATE_ICON_STATE)
 	var/env_pressure = environment.return_pressure()
-	if(env_pressure <= 0.15*ONE_ATMOSPHERE)
-		icon_state = "meter0"
-	else if(env_pressure <= 1.8*ONE_ATMOSPHERE)
-		var/val = round(env_pressure/(ONE_ATMOSPHERE*0.3) + 0.5)
-		icon_state = "meter1_[val]"
-	else if(env_pressure <= 30*ONE_ATMOSPHERE)
-		var/val = round(env_pressure/(ONE_ATMOSPHERE*5)-0.35) + 1
-		icon_state = "meter2_[val]"
-	else if(env_pressure <= 59*ONE_ATMOSPHERE)
-		var/val = round(env_pressure/(ONE_ATMOSPHERE*5) - 6) + 1
-		icon_state = "meter3_[val]"
-	else
-		icon_state = "meter4"
-
 	if(frequency)
 		var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
 
@@ -86,6 +69,36 @@
 			"sigtype" = "status"
 		)
 		radio_connection.post_signal(src, signal)
+	
+
+/obj/machinery/meter/update_icon_state()
+	if(!target)
+		icon_state = "meterX"
+		return
+
+	if(stat & (BROKEN|NOPOWER))
+		icon_state = "meter0"
+		return
+
+	var/datum/gas_mixture/environment = target.return_air()
+	if(!environment)
+		icon_state = "meterX"
+		return
+
+	var/env_pressure = environment.return_pressure()
+	if(env_pressure <= 0.15*ONE_ATMOSPHERE)
+		icon_state = "meter0"
+	else if(env_pressure <= 1.8*ONE_ATMOSPHERE)
+		var/val = round(env_pressure/(ONE_ATMOSPHERE*0.3) + 0.5)
+		icon_state = "meter1_[val]"
+	else if(env_pressure <= 30*ONE_ATMOSPHERE)
+		var/val = round(env_pressure/(ONE_ATMOSPHERE*5)-0.35) + 1
+		icon_state = "meter2_[val]"
+	else if(env_pressure <= 59*ONE_ATMOSPHERE)
+		var/val = round(env_pressure/(ONE_ATMOSPHERE*5) - 6) + 1
+		icon_state = "meter3_[val]"
+	else
+		icon_state = "meter4"
 
 /obj/machinery/meter/proc/status()
 	var/t = ""

@@ -142,41 +142,15 @@
 			affecting.drop_r_hand()
 			affecting.drop_l_hand()
 
-
-		//var/announce = 0
-		//(hit_zone != last_hit_zone)
-			//announce = 1
-	/*	if(ishuman(affecting))
-			switch(hit_zone)
-				/*if("mouth")
-					if(announce)
-						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s mouth!</span>")
-					if(affecting.silent < 3)
-						affecting.silent = 3
-				if("eyes")
-					if(announce)
-						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s eyes!</span>")
-					if(affecting.eye_blind < 3)
-						affecting.eye_blind = 3*///These are being left in the code as an example for adding new hit-zone based things.
-
-		if(force_down)
-			if(affecting.loc != assailant.loc)
-				force_down = 0
-			else
-				affecting.Weaken(6 SECONDS) //This is being left in the code as an example of adding a new variable to do something in grab code.
-
-*/
-
 	var/breathing_tube = affecting.get_organ_slot("breathing_tube")
 
 	if(state >= GRAB_NECK)
-		affecting.Stun(10 SECONDS)  //It will hamper your voice, being choked and all.
-		if(isliving(affecting) && !breathing_tube)
+		affecting.Stun(3 SECONDS)
+		if(isliving(affecting) && !breathing_tube) //It will hamper your breathing, being choked and all.
 			var/mob/living/L = affecting
 			L.adjustOxyLoss(1)
 
 	if(state >= GRAB_KILL)
-		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
 		affecting.Stuttering(10 SECONDS) //It will hamper your voice, being choked and all.
 		affecting.Weaken(10 SECONDS)	//Should keep you down unless you get help.
 		if(!breathing_tube)

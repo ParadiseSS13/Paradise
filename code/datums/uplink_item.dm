@@ -509,19 +509,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 25
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
-	name = "Compact Sniper Rifle"
-	desc = "A compact, unscoped version of the operative sniper rifle. Packs a powerful punch, but ammo is limited."
-	reference = "CSR"
-	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
-	cost = 16
-	surplus = 0
-	cant_discount = TRUE
-	excludefrom = list(/datum/game_mode/nuclear)
-
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
-	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
+	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Knocks enemies down for a short period of time. Recharges automatically."
 	reference = "EC"
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
 	cost = 12
@@ -1621,9 +1611,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/cyber_implants/antistun
 	name = "Hardened CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. It is immune to EMP attacks. Comes with an autosurgeon."
+	desc = "This implant will help you get back up on your feet faster after being fatigued. It is immune to EMP attacks. Comes with an autosurgeon."
 	reference = "CIAS"
-	item = /obj/item/autosurgeon/organ/syndicate/anti_stun
+	item = /obj/item/autosurgeon/organ/syndicate/anti_stam
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver

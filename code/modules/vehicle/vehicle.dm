@@ -4,8 +4,8 @@
 	desc = "A basic vehicle, vroom"
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "scooter"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	max_integrity = 300
@@ -18,7 +18,7 @@
 	var/last_move_diagonal = FALSE
 	var/vehicle_move_delay = 2 //tick delay between movements, lower = faster, higher = slower
 	var/auto_door_open = TRUE
-	var/needs_gravity = 0 //To allow non-space vehicles to move in no gravity or not, mostly for adminbus
+	var/needs_gravity = FALSE //To allow non-space vehicles to move in no gravity or not, mostly for adminbus
 	//Pixels
 	var/generic_pixel_x = 0 //All dirs show this pixel_x for the driver
 	var/generic_pixel_y = 0 //All dirs shwo this pixel_y for the driver
@@ -113,9 +113,8 @@
 			buckled_mob.pixel_y = generic_pixel_y
 
 
-/obj/vehicle/update_icon()
+/obj/vehicle/update_icon_state()
 	return
-
 
 /obj/item/key
 	name = "key"

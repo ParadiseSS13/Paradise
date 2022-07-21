@@ -180,8 +180,8 @@
 	name = "pod computer"
 	icon_state = "pod_computer"
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	pixel_y = -32
 
 /obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
@@ -232,8 +232,11 @@
 		var/obj/item/instrument/guitar/G = new(src)
 		load(G)
 
-/obj/machinery/smartfridge/survival_pod/update_icon()
+/obj/machinery/smartfridge/survival_pod/update_icon_state()
 	return
+
+/obj/machinery/smartfridge/survival_pod/update_overlays()
+	return list()
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)
@@ -252,8 +255,8 @@
 	icon_state = "fans"
 	name = "environmental regulation system"
 	desc = "A large machine releasing a constant gust of air."
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	var/arbitraryatmosblockingvar = 1
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
@@ -289,7 +292,7 @@
 	name = "tiny fan"
 	desc = "A tiny fan, releasing a thin gust of air."
 	layer = TURF_LAYER+0.1
-	density = 0
+	density = FALSE
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
@@ -315,9 +318,9 @@
 	icon_state = "tubes"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	name = "tubes"
-	anchored = 1
+	anchored = TRUE
 	layer = MOB_LAYER - 0.2
-	density = 0
+	density = FALSE
 
 /obj/structure/tubes/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))

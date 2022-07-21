@@ -13,9 +13,9 @@
 
 /obj/item/clothing/gloves/ring/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/clothing/gloves/ring/update_icon()
+/obj/item/clothing/gloves/ring/update_icon_state()
 	icon_state = "[stud ? "d_" : ""][ring_color]ring"
 
 /obj/item/clothing/gloves/ring/examine(mob/user)
@@ -33,8 +33,8 @@
 		else
 			if(D.amount >= 1)
 				D.use(1)
-				stud = 1
-				update_icon()
+				stud = TRUE
+				update_icon(UPDATE_ICON_STATE)
 				to_chat(usr, "<span class='notice'>You socket the diamond into [src].</span>")
 
 // s'pensive

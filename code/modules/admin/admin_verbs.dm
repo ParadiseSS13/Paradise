@@ -56,8 +56,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/update_mob_sprite,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
-	/client/proc/delbook,
-	/client/proc/view_flagged_books,
+	/client/proc/library_manager,
 	/client/proc/view_asays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
@@ -69,7 +68,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds_afks,
 	/client/proc/ccbdb_lookup_ckey,
-	/client/proc/view_instances
+	/client/proc/view_instances,
+	/client/proc/start_vote
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -131,8 +131,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/toggleAI,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/cmd_debug_del_sing,
-	/client/proc/delbook,
-	/client/proc/view_flagged_books,
+	/client/proc/library_manager,
 	/client/proc/view_asays,
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
@@ -173,6 +172,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/datum/proc/qdel_then_find_references,
 	/datum/proc/qdel_then_if_fail_find_references,
 	#endif
+	/client/proc/dmapi_debug,
+	/client/proc/dmapi_log,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
