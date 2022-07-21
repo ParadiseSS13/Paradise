@@ -35,7 +35,7 @@
 	if(user.stat || user.restrained())
 		return
 
-	if(!(user == loc || (in_range(src, user) && isturf(get_turf(user)))))
+	if(!(user == loc || (in_range(src, user) && isturf(user.loc))))
 		return //They can't use it if they put it in their bag or drop it and walk off, but if they are stood next to it they can.
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station)) //Nowhere in SSmapping.teleportlocs should be tele_proof, but better safe than sorry
