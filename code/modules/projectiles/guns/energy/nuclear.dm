@@ -58,9 +58,16 @@
 	icon_state = "bsgun"
 	item_state = "gun"
 	force = 7
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
 	shaded_charge = 1
+
+/obj/item/gun/energy/gun/blueshield/can_shoot()
+    . = ..()
+    if (. && !isertmindshielded(usr))
+        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
+        return FALSE
+    return .
 
 /obj/item/gun/energy/gun/blueshield/pdw9
 	name = "PDW-9 taser pistol"

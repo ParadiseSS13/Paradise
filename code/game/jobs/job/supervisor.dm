@@ -195,7 +195,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 		/obj/item/storage/box/deathimp = 1,
 		/obj/item/gun/energy/gun/blueshield = 1
 	)
-	implants = list(/obj/item/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield/ert)
 	backpack = /obj/item/storage/backpack/blueshield
 	satchel = /obj/item/storage/backpack/satchel_blueshield
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield

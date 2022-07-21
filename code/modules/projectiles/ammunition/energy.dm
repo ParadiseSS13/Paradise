@@ -27,6 +27,9 @@
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 100
 
+/obj/item/ammo_casing/energy/laser/blueshield
+	e_cost = 83
+
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/item/projectile/beam/practice
 	select_name = "practice"
@@ -114,6 +117,9 @@
 /obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 100
 
+/obj/item/ammo_casing/energy/electrode/blueshield
+	e_cost = 150
+
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
@@ -172,6 +178,9 @@
 
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
 	e_cost = 175
+
+/obj/item/ammo_casing/energy/disabler/blueshield
+	e_cost = 40
 
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/item/projectile/plasma
