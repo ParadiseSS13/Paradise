@@ -596,6 +596,7 @@
 					// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
 					else
 						SSshuttle.requestlist.Cut(i,i+1)
+						investigate_log("[key_name(usr)] has denied an order for [SO.object.name]. Remaining points: [SSshuttle.points].", "cargo")
 						break
 
 		// Popup to show CC message logs. Its easier this way to avoid box-spam in TGUI
