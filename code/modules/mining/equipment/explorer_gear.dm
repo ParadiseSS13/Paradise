@@ -65,7 +65,7 @@
 	return ..()
 
 /obj/item/clothing/suit/space/hostile_environment/ComponentInitialize()
-	. = ..()
+	..()
 	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/space/hostile_environment/process()
@@ -92,6 +92,7 @@
 	update_icon()
 
 /obj/item/clothing/head/helmet/space/hostile_environment/ComponentInitialize()
+	..()
 	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/update_icon()
