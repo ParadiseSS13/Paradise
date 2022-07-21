@@ -18,6 +18,7 @@
 	harm_intent_damage = 0 //Punching elites gets you nowhere
 	stat_attack = UNCONSCIOUS
 	layer = LARGE_MOB_LAYER
+	has_laser_resist = FALSE
 
 	sentience_type = SENTIENCE_BOSS
 	var/chosen_attack = 1
