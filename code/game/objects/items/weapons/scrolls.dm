@@ -23,6 +23,7 @@
 
 /obj/item/teleportation_scroll/attack_self(mob/user)
 	if(!uses) //somehow?
+		to_chat(user, "<span class='warning'>You attempt to read the scroll but it disintegrates in your hand, it appears that is has run out of charges!</span>")
 		qdel(src)
 		return
 
