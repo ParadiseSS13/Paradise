@@ -74,7 +74,7 @@
 		if("radio")
 			occupant.aiRadio.disabledAi = !occupant.aiRadio.disabledAi
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
 /obj/machinery/computer/aifixer/proc/fix_ai() // Can we fix it? Probrably.
@@ -86,26 +86,22 @@
 		occupant.updatehealth()
 		if(occupant.health >= 0 && occupant.stat == DEAD)
 			occupant.update_revive()
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		sleep(10)
 	active = FALSE
 
-/obj/machinery/computer/aifixer/update_icon()
-	..()
-	if(stat & (NOPOWER|BROKEN))
-		return
+/obj/machinery/computer/aifixer/update_overlays()
+	. = ..()
+	if(active)
+		. += "ai-fixer-on"
+	if(occupant)
+		switch(occupant.stat)
+			if(0)
+				. += "ai-fixer-full"
+			if(2)
+				. += "ai-fixer-404"
 	else
-		var/overlay_layer = LIGHTING_LAYER+0.2 // +0.1 from the default computer overlays
-		if(active)
-			overlays += image(icon,"ai-fixer-on",overlay_layer)
-		if(occupant)
-			switch(occupant.stat)
-				if(0)
-					overlays += image(icon,"ai-fixer-full",overlay_layer)
-				if(2)
-					overlays += image(icon,"ai-fixer-404",overlay_layer)
-		else
-			overlays += image(icon,"ai-fixer-empty",overlay_layer)
+		. += "ai-fixer-empty"
 
 /obj/machinery/computer/aifixer/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
@@ -121,7 +117,7 @@
 		AI.aiRadio.disabledAi = TRUE
 		to_chat(AI, "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 	else //Uploading AI from terminal to card
 		if(occupant && !active)
@@ -129,7 +125,7 @@
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [occupant.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 			occupant.forceMove(card)
 			occupant = null
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else if(active)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Reconstruction in progress.")
 		else if(!occupant)

@@ -249,7 +249,7 @@
 	prefix = "darkened"
 	claw_damage_increase = 4
 
-/obj/item/whetstone/cult/update_icon()
+/obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
@@ -571,7 +571,7 @@
 		qdel(spear_act)
 	..()
 
-/obj/item/twohanded/cult_spear/update_icon()
+/obj/item/twohanded/cult_spear/update_icon_state()
 	icon_state = "bloodspear[wielded]"
 
 /obj/item/twohanded/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)

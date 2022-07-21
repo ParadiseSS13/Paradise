@@ -364,7 +364,7 @@
 	C.range = 20
 	return C
 
-/obj/effect/proc_holder/spell/fireball/update_icon()
+/obj/effect/proc_holder/spell/fireball/update_icon_state()
 	if(!action)
 		return
 	action.button_icon_state = "fireball[active]"

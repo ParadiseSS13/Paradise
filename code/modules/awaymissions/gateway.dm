@@ -12,20 +12,15 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 /obj/machinery/gateway/Initialize()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_density_from_dir()
 
 /obj/machinery/gateway/proc/update_density_from_dir()
 	if(dir == 2)
 		density = FALSE
 
-
-/obj/machinery/gateway/update_icon()
-	if(active)
-		icon_state = "on"
-		return
-	icon_state = "off"
-
+/obj/machinery/gateway/update_icon_state()
+	icon_state = active ? "on" : "off"
 
 
 //this is da important part wot makes things go
@@ -45,7 +40,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(!GLOB.the_gateway)
 		GLOB.the_gateway = src
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	wait = world.time + GLOB.configuration.gateway.away_mission_delay
 	return INITIALIZE_HINT_LATELOAD
 
@@ -60,12 +55,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		GLOB.the_gateway = null
 	return ..()
 
-/obj/machinery/gateway/centerstation/update_icon()
-	if(active)
-		icon_state = "oncenter"
-		return
-	icon_state = "offcenter"
-
+/obj/machinery/gateway/centerstation/update_icon_state()
+	icon_state = active ? "oncenter" : "offcenter"
 
 
 /obj/machinery/gateway/centerstation/process()
@@ -115,17 +106,17 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 	for(var/obj/machinery/gateway/G in linked)
 		G.active = TRUE
-		G.update_icon()
+		G.update_icon(UPDATE_ICON_STATE)
 	active = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/gateway/centerstation/proc/toggleoff()
 	for(var/obj/machinery/gateway/G in linked)
 		G.active = FALSE
-		G.update_icon()
+		G.update_icon(UPDATE_ICON_STATE)
 	active = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/gateway/centerstation/attack_hand(mob/user as mob)
@@ -181,18 +172,15 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 /obj/machinery/gateway/centeraway/Initialize()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
 
 
 /obj/machinery/gateway/centeraway/update_density_from_dir()
 	return
 
-/obj/machinery/gateway/centeraway/update_icon()
-	if(active)
-		icon_state = "oncenter"
-		return
-	icon_state = "offcenter"
+/obj/machinery/gateway/centeraway/update_icon_state()
+	icon_state = active ? "oncenter" : "offcenter"
 
 
 /obj/machinery/gateway/centeraway/proc/detect()
@@ -228,17 +216,17 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 	for(var/obj/machinery/gateway/G in linked)
 		G.active = TRUE
-		G.update_icon()
+		G.update_icon(UPDATE_ICON_STATE)
 	active = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/gateway/centeraway/proc/toggleoff()
 	for(var/obj/machinery/gateway/G in linked)
 		G.active = FALSE
-		G.update_icon()
+		G.update_icon(UPDATE_ICON_STATE)
 	active = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/gateway/centeraway/attack_hand(mob/user as mob)

@@ -128,7 +128,7 @@
 	on = TRUE
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(initial(light_range))
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_controls()
 	diag_hud_set_botstat()
 	return 1
@@ -138,7 +138,7 @@
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(0)
 	bot_reset() //Resets an AI's call, should it exist.
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_controls()
 
 /mob/living/simple_animal/bot/New()
@@ -909,7 +909,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		bot_reset()
 		add_attack_logs(M, src, "Dehacked")
 
-/mob/living/simple_animal/bot/proc/update_icon()
+/mob/living/simple_animal/bot/update_icon_state()
 	icon_state = "[initial(icon_state)][on]"
 
 // Machinery to simplify topic and access calls
@@ -1001,7 +1001,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/revive(full_heal = 0, admin_revive = 0)
 	if(..())
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		. = 1
 
 /mob/living/simple_animal/bot/ghost()

@@ -66,12 +66,12 @@
 /obj/item/reagent_containers/proc/add_lid()
 	if(has_lid)
 		container_type ^= REFILLABLE | DRAINABLE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/proc/remove_lid()
 	if(has_lid)
 		container_type |= REFILLABLE | DRAINABLE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/attack_self(mob/user)
 	if(has_lid)

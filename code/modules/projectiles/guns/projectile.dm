@@ -22,14 +22,30 @@
 	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \
 			will tell you what caliber you need."
 
-/obj/item/gun/projectile/update_icon()
-	..()
+/obj/item/gun/projectile/update_name()
+	. = ..()
+	if(sawn_state)
+		name = "sawn-off [name]"
+	else
+		name = initial(name)
+
+/obj/item/gun/projectile/update_desc()
+	. = ..()
+	if(sawn_state)
+		desc = sawn_desc
+	else
+		desc = initial(desc)
+
+/obj/item/gun/projectile/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "_sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "_sawn" : ""]"
+
+/obj/item/gun/projectile/update_overlays()
+	. = ..()
 	if(bayonet && can_bayonet)
-		overlays += knife_overlay
+		. += knife_overlay
 
 /obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
@@ -201,14 +217,12 @@
 		if(sawn_state == SAWN_OFF)
 			return
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
-		name = "sawn-off [name]"
-		desc = sawn_desc
 		w_class = WEIGHT_CLASS_NORMAL
 		item_state = "gun"//phil235 is it different with different skin?
 		slot_flags &= ~SLOT_BACK	//you can't sling it on your back
 		slot_flags |= SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF
-		update_icon()
+		update_appearance()
 		return 1
 
 // Sawing guns related proc

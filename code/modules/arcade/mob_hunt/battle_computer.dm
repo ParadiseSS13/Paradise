@@ -32,12 +32,11 @@
 	..()
 	check_connection()
 
-/obj/machinery/computer/mob_battle_terminal/update_icon()
+/obj/machinery/computer/mob_battle_terminal/update_icon_state()
 	if(card)
 		icon_state = "mob_battle_loaded"
 	else
 		icon_state = "mob_battle_empty"
-	..()
 
 /obj/machinery/computer/mob_battle_terminal/Destroy()
 	eject_card(1)

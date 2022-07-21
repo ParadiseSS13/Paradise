@@ -322,8 +322,6 @@
 		status_overlays_environ[3] = image(icon, "apco2-2")
 		status_overlays_environ[4] = image(icon, "apco2-3")
 
-
-
 	var/update = check_updates() 		//returns 0 if no need to update icons.
 						// 1 if we need to update the icon_state
 						// 2 if we need to update the overlays
@@ -331,53 +329,54 @@
 		return
 
 	if(force_update || update & 1) // Updating the icon state
-		if(update_state & UPSTATE_ALLGOOD)
-			icon_state = "apc0"
-		else if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2))
-			var/basestate = "apc[ cell ? "2" : "1" ]"
-			if(update_state & UPSTATE_OPENED1)
-				if(update_state & (UPSTATE_MAINT|UPSTATE_BROKE))
-					icon_state = "apcmaint" //disabled APC cannot hold cell
-				else
-					icon_state = basestate
-			else if(update_state & UPSTATE_OPENED2)
-				icon_state = "[basestate]-nocover"
-		else if(update_state & UPSTATE_BROKE)
-			icon_state = "apc-b"
-		else if(update_state & UPSTATE_BLUESCREEN)
-			icon_state = "apcemag"
-		else if(update_state & UPSTATE_WIREEXP)
-			icon_state = "apcewires"
-
-
-
+		..(UPDATE_ICON_STATE)
+	
 	if(!(update_state & UPSTATE_ALLGOOD))
-		if(overlays.len)
-			overlays = 0
-			return
-
-
+		if(managed_overlays)
+			..(UPDATE_OVERLAYS)
+		return
 
 	if(force_update || update & 2)
+		..(UPDATE_OVERLAYS)
 
-		if(overlays.len)
-			overlays.len = 0
+/obj/machinery/power/apc/update_icon_state()
+	if(update_state & UPSTATE_ALLGOOD)
+		icon_state = "apc0"
+	else if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2))
+		var/basestate = "apc[ cell ? "2" : "1" ]"
+		if(update_state & UPSTATE_OPENED1)
+			if(update_state & (UPSTATE_MAINT|UPSTATE_BROKE))
+				icon_state = "apcmaint" //disabled APC cannot hold cell
+			else
+				icon_state = basestate
+		else if(update_state & UPSTATE_OPENED2)
+			icon_state = "[basestate]-nocover"
+	else if(update_state & UPSTATE_BROKE)
+		icon_state = "apc-b"
+	else if(update_state & UPSTATE_BLUESCREEN)
+		icon_state = "apcemag"
+	else if(update_state & UPSTATE_WIREEXP)
+		icon_state = "apcewires"
 
-		if(!(stat & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
-			overlays += status_overlays_lock[locked+1]
-			overlays += status_overlays_charging[charging+1]
-			if(operating)
-				overlays += status_overlays_equipment[equipment+1]
-				overlays += status_overlays_lighting[lighting+1]
-				overlays += status_overlays_environ[environ+1]
+/obj/machinery/power/apc/update_overlays()
+	. = ..()
+	if(!(update_state & UPSTATE_ALLGOOD))
+		return
 
+	if(!(stat & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
+		. += status_overlays_lock[locked+1]
+		. += status_overlays_charging[charging+1]
+		if(operating)
+			. += status_overlays_equipment[equipment+1]
+			. += status_overlays_lighting[lighting+1]
+			. += status_overlays_environ[environ+1]
 
 /obj/machinery/power/apc/proc/check_updates()
 
 	var/last_update_state = update_state
 	var/last_update_overlay = update_overlay
-	update_state = 0
-	update_overlay = 0
+	update_state = NONE
+	update_overlay = NONE
 
 	if(cell)
 		update_state |= UPSTATE_CELL_IN
@@ -456,6 +455,7 @@
 	if(!second_pass) //The first time, we just cut overlays
 		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.flicker, TRUE), 1)
 		cut_overlays()
+		managed_overlays = null
 		// APC power distruptions have a chance to propogate to other machines on its network
 		for(var/obj/machinery/M in area)
 			// Please don't cascade, thanks
@@ -763,7 +763,7 @@
 			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "<span class='notice'>You remove [cell].</span>")
 			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
-			cell.update_icon()
+			cell.update_icon(UPDATE_OVERLAYS)
 			cell = null
 			charging = APC_NOT_CHARGING
 			update_icon()

@@ -343,8 +343,11 @@
 	icon_state = "dorm_available"
 	density = FALSE
 
-/obj/machinery/computer/shuttle/pod/update_icon()
+/obj/machinery/computer/shuttle/pod/update_icon_state()
 	return
+
+/obj/machinery/computer/shuttle/pod/update_overlays()
+	return list()
 
 /obj/machinery/computer/shuttle/pod/emag_act(mob/user as mob)
 	to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
