@@ -25,38 +25,50 @@
 	if(!uses) //somehow?
 		qdel(src)
 		return
+
 	var/picked_area
 	picked_area = input(user, "Area to jump to", "Teleport where?", picked_area) as null|anything in SSmapping.teleportlocs
 	if(!picked_area)
 		return
+
 	var/area/thearea = SSmapping.teleportlocs[picked_area]
 	if(user.stat || user.restrained())
 		return
+
 	if(!(user == loc || (in_range(src, user) && isturf(get_turf(user)))))
 		return //They can't use it if they put it in their bag or drop it and walk off, but if they are stood next to it they can.
+
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station)) //Nowhere in SSmapping.teleportlocs should be tele_proof, but better safe than sorry
 		to_chat(user, "<span class='warning'>A mysterious force disrupts your arcane spell matrix, and you remain where you are.</span>")
 		return
+
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(5, 0, get_turf(user))
 	smoke.attach(user)
 	smoke.start()
 	var/list/L = list()
+
 	for(var/turf/T in get_area_turfs(thearea.type))
 		if(is_blocked_turf(T))
 			continue
 		L.Add(T)
+
 	if(!length(L))
 		to_chat(user, "<span class='warning'>The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.</span>")
 		return
+
 	if(user && user.buckled)
 		user.buckled.unbuckle_mob(user, force = TRUE)
+
 	if(user && user.has_buckled_mobs())
 		user.unbuckle_all_mobs(force = TRUE)
+
 	user.forceMove(pick(L))
 	smoke.start()
 	uses--
+
 	if(!uses)
 		to_chat(user, "<span class='warning'>The scroll fizzles out of existence as the last of the magic within fades.</span>")
 		qdel(src)
+
 	user.update_action_buttons_icon()  //Update action buttons as some spells might now be castable
