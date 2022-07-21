@@ -134,7 +134,6 @@
 		/obj/item/reagent_containers/hypospray/autoinjector,
 		/obj/item/reagent_containers/hypospray/CMO,
 		/obj/item/reagent_containers/hypospray/safety,
-		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
