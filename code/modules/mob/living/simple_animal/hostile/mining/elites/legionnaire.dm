@@ -152,7 +152,7 @@
 		visible_message("<span class='danger'>[src] tramples and kicks [L]!</span>")
 		to_chat(L, "<span class='userdanger'>[src] tramples you and kicks you away!</span>")
 		L.throw_at(throwtarget, 10, 1, src)
-		L.KnockDown(4 SECONDS)
+		L.KnockDown(1 SECONDS)
 		L.adjustBruteLoss(melee_damage_upper)
 	addtimer(CALLBACK(src, .proc/legionnaire_charge_2, move_dir, (times_ran + 1)), 0.7)
 
