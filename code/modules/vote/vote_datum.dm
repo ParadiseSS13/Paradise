@@ -1,4 +1,5 @@
-#define VOTE_RESULT_TYPE_MAJORITY "Majority"
+#define VOTE_COUNTING_MAJORITY "Majority"
+#define VOTE_COUNTING_TICKET "Ticket"
 
 /datum/vote
 	/// Person who started the vote
@@ -11,8 +12,8 @@
 	var/vote_type_text = "unset"
 	/// Do we want to show the vote counts as it goes
 	var/show_counts = FALSE
-	/// Vote result type. This determines how a winner is picked
-	var/vote_result_type = VOTE_RESULT_TYPE_MAJORITY
+	/// Vote counting algorithm. This determines how a winner is picked
+	var/vote_counting = VOTE_COUNTING_MAJORITY
 	/// Was this vote custom started?
 	var/is_custom = FALSE
 	/// Choices available in the vote
@@ -59,20 +60,31 @@
 
 // Returns the result
 /datum/vote/proc/calculate_result()
-	switch(vote_result_type)
-		if(VOTE_RESULT_TYPE_MAJORITY)
+	// Sanitize the votes first
+	for(var/ck in voted)
+		if(!(voted[ck] in choices))
+			stack_trace("Someone managed to cast a vote outside of presented options! The choices were [json_encode(choices)]; the vote is [voted[ck]]")
+			voted -= ck  // so that the following code doesn't get confused
+			continue
+
+	// Count up all votes
+	var/list/results = list()
+	for(var/choice in choices)
+		results[choice] = 0
+	for(var/ck in voted)
+		results[voted[ck]] += 1
+
+	// And log them to DB
+	if(!is_custom)
+		for(var/res in results)
+			SSblackbox.record_feedback("nested tally", "votes", results[res], list(vote_type_text, res), ignore_seal = TRUE)
+
+	// Here goes the actual winner selection code
+	switch(vote_counting)
+		if(VOTE_COUNTING_MAJORITY)
 			if(!length(voted))
 				to_chat(world, "<span class='interface'>No votes were cast. Do you all hate democracy?!</span>") // shame them
 				return null
-
-			var/list/results = list()
-
-			// Count up all votes
-			for(var/ck in voted)
-				if(voted[ck] in results)
-					results[voted[ck]]++
-				else
-					results[voted[ck]] = 1
 
 			// Get the biggest vote count, since we can also use this to pick tiebreaks
 			var/maxvotes = 0
@@ -94,10 +106,6 @@
 					// Make it normal
 					to_chat(world, "<span class='interface'><code>[res]</code> - [results[res]] vote\s</span>")
 
-				// And log it to the DB
-				if(!is_custom)
-					SSblackbox.record_feedback("nested tally", "votes", results[res], list(vote_type_text, res), ignore_seal = TRUE)
-
 			if(length(winning_options) > 1)
 				var/random_dictator = pick(winning_options)
 				to_chat(world, "<span class='interface'><b>Its a tie between [english_list(winning_options)]. Picking <code>[random_dictator]</code> at random.</b></span>") // shame them
@@ -106,15 +114,31 @@
 			// If we got here there must only be one thing in the list
 			var/res = winning_options[1]
 
-			if(res in choices)
-				to_chat(world, "<span class='interface'><b><code>[res]</code> won the vote.</b></span>")
-				return res
+			to_chat(world, "<span class='interface'><b><code>[res]</code> won the vote.</b></span>")
+			return res
 
-			to_chat(world, "<span class='interface'>The winner of the vote ([sanitize(res)]) isnt a valid choice? What the heck?</span>")
-			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(res)], choices were [json_encode(choices)]")
-			return null
+		if(VOTE_COUNTING_TICKET)
+			if(!length(voted))
+				to_chat(world, "<span class='interface'>No votes were cast. Do you all hate democracy?!</span>") // shame them
+				return null
 
+			var/lucky_winner_ck = pick(voted)
+			var/lucky_winner_vote = voted[lucky_winner_ck]
+			var/lucky_mob = get_mob_by_ckey(lucky_winner_ck)
+			lucky_winner_ck = safe_get_ckey(lucky_mob)  // anonymize, if requested
 
+			// Print all results
+			for(var/res in results)
+				var/percentage = round((results[res] * 100 / length(voted)), 0.1)
+				to_chat(world, "<span class='info'><code>[res]</code> - [results[res]] vote\s ([percentage]%)</span>")
+			// And then the winner
+			to_chat(world, "<span class='interface'>Reaching into the bag of votes to draw one at random...</span>")
+			to_chat(world, "<span class='interface'>...and the lucky winner is <b><code>[lucky_winner_vote]</code></b>! (ticket cast by [lucky_mob] ([lucky_winner_ck]))</span>")
+
+			if(!is_custom)
+				SSblackbox.record_feedback("text", "vote_winner", 1, lucky_winner_vote, ignore_seal = TRUE)
+
+			return lucky_winner_vote
 
 /datum/vote/proc/announce(start_text)
 	to_chat(world, {"<font color='purple'><b>[start_text]</b>

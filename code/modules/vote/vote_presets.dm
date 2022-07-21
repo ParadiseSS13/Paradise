@@ -17,6 +17,8 @@
 /datum/vote/map
 	question = "Map Vote"
 	vote_type_text = "map"
+	vote_counting = VOTE_COUNTING_TICKET
+	show_counts = TRUE
 
 /datum/vote/map/generate_choices()
 	for(var/x in subtypesof(/datum/map))
