@@ -66,11 +66,13 @@
 	else if(A == loaded_pill_bottle)
 		loaded_pill_bottle = null
 
-/obj/machinery/chem_master/update_icon()
-	overlays.Cut()
+/obj/machinery/chem_master/update_icon_state()
 	icon_state = "mixer[beaker ? "1" : "0"][powered() ? "" : "_nopower"]"
+
+/obj/machinery/chem_master/update_overlays()
+	. = ..()
 	if(powered())
-		overlays += "waitlight"
+		. += "waitlight"
 
 /obj/machinery/chem_master/blob_act(obj/structure/blob/B)
 	if(prob(50))

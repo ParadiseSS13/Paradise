@@ -167,7 +167,7 @@
 		user << browse("<body bgcolor='[book_bgcolor]'>[dat]<br>" + "[pages[current_page]]", "window=book[UID()]")
 
 /obj/item/book/Topic(href, href_list)
-	if(..())
+	if(..() || isobserver(usr))
 		return
 	if(href_list["next_page"])
 		if(current_page > length(pages)) //should never be false, but just in-case
