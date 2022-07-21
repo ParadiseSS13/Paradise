@@ -525,8 +525,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						dat += "</tr>"
 						dat += "<tr>"
 						dat += "<td style='width: 25%'>[custom_emote.emote_text]</td>"
-						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote.UID()]'>Change Text</a></td>"
-						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote.UID()]'>Reset to Default</a></td>"
+						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote.UID()];'>Change Text</a></td>"
+						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote.UID()];'>Reset to Default</a></td>"
 						dat += "<tr><td colspan=4><br></td></tr>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
@@ -689,10 +689,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			overrides = list()
 	custom_emote_text = list()
 	custom_emote_text = overrides
-	for(var/kb in GLOB.keybindings)
-		var/datum/keybinding/custom/custom_emote = kb
-		var/list/emote_text = overrides && overrides[custom_emote.name]
-		LAZYADD(custom_emote_text[emote_text], kb)
+	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
+		var/emote_text = overrides && overrides[custom_emote.name]
+		if(!emote_text)
+			continue
+		custom_emote_text[custom_emote.name] = emote_text
+		custom_emote.emote_text = emote_text
 
 	return custom_emote_text
 

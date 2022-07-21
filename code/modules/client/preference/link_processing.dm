@@ -1074,6 +1074,9 @@
 					if(!keybindings_overrides)
 						keybindings_overrides = list()
 
+					if(!custom_emote_text)
+						custom_emote_text = list()
+
 					if(href_list["set"])
 						var/datum/keybinding/KB = locateUID(href_list["set"])
 						if(KB)
