@@ -2,8 +2,8 @@
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dyeable = TRUE
 
-/obj/item/clothing/under/color/random/New()
-	..()
+/obj/item/clothing/under/color/random/Initialize(mapload)
+	. = ..()
 	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color/blackf, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball, /obj/item/clothing/under/color/red/jersey, /obj/item/clothing/under/color/blue/jersey)
 	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - excluded)
 	name = initial(C.name)
@@ -56,7 +56,7 @@
 
 /obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	owner.forcesay(GLOB.hit_appends)
-	return 0
+	return
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
@@ -72,7 +72,7 @@
 	item_state = "prisoner"
 	item_color = "prisoner"
 	has_sensor = 2
-	sensor_mode = 3
+	sensor_mode = SENSOR_COORDS
 
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"

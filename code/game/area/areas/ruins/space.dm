@@ -24,7 +24,7 @@
 // Old tcommsat
 /area/ruin/space/tcommsat
 	name = "Telecommunications Satellite"
-	icon_state = "tcomsatcham"
+	icon_state = "tcomms"
 
 // Ruins of "onehalf" ship
 /area/ruin/space/onehalf/hallway
@@ -104,11 +104,11 @@
 
 /area/ruin/space/derelict/solar_control
 	name = "\improper Derelict Solar Control"
-	icon_state = "engine"
+	icon_state = "GENsolar"
 
 /area/ruin/space/derelict/se_solar
 	name = "South East Solars"
-	icon_state = "engine"
+	icon_state = "GENsolar"
 
 /area/ruin/space/derelict/crew_quarters
 	name = "\improper Derelict Crew Quarters"
