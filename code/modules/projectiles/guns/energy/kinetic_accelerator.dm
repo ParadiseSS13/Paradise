@@ -149,19 +149,18 @@
 	update_icon()
 	overheat = FALSE
 
-/obj/item/gun/energy/kinetic_accelerator/update_icon()
-	cut_overlays()
+/obj/item/gun/energy/kinetic_accelerator/update_overlays()
+	. = ..()
 	if(empty_state && !can_shoot())
-		add_overlay(empty_state)
+		. += empty_state
 
 	if(gun_light && can_flashlight)
 		var/iconF = "flight"
 		if(gun_light.on)
 			iconF = "flight_on"
-		add_overlay(image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset))
+		. +=  image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 	if(bayonet && can_bayonet)
-		add_overlay(knife_overlay)
-
+		. += knife_overlay
 
 /obj/item/gun/energy/kinetic_accelerator/experimental
 	name = "experimental kinetic accelerator"

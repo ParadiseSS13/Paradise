@@ -25,9 +25,9 @@
 		turn_on(user)
 	else
 		turn_off(user)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/clothing/head/hardhat/update_icon()
+/obj/item/clothing/head/hardhat/update_icon_state()
 	icon_state = "hardhat[on]_[item_color]"
 	item_state = "hardhat[on]_[item_color]"
 	if(ishuman(loc))
@@ -36,7 +36,6 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
-	..()
 
 /obj/item/clothing/head/hardhat/proc/turn_on(mob/user)
 	set_light(brightness_on)
@@ -48,7 +47,7 @@
 	if(on)
 		on = FALSE
 		turn_off(user)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/clothing/head/hardhat/orange

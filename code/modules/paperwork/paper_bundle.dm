@@ -11,7 +11,8 @@
 	layer = 4
 	pressure_resistance = 2
 	attack_verb = list("bapped")
-	var/amount = 0 //Amount of items clipped to the paper. Note: If you have 2 paper, this should be 1
+	var/amount = 0 //Amount of total items clipped to the paper. Note: If you have 2 paper, this should be 1
+	var/photos = 0 //Amount of photos clipped to the paper.
 	var/page = 1
 	var/screen = 0
 
@@ -46,6 +47,7 @@
 			H.update_inv_r_hand()
 	else if(istype(W, /obj/item/photo))
 		amount++
+		photos++
 		if(screen == 2)
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
@@ -216,40 +218,42 @@
 	qdel(src)
 	return
 
-
-/obj/item/paper_bundle/update_icon()
-	..()
-	if(contents.len)
-		var/obj/item/paper/P = src[1]
-		icon_state = P.icon_state
-		overlays = P.overlays
-	underlays = 0
-	var/i = 0
-	var/photo
-	for(var/obj/O in src)
-		var/image/img = image('icons/obj/bureaucracy.dmi')
-		if(istype(O, /obj/item/paper))
-			img.icon_state = O.icon_state
-			img.pixel_x -= min(1*i, 2)
-			img.pixel_y -= min(1*i, 2)
-			pixel_x = min(0.5*i, 1)
-			pixel_y = min(  1*i, 2)
-			underlays += img
-			i++
-		else if(istype(O, /obj/item/photo))
-			var/obj/item/photo/Ph = O
-			img = Ph.tiny
-			photo++
-			overlays += img
-	if(i > 1)
-		desc =  "[i] papers clipped to each other."
+/obj/item/paper_bundle/update_desc()
+	. = ..()
+	if(amount == photos)
+		desc = "There are [photos] photos clipped together." // In case you clip 2 photos together and remove the paper
+		return
+	else if((amount - photos) > 1)
+		desc = "[amount - photos] papers clipped to each other."
 	else
 		desc = "A single sheet of paper."
-	if(photo)
-		if(photo == 1)
+	if(photos)
+		if(photos == 1)
 			desc += "\nThere is a photo attached to it."
 		else
-			desc += "\nThere are [photo] photos attached to it."
+			desc += "\nThere are [photos] photos attached to it."
 
-	overlays += image('icons/obj/bureaucracy.dmi', "clip")
-	return
+/obj/item/paper_bundle/update_icon_state()
+	if(contents.len)
+		var/obj/item/paper/P = src[1]
+		icon_state = P.overlays
+
+/obj/item/paper_bundle/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(contents.len)
+		var/obj/item/paper/P = src[1]
+		. += P.overlays
+	for(var/obj/O in src)
+		var/image/sheet = image('icons/obj/bureaucracy.dmi')
+		if(istype(O, /obj/item/paper))
+			sheet.icon_state = O.icon_state
+			sheet.pixel_x -= min(1 * amount, 2)
+			sheet.pixel_y -= min(1 * amount, 2)
+			pixel_x = min(0.5 * amount, 1)
+			pixel_y = min(1 * amount, 2)
+			. += sheet
+		else if(istype(O, /obj/item/photo))
+			var/obj/item/photo/picture = O
+			. += picture.tiny
+	. += "clip"

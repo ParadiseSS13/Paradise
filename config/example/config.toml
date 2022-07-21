@@ -796,12 +796,6 @@ centcomm_ban_db_url = "https://centcom.melonmesa.com/ban/search/"
 [voting_configuration]
 # This section contains all settings relating to the ingame voting system
 
-# Allow players to vote for a round restart?
-allow_vote_restart = false
-# Allow players to vote for a gamemode in lobby?
-allow_vote_mode = false
-# Minimum delay between each vote (deciseconds)
-vote_delay = 18000
 # Time that a vote will last for (deciseconds)
 vote_time = 600
 # Time before the first auto crew transfer vote (deciseconds)

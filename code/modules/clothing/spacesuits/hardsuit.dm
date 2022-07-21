@@ -341,7 +341,7 @@
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDETAIL
 	visor_flags = STOPSPRESSUREDMAGE
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon_state()
 	icon_state = "hardsuit[on]-[item_color]"
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/New()
@@ -417,7 +417,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 
-/obj/item/clothing/suit/space/hardsuit/syndi/update_icon()
+/obj/item/clothing/suit/space/hardsuit/syndi/update_icon_state()
 	icon_state = "hardsuit[on]-[item_color]"
 
 //Elite Syndie suit
@@ -462,7 +462,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
 	sprite_sheets = null
 
-/obj/item/clothing/suit/space/hardsuit/syndi/freedom/update_icon()
+/obj/item/clothing/suit/space/hardsuit/syndi/freedom/update_icon_state()
 	return
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
@@ -472,7 +472,7 @@
 	item_state = "griffinhat"
 	sprite_sheets = null
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon_state()
 	return
 
 //Medical hardsuit

@@ -523,19 +523,18 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	mess = TRUE
 	update_icon()
 
-/obj/machinery/clonepod/update_icon()
-	..()
-	cut_overlays()
-
-	if(panel_open)
-		add_overlay("panel_open")
-
+/obj/machinery/clonepod/update_icon_state()
 	if(occupant && !(stat & NOPOWER))
 		icon_state = "pod_cloning"
 	else if(mess)
 		icon_state = "pod_mess"
 	else
 		icon_state = "pod_idle"
+
+/obj/machinery/clonepod/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += "panel_open"
 
 /obj/machinery/clonepod/relaymove(mob/user)
 	if(user.stat == CONSCIOUS)

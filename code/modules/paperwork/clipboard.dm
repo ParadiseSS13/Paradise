@@ -76,22 +76,21 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/clipboard/update_icon()
-	overlays.Cut()
+/obj/item/clipboard/update_overlays()
+	. = ..()
 	if(toppaper)
-		overlays += toppaper.icon_state
-		overlays += toppaper.overlays
+		. += toppaper.icon_state
+		. += toppaper.overlays
 	if(containedpen)
-		overlays += "clipboard_pen"
+		. += "clipboard_pen"
 	for(var/obj/O in src)
 		if(istype(O, /obj/item/photo))
 			var/image/img = image('icons/obj/bureaucracy.dmi')
 			var/obj/item/photo/Ph = O
 			img = Ph.tiny
-			overlays += img
+			. += img
 			break
-	overlays += "clipboard_over"
-	..()
+	. += "clipboard_over"
 
 /obj/item/clipboard/attackby(obj/item/W, mob/user)
 	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.

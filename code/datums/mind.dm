@@ -1872,17 +1872,17 @@
 	..()
 	mind.assigned_role = "Shade"
 
-/mob/living/simple_animal/construct/builder/mind_initialize()
+/mob/living/simple_animal/hostile/construct/builder/mind_initialize()
 	..()
 	mind.assigned_role = "Artificer"
 	mind.special_role = SPECIAL_ROLE_CULTIST
 
-/mob/living/simple_animal/construct/wraith/mind_initialize()
+/mob/living/simple_animal/hostile/construct/wraith/mind_initialize()
 	..()
 	mind.assigned_role = "Wraith"
 	mind.special_role = SPECIAL_ROLE_CULTIST
 
-/mob/living/simple_animal/construct/armoured/mind_initialize()
+/mob/living/simple_animal/hostile/construct/armoured/mind_initialize()
 	..()
 	mind.assigned_role = "Juggernaut"
 	mind.special_role = SPECIAL_ROLE_CULTIST

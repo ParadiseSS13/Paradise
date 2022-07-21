@@ -134,7 +134,7 @@
 				A.cell.forceMove(src)
 				A.cell = null
 
-				A.charging = 0
+				A.charging = APC_NOT_CHARGING
 				A.update_icon()
 
 				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
