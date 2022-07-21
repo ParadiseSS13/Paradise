@@ -70,20 +70,6 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/monkeyburger
 
-/datum/recipe/microwave/brainburger
-	items = list(
-		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/organ/internal/brain
-	)
-	result = /obj/item/reagent_containers/food/snacks/brainburger
-
-/datum/recipe/microwave/roburger
-	items = list(
-		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/robot_parts/head
-	)
-	result = /obj/item/reagent_containers/food/snacks/roburger
-
 /datum/recipe/microwave/xenoburger
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
