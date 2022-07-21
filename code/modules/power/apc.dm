@@ -330,7 +330,7 @@
 
 	if(force_update || update & 1) // Updating the icon state
 		..(UPDATE_ICON_STATE)
-	
+
 	if(!(update_state & UPSTATE_ALLGOOD))
 		if(managed_overlays)
 			..(UPDATE_OVERLAYS)
@@ -915,8 +915,6 @@
 		)
 			if(!loud)
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
-				user << browse(null, "window=apc")
-				user.unset_machine()
 			return FALSE
 	else
 		if((!in_range(src, user) || !istype(loc, /turf)))
