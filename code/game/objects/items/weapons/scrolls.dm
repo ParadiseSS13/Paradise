@@ -23,6 +23,7 @@
 
 /obj/item/teleportation_scroll/attack_self(mob/user)
 	if(!uses) //somehow?
+		qdel(src)
 		return
 	var/picked_area
 	picked_area = input(user, "Area to jump to", "Teleport where?", picked_area) as null|anything in SSmapping.teleportlocs
