@@ -377,6 +377,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/dice/d20/e20
 	cost = 3
 	job = list("Librarian")
+	surplus = 0
+	hijack_only = TRUE
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
