@@ -16,6 +16,8 @@
 	var/page = 1
 	var/screen = 0
 	gender = NEUTER
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 
 /obj/item/paper_bundle/New(default_papers = TRUE)
 	. = ..()
@@ -72,7 +74,7 @@
 		P = src[page]
 		P.attackby(W, user, params)
 
-	update_overlays()
+	update_icon()
 	if(winget(usr, "PaperBundle[UID()]", "is-visible") == "true") // NOT MY FAULT IT IS A BUILT IN PROC PLEASE DO NOT HIT ME
 		attack_self(usr) //Update the browsed page.
 	add_fingerprint(usr)
@@ -141,7 +143,6 @@
 /obj/item/paper_bundle/attack_self(mob/user as mob)
 	src.show_content(user)
 	add_fingerprint(usr)
-	update_overlays()
 	return
 
 /obj/item/paper_bundle/Topic(href, href_list)
@@ -188,7 +189,7 @@
 				page--
 
 			amount--
-			update_overlays()
+			update_icon()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
 	if((istype(loc, /mob)) || (istype(loc, /obj/item/folder) || (istype(loc, /obj/item/clipboard))))
@@ -228,11 +229,11 @@
 
 /obj/item/paper_bundle/update_desc()
 	. = ..()
-	if(amount == photos)
+	if(amount == (photos - 1))
 		desc = "There are [photos] photos clipped together." // In case you clip 2 photos together and remove the paper
 		return
-	else if((amount + 1 - photos) >= 2)// extra papers + original paper - photos
-		desc = "[amount + 1 - photos] papers clipped to each other."
+	else if(((amount + 1) - photos) >= 2) // extra papers + original paper - photos
+		desc = "[(amount + 1) - photos] papers clipped to each other."
 	else
 		desc = "A single sheet of paper."
 	if(photos)
@@ -242,28 +243,32 @@
 			desc += "\nThere are [photos] photos attached to it."
 
 /obj/item/paper_bundle/update_icon_state()
-	if(contents.len)
+	if(length(contents))
 		var/obj/item/paper/P = src[1]
-		icon_state = P.overlays
+		icon_state = P.icon_state // must have an icon_state to show up on clipboards
 
 /obj/item/paper_bundle/update_overlays()
 	. = ..()
 	underlays.Cut()
-	if(contents.len)
+	if(length(contents))
 		var/obj/item/paper/P = src[1]
 		. += P.overlays
+	var/counter = 0
 	for(var/obj/O in src)
 		var/image/sheet = image('icons/obj/bureaucracy.dmi')
 		if(istype(O, /obj/item/paper))
+			if(length(underlays) == 3)
+				continue
 			sheet.icon_state = O.icon_state
-			sheet.pixel_x -= min(1 * amount, 2)
-			sheet.pixel_y -= min(1 * amount, 2)
-			pixel_x = min(0.5 * amount, 1)
-			pixel_y = min(1 * amount, 2)
+			sheet.pixel_x -= min(1 * counter, 2)
+			sheet.pixel_y -= min(1 * counter, 2)
+			pixel_x = min(0.5 * counter, 1)
+			pixel_y = min(1 * counter, 2)
 			underlays += sheet
+			counter++
 		else if(istype(O, /obj/item/photo))
 			var/obj/item/photo/picture = O
-			. += picture.tiny
+			sheet = picture.tiny
+			. += sheet
 	. += "clip"
-	update_icon_state()
 	update_desc()

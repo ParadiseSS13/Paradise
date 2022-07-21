@@ -124,6 +124,7 @@
 	storage_slots = 14
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/book_pickup.ogg'
+	use_sound = ""
 
 /obj/item/storage/photo_album/MouseDrop(obj/over_object as obj)
 
