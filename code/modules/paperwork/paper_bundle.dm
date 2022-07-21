@@ -15,6 +15,7 @@
 	var/photos = 0 //Amount of photos clipped to the paper.
 	var/page = 1
 	var/screen = 0
+	gender = NEUTER
 
 /obj/item/paper_bundle/New(default_papers = TRUE)
 	. = ..()
@@ -71,13 +72,11 @@
 		P = src[page]
 		P.attackby(W, user, params)
 
-
-	update_icon()
+	update_overlays()
 	if(winget(usr, "PaperBundle[UID()]", "is-visible") == "true") // NOT MY FAULT IT IS A BUILT IN PROC PLEASE DO NOT HIT ME
 		attack_self(usr) //Update the browsed page.
 	add_fingerprint(usr)
 	return
-
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
@@ -142,7 +141,7 @@
 /obj/item/paper_bundle/attack_self(mob/user as mob)
 	src.show_content(user)
 	add_fingerprint(usr)
-	update_icon()
+	update_overlays()
 	return
 
 /obj/item/paper_bundle/Topic(href, href_list)
@@ -176,6 +175,11 @@
 				usr.unEquip(src)
 				usr.put_in_hands(P)
 				usr.unset_machine() // Ensure the bundle GCs
+				for(var/obj/O in src) // just in case we somehow lose something (it's happened)
+					O.loc = usr.loc
+					O.layer = initial(O.layer)
+					O.plane = initial(O.plane)
+					O.add_fingerprint(usr)
 				qdel(src)
 				return
 			else if(page == amount)
@@ -184,12 +188,16 @@
 				page--
 
 			amount--
-			update_icon()
+			update_overlays()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
 	if((istype(loc, /mob)) || (istype(loc, /obj/item/folder) || (istype(loc, /obj/item/clipboard))))
 		src.attack_self(usr)
 		updateUsrDialog()
+
+/obj/item/paper_bundle/AltClick(mob/user)
+	if(is_pen(user.get_active_hand()))
+		rename()
 
 /obj/item/paper_bundle/verb/rename()
 	set name = "Rename bundle"
@@ -223,8 +231,8 @@
 	if(amount == photos)
 		desc = "There are [photos] photos clipped together." // In case you clip 2 photos together and remove the paper
 		return
-	else if((amount - photos) > 1)
-		desc = "[amount - photos] papers clipped to each other."
+	else if((amount + 1 - photos) >= 2)// extra papers + original paper - photos
+		desc = "[amount + 1 - photos] papers clipped to each other."
 	else
 		desc = "A single sheet of paper."
 	if(photos)
@@ -252,8 +260,10 @@
 			sheet.pixel_y -= min(1 * amount, 2)
 			pixel_x = min(0.5 * amount, 1)
 			pixel_y = min(1 * amount, 2)
-			. += sheet
+			underlays += sheet
 		else if(istype(O, /obj/item/photo))
 			var/obj/item/photo/picture = O
 			. += picture.tiny
 	. += "clip"
+	update_icon_state()
+	update_desc()

@@ -74,6 +74,10 @@
 	else
 		. += "<span class='notice'>You don't know how to read.</span>"
 
+/obj/item/paper/AltClick(mob/user)
+	if(is_pen(user.get_active_hand()))
+		rename()
+
 /obj/item/paper/proc/show_content(mob/user, forceshow = 0, forcestars = 0, infolinks = 0, view = 1)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
 	assets.send(user)
