@@ -79,10 +79,8 @@
 /obj/machinery/disco/update_overlays()
 	. = ..()
 	underlays.Cut()
-	set_light(0)
 
 	if(active)
-		set_light(1, LIGHTING_MINIMUM_POWER)
 		underlays += emissive_appearance(icon, "disco_lightmask")
 
 /obj/machinery/disco/attack_hand(mob/user)
@@ -135,6 +133,7 @@
 					return
 				active = TRUE
 				update_icon()
+				set_light(1, LIGHTING_MINIMUM_POWER) //for emmisive appearance
 				dance_setup()
 				START_PROCESSING(SSobj, src)
 				lights_spin()
@@ -490,6 +489,7 @@
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		update_icon()
+		set_light(0)
 		stop = world.time + 100
 
 
