@@ -270,7 +270,6 @@
 
 	var/new_display
 
-	cut_overlays()
 	underlays.Cut()
 
 	if(stat & NOPOWER)

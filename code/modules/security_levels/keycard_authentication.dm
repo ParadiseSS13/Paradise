@@ -28,10 +28,10 @@
 /obj/machinery/keycard_auth/update_icon_state()
 	. = ..()
 
-	icon_state = "auth_off"
-
 	if(event_triggered_by || event_source)
 		icon_state = "auth_on"
+	else
+		icon_state = "auth_off"
 
 /obj/machinery/keycard_auth/update_overlays()
 	. = ..()
@@ -138,7 +138,7 @@
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	update_icon()
-	set_light(1,0.1)
+	set_light(1, 0.1)
 	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
 		if(KA == src) continue
 		KA.reset()

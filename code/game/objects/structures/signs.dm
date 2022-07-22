@@ -19,11 +19,11 @@
 /obj/structure/sign/update_overlays()
 	. = ..()
 
+	underlays.Cut()
 	if(!does_emissive)
 		return
-	underlays.Cut()
 
-	underlays |= emissive_appearance(icon,"[icon_state]_lightmask")
+	underlays += emissive_appearance(icon,"[icon_state]_lightmask")
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

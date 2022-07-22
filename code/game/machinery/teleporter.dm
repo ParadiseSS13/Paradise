@@ -481,21 +481,18 @@
 		use_power(5000)
 		if(tele_delay)
 			recalibrating = TRUE
-			update_icon(UPDATE_ICON_STATE)
-			update_icon(UPDATE_OVERLAYS)
+			update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 			update_lighting()
 			addtimer(CALLBACK(src, .proc/BumpedCallback), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE
-	update_icon(UPDATE_ICON_STATE)
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_lighting()
 
 /obj/machinery/teleport/perma/power_change()
 	..()
-	update_icon(UPDATE_ICON_STATE)
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_lighting()
 
 /obj/machinery/teleport/perma/update_icon_state()
@@ -620,8 +617,7 @@
 
 /obj/machinery/teleport/station/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", I))
-		update_icon(UPDATE_ICON_STATE)
-		update_icon(UPDATE_OVERLAYS)
+		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 		return TRUE
 
 /obj/machinery/teleport/station/wirecutter_act(mob/user, obj/item/I)
