@@ -99,7 +99,7 @@
 	var/h_grad_colour = "#000000"
 	var/h_grad_alpha = 255
 	/// Custom emote text ("name" = "emote text")
-	var/list/custom_emote_text = null
+	var/list/custom_emotes = list()
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
@@ -243,7 +243,7 @@
 						"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
 						"h_grad_colour" = h_grad_colour,
 						"h_grad_alpha" = h_grad_alpha,
-						"custom_emotes" = json_encode(custom_emote_text),
+						"custom_emotes" = json_encode(custom_emotes),
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -369,7 +369,7 @@
 		"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
 		"h_grad_colour" = h_grad_colour,
 		"h_grad_alpha" = h_grad_alpha,
-		"custom_emotes" = json_encode(custom_emote_text),
+		"custom_emotes" = json_encode(custom_emotes),
 	))
 
 	if(!query.warn_execute())
@@ -454,7 +454,7 @@
 	h_grad_offset_x = query.item[52] // parsed down below
 	h_grad_colour = query.item[53]
 	h_grad_alpha = query.item[54]
-	custom_emote_text = query.item[55]
+	custom_emotes = query.item[55]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -526,9 +526,9 @@
 		h_grad_offset_y = text2num(expl[2]) || 0
 	h_grad_colour = sanitize_hexcolor(h_grad_colour)
 	h_grad_alpha = sanitize_integer(h_grad_alpha, 0, 255, initial(h_grad_alpha))
-	custom_emote_text = sanitize_json(custom_emote_text)
-	custom_emote_text = init_custom_emote_text(custom_emote_text)
 	loadout_gear = sanitize_json(loadout_gear)
+	custom_emotes = sanitize_json(custom_emotes)
+	custom_emotes = init_custom_emotes(custom_emotes)
 
 	if(!player_alt_titles)
 		player_alt_titles = new()
@@ -2095,14 +2095,14 @@
 	from_db = FALSE
 	return TRUE
 
-/datum/character_save/proc/init_custom_emote_text(overrides)
-	custom_emote_text = list()
-	custom_emote_text = overrides
+/datum/character_save/proc/init_custom_emotes(overrides)
+	custom_emotes = overrides
 	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
 		var/emote_text = overrides && overrides[custom_emote.name]
 		if(!emote_text)
-			continue
-		custom_emote_text[custom_emote.name] = emote_text
+			custom_emote.emote_text = initial(custom_emote.emote_text)
+			continue //we set anything without an override back to default, in case it isn't that
+		custom_emotes[custom_emote.name] = emote_text
 		custom_emote.emote_text = emote_text
 
-	return custom_emote_text
+	return custom_emotes
