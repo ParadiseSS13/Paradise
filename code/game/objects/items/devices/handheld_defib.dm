@@ -9,8 +9,14 @@
 	belt_icon = "defib"
 
 	var/icon_base = "defib"
+	///Can the defib shock yet?
 	var/cooldown = FALSE
-	var/charge_time = 100
+	///How long will it take to recharge after a shock?
+	var/charge_time = 10 SECONDS
+	///How long until we can attack the same person with any emagged handheld defib or baton again?
+	var/attack_cooldown = 3.5 SECONDS
+	///How long does this knock the target down for?
+	var/knockdown_duration = 10 SECONDS
 
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)
@@ -32,7 +38,26 @@
 		to_chat(user, "<span class='warning'>[src] is still charging!</span>")
 		return
 
-	if(emagged || (H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
+	if(emagged)
+		var/user_UID = user.UID()
+		if(HAS_TRAIT_FROM(H, TRAIT_WAS_BATONNED, user_UID)) // no following up with baton or dual wielding defibs for stunlock cheese purposes
+			return
+
+		user.visible_message("<span class='danger'>[user] violently shocks [H] with [src]!</span>", "<span class='danger'>You violently shock [H] with [src]!</span>")
+		add_attack_logs(user, H, "emag-defibbed with [src]")
+		playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
+		H.KnockDown(knockdown_duration)
+		H.adjustStaminaLoss(60)
+		SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
+		ADD_TRAIT(H, TRAIT_WAS_BATONNED, user_UID)
+		cooldown = TRUE
+		icon_state = "[icon_base]-shock"
+		addtimer(CALLBACK(src, .proc/allowhit, H, user_UID), attack_cooldown)
+		addtimer(CALLBACK(src, .proc/short_charge), 1 SECONDS)
+		addtimer(CALLBACK(src, .proc/recharge), charge_time)
+		return
+
+	if((H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
 		user.visible_message("<span class='notice'>[user] shocks [H] with [src].</span>", "<span class='notice'>You shock [H] with [src].</span>")
 		add_attack_logs(user, H, "defibrillated with [src]")
 		playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
@@ -57,17 +82,16 @@
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 
-			if(emagged && prob(10))
-				to_chat(user, "<span class='danger'>[src]'s on board scanner indicates that the target is undergoing a cardiac arrest!</span>")
-				H.set_heartattack(TRUE)
-
 		cooldown = TRUE
 		icon_state = "[icon_base]-shock"
-		addtimer(CALLBACK(src, .proc/short_charge), 10)
+		addtimer(CALLBACK(src, .proc/short_charge), 1 SECONDS)
 		addtimer(CALLBACK(src, .proc/recharge), charge_time)
 
 	else
 		to_chat(user, "<span class='notice'>[src]'s on board medical scanner indicates that no shock is required.</span>")
+
+/obj/item/handheld_defibrillator/proc/allowhit(mob/living/target, user_UID)
+	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
 /obj/item/handheld_defibrillator/proc/short_charge()
 	icon_state = "[icon_base]-off"

@@ -4,8 +4,8 @@
 	desc = "A little cleaning robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "cleanbot0"
-	density = 0
-	anchored = 0
+	density = FALSE
+	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	radio_channel = "Service" //Service
@@ -20,7 +20,7 @@
 	path_image_color = "#993299"
 
 
-	var/blood = 1
+	var/blood = TRUE
 	var/list/target_types = list()
 	var/obj/effect/decal/cleanable/target
 	var/max_targets = 50 //Maximum number of targets a cleanbot can ignore.
@@ -164,19 +164,19 @@
 		target_types += /obj/effect/decal/cleanable/trail_holder
 
 /mob/living/simple_animal/bot/cleanbot/proc/clean(obj/effect/decal/cleanable/target)
-	anchored = 1
+	anchored = TRUE
 	icon_state = "cleanbot-c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
 	spawn(50)
 		if(mode == BOT_CLEANING)
 			QDEL_NULL(target)
-			anchored = 0
+			anchored = FALSE
 		mode = BOT_IDLE
 		icon_state = "cleanbot[on]"
 
 /mob/living/simple_animal/bot/cleanbot/explode()
-	on = 0
+	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/reagent_containers/glass/bucket(Tsec)

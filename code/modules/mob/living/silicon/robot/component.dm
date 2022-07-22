@@ -3,8 +3,8 @@
 /datum/robot_component
 	var/name = "Component"
 	var/installed = FALSE
-	var/powered = 1
-	var/toggled = 1
+	var/powered = TRUE
+	var/toggled = TRUE
 	var/brute_damage = 0
 	var/electronics_damage = 0
 	var/max_damage = 30
@@ -80,10 +80,10 @@
 	return isnull(wrapped)
 
 /datum/robot_component/proc/consume_power()
-	if(toggled == 0)
-		powered = 0
+	if(!toggled)
+		powered = FALSE
 		return
-	powered = 1
+	powered = TRUE
 
 	SStgui.update_uis(owner.self_diagnosis)
 

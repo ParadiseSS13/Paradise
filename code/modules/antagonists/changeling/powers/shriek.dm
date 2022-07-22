@@ -28,7 +28,7 @@
 			M.Weaken(rand(10 SECONDS, 20 SECONDS))
 
 	for(var/obj/machinery/light/L in range(4, user))
-		L.on = 1
+		L.on = TRUE
 		L.break_light_tube()
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
@@ -45,7 +45,7 @@
 //A flashy ability, good for crowd control and sewing chaos.
 /datum/action/changeling/dissonant_shriek/sting_action(mob/user)
 	for(var/obj/machinery/light/L in range(5, usr))
-		L.on = 1
+		L.on = TRUE
 		L.break_light_tube()
 	empulse(get_turf(user), 2, 4, 1)
 	return TRUE

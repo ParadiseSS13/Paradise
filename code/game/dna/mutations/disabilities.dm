@@ -72,15 +72,13 @@
 	name = "Tourettes"
 	activation_messages = list("You twitch.")
 	deactivation_messages = list("Your mouth tastes like soap.")
-	instability = -GENE_INSTABILITY_MODERATE
 
 /datum/mutation/disability/tourettes/New()
 	..()
 	block = GLOB.twitchblock
 
 /datum/mutation/disability/tourettes/on_life(mob/living/carbon/human/H)
-	if((prob(10) && H.AmountParalyzed() <= 1))
-		H.Stun(20 SECONDS)
+	if(prob(10))
 		switch(rand(1, 3))
 			if(1)
 				H.emote("twitch")

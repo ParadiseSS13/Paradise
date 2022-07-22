@@ -182,7 +182,12 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
+	var/mass_teleporting = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/bluespace
+
+/obj/effect/anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE)
+	. = ..()
+	mass_teleporting = _mass_teleporting
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
@@ -194,6 +199,8 @@
 		do_teleport(AM, locate(AM.x, AM.y, AM.z), 8)
 
 /obj/effect/anomaly/bluespace/detonate()
+	if(!mass_teleporting)
+		return
 	var/turf/T = pick(get_area_turfs(impact_area))
 	if(T)
 		// Calculate new position (searches through beacons in world)
@@ -257,7 +264,12 @@
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
 	var/ticks = 0
+	var/produces_slime = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/pyro
+
+/obj/effect/anomaly/pyro/Initialize(mapload, new_lifespan, drops_core = TRUE, _produces_slime = TRUE)
+	. = ..()
+	produces_slime = _produces_slime
 
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
@@ -271,7 +283,8 @@
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
 
 /obj/effect/anomaly/pyro/detonate()
-	INVOKE_ASYNC(src, .proc/makepyroslime)
+	if(produces_slime)
+		INVOKE_ASYNC(src, .proc/makepyroslime)
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
