@@ -147,11 +147,11 @@
 	report_power_alarm = FALSE
 
 /obj/machinery/power/apc/syndicate/off/Initialize(mapload)
-	environ = 0
-	equipment = 0
-	lighting = 0
+	. = ..()
+	environ = FALSE
+	equipment = FALSE
+	lighting = FALSE
 	operating = FALSE
-	..()
 	cell.charge = 0
 
 /obj/item/apc_electronics
