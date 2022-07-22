@@ -424,6 +424,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	else
 		set_light(0)
 	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/hologram/holopad/update_icon_state()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)

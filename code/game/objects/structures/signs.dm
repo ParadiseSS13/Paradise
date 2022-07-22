@@ -21,6 +21,7 @@
 
 	if(!does_emissive)
 		return
+	underlays.Cut()
 
 	underlays |= emissive_appearance(icon,"[icon_state]_lightmask")
 
