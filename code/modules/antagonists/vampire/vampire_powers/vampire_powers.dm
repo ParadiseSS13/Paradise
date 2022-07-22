@@ -51,7 +51,7 @@
 	name = "Rejuvenate"
 	desc = "Use reserve blood to enliven your body, removing any incapacitating effects."
 	action_icon_state = "vampire_rejuvinate"
-	charge_max = 20 SECONDS
+	base_cooldown = 20 SECONDS
 	stat_allowed = UNCONSCIOUS
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
@@ -97,7 +97,7 @@
 	name = "Choose Specialization"
 	desc = "Choose what sub-class of vampire you want to evolve into."
 	gain_desc = "You can now choose what specialization of vampire you want to evolve into."
-	charge_max = 2 SECONDS
+	base_cooldown = 2 SECONDS
 	action_icon_state = "select_class"
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/cast(mob/user)
@@ -155,7 +155,7 @@
 	name = "Glare"
 	desc = "Your eyes flash, stunning and silencing anyone infront of you. It has lesser effects for those around you."
 	action_icon_state = "vampire_glare"
-	charge_max = 30 SECONDS
+	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
 
 /obj/effect/proc_holder/spell/vampire/glare/create_new_targeting()
@@ -254,7 +254,7 @@
 	name = "Raise Vampires"
 	desc = "Summons deadly vampires from bluespace."
 	school = "transmutation"
-	charge_max = 100
+	base_cooldown = 100
 	clothes_req = FALSE
 	human_req = TRUE
 	invocation = "none"
@@ -328,7 +328,7 @@
 	desc = "Teleport to a nearby dark region"
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
 	action_icon_state = "shadowblink"
-	charge_max = 2 SECONDS
+	base_cooldown = 2 SECONDS
 	clothes_req = FALSE
 	centcom_cancast = FALSE
 	include_space = FALSE

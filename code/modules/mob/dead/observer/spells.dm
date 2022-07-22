@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 
 	action_icon_state = "boo"
 	school = "transmutation"
-	charge_max = 2 MINUTES
+	base_cooldown = 2 MINUTES
 	starts_charged = FALSE
 	clothes_req = FALSE
 	stat_allowed = UNCONSCIOUS
@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 		var/area/spook_zone = get_area(target)
 		if (spook_zone.is_haunted == TRUE)
 			to_chat(usr, "<span class='notice'>The veil is weak in [spook_zone], it took less effort to influence [target].</span>")
-			charge_counter = charge_max / 2
+			cooldown_handler.start_recharge(cooldown_handler.recharge_duration / 2)
 		return
 
-	charge_counter = charge_max * 0.9 // We've targetted a non-spookable object! Try again fast!
+	cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)

@@ -1,7 +1,7 @@
 //////////////////////////////Construct Spells/////////////////////////
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser
-	charge_max = 1800
+	base_cooldown = 1800
 	action_icon_state = "artificer"
 	action_background_icon_state = "bg_cult"
 
@@ -17,7 +17,7 @@
 	action_icon_state = "floorconstruct"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
-	charge_max = 20
+	base_cooldown = 20
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
@@ -31,7 +31,7 @@
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
-	charge_max = 100
+	base_cooldown = 100
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
@@ -43,7 +43,7 @@
 	name = "Greater Construction"
 	desc = "This spell constructs a reinforced metal wall"
 	school = "conjuration"
-	charge_max = 300
+	base_cooldown = 300
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
@@ -59,7 +59,7 @@
 	action_icon_state = "summonsoulstone"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
-	charge_max = 3000
+	base_cooldown = 3000
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
@@ -78,7 +78,7 @@
 	action_icon_state = "pylon"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
-	charge_max = 200
+	base_cooldown = 200
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
@@ -93,7 +93,7 @@
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
 	school = "transmutation"
-	charge_max = 300
+	base_cooldown = 300
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
@@ -113,7 +113,7 @@
 	desc = "This spell allows you to pass through walls"
 	action_icon_state = "phaseshift"
 	action_background_icon_state = "bg_cult"
-	charge_max = 200
+	base_cooldown = 200
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
@@ -140,7 +140,7 @@
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 	action_background_icon_state = "bg_cult"
 	school = "evocation"
-	charge_max = 400
+	base_cooldown = 400
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
@@ -165,7 +165,7 @@
 	action_icon_state = "parasmoke"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
-	charge_max = 200
+	base_cooldown = 200
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"

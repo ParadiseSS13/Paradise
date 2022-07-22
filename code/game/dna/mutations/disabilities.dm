@@ -491,8 +491,7 @@
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	panel = "Abilities"
 
-	charge_type = "recharge"
-	charge_max = 600
+	base_cooldown = 600
 
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
