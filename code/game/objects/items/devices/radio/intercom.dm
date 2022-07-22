@@ -65,8 +65,7 @@
 		b_stat = TRUE
 		on = FALSE
 	GLOB.global_intercoms.Add(src)
-	update_icon(UPDATE_ICON_STATE)
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/item/radio/intercom/Initialize()
 	. = ..()
@@ -207,8 +206,7 @@
 	on = FALSE
 	b_stat = TRUE
 	buildstage = 1
-	update_icon(UPDATE_ICON_STATE)
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_operating_status(FALSE)
 
 /obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
@@ -260,9 +258,8 @@
 		set_light(0)
 	else
 		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
-		set_light(1, 0.1)
-	update_icon(UPDATE_ICON_STATE)
-	update_icon(UPDATE_OVERLAYS)
+		set_light(1, LIGHTING_MINIMUM_POWER)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/item/intercom_electronics
 	name = "intercom electronics"

@@ -80,7 +80,7 @@ GLOBAL_VAR(bomb_set)
 
 	if(!lighthack)
 		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
-		set_light(1, 0.1)
+		set_light(1, LIGHTING_MINIMUM_POWER)
 
 	if(panel_open)
 		. += "npanel_open"

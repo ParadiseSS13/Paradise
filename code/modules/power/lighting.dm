@@ -583,13 +583,11 @@
 		return
 	if(fire_mode)
 		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
-		update_icon(UPDATE_ICON_STATE)
-		update_icon(UPDATE_OVERLAYS)
+		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 		return
 	emergency_mode = TRUE
 	set_light(3, 1.7, bulb_emergency_colour)
-	update_icon(UPDATE_ICON_STATE)
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update, override = TRUE)
 
 /obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)

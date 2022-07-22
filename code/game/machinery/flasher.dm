@@ -36,7 +36,7 @@
 /obj/machinery/flasher/power_change()
 	if( powered() )
 		stat &= ~NOPOWER
-		set_light(1, 0.1)
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	else
 		stat |= ~NOPOWER
 		set_light(0)

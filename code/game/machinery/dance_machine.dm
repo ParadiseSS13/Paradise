@@ -82,7 +82,7 @@
 	set_light(0)
 
 	if(active)
-		set_light(1, 0.1)
+		set_light(1, LIGHTING_MINIMUM_POWER)
 		underlays += emissive_appearance(icon, "disco_lightmask")
 
 /obj/machinery/disco/attack_hand(mob/user)

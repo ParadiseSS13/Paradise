@@ -98,7 +98,7 @@
 			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
 			if(!broken && !emagged)
 				set_sign(prev_sign)
-				set_light(1, 0.1)
+				set_light(1, LIGHTING_MINIMUM_POWER)
 			else if(emagged)
 				set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 			else

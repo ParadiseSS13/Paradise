@@ -292,7 +292,7 @@ FIRE ALARM
 /obj/machinery/firealarm/Initialize(mapload)
 	. = ..()
 	name = "fire alarm"
-	set_light(1, 0.1) //for emissives
+	set_light(1, LIGHTING_MINIMUM_POWER) //for emissives
 	update_icon()
 
 /obj/machinery/firealarm/Destroy()

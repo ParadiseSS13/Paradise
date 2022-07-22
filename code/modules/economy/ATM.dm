@@ -64,7 +64,7 @@ log transactions
 	if(stat & NOPOWER)
 		set_light(0)
 	else
-		set_light(1, 0.1)
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
 /obj/machinery/atm/process()

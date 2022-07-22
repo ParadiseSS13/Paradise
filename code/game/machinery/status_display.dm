@@ -78,7 +78,7 @@
 	if(stat & NOPOWER)
 		set_light(0)
 	else
-		set_light(1, 0.1)
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_OVERLAYS)
 
 // timed process
@@ -255,7 +255,7 @@
 	if(stat & NOPOWER)
 		set_light(0)
 	else
-		set_light(1, 0.1)
+		set_light(1, LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/ai_status_display/flicker()
 	if(stat & (NOPOWER | BROKEN))

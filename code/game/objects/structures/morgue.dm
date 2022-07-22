@@ -41,7 +41,7 @@
 /obj/structure/morgue/Initialize()
 	. = ..()
 	update_icon(update_state())
-	set_light(1, 0.1)
+	set_light(1, LIGHTING_MINIMUM_POWER)
 
 /obj/structure/morgue/proc/update_state()
 	. = UPDATE_OVERLAYS

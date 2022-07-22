@@ -247,7 +247,7 @@
 
 	make_terminal()
 
-	set_light(1, 0.1)
+	set_light(1, LIGHTING_MINIMUM_POWER)
 
 	addtimer(CALLBACK(src, .proc/update), 5)
 

@@ -651,26 +651,23 @@
 	else
 		visible_message("<span class='alert'>No target detected.</span>")
 		engaged = FALSE
-	teleporter_hub.update_icon(UPDATE_ICON_STATE)
-	teleporter_hub.update_icon(UPDATE_OVERLAYS)
+	teleporter_hub.update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	teleporter_hub.update_lighting()
 	if(istype(user))
 		add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
 	..()
-	update_icon(UPDATE_ICON_STATE)
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 	if(teleporter_hub)
-		teleporter_hub.update_icon(UPDATE_ICON_STATE)
-		teleporter_hub.update_icon(UPDATE_OVERLAYS)
+		teleporter_hub.update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 		teleporter_hub.update_lighting()
 
 	if(stat & NOPOWER)
 		set_light(0)
 	else
-		set_light(1, 0.1)
+		set_light(1, LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/teleport/station/update_icon_state()
 	if(panel_open)

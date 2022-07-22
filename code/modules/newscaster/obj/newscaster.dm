@@ -125,7 +125,7 @@
 	if(stat & NOPOWER)
 		set_light(0)
 	else
-		set_light(1, 0.1)
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir)

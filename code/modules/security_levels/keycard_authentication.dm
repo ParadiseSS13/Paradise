@@ -138,7 +138,7 @@
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	update_icon()
-	set_light(1, 0.1)
+	set_light(1, LIGHTING_MINIMUM_POWER)
 	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
 		if(KA == src) continue
 		KA.reset()
