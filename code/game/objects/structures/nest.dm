@@ -47,13 +47,13 @@
 		N.UnregisterSignal(N, COMSIG_MOVABLE_CROSSED)
 		addtimer(CALLBACK(N, /obj/structure/nest/.proc/spawn_mob, chosen_mob), rand(2, 5) SECONDS)
 
-/obj/structure/nest/proc/spawn_mob(var/mob/M)
+/obj/structure/nest/proc/spawn_mob(mob/M)
 	var/byproduct = pick(spawn_byproduct)
 	new byproduct(get_turf(src), rand(1, spawn_byproduct_max))
 
 	for(var/i in 1 to spawn_max)
-		new M(get_turf(src))
-		visible_message("<span class='danger'>\A [M.name] crawls out of \the [name]!</span>")
+		var/mob/spawned_mob = new M(get_turf(src))
+		visible_message("<span class='danger'>\A [spawned_mob.name] crawls out of \the [name]!</span>")
 	desc = initial(desc)
 
 /obj/structure/nest/lavaland
