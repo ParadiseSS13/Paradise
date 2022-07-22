@@ -2,7 +2,7 @@
 // Nests placed in "spawn_trigger_distance" will always spawn the same type of mob.
 
 /obj/structure/nest
-	name = "nest"
+	name = "tunnel"
 	desc = "A twisted, dark passage to the underground."
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "hole"
@@ -14,37 +14,39 @@
 	var/faction = list("hostile")
 	var/spawn_byproduct = list(/obj/item/stack/ore/glass, /obj/item/stack/ore/iron)
 	var/spawn_byproduct_max = 3
+	var/spawn_is_triggered = FALSE
 	var/spawn_max = 2
 	var/spawn_mob_options = list(/mob/living/simple_animal/crab)
 	var/spawn_trigger_distance = 7
 
-/obj/structure/nest/Initialize(mapload)
-	..()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, .proc/try_spawn)
-	desc = "[initial(desc)] You can hear a cacophony of growling snores from within."
+/obj/structure/nest/examine(mob/user)
+	. = ..()
+	if(!spawn_is_triggered)
+		. += "You can hear a cacophony of growling snores from within."
 
 /obj/structure/nest/attack_animal(mob/living/simple_animal/M)
 	if(faction_check(faction, M.faction, FALSE) && !M.client)
 		return
 	..()
 
-/obj/structure/nest/proc/try_spawn(datum/source, atom/movable/AM)
-	// We only want players to trigger these
-	SIGNAL_HANDLER
+/obj/structure/nest/Crossed(atom/movable/AM)
+	if(spawn_is_triggered)
+		return
 	if(!isliving(AM))
 		return
 	var/mob/living/L = AM
 	if(!L.mind)
 		return
 
-	// We decide what kind of a monster colony we are
+	try_spawn(L)
+
+/obj/structure/nest/proc/try_spawn(mob/living/L)
 	var/chosen_mob = pick(spawn_mob_options)
 
-	// Activating nests
-	to_chat(L, "<span class='danger'>As you stumble across the hole, you can hear ominous rumbling from beneath your feet!</span>")
+	to_chat(L, "<span class='danger'>As you stumble across the [name], you can hear ominous rumbling from beneath your feet!</span>")
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
 	for(var/obj/structure/nest/N in range(spawn_trigger_distance, src))
-		N.UnregisterSignal(N, COMSIG_MOVABLE_CROSSED)
+		N.spawn_is_triggered = TRUE
 		addtimer(CALLBACK(N, /obj/structure/nest/.proc/spawn_mob, chosen_mob), rand(2, 5) SECONDS)
 
 /obj/structure/nest/proc/spawn_mob(mob/M)
@@ -60,6 +62,5 @@
 	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/simple_animal/hostile/asteroid/goldgrub)
 
 /obj/structure/nest/carppuppy
-	name = "tunnel"
 	spawn_mob_options = list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/pet/dog/corgi/puppy/void)
 	spawn_trigger_distance = 3
