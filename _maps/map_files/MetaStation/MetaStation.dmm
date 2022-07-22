@@ -2470,10 +2470,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "apc" = (
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
+/obj/machinery/door/window/northleft{
 	name = "Danger: Conveyor Access"
 	},
 /obj/machinery/conveyor/west{
@@ -2744,9 +2741,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "aqs" = (
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	icon_state = "left";
+/obj/machinery/door/window/eastleft{
 	name = "Danger: Conveyor Access"
 	},
 /obj/machinery/conveyor/northwest/ccw{
@@ -3727,12 +3722,11 @@
 	location = "Disposals"
 	},
 /obj/structure/plasticflaps,
+/obj/structure/disposalpipe/segment,
 /obj/machinery/door/window/northright{
 	dir = 2;
-	name = "delivery door";
-	req_access_txt = "31"
+	name = "delivery door"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -22343,9 +22337,7 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "brH" = (
-/obj/machinery/door/window/eastleft{
-	base_state = "right";
-	icon_state = "right";
+/obj/machinery/door/window/eastright{
 	name = "Deliveries"
 	},
 /obj/effect/turf_decal/delivery,
@@ -62587,7 +62579,9 @@
 "hLL" = (
 /obj/structure/lattice,
 /turf/simulated/wall,
-/area/space/nearstation)
+/area/crew_quarters/fitness{
+	name = "\improper Recreation Area"
+	})
 "hLT" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/harebell,
@@ -64262,10 +64256,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/greengrid,
 /area/assembly/chargebay)
-"iDw" = (
-/obj/structure/lattice,
-/turf/space,
-/area/solar/auxstarboard)
 "iDK" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/westleft{
@@ -75208,7 +75198,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/simulated/floor/plating,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -127880,9 +127869,9 @@ qRm
 sWO
 qRm
 hgU
-avc
-apO
-apO
+awp
+awp
+awp
 awp
 dFD
 ajg
@@ -140206,7 +140195,7 @@ jQK
 afG
 adG
 coS
-asT
+abq
 dch
 jQK
 afG
@@ -140972,17 +140961,17 @@ aaa
 jLY
 abq
 abq
-iDw
-iDw
+abq
+abq
 aee
-iDw
-iDw
-asT
-iDw
-iDw
+abq
+abq
+abq
+abq
+abq
 aee
-iDw
-iDw
+abq
+abq
 abq
 abq
 aef
@@ -141748,7 +141737,7 @@ jQK
 cnV
 adG
 coS
-asT
+abq
 dch
 jQK
 afG
@@ -147967,7 +147956,7 @@ aXL
 aXL
 aXL
 bsN
-bsM
+aXL
 aXL
 aaa
 aaa
