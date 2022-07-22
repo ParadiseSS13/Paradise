@@ -344,9 +344,73 @@
 /datum/crafting_recipe/blackcarpet
 	name = "Black Carpet"
 	result = /obj/item/stack/tile/carpet/black
-	time = 20
+	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
-	pathtools = list(/obj/item/toy/crayon)
+	pathtools = list(/obj/item/toy/crayon/black)
+	category = CAT_MISC
+
+/datum/crafting_recipe/bluecarpet
+	name = "Blue Carpet"
+	result = /obj/item/stack/tile/carpet/blue
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/blue)
+	category = CAT_MISC
+
+/datum/crafting_recipe/cyancarpet
+	name = "Cyan Carpet"
+	result = /obj/item/stack/tile/carpet/cyan
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/blue, /obj/item/toy/crayon/green)
+	category = CAT_MISC
+
+/datum/crafting_recipe/greencarpet
+	name = "Green Carpet"
+	result = /obj/item/stack/tile/carpet/green
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/green)
+	category = CAT_MISC
+
+/datum/crafting_recipe/orangecarpet
+	name = "Orange Carpet"
+	result = /obj/item/stack/tile/carpet/orange
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/orange)
+	category = CAT_MISC
+
+/datum/crafting_recipe/purplecarpet
+	name = "Purple Carpet"
+	result = /obj/item/stack/tile/carpet/purple
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/purple)
+	category = CAT_MISC
+
+/datum/crafting_recipe/redcarpet
+	name = "Red Carpet"
+	result = /obj/item/stack/tile/carpet/red
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	pathtools = list(/obj/item/toy/crayon/red)
+	category = CAT_MISC
+
+/datum/crafting_recipe/royalblackcarpet
+	name = "Royal Black Carpet"
+	result = /obj/item/stack/tile/carpet/royalblack/ten
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet/black = 10,
+				/obj/item/stack/sheet/mineral/gold = 1)
+	category = CAT_MISC
+
+/datum/crafting_recipe/royalbluecarpet
+	name = "Royal Blue Carpet"
+	result = /obj/item/stack/tile/carpet/royalblue/ten
+	time = 10
+	reqs = list(/obj/item/stack/tile/carpet/blue = 10,
+				/obj/item/stack/sheet/mineral/gold = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/showercurtain

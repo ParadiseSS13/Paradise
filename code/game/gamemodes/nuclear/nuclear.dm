@@ -456,7 +456,7 @@
 		var/area/A = T.loc
 
 		var/list/thousand_penalty = list(/area/wizard_station, /area/solar, /area)
-		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armoury, /area/security/checkpoint2)
+		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armory, /area/security/checkpoint/south)
 
 		if(is_type_in_list(A, thousand_penalty))
 			GLOB.score_nuked_penalty = 1000

@@ -41,7 +41,7 @@
 		if(!R && replace)
 			user.put_in_hands(new_item)
 
-//Grass
+// GRASS
 /obj/item/stack/tile/grass
 	name = "grass tiles"
 	gender = PLURAL
@@ -52,7 +52,7 @@
 	turf_type = /turf/simulated/floor/grass
 	resistance_flags = FLAMMABLE
 
-//Wood
+// WOOD
 /obj/item/stack/tile/wood
 	name = "wood floor tiles"
 	gender = PLURAL
@@ -66,7 +66,7 @@
 /obj/item/stack/tile/wood/cyborg
 	is_cyborg = 1
 
-//Carpets
+// CARPETS
 /obj/item/stack/tile/carpet
 	name = "carpet"
 	singular_name = "carpet"
@@ -74,6 +74,7 @@
 	icon_state = "tile-carpet"
 	turf_type = /turf/simulated/floor/carpet
 	resistance_flags = FLAMMABLE
+	var/fancy_table_type = /obj/structure/table/wood/fancy // Decides what table will be built with what carpet tile
 
 /obj/item/stack/tile/carpet/twenty
 	amount = 20
@@ -82,11 +83,90 @@
 	name = "black carpet"
 	icon_state = "tile-carpet-black"
 	turf_type = /turf/simulated/floor/carpet/black
+	fancy_table_type = /obj/structure/table/wood/fancy/black
 
 /obj/item/stack/tile/carpet/black/twenty
 	amount = 20
 
-//Plasteel
+/obj/item/stack/tile/carpet/blue
+	name = "blue carpet"
+	icon_state = "tile-carpet-blue"
+	turf_type = /turf/simulated/floor/carpet/blue
+	fancy_table_type = /obj/structure/table/wood/fancy/blue
+
+/obj/item/stack/tile/carpet/blue/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/cyan
+	name = "cyan carpet"
+	icon_state = "tile-carpet-cyan"
+	turf_type = /turf/simulated/floor/carpet/cyan
+	fancy_table_type = /obj/structure/table/wood/fancy/cyan
+
+/obj/item/stack/tile/carpet/cyan/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/green
+	name = "green carpet"
+	icon_state = "tile-carpet-green"
+	turf_type = /turf/simulated/floor/carpet/green
+	fancy_table_type = /obj/structure/table/wood/fancy/green
+
+/obj/item/stack/tile/carpet/green/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/orange
+	name = "orange carpet"
+	icon_state = "tile-carpet-orange"
+	turf_type = /turf/simulated/floor/carpet/orange
+	fancy_table_type = /obj/structure/table/wood/fancy/orange
+
+/obj/item/stack/tile/carpet/orange/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/purple
+	name = "purple carpet"
+	icon_state = "tile-carpet-purple"
+	turf_type = /turf/simulated/floor/carpet/purple
+	fancy_table_type = /obj/structure/table/wood/fancy/purple
+
+/obj/item/stack/tile/carpet/purple/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/red
+	name = "red carpet"
+	icon_state = "tile-carpet-red"
+	turf_type = /turf/simulated/floor/carpet/red
+	fancy_table_type = /obj/structure/table/wood/fancy/red
+
+/obj/item/stack/tile/carpet/red/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/royalblack
+	name = "royal black carpet"
+	icon_state = "tile-carpet-royalblack"
+	turf_type = /turf/simulated/floor/carpet/royalblack
+	fancy_table_type = /obj/structure/table/wood/fancy/royalblack
+	
+/obj/item/stack/tile/carpet/royalblack/ten
+	amount = 10
+
+/obj/item/stack/tile/carpet/royalblack/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/royalblue
+	name = "royal blue carpet"
+	icon_state = "tile-carpet-royalblue"
+	turf_type = /turf/simulated/floor/carpet/royalblue
+	fancy_table_type = /obj/structure/table/wood/fancy/royalblue
+
+/obj/item/stack/tile/carpet/royalblue/ten
+	amount = 10
+
+/obj/item/stack/tile/carpet/royalblue/twenty
+	amount = 20
+
+// PLASTEEL
 /obj/item/stack/tile/plasteel
 	name = "floor tiles"
 	gender = PLURAL
@@ -107,7 +187,7 @@
 /obj/item/stack/tile/plasteel/cyborg
 	is_cyborg = 1
 
-//Light
+// LIGHT
 /obj/item/stack/tile/light
 	name = "light tiles"
 	gender = PLURAL
@@ -119,7 +199,7 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 	turf_type = /turf/simulated/floor/light
 
-//Fakespace
+// FAKESPACE
 /obj/item/stack/tile/fakespace
 	name = "astral carpet"
 	singular_name = "astral carpet"

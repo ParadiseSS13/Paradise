@@ -496,24 +496,83 @@
 /obj/structure/table/wood/fancy
 	name = "fancy table"
 	desc = "A standard metal table frame covered with an amazingly fancy, patterned cloth."
-	icon = 'icons/obj/structures.dmi'
+	icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 	icon_state = "fancy_table"
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
-	canSmoothWith = list(/obj/structure/table/wood/fancy, /obj/structure/table/wood/fancy/black)
+	canSmoothWith = list(/obj/structure/table/wood/fancy,
+						/obj/structure/table/wood/fancy/black,
+						/obj/structure/table/wood/fancy/blue,
+						/obj/structure/table/wood/fancy/cyan,
+						/obj/structure/table/wood/fancy/green,
+						/obj/structure/table/wood/fancy/orange,
+						/obj/structure/table/wood/fancy/purple,
+						/obj/structure/table/wood/fancy/red,
+						/obj/structure/table/wood/fancy/royalblack,
+						/obj/structure/table/wood/fancy/royalblue)
+	var/smooth_icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 
-/obj/structure/table/wood/fancy/Initialize(mapload)
+/obj/structure/table/wood/fancy/flip(direction)
+	return FALSE
+
+/obj/structure/table/wood/fancy/Initialize()
 	. = ..()
-	icon = 'icons/obj/smooth_structures/fancy_table.dmi' //so that the tables place correctly in the map editor
+	icon = smooth_icon
 
 /obj/structure/table/wood/fancy/black
 	icon_state = "fancy_table_black"
 	buildstack = /obj/item/stack/tile/carpet/black
+	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
 
-/obj/structure/table/wood/fancy/black/Initialize(mapload)
-	. = ..()
-	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi' //so that the tables place correctly in the map editor
+/obj/structure/table/wood/fancy/blue
+	icon_state = "fancy_table_blue"
+	buildstack = /obj/item/stack/tile/carpet/blue
+	icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
+
+/obj/structure/table/wood/fancy/cyan
+	icon_state = "fancy_table_cyan"
+	buildstack = /obj/item/stack/tile/carpet/cyan
+	icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
+
+/obj/structure/table/wood/fancy/green
+	icon_state = "fancy_table_green"
+	buildstack = /obj/item/stack/tile/carpet/green
+	icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
+
+/obj/structure/table/wood/fancy/orange
+	icon_state = "fancy_table_orange"
+	buildstack = /obj/item/stack/tile/carpet/orange
+	icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
+
+/obj/structure/table/wood/fancy/purple
+	icon_state = "fancy_table_purple"
+	buildstack = /obj/item/stack/tile/carpet/purple
+	icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
+
+/obj/structure/table/wood/fancy/red
+	icon_state = "fancy_table_red"
+	buildstack = /obj/item/stack/tile/carpet/red
+	icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
+
+/obj/structure/table/wood/fancy/royalblack
+	icon_state = "fancy_table_royalblack"
+	buildstack = /obj/item/stack/tile/carpet/royalblack
+	icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
+
+/obj/structure/table/wood/fancy/royalblue
+	icon_state = "fancy_table_royalblue"
+	buildstack = /obj/item/stack/tile/carpet/royalblue
+	icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
 
 /*
  * Reinforced tables

@@ -183,7 +183,7 @@
 					TYPE_FIGHTING)
 	area_whitelist = list(/area/medical/morgue,
 						/area/chapel,
-						/area/medical/genetics_cloning)
+						/area/medical/cloning)
 
 /datum/mob_type/ice
 	name = "Ice"

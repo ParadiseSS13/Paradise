@@ -55,7 +55,7 @@
 			spawn_area_type = /area/storage/tech
 			locstring = "техническом хранилище"
 		if(LOC_ARMORY)
-			spawn_area_type = /area/security/securearmoury
+			spawn_area_type = /area/security/securearmory
 			locstring = "арсенале"
 
 	for(var/areapath in typesof(spawn_area_type))

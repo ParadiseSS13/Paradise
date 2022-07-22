@@ -678,7 +678,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/maintenance/maintcentral
 	name = "Bridge Maintenance"
-	icon_state = "maintcentral"
+	icon_state = "central"
 
 /area/maintenance/starboard
 	name = "Starboard Maintenance"
@@ -748,6 +748,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Maintenance Xeno Zoo"
 	icon_state = "yellow"
 
+/area/maintenance/club
+	name = "Old Poker Club"
+	icon_state = "yellow"
+
+/area/maintenance/backstage
+	name = "Backstage"
+	icon_state = "yellow"
 
 //Hallway
 
@@ -906,11 +913,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/ntrep
 	name = "\improper Nanotrasen Representative's Office"
-	icon_state = "bluenew"
+	icon_state = "ntrep"
 
 /area/blueshield
 	name = "\improper Blueshield's Office"
-	icon_state = "blueold"
+	icon_state = "blueshield"
 
 /area/centcomdocks
 	name = "\improper Central Command Docks"
@@ -1405,19 +1412,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/medical/research
 	name = "\improper Medical Research"
-	icon_state = "medresearch"
+	icon_state = "research"
 
 /area/medical/research/nhallway
 	name = "\improper RnD North Hallway"
-	icon_state = "medresearch"
+	icon_state = "research"
 
 /area/medical/research/shallway
 	name = "\improper RnD South Hallway"
-	icon_state = "medresearch"
+	icon_state = "research"
 
 /area/medical/research/restroom
 	name = "\improper RnD Restroom"
-	icon_state = "medresearch"
+	icon_state = "research"
 
 /area/medical/research_shuttle_dock
 	name = "\improper Research Shuttle Dock"
@@ -1445,11 +1452,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Surgery"
 	icon_state = "surgery"
 
-/area/medical/surgery1
+/area/medical/surgery/north
 	name = "\improper Surgery 1"
 	icon_state = "surgery1"
 
-/area/medical/surgery2
+/area/medical/surgery/south
 	name = "\improper Surgery 2"
 	icon_state = "surgery2"
 
@@ -1469,7 +1476,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Genetics Lab"
 	icon_state = "genetics"
 
-/area/medical/genetics_cloning
+/area/medical/cloning
 	name = "\improper Cloning Lab"
 	icon_state = "cloning"
 
@@ -1607,11 +1614,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Warden's Office"
 	icon_state = "Warden"
 
-/area/security/armoury
+/area/security/armory
 	name = "\improper Armory"
 	icon_state = "armory"
 
-/area/security/securearmoury
+/area/security/securearmory
 	name = "\improper Secure Armory"
 	icon_state = "secarmory"
 
@@ -1652,8 +1659,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Security Checkpoint"
 	icon_state = "checkpoint1"
 
-/area/security/checkpoint2
-	name = "\improper Security Checkpoint"
+/area/security/checkpoint/south
+	name = "\improper Escape Security Checkpoint"
 	icon_state = "security"
 
 /area/security/checkpoint/supply
@@ -1728,9 +1735,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Hydroponics"
 	icon_state = "hydro"
 
-/area/hydroponics/abandoned_garden
-	name = "\improper Abandoned Garden"
+/area/maintenance/garden
+	name = "Old Garden"
 	icon_state = "hydro"
+	power_equip = 0
+	power_light = 0
+	power_environ = 0
+
+/area/maintenance/kitchen
+	name = "Old Restaurant"
+	icon_state = "kitchen"
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
@@ -2161,7 +2175,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/tcommsat/chamber
 	name = "\improper Telecoms Central Compartment"
-	icon_state = "tcomsatcham"
+	icon_state = "ai"
 
 // These areas are needed for MetaStation's AI sat
 /area/turret_protected/tcomsat

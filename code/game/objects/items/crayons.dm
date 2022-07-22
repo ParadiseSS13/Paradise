@@ -28,7 +28,6 @@
 
 /obj/item/toy/crayon/New()
 	..()
-	name = "[colourName] crayon" //Makes crayons identifiable in things like grinders
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
 
 /obj/item/toy/crayon/attack_self(mob/living/user as mob)
@@ -122,31 +121,37 @@
 
 
 /obj/item/toy/crayon/red
+	name = "red crayon"
 	icon_state = "crayonred"
 	colour = COLOR_RED
 	colourName = "red"
 
 /obj/item/toy/crayon/orange
+	name = "orange crayon"
 	icon_state = "crayonorange"
 	colour = COLOR_ORANGE
 	colourName = "orange"
 
 /obj/item/toy/crayon/yellow
+	name = "yellow crayon"
 	icon_state = "crayonyellow"
 	colour = COLOR_YELLOW
 	colourName = "yellow"
 
 /obj/item/toy/crayon/green
+	name = "green crayon"
 	icon_state = "crayongreen"
 	colour = COLOR_GREEN
 	colourName = "green"
 
 /obj/item/toy/crayon/blue
+	name = "blue crayon"
 	icon_state = "crayonblue"
 	colour = COLOR_BLUE
 	colourName = "blue"
 
 /obj/item/toy/crayon/purple
+	name = "purple crayon"
 	icon_state = "crayonpurple"
 	colour = COLOR_PURPLE
 	colourName = "purple"
@@ -155,33 +160,47 @@
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
 	switch(icon_state)
 		if("crayonred")
+			name = "red crayon"
 			colour = COLOR_RED
 			colourName = "red"
 		if("crayonorange")
+			name = "orange crayon"
 			colour = COLOR_ORANGE
 			colourName = "orange"
 		if("crayonyellow")
+			name = "yellow crayon"
 			colour = COLOR_YELLOW
 			colourName = "yellow"
 		if("crayongreen")
+			name = "green crayon"
 			colour =COLOR_GREEN
 			colourName = "green"
 		if("crayonblue")
+			name = "blue crayon"
 			colour = COLOR_BLUE
 			colourName = "blue"
 		if("crayonpurple")
+			name = "purple crayon"
 			colour = COLOR_PURPLE
 			colourName = "purple"
 	..()
 
+/obj/item/toy/crayon/black
+	name = "black crayon"
+	icon_state = "crayonblack"
+	colour = "#000000"
+	colourName = "black"
+
 /obj/item/toy/crayon/white
+	name = "white crayon"
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
 	colourName = "white"
 
 /obj/item/toy/crayon/mime
-	icon_state = "crayonmime"
+	name = "mime crayon"
 	desc = "A very sad-looking crayon."
+	icon_state = "crayonmime"
 	colour = "#FFFFFF"
 	colourName = "mime"
 	uses = 0
@@ -206,6 +225,7 @@
 		..()
 
 /obj/item/toy/crayon/rainbow
+	name = "rainbow crayon"
 	icon_state = "crayonrainbow"
 	colour = "#FFF000"
 	colourName = "rainbow"
