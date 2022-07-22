@@ -15,7 +15,6 @@ SUBSYSTEM_DEF(changelog)
 	flags = SS_NO_FIRE
 	var/current_cl_timestamp = "0" // Timestamp is seconds since UNIX epoch (1st January 1970). ITs also a string because BYOND doesnt like big numbers.
 	var/ss_ready = FALSE // Is the SS ready? We dont want to run procs if we have not generated yet
-	var/list/client/startup_clients_button = list() // Clients who connected before initialization who need their button color updating
 	var/list/client/startup_clients_open = list() // Clients who connected before initialization who need the CL opening
 	var/list/changelog_data = list() // Parsed changelog data
 
@@ -41,12 +40,12 @@ SUBSYSTEM_DEF(changelog)
 
 	ss_ready = TRUE
 
-	// Update buttons for those who logged in first
-	for(var/client/C in startup_clients_button)
+	// Update buttons for those who logged in
+	for(var/client/C as anything in GLOB.clients)
 		UpdatePlayerChangelogButton(C)
 
 	// Now we can alert anyone who wanted to check the changelog
-	for(var/client/C in startup_clients_open)
+	for(var/client/C as anything in startup_clients_open)
 		OpenChangelog(C)
 
 	return ..()
@@ -77,17 +76,8 @@ SUBSYSTEM_DEF(changelog)
 
 
 /datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogButton(client/C)
-	// If SQL aint even enabled, just set the button to default style
-	if(!SSdbcore.IsConnected())
-		if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
-			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
-		else
-			winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
-		return
-
-	// If SQL is enabled but we aint ready, queue them up, and use the default style
-	if(!ss_ready)
-		startup_clients_button |= C
+	// If SQL aint even enabled, or we aint ready just set the button to default style
+	if(!SSdbcore.IsConnected() || !ss_ready)
 		if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
 			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
@@ -236,7 +226,7 @@ SUBSYSTEM_DEF(changelog)
 		if("open_pr")
 			var/pr_num = params["pr_number"]
 			if(GLOB.configuration.url.github_url)
-				if(alert("This will open PR #[pr_num] in your browser. Are you sure?",,"Yes","No")=="No")
+				if(alert("This will open PR #[pr_num] in your browser. Are you sure?", "Open PR", "Yes", "No") == "No")
 					return
 
 				// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1

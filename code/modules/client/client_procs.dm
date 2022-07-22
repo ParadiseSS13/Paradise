@@ -416,7 +416,6 @@
 /client/Destroy()
 	announce_leave() // Do not put this below
 	SSdebugview.stop_processing(src)
-	SSchangelog.startup_clients_button -= src
 	SSchangelog.startup_clients_open -= src
 	if(holder)
 		holder.owner = null
