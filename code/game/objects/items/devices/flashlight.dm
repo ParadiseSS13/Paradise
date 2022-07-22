@@ -15,34 +15,32 @@
 
 /obj/item/flashlight/Initialize()
 	. = ..()
-	if(on)
-		icon_state = "[initial(icon_state)]-on"
-		set_light(brightness_on)
-	else
-		icon_state = initial(icon_state)
-		set_light(0)
+	update_brightness()
 
-/obj/item/flashlight/proc/update_brightness(mob/user = null)
+/obj/item/flashlight/update_icon_state()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
+	else
+		icon_state = "[initial(icon_state)]"
+
+/obj/item/flashlight/proc/update_brightness()
+	if(on)
 		set_light(brightness_on)
 	else
-		icon_state = initial(icon_state)
 		set_light(0)
+	update_icon()
 
 /obj/item/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
 		to_chat(user, "You cannot turn the light on while in this [user.loc].")//To prevent some lighting anomalities.
-
-		return 0
+		return FALSE
 	on = !on
 	playsound(user, togglesound, 100, 1)
-	update_brightness(user)
+	update_brightness()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
-	return 1
-
+	return TRUE
 
 /obj/item/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
 	add_fingerprint(user)
@@ -129,14 +127,11 @@
 	materials = list()
 	on = TRUE
 
-
 // green-shaded desk lamp
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
-
-
 
 /obj/item/flashlight/lamp/verb/toggle_light()
 	set name = "Toggle light"
@@ -152,7 +147,6 @@
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
-
 
 // FLARES
 
@@ -174,6 +168,12 @@
 	fuel = rand(fuel_lower, fuel_upp)
 	..()
 
+/obj/item/flashlight/flare/update_icon_state()
+	if(!fuel)
+		icon_state = "[initial(icon_state)]-empty"
+		return
+	..()
+
 /obj/item/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
 	if(pos && produce_heat)
@@ -181,8 +181,6 @@
 	fuel = max(fuel - 1, 0)
 	if(!fuel || !on)
 		turn_off()
-		if(!fuel)
-			icon_state = "[initial(icon_state)]-empty"
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/Destroy()
@@ -193,21 +191,9 @@
 	on = FALSE
 	force = initial(force)
 	damtype = initial(damtype)
-	if(ismob(loc))
-		var/mob/U = loc
-		update_brightness(U)
-	else
-		update_brightness(null)
-
-/obj/item/flashlight/flare/update_brightness(mob/user = null)
-	..()
-	if(on)
-		item_state = "[initial(item_state)]-on"
-	else
-		item_state = "[initial(item_state)]"
+	update_brightness()
 
 /obj/item/flashlight/flare/attack_self(mob/user)
-
 	// Usual checks
 	if(!fuel)
 		to_chat(user, "<span class='notice'>[src] is out of fuel.</span>")
@@ -220,8 +206,9 @@
 	// All good, turn it on.
 	if(.)
 		user.visible_message("<span class='notice'>[user] activates [src].</span>", "<span class='notice'>You activate [src].</span>")
-		force = on_damage
-		damtype = "fire"
+		if(produce_heat)
+			force = on_damage
+			damtype = "fire"
 		START_PROCESSING(SSobj, src)
 
 // GLOWSTICKS
@@ -234,30 +221,25 @@
 	icon_state = "glowstick"
 	item_state = "glowstick"
 	togglesound = 'sound/effects/bone_break_1.ogg'
-	produce_heat = 0
+	produce_heat = FALSE
 	fuel_lower = 1600
 	fuel_upp = 2000
+	blocks_emissive = FALSE
 
 /obj/item/flashlight/flare/glowstick/Initialize()
 	light_color = color
 	..()
 
-/obj/item/flashlight/flare/glowstick/update_icon()
-	item_state = "glowstick"
-	cut_overlays()
+/obj/item/flashlight/flare/glowstick/update_icon_state()
 	if(!fuel)
 		icon_state = "glowstick-empty"
-		cut_overlays()
-		update_brightness(0)
-	else if(on)
+
+/obj/item/flashlight/flare/glowstick/update_overlays()
+	. = ..()
+	if(on)
 		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
 		glowstick_overlay.color = color
-		add_overlay(glowstick_overlay)
-		item_state = "glowstick-on"
-		update_brightness(brightness_on)
-	else
-		icon_state = "glowstick"
-		cut_overlays()
+		. += glowstick_overlay
 
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"

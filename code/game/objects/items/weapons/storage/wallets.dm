@@ -36,17 +36,16 @@
 	if(.)
 		if(W == front_id)
 			front_id = null
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/wallet/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
 	. = ..(W, prevent_warning)
 	if(.)
 		if(!front_id && istype(W, /obj/item/card/id))
 			front_id = W
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
-/obj/item/storage/wallet/update_icon()
-
+/obj/item/storage/wallet/update_icon_state()
 	if(front_id)
 		switch(front_id.icon_state)
 			if("silver")
@@ -112,7 +111,7 @@
 	desc = "A cheap, [item_color] wallet from the arcade."
 	icon_state = "[item_color]_wallet"
 
-/obj/item/storage/wallet/color/update_icon()
+/obj/item/storage/wallet/color/update_icon_state()
 	if(front_id)
 		switch(front_id.icon_state)
 			if("silver")

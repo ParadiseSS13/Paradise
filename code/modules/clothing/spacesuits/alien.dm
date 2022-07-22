@@ -147,7 +147,7 @@
 	desc = "An almost organic looking nonhuman pressure suit."
 
 /obj/item/clothing/under/vox
-	has_sensor = 0
+	has_sensor = FALSE
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list("Vox")
 	sprite_sheets = list(

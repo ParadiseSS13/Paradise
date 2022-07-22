@@ -136,7 +136,7 @@
 		qdel(Orchiectomy_target)
 
 	else if(length(orbiting_balls))
-		dissipate() //sing code has a much better system.
+		do_dissipate() //sing code has a much better system.
 
 /obj/singularity/energy_ball/proc/new_mini_ball()
 	if(!loc)

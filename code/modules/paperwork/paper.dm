@@ -19,6 +19,7 @@
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	blocks_emissive = null
 	attack_verb = list("bapped")
 	dog_fashion = /datum/dog_fashion/head
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
@@ -28,6 +29,7 @@
 	var/footer 	//The bottom stuff before the stamp but after the body
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
+	var/list/stamp_overlays = list()
 	var/fields		//Amount of user created fields
 	var/list/stamped
 	var/ico[0]      //Icons and
@@ -56,8 +58,7 @@
 		update_icon()
 		updateinfolinks()
 
-/obj/item/paper/update_icon()
-	..()
+/obj/item/paper/update_icon_state()
 	if(info)
 		icon_state = "paper_words"
 		return
@@ -260,10 +261,9 @@
 	info = null
 	stamps = null
 	stamped = list()
-	overlays.Cut()
+	stamp_overlays = list()
 	updateinfolinks()
 	update_icon()
-
 
 /obj/item/paper/proc/parsepencode(t, obj/item/pen/P, mob/user as mob)
 	t = pencode_to_html(html_encode(t), usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
@@ -484,7 +484,11 @@
 	if(!stamped)
 		stamped = new
 	stamped += S.type
-	overlays += stampoverlay
+	stamp_overlays += stampoverlay
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/paper/update_overlays()
+	return stamp_overlays
 
 /*
  * Premade paper
@@ -531,7 +535,7 @@
 	name = "paper scrap"
 	icon_state = "scrap"
 
-/obj/item/paper/crumpled/update_icon()
+/obj/item/paper/crumpled/update_icon_state()
 	if(info)
 		icon_state = "scrap_words"
 
@@ -549,9 +553,9 @@
 	info = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
 	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
 
-/obj/item/paper/fortune/update_icon()
-	..()
+/obj/item/paper/fortune/update_icon_state()
 	icon_state = initial(icon_state)
+
 /*
  * Premade paper
  */

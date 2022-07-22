@@ -104,11 +104,6 @@
 	M.AdjustDrowsy(-10 SECONDS)
 	if(current_cycle >= 90)
 		M.AdjustJitter(4 SECONDS)
-	if(prob(50))
-		M.AdjustParalysis(-2 SECONDS)
-		M.AdjustStunned(-2 SECONDS)
-		M.AdjustWeakened(-2 SECONDS)
-		M.AdjustKnockDown(-2 SECONDS)
 	if(prob(4))
 		M.reagents.add_reagent("epinephrine", 1.2)
 	return ..() | update_flags

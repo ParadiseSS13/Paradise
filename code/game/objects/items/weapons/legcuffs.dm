@@ -23,7 +23,7 @@
 	var/obj/item/grenade/iedcasing/IED = null
 	var/obj/item/assembly/signaler/sig = null
 
-/obj/item/restraints/legcuffs/beartrap/update_icon()
+/obj/item/restraints/legcuffs/beartrap/update_icon_state()
 	icon_state = "beartrap[armed]"
 
 /obj/item/restraints/legcuffs/beartrap/Destroy()
@@ -40,7 +40,7 @@
 	..()
 	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
