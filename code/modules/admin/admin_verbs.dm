@@ -68,7 +68,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds_afks,
 	/client/proc/ccbdb_lookup_ckey,
-	/client/proc/view_instances
+	/client/proc/view_instances,
+	/client/proc/start_vote
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -171,6 +172,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/datum/proc/qdel_then_find_references,
 	/datum/proc/qdel_then_if_fail_find_references,
 	#endif
+	/client/proc/dmapi_debug,
+	/client/proc/dmapi_log,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

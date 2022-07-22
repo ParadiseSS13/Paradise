@@ -370,7 +370,7 @@
 		L.fire_mode = FALSE
 		L.update(TRUE, TRUE, FALSE)
 
-/area/proc/updateicon()
+/area/update_icon_state()
 	var/weather_icon
 	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
@@ -380,7 +380,7 @@
 	if(!weather_icon)
 		icon_state = null
 
-/area/space/updateicon()
+/area/space/update_icon_state()
 	icon_state = null
 
 /*
@@ -417,7 +417,7 @@
 	for(var/obj/machinery/M in src)	// for each machine in the area
 		M.power_change()			// reverify power status (to update icons etc.)
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
 /area/proc/usage(chan)
 	var/used = 0

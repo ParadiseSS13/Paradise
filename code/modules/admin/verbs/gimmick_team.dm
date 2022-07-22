@@ -35,9 +35,9 @@
 	var/dresscode = input("Select Outfit", "Dress-a-mob") as null|anything in outfit_list
 	if(isnull(dresscode))
 		return
-	var/is_syndicate = 0
+	var/is_syndicate = FALSE
 	if(alert("Do you want these characters automatically classified as antagonists?",,"Yes","No")=="Yes")
-		is_syndicate = 1
+		is_syndicate = TRUE
 
 	var/datum/outfit/O = outfit_list[dresscode]
 	var/list/players_to_spawn = list()

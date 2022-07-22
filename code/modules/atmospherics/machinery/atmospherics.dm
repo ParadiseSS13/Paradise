@@ -70,6 +70,12 @@ Pipelines + Other Objects -> Pipe network
 
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
+	if(check_icon_cache())
+		..(ALL)
+	else
+		..(UPDATE_ICON_STATE)
+
+/obj/machinery/atmospherics/update_icon_state()
 	var/turf/T = get_turf(loc)
 	if(T && T.transparent_floor)
 		plane = FLOOR_PLANE
@@ -112,10 +118,7 @@ Pipelines + Other Objects -> Pipe network
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
 
 /obj/machinery/atmospherics/proc/update_underlays()
-	if(check_icon_cache())
-		return 1
-	else
-		return 0
+	return check_icon_cache()
 
 // Connect types
 /obj/machinery/atmospherics/proc/check_connect_types(obj/machinery/atmospherics/atmos1, obj/machinery/atmospherics/atmos2)

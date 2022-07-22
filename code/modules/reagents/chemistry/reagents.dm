@@ -32,6 +32,8 @@
 	var/drink_desc = "You can't really tell what this is."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
 	var/taste_description = "metaphorical salt"
+	/// how quickly the addiction threshold var decays
+	var/addiction_decay_rate = 0.01
 
 /datum/reagent/Destroy()
 	. = ..()
@@ -89,8 +91,8 @@
 
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && !is_type_in_list(src, M.reagents.addiction_list))
-		M.reagents.addiction_threshold_accumulated[id] += consumption_rate
-		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[id]
+		M.reagents.addiction_threshold_accumulated[type] += consumption_rate
+		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[type]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
 			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")

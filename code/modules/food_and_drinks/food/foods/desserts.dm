@@ -14,13 +14,13 @@
 
 /obj/item/reagent_containers/food/snacks/icecream/New()
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/food/snacks/icecream/update_icon()
-	cut_overlays()
+/obj/item/reagent_containers/food/snacks/icecream/update_overlays()
+	. = ..()
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/kitchen.dmi', "icecream_color")
 	filling.color = mix_color_from_reagents(reagents.reagent_list)
-	add_overlay(filling)
+	. += filling
 
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcone
 	name = "ice cream cone"
@@ -40,7 +40,7 @@
 
 /obj/item/reagent_containers/food/snacks/icecreamsandwich
 	name = "icecream sandwich"
-	desc = "Portable Ice-cream in it's own packaging."
+	desc = "Portable ice cream in its own packaging."
 	icon_state = "icecreamsandwich"
 	list_reagents = list("nutriment" = 2, "ice" = 2)
 

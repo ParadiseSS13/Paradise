@@ -120,62 +120,67 @@
 	icon_state = "pizzabox1"
 
 	var/open = FALSE // Is the box open?
-	var/ismessy = FALSE // Fancy mess on the lid
+	var/is_messy = FALSE // Fancy mess on the lid
 	var/obj/item/reagent_containers/food/snacks/sliceable/pizza/pizza // Content pizza
 	var/list/boxes = list() // If the boxes are stacked, they come here
-	var/boxtag = ""
+	var/box_tag = ""
 
-/obj/item/pizzabox/update_icon()
-	overlays = list()
+/obj/item/pizzabox/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
-	// Set appropriate description
+/obj/item/pizzabox/update_desc()
+	. = ..()
 	if(open && pizza)
 		desc = "A box suited for pizzas. It appears to have a [pizza.name] inside."
 	else if(boxes.len > 0)
 		desc = "A pile of boxes suited for pizzas. There appears to be [boxes.len + 1] boxes in the pile."
-		var/obj/item/pizzabox/topbox = boxes[boxes.len]
-		var/toptag = topbox.boxtag
-		if(toptag != "")
-			desc = "[desc] The box on top has a tag, it reads: '[toptag]'."
+		var/obj/item/pizzabox/top_box = boxes[boxes.len]
+		var/top_tag = top_box.box_tag
+		if(top_tag != "")
+			desc = "[desc] The box on top has a tag, it reads: '[top_tag]'."
 	else
 		desc = "A box suited for pizzas."
-		if(boxtag != "")
-			desc = "[desc] The box has a tag, it reads: '[boxtag]'."
+		if(box_tag != "")
+			desc = "[desc] The box has a tag, it reads: '[box_tag]'."
 
-	// Icon states and overlays
+/obj/item/pizzabox/update_icon_state()
 	if(open)
-		if(ismessy)
+		if(is_messy)
 			icon_state = "pizzabox_messy"
 		else
 			icon_state = "pizzabox_open"
-		if(pizza)
-			var/image/pizzaimg = image("food/pizza.dmi", icon_state = pizza.icon_state)
-			pizzaimg.pixel_y = -3
-			overlays += pizzaimg
+		return
+	icon_state = "pizzabox[boxes.len+1]"
 
+/obj/item/pizzabox/update_overlays()
+	. = ..()
+	if(open && pizza)
+		var/image/pizzaimg = image("food/pizza.dmi", icon_state = pizza.icon_state)
+		pizzaimg.pixel_y = -3
+		. += pizzaimg
 		return
 	else
 		// Stupid code because byondcode sucks
-		var/doimgtag = 0
+		var/set_tag = TRUE
 		if(boxes.len > 0)
-			var/obj/item/pizzabox/topbox = boxes[boxes.len]
-			if(topbox.boxtag != "")
-				doimgtag = 1
+			var/obj/item/pizzabox/top_box = boxes[boxes.len]
+			if(top_box.box_tag != "")
+				set_tag = TRUE
 		else
-			if(boxtag != "")
-				doimgtag = 1
-		if(doimgtag)
-			var/image/tagimg = image("food/pizza.dmi", icon_state = "pizzabox_tag")
-			tagimg.pixel_y = boxes.len * 3
-			overlays += tagimg
-	icon_state = "pizzabox[boxes.len+1]"
+			if(box_tag != "")
+				set_tag = TRUE
+		if(!open && set_tag)
+			var/image/tag = image("food/pizza.dmi", icon_state = "pizzabox_tag")
+			tag.pixel_y = boxes.len * 3
+			. += tag
 
 /obj/item/pizzabox/attack_hand(mob/user)
 	if(open && pizza)
 		user.put_in_hands(pizza)
 		to_chat(user, "<span class='warning'>You take [pizza] out of [src].</span>")
 		pizza = null
-		update_icon()
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 
 	if(boxes.len > 0)
@@ -186,8 +191,8 @@
 		boxes -= box
 		user.put_in_hands(box)
 		to_chat(user, "<span class='warning'>You remove the topmost [src] from your hand.</span>")
-		box.update_icon()
-		update_icon()
+		box.update_appearance(UPDATE_DESC|UPDATE_ICON)
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 	..()
 
@@ -196,8 +201,8 @@
 		return
 	open = !open
 	if(open && pizza)
-		ismessy = TRUE
-	update_icon()
+		is_messy = TRUE
+	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/pizzabox/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pizzabox/))
@@ -213,8 +218,8 @@
 				box.loc = src
 				box.boxes = list() // Clear the box boxes so we don't have boxes inside boxes. - Xzibit
 				boxes.Add(boxestoadd)
-				box.update_icon()
-				update_icon()
+				box.update_appearance(UPDATE_DESC|UPDATE_ICON)
+				update_appearance(UPDATE_DESC|UPDATE_ICON)
 				to_chat(user, "<span class='warning'>You put [box] on top of [src]!</span>")
 			else
 				to_chat(user, "<span class='warning'>The stack is too high!</span>")
@@ -228,7 +233,7 @@
 			I.loc = src
 			pizza = I
 
-			update_icon()
+			update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 			to_chat(user, "<span class='warning'>You put [I] in [src]!</span>")
 		else
@@ -242,32 +247,32 @@
 		var/obj/item/pizzabox/boxtotagto = src
 		if(boxes.len > 0)
 			boxtotagto = boxes[boxes.len]
-		boxtotagto.boxtag = copytext("[boxtotagto.boxtag][t]", 1, 30)
-		update_icon()
+		boxtotagto.box_tag = copytext("[boxtotagto.box_tag][t]", 1, 30)
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 	..()
 
-/obj/item/pizzabox/margherita/New()
-	..()
+/obj/item/pizzabox/margherita/Initialize(mapload)
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita(src)
-	boxtag = "margherita deluxe"
+	box_tag = "margherita deluxe"
+	return ..()
 
-/obj/item/pizzabox/vegetable/New()
-	..()
+/obj/item/pizzabox/vegetable/Initialize(mapload)
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
-	boxtag = "gourmet vegetable"
+	box_tag = "gourmet vegetable"
+	return ..()
 
-/obj/item/pizzabox/mushroom/New()
-	..()
+/obj/item/pizzabox/mushroom/Initialize(mapload)
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza(src)
-	boxtag = "mushroom special"
+	box_tag = "mushroom special"
+	return ..()
 
-/obj/item/pizzabox/meat/New()
-	..()
+/obj/item/pizzabox/meat/Initialize(mapload)
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
-	boxtag = "meatlover's supreme"
+	box_tag = "meatlover's supreme"
+	return ..()
 
-/obj/item/pizzabox/hawaiian/New()
-	..()
+/obj/item/pizzabox/hawaiian/Initialize(mapload)
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza(src)
-	boxtag = "Hawaiian feast"
+	box_tag = "Hawaiian feast"
+	return ..()

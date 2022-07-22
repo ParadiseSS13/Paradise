@@ -250,15 +250,14 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	else
 		return "off"
 
-/obj/machinery/gravity_generator/main/update_icon()
-	..()
-	cut_overlays()
+/obj/machinery/gravity_generator/main/update_overlays()
+	. = ..()
 	if(get_status() != "generator_welding" && get_status() != "generator_plasteel")
-		add_overlay("generator_part")
+		. += "generator_part"
 	if(get_status() == "off")
 		return
-	add_overlay("[get_status()]")
-	add_overlay("[overlay_state]")
+	. += "[get_status()]"
+	. += "[overlay_state]"
 
 /**
   * Set the charging state based on external power and the breaker state.
