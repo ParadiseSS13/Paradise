@@ -166,7 +166,28 @@
 	H.adjustBrainLoss(shock_damage)
 	H.adjust_nutrition(shock_damage)
 
-/datum/species/machine/spec_rad_act(mob/living/carbon/human/H, amount)
-	H.adjustBrainLoss(amount / 100)
-	H.AdjustHallucinate(amount)
-	return FALSE
+/datum/species/machine/handle_mutations_and_radiation(mob/living/carbon/human/H)
+	H.adjustBrainLoss(H.radiation / 100)
+	H.AdjustHallucinate(H.radiation)
+	H.radiation = 0
+	return TRUE
+
+/datum/species/machine/handle_brain_death(mob/living/carbon/human/H)
+	H.Weaken(60 SECONDS)
+	H.adjustBrainLoss(1) // 40 seconds to live
+	if(prob(20))
+		var/list/error_messages = list("Error 196: motor functions failing.",
+								"Error 32: Process %^~#/£ cannot be reached, being used by another file.",
+								"Error 39: Cannot write to central memory unit, storage full.",
+								"Error -1: isogjiohrj90903744kfgkgrpopK!!",
+								"Error -1: poafejOIDAIJjamfooooWADm!afe!",
+								"Error -1: PIKFAjgaiosafjiGGIGHasksid!!",
+								"Error 534: Arithmetic result exceeded 512 bits.",
+								"Errror 0: Operation completed successfully.",
+								"WARNING, CRITICAL COMPONENT ERROR, attempting to troubleshoot....",
+								"runtime in sentience.dm, cannot modify null.som, STACK TRACE:",
+								"master controller timed out, likely infinite recursion loop.",
+								"Daisy.... Daisy...."
+								)
+		var/error_message = pick(error_messages)
+		to_chat(H, "<span class='boldwarning'>[error_message]</span>")

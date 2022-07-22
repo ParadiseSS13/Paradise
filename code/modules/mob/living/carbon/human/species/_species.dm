@@ -422,10 +422,6 @@
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return
 
-/// returning false will prevent the normal radiation behaviour.
-/datum/species/proc/spec_rad_act(mob/living/carbon/human/H, amount)
-	return TRUE
-
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
@@ -1005,6 +1001,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
 	return FALSE
+
+/datum/species/proc/handle_brain_death(mob/living/carbon/human/H)
+	H.AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
+	H.Weaken(60 SECONDS)
 
 /**
   * Species-specific runechat colour handler
