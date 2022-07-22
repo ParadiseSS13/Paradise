@@ -43,7 +43,7 @@
 /obj/structure/nest/proc/try_spawn(mob/living/L)
 	var/chosen_mob = pick(spawn_mob_options)
 
-	to_chat(L, "<span class='danger'>As you stumble across the [name], you can hear ominous rumbling from beneath your feet!</span>")
+	to_chat(L, "<span class='danger'>As you stumble across \the [name], you can hear ominous rumbling from beneath your feet!</span>")
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
 	for(var/obj/structure/nest/N in range(spawn_trigger_distance, src))
 		N.spawn_is_triggered = TRUE
