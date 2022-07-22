@@ -33,6 +33,7 @@
 	throw_message = "doesn't affect the purity of"
 	speed = 2
 	move_to_delay = 10
+	universal_speak = TRUE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/misc/demon_dies.ogg'
 	deathmessage = "begins to shudder as it becomes transparent..."

@@ -84,7 +84,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(damage, updating_health)
 	. = ..()
-	maxHealth -= damage / 3
+	if(del_on_death)
+		maxHealth -= damage / 3
 
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
