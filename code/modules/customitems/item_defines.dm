@@ -85,8 +85,8 @@
 		ink.icon += rgb(tattoo_r, tattoo_g, tattoo_b, 190)
 		. += ink
 
-/obj/item/fluff/tattoo_gun/New()
-	..()
+/obj/item/fluff/tattoo_gun/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat
@@ -635,8 +635,8 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 
-/obj/item/clothing/head/pirate/fluff/stumpy/New()
-	..()
+/obj/item/clothing/head/pirate/fluff/stumpy/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Destroy()

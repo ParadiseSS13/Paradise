@@ -1,5 +1,5 @@
 //Redefining some robot procs, since drones can't be repaired and really shouldn't take component damage.
-/mob/living/silicon/robot/drone/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = 0)
+/mob/living/silicon/robot/drone/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = FALSE)
 	bruteloss += brute
 	fireloss += burn
 	if(updating_health)
@@ -15,7 +15,7 @@
 	if(updating_health)
 		updatehealth("heal overall damage")
 
-/mob/living/silicon/robot/drone/take_organ_damage(brute, burn, updating_health = TRUE, sharp = 0)
+/mob/living/silicon/robot/drone/take_organ_damage(brute, burn, updating_health = TRUE, sharp = FALSE)
 	take_overall_damage(brute,burn, updating_health, null, sharp)
 
 /mob/living/silicon/robot/drone/heal_organ_damage(brute, burn, updating_health = TRUE)
