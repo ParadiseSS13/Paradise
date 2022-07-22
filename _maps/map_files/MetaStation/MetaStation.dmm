@@ -60072,7 +60072,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "gBW" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/door/airlock/atmos/glass{
 	autoclose = 0;
@@ -74976,7 +74975,6 @@
 	locked = 1;
 	name = "Atmospherics Access Chamber"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
