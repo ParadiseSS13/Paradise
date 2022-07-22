@@ -146,6 +146,14 @@
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
+/obj/machinery/power/apc/syndicate/off/Initialize(mapload)
+	environ = 0
+	equipment = 0
+	lighting = 0
+	operating = FALSE
+	..()
+	cell.charge = 0
+
 /obj/item/apc_electronics
 	name = "power control module"
 	desc = "Heavy-duty switching circuits for power control."
@@ -330,7 +338,7 @@
 
 	if(force_update || update & 1) // Updating the icon state
 		..(UPDATE_ICON_STATE)
-	
+
 	if(!(update_state & UPSTATE_ALLGOOD))
 		if(managed_overlays)
 			..(UPDATE_OVERLAYS)
