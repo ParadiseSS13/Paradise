@@ -628,8 +628,12 @@
 				else
 					to_chat(usr, "No active AIs with minds")
 
-			if("prevent")
+			if("kill all human")
 				new_objective = new /datum/objective/block
+				new_objective.owner = src
+
+			if("prevent from escaping alive")
+				new_objective = new /datum/objective/maroon
 				new_objective.owner = src
 
 			if("hijack")

@@ -148,10 +148,10 @@
 	blood_objective.gen_amount_goal(150, 400)
 	vampire.objectives += blood_objective
 
-	var/datum/objective/assassinate/kill_objective = new
-	kill_objective.owner = vampire
-	kill_objective.find_target()
-	vampire.objectives += kill_objective
+	var/datum/objective/maroon/maroon_objective = new
+	maroon_objective.owner = vampire
+	maroon_objective.find_target()
+	vampire.objectives += maroon_objective
 
 	var/datum/objective/steal/steal_objective = new
 	steal_objective.owner = vampire

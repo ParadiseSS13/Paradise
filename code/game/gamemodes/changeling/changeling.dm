@@ -104,17 +104,17 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		destroy_objective.find_target()
 		changeling.objectives += destroy_objective
 	else
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = changeling
-		kill_objective.find_target()
-		changeling.objectives += kill_objective
+		var/datum/objective/maroon/maroon_objective = new
+		maroon_objective.owner = changeling
+		maroon_objective.find_target()
+		changeling.objectives += maroon_objective
 
 		if(!(locate(/datum/objective/escape) in changeling.objectives))
 			var/datum/objective/escape/escape_with_identity/identity_theft = new
 			identity_theft.owner = changeling
-			identity_theft.target = kill_objective.target
+			identity_theft.target = maroon_objective.target
 			if(identity_theft.target && identity_theft.target.current)
-				identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
+				identity_theft.target_real_name = maroon_objective.target.current.real_name //Whoops, forgot this.
 				var/mob/living/carbon/human/H = identity_theft.target.current
 				if(can_absorb_species(H.dna.species)) // For species that can't be absorbed - should default to an escape objective
 					identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing [identity_theft.target.p_their()] identification card."

@@ -202,7 +202,7 @@
 				assigned_targets.Add("[debrain_objective.target]")
 			add_objective(debrain_objective)
 
-		else if(prob(30))
+		else
 			var/datum/objective/maroon/maroon_objective = new
 			maroon_objective.owner = owner
 			maroon_objective.find_target()
@@ -211,16 +211,6 @@
 			else if(maroon_objective.target)
 				assigned_targets.Add("[maroon_objective.target]")
 			add_objective(maroon_objective)
-
-		else
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = owner
-			kill_objective.find_target()
-			if("[kill_objective.target]" in assigned_targets)
-				return 0
-			else if(kill_objective.target)
-				assigned_targets.Add("[kill_objective.target]")
-			add_objective(kill_objective)
 
 	else
 		var/datum/objective/steal/steal_objective = new

@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/maroon/find_target()
 	..()
 	if(target && target.current)
-		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role] from escaping alive."
+		explanation_text = "Prevent from escaping alive or assassinate [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
 	return target
