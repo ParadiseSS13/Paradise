@@ -784,7 +784,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 				return
 
-	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src, /mob/living/silicon/robot/drone)))
+	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
@@ -1064,10 +1064,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(module)
 			reset_module()
 		pick_module("Clockwork")
+		emp_protection = TRUE
+		speed = -0.5
+		pdahide = TRUE
 	SSticker.mode.add_clocker(mind)
 	UnlinkSelf()
 	laws = new /datum/ai_laws/ratvar
-	speed = -0.5
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"

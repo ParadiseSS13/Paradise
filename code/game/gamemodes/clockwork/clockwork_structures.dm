@@ -241,7 +241,12 @@
 
 /obj/structure/clockwork/functional/altar/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(!converting && ishuman(AM) && !isclocker(AM) && !hidden && anchored)
+	if(!has_clocker)
+		for(var/mob/living/M in range(1, src))
+			if(isclocker(M) && M.stat == CONSCIOUS)
+				has_clocker = M
+				break
+	if(!converting && ishuman(AM) && !isclocker(AM) && !hidden && anchored && has_clocker)
 		converting = AM
 		first_stage_check(converting)
 

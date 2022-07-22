@@ -2,6 +2,7 @@
 #define AB_CHECK_STUNNED 2
 #define AB_CHECK_LYING 4
 #define AB_CHECK_CONSCIOUS 8
+#define AB_TRANSFER_MIND 16
 
 
 /datum/action

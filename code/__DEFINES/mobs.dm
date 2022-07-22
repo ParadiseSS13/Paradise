@@ -227,6 +227,7 @@
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
+#define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
 #define iscogscarab(A)	(istype((A), /mob/living/silicon/robot/cogscarab))
 
 // For the tcomms monitor

@@ -116,7 +116,7 @@
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
-	transfer_actions(new_character)
+	transfer_actions(new_character, old_current)
 	if(martial_art)
 		if(martial_art.temporary)
 			martial_art.remove(current)
@@ -1922,10 +1922,11 @@
 			qdel(S)
 			spell_list -= S
 
-/datum/mind/proc/transfer_actions(mob/living/new_character)
-	if(current && current.actions)
-		for(var/datum/action/A in current.actions)
-			A.Grant(new_character)
+/datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
+	if(old_current && old_current.actions)
+		for(var/datum/action/A in old_current.actions)
+			if(A.check_flags & AB_TRANSFER_MIND)
+				A.Grant(new_character)
 	transfer_mindbound_actions(new_character)
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)

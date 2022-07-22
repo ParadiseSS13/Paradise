@@ -667,7 +667,7 @@
 	modules += new /obj/item/wrench/brass(src)
 	modules += new /obj/item/crowbar/brass(src)
 	modules += new /obj/item/wirecutters/brass(src)
-	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/multitool/brass(src)
 	modules += new /obj/item/gripper/cogscarab(src)
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
 	modules += new /obj/item/extinguisher(src)

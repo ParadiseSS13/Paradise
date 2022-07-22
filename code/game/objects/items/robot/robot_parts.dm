@@ -322,6 +322,9 @@
 			forceMove(O)
 			O.robot_suit = src
 
+			if(O.mmi.clock) // so robots created from vessel have magic
+				SSticker.mode.add_clock_actions(O.mind)
+
 			if(!locomotion)
 				O.lockcharge = 1
 				O.update_canmove()

@@ -1,7 +1,7 @@
 /datum/action/innate/cult
 	icon_icon = 'icons/mob/actions/actions_cult.dmi'
 	background_icon_state = "bg_cult"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 	buttontooltipstyle = "cult"
 
 /datum/action/innate/cult/IsAvailable()
@@ -15,7 +15,7 @@
 	name = "Communion"
 	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
 	button_icon_state = "cult_comms"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
 /datum/action/innate/cult/comm/Activate()
 	var/input = stripped_input(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
@@ -77,7 +77,7 @@
 	name = "Study the Veil"
 	button_icon_state = "tome"
 	desc = "Check your cult's current progress and objective."
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
 /datum/action/innate/cult/check_progress/New()
 	if(SSticker.mode)

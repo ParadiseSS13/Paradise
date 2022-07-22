@@ -47,6 +47,13 @@
 		attack_verb = null
 		deplete_spell()
 		plushy = FALSE
+	if(!isclocker(user))
+		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
+		if(iscarbon(user))
+			var/mob/living/carbon/carbon = user
+			carbon.Weaken(5)
+			carbon.Stuttering(10)
+		return
 	if(enchant_type == HIDE_SPELL)
 		to_chat(user, "<span class='notice'>You disguise your tool as some little toy.</span>")
 		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
@@ -91,8 +98,8 @@
 			return
 		var/turf/destination = possible_altars[selected_altar]
 		to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
-		animate(user, color = COLOR_PURPLE, time = 3 SECONDS)
-		if(do_after(user, 3 SECONDS, target = user))
+		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
+		if(do_after(user, 1.5 SECONDS, target = user))
 			do_sparks(4, 0, user)
 			user.forceMove(get_turf(destination))
 			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE)
@@ -167,8 +174,8 @@
 			if(!(target in view(user)))
 				return
 			to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
-			animate(user, color = COLOR_PURPLE, time = 3 SECONDS)
-			if(do_after(user, 3 SECONDS, target = user))
+			animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
+			if(do_after(user, 1.5 SECONDS, target = user))
 				do_sparks(4, 0, user)
 				user.forceMove(get_turf(target))
 				playsound(user, 'sound/effects/phasein.ogg', 20, TRUE)
@@ -199,17 +206,18 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "ratvarian_spear0"
-	force_unwielded = 10
-	force_wielded = 18
-	throwforce = 40
-	armour_penetration = 30
+	force = 12
+	force_unwielded = 12
+	force_wielded = 20
+	throwforce = 50
+	armour_penetration = 40
 	sharp = TRUE
-	embed_chance = 80
+	embed_chance = 85
 	block_chance = 25
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("stabbed", "poked", "slashed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
 
 /obj/item/twohanded/ratvarian_spear/Initialize(mapload)
@@ -243,6 +251,7 @@
 			user.emote("scream")
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
+	..()
 
 /obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -255,7 +264,7 @@
 				to_chat(living, "span class='danger'>You feel as foreigner thoughts tries to pierce your mind...</span>")
 				deplete_spell()
 				return
-			living.SetConfused(10)
+			living.SetConfused(15)
 			to_chat(living, "<span class='danger'>Your mind blanks for a moment!</span>")
 			add_attack_logs(user, living, "Inflicted confusion with [src]")
 			deplete_spell()
@@ -286,6 +295,7 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_hammer0"
 	slot_flags = SLOT_BACK
+	force = 5
 	force_unwielded = 5
 	force_wielded = 20
 	armour_penetration = 40
@@ -354,10 +364,10 @@
 	icon_state = "clock_sword"
 	item_state = "clock_sword"
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	force = 15
-	throwforce = 10
+	force = 20
+	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
-	armour_penetration = 20
+	armour_penetration = 10
 	sharp = TRUE
 	attack_verb = list("lunged at", "stabbed")
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -386,16 +396,16 @@
 	if(enchant_type == FASTSWORD_SPELL && src == user.get_active_hand())
 		flags |= NODROP
 		enchant_type = CASTING_SPELL
-		force = 4
+		force = 7
 		swordsman = TRUE
 		add_attack_logs(user, user, "Sworded [src]", ATKLOG_ALL)
 		to_chat(user, "<span class='danger'>The blood inside your veind flows quickly, as you try to sharp someone by any means!</span>")
-		addtimer(CALLBACK(src, .proc/reset_swordsman, user), 6 SECONDS)
+		addtimer(CALLBACK(src, .proc/reset_swordsman, user), 9 SECONDS)
 
 /obj/item/melee/clock_sword/proc/reset_swordsman(mob/user)
 	to_chat(user, "<span class='notice'>The grip on [src] looses...</span>")
 	flags &= ~NODROP
-	force = 15
+	force = initial(force)
 	swordsman = FALSE
 	deplete_spell()
 
@@ -423,8 +433,8 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "brass_buckler"
 	item_state = "brass_buckler"
-	force = 5
-	throwforce = 15
+	force = 3
+	throwforce = 10
 	throw_speed = 1
 	throw_range = 3
 	attack_verb = list("bumped", "prodded", "shoved", "bashed")
@@ -497,19 +507,19 @@
 				return
 			playsound(get_turf(carbon), 'sound/magic/smoke.ogg', 30, TRUE)
 			enchant_type = CASTING_SPELL
-			animate(carbon, alpha = 40, time = 1 SECONDS)
+			animate(carbon, alpha = 20, time = 1 SECONDS)
 			flags |= NODROP
 			sleep(10)
-			carbon.alpha = 40
+			carbon.alpha = 20
 			add_attack_logs(user, user, "cloaked [src]", ATKLOG_ALL)
-			addtimer(CALLBACK(src, .proc/uncloak, carbon), 6 SECONDS)
+			addtimer(CALLBACK(src, .proc/uncloak, carbon), 10 SECONDS)
 		if(enchant_type == SPEED_SPELL)
 			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
 			enchant_type = CASTING_SPELL
 			flags |= NODROP
-			carbon.status_flags |= GOTTAGONOTSOFAST
+			carbon.status_flags |= GOTTAGOFAST
 			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
-			addtimer(CALLBACK(src, .proc/unspeed, carbon), 6 SECONDS)
+			addtimer(CALLBACK(src, .proc/unspeed, carbon), 8 SECONDS)
 	else
 		ToggleHood()
 
@@ -546,16 +556,20 @@
 	item_state = "clockwork_cuirass"
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 60, "bio" = 40, "rad" = 40, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 	flags_inv = HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
 	var/absorb_uses = 2
 	var/reflect_uses = 3
+	var/normal_armor
+	var/harden_armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 
 /obj/item/clothing/suit/armor/clockwork/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.armour_spells
+	normal_armor = armor //initialize, so it will be easier to change armors stats
+	harden_armor = getArmor(arglist(harden_armor))
 
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == ABSORB_SPELL && isclocker(owner))
@@ -563,7 +577,7 @@
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		if(absorb_uses <= 0)
-			absorb_uses = 2
+			absorb_uses = initial(absorb_uses)
 			deplete_spell()
 		else
 			absorb_uses--
@@ -577,10 +591,11 @@
 	if(owner.wear_suit != src)
 		return FALSE
 	if(enchant_type == REFLECT_SPELL && isclocker(owner))
+		owner.visible_message("<span class='danger'>[attack_text] is deflected by [src] sparks!</span>")
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		if(reflect_uses <= 0)
-			reflect_uses = 2
+			reflect_uses = initial(reflect_uses)
 			deplete_spell()
 		else
 			reflect_uses--
@@ -603,12 +618,13 @@
 				return
 			user.visible_message("<span class='danger'>[usr] concentrates as [user.p_their()] curiass shifts his plates!</span>",
 			"<span class='notice'>The [src] becomes more hardened as the plates becomes to shift for any attack!</span>")
-			armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+			//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+			armor = harden_armor
 			flags |= NODROP
 			enchant_type = CASTING_SPELL
 			add_attack_logs(user, user, "Hardened [src]", ATKLOG_ALL)
 			set_light(1.5, 0.8, COLOR_RED)
-			addtimer(CALLBACK(src, .proc/reset_armor, user), 6 SECONDS)
+			addtimer(CALLBACK(src, .proc/reset_armor, user), 12 SECONDS)
 		if(FLASH_SPELL)
 			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
 			set_light(2, 1, COLOR_WHITE)
@@ -625,7 +641,7 @@
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor(mob/user)
 	to_chat(user, "<span class='notice'>The [src] stops shifting...</span>")
 	set_light(0)
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 60, "bio" = 40, "rad" = 40, "fire" = 100, "acid" = 100)
+	armor = normal_armor
 	flags &= ~NODROP
 	deplete_spell()
 
@@ -656,7 +672,7 @@
 	icon_state = "clockwork_gauntlets"
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 25, "energy" = 10, "bomb" = 40, "bio" = 40, "rad" = 40, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 	var/north_star = FALSE
 	var/fire_casting = FALSE
 
@@ -677,7 +693,7 @@
 			enchant_type = CASTING_SPELL
 			north_star = TRUE
 			add_attack_logs(user, user, "North-starred [src]", ATKLOG_ALL)
-			addtimer(CALLBACK(src, .proc/reset), 8 SECONDS)
+			addtimer(CALLBACK(src, .proc/reset), 6 SECONDS)
 		if(FIRE_SPELL)
 			user.visible_message("<span class='danger'>[user]'s gloves starts to burn!</span>", "<span class='notice>Your gloves becomes in red flames ready to burn any enemy in sight!</span>")
 			enchant_type = CASTING_SPELL
@@ -750,7 +766,6 @@
 	icon_state = "clockwork_treads"
 	item_state = "clockwork_treads"
 	strip_delay = 60
-	armor = list(melee = 30, bullet = 30, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 100, acid = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot)
@@ -811,6 +826,9 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/active = FALSE //If the visor is online
 	actions_types = list(/datum/action/item_action/toggle)
+	flash_protect = TRUE
+	see_in_dark = 0
+	lighting_alpha = null
 
 /obj/item/clothing/glasses/clockwork/equipped(mob/living/user, slot)
 	. = ..()

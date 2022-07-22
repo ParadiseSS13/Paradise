@@ -17,10 +17,11 @@
 		<a href='?src=[UID()];makeAntag=2'>Make Changelings</a><br>
 		<a href='?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
 		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
-		<a href='?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='?src=[UID()];makeAntag=6'>Make Vampires</a><br>
-		<a href='?src=[UID()];makeAntag=7'>Make Vox Raiders (Requires Ghosts)</a><br>
-		<a href='?src=[UID()];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=5'>Make Clockwork Cult</a><br>
+		<a href='?src=[UID()];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=7'>Make Vampires</a><br>
+		<a href='?src=[UID()];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -183,7 +184,35 @@
 		return TRUE
 	return FALSE
 
+/datum/admins/proc/makeClockwork()
 
+	var/datum/game_mode/clockwork/temp = new
+	if(config.protect_roles_from_antagonist)
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+	var/antnum = input(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0) as num
+	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
+		return
+	log_admin("[key_name(owner)] tried making a Clockwork Cult with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making a Clockwork Cult with One-Click-Antag")
+
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_CLOCKER, applicant, temp))
+			candidates += applicant
+
+	if(length(candidates))
+		var/numclocks = min(length(candidates), antnum)
+
+		for(var/I in 1 to numclocks)
+			H = pick(candidates)
+			to_chat(H, CLOCK_GREETING)
+			SSticker.mode.add_clocker(H.mind)
+			SSticker.mode.equip_clocker(H)
+			candidates.Remove(H)
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeNukeTeam()
 

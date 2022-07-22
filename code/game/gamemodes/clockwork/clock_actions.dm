@@ -1,7 +1,7 @@
 /datum/action/innate/clockwork
 	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
 	background_icon_state = "bg_clockwork"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 	// buttontooltipstyle = "cult"
 
 /datum/action/innate/clockwork/IsAvailable()
@@ -14,7 +14,7 @@
 	name = "Hierophant's Network"
 	desc = "Whispered words that all clockers can hear.<br><b>Warning:</b>Nearby non-clockers can still hear you."
 	button_icon_state = "hierophant"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
 /datum/action/innate/clockwork/comm/Activate()
 	var/input = stripped_input(usr, "Please choose a message to tell to the other workmates.", "Voice of Clockwork", "")
@@ -55,7 +55,7 @@
 	name = "Study the Veil"
 	button_icon_state = "tome"
 	desc = "Check your cult's current progress and objective."
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
 /datum/action/innate/clockwork/check_progress/IsAvailable()
 	if(isclocker(owner) || isobserver(owner))

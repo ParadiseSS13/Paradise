@@ -42,7 +42,9 @@
 /obj/machinery/computer/robotics/proc/console_shows(mob/living/silicon/robot/R)
 	if(!istype(R))
 		return FALSE
-	if(istype(R, /mob/living/silicon/robot/drone))
+	if(isdrone(R))
+		return FALSE
+	if(iscogscarab(R))
 		return FALSE
 	if(iscogscarab(R))
 		return FALSE
@@ -176,7 +178,7 @@
 			message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
 			log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")
 			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
-				if(istype(R, /mob/living/silicon/robot/drone))
+				if(isdrone(R))
 					continue
 				// Ignore antagonistic cyborgs
 				if(R.scrambledcodes)
