@@ -72,9 +72,9 @@
 	if(istype(H))
 		H.update_inv_head()
 		if(!update_light)
-			to_chat(user, "<span class='notice'>You turn your [src]'s torch [on ? "on":"off"].</span>")
-		if(!up)
-			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
+			to_chat(user, "<span class='notice'>You turn \the [src]'s torch [on ? "on":"off"].</span>")
+		if(on && !up)
+			to_chat(user, "<span class='notice'>[src]'s torch can't pass through your welding visor!</span>")
 
 	if(!on || !up)
 		set_light(0)
