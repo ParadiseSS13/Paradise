@@ -130,6 +130,7 @@
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""]"
+	item_state = "wt550-[CEILING(get_ammo(0)/6.7, 1)]"
 
 //Type-U3 Uzi//
 /obj/item/gun/projectile/automatic/mini_uzi
