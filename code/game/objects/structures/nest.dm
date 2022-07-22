@@ -28,7 +28,7 @@
 /obj/structure/nest/examine(mob/user)
 	. = ..()
 	if(!spawn_is_triggered)
-		. += "You can hear a cacophony of growling snores from within."
+		. += "<span class='warning'>You can hear a cacophony of growling snores from within.</span>"
 
 /obj/structure/nest/attack_animal(mob/living/simple_animal/M)
 	if(faction_check(faction, M.faction, FALSE) && !M.client)
