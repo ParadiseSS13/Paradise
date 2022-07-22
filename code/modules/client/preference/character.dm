@@ -2095,12 +2095,7 @@
 	from_db = FALSE
 	return TRUE
 
-/datum/character_save/proc/init_custom_emote_text(overrides, raw)
-	if(raw)
-		try
-			overrides = json_decode(raw)
-		catch
-			overrides = list()
+/datum/character_save/proc/init_custom_emote_text(overrides)
 	custom_emote_text = list()
 	custom_emote_text = overrides
 	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)

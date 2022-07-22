@@ -523,7 +523,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						dat += "</tr>"
 						dat += "<tr>"
 						if(custom_emote.emote_text == initial(custom_emote.emote_text))
-							dat += "<td style='width: 25%'><i>\"[custom_emote.emote_text]\"</i></td>"
+							dat += "<td style='width: 25%'>[custom_emote.emote_text]</td>"
 						else
 							dat += "<td style='width: 25%'><i>\"[active_character.real_name] [custom_emote.emote_text]\"</i></td>"
 						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote.UID()];'>Change Text</a></td>"
