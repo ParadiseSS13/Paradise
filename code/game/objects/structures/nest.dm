@@ -1,5 +1,11 @@
 // Nests spawn mobs and objects when crossed by players.
-// Nests placed in "spawn_trigger_distance" will always spawn the same type of mob.
+
+// Once a nest is triggered, it picks a mob from 'spawn_mob_options', then
+// looks around in 'spawn_trigger_distance' distance and activates all nests
+// in that area. After a few seconds, the selected mob spawns from every
+// triggered nest, alongside with some items dictated by 'spawn_byproduct'.
+// Once spawned, the nests become inactive by the 'spawn_is_triggered' variable
+// becoming TRUE.
 
 /obj/structure/nest
 	name = "tunnel"
@@ -11,13 +17,13 @@
 	anchored = TRUE
 	density = FALSE
 
-	var/faction = list("hostile")
-	var/spawn_byproduct = list(/obj/item/stack/ore/glass, /obj/item/stack/ore/iron)
-	var/spawn_byproduct_max = 3
-	var/spawn_is_triggered = FALSE
-	var/spawn_max = 2
-	var/spawn_mob_options = list(/mob/living/simple_animal/crab)
-	var/spawn_trigger_distance = 7
+	var/faction = list("hostile")	// If you spawn auto-attacking mobs, make sure that their faction and the nest's is the same
+	var/spawn_byproduct = list(/obj/item/stack/ore/glass, /obj/item/stack/ore/iron)	// When mobs spawn, these items also spawn on top of the tunnel
+	var/spawn_byproduct_max = 3		// Maximum number of item spawns
+	var/spawn_is_triggered = FALSE	// This is set to TRUE once the nest is triggered, preventing multiple triggers; set it to FALSE to re-activate it
+	var/spawn_max = 2				// Maximum number of mob spawns
+	var/spawn_mob_options = list(/mob/living/simple_animal/crab)	// The nest picks one mob type of this list and spawns them
+	var/spawn_trigger_distance = 7	// The triggered nest will look this many tiles around itself to find other triggerable nests
 
 /obj/structure/nest/examine(mob/user)
 	. = ..()
