@@ -817,6 +817,8 @@
 
 /obj/item/gun/energy/detective/proc/unlink()
 	var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+	if(!C)
+		return
 	C.linked_gun_UID = null
 	if(C.mode == MODE_DET)
 		C.stop_tracking()
