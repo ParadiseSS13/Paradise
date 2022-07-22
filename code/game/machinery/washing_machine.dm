@@ -16,18 +16,18 @@
 		//6 = blood, open door
 		//7 = blood, closed door
 		//8 = blood, running
-	// if the door is open
+	/// if the door is open
 	var/open = TRUE
-	// full means it contains any items at all, not meaning its reached its capacity
+	/// full means it contains any items at all, not meaning its reached its capacity
 	var/full = FALSE
-	// if the washing machine is currently cleaning
+	/// if the washing machine is currently cleaning
 	var/running = FALSE
-	// if the washing machine is filled with blood
+	/// if the washing machine is filled with blood
 	var/bloody = FALSE
-	// If the hacking panel is accessible (screwdriver'd)
+	/// If the hacking panel is accessible (screwdriver'd)
 	var/panel = FALSE
 
-	var/mobblooddna // wip
+	var/mob_blood_dna // wip
 	// The object affecting dyeing color (crayons, stamps, armbands)
 	var/obj/crayon
 
@@ -51,10 +51,12 @@
 	update_icon()
 
 /obj/machinery/washing_machine/AltClick(mob/living/user)
-	if(!istype(usr, /mob/living))
+	Wash(user)
+
+/obj/machinery/washing_machine/proc/Wash(mob/living/user)
+	if(!istype(user))
 		return
 	if(stat & NOPOWER)
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 15)
 		to_chat(usr, "<span class='notice'>[src] isn't powered.</span>")
 		return
 	if(running)
@@ -62,26 +64,26 @@
 		return
 	if(open && bloody)
 		if(!full)
-			to_chat(usr, "<span class='notice'>You start [src] to clean it out.</span>")
+			to_chat(user, "<span class='notice'>You start [src] to clean it out.</span>")
 		else
-			to_chat(usr, "<span class='notice'>You start [src], covering the contents inside with blood.</span>") // THIS DOESNT WORK YET
+			to_chat(user, "<span class='notice'>You start [src], covering the contents inside with blood.</span>") // THIS DOESNT WORK YET
 	else
 		if(!full)
-			to_chat(usr, "<span class='notice'>[src] is empty, there is nothing to clean.</span>")
+			to_chat(user, "<span class='notice'>[src] is empty, there is nothing to clean.</span>")
 			return
 
 	playsound(src, 'sound/machines/click.ogg', 25)
 	running = TRUE
 	open = FALSE
 
-	var/mob/living/M = locate(/mob,contents)
+	var/mob/living/M = locate(/mob/living, contents)
 	if(M)
 		if(user == M)
 			to_chat(M, "<span class='warning'>You activate [src] and quickly close the door on yourself!</span>")
 		bloody = TRUE
 		update_icon()
 		add_attack_logs(user, M, "activated a washing machine with them inside")
-		to_chat(M, "<span class='userdanger'>[src] slams your body into the walls repeatedly as the washing machine spins!</span>")
+		to_chat(M, "<span class='userdanger'>Your body into the walls repeatedly as [src] spins!</span>")
 		for(var/I in 1 to (washing_time / damage_time))
 			if(prob(33))
 				M.emote("scream")
@@ -100,12 +102,14 @@
 		for(var/atom/A in contents)
 			A.clean_blood()
 
-	//Tanning!
+	//Tanning! // why?
 	for(var/obj/item/stack/sheet/hairlesshide/HH in contents)
 		var/obj/item/stack/sheet/wetleather/WL = new(src)
 		WL.amount = HH.amount
 		qdel(HH)
+	dyeing()
 
+/obj/machinery/washing_machine/proc/dyeing()
 	if(crayon)
 		var/wash_color
 		if(istype(crayon,/obj/item/toy/crayon))
@@ -119,16 +123,8 @@
 			wash_color = AR.item_color
 
 		if(wash_color)
-			// Clothes that are acceptable to dye, and must have dyeable = TRUE
-			var/list/dyeableclothes = list(/obj/item/clothing/under/plasmaman, /obj/item/clothing/head/helmet/space/plasmaman, /obj/item/clothing/under, /obj/item/clothing/gloves/color, /obj/item/clothing/shoes, /obj/item/clothing/mask/bandana, /obj/item/clothing/head/soft, /obj/item/clothing/head/beanie, /obj/item/clothing/accessory/scarf)
-			// Non-clothes that are acceptable to dye, these are not clothing and do not have the dyeable var, it is assumed everything in this path is acceptable to be dyed
-			var/list/nonclothes = list(/obj/item/bedsheet, /obj/item/storage/wallet/color, /obj/item/toy/carpplushie)
-			// Temporary list so we dont check the thing we just added to the washing machine to change it again
-			var/list/newcontents = list()
 			for(var/obj/item/Item in contents)
 				var/shouldbreak
-				// this list is all possible items in that path, one is randomly chosen from them, allowing for things with multiple colors to have the same item_color (not implmented yet)
-				var/list/possiblepick = list()
 				if(istype(Item, /obj/item/clothing)) //if not dyeable, skip this item
 					for(var/T in typesof(/obj/item/clothing))
 						var/obj/item/clothing/X = new T
@@ -138,104 +134,10 @@
 							break
 				if(shouldbreak)
 					continue
-				if(istype(Item, /obj/item/clothing/under/plasmaman)) // plasmaman suits need to be before jumpsuits so they are not processed as a jumpsuit
-					for(var/T in typesof(/obj/item/clothing/under/plasmaman))
-						var/obj/item/clothing/under/plasmaman/J = new T
-						if((wash_color == J.item_color) && J.dyeable)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/clothing/head/helmet/space/plasmaman)) // plasmaman helmets
-					for(var/T in typesof(/obj/item/clothing/head/helmet/space/plasmaman))
-						var/obj/item/clothing/head/helmet/space/plasmaman/J = new T
-						if((wash_color == J.item_color) && J.dyeable)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/clothing/under)) // jumpsuits
-					for(var/T in typesof(/obj/item/clothing/under))
-						var/obj/item/clothing/under/J = new T
-						if((wash_color == J.item_color) && J.dyeable)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/clothing/gloves/color)) //gloves, might want to add a special check for insuls if we want to keep those dyeable. Maybe just change the icon_state and item_state on them.
-					for(var/T in typesof(/obj/item/clothing/gloves/color))
-						var/obj/item/clothing/gloves/color/J = new T
-						if((wash_color == J.item_color) && J.dyeable)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/clothing/shoes)) //shoes
-					for(var/T in typesof(/obj/item/clothing/shoes))
-						var/obj/item/clothing/shoes/J = new T
-						if((wash_color == J.item_color) && J.dyeable)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/clothing/mask/bandana)) //bandanas
-					for(var/T in typesof(/obj/item/clothing/mask/bandana))
-						var/obj/item/clothing/mask/bandana/J = new T
-						if((wash_color == J.item_color) && J.dyeable)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/clothing/head/soft)) // soft-caps
-					for(var/T in typesof(/obj/item/clothing/head/soft))
-						var/obj/item/clothing/head/soft/J = new T
-						if((wash_color == J.item_color) && J.dyeable)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/clothing/head/beanie)) // non-striped beanies
-					for(var/T in typesof(/obj/item/clothing/head/beanie))
-						var/obj/item/clothing/head/beanie/J = new T
-						if((wash_color == J.item_color) && J.dyeable)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/clothing/accessory/scarf)) // scarves
-					for(var/T in typesof(/obj/item/clothing/accessory/scarf))
-						var/obj/item/clothing/accessory/scarf/J = new T
-						if((wash_color == J.item_color) && J.dyeable)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/bedsheet)) // bedsheets
-					for(var/T in typesof(/obj/item/bedsheet))
-						var/obj/item/bedsheet/J = new T
-						if(wash_color == J.item_color)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/storage/wallet/color)) // only for wallets from the arcade
-					for(var/T in typesof(/obj/item/storage/wallet/color))
-						var/obj/item/storage/wallet/color/J = new T
-						if(wash_color == J.item_color)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-				if(istype(Item, /obj/item/toy/carpplushie)) // carp plushies! was gonna add for fox plushies but their pathing makes it not an option currently
-					for(var/T in typesof(/obj/item/toy/carpplushie))
-						var/obj/item/toy/carpplushie/J = new T
-						if(wash_color == J.item_color)
-							qdel(Item)
-							newcontents += J
-							break
-					continue
-			for(var/I in 1 to (length(newcontents)))
-				contents += newcontents[I]
+				if(istype(Item, /obj/item/clothing))
+					dyethis(Item, wash_color, TRUE)
+				else
+					dyethis(Item, wash_color, FALSE)
 		QDEL_NULL(crayon)
 
 	running = FALSE
@@ -244,11 +146,40 @@
 	else
 		playsound(src, 'sound/weapons/jug_filled_impact.ogg', 10)
 	update_icon()
-	sleep(5)
+	sleep(5) // todo: replace this with a callback
 	if(stat & NOPOWER)
 		playsound(src, 'sound/machines/terminal_off.ogg', 45)
 	else
 		playsound(src, 'sound/machines/defib_success.ogg', 25)
+
+/obj/machinery/washing_machine/proc/dyethis(var/obj/item/Item, wash_color, clothing = TRUE) // god this is nasty
+	// Things that are acceptable to dye
+	var/list/dyeablethings = list(/obj/item/clothing/under/plasmaman, /obj/item/clothing/head/helmet/space/plasmaman, /obj/item/clothing/under, /obj/item/clothing/gloves/color, /obj/item/clothing/shoes, /obj/item/clothing/mask/bandana, /obj/item/clothing/head/soft, /obj/item/clothing/head/beanie, /obj/item/clothing/accessory/scarf, /obj/item/bedsheet, /obj/item/storage/wallet/color, /obj/item/toy/carpplushie)
+	var/list/possible = list()
+	for(var/obj/item/Path in dyeablethings) // for every item in contents, check every it against every dyeablething, then check that for every subtype (god what the fuck)
+		if(istype(Item, Path))
+			for(var/T in typesof(Path))
+				var/obj/item/J = new T // for the love of god change the variable name
+				if(clothing)
+					var/obj/item/clothing/J2 = T // this one too
+					if(!initial(J2.dyeable))
+						continue
+				if((wash_color == J.item_color))
+					possible += J
+				qdel(J)
+			if(possible)
+				var/obj/item/Why = pick(possible)
+				to_chat(world, "[possible.Join(", ")]")
+				to_chat(world, "[Why]")
+				Item.item_state = Why.item_state
+				Item.icon_state = Why.icon_state
+				Item.item_color = Why.item_color
+				Item.name = Why.name
+				Item.desc = Why.desc
+				Item.desc += "\nThe colors seem slightly dodgy."
+				break
+			else
+				to_chat(world, "this is a bug")
 
 /obj/machinery/washing_machine/update_icon()
 	if(bloody)
@@ -290,6 +221,9 @@
 		user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
 		if(do_after(user, W.toolspeed SECONDS, target = src))
 			user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
+			bloody = FALSE
+			update_icon()
+			return
 	if(bloody && open)
 		to_chat(user, "<span class='warning'>[src] is filled with blood! It won't clean anything until the blood is cleaned out.</span>")
 	if(default_unfasten_wrench(user, W))
@@ -300,7 +234,7 @@
 			if(!crayon)
 				user.drop_item()
 				crayon = W
-				crayon.loc = src
+				crayon.forceMove(src)
 				update_icon()
 			else
 				return ..()
@@ -313,11 +247,11 @@
 				if(ishuman(G.assailant) && ishuman(G.affecting) && HAS_TRAIT(G.affecting, TRAIT_DWARF) && (G.state < GRAB_AGGRESSIVE))
 					to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 				else
-					visible_message("[user] starts putting [G.affecting.name] into [src].")
+					visible_message("<span class='notice'>[user] starts putting [G.affecting.name] into [src].</span>")
 					if(do_after(user, 20, target = G.affecting))
-						visible_message("[user] puts [G.affecting.name] into [src].")
+						visible_message("<span class='warning'>[user] puts [G.affecting.name] into [src].</span>")
 						add_fingerprint(user)
-						G.affecting.loc = src
+						G.affecting.forceMove(src)
 						qdel(G)
 						full = TRUE
 			update_icon()
@@ -330,17 +264,15 @@
 				else
 					to_chat(user, "<span class='notice'>You can't fit [W] in [src].</span>")
 			return ..()
-	else if(istype(W,/obj/item/stack/sheet/hairlesshide) || \
-		istype(W,/obj/item/clothing/under) || \
-		istype(W,/obj/item/clothing/mask) || \
-		istype(W,/obj/item/clothing/head) || \
-		istype(W,/obj/item/clothing/gloves) || \
-		istype(W,/obj/item/clothing/shoes) || \
-		istype(W,/obj/item/clothing/suit) || \
-		istype(W,/obj/item/bedsheet) || \
-		istype(W,/obj/item/storage/wallet)) // yes forget your wallet in the washing machine
-
+	else
+		var/list/allowed = list(/obj/item/stack/sheet/hairlesshide, W,/obj/item/clothing/under, /obj/item/clothing/mask, /obj/item/clothing/head, /obj/item/clothing/gloves, /obj/item/clothing/shoes, /obj/item/clothing/suit, /obj/item/bedsheet, /obj/item/storage/wallet)
 		var/list/prohibited = list(/obj/item/clothing/suit/space, /obj/item/clothing/suit/syndicatefake, /obj/item/clothing/suit/bomb_suit, /obj/item/clothing/suit/armor, /obj/item/clothing/mask/gas, /obj/item/clothing/head/syndicatefake, /obj/item/clothing/head/helmet, /obj/item/clothing/suit/cyborg_suit, /obj/item/clothing/mask/cigarette)
+		var/goahead // there has to be a better way to do this
+		for(var/I in 1 to length(prohibited))
+			if(istype(W, allowed[I]))
+				goahead = TRUE
+		if(!goahead)
+			return ..()
 		if(!istype(W, (/obj/item/clothing/head/helmet/space/plasmaman)))
 			for(var/I in 1 to length(prohibited))
 				if(istype(W, prohibited[I]))
@@ -349,25 +281,25 @@
 		if(istype(W, /obj/item/clothing/gloves/color/black/krav_maga/sec))
 			to_chat(user, "<span class='warning'>Washing these gloves would fry the electronics!</span>")
 			return
-		if(W.flags & NODROP) //if "can't drop" item
-			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
+		if(W.flags && NODROP) //if "can't drop" item
+			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in [src]!</span>")
 			return
 
 		if(length(contents) < 10)
-			if(!locate(/mob,contents)) // no placing items in the machine if theres a mob inside
+			var/mob/living/M
+			if(!M) // no placing items in the machine if theres a mob inside
 				if(open && !bloody)
 					user.drop_item()
-					W.loc = src
+					W.forceMove(src)
 					full = TRUE
 				else
-					to_chat(user, "<span class='notice'>You can't put the item in right now.</span>")
+					to_chat(user, "<span class='notice'>You can't put [W] in right now.</span>")
 			else
-				to_chat(user, "<span class='notice'>The washing machine is is occupied by [locate(/mob,contents)], there's no extra space.</span>")
+				to_chat(user, "<span class='notice'>[src] is is occupied by [M], there's no extra space.</span>")
 		else
-			to_chat(user, "<span class='notice'>The washing machine is full.</span>")
+			to_chat(user, "<span class='notice'>[src] is full.</span>")
 		update_icon()
-	else
-		return ..()
+
 
 /obj/machinery/washing_machine/attack_hand(mob/user as mob)
 	if(running) // States 5 and 8
@@ -377,13 +309,13 @@
 		if(open) // 6
 			to_chat(usr, "<span class='notice'>[src] only contains blood, there is nothing to remove from it.</span>")
 		else // 7
-			if(locate(/mob,contents))
-				var/mob/Mob = locate(/mob,contents)
+			if(locate(/mob, contents))
+				var/mob/Mob = locate(/mob, contents)
 				if(!ishuman(Mob) && Mob.stat == DEAD)
 					Mob.gib()
 					to_chat(usr, "<span class='narsie'>You monster.</span>")
 			for(var/atom/movable/Obj in contents) // it empties here because gibs would explode when opening the door
-				Obj.loc = loc
+				Obj.forceMove(loc)
 			crayon = null
 			full = FALSE
 			open = TRUE
@@ -393,7 +325,7 @@
 			if(open) // 3
 				to_chat(usr, "<span class='notice'>You empty [src].</span>")
 				for(var/atom/movable/Obj in contents)
-					Obj.loc = loc
+					Obj.forceMove(loc)
 				crayon = null
 				full = FALSE
 			else // 4
@@ -404,7 +336,7 @@
 			if(open) // 1
 				to_chat(usr, "<span class='notice'>[src] is empty, there is nothing to remove from it.</span>")
 				for(var/atom/movable/Obj in contents) // We'll try anyways, just in case
-					Obj.loc = loc
+					Obj.forceMove(loc)
 				crayon = null
 			else // 2
 				to_chat(usr, "<span class='notice'>You open the door on [src].</span>")
@@ -451,8 +383,9 @@
 		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 		return
 	if(full)
-		to_chat(user, "<span class='warning'>[src] needs to be empty to fit [L] inside.</span>")
-		return
+		if((ishuman(user) && isanimal(L) && !ishostile(L) && !isbot(L)) || (ishuman(user) && HAS_TRAIT(L, TRAIT_DWARF)))
+			to_chat(user, "<span class='warning'>[src] needs to be empty to fit [L] inside.</span>")
+			return
 	if(open && !bloody && !full)
 		if((ishuman(user) && isanimal(L) && !ishostile(L) && !isbot(L)) || (ishuman(user) && HAS_TRAIT(L, TRAIT_DWARF)))
 			if(L == user)
@@ -483,8 +416,8 @@
 
 			L.visible_message("<span class='danger'>[L] breaks out of [src]!</span>", 1)
 
-			for(var/atom/movable/O in contents)
-				O.loc = loc
+			for(var/atom/movable/Obj in contents)
+				Obj.forceMove(loc)
 			open = TRUE
 			crayon = null
 			full = FALSE
