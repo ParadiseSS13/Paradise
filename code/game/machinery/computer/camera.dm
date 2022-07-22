@@ -216,7 +216,7 @@
 
 /obj/machinery/computer/security/telescreen/entertainment/Initialize()
 	. = ..()
-	set_light(1,0.1) //so byond doesnt cull, and we get an emissive appearance
+	set_light(1, 0.1) //so byond doesnt cull, and we get an emissive appearance
 
 /obj/machinery/computer/security/telescreen/entertainment/power_change()
 	..()

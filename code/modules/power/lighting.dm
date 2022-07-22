@@ -300,14 +300,12 @@
 	. = ..()
 	underlays.Cut()
 
-	if(status != LIGHT_OK)
+	if(status != LIGHT_OK ||!on || !turning_on)
 		return
-
-	if( on || turning_on)
-		if(nightshift_enabled || emergency_mode || fire_mode)
-			underlays += emissive_appearance(icon, "[base_state]_emergency_lightmask")
-		else
-			underlays += emissive_appearance(icon, "[base_state]_lightmask")
+	if(nightshift_enabled || emergency_mode || fire_mode)
+		underlays += emissive_appearance(icon, "[base_state]_emergency_lightmask")
+	else
+		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
 /**
   * Updates the light's 'on' state and power consumption based on [/obj/machinery/light/var/on].
