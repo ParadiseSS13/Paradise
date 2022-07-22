@@ -182,7 +182,3 @@
 		light_connect = !light_connect
 	if("toggle_logic" in href_list)
 		logic_connect = !logic_connect
-
-/obj/machinery/light_switch/off/Initialize()
-	..()
-	attack_hand()
