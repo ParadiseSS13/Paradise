@@ -6,7 +6,7 @@
 	item_state = "plasmaman-helm"
 	strip_delay = 80
 	flash_protect = FLASH_PROTECTION_WELDER
-	tint = 2
+	tint = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75)
 	resistance_flags = FIRE_PROOF
 	var/brightness_on = 4 //luminosity when the light is on
@@ -24,11 +24,10 @@
 	species_restricted = list("Plasmaman")
 	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
 
-/obj/item/clothing/head/helmet/space/plasmaman/New()
-	..()
+/obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
+	. = ..()
 	visor_toggling()
 	update_icon()
-	cut_overlays()
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(!user.incapacitated() && Adjacent(user))
@@ -57,11 +56,14 @@
 			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
 			update_icon()
 
-/obj/item/clothing/head/helmet/space/plasmaman/update_icon()
-	cut_overlays()
-	add_overlay(visor_icon)
-	..()
+/obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
+	icon_state = "[initial(icon_state)][on ? "-light":""]"
+	item_state = icon_state
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+
+/obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
+	. = ..()
+	. += visor_icon
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	toggle_light(user)
@@ -69,8 +71,6 @@
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
 	if(up)
 		on = !on
-		icon_state = "[initial(icon_state)][on ? "-light":""]"
-		item_state = icon_state
 	if(isnull(user))
 		user = loc
 	var/mob/living/carbon/human/H = user
@@ -89,6 +89,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	update_icon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light()
 	if(on)

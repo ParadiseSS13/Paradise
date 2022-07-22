@@ -13,14 +13,13 @@
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
 
-/obj/item/storage/belt/update_icon()
+/obj/item/storage/belt/update_overlays()
+	. = ..()
 	if(use_item_overlays)
-		cut_overlays()
 		for(var/obj/item/I in contents)
 			var/image/belt_image = image(icon, I.belt_icon)
 			belt_image.color = I.color
-			add_overlay(belt_image)
-	..()
+			. += belt_image
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
@@ -135,7 +134,6 @@
 		/obj/item/reagent_containers/hypospray/autoinjector,
 		/obj/item/reagent_containers/hypospray/CMO,
 		/obj/item/reagent_containers/hypospray/safety,
-		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
@@ -433,8 +431,7 @@
 	. = ..()
 	update_icon()
 
-/obj/item/storage/belt/lazarus/update_icon()
-	..()
+/obj/item/storage/belt/lazarus/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
 /obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user)
@@ -465,8 +462,7 @@
 	for(var/I in 1 to 8)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
-/obj/item/storage/belt/bandolier/update_icon()
-	..()
+/obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user)
@@ -611,13 +607,13 @@
 		return
 	playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
 
-/obj/item/storage/belt/rapier/update_icon()
-	. = ..()
-	icon_state = initial(icon_state)
-	item_state = initial(item_state)
+/obj/item/storage/belt/rapier/update_icon_state()
 	if(length(contents))
 		icon_state = "[icon_state]-rapier"
 		item_state = "[item_state]-rapier"
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
 	if(isliving(loc))
 		var/mob/living/L = loc
 		L.update_inv_belt()

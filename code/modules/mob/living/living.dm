@@ -235,7 +235,7 @@
 /mob/living/stop_pulling()
 	..()
 	if(pullin)
-		pullin.update_icon(src)
+		pullin.update_icon(UPDATE_ICON_STATE)
 
 /mob/living/verb/stop_pulling1()
 	set name = "Stop Pulling"
@@ -1022,7 +1022,7 @@
 	pulling = AM
 	AM.pulledby = src
 	if(pullin)
-		pullin.update_icon(src)
+		pullin.update_icon(UPDATE_ICON_STATE)
 	if(ismob(AM))
 		var/mob/M = AM
 		if(!iscarbon(src))

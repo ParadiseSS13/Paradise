@@ -91,25 +91,29 @@
 	QDEL_NULL(photo)
 	return ..()
 
-/obj/machinery/newscaster/update_icon()
-	cut_overlays()
+/obj/machinery/newscaster/update_icon_state()
 	if(inoperable())
 		icon_state = "newscaster_off"
+		return
+	if(GLOB.news_network.wanted_issue)
+		icon_state = "newscaster_wanted"
 	else
-		if(!GLOB.news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
-			icon_state = "newscaster_normal"
-			if(alert) //new message alert overlay
-				add_overlay("newscaster_alert")
+		icon_state = "newscaster_normal"
+
+/obj/machinery/newscaster/update_overlays()
+	. = ..()
+	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
+		. += "newscaster_alert"
 	var/hp_percent = obj_integrity * 100 / max_integrity
 	switch(hp_percent)
 		if(75 to INFINITY)
 			return
 		if(50 to 75)
-			add_overlay("crack1")
+			. += "crack1"
 		if(25 to 50)
-			add_overlay("crack2")
+			. += "crack2"
 		else
-			add_overlay("crack3")
+			. += "crack3"
 
 /obj/machinery/newscaster/power_change()
 	..()

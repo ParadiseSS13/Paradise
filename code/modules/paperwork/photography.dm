@@ -162,6 +162,7 @@
 	var/pictures_max = 10
 	var/pictures_left = 10
 	var/on = TRUE
+	var/on_cooldown = FALSE
 	var/blueprints = 0
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
@@ -198,14 +199,16 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
 
-/obj/item/camera/attack_self(mob/user as mob)
+/obj/item/camera/attack_self(mob/user)
+	if(on_cooldown)
+		to_chat(user, "<span class='notice'>[src] is still on cooldown!</span>")
+		return
 	on = !on
 	if(on)
-		src.icon_state = icon_on
+		icon_state = icon_on
 	else
-		src.icon_state = icon_off
+		icon_state = icon_off
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
-	return
 
 /obj/item/camera/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/camera_film))
@@ -340,13 +343,17 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
 	on = FALSE
+	on_cooldown = TRUE
 	if(istype(src,/obj/item/camera/spooky))
 		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
-	spawn(64)
-		icon_state = icon_on
-		on = TRUE
+	addtimer(CALLBACK(src, .proc/reset_cooldown), 6.4 SECONDS) // fucking magic numbers
+
+/obj/item/camera/proc/reset_cooldown()
+	icon_state = icon_on
+	on = TRUE
+	on_cooldown = FALSE
 
 /obj/item/camera/proc/can_capture_turf(turf/T, mob/user)
 	var/viewer = user

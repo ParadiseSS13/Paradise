@@ -7,16 +7,16 @@
 	layer = MOB_LAYER - 0.1
 	mob_biotypes = MOB_ROBOTIC
 	light_range = 3
-	stop_automated_movement = 1
-	wander = 0
-	healable = 0
+	stop_automated_movement = TRUE
+	wander = FALSE
+	healable = FALSE
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	has_unlimited_silicon_privilege = 1
+	has_unlimited_silicon_privilege = TRUE
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = 0 //no default canpush
-	can_strip = 0
+	can_strip = FALSE
 
 	speak_emote = list("states")
 	friendly = "boops"
@@ -31,17 +31,17 @@
 	var/window_width = 0 //0 for default size
 	var/window_height = 0
 	var/obj/item/paicard/paicard // Inserted pai card.
-	var/allow_pai = 1 // Are we even allowed to insert a pai card.
+	var/allow_pai = TRUE // Are we even allowed to insert a pai card.
 	var/bot_name
 
 	var/list/player_access = list()
 	var/emagged = 0
 	var/obj/item/card/id/access_card			// the ID card that the bot "holds"
 	var/list/prev_access = list()
-	var/on = 1
-	var/open = 0//Maint panel
-	var/locked = 1
-	var/hacked = 0 //Used to differentiate between being hacked by silicons and emagged by humans.
+	var/on = TRUE
+	var/open = FALSE //Maint panel
+	var/locked = TRUE
+	var/hacked = FALSE //Used to differentiate between being hacked by silicons and emagged by humans.
 	var/text_hack = ""		//Custom text returned to a silicon upon hacking a bot.
 	var/text_dehack = "" 	//Text shown when resetting a bots hacked status to normal.
 	var/text_dehack_fail = "" //Shown when a silicon tries to reset a bot emagged with the emag item, which cannot be reset.
@@ -50,16 +50,16 @@
 	var/base_speed = 2 //The speed at which the bot moves, or the number of times it moves per process() tick.
 	var/turf/ai_waypoint //The end point of a bot's path, or the target location.
 	var/list/path = list() //List of turfs through which a bot 'steps' to reach the waypoint, associated with the path image, if there is one.
-	var/pathset = 0
+	var/pathset = FALSE
 	var/list/ignore_list = list() //List of unreachable targets for an ignore-list enabled bot to ignore.
 	var/mode = BOT_IDLE //Standardizes the vars that indicate the bot is busy with its function.
 	var/tries = 0 //Number of times the bot tried and failed to move.
-	var/remote_disabled = 0 //If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
+	var/remote_disabled = FALSE //If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
 	var/mob/living/silicon/ai/calling_ai //Links a bot to the AI calling it.
 	var/obj/item/radio/Radio //The bot's radio, for speaking to people.
 	var/list/radio_config = null //which channels can the bot listen to
 	var/radio_channel = "Common" //The bot's default radio channel
-	var/auto_patrol = 0// set to make bot automatically patrol
+	var/auto_patrol = FALSE // set to make bot automatically patrol
 	var/turf/patrol_target	// this is turf to navigate to (location of beacon)
 	var/turf/summon_target	// The turf of a user summoning a bot.
 	var/new_destination		// pending new destination (waiting for beacon response)
@@ -125,20 +125,20 @@
 /mob/living/simple_animal/bot/proc/turn_on()
 	if(stat)
 		return 0
-	on = 1
+	on = TRUE
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(initial(light_range))
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_controls()
 	diag_hud_set_botstat()
 	return 1
 
 /mob/living/simple_animal/bot/proc/turn_off()
-	on = 0
+	on = FALSE
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(0)
 	bot_reset() //Resets an AI's call, should it exist.
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_controls()
 
 /mob/living/simple_animal/bot/New()
@@ -224,14 +224,14 @@
 
 /mob/living/simple_animal/bot/emag_act(mob/user)
 	if(locked) //First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
-		locked = 0
+		locked = FALSE
 		emagged = 1
 		to_chat(user, "<span class='notice'>You bypass [src]'s controls.</span>")
 		return
 	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
 		emagged = 2
-		remote_disabled = 1 //Manually emagging the bot locks out the AI built in panel.
-		locked = 1 //Access denied forever!
+		remote_disabled = TRUE //Manually emagging the bot locks out the AI built in panel.
+		locked = TRUE //Access denied forever!
 		bot_reset()
 		turn_on() //The bot automatically turns on when emagged, unless recently hit with EMP.
 		to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
@@ -409,7 +409,7 @@
 	pulse2.icon = 'icons/effects/effects.dmi'
 	pulse2.icon_state = "empdisable"
 	pulse2.name = "emp sparks"
-	pulse2.anchored = 1
+	pulse2.anchored = TRUE
 	pulse2.dir = pick(GLOB.cardinal)
 	QDEL_IN(pulse2, 10)
 
@@ -550,7 +550,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		if(message)
 			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [path.len-1] meters to destination.</span>")
-		pathset = 1
+		pathset = TRUE
 		mode = BOT_RESPONDING
 		tries = 0
 	else
@@ -578,7 +578,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		reset_access_timer_id = null
  	set_path(null)
 	summon_target = null
-	pathset = 0
+	pathset = FALSE
 	access_card.access = prev_access
 	tries = 0
 	mode = BOT_IDLE
@@ -602,7 +602,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/start_patrol()
 
 	if(tries >= BOT_STEP_MAX_RETRIES) //Bot is trapped, so stop trying to patrol.
-		auto_patrol = 0
+		auto_patrol = FALSE
 		tries = 0
 		speak("Unable to start patrol.")
 
@@ -666,7 +666,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		patrol_target = nearest_beacon_loc
 		destination = next_destination
 	else
-		auto_patrol = 0
+		auto_patrol = FALSE
 		mode = BOT_IDLE
 		speak("Disengaging patrol mode.")
 		send_status()
@@ -737,10 +737,10 @@ Pass a positive integer as an argument to override a bot's default speed.
 		switch(recv)
 			if("stop")
 				bot_reset() //HOLD IT!!
-				auto_patrol = 0
+				auto_patrol = FALSE
 
 			if("go")
-				auto_patrol = 1
+				auto_patrol = TRUE
 
 			if("summon")
 				bot_reset()
@@ -902,14 +902,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 	else if(!hacked)
 		to_chat(M, "<span class='userdanger'>[text_dehack_fail]</span>")
 	else
-		emagged = FALSE
+		emagged = 0
 		hacked = FALSE
 		to_chat(M, "<span class='notice'>[text_dehack]</span>")
 		show_laws()
 		bot_reset()
 		add_attack_logs(M, src, "Dehacked")
 
-/mob/living/simple_animal/bot/proc/update_icon()
+/mob/living/simple_animal/bot/update_icon_state()
 	icon_state = "[initial(icon_state)][on]"
 
 // Machinery to simplify topic and access calls
@@ -1001,7 +1001,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/revive(full_heal = 0, admin_revive = 0)
 	if(..())
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		. = 1
 
 /mob/living/simple_animal/bot/ghost()

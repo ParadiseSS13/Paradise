@@ -40,36 +40,39 @@
 
 /obj/structure/morgue/Initialize()
 	. = ..()
-	update()
+	update_icon(update_state())
 
-/obj/structure/morgue/proc/update()
-	cut_overlays()
-	if(!connected)
-		if(contents.len)
-			var/mob/living/M = locate() in contents
-			var/obj/structure/closet/body_bag/B = locate() in contents
-			if(M==null) M = locate() in B
-
-			if(M)
-				var/mob/dead/observer/G = M.get_ghost()
-				if(M.mind && !M.mind.suicided)
-					if(M.client)
-						status = REVIVABLE
-					else if(G && G.client) //There is a ghost and it is connected to the server
-						status = GHOST_CONNECTED
-					else
-						status = UNREVIVABLE
-				else
-					status = UNREVIVABLE
-			else
-				status = NOT_BODY
-		else
-			status = EMPTY_MORGUE
-		add_overlay("morgue_[status]")
-	else
+/obj/structure/morgue/proc/update_state()
+	. = UPDATE_OVERLAYS
+	if(connected)
 		status = EXTENDED_TRAY
+		return
+	if(!length(contents))
+		status = EMPTY_MORGUE
+		return
+	var/mob/living/M = locate() in contents
+	var/obj/structure/closet/body_bag/B = locate() in contents
+	if(!M)
+		M = locate() in B
+	if(!M)
+		status = NOT_BODY
+		return
+	var/mob/dead/observer/G = M.get_ghost()
+	if(M.mind && !M.mind.suicided)
+		if(M.client)
+			status = REVIVABLE
+			return
+		if(G && G.client) //There is a ghost and it is connected to the server
+			status = GHOST_CONNECTED
+			return
+	status = UNREVIVABLE
+
+/obj/structure/morgue/update_overlays()
+	. = ..()
+	if(!connected)
+		. += "morgue_[status]"
 	if(name != initial(name))
-		add_overlay("morgue_label")
+		. += "morgue_label"
 
 /obj/structure/morgue/examine(mob/user)
 	. = ..()
@@ -110,7 +113,7 @@
 		playsound(loc, open_sound, 50, 1)
 		connect()
 	add_fingerprint(user)
-	update()
+	update_icon(update_state())
 	return
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
@@ -118,7 +121,7 @@
 		var/t = rename_interactive(user, P)
 		if(isnull(t))
 			return
-		update()
+		update_icon(UPDATE_OVERLAYS)
 		add_fingerprint(user)
 		return
 	return ..()
@@ -127,7 +130,7 @@
 	if(name != initial(name))
 		to_chat(user, "<span class='notice'>You cut the tag off the morgue.</span>")
 		name = initial(name)
-		update()
+		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 
 /obj/structure/morgue/relaymove(mob/user as mob)
@@ -196,7 +199,7 @@
 			if(!( A.anchored ))
 				A.forceMove(connected)
 		connected.connected = null
-		connected.update()
+		connected.update_icon(UPDATE_OVERLAYS)
 		add_fingerprint(user)
 		qdel(src)
 		return
@@ -256,17 +259,18 @@
 
 /obj/structure/crematorium/Initialize(mapload)
 	. = ..()
-	update()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/crematorium/proc/update()
-	cut_overlays()
-	if(!connected)
-		add_overlay("crema_closed")
-		if(cremating)
-			add_overlay("crema_active")
-			return
-		if(contents.len)
-			add_overlay("crema_full")
+/obj/structure/crematorium/update_overlays()
+	. = ..()
+	if(connected)
+		return
+	. += "crema_closed"
+	if(cremating)
+		. += "crema_active"
+		return
+	if(length(contents))
+		. += "crema_full"
 
 /obj/structure/crematorium/ex_act(severity)
 	switch(severity)
@@ -306,7 +310,7 @@
 		playsound(loc, open_sound, 50, 1)
 		connect()
 	add_fingerprint(user)
-	update()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/crematorium/attackby(P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/pen))
@@ -327,7 +331,7 @@
 	var/turf/T = get_step(src, SOUTH)
 	if(T.contents.Find(connected))
 		connected.connected = src
-		update()
+		update_icon(UPDATE_OVERLAYS)
 		for(var/atom/movable/A in src)
 			A.forceMove(connected.loc)
 		connected.icon_state = "crema_tray"
@@ -349,7 +353,7 @@
 
 		cremating = TRUE
 		locked = TRUE
-		update()
+		update_icon(UPDATE_OVERLAYS)
 
 		for(var/mob/living/M in search_contents_for(/mob/living))
 			if(QDELETED(M))
@@ -371,7 +375,7 @@
 		sleep(30)
 		cremating = FALSE
 		locked = FALSE
-		update()
+		update_icon(UPDATE_OVERLAYS)
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 	return
 
@@ -419,7 +423,7 @@
 				A.forceMove(connected)
 			//Foreach goto(26)
 		connected.connected = null
-		connected.update()
+		connected.update_icon(UPDATE_OVERLAYS)
 		add_fingerprint(user)
 		qdel(src)
 		return
@@ -488,7 +492,7 @@
 		if(istype(C)) //We found our corpse, is it inside a morgue?
 			morgue = get(C.loc, /obj/structure/morgue)
 			if(morgue)
-				morgue.update()
+				morgue.update_icon(UPDATE_OVERLAYS)
 
 #undef EXTENDED_TRAY
 #undef EMPTY_MORGUE

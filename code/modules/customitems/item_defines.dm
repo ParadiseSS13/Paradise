@@ -14,7 +14,7 @@
 #define USED_MOD_SUIT 2
 
 /obj/item/fluff
-	var/used = 0
+	var/used = FALSE
 
 /obj/item/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
 	name = "disposable tattoo pen"
@@ -75,21 +75,18 @@
 		target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
 
 		playsound(src.loc, usesound, 20, 1)
-		used = 1
+		used = TRUE
 		update_icon()
 
-/obj/item/fluff/tattoo_gun/update_icon()
-	..()
-
-	overlays.Cut()
-
+/obj/item/fluff/tattoo_gun/update_overlays()
+	. = ..()
 	if(!used)
 		var/image/ink = image(src.icon, src, "ink_overlay")
 		ink.icon += rgb(tattoo_r, tattoo_g, tattoo_b, 190)
-		overlays += ink
+		. += ink
 
-/obj/item/fluff/tattoo_gun/New()
-	..()
+/obj/item/fluff/tattoo_gun/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat
@@ -133,7 +130,7 @@
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
 	force = 5
-	sharp = 0
+	sharp = FALSE
 
 /obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
@@ -147,7 +144,7 @@
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	force = 5
-	sharp = 0
+	sharp = FALSE
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
@@ -292,7 +289,7 @@
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
 		to_chat(target, "<span class='notice'>You comb your tail with [src].</span>")
-		used = 1
+		used = TRUE
 
 /obj/item/fluff/desolate_coat_kit //DesolateG: Micheal Smith
 	name = "armored jacket conversion kit"
@@ -638,8 +635,8 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 
-/obj/item/clothing/head/pirate/fluff/stumpy/New()
-	..()
+/obj/item/clothing/head/pirate/fluff/stumpy/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
@@ -1108,7 +1105,7 @@
 	icon_state = "elishirt"
 	item_state = "elishirt"
 	item_color = "elishirt"
-	displays_id = 0
+	displays_id = FALSE
 
 /obj/item/clothing/under/fluff/jay_turtleneck // Jayfeather: Jay Wingler
 	name = "Mar's Pattern Custom Turtleneck"
@@ -1117,7 +1114,7 @@
 	icon_state = "jaywingler"
 	item_state = "jaywingler"
 	item_color = "jaywingler"
-	displays_id = 0
+	displays_id = FALSE
 
 /obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"
@@ -1131,7 +1128,7 @@
 	item_state = "jane_sid_suit"
 	item_color = "jane_sid_suit"
 	has_sensor = 2
-	sensor_mode = 3
+	sensor_mode = SENSOR_COORDS
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Toggle Jumpsuit Zipper"
@@ -1159,7 +1156,7 @@
 	icon_state = "roman"
 	item_state = "maximus_armor"
 	item_color = "maximus_armor"
-	displays_id = 0
+	displays_id = FALSE
 	strip_delay = 100
 
 /obj/item/clothing/under/fluff/aegis //PlagueWalker: A.E.G.I.S.
@@ -1171,7 +1168,7 @@
 	icon_state = "aegisuniform"
 	item_state = "aegisuniform"
 	item_color = "aegisuniform"
-	displays_id = 0
+	displays_id = FALSE
 
 /obj/item/clothing/under/fluff/elo_turtleneck // vforcebomber: E.L.O.
 	name = "E.L.O's Turtleneck"
@@ -1666,7 +1663,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	fluff_material = TRUE
 
-/obj/item/clothing/gloves/ring/fluff/update_icon()
+/obj/item/clothing/gloves/ring/fluff/update_icon_state()
 	return
 
 /obj/item/clothing/gloves/ring/fluff/attackby(obj/item/I as obj, mob/user as mob, params)

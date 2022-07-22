@@ -155,7 +155,7 @@
 	power_station.engaged = FALSE
 	if(power_station.teleporter_hub.accurate < 3)
 		power_station.teleporter_hub.calibrated = FALSE
-	power_station.teleporter_hub.update_icon()
+	power_station.teleporter_hub.update_icon(UPDATE_ICON_STATE)
 
 /**
 *	Calibrates the hub. Helper function of ui_act
@@ -288,7 +288,7 @@
 	trg.stat &= ~NOPOWER
 	if(trg.teleporter_hub)
 		trg.teleporter_hub.stat &= ~NOPOWER
-		trg.teleporter_hub.update_icon()
+		trg.teleporter_hub.update_icon(UPDATE_ICON_STATE)
 	if(trg.teleporter_console)
 		trg.teleporter_console.stat &= ~NOPOWER
 		trg.teleporter_console.update_icon()
@@ -405,7 +405,7 @@
 		if(accurate < 3)
 			calibrated = FALSE
 
-/obj/machinery/teleport/hub/update_icon()
+/obj/machinery/teleport/hub/update_icon_state()
 	if(panel_open)
 		icon_state = "tele-o"
 	else if(power_station && power_station.engaged)
@@ -432,7 +432,7 @@
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A -= M.rating * 10
 	tele_delay = max(A, 0)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
 	Internal helper function
@@ -464,18 +464,18 @@
 		use_power(5000)
 		if(tele_delay)
 			recalibrating = TRUE
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			addtimer(CALLBACK(src, .proc/BumpedCallback), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/teleport/perma/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/teleport/perma/update_icon()
+/obj/machinery/teleport/perma/update_icon_state()
 	if(panel_open)
 		icon_state = "tele-o"
 	else if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)))
@@ -543,7 +543,7 @@
 /obj/machinery/teleport/station/Destroy()
 	if(teleporter_hub)
 		teleporter_hub.power_station = null
-		teleporter_hub.update_icon()
+		teleporter_hub.update_icon(UPDATE_ICON_STATE)
 		teleporter_hub = null
 	if(teleporter_console)
 		teleporter_console.power_station = null
@@ -584,7 +584,7 @@
 
 /obj/machinery/teleport/station/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", I))
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 
 /obj/machinery/teleport/station/wirecutter_act(mob/user, obj/item/I)
@@ -618,17 +618,17 @@
 	else
 		visible_message("<span class='alert'>No target detected.</span>")
 		engaged = FALSE
-	teleporter_hub.update_icon()
+	teleporter_hub.update_icon(UPDATE_ICON_STATE)
 	if(istype(user))
 		add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(teleporter_hub)
-		teleporter_hub.update_icon()
+		teleporter_hub.update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/teleport/station/update_icon()
+/obj/machinery/teleport/station/update_icon_state()
 	if(panel_open)
 		icon_state = "controller-o"
 	else if(stat & NOPOWER)

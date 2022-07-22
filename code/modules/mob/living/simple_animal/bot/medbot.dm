@@ -4,8 +4,8 @@
 	desc = "A little medical robot. He looks somewhat underwhelmed."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
-	density = 0
-	anchored = 0
+	density = FALSE
+	anchored = FALSE
 	health = 20
 	maxHealth = 20
 	pass_flags = PASSMOB
@@ -101,10 +101,7 @@
 	declare_crit = 0
 	drops_parts = FALSE
 
-/mob/living/simple_animal/bot/medbot/update_icon()
-	overlays.Cut()
-	if(skin)
-		overlays += "medskin_[skin]"
+/mob/living/simple_animal/bot/medbot/update_icon_state()
 	if(!on)
 		icon_state = "medibot0"
 		return
@@ -115,6 +112,11 @@
 		icon_state = "medibot2"
 	else
 		icon_state = "medibot1"
+
+/mob/living/simple_animal/bot/medbot/update_overlays()
+	. = ..()
+	if(skin)
+		. += "medskin_[skin]"
 
 /mob/living/simple_animal/bot/medbot/New(loc, new_skin)
 	..()
@@ -542,7 +544,7 @@
 	return 0
 
 /mob/living/simple_animal/bot/medbot/explode()
-	on = 0
+	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 

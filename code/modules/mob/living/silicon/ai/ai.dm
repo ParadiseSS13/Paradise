@@ -42,26 +42,26 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	icon = 'icons/mob/ai.dmi'//
 	icon_state = "ai"
 	move_resist = MOVE_FORCE_NORMAL
-	density = 1
+	density = TRUE
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_in_dark = 8
-	can_strip = 0
+	can_strip = FALSE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
 	//var/list/laws = list()
 	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
-	var/viewalerts = 0
+	var/viewalerts = FALSE
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/pda/silicon/ai/aiPDA = null
 	var/obj/item/multitool/aiMulti = null
-	var/custom_sprite = 0 //For our custom sprites
-	var/custom_hologram = 0 //For our custom holograms
+	var/custom_sprite = FALSE //For our custom sprites
+	var/custom_hologram = FALSE //For our custom holograms
 
 	var/obj/item/radio/headset/heads/ai_integrated/aiRadio = null
 
@@ -69,11 +69,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/datum/module_picker/malf_picker
 	var/datum/action/innate/ai/choose_modules/modules_action
 	var/list/datum/AI_Module/current_modules = list()
-	var/can_dominate_mechs = 0
-	var/shunted = 0 //1 if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
+	var/can_dominate_mechs = FALSE
+	var/shunted = FALSE // TRUE if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
 
-	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
-	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
+	var/control_disabled = FALSE // Set to TRUE to stop AI from interacting via Click() -- TLE
+	var/malfhacking = null // A timer for when malf AIs can hack and get new cyborgs
 	var/malf_cooldown = 0 //Cooldown var for malf modules, stores a worldtime + cooldown
 
 	var/obj/machinery/power/apc/malfhack = null
@@ -83,20 +83,20 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/purchased_modules = list()
 
 	var/mob/living/silicon/ai/parent = null
-	var/camera_light_on = 0
+	var/camera_light_on = FALSE
 	var/list/obj/machinery/camera/lit_cameras = list()
 
 	var/datum/trackable/track = new()
 
 	var/last_paper_seen = null
-	var/can_shunt = 1
+	var/can_shunt = TRUE
 	var/last_announcement = ""
 	var/datum/announcement/priority/announcement
 	var/mob/living/simple_animal/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
-	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
+	var/waypoint_mode = FALSE //Waypoint mode is for selecting a turf via clicking.
 	var/apc_override = FALSE	//hack for letting the AI use its APC even when visionless
-	var/nuking = 0
+	var/nuking = FALSE
 	var/obj/machinery/doomsday_device/doomsday_device
 
 	var/obj/machinery/hologram/holopad/holo = null
@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
-	var/tracking = 0 //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
+	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 
 	var/obj/machinery/camera/portable/builtInCamera
 
@@ -144,8 +144,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	aiPDA = new/obj/item/pda/silicon/ai(src)
 	rename_character(null, pickedName)
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	loc = loc
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
@@ -646,7 +646,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	..()
 	if(href_list["mach_close"])
 		if(href_list["mach_close"] == "aialerts")
-			viewalerts = 0
+			viewalerts = FALSE
 		var/t1 = text("window=[]", href_list["mach_close"])
 		unset_machine()
 		src << browse(null, t1)
@@ -690,7 +690,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		Bot = locate(href_list["callbot"]) in GLOB.bots_list
 		if(!Bot || Bot.remote_disabled || control_disabled)
 			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
-		waypoint_mode = 1
+		waypoint_mode = TRUE
 		to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
 		return
 
@@ -938,9 +938,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 			var/obj/machinery/status_display/SD = M
 			if(emote=="Friend Computer")
-				SD.friendc = 1
+				SD.friendc = TRUE
 			else
-				SD.friendc = 0
+				SD.friendc = FALSE
 	return
 
 //I am the icon meister. Bow fefore me.	//>fefore
@@ -1215,8 +1215,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		aiRestorePowerRoutine = 0//So the AI initially has power.
-		control_disabled = 1//Can't control things remotely if you're stuck in a card!
-		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
+		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
+		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
@@ -1256,7 +1256,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
 	malfhack = null
-	malfhacking = 0
+	malfhacking = null
 	clear_alert("hackingapc")
 
 	if(!istype(apc) || QDELETED(apc) || apc.stat & BROKEN)
