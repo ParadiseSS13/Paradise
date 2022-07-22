@@ -1031,6 +1031,7 @@
 					if(isnewplayer(user))
 						var/mob/new_player/N = user
 						N.new_player_panel_proc()
+					active_character.init_custom_emote_text(active_character.custom_emote_text)
 
 				if("tab")
 					if(href_list["tab"])
@@ -1074,8 +1075,8 @@
 					if(!keybindings_overrides)
 						keybindings_overrides = list()
 
-					if(!custom_emote_text)
-						custom_emote_text = list()
+					if(!active_character.custom_emote_text)
+						active_character.custom_emote_text = list()
 
 					if(href_list["set"])
 						var/datum/keybinding/KB = locateUID(href_list["set"])
@@ -1192,17 +1193,19 @@
 					else if(href_list["custom_emote_set"])
 						var/datum/keybinding/custom/custom_emote = locateUID(href_list["custom_emote_set"])
 						if(custom_emote)
-							var/desired_emote = stripped_input(user, "Enter your custom emote text, 128 character limit.", "Custom Emote Setter", max_length = 128)
+							var/desired_emote = stripped_input(user, "Enter your custom emote text, 128 character limit.", "Custom Emote Setter", custom_emote.emote_text, max_length = 128)
 							custom_emote.emote_text = desired_emote
 							if(desired_emote != initial(custom_emote.emote_text))
-								custom_emote_text[custom_emote.name] = desired_emote
-								init_custom_emote_text(custom_emote_text)
+								active_character.custom_emote_text[custom_emote.name] = desired_emote
+								active_character.init_custom_emote_text(active_character.custom_emote_text)
+							active_character.save(user)
 
 					else if(href_list["custom_emote_reset"])
 						var/datum/keybinding/custom/custom_emote = locateUID(href_list["custom_emote_reset"])
 						custom_emote.emote_text = initial(custom_emote.emote_text)
-						custom_emote_text.Remove(custom_emote_text[custom_emote.name])
-						init_custom_emote_text(custom_emote_text)
+						active_character.custom_emote_text.Remove(active_character.custom_emote_text[custom_emote.name])
+						active_character.init_custom_emote_text(active_character.custom_emote_text)
+						active_character.save(user)
 
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them

@@ -57,7 +57,8 @@
 		hair_gradient,
 		hair_gradient_offset,
 		hair_gradient_colour,
-		hair_gradient_alpha
+		hair_gradient_alpha,
+		custom_emotes
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

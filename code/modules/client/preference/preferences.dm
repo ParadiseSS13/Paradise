@@ -121,8 +121,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/datum/keybindings = list()
 	/// Keybinding overrides ("name" => ["key"...])
 	var/list/keybindings_overrides = null
-	/// Custom emote text ("name" = "emote text")
-	var/list/custom_emote_text = null
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
@@ -524,7 +522,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						var/datum/keybinding/custom/custom_emote = kb
 						dat += "</tr>"
 						dat += "<tr>"
-						dat += "<td style='width: 25%'>[custom_emote.emote_text]</td>"
+						if(custom_emote.emote_text == initial(custom_emote.emote_text))
+							dat += "<td style='width: 25%'><i>\"[custom_emote.emote_text]\"</i></td>"
+						else
+							dat += "<td style='width: 25%'><i>\"[active_character.real_name] [custom_emote.emote_text]\"</i></td>"
 						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote.UID()];'>Change Text</a></td>"
 						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote.UID()];'>Reset to Default</a></td>"
 						dat += "<tr><td colspan=4><br></td></tr>"
@@ -680,23 +681,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	parent?.update_active_keybindings()
 	return keybindings
-
-/datum/preferences/proc/init_custom_emote_text(overrides, raw)
-	if(raw)
-		try
-			overrides = json_decode(raw)
-		catch
-			overrides = list()
-	custom_emote_text = list()
-	custom_emote_text = overrides
-	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
-		var/emote_text = overrides && overrides[custom_emote.name]
-		if(!emote_text)
-			continue
-		custom_emote_text[custom_emote.name] = emote_text
-		custom_emote.emote_text = emote_text
-
-	return custom_emote_text
 
 /datum/preferences/proc/capture_keybinding(mob/user, datum/keybinding/KB, old)
 	var/HTML = {"
