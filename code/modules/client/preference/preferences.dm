@@ -550,7 +550,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					for(var/role in G.allowed_roles)
 						dat += role + " "
 					dat += "</font>"
-				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
+				var/donor_info = G.donator_tier > 0 ? "\[Tier [G.donator_tier]\] " : ""
+				dat += "</td><td><font size=2>[donor_info]<i>[G.description]</i></font></td></tr>"
 				if(ticked)
 					. += "<tr><td colspan=4>"
 					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
