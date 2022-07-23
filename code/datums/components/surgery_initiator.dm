@@ -31,9 +31,17 @@
 
 /datum/component/surgery_initiator/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/initiate_surgery_moment)
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS, .proc/on_parent_sharpness_change)
 
 /datum/component/surgery_initiator/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
+	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS)
+
+/datum/component/surgery_initiator/proc/on_parent_sharpness_change()
+	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
+	var/obj/item/P = parent
+	if(!P.sharp)
+		RemoveComponent()
 
 /// Does the surgery initiation.
 /datum/component/surgery_initiator/proc/initiate_surgery_moment(datum/source, atom/target, mob/user)

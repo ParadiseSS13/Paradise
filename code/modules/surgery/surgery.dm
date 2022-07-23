@@ -107,7 +107,7 @@
 		// Make sure this comes after the operation though, especially for things like scalpels
 		if(tool && tool.GetComponent(/datum/component/surgery_initiator))
 			return FALSE
-		if(tool && tool.flags & SURGICALTOOL)
+		if(tool && HAS_TRAIT(tool, TRAIT_SURGICAL))
 			to_chat(user, "<span class='warning'>This step requires a different tool!</span>")
 			return TRUE
 	return FALSE
@@ -268,7 +268,7 @@
  *
  */
 /datum/surgery_step/proc/can_repeat(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(tool && istype(tool) && (tool.flags & SURGICALTOOL_ADVANCED))
+	if(tool && istype(tool) && HAS_TRAIT(tool, TRAIT_ADVANCED_SURGICAL))
 		return TRUE
 	if(HAS_TRAIT(user, TRAIT_REPEATSURGERY))
 		return TRUE

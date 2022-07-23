@@ -158,6 +158,8 @@
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
+/// Called when an atom is sharpened or dulled.
+#define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
 
 // Attack signals. These should share the returned flags, to standardize the attack chain.
 // The chain currently works like:

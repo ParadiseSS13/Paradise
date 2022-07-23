@@ -200,6 +200,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 
+/// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
+#define TRAIT_SURGICAL			"surgical_tool"
+
+/// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
+#define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
+
+
 //
 // common trait sources
 #define TRAIT_GENERIC "generic"
