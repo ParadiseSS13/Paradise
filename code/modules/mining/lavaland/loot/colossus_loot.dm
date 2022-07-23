@@ -392,7 +392,7 @@
 /obj/effect/proc_holder/spell/exit_possession
 	name = "Exit Possession"
 	desc = "Exits the body you are possessing"
-	charge_max = 60
+	base_cooldown = 60
 	clothes_req = FALSE
 	invocation_type = "none"
 	action_icon_state = "exit_possession"

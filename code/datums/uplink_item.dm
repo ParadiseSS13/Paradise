@@ -281,16 +281,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Janitor")
 	surplus = 0
 
-//Medical
-
-/datum/uplink_item/jobspecific/rad_laser
-	name = "Radiation Laser"
-	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
-	reference = "RL"
-	item = /obj/item/rad_laser
-	cost = 5
-	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
-
 //Virology
 
 /datum/uplink_item/jobspecific/viral_injector

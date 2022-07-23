@@ -724,10 +724,26 @@
 	foldable = null
 	var/design = NODESIGN
 
-/obj/item/storage/box/papersack/update_icon()
-	if(!contents.len)
+/obj/item/storage/box/papersack/update_desc()
+	. = ..()
+	switch(design)
+		if(NODESIGN)
+			desc = "A sack neatly crafted out of paper."
+		if(NANOTRASEN)
+			desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
+		if(SYNDI)
+			desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
+		if(HEART)
+			desc = "A paper sack with a heart etched onto the side."
+		if(SMILE)
+			desc = "A paper sack with a crude smile etched onto the side."
+
+/obj/item/storage/box/papersack/update_icon_state()
+	item_state = "paperbag_[design]"
+	if(!length(contents))
 		icon_state = "[item_state]"
-	else icon_state = "[item_state]_closed"
+	else
+		icon_state = "[item_state]_closed"
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
@@ -746,19 +762,7 @@
 			return
 		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
 		design = switchDesign
-		icon_state = "paperbag_[design]"
-		item_state = "paperbag_[design]"
-		switch(design)
-			if(NODESIGN)
-				desc = "A sack neatly crafted out of paper."
-			if(NANOTRASEN)
-				desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
-			if(SYNDI)
-				desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
-			if(HEART)
-				desc = "A paper sack with a heart etched onto the side."
-			if(SMILE)
-				desc = "A paper sack with a crude smile etched onto the side."
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
 	else if(is_sharp(W))
 		if(!contents.len)

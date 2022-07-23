@@ -101,10 +101,7 @@
 	declare_crit = 0
 	drops_parts = FALSE
 
-/mob/living/simple_animal/bot/medbot/update_icon()
-	overlays.Cut()
-	if(skin)
-		overlays += "medskin_[skin]"
+/mob/living/simple_animal/bot/medbot/update_icon_state()
 	if(!on)
 		icon_state = "medibot0"
 		return
@@ -115,6 +112,11 @@
 		icon_state = "medibot2"
 	else
 		icon_state = "medibot1"
+
+/mob/living/simple_animal/bot/medbot/update_overlays()
+	. = ..()
+	if(skin)
+		. += "medskin_[skin]"
 
 /mob/living/simple_animal/bot/medbot/New(loc, new_skin)
 	..()

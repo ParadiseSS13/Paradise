@@ -143,18 +143,19 @@
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, 0)
 
-/mob/living/simple_animal/bot/mulebot/update_icon()
+/mob/living/simple_animal/bot/mulebot/update_icon_state()
 	if(open)
 		icon_state="mulebot-hatch"
 	else
 		icon_state = "mulebot[wires.is_cut(WIRE_MOB_AVOIDANCE)]"
-	overlays.Cut()
+
+/mob/living/simple_animal/bot/mulebot/update_overlays()
+	. = ..()
 	if(load && !ismob(load))//buckling handles the mob offsets
 		load.pixel_y = initial(load.pixel_y) + 9
 		if(load.layer < layer)
 			load.layer = layer + 0.1
-		overlays += load
-	return
+		. += load
 
 /mob/living/simple_animal/bot/mulebot/ex_act(severity)
 	unload(0)

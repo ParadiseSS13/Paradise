@@ -38,7 +38,7 @@
 	..()
 	if(starts_with_tape)
 		mytape = new /obj/item/tape/random(src)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	soundloop = new(list(src))
 
 /obj/item/taperecorder/Destroy()
@@ -59,7 +59,7 @@
 			mytape = I
 			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 			playsound(src, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 /obj/item/taperecorder/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	mytape?.ruin(forced = TRUE) //Fires destroy the tape
@@ -84,7 +84,6 @@
 		icon_state = "taperecorder_playing"
 	else
 		icon_state = "taperecorder_idle"
-
 
 /obj/item/taperecorder/hear_talk(mob/living/M as mob, list/message_pieces) // Currently can't tell if you're whispering, but can hear it if nearby
 	var/msg = multilingual_to_message(message_pieces)
@@ -149,7 +148,7 @@
 		recording = TRUE
 		atom_say("Recording started.")
 		update_sound()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] Recording started."
 		var/used = mytape.used_capacity	//to stop runtimes when you eject the tape
@@ -181,7 +180,7 @@
 		if(!PlaybackOverride)
 			atom_say("Playback stopped.")
 		playing = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_sound()
 
 
@@ -202,7 +201,7 @@
 		return
 
 	playing = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_sound()
 	atom_say("Playback started.")
 	playsound(src, 'sound/items/taperecorder/taperecorder_play.ogg', 50, FALSE)
@@ -254,17 +253,13 @@
 	canprint = 1
 
 /obj/item/taperecorder/proc/eject(mob/user)
-	if(usr.incapacitated())
-		return
-	if(!mytape)
-		return
-	if(mytape)
+	if(mytape && !usr.incapacitated())
 		playsound(src, 'sound/items/taperecorder/taperecorder_open.ogg', 50, FALSE)
 		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
 		stop()
 		user.put_in_hands(mytape)
 		mytape = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 //empty tape recorders
 /obj/item/taperecorder/empty
@@ -286,7 +281,7 @@
 	var/used_capacity = 0
 	var/list/storedinfo = list()
 	var/list/timestamp = list()
-	var/ruined = 0
+	var/ruined = FALSE
 
 /obj/item/tape/examine(mob/user)
 	. = ..()
@@ -321,6 +316,11 @@
 	to_chat(usr, "<span class='notice'>You erase the data from [src].</span>")
 	clear()
 
+/obj/item/tape/update_overlays()
+	. = ..()
+	if(ruined)
+		. += "ribbonoverlay"
+
 /obj/item/tape/proc/clear()
 	used_capacity = 0
 	storedinfo.Cut()
@@ -328,20 +328,18 @@
 
 /obj/item/tape/proc/ruin(mob/user, forced = FALSE)
 	if(forced) // need to be forceable in case it catches on fire to ruin the tape
-		if(!ruined)
-			overlays += "ribbonoverlay"
-		ruined = 1
+		ruined = TRUE
+		update_icon(UPDATE_OVERLAYS)
 	else
 		to_chat(user, "<span class='notice'>You start pulling the tape out.</span>")
 		if(do_after(user, 1 SECONDS, target = src))
 			to_chat(user, "<span class='notice'>You pull the tape out of [src].</span>")
-			if(!ruined)
-				overlays += "ribbonoverlay"
-			ruined = 1
+			ruined = TRUE
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/tape/proc/fix()
-	overlays -= "ribbonoverlay"
-	ruined = 0
+	ruined = FALSE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/tape/attackby(obj/item/I, mob/user)
 	if(ruined && istype(I, /obj/item/screwdriver))
