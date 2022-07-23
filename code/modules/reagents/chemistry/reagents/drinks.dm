@@ -59,11 +59,11 @@
 /datum/reagent/consumable/drink/carrotjuice
 	name = "Carrot juice"
 	id = "carrotjuice"
-	description = "It is just like a carrot but without crunching."
+	description = "Just like a carrot, but without the crunching."
 	color = "#973800" // rgb: 151, 56, 0
 	drink_icon = "carrotjuice"
 	drink_name = "Glass of  carrot juice"
-	drink_desc = "It is just like a carrot but without crunching."
+	drink_desc = "Just like a carrot, but without the crunching."
 	taste_description = "carrot juice"
 
 /datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
@@ -117,7 +117,7 @@
 	color = "#863333" // rgb: 134, 51, 51
 	drink_icon = "berryjuice"
 	drink_name = "Glass of berry juice"
-	drink_desc = "Berry juice. Or maybe its jam. Who cares?"
+	drink_desc = "Berry juice. Or maybe it's jam. Who cares?"
 	taste_description = "berry juice"
 
 /datum/reagent/consumable/drink/poisonberryjuice
@@ -270,7 +270,7 @@
 	adj_temp_hot = 5
 	drink_icon = "hot_coco"
 	drink_name = "Glass of hot coco"
-	drink_desc = "Delicious and cozy"
+	drink_desc = "Delicious and cozy."
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/drink/coffee
@@ -358,10 +358,10 @@
 /datum/reagent/consumable/drink/coffee/cafe_latte/cafe_mocha
 	name = "Cafe Mocha"
 	id = "cafe_mocha"
-	description = "The perfect blend of coffe, milk, and chocolate."
+	description = "The perfect blend of coffee, milk, and chocolate."
 	color = "#673629"
 	drink_name = "Cafe Mocha"
-	drink_desc = "The perfect blend of coffe, milk, and chocolate."
+	drink_desc = "The perfect blend of coffee, milk, and chocolate."
 	taste_description = "chocolatey coffee"
 
 /datum/reagent/consumable/drink/tea
@@ -443,7 +443,7 @@
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "chocolatepudding"
 	drink_name = "Chocolate Pudding"
-	drink_desc = "Tasty"
+	drink_desc = "A decadent chocolate dessert, in drinkable form."
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/drink/vanillapudding
@@ -454,7 +454,7 @@
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "vanillapudding"
 	drink_name = "Vanilla Pudding"
-	drink_desc = "Tasty."
+	drink_desc = "A rich vanilla dessert, in drinkable form."
 	taste_description = "vanilla"
 
 /datum/reagent/consumable/drink/cherryshake

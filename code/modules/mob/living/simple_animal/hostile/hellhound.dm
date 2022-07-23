@@ -134,7 +134,7 @@
 	AddSpell(wallspell)
 	// Offense
 	var/obj/effect/proc_holder/spell/aoe_turf/conjure/creature/summonspell = new
-	summonspell.charge_max = 1
+	summonspell.base_cooldown = 1
 	summonspell.invocation_type = "none"
 	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
 	summonspell.summon_amt = 1

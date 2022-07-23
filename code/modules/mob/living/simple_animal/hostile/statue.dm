@@ -160,7 +160,7 @@
 	name = "Flicker Lights"
 	desc = "You will trigger a large amount of lights around you to flicker."
 
-	charge_max = 300
+	base_cooldown = 300
 	clothes_req = FALSE
 
 /obj/effect/proc_holder/spell/aoe_turf/flicker_lights/create_new_targeting()
@@ -180,7 +180,7 @@
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
 	message = "<span class='notice'>You glare your eyes.</span>"
-	charge_max = 600
+	base_cooldown = 600
 	clothes_req = FALSE
 
 /obj/effect/proc_holder/spell/aoe_turf/blindness/create_new_targeting()
