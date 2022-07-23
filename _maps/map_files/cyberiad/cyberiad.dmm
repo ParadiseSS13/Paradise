@@ -33096,7 +33096,6 @@
 "bBr" = (
 /obj/item/pen/red,
 /obj/structure/table/wood,
-/obj/structure/table/wood,
 /turf/simulated/floor/carpet/purple,
 /area/security/vacantoffice)
 "bBs" = (
@@ -77844,6 +77843,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/security/permabrig)
+"gln" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "gmW" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -78097,6 +78104,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"gPr" = (
+/obj/structure/chair/office/light,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "gRE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -78897,6 +78911,12 @@
 	icon_state = "darkred"
 	},
 /area/security/permabrig)
+"jhD" = (
+/obj/machinery/camera{
+	c_tag = "Vacant Office"
+	},
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "jkw" = (
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass,
@@ -79543,14 +79563,6 @@
 	icon_state = "red"
 	},
 /area/security/prisonlockers)
-"lhK" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/wood,
-/area/security/vacantoffice)
 "lkw" = (
 /obj/machinery/light{
 	dir = 8
@@ -80951,13 +80963,6 @@
 /obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
-"pxs" = (
-/obj/structure/chair/office/light,
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
-/turf/simulated/floor/wood,
-/area/security/vacantoffice)
 "pxP" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -83557,12 +83562,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"xzo" = (
-/obj/machinery/camera{
-	c_tag = "Vacant Office"
-	},
-/turf/simulated/floor/wood,
-/area/security/vacantoffice)
 "xAn" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -97426,7 +97425,7 @@ brU
 brU
 brU
 brU
-lhK
+gln
 bqr
 bFY
 bCf
@@ -98450,7 +98449,7 @@ aMs
 brn
 boT
 bqr
-xzo
+jhD
 bzP
 bzL
 bBI
@@ -98964,7 +98963,7 @@ biA
 brp
 bsx
 bqr
-pxs
+gPr
 btE
 bvo
 btA
