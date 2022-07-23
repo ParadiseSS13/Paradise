@@ -15,11 +15,10 @@
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
 
-/obj/structure/closet/crate/update_icon()
-	..()
-	cut_overlays()
+/obj/structure/closet/crate/update_overlays()
+	. = ..()
 	if(manifest)
-		add_overlay("manifest")
+		. += "manifest"
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -175,15 +174,15 @@
 	locked = TRUE
 	can_be_emaged = TRUE
 
-/obj/structure/closet/crate/secure/update_icon()
-	..()
+/obj/structure/closet/crate/secure/update_overlays()
+	. = ..()
 	if(broken)
-		add_overlay(emag)
+		. += emag
 		return
 	if(locked)
-		add_overlay(redlight)
+		. += redlight
 	else
-		add_overlay(greenlight)
+		. += greenlight
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
@@ -223,7 +222,7 @@
 	set category = null
 	set name = "Toggle Lock"
 
-	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
 		return
 
 	if(ishuman(usr) || isrobot(usr))

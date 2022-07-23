@@ -3,7 +3,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	if(custom_sprite == 1)//check for custom AI sprite, defaulting to blue screen if no.
+	if(custom_sprite)//check for custom AI sprite, defaulting to blue screen if no.
 		icon_state = "[ckey]-ai_dead"
 	else if("[icon_state]_dead" in icon_states(icon,1))
 		icon_state = "[icon_state]_dead"
@@ -17,12 +17,12 @@
 
 	if(nuking)
 		set_security_level("red")
-		nuking = 0
+		nuking = FALSE
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = null //Point back to the disk.
 
 	if(doomsday_device)
-		doomsday_device.timing = 0
+		doomsday_device.timing = FALSE
 		SSshuttle.emergencyNoEscape = 0
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED

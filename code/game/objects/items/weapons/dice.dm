@@ -6,8 +6,7 @@
 	can_hold = list(/obj/item/dice)
 	allow_wrap = FALSE
 
-/obj/item/storage/pill_bottle/dice/New()
-	..()
+/obj/item/storage/pill_bottle/dice/populate_contents()
 	var/special_die = pick("1","2","fudge","00","100")
 	if(special_die == "1")
 		new /obj/item/dice/d1(src)
@@ -305,8 +304,8 @@
 	icon_state = "d100"
 	sides = 100
 
-/obj/item/dice/d100/update_icon()
-	return
+/obj/item/dice/d100/update_overlays()
+	return list()
 
 /obj/item/dice/d20/e20
 	var/triggered = FALSE
@@ -334,7 +333,7 @@
 		comment = "NAT 20!"
 	else if(sides == 20 && result == 1)
 		comment = "Ouch, bad luck."
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	if(initial(icon_state) == "d00")
 		result = (result - 1) * 10
 	if(length(special_faces) == sides)
@@ -376,17 +375,16 @@
 	log_game("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]")
 	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
 
-/obj/item/dice/update_icon()
-	overlays.Cut()
-	overlays += "[icon_state][result]"
+/obj/item/dice/update_overlays()
+	. = ..()
+	. += "[icon_state][result]"
 
 /obj/item/storage/box/dice
 	name = "Box of dice"
 	desc = "ANOTHER ONE!? FUCK!"
 	icon_state = "box"
 
-/obj/item/storage/box/dice/New()
-	..()
+/obj/item/storage/box/dice/populate_contents()
 	new /obj/item/dice/d2(src)
 	new /obj/item/dice/d4(src)
 	new /obj/item/dice/d8(src)

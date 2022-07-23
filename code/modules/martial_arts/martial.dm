@@ -100,7 +100,7 @@
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
-	if(D.lying)
+	if(IS_HORIZONTAL(D))
 		atk_verb = "kick"
 
 	switch(atk_verb)
@@ -130,7 +130,7 @@
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(8 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
-	else if(D.lying)
+	else if(IS_HORIZONTAL(D))
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
@@ -243,7 +243,7 @@
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
-	var/used = 0
+	var/used = FALSE
 
 /obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
@@ -254,7 +254,7 @@
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
 		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
-		used = 1
+		used = TRUE
 		desc = "It's completely blank."
 		name = "empty scroll"
 		icon_state = "blankscroll"
@@ -325,9 +325,8 @@
 	icon_state = "bostaff0"
 	block_chance = 50
 
-/obj/item/twohanded/bostaff/update_icon()
+/obj/item/twohanded/bostaff/update_icon_state()
 	icon_state = "bostaff[wielded]"
-	return
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)

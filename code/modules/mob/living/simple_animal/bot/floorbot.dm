@@ -4,7 +4,7 @@
 	desc = "A little floor repairing robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot0"
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	health = 25
 	maxHealth = 25
@@ -312,11 +312,10 @@
 		target = null
 		return
 	anchored = TRUE
-	icon_state = "[toolbox_color]floorbot-c"
 	if(istype(target_turf, /turf/space/)) //If we are fixing an area not part of pure space, it is
-		icon_state = "[toolbox_color]floorbot-c"
 		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
 		mode = BOT_REPAIRING
+		update_icon(UPDATE_ICON_STATE)
 		spawn(50)
 			if(mode == BOT_REPAIRING)
 				if(autotile) //Build the floor and include a tile.
@@ -325,22 +324,22 @@
 					target_turf.ChangeTurf(/turf/simulated/floor/plating)
 				mode = BOT_IDLE
 				amount -= 1
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				anchored = FALSE
 				target = null
 	else
 		var/turf/simulated/floor/F = target_turf
 		mode = BOT_REPAIRING
-		icon_state = "[toolbox_color]floorbot-c"
+		update_icon(UPDATE_ICON_STATE)
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		spawn(50)
 			if(mode == BOT_REPAIRING)
-				F.broken = 0
-				F.burnt = 0
+				F.broken = FALSE
+				F.burnt = FALSE
 				F.ChangeTurf(/turf/simulated/floor/plasteel)
 				mode = BOT_IDLE
 				amount -= 1
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				anchored = FALSE
 				target = null
 
@@ -361,9 +360,9 @@
 		else
 			amount += T.amount
 			qdel(T)
-		update_icon()
 		target = null
 		mode = BOT_IDLE
+		update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/bot/floorbot/proc/maketile(obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
@@ -385,14 +384,17 @@
 		target = null
 		mode = BOT_IDLE
 
-/mob/living/simple_animal/bot/floorbot/update_icon()
+/mob/living/simple_animal/bot/floorbot/update_icon_state()
+	if(mode == BOT_REPAIRING)
+		icon_state = "[toolbox_color]floorbot-c"
+		return
 	if(amount > 0)
 		icon_state = "[toolbox_color]floorbot[on]"
 	else
 		icon_state = "[toolbox_color]floorbot[on]e"
 
 /mob/living/simple_animal/bot/floorbot/explode()
-	on = 0
+	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/storage/toolbox/mechanical/N = new /obj/item/storage/toolbox/mechanical(Tsec)

@@ -71,3 +71,6 @@
 
 /// If returned from act_on_target(), emote execution will stop.
 #define EMOTE_ACT_STOP_EXECUTION 1
+
+/// List of emotes useable by ghosties
+#define USABLE_DEAD_EMOTES list("*flip", "*spin")

@@ -2,7 +2,6 @@
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,	// nice try
-		/mob/living/captive_brain,
 		/mob/living/silicon,
 		/mob/living/simple_animal/bot
 	)
@@ -83,7 +82,6 @@
 
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,
-		/mob/living/captive_brain
 	)
 
 /datum/emote/living/deathgasp/get_sound(mob/living/user)
@@ -346,7 +344,6 @@
 
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,
-		/mob/living/captive_brain
 	)
 
 /datum/emote/living/tilt
@@ -389,7 +386,6 @@
 	message = null
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,	// nice try
-		/mob/living/captive_brain
 	)
 
 	// Custom emotes should be able to be forced out regardless of context.

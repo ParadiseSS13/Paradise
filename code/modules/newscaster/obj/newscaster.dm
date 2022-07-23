@@ -19,6 +19,7 @@
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_normal"
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	max_integrity = 200
 	integrity_failure = 50
 	light_range = 0
@@ -54,17 +55,15 @@
 	name = "security newscaster"
 	is_security = TRUE
 
-/obj/machinery/newscaster/New()
+/obj/machinery/newscaster/Initialize(mapload)
+	. = ..()
+
 	GLOB.allNewscasters += src
 	unit_number = length(GLOB.allNewscasters)
 	update_icon() //for any custom ones on the map...
 	if(!last_views)
 		last_views = list()
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
-	..()
 
-/obj/machinery/newscaster/Initialize(mapload)
-	. = ..()
 	if(is_security)
 		name = "security newscaster"
 	else
@@ -92,25 +91,29 @@
 	QDEL_NULL(photo)
 	return ..()
 
-/obj/machinery/newscaster/update_icon()
-	cut_overlays()
+/obj/machinery/newscaster/update_icon_state()
 	if(inoperable())
 		icon_state = "newscaster_off"
+		return
+	if(GLOB.news_network.wanted_issue)
+		icon_state = "newscaster_wanted"
 	else
-		if(!GLOB.news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
-			icon_state = "newscaster_normal"
-			if(alert) //new message alert overlay
-				add_overlay("newscaster_alert")
+		icon_state = "newscaster_normal"
+
+/obj/machinery/newscaster/update_overlays()
+	. = ..()
+	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
+		. += "newscaster_alert"
 	var/hp_percent = obj_integrity * 100 / max_integrity
 	switch(hp_percent)
 		if(75 to INFINITY)
 			return
 		if(50 to 75)
-			add_overlay("crack1")
+			. += "crack1"
 		if(25 to 50)
-			add_overlay("crack2")
+			. += "crack2"
 		else
-			add_overlay("crack3")
+			. += "crack3"
 
 /obj/machinery/newscaster/power_change()
 	..()

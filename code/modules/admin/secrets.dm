@@ -69,7 +69,7 @@
 					<b>Teams</b><br>
 					<A href='?src=[UID()];secretsfun=infiltrators_syndicate'>Send SIT - Syndicate Infiltration Team</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=striketeam_syndicate'>Send in a Syndie Strike Team</A>&nbsp;&nbsp;
-					<BR><A href='?src=[UID()];secretsfun=striketeam'>Send in the Deathsquad</A>&nbsp;&nbsp;
+					<BR><A href='?src=[UID()];secretsfun=deathsquad'>Send in the Deathsquad</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=gimmickteam'>Send in a Gimmick Team</A><BR>
 					<b>Change Security Level</b><BR>
 					<A href='?src=[UID()];secretsfun=securitylevel0'>Security Level - Green</A>&nbsp;&nbsp;

@@ -28,8 +28,8 @@
 /obj/machinery/chem_dispenser/get_cell()
 	return cell
 
-/obj/machinery/chem_dispenser/New()
-	..()
+/obj/machinery/chem_dispenser/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -41,8 +41,8 @@
 	RefreshParts()
 	dispensable_reagents = sortList(dispensable_reagents)
 
-/obj/machinery/chem_dispenser/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -73,8 +73,8 @@
 		"diethylamine")
 	upgrade_reagents = null
 
-/obj/machinery/chem_dispenser/mutagensaltpeter/New()
-	..()
+/obj/machinery/chem_dispenser/mutagensaltpeter/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
@@ -129,7 +129,7 @@
 	else
 		stat |= NOPOWER
 
-/obj/machinery/chem_dispenser/update_icon()
+/obj/machinery/chem_dispenser/update_icon_state()
 	if(panel_open)
 		icon_state = "[initial(icon_state)]-o"
 		return
@@ -228,7 +228,7 @@
 			if(Adjacent(usr) && !issilicon(usr))
 				usr.put_in_hands(beaker)
 			beaker = null
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		else
 			return FALSE
 
@@ -257,7 +257,7 @@
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		SStgui.update_uis(src) // update all UIs attached to src
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 	return ..()
 
@@ -346,8 +346,8 @@
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
 	is_drink = TRUE
 
-/obj/machinery/chem_dispenser/soda/New()
-	..()
+/obj/machinery/chem_dispenser/soda/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -358,8 +358,8 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/soda/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/soda/upgraded/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -382,8 +382,8 @@
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
 
-/obj/machinery/chem_dispenser/beer/New()
-	..()
+/obj/machinery/chem_dispenser/beer/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -394,8 +394,8 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-/obj/machinery/chem_dispenser/beer/upgraded/New()
-	..()
+/obj/machinery/chem_dispenser/beer/upgraded/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -429,7 +429,7 @@
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
 	current_reagent = pick(dispensable_reagents)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/handheld_chem_dispenser/Destroy()
@@ -453,7 +453,7 @@
 				target.reagents.add_reagent(current_reagent, actual)
 				cell.charge -= actual / efficiency
 				to_chat(user, "<span class='notice'>You dispense [actual] unit\s of [current_reagent] into [target].</span>")
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else if(free) // If actual is nil and there's still free space, it means we're out of juice
 				to_chat(user, "<span class='warning'>Insufficient energy to complete operation.</span>")
 		if("remove")
@@ -511,7 +511,7 @@
 		if("dispense")
 			if(params["reagent"] in dispensable_reagents)
 				current_reagent = params["reagent"]
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 		if("mode")
 			switch(params["mode"])
 				if("remove")
@@ -520,15 +520,14 @@
 					mode = "dispense"
 				if("isolate")
 					mode = "isolate"
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			return FALSE
 
 	add_fingerprint(usr)
 
-/obj/item/handheld_chem_dispenser/update_icon()
-	cut_overlays()
-
+/obj/item/handheld_chem_dispenser/update_overlays()
+	. = ..()
 	if(cell && cell.charge)
 		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
 		var/percent = round((cell.charge / cell.maxcharge) * 100)
@@ -539,17 +538,16 @@
 				power_light.icon_state = "light_mid"
 			if(67 to INFINITY)
 				power_light.icon_state = "light_full"
-		add_overlay(power_light)
+		. += power_light
 
 		var/image/mode_light = image('icons/obj/chemical.dmi', src, "light_remove")
 		mode_light.icon_state = "light_[mode]"
-		add_overlay(mode_light)
+		. += mode_light
 
 		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
 		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
 		chamber_contents.icon += R.color
-		add_overlay(chamber_contents)
-	..()
+		. += chamber_contents
 
 /obj/item/handheld_chem_dispenser/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	if(isrobot(loc) && cell.charge < cell.maxcharge)
@@ -559,7 +557,7 @@
 			R.cell.charge -= actual
 			cell.charge += actual
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
 /obj/item/handheld_chem_dispenser/attackby(obj/item/W, mob/user, params)
@@ -576,7 +574,7 @@
 			W.loc = src
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(!isrobot(loc) && cell)
@@ -584,7 +582,7 @@
 		cell.loc = get_turf(src)
 		cell = null
 		to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	..()
 

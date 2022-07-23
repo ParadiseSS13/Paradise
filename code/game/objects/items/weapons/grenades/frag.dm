@@ -2,7 +2,7 @@
 	name = "frag grenade"
 	desc = "Fire in the hole."
 	icon_state = "frag"
-	item_state = "flashbang"
+	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4"
 	var/range = 5
 	var/max_shrapnel = 4
@@ -13,7 +13,7 @@
 	update_mob()
 	var/turf/epicenter = get_turf(src)
 	for(var/mob/living/carbon/human/H in epicenter)
-		if(H.resting) //grenade is jumped on but get real fucked up
+		if(IS_HORIZONTAL(H)) //grenade is jumped on but get real fucked up
 			embed_shrapnel(H, max_shrapnel)
 			range = 1
 	explosion(loc, 0, 1, range, breach = FALSE)

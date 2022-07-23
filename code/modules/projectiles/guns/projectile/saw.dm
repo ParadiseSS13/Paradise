@@ -11,8 +11,8 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
-	var/cover_open = 0
-	can_suppress = 0
+	var/cover_open = FALSE
+	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 1
 
@@ -22,7 +22,7 @@
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
 	update_icon()
 
-/obj/item/gun/projectile/automatic/l6_saw/update_icon()
+/obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
 	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 

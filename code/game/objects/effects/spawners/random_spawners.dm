@@ -222,7 +222,7 @@
 	result = list(/datum/nothing = 13,
 		/obj/item/storage/toolbox/syndicate = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/toy/cards/deck/syndicate = 1,
+		/obj/item/deck/cards/syndicate = 1,
 		/obj/item/storage/secure/briefcase/syndie = 1,
 		/obj/item/toy/syndicateballoon = 1,
 		/obj/item/soap/syndie = 1,
@@ -298,7 +298,6 @@
 		/obj/item/ammo_box/magazine/m10mm/ap = 1,
 		/obj/item/ammo_box/magazine/m10mm/fire = 1,
 		/obj/item/ammo_box/magazine/m10mm/hp = 1,
-		/obj/item/rad_laser = 1,
 		/obj/item/storage/box/syndie_kit/emp = 1,
 		/obj/item/toy/carpplushie/dehy_carp = 1,
 		/obj/item/clothing/glasses/hud/security/chameleon = 1)

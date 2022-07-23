@@ -13,6 +13,7 @@
 	can_holster = FALSE
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
+	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
 	flight_x_offset = 17
@@ -42,11 +43,14 @@
 	ammo_x_offset = 1
 	can_holster = TRUE
 
-/obj/item/gun/energy/decloner/update_icon()
-	..()
+/obj/item/gun/energy/decloner/update_icon_state()
+	return
+
+/obj/item/gun/energy/decloner/update_overlays()
+	. = list()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(cell.charge > shot.e_cost)
-		add_overlay("decloner_spin")
+		. += "decloner_spin"
 
 // Flora Gun //
 /obj/item/gun/energy/floragun
@@ -59,7 +63,7 @@
 	origin_tech = "materials=2;biotech=4"
 	modifystate = 1
 	ammo_x_offset = 1
-	selfcharge = 1
+	selfcharge = TRUE
 	can_holster = TRUE
 
 // Meteor Gun //
@@ -73,8 +77,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
 	cell_type = /obj/item/stock_parts/cell/potato
-	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
+	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
+	selfcharge = TRUE
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -104,16 +108,16 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=4;syndicate=5"
-	suppressed = 1
+	suppressed = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
 	weapon_weight = WEAPON_LIGHT
 	unique_rename = FALSE
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	can_flashlight = 0
+	can_flashlight = FALSE
 	max_mod_capacity = 0
-	empty_state = null
+	empty_state = "crossbow_empty"
 	can_holster = TRUE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine()
@@ -121,7 +125,7 @@
 			then click where you want to fire."
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine_antag()
-	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a stun effect, in \
+	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a knockdown effect, in \
 			addition to toxins. The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
@@ -131,8 +135,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=4000)
 	origin_tech = "combat=4;magnets=4;syndicate=2"
-	suppressed = 0
+	suppressed = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
+	empty_state = "crossbowlarge_empty"
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
@@ -163,8 +168,8 @@
 	flags = CONDUCT
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
-	sharp = 1
-	can_charge = 0
+	sharp = TRUE
+	can_charge = FALSE
 	can_holster = TRUE
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
@@ -189,8 +194,8 @@
 	else
 		return ..()
 
-/obj/item/gun/energy/plasmacutter/update_icon()
-	return
+/obj/item/gun/energy/plasmacutter/update_overlays()
+	return list()
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -215,10 +220,9 @@
 	var/obj/effect/portal/orange
 
 
-/obj/item/gun/energy/wormhole_projector/update_icon()
+/obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
-	return
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
@@ -258,10 +262,10 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
-	can_charge = 0
+	can_charge = FALSE
 
-/obj/item/gun/energy/printer/update_icon()
-	return
+/obj/item/gun/energy/printer/update_overlays()
+	return list()
 
 /obj/item/gun/energy/printer/emp_act()
 	return
@@ -297,8 +301,8 @@
 	desc = "Clown Planet's finest."
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
-	clumsy_check = 0
-	selfcharge = 1
+	clumsy_check = FALSE
+	selfcharge = TRUE
 	ammo_x_offset = 3
 	can_holster = TRUE  // you'll never see it coming
 
@@ -311,7 +315,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
-	shaded_charge = 1
+	shaded_charge = TRUE
 	can_holster = TRUE
 	atom_say_verb = "beeps"
 	bubble_icon = "swarmer"
@@ -517,8 +521,7 @@
 	..()
 	update_icon()
 
-/obj/item/gun/energy/bsg/update_icon()
-	. = ..()
+/obj/item/gun/energy/bsg/update_icon_state()
 	if(core)
 		if(has_bluespace_crystal)
 			icon_state = "bsg_finished"
@@ -571,7 +574,7 @@
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
-	selfcharge = 1
+	selfcharge = TRUE
 
 	var/powercost = ""
 	var/powercostcolor = ""
@@ -689,7 +692,7 @@
 	dat += "Power cost: "
 	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
 
-/obj/item/gun/energy/temperature/proc/update_temperature()
+/obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
 		if(501 to INFINITY)
 			item_state = "tempgun_8"
@@ -711,32 +714,26 @@
 			item_state = "tempgun_0"
 	icon_state = item_state
 
-/obj/item/gun/energy/temperature/update_icon()
-	overlays = 0
-	update_temperature()
-	update_user()
-	update_charge()
-
-/obj/item/gun/energy/temperature/proc/update_user()
 	if(istype(loc,/mob/living/carbon))
 		var/mob/living/carbon/M = loc
 		M.update_inv_back()
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
-/obj/item/gun/energy/temperature/proc/update_charge()
+/obj/item/gun/energy/temperature/update_overlays()
+	. = ..()
 	var/charge = cell.charge
 	switch(charge)
-		if(900 to INFINITY)		overlays += "900"
-		if(800 to 900)			overlays += "800"
-		if(700 to 800)			overlays += "700"
-		if(600 to 700)			overlays += "600"
-		if(500 to 600)			overlays += "500"
-		if(400 to 500)			overlays += "400"
-		if(300 to 400)			overlays += "300"
-		if(200 to 300)			overlays += "200"
-		if(100 to 202)			overlays += "100"
-		if(-INFINITY to 100)	overlays += "0"
+		if(900 to INFINITY)		. += "900"
+		if(800 to 900)			. += "800"
+		if(700 to 800)			. += "700"
+		if(600 to 700)			. += "600"
+		if(500 to 600)			. += "500"
+		if(400 to 500)			. += "400"
+		if(300 to 400)			. += "300"
+		if(200 to 300)			. += "200"
+		if(100 to 200)			. += "100"
+		if(-INFINITY to 100)	. += "0"
 
 // Mimic Gun //
 /obj/item/gun/energy/mimicgun
@@ -744,8 +741,8 @@
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse. Why does this one have teeth?"
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/mimic)
-	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
+	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
+	selfcharge = TRUE
 	ammo_x_offset = 3
 	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
 	can_holster = TRUE
@@ -772,6 +769,7 @@
 	var/linked_pinpointer_UID
 	shaded_charge = TRUE
 	can_holster = TRUE
+	can_fit_in_turrets = FALSE
 	can_charge = FALSE
 	unique_reskin = TRUE
 	charge_sections = 5
@@ -847,7 +845,7 @@
 		return
 	var/new_speedcharger_charge = cell.give(S.charge)
 	S.charge -= new_speedcharger_charge
-	S.update_icon()
+	S.update_icon(UPDATE_OVERLAYS)
 	update_icon()
 
 /obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)

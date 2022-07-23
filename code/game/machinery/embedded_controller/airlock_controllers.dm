@@ -75,7 +75,7 @@
 	name = "Access Controller"
 	tag_secure = 1
 
-/obj/machinery/embedded_controller/radio/airlock/access_controller/update_icon()
+/obj/machinery/embedded_controller/radio/airlock/access_controller/update_icon_state()
 	if(on && program)
 		if(program.memory["processing"])
 			icon_state = "access_control_process"

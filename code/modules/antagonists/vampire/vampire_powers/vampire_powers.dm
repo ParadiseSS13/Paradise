@@ -52,13 +52,14 @@
 	desc = "Use reserve blood to enliven your body, removing any incapacitating effects."
 	action_icon_state = "vampire_rejuvinate"
 	charge_max = 20 SECONDS
-	stat_allowed = 1
+	stat_allowed = UNCONSCIOUS
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
 	var/mob/living/U = user
 
 	U.SetWeakened(0)
 	U.SetStunned(0)
+	U.SetKnockDown(0)
 	U.SetParalysis(0)
 	U.SetSleeping(0)
 	U.SetConfused(0)
@@ -155,7 +156,7 @@
 	desc = "Your eyes flash, stunning and silencing anyone infront of you. It has lesser effects for those around you."
 	action_icon_state = "vampire_glare"
 	charge_max = 30 SECONDS
-	stat_allowed = TRUE
+	stat_allowed = UNCONSCIOUS
 
 /obj/effect/proc_holder/spell/vampire/glare/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new
@@ -186,7 +187,7 @@
 			continue
 
 		var/deviation
-		if(user.IsWeakened() || user.resting)
+		if(user.IsWeakened() || IS_HORIZONTAL(user))
 			deviation = DEVIATION_PARTIAL
 		else
 			deviation = calculate_deviation(target, user)
@@ -254,8 +255,8 @@
 	desc = "Summons deadly vampires from bluespace."
 	school = "transmutation"
 	charge_max = 100
-	clothes_req = 0
-	human_req = 1
+	clothes_req = FALSE
+	human_req = TRUE
 	invocation = "none"
 	invocation_type = "none"
 	cooldown_min = 20

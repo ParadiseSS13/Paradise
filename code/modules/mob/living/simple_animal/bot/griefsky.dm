@@ -32,7 +32,7 @@
 	bot_core_type = /obj/machinery/bot_core/toy
 	weapon = /obj/item/toy/sword
 	frustration_number = 5
-	locked = 0
+	locked = FALSE
 
 /obj/machinery/bot_core/toy
 	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
@@ -153,7 +153,7 @@
 	return
 
 /mob/living/simple_animal/bot/secbot/griefsky/look_for_perp()
-	anchored = 0
+	anchored = FALSE
 	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue

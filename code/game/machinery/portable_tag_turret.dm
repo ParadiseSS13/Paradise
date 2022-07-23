@@ -37,7 +37,7 @@
 	)
 	return data
 
-/obj/machinery/porta_turret/tag/update_icon()
+/obj/machinery/porta_turret/tag/update_icon_state()
 	if(!anchored)
 		icon_state = "turretCover"
 		return
@@ -75,7 +75,7 @@
 	if(!L)
 		return TURRET_NOT_TARGET
 
-	if(L.lying)
+	if(IS_HORIZONTAL(L))
 		return TURRET_NOT_TARGET
 
 	var/target_suit

@@ -7,7 +7,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/grey
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimespawn/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -20,7 +20,7 @@
 	result = "epinephrine"
 	required_reagents = list("water" = 5)
 	result_amount = 3
-	required_other = 1
+	required_other = TRUE
 	required_container = /obj/item/slime_extract/grey
 
 /datum/chemical_reaction/slimeinaprov/on_reaction(datum/reagents/holder)
@@ -33,7 +33,7 @@
 	required_reagents = list("blood" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/grey
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimemonkey/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -48,7 +48,7 @@
 	result = "mutationtoxin"
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
-	required_other = 1
+	required_other = TRUE
 	required_container = /obj/item/slime_extract/green
 
 /datum/chemical_reaction/slimemutate/on_reaction(datum/reagents/holder)
@@ -62,7 +62,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/metal
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimemetal/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -77,7 +77,7 @@
 	required_reagents = list("water" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/metal
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimeglass/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -142,7 +142,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/silver
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimebork/on_reaction(datum/reagents/holder)
 
@@ -196,7 +196,7 @@
 	required_reagents = list("water" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/silver
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimebork2/on_reaction(datum/reagents/holder)
 
@@ -242,7 +242,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 10
 	required_container = /obj/item/slime_extract/blue
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimefrost/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -254,7 +254,7 @@
 	required_reagents = list("blood" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/blue
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimestabilizer/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -269,7 +269,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/darkblue
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimefreeze/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -290,7 +290,7 @@
 	required_reagents = list("water" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/darkblue
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimefireproof/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -305,7 +305,7 @@
 	required_reagents = list("blood" = 1)
 	result_amount = 10
 	required_container = /obj/item/slime_extract/orange
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimecasp/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -317,7 +317,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/orange
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimefire/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -338,7 +338,7 @@
 	required_reagents = list("blood" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/yellow
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimeoverload/on_reaction(datum/reagents/holder, created_volume)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -352,7 +352,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/yellow
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimecell/on_reaction(datum/reagents/holder, created_volume)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -366,7 +366,7 @@
 	required_reagents = list("water" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/yellow
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimeglow/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -384,7 +384,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/purple
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimepsteroid/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -398,7 +398,7 @@
 	required_reagents = list("sugar" = 1)
 	result_amount = 10
 	required_container = /obj/item/slime_extract/purple
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimejam/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -412,7 +412,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/darkpurple
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimeplasma/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -427,7 +427,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/red
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimemutator/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -441,7 +441,7 @@
 	required_reagents = list("blood" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/red
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimebloodlust/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -451,7 +451,7 @@
 			slime.docile = FALSE
 			slime.update_name()
 			continue
-		slime.rabid = 1
+		slime.rabid = TRUE
 		slime.visible_message("<span class='danger'>[slime] is driven into a frenzy!</span>")
 
 
@@ -462,7 +462,7 @@
 	required_reagents = list("water" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/red
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimespeed/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -478,7 +478,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/pink
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/docility/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -493,7 +493,7 @@
 	result = "amutationtoxin"
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
-	required_other = 1
+	required_other = TRUE
 	required_container = /obj/item/slime_extract/black
 
 /datum/chemical_reaction/slimemutate2/on_reaction(datum/reagents/holder)
@@ -507,7 +507,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/oil
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slime_explosion/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -532,7 +532,7 @@
 	result_amount = 1
 	required_container = /obj/item/slime_extract/lightpink
 	required_reagents = list("plasma_dust" = 1)
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimepotion2/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -547,7 +547,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/adamantine
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimegolem/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -561,7 +561,7 @@
 	required_reagents = list("blood" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/bluespace
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimefloor2/on_reaction(datum/reagents/holder, created_volume)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -577,7 +577,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/bluespace
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimecrystal/on_reaction(datum/reagents/holder, created_volume)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -593,7 +593,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/cerulean
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimepsteroid2/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -609,7 +609,7 @@
 	required_reagents = list("blood" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/cerulean
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slime_territory/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -624,7 +624,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/sepia
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimestop/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -642,7 +642,7 @@
 	required_reagents = list("water" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/sepia
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimecamera/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -658,7 +658,7 @@
 	required_reagents = list("blood" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/sepia
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimefloor/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -677,7 +677,7 @@
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/pyrite
-	required_other = 1
+	required_other = TRUE
 
 /datum/chemical_reaction/slimepaint/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
@@ -694,7 +694,7 @@
 	result = null
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
-	required_other = 1
+	required_other = TRUE
 	required_container = /obj/item/slime_extract/rainbow
 
 /datum/chemical_reaction/slimeRNG/on_reaction(datum/reagents/holder)
@@ -708,7 +708,7 @@
 	result = null
 	required_reagents = list("blood" = 1)
 	result_amount = 1
-	required_other = 1
+	required_other = TRUE
 	required_container = /obj/item/slime_extract/rainbow
 
 /datum/chemical_reaction/slime_transfer/on_reaction(datum/reagents/holder)

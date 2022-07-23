@@ -9,7 +9,7 @@
 
 	var/volume = 10000 //in liters, 1 meters by 1 meters by 2 meters ~tweaked it a little to simulate a pressure tank without needing to recode them yet
 
-	density = 1
+	density = TRUE
 
 /obj/machinery/atmospherics/unary/tank/update_underlays()
 	if(..())

@@ -12,8 +12,8 @@
 	var/lower_temperature_limit = T0C - 10 //Set lower for a bigger freeze
 	var/infinite_snow = FALSE //Set this to have it not use water
 
-/obj/machinery/snow_machine/New()
-	..()
+/obj/machinery/snow_machine/Initialize(mapload)
+	. = ..()
 	create_reagents(300) //Makes 100 snow tiles!
 	reagents.add_reagent("water", 300) //But any reagent will do
 	reagents.flags |= REAGENT_NOREACT //Because a) this doesn't need to process and b) this way we can use any reagents without needing to worry about explosions and shit
@@ -87,10 +87,9 @@
 	..()
 	if(!powered())
 		turn_on_or_off(FALSE, TRUE)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/snow_machine/update_icon()
-	..()
+/obj/machinery/snow_machine/update_icon_state()
 	if(panel_open)
 		icon_state = "snow_machine_openpanel"
 	else
@@ -131,5 +130,5 @@
 	if(!active && give_message)
 		visible_message("<span class='warning'>[src] switches off!</span>")
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE

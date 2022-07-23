@@ -172,10 +172,28 @@
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
-/obj/item/clothing/suit/space/hardsuit/New()
-	if(jetpack && ispath(jetpack))
+/obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
+	. = ..()
+	MakeHelmet()
+	if(ispath(jetpack))
 		jetpack = new jetpack(src)
-	..()
+
+/obj/item/clothing/suit/space/hardsuit/Destroy()
+	QDEL_NULL(helmet)
+	QDEL_NULL(jetpack)
+	return ..()
+
+/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	suit = null
+	return ..()
+
+/obj/item/clothing/suit/space/hardsuit/proc/MakeHelmet()
+	if(!helmettype)
+		return
+	if(!helmet)
+		var/obj/item/clothing/head/helmet/space/hardsuit/W = new helmettype(src)
+		W.suit = src
+		helmet = W
 
 /obj/item/clothing/suit/space/hardsuit/attack_self(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -335,19 +353,23 @@
 	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
-	on = 1
+	on = TRUE
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDETAIL
 	visor_flags = STOPSPRESSUREDMAGE
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon_state()
 	icon_state = "hardsuit[on]-[item_color]"
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/New()
-	..()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize(mapload)
+	. = ..()
 	if(istype(loc, /obj/item/clothing/suit/space/hardsuit/syndi))
 		linkedsuit = loc
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/Destroy()
+	linkedsuit = null
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user) //Toggle Helmet
 	if(!isturf(user.loc))
@@ -410,14 +432,14 @@
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
 	w_class = WEIGHT_CLASS_NORMAL
-	var/on = 1
+	var/on = TRUE
 	actions_types = list(/datum/action/item_action/toggle_hardsuit_mode)
 	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 
-/obj/item/clothing/suit/space/hardsuit/syndi/update_icon()
+/obj/item/clothing/suit/space/hardsuit/syndi/update_icon_state()
 	icon_state = "hardsuit[on]-[item_color]"
 
 //Elite Syndie suit
@@ -462,7 +484,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
 	sprite_sheets = null
 
-/obj/item/clothing/suit/space/hardsuit/syndi/freedom/update_icon()
+/obj/item/clothing/suit/space/hardsuit/syndi/freedom/update_icon_state()
 	return
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
@@ -472,7 +494,7 @@
 	item_state = "griffinhat"
 	sprite_sheets = null
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon_state()
 	return
 
 //Medical hardsuit
@@ -482,7 +504,7 @@
 	icon_state = "hardsuit0-medical"
 	item_state = "medical_helm"
 	item_color = "medical"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75)
 	scan_reagents = 1 //Generally worn by the CMO, so they'd get utility off of seeing reagents
 
@@ -491,7 +513,7 @@
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort."
 	icon_state = "hardsuit-medical"
 	item_state = "medical_hardsuit"
-	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/rad_laser)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical)
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	slowdown = 0.5
@@ -503,7 +525,7 @@
 	icon_state = "hardsuit0-rd"
 	item_state = "rd"
 	item_color = "rd"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	scan_reagents = TRUE
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80)
 	var/hud_active = FALSE

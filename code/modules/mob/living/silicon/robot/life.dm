@@ -19,13 +19,13 @@
 	if(stat != DEAD)
 		if(!is_component_functioning("power cell"))
 			uneq_all()
-			low_power_mode = 1
+			low_power_mode = TRUE
 			update_headlamp()
 			diag_hud_set_borgcell()
 			return
 		if(low_power_mode)
 			if(is_component_functioning("power cell") && cell.charge)
-				low_power_mode = 0
+				low_power_mode = FALSE
 				update_headlamp()
 		else if(stat == CONSCIOUS)
 			use_power()
@@ -39,25 +39,25 @@
 		cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
 	else
 		uneq_all()
-		low_power_mode = 1
+		low_power_mode = TRUE
 		update_headlamp()
 	diag_hud_set_borgcell()
 
 /mob/living/silicon/robot/proc/handle_equipment()
 	if(camera && !scrambledcodes)
 		if(stat == DEAD || wires.is_cut(WIRE_BORG_CAMERA))
-			camera.status = 0
+			camera.status = FALSE
 		else
-			camera.status = 1
+			camera.status = TRUE
 
 	//update the state of modules and components here
 	if(stat != CONSCIOUS)
 		uneq_all()
 
 	if(!is_component_functioning("radio") || stat == UNCONSCIOUS)
-		radio.on = 0
+		radio.on = FALSE
 	else
-		radio.on = 1
+		radio.on = TRUE
 
 /mob/living/silicon/robot/proc/SetEmagged(new_state)
 	emagged = new_state
@@ -129,18 +129,8 @@
 		if(weaponlock_time <= 0)
 			if(src.client)
 				to_chat(src, "<span class='warning'><B>Weapon Lock Timed Out!</span>")
-			weapon_lock = 0
+			weapon_lock = FALSE
 			weaponlock_time = 120
-
-/mob/living/silicon/robot/update_canmove(delay_action_updates = 0)
-	if(IsParalyzed() || IsStunned() || IsWeakened() || buckled || lockcharge || stat)
-		canmove = FALSE
-	else
-		canmove = TRUE
-	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
 
 //Robots on fire
 /mob/living/silicon/robot/handle_fire()

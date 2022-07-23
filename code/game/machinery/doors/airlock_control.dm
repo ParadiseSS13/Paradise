@@ -129,26 +129,20 @@
 		frequency = new_frequency
 		radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
+// this is an override, in addition to the one in airlock_control.dm
 /obj/machinery/door/airlock/Initialize()
-	..()
+	. = ..()
 	if(frequency)
 		set_frequency(frequency)
 
 	update_icon()
-
-
-/obj/machinery/door/airlock/New()
-	..()
-
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/machinery/airlock_sensor
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_sensor_off"
 	layer = ABOVE_WINDOW_LAYER
 	name = "airlock sensor"
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = FIRE_PROOF
 	power_channel = ENVIRON
 
@@ -157,11 +151,11 @@
 	frequency = 1379
 	var/command = "cycle"
 
-	var/on = 1
+	var/on = TRUE
 	var/alert = 0
 	var/previousPressure
 
-/obj/machinery/airlock_sensor/update_icon()
+/obj/machinery/airlock_sensor/update_icon_state()
 	if(on)
 		if(alert)
 			icon_state = "airlock_sensor_alert"
@@ -197,21 +191,16 @@
 
 			alert = (pressure < ONE_ATMOSPHERE*0.8)
 
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/airlock_sensor/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/airlock_sensor/Initialize()
-	..()
+/obj/machinery/airlock_sensor/Initialize(mapload)
+	. = ..()
 	set_frequency(frequency)
-
-/obj/machinery/airlock_sensor/New()
-	..()
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/machinery/airlock_sensor/Destroy()
 	if(SSradio)
@@ -230,14 +219,14 @@
 	icon_state = "access_button_standby"
 	name = "access button"
 	layer = ABOVE_WINDOW_LAYER
-	anchored = 1
+	anchored = TRUE
 	power_channel = ENVIRON
 	var/master_tag
 	frequency = AIRLOCK_FREQ
 	var/command = "cycle"
-	var/on = 1
+	var/on = TRUE
 
-/obj/machinery/access_button/update_icon()
+/obj/machinery/access_button/update_icon_state()
 	if(on)
 		icon_state = "access_button_standby"
 	else
@@ -274,15 +263,9 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/access_button/Initialize()
-	..()
+/obj/machinery/access_button/Initialize(mapload)
+	. = ..()
 	set_frequency(frequency)
-
-/obj/machinery/access_button/New()
-	..()
-
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/machinery/access_button/Destroy()
 	if(SSradio)

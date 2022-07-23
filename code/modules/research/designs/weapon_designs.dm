@@ -61,7 +61,7 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_SILVER = 2000, MAT_METAL = 5000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 3000)
 	build_path = /obj/item/gun/energy/wormhole_projector
-	locked = 1
+	locked = TRUE
 	access_requirement = list(ACCESS_RD) //screw you, HoS, this aint yours; this is only for a man of science---and trouble.
 	category = list("Weapons")
 
@@ -167,16 +167,6 @@
 	id = "mag_oldsmg_tx"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
-
-/datum/design/stunshell
-	name = "Stun Shell"
-	desc = "A stunning shell for a shotgun."
-	id = "stunshell"
-	req_tech = list("combat" = 3, "materials" = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 200)
-	build_path = /obj/item/ammo_casing/shotgun/stunslug
-	category = list("Weapons")
 
 /datum/design/stunrevolver
 	name = "Tesla Revolver Parts Kit"
