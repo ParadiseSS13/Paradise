@@ -229,7 +229,7 @@
 
 	stop(TRUE)
 
-/obj/item/taperecorder/verb/print_transcript()
+/obj/item/taperecorder/proc/print_transcript()
 	if(usr.incapacitated())
 		return
 	if(!mytape)
