@@ -4,22 +4,22 @@
 	desc = "One of the most generic arcade games ever."
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "clawmachine_on"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/tokens = 0
-	var/freeplay = 0				//for debugging and admin kindness
+	var/freeplay = FALSE			//for debugging and admin kindness
 	var/token_price = 0
 	var/last_winner = null			//for letting people who to hunt down and steal prizes from
 	var/window_name = "arcade"		//in case you want to change the window name for certain machines
 
-/obj/machinery/arcade/New()
-	..()
+/obj/machinery/arcade/Initialize(mapload)
+	. = ..()
 	if(type == /obj/machinery/arcade)		//if you spawn the base-type, it will replace itself with a random subtype for randomness
 		var/choice = pick(subtypesof(/obj/machinery/arcade))
 		new choice(loc)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/arcade/examine(mob/user)
 	. = ..()
@@ -87,9 +87,6 @@
 		return FALSE
 	default_deconstruction_crowbar(user, I)
 	return TRUE
-
-/obj/machinery/arcade/update_icon()
-	return
 
 /obj/machinery/arcade/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user)
 	if(cashmoney.amount < token_price)

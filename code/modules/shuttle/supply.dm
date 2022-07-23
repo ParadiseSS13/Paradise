@@ -287,7 +287,7 @@
 	reqform.info += "<hr>"
 	reqform.info += "STAMP BELOW TO APPROVE THIS REQUISITION:<br>"
 
-	reqform.update_icon()	//Fix for appearing blank when printed.
+	reqform.update_icon(UPDATE_ICON_STATE)	//Fix for appearing blank when printed.
 
 	return reqform
 

@@ -5,8 +5,8 @@
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
 	smoothing_flags = SMOOTH_BITMASK
-	opacity = 1
-	density = 1
+	opacity = TRUE
+	density = TRUE
 	explosion_block = 2
 	rad_insulation = RAD_HEAVY_INSULATION
 	damage_cap = 600
@@ -210,9 +210,7 @@
 		if(prob(30))
 			dismantle_wall()
 
-/turf/simulated/wall/r_wall/update_icon()
-	. = ..()
-
+/turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
 		icon_state = "r_wall-[d_state]"
 		smoothing_flags = NONE

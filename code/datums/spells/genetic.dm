@@ -17,7 +17,7 @@
 			ADD_TRAIT(target, A, MAGIC_TRAIT)
 		active_on += target
 		target.regenerate_icons()
-		if(duration < charge_max)
+		if(duration < base_cooldown)
 			addtimer(CALLBACK(src, .proc/remove, target), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 /obj/effect/proc_holder/spell/genetic/Destroy()

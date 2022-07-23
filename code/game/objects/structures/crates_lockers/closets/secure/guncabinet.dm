@@ -21,7 +21,7 @@
 		update_icon()
 
 /obj/structure/closet/secure_closet/guncabinet/update_overlays()
-	cut_overlays()
+	. = list()
 	if(!opened)
 		var/lasers = 0
 		var/ballistics = 0
@@ -43,10 +43,10 @@
 					gun.icon_state = "projectile"
 
 				gun.pixel_x = i*4
-				add_overlay(gun)
+				. += gun
 
-		add_overlay("door")
+		. += "door"
 		if(broken)
-			add_overlay("off")
+			. += "off"
 		else if(locked)
-			add_overlay("locked")
+			. += "locked"

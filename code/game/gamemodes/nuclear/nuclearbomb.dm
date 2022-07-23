@@ -16,7 +16,7 @@ GLOBAL_VAR(bomb_set)
 	desc = "Uh oh. RUN!!!!"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = NO_MALF_EFFECT_2
 	anchored = TRUE
@@ -72,6 +72,11 @@ GLOBAL_VAR(bomb_set)
 		if(timeleft <= 0)
 			INVOKE_ASYNC(src, .proc/explode)
 	return
+
+/obj/machinery/nuclearbomb/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += "npanel_open"
 
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
@@ -184,13 +189,11 @@ GLOBAL_VAR(bomb_set)
 	if(auth || (istype(I, /obj/item/screwdriver/nuke)))
 		if(!panel_open)
 			panel_open = TRUE
-			overlays += image(icon, "npanel_open")
 			to_chat(user, "You unscrew the control panel of [src].")
 			anchor_stage = removal_stage
 			removal_stage = core_stage
 		else
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
@@ -199,11 +202,11 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
 		if(panel_open == TRUE)
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
 		flick("nuclearbombc", src)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -447,7 +450,7 @@ GLOBAL_VAR(bomb_set)
 		icon_state = "nuclearbomb3"
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	if(SSticker && SSticker.mode)
-		SSticker.mode.explosion_in_progress = 1
+		SSticker.mode.explosion_in_progress = TRUE
 	sleep(100)
 
 	GLOB.enter_allowed = 0
@@ -469,7 +472,7 @@ GLOBAL_VAR(bomb_set)
 			SSticker.mode:nuke_off_station = off_station
 		SSticker.station_explosion_cinematic(off_station,null)
 		if(SSticker.mode)
-			SSticker.mode.explosion_in_progress = 0
+			SSticker.mode.explosion_in_progress = FALSE
 			if(SSticker.mode.name == "nuclear emergency")
 				SSticker.mode:nukes_left --
 			else if(off_station == 1)

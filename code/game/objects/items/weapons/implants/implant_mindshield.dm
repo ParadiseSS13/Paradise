@@ -42,8 +42,6 @@
 /obj/item/implanter/mindshield/New()
 	imp = new /obj/item/implant/mindshield(src)
 	..()
-	update_icon()
-
 
 /obj/item/implantcase/mindshield
 	name = "implant case - 'mindshield'"

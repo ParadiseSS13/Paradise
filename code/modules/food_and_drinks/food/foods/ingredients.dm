@@ -153,15 +153,16 @@
 	list_reagents = list("nutriment" = 5, "sugar" = 5)
 	tastes = list("dough" = 1, "sugar" = 1)
 
+/obj/item/reagent_containers/food/snacks/cookiedough/update_name()
+	. = ..()
+	if(flat)
+		name = "flat pastry dough"
 
-/obj/item/reagent_containers/food/snacks/cookiedough/update_icon()
-    if(flat)
-        icon_state = "cookiedough_flat"
-        name = "flat pastry dough"
-    else
-        icon_state = "cookiedough"
-
-
+/obj/item/reagent_containers/food/snacks/cookiedough/update_icon_state()
+	if(flat)
+		icon_state = "cookiedough_flat"
+	else
+		icon_state = "cookiedough"
 
 // Dough + rolling pin = flat cookie dough // Flat dough + circular cutter = unbaked cookies
 /obj/item/reagent_containers/food/snacks/cookiedough/attackby(obj/item/I, mob/user, params)
@@ -169,7 +170,7 @@
 		if(isturf(loc))
 			to_chat(user, "<span class='notice'>You flatten [src].</span>")
 			flat = TRUE
-			update_icon()
+			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 		else
 			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
 	else if(istype(I, /obj/item/kitchen/cutter) && flat)

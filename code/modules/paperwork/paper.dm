@@ -19,6 +19,7 @@
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	blocks_emissive = null
 	attack_verb = list("bapped")
 	dog_fashion = /datum/dog_fashion/head
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
@@ -28,13 +29,14 @@
 	var/footer 	//The bottom stuff before the stamp but after the body
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
+	var/list/stamp_overlays = list()
 	var/fields		//Amount of user created fields
 	var/list/stamped
 	var/ico[0]      //Icons and
 	var/offset_x[0] //offsets stored for later
 	var/offset_y[0] //usage by the photocopier
-	var/rigged = 0
-	var/spam_flag = 0
+	var/rigged = FALSE
+	var/spam_flag = FALSE
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
@@ -56,8 +58,7 @@
 		update_icon()
 		updateinfolinks()
 
-/obj/item/paper/update_icon()
-	..()
+/obj/item/paper/update_icon_state()
 	if(info)
 		icon_state = "paper_words"
 		return
@@ -118,11 +119,11 @@
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
-		if(spam_flag == 0)
-			spam_flag = 1
+		if(!spam_flag)
+			spam_flag = TRUE
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
 			spawn(20)
-				spam_flag = 0
+				spam_flag = FALSE
 	return
 
 /obj/item/paper/attack_ai(mob/living/silicon/ai/user as mob)
@@ -260,10 +261,9 @@
 	info = null
 	stamps = null
 	stamped = list()
-	overlays.Cut()
+	stamp_overlays = list()
 	updateinfolinks()
 	update_icon()
-
 
 /obj/item/paper/proc/parsepencode(t, obj/item/pen/P, mob/user as mob)
 	t = pencode_to_html(html_encode(t), usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
@@ -359,9 +359,9 @@
 	if(resistance_flags & ON_FIRE)
 		return
 
-	var/clown = 0
+	var/clown = FALSE
 	if(user.mind && (user.mind.assigned_role == "Clown"))
-		clown = 1
+		clown = TRUE
 
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
 		if(istype(P, /obj/item/paper/carbon))
@@ -484,7 +484,11 @@
 	if(!stamped)
 		stamped = new
 	stamped += S.type
-	overlays += stampoverlay
+	stamp_overlays += stampoverlay
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/paper/update_overlays()
+	return stamp_overlays
 
 /*
  * Premade paper
@@ -512,7 +516,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -531,7 +535,7 @@
 	name = "paper scrap"
 	icon_state = "scrap"
 
-/obj/item/paper/crumpled/update_icon()
+/obj/item/paper/crumpled/update_icon_state()
 	if(info)
 		icon_state = "scrap_words"
 
@@ -549,9 +553,9 @@
 	info = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
 	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
 
-/obj/item/paper/fortune/update_icon()
-	..()
+/obj/item/paper/fortune/update_icon_state()
 	icon_state = initial(icon_state)
+
 /*
  * Premade paper
  */
@@ -582,7 +586,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -658,9 +662,9 @@
 	info = ""
 	var/mytarget = null
 	var/myeffect = null
-	var/used = 0
+	var/used = FALSE
 	var/countdown = 60
-	var/activate_on_timeout = 0
+	var/activate_on_timeout = FALSE
 	var/faxmachineid = null
 
 /obj/item/paper/evilfax/show_content(mob/user, forceshow = 0, forcestars = 0, infolinks = 0, view = 1)
@@ -701,7 +705,7 @@
 				message_admins("[mytarget] ignored an evil fax until it timed out.")
 		else
 			message_admins("Evil paper '[src]' timed out, after not being assigned a target.")
-		used = 1
+		used = TRUE
 		evilpaper_selfdestruct()
 	else
 		countdown--
@@ -762,7 +766,7 @@
 					fax.become_mimic()
 			else
 				message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
-		used = 1
+		used = TRUE
 		evilpaper_selfdestruct()
 
 /obj/item/paper/evilfax/proc/evilpaper_selfdestruct()

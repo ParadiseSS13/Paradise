@@ -26,17 +26,17 @@
 			if(M.stat == DEAD)
 				M.faction = list("neutral")
 				M.revive()
-				M.can_collar = 1
+				M.can_collar = TRUE
 				if(istype(target, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					if(malfunctioning)
 						H.faction |= list("lazarus", "\ref[user]")
-						H.robust_searching = 1
+						H.robust_searching = TRUE
 						H.friends += user
-						H.attack_same = 1
+						H.attack_same = TRUE
 						log_game("[user] has revived hostile mob [target] with a malfunctioning lazarus injector")
 					else
-						H.attack_same = 0
+						H.attack_same = FALSE
 				loaded = 0
 				user.visible_message("<span class='notice'>[user] injects [M] with [src], reviving it.</span>")
 				playsound(src,'sound/effects/refill.ogg',50,1)
@@ -118,5 +118,7 @@
 	colorindex += 1
 	if(colorindex >= 6)
 		colorindex = 0
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/mobcapsule/update_icon_state()
 	icon_state = "mobcap[colorindex]"
-	update_icon()

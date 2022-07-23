@@ -2,15 +2,15 @@
 	var/datum/computer/file/embedded_program/program	//the currently executing program
 
 	name = "Embedded Controller"
-	anchored = 1
+	anchored = TRUE
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 
-	var/on = 1
+	var/on = TRUE
 
 /obj/machinery/embedded_controller/proc/post_signal(datum/signal/signal, comm_line)
-	return 0
+	return FALSE
 
 /obj/machinery/embedded_controller/receive_signal(datum/signal/signal, receive_method, receive_param)
 	if(!signal || signal.encryption) return
@@ -23,7 +23,7 @@
 	if(program)
 		program.process()
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	src.updateDialog()
 
 /obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
@@ -41,7 +41,7 @@
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
 	power_channel = ENVIRON
-	density = 0
+	density = FALSE
 
 	var/id_tag
 	//var/radio_power_use = 50 //power used to xmit signals
@@ -60,7 +60,7 @@
 	radio_connection = null
 	return ..()
 
-/obj/machinery/embedded_controller/radio/update_icon()
+/obj/machinery/embedded_controller/radio/update_icon_state()
 	if(on && program)
 		if(program.memory["processing"])
 			icon_state = "airlock_control_process"

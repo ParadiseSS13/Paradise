@@ -74,7 +74,7 @@
 /obj/item/pda/captain
 	default_cartridge = /obj/item/cartridge/captain
 	icon_state = "pda-captain"
-	detonate = 0
+	detonate = FALSE
 	//toff = 1
 
 /obj/item/pda/heads/ntrep
@@ -90,6 +90,8 @@
 	icon_state = "pda-h"
 
 /obj/item/pda/heads/ert
+	default_cartridge = /obj/item/cartridge/centcom
+	detonate = FALSE
 
 /obj/item/pda/heads/ert/engineering
 	icon_state = "pda-engineer"
@@ -186,8 +188,7 @@
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pdabox"
 
-/obj/item/storage/box/PDAs/New()
-	..()
+/obj/item/storage/box/PDAs/populate_contents()
 	new /obj/item/pda(src)
 	new /obj/item/pda(src)
 	new /obj/item/pda(src)

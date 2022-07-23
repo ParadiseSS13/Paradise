@@ -4,7 +4,7 @@
 	icon = 'icons/obj/doors/doorint.dmi'
 	icon_state = "door1"
 	anchored = TRUE
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
@@ -13,10 +13,10 @@
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
-	var/visible = 1
+	var/visible = TRUE
 	/// Is it currently in the process of opening or closing.
 	var/operating = FALSE
-	var/autoclose = 0
+	var/autoclose = FALSE
 	/// Whether the door detects things and mobs in its way and reopen or crushes them.
 	var/safe = TRUE
 	// Whether the door is bolted or not.
@@ -39,16 +39,21 @@
 
 /obj/machinery/door/New()
 	..()
+	GLOB.airlocks += src
+	update_freelook_sight()
+
+/obj/machinery/door/Initialize(mapload)
+	. = ..()
 	set_init_door_layer()
 	update_dir()
-	update_freelook_sight()
-	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
+
+	air_update_turf(1)
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -73,12 +78,8 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-/obj/machinery/door/Initialize()
-	air_update_turf(1)
-	..()
-
 /obj/machinery/door/Destroy()
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
 	GLOB.airlocks -= src
@@ -148,26 +149,34 @@
 				var/mob/living/simple_animal/bot/B = user
 				B.door_opened(src)
 		else
+			if(pry_open_check(user))
+				return
 			do_animate("deny")
-			if(HAS_TRAIT(user, TRAIT_FORCE_DOORS))
-				var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 
-				if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-					if(!V.bloodusable)
-						REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
-						return
-				if(welded)
-					to_chat(user, "<span class='warning'>The door is welded.</span>")
-					return
-				if(locked)
-					to_chat(user, "<span class='warning'>The door is bolted.</span>")
-					return
-				if(density)
-					visible_message("<span class='danger'>[user] forces the door open!</span>")
-					playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-					open(TRUE)
-				if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-					V.bloodusable = max(V.bloodusable - 5, 0)
+/obj/machinery/door/proc/pry_open_check(mob/user)
+	. = TRUE
+	if(isterrorspider(user))
+		return
+
+	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
+		return FALSE
+	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+		if(!V.bloodusable)
+			REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+			return FALSE
+	if(welded)
+		to_chat(user, "<span class='warning'>The door is welded.</span>")
+		return FALSE
+	if(locked)
+		to_chat(user, "<span class='warning'>The door is bolted.</span>")
+		return FALSE
+	if(density)
+		visible_message("<span class='danger'>[user] forces the door open!</span>")
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		open(TRUE)
+	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+		V.bloodusable = max(V.bloodusable - 5, 0)
 
 /obj/machinery/door/attack_ai(mob/user)
 	return attack_hand(user)
@@ -193,7 +202,7 @@
 			open()
 		else
 			close()
-		return
+		return TRUE
 	if(density)
 		do_animate("deny")
 
@@ -255,14 +264,11 @@
 		flick("door_spark", src)
 		sleep(6)
 		open()
-		emagged = 1
-		return 1
+		emagged = TRUE
+		return TRUE
 
-/obj/machinery/door/update_icon()
-	if(density)
-		icon_state = "door1"
-	else
-		icon_state = "door0"
+/obj/machinery/door/update_icon_state()
+	icon_state = "door[density]"
 
 /obj/machinery/door/proc/do_animate(animation)
 	switch(animation)

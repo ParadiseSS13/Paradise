@@ -36,6 +36,7 @@
 			var/text = "<FONT size = 2><B>The blob[(blob_mode.infected_crew.len > 1 ? "s were" : " was")]:</B></FONT>"
 
 			for(var/datum/mind/blob in blob_mode.infected_crew)
-				text += "<br><b>[blob.key]</b> was <b>[blob.name]</b>"
+				var/blob_ckey = blob.get_display_key()
+				text += "<br><b>[blob_ckey]</b> was <b>[blob.name]</b>"
 			to_chat(world, text)
 		return 1

@@ -7,7 +7,7 @@
 	name = "passive gate"
 	desc = "A one-way air valve that does not require power"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	target_pressure = ONE_ATMOSPHERE
 
@@ -27,8 +27,7 @@
 	radio_connection = null
 	return ..()
 
-/obj/machinery/atmospherics/binary/passive_gate/update_icon()
-	..()
+/obj/machinery/atmospherics/binary/passive_gate/update_icon_state()
 	icon_state = "[on ? "on" : "off"]"
 
 /obj/machinery/atmospherics/binary/passive_gate/update_underlays()

@@ -6,7 +6,6 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-	alien_talk_understand = TRUE
 
 	var/nightvision = FALSE
 	see_in_dark = 4
@@ -17,7 +16,6 @@
 
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
-
 	var/large = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
@@ -30,7 +28,7 @@
 	..()
 	create_reagents(1000)
 	verbs += /mob/living/verb/mob_sleep
-	verbs += /mob/living/verb/lay_down
+	verbs += /mob/living/verb/rest
 	alien_organs += new /obj/item/organ/internal/brain/xeno
 	alien_organs += new /obj/item/organ/internal/xenos/hivenode
 	alien_organs += new /obj/item/organ/internal/ears
@@ -118,7 +116,7 @@
 	stat(null, "Move Mode: [m_intent]")
 	show_stat_emergency_shuttle_eta()
 
-/mob/living/carbon/alien/SetStunned(amount, updating = 1, force = 0)
+/mob/living/carbon/alien/SetStunned(amount, updating = TRUE, force = 0)
 	..()
 	if(!(status_flags & CANSTUN) && amount)
 		// add some movement delay
@@ -255,3 +253,7 @@ Des: Removes all infected images from the alien.
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/living/carbon/alien/on_lying_down(new_lying_angle)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //Xenos can't crawl

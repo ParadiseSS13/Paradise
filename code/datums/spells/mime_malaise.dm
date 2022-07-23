@@ -6,8 +6,8 @@
 	hand_path = /obj/item/melee/touch_attack/mime_malaise
 	school = "transmutation"
 
-	charge_max = 300
-	clothes_req = 1
+	base_cooldown = 300
+	clothes_req = TRUE
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "mime"
 
@@ -20,7 +20,7 @@
 	item_state = "fleshtostone"
 
 /obj/item/melee/touch_attack/mime_malaise/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.lying || user.handcuffed)
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
