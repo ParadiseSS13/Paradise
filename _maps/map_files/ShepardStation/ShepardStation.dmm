@@ -21059,6 +21059,9 @@
 	dir = 4;
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
+/obj/machinery/computer/guestpass{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -34534,7 +34537,10 @@
 	name = "Cargo Requests Console";
 	pixel_y = 32
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -35577,7 +35583,7 @@
 /area/crew_quarters/locker)
 "hlb" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
+	dir = 2;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
@@ -43844,9 +43850,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/seceqstorage)
 "iXg" = (
-/obj/machinery/computer/guestpass{
-	pixel_x = 30
-	},
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
@@ -72754,6 +72757,9 @@
 	dir = 8;
 	network = list("Research","SS13")
 	},
+/obj/machinery/computer/guestpass{
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -86247,6 +86253,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -94396,7 +94405,7 @@
 /area/magistrateoffice)
 "tsd" = (
 /obj/machinery/door/poddoor{
-	id_tag = "tank_delivery";
+	id_tag = "trash";
 	name = "disposal bay door";
 	protected = 0
 	},
@@ -114050,10 +114059,6 @@
 	},
 /area/medical/virology)
 "xzI" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
