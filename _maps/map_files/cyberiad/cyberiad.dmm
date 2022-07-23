@@ -81011,6 +81011,14 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"pMM" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "pMP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -83341,14 +83349,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
-"wNB" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/wood,
-/area/security/vacantoffice)
 "wOM" = (
 /obj/machinery/camera{
 	c_tag = "Prison Solitary 1";
@@ -83504,6 +83504,12 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"xpt" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "xrG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -83700,6 +83706,13 @@
 	},
 /turf/space,
 /area/space)
+"xRP" = (
+/obj/structure/chair/office/light,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "xSD" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -97414,7 +97427,7 @@ brU
 brU
 brU
 brU
-wNB
+pMM
 bqr
 bFY
 bCf
@@ -98181,7 +98194,7 @@ aSY
 brk
 bpF
 bqr
-brU
+xpt
 btB
 bzP
 bBJ
@@ -98952,7 +98965,7 @@ biA
 brp
 bsx
 bqr
-bBt
+xRP
 btE
 bvo
 btA
