@@ -214,6 +214,17 @@
 	luminosity = 0
 	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
 
+/obj/machinery/computer/security/telescreen/entertainment/Initialize()
+	. = ..()
+	set_light(1, LIGHTING_MINIMUM_POWER) //so byond doesnt cull, and we get an emissive appearance
+
+/obj/machinery/computer/security/telescreen/entertainment/power_change()
+	..()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
+
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
 	desc = "An old TV hooked into the station's camera network."
