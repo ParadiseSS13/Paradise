@@ -31674,9 +31674,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/camera{
-	c_tag = "Vacant Office";
-	dir = 1
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
 	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
@@ -79544,6 +79543,14 @@
 	icon_state = "red"
 	},
 /area/security/prisonlockers)
+"lhK" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "lkw" = (
 /obj/machinery/light{
 	dir = 8
@@ -80944,6 +80951,13 @@
 /obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
+"pxs" = (
+/obj/structure/chair/office/light,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "pxP" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -81011,14 +81025,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"pMM" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/wood,
-/area/security/vacantoffice)
 "pMP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -83504,12 +83510,6 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
-"xpt" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/turf/simulated/floor/wood,
-/area/security/vacantoffice)
 "xrG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -83557,6 +83557,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"xzo" = (
+/obj/machinery/camera{
+	c_tag = "Vacant Office"
+	},
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "xAn" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -83706,13 +83712,6 @@
 	},
 /turf/space,
 /area/space)
-"xRP" = (
-/obj/structure/chair/office/light,
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
-/turf/simulated/floor/wood,
-/area/security/vacantoffice)
 "xSD" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -97427,7 +97426,7 @@ brU
 brU
 brU
 brU
-pMM
+lhK
 bqr
 bFY
 bCf
@@ -98194,7 +98193,7 @@ aSY
 brk
 bpF
 bqr
-xpt
+brU
 btB
 bzP
 bBJ
@@ -98451,7 +98450,7 @@ aMs
 brn
 boT
 bqr
-brU
+xzo
 bzP
 bzL
 bBI
@@ -98965,7 +98964,7 @@ biA
 brp
 bsx
 bqr
-xRP
+pxs
 btE
 bvo
 btA
