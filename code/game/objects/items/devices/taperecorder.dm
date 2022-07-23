@@ -32,7 +32,7 @@
 				. += "<span class='notice'>[mytape] has [mytape.max_capacity - mytape.used_capacity] seconds remaining.</span>" // to avoid having 0 minutes
 			else
 				. += "<span class='notice'>[mytape] has [seconds_to_time(mytape.max_capacity - mytape.used_capacity)] remaining.</span>"
-		. += "<span class='notice'>You can Alt-Click to access the tape.</span>"
+		. += "<span class='notice'>Alt-Click to access the tape.</span>"
 
 /obj/item/taperecorder/New()
 	..()
