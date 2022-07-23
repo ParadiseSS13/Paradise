@@ -40,7 +40,7 @@
 	if(!primed)
 		name = "pizza bomb"
 		desc = "OH GOD THAT'S NOT A PIZZA"
-		icon_state = "pizzabox_bomb"
+		icon_state = "pizzabox_bomb_active"
 		audible_message("<span class='warning'>[bicon(src)] *beep* *beep*</span>")
 		to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")
 		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [key_name_admin(armer)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
