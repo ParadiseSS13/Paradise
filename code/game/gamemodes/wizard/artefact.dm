@@ -267,11 +267,11 @@
 								"<span class='userdanger'>Your vision is ripped away from [src].</span>")
 			break
 		sleep(5)
+	in_use = FALSE
 	if(QDELETED(user))
 		return
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, COLOR_BLUE)
 	REMOVE_TRAIT(user, SCRYING, SCRYING_ORB)
-	in_use = FALSE
 
 /////////////////////Multiverse Blade////////////////////
 GLOBAL_LIST_EMPTY(multiverse)
