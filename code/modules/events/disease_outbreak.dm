@@ -36,7 +36,6 @@
 		if(!H.ForceContractDisease(D))
 			continue
 		patient_zero = H
-		for(var/p in GLOB.dead_mob_list) //Announce patient zero to dchat
-			var/mob/M = p
+		for(var/mob/M as anything in GLOB.dead_mob_list) //Announce patient zero to dchat
 			to_chat(M, "<span class='deadsay'><b>[patient_zero]</b> has been infected with <b>[D.name]</b> ([ghost_follow_link(patient_zero, M)])</span>")
 		break
