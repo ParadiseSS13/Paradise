@@ -196,7 +196,11 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	see_ghosts = TRUE
 
 /obj/item/camera/AltClick(mob/user)
-	change_size()
+	if(in_range(user, src) && !user.incapacitated())
+		change_size()
+	else
+		. = ..()
+
 
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"

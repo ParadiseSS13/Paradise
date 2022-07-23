@@ -19,10 +19,13 @@
 	update_icon()
 
 /obj/item/clipboard/AltClick(mob/user)
-	if(is_pen(user.get_active_hand()))
-		penPlacement(user, user.get_active_hand(), TRUE)
+	if(in_range(user, src) && !user.incapacitated())
+		if(is_pen(user.get_active_hand()))
+			penPlacement(user, user.get_active_hand(), TRUE)
+		else
+			removePen(user)
 	else
-		removePen(user)
+		. = ..()
 
 /obj/item/clipboard/verb/removePen(mob/user)
 	set category = "Object"

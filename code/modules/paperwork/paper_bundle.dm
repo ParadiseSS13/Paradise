@@ -197,8 +197,11 @@
 		updateUsrDialog()
 
 /obj/item/paper_bundle/AltClick(mob/user)
-	if(is_pen(user.get_active_hand()))
-		rename()
+	if(in_range(user, src) && !user.incapacitated())
+		if(is_pen(user.get_active_hand()))
+			rename()
+	else
+		. = ..()
 
 /obj/item/paper_bundle/verb/rename()
 	set name = "Rename bundle"
