@@ -77,16 +77,6 @@
 			return
 	..()
 
-/obj/item/taperecorder/update_icon()
-	if(!mytape)
-		icon_state = "taperecorder_empty"
-	else if(recording)
-		icon_state = "taperecorder_recording"
-	else if(playing)
-		icon_state = "taperecorder_playing"
-	else
-		icon_state = "taperecorder_idle"
-
 /obj/item/taperecorder/hear_talk(mob/living/M as mob, list/message_pieces) // Currently can't tell if you're whispering, but can hear it if nearby
 	var/msg = multilingual_to_message(message_pieces)
 	if(mytape && recording)
