@@ -23,6 +23,8 @@
 /obj/item/taperecorder/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) && mytape)
+		if (mytape.ruined)
+			. += "<span class='notice'>[mytape]'s internals are unwound.'.</span>"
 		if(mytape.max_capacity <= mytape.used_capacity)
 			. += "<span class='notice'>[mytape] is full.</span>"
 		else if(((mytape.max_capacity - mytape.used_capacity) % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
@@ -286,7 +288,9 @@
 /obj/item/tape/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		if(max_capacity <= used_capacity)
+		if(ruined)
+			. += "<span class='notice'>It's tape is all pulled out, it looks it could be <b>screwed</b> back into place.</span>"
+		else if(max_capacity <= used_capacity)
 			. += "<span class='notice'>It is full.</span>"
 		else if(((max_capacity - used_capacity) % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
 			. += "<span class='notice'>It has [(max_capacity - used_capacity)/ 60] minutes remaining.</span>"
