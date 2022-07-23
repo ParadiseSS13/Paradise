@@ -35001,6 +35001,10 @@
 /obj/item/paper_bin,
 /obj/structure/table/reinforced,
 /obj/item/pen,
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32;
+	name = "north bump"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -42692,6 +42696,10 @@
 /obj/machinery/photocopier,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32;
+	name = "north bump"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain/bedroom)
@@ -88089,6 +88097,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block)
+"ejr" = (
+/obj/machinery/newscaster/security_unit{
+	pixel_x = -32;
+	name = "west bump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/security/brig)
 "ejA" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -90691,6 +90709,10 @@
 /turf/simulated/floor/wood,
 /area/civilian/pet_store)
 "jou" = (
+/obj/machinery/newscaster/security_unit{
+	pixel_y = -32;
+	name = "south bump"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -152308,7 +152330,7 @@ bBa
 mem
 bHU
 bPy
-bPz
+ejr
 bPz
 frI
 bPz

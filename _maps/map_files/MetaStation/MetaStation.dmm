@@ -65543,6 +65543,13 @@
 	icon_state = "freezerfloor"
 	},
 /area/security/permabrig)
+"jsL" = (
+/obj/machinery/newscaster/security_unit{
+	pixel_x = -32;
+	name = "west bump"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/brig)
 "jta" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -119119,7 +119126,7 @@ lFu
 lxL
 atr
 lFu
-apP
+jsL
 cii
 dfT
 apP
