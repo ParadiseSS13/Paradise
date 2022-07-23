@@ -253,6 +253,16 @@
 		mytape = null
 		update_icon(UPDATE_ICON_STATE)
 
+/obj/item/taperecorder/update_icon_state()
+	if(!mytape)
+		icon_state = "taperecorder_empty"
+	else if(recording)
+		icon_state = "taperecorder_recording"
+	else if(playing)
+		icon_state = "taperecorder_playing"
+	else
+		icon_state = "taperecorder_idle"
+
 //empty tape recorders
 /obj/item/taperecorder/empty
 	starts_with_tape = FALSE
