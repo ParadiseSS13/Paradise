@@ -25,7 +25,7 @@ FIRE ALARM
 	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
 
-	light_power = 0.1
+	light_power = LIGHTING_MINIMUM_POWER
 	light_range = 7
 	light_color = "#ff3232"
 
@@ -227,7 +227,7 @@ FIRE ALARM
 	if(fire)
 		set_light(l_power = 0.8)
 	else
-		set_light(l_power = 0.1)
+		set_light(l_power = LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))

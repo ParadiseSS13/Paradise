@@ -157,7 +157,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
-	set_light(1,0.1)
+	set_light(1, LIGHTING_MINIMUM_POWER)
 
 	event_source = source
 	busy = TRUE
