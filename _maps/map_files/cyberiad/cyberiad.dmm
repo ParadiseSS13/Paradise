@@ -29555,12 +29555,6 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "btG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /obj/item/flashlight/lamp,
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet/purple,
@@ -30150,7 +30144,7 @@
 /turf/simulated/floor/carpet,
 /area/library)
 "buX" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
 /area/security/vacantoffice)
 "buY" = (
@@ -30181,11 +30175,6 @@
 /turf/simulated/floor/carpet,
 /area/chapel/main)
 "bvb" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/structure/chair/office/light{
 	dir = 1
 	},
@@ -30278,12 +30267,19 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bvn" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/purple,
 /area/security/vacantoffice)
 "bvo" = (
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
@@ -30823,6 +30819,13 @@
 /area/maintenance/port)
 "bwx" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/button/windowtint{
+	dir = 4;
+	id = "Magistrate";
+	pixel_x = -24;
+	pixel_y = 6;
+	range = 8
+	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bwy" = (
@@ -31674,9 +31677,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "byh" = (
@@ -32271,12 +32273,17 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bzt" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/wall,
+/turf/simulated/floor/plating,
 /area/security/vacantoffice)
 "bzu" = (
 /obj/structure/toilet{
@@ -33203,23 +33210,21 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bBH" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/item/clipboard,
 /obj/item/paper,
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet/purple,
 /area/security/vacantoffice)
 "bBI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet/purple,
 /area/security/vacantoffice)
 "bBJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
 	},
 /turf/simulated/floor/carpet/purple,
 /area/security/vacantoffice)
@@ -34931,12 +34936,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bGb" = (
@@ -77441,6 +77442,12 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"fax" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/carpet/purple,
+/area/security/vacantoffice)
 "fbx" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -77715,6 +77722,12 @@
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"fQx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/security/vacantoffice)
 "fRp" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -82139,10 +82152,10 @@
 	},
 /area/engine/engine_smes)
 "tfk" = (
-/obj/machinery/door/airlock/public/glass{
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock{
 	name = "Vacant Office"
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "thV" = (
@@ -97937,7 +97950,7 @@ bss
 bqr
 bBt
 bBr
-bzP
+fQx
 bBH
 oYN
 bqr
@@ -98192,9 +98205,9 @@ aSY
 brk
 bpF
 bqr
-brU
+jhD
 btB
-bzP
+fax
 bBJ
 byh
 bqr
@@ -98449,7 +98462,7 @@ aMs
 brn
 boT
 bqr
-jhD
+brU
 bzP
 bzL
 bBI
