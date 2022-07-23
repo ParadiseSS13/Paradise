@@ -194,6 +194,10 @@
 /obj/item/restraints/legcuffs/bola/end_throw()
 	reset_values()
 
+/obj/item/restraints/legcuffs/bola/equipped(mob/user, slot, initial) // switching hands with it or putting it into/out of a bag resets it.
+	. = ..()
+	reset_values()
+
 /obj/item/restraints/legcuffs/bola/proc/reset_values(mob/living/user)
 	throw_range = initial(throw_range)
 	throw_speed = initial(throw_speed)
