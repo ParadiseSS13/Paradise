@@ -146,12 +146,14 @@
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
+/obj/machinery/power/apc/syndicate/off
+	environ = 0
+	equipment = 0
+	lighting = 0
+	operating = 0
+
 /obj/machinery/power/apc/syndicate/off/Initialize(mapload)
 	. = ..()
-	environ = FALSE
-	equipment = FALSE
-	lighting = FALSE
-	operating = FALSE
 	cell.charge = 0
 
 /obj/item/apc_electronics
