@@ -300,7 +300,7 @@
 	. = ..()
 	underlays.Cut()
 
-	if(status != LIGHT_OK ||!on || !turning_on)
+	if(status != LIGHT_OK || !on || !turning_on)
 		return
 	if(nightshift_enabled || emergency_mode || fire_mode)
 		underlays += emissive_appearance(icon, "[base_state]_emergency_lightmask")

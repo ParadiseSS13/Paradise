@@ -343,19 +343,19 @@
 
 	// 	check for items in disposal - occupied light
 	if(contents.len > 0)
-		. +="dispover-full"
+		. += "dispover-full"
 		underlays += emissive_appearance(icon, "dispover-full")
 
 	// charging and ready light
 	switch(mode)
 		if(-1)
-			. +="dispover-unscrewed"
-		if( 1)
-			. +="dispover-charge"
-			. +="dispover-panel"
+			. += "dispover-unscrewed"
+		if(1)
+			. += "dispover-charge"
+			. += "dispover-panel"
 			underlays += emissive_appearance(icon, "dispover-charge")
 		if(2)
-			. +="dispover-ready"
+			. += "dispover-ready"
 			underlays += emissive_appearance(icon, "dispover-ready")
 
 // timed process
