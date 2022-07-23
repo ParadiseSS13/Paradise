@@ -496,24 +496,22 @@
 // called when holder is expelled from a disposal
 // should usually only occur if the pipe network is modified
 /obj/machinery/disposal/proc/expel(var/obj/structure/disposalholder/H)
+
+	var/turf/target
 	playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 	if(H) // Somehow, someone managed to flush a window which broke mid-transit and caused the disposal to go in an infinite loop trying to expel null, hopefully this fixes it
-		var/x = 0
 		for(var/atom/movable/AM in H)
-			addtimer(CALLBACK(src, .proc/expelAct, AM), 1 * x, TIMER_STOPPABLE | TIMER_DELETE_ME)
-			x++
+			target = get_offset_target_turf(src.loc, rand(5)-rand(5), rand(5)-rand(5))
+
+			AM.forceMove(loc)
+			AM.pipe_eject(0)
+			if(!istype(AM, /mob/living/silicon/robot/drone) && !istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
+				spawn(1)
+					if(AM)
+						AM.throw_at(target, 5, 1)
+
 		H.vent_gas(loc)
 		qdel(H)
-
-/obj/machinery/disposal/proc/expelAct(atom/movable/AM)
-	if(QDELETED(AM))
-		return
-	AM.forceMove(loc)
-	AM.pipe_eject(0)
-	if(istype(AM, /mob/living/silicon/robot/drone) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
-		return
-	var/turf/target = get_offset_target_turf(src.loc, rand(5)-rand(5), rand(5)-rand(5))
-	AM.throw_at(target, 5, 1)
 
 /obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover,/obj/item) && mover.throwing)
@@ -846,10 +844,12 @@
 
 		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 		if(H)
-			var/x = 0
 			for(var/atom/movable/AM in H)
-				addtimer(CALLBACK(src, .proc/expelAct, AM, T, target, 100, direction), 1 * x, TIMER_STOPPABLE | TIMER_DELETE_ME)
-				x++
+				AM.forceMove(T)
+				AM.pipe_eject(direction)
+				spawn(1)
+					if(AM)
+						AM.throw_at(target, 100, 1)
 			H.vent_gas(T)
 			qdel(H)
 
@@ -857,20 +857,17 @@
 
 		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 		if(H)
-			var/x = 0
 			for(var/atom/movable/AM in H)
 				target = get_offset_target_turf(T, rand(5)-rand(5), rand(5)-rand(5))
-				addtimer(CALLBACK(src, .proc/expelAct, AM, T, target, 5, 0), 1 * x, TIMER_STOPPABLE | TIMER_DELETE_ME)
-				x++
+
+				AM.forceMove(T)
+				AM.pipe_eject(0)
+				spawn(1)
+					if(AM)
+						AM.throw_at(target, 5, 1)
+
 			H.vent_gas(T)	// all gas vent to turf
 			qdel(H)
-
-/obj/structure/disposalpipe/proc/expelAct(atom/movable/AM, turf/T, turf/target, range, direction)
-	if(QDELETED(AM))
-		return
-	AM.forceMove(T)
-	AM.pipe_eject(direction)
-	AM.throw_at(target, range, 1)
 
 // call to break the pipe
 // will expel any holder inside at the time
@@ -1343,20 +1340,16 @@
 		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
 		sleep(20)	//wait until correct animation frame
 		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
-
-	var/x = 0
 	for(var/atom/movable/AM in contents)
-		addtimer(CALLBACK(src, .proc/expelAct, AM), 1 * x, TIMER_STOPPABLE | TIMER_DELETE_ME)
-		x++
+		AM.forceMove(loc)
+		AM.pipe_eject(dir)
+		if(istype(AM,/mob/living/silicon/robot/drone) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+			return
+		spawn(5)
+			if(QDELETED(AM))
+				return
+			AM.throw_at(target, 3, 1)
 
-/obj/structure/disposaloutlet/proc/expelAct(atom/movable/AM)
-	if(QDELETED(AM))
-		return
-	AM.forceMove(loc)
-	AM.pipe_eject(dir)
-	if(istype(AM,/mob/living/silicon/robot/drone) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
-		return
-	AM.throw_at(target, 3, 1)
 
 /obj/structure/disposaloutlet/attackby(var/obj/item/I, var/mob/user, params)
 	if(!I || !user)
