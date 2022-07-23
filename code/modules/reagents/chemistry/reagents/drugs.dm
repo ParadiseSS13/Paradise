@@ -442,7 +442,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/recent_consumption = holder.addiction_threshold_accumulated[type]
 		for(var/obj/item/organ/internal/I in H.internal_organs)
 			I.receive_damage(0.8, TRUE) //double the rate of mitocholide
 	M.SetParalysis(0)
