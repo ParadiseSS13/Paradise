@@ -9,11 +9,8 @@
 	var/list/hit_sounds = list('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg',\
 	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
 
-/obj/structure/punching_bag/attack_hand(mob/user as mob)
-	if(cooldown >= world.time)
-		to_chat(user, "<span class='warning'>The bag is still swinging!</span>")
-		return
-	cooldown = world.time + 1 SECONDS
+/obj/structure/punching_bag/attack_hand(mob/user)
+	user.changeNext_move(CLICK_CD_MELEE)
 	. = ..()
 	if(.)
 		return
