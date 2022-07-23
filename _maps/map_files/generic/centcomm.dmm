@@ -4487,12 +4487,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"pw" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
-/turf/simulated/floor/plasteel/dark/nitrogen,
-/area/centcom/specops)
 "pz" = (
 /obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
@@ -4643,10 +4637,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Team Storage"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "pZ" = (
 /obj/machinery/vending/medical,
@@ -6778,15 +6769,6 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/control)
-"ys" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Team Storage"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "vault"
-	},
-/area/centcom/specops)
 "yu" = (
 /obj/machinery/vending/snack,
 /obj/effect/turf_decal/bot,
@@ -8304,10 +8286,6 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
-"Gx" = (
-/obj/structure/bookcase/random,
-/turf/simulated/floor/plasteel/dark/nitrogen,
-/area/centcom/specops)
 "Gy" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -8383,7 +8361,7 @@
 /area/admin)
 "GO" = (
 /obj/structure/closet/crate/can,
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "GP" = (
 /obj/effect/decal/warning_stripes/southeast,
@@ -8438,7 +8416,7 @@
 /obj/item/dice/d10{
 	pixel_x = -3
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "GW" = (
 /turf/simulated/floor/plasteel{
@@ -9217,7 +9195,7 @@
 	pixel_y = 32;
 	req_access_txt = "114"
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "JU" = (
 /obj/structure/holowindow{
@@ -9232,7 +9210,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "JY" = (
 /obj/effect/spawner/window,
@@ -10919,10 +10897,6 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
-"QU" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel/dark/nitrogen,
-/area/centcom/specops)
 "QV" = (
 /obj/item/clothing/under/rainbow,
 /obj/item/clothing/glasses/sunglasses_fake,
@@ -12808,9 +12782,6 @@
 "Ze" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
-"Zf" = (
-/turf/simulated/floor/plasteel/dark/nitrogen,
-/area/centcom/specops)
 "Zg" = (
 /obj/machinery/door_control/no_emag{
 	id = "CCTELE";
@@ -12876,7 +12847,7 @@
 	id_tag = "CCGAMMA";
 	name = "Gamma Security"
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Zt" = (
 /obj/structure/closet/secure_closet/guncabinet,
@@ -31966,7 +31937,7 @@ JS
 Mq
 NU
 PM
-Gx
+NP
 Zr
 Ji
 Ra
@@ -32219,11 +32190,11 @@ aN
 aN
 aN
 Zr
-Zf
+Ra
 Mq
 iW
 PM
-pw
+Ae
 Zr
 Ji
 Ra
@@ -32480,7 +32451,7 @@ Yx
 Yx
 Yx
 Yx
-QU
+AV
 VI
 TV
 Ra
@@ -32737,7 +32708,7 @@ gY
 Mr
 Mr
 Yx
-Zf
+Ra
 pX
 Ji
 Ra
@@ -32994,7 +32965,7 @@ CH
 Mu
 Oj
 Yx
-QU
+AV
 RD
 TV
 Ra
@@ -34276,8 +34247,8 @@ GY
 aN
 Zr
 JW
-Zf
-Zf
+Ra
+Ra
 DZ
 Zr
 Jt
@@ -34534,7 +34505,7 @@ aN
 Zr
 Hv
 Hv
-Zf
+Ra
 DZ
 pY
 Ji
@@ -34791,9 +34762,9 @@ aN
 Zr
 oN
 oN
-Zf
+Ra
 DZ
-ys
+pY
 Qr
 Ra
 Ra
@@ -35046,9 +35017,9 @@ aN
 aN
 Db
 zN
-Zf
-Zf
-Zf
+Ra
+Ra
+Ra
 DZ
 Zr
 Jx
