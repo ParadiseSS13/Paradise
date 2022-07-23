@@ -174,13 +174,7 @@
 	if((stat & NOPOWER) || panel_open)
 		return
 
-	if(charging)
-		if(using_power)
-			underlays += emissive_appearance(icon, "[icon_state_charging]_lightmask")
-		else
-			underlays += emissive_appearance(icon, "[icon_state_charged]_lightmask")
-	else
-		underlays += emissive_appearance(icon, "[icon_state_idle]_lightmask")
+	underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 /obj/machinery/recharger/proc/get_cell_from(obj/item/I)
 	if(istype(I, /obj/item/gun/energy))
