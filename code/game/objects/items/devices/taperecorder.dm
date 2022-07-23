@@ -15,7 +15,7 @@
 	var/playing
 	var/playsleepseconds = 0
 	var/obj/item/tape/mytape
-	var/canprint = TRUE
+	var/cooldown = 0
 	var/starts_with_tape = TRUE
 	///Sound loop that plays when recording or playing back.
 	var/datum/looping_sound/tape_recorder_hiss/soundloop
@@ -27,13 +27,13 @@
 			. += "<span class='notice'>[mytape]'s internals are unwound.'.</span>"
 		if(mytape.max_capacity <= mytape.used_capacity)
 			. += "<span class='notice'>[mytape] is full.</span>"
-		else if(((mytape.max_capacity - mytape.used_capacity) % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
-			. += "<span class='notice'>[mytape] has [(mytape.max_capacity - mytape.used_capacity) / 60] minutes remaining.</span>"
+		else if(((mytape.remaining_capacity) % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
+			. += "<span class='notice'>[mytape] has [(mytape.remaining_capacity) / 60] minutes remaining.</span>"
 		else
 			if(mytape.used_capacity >= (mytape.max_capacity - 60))
-				. += "<span class='notice'>[mytape] has [mytape.max_capacity - mytape.used_capacity] seconds remaining.</span>" // to avoid having 0 minutes
+				. += "<span class='notice'>[mytape] has [mytape.remaining_capacity] seconds remaining.</span>" // to avoid having 0 minutes
 			else
-				. += "<span class='notice'>[mytape] has [seconds_to_time(mytape.max_capacity - mytape.used_capacity)] remaining.</span>"
+				. += "<span class='notice'>[mytape] has [seconds_to_time(mytape.remaining_capacity)] remaining.</span>"
 		. += "<span class='notice'>Alt-Click to access the tape.</span>"
 
 /obj/item/taperecorder/New()
@@ -110,23 +110,23 @@
 		record()
 
 /obj/item/taperecorder/AltClick(mob/user)
-	if(in_range(user, src) && mytape && !usr.incapacitated())
+	if(in_range(user, src) && mytape && !user.incapacitated())
 		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
 						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
 						"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
 						)
-		var/choice = show_radial_menu(usr, src, options)
+		var/choice = show_radial_menu(user, src, options)
+		if(user.incapacitated())
+			return
 		switch(choice)
 			if("Playback Tape")
-				play()
+				play(user)
 			if("Print Transcript")
-				print_transcript()
+				print_transcript(user)
 			if("Eject Tape")
 				eject(user)
 
-/obj/item/taperecorder/proc/record()
-	if(usr.incapacitated())
-		return
+/obj/item/taperecorder/proc/record(mob/user)
 	if(!mytape || mytape.ruined)
 		return
 	if(recording)
@@ -150,6 +150,7 @@
 				break
 			mytape.used_capacity++
 			used++
+			mytape.remaining_capacity = mytape.max_capacity - mytape.used_capacity
 			sleep(10)
 		stop()
 	else
@@ -158,9 +159,6 @@
 
 
 /obj/item/taperecorder/proc/stop(PlaybackOverride = FALSE)
-	if(usr.incapacitated())
-		return
-
 	if(recording)
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] Recording stopped."
@@ -176,9 +174,7 @@
 	update_sound()
 
 
-/obj/item/taperecorder/proc/play()
-	if(usr.incapacitated())
-		return
+/obj/item/taperecorder/proc/play(mob/user)
 	if(!mytape || mytape.ruined)
 		return
 	if(recording)
@@ -199,16 +195,16 @@
 	playsound(src, 'sound/items/taperecorder/taperecorder_play.ogg', 50, FALSE)
 	var/used = mytape.used_capacity	//to stop runtimes when you eject the tape
 	var/max = mytape.max_capacity
-	for(var/i = 1, used <= max, sleep(10 * playsleepseconds)) // <= to let it play if the tape is full
+	for(var/i = 1, used <= max, sleep(playsleepseconds SECONDS)) // <= to let it play if the tape is full
 		if(!mytape)
 			break
 		if(playing == 0)
 			break
-		if(mytape.storedinfo.len < i)
+		if(length(mytape.storedinfo) < i)
 			atom_say("End of recording.")
 			break
 		atom_say("[mytape.storedinfo[i]]")
-		if(mytape.storedinfo.len < i + 1)
+		if(length(mytape.storedinfo) < i + 1)
 			playsleepseconds = 1
 		else
 			playsleepseconds = mytape.timestamp[i + 1] - mytape.timestamp[i]
@@ -220,13 +216,11 @@
 
 	stop(TRUE)
 
-/obj/item/taperecorder/proc/print_transcript()
-	if(usr.incapacitated())
-		return
+/obj/item/taperecorder/proc/print_transcript(mob/user)
 	if(!mytape)
 		return
-	if(!canprint)
-		to_chat(usr, "<span class='notice'>The recorder can't print that fast!</span>")
+	if(world.time < cooldown)
+		to_chat(user, "<span class='notice'>The recorder can't print that fast!</span>")
 		return
 	if(recording || playing)
 		return
@@ -239,13 +233,11 @@
 		t1 += "[mytape.storedinfo[i]]<BR>"
 	P.info = t1
 	P.name = "paper- 'Transcript'"
-	usr.put_in_hands(P)
-	canprint = 0
-	sleep(300) // should probably make this a cooldown and get rid of this
-	canprint = 1
+	user.put_in_hands(P)
+    cooldown = world.time + 3 SECONDS
 
 /obj/item/taperecorder/proc/eject(mob/user)
-	if(mytape && !usr.incapacitated())
+	if(mytape && !user.incapacitated())
 		playsound(src, 'sound/items/taperecorder/taperecorder_open.ogg', 50, FALSE)
 		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
 		stop()
@@ -281,6 +273,7 @@
 	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
 	var/max_capacity = 600
 	var/used_capacity = 0
+	var/remaining_capacity
 	var/list/storedinfo = list()
 	var/list/timestamp = list()
 	var/ruined = FALSE
@@ -292,13 +285,13 @@
 			. += "<span class='notice'>It's tape is all pulled out, it looks it could be <b>screwed</b> back into place.</span>"
 		else if(max_capacity <= used_capacity)
 			. += "<span class='notice'>It is full.</span>"
-		else if(((max_capacity - used_capacity) % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
-			. += "<span class='notice'>It has [(max_capacity - used_capacity)/ 60] minutes remaining.</span>"
+		else if((remaining_capacity % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
+			. += "<span class='notice'>It has [remaining_capacity/ 60] minutes remaining.</span>"
 		else
 			if(used_capacity >= (max_capacity - 60))
-				. += "<span class='notice'>It has [max_capacity - used_capacity] seconds remaining.</span>" // to avoid having 0 minutes
+				. += "<span class='notice'>It has [remaining_capacity] seconds remaining.</span>" // to avoid having 0 minutes
 			else
-				. += "<span class='notice'>It has [seconds_to_time(max_capacity - used_capacity)] remaining.</span>"
+				. += "<span class='notice'>It has [seconds_to_time(remaining_capacity)] remaining.</span>"
 
 /obj/item/tape/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
