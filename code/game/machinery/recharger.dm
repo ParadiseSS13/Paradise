@@ -171,7 +171,7 @@
 	. = ..()
 	underlays.Cut()
 
-	if(stat & NOPOWER)
+	if((stat & NOPOWER) || panel_open)
 		return
 
 	if(charging)
