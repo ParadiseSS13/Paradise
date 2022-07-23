@@ -62,7 +62,6 @@
 	for(var/i in 1 to spawn_max)
 		var/mob/spawned_mob = new M(get_turf(src))
 		visible_message("<span class='danger'>\A [spawned_mob.name] crawls out of \the [name]!</span>")
-	desc = initial(desc)
 
 /obj/structure/nest/lavaland
 	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/simple_animal/hostile/asteroid/goldgrub)
