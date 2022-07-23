@@ -30178,6 +30178,9 @@
 /obj/structure/chair/office/light{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bvc" = (
@@ -31679,12 +31682,19 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "byh" = (
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
@@ -32283,6 +32293,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/security/vacantoffice)
 "bzu" = (
@@ -34933,11 +34944,12 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/disposalpipe/junction{
+	dir = 4;
+	icon_state = "pipe-j2"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bGb" = (
@@ -77862,6 +77874,9 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "gmW" = (
@@ -80802,6 +80817,9 @@
 "oYN" = (
 /obj/item/camera,
 /obj/structure/table/wood,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "paK" = (
@@ -83843,6 +83861,13 @@
 	icon_state = "redfull"
 	},
 /area/security/permabrig)
+"ycq" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "ydz" = (
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
@@ -97180,8 +97205,8 @@ buX
 bwx
 bvm
 bBG
-bBG
 btF
+ycq
 bqr
 bFZ
 bCg
