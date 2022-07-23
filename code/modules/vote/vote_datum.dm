@@ -124,8 +124,6 @@
 
 			var/lucky_winner_ck = pick(voted)
 			var/lucky_winner_vote = voted[lucky_winner_ck]
-			var/lucky_mob = get_mob_by_ckey(lucky_winner_ck)
-			lucky_winner_ck = safe_get_ckey(lucky_mob)  // anonymize, if requested
 
 			// Print all results
 			for(var/res in results)
@@ -133,7 +131,7 @@
 				to_chat(world, "<span class='info'><code>[res]</code> - [results[res]] vote\s ([percentage]%)</span>")
 			// And then the winner
 			to_chat(world, "<span class='interface'>Reaching into the bag of votes to draw one at random...</span>")
-			to_chat(world, "<span class='interface'>...and the lucky winner is <b><code>[lucky_winner_vote]</code></b>! (ticket cast by [lucky_mob] ([lucky_winner_ck]))</span>")
+			to_chat(world, "<span class='interface'>...and the lucky winner is <b><code>[lucky_winner_vote]</code></b>!</span>")
 
 			if(!is_custom)
 				SSblackbox.record_feedback("text", "vote_winner", 1, lucky_winner_vote, ignore_seal = TRUE)
