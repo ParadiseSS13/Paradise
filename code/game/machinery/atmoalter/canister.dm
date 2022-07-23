@@ -250,9 +250,6 @@ update_flag
 	else
 		can_label = 0
 
-	updateDialog()
-	return
-
 /obj/machinery/portable_atmospherics/canister/return_air()
 	return air_contents
 
