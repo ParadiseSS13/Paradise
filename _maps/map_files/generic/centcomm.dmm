@@ -4639,6 +4639,15 @@
 	},
 /turf/simulated/floor/plasteel/dark/nitrogen,
 /area/centcom/specops)
+"pY" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Team Storage"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "pZ" = (
 /obj/machinery/vending/medical,
 /turf/simulated/floor/mineral/titanium,
@@ -6769,6 +6778,15 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"ys" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Team Storage"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "yu" = (
 /obj/machinery/vending/snack,
 /obj/effect/turf_decal/bot,
@@ -6871,6 +6889,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
+"zN" = (
+/obj/machinery/computer/cryopod/robot,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/specops)
 "zV" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
@@ -9105,6 +9127,7 @@
 "JE" = (
 /obj/structure/railing,
 /obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
 /area/centcom/specops)
 "JG" = (
@@ -9903,6 +9926,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
+"MN" = (
+/obj/machinery/cryopod/robot,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "MO" = (
 /obj/mecha/combat/marauder/loaded,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -9977,13 +10007,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/evac)
-"MZ" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/leafybush,
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass,
-/area/centcom/specops)
 "Nc" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -10633,12 +10656,6 @@
 	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
-"PN" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Team Storage"
-	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
-/area/centcom/specops)
 "PO" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass,
@@ -10757,14 +10774,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"Qn" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/flora/ausbushes/genericbush,
-/obj/structure/flora/ausbushes/brflowers,
-/turf/simulated/floor/grass,
-/area/centcom/specops)
 "Qr" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -10779,25 +10788,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"Qt" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/flora/ausbushes/ywflowers,
-/turf/simulated/floor/grass,
-/area/centcom/specops)
 "Qu" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"Qv" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/pointybush,
-/turf/simulated/floor/grass,
-/area/centcom/specops)
 "Qx" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -34025,8 +34021,8 @@ Zr
 oN
 oN
 oN
+MN
 Zr
-MZ
 Jr
 Ji
 Ra
@@ -34281,9 +34277,9 @@ aN
 Zr
 JW
 Zf
+Zf
 DZ
 Zr
-Qn
 Jt
 Ji
 Ra
@@ -34538,9 +34534,9 @@ aN
 Zr
 Hv
 Hv
+Zf
 DZ
-PN
-Ji
+pY
 Ji
 Ra
 Ra
@@ -34795,9 +34791,9 @@ aN
 Zr
 oN
 oN
+Zf
 DZ
-PN
-Qr
+ys
 Qr
 Ra
 Ra
@@ -35049,12 +35045,12 @@ aN
 aN
 aN
 Db
-Zr
+zN
+Zf
 Zf
 Zf
 DZ
 Zr
-Qt
 Jx
 Ji
 Ra
@@ -35310,8 +35306,8 @@ Zr
 Hv
 Hv
 Hv
+MN
 Zr
-Qv
 JE
 Ji
 AV
