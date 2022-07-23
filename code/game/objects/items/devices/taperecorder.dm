@@ -273,7 +273,7 @@
 	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
 	var/max_capacity = 600
 	var/used_capacity = 0
-	var/remaining_capacity
+	var/remaining_capacity = 600
 	var/list/storedinfo = list()
 	var/list/timestamp = list()
 	var/ruined = FALSE
