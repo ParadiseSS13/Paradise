@@ -17,16 +17,28 @@
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
 	set category = "Object"
-	set src in range(0)
+	set src in usr
 
-	if(usr.incapacitated())
+	if(!usr.Adjacent(src) || !ishuman(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
+
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
 		default = amount_per_transfer_from_this
 	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
+
+	if(!usr.Adjacent(src))
+		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+		return
+	if(!ishuman(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, "<span class='warning'>You can't use your hands!</span>")
+		return
+
 	if(N)
 		amount_per_transfer_from_this = N
+
+/obj/item/reagent_containers/AltClick()
+	set_APTFT()
 
 /obj/item/reagent_containers/New()
 	create_reagents(volume, temperature_min, temperature_max)
@@ -54,12 +66,12 @@
 /obj/item/reagent_containers/proc/add_lid()
 	if(has_lid)
 		container_type ^= REFILLABLE | DRAINABLE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/proc/remove_lid()
 	if(has_lid)
 		container_type |= REFILLABLE | DRAINABLE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/attack_self(mob/user)
 	if(has_lid)
@@ -91,4 +103,5 @@
 	// Food has no valid possible_transfer_amounts, and we don't want to show
 	// this message on examining food.
 	if(possible_transfer_amounts)
-		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this > 1 ? "s" : ""] at a time."
+		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this > 1 ? "s" : ""] at a time.</span>"
+		. += "<span class='notice'>Alt-click to change the transfer amount.</span>"

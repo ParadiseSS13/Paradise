@@ -67,7 +67,7 @@
 	item_state = "ro_suit"
 	item_color = "solgov"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
-	displays_id = 0
+	displays_id = FALSE
 /obj/item/clothing/under/solgov/elite
 	name = "\improper Trans-Solar Federation Specops marine uniform"
 	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
@@ -127,7 +127,7 @@
 	item_state = "navy_gold"
 	item_color = "navy_gold"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
-	displays_id = 0
+	displays_id = FALSE
 
 /obj/item/clothing/under/rank/centcom/captain
 	name = "\improper Nanotrasen naval captain's uniform"
@@ -136,7 +136,7 @@
 	item_state = "navy_gold"
 	item_color = "navy_gold"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
-	displays_id = 0
+	displays_id = FALSE
 
 /obj/item/clothing/under/rank/centcom/captain/solgov
 	name = "\improper Trans-Solar Federation commander's uniform"
@@ -149,7 +149,7 @@
 	item_state = "g_suit"
 	item_color = "officer"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
-	displays_id = 0
+	displays_id = FALSE
 
 /obj/item/clothing/under/rank/centcom/representative
 	name = "formal Nanotrasen Representative's uniform"
@@ -157,10 +157,10 @@
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
-	displays_id = 0
+	displays_id = FALSE
 
-/obj/item/clothing/under/rank/centcom/representative/New()
-	..()
+/obj/item/clothing/under/rank/centcom/representative/Initialize(mapload)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/magistrate
@@ -169,10 +169,10 @@
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
-	displays_id = 0
+	displays_id = FALSE
 
-/obj/item/clothing/under/rank/centcom/magistrate/New()
-	..()
+/obj/item/clothing/under/rank/centcom/magistrate/Initialize(mapload)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/diplomatic
@@ -181,7 +181,7 @@
 	icon_state = "presidente"
 	item_state = "g_suit"
 	item_color = "presidente"
-	displays_id = 0
+	displays_id = FALSE
 
 /obj/item/clothing/under/rank/blueshield
 	name = "blueshield's uniform"
@@ -777,7 +777,7 @@
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	has_sensor = 0 // HUNKE
+	has_sensor = FALSE // HUNKE
 
 /obj/item/clothing/under/victdress
 	name = "black victorian dress"

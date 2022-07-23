@@ -45,6 +45,8 @@
 	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
 	var/list/remove_overlays // a very temporary list of overlays to remove
 	var/list/add_overlays // a very temporary list of overlays to add
+	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
+	var/list/managed_overlays
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
@@ -188,6 +190,8 @@
 	invisibility = INVISIBILITY_MAXIMUM
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
+
+	managed_overlays = null
 
 	QDEL_NULL(light)
 
@@ -390,6 +394,70 @@
 	. += build_reagent_description(user)
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+/**
+ * Updates the appearence of the icon
+ *
+ * Mostly delegates to update_name, update_desc, and update_icon
+ *
+ * Arguments:
+ * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
+ */
+/atom/proc/update_appearance(updates=ALL)
+	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	/// Signal sent should the appearance be updated. This is more broad if listening to a more specific signal doesn't cut it
+	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_APPEARANCE, updates)
+	if(updates & UPDATE_NAME)
+		update_name(updates)
+	if(updates & UPDATE_DESC)
+		update_desc(updates)
+	if(updates & UPDATE_ICON)
+		update_icon(updates)
+
+/// Updates the name of the atom
+/atom/proc/update_name(updates=ALL)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME, updates)
+
+/// Updates the description of the atom
+/atom/proc/update_desc(updates=ALL)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
+
+/// Updates the icon of the atom
+/atom/proc/update_icon(updates=ALL)
+	SIGNAL_HANDLER
+	SHOULD_CALL_PARENT(TRUE)
+
+	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
+	if(updates & UPDATE_ICON_STATE)
+		update_icon_state()
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
+
+	if(updates & UPDATE_OVERLAYS)
+		var/list/new_overlays = update_overlays(updates)
+		if(managed_overlays)
+			cut_overlay(managed_overlays)
+			managed_overlays = null
+		if(length(new_overlays))
+			if(length(new_overlays) == 1)
+				managed_overlays = new_overlays[1]
+			else
+				managed_overlays = new_overlays
+			add_overlay(new_overlays)
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS)
+
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates)
+
+/// Updates the icon state of the atom
+/atom/proc/update_icon_state()
+	return
+
+/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/atom/proc/update_overlays()
+	return list()
 
 /atom/proc/relaymove()
 	return

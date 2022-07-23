@@ -5,7 +5,7 @@
 	action_background_icon_state = "bg_morph"
 	action_icon_state = "morph_airlock"
 	clothes_req = FALSE
-	charge_max = 10 SECONDS
+	base_cooldown = 10 SECONDS
 	selection_activated_message = "<span class='sinister'>Click on an airlock to try pass it.</span>"
 
 /obj/effect/proc_holder/spell/morph_spell/pass_airlock/create_new_targeting()

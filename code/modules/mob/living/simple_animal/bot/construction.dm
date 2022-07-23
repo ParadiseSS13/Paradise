@@ -45,6 +45,7 @@
 	var/build_step = 0
 	var/created_name = "\improper ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
+	var/new_name = ""
 
 /obj/item/ed209_assembly/attackby(obj/item/W, mob/user, params)
 	..()
@@ -64,13 +65,7 @@
 				qdel(W)
 				build_step++
 				to_chat(user, "<span class='notice'>You add the robot leg to [src].</span>")
-				name = "legs/frame assembly"
-				if(build_step == 1)
-					item_state = "ed209_leg"
-					icon_state = "ed209_leg"
-				else
-					item_state = "ed209_legs"
-					icon_state = "ed209_legs"
+				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 		if(2)
 			var/newcolor = ""
@@ -85,14 +80,12 @@
 				qdel(W)
 				build_step++
 				to_chat(user, "<span class='notice'>You add the armor to [src].</span>")
-				name = "vest/legs/frame assembly"
-				item_state = "[lasercolor]ed209_shell"
-				icon_state = "[lasercolor]ed209_shell"
+				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 		if(3)
 			if(W.tool_behaviour == TOOL_WELDER && W.use_tool(src, user, volume = W.tool_volume))
 				build_step++
-				name = "shielded frame assembly"
+				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 				to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
 		if(4)
 			switch(lasercolor)
@@ -113,9 +106,7 @@
 			qdel(W)
 			build_step++
 			to_chat(user, "<span class='notice'>You add the helmet to [src].</span>")
-			name = "covered and shielded frame assembly"
-			item_state = "[lasercolor]ed209_hat"
-			icon_state = "[lasercolor]ed209_hat"
+			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 		if(5)
 			if(isprox(W))
@@ -124,9 +115,7 @@
 				qdel(W)
 				build_step++
 				to_chat(user, "<span class='notice'>You add the prox sensor to [src].</span>")
-				name = "covered, shielded and sensored frame assembly"
-				item_state = "[lasercolor]ed209_prox"
-				icon_state = "[lasercolor]ed209_prox"
+				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 		if(6)
 			if(istype(W, /obj/item/stack/cable_coil))
@@ -141,32 +130,30 @@
 						build_step = 7
 						playsound(loc, W.usesound, 50, 1)
 						to_chat(user, "<span class='notice'>You wire the ED-209 assembly.</span>")
-						name = "wired ED-209 assembly"
+						update_appearance(UPDATE_NAME)
 
 		if(7)
-			var/newname = ""
+			new_name = ""
 			switch(lasercolor)
 				if("b")
 					if(!istype(W, /obj/item/gun/energy/laser/tag/blue))
 						return
-					newname = "bluetag ED-209 assembly"
+					new_name = "bluetag ED-209 assembly"
 				if("r")
 					if(!istype(W, /obj/item/gun/energy/laser/tag/red))
 						return
-					newname = "redtag ED-209 assembly"
+					new_name = "redtag ED-209 assembly"
 				if("")
 					if(!istype(W, /obj/item/gun/energy/disabler))
 						return
-					newname = "disabler ED-209 assembly"
+					new_name = "disabler ED-209 assembly"
 				else
 					return
 			if(!user.unEquip(W))
 				return
-			name = newname
 			build_step++
 			to_chat(user, "<span class='notice'>You add [W] to [src].</span>")
-			item_state = "[lasercolor]ed209_taser"
-			icon_state = "[lasercolor]ed209_taser"
+			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 			qdel(W)
 
 		if(8)
@@ -175,7 +162,7 @@
 				to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
 				if(do_after(user, 40 * W.toolspeed, target = src))
 					build_step++
-					name = "armed [name]"
+					update_appearance(UPDATE_NAME)
 					to_chat(user, "<span class='notice'>Taser gun attached.</span>")
 
 		if(9)
@@ -189,6 +176,47 @@
 				qdel(W)
 				user.unEquip(src, 1)
 				qdel(src)
+
+/obj/item/ed209_assembly/update_name()
+	. = ..()
+	switch(build_step)
+		if(1,2)
+			name = "legs/frame assembly"
+		if(3)
+			name = "vest/legs/frame assembly"
+		if(4)
+			name = "shielded frame assembly"
+		if(5)
+			name = "covered and shielded frame assembly"
+		if(6)
+			name = "covered, shielded and sensored frame assembly"
+		if(7)
+			name = "wired ED-209 assembly"
+		if(8)
+			name = new_name
+		if(9)
+			name = "armed [name]"
+
+/obj/item/ed209_assembly/update_icon_state()
+	switch(build_step)
+		if(1)
+			item_state = "ed209_leg"
+			icon_state = "ed209_leg"
+		if(2)
+			item_state = "ed209_legs"
+			icon_state = "ed209_legs"
+		if(3,4)
+			item_state = "[lasercolor]ed209_shell"
+			icon_state = "[lasercolor]ed209_shell"
+		if(5)
+			item_state = "[lasercolor]ed209_hat"
+			icon_state = "[lasercolor]ed209_hat"
+		if(6,7)
+			item_state = "[lasercolor]ed209_prox"
+			icon_state = "[lasercolor]ed209_prox"
+		if(8,9)
+			item_state = "[lasercolor]ed209_taser"
+			icon_state = "[lasercolor]ed209_taser"
 
 //Floorbot assemblies
 /obj/item/toolbox_tiles
@@ -239,7 +267,7 @@
 				B.toolbox_color = "s"
 			if(/obj/item/storage/toolbox/fakesyndi)
 				B.toolbox_color = "s"
-		B.icon_state = "[B.toolbox_color]toolbox_tiles"
+		B.update_icon(UPDATE_ICON_STATE)
 		user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>")
 		user.unEquip(src, 1)
@@ -248,6 +276,9 @@
 		to_chat(user, "<span class='warning'>You need 10 floor tiles to start building a floorbot.</span>")
 		return
 
+/obj/item/toolbox_tiles/update_icon_state()
+	icon_state = "[toolbox_color]toolbox_tiles"
+
 /obj/item/toolbox_tiles/attackby(obj/item/W, mob/user, params)
 	..()
 	if(isprox(W))
@@ -255,7 +286,7 @@
 		var/obj/item/toolbox_tiles/sensor/B = new /obj/item/toolbox_tiles/sensor()
 		B.created_name = created_name
 		B.toolbox_color = src.toolbox_color
-		B.icon_state = "[B.toolbox_color]toolbox_tiles_sensor"
+		B.update_icon(UPDATE_ICON_STATE)
 		user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You add the sensor to the toolbox and tiles.</span>")
 		user.unEquip(src, 1)
@@ -266,6 +297,9 @@
 		if(!isnull(t))
 			created_name = t
 			log_game("[key_name(user)] has renamed a robot to [t]")
+
+/obj/item/toolbox_tiles/sensor/update_icon_state()
+	icon_state = "[toolbox_color]toolbox_tiles_sensor"
 
 /obj/item/toolbox_tiles/sensor/attackby(obj/item/W, mob/user, params)
 	..()
@@ -333,15 +367,14 @@
 	..()
 	if(new_skin)
 		skin = new_skin
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/firstaid_arm_assembly/update_icon()
-	overlays.Cut()
+/obj/item/firstaid_arm_assembly/update_overlays()
+	. = ..()
 	if(skin)
-		overlays += image('icons/obj/aibots.dmi', "kit_skin_[skin]")
+		. += "kit_skin_[skin]"
 	if(build_step > 0)
-		overlays += image('icons/obj/aibots.dmi', "na_scanner")
-
+		. += "na_scanner"
 
 /obj/item/firstaid_arm_assembly/attackby(obj/item/I, mob/user, params)
 	..()
@@ -359,8 +392,7 @@
 					qdel(I)
 					build_step++
 					to_chat(user, "<span class='notice'>You add the health sensor to [src].</span>")
-					name = "First aid/robot arm/health analyzer assembly"
-					update_icon()
+					update_appearance(UPDATE_NAME)
 
 			if(1)
 				if(isprox(I))
@@ -384,6 +416,11 @@
 						new /mob/living/simple_animal/bot/medbot/syndicate(T) //Syndicate medibots are a special case that have so many unique vars on them, it's not worth passing them through construction phases
 					user.unEquip(src, 1)
 					qdel(src)
+
+/obj/item/firstaid_arm_assembly/update_name()
+	. = ..()
+	if(build_step == 1)
+		name = "First aid/robot arm/health analyzer assembly"
 
 //Secbot Assembly
 /obj/item/secbot_assembly
@@ -417,11 +454,9 @@
 	if(I.tool_behaviour == TOOL_WELDER && I.use_tool(src, user, volume = I.tool_volume))
 		if(!build_step)
 			build_step++
-			overlays += "hs_hole"
 			to_chat(user, "<span class='notice'>You weld a hole in [src]!</span>")
 		else if(build_step == 1)
 			build_step--
-			overlays -= "hs_hole"
 			to_chat(user, "<span class='notice'>You weld the hole in [src] shut!</span>")
 
 	else if(isprox(I) && (build_step == 1))
@@ -429,8 +464,6 @@
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You add the prox sensor to [src]!</span>")
-		overlays += "hs_eye"
-		name = "helmet/signaler/prox sensor assembly"
 		qdel(I)
 
 	else if(((istype(I, /obj/item/robot_parts/l_arm)) || (istype(I, /obj/item/robot_parts/r_arm))) && (build_step == 2))
@@ -438,8 +471,6 @@
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You add the robot arm to [src]!</span>")
-		name = "helmet/signaler/prox sensor/robot arm assembly"
-		overlays += "hs_arm"
 		robot_arm = I.type
 		qdel(I)
 
@@ -468,13 +499,11 @@
 			qdel(src)
 
 		else if(build_step == 2)
-			overlays -= "hs_eye"
 			new /obj/item/assembly/prox_sensor(get_turf(src))
 			to_chat(user, "<span class='notice'>You detach the proximity sensor from [src].</span>")
 			build_step--
 
 		else if(build_step == 3)
-			overlays -= "hs_arm"
 			new /obj/item/robot_parts/l_arm(get_turf(src))
 			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
 			build_step--
@@ -487,6 +516,26 @@
 		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!.</span>")
 		user.unEquip(src, 1)
 		qdel(src)
+
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
+
+/obj/item/secbot_assembly/update_name()
+	. = ..()
+	switch(build_step)
+		if(2)
+			name = "helmet/signaler/prox sensor assembly"
+		if(3)
+			name = "helmet/signaler/prox sensor/robot arm assembly"
+
+/obj/item/secbot_assembly/update_overlays()
+	. = ..()
+	switch(build_step)
+		if(1)
+			. += "hs_hole"
+		if(2)
+			. += "hs_eye"
+		if(3)
+			. += "hs_arm"
 
 /obj/item/griefsky_assembly
 	name = "\improper Griefsky assembly"
@@ -576,7 +625,6 @@
 				return
 			build_step++
 			to_chat(user, "<span class='notice'>You add the proximity sensor to [src].</span>")
-			icon_state = "honkbot_proxy"
 			qdel(W)
 	else if(build_step == 1)
 		if(istype(W, /obj/item/bikehorn))
@@ -584,7 +632,6 @@
 				return
 			build_step++
 			to_chat(user, "<span class='notice'>You add the bikehorn to [src]! Honk!</span>")
-			desc = "A clown box with a robot arm and a bikehorn permanently grafted to it. It needs a trombone to be finished"
 			qdel(W)
 	else if(build_step == 2)
 		if(istype(W, /obj/item/instrument/trombone))
@@ -595,3 +642,13 @@
 			var/mob/living/simple_animal/bot/honkbot/A = new /mob/living/simple_animal/bot/honkbot(get_turf(src))
 			A.robot_arm = robot_arm
 			qdel(src)
+	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+
+/obj/item/honkbot_arm_assembly/update_icon_state()
+	if(build_step == 1)
+		icon_state = "honkbot_proxy"
+
+/obj/item/honkbot_arm_assembly/update_desc()
+	. = ..()
+	if(build_step == 2)
+		desc = "A clown box with a robot arm and a bikehorn permanently grafted to it. It needs a trombone to be finished"
