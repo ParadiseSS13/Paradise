@@ -141,11 +141,6 @@
 	rotate()
 
 // CHAIR TYPES
-/obj/structure/chair/light
-	name = "chair"
-	icon_state = "chair_greyscale"
-	resistance_flags = FLAMMABLE
-	item_chair = /obj/item/chair/light
 
 /obj/structure/chair/wood
 	name = "wooden chair"
@@ -372,9 +367,6 @@
 	var/break_chance = 5 //Likely hood of smashing the chair.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
 
-/obj/item/chair/light
-	icon_state = "chair_greyscale_toppled"
-	origin_type = /obj/structure/chair/light
 
 /obj/item/chair/stool
 	name = "stool"

@@ -91252,8 +91252,8 @@
 	},
 /area/security/permahallway)
 "onr" = (
-/obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/decal/warning_stripes/southeast,
+/obj/machinery/suit_storage_unit/rd/secure,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "onT" = (
@@ -95512,9 +95512,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "pnT" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/alarm{
 	dir = 8;
 	pixel_x = 24
@@ -113706,8 +113703,14 @@
 	},
 /area/library)
 "tCB" = (
-/turf/simulated/floor/plating,
-/area/medical/surgery/south)
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/sw)
 "tCM" = (
 /obj/machinery/camera{
 	c_tag = "Virology Maintance Access";
@@ -167679,14 +167682,14 @@ eJR
 gtP
 umX
 dvf
-eJR
+igj
 eJR
 eRU
 dRB
 dWK
 gfQ
 pnT
-gfQ
+tCB
 ctL
 gfQ
 cwL
@@ -177226,7 +177229,7 @@ vNi
 tyJ
 vNi
 qsc
-tCB
+qwC
 qwC
 gJf
 mtL
