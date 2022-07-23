@@ -28,18 +28,18 @@
 	var/panel = FALSE
 
 	var/mob_blood_dna // wip
-	// The object affecting dyeing color (crayons, stamps, armbands)
+	/// The object affecting dyeing color (crayons, stamps, armbands)
 	var/obj/crayon
 
-	// How much damage a single cycle should do, 20 is just enough damage to kill Ian
+	/// How much damage a single cycle should do, 20 is just enough damage to kill Ian
 	var/washing_damage = 20
-	// How long a single cycle should take
+	/// How long a single cycle should take
 	var/washing_time = 15 SECONDS
-	// How often to damage the occupant
+	/// How often to damage the occupant
 	var/damage_time = 1 SECONDS
-	// Sounds made when occupant is damaged
+	/// Sounds made when occupant is damaged
 	var/hit_sound = list('sound/weapons/genhit1.ogg','sound/weapons/genhit2.ogg','sound/weapons/genhit3.ogg')
-	// How long it'll take to resist out
+	/// How long it'll take to resist out
 	var/resist_time = 5 SECONDS
 
 /obj/machinery/washing_machine/Initialize()
