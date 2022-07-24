@@ -452,7 +452,7 @@
 		if(prob(0.5))
 			hope_message()
 		return
-	var/heal_multiplier = min(3, ((-owner.health + 50) / 50 + 1)) // 1 hp at 50 health, 2 at 0, 3 at -50
+	var/heal_multiplier = min(3, ((50 - owner.health) / 50 + 1)) // 1 hp at 50 health, 2 at 0, 3 at -50
 	owner.adjustBruteLoss(-heal_multiplier * 0.5)
 	owner.adjustFireLoss(-heal_multiplier * 0.5)
 	owner.adjustOxyLoss(-heal_multiplier)
