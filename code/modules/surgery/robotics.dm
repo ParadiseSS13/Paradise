@@ -207,6 +207,18 @@
 	"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>")
 	return SURGERY_STEP_RETRY
 
+/datum/surgery_step/robotics/external/close_hatch/premature
+	name = "close hatch prematurely"
+
+/datum/surgery_step/robotics/external/close_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message(
+		"[user] begins to close and secure the hatch on [target]'s [affected.name] with \the [tool].",
+		"<span class'warning'>You are interrupting the current surgery</span>, beginning to close and secure the hatch on [target]'s [affected.name] with \the [tool]."
+	)
+	return ..()
+
+
 /datum/surgery_step/robotics/external/repair
 	name = "repair damage"
 	time = 3.2 SECONDS

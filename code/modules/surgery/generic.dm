@@ -193,7 +193,8 @@
 	. = ..()
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'>[user] is interrupting the surgery</span> beginning to cauterize the incision on [target]'s [affected.name] with \the [tool].",
+		"[user] is beginning to cauterize the incision on [target]'s [affected.name] with \the [tool].",
+		// give a little heads up to the surgeon that they're stopping the surgery prematurely in case that wasn't the intention.
 		"<span class='warning'>You are interrupting the current surgery</span>, beginning to cauterize the incision on [target]'s [affected.name] with \the [tool]."
 	)
 	target.custom_pain("Your [affected.name] is being burned!")

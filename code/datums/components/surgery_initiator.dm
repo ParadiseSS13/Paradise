@@ -10,15 +10,6 @@
 	/// If true, can be used with a cautery in the off-hand to cancel a surgery.
 	var/can_cancel = TRUE
 
-	/// Tools that, when in an off-hand while a surgery initiator is used, will stop a surgery.
-	var/static/list/cautery_tools = list(
-		TOOL_CAUTERY = 100,
-		/obj/item/scalpel/laser = 100,
-		/obj/item/clothing/mask/cigarette = 90,
-		/obj/item/lighter = 60,
-		/obj/item/weldingtool = 30
-	)
-
 /datum/component/surgery_initiator/Initialize(datum/surgery/forced_surgery = null)
 	. = ..()
 	if(!isitem(parent))
@@ -37,6 +28,7 @@
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS)
 
+/// Keep tabs on the attached item's sharpness. Any sharp item can start a surgery.
 /datum/component/surgery_initiator/proc/on_parent_sharpness_change()
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
 	var/obj/item/P = parent
@@ -71,6 +63,9 @@
 			break
 
 	if(!isnull(current_surgery) && !current_surgery.step_in_progress)
+		var/datum/surgery_step/current_step = current_surgery.get_surgery_step()
+		if(current_step.try_op(user, target, user.zone_selected, parent, current_surgery))
+			return
 		if(istype(parent, /obj/item/scalpel/laser/manager/debug))
 			return
 		if((can_cancel_before_first && current_surgery.status == 1) || current_surgery.status > 1)
@@ -169,37 +164,40 @@
 	var/obj/item/other_hand = user.get_inactive_hand()
 
 	var/is_robotic = !the_surgery.requires_organic_bodypart
+	var/datum/surgery_step/close_carbon = new /datum/surgery_step/generic/cauterize/premature()
+	var/datum/surgery_step/close_robo = new /datum/surgery_step/robotics/external/close_hatch/premature()
+	var/datum/surgery_step/chosen_close_step
 
-	// Robots can't operate on cyborg limbs
-	if(isrobot(user) && !is_robotic)
-		close_tool = locate(/obj/item/scalpel/laser) in user.get_all_slots()
-		if(!close_tool)
-			to_chat(user, "<span class='warning'>You need a cauterizing tool in an inactive slot to stop the surgery!</span>")
-			return
+	if(is_robotic)
+		chosen_close_step = close_robo
 	else
-		if(!other_hand)
-			close_tool = null
-		else if(is_robotic)
-			if(other_hand.tool_behaviour == TOOL_CROWBAR)
-				close_tool = other_hand
+		chosen_close_step = close_carbon
+
+	if(isrobot(user))
+		if(!is_robotic)
+			// borgs need to be able to finish surgeries with just the laser scalpel, no special checks here.
+			close_tool = parent
 		else
-			for(var/key in cautery_tools)
-				if(ispath(key) && istype(other_hand, key) || other_hand.tool_behaviour == key)
-					close_tool = other_hand
-					break
+			close_tool = locate(/obj/item/crowbar) in user.get_all_slots()
+			if(!close_tool)
+				to_chat(user, "<span class='warning'>You need a prying tool in an inactive slot to stop the surgery!</span>")
+				return
+
+	else if(other_hand)
+		for(var/key in chosen_close_step.allowed_tools)
+			if(ispath(key) && istype(other_hand, key) || other_hand.tool_behaviour == key)
+				close_tool = other_hand
+				break
 
 	if(!close_tool)
-		to_chat(user, "<span class='warning'>You need a [is_robotic ? "crowbar": "cauterizing tool"] in your inactive hand to stop the surgery!</span>")
+		to_chat(user, "<span class='warning'>You need a [is_robotic ? "prying": "cauterizing"] tool in your inactive hand to stop the surgery!</span>")
 		return
 
-	var/datum/surgery_step/generic/cauterize/premature/step = new
-
-	if(step.try_op(user, patient, selected_zone, close_tool, the_surgery))
-		log_attack(user, patient, "Prematurely finished a [the_surgery] surgery.")
+	if(chosen_close_step.try_op(user, patient, selected_zone, close_tool, the_surgery))
+		// logging in case people wonder why they're cut up inside
+		log_attack(user, patient, "Prematurely finished \a [the_surgery] surgery.")
 		patient.surgeries -= the_surgery
 		qdel(the_surgery)
-		// logging in case people wonder why they're cut up inside
-
 
 /datum/component/surgery_initiator/proc/can_start_surgery(mob/user, mob/living/target)
 	if (!user.Adjacent(target))
@@ -207,7 +205,7 @@
 
 	// The item was moved somewhere else
 	if (!(parent in user))
-		to_chat(user, "<span class='warning'>How are you supposed to start an operation if you aren't holding the tool anymore?.</span>")
+		to_chat(user, "<span class='warning'>How are you supposed to start an operation if you aren't holding the tool anymore?</span>")
 		return FALSE
 
 	// While we were choosing, another surgery was started at the same location
@@ -234,7 +232,7 @@
 		if (surgery.requires_bodypart)
 			to_chat(user, "<span class='warning'>The patient has no [parse_zone(selected_zone)]!</span>")
 		else
-			to_chat(user, "<span class='warning'>patient has \a [parse_zone(selected_zone)]!</span>")
+			to_chat(user, "<span class='warning'>The patient has \a [parse_zone(selected_zone)]!</span>")
 
 		return
 
@@ -246,7 +244,7 @@
 		to_chat(user, "<span class='notice'>Patient must be lying down for this operation.</span>")
 		return
 
-	if(target == src && !surgery.self_operable)
+	if(target == user && !surgery.self_operable)
 		to_chat(user, "<span class='notice'>You can't perform that operation on yourself!</span>")
 		return
 
@@ -260,10 +258,10 @@
 
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
 
-
 	show_starting_message(user, target, procedure)
 
 	log_attack(user, target, "operated on (OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
+	add_attack_logs(user, target, "started operation on (OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
 
 /datum/component/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target)
 
