@@ -609,6 +609,7 @@
 		trackers -= A
 
 /obj/mecha/Destroy()
+	STOP_PROCESSING(SSobj, src)
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
@@ -627,7 +628,6 @@
 	QDEL_NULL(cell)
 	QDEL_NULL(internal_tank)
 	QDEL_NULL(radio)
-	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	if(loc)
 		loc.assume_air(cabin_air)
