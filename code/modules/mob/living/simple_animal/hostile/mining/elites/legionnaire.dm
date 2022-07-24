@@ -121,7 +121,7 @@
 		T = get_step(T, dir_to_target)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] prepares to charge!</span>")
-	addtimer(CALLBACK(src, .proc/legionnaire_charge_2, dir_to_target, 0), 4)
+	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, dir_to_target, 0), 4)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_to(move_dir, times_ran)
 	if(times_ran >= 6)
@@ -154,7 +154,7 @@
 		L.throw_at(throwtarget, 10, 1, src)
 		L.KnockDown(1 SECONDS)
 		L.adjustBruteLoss(melee_damage_upper)
-	addtimer(CALLBACK(src, .proc/legionnaire_charge_2, move_dir, (times_ran + 1)), 0.7)
+	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, move_dir, (times_ran + 1)), 0.7)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/head_detach(target)
 	ranged_cooldown = world.time + 1 SECONDS * revive_multiplier()
@@ -194,7 +194,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/bonfire_teleport()
 	ranged_cooldown = world.time + 0.5 SECONDS * revive_multiplier()
-	if(isnull(mypilel))
+	if(isnull(mypile))
 		var/obj/structure/legionnaire_bonfire/newpile = new /obj/structure/legionnaire_bonfire(loc)
 		mypile = newpile
 		mypile.myowner = src
@@ -205,8 +205,7 @@
 		var/turf/legionturf = get_turf(src)
 		var/turf/pileturf = get_turf(mypile)
 		if(legionturf == pileturf)
-			mypile.take_damage(100)
-			mypile = null
+			QDEL_NULL(mypile)
 			return
 		playsound(pileturf,'sound/items/fultext_deploy.ogg', 200, 1)
 		playsound(legionturf,'sound/items/fultext_deploy.ogg', 200, 1)
@@ -217,11 +216,11 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/spew_smoke()
 	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
-	var/turf/smoke_location = null
+	var/smoke_location = null
 	if(isnull(myhead))
-		smoke_location = myhead
-	else
 		smoke_location = src
+	else
+		smoke_location = myhead
 	if(myhead != null)
 		myhead.visible_message("<span class='danger'>[myhead] spews smoke from its maw!</span>")
 	else if(!has_head)
@@ -229,7 +228,7 @@
 	else
 		visible_message("<span class='danger'>[src] spews smoke from its maw!</span>")
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(6, 0, smoke_location.loc)
+	smoke.set_up(6, 0, smoke_location)
 	smoke.attach(smoke_location)
 	smoke.start()
 
@@ -335,3 +334,8 @@
 	LegionSkull.friends += LivingUser
 	LegionSkull.faction = LivingUser.faction.Copy()
 	next_use_time = world.time + 4 SECONDS
+
+#undef LEGIONNAIRE_CHARGE
+#undef HEAD_DETACH
+#undef BONFIRE_TELEPORT
+#undef SPEW_SMOKE

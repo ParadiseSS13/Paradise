@@ -72,6 +72,11 @@
 	chosen_message = "<span class='boldwarning'>You will summon your children to your location.</span>"
 	chosen_attack_num = CALL_CHILDREN
 
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother/Destroy()
+	children_list.Cut()
+	children_list = null
+	return ..()
+
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/OpenFire()
 	if(client)
 		switch(chosen_attack)
@@ -132,7 +137,6 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/rage()
 	ranged_cooldown = world.time + 10 SECONDS * revive_multiplier()
-	//playsound(src,'sound/voice/insane_low_laugh.ogg', 200, 1) find sound
 	visible_message("<span class='warning'>[src] starts picking up speed!</span>")
 	color = "#FF0000"
 	speed = 0
@@ -180,6 +184,12 @@
 	status_flags = CANPUSH
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null
 
+
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/Destroy()
+	if(!isnull(mother))
+		mother.children_list -= src
+	mother = null
+	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/OpenFire(target)
 	ranged_cooldown = world.time + 40
@@ -265,3 +275,8 @@
 
 /obj/item/crusher_trophy/broodmother_tongue/proc/remove_lava(mob/living/user)
 	user.weather_immunities -= "lava"
+
+#undef TENTACLE_PATCH
+#undef SPAWN_CHILDREN
+#undef RAGE
+#undef CALL_CHILDREN

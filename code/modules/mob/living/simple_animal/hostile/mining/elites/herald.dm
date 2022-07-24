@@ -92,16 +92,13 @@
 		switch(chosen_attack)
 			if(HERALD_TRISHOT)
 				herald_trishot(target)
-				if(my_mirror != null)
-					my_mirror.herald_trishot(target)
+				my_mirror?.herald_trishot(target)
 			if(HERALD_DIRECTIONALSHOT)
 				herald_directionalshot()
-				if(my_mirror != null)
-					my_mirror.herald_directionalshot()
+				my_mirror?.herald_directionalshot()
 			if(HERALD_TELESHOT)
 				herald_teleshot(target)
-				if(my_mirror != null)
-					my_mirror.herald_teleshot(target)
+				my_mirror?.herald_teleshot(target)
 			if(HERALD_MIRROR)
 				herald_mirror()
 		return
@@ -109,16 +106,13 @@
 	switch(aiattack)
 		if(HERALD_TRISHOT)
 			herald_trishot(target)
-			if(my_mirror != null)
-				my_mirror.herald_trishot(target)
+			my_mirror?.herald_trishot(target)
 		if(HERALD_DIRECTIONALSHOT)
 			herald_directionalshot()
-			if(my_mirror != null)
-				my_mirror.herald_directionalshot()
+			my_mirror?.herald_directionalshot()
 		if(HERALD_TELESHOT)
 			herald_teleshot(target)
-			if(my_mirror != null)
-				my_mirror.herald_teleshot(target)
+			my_mirror?.herald_teleshot(target)
 		if(HERALD_MIRROR)
 			herald_mirror()
 
@@ -150,13 +144,13 @@
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
 	shoot_projectile(target_turf, angle_to_target, FALSE, TRUE)
-	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 2)
-	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 4)
+	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 0.2 SECONDS)
+	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 0.4 SECONDS)
 	if(health < maxHealth * 0.5 && !is_mirror)
 		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
-		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 10)
-		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 12)
-		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 14)
+		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 1 SECONDS)
+		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 1.2 SECONDS)
+		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 1.4 SECONDS)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_circleshot(offset)
 	var/static/list/directional_shot_angles = list(1, 45, 90, 135, 180, 225, 270, 315) //Trust me, use 1. It really doesn't like zero.
@@ -173,10 +167,9 @@
 	if(!is_mirror)
 		icon_state = "herald_enraged"
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
-	addtimer(CALLBACK(src, .proc/herald_circleshot, 0), 5)
+	addtimer(CALLBACK(src, .proc/herald_circleshot, 0), 0.5 SECONDS)
 	if(health < maxHealth * 0.5 && !is_mirror)
-		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
-		addtimer(CALLBACK(src, .proc/herald_circleshot, 22.5), 15)
+		addtimer(CALLBACK(src, .proc/herald_circleshot, 22.5), 1.5 SECONDS)
 	addtimer(CALLBACK(src, .proc/unenrage), 20)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_teleshot(target)
@@ -190,8 +183,7 @@
 	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	if(my_mirror != null)
-		qdel(my_mirror)
-		my_mirror = null
+		QDEL_NULL(my_mirror)
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/new_mirror = new /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror(loc)
 	my_mirror = new_mirror
 	my_mirror.my_master = src
@@ -217,8 +209,7 @@
 	toggle_ai(AI_OFF)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Destroy()
-	if(my_master != null)
-		my_master.my_mirror = null
+	my_master?.my_mirror = null
 	. = ..()
 
 /obj/item/projectile/herald
@@ -227,9 +218,6 @@
 	damage = 20 // NOT SURE ABOUT THIS ONE CHIEF
 	armour_penetration = 60
 	speed = 2
-	eyeblur = 0
-	damage_type = BRUTE
-	pass_flags = PASSTABLE
 
 /obj/item/projectile/herald/teleshot
 	name = "golden bolt"
@@ -307,6 +295,8 @@
 		return
 	var/input_mirror = input(usr, "Choose a mirror to teleport to.", "Mirror to Teleport to") as null|anything in mirrors_to_use
 	var/obj/chosen = mirrors_to_use[input_mirror]
+	if(chosen == null)
+		return
 	usr.visible_message("<span class='warning'>[usr] starts to crawl into [starting_mirror]...</span>", \
 			"<span class='notice'>You start to crawl into the [starting_mirror]...</span>")
 	if(do_after(usr, 2 SECONDS, target = usr))
@@ -329,3 +319,8 @@
 				var/mob/living/shatterer = loc
 				shatterer.Weaken(6 SECONDS)
 			qdel(chosen)
+
+#undef HERALD_TRISHOT
+#undef HERALD_DIRECTIONALSHOT
+#undef HERALD_TELESHOT
+#undef HERALD_MIRROR

@@ -32,7 +32,7 @@
 	attacktext = "smashes into the side of"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"
-	ranged_cooldown_time = 20 //Going to try this, it feels slow
+	ranged_cooldown_time = 20
 	speed = 2
 	move_to_delay = 10
 	mouse_opacity = MOUSE_OPACITY_ICON
@@ -211,3 +211,8 @@
 		var/mob/living/M = usr
 		M.apply_status_effect(STATUS_EFFECT_HOPE)
 	return ..()
+
+#undef SINGULAR_SHOT
+#undef MAGIC_BOX
+#undef PANDORA_TELEPORT
+#undef AOE_SQUARES

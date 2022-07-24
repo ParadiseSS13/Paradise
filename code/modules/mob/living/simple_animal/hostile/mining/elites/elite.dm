@@ -36,6 +36,11 @@
 
 //Prevents elites from attacking members of their faction (can't hurt themselves either) and lets them mine rock with an attack despite not being able to smash walls.
 
+/mob/living/simple_animal/hostile/asteroid/elite/examine(mob/user)
+	. = ..()
+	if(del_on_death)
+		. += "However, this one appears appears less wild in nature, and calmer around people."
+
 /mob/living/simple_animal/hostile/asteroid/elite/AttackingTarget()
 	if(istype(target, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/M = target
@@ -116,7 +121,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return
 	UpdateButton()
 
-/datum/action/innate/elite_attack/proc/UpdateButton(status_only = FALSE) // 5 bucks this doesn't work and needs to be a spell :gatto:
+/datum/action/innate/elite_attack/proc/UpdateButton(status_only = FALSE)
 	if(status_only)
 		return
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
@@ -142,8 +147,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor
 	name = "pulsing tumor"
 	desc = "An odd, pulsing tumor sticking out of the ground.  You feel compelled to reach out and touch it..."
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
-	resistance_flags = INDESTRUCTIBLE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	icon = 'icons/obj/lavaland/tumor.dmi'
 	icon_state = "tumor"
 	pixel_x = -16
@@ -202,7 +206,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			if(length(candidates))
 				audible_message("<span class='userdanger'>The stirring sounds increase in volume!</span>")
 				elitemind = pick(candidates)
-				elitemind.playsound_local(get_turf(elitemind), 'sound/magic/cult_spell.ogg', 40, 0)
+				SEND_SOUND(elitemind, 'sound/magic/cult_spell.ogg')
 				to_chat(elitemind, "<b>You have been chosen to play as a Lavaland Elite.\nIn a few seconds, you will be summoned on Lavaland as a monster to fight your activator, in a fight to the death.\n\
 					Your attacks can be switched using the buttons on the top left of the HUD, and used by clicking on targets or tiles similar to a gun.\n\
 					While the opponent might have an upper hand with  powerful mining equipment and tools, you have great power normally limited by AI mobs.\n\
@@ -244,7 +248,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	mychild = null
 	QDEL_NULL(gps)
 	if(activator)
 		clear_activator(activator)
@@ -261,7 +264,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/proc/clear_activator(mob/source)
 	SIGNAL_HANDLER
-	activator = null
+	if(source == activator)
+		activator = null
+	else
+		mychild = null
 	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "clear activation")
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
@@ -283,9 +289,13 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		icon_state = "advanced_tumor"
 		boosted = TRUE
 		set_light(6)
-		desc = "[desc] This one seems to glow with a strong intensity."
 		qdel(core)
 		return TRUE
+
+/obj/structure/elite_tumor/examine(mob/user)
+	. = ..()
+	if(boosted)
+		. += "this one glows with a strong intensity"
 
 /obj/structure/elite_tumor/proc/arena_checks()
 	if(activity != TUMOR_ACTIVE || QDELETED(src))
@@ -293,8 +303,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	INVOKE_ASYNC(src, .proc/fighters_check)  //Checks to see if our fighters died.
 	INVOKE_ASYNC(src, .proc/arena_trap)  //Gets another arena trap queued up for when this one runs out.
 	INVOKE_ASYNC(src, .proc/border_check)  //Checks to see if our fighters got out of the arena somehow.
-	if(!QDELETED(src))
-		addtimer(CALLBACK(src, .proc/arena_checks), 5 SECONDS)
+	addtimer(CALLBACK(src, .proc/arena_checks), 5 SECONDS)
 
 /obj/structure/elite_tumor/proc/fighters_check()
 	if(QDELETED(mychild) || mychild.stat == DEAD)
@@ -385,7 +394,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.friends += user
 		E.revive()
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
-		E.playsound_local(get_turf(E), 'sound/magic/cult_spell.ogg', 40, 0)
+		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
 		to_chat(E, "<span class='userdanger'>You have been revived by [user]. While you can't speak to them, you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
 		to_chat(E, "<span class='big bold'>Note that you now share the loyalties of [user].  You are expected not to intentionally sabotage their faction unless commanded to!</span>")
 		if(user.mind.special_role)
@@ -395,7 +404,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			E.maxHealth = 200
 			E.health = 200
 			E.revive_cooldown = TRUE
-		E.desc = "[E.desc]  However, this one appears appears less wild in nature, and calmer around people."
 		E.sentience_type = SENTIENCE_ORGANIC
 		E.del_on_death = TRUE
 		qdel(src)
