@@ -50,8 +50,8 @@
 		charges--//... drain a charge
 	return
 
-/obj/item/gun/magic/New()
-	..()
+/obj/item/gun/magic/Initialize(mapload)
+	. = ..()
 	charges = max_charges
 	chambered = new ammo_type(src)
 	if(can_charge)

@@ -194,8 +194,8 @@
 /obj/item/gun/projectile/shotgun/riot/short
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
 
-/obj/item/gun/projectile/shotgun/riot/short/New()
-	..()
+/obj/item/gun/projectile/shotgun/riot/short/Initialize(mapload)
+	. = ..()
 	post_sawoff()
 
 ///////////////////////
@@ -250,8 +250,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	can_bayonet = FALSE
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/New()
-	..()
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/Initialize(mapload)
+	. = ..()
 	bolt_open = 1
 	pump()
 
@@ -332,10 +332,14 @@
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/New()
-	..()
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
+	. = ..()
 	if(!alternate_magazine)
 		alternate_magazine = new mag_type(src)
+
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/Destroy()
+	QDEL_NULL(alternate_magazine)
+	return ..()
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/attack_self(mob/living/user)
 	if(!chambered && magazine.contents.len)
