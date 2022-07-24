@@ -147,17 +147,20 @@ const handlePassthrough = (e, eventType) => {
   // modifier (for toggling run/walk) is implemented very shittily
   // in our codebase. We pass no other modifier keys, because they can
   // be used internally as tgui hotkeys.
-  if (ctrlKey || shiftKey || NO_PASSTHROUGH_KEYS.includes(keyCode)) {
+  if (NO_PASSTHROUGH_KEYS.includes(keyCode)) {
+    return;
+  }
+  if (eventType === 'keyup' && keyState[keyCode]) { // this needs to happen regardless of ctrl or shift, else you can get stuck walking one way
+    logger.debug('passthrough', eventType, keyData);
+    return callByond('', { __keyup: byondKey });
+  }
+  if (ctrlKey || shiftKey) {
     return;
   }
   // Send this keypress to BYOND
   if (eventType === 'keydown' && !keyState[keyCode]) {
     logger.debug('passthrough', eventType, keyData);
     return callByond('', { __keydown: byondKey });
-  }
-  if (eventType === 'keyup' && keyState[keyCode]) {
-    logger.debug('passthrough', eventType, keyData);
-    return callByond('', { __keyup: byondKey });
   }
 };
 
