@@ -702,6 +702,10 @@
 	allow_occupant_types = list(/mob/living/silicon/robot)
 	disallow_occupant_types = list(/mob/living/silicon/robot/drone)
 
+/obj/machinery/cryopod/robot/offstation
+	//For offstation cyborgs
+	silent = TRUE
+
 /obj/machinery/cryopod/robot/despawn_occupant()
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R)) return ..()
