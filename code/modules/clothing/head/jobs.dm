@@ -236,7 +236,7 @@
 /obj/item/clothing/head/beret/solgov/command/elite
 	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
 	desc = "A beret worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor = list(MELEE = 35, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 50, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 35, BULLET = 75, LASER = 10, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 50, FIRE = 80, ACID = 80)
 	icon_state = "solgovceliteberet"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF

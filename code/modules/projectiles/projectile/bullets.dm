@@ -75,14 +75,14 @@
 	damage = 12.5
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
-	armour_penetration = -30
+	armour_penetration = -10
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
 	damage = 3
 	stamina = 12.5
 	icon_state = "bullet-r"
-	armour_penetration = -10
+	armour_penetration = -5
 
 /obj/item/projectile/bullet/pellet/rubber/on_hit(atom/target, blocked = 0)
     . = ..()
@@ -145,7 +145,7 @@
 
 /obj/item/projectile/bullet/midbullet3/hp
 	damage = 40
-	armour_penetration = -50
+	armour_penetration = -25
 
 /obj/item/projectile/bullet/midbullet3/ap
 	damage = 27
