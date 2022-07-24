@@ -31056,12 +31056,15 @@
 	},
 /area/maintenance/fore)
 "bAm" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
 	},
 /area/crew_quarters/fitness)
 "bAn" = (
@@ -51819,37 +51822,18 @@
 	},
 /area/crew_quarters/fitness)
 "cty" = (
-/obj/structure/table,
-/obj/item/stack/sheet/cloth/ten,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
+/obj/structure/weightmachine/stacklifter,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "ctz" = (
-/obj/structure/table,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Rec Room Fore"
 	},
-/obj/item/clipboard,
-/obj/item/folder,
-/obj/item/pen,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
-/area/crew_quarters/fitness)
-"ctA" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
+/obj/structure/weightmachine/stacklifter,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "ctB" = (
 /turf/simulated/floor/plasteel{
@@ -51858,10 +51842,10 @@
 	},
 /area/crew_quarters/fitness)
 "ctD" = (
-/obj/structure/closet/masks,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "neutral"
+	icon_state = "caution"
 	},
 /area/crew_quarters/fitness)
 "ctE" = (
@@ -52465,9 +52449,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "cuM" = (
 /turf/simulated/floor/plasteel{
@@ -52478,10 +52460,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/closet/athletic_mixed,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "neutral"
+	icon_state = "caution"
 	},
 /area/crew_quarters/fitness)
 "cuO" = (
@@ -53138,10 +53119,10 @@
 	},
 /area/medical/medbay)
 "cws" = (
-/obj/structure/closet/boxinggloves,
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+	dir = 6;
+	icon_state = "caution"
 	},
 /area/crew_quarters/fitness)
 "cwt" = (
@@ -53651,36 +53632,21 @@
 	},
 /area/crew_quarters/fitness)
 "cxy" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
+	icon_state = "neutralfull"
 	},
-/area/crew_quarters/fitness)
-"cxA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/fitness)
 "cxB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
 "cxC" = (
@@ -54355,11 +54321,10 @@
 	},
 /area/crew_quarters/sleep)
 "czb" = (
-/obj/machinery/vending/coffee,
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/closet/athletic_mixed,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -54384,12 +54349,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/fitness)
 "czf" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
 	},
 /area/crew_quarters/fitness)
 "czg" = (
@@ -59778,6 +59746,7 @@
 	},
 /area/crew_quarters/fitness)
 "cLt" = (
+/obj/structure/closet/masks,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -88294,6 +88263,13 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel/dark,
 /area/security/securearmoury)
+"eEU" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/crew_quarters/fitness)
 "eFE" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -89506,6 +89482,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/execution)
+"hfI" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "rampbottom"
+	},
+/area/crew_quarters/fitness)
 "hgq" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 4
@@ -90290,6 +90273,15 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery2)
+"iFL" = (
+/obj/structure/punching_bag,
+/obj/effect/turf_decal/bot,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/fitness)
+"iGS" = (
+/obj/structure/weightmachine/weightlifter,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/fitness)
 "iIw" = (
 /obj/machinery/newscaster{
 	name = "north bump";
@@ -90654,6 +90646,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/main)
+"jpo" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/crew_quarters/fitness)
 "jqB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -90797,6 +90795,8 @@
 /obj/machinery/atm{
 	pixel_x = -32
 	},
+/obj/machinery/vending/coffee,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -91012,6 +91012,15 @@
 	icon_state = "darkred"
 	},
 /area/security/prison/cell_block)
+"kfE" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/crew_quarters/fitness)
 "khY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -91144,6 +91153,15 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"ktU" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/crew_quarters/fitness)
 "kxq" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -91961,6 +91979,11 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/medical/research)
+"mnI" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "caution"
+	},
+/area/crew_quarters/fitness)
 "moa" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -92363,6 +92386,13 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"ncm" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "caution"
+	},
+/area/crew_quarters/fitness)
 "ncs" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -94196,6 +94226,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/brig)
+"qDt" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "caution"
+	},
+/area/crew_quarters/fitness)
 "qEq" = (
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -94695,6 +94731,17 @@
 	icon_state = "darkblue"
 	},
 /area/medical/surgery2)
+"rsG" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/fitness)
 "rtH" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/donkpockets,
@@ -94843,6 +94890,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"rJW" = (
+/obj/structure/closet/boxinggloves,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/crew_quarters/fitness)
 "rMG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -96391,6 +96445,12 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel/dark,
 /area/security/securearmoury)
+"uMj" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/crew_quarters/fitness)
 "uNz" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
@@ -152310,9 +152370,9 @@ cjr
 abj
 abj
 csj
-ctx
+cFK
 cuL
-cIo
+rsG
 cxx
 cIo
 cIo
@@ -152567,12 +152627,12 @@ cmI
 aaa
 aaa
 csj
-ctx
-cuM
-cuM
+eEU
+uMj
+ncm
 cxy
 bAm
-cuM
+hfI
 cuM
 cAu
 cEw
@@ -152825,11 +152885,11 @@ aaa
 aaa
 csj
 cty
-cuM
-cLt
-cxA
-cze
-cAu
+cFK
+mnI
+cGW
+kfE
+jpo
 cuM
 cDr
 cEx
@@ -153082,11 +153142,11 @@ abj
 abj
 csj
 ctz
-cuM
-cLt
-cxA
-cze
-cAu
+cFK
+mnI
+cGW
+kfE
+jpo
 cuM
 cDr
 cEx
@@ -153338,12 +153398,12 @@ aaa
 aaa
 aaa
 csj
-ctA
-cuM
-cLt
-cxA
-cze
-cAu
+cFK
+cFK
+mnI
+cGW
+kfE
+jpo
 cuM
 cDr
 cEx
@@ -153595,12 +153655,12 @@ oEG
 abj
 abj
 csj
-ctB
-cuM
-cuM
+iFL
+cFK
+qDt
 cxB
 czf
-cuM
+ktU
 cuM
 cAu
 cEy
@@ -153608,7 +153668,7 @@ cGZ
 bIB
 cGZ
 cJC
-cLt
+rJW
 cuM
 cOt
 cOt
@@ -153852,9 +153912,9 @@ aaa
 aaa
 aaa
 csj
-ctB
-cuM
-cuM
+cFK
+cFK
+mnI
 cxC
 czg
 czg
@@ -154109,9 +154169,9 @@ abj
 dij
 abj
 csj
-ctB
-ctB
-ctB
+iGS
+cFK
+mnI
 ctB
 czh
 cAv
@@ -154366,9 +154426,9 @@ aaa
 aaa
 aaa
 csj
+iGS
 cFK
-cFK
-cFK
+mnI
 csj
 csj
 csj
