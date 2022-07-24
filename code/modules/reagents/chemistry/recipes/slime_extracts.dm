@@ -147,7 +147,8 @@
 		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,
 		/obj/item/reagent_containers/food/snacks/deepfryholder,
-		/obj/item/reagent_containers/food/snacks/monstermeat
+		/obj/item/reagent_containers/food/snacks/monstermeat,
+		/obj/item/reagent_containers/food/snacks/grown/tomato/debug,
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
