@@ -10,6 +10,10 @@
 	put_on_delay = 10
 	dog_fashion = /datum/dog_fashion/head/chef
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 //Captain
 /obj/item/clothing/head/caphat
 	name = "captain's hat"
@@ -92,6 +96,10 @@
 	icon_state = "beret"
 	dog_fashion = /datum/dog_fashion/head/beret
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/beret/durathread
 	name = "durathread beret"
 	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
@@ -113,6 +121,10 @@
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
 	dog_fashion = /datum/dog_fashion/head/HoS
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"

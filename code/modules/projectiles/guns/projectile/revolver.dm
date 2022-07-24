@@ -367,18 +367,16 @@
 		else
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
-	..()
-	if(sling)
-		icon_state = "ishotgun_sling"
-		item_state = "ishotgun_sling"
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
+	icon_state = "ishotgun[sling ? "_sling" : ""]"
+	item_state = "ishotgun[sling ? "_sling" : ""]"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
 	if(. && sling) //sawing off the gun removes the sling
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
 		sling = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 //caneshotgun
 
@@ -408,8 +406,11 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
 	return 1
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon()
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return
+
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_overlays()
+	return list()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/stack/cable_coil))

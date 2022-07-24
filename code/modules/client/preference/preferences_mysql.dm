@@ -25,6 +25,7 @@
 		screentip_color = query.item[19]
 		ghost_darkness_level = query.item[20]
 		colourblind_mode = query.item[21]
+		keybindings = init_keybindings(raw = query.item[22])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -78,7 +79,8 @@
 		screentip_mode=:screentip_mode,
 		screentip_color=:screentip_color,
 		ghost_darkness_level=:ghost_darkness_level,
-		colourblind_mode=:colourblind_mode
+		colourblind_mode=:colourblind_mode,
+		keybindings=:keybindings
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -101,6 +103,7 @@
 			"screentip_color" = screentip_color,
 			"ghost_darkness_level" = ghost_darkness_level,
 			"colourblind_mode" = colourblind_mode,
+			"keybindings" = json_encode(keybindings_overrides),
 			"ckey" = C.ckey,
 		))
 

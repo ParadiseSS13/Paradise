@@ -4182,6 +4182,10 @@
 	icon_state = "wood-broken"
 	},
 /area/mine/laborcamp)
+"rM" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/mining)
 "rS" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -18572,7 +18576,7 @@ ab
 tb
 NP
 Wo
-Cf
+rM
 Vu
 IZ
 xo

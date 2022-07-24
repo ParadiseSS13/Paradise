@@ -2,6 +2,8 @@
 	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
+	var/force_off //Used to properly reset the force
+	var/throwforce_off
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
 	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
 	stealthy_audio = TRUE //Most of these are antag weps so we dont want them to be /too/ overt.
@@ -18,6 +20,11 @@
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+
+/obj/item/melee/energy/Initialize(mapload)
+	. = ..()
+	force_off = initial(force) //We want to check this only when initializing, not when swapping, so sharpening works.
+	throwforce_off = initial(throwforce)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -59,8 +66,8 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
-		force = initial(force)
-		throwforce = initial(throwforce)
+		force = force_off
+		throwforce = throwforce_off
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
 		if(attack_verb_on.len)
@@ -318,8 +325,8 @@
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
 		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
 	else
-		force = initial(force)
-		throwforce = initial(throwforce)
+		force = force_off
+		throwforce = throwforce_off
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
 		if(attack_verb_on.len)

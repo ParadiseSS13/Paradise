@@ -50,22 +50,10 @@
 		return O
 	return null
 
-
-/obj/item/grenade/chem_grenade/proc/update_overlays()
-	underlays = list()
-	if(nadeassembly)
-		underlays += "[nadeassembly.a_left.icon_state]_left"
-		for(var/O in nadeassembly.a_left.attached_overlays)
-			underlays += "[O]_l"
-		underlays += "[nadeassembly.a_right.icon_state]_right"
-		for(var/O in nadeassembly.a_right.attached_overlays)
-			underlays += "[O]_r"
-
-/obj/item/grenade/chem_grenade/update_icon()
+/obj/item/grenade/chem_grenade/update_icon_state()
 	if(nadeassembly)
 		icon = 'icons/obj/assemblies/new_assemblies.dmi'
 		icon_state = bomb_state
-		update_overlays()
 		var/obj/item/assembly/A = get_trigger()
 		if(stage != READY)
 			name = "bomb casing[label]"
@@ -90,6 +78,15 @@
 				else
 					icon_state += "_locked"
 				name = payload_name + "grenade" + label
+	
+	underlays.Cut()
+	if(nadeassembly)
+		underlays += "[nadeassembly.a_left.icon_state]_left"
+		for(var/O in nadeassembly.a_left.attached_overlays)
+			underlays += "[O]_l"
+		underlays += "[nadeassembly.a_right.icon_state]_right"
+		for(var/O in nadeassembly.a_right.attached_overlays)
+			underlays += "[O]_r"
 
 
 /obj/item/grenade/chem_grenade/attack_self(mob/user)
@@ -98,7 +95,7 @@
 		var/area/A = get_area(bombturf)
 		if(nadeassembly)
 			nadeassembly.attack_self(user)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
 			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) [contained].")
@@ -133,7 +130,7 @@
 		else
 			if(label)
 				label = null
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				to_chat(user, "You remove the label from [src].")
 				return 1
 	if(istype(I, /obj/item/screwdriver))
@@ -142,7 +139,7 @@
 				to_chat(user, "<span class='notice'>You lock the assembly.</span>")
 				playsound(loc, prime_sound, 25, -3)
 				stage = READY
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				contained = ""
 				cores = "" // clear them out so no recursive logging by accidentally
 				for(var/obj/O in beakers)
@@ -195,7 +192,7 @@
 		assemblyattacher = user.ckey
 		stage = WIRED
 		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 	else if(stage == EMPTY && istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = I
@@ -203,12 +200,12 @@
 
 		stage = WIRED
 		to_chat(user, "<span class='notice'>You rig [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 	else if(stage == READY && istype(I, /obj/item/wirecutters))
 		to_chat(user, "<span class='notice'>You unlock the assembly.</span>")
 		stage = WIRED
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 	else if(stage == WIRED && istype(I, /obj/item/wrench))
 		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
@@ -223,7 +220,7 @@
 			for(var/obj/O in beakers)
 				O.forceMove(get_turf(src))
 			beakers = list()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 //assembly stuff
@@ -286,7 +283,7 @@
 				O.forceMove(get_turf(src))
 			beakers = list()
 		stage = EMPTY
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 
 	if(nadeassembly)
@@ -448,7 +445,7 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/grenade/chem_grenade/firefighting
@@ -466,7 +463,7 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/grenade/chem_grenade/incendiary
 	payload_name = "incendiary"
@@ -485,7 +482,7 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/grenade/chem_grenade/antiweed
@@ -506,7 +503,7 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/grenade/chem_grenade/cleaner
@@ -526,7 +523,7 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/grenade/chem_grenade/teargas
@@ -546,7 +543,7 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/grenade/chem_grenade/facid
 	payload_name = "acid smoke"
@@ -566,7 +563,7 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/grenade/chem_grenade/saringas
 	payload_name = "sarin gas"
@@ -585,7 +582,7 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 #undef EMPTY
 #undef WIRED

@@ -376,7 +376,7 @@
 
 			environment.merge(gas)
 
-/obj/machinery/alarm/update_icon()
+/obj/machinery/alarm/update_icon_state()
 	if(wiresexposed)
 		icon_state = "alarmx"
 		return
@@ -391,6 +391,15 @@
 			icon_state = "alarm2" //yes, alarm2 is yellow alarm
 		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
+
+/obj/machinery/alarm/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER || buildstage != AIR_ALARM_READY || wiresexposed || shorted)
+		return
+
+	underlays += emissive_appearance(icon, "alarm_lightmask")
 
 /obj/machinery/alarm/proc/register_env_machine(m_id, device_type)
 	var/new_name
@@ -555,7 +564,7 @@
 	if(alarm_area.atmosalert(new_area_danger_level, src)) //if area was in normal state or if area was in alert state
 		post_alert(new_area_danger_level)
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/alarm/proc/post_alert(alert_level)
 	if(!report_danger_level)
@@ -914,13 +923,13 @@
 			if(alarm_area.atmosalert(ATMOS_ALARM_DANGER, src))
 				post_alert(ATMOS_ALARM_DANGER)
 			alarmActivated = TRUE
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 		if("atmos_reset")
 			if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
 				post_alert(ATMOS_ALARM_NONE)
 			alarmActivated = FALSE
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 		if("mode")
 			if(!is_authenticated(usr, active_ui))
@@ -994,7 +1003,7 @@
 				coil.use(5)
 
 				buildstage = 2
-				update_icon()
+				update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 				first_run()
 				return
 		if(0)
@@ -1003,7 +1012,7 @@
 				playsound(get_turf(src), I.usesound, 50, 1)
 				qdel(I)
 				buildstage = 1
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				return
 	return ..()
 
@@ -1021,7 +1030,7 @@
 	to_chat(user, "You pry out the circuit!")
 	new /obj/item/airalarm_electronics(user.drop_location())
 	buildstage = AIR_ALARM_FRAME
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/alarm/multitool_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_READY)
@@ -1039,7 +1048,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	wiresexposed = !wiresexposed
-	update_icon()
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	if(wiresexposed)
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
 	else
@@ -1055,7 +1064,7 @@
 		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
 		new_coil.amount = 5
 		buildstage = AIR_ALARM_BUILDING
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	if(wiresexposed)
 		wires.Interact(user)
 
@@ -1072,13 +1081,15 @@
 /obj/machinery/alarm/power_change()
 	if(powered(power_channel))
 		stat &= ~NOPOWER
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	else
 		stat |= NOPOWER
-	update_icon()
+		set_light(0)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/obj_break(damage_flag)
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -1099,7 +1110,7 @@
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)
 		shorted = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/proc/enable_ai_control_callback()
 	if(aidisabled)

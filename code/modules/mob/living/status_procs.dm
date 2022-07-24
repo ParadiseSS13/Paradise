@@ -853,6 +853,15 @@ moving up or down retains their old lying angle
 			priority_absorb_key["stuns_absorbed"] += amount
 		return TRUE
 
+/mob/living/proc/remove_stun_absorption(id_flag)
+	stun_absorption -= id_flag
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.getStaminaLoss() <= 100)
+			return
+		H.enter_stamcrit()
+
+
 /mob/living/proc/set_shocked()
 	flags_2 |= SHOCKED_2
 

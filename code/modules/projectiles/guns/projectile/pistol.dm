@@ -15,10 +15,8 @@
 	fire_delay = 0
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/pistol/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
-	return
 
 //M1911//
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -52,20 +50,21 @@
 	options["Red Handle"] = "enforcer_redgrip"
 	options["Cancel"] = null
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-	overlays.Cut()
+
+/obj/item/gun/projectile/automatic/pistol/enforcer/update_overlays()
+	. = list()
 	if(suppressed)
-		overlays += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
+		. += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
 	if(gun_light)
-		var/iconF = "Enforcer_light"
+		var/flashlight = "Enforcer_light"
 		if(gun_light.on)
-			iconF = "Enforcer_light-on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+			flashlight = "Enforcer_light-on"
+		. += image(icon = icon, icon_state = flashlight, pixel_x = 0)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/ui_action_click()
 	toggle_gunlight()
