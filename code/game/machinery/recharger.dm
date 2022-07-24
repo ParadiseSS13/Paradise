@@ -31,11 +31,12 @@
 		recharge_coeff = C.rating
 
 /obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
-	. = TRUE
 	var/allowed = is_type_in_list(G, allowed_devices)
 
 	if(!allowed)
 		return ..()
+
+	. = TRUE
 
 	if(!anchored)
 		to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
@@ -50,7 +51,7 @@
 	//Checks to make sure he's not in space doing it, and that the area got proper power.
 	var/area/A = get_area(src)
 	if(!istype(A) || !A.power_equip)
-		to_chat(user, "<span class='notice'>[src] blinks red as you try to insert [G].</span>")
+		to_chat(user, "<span class='warning'>[src] blinks red as you try to insert [G].</span>")
 		return
 
 	if(!user.drop_item())
