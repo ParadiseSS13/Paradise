@@ -675,10 +675,6 @@
 	},
 /area/medical/surgeryobs)
 "ahW" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Warden's Office";
-	req_access_txt = "3"
-	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "Secure Armory";
@@ -1496,9 +1492,6 @@
 /area/hallway/secondary/entry)
 "aqT" = (
 /obj/structure/bookcase,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/wood,
 /area/assembly/showroom)
 "aqU" = (
@@ -7135,6 +7128,7 @@
 /area/maintenance/apmaint)
 "bxt" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/box/syringes,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -7312,15 +7306,12 @@
 /area/security/vacantoffice2)
 "byv" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module West";
-	dir = 10;
-	network = list("Research","SS13")
+	c_tag = "Arrivals South 2";
+	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplechecker"
-	},
-/area/toxins/xenobiology)
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/south)
 "byx" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
@@ -13228,6 +13219,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/east,
+/obj/item/book/manual/wiki/sop_science,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "cFE" = (
@@ -15183,20 +15175,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"dbS" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = -30
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
-/area/hallway/secondary/entry/south)
 "dct" = (
 /turf/simulated/wall,
 /area/atmos)
@@ -16462,6 +16440,11 @@
 /obj/item/clothing/mask/gas,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -19707,6 +19690,29 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/primary/central/ne)
+"dXH" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	pixel_y = 25;
+	id_tag = "arrivals_ferry";
+	tag_interior_door = "ferry_home_inner";
+	tag_chamber_sensor = "arrivals_ferry_sensor";
+	tag_airpump = "arrivals_ferry_pump";
+	req_one_access_txt = "114;19";
+	tag_exterior_door = "ferry_home"
+	},
+/obj/machinery/airlock_sensor{
+	id_tag = "arrivals_ferry_sensor";
+	pixel_x = -8;
+	pixel_y = -30
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1379;
+	id_tag = "arrivals_ferry_pump"
+	},
+/obj/effect/decal/warning_stripes,
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry/south)
 "dXI" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -22509,9 +22515,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+	dir = 4;
+	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
 "eDY" = (
@@ -24186,6 +24195,11 @@
 	name = "Containment Control";
 	req_access_txt = "55"
 	},
+/obj/machinery/camera{
+	c_tag = "Xenobiology Module East";
+	dir = 1;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "long"
@@ -25360,9 +25374,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/warning_stripes/red/partial,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
+	dir = 8;
+	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
 "fhH" = (
@@ -28739,9 +28754,12 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/effect/decal/warning_stripes/red/partial{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+	dir = 4;
+	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
 "fPa" = (
@@ -29429,21 +29447,6 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/virology)
-"fVk" = (
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	layer = 4.1;
-	master_tag = "arrivals_ferry";
-	pixel_x = -25;
-	pixel_y = 28;
-	req_one_access_txt = "114;19";
-	frequency = 1379
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry/south)
 "fVn" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
@@ -31396,10 +31399,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/medical/cmo)
 "gsT" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/matches{
-	pixel_y = 5
-	},
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "gsU" = (
@@ -31627,6 +31627,22 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"gvz" = (
+/obj/structure/window/reinforced,
+/obj/machinery/disposal,
+/obj/effect/decal/warning_stripes/west,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Xenobiology Module West";
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "long"
+	},
+/area/toxins/xenobiology)
 "gvD" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "Surgery 2"
@@ -35424,28 +35440,9 @@
 	},
 /area/security/permabrig)
 "hfg" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	pixel_y = 25;
-	tag_interior_door = "specops_home_inner";
-	tag_chamber_sensor = "arrivals_specops_sensor";
-	id_tag = "arrivals_specops";
-	tag_airpump = "arrivals_specops_pump";
-	req_one_access_txt = "114;19";
-	tag_exterior_door = "specops_home"
-	},
-/obj/machinery/airlock_sensor{
-	id_tag = "arrivals_specops_sensor";
-	pixel_x = -8;
-	pixel_y = -30
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	frequency = 1379;
-	id_tag = "arrivals_specops_pump"
-	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/south)
+/obj/structure/bookcase/random,
+/turf/simulated/floor/carpet/green,
+/area/library)
 "hfj" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -37501,8 +37498,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/warning_stripes/red/partial{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 1;
 	icon_state = "darkred"
 	},
 /area/security/brig)
@@ -44950,7 +44950,7 @@
 /area/chapel/main)
 "jdL" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 9;
 	icon_state = "darkred"
 	},
 /area/security/brig)
@@ -45222,6 +45222,7 @@
 /area/maintenance/asmaint)
 "jhi" = (
 /obj/structure/table/wood,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/wood,
 /area/assembly/showroom)
 "jhF" = (
@@ -47616,7 +47617,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 10;
 	icon_state = "darkred"
 	},
 /area/security/brig)
@@ -58459,6 +58460,29 @@
 	icon_state = "delivery"
 	},
 /area/chapel/office)
+"lPK" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	pixel_y = 25;
+	tag_interior_door = "specops_home_inner";
+	tag_chamber_sensor = "arrivals_specops_sensor";
+	id_tag = "arrivals_specops";
+	tag_airpump = "arrivals_specops_pump";
+	req_one_access_txt = "114;19";
+	tag_exterior_door = "specops_home"
+	},
+/obj/machinery/airlock_sensor{
+	id_tag = "arrivals_specops_sensor";
+	pixel_x = -8;
+	pixel_y = -30
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1379;
+	id_tag = "arrivals_specops_pump"
+	},
+/obj/effect/decal/warning_stripes,
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry/south)
 "lPM" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/cola,
@@ -59675,29 +59699,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/prisonershuttle)
-"mck" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	pixel_y = 25;
-	id_tag = "arrivals_ferry";
-	tag_interior_door = "ferry_home_inner";
-	tag_chamber_sensor = "arrivals_ferry_sensor";
-	tag_airpump = "arrivals_ferry_pump";
-	req_one_access_txt = "114;19";
-	tag_exterior_door = "ferry_home"
-	},
-/obj/machinery/airlock_sensor{
-	id_tag = "arrivals_ferry_sensor";
-	pixel_x = -8;
-	pixel_y = -30
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	frequency = 1379;
-	id_tag = "arrivals_ferry_pump"
-	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/south)
 "mcn" = (
 /obj/item/toy/figure/crew/detective,
 /obj/structure/falsewall,
@@ -64178,6 +64179,20 @@
 	icon_state = "grimy"
 	},
 /area/security/vacantoffice)
+"mXj" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_x = -30
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
+/area/hallway/secondary/entry/south)
 "mXk" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/cable{
@@ -64481,16 +64496,7 @@
 	},
 /area/ai_monitored/storage/eva)
 "naB" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_command,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_legal,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_science,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
 /area/assembly/showroom)
 "naC" = (
@@ -65500,6 +65506,19 @@
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
+"nkY" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8;
+	name = "prisoner transfer chair"
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkredcorners"
+	},
+/area/security/permasolitary)
 "nli" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -66719,9 +66738,10 @@
 /area/medical/cmo)
 "nxI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/effect/decal/warning_stripes/red/partial,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+	dir = 8;
+	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
 "nxL" = (
@@ -69754,9 +69774,12 @@
 /area/medical/research)
 "ofM" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+	dir = 8;
+	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
 "ofO" = (
@@ -73575,7 +73598,6 @@
 	name = "Canister Delivery";
 	req_access_txt = "12;24"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -75195,7 +75217,12 @@
 	dir = 8;
 	name = "prisoner transfer chair"
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/security/permasolitary)
 "plz" = (
 /obj/structure/lattice/catwalk,
@@ -78262,8 +78289,12 @@
 	pixel_y = 22
 	},
 /obj/machinery/hologram/holopad,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	dir = 8;
+	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
 "pSp" = (
@@ -80244,6 +80275,15 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
+"qoZ" = (
+/obj/effect/decal/warning_stripes/red/partial{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/security/brig)
 "qpa" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -84759,9 +84799,10 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/effect/turf_decal/stripes/red/line,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+	dir = 4;
+	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
 "rmT" = (
@@ -88052,6 +88093,12 @@
 /area/hallway/primary/central/ne)
 "rXo" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -89394,17 +89441,7 @@
 	},
 /area/medical/surgery)
 "slj" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_command,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_legal,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_science,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
-/obj/item/book/manual/wiki/faxes,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "slo" = (
@@ -90452,6 +90489,7 @@
 	pixel_y = -32;
 	step_size = 0
 	},
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -91645,7 +91683,7 @@
 "sIw" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 9;
 	icon_state = "darkred"
 	},
 /area/security/brig)
@@ -94277,6 +94315,9 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/item/storage/box/matches{
+	pixel_y = 5
+	},
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "tkH" = (
@@ -94321,9 +94362,11 @@
 	},
 /area/hallway/primary/central/south)
 "tle" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+	icon_state = "dark"
 	},
 /area/security/permasolitary)
 "tlg" = (
@@ -94360,9 +94403,10 @@
 	pixel_y = -24
 	},
 /obj/machinery/light,
+/obj/effect/turf_decal/stripes/red/line,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+	dir = 4;
+	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
 "tlt" = (
@@ -95387,7 +95431,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 10;
 	icon_state = "darkred"
 	},
 /area/security/brig)
@@ -97935,7 +97979,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 10;
 	icon_state = "darkred"
 	},
 /area/security/brig)
@@ -97993,11 +98037,13 @@
 	},
 /area/hallway/primary/starboard/east)
 "tZO" = (
-/obj/machinery/camera{
-	c_tag = "Arrivals South 2";
-	dir = 4
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_x = -30
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/south)
 "tZT" = (
@@ -98449,6 +98495,21 @@
 	icon_state = "delivery"
 	},
 /area/crew_quarters/bar)
+"uef" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	layer = 4.1;
+	master_tag = "arrivals_ferry";
+	pixel_x = -25;
+	pixel_y = 28;
+	req_one_access_txt = "114;19";
+	frequency = 1379
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/south)
 "uem" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/wood,
@@ -104152,16 +104213,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
-"vqj" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = -30
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry/south)
 "vqp" = (
 /obj/machinery/hydroponics/constructable,
 /obj/structure/disposalpipe/segment,
@@ -106364,9 +106415,12 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/decal/warning_stripes/red/partial{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+	dir = 4;
+	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
 "vMB" = (
@@ -113433,6 +113487,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplechecker"
@@ -114361,7 +114420,6 @@
 	name = "Containment Lockdown";
 	id_tag = "xenobio1"
 	},
-/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "xuw" = (
@@ -130279,13 +130337,13 @@ eeo
 xEx
 uZW
 uZW
-hfg
+lPK
 uZW
 uZW
 xEx
 uZW
 uZW
-mck
+dXH
 uZW
 uZW
 xEx
@@ -130794,13 +130852,13 @@ sEY
 ltY
 ltY
 iuj
-dbS
+mXj
 kIa
 ltY
 pZl
+byv
+uef
 tZO
-fVk
-vqj
 pZl
 tXj
 tXj
@@ -134162,7 +134220,7 @@ dtm
 kqR
 twc
 vyj
-jdL
+qoZ
 fQP
 nxI
 rmI
@@ -134678,7 +134736,7 @@ twc
 iLe
 sIw
 knp
-ply
+nkY
 ply
 knp
 gPL
@@ -156820,7 +156878,7 @@ kgD
 crs
 dhP
 bpk
-iuv
+hfg
 bpk
 iuv
 bpk
@@ -157079,7 +157137,7 @@ boK
 bpk
 iuv
 bpk
-iuv
+hfg
 twr
 iuv
 bpk
@@ -162616,7 +162674,7 @@ xHn
 nlJ
 xcQ
 tfr
-byv
+xHn
 sti
 sUr
 wIu
@@ -163642,7 +163700,7 @@ gJw
 aMq
 dfY
 ree
-gJw
+gvz
 aMq
 qGU
 kNn
