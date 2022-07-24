@@ -54,9 +54,9 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Initialize(mapload)
 	. = ..()
-	var/datum/action/ventsmash_action = new /datum/action/innate/terrorspider/ventsmash/()
+	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action = new
 	ventsmash_action.Grant(src)
-	var/datum/action/remoteview_action = new /datum/action/innate/terrorspider/remoteview()
+	var/datum/action/innate/terrorspider/remoteview/remoteview_action = new
 	remoteview_action.Grant(src)
 	grant_queen_subtype_abilities()
 	spider_myqueen = src

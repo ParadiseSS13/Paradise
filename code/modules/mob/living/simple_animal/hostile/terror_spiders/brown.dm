@@ -30,5 +30,5 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/brown/Initialize(mapload)
 	. = ..()
-	var/datum/action/act = new /datum/action/innate/terrorspider/ventsmash()
+	var/datum/action/innate/terrorspider/ventsmash/act = new
 	act.Grant(src)

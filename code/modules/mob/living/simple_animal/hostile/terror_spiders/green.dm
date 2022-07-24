@@ -26,7 +26,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green/Initialize(mapload)
 	. = ..()
-	var/datum/action/act = new /datum/action/innate/terrorspider/greeneggs()
+	var/datum/action/innate/terrorspider/greeneggs/act = new
 	act.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green/proc/DoLayGreenEggs()

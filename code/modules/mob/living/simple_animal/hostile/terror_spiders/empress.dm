@@ -32,9 +32,9 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/Initialize(mapload)
 	. = ..()
-	var/datum/action/act_ling = new /datum/action/innate/terrorspider/queen/empress/empresslings()
+	var/datum/action/innate/terrorspider/queen/empress/empresslings/act_ling = new
 	act_ling.Grant(src)
-	var/datum/action/act_erase = new /datum/action/innate/terrorspider/queen/empress/empresserase()
+	var/datum/action/innate/terrorspider/queen/empress/empresserase/act_erase = new
 	act_erase.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/spider_special_action()

@@ -41,7 +41,7 @@
 		/datum/action/innate/terrorspider/mother/gatherspiderlings,
 		/datum/action/innate/terrorspider/mother/incubateeggs,
 	))
-		var/datum/action/act = new action_path()
+		var/datum/action/act = new action_path
 		act.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)

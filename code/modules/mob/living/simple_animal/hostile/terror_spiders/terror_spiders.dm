@@ -269,11 +269,11 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	default_language = GLOB.all_languages["Spider Hivemind"]
 
 	if(web_type)
-		var/datum/action/web_act = new /datum/action/innate/terrorspider/web()
+		var/datum/action/innate/terrorspider/web/web_act = new
 		web_act.Grant(src)
 	if(regen_points_per_tick < regen_points_per_hp)
 		// Only grant the Wrap action button to spiders who need to use it to regenerate their health
-		var/datum/action/wrap_act = new /datum/action/innate/terrorspider/wrap()
+		var/datum/action/innate/terrorspider/wrap/wrap_act = new
 		wrap_act.Grant(src)
 	name += " ([rand(1, 1000)])"
 	real_name = name

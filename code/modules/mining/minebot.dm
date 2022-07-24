@@ -50,7 +50,7 @@
 		/datum/action/innate/minedrone/toggle_mode,
 		/datum/action/innate/minedrone/dump_ore,
 	))
-		var/datum/action/act = new action_path()
+		var/datum/action/act = new action_path
 		act.Grant(src)
 
 	SetCollectBehavior()

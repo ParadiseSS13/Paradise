@@ -37,7 +37,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()
-	var/datum/action/whisper_action = new /datum/action/innate/demon/whisper()
+	var/datum/action/innate/demon/whisper/whisper_action = new
 	whisper_action.Grant(src)
 	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 

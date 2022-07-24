@@ -60,7 +60,7 @@
 	return TRUE
 
 /mob/living/simple_animal/hostile/poison/bees/ComponentInitialize()
-	. = ..()
+	..()
 	AddComponent(/datum/component/swarming)
 
 /mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
