@@ -34,13 +34,14 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/Initialize(mapload)
 	. = ..()
-	for(var/action_path in list(
+	var/static/list/action_paths = list(
 		/datum/action/innate/terrorspider/ventsmash,
 		/datum/action/innate/terrorspider/remoteview,
 		/datum/action/innate/terrorspider/mother/royaljelly,
 		/datum/action/innate/terrorspider/mother/gatherspiderlings,
 		/datum/action/innate/terrorspider/mother/incubateeggs,
-	))
+	)
+	for(var/action_path in action_paths)
 		var/datum/action/act = new action_path
 		act.Grant(src)
 

@@ -44,12 +44,13 @@
 /mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
 	. = ..()
 	stored_gun = new(src)
-	for(var/action_path in list(
+	var/static/list/action_paths = list(
 		/datum/action/innate/minedrone/toggle_light,
 		/datum/action/innate/minedrone/toggle_meson_vision,
 		/datum/action/innate/minedrone/toggle_mode,
 		/datum/action/innate/minedrone/dump_ore,
-	))
+	)
+	for(var/action_path in action_paths)
 		var/datum/action/act = new action_path
 		act.Grant(src)
 
