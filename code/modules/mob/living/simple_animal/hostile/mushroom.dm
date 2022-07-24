@@ -48,7 +48,8 @@
 	if(!stat)//Mushrooms slowly regenerate if conscious, for people who want to save them from being eaten
 		adjustBruteLoss(-2)
 
-/mob/living/simple_animal/hostile/mushroom/New()//Makes every shroom a little unique
+/mob/living/simple_animal/hostile/mushroom/Initialize(mapload)  //Makes every shroom a little unique
+	. = ..()
 	melee_damage_lower += rand(3, 5)
 	melee_damage_upper += rand(10,20)
 	maxHealth += rand(40,60)
@@ -60,7 +61,6 @@
 	cap_dead.color = cap_color
 	UpdateMushroomCap()
 	health = maxHealth
-	..()
 
 /mob/living/simple_animal/hostile/mushroom/CanAttack(atom/the_target) // Mushroom-specific version of CanAttack to handle stupid attack_same = 2 crap so we don't have to do it for literally every single simple_animal/hostile because this shit never gets spawned
 	if(!the_target || isturf(the_target) || istype(the_target, /atom/movable/lighting_object))

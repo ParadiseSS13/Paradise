@@ -3,7 +3,7 @@
 	desc = "Take on the shape of another for a time to use their natural abilities. Once you've made your choice it cannot be changed."
 	clothes_req = FALSE
 	human_req = FALSE
-	charge_max = 200
+	base_cooldown = 200
 	cooldown_min = 50
 	invocation = "RAC'WA NO!"
 	invocation_type = "shout"
