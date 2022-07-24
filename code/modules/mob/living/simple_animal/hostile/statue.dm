@@ -53,8 +53,8 @@
 
 // No movement while seen code.
 
-/mob/living/simple_animal/hostile/statue/New(loc, mob/living/creator)
-	..()
+/mob/living/simple_animal/hostile/statue/Initialize(mapload, mob/living/creator)
+	. = ..()
 	// Give spells
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness(null))
@@ -63,6 +63,10 @@
 	// Set creator
 	if(creator)
 		src.creator = creator
+
+/mob/living/simple_animal/hostile/statue/Destroy()
+	creator = null
+	return ..()
 
 /mob/living/simple_animal/hostile/statue/Move(turf/NewLoc)
 	if(can_be_seen(NewLoc))
@@ -160,7 +164,7 @@
 	name = "Flicker Lights"
 	desc = "You will trigger a large amount of lights around you to flicker."
 
-	charge_max = 300
+	base_cooldown = 300
 	clothes_req = FALSE
 
 /obj/effect/proc_holder/spell/aoe_turf/flicker_lights/create_new_targeting()
@@ -180,7 +184,7 @@
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
 	message = "<span class='notice'>You glare your eyes.</span>"
-	charge_max = 600
+	base_cooldown = 600
 	clothes_req = FALSE
 
 /obj/effect/proc_holder/spell/aoe_turf/blindness/create_new_targeting()

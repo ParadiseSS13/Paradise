@@ -31,7 +31,7 @@
 	if(iscultist(user) || user.stat == DEAD)
 		. += "<span class='cult'>A dagger gifted by [SSticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [SSticker.cultdat.entity_name].</span>"
 		. += "<span class='cultitalic'>Striking another cultist with it will purge holy water from them.</span>"
-		. += "<span class='cultitalic'>Striking a noncultist will tear their flesh.</span>"
+		. += "<span class='cultitalic'>Striking a noncultist will tear their flesh, additionally, if you recently downed them with cult magic it will stun them completely.</span>"
 
 /obj/item/melee/cultblade/dagger/attack(mob/living/M, mob/living/user)
 	if(iscultist(M))
@@ -46,6 +46,10 @@
 				M.reagents.add_reagent("unholywater", amount)
 				add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
 		return FALSE
+	else
+		var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
+		if(S)
+			S.trigger()
 	. = ..()
 
 /obj/item/melee/cultblade/dagger/attack_self(mob/user)

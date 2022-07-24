@@ -57,7 +57,7 @@
 		else if(istype(O, /obj/item/reagent_containers/food/drinks/cans))
 			var/obj/item/reagent_containers/food/drinks/cans/C = O
 			if(C.reagents)
-				if(C.canopened && C.reagents.total_volume)		//This prevents us from using opened cans that still have something in them
+				if(C.can_opened && C.reagents.total_volume)		//This prevents us from using opened cans that still have something in them
 					to_chat(user, "<span class='warning'>Only unopened cans and bottles can be processed to ensure product integrity.</span>")
 					return 0
 				user.unEquip(C)
@@ -235,7 +235,7 @@
 	if(containers[con_type])
 		//empties aren't sealed, so let's open it quietly
 		drink_container = new drink_container()
-		drink_container.canopened = TRUE
+		drink_container.can_opened = TRUE
 		drink_container.container_type |= OPENCONTAINER
 		drink_container.forceMove(loc)
 		containers[con_type]--
@@ -399,7 +399,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/bottler/update_icon()
+/obj/machinery/bottler/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "bottler_broken"
 	else if(bottling)

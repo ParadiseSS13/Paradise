@@ -2,11 +2,11 @@
 	gender = NEUTER
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
-	has_unlimited_silicon_privilege = 1
+	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list("ash")
 	mob_biotypes = MOB_ROBOTIC
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	var/syndicate = 0
+	var/syndicate = FALSE
 	var/const/MAIN_CHANNEL = "Main Frequency"
 	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws
 	var/list/stating_laws = list()// Channels laws are currently being stated on

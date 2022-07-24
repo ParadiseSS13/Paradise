@@ -29,7 +29,7 @@
 /obj/item/assembly/mousetrap/describe()
 	return "The pressure switch is [armed ? "primed" : "safe"]."
 
-/obj/item/assembly/mousetrap/update_icon()
+/obj/item/assembly/mousetrap/update_icon_state()
 	if(armed)
 		icon_state = "mousetraparmed"
 	else

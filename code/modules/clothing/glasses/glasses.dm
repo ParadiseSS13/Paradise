@@ -1,4 +1,4 @@
-/obj/item/clothing/glasses/New()
+/obj/item/clothing/glasses/Initialize(mapload)
 	. = ..()
 	if(prescription_upgradable && prescription)
 		// Pre-upgraded upgradable glasses
@@ -31,6 +31,10 @@
 		H.put_in_hands(G)
 
 	H.update_nearsighted_effects()
+
+/obj/item/clothing/glasses/update_icon_state()
+	if(..())
+		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
 
 /obj/item/clothing/glasses/visor_toggling()
 	..()
@@ -272,7 +276,7 @@
 	item_state = "sunglasses"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
-	tint = 1
+	tint = FLASH_PROTECTION_FLASH
 	prescription_upgradable = TRUE
 	dog_fashion = /datum/dog_fashion/head
 	sprite_sheets = list(
@@ -288,7 +292,7 @@
 	item_state = "sunglasses"
 	see_in_dark = 0
 	flash_protect = FLASH_PROTECTION_NONE
-	tint = 0
+	tint = FLASH_PROTECTION_NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -341,7 +345,7 @@
 	item_state = "sunglasses"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
-	tint = 1
+	tint = FLASH_PROTECTION_FLASH
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -367,7 +371,8 @@
 	item_state = "welding-g"
 	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = FLASH_PROTECTION_WELDER
-	tint = 2
+	tint = FLASH_PROTECTION_WELDER
+	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -384,7 +389,7 @@
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
 	flash_protect = FLASH_PROTECTION_WELDER
-	tint = 0
+	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
@@ -399,7 +404,7 @@
 	name = "tattered blindfold"
 	desc = "A see-through blindfold perfect for cheating at games like pin the stunbaton on the clown."
 	flash_protect = FLASH_PROTECTION_NONE
-	tint = 0
+	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = 1
@@ -496,7 +501,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = FALSE
-	tint = 0
+	tint = FLASH_PROTECTION_NONE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -525,15 +530,12 @@
 /obj/item/clothing/glasses/proc/toggle_veil()
 	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.incapacitated())
 		return
-
+	up = !up
 	if(up)
-		up = !up
-		tint = initial(tint)
-		to_chat(usr, "You activate [src], allowing you to see.")
-	else
-		up = !up
 		tint = 3
-		to_chat(usr, "You deactivate [src], obscuring your vision.")
+	else
+		tint = initial(tint)
+	to_chat(usr, up ? "You deactivate [src], obscuring your vision." : "You activate [src], allowing you to see.")
 	var/mob/living/carbon/user = usr
 	user.update_tint()
 	user.update_inv_glasses()

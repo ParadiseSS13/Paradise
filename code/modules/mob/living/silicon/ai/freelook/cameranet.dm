@@ -13,7 +13,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 	var/list/cameras = list()
 	// The chunks of the map, mapping the areas that the cameras can see.
 	var/list/chunks = list()
-	var/ready = 0
+	var/ready = FALSE
 
 	// The object used for the clickable stat() button.
 	var/obj/effect/statclick/statclick

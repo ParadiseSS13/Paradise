@@ -646,7 +646,8 @@ emp_act
 			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				apply_effect(10 SECONDS, WEAKEN, run_armor_check(affecting, MELEE))
+				apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
+				adjustStaminaLoss(30)
 				add_attack_logs(M, src, "Alien tackled")
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
 

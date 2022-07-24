@@ -83,17 +83,17 @@
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
 
-/obj/machinery/power/smes/update_icon()
-	cut_overlays()
+/obj/machinery/power/smes/update_overlays()
+	. = ..()
 	if(stat & BROKEN)
 		return
 
-	add_overlay("smes-op[outputting ? 1 : 0]")
-	add_overlay("smes-oc[inputting ? 1 : 0]")
+	. += "smes-op[outputting ? 1 : 0]"
+	. += "smes-oc[inputting ? 1 : 0]"
 
-	var/clevel = chargedisplay()
-	if(clevel > 0)
-		add_overlay("smes-og[clevel]")
+	var/charge_level = chargedisplay()
+	if(charge_level > 0)
+		. += "smes-og[charge_level]"
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver

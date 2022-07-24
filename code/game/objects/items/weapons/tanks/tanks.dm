@@ -61,7 +61,7 @@
 				if(!silent)
 					to_chat(C, "<span class='warning'>You are not wearing a suitable mask or helmet.</span>")
 				return FALSE
-			if(M.mask_adjusted) // If the mask is equipped but pushed down
+			if(M.up) // If the mask is equipped but pushed away
 				M.adjustmask(C) // Adjust it back
 
 		if(!silent)

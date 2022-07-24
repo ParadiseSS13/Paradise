@@ -34,7 +34,7 @@
 				loaded.amount = amount
 			else
 				return
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
 	else
 		..()
@@ -58,7 +58,7 @@
 	loaded.forceMove(user.loc)
 	user.put_in_hands(loaded)
 	loaded = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/twohanded/rcl/examine(mob/user)
 	. = ..()
@@ -71,7 +71,7 @@
 	active = FALSE
 	return ..()
 
-/obj/item/twohanded/rcl/update_icon()
+/obj/item/twohanded/rcl/update_icon_state()
 	if(!loaded)
 		icon_state = "rcl-0"
 		item_state = "rcl-0"
@@ -89,10 +89,9 @@
 		else
 			icon_state = "rcl-0"
 			item_state = "rcl-0"
-	..()
 
 /obj/item/twohanded/rcl/proc/is_empty(mob/user, loud = 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(!loaded || !loaded.amount)
 		if(loud)
 			to_chat(user, "<span class='notice'>The last of the cables unreel from [src].</span>")
@@ -151,4 +150,4 @@
 	loaded = new()
 	loaded.max_amount = max_amount
 	loaded.amount = max_amount
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)

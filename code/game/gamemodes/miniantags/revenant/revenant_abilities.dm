@@ -107,7 +107,7 @@
 
 //Toggle night vision: lets the revenant toggle its night vision
 /obj/effect/proc_holder/spell/night_vision/revenant
-	charge_max = 0
+	base_cooldown = 0
 	panel = "Revenant Abilities"
 	message = "<span class='revennotice'>You toggle your night vision.</span>"
 	action_icon_state = "r_nightvision"
@@ -118,7 +118,7 @@
 	name = "Transmit"
 	desc = "Telepathically transmits a message to the target."
 	panel = "Revenant Abilities"
-	charge_max = 0
+	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
@@ -133,7 +133,7 @@
 		spawn(0)
 			var/msg = stripped_input(user, "What do you wish to tell [M]?", null, "")
 			if(!msg)
-				charge_counter = charge_max
+				cooldown_handler.revert_cast()
 				return
 			log_say("(REVENANT to [key_name(M)]) [msg]", user)
 			to_chat(user, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
@@ -161,7 +161,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.inhibited)
 		return FALSE
-	if(charge_counter < charge_max)
+	if(cooldown_handler.is_on_cooldown())
 		return FALSE
 	if(locked)
 		if(user.essence <= unlock_amount)
@@ -173,16 +173,16 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
 	if(locked)
 		if(!user.castcheck(-unlock_amount))
-			charge_counter = charge_max
+			cooldown_handler.revert_cast()
 			return FALSE
 		name = "[initial(name)] ([cast_amount]E)"
 		to_chat(user, "<span class='revennotice'>You have unlocked [initial(name)]!</span>")
 		panel = "Revenant Abilities"
 		locked = FALSE
-		charge_counter = charge_max
+		cooldown_handler.revert_cast()
 		return FALSE
 	if(!user.castcheck(-cast_amount))
-		charge_counter = charge_max
+		cooldown_handler.revert_cast()
 		return FALSE
 	name = "[initial(name)] ([cast_amount]E)"
 	user.reveal(reveal)
@@ -195,7 +195,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload
 	name = "Overload Lights"
 	desc = "Directs a large amount of essence into nearby electrical lights, causing lights to shock those nearby."
-	charge_max = 200
+	base_cooldown = 200
 	stun = 30
 	cast_amount = 45
 	var/shock_range = 2
@@ -238,7 +238,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile
 	name = "Defile"
 	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
-	charge_max = 150
+	base_cooldown = 150
 	stun = 10
 	reveal = 40
 	unlock_amount = 75
@@ -262,7 +262,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction
 	name = "Malfunction"
 	desc = "Corrupts and damages nearby machines and mechanical objects."
-	charge_max = 200
+	base_cooldown = 200
 	cast_amount = 45
 	unlock_amount = 150
 	action_icon_state = "malfunction"
