@@ -36,7 +36,7 @@
 /// returns the list of type paths of the organs that we need to insert into
 /// this particular xeno upon its creation
 /mob/living/carbon/alien/proc/get_caste_organs()
-	RETURN_TYPE(/obj/item/organ/internal)  // hilarliously, this doesn't actually check anything. Oh well..
+	RETURN_TYPE(/list/obj/item/organ/internal)
 	return list(
 		/obj/item/organ/internal/brain/xeno,
 		/obj/item/organ/internal/xenos/hivenode,
