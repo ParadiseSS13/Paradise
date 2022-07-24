@@ -101,19 +101,22 @@ const getKeyData = (e) => {
 };
 
 const keyCodeToByond = keyCode => {
-  if (keyCode === 16) {return 'Shift';}
-  if (keyCode === 17) {return 'Ctrl';}
-  if (keyCode === 18) {return 'Alt';}
-  if (keyCode === 33) {return 'Northeast';}
-  if (keyCode === 34) {return 'Southeast';}
-  if (keyCode === 35) {return 'Southwest';}
-  if (keyCode === 36) {return 'Northwest';}
-  if (keyCode === 37) {return 'West';}
-  if (keyCode === 38) {return 'North';}
-  if (keyCode === 39) {return 'East';}
-  if (keyCode === 40) {return 'South';}
-  if (keyCode === 45) {return 'Insert';}
-  if (keyCode === 46) {return 'Delete';}
+  const dict = {16 : 'Shift',
+              17 : 'Ctrl',
+              18 : 'Alt',
+              33 : 'Northeast',
+              34 : 'Southeast',
+              35 : 'Southwest',
+              36 : 'Northwest',
+              37 : 'West',
+              38 : 'North',
+              39 : 'East',
+              40 : 'South',
+              45 : 'Insert',
+              46 : 'Delete'}
+  if (dict[keyCode]) {
+    return dict[keyCode];
+  }
   if (keyCode >= 48 && keyCode <= 57 || keyCode >= 65 && keyCode <= 90) {
     return String.fromCharCode(keyCode);
   }
