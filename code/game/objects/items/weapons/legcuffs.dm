@@ -166,6 +166,8 @@
 	var/max_range = 7
 	/// the max speed after the bola fully spins up. if your value for this isn't divisable by the value of `max_spins` it will be lower than the max
 	var/max_speed = 2
+	/// are we currently spinning the bola
+	var/spinning = FALSE
 
 /obj/item/restraints/legcuffs/bola/Initialize(mapload)
 	. = ..()
@@ -177,6 +179,8 @@
 		INVOKE_ASYNC(src, .proc/spin_up)
 
 /obj/item/restraints/legcuffs/bola/proc/spin_up()
+	if(spinning)
+		return
 	var/mob/living/L = loc // can only be called if the mob is holding the bola.
 	var/range_increment = round(max_range / max_spins)
 	var/speed_increment = round(max_speed / max_spins)
@@ -184,6 +188,7 @@
 	item_state = "[initial(item_state)]_spin"
 	L.update_inv_r_hand()
 	L.update_inv_l_hand()
+	spinning = TRUE
 	for(var/i in 1 to max_spins)
 		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, .proc/can_spin_check, L))))
 			reset_values(L)
@@ -202,6 +207,7 @@
 	throw_range = initial(throw_range)
 	throw_speed = initial(throw_speed)
 	item_state = initial(item_state)
+	spinning = FALSE
 	if(user)
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
@@ -209,6 +215,8 @@
 /// if it returns TRUE, it breaks the loop, returning FALSE, continues the loop
 /obj/item/restraints/legcuffs/bola/proc/can_spin_check(mob/living/user)
 	if(user.get_active_hand() != src)
+		return TRUE
+	if(!user.in_throw_mode)
 		return TRUE
 	return FALSE
 
