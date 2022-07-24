@@ -113,7 +113,7 @@
 	if(stat & NOPOWER || !recharge_console)
 		return
 	if(!recharging_mecha)
-		recharging_mecha = locate(/obj/mecha) in recharging_turf
+		update_recharging_mecha()
 		if(recharging_mecha)
 			recharge_console.update_icon()
 	if(recharging_mecha && recharging_mecha.cell)
