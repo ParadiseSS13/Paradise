@@ -1558,6 +1558,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -2055,17 +2056,20 @@
 	},
 /area/hallway/primary/central)
 "awB" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "arrivals_home_inner";
-	locked = 1;
-	frequency = 1379
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "botblue"
 	},
-/area/hallway/secondary/entry)
+/area/hydroponics)
 "awD" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -11436,19 +11440,13 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cmH" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "arrivals_home_inner";
-	locked = 1;
-	frequency = 1379
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
-	},
-/area/hallway/secondary/entry)
+/turf/simulated/floor/plating/asteroid,
+/area/hallway/primary/starboard)
 "cmV" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -21006,6 +21004,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"emY" = (
+/obj/effect/landmark/start/botanist,
+/turf/simulated/floor/plasteel,
+/area/hydroponics)
 "ene" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
@@ -22777,6 +22779,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -24248,6 +24251,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"eWZ" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "arrivals_home_inner";
+	locked = 1;
+	frequency = 1379
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
+/area/hallway/secondary/entry)
 "eXa" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -24896,13 +24913,19 @@
 	name = "\improper AI Satellite Service"
 	})
 "fdk" = (
-/obj/structure/sign/botany{
-	icon_state = "hydro2";
-	pixel_y = -32
+/obj/machinery/light{
+	dir = 1
 	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/hydroponics)
 "fdl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -24924,13 +24947,15 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "fds" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+/obj/machinery/airlock_sensor{
+	id_tag = "admin_home_sensor";
+	pixel_x = -28
 	},
-/area/hallway/primary/starboard)
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/hallway/secondary/entry)
 "fdF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -31043,9 +31068,13 @@
 /turf/simulated/floor/plating,
 /area/security/evidence)
 "gpn" = (
-/obj/effect/landmark/start/botanist,
-/turf/simulated/floor/plasteel,
-/area/hydroponics)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/hallway/primary/starboard)
 "gpr" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -61775,13 +61804,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "myL" = (
-/obj/machinery/airlock_sensor{
-	id_tag = "admin_home_sensor";
-	pixel_x = -28
+/obj/machinery/door/airlock/external{
+	id_tag = "arrivals_home_inner";
+	locked = 1;
+	frequency = 1379
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+	icon_state = "delivery"
 	},
 /area/hallway/secondary/entry)
 "myN" = (
@@ -72302,15 +72333,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/medical/research)
-"oGR" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
-	},
-/area/hallway/secondary/entry)
 "oGV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -75660,17 +75682,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/psych)
-"prr" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	frequency = 1379;
-	id_tag = "admin_home_pump"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
-	},
-/area/hallway/secondary/entry)
 "prt" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -80335,20 +80346,20 @@
 	},
 /area/hallway/primary/starboard/east)
 "qqr" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "admin_home";
-	pixel_x = 32;
-	req_one_access_txt = "160;19";
-	tag_chamber_sensor = "admin_home_sensor";
-	tag_interior_door = "arrivals_home_inner";
-	tag_airpump = "admin_home_pump";
-	tag_exterior_door = "admin_home"
+/obj/machinery/camera{
+	c_tag = "Hydroponics North"
 	},
+/obj/machinery/requests_console{
+	department = "Hydroponics";
+	departmentType = 2;
+	name = "Hydroponics Requests Console";
+	pixel_y = 30
+	},
+/obj/machinery/chem_master,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "barber"
+	icon_state = "dark"
 	},
-/area/hallway/secondary/entry)
+/area/hydroponics)
 "qqu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -82767,21 +82778,6 @@
 	icon_state = "podfloor_dark"
 	},
 /area/engine/engineering)
-"qQw" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "botblue"
-	},
-/area/hydroponics)
 "qQE" = (
 /obj/structure/chair{
 	dir = 8
@@ -86337,13 +86333,13 @@
 	},
 /area/hallway/primary/starboard)
 "rEC" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
+/obj/structure/sign/botany{
+	icon_state = "hydro2";
+	pixel_y = -32
 	},
-/turf/simulated/floor/plating/asteroid,
-/area/hallway/primary/starboard)
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "rEN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -91103,9 +91099,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
 /turf/simulated/floor/plating,
 /area/security/permasolitary)
 "sDt" = (
@@ -92392,17 +92385,14 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/storage)
 "sPX" = (
-/obj/machinery/door/airlock/glass{
-	name = "Hydroponics Storeroom";
-	req_access_txt = "35"
+/obj/machinery/light/small{
+	dir = 8
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	dir = 8;
+	icon_state = "barber"
 	},
-/area/hydroponics)
+/area/hallway/secondary/entry)
 "sQc" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -99651,6 +99641,18 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/genetics)
+"uqe" = (
+/obj/machinery/door/airlock/glass{
+	name = "Hydroponics Storeroom";
+	req_access_txt = "35"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
+/area/hydroponics)
 "uqn" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -100969,20 +100971,6 @@
 /obj/machinery/monkey_recycler,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
-"uHy" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/hydroponics)
 "uHz" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -101137,9 +101125,6 @@
 	dir = 8
 	},
 /obj/structure/bed,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /turf/simulated/floor/plating,
 /area/security/permasolitary)
 "uJF" = (
@@ -102698,6 +102683,17 @@
 "vcC" = (
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
+"vcK" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1379;
+	id_tag = "admin_home_pump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/hallway/secondary/entry)
 "vcL" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -103979,6 +103975,21 @@
 	icon_state = "long"
 	},
 /area/hallway/primary/central/ne)
+"vor" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	id_tag = "admin_home";
+	pixel_x = 32;
+	req_one_access_txt = "160;19";
+	tag_chamber_sensor = "admin_home_sensor";
+	tag_interior_door = "arrivals_home_inner";
+	tag_airpump = "admin_home_pump";
+	tag_exterior_door = "admin_home"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/hallway/secondary/entry)
 "voz" = (
 /obj/machinery/chem_dispenser,
 /obj/machinery/camera{
@@ -104773,21 +104784,6 @@
 	icon_state = "blue"
 	},
 /area/bridge/meeting_room)
-"vwo" = (
-/obj/machinery/camera{
-	c_tag = "Hydroponics North"
-	},
-/obj/machinery/requests_console{
-	department = "Hydroponics";
-	departmentType = 2;
-	name = "Hydroponics Requests Console";
-	pixel_y = 30
-	},
-/obj/machinery/chem_master,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/hydroponics)
 "vwq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -124104,8 +124100,8 @@ ktm
 xwt
 rQu
 ghi
-oGR
-myL
+sPX
+fds
 vtL
 duo
 duo
@@ -124360,9 +124356,9 @@ xwt
 wRa
 xwt
 rQu
-prr
-prr
-qqr
+vcK
+vcK
+vor
 sTz
 jDn
 duo
@@ -124617,8 +124613,8 @@ tbl
 uJH
 tbl
 adJ
-cmH
-awB
+eWZ
+myL
 adJ
 cBP
 duo
@@ -161384,7 +161380,7 @@ gIy
 aNg
 aNg
 aNg
-fdk
+rEC
 dke
 dke
 rvd
@@ -162671,11 +162667,11 @@ aNg
 aNg
 aNg
 dke
-uHy
+fdk
 qsI
 cpl
 cpl
-qQw
+awB
 cpl
 cpl
 vfP
@@ -162928,7 +162924,7 @@ duo
 duo
 duo
 dke
-vwo
+qqr
 qsI
 cpl
 cpl
@@ -163443,7 +163439,7 @@ duo
 duo
 rvd
 wOC
-gpn
+emY
 aOY
 nuT
 ocB
@@ -164727,10 +164723,10 @@ rvd
 wxK
 kyF
 hOS
-sPX
+uqe
 hfV
 hfV
-fds
+gpn
 ryJ
 mcB
 fvm
@@ -164992,7 +164988,7 @@ cIN
 jQG
 xCJ
 tUm
-rEC
+cmH
 tGj
 gac
 bVS
