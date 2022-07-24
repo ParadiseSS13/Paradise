@@ -154,7 +154,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/activity = TUMOR_INACTIVE
 	var/boosted = FALSE
 	var/times_won = 0
-	var/mob/living/carbon/human/activator
+	var/mob/living/carbon/human/activator = null
 	var/mob/living/simple_animal/hostile/asteroid/elite/mychild = null
 	var/gps
 	///List of all potentially spawned elites
@@ -183,7 +183,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
 				to_chat(mychild, "<span class='warning'>Someone has activated your tumor.  You will be returned to fight shortly, get ready!</span>")
-			addtimer(CALLBACK(src, .proc/return_elite), 30)
+			addtimer(CALLBACK(src, .proc/return_elite), 3 SECONDS)
 			INVOKE_ASYNC(src, .proc/arena_checks)
 		if(TUMOR_INACTIVE)
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
@@ -195,11 +195,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			visible_message("<span class='userdanger'>[src] begins to convulse. Your instincts tell you to step back.</span>")
 			make_activator(user)
 			if(!boosted)
-				addtimer(CALLBACK(src, .proc/spawn_elite), 30)
+				addtimer(CALLBACK(src, .proc/spawn_elite), 3 SECONDS)
 				return
 			visible_message("<span class='danger'>Something within [src] stirs...</span>")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a lavaland elite?", ROLE_ELITE, TRUE, 10 SECONDS, source = src)
-			if(candidates.len)
+			if(length(candidates))
 				audible_message("<span class='userdanger'>The stirring sounds increase in volume!</span>")
 				elitemind = pick(candidates)
 				elitemind.playsound_local(get_turf(elitemind), 'sound/magic/cult_spell.ogg', 40, 0)
@@ -208,7 +208,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					While the opponent might have an upper hand with  powerful mining equipment and tools, you have great power normally limited by AI mobs.\n\
 					If you want to win, you'll have to use your powers in creative ways to ensure the kill. It's suggested you try using them all as soon as possible.\n\
 					Should you win, you'll receive extra information regarding what to do after. Good luck!</b>")
-				addtimer(CALLBACK(src, .proc/spawn_elite, elitemind), 100)
+				addtimer(CALLBACK(src, .proc/spawn_elite, elitemind), 10 SECONDS)
 			else
 				visible_message("<span class='warning'>The stirring stops, and nothing emerges.  Perhaps try again later.</span>")
 				activity = TUMOR_INACTIVE
@@ -294,7 +294,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	INVOKE_ASYNC(src, .proc/arena_trap)  //Gets another arena trap queued up for when this one runs out.
 	INVOKE_ASYNC(src, .proc/border_check)  //Checks to see if our fighters got out of the arena somehow.
 	if(!QDELETED(src))
-		addtimer(CALLBACK(src, .proc/arena_checks), 50)
+		addtimer(CALLBACK(src, .proc/arena_checks), 5 SECONDS)
 
 /obj/structure/elite_tumor/proc/fighters_check()
 	if(QDELETED(mychild) || mychild.stat == DEAD)

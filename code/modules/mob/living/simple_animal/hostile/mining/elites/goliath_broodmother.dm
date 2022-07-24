@@ -110,7 +110,7 @@
 			new /obj/effect/temp_visual/goliath_tentacle/broodmother(t, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/tentacle_patch(target)
-	ranged_cooldown = world.time + 15 * revive_multiplier()
+	ranged_cooldown = world.time + 1.5 SECONDS * revive_multiplier()
 	var/tturf = get_turf(target)
 	if(!isturf(tturf))
 		return
@@ -118,10 +118,10 @@
 	new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(tturf, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/spawn_children(target)
-	ranged_cooldown = world.time + 40 * revive_multiplier()
+	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
 	visible_message("<span class='danger'>The ground churns behind [src]!</span>")
 	for(var/i in 1 to 2)
-		if(children_list.len >= 8)
+		if(length(children_list) >= 8)
 			return
 		var/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/newchild = new /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child(loc)
 		newchild.GiveTarget(target)
@@ -131,7 +131,7 @@
 		children_list += newchild
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/rage()
-	ranged_cooldown = world.time + 100 * revive_multiplier()
+	ranged_cooldown = world.time + 10 SECONDS * revive_multiplier()
 	//playsound(src,'sound/voice/insane_low_laugh.ogg', 200, 1) find sound
 	visible_message("<span class='warning'>[src] starts picking up speed!</span>")
 	color = "#FF0000"
@@ -145,7 +145,7 @@
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/call_children()
-	ranged_cooldown = world.time + 60 * revive_multiplier()
+	ranged_cooldown = world.time + 6 SECONDS * revive_multiplier()
 	visible_message("<span class='warning'>The ground shakes near [src]!</span>")
 	var/list/directions = GLOB.cardinal.Copy() + GLOB.diagonals.Copy()
 	for(var/mob/child in children_list)
@@ -192,7 +192,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death()
 	. = ..()
-	if(mother != null)
+	if(!isnull(mother))
 		mother.children_list -= src
 	visible_message("<span class='warning'>[src] explodes!</span>")
 	explosion(src, flame_range = 3, adminlog = FALSE)
@@ -214,7 +214,7 @@
 		retract()
 	else
 		deltimer(timerid)
-		timerid = addtimer(CALLBACK(src, .proc/retract), 10, TIMER_STOPPABLE)
+		timerid = addtimer(CALLBACK(src, .proc/retract), 1 SECONDS, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/goliath_tentacle/broodmother/patch/Initialize(mapload, new_spawner)
 	. = ..()
@@ -264,4 +264,4 @@
 	use_time = world.time + 60 SECONDS
 
 /obj/item/crusher_trophy/broodmother_tongue/proc/remove_lava(mob/living/user)
-	user.weather_immunities += "lava"
+	user.weather_immunities -= "lava"

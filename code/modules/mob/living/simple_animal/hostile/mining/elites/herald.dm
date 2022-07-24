@@ -52,8 +52,8 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/death()
 	. = ..()
 	if(!is_mirror)
-		addtimer(CALLBACK(src, .proc/become_ghost), 8)
-	if(my_mirror != null)
+		addtimer(CALLBACK(src, .proc/become_ghost), 0.8 SECONDS)
+	if(!isnull(my_mirror))
 		qdel(my_mirror)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/become_ghost()
@@ -145,7 +145,7 @@
 		H.fire(set_angle)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_trishot(target)
-	ranged_cooldown = world.time + 30 * revive_multiplier()
+	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
@@ -180,7 +180,7 @@
 	addtimer(CALLBACK(src, .proc/unenrage), 20)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_teleshot(target)
-	ranged_cooldown = world.time + 30 * revive_multiplier()
+	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
