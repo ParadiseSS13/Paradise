@@ -59,7 +59,6 @@
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	icon_state = "[initial(icon_state)][on ? "-light":""]"
 	item_state = icon_state
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	. = ..()
