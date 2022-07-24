@@ -3,7 +3,7 @@
 	desc = "This spell opens nearby doors and does not require wizard garb."
 
 	school = "transmutation"
-	charge_max = 100
+	base_cooldown = 100
 	clothes_req = FALSE
 	invocation = "AULIE OXIN FIERA"
 	invocation_type = "whisper"
@@ -42,7 +42,7 @@
 	name = "Greater Knock"
 	desc = "On first cast, will remove access restrictions on all airlocks on the station, and announce this spell's use to the station. On any further cast, will open all doors in sight. Cannot be refunded once bought!"
 
-	charge_max = 200
+	base_cooldown = 200
 	invocation = "MAIOR OXIN FIERA"
 	invocation_type = "shout"
 	level_max = 0 //Cannot be improved, quality of life since can't be refunded

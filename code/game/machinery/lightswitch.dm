@@ -69,6 +69,15 @@
 		return
 	icon_state = "light[on]"
 
+/obj/machinery/light_switch/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	underlays += emissive_appearance(icon, "light_lightmask")
+
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
 	. += "A light switch. It is [on ? "on" : "off"]."
@@ -129,10 +138,12 @@
 	if(!otherarea)
 		if(powered(LIGHT))
 			stat &= ~NOPOWER
+			set_light(1, LIGHTING_MINIMUM_POWER)
 		else
 			stat |= NOPOWER
+			set_light(0)
 
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/light_switch/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

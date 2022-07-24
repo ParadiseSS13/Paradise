@@ -21,6 +21,7 @@
 	closingLayer = CLOSED_FIREDOOR_LAYER
 	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70)
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
