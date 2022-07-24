@@ -53,8 +53,14 @@
 	. = ..()
 	if(!is_mirror)
 		addtimer(CALLBACK(src, .proc/become_ghost), 0.8 SECONDS)
-	if(!isnull(my_mirror))
-		qdel(my_mirror)
+		if(my_mirror)
+			QDEL_NULL(my_mirror)
+
+
+/mob/living/simple_animal/hostile/asteroid/elite/herald/Destroy()
+	if(my_mirror)
+		QDEL_NULL(my_mirror)
+	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/become_ghost()
 	icon_state = "herald_ghost"

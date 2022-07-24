@@ -74,6 +74,11 @@
 	chosen_message = "<span class='boldwarning'>Your head will spew smoke in an area, wherever it may be.</span>"
 	chosen_attack_num = SPEW_SMOKE
 
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Destroy()
+	myhead = null
+	mypile = null
+	return ..()
+
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/OpenFire()
 	if(client)
 		switch(chosen_attack)
