@@ -234,7 +234,7 @@
 	P.info = t1
 	P.name = "paper- 'Transcript'"
 	user.put_in_hands(P)
-    cooldown = world.time + 3 SECONDS
+	cooldown = world.time + 3 SECONDS
 
 /obj/item/taperecorder/proc/eject(mob/user)
 	if(mytape && !user.incapacitated())
