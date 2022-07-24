@@ -208,7 +208,7 @@
 	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth")
 
 /datum/language/vulpkanin/get_random_name(gender)
-	var/new_name = ""
+	var/new_name
 	if(gender == FEMALE)
 		new_name = pick(GLOB.first_names_female_vulp)
 	else
@@ -316,7 +316,7 @@
 	syllables = list("blob","plop","pop","bop","boop")
 
 /datum/language/slime/get_random_name(gender)
-	var/new_name = ""
+	var/new_name
 	if(gender == FEMALE)
 		new_name = pick(GLOB.first_names_female_slime)
 	else
