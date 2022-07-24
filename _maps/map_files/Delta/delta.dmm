@@ -54325,6 +54325,10 @@
 	dir = 8
 	},
 /obj/structure/closet/athletic_mixed,
+/obj/machinery/poolcontroller{
+	srange = 7;
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -96384,6 +96388,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"uAO" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/mob/living/simple_animal/crab/Coffee,
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/crew_quarters/fitness)
 "uAP" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -153145,7 +153159,7 @@ ctz
 cFK
 mnI
 cGW
-kfE
+uAO
 jpo
 cuM
 cDr
