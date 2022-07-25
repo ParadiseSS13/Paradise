@@ -35,6 +35,15 @@
 	RefreshParts()
 	update_recharge_turf()
 
+/obj/machinery/mech_bay_recharge_port/Destroy()
+	if(recharge_console)
+		recharge_console.recharge_port = null
+		recharge_console.update_icon()
+	recharge_console = null
+	recharging_mecha = null
+	recharging_turf = null
+	return ..()
+
 /obj/machinery/mech_bay_recharge_port/proc/update_recharge_turf()
 	recharging_turf = get_step(loc, dir)
 
@@ -51,9 +60,24 @@
 	RefreshParts()
 	update_recharge_turf()
 
+/obj/machinery/mech_bay_recharge_port/proc/update_recharging_mecha()
+	if(recharging_mecha)
+		if(recharging_mecha.loc == recharging_turf)
+			return  // no need to update anything
+		// it wandered away
+		UnregisterSignal(recharging_mecha, COMSIG_PARENT_QDELETING)
+		recharging_mecha = null
+	recharging_mecha = locate(/obj/mecha) in recharging_turf
+	if(recharging_mecha)
+		// so that we don't hold references to it after it's gone, and not causing GC issues
+		RegisterSignal(recharging_mecha, COMSIG_PARENT_QDELETING, .proc/on_mecha_qdel)
+
+/obj/machinery/mech_bay_recharge_port/proc/on_mecha_qdel()
+	recharging_mecha = null
+
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated/process()
 	if(!recharging_mecha)
-		recharging_mecha = locate(/obj/mecha) in recharging_turf
+		update_recharging_mecha()
 	if(recharging_mecha && recharging_mecha.cell)
 		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
@@ -85,17 +109,11 @@
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/mech_bay_recharge_port/Destroy()
-	if(recharge_console)
-		recharge_console.recharge_port = null
-		recharge_console.update_icon()
-	return ..()
-
 /obj/machinery/mech_bay_recharge_port/process()
 	if(stat & NOPOWER || !recharge_console)
 		return
 	if(!recharging_mecha)
-		recharging_mecha = locate(/obj/mecha) in recharging_turf
+		update_recharging_mecha()
 		if(recharging_mecha)
 			recharge_console.update_icon()
 	if(recharging_mecha && recharging_mecha.cell)
