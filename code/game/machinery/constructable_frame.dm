@@ -121,6 +121,15 @@
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
 				A.amount = 5
 				return
+			if(istype(P, /obj/item/wrench))
+				playsound(src.loc, P.usesound, 75, 1)
+				if(anchored == 1)
+					to_chat(user, "<span class='notice'>You have detached the frame</span>")
+					anchored = 0
+				else
+					to_chat(user, "<span class='notice'>You have secured the frame</span>")
+					anchored = 1
+				return
 		if(3)
 			if(istype(P, /obj/item/crowbar))
 				playsound(src.loc, P.usesound, 50, 1)
