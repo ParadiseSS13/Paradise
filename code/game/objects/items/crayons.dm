@@ -293,9 +293,10 @@
 					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
 						C.Confused(6 SECONDS)
 						C.Weaken(6 SECONDS)
-				C.lip_style = "spray_face"
-				C.lip_color = colour
-				C.update_body()
+				if(ishuman(target)) //Xenos aren't set up for this
+					C.lip_style = "spray_face"
+					C.lip_color = colour
+					C.update_body()
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
