@@ -34918,10 +34918,6 @@
 /area/security/detectives_office)
 "bHK" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 32;
-	name = "north bump"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/security/detectives_office)
 "bHL" = (
@@ -34997,10 +34993,6 @@
 /obj/item/paper_bin,
 /obj/structure/table/reinforced,
 /obj/item/pen,
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 32;
-	name = "north bump"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -42689,10 +42681,6 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 32;
-	name = "north bump"
-	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain/bedroom)
 "bYz" = (
@@ -43501,6 +43489,10 @@
 /area/crew_quarters/captain/bedroom)
 "cat" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/newscaster/security_unit{
+	pixel_x = 32;
+	name = "east bump"
+	},
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain/bedroom)
 "cau" = (
@@ -46131,6 +46123,10 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/loading_area{
 	dir = 8
+	},
+/obj/machinery/newscaster{
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
@@ -80105,6 +80101,10 @@
 	pixel_y = 24
 	},
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/newscaster{
+	name = "east bump";
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "dFc" = (
@@ -80455,10 +80455,6 @@
 "dGh" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
-	},
-/obj/machinery/newscaster{
-	name = "west bump";
-	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/aft)
@@ -81926,6 +81922,10 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dJC" = (
+/obj/machinery/newscaster{
+	name = "north bump";
+	pixel_y = 32
+	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	name = "Chapel Junction";
@@ -88208,14 +88208,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/lawoffice)
-"evC" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/machinery/newscaster{
-	name = "east bump";
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit)
 "ewj" = (
 /obj/structure/railing{
 	dir = 1
@@ -89460,10 +89452,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/sleep)
-"gXT" = (
-/obj/machinery/ai_status_display,
-/turf/simulated/wall,
-/area/hallway/primary/central)
 "haD" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -93206,9 +93194,9 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "oDy" = (
-/obj/machinery/newscaster/security_unit{
-	pixel_y = -32;
-	name = "south bump"
+/obj/machinery/newscaster{
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
@@ -97760,6 +97748,10 @@
 	icon_state = "cmo"
 	},
 /area/medical/biostorage)
+"xKV" = (
+/obj/machinery/ai_status_display,
+/turf/simulated/wall/r_wall,
+/area/crew_quarters/heads/hop)
 "xKW" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
@@ -133552,8 +133544,8 @@ bKE
 bKE
 bKE
 bHj
-bSE
-gXT
+xKV
+bsv
 cgE
 btH
 btH
@@ -137484,7 +137476,7 @@ dLH
 dMr
 dPa
 dPa
-evC
+dPa
 uFa
 dKo
 dNb
