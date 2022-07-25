@@ -99,8 +99,8 @@
 	knife_x_offset = 26
 	knife_y_offset = 12
 
-/obj/item/gun/projectile/automatic/c20r/New()
-	..()
+/obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/gun/projectile/automatic/c20r/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
@@ -159,10 +159,14 @@
 	burst_size = 3
 	fire_delay = 2
 
-/obj/item/gun/projectile/automatic/m90/New()
-	..()
+/obj/item/gun/projectile/automatic/m90/Initialize(mapload)
+	. = ..()
 	underbarrel = new /obj/item/gun/projectile/revolver/grenadelauncher(src)
 	update_icon()
+
+/obj/item/gun/projectile/automatic/m90/Destroy()
+	qdel(underbarrel)
+	return ..()
 
 /obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
 	if(select == 2)
@@ -265,8 +269,8 @@
 	fire_delay = 0
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/New()
-	..()
+/obj/item/gun/projectile/automatic/shotgun/bulldog/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_overlays()

@@ -366,6 +366,10 @@
 	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src)
 
+/// called after an items throw is ended.
+/atom/movable/proc/end_throw()
+	return
+
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)

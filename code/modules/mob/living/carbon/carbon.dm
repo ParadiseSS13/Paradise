@@ -617,6 +617,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		throw_mode_off()
 	else
 		throw_mode_on()
+	var/obj/item/I = get_active_hand()
+	if(I)
+		SEND_SIGNAL(I, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
 
 /mob/living/carbon/proc/throw_mode_off()
 	in_throw_mode = FALSE
