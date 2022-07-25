@@ -102,18 +102,20 @@ const getKeyData = (e) => {
 
 const keyCodeToByond = keyCode => {
   const dict = {16 : 'Shift',
-              17 : 'Ctrl',
-              18 : 'Alt',
-              33 : 'Northeast',
-              34 : 'Southeast',
-              35 : 'Southwest',
-              36 : 'Northwest',
-              37 : 'West',
-              38 : 'North',
-              39 : 'East',
-              40 : 'South',
-              45 : 'Insert',
-              46 : 'Delete'}
+    17 : 'Ctrl',
+    18 : 'Alt',
+    33 : 'Northeast',
+    34 : 'Southeast',
+    35 : 'Southwest',
+    36 : 'Northwest',
+    37 : 'West',
+    38 : 'North',
+    39 : 'East',
+    40 : 'South',
+    45 : 'Insert',
+    46 : 'Delete'
+  }
+
   if (dict[keyCode]) {
     return dict[keyCode];
   }
