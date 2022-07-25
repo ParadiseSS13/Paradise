@@ -539,10 +539,10 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(src, TRAIT_KNOCKEDOUT, "[id]")
+	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
 
 /datum/status_effect/incapacitating/sleeping/on_remove()
-	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, "[id]")
+	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
 	return ..()
 
 /datum/status_effect/incapacitating/sleeping/tick()
