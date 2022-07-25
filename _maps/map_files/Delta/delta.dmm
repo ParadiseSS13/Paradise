@@ -92867,6 +92867,18 @@
 /obj/machinery/optable,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/surgery1)
+"nTR" = (
+/obj/machinery/camera{
+	c_tag = "Central Ring Hallway West";
+	dir = 8
+	},
+/obj/machinery/ai_status_display{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "nXf" = (
 /obj/machinery/computer/security/wooden_tv,
 /turf/simulated/floor/carpet,
@@ -97748,10 +97760,6 @@
 	icon_state = "cmo"
 	},
 /area/medical/biostorage)
-"xKV" = (
-/obj/machinery/ai_status_display,
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/heads/hop)
 "xKW" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
@@ -133287,7 +133295,7 @@ bIX
 bIX
 bIX
 bSz
-bSD
+nTR
 bUM
 bWM
 bWM
@@ -133544,7 +133552,7 @@ bKE
 bKE
 bKE
 bHj
-xKV
+bSE
 bsv
 cgE
 btH

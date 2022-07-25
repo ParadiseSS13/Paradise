@@ -13847,9 +13847,7 @@
 /area/security/detectives_office)
 "aKC" = (
 /obj/machinery/photocopier,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -29503,6 +29501,10 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/machinery/newscaster{
+	name = "east bump";
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "btU" = (
@@ -35570,6 +35572,10 @@
 /area/hallway/primary/starboard/east)
 "bHG" = (
 /obj/machinery/bodyscanner,
+/obj/machinery/newscaster{
+	name = "south bump";
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63349,20 +63355,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
-"cKY" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology)
 "cKZ" = (
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/engine,
@@ -64243,10 +64235,6 @@
 	req_access_txt = "55"
 	},
 /obj/effect/decal/warning_stripes/northeast,
-/obj/machinery/newscaster{
-	name = "east bump";
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "cNm" = (
@@ -66147,6 +66135,10 @@
 "cRx" = (
 /obj/machinery/processor{
 	name = "Slime Processor"
+	},
+/obj/machinery/newscaster{
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -77660,13 +77652,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
-"fLm" = (
-/obj/machinery/newscaster{
-	name = "south bump";
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/locker)
 "fLH" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -83388,15 +83373,6 @@
 	icon_state = "darkred"
 	},
 /area/security/brig)
-"wBc" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "wBy" = (
 /obj/machinery/light{
 	dir = 4
@@ -101127,7 +101103,7 @@ bnr
 bnD
 bnD
 bvk
-fLm
+bnD
 bvs
 bBN
 byn
@@ -124265,7 +124241,7 @@ bAr
 bHy
 bAk
 bEu
-wBc
+aZT
 aZT
 aZT
 aZT
@@ -129184,7 +129160,7 @@ aaa
 aaa
 aaa
 cBR
-cKY
+cPp
 cEH
 cPp
 cEH
