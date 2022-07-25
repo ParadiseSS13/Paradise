@@ -62,7 +62,6 @@
 			times_rang = 0
 			return TRUE
 		return FALSE
-	return ..()
 
 // Deconstruct
 /obj/item/desk_bell/wrench_act(mob/living/user, obj/item/tool)
