@@ -68,8 +68,9 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 /mob/living/simple_animal/slime/admin_Freeze(admin)
 	if(..())
 		adjustHealth(1000) //arbitrary large value
-	else
-		revive()
+		return
+
+	revive()
 
 /mob/living/simple_animal/admin_Freeze(admin)
 	if(!..())
