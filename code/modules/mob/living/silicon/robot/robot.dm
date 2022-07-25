@@ -984,6 +984,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return 0
 
 /mob/living/silicon/robot/update_icons()
+	if(frozen)
+		return
 	overlays.Cut()
 	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)

@@ -38,18 +38,18 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 		GLOB.frozen_atom_list += src
 
 		var/obj/effect/overlay/adminoverlay/AO = new
-		if(skip_overlays)
+		if(!skip_overlays)
 			overlays += AO
 
 		anchored = TRUE
 		admin_prev_sleeping = AmountSleeping()
-		frozen = AO
+		frozen = TRUE
 		PermaSleeping()
 
 	else
 		GLOB.frozen_atom_list -= src
 
-		if(skip_overlays)
+		if(!skip_overlays)
 			overlays -= frozen
 
 		anchored = FALSE
@@ -66,20 +66,22 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 
 /mob/living/simple_animal/slime/admin_Freeze(admin)
-	if(..()) // The result of the parent call here will be the value of the mob's `frozen` variable after they get (un)frozen.
+	if(..())
 		adjustHealth(1000) //arbitrary large value
 	else
 		revive()
 
-/mob/living/simple_animal/var/admin_prev_health = null
-
 /mob/living/simple_animal/admin_Freeze(admin)
-	if(..()) // The result of the parent call here will be the value of the mob's `frozen` variable after they get (un)frozen.
-		admin_prev_health = health
-		health = 0
-	else
+	if(!..())
 		revive()
-		overlays.Cut()
+
+/mob/living/silicon/admin_Freeze(admin)
+	if(!..())
+		revive()
+
+/mob/living/carbon/alien/admin_Freeze(admin)
+	if(!..())
+		revive()
 
 //////////////////////////Freeze Mech
 

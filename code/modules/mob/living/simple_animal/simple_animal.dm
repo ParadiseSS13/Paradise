@@ -181,12 +181,13 @@
 	if(status_flags & GODMODE)
 		return
 	if(stat != DEAD)
-		if(health <= 0)
+		if(health <= 0 && !frozen)
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 		else
 			if(IsSleeping() && (stat == CONSCIOUS))
 				KnockOut()
+				create_debug_log("fell unconscious, trigger reason: [reason]")
 			else
 				WakeUp()
 				create_debug_log("woke up, trigger reason: [reason]")
@@ -615,6 +616,8 @@
 		real_name = P.tagname
 
 /mob/living/simple_animal/regenerate_icons()
+	if(frozen)
+		return
 	cut_overlays()
 	if(pcollar && collar_type)
 		add_overlay("[collar_type]collar")

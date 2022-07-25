@@ -12,6 +12,8 @@
 	var/list/overlays_standing[X_TOTAL_LAYERS]
 
 /mob/living/carbon/alien/humanoid/update_icons()
+	if(frozen)
+		return
 	overlays.Cut()
 	for(var/image/I in overlays_standing)
 		overlays += I
