@@ -4,7 +4,7 @@
 
 /obj/item/reagent_containers/dropper
 	name = "dropper"
-	desc = "A dropper. Transfers 5 units."
+	desc = "A dropper. Transfers up to 5 units."
 	icon_state = "dropper"
 	item_state = "dropper"
 	belt_icon = "dropper"
@@ -98,14 +98,14 @@
 
 /obj/item/reagent_containers/dropper/cyborg
 	name = "Industrial Dropper"
-	desc = "A larger dropper. Transfers 10 units."
+	desc = "A larger dropper. Transfers up to 10 units."
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 	volume = 10
 
 /obj/item/reagent_containers/dropper/precision
 	name = "pipette"
-	desc = "A high precision pippette. Holds 1 unit."
+	desc = "A high precision pippette. Transfers up to 1 unit."
 	icon_state = "pipette"
 	possible_transfer_amounts = list(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
 	volume = 1
