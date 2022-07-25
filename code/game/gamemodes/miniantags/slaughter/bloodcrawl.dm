@@ -68,13 +68,16 @@
 			for(var/i in 1 to 3)
 				playsound(get_turf(src), sound, 100, 1)
 				sleep(30)
-			if(kidnapped)
-				to_chat(src, "<B>You devour [kidnapped]. Your health is fully restored.</B>")
-				adjustBruteLoss(-1000)
-				adjustFireLoss(-1000)
-				adjustOxyLoss(-1000)
-				adjustToxLoss(-1000)
 
+			if(kidnapped)
+				if(ishuman(kidnapped))
+					to_chat(src, "<B>You devour [kidnapped]. Your health is fully restored.</B>")
+					adjustBruteLoss(-1000)
+					adjustFireLoss(-1000)
+					adjustOxyLoss(-1000)
+					adjustToxLoss(-1000)
+				else
+					to_chat(src, "<B>You devour [kidnapped], but this measly meal does not sate your appetite.")
 				if(istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
 					var/mob/living/simple_animal/slaughter/demon = src
 					demon.devoured++
