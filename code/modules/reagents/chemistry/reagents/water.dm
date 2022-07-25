@@ -115,7 +115,7 @@
 		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc coagulated
 		if(data["species_only"] == TRUE && data["species"] != mix_data["species"] || mix_data["species_only"] == TRUE && data["species"] != mix_data["species"] == "Vox") // Vox blood with non vox blood
 			data["species"] = "Cogulated blood"
-			data["blood_type"] = "<span class='warning'>UNUSEABLE!</span>"
+			data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
 			data["species_only"] = TRUE
 		else if(data["species"] != mix_data["species"])
 			data["species"] = "Mixed Humanoid blood"
