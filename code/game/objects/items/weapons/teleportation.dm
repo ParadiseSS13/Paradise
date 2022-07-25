@@ -10,7 +10,7 @@
 /obj/item/locator
 	name = "locator"
 	desc = "Used to track those with locater implants."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/implants.dmi'
 	icon_state = "locator"
 	var/temp = null
 	var/frequency = 1451
@@ -73,7 +73,7 @@ Frequency:
 				var/turf/Tr = get_turf(T)
 
 				if(Tr && Tr.z == sr.z)
-					temp += "[T.id]: [Tr.x], [Tr.y], [Tr.z]<BR>"
+					temp += " [Tr.x], [Tr.y], [Tr.z]<BR>"
 
 			temp += "<B>You are at \[[sr.x],[sr.y],[sr.z]\]</B>."
 			temp += "<BR><BR><A href='byond://?src=[UID()];refresh=1'>Refresh</A><BR>"

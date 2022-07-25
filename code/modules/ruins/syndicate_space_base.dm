@@ -52,7 +52,6 @@
 	belt = /obj/item/storage/belt/utility/full/multitool
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/syndicate/researcher
-	implants = list(/obj/item/implant/weapons_auth)
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/flashlight = 1,
