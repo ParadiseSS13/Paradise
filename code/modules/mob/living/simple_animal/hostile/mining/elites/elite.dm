@@ -92,6 +92,18 @@
 	if(del_on_death)
 		maxHealth -= damage / 3
 
+/mob/living/simple_animal/hostile/asteroid/elite/ex_act(severity, origin) //No surrounding the tumor with gibtonite and one shotting them.
+	switch(severity)
+		if(1)
+			adjustBruteLoss(75)
+
+		if(2)
+			adjustBruteLoss(50)
+
+		if(3)
+			adjustBruteLoss(25)
+
+
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
 
