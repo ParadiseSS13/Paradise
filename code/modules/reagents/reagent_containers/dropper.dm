@@ -105,7 +105,7 @@
 
 /obj/item/reagent_containers/dropper/precision
 	name = "pipette"
-	desc = "A high precision pippette. Transfers up to 1 unit."
+	desc = "A high precision pipette. Transfers up to 1 unit."
 	icon_state = "pipette"
 	possible_transfer_amounts = list(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
 	volume = 1
