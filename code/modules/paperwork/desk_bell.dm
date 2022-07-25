@@ -75,7 +75,7 @@
 
 /// Check if the clapper breaks, and if it does, break it
 /obj/item/desk_bell/proc/check_clapper(mob/living/user)
-	if((prob(times_rang / 50)) && ring_cooldown_length)
+	if(prob(times_rang / 50) && ring_cooldown_length)
 		to_chat(user, "<span class='notice'>You hear [src]'s clapper fall off of its hinge. Nice job, you broke it.</span>")
 		broken_ringer = TRUE
 
