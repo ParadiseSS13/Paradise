@@ -4836,6 +4836,9 @@
 	c_tag = "Detective's Office";
 	dir = 8
 	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-24"
+	},
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "axH" = (
@@ -11744,6 +11747,7 @@
 	dir = 4;
 	pixel_x = -32
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "aRO" = (
@@ -12821,6 +12825,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -54635,6 +54642,10 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -63042,11 +63053,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 1;
+	name = "Detective";
+	sortType = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -66249,6 +66264,7 @@
 /area/assembly/robotics)
 "jIf" = (
 /obj/machinery/hologram/holopad,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "jIs" = (
@@ -75737,6 +75753,10 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -78481,6 +78501,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -81245,6 +81268,7 @@
 	pixel_x = -28;
 	pixel_y = -7
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "rpG" = (
@@ -84902,6 +84926,10 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -87286,6 +87314,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "usg" = (
@@ -89174,6 +89205,9 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -92837,9 +92871,8 @@
 	},
 /area/engine/break_room)
 "xta" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-24"
-	},
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "xtp" = (
@@ -124667,7 +124700,7 @@ mwK
 jMs
 lDa
 uGy
-rFq
+ckr
 cjQ
 qeK
 apz
@@ -125438,7 +125471,7 @@ mwK
 arP
 nvY
 uGy
-oNr
+wyE
 apP
 hjE
 awp
@@ -125695,7 +125728,7 @@ mwK
 gvd
 aSm
 aSm
-oNr
+wyE
 apP
 uak
 awp
