@@ -17,12 +17,10 @@
 		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStunned() || IsWeakened() || getOxyLoss() > maxHealth * 0.5) // Borgs need to be able to sleep for adminfreeze
 			if(stat == CONSCIOUS)
 				KnockOut()
-				update_headlamp()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
 		else
 			if(stat == UNCONSCIOUS)
 				WakeUp()
-				update_headlamp()
 				create_debug_log("woke up, trigger reason: [reason]")
 	else
 		if(health > 0)
