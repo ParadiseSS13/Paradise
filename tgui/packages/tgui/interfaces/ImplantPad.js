@@ -25,9 +25,9 @@ export const ImplantPad = (props, context) => {
                   {implant.name}
                 </Box>
                 <LabeledList>
-                  <LabeledListItem label="life">{implant.life}</LabeledListItem>
-                  <LabeledListItem label="notes">{implant.notes}</LabeledListItem>
-                  <LabeledListItem label="function">{implant.function}</LabeledListItem>
+                  <LabeledListItem label="Life">{implant.life}</LabeledListItem>
+                  <LabeledListItem label="Notes">{implant.notes}</LabeledListItem>
+                  <LabeledListItem label="Function">{implant.function}</LabeledListItem>
                 </LabeledList>
               </>
             :
