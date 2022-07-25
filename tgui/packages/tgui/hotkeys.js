@@ -101,7 +101,8 @@ const getKeyData = (e) => {
 };
 
 const keyCodeToByond = keyCode => {
-  const dict = {16 : 'Shift',
+  const dict = {
+    16 : 'Shift',
     17 : 'Ctrl',
     18 : 'Alt',
     33 : 'Northeast',
