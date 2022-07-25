@@ -123,7 +123,7 @@
 		return 0
 	var/mob/living/L = target
 	var/mob/living/carbon/human/H
-	if(blocked < 100) // not completely blocked
+	if(blocked != INFINITY) // not completely blocked
 		if(damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
 			if(starting)
