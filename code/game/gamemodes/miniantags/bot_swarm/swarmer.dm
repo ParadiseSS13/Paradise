@@ -114,8 +114,8 @@
 	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
 	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Swarmer)</span>")
 
-/mob/living/simple_animal/hostile/swarmer/New()
-	..()
+/mob/living/simple_animal/hostile/swarmer/Initialize(mapload)
+	. = ..()
 	add_language("Swarmer", 1)
 	verbs -= /mob/living/verb/pulled
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
