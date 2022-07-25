@@ -1328,7 +1328,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(HALO_LAYER)
 
 
-/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null) // This part... never works for some reason.
+/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
 	if(..())
 		overlays_standing[FROZEN_LAYER] = mutable_appearance('icons/effects/effects.dmi', "admin", layer = -FROZEN_LAYER)
 		apply_overlay(FROZEN_LAYER)
