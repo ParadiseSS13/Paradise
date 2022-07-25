@@ -186,7 +186,7 @@
 
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/Destroy()
-	if(!isnull(mother))
+	if(!QDELETED(mother))
 		mother.children_list -= src
 	mother = null
 	return ..()
@@ -202,7 +202,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death()
 	. = ..()
-	if(!isnull(mother))
+	if(!QDELETED(mother))
 		mother.children_list -= src
 	visible_message("<span class='warning'>[src] explodes!</span>")
 	explosion(src, flame_range = 3, adminlog = FALSE)
