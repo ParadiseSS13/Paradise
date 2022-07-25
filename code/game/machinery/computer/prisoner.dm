@@ -26,7 +26,7 @@
 
 /obj/machinery/computer/prisoner/attack_hand(mob/user)
 	if(..())
-		return
+		return TRUE
 
 	ui_interact(user)
 
@@ -95,15 +95,16 @@
 	if(..())
 		return
 
+	add_fingerprint(usr)
+
 	if(ui_act_modal(action, params, ui))
 		return
 	if(ui_login_act(action, params))
-		add_fingerprint(usr)
 		return
 
 	var/mob/living/user = ui.user
 
-	add_fingerprint(usr)
+
 
 	switch(action)
 		if("id_card")
@@ -156,7 +157,7 @@
 					implant.warn_cooldown = world.time + IMPLANT_WARN_COOLDOWN
 					if(implant.imp_in)
 						var/mob/living/carbon/implantee = implant.imp_in
-						var/warning = answer
+						var/warning = copytext(sanitize(text2num(answer)), 1, MAX_NAME_LEN)
 						to_chat(implantee, "<span class='boldnotice'>Your skull vibrates violently as a loud announcement is broadcasted to you: '[warning]'</span>")
 				if("set_points")
 					if(isnull(text2num(answer)))
