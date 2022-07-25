@@ -72,7 +72,6 @@
 		new /obj/item/stack/sheet/metal(drop_location(), 2)
 		qdel(src)
 		return TRUE
-	return ..()
 
 /// Check if the clapper breaks, and if it does, break it
 /obj/item/desk_bell/proc/check_clapper(mob/living/user)
