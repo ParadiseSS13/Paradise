@@ -1462,3 +1462,9 @@
 
 /obj/item/paper/deltainfo/update_icon()
 	return
+
+/obj/item/paper/pamphletdeathsquad
+	icon_state = "pamphlet-ds"
+
+/obj/item/paper/pamphletdeathsquad/update_icon()
+	return
