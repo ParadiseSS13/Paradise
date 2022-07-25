@@ -75,14 +75,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 	if(!..())
 		revive()
 
-/mob/living/silicon/admin_Freeze(admin)
-	if(!..())
-		revive()
-
-/mob/living/carbon/alien/admin_Freeze(admin)
-	if(!..())
-		revive()
-
 //////////////////////////Freeze Mech
 
 /obj/mecha/admin_Freeze(client/admin)
