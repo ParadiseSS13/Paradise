@@ -201,7 +201,7 @@
 /obj/item/reagent_containers/iv_bag/blood/vox
 	blood_type = "O-"
 	blood_species = "Vox"
-	blood_color = "#2299FC"
+	iv_blood_colour = "#2299FC"
 	one_species_only = TRUE
 
 /obj/item/reagent_containers/iv_bag/blood/vox/Initialize(mapload)
