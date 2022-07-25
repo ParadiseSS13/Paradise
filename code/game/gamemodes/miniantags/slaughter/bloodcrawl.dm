@@ -70,7 +70,7 @@
 				sleep(30)
 
 			if(kidnapped)
-				if(ishuman(kidnapped))
+				if(ishuman(kidnapped) || isrobot(kidnapped))
 					to_chat(src, "<B>You devour [kidnapped]. Your health is fully restored.</B>")
 					adjustBruteLoss(-1000)
 					adjustFireLoss(-1000)
