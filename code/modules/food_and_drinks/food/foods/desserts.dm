@@ -12,8 +12,8 @@
 	list_reagents = list("nutriment" = 1, "sugar" = 1)
 	tastes = list("ice cream" = 1)
 
-/obj/item/reagent_containers/food/snacks/icecream/New()
-	..()
+/obj/item/reagent_containers/food/snacks/icecream/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/snacks/icecream/update_overlays()

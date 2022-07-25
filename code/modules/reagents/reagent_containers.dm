@@ -40,9 +40,9 @@
 /obj/item/reagent_containers/AltClick()
 	set_APTFT()
 
-/obj/item/reagent_containers/New()
+/obj/item/reagent_containers/Initialize(mapload)
+	. = ..()
 	create_reagents(volume, temperature_min, temperature_max)
-	..()
 	if(!possible_transfer_amounts)
 		verbs -= /obj/item/reagent_containers/verb/set_APTFT
 	if(spawned_disease)

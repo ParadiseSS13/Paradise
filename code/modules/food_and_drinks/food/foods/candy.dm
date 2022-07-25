@@ -55,8 +55,8 @@
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 
-/obj/item/reagent_containers/food/snacks/candy/taffy/New()
-	..()
+/obj/item/reagent_containers/food/snacks/candy/taffy/Initialize(mapload)
+	. = ..()
 	icon_state = pick("candy1", "candy2", "candy3", "candy4", "candy5")
 
 /obj/item/reagent_containers/food/snacks/candy/fudge

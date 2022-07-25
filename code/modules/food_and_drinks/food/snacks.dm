@@ -275,11 +275,11 @@
 	filling_color = "#211F02"
 	list_reagents = list("????" = 30)
 
-/obj/item/reagent_containers/food/snacks/badrecipe/New()
-	..()
+/obj/item/reagent_containers/food/snacks/badrecipe/Initialize(mapload)
+	. = ..()
 	// it's burned! it should start off being classed as any cooktype that burns
-	cooktype["grilled"] = 1
-	cooktype["deep fried"] = 1
+	cooktype["grilled"] = TRUE
+	cooktype["deep fried"] = TRUE
 
 // MISC
 
