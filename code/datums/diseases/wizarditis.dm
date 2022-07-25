@@ -48,7 +48,7 @@ STI KALY - blind
 			if(prob(0.5))
 				to_chat(affected_mob, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
 				spawn_wizard_clothes(50)
-			if(prob(0.5))
+			if(prob(0.01))
 				teleport()
 	return
 
