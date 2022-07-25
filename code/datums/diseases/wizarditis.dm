@@ -28,16 +28,16 @@ STI KALY - blind
 
 	switch(stage)
 		if(2)
-			if(prob(1) && prob(50))
+			if(prob(0.5))
 				affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"))
-			if(prob(1) && prob(50))
+			if(prob(0.5))
 				to_chat(affected_mob, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
 
 
 		if(3)
-			if(prob(1) && prob(50))
+			if(prob(0.5))
 				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"))
-			if(prob(1) && prob(50))
+			if(prob(0.5))
 				to_chat(affected_mob, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
 
 		if(4)
@@ -45,10 +45,10 @@ STI KALY - blind
 			if(prob(1))
 				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
 				return
-			if(prob(1) && prob(50))
+			if(prob(0.5))
 				to_chat(affected_mob, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
 				spawn_wizard_clothes(50)
-			if(prob(1) && prob(1))
+			if(prob(0.5))
 				teleport()
 	return
 
@@ -87,6 +87,9 @@ STI KALY - blind
 
 
 /datum/disease/wizarditis/proc/teleport()
+	if(!is_teleport_allowed(affected_mob.z))
+		return
+
 	var/list/possible_areas = get_areas_in_range(80, affected_mob)
 	for(var/area/space/S in possible_areas)
 		possible_areas -= S
@@ -98,8 +101,6 @@ STI KALY - blind
 
 	var/list/teleport_turfs = list()
 	for(var/turf/T in get_area_turfs(chosen_area.type))
-		if(!is_teleport_allowed(T.z) || T.z != affected_mob.z)
-			break
 		if(isspaceturf(T))
 			continue
 		if(!T.density)
