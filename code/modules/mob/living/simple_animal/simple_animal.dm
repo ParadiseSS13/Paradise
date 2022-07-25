@@ -188,7 +188,7 @@
 			if(IsSleeping() && (stat == CONSCIOUS))
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
-			else
+			else if(stat == UNCONSCIOUS)
 				WakeUp()
 				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
