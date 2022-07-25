@@ -40,7 +40,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/one_door_exterior //See above
 
 /obj/effect/spawner/airlock/Initialize()
-	..()
+	. = ..()
 	forceMove(locate(x + 1, y + 1, z)) //Needs to move because our icon_state implies we are one turf to the northeast, when we're not
 	opposite_interior_direction = turn(interior_direction, 180) //Do it this way (instead of setting it directly) to avoid code mishaps
 	interior_direction_cw = turn(interior_direction, 90)

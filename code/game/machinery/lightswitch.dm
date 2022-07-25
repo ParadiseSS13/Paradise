@@ -47,7 +47,7 @@
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/light_switch/Initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 	name = "light switch"
 

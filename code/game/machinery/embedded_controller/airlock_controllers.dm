@@ -14,7 +14,7 @@
 	var/tag_secure = 0
 
 /obj/machinery/embedded_controller/radio/airlock/Initialize()
-	..()
+	. = ..()
 	program = new/datum/computer/file/embedded_program/airlock(src)
 
 //Airlock controller for airlock control - most airlocks on the station use this
@@ -23,6 +23,7 @@
 	tag_secure = 1
 
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/Initialize(mapload, given_id_tag, given_frequency, given_tag_exterior_door, given_tag_interior_door, given_tag_airpump, given_tag_chamber_sensor)
+	. = ..()
 	if(given_id_tag)
 		id_tag = given_id_tag
 	if(given_frequency)
@@ -35,7 +36,6 @@
 		tag_airpump = given_tag_airpump
 	if(given_tag_chamber_sensor)
 		tag_chamber_sensor = given_tag_chamber_sensor
-	..()
 
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

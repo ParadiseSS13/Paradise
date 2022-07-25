@@ -32,7 +32,7 @@
 	return "To remove these safely, use the 'deflate' verb. Hitting these with any objects will probably puncture and break it forever."
 
 /obj/structure/inflatable/Initialize(location)
-	..()
+	. = ..()
 	air_update_turf(TRUE)
 
 /obj/structure/inflatable/Destroy()

@@ -350,7 +350,7 @@
 	var/amount = 1
 
 /obj/item/book/random/Initialize()
-	..()
+	. = ..()
 	var/list/books = GLOB.library_catalog.get_random_book(amount)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(loc, book, TRUE, FALSE)

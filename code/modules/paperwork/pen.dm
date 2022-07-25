@@ -65,7 +65,7 @@
 	var/pen_colour_shift = 3
 
 /obj/item/pen/multi/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/pen/multi/proc/select_colour(mob/user as mob)

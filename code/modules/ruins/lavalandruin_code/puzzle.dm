@@ -36,7 +36,7 @@
 			return get_step(center,SOUTHEAST)
 
 /obj/effect/sliding_puzzle/Initialize(mapload)
-	..()
+	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/sliding_puzzle/LateInitialize()

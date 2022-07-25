@@ -35,7 +35,7 @@
 	return ..()
 
 /obj/machinery/meter/Initialize()
-	..()
+	. = ..()
 	if(!target)
 		target = locate(/obj/machinery/atmospherics/pipe) in loc
 
@@ -69,7 +69,7 @@
 			"sigtype" = "status"
 		)
 		radio_connection.post_signal(src, signal)
-	
+
 
 /obj/machinery/meter/update_icon_state()
 	if(!target)

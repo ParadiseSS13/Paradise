@@ -17,7 +17,7 @@
 	var/list/gibdirections = list() //of lists
 
 /obj/effect/gibspawner/Initialize(mapload, datum/dna/mob_dna)
-	..()
+	. = ..()
 	ASSERT(length(gibtypes) == length(gibamounts))
 	ASSERT(length(gibamounts) == length(gibdirections))
 

@@ -115,7 +115,7 @@
 	atom_say("[src] beeps, \"[occupant]: [notifytext]\"")
 
 /obj/machinery/door_timer/Initialize(mapload)
-	..()
+	. = ..()
 
 	GLOB.celltimers_list += src
 	Radio = new /obj/item/radio(src)

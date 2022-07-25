@@ -44,7 +44,7 @@
 	var/template_list = ""
 
 /obj/effect/landmark/map_loader/random/Initialize()
-	..()
+	. = ..()
 	if(template_list)
 		template_name = safepick(splittext(template_list, ";"))
 		template = GLOB.map_templates[template_name]

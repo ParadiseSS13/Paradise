@@ -65,7 +65,7 @@
 				critical_items += I
 
 /obj/machinery/r_n_d/experimentor/Initialize(mapload)
-	..()
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/experimentor(src)
 	component_parts += new /obj/item/stock_parts/scanning_module(src)

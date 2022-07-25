@@ -60,7 +60,7 @@
 	var/late = FALSE
 
 /obj/effect/mapping_helpers/Initialize(mapload)
-	..()
+	. = ..()
 	return late ? INITIALIZE_HINT_LATELOAD : qdel(src) // INITIALIZE_HINT_QDEL <-- Doesn't work
 
 /obj/effect/mapping_helpers/no_lava

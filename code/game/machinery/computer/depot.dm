@@ -399,7 +399,7 @@
 	var/portaldir = WEST
 
 /obj/machinery/computer/syndicate_depot/teleporter/Initialize(mapload)
-	..()
+	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/syndicate_depot/teleporter/LateInitialize()
