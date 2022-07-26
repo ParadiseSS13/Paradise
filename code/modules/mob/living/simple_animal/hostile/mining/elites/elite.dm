@@ -316,11 +316,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		onEliteLoss()
 		return
 	if(QDELETED(activator) || activator.stat == DEAD || (activator.health <= HEALTH_THRESHOLD_DEAD))
-		if(!QDELETED(activator)) // dust the unkillable activator
-			for(var/obj/item/W in activator)
-				if(!activator.unEquip(W))
-					qdel(W)
-			activator.dust()
 		onEliteWon()
 
 /obj/structure/elite_tumor/proc/arena_trap()
