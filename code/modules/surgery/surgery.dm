@@ -149,8 +149,6 @@
 	var/accept_any_item = FALSE
 	/// duration of the step
 	var/time = 1 SECONDS
-
-
 	/// Is this step repeatable by using the same tool again after it's finished?
 	/// Make sure it isn't the last step, or it's used in a cancellable surgery. Otherwise, you might get stuck in a loop!
 	var/repeatable = FALSE
@@ -360,7 +358,7 @@
  * Try to inflict pain during a surgery, a surgeon's dream come true.
  * This will wake up the user if they're voluntarily sleeping.
  *
- * Returns the pain_mod inflicted to the user.
+ * Returns the success rate that the user's amount of pain would deal, while also handling extra pain behavior.
  */
 /datum/surgery_step/proc/deal_pain(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	. = 1

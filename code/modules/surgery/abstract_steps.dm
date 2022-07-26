@@ -60,6 +60,10 @@
 
 	. = ..()
 
+/datum/surgery_step/proxy/Destroy(force, ...)
+	QDEL_LIST(branches_init)
+	. = ..()
+
 /datum/surgery_step/proxy/get_step_information(datum/surgery/surgery)
 	var/datum/surgery_step/cur = surgery.get_surgery_next_step()
 	var/step_names = list(cur.name)
@@ -67,7 +71,6 @@
 		step_names += surg.get_surgery_step()
 
 	return english_list(step_names, "Nothing...? If you see this, tell a coder.", ", or ")
-
 
 /datum/surgery_step/proxy/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
@@ -217,8 +220,6 @@
 	else
 		to_chat(user, "<span class='warning'>The bones in [target]'s [parse_zone(affected)] look fully intact, they don't need mending.</span>")
 	return FALSE
-
-
 
 /// Proxy surgery step to allow healing bleeding and mending bones.
 /// Should be added into surgeries just after the first three standard steps.
