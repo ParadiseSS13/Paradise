@@ -398,7 +398,6 @@
 
 /obj/machinery/light/proc/burnout()
 	status = LIGHT_BURNED
-	icon_state = "[base_state]-burned"
 
 	visible_message("<span class='boldwarning'>[src] burns out!</span>")
 	do_sparks(2, 1, src)
