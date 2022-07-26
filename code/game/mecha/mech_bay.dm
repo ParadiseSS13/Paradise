@@ -113,15 +113,17 @@
 		return
 	var/had_mecha = !isnull(recharging_mecha)
 	update_recharging_mecha()
-	if(had_mecha ^ !isnull(recharging_mecha)) // the presence of mecha is not what it used to be
+	if(had_mecha != !isnull(recharging_mecha)) // the presence of mecha is not what it used to be
+		// update_icon is somewhat expensive, so try not to call it too often
 		recharge_console.update_icon()
-	if(recharging_mecha && recharging_mecha.cell)
-		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
-			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
-			recharging_mecha.give_power(delta)
-			use_power(delta*150)
-		else
-			recharge_console.update_icon()
+	var/obj/item/stock_parts/cell/cell = recharging_mecha?.cell
+	if(!cell)
+		return
+	if(cell.charge < cell.maxcharge)
+		var/delta = min(max_charge, cell.maxcharge - cell.charge)
+		recharging_mecha.give_power(delta)
+		use_power(delta*150)
+		recharge_console.update_icon()
 
 /obj/machinery/computer/mech_bay_power_console
 	name = "mech bay power control console"
