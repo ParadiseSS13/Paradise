@@ -150,7 +150,7 @@ const handlePassthrough = (e, eventType) => {
   const { keyCode, ctrlKey, shiftKey } = keyData;
   const byondKey = keyCodeToByond(keyCode);
   // NOTE: We pass through only Alt of all modifier keys, because Alt
-  // modifier (for toggling run/walk) is implemented very shittily
+  // modifier is implemented very shittily
   // in our codebase. We pass no other modifier keys, because they can
   // be used internally as tgui hotkeys.
   if (NO_PASSTHROUGH_KEYS.includes(keyCode)) {
