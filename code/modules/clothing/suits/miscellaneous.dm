@@ -181,8 +181,8 @@
 	name = "\improper super-hero E-N suit"
 	icon_state = "ensuit"
 
-/obj/item/clothing/suit/corgisuit/super_hero/en/New()
-	..()
+/obj/item/clothing/suit/corgisuit/super_hero/en/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Destroy()
@@ -572,6 +572,15 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
 	breakouttime = 3000
+
+/obj/item/clothing/suit/straight_jacket/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == slot_wear_suit)
+		ADD_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
+
+/obj/item/clothing/suit/straight_jacket/dropped(mob/user, silent)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"

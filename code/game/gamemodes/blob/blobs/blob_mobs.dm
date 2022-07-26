@@ -69,11 +69,11 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/New(loc, obj/structure/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, obj/structure/blob/factory/linked_node)
+	. = ..()
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
-	..()
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
@@ -200,8 +200,8 @@
 			adjustFireLoss(0.2)
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/New()
-	..()
+/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
+	. = ..()
 	if(name == "blobbernaut")
 		name = text("blobbernaut ([rand(1, 1000)])")
 

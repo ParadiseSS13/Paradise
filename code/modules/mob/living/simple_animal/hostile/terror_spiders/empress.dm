@@ -28,16 +28,14 @@
 	icon_state = "terror_empress"
 	icon_living = "terror_empress"
 	icon_dead = "terror_empress_dead"
-	var/datum/action/innate/terrorspider/queen/empress/empresslings/empresslings_action
-	var/datum/action/innate/terrorspider/queen/empress/empresserase/empresserase_action
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/New()
-	..()
-	empresslings_action = new()
-	empresslings_action.Grant(src)
-	empresserase_action = new()
-	empresserase_action.Grant(src)
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/terrorspider/queen/empress/empresslings/act_ling = new
+	act_ling.Grant(src)
+	var/datum/action/innate/terrorspider/queen/empress/empresserase/act_erase = new
+	act_erase.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/spider_special_action()
 	return

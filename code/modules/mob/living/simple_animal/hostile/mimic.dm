@@ -108,15 +108,19 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 /mob/living/simple_animal/hostile/mimic/copy
 	health = 100
 	maxHealth = 100
+	gold_core_spawnable = NO_SPAWN
 	var/mob/living/creator = null // the creator
 	var/destroy_objects = 0
 	var/knockdown_people = 0
 	var/image/googly_eyes = null
-	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/hostile/mimic/copy/New(loc, obj/copy, mob/living/creator, destroy_original = 0)
-	..(loc)
+/mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/copy, mob/living/creator, destroy_original = 0)
+	. = ..()
 	CopyObject(copy, creator, destroy_original)
+
+/mob/living/simple_animal/hostile/mimic/copy/Destroy()
+	creator = null
+	return ..()
 
 /mob/living/simple_animal/hostile/mimic/copy/Life()
 	..()

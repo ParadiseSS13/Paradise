@@ -149,9 +149,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/chasecycles = 0
 	var/spider_creation_time = 0
 
-	var/datum/action/innate/terrorspider/web/web_action
 	var/web_type = /obj/structure/spider/terrorweb
-	var/datum/action/innate/terrorspider/wrap/wrap_action
 
 	// Breathing - require some oxygen, and no toxins
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -262,8 +260,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(killcount >= 1)
 			. += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
 
-/mob/living/simple_animal/hostile/poison/terror_spider/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	. = ..()
 	GLOB.ts_spiderlist += src
 	add_language("Spider Hivemind")
 	if(spider_tier >= TS_TIER_2)
@@ -271,12 +269,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	default_language = GLOB.all_languages["Spider Hivemind"]
 
 	if(web_type)
-		web_action = new()
-		web_action.Grant(src)
+		var/datum/action/innate/terrorspider/web/web_act = new
+		web_act.Grant(src)
 	if(regen_points_per_tick < regen_points_per_hp)
 		// Only grant the Wrap action button to spiders who need to use it to regenerate their health
-		wrap_action = new()
-		wrap_action.Grant(src)
+		var/datum/action/innate/terrorspider/wrap/wrap_act = new
+		wrap_act.Grant(src)
 	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
@@ -316,6 +314,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.remove_hud_from(src)
 	handle_dying()
+
+	spider_mymother = null
+	spider_myqueen = null
+
+	entry_vent = null
+	exit_vent = null
+	nest_vent = null
+
+	cocoon_target = null
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)

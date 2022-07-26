@@ -159,8 +159,8 @@
 	item_color = "officer"
 	displays_id = FALSE
 
-/obj/item/clothing/under/rank/centcom/representative/New()
-	..()
+/obj/item/clothing/under/rank/centcom/representative/Initialize(mapload)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/magistrate
@@ -171,8 +171,8 @@
 	item_color = "officer"
 	displays_id = FALSE
 
-/obj/item/clothing/under/rank/centcom/magistrate/New()
-	..()
+/obj/item/clothing/under/rank/centcom/magistrate/Initialize(mapload)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/diplomatic

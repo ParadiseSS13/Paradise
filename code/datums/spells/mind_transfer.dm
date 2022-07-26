@@ -3,7 +3,7 @@
 	desc = "This spell allows the user to switch bodies with a target."
 
 	school = "transmutation"
-	charge_max = 600
+	base_cooldown = 600
 	clothes_req = FALSE
 	invocation = "GIN'YU CAPAN"
 	invocation_type = "whisper"

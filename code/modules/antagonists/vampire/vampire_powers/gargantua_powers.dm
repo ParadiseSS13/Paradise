@@ -2,7 +2,7 @@
 	name = "Blood Swell (30)"
 	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage. However, this makes you unable to fire ranged weapons while it is active."
 	gain_desc = "You have gained the ability to temporarly resist large amounts of stuns and physical damage."
-	charge_max = 40 SECONDS
+	base_cooldown = 40 SECONDS
 	required_blood = 30
 	action_icon_state = "blood_swell"
 
@@ -19,7 +19,7 @@
 	name = "Overwhelming Force"
 	desc = "When toggled you will automatically pry open doors that you bump into if you do not have access."
 	gain_desc = "You have gained the ability to force open doors at a small blood cost."
-	charge_max = 2 SECONDS
+	base_cooldown = 2 SECONDS
 	action_icon_state = "OH_YEAAAAH"
 
 /obj/effect/proc_holder/spell/vampire/self/overwhelming_force/cast(list/targets, mob/user)
@@ -37,7 +37,7 @@
 	name = "Blood Rush (30)"
 	desc = "Infuse yourself with blood magic to boost your movement speed."
 	gain_desc = "You have gained the ability to temporarily move at high speeds."
-	charge_max = 30 SECONDS
+	base_cooldown = 30 SECONDS
 	required_blood = 30
 	action_icon_state = "blood_rush"
 
@@ -53,7 +53,7 @@
 	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 30
-	charge_max = 30 SECONDS
+	base_cooldown = 30 SECONDS
 	action_icon_state = "vampire_charge"
 
 /obj/effect/proc_holder/spell/vampire/charge/create_new_targeting()

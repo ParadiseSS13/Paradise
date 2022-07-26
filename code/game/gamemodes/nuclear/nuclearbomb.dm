@@ -75,6 +75,13 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/update_overlays()
 	. = ..()
+	underlays.Cut()
+	set_light(0)
+
+	if(!lighthack)
+		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
+		set_light(1, LIGHTING_MINIMUM_POWER)
+
 	if(panel_open)
 		. += "npanel_open"
 
@@ -322,6 +329,7 @@ GLOBAL_VAR(bomb_set)
 			if(!lighthack)
 				flick("nuclearbombc", src)
 				icon_state = "nuclearbomb1"
+				update_icon(UPDATE_OVERLAYS)
 			extended = TRUE
 			return
 		if("auth")
@@ -401,6 +409,7 @@ GLOBAL_VAR(bomb_set)
 			if(timing)
 				if(!lighthack)
 					icon_state = "nuclearbomb2"
+					update_icon(UPDATE_OVERLAYS)
 				if(!safety)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
@@ -414,6 +423,7 @@ GLOBAL_VAR(bomb_set)
 				GLOB.bomb_set = FALSE
 				if(!lighthack)
 					icon_state = "nuclearbomb1"
+					update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
@@ -448,6 +458,7 @@ GLOBAL_VAR(bomb_set)
 	safety = TRUE
 	if(!lighthack)
 		icon_state = "nuclearbomb3"
+		update_icon(UPDATE_OVERLAYS)
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = TRUE
@@ -502,6 +513,8 @@ GLOBAL_VAR(bomb_set)
 		if(!lighthack)
 			if(icon_state == "nuclearbomb2")
 				icon_state = "nuclearbomb1"
+				update_icon(UPDATE_OVERLAYS)
+
 	else
 		visible_message("<span class='notice'>[src] emits a quiet whirling noise!</span>")
 
