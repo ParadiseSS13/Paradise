@@ -246,7 +246,7 @@
 "Dj" = (
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/remains/robot,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_druglab/asteroid)
 "DG" = (
 /obj/structure/disposalpipe/trunk{
@@ -364,7 +364,7 @@
 /area/ruin/space/syndicate_druglab)
 "QL" = (
 /obj/machinery/porta_turret/syndicate/assault_pod,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_druglab/asteroid)
 "Rk" = (
 /obj/machinery/seed_extractor,
