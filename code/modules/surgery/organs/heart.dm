@@ -107,6 +107,23 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
+/obj/item/organ/internal/heart/cursed/on_owner_death()
+	. = ..()
+	owner.visible_message(
+		"<span class='warning'>A purple cloud seems to emerge from [owner]'s [parent_organ], leaving a clear cavity!</span>",
+		"<span class='userdanger'>The [src] in your [parent_organ] turns to dust, leaving behind another victim of its curse!</span>",
+	)
+	owner.do_jitter_animation(1000)  // So it's clear something happened
+	owner.internal_organs -= src
+
+	for(var/datum/action/item_action/organ_action/cursed_heart/A in owner.actions)
+		qdel(A)  // this gets stuck for some reason
+	owner.update_action_buttons()
+	owner = null
+	remove()
+	qdel(src)
+
+
 /obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(owner)
