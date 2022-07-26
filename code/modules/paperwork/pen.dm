@@ -110,6 +110,9 @@
 /obj/item/pen/sleepy
 	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
+	var/transfer_amount = 50
+	var/reagent_amount = 100
+	var/starting_reagents = list("ketamine" = 100)
 
 
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
@@ -119,23 +122,28 @@
 	if(!M.can_inject(user, TRUE))
 		return
 	var/transfered = 0
-	var/reagent_names = list()
-	for(var/R in O.reagents.reagent_list)
+	var/contained = list()
+	for(var/R in reagents.reagent_list)
 		var/datum/reagent/reagent = R
-		reagent_names += "[reagent.volume]u [reagent]"
+		contained += "[reagent.volume]u [reagent]"
 	if(reagents.total_volume && M.reagents)
-		transfered = reagents.trans_to(M, 50)
+		transfered = reagents.trans_to(M, transfer_amount)
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
-	var/contained = english_list(injected)
-	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(reagent_names)].")
+	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	return TRUE
 
 
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
-	create_reagents(100)
-	reagents.add_reagent("ketamine", 100)
+	create_reagents(reagent_amount)
+	for(var/key in starting_reagents)
+		reagents.add_reagent(key, starting_reagents[key])
 
+/obj/item/pen/sleepy/vv_edit_var(var_name, var_value)
+	. = ..()
+	switch(var_name)
+		if("reagent_amount")
+			reagents.maximum_volume = var_value
 
 /*
  * (Alan) Edaggers
