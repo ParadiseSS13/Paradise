@@ -244,6 +244,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(boosted)
 		mychild.maxHealth = mychild.maxHealth * 2.5
 		mychild.health = mychild.maxHealth
+		mychild.grab_ghost()
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 
 /obj/structure/elite_tumor/Initialize(mapload)
