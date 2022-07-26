@@ -119,10 +119,15 @@
 	if(!M.can_inject(user, TRUE))
 		return
 	var/transfered = 0
+	var/reagent_names = list()
+	for(var/R in O.reagents.reagent_list)
+		var/datum/reagent/reagent = R
+		reagent_names += "[reagent.volume]u [reagent]"
 	if(reagents.total_volume && M.reagents)
 		transfered = reagents.trans_to(M, 50)
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
-	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
+	var/contained = english_list(injected)
+	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(reagent_names)].")
 	return TRUE
 
 
