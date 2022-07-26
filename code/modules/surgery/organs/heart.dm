@@ -79,6 +79,16 @@
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
 	var/blood_loss = 100 //600 blood is human default, so 5 failures (below 122 blood is where humans die because reasons?)
 
+	// Give the user a chance to be shocked to life with the heart in, since defibs put them to sleep.
+	/// How long the shock pumps their heart for them.
+	var/revival_grace_period = 10 SECONDS
+	/// If true, the user doesn't need to pump their heart.
+	var/in_grace_period = FALSE
+	/// Times that it's been shocked.
+	var/times_shocked = 0
+	/// Max times that the shock will work before it'll just refuse.
+	var/max_shocks_allowed = 5
+
 	//How much to heal per pump, negative numbers would HURT the player
 	var/heal_brute = 0
 	var/heal_burn = 0
@@ -96,7 +106,7 @@
 		return ..()
 
 /obj/item/organ/internal/heart/cursed/on_life()
-	if(world.time > (last_pump + pump_delay))
+	if(world.time > (last_pump + pump_delay) && !in_grace_period)
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
 			if(!(NO_BLOOD in H.dna.species.species_traits))
@@ -111,9 +121,53 @@
 	..()
 	if(owner)
 		to_chat(owner, "<span class='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
+		RegisterSignal(owner, COMSIG_LIVING_BEFORE_DEFIB, .proc/on_defib)
+		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, .proc/on_defib_revive)
+
+/obj/item/organ/internal/heart/cursed/remove(mob/living/carbon/M, special)
+	if(owner)
+		UnregisterSignal(owner, COMSIG_LIVING_BEFORE_DEFIB)
+		UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
+	. = ..()
+
+/obj/item/organ/internal/heart/cursed/proc/on_defib_revive(mob/living/carbon/shocked, mob/living/carbon/shocker, mob/dead/observer/ghost = null)
+	SIGNAL_HANDLER
+
+	if(!owner || !istype(owner))
+		return
+
+	if(times_shocked >= max_shocks_allowed)
+		shocker.visible_message(
+			"<span class='danger'>A ghastly electric shock permeates out from [shocked]'s chest!</span>",
+			"<span class='userdanger'>Tendrils of ghastly electricity surge from [shocked] as [shocked.p_their()] heart seems to outright refuse defibrillation!<span>",
+			"<span class='danger'>You hear a loud shock.</span>"
+		)
+		shocker.electrocute_act(5, shocked)
+		return
+
+	in_grace_period = TRUE
+	times_shocked++
+	addtimer(CALLBACK(owner, /mob/living/.proc/SetSleeping, 0), 3 SECONDS)  // let em wake up
+	addtimer(CALLBACK(src, .proc/on_end_grace_period), revival_grace_period)
+
+
+/// Run this just before the shock is applied so we end up with enough blood to revive.
+/obj/item/organ/internal/heart/cursed/proc/on_defib(mob/living/carbon/shocked, mob/living/carbon/shocker, mob/dead/observer/ghost = null)
+	SIGNAL_HANDLER
+
+	if(owner.stat == DEAD)
+		owner.blood_volume = BLOOD_VOLUME_OKAY
+
+
+/obj/item/organ/internal/heart/cursed/proc/on_end_grace_period()
+	in_grace_period = FALSE
+	if(!owner)
+		return
+	to_chat(owner, "<span class='userdanger'>The effects of the shock seem to wear off, and you feel a familiar tightness in your chest! Get pumping!</span>")
+	to_chat(owner, "<span class='warning'>It doesn't feel like your [src] enjoyed that, though, you probably won't be able to get revived too many more times!</span>")
 
 /datum/action/item_action/organ_action/cursed_heart
-	name = "pump your blood"
+	name = "Pump your heart"
 
 //You are now brea- pumping blood manually
 /datum/action/item_action/organ_action/cursed_heart/Trigger()
@@ -127,7 +181,7 @@
 
 		cursed_heart.last_pump = world.time
 		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
-		to_chat(owner, "<span class = 'notice'>Your heart beats.</span>")
+		to_chat(owner, "<span class='notice'>Your heart beats.</span>")
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))

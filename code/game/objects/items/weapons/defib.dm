@@ -65,7 +65,7 @@
 		. += "[icon_state]-emagged"
 	if(powered)
 		. += "[icon_state]-powered"
-	if(powered && cell) 
+	if(powered && cell)
 		var/ratio = cell.charge / cell.maxcharge
 		ratio = CEILING(ratio*4, 1) * 25
 		. += "[icon_state]-charge[ratio]"
@@ -404,6 +404,8 @@
 			var/total_burn	= 0
 			var/total_brute	= 0
 
+			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_BEFORE_DEFIB, user, ghost)
+
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 				for(var/obj/item/carried_item in H.contents)
 					if(istype(carried_item, /obj/item/clothing/suit/space))
@@ -450,7 +452,7 @@
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
 					ghost = H.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !HAS_TRAIT(H, TRAIT_BADDNA) && H.blood_volume > BLOOD_VOLUME_SURVIVE && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !HAS_TRAIT(H, TRAIT_BADDNA) && H.blood_volume > BLOOD_VOLUME_SURVIVE && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)) && signal_result != COMPONENT_BLOCK_DEFIB)
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
