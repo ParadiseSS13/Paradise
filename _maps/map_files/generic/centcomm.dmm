@@ -700,16 +700,12 @@
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "cV" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/color/lightpurple,
 /obj/item/clothing/under/color/purple,
-/obj/item/storage/backpack/satchel,
-/obj/item/storage/backpack/satchel,
 /obj/item/clothing/head/wizard/red,
+/obj/item/storage/backpack/satchel,
+/obj/item/storage/backpack/satchel,
 /obj/item/clothing/suit/wizrobe/red,
 /obj/item/clothing/head/wizard,
 /obj/item/clothing/suit/wizrobe,
