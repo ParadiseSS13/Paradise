@@ -73,6 +73,8 @@
 	chosen_attack_num = CALL_CHILDREN
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/Destroy()
+	for(var/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/C in children_list)
+		C.mother = null
 	children_list.Cut()
 	children_list = null
 	return ..()
