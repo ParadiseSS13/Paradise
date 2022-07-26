@@ -117,7 +117,7 @@
 			new /obj/effect/temp_visual/goliath_tentacle/broodmother(t, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/tentacle_patch(target)
-	ranged_cooldown = world.time + 1.5 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
 	var/tturf = get_turf(target)
 	if(!isturf(tturf))
 		return
