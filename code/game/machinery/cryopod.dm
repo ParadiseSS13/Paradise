@@ -255,7 +255,7 @@
 	for(var/obj/machinery/computer/cryopod/C in get_area(src).contents)
 		if(C.type == console_type)
 			control_computer = C
-		break
+			break
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
 	if(!control_computer && urgent && last_no_computer_message + 5*60*10 < world.time)
