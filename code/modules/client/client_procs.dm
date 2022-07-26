@@ -446,7 +446,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.msay.out", json_encode(data))
+			SSredis.publish("byond.msay", json_encode(data))
 
 	else if(holder.rights & R_BAN)
 		if(SSredis.connected)
@@ -456,7 +456,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.asay.out", json_encode(data))
+			SSredis.publish("byond.asay", json_encode(data))
 
 /client/proc/announce_leave()
 	if(!holder)
@@ -472,7 +472,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.msay.out", json_encode(data))
+			SSredis.publish("byond.msay", json_encode(data))
 
 	else if(holder.rights & R_BAN)
 		if(SSredis.connected)
@@ -484,7 +484,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.asay.out", json_encode(data))
+			SSredis.publish("byond.asay", json_encode(data))
 
 
 /client/proc/donor_loadout_points()
