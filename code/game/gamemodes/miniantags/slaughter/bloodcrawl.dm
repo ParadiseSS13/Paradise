@@ -77,7 +77,7 @@
 					adjustOxyLoss(-1000)
 					adjustToxLoss(-1000)
 				else
-					to_chat(src, "<B>You devour [kidnapped], but this measly meal does not sate your appetite.")
+					to_chat(src, "<span class='warning'>You devour [kidnapped], but this measly meal does not sate your appetite!</span>")
 				if(istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
 					var/mob/living/simple_animal/slaughter/demon = src
 					demon.devoured++
