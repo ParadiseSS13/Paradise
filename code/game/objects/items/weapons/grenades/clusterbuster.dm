@@ -38,12 +38,12 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
-/obj/item/grenade/clusterbuster/segment/New(loc, payload_type = /obj/item/grenade/flashbang/cluster)
-	..()
+/obj/item/grenade/clusterbuster/segment/Initialize(mapload, payload_type = /obj/item/grenade/flashbang/cluster)
+	. = ..()
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
 	active = TRUE
-	walk_away(src,loc,rand(1,4))
+	walk_away(src, loc, rand(1,4))
 	spawn(rand(15,60))
 		prime()
 
