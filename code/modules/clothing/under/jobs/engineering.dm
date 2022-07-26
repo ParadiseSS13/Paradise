@@ -5,7 +5,7 @@
 	icon_state = "chiefengineer"
 	item_state = "chief"
 	item_color = "chief"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 80, ACID = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 5, FIRE = 200, ACID = 35)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/chief_engineer/skirt
@@ -36,7 +36,7 @@
 	icon_state = "engine"
 	item_state = "engi_suit"
 	item_color = "engine"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 60, ACID = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 5, FIRE = 75, ACID = 10)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineer/sensor
