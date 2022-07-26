@@ -19,11 +19,10 @@
 	stat_attack = UNCONSCIOUS
 	layer = LARGE_MOB_LAYER
 	has_laser_resist = FALSE
-
+	universal_speak = TRUE
 	sentience_type = SENTIENCE_BOSS
 	var/chosen_attack = 1
 	var/list/attack_action_types = list()
-	var/can_talk = FALSE
 	var/obj/loot_drop = null
 	var/revive_cooldown = FALSE
 
@@ -71,12 +70,6 @@
 			if(!client && ranged && ranged_cooldown <= world.time)
 				OpenFire()
 
-//Elites can't talk (normally)!
-/mob/living/simple_animal/hostile/asteroid/elite/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
-	if(can_talk)
-		. = ..()
-		return TRUE
-	return FALSE
 
 /mob/living/simple_animal/hostile/asteroid/elite/proc/revive_multiplier() //If on lavaland, return 1, or 1x cooldown. 10 if revived by a non antag, 2 if by an antag. 1 otherwise
 	if(is_mining_level(z))
