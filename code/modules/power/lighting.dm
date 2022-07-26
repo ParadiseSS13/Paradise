@@ -391,8 +391,8 @@
 			return
 
 	use_power = ACTIVE_POWER_USE
-	set_light(BR, PO, CO)
 	update_icon()
+	set_light(BR, PO, CO)
 	if(play_sound)
 		playsound(src, 'sound/machines/light_on.ogg', 60, TRUE)
 
