@@ -454,7 +454,7 @@
 	h_grad_offset_x = query.item[52] // parsed down below
 	h_grad_colour = query.item[53]
 	h_grad_alpha = query.item[54]
-	custom_emotes = query.item[55]
+	var/custom_emotes_tmp = query.item[55]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -527,8 +527,8 @@
 	h_grad_colour = sanitize_hexcolor(h_grad_colour)
 	h_grad_alpha = sanitize_integer(h_grad_alpha, 0, 255, initial(h_grad_alpha))
 	loadout_gear = sanitize_json(loadout_gear)
-	custom_emotes = sanitize_json(custom_emotes)
-	custom_emotes = init_custom_emotes(custom_emotes)
+	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
+	custom_emotes = init_custom_emotes(custom_emotes_tmp)
 
 	if(!player_alt_titles)
 		player_alt_titles = new()
