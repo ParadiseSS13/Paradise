@@ -247,7 +247,9 @@
 
 /obj/item/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	firer.forceMove(get_turf(src))
+	if(!istype(target, /mob/living/simple_animal/hostile/asteroid/elite/herald))
+		firer.forceMove(get_turf(src))
+
 
 //Herald's loot: Cloak of the Prophet
 
