@@ -903,6 +903,6 @@
 	desc = "Prints a ring-able bell."
 	id = "desk_bell"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1000)
+	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/desk_bell
 	category = list("initial", "Miscellaneous")
