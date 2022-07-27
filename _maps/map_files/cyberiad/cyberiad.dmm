@@ -106,8 +106,13 @@
 /turf/simulated/wall/r_wall,
 /area/security/permabrig)
 "abO" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/radio/intercom/department/security{
+	pixel_y = 25
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -126,13 +131,10 @@
 	},
 /area/security/securearmoury)
 "abY" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/flasher/portable,
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "aca" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
@@ -266,13 +268,17 @@
 	},
 /area/security/main)
 "acH" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/south,
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier{
+	pixel_y = 5;
+	pixel_x = 4
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/north,
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -346,6 +352,25 @@
 /obj/item/restraints/handcuffs/pinkcuffs,
 /turf/simulated/floor/plating,
 /area/security/main)
+"adb" = (
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/southwest,
+/obj/item/storage/lockbox/mindshield,
+/obj/item/storage/box/trackimp,
+/obj/item/storage/box/chemimp{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/storage/toolbox/mechanical,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "adg" = (
 /obj/structure/dispenser/oxygen,
 /obj/structure/window/reinforced{
@@ -440,12 +465,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
-"adv" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
 "adw" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
@@ -537,6 +556,44 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"adP" = (
+/obj/structure/rack,
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/beanbag{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/beanbag{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/beanbag{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "adQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
@@ -808,10 +865,16 @@
 	},
 /area/security/brig)
 "aeR" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/flasher/portable,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/camera{
+	c_tag = "Brig Secure Armory North"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "aeS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/northwestcorner,
@@ -1257,15 +1320,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/brig)
-"agR" = (
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = 30
-	},
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
 "agS" = (
 /obj/machinery/flasher/portable,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -1436,34 +1490,27 @@
 /turf/space,
 /area/shuttle/gamma/station)
 "ahG" = (
-/obj/structure/marker_beacon/dock_marker/collision,
-/obj/effect/decal/warning_stripes/red,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
-"ahH" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/south,
-/obj/item/storage/box/teargas{
+/obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/storage/box/handcuffs,
-/obj/item/storage/box/flashbangs{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/storage/box/handcuffs,
-/obj/item/storage/box/seccarts{
+/obj/item/gun/projectile/shotgun/riot{
 	pixel_x = 3;
-	pixel_y = 2
+	pixel_y = 3
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/window/reinforced,
+/obj/item/gun/projectile/shotgun/riot,
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 8
 	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/security/securearmoury)
 "ahQ" = (
@@ -1481,32 +1528,22 @@
 	},
 /area/security/brig)
 "ahR" = (
-/obj/structure/lattice,
-/obj/machinery/camera/motion{
-	c_tag = "Armory Exterior";
-	dir = 1
-	},
-/turf/space,
-/area/security/securearmoury)
-"ahS" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/flasher/portable,
+/obj/effect/decal/warning_stripes/southeast,
+/obj/structure/closet/l3closet/security,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/camera{
-	c_tag = "Brig Secure Armory North"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/security/securearmoury)
 "ahT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/target/syndicate,
-/obj/item/target/syndicate,
-/obj/item/target/syndicate,
-/turf/simulated/floor/plasteel,
-/area/security/range)
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = 30
+	},
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "ahU" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/warning_stripes/northwestcorner,
@@ -1623,6 +1660,32 @@
 	icon_state = "dark"
 	},
 /area/security/brig)
+"aif" = (
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/south,
+/obj/item/storage/box/teargas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/flashbangs{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/seccarts{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "aig" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -1642,60 +1705,13 @@
 /turf/simulated/wall/r_wall,
 /area/security/hos)
 "aij" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
-	},
-/turf/simulated/wall,
-/area/space/nearstation)
-"aik" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/vending/security,
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
-"ain" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/item/storage/box/rubbershot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/beanbag{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beanbag{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beanbag{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
+/obj/item/target/syndicate,
+/obj/item/target/syndicate,
+/obj/item/target/syndicate,
+/turf/simulated/floor/plasteel,
+/area/security/range)
 "aio" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/southwestcorner,
@@ -1787,11 +1803,12 @@
 /turf/simulated/wall/r_wall,
 /area/security/securearmoury)
 "aiw" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/lattice,
+/obj/machinery/camera/motion{
+	c_tag = "Armory Exterior";
+	dir = 1
 	},
+/turf/space,
 /area/security/securearmoury)
 "aix" = (
 /turf/simulated/floor/plasteel{
@@ -1799,6 +1816,18 @@
 	},
 /turf/simulated/wall,
 /area/security/brig)
+"aiz" = (
+/obj/machinery/alarm{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "aiA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2102,18 +2131,6 @@
 	icon_state = "dark"
 	},
 /area/security/securearmoury)
-"ajk" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/radio/intercom/department/security{
-	pixel_y = 25
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
 "ajm" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -2124,6 +2141,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/brig)
+"ajn" = (
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "ajo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/west,
@@ -2493,17 +2516,9 @@
 	},
 /area/security/brig)
 "akl" = (
-/obj/structure/rack,
-/obj/effect/decal/warning_stripes/south,
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_y = 5;
-	pixel_x = 4
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier,
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/flasher/portable,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2860,21 +2875,19 @@
 	icon_state = "cult"
 	},
 /area/lawoffice)
-"ali" = (
-/obj/structure/rack,
-/obj/effect/decal/warning_stripes/southwest,
-/obj/item/storage/lockbox/mindshield,
-/obj/item/storage/box/trackimp,
-/obj/item/storage/box/chemimp{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/storage/toolbox/mechanical,
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
+"ale" = (
+/obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/vending/security,
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
+"alf" = (
+/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4254,27 +4267,10 @@
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "aor" = (
-/obj/structure/rack,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/security/securearmoury)
 "aos" = (
@@ -19615,13 +19611,10 @@
 	},
 /area/medical/morgue)
 "aYm" = (
-/obj/effect/decal/warning_stripes/southeast,
-/obj/structure/closet/l3closet/security,
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "aYn" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
@@ -79025,6 +79018,10 @@
 "jVf" = (
 /obj/vehicle/secway,
 /obj/item/key/security,
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32;
+	name = "north bump"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -81390,6 +81387,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"qTO" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/turf/simulated/wall,
+/area/space/nearstation)
 "qUv" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
@@ -110406,15 +110410,15 @@ aaa
 aaa
 aaa
 aaa
-ahG
+abY
 afO
 aab
 afO
-aij
+qTO
 aMr
 aab
 aab
-ahG
+abY
 akZ
 wxp
 twe
@@ -111434,7 +111438,7 @@ afO
 afX
 afX
 aaa
-ahG
+abY
 ahF
 ahF
 ahF
@@ -111691,7 +111695,7 @@ afX
 afX
 afX
 afX
-aeR
+aYm
 ahF
 ahF
 ahF
@@ -112465,11 +112469,11 @@ aab
 aaa
 aiv
 aiv
-aik
+ale
 anW
-ali
+adb
 abP
-acH
+aiz
 xWL
 afm
 amC
@@ -112721,10 +112725,10 @@ aaa
 aab
 aaa
 aiv
+ahG
 aor
-aiw
 acj
-akl
+acH
 adg
 ajj
 alj
@@ -112978,10 +112982,10 @@ aaa
 aab
 aiv
 aiv
-ain
+adP
 ajj
 acj
-ahH
+aif
 adh
 ajj
 all
@@ -113234,8 +113238,8 @@ aaa
 afO
 aab
 aiv
-agR
-abO
+ahT
+alf
 ahU
 aio
 acK
@@ -113489,9 +113493,9 @@ afX
 afO
 aab
 aab
-ahR
+aiw
 aiv
-abY
+akl
 agS
 ahV
 aiq
@@ -113748,7 +113752,7 @@ aaa
 aaa
 aaa
 aiv
-ahS
+aeR
 agS
 acj
 aip
@@ -114005,8 +114009,8 @@ afO
 aaa
 aaa
 aiv
-ajk
-adv
+abO
+ajn
 ahW
 air
 aiO
@@ -114263,7 +114267,7 @@ aab
 aaa
 aiv
 aqR
-aYm
+ahR
 aiv
 aiv
 aiv
@@ -116324,7 +116328,7 @@ acv
 aqd
 acP
 adm
-ahT
+aij
 anA
 ael
 aeB
