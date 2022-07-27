@@ -355,6 +355,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/finalize_antag()
 	return
 
+/datum/antagonist/proc/admin_add(datum/mind/new_owner, mob/admin)
+	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name].")
+	log_admin("[key_name(admin)] made [key_name(new_owner)] into [name].")
+	new_owner.add_antag_datum(src)
+
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()
 	var/list/report = list()

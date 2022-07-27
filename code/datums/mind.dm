@@ -354,9 +354,10 @@
 
 /datum/mind/proc/memory_edit_abductor(mob/living/carbon/human/H)
 	. = _memory_edit_header("abductor")
-	if(src in SSticker.mode.abductors)
-		. += "<b><font color='red'>ABDUCTOR</font></b>|<a href='?src=[UID()];abductor=clear'>no</a>"
-		. += "|<a href='?src=[UID()];common=undress'>undress</a>|<a href='?src=[UID()];abductor=equip'>equip</a>"
+	var/datum/antagonist/abductor/A = has_antag_datum(/datum/antagonist/abductor)
+	if(A)
+		. += "<b><font color='red'>ABDUCTOR</font></b>|<a href='?src=[UID()];abductor=clear'>NO + del items</a>"
+		. += "|<a href='?src=[UID()];abductor=ufo'>To UFO</a>"
 	else
 		. += "<a href='?src=[UID()];abductor=abductor'>abductor</a>|<b>NO</b>"
 
@@ -1419,21 +1420,11 @@
 			if("abductor")
 				if(!(has_antag_datum(/datum/antagonist/abductor)))
 					var/datum/antagonist/abductor/A = new()
-					add_antag_datum(A)
-					log_admin("[key_name(usr)] has abductored [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
-			if("equip")
-				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
-					return
+					A.admin_add(src, usr)
 
-				var/mob/living/carbon/human/H = current
-				var/gear = alert("Agent or Scientist Gear?","Gear","Agent","Scientist")
-				if(gear)
-					if(gear == "Agent")
-						H.equipOutfit(/datum/outfit/abductor/agent)
-					else
-						H.equipOutfit(/datum/outfit/abductor/scientist)
+			if("ufo")
+				var/datum/antagonist/abductor/A = has_antag_datum(/datum/antagonist/abductor)
+				A.move_to_ship(src.current)
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])

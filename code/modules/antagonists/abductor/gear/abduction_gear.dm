@@ -135,12 +135,7 @@
 	if(!AbductorCheck(user))
 		return FALSE
 
-	var/mob/living/carbon/human/H = user
-	var/datum/species/abductor/S = H.dna.species
-	if(S.scientist)
-		return TRUE
-	to_chat(user, "<span class='warning'>You're not trained to use this!</span>")
-	return FALSE
+	return TRUE
 
 /obj/item/abductor/gizmo
 	name = "science tool"
