@@ -122,7 +122,7 @@
 	if(cell.charge < cell.maxcharge)
 		var/delta = min(max_charge, cell.maxcharge - cell.charge)
 		recharging_mecha.give_power(delta)
-		use_power(delta*150)
+		use_power(delta * 150)
 		recharge_console.update_icon()
 
 /obj/machinery/computer/mech_bay_power_console
