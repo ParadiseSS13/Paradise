@@ -18,6 +18,10 @@
 	. = ..()
 	GLOB.abductor_equipment.Add(src)
 
+/obj/machinery/computer/camera_advanced/abductor/Destroy()
+	GLOB.abductor_equipment.Remove(src)
+	return ..()
+
 /obj/machinery/computer/camera_advanced/abductor/CreateEye()
 	..()
 	eyeobj.visible_icon = 1

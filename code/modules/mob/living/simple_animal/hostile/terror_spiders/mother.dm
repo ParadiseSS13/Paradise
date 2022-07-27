@@ -28,26 +28,22 @@
 	loudspeaker = TRUE
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/mother
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
-	var/datum/action/innate/terrorspider/remoteview/remoteview_action
-	var/datum/action/innate/terrorspider/mother/royaljelly/royaljelly_action
-	var/datum/action/innate/terrorspider/mother/gatherspiderlings/gatherspiderlings_action
-	var/datum/action/innate/terrorspider/mother/incubateeggs/incubateeggs_action
+
 	var/jelly_cost = 100
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/mother/New()
-	..()
-	ventsmash_action = new()
-	ventsmash_action.Grant(src)
-	remoteview_action = new()
-	remoteview_action.Grant(src)
-	royaljelly_action = new()
-	royaljelly_action.Grant(src)
-	gatherspiderlings_action = new()
-	gatherspiderlings_action.Grant(src)
-	incubateeggs_action = new()
-	incubateeggs_action.Grant(src)
+/mob/living/simple_animal/hostile/poison/terror_spider/mother/Initialize(mapload)
+	. = ..()
+	var/static/list/action_paths = list(
+		/datum/action/innate/terrorspider/ventsmash,
+		/datum/action/innate/terrorspider/remoteview,
+		/datum/action/innate/terrorspider/mother/royaljelly,
+		/datum/action/innate/terrorspider/mother/gatherspiderlings,
+		/datum/action/innate/terrorspider/mother/incubateeggs,
+	)
+	for(var/action_path in action_paths)
+		var/datum/action/act = new action_path
+		act.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)
 	DropSpiderlings()

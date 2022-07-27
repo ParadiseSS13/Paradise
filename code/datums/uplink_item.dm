@@ -241,14 +241,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 //Chaplain
 
-/datum/uplink_item/jobspecific/voodoo
-	name = "Voodoo Doll"
-	desc = "A doll created by Syndicate Witch Doctors. Ingredients: Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs, and Monosodium glutamate."
-	reference = "VD"
-	item = /obj/item/voodoo
-	cost = 13
-	job = list("Chaplain")
-
 /datum/uplink_item/jobspecific/missionary_kit
 	name = "Missionary Starter Kit"
 	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff."

@@ -25,6 +25,22 @@
 	req_access = list(ACCESS_KEYCARD_AUTH)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
+/obj/machinery/keycard_auth/update_icon_state()
+	. = ..()
+
+	if(event_triggered_by || event_source)
+		icon_state = "auth_on"
+	else
+		icon_state = "auth_off"
+
+/obj/machinery/keycard_auth/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(event_triggered_by || event_source)
+		underlays += emissive_appearance(icon, "auth_lightmask")
+
+
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
 	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
 	return
@@ -57,9 +73,9 @@
 /obj/machinery/keycard_auth/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
-		icon_state = "auth_off"
 	else
 		stat |= NOPOWER
+	update_icon()
 
 /obj/machinery/keycard_auth/attack_ghost(mob/user)
 	ui_interact(user)
@@ -115,12 +131,14 @@
 	swiping = FALSE
 	confirmed = FALSE
 	event_source = null
-	icon_state = "auth_off"
 	event_triggered_by = null
 	event_confirmed_by = null
+	set_light(0)
+	update_icon()
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
-	icon_state = "auth_on"
+	update_icon()
+	set_light(1, LIGHTING_MINIMUM_POWER)
 	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
 		if(KA == src) continue
 		KA.reset()
@@ -138,18 +156,23 @@
 /obj/machinery/keycard_auth/proc/receive_request(obj/machinery/keycard_auth/source)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
+	set_light(1, LIGHTING_MINIMUM_POWER)
+
 	event_source = source
 	busy = TRUE
 	active = TRUE
 	SStgui.update_uis(src)
-	icon_state = "auth_on"
+	update_icon()
 
 	sleep(confirm_delay)
 
 	event_source = null
-	icon_state = "auth_off"
+	update_icon()
 	active = FALSE
 	busy = FALSE
+
+	set_light(0)
 
 /obj/machinery/keycard_auth/proc/trigger_event()
 	switch(event)
