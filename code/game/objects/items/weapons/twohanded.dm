@@ -225,10 +225,10 @@
 
 /obj/item/twohanded/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
-	force_wielded = 30
+	force_wielded = 35
 	armour_penetration = 20
-	var/charge = 30
-	var/max_charge = 30
+	var/charge = 20
+	var/max_charge = 20
 
 /obj/item/twohanded/fireaxe/energized/update_icon_state()
 	if(wielded)
