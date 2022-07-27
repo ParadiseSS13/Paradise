@@ -77401,6 +77401,13 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"fvK" = (
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "fwa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -117356,7 +117363,7 @@ acx
 acE
 acE
 anA
-aoJ
+fvK
 alq
 afK
 amr
