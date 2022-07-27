@@ -3,7 +3,6 @@
 	visible_icon = TRUE 
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera_target"
-	see_in_dark = 8
 
 /obj/machinery/computer/camera_advanced/abductor
 	name = "Human Observation Console"
