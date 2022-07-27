@@ -519,15 +519,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[KB.UID()]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[KB.UID()]'>Clear</a></td>"
 					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
-						var/datum/keybinding/custom/custom_emote = kb
+						var/datum/keybinding/custom/custom_emote_keybind = kb
 						dat += "</tr>"
 						dat += "<tr>"
-						if(custom_emote.emote_text == initial(custom_emote.emote_text))
-							dat += "<td style='width: 25%'>[custom_emote.emote_text]</td>"
+						var/emote_text = active_character.custom_emotes[custom_emote_keybind.name] //check if this emote keybind has an associated value on the character save
+						if(!emote_text)
+							dat += "<td style='width: 25%'>[custom_emote_keybind.default_emote_text]</td>"
 						else
-							dat += "<td style='width: 25%'><i>\"[active_character.real_name] [custom_emote.emote_text]\"</i></td>"
-						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote.UID()];'>Change Text</a></td>"
-						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote.UID()];'>Reset to Default</a></td>"
+							dat += "<td style='width: 25%'><i>\"[active_character.real_name] [emote_text]\"</i></td>"
+						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote_keybind.UID()];'>Change Text</a></td>"
+						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote_keybind.UID()];'>Reset to Default</a></td>"
 						dat += "<tr><td colspan=4><br></td></tr>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"

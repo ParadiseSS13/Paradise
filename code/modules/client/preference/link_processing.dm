@@ -1031,10 +1031,6 @@
 					if(isnewplayer(user))
 						var/mob/new_player/N = user
 						N.new_player_panel_proc()
-					//clear custom emote text so we don't keep crap if new character has fewer custom emotes than previous
-					for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
-						custom_emote.emote_text = initial(custom_emote.emote_text)
-					active_character.init_custom_emotes(active_character.custom_emotes)
 
 				if("tab")
 					if(href_list["tab"])
@@ -1191,21 +1187,19 @@
 										keybindings_overrides[KB.name] = list()
 
 					else if(href_list["custom_emote_set"])
-						var/datum/keybinding/custom/custom_emote = locateUID(href_list["custom_emote_set"])
-						if(custom_emote)
-							var/desired_emote = stripped_input(user, "Enter your custom emote text, 128 character limit.", "Custom Emote Setter", custom_emote.emote_text, max_length = 128)
-							custom_emote.emote_text = desired_emote
-							if(desired_emote != initial(custom_emote.emote_text))
-								active_character.custom_emotes[custom_emote.name] = desired_emote
-								active_character.init_custom_emotes(active_character.custom_emotes)
+						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_set"])
+						if(custom_emote_keybind)
+							var/emote_text = active_character.custom_emotes[custom_emote_keybind.name]
+							var/desired_emote = stripped_input(user, "Enter your custom emote text, 128 character limit.", "Custom Emote Setter", emote_text, max_length = 128)
+							if(desired_emote && (desired_emote != custom_emote_keybind.default_emote_text)) //don't let them save the default custom emote text
+								active_character.custom_emotes[custom_emote_keybind.name] = desired_emote
 							active_character.save(user)
 
 					else if(href_list["custom_emote_reset"])
-						var/datum/keybinding/custom/custom_emote = locateUID(href_list["custom_emote_reset"])
-						custom_emote.emote_text = initial(custom_emote.emote_text)
-						active_character.custom_emotes.Remove(active_character.custom_emotes[custom_emote.name])
-						active_character.init_custom_emotes(active_character.custom_emotes)
-						active_character.save(user)
+						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_reset"])
+						if(custom_emote_keybind)
+							active_character.custom_emotes.Remove(custom_emote_keybind.name)
+							active_character.save(user)
 
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them

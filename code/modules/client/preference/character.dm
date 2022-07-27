@@ -2100,9 +2100,7 @@
 	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
 		var/emote_text = overrides && overrides[custom_emote.name]
 		if(!emote_text)
-			custom_emote.emote_text = initial(custom_emote.emote_text)
-			continue //we set anything without an override back to default, in case it isn't that
+			continue //we don't set anything without an override
 		custom_emotes[custom_emote.name] = emote_text
-		custom_emote.emote_text = emote_text
 
 	return custom_emotes
