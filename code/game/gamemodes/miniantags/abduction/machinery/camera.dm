@@ -1,7 +1,15 @@
+/mob/camera/aiEye/remote/abductor
+	use_static = FALSE //Relying on a station's camera network for your surveillance needs is so past century
+	visible_icon = TRUE 
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "camera_target"
+	see_in_dark = 8
+
 /obj/machinery/computer/camera_advanced/abductor
 	name = "Human Observation Console"
 	var/team = 0
 	networks = list("SS13","Abductor")
+	eye_type = /mob/camera/aiEye/remote/abductor
 	var/datum/action/innate/teleport_in/tele_in_action = new
 	var/datum/action/innate/teleport_out/tele_out_action = new
 	var/datum/action/innate/teleport_self/tele_self_action = new
@@ -21,12 +29,6 @@
 /obj/machinery/computer/camera_advanced/abductor/Destroy()
 	GLOB.abductor_equipment.Remove(src)
 	return ..()
-
-/obj/machinery/computer/camera_advanced/abductor/CreateEye()
-	..()
-	eyeobj.visible_icon = 1
-	eyeobj.icon = 'icons/obj/abductor.dmi'
-	eyeobj.icon_state = "camera_target"
 
 /obj/machinery/computer/camera_advanced/abductor/GrantActions(mob/living/carbon/user)
 	..()
@@ -77,8 +79,7 @@
 	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 
-	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
-		P.PadToLoc(remote_eye.loc)
+	P.PadToLoc(remote_eye.loc)
 
 /datum/action/innate/teleport_out
 	name = "Retrieve"
@@ -101,9 +102,7 @@
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
-
-	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
-		P.MobToLoc(remote_eye.loc,C)
+	P.MobToLoc(remote_eye.loc,C)
 
 /datum/action/innate/vest_mode_swap
 	name = "Switch Vest Mode"

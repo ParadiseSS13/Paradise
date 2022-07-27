@@ -3,6 +3,7 @@
 	desc = "Used to access the various cameras on the station."
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
+	var/eye_type = /mob/camera/aiEye/remote
 	var/mob/camera/aiEye/remote/eyeobj
 	var/mob/living/carbon/human/current_user = null
 	var/list/networks = list("SS13")
@@ -11,7 +12,7 @@
 	var/list/actions = list()
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
-	eyeobj = new()
+	eyeobj = new eye_type()
 	eyeobj.origin = src
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
@@ -101,7 +102,7 @@
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
-	// Abductors dont trigger the Ai Detector
+	// Remote cameras dont trigger AI detector
 	ai_detector_visible = FALSE
 	var/sprint = 10
 	var/cooldown = 0
@@ -142,7 +143,7 @@
 		if(visible_icon)
 			if(eye_user.client)
 				eye_user.client.images -= user_image
-				user_image = image(icon,loc,icon_state,FLY_LAYER)
+				user_image = image(icon, loc, icon_state, FLY_LAYER)
 				eye_user.client.images += user_image
 
 /mob/camera/aiEye/remote/relaymove(mob/user,direct)
