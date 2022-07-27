@@ -220,8 +220,8 @@
 /obj/item/projectile/herald
 	name = "death bolt"
 	icon_state = "chronobolt"
-	damage = 20 // NOT SURE ABOUT THIS ONE CHIEF
-	armour_penetration = 60
+	damage = 15
+	armour_penetration = 30
 	speed = 2
 
 /obj/item/projectile/herald/teleshot

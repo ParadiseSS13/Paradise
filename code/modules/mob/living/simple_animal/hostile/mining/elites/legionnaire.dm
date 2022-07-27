@@ -36,6 +36,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/hallucinations/wail.ogg'
 	deathmessage = "'s arms reach out before it falls apart onto the floor, lifeless."
+	sight = SEE_MOBS // So it can see through smoke / charge through walls like the kool aid man.
 	var/datum/effect_system/smoke_spread/bad/smoke
 	loot_drop = /obj/item/crusher_trophy/legionnaire_spine
 
@@ -220,7 +221,7 @@
 		mypile.forceMove(legionturf)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/spew_smoke()
-	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
 	var/smoke_location = null
 	if(isnull(myhead))
 		smoke_location = src

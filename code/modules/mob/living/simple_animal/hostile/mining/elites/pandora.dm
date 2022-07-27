@@ -1,7 +1,8 @@
-#define SINGULAR_SHOT 1
+#define CHASER_BURST 1
 #define MAGIC_BOX 2
 #define PANDORA_TELEPORT 3
 #define AOE_SQUARES 4
+#define MAX_CHASERS 3
 
 /**
  * # Pandora
@@ -40,19 +41,21 @@
 	deathmessage = "'s lights flicker, before its top part falls down."
 	loot_drop = /obj/item/clothing/accessory/necklace/pandora_hope
 
-	attack_action_types = list(/datum/action/innate/elite_attack/singular_shot,
+	attack_action_types = list(/datum/action/innate/elite_attack/chaser_burst,
 								/datum/action/innate/elite_attack/magic_box,
 								/datum/action/innate/elite_attack/pandora_teleport,
 								/datum/action/innate/elite_attack/aoe_squares)
 
 	var/sing_shot_length = 8
 	var/cooldown_time = 2 SECONDS
+	var/chaser_speed = 3
+	var/recalculation_speed = 4 //How many times chasers moves before recalculating
 
-/datum/action/innate/elite_attack/singular_shot
-	name = "Singular Shot"
+/datum/action/innate/elite_attack/chaser_burst
+	name = "Chaser Burst"
 	button_icon_state = "singular_shot"
-	chosen_message = "<span class='boldwarning'>You are now creating a single linear magic square.</span>"
-	chosen_attack_num = SINGULAR_SHOT
+	chosen_message = "<span class='boldwarning'>You fire a chaser after all mobs in view.</span>"
+	chosen_attack_num = CHASER_BURST
 
 /datum/action/innate/elite_attack/magic_box
 	name = "Magic Box"
@@ -75,8 +78,8 @@
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/OpenFire()
 	if(client)
 		switch(chosen_attack)
-			if(SINGULAR_SHOT)
-				singular_shot(target)
+			if(CHASER_BURST)
+				chaser_burst(target)
 			if(MAGIC_BOX)
 				magic_box(target)
 			if(PANDORA_TELEPORT)
@@ -86,8 +89,8 @@
 		return
 	var/aiattack = rand(1,4)
 	switch(aiattack)
-		if(SINGULAR_SHOT)
-			singular_shot(target)
+		if(CHASER_BURST)
+			chaser_burst(target)
 		if(MAGIC_BOX)
 			magic_box(target)
 		if(PANDORA_TELEPORT)
@@ -99,18 +102,32 @@
 	. = ..()
 	if(health >= maxHealth * 0.5)
 		cooldown_time = 2 SECONDS * revive_multiplier()
+		chaser_speed = 3
+		recalculation_speed = 4
 		return
 	if(health < maxHealth * 0.5 && health > maxHealth * 0.25)
 		cooldown_time = 1.5 SECONDS * revive_multiplier()
+		chaser_speed = 2
+		recalculation_speed = 3
 		return
 	else
+		chaser_speed = 1
 		cooldown_time = 1 SECONDS * revive_multiplier()
+		recalculation_speed = 2
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot(target)
-	ranged_cooldown = world.time + (cooldown_time * 0.5)
-	var/dir_to_target = get_dir(get_turf(src), get_turf(target))
-	var/turf/T = get_step(get_turf(src), dir_to_target)
-	singular_shot_line(sing_shot_length, dir_to_target, T)
+/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/chaser_burst(target)
+	ranged_cooldown = world.time + cooldown_time * 2
+	var/active_chasers = 0
+	for(var/mob/living/M in orange(7, src))
+		if(M.faction_check_mob(src))
+			continue
+		if(active_chasers >= MAX_CHASERS)
+			return
+		var/obj/effect/temp_visual/hierophant/chaser/C = new(loc, src, M, chaser_speed, FALSE)
+		C.moving = 2
+		C.standard_moving_before_recalc = recalculation_speed
+		C.moving_dir = text2dir(pick("NORTH", "SOUTH", "EAST", "WEST"))
+		active_chasers += 1
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot_line(procsleft, angleused, turf/T)
 	if(procsleft <= 0)
@@ -176,6 +193,7 @@
 	damage = 30
 	monster_damage_boost = FALSE
 
+
 //Pandora's loot: Hope //Hope I know what to make it do
 /obj/item/clothing/accessory/necklace/pandora_hope
 	name = "Hope"
@@ -212,7 +230,8 @@
 		M.apply_status_effect(STATUS_EFFECT_HOPE)
 	return ..()
 
-#undef SINGULAR_SHOT
+#undef CHASER_BURST
 #undef MAGIC_BOX
 #undef PANDORA_TELEPORT
 #undef AOE_SQUARES
+#undef MAX_CHASERS

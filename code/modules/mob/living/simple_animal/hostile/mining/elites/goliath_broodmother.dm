@@ -117,7 +117,7 @@
 			new /obj/effect/temp_visual/goliath_tentacle/broodmother(t, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/tentacle_patch(target)
-	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 2.5 SECONDS * revive_multiplier()
 	var/tturf = get_turf(target)
 	if(!isturf(tturf))
 		return
@@ -125,7 +125,7 @@
 	new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(tturf, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/spawn_children(target)
-	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
 	visible_message("<span class='danger'>The ground churns behind [src]!</span>")
 	for(var/i in 1 to 2)
 		if(length(children_list) >= 8)
@@ -138,7 +138,7 @@
 		children_list += newchild
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/rage()
-	ranged_cooldown = world.time + 10 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 5 SECONDS * revive_multiplier()
 	visible_message("<span class='warning'>[src] starts picking up speed!</span>")
 	color = "#FF0000"
 	speed = 0
@@ -151,7 +151,7 @@
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/call_children()
-	ranged_cooldown = world.time + 6 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
 	visible_message("<span class='warning'>The ground shakes near [src]!</span>")
 	var/list/directions = GLOB.cardinal.Copy() + GLOB.diagonals.Copy()
 	for(var/mob/child in children_list)
