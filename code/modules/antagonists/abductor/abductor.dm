@@ -52,6 +52,7 @@
 	. = ..()
 	to_chat(owner.current, span_notice("With the help of your teammate, kidnap and experiment on station crewmembers!"))
 	to_chat(owner.current, span_notice("[greet_text]"))
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/abductors.ogg'))
 	//owner.announce_objectives()
 
 /datum/antagonist/abductor/proc/finalize_abductor()
