@@ -137,3 +137,11 @@
 	name = "Derelict EVA Storage"
 	icon_state = "eva"
 
+/area/ruin/space/syndicate_druglab
+	name = "Suspicious Station"
+	icon_state = "red"
+
+/area/ruin/space/syndicate_druglab/asteroid
+	name = "Suspicious Asteroid"
+	icon_state = "dark"
+	requires_power = FALSE

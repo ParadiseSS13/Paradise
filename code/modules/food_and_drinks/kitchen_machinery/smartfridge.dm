@@ -401,6 +401,27 @@
 		playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
 		emagged = TRUE
 
+/obj/machinery/smartfridge/food
+	name = "\improper Food Storage"
+	desc = "A fridge for storing and keeping your food cold."
+
+/obj/machinery/smartfridge/food/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/kitchen,
+		/obj/item/reagent_containers/food))
+
+// Syndicate Druglab Ruin
+/obj/machinery/smartfridge/food/syndicate_druglab
+	starting_items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice = 2,
+		/obj/item/reagent_containers/food/snacks/macncheese = 1,
+		/obj/item/reagent_containers/food/snacks/syndicake = 3,
+		/obj/item/reagent_containers/food/snacks/beans = 4,
+		/obj/item/reagent_containers/glass/beaker/waterbottle/large = 7,
+		/obj/item/reagent_containers/food/drinks/bottle/kahlua = 1,
+		/obj/item/reagent_containers/food/drinks/bottle/orangejuice = 2)
+
 /**
   * # Seed Storage
   *
