@@ -148,7 +148,7 @@
 	var/turf/turf_target = get_turf(target)
 	if(!(turf_target in view(12, src)))
 		return
-	ranged_cooldown = world.time + (cooldown_time * 2)
+	ranged_cooldown = world.time + cooldown_time * 2
 	var/turf/source = get_turf(src)
 	new /obj/effect/temp_visual/hierophant/telegraph(turf_target, src)
 	new /obj/effect/temp_visual/hierophant/telegraph(source, src)
@@ -174,7 +174,7 @@
 	visible_message("<span class='hierophant'>[src] fades in!</span>")
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares(target)
-	ranged_cooldown = world.time + cooldown_time
+	ranged_cooldown = world.time + cooldown_time * 2
 	var/turf/T = get_turf(target)
 	new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(T, src)
 	var/max_size = 3
