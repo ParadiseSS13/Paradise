@@ -30,7 +30,7 @@
 			var/mob/living/carbon/human/H = source
 			if(isabductor(H))
 				var/datum/species/abductor/S = H.dna.species
-				console = get_team_console(S.team)
+				console = get_team_console(S.team_number)
 				home = console.pad
 
 		if(!home)
@@ -38,10 +38,10 @@
 			home = console.pad
 		return 1
 
-/obj/item/implant/abductor/proc/get_team_console(team)
+/obj/item/implant/abductor/proc/get_team_console(team_number)
 	var/obj/machinery/abductor/console/console
 	for(var/obj/machinery/abductor/console/c in GLOB.abductor_equipment)
-		if(c.team == team)
+		if(c.team_number == team_number)
 			console = c
 			break
 	return console

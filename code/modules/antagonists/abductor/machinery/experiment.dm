@@ -112,11 +112,15 @@
 		return
 	if(occupant && occupant.stat != DEAD)
 		if(href_list["experiment"])
-			flash = Experiment(occupant,href_list["experiment"])
+			flash = Experiment(occupant, href_list["experiment"], usr)
 	updateUsrDialog()
 	add_fingerprint(usr)
 
-/obj/machinery/abductor/experiment/proc/Experiment(mob/occupant,type)
+/obj/machinery/abductor/experiment/proc/Experiment(mob/occupant, type, mob/user)
+	var/datum/antagonist/abductor/user_abductor = user.mind.has_antag_datum(/datum/antagonist/abductor)
+	if(!user_abductor)
+		return "Authorization failure. Contact mothership immediately."
+	
 	var/mob/living/carbon/human/H = occupant
 	var/point_reward = 0
 	if(H in history)
@@ -141,18 +145,8 @@
 			if(3)
 				to_chat(H, "<span class='warning'>You feel intensely watched.</span>")
 		sleep(5)
-		to_chat(H, "<span class='warning'><b>Your mind snaps!</b></span>")
-		to_chat(H, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
-		var/objtype = pick(subtypesof(/datum/objective/abductee/))
-		var/datum/objective/abductee/O = new objtype()
-		SSticker.mode.abductees += H.mind
-		H.mind.objectives += O
-		var/obj_count = 1
-		to_chat(H, "<span class='notice'>Your current objectives:</span>")
-		for(var/datum/objective/objective in H.mind.objectives)
-			to_chat(H, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-			obj_count++
-		SSticker.mode.update_abductor_icons_added(H.mind)
+		user_abductor.team.abductees += H.mind
+		H.mind.add_antag_datum(/datum/antagonist/abductee)
 
 		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)
 			G.Start()

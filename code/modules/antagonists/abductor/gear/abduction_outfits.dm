@@ -7,13 +7,13 @@
 
 /datum/outfit/abductor/proc/get_team_console(team_number)
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)
-		if(C.team == team_number)
+		if(C.team_number == team_number)
 			return C
 
 /datum/outfit/abductor/proc/link_to_console(mob/living/carbon/human/H, team_number)
 	if(!team_number && isabductor(H))
 		var/datum/species/abductor/S = H.dna.species
-		team_number = S.team
+		team_number = S.team_number
 
 	if(!team_number)
 		team_number = 1
@@ -60,3 +60,16 @@
 	if(!visualsOnly)
 		var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(H)
 		beamplant.implant(H)
+
+/datum/outfit/abductor/scientist/onemanteam
+	name = "Abductor Scientist (w/ agent gear)"
+	head = /obj/item/clothing/head/helmet/abductor
+	suit = /obj/item/clothing/suit/armor/abductor/vest
+	suit_store = /obj/item/abductor_baton
+	belt = /obj/item/storage/belt/military/abductor/full
+
+	backpack_contents = list(
+	/obj/item/abductor/gizmo = 1,
+	/obj/item/gun/energy/alien = 1,
+	/obj/item/abductor/silencer = 1
+	)

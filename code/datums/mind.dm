@@ -1410,26 +1410,27 @@
 					message_admins("[key_name_admin(usr)] has de-mindslaved [key_name_admin(current)]")
 
 	else if(href_list["abductor"])
-		switch(href_list["abductor"])
+		switch(href_list["abductor"])			
 			if("clear")
-				to_chat(usr, "Not implemented yet. Sorry!")
-				//ticker.mode.update_abductor_icons_removed(src)
+				if(has_antag_datum(/datum/antagonist/abductor))
+					remove_antag_datum(/datum/antagonist/abductor)
+					log_admin("[key_name(usr)] has de-abductored [key_name(current)]")
+
 			if("abductor")
-				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
-					return
-				make_Abductor()
-				log_admin("[key_name(usr)] turned [current] into abductor.")
-				SSticker.mode.update_abductor_icons_added(src)
+				if(!(has_antag_datum(/datum/antagonist/abductor)))
+					var/datum/antagonist/abductor/A = new()
+					add_antag_datum(A)
+					log_admin("[key_name(usr)] has abductored [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
 			if("equip")
 				if(!ishuman(current))
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
 					return
 
 				var/mob/living/carbon/human/H = current
-				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
+				var/gear = alert("Agent or Scientist Gear?","Gear","Agent","Scientist")
 				if(gear)
-					if(gear=="Agent")
+					if(gear == "Agent")
 						H.equipOutfit(/datum/outfit/abductor/agent)
 					else
 						H.equipOutfit(/datum/outfit/abductor/scientist)
@@ -1661,13 +1662,13 @@
 	take_uplink()
 	var/fail = 0
 	fail |= !SSticker.mode.equip_revolutionary(current)
-
+/*
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
-	var/team = input("Abductor Team ?","Team ?") in list(1,2,3,4)
+	var/team_number = input("Abductor Team ?","Team ?") in list(1,2,3,4)
 	var/teleport = alert("Teleport to ship ?","Teleport","Yes","No")
 
-	if(!role || !team || !teleport)
+	if(!role || !team_number || !teleport)
 		return
 
 	if(!ishuman(current))
@@ -1675,9 +1676,9 @@
 
 	SSticker.mode.abductors |= src
 
-	var/datum/objective/stay_hidden/hidden_obj = new
+	/*var/datum/objective/stay_hidden/hidden_obj = new
 	hidden_obj.owner = src
-	objectives += hidden_obj
+	objectives += hidden_obj*/
 
 	var/datum/objective/experiment/O = new
 	O.owner = src
@@ -1691,7 +1692,7 @@
 	if(role == "Scientist")
 		S.scientist = TRUE
 
-	S.team = team
+	S.team_number = team_number
 
 	var/list/obj/effect/landmark/abductor/agent_landmarks = new
 	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
@@ -1699,19 +1700,20 @@
 	scientist_landmarks.len = 4
 	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
 		if(istype(A, /obj/effect/landmark/abductor/agent))
-			agent_landmarks[text2num(A.team)] = A
+			agent_landmarks[text2num(A.team_number)] = A
 		else if(istype(A, /obj/effect/landmark/abductor/scientist))
-			scientist_landmarks[text2num(A.team)] = A
+			scientist_landmarks[text2num(A.team_number)] = A
 
 	var/obj/effect/landmark/L
 	if(teleport == "Yes")
 		switch(role)
 			if("Agent")
-				L = agent_landmarks[team]
+				L = agent_landmarks[team_number]
 			if("Scientist")
-				L = agent_landmarks[team]
+				L = agent_landmarks[team_number]
 		H.forceMove(L.loc)
 		SEND_SOUND(H, sound('sound/ambience/antag/abductors.ogg'))
+*/
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S

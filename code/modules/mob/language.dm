@@ -575,7 +575,7 @@
 	if(isabductor(other) && isabductor(speaker))
 		var/datum/species/abductor/A = speaker.dna.species
 		var/datum/species/abductor/A2 = other.dna.species
-		if(A.team == A2.team)
+		if(A.team_number == A2.team_number)
 			return TRUE
 	return FALSE
 

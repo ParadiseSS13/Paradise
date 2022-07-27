@@ -103,7 +103,7 @@
 /area/ninja/outpost)
 "au" = (
 /obj/machinery/abductor/experiment{
-	team = 1
+	team_number = 1
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -116,7 +116,7 @@
 /area/holodeck/source_picnicarea)
 "aw" = (
 /obj/machinery/abductor/console{
-	team = 1
+	team_number = 1
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -128,7 +128,7 @@
 /area/holodeck/source_wildlife)
 "ay" = (
 /obj/machinery/abductor/experiment{
-	team = 4
+	team_number = 4
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -234,7 +234,7 @@
 /area/centcom/control)
 "aV" = (
 /obj/machinery/abductor/console{
-	team = 4
+	team_number = 4
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -291,7 +291,7 @@
 /area/shuttle/escape)
 "bg" = (
 /obj/machinery/abductor/pad{
-	team = 4
+	team_number = 4
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -312,7 +312,7 @@
 /area/holodeck/source_theatre)
 "bp" = (
 /obj/machinery/computer/camera_advanced/abductor{
-	team = 1
+	team_number = 1
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -321,7 +321,7 @@
 /area/abductor_ship)
 "br" = (
 /obj/machinery/computer/camera_advanced/abductor{
-	team = 4
+	team_number = 4
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -405,7 +405,7 @@
 /area/ninja/holding)
 "bP" = (
 /obj/effect/landmark/abductor/scientist{
-	team = 4
+	team_number = 4
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -436,7 +436,7 @@
 /area/shuttle/transport)
 "bV" = (
 /obj/effect/landmark/abductor/agent{
-	team = 4
+	team_number = 4
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -1769,7 +1769,7 @@
 /area/shuttle/syndicate_elite)
 "gN" = (
 /obj/machinery/abductor/experiment{
-	team = 2
+	team_number = 2
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -1829,7 +1829,7 @@
 /area/shuttle/syndicate_sit)
 "gX" = (
 /obj/machinery/abductor/console{
-	team = 2
+	team_number = 2
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -1972,13 +1972,13 @@
 /area/syndicate_mothership)
 "hr" = (
 /obj/machinery/abductor/pad{
-	team = 2
+	team_number = 2
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "hs" = (
 /obj/machinery/abductor/experiment{
-	team = 3
+	team_number = 3
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -2094,13 +2094,13 @@
 /area/syndicate_mothership)
 "hH" = (
 /obj/machinery/abductor/console{
-	team = 3
+	team_number = 3
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "hJ" = (
 /obj/machinery/abductor/pad{
-	team = 3
+	team_number = 3
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -2176,7 +2176,7 @@
 /area/shuttle/syndicate_sit)
 "hW" = (
 /obj/machinery/computer/camera_advanced/abductor{
-	team = 2
+	team_number = 2
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -2475,7 +2475,7 @@
 /area/shuttle/syndicate)
 "iU" = (
 /obj/machinery/computer/camera_advanced/abductor{
-	team = 3
+	team_number = 3
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -2795,7 +2795,7 @@
 /area/syndicate_mothership)
 "kc" = (
 /obj/effect/landmark/abductor/scientist{
-	team = 2
+	team_number = 2
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -2876,7 +2876,7 @@
 /area/centcom/specops)
 "kq" = (
 /obj/effect/landmark/abductor/agent{
-	team = 2
+	team_number = 2
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -3262,7 +3262,7 @@
 /area/syndicate_mothership/jail)
 "ly" = (
 /obj/effect/landmark/abductor/scientist{
-	team = 3
+	team_number = 3
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -3306,7 +3306,7 @@
 /area/syndicate_mothership/jail)
 "lF" = (
 /obj/effect/landmark/abductor/agent{
-	team = 3
+	team_number = 3
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
@@ -3819,7 +3819,7 @@
 /area/admin)
 "mW" = (
 /obj/machinery/abductor/pad{
-	team = 1
+	team_number = 1
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)

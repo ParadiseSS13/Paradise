@@ -6,7 +6,7 @@
 
 /obj/machinery/computer/camera_advanced/abductor
 	name = "Human Observation Console"
-	var/team = 0
+	var/team_number = 0
 	networks = list("SS13","Abductor")
 	eye_type = /mob/camera/aiEye/remote/abductor
 	var/datum/action/innate/teleport_in/tele_in_action = new

@@ -5,8 +5,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective
 	/// Mind who owns the objective.
 	var/datum/mind/owner = null
+	//An alternative to 'owner': a team.
+	var/datum/team/team
 	/// What the owner is supposed to do to complete the objective.
 	var/explanation_text = "Nothing"
+	var/team_explanation_text //For when there are multiple owners.
 	/// If the objective should have `find_target()` called for it.
 	var/needs_target = TRUE
 	/// The target of the objective.
