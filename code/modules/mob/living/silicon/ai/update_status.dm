@@ -6,6 +6,9 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
+		else if(IsSleeping()) //Required for adminfreezing
+			KnockOut()
+			create_debug_log("fell unconscious, trigger reason: [reason]")
 		else if(stat == UNCONSCIOUS)
 			WakeUp()
 			create_debug_log("woke up, trigger reason: [reason]")

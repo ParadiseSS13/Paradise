@@ -41,6 +41,7 @@
 /obj/structure/morgue/Initialize()
 	. = ..()
 	update_icon(update_state())
+	set_light(1, LIGHTING_MINIMUM_POWER)
 
 /obj/structure/morgue/proc/update_state()
 	. = UPDATE_OVERLAYS
@@ -69,8 +70,10 @@
 
 /obj/structure/morgue/update_overlays()
 	. = ..()
+	underlays.Cut()
 	if(!connected)
 		. += "morgue_[status]"
+		underlays += emissive_appearance(icon, "morgue_[status]")
 	if(name != initial(name))
 		. += "morgue_label"
 

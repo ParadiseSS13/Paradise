@@ -130,8 +130,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/New()
 	..()
-	for(var/path in actions_types)
-		new path(src, action_icon[path], action_icon_state[path])
 
 	if(!hitsound)
 		if(damtype == "fire")
@@ -144,6 +142,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/Initialize(mapload)
 	. = ..()
+	for(var/path in actions_types)
+		new path(src, action_icon[path], action_icon_state[path])
 	if(istype(loc, /obj/item/storage)) //marks all items in storage as being such
 		in_storage = TRUE
 

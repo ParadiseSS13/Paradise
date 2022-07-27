@@ -68,6 +68,7 @@
 	update_sight()
 	update_action_buttons_icon()
 	ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT) // immobilized is superfluous as moving when dead ghosts you.
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_health()
