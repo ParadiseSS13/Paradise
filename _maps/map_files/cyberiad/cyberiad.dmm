@@ -269,15 +269,21 @@
 /area/security/main)
 "acH" = (
 /obj/structure/rack,
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_y = 5;
-	pixel_x = 4
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/window/reinforced,
+/obj/item/grenade/barrier{
+	pixel_y = 5;
+	pixel_x = 5
+	},
+/obj/item/grenade/barrier{
+	pixel_y = 3;
+	pixel_x = 3
+	},
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier{
+	pixel_y = -3;
+	pixel_x = -3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80448,6 +80454,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/security/permabrig)
+"ois" = (
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "omz" = (
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
@@ -83078,13 +83091,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
-"wjk" = (
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 32;
-	name = "north bump"
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "wjs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -117359,7 +117365,7 @@ acx
 acE
 acE
 anA
-wjk
+ois
 alq
 afK
 amr
