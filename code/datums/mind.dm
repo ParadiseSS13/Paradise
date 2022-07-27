@@ -1653,58 +1653,6 @@
 	take_uplink()
 	var/fail = 0
 	fail |= !SSticker.mode.equip_revolutionary(current)
-/*
-/datum/mind/proc/make_Abductor()
-	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
-	var/team_number = input("Abductor Team ?","Team ?") in list(1,2,3,4)
-	var/teleport = alert("Teleport to ship ?","Teleport","Yes","No")
-
-	if(!role || !team_number || !teleport)
-		return
-
-	if(!ishuman(current))
-		return
-
-	SSticker.mode.abductors |= src
-
-	/*var/datum/objective/stay_hidden/hidden_obj = new
-	hidden_obj.owner = src
-	objectives += hidden_obj*/
-
-	var/datum/objective/experiment/O = new
-	O.owner = src
-	objectives += O
-
-	var/mob/living/carbon/human/H = current
-
-	H.set_species(/datum/species/abductor)
-	var/datum/species/abductor/S = H.dna.species
-
-	if(role == "Scientist")
-		S.scientist = TRUE
-
-	S.team_number = team_number
-
-	var/list/obj/effect/landmark/abductor/agent_landmarks = new
-	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
-	agent_landmarks.len = 4
-	scientist_landmarks.len = 4
-	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
-		if(istype(A, /obj/effect/landmark/abductor/agent))
-			agent_landmarks[text2num(A.team_number)] = A
-		else if(istype(A, /obj/effect/landmark/abductor/scientist))
-			scientist_landmarks[text2num(A.team_number)] = A
-
-	var/obj/effect/landmark/L
-	if(teleport == "Yes")
-		switch(role)
-			if("Agent")
-				L = agent_landmarks[team_number]
-			if("Scientist")
-				L = agent_landmarks[team_number]
-		H.forceMove(L.loc)
-		SEND_SOUND(H, sound('sound/ambience/antag/abductors.ogg'))
-*/
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S

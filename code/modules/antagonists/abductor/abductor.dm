@@ -81,8 +81,8 @@
 	var/list/current_teams = list()
 	for(var/datum/team/abductor_team/T in GLOB.antagonist_teams)
 		current_teams[T.name] = T
-	var/choice = input(admin,"Add to which team ?") as null|anything in (current_teams + "new team")
-	if (choice == "new team")
+	var/choice = input(admin,"Add to which team ?") as null|anything in (current_teams + "New team")
+	if (choice == "New team")
 		team = new
 	else if(choice in current_teams)
 		team = current_teams[choice]
