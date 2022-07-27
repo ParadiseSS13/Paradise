@@ -510,6 +510,8 @@
 
 	if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)) && !panel_open)
 		underlays += emissive_appearance(icon, "tele1_lightmask")
+	else if(!panel_open)
+		underlays += emissive_appearance(icon, "tele0_lightmask")
 
 /obj/machinery/teleport/perma/proc/update_lighting()
 	if(target && !recalibrating && !panel_open && !(stat & (BROKEN|NOPOWER)))
