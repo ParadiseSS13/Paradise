@@ -30,8 +30,8 @@
 	phasing_action.Remove(user)
 	switch_damtype_action.Remove(user)
 
-/obj/mecha/combat/phazon/New()
-	..()
+/obj/mecha/combat/phazon/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/rcd
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult

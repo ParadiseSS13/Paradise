@@ -9,7 +9,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	strip_delay = 40
 	put_on_delay = 20
-	clipped = 1
+	clipped = TRUE
 
 /obj/item/clothing/gloves/cyborg
 	name = "cyborg gloves"
@@ -91,9 +91,9 @@
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
 	return cell
 
-/obj/item/clothing/gloves/color/yellow/stun/New()
-	..()
-	update_icon()
+/obj/item/clothing/gloves/color/yellow/stun/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/gloves/color/yellow/stun/Destroy()
 	QDEL_NULL(cell)
@@ -123,12 +123,11 @@
 			return TRUE
 	return FALSE
 
-/obj/item/clothing/gloves/color/yellow/stun/update_icon()
-	..()
-	overlays.Cut()
-	overlays += "gloves_wire"
+/obj/item/clothing/gloves/color/yellow/stun/update_overlays()
+	. = ..()
+	. += "gloves_wire"
 	if(cell)
-		overlays += "gloves_cell"
+		. += "gloves_cell"
 
 /obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -139,7 +138,7 @@
 			W.forceMove(src)
 			cell = W
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 	else
@@ -153,7 +152,7 @@
 		to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
 		cell.forceMove(get_turf(loc))
 		cell = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/gloves/color/yellow/fake/examine(mob/user)
 	. = ..()

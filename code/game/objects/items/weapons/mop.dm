@@ -70,9 +70,8 @@
 		return ..()
 
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	J.mymop = src
 	J.put_in_cart(src, user)
-	J.mymop=src
-	J.update_icon()
 
 /obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)

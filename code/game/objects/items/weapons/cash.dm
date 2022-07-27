@@ -16,10 +16,9 @@
 
 /obj/item/stack/spacecash/New(loc, amt = null)
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/stack/spacecash/update_icon()
-	..()
+/obj/item/stack/spacecash/update_icon_state()
 	name = "[amount == max_amount ? "1000000" : amount] Credit[amount > 1 ? "s" : ""]"
 	if(amount >= 1 && amount < 10)
 		icon_state = "cashgreen"

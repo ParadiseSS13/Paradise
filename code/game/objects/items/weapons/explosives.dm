@@ -13,9 +13,9 @@
 	var/obj/item/assembly_holder/nadeassembly = null
 	var/assemblyattacher
 
-/obj/item/grenade/plastic/New()
+/obj/item/grenade/plastic/Initialize(mapload)
+	. = ..()
 	image_overlay = image('icons/obj/grenade.dmi', "[item_state]2")
-	..()
 
 /obj/item/grenade/plastic/Destroy()
 	QDEL_NULL(nadeassembly)
@@ -33,14 +33,14 @@
 		assemblyattacher = user.ckey
 		to_chat(user, "<span class='notice'>You add [A] to [src].</span>")
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 	if(nadeassembly && istype(I, /obj/item/wirecutters))
 		playsound(src, I.usesound, 20, 1)
 		nadeassembly.loc = get_turf(src)
 		nadeassembly.master = null
 		nadeassembly = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 	..()
 
@@ -80,16 +80,16 @@
 	if(do_after(user, 50 * toolspeed, target = AM))
 		if(!user.unEquip(src))
 			return
-		src.target = AM
+		target = AM
 		loc = null
 
 		message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) planted [src.name] on [target.name] at ([target.x],[target.y],[target.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [det_time] second fuse",0,1)
 		log_game("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
 
-		target.overlays += image_overlay
+		AddComponent(/datum/component/persistent_overlay, image_overlay, target)
 		if(!nadeassembly)
 			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
-			addtimer(CALLBACK(src, .proc/prime), det_time*10)
+			addtimer(CALLBACK(src, .proc/prime), det_time SECONDS)
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) suicided with [src.name] at ([user.x],[user.y],[user.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)",0,1)
@@ -120,7 +120,7 @@
 	user.gib()
 	return OBLITERATION
 
-/obj/item/grenade/plastic/update_icon()
+/obj/item/grenade/plastic/update_icon_state()
 	if(nadeassembly)
 		icon_state = "[item_state]1"
 	else
@@ -153,7 +153,6 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			target.overlays -= image_overlay
 			if(!ex_breach && istype(target, /turf/simulated/wall)) //Walls get dismantled instead of destroyed to avoid making unwanted holes to space.
 				var/turf/simulated/wall/W = target
 				W.dismantle_wall(TRUE, TRUE)
@@ -219,7 +218,6 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			target.overlays -= image_overlay
 	else
 		location = get_turf(src)
 	if(location)

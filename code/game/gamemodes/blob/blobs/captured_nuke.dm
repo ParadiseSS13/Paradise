@@ -10,13 +10,13 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	N?.forceMove(src)
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/blob/captured_nuke/update_icon()
-	..()
-	cut_overlays()
+/obj/structure/blob/captured_nuke/update_overlays()
+	. = ..()
 	var/image/nuke_overlay = image('icons/mob/blob.dmi', "blob_nuke_overlay")
 	nuke_overlay.appearance_flags = RESET_COLOR
-	add_overlay(nuke_overlay)
+	. += nuke_overlay
 
 /obj/structure/blob/captured_nuke/Destroy()
 	for(var/obj/machinery/nuclearbomb/O in contents)

@@ -132,7 +132,7 @@
 		return
 	if(!is_adult)
 		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-			is_adult = 1
+			is_adult = TRUE
 			maxHealth = 200
 			amount_grown = 0
 			for(var/datum/action/innate/slime/evolve/E in actions)

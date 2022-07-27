@@ -88,12 +88,6 @@
 		announce(H)
 
 /datum/job/proc/get_access()
-	if(!GLOB?.configuration?.jobs)	//Needed for robots.
-		// AA TODO: Remove this once mulebots and stuff use Initialize()
-		// Update: Now that the map is loaded after SSjobs this might not be needed
-		// However, I dont want to take that chance
-		return src.minimal_access.Copy()
-
 	if(GLOB.configuration.jobs.jobs_have_minimal_access)
 		return src.minimal_access.Copy()
 	else
