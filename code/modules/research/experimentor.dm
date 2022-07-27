@@ -102,9 +102,6 @@
 	return TRUE
 
 /obj/machinery/r_n_d/experimentor/attackby(obj/item/O, mob/user, params)
-	if(shocked)
-		shock(user,50)
-
 	if(exchange_parts(user, O))
 		return
 
@@ -112,14 +109,14 @@
 		to_chat(user, "<span class='warning'>[O] is not yet valid for [src] and must be completed!</span>")
 		return
 
-	if(disabled)
-		return
 	if(!linked_console)
 		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
 		return
+
 	if(loaded_item)
 		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
 		return
+
 	if(istype(O, /obj/item))
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
@@ -134,8 +131,6 @@
 		O.loc = src
 		to_chat(user, "<span class='notice'>You add [O] to the machine.</span>")
 		flick("h_lathe_load", src)
-
-	return
 
 /obj/machinery/r_n_d/experimentor/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
