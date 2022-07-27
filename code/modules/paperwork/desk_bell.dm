@@ -16,7 +16,7 @@
 	/// The sound the bell makes
 	var/ring_sound = 'sound/machines/bell.ogg'
 
-/obj/item/desk_bell/attack_hand(mob/living/user, list/modifiers)
+/obj/item/desk_bell/attack_hand(mob/living/user)
 	if(ring_cooldown > world.time)
 		return TRUE
 	if(!ring_bell(user))
