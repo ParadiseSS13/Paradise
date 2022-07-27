@@ -10,6 +10,9 @@
 ## Images of changes
 <!-- If you did not make a map or sprite edit, you may delete this section. You may include a gif or mp4 of your feature if you want. -->
 
+## Testing
+<!-- How did you test the PR, if at all? -->
+
 ## Changelog
 :cl:
 add: Added new things
