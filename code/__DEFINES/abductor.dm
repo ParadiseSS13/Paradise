@@ -1,0 +1,6 @@
+#define VEST_STEALTH 1
+#define VEST_COMBAT 2
+#define GIZMO_SCAN 1
+#define GIZMO_MARK 2
+#define MIND_DEVICE_MESSAGE 1
+#define MIND_DEVICE_CONTROL 2
