@@ -127,7 +127,7 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
-/obj/machinery/atmospherics/air_sensor/Initialize()
+/obj/machinery/atmospherics/air_sensor/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
 
@@ -283,8 +283,8 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
-/obj/machinery/computer/general_air_control/Initialize()
-	..()
+/obj/machinery/computer/general_air_control/Initialize(mapload)
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/computer/general_air_control/multitool_menu(mob/user, obj/item/multitool/P)
@@ -635,7 +635,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	var/datum/ui_module/atmos_control/atmos_control
 
-/obj/machinery/computer/atmoscontrol/Initialize()
+/obj/machinery/computer/atmoscontrol/Initialize(mapload)
 	. = ..()
 	atmos_control = new(src)
 

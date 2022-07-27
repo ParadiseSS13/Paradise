@@ -20,7 +20,7 @@
 	Mtoollink = TRUE
 	settagwhitelist = list("id_tag")
 
-/obj/machinery/atmospherics/meter/Initialize()
+/obj/machinery/atmospherics/meter/Initialize(mapload)
 	. = ..()
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 

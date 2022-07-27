@@ -21,7 +21,7 @@
 	var/force_no_power_icon_state = FALSE
 
 /obj/machinery/computer/Initialize()
-	..()
+	. = ..()
 	power_change()
 	update_icon()
 

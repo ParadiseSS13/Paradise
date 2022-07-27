@@ -11,7 +11,7 @@
 
 	var/volume = 0
 
-	var/maximum_pressure = 90*ONE_ATMOSPHERE
+	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
 /obj/machinery/portable_atmospherics/Initialize(mapload)
 	. = ..()

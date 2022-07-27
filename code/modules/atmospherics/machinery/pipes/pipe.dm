@@ -15,7 +15,7 @@
 
 	flags_2 = NO_MALF_EFFECT_2
 
-/obj/machinery/atmospherics/pipe/Initialize()
+/obj/machinery/atmospherics/pipe/Initialize(mapload)
 	. = ..()
 	//so pipes under walls are hidden
 	if(istype(get_turf(src), /turf/simulated/wall))

@@ -35,7 +35,7 @@ Pipelines + Other Objects -> Pipe network
 	var/image/pipe_image
 
 
-/obj/machinery/atmospherics/Initialize()
+/obj/machinery/atmospherics/Initialize(mapload)
 	. = ..()
 	SSair.atmos_machinery += src
 
