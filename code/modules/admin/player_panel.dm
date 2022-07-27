@@ -473,11 +473,11 @@
 		if(SSticker.mode.implanted.len)
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
 
-		if(SSticker.mode.abductors.len)
+		/*if(SSticker.mode.abductors.len)
 			dat += check_role_table("Abductors", SSticker.mode.abductors)
 
 		if(SSticker.mode.abductees.len)
-			dat += check_role_table("Abductees", SSticker.mode.abductees)
+			dat += check_role_table("Abductees", SSticker.mode.abductees)*/
 
 		if(SSticker.mode.vampires.len)
 			dat += check_role_table("Vampires", SSticker.mode.vampires)

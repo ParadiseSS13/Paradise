@@ -20,8 +20,7 @@
 
 //special roles
 // Distinct from the ROLE_X defines because some antags have multiple special roles but only one ban type
-#define SPECIAL_ROLE_ABDUCTOR_AGENT "Abductor Agent"
-#define SPECIAL_ROLE_ABDUCTOR_SCIENTIST "Abductor Scientist"
+#define SPECIAL_ROLE_ABDUCTOR "Abductor"
 #define SPECIAL_ROLE_BLOB "Blob"
 #define SPECIAL_ROLE_BLOB_OVERMIND "Blob Overmind"
 #define SPECIAL_ROLE_CHANGELING "Changeling"

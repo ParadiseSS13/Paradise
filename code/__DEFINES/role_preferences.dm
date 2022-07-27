@@ -50,7 +50,7 @@
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
 //(in game days played) to play that role
 GLOBAL_LIST_INIT(special_roles, list(
-	ROLE_ABDUCTOR = /datum/game_mode/abduction, 		// Abductor
+	ROLE_ABDUCTOR, 		// Abductor
 	ROLE_BLOB = /datum/game_mode/blob, 					// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist

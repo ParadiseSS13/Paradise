@@ -1252,6 +1252,7 @@
 #include "code\modules\antagonists\_common\antag_spawner.dm"
 #include "code\modules\antagonists\_common\antag_team.dm"
 #include "code\modules\antagonists\abductor\abduction.dm"
+#include "code\modules\antagonists\abductor\abductor.dm"
 #include "code\modules\antagonists\abductor\abductee\abductee_objectives.dm"
 #include "code\modules\antagonists\abductor\gear\abduction_gear.dm"
 #include "code\modules\antagonists\abductor\gear\abduction_outfits.dm"
