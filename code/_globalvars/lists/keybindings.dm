@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(keybindings_groups, list(
 	"Animal Emote" = KB_CATEGORY_EMOTE_ANIMAL,
 	"Brain Emote" = KB_CATEGORY_EMOTE_BRAIN,
 	"Alien Emote" = KB_CATEGORY_EMOTE_ALIEN,
-	"Custom Emotes (Character-based)" = KB_CATEGORY_EMOTE_CUSTOM,
 	"Admin" = KB_CATEGORY_ADMIN,
 	"Other" = KB_CATEGORY_UNSORTED,
+	"Custom Emotes (Character-based)" = KB_CATEGORY_EMOTE_CUSTOM,
 ))
