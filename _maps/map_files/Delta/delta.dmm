@@ -88122,24 +88122,6 @@
 	icon_state = "dark"
 	},
 /area/security/main)
-"emK" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "researchdesk1";
-	name = "Research Desk Shutters"
-	},
-/obj/machinery/autolathe,
-/obj/machinery/door/window/southleft{
-	name = "Research Lab Desk";
-	req_access_txt = "7"
-	},
-/obj/machinery/door/window/northleft,
-/obj/structure/window/reinforced{
-	dir = 8;
-	pixel_x = -4
-	},
-/turf/simulated/floor/plating,
-/area/toxins/lab)
 "enC" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -136679,7 +136661,7 @@ cNK
 cPu
 cMm
 cSt
-emK
+cTT
 cVx
 cWR
 cYq
