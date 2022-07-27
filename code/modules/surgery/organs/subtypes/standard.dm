@@ -230,7 +230,7 @@
 
 /obj/item/organ/external/head/examine(mob/user)
 	. = ..()
-	if(!contents.len)
+	if(!length(contents))
 		. += "<span class='warning'>There is nothing left inside!</span>"
 
 /obj/item/organ/external/head/remove()
