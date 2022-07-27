@@ -69,7 +69,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
+	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle-o", I)
 
 /obj/machinery/quantumpad/attack_hand(mob/user)
 	if(panel_open)
