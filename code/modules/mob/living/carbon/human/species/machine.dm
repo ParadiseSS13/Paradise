@@ -183,10 +183,12 @@
 								"Error -1: poafejOIDAIJjamfooooWADm!afe!",
 								"Error -1: PIKFAjgaiosafjiGGIGHasksid!!",
 								"Error 534: Arithmetic result exceeded 512 bits.",
-								"Errror 0: Operation completed successfully.",
+								"Error 0: Operation completed successfully.",
 								"WARNING, CRITICAL COMPONENT ERROR, attempting to troubleshoot....",
 								"runtime in sentience.dm, cannot modify null.som, STACK TRACE:",
 								"master controller timed out, likely infinite recursion loop.",
+								"Error 6344: Cannot delete file ~/2tmp1/8^33, no space left on device",
+								"Error 42: Unable to display error message.",
 								"Daisy.... Daisy...."
 								)
 		var/error_message = pick(error_messages)
