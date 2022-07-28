@@ -222,7 +222,7 @@
 
 	var/brute_loss = 0
 	var/burn_loss = 0
-	var/bomb_armor = getarmor(null, BOMB)
+	var/bomb_armor = 100 - (100/(1+(getarmor(null, BOMB)/50)))
 	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
 	var/limbs_amount = 1
 	var/limb_loss_chance = 50
