@@ -57,14 +57,10 @@
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = ""
-	var/late = FALSE
 
 /obj/effect/mapping_helpers/Initialize(mapload)
-	. = ..()
-	if(late)
-		return INITIALIZE_HINT_LATELOAD
-	else
-		qdel(src) // INITIALIZE_HINT_QDEL <-- Doesn't work // what do you mean it doesn't??
+	..()
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
@@ -76,11 +72,10 @@
 
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
-	late = TRUE
 	var/list/blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered)
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
-	. = ..()
+	. = ..()  // INITIALIZE_HINT_QDEL
 	if(!mapload)
 		log_world("[src] spawned outside of mapload!")
 		return
@@ -91,8 +86,6 @@
 	for(var/obj/machinery/door/D in get_turf(src))
 		if(!is_type_in_list(D, blacklist))
 			payload(D)
-
-	return INITIALIZE_HINT_QDEL
 
 /obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
 	return
