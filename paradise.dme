@@ -1261,7 +1261,7 @@
 #include "code\modules\antagonists\abductor\gear\gland.dm"
 #include "code\modules\antagonists\abductor\machinery\camera.dm"
 #include "code\modules\antagonists\abductor\machinery\console.dm"
-#include "code\modules\antagonists\abductor\machinery\cryopod.dm"
+#include "code\modules\antagonists\abductor\machinery\cryo.dm"
 #include "code\modules\antagonists\abductor\machinery\dispenser.dm"
 #include "code\modules\antagonists\abductor\machinery\experiment.dm"
 #include "code\modules\antagonists\abductor\machinery\pad.dm"
