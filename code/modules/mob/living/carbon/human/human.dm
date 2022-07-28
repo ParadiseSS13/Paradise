@@ -257,7 +257,7 @@
 				brute_loss = 15 * (2 - round(bomb_armor * 0.01, 0.05)) //Reduced from 30 to up to 15
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
-			KnockDown(10 SECONDS - (bomb_armor / 10) SECONDS) //Between no knockdown to 10 seconds of knockdown depending on bomb armor
+			KnockDown(10 SECONDS - bomb_armor) //Between no knockdown to 10 seconds of knockdown depending on bomb armor
 			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
 			limb_loss_chance = 25
 
