@@ -240,7 +240,7 @@
 				limbs_amount = 4
 
 		if(EXPLODE_HEAVY)
-			var/stuntime = 5 SECONDS - (bomb_armor / 20) SECONDS //Between no stun and 5 seconds of stun depending on bomb armor
+			var/stuntime = 5 SECONDS - (bomb_armor / 2) //Between no stun and 5 seconds of stun depending on bomb armor
 			brute_loss = 60
 			burn_loss = 60
 			if(bomb_armor)
