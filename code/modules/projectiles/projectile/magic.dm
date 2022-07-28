@@ -221,6 +221,7 @@
 				else
 					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 				new_mob.universal_speak = TRUE
+				to_chat(M, "<b><font color=red>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorph life!</font></b>")
 			if("animal")
 				if(prob(50))
 					var/beast = pick("carp","bear","mushroom","statue", "bat", "goat", "tomato")
