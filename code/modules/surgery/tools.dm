@@ -178,7 +178,7 @@
 		)
 		return FALSE
 
-	if(!IS_HORIZONTAL(H))
+	if(!IS_HORIZONTAL(target))
 		return FALSE
 	user.visible_message(
 		"<span class='warning'>\The [sawed] turns to shreds as [user] cleaves through it.</span>",
