@@ -181,8 +181,8 @@
 	if(!IS_HORIZONTAL(H))
 		return FALSE
 	user.visible_message(
-		"<span class='warning'>[sawed] falls apart in shreds as [user] cleaves through it.</span>",
-		"<span class='warning'>[sawed] falls apart in shreds as you cleave through it.</span>",
+		"<span class='warning'>\The [sawed] turns to shreds as [user] cleaves through it.</span>",
+		"<span class='warning'>\The [sawed] turns to shreds as you cleave through it.</span>",
 		"<span class='notice'>You hear something fall as the grinding ends.</span>"
 	)
 
