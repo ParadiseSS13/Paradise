@@ -60,6 +60,7 @@ const NO_PASSTHROUGH_KEYS = [
   KEY_TAB,
   KEY_CTRL,
   KEY_SHIFT,
+  KEY_ALT,
 ];
 
 // Tracks the "pressed" state of keys
