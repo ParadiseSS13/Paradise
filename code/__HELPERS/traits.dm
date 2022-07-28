@@ -198,9 +198,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
-/// When a circular saw is used and something with this trait is worn on the
-/// body or head, you can saw through it to remove it.
-#define TRAIT_ARMOR_SAWABLE "sawable_armor"
 
 //
 // common trait sources
