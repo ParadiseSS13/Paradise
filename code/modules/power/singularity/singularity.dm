@@ -371,7 +371,7 @@
 			return 0
 	else if(locate(/obj/machinery/shieldwallgen) in T)
 		var/obj/machinery/shieldwallgen/S = locate(/obj/machinery/shieldwallgen) in T
-		if(S && S.activated)
+		if(S?.activated)
 			return 0
 	return 1
 
