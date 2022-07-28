@@ -50,6 +50,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	if(basecolor == "rainbow")
 		basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	color = basecolor
+	..()
 
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
@@ -142,20 +143,25 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE
 	mergeable_decal = FALSE
-
+	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
 
+/obj/effect/decal/cleanable/blood/gibs/Destroy()
+	giblets = null
+	return ..()
+
 /obj/effect/decal/cleanable/blood/gibs/update_icon()
-	var/image/giblets = new(base_icon, "[icon_state]_flesh", dir)
+	giblets = new(base_icon, "[icon_state]_flesh", dir)
 	if(!fleshcolor || fleshcolor == "rainbow")
 		fleshcolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	giblets.color = fleshcolor
 	var/icon/blood = new(base_icon,"[icon_state]",dir)
-
 	icon = blood
-	overlays.Cut()
-	overlays += giblets
 	. = ..()
+
+/obj/effect/decal/cleanable/blood/gibs/update_overlays()
+	. = ..()
+	. += giblets
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity)
 	return

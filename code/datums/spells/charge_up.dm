@@ -36,10 +36,9 @@
 /obj/effect/proc_holder/spell/charge_up/proc/try_stop_buildup(mob/user)
 	var/energy_perc = get_energy_charge() / max_charge_time
 	if(energy_perc < 0.5)
-		charge_counter = (1 - energy_perc) * charge_max // Give them some charge back
+		cooldown_handler.start_recharge((1 - energy_perc) * cooldown_handler.recharge_duration) // Shorten the cooldown based on how long it was charged for.
 		to_chat(user, "<span class='notice'>[stop_charging_text]</span>")
 		Reset(user)
-		start_recharge()
 		return TRUE
 	else
 		to_chat(user, "<span class='danger'>[stop_charging_fail_text]</span>")
@@ -74,7 +73,7 @@
 	to_chat(user, "<span class='danger'>You lose control over the spell!</span>")
 	Reset(user)
 	spend_spell_cost(user)
-	start_recharge()
+	cooldown_handler.start_recharge()
 
 /obj/effect/proc_holder/spell/charge_up/after_cast(list/targets, mob/user)
 	..()

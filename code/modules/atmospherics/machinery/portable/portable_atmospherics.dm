@@ -6,7 +6,7 @@
 	var/datum/gas_mixture/air_contents = new
 
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
-	var/obj/item/tank/holding
+	var/obj/item/tank/holding_tank
 
 	var/volume = 0
 
@@ -19,7 +19,7 @@
 	air_contents.volume = volume
 	air_contents.temperature = T20C
 
-	return 1
+	return TRUE
 
 /obj/machinery/portable_atmospherics/Initialize()
 	. = ..()
@@ -40,20 +40,17 @@
 	SSair.atmos_machinery -= src
 	disconnect()
 	QDEL_NULL(air_contents)
-	QDEL_NULL(holding)
+	QDEL_NULL(holding_tank)
 	return ..()
-
-/obj/machinery/portable_atmospherics/update_icon()
-	return null
 
 /obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
-		return 0
+		return
 
 	//Make sure are close enough for a valid connection
 	if(new_port.loc != loc)
-		return 0
+		return
 
 	//Perform the connection
 	connected_port = new_port
@@ -66,18 +63,18 @@
 
 	anchored = TRUE //Prevent movement
 
-	return 1
+	return TRUE
 
 /obj/machinery/portable_atmospherics/proc/disconnect()
 	if(!connected_port)
-		return 0
+		return
 
 	anchored = FALSE
 
 	connected_port.connected_device = null
 	connected_port = null
 
-	return 1
+	return TRUE
 
 /obj/machinery/portable_atmospherics/portableConnectorReturnAir()
 	return air_contents
@@ -90,24 +87,24 @@
 		return
 	if(!ishuman(usr) && !issilicon(usr))
 		return
-	if(holding)
-		to_chat(user, "<span class='notice'>You remove [holding] from [src].</span>")
+	if(holding_tank)
+		to_chat(user, "<span class='notice'>You remove [holding_tank] from [src].</span>")
 		replace_tank(user, TRUE)
 
 /obj/machinery/portable_atmospherics/examine(mob/user)
 	. = ..()
-	if(holding)
-		. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>"
+	if(holding_tank)
+		. += "<span class='notice'>\The [src] contains [holding_tank]. Alt-click [src] to remove it.</span>"
 
 /obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
-	if(holding)
-		holding.forceMove(drop_location())
+	if(holding_tank)
+		holding_tank.forceMove(drop_location())
 		if(Adjacent(user) && !issilicon(user))
-			user.put_in_hands(holding)
+			user.put_in_hands(holding_tank)
 	if(new_tank)
-		holding = new_tank
+		holding_tank = new_tank
 	else
-		holding = null
+		holding_tank = null
 	update_icon()
 	return TRUE
 
@@ -118,11 +115,11 @@
 				return
 			var/obj/item/tank/T = W
 			user.drop_item()
-			if(src.holding)
-				to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
+			if(holding_tank)
+				to_chat(user, "<span class='notice'>[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
 				replace_tank(user, FALSE)
 			T.loc = src
-			src.holding = T
+			holding_tank = T
 			update_icon()
 		return
 	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)

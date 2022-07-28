@@ -10,7 +10,7 @@
 	throwforce = 15
 	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
 	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
-	var/isGlass = 1 //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
+	var/is_glass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
 
 /obj/item/reagent_containers/food/drinks/bottle/proc/smash(mob/living/target, mob/living/user, ranged = FALSE)
 
@@ -29,7 +29,7 @@
 	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
 	B.icon = I
 
-	if(isGlass)
+	if(is_glass)
 		if(prob(33))
 			new/obj/item/shard(new_location)
 		playsound(src, "shatter", 70, 1)
@@ -47,7 +47,7 @@
 	if(!target)
 		return
 
-	if(user.a_intent != INTENT_HARM || !isGlass)
+	if(user.a_intent != INTENT_HARM || !is_glass)
 		return ..()
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -285,7 +285,7 @@
 	icon_state = "orangejuice"
 	item_state = "carton"
 	throwforce = 0
-	isGlass = 0
+	is_glass = FALSE
 	list_reagents = list("orangejuice" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/cream
@@ -294,7 +294,7 @@
 	icon_state = "cream"
 	item_state = "carton"
 	throwforce = 0
-	isGlass = 0
+	is_glass = FALSE
 	list_reagents = list("cream" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/tomatojuice
@@ -303,7 +303,7 @@
 	icon_state = "tomatojuice"
 	item_state = "carton"
 	throwforce = 0
-	isGlass = 0
+	is_glass = FALSE
 	list_reagents = list("tomatojuice" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/limejuice
@@ -312,7 +312,7 @@
 	icon_state = "limejuice"
 	item_state = "carton"
 	throwforce = 0
-	isGlass = 0
+	is_glass = FALSE
 	list_reagents = list("limejuice" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/milk
@@ -321,7 +321,7 @@
 	icon_state = "milk"
 	item_state = "carton"
 	throwforce = 0
-	isGlass = 0
+	is_glass = FALSE
 	list_reagents = list("milk" = 100)
 
 ////////////////////////// MOLOTOV ///////////////////////
@@ -334,22 +334,37 @@
 							/datum/reagent/napalm,/datum/reagent/hellwater,/datum/reagent/plasma,/datum/reagent/plasma_dust)
 	var/active = FALSE
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/CheckParts(list/parts_list)
-	..()
+/obj/item/reagent_containers/food/drinks/bottle/molotov/update_desc()
+	. = ..()
+	desc = initial(desc)
+	if(!is_glass)
+		desc += " You're not sure if making this out of a carton was the brightest idea."
+
+/obj/item/reagent_containers/food/drinks/bottle/molotov/update_icon_state()
 	var/obj/item/reagent_containers/food/drinks/bottle/B = locate() in contents
 	if(B)
 		icon_state = B.icon_state
+
+/obj/item/reagent_containers/food/drinks/bottle/molotov/update_overlays()
+	. = ..()
+	if(active)
+		. += GLOB.fire_overlay
+
+/obj/item/reagent_containers/food/drinks/bottle/molotov/CheckParts(list/parts_list)
+	..()
+	var/obj/item/reagent_containers/food/drinks/bottle/B = locate() in contents
+	if(B)	
 		B.reagents.copy_to(src, 100)
-		if(!B.isGlass)
-			desc += " You're not sure if making this out of a carton was the brightest idea."
-			isGlass = 0
+		if(!B.is_glass)
+			is_glass = FALSE
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/throw_impact(atom/target,mob/thrower)
-	var/firestarter = 0
+	var/firestarter = FALSE
 	for(var/datum/reagent/R in reagents.reagent_list)
 		for(var/A in accelerants)
 			if(istype(R, A))
-				firestarter = 1
+				firestarter = TRUE
 				break
 	..()
 	if(firestarter && active)
@@ -365,8 +380,7 @@
 		log_game("[key_name(user)] has primed a [name] for detonation at [bombarea] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 
 		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
-		overlays += GLOB.fire_overlay
-		if(!isGlass)
+		if(!is_glass)
 			spawn(50)
 				if(active)
 					var/counter
@@ -383,9 +397,9 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attack_self(mob/user)
 	if(active)
-		if(!isGlass)
+		if(!is_glass)
 			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")
 			return
 		to_chat(user, "<span class='info'>You snuff out the flame on \the [src].</span>")
-		overlays -= GLOB.fire_overlay
 		active = FALSE
+		update_icon(UPDATE_OVERLAYS)

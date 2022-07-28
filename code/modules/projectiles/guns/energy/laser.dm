@@ -130,12 +130,11 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
 
-/obj/item/gun/energy/immolator/multi/update_icon()
-	..()
+/obj/item/gun/energy/immolator/multi/update_overlays()
+	. = ..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/append = shot.select_name
-	overlays += image(icon = icon, icon_state = "multilensimmolator-[append]")
-
+	. += image(icon = icon, icon_state = "multilensimmolator-[append]")
 
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"

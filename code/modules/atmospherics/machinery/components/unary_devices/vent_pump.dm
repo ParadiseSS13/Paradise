@@ -78,16 +78,9 @@
 	..()
 	air_contents.volume = 1000
 
-/obj/machinery/atmospherics/unary/vent_pump/update_icon(safety = 0)
-	..()
-
+/obj/machinery/atmospherics/unary/vent_pump/update_overlays()
+	. = ..()
 	plane = FLOOR_PLANE
-
-	if(!check_icon_cache())
-		return
-
-	overlays.Cut()
-
 	var/vent_icon = "vent"
 
 	var/turf/T = get_turf(src)
@@ -101,7 +94,7 @@
 	else
 		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
+	. += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
 
 	update_pipe_image()
 

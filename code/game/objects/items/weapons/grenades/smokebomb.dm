@@ -8,10 +8,10 @@
 	slot_flags = SLOT_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
 
-/obj/item/grenade/smokebomb/New()
-	..()
-	src.smoke = new /datum/effect_system/smoke_spread/bad
-	src.smoke.attach(src)
+/obj/item/grenade/smokebomb/Initialize(mapload)
+	. = ..()
+	smoke = new /datum/effect_system/smoke_spread/bad
+	smoke.attach(src)
 
 /obj/item/grenade/smokebomb/Destroy()
 	QDEL_NULL(smoke)

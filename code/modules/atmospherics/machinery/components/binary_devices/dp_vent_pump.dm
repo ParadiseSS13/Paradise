@@ -70,13 +70,8 @@
 		add_underlay(T, node1, turn(dir, -180))
 		add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/update_icon(safety = 0)
-	..()
-
-	if(!check_icon_cache())
-		return
-
-	overlays.Cut()
+/obj/machinery/atmospherics/binary/dp_vent_pump/update_overlays()
+	. = ..()
 
 	var/vent_icon = "vent"
 
@@ -89,7 +84,7 @@
 	else
 		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
+	. += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_underlays()
 	if(..())

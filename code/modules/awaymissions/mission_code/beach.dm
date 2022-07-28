@@ -2,10 +2,10 @@
 	name = "waterfall effect"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "extinguish"
-	opacity = 0
+	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	invisibility = 101
 
 	var/water_frequency = 15
@@ -144,7 +144,7 @@
 	layer = MOB_LAYER + 0.1
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = list(SMOOTH_GROUP_BEACH_WATER)
-	anchored = 1
+	anchored = TRUE
 
 /turf/simulated/floor/beach/away/water/drop/dense
 	density = TRUE

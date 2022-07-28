@@ -385,13 +385,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			// Gradient
 			var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[O.h_grad_style]
 			if(gradient)
-				var/mutable_appearance/img_gradient = mutable_appearance(gradient.icon, gradient.icon_state)
-				img_gradient.alpha = O.h_grad_alpha
-				img_gradient.color = COLOR_MATRIX_OVERLAY(O.h_grad_colour)
-				img_gradient.pixel_x = O.h_grad_offset_x
-				img_gradient.pixel_y = O.h_grad_offset_y
-				img_gradient.blend_mode = BLEND_INSET_OVERLAY
-				MA.overlays += img_gradient
+				var/icon/icn_alpha_mask = icon(gradient.icon, gradient.icon_state)
+				var/icon/icn_gradient = icon(gradient.icon, "full")
+				var/list/icn_color = ReadRGB(O.h_grad_colour)
+				icn_gradient.MapColors(rgb(icn_color[1], 0, 0), rgb(0, icn_color[2], 0), rgb(0, 0, icn_color[3]))
+				icn_gradient.ChangeOpacity(O.h_grad_alpha / 255)
+				icn_gradient.AddAlphaMask(icn_alpha_mask)
+				icn_gradient.Shift(EAST, O.h_grad_offset_x)
+				icn_gradient.Shift(NORTH, O.h_grad_offset_y)
+				icn_gradient.AddAlphaMask(icon(hair.icon, "[hair.icon_state]_s"))
+
+				MA.overlays += icn_gradient
 
 			// Secondary style
 			if(hair.secondary_theme)
