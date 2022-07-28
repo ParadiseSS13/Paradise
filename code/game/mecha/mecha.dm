@@ -4,9 +4,9 @@
 	name = "Mecha"
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
-	density = 1 //Dense. To raise the heat.
-	opacity = 1 ///opaque. Menacing.
-	anchored = 1 //no pulling around.
+	density = TRUE //Dense. To raise the heat.
+	opacity = TRUE ///opaque. Menacing.
+	anchored = TRUE //no pulling around.
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
@@ -57,7 +57,7 @@
 	var/list/operation_req_access = list()//required access level for mecha operation
 	var/list/internals_req_access = list(ACCESS_ENGINE,ACCESS_ROBOTICS)//required access level to open cell compartment
 
-	var/wreckage
+	var/obj/structure/mecha_wreckage/wreckage = null  // type that the mecha becomes when destroyed
 
 	var/list/equipment = new
 	var/obj/item/mecha_parts/mecha_equipment/selected
@@ -609,25 +609,25 @@
 		trackers -= A
 
 /obj/mecha/Destroy()
+	STOP_PROCESSING(SSobj, src)
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
-	var/mob/living/silicon/ai/AI
 	for(var/mob/M in src) //Let's just be ultra sure
 		if(isAI(M))
-			occupant = null
-			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			var/mob/living/silicon/ai/AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			AI.gib() //No wreck, no AI to recover
 		else
 			M.forceMove(loc)
+	occupant = null
+	selected = null
 	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 		E.detach(loc)
 		qdel(E)
 	equipment.Cut()
 	QDEL_NULL(cell)
 	QDEL_NULL(internal_tank)
-	if(AI)
-		AI.gib() //No wreck, no AI to recover
-	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	if(loc)
 		loc.assume_air(cabin_air)
@@ -635,9 +635,11 @@
 	else
 		qdel(cabin_air)
 	cabin_air = null
+	connected_port = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_LIST(trackers)
+	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
@@ -918,8 +920,8 @@
 				to_chat(user, "<span class='boldannounce'>ACCESS DENIED.</span>")
 				return
 			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
-			AI.control_disabled = 1
-			AI.aiRadio.disabledAi = 1
+			AI.control_disabled = TRUE
+			AI.aiRadio.disabledAi = TRUE
 			AI.forceMove(card)
 			occupant = null
 			AI.controlled_mech = null
@@ -948,8 +950,8 @@
 			else if(occupant || dna) //Normal AIs cannot steal mechs!
 				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].")
 				return
-			AI.control_disabled = 0
-			AI.aiRadio.disabledAi = 0
+			AI.control_disabled = FALSE
+			AI.aiRadio.disabledAi = FALSE
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 			ai_enter_mech(AI, interaction)
 
@@ -965,7 +967,7 @@
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
-	AI.can_shunt = 0 //ONE AI ENTERS. NO AI LEAVES.
+	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
 	to_chat(AI, "<span class='boldnotice'>Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions.</span>")

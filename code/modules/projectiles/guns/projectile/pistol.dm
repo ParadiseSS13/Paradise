@@ -15,10 +15,8 @@
 	fire_delay = 0
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/pistol/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
-	return
 
 //M1911//
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -40,8 +38,8 @@
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/New()
-	..()
+/obj/item/gun/projectile/automatic/pistol/enforcer/Initialize(mapload)
+	. = ..()
 	options["Grey slide"] = "enforcer_grey"
 	options["Red slide"] = "enforcer_red"
 	options["Green slide"] = "enforcer_green"
@@ -52,29 +50,27 @@
 	options["Red Handle"] = "enforcer_redgrip"
 	options["Cancel"] = null
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-	overlays.Cut()
+
+/obj/item/gun/projectile/automatic/pistol/enforcer/update_overlays()
+	. = list()
 	if(suppressed)
-		overlays += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
+		. += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
 	if(gun_light)
-		var/iconF = "Enforcer_light"
+		var/flashlight = "Enforcer_light"
 		if(gun_light.on)
-			iconF = "Enforcer_light-on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+			flashlight = "Enforcer_light-on"
+		. += image(icon = icon, icon_state = flashlight, pixel_x = 0)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/ui_action_click()
 	toggle_gunlight()
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
-
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal/New()
-	magazine = new/obj/item/ammo_box/magazine/enforcer/lethal
-	..()
+	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
 
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle

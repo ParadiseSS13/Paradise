@@ -7,7 +7,7 @@
 	origin_tech = "magnets=1;bluespace=1"
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 
-	secured = 1
+	secured = TRUE
 	var/receiving = FALSE
 
 	bomb_name = "remote-control bomb"
@@ -46,10 +46,9 @@
 	signal()
 	return TRUE
 
-/obj/item/assembly/signaler/update_icon()
+/obj/item/assembly/signaler/update_icon_state()
 	if(holder)
 		holder.update_icon()
-	return
 
 /obj/item/assembly/signaler/interact(mob/user, flag1)
 	var/t1 = "-------"

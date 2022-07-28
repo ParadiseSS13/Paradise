@@ -7,7 +7,6 @@
 	var/area/target = null
 	var/active = FALSE
 	var/list/holographic_items = list()
-	var/damaged = 0
 	var/last_change = 0
 
 	light_color = LIGHT_COLOR_CYAN
@@ -206,7 +205,6 @@
 
 	if(active)
 		if(!checkInteg(linkedholodeck))
-			damaged = 1
 			target = locate(/area/holodeck/source_plating)
 			if(target)
 				loadProgram(target)
@@ -291,7 +289,7 @@
 	for(var/mob/living/simple_animal/hostile/carp/C in linkedholodeck)
 		qdel(C)
 
-	holographic_items = A.copy_contents_to(linkedholodeck , 1)
+	holographic_items = A.copy_contents_to(linkedholodeck , 1, perfect_copy = FALSE)
 
 	if(emagged)
 		for(var/obj/item/holo/H in linkedholodeck)
@@ -345,9 +343,9 @@
 
 /turf/simulated/floor/holofloor/carpet/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/turf/simulated/floor/holofloor/carpet/update_icon()
+/turf/simulated/floor/holofloor/carpet/update_icon_state()
 	if(!..())
 		return 0
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
@@ -596,7 +594,7 @@
 
 	ready = !ready
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/numbuttons = 0
 	var/numready = 0
@@ -608,7 +606,7 @@
 	if(numbuttons == numready)
 		begin_event()
 
-/obj/machinery/readybutton/update_icon()
+/obj/machinery/readybutton/update_icon_state()
 	if(ready)
 		icon_state = "auth_on"
 	else

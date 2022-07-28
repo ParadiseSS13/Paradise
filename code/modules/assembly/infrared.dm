@@ -59,15 +59,14 @@
 /obj/item/assembly/infra/proc/arm() // Forces the device to arm no matter its current state.
 	if(!secured) // Checked because arm() might be called sometime after the object is spawned.
 		toggle_secure()
-	on = 1
+	on = TRUE
 
-/obj/item/assembly/infra/update_icon()
-	overlays.Cut()
+/obj/item/assembly/infra/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(on)
-		overlays += "infrared_on"
+		. += "infrared_on"
 		attached_overlays += "infrared_on"
-
 	if(holder)
 		holder.update_icon()
 
@@ -89,7 +88,7 @@
 		emission_cycles = 0
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(T)
 		I.master = src
-		I.density = 1
+		I.density = TRUE
 		I.dir = dir
 		I.update_icon()
 		first = I
@@ -228,7 +227,7 @@
 	if(next)
 		next.vis_spread(v)
 
-/obj/effect/beam/i_beam/update_icon()
+/obj/effect/beam/i_beam/update_icon_state()
 	transform = turn(matrix(), dir2angle(dir))
 
 /obj/effect/beam/i_beam/process()
@@ -249,7 +248,7 @@
 	if(!next && (limit > 0))
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(loc)
 		I.master = master
-		I.density = 1
+		I.density = TRUE
 		I.dir = dir
 		I.update_icon()
 		I.previous = src

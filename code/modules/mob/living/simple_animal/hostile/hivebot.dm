@@ -71,11 +71,9 @@
 	var/bot_type = "norm"
 	var/bot_amt = 10
 	var/spawn_delay = 600
-	var/turn_on = 0
-	var/auto_spawn = 1
 
-/mob/living/simple_animal/hostile/hivebot/tele/New()
-	..()
+/mob/living/simple_animal/hostile/hivebot/tele/Initialize(mapload)
+	. = ..()
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(5, 0, src.loc)
 	smoke.start()

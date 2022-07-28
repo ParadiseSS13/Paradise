@@ -104,21 +104,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	return desc
 
 /datum/uplink_item/proc/buy(obj/item/uplink/hidden/U, mob/user)
-
 	if(!istype(U))
-		return 0
+		return FALSE
 
 	if(user.stat || user.restrained())
-		return 0
+		return FALSE
 
 	if(!(istype(user, /mob/living/carbon/human)))
-		return 0
+		return FALSE
 
 	// If the uplink's holder is in the user's contents
 	if((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
-		user.set_machine(U)
 		if(cost > U.uses)
-			return 0
+			return FALSE
 
 		var/obj/I = spawn_item(get_turf(user), U)
 
@@ -129,21 +127,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
 					if(!user.mind.special_role)
 						message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
+
 				else
 					log_game("[key_name(user)] purchased [name].")
 					if(!user.mind.special_role)
 						message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
+
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
 					for(var/atom/o in I)
 						U.purchase_log += "<BIG>[bicon(o)]</BIG>"
+
 				else
 					U.purchase_log += "<BIG>[bicon(I)]</BIG>"
 
-		//U.interact(user)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /*
 //
@@ -241,14 +241,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 //Chaplain
 
-/datum/uplink_item/jobspecific/voodoo
-	name = "Voodoo Doll"
-	desc = "A doll created by Syndicate Witch Doctors. Ingredients: Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs, and Monosodium glutamate."
-	reference = "VD"
-	item = /obj/item/voodoo
-	cost = 13
-	job = list("Chaplain")
-
 /datum/uplink_item/jobspecific/missionary_kit
 	name = "Missionary Starter Kit"
 	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff."
@@ -280,16 +272,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	job = list("Janitor")
 	surplus = 0
-
-//Medical
-
-/datum/uplink_item/jobspecific/rad_laser
-	name = "Radiation Laser"
-	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
-	reference = "RL"
-	item = /obj/item/rad_laser
-	cost = 5
-	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
 
 //Virology
 
@@ -509,19 +491,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 25
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
-	name = "Compact Sniper Rifle"
-	desc = "A compact, unscoped version of the operative sniper rifle. Packs a powerful punch, but ammo is limited."
-	reference = "CSR"
-	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
-	cost = 16
-	surplus = 0
-	cant_discount = TRUE
-	excludefrom = list(/datum/game_mode/nuclear)
-
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
-	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
+	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Knocks enemies down for a short period of time. Recharges automatically."
 	reference = "EC"
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
 	cost = 12
@@ -1340,7 +1312,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
 			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
 			but if that emergency teleport fails, it will kill you. \
-			Has 4 charges, recharges, warrenty voided if exposed to EMP."
+			Has 4 charges, recharges, warranty voided if exposed to EMP."
 	reference = "TELE"
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 8
@@ -1621,9 +1593,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/cyber_implants/antistun
 	name = "Hardened CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. It is immune to EMP attacks. Comes with an autosurgeon."
+	desc = "This implant will help you get back up on your feet faster after being fatigued. It is immune to EMP attacks. Comes with an autosurgeon."
 	reference = "CIAS"
-	item = /obj/item/autosurgeon/organ/syndicate/anti_stun
+	item = /obj/item/autosurgeon/organ/syndicate/anti_stam
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver

@@ -31,9 +31,7 @@
 			else
 				aspell.name = initial(aspell.name)
 				aspell.spell_level++
-				aspell.charge_max = round(initial(aspell.charge_max) - aspell.spell_level * (initial(aspell.charge_max) - aspell.cooldown_min) / aspell.level_max)
-				if(aspell.charge_max < aspell.charge_counter)
-					aspell.charge_counter = aspell.charge_max
+				aspell.cooldown_handler.recharge_duration = round(aspell.base_cooldown - aspell.spell_level * (aspell.base_cooldown - aspell.cooldown_min) / aspell.level_max)
 				switch(aspell.spell_level)
 					if(1)
 						to_chat(user, "<span class='notice'>You have improved [aspell.name] into Efficient [aspell.name].</span>")
@@ -89,8 +87,7 @@
 		S = new spell_type()
 	var/dat =""
 	dat += "<b>[name]</b>"
-	if(S.charge_type == "recharge")
-		dat += " Cooldown:[S.charge_max/10]"
+	dat += " Cooldown:[S.base_cooldown/10]"
 	dat += " Cost:[cost]<br>"
 	dat += "<i>[S.desc][desc]</i><br>"
 	dat += "[S.clothes_req?"Needs wizard garb":"Can be cast without wizard garb"]<br>"

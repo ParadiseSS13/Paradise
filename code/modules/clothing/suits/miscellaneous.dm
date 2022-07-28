@@ -81,13 +81,6 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 
-/obj/item/clothing/suit/greatcoat
-	name = "great coat"
-	desc = "A Nazi great coat." //A what
-	icon_state = "nazi"
-	item_state = "nazi"
-
-
 /obj/item/clothing/suit/johnny_coat
 	name = "johnny~~ coat"
 	desc = "Johnny~~"
@@ -188,8 +181,8 @@
 	name = "\improper super-hero E-N suit"
 	icon_state = "ensuit"
 
-/obj/item/clothing/suit/corgisuit/super_hero/en/New()
-	..()
+/obj/item/clothing/suit/corgisuit/super_hero/en/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Destroy()
@@ -580,6 +573,15 @@
 	strip_delay = 60
 	breakouttime = 3000
 
+/obj/item/clothing/suit/straight_jacket/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == slot_wear_suit)
+		ADD_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
+
+/obj/item/clothing/suit/straight_jacket/dropped(mob/user, silent)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
+
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
 	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it but it's pretty close. Good for sleeping in."
@@ -817,6 +819,34 @@
 	armor = list(melee = 15, bullet = 5, laser = 15, energy = 5, bomb = 15, bio = 0, rad = 0, fire = 30, acid = 30)
 	//End of inheritance from Security armour.
 
+/obj/item/clothing/suit/jacket/engibomber
+	name = "engineering bomber jacket"
+	desc = "A stylish and warm jacket adorned with the colors of the humble Station Engineer."
+	icon_state = "bomberengi"
+	item_state = "bomberengi"
+	ignore_suitadjust = 0
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 20, FIRE = 30, ACID = 45)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
+
+/obj/item/clothing/suit/jacket/atmosbomber
+	name = "atmospherics bomber jacket"
+	desc = "A stylish and warm jacket adorned with the colors of the magical Atmospherics Technician."
+	icon_state = "bomberatmos"
+	item_state = "bomberatmos"
+	ignore_suitadjust = 0
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 20, FIRE = 30, ACID = 45)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
+
 /obj/item/clothing/suit/jacket/leather
 	name = "leather jacket"
 	desc = "Pompadour not included."
@@ -851,7 +881,7 @@
 
 /obj/item/clothing/suit/officercoat
 	name = "clown officer's coat"
-	desc = "A classy clown officer's overcoat, also designed by Hugo Boss." //What and why
+	desc = "An overcoat for the clown officer, to keep him warm during those cold winter nights on the front."
 	icon_state = "officersuit"
 	item_state = "officersuit"
 	ignore_suitadjust = 0

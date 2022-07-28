@@ -104,7 +104,7 @@
 	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
 	list_reagents = list("flightpotion" = 5)
 
-/obj/item/reagent_containers/glass/bottle/potion/update_icon()
+/obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else
@@ -380,7 +380,8 @@
 	armour_penetration = 100
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
-	weaken = 6 SECONDS
+	weaken = 1 SECONDS
+	knockdown = 6 SECONDS
 
 /obj/item/projectile/hook/fire(setAngle)
 	if(firer)

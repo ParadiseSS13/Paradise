@@ -43,8 +43,11 @@
 	var/prisoner_hasrecord = FALSE
 
 /obj/machinery/door_timer/Destroy()
- 	GLOB.celltimers_list -= src
- 	return ..()
+	targets.Cut()
+	prisoner = null
+	qdel(Radio)
+	GLOB.celltimers_list -= src
+	return ..()
 
 /obj/machinery/door_timer/proc/print_report()
 	if(occupant == CELL_NONE || crimes == CELL_NONE)
@@ -129,28 +132,35 @@
 	for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
 		if(M.id == id)
 			targets += M
+			RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	for(var/obj/machinery/flasher/F in GLOB.machines)
 		if(F.id == id)
 			targets += F
+			RegisterSignal(F, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	for(var/obj/structure/closet/secure_closet/brig/C in world)
 		if(C.id == id)
 			targets += C
+			RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
 		if(T.id == id)
 			targets += T
+			RegisterSignal(T, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
-	if(targets.len==0)
+	if(!length(targets))
 		stat |= BROKEN
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/door_timer/Destroy()
 	QDEL_NULL(Radio)
 	targets.Cut()
 	prisoner = null
 	return ..()
+
+/obj/machinery/door_timer/proc/on_target_qdel(atom/target)
+	targets -= target
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
@@ -165,7 +175,7 @@
 			timer_end() // open doors, reset timer, clear status screen
 			timing = FALSE
 			. = PROCESS_KILL
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		timer_end()
 		return PROCESS_KILL
@@ -173,7 +183,7 @@
 // has the door power situation changed, if so update icon.
 /obj/machinery/door_timer/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 // open/closedoor checks if door_timer has power, if so it checks if the
@@ -358,7 +368,7 @@
 			prisoner_time = null
 			timing = TRUE
 			timer_start()
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		if("restart_timer")
 			if(timing)
 				var/reset_reason = sanitize(copytext(input(usr, "Reason for resetting timer:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
@@ -395,7 +405,7 @@
 // if NOPOWER, display blank
 // if BROKEN, display blue screen of death icon AI uses
 // if timing=true, run update display function
-/obj/machinery/door_timer/update_icon()
+/obj/machinery/door_timer/update_icon_state()
 	if(stat & (NOPOWER))
 		icon_state = "frame"
 		return

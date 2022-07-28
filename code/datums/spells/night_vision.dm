@@ -2,7 +2,7 @@
 	name = "Toggle Nightvision"
 	desc = "Toggle your nightvision mode."
 
-	charge_max = 10
+	base_cooldown = 10
 	clothes_req = FALSE
 
 	message = "<span class='notice'>You toggle your night vision!</span>"

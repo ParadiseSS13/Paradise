@@ -3,11 +3,10 @@
 	icon = 'icons/mob/pai.dmi'//
 	icon_state = "repairbot"
 
-	robot_talk_understand = 0
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
-	density = 0
+	density = FALSE
 	holder_type = /obj/item/holder/pai
 
 	var/ram = 100	// Used as currency to purchase different abilities
@@ -57,8 +56,8 @@
 
 	var/obj/item/pda/silicon/pai/pda = null
 
-	var/secHUD = 0			// Toggles whether the Security HUD is active or not
-	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
+	var/secHUD = FALSE			// Toggles whether the Security HUD is active or not
+	var/medHUD = FALSE			// Toggles whether the Medical  HUD is active or not
 
 	/// Currently active software
 	var/datum/pai_software/active_software
@@ -68,11 +67,11 @@
 
 	var/obj/item/integrated_radio/signal/sradio // AI's signaller
 
-	var/translator_on = 0 // keeps track of the translator module
+	var/translator_on = FALSE // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
 
 	var/current_pda_messaging = null
-	var/custom_sprite = 0
+	var/custom_sprite = FALSE
 	var/slowdown = 0
 
 /mob/living/silicon/pai/New(obj/item/paicard)

@@ -97,6 +97,10 @@
 			user_data.patron_account = null
 			to_chat(user, "<span class='notice'>[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'</span>")
 		return
+
+	if(default_unfasten_wrench(user, O, time = 60))
+		return
+
 	return ..()
 
 /obj/machinery/computer/library/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -440,7 +444,7 @@
 					user_data.search_rating["max"] = clamp(text2num(answer), user_data.search_rating["min"], 10)
 					populate_booklist()
 				if("edit_search_ratingmin")
-					if(!text2num(answer))
+					if(isnull(text2num(answer)))
 						return
 					user_data.search_rating["min"] = clamp(text2num(answer), 0, user_data.search_rating["max"])
 					populate_booklist()
@@ -459,8 +463,8 @@
 				if("setpagenumber")
 					if(!text2num(answer))
 						return
-					archive_page_num = clamp(text2num(answer), 1, getmaxpages())
 					populate_booklist()
+					archive_page_num = clamp(text2num(answer), 1, getmaxpages())
 				else
 					return FALSE
 		else

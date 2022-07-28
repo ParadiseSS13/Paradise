@@ -11,11 +11,14 @@
 	open_sound_volume = 25
 	close_sound_volume = 50
 
-/obj/structure/closet/coffin/update_icon()
+/obj/structure/closet/coffin/update_icon_state()
 	if(!opened)
 		icon_state = icon_closed
 	else
 		icon_state = icon_opened
+
+/obj/structure/closet/coffin/update_overlays()
+	return list()
 
 /obj/structure/closet/coffin/sarcophagus
 	name = "sarcophagus"

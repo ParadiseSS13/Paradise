@@ -59,10 +59,13 @@
 /mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
-/mob/living/simple_animal/hostile/poison/bees/New()
+/mob/living/simple_animal/hostile/poison/bees/ComponentInitialize()
 	..()
-	generate_bee_visuals()
 	AddComponent(/datum/component/swarming)
+
+/mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
+	. = ..()
+	generate_bee_visuals()
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	beegent = null
@@ -196,7 +199,7 @@
 		generate_bee_visuals()
 
 /mob/living/simple_animal/hostile/poison/bees/proc/pollinate(obj/machinery/hydroponics/Hydro)
-	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit || Hydro.lid_state)
+	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit || Hydro.lid_closed)
 		target = null
 		return
 
@@ -346,9 +349,9 @@
 	var/list/master_and_friends = list()
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
-/mob/living/simple_animal/hostile/poison/bees/syndi/New()
+/mob/living/simple_animal/hostile/poison/bees/syndi/Initialize(mapload)
+	. = ..()
 	beegent = GLOB.chemical_reagents_list["facid"] //Prepare to die
-	..()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/Destroy()
 	master_and_friends.Cut()

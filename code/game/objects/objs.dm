@@ -18,6 +18,7 @@
 	var/damage_deflection = 0
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
+	var/custom_fire_overlay // Update_fire_overlay will check if a different icon state should be used
 
 	var/acid_level = 0 //how much acid is on that obj
 
@@ -81,7 +82,6 @@
 			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
 		else
 			STOP_PROCESSING(SSfastprocess, src)
-	SStgui.close_uis(src)
 	return ..()
 
 //user: The mob that is suiciding
@@ -168,9 +168,6 @@
 
 /obj/proc/interact(mob/user)
 	return
-
-/obj/proc/update_icon()
-	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
 
 /mob/proc/unset_machine()
 	if(machine)

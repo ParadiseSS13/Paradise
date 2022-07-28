@@ -11,13 +11,13 @@
 	throw_range = 7
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	active = 0
-	det_time = 50
-	display_timer = 0
+	active = FALSE
+	det_time = 5 SECONDS
+	display_timer = FALSE
 	var/list/times
 
-/obj/item/grenade/iedcasing/New()
-	..()
+/obj/item/grenade/iedcasing/Initialize(mapload)
+	. = ..()
 	overlays += "improvised_grenade_filled"
 	overlays += "improvised_grenade_wired"
 	times = list("5" = 10, "-1" = 20, "[rand(30, 80)]" = 50, "[rand(65, 180)]" = 20)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]

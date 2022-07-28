@@ -161,12 +161,13 @@
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
-	var/on = 1
+	var/on = TRUE
+	var/on_cooldown = FALSE
 	var/blueprints = 0
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
 	var/size = 3
-	var/see_ghosts = 0 //for the spoop of it
+	var/see_ghosts = FALSE //for the spoop of it
 	var/current_photo_num = 1
 
 
@@ -185,7 +186,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/spooky
 	name = "camera obscura"
 	desc = "A polaroid camera, some say it can see ghosts!"
-	see_ghosts = 1
+	see_ghosts = TRUE
 
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -198,14 +199,16 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
 
-/obj/item/camera/attack_self(mob/user as mob)
+/obj/item/camera/attack_self(mob/user)
+	if(on_cooldown)
+		to_chat(user, "<span class='notice'>[src] is still on cooldown!</span>")
+		return
 	on = !on
 	if(on)
-		src.icon_state = icon_on
+		icon_state = icon_on
 	else
-		src.icon_state = icon_off
+		icon_state = icon_off
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
-	return
 
 /obj/item/camera/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/camera_film))
@@ -340,13 +343,17 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
 	on = FALSE
+	on_cooldown = TRUE
 	if(istype(src,/obj/item/camera/spooky))
 		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
-	spawn(64)
-		icon_state = icon_on
-		on = TRUE
+	addtimer(CALLBACK(src, .proc/reset_cooldown), 6.4 SECONDS) // fucking magic numbers
+
+/obj/item/camera/proc/reset_cooldown()
+	icon_state = icon_on
+	on = TRUE
+	on_cooldown = FALSE
 
 /obj/item/camera/proc/can_capture_turf(turf/T, mob/user)
 	var/viewer = user
@@ -458,10 +465,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	desc = "A digital camera. A small screen shows that there are currently [saved_pictures.len] pictures stored."
 	icon_state = icon_off
-	on = 0
+	on = FALSE
 	spawn(64)
 		icon_state = icon_on
-		on = 1
+		on = TRUE
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
 	if(saved_pictures.len >= max_storage)
@@ -530,7 +537,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	var/on = 0
+	var/on = FALSE
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
@@ -539,7 +546,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam/attack_self(mob/user)
 	on = !on
 	if(camera)
-		if(on==0)
+		if(!on)
 			src.icon_state = icon_off
 			camera.c_tag = null
 			camera.network = list()

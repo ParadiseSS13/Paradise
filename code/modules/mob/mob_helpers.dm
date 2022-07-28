@@ -129,7 +129,8 @@
 		SPECIAL_ROLE_REV,
 		SPECIAL_ROLE_TRAITOR,
 		SPECIAL_ROLE_VAMPIRE,
-		SPECIAL_ROLE_VAMPIRE_THRALL
+		SPECIAL_ROLE_VAMPIRE_THRALL,
+		SPECIAL_ROLE_DEATHSQUAD
 	)
 	if(special_role in crew_roles)
 		return 0
@@ -530,11 +531,12 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
-				if(check_rights(R_ADMIN|R_MOD,0,M)) 							// What admins see
-					lname = "[keyname][(DM && DM.client && DM.client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "*" : (DM ? "" : "^")] ([name])"
+				if(check_rights(R_ADMIN|R_MOD, FALSE, M)) 							// What admins see
+					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
+					//lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? TRUE : (DM ? "" : "^")] ([name])"
 				else
-					if(DM && DM.client && DM.client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT)	// If the person is actually observer they have the option to be anonymous
-						lname = "Ghost of [name]"
+					if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)	// If the person is actually observer they have the option to be anonymous
+						lname = "<i>Anon</i> ([name])"
 					else if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
 					else										// Everyone else (dead people who didn't ghost yet, etc.)

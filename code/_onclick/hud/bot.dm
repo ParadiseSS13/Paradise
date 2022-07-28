@@ -28,6 +28,7 @@
 
 	mymob.pullin = new /obj/screen/pull()
 	mymob.pullin.icon = 'icons/mob/screen_bot.dmi'
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.hud = src
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_bot_pull
 	static_inventory += mymob.pullin

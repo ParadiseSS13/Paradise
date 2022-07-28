@@ -2,7 +2,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
-	focus = null
+	input_focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -30,7 +30,8 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.alive_mob_list += src
-	set_focus(src)
+	input_focus = src
+	reset_perspective(src)
 	prepare_huds()
 	update_runechat_msg_location()
 	. = ..()
@@ -1051,19 +1052,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			statpanel(listed_turf.name, null, statpanel_things)
 
 /mob/proc/add_spell_to_statpanel(obj/effect/proc_holder/spell/S)
-	switch(S.charge_type)
-		if("recharge")
-			statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)
-		if("charges")
-			statpanel(S.panel,"[S.charge_counter]/[S.charge_max]",S)
-		if("holdervar")
-			statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
+	statpanel(S.panel,"[S.cooldown_handler.statpanel_info()]", S)
 
 // facing verbs
 /mob/proc/canface()
 	if(client.moving)
-		return FALSE
-	if(world.time < client.move_delay)
 		return FALSE
 	if(stat == DEAD)
 		return FALSE
@@ -1090,10 +1083,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/facedir(ndir)
 	if(!canface())
-		return 0
+		return FALSE
 	setDir(ndir)
-	client.move_delay += movement_delay()
-	return 1
+	return TRUE
 
 
 /mob/verb/eastface()
