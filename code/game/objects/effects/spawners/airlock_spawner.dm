@@ -56,7 +56,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	handle_door_creation(turf_exterior, FALSE, one_door_exterior)
 	handle_pipes_creation(turf_interior)
 	handle_control_placement()
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/airlock/proc/get_airlock_location(desired_direction) //Finds a turf to place an airlock and returns it, this turf will be in the middle of the relevant wall
 	var/turf/T

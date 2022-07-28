@@ -343,10 +343,9 @@
 
 
 
-/obj/machinery/computer/turbine_computer/Initialize()
+/obj/machinery/computer/turbine_computer/Initialize(mapload)
 	. = ..()
-	spawn(10)
-		locate_machinery()
+	locate_machinery()
 
 /obj/machinery/computer/turbine_computer/locate_machinery()
 	compressor = locate(/obj/machinery/power/compressor) in range(5, src)
