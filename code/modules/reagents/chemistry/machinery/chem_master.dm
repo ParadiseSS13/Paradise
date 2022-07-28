@@ -157,7 +157,6 @@
 		return TRUE
 
 	add_fingerprint(usr)
-	usr.set_machine(src)
 
 	. = TRUE
 	switch(action)

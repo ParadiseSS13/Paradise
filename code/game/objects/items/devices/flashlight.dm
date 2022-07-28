@@ -133,6 +133,9 @@
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
 
+/obj/item/flashlight/lamp/green/off
+	on = FALSE
+
 /obj/item/flashlight/lamp/verb/toggle_light()
 	set name = "Toggle light"
 	set category = "Object"

@@ -146,6 +146,16 @@
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
+/obj/machinery/power/apc/syndicate/off
+	environ = 0
+	equipment = 0
+	lighting = 0
+	operating = 0
+
+/obj/machinery/power/apc/syndicate/off/Initialize(mapload)
+	. = ..()
+	cell.charge = 0
+
 /obj/item/apc_electronics
 	name = "power control module"
 	desc = "Heavy-duty switching circuits for power control."
@@ -932,8 +942,6 @@
 		)
 			if(!loud)
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
-				user << browse(null, "window=apc")
-				user.unset_machine()
 			return FALSE
 	else
 		if((!in_range(src, user) || !istype(loc, /turf)))

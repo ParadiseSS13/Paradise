@@ -138,15 +138,16 @@
 		+ "</body></html>", "window=PaperBundle[UID()]")
 
 /obj/item/paper_bundle/attack_self(mob/user as mob)
-	src.show_content(user)
+	show_content(user)
 	add_fingerprint(usr)
 	update_icon()
 	return
 
 /obj/item/paper_bundle/Topic(href, href_list)
-	..()
+	if(..())
+		return
+
 	if((src in usr.contents) || (istype(src.loc, /obj/item/folder) && (src.loc in usr.contents)))
-		usr.set_machine(src)
 		if(href_list["next_page"])
 			if(page == amount)
 				screen = 2
@@ -156,6 +157,7 @@
 				return
 			page++
 			playsound(src.loc, "pageturn", 50, 1)
+
 		if(href_list["prev_page"])
 			if(page == 1)
 				return
@@ -165,6 +167,7 @@
 				screen = 1
 			page--
 			playsound(src.loc, "pageturn", 50, 1)
+
 		if(href_list["remove"])
 			var/obj/item/W = src[page]
 			usr.put_in_hands(W)
@@ -176,8 +179,10 @@
 				usr.unset_machine() // Ensure the bundle GCs
 				qdel(src)
 				return
+
 			else if(page == amount)
 				screen = 2
+
 			else if(page == amount+1)
 				page--
 
@@ -185,9 +190,9 @@
 			update_icon()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
-	if(istype(src.loc, /mob))
-		src.attack_self(src.loc)
-		updateUsrDialog()
+
+	if(istype(loc, /mob))
+		attack_self(loc)
 
 
 
@@ -199,8 +204,9 @@
 	var/n_name = sanitize(copytext(input(usr, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	if((loc == usr && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : "paper bundle")]"
+
 	add_fingerprint(usr)
-	return
+
 
 
 /obj/item/paper_bundle/verb/remove_all()
@@ -209,21 +215,24 @@
 	set src in usr
 
 	to_chat(usr, "<span class='notice'>You loosen the bundle.</span>")
+
 	for(var/obj/O in src)
 		O.loc = usr.loc
 		O.layer = initial(O.layer)
 		O.plane = initial(O.plane)
 		O.add_fingerprint(usr)
+
 	usr.unEquip(src)
 	qdel(src)
-	return
 
 /obj/item/paper_bundle/update_desc()
 	. = ..()
+
 	if(amount > 1)
 		desc =  "[amount] papers clipped to each other."
 	else
 		desc = "A single sheet of paper."
+
 	if(locate(/obj/item/photo) in src)
 		desc += "\nThere is a photo attached to it."
 
@@ -238,6 +247,7 @@
 	if(contents.len)
 		var/obj/item/paper/P = src[1]
 		. += P.overlays
+
 	for(var/obj/O in src)
 		var/image/sheet = image('icons/obj/bureaucracy.dmi')
 		if(istype(O, /obj/item/paper))
@@ -247,7 +257,9 @@
 			pixel_x = min(0.5 * amount, 1)
 			pixel_y = min(1 * amount, 2)
 			underlays += sheet
+
 		else if(istype(O, /obj/item/photo))
 			var/obj/item/photo/picture = O
 			. += picture.tiny
+
 	. += "clip"
