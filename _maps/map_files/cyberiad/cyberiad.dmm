@@ -47188,6 +47188,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47197,6 +47198,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Observation Room"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53286,6 +53288,9 @@
 /obj/machinery/holosign/surgery{
 	id = "surgery1"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53405,6 +53410,9 @@
 	},
 /obj/machinery/holosign/surgery{
 	id = "surgery2"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
