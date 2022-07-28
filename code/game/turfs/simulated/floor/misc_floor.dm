@@ -102,10 +102,6 @@
 	overlays += overlay_image
 	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, .proc/InitializedOn)
 
-/turf/simulated/floor/beach/water/Destroy()
-	. = ..()
-	UnregisterSignal(src, COMSIG_ATOM_INITIALIZED_ON)
-
 /turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
 	if(!linkedcontroller)
