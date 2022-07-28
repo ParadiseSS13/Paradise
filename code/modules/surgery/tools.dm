@@ -150,6 +150,50 @@
 	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 
+/obj/item/circular_saw/attack(mob/living/carbon/human/H, mob/living/user, def_zone)
+	if(!istype(H))
+		return ..()
+	if(!IS_HORIZONTAL(H))
+		return ..()
+	if(user.zone_selected == BODY_ZONE_CHEST && H.wear_suit && HAS_TRAIT(H.wear_suit, TRAIT_ARMOR_SAWABLE))
+		return saw_through(user, H, H.wear_suit, def_zone)
+
+	if(user.zone_selected == BODY_ZONE_HEAD && H.head && HAS_TRAIT(H.head, TRAIT_ARMOR_SAWABLE))
+		return saw_through(user, H, H.head, def_zone)
+
+	return ..()
+
+/obj/item/circular_saw/proc/saw_through(mob/living/user, mob/living/carbon/human/target, obj/item/sawed, target_zone)
+	user.visible_message(
+		"<span class='notice'>[user] starts to saw through [target]'s [sawed].</span>",
+		"<span class='notice'>You start to saw through [target]'s [sawed].</span>",
+		"<span class='notice'>You hear a loud grinding noise.</span>"
+	)
+
+	if(!do_after(user, 10 SECONDS, target = target))
+		user.visible_message(
+			"<span class='warning'>[user] fails to cut through [target]'s [sawed].</span>",
+			"<span class='warning'>You fail to cut through [target]'s [sawed].</span>",
+			"<span class='notice'>You hear the grinding end.</span>"
+		)
+		return FALSE
+
+	if(!IS_HORIZONTAL(H))
+		return FALSE
+	user.visible_message(
+		"<span class='warning'>[sawed] falls apart in shreds as [user] cleaves through it.</span>",
+		"<span class='warning'>[sawed] falls apart in shreds as you cleave through it.</span>",
+		"<span class='notice'>You hear something fall as the grinding ends.</span>"
+	)
+
+	playsound(src, hitsound, 50)
+	// you've torn it up, get rid of it.
+	new /obj/effect/decal/cleanable/shreds(target.loc)
+	target.unEquip(sawed, TRUE, TRUE)
+	qdel(sawed)
+
+	return TRUE
+
 /obj/item/circular_saw/augment
 	desc = "A small but very fast spinning saw. Edges dulled to prevent accidental cutting inside of the surgeon."
 	force = 10

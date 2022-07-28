@@ -460,6 +460,7 @@
 
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_ARMOR_SAWABLE, "init")
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
@@ -470,3 +471,7 @@
 	flags = BLOCKHAIR | NODROP | DROPDEL
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEEARS
+
+/obj/item/clothing/head/helmet/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ARMOR_SAWABLE, "init")
