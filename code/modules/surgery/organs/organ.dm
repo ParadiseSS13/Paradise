@@ -31,11 +31,14 @@
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
 
+	///Should this organ be destroyed on removal?
+	var/destroy_on_removal = FALSE
+
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	if(owner)
-		remove(owner, 1)
+		remove(owner, TRUE)
 	QDEL_LIST_ASSOC_VAL(autopsy_data)
 	QDEL_NULL(dna)
 	return ..()
@@ -229,7 +232,14 @@
 	status &= ~ORGAN_SPLINTED
 	status |= ORGAN_ROBOT
 
-/obj/item/organ/proc/remove(mob/living/user, special = 0)
+/*
+  * # remove()
+  *
+  * base organ removal proc that is needed to properly remove internal organs from users, if the organ is vital it will
+  * kill the user, this is where deletion of the organ is handled if it is supposed to delete upon removal. This proc
+  * will return itself if the removal is succesful, otherwise if the organ is being deleted it will return null!
+*/
+/obj/item/organ/proc/remove(mob/living/user, special = FALSE, )
 	if(!istype(owner))
 		return
 
@@ -245,6 +255,9 @@
 		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user ? ATKLOG_FEW : ATKLOG_ALL)
 		owner.death()
 	owner = null
+	if(!QDELETED(src) && destroy_on_removal)
+		qdel(src)
+		return
 	return src
 
 /obj/item/organ/proc/replaced(mob/living/carbon/human/target)
