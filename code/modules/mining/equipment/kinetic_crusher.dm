@@ -13,7 +13,7 @@
 	force_wielded = 20
 	throwforce = 5
 	throw_speed = 4
-	armour_penetration = 10
+	armour_penetration_flat = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")

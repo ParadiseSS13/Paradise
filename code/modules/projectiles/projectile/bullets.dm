@@ -64,25 +64,25 @@
 
 /obj/item/projectile/bullet/armourpiercing
 	damage = 17
-	armour_penetration = 10
+	armour_penetration_flat = 10
 
 /obj/item/projectile/bullet/armourpiercing/wt550
 	damage = 15
-	armour_penetration = 40
+	armour_penetration_flat = 40
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
 	damage = 12.5
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
-	armour_penetration = -10
+	armour_penetration_flat = -10
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
 	damage = 3
 	stamina = 12.5
 	icon_state = "bullet-r"
-	armour_penetration = -5
+	armour_penetration_flat = -5
 
 /obj/item/projectile/bullet/pellet/rubber/on_hit(atom/target, blocked = 0)
     . = ..()
@@ -145,11 +145,11 @@
 
 /obj/item/projectile/bullet/midbullet3/hp
 	damage = 40
-	armour_penetration = -25
+	armour_penetration_flat = -25
 
 /obj/item/projectile/bullet/midbullet3/ap
 	damage = 27
-	armour_penetration = 40
+	armour_penetration_flat = 40
 
 /obj/item/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))

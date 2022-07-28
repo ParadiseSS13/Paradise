@@ -3,7 +3,7 @@
 	icon_state = "guardian"
 	damage = 20
 	damage_type = BRUTE
-	armour_penetration = INFINITY
+	armour_penetration_flat = INFINITY
 
 /mob/living/simple_animal/hostile/guardian/ranged
 	friendly = "quietly assesses"

@@ -557,7 +557,7 @@
 	force_wielded = 24
 	throwforce = 40
 	throw_speed = 2
-	armour_penetration = 30
+	armour_penetration_flat = 30
 	block_chance = 30
 	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
 	sharp = TRUE
