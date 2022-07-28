@@ -48,7 +48,7 @@
 	data["chemicalInfo"] = list()
 	for(var/obj/item/implant/chem/C in GLOB.tracked_implants)
 		var/turf/implant_location = get_turf(C)
-		if(implant_location && implant_location.z != z)
+		if(!implant_location || implant_location.z != z)
 			continue
 		if(!C.implanted)
 			continue
@@ -62,7 +62,7 @@
 	data["trackingInfo"] = list()
 	for(var/obj/item/implant/tracking/T in GLOB.tracked_implants)
 		var/turf/implant_location = get_turf(T)
-		if(implant_location && implant_location.z != z)
+		if(!implant_location || implant_location.z != z)
 			continue
 		if(!T.implanted)
 			continue
