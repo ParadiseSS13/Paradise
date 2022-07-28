@@ -22,10 +22,14 @@
 	var/auto_eject_prefs = AUTO_EJECT_HEALTHY | AUTO_EJECT_DEAD
 
 	var/next_trans = 0
+	var/transfer_delay = 17
 	var/current_heat_capacity = 50
 	var/efficiency
 
 	var/running_bob_animation = FALSE // This is used to prevent threads from building up if update_icons is called multiple times
+	var/need_pipe_network = TRUE
+	var/need_beaker = TRUE
+	var/exit_direction = SOUTH
 
 	light_color = LIGHT_COLOR_WHITE
 
@@ -245,15 +249,15 @@
 		data["cellTemperatureStatus"] = "bad"
 	else if(air_contents.temperature > TCRYO)
 		data["cellTemperatureStatus"] = "average"
-
-	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
-	data["beakerLabel"] = null
-	data["beakerVolume"] = 0
-	if(beaker)
-		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
-		if(beaker.reagents && beaker.reagents.reagent_list.len)
-			for(var/datum/reagent/R in beaker.reagents.reagent_list)
-				data["beakerVolume"] += R.volume
+	if(need_beaker)
+		data["isBeakerLoaded"] = beaker ? TRUE : FALSE
+		data["beakerLabel"] = null
+		data["beakerVolume"] = 0
+		if(beaker)
+			data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
+			if(beaker.reagents && beaker.reagents.reagent_list.len)
+				for(var/datum/reagent/R in beaker.reagents.reagent_list)
+					data["beakerVolume"] += R.volume
 
 	data["auto_eject_healthy"] = (auto_eject_prefs & AUTO_EJECT_HEALTHY) ? TRUE : FALSE
 	data["auto_eject_dead"] = (auto_eject_prefs & AUTO_EJECT_DEAD) ? TRUE : FALSE
@@ -284,7 +288,7 @@
 		if("ejectBeaker")
 			if(!beaker)
 				return
-			beaker.forceMove(get_step(loc, SOUTH))
+			beaker.forceMove(get_step(loc, exit_direction))
 			beaker = null
 		if("ejectOccupant")
 			if(!occupant || isslime(usr) || ispAI(usr))
@@ -297,7 +301,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/G, mob/user, params)
-	if(istype(G, /obj/item/reagent_containers/glass))
+	if(istype(G, /obj/item/reagent_containers/glass) && need_beaker)
 		var/obj/item/reagent_containers/B = G
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
@@ -391,7 +395,7 @@
 				running_bob_animation = FALSE
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
-	if(air_contents.total_moles() < 10)
+	if(air_contents.total_moles() < 10 && need_pipe_network)
 		return
 	if(occupant)
 		if(occupant.stat == 2 || (occupant.health >= 100 && !occupant.has_mutated_organs()))  //Why waste energy on dead or healthy people
@@ -415,7 +419,7 @@
 			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
 			beaker.reagents.trans_to(occupant, 1, 10)
 	next_trans++
-	if(next_trans == 17)
+	if(next_trans == transfer_delay)
 		next_trans = 0
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
@@ -430,14 +434,14 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
 		return
-	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+	occupant.forceMove(get_step(loc, exit_direction))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
 	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
 		occupant.bodytemperature = 261
 	occupant = null
 	update_icon(UPDATE_OVERLAYS)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
-		A.forceMove(get_step(loc, SOUTH))
+		A.forceMove(get_step(loc, exit_direction))
 
 /obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
 	go_out()
@@ -463,7 +467,7 @@
 	if(M.abiotic())
 		to_chat(usr, "<span class='warning'>Subject may not hold anything in their hands.</span>")
 		return
-	if(!node)
+	if(!node && need_pipe_network)
 		to_chat(usr, "<span class='warning'>The cell is not correctly connected to its pipe network!</span>")
 		return
 	M.stop_pulling()

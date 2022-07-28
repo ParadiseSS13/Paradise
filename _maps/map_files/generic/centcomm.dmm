@@ -3875,6 +3875,10 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
+"nf" = (
+/obj/machinery/atmospherics/unary/cryo_cell/abductor,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
 "ng" = (
 /obj/mecha/combat/phazon,
 /turf/simulated/floor/plasteel,
@@ -44979,7 +44983,7 @@ aN
 aN
 lz
 lz
-nr
+nf
 bK
 nr
 lz
@@ -44993,7 +44997,7 @@ aN
 aN
 lz
 lz
-nr
+nf
 bK
 nr
 lz
@@ -48577,7 +48581,7 @@ aN
 aN
 lz
 lz
-nr
+nf
 bK
 nr
 lz
@@ -48591,7 +48595,7 @@ aN
 aN
 lz
 lz
-nr
+nf
 bK
 nr
 lz
