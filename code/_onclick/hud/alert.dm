@@ -667,7 +667,7 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "map_vote"
 
 /obj/screen/alert/notify_mapvote/Click()
-	SSvote.browse_to(usr.client)
+	usr.client.vote()
 
 //OBJECT-BASED
 

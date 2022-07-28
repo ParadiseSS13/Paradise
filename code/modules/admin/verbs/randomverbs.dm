@@ -1084,12 +1084,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(SSticker.mode.ert_disabled)
-		SSticker.mode.ert_disabled = 0
+		SSticker.mode.ert_disabled = FALSE
 		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has enabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has enabled ERT calling.", 1)
 	else
-		SSticker.mode.ert_disabled = 1
+		SSticker.mode.ert_disabled = TRUE
 		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)

@@ -70,13 +70,18 @@
 		WRENCH_UNANCHOR_MESSAGE
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
-/obj/machinery/disco/update_icon()
+/obj/machinery/disco/update_icon_state()
 	if(active)
 		icon_state = "disco1"
 	else
 		icon_state = "disco0"
-	..()
 
+/obj/machinery/disco/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(active)
+		underlays += emissive_appearance(icon, "disco_lightmask")
 
 /obj/machinery/disco/attack_hand(mob/user)
 	if(..())
@@ -128,6 +133,7 @@
 					return
 				active = TRUE
 				update_icon()
+				set_light(1, LIGHTING_MINIMUM_POWER) //for emmisive appearance
 				dance_setup()
 				START_PROCESSING(SSobj, src)
 				lights_spin()
@@ -482,7 +488,8 @@
 		STOP_PROCESSING(SSobj, src)
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
-		icon_state = "disco0"
+		update_icon()
+		set_light(0)
 		stop = world.time + 100
 
 

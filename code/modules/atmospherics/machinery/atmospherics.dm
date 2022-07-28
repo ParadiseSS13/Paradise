@@ -70,6 +70,12 @@ Pipelines + Other Objects -> Pipe network
 
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
+	if(check_icon_cache())
+		..(ALL)
+	else
+		..(UPDATE_ICON_STATE)
+
+/obj/machinery/atmospherics/update_icon_state()
 	var/turf/T = get_turf(loc)
 	if(T && T.transparent_floor)
 		plane = FLOOR_PLANE
@@ -112,10 +118,7 @@ Pipelines + Other Objects -> Pipe network
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
 
 /obj/machinery/atmospherics/proc/update_underlays()
-	if(check_icon_cache())
-		return 1
-	else
-		return 0
+	return check_icon_cache()
 
 // Connect types
 /obj/machinery/atmospherics/proc/check_connect_types(obj/machinery/atmospherics/atmos1, obj/machinery/atmospherics/atmos2)
@@ -190,27 +193,31 @@ Pipelines + Other Objects -> Pipe network
 		var/E = env_air ? env_air.return_pressure() : 0
 		var/internal_pressure = I - E
 
-		playsound(src.loc, W.usesound, 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+
+		for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
+			if(usermagboots.gustprotection && usermagboots.magpulse)
+				safefromgusts = TRUE
+
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
-			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
+			if(internal_pressure > 1750 && !safefromgusts) // 1750 is the pressure limit to do 60 damage when thrown
+				to_chat(user, "<span class='userdanger'>As you struggle to unwrench \the [src] a huge gust of gas blows in your face! This seems like a terrible idea!</span>")
+			else
+				to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 
 		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message( \
-				"[user] unfastens \the [src].", \
+				"<span class='notice'>[user] unfastens \the [src].</span>", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
 				"<span class='italics'>You hear ratcheting.</span>")
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
 
-			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
-				if(usermagboots.gustprotection && usermagboots.magpulse)
-					safefromgusts = TRUE
-
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
 				if(safefromgusts)
-					to_chat(user, "<span class='italics'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
+					to_chat(user, "<span class='notice'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
 				else
 					unsafe_pressure_release(user,internal_pressure)
 			deconstruct(TRUE)

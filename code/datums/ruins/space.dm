@@ -218,6 +218,14 @@
 	name = "Drug Lab"
 	description = "An old abandoned \"Chemistry\" site, which has a strong aura of amphetamines around it."
 
+/datum/map_template/ruin/space/syndicatedruglab
+	id = "syndicatedruglab"
+	suffix = "syndicatedruglab.dmm"
+	name = "Suspicious Station"
+	description = "A syndicate drug laboratory hidden on an asteroid. It is strangely well-protected."
+	allow_duplicates = FALSE
+	cost = 3
+
 /datum/map_template/ruin/space/syndiedepot
 	id = "syndiedepot"
 	suffix = "syndiedepot.dmm"

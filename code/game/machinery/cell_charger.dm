@@ -21,20 +21,13 @@
 	QDEL_NULL(charging)
 	return ..()
 
-/obj/machinery/cell_charger/proc/updateicon()
+/obj/machinery/cell_charger/update_icon_state()
 	icon_state = "ccharger[charging ? 1 : 0]"
 
+/obj/machinery/cell_charger/update_overlays()
+	. = ..()
 	if(charging && !(stat & (BROKEN|NOPOWER)))
-		var/newlevel = 	round(charging.percent() * 4 / 100)
-
-		if(chargelevel != newlevel)
-			chargelevel = newlevel
-
-			overlays.Cut()
-			overlays += "ccharger-o[newlevel]"
-
-	else
-		overlays.Cut()
+		. += "ccharger-o[chargelevel]"
 
 /obj/machinery/cell_charger/examine(mob/user)
 	. = ..()
@@ -66,8 +59,8 @@
 			I.forceMove(src)
 			charging = I
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
-			chargelevel = -1
-			updateicon()
+			check_level()
+			update_icon()
 	else
 		return ..()
 
@@ -89,7 +82,7 @@
 	charging.update_icon()
 	charging = null
 	chargelevel = -1
-	updateicon()
+	update_icon()
 
 /obj/machinery/cell_charger/attack_hand(mob/user)
 	if(!charging)
@@ -134,4 +127,11 @@
 	use_power(200)		//this used to use CELLRATE, but CELLRATE is fucking awful. feel free to fix this properly!
 	charging.give(175)	//inefficiency.
 
-	updateicon()
+	if(check_level())
+		update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/cell_charger/proc/check_level()
+	var/newlevel = 	round(charging.percent() * 4 / 100)
+	if(chargelevel != newlevel)
+		chargelevel = newlevel
+		return TRUE

@@ -431,8 +431,6 @@
 	metabolization_rate = 0.6
 	addiction_decay_rate = 0.2
 	taste_description = "WAAAAGH"
-	/// timer until we can start rolling for reducing a mobs strength again.
-	var/next_remove_strength
 	var/bonus_damage = 2
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/L)
@@ -444,13 +442,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/recent_consumption = holder.addiction_threshold_accumulated[type]
 		for(var/obj/item/organ/internal/I in H.internal_organs)
 			I.receive_damage(0.8, TRUE) //double the rate of mitocholide
-		if(world.time > next_remove_strength && recent_consumption > 5 && prob(0.1 * DRAWBACK_CHANCE_MODIFIER(recent_consumption))) // tiny chance to make their muscles waste away, cannot happen instantly. I don't want people to get *that* unlucky
-			H.physiology.melee_bonus--
-			to_chat(H, "<span class='biggerdanger'>You feel your muscles wasting away!</span>")
-			next_remove_strength = world.time + 100 SECONDS
 	M.SetParalysis(0)
 	M.SetStunned(0)
 	M.SetWeakened(0)
