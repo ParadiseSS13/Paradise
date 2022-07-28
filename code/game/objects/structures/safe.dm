@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/examine_status(mob/user)
 	return
 
-/obj/structure/safe/update_icon()
+/obj/structure/safe/update_icon_state()
 	if(open)
 		if(broken)
 			icon_state = "[initial(icon_state)]-open-broken"
@@ -124,17 +124,13 @@ GLOBAL_LIST_EMPTY(safes)
 		else
 			icon_state = initial(icon_state)
 
-	var/list/overlays_to_cut = list(drill_overlay)
-	if(!drill_timer)
-		overlays_to_cut += progress_bar
-
-	cut_overlay(overlays_to_cut)
-
+/obj/structure/safe/update_overlays()
+	. = ..()
 	if(istype(drill, /obj/item/thermal_drill))
 		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
 		var/state = "[initial(icon_state)]_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
 		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state, pixel_x = drill_x_offset, pixel_y = drill_y_offset)
-		add_overlay(drill_overlay)
+		. += drill_overlay
 
 /obj/structure/safe/attack_ghost(mob/user)
 	if(..() || drill)

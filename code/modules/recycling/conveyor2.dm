@@ -93,8 +93,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 /obj/machinery/conveyor/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)
 
-/obj/machinery/conveyor/update_icon()
-	..()
+/obj/machinery/conveyor/update_icon_state()
 	if(IS_OPERATING)
 		icon_state = "conveyor_started_[clockwise ? "cw" : "ccw"]"
 		if(reversed)
@@ -286,18 +285,20 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 // update the icon depending on the position
 
-/obj/machinery/conveyor_switch/update_icon()
-	overlays.Cut()
+/obj/machinery/conveyor_switch/update_icon_state()
 	if(!position)
 		icon_state = "switch-off"
 	else if(position == DIRECTION_REVERSED)
 		icon_state = "switch-rev"
-		if(!(stat & NOPOWER))
-			overlays += "redlight"
 	else if(position == DIRECTION_FORWARDS)
 		icon_state = "switch-fwd"
-		if(!(stat & NOPOWER))
-			overlays += "greenlight"
+
+/obj/machinery/conveyor_switch/update_overlays()
+	. = ..()
+	if(position == DIRECTION_REVERSED && !(stat & NOPOWER))
+		. += "redlight"
+	if(position == DIRECTION_FORWARDS && !(stat & NOPOWER))
+		. += "greenlight"
 
 /obj/machinery/conveyor_switch/oneway
 	one_way = TRUE
@@ -367,7 +368,6 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	ui_interact(user)
 
 /obj/machinery/conveyor_switch/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	user.set_machine(src)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ConveyorSwitch", name, 350, 150, master_ui, state)

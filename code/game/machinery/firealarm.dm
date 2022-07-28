@@ -25,7 +25,7 @@ FIRE ALARM
 	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
 
-	light_power = 0
+	light_power = LIGHTING_MINIMUM_POWER
 	light_range = 7
 	light_color = "#ff3232"
 
@@ -44,13 +44,7 @@ FIRE ALARM
 	report_fire_alarms = FALSE
 	show_alert_level = FALSE
 
-/obj/machinery/firealarm/update_icon()
-	underlays.Cut()
-	if(light)
-		if(overlays)
-			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
-		if(!wiresexposed)
-			underlays += emissive_appearance(icon, "firealarm_lightmask")
+/obj/machinery/firealarm/update_icon_state()
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
 		return
@@ -62,6 +56,20 @@ FIRE ALARM
 		icon_state = "firealarm_detect"
 	else
 		icon_state = "firealarm_on"
+
+/obj/machinery/firealarm/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(is_station_contact(z) && show_alert_level)
+		. += "overlay_[get_security_level()]"
+		underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
+
+	if(!wiresexposed)
+		underlays += emissive_appearance(icon, "firealarm_lightmask")
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)
@@ -207,18 +215,26 @@ FIRE ALARM
 	qdel(src)
 
 /obj/machinery/firealarm/proc/update_fire_light(fire)
-	if(fire == !!light_power)
+	if(stat & NOPOWER)
+		set_light(0)
+		return
+	else if(GLOB.security_level == SEC_LEVEL_EPSILON)
+		set_light(2, 1, COLOR_WHITE)
+		return
+	else if(fire == !!light_power || fire == !!(light_power - 0.1))
 		return  // do nothing if we're already active
+
 	if(fire)
 		set_light(l_power = 0.8)
 	else
-		set_light(l_power = 0)
+		set_light(l_power = LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
+	update_fire_light()
 	update_icon()
 
 /obj/machinery/firealarm/attack_hand(mob/user)
@@ -260,7 +276,6 @@ FIRE ALARM
 		return
 	var/area/A = get_area(src)
 	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
-	update_icon()
 
 /obj/machinery/firealarm/New(location, direction, building)
 	. = ..()
@@ -271,18 +286,13 @@ FIRE ALARM
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
-	if(is_station_contact(z) && show_alert_level)
-		if(GLOB.security_level)
-			overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
-		else
-			overlays += image('icons/obj/monitors.dmi', "overlay_green")
-
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)
 
 /obj/machinery/firealarm/Initialize(mapload)
 	. = ..()
 	name = "fire alarm"
+	set_light(1, LIGHTING_MINIMUM_POWER) //for emissives
 	update_icon()
 
 /obj/machinery/firealarm/Destroy()

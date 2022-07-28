@@ -154,18 +154,19 @@
 	else
 		set_light(0)
 
-/obj/item/twohanded/kinetic_crusher/update_icon()
-	..()
-	cut_overlays()
+/obj/item/twohanded/kinetic_crusher/update_icon_state()
+	item_state = "crusher[wielded]"
+
+/obj/item/twohanded/kinetic_crusher/update_overlays()
+	. = ..()
 	if(!charged)
-		add_overlay("[icon_state]_uncharged")
+		. += "[icon_state]_uncharged"
 	if(light_on)
-		add_overlay("[icon_state]_lit")
+		. += "[icon_state]_lit"
 	spawn(1)
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-	item_state = "crusher[wielded]"
 
 //destablizing force
 /obj/item/projectile/destabilizer

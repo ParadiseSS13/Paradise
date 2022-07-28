@@ -3,8 +3,8 @@
 	desc = "A wild Nano-Mob appeared! Hit it with your PDA with the game open to attempt to capture it!"
 	invisibility = 101
 	alpha = 128
-	anchored = 1								//just in case
-	density = 0
+	anchored = TRUE								//just in case
+	density = FALSE
 	icon = 'icons/effects/mob_hunt.dmi'
 	var/state_name
 	var/datum/mob_hunt/mob_info = null

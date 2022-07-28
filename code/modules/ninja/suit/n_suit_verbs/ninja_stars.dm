@@ -12,7 +12,7 @@
 
 /obj/item/gun/energy/shuriken/update_icon()
 	qdel(src)
-	return
+	return ..(NONE)
 
 /obj/item/gun/energy/shuriken/dropped()
 	qdel(src)

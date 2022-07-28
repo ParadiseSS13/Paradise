@@ -16,7 +16,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/sight_mode = 0
 	var/custom_name = ""
-	var/custom_sprite = 0 //Due to all the sprites involved, a var for our custom borgs may be best
+	var/custom_sprite = FALSE //Due to all the sprites involved, a var for our custom borgs may be best
 
 	//Hud stuff
 	var/obj/screen/hands = null
@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/obj/screen/lamp_button = null
 	var/obj/screen/thruster_button = null
 
-	var/shown_robot_modules = 0	//Used to determine whether they have the module menu shown or not
+	var/shown_robot_modules = FALSE	//Used to determine whether they have the module menu shown or not
 	var/obj/screen/robot_modules_background
 
 	//3 Modules can be activated at any one time.
@@ -51,14 +51,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/datum/wires/robot/wires = null
 
-	var/opened = 0
+	var/opened = FALSE
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
 	var/list/custom_eye_names = list("Cricket","Standard")
 	var/emagged = 0
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
-	var/ear_protection = 0
+	var/ear_protection = FALSE
 	var/damage_protection = 0
 	var/emp_protection = FALSE
  	/// Value incoming brute damage to borgs is mutiplied by.
@@ -71,25 +71,25 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/weapons_unlock = FALSE
 	var/static_radio_channels = FALSE
 
-	var/wiresexposed = 0
-	var/locked = 1
+	var/wiresexposed = FALSE
+	var/locked = TRUE
 	var/list/req_one_access = list(ACCESS_ROBOTICS)
 	var/list/req_access
 	var/ident = 0
 	//var/list/laws = list()
-	var/viewalerts = 0
+	var/viewalerts = FALSE
 	var/modtype = "Default"
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
 	var/low_power_mode = FALSE //whether the robot has no charge left.
 	var/weapon_lock = FALSE
 	var/weaponlock_time = 120
-	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
+	var/lawupdate = TRUE //Cyborgs will sync their laws with their AI by default
 	var/lockcharge //Used when locking down a borg to preserve cell charge
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
-	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/scrambledcodes = FALSE // Used to determine if a borg shows up on the robotics console.  Setting to TRUE hides them.
 	var/can_lock_cover = FALSE //Used to set if a borg can re-lock its cover.
 	var/has_camera = TRUE
-	var/pdahide = 0 //Used to hide the borg from the messenger list
+	var/pdahide = FALSE //Used to hide the borg from the messenger list
 	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
 	var/braintype = "Cyborg"
 	var/base_icon = ""
@@ -97,16 +97,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
-	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
+	var/lamp_recharging = FALSE //Flag for if the lamp is on cooldown after being forcibly disabled.
 
-	var/updating = 0 //portable camera camerachunk update
+	var/updating = FALSE //portable camera camerachunk update
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
 	var/default_cell_type = /obj/item/stock_parts/cell/high
-	var/magpulse = 0
-	var/ionpulse = 0 // Jetpack-like effect.
-	var/ionpulse_on = 0 // Jetpack-like effect.
+	var/magpulse = FALSE
+	var/ionpulse = FALSE // Jetpack-like effect.
+	var/ionpulse_on = FALSE // Jetpack-like effect.
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
-			camera.status = 0
+			camera.status = FALSE
 
 	if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
@@ -385,7 +385,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Standard"] = "Standard-Engi"
 			module_sprites["Noble-ENG"] = "Noble-ENG"
 			module_sprites["Cricket"] = "Cricket-ENGI"
-			magpulse = 1
+			magpulse = TRUE
 
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
@@ -888,7 +888,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "The emag sparks, and flashes red. This mechanism does not appear to be emaggable.")
 		else if(locked)
 			to_chat(user, "You emag the cover lock.")
-			locked = 0
+			locked = FALSE
 		else
 			to_chat(user, "The cover is already unlocked.")
 		return
@@ -1083,9 +1083,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(show_warning)
 			to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
 		lamp_intensity = 0
-		lamp_recharging = 1
+		lamp_recharging = TRUE
 		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
-			lamp_recharging = 0
+			lamp_recharging = FALSE
 	else
 		set_light(light_range + lamp_intensity)
 
@@ -1118,7 +1118,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		robot_suit.head.flash2.burn_out()
 		robot_suit.head.flash2 = null
 		robot_suit.head = null
-		robot_suit.updateicon()
+		robot_suit.update_icon(UPDATE_OVERLAYS)
 	else
 		new /obj/item/robot_parts/robot_suit(T)
 		new /obj/item/robot_parts/l_leg(T)
@@ -1163,10 +1163,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/UnlinkSelf()
 	disconnect_from_ai()
-	lawupdate = 0
+	lawupdate = FALSE
 	lockcharge = 0
 	REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
-	scrambledcodes = 1
+	scrambledcodes = TRUE
 	//Disconnect it's camera so it's not so easily tracked.
 	QDEL_NULL(camera)
 	// I'm trying to get the Cyborg to not be listed in the camera list
@@ -1306,15 +1306,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	base_icon = "nano_bloodhound"
 	icon_state = "nano_bloodhound"
 	designation = "SpecOps"
-	lawupdate = 0
-	scrambledcodes = 1
+	lawupdate = FALSE
+	scrambledcodes = TRUE
 	has_camera = FALSE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
-	ionpulse = 1
-	magpulse = 1
-	pdahide = 1
+	ionpulse = TRUE
+	magpulse = TRUE
+	pdahide = TRUE
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
-	ear_protection = 1 // Immunity to the audio part of flashbangs
+	ear_protection = TRUE // Immunity to the audio part of flashbangs
 	damage_protection = 10 // Reduce all incoming damage by this number
 	allow_rename = FALSE
 	modtype = "Commando"
@@ -1342,10 +1342,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ert
 	designation = "ERT"
-	lawupdate = 0
-	scrambledcodes = 1
+	lawupdate = FALSE
+	scrambledcodes = TRUE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
-	ionpulse = 1
+	ionpulse = TRUE
 	force_modules = list("Engineering", "Medical")
 	static_radio_channels = 1
 	allow_rename = FALSE
@@ -1388,7 +1388,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	force_modules = list("Combat", "Engineering", "Medical")
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
-	magpulse = 1
+	magpulse = TRUE
 
 
 /mob/living/silicon/robot/destroyer
@@ -1397,15 +1397,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = "droidcombat"
 	modtype = "Destroyer"
 	designation = "Destroyer"
-	lawupdate = 0
-	scrambledcodes = 1
+	lawupdate = FALSE
+	scrambledcodes = TRUE
 	has_camera = FALSE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
-	ionpulse = 1
-	magpulse = 1
-	pdahide = 1
+	ionpulse = TRUE
+	magpulse = TRUE
+	pdahide = TRUE
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
-	ear_protection = 1 // Immunity to the audio part of flashbangs
+	ear_protection = TRUE // Immunity to the audio part of flashbangs
 	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	can_lock_cover = TRUE

@@ -74,27 +74,26 @@
 		return
 	if(!isEmpProof())
 		if(prob(150/severity))
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			var/list/previous_network = network
 			network = list()
 			GLOB.cameranet.removeCamera(src)
 			stat |= EMPED
 			set_light(0)
 			emped = emped+1  //Increase the number of consecutive EMP's
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			var/thisemp = emped //Take note of which EMP this proc is for
 			spawn(900)
 				if(!QDELETED(src))
 					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
 						network = previous_network
 						stat &= ~EMPED
-						update_icon()
+						update_icon(UPDATE_ICON_STATE)
 						if(can_use())
 							GLOB.cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
-					M.unset_machine()
 					M.reset_perspective(null)
 					to_chat(M, "The screen bursts into static.")
 			..()
@@ -243,7 +242,7 @@
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 
-/obj/machinery/camera/update_icon()
+/obj/machinery/camera/update_icon_state()
 	if(!status)
 		icon_state = "[initial(icon_state)]1"
 	else if(stat & EMPED)
@@ -277,14 +276,13 @@
 			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
 
 		playsound(loc, toggle_sound, 100, 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
 	//I guess that doesn't matter since they can't use it anyway?
 	for(var/mob/O in GLOB.player_list)
 		if(O.client && O.client.eye == src)
-			O.unset_machine()
 			O.reset_perspective(null)
 			to_chat(O, "The screen bursts into static.")
 

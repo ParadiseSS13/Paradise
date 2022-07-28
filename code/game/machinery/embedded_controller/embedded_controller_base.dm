@@ -9,8 +9,12 @@
 
 	var/on = TRUE
 
+/obj/machinery/embedded_controller/Destroy()
+	program = null  // we probably should qdel it here, but that would break shared programs. Not that we should have those..
+	return ..()
+
 /obj/machinery/embedded_controller/proc/post_signal(datum/signal/signal, comm_line)
-	return 0
+	return FALSE
 
 /obj/machinery/embedded_controller/receive_signal(datum/signal/signal, receive_method, receive_param)
 	if(!signal || signal.encryption) return
@@ -23,7 +27,7 @@
 	if(program)
 		program.process()
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	src.updateDialog()
 
 /obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
@@ -50,8 +54,8 @@
 	var/radio_filter = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/embedded_controller/radio/Initialize()
-	..()
+/obj/machinery/embedded_controller/radio/Initialize(mapload)
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/embedded_controller/radio/Destroy()
@@ -60,7 +64,7 @@
 	radio_connection = null
 	return ..()
 
-/obj/machinery/embedded_controller/radio/update_icon()
+/obj/machinery/embedded_controller/radio/update_icon_state()
 	if(on && program)
 		if(program.memory["processing"])
 			icon_state = "airlock_control_process"
