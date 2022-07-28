@@ -1,9 +1,8 @@
 /obj/effect/proc_holder/spell/charge_up/bounce/magnet
 	name = "Magnetic Pull"
 	desc = "Pulls metalic objects from enemies hands with the power of MAGNETS."
-	charge_type = "recharge"
 	action_icon_state = "magnet"
-	charge_max	= 30 SECONDS
+	base_cooldown	= 30 SECONDS
 	clothes_req = FALSE
 	invocation = "UN'LTD P'WAH!"
 	invocation_type = "none"

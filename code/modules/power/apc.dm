@@ -146,6 +146,16 @@
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
+/obj/machinery/power/apc/syndicate/off
+	environ = 0
+	equipment = 0
+	lighting = 0
+	operating = 0
+
+/obj/machinery/power/apc/syndicate/off/Initialize(mapload)
+	. = ..()
+	cell.charge = 0
+
 /obj/item/apc_electronics
 	name = "power control module"
 	desc = "Heavy-duty switching circuits for power control."
@@ -247,6 +257,8 @@
 
 	make_terminal()
 
+	set_light(1, LIGHTING_MINIMUM_POWER)
+
 	addtimer(CALLBACK(src, .proc/update), 5)
 
 /obj/machinery/power/apc/examine(mob/user)
@@ -330,7 +342,7 @@
 
 	if(force_update || update & 1) // Updating the icon state
 		..(UPDATE_ICON_STATE)
-	
+
 	if(!(update_state & UPSTATE_ALLGOOD))
 		if(managed_overlays)
 			..(UPDATE_OVERLAYS)
@@ -360,16 +372,31 @@
 
 /obj/machinery/power/apc/update_overlays()
 	. = ..()
+	underlays.Cut()
+
+	if(update_state & UPSTATE_BLUESCREEN)
+		underlays += emissive_appearance(icon, "emit_apcemag")
+		return
 	if(!(update_state & UPSTATE_ALLGOOD))
 		return
 
 	if(!(stat & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
-		. += status_overlays_lock[locked+1]
-		. += status_overlays_charging[charging+1]
+		var/image/statover_lock = status_overlays_lock[locked + 1]
+		var/image/statover_charg = status_overlays_charging[charging + 1]
+		. += statover_lock
+		. += statover_charg
+		underlays += emissive_appearance(icon, statover_lock.icon_state)
+		underlays += emissive_appearance(icon, statover_charg.icon_state)
 		if(operating)
-			. += status_overlays_equipment[equipment+1]
-			. += status_overlays_lighting[lighting+1]
-			. += status_overlays_environ[environ+1]
+			var/image/statover_equip = status_overlays_equipment[equipment + 1]
+			var/image/statover_light = status_overlays_lighting[lighting + 1]
+			var/image/statover_envir = status_overlays_environ[environ + 1]
+			. += statover_equip
+			. += statover_light
+			. += statover_envir
+			underlays += emissive_appearance(icon, statover_equip.icon_state)
+			underlays += emissive_appearance(icon, statover_light.icon_state)
+			underlays += emissive_appearance(icon, statover_envir.icon_state)
 
 /obj/machinery/power/apc/proc/check_updates()
 
@@ -915,8 +942,6 @@
 		)
 			if(!loud)
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
-				user << browse(null, "window=apc")
-				user.unset_machine()
 			return FALSE
 	else
 		if((!in_range(src, user) || !istype(loc, /turf)))

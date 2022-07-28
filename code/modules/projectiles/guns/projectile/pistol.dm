@@ -38,8 +38,8 @@
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/New()
-	..()
+/obj/item/gun/projectile/automatic/pistol/enforcer/Initialize(mapload)
+	. = ..()
 	options["Grey slide"] = "enforcer_grey"
 	options["Red slide"] = "enforcer_red"
 	options["Green slide"] = "enforcer_green"
@@ -70,10 +70,7 @@
 	toggle_gunlight()
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
-
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal/New()
-	magazine = new/obj/item/ammo_box/magazine/enforcer/lethal
-	..()
+	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
 
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle
