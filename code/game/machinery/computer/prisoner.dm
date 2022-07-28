@@ -76,7 +76,8 @@
 			health_display = "DEAD"
 		else if(total_loss)
 			health_display = "HURT ([total_loss])"
-		if(!istype(implant_location.loc, /turf/space))
+		var/turf/implant_location = get_turf(T)
+		if(!istype(implant_location, /turf/space))
 			loc_display = "[get_area(implant_location)]"
 
 		var/list/implant_info = list(
