@@ -130,21 +130,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
 	for(var/obj/machinery/r_n_d/D in range(3,src))
-		if(!isnull(D.linked_console) || D.disabled || D.panel_open)
+		if(!isnull(D.linked_console) || D.panel_open)
 			continue
+
 		if(istype(D, /obj/machinery/r_n_d/destructive_analyzer))
 			if(linked_destroy == null)
 				linked_destroy = D
 				D.linked_console = src
+
 		else if(istype(D, /obj/machinery/r_n_d/protolathe))
 			if(linked_lathe == null)
 				linked_lathe = D
 				D.linked_console = src
+
 		else if(istype(D, /obj/machinery/r_n_d/circuit_imprinter))
 			if(linked_imprinter == null)
 				linked_imprinter = D
 				D.linked_console = src
-	return
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -267,16 +269,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		var/server_processed = FALSE
-		if(S.disabled)
-			continue
+
 		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
 			files.push_data(S.files)
 			server_processed = TRUE
-		if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
+
+		if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)))
 			S.files.push_data(files)
 			server_processed = TRUE
+
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 			S.produce_heat(100)
+
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/reset_research()
@@ -339,14 +343,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!linked_destroy || !temp_tech)
 		return
 
-	if(!linked_destroy.hacked)
-		if(!linked_destroy.loaded_item)
-			to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
-		else
-			for(var/T in temp_tech)
-				files.UpdateTech(T, temp_tech[T])
-			send_mats()
-			linked_destroy.loaded_item = null
+	if(!linked_destroy.loaded_item)
+		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+	else
+		for(var/T in temp_tech)
+			files.UpdateTech(T, temp_tech[T])
+		send_mats()
+		linked_destroy.loaded_item = null
 
 	for(var/obj/I in linked_destroy.contents)
 		for(var/mob/M in I.contents)
