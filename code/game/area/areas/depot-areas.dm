@@ -320,7 +320,7 @@
 		if(istype(A, /obj/machinery/door/airlock/hatch/syndicate/vault))
 			continue
 		A.emergency = !!openaccess
-		A.update_appearance()
+		A.update_icon()
 
 /area/syndicate_depot/core/proc/toggle_falsewalls()
 	for(var/obj/structure/falsewall/plastitanium/F in src)
