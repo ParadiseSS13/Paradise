@@ -60252,8 +60252,7 @@
 /area/toxins/test_area)
 "cET" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
