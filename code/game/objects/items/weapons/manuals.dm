@@ -891,7 +891,7 @@
 	var/static/list/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear, /obj/item/book/manual/wiki)
 
 /obj/item/book/manual/random/Initialize()
-	. = ..()
+	..()
 	var/newtype = pick(subtypesof(/obj/item/book/manual) - banned_books)
 	new newtype(loc)
 	return INITIALIZE_HINT_QDEL

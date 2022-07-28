@@ -29,7 +29,7 @@
 	var/list/datum/icon_snapshot/disguises = list()
 
 /obj/machinery/abductor/console/Initialize()
-	. = ..()
+	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/abductor/console/LateInitialize()

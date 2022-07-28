@@ -42,7 +42,7 @@
 	icon_keyboard = "rd_key"
 
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
-	. = ..()
+	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/camera_advanced/xenobio/LateInitialize()

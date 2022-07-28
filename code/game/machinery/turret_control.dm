@@ -89,7 +89,6 @@
 			control_area = null
 
 	power_change() //Checks power and initial settings
-	return
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(isrobot(user) || isAI(user))

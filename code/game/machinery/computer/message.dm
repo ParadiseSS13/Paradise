@@ -35,7 +35,7 @@
 	light_color = LIGHT_COLOR_DARKGREEN
 
 /obj/machinery/computer/message_monitor/Initialize()
-	. = ..()
+	..()
 	return INITIALIZE_HINT_LATELOAD // Give the message server time to initialize
 
 /obj/machinery/computer/message_monitor/LateInitialize()
@@ -502,7 +502,7 @@
 	var/obj/machinery/message_server/server = null
 
 /obj/item/paper/monitorkey/Initialize(mapload)
-	. = ..()
+	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/monitorkey/LateInitialize()
