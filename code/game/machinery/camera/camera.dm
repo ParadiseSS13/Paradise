@@ -94,7 +94,6 @@
 						emped = 0 //Resets the consecutive EMP count
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
-					M.unset_machine()
 					M.reset_perspective(null)
 					to_chat(M, "The screen bursts into static.")
 			..()
@@ -284,7 +283,6 @@
 	//I guess that doesn't matter since they can't use it anyway?
 	for(var/mob/O in GLOB.player_list)
 		if(O.client && O.client.eye == src)
-			O.unset_machine()
 			O.reset_perspective(null)
 			to_chat(O, "The screen bursts into static.")
 
