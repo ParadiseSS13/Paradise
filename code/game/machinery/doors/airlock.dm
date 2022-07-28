@@ -189,6 +189,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(A == note)
 		note = null
 		update_icon()
+	..()
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))

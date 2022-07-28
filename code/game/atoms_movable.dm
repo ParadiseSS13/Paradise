@@ -35,6 +35,10 @@
 	var/blocks_emissive = FALSE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
 	var/atom/movable/emissive_blocker/em_block
+	/// List of extra things to call `handle_atom_del` on when this gets destroyed.
+	/// Internal var; don't mess with outside of atom-level procs.
+	/// Is an nested associative list: {atom1 => {key_a=1, key_b=1}, atom2 => {}}
+	var/list/list/del_subscribers = null
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -69,6 +73,11 @@
 	. = ..()
 	if(loc)
 		loc.handle_atom_del(src)
+	if(length(del_subscribers))
+		for(var/atom/sub in del_subscribers)
+			if(length(del_subscribers[sub])) // a check that the subscriber is still actually subscribed.
+				sub.handle_atom_del(src)
+		del_subscribers.Cut()
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	LAZYCLEARLIST(client_mobs_in_contents)

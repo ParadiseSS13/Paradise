@@ -52,6 +52,7 @@
 	if(A == storedpda)
 		storedpda = null
 		update_icon()
+	..()
 
 /obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))

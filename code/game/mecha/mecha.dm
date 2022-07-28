@@ -607,6 +607,7 @@
 		setDir(dir_in)
 	if(A in trackers)
 		trackers -= A
+	..()
 
 /obj/mecha/Destroy()
 	STOP_PROCESSING(SSobj, src)

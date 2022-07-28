@@ -1045,8 +1045,28 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
+//Might be called several times for the same atom - the implementation must be idempotent and handle such case gracefully.
 /atom/proc/handle_atom_del(atom/A)
+	SHOULD_CALL_PARENT(TRUE)
 	return
+
+// Subscribe to have your `handle_atom_del` called when a given atom gets deleted, even when it is outside
+// of your .contents
+// You can use the `key` variable to be able to unsubscribe later
+/atom/proc/subscribe_atom_del(atom/movable/A, key)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(isnull(A))  // should this maybe runtime instead?..
+		return
+	if(!istype(A))
+		CRASH("subscribe_atom_del called with non-movable atom ([A] - [A.type]) as an argument. This has no effect, and is likely a bug")
+	LAZYINITLIST(A.del_subscribers)
+	LAZYINITLIST(A.del_subscribers[src])
+	A.del_subscribers[src][key] = TRUE
+
+// The reverse of `subscribe_atom_del` above
+/atom/proc/unsubscribe_atom_del(atom/movable/A, key)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	A?.del_subscribers?[src]?.Remove(key)
 
 /atom/proc/atom_say(message)
 	if(!message)

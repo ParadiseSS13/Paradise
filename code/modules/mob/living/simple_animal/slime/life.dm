@@ -173,10 +173,8 @@
 			if(!rabid && !attacked)
 				if(M.LAssailant && M.LAssailant != M)
 					if(prob(50))
-						if(!(M.LAssailant in Friends))
-							Friends[M.LAssailant] = 1
-						else
-							++Friends[M.LAssailant]
+						set_Friend(M.LAssailant)
+						Friends[M.LAssailant] += 1
 		else
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
 

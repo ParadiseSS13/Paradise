@@ -42,15 +42,17 @@
 
 	var/number = 0 // Used to understand when someone is talking to it
 
-	var/mob/living/Target = null // AI variable - tells the slime to hunt this down
-	var/mob/living/Leader = null // AI variable - tells the slime to follow this person
+	// Don't modify these directly. Use set_Target()/set_Leader()
+	VAR_PROTECTED/mob/living/Target = null // AI variable - tells the slime to hunt this down
+	VAR_PROTECTED/mob/living/Leader = null // AI variable - tells the slime to follow this person
 
 	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
 	var/rabid = FALSE // If set to 1, the slime will attack and eat anything it comes in contact with
 	var/holding_still = 0 // AI variable, cooloff-ish for how long it's going to stay in one place
 	var/target_patience = 0 // AI variable, cooloff-ish for how long it's going to follow its target
 
-	var/list/Friends = list() // A list of friends; they are not considered targets for feeding; passed down after splitting
+	// Use set_Friend() to add new keys to the list (modifying values for existing keys is ok)
+	VAR_PROTECTED/list/Friends = list() // A list of friends; they are not considered targets for feeding; passed down after splitting
 
 	var/list/speech_buffer = list() // Last phrase said near it and person who said it
 
@@ -105,6 +107,15 @@
 	Friends.Cut()
 	speech_buffer.Cut()
 	return ..()
+
+/mob/living/simple_animal/slime/handle_atom_del(atom/A)
+	if(A == Leader)
+		Leader = null
+	if(A == Target)
+		Target = null
+	if(A in Friends)
+		Friends.Remove(A)
+	..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
@@ -358,10 +369,8 @@
 				if(S.next_step(user, src))
 					return 1
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
-		if(user in Friends)
-			++Friends[user]
-		else
-			Friends[user] = 1
+		set_Friend(user)
+		Friends[user] += 1
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
@@ -511,3 +520,48 @@
 		to_chat(src, "<i>I can't vent crawl while feeding...</i>")
 		return
 	..()
+
+//these setters below handle graceful nulling of slime's vars for GC purposes.
+// TODO: this doc is bad
+//The API is robust, but the code inside is extremely fragile - please handle with care.
+/mob/living/simple_animal/slime/proc/set_Leader(mob/living/leader)
+	unsubscribe_atom_del(Leader, "Leader")
+	subscribe_atom_del(leader, "Leader")
+	Leader = leader
+
+/mob/living/simple_animal/slime/proc/set_Target(mob/living/target)
+	unsubscribe_atom_del(Target, "Target")
+	subscribe_atom_del(target, "Target")
+	Target = target
+
+/// Adds the mob to the Friends list. DOES NOT increase friendliness.
+/mob/living/simple_animal/slime/proc/set_Friend(mob/living/friend)
+	subscribe_atom_del(friend, "Friends")
+	if(!(friend in Friends))
+		Friends[friend] = 0
+
+// /mob/living/simple_animal/slime/proc/slime_start_tracking(/mob/living/who)
+// 	if((who == Leader) || (who == Target) || (who in Friends))
+// 		return  // already tracking
+// 	RegisterSignal(who, COMSIG_PARENT_QDELETING, .proc/on_tracked_qdel)
+
+// /mob/living/simple_animal/slime/proc/slime_maybe_stop_tracking(/mob/living/who)
+// 	var/occurences = 0
+// 	if(who == Leader)
+// 		occurences += 1
+// 	if(who == Target)
+// 		occurences += 1
+// 	if(who in Friends)
+// 		occurences += 1
+// 	// only stop tracking if no references left
+// 	UnregisterSignal(who, COMSIG_PARENT_QDELETING)
+
+// /mob/living/simple_animal/slime/proc/on_tracked_qdel(/mob/living/who)
+// 	if(who == Leader)
+// 		Leader = null
+// 	if(who == Target)
+// 		Target = null
+// 	if(who in Friends)
+// 		Friends -= who
+
+// end gc handling procs

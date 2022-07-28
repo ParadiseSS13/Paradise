@@ -127,6 +127,7 @@
 	if(A == beaker)
 		beaker = null
 		update_icon(UPDATE_ICON_STATE)
+	..()
 
 /obj/machinery/reagentgrinder/update_icon_state()
 	if(beaker)

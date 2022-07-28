@@ -553,6 +553,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(A == occupant)
 		occupant = null
 		countdown.stop()
+	..()
 
 /obj/machinery/clonepod/deconstruct(disassembled = TRUE)
 	if(occupant)
