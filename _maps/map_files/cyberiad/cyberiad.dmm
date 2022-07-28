@@ -77624,7 +77624,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "gpW" = (
-/mob/living/simple_animal/pet/cat,
+/mob/living/simple_animal/pet/cat{
+	name = "Var"
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/maintenance/apmaint)
 "gqA" = (
