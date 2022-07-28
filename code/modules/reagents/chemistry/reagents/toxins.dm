@@ -447,6 +447,7 @@
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
+	can_synth = FALSE
 	taste_description = "beer"
 	taste_description = "piss water"
 
