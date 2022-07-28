@@ -88,6 +88,14 @@
 	heavyfootstep = FOOTSTEP_WATER
 	smoothing_groups = list(SMOOTH_GROUP_BEACH_WATER)
 
+/turf/simulated/floor/beach/away/water/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, .proc/InitializedOn)
+
+/turf/simulated/floor/beach/away/water/Destroy()
+	. = ..()
+	UnregisterSignal(src, COMSIG_ATOM_INITIALIZED_ON)
+
 /turf/simulated/floor/beach/away/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
 	if(!linkedcontroller)
@@ -102,7 +110,7 @@
 	if(ismob(AM))
 		linkedcontroller.mobinpool -= AM
 
-/turf/simulated/floor/beach/away/water/InitializedOn(atom/A)
+/turf/simulated/floor/beach/away/water/proc/InitializedOn(atom/A)
 	if(!linkedcontroller)
 		return
 	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
