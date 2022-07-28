@@ -21,8 +21,8 @@
 	..()
 	defense_action.Remove(user)
 
-/obj/mecha/combat/durand/loaded/New()
-	..()
+/obj/mecha/combat/durand/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack

@@ -139,7 +139,7 @@
 /obj/effect/proc_holder/spell/sense_victims
 	name = "Sense Victims"
 	desc = "Sense the location of heretics"
-	charge_max = 0
+	base_cooldown = 0
 	clothes_req = FALSE
 	cooldown_min = 0
 	overlay = null

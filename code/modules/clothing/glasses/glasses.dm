@@ -1,4 +1,4 @@
-/obj/item/clothing/glasses/New()
+/obj/item/clothing/glasses/Initialize(mapload)
 	. = ..()
 	if(prescription_upgradable && prescription)
 		// Pre-upgraded upgradable glasses

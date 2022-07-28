@@ -447,6 +447,9 @@
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
 /// From /mob/living/carbon/swap_hand(): Called when the user swaps their active hand
 #define COMSIG_CARBON_SWAP_HANDS "carbon_swap_hands"
+/// From /mob/living/carbon/toggle_throw_mode()
+#define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
+
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"

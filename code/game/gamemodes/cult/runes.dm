@@ -947,6 +947,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		new_human.dust()
 
 /obj/effect/rune/manifest/proc/ghostify(mob/living/user, turf/T)
+	ADD_TRAIT(user, SCRYING, CULT_TRAIT)
 	user.add_atom_colour(RUNE_COLOR_DARKRED, ADMIN_COLOUR_PRIORITY)
 	user.visible_message("<span class='warning'>[user] freezes statue-still, glowing an unearthly red.</span>",
 					"<span class='cult'>You see what lies beyond. All is revealed. In this form you find that your voice booms above all others.</span>")
@@ -977,6 +978,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		CM.Remove(ghost)
 		V.Remove(ghost)
 		//GM.Remove(ghost)
+	REMOVE_TRAIT(user, SCRYING, CULT_TRAIT)
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, RUNE_COLOR_DARKRED)
 	user = null
 	rune_in_use = FALSE

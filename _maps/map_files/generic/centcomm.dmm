@@ -700,16 +700,12 @@
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "cV" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/color/lightpurple,
 /obj/item/clothing/under/color/purple,
-/obj/item/storage/backpack/satchel,
-/obj/item/storage/backpack/satchel,
 /obj/item/clothing/head/wizard/red,
+/obj/item/storage/backpack/satchel,
+/obj/item/storage/backpack/satchel,
 /obj/item/clothing/suit/wizrobe/red,
 /obj/item/clothing/head/wizard,
 /obj/item/clothing/suit/wizrobe,
@@ -4487,12 +4483,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"pw" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
-/turf/simulated/floor/plasteel/dark/nitrogen,
-/area/centcom/specops)
 "pz" = (
 /obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
@@ -4638,6 +4628,12 @@
 	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel/dark/nitrogen,
+/area/centcom/specops)
+"pY" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Team Storage"
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "pZ" = (
 /obj/machinery/vending/medical,
@@ -6871,6 +6867,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
+"zN" = (
+/obj/machinery/computer/cryopod/robot,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/specops)
 "zV" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
@@ -8282,10 +8282,6 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
-"Gx" = (
-/obj/structure/bookcase/random,
-/turf/simulated/floor/plasteel/dark/nitrogen,
-/area/centcom/specops)
 "Gy" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -8361,7 +8357,7 @@
 /area/admin)
 "GO" = (
 /obj/structure/closet/crate/can,
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "GP" = (
 /obj/effect/decal/warning_stripes/southeast,
@@ -8416,7 +8412,7 @@
 /obj/item/dice/d10{
 	pixel_x = -3
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "GW" = (
 /turf/simulated/floor/plasteel{
@@ -9105,6 +9101,7 @@
 "JE" = (
 /obj/structure/railing,
 /obj/structure/flora/ausbushes/pointybush,
+/obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
 /area/centcom/specops)
 "JG" = (
@@ -9194,7 +9191,7 @@
 	pixel_y = 32;
 	req_access_txt = "114"
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "JU" = (
 /obj/structure/holowindow{
@@ -9209,7 +9206,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "JY" = (
 /obj/effect/spawner/window,
@@ -9903,6 +9900,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
+"MN" = (
+/obj/machinery/cryopod/robot/offstation,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "MO" = (
 /obj/mecha/combat/marauder/loaded,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -9977,13 +9981,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/evac)
-"MZ" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/leafybush,
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass,
-/area/centcom/specops)
 "Nc" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -10633,12 +10630,6 @@
 	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
-"PN" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Team Storage"
-	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
-/area/centcom/specops)
 "PO" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass,
@@ -10757,14 +10748,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"Qn" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/flora/ausbushes/genericbush,
-/obj/structure/flora/ausbushes/brflowers,
-/turf/simulated/floor/grass,
-/area/centcom/specops)
 "Qr" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -10779,25 +10762,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"Qt" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/flora/ausbushes/ywflowers,
-/turf/simulated/floor/grass,
-/area/centcom/specops)
 "Qu" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"Qv" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/pointybush,
-/turf/simulated/floor/grass,
-/area/centcom/specops)
 "Qx" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10923,10 +10893,6 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
-"QU" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel/dark/nitrogen,
-/area/centcom/specops)
 "QV" = (
 /obj/item/clothing/under/rainbow,
 /obj/item/clothing/glasses/sunglasses_fake,
@@ -12812,9 +12778,6 @@
 "Ze" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
-"Zf" = (
-/turf/simulated/floor/plasteel/dark/nitrogen,
-/area/centcom/specops)
 "Zg" = (
 /obj/machinery/door_control/no_emag{
 	id = "CCTELE";
@@ -12880,7 +12843,7 @@
 	id_tag = "CCGAMMA";
 	name = "Gamma Security"
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Zt" = (
 /obj/structure/closet/secure_closet/guncabinet,
@@ -31970,7 +31933,7 @@ JS
 Mq
 NU
 PM
-Gx
+NP
 Zr
 Ji
 Ra
@@ -32223,11 +32186,11 @@ aN
 aN
 aN
 Zr
-Zf
+Ra
 Mq
 iW
 PM
-pw
+Ae
 Zr
 Ji
 Ra
@@ -32484,7 +32447,7 @@ Yx
 Yx
 Yx
 Yx
-QU
+AV
 VI
 TV
 Ra
@@ -32741,7 +32704,7 @@ gY
 Mr
 Mr
 Yx
-Zf
+Ra
 pX
 Ji
 Ra
@@ -32998,7 +32961,7 @@ CH
 Mu
 Oj
 Yx
-QU
+AV
 RD
 TV
 Ra
@@ -34025,8 +33988,8 @@ Zr
 oN
 oN
 oN
+MN
 Zr
-MZ
 Jr
 Ji
 Ra
@@ -34280,10 +34243,10 @@ GY
 aN
 Zr
 JW
-Zf
+Ra
+Ra
 DZ
 Zr
-Qn
 Jt
 Ji
 Ra
@@ -34538,9 +34501,9 @@ aN
 Zr
 Hv
 Hv
+Ra
 DZ
-PN
-Ji
+pY
 Ji
 Ra
 Ra
@@ -34795,9 +34758,9 @@ aN
 Zr
 oN
 oN
+Ra
 DZ
-PN
-Qr
+pY
 Qr
 Ra
 Ra
@@ -35049,12 +35012,12 @@ aN
 aN
 aN
 Db
-Zr
-Zf
-Zf
+zN
+Ra
+Ra
+Ra
 DZ
 Zr
-Qt
 Jx
 Ji
 Ra
@@ -35310,8 +35273,8 @@ Zr
 Hv
 Hv
 Hv
+MN
 Zr
-Qv
 JE
 Ji
 AV
