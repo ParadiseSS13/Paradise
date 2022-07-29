@@ -37,13 +37,14 @@
 	return ..()
 
 /datum/antagonist/abductor/Destroy(force, ...)
-	owner.special_role = null
-	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
-	var/mob/living/carbon/human/H = owner.current
-	for(var/obj/item/I in H)
-		qdel(I)
-	H.set_species(/datum/species/grey) //Ayy lmao downgrade
-	H.real_name = random_name(H.gender, H.dna.species.name)
+	if(owner)
+		owner.special_role = null
+		REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
+		var/mob/living/carbon/human/H = owner.current
+		for(var/obj/item/I in H)
+			qdel(I)
+		H.set_species(/datum/species/grey) //Ayy lmao downgrade
+		H.real_name = random_name(H.gender, H.dna.species.name)
 	return ..()
 
 /datum/antagonist/abductor/greet()
