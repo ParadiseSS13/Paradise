@@ -239,11 +239,7 @@
 //////////////////////////////
 
 /obj/machinery/fishtank/proc/get_num_fish()
-	var/fish_count = 0
-	for(var/fish in fish_list)
-		if(fish)
-			fish_count++
-	return fish_count
+	return length(fish_list)
 
 /obj/machinery/fishtank/proc/handle_special_interactions()
 	for(var/datum/fish/fish in fish_list)
@@ -327,7 +323,7 @@
 
 /obj/machinery/fishtank/proc/harvest_fish(mob/user)
 	if(get_num_fish() <= 0)									//Can't catch non-existant fish!
-		to_chat(user, "<span class='notice'>There are no fish in [src] to catch!</span>")
+		to_chat(user, "<span class='warning'>There are no fish in [src] to catch!</span>")
 		return
 	var/list/fish_types = list()
 	var/list/fish_types_input = list()
@@ -336,7 +332,8 @@
 	for(var/key in fish_types) // Then populate the list
 		var/datum/fish/fish_type = key
 		var/count = length(fish_types[key])
-		fish_types_input += list("[initial(fish_type.fish_name)][count > 1 ? " (x[count])" : ""]" = key)
+		var/fish_description = "[initial(fish_type.fish_name)][count > 1 ? " (x[count])" : ""]"
+		fish_types_input[fish_description] = fish_type
 	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_types_input		//Select a fish from the tank
 	if(!caught_fish)
 		return
