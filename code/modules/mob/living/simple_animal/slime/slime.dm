@@ -102,8 +102,8 @@
 	for(var/A in actions)
 		var/datum/action/AC = A
 		AC.Remove(src)
-	Target = null
-	Leader = null
+	set_Target(null)
+	set_Leader(null)
 	Friends.Cut()
 	speech_buffer.Cut()
 	return ..()
@@ -439,7 +439,7 @@
 	var/water_damage = rand(10, 15) * volume
 	adjustBruteLoss(water_damage)
 	if(!client && Target && volume >= 3) // Like cats
-		Target = null
+		set_Target(null)
 		++Discipline
 
 /mob/living/simple_animal/slime/examine(mob/user)
@@ -485,7 +485,7 @@
 				attacked = 0
 
 	if(Target)
-		Target = null
+		set_Target(null)
 	if(buckled)
 		Feedstop(silent = TRUE) //we unbuckle the slime from the mob it latched onto.
 
@@ -523,12 +523,14 @@
 
 /mob/living/simple_animal/slime/proc/set_Leader(mob/living/leader)
 	unsubscribe_atom_del(Leader, "Leader")
-	subscribe_atom_del(leader, "Leader")
+	if(leader)
+		subscribe_atom_del(leader, "Leader")
 	Leader = leader
 
 /mob/living/simple_animal/slime/proc/set_Target(mob/living/target)
 	unsubscribe_atom_del(Target, "Target")
-	subscribe_atom_del(target, "Target")
+	if(target)
+		subscribe_atom_del(target, "Target")
 	Target = target
 
 /// Adds the mob to the Friends list. DOES NOT increase friendliness.
