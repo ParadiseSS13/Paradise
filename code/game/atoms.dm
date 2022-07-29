@@ -1055,10 +1055,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 // You can use the `key` variable to be able to unsubscribe later
 /atom/proc/subscribe_atom_del(atom/movable/A, key)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	if(isnull(A))  // should this maybe runtime instead?..
-		return
 	if(!istype(A))
-		CRASH("subscribe_atom_del called with non-movable atom ([A] - [A.type]) as an argument. This has no effect, and is likely a bug")
+		CRASH("subscribe_atom_del called with non-movable atom ([A] - [A?.type]) as an argument. This has no effect, and is likely a bug")
 	var/my_uid = UID()
 	LAZYINITLIST(A.del_subscribers)
 	LAZYINITLIST(A.del_subscribers[my_uid])

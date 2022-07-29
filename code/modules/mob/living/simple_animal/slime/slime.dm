@@ -521,9 +521,6 @@
 		return
 	..()
 
-//these setters below handle graceful nulling of slime's vars for GC purposes.
-// TODO: this doc is bad
-//The API is robust, but the code inside is extremely fragile - please handle with care.
 /mob/living/simple_animal/slime/proc/set_Leader(mob/living/leader)
 	unsubscribe_atom_del(Leader, "Leader")
 	subscribe_atom_del(leader, "Leader")
@@ -539,29 +536,3 @@
 	subscribe_atom_del(friend, "Friends")
 	if(!(friend in Friends))
 		Friends[friend] = 0
-
-// /mob/living/simple_animal/slime/proc/slime_start_tracking(/mob/living/who)
-// 	if((who == Leader) || (who == Target) || (who in Friends))
-// 		return  // already tracking
-// 	RegisterSignal(who, COMSIG_PARENT_QDELETING, .proc/on_tracked_qdel)
-
-// /mob/living/simple_animal/slime/proc/slime_maybe_stop_tracking(/mob/living/who)
-// 	var/occurences = 0
-// 	if(who == Leader)
-// 		occurences += 1
-// 	if(who == Target)
-// 		occurences += 1
-// 	if(who in Friends)
-// 		occurences += 1
-// 	// only stop tracking if no references left
-// 	UnregisterSignal(who, COMSIG_PARENT_QDELETING)
-
-// /mob/living/simple_animal/slime/proc/on_tracked_qdel(/mob/living/who)
-// 	if(who == Leader)
-// 		Leader = null
-// 	if(who == Target)
-// 		Target = null
-// 	if(who in Friends)
-// 		Friends -= who
-
-// end gc handling procs
