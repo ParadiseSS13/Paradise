@@ -235,7 +235,7 @@
 
 /datum/action/innate/cult/blood_spell/equipment
 	name = "Summon Equipment"
-	desc = "Empowers your hand to summon combat gear onto a cultist you touch, including cult armor (if not wearing a jacket), a cult bola, and a cult sword."
+	desc = "Empowers your hand to summon combat gear onto a cultist you touch, including cult armor into open slots, a cult bola, and a cult sword."
 	button_icon_state = "equip"
 	magic_path = /obj/item/melee/blood_magic/armor
 
