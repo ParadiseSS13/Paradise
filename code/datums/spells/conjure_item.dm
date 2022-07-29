@@ -6,7 +6,7 @@
 	var/obj/item/item
 	var/item_type = /obj/item/banhammer
 	school = "conjuration"
-	charge_max = 150
+	base_cooldown = 15 SECONDS
 	cooldown_min = 10
 
 /obj/effect/proc_holder/spell/conjure_item/create_new_targeting()

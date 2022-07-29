@@ -31,8 +31,8 @@
 	var/next_dest
 	var/next_dest_loc
 
-/mob/living/simple_animal/bot/cleanbot/New()
-	..()
+/mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
+	. = ..()
 	get_targets()
 	icon_state = "cleanbot[on]"
 

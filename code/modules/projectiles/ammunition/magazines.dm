@@ -228,13 +228,11 @@
 	multi_sprite_step = 1
 	caliber = "9mm"
 
-/obj/item/ammo_box/magazine/enforcer/update_icon()
-	..()
-	overlays.Cut()
-
+/obj/item/ammo_box/magazine/enforcer/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_rubber())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
 
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
@@ -446,15 +444,13 @@
 	multi_sprite_step = 1
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
-/obj/item/ammo_box/magazine/toy/enforcer/update_icon()
-	..()
-	overlays.Cut()
-
+/obj/item/ammo_box/magazine/toy/enforcer/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
@@ -500,11 +496,14 @@
 	icon_state = "handgun_ammo_battery"
 	var/charge = 1000
 
-/obj/item/ammo_box/magazine/detective/speedcharger/update_icon()
+/obj/item/ammo_box/magazine/detective/speedcharger/update_icon_state()
+	return
+
+/obj/item/ammo_box/magazine/detective/speedcharger/update_overlays()
+	. = ..()
 	var/charge_percent_rounded = round(charge_percent(), 20) // to the nearest 20%
-	cut_overlays()
 	if(charge_percent_rounded)
-		add_overlay("hab_charge_[charge_percent_rounded]")
+		. += "hab_charge_[charge_percent_rounded]"
 
 /obj/item/ammo_box/magazine/detective/speedcharger/proc/charge_percent()
 	return (charge / initial(charge) * 100)

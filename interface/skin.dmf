@@ -41,9 +41,21 @@ menu "menu"
 		category = "&Size"
 		can-check = true
 		group = "size"
+	elem "icon112"
+		name = "&112x112 (3.5x)"
+		command = ".winset \"mapwindow.map.icon-size=112\""
+		category = "&Size"
+		can-check = true
+		group = "size"
 	elem "icon96"
 		name = "&96x96 (3x)"
 		command = ".winset \"mapwindow.map.icon-size=96\""
+		category = "&Size"
+		can-check = true
+		group = "size"
+	elem "icon80"
+		name = "&80x80 (2.5x)"
+		command = ".winset \"mapwindow.map.icon-size=80\""
 		category = "&Size"
 		can-check = true
 		group = "size"

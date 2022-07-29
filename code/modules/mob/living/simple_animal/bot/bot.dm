@@ -128,7 +128,7 @@
 	on = TRUE
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(initial(light_range))
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_controls()
 	diag_hud_set_botstat()
 	return 1
@@ -138,21 +138,11 @@
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(0)
 	bot_reset() //Resets an AI's call, should it exist.
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_controls()
 
-/mob/living/simple_animal/bot/New()
-	/*
-		HEY! LISTEN!
-
-		I see you're poking the the bot/New() proc
-		Assuming you are converting this to Initialize() [yay], please see my note in
-		code\game\jobs\job\job.dm | /datum/job/proc/get_access()
-
-		Theres a useless check that bugs me but needs to exist because these things New()
-		-AA07
-	*/
-	..()
+/mob/living/simple_animal/bot/Initialize(mapload)
+	. = ..()
 	GLOB.bots_list += src
 	icon_living = icon_state
 	icon_dead = icon_state
@@ -170,9 +160,9 @@
 	default_language = GLOB.all_languages["Galactic Common"]
 
 	bot_core = new bot_core_type(src)
-	spawn(30)
-		if(SSradio && bot_filter)
-			SSradio.add_object(bot_core, control_freq, bot_filter)
+
+	if(SSradio && bot_filter)
+		SSradio.add_object(bot_core, control_freq, bot_filter)
 
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
@@ -909,7 +899,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		bot_reset()
 		add_attack_logs(M, src, "Dehacked")
 
-/mob/living/simple_animal/bot/proc/update_icon()
+/mob/living/simple_animal/bot/update_icon_state()
 	icon_state = "[initial(icon_state)][on]"
 
 // Machinery to simplify topic and access calls
@@ -1001,7 +991,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/revive(full_heal = 0, admin_revive = 0)
 	if(..())
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		. = 1
 
 /mob/living/simple_animal/bot/ghost()

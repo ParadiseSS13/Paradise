@@ -1,6 +1,8 @@
 #define AUTO_EJECT_DEAD		(1<<0)
 #define AUTO_EJECT_HEALTHY	(1<<1)
-
+#define HIGH 24
+#define MID 23
+#define LOW 22
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
 	desc = "Lowers the body temperature so certain medications may take effect."
@@ -340,52 +342,50 @@
 	if(default_deconstruction_screwdriver(user, "pod0-o", "pod0", I))
 		return TRUE
 
-/obj/machinery/atmospherics/unary/cryo_cell/update_icon()
-	handle_update_icon()
-
-/obj/machinery/atmospherics/unary/cryo_cell/proc/handle_update_icon() //making another proc to avoid spam in update_icon
-	overlays.Cut() //empty the overlay proc, just in case
+/obj/machinery/atmospherics/unary/cryo_cell/update_icon_state()
 	icon_state = "pod[on]" //set the icon properly every time
 
-	if(!src.occupant)
-		overlays += "lid[on]" //if no occupant, just put the lid overlay on, and ignore the rest
+/obj/machinery/atmospherics/unary/cryo_cell/update_overlays()
+	. = ..()
+	if(!occupant)
+		. += "lid[on]" //if no occupant, just put the lid overlay on, and ignore the rest
 		return
 
 	if(occupant)
 		var/mutable_appearance/pickle = mutable_appearance(occupant.icon, occupant.icon_state)
 		pickle.overlays = occupant.overlays
-		pickle.pixel_y = 22
+		pickle.pixel_y = LOW
 
-		overlays += pickle
-		overlays += "lid[on]"
-		if(src.on && !running_bob_animation) //no bobbing if off
-			var/up = 0 //used to see if we are going up or down, 1 is down, 2 is up
+		. += pickle
+		. += "lid[on]"
+		if(on && !running_bob_animation) //no bobbing if off
+			var/bobbing = NONE //used to see if we are going up or down
 			spawn(0) // Without this, the icon update will block. The new thread will die once the occupant leaves.
 				running_bob_animation = TRUE
-				while(occupant)
-					overlays -= "lid[on]" //have to remove the overlays first, to force an update- remove cloning pod overlay
-					overlays -= pickle //remove mob overlay
+				while(occupant && on)
+					cut_overlay("lid[on]") //have to remove the overlays first, to force an update- remove cloning pod overlay
+					cut_overlay(pickle) //remove mob overlay
 
 					switch(pickle.pixel_y) //this looks messy as fuck but it works, switch won't call itself twice
 
-						if(23) //inbetween state, for smoothness
-							switch(up) //this is set later in the switch, to keep track of where the mob is supposed to go
-								if(2) //2 is up
-									pickle.pixel_y = 24 //set to highest
+						if(MID) //inbetween state, for smoothness
+							switch(bobbing) //this is set later in the switch, to keep track of where the mob is supposed to go
+								if(UP)
+									pickle.pixel_y = HIGH //set to highest
 
-								if(1) //1 is down
-									pickle.pixel_y = 22 //set to lowest
+								if(DOWN)
+									pickle.pixel_y = LOW //set to lowest
 
-						if(22) //mob is at it's lowest
-							pickle.pixel_y = 23 //set to inbetween
-							up = 2 //have to go up
+						if(LOW) //mob is at it's lowest
+							pickle.pixel_y = MID //set to inbetween
+							bobbing = UP //have to go up
 
-						if(24) //mob is at it's highest
-							pickle.pixel_y = 23 //set to inbetween
-							up = 1 //have to go down
+						if(HIGH) //mob is at it's highest
+							pickle.pixel_y = MID //set to inbetween
+							bobbing = DOWN //have to go down
 
-					overlays += pickle //re-add the mob to the icon
-					overlays += "lid[on]" //re-add the overlay of the pod, they are inside it, not floating
+					add_overlay(pickle) //re-add the mob to the icon
+					add_overlay("lid[on]") //re-add the overlay of the pod, they are inside it, not floating
 
 					sleep(7) //don't want to jiggle violently, just slowly bob
 				running_bob_animation = FALSE
@@ -434,7 +434,7 @@
 	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
 		occupant.bodytemperature = 261
 	occupant = null
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
@@ -473,9 +473,9 @@
 	occupant = M
 //	M.metabslow = 1
 	add_fingerprint(usr)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	M.ExtinguishMob()
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
 	set name = "Eject occupant"
@@ -491,6 +491,8 @@
 			return
 		go_out()//and release him from the eternal prison.
 	else
+		if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+			return
 		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 			return
 		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
@@ -547,3 +549,6 @@
 
 #undef AUTO_EJECT_HEALTHY
 #undef AUTO_EJECT_DEAD
+#undef HIGH
+#undef MID
+#undef LOW

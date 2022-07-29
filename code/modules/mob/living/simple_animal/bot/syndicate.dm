@@ -25,8 +25,8 @@
 	var/pathing_failed = FALSE
 	var/turf/spawn_turf
 
-/mob/living/simple_animal/bot/ed209/syndicate/New()
-	..()
+/mob/living/simple_animal/bot/ed209/syndicate/Initialize(mapload)
+	. = ..()
 	set_weapon()
 	update_icon()
 	spawn_turf = get_turf(src)
@@ -36,7 +36,7 @@
 		access_card.access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
 		prev_access = access_card.access
 
-/mob/living/simple_animal/bot/ed209/syndicate/update_icon()
+/mob/living/simple_animal/bot/ed209/syndicate/update_icon_state()
 	icon_state = initial(icon_state)
 
 /mob/living/simple_animal/bot/ed209/syndicate/turn_on()
