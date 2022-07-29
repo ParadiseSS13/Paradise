@@ -432,7 +432,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Void Donut",
 		"NAD Burn",
 		"Borb",
-		"Bee"
+		"Bee",
+		"Catamari",
+		"Biohazard"
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -537,6 +539,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-borb"
 		if("Bee")
 			icon_state = "ai-bee"
+		if("Catamari")
+			icon_state = "ai-catamari"
+		if("Biohazard")
+			icon_state = "ai-biohazard"
 		else
 			icon_state = "ai"
 	//else
