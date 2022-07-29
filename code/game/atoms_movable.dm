@@ -36,8 +36,8 @@
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
 	var/atom/movable/emissive_blocker/em_block
 	/// List of extra things to call `handle_atom_del` on when this gets destroyed.
-	/// Internal var; don't mess with outside of atom-level procs.
-	/// Is an nested associative list: {atom1 => {key_a=1, key_b=1}, atom2 => {}}
+	/// Internal var; don't mess with it outside of atom-level procs.
+	/// Is an nested associative list: {atom1_UID => {key_a=1, key_b=1}, atom2_UID => {}}
 	var/list/list/del_subscribers = null
 
 /atom/movable/attempt_init(loc, ...)
@@ -74,9 +74,10 @@
 	if(loc)
 		loc.handle_atom_del(src)
 	if(length(del_subscribers))
-		for(var/atom/sub in del_subscribers)
-			if(length(del_subscribers[sub])) // a check that the subscriber is still actually subscribed.
-				sub.handle_atom_del(src)
+		for(var/sub_uid in del_subscribers)
+			if(length(del_subscribers[sub_uid])) // a check that the subscriber is still actually subscribed.
+				var/atom/sub_atom = locate(sub_uid)
+				sub_atom?.handle_atom_del(src)
 		del_subscribers.Cut()
 	for(var/atom/movable/AM in contents)
 		qdel(AM)

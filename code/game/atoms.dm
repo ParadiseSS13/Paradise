@@ -1059,14 +1059,15 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 	if(!istype(A))
 		CRASH("subscribe_atom_del called with non-movable atom ([A] - [A.type]) as an argument. This has no effect, and is likely a bug")
+	var/my_uid = UID()
 	LAZYINITLIST(A.del_subscribers)
-	LAZYINITLIST(A.del_subscribers[src])
-	A.del_subscribers[src][key] = TRUE
+	LAZYINITLIST(A.del_subscribers[my_uid])
+	A.del_subscribers[my_uid][key] = TRUE
 
 // The reverse of `subscribe_atom_del` above
 /atom/proc/unsubscribe_atom_del(atom/movable/A, key)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	A?.del_subscribers?[src]?.Remove(key)
+	A?.del_subscribers?[UID()]?.Remove(key)
 
 /atom/proc/atom_say(message)
 	if(!message)
