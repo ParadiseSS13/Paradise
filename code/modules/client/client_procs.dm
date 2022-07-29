@@ -154,6 +154,19 @@
 			to_chat(usr, "<span class='boldannounce'>Your ToS consent has been withdrawn. You have been kicked from the server</span>")
 			qdel(src)
 
+	if(href_list["__keydown"])
+		var/keycode = href_list["__keydown"]
+		if(keycode)
+			KeyDown(keycode)
+		return
+
+	if(href_list["__keyup"])
+		var/keycode = href_list["__keyup"]
+		if(keycode)
+			KeyUp(keycode)
+		return
+
+
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
@@ -446,7 +459,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.msay.out", json_encode(data))
+			SSredis.publish("byond.msay", json_encode(data))
 
 	else if(holder.rights & R_BAN)
 		if(SSredis.connected)
@@ -456,7 +469,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.asay.out", json_encode(data))
+			SSredis.publish("byond.asay", json_encode(data))
 
 /client/proc/announce_leave()
 	if(!holder)
@@ -472,7 +485,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.msay.out", json_encode(data))
+			SSredis.publish("byond.msay", json_encode(data))
 
 	else if(holder.rights & R_BAN)
 		if(SSredis.connected)
@@ -484,7 +497,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.asay.out", json_encode(data))
+			SSredis.publish("byond.asay", json_encode(data))
 
 
 /client/proc/donor_loadout_points()
