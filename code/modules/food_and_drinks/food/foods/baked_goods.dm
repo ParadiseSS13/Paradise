@@ -1,3 +1,5 @@
+#define DONUT_NORMAL	1
+#define DONUT_FROSTED	2
 
 //////////////////////
 //		Cakes		//
@@ -370,7 +372,7 @@
 	var/extra_reagent = null
 	filling_color = "#D2691E"
 	var/randomized_sprinkles = 1
-	var/donut_sprite_type = "regular"
+	var/donut_sprite_type = DONUT_NORMAL
 	tastes = list("donut" = 1)
 
 /obj/item/reagent_containers/food/snacks/donut/New()
@@ -379,7 +381,7 @@
 		icon_state = "donut2"
 		name = "frosted donut"
 		reagents.add_reagent("sprinkles", 2)
-		donut_sprite_type = "frosted"
+		donut_sprite_type = DONUT_FROSTED
 		filling_color = "#FF69B4"
 
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
@@ -387,7 +389,7 @@
 	icon_state = "donut2"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "sprinkles" = 2)
 	filling_color = "#FF69B4"
-	donut_sprite_type = "frosted"
+	donut_sprite_type = DONUT_FROSTED
 	randomized_sprinkles = 0
 
 /obj/item/reagent_containers/food/snacks/donut/chaos
@@ -411,7 +413,6 @@
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
-	donut_sprite_type = "jelly"
 	tastes = list("jelly" = 1, "donut" = 3)
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/New()
@@ -421,7 +422,7 @@
 	if(prob(30))
 		icon_state = "jdonut2"
 		name = "frosted jelly Donut"
-		donut_sprite_type = "frostedjelly"
+		donut_sprite_type = DONUT_FROSTED
 		reagents.add_reagent("sprinkles", 2)
 		filling_color = "#FF69B4"
 
@@ -525,3 +526,6 @@
 	filling_color = "#F5DEB8"
 	list_reagents = list("nutriment" = 1)
 	tastes = list("cracker" = 1)
+
+#undef DONUT_NORMAL
+#undef DONUT_FROSTED
