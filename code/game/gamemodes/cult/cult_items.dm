@@ -32,7 +32,7 @@
 	..()
 
 /obj/item/melee/cultblade/detailed_examine()
-	return "This blade is a powerful weapon, capable of severing limbs easily, if they are targeted. Nonbelievers are unable to use this weapon."
+	return "This blade is a powerful weapon, capable of severing limbs easily, if they are targeted. Nonbelievers are unable to use this weapon. Striking a nonbeliever after downing them with your cult magic, will stun them completely."
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
@@ -46,6 +46,10 @@
 		else
 			user.adjustBruteLoss(rand(force/2, force))
 		return
+	if(!iscultist(target))
+		var/datum/status_effect/cult_stun_mark/S = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
+		if(S)
+			S.trigger()
 	..()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
@@ -68,6 +72,12 @@
 	item_state = "bola_cult"
 	breakouttime = 45
 	knockdown_duration = 2 SECONDS
+
+/obj/item/restraints/legcuffs/bola/cult/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback)
+	. = ..()
+	if(!iscultist(thrower))
+		thrower.visible_message("<span class='danger'>The bola glows, and boomarangs back at [thrower]!</span>")
+		throw_impact(thrower)
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -239,7 +249,7 @@
 	prefix = "darkened"
 	claw_damage_increase = 4
 
-/obj/item/whetstone/cult/update_icon()
+/obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
@@ -538,7 +548,7 @@
 
 /obj/item/twohanded/cult_spear
 	name = "blood halberd"
-	desc = "A sickening spear composed entirely of crystallized blood."
+	desc = "A sickening spear composed entirely of crystallized blood. Will stun people who have been recently marked if the spear is wielded."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "bloodspear0"
 	slot_flags = 0
@@ -561,7 +571,7 @@
 		qdel(spear_act)
 	..()
 
-/obj/item/twohanded/cult_spear/update_icon()
+/obj/item/twohanded/cult_spear/update_icon_state()
 	icon_state = "bloodspear[wielded]"
 
 /obj/item/twohanded/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -604,6 +614,12 @@
 			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
 			return TRUE
 	return FALSE
+
+/obj/item/twohanded/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
+	. = ..()
+	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
+	if(S && wielded)
+		S.trigger()
 
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"

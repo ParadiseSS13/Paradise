@@ -10,11 +10,14 @@
 	close_sound_volume = 50
 	max_integrity = 70
 
-/obj/structure/closet/cabinet/update_icon()
+/obj/structure/closet/cabinet/update_icon_state()
 	if(!opened)
 		icon_state = icon_closed
 	else
 		icon_state = icon_opened
+
+/obj/structure/closet/cabinet/update_overlays()
+	return list()
 
 /obj/structure/closet/acloset
 	name = "strange closet"

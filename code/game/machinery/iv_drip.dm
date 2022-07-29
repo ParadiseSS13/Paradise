@@ -11,19 +11,18 @@
 
 /obj/machinery/iv_drip/process()
 	if(istype(bag) && bag.injection_target)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	return PROCESS_KILL
 
-/obj/machinery/iv_drip/update_icon()
-	cut_overlays()
-
+/obj/machinery/iv_drip/update_overlays()
+	. = ..()
 	if(bag)
-		add_overlay("hangingbag")
+		. += "hangingbag"
 		if(bag.reagents.total_volume)
 			var/image/filling = image('icons/goonstation/objects/iv.dmi', src, "hangingbag-fluid")
 			filling.icon += mix_color_from_reagents(bag.reagents.reagent_list)
-			add_overlay(filling)
+			. += filling
 
 /obj/machinery/iv_drip/MouseDrop(mob/living/target)
 	if(usr.incapacitated())
@@ -39,9 +38,9 @@
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(bag)
 		user.put_in_hands(bag)
-		bag.update_icon()
+		bag.update_icon(UPDATE_OVERLAYS)
 		bag = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/iv_bag))
@@ -54,12 +53,12 @@
 		I.forceMove(src)
 		bag = I
 		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		START_PROCESSING(SSmachines, src)
 	else if (bag && istype(I, /obj/item/reagent_containers))
 		bag.attackby(I)
 		I.afterattack(bag, usr, TRUE)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()
 

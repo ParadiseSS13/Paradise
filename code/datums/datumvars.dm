@@ -673,7 +673,7 @@
 		href_list["datumrefresh"] = href_list["give_spell"]
 
 	else if(href_list["godmode"])
-		if(!check_rights(R_REJUVINATE))	return
+		if(!check_rights(R_EVENT))	return
 
 		var/mob/M = locateUID(href_list["godmode"])
 		if(!istype(M))

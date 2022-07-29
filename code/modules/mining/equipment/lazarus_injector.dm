@@ -118,5 +118,7 @@
 	colorindex += 1
 	if(colorindex >= 6)
 		colorindex = 0
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/mobcapsule/update_icon_state()
 	icon_state = "mobcap[colorindex]"
-	update_icon()

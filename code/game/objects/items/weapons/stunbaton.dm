@@ -59,7 +59,7 @@
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return FIRELOSS
 
-/obj/item/melee/baton/update_icon()
+/obj/item/melee/baton/update_icon_state()
 	if(turned_on)
 		icon_state = "[base_icon]_active"
 	else if(!cell)
@@ -97,7 +97,7 @@
 	if(cell.rigged)
 		cell = null
 		turned_on = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()
@@ -117,7 +117,7 @@
 		I.forceMove(src)
 		cell = I
 		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
@@ -131,7 +131,7 @@
 	cell.update_icon()
 	cell = null
 	turned_on = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell?.charge >= hitcost)
@@ -201,7 +201,7 @@
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)
 
-	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user.UID()) // so one person cannot hit the same person with two separate batons
+	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
 	addtimer(CALLBACK(src, .proc/baton_knockdown, L, user_UID, knockdown_duration), knockdown_delay)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)

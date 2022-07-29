@@ -323,7 +323,6 @@
 	var/icontype
 	icontype = input(player,"Pick an icon") in sprite
 	icon_state = sprite[icontype]
-	updateicon()
 
 	choose_icon(6,sprite)
 */

@@ -261,6 +261,7 @@
 					var/large_cocoon = 0
 					C.pixel_x = cocoon_target.pixel_x
 					C.pixel_y = cocoon_target.pixel_y
+					cocoon_target.extinguish_light()
 					for(var/obj/O in C.loc)
 						if(!O.anchored)
 							if(istype(O, /obj/item))

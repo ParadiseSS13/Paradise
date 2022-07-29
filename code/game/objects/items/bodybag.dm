@@ -56,7 +56,7 @@
 /obj/structure/closet/body_bag/update_overlays()
 	..()
 	if(name != initial(name))
-		add_overlay("bodybag_label")
+		. += "bodybag_label"
 
 /obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
 	. = ..()
