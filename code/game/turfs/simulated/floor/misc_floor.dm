@@ -100,7 +100,6 @@
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
 	overlays += overlay_image
-	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, .proc/InitializedOn)
 
 /turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()

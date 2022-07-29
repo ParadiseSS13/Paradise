@@ -44,20 +44,20 @@
 	UnregisterFromTurfs()
 
 /datum/component/largetransparency/proc/RegisterWithTurfs()
-	var/turf/current_tu = get_turf(parent)
-	if(!current_tu)
+	var/turf/current_turf = get_turf(parent)
+	if(!current_turf)
 		return
-	var/turf/lowleft_tu = locate(clamp(current_tu.x + x_offset, 0, world.maxx), clamp(current_tu.y + y_offset, 0, world.maxy), current_tu.z)
-	var/turf/upright_tu = locate(min(lowleft_tu.x + x_size, world.maxx), min(lowleft_tu.y + y_size, world.maxy), current_tu.z)
+	var/turf/lowleft_tu = locate(clamp(current_turf.x + x_offset, 0, world.maxx), clamp(current_turf.y + y_offset, 0, world.maxy), current_turf.z)
+	var/turf/upright_tu = locate(min(lowleft_tu.x + x_size, world.maxx), min(lowleft_tu.y + y_size, world.maxy), current_turf.z)
 	registered_turfs = block(lowleft_tu, upright_tu) //small problems with z level edges but nothing gamebreaking.
 	//register the signals
-	for(var/regist_tu in registered_turfs)
-		if(!regist_tu)
+	for(var/registered_turf in registered_turfs)
+		if(!registered_turf)
 			continue
-		RegisterSignal(regist_tu, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_INITIALIZED_ON), .proc/objectEnter)
-		RegisterSignal(regist_tu, COMSIG_ATOM_EXITED, .proc/objectLeave)
-		RegisterSignal(regist_tu, COMSIG_TURF_CHANGE, .proc/OnTurfChange)
-		for(var/thing in regist_tu)
+		RegisterSignal(registered_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_INITIALIZED_ON), .proc/objectEnter)
+		RegisterSignal(registered_turf, COMSIG_ATOM_EXITED, .proc/objectLeave)
+		RegisterSignal(registered_turf, COMSIG_TURF_CHANGE, .proc/OnTurfChange)
+		for(var/thing in registered_turf)
 			var/atom/check_atom = thing
 			if(!(check_atom.flags_2 & CRITICAL_ATOM_2))
 				continue
@@ -67,8 +67,8 @@
 
 /datum/component/largetransparency/proc/UnregisterFromTurfs()
 	var/list/signal_list = list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXITED, COMSIG_TURF_CHANGE, COMSIG_ATOM_INITIALIZED_ON)
-	for(var/regist_tu in registered_turfs)
-		UnregisterSignal(regist_tu, signal_list)
+	for(var/registered_turf in registered_turfs)
+		UnregisterSignal(registered_turf, signal_list)
 	registered_turfs.Cut()
 
 /datum/component/largetransparency/proc/OnMove()
@@ -95,13 +95,13 @@
 		restoreAlpha()
 
 /datum/component/largetransparency/proc/reduceAlpha()
-	var/atom/par_atom = parent
-	par_atom.alpha = target_alpha
+	var/atom/parent_atom = parent
+	animate(parent_atom, alpha = target_alpha, 0.5 SECONDS)
 	if(toggle_click)
-		par_atom.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+		parent_atom.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /datum/component/largetransparency/proc/restoreAlpha()
-	var/atom/par_atom = parent
-	par_atom.alpha = initial_alpha
+	var/atom/parent_atom = parent
+	animate(parent_atom, alpha = initial_alpha, 0.5 SECONDS)
 	if(toggle_click)
-		par_atom.mouse_opacity = MOUSE_OPACITY_OPAQUE
+		parent_atom.mouse_opacity = MOUSE_OPACITY_OPAQUE
