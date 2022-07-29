@@ -199,20 +199,20 @@
 
 		if("right ear")
 			var/obj/item/radio/R
-			if(isradio(r_ear))
-				R = r_ear
-			else if(isradio(r_hand))
+			if(isradio(r_hand))
 				R = r_hand
+			else if(isradio(r_ear))
+				R = r_ear
 			if(R)
 				used_radios += R
 				R.talk_into(src, message_pieces, null, verb)
 
 		if("left ear")
 			var/obj/item/radio/R
-			if(isradio(l_ear))
-				R = l_ear
-			else if(isradio(l_hand))
+			if(isradio(l_hand))
 				R = l_hand
+			else if(isradio(l_ear))
+				R = l_ear
 			if(R)
 				used_radios += R
 				R.talk_into(src, message_pieces, null, verb)

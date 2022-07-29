@@ -474,6 +474,7 @@
 			continue
 		moblist += M
 	return moblist
+
 /area/syndicate_depot/outer
 	name = "Suspicious Asteroid"
 	icon_state = "green"

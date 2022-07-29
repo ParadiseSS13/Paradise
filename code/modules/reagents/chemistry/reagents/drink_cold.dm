@@ -52,7 +52,7 @@
 	adj_drowsy = -10 SECONDS
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Space Cola"
-	drink_desc = "A glass of refreshing Space Cola"
+	drink_desc = "A glass of refreshing Space Cola."
 	taste_description = "cola"
 
 /datum/reagent/consumable/drink/cold/nuka_cola
@@ -63,7 +63,7 @@
 	adj_sleepy = -4 SECONDS
 	drink_icon = "nuka_colaglass"
 	drink_name = "Nuka Cola"
-	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland"
+	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland."
 	harmless = FALSE
 	taste_description = "radioactive cola"
 

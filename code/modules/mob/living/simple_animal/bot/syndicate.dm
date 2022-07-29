@@ -25,8 +25,8 @@
 	var/pathing_failed = FALSE
 	var/turf/spawn_turf
 
-/mob/living/simple_animal/bot/ed209/syndicate/New()
-	..()
+/mob/living/simple_animal/bot/ed209/syndicate/Initialize(mapload)
+	. = ..()
 	set_weapon()
 	update_icon()
 	spawn_turf = get_turf(src)

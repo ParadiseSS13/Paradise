@@ -141,12 +141,13 @@
 		+ "</body></html>", "window=PaperBundle[UID()]")
 
 /obj/item/paper_bundle/attack_self(mob/user as mob)
-	src.show_content(user)
+	show_content(user)
 	add_fingerprint(usr)
 	return
 
 /obj/item/paper_bundle/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if((src in usr.contents) || (istype(loc, /obj/item/folder) && (loc in usr.contents)) || (istype(loc, /obj/item/clipboard) && (loc in usr.contents)))
 		usr.set_machine(src)
 		if(href_list["next_page"])
@@ -183,8 +184,10 @@
 					O.add_fingerprint(usr)
 				qdel(src)
 				return
+
 			else if(page == amount)
 				screen = 2
+
 			else if(page == amount+1)
 				page--
 
@@ -193,8 +196,7 @@
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
 	if((istype(loc, /mob)) || (istype(loc, /obj/item/folder) || (istype(loc, /obj/item/clipboard))))
-		src.attack_self(usr)
-		updateUsrDialog()
+		attack_self(loc)
 
 /obj/item/paper_bundle/AltClick(mob/user)
 	if(in_range(user, src) && !user.incapacitated())
@@ -211,8 +213,9 @@
 	var/n_name = sanitize(copytext(input(usr, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	if((loc == usr && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : "paper bundle")]"
+
 	add_fingerprint(usr)
-	return
+
 
 
 /obj/item/paper_bundle/verb/remove_all()
@@ -221,19 +224,20 @@
 	set src in usr
 
 	to_chat(usr, "<span class='notice'>You loosen the bundle.</span>")
+
 	for(var/obj/O in src)
 		O.loc = usr.loc
 		O.layer = initial(O.layer)
 		O.plane = initial(O.plane)
 		O.add_fingerprint(usr)
+
 	usr.unEquip(src)
 	qdel(src)
-	return
 
 /obj/item/paper_bundle/update_desc()
 	. = ..()
 	if(amount == (photos - 1))
-		desc = "There are [photos] photos clipped together." // In case you clip 2 photos together and remove the paper
+		desc = "[photos] photos clipped together." // In case you clip 2 photos together and remove the paper
 		return
 	else if(((amount + 1) - photos) >= 2) // extra papers + original paper - photos
 		desc = "[(amount + 1) - photos] papers clipped to each other."
