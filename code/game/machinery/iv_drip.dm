@@ -20,7 +20,7 @@
 				bag = I
 				START_PROCESSING(SSmachines, src)
 				break
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/iv_drip/process()
 	if(istype(bag) && bag.injection_target)
