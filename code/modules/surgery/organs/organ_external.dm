@@ -662,9 +662,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/fix_internal_bleeding()
 	if(is_robotic())
-		return
+		return FALSE
+	if(!(status & ORGAN_INT_BLEEDING))
+		return FALSE
 	status &= ~ORGAN_INT_BLEEDING
 	perma_injury = 0
+	return TRUE
 
 /obj/item/organ/external/robotize(company, make_tough = FALSE, convert_all = TRUE)
 	..()

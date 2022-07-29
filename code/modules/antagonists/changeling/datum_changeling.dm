@@ -1,3 +1,9 @@
+#define CLING_STAT_SPEED "speed"
+#define CLING_STAT_ORGANS "body functions"
+#define CLING_STAT_REGEN "regeneration"
+#define CLING_STAT_STUN "stun resistance"
+#define CLING_STAT_ARMOUR "damage resistance"
+#define CLING_STAT_STRENGTH "strength boost"
 /datum/antagonist/changeling
 	name = "Changeling"
 	roundend_category = "changelings"
@@ -52,6 +58,18 @@
 	var/datum/action/changeling/sting/chosen_sting
 	/// If the changeling is in the process of regenerating from their fake death.
 	var/regenerating = FALSE
+
+	/// a list of preset actions the changeling has made
+	var/list/presets = list()
+	var/list/stat_changes = list(
+								CLING_STAT_SPEED = list("value" = 0, "gene_damage" = 0),
+								CLING_STAT_ORGANS = list("value" = 0, "gene_damage" = 0),
+								CLING_STAT_REGEN = list("value" = 0, "gene_damage" = 0),
+								CLING_STAT_STUN = list("value" = 0, "gene_damage" = 0),
+								CLING_STAT_ARMOUR = list("value" = 0, "gene_damage" = 0),
+								CLING_STAT_STRENGTH = list("value" = 0, "gene_damage" = 0),
+								)
+
 
 
 /datum/antagonist/changeling/New()
@@ -177,6 +195,7 @@
 	else // Not dead? no chem/genetic_damage caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 		genetic_damage = max(0, genetic_damage - 1)
+	handle_stat_changes()
 
 /**
  * Respec the changeling's powers after first checking if they're able to respec.
@@ -402,6 +421,54 @@
 		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
 		return FALSE
 	return TRUE
+
+/datum/antagonist/changeling/proc/handle_stat_changes()
+	if(!ishuman(owner.current))
+		return
+	var/mob/living/carbon/human/H = owner.current
+
+	var/regen_modifier = stat_changes[CLING_STAT_REGEN]["value"]
+	if(regen_modifier)
+		H.adjustBruteLoss(-5 * regen_modifier)
+		H.adjustFireLoss(-5 * regen_modifier)
+		if(regen_modifier == 2 && prob(10))
+			for(var/obj/item/organ/external/E as anything in H.bodyparts)
+				if(E.fix_internal_bleeding() || E.mend_fracture())
+					break
+
+	var/stun_modifier = stat_changes[CLING_STAT_STUN]["value"]
+	if(stun_modifier)
+		if(stun_modifier > 0)
+			H.AdjustWeakened(-2 SECONDS * stun_modifier)
+			H.AdjustStunned(-2 SECONDS * stun_modifier)
+			H.AdjustKnockDown(-3 SECONDS * stun_modifier)
+			H.AdjustSleeping(-10 SECONDS * stun_modifier)
+			H.AdjustParalysis(- 10 SECONDS * stun_modifier)
+		H.adjustStaminaLoss(-30 * stun_modifier)
+
+	var/organ_modifier = stat_changes[CLING_STAT_ORGANS]["value"]
+	if(organ_modifier)
+		if(organ_modifier > 0)
+			H.adjustToxLoss(-10 * organ_modifier)
+			H.adjustOxyLoss(-10 * organ_modifier)
+			for(var/datum/reagent/R in H.reagents.reagent_list)
+				if(!R.harmless)
+					H.reagents.remove_reagent(R.id, organ_modifier)
+		else
+			H.AdjustLoseBreath(2 SECONDS * organ_modifier)
+			H.adjustToxLoss(-5 * organ_modifier) // the minus is canceled as organ modifier is negative
+
+	for(var/stat in stat_changes)
+		var/value = stat_changes[stat]["value"]
+		if(value && prob(40))
+			stat_changes[stat]["gene_damage"] = min(stat_changes[stat]["gene_damage"] + 0.2, 2)
+			var/new_gene_damage = stat_changes[stat]["gene_damage"]
+			if(value > 2 - new_gene_damage)
+				adjust_stats(stat, 2 - new_gene_damage)
+			else if(value < -2 + new_gene_damage)
+				adjust_stats(stat, -2 + new_gene_damage)
+		else if(stat_changes[stat]["gene_damage"])
+			stat_changes[stat]["gene_damage"] = max(0, stat_changes[stat]["gene_damage"] - 0.1)
 
 /proc/ischangeling(mob/M)
 	return M.mind?.has_antag_datum(/datum/antagonist/changeling)
