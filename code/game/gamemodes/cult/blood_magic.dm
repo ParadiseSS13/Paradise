@@ -339,7 +339,7 @@
 		button_icon_state = "veiling"
 	if(charges <= 0)
 		qdel(src)
-	desc = (revealing? "Reveals" : "Conceals")+ " nearby cult structures, airlocks, and runes."
+	desc = "[revealing ? "Reveals" : "Conceals"] nearby cult structures, airlocks, and runes."
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	UpdateButtonIcon()
 
