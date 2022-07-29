@@ -356,12 +356,21 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/proc/onEliteWon()
 	activity = TUMOR_PASSIVE
+	if(activator)
+		clear_activator(activator)
 	mychild.revive()
 	if(boosted)
 		SSblackbox.record_feedback("tally", "Player controlled Elite win", 1, mychild.name)
 		times_won++
 		mychild.maxHealth = mychild.maxHealth * 0.4
 		mychild.health = mychild.maxHealth
+		var/sound/elite_sound = sound('sound/magic/wandodeath.ogg')
+		var/turf/T = get_turf(src)
+		for(var/mob/M in GLOB.player_list)
+			if(M.z == z && M.client)
+				to_chat(M, "<span class='danger'>Thunder rumbles. Light glows in the distance. Something big happened... somewhere.</span>")
+				M.playsound_local(T, null, 100, FALSE, 0, FALSE, pressure_affected = FALSE, S = elite_sound)
+				M.flash_screen_color("#FF0000", 2.5 SECONDS)
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite win", 1, mychild.name)
 	if(times_won == 1)
