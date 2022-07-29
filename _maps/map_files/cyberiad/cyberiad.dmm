@@ -34610,9 +34610,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bGb" = (
-/obj/effect/landmark{
-	name = "blobstart"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -77558,6 +77555,11 @@
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"gea" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/landmark/spawner/nukedisc_respawn,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "gei" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -80135,7 +80137,6 @@
 	lootcount = 2;
 	name = "2maintenance loot spawner"
 	},
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "msU" = (
@@ -99082,7 +99083,7 @@ fhA
 swy
 swy
 swy
-swy
+gea
 swy
 swy
 swy
@@ -100607,7 +100608,7 @@ btL
 bvq
 bvy
 bwZ
-blQ
+mBl
 rFK
 pwm
 mBl
@@ -103722,7 +103723,7 @@ aaa
 cng
 cvn
 cqz
-cgQ
+gYs
 ctN
 mKg
 cwx
