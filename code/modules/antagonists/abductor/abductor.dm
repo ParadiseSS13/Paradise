@@ -32,9 +32,7 @@
 	return team
 
 /datum/antagonist/abductor/on_gain()
-	owner.special_role = SPECIAL_ROLE_ABDUCTOR
 	objectives += team.objectives
-	finalize_abductor()
 	ADD_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
 	return ..()
 
@@ -53,9 +51,8 @@
 	to_chat(owner.current, span_notice("With the help of your teammate, kidnap and experiment on station crewmembers!"))
 	to_chat(owner.current, span_notice("[greet_text]"))
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/abductors.ogg'))
-	//owner.announce_objectives()
 
-/datum/antagonist/abductor/proc/finalize_abductor()
+/datum/antagonist/abductor/finalize_antag()
 	//Equip
 	var/mob/living/carbon/human/H = owner.current
 	H.set_species(/datum/species/abductor)
@@ -64,6 +61,10 @@
 	S.team_number = team.team_number
 
 	H.real_name = "[team.name] [sub_role]"
+	H.body_accessory = null
+	H.cleanSE()
+	H.overeatduration = 0
+	H.flavor_text = null
 	H.equipOutfit(outfit)
 
 	move_to_ship(owner.current)
@@ -109,6 +110,7 @@
 	new_owner.add_antag_datum(src)
 	log_admin("[key_name(usr)] made [key_name(new_owner)] [name] on [choice]!")
 	message_admins("[key_name_admin(usr)] made [key_name_admin(new_owner)] [name] on [choice] !")
+	return TRUE
 
 /datum/team/abductor_team
 	member_name = "abductor"
@@ -124,11 +126,6 @@
 
 /datum/team/abductor_team/is_solo()
 	return FALSE
-
-/datum/team/abductor_team/proc/add_objective(datum/objective/O)
-	O.team = src
-	//O.update_explanation_text()
-	objectives += O
 
 /datum/antagonist/abductor/create_team(datum/team/abductor_team/new_team)
 	if(!new_team)

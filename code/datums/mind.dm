@@ -1420,7 +1420,8 @@
 			if("abductor")
 				if(!(has_antag_datum(/datum/antagonist/abductor)))
 					var/datum/antagonist/abductor/A = new()
-					A.admin_add(src, usr)
+					if(!A.admin_add(src, usr))
+						qdel(A) //Delete the antag datum if admin_add does not return true and the antag isnt actually made
 
 			if("ufo")
 				var/datum/antagonist/abductor/A = has_antag_datum(/datum/antagonist/abductor)

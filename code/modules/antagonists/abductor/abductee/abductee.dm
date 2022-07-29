@@ -9,16 +9,10 @@
 	roundend_category = "abductees"
 	antag_hud_name = "abductee"
 
-/datum/antagonist/abductee/on_gain()
-	give_objective()
-	. = ..()
-
 /datum/antagonist/abductee/greet()
     to_chat(owner, "<span class='warning'><b>Your mind snaps!</b></span>")
     to_chat(owner, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
-    owner.announce_objectives()
 
-/datum/antagonist/abductee/proc/give_objective()
-	var/objtype = pick(subtypesof(/datum/objective/abductee/))
-	var/datum/objective/abductee/O = new objtype()
-	objectives += O
+/datum/antagonist/abductee/give_objectives()
+		var/obj_type = pick(subtypesof(/datum/objective/abductee))
+		add_objective(obj_type)

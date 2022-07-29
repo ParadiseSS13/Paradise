@@ -33,3 +33,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 /datum/team/proc/roundend_report()
 	return
+
+/datum/team/proc/add_objective(datum/objective/O)
+	O.team = src
+	//O.update_explanation_text()
+	objectives += O
