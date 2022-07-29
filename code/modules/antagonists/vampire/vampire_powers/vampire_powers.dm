@@ -164,6 +164,13 @@
 	T.range = 1
 	return T
 
+/obj/effect/proc_holder/spell/vampire/glare/create_new_cooldown()
+	var/datum/spell_cooldown/charges/C = new
+	C.max_charges = 2
+	C.recharge_duration = base_cooldown
+	C.charge_duration = 2 SECONDS
+	return C
+
 /// No deviation at all. Flashed from the front or front-left/front-right. Alternatively, flashed in direct view.
 #define DEVIATION_NONE 3
 /// Partial deviation. Flashed from the side. Alternatively, flashed out the corner of your eyes.
@@ -187,22 +194,23 @@
 			continue
 
 		var/deviation
-		if(user.IsWeakened() || IS_HORIZONTAL(user))
+		if(IS_HORIZONTAL(user))
 			deviation = DEVIATION_PARTIAL
 		else
 			deviation = calculate_deviation(target, user)
 
 		if(deviation == DEVIATION_FULL)
-			target.AdjustConfused(6 SECONDS)
-			target.adjustStaminaLoss(40)
+			target.Confused(6 SECONDS)
+			target.adjustStaminaLoss(20)
 		else if(deviation == DEVIATION_PARTIAL)
-			target.Weaken(2 SECONDS)
-			target.AdjustConfused(6 SECONDS)
+			target.KnockDown(5 SECONDS)
+			target.Confused(6 SECONDS)
 			target.adjustStaminaLoss(40)
 		else
-			target.adjustStaminaLoss(120)
-			target.Weaken(12 SECONDS)
-			target.AdjustSilence(6 SECONDS)
+			target.Confused(10 SECONDS)
+			target.adjustStaminaLoss(70)
+			target.KnockDown(12 SECONDS)
+			target.AdjustSilence(8 SECONDS)
 			target.flash_eyes(1, TRUE, TRUE)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
