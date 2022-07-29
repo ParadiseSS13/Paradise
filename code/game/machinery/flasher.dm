@@ -54,13 +54,12 @@
 	. = ..()
 	underlays.Cut()
 	overlays.Cut()
-	if(anchored)
-		overlays += "[base_state]-s"
-
 	if(stat & NOPOWER)
 		return
 
-	underlays += emissive_appearance(icon, "[base_state]_lightmask")
+	if(anchored)
+		overlays += "[base_state]-s"
+		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
 
 //Let the AI trigger them directly.
