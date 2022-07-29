@@ -249,15 +249,14 @@
 		data["cellTemperatureStatus"] = "bad"
 	else if(air_contents.temperature > TCRYO)
 		data["cellTemperatureStatus"] = "average"
-	if(need_beaker)
-		data["isBeakerLoaded"] = beaker ? TRUE : FALSE
-		data["beakerLabel"] = null
-		data["beakerVolume"] = 0
-		if(beaker)
-			data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
-			if(beaker.reagents && beaker.reagents.reagent_list.len)
-				for(var/datum/reagent/R in beaker.reagents.reagent_list)
-					data["beakerVolume"] += R.volume
+	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
+	data["beakerLabel"] = null
+	data["beakerVolume"] = 0
+	if(beaker)
+		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
+		if(beaker.reagents && beaker.reagents.reagent_list.len)
+			for(var/datum/reagent/R in beaker.reagents.reagent_list)
+				data["beakerVolume"] += R.volume
 
 	data["auto_eject_healthy"] = (auto_eject_prefs & AUTO_EJECT_HEALTHY) ? TRUE : FALSE
 	data["auto_eject_dead"] = (auto_eject_prefs & AUTO_EJECT_DEAD) ? TRUE : FALSE

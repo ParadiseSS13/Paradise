@@ -16,7 +16,6 @@
 	air_contents.oxygen = (25 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
 /obj/machinery/atmospherics/unary/cryo_cell/abductor/process_occupant()
-    if(next_trans == 0)
+    if(next_trans == 0 && on)
         occupant.reagents.add_reagent("nanites", 1) //Renamed adminorazine, heals everything
     ..()
-    
