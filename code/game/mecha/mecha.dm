@@ -39,6 +39,7 @@
 	var/lights_power = 6
 	var/frozen = FALSE
 	var/repairing = FALSE
+	var/emp_proof = FALSE //If it is immune to emps
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -645,6 +646,8 @@
 
 //TODO
 /obj/mecha/emp_act(severity)
+	if(emp_proof)
+		return
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
