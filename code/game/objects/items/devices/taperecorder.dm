@@ -23,14 +23,14 @@
 /obj/item/taperecorder/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) && mytape)
-		if (mytape.ruined)
+		if(mytape.ruined)
 			. += "<span class='notice'>[mytape]'s internals are unwound.'.</span>"
 		if(mytape.max_capacity <= mytape.used_capacity)
 			. += "<span class='notice'>[mytape] is full.</span>"
-		else if(((mytape.remaining_capacity) % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
-			. += "<span class='notice'>[mytape] has [(mytape.remaining_capacity) / 60] minutes remaining.</span>"
+		else if((mytape.remaining_capacity % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
+			. += "<span class='notice'>[mytape] has [mytape.remaining_capacity / 60] minutes remaining.</span>"
 		else
-			if(mytape.used_capacity >= (mytape.max_capacity - 60))
+			if(mytape.used_capacity >= mytape.max_capacity - 60)
 				. += "<span class='notice'>[mytape] has [mytape.remaining_capacity] seconds remaining.</span>" // to avoid having 0 minutes
 			else
 				. += "<span class='notice'>[mytape] has [seconds_to_time(mytape.remaining_capacity)] remaining.</span>"
@@ -286,7 +286,7 @@
 		else if(max_capacity <= used_capacity)
 			. += "<span class='notice'>It is full.</span>"
 		else if((remaining_capacity % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
-			. += "<span class='notice'>It has [remaining_capacity/ 60] minutes remaining.</span>"
+			. += "<span class='notice'>It has [remaining_capacity / 60] minutes remaining.</span>"
 		else
 			if(used_capacity >= (max_capacity - 60))
 				. += "<span class='notice'>It has [remaining_capacity] seconds remaining.</span>" // to avoid having 0 minutes
