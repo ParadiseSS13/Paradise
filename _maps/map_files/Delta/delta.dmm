@@ -73798,6 +73798,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/surgery1)
 "dqQ" = (
@@ -82827,6 +82828,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/surgery2)
 "dLQ" = (

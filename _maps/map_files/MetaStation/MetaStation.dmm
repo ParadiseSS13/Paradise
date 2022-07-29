@@ -37358,6 +37358,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/surgery,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkbluefull"
@@ -42468,6 +42469,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/surgery,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkbluefull"
