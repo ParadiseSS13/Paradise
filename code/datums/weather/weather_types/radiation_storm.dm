@@ -38,7 +38,7 @@
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
 			if(!HAS_TRAIT(H, TRAIT_RADIMMUNE))
-				if(prob(max(0, 100 - resist)))
+				if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
 					randmuti(H) // Applies bad mutation
 					if(prob(50))
 						if(prob(90))

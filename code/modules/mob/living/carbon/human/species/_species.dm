@@ -356,9 +356,6 @@
 /datum/species/proc/handle_death(gibbed, mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
-#define ARMOUR_CONSTANT 50
-#define ARMOUR_EQUATION(damage, armour, modifier) (damage / (1 + (armour / ARMOUR_CONSTANT))) * modifier
-
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
 	if(!damage)
 		return FALSE
@@ -414,9 +411,6 @@
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
 	H.updatehealth("apply damage")
 	return TRUE
-
-#undef ARMOUR_CONSTANT
-#undef ARMOUR_EQUATION
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
 	. = amount
