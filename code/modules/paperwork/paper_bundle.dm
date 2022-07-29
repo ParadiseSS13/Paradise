@@ -148,8 +148,7 @@
 /obj/item/paper_bundle/Topic(href, href_list)
 	if(..())
 		return
-	if((src in usr.contents) || (istype(loc, /obj/item/folder) && (loc in usr.contents)) || (istype(loc, /obj/item/clipboard) && (loc in usr.contents)))
-		usr.set_machine(src)
+	if(src in usr.contents)
 		if(href_list["next_page"])
 			if(page == amount)
 				screen = 2
@@ -159,6 +158,7 @@
 				return
 			page++
 			playsound(loc, "pageturn", 50, 1)
+
 		if(href_list["prev_page"])
 			if(page == 1)
 				return
@@ -168,6 +168,7 @@
 				screen = 1
 			page--
 			playsound(loc, "pageturn", 50, 1)
+
 		if(href_list["remove"])
 			var/obj/item/W = src[page]
 			usr.put_in_hands(W)
@@ -195,7 +196,7 @@
 			update_icon()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
-	if((istype(loc, /mob)) || (istype(loc, /obj/item/folder) || (istype(loc, /obj/item/clipboard))))
+	if(istype(loc, /mob))
 		attack_self(loc)
 
 /obj/item/paper_bundle/AltClick(mob/user)
