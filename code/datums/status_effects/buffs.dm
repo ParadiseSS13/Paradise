@@ -264,7 +264,7 @@
 			var/mob/living/carbon/human/itemUser = owner
 			//Because a servant of medicines stops at nothing to help others, lets keep them on their toes and give them an additional boost.
 			if(itemUser.health < itemUser.maxHealth)
-				new /obj/effect/temp_visual/heal(get_turf(itemUser), "#375637")
+				new /obj/effect/temp_visual/heal(get_turf(itemUser), COLOR_HEALING_GREEN)
 			itemUser.adjustBruteLoss(-1.5)
 			itemUser.adjustFireLoss(-1.5)
 			itemUser.adjustToxLoss(-1.5)
@@ -279,7 +279,7 @@
 			if(heal_points <= 0)
 				break
 			if(L.health < L.maxHealth)
-				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
+				new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
 			if(iscarbon(L))
 				L.adjustBruteLoss(-3.5)
 				L.adjustFireLoss(-3.5)

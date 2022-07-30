@@ -590,11 +590,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/gun/energy/temperature/newshot()
-	..()
-
 /obj/item/gun/energy/temperature/attack_self(mob/living/user as mob)
-	user.set_machine(src)
 	update_dat()
 	user << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x120")
 	onclose(user, "tempgun")
@@ -608,7 +604,7 @@
 /obj/item/gun/energy/temperature/Topic(href, href_list)
 	if(..())
 		return
-	usr.set_machine(src)
+
 	add_fingerprint(usr)
 
 	if(href_list["temp"])
@@ -617,10 +613,12 @@
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
 			target_temperature = max(0, target_temperature+amount)
+
 	if(istype(loc, /mob))
 		attack_self(loc)
+
 	add_fingerprint(usr)
-	return
+
 
 /obj/item/gun/energy/temperature/process()
 	..()

@@ -114,14 +114,6 @@
 	description = "Cosy, rural property availible for young professional \
 		couple. Only twelve parsecs from the nearest hyperspace lane!"
 
-/datum/map_template/ruin/space/gas_the_lizards
-	id = "gas-the-lizards"
-	suffix = "gasthelizards.dmm"
-	name = "Disposal Facility 17"
-	description = "Gas efficiency at 95.6%, fluid elimination at 96.2%. \
-		Will require renewed supplies of 'carpet' before the end of the \
-		quarter."
-
 /datum/map_template/ruin/space/intact_empty_ship
 	id = "intact-empty-ship"
 	suffix = "intactemptyship.dmm"
@@ -217,6 +209,14 @@
 	suffix = "druglab.dmm"
 	name = "Drug Lab"
 	description = "An old abandoned \"Chemistry\" site, which has a strong aura of amphetamines around it."
+
+/datum/map_template/ruin/space/syndicatedruglab
+	id = "syndicatedruglab"
+	suffix = "syndicatedruglab.dmm"
+	name = "Suspicious Station"
+	description = "A syndicate drug laboratory hidden on an asteroid. It is strangely well-protected."
+	allow_duplicates = FALSE
+	cost = 3
 
 /datum/map_template/ruin/space/syndiedepot
 	id = "syndiedepot"
