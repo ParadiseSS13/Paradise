@@ -77,11 +77,11 @@
 
 /obj/item/projectile/bullet/saw/hollow
 	damage = 60
-	armour_penetration_flat = -5
+	armour_penetration_flat = -30
 
 /obj/item/projectile/bullet/saw/ap
 	damage = 40
-	armour_penetration_flat = 75
+	armour_penetration_percentage = 100
 
 /obj/item/projectile/bullet/saw/incen
 	damage = 7

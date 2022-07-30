@@ -59,7 +59,7 @@ Difficulty: Hard
 	speak_emote = list("BUZZES")
 	universal_speak = TRUE
 	universal_understand = TRUE
-	armour_penetration_flat = 40
+	armour_penetration_percentage = 50
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	melee_damage_type = BURN //Legs do the stomping, this is just a shock
@@ -532,7 +532,7 @@ Difficulty: Hard
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	projectiletype = /obj/item/projectile/ancient_robot_bullet
 	attacktext = "stomps on"
-	armour_penetration_flat = 40
+	armour_penetration_percentage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	obj_damage = 400

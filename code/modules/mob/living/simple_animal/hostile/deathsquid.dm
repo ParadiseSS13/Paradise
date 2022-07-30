@@ -17,7 +17,7 @@
 
 	attacktext = "slices"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	armour_penetration_flat = 25
+	armour_penetration_percentage = 40
 	melee_damage_lower = 10
 	melee_damage_upper = 100
 	environment_smash = ENVIRONMENT_SMASH_RWALLS

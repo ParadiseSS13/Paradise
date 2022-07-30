@@ -121,7 +121,8 @@
 	hitsound = "swing_hit"
 	embed_chance = 75
 	embedded_impact_pain_multiplier = 10
-	armour_penetration_flat = 35
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 10
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50
 	sharp = TRUE
