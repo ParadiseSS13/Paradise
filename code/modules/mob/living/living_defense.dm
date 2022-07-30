@@ -22,7 +22,7 @@
 
 	if(armor > 0)
 		if(armour_penetration_flat > 0 || armour_penetration_percentage > 0)
-			armor = max(0, (armor * ((100-armour_penetration_percentage) / 100)) - armour_penetration_flat)
+			armor = max(0, (armor * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat)
 			if(penetrated_text)
 				to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
 			else

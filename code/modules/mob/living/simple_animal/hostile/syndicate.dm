@@ -39,7 +39,7 @@
 	icon_living = "syndicate_sword"
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	armour_penetration_flat = 28
+	armour_penetration_flat = 30
 	status_flags = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 	var/melee_block_chance = 20

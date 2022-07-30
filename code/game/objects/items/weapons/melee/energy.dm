@@ -99,7 +99,7 @@
 	w_class_on = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
-	armour_penetration_flat = INFINITY
+	armour_penetration_percentage = 100
 	origin_tech = "combat=4;magnets=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
