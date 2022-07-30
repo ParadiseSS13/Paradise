@@ -717,8 +717,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(in_inventory || in_storage)
 		var/mob/user = usr
 		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS))
-			var/timedelay = 8
-			tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)
+			tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), 8, TIMER_STOPPABLE)
 		if(QDELETED(src))
 			return
 		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES))
