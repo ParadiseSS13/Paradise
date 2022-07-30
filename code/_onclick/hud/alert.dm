@@ -3,7 +3,7 @@
 //PUBLIC -  call these wherever you want
 
 
-/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, icon_override)
+/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, icon_override, list/alert_args)
 
 /*
  Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
@@ -37,7 +37,11 @@
 			else //no need to update
 				return 0
 	else
-		alert = new type()
+		if(alert_args)
+			alert_args.Insert(1, null) // So it's still created in nullspace.
+			alert = new type(arglist(alert_args))
+		else
+			alert = new type()
 		alert.override_alerts = override
 		if(override)
 			alert.timeout = null

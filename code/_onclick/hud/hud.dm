@@ -86,6 +86,7 @@
 	QDEL_LIST(infodisplay)
 
 	//clear mob refs to screen objects
+	mymob.give_icon = null
 	mymob.throw_icon = null
 	mymob.healths = null
 	mymob.healthdoll = null
