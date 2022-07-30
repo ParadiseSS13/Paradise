@@ -991,6 +991,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			overlays_standing[NECK_LAYER] = mutable_appearance('icons/mob/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
 	apply_overlay(NECK_LAYER)
+	overlays_standing[NECK_LAYER].alpha = neck.alpha
+	overlays_standing[NECK_LAYER].color = neck.color
 
 /mob/living/carbon/human/update_inv_back()
 	..()
