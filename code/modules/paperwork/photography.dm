@@ -475,12 +475,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	. = ..()
 	. += "<span class='notice'>A small screen shows that there are currently [length(saved_pictures)] pictures stored.</span>"
 
-/obj/item/camera/digital/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
-	if(!on || !pictures_left || ismob(target.loc)) return
+/obj/item/camera/digital/afterattack(atom/target, mob/user, flag)
+	if(!on || !pictures_left || ismob(target.loc))
+		return
+
 	captureimage(target, user, flag)
-
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
-
 
 	icon_state = icon_off
 	on = FALSE

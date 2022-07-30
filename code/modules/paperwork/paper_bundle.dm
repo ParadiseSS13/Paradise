@@ -1,6 +1,5 @@
 /obj/item/paper_bundle
 	name = "paper bundle"
-	gender = PLURAL
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
 	item_state = "paper"
@@ -15,7 +14,6 @@
 	var/photos = 0 //Amount of photos clipped to the paper.
 	var/page = 1
 	var/screen = 0
-	gender = NEUTER
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 
@@ -178,8 +176,8 @@
 				usr.unEquip(src)
 				usr.put_in_hands(P)
 				usr.unset_machine() // Ensure the bundle GCs
-				for(var/obj/O in src) // just in case we somehow lose something (it's happened)
-					O.loc = usr.loc
+				for(var/obj/O in src) // just in case we somehow lose something (it's happened, especially with photos)
+					O.forceMove(usr.loc)
 					O.layer = initial(O.layer)
 					O.plane = initial(O.plane)
 					O.add_fingerprint(usr)
@@ -245,21 +243,17 @@
 	else
 		desc = "A single sheet of paper."
 	if(photos)
-		if(photos == 1)
-			desc += "\nThere is a photo attached to it."
-		else
-			desc += "\nThere are [photos] photos attached to it."
-
+		desc += "\nThere [photos == 1 ? "is a photo" : "are [photos] photos"] attached to it."
 /obj/item/paper_bundle/update_icon_state()
 	if(length(contents))
-		var/obj/item/paper/P = src[1]
+		var/obj/item/paper/P = contents[1]
 		icon_state = P.icon_state // must have an icon_state to show up on clipboards
 
 /obj/item/paper_bundle/update_overlays()
 	. = ..()
 	underlays.Cut()
 	if(length(contents))
-		var/obj/item/paper/P = src[1]
+		var/obj/item/paper/P = contents[1]
 		. += P.overlays
 	var/counter = 0
 	for(var/obj/O in src)
