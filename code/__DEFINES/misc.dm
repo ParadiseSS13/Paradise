@@ -308,6 +308,7 @@
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
+#define TRIGGER_GUARD_ABDUCTOR 2
 
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)

@@ -15,6 +15,8 @@
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
+	var/material = /obj/item/stack/sheet/plasteel
+	var/material_amount = 5
 
 /obj/machinery/optable/Initialize(mapload)
 	. = ..()
@@ -126,7 +128,7 @@
 		return
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
-		new /obj/item/stack/sheet/plasteel(loc, 5)
+		new material(loc, material_amount)
 		qdel(src)
 
 /obj/machinery/optable/proc/check_table()

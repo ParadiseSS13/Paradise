@@ -4,6 +4,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	back = /obj/item/storage/backpack
 	l_ear = /obj/item/radio/headset/abductor
+	gloves = /obj/item/clothing/gloves/combat
 
 /datum/outfit/abductor/proc/get_team_console(team_number)
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)
@@ -45,7 +46,7 @@
 
 	backpack_contents = list(
 		/obj/item/abductor_baton = 1,
-		/obj/item/gun/energy/alien = 1,
+		/obj/item/gun/energy/gun/alien = 1,
 		/obj/item/abductor/silencer = 1
 		)
 

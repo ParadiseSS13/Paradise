@@ -338,16 +338,16 @@
 		to_chat(user, "<span class='notice'>You send the message to your target.</span>")
 		log_say("[key_name(user)] sent an abductor mind message to [key_name(L)]: '[message]'", user)
 
-/obj/item/gun/energy/alien
+/obj/item/gun/energy/gun/alien
 	name = "alien pistol"
-	desc = "A complicated gun that fires bursts of high-intensity radiation."
-	ammo_type = list(/obj/item/ammo_casing/energy/declone)
-	restricted_species = list(/datum/species/abductor)
+	desc = "A self-recharging gun that fires bursts of high-intensity radiation or ion bolts."
+	ammo_type = list(/obj/item/ammo_casing/energy/declone, /obj/item/ammo_casing/energy/ion)
 	icon_state = "alienpistol"
-	item_state = "alienpistol"
 	origin_tech = "combat=4;magnets=7;powerstorage=3;abductor=3"
-	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	trigger_guard = TRIGGER_GUARD_ABDUCTOR
 	can_holster = TRUE
+	shaded_charge = FALSE
+	selfcharge = TRUE
 
 /obj/item/paper/abductor
 	name = "Dissection Guide"
@@ -649,14 +649,14 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/clothing/head/helmet/abductor
 	name = "agent headgear"
-	desc = "Abduct with style - spiky style. Prevents digital tracking."
+	desc = "Abduct with style - spiky style. Prevents digital tracking and blindness from flashes."
 	icon_state = "alienhelmet"
 	item_state = "alienhelmet"
 	blockTracking = 1
 	origin_tech = "materials=7;magnets=4;abductor=3"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-
+	flash_protect = FLASH_PROTECTION_FLASH
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
@@ -689,17 +689,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			new /obj/structure/table/abductor(loc)
 			qdel(src)
 		return
-	if(istype(I, /obj/item/stack/sheet/mineral/silver))
-		var/obj/item/stack/sheet/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
-			P.use(1)
-			new /obj/machinery/optable/abductor(loc)
-			qdel(src)
-		return
 	return ..()
 
 /obj/structure/table/abductor
@@ -719,10 +708,18 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/machinery/optable/abductor
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
+	desc = "This is where the science happens."
 	no_icon_updates = 1 //no icon updates for this; it's static.
-	injected_reagents = list("corazone","spaceacillin")
-	reagent_target_amount = 31 //the patient needs at least 30u of spaceacillin to prevent necrotization.
+	injected_reagents = list("spaceacillin")
+	reagent_target_amount = 31 //the patient needs at least 30u of spaceacillin to prevent necrotizationr.
+	material = /obj/item/stack/sheet/mineral/abductor
+	material_amount = 5
+
+/obj/machinery/optable/abductor/ufo //Surgery table found on the actual abductor ship. Cant be deconstructed/destroyed and prevents death from abductor experimental surgery.
+	injected_reagents = list("corazone","spaceacillin")	
 	inject_amount = 10
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	flags = NODECONSTRUCT
 
 /obj/structure/closet/abductor
 	name = "alien locker"
