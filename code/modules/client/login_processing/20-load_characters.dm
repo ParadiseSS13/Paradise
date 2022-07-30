@@ -57,7 +57,8 @@
 		hair_gradient,
 		hair_gradient_offset,
 		hair_gradient_colour,
-		hair_gradient_alpha
+		hair_gradient_alpha,
+		custom_emotes
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))
@@ -89,6 +90,7 @@
 	if(character_loaded)
 		// They have a character, set their active as their default slot
 		C.prefs.active_character = C.prefs.character_saves[C.prefs.default_slot]
+		C.prefs.active_character.init_custom_emotes(C.prefs.active_character.custom_emotes)
 	else
 		// If we are here, they dont have a character. Lets make them a random one
 		var/datum/character_save/CS = C.prefs.character_saves[1] // Get slot 1
