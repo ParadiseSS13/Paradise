@@ -76,7 +76,7 @@
 	if(length(del_subscribers))
 		for(var/sub_uid in del_subscribers)
 			if(length(del_subscribers[sub_uid])) // a check that the subscriber is still actually subscribed.
-				var/atom/sub_atom = locate(sub_uid)
+				var/atom/sub_atom = locateUID(sub_uid)
 				sub_atom?.handle_atom_del(src)
 		del_subscribers.Cut()
 	for(var/atom/movable/AM in contents)
