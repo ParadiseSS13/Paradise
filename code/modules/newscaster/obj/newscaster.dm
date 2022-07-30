@@ -53,6 +53,7 @@
 
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
+	desc = "A security Nanotrasen-licensed newsfeed handler for use in commercial space stations. It comes with a small slot for inserting photos."
 	is_security = TRUE
 
 /obj/machinery/newscaster/Initialize(mapload)
