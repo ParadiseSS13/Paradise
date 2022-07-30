@@ -61,10 +61,12 @@ export const ChangelogView = (props, context) => {
         }>
           {cl_data.map(e => (
             (!onlyRecent && (e.merge_ts <= last_cl) || (
-              <Section
+              <Section mb={2}
                 key={e}
-                title={e.author + " - Merged on " + e.merge_date} mb={2}
-                buttons={<Button content={"#" + e.num} onClick={() => act("open_pr", { pr_number: e.num })} />}>
+                title={e.author + " - Merged on " + e.merge_date}
+                buttons={
+                  <Button content={"#" + e.num} onClick={() => act("open_pr", { pr_number: e.num })} />
+              }>
                 {e.entries.map(ent => (
                   <Box key={ent} m={1}>
                       {cl2icon(ent.etype)} {ent.etext}
