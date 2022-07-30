@@ -168,7 +168,7 @@
 
 	return "<div class='panel redborder'>[result.Join("<br>")]</div>"
 
-/datum/team/abductor_team/proc/spend_energy(var/amount)
+/datum/team/abductor_team/proc/spend_energy(amount)
 	energy_reserves = energy_reserves - amount
 	if(energy_reserves == 1)
 		low_power_warning()
