@@ -144,7 +144,7 @@
 
 /datum/action/innate/cult/blood_spell/stun
 	name = "Stun"
-	desc = "Empowers your hand to stun and mute a victim on contact."
+	desc = "Will knock down and mute a victim on contact. Strike them with a cult blade to complete the invocation, stunning them and extending the mute."
 	button_icon_state = "stun"
 	magic_path = /obj/item/melee/blood_magic/stun
 	health_cost = 10
@@ -158,7 +158,7 @@
 
 /datum/action/innate/cult/blood_spell/emp
 	name = "Electromagnetic Pulse"
-	desc = "Channel an electromagnetic pulse inside your body, then release it, affecting nearby non-cultists. <b>The pulse will still affect you.</b>"
+	desc = "Releases an Electromagnetic Pulse, affecting nearby non-cultists. <b>The pulse will still affect you.</b>"
 	button_icon_state = "emp"
 	health_cost = 10
 	invocation = "Ta'gh fara'qha fel d'amar det!"
@@ -235,7 +235,7 @@
 
 /datum/action/innate/cult/blood_spell/equipment
 	name = "Summon Equipment"
-	desc = "Allows you to empower your hand to summon combat gear onto a cultist you touch, including cult armor, a cult bola, and a cult sword."
+	desc = "Empowers your hand to summon combat gear onto a cultist you touch, including cult armor into open slots, a cult bola, and a cult sword."
 	button_icon_state = "equip"
 	magic_path = /obj/item/melee/blood_magic/armor
 
@@ -339,7 +339,7 @@
 		button_icon_state = "veiling"
 	if(charges <= 0)
 		qdel(src)
-	desc = base_desc
+	desc = "[revealing ? "Reveals" : "Conceals"] nearby cult structures, airlocks, and runes."
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	UpdateButtonIcon()
 
@@ -424,7 +424,7 @@
 //stun
 /obj/item/melee/blood_magic/stun
 	name = "Stunning Aura"
-	desc = "Will stun and mute a victim on contact."
+	desc = "Will knock down and mute a victim on contact. Strike them with a cult blade to complete the invocation, stunning them and extending the mute."
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
