@@ -386,6 +386,8 @@
 	var/list/traveled_turfs = list()
 	for(var/distance in 1 to 9)
 		current_turf = get_step(current_turf, direction)
+		if(iswallturf(current_turf)) // Should go through windows etc
+			return
 		other_generator = locate(/obj/machinery/shieldwallgen) in current_turf
 		if(other_generator)
 			break
