@@ -603,8 +603,10 @@
 	if(!C.prefs?.active_character?.custom_emotes) //Checks the current character save for any custom emotes
 		return
 	var/desired_emote = C.prefs.active_character.custom_emotes[name] //check the custom emotes list for this keybind name
+
 	if(!desired_emote)
 		return
+
 	C.mob.me_verb(html_decode(desired_emote)) //do the thing!
 
 /datum/keybinding/custom/can_use(client/C, mob/M)
