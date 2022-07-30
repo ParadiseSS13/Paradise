@@ -575,7 +575,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
 		add_fingerprint(user)
-		if(!contents.len)
+		if(!length(contents))
 			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
 			return
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)

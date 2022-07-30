@@ -27,6 +27,8 @@
 		colourblind_mode = query.item[21]
 		keybindings = init_keybindings(raw = query.item[22])
 
+	lastchangelog_2 = lastchangelog // Clone please
+
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight", "Plasmafire", "Retro", "Slimecore", "Operative"), initial(UI_style))
