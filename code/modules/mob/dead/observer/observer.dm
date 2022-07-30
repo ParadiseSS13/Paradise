@@ -197,6 +197,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>You cannot do this while admin frozen.</span>")
 		message_admins("[key_name_admin(src)] tried to ghost while admin frozen")
 		return
+
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
 			warningmsg = "It's too early in the shift to enter cryo"
