@@ -41,6 +41,12 @@
 		V.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
+	
+	var/datum/antagonist/abductor/A = mind?.has_antag_datum(/datum/antagonist/abductor)
+	if(A)
+		A.handle_abductor()
+		if(life_tick == 1)
+			regenerate_icons()
 
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
 		handle_ghosted()

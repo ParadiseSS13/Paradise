@@ -21,6 +21,7 @@
 	var/obj/screen/blobhealthdisplay
 	var/obj/screen/vampire_blood_display
 	var/obj/screen/alien_plasma_display
+	var/obj/screen/abductor_ressource_display
 	var/obj/screen/nightvisionicon
 	var/obj/screen/action_intent
 	var/obj/screen/zone_select
@@ -97,6 +98,7 @@
 	blobpwrdisplay = null
 	alien_plasma_display = null
 	vampire_blood_display = null
+	abductor_ressource_display = null
 	nightvisionicon = null
 
 	QDEL_LIST_ASSOC_VAL(plane_masters)

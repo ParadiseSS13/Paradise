@@ -1,4 +1,8 @@
 #define ABDUCTOR_MAX_TEAMS 4
+#define ABDUCTOR_STARTING_RESSOURCES 3
+#define ABDUCTOR_COST_LIGHT 1
+#define ABDUCTOR_COST_MEDIUM 2
+#define ABDUCTOR_COST_HEAVY 3
 
 /datum/antagonist/abductor
 	name = "\improper Abductor"
@@ -113,11 +117,24 @@
 	message_admins("[key_name_admin(usr)] made [key_name_admin(new_owner)] [name] on [choice] !")
 	return TRUE
 
+/datum/antagonist/abductor/proc/handle_abductor()
+	if(owner.current.hud_used && team)
+		var/datum/hud/hud = owner.current.hud_used
+		if(!hud.abductor_ressource_display)
+			hud.abductor_ressource_display = new /obj/screen()
+			hud.abductor_ressource_display.name = "Emergency Energy Reserves"
+			hud.abductor_ressource_display.icon_state = "abductor_display"
+			hud.abductor_ressource_display.screen_loc = "WEST:6,CENTER-1:15"
+			hud.static_inventory += hud.abductor_ressource_display
+			hud.show_hud(hud.hud_version)
+		hud.abductor_ressource_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px; font-size:10pt'><font face='Small Fonts' color='#77138b'>[team.energy_reserves]</font></div>"
+
 /datum/team/abductor_team
 	member_name = "abductor"
 	var/team_number
 	var/list/datum/mind/abductees = list()
 	var/static/team_count = 1
+	var/energy_reserves = ABDUCTOR_STARTING_RESSOURCES //Ressources used by abductor to activate emergency teleport or cloner
 
 /datum/team/abductor_team/New()
 	..()
