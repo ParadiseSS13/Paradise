@@ -1,21 +1,31 @@
 /obj/item/implant/abductor
-	name = "recall implant"
-	desc = "Returns you to the mothership."
+	name = "emergency teleport"
+	desc = "Returns you to the mothership, at the cost of energy reserves."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "implant"
-	activated = IMPLANT_ACTIVATED_ACTIVE
 	origin_tech = "materials=2;biotech=7;magnets=4;bluespace=4;abductor=5"
+	actions_types = list(/datum/action/item_action/hands_free/activate/always)
 	var/obj/machinery/abductor/pad/home
-	var/cooldown = 30
-	var/total_cooldown = 30
+	var/cooldown = 5
+	var/total_cooldown = 5
 
 /obj/item/implant/abductor/activate()
-	if(cooldown == total_cooldown)
-		home.Retrieve(imp_in,1)
+	var/datum/antagonist/abductor/A = imp_in.mind.has_antag_datum(/datum/antagonist/abductor)
+	if(A && A.team)
+		if(!A.team.energy_reserves && !istype(get_area(imp_in), /area/abductor_ship))
+			to_chat(imp_in, "<span class='danger'>Your mothership is out of emergency energy! Find an exit point!</span>")
+			return FALSE
+		if(cooldown != total_cooldown)
+			to_chat(imp_in, "<span class='warning'>You must wait [(total_cooldown - cooldown)*2] seconds to use [src] again!</span>")
+			return FALSE
+		if(!istype(get_area(imp_in), /area/abductor_ship))
+			A.team.spend_energy(1)
 		cooldown = 0
 		START_PROCESSING(SSobj, src)
+		home.Retrieve(imp_in, 1)
 	else
-		to_chat(imp_in, "<span class='warning'>You must wait [(total_cooldown - cooldown)*2] seconds to use [src] again!</span>")
+		to_chat(imp_in, "<span class='warning'>You hear a harsh noise followed by gibberish. Nothing else happens.</span>")
+		return FALSE
 
 /obj/item/implant/abductor/process()
 	if(cooldown < total_cooldown)

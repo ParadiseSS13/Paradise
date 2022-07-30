@@ -1,8 +1,5 @@
 #define ABDUCTOR_MAX_TEAMS 4
 #define ABDUCTOR_STARTING_RESSOURCES 3
-#define ABDUCTOR_COST_LIGHT 1
-#define ABDUCTOR_COST_MEDIUM 2
-#define ABDUCTOR_COST_HEAVY 3
 
 /datum/antagonist/abductor
 	name = "\improper Abductor"
@@ -170,6 +167,21 @@
 	result += printobjectives(objectives)
 
 	return "<div class='panel redborder'>[result.Join("<br>")]</div>"
+
+/datum/team/abductor_team/proc/spend_energy(var/amount)
+	energy_reserves = energy_reserves - amount
+	if(energy_reserves == 1)
+		low_power_warning()
+	if(!energy_reserves)
+		no_power_warning()
+
+/datum/team/abductor_team/proc/low_power_warning()
+	for(var/datum/mind/M in members)
+		to_chat(M.current, "<span class='danger'>Your mothership is almost out of emergency power! Abduct and experiment on crew to gather more!</span>")
+
+/datum/team/abductor_team/proc/no_power_warning()
+	for(var/datum/mind/M in members)
+		to_chat(M.current, "<span class='userdanger'>Your mothership is out of emergency power! Abduct and experiment on crew to gather more!</span>")
 
 // LANDMARKS
 /obj/effect/landmark/abductor

@@ -34,7 +34,8 @@
 	..()
 	if(!visualsOnly)
 		link_to_console(H)
-
+		var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(H)
+		beamplant.implant(H)
 
 /datum/outfit/abductor/agent
 	name = "Abductor Agent"
@@ -54,9 +55,3 @@
 	backpack_contents = list(
 		/obj/item/abductor/gizmo = 1
 		)
-
-/datum/outfit/abductor/scientist/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(!visualsOnly)
-		var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(H)
-		beamplant.implant(H)

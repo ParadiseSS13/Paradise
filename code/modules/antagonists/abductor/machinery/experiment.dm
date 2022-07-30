@@ -152,9 +152,11 @@
 			G.Start()
 			point_reward++
 		if(point_reward > 0)
+			var/datum/antagonist/abductor/A = user.mind.has_antag_datum(/datum/antagonist/abductor)
 			eject_abductee()
 			SendBack(H)
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+			A.team.energy_reserves += point_reward
 			points += point_reward
 			credits += point_reward
 			return "<span class='good'>Experiment successful! [point_reward] new data-points collected.</span>"
