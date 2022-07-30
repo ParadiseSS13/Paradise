@@ -58029,7 +58029,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cOp" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -62703,7 +62705,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dbE" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	electrified_until = -1;
+	locked = 1;
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4;
 	level = 2
@@ -67413,7 +67419,11 @@
 	},
 /area/hydroponics)
 "dnL" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	electrified_until = -1;
+	locked = 1;
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dnM" = (
@@ -69311,7 +69321,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/medical/coldroom)
 "dMr" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -69377,6 +69387,9 @@
 	dir = 1
 	},
 /area/medical/biostorage)
+"dOs" = (
+/turf/simulated/wall,
+/area/medical/coldroom)
 "dQa" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -69580,7 +69593,9 @@
 	},
 /area/maintenance/apmaint)
 "dZA" = (
-/obj/machinery/door/airlock/wood,
+/obj/machinery/door/airlock/wood{
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dZB" = (
@@ -70196,7 +70211,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/hallway)
+/area/maintenance/asmaint)
 "exh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -70293,7 +70308,7 @@
 /obj/structure/table,
 /obj/item/wrench/medical,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/medical/coldroom)
 "eAF" = (
 /obj/machinery/camera{
 	c_tag = "Virology Airlock"
@@ -73003,7 +73018,9 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "gHh" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -73261,7 +73278,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/medical/coldroom)
 "gRE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -73297,12 +73314,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
-"gSx" = (
-/obj/machinery/door/airlock{
-	name = "Toilet"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "gSC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -74237,7 +74248,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "hyf" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	electrified_until = -1;
+	locked = 1;
+	req_access_txt = "12"
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -75227,7 +75242,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/medical/coldroom)
 "ihJ" = (
 /obj/machinery/atmospherics/trinary/filter/flipped{
 	dir = 4;
@@ -76193,7 +76208,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	electrified_until = -1;
+	locked = 1;
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4;
 	level = 2
@@ -77202,7 +77221,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Internal Medbay Maintenance";
+	name = "Internal Coldroom Maintenance";
 	req_one_access_txt = "5;32"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -77217,7 +77236,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/medical/coldroom)
 "jZu" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -78207,7 +78226,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "kZl" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	electrified_until = -1;
+	locked = 1;
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "laa" = (
@@ -81303,7 +81326,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4;
 	level = 2
@@ -81478,7 +81503,8 @@
 /area/medical/cmo)
 "nPI" = (
 /obj/machinery/door/airlock{
-	name = "Abandoned Restroom"
+	name = "Toilet";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -81683,7 +81709,9 @@
 	},
 /area/toxins/hallway)
 "ocE" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4;
 	level = 2
@@ -82291,7 +82319,11 @@
 /obj/item/restraints/legcuffs/beartrap{
 	armed = 1
 	},
-/obj/machinery/door/airlock/maintenance/glass,
+/obj/machinery/door/airlock/maintenance{
+	electrified_until = -1;
+	locked = 1;
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "oBR" = (
@@ -83336,7 +83368,9 @@
 	},
 /area/crew_quarters/hor)
 "prM" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
 	d1 = 1;
@@ -84229,7 +84263,9 @@
 /area/maintenance/fsmaint)
 "qhY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
 "qiB" = (
@@ -85173,7 +85209,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/mixing)
+/area/maintenance/asmaint)
 "qRu" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -85930,7 +85966,8 @@
 "rGa" = (
 /obj/machinery/door/airlock/maintenance{
 	electrified_until = -1;
-	locked = 1
+	locked = 1;
+	req_access_txt = "12"
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
@@ -85956,10 +85993,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
-"rJx" = (
-/obj/machinery/door/airlock/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "rKV" = (
 /turf/simulated/wall,
 /area/toxins/hallway)
@@ -86137,7 +86170,8 @@
 /area/security/permabrig)
 "rSe" = (
 /obj/machinery/door/airlock{
-	name = "Toilet"
+	name = "Toilet";
+	req_access_txt = "12"
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/plating,
@@ -87354,6 +87388,10 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay2)
+"sTX" = (
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/turf/simulated/wall,
+/area/medical/coldroom)
 "sUy" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8;
@@ -90173,7 +90211,11 @@
 	},
 /area/security/permabrig)
 "vqr" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	electrified_until = -1;
+	locked = 1;
+	req_access_txt = "12"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -91319,7 +91361,7 @@
 	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Internal Medbay Maintenance";
+	name = "Internal Coldroom Maintenance";
 	req_one_access_txt = "5;32"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -91330,7 +91372,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/medical/coldroom)
 "wjs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -92401,7 +92443,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/medical/coldroom)
 "xlN" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -92759,7 +92801,7 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/medical/coldroom)
 "xHz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -126464,7 +126506,7 @@ vTr
 eWc
 sXV
 cep
-cAu
+cep
 cep
 cep
 cGK
@@ -126713,11 +126755,11 @@ mRJ
 lPC
 iZz
 crD
-chf
-chf
-chf
-cDm
-chf
+dOs
+dOs
+dOs
+sTX
+dOs
 noc
 cVD
 ctZ
@@ -127238,7 +127280,7 @@ cCW
 cCW
 cCW
 cCW
-cAu
+cep
 cep
 cep
 cep
@@ -127496,7 +127538,7 @@ llD
 qOx
 cCW
 czf
-czf
+cep
 czf
 csK
 csK
@@ -137007,7 +137049,7 @@ xsC
 bGG
 bGG
 bGG
-rJx
+cjA
 uhl
 bGG
 oIo
@@ -138533,7 +138575,7 @@ clg
 clW
 bGG
 coA
-rJx
+cjA
 cri
 csB
 bYm
@@ -139323,7 +139365,7 @@ gDp
 cod
 cuQ
 cuQ
-rJx
+cjA
 lqd
 lqd
 cLQ
@@ -141136,7 +141178,7 @@ cBR
 tlI
 vum
 ojz
-dci
+kZl
 lon
 mQI
 xsx
@@ -142168,7 +142210,7 @@ xII
 ciY
 ciY
 ciY
-dci
+kZl
 ciY
 cQC
 vJN
@@ -144181,7 +144223,7 @@ csL
 mNA
 ciY
 ciY
-kZl
+dci
 ciY
 ciY
 cjX
@@ -144948,7 +144990,7 @@ csL
 eGo
 csL
 mZs
-kZl
+dci
 csL
 dbX
 tVF
@@ -146000,7 +146042,7 @@ ciY
 csL
 raL
 ciY
-gSx
+nPI
 ciY
 rSe
 ciY
