@@ -11,13 +11,18 @@
 	throwforce = 0
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
+	/// If its currently recording
 	var/recording
+	/// If its playing back auto via atom_say
 	var/playing
+	/// The amount of time between something said during playback
 	var/playsleepseconds = 0
+	/// The tape we are recording to
 	var/obj/item/tape/mytape
+	/// The next worldtime we'll be able to print
 	var/cooldown = 0
 	var/starts_with_tape = TRUE
-	///Sound loop that plays when recording or playing back.
+	/// Sound loop that plays when recording or playing back.
 	var/datum/looping_sound/tape_recorder_hiss/soundloop
 
 /obj/item/taperecorder/examine(mob/user)
@@ -64,7 +69,7 @@
 			update_icon(UPDATE_ICON_STATE)
 
 /obj/item/taperecorder/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	mytape?.ruin(forced = TRUE) //Fires destroy the tape
+	mytape?.ruin() //Fires destroy the tape
 	return ..()
 
 /obj/item/taperecorder/attack_hand(mob/user)
@@ -77,7 +82,7 @@
 			return
 	..()
 
-/obj/item/taperecorder/hear_talk(mob/living/M as mob, list/message_pieces) // Currently can't tell if you're whispering, but can hear it if nearby
+/obj/item/taperecorder/hear_talk(mob/living/M, list/message_pieces) // Currently can't tell if you're whispering, but can hear it if nearby
 	var/msg = multilingual_to_message(message_pieces)
 	if(mytape && recording)
 		var/ending = copytext(msg, length(msg))
@@ -110,7 +115,7 @@
 		record()
 
 /obj/item/taperecorder/AltClick(mob/user)
-	if(in_range(user, src) && mytape && !user.incapacitated())
+	if(in_range(user, src) && mytape && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
 						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
 						"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
@@ -195,7 +200,8 @@
 	playsound(src, 'sound/items/taperecorder/taperecorder_play.ogg', 50, FALSE)
 	var/used = mytape.used_capacity	//to stop runtimes when you eject the tape
 	var/max = mytape.max_capacity
-	for(var/i = 1, used <= max, sleep(playsleepseconds SECONDS)) // <= to let it play if the tape is full
+	for(var/i = 1, used <= max) // <= to let it play if the tape is full
+		sleep(playsleepseconds)
 		if(!mytape)
 			break
 		if(playing == 0)
@@ -205,13 +211,13 @@
 			break
 		atom_say("[mytape.storedinfo[i]]")
 		if(length(mytape.storedinfo) < i + 1)
-			playsleepseconds = 1
+			playsleepseconds = 1 SECONDS
 		else
-			playsleepseconds = mytape.timestamp[i + 1] - mytape.timestamp[i]
-		if(playsleepseconds > 14)
+			playsleepseconds = (mytape.timestamp[i + 1] - mytape.timestamp[i]) SECONDS
+		if(playsleepseconds > 1.4 SECONDS)
 			sleep(10)
-			atom_say("Skipping [playsleepseconds] seconds of silence.")
-			playsleepseconds = 1
+			atom_say("Skipping [playsleepseconds / 10] seconds of silence.")
+			playsleepseconds = 1 SECONDS
 		i++
 
 	stop(TRUE)
@@ -237,7 +243,9 @@
 	cooldown = world.time + 3 SECONDS
 
 /obj/item/taperecorder/proc/eject(mob/user)
-	if(mytape && !user.incapacitated())
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	if(mytape)
 		playsound(src, 'sound/items/taperecorder/taperecorder_open.ogg', 50, FALSE)
 		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
 		stop()
@@ -295,7 +303,7 @@
 
 /obj/item/tape/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
-	ruin(forced = TRUE)
+	ruin()
 
 /obj/item/tape/attack_self(mob/user)
 	if(!ruined)
@@ -311,41 +319,34 @@
 		return
 
 	to_chat(usr, "<span class='notice'>You erase the data from [src].</span>")
-	clear()
+	used_capacity = 0
+	storedinfo.Cut()
+	timestamp.Cut()
 
 /obj/item/tape/update_overlays()
 	. = ..()
 	if(ruined)
 		. += "ribbonoverlay"
 
-/obj/item/tape/proc/clear()
-	used_capacity = 0
-	storedinfo.Cut()
-	timestamp.Cut()
-
-/obj/item/tape/proc/ruin(mob/user, forced = FALSE)
-	if(forced) // need to be forceable in case it catches on fire to ruin the tape
-		ruined = TRUE
-		update_icon(UPDATE_OVERLAYS)
-	else
+/obj/item/tape/proc/ruin(mob/user)
+	if(user)
 		to_chat(user, "<span class='notice'>You start pulling the tape out.</span>")
-		if(do_after(user, 1 SECONDS, target = src))
-			to_chat(user, "<span class='notice'>You pull the tape out of [src].</span>")
-			ruined = TRUE
-			update_icon(UPDATE_OVERLAYS)
-
-/obj/item/tape/proc/fix()
-	ruined = FALSE
+		if(!do_after(user, 1 SECONDS, target = src))
+			return
+		to_chat(user, "<span class='notice'>You pull the tape out of [src].</span>")
+	ruined = TRUE
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/tape/attackby(obj/item/I, mob/user)
-	if(ruined && istype(I, /obj/item/screwdriver))
+/obj/item/tape/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(ruined)
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 			return
 		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
 		if(do_after(user, 120 * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You wind the tape back in!</span>")
-			fix()
+			ruined = FALSE
+			update_icon(UPDATE_OVERLAYS)
 	else if(istype(I, /obj/item/pen))
 		rename_interactive(user, I)
 
