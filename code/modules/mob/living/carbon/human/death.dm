@@ -96,7 +96,7 @@
 		dna.species.handle_death(gibbed, src)
 
 	if(SSticker && SSticker.mode)
-		SSblackbox.ReportDeath(src)
+		INVOKE_ASYNC(SSblackbox, /datum/controller/subsystem/blackbox/proc/ReportDeath, src)
 
 /mob/living/carbon/human/update_revive(updating)
 	. = ..()
