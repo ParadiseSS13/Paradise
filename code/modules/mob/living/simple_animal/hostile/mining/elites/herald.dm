@@ -311,7 +311,7 @@
 			"<span class='notice'>You start to crawl into the [starting_mirror]...</span>")
 	if(do_after(usr, 2 SECONDS, target = usr))
 		var/turf/destination = get_turf(chosen)
-		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
+		if(QDELETED(chosen) || !usr|| HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
 			return
 		usr.visible_message("<span class='warning'>[usr] crawls into the [starting_mirror], and [usr.p_they()] disappear into it!</span>", \
 			"<span class='notice'>You crawl into the [starting_mirror]...</span>")
