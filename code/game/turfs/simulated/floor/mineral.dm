@@ -260,22 +260,3 @@
 /turf/simulated/floor/mineral/abductor/Initialize(mapload)
 	. = ..()
 	icon_state = "alienpod[rand(1,9)]"
-
-/turf/simulated/floor/mineral/abductor/break_tile()
-	return //unbreakable
-
-/turf/simulated/floor/mineral/abductor/burn_tile()
-	return //unburnable
-
-/turf/simulated/floor/mineral/abductor/make_plating()
-	return ChangeTurf(/turf/simulated/floor/plating/abductor2)
-
-/turf/simulated/floor/plating/abductor2
-	name = "alien plating"
-	icon_state = "alienplating"
-
-/turf/simulated/floor/plating/abductor2/break_tile()
-	return //unbreakable
-
-/turf/simulated/floor/plating/abductor2/burn_tile()
-	return //unburnable

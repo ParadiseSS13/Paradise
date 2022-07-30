@@ -105,7 +105,7 @@
 /obj/machinery/abductor/experiment{
 	team_number = 1
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "av" = (
 /obj/structure/table/holotable/wood,
@@ -118,7 +118,7 @@
 /obj/machinery/abductor/console{
 	team_number = 1
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "ax" = (
 /turf/simulated/floor/holofloor{
@@ -130,7 +130,7 @@
 /obj/machinery/abductor/experiment{
 	team_number = 4
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "az" = (
 /turf/simulated/floor/holofloor{
@@ -236,7 +236,7 @@
 /obj/machinery/abductor/console{
 	team_number = 4
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "aW" = (
 /turf/simulated/floor/holofloor{
@@ -293,7 +293,7 @@
 /obj/machinery/abductor/pad{
 	team_number = 4
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bj" = (
 /obj/structure/chair/comfy/shuttle{
@@ -314,16 +314,16 @@
 /obj/machinery/computer/camera_advanced/abductor{
 	team_number = 1
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bq" = (
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "br" = (
 /obj/machinery/computer/camera_advanced/abductor{
 	team_number = 4
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bt" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -345,7 +345,7 @@
 /obj/structure/table/abductor,
 /obj/item/retractor/alien,
 /obj/item/hemostat/alien,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bz" = (
 /obj/structure/ninjatele{
@@ -355,7 +355,7 @@
 /area/ninja/outpost)
 "bB" = (
 /obj/effect/landmark/abductor/scientist,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bC" = (
 /turf/simulated/floor/holofloor{
@@ -365,11 +365,11 @@
 /area/holodeck/source_emptycourt)
 "bE" = (
 /obj/machinery/optable/abductor,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bF" = (
 /obj/effect/landmark/abductor/agent,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bG" = (
 /obj/machinery/igniter/on,
@@ -389,7 +389,7 @@
 "bK" = (
 /obj/structure/table/abductor,
 /obj/item/storage/box/alienhandcuffs,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bM" = (
 /turf/simulated/floor/holofloor,
@@ -407,7 +407,7 @@
 /obj/effect/landmark/abductor/scientist{
 	team_number = 4
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bR" = (
 /obj/structure/reagent_dispensers/beerkeg,
@@ -438,7 +438,7 @@
 /obj/effect/landmark/abductor/agent{
 	team_number = 4
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bX" = (
 /turf/simulated/floor/holofloor{
@@ -480,7 +480,7 @@
 /obj/item/paper/abductor,
 /obj/item/scalpel/alien,
 /obj/item/cautery/alien,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "ch" = (
 /turf/simulated/floor/holofloor/space,
@@ -507,7 +507,7 @@
 /area/ninja/holding)
 "cj" = (
 /obj/machinery/abductor/gland_dispenser,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "ck" = (
 /turf/space/transit,
@@ -542,7 +542,7 @@
 /obj/item/FixOVein/alien,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "cq" = (
 /turf/simulated/floor/holofloor{
@@ -552,7 +552,7 @@
 /area/holodeck/source_basketball)
 "cr" = (
 /obj/structure/bed/abductor,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "cs" = (
 /obj/structure/rack,
@@ -797,7 +797,7 @@
 /obj/item/FixOVein/alien,
 /obj/item/bonesetter/alien,
 /obj/item/bonegel/alien,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "dp" = (
 /turf/simulated/floor/holofloor{
@@ -1771,7 +1771,7 @@
 /obj/machinery/abductor/experiment{
 	team_number = 2
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "gP" = (
 /obj/structure/flora/tree/pine,
@@ -1831,7 +1831,7 @@
 /obj/machinery/abductor/console{
 	team_number = 2
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "gY" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -1974,13 +1974,13 @@
 /obj/machinery/abductor/pad{
 	team_number = 2
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "hs" = (
 /obj/machinery/abductor/experiment{
 	team_number = 3
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "hv" = (
 /obj/structure/sign/double/map/left{
@@ -2096,13 +2096,13 @@
 /obj/machinery/abductor/console{
 	team_number = 3
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "hJ" = (
 /obj/machinery/abductor/pad{
 	team_number = 3
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "hK" = (
 /turf/simulated/floor/plasteel{
@@ -2178,7 +2178,7 @@
 /obj/machinery/computer/camera_advanced/abductor{
 	team_number = 2
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "hX" = (
 /obj/machinery/door/airlock/external{
@@ -2477,7 +2477,7 @@
 /obj/machinery/computer/camera_advanced/abductor{
 	team_number = 3
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "iV" = (
 /obj/structure/chair/comfy/shuttle{
@@ -2797,7 +2797,7 @@
 /obj/effect/landmark/abductor/scientist{
 	team_number = 2
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "kd" = (
 /obj/machinery/vending/cola,
@@ -2878,7 +2878,7 @@
 /obj/effect/landmark/abductor/agent{
 	team_number = 2
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "ks" = (
 /obj/machinery/vending/coffee/free,
@@ -3264,7 +3264,7 @@
 /obj/effect/landmark/abductor/scientist{
 	team_number = 3
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "lz" = (
 /turf/simulated/wall/indestructible/abductor,
@@ -3308,7 +3308,7 @@
 /obj/effect/landmark/abductor/agent{
 	team_number = 3
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "lG" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -3821,7 +3821,7 @@
 /obj/machinery/abductor/pad{
 	team_number = 1
 	},
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "mX" = (
 /obj/machinery/door/window{
@@ -3877,7 +3877,7 @@
 /area/syndicate_mothership)
 "nf" = (
 /obj/machinery/atmospherics/unary/cryo_cell/abductor,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "ng" = (
 /obj/mecha/combat/phazon,
@@ -3945,7 +3945,7 @@
 /area/admin)
 "nr" = (
 /obj/structure/closet/abductor,
-/turf/simulated/floor/plating/abductor,
+/turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "ns" = (
 /obj/structure/rack,

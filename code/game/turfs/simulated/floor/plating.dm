@@ -361,15 +361,6 @@
 /turf/simulated/floor/plating/metalfoam/proc/smash()
 	ChangeTurf(baseturf)
 
-/turf/simulated/floor/plating/abductor
-	name = "alien floor"
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "alienpod1"
-
-/turf/simulated/floor/plating/abductor/Initialize(mapload)
-	. = ..()
-	icon_state = "alienpod[rand(1, 9)]"
-
 /turf/simulated/floor/plating/ice
 	name = "ice sheet"
 	desc = "A sheet of solid ice. Looks slippery."

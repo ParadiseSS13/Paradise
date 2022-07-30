@@ -87,3 +87,11 @@
 	return FALSE
 
 /turf/simulated/floor/indestructible/hierophant/two
+
+/turf/simulated/floor/indestructible/abductor
+	name = "alien floor"
+	icon_state = "alienpod1"
+
+/turf/simulated/floor/indestructible/abductor/Initialize(mapload)
+	. = ..()
+	icon_state = "alienpod[rand(1,9)]"
