@@ -602,6 +602,7 @@
 	. = ..()
 	if(!C.prefs?.active_character?.custom_emotes) //Checks the current character save for any custom emotes
 		return
+
 	var/desired_emote = C.prefs.active_character.custom_emotes[name] //check the custom emotes list for this keybind name
 
 	if(!desired_emote)
@@ -612,6 +613,7 @@
 /datum/keybinding/custom/can_use(client/C, mob/M)
 	if(donor_exclusive && !(C.donator_level || C.holder || C.prefs.unlock_content)) //is this keybind restricted to donors/byond members/admins, and are you one or not?
 		return
+
 	return isliving(M) && ..()
 
 /datum/keybinding/custom/one

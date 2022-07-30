@@ -2097,10 +2097,12 @@
 
 /datum/character_save/proc/init_custom_emotes(overrides)
 	custom_emotes = overrides
+
 	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
 		var/emote_text = overrides && overrides[custom_emote.name]
 		if(!emote_text)
 			continue //we don't set anything without an override
+
 		custom_emotes[custom_emote.name] = emote_text
 
 	return custom_emotes
