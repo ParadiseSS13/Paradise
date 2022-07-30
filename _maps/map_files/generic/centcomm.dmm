@@ -364,7 +364,7 @@
 	},
 /area/holodeck/source_emptycourt)
 "bE" = (
-/obj/machinery/optable/abductor,
+/obj/machinery/optable/abductor/ufo,
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "bF" = (

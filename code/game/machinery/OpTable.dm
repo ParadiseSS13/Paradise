@@ -123,6 +123,8 @@
 		return ..()
 
 /obj/machinery/optable/wrench_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
