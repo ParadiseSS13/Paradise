@@ -2,7 +2,6 @@
 Contains most of the procs that are called when a mob is attacked by something
 
 bullet_act
-ex_act
 meteor_act
 emp_act
 
@@ -413,10 +412,10 @@ emp_act
 		w_uniform.add_fingerprint(user)
 	return ..()
 
-//Returns 1 if the attack hit, 0 if it missed.
+//Returns TRUE if the attack hit, FALSE if it missed.
 /mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(!I || !user)
-		return 0
+		return FALSE
 
 	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
 		var/obj/item/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/reagent_containers/food/snacks/meat/human(get_turf(loc))
@@ -431,17 +430,18 @@ emp_act
 		if(!meatleft)
 			add_attack_logs(user, src, "Chopped up into meat")
 			qdel(src)
+			return FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
 	if(!affecting)
 		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
-		return 1
+		return FALSE
 	var/hit_area = parse_zone(affecting.limb_name)
 
 	if(user != src)
 		user.do_attack_animation(src)
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
-			return 0
+			return FALSE
 
 	if(check_block())
 		visible_message("<span class='warning'>[src] blocks [I]!</span>")
@@ -453,7 +453,7 @@ emp_act
 	send_item_attack_message(I, user, hit_area)
 
 	if(!I.force)
-		return 0 //item force is zero
+		return FALSE //item force is zero
 
 	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
@@ -468,6 +468,7 @@ emp_act
 		bonus_damage = H.physiology.melee_bonus
 
 	apply_damage(I.force + bonus_damage , I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
+	. = TRUE // at this point the attack has succeeded.
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))

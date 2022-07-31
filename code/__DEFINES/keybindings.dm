@@ -13,6 +13,7 @@
 #define KB_CATEGORY_EMOTE_HUMAN		13
 #define KB_CATEGORY_EMOTE_SILICON	14
 #define KB_CATEGORY_EMOTE_ANIMAL	15
+#define KB_CATEGORY_EMOTE_CUSTOM	16
 #define KB_CATEGORY_UNSORTED		1000
 
 ///Max length of a keypress command before it's considered to be a forged packet/bogus command
