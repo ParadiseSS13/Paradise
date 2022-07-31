@@ -17,7 +17,11 @@
 	var/ring_sound = 'sound/machines/bell.ogg'
 
 /obj/item/desk_bell/attack_hand(mob/living/user)
-	if(ring_cooldown > world.time)
+	if(in_inventory && ishuman(user))
+		if(!user.get_active_hand())
+			user.put_in_hands(src)
+			return TRUE
+	if(ring_cooldown > world.time || !anchored)
 		return TRUE
 	if(!ring_bell(user))
 		to_chat(user, "<span class='notice'>[src] is silent. Some idiot broke it.</span>")
@@ -35,17 +39,7 @@
 		if(!remove_item_from_storage(M))
 			M.unEquip(src)
 		M.put_in_hands(src)
-
-	else if(istype(over_object, /obj/screen))
-		switch(over_object.name)
-			if("r_hand")
-				if(!remove_item_from_storage(M))
-					M.unEquip(src)
-				M.put_in_r_hand(src)
-			if("l_hand")
-				if(!remove_item_from_storage(M))
-					M.unEquip(src)
-				M.put_in_l_hand(src)
+		anchored = FALSE
 
 	add_fingerprint(M)
 
@@ -63,15 +57,29 @@
 			return TRUE
 		return FALSE
 
-// Deconstruct
+// Deconstruct and Anchor
 /obj/item/desk_bell/wrench_act(mob/living/user, obj/item/tool)
-	to_chat(user, "<span class='notice'>You begin taking apart the bell...</span>")
-	if(tool.use_tool(src, user, 5 SECONDS))
-		to_chat(user, "<span class='notice'>You disassemble the bell...</span>")
-		playsound(user, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
-		new /obj/item/stack/sheet/metal(drop_location(), 2)
-		qdel(src)
-		return TRUE
+	. = TRUE
+	if(user.a_intent == INTENT_HARM && !in_inventory)
+		to_chat(user, "<span class='notice'>You begin taking apart the bell...</span>")
+		if(tool.use_tool(src, user, 5 SECONDS))
+			to_chat(user, "<span class='notice'>You disassemble the bell...</span>")
+			playsound(user, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
+			new /obj/item/stack/sheet/metal(drop_location(), 2)
+			qdel(src)
+			return TRUE
+	if(!in_inventory)
+		if(!anchored)
+			user.visible_message("[user] begins securing [src].", "You begin securing the bell...")
+			if(!tool.use_tool(src, user, 30, volume = tool.tool_volume))
+				return
+			anchored = TRUE
+		else
+			user.visible_message("[user] begins unsecuring [src].", "You begin unsecuring the bell...")
+			if(!tool.use_tool(src, user, 30, volume = tool.tool_volume))
+				return
+			anchored = FALSE
+
 
 /// Check if the clapper breaks, and if it does, break it
 /obj/item/desk_bell/proc/check_clapper(mob/living/user)
