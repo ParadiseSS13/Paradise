@@ -187,7 +187,7 @@
 
 	density = TRUE
 	if(polarized_on)
-		set_opacity(1)
+		set_opacity(TRUE)
 	air_update_turf(1)
 	update_freelook_sight()
 	sleep(10)
