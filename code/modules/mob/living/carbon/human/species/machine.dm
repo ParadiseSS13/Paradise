@@ -176,7 +176,7 @@
 	H.Weaken(60 SECONDS)
 	H.adjustBrainLoss(1) // 40 seconds to live
 	if(prob(20))
-		var/list/error_messages = list("Error 196: motor functions failing.",
+		var/static/list/error_messages = list("Error 196: motor functions failing.",
 								"Error 32: Process %^~#/£ cannot be reached, being used by another file.",
 								"Error 39: Cannot write to central memory unit, storage full.",
 								"Error -1: isogjiohrj90903744kfgkgrpopK!!",
