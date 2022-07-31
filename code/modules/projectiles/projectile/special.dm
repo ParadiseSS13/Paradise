@@ -194,7 +194,6 @@
 /obj/item/projectile/bullet/frag12
 	name ="explosive slug"
 	damage = 15
-	weaken = 2 SECONDS
 	alwayslog = TRUE
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)

@@ -1186,6 +1186,21 @@
 										var/datum/keybinding/KB = kb
 										keybindings_overrides[KB.name] = list()
 
+					else if(href_list["custom_emote_set"])
+						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_set"])
+						if(custom_emote_keybind)
+							var/emote_text = active_character.custom_emotes[custom_emote_keybind.name]
+							var/desired_emote = stripped_input(user, "Enter your custom emote text, 128 character limit.", "Custom Emote Setter", emote_text, max_length = 128)
+							if(desired_emote && (desired_emote != custom_emote_keybind.default_emote_text)) //don't let them save the default custom emote text
+								active_character.custom_emotes[custom_emote_keybind.name] = desired_emote
+							active_character.save(user)
+
+					else if(href_list["custom_emote_reset"])
+						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_reset"])
+						if(custom_emote_keybind)
+							active_character.custom_emotes.Remove(custom_emote_keybind.name)
+							active_character.save(user)
+
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
 
