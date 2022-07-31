@@ -609,8 +609,15 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "bC" = (
-/obj/structure/closet/crate,
-/obj/item/dice/d4,
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 2;
+	pixel_x = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -636,19 +643,6 @@
 	},
 /area/mine/eva)
 "bE" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
