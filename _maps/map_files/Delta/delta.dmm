@@ -27178,7 +27178,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "bsd" = (
 /obj/structure/table/reinforced,
 /obj/item/seeds/lime,
@@ -28299,7 +28299,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "buD" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -28501,7 +28501,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "bvd" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -29302,7 +29302,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "bwv" = (
 /turf/simulated/floor/plasteel/dark,
 /area/security/nuke_storage)
@@ -30163,7 +30163,7 @@
 /area/engine/break_room)
 "byr" = (
 /turf/simulated/wall,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "bys" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plasteel,
@@ -31072,7 +31072,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "bAr" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small{
@@ -48213,7 +48213,7 @@
 "clw" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "clx" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -48856,7 +48856,7 @@
 "cmV" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cmW" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -48884,33 +48884,33 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cmZ" = (
 /obj/machinery/shieldgen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cna" = (
 /obj/machinery/field/generator{
 	anchored = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cnb" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cnc" = (
 /obj/machinery/shieldwallgen,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cnd" = (
 /obj/machinery/shieldwallgen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cne" = (
 /obj/structure/dispenser,
 /obj/item/radio/intercom{
@@ -48919,12 +48919,12 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cnf" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cnh" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -49401,8 +49401,13 @@
 "coo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "coq" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -49417,13 +49422,13 @@
 /obj/machinery/shieldgen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cos" = (
 /obj/machinery/shieldgen,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cot" = (
 /obj/machinery/field/generator{
 	anchored = 1
@@ -49431,17 +49436,17 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cou" = (
 /obj/machinery/shieldwallgen,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cov" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cow" = (
 /obj/structure/bookcase,
 /obj/machinery/light{
@@ -49736,7 +49741,7 @@
 "cph" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cpi" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -49902,7 +49907,7 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cpx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -49913,12 +49918,12 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cpy" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cpz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -49930,7 +49935,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cpA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -49943,19 +49948,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cpB" = (
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cpC" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cpD" = (
 /obj/machinery/light{
 	dir = 4
@@ -49966,7 +49971,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cpE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -50652,11 +50657,11 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "crb" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "crd" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -50692,18 +50697,18 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "crg" = (
 /obj/machinery/power/emitter,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "crh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "crk" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
@@ -51270,7 +51275,7 @@
 /obj/machinery/pipedispenser/disposal,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "csp" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -51314,7 +51319,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "csu" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -51343,12 +51348,17 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "csx" = (
 /obj/machinery/power/emitter,
 /turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "csy" = (
 /obj/structure/transit_tube{
 	icon_state = "W-SE"
@@ -51367,8 +51377,13 @@
 	name = "solar pack crate"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "csA" = (
 /obj/structure/rack,
 /obj/item/crowbar/red,
@@ -51379,7 +51394,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "csB" = (
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
@@ -51392,7 +51407,7 @@
 /obj/item/stack/sheet/glass,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "csC" = (
 /obj/structure/table/reinforced,
 /obj/item/airalarm_electronics,
@@ -51404,7 +51419,7 @@
 /obj/item/stock_parts/cell/high,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "csF" = (
 /obj/structure/mineral_door/wood,
 /obj/machinery/door/firedoor,
@@ -52483,7 +52498,7 @@
 /obj/machinery/pipedispenser,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cuS" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -52503,7 +52518,7 @@
 /obj/item/airlock_electronics,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cuU" = (
 /obj/structure/rack,
 /obj/item/crowbar,
@@ -52553,7 +52568,7 @@
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cuZ" = (
 /obj/machinery/light{
 	dir = 1
@@ -52565,7 +52580,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cva" = (
 /obj/machinery/suit_storage_unit/engine,
 /obj/machinery/status_display{
@@ -52573,7 +52588,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cvb" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -53124,7 +53139,7 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cwy" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/sign/electricshock{
@@ -53132,20 +53147,20 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cwz" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cwA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cwB" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/glass/fifty{
@@ -53164,7 +53179,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cwD" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -53671,7 +53686,7 @@
 /obj/item/clothing/glasses/meson/engine,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cxI" = (
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
@@ -53684,7 +53699,7 @@
 /obj/item/airlock_electronics,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cxJ" = (
 /obj/structure/table,
 /obj/item/paper/pamphlet,
@@ -53709,7 +53724,7 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cxL" = (
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
@@ -53728,7 +53743,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cxO" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -53771,7 +53786,7 @@
 /obj/item/clothing/shoes/magboots,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cxS" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -54420,7 +54435,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "czr" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/packageWrap,
@@ -54459,7 +54474,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "czt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -54485,7 +54500,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "czv" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -54577,7 +54592,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "czI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -55006,7 +55021,7 @@
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cAB" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -55081,7 +55096,7 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cAJ" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -55103,7 +55118,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cAM" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -55113,7 +55128,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cAN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -55131,7 +55146,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cAP" = (
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plasteel{
@@ -55162,7 +55177,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cAS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -55682,7 +55697,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cCe" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -55842,7 +55857,7 @@
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cCs" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -55854,7 +55869,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cCu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -55862,7 +55877,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cCv" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/cable{
@@ -56263,7 +56278,7 @@
 /obj/item/clothing/head/welding,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cDC" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/plasteel{
@@ -56280,7 +56295,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cDD" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -56351,7 +56366,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cDL" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/status_display{
@@ -56359,13 +56374,18 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cDM" = (
 /obj/machinery/light,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cDN" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/packageWrap,
@@ -56644,7 +56664,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cEK" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -57295,7 +57315,7 @@
 /obj/item/storage/box/lights/mixed,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "cGc" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -58700,7 +58720,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cIO" = (
 /turf/simulated/floor/plasteel/dark/nitrogen,
 /area/toxins/xenobiology)
@@ -58708,7 +58728,7 @@
 /obj/machinery/suit_storage_unit/engine,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/equipmentstorage)
 "cIQ" = (
 /obj/structure/closet/crate{
 	opened = 1
@@ -71506,7 +71526,7 @@
 /obj/structure/dispenser,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
+/area/engine/hardsuitstorage)
 "dlu" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -90326,6 +90346,20 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery2)
+"iHe" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/equipmentstorage)
 "iIw" = (
 /obj/machinery/newscaster{
 	name = "north bump";
@@ -93608,6 +93642,11 @@
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/maintenance/fsmaint)
+"pjR" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/engine/equipmentstorage)
 "pjY" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -94900,6 +94939,20 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"rFV" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	id_tag = "engstorage";
+	name = "Secure Storage Blast Doors"
+	},
+/obj/effect/decal/warning_stripes/west,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/equipmentstorage)
 "rGZ" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -96750,6 +96803,9 @@
 	icon_state = "darkred"
 	},
 /area/security/brig)
+"vkH" = (
+/turf/simulated/wall/r_wall,
+/area/engine/equipmentstorage)
 "vmw" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -97744,6 +97800,15 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
+"xyj" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/equipmentstorage)
 "xAc" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -125229,13 +125294,13 @@ bou
 cgP
 cim
 cmM
-clv
+vkH
 cmV
-cra
+rFV
 cpw
 cra
 cmV
-clv
+vkH
 cwy
 cxH
 cAA
@@ -125486,13 +125551,13 @@ cgH
 cik
 cjO
 cmN
-clv
+vkH
 czH
 coo
 cpx
 crb
 cst
-clv
+vkH
 cuY
 cwz
 cpy
@@ -125743,13 +125808,13 @@ cff
 clv
 bQr
 bQr
-clv
-cnb
-cnb
+vkH
+iHe
+xyj
 buB
 cso
 cuR
-clv
+vkH
 cuZ
 cwA
 cxN
@@ -126000,13 +126065,13 @@ ciX
 clv
 cin
 cjV
-clv
+vkH
 cmY
 cos
 cpz
 crf
 cIN
-clv
+vkH
 cva
 cwz
 cpy
@@ -126257,13 +126322,13 @@ cfh
 clv
 ddg
 cio
-clv
+vkH
 cmZ
 cor
 cpz
 crg
 crg
-clv
+vkH
 cwB
 cxI
 cxR
@@ -126520,7 +126585,7 @@ cot
 cpA
 crg
 csx
-clv
+vkH
 byr
 byr
 byr
@@ -126771,13 +126836,13 @@ cfj
 clv
 ciq
 cjX
-clv
+vkH
 cIP
 bsc
 bvc
 bwu
 csz
-clv
+vkH
 cvb
 cly
 cly
@@ -127028,13 +127093,13 @@ cfk
 drn
 cLA
 cQu
-clv
+vkH
 cnc
 cnd
-cpy
+pjR
 cnb
 csA
-clv
+vkH
 cYc
 cHA
 cxP
@@ -127285,13 +127350,13 @@ cfl
 dst
 cly
 cka
-clv
+vkH
 cnd
 cou
 cpB
 cnb
 cuT
-clv
+vkH
 cvd
 cHA
 cxS
@@ -127542,13 +127607,13 @@ cNh
 ctS
 dtP
 cYc
-clv
+vkH
 cne
 cph
 cpC
 crh
 csB
-clv
+vkH
 cYc
 cHA
 cxT
@@ -127799,13 +127864,13 @@ cfn
 dlM
 dhG
 cYc
-clv
+vkH
 cnf
 cov
 cpD
 csw
 csC
-clv
+vkH
 cYc
 cfn
 czn
@@ -128056,13 +128121,13 @@ cfo
 drs
 drn
 cYe
-clv
+vkH
 clw
-clv
-clv
-clv
-clv
-clv
+vkH
+vkH
+vkH
+vkH
+vkH
 cve
 cHA
 czo
