@@ -21,6 +21,7 @@
 	var/ini_dir
 	var/obj/item/airlock_electronics/electronics
 	var/created_name
+	var/polarized_glass = FALSE
 
 	//Vars to help with the icon's name
 	var/facing = "l"	//Does the windoor open to the left or right?
@@ -198,6 +199,7 @@
 				windoor.base_state = "right"
 		windoor.setDir(dir)
 		windoor.density = FALSE
+		windoor.polarized_glass = polarized_glass
 
 		if(electronics.one_access)
 			windoor.req_one_access = electronics.selected_accesses
@@ -300,6 +302,23 @@
 			R.add_fingerprint(user)
 		qdel(src)
 
+
+/obj/structure/windoor_assembly/multitool_act(mob/user, obj/item/I)
+	if(state != "02")
+		return
+	. = TRUE
+	if(!electronics)
+		to_chat(user, "<span class='warning'>[src] is missing electronics!</span>")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	user.visible_message("[user] is configuring the glass panel in the windoor assembly...", "You start to configure the glass panel in the airlock assembly...")
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != "02")
+		return
+
+	polarized_glass = !polarized_glass
+
+	to_chat(user, "<span class='notice'>You [polarized_glass ? "enabled" : "disabled"] the electrochromic panel in the windoor assembly.</span>")
 
 //Rotates the windoor assembly clockwise
 /obj/structure/windoor_assembly/verb/revrotate()
