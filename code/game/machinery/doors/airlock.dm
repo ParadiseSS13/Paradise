@@ -353,7 +353,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	duration = 0.5 SECONDS
 	randomdir = FALSE
 
-/obj/effect/temp_visual/polarized_airlock/New(loc, var/image/airlock_overlay, animate_color)
+/obj/effect/temp_visual/polarized_airlock/New(loc, image/airlock_overlay, animate_color)
 	icon = airlock_overlay.icon
 	icon_state = airlock_overlay.icon_state
 	color = airlock_overlay.color
