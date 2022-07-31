@@ -14,8 +14,8 @@
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
-	brute_mod = 1.52 // 1 * 0.66 (robolimbs) * 1.52 = ~1
-	burn_mod = 1.52 // so no damage mod overall.
+	brute_mod = 1 / 0.66 // 1 * 0.66 (robolimbs) * 1/0.66 = 1
+	burn_mod = 1 / 0.66 // so no damage mod overall.
 	tox_mod = 0
 	clone_mod = 0
 	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
@@ -176,21 +176,20 @@
 	H.Weaken(60 SECONDS)
 	H.adjustBrainLoss(1) // 40 seconds to live
 	if(prob(20))
-		var/list/error_messages = list(
-			"Error 196: motor functions failing.",
-			"Error 32: Process %^~#/£ cannot be reached, being used by another file.",
-			"Error 39: Cannot write to central memory unit, storage full.",
-			"Error -1: isogjiohrj90903744kfgkgrpopK!!",
-			"Error -1: poafejOIDAIJjamfooooWADm!afe!",
-			"Error -1: PIKFAjgaiosafjiGGIGHasksid!!",
-			"Error 534: Arithmetic result exceeded 512 bits.",
-			"Error 0: Operation completed successfully.",
-			"WARNING, CRITICAL COMPONENT ERROR, attempting to troubleshoot....",
-			"runtime in sentience.dm, cannot modify null.som, STACK TRACE:",
-			"master controller timed out, likely infinite recursion loop.",
-			"Error 6344: Cannot delete file ~/2tmp1/8^33, no space left on device",
-			"Error 42: Unable to display error message.",
-			"Daisy.... Daisy...."
-		)
+		var/list/error_messages = list("Error 196: motor functions failing.",
+								"Error 32: Process %^~#/£ cannot be reached, being used by another file.",
+								"Error 39: Cannot write to central memory unit, storage full.",
+								"Error -1: isogjiohrj90903744kfgkgrpopK!!",
+								"Error -1: poafejOIDAIJjamfooooWADm!afe!",
+								"Error -1: PIKFAjgaiosafjiGGIGHasksid!!",
+								"Error 534: Arithmetic result exceeded 512 bits.",
+								"Error 0: Operation completed successfully.",
+								"WARNING, CRITICAL COMPONENT ERROR, attempting to troubleshoot....",
+								"runtime in sentience.dm, cannot modify null.som, STACK TRACE:",
+								"master controller timed out, likely infinite recursion loop.",
+								"Error 6344: Cannot delete file ~/2tmp1/8^33, no space left on device",
+								"Error 42: Unable to display error message.",
+								"Daisy.... Daisy...."
+								)
 		var/error_message = pick(error_messages)
 		to_chat(H, "<span class='boldwarning'>[error_message]</span>")
