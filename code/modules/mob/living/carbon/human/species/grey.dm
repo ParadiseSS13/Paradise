@@ -38,7 +38,7 @@
 	. = ..()
 
 	if(method == REAGENT_TOUCH)
-		if(H.head?.flags & THICKMATERIAL && H.wear_suit?.flags & THICKMATERIAL) // fully pierce proof clothing is also water proof!
+		if((H.head?.flags & THICKMATERIAL) && (H.wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
 			return
 		if(volume > 25)
 			if(prob(75))
