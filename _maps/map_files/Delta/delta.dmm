@@ -19022,8 +19022,8 @@
 	},
 /area/hallway/primary/fore)
 "bas" = (
-/obj/structure/closet/secure_closet/atmos_personal,
 /obj/effect/decal/warning_stripes/northwest,
+/obj/machinery/suit_storage_unit/atmos,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bau" = (
@@ -19723,8 +19723,8 @@
 	},
 /area/atmos)
 "bbR" = (
-/obj/machinery/suit_storage_unit/atmos,
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/closet/secure_closet/atmos_personal,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bbS" = (
@@ -20334,7 +20334,7 @@
 /area/atmos)
 "bdq" = (
 /obj/structure/closet/secure_closet/atmos_personal,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bdr" = (
@@ -20344,8 +20344,8 @@
 	},
 /area/atmos)
 "bds" = (
-/obj/structure/closet/secure_closet/atmos_personal,
 /obj/effect/decal/warning_stripes/southwest,
+/obj/machinery/suit_storage_unit/atmos,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bdt" = (
@@ -20976,11 +20976,9 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/machinery/suit_storage_unit/atmos,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
-	},
+/obj/effect/decal/warning_stripes/southeast,
+/obj/structure/closet/secure_closet/atmos_personal,
+/turf/simulated/floor/plasteel,
 /area/atmos)
 "beM" = (
 /obj/structure/disposalpipe/segment,
@@ -22215,6 +22213,9 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bhN" = (
@@ -46792,6 +46793,9 @@
 "cik" = (
 /obj/machinery/vending/tool,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cil" = (
@@ -49396,6 +49400,11 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/northeast,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "coo" = (
@@ -51314,7 +51323,7 @@
 /area/engine/engineering)
 "cst" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -54584,7 +54593,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "czH" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/suit_storage_unit/engine,
@@ -56358,11 +56367,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/sign/electricshock{
 	pixel_y = -32
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -73791,7 +73795,7 @@
 /area/medical/cmo)
 "dqM" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "surgery1"
+	id = "Surgery 1"
 	},
 /turf/simulated/floor/plating,
 /area/medical/surgery1)
@@ -73824,7 +73828,7 @@
 /area/engine/engineering)
 "dqS" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "surgery2"
+	id = "Surgery 2"
 	},
 /turf/simulated/floor/plating,
 /area/medical/surgery2)
