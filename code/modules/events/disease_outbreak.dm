@@ -1,41 +1,51 @@
+GLOBAL_VAR(current_pending_disease)
 /datum/event/disease_outbreak
-	announceWhen = 180
 	/// The type of disease that patient zero will be infected with.
 	var/datum/disease/D
-	/// The initial target of the disease.
-	var/mob/living/carbon/human/patient_zero
+
+	var/list/disease_blacklist = list(/datum/disease/advance, /datum/disease/appendicitis, /datum/disease/kuru, /datum/disease/critical, /datum/disease/rhumba_beat, /datum/disease/fake_gbs,
+										/datum/disease/gbs, /datum/disease/transformation, /datum/disease/food_poisoning, /datum/disease/advance/cold, /datum/disease/advance/flu, /datum/disease/advance/heal,
+										/datum/disease/advance/hullucigen, /datum/disease/advance/sensory_restoration, /datum/disease/advance/voice_change)
+	var/static/list/diseases_minor = list()
+	var/static/list/diseases_moderate = list()
+	var/static/list/diseases_major = list()
 
 /datum/event/disease_outbreak/setup()
+	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate) && isemptylist(diseases_major))
+		populate_diseases()
+	var/datum/disease/virus
 	if(prob(25))
-		var/virus_type = pick(/datum/disease/advance/flu, /datum/disease/advance/cold, /datum/disease/brainrot, /datum/disease/magnitis, /datum/disease/beesease, /datum/disease/anxiety, /datum/disease/fake_gbs, /datum/disease/fluspanish, /datum/disease/pierrot_throat, /datum/disease/lycan)
-		D = new virus_type()
+		switch(severity)
+			if(EVENT_LEVEL_MUNDANE) virus = pick(diseases_minor)
+			if(EVENT_LEVEL_MODERATE) virus = pick(diseases_moderate)
+			if(EVENT_LEVEL_MAJOR) virus = pick(diseases_major)
+		D = new virus()
 	else
-		var/datum/disease/advance/A = new /datum/disease/advance
-		A.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs)) // random silly name
-		A.GenerateSymptoms(1,9,6)
-		A.AssignProperties(list("resistance" = rand(0,11), "stealth" = rand(0,2), "stage_rate" = rand(0,5), "transmittable" = rand(0,5), "severity" = rand(0,10)))
-		D = A
-
+		D = create_virus(severity * 2)	//Severity of the virus depends on the event severity level
 	D.carrier = TRUE
 
-/datum/event/disease_outbreak/announce()
-	GLOB.event_announcement.Announce("Confirmed outbreak of level 7 major viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak7.ogg')
-
 /datum/event/disease_outbreak/start()
-	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
-		if(!H.client)
-			continue
-		if(issmall(H)) //don't infect monkies; that's a waste
-			continue
-		var/turf/T = get_turf(H)
-		if(!T)
-			continue
-		if(!is_station_level(T.z))
-			continue
+	GLOB.current_pending_disease = D
 
-		if(!H.ForceContractDisease(D))
+	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
+		to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a disease!</span>")
+
+//Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
+/datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
+	var/datum/disease/advance/A = new /datum/disease/advance
+	A.symptoms = A.GenerateSymptomsBySeverity(1, max_severity, rand(3,VIRUS_SYMPTOM_LIMIT))
+	A.GenerateProperties()
+	if(A.spread_text == "Blood" && !(locate(/datum/symptom/sneeze) in A.symptoms))
+		A.AddSymptom(new /datum/symptom/sneeze) //Cheesing it, but colds and such should be common enough for it not to be metaable
+	A.Refresh()
+	return A
+
+/datum/event/disease_outbreak/proc/populate_diseases()
+	for(var/candidate in subtypesof(/datum/disease))
+		var/datum/disease/CD = candidate
+		if(candidate in disease_blacklist)
 			continue
-		patient_zero = H
-		for(var/mob/M as anything in GLOB.dead_mob_list) //Announce patient zero to dchat
-			to_chat(M, "<span class='deadsay'><b>[patient_zero]</b> has been infected with <b>[D.name]</b> ([ghost_follow_link(patient_zero, M)])</span>")
-		break
+		switch(initial(CD.severity))
+			if(NONTHREAT, MINOR) diseases_minor += candidate
+			if(MEDIUM, HARMFUL) diseases_moderate += candidate
+			if(DANGEROUS, BIOHAZARD) diseases_major += candidate

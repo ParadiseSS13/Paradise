@@ -367,6 +367,8 @@
 			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
 
+			if(GLOB.current_pending_disease && character.ForceContractDisease(GLOB.current_pending_disease))
+				GLOB.current_pending_disease = null
 			if(GLOB.summon_guns_triggered)
 				give_guns(character)
 			if(GLOB.summon_magic_triggered)
