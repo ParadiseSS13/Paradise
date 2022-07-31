@@ -564,6 +564,12 @@
 		if(W.id == id || !W.id)
 			W.toggle_polarization()
 
+	for(var/obj/machinery/door/D in range(src, range))
+		if(!D.polarized_glass)
+			continue
+		if(D.id == id || !D.id)
+			D.toggle_polarization()
+
 /obj/machinery/button/windowtint/power_change()
 	..()
 	if(active && !powered(power_channel))
