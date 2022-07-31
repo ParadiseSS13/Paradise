@@ -43,8 +43,11 @@
 	var/prisoner_hasrecord = FALSE
 
 /obj/machinery/door_timer/Destroy()
- 	GLOB.celltimers_list -= src
- 	return ..()
+	targets.Cut()
+	prisoner = null
+	qdel(Radio)
+	GLOB.celltimers_list -= src
+	return ..()
 
 /obj/machinery/door_timer/proc/print_report()
 	if(occupant == CELL_NONE || crimes == CELL_NONE)
@@ -129,18 +132,22 @@
 	for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
 		if(M.id == id)
 			targets += M
+			RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	for(var/obj/machinery/flasher/F in GLOB.machines)
 		if(F.id == id)
 			targets += F
+			RegisterSignal(F, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	for(var/obj/structure/closet/secure_closet/brig/C in world)
 		if(C.id == id)
 			targets += C
+			RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
 		if(T.id == id)
 			targets += T
+			RegisterSignal(T, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	if(!length(targets))
 		stat |= BROKEN
@@ -151,6 +158,9 @@
 	targets.Cut()
 	prisoner = null
 	return ..()
+
+/obj/machinery/door_timer/proc/on_target_qdel(atom/target)
+	targets -= target
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer

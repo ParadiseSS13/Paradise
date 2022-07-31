@@ -751,6 +751,10 @@
 	. = ..()
 	atmos_control = new(src)
 
+/obj/machinery/computer/atmoscontrol/Destroy()
+	QDEL_NULL(atmos_control)
+	return ..()
+
 /obj/machinery/computer/atmoscontrol/laptop
 	name = "atmospherics laptop"
 	desc = "Cheap Nanotrasen laptop."

@@ -36,11 +36,3 @@
 	layer = 3.1		//so they can stay hidde under the /obj/structure/bush
 	var/stalk_tick_delay = 3
 	gold_core_spawnable = HOSTILE_SPAWN
-
-/mob/living/simple_animal/hostile/panther/AttackingTarget()
-	. = ..()
-	if(.)
-		if(prob(15) && iscarbon(target))
-			var/mob/living/carbon/C = target
-			C.Weaken(6 SECONDS)
-			C.visible_message("<span class='danger'>\the [src] knocks down \the [C]!</span>")

@@ -36,11 +36,3 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	deathmessage = "is hacked into pieces!"
 	del_on_death = TRUE
-
-/mob/living/simple_animal/hostile/tree/AttackingTarget()
-	. = ..()
-	if(. && iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(prob(15))
-			C.Weaken(6 SECONDS)
-			C.visible_message("<span class='danger'>\the [src] knocks down \the [C]!</span>")

@@ -28,16 +28,16 @@ STI KALY - blind
 
 	switch(stage)
 		if(2)
-			if(prob(1)&&prob(50))
+			if(prob(0.5))
 				affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"))
-			if(prob(1)&&prob(50))
+			if(prob(0.5))
 				to_chat(affected_mob, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
 
 
 		if(3)
-			if(prob(1)&&prob(50))
+			if(prob(0.5))
 				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"))
-			if(prob(1)&&prob(50))
+			if(prob(0.5))
 				to_chat(affected_mob, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
 
 		if(4)
@@ -45,10 +45,10 @@ STI KALY - blind
 			if(prob(1))
 				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
 				return
-			if(prob(1)&&prob(50))
+			if(prob(0.5))
 				to_chat(affected_mob, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
 				spawn_wizard_clothes(50)
-			if(prob(1)&&prob(1))
+			if(prob(0.01))
 				teleport()
 	return
 
@@ -87,32 +87,34 @@ STI KALY - blind
 
 
 /datum/disease/wizarditis/proc/teleport()
-	var/list/theareas = get_areas_in_range(80, affected_mob)
-	for(var/area/space/S in theareas)
-		theareas -= S
-
-	if(!theareas||!theareas.len)
+	if(!is_teleport_allowed(affected_mob.z))
 		return
 
-	var/area/thearea = pick(theareas)
+	var/list/possible_areas = get_areas_in_range(80, affected_mob)
+	for(var/area/space/S in possible_areas)
+		possible_areas -= S
 
-	var/list/L = list()
-	for(var/turf/T in get_area_turfs(thearea.type))
-		if(T.z != affected_mob.z) continue
-		if(T.name == "space") continue
+	if(!length(possible_areas))
+		return
+
+	var/area/chosen_area = pick(possible_areas)
+
+	var/list/teleport_turfs = list()
+	for(var/turf/T in get_area_turfs(chosen_area.type))
+		if(isspaceturf(T))
+			continue
 		if(!T.density)
-			var/clear = 1
+			var/clear = TRUE
 			for(var/obj/O in T)
 				if(O.density)
-					clear = 0
+					clear = FALSE
 					break
 			if(clear)
-				L+=T
+				teleport_turfs += T
 
-	if(!L)
+	if(!length(teleport_turfs))
 		return
 
-	affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!")
-	affected_mob.loc = pick(L)
+	affected_mob.say("SCYAR NILA [uppertext(chosen_area.name)]!")
+	affected_mob.forceMove(pick(teleport_turfs))
 
-	return
