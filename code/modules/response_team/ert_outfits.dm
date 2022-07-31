@@ -498,7 +498,7 @@
 		/obj/item/reagent_containers/spray/cleaner = 1,
 		/obj/item/storage/bag/trash = 1,
 		/obj/item/storage/box/lights/mixed = 1,
-		/obj/item/holosign_creator = 1,
+		/obj/item/holosign_creator/janitor = 1,
 		/obj/item/flashlight = 1)
 
 /datum/outfit/job/centcom/response_team/janitorial/amber

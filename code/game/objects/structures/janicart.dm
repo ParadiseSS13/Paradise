@@ -31,21 +31,15 @@
 	QDEL_NULL(myreplacer)
 	return ..()
 
-/obj/structure/janitorialcart/proc/wet_mop(obj/item/mop, mob/user)
-	if(reagents.total_volume < 1)
-		to_chat(user, "[src] is out of water!</span>")
-	else
-		reagents.trans_to(mop, 5)	//
-		to_chat(user, "<span class='notice'>You wet [mop] in [src].</span>")
-		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
-
 /obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
 	user.drop_item()
-	I.loc = src
+	I.forceMove(src)
 	updateUsrDialog()
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
 
+/obj/structure/janitorialcart/on_reagent_change()
+	update_icon()
 
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
@@ -54,7 +48,7 @@
 		if(istype(I, /obj/item/mop))
 			var/obj/item/mop/m=I
 			if(m.reagents.total_volume < m.reagents.maximum_volume)
-				wet_mop(m, user)
+				m.wet_mop(src, user)
 				return
 			if(!mymop)
 				m.janicart_insert(user, src)
@@ -184,3 +178,17 @@
 		overlays += "cart_replacer"
 	if(signs)
 		overlays += "cart_sign[signs]"
+	if(reagents.total_volume > 0)
+		var/image/reagentsImage = image(icon,src,"cart_reagents0")
+		reagentsImage.alpha = 150
+		switch((reagents.total_volume/reagents.maximum_volume)*100)
+			if(1 to 25)
+				reagentsImage.icon_state = "cart_reagents1"
+			if(26 to 50)
+				reagentsImage.icon_state = "cart_reagents2"
+			if(51 to 75)
+				reagentsImage.icon_state = "cart_reagents3"
+			if(76 to 100)
+				reagentsImage.icon_state = "cart_reagents4"
+		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
+		add_overlay(reagentsImage)

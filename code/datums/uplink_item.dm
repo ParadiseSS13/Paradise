@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Holomine Projector"
 	desc = "Projector that can set up to 5 stun mines with additional EMP effect."
 	reference = "HM"
-	item = /obj/item/holosign_creator/syndie
+	item = /obj/item/holosign_creator/janitor/syndie
 	cost = 8
 	job = list("Janitor")
 	surplus = 0

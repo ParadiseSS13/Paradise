@@ -325,6 +325,10 @@
         reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
+	if(istype(D, /obj/item/mop))
+		var/obj/item/mop/m = D
+		m.wet_mop(src, user)
+		return
 	if(isprox(D))
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)
