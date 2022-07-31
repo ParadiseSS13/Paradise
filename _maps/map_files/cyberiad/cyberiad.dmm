@@ -34994,7 +34994,9 @@
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
 	},
-/obj/item/desk_bell,
+/obj/item/desk_bell{
+	anchored = 1
+	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "bGM" = (
