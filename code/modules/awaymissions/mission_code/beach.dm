@@ -88,6 +88,10 @@
 	heavyfootstep = FOOTSTEP_WATER
 	smoothing_groups = list(SMOOTH_GROUP_BEACH_WATER)
 
+/turf/simulated/floor/beach/away/water/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, .proc/InitializedOn)
+
 /turf/simulated/floor/beach/away/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
 	if(!linkedcontroller)
