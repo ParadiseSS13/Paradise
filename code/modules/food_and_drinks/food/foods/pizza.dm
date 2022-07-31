@@ -376,41 +376,41 @@
 
 
 /obj/item/pizzabox/margherita/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/margheritapizza(src)
 	box_tag = "margherita deluxe"
-	return ..()
 
 /obj/item/pizzabox/vegetable/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
 	box_tag = "gourmet vegetable"
-	return ..()
 
 /obj/item/pizzabox/mushroom/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza(src)
 	box_tag = "mushroom special"
-	return ..()
 
 /obj/item/pizzabox/meat/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
 	box_tag = "meatlover's supreme"
-	return ..()
 
 /obj/item/pizzabox/hawaiian/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza(src)
 	box_tag = "Hawaiian feast"
-	return ..()
 
 /obj/item/pizzabox/pepperoni/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/pepperonipizza(src)
 	box_tag = "classic pepperoni"
-	return ..()
 
 /obj/item/pizzabox/garlic/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/garlicpizza(src)
 	box_tag = "triple garlic"
-	return ..()
 
 /obj/item/pizzabox/firecracker/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/firecrackerpizza(src)
 	box_tag = "extra spicy pie"
-	return ..()
