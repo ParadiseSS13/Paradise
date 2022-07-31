@@ -350,6 +350,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	// Overlays are reset at the same time, due to some oddities when it comes dealing with the cache without changing the base airlock state.
 	addtimer(CALLBACK(src, /atom/.proc/update_icon, 0, 0, TRUE), 0.5 SECONDS)
 
+//
+// Polarization toggling effect
+//
+
 /obj/effect/temp_visual/polarized_airlock
 	layer = OPEN_DOOR_LAYER
 	duration = 0.5 SECONDS
@@ -362,6 +366,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	dir = airlock_overlay.dir
 	..()
 	animate(src, color = animate_color, time = 0.5 SECONDS)
+
+//
+// Icon handling
+//
 
 /obj/machinery/door/airlock/update_icon(state=0, override=0, reset_overlays)
 	if(operating && !override)
