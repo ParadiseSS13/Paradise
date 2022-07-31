@@ -6,7 +6,6 @@
 	layer = ABOVE_WINDOW_LAYER
 	closingLayer = ABOVE_WINDOW_LAYER
 	resistance_flags = ACID_PROOF
-	visible = FALSE
 	flags = ON_BORDER
 	opacity = FALSE
 	dir = EAST

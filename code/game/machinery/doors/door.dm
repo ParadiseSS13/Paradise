@@ -338,8 +338,8 @@
 	density = TRUE
 	sleep(5)
 	update_icon()
-	if(visible && !glass)
-		set_opacity(1)
+	if(!glass || polarized_on)
+		set_opacity(TRUE)
 	operating = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
