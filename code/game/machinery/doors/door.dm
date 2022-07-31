@@ -37,11 +37,6 @@
 	//Multi-tile doors
 	var/width = 1
 
-	/// ID for the window tint button, or another external control
-	var/id
-	var/polarized_glass = FALSE
-	var/polarized_on
-
 /obj/machinery/door/New()
 	..()
 	GLOB.airlocks += src
@@ -271,9 +266,6 @@
 		open()
 		emagged = TRUE
 		return TRUE
-
-/obj/machinery/door/proc/toggle_polarization()
-	return
 
 /obj/machinery/door/update_icon_state()
 	icon_state = "door[density]"
