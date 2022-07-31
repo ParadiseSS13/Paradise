@@ -2,7 +2,7 @@
  * Toggles the [/datum/click_intercept/give] on or off for the src mob.
  */
 /mob/living/carbon/proc/toggle_give()
-	if(HAS_TRAIT(src, TRAIT_OFFERING_ITEM))
+	if(has_status_effect(STATUS_EFFECT_OFFERING_ITEM))
 		to_chat(src, "<span class='warning'>You're already offering an item to someone!</span>")
 		return
 	if(istype(client.click_intercept, /datum/click_intercept/give))
@@ -24,11 +24,28 @@
 	new /datum/click_intercept/give(client)
 
 /**
+ * # Offering Item status effect
+ *
+ * Status effect given to mobs after they've offered an item to another player using the Give Item action ([/datum/click_intercept/give]).
+ */
+/datum/status_effect/offering_item
+	id = "offering item"
+	duration = 10 SECONDS
+	alert_type = /obj/screen/alert/status_effect/offering_item
+
+/obj/screen/alert/status_effect/offering_item
+	name = "Offering Item"
+	desc = "You're currently offering an item someone. Make sure to keep the item in your hand so they can accept it!"
+	icon_state = "offering_item"
+
+/**
  * # Give click intercept
  *
  * While a mob has this intercept, left clicking on a carbon mob will attempt to offer their currently held item to that mob.
  */
 /datum/click_intercept/give
+	/// If the intercept user has succesfully offered the item to another player.
+	var/item_offered = FALSE
 
 /datum/click_intercept/give/New(client/C)
 	..()
@@ -38,10 +55,10 @@
 	RegisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), .proc/cancel_give)
 
 
-/datum/click_intercept/give/Destroy(force = FALSE, silent = FALSE)
+/datum/click_intercept/give/Destroy(force = FALSE, ...)
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	holder.mob.give_icon.icon_state = "act_give_off"
-	if(!silent)
+	if(!item_offered)
 		to_chat(holder.mob, "<span class='info'>You're no longer trying to give someone your held item.</span>")
 	UnregisterSignal(holder.mob.get_active_hand(), list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 	UnregisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS))
@@ -57,21 +74,22 @@
 	if(user == object || !iscarbon(object))
 		return
 	var/mob/living/carbon/receiver = object
+	if(receiver.stat != CONSCIOUS)
+		to_chat(user, "<span class='warning'>[receiver] can't accept any items because they're [receiver == UNCONSCIOUS ? "unconscious" : "dead"]!</span>")
+		return
 	var/obj/item/I = user.get_active_hand()
-	if(!user.Adjacent(object))
-		to_chat(user, "<span class='warning'>You need to be closer to [receiver] to offer them [I]</span>")
+	if(!user.Adjacent(receiver))
+		to_chat(user, "<span class='warning'>You need to be closer to [receiver] to offer them [I].</span>")
 		return
 	if(!receiver.client)
 		to_chat(user, "<span class='warning'>You offer [I] to [receiver], but they don't seem to respond...</span>")
 		return
-	if((receiver.r_hand && receiver.l_hand) || HAS_TRAIT(receiver, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>[receiver] doesn't have any hands free to accept [I]!</span>")
-		return
 	// We use UID() here so that the receiver can have more then one give request at one time.
 	// Otherwise, throwing a new "give item" alert would override any current one also named "give item".
 	receiver.throw_alert("give item [I.UID()]", /obj/screen/alert/take_item, alert_args = list(user, receiver, I))
+	item_offered = TRUE // TRUE so we don't give them the default chat message in Destroy.
 	to_chat(user, "<span class='info'>You offer [I] to [receiver].</span>")
-	qdel(src, FALSE, TRUE) // silent = TRUE so we don't give them the default chat message in Destroy.
+	qdel(src)
 
 
 /**
@@ -91,32 +109,46 @@
 	var/receiver_UID
 	/// UID of the item being given.
 	var/item_UID
+	/// If the receiver succesfully took the item or not.
+	var/item_taken = FALSE
 
 
-/obj/screen/alert/take_item/Initialize(mapload, mob/giver, mob/receiver, obj/item/I)
+/obj/screen/alert/take_item/Initialize(mapload, mob/living/giver, mob/living/receiver, obj/item/I)
 	. = ..()
 	desc = "[giver] wants to hand you \a [I]. Click here to accept it!"
 	giver_UID = giver.UID()
 	receiver_UID = receiver.UID()
 	item_UID = I.UID()
+	giver.apply_status_effect(STATUS_EFFECT_OFFERING_ITEM)
 	add_overlay(icon(I.icon, I.icon_state, SOUTH))
 	add_overlay("alert_flash")
-	ADD_TRAIT(giver, TRAIT_OFFERING_ITEM, TRAIT_GENERIC)
 	RegisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), .proc/cancel_give)
 	RegisterSignal(giver, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), .proc/cancel_give)
+	// If any one of these atoms should be deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
+	RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/delete)
+	RegisterSignal(giver, COMSIG_PARENT_QDELETING, .proc/delete)
+	RegisterSignal(receiver, COMSIG_PARENT_QDELETING, .proc/delete)
 
 
 /obj/screen/alert/take_item/Destroy()
-	var/mob/living/giver = locateUID(giver_UID) // REMOVE_TRAIT needs a direct var reference.
-	REMOVE_TRAIT(giver, TRAIT_OFFERING_ITEM, TRAIT_GENERIC)
-	unregister_signals()
+	var/mob/living/giver = locateUID(giver_UID)
+	giver.remove_status_effect(STATUS_EFFECT_OFFERING_ITEM)
+	if(!item_taken)
+		unregister_signals()
 	return ..()
 
 
 /obj/screen/alert/take_item/proc/unregister_signals()
-	UnregisterSignal(locateUID(giver_UID), list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS))
-	UnregisterSignal(locateUID(item_UID), list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+	var/mob/living/giver = locateUID(giver_UID)
+	var/obj/item/I = locateUID(item_UID)
+	UnregisterSignal(I, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(giver, list(COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS))
+	UnregisterSignal(locateUID(receiver_UID), COMSIG_PARENT_QDELETING)
 
+
+/obj/screen/alert/take_item/proc/delete()
+	SIGNAL_HANDLER
+	qdel(src)
 
 /obj/screen/alert/take_item/proc/cancel_give()
 	SIGNAL_HANDLER
@@ -128,14 +160,13 @@
 
 /obj/screen/alert/take_item/Click(location, control, params)
 	var/mob/living/receiver = locateUID(receiver_UID)
+	if(receiver.stat != CONSCIOUS)
+		return
 	var/obj/item/I = locateUID(item_UID)
-	if(HAS_TRAIT(receiver, TRAIT_HANDS_BLOCKED))
+	if(HAS_TRAIT(receiver, TRAIT_HANDS_BLOCKED) || receiver.r_hand && receiver.l_hand)
 		to_chat(receiver, "<span class='warning'>You need to have your hands free to accept [I]!</span>")
 		return
 	var/mob/living/giver = locateUID(giver_UID)
-	if(receiver.r_hand && receiver.l_hand)
-		to_chat(receiver, "<span class='warning'>Your hands are full!</span>")
-		return
 	if(!giver.Adjacent(receiver))
 		to_chat(receiver, "<span class='warning'>You need to stay in reaching distance of [giver] to take [I]!</span>")
 		return
@@ -143,8 +174,8 @@
 		to_chat(giver, "<span class='warning'>[I] stays stuck to your hand when [receiver] tries to take it!</span>")
 		to_chat(receiver, "<span class='warning'>[I] stays stuck to [giver]'s hand when you try to take it!</span>")
 		return
-	// Give is successful at this point, unregister signals so the dropped signal doesn't fire and call `cancel_give()`.
-	unregister_signals()
+	unregister_signals() // Give is successful at this point, unregister signals so the dropped signal doesn't fire and call `cancel_give()`.
+	item_taken = TRUE // This way we don't call `unregister_signals` again in Destroy.
 	giver.unEquip(I)
 	receiver.put_in_hands(I)
 	I.add_fingerprint(receiver)
