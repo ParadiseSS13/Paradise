@@ -310,10 +310,8 @@
 /turf/simulated/wall,
 /area/ruin/space/unpowered)
 "aN" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	layer = 2.4;
-	on = 1
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -896,22 +894,12 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "bK" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
-	desc = "Has a valve and pump attached to it. This one has been applied with an acid-proof coating.";
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	icon_state = "on";
-	name = "Acid-Proof Air Injector";
-	on = 1
+	frequency = 1441;
+	id = "waste_in"
 	},
-/obj/structure/alien/weeds,
-/turf/simulated/floor/engine,
-/area/ruin/space/unpowered)
-"bL" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood{
-	color = "red"
-	},
-/mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "bM" = (
@@ -1111,9 +1099,8 @@
 	},
 /area/ruin/space/unpowered)
 "cg" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	on = 1
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -1406,7 +1393,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cJ" = (
-/obj/machinery/computer/monitor/secret,
+/obj/machinery/computer/monitor/secret{
+	dir = 1
+	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
@@ -1582,6 +1571,7 @@
 	},
 /obj/machinery/computer/security{
 	desc = "Used to access the various cameras on the outpost.";
+	dir = 4;
 	network = list("MO19R","MO19")
 	},
 /turf/simulated/floor/plasteel{
@@ -1636,7 +1626,9 @@
 	},
 /area/ruin/space/unpowered)
 "dc" = (
-/obj/machinery/computer/operating,
+/obj/machinery/computer/operating{
+	dir = 1
+	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1946,9 +1938,8 @@
 	},
 /area/ruin/space/unpowered)
 "dG" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	on = 1
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -2125,9 +2116,8 @@
 	},
 /area/ruin/space/unpowered)
 "dY" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	on = 1
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2849,7 +2839,9 @@
 	},
 /area/ruin/space/unpowered)
 "fx" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "fy" = (
@@ -3120,12 +3112,10 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	layer = 2.4;
-	on = 1
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gd" = (
@@ -3428,7 +3418,9 @@
 	},
 /area/ruin/space/unpowered)
 "gz" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3452,9 +3444,8 @@
 /area/ruin/space/unpowered)
 "gB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	on = 1
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3591,12 +3582,11 @@
 	},
 /area/ruin/space/unpowered)
 "gS" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	on = 1
-	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "gT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3630,9 +3620,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gY" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	on = 1
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
@@ -4330,7 +4319,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "iL" = (
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4377,7 +4368,9 @@
 	},
 /area/ruin/space/unpowered)
 "iQ" = (
-/obj/machinery/computer/shuttle,
+/obj/machinery/computer/shuttle{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "iR" = (
@@ -4528,11 +4521,10 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "ji" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	on = 1
-	},
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "jj" = (
@@ -4806,7 +4798,7 @@
 	icon_state = "tracks"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "jQ" = (
 /obj/effect/decal/cleanable/blood/tracks{
@@ -4818,7 +4810,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "jR" = (
 /obj/structure/bed,
@@ -4917,11 +4909,7 @@
 	},
 /area/ruin/space/unpowered)
 "kd" = (
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "neutralcorner";
-	name = "floor"
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "ke" = (
 /obj/structure/closet/cabinet,
@@ -4962,10 +4950,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "neutralcorner";
-	name = "floor"
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "kk" = (
 /obj/structure/disposalpipe/segment,
@@ -4984,10 +4969,7 @@
 	desc = "A plastic potted plant.";
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "neutral";
-	name = "floor"
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "kn" = (
 /obj/structure/disposaloutlet,
@@ -5009,6 +4991,31 @@
 "kp" = (
 /obj/item/trash/candy,
 /turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"yh" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unpowered)
+"Hp" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"Ic" = (
+/obj/structure/alien/weeds,
+/mob/living/simple_animal/hostile/alien/queen/large,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Of" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unpowered)
+"WQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 
 (1,1,1) = {"
@@ -6520,7 +6527,7 @@ ad
 ad
 ad
 ad
-ad
+fc
 ad
 ad
 ad
@@ -6643,7 +6650,7 @@ ad
 ad
 ad
 ad
-ad
+ae
 ag
 aj
 az
@@ -6699,7 +6706,7 @@ ab
 ad
 ad
 ad
-ad
+Hp
 ad
 ad
 ad
@@ -7205,7 +7212,7 @@ ad
 ae
 aM
 gp
-gS
+WQ
 aM
 hz
 ad
@@ -7457,8 +7464,8 @@ aL
 aL
 jH
 jP
-ak
-gP
+Of
+yh
 fr
 fM
 fM
@@ -7519,7 +7526,7 @@ jI
 jQ
 gS
 ak
-ak
+Of
 kl
 fM
 ad
@@ -7789,7 +7796,7 @@ aw
 aI
 aS
 br
-at
+Ic
 cl
 aw
 aT
@@ -7849,7 +7856,7 @@ ax
 aJ
 aT
 at
-bL
+aS
 at
 at
 aU
