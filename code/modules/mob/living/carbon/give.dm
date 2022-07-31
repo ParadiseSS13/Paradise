@@ -51,8 +51,8 @@
 	..()
 	holder.mouse_pointer_icon = file("icons/mouse_icons/give_item.dmi")
 	to_chat(holder, "<span class='info'>You can now left click on someone to give them your held item.</span>")
-	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), .proc/cancel_give)
-	RegisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), .proc/cancel_give)
+	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), /datum/proc/signal_qdel)
+	RegisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), /datum/proc/signal_qdel)
 
 
 /datum/click_intercept/give/Destroy(force = FALSE, ...)
@@ -63,11 +63,6 @@
 	UnregisterSignal(holder.mob.get_active_hand(), list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 	UnregisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS))
 	return ..()
-
-
-/datum/click_intercept/give/proc/cancel_give()
-	SIGNAL_HANDLER
-	qdel(src)
 
 
 /datum/click_intercept/give/InterceptClickOn(mob/user, params, atom/object)
@@ -125,9 +120,9 @@
 	RegisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), .proc/cancel_give)
 	RegisterSignal(giver, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), .proc/cancel_give)
 	// If any one of these atoms should be deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
-	RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/delete)
-	RegisterSignal(giver, COMSIG_PARENT_QDELETING, .proc/delete)
-	RegisterSignal(receiver, COMSIG_PARENT_QDELETING, .proc/delete)
+	RegisterSignal(I, COMSIG_PARENT_QDELETING, /datum/proc/signal_qdel)
+	RegisterSignal(giver, COMSIG_PARENT_QDELETING, /datum/proc/signal_qdel)
+	RegisterSignal(receiver, COMSIG_PARENT_QDELETING, /datum/proc/signal_qdel)
 
 
 /obj/screen/alert/take_item/Destroy()
@@ -145,10 +140,6 @@
 	UnregisterSignal(giver, list(COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS))
 	UnregisterSignal(locateUID(receiver_UID), COMSIG_PARENT_QDELETING)
 
-
-/obj/screen/alert/take_item/proc/delete()
-	SIGNAL_HANDLER
-	qdel(src)
 
 /obj/screen/alert/take_item/proc/cancel_give()
 	SIGNAL_HANDLER
