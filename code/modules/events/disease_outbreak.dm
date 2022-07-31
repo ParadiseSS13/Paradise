@@ -26,9 +26,15 @@ GLOBAL_VAR(current_pending_disease)
 
 /datum/event/disease_outbreak/start()
 	GLOB.current_pending_disease = D
+	var/severity_text = "undefined (contact a coder)"
+	switch(severity)
+		if(EVENT_LEVEL_MUNDANE) severity_text = "mundane"
+		if(EVENT_LEVEL_MODERATE) severity_text = "moderate"
+		if(EVENT_LEVEL_MAJOR) severity_text = "major"
+
 
 	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
-		to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a disease!</span>")
+		to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a [severity_text] disease!</span>")
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
