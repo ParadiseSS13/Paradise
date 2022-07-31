@@ -6,6 +6,7 @@ GLOBAL_VAR(current_pending_disease)
 	var/list/disease_blacklist = list(/datum/disease/advance, /datum/disease/appendicitis, /datum/disease/kuru, /datum/disease/critical, /datum/disease/rhumba_beat, /datum/disease/fake_gbs,
 										/datum/disease/gbs, /datum/disease/transformation, /datum/disease/food_poisoning, /datum/disease/advance/cold, /datum/disease/advance/flu, /datum/disease/advance/heal,
 										/datum/disease/advance/hullucigen, /datum/disease/advance/sensory_restoration, /datum/disease/advance/voice_change)
+	var/static/list/transmissable_symptoms = list()
 	var/static/list/diseases_minor = list()
 	var/static/list/diseases_moderate = list()
 	var/static/list/diseases_major = list()
@@ -13,6 +14,8 @@ GLOBAL_VAR(current_pending_disease)
 /datum/event/disease_outbreak/setup()
 	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate) && isemptylist(diseases_major))
 		populate_diseases()
+	if(isemptylist(transmissable_symptoms))
+		populate_symptoms()
 	var/datum/disease/virus
 	if(prob(25))
 		switch(severity)
@@ -39,10 +42,19 @@ GLOBAL_VAR(current_pending_disease)
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
 	var/datum/disease/advance/A = new /datum/disease/advance
-	A.symptoms = A.GenerateSymptomsBySeverity(1, max_severity, rand(3,VIRUS_SYMPTOM_LIMIT))
-	A.GenerateProperties()
-	if(A.spread_text == "Blood" && !(locate(/datum/symptom/sneeze) in A.symptoms))
-		A.AddSymptom(new /datum/symptom/sneeze) //Cheesing it, but colds and such should be common enough for it not to be metaable
+	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 2) //Choose "Payload" symptoms
+	A.AssignProperties(A.GenerateProperties())
+	var/list/symptoms_to_try = deepCopyList(transmissable_symptoms)
+	for(var/sanity=0, sanity<25, sanity++)
+		if(A.spread_text != "Blood")
+			break
+		if(A.symptoms.len < VIRUS_SYMPTOM_LIMIT)	//Ensure the virus is spreadable by adding symptoms that boost transmission
+			var/datum/symptom/TS = pick_n_take(symptoms_to_try)
+			A.AddSymptom(new TS)
+		else
+			popleft(A.symptoms)	//We have a full symptom list but are still not transmittable. Try removing one of the "payloads"
+
+		A.AssignProperties(A.GenerateProperties())
 	A.Refresh()
 	return A
 
@@ -55,3 +67,9 @@ GLOBAL_VAR(current_pending_disease)
 			if(NONTHREAT, MINOR) diseases_minor += candidate
 			if(MEDIUM, HARMFUL) diseases_moderate += candidate
 			if(DANGEROUS, BIOHAZARD) diseases_major += candidate
+
+/datum/event/disease_outbreak/proc/populate_symptoms()
+	for(var/candidate in subtypesof(/datum/symptom))
+		var/datum/symptom/CS = candidate
+		if(initial(CS.transmittable) > 1)
+			transmissable_symptoms += candidate

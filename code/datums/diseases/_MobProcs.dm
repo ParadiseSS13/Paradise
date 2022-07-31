@@ -32,7 +32,7 @@
 	AddDisease(D)
 
 
-/mob/proc/AddDisease(datum/disease/D)
+/mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE)
 	var/datum/disease/DD = new D.type(1, D, 0)
 	viruses += DD
 	DD.affected_mob = src
@@ -40,6 +40,8 @@
 
 	//Copy properties over. This is so edited diseases persist.
 	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
+	if(respect_carrier)
+		skipped -= "carrier"
 	for(var/V in DD.vars)
 		if(V in skipped)
 			continue
@@ -132,12 +134,13 @@
  *
  * Arguments:
  * * D - the disease the mob will try to contract
+ * * respect_carrier - if set to TRUE will not ignore the disease carrier flag
  */
 //Same as ContractDisease, except never overidden clothes checks
-/mob/proc/ForceContractDisease(datum/disease/D)
+/mob/proc/ForceContractDisease(datum/disease/D, respect_carrier)
 	if(!CanContractDisease(D))
 		return FALSE
-	AddDisease(D)
+	AddDisease(D, respect_carrier)
 	return TRUE
 
 

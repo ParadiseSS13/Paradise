@@ -174,7 +174,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	return generated
 
-/datum/disease/advance/proc/Refresh(new_name = 0)
+/datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE)
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties)
 	id = null
