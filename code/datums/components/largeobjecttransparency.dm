@@ -49,7 +49,7 @@
 		return
 	var/turf/lowleft_turf = locate(clamp(current_turf.x + x_offset, 0, world.maxx), clamp(current_turf.y + y_offset, 0, world.maxy), current_turf.z)
 	var/turf/upright_turf = locate(min(lowleft_turf.x + x_size, world.maxx), min(lowleft_turf.y + y_size, world.maxy), current_turf.z)
-	registered_turfs = block(lowleft_turf, upright_turf) //small problems with z level edges but nothing gamebreaking.
+	registered_turfs = block(lowleft_turf, upright_turf) //small problems with z level edges due to object size offsets, but nothing truly problematic.
 	//register the signals
 	for(var/registered_turf in registered_turfs)
 		RegisterSignal(registered_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_INITIALIZED_ON), .proc/objectEnter)
