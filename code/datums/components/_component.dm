@@ -189,7 +189,7 @@
 	for(var/sig_type in sig_types)
 		if(!override && procs[target][sig_type])
 			stack_trace("RegisterSignal overrode a signal without having 'override = TRUE' set.\n \
-						src: [src], signal type: [sig_type], target: [target], proc: [proctype].")
+						src: [src], signal type: [sig_type], target: [target], new proc: [proctype], previous proc: [procs[target][sig_type]].")
 
 		procs[target][sig_type] = proctype
 

@@ -1002,6 +1002,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
 	return FALSE
 
+/datum/species/proc/handle_brain_death(mob/living/carbon/human/H)
+	H.AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
+	H.Weaken(60 SECONDS)
+
 /**
   * Species-specific runechat colour handler
   *

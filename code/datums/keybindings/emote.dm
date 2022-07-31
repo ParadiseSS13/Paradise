@@ -592,3 +592,63 @@
 /datum/keybinding/emote/simple_animal/pet/cat/purr
 	linked_emote = /datum/emote/living/simple_animal/pet/cat/purr
 	name = "Purr (Cat)"
+
+/datum/keybinding/custom
+	category = KB_CATEGORY_EMOTE_CUSTOM
+	var/default_emote_text = "Insert custom me emote text."
+	var/donor_exclusive = FALSE
+
+/datum/keybinding/custom/down(client/C)
+	. = ..()
+	if(!C.prefs?.active_character?.custom_emotes) //Checks the current character save for any custom emotes
+		return
+
+	var/desired_emote = C.prefs.active_character.custom_emotes[name] //check the custom emotes list for this keybind name
+
+	if(!desired_emote)
+		return
+
+	C.mob.me_verb(html_decode(desired_emote)) //do the thing!
+
+/datum/keybinding/custom/can_use(client/C, mob/M)
+	if(donor_exclusive && !(C.donator_level || C.holder || C.prefs.unlock_content)) //is this keybind restricted to donors/byond members/admins, and are you one or not?
+		return
+
+	return isliving(M) && ..()
+
+/datum/keybinding/custom/one
+	name = "Custom Emote 1"
+
+/datum/keybinding/custom/two
+	name = "Custom Emote 2"
+
+/datum/keybinding/custom/three
+	name = "Custom Emote 3"
+
+/datum/keybinding/custom/four
+	name = "Custom Emote 4"
+	donor_exclusive = TRUE
+
+/datum/keybinding/custom/five
+	name = "Custom Emote 5"
+	donor_exclusive = TRUE
+
+/datum/keybinding/custom/six
+	name = "Custom Emote 6"
+	donor_exclusive = TRUE
+
+/datum/keybinding/custom/seven
+	name = "Custom Emote 7"
+	donor_exclusive = TRUE
+
+/datum/keybinding/custom/eight
+	name = "Custom Emote 8"
+	donor_exclusive = TRUE
+
+/datum/keybinding/custom/nine
+	name = "Custom Emote 9"
+	donor_exclusive = TRUE
+
+/datum/keybinding/custom/ten
+	name = "Custom Emote 10"
+	donor_exclusive = TRUE

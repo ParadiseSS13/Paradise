@@ -114,14 +114,6 @@
 	description = "Cosy, rural property availible for young professional \
 		couple. Only twelve parsecs from the nearest hyperspace lane!"
 
-/datum/map_template/ruin/space/gas_the_lizards
-	id = "gas-the-lizards"
-	suffix = "gasthelizards.dmm"
-	name = "Disposal Facility 17"
-	description = "Gas efficiency at 95.6%, fluid elimination at 96.2%. \
-		Will require renewed supplies of 'carpet' before the end of the \
-		quarter."
-
 /datum/map_template/ruin/space/intact_empty_ship
 	id = "intact-empty-ship"
 	suffix = "intactemptyship.dmm"
@@ -301,3 +293,11 @@
 	suffix = "debris3.dmm"
 	name = "Debris field 3"
 	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
+
+/datum/map_template/ruin/space/meatpackers
+	id = "meatpackers"
+	suffix = "meatpackers.dmm"
+	name = "Meat Packers"
+	description = "An old transport ship, possibly with a dubious past. It smells faintly of meat."
+	allow_duplicates = FALSE
+	cost = 2 // Pretty big
