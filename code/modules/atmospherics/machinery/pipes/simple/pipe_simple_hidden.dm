@@ -41,7 +41,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_overlays()
 	. = list()
 	alpha = 255
-	. += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "universal")
+	. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_underlays()
@@ -53,14 +53,14 @@
 			universal_underlays(node2)
 		else
 			var/node2_dir = turn(get_dir(src,node1),-180)
-			universal_underlays(,node2_dir)
+			universal_underlays(direction = node2_dir)
 	else if(node2)
 		universal_underlays(node2)
 		var/node1_dir = turn(get_dir(src,node2),-180)
-		universal_underlays(,node1_dir)
+		universal_underlays(direction = node1_dir)
 	else
-		universal_underlays(,dir)
-		universal_underlays(,turn(dir, -180))
+		universal_underlays(direction = dir)
+		universal_underlays(direction = turn(dir, -180))
 
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow
 	color = PIPE_COLOR_YELLOW

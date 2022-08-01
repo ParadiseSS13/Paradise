@@ -2633,7 +2633,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "iz" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "iA" = (
@@ -2769,7 +2769,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission)
 "je" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/awaymission)
 "jh" = (

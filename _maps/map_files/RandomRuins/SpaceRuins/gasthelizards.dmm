@@ -187,7 +187,7 @@
 	},
 /area/ruin/space/unpowered)
 "y" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "z" = (
@@ -204,7 +204,7 @@
 	},
 /area/ruin/space/unpowered)
 "B" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "C" = (
@@ -265,7 +265,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "J" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
