@@ -301,3 +301,11 @@
 	description = "An old transport ship, possibly with a dubious past. It smells faintly of meat."
 	allow_duplicates = FALSE
 	cost = 2 // Pretty big
+
+/datum/map_template/ruin/space/russiancentcom
+	id = "russiancentcom"
+	suffix = "russiancentcom.dmm"
+	name = "XCC-P5831"
+	description = "Headquarters of the local USSP forces."
+	allow_duplicates = FALSE
+	cost = 3 // about 1/2 USSP ruin

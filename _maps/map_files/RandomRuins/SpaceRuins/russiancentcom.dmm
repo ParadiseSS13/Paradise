@@ -1,0 +1,7062 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ae" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"ah" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/space,
+/area/space/nearstation)
+"ap" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"at" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/bodybags,
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"av" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/space,
+/area/space/nearstation)
+"az" = (
+/obj/structure/table,
+/obj/item/extinguisher/mini,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"aA" = (
+/obj/machinery/gibber,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"aC" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "XCCsec1";
+	name = "XCC Shutter 1 Control"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"aG" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"aM" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"ba" = (
+/obj/structure/flora/ausbushes/fernybush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"bb" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"bc" = (
+/obj/structure/closet/secure_closet/engineering_welding,
+/obj/item/clothing/glasses/welding/superior,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"bm" = (
+/obj/structure/table/reinforced,
+/obj/item/pen,
+/obj/machinery/door/window/northleft,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"bx" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered/russiancentcom)
+"bz" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"bH" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"bM" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ck" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/space,
+/area/space/nearstation)
+"cv" = (
+/obj/structure/closet,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/head/foragecap{
+	desc = "The softcap worn by mech pilots.";
+	name = "forage cap"
+	},
+/obj/item/clothing/head/foragecap{
+	desc = "The softcap worn by mech pilots.";
+	name = "forage cap"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"cD" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"cF" = (
+/obj/machinery/door/window/northright{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"cH" = (
+/obj/machinery/autolathe,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"cZ" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"dc" = (
+/obj/machinery/optable,
+/obj/item/surgical_drapes,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/powered/russiancentcom)
+"dm" = (
+/obj/structure/rack,
+/obj/item/extinguisher/mini,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"dn" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/russiancentcom)
+"dt" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/adv,
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"dv" = (
+/obj/structure/closet,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/under/soviet,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"dw" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"dx" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"dA" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"dB" = (
+/obj/structure/table/wood,
+/obj/item/clothing/accessory/medal,
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"dR" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/obj/structure/statue/diamond/captain{
+	anchored = 1;
+	desc = "A statue in honour of those who rose against the tyranny of the Trans-Solar Federation in 2443.";
+	icon_state = "russian";
+	layer = 4;
+	name = "Cygni Commemorative Statue";
+	pixel_y = 16
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"dU" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"dW" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"dX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"dY" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged);
+	name = "Rolf Ingram";
+	health = 300
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ei" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"ek" = (
+/obj/structure/table/reinforced,
+/obj/item/firstaid_arm_assembly,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ep" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/cups,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"et" = (
+/obj/machinery/computer/crew{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"eT" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/fernybush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"eY" = (
+/obj/structure/kitchenspike,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"fg" = (
+/obj/structure/table/wood{
+	dir = 9
+	},
+/obj/item/fan,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"fj" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"fq" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Observatory"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"fv" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/space/nearstation)
+"fA" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"fP" = (
+/obj/machinery/vending/cigarette,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"fX" = (
+/obj/structure/chair/comfy/beige,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"fZ" = (
+/obj/item/paper_bin,
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"gb" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/flora/ausbushes/grassybush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"gd" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"gg" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"gh" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Armory"
+	},
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "XCCsec3";
+	name = "XCC Armory Shutters"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"gi" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Bathroom"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"gx" = (
+/obj/machinery/photocopier,
+/obj/item/paper/ccaMemo,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"gy" = (
+/obj/structure/chair/stool,
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"gA" = (
+/obj/machinery/door/airlock/centcom,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"gE" = (
+/obj/machinery/suit_storage_unit/engine/secure,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"gW" = (
+/obj/structure/table,
+/obj/item/stamp/granted,
+/obj/item/stamp/denied{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered/russiancentcom)
+"gX" = (
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ha" = (
+/obj/structure/rack,
+/obj/item/reagent_containers/spray/pepper,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"hf" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"hj" = (
+/obj/structure/table/wood{
+	dir = 5
+	},
+/obj/machinery/door_control{
+	id = "XCCsec3";
+	name = "XCC Armory Shutter Control";
+	pixel_y = -4
+	},
+/obj/item/fan,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ho" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/space/nearstation)
+"hR" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/russian_revolver/trick_revolver,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"hT" = (
+/obj/machinery/vending/dinnerware{
+	req_access_txt = "102"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"hY" = (
+/obj/structure/table,
+/obj/item/clothing/suit/chef/classic,
+/obj/item/clothing/head/chefhat,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"id" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"if" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"iC" = (
+/obj/item/xenos_claw,
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"iJ" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	name = "weapon cabinet";
+	req_access = list(271)
+	},
+/obj/item/twohanded/fireaxe,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"iL" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"iQ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/powered/russiancentcom)
+"iU" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"iV" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/russiancentcom)
+"iW" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"jd" = (
+/obj/item/clothing/gloves/combat,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"jm" = (
+/obj/machinery/portable_atmospherics/pump,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"jI" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"jK" = (
+/obj/structure/morgue,
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"jV" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"jW" = (
+/obj/machinery/computer/security{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"jZ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"kn" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"kx" = (
+/obj/structure/table/reinforced,
+/obj/item/flashlight/flare,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"kJ" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"lg" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/o2,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ly" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"lB" = (
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/adv,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"lC" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"lE" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"lK" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"lS" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"lT" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"lY" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Engineering"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"ml" = (
+/obj/structure/computerframe{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"mq" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"mr" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"mt" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/red,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"mE" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"mL" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"mN" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel{
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"mV" = (
+/obj/structure/sign/lifestar,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/russiancentcom)
+"mZ" = (
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"nj" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"np" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"nu" = (
+/mob/living/simple_animal/bunny,
+/obj/structure/flora/ausbushes/stalkybush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"nB" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Escape Pod 5"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space/nearstation)
+"nU" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/public/glass{
+	name = "Med-Sci";
+	req_access_txt = ""
+	},
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "XCCmed";
+	name = "XCC Medbay Shutters"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"nW" = (
+/obj/structure/rack,
+/obj/item/restraints/legcuffs/beartrap,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"oc" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ol" = (
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"os" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"ot" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"oz" = (
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"oO" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"oU" = (
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/space,
+/area/space/nearstation)
+"oW" = (
+/obj/item/clothing/suit/fire,
+/obj/structure/rack,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"oZ" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"pi" = (
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"pl" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"po" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"pG" = (
+/obj/structure/table/reinforced,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"pO" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"pP" = (
+/obj/effect/landmark/burnturf,
+/obj/structure/table_frame/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"pQ" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"pU" = (
+/obj/structure/table/reinforced,
+/obj/item/autopsy_scanner,
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"pY" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium,
+/area/space/nearstation)
+"qa" = (
+/obj/structure/closet,
+/obj/item/clothing/under/retro/science,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/clothing/head/headmirror,
+/obj/item/clothing/accessory/stethoscope,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"qb" = (
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/space/powered/russiancentcom)
+"qc" = (
+/obj/structure/sink/puddle,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"qd" = (
+/obj/structure/table/glass,
+/obj/item/hemostat{
+	pixel_x = 6
+	},
+/obj/item/retractor{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"qf" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"qh" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"qm" = (
+/obj/effect/decal/remains/human,
+/obj/machinery/light/small,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space/nearstation)
+"qA" = (
+/obj/structure/closet,
+/obj/item/storage/box/hug,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"qC" = (
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/structure/closet/crate,
+/obj/item/clothing/glasses/night,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"qJ" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Engineering"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"qM" = (
+/obj/effect/landmark/burnturf,
+/obj/structure/table_frame/wood,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"qX" = (
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/obj/machinery/suit_storage_unit/atmos/secure,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"ra" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"rd" = (
+/obj/item/extinguisher,
+/obj/structure/rack,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"rs" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"ru" = (
+/obj/structure/kitchenspike,
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"ry" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"rH" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/kitchen/rollingpin,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"rJ" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"rK" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"rU" = (
+/obj/structure/dresser,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"rZ" = (
+/obj/structure/table/wood{
+	dir = 10
+	},
+/obj/item/phone{
+	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/clothing/mask/cigarette/cigar/havana,
+/obj/item/lighter/zippo,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"sa" = (
+/mob/living/simple_animal/bot/medbot/mysterious{
+	faction = list("neutral","silicon","russian")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/ruin/space/powered/russiancentcom)
+"sm" = (
+/obj/structure/table/reinforced,
+/obj/item/multitool,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"sp" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/space/nearstation)
+"su" = (
+/obj/structure/bed/roller,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"sy" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"sN" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"sO" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/chair/sofa/corp/right{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"tb" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"tg" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ti" = (
+/obj/machinery/light,
+/obj/structure/table,
+/obj/item/flashlight,
+/turf/simulated/floor/plasteel{
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"tm" = (
+/obj/machinery/door/airlock/centcom,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"tB" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"tC" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"tI" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "XCCmed";
+	name = "XCC Medbay Shutters"
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/public/glass{
+	name = "Med-Sci";
+	req_access_txt = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"tK" = (
+/obj/structure/table,
+/obj/item/paper/pamphlet/ccaInfo{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/paper/pamphlet/ccaInfo,
+/obj/item/paper/pamphlet/ccaInfo{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered/russiancentcom)
+"tO" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/ancient,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/powered/russiancentcom)
+"tY" = (
+/obj/structure/piano,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"uk" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "XCCmed";
+	name = "XCC Medbay Shutter Control"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"up" = (
+/obj/structure/table/reinforced,
+/obj/item/bonegel{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/bonesetter{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ut" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Checkpoint"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"uC" = (
+/obj/item/trash/sosjerky,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"uD" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
+"uH" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"uM" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/metal/fifty,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"uS" = (
+/obj/item/cautery,
+/obj/item/FixOVein{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/table/tray,
+/obj/item/scalpel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"uU" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Meeting Room"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"uW" = (
+/obj/structure/chair/sofa/corp{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"va" = (
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/powered/russiancentcom)
+"vb" = (
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "XCCsec1";
+	name = "XCC Checkpoint 1 Shutters"
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"vj" = (
+/obj/structure/table/wood,
+/obj/item/storage/secure/briefcase/syndie,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"vq" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"vs" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/fire,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"vw" = (
+/obj/structure/closet/secure_closet/bar{
+	req_access = null
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"vA" = (
+/obj/structure/cable,
+/obj/machinery/power/tracker,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
+"vJ" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"vZ" = (
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"we" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Med-Sci";
+	req_access_txt = ""
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/powered/russiancentcom)
+"wi" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"wn" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"wF" = (
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "XCCsec2";
+	name = "XCC Checkpoint 2 Shutters"
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"xk" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"xt" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/coatrack,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"xw" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/obj/item/pen/red,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"xB" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
+"xG" = (
+/obj/structure/closet/crate/freezer/iv_storage,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/powered/russiancentcom)
+"xJ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"xP" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/evidence,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"xW" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"yc" = (
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"yj" = (
+/obj/machinery/optable,
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"yn" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"yv" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"yw" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Crew Quarters"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"yx" = (
+/obj/structure/safe/floor,
+/obj/item/clothing/suit/space/syndicate/blue{
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	name = "Cosmonaut Command Suit"
+	},
+/obj/item/clothing/head/helmet/space/syndicate/blue{
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	name = "Cosmonaut Command Helmet"
+	},
+/obj/effect/landmark/damageturf,
+/obj/machinery/light,
+/obj/item/card/id/away/old{
+	registered_name = "Rolf Ingram";
+	assignment = "XCC Commander"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"yA" = (
+/obj/structure/chair/comfy/beige{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"yB" = (
+/obj/machinery/space_heater,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"yI" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/powered/russiancentcom)
+"yM" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"yR" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"yW" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/hud/health{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"yY" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"zg" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"zp" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/space,
+/area/space/nearstation)
+"zt" = (
+/obj/structure/flora/ausbushes/reedbush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"zu" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave/upgraded,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"zx" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/sunglasses,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"zC" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/space/nearstation)
+"zH" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"zS" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/food/condiment/enzyme,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"zV" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"zX" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"zZ" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"Ab" = (
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"Ae" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Shuttle Dock"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Af" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plasteel{
+	icon_state = "greencorner"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Ag" = (
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/space/powered/russiancentcom)
+"Aj" = (
+/obj/structure/table,
+/obj/item/extinguisher/mini,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Ak" = (
+/obj/structure/lattice,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/space,
+/area/space/nearstation)
+"Am" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Ao" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Aw" = (
+/obj/item/radio/intercom{
+	name = "custom placement";
+	pixel_y = 25
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space/nearstation)
+"Ay" = (
+/obj/structure/rack,
+/obj/item/melee/classic_baton{
+	desc = "A wooden truncheon for beating capitalist scum."
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Az" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/stack/medical/bruise_pack/advanced,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"AG" = (
+/turf/space,
+/area/ruin/space/powered/russiancentcom)
+"AL" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/knife/combat,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"AP" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"AV" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/structure/mirror{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"AZ" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/external{
+	name = "Solar Access"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Bm" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Bs" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/ears/earmuffs,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"BF" = (
+/obj/structure/sign/science,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/russiancentcom)
+"BI" = (
+/mob/living/simple_animal/hostile/bear,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"BQ" = (
+/obj/item/storage/box/monkeycubes,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"BS" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/russiancentcom)
+"BX" = (
+/obj/structure/closet/secure_closet/injection{
+	req_access = list(271)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Cf" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
+"Cg" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"Cn" = (
+/obj/structure/sign/biohazard,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/russiancentcom)
+"Co" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"CA" = (
+/obj/structure/closet/wardrobe/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"CF" = (
+/obj/structure/table/reinforced,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/item/rcd/preloaded,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"CG" = (
+/obj/machinery/door/airlock/freezer,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"CP" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"De" = (
+/obj/item/shard,
+/turf/space,
+/area/space/nearstation)
+"Do" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Dt" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"DB" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"DC" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"DF" = (
+/obj/structure/table/reinforced,
+/obj/item/radio{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/radio{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/radio,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"DL" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"DM" = (
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/obj/structure/table/wood,
+/obj/item/storage/belt/military,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"DQ" = (
+/obj/machinery/light,
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/welding,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"DX" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"Ej" = (
+/obj/machinery/suit_storage_unit/security{
+	req_access = list(271)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Eo" = (
+/obj/structure/dispenser,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Er" = (
+/obj/machinery/computer/secure_data{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"EA" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"EE" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"EH" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"EL" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"EP" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"EX" = (
+/obj/structure/flora/ausbushes/palebush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"Fl" = (
+/obj/machinery/power/smes{
+	charge = 5e+006;
+	input_level = 200000;
+	inputting = 0;
+	output_level = 100000
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Fo" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"Fv" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"FD" = (
+/obj/structure/closet/firecloset,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"FI" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/pamphlet/ccaInfo,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered/russiancentcom)
+"FQ" = (
+/obj/machinery/door/airlock/centcom,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"FY" = (
+/obj/machinery/power/solar,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
+"Ga" = (
+/obj/structure/flora/ausbushes/pointybush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"Gb" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Gk" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Gl" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/obj/item/pen/red,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Go" = (
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Gt" = (
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Gw" = (
+/obj/item/robotanalyzer,
+/obj/structure/rack,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"GM" = (
+/obj/structure/table/wood{
+	dir = 5
+	},
+/obj/item/paper_bin,
+/obj/item/pen/red,
+/obj/item/phone{
+	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"GO" = (
+/obj/structure/table/wood,
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"GW" = (
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"GY" = (
+/obj/machinery/kitchen_machine/oven,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Hb" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/space/nearstation)
+"Hx" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"HB" = (
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"HL" = (
+/obj/structure/table/reinforced,
+/obj/item/taperecorder,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"HP" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Ia" = (
+/obj/machinery/pdapainter,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Io" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"It" = (
+/obj/structure/table,
+/obj/item/deck/cards/syndicate,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"IC" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"ID" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"IF" = (
+/obj/structure/table/reinforced,
+/obj/item/camera{
+	name = "Autopsy Camera";
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"IH" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
+"IJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"IK" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"IM" = (
+/obj/structure/chair/comfy/beige{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"IN" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/space/nearstation)
+"JF" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/ruin/space/powered/russiancentcom)
+"JH" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Kh" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Ki" = (
+/obj/structure/table/reinforced,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Kr" = (
+/obj/structure/flora/ausbushes,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Kx" = (
+/obj/structure/closet/secure_closet/engineering_personal,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"KP" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"KZ" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Le" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/prisoner,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Lg" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Li" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/space/nearstation)
+"Ly" = (
+/obj/structure/falsewall/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"LC" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/space/nearstation)
+"LF" = (
+/obj/structure/closet/secure_closet/freezer/meat{
+	req_access_txt = "102"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"LQ" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Interrogation"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"LV" = (
+/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Mu" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "XCCsec2";
+	name = "XCC Shutter 2 Control"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"MD" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/space/nearstation)
+"ME" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"MH" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"MO" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"MP" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"MY" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Nn" = (
+/turf/space,
+/area/space)
+"Ns" = (
+/obj/structure/table/reinforced,
+/obj/item/surgicaldrill,
+/obj/item/circular_saw,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"NI" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/genericbush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"NK" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"NM" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"NQ" = (
+/obj/machinery/power/solar_control{
+	track = 2
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"NW" = (
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"NX" = (
+/obj/machinery/shower{
+	dir = 8
+	},
+/obj/structure/curtain/open/shower/centcom,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"NZ" = (
+/turf/simulated/wall/mineral/titanium,
+/area/space/nearstation)
+"Ok" = (
+/obj/machinery/computer/robotics{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"OA" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered/russiancentcom)
+"OB" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/belt/medical/surgery,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"OF" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"OL" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/obj/item/pen/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"OM" = (
+/obj/structure/table/reinforced,
+/obj/item/restraints/handcuffs,
+/obj/item/flash,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"OZ" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Commander Office"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Pl" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Pm" = (
+/obj/structure/table,
+/obj/item/storage/box/handcuffs,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Pn" = (
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Pt" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"PA" = (
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -6
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/peppermill,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"PB" = (
+/obj/machinery/vending/sovietsoda,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"PH" = (
+/obj/structure/chair/comfy/beige{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"PK" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"PO" = (
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"PP" = (
+/obj/effect/spawner/random_spawners/grille_often,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"PV" = (
+/obj/machinery/computer/monitor/secret,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Qd" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"Qt" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/PDAs,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"QL" = (
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"QQ" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"QU" = (
+/obj/structure/table/wood,
+/obj/item/clothing/accessory/medal/gold,
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"Ra" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Rf" = (
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Rk" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Rs" = (
+/obj/structure/closet/radiation,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Rt" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/soda{
+	pixel_y = 5;
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"Ru" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge";
+	req_access_txt = "271"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"RM" = (
+/mob/living/simple_animal/bot/secbot/buzzsky{
+	desc = "It's Comrade Cykasky! Powered by vodka, communism, and hardbass.";
+	name = "Comrade Cykasky";
+	faction = list("russian","silicon")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"RO" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/machine,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"RZ" = (
+/obj/machinery/shieldgen,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Sg" = (
+/obj/machinery/crema_switch{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"So" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Sr" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/russian/ranged{
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Ss" = (
+/obj/structure/table/reinforced,
+/obj/item/stamp/denied{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/stamp,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"SB" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Morgue"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"SD" = (
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/powered/russiancentcom)
+"SF" = (
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"SQ" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"ST" = (
+/obj/machinery/chem_master/condimaster{
+	name = "CondiMaster Neo"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"Td" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"TG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/space/powered/russiancentcom)
+"TI" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"TP" = (
+/obj/machinery/computer/card{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"TT" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/ruin/space/powered/russiancentcom)
+"TY" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/soap/syndie,
+/obj/item/reagent_containers/glass/rag,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"TZ" = (
+/obj/machinery/processor,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Uf" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"Ul" = (
+/obj/structure/chair/comfy/beige{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Uw" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"UB" = (
+/obj/structure/window/reinforced,
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"UJ" = (
+/obj/machinery/kitchen_machine/grill/upgraded,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/russiancentcom)
+"UO" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"UQ" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
+"UV" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"UZ" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Vd" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/ruin/space/powered/russiancentcom)
+"VX" = (
+/obj/machinery/vending/boozeomat,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"Wo" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Ws" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
+"WA" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"WR" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/obj/item/newspaper{
+	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"Xg" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Xj" = (
+/obj/structure/table,
+/obj/item/paper/pamphlet/ccaInfo,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Xo" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Xp" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/structure/flora/ausbushes/leafybush,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/russiancentcom)
+"XV" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Yg" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/space/nearstation)
+"Yh" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Yo" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Yt" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Yw" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/soup/beetsoup,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"YB" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/shaker,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"YC" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/table/wood,
+/obj/item/flashlight/seclite,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/space/powered/russiancentcom)
+"YR" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/beer/upgraded{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/russiancentcom)
+"Za" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Zf" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Zh" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"Zi" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Zo" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/northright{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
+"Zt" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"Zy" = (
+/obj/structure/table,
+/obj/item/melee/baseball_bat,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"ZF" = (
+/obj/machinery/door/airlock/external{
+	name = "Arrival Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"ZQ" = (
+/obj/structure/crematorium,
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
+/area/ruin/space/powered/russiancentcom)
+"ZX" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+
+(1,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(2,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(3,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(4,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(5,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(6,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(7,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(8,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(9,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(10,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(11,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(12,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(13,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(14,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(15,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(16,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(17,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+Nn
+Nn
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(18,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+Xo
+ME
+TI
+zg
+iV
+iV
+iV
+iV
+iV
+iV
+iV
+IC
+IC
+IC
+Ab
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(19,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+qA
+dv
+dv
+cv
+iV
+ZQ
+oc
+jK
+jK
+jK
+iV
+Nn
+Nn
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(20,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+IC
+IC
+iV
+iV
+iV
+iV
+iV
+AP
+UV
+UV
+iU
+iV
+Sg
+iC
+oc
+oc
+gg
+iV
+Nn
+Nn
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(21,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+xP
+UV
+nW
+iV
+rJ
+rJ
+UV
+rJ
+iV
+oc
+oc
+oc
+oc
+yW
+iV
+Nn
+Nn
+Nn
+IC
+Nn
+Nn
+zp
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(22,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+xw
+mq
+ha
+iV
+iV
+iV
+EE
+iV
+iV
+oc
+oc
+oc
+oc
+IF
+iV
+iV
+iV
+iV
+iV
+IC
+IC
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(23,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+OM
+UV
+BX
+iV
+vq
+Do
+Do
+Za
+iV
+SB
+iV
+pU
+yj
+at
+iV
+QQ
+iV
+WR
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(24,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+Io
+Rk
+CA
+iV
+vs
+Uw
+Do
+ID
+iV
+UV
+Cn
+BS
+iV
+iV
+iV
+gA
+iV
+gA
+iV
+iV
+iV
+iV
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(25,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+De
+Nn
+iV
+Le
+RM
+Ay
+iV
+yB
+uC
+Do
+rd
+iV
+UV
+UV
+UV
+UV
+UV
+gi
+SF
+SF
+SF
+EE
+Do
+Do
+Zy
+iV
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(26,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+ah
+IC
+fv
+Hb
+iV
+iJ
+UV
+Ej
+iV
+yv
+Do
+Do
+RZ
+iV
+TY
+UV
+FD
+Rs
+bM
+iV
+SF
+SF
+SF
+iV
+Ao
+Do
+yB
+iV
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(27,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+oU
+Nn
+pY
+nB
+pY
+mr
+UQ
+iV
+iV
+gh
+iV
+iV
+iV
+iV
+EE
+iV
+iV
+iV
+FQ
+iV
+iV
+iV
+iV
+NX
+DB
+AV
+iV
+Gw
+Do
+if
+iV
+iV
+Nn
+Nn
+Nn
+Nn
+zp
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(28,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IN
+Nn
+IC
+NZ
+Aw
+NZ
+DC
+mr
+iV
+MH
+Co
+Co
+Co
+Co
+ae
+Co
+Co
+NK
+Co
+Co
+rs
+KP
+Fo
+iV
+iV
+iV
+iV
+iV
+iV
+if
+Do
+Ao
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(29,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Ak
+IC
+NZ
+qm
+NZ
+QL
+SQ
+iV
+Co
+Co
+Co
+Co
+Co
+Co
+PK
+Co
+Co
+oO
+Co
+Am
+Uf
+ba
+iV
+VX
+vw
+YR
+Rt
+iV
+mE
+Do
+Rf
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(30,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+De
+Nn
+sp
+IC
+NZ
+LC
+NZ
+EA
+EL
+iV
+lC
+Co
+Co
+Co
+Co
+Co
+Co
+Co
+Co
+Co
+Co
+Am
+Fo
+iW
+rs
+pi
+pi
+pi
+pi
+iV
+NW
+Do
+RZ
+iV
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(31,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+MD
+mr
+DC
+sy
+qM
+pP
+QL
+mr
+iV
+Co
+Co
+zV
+zg
+Ru
+bH
+TI
+zg
+iV
+Co
+MO
+Am
+Ga
+dR
+Am
+wi
+It
+YB
+pi
+iV
+iV
+EE
+iV
+iV
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(32,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Li
+mr
+mr
+QL
+zH
+cZ
+mr
+mr
+fq
+Co
+Co
+HP
+Ia
+Co
+Ok
+TP
+Qt
+rs
+Co
+Co
+Am
+iW
+Fv
+Am
+GW
+GW
+GW
+pi
+rs
+yM
+yM
+yM
+aa
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(33,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+ho
+Cg
+mr
+mr
+uH
+mr
+Qd
+mr
+iV
+Co
+Co
+iV
+gx
+Co
+Td
+Co
+po
+Am
+Co
+Co
+Am
+EP
+Uf
+Am
+dw
+jI
+pi
+tY
+Am
+yM
+gy
+Wo
+yM
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(34,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+iV
+iV
+iV
+iV
+iV
+EE
+iV
+iV
+Co
+PK
+EH
+UO
+Co
+Co
+Xg
+Er
+Am
+Co
+PK
+IK
+zt
+ba
+IK
+PO
+pi
+qf
+Dt
+IK
+yM
+id
+Yw
+yM
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(35,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+Za
+PP
+Do
+Do
+Do
+Do
+jm
+iV
+Co
+Co
+ZX
+hR
+Ul
+Co
+Co
+ml
+Am
+Co
+Co
+iV
+yn
+DL
+iV
+MY
+yM
+yM
+MY
+iV
+yM
+LV
+PA
+yM
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(36,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+oW
+Do
+dm
+Yo
+JH
+Do
+RZ
+iV
+Co
+Co
+HP
+Gl
+Co
+Co
+Xg
+jW
+Am
+Co
+Co
+yw
+yM
+yM
+yM
+yM
+yM
+yM
+Yt
+yM
+yM
+Wo
+gy
+yM
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(37,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+iV
+EE
+iV
+iV
+iV
+iV
+iV
+iV
+Co
+Co
+iV
+kx
+Co
+NM
+Co
+uk
+Am
+Co
+Co
+iV
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(38,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+UV
+UV
+ep
+kn
+EH
+DX
+dB
+iV
+Co
+Co
+EH
+lT
+Co
+Pn
+et
+HL
+Hx
+Co
+Co
+yw
+yM
+XV
+yM
+yM
+ly
+yM
+yM
+yM
+yM
+yM
+lS
+PB
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(39,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+UV
+UV
+UV
+ra
+pO
+TI
+ei
+iV
+oz
+Co
+pO
+zg
+Ru
+bH
+TI
+zg
+iV
+Co
+MO
+iV
+iV
+iV
+iV
+iV
+iV
+Zo
+Zo
+Zo
+iV
+tm
+iV
+iV
+iV
+IC
+IC
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(40,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+lE
+DF
+Ss
+HB
+UV
+UV
+UV
+uU
+Co
+Co
+Co
+Co
+Co
+Co
+Co
+Co
+Co
+Co
+Co
+iV
+ru
+BI
+SF
+SF
+iV
+vZ
+iL
+iL
+ot
+iL
+iV
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(41,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+Gt
+OL
+Ki
+UV
+UV
+UV
+So
+MP
+Co
+Co
+Co
+Co
+Co
+PK
+Co
+Co
+Co
+oO
+yR
+iV
+eY
+SF
+BI
+xJ
+CG
+jV
+Pl
+rH
+zS
+iL
+iV
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(42,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+lE
+UZ
+AL
+HB
+UV
+UV
+UV
+uU
+Co
+Co
+Co
+Co
+Co
+pQ
+Co
+Co
+Co
+Co
+MH
+iV
+pl
+jd
+SF
+dW
+iV
+iL
+iL
+dX
+iL
+CP
+iV
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(43,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+ra
+UV
+UV
+UV
+zV
+TI
+ei
+iV
+BF
+iV
+iV
+iV
+FQ
+iV
+MY
+iV
+FQ
+iV
+iV
+iV
+iV
+aA
+ST
+hT
+iV
+TZ
+hY
+iL
+Pl
+UJ
+iV
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(44,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+UV
+UV
+UV
+UV
+IK
+DX
+QU
+iV
+qC
+WA
+EE
+Co
+Co
+Co
+Co
+ae
+Co
+Co
+ol
+FI
+iV
+iV
+iV
+iV
+iV
+iV
+zu
+iL
+iL
+GY
+iV
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(45,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+IC
+IC
+IC
+iV
+iV
+iV
+iV
+OZ
+iV
+iV
+iV
+iV
+iV
+Do
+iV
+Co
+Co
+ap
+NI
+gb
+Co
+Co
+ol
+ek
+iV
+gE
+Co
+Co
+Eo
+iV
+zu
+iL
+iL
+LF
+iV
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(46,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+iV
+xt
+dx
+dx
+dx
+dx
+dx
+dx
+iV
+Do
+iV
+lC
+Xj
+tB
+qc
+UB
+Xj
+Sr
+ol
+tg
+iV
+qX
+Co
+Co
+Fl
+iV
+iV
+iV
+iV
+iV
+iV
+Nn
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(47,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+iV
+DM
+dx
+qb
+qb
+fg
+rZ
+dx
+Ly
+Do
+iV
+Co
+Co
+os
+eT
+Xp
+Co
+Co
+ol
+zx
+iV
+Kx
+Co
+Co
+CF
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IH
+Cf
+IH
+IH
+IH
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(48,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+lB
+dx
+qb
+qb
+GM
+dY
+yx
+iV
+Do
+iV
+Co
+Kr
+Co
+Co
+pQ
+Co
+Co
+ol
+OL
+iV
+PV
+wn
+bb
+cH
+iV
+Nn
+Nn
+Nn
+Nn
+av
+xB
+Ws
+Ws
+Ws
+Ws
+Ws
+FY
+Nn
+Nn
+Nn
+Nn
+"}
+(49,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+vj
+dx
+qb
+qb
+hj
+dx
+dx
+iV
+iV
+iV
+iV
+FQ
+iV
+MY
+iV
+FQ
+iV
+iV
+iV
+iV
+iV
+Lg
+lY
+iV
+iV
+fj
+fj
+fj
+fj
+aM
+Nn
+uD
+uD
+uD
+uD
+uD
+IC
+Nn
+Nn
+Nn
+Nn
+"}
+(50,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+YC
+bz
+GO
+dx
+dx
+dx
+rU
+iV
+Ga
+EX
+iV
+vb
+vb
+vb
+vb
+vb
+vb
+vb
+iV
+bc
+uM
+Bs
+ry
+KZ
+iV
+iV
+iV
+iV
+Nn
+aM
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(51,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+iV
+iV
+iV
+iV
+iV
+iV
+iV
+iV
+bH
+ei
+iV
+FQ
+iV
+MY
+iV
+FQ
+iV
+Lg
+iV
+vJ
+Co
+oO
+Yh
+DQ
+iV
+NQ
+np
+iV
+Nn
+aM
+Nn
+IH
+Cf
+IH
+IH
+IH
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(52,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+Nn
+iV
+SD
+va
+lg
+tO
+RO
+mV
+rK
+uW
+sO
+tC
+tC
+tC
+jZ
+tC
+mL
+fA
+Gk
+Co
+Co
+Co
+IJ
+wn
+AZ
+gd
+wn
+AZ
+zC
+Yg
+xB
+Ws
+Ws
+Ws
+Ws
+Ws
+vA
+Nn
+Nn
+Nn
+Nn
+"}
+(53,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+Nn
+iV
+su
+iQ
+Ra
+iQ
+Kh
+nU
+Co
+Co
+Co
+Co
+TG
+IM
+tb
+Co
+Co
+zX
+qJ
+qh
+qh
+sm
+oZ
+xW
+iV
+Pt
+TT
+iV
+Nn
+aM
+Nn
+uD
+uD
+uD
+uD
+uD
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(54,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+iV
+dt
+Ra
+sa
+Ra
+Kh
+tI
+Co
+Co
+Co
+Co
+fX
+aG
+yA
+Co
+Co
+zX
+iV
+iV
+iV
+iV
+iV
+iV
+iV
+iV
+iV
+iV
+Nn
+aM
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(55,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+iV
+pG
+iQ
+Ra
+iQ
+Kh
+nU
+Co
+Co
+Co
+Co
+kJ
+PH
+tb
+Co
+Co
+zX
+LQ
+Vd
+JF
+Vd
+Co
+Af
+iV
+Nn
+Nn
+Nn
+Nn
+aM
+fj
+IH
+Cf
+IH
+IH
+IH
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(56,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+BQ
+iQ
+iQ
+xG
+qa
+mV
+az
+hf
+fP
+Bm
+Bm
+Bm
+cD
+Bm
+Zi
+Zf
+bH
+zg
+kx
+MY
+oO
+mN
+iV
+Nn
+Nn
+Nn
+Nn
+ck
+xB
+Ws
+Ws
+Ws
+Ws
+Ws
+FY
+Nn
+Nn
+Nn
+Nn
+"}
+(57,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+bH
+ei
+we
+bH
+ei
+iV
+bH
+ei
+iV
+Ae
+iV
+MY
+iV
+Ae
+iV
+MP
+iV
+fZ
+Zt
+cF
+Co
+ti
+iV
+IC
+IC
+IC
+IC
+IC
+Nn
+uD
+uD
+uD
+uD
+uD
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(58,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+OB
+iQ
+yI
+iQ
+Az
+iV
+zZ
+zt
+iV
+wF
+wF
+wF
+wF
+wF
+wF
+wF
+iV
+aC
+Co
+MY
+Bm
+Aj
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(59,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+Ns
+iQ
+dc
+iQ
+uS
+iV
+iV
+iV
+iV
+Ae
+iV
+MY
+iV
+Ae
+iV
+iV
+iV
+iV
+iV
+iV
+ut
+iV
+iV
+IC
+IC
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(60,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+up
+iQ
+iQ
+iQ
+qd
+iV
+iW
+rs
+Gb
+tC
+tC
+tC
+jZ
+tC
+Gb
+tC
+tC
+Go
+xk
+OA
+OA
+tK
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(61,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+iV
+iV
+iV
+iV
+iV
+iV
+iV
+nu
+Am
+Co
+Co
+OF
+OF
+OF
+OF
+OF
+OF
+Co
+ol
+mt
+Mu
+UV
+OA
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(62,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IC
+IC
+IC
+IC
+IC
+IC
+Ag
+iV
+mZ
+Am
+Co
+Co
+yY
+yY
+yY
+yY
+yY
+dA
+Co
+ol
+bm
+nj
+UV
+bx
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(63,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+AG
+iV
+Fo
+IK
+Bm
+Bm
+Bm
+Bm
+cD
+Bm
+Bm
+Bm
+Bm
+yc
+lK
+gX
+gW
+Pm
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(64,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+AG
+iV
+iV
+iV
+ZF
+Zh
+dn
+iV
+dn
+sN
+ZF
+EH
+ZF
+rs
+iV
+iV
+iV
+iV
+iV
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(65,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+rs
+Do
+Am
+Nn
+Nn
+Nn
+Am
+Do
+ZX
+Do
+Am
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(66,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+IK
+ZF
+IK
+Nn
+Nn
+Nn
+IK
+ZF
+dU
+ZF
+IK
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(67,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(68,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(69,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(70,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(71,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(72,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(73,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(74,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
+(75,1,1) = {"
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+Nn
+"}
