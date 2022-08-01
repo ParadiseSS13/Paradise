@@ -404,9 +404,10 @@
 			var/total_burn	= 0
 			var/total_brute	= 0
 
-			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_BEFORE_DEFIB, user, ghost)
+			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_BEFORE_DEFIB, user, defib, ghost)
 
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+				signal_result |= SEND_SIGNAL(M, COMSIG_LIVING_DEFIBBED, user, defib, ghost)
 				for(var/obj/item/carried_item in H.contents)
 					if(istype(carried_item, /obj/item/clothing/suit/space))
 						if(!defib.combat)
@@ -415,6 +416,9 @@
 							busy = FALSE
 							update_icon(UPDATE_ICON_STATE)
 							return
+				if(signal_result & COMPONENT_DEFIB_OVERRIDE)
+					// let our signal handle it
+					return
 				if(H.undergoing_cardiac_arrest())
 					if(!H.get_int_organ(/obj/item/organ/internal/heart) && !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 						user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
@@ -488,7 +492,7 @@
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient blood volume critically low.</span>")
 						else if(ghost)
 							if(!ghost.can_reenter_corpse) // DNR or AntagHUD
-								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resucitation failed: No electrical brain activity detected.</span>")
+								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: No electrical brain activity detected.</span>")
 							else
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 						else
@@ -572,7 +576,10 @@
 			var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
 			var/total_burn	= 0
 			var/total_brute	= 0
+
+			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_BEFORE_DEFIB, user, src, ghost)
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+				signal_result |= SEND_SIGNAL(M, COMSIG_LIVING_DEFIBBED, user, src, ghost)
 				if(H.stat == DEAD)
 					var/health = H.health
 					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
@@ -581,7 +588,7 @@
 					for(var/obj/item/organ/external/O in H.bodyparts)
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK))
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && signal_result != COMPONENT_BLOCK_DEFIB)
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
@@ -597,6 +604,7 @@
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
 						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
+						SEND_SIGNAL(H, COMSIG_LIVING_DEFIBBED, user, src)
 						if(isrobot(user))
 							var/mob/living/silicon/robot/R = user
 							R.cell.use(revivecost)

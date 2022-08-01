@@ -130,26 +130,35 @@
 		UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
 	. = ..()
 
-/obj/item/organ/internal/heart/cursed/proc/on_defib_revive(mob/living/carbon/shocked, mob/living/carbon/shocker, mob/dead/observer/ghost = null)
+/obj/item/organ/internal/heart/cursed/proc/on_defib_revive(mob/living/carbon/shocked, mob/living/carbon/shocker, obj/item/defib, mob/dead/observer/ghost = null)
 	SIGNAL_HANDLER
 
-	if(!owner || !istype(owner))
+	if(!owner || !istype(owner) || owner.stat != DEAD)
 		return
 
 	if(times_shocked >= max_shocks_allowed)
 		shocker.visible_message(
-			"<span class='danger'>A ghastly electric shock permeates out from [shocked]'s chest!</span>",
 			"<span class='userdanger'>Tendrils of ghastly electricity surge from [shocked] as [shocked.p_their()] heart seems to outright refuse defibrillation!<span>",
-			"<span class='danger'>You hear a loud shock.</span>"
+			blind_message = "<span class='danger'>You hear a loud shock.</span>"
 		)
-		shocker.electrocute_act(5, shocked)
-		return
+		tesla_zap(owner, 4, 8000, ZAP_MOB_STUN | ZAP_MOB_DAMAGE)
+		// NO, YOU!
+		playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
+
+		defib.audible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Anomalous heart activity detected while administering shock.</span>")
+		playsound(defib, "defib_saftyon.ogg", 50, FALSE)
+
+		return COMPONENT_DEFIB_OVERRIDE
 
 	in_grace_period = TRUE
 	times_shocked++
-	addtimer(CALLBACK(owner, /mob/living/.proc/SetSleeping, 0), 3 SECONDS)  // let em wake up
-	addtimer(CALLBACK(src, .proc/on_end_grace_period), revival_grace_period)
+	// wake up
+	addtimer(CALLBACK(src, .proc/after_revive), 2 SECONDS)  // grab a brush and put a little make-up
+	addtimer(CALLBACK(src, .proc/on_end_grace_period), revival_grace_period)  // hide the scars to fade away the shake-up
 
+/obj/item/organ/internal/heart/cursed/proc/after_revive()
+	owner.WakeUp()
+	owner.SetParalysis(0)
 
 /// Run this just before the shock is applied so we end up with enough blood to revive.
 /obj/item/organ/internal/heart/cursed/proc/on_defib(mob/living/carbon/shocked, mob/living/carbon/shocker, mob/dead/observer/ghost = null)
@@ -164,7 +173,13 @@
 	if(!owner)
 		return
 	to_chat(owner, "<span class='userdanger'>The effects of the shock seem to wear off, and you feel a familiar tightness in your chest! Get pumping!</span>")
-	to_chat(owner, "<span class='warning'>It doesn't feel like your [src] enjoyed that, though, you probably won't be able to get revived too many more times!</span>")
+
+	if(times_shocked < max_shocks_allowed - 1)
+		to_chat(owner, "<span class='warning'>It doesn't feel like your [name] enjoyed that.</span>")
+	else if(times_shocked == max_shocks_allowed - 1)
+		to_chat(owner, "<span class='danger'>Your [name] starts to feel heavy in your chest. It doesn't seem like it'll be able to take many more shocks!</span>")
+	else
+		to_chat(owner, "<span class='userdanger'>Your [name] feels like lead. Something tells you that if you die with it again, you won't get another chance!</span>")
 
 /datum/action/item_action/organ_action/cursed_heart
 	name = "Pump your heart"
