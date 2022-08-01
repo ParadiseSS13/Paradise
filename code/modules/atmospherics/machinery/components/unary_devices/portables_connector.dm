@@ -8,7 +8,7 @@
 	can_unwrench = TRUE
 	layer = GAS_FILTER_LAYER
 
-	var/obj/machinery/portable_atmospherics/connected_device
+	var/obj/machinery/atmospherics/portable/connected_device
 
 /obj/machinery/atmospherics/unary/portables_connector/Destroy()
 	if(connected_device)
