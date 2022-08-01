@@ -10,7 +10,13 @@
 	/// If true, can be used with a cautery in the off-hand to cancel a surgery.
 	var/can_cancel = TRUE
 
-/datum/component/surgery_initiator/Initialize(datum/surgery/forced_surgery = null)
+/**
+ * Create a new surgery initiating component.
+ *
+ * Arguments:
+ * * forced_surgery - (optional) the surgery that will be started when the parent is used on a mob.
+ */
+/datum/component/surgery_initiator/Initialize(datum/surgery/forced_surgery)
 	. = ..()
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -77,7 +83,6 @@
 
 	var/list/available_surgeries = get_available_surgeries(user, target)
 
-
 	var/datum/surgery/procedure
 
 	if(!length(available_surgeries))
@@ -101,7 +106,6 @@
 		return
 
 	return try_choose_surgery(user, target, procedure)
-
 
 /datum/component/surgery_initiator/proc/get_available_surgeries(mob/user, mob/living/target)
 	var/list/available_surgeries = list()
