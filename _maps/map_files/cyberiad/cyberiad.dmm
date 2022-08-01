@@ -49862,7 +49862,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "csq" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -51285,7 +51285,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "cwa" = (
 /obj/machinery/door/airlock/medical{
 	name = "Operating Theatre Storage";
@@ -51302,7 +51302,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "cwc" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical{
@@ -51693,7 +51693,7 @@
 	color = "#009dff"
 	},
 /turf/simulated/floor/noslip,
-/area/medical/medbay)
+/area/medical/surgery)
 "cxo" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -51847,7 +51847,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "cxF" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -51876,7 +51876,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "cxH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -52399,7 +52399,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "cyV" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -52477,7 +52477,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "czh" = (
 /obj/structure/computerframe{
 	dir = 1
@@ -54699,7 +54699,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "cFz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -63136,7 +63136,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "ddx" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Central";
@@ -73961,7 +73961,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "hzy" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -85035,6 +85035,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/medical/morgue)
+"rex" = (
+/obj/machinery/door/airlock/medical{
+	name = "Operating Theatre Storage";
+	req_access_txt = "45"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/medical/surgery)
 "reO" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
@@ -86286,6 +86296,9 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
+"ssc" = (
+/turf/simulated/wall,
+/area/medical/surgery)
 "ssf" = (
 /obj/machinery/light{
 	dir = 8
@@ -89402,7 +89415,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "vfy" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -89412,7 +89425,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/medical/medbay)
+/area/medical/surgery)
 "vfJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -127187,11 +127200,11 @@ csS
 cud
 cuF
 cCW
-bQV
-bQV
-bQV
-bQV
-bQV
+ssc
+ssc
+ssc
+ssc
+ssc
 tWL
 cAu
 cOT
@@ -127448,7 +127461,7 @@ czg
 cxE
 cyS
 csp
-bQV
+ssc
 cKg
 cNY
 cOW
@@ -127962,7 +127975,7 @@ cvZ
 ddw
 czg
 hyH
-bQV
+ssc
 kcQ
 czq
 cOT
@@ -128219,7 +128232,7 @@ cFx
 cxF
 vfs
 vfy
-bQV
+ssc
 cKh
 cLN
 cOT
@@ -128475,7 +128488,7 @@ cDf
 cDf
 cDf
 cDf
-fkC
+rex
 cDf
 gYr
 cLO
