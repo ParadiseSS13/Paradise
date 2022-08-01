@@ -106,7 +106,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return attack_self(M)
 
 /obj/item/pda/attack_self(mob/user as mob)
-	user.set_machine(src)
 	if(active_uplink_check(user))
 		return
 	ui_interact(user)

@@ -4,7 +4,7 @@
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "mixer0"
+	icon_state = "pandemic0"
 	circuit = /obj/item/circuitboard/pandemic
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
@@ -55,9 +55,9 @@
 
 /obj/machinery/computer/pandemic/update_icon_state()
 	if(stat & BROKEN)
-		icon_state = (beaker ? "mixer1_b" : "mixer0_b")
+		icon_state = (beaker ? "pandemic1_b" : "pandemic0_b")
 		return
-	icon_state = "mixer[(beaker)?"1":"0"][(powered()) ? "" : "_nopower"]"
+	icon_state = "pandemic[(beaker)?"1":"0"][(powered()) ? "" : "_nopower"]"
 
 /obj/machinery/computer/pandemic/update_overlays()
 	. = list()
@@ -174,7 +174,7 @@
 /obj/machinery/computer/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)
 	beaker = null
-	icon_state = "mixer0"
+	icon_state = "pandemic0"
 
 //Prints a nice virus release form. Props to Urbanliner for the layout
 /obj/machinery/computer/pandemic/proc/print_form(datum/disease/advance/D, mob/living/user)
@@ -337,7 +337,7 @@
 		beaker.loc = src
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		updateUsrDialog()
-		icon_state = "mixer1"
+		icon_state = "pandemic1"
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(beaker)

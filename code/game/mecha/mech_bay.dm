@@ -67,23 +67,22 @@
 		// it wandered away
 		UnregisterSignal(recharging_mecha, COMSIG_PARENT_QDELETING)
 		recharging_mecha = null
-	recharging_mecha = locate(/obj/mecha) in recharging_turf
-	if(recharging_mecha)
-		// so that we don't hold references to it after it's gone, and not causing GC issues
-		RegisterSignal(recharging_mecha, COMSIG_PARENT_QDELETING, .proc/on_mecha_qdel)
+	// try to find a new mecha if we don't have any
+	if(!recharging_mecha)
+		recharging_mecha = locate(/obj/mecha) in recharging_turf
+		if(recharging_mecha)
+			// so that we don't hold references to it after it's gone, and not causing GC issues
+			RegisterSignal(recharging_mecha, COMSIG_PARENT_QDELETING, .proc/on_mecha_qdel)
 
 /obj/machinery/mech_bay_recharge_port/proc/on_mecha_qdel()
 	recharging_mecha = null
 
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated/process()
-	if(!recharging_mecha)
-		update_recharging_mecha()
+	update_recharging_mecha()
 	if(recharging_mecha && recharging_mecha.cell)
 		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
 			recharging_mecha.give_power(delta)
-		if(recharging_mecha.loc != recharging_turf)
-			recharging_mecha = null
 
 /obj/machinery/mech_bay_recharge_port/RefreshParts()
 	var/MC
@@ -112,21 +111,19 @@
 /obj/machinery/mech_bay_recharge_port/process()
 	if(stat & NOPOWER || !recharge_console)
 		return
-	if(!recharging_mecha)
-		update_recharging_mecha()
-		if(recharging_mecha)
-			recharge_console.update_icon()
-	if(recharging_mecha && recharging_mecha.cell)
-		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
-			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
-			recharging_mecha.give_power(delta)
-			use_power(delta*150)
-		else
-			recharge_console.update_icon()
-		if(recharging_mecha.loc != recharging_turf)
-			recharging_mecha = null
-			recharge_console.update_icon()
-
+	var/had_mecha = !isnull(recharging_mecha)
+	update_recharging_mecha()
+	if(had_mecha != !isnull(recharging_mecha)) // the presence of mecha is not what it used to be
+		// update_icon is somewhat expensive, so try not to call it too often
+		recharge_console.update_icon()
+	var/obj/item/stock_parts/cell/cell = recharging_mecha?.cell
+	if(!cell)
+		return
+	if(cell.charge < cell.maxcharge)
+		var/delta = min(max_charge, cell.maxcharge - cell.charge)
+		recharging_mecha.give_power(delta)
+		use_power(delta * 150)
+		recharge_console.update_icon()
 
 /obj/machinery/computer/mech_bay_power_console
 	name = "mech bay power control console"
@@ -141,11 +138,17 @@
 
 
 /obj/machinery/computer/mech_bay_power_console/update_overlays()
-	if(!recharge_port || !recharge_port.recharging_mecha || !recharge_port.recharging_mecha.cell || !(recharge_port.recharging_mecha.cell.charge < recharge_port.recharging_mecha.cell.maxcharge) || stat & (NOPOWER|BROKEN))
-		icon_screen = "recharge_comp"
+	if(stat & (NOPOWER|BROKEN))
+		icon_screen = "recharge_comp" // off
 	else
-		icon_screen = "recharge_comp_on"
-	..()
+		var/obj/item/stock_parts/cell/cell = recharge_port?.recharging_mecha?.cell
+		if(!cell)
+			icon_screen = "recharge_comp" // don't have a reachable cell to charge
+		else if(cell.charge >= cell.maxcharge)
+			icon_screen = "recharge_comp" // fully charged
+		else
+			icon_screen = "recharge_comp_on" // now we working!
+	. = ..()
 
 /obj/machinery/computer/mech_bay_power_console/proc/reconnect()
 	if(recharge_port)
