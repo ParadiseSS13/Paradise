@@ -68,7 +68,8 @@
 
 /obj/item/projectile/bullet/armourpiercing/wt550
 	damage = 15
-	armour_penetration_flat = 60
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 25
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
