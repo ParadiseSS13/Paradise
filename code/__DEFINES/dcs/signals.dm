@@ -183,6 +183,10 @@
 // You can use these signal responses to cancel the attack chain at a certain point from most attack signal types.
 	/// This response cancels the attack chain entirely. If sent early, it might cause some later effects to be skipped.
 	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
+
+/// Called from atom/Initialize() of target: (atom/target)
+#define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"
+
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
 #define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"

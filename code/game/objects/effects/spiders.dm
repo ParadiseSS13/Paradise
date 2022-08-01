@@ -60,6 +60,7 @@
 	///Was this egg laid by a xenobiology mob? Used for mob capping
 	var/xenobiology_spawned = FALSE
 	var/list/faction = list("spiders")
+	flags_2 = CRITICAL_ATOM_2
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	. = ..()

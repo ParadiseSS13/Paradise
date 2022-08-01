@@ -461,7 +461,7 @@
 	throw_range = 5
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
-	armour_penetration = 50
+	armour_penetration_percentage = 50
 	block_chance = 50
 	var/active = FALSE
 

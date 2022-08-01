@@ -57,3 +57,5 @@
 /datum/spell_cooldown/proc/revert_cast()
 	recharge_time = world.time
 
+/datum/spell_cooldown/proc/statpanel_info()
+	return "[round(get_availability_percentage(), 0.01) * 100]%"

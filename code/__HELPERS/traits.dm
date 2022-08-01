@@ -194,6 +194,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCE_DOORS 		"force_doors"
 #define TRAIT_AI_UNTRACKABLE	"AI_untrackable"
 #define TRAIT_REPEATSURGERY		"master_surgeon"  // Lets you automatically repeat surgeries regardless of tool
+#define TRAIT_ELITE_CHALLENGER "elite_challenger"
 
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.

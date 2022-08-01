@@ -421,7 +421,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Glitchman",
 		"House",
 		"Database",
-		"Alien"
+		"Alien",
+		"Tiger",
+		"Fox",
+		"Vox",
+		"Lizard",
+		"Dark Matter",
+		"Cheese",
+		"Rainbow Slime",
+		"Void Donut",
+		"NAD Burn",
+		"Borb",
+		"Bee",
+		"Catamari"
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -504,6 +516,30 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-database"
 		if("Alien")
 			icon_state = "ai-alien"
+		if("Tiger")
+			icon_state = "ai-tiger"
+		if("Fox")
+			icon_state = "ai-fox"
+		if("Vox")
+			icon_state = "ai-vox"
+		if("Lizard")
+			icon_state = "ai-liz"
+		if("Dark Matter")
+			icon_state = "ai-darkmatter"
+		if("Cheese")
+			icon_state = "ai-cheese"
+		if("Rainbow Slime")
+			icon_state = "ai-rainbowslime"
+		if("Void Donut")
+			icon_state = "ai-voiddonut"
+		if("NAD Burn")
+			icon_state = "ai-nadburn"
+		if("Borb")
+			icon_state = "ai-borb"
+		if("Bee")
+			icon_state = "ai-bee"
+		if("Catamari")
+			icon_state = "ai-catamari"
 		else
 			icon_state = "ai"
 	//else
@@ -992,7 +1028,20 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"Pug",
 			"Seal",
 			"Spider",
-			"Turkey"
+			"Turkey",
+			"Shantak",
+			"Bunny",
+			"Hellhound",
+			"Lightgeist",
+			"Cockroach",
+			"Mecha-Cat",
+			"Mecha-Fairy",
+			"Mecha-Fox",
+			"Mecha-Monkey",
+			"Mecha-Mouse",
+			"Mecha-Snake",
+			"Roller-Mouse",
+			"Roller-Monkey"
 			)
 
 			input = input("Please select a hologram:") as null|anything in icon_list
@@ -1035,6 +1084,32 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"guard"))
 					if("Turkey")
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"turkey"))
+					if("Shantak")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"shantak"))
+					if("Bunny")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"m_bunny"))
+					if("Hellhound")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"hellhound"))
+					if("Lightgeist")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"lightgeist"))
+					if("Cockroach")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"cockroach"))
+					if("Mecha-Cat")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"cat"))
+					if("Mecha-Fairy")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"fairy"))
+					if("Mecha-Fox")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"fox"))
+					if("Mecha-Monkey")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"monkey"))
+					if("Mecha-Mouse")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"mouse"))
+					if("Mecha-Snake")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"snake"))
+					if("Roller-Mouse")
+						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi',"mk2"))
+					if("Roller-Monkey")
+						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi',"mk3"))
 
 		else
 			var/icon_list[] = list(
@@ -1042,7 +1117,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"floating face",
 			"xeno queen",
 			"eldritch",
-			"ancient machine"
+			"ancient machine",
+			"angel",
+			"borb",
+			"biggest fan",
+			"cloudkat",
+			"donut",
+			"frost phoenix",
+			"engi bot",
+			"drone",
+			"boxbot"
 			)
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
@@ -1059,6 +1143,24 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo3"))
 					if("eldritch")
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo4"))
+					if("angel")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-angel"))
+					if("borb")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-borb"))
+					if("biggest fan")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-biggestfan"))
+					if("cloudkat")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-cloudkat"))
+					if("donut")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-donut"))
+					if("frost phoenix")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-frostphoenix"))
+					if("engi bot")
+						holo_icon = getHologramIcon(icon('icons/mob/hivebot.dmi',"EngBot"))
+					if("drone")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"drone0"))
+					if("boxbot")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"boxbot"))
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")

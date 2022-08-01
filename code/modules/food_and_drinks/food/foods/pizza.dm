@@ -9,29 +9,30 @@
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 
-/obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita
+// Margherita
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/margheritapizza
 	name = "margherita pizza"
 	desc = "The golden standard of pizzas."
-	icon_state = "pizzamargherita"
-	slice_path = /obj/item/reagent_containers/food/snacks/margheritaslice
+	icon_state = "margheritapizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/margheritapizzaslice
 	list_reagents = list("nutriment" = 30, "tomatojuice" = 6, "vitamin" = 5)
 
-/obj/item/reagent_containers/food/snacks/margheritaslice
+/obj/item/reagent_containers/food/snacks/margheritapizzaslice
 	name = "margherita slice"
 	desc = "A slice of the classic pizza."
 	icon = 'icons/obj/food/pizza.dmi'
-	icon_state = "pizzamargheritaslice"
+	icon_state = "margheritapizzaslice"
 	filling_color = "#BAA14C"
-	list_reagents = list("nutriment" = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 
+// Meat Pizza
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza
 	name = "meat pizza"
 	desc = "A pizza with meat topping."
 	icon_state = "meatpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/meatpizzaslice
 	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
-	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
+	tastes = list("crust" = 1, "cheese" = 1, "meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpizzaslice
 	name = "meat pizza slice"
@@ -39,16 +40,16 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "meatpizzaslice"
 	filling_color = "#BAA14C"
-	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
+	tastes = list("crust" = 1, "cheese" = 1, "meat" = 1)
 
+// Mushroom Pizza
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza
 	name = "mushroom pizza"
 	desc = "Very special pizza."
 	icon_state = "mushroompizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/mushroompizzaslice
 	list_reagents = list("plantmatter" = 30, "vitamin" = 5)
-	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
-
+	tastes = list("crust" = 1, "cheese" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/mushroompizzaslice
 	name = "mushroom pizza slice"
@@ -56,16 +57,16 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "mushroompizzaslice"
 	filling_color = "#BAA14C"
-	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
+	tastes = list("crust" = 1, "cheese" = 1, "mushroom" = 1)
 
+// Vegetable Pizza
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza
 	name = "vegetable pizza"
 	desc = "No Tomato Sapiens were harmed during the making of this pizza."
 	icon_state = "vegetablepizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/vegetablepizzaslice
 	list_reagents = list("plantmatter" = 25, "tomatojuice" = 6, "oculine" = 12, "vitamin" = 5)
-	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "carrot" = 1, "vegetables" = 1)
-
+	tastes = list("crust" = 1, "tomato" = 1, "carrot" = 1, "vegetables" = 1)
 
 /obj/item/reagent_containers/food/snacks/vegetablepizzaslice
 	name = "vegetable pizza slice"
@@ -73,15 +74,16 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "vegetablepizzaslice"
 	filling_color = "#BAA14C"
-	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "carrot" = 1, "vegetables" = 1)
+	tastes = list("crust" = 1, "tomato" = 1, "carrot" = 1, "vegetables" = 1)
 
+// Hawaiian Pizza
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza
 	name = "hawaiian pizza"
 	desc = "Love it or hate it, this pizza divides opinions. Complete with juicy pineapple."
-	icon_state = "hawaiianpizza" //NEEDED
+	icon_state = "hawaiianpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
 	list_reagents = list("protein" = 15, "tomatojuice" = 6, "plantmatter" = 20, "pineapplejuice" = 6, "vitamin" = 5)
-	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 1)
+	tastes = list("crust" = 1, "cheese" = 1, "pineapple" = 1)
 
 /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
 	name = "hawaiian pizza slice"
@@ -89,8 +91,9 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "hawaiianpizzaslice"
 	filling_color = "#e5b437"
-	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 1)
+	tastes = list("crust" = 1, "cheese" = 1, "pineapple" = 1)
 
+// Mac 'n' Cheese Pizza
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
 	name = "mac 'n' cheese pizza"
 	desc = "Gastronomists have yet to classify this dish as 'pizza'."
@@ -98,7 +101,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/macpizzaslice
 	list_reagents = list("nutriment" = 40, "vitamin" = 5) //More nutriment because carbs, but it's not any more vitaminicious
 	filling_color = "#ffe45d"
-	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
+	tastes = list("crust" = 1, "cheese" = 2, "pasta" = 1)
 
 /obj/item/reagent_containers/food/snacks/macpizzaslice
 	name = "mac 'n' cheese pizza slice"
@@ -107,6 +110,125 @@
 	icon_state = "macpizzaslice"
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
+
+// Pepperoni Pizza
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/pepperonipizza
+	name = "pepperoni pizza"
+	desc = "What did the pepperoni say to the pizza?"
+	icon_state = "pepperonipizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/pepperonipizzaslice
+	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
+	filling_color = "#ffe45d"
+	tastes = list("cheese" = 3, "pepperoni" = 3, "grease" = 1)
+
+/obj/item/reagent_containers/food/snacks/pepperonipizzaslice
+	name = "pepperoni pizza slice"
+	desc = "Nice to meat you!"
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "pepperonipizzaslice"
+	filling_color = "#ffe45d"
+	tastes = list("cheese" = 3, "pepperoni" = 3, "grease" = 1)
+
+// Cheese Pizza
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/cheesepizza
+	name = "cheese pizza"
+	desc = "Cheese, bread, cheese, tomato, and cheese."
+	icon_state = "cheesepizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/cheesepizzaslice
+	list_reagents = list("nutriment" = 40, "tomatojuice" = 6, "vitamin" = 5)
+
+/obj/item/reagent_containers/food/snacks/cheesepizzaslice
+	name = "cheese pizza slice"
+	desc = "Dangerously cheesy?"
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "cheesepizzaslice"
+	filling_color = "#BAA14C"
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 3)
+
+// Donk-pocket Pizza
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/donkpocketpizza
+	name = "donk-pocket pizza"
+	desc = "Who thought this would be a good idea?"
+	icon_state = "donkpocketpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/donkpocketpizzaslice
+	list_reagents = list("nutriment" = 35, "tomatojuice" = 6, "vitamin" = 2, "weak_omnizine" = 6)
+	tastes = list("crust" = 1, "meat" = 1, "laziness" = 1)
+
+/obj/item/reagent_containers/food/snacks/donkpocketpizzaslice
+	name = "donk-pocket pizza slice"
+	desc = "Smells like lukewarm donk-pocket."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "donkpocketpizzaslice"
+	filling_color = "#BAA14C"
+	tastes = list("crust" = 1, "meat" = 1, "laziness" = 1)
+
+// Dank Pizza
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/dankpizza
+	name = "dank pizza"
+	desc = "The hippie's pizza of choice."
+	icon_state = "dankpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/dankpizzaslice
+	list_reagents = list("nutriment" = 30, "tomatojuice" = 6, "vitamin" = 5, "cbd" = 6, "thc" = 6)
+	tastes = list("crust" = 1, "cheese" = 1, "special herbs" = 2)
+
+/obj/item/reagent_containers/food/snacks/dankpizzaslice
+	name = "dank pizza slice"
+	desc = "So good, man..."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "dankpizzaslice"
+	filling_color = "#BAA14C"
+	tastes = list("crust" = 1, "cheese" = 1, "special herbs" = 2)
+
+// Firecracker Pizza
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/firecrackerpizza
+	name = "firecracker pizza"
+	desc = "Tastes HOT HOT HOT!"
+	icon_state = "firecrackerpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/firecrackerpizzaslice
+	list_reagents = list("nutriment" = 30, "vitamin" = 5, "capsaicin" = 12)
+	tastes = list("crust" = 1, "cheese" = 1, "HOTNESS" = 1)
+
+/obj/item/reagent_containers/food/snacks/firecrackerpizzaslice
+	name = "firecracker pizza slice"
+	desc = "A spicy slice of something quite nice"
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "firecrackerpizzaslice"
+	filling_color = "#BAA14C"
+	tastes = list("crust" = 1, "cheese" = 1, "HOTNESS" = 1)
+
+// "Pesto" Pizza
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/pestopizza
+	name = "\"pesto\" pizza"
+	desc = "Wait a second...this doesn't taste like pesto!"
+	icon_state = "pestopizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/pestopizzaslice
+	list_reagents = list("nutriment" = 30, "tomatojuice" = 12, "vitamin" = 5, "wasabi" = 12)
+	tastes = list("tomato" = 1, "cheese" = 1, "wasabi" = 1)
+
+/obj/item/reagent_containers/food/snacks/pestopizzaslice
+	name = "\"pesto\" pizza slice"
+	desc = "Delicious and suspicious(ly green)."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "pestopizzaslice"
+	filling_color = "#BAA14C"
+	tastes = list("tomato" = 1, "cheese" = 1, "wasabi" = 1)
+
+// Garlic Pizza
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/garlicpizza
+	name = "garlic pizza"
+	desc = "Ahh, garlic. A universally loved ingredient, except possibly by vampires."
+	icon_state = "garlicpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/garlicpizzaslice
+	list_reagents = list("plantmatter" = 30, "vitamin" = 5, "garlic" = 12)
+	tastes = list("crust" = 1, "cheese" = 1, "garlic" = 1)
+
+/obj/item/reagent_containers/food/snacks/garlicpizzaslice
+	name = "garlic pizza slice"
+	desc = "What's not to love?"
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "garlicpizzaslice"
+	filling_color = "#BAA14C"
+	tastes = list("crust" = 1, "cheese" = 1, "garlic" = 1)
 
 
 //////////////////////
@@ -252,27 +374,43 @@
 		return
 	..()
 
+
 /obj/item/pizzabox/margherita/Initialize(mapload)
-	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita(src)
+	. = ..()
+	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/margheritapizza(src)
 	box_tag = "margherita deluxe"
-	return ..()
 
 /obj/item/pizzabox/vegetable/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
 	box_tag = "gourmet vegetable"
-	return ..()
 
 /obj/item/pizzabox/mushroom/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza(src)
 	box_tag = "mushroom special"
-	return ..()
 
 /obj/item/pizzabox/meat/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
 	box_tag = "meatlover's supreme"
-	return ..()
 
 /obj/item/pizzabox/hawaiian/Initialize(mapload)
+	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza(src)
 	box_tag = "Hawaiian feast"
-	return ..()
+
+/obj/item/pizzabox/pepperoni/Initialize(mapload)
+	. = ..()
+	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/pepperonipizza(src)
+	box_tag = "classic pepperoni"
+
+/obj/item/pizzabox/garlic/Initialize(mapload)
+	. = ..()
+	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/garlicpizza(src)
+	box_tag = "triple garlic"
+
+/obj/item/pizzabox/firecracker/Initialize(mapload)
+	. = ..()
+	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/firecrackerpizza(src)
+	box_tag = "extra spicy pie"

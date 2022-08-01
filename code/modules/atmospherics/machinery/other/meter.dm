@@ -1,4 +1,4 @@
-/obj/machinery/meter
+/obj/machinery/atmospherics/meter
 	name = "gas flow meter"
 	desc = "It measures something."
 	icon = 'icons/obj/meter.dmi'
@@ -12,7 +12,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
 	power_channel = ENVIRON
 	frequency = ATMOS_DISTRO_FREQ
-	var/id
 	var/id_tag
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
@@ -21,28 +20,18 @@
 	Mtoollink = TRUE
 	settagwhitelist = list("id_tag")
 
-/obj/machinery/meter/New()
-	..()
-	SSair.atmos_machinery += src
+/obj/machinery/atmospherics/meter/Initialize(mapload)
+	. = ..()
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
-	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
-		id_tag = id
-	return 1
 
-/obj/machinery/meter/Destroy()
-	SSair.atmos_machinery -= src
+/obj/machinery/atmospherics/meter/Destroy()
 	target = null
 	return ..()
 
-/obj/machinery/meter/Initialize()
-	..()
-	if(!target)
-		target = locate(/obj/machinery/atmospherics/pipe) in loc
-
-/obj/machinery/meter/detailed_examine()
+/obj/machinery/atmospherics/meter/detailed_examine()
 	return "Measures the volume and temperature of the pipe under the meter."
 
-/obj/machinery/meter/process_atmos()
+/obj/machinery/atmospherics/meter/process_atmos()
 	if(!target || (stat & (BROKEN|NOPOWER)))
 		update_icon(UPDATE_ICON_STATE)
 		return
@@ -69,9 +58,9 @@
 			"sigtype" = "status"
 		)
 		radio_connection.post_signal(src, signal)
-	
 
-/obj/machinery/meter/update_icon_state()
+
+/obj/machinery/atmospherics/meter/update_icon_state()
 	if(!target)
 		icon_state = "meterX"
 		return
@@ -100,7 +89,7 @@
 	else
 		icon_state = "meter4"
 
-/obj/machinery/meter/proc/status()
+/obj/machinery/atmospherics/meter/proc/status()
 	var/t = ""
 	if(target)
 		var/datum/gas_mixture/environment = target.return_air()
@@ -112,7 +101,7 @@
 		t += "The connect error light is blinking."
 	return t
 
-/obj/machinery/meter/examine(mob/user)
+/obj/machinery/atmospherics/meter/examine(mob/user)
 	var/t = "A gas flow meter. "
 
 	if(get_dist(user, src) > 3 && !(istype(user, /mob/living/silicon/ai) || istype(user, /mob/dead)))
@@ -132,14 +121,14 @@
 
 	. = list(t)
 
-/obj/machinery/meter/Click()
+/obj/machinery/atmospherics/meter/Click()
 	if(istype(usr, /mob/living/silicon/ai)) // ghosts can call ..() for examine
 		usr.examinate(src)
 		return 1
 
 	return ..()
 
-/obj/machinery/meter/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/atmospherics/meter/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
@@ -155,33 +144,17 @@
 			"You hear ratchet.")
 		deconstruct(TRUE)
 
-/obj/machinery/meter/deconstruct(disassembled = TRUE)
+/obj/machinery/atmospherics/meter/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/pipe_meter(loc)
 	qdel(src)
 
-/obj/machinery/meter/singularity_pull(S, current_size)
+/obj/machinery/atmospherics/meter/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
-// TURF METER - REPORTS A TILE'S AIR CONTENTS
-
-/obj/machinery/meter/turf/New()
-	..()
-	target = loc
-	return 1
-
-
-/obj/machinery/meter/turf/Initialize()
-	if(!target)
-		target = loc
-	..()
-
-/obj/machinery/meter/turf/attackby(obj/item/W as obj, mob/user as mob, params)
-	return
-
-/obj/machinery/meter/multitool_menu(mob/user, obj/item/multitool/P)
+/obj/machinery/atmospherics/meter/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<b>Main</b>
 	<ul>

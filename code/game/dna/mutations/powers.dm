@@ -139,17 +139,16 @@
 	..()
 	block = GLOB.hulkblock
 
-/datum/mutation/hulk/activate(mob/M)
+/datum/mutation/hulk/activate(mob/living/carbon/human/M)
 	..()
 	var/status = CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
 	M.status_flags &= ~status
+	M.update_body()
 
-/datum/mutation/hulk/deactivate(mob/M)
+/datum/mutation/hulk/deactivate(mob/living/carbon/human/M)
 	..()
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
-
-/datum/mutation/hulk/on_draw_underlays(mob/M, g)
-	return "hulk_[g]_s"
+	M.update_body()
 
 /datum/mutation/hulk/on_life(mob/living/carbon/human/M)
 	if(!istype(M))

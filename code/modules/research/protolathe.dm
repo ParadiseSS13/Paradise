@@ -77,17 +77,14 @@ Note: Must be placed west/left of and R&D console to function.
 	return A
 
 /obj/machinery/r_n_d/protolathe/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(shocked)
-		if(shock(user,50))
-			return TRUE
 	if(default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
 		if(linked_console)
 			linked_console.linked_lathe = null
 			linked_console = null
-		return
+		return FALSE
 
 	if(exchange_parts(user, O))
-		return
+		return FALSE
 
 	if(panel_open)
 		if(istype(O, /obj/item/crowbar))
@@ -99,10 +96,11 @@ Note: Must be placed west/left of and R&D console to function.
 				reagents.trans_to(G, G.reagents.maximum_volume)
 			materials.retrieve_all()
 			default_deconstruction_crowbar(user, O)
-			return 1
+			return TRUE
 		else
 			to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
-			return 1
+			return TRUE
+
 	if(O.is_open_container())
 		return FALSE
 	else

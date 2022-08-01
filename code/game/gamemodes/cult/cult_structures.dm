@@ -265,7 +265,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 		for(var/mob/living/L in range(5, src))
 			if(iscultist(L) || iswizard(L) || isshade(L) || isconstruct(L))
 				if(L.health != L.maxHealth)
-					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
+					new /obj/effect/temp_visual/heal(get_turf(src), COLOR_HEALING_GREEN)
 
 					if(ishuman(L))
 						L.heal_overall_damage(1, 1, TRUE, FALSE, TRUE)
