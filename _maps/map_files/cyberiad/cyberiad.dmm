@@ -82042,7 +82042,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "rgM" = (
@@ -83844,7 +83844,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "vwk" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "vxy" = (
