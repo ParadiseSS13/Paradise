@@ -98,7 +98,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	equip_cooldown = 4 SECONDS
 	name = "mkIV Ion Heavy Scatter Cannon"
-	desc = "An ion shotgun, that when fired gives the mecha a second of EMP shielding with excess energy from the discharge."
+	desc = "An ion shotgun, that when fired gives the mecha a second of EMP shielding with the excess energy from the discharge."
 	icon_state = "mecha_ion"
 	origin_tech = "materials=4;combat=5;magnets=4"
 	energy_drain = 300 // This is per shot + 1x cost, so 1500 per shotgun shot
