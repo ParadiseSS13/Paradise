@@ -338,6 +338,7 @@
 	body_parts_covered = HEAD
 	flags = THICKMATERIAL|BLOCKHAIR
 	flags_inv = HIDEEARS
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
