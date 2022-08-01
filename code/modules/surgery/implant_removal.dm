@@ -24,7 +24,6 @@
 		/datum/surgery_step/extract_implant,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list("chest")
 	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/extract_implant
@@ -47,17 +46,32 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	I = locate(/obj/item/implant) in target
-	user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
-	"You start poking around inside [target]'s [affected.name] with \the [tool]." )
+	user.visible_message(
+		"[user] starts poking around inside [target]'s [affected.name] with \the [tool].",
+		"You start poking around inside [target]'s [affected.name] with \the [tool]."
+	)
 	target.custom_pain("The pain in your [affected.name] is living hell!")
 	return ..()
+
+/datum/surgery_step/extract_implant/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	. = ..()
+
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message(
+		"<span class='warning'>[user] grips onto [target]'s [affected.name] by mistake, tearing it!</span>",
+		"<span class='warning'>You think you've found something, but you've grabbed onto [target]'s [affected.name] instead, damaging it!</span>"
+	)
+	affected.receive_damage(10)
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	I = locate(/obj/item/implant) in target
-	if(I && (target_zone == "chest")) //implant removal only works on the chest.
-		user.visible_message("<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'>You take [I] out of [target]'s [affected.name]s with \the [tool].</span>" )
+	if(I) //implant removal only works on the chest.
+		user.visible_message(
+			"<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>",
+			"<span class='notice'>You take [I] out of [target]'s [affected.name]s with \the [tool].</span>"
+		)
 
 		I.removed(target)
 
@@ -74,10 +88,12 @@
 			case.imp = I
 			I.forceMove(case)
 			case.update_state()
-			user.visible_message("[user] places [I] into [case]!", "<span class='notice'>You place [I] into [case].</span>")
+			user.visible_message("[user] places [I] into \the [case]!", "<span class='notice'>You place [I] into \the [case].</span>")
 		else
 			qdel(I)
 	else
-		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
-		"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>")
+		user.visible_message(
+			"<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>",
+			"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>"
+		)
 	return SURGERY_STEP_CONTINUE

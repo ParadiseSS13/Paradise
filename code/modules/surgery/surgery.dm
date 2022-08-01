@@ -7,7 +7,7 @@
 	/// Description of the surgery
 	var/desc
 	/// How far along we are in a surgery being performed.
-	var/status = 1
+	var/step_number = 1
 	/// Surgical steps that go into performing this procedure
 	var/list/steps = list()
 	/// Whether this surgery can be stopped after the first step with a cautery
@@ -116,15 +116,15 @@
  * Get the current surgery step we're on
  */
 /datum/surgery/proc/get_surgery_step()
-	var/step_type = steps[status]
+	var/step_type = steps[step_number]
 	return new step_type
 
 /**
  * Get the next step in the current surgery, or null if we're on the last one.
  */
 /datum/surgery/proc/get_surgery_next_step()
-	if(status < length(steps))
-		var/step_type = steps[status + 1]
+	if(step_number < length(steps))
+		var/step_type = steps[step_number + 1]
 		return new step_type
 	else
 		return null
@@ -244,11 +244,11 @@
 		var/datum/surgery_step/next_step = surgery.get_surgery_next_step()
 		next_step.times_repeated = times_repeated + 1
 		if(next_step)
-			surgery.status++
+			surgery.step_number++
 			if(next_step.try_op(user, target, user.zone_selected, user.get_active_hand(), surgery))
 				return TRUE
 			else
-				surgery.status--
+				surgery.step_number--
 
 	return FALSE
 
@@ -293,8 +293,8 @@
 		surgery.step_in_progress = FALSE
 		return
 	if(begin_step_result == SURGERY_BEGINSTEP_SKIP)
-		surgery.status++
-		if(surgery.status > length(surgery.steps))
+		surgery.step_number++
+		if(surgery.step_number > length(surgery.steps))
 			surgery.complete(target)
 
 		surgery.step_in_progress = FALSE
@@ -347,8 +347,8 @@
 		// Bump the surgery status
 		// if it's repeatable, don't let it truly "complete" though
 		if(advance && !repeatable)
-			surgery.status++
-			if(surgery.status > length(surgery.steps))
+			surgery.step_number++
+			if(surgery.step_number > length(surgery.steps))
 				surgery.complete(target)
 
 	surgery.step_in_progress = FALSE

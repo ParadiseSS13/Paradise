@@ -13,6 +13,9 @@
  * - Insert that surgery step into an existing surgery.
  */
 
+#define SURGERY_TOOL_HAND "hand"
+#define SURGERY_TOOL_ANY "any"
+
 /**
  * A partial surgery that consists of a few steps that may be found in the middle of another operation.
  * An existing surgery can yield to an intermediate surgery for a few steps by way of a proxy surgery_step.
@@ -65,9 +68,10 @@
 
 /datum/surgery_step/proxy/get_step_information(datum/surgery/surgery)
 	var/datum/surgery_step/cur = surgery.get_surgery_next_step()
-	var/step_names = list(cur.name)
+	var/step_names = list()
 	for(var/datum/surgery/surg in branches_init)
 		step_names += surg.get_surgery_step()
+	step_names += cur  // put this one on the end
 
 	return english_list(step_names, "Nothing...? If you see this, tell a coder.", ", or ")
 
@@ -83,22 +87,22 @@
 	// sanity checks first though! Make sure we don't have any tool conflicts.
 	// A tool should only lead to one surgery step.
 
-	// (If a tool can lead to more, make sure you put it into overriding tools)
+	// (If there's a tool that could be used for a few different steps, though, make sure it's put into overriding steps)
 
 	for(var/datum/surgery/S in branches_init)
 		first_step = S.get_surgery_step()
 
 		if(!tool && accept_hand)
-			if("hand" in starting_tools)
+			if(SURGERY_TOOL_HAND in starting_tools)
 				CRASH("[src] was provided with multiple branches that allow an empty hand.")
 			next_surgery = S
-			starting_tools.Add("hand")
+			starting_tools.Add(SURGERY_TOOL_HAND)
 
 		else if(accept_any_item)
-			if("any" in starting_tools)
+			if(SURGERY_TOOL_ANY in starting_tools)
 				CRASH("[src] was provided with multiple branches that allow any tool.")
 			next_surgery = S
-			starting_tools.Add("any")
+			starting_tools.Add(SURGERY_TOOL_ANY)
 
 
 		for(var/allowed in first_step.allowed_tools)
@@ -109,22 +113,24 @@
 			else
 				starting_tools.Add(allowed)
 
+	// If this is set to true, the tool in use will force the next step in the main surgery.
 	var/overridden_tool = FALSE
 
 	// Also check the next surgery step.
 	if(!isnull(next_surgery_step))
 
 		if(istype(next_surgery_step, /datum/surgery_step/proxy))
-			// It might make sense to support this, but I think you should just be mindful not to cross the streams too hard.
+			// It might make sense to support this, and I think the flow could work (just treating them like a single step, sorta)
+			// but I think for simplicity's sake it's better to just say no
 			CRASH("[src] was followed by another proxy surgery step in [surgery].")
 
-		if(next_surgery_step.accept_hand && ("hand" in starting_tools))
+		if((SURGERY_TOOL_HAND in starting_tools) && next_surgery_step.accept_hand)
 			CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both require an open hand.")
 
-		if(("any" in starting_tools) && next_surgery_step.accept_any_item)
+		if((SURGERY_TOOL_ANY in starting_tools) && next_surgery_step.accept_any_item)
 			CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both accept any item.")
 
-		if(!tool && next_surgery_step.accept_hand && !("hand" in starting_tools))
+		if(!tool && next_surgery_step.accept_hand && !(SURGERY_TOOL_HAND in starting_tools))
 			next_surgery = surgery
 
 		for(var/allowed in next_surgery_step.allowed_tools)
@@ -147,17 +153,17 @@
 			if(tool && istype(tool) && (tool.type == allowed || tool.tool_behaviour == allowed))
 				next_surgery = surgery
 
-		// Check if we allow any tool after checking everything. We don't want to accidentally miss a tool conflict.
-		if(tool && next_surgery_step.accept_any_item && !("any" in starting_tools))
+		// Check if we might allow this under the any item rule if it doesn't fit into any other category. We don't want to accidentally miss a tool conflict.
+		if(tool && next_surgery_step.accept_any_item && !(SURGERY_TOOL_ANY in starting_tools))
 			next_surgery = surgery
 
 	if(!next_surgery)
-		// If we didn't find a match at all, it's probably just someone using a random tool.
+		// If the tool used doesn't work for any branch, just ignore it.
 		return FALSE
 
 	if(overridden_tool || next_surgery == surgery || !next_surgery)
 		// Continue along with the original surgery
-		surgery.status++
+		surgery.step_number++
 		var/datum/surgery_step/next_step = surgery.get_surgery_step()
 		return next_step.try_op(user, target, target_zone, tool, surgery)
 
@@ -170,11 +176,12 @@
 	// This is how we keep our surgeries still technically linear.
 	var/list/steps_to_insert = next_surgery.steps
 	if(insert_self_after)
+		// add ourselves afterwards as well so we can repeat this step
 		steps_to_insert.Add(type)
 
 	// Also, bump the status so we skip past this abstract step.
-	surgery.steps.Insert(surgery.status + 1, next_surgery.steps)
-	surgery.status++
+	surgery.steps.Insert(surgery.step_number + 1, next_surgery.steps)
+	surgery.step_number++
 
 	// force the next surgery step so we don't have to click again.
 	var/datum/surgery_step/next_step = surgery.get_surgery_step()
@@ -195,7 +202,8 @@
 	if(affected.status & ORGAN_INT_BLEEDING)
 		return TRUE
 	else
-		// Since we aren't calling these surgeries in the normal way, it'll be okay to add a to_chat to their can_start.
+		// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
+		// It's alright for intermediate surgeries, though, since they never get called like that.
 		to_chat(user, "<span class='warning'>The veins in [target]'s [parse_zone(affected)] seem to be in perfect condition, they don't need mending.</span>")
 
 	return FALSE
@@ -243,3 +251,6 @@
 		/datum/surgery/intermediate/robotics/repair/burn,
 		/datum/surgery/intermediate/robotics/repair/brute
 	)
+
+#undef SURGERY_TOOL_ANY
+#undef SURGERY_TOOL_HAND

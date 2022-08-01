@@ -68,7 +68,7 @@
 			return
 		if(istype(parent, /obj/item/scalpel/laser/manager/debug))
 			return
-		if((can_cancel_before_first && current_surgery.status == 1) || current_surgery.status > 1)
+		if((can_cancel_before_first && current_surgery.step_number == 1) || current_surgery.step_number > 1)
 			attempt_cancel_surgery(current_surgery, target, user)
 			return
 
@@ -143,7 +143,7 @@
 /datum/component/surgery_initiator/proc/attempt_cancel_surgery(datum/surgery/the_surgery, mob/living/patient, mob/user)
 	var/selected_zone = user.zone_selected
 	/// We haven't even started yet. Any surgery can be cancelled at this point.
-	if(the_surgery.status == 1)
+	if(the_surgery.step_number == 1)
 		patient.surgeries -= the_surgery
 		user.visible_message(
 			"<span class='notice'>[user] draws [parent] away from [patient]'s [parse_zone(selected_zone)].</span>",
