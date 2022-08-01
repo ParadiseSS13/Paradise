@@ -84072,11 +84072,8 @@
 /area/engine/engineering)
 "vYh" = (
 /obj/item/radio/intercom{
-	dir = 4;
+	name = "east bump";
 	pixel_x = 28
-	},
-/obj/machinery/light{
-	dir = 4
 	},
 /obj/effect/turf_decal/bot_red,
 /turf/simulated/floor/plasteel,
@@ -84598,9 +84595,13 @@
 "xuz" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/bot_red,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "xuG" = (
