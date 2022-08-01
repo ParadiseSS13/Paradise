@@ -11,8 +11,9 @@
 
 /obj/machinery/iv_drip/Initialize(mapload)
 	. = ..()
-	if(mapload && !bag) // bag just in case anyone in the future ever adds IV drip subtypes with bags attached
-		return INITIALIZE_HINT_LATELOAD
+	if(!mapload || bag) // bag just in case anyone in the future ever adds IV drip subtypes with bags attached
+		return
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/iv_drip/LateInitialize()
 	var/obj/item/reagent_containers/iv_bag/IV = locate(/obj/item/reagent_containers/iv_bag) in loc
