@@ -1,4 +1,3 @@
-// TOOD - Repath this to /obj/machinery/atmospherics
 /obj/machinery/atmospherics/portable
 	name = "atmoalter"
 	layer = BELOW_OBJ_LAYER
