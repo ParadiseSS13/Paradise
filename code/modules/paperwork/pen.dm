@@ -110,8 +110,6 @@
 /obj/item/pen/sleepy
 	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
-	var/reagent_amount = 100
-	var/starting_reagents = list("ketamine" = 100)
 
 
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
@@ -122,11 +120,14 @@
 		return
 	var/transfered = 0
 	var/contained = list()
+
 	for(var/R in reagents.reagent_list)
 		var/datum/reagent/reagent = R
 		contained += "[round(reagent.volume, 0.01)]u [reagent]"
+
 	if(reagents.total_volume && M.reagents)
 		transfered = reagents.trans_to(M, 50)
+
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	return TRUE
@@ -134,9 +135,8 @@
 
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
-	create_reagents(reagent_amount)
-	for(var/key in starting_reagents)
-		reagents.add_reagent(key, starting_reagents[key])
+	create_reagents(100)
+	reagents.add_reagent("ketamine", 100)
 
 
 /*
