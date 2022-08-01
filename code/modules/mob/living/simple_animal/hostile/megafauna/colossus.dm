@@ -46,6 +46,7 @@ Difficulty: Very Hard
 	ranged = TRUE
 	pixel_x = -32
 	del_on_death = TRUE
+	universal_speak = TRUE
 	internal_type = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
@@ -147,13 +148,13 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
 	if(health < maxHealth/3)
 		return double_spiral()
-	visible_message("<span class='colossus'>\"<b>Judgement.</b>\"</span>")
+	say("<span class='colossus'>\"<b>Judgement.</b>\"</span>", sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 	telegraph()
 	SLEEP_CHECK_DEATH(1.5 SECONDS)
 	return spiral_shoot()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
-	visible_message("<span class='colossus'>\"<b>Die.</b>\"</span>")
+	say("<span class='colossus'>\"<b>Die.</b>\"</span>", sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 	telegraph()
 	SLEEP_CHECK_DEATH(2.5 SECONDS)
 	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE)
@@ -229,11 +230,11 @@ Difficulty: Very Hard
 		shake_camera(M, 4, 3)
 	playsound(src, 'sound/magic/narsie_attack.ogg', 200, TRUE)
 	if(mode)
-		visible_message("<span class='colossus'>\"<b>[mode]</b>\"</span>")
+		say("<span class='colossus'>\"<b>[mode]</b>\"</span>", sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack()
 	icon_state = "eva_attack"
-	visible_message("<span class='colossus'>\"<b>PERISH MORTAL!</b>\"</span>")
+	say("<span class='colossus'>\"<b>PERISH MORTAL!</b>\"</span>", sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 	telegraph()
 	ranged_cooldown += 2000 //YYeah let us NOT have people get tripple attacked
 	SLEEP_CHECK_DEATH(2.5 SECONDS) //run

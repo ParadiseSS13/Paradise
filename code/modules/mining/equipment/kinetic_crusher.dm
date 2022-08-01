@@ -445,10 +445,9 @@
 	return "mark detonation to create a homing hierophant chaser"
 
 /obj/item/crusher_trophy/vortex_talisman/on_mark_detonation(mob/living/target, mob/living/user)
-	if(isliving(target))
-		var/obj/effect/temp_visual/hierophant/chaser/chaser = new(get_turf(user), user, target, 3, TRUE)
-		chaser.monster_damage_boost = FALSE // Weaker due to no cooldown
-		chaser.damage = 20 //But also stronger due to AI / mining mob resistance
+	var/obj/effect/temp_visual/hierophant/chaser/chaser = new(get_turf(user), user, target, 3, TRUE)
+	chaser.monster_damage_boost = FALSE // Weaker due to no cooldown
+	chaser.damage = 20 //But also stronger due to AI / mining mob resistance
 
 /obj/effect/temp_visual/hierophant/wall/crusher
 	duration = 75
