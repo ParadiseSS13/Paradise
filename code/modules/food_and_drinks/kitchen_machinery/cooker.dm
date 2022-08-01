@@ -42,12 +42,19 @@
 	if(on)
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
 		return 0
-	if(istype(check, /obj/item/reagent_containers/food/snacks))
-		return 1
 	if(istype(check, /obj/item/grab))
 		return special_attack(check, user)
 	if(has_specials && checkSpecials(check))
 		return TRUE
+	if(istype(check, /obj/item/reagent_containers/food/snacks) || emagged)
+		if(istype(check, /obj/item/disk/nuclear)) //(1984 voice) you will not deep fry the NAD
+			to_chat(user, "<span class ='notice'>The disk is more useful raw than [thiscooktype].</span>")
+			return 0
+		var/obj/item/disk/nuclear/datdisk = locate() in check
+		if(datdisk)
+			to_chat(user, "<span class ='notice'>You get the feeling that something very important is inside this. Something that shouldn't be [thiscooktype].</span>")
+			return 0
+		return 1
 	to_chat(user, "<span class ='notice'>You can only process food!</span>")
 	return 0
 
