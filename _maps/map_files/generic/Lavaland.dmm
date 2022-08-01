@@ -1604,11 +1604,6 @@
 	icon_state = "grimy"
 	},
 /area/mine/living_quarters)
-"dH" = (
-/obj/effect/spawner/window/reinforced,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/mine/production)
 "dI" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 5
@@ -22789,7 +22784,7 @@ eG
 BX
 eW
 ld
-dH
+bN
 ai
 ab
 aj
