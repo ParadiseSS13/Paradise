@@ -349,7 +349,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "aY" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/power/apc{
 	cell_type = 25000;
 	dir = 4;
@@ -595,11 +594,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"bC" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/mine/living_quarters)
 "bD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -652,13 +646,12 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "bI" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor/east{
-	id = "garbage";
-	dir = 2
+	id = "garbage"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Disposal Exit";
-	name = "Disposal Exit Vent"
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -1116,12 +1109,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
-"cD" = (
-/obj/machinery/conveyor/east{
-	id = "garbage"
-	},
-/turf/simulated/floor/plating,
-/area/mine/living_quarters)
 "cE" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -1455,11 +1442,14 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dr" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "ds" = (
@@ -1584,8 +1574,18 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "dE" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/west,
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	layer = 2.9
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dF" = (
@@ -1795,6 +1795,10 @@
 "eg" = (
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/conveyor/east{
+	id = "garbage";
+	dir = 2
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -2483,17 +2487,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
-"fF" = (
-/obj/machinery/conveyor/east{
-	id = "garbage";
-	dir = 2
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating,
-/area/mine/living_quarters)
 "fG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -2694,9 +2687,9 @@
 "gd" = (
 /obj/machinery/conveyor/east{
 	id = "garbage";
-	dir = 6
+	dir = 2
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "ge" = (
@@ -2744,24 +2737,6 @@
 	dir = 8;
 	icon_state = "barber"
 	},
-/area/mine/living_quarters)
-"gi" = (
-/obj/machinery/door_control{
-	id = "Disposal Exit";
-	name = "Disposal Vent Control";
-	pixel_x = -25;
-	pixel_y = 4;
-	req_access_txt = "12"
-	},
-/obj/machinery/driver_button{
-	id_tag = "trash";
-	pixel_x = -26;
-	pixel_y = -6
-	},
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "gj" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -2825,10 +2800,18 @@
 	},
 /area/mine/living_quarters)
 "gq" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/east{
+	id = "garbage";
+	dir = 2
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Disposal Exit";
+	name = "Disposal Exit Vent";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "gr" = (
@@ -4514,13 +4497,6 @@
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
-"tx" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/mine/living_quarters)
 "ty" = (
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -4607,7 +4583,6 @@
 	},
 /area/mine/laborcamp)
 "un" = (
-/obj/effect/decal/warning_stripes/south,
 /obj/machinery/camera{
 	c_tag = "Mining Disposals";
 	network = list("Mining Outpost");
@@ -4833,6 +4808,10 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "ym" = (
@@ -4874,10 +4853,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "zy" = (
-/obj/machinery/mineral/stacking_machine{
-	input_dir = 1;
-	stack_amt = 10
+/obj/machinery/conveyor/east{
+	id = "garbage"
 	},
+/obj/machinery/recycler,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "zC" = (
@@ -5090,8 +5069,10 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "DE" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "DF" = (
@@ -5411,7 +5392,10 @@
 /area/mine/living_quarters)
 "Jh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/firecloset,
+/obj/machinery/conveyor/east{
+	id = "garbage";
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Jl" = (
@@ -5946,12 +5930,8 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "RX" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	id_tag = "trash";
-	name = "disposal bay door";
-	protected = 0
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Ss" = (
@@ -6107,11 +6087,19 @@
 	},
 /area/mine/living_quarters)
 "UQ" = (
-/obj/structure/disposaloutlet{
-	dir = 4
+/obj/machinery/driver_button{
+	id_tag = "trash";
+	pixel_x = 26;
+	pixel_y = -6
 	},
-/obj/structure/window/reinforced,
-/obj/structure/disposalpipe/trunk,
+/obj/machinery/door_control{
+	id = "Disposal Exit";
+	name = "Disposal Vent Control";
+	pixel_x = 25;
+	pixel_y = 4;
+	req_access_txt = "12"
+	},
+/obj/structure/chair/stool,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Vt" = (
@@ -6180,10 +6168,12 @@
 	},
 /area/mine/laborcamp)
 "VS" = (
-/obj/machinery/recycler,
-/obj/machinery/conveyor/east{
-	id = "garbage"
+/obj/machinery/door/poddoor{
+	id_tag = "trash";
+	name = "disposal bay door";
+	protected = 0
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "VT" = (
@@ -6192,13 +6182,10 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Wo" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Wt" = (
@@ -19450,7 +19437,7 @@ cM
 cM
 cM
 cM
-UQ
+xb
 Wo
 cM
 ab
@@ -19702,13 +19689,13 @@ PF
 cM
 fp
 gb
-cM
+VD
 QH
 Ww
 un
-zy
-cD
-xM
+eX
+eX
+cV
 cM
 ab
 aj
@@ -19959,13 +19946,13 @@ On
 cM
 fp
 cV
-VD
+bQ
 yl
-cV
-bC
-dh
-VS
-xM
+eo
+eo
+DE
+eX
+eX
 cM
 cM
 cM
@@ -20219,13 +20206,13 @@ bG
 df
 dr
 aY
-DE
+cM
 dE
-gd
-fF
-bI
-Zh
-RX
+eX
+QH
+cV
+px
+cR
 aj
 aj
 aj
@@ -20477,12 +20464,12 @@ cM
 cM
 cM
 cM
+bI
+fw
+dh
+UQ
 cV
-cM
 cR
-cM
-cR
-cM
 aj
 aj
 aj
@@ -20733,14 +20720,14 @@ eX
 cV
 AB
 VT
-bQ
-cV
-tx
-cV
-gi
+cM
+zy
 eX
 cR
-ab
+cM
+RX
+cM
+aj
 aj
 aj
 aj
@@ -20993,10 +20980,10 @@ cV
 VD
 Jh
 eg
-cV
+gd
 gq
-xb
-cR
+Zh
+VS
 aj
 aj
 aj
