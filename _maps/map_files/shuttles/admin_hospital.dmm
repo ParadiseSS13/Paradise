@@ -584,7 +584,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "ce" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -599,7 +599,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cg" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/machinery/light{
@@ -667,7 +667,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "co" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cp" = (

@@ -1,26 +1,23 @@
 //Packer Ship Areas
 
-/area/awaymission/BMPship
+/area/ruin/unpowered/BMPship
 	name = "\improper BMP Asteroids"
 	icon_state = "away"
 	report_alerts = FALSE
+	requires_power = TRUE
 
-/area/awaymission/BMPship/Aft
+/area/ruin/unpowered/BMPship/Aft
 	name = "\improper Aft Block"
 	icon_state = "away1"
-	requires_power = TRUE
 
-/area/awaymission/BMPship/Midship
+/area/ruin/unpowered/BMPship/Midship
 	name = "\improper Midship Block"
 	icon_state = "away2"
-	requires_power = TRUE
 
-/area/awaymission/BMPship/Fore
+/area/ruin/unpowered/BMPship/Fore
 	name = "\improper Fore Block"
 	icon_state = "away3"
-	requires_power = TRUE
 
-/area/awaymission/BMPship/Gate
-	name = "\improper Gateway Block"
+/area/ruin/unpowered/BMPship/Delta
+	name = "\improper Delta Block"
 	icon_state = "away4"
-	requires_power = TRUE

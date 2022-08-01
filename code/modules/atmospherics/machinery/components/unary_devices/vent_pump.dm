@@ -44,7 +44,7 @@
 	var/radio_filter_out
 	var/radio_filter_in
 
-	connect_types = list(1,2) //connects to regular and supply pipes
+	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY) //connects to regular and supply pipes
 
 /obj/machinery/atmospherics/unary/vent_pump/detailed_examine()
 	return "This pumps the contents of the attached pipe out into the atmosphere, if needed. It can be controlled from an Air Alarm."
