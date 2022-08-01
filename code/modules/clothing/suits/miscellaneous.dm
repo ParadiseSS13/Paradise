@@ -329,6 +329,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	flags = THICKMATERIAL
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/head/hooded/bee_hood
 	name = "bee hood"

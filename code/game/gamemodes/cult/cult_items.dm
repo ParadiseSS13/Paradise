@@ -126,6 +126,7 @@
 	item_state = "cult_helmet"
 	armor = list(MELEE = 70, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	magical = TRUE
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -137,6 +138,7 @@
 	slowdown = 1
 	armor = list(MELEE = 70, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	magical = TRUE
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robes"
