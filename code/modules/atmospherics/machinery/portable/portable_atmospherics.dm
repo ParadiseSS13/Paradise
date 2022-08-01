@@ -1,5 +1,6 @@
 /obj/machinery/atmospherics/portable
 	name = "atmoalter"
+	anchored = FALSE
 	layer = BELOW_OBJ_LAYER
 	use_power = NO_POWER_USE
 	max_integrity = 250
