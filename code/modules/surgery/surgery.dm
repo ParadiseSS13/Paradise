@@ -95,7 +95,6 @@
 		return FALSE
 
 	if(!self_operable && user == target)
-		to_chat("<span class='warning'>You can't perform that operation on yourself!</span>!")
 		return FALSE
 
 	var/datum/surgery_step/step = get_surgery_step()
