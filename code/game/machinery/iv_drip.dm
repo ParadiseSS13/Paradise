@@ -11,16 +11,16 @@
 
 /obj/machinery/iv_drip/Initialize(mapload)
 	. = ..()
-	if(mapload)
-		if(bag) // just in case anyone in the future ever adds IV drip subtypes with bags attached
-			return
-		for(var/obj/item/I in loc)
-			if(istype(I, /obj/item/reagent_containers/iv_bag))
-				I.forceMove(src)
-				bag = I
-				START_PROCESSING(SSmachines, src)
-				break
-	update_icon(UPDATE_OVERLAYS)
+	if(mapload && !bag) // bag just in case anyone in the future ever adds IV drip subtypes with bags attached
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/iv_drip/LateInitialize()
+	var/obj/item/reagent_containers/iv_bag/IV = locate(/obj/item/reagent_containers/iv_bag) in loc
+	if(IV)
+		IV.forceMove(src)
+		bag = IV
+		START_PROCESSING(SSmachines, src)
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/iv_drip/process()
 	if(istype(bag) && bag.injection_target)
