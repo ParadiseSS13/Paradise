@@ -58,7 +58,9 @@ Difficulty: Very Hard
 							   /datum/action/innate/megafauna_attack/aoe_attack,
 							   /datum/action/innate/megafauna_attack/shotgun,
 							   /datum/action/innate/megafauna_attack/alternating_cardinals)
-	var/final_availible = TRUE // Have we used our final attack yet?
+	/// Have we used our final attack yet?
+	var/final_availible = TRUE
+	
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
 	icon_icon = 'icons/mob/actions/actions.dmi'
@@ -236,7 +238,7 @@ Difficulty: Very Hard
 	icon_state = "eva_attack"
 	say("<span class='colossus'>\"<b>PERISH MORTAL!</b>\"</span>", sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 	telegraph()
-	ranged_cooldown += 2000 //YYeah let us NOT have people get tripple attacked
+	ranged_cooldown += 2000 // Yeah let us NOT have people get triple attacked
 	SLEEP_CHECK_DEATH(2.5 SECONDS) //run
 
 	var/finale_counter = 10
@@ -246,7 +248,7 @@ Difficulty: Very Hard
 			blast(do_sleep = FALSE)
 
 		if(finale_counter > 1)
-			finale_counter -= 1
+			finale_counter--
 
 		var/turf/start_turf = get_turf(src)
 		for(var/turf/target_turf in RANGE_TURFS(12, start_turf))
@@ -266,7 +268,7 @@ Difficulty: Very Hard
 		dir_shots()
 		SLEEP_CHECK_DEATH(1 SECONDS)
 	icon_state = initial(icon_state)
-	ranged_cooldown = world.time += 40
+	ranged_cooldown = world.time + 4 SECONDS
 
 /mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
 	visible_message("<span class='colossus'>[src] disintegrates [L]!</span>")
