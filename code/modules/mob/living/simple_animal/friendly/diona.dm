@@ -35,7 +35,7 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	speed = 0
-	stop_automated_movement = 0
+	stop_automated_movement = FALSE
 	turns_per_move = 4
 
 	var/list/donors = list()

@@ -71,7 +71,7 @@
 	var/datum/robot_component/picked = pick(parts)
 	picked.heal_damage(brute, burn, updating_health)
 
-/mob/living/silicon/robot/take_organ_damage(brute = 0, burn = 0, updating_health = TRUE, sharp = 0, edge = 0)
+/mob/living/silicon/robot/take_organ_damage(brute = 0, burn = 0, updating_health = TRUE, sharp = FALSE, edge = 0)
 	var/list/components = get_damageable_components()
 	if(!LAZYLEN(components))
 		return
@@ -103,7 +103,7 @@
 	if(updating_health)
 		updatehealth("heal overall damage")
 
-/mob/living/silicon/robot/take_overall_damage(brute = 0, burn = 0, updating_health = TRUE, used_weapon = null, sharp = 0)
+/mob/living/silicon/robot/take_overall_damage(brute = 0, burn = 0, updating_health = TRUE, used_weapon = null, sharp = FALSE)
 	if(status_flags & GODMODE)
 		return
 

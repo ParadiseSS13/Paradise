@@ -24,7 +24,7 @@
 		if(!user.drop_item())
 			return
 		O.forceMove(src)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 	if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
@@ -32,7 +32,7 @@
 			if(is_type_in_list(T, allowed_books))
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 	if(istype(O, /obj/item/pen))
 		rename_interactive(user, O)
@@ -53,7 +53,7 @@
 		user.put_in_hands(choice)
 	else
 		choice.forceMove(get_turf(src))
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/wood(loc, 5)
@@ -62,7 +62,7 @@
 			I.forceMove(get_turf(src))
 	..()
 
-/obj/structure/bookcase/update_icon()
+/obj/structure/bookcase/update_icon_state()
 	icon_state = "bookshelf-[min(length(contents), 5)]"
 
 
@@ -89,7 +89,7 @@
 /obj/structure/bookcase/manuals/medical/Initialize()
 	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/structure/bookcase/manuals/engineering
@@ -103,7 +103,7 @@
 	new /obj/item/book/manual/wiki/engineering_guide(src)
 	new /obj/item/book/manual/engineering_singularity_safety(src)
 	new /obj/item/book/manual/wiki/robotics_cyborgs(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/manuals/research_and_development
 	name = "R&D Manuals bookcase"
@@ -111,7 +111,7 @@
 /obj/structure/bookcase/manuals/research_and_development/Initialize()
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/sop
 	name = "bookcase (Standard Operating Procedures)"
@@ -127,7 +127,7 @@
 	new /obj/item/book/manual/wiki/sop_security(src)
 	new /obj/item/book/manual/wiki/sop_service(src)
 	new /obj/item/book/manual/wiki/sop_supply(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/random
 	var/category = null
@@ -140,7 +140,7 @@
 	var/list/books = GLOB.library_catalog.get_random_book(book_count, doAsync = FALSE)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(src, book, TRUE, FALSE)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /*
  * Book binder

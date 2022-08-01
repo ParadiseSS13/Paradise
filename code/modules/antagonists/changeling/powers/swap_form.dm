@@ -32,8 +32,8 @@
 	var/mob/living/carbon/human/target = G.affecting
 
 	to_chat(user, "<span class='notice'>We tighten our grip. We must hold still....</span>")
-	target.Jitter(1000 SECONDS)
-	user.Jitter(1000 SECONDS)
+	target.Jitter(10 SECONDS)
+	user.Jitter(10 SECONDS)
 
 	if(!do_mob(user, target, 10 SECONDS))
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")

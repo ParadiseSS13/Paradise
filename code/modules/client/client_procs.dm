@@ -154,6 +154,19 @@
 			to_chat(usr, "<span class='boldannounce'>Your ToS consent has been withdrawn. You have been kicked from the server</span>")
 			qdel(src)
 
+	if(href_list["__keydown"])
+		var/keycode = href_list["__keydown"]
+		if(keycode)
+			KeyDown(keycode)
+		return
+
+	if(href_list["__keyup"])
+		var/keycode = href_list["__keyup"]
+		if(keycode)
+			KeyUp(keycode)
+		return
+
+
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
@@ -162,7 +175,7 @@
 
 
 /client/proc/get_display_key()
-	var/fakekey = src?.holder?.fakekey
+	var/fakekey = holder?.fakekey
 	return fakekey ? fakekey : key
 
 /client/proc/is_content_unlocked()
@@ -283,7 +296,7 @@
 		// ToS accepted
 		tos_consent = TRUE
 
-
+	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
@@ -416,6 +429,7 @@
 /client/Destroy()
 	announce_leave() // Do not put this below
 	SSdebugview.stop_processing(src)
+	SSchangelog.startup_clients_open -= src
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -428,6 +442,7 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	SSambience.ambience_listening_clients -= src
+	SSinput.processing -= src
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
@@ -445,7 +460,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.msay.out", json_encode(data))
+			SSredis.publish("byond.msay", json_encode(data))
 
 	else if(holder.rights & R_BAN)
 		if(SSredis.connected)
@@ -455,7 +470,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.asay.out", json_encode(data))
+			SSredis.publish("byond.asay", json_encode(data))
 
 /client/proc/announce_leave()
 	if(!holder)
@@ -471,7 +486,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.msay.out", json_encode(data))
+			SSredis.publish("byond.msay", json_encode(data))
 
 	else if(holder.rights & R_BAN)
 		if(SSredis.connected)
@@ -483,7 +498,7 @@
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
 			data["message"] = msg
-			SSredis.publish("byond.asay.out", json_encode(data))
+			SSredis.publish("byond.asay", json_encode(data))
 
 
 /client/proc/donor_loadout_points()

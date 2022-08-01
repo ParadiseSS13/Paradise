@@ -48,10 +48,9 @@
 
 /obj/machinery/transformer/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/transformer/update_icon()
-	..()
+/obj/machinery/transformer/update_icon_state()
 	if(is_on_cooldown || stat & (BROKEN|NOPOWER))
 		icon_state = "separator-AO0"
 	else
@@ -66,7 +65,7 @@
 /// Resets `is_on_cooldown` to `FALSE` and updates our icon. Used in a callback after the transformer does a transformation.
 /obj/machinery/transformer/proc/reset_cooldown()
 	is_on_cooldown = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/transformer/Bumped(atom/movable/AM)
 	// They have to be human to be transformed.
@@ -94,7 +93,7 @@
 
 	// Activate the cooldown
 	is_on_cooldown = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
 	addtimer(CALLBACK(null, .proc/playsound, loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
 
@@ -141,7 +140,7 @@
 
 	// Activate the cooldown
 	is_on_cooldown = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
 
 /obj/machinery/transformer/xray
@@ -167,10 +166,9 @@
 
 /obj/machinery/transformer/xray/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/transformer/xray/update_icon()
-	..()
+/obj/machinery/transformer/xray/update_icon_state()
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "separator-AO0"
 	else

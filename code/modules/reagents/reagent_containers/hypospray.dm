@@ -116,10 +116,10 @@
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/item/reagent_containers/hypospray/autoinjector/update_icon()
+/obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()
 	if(reagents.total_volume > 0)
 		icon_state = initial(icon_state)
 	else

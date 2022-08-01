@@ -6,7 +6,7 @@
 	icon_state = "retro_sec"
 	item_state = "retro_sec"
 	item_color = "retro_sec"
-	displays_id = 0
+	displays_id = FALSE
 
 /obj/item/clothing/under/retro/medical
 	name = "retro medical officer's uniform"
@@ -14,7 +14,7 @@
 	icon_state = "retro_med"
 	item_state = "retro_med"
 	item_color = "retro_med"
-	displays_id = 0
+	displays_id = FALSE
 
 /obj/item/clothing/under/retro/engineering
 	name = "retro engineering uniform"
@@ -22,7 +22,7 @@
 	icon_state = "retro_eng"
 	item_state = "retro_eng"
 	item_color = "retro_eng"
-	displays_id = 0
+	displays_id = FALSE
 
 /obj/item/clothing/under/retro/science
 	name = "retro science officer's uniform"
@@ -30,4 +30,4 @@
 	icon_state = "retro_sci"
 	item_state = "retro_sci"
 	item_color = "retro_sci"
-	displays_id = 0
+	displays_id = FALSE

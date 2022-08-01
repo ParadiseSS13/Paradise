@@ -9,7 +9,7 @@
 /obj/effect/proc_holder/spell/touch/Click(mob/user = usr)
 	if(attached_hand)
 		qdel(attached_hand)
-		charge_counter = charge_max
+		cooldown_handler.revert_cast()
 		attached_hand = null
 		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
 		return 0
@@ -21,7 +21,7 @@
 			if(!ChargeHand(target))
 				return 0
 	while(attached_hand) //hibernate untill the spell is actually used
-		charge_counter = 0
+		cooldown_handler.recharge_time++ // adds a tick onto the cooldown each tick
 		sleep(1)
 
 /obj/effect/proc_holder/spell/touch/proc/ChargeHand(mob/living/carbon/user)
@@ -37,7 +37,7 @@
 				hand_handled = 0
 	if(!hand_handled)
 		qdel(attached_hand)
-		charge_counter = charge_max
+		cooldown_handler.revert_cast()
 		attached_hand = null
 		to_chat(user, "<span class='warning'>Your hands are full!</span>")
 		return 0
@@ -51,7 +51,7 @@
 	hand_path = /obj/item/melee/touch_attack/disintegrate
 
 	school = "evocation"
-	charge_max = 600
+	base_cooldown = 600
 	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
@@ -63,7 +63,7 @@
 	hand_path = /obj/item/melee/touch_attack/fleshtostone
 
 	school = "transmutation"
-	charge_max = 600
+	base_cooldown = 600
 	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 

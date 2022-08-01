@@ -17,7 +17,7 @@
 	usesound = 'sound/items/wirecutter.ogg'
 	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'
 	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
-	sharp = 1
+	sharp = TRUE
 	toolspeed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER

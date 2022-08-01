@@ -91,16 +91,14 @@
 	if(node4)
 		node4.update_underlays()
 
-/obj/machinery/atmospherics/pipe/manifold4w/update_icon(safety = 0)
-	..()
-
-	if(!check_icon_cache())
-		return
-
+/obj/machinery/atmospherics/pipe/manifold4w/update_overlays()
+	. = ..()
 	alpha = 255
-	overlays.Cut()
-	overlays += SSair.icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
-	overlays += SSair.icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
+	. += SSair.icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
+	. += SSair.icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
+	update_underlays()
+
+/obj/machinery/atmospherics/pipe/manifold4w/update_underlays()
 	underlays.Cut()
 
 	var/turf/T = get_turf(src)
@@ -120,11 +118,6 @@
 
 	for(var/D in directions)
 		add_underlay(T,,D,icon_connect_type)
-
-/obj/machinery/atmospherics/pipe/manifold4w/update_underlays()
-	..()
-	update_icon()
-
 
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/manifold4w/check_nodes_exist()

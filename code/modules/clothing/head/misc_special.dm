@@ -20,7 +20,8 @@
 	item_state = "welding"
 	materials = list(MAT_METAL=1750, MAT_GLASS=400)
 	flash_protect = FLASH_PROTECTION_WELDER
-	tint = 2
+	tint = FLASH_PROTECTION_WELDER
+	can_toggle = TRUE
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 	actions_types = list(/datum/action/item_action/toggle)
@@ -34,6 +35,9 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
+
+/obj/item/clothing/head/welding/attack_self(mob/user)
+	weldingvisortoggle(user)
 
 /obj/item/clothing/head/welding/flamedecal
 	name = "flame decal welding helmet"
@@ -49,38 +53,6 @@
 	name = "white decal welding helmet"
 	desc = "A white welding helmet with a character written across it."
 	icon_state = "welding_white"
-
-/obj/item/clothing/head/welding/attack_self()
-	toggle()
-
-/obj/item/clothing/head/welding/proc/toggle()
-	if(up)
-		up = !up
-		flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
-		flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-		icon_state = initial(icon_state)
-		to_chat(usr, "You flip [src] down to protect your eyes.")
-		flash_protect = FLASH_PROTECTION_WELDER
-		tint = 2
-	else
-		up = !up
-		flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
-		flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-		icon_state = "[initial(icon_state)]up"
-		to_chat(usr, "You push [src] up out of your face.")
-		flash_protect = FLASH_PROTECTION_NONE
-		tint = 0
-	var/mob/living/carbon/user = usr
-	user.update_tint()
-	//so our mob-overlays update
-	user.update_inv_wear_mask()
-	user.update_inv_head()
-
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-
 
 /*
  * Cakehat
@@ -194,14 +166,16 @@
 	var/icon/mob
 	dog_fashion = /datum/dog_fashion/head/kitty
 
-/obj/item/clothing/head/kitty/update_icon(mob/living/carbon/human/user)
-	if(!istype(user)) return
+/obj/item/clothing/head/kitty/update_icon(updates=ALL, mob/living/carbon/human/user)
+	..()
+	if(!istype(user))
+		return
 	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
 
-	mob = new/icon("icon" = 'icons/mob/clothing/head.dmi', "icon_state" = "kitty")
+	mob = new/icon("icon" = 'icons/mob/clothing/head.dmi', "icon_state" = icon_state)
 	mob.Blend(head_organ.hair_colour, ICON_ADD)
 
-	var/icon/earbit = new/icon("icon" = 'icons/mob/clothing/head.dmi', "icon_state" = "kittyinner")
+	var/icon/earbit = new/icon("icon" = 'icons/mob/clothing/head.dmi', "icon_state" = "[icon_state]inner")
 	mob.Blend(earbit, ICON_OVERLAY)
 
 	icon_override = mob
@@ -209,24 +183,12 @@
 /obj/item/clothing/head/kitty/equipped(mob/M, slot)
 	. = ..()
 	if(ishuman(M) && slot == slot_head)
-		update_icon(M)
-
+		update_icon(NONE, M)
 
 /obj/item/clothing/head/kitty/mouse
 	name = "mouse ears"
 	desc = "A pair of mouse ears. Squeak!"
 	icon_state = "mousey"
-
-/obj/item/clothing/head/kitty/mouse/update_icon(mob/living/carbon/human/user)
-	if(!istype(user)) return
-	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
-	mob = new/icon("icon" = 'icons/mob/clothing/head.dmi', "icon_state" = "mousey")
-	mob.Blend(head_organ.hair_colour, ICON_ADD)
-
-	var/icon/earbit = new/icon("icon" = 'icons/mob/clothing/head.dmi', "icon_state" = "mouseyinner")
-	mob.Blend(earbit, ICON_OVERLAY)
-
-	icon_override = mob
 
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"

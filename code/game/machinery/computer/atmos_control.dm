@@ -25,7 +25,7 @@
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
 
-/obj/machinery/air_sensor/update_icon()
+/obj/machinery/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
 
 /obj/machinery/air_sensor/multitool_menu(mob/user, obj/item/multitool/P)
@@ -750,6 +750,10 @@
 /obj/machinery/computer/atmoscontrol/Initialize()
 	. = ..()
 	atmos_control = new(src)
+
+/obj/machinery/computer/atmoscontrol/Destroy()
+	QDEL_NULL(atmos_control)
+	return ..()
 
 /obj/machinery/computer/atmoscontrol/laptop
 	name = "atmospherics laptop"

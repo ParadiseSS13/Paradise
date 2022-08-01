@@ -35,7 +35,7 @@ RSF
 	..()
 	if(istype(W, /obj/item/rcd_ammo))
 		if((matter + 10) > 30)
-			to_chat(user, "The RSF cant hold any more matter.")
+			to_chat(user, "The RSF can't hold any more matter.")
 			return
 		qdel(W)
 		matter += 10

@@ -36,6 +36,7 @@
 		flick("tvalve[flipstate][state][!state]",src)
 	else
 		icon_state = "tvalve[flipstate][state]"
+	..()
 
 /obj/machinery/atmospherics/trinary/tvalve/update_underlays()
 	if(..())
@@ -134,9 +135,7 @@
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/trinary/tvalve/digital/update_icon()
-	..()
-
+/obj/machinery/atmospherics/trinary/tvalve/digital/update_icon_state()
 	if(!powered())
 		icon_state = "tvalvenopower"
 

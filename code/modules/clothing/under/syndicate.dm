@@ -4,7 +4,7 @@
 	icon_state = "syndicate"
 	item_state = "bl_suit"
 	item_color = "syndicate"
-	has_sensor = 0
+	has_sensor = FALSE
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 40)
 
 /obj/item/clothing/under/syndicate/combat

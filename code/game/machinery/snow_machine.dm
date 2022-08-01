@@ -87,10 +87,9 @@
 	..()
 	if(!powered())
 		turn_on_or_off(FALSE, TRUE)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/snow_machine/update_icon()
-	..()
+/obj/machinery/snow_machine/update_icon_state()
 	if(panel_open)
 		icon_state = "snow_machine_openpanel"
 	else
@@ -131,5 +130,5 @@
 	if(!active && give_message)
 		visible_message("<span class='warning'>[src] switches off!</span>")
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE

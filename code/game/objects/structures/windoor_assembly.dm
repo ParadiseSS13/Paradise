@@ -50,7 +50,7 @@
 	setDir(ini_dir)
 	move_update_air(T)
 
-/obj/structure/windoor_assembly/update_icon()
+/obj/structure/windoor_assembly/update_icon_state()
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[state]"
 
 /obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target, height=0)
@@ -156,7 +156,7 @@
 				return ..()
 
 	//Update to reflect changes(if applicable)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/crowbar_act(mob/user, obj/item/I)	//Crowbar to complete the assembly, Step 7 complete.
 	if(state != "02")
@@ -244,7 +244,7 @@
 		name = "secure anchored windoor assembly"
 	else
 		name = "anchored windoor assembly"
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != "01")
@@ -282,7 +282,7 @@
 			name = "secure windoor assembly"
 		else
 			name = "windoor assembly"
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/welder_act(mob/user, obj/item/I)
 	if(state != "01")
@@ -320,7 +320,7 @@
 	setDir(target_dir)
 
 	ini_dir = dir
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/structure/windoor_assembly/AltClick(mob/user)
@@ -348,5 +348,5 @@
 		facing = "l"
 		to_chat(usr, "The windoor will now slide to the left.")
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return

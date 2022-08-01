@@ -97,8 +97,7 @@
 	wrapper_color = COLOR_PALE_BTL_GREEN
 
 // Why the hell is this in the closets folder?
-/obj/item/storage/pill_bottle/psychiatrist/New()
-	..()
+/obj/item/storage/pill_bottle/psychiatrist/populate_contents()
 	new /obj/item/reagent_containers/food/pill/haloperidol(src)
 	new /obj/item/reagent_containers/food/pill/haloperidol(src)
 	new /obj/item/reagent_containers/food/pill/haloperidol(src)

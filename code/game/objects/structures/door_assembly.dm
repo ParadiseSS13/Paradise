@@ -22,7 +22,7 @@
 
 /obj/structure/door_assembly/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	update_name()
 
 /obj/structure/door_assembly/Destroy()
@@ -131,7 +131,7 @@
 	else
 		return ..()
 	update_name()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/crowbar_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
@@ -152,7 +152,7 @@
 		ae = electronics
 		electronics = null
 		ae.forceMove(loc)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	update_name()
 
 /obj/structure/door_assembly/screwdriver_act(mob/user, obj/item/I)
@@ -189,7 +189,7 @@
 	electronics.forceMove(door)
 	electronics = null
 	qdel(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
@@ -203,7 +203,7 @@
 	to_chat(user, "<span class='notice'>You cut the wires from the airlock assembly.</span>")
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
@@ -256,17 +256,18 @@
 			return
 		to_chat(user, "<span class='notice'>You disassemble the airlock assembly.</span>")
 		deconstruct(TRUE)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/door_assembly/update_icon()
-	overlays.Cut()
+/obj/structure/door_assembly/update_overlays()
+	. = ..()
 	if(!glass)
-		overlays += get_airlock_overlay("fill_construction", icon)
+		. += get_airlock_overlay("fill_construction", icon)
 	else if(glass)
-		overlays += get_airlock_overlay("glass_construction", overlays_file)
-	overlays += get_airlock_overlay("panel_c[state+1]", overlays_file)
+		. += get_airlock_overlay("glass_construction", overlays_file)
+	. += get_airlock_overlay("panel_c[state+1]", overlays_file)
 
-/obj/structure/door_assembly/proc/update_name()
+/obj/structure/door_assembly/update_name()
+	. = ..()
 	name = ""
 	switch(state)
 		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
@@ -289,7 +290,7 @@
 	if(electronics)
 		target.electronics = source.electronics
 		source.electronics.forceMove(target)
-	target.update_icon()
+	target.update_icon(UPDATE_OVERLAYS)
 	target.update_name()
 	qdel(source)
 

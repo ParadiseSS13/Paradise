@@ -6,7 +6,6 @@
 	chemical_cost = 0
 	power_type = CHANGELING_INNATE_POWER
 	req_human = TRUE
-	max_genetic_damage = 100
 
 /datum/action/changeling/linglink/can_sting(mob/living/carbon/user)
 	if(!..())

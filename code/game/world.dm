@@ -226,9 +226,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(GLOB.configuration.general.server_features)
 		features += GLOB.configuration.general.server_features
 
-	if(GLOB.configuration.vote.allow_restart_votes)
-		features += "vote"
-
 	if(GLOB.configuration.url.wiki_url)
 		features += "<a href=\"[GLOB.configuration.url.wiki_url]\">Wiki</a>"
 

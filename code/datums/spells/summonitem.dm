@@ -2,7 +2,7 @@
 	name = "Instant Summons"
 	desc = "This spell can be used to recall a previously marked item to your hand from anywhere in the universe."
 	school = "transmutation"
-	charge_max = 100
+	base_cooldown = 100
 	clothes_req = FALSE
 	invocation = "GAR YOK"
 	invocation_type = "whisper"

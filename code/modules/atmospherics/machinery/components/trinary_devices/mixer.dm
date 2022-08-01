@@ -35,9 +35,7 @@
 	icon_state = "mmap"
 	flipped = TRUE
 
-/obj/machinery/atmospherics/trinary/mixer/update_icon(safety = 0)
-	..()
-
+/obj/machinery/atmospherics/trinary/mixer/update_icon_state()
 	if(flipped)
 		icon_state = "m"
 	else

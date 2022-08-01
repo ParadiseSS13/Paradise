@@ -80,12 +80,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	opacity = FALSE
 
 	var/school = "evocation" //not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
-
-	var/charge_type = "recharge" //can be recharge or charges, see charge_max and charge_counter descriptions; can also be based on the holder's vars now, use "holder_var" for that
-
-	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
+	///recharge time in deciseconds
+	var/base_cooldown = 10 SECONDS
 	var/starts_charged = TRUE //Does this spell start ready to go?
-	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
 	var/should_recharge_after_cast = TRUE
 	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
 
@@ -148,6 +145,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/datum/spell_handler/custom_handler
 	/// List with the handler datums per spell type. Key = src.type, value = the handler datum created by create_new_handler()
 	var/static/list/spell_handlers = list()
+	/// handles a given spells cooldowns. tracks the time until its off cooldown,
+	var/datum/spell_cooldown/cooldown_handler
 
 /* Checks if the user can cast the spell
  * @param charge_check If the proc should do the cooldown check
@@ -189,13 +188,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  */
 /obj/effect/proc_holder/spell/proc/spend_spell_cost(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
-	switch(charge_type)
-		if("recharge")
-			charge_counter = 0 //doesn't start recharging until the targets selecting ends
-		if("charges")
-			charge_counter-- //returns the charge if the targets selecting fails
-		if("holdervar")
-			adjust_var(user, holder_var_type, holder_var_amount)
 
 	custom_handler?.spend_spell_cost(user, src)
 
@@ -227,10 +219,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	..()
 	action = new(src)
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
-	if(starts_charged)
-		charge_counter = charge_max
-	else
-		start_recharge()
 	if(!gain_desc)
 		gain_desc = "You can now use [src]."
 
@@ -244,9 +232,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(spell_handlers[type] != NONE)
 		custom_handler = spell_handlers[type]
 	targeting = targeting_datums[type]
+	cooldown_handler = create_new_cooldown()
+	cooldown_handler.cooldown_init(src)
 
 /obj/effect/proc_holder/spell/Destroy()
 	QDEL_NULL(action)
+	QDEL_NULL(cooldown_handler)
 	return ..()
 
 /**
@@ -265,6 +256,18 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/create_new_handler()
 	RETURN_TYPE(/datum/spell_handler)
 	return NONE
+
+/**
+ * Creates and returns the spells cooldown handler, defaults to the standard recharge handler.
+ * Override this if you wish to use a different method of cooldown
+ */
+
+/obj/effect/proc_holder/spell/proc/create_new_cooldown()
+	RETURN_TYPE(/datum/spell_cooldown)
+	var/datum/spell_cooldown/S = new
+	S.recharge_duration = base_cooldown
+	S.starts_off_cooldown = starts_charged
+	return S
 
 /obj/effect/proc_holder/spell/Click()
 	if(cast_check(TRUE, FALSE, usr))
@@ -318,20 +321,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	perform(targets, should_recharge_after_cast, user)
 
-/obj/effect/proc_holder/spell/proc/start_recharge()
-	if(action)
-		action.UpdateButtonIcon()
-	START_PROCESSING(SSfastprocess, src)
-
-/obj/effect/proc_holder/spell/process()
-	charge_counter += 2
-	if(action)
-		action.UpdateButtonIcon()
-	if(charge_counter < charge_max)
-		return
-	STOP_PROCESSING(SSfastprocess, src)
-	charge_counter = charge_max
-
 /**
  * Handles all the code for performing a spell once the targets are known
  *
@@ -349,9 +338,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			write_custom_logs(targets, user)
 		if(create_attack_logs)
 			add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
-	spawn(0)
-		if(charge_type == "recharge" && recharge)
-			start_recharge()
+	cooldown_handler.start_recharge()
 
 	if(sound)
 		playMagSound()
@@ -436,14 +423,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return
 
 /obj/effect/proc_holder/spell/proc/revert_cast(mob/user = usr) //resets recharge or readds a charge
-	switch(charge_type)
-		if("recharge")
-			charge_counter = charge_max
-		if("charges")
-			charge_counter++
-		if("holdervar")
-			adjust_var(user, holder_var_type, -holder_var_amount)
-
+	cooldown_handler.revert_cast()
 	custom_handler?.revert_cast(user, src)
 
 	if(action)
@@ -473,22 +453,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 	return
 
-/obj/effect/proc_holder/spell/proc/get_availability_percentage()
-	switch(charge_type)
-		if("recharge")
-			if(charge_counter == 0)
-				return 0
-			if(charge_max == 0)
-				return 1
-			return charge_counter / charge_max
-		if("charges")
-			if(charge_counter)
-				return 1
-			return 0
-		if("holdervar")
-			return 1
-
-
 /obj/effect/proc_holder/spell/aoe_turf
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
@@ -513,17 +477,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		return FALSE
 
 	if(charge_check)
-		switch(charge_type)
-			if("recharge")
-				if(charge_counter < charge_max)
-					if(show_message)
-						to_chat(user, still_recharging_msg)
-					return FALSE
-			if("charges")
-				if(!charge_counter)
-					if(show_message)
-						to_chat(user, "<span class='notice'>[name] has no charges left.</span>")
-					return FALSE
+		if(cooldown_handler.is_on_cooldown())
+			if(show_message)
+				to_chat(user, still_recharging_msg)
+			return FALSE
+
 	if(!ghost)
 		if(user.stat && !stat_allowed)
 			if(show_message)
@@ -567,7 +525,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/summonmob
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."
-	charge_max = 100
+	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "JE VES"
 	invocation_type = "whisper"

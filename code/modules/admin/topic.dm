@@ -1847,7 +1847,7 @@
 		P.myeffect = eviltype
 		P.mytarget = H
 		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",,"Yes", "No") == "Yes")
-			P.activate_on_timeout = 1
+			P.activate_on_timeout = TRUE
 		P.x = rand(-2, 0)
 		P.y = rand(-1, 2)
 		P.offset_x += P.x
@@ -1863,7 +1863,7 @@
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
-		P.overlays += stampoverlay
+		P.stamp_overlays += stampoverlay
 		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 		P.update_icon()
 		P.faxmachineid = fax.UID()
@@ -1954,7 +1954,7 @@
 					P.master_commander = H
 					P.universal_speak = TRUE
 					P.universal_understand = TRUE
-					P.can_collar = 1
+					P.can_collar = TRUE
 					P.faction = list("neutral")
 					var/obj/item/clothing/accessory/petcollar/C = new
 					P.add_collar(C)
@@ -2157,26 +2157,27 @@
 				log_admin("[key_name(usr)] despawned [M] in cryo.")
 				message_admins("[key_name_admin(usr)] despawned [M] in cryo.")
 		else
-			var/fast_despawn = FALSE
-			if(href_list["fast_despawn"])
+			var/area/mob_area = get_area(M)
+			var/should_despawn = FALSE
+			if(mob_area.fast_despawn)
 				if(alert(owner, "[M] is an area where players being AFK cryo'd should be despawned immediately. \
 						Do you wish to immediately de-spawn them, or just continue moving them to the cryopod?", "Cryo or De-Spawn", "De-Spawn", "Move to Cryopod") == "De-Spawn")
-					fast_despawn = TRUE
+					should_despawn = TRUE
 			if(!cryo_ssd(M))
 				return
 
 			if(human)
 				var/mob/living/carbon/human/H = M
-				var/msg = "[key_name(usr)] [fast_despawn ? "despawned" : "sent"] [H.job] [H] [fast_despawn ? "in" : "to"] cryo."
+				var/msg = "[key_name(usr)] [should_despawn ? "despawned" : "sent"] [H.job] [H] [should_despawn ? "in" : "to"] cryo."
 				log_admin(msg)
 				message_admins(msg)
 			else
-				var/msg = "[key_name(usr)] [fast_despawn ? "despawned" : "sent"] [M] [fast_despawn ? "in" : "to"] cryo."
+				var/msg = "[key_name(usr)] [should_despawn ? "despawned" : "sent"] [M] [should_despawn ? "in" : "to"] cryo."
 				log_admin(msg)
 				message_admins(msg)
 
-			if(fast_despawn)
-				var/obj/machinery/cryopod/P = M.loc // They're already in the cryopod because of `cryo_ssd(M)` above.
+			if(should_despawn)
+				var/obj/machinery/cryopod/P = M.loc // They've already been placed in the cryopod because of `cryo_ssd(M)` above.
 				P.despawn_occupant()
 				return
 
@@ -2232,7 +2233,7 @@
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
-		P.overlays += stampoverlay
+		P.stamp_overlays += stampoverlay
 		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 		P.update_icon()
 		fax.receivefax(P)
@@ -2444,14 +2445,14 @@
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp/centcom
-				P.overlays += stampoverlay
+				P.stamp_overlays += stampoverlay
 				P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 
 			else if(stamptype == "text")
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp
-				P.overlays += stampoverlay
+				P.stamp_overlays += stampoverlay
 				P.stamps += "<hr><i>[stampvalue]</i>"
 
 		if(destination != "All Departments")
@@ -3364,7 +3365,7 @@
 		to_chat(usr, "<span class='warning'>ERROR: Could not create eventmob. Could not pick key.</span>")
 		return
 	var/datum/mind/hunter_mind = new /datum/mind(key_of_hunter)
-	hunter_mind.active = 1
+	hunter_mind.active = TRUE
 	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(GLOB.latejoin))
 	hunter_mind.transfer_to(hunter_mob)
 	hunter_mob.equipOutfit(O, FALSE)

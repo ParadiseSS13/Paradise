@@ -113,9 +113,9 @@
 	new /obj/item/cartridge/atmos(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	if(prob(50))
-		new /obj/item/storage/backpack/industrial(src)
+		new /obj/item/storage/backpack/industrial/atmos(src)
 	else
-		new /obj/item/storage/backpack/satchel_eng(src)
+		new /obj/item/storage/backpack/satchel_atmos(src)
 	new /obj/item/storage/backpack/duffel/atmos(src)
 	new /obj/item/extinguisher(src)
 	new /obj/item/grenade/gas/oxygen(src)

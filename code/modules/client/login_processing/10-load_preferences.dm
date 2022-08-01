@@ -23,7 +23,8 @@
 		screentip_mode,
 		screentip_color,
 		ghost_darkness_level,
-		colourblind_mode
+		colourblind_mode,
+		keybindings
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey

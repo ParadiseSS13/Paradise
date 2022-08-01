@@ -76,6 +76,7 @@ CREATE TABLE `characters` (
   `hair_gradient_offset` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0,0',
   `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
   `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '255',
+  `custom_emotes` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -266,14 +267,14 @@ CREATE TABLE `player` (
   `UI_style` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT 'Midnight',
   `UI_style_color` varchar(7) COLLATE utf8mb4_unicode_ci DEFAULT '#ffffff',
   `UI_style_alpha` smallint(4) DEFAULT '255',
-  `be_role` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `be_role` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `default_slot` smallint(4) DEFAULT '1',
   `toggles` int(11) DEFAULT NULL,
   `toggles_2` int(11) DEFAULT NULL,
   `sound` mediumint(8) DEFAULT '31',
-  `volume_mixer` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `volume_mixer` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `exp` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `exp` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `clientfps` smallint(4) DEFAULT '63',
   `atklog` smallint(4) DEFAULT '0',
   `fuid` bigint(20) DEFAULT NULL,
@@ -285,6 +286,7 @@ CREATE TABLE `player` (
   `screentip_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#ffd391',
   `ghost_darkness_level` tinyint(1) UNSIGNED NOT NULL DEFAULT '255',
   `colourblind_mode` VARCHAR(48) NOT NULL DEFAULT 'None' COLLATE 'utf8mb4_general_ci',
+  `keybindings` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -350,6 +352,7 @@ CREATE TABLE `karma_totals` (
 ) ENGINE=InnoDB AUTO_INCREMENT=25715 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+DROP TABLE IF EXISTS `karma_purchases`;
 CREATE TABLE `karma_purchases` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`ckey` VARCHAR(32) NOT NULL COLLATE 'utf8_general_ci',
@@ -590,6 +593,7 @@ CREATE TABLE `round` (
 --
 -- Table structure for table `2fa_secrets`
 --
+DROP TABLE IF EXISTS `2fa_secrets`;
 CREATE TABLE `2fa_secrets` (
 	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`secret` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -601,6 +605,7 @@ CREATE TABLE `2fa_secrets` (
 --
 -- Table structure for table `pai_saves`
 --
+DROP TABLE IF EXISTS `pai_saves`;
 CREATE TABLE `pai_saves` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -615,6 +620,7 @@ CREATE TABLE `pai_saves` (
 --
 -- Table structure for table `instance_data_cache`
 --
+DROP TABLE IF EXISTS `instance_data_cache`;
 CREATE TABLE `instance_data_cache` (
 	`server_id` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`key_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',

@@ -4,7 +4,7 @@
 	singlemutcheck(H, GLOB.monkeyblock, MUTCHK_FORCED)
 
 /mob/new_player/AIize()
-	spawning = 1
+	spawning = TRUE
 	return ..()
 
 /mob/living/carbon/AIize()

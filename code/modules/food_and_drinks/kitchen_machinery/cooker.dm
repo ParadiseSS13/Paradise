@@ -85,7 +85,7 @@
 
 /obj/machinery/cooker/proc/changename(obj/item/name, obj/item/setme)
 	setme.name = "[thiscooktype] [name.name]"
-	setme.desc = "[name.desc]. It has been [thiscooktype]"
+	setme.desc = "[name.desc] It has been [thiscooktype]."
 
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
 	icon_state = onicon

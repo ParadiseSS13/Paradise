@@ -24,6 +24,7 @@
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
+	var/transparent
 
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
@@ -298,23 +299,22 @@
 		return
 	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
-/obj/structure/closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
+/obj/structure/closet/update_icon_state()
 	if(!opened)
-		icon_state = icon_closed
+		icon_state = "[icon_closed][transparent ? "_trans" : ""]"
 	else
-		icon_state = icon_opened
-	update_overlays()
+		icon_state = "[icon_opened][transparent ? "_trans" : ""]"
 
-/obj/structure/closet/proc/update_overlays(transparent = FALSE)
-	cut_overlays()
+/obj/structure/closet/update_overlays()
+	. = ..()
 	if(transparent && opened)
-		add_overlay("[open_door_sprite]_trans")
+		. += "[open_door_sprite]_trans"
 		return
 	if(opened)
-		add_overlay(open_door_sprite)
+		. += open_door_sprite
 		return
 	if(welded)
-		add_overlay("welded")
+		. += "welded"
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
@@ -399,20 +399,17 @@
 	return TRUE
 
 /obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
-	var/transparent = FALSE
+	transparent = FALSE
 	for(var/atom/A in location)
 		if(A.density && A != src && A != AM)
 			transparent = TRUE
 			break
-	icon_opened = transparent ? "bluespace_open_trans" : "bluespace_open"
-	icon_closed = transparent ? "bluespace_trans" : "bluespace"
-	icon_state = opened ? icon_opened : icon_closed
-	update_overlays(transparent)
+	update_icon()
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
 	if(AM.density)
-		icon_state = opened ? "bluespace_open_trans" : "bluespace_trans"
-		update_overlays(TRUE)
+		transparent = TRUE
+		update_icon()
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)

@@ -47,10 +47,8 @@
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
 
-/obj/item/gun/projectile/automatic/gyropistol/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/gyropistol/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "loaded" : ""]"
-	return
 
 /obj/item/gun/projectile/automatic/speargun
 	name = "kinetic speargun"
@@ -69,7 +67,7 @@
 	select = 0
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/speargun/update_icon()
+/obj/item/gun/projectile/automatic/speargun/update_icon_state()
 	return
 
 /obj/item/gun/projectile/automatic/speargun/attack_self()

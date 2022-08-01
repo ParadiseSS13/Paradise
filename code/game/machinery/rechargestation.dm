@@ -33,7 +33,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/cell/high(null)
 	RefreshParts()
-	build_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharge_station/upgraded/Initialize(mapload)
 	. = ..()
@@ -87,7 +87,7 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharge_station/narsie_act()
 	go_out()
@@ -116,9 +116,9 @@
 		go_out()
 	..(severity)
 
-/obj/machinery/recharge_station/proc/build_icon()
+/obj/machinery/recharge_station/update_icon_state()
 	if(NOPOWER|BROKEN)
-		if(src.occupant)
+		if(occupant)
 			icon_state = "borgcharger1"
 		else
 			icon_state = "borgcharger0"
@@ -164,7 +164,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	build_icon()
+	update_icon(UPDATE_ICON_STATE)
 	use_power = IDLE_POWER_USE
 	return
 
@@ -234,6 +234,6 @@
 	occupant = user
 
 	add_fingerprint(user)
-	build_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_use_power(1)
 	return

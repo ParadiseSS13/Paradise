@@ -458,22 +458,19 @@
  <br>
  <b>Assassin</b>: Medium damage with no damage resistance, can enter stealth which massively increases the damage of the next attack causing it to ignore armour.
  <br>
- <b>Charger</b>: Medium damage and defense, very fast and has a special charge attack which damages a target and knocks items out of their hands.
+ <b>Charger</b>: Medium damage and defense, very fast and has a special charge attack which damages a target and knocks them to the ground.
  <br>
  <b>Lightning</b>: Applies lightning chains to any targets on attack with a link to your summoner, lightning chains will shock anyone nearby.
  <br>
  <b>Protector</b>: You will become leashed to your holoparasite instead of them to you. Has two modes, a medium attack/defense mode and a protection mode which greatly reduces incoming damage to the holoparasite.
 "}
 
-/obj/item/paper/guardian/update_icon()
+/obj/item/paper/guardian/update_icon_state()
 	return
-
 
 /obj/item/storage/box/syndie_kit/guardian
 	name = "holoparasite injector kit"
 
-/obj/item/storage/box/syndie_kit/guardian/New()
-	..()
+/obj/item/storage/box/syndie_kit/guardian/populate_contents()
 	new /obj/item/guardiancreator/tech/choose(src)
 	new /obj/item/paper/guardian(src)
-	return

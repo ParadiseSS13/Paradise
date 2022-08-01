@@ -61,8 +61,8 @@
 		"green" = list(0, 1, 0),
 		"blue" = list(0.5, 0.5, 1),
 		"yellow" = list(1, 1, 0))
-	var/pen_color_iconstate = "pencolor"
-	var/pen_color_shift = 3
+	var/pen_colour_iconstate = "pencolor"
+	var/pen_colour_shift = 3
 
 /obj/item/pen/multi/Initialize(mapload)
 	..()
@@ -78,14 +78,14 @@
 /obj/item/pen/multi/attack_self(mob/living/user as mob)
 	select_colour(user)
 
-/obj/item/pen/multi/update_icon()
-	overlays.Cut()
-	var/icon/o = new(icon, pen_color_iconstate)
-	var/list/c = colour_choices[colour]
-	o.SetIntensity(c[1], c[2], c[3])
-	if(pen_color_shift)
-		o.Shift(SOUTH, pen_color_shift)
-	overlays += o
+/obj/item/pen/multi/update_overlays()
+	. = ..()
+	var/icon/colour_overlay = new(icon, pen_colour_iconstate)
+	var/list/colours = colour_choices[colour]
+	colour_overlay.SetIntensity(colours[1], colours[2], colours[3])
+	if(pen_colour_shift)
+		colour_overlay.Shift(SOUTH, pen_colour_shift)
+	. += colour_overlay
 
 /obj/item/pen/fancy
 	name = "fancy pen"
@@ -96,13 +96,13 @@
 	name = "Gilded Pen"
 	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."
 	icon_state = "goldpen"
-	pen_color_shift = 0
+	pen_colour_shift = 0
 
 /obj/item/pen/multi/fountain
 	name = "Engraved Fountain Pen"
 	desc = "An expensive looking pen."
 	icon_state = "fountainpen"
-	pen_color_shift = 0
+	pen_colour_shift = 0
 
 /*
  * Sleepypens
@@ -171,7 +171,7 @@
 		set_light(brightness_on, 1)
 	update_icon()
 
-/obj/item/pen/edagger/update_icon()
+/obj/item/pen/edagger/update_icon_state()
 	if(on)
 		icon_state = "edagger"
 		item_state = "edagger"

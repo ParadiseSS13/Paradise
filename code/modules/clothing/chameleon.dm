@@ -165,6 +165,7 @@
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
+		I.update_appearance()
 
 	target.icon = initial(picked_item.icon)
 

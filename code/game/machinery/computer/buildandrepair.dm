@@ -457,8 +457,7 @@
 	if(state == STATE_GLASS)
 		new /obj/item/stack/sheet/glass(location, 2)
 
-/obj/structure/computerframe/update_icon()
-	. = ..()
+/obj/structure/computerframe/update_icon_state()
 	icon_state = "comp_frame_[state]"
 
 /obj/structure/computerframe/welder_act(mob/user, obj/item/I)

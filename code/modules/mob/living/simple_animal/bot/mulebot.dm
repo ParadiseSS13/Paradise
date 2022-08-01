@@ -10,7 +10,7 @@
 	name = "\improper MULEbot"
 	desc = "A Multiple Utility Load Effector bot."
 	icon_state = "mulebot0"
-	density = 1
+	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	animate_movement = 1
 	health = 50
@@ -53,8 +53,8 @@
 /mob/living/simple_animal/bot/mulebot/get_cell()
 	return cell
 
-/mob/living/simple_animal/bot/mulebot/New()
-	..()
+/mob/living/simple_animal/bot/mulebot/Initialize(mapload)
+	. = ..()
 	wires = new /datum/wires/mulebot(src)
 	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
 	access_card.access = J.get_access()
@@ -72,6 +72,9 @@
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
 	return ..()
+
+/mob/living/simple_animal/bot/mulebot/can_buckle()
+	return FALSE //no ma'am, you cannot buckle mulebots to chairs
 
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(suffix)
 	src.suffix = suffix
@@ -140,18 +143,21 @@
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, 0)
 
-/mob/living/simple_animal/bot/mulebot/update_icon()
+/mob/living/simple_animal/bot/mulebot/update_icon_state()
 	if(open)
 		icon_state="mulebot-hatch"
 	else
 		icon_state = "mulebot[wires.is_cut(WIRE_MOB_AVOIDANCE)]"
-	overlays.Cut()
+
+/mob/living/simple_animal/bot/mulebot/update_overlays()
+	. = ..()
 	if(load && !ismob(load))//buckling handles the mob offsets
-		load.pixel_y = initial(load.pixel_y) + 9
+		var/image/load_overlay = image(icon = load.icon, icon_state = load.icon_state)
+		load_overlay.pixel_y = initial(load.pixel_y) + 9
 		if(load.layer < layer)
-			load.layer = layer + 0.1
-		overlays += load
-	return
+			load_overlay.layer = layer + 0.1
+		load_overlay.overlays = load.overlays
+		. += load_overlay
 
 /mob/living/simple_animal/bot/mulebot/ex_act(severity)
 	unload(0)
@@ -415,8 +421,6 @@
 
 	mode = BOT_IDLE
 
-	overlays.Cut()
-
 	unbuckle_all_mobs()
 
 	if(load)
@@ -430,6 +434,8 @@
 			if(load.CanPass(load,newT)) //Can't get off onto anything that wouldn't let you pass normally
 				step(load, dirn)
 		load = null
+
+	update_icon(UPDATE_OVERLAYS)
 
 	// in case non-load items end up in contents, dump every else too
 	// this seems to happen sometimes due to race conditions
@@ -451,14 +457,14 @@
 		target = ai_waypoint //Target is the end point of the path, the waypoint set by the AI.
 		dest_area = get_area(target)
 		destination = format_text(dest_area.name)
-		pathset = 1 //Indicates the AI's custom path is initialized.
+		pathset = TRUE //Indicates the AI's custom path is initialized.
 		start()
 
 /mob/living/simple_animal/bot/mulebot/handle_automated_action()
 	diag_hud_set_botmode()
 
 	if(!has_power())
-		on = 0
+		on = FALSE
 		return
 	if(on)
 		var/speed = (!wires.is_cut(WIRE_MOTOR1) ? 1 : 0) + (!wires.is_cut(WIRE_MOTOR2) ? 2 : 0)

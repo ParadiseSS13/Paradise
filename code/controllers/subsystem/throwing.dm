@@ -109,10 +109,6 @@ SUBSYSTEM_DEF(throwing)
 
 		AM.Move(step, get_dir(AM, step))
 
-		if(!AM.throwing) // we hit something during our move
-			finalize(hit = TRUE)
-			return
-
 		dist_travelled++
 
 		if(dist_travelled > MAX_THROWING_DIST)
@@ -138,10 +134,11 @@ SUBSYSTEM_DEF(throwing)
 		thrownthing.newtonian_move(init_dir)
 
 	if(target)
-		thrownthing.throw_impact(target, src)
+		thrownthing.throw_impact(target, src, speed)
 
 	if(callback)
 		callback.Invoke()
+	thrownthing.end_throw()
 
 /datum/thrownthing/proc/hit_atom(atom/A)
 	finalize(hit = TRUE, target = A)

@@ -14,12 +14,11 @@
 		dropcase()
 	return ..()
 
-/obj/item/implantpad/update_icon()
+/obj/item/implantpad/update_icon_state()
 	if(case)
-		src.icon_state = "implantpad-1"
+		icon_state = "implantpad-1"
 	else
-		src.icon_state = "implantpad-0"
-	return
+		icon_state = "implantpad-0"
 
 /obj/item/implantpad/proc/addcase(mob/user as mob, obj/item/implantcase/C as obj)
 	if(!user || !C)
@@ -30,7 +29,7 @@
 	user.unEquip(C)
 	C.forceMove(src)
 	case = C
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/implantpad/proc/dropcase(mob/user as mob)
 	if(!case)
@@ -41,12 +40,12 @@
 			add_fingerprint(user)
 			case.add_fingerprint(user)
 			case = null
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			return
 
 	case.forceMove(get_turf(src))
 	case = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/implantpad/verb/remove_implant()
 	set category = "Object"

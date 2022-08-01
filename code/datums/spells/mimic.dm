@@ -2,7 +2,7 @@
 	name = "Mimic"
 	desc =  "Learn a new form to mimic or become one of your known forms"
 	clothes_req = FALSE
-	charge_max = 3 SECONDS
+	base_cooldown = 3 SECONDS
 	action_icon_state = "genetic_morph"
 	selection_activated_message = "<span class='sinister'>Click on a target to remember it's form. Click on yourself to change form.</span>"
 	create_attack_logs = FALSE

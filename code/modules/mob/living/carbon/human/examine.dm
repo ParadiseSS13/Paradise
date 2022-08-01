@@ -95,8 +95,14 @@
 					if(blood_DNA)
 						msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
 				if("eyes")
-					if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-						msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
+					if(HAS_TRAIT(src, SCRYING))
+						if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+							msg += "<span class='boldwarning'>[p_their(TRUE)] glowing red eyes are glazed over!</span>\n"
+						else
+							msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glazed over.</span>\n"
+					else
+						if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+							msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 			continue
 
 	//handcuffed?
@@ -269,10 +275,11 @@
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(dna.species.show_ssd)
-				if(!key)
-					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
-				else if(!client)
-					msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
+				if(!HAS_TRAIT(src, SCRYING))
+					if(!key)
+						msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
+					else if(!client)
+						msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
 
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"

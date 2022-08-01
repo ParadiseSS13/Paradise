@@ -449,7 +449,7 @@
 	. = ..()
 	var/spawnpath = pick(subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random)
 	new spawnpath(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 //All of the armor below is mostly unused
 

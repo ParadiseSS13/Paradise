@@ -5,7 +5,7 @@
 	desc = "Prepare an ambush. Dealing significantly more damage on the first hit and you will weaken the target. Only works while morphed. If the target tries to use you with their hands then you will do even more damage. \
 	 		Keeping still for another 15 seconds will perfect your disguise."
 	action_icon_state = "morph_ambush"
-	charge_max = 8 SECONDS
+	base_cooldown = 8 SECONDS
 
 /obj/effect/proc_holder/spell/morph_spell/ambush/create_new_targeting()
 	return new /datum/spell_targeting/self

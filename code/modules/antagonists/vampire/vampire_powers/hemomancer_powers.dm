@@ -2,7 +2,7 @@
 	name = "Vampiric Claws (30)"
 	desc = "You channel blood magics to forge deadly vampiric claws that leech blood and strike rapidly. Cannot be used if you are holding something that cannot be dropped."
 	gain_desc = "You have gained the ability to forge your hands into vampiric claws."
-	charge_max = 30 SECONDS
+	base_cooldown = 30 SECONDS
 	required_blood = 30
 	action_icon_state = "vampire_claws"
 
@@ -91,7 +91,7 @@
 	gain_desc = "You have gained the ability to summon blood tendrils to slow people down in an area that you target."
 	required_blood = 10
 
-	charge_max = 30 SECONDS
+	base_cooldown = 30 SECONDS
 	action_icon_state = "blood_tendrils"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
@@ -157,7 +157,7 @@
 	desc = "Every pool of blood in 4 tiles erupts with a spike of living blood, damaging anyone stood on it."
 	gain_desc = "You have gained the ability to weaponise pools of blood to damage those stood on them."
 	required_blood = 100
-	charge_max = 200 SECONDS
+	base_cooldown = 200 SECONDS
 	action_icon_state = "blood_spikes"
 
 /obj/effect/proc_holder/spell/vampire/blood_eruption/create_new_targeting()
@@ -193,7 +193,7 @@
 	name = "The Blood Bringers Rite"
 	desc = "When toggled, everyone around you begins to bleed profusely."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
-	charge_max = 10 SECONDS
+	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
 

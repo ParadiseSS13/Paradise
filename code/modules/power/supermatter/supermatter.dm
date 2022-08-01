@@ -85,7 +85,7 @@
 	icon_state = "darkmatter"
 	density = TRUE
 	anchored = TRUE
-	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 | IMMUNE_TO_SHUTTLECRUSH_2 | NO_MALF_EFFECT_2
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 | IMMUNE_TO_SHUTTLECRUSH_2 | NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	base_icon_state = "darkmatter"
@@ -200,7 +200,7 @@
 	countdown.start()
 	GLOB.poi_list |= src
 	radio = new(src)
-	radio.listening = 0
+	radio.listening = FALSE
 	radio.config(list("Engineering" = 0))
 	investigate_log("has been created.", "supermatter")
 

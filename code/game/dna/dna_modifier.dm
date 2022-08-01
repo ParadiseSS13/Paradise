@@ -168,6 +168,12 @@
 	add_fingerprint(usr)
 	SStgui.update_uis(src)
 
+/obj/machinery/dna_scannernew/update_icon_state()
+	if(occupant)
+		icon_state = "scanner_occupied"
+	else
+		icon_state = "scanner_open"
+
 /obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user)
 	if(!istype(O))
 		return
@@ -266,7 +272,7 @@
 /obj/machinery/dna_scannernew/proc/put_in(mob/M)
 	M.forceMove(src)
 	occupant = M
-	icon_state = "scanner_occupied"
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 	// search for ghosts, if the corpse is empty and the scanner is connected to a cloner
@@ -288,7 +294,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	icon_state = "scanner_open"
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 /obj/machinery/dna_scannernew/force_eject_occupant(mob/target)
@@ -304,7 +310,7 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 
 // Checks if occupants can be irradiated/mutated - prevents exploits where wearing full rad protection would still let you gain mutations

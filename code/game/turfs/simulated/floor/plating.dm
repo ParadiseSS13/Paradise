@@ -26,9 +26,7 @@
 	. = ..()
 	burn_tile()
 
-/turf/simulated/floor/plating/update_icon()
-	if(!..())
-		return
+/turf/simulated/floor/plating/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
 
@@ -321,7 +319,7 @@
 	icon_state = "ironfoam"
 	metal = MFOAM_IRON
 
-/turf/simulated/floor/plating/metalfoam/update_icon()
+/turf/simulated/floor/plating/metalfoam/update_icon_state()
 	switch(metal)
 		if(MFOAM_ALUMINUM)
 			icon_state = "metalfoam"

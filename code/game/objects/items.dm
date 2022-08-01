@@ -70,7 +70,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
-	var/needs_permit = 0			//Used by security bots to determine if this item is safe for public use.
+	var/needs_permit = FALSE			//Used by security bots to determine if this item is safe for public use.
 
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
@@ -130,8 +130,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/New()
 	..()
-	for(var/path in actions_types)
-		new path(src, action_icon[path], action_icon_state[path])
 
 	if(!hitsound)
 		if(damtype == "fire")
@@ -144,6 +142,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/Initialize(mapload)
 	. = ..()
+	for(var/path in actions_types)
+		new path(src, action_icon[path], action_icon_state[path])
 	if(istype(loc, /obj/item/storage)) //marks all items in storage as being such
 		in_storage = TRUE
 
@@ -715,14 +715,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/MouseEntered(location, control, params)
 	. = ..()
 	if(in_inventory || in_storage)
-		var/timedelay = 8
 		var/mob/user = usr
-		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)
+		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS))
+			tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), 8, TIMER_STOPPABLE)
 		if(QDELETED(src))
 			return
-		var/mob/living/L = user
 		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES))
 			return
+		var/mob/living/L = user
 		if(istype(L) && HAS_TRAIT(L, TRAIT_HANDS_BLOCKED))
 			apply_outline(L, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
 		else

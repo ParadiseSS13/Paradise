@@ -643,7 +643,7 @@ Difficulty: Medium
 	name = "Tail Sweep"
 	desc = "Throw back attackers with a sweep of your tail."
 	sound = 'sound/magic/tail_swing.ogg'
-	charge_max = 150
+	base_cooldown = 150
 	clothes_req = FALSE
 	cooldown_min = 150
 	invocation_type = "none"

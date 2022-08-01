@@ -53,7 +53,7 @@
 	for(var/deck in 1 to deck_size)
 		build_deck()
 	deck_total = length(cards)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/deck/proc/build_deck()
 	return
@@ -66,7 +66,7 @@
 				cards += P
 			qdel(H)
 			to_chat(user,"<span class='notice'>You place your cards on the bottom of [src]</span>.")
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			return
 		else
 			to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
@@ -159,10 +159,10 @@
 	var/datum/playingcard/P = cards[1]
 	H.cards += P
 	cards -= P
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	H.parentdeck = src
 	H.update_values()
-	H.update_icon()
+	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
 	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
@@ -224,11 +224,11 @@
 	for(var/i in 1 to dcard)
 		H.cards += cards[1]
 		cards -= cards[1]
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		H.parentdeck = src
 		H.update_values()
 		H.concealed = TRUE
-		H.update_icon()
+		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
 		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to \himself.</span>")
 	else
@@ -298,7 +298,7 @@
 	user.unEquip(src, force = 1)
 	qdel(src)
 
-	H.update_icon()
+	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.put_in_hands(H)
 
 /obj/item/cardhand
@@ -341,7 +341,7 @@
 			P.name = t
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		P.card_icon = "cag_white_card"
-		update_icon()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	else if(istype(O,/obj/item/cardhand))
 		var/obj/item/cardhand/H = O
 		if((length(H.cards) + length(cards)) > maxcardlen)
@@ -352,7 +352,7 @@
 				H.cards += P
 			H.concealed = concealed
 			qdel(src)
-			H.update_icon()
+			H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 			return
 		else
 			to_chat(user,"<span class='notice'>You cannot mix cards from other deck!</span>")
@@ -368,7 +368,7 @@
 
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
 
 /obj/item/cardhand/interact(mob/user)
@@ -411,7 +411,18 @@
 	button_icon_state = "remove_card"
 	use_itemicon = FALSE
 
+/datum/action/item_action/remove_card/IsAvailable()
+	var/obj/item/cardhand/C = target
+	if(length(C.cards) <= 1)
+		return FALSE
+	var/mob/living/carbon/human/O = owner
+	if(O.l_hand && O.r_hand)
+		return FALSE
+	return ..()
+
 /datum/action/item_action/remove_card/Trigger()
+	if(!IsAvailable())
+		return
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/C = target
 		return C.Removecard()
@@ -464,11 +475,11 @@
 	H.parentdeck = parentdeck
 	H.update_values()
 	H.concealed = concealed
-	H.update_icon()
+	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(!length(cards))
 		qdel(src)
 		return
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
 /obj/item/cardhand/verb/discard()
 
@@ -487,7 +498,10 @@
 		for(var/datum/playingcard/P in cards)
 			to_discard[P.name] = P
 		var/discarding = input("Which card do you wish to put down?") as null|anything in to_discard
-
+		
+		if(!discarding)
+			continue
+		
 		if(QDELETED(src))
 			return
 
@@ -501,9 +515,9 @@
 		H.parentdeck = parentdeck
 		H.update_values()
 		H.direction = user.dir
-		H.update_icon()
+		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(cards))
-			update_icon()
+			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(H.cards))
 			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
 		H.loc = get_step(user, user.dir)
@@ -511,19 +525,34 @@
 	if(!length(cards))
 		qdel(src)
 
-/obj/item/cardhand/update_icon()
-
+/obj/item/cardhand/update_appearance(updates=ALL)
 	if(!length(cards))
 		return
-	else if(length(cards) > 1)
+	if(length(cards) <= 2)
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.UpdateButtonIcon()
+	..()
+
+/obj/item/cardhand/update_name()
+	. = ..()
+	if(length(cards) > 1)
 		name = "hand of cards"
-		desc = "Some playing cards."
 	else
 		name = "a playing card"
+
+/obj/item/cardhand/update_desc()
+	. = ..()
+	if(length(cards) > 1)
+		desc = "Some playing cards."
+	else
 		desc = "A playing card."
 
-	cut_overlays()
+/obj/item/cardhand/update_icon_state()
+	return
 
+/obj/item/cardhand/update_overlays()
+	. = ..()
 	var/matrix/M = matrix()
 	switch(direction)
 		if(NORTH)
@@ -544,7 +573,7 @@
 		I.transform = M
 		I.pixel_x += (-5+rand(10))
 		I.pixel_y += (-5+rand(10))
-		add_overlay(I)
+		. += I
 		return
 
 	var/offset = FLOOR(20/length(cards) + 1, 1)
@@ -562,7 +591,7 @@
 			else
 				I.pixel_x = -7+(offset*i)
 		I.transform = M
-		add_overlay(I)
+		. += I
 		i++
 
 /obj/item/cardhand/dropped(mob/user)
@@ -571,9 +600,9 @@
 		direction = user.dir
 	else
 		direction = NORTH
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
 /obj/item/cardhand/pickup(mob/user as mob)
 	. = ..()
 	direction = NORTH
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)

@@ -52,7 +52,6 @@
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
-	QDEL_LIST(powers)
 	return ..()
 
 /datum/antagonist/vampire/add_owner_to_gamemode()

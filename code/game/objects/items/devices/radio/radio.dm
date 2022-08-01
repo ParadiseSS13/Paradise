@@ -563,13 +563,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	user.set_machine(src)
+
 	b_stat = !b_stat
 	if(!istype(src, /obj/item/radio/beacon))
 		if(b_stat)
 			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
 		else
 			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
+
 		updateDialog()
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/I)
@@ -585,15 +586,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	interact(user)
 
 /obj/item/radio/emp_act(severity)
-	on = 0
+	on = FALSE
 	disable_timer++
 	addtimer(CALLBACK(src, .proc/enable_radio), rand(100, 200))
 
 	if(listening)
 		visible_message("<span class='warning'>[src] buzzes violently!</span>")
 
-	broadcasting = 0
-	listening = 0
+	broadcasting = FALSE
+	listening = FALSE
 	for(var/ch_name in channels)
 		channels[ch_name] = 0
 	..()
@@ -602,7 +603,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(disable_timer > 0)
 		disable_timer--
 	if(!disable_timer)
-		on = 1
+		on = TRUE
 
 /obj/item/radio/proc/recalculateChannels()
 	/// Exists so that borg radios and headsets can override it.
@@ -663,7 +664,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/encryptionkey/))
-		user.set_machine(src)
+
 		if(keyslot)
 			to_chat(user, "The radio can't hold another key!")
 			return
@@ -674,14 +675,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			keyslot = W
 
 		recalculateChannels()
-	else
-		return ..()
+		return
+
+	return ..()
 
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	user.set_machine(src)
+
 	if(keyslot)
 		for(var/ch_name in channels)
 			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
@@ -752,14 +754,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return
 
 /obj/item/radio/off
-	listening = 0
+	listening = FALSE
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/radio/phone
-	broadcasting = 0
+	broadcasting = FALSE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
-	listening = 1
+	listening = TRUE
 	name = "phone"
 	dog_fashion = null
 

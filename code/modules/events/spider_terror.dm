@@ -59,6 +59,7 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
+		SEND_SOUND(S, sound('sound/ambience/antag/terrorspider.ogg'))
 		to_chat(S, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span>")
 		spawncount--
 		successSpawn = TRUE

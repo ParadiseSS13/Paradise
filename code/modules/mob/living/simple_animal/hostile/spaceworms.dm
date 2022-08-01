@@ -102,7 +102,7 @@
 	for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
 		SW.update_icon()
 
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/update_icon()
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/update_icon_state()
 	if(stat == CONSCIOUS || stat == UNCONSCIOUS)
 		icon_state = "spacewormhead[previousWorm ? 1 : 0]"
 		if(previousWorm)
@@ -114,7 +114,6 @@
 		if(SW == src)//incase src ends up in here we don't want an infinite loop
 			continue
 		SW.update_icon()
-
 
 //Try to move onto target's turf and eat them
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/AttackingTarget()
@@ -230,18 +229,15 @@
 
 
 //Update the appearence of this big weird chain-worm-thingy
-/mob/living/simple_animal/hostile/spaceWorm/proc/update_icon()
+/mob/living/simple_animal/hostile/spaceWorm/update_icon_state()
 	if(stat != DEAD)
 		if(previousWorm)
 			icon_state = "spaceworm[get_dir(src,previousWorm) | get_dir(src,nextWorm)]"
 		else
 			icon_state = "spacewormtail"//end of rine
 			dir = get_dir(src,nextWorm)
-
 	else
 		icon_state = "spacewormdead"
-
-
 
 //Add a new worm segment
 /mob/living/simple_animal/hostile/spaceWorm/proc/Attach(mob/living/simple_animal/hostile/spaceWorm/toAttach)

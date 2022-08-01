@@ -27,6 +27,10 @@
 	item_state = "chef"
 	dog_fashion = /datum/dog_fashion/head/chef
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/collectable/paper
 	name = "collectable paper hat"
 	desc = "What looks like an ordinary paper hat, is actually a rare and valuable collector's edition paper hat. Keep away from water, fire and Librarians."

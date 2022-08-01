@@ -2,7 +2,6 @@
 Contains most of the procs that are called when a mob is attacked by something
 
 bullet_act
-ex_act
 meteor_act
 emp_act
 
@@ -405,7 +404,7 @@ emp_act
 		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
 	else
 		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
-		affecting.sabotaged = 1
+		affecting.sabotaged = TRUE
 	return 1
 
 /mob/living/carbon/human/grabbedby(mob/living/user)
@@ -413,10 +412,10 @@ emp_act
 		w_uniform.add_fingerprint(user)
 	return ..()
 
-//Returns 1 if the attack hit, 0 if it missed.
+//Returns TRUE if the attack hit, FALSE if it missed.
 /mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(!I || !user)
-		return 0
+		return FALSE
 
 	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
 		var/obj/item/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/reagent_containers/food/snacks/meat/human(get_turf(loc))
@@ -431,17 +430,18 @@ emp_act
 		if(!meatleft)
 			add_attack_logs(user, src, "Chopped up into meat")
 			qdel(src)
+			return FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
 	if(!affecting)
 		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
-		return 1
+		return FALSE
 	var/hit_area = parse_zone(affecting.limb_name)
 
 	if(user != src)
 		user.do_attack_animation(src)
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
-			return 0
+			return FALSE
 
 	if(check_block())
 		visible_message("<span class='warning'>[src] blocks [I]!</span>")
@@ -453,7 +453,7 @@ emp_act
 	send_item_attack_message(I, user, hit_area)
 
 	if(!I.force)
-		return 0 //item force is zero
+		return FALSE //item force is zero
 
 	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
@@ -468,6 +468,7 @@ emp_act
 		bonus_damage = H.physiology.melee_bonus
 
 	apply_damage(I.force + bonus_damage , I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
+	. = TRUE // at this point the attack has succeeded.
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
@@ -646,7 +647,8 @@ emp_act
 			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				apply_effect(10 SECONDS, WEAKEN, run_armor_check(affecting, MELEE))
+				apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
+				adjustStaminaLoss(30)
 				add_attack_logs(M, src, "Alien tackled")
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
 
@@ -696,10 +698,11 @@ emp_act
 			var/dmg = rand(M.force/2, M.force)
 			switch(M.damtype)
 				if("brute")
+					adjustStaminaLoss(dmg)
 					if(M.force > 35) // durand and other heavy mechas
-						Paralyse(2 SECONDS)
-					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
-						Weaken(4 SECONDS)
+						KnockDown(6 SECONDS)
+					else if(M.force > 20 && !IsKnockedDown()) // lightweight mechas like gygax
+						KnockDown(4 SECONDS)
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")

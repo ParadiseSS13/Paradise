@@ -3,6 +3,8 @@
 // in the logs.  ascii character 13 = CR
 
 GLOBAL_VAR_INIT(log_end, (world.system_type == UNIX ? ascii2text(13) : ""))
+/// Log of TGS stuff that can be viewed ingame
+GLOBAL_LIST_EMPTY(tgs_log)
 GLOBAL_PROTECT(log_end)
 
 #define DIRECT_OUTPUT(A, B) A << B
@@ -116,6 +118,10 @@ GLOBAL_PROTECT(log_end)
 /proc/log_chat(text, mob/speaker)
 	if(GLOB.configuration.logging.pda_logging)
 		rustg_log_write(GLOB.world_game_log, "CHAT: [speaker.simple_info_line()] [html_decode(text)][GLOB.log_end]")
+
+/proc/log_tgs(text, level)
+	GLOB.tgs_log += "\[[time_stamp()]] \[[level]] [text]"
+	rustg_log_write(GLOB.world_game_log, "TGS: [level]: [text][GLOB.log_end]")
 
 /proc/log_misc(text)
 	rustg_log_write(GLOB.world_game_log, "MISC: [text][GLOB.log_end]")

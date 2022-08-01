@@ -44,10 +44,10 @@
 	cell.maxcharge = 600
 	cell.charge = 600
 
-/obj/item/gun/energy/gun/mini/update_icon()
-	..()
+/obj/item/gun/energy/gun/mini/update_overlays()
+	. = ..()
 	if(gun_light && gun_light.on)
-		overlays += "mini-light"
+		. += "mini-light"
 
 /obj/item/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
@@ -75,7 +75,7 @@
 	can_holster = TRUE
 
 /obj/item/gun/energy/gun/blueshield/pdw9
-	name = "\improper PDW-9 taser pistol"
+	name = "\improper PDW-9 energy pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
 	icon_state = "pdw9pistol"
 	item_state = "gun"

@@ -5,7 +5,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat
 	name = "meat"
-	desc = "A slab of meat"
+	desc = "A slab of meat."
 	icon_state = "meat"
 	filling_color = "#FF1C1C"
 	bitesize = 3
@@ -44,7 +44,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "corgi meat"
-	desc = "Tastes like the Head of Personnel's hopes and dreams"
+	desc = "Tastes like the Head of Personnel's hopes and dreams."
 
 /obj/item/reagent_containers/food/snacks/meat/pug
 	name = "pug meat"

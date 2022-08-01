@@ -8,6 +8,7 @@
 	can_unwrench = TRUE
 
 	var/open = FALSE
+	var/animating = FALSE
 
 	req_one_access_txt = "24;10"
 
@@ -22,11 +23,9 @@
 	open = TRUE
 	icon_state = "map_valve1"
 
-/obj/machinery/atmospherics/binary/valve/update_icon(animation)
-	..()
-
-	if(animation)
-		flick("valve[src.open][!src.open]",src)
+/obj/machinery/atmospherics/binary/valve/update_icon_state()
+	if(animating)
+		flick("valve[open][!open]",src)
 	else
 		icon_state = "valve[open]"
 
@@ -41,7 +40,7 @@
 
 /obj/machinery/atmospherics/binary/valve/proc/open()
 	open = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	parent1.update = 0
 	parent2.update = 0
 	parent1.reconcile_air()
@@ -50,7 +49,7 @@
 
 /obj/machinery/atmospherics/binary/valve/proc/close()
 	open = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	investigate_log("was closed by [usr ? key_name(usr) : "a remote signal"]", "atmos")
 	return
 
@@ -63,8 +62,10 @@
 
 /obj/machinery/atmospherics/binary/valve/attack_hand(mob/user)
 	add_fingerprint(usr)
-	update_icon(1)
+	animating = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	sleep(10)
+	animating = FALSE
 	if(open)
 		close()
 	else
@@ -105,12 +106,13 @@
 	var/old_stat = stat
 	..()
 	if(old_stat != stat)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/atmospherics/binary/valve/digital/update_icon()
-	..()
+/obj/machinery/atmospherics/binary/valve/digital/update_icon_state()
 	if(!powered())
 		icon_state = "valve[open]nopower"
+		return
+	..()
 
 /obj/machinery/atmospherics/binary/valve/digital/atmos_init()
 	..()

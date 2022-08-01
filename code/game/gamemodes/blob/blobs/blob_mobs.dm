@@ -30,8 +30,10 @@
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src)) //hello yes you are being healed
 			if(overmind)
 				H.color = overmind.blob_reagent_datum.complementary_color
+				if(H.color == COMPLEMENTARY_COLOR_RIPPING_TENDRILS) //the colour define for ripping tendrils
+					H.color = COLOR_HEALING_GREEN //bye red cross
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 		adjustHealth(-maxHealth * 0.0125)
 
 /mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
@@ -69,11 +71,11 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/New(loc, obj/structure/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, obj/structure/blob/factory/linked_node)
+	. = ..()
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
-	..()
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
@@ -200,8 +202,8 @@
 			adjustFireLoss(0.2)
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/New()
-	..()
+/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
+	. = ..()
 	if(name == "blobbernaut")
 		name = text("blobbernaut ([rand(1, 1000)])")
 

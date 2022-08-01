@@ -1,6 +1,6 @@
 // There, now `stat` is a proper state-machine
 
-/mob/living/proc/KnockOut(updating = 1)
+/mob/living/proc/KnockOut(updating = TRUE)
 	if(stat == DEAD)
 		log_runtime(EXCEPTION("KnockOut called on a dead mob."), src)
 		return 0
@@ -19,7 +19,7 @@
 		set_typing_indicator(FALSE)
 	return 1
 
-/mob/living/proc/WakeUp(updating = 1)
+/mob/living/proc/WakeUp(updating = TRUE)
 	if(stat == DEAD)
 		log_runtime(EXCEPTION("WakeUp called on a dead mob."), src)
 		return 0

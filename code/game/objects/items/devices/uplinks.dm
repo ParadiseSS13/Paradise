@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden
 	name = "hidden uplink"
 	desc = "There is something wrong if you're examining this."
-	var/active = 0
+	var/active = FALSE
 
 // The hidden uplink MUST be inside an obj/item's contents.
 /obj/item/uplink/hidden/New(loc)

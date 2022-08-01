@@ -333,7 +333,8 @@
 
 	mymob.pullin = new /obj/screen/pull()
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.hud = src
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
@@ -347,7 +348,8 @@
 	zone_select.color = ui_color
 	zone_select.icon = ui_style
 	zone_select.alpha = ui_alpha
-	zone_select.update_icon(mymob)
+	zone_select.hud = src
+	zone_select.update_icon(UPDATE_OVERLAYS)
 	static_inventory += zone_select
 
 	inventory_shown = FALSE

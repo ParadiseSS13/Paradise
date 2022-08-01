@@ -289,7 +289,7 @@
 		boots = new boots_type(src)
 	if(storage_type)
 		storage = new storage_type(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 	//move this into machinery eventually...
 	if(occupant_typecache)
@@ -300,32 +300,32 @@
 	QDEL_NULL(wires)
 	return ..()
 
-/obj/machinery/suit_storage_unit/update_icon()
-	cut_overlays()
+/obj/machinery/suit_storage_unit/update_overlays()
+	. = ..()
 	if(panel_open)
-		add_overlay("[base_icon_state]_panel")
+		. += "[base_icon_state]_panel"
 
 	if(uv)
 		if(uv_super)
-			add_overlay("[base_icon_state]_super")
-			add_overlay("[base_icon_state]_[occupant ? "body" : "uvstrong"]")
+			. += "[base_icon_state]_super"
+			. += "[base_icon_state]_[occupant ? "body" : "uvstrong"]"
 		else
-			add_overlay("[base_icon_state]_[occupant ? "body" : "uv"]")
-		add_overlay("[base_icon_state]_lights_red")
+			. += "[base_icon_state]_[occupant ? "body" : "uv"]"
+		. += "[base_icon_state]_lights_red"
 		return
 
 	if(state_open)
-		add_overlay("[base_icon_state]_open")
+		. += "[base_icon_state]_open"
 		if(suit)
-			add_overlay("[base_icon_state]_suit")
+			. += "[base_icon_state]_suit"
 		if(helmet)
-			add_overlay("[base_icon_state]_helm")
+			. += "[base_icon_state]_helm"
 		if(storage)
-			add_overlay("[base_icon_state]_storage")
+			. += "[base_icon_state]_storage"
 	else
-		add_overlay("[base_icon_state]_lights_closed")
+		. += "[base_icon_state]_lights_closed"
 
-	add_overlay("[base_icon_state]_[occupant ? "body" : "ready"]")
+	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
@@ -344,7 +344,7 @@
 		return
 	if(state_open)
 		if(store_item(I, user))
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 			SStgui.update_uis(src)
 			to_chat(user, "<span class='notice'>You load [I] into the storage compartment.</span>")
 		else
@@ -360,7 +360,7 @@
 		if(shock(user, 100))
 			return
 	if(default_deconstruction_screwdriver(user, "[base_icon_state]", "[base_icon_state]", I))
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /**
   * Tries to store the item into whatever slot it can go, returns true if the item is stored successfully.
@@ -405,7 +405,7 @@
 	if(!is_operational() && state_open)
 		open_machine()
 		dump_contents()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/suit_storage_unit/proc/dump_contents()
@@ -498,7 +498,7 @@
 			playsound(src, 'sound/machines/airlock_close.ogg', 25, 1)
 		if(occupant)
 			dump_contents()
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		SStgui.update_uis(src)
 
 /obj/machinery/suit_storage_unit/relaymove(mob/user)
@@ -547,7 +547,7 @@
 	state_open = TRUE
 	if(drop)
 		dropContents()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
 
 /obj/machinery/suit_storage_unit/dropContents()
@@ -576,7 +576,7 @@
 		occupant = target
 		target.forceMove(src)
 	SStgui.update_uis(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 
 ////////
@@ -649,7 +649,7 @@
 			cook()
 		if("eject_occupant")
 			eject_occupant(usr)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/suit_storage_unit/proc/toggleUV()
 	if(!panel_open)
@@ -731,7 +731,7 @@
 	occupant = null
 	if(!state_open)
 		state_open = 1
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/machinery/suit_storage_unit/force_eject_occupant(mob/target)
@@ -747,7 +747,7 @@
 	eject_occupant(usr)
 	add_fingerprint(usr)
 	SStgui.update_uis(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/machinery/suit_storage_unit/verb/move_inside()
@@ -774,7 +774,7 @@
 		usr.forceMove(src)
 		occupant = usr
 		state_open = FALSE //Close the thing after the guy gets inside
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 		add_fingerprint(usr)
 		SStgui.update_uis(src)

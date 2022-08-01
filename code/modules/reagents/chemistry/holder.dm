@@ -243,12 +243,12 @@
 		temperature_reagents(M.bodytemperature - 30)
 		M.absorb_blood()
 
-	for(var/thing in addiction_threshold_accumulated)
-		if(has_reagent(thing))
+	for(var/datum/reagent/R as anything in addiction_threshold_accumulated)
+		if(has_reagent(initial(R.id)))
 			continue // if we have the reagent in our system, then don't deplete the addiction threshold
-		addiction_threshold_accumulated[thing] -= 0.01 // Otherwise very slowly deplete the buildup
-		if(addiction_threshold_accumulated[thing] <= 0)
-			addiction_threshold_accumulated -= thing
+		addiction_threshold_accumulated[R] -= initial(R.addiction_decay_rate) // Otherwise very slowly deplete the buildup (defaults to 0.01)
+		if(addiction_threshold_accumulated[R] <= 0)
+			addiction_threshold_accumulated -= R
 
 	// a bitfield filled in by each reagent's `on_mob_life` to find out which states to update
 	var/update_flags = STATUS_UPDATE_NONE

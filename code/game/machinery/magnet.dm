@@ -41,23 +41,18 @@
 	spawn()
 		magnetic_process()
 
+/obj/machinery/magnetic_module/Destroy()
+	SSradio.remove_object(src, freq)  // i have zero idea what the hell is going on
+	return ..()
+
 	// update the invisibility and icon
 /obj/machinery/magnetic_module/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
-	// update the icon_state
-/obj/machinery/magnetic_module/proc/updateicon()
-	var/state="floor_magnet"
-	var/onstate=""
-	if(!on)
-		onstate="0"
-
-	if(invisibility)
-		icon_state = "[state][onstate]-f"	// if invisible, set icon to faded version
+/obj/machinery/magnetic_module/update_icon_state()
+	icon_state = "floor_magnet[on ? "" : "0"][invisibility ? "-f" : ""]"	// if invisible, set icon to faded version
 											// in case of being revealed by T-scanner
-	else
-		icon_state = "[state][onstate]"
 
 /obj/machinery/magnetic_module/receive_signal(datum/signal/signal)
 	var/command = signal.data["command"]
@@ -149,7 +144,7 @@
 		active_power_usage = electricity_level*15
 	else
 		use_power = 0
-		updateicon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/magnetic_module/proc/magnetic_process() // proc that actually does the pulling
@@ -211,21 +206,25 @@
 	if(autolink)
 		// GLOB.machines is populated in /machinery/Initialize
 		// so linkage gets delayed until that one finished.
-		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
-			if(M.freq == frequency && M.code == code)
-				magnets.Add(M)
+		link_magnets()
 
 /obj/machinery/magnetic_controller/Destroy()
 	SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 
+/obj/machinery/magnetic_controller/proc/on_magnet_del(atom/magnet)
+	magnets -= magnet
+
+/obj/machinery/magnetic_controller/proc/link_magnets()
+	for(var/obj/machinery/magnetic_module/M in GLOB.machines)
+		if(M.freq == frequency && M.code == code)
+			magnets.Add(M)
+			RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/on_magnet_del)
+
 /obj/machinery/magnetic_controller/process()
 	if(magnets.len == 0 && autolink)
-		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
-			if(M.freq == frequency && M.code == code)
-				magnets.Add(M)
-
+		link_magnets()
 
 /obj/machinery/magnetic_controller/attack_ai(mob/user as mob)
 	return src.attack_hand(user)

@@ -388,7 +388,7 @@
 
 		for(var/datum/mind/syndicate in syndicates)
 
-			text += "<br><b>[syndicate.key]</b> was <b>[syndicate.name]</b> ("
+			text += "<br><b>[syndicate.get_display_key()]</b> was <b>[syndicate.name]</b> ("
 			if(syndicate.current)
 				if(syndicate.current.stat == DEAD)
 					text += "died"

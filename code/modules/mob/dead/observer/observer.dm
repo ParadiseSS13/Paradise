@@ -16,6 +16,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
+	blocks_emissive = FALSE // Ghosts are transparent, duh
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
@@ -192,6 +193,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/warningmsg = null
 	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
 
+	if(frozen)
+		to_chat(src, "<span class='warning'>You cannot do this while admin frozen.</span>")
+		message_admins("[key_name_admin(src)] tried to ghost while admin frozen")
+		return
+
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
 			warningmsg = "It's too early in the shift to enter cryo"
@@ -230,7 +236,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(istype(M.loc, /obj/structure/morgue))
 		Morgue = M.loc
 	if(Morgue)
-		Morgue.update()
+		Morgue.update_state()
 
 	// If mob in cryopod, despawn mob
 	if(P)
@@ -296,7 +302,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(istype(mind.current.loc,/obj/structure/morgue))
 		Morgue = mind.current.loc
 	if(Morgue)
-		Morgue.update()
+		Morgue.update_state()
 
 	return 1
 
@@ -653,15 +659,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	..()
 //END TELEPORT HREF CODE
-
-/mob/dead/observer/verb/toggle_anonsay()
-	set name = "Toggle Anonymous Dead-chat"
-	set category = "Ghost"
-	set desc = "Toggles showing your key in dead chat."
-	client.prefs.toggles2 ^= PREFTOGGLE_2_ANONDCHAT
-	to_chat(src, "As a ghost, your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
-	client.prefs.save_preferences(src)
-
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"
 	set desc = "Toggles your ability to see things only ghosts can see, like other ghosts"

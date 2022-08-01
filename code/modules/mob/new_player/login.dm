@@ -5,7 +5,7 @@
 
 	if(!mind)
 		mind = new /datum/mind(key)
-		mind.active = 1
+		mind.active = TRUE
 		mind.current = src
 
 	if(length(GLOB.newplayer_start))

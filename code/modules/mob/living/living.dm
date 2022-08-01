@@ -235,7 +235,7 @@
 /mob/living/stop_pulling()
 	..()
 	if(pullin)
-		pullin.update_icon(src)
+		pullin.update_icon(UPDATE_ICON_STATE)
 
 /mob/living/verb/stop_pulling1()
 	set name = "Stop Pulling"
@@ -291,7 +291,7 @@
 	return 1
 
 /mob/living/welder_act(mob/user, obj/item/I)
-	if(!I.tool_use_check(null, 0)) //Don't need the message, just if it succeeded
+	if(!I.tool_use_check(user, 0, TRUE))
 		return
 	if(IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
@@ -1022,7 +1022,7 @@
 	pulling = AM
 	AM.pulledby = src
 	if(pullin)
-		pullin.update_icon(src)
+		pullin.update_icon(UPDATE_ICON_STATE)
 	if(ismob(AM))
 		var/mob/M = AM
 		if(!iscarbon(src))

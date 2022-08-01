@@ -51,7 +51,7 @@
 /datum/status_effect/his_grace/on_remove()
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
 	if(islist(owner.stun_absorption) && owner.stun_absorption["hisgrace"])
-		owner.stun_absorption -= "hisgrace"
+		owner.remove_stun_absorption("hisgrace")
 
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
@@ -132,7 +132,7 @@
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
-		owner.stun_absorption -= "blooddrunk"
+		owner.remove_stun_absorption("blooddrunk")
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"
@@ -212,25 +212,11 @@
 	var/mob/living/carbon/human/H = owner
 	H.cut_overlay(shield)
 	if(islist(owner.stun_absorption) && owner.stun_absorption["[id]"])
-		owner.stun_absorption -= "[id]"
+		owner.remove_stun_absorption("[id]")
 	H.physiology.stamina_mod /= 0.1
 	H.physiology.brute_mod /= 0.5
 	H.physiology.burn_mod /= 0.5
 
-
-/datum/status_effect/exercised
-	id = "Exercised"
-	duration = 1200
-	alert_type = null
-
-/datum/status_effect/exercised/on_creation(mob/living/new_owner, ...)
-	. = ..()
-	STOP_PROCESSING(SSfastprocess, src)
-	START_PROCESSING(SSprocessing, src) //this lasts 20 minutes, so SSfastprocess isn't needed.
-
-/datum/status_effect/exercised/Destroy()
-	. = ..()
-	STOP_PROCESSING(SSprocessing, src)
 
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
 /datum/status_effect/hippocraticOath
@@ -278,7 +264,7 @@
 			var/mob/living/carbon/human/itemUser = owner
 			//Because a servant of medicines stops at nothing to help others, lets keep them on their toes and give them an additional boost.
 			if(itemUser.health < itemUser.maxHealth)
-				new /obj/effect/temp_visual/heal(get_turf(itemUser), "#375637")
+				new /obj/effect/temp_visual/heal(get_turf(itemUser), COLOR_HEALING_GREEN)
 			itemUser.adjustBruteLoss(-1.5)
 			itemUser.adjustFireLoss(-1.5)
 			itemUser.adjustToxLoss(-1.5)
@@ -293,7 +279,7 @@
 			if(heal_points <= 0)
 				break
 			if(L.health < L.maxHealth)
-				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
+				new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
 			if(iscarbon(L))
 				L.adjustBruteLoss(-3.5)
 				L.adjustFireLoss(-3.5)
@@ -393,3 +379,84 @@
 			owner.emote("gasp")
 	cling.genetic_damage += stacks
 	cling = null
+
+/datum/status_effect/chainsaw_slaying
+	id = "chainsaw_slaying"
+	duration = 5 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /obj/screen/alert/status_effect/chainsaw
+
+/obj/screen/alert/status_effect/chainsaw
+	name = "Revved up!"
+	desc = "<span class='danger'>... guts, huge guts! Kill them... must kill them all!</span>"
+	icon_state = "chainsaw"
+
+/datum/status_effect/chainsaw_slaying/on_apply()
+	. = ..()
+	if(.)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			H.physiology.brute_mod *= 0.8
+			H.physiology.burn_mod *= 0.8
+			H.physiology.stamina_mod *= 0.8
+		add_attack_logs(owner, owner, "gained chainsaw stun immunity", ATKLOG_ALL)
+		owner.add_stun_absorption("chainsaw", INFINITY, 4)
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
+
+/datum/status_effect/chainsaw_slaying/on_remove()
+	add_attack_logs(owner, owner, "lost chainsaw stun immunity", ATKLOG_ALL)
+	if(islist(owner.stun_absorption) && owner.stun_absorption["chainsaw"])
+		owner.remove_stun_absorption("chainsaw")
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.brute_mod /= 0.8
+		H.physiology.burn_mod /=0.8
+		H.physiology.stamina_mod /= 0.8
+
+/datum/status_effect/hope
+	id = "hope"
+	duration = -1
+	tick_interval = 2 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /obj/screen/alert/status_effect/hope
+
+/obj/screen/alert/status_effect/hope
+	name = "Hope."
+	desc = "A ray of hope beyond dispair."
+	icon_state = "hope"
+
+/datum/status_effect/hope/tick()
+	if(owner.stat == DEAD || owner.health <= HEALTH_THRESHOLD_DEAD) // No dead healing, or healing in dead crit
+		return
+	if(owner.health > 50)
+		if(prob(0.5))
+			hope_message()
+		return
+	var/heal_multiplier = min(3, ((50 - owner.health) / 50 + 1)) // 1 hp at 50 health, 2 at 0, 3 at -50
+	owner.adjustBruteLoss(-heal_multiplier * 0.5)
+	owner.adjustFireLoss(-heal_multiplier * 0.5)
+	owner.adjustOxyLoss(-heal_multiplier)
+	if(prob(heal_multiplier * 2))
+		hope_message()
+
+/datum/status_effect/hope/proc/hope_message()
+	var/list/hope_messages = list("You are filled with [pick("hope", "determination", "strength", "peace", "confidence", "robustness")].",
+							"Don't give up!",
+							"You see your [pick("friends", "family", "coworkers", "self")] [pick("rooting for you", "cheering you on", "worrying about you")].",
+							"You can't give up now, keep going!",
+							"But you refused to die!",
+							"You have been through worse, you can do this!",
+							"People need you, do not [pick("give up", "stop", "rest", "pass away", "falter", "lose hope")] yet!",
+							"This person is not nearly as robust as you!",
+							"You ARE robust, don't let anyone tell you otherwise!",
+							"[owner], don't lose hope, the future of the station depends on you!",
+							"Do not follow the light yet!")
+	var/list/un_hopeful_messages = list("DON'T FUCKING DIE NOW COWARD!",
+							"Git Gud, [owner]",
+							"I bet a [pick("vox", "vulp", "nian", "tajaran", "baldie")] could do better than you!",
+							"You hear people making fun of you for getting robusted.")
+	if(prob(99))
+		to_chat(owner, "<span class='notice'>[pick(hope_messages)]</span>")
+	else
+		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
+

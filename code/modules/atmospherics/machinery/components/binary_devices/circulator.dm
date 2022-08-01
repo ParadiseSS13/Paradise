@@ -106,39 +106,47 @@
 		return
 	side_inverted = !side_inverted
 	to_chat(user, "<span class='notice'>You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side.</span>")
+	update_appearance(UPDATE_DESC|UPDATE_ICON)
+
+/obj/machinery/atmospherics/binary/circulator/update_desc()
+	. = ..()
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
 
-/obj/machinery/atmospherics/binary/circulator/update_icon() //this gets called everytime atmos is updated in the circulator (alot)
-	..()
-	underlays.Cut()
-	cut_overlays()
-
+/obj/machinery/atmospherics/binary/circulator/update_icon_state() //this gets called everytime atmos is updated in the circulator (alot)
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "circ[side]-p"
-	else if(last_pressure_delta > 0)
+		return
+	if(last_pressure_delta > 0)
 		if(last_pressure_delta > ONE_ATMOSPHERE)
 			icon_state = "circ[side]-run"
-			underlays += emissive_appearance(icon,"emit[side]-run")
 		else
 			icon_state = "circ[side]-slow"
-			underlays += emissive_appearance(icon,"emit[side]-slow")
 	else
 		icon_state = "circ[side]-off"
-		underlays += emissive_appearance(icon,"emit[side]-off")
 
+/obj/machinery/atmospherics/binary/circulator/update_overlays()
+	. = ..()
 	if(!side_inverted)
-		add_overlay(mutable_appearance(icon,"in_up"))
+		. += "in_up"
 	else
-		add_overlay(mutable_appearance(icon,"in_down"))
+		. += "in_down"
 
 	if(node2)
 		var/image/new_pipe_overlay = image(icon, "connected")
 		new_pipe_overlay.color = node2.pipe_color
-		add_overlay(new_pipe_overlay)
+		. += new_pipe_overlay
 	else
-		add_overlay(mutable_appearance(icon, "disconnected"))
+		. += "disconnected"
 
-	return 1
+	if(stat & (BROKEN|NOPOWER) && !light)
+		return
+	if(last_pressure_delta > 0)
+		if(last_pressure_delta > ONE_ATMOSPHERE)
+			. += emissive_appearance(icon,"emit[side]-run")
+		else
+			. += emissive_appearance(icon,"emit[side]-slow")
+	else
+		. += emissive_appearance(icon,"emit[side]-off")
 
 /obj/machinery/atmospherics/binary/circulator/power_change()
 	. = ..()

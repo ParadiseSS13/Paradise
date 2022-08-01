@@ -125,7 +125,7 @@
 				M.death()
 				M.splat()
 				movement_target = null
-				stop_automated_movement = 0
+				stop_automated_movement = FALSE
 				break
 		for(var/obj/item/toy/cattoy/T in view(1, src))
 			if(T.cooldown < (world.time - 400))
@@ -143,16 +143,16 @@
 		turns_since_scan = 0
 	if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 		movement_target = null
-		stop_automated_movement = 0
+		stop_automated_movement = FALSE
 	if( !movement_target || !(movement_target.loc in oview(src, 3)) )
 		movement_target = null
-		stop_automated_movement = 0
+		stop_automated_movement = FALSE
 		for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
 			if(isturf(snack.loc) && !snack.stat)
 				movement_target = snack
 				break
 	if(movement_target)
-		stop_automated_movement = 1
+		stop_automated_movement = TRUE
 		walk_to(src,movement_target,0,3)
 
 /mob/living/simple_animal/pet/cat/Proc
@@ -169,7 +169,7 @@
 	icon_dead = "kitten_dead"
 	icon_resting = null
 	gender = NEUTER
-	density = 0
+	density = FALSE
 	pass_flags = PASSMOB
 	collar_type = "kitten"
 

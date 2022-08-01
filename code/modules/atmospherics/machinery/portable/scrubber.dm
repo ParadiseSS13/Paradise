@@ -30,21 +30,18 @@
 
 	..(severity)
 
-/obj/machinery/portable_atmospherics/scrubber/update_icon()
-	overlays = 0
-
+/obj/machinery/portable_atmospherics/scrubber/update_icon_state()
 	if(on)
 		icon_state = "pscrubber:1"
 	else
 		icon_state = "pscrubber:0"
 
-	if(holding)
-		overlays += "scrubber-open"
-
+/obj/machinery/portable_atmospherics/scrubber/update_overlays()
+	. = ..()
+	if(holding_tank)
+		. += "scrubber-open"
 	if(connected_port)
-		overlays += "scrubber-connector"
-
-	return
+		. += "scrubber-connector"
 
 /obj/machinery/portable_atmospherics/scrubber/process_atmos()
 	..()
@@ -60,15 +57,15 @@
 
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(turf/simulated/tile)
 	var/datum/gas_mixture/environment
-	if(holding)
-		environment = holding.air_contents
+	if(holding_tank)
+		environment = holding_tank.air_contents
 	else
 		environment = tile.return_air()
 	var/transfer_moles = min(1,volume_rate/environment.volume)*environment.total_moles()
 
 	//Take a gas sample
 	var/datum/gas_mixture/removed
-	if(holding)
+	if(holding_tank)
 		removed = environment.remove(transfer_moles)
 	else
 		removed = loc.remove_air(transfer_moles)
@@ -95,7 +92,7 @@
 	//Remix the resulting gases
 		air_contents.merge(filtered_out)
 
-		if(holding)
+		if(holding_tank)
 			environment.merge(removed)
 		else
 			tile.assume_air(removed)
@@ -130,9 +127,9 @@
 		"rate" = round(volume_rate, 0.001),
 		"tank_pressure" = air_contents.return_pressure() > 0 ? round(air_contents.return_pressure(), 0.001) : 0
 	)
-	if(holding)
+	if(holding_tank)
 		data["has_holding_tank"] = TRUE
-		data["holding_tank"] = list("name" = holding.name, "tank_pressure" = holding.air_contents.return_pressure() > 0 ? round(holding.air_contents.return_pressure(), 0.001) : 0)
+		data["holding_tank"] = list("name" = holding_tank.name, "tank_pressure" = holding_tank.air_contents.return_pressure() > 0 ? round(holding_tank.air_contents.return_pressure(), 0.001) : 0)
 	else
 		data["has_holding_tank"] = FALSE
 
@@ -149,9 +146,9 @@
 			return TRUE
 
 		if("remove_tank")
-			if(holding)
-				holding.forceMove(get_turf(src))
-				holding = null
+			if(holding_tank)
+				holding_tank.forceMove(get_turf(src))
+				holding_tank = null
 			update_icon()
 			return TRUE
 
@@ -183,13 +180,8 @@
 /obj/machinery/portable_atmospherics/scrubber/huge/attack_hand(mob/user)
 	to_chat(usr, "<span class='warning'>You can't directly interact with this machine. Use the area atmos computer.</span>")
 
-/obj/machinery/portable_atmospherics/scrubber/huge/update_icon()
-	overlays = 0
-
-	if(on)
-		icon_state = "scrubber:1"
-	else
-		icon_state = "scrubber:0"
+/obj/machinery/portable_atmospherics/scrubber/huge/update_icon_state()
+	icon_state = "scrubber:[on]"
 
 /obj/machinery/portable_atmospherics/scrubber/huge/attackby(obj/item/W, mob/user, params)
 	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)

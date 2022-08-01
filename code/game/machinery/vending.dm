@@ -167,17 +167,17 @@
 	for(var/obj/item/vending_refill/VR in component_parts)
 		restock(VR)
 
-/obj/machinery/vending/update_icon()
-	cut_overlays()
+/obj/machinery/vending/update_overlays()
+	. = ..()
 	underlays.Cut()
 	if(panel_open)
-		add_overlay("[icon_panel ? "[icon_panel]_panel" : "[icon_state]_panel"]")
+		. += "[icon_panel ? "[icon_panel]_panel" : "[icon_state]_panel"]"
 	if(icon_addon)
-		add_overlay("[icon_addon]")
+		. += "[icon_addon]"
 	if((stat & (BROKEN|NOPOWER)) || force_no_power_icon_state)
-		add_overlay("[icon_off ? "[icon_off]_off" : "[icon_state]_off"]")
+		. += "[icon_off ? "[icon_off]_off" : "[icon_state]_off"]"
 		if(stat & BROKEN)
-			add_overlay("[icon_broken ? "[icon_broken]_broken" : "[icon_state]_broken"]")
+			. += "[icon_broken ? "[icon_broken]_broken" : "[icon_state]_broken"]"
 		return
 	if(light)
 		underlays += emissive_appearance(icon, "[icon_lightmask ? "[icon_lightmask]_lightmask" : "[icon_state]_off"]")
@@ -206,14 +206,14 @@
 	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
 		set_light(0)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 3))
 
 		force_no_power_icon_state = FALSE
 		set_light(light_range_on, light_power_on)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 10))
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	flickering = FALSE
 
 /**
@@ -366,7 +366,7 @@
 	if(anchored)
 		panel_open = !panel_open
 		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		SStgui.update_uis(src)
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
@@ -842,13 +842,13 @@
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
 		stat |= BROKEN
 		set_light(0)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 		var/dump_amount = 0
 		var/found_anything = TRUE
@@ -1301,6 +1301,20 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
 	refill_canister = /obj/item/vending_refill/hydronutrients
 
+/obj/machinery/vending/hydronutrients/syndicate_druglab
+	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 12,
+					/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 2,
+					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 3,
+					/obj/item/reagent_containers/spray/pestspray = 7,
+					/obj/item/reagent_containers/syringe = 11,
+					/obj/item/storage/bag/plants = 2,
+					/obj/item/cultivator = 3,
+					/obj/item/shovel/spade = 2,
+					/obj/item/plant_analyzer = 2,
+					/obj/item/reagent_containers/glass/bottle/ammonia = 6,
+					/obj/item/reagent_containers/glass/bottle/diethylamine = 8)
+	contraband = list()
+
 /obj/machinery/vending/hydroseeds
 	name = "\improper MegaSeed Servitor"
 	desc = "When you need seeds fast!"
@@ -1363,6 +1377,18 @@
 					  /obj/item/seeds/random = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
+
+/obj/machinery/vending/hydroseeds/syndicate_druglab
+	products = list(/obj/item/seeds/ambrosia/deus = 2,
+					/obj/item/seeds/cannabis = 2,
+					/obj/item/seeds/coffee = 3,
+					/obj/item/seeds/liberty = 2,
+					/obj/item/seeds/cannabis/rainbow = 1,
+					/obj/item/seeds/reishi = 2,
+					/obj/item/seeds/tobacco = 1)
+	contraband = list()
+	premium = list()
+	refill_canister = null
 
 /obj/machinery/vending/magivend
 	name = "\improper MagiVend"
@@ -1665,10 +1691,11 @@
 	icon_panel = "syndi"
 	icon_broken = "wide_vendor"
 	ads_list = list("Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*","Blood of your enemies washes right out!","Who are YOU wearing?","Look dapper! Look like an idiot!","Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*")
-	products = list(/obj/item/clothing/under/color/black = 10,/obj/item/clothing/under/color/blue = 10,/obj/item/clothing/under/color/green = 10,/obj/item/clothing/under/color/grey = 10,/obj/item/clothing/under/color/pink = 10,/obj/item/clothing/under/color/red = 10,
-					/obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/yellow = 10,/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/aqua = 10,/obj/item/clothing/under/color/purple = 10,/obj/item/clothing/under/color/lightgreen = 10,
-					/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/lightbrown = 10,/obj/item/clothing/under/color/brown = 10,/obj/item/clothing/under/color/yellowgreen = 10,/obj/item/clothing/under/color/darkblue = 10,/obj/item/clothing/under/color/lightred = 10, /obj/item/clothing/under/color/darkred = 10)
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5)
+	products = list(/obj/item/clothing/under/color/black = 10, /obj/item/clothing/under/color/grey = 10, /obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/darkred = 10, /obj/item/clothing/under/color/red = 10, /obj/item/clothing/under/color/lightred = 10,
+					/obj/item/clothing/under/color/brown = 10, /obj/item/clothing/under/color/orange = 10, /obj/item/clothing/under/color/lightbrown = 10, /obj/item/clothing/under/color/yellow = 10, /obj/item/clothing/under/color/yellowgreen = 10, /obj/item/clothing/under/color/lightgreen = 10,
+					/obj/item/clothing/under/color/green = 10, /obj/item/clothing/under/color/aqua = 10, /obj/item/clothing/under/color/darkblue = 10, /obj/item/clothing/under/color/blue = 10, /obj/item/clothing/under/color/lightblue = 10, /obj/item/clothing/under/color/purple = 10,
+					/obj/item/clothing/under/color/lightpurple = 10, /obj/item/clothing/under/color/pink = 10)
+	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange/prison = 5)
 	premium = list(/obj/item/clothing/under/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/suitdispenser
 
@@ -2079,6 +2106,7 @@
 	products = list(/obj/item/clothing/under/rank/engineer = 6,
 					/obj/item/clothing/under/rank/engineer/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
+					/obj/item/clothing/suit/jacket/engibomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/beret/eng = 3,
 					/obj/item/clothing/head/hardhat = 2,
@@ -2108,6 +2136,7 @@
 	products = list(/obj/item/clothing/under/rank/atmospheric_technician  = 6,
 					/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
+					/obj/item/clothing/suit/jacket/atmosbomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/beret/atmos = 3,
 					/obj/item/clothing/head/hardhat = 2,
@@ -2118,8 +2147,8 @@
 					/obj/item/clothing/accessory/armband/engine = 3,
 					/obj/item/clothing/shoes/laceup = 3,
 					/obj/item/clothing/shoes/workboots = 3,
-					/obj/item/storage/backpack/industrial = 2,
-					/obj/item/storage/backpack/satchel_eng = 2,
+					/obj/item/storage/backpack/industrial/atmos = 2,
+					/obj/item/storage/backpack/satchel_atmos = 2,
 					/obj/item/storage/backpack/duffel/atmos = 2,
 					/obj/item/storage/belt/utility = 2)
 	contraband = list(/obj/item/toy/figure/crew/atmos = 1)

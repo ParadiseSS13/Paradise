@@ -28,7 +28,7 @@
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
 		showpiece = new start_showpiece_type (src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/displaycase/Destroy()
 	QDEL_NULL(electronics)
@@ -81,7 +81,7 @@
 		open = TRUE
 		new /obj/item/shard(drop_location())
 		playsound(src, "shatter", 70, TRUE)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		trigger_alarm()
 
 /obj/structure/displaycase/proc/trigger_alarm()
@@ -95,17 +95,17 @@
 			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, 0)
 			sleep(74) // 7.4 seconds long
 
-/obj/structure/displaycase/update_icon()
-	cut_overlays()
+/obj/structure/displaycase/update_overlays()
+	. = ..()
 	if(broken)
-		add_overlay("glassbox_broken")
+		. += "glassbox_broken"
 	if(showpiece)
 		var/mutable_appearance/showpiece_overlay = mutable_appearance(showpiece.icon, showpiece.icon_state)
 		showpiece_overlay.copy_overlays(showpiece)
 		showpiece_overlay.transform *= 0.6
-		add_overlay(showpiece_overlay)
+		. += showpiece_overlay
 	if(!open && !broken)
-		add_overlay("glassbox_closed")
+		. += "glassbox_closed"
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(I.GetID() && !broken && openable)
@@ -131,7 +131,7 @@
 			broken = FALSE
 			open = FALSE
 			obj_integrity = max_integrity
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()
 
@@ -174,7 +174,7 @@
 
 /obj/structure/displaycase/proc/toggle_lock()
 	open = !open
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/displaycase/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -182,7 +182,7 @@
 		to_chat(user, "<span class='notice'>You deactivate the hover field built into the case.</span>")
 		dump()
 		add_fingerprint(user)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	else
 	    //prevents remote "kicks" with TK
