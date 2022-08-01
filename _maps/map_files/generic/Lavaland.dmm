@@ -540,14 +540,13 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "bx" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j2"
+/obj/machinery/door/poddoor{
+	id_tag = "trash";
+	name = "disposal bay door";
+	protected = 0
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	dir = 1
-	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "by" = (
 /obj/structure/cable{
@@ -646,13 +645,19 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "bI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/conveyor/east{
-	id = "garbage"
+/obj/machinery/driver_button{
+	id_tag = "trash";
+	pixel_x = 26;
+	pixel_y = -6
 	},
-/obj/machinery/light/small{
-	dir = 1
+/obj/machinery/door_control{
+	id = "Disposal Exit";
+	name = "Disposal Vent Control";
+	pixel_x = 25;
+	pixel_y = 4;
+	req_access_txt = "12"
 	},
+/obj/structure/chair/stool,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "bJ" = (
@@ -738,6 +743,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1520,9 +1526,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "dz" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
@@ -1602,6 +1605,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
+/area/mine/living_quarters)
+"dH" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall,
 /area/mine/living_quarters)
 "dI" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -1758,10 +1768,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1941,7 +1947,9 @@
 /area/mine/production)
 "ev" = (
 /obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2065,12 +2073,12 @@
 	},
 /area/mine/production)
 "eJ" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	dir = 4
+/obj/machinery/conveyor/east{
+	id = "garbage"
 	},
-/area/mine/production)
+/obj/machinery/recycler,
+/turf/simulated/floor/plating,
+/area/mine/living_quarters)
 "eK" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -2200,9 +2208,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -2318,6 +2323,9 @@
 /area/mine/production)
 "fi" = (
 /obj/machinery/door/airlock/maintenance,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "fj" = (
@@ -2435,11 +2443,14 @@
 	},
 /area/mine/living_quarters)
 "fy" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
 	pixel_x = 24
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
@@ -2487,11 +2498,17 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
-"fG" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+"fF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/east{
+	id = "garbage"
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/mine/living_quarters)
+"fG" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -2506,6 +2523,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2683,14 +2701,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
-"gd" = (
-/obj/machinery/conveyor/east{
-	id = "garbage";
-	dir = 2
-	},
-/obj/structure/plasticflaps,
-/turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "ge" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4663,14 +4673,12 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "vZ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/machinery/conveyor/east{
+	id = "garbage";
+	dir = 2
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	dir = 1
-	},
+/obj/structure/plasticflaps,
+/turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "wg" = (
 /obj/machinery/mineral/equipment_vendor/labor,
@@ -4798,12 +4806,6 @@
 	icon_state = "browncorner"
 	},
 /area/mine/laborcamp)
-"yg" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/mine/living_quarters)
 "yl" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -4852,18 +4854,7 @@
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
-"zy" = (
-/obj/machinery/conveyor/east{
-	id = "garbage"
-	},
-/obj/machinery/recycler,
-/turf/simulated/floor/plating,
-/area/mine/living_quarters)
 "zC" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
@@ -4950,15 +4941,15 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 1;
+	icon_state = "pipe-y"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -4983,9 +4974,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/junction{
+	dir = 1;
+	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -5069,10 +5060,8 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "DE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "DF" = (
@@ -5283,7 +5272,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "GD" = (
@@ -5509,12 +5498,12 @@
 	dir = 2;
 	name = "Mining Bar"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5543,6 +5532,10 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -5593,7 +5586,7 @@
 	},
 /area/mine/laborcamp)
 "Ma" = (
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -5622,14 +5615,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j2"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -5929,11 +5922,6 @@
 /obj/structure/table,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
-"RX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/mine/living_quarters)
 "Ss" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -6087,19 +6075,10 @@
 	},
 /area/mine/living_quarters)
 "UQ" = (
-/obj/machinery/driver_button{
-	id_tag = "trash";
-	pixel_x = 26;
-	pixel_y = -6
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
-/obj/machinery/door_control{
-	id = "Disposal Exit";
-	name = "Disposal Vent Control";
-	pixel_x = 25;
-	pixel_y = 4;
-	req_access_txt = "12"
-	},
-/obj/structure/chair/stool,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Vt" = (
@@ -6168,12 +6147,10 @@
 	},
 /area/mine/laborcamp)
 "VS" = (
-/obj/machinery/door/poddoor{
-	id_tag = "trash";
-	name = "disposal bay door";
-	protected = 0
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "VT" = (
@@ -17882,9 +17859,9 @@ de
 fI
 dR
 zC
-yg
-yg
-vZ
+fz
+fz
+sL
 oN
 fC
 sZ
@@ -18141,7 +18118,7 @@ Kr
 fG
 bP
 ev
-bx
+sL
 bi
 fA
 cM
@@ -18649,7 +18626,7 @@ cM
 cM
 br
 Aa
-eX
+et
 cV
 cV
 Vu
@@ -19950,7 +19927,7 @@ bQ
 yl
 eo
 eo
-DE
+VS
 eX
 eX
 cM
@@ -20464,10 +20441,10 @@ cM
 cM
 cM
 cM
-bI
+fF
 fw
 dh
-UQ
+bI
 cV
 cR
 aj
@@ -20721,11 +20698,11 @@ cV
 AB
 VT
 cM
-zy
+eJ
 eX
 cR
 cM
-RX
+DE
 cM
 aj
 aj
@@ -20980,10 +20957,10 @@ cV
 VD
 Jh
 eg
-gd
+vZ
 gq
 Zh
-VS
+bx
 aj
 aj
 aj
@@ -21218,7 +21195,7 @@ bN
 cn
 ct
 ed
-eJ
+dM
 fy
 bU
 JM
@@ -21230,7 +21207,7 @@ dM
 Xi
 bq
 cM
-cM
+dH
 cM
 cV
 FF
@@ -21744,7 +21721,7 @@ eB
 eZ
 dn
 eX
-cV
+UQ
 fw
 cV
 cV
