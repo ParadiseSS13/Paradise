@@ -60997,6 +60997,9 @@
 /obj/effect/overlay/coconut{
 	pixel_y = -6
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
 "cWG" = (
@@ -61872,11 +61875,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
-"cZm" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bluecorner"
-	},
-/area/hallway/secondary/exit)
 "cZn" = (
 /obj/machinery/newscaster{
 	name = "south bump";
@@ -64328,6 +64326,20 @@
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"dgz" = (
+/obj/structure/table/holotable/wood,
+/obj/item/reagent_containers/food/drinks/bottle/rum{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 10
+	},
+/turf/simulated/floor/beach/sand,
+/area/hallway/secondary/exit)
 "dgC" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
@@ -70489,6 +70501,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"eWC" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/simulated/floor/beach/sand,
+/area/hallway/secondary/exit)
 "eWK" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -71375,6 +71393,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
+"fEO" = (
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/turf/simulated/floor/beach/sand,
+/area/hallway/secondary/exit)
 "fET" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -72509,6 +72533,9 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/hallway/secondary/exit)
 "gzN" = (
@@ -72924,7 +72951,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -74065,6 +74091,12 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"hCr" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/hallway/secondary/exit)
 "hCs" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/decal/cleanable/dirt,
@@ -75344,16 +75376,6 @@
 	icon_state = "white"
 	},
 /area/toxins/mixing)
-"iFN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/woodsiding,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/hallway/secondary/exit)
 "iFR" = (
 /obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -85443,7 +85465,6 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -88471,6 +88492,9 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/hallway/secondary/exit)
 "uls" = (
@@ -89063,7 +89087,10 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
 /area/hallway/secondary/exit)
 "uMa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -90248,9 +90275,12 @@
 	name = "\improper Science Toxin Storage"
 	})
 "vKP" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "blue"
+	dir = 8;
+	icon_state = "bluecorner"
 	},
 /area/hallway/secondary/exit)
 "vKW" = (
@@ -143899,7 +143929,7 @@ bPq
 bPq
 cYk
 bmm
-cZm
+iIB
 ciY
 csL
 cga
@@ -146469,8 +146499,8 @@ bmm
 bmm
 enR
 bmm
-iFN
-vFk
+oMz
+hCr
 vFk
 pJr
 fkL
@@ -146726,8 +146756,8 @@ bjR
 iek
 enR
 bmm
-iFN
-vFk
+oMz
+hCr
 ojO
 kUl
 kUl
@@ -146983,8 +147013,8 @@ bEF
 swk
 snH
 bSc
-iFN
-vFk
+oMz
+hCr
 vFk
 vFk
 qHb
@@ -148006,11 +148036,11 @@ vtJ
 pya
 bmm
 bmm
+bmm
 lEZ
 ido
 vws
 vtJ
-pya
 vKP
 bEF
 sGl
@@ -148264,11 +148294,11 @@ bjR
 bjR
 bjR
 bjR
+bjR
 bAE
 jfJ
 bAE
 jfJ
-bEF
 bEF
 aaa
 aaa
@@ -148520,12 +148550,12 @@ boI
 bjR
 tnJ
 pXs
+eWC
 bjR
 xir
 bjR
 xir
 bjR
-aaa
 aaa
 aaa
 aaa
@@ -148777,12 +148807,12 @@ brL
 wjN
 cWE
 bGN
+dgz
 wjN
 bAN
 bjR
 bol
 bjR
-aaa
 aaa
 aaa
 aaa
@@ -149034,12 +149064,12 @@ bol
 bqn
 cWQ
 bGM
+fEO
 jfJ
 bol
 bjR
 bol
 bjR
-aaa
 aaa
 aaa
 aaa
@@ -149292,11 +149322,11 @@ bjR
 bjR
 bjR
 bjR
-xir
 bjR
 xir
 bjR
-aaa
+xir
+bjR
 aaa
 aaa
 aaa
