@@ -37812,6 +37812,11 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -44043,6 +44048,12 @@
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
+	},
+/obj/machinery/light_switch{
+	name = "custom placement";
+	pixel_x = 24;
+	pixel_y = 32;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engine_smes)
@@ -51402,6 +51413,11 @@
 	amount = 5
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "csB" = (
@@ -53187,6 +53203,11 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "cwD" = (
