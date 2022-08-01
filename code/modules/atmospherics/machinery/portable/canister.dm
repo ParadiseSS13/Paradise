@@ -416,6 +416,9 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	add_fingerprint(usr)
 	update_icon()
 
+/obj/machinery/atmospherics/portable/canister/atmos_init()
+	. = ..()
+	update_icon()
 
 /obj/machinery/atmospherics/portable/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"
