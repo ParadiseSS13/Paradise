@@ -1,7 +1,7 @@
 GLOBAL_VAR(current_pending_disease)
 /datum/event/disease_outbreak
 	/// The type of disease that patient zero will be infected with.
-	var/datum/disease/D
+	var/datum/disease/chosen_disease
 
 	var/list/disease_blacklist = list(/datum/disease/advance, /datum/disease/appendicitis, /datum/disease/kuru, /datum/disease/critical, /datum/disease/rhumba_beat, /datum/disease/fake_gbs,
 										/datum/disease/gbs, /datum/disease/transformation, /datum/disease/food_poisoning, /datum/disease/advance/cold, /datum/disease/advance/flu, /datum/disease/advance/heal,
@@ -19,21 +19,30 @@ GLOBAL_VAR(current_pending_disease)
 	var/datum/disease/virus
 	if(prob(25))
 		switch(severity)
-			if(EVENT_LEVEL_MUNDANE) virus = pick(diseases_minor)
-			if(EVENT_LEVEL_MODERATE) virus = pick(diseases_moderate)
-			if(EVENT_LEVEL_MAJOR) virus = pick(diseases_major)
-		D = new virus()
+			if(EVENT_LEVEL_MUNDANE)
+				virus = pick(diseases_minor)
+			if(EVENT_LEVEL_MODERATE)
+				virus = pick(diseases_moderate)
+			if(EVENT_LEVEL_MAJOR)
+				virus = pick(diseases_major)
+			else
+				stack_trace("Disease Outbreak: Invalid Event Level [severity]. Expected: 1-3")
+				virus = /datum/disease/cold
+		chosen_disease = new virus()
 	else
-		D = create_virus(severity * 2)	//Severity of the virus depends on the event severity level
-	D.carrier = TRUE
+		chosen_disease = create_virus(severity * 2)	//Severity of the virus depends on the event severity level
+	chosen_disease.carrier = TRUE
 
 /datum/event/disease_outbreak/start()
-	GLOB.current_pending_disease = D
+	GLOB.current_pending_disease = chosen_disease
 	var/severity_text = "undefined (contact a coder)"
 	switch(severity)
-		if(EVENT_LEVEL_MUNDANE) severity_text = "mundane"
-		if(EVENT_LEVEL_MODERATE) severity_text = "moderate"
-		if(EVENT_LEVEL_MAJOR) severity_text = "major"
+		if(EVENT_LEVEL_MUNDANE)
+			severity_text = "mundane"
+		if(EVENT_LEVEL_MODERATE)
+			severity_text = "moderate"
+		if(EVENT_LEVEL_MAJOR)
+			severity_text = "major"
 
 
 	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
@@ -48,7 +57,7 @@ GLOBAL_VAR(current_pending_disease)
 	for(var/sanity=0, sanity<25, sanity++)
 		if(A.spread_text != "Blood")
 			break
-		if(A.symptoms.len < VIRUS_SYMPTOM_LIMIT)	//Ensure the virus is spreadable by adding symptoms that boost transmission
+		if(length(A.symptoms) < VIRUS_SYMPTOM_LIMIT)	//Ensure the virus is spreadable by adding symptoms that boost transmission
 			var/datum/symptom/TS = pick_n_take(symptoms_to_try)
 			A.AddSymptom(new TS)
 		else
@@ -64,9 +73,12 @@ GLOBAL_VAR(current_pending_disease)
 		if(candidate in disease_blacklist)
 			continue
 		switch(initial(CD.severity))
-			if(NONTHREAT, MINOR) diseases_minor += candidate
-			if(MEDIUM, HARMFUL) diseases_moderate += candidate
-			if(DANGEROUS, BIOHAZARD) diseases_major += candidate
+			if(NONTHREAT, MINOR)
+				diseases_minor += candidate
+			if(MEDIUM, HARMFUL)
+				diseases_moderate += candidate
+			if(DANGEROUS, BIOHAZARD)
+				diseases_major += candidate
 
 /datum/event/disease_outbreak/proc/populate_symptoms()
 	for(var/candidate in subtypesof(/datum/symptom))

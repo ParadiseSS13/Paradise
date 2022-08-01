@@ -137,10 +137,10 @@ GLOBAL_LIST_INIT(advance_cures, list(
 			if(!HasSymptom(S))
 				possible_symptoms += S
 
-	if(!possible_symptoms.len)
+	if(!length(possible_symptoms))
 		return generated
 
-	for(var/i = 1; amount >= i && possible_symptoms.len; i++)
+	for(var/i = 1 to amount)
 		generated += pick_n_take(possible_symptoms)
 
 	return generated
