@@ -135,11 +135,16 @@
  * Arguments:
  * * D - the disease the mob will try to contract
  * * respect_carrier - if set to TRUE will not ignore the disease carrier flag
+ * * notify_ghosts - will notify ghosts of infection if set to TRUE
  */
 //Same as ContractDisease, except never overidden clothes checks
-/mob/proc/ForceContractDisease(datum/disease/D, respect_carrier)
+/mob/proc/ForceContractDisease(datum/disease/D, respect_carrier, notify_ghosts = FALSE)
 	if(!CanContractDisease(D))
 		return FALSE
+	var/is_carrier = D.carrier == src
+	if(notify_ghosts)
+		for(var/mob/ghost as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
+			to_chat(ghost, "<span class='deadsay'><b>Disease outbreak:</b>[src] ([ghost_follow_link(src, ghost)]) [is_carrier ? "is now a carrier of" : "has contracted"] [GLOB.current_pending_disease]!</span>")
 	AddDisease(D, respect_carrier)
 	return TRUE
 

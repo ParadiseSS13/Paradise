@@ -53,7 +53,7 @@ GLOBAL_VAR(current_pending_disease)
 	var/datum/disease/advance/A = new /datum/disease/advance
 	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 2) //Choose "Payload" symptoms
 	A.AssignProperties(A.GenerateProperties())
-	var/list/symptoms_to_try = deepCopyList(transmissable_symptoms)
+	var/list/symptoms_to_try = transmissable_symptoms.Copy()
 	for(var/sanity=0, sanity<25, sanity++)
 		if(A.spread_text != "Blood")
 			break
