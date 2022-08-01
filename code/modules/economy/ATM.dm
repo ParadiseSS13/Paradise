@@ -1,18 +1,10 @@
-/*
+#define ATM_SCREEN_DEFAULT   0
+#define ATM_SCREEN_SECURITY  1
+#define ATM_SCREEN_TRANSFER  2
+#define ATM_SCREEN_LOGS      3
 
-TODO:
-give money an actual use (QM stuff, vending machines)
-send money to people (might be worth attaching money to custom database thing for this, instead of being in the ID)
-log transactions
-
-*/
-
-#define DEFAULT_SCREEN 0
-#define CHANGE_SECURITY_LEVEL 1
-#define TRANSFER_FUNDS 2
-#define VIEW_TRANSACTION_LOGS 3
-#define PRINT_DELAY 100
-#define LOCKOUT_TIME 120
+#define PRINT_DELAY  (30 SECONDS)
+#define LOCKOUT_TIME (10 SECONDS)
 
 /obj/machinery/atm
 	name = "Nanotrasen automatic teller machine"
@@ -22,89 +14,37 @@ log transactions
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
-	var/obj/machinery/computer/account_database/linked_db
-	var/datum/money_account/authenticated_account
-	var/number_incorrect_tries = 0
-	var/previous_account_number = 0
-	var/max_pin_attempts = 3
-	var/ticks_left_locked_down = 0
-	var/ticks_left_timeout = 0
-	var/machine_id = ""
-	var/obj/item/card/held_card
-	var/editing_security_level = 0
-	var/view_screen = DEFAULT_SCREEN
-	var/lastprint = 0 // Printer needs time to cooldown
 
+	///linked money account database to this ATM
+	var/datum/money_account_database/account_database
+	///Current money account the ATM is accessing
+	var/datum/money_account/authenticated_account
+	///ID Card that is currently inserted into the ATM
+	var/obj/item/card/held_card
+
+	///UI screen the ATM is on currently
+	var/view_screen = ATM_SCREEN_DEFAULT
+	///cooldown inbetween printing balance statements n stuff
+	var/print_cooldown = 0
+	///the time when the lockout on the ATM is lifted
+	var/lockout_time = 0
+	///failed login attempts counter, used for locking out the atm
+	var/login_attempts = 0
+	var/machine_id = ""
 
 /obj/machinery/atm/Initialize(mapload)
 	. = ..()
-	machine_id = "[station_name()] RT #[GLOB.num_financial_terminals++]"
 	reconnect_database()
+
+/obj/machinery/atm/proc/reconnect_database()
+	if(is_station_level(z))
+		account_database = GLOB.station_money_database
+	else
+		//sstuff shit fuck
 
 /obj/machinery/atm/process()
 	if(stat & NOPOWER)
 		return
-
-	if(linked_db && ((linked_db.stat & NOPOWER) || !linked_db.activated))
-		linked_db = null
-		authenticated_account = null
-		visible_message("[bicon(src)]<span class='warning'>[src] buzzes rudely, \"Connection to remote database lost.\"</span>")
-		SStgui.update_uis(src)
-
-	if(ticks_left_timeout > 0)
-		ticks_left_timeout--
-		if(ticks_left_timeout <= 0)
-			authenticated_account = null
-	if(ticks_left_locked_down > 0)
-		ticks_left_locked_down--
-		if(ticks_left_locked_down <= 0)
-			number_incorrect_tries = 0
-
-	if(authenticated_account)
-		var/turf/T = get_turf(src)
-		if(istype(T) && locate(/obj/item/stack/spacecash) in T)
-			var/cash_amount = 0
-			for(var/obj/item/stack/spacecash/S in T)
-				cash_amount += S.amount
-			if(cash_amount)
-				playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
-				for(var/obj/item/stack/spacecash/S in T)
-					S.use(S.amount)
-				authenticated_account.charge(-cash_amount, null, "Credit deposit", machine_id, "Terminal")
-
-/obj/machinery/atm/proc/reconnect_database()
-	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
-		if(DB.z == z && !(DB.stat & NOPOWER) && DB.activated)
-			linked_db = DB
-			break
-
-/obj/machinery/atm/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card))
-		if(!powered())
-			return
-
-		if(!held_card)
-			user.drop_item()
-			I.forceMove(src)
-			held_card = I
-			if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
-				authenticated_account = null
-			SStgui.update_uis(src)
-	else if(authenticated_account)
-		if(istype(I, /obj/item/stack/spacecash))
-			//consume the money
-			if(!powered())
-				return
-			var/obj/item/stack/spacecash/C = I
-			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
-
-			authenticated_account.credit(C.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
-
-			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
-			SStgui.update_uis(src)
-			C.use(C.amount)
-	else
-		return ..()
 
 /obj/machinery/atm/attack_hand(mob/user)
 	if(..())
@@ -112,12 +52,74 @@ log transactions
 	if(issilicon(user))
 		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
 		return
-	if(!linked_db)
+	if(!account_database)
 		reconnect_database()
+
 	ui_interact(user)
 
 /obj/machinery/atm/attack_ghost(mob/user)
 	ui_interact(user)
+
+/obj/machinery/atm/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/card))
+		if(powered())
+			handle_id_insert(I, user)
+	else if(authenticated_account)
+		if(istype(I, /obj/item/stack/spacecash))
+			if(!powered())
+				return
+			handle_cash_insert(I, user)
+	else
+		return ..()
+
+/obj/machinery/atm/proc/handle_id_insert(obj/item/card/id, mob/user)
+	if(held_card)
+		return
+	user.drop_item()
+	id.forceMove(src)
+	held_card = id
+	RegisterSignal(held_card, COMSIG_PARENT_QDELETING, .proc/clear_held_card)
+	if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
+		authenticated_account = null
+
+/obj/machinery/atm/proc/eject_inserted_id(mob/user)
+	if(!held_card)
+		return
+	held_card.forceMove(loc)
+	UnregisterSignal(held_card, COMSIG_PARENT_QDELETING)
+	if(ishuman(user) && !user.get_active_hand())
+		user.put_in_hands(held_card)
+	authenticated_account = null
+	held_card = null
+
+///ensures proper GC of ID card
+/obj/machinery/atm/proc/clear_held_card()
+	held_card = null
+
+/obj/machinery/atm/proc/handle_cash_insert(obj/item/stack/spacecash/cash, mob/user)
+	if(!cash.amount || !authenticated_account)
+		return
+	if(!account_database.credit_account(authenticated_account, cash.amount))
+		return
+	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
+	to_chat(user, "<span class='info'>You insert [cash] into [src].</span>")
+	cash.use(cash.amount)
+
+//create the most effective combination of notes to make up the requested amount
+/obj/machinery/atm/proc/dispense_space_cash(amount, mob/user)
+	var/stacks_to_dispense = min(CEILING(amount / MAX_STACKABLE_CASH, 1), 10)
+	var/remaining_cash = amount
+
+	for(var/i in 1 to stacks_to_dispense)
+		if(remaining_cash >= MAX_STACKABLE_CASH)
+			remaining_cash -= MAX_STACKABLE_CASH
+			new /obj/item/stack/spacecash(get_turf(src), MAX_STACKABLE_CASH)
+			continue
+		var/obj/item/stack/spacecash/C = new(get_turf(src), remaining_cash)
+		if(user)
+			user.put_in_hands(C)
+
+	return remaining_cash
 
 /obj/machinery/atm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -127,16 +129,15 @@ log transactions
 
 /obj/machinery/atm/ui_data(mob/user)
 	var/list/data = list()
+
 	data["view_screen"] = view_screen
 	data["machine_id"] = machine_id
-	data["held_card_name"] = held_card ? held_card.name : "------"
-	data["ticks_left_locked_down"] = ticks_left_locked_down
-	data["linked_db"] = linked_db
+	data["held_card_name"] = held_card?.name
 
 	data["authenticated_account"] = authenticated_account
 	if(authenticated_account)
-		data["owner_name"] = authenticated_account.owner_name
-		data["money"] = authenticated_account.money
+		data["owner_name"] = authenticated_account.account_name
+		data["money"] = authenticated_account.credit_balance
 		data["security_level"] = authenticated_account.security_level
 
 		var/list/trx = list()
@@ -152,151 +153,151 @@ log transactions
 
 	return data
 
-/obj/machinery/atm/ui_act(action, params)
+/obj/machinery/atm/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 
+	var/mob/user = ui.user
+
 	switch(action)
 		if("transfer")
-			if(!authenticated_account || !linked_db)
+			if(!authenticated_account)
 				return
 			var/transfer_amount = text2num(params["funds_amount"])
-			if(transfer_amount <= 0)
-				to_chat(usr, "[bicon(src)]<span class='warning'>That is not a valid amount.</span>")
-			else if(transfer_amount <= authenticated_account.money)
-				var/target_account_number = text2num(params["target_acc_number"])
-				var/transfer_purpose = params["purpose"]
-				if(linked_db.charge_to_account(target_account_number, authenticated_account, transfer_purpose, machine_id, transfer_amount))
-					to_chat(usr, "[bicon(src)]<span class='info'>Funds transfer successful.</span>")
-				else
-					to_chat(usr, "[bicon(src)]<span class='warning'>Funds transfer failed.</span>")
-			else
-				to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
-
+			var/target_account_number = text2num(params["target_acc_number"])
+			var/transfer_purpose = params["purpose"]
+			transfer_credits(transfer_amount, target_account_number, transfer_purpose)
 		if("view_screen")
-			var/list/valid_screen = list(DEFAULT_SCREEN, CHANGE_SECURITY_LEVEL, TRANSFER_FUNDS, VIEW_TRANSACTION_LOGS)
+			var/list/valid_screen = list(ATM_SCREEN_DEFAULT, ATM_SCREEN_SECURITY, ATM_SCREEN_TRANSFER, ATM_SCREEN_LOGS)
 			var/screen_proper = text2num(params["view_screen"])
 			if(screen_proper in valid_screen)
 				view_screen = screen_proper
 			else
 				message_admins("Warning: possible href exploit by [key_name(usr)] - Invalid screen number passed into an ATM")
 				log_debug("Warning: possible href exploit by [key_name(usr)] - Invalid screen number passed into an ATM")
-
 		if("change_security_level")
 			if(authenticated_account)
 				var/new_sec_level = max(min(text2num(params["new_security_level"]), 2), 0)
 				authenticated_account.security_level = new_sec_level
-
 		if("attempt_auth")
-			if(linked_db)
-				if(!ticks_left_locked_down)
-					var/tried_account_num = text2num(params["account_num"])
-					if(!tried_account_num && held_card)
-						tried_account_num = held_card.associated_account_number
-					var/tried_pin = text2num(params["account_pin"])
-
-					authenticated_account = attempt_account_access(tried_account_num, tried_pin, held_card && held_card.associated_account_number == tried_account_num ? 2 : 1)
-					if(!authenticated_account)
-						number_incorrect_tries++
-						if(previous_account_number == tried_account_num)
-							if(number_incorrect_tries > max_pin_attempts)
-								//lock down the atm
-								ticks_left_locked_down = 30
-								playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
-
-								//create an entry in the account transaction log
-								var/datum/money_account/failed_account = linked_db.get_account(tried_account_num)
-								if(failed_account)
-									var/datum/transaction/T = new()
-									T.target_name = failed_account.owner_name
-									T.purpose = "Unauthorised login attempt"
-									T.source_terminal = machine_id
-									T.date = GLOB.current_date_string
-									T.time = station_time_timestamp()
-									failed_account.transaction_log.Add(T)
-							else
-								to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempt\s remaining.</span>")
-								previous_account_number = tried_account_num
-								playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-						else
-							to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered.</span>")
-							number_incorrect_tries = 0
-					else
-						playsound(src, 'sound/machines/twobeep.ogg', 50, TRUE)
-						ticks_left_timeout = LOCKOUT_TIME
-						view_screen = DEFAULT_SCREEN
-
-						//create a transaction log entry
-						var/datum/transaction/T = new()
-						T.target_name = authenticated_account.owner_name
-						T.purpose = "Remote terminal access"
-						T.source_terminal = machine_id
-						T.date = GLOB.current_date_string
-						T.time = station_time_timestamp()
-						authenticated_account.transaction_log.Add(T)
-						to_chat(usr, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.owner_name].'</span>")
-					previous_account_number = tried_account_num
+			var/tried_account_num = text2num(params["account_num"])
+			var/tried_pin = text2num(params["account_pin"])
+			attempt_login(tried_account_num, tried_pin, user)
 
 		if("withdrawal")
 			var/amount = max(text2num(params["funds_amount"]), 0)
-			if(amount <= 0)
-				to_chat(usr, "[bicon(src)]<span class='warning'>That is not a valid amount.</span>")
-			else if(authenticated_account && amount > 0)
-				if(amount > 100000) // Prevent crashes
-					to_chat(usr, "<span class='notice'>[bicon(src)]The ATM's screen flashes, 'Maximum single withdrawal limit reached, defaulting to 100,000.'</span>")
-					amount = 100000
-				if(authenticated_account.charge(amount, null, "Credit withdrawal", machine_id, authenticated_account.owner_name))
-					playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
-					withdraw_arbitrary_sum(amount)
+			if(amount)
+				withdraw(amount, user)
 
 		if("balance_statement")
-			if(authenticated_account)
-				if(world.timeofday < lastprint + PRINT_DELAY)
-					to_chat(usr, "<span class='notice'>[src] flashes an error on its display.</span>")
-					return
-				lastprint = world.timeofday
-				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
-				var/obj/item/paper/R = new(loc)
-				R.name = "Account balance: [authenticated_account.owner_name]"
-				R.info = {"<b>NT Automated Teller Account Statement</b><br><br>
-					<i>Account holder:</i> [authenticated_account.owner_name]<br>
-					<i>Account number:</i> [authenticated_account.account_number]<br>
-					<i>Balance:</i> $[authenticated_account.money]<br>
-					<i>Date and time:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
-					<i>Service terminal ID:</i> [machine_id]<br>"}
-
-				//stamp the paper
-				var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-				stampoverlay.icon_state = "paper_stamp-cent"
-				if(!R.stamped)
-					R.stamped = new()
-				R.stamped += /obj/item/stamp
-				R.overlays += stampoverlay
-				R.stamps += "<HR><i>This paper has been stamped by the Automatic Teller Machine.</i>"
-
-			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 
 		if("insert_card")
 			if(held_card)
-				held_card.forceMove(loc)
-				authenticated_account = null
-				if(ishuman(usr) && !usr.get_active_hand())
-					usr.put_in_hands(held_card)
-				held_card = null
+				eject_inserted_id(user)
 			else
-				var/obj/item/I = usr.get_active_hand()
+				var/obj/item/I = user.get_active_hand()
 				if(istype(I, /obj/item/card/id))
-					usr.drop_item()
-					I.forceMove(src)
-					held_card = I
-
+					handle_id_insert(I, user)
 		if("logout")
-			authenticated_account = null
+			logout()
 
 	. = TRUE
 
-//create the most effective combination of notes to make up the requested amount
-/obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
-	var/obj/item/stack/spacecash/C = new(amt = arbitrary_sum)
-	if(!usr?.put_in_hands(C))
-		C.forceMove(get_step(get_turf(src), turn(dir, 180)))
+/obj/machinery/atm/proc/authenticate_account(account_number, account_pin, mob/user)
+	var/datum/money_account/target_account = account_database.find_user_account(account_number)
+	if(target_account.authenticate_login(account_pin, FALSE, FALSE, FALSE))
+		to_chat(usr, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.account_name].'</span>")
+		return TRUE
+	playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
+	to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure, incorrect credentials or insufficient permissions.</span>")
+	return FALSE
+
+/obj/machinery/atm/proc/attempt_login(account_number, account_pin, mob/user)
+	if(!authenticate_account(account_number, account_pin, user))
+		return
+	login_attempts++
+	if(login_attempts >= 3)
+		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
+		var/datum/money_account/failed_account = account_database.find_user_account(account_number)
+		if(failed_account)
+			var/datum/transaction/T = new()
+			T.target_name = failed_account.account_name
+			T.purpose = "Unauthorised login attempt"
+			T.source_terminal = machine_id
+			T.date = GLOB.current_date_string
+		to_chat(user, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [3 - login_attempts] attempt\s remaining.</span>")
+		view_screen = ATM_SCREEN_DEFAULT
+		lockout_time = world.time + LOCKOUT_TIME
+		return
+	var/datum/transaction/T = new()
+	T.target_name = authenticated_account.account_name
+	T.purpose = "Remote terminal access"
+	T.source_terminal = machine_id
+	T.date = GLOB.current_date_string
+	T.time = station_time_timestamp()
+	authenticated_account.transaction_log.Add(T)
+
+/obj/machinery/atm/proc/logout()
+	authenticated_account = null
+	view_screen = ATM_SCREEN_DEFAULT
+	login_attempts = 0
+
+/obj/machinery/atm/proc/transfer_credits(amount, target_account_number, mob/user)
+	if(!authenticated_account)
+		return
+	if(amount <= 0)
+		to_chat(user, "[bicon(src)]<span class='warning'>That is not a valid transfer amount.</span>")
+		return
+	if(account_database.charge_account(authenticated_account, amount, FALSE))
+		var/datum/money_account/target_account = account_database.find_user_account(target_account_number)
+		if(target_account)
+			account_database.credit_account(target_account, amount)
+			to_chat(user, "[bicon(src)]<span class='info'>Funds transfer successful.</span>")
+	else
+		to_chat(user, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
+
+/obj/machinery/atm/proc/withdraw(amount, mob/user)
+	if(!authenticated_account)
+		return
+	if(amount <= 0)
+		to_chat(user, "[bicon(src)]<span class='warning'>That is not a valid amount.</span>")
+		return
+
+	if(account_database.charge_account(authenticated_account, amount, FALSE))
+		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
+		dispense_space_cash(amount, user)
+
+/obj/machinery/atm/proc/print_balance_statement()
+	if(!authenticated_account)
+		return
+	if(world.time <= print_cooldown)
+		to_chat(usr, "<span class='notice'>[src] flashes an error on its display.</span>")
+		return
+	print_cooldown = world.time + PRINT_DELAY
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
+	var/obj/item/paper/R = new(loc)
+	R.name = "Account balance: [authenticated_account.account_name]"
+	R.info = {"<b>NT Automated Teller Account Statement</b><br><br>
+		<i>Account holder:</i> [authenticated_account.account_name]<br>
+		<i>Account number:</i> [authenticated_account.account_number]<br>
+		<i>Balance:</i> $[authenticated_account.credit_balance]<br>
+		<i>Date and time:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
+		<i>Service terminal ID:</i> [machine_id]<br>"}
+
+	//stamp the paper
+	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+	stampoverlay.icon_state = "paper_stamp-cent"
+	if(!R.stamped)
+		R.stamped = new()
+	R.stamped += /obj/item/stamp
+	R.overlays += stampoverlay
+	R.stamps += "<HR><i>This paper has been stamped by the Automatic Teller Machine.</i>"
+
+	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
+
+
+#undef ATM_SCREEN_DEFAULT
+#undef ATM_SCREEN_SECURITY
+#undef ATM_SCREEN_TRANSFER
+#undef ATM_SCREEN_LOGS
+#undef LOCKOUT_TIME

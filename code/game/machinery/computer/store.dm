@@ -24,7 +24,7 @@
 	var/balance=0
 	if(user.mind)
 		if(user.mind.initial_account)
-			balance = user.mind.initial_account.money
+			balance = user.mind.initial_account.credit_balance
 	var/dat = {"
 <html>
 	<head>

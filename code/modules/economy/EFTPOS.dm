@@ -8,64 +8,40 @@
 	var/transaction_paid = 0
 	var/transaction_amount = 0
 	var/transaction_purpose = "Default charge"
-	var/access_code = 0
-	var/obj/machinery/computer/account_database/linked_db
+	var/access_code
+
+	///linked money account database to this EFTPOS
+	var/datum/money_account_database/account_database
+	///Current money account the EFTPOS is depositing to
 	var/datum/money_account/linked_account
 
 /obj/item/eftpos/Initialize(mapload)
 	machine_name = "[station_name()] EFTPOS #[GLOB.num_financial_terminals++]"
-	access_code = rand(1111,111111)
+	access_code = rand(1000, 9999)
 	reconnect_database()
 	print_reference()
 
-	//by default, connect to the station account
-	//the user of the EFTPOS device can change the target account though, and no-one will be the wiser (except whoever's being charged)
-	linked_account = GLOB.station_account
+	//by default, connect to the station vendor account
+	linked_account = GLOB.station_money_database.vendor_account
 	return ..()
 
-/obj/item/eftpos/proc/print_reference()
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	var/obj/item/paper/R = new(loc)
-	R.name = "Reference: [machine_name]"
-	R.info = {"<b>[machine_name] reference</b><br><br>
-		Access code: [access_code]<br><br>
-		<b>Do not lose or misplace this code.</b><br>"}
-	//stamp the paper
-	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-	stampoverlay.icon_state = "paper_stamp-cent"
-	if(!R.stamped)
-		R.stamped = new
-	R.stamped += /obj/item/stamp
-	R.overlays += stampoverlay
-	R.stamps += "<HR><i>This paper has been stamped by the EFTPOS device.</i>"
-	var/obj/item/smallDelivery/D = new(get_turf(loc))
-	if(istype(loc, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = loc
-		if(H.back)
-			D.forceMove(H.back)
-	R.forceMove(D)
-	D.wrapped = R
-	D.name = "small parcel - 'EFTPOS access code'"
 
 /obj/item/eftpos/proc/reconnect_database()
-	var/turf/location = get_turf(src)
-	if(!location)
-		return
-
-	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
-		if(DB.z == location.z)
-			linked_db = DB
-			break
+	if(is_station_level(z))
+		account_database = GLOB.station_money_database
+		return TRUE
+	else
+		account_database = null
 
 /obj/item/eftpos/attack_self(mob/user)
 	ui_interact(user)
 
 /obj/item/eftpos/attackby(obj/O, mob/user, params)
-	if(istype(O, /obj/item/card))
+	if(istype(O, /obj/item/card/id))
 		//attempt to connect to a new db, and if that doesn't work then fail
-		if(!linked_db)
+		if(!account_database)
 			reconnect_database()
-		if(linked_db)
+		if(account_database)
 			if(linked_account)
 				scan_card(O, user)
 				SStgui.update_uis(src)
@@ -89,7 +65,7 @@
 	data["transaction_paid"] = transaction_paid
 	data["transaction_purpose"] = transaction_purpose
 	data["transaction_amount"] = transaction_amount
-	data["linked_account"] = linked_account ? linked_account.owner_name : null
+	data["linked_account"] = linked_account ? linked_account.account_name : null
 	return data
 
 /obj/item/eftpos/ui_act(action, list/params)
@@ -102,48 +78,49 @@
 		if("change_code")
 			var/attempt_code = input("Re-enter the current EFTPOS access code", "Confirm old EFTPOS code") as num
 			if(attempt_code == access_code)
-				var/trycode = input("Enter a new access code for this device (4-6 digits, numbers only)", "Enter new EFTPOS code") as num
-				if(trycode >= 1000 && trycode <= 999999)
-					access_code = trycode
-				else
+				var/trycode = input("Enter a new access code for this device (4 digits, numbers only)", "Enter new EFTPOS code") as num
+				if(trycode < 1000 || trycode > 9999)
 					alert("That is not a valid code!")
+					return
+				access_code = trycode
+
 				print_reference()
 			else
 				to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
 		if("link_account")
-			if(!linked_db)
+			if(!account_database)
 				reconnect_database()
-			if(linked_db)
+			if(account_database)
 				var/attempt_account_num = input("Enter account number to pay EFTPOS charges into", "New account number") as num
 				var/attempt_pin = input("Enter pin code", "Account pin") as num
-				linked_account = attempt_account_access(attempt_account_num, attempt_pin, 1)
+				var/datum/money_account/customer_account = GLOB.station_money_database.find_user_account(attempt_account_num)
+				if(!Adjacent(user))
+					return
+				if(customer_account && GLOB.station_money_database.try_authenticate_login(customer_account, attempt_pin, TRUE, FALSE, FALSE))
+					linked_account = customer_account
+				else
+					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to inputed account.</span>")
 			else
 				to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 		if("trans_purpose")
 			var/purpose = clean_input("Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
+			if(!Adjacent(user))
+				return
 			if(purpose)
 				transaction_purpose = purpose
 		if("trans_value")
 			var/try_num = input("Enter amount for EFTPOS transaction", "Transaction amount", transaction_amount) as num
+			if(!Adjacent(user))
+				return
 			if(try_num < 0)
 				alert("That is not a valid amount!")
 			else
 				transaction_amount = try_num
-		if("toggle_lock")
-			if(transaction_locked)
-				var/attempt_code = input("Enter EFTPOS access code", "Reset Transaction") as num
-				if(attempt_code == access_code)
-					transaction_locked = 0
-					transaction_paid = 0
-			else if(linked_account)
-				transaction_locked = 1
-			else
-				to_chat(usr, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
 		if("scan_card")
 			//attempt to connect to a new db, and if that doesn't work then fail
-			if(!linked_db)
+			if(!account_database)
 				reconnect_database()
-			if(linked_db && linked_account)
+			if(account_database && linked_account)
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card))
 					scan_card(I, usr)
@@ -162,34 +139,56 @@
 				to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 
 
-/obj/item/eftpos/proc/scan_card(obj/item/card/I, mob/user)
-	if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/C = I
-		visible_message("<span class='info'>[user] swipes a card through [src].</span>")
+/obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user)
+	visible_message("<span class='info'>[user] swipes a card through [src].</span>")
 
-		if(!transaction_locked || transaction_paid)
-			return
+	if(!linked_account)
+		to_chat(user, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
+		return
 
-		if(!linked_account)
-			to_chat(user, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
-			return
-
-		var/confirm = alert("Are you sure you want to pay $[transaction_amount] to Account: [linked_account.owner_name] ", "Confirm transaction", "Yes", "No")
-		if(confirm == "No")
-			return
+	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number)
+	//if security level high enough, prompt for pin
+	if(D.security_level != ACCOUNT_SECURITY_ID)
 		var/attempt_pin = input("Enter pin code", "EFTPOS transaction") as num
-		var/datum/money_account/D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
-
-		if(!D)
-			to_chat(user, "[bicon(src)]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
-
-		if(transaction_amount > D.money)
-			to_chat(user, "[bicon(src)]<span class='warning'>You don't have that much money!</span>")
+		if(!attempt_pin || !Adjacent(user))
 			return
+	//given the credentials, can the associated account be accessed right now?
+	if(!D || !GLOB.station_money_database.try_authenticate_login(D, attempt_pin, restricted_bypass = FALSE))
+		to_chat(user, "[bicon(src)]<span class='warning'>Unable to access account, insufficient access.</span>")
+		return
+	if(alert("Are you sure you want to pay $[transaction_amount] to Account: [linked_account.account_name] ", "Confirm transaction", "Yes", "No") != "Yes")
+		return
+	if(!Adjacent(user))
+		return
+	//attempt to charge account money
+	if(!GLOB.station_money_database.charge_account(D, transaction_amount, FALSE))
+		to_chat(user, "[bicon(src)]<span class='warning'>Insufficient credits in your account!</span>")
+		return
 
-		var/transSuccess = D.charge(transaction_amount, linked_account, transaction_purpose, machine_name, D.owner_name)
-		if(transSuccess == TRUE)
-			playsound(src, 'sound/machines/chime.ogg', 50, 1)
-			visible_message("<span class='notice'>[src] chimes!</span>")
-			transaction_paid = 1
-	//emag?
+	playsound(src, 'sound/machines/chime.ogg', 50, 1)
+	visible_message("<span class='notice'>[src] chimes!</span>")
+
+///creates and builds paper with info about the EFTPOS
+/obj/item/eftpos/proc/print_reference()
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	var/obj/item/paper/R = new(loc)
+	R.name = "Reference: [machine_name]"
+	R.info = {"<b>[machine_name] reference</b><br><br>
+		Access code: [access_code]<br><br>
+		<b>Do not lose or misplace this code.</b><br>"}
+	//stamp the paper
+	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+	stampoverlay.icon_state = "paper_stamp-cent"
+	if(!R.stamped)
+		R.stamped = new
+	R.stamped += /obj/item/stamp
+	R.overlays += stampoverlay
+	R.stamps += "<HR><i>This paper has been stamped by the EFTPOS device.</i>"
+	var/obj/item/smallDelivery/D = new(get_turf(loc))
+	if(istype(loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = loc
+		if(H.back)
+			D.forceMove(H.back)
+	R.forceMove(D)
+	D.wrapped = R
+	D.name = "small parcel - 'EFTPOS access code'"

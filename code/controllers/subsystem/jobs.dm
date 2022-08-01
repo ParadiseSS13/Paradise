@@ -573,34 +573,34 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
+	var/datum/money_account/account
+	if(job && job.head_position)
+		account = GLOB.station_money_database.create_account(H.real_name, COMMAND_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID,  TRUE)
+	else
+		account = GLOB.station_money_database.create_account(H.real_name, CREW_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID, TRUE)
+
 	var/remembered_info = ""
+	remembered_info += "<b>Your account number is:</b> #[account.account_number]<br>"
+	remembered_info += "<b>Your account pin is:</b> [account.account_pin]<br>"
 
-	remembered_info += "<b>Your account number is:</b> #[M.account_number]<br>"
-	remembered_info += "<b>Your account pin is:</b> [M.remote_access_pin]<br>"
-	remembered_info += "<b>Your account funds are:</b> $[M.money]<br>"
-
-	if(M.transaction_log.len)
-		var/datum/transaction/T = M.transaction_log[1]
-		remembered_info += "<b>Your account was created:</b> [T.time], [T.date] at [T.source_terminal]<br>"
 	H.mind.store_memory(remembered_info)
+	H.mind.initial_account = account
 
 	// If they're head, give them the account info for their department
 	if(job && job.head_position)
 		remembered_info = ""
-		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
+		var/datum/money_account/department_account = GLOB.station_money_database.department_accounts[job.department]
 
 		if(department_account)
+			remembered_info += "<b>As a head of staff you have access to your department's funds<br>"
 			remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
-			remembered_info += "<b>Your department's account pin is:</b> [department_account.remote_access_pin]<br>"
-			remembered_info += "<b>Your department's account funds are:</b> $[department_account.money]<br>"
+			remembered_info += "<b>Your department's account pin is:</b> [department_account.account_pin]<br>"
+			remembered_info += "<b>Your department's account funds are:</b> $[department_account.credit_balance]<br>"
 
 		H.mind.store_memory(remembered_info)
 
-	H.mind.initial_account = M
-
 	spawn(0)
-		to_chat(H, "<span class='boldnotice'>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</span>")
+		to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()

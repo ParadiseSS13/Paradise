@@ -7,7 +7,7 @@
 	density = TRUE
 	var/plays = 0
 	var/working = FALSE
-	var/datum/money_account/account = null
+	var/datum/money_account/account
 	var/result = null
 	var/resultlvl = null
 
@@ -33,7 +33,7 @@
 
 	// Send data
 	data["working"] = working
-	data["money"] = account ? account.money : null
+	data["money"] = account ? account.credit_balance : null
 	data["plays"] = plays
 	data["result"] = result
 	data["resultlvl"] = resultlvl
@@ -47,10 +47,10 @@
 	if(action == "spin")
 		if(working)
 			return
-		if(!account || account.money < 50)
+		if(!account || account.credit_balance < 50)
 			return
-		if(!account.charge(50, null, "Bet", "Slot Machine", "Slot Machine"))
-			return
+		//if(!account.charge(50, null, "Bet", "Slot Machine", "Slot Machine"))
+		//	return
 		plays++
 		working = TRUE
 		icon_state = "slots-on"
@@ -97,7 +97,7 @@
 		playsound(loc, sound, 55, 1)
 	if(!account)
 		return
-	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)
+	//account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)
 
 /obj/machinery/slot_machine/wrench_act(mob/user, obj/item/I)
 	. = TRUE

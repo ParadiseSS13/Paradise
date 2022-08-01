@@ -133,9 +133,9 @@
 					if(objective.is_completed())
 						pay=objective.completion_payment
 						msg="Task #[count] completed! "
-				if(pay>0)
+				if(pay > 0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "NAS Trurl Payroll")
+						//M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "NAS Trurl Payroll")
 						msg += "You have been sent the $[pay], as agreed."
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."

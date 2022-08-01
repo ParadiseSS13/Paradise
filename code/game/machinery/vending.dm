@@ -53,7 +53,7 @@
 	/// How long vendor takes to vend one item.
 	var/vend_delay = 10
 	/// Item currently being bought
-	var/datum/data/vending_product/currently_vending = null
+	var/datum/data/vending_product/currently_vending
 
 	// To be filled out at compile time
 	var/list/products	= list()	// For each, use the following pattern:
@@ -112,6 +112,9 @@
 	var/flickering = FALSE
 	/// do I look unpowered, even when powered?
 	var/force_no_power_icon_state = FALSE
+
+	///the money account that is tethered to this vendor
+	var/datum/money_account/vendor_account
 
 /obj/machinery/vending/Initialize(mapload)
 	. = ..()
@@ -467,7 +470,7 @@
 	cashmoney.use(currently_vending.price)
 
 	// Vending machines have no idea who paid with cash
-	GLOB.vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",	name, "(cash)")
+	GLOB.station_money_database.vendor_account.deposit_credits(currently_vending.price)
 	return TRUE
 
 
@@ -487,16 +490,15 @@
 	if(customer_account.security_level != 0)
 		// If card requires pin authentication (ie seclevel 1 or 2)
 		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-		if(!attempt_account_access(customer_account.account_number, attempt_pin, 2))
+
+		if(GLOB.station_money_database.try_authenticate_login(customer_account, attempt_pin, FALSE, FALSE, FALSE))
 			to_chat(M, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
 			return FALSE
-	if(currently_vending.price > customer_account.money)
+
+	if(!GLOB.station_money_database.charge_account(customer_account, currently_vending.price, FALSE))
 		to_chat(M, "<span class='warning'>Your bank account has insufficient money to purchase this.</span>")
 		return FALSE
-	// Okay to move the money at this point
-	customer_account.charge(currently_vending.price, GLOB.vendor_account,
-		"Purchase of [currently_vending.name]", name, GLOB.vendor_account.owner_name,
-		"Sale of [currently_vending.name]", customer_account.owner_name)
+	GLOB.station_money_database.vendor_account.deposit_credits(currently_vending.price)
 	return TRUE
 
 
@@ -548,8 +550,8 @@
 			var/datum/money_account/A = get_card_account(C)
 			if(istype(A))
 				data["user"] = list()
-				data["user"]["name"] = A.owner_name
-				data["userMoney"] = A.money
+				data["user"]["name"] = A.account_name
+				data["userMoney"] = A.credit_balance
 				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
 			else
 				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
@@ -694,7 +696,7 @@
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
+			if(!GLOB.station_money_database.vendor_account || GLOB.station_money_database.vendor_account.suspended)
 				to_chat(usr, "Vendor account offline. Unable to process transaction.")
 				flick(icon_deny, src)
 				vend_ready = TRUE

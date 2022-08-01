@@ -30,12 +30,10 @@ GLOBAL_DATUM_INIT(centcomm_store, /datum/store, new())
 
 /datum/store/proc/charge(datum/mind/mind, amount, datum/storeitem/item)
 	if(!mind.initial_account)
-		//testing("No initial_account")
 		return 0
-	if(mind.initial_account.money < amount)
-		//testing("Not enough cash")
+	if(mind.initial_account.credit_balance < amount)
 		return 0
-	mind.initial_account.money -= amount
+	mind.initial_account.credit_balance -= amount
 	var/datum/transaction/T = new()
 	T.target_name = "NAS Trurl Merchandising"
 	T.purpose = "Purchase of [item.name]"
