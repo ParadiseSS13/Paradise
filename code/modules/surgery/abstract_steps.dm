@@ -46,7 +46,6 @@
 	var/insert_self_after = TRUE
 
 /datum/surgery_step/proxy/New()
-
 	if(length(branches_init))
 		CRASH("Proxy surgery [src] was given some initialized branches. Branches must be specified in branches, not branches_init.")
 

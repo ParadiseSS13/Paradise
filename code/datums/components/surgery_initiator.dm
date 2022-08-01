@@ -108,7 +108,7 @@
 
 	var/mob/living/carbon/carbon_target
 	var/obj/item/organ/external/affecting
-	if (iscarbon(target))
+	if(iscarbon(target))
 		carbon_target = target
 		affecting = carbon_target.get_organ(check_zone(user.zone_selected))
 
@@ -200,47 +200,47 @@
 		qdel(the_surgery)
 
 /datum/component/surgery_initiator/proc/can_start_surgery(mob/user, mob/living/target)
-	if (!user.Adjacent(target))
+	if(!user.Adjacent(target))
 		return FALSE
 
 	// The item was moved somewhere else
-	if (!(parent in user))
-		to_chat(user, "<span class='warning'>How are you supposed to start an operation if you aren't holding the tool anymore?</span>")
+	if(!(parent in user))
+		to_chat(user, "<span class='warning'>You cannot start an operation if you aren't holding the tool anymore.</span>")
 		return FALSE
 
 	// While we were choosing, another surgery was started at the same location
-	for (var/datum/surgery/surgery in target.surgeries)
-		if (surgery.location == user.zone_selected)
+	for(var/datum/surgery/surgery in target.surgeries)
+		if(surgery.location == user.zone_selected)
 			to_chat(user, "<span class='warning'>There's already another surgery in progress on their [surgery.location].</span>")
 			return FALSE
 
 	return TRUE
 
 /datum/component/surgery_initiator/proc/try_choose_surgery(mob/user, mob/living/target, datum/surgery/surgery)
-	if (!can_start_surgery(user, target))
+	if(!can_start_surgery(user, target))
 		return
 
 	var/obj/item/organ/affecting_limb
 
 	var/selected_zone = user.zone_selected
 
-	if (iscarbon(target))
+	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
 		affecting_limb = carbon_target.get_organ(check_zone(selected_zone))
 
-	if (surgery.requires_bodypart == isnull(affecting_limb))
-		if (surgery.requires_bodypart)
+	if(surgery.requires_bodypart == isnull(affecting_limb))
+		if(surgery.requires_bodypart)
 			to_chat(user, "<span class='warning'>The patient has no [parse_zone(selected_zone)]!</span>")
 		else
 			to_chat(user, "<span class='warning'>The patient has \a [parse_zone(selected_zone)]!</span>")
 
 		return
 
-	if (!isnull(affecting_limb) && (surgery.requires_organic_bodypart && affecting_limb.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting_limb.is_robotic()))
+	if(!isnull(affecting_limb) && (surgery.requires_organic_bodypart && affecting_limb.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting_limb.is_robotic()))
 		to_chat(user, "<span class='warning'>That's not the right type of limb for this operation!</span>")
 		return
 
-	if (surgery.lying_required && !on_operable_surface(target))
+	if(surgery.lying_required && !on_operable_surface(target))
 		to_chat(user, "<span class='notice'>Patient must be lying down for this operation.</span>")
 		return
 
@@ -248,11 +248,11 @@
 		to_chat(user, "<span class='notice'>You can't perform that operation on yourself!</span>")
 		return
 
-	if (!surgery.can_start(user, target))
+	if(!surgery.can_start(user, target))
 		to_chat(user, "<span class='warning'>Can't start the surgery!</span>")
 		return
 
-	if (surgery_needs_exposure(surgery, target))
+	if(surgery_needs_exposure(surgery, target))
 		to_chat(user, "<span class='warning'>You have to expose [target.p_their()] [parse_zone(selected_zone)] first!</span>")
 		return
 
@@ -264,7 +264,6 @@
 	add_attack_logs(user, target, "started operation on (OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
 
 /datum/component/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target)
-
 	return !surgery.ignore_clothes && !get_location_accessible(target, target.zone_selected)
 
 /// Handle to allow for easily overriding the message shown
