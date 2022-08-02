@@ -90,7 +90,7 @@ Difficulty: Very Hard
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
-	. = ..(("<span class='colossus'><b>[uppertext(message)]</b></span>",), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
+	. = ..(("<span class='colossus'><b>[uppertext(message)]</b></span>"), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
