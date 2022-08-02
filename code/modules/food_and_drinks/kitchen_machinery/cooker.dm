@@ -54,7 +54,7 @@
 		if(datdisk)
 			to_chat(user, "<span class='notice'>You get the feeling that something very important is inside this. Something that shouldn't be [thiscooktype].</span>")
 			return FALSE
-		if(check.flags & (ABSTRACT || DROPDEL || NODROP)) //you will not deep fry the armblade
+		if(check.flags & (ABSTRACT | DROPDEL | NODROP)) //you will not deep fry the armblade
 			return FALSE
 		return TRUE
 	to_chat(user, "<span class='notice'>You can only process food!</span>")
