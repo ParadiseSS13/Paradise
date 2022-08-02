@@ -125,13 +125,13 @@
 
 
 	var/appears_dead = FALSE
-	var/just_sleeping = FALSE
+	var/just_sleeping = FALSE //We don't appear as dead upon casual examination, just sleeping
 
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		appears_dead = TRUE
 
 		var/obj/item/clothing/glasses/E = get_item_by_slot(slot_glasses)
-		var/are_we_in_weekend_at_bernies = E?.tint && buckled && istype(buckled, /obj/structure/chair/wheelchair)
+		var/are_we_in_weekend_at_bernies = E?.tint && istype(buckled, /obj/structure/chair/wheelchair) //Are we in a wheelchair with our eyes obscured?
 
 		if(isliving(user) && are_we_in_weekend_at_bernies)
 			just_sleeping = TRUE
