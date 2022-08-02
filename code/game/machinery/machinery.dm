@@ -119,7 +119,7 @@ Class Procs:
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
 	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
-	var/frequency = NONE
+	var/frequency = NONE // AA TODO - KILL THIS WRETCHED HAG
 	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
 	var/datum/radio_frequency/radio_connection
 	/// This is if the machinery is being repaired
