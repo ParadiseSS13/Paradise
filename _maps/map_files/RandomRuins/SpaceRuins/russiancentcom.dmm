@@ -1157,7 +1157,7 @@
 	},
 /area/ruin/space/powered/russiancentcom)
 "uj" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/russiancentcom)
 "uq" = (
@@ -1656,7 +1656,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/powered/russiancentcom)
 "BB" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/russiancentcom)
 "BH" = (
