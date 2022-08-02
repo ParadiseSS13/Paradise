@@ -48,16 +48,16 @@
 		return TRUE
 	if(istype(check, /obj/item/reagent_containers/food/snacks) || emagged)
 		if(istype(check, /obj/item/disk/nuclear)) //(1984 voice) you will not deep fry the NAD
-			to_chat(user, "<span class ='notice'>The disk is more useful raw than [thiscooktype].</span>")
+			to_chat(user, "<span class='notice'>The disk is more useful raw than [thiscooktype].</span>")
 			return FALSE
 		var/obj/item/disk/nuclear/datdisk = locate() in check
 		if(datdisk)
-			to_chat(user, "<span class ='notice'>You get the feeling that something very important is inside this. Something that shouldn't be [thiscooktype].</span>")
+			to_chat(user, "<span class='notice'>You get the feeling that something very important is inside this. Something that shouldn't be [thiscooktype].</span>")
 			return FALSE
 		if(check.flags & (ABSTRACT || DROPDEL || NODROP)) //you will not deep fry the armblade
 			return FALSE
 		return TRUE
-	to_chat(user, "<span class ='notice'>You can only process food!</span>")
+	to_chat(user, "<span class='notice'>You can only process food!</span>")
 	return FALSE
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
