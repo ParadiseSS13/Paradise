@@ -227,13 +227,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/powered/russiancentcom)
-"eZ" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/flora/ausbushes/fernybush,
-/turf/simulated/floor/grass,
-/area/template_noop)
 "fa" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Armory"
@@ -456,11 +449,6 @@
 	icon_state = "whiteblue"
 	},
 /area/ruin/space/powered/russiancentcom)
-"ia" = (
-/obj/structure/window/reinforced,
-/obj/structure/flora/ausbushes/lavendergrass,
-/turf/simulated/floor/grass,
-/area/template_noop)
 "ig" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel/airless{
@@ -716,14 +704,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/space/nearstation)
-"mk" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/structure/flora/ausbushes/grassybush,
-/turf/simulated/floor/grass,
-/area/template_noop)
 "mt" = (
 /obj/structure/morgue,
 /turf/simulated/floor/plasteel{
@@ -849,13 +829,6 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
-"ot" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/flora/ausbushes/brflowers,
-/turf/simulated/floor/grass,
-/area/template_noop)
 "ow" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -1753,14 +1726,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/russiancentcom)
-"Cs" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/obj/structure/flora/ausbushes/leafybush,
-/turf/simulated/floor/grass,
-/area/template_noop)
 "Cv" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
@@ -1802,16 +1767,6 @@
 	icon_state = "engine"
 	},
 /area/ruin/space/powered/russiancentcom)
-"CP" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/flora/ausbushes/fullgrass,
-/turf/simulated/floor/grass,
-/area/template_noop)
 "CU" = (
 /obj/structure/chair{
 	dir = 8
@@ -1873,13 +1828,6 @@
 	icon_state = "bar"
 	},
 /area/ruin/space/powered/russiancentcom)
-"DF" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/flora/ausbushes/genericbush,
-/turf/simulated/floor/grass,
-/area/template_noop)
 "DK" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Interrogation"
@@ -3250,10 +3198,6 @@
 	icon_state = "purple"
 	},
 /area/ruin/space/powered/russiancentcom)
-"Yn" = (
-/obj/structure/sink/puddle,
-/turf/simulated/floor/grass,
-/area/template_noop)
 "Yu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -3354,16 +3298,6 @@
 	icon_state = "whiteblue"
 	},
 /area/ruin/space/powered/russiancentcom)
-"Zv" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/flora/ausbushes,
-/turf/simulated/floor/grass,
-/area/template_noop)
 "ZB" = (
 /obj/structure/chair/comfy/beige{
 	dir = 4
@@ -5402,9 +5336,9 @@ Kn
 Kn
 Kn
 Kn
-CP
-DF
-mk
+Kn
+Kn
+Kn
 Kn
 yh
 Ds
@@ -5448,9 +5382,9 @@ Kn
 Kn
 Kn
 Kn
-ot
-Yn
-ia
+Kn
+Kn
+Kn
 Kn
 yh
 Hm
@@ -5494,9 +5428,9 @@ Kn
 Kn
 Kn
 Kn
-Zv
-eZ
-Cs
+Kn
+Kn
+Kn
 Kn
 yh
 Zl
