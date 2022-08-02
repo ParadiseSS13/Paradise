@@ -556,6 +556,11 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/powered/russiancentcom)
+"jx" = (
+/obj/structure/table,
+/obj/item/extinguisher/mini,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
 "jC" = (
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/grass,
@@ -885,6 +890,10 @@
 	dir = 4;
 	icon_state = "green"
 	},
+/area/ruin/space/powered/russiancentcom)
+"oX" = (
+/obj/structure/chair/sofa/corp,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered/russiancentcom)
 "oZ" = (
 /obj/machinery/power/solar,
@@ -1924,6 +1933,10 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/russiancentcom)
+"Eu" = (
+/obj/structure/chair/sofa/corp/right,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
 "Ex" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
@@ -2890,14 +2903,6 @@
 "RU" = (
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/russiancentcom)
-"Sa" = (
-/obj/structure/table,
-/obj/item/extinguisher/mini,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
-	},
-/area/ruin/space/powered/russiancentcom)
 "Sk" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
@@ -2985,6 +2990,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/russiancentcom)
+"TQ" = (
+/obj/structure/chair/sofa/corp/left,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
 "TR" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -3055,16 +3064,6 @@
 /obj/item/flash,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	},
-/area/ruin/space/powered/russiancentcom)
-"Uu" = (
-/obj/machinery/vending/cigarette,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
 	},
 /area/ruin/space/powered/russiancentcom)
 "Uv" = (
@@ -3264,18 +3263,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/russiancentcom)
-"Yy" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/chair/sofa/corp/right{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
-	},
-/area/ruin/space/powered/russiancentcom)
 "Yz" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Checkpoint"
@@ -3316,9 +3303,7 @@
 	},
 /area/ruin/space/powered/russiancentcom)
 "YH" = (
-/obj/structure/chair/sofa/corp/left{
-	dir = 4
-	},
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -3413,15 +3398,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	},
-/area/ruin/space/powered/russiancentcom)
-"ZL" = (
-/obj/structure/chair/sofa/corp{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
 	},
 /area/ruin/space/powered/russiancentcom)
 "ZS" = (
@@ -5162,8 +5138,8 @@ zI
 ln
 jT
 YH
-ZL
-Yy
+dL
+oT
 dL
 dL
 dL
@@ -5209,12 +5185,12 @@ hS
 gP
 DL
 DL
-DL
+jx
 Gb
 yE
 ZB
 ob
-DL
+Eu
 DL
 tx
 Jx
@@ -5255,12 +5231,12 @@ hS
 gP
 DL
 DL
-DL
+Rl
 Ag
 Wp
 Ki
 Fq
-DL
+oX
 DL
 tx
 yh
@@ -5301,12 +5277,12 @@ hS
 gP
 DL
 DL
-DL
+Wt
 Gb
 Rw
 Rw
 ob
-DL
+TQ
 DL
 tx
 DK
@@ -5345,9 +5321,9 @@ eV
 ng
 Mp
 jT
-Sa
 oW
-Uu
+Qe
+jR
 Qe
 Qe
 jR
