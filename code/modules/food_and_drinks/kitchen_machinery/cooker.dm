@@ -128,6 +128,14 @@
 				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
 				return
 	putIn(I, user)
+	for(var/mob/living/L in I.contents) //Emagged cookers - Any mob put in will not survive the trip
+		if(!istype(L, DEAD))
+			if(ispAI(L)) //Snowflake check because pAIs are weird
+				var/mob/living/silicon/pai/P = L
+				P.death(cleanWipe = 1)
+			else
+				L.death()
+		break
 	sleep(cooktime)
 	if(I && I.loc == src)
 		//New interaction to allow special foods to be made/cooked via deepfryer without removing original functionality
