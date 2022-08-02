@@ -59,8 +59,8 @@ Difficulty: Very Hard
 							   /datum/action/innate/megafauna_attack/shotgun,
 							   /datum/action/innate/megafauna_attack/alternating_cardinals)
 	/// Have we used our final attack yet?
-	var/final_availible = TRUE
-	
+	var/final_available = TRUE
+
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
 	icon_icon = 'icons/mob/actions/actions.dmi'
@@ -89,6 +89,10 @@ Difficulty: Very Hard
 	chosen_message = "<span class='colossus'>You are now firing in alternating cardinal directions.</span>"
 	chosen_attack_num = 4
 
+/mob/living/simple_animal/hostile/megafauna/colossus/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
+	. = ..(("<span class='colossus'><b>[uppertext(message)]</b></span>",), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
+
+
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	anger_modifier = clamp(((maxHealth - health)/50),0,20)
 	ranged_cooldown = world.time + 120
@@ -107,7 +111,7 @@ Difficulty: Very Hard
 
 	if(enrage(target))
 		if(move_to_delay == initial(move_to_delay))
-			visible_message("<span class='colossus'>\"<b>You can't dodge.</b>\"</span>")
+			say("You can't dodge")
 		ranged_cooldown = world.time + 30
 		telegraph()
 		dir_shots(GLOB.alldirs)
@@ -116,8 +120,8 @@ Difficulty: Very Hard
 	else
 		move_to_delay = initial(move_to_delay)
 
-	if(health <= maxHealth / 10 && final_availible) //One time use final attack
-		final_availible = FALSE
+	if(health <= maxHealth / 10 && final_available) //One time use final attack
+		final_available = FALSE
 		final_attack()
 	else if(prob(20 + anger_modifier)) //Major attack
 		select_spiral_attack()
@@ -150,13 +154,13 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
 	if(health < maxHealth/3)
 		return double_spiral()
-	say("<span class='colossus'>\"<b>Judgement.</b>\"</span>", sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
+	say("Judgement.")
 	telegraph()
 	SLEEP_CHECK_DEATH(1.5 SECONDS)
 	return spiral_shoot()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
-	say("<span class='colossus'>\"<b>Die.</b>\"</span>", sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
+	say("Die.")
 	telegraph()
 	SLEEP_CHECK_DEATH(2.5 SECONDS)
 	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE)
@@ -232,13 +236,13 @@ Difficulty: Very Hard
 		shake_camera(M, 4, 3)
 	playsound(src, 'sound/magic/narsie_attack.ogg', 200, TRUE)
 	if(mode)
-		say("<span class='colossus'>\"<b>[mode]</b>\"</span>", sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
+		say("[mode]")
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack()
 	icon_state = "eva_attack"
-	say("<span class='colossus'>\"<b>PERISH MORTAL!</b>\"</span>", sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
+	say("PERISH MORTAL!")
 	telegraph()
-	ranged_cooldown += 2000 // Yeah let us NOT have people get triple attacked
+	ranged_cooldown = world.time + 20 SECONDS // Yeah let us NOT have people get triple attacked
 	SLEEP_CHECK_DEATH(2.5 SECONDS) //run
 
 	var/finale_counter = 10
