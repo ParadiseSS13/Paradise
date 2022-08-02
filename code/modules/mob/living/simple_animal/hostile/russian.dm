@@ -24,8 +24,7 @@
 	unsuitable_atmos_damage = 15
 	faction = list("russian")
 	status_flags = CANPUSH
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian,
-			/obj/item/kitchen/knife)
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian)
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
@@ -38,9 +37,19 @@
 	minimum_distance = 5
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/a357
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged, /obj/item/gun/projectile/revolver/mateba)
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
 
 /mob/living/simple_animal/hostile/russian/ranged/mosin
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged,
-				/obj/item/gun/projectile/shotgun/boltaction)
 	casingtype = /obj/item/ammo_casing/a762
+
+/mob/living/simple_animal/hostile/russian/ranged/boss
+	name = "Russian Commander"
+	desc = "A USSP commander, duel-wielding Mateba revolvers."
+	icon_state = "russianboss"
+	icon_living = "russianboss"
+	retreat_distance = 3
+	minimum_distance = 3
+	health = 150
+	maxHealth = 150
+	ranged_cooldown_time = 15
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian)
