@@ -8,7 +8,6 @@
 	desc = "A remote control switch for a mass driver."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "launcherbtt"
-	settagwhitelist = list("id_tag", "logic_id_tag")
 	anchored = TRUE
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
 	use_power = IDLE_POWER_USE
@@ -108,6 +107,19 @@
 /obj/machinery/driver_button/proc/rearm()
 	icon_state = "launcherbtt"
 	active = FALSE
+
+/obj/machinery/driver_button/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+
+	if(!Adjacent(user))
+		return
+
+	var/new_tag = clean_input("Enter a new ID tag", "ID Tag", id_tag, user)
+
+	if(new_tag && Adjacent(user))
+		id_tag = new_tag
 
 
 //////////////////////////////////////
