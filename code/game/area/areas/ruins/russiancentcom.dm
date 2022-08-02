@@ -22,9 +22,9 @@
 	name = "Memo to XCC-P5831 Commander"
 	info = "<b>From: XCC-P5831 Management Office</b><br>\
 	<b>To: Rolf Ingram, XCC-P5831 Commander</b><br>\
-	Hey, Rolf, as you may know, SS13 will be coming near your orbit soon, \
-	which means that we'll have the perfect chance to annoy them. \
+	Hey, Rolf, as you may know, SS13 will be coming near your orbit soon. \
+	After that catastrophe with the gateway, we would like to get some revenge on them. \
 	So, I've had the team send you a giant laser pointer, military grade. \
-	Go ahead and mount it in your observatory so you can screw \
-	over their escape shuttle and escape pod systems, maybe it will cost them a few credits. \
+	Go ahead and mount it in your observatory so you can point \
+	it at their escape shuttle's pilot's eyes, maybe it will cost them a few credits. \
 	- D. Cereza"

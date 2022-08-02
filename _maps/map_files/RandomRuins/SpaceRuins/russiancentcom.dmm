@@ -120,11 +120,6 @@
 	desc = "A USSP Commander Keycard, it's information is written in Neo-Russkiya";
 	name = "Rolf Ingram (XCC Commander)"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/ruin/space/powered/russiancentcom)
-"cH" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -148,6 +143,12 @@
 "cU" = (
 /turf/simulated/wall/mineral/titanium,
 /area/space/nearstation)
+"dk" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/powered/russiancentcom)
 "dl" = (
 /obj/item/robotanalyzer,
 /obj/structure/rack,
@@ -278,6 +279,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -309,10 +311,6 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
-"gw" = (
-/obj/structure/sign/science,
-/turf/simulated/wall/r_wall,
-/area/ruin/space/powered/russiancentcom)
 "gx" = (
 /obj/structure/table/reinforced,
 /obj/item/multitool,
@@ -362,6 +360,14 @@
 	name = "XCC Medbay Shutters"
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"gQ" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
 /area/ruin/space/powered/russiancentcom)
 "hc" = (
 /obj/structure/table,
@@ -574,6 +580,16 @@
 /obj/structure/sign/lifestar,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/powered/russiancentcom)
+"kv" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/russiancentcom)
 "kB" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -609,6 +625,12 @@
 /obj/structure/rack,
 /obj/item/extinguisher/mini,
 /turf/simulated/floor/plating,
+/area/ruin/space/powered/russiancentcom)
+"lB" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered/russiancentcom)
 "lE" = (
 /obj/machinery/light{
@@ -752,6 +774,9 @@
 "ok" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -894,6 +919,9 @@
 /area/ruin/space/powered/russiancentcom)
 "qy" = (
 /obj/effect/landmark/burnturf,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -1017,6 +1045,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/russiancentcom)
+"sY" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/space/nearstation)
 "sZ" = (
 /obj/structure/cable,
 /obj/machinery/power/tracker,
@@ -1161,6 +1197,9 @@
 /area/ruin/space/powered/russiancentcom)
 "vs" = (
 /obj/effect/decal/cleanable/blood/drip,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1309,9 +1348,17 @@
 /obj/structure/table/wood{
 	dir = 10
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
-/obj/item/clothing/mask/cigarette/cigar/havana,
-/obj/item/lighter/zippo,
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+	pixel_x = -5;
+	pixel_y = 10
+	},
+/obj/item/lighter/zippo{
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/obj/item/clothing/mask/cigarette/cigar/havana{
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -1487,6 +1534,14 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/russiancentcom)
+"AJ" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "engine"
+	},
 /area/ruin/space/powered/russiancentcom)
 "AV" = (
 /obj/effect/decal/warning_stripes/yellow,
@@ -2169,7 +2224,6 @@
 /area/ruin/space/powered/russiancentcom)
 "Ki" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance/three,
 /turf/simulated/floor/carpet,
 /area/ruin/space/powered/russiancentcom)
 "Km" = (
@@ -2271,7 +2325,7 @@
 /area/ruin/space/powered/russiancentcom)
 "LF" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -2382,6 +2436,9 @@
 	in_use = 1
 	},
 /obj/item/storage/firstaid/toxin,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -2486,7 +2543,7 @@
 /area/ruin/space/powered/russiancentcom)
 "PL" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -2537,7 +2594,9 @@
 /mob/living/simple_animal/hostile/russian/ranged{
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged);
 	name = "Rolf Ingram";
-	health = 300
+	health = 300;
+	maxHealth = 300;
+	desc = "A strong USSP soldier, their uniform is covered with high-ranking medals."
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -3045,7 +3104,11 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/item/toy/russian_revolver/trick_revolver,
+/obj/item/toy/russian_revolver/trick_revolver{
+	name = "\improper Unica 6 auto-revolver";
+	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo.";
+	icon_state = "mateba"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3072,6 +3135,12 @@
 	req_access_txt = "271"
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/space/powered/russiancentcom)
+"YP" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/wood,
 /area/ruin/space/powered/russiancentcom)
 "Zk" = (
 /obj/structure/table/reinforced,
@@ -3461,12 +3530,12 @@ yY
 UO
 HF
 yh
-Ja
+kv
 Ja
 UO
 Ja
 yh
-Oa
+AJ
 Oa
 Oa
 Oa
@@ -3781,14 +3850,14 @@ GO
 yh
 Rq
 DL
-DL
-DL
-DL
 lE
 DL
 DL
-uZ
 DL
+DL
+DL
+uZ
+lE
 DL
 ze
 vq
@@ -3889,7 +3958,7 @@ ze
 RD
 RD
 RD
-RD
+YP
 yh
 VZ
 RU
@@ -3917,7 +3986,7 @@ IL
 Xk
 GO
 yh
-DL
+Xb
 DL
 go
 yr
@@ -3927,7 +3996,7 @@ vE
 yr
 yh
 DL
-dN
+DL
 Xt
 BA
 Jp
@@ -4003,7 +4072,7 @@ Kn
 QT
 ig
 GO
-GO
+sY
 On
 GO
 eN
@@ -4078,7 +4147,7 @@ nT
 ud
 Jc
 Qj
-ud
+dk
 yh
 Kn
 Kn
@@ -4204,7 +4273,7 @@ IV
 Xt
 DL
 DL
-yh
+QN
 ud
 ud
 ud
@@ -4423,7 +4492,7 @@ UO
 UO
 UO
 rQ
-DL
+lB
 DL
 DL
 DL
@@ -4469,7 +4538,7 @@ go
 vE
 yS
 yh
-gw
+yh
 yh
 yh
 yh
@@ -4744,7 +4813,7 @@ rK
 rK
 iD
 Ck
-cH
+Ck
 yh
 yh
 yh
@@ -4787,7 +4856,7 @@ yh
 RK
 Mx
 UH
-Ck
+gQ
 Ck
 Ck
 Ve
