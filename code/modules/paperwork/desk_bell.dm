@@ -61,7 +61,7 @@
 /obj/item/desk_bell/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(user.a_intent == INTENT_HARM && !in_inventory)
-		to_chat(user, "<span class='notice'>You begin taking apart the bell...</span>")
+		visible_message("<span class='notice'>[user] begins taking apart the bell...</span>", "<span class='notice'>You begin taking apart the bell</span>")
 		if(tool.use_tool(src, user, 5 SECONDS))
 			to_chat(user, "<span class='notice'>You disassemble the bell.</span>")
 			playsound(user, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
