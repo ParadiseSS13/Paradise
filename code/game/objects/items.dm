@@ -316,7 +316,15 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			return 0
 
 	if(isturf(original_loc))
-		do_pickup_animation(user)
+		var/show_anim = TRUE
+		var/mob/living/carbon/human/H = user
+		if(istype(H) && H.gloves)
+			var/obj/item/clothing/gloves/G = H.gloves
+			if(istype(G) && G.pickpocket)
+				show_anim = FALSE
+
+		if(show_anim)
+			do_pickup_animation(user)
 
 	pickup(user)
 	add_fingerprint(user)
