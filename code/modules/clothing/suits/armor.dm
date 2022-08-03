@@ -352,11 +352,13 @@
 /obj/item/clothing/suit/armor/reactive/fire/equipped(mob/user, slot)
 	..()
 	if(slot == slot_wear_suit)
-		ADD_TRAIT(user, TRAIT_RESISTHEAT, "incendiary_armor")
+		var/enchant_ID = UID(src)
+		ADD_TRAIT(user, TRAIT_RESISTHEAT, "[enchant_ID]")
 
 /obj/item/clothing/suit/armor/reactive/fire/dropped(mob/user, silent)
 	..()
-	REMOVE_TRAIT(user, TRAIT_RESISTHEAT, "incendiary_armor")
+	var/enchant_ID = UID(src)
+	REMOVE_TRAIT(user, TRAIT_RESISTHEAT, "[enchant_ID]")
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
