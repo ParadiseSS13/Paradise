@@ -60,6 +60,9 @@
 /obj/structure/railing/corner/CanPass()
 	return TRUE
 
+/obj/structure/railing/corner/CanAStarPass(ID, to_dir, caller)
+	return TRUE
+
 /obj/structure/railing/corner/CheckExit()
 	return TRUE
 
@@ -80,6 +83,11 @@
 		return FALSE
 	if(mover_dir != dir)
 		return density
+	return FALSE
+
+/obj/structure/railing/CanAStarPass(ID, to_dir, caller)
+	if(to_dir != dir)
+		return TRUE
 	return FALSE
 
 /obj/structure/railing/CheckExit(atom/movable/O, target)
