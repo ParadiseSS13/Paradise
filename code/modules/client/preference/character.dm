@@ -98,6 +98,8 @@
 	var/h_grad_offset_y = 0
 	var/h_grad_colour = "#000000"
 	var/h_grad_alpha = 255
+	/// Custom emote text ("name" = "emote text")
+	var/list/custom_emotes = list()
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
@@ -183,7 +185,8 @@
 					hair_gradient=:h_grad_style,
 					hair_gradient_offset=:h_grad_offset,
 					hair_gradient_colour=:h_grad_colour,
-					hair_gradient_alpha=:h_grad_alpha
+					hair_gradient_alpha=:h_grad_alpha,
+					custom_emotes=:custom_emotes
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -240,6 +243,7 @@
 						"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
 						"h_grad_colour" = h_grad_colour,
 						"h_grad_alpha" = h_grad_alpha,
+						"custom_emotes" = json_encode(custom_emotes),
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -280,7 +284,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -307,7 +311,7 @@
 			:playertitlelist,
 			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -364,7 +368,8 @@
 		"h_grad_style" = h_grad_style,
 		"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
 		"h_grad_colour" = h_grad_colour,
-		"h_grad_alpha" = h_grad_alpha
+		"h_grad_alpha" = h_grad_alpha,
+		"custom_emotes" = json_encode(custom_emotes),
 	))
 
 	if(!query.warn_execute())
@@ -449,6 +454,7 @@
 	h_grad_offset_x = query.item[52] // parsed down below
 	h_grad_colour = query.item[53]
 	h_grad_alpha = query.item[54]
+	var/custom_emotes_tmp = query.item[55]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -520,7 +526,9 @@
 		h_grad_offset_y = text2num(expl[2]) || 0
 	h_grad_colour = sanitize_hexcolor(h_grad_colour)
 	h_grad_alpha = sanitize_integer(h_grad_alpha, 0, 255, initial(h_grad_alpha))
-	loadout_gear	= sanitize_json(loadout_gear)
+	loadout_gear = sanitize_json(loadout_gear)
+	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
+	custom_emotes = init_custom_emotes(custom_emotes_tmp)
 
 	if(!player_alt_titles)
 		player_alt_titles = new()
@@ -2086,3 +2094,15 @@
 
 	from_db = FALSE
 	return TRUE
+
+/datum/character_save/proc/init_custom_emotes(overrides)
+	custom_emotes = overrides
+
+	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
+		var/emote_text = overrides && overrides[custom_emote.name]
+		if(!emote_text)
+			continue //we don't set anything without an override
+
+		custom_emotes[custom_emote.name] = emote_text
+
+	return custom_emotes

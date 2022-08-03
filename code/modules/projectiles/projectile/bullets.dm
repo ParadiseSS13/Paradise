@@ -64,25 +64,26 @@
 
 /obj/item/projectile/bullet/armourpiercing
 	damage = 17
-	armour_penetration = 10
+	armour_penetration_flat = 10
 
 /obj/item/projectile/bullet/armourpiercing/wt550
 	damage = 15
-	armour_penetration = 40
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 25
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
 	damage = 12.5
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
-	armour_penetration = -30
+	armour_penetration_flat = -20
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
 	damage = 3
 	stamina = 12.5
 	icon_state = "bullet-r"
-	armour_penetration = -10
+	armour_penetration_flat = -10
 
 /obj/item/projectile/bullet/pellet/rubber/on_hit(atom/target, blocked = 0)
     . = ..()
@@ -145,11 +146,11 @@
 
 /obj/item/projectile/bullet/midbullet3/hp
 	damage = 40
-	armour_penetration = -50
+	armour_penetration_flat = -40
 
 /obj/item/projectile/bullet/midbullet3/ap
 	damage = 27
-	armour_penetration = 40
+	armour_penetration_flat = 40
 
 /obj/item/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
@@ -242,13 +243,13 @@
 /obj/item/projectile/bullet/dart/on_hit(atom/target, blocked = 0, hit_zone)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		if(blocked != 100)
+		if(blocked != INFINITY)
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 				reagents.trans_to(M, reagents.total_volume)
 				return 1
 			else
-				blocked = 100
+				blocked = INFINITY
 				target.visible_message("<span class='danger'>[src] was deflected!</span>", \
 									"<span class='userdanger'>You were protected against [src]!</span>")
 	..(target, blocked, hit_zone)

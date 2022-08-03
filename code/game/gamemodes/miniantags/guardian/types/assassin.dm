@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/guardian/assassin
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	armour_penetration = 0
+	armour_penetration_percentage = 0
 	playstyle_string = "As an <b>Assassin</b> type you do medium damage and have no damage resistance, but can enter stealth, massively increasing the damage of your next attack and causing it to ignore armor. Stealth is broken when you attack or take damage."
 	magic_fluff_string = "..And draw the Space Ninja, a lethal, invisible assassin."
 	tech_fluff_string = "Boot sequence complete. Assassin modules loaded. Holoparasite swarm online."
@@ -44,7 +44,7 @@
 	if(toggle)
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
-		armour_penetration = initial(armour_penetration)
+		armour_penetration_percentage = initial(armour_penetration_percentage)
 		obj_damage = initial(obj_damage)
 		environment_smash = initial(environment_smash)
 		alpha = initial(alpha)
@@ -62,7 +62,7 @@
 			return
 		melee_damage_lower = 50
 		melee_damage_upper = 50
-		armour_penetration = 100
+		armour_penetration_percentage = 100
 		obj_damage = 0
 		environment_smash = ENVIRONMENT_SMASH_NONE
 		new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))

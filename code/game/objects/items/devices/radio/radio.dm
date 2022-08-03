@@ -565,7 +565,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	user.set_machine(src)
+
 	b_stat = !b_stat
 	if(!istype(src, /obj/item/radio/beacon))
 		if(istype(src, /obj/item/radio/intercom))
@@ -668,7 +668,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/encryptionkey/))
-		user.set_machine(src)
+
 		if(keyslot)
 			to_chat(user, "The radio can't hold another key!")
 			return
@@ -679,14 +679,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			keyslot = W
 
 		recalculateChannels()
-	else
-		return ..()
+		return
+
+	return ..()
 
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	user.set_machine(src)
+
 	if(keyslot)
 		for(var/ch_name in channels)
 			SSradio.remove_object(src, SSradio.radiochannels[ch_name])

@@ -155,7 +155,6 @@
 
 /obj/machinery/computer/security/attack_hand(mob/user)
 	if(stat || ..())
-		user.unset_machine()
 		return
 
 	ui_interact(user)

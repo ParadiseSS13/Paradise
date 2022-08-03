@@ -34,7 +34,7 @@ Difficulty: Very Hard
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
-	armour_penetration = 40
+	armour_penetration_percentage = 50
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	speed = 10
@@ -253,7 +253,7 @@ Difficulty: Very Hard
 	name ="death bolt"
 	icon_state= "chronobolt"
 	damage = 25
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 	speed = 2
 	eyeblur = 0
 	damage_type = BRUTE

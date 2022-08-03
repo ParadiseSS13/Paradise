@@ -1052,7 +1052,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			statpanel(listed_turf.name, null, statpanel_things)
 
 /mob/proc/add_spell_to_statpanel(obj/effect/proc_holder/spell/S)
-	statpanel(S.panel,"[round(S.cooldown_handler.get_availability_percentage(), 0.01) * 100]%",S)
+	statpanel(S.panel,"[S.cooldown_handler.statpanel_info()]", S)
 
 // facing verbs
 /mob/proc/canface()

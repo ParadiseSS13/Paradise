@@ -719,7 +719,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/engine/supermatter_shard
 	name = "Supermatter Shard Crate"
-	contains = list(/obj/machinery/power/supermatter_crystal/shard)
+	contains = list(/obj/machinery/atmospherics/supermatter_crystal/shard)
 	cost = 50 //So cargo thinks twice before killing themselves with it
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "supermatter shard crate"
@@ -1071,7 +1071,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Pizza Crate"
 	contains = list(/obj/item/pizzabox/margherita,
 					/obj/item/pizzabox/mushroom,
-					/obj/item/pizzabox/meat,
+					/obj/item/pizzabox/pepperoni,
 					/obj/item/pizzabox/vegetable,
 					/obj/item/pizzabox/hawaiian)
 	cost = 60
