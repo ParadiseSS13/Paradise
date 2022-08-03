@@ -714,7 +714,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/door/window/westleft,
 /turf/simulated/floor/plasteel{
 	dir = 1;
