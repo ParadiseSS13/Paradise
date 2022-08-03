@@ -62472,8 +62472,6 @@
 /area/maintenance/aft)
 "dbE" = (
 /obj/machinery/door/airlock/maintenance{
-	electrified_until = -1;
-	locked = 1;
 	req_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -73953,8 +73951,6 @@
 /area/maintenance/aft)
 "hyf" = (
 /obj/machinery/door/airlock/maintenance{
-	electrified_until = -1;
-	locked = 1;
 	req_access_txt = "12"
 	},
 /obj/structure/cable{
@@ -75847,8 +75843,6 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance{
-	electrified_until = -1;
-	locked = 1;
 	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
@@ -81077,13 +81071,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/medical/cmo)
-"nPI" = (
-/obj/machinery/door/airlock{
-	name = "Toilet";
-	req_access_txt = "12"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "nQG" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -81867,8 +81854,6 @@
 	armed = 1
 	},
 /obj/machinery/door/airlock/maintenance{
-	electrified_until = -1;
-	locked = 1;
 	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
@@ -85091,8 +85076,6 @@
 /area/medical/surgery)
 "reO" = (
 /obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/grass,
 /area/maintenance/asmaint)
 "rff" = (
@@ -85753,8 +85736,7 @@
 	},
 /area/security/permabrig)
 "rSe" = (
-/obj/machinery/door/airlock{
-	name = "Toilet";
+/obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
 /obj/effect/decal/cleanable/blood/tracks,
@@ -86135,6 +86117,14 @@
 "skT" = (
 /obj/item/rollingpaper,
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
+"slp" = (
+/obj/machinery/door/airlock/maintenance{
+	electrified_until = -1;
+	locked = 1;
+	req_access_txt = "33"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "smL" = (
@@ -135510,7 +135500,7 @@ dfM
 chf
 chf
 chf
-dnL
+cmt
 chf
 chf
 cAz
@@ -141165,7 +141155,7 @@ ciY
 aaa
 ciY
 ciY
-kZl
+dci
 ciY
 kos
 csL
@@ -141670,7 +141660,7 @@ xII
 ciY
 ciY
 ciY
-kZl
+dci
 ciY
 cQC
 csL
@@ -143722,13 +143712,13 @@ ciY
 kMc
 cNq
 csL
-kZl
+slp
 opZ
 nOE
 tZu
 fvV
 csL
-kZl
+slp
 ePu
 det
 cOm
@@ -144499,7 +144489,7 @@ gzC
 dfi
 csL
 csL
-kZl
+dci
 cga
 cga
 ciY
@@ -145242,7 +145232,7 @@ jwr
 dtM
 mMk
 ciY
-nPI
+dci
 ciY
 ciY
 smL
@@ -145502,7 +145492,7 @@ ciY
 csL
 raL
 ciY
-nPI
+dci
 ciY
 rSe
 ciY
@@ -146019,7 +146009,7 @@ awx
 jPZ
 cga
 csL
-nPI
+slp
 cga
 ePu
 cQw
