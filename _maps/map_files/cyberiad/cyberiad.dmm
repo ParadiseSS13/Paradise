@@ -12,7 +12,7 @@
 	pixel_y = 24
 	},
 /obj/structure/table,
-/obj/item/radio/electropack,
+/obj/item/electropack,
 /obj/item/assembly/signaler,
 /obj/item/healthanalyzer,
 /obj/item/hand_labeler,

@@ -3605,7 +3605,7 @@
 /area/syndicate_mothership)
 "mq" = (
 /obj/structure/table,
-/obj/item/radio/electropack{
+/obj/item/electropack{
 	pixel_x = -5
 	},
 /obj/item/assembly/signaler{
