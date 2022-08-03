@@ -1,5 +1,6 @@
 /*
-FIRE ALARM
+Fire alarm
+Fire alarm electronics
 */
 
 #define FIRE_ALARM_FRAME	0
@@ -97,6 +98,17 @@ FIRE ALARM
 		alarm(rand(30/severity, 60/severity))
 	..()
 
+/obj/machinery/firealarm/examine(mob/user)
+	. = ..()
+	switch(buildstage)
+		if(FIRE_ALARM_FRAME)
+			. += "<span class='notice'>It could be <i>welded</i> off the wall but also has an empty slot for a <b>circuit</b>.</span>"
+		if(FIRE_ALARM_UNWIRED)
+			. += "<span class='notice'>The circuit inside could be <i>pried out</i> or could be <b>wired</b>.</span>"
+		if(FIRE_ALARM_READY)
+			if(wiresexposed)
+				. += "<span class='notice'>Its wires would need to be <i>cut</i> to access the circuit or panel could <b>screwed</b> closed.</span>"
+
 /obj/machinery/firealarm/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 	if(wiresexposed)
@@ -128,10 +140,10 @@ FIRE ALARM
 	CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume) || buildstage != FIRE_ALARM_UNWIRED)
 		return
-	new /obj/item/firealarm_electronics(drop_location())
+	CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE
+	new /obj/item/firealarm_electronics(loc)
 	buildstage = FIRE_ALARM_FRAME
 	update_icon()
-	CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE
 
 /obj/machinery/firealarm/multitool_act(mob/user, obj/item/I)
 	if(buildstage != FIRE_ALARM_READY)
@@ -171,10 +183,10 @@ FIRE ALARM
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
-	var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(drop_location())
+	var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(loc)
 	new_coil.amount = 5
 	buildstage = FIRE_ALARM_UNWIRED
-
+	update_icon()
 
 /obj/machinery/firealarm/wrench_act(mob/user, obj/item/I)
 	if(buildstage != FIRE_ALARM_FRAME)
@@ -183,7 +195,7 @@ FIRE ALARM
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
-	new /obj/item/mounted/frame/firealarm(get_turf(user))
+	new /obj/item/mounted/frame/firealarm(loc)
 	qdel(src)
 
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -285,6 +297,7 @@ FIRE ALARM
 		wiresexposed = TRUE
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
+		update_icon()
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)

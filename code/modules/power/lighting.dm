@@ -44,7 +44,7 @@
 	if(fixture_type == "bulb")
 		icon_state = "bulb-construct-stage1"
 
-/obj/machinery/light_construct/examine(mob/user)
+/obj/machinery/light_construct/examine(mob/user) // TODO: MAKE THESE NOTICE SPANS TOO!! AND ALSO MAKE THEM MORE DESCRIPTIVE
 	. = ..()
 	if(get_dist(user, src) <= 2)
 		switch(stage)
@@ -413,7 +413,7 @@
 	update()
 
 // examine verb
-/obj/machinery/light/examine(mob/user)
+/obj/machinery/light/examine(mob/user) // TODO: MAKE THIS NOTICE SPANS
 	. = ..()
 	if(in_range(user, src))
 		switch(status)

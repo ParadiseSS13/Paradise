@@ -184,7 +184,7 @@
 		return ..()
 
 
-/obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/camera/screwdriver_act(mob/user, obj/item/I) // TODO: Standardize this
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

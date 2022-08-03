@@ -17,7 +17,7 @@
 	var/logic_connect = FALSE						//Set this to allow the switch to send out logic signals.
 
 
-/obj/machinery/light_switch/New(turf/loc, w_dir=null)
+/obj/machinery/light_switch/New(turf/loc, w_dir=null) // TODO: MAKE THIS SHIT AN EXAMINE AND MAKE IT UPSIDE DOWN WHEN NOT PLACED ON WALLS
 	..()
 	switch(w_dir)
 		if(NORTH)

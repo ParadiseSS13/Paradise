@@ -487,7 +487,7 @@
 	return TRUE
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
-/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params) // TODO: BUILDSTAGE THIS SHIIIT
 
 	if(issilicon(user) && get_dist(src, user) > 1)
 		return attack_hand(user)
@@ -567,7 +567,7 @@
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
 				qdel(W)
 
-	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened)
+	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened) // what the fuck is this (TODO: give this a look over) // actually this is useless since its quicker and cheaper to weld it off and add a new one
 		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity)) // There is nothing to repair
 			to_chat(user, "<span class='warning'>You found no reason for repairing this APC</span>")
 			return

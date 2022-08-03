@@ -85,7 +85,7 @@
 	else
 		return ..()
 
-/obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I)
+/obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I) // TODO: MAKE THIS A WRENCH, AND REQUIRE A SCREWDRIVER BEFOREHAND, SAME FOR LIGHTSWITCHES/WINDOW TINT SWITCHES
 	if(has_extinguisher)
 		to_chat(user, "<span class='warning'>You need to remove the extinguisher before deconstructing [src]!</span>")
 		return
@@ -148,7 +148,11 @@
 
 /obj/structure/extinguisher_cabinet/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
-		new /obj/item/stack/sheet/metal(loc)
+		if(disassembled)
+			new /obj/item/mounted/frame/extinguisher(loc)
+		else
+			new /obj/item/stack/sheet/metal(loc)
+			new /obj/item/stack/sheet/metal(loc)
 		if(has_extinguisher)
 			has_extinguisher.forceMove(loc)
 			has_extinguisher = null

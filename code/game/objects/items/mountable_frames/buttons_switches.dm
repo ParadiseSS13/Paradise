@@ -19,7 +19,7 @@
 	sheets_refunded = 1
 
 /obj/item/mounted/frame/light_switch/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/light_switch(get_turf(user), get_dir(user, on_wall))
+	new /obj/machinery/light_switch(get_turf(user), get_dir(user, on_wall)) // this makes them upside down??
 	qdel(src)
 
 /obj/item/mounted/frame/light_switch/windowtint
@@ -27,5 +27,5 @@
 	desc = "Used for repairing or building window tint control buttons"
 
 /obj/item/mounted/frame/light_switch/windowtint/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/button/windowtint(get_turf(user), get_dir(user, on_wall))
+	new /obj/machinery/button/windowtint(get_turf(user), get_dir(user, on_wall)) // this makes them upside down??
 	qdel(src)

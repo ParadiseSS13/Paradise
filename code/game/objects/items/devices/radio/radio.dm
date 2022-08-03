@@ -36,6 +36,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	/// the range which mobs can hear this radio from
 	var/canhear_range = 3
 	var/datum/wires/radio/wires = null
+	/// If this is true, it will block it from being modified or attached
 	var/b_stat = 0
 
 	/// Whether the radio will broadcast stuff it hears, out over the radio
@@ -125,7 +126,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return 0
 	if(b_stat)
 		wires.Interact(user)
-	ui_interact(user)
+	else
+		ui_interact(user)
 
 /obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -553,7 +555,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
-	if(in_range(src, user) || loc == user)
+	if((in_range(src, user) || loc == user) && !istype(src, /obj/item/radio/intercom))
 		if(b_stat)
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
 		else
@@ -566,10 +568,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	user.set_machine(src)
 	b_stat = !b_stat
 	if(!istype(src, /obj/item/radio/beacon))
-		if(b_stat)
-			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
+		if(istype(src, /obj/item/radio/intercom))
+			to_chat(user, "<span class='notice'>You [b_stat ? "open":"close"] the panel on the [src].</span>")
 		else
-			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
+			if(b_stat)
+				to_chat(user, "<span class='notice'>The radio can now be attached and modified!</span>")
+			else
+				to_chat(user, "<span class='notice'>The radio can no longer be modified or attached!</span>")
 		updateDialog()
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/I)

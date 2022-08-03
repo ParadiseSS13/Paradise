@@ -58,7 +58,7 @@
 #define MIN_TEMPERATURE 233.15 // -40C
 
 #define AIR_ALARM_FRAME		0
-#define AIR_ALARM_BUILDING	1
+#define AIR_ALARM_UNWIRED	1
 #define AIR_ALARM_READY		2
 
 //all air alarms in area are connected via magic
@@ -378,7 +378,10 @@
 
 /obj/machinery/alarm/update_icon_state()
 	if(wiresexposed)
-		icon_state = "alarmx"
+		if(AIR_ALARM_UNWIRED)
+			icon_state = "alarm-b2"
+		else
+			icon_state = "alarmx"
 		return
 	if((stat & (NOPOWER|BROKEN)) || shorted)
 		icon_state = "alarmp"
@@ -1016,8 +1019,8 @@
 				return
 	return ..()
 
-/obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
-	if(buildstage != AIR_ALARM_BUILDING)
+/obj/machinery/alarm/crowbar_act(mob/user, obj/item/I) // TODO: Buildstage all this shit
+	if(buildstage != AIR_ALARM_UNWIRED)
 		return
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
@@ -1025,14 +1028,14 @@
 	to_chat(user, "You start prying out the circuit.")
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return
-	if(buildstage != AIR_ALARM_BUILDING)
+	if(buildstage != AIR_ALARM_UNWIRED)
 		return
 	to_chat(user, "You pry out the circuit!")
 	new /obj/item/airalarm_electronics(user.drop_location())
 	buildstage = AIR_ALARM_FRAME
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/alarm/multitool_act(mob/user, obj/item/I)
+/obj/machinery/alarm/multitool_act(mob/user, obj/item/I) // What the fuck does this do
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
@@ -1063,7 +1066,7 @@
 	if(wires.is_all_cut()) // all wires cut
 		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
 		new_coil.amount = 5
-		buildstage = AIR_ALARM_BUILDING
+		buildstage = AIR_ALARM_UNWIRED
 		update_icon(UPDATE_ICON_STATE)
 	if(wiresexposed)
 		wires.Interact(user)
@@ -1141,5 +1144,5 @@ Just an object used in constructing air alarms
 
 
 #undef AIR_ALARM_FRAME
-#undef AIR_ALARM_BUILDING
+#undef AIR_ALARM_UNWIRED
 #undef AIR_ALARM_READY
