@@ -11177,7 +11177,7 @@
 	opacity = 0
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 1;
+	dir = 2;
 	name = "Internal Affairs Office";
 	req_access_txt = "38"
 	},
