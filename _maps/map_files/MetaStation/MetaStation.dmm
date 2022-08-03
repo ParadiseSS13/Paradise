@@ -1949,7 +1949,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_x = 32
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -2273,7 +2273,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
@@ -3634,7 +3634,7 @@
 	name = "\improper Recreation Area"
 	})
 "atU" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -3686,7 +3686,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
@@ -4799,7 +4799,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -5246,7 +5246,7 @@
 	},
 /area/security/brig)
 "azf" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -5620,7 +5620,7 @@
 	},
 /area/medical/medbay)
 "aAw" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aAA" = (
@@ -7174,7 +7174,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aFY" = (
@@ -8266,7 +8266,7 @@
 	pixel_x = -28
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "aIX" = (
@@ -10782,7 +10782,7 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "aPv" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
@@ -11415,7 +11415,7 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "aRg" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8;
 	initialize_directions = 11
@@ -17582,7 +17582,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blueyellow"
@@ -18364,7 +18364,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "biC" = (
@@ -18923,7 +18923,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bjN" = (
@@ -19366,7 +19366,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -20864,7 +20864,7 @@
 /area/janitor)
 "bow" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
 	},
@@ -22033,7 +22033,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "brh" = (
@@ -22407,7 +22407,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "brT" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "brU" = (
@@ -24646,7 +24646,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/item/wrench,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -26487,7 +26487,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "bBi" = (
@@ -28647,7 +28647,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "bGW" = (
@@ -29855,7 +29855,7 @@
 	},
 /area/engine/engineering)
 "bKh" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "waste_sensor";
 	output = 63
@@ -30006,7 +30006,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bKz" = (
@@ -30451,7 +30451,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
 /turf/simulated/wall/r_wall,
@@ -31569,7 +31569,7 @@
 "bPj" = (
 /obj/effect/landmark/spawner/xeno,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "bPl" = (
@@ -32164,14 +32164,14 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bRj" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bRk" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bRl" = (
@@ -32403,7 +32403,7 @@
 	},
 /area/gateway)
 "bRQ" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -32750,7 +32750,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
@@ -33797,7 +33797,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -34453,7 +34453,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "bXu" = (
@@ -34500,14 +34500,14 @@
 	},
 /area/library)
 "bXz" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bXA" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bXB" = (
@@ -34747,7 +34747,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "bYb" = (
@@ -35993,7 +35993,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/structure/window/reinforced{
@@ -36299,14 +36299,14 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "cch" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "cci" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "ccj" = (
@@ -36853,7 +36853,7 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cdG" = (
@@ -38666,7 +38666,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "ciM" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "ciP" = (
@@ -39131,7 +39131,7 @@
 /area/maintenance/turbine)
 "ckd" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "cke" = (
@@ -39678,7 +39678,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "clO" = (
@@ -40332,7 +40332,7 @@
 "cnY" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
 /turf/simulated/wall/r_wall,
@@ -40340,8 +40340,8 @@
 "cnZ" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
-	id = "mair_in_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "mair_in_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank In"
 	},
@@ -40350,8 +40350,8 @@
 "coa" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
-	id = "mair_out_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "mair_out_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank Out"
 	},
@@ -40433,7 +40433,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cot" = (
@@ -40711,7 +40711,7 @@
 /turf/simulated/floor/engine/n2,
 /area/atmos)
 "cpi" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "n2_sensor"
 	},
@@ -40736,7 +40736,7 @@
 /turf/simulated/floor/engine/o2,
 /area/atmos)
 "cpl" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "o2_sensor"
 	},
@@ -40762,7 +40762,7 @@
 /turf/simulated/floor/engine/air,
 /area/atmos)
 "cpo" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "air_sensor";
 	output = 7
@@ -41254,7 +41254,7 @@
 /turf/simulated/floor/engine/n2,
 /area/atmos)
 "cqL" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen{
+/obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n2,
@@ -41267,7 +41267,7 @@
 /turf/simulated/floor/engine/o2,
 /area/atmos)
 "cqO" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/o2,
@@ -41287,7 +41287,7 @@
 /turf/space,
 /area/maintenance/turbine)
 "cqR" = (
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/air,
@@ -41477,7 +41477,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
@@ -41653,7 +41653,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "csf" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "csg" = (
@@ -42821,7 +42821,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -44296,7 +44296,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cAx" = (
@@ -44713,7 +44713,7 @@
 /turf/simulated/floor/plating,
 /area/medical/biostorage)
 "cBG" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cBJ" = (
@@ -45105,7 +45105,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -45713,7 +45713,7 @@
 "cEC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cEE" = (
@@ -45913,7 +45913,7 @@
 /area/medical/medbreak)
 "cFe" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -46074,7 +46074,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
 	icon_state = "space";
@@ -46443,7 +46443,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cGX" = (
@@ -47184,7 +47184,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -47197,7 +47197,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cJd" = (
@@ -49986,7 +49986,7 @@
 /area/chapel/main)
 "cSP" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -52487,7 +52487,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -52729,7 +52729,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -53060,7 +53060,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "dfo" = (
@@ -53656,7 +53656,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -53984,7 +53984,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/red{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -54798,7 +54798,7 @@
 	},
 /area/hallway/primary/aft)
 "dXb" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/line,
@@ -55390,7 +55390,7 @@
 /area/security/vacantoffice)
 "enh" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -56298,7 +56298,7 @@
 "eJg" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/portable_atmospherics/scrubber/huge,
+/obj/machinery/atmospherics/portable/scrubber/huge,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -57265,7 +57265,7 @@
 /area/maintenance/apmaint)
 "fiU" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
@@ -58135,7 +58135,7 @@
 /area/security/permabrig)
 "fCO" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -58238,7 +58238,7 @@
 	},
 /area/aisat)
 "fFL" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -58496,7 +58496,7 @@
 /area/medical/medbay)
 "fLw" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -59465,7 +59465,7 @@
 /area/assembly/robotics)
 "ggT" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -59976,7 +59976,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -60203,7 +60203,7 @@
 /area/chapel/main)
 "gDW" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
@@ -60288,7 +60288,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -61794,7 +61794,7 @@
 	name = "\improper Cafe"
 	})
 "huo" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
@@ -62675,7 +62675,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/green{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
@@ -63152,7 +63152,7 @@
 /area/atmos)
 "ibu" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "ibQ" = (
@@ -63289,7 +63289,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "ifN" = (
@@ -63382,7 +63382,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/machinery/newscaster{
 	name = "west bump";
 	pixel_x = -32
@@ -64297,7 +64297,7 @@
 /area/medical/research)
 "iBO" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "iBR" = (
@@ -65602,7 +65602,7 @@
 	},
 /area/medical/cmo)
 "jpF" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
@@ -66379,7 +66379,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67164,7 +67164,7 @@
 /area/maintenance/starboard)
 "kbr" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 5
 	},
@@ -67859,7 +67859,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "kxy" = (
@@ -68366,7 +68366,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -68593,7 +68593,7 @@
 "kNi" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -68874,7 +68874,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel,
 /area/construction)
 "kTc" = (
@@ -68920,7 +68920,7 @@
 /area/engine/engineering)
 "kUf" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -69461,7 +69461,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "lfm" = (
@@ -70046,7 +70046,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "lug" = (
@@ -71941,7 +71941,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
@@ -72249,7 +72249,7 @@
 	},
 /area/medical/reception)
 "mwH" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/storage/emergency)
 "mwK" = (
@@ -72790,7 +72790,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "mMk" = (
@@ -72944,7 +72944,7 @@
 /area/medical/research)
 "mPo" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -73678,7 +73678,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "nej" = (
@@ -74601,7 +74601,7 @@
 /area/space/nearstation)
 "nzX" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
@@ -75861,7 +75861,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blueyellow"
@@ -77055,7 +77055,7 @@
 /area/maintenance/fore2)
 "oWt" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "oWE" = (
@@ -77359,7 +77359,7 @@
 /area/quartermaster/office)
 "peo" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "pep" = (
@@ -79111,7 +79111,7 @@
 /area/toxins/test_chamber)
 "pZe" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "pZD" = (
@@ -81763,7 +81763,7 @@
 "ruj" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -81820,7 +81820,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "rwh" = (
-/obj/machinery/power/supermatter_crystal/engine,
+/obj/machinery/atmospherics/supermatter_crystal/engine,
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "rwj" = (
@@ -82093,7 +82093,7 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "rAE" = (
@@ -82380,7 +82380,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "rGJ" = (
@@ -82693,7 +82693,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -83010,7 +83010,7 @@
 /area/chapel/main)
 "rUK" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -84590,7 +84590,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "sNb" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -84614,7 +84614,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/door/window/westleft{
 	dir = 1;
 	name = "gas ports"
@@ -85309,7 +85309,7 @@
 /area/engine/engineering)
 "tdA" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
 	},
@@ -85960,7 +85960,7 @@
 	},
 /area/medical/research)
 "tsm" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "tsn" = (
@@ -86456,8 +86456,8 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 8
 	},
-/obj/machinery/meter{
-	id = "wloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "wloop_atm_meter";
 	name = "Waste Loop"
 	},
 /obj/structure/cable/yellow{
@@ -88032,7 +88032,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "uDi" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/red,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -88304,8 +88304,8 @@
 /area/hallway/primary/port)
 "uJN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
-/obj/machinery/meter{
-	id = "dloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "dloop_atm_meter";
 	name = "Distribution Loop"
 	},
 /turf/simulated/floor/plasteel{
@@ -88516,7 +88516,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -88668,7 +88668,7 @@
 /area/medical/exam_room)
 "uSj" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -89476,7 +89476,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "vnt" = (
@@ -89695,7 +89695,7 @@
 /area/security/brig)
 "vud" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "vug" = (
@@ -90294,7 +90294,7 @@
 /area/toxins/xenobiology)
 "vLA" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -90724,7 +90724,7 @@
 /area/security/permabrig)
 "vYQ" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
 	},
@@ -91972,7 +91972,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -92591,7 +92591,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -93262,7 +93262,7 @@
 	},
 /area/toxins/storage)
 "xrD" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
@@ -93698,7 +93698,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/camera{
 	c_tag = "Starboard Primary Hallway - Atmospherics";
 	dir = 4
@@ -94193,7 +94193,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "xPR" = (
@@ -94269,7 +94269,7 @@
 /area/crew_quarters/bar)
 "xRN" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/alarm{
 	dir = 8;
 	name = "east bump";
@@ -94422,7 +94422,7 @@
 /area/security/prison/cell_block/A)
 "xWt" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "xWI" = (

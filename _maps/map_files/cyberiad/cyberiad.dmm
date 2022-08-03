@@ -5344,7 +5344,7 @@
 /turf/simulated/wall/r_wall,
 /area/security/brig)
 "aqP" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -6589,7 +6589,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	filled = 0.1
 	},
 /turf/simulated/floor/plating,
@@ -6839,7 +6839,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/computer/cryopod{
 	pixel_y = -30;
 	dir = 1
@@ -7548,7 +7548,7 @@
 /area/security/evidence)
 "avG" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -7557,7 +7557,7 @@
 	},
 /area/security/permabrig)
 "avH" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -8457,7 +8457,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "axV" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "axW" = (
@@ -9563,7 +9563,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10477,7 +10477,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "aCF" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -10486,7 +10486,7 @@
 	},
 /area/security/execution)
 "aCG" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -10870,7 +10870,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	filled = 0.05
 	},
 /turf/simulated/floor/plating,
@@ -12319,7 +12319,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "aGX" = (
@@ -12639,7 +12639,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	filled = 0.1
 	},
 /turf/simulated/floor/plating,
@@ -13046,7 +13046,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	layer = 2
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aIR" = (
@@ -13500,7 +13500,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pod_1)
 "aJU" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -13847,7 +13847,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aKP" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -14575,7 +14575,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -14814,7 +14814,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	filled = 0.1
 	},
 /turf/simulated/floor/plating,
@@ -14976,7 +14976,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	filled = 0.1
 	},
 /turf/simulated/floor/plating,
@@ -15585,7 +15585,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aPb" = (
@@ -16302,7 +16302,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aQJ" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aQL" = (
@@ -18072,7 +18072,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aUS" = (
@@ -21100,7 +21100,7 @@
 	},
 /area/ai_monitored/storage/eva)
 "bbM" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen{
+/obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n2,
@@ -21112,7 +21112,7 @@
 	},
 /area/ai_monitored/storage/eva)
 "bbO" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/o2,
@@ -21989,7 +21989,7 @@
 	},
 /area/hallway/primary/fore)
 "bdG" = (
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/air,
@@ -22830,7 +22830,7 @@
 /area/crew_quarters/bar)
 "bfm" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
@@ -27399,7 +27399,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/west)
 "bpi" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/plating,
 /area/storage/emergency2)
@@ -28568,7 +28568,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "brN" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
@@ -28773,7 +28773,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bst" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
@@ -29421,13 +29421,13 @@
 /turf/simulated/floor/wood,
 /area/library)
 "bua" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/light,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bub" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -30512,7 +30512,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bwy" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -30567,7 +30567,7 @@
 	},
 /area/medical/medbay)
 "bwK" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -32329,7 +32329,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -42875,7 +42875,7 @@
 	},
 /area/medical/genetics_cloning)
 "bWE" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/structure/window/reinforced{
@@ -46134,7 +46134,7 @@
 	},
 /area/medical/cryo)
 "ccz" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/structure/window/reinforced{
@@ -46170,7 +46170,7 @@
 	},
 /area/medical/cryo)
 "ccB" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/structure/window/reinforced{
@@ -48490,7 +48490,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -48780,7 +48780,7 @@
 	},
 /area/crew_quarters/hor)
 "chT" = (
-/obj/machinery/portable_atmospherics/scrubber/huge,
+/obj/machinery/atmospherics/portable/scrubber/huge,
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 28
 	},
@@ -49712,7 +49712,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "cjN" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -49833,7 +49833,7 @@
 /area/quartermaster/miningdock)
 "cjV" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -49874,7 +49874,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
@@ -50473,7 +50473,7 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/explab_chamber)
 "clq" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -51134,7 +51134,7 @@
 	},
 /area/toxins/mixing)
 "cmP" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -51169,7 +51169,7 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cmS" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -51201,7 +51201,7 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cmV" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -51246,7 +51246,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -51283,7 +51283,7 @@
 /area/toxins/mixing)
 "cne" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/structure/window/plasmareinforced,
@@ -51297,7 +51297,7 @@
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "cnf" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -54056,7 +54056,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -54899,7 +54899,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -55496,7 +55496,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -56377,7 +56377,7 @@
 	},
 /area/hallway/primary/aft)
 "cwK" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -57071,7 +57071,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/incinerator)
 "cyf" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -58568,7 +58568,7 @@
 	pixel_x = -24;
 	pixel_y = -6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -59887,7 +59887,7 @@
 	pixel_y = -24;
 	req_access_txt = "12"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -60007,7 +60007,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -60307,7 +60307,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -60981,7 +60981,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -61005,7 +61005,7 @@
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "cGN" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/hidden/yellow{
 	dir = 1
 	},
@@ -61470,7 +61470,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/camera{
 	c_tag = "Aft Primary Hallway 2";
 	dir = 8;
@@ -61650,7 +61650,7 @@
 	},
 /area/engine/chiefs_office)
 "cIf" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "cIg" = (
@@ -63302,7 +63302,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cLV" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
 "cLW" = (
@@ -64781,7 +64781,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cPr" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/camera{
 	c_tag = "Atmospherics North-West";
 	dir = 4
@@ -65032,7 +65032,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cPU" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -65104,8 +65104,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/meter{
-	id = "wloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "wloop_atm_meter";
 	name = "Waste Loop"
 	},
 /obj/machinery/light_switch{
@@ -65128,8 +65128,8 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "cQh" = (
-/obj/machinery/meter{
-	id = "dloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "dloop_atm_meter";
 	name = "Distribution Loop"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
@@ -65376,14 +65376,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/atmos)
 "cQM" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -65520,7 +65520,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "cRb" = (
@@ -65575,7 +65575,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -65607,7 +65607,7 @@
 	},
 /area/engine/engine_smes)
 "cRi" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "cRj" = (
@@ -65676,7 +65676,7 @@
 	},
 /obj/structure/closet/walllocker/emerglocker/north,
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/engine/hardsuitstorage)
 "cRp" = (
@@ -66075,7 +66075,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cSb" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -66147,7 +66147,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
 /turf/simulated/wall/r_wall,
@@ -66381,7 +66381,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "cSS" = (
@@ -66524,7 +66524,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
 "cTh" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -66556,7 +66556,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -66638,7 +66638,7 @@
 	},
 /area/atmos/distribution)
 "cTv" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "waste_sensor";
 	output = 63
@@ -67065,7 +67065,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -67546,7 +67546,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/light,
 /obj/structure/disaster_counter/supermatter{
 	pixel_y = -32
@@ -68002,7 +68002,7 @@
 /area/hallway/secondary/exit)
 "cWR" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cWT" = (
@@ -68037,7 +68037,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cWX" = (
@@ -68052,7 +68052,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cWZ" = (
@@ -68396,7 +68396,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cXP" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -68520,7 +68520,7 @@
 	},
 /area/hallway/secondary/exit)
 "cYf" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "n2o_sensor"
 	},
@@ -68670,7 +68670,7 @@
 /area/hallway/secondary/exit)
 "cYy" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
@@ -68811,7 +68811,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cYW" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -69536,7 +69536,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "daT" = (
@@ -69703,7 +69703,7 @@
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "dbv" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -69841,7 +69841,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dbN" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -69891,7 +69891,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "dbS" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "tox_sensor"
 	},
@@ -70078,7 +70078,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dct" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -70095,7 +70095,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dcv" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
@@ -70168,7 +70168,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister{
+/obj/machinery/atmospherics/portable/canister{
 	anchored = 1
 	},
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
@@ -70242,7 +70242,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dcN" = (
@@ -70273,7 +70273,7 @@
 /area/maintenance/turbine)
 "dcR" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
 	},
@@ -70298,7 +70298,7 @@
 /area/atmos)
 "dcV" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
@@ -70405,7 +70405,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -70413,7 +70413,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "ddm" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "ddn" = (
@@ -70455,7 +70455,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "dds" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -70475,7 +70475,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1;
 	filled = 1
 	},
@@ -71054,7 +71054,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "deH" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
 	},
@@ -71212,7 +71212,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "deX" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "co2_sensor"
 	},
@@ -71343,7 +71343,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/red{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -71360,7 +71360,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
 "dfq" = (
@@ -71516,7 +71516,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dfH" = (
@@ -71668,7 +71668,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "dgj" = (
@@ -71752,7 +71752,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dgy" = (
@@ -72004,7 +72004,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -72356,7 +72356,7 @@
 /turf/simulated/wall,
 /area/maintenance/aft)
 "dis" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/aisat{
 	name = "\improper AI Satellite Hallway"
@@ -72813,7 +72813,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "djw" = (
@@ -72852,7 +72852,7 @@
 "djB" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
 /turf/simulated/wall/r_wall,
@@ -73010,8 +73010,8 @@
 "djS" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
-	id = "mair_in_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "mair_in_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank In"
 	},
@@ -73026,8 +73026,8 @@
 "djU" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
-	id = "mair_out_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "mair_out_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank Out"
 	},
@@ -73174,7 +73174,7 @@
 	},
 /area/turret_protected/aisat_interior)
 "dkh" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "n2_sensor"
 	},
@@ -73239,7 +73239,7 @@
 	},
 /area/hallway/primary/central/ne)
 "dkp" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "o2_sensor"
 	},
@@ -73254,7 +73254,7 @@
 /turf/simulated/floor/engine/o2,
 /area/atmos)
 "dkr" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -73275,7 +73275,7 @@
 /turf/simulated/wall,
 /area/maintenance/aft)
 "dku" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "air_sensor";
 	output = 7
@@ -73479,7 +73479,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dkR" = (
@@ -73876,7 +73876,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dlR" = (
@@ -74582,7 +74582,7 @@
 	},
 /area/turret_protected/ai)
 "dnn" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -75318,7 +75318,7 @@
 	name = "\improper AI Satellite Atmospherics"
 	})
 "dpe" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow{
 	dir = 10
 	},
@@ -75424,7 +75424,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/aisat/entrance{
 	name = "\improper AI Satellite Atmospherics"
@@ -75567,7 +75567,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
@@ -76170,7 +76170,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "dsM" = (
@@ -76700,7 +76700,7 @@
 	},
 /area/security/prisonlockers)
 "egO" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
@@ -76723,7 +76723,7 @@
 /area/security/brig)
 "eil" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/structure/window/plasmareinforced,
@@ -76948,7 +76948,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -79507,7 +79507,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "kUR" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
@@ -80258,7 +80258,7 @@
 /area/maintenance/port)
 "mEh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	filled = 0.1
 	},
 /turf/simulated/floor/plating,
@@ -80931,7 +80931,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/machinery/portable_atmospherics/scrubber/huge/stationary,
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -81225,7 +81225,7 @@
 	},
 /area/security/permabrig)
 "phw" = (
-/obj/machinery/power/supermatter_crystal/engine,
+/obj/machinery/atmospherics/supermatter_crystal/engine,
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "piF" = (
@@ -81551,7 +81551,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/scrubber/huge/stationary,
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "qhK" = (
@@ -82042,7 +82042,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "rgM" = (
@@ -82159,7 +82159,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/scrubber/huge/stationary,
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -82468,7 +82468,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 5
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "siM" = (
@@ -82551,7 +82551,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -82962,7 +82962,7 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "tAm" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4;
 	initialize_directions = 11
@@ -83490,7 +83490,7 @@
 /area/maintenance/apmaint)
 "uBJ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/red,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -83844,7 +83844,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "vwk" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "vxy" = (
@@ -84607,7 +84607,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
