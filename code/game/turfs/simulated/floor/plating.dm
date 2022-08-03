@@ -103,7 +103,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(locate(/obj/structure/cable) in src)
-		to_chat(user, "<span class='notice'>There is a cable still attached to the [src]. Remove it first!</span>")
+		to_chat(user, "<span class='notice'>There is a cable still attached to [src]. Remove it first!</span>")
 		return
 	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
