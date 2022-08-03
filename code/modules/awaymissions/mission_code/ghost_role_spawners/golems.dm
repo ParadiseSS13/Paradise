@@ -149,7 +149,7 @@
 	if(!istype(I, /obj/item/slimepotion/transference))
 		return ..()
 	if(iscarbon(user) && can_transfer)
-		var/human_transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)", null, "Yes", "No")
+		var/human_transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die and you will forfeit any antagonist roles and objectives!)", null, "Yes", "No")
 		if(human_transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))
