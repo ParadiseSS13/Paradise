@@ -302,9 +302,11 @@
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
 
-/mob/living/carbon/human/put_in_hands(obj/item/I)
+/mob/living/carbon/human/put_in_hands(obj/item/I, ignore_anim = FALSE)
 	if(!I)
 		return FALSE
+	if(isturf(I.loc) && !ignore_anim)
+		I.do_pickup_animation(src)
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/S = I
 		if(!S.get_amount())

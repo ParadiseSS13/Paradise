@@ -259,6 +259,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
+	var/original_loc = loc
 	if(!user) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
@@ -313,6 +314,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	else
 		if(isliving(loc))
 			return 0
+
+	if(isturf(original_loc))
+		do_pickup_animation(user)
 
 	pickup(user)
 	add_fingerprint(user)
@@ -426,7 +430,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		flags &= ~NODROP
 	in_inventory = FALSE
 	remove_outline()
-	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 
@@ -434,15 +438,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/pickup(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+
 	in_inventory = TRUE
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
-/obj/item/proc/on_exit_storage(obj/item/storage/S as obj)
+/obj/item/proc/on_exit_storage(obj/item/storage/S)
 	in_storage = FALSE
 	return
 
 // called when this item is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
-/obj/item/proc/on_enter_storage(obj/item/storage/S as obj)
+/obj/item/proc/on_enter_storage(obj/item/storage/S)
 	in_storage = TRUE
 	return
 
@@ -813,3 +818,76 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.
 /obj/item/proc/cyborg_recharge(coeff = 1, emagged = FALSE)
 	return
+
+/// Show a pickup animation when an item is collected from the ground.
+/obj/item/proc/do_pickup_animation(atom/target)
+	if(!istype(loc, /turf))
+		return
+	var/image/pickup_animation = image(icon = src, loc = loc, layer = layer + 0.1)
+	pickup_animation.plane = GAME_PLANE
+	pickup_animation.transform.Scale(0.75)
+	pickup_animation.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+
+	var/turf/current_turf = get_turf(src)
+	var/direction = get_dir(current_turf, target)
+	var/to_x = target.pixel_x
+	var/to_y = target.pixel_y
+
+	if(direction & NORTH)
+		to_y += 32
+	else if(direction & SOUTH)
+		to_y -= 32
+	if(direction & EAST)
+		to_x += 32
+	else if(direction & WEST)
+		to_x -= 32
+	if(!direction)
+		to_y += 10
+		pickup_animation.pixel_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
+
+	flick_overlay(pickup_animation, GLOB.clients, 4)
+	var/matrix/animation_matrix = new(pickup_animation.transform)
+	animation_matrix.Turn(pick(-30, 30))
+	animation_matrix.Scale(0.65)
+
+	animate(pickup_animation, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
+	animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
+
+/// Show a drop animation
+/obj/item/proc/do_drop_animation(atom/moving_from)
+	if(!istype(loc, /turf))
+		return
+
+	var/turf/current_turf = get_turf(src)
+	var/direction = get_dir(moving_from, current_turf)
+	var/from_x = moving_from.pixel_x
+	var/from_y = moving_from.pixel_y
+
+	if(direction & NORTH)
+		from_y -= 32
+	else if(direction & SOUTH)
+		from_y += 32
+	if(direction & EAST)
+		from_x -= 32
+	else if(direction & WEST)
+		from_x += 32
+	if(!direction)
+		from_y += 10
+		from_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
+
+	//We're moving from these chords to our current ones
+	var/old_x = pixel_x
+	var/old_y = pixel_y
+	var/old_alpha = alpha
+	var/matrix/old_transform = transform
+	var/matrix/animation_matrix = new(old_transform)
+	animation_matrix.Turn(pick(-30, 30))
+	animation_matrix.Scale(0.7) // Shrink to start, end up normal sized
+
+	pixel_x = from_x
+	pixel_y = from_y
+	alpha = 0
+	transform = animation_matrix
+
+	// This is instant on byond's end, but to our clients this looks like a quick drop
+	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
