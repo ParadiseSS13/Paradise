@@ -218,6 +218,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHANGELING_TRAIT "changeling"
 #define LYING_DOWN_TRAIT "lying_down"
 #define SLIME_TRAIT "slime"
+#define ABDUCTOR_TRAIT "abductor"
+
 
 // unique trait sources
 #define STATUE_MUTE "statue"

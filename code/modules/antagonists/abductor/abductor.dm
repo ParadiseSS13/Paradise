@@ -34,13 +34,13 @@
 
 /datum/antagonist/abductor/on_gain()
 	objectives += team.objectives
-	ADD_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
+	ADD_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_TRAIT)
 	return ..()
 
 /datum/antagonist/abductor/Destroy(force, ...)
 	if(owner)
 		owner.special_role = null
-		REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
+		REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_TRAIT)
 		var/mob/living/carbon/human/H = owner.current
 		for(var/obj/item/I in H)
 			qdel(I)
