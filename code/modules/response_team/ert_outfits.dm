@@ -117,7 +117,7 @@
 		/obj/item/organ/internal/cyberimp/arm/flash
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
 
@@ -176,7 +176,7 @@
 		/obj/item/ammo_box/magazine/laser = 2
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
 
@@ -209,7 +209,7 @@
 		/obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
 
@@ -267,7 +267,7 @@
 		/obj/item/gun/energy/gun = 1
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
 
@@ -297,7 +297,7 @@
 		/obj/item/organ/internal/cyberimp/arm/toolset
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
 
@@ -371,7 +371,7 @@
 		/obj/item/handheld_defibrillator = 1
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
 
@@ -406,7 +406,7 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
 
@@ -455,7 +455,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
 
@@ -474,7 +474,7 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
 
@@ -547,6 +547,6 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
