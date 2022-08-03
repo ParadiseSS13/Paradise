@@ -107,15 +107,15 @@
 				return
 
 		if("hiss")
-			if(isunathi(src) || istajaran(src)) //Only Unathi can hiss.
+			if(isunathi(src)) //Only Unathi can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'						//Everyone else fails, skip the emote attempt
 			else								//Everyone else fails, skip the emote attempt
 				return
 
-		if("hisses") //tajaran hissing(sounds like cat hissing)
-			if(isunathi(src) || istajaran(src)) 
-				on_CD = handle_emote_CD()							
-			else								
+		if("hisses")
+			if(istajaran(src)) //tajaran hissing(sounds like cat hissing)
+				on_CD = handle_emote_CD()
+			else
 				return
 
 		if("quill", "quills")
@@ -277,7 +277,7 @@
 
 			if(!muzzled)
 				message = "шипит[M ? " на [M]" : ""]."
-				playsound(loc, 'sound/voice/tajarahiss.mp3', 100, 1, frequency = get_age_pitch()) 
+				playsound(loc, 'sound/voice/tajarahiss.mp3', 100, 1, frequency = get_age_pitch())
 				m_type = 2
 			else
 				message = "тихо шипит."
