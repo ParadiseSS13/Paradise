@@ -65,14 +65,16 @@
 			mindslave_target.mind.objectives += MS
 			mindslave_target.mind.add_antag_datum(/datum/antagonist/mindslave)
 
-			var/datum/mindslaves/slaved = user.mind.som
-			mindslave_target.mind.som = slaved
-			slaved.serv += mindslave_target
-			slaved.add_serv_hud(user.mind, "master") //handles master servent icons
-			slaved.add_serv_hud(mindslave_target.mind, "mindslave")
-
 			log_admin("[key_name(user)] has mind-slaved [key_name(mindslave_target)].")
 			activated = 1
+
+			if(user.mind.som) //if user have not "som" (for example, he's not antag) - skip this part
+				var/datum/mindslaves/slaved = user.mind.som
+				mindslave_target.mind.som = slaved
+				slaved.serv += mindslave_target
+				slaved.add_serv_hud(user.mind, "master") //handles master servent icons
+				slaved.add_serv_hud(mindslave_target.mind, "mindslave")
+
 			if(jobban_isbanned(M, ROLE_SYNDICATE))
 				SSticker.mode.replace_jobbanned_player(M, ROLE_SYNDICATE)
 			return 1
