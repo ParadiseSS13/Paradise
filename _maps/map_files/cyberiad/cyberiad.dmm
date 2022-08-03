@@ -66990,14 +66990,6 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
-"dnL" = (
-/obj/machinery/door/airlock/maintenance{
-	electrified_until = -1;
-	locked = 1;
-	req_access_txt = "12"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "dnM" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
@@ -75909,9 +75901,6 @@
 /obj/item/storage/fancy/cigarettes/cigpack_random,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"jvg" = (
-/turf/simulated/wall,
-/area/space)
 "jvq" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1450;
@@ -77587,14 +77576,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"kZl" = (
-/obj/machinery/door/airlock/maintenance{
-	electrified_until = -1;
-	locked = 1;
-	req_access_txt = "12"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "laa" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -85150,8 +85131,6 @@
 /area/medical/virology)
 "rGa" = (
 /obj/machinery/door/airlock/maintenance{
-	electrified_until = -1;
-	locked = 1;
 	req_access_txt = "12"
 	},
 /obj/structure/barricade/wooden,
@@ -135239,7 +135218,7 @@ cBR
 cBR
 cVD
 nMU
-dnL
+cmt
 cep
 cep
 cep
@@ -137297,7 +137276,7 @@ gmu
 dfM
 cDm
 chf
-dnL
+cmt
 chf
 cDm
 dmb
@@ -140113,7 +140092,7 @@ cBR
 tlI
 vum
 ojz
-kZl
+dci
 lon
 cga
 xsx
@@ -146490,7 +146469,7 @@ snH
 bSc
 oMz
 bEF
-jvg
+bEF
 aaa
 aaa
 aaa
