@@ -8,6 +8,7 @@
 	pass_flags = LETPASSTHROW
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
+	flags = ON_BORDER
 	var/currently_climbed = FALSE
 	var/mover_dir = null
 
@@ -79,16 +80,19 @@
 		return TRUE
 	mover_dir = get_dir(loc, target)
 	//Due to how the other check is done, it would always return density for ordinal directions no matter what
-	if(ordinal_direction_check())
+	if(ordinal_direction_check(mover_dir))
 		return FALSE
 	if(mover_dir != dir)
 		return density
 	return FALSE
 
 /obj/structure/railing/CanAStarPass(ID, to_dir, caller)
-	if(to_dir != dir)
-		return TRUE
-	return FALSE
+	if(to_dir == dir)
+		return FALSE
+	if(ordinal_direction_check(to_dir))
+		return FALSE
+
+	return TRUE
 
 /obj/structure/railing/CheckExit(atom/movable/O, target)
 	var/mob/living/M = O
@@ -108,24 +112,24 @@
 	mover_dir = get_dir(O.loc, target)
 	if(mover_dir == dir)
 		return FALSE
-	if(ordinal_direction_check())
+	if(ordinal_direction_check(mover_dir))
 		return FALSE
 	return TRUE
 
 // Checks if the direction the mob is trying to move towards would be blocked by a corner railing
-/obj/structure/railing/proc/ordinal_direction_check()
+/obj/structure/railing/proc/ordinal_direction_check(check_dir)
 	switch(dir)
 		if(5)
-			if(mover_dir == 1 || mover_dir == 4)
+			if(check_dir == 1 || check_dir == 4)
 				return TRUE
 		if(6)
-			if(mover_dir == 2 || mover_dir == 4)
+			if(check_dir == 2 || check_dir == 4)
 				return TRUE
 		if(9)
-			if(mover_dir == 1 || mover_dir == 8)
+			if(check_dir == 1 || check_dir == 8)
 				return TRUE
 		if(10)
-			if(mover_dir == 2 || mover_dir == 8)
+			if(check_dir == 2 || check_dir == 8)
 				return TRUE
 	return FALSE
 
