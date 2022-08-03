@@ -85369,8 +85369,6 @@
 	id_tag = "xenobio3";
 	name = "Chamber 3 Containment Blast Doors"
 	},
-/obj/machinery/atmospherics/unary/thermomachine/freezer/on/coldroom,
-/obj/machinery/atmospherics/unary/thermomachine/freezer/on/coldroom,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "rSD" = (
