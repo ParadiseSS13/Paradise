@@ -88197,7 +88197,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology)
 "ury" = (
