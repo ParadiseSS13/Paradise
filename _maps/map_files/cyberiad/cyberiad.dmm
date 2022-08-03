@@ -39634,7 +39634,6 @@
 	},
 /area/medical/chemistry)
 "bSP" = (
-/obj/machinery/smartfridge/secure/chemistry,
 /obj/machinery/door/window/eastright{
 	base_state = "left";
 	desc = "You have the public fridge, pal, lube off.";
@@ -39651,6 +39650,9 @@
 	icon_state = "left";
 	name = "Anti-Theft Shield";
 	req_access_txt = "33"
+	},
+/obj/machinery/smartfridge/secure{
+	req_one_access_txt = "33;5"
 	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
