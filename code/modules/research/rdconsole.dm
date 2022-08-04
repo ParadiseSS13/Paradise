@@ -81,7 +81,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = TRUE		//If sync if FALSE, it doesn't show up on Server Control Console
-	var/range = 3		//Range to search for rnd devices in proximity to console
+	///Range to search for rnd devices in proximity to console
+	var/range = 3
 
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
