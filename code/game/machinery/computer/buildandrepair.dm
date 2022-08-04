@@ -175,10 +175,6 @@
 	board_name = "Atmospheric Monitor"
 	build_path = /obj/machinery/computer/general_air_control
 
-/obj/item/circuitboard/injector_control
-	board_name = "Injector Control"
-	build_path = /obj/machinery/computer/general_air_control/fuel_injection
-
 /obj/item/circuitboard/robotics
 	board_name = "Robotics Control Console"
 	build_path = /obj/machinery/computer/robotics

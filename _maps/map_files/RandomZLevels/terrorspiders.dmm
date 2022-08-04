@@ -708,7 +708,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/plaza)
 "ce" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/plaza)
 "cf" = (
@@ -875,7 +875,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1971,7 +1971,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "fj" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/gateway)
@@ -2940,7 +2940,7 @@
 	},
 /area/awaymission/UO71/gateway)
 "hz" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/gateway)
 "hA" = (
@@ -3996,7 +3996,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/gateway)
 "kk" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/gateway)
 "kl" = (
@@ -5593,7 +5593,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "nu" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -6807,11 +6807,11 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
 "pu" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO71/eng)
 "pv" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "UO71_air_sensor";
 	output = 7
@@ -7244,8 +7244,8 @@
 	},
 /area/awaymission/UO71/centralhall)
 "qr" = (
-/obj/machinery/meter{
-	id = "UO71_mair_out_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "UO71_mair_out_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank Out"
 	},
@@ -7254,8 +7254,8 @@
 /area/awaymission/UO71/eng)
 "qs" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/machinery/meter{
-	id = "UO71_mair_in_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "UO71_mair_in_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank In"
 	},
@@ -7674,7 +7674,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -8450,7 +8450,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
@@ -8478,8 +8478,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/meter{
-	id = "UO71_dloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "UO71_dloop_atm_meter";
 	name = "Distribution Loop"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8503,7 +8503,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/wall,
@@ -8893,7 +8893,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "tw" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -8914,7 +8914,7 @@
 	},
 /area/awaymission/UO71/eng)
 "ty" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "UO71_waste_sensor";
 	output = 63
@@ -9046,7 +9046,7 @@
 	dir = 4;
 	layer = 2.9
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -9054,7 +9054,7 @@
 /area/awaymission/UO71/eng)
 "tT" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -9155,8 +9155,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "ud" = (
-/obj/machinery/meter{
-	id = "UO71_wloop_atm_meter";
+/obj/machinery/atmospherics/meter{
+	id_tag = "UO71_wloop_atm_meter";
 	name = "Waste Loop"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
@@ -9350,7 +9350,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "uv" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
@@ -9406,12 +9406,12 @@
 /area/awaymission/UO71/centralhall)
 "uB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "uC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "uD" = (
@@ -9494,7 +9494,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
@@ -9535,7 +9535,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
@@ -9690,14 +9690,14 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "vg" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "vh" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -10222,7 +10222,7 @@
 	},
 /area/awaymission/UO71/eng)
 "wl" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "UO71_n2_sensor"
 	},
@@ -10230,11 +10230,11 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO71/eng)
 "wm" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO71/eng)
 "wn" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "UO71_o2_sensor"
 	},
@@ -10242,7 +10242,7 @@
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO71/eng)
 "wo" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO71/eng)
 "wp" = (
@@ -10498,7 +10498,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /turf/simulated/floor/plasteel{

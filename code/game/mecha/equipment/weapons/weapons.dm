@@ -96,13 +96,21 @@
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
-	equip_cooldown = 40
-	name = "mkIV Ion Heavy Cannon"
+	equip_cooldown = 4 SECONDS
+	name = "mkIV Ion Heavy Scatter Cannon"
+	desc = "An ion shotgun, that when fired gives the mecha a second of EMP shielding with the excess energy from the discharge."
 	icon_state = "mecha_ion"
 	origin_tech = "materials=4;combat=5;magnets=4"
-	energy_drain = 120
-	projectile = /obj/item/projectile/ion
-	fire_sound = 'sound/weapons/laser.ogg'
+	energy_drain = 300 // This is per shot + 1x cost, so 1500 per shotgun shot
+	projectile = /obj/item/projectile/ion/weak
+	projectiles_per_shot = 4
+	variance = 35
+	fire_sound = 'sound/weapons/ionrifle.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion/action()
+	chassis.emp_proof = TRUE
+	addtimer(VARSET_CALLBACK(chassis, emp_proof, FALSE), 1 SECONDS)
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	equip_cooldown = 35

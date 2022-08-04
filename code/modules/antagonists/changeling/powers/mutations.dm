@@ -112,7 +112,7 @@
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
-	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
+	desc = "A grotesque blade made of bone and flesh that cleaves through people like a hot knife through butter."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL

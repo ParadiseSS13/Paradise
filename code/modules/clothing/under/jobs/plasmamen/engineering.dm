@@ -4,7 +4,7 @@
 	icon_state = "engineer_envirosuit"
 	item_state = "engineer_envirosuit"
 	item_color = "engineer_envirosuit"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 10, FIRE = 95, ACID = 95)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = INFINITY, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/under/plasmaman/engineering/ce
 	name = "chief engineer's plasma envirosuit"
