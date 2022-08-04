@@ -35406,7 +35406,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bIA" = (
-/obj/effect/turf_decal/bot_white,
 /obj/structure/closet/radiation,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -43319,7 +43318,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -48408,7 +48406,6 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/effect/turf_decal/bot_white,
 /obj/machinery/camera{
 	c_tag = "Research Server Room";
 	network = list("Research","SS13");
@@ -52014,7 +52011,6 @@
 /area/maintenance/aft)
 "cyN" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cautioncorner"
@@ -52114,7 +52110,6 @@
 /area/maintenance/aft)
 "czb" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cautioncorner"
@@ -54806,7 +54801,6 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -68774,7 +68768,6 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/bot_white,
 /obj/machinery/vending/medidrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -69905,7 +69898,6 @@
 /area/maintenance/asmaint)
 "eLa" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -75008,7 +75000,6 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -77330,7 +77321,6 @@
 /area/security/brig)
 "kQW" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
-/obj/effect/turf_decal/bot_white,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -78267,7 +78257,6 @@
 	layer = 2.9
 	},
 /obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/effect/turf_decal/bot_white,
 /obj/machinery/light,
 /obj/item/storage/box/monkeycubes/farwacubes{
 	pixel_x = -6
@@ -84956,7 +84945,6 @@
 "ruu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/canister,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cautioncorner"
@@ -85342,6 +85330,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/structure/closet/walllocker/emerglocker/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -88157,7 +88146,6 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -89394,7 +89382,6 @@
 "vsw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/rnd,
-/obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
 "vtf" = (
@@ -89765,7 +89752,6 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/turf_decal/bot_white,
 /obj/item/storage/box/bodybags,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -89956,10 +89942,6 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/secondary/exit)
-"vKW" = (
-/obj/effect/turf_decal/bot_white,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "vLy" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -145433,7 +145415,7 @@ hyk
 hyk
 wyf
 rMb
-vKW
+csL
 psT
 fQI
 sbx
