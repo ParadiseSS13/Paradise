@@ -80,7 +80,7 @@
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
-	. += "It is turned [on ? "on" : "off"]."
+	. += "<span class='notice'>It is turned [on? "on" : "off"].</span>"
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())

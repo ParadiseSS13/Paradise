@@ -506,11 +506,11 @@
 
 /obj/machinery/light/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
-		if(status == LIGHT_EMPTY)
-			playsound(loc, W.usesound, W.tool_volume, 1)
-			user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
-				"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
-			deconstruct()
+	if(status == LIGHT_EMPTY)
+		playsound(loc, W.usesound, W.tool_volume, 1)
+		user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
+			"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
+		deconstruct()
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
