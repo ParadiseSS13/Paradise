@@ -23,7 +23,7 @@
 /datum/surgery_step/augment
 	name = "augment limb with robotic part"
 	allowed_tools = list(/obj/item/robot_parts = 100)
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/p = tool
@@ -33,7 +33,10 @@
 			return SURGERY_BEGINSTEP_ABORT
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts augmenting [affected] with [tool].", "You start augmenting [affected] with [tool].")
+	user.visible_message(
+		"[user] starts augmenting [affected] with [tool].",
+		"You start augmenting [affected] with [tool]."
+	)
 	return ..()
 
 /datum/surgery_step/augment/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

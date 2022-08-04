@@ -150,7 +150,7 @@
 				else
 					CRASH("[src] has a tool conflict ([allowed]) with the next step [next_surgery_step] in the surgery it was called from ([surgery])")
 
-			if(tool && istype(tool) && (tool.type == allowed || tool.tool_behaviour == allowed))
+			if(tool && istype(tool) && (ispath(allowed) && istype(tool, allowed) || tool.tool_behaviour == allowed))
 				next_surgery = surgery
 
 		// Check if we might allow this under the any item rule if it doesn't fit into any other category. We don't want to accidentally miss a tool conflict.

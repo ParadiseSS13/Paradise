@@ -1,4 +1,5 @@
-#define GHETTO_DISINFECT_AMOUNT 5 //Amount of units to transfer from the container to the organs during ghetto surgery disinfection step
+/// Amount of units to transfer from the container to the organs during disinfection step.
+#define GHETTO_DISINFECT_AMOUNT 5
 /// Amount of mito necessary to revive an organ
 #define MITO_REVIVAL_COST 3
 
@@ -425,8 +426,10 @@
 	for(var/obj/item/organ/internal/I in affected.internal_organs)
 		if(I)
 			if(C.reagents.total_volume <= 0) //end_step handles if there is not enough reagent
-				user.visible_message("[user] notices [tool] is empty.", \
-				"You notice [tool] is empty.")
+				user.visible_message(
+					"[user] notices [tool] is empty.",
+					"You notice [tool] is empty."
+				)
 				return SURGERY_BEGINSTEP_SKIP
 
 			var/msg = "[user] starts pouring some of [tool] over [target]'s [I.name]."
@@ -464,15 +467,17 @@
 
 
 	for(var/obj/item/organ/internal/I in affected.internal_organs)
-		if(!I)
+		if(!I)  // if you have a null organ I wish you the best
 			continue
-		if(R.total_volume < GHETTO_DISINFECT_AMOUNT)
-			to_chat(user, "There is not enough in [tool].")
-			return SURGERY_STEP_INCOMPLETE
 		if(I.germ_level < INFECTION_LEVEL_ONE / 2 && !(I.status & ORGAN_DEAD))  // not dead, don't need to inject mito either
-			to_chat(user, "[I] does not appear to be infected.")
+			to_chat(user, "[I] does not appear to need chemical treatment.")
+			continue
+		if(!spaceacillin && !ethanol && !mito_tot)
+			to_chat(user, "<span class='warning'>[C] doesn't have anything in it that would be worth applying!</span>")
+			break
 		var/success = FALSE
 		if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
+			// spacecillin completely cures infections if there is enough, ethanol just reduces the infection strength by the amount used.
 			if(spaceacillin || ethanol)
 				if(spaceacillin >= GHETTO_DISINFECT_AMOUNT)
 					I.germ_level = 0
@@ -545,6 +550,7 @@
 		"<span class='warning'> [user]'s hand slips, splashing the contents of [tool] all over [target][affected ? "'s [affected.name]" : ""] incision!</span>",
 		"<span class='warning'> Your hand slips, splashing the contents of [tool] all over [target][affected ? "'s [affected.name]" : ""] incision!</span>"
 	)
+	// continue here since we want to keep moving in the surgery
 	return SURGERY_STEP_CONTINUE
 
 // FINISH
