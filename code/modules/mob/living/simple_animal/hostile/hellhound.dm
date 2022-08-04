@@ -33,12 +33,11 @@
 	var/life_regen_amount = -10 // negative, because negative = healing
 	var/smoke_lastuse = 0
 	var/smoke_freq = 300 // 30 seconds
-	var/datum/action/innate/demon/whisper/whisper_action
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/hostile/hellhound/New()
+/mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()
-	whisper_action = new()
+	var/datum/action/innate/demon/whisper/whisper_action = new
 	whisper_action.Grant(src)
 	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
@@ -116,7 +115,7 @@
 	melee_damage_upper = 30
 	environment_smash = 2
 
-/mob/living/simple_animal/hostile/hellhound/greater/New()
+/mob/living/simple_animal/hostile/hellhound/greater/Initialize(mapload)
 	. = ..()
 	// Movement
 	AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt/shift)

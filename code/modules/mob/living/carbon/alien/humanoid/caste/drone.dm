@@ -5,14 +5,20 @@
 	health = 100
 	icon_state = "aliend_s"
 
-/mob/living/carbon/alien/humanoid/drone/New()
+/mob/living/carbon/alien/humanoid/drone/Initialize(mapload)
+	. = ..()
 	if(src.name == "alien drone")
-		src.name = text("alien drone ([rand(1, 1000)])")
+		src.name = "alien drone ([rand(1, 1000)])"
 	src.real_name = src.name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/drone
-	alien_organs += new /obj/item/organ/internal/xenos/acidgland
-	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
-	..()
+
+/mob/living/carbon/alien/humanoid/drone/get_caste_organs()
+	. = ..()
+	. += list(
+		/obj/item/organ/internal/xenos/plasmavessel/drone,
+		/obj/item/organ/internal/xenos/acidgland,
+		/obj/item/organ/internal/xenos/resinspinner,
+	)
+
 
 //Drones use the same base as generic humanoids.
 //Drone verbs

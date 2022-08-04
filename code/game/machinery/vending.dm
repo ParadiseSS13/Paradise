@@ -1299,6 +1299,20 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
 	refill_canister = /obj/item/vending_refill/hydronutrients
 
+/obj/machinery/vending/hydronutrients/syndicate_druglab
+	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 12,
+					/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 2,
+					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 3,
+					/obj/item/reagent_containers/spray/pestspray = 7,
+					/obj/item/reagent_containers/syringe = 11,
+					/obj/item/storage/bag/plants = 2,
+					/obj/item/cultivator = 3,
+					/obj/item/shovel/spade = 2,
+					/obj/item/plant_analyzer = 2,
+					/obj/item/reagent_containers/glass/bottle/ammonia = 6,
+					/obj/item/reagent_containers/glass/bottle/diethylamine = 8)
+	contraband = list()
+
 /obj/machinery/vending/hydroseeds
 	name = "\improper MegaSeed Servitor"
 	desc = "When you need seeds fast!"
@@ -1361,6 +1375,18 @@
 					  /obj/item/seeds/random = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
+
+/obj/machinery/vending/hydroseeds/syndicate_druglab
+	products = list(/obj/item/seeds/ambrosia/deus = 2,
+					/obj/item/seeds/cannabis = 2,
+					/obj/item/seeds/coffee = 3,
+					/obj/item/seeds/liberty = 2,
+					/obj/item/seeds/cannabis/rainbow = 1,
+					/obj/item/seeds/reishi = 2,
+					/obj/item/seeds/tobacco = 1)
+	contraband = list()
+	premium = list()
+	refill_canister = null
 
 /obj/machinery/vending/magivend
 	name = "\improper MagiVend"

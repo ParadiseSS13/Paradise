@@ -207,6 +207,15 @@
 	"hel","ischt","far","wa","baram","iereng","tech","lach","sam","mak","lich","gen","or","ag","eck","gec","stag","onn", \
 	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth")
 
+/datum/language/vulpkanin/get_random_name(gender)
+	var/new_name
+	if(gender == FEMALE)
+		new_name = pick(GLOB.first_names_female_vulp)
+	else
+		new_name = pick(GLOB.first_names_male_vulp)
+	new_name += " " + pick(GLOB.last_names_vulp)
+	return new_name
+
 /datum/language/skrell
 	name = "Skrellian"
 	desc = "A melodic and complex language spoken by the Skrell of Qerrbalak. Some of the notes are inaudible to humans."
@@ -305,6 +314,15 @@
 	key = "f"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
+
+/datum/language/slime/get_random_name(gender)
+	var/new_name
+	if(gender == FEMALE)
+		new_name = pick(GLOB.first_names_female_slime)
+	else
+		new_name = pick(GLOB.first_names_male_slime)
+	new_name += " " + pick(GLOB.last_names_slime)
+	return new_name
 
 /datum/language/grey
 	name = "Psionic Communication"

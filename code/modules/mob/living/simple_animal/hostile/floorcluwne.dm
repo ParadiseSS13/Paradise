@@ -44,7 +44,7 @@
 	var/admincluwne = FALSE
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/New()
+/mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
 	var/obj/item/card/id/access_card = new (src)
@@ -59,8 +59,8 @@
 			return
 		Acquire_Victim()
 
-
 /mob/living/simple_animal/hostile/floor_cluwne/Destroy()
+	current_victim = null
 	return ..()
 
 

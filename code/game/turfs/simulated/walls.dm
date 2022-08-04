@@ -251,7 +251,7 @@
 	ChangeTurf(/turf/simulated/floor)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
-	var/wait = 100
+	var/wait = 20 SECONDS
 	if(speed)
 		wait = speed
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
@@ -285,6 +285,7 @@
 	M.do_attack_animation(src)
 	if((M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
 		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			dismantle_wall(1)
 			to_chat(M, "<span class='info'>You smash through the wall.</span>")
 		else

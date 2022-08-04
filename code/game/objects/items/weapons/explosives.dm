@@ -13,9 +13,9 @@
 	var/obj/item/assembly_holder/nadeassembly = null
 	var/assemblyattacher
 
-/obj/item/grenade/plastic/New()
+/obj/item/grenade/plastic/Initialize(mapload)
+	. = ..()
 	image_overlay = image('icons/obj/grenade.dmi', "[item_state]2")
-	..()
 
 /obj/item/grenade/plastic/Destroy()
 	QDEL_NULL(nadeassembly)

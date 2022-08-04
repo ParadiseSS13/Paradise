@@ -66,7 +66,7 @@
 
 		var/mob/living/carbon/human/H = target
 		var/headarmor = 0 // Target's head armor
-		armor_block = H.run_armor_check(affecting, MELEE,"","",armour_penetration) // For normal attack damage
+		armor_block = H.run_armor_check(affecting, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage) // For normal attack damage
 
 		//If they have a hat/helmet and the user is targeting their head.
 		if(istype(H.head, /obj/item/clothing/head) && affecting == "head")
@@ -353,7 +353,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/molotov/CheckParts(list/parts_list)
 	..()
 	var/obj/item/reagent_containers/food/drinks/bottle/B = locate() in contents
-	if(B)	
+	if(B)
 		B.reagents.copy_to(src, 100)
 		if(!B.is_glass)
 			is_glass = FALSE

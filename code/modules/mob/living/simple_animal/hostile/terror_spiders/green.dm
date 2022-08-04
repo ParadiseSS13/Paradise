@@ -22,13 +22,12 @@
 	melee_damage_upper = 20
 	web_type = /obj/structure/spider/terrorweb/green
 	var/feedings_to_lay = 2
-	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/green/New()
-	..()
-	greeneggs_action = new()
-	greeneggs_action.Grant(src)
+/mob/living/simple_animal/hostile/poison/terror_spider/green/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/terrorspider/greeneggs/act = new
+	act.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green/proc/DoLayGreenEggs()
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)

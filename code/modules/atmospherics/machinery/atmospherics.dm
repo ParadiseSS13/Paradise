@@ -18,13 +18,14 @@ Pipelines + Other Objects -> Pipe network
 	active_power_usage = 0
 	power_channel = ENVIRON
 	on_blueprints = TRUE
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 	var/nodealert = FALSE
 	var/can_unwrench = FALSE
 	/// If the machine is currently operating or not.
 	var/on = FALSE
 	/// The amount of pressure the machine wants to operate at.
 	var/target_pressure = 0
-	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
+	var/list/connect_types = list(CONNECT_TYPE_NORMAL)
 	var/connected_to = 1 //same as above, currently not used for anything
 	var/icon_connect_type = "" //"-supply" or "-scrubbers"
 
@@ -33,21 +34,22 @@ Pipelines + Other Objects -> Pipe network
 	var/pipe_color
 	var/image/pipe_image
 
-/obj/machinery/atmospherics/New()
-	if (!armor)
-		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
-	..()
+
+/obj/machinery/atmospherics/Initialize(mapload)
+	. = ..()
+	SSair.atmos_machinery += src
+
 
 	if(!pipe_color)
 		pipe_color = color
+
 	color = null
 
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
 
-/obj/machinery/atmospherics/Initialize()
-	. = ..()
-	SSair.atmos_machinery += src
+/obj/machinery/atmospherics/proc/process_atmos() //If you dont use process why are you here
+	return PROCESS_KILL
 
 /obj/machinery/atmospherics/proc/atmos_init()
 	// Updates all pipe overlays and underlays
@@ -122,24 +124,20 @@ Pipelines + Other Objects -> Pipe network
 
 // Connect types
 /obj/machinery/atmospherics/proc/check_connect_types(obj/machinery/atmospherics/atmos1, obj/machinery/atmospherics/atmos2)
-	var/i
-	var/list1[] = atmos1.connect_types
-	var/list2[] = atmos2.connect_types
-	for(i=1,i<=list1.len,i++)
-		var/j
-		for(j=1,j<=list2.len,j++)
+	var/list/list1 = atmos1.connect_types
+	var/list/list2 = atmos2.connect_types
+	for(var/i in 1 to length(list1))
+		for(var/j in 1 to length(list2))
 			if(list1[i] == list2[j])
 				var/n = list1[i]
 				return n
 	return 0
 
 /obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/atmospherics/atmos1, obj/item/pipe/pipe2)
-	var/i
-	var/list1[] = atmos1.connect_types
-	var/list2[] = pipe2.connect_types
-	for(i=1,i<=list1.len,i++)
-		var/j
-		for(j=1,j<=list2.len,j++)
+	var/list/list1 = atmos1.connect_types
+	var/list/list2 = pipe2.connect_types
+	for(var/i in 1 to length(list1))
+		for(var/j in 1 to length(list2))
 			if(list1[i] == list2[j])
 				var/n = list1[i]
 				return n
@@ -247,7 +245,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		if(can_unwrench)
-			var/obj/item/pipe/stored = new(loc, make_from = src)
+			var/obj/item/pipe/stored = new(loc, null, null, src)
 			if(!disassembled)
 				stored.obj_integrity = stored.max_integrity * 0.5
 			transfer_fingerprints_to(stored)

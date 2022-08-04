@@ -51,21 +51,14 @@
 /mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		if(M.powerlevel > 0)
-			var/stunprob = M.powerlevel * 7 + 10  // 17 at level 1, 80 at level 10
-			if(prob(stunprob))
-				M.powerlevel -= 3
-				if(M.powerlevel < 0)
-					M.powerlevel = 0
-
-				visible_message("<span class='danger'>[M] has shocked [src]!</span>", "<span class='userdanger'>[M] has shocked you!</span>")
-
-				do_sparks(5, TRUE, src)
-				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT
-				Stun(power)
-				Stuttering(power)
-				if(prob(stunprob) && M.powerlevel >= 8)
-					adjustFireLoss(M.powerlevel * rand(6,10))
-					updatehealth("slime attack")
+			do_sparks(5, TRUE, src)
+			adjustStaminaLoss(M.powerlevel * 5) //5-50 stamina damage, at starting power level 10 this means 50, 35, 20 on consecutive hits - stamina crit in 3 hits
+			KnockDown(M.powerlevel SECONDS)
+			Stuttering(M.powerlevel SECONDS)
+			visible_message("<span class='danger'>[M] has shocked [src]!</span>", "<span class='userdanger'>[M] has shocked you!</span>")
+			M.powerlevel -= 3
+			if(M.powerlevel < 0)
+				M.powerlevel = 0
 		return 1
 
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)

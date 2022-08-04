@@ -29,8 +29,9 @@
 	melee_damage_type = STAMINA
 	admin_spawned = TRUE
 
-/mob/living/simple_animal/hostile/guardian/healer/New()
-	..()
+/mob/living/simple_animal/hostile/guardian/healer/Destroy()
+	beacon = null
+	return ..()
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()

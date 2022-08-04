@@ -112,7 +112,7 @@
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
-	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
+	desc = "A grotesque blade made of bone and flesh that cleaves through people like a hot knife through butter."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
@@ -193,8 +193,8 @@
 	throw_range = 0
 	throw_speed = 0
 
-/obj/item/gun/magic/tentacle/New(location,silent)
-	..()
+/obj/item/gun/magic/tentacle/Initialize(mapload, silent)
+	. = ..()
 	if(ismob(loc))
 		if(!silent)
 			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
