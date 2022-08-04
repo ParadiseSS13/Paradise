@@ -592,19 +592,22 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(panel_open)
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
-				. += "Its wires are exposed!"
+				if(emagged)
+					. += "<span class='notice'>There's some burned-out airlock electronics inside, it looks like they could be <b>pried</b> out!</span>"
+				else
+					. += "<span class='notice'>Its wires are exposed!</span>"
 			if(AIRLOCK_SECURITY_METAL)
-				. += "Its wires are hidden behind a welded metal cover."
+				. += "<span class='notice'>Its wires are hidden behind a welded metal cover.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_I_S)
-				. += "There is some shredded plasteel inside."
+				. += "<span class='notice'>There is some shredded plasteel inside.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_I)
-				. += "Its wires are behind an inner layer of plasteel."
+				. += "<span class='notice'>Its wires are behind an inner layer of plasteel.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_O_S)
-				. += "There is some shredded plasteel inside."
+				. += "<span class='notice'>There is some shredded plasteel inside.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
-				. += "There is a welded plasteel cover hiding its wires."
+				. += "<span class='notice'>There is a welded plasteel cover hiding its wires.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL)
-				. += "There is a protective grille over its panel."
+				. += "<span class='notice'>There is a protective grille over its panel.</span>"
 	else if(security_level)
 		if(security_level == AIRLOCK_SECURITY_METAL)
 			. += "It looks a bit stronger."

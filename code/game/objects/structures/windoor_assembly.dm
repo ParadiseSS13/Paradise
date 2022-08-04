@@ -7,12 +7,13 @@
  * Step 6: Set access for the door.
  * Step 7: Crowbar the door to complete
  */
-
+#define WINDOOR_FRAME 0
+#define WINDOOR_WIRED 1
 
 /obj/structure/windoor_assembly
 	icon = 'icons/obj/doors/windoor.dmi'
 	name = "windoor assembly"
-	icon_state = "l_windoor_assembly01"
+	icon_state = "l_windoor_assembly0"
 	desc = "A small glass and wire assembly for windoors."
 	anchored = FALSE
 	density = FALSE
@@ -25,11 +26,24 @@
 	//Vars to help with the icon's name
 	var/facing = "l"	//Does the windoor open to the left or right?
 	var/secure = FALSE		//Whether or not this creates a secure windoor
-	var/state = "01"	//How far the door assembly has progressed
+	var/buildstage = WINDOOR_FRAME	//How far the door assembly has progressed
 
 /obj/structure/windoor_assembly/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
+	switch(buildstage)
+		if(WINDOOR_FRAME)
+			if(anchored)
+				. += "<span class='notice'>It is <b>bolted</b> to the floor and has space for some <i>wiring</i>.</span>"
+			else
+				. += "<span class='notice'>You could <b>weld</b> apart the glass or <i>bolt</i> it to the floor.</span>"
+			. += "<span class='notice'>It looks like it could be <b>reinforced</b>.</span>"
+		if(WINDOOR_WIRED)
+			if(!electronics) //screwdriver act
+				. += "<span class='notice'>Theres some <b>cables</b> inside and the <i>circuit</i> slot is empty.</span>"
+			else
+				. += "<span class='notice'>It looks like it could be <i>pried</i> closed.</span>"
+	if(!anchored)
+		. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
 	. = ..()
@@ -51,7 +65,7 @@
 	move_update_air(T)
 
 /obj/structure/windoor_assembly/update_icon_state()
-	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[state]"
+	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[buildstage]"
 
 /obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -87,8 +101,8 @@
 /obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, params)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
 	add_fingerprint(user)
-	switch(state)
-		if("01")
+	switch(buildstage)
+		if(WINDOOR_FRAME)
 			//Adding plasteel makes the assembly a secure windoor assembly. Step 2 (optional) complete.
 			if(istype(W, /obj/item/stack/sheet/plasteel) && !secure)
 				var/obj/item/stack/sheet/plasteel/P = W
@@ -115,13 +129,13 @@
 				user.visible_message("[user] wires the windoor assembly.", "You start to wire the windoor assembly...")
 
 				if(do_after(user, 40 * W.toolspeed, target = src))
-					if(!src || !anchored || state != "01")
+					if(!src || !anchored || buildstage != WINDOOR_FRAME)
 						return
 					var/obj/item/stack/cable_coil/CC = W
 					CC.use(1)
 					to_chat(user, "<span class='notice'>You wire the windoor.</span>")
 					playsound(loc, CC.usesound, 100, 1)
-					state = "02"
+					buildstage = WINDOOR_WIRED
 					if(secure)
 						name = "secure wired windoor assembly"
 					else
@@ -129,7 +143,7 @@
 			else
 				return ..()
 
-		if("02")
+		if(WINDOOR_WIRED)
 			//Adding airlock electronics for access. Step 6 complete.
 			if(istype(W, /obj/item/airlock_electronics) && !istype(W, /obj/item/airlock_electronics/destroyed))
 				playsound(loc, W.usesound, 100, 1)
@@ -159,7 +173,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/crowbar_act(mob/user, obj/item/I)	//Crowbar to complete the assembly, Step 7 complete.
-	if(state != "02")
+	if(buildstage != WINDOOR_WIRED)
 		return
 	. = TRUE
 	if(!electronics)
@@ -213,7 +227,7 @@
 		windoor.close()
 
 /obj/structure/windoor_assembly/screwdriver_act(mob/user, obj/item/I)
-	if(state != "02" || !electronics)
+	if(buildstage != WINDOOR_WIRED || !electronics)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -229,17 +243,17 @@
 	ae.forceMove(loc)
 
 /obj/structure/windoor_assembly/wirecutter_act(mob/user, obj/item/I)
-	if(state != "02")
+	if(buildstage != WINDOOR_WIRED)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] cuts the wires from the windoor assembly.", "You start to cut the wires from windoor assembly...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != "02")
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || buildstage != WINDOOR_WIRED)
 		return
 	to_chat(user, "<span class='notice'>You cut the windoor wires.</span>")
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
-	state = "01"
+	buildstage = WINDOOR_FRAME
 	if(secure)
 		name = "secure anchored windoor assembly"
 	else
@@ -247,7 +261,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/wrench_act(mob/user, obj/item/I)
-	if(state != "01")
+	if(buildstage != WINDOOR_FRAME)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -259,7 +273,7 @@
 				return
 		user.visible_message("[user] secures the windoor assembly to the floor.", "You start to secure the windoor assembly to the floor...")
 
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || anchored || state != "01")
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || anchored || buildstage != WINDOOR_FRAME)
 			return
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
@@ -274,7 +288,7 @@
 
 	else	//Unwrenching an unsecure assembly un-anchors it. Step 4 undone
 		user.visible_message("[user] unsecures the windoor assembly from the floor.", "You start to unsecure the windoor assembly from the floor...")
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !anchored || state != "01")
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !anchored || buildstage != WINDOOR_FRAME)
 			return
 		to_chat(user, "<span class='notice'>You unsecure the windoor assembly.</span>")
 		anchored = FALSE
@@ -285,13 +299,13 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/welder_act(mob/user, obj/item/I)
-	if(state != "01")
+	if(buildstage != WINDOOR_FRAME)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume) && state == "01")
+	if(I.use_tool(src, user, 40, volume = I.tool_volume) && buildstage == WINDOOR_FRAME)
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		var/obj/item/stack/sheet/rglass/RG = new (get_turf(src), 5)
 		RG.add_fingerprint(user)
@@ -350,3 +364,6 @@
 
 	update_icon(UPDATE_ICON_STATE)
 	return
+
+#undef WINDOOR_FRAME
+#undef WINDOOR_WIRED

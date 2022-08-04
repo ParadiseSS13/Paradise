@@ -135,7 +135,7 @@
 
 /obj/machinery/newscaster/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is <i>bolted</i> onto the wall.</span>"
+	. += "<span class='notice'>It is <b>bolted</b> onto the wall.</span>"
 
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE

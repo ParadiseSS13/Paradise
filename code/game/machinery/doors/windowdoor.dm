@@ -46,7 +46,15 @@
 /obj/machinery/door/window/examine(mob/user)
 	. = ..()
 	if(emagged)
-		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+		. += "<span class='warning'>Its maintenance panel is smoking slightly.</span>"
+	if(!density && !operating) //If its open
+		if(!panel_open)
+			. += "<span class='notice'>Its maintenance panel could be <i>screwed</i> open.</span>"
+		else
+			. += decon_examine() // because clockwork windoors want to be special // FUUUUUUUUUCK windoors, this doesnt work yet. TODO: MAKE IT WORK
+
+/obj/machinery/door/window/proc/decon_examine()
+	return "<span class='notice'>The electronics could be <b>pried</b> out, or the maintenance panel could be <i>screwed</i> closed.</span>"
 
 /obj/machinery/door/window/emp_act(severity)
 	. = ..()
@@ -278,7 +286,7 @@
 						WA.facing = "r"
 						WA.secure = TRUE
 				WA.anchored = TRUE
-				WA.state= "02"
+				WA.buildstage = 1
 				WA.setDir(dir)
 				WA.ini_dir = dir
 				WA.update_icon()
@@ -350,6 +358,9 @@
 	cable = 0
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	var/made_glow = FALSE
+
+/obj/machinery/door/window/clockwork/decon_examine()
+	return "<span class='notice'>It looks like it could be <b>welded</b> down.</span>"
 
 /obj/machinery/door/window/clockwork/crowbar_act(mob/user, obj/item/I)
 	if(operating)

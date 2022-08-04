@@ -5,6 +5,7 @@
 
 /obj/machinery/porta_turret
 	name = "turret"
+	desc = "For when you don't feel like shooting people yourself."
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "turretCover"
 	anchored = TRUE
@@ -53,7 +54,6 @@
 
 	var/datum/effect_system/spark_spread/spark_system	//the spark system, used for generating... sparks?
 
-	var/wrenching = FALSE
 	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
 
 	var/one_access = FALSE // Determines if access control is set to req_one_access or req_access
@@ -323,54 +323,57 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		stat |= NOPOWER
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/porta_turret/examine(mob/user)
+	. = ..()
+	if((stat & BROKEN) && !syndicate)
+		. += "<span class='notice'>You could <i>pry</i> out some parts to salvage.</span>"
+	if(anchored)
+		. += "<span class='notice'>It is <b>bolted</b> to the floor.</span>"
+	else
+		. += "<span class='notice'>It could be <b>bolted</b> to the floor.</span>"
+
+/obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(!(stat & BROKEN) || syndicate)
+		return
+	//If the turret is destroyed, you can try to salvage components
+	to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
+	if(do_after(user, 20 * I.toolspeed, target = src))
+		if(prob(70))
+			. = TRUE
+			to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
+			if(installation)
+				var/obj/item/gun/energy/Gun = new installation(loc)
+				Gun.cell.charge = gun_charge
+				Gun.update_icon()
+			new /obj/item/stack/sheet/metal(loc, rand(1,9))
+			if(prob(50))
+				new /obj/item/assembly/prox_sensor(loc)
+		else
+			to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
+		qdel(src)
+
+/obj/machinery/porta_turret/wrench_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(enabled || raised)
+		to_chat(user, "<span class='warning'>You cannot unsecure an active turret!</span>")
+		return
+	if(!anchored && isinspace())
+		to_chat(user, "<span class='warning'>Cannot secure turrets in space!</span>")
+		return
+
+	. = TRUE
+	user.visible_message("<span class='warning'>[user] begins [anchored ? "un" : ""]securing the turret.</span>", \
+						"<span class='notice'>You begin [anchored ? "un" : ""]securing the turret.</span>")
+
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	update_icon(UPDATE_ICON_STATE)
+	to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
-	if((stat & BROKEN) && !syndicate)
-		if(istype(I, /obj/item/crowbar))
-			//If the turret is destroyed, you can remove it with a crowbar to
-			//try and salvage its components
-			to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
-			if(do_after(user, 20 * I.toolspeed, target = src))
-				if(prob(70))
-					to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
-					if(installation)
-						var/obj/item/gun/energy/Gun = new installation(loc)
-						Gun.cell.charge = gun_charge
-						Gun.update_icon()
-					if(prob(50))
-						new /obj/item/stack/sheet/metal(loc, rand(1,4))
-					if(prob(50))
-						new /obj/item/assembly/prox_sensor(loc)
-				else
-					to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
-				qdel(src) // qdel
-
-	else if((istype(I, /obj/item/wrench)))
-		if(enabled || raised)
-			to_chat(user, "<span class='warning'>You cannot unsecure an active turret!</span>")
-			return
-		if(wrenching)
-			to_chat(user, "<span class='warning'>Someone is already [anchored ? "un" : ""]securing the turret!</span>")
-			return
-		if(!anchored && isinspace())
-			to_chat(user, "<span class='warning'>Cannot secure turrets in space!</span>")
-			return
-
-		user.visible_message( \
-				"<span class='warning'>[user] begins [anchored ? "un" : ""]securing the turret.</span>", \
-				"<span class='notice'>You begin [anchored ? "un" : ""]securing the turret.</span>" \
-			)
-
-		wrenching = TRUE
-		if(do_after(user, 50 * I.toolspeed, target = src))
-			//This code handles moving the turret around. After all, it's a portable turret!
-			playsound(loc, I.usesound, 100, 1)
-			anchored = !anchored
-			update_icon(UPDATE_ICON_STATE)
-			to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
-		wrenching = FALSE
-
-	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(HasController())
 			to_chat(user, "<span class='notice'>Turrets regulated by a nearby turret controller are not unlockable.</span>")
 		else if(allowed(user))
@@ -384,7 +387,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		//if the turret was attacked with the intention of harming it:
 		user.changeNext_move(CLICK_CD_MELEE)
 		take_damage(I.force * 0.5)
-		playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
+		playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1) // this makes hitting it with welders make a smash sound, weird.
 		if(I.force * 0.5 > 1) //if the force of impact dealt at least 1 damage, the turret gets pissed off
 			if(!attacked && !emagged)
 				attacked = TRUE
@@ -797,64 +800,65 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		Portable turret constructions
 		Known as "turret frame"s
 */
+#define TURRET_CONSTRUCT_FRAME 			0
+#define TURRET_CONSTRUCT_BOLTS 			1
+#define TURRET_CONSTRUCT_ADD_ARMOR 		2
+#define TURRET_CONSTRUCT_SECURE_ARMOR 	3
+#define TURRET_CONSTRUCT_GUN 			4
+#define TURRET_CONSTRUCT_PROX 			5
+#define TURRET_CONSTRUCT_SCREWS 		6
+#define TURRET_CONSTRUCT_ARMOR2			7
+#define TURRET_CONSTRUCT_COMPLETE		8
 
 /obj/machinery/porta_turret_construct
 	name = "turret frame"
+	desc = "For assembling a newer bigger gun."
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "turret_frame"
 	density=1
 	var/target_type = /obj/machinery/porta_turret	// The type we intend to build
-	var/build_step = 0			//the current step in the building process
-	var/finish_name="turret"	//the name applied to the product turret
+	var/buildstage = 0			//the current step in the building process
+	var/finish_name = "turret"	//the name applied to the product turret
 	var/installation = null		//the gun type installed
 	var/gun_charge = 0			//the gun charge of the gun type installed
 
+/obj/machinery/porta_turret_construct/examine(mob/user)
+	. = ..()
+	switch(buildstage) // god why is this so complicated?
+		if(TURRET_CONSTRUCT_FRAME)
+			. += "<span class='notice'>You could <i>bolt</i> it down or <b>welded down</b>.</span>" // TODO: ALL OF THESE ARE VERY LAZING DONE AND NEED TO BE IMPROVED
+		if(TURRET_CONSTRUCT_BOLTS)
+			. += "<span class='notice'>You could <i>add metal</i> armor or <b>unbolt</b> it from the floor.</span>"
+		if(TURRET_CONSTRUCT_ADD_ARMOR)
+			. += "<span class='notice'>You could <i>bolt</i> the armor into place or <b>pry</b> off the armor</span>"
+		if(TURRET_CONSTRUCT_SECURE_ARMOR)
+			. += "<span class='notice'>You could <i>add a gun</i> or remove the armor's <b>bolts</b>.</span>"
+		if(TURRET_CONSTRUCT_GUN)
+			. += "<span class='notice'>You could <i>add a proximity sensor</i> or <b>pry</b> out the gun.</span>"
+		if(TURRET_CONSTRUCT_PROX)
+			. += "<span class='notice'>You could <i>screw</i> it or <b>pry</b> out the the proximity sensor</span>"
+		if(TURRET_CONSTRUCT_SCREWS)
+			. += "<span class='notice'>You could <i>add more metal</i> armor or <b>screw</b> it open.</span>"
+		if(TURRET_CONSTRUCT_ARMOR2)
+			. += "<span class='notice'>You could <i>weld</i> all the armor pieces together or <b>pry</b> off the armor.</span>"
 
 /obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user)
 	//this is a bit unwieldy but self-explanatory
-	switch(build_step)
-		if(0)	//first step
-			if(istype(I, /obj/item/wrench) && !anchored)
-				playsound(loc, I.usesound, 100, 1)
-				to_chat(user, "<span class='notice'>You secure the external bolts.</span>")
-				anchored = TRUE
-				build_step = 1
-				return
-
-			else if(istype(I, /obj/item/crowbar) && !anchored)
-				playsound(loc, I.usesound, 75, 1)
-				to_chat(user, "<span class='notice'>You dismantle the turret construction.</span>")
-				new /obj/item/stack/sheet/metal( loc, 5)
-				qdel(src) // qdel
-				return
-
-		if(1)
+	switch(buildstage)
+		if(TURRET_CONSTRUCT_BOLTS)
 			if(istype(I, /obj/item/stack/sheet/metal))
 				var/obj/item/stack/sheet/metal/M = I
-				if(M.use(2))
-					to_chat(user, "<span class='notice'>You add some metal armor to the interior frame.</span>")
-					build_step = 2
-					icon_state = "turret_frame2"
-				else
+				if(M.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
+					return
+				to_chat(user, "<span class='notice'>You start adding some metal armor to the interior frame...</span>")
+				if(if(do_after(user, 20, 1, target = src)) && M.use(2))
+					to_chat(user, "<span class='notice'>You add some metal armor to the interior frame.</span>")
+					buildstage = TURRET_CONSTRUCT_ADD_ARMOR
+					update_icon(UPDATE_ICON_STATE)
 				return
 
-			else if(istype(I, /obj/item/wrench))
-				playsound(loc, I.usesound, 75, 1)
-				to_chat(user, "<span class='notice'>You unfasten the external bolts.</span>")
-				anchored = FALSE
-				build_step = 0
-				return
-
-
-		if(2)
-			if(istype(I, /obj/item/wrench))
-				playsound(loc, I.usesound, 100, 1)
-				to_chat(user, "<span class='notice'>You bolt the metal armor into place.</span>")
-				build_step = 3
-				return
-
-		if(3)
+		if(TURRET_CONSTRUCT_SECURE_ARMOR)
 			if(istype(I, /obj/item/gun/energy)) //the gun installation part
 
 				if(isrobot(user))
@@ -877,57 +881,28 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				else
 					target_type = /obj/machinery/porta_turret
 
-				build_step = 4
-				qdel(I) //delete the gun :( qdel
+				buildstage = TURRET_CONSTRUCT_GUN
+				qdel(I)
 				return
 
-			else if(istype(I, /obj/item/wrench))
-				playsound(loc, I.usesound, 100, 1)
-				to_chat(user, "<span class='notice'>You remove the turret's metal armor bolts.</span>")
-				build_step = 2
-				return
-
-		if(4)
-			if(isprox(I))
+		if(TURRET_CONSTRUCT_GUN)
+			if(isprox(I)) // proximity sensors
 				if(!user.unEquip(I))
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return
-				build_step = 5
-				qdel(I) // qdel
-				to_chat(user, "<span class='notice'>You add the prox sensor to the turret.</span>")
+				buildstage = TURRET_CONSTRUCT_PROX
+				qdel(I)
+				to_chat(user, "<span class='notice'>You add [I] to the turret.</span>")
 				return
 
-			//attack_hand() removes the gun
-
-		if(5)
-			if(istype(I, /obj/item/screwdriver))
-				playsound(loc, I.usesound, 100, 1)
-				build_step = 6
-				to_chat(user, "<span class='notice'>You close the internal access hatch.</span>")
-				return
-
-			//attack_hand() removes the prox sensor
-
-		if(6)
+		if(TURRET_CONSTRUCT_SCREWS)
 			if(istype(I, /obj/item/stack/sheet/metal))
 				var/obj/item/stack/sheet/metal/M = I
 				if(M.use(2))
 					to_chat(user, "<span class='notice'>You add some metal armor to the exterior frame.</span>")
-					build_step = 7
+					buildstage = TURRET_CONSTRUCT_ARMOR2
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
-				return
-
-			else if(istype(I, /obj/item/screwdriver))
-				playsound(loc, I.usesound, 100, 1)
-				build_step = 5
-				to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
-				return
-			else if(istype(I, /obj/item/crowbar))
-				playsound(loc, I.usesound, 75, 1)
-				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
-				new /obj/item/stack/sheet/metal(loc, 2)
-				build_step = 6
 				return
 
 	if(istype(I, /obj/item/pen))	//you can rename turrets like bots!
@@ -942,40 +917,51 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	..()
 
-/obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/I)
-	. = TRUE
-	if(build_step == 2)
-		if(!I.use_tool(src, user, 20, 5, volume = I.tool_volume))
-			return
-		if(build_step != 2)
-			return
-		build_step = 1
-		to_chat(user, "<span class='notice'>You remove the turret's interior metal armor.</span>")
-		new /obj/item/stack/sheet/metal(drop_location(), 2)
-	else if(build_step == 7)
-		if(!I.use_tool(src, user, 50, amount = 5, volume = I.tool_volume))
-			return
-		if(build_step != 7)
-			return
-		build_step = 8
-		to_chat(user, "<span class='notice'>You weld the turret's armor down.</span>")
-
-		//The final step: create a full turret
-		var/obj/machinery/porta_turret/Turret = new target_type(loc)
-		Turret.name = finish_name
-		Turret.installation = installation
-		Turret.gun_charge = gun_charge
-		Turret.enabled = FALSE
-		Turret.setup()
-
-		qdel(src)
-
-/obj/machinery/porta_turret_construct/attack_hand(mob/user)
-	switch(build_step)
-		if(4)
-			if(!installation)
+/obj/machinery/porta_turret_construct/wrench_act(mob/living/user, obj/item/I)
+	. = ..()
+	switch(buildstage)
+		if(TURRET_CONSTRUCT_FRAME, TURRET_CONSTRUCT_BOLTS)
+			if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 				return
-			build_step = 3
+			. = TRUE
+			to_chat(user, "<span class='notice'>You [buildstage == TURRET_CONSTRUCT_FRAME ? "" : "un"]fasten the external bolts.</span>")
+			anchored = !anchored
+			if(buildstage == TURRET_CONSTRUCT_FRAME)
+				buildstage = TURRET_CONSTRUCT_BOLTS
+			else
+				buildstage = TURRET_CONSTRUCT_FRAME
+
+		if(TURRET_CONSTRUCT_ADD_ARMOR)
+			if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+				return
+			. = TRUE
+			to_chat(user, "<span class='notice'>You bolt the metal armor into place.</span>")
+			buildstage = TURRET_CONSTRUCT_SECURE_ARMOR
+
+		if(TURRET_CONSTRUCT_SECURE_ARMOR)
+			if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+				return
+			. = TRUE
+			to_chat(user, "<span class='notice'>You remove the turret's metal armor bolts.</span>")
+			buildstage = TURRET_CONSTRUCT_ADD_ARMOR
+
+/obj/machinery/porta_turret_construct/crowbar_act(mob/living/user, obj/item/I)
+	. = ..()
+	switch(buildstage)
+		if(TURRET_CONSTRUCT_ADD_ARMOR)
+			if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+				return
+			. = TRUE
+			to_chat(user, "<span class='notice'>You pry off the turret frame's interior armor.</span>")
+			new /obj/item/stack/sheet/metal(loc, 2)
+			buildstage = TURRET_CONSTRUCT_BOLTS
+			update_icon(UPDATE_ICON_STATE)
+
+		if(TURRET_CONSTRUCT_GUN)
+			if(!installation || !I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+				return
+			buildstage = TURRET_CONSTRUCT_SECURE_ARMOR
+			. = TRUE
 
 			var/obj/item/gun/energy/Gun = new installation(loc)
 			Gun.cell.charge = gun_charge
@@ -984,10 +970,73 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			gun_charge = 0
 			to_chat(user, "<span class='notice'>You remove [Gun] from the turret frame.</span>")
 
-		if(5)
-			to_chat(user, "<span class='notice'>You remove the prox sensor from the turret frame.</span>")
+		if(TURRET_CONSTRUCT_PROX)
+			if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+				return
+			. = TRUE
+			to_chat(user, "<span class='notice'>You remove the proximity sensor from the turret frame.</span>")
 			new /obj/item/assembly/prox_sensor(loc)
-			build_step = 4
+			buildstage = TURRET_CONSTRUCT_GUN
+
+		if(TURRET_CONSTRUCT_ARMOR2)
+			if(!I.tool_use_check(user, 0))
+				return
+			. = TRUE
+			to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
+			new /obj/item/stack/sheet/metal(loc, 2)
+			buildstage = TURRET_CONSTRUCT_SCREWS
+
+/obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	switch(buildstage)
+		if(TURRET_CONSTRUCT_PROX)
+			if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+				return
+			. = TRUE
+			buildstage = TURRET_CONSTRUCT_SCREWS
+			to_chat(user, "<span class='notice'>You close the internal access hatch.</span>")
+
+		if(TURRET_CONSTRUCT_SCREWS)
+			if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+				return
+			. = TRUE
+			buildstage = TURRET_CONSTRUCT_PROX
+			to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
+
+/obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/I)
+	switch(buildstage)
+		if(TURRET_CONSTRUCT_FRAME)
+			if(!I.use_tool(src, user, 20, 5, volume = I.tool_volume) || buildstage != TURRET_CONSTRUCT_FRAME)
+				return
+			. = TRUE
+			to_chat(user, "<span class='notice'>You dismantle the turret construction.</span>")
+			new /obj/item/stack/sheet/metal(loc, 5)
+			qdel(src)
+
+		if(TURRET_CONSTRUCT_ARMOR2) //Finalize it and create new turret
+			if(!I.use_tool(src, user, 50, amount = 5, volume = I.tool_volume) || buildstage != TURRET_CONSTRUCT_ARMOR2)
+				return
+			. = TRUE
+			buildstage = TURRET_CONSTRUCT_COMPLETE
+			to_chat(user, "<span class='notice'>You weld the turret's armor down.</span>")
+
+			//The final step: create a full turret
+			var/obj/machinery/porta_turret/Turret = new target_type(loc)
+			Turret.name = finish_name
+			Turret.installation = installation
+			Turret.gun_charge = gun_charge
+			Turret.enabled = FALSE
+			Turret.setup()
+
+			qdel(src)
+
+/obj/machinery/porta_turret_construct/update_icon_state()
+	. = ..()
+	if(buildstage >= TURRET_CONSTRUCT_ADD_ARMOR)
+		icon_state = "turret_frame2"
+	else
+		icon_state = "turret_frame"
+
 
 /obj/machinery/porta_turret_construct/attack_ai()
 	return

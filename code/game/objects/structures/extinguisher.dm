@@ -33,7 +33,7 @@
 
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is <i>bolted</i> onto the wall.</span>"
+	. += "<span class='notice'>It is <b>bolted</b> onto the wall.</span>"
 
 
 /obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
@@ -87,12 +87,20 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/structure/extinguisher_cabinet/wrench_act(mob/user, obj/item/I)
-	. = TRUE
+/obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I)
+	if(has_extinguisher)
+		to_chat(user, "<span class='warning'>You need to remove the extinguisher before deconstructing [src]!</span>")
+		return
+	if(!opened)
+		to_chat(user, "<span class='warning'>Open the cabinet before cutting it apart!</span>")
+		return
 	if(!I.tool_use_check(user, 0))
 		return
-	WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
-	deconstruct(TRUE)
+	. = TRUE
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		deconstruct(TRUE)
 
 /obj/structure/extinguisher_cabinet/attack_hand(mob/user)
 	if(isrobot(user) || isalien(user))
