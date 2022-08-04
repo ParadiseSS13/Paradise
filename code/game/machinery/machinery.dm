@@ -124,6 +124,7 @@ Class Procs:
 	var/datum/radio_frequency/radio_connection
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
+	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -139,13 +140,13 @@ Class Procs:
 	return FALSE
 
 /obj/machinery/Initialize(mapload)
-	if(!armor)
-		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	. = ..()
+
 	GLOB.machines += src
 
 	if(use_power)
 		myArea = get_area(src)
+
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
 	else
@@ -186,9 +187,6 @@ Class Procs:
 	return
 
 /obj/machinery/process() // If you dont use process or power why are you here
-	return PROCESS_KILL
-
-/obj/machinery/proc/process_atmos() //If you dont use process why are you here
 	return PROCESS_KILL
 
 /obj/machinery/emp_act(severity)

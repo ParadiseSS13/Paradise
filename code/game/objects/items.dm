@@ -66,7 +66,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/permeability_coefficient = 1 // for chemicals/diseases
 	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
 	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
-	var/armour_penetration = 0 //percentage of armour effectiveness to remove
+	/// Flat armour reduction, occurs after percentage armour penetration.
+	var/armour_penetration_flat = 0
+	/// Percentage armour reduction, happens before flat armour reduction.
+	var/armour_penetration_percentage = 0
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
