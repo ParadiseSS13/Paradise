@@ -191,7 +191,7 @@
 		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
 		H.WakeUp()
 		H.forceMove(loc)
-		H.create_log(MISC_LOG, "has emerged from their cocoon, with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
+		H.create_log(MISC_LOG, "has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
 	return ..()
 
 /datum/status_effect/burnt_wings
