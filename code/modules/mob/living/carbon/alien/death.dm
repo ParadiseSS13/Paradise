@@ -14,6 +14,14 @@
 
 	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 
+	if(LAZYLEN(stomach_contents)) //Release eaten mobs when Beno is gibbed
+		for(var/mob/M in src)
+			LAZYREMOVE(stomach_contents, M)
+			M.forceMove(drop_location())
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.KnockDown(5 SECONDS)
+
 	flick("gibbed-a", animation)
 	xgibs(loc)
 	GLOB.dead_mob_list -= src
