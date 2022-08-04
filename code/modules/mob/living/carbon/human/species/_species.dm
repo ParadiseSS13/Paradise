@@ -357,9 +357,7 @@
 	return
 
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
-	var/hit_percent = (100 - (blocked + armor)) / 100
-	hit_percent = (hit_percent * (100 - H.physiology.damage_resistance)) / 100
-	if(!damage || (hit_percent <= 0))
+	if(!damage)
 		return FALSE
 
 	var/obj/item/organ/external/organ = null
@@ -375,7 +373,7 @@
 
 	switch(damagetype)
 		if(BRUTE)
-			var/damage_amount = damage * hit_percent * brute_mod * H.physiology.brute_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, blocked, brute_mod * H.physiology.brute_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -385,7 +383,7 @@
 			else //no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount)
 		if(BURN)
-			var/damage_amount = damage * hit_percent * burn_mod * H.physiology.burn_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, blocked, burn_mod * H.physiology.burn_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -395,19 +393,19 @@
 			else
 				H.adjustFireLoss(damage_amount)
 		if(TOX)
-			var/damage_amount = damage * hit_percent * H.physiology.tox_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, blocked, H.physiology.tox_mod)
 			H.adjustToxLoss(damage_amount)
 		if(OXY)
-			var/damage_amount = damage * hit_percent * H.physiology.oxy_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, blocked, H.physiology.oxy_mod)
 			H.adjustOxyLoss(damage_amount)
 		if(CLONE)
-			var/damage_amount = damage * hit_percent * H.physiology.clone_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, blocked, H.physiology.clone_mod)
 			H.adjustCloneLoss(damage_amount)
 		if(STAMINA)
-			var/damage_amount = damage * hit_percent * H.physiology.stamina_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, blocked, H.physiology.stamina_mod)
 			H.adjustStaminaLoss(damage_amount)
 		if(BRAIN)
-			var/damage_amount = damage * hit_percent * H.physiology.brain_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, blocked, H.physiology.brain_mod)
 			H.adjustBrainLoss(damage_amount)
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().

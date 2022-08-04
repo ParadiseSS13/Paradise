@@ -825,6 +825,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = mutable_appearance(head.icon_override, "[head.icon_state]", layer = -HEAD_LAYER)
 		else if(head.sprite_sheets && head.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(head.sprite_sheets[dna.species.name], "[head.icon_state]", layer = -HEAD_LAYER)
+			if(istype(head, /obj/item/clothing/head/helmet/space/plasmaman))
+				var/obj/item/clothing/head/helmet/space/plasmaman/P = head
+				if(!P.up)
+					standing.overlays += P.visor_icon
 		else
 			standing = mutable_appearance('icons/mob/clothing/head.dmi', "[head.icon_state]", layer = -HEAD_LAYER)
 

@@ -33,7 +33,6 @@
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, RAD)
 	if(!prob(60))
 		return
 
@@ -41,10 +40,11 @@
 		return
 
 	var/mob/living/carbon/human/H = L
-	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))
+	var/resist = H.getarmor(null, RAD)
+	if(HAS_TRAIT(H, TRAIT_RADIMMUNE) || resist == INFINITY)
 		return
 
-	if(prob(max(0, 100 - resist)) && !HAS_TRAIT(H, TRAIT_GENELESS))
+	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))) && !HAS_TRAIT(H, TRAIT_GENELESS))
 		randmuti(H) // Applies bad mutation
 		if(prob(50))
 			if(prob(90))

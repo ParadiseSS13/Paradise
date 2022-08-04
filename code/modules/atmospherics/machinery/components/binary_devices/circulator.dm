@@ -27,15 +27,16 @@
 /obj/item/pipe/circulator
 	name = "circulator/heat exchanger fitting"
 
-/obj/item/pipe/circulator/New(loc)
-	var/obj/machinery/atmospherics/binary/circulator/C = new /obj/machinery/atmospherics/binary/circulator(null)
-	..(loc, make_from = C)
+/obj/item/pipe/circulator/Initialize(mapload, pipe_type, dir, obj/machinery/atmospherics/make_from)
+	. = ..(make_from = new /obj/machinery/atmospherics/binary/circulator(null))
 
 /obj/machinery/atmospherics/binary/circulator/Destroy()
 	if(generator && generator.cold_circ == src)
 		generator.cold_circ = null
+
 	else if(generator && generator.hot_circ == src)
 		generator.hot_circ = null
+
 	return ..()
 
 /obj/machinery/atmospherics/binary/circulator/proc/return_transfer_air()

@@ -9,6 +9,20 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/obj/item/reagent_containers/iv_bag/bag = null
 
+/obj/machinery/iv_drip/Initialize(mapload)
+	. = ..()
+	if(!mapload || bag) // bag just in case anyone in the future ever adds IV drip subtypes with bags attached
+		return
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/iv_drip/LateInitialize()
+	var/obj/item/reagent_containers/iv_bag/IV = locate(/obj/item/reagent_containers/iv_bag) in loc
+	if(IV)
+		IV.forceMove(src)
+		bag = IV
+		START_PROCESSING(SSmachines, src)
+		update_icon(UPDATE_OVERLAYS)
+
 /obj/machinery/iv_drip/process()
 	if(istype(bag) && bag.injection_target)
 		update_icon(UPDATE_OVERLAYS)
