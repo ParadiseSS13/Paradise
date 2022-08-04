@@ -86,7 +86,7 @@
 	name = "scrubbers pipe endcap"
 	desc = "An endcap for scrubbers pipes"
 	icon_state = "cap-scrubbers"
-	connect_types = list(3)
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = 2.38
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
@@ -95,7 +95,7 @@
 	name = "supply pipe endcap"
 	desc = "An endcap for supply pipes"
 	icon_state = "cap-supply"
-	connect_types = list(2)
+	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
@@ -109,7 +109,7 @@
 	name = "scrubbers pipe endcap"
 	desc = "An endcap for scrubbers pipes"
 	icon_state = "cap-scrubbers"
-	connect_types = list(3)
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = 2.38
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
@@ -118,7 +118,7 @@
 	name = "supply pipe endcap"
 	desc = "An endcap for supply pipes"
 	icon_state = "cap-supply"
-	connect_types = list(2)
+	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE

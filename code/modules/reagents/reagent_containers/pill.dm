@@ -32,7 +32,7 @@
 	return FALSE
 
 /obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
-	if(!proximity || !target.is_open_container())
+	if(!proximity || !target.is_refillable())
 		return
 	to_chat(user, "<span class='notice'>You [!target.reagents.total_volume ? "break open" : "dissolve"] [src] in [target].</span>")
 	for(var/mob/O in oviewers(2, user))
