@@ -10,7 +10,7 @@
 		/datum/surgery_step/internal/gland_insert,
 		/datum/surgery_step/generic/cauterize
 	)
-	possible_locs = list("chest")
+	possible_locs = list(BODY_ZONE_CHEST)
 	requires_organic_bodypart = TRUE
 	requires_bodypart = TRUE
 
@@ -87,7 +87,7 @@
 		/datum/surgery_step/internal/gland_insert,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list("chest")
+	possible_locs = list(BODY_ZONE_CHEST)
 	requires_organic_bodypart = FALSE
 	requires_bodypart = TRUE
 
