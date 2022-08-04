@@ -543,10 +543,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	WRENCH_UNANCHOR_WALL_ATTEMPT_MESSAGE
 	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 		return
-	WRENCH_UNANCHOR_WALL_MESSAGE
+	WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
 	new /obj/item/mounted/frame/light_switch/windowtint(get_turf(src))
 	qdel(src)
 

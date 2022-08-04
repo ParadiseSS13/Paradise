@@ -14,6 +14,10 @@
 #define MAXIMUM_SAFE_BACKUP_CHARGE 600
 #define EMERGENCY_LIGHT_POWER_USE 0.5
 
+#define FIXTURE_EMPTY 0
+#define FIXTURE_WIRED 1
+#define FIXTURE_READY 2
+
 /**
   * # Light fixture frame
   *
@@ -30,8 +34,8 @@
 	layer = 5
 	max_integrity = 200
 	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
-	/// Construction stage (1 = Empty frame | 2 = Wired frame | 3 = Completed frame)
-	var/stage = 1
+	/// Construction buildstage (0 = Empty frame | 1 = Wired frame | 2 = Completed frame)
+	var/buildstage = 0
 	/// Light bulb type
 	var/fixture_type = "tube"
 	/// How many metal sheets get given after deconstruction
@@ -44,40 +48,40 @@
 	if(fixture_type == "bulb")
 		icon_state = "bulb-construct-stage1"
 
-/obj/machinery/light_construct/examine(mob/user) // TODO: MAKE THESE NOTICE SPANS TOO!! AND ALSO MAKE THEM MORE DESCRIPTIVE
+/obj/machinery/light_construct/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
-		switch(stage)
-			if(1)
-				. += "It's an empty frame."
-			if(2)
-				. += "It's wired."
-			if(3)
-				. += "The casing is closed."
+		switch(buildstage)
+			if(FIXTURE_EMPTY)
+				. += "<span class='notice'>It could be <i>wired</i>.</span>"
+			if(FIXTURE_WIRED)
+				. += "<span class='notice'>It's <b>wired</b> and could be <i>screwed close</i>.</span>"
+			if(FIXTURE_READY)
+				. += "<span class='notice'>The casing is closed, but could be opened by <b>unscrewing</b> it.</span>"
 
 /obj/machinery/light_construct/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	switch(stage)
-		if(1)
+	switch(buildstage)
+		if(FIXTURE_EMPTY)
 			to_chat(user, "<span class='notice'>You begin to dismantle [src].</span>")
 			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 				return
 			new /obj/item/stack/sheet/metal(get_turf(loc), sheets_refunded)
 			TOOL_DISMANTLE_SUCCESS_MESSAGE
 			qdel(src)
-		if(2)
+		if(FIXTURE_WIRED)
 			to_chat(user, "<span class='warning'>You have to remove the wires first.</span>")
-		if(3)
+		if(FIXTURE_READY)
 			to_chat(user, "<span class='warning'>You have to unscrew the case first.</span>")
 
 /obj/machinery/light_construct/wirecutter_act(mob/living/user, obj/item/I)
-	if(stage != 2)
+	if(buildstage != FIXTURE_WIRED)
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	. = TRUE
-	stage = 1
-	switch(fixture_type)
+	buildstage = FIXTURE_EMPTY
+	switch(fixture_type) // we really should be using update_icon for this
 		if("tube")
 			icon_state = "tube-construct-stage1"
 		if("bulb")
@@ -86,7 +90,7 @@
 	WIRECUTTER_SNIP_MESSAGE
 
 /obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
-	if(stage != 2)
+	if(buildstage != FIXTURE_WIRED)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -96,7 +100,7 @@
 			icon_state = "tube-empty"
 		if("bulb")
 			icon_state = "bulb-empty"
-	stage = 3
+	buildstage = FIXTURE_READY
 	user.visible_message("<span class='notice'>[user] closes [src]'s casing.</span>", \
 		"<span class='notice'>You close [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
 
@@ -112,7 +116,7 @@
 /obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/stack/cable_coil))
-		if(stage != 1)
+		if(buildstage != FIXTURE_EMPTY)
 			return
 		var/obj/item/stack/cable_coil/coil = W
 		coil.use(1)
@@ -121,7 +125,7 @@
 				icon_state = "tube-construct-stage2"
 			if("bulb")
 				icon_state = "bulb-construct-stage2"
-		stage = 2
+		buildstage = FIXTURE_READY
 		playsound(loc, coil.usesound, 50, 1)
 		user.visible_message("<span class='notice'>[user.name] adds wires to [src].</span>", \
 			"<span class='notice'>You add wires to [src].</span>", "<span class='notice'>You hear a noise.</span>")
@@ -152,7 +156,7 @@
 	icon_state = "bulb-construct-stage1"
 	anchored = TRUE
 	layer = 5
-	stage = 1
+	buildstage = 0
 	fixture_type = "bulb"
 	sheets_refunded = 1
 
@@ -418,13 +422,13 @@
 	if(in_range(user, src))
 		switch(status)
 			if(LIGHT_OK)
-				. += "It is turned [on? "on" : "off"]."
+				. += "<span class='notice'>It is turned [on? "on" : "off"].</span>"
 			if(LIGHT_EMPTY)
-				. += "The [fitting] has been removed."
+				. += "<span class='notice'>The [fitting] has been removed.</span>"
 			if(LIGHT_BURNED)
-				. += "The [fitting] is burnt out."
+				. += "<span class='notice'>The [fitting] is burnt out.</span>"
 			if(LIGHT_BROKEN)
-				. += "The [fitting] has been smashed."
+				. += "<span class='notice'>The [fitting] has been smashed.</span>"
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
@@ -489,13 +493,6 @@
 
 	// attempt to stick weapon into light socket
 	if(status == LIGHT_EMPTY)
-		if(istype(W, /obj/item/screwdriver)) //If it's a screwdriver open it.
-			playsound(loc, W.usesound, W.tool_volume, 1)
-			user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
-				"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
-			deconstruct()
-			return
-
 		if(has_power() && (W.flags & CONDUCT))
 			do_sparks(3, 1, src)
 			if(prob(75)) // If electrocuted
@@ -507,12 +504,20 @@
 
 	return ..()
 
+/obj/machinery/light/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+		if(status == LIGHT_EMPTY)
+			playsound(loc, W.usesound, W.tool_volume, 1)
+			user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
+				"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
+			deconstruct()
+
 /obj/machinery/light/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		var/obj/machinery/light_construct/newlight = null
-		var/cur_stage = 2
+		var/cur_stage = 1
 		if(!disassembled)
-			cur_stage = 1
+			cur_stage = 0
 		switch(fitting)
 			if("tube")
 				newlight = new /obj/machinery/light_construct(loc)
@@ -522,7 +527,7 @@
 				newlight = new /obj/machinery/light_construct/small(loc)
 				newlight.icon_state = "bulb-construct-stage2"
 		newlight.setDir(dir)
-		newlight.stage = cur_stage
+		newlight.buildstage = cur_stage
 		if(!disassembled)
 			newlight.obj_integrity = newlight.max_integrity * 0.5
 			if(status != LIGHT_BROKEN)
@@ -960,3 +965,7 @@
 #undef LIGHT_BURNED
 #undef LIGHT_ON_DELAY_LOWER
 #undef LIGHT_ON_DELAY_UPPER
+
+#undef FIXTURE_EMPTY
+#undef FIXTURE_WIRED
+#undef FIXTURE_READY

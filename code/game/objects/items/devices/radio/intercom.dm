@@ -7,9 +7,10 @@ Intercom electronics
 #define INTERCOM_UNWIRED	1
 #define INTERCOM_READY		2
 
+// TODO: This should probably be converted into machinery someday, so its not an anchored item on a wall
 /obj/item/radio/intercom
 	name = "station intercom (General)"
-	desc = "Talk through this."
+	desc = "A reliable wall-mounted form of communication, even during local communication blackouts."
 	icon_state = "intercom"
 	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
@@ -164,6 +165,8 @@ Intercom electronics
 		if(INTERCOM_READY)
 			if(wiresexposed)
 				. += "<span class='notice'>The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.</span>"
+			else
+				. += "<span class='notice'>You can add :i before your message when speaking, to talk into the radio inside it.</span>"
 
 /obj/item/radio/intercom/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
@@ -175,7 +178,7 @@ Intercom electronics
 			return
 		if(do_after(user, 10 * coil.toolspeed, target = src) && buildstage == INTERCOM_UNWIRED)
 			coil.use(5)
-			to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
+			to_chat(user, "<span class='notice'>You wire [src]!</span>")
 			buildstage = INTERCOM_READY
 			on = TRUE
 			update_icon(UPDATE_ICON_STATE)
@@ -186,7 +189,7 @@ Intercom electronics
 		playsound(loc, W.usesound, 50, 1)
 		if(do_after(user, 10 * W.toolspeed, target = src) && buildstage == INTERCOM_FRAME)
 			qdel(W)
-			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
+			to_chat(user, "<span class='notice'>You insert [W] into [src].</span>")
 			buildstage = INTERCOM_UNWIRED
 			update_icon(UPDATE_ICON_STATE)
 		return 1
@@ -245,7 +248,7 @@ Intercom electronics
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	WRENCH_UNANCHOR_WALL_MESSAGE
+	WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
 	new /obj/item/mounted/frame/intercom(loc)
 	qdel(src)
 

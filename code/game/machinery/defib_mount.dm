@@ -46,13 +46,14 @@
 /obj/machinery/defibrillator_mount/examine(mob/user)
 	. = ..()
 	if(defib)
-		. += "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.<span>"
+		if(!clamps_locked)
+			. += "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.<span>"
 		if(GLOB.security_level >= SEC_LEVEL_RED)
 			. += "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>"
 		else
 			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
 	else
-		. += "<span class='notice'>There are a pair of <b>bolts</b> in the defibrillator unit housing, securing [src] to the wall.<span>"
+		. += "<span class='notice'>It is <b>bolted</b> to the wall.<span>"
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
@@ -121,7 +122,7 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	WRENCH_UNANCHOR_WALL_MESSAGE
+	WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
 	new /obj/item/mounted/frame/defib_mount(get_turf(user))
 	qdel(src)
 

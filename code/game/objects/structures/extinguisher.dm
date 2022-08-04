@@ -2,7 +2,6 @@
 #define NORMAL_EXTINGUISHER 1
 #define MINI_EXTINGUISHER 2
 
-
 /obj/structure/extinguisher_cabinet
 	name = "extinguisher cabinet"
 	desc = "A small wall mounted cabinet designed to hold a fire extinguisher."
@@ -16,6 +15,7 @@
 	var/extinguishertype
 	var/opened = FALSE
 	var/material_drop = /obj/item/stack/sheet/metal
+	var/buildstage = 1
 
 /obj/structure/extinguisher_cabinet/Initialize(mapload, direction = null)
 	. = ..()
@@ -33,7 +33,8 @@
 
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to [opened ? "close":"open"] it.</span>"
+	. += "<span class='notice'>It is <i>bolted</i> onto the wall.</span>"
+
 
 /obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
@@ -43,9 +44,7 @@
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
-	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-	opened = !opened
-	update_icon(UPDATE_ICON_STATE)
+	toggleopen(user)
 
 /obj/structure/extinguisher_cabinet/Destroy()
 	QDEL_NULL(has_extinguisher)
@@ -75,30 +74,25 @@
 			to_chat(user, "<span class='notice'>You place [O] in [src].</span>")
 			return TRUE
 		else
-			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-			opened = !opened
+			toggleopen(user)
 		update_icon(UPDATE_ICON_STATE)
 	else if(user.a_intent != INTENT_HARM)
-		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-		opened = !opened
-		update_icon(UPDATE_ICON_STATE)
+		toggleopen(user)
 	else
 		return ..()
 
-/obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I) // TODO: MAKE THIS A WRENCH, AND REQUIRE A SCREWDRIVER BEFOREHAND, SAME FOR LIGHTSWITCHES/WINDOW TINT SWITCHES
-	if(has_extinguisher)
-		to_chat(user, "<span class='warning'>You need to remove the extinguisher before deconstructing [src]!</span>")
-		return
-	if(!opened)
-		to_chat(user, "<span class='warning'>Open the cabinet before cutting it apart!</span>")
-		return
+/obj/structure/extinguisher_cabinet/proc/toggleopen(mob/living/user)
+	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
+	opened = !opened
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/structure/extinguisher_cabinet/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume))
-		WELDER_SLICING_SUCCESS_MESSAGE
-		deconstruct(TRUE)
+	WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
+	deconstruct(TRUE)
 
 /obj/structure/extinguisher_cabinet/attack_hand(mob/user)
 	if(isrobot(user) || isalien(user))
@@ -113,28 +107,26 @@
 			to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!")
 			return
 	if(has_extinguisher)
-		if(icon_state == "extinguisher_closed")
+		if(!opened)
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		user.put_in_hands(has_extinguisher)
 		to_chat(user, "<span class='notice'>You take [has_extinguisher] from [src].</span>")
 		has_extinguisher = null
 		opened = TRUE
 	else
-		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-		opened = !opened
+		toggleopen(user)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/extinguisher_cabinet/attack_tk(mob/user)
 	if(has_extinguisher)
-		if(icon_state == "extinguisher_closed")
+		if(!opened)
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		has_extinguisher.loc = loc
 		to_chat(user, "<span class='notice'>You telekinetically remove [has_extinguisher] from [src].</span>")
 		has_extinguisher = null
 		opened = TRUE
 	else
-		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-		opened = !opened
+		toggleopen(user)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/extinguisher_cabinet/obj_break(damage_flag)

@@ -38,7 +38,7 @@
 	. = ..()
 	wires = new(src)
 	assembly = new(src)
-	assembly.state = 4
+	assembly.buildstage = 4
 	assembly.anchored = TRUE
 	assembly.update_icon()
 
@@ -112,6 +112,18 @@
 		toggle_cam(null, 0)
 	..()
 
+/obj/machinery/camera/examine(mob/user)
+	. = ..()
+	if(panel_open)
+		if(!wires.is_all_cut())
+			. += "<span class='notice'>You could <b>cut</b> the wires to access the welds."
+		else
+			. += "<span class='notice'>It's wires could be <i>mended</i> or the frame <b>sliced</b> away from the wall.</span>"
+		if(!isMotion())
+			. += "<span class='notice'>You could add a <b>proximity sensor</b> to enable the motion-sensitivity.</span>"
+		if(!isEmpProof())
+			. += "<span class='notice'>You could add a <b>plasma sheet</b> to enable the EMP protection.</span>"
+
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
@@ -183,7 +195,7 @@
 		return ..()
 
 
-/obj/machinery/camera/screwdriver_act(mob/user, obj/item/I) // TODO: Standardize this
+/obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -205,7 +217,7 @@
 		wires.Interact(user)
 
 /obj/machinery/camera/welder_act(mob/user, obj/item/I)
-	if(!panel_open || !wires.CanDeconstruct())
+	if(!panel_open || !wires.is_all_cut())
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -232,7 +244,7 @@
 			if(!assembly)
 				assembly = new()
 			assembly.forceMove(drop_location())
-			assembly.state = 1
+			assembly.buildstage = 1
 			assembly.setDir(dir)
 			assembly.update_icon()
 			assembly = null
@@ -265,15 +277,12 @@
 		if(isarea(myArea))
 			LAZYREMOVE(myArea.cameras, UID())
 	GLOB.cameranet.updateChunk(x, y, z)
-	var/change_msg = "deactivates"
-	if(status)
-		change_msg = "reactivates"
 	if(displaymessage)
 		if(user)
-			visible_message("<span class='danger'>[user] [change_msg] [src]!</span>")
+			visible_message("<span class='danger'>[user] [status ? "reactivates" : "deactivates"] [src]!</span>")
 			add_hiddenprint(user)
 		else
-			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
+			visible_message("<span class='danger'>\The [src] [status ? "reactivates" : "deactivates"]!</span>")
 
 		playsound(loc, toggle_sound, 100, 1)
 	update_icon(UPDATE_ICON_STATE)
@@ -382,7 +391,7 @@
 
 /obj/machinery/camera/portable/Initialize(mapload)
 	. = ..()
-	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
+	assembly.buildstage = 0 //These cameras are portable, and so shall be in the portable state if removed.
 	assembly.anchored = FALSE
 	assembly.update_icon()
 

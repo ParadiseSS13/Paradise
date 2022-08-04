@@ -1,9 +1,10 @@
 // the light switch
 // can have multiple per area
 // can also operate on non-loc area through "otherarea" var
+
 /obj/machinery/light_switch
 	name = "light switch"
-	desc = "It turns lights on and off. What are you, simple?"
+	desc = "Low power, cost effective wireless light switch. Prone to interference."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light1"
 	anchored = TRUE
@@ -16,8 +17,7 @@
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to.
 	var/logic_connect = FALSE						//Set this to allow the switch to send out logic signals.
 
-
-/obj/machinery/light_switch/New(turf/loc, w_dir=null) // TODO: MAKE THIS SHIT AN EXAMINE AND MAKE IT UPSIDE DOWN WHEN NOT PLACED ON WALLS
+/obj/machinery/light_switch/New(turf/loc, w_dir=null)
 	..()
 	switch(w_dir)
 		if(NORTH)
@@ -80,7 +80,7 @@
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
-	. += "A light switch. It is [on ? "on" : "off"]."
+	. += "It is turned [on ? "on" : "off"]."
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -168,16 +168,14 @@
 	update_multitool_menu(user)
 
 /obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
-	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
 	. = TRUE
-	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
-		return
-	WRENCH_UNANCHOR_WALL_MESSAGE
-	new/obj/item/mounted/frame/light_switch(get_turf(src))
-	qdel(src)
+	WRENCH_UNANCHOR_WALL_ATTEMPT_MESSAGE
+	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
+		new/obj/item/mounted/frame/light_switch(loc)
+		qdel(src)
 
 /obj/machinery/light_switch/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"

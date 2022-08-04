@@ -48,9 +48,3 @@
 		if(WIRE_MAIN_POWER1)
 			C.toggle_cam(null) // Deactivate the camera
 	..()
-
-/datum/wires/camera/proc/CanDeconstruct()
-	if(is_cut(WIRE_MAIN_POWER1) && is_cut(WIRE_FOCUS))
-		return TRUE
-	else
-		return FALSE

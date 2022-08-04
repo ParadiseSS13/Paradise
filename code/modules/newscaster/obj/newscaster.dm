@@ -133,6 +133,10 @@
 	. = ..()
 	update_icon()
 
+/obj/machinery/newscaster/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is <i>bolted</i> onto the wall.</span>"
+
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))

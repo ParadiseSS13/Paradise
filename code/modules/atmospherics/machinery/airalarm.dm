@@ -70,7 +70,8 @@
 	var/list/air_scrub_info = list()
 
 /obj/machinery/alarm
-	name = "alarm"
+	name = "Air Alarm"
+	desc = "A wall-mounted device used to control atmospheric equipment. It looks a little cheaply made..."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
@@ -378,10 +379,13 @@
 
 /obj/machinery/alarm/update_icon_state()
 	if(wiresexposed)
-		if(AIR_ALARM_UNWIRED)
-			icon_state = "alarm-b2"
-		else
-			icon_state = "alarmx"
+		switch(buildstage)
+			if(AIR_ALARM_FRAME)
+				icon_state = "alarm_b1"
+			if(AIR_ALARM_UNWIRED)
+				icon_state = "alarm_b2"
+			if(AIR_ALARM_READY)
+				icon_state = "alarmx"
 		return
 	if((stat & (NOPOWER|BROKEN)) || shorted)
 		icon_state = "alarmp"
@@ -978,10 +982,9 @@
 	add_fingerprint(user)
 
 	switch(buildstage)
-		if(2)
+		if(AIR_ALARM_READY)
 			if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
-					to_chat(user, "It does nothing")
 					return
 				else
 					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
@@ -992,24 +995,25 @@
 						to_chat(user, "<span class='warning'>Access denied.</span>")
 				return
 
-		if(1)
+		if(AIR_ALARM_UNWIRED)
 			if(iscoil(I))
 				var/obj/item/stack/cable_coil/coil = I
 				if(coil.get_amount() < 5)
 					to_chat(user, "You need more cable for this!")
 					return
 
-				to_chat(user, "You wire \the [src]!")
+				to_chat(user, "You wire [src]!")
 				playsound(get_turf(src), coil.usesound, 50, 1)
 				coil.use(5)
 
-				buildstage = 2
+				buildstage = AIR_ALARM_READY
+				wiresexposed = TRUE
 				update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 				first_run()
 				return
-		if(0)
+		if(AIR_ALARM_FRAME)
 			if(istype(I, /obj/item/airalarm_electronics))
-				to_chat(user, "You insert the circuit!")
+				to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 				playsound(get_turf(src), I.usesound, 50, 1)
 				qdel(I)
 				buildstage = 1
@@ -1017,23 +1021,23 @@
 				return
 	return ..()
 
-/obj/machinery/alarm/crowbar_act(mob/user, obj/item/I) // TODO: Buildstage all this shit
+/obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_UNWIRED)
 		return
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
-	to_chat(user, "You start prying out the circuit.")
+	CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return
 	if(buildstage != AIR_ALARM_UNWIRED)
 		return
-	to_chat(user, "You pry out the circuit!")
-	new /obj/item/airalarm_electronics(user.drop_location())
+	CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE
+	new /obj/item/airalarm_electronics(loc)
 	buildstage = AIR_ALARM_FRAME
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/alarm/multitool_act(mob/user, obj/item/I) // What the fuck does this do
+/obj/machinery/alarm/multitool_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
@@ -1062,7 +1066,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(wires.is_all_cut()) // all wires cut
-		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
+		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(loc)
 		new_coil.amount = 5
 		buildstage = AIR_ALARM_UNWIRED
 		update_icon(UPDATE_ICON_STATE)
@@ -1075,8 +1079,8 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	new /obj/item/mounted/frame/alarm_frame(get_turf(user))
-	WRENCH_UNANCHOR_WALL_MESSAGE
+	new /obj/item/mounted/frame/alarm_frame(loc)
+	WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
 	qdel(src)
 
 /obj/machinery/alarm/power_change()
@@ -1103,10 +1107,14 @@
 
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
-	if(buildstage < 2)
-		. += "It is not wired."
-	if(buildstage < 1)
-		. += "The circuit is missing."
+	switch(buildstage)
+		if(AIR_ALARM_FRAME)
+			. += "<span class='notice'>It is <i>bolted</i> onto the wall and the circuit slot is <b>empty</b>.</span>"
+		if(AIR_ALARM_UNWIRED)
+			. += "<span class='notice'>The circuit is <i>connected loosely</i> to its slot, but also has space for <b>wiring</b>.</span>"
+		if(AIR_ALARM_READY)
+			if(wiresexposed)
+				. += "<span class='notice'>The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.</span>"
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)
@@ -1119,7 +1127,7 @@
 
 /obj/machinery/alarm/all_access
 	name = "all-access air alarm"
-	desc = "This particular atmos control unit appears to have no access restrictions."
+	desc = "A wall-mounted device used to control atmospheric equipment. It's access restrictions appear to have been removed."
 	locked = FALSE
 	custom_name = TRUE
 	req_access = null

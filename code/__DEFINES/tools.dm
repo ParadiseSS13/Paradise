@@ -38,10 +38,11 @@
 #define WELDER_UNWELD_SUCCESS_MESSAGE		to_chat(user, "<span class='notice'>You finish unwelding [src]!</span>")
 
 //Wrench messages
-#define WRENCH_ANCHOR_MESSAGE				user.visible_message("<span class='notice'>[user] tightens the bolts on [src]!</span>", "<span class='notice'>You tighten the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
-#define WRENCH_UNANCHOR_MESSAGE				user.visible_message("<span class='notice'>[user] loosens the bolts on [src]!</span>", "<span class='notice'>You loosen the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
-#define WRENCH_UNANCHOR_WALL_MESSAGE		user.visible_message("<span class='notice'>[user] unwrenches [src] from the wall!</span>", "<span class='notice'>You unwrench [src] from the wall!</span>", "<span class='warning'>You hear ratcheting.</span>")
-#define WRENCH_ANCHOR_TO_WALL_MESSAGE		user.visible_message("<span class='notice'>[user] affixes [src] to the wall!</span>", "<span class='notice'>You affix [src] to the wall!</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_ANCHOR_MESSAGE					user.visible_message("<span class='notice'>[user] tightens the bolts on [src]!</span>", "<span class='notice'>You tighten the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_UNANCHOR_MESSAGE					user.visible_message("<span class='notice'>[user] loosens the bolts on [src]!</span>", "<span class='notice'>You loosen the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_UNANCHOR_WALL_ATTEMPT_MESSAGE	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] unwrenches [src] from the wall!</span>", "<span class='notice'>You unwrench [src] from the wall!</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_ANCHOR_TO_WALL_MESSAGE			user.visible_message("<span class='notice'>[user] affixes [src] to the wall!</span>", "<span class='notice'>You affix [src] to the wall!</span>", "<span class='warning'>You hear ratcheting.</span>")
 
 //Generic tool messages that don't correspond to any particular tool
 #define TOOL_ATTEMPT_DISMANTLE_MESSAGE	    user.visible_message("<span class='notice'>[user] begins to disassemble [src] with [I]...</span>", "<span class='notice'>You begin to disassemble [src] with [I]...</span>", "<span class='warning'>You hear someone using some kind of tool.</span>")

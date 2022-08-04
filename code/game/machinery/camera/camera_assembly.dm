@@ -16,20 +16,35 @@
 	//	Motion, EMP-Proof
 	var/list/obj/item/possible_upgrades = list(/obj/item/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma)
 	var/list/upgrades = list()
-	var/state = ASSEMBLY_UNBUILT
+	var/buildstage = ASSEMBLY_UNBUILT
 
+/obj/item/camera_assembly/examine(mob/user)
+	. = ..()
+	switch(buildstage)
+		if(ASSEMBLY_UNBUILT)
+			. += "<span class='notice'>It has <i>bolts</i> for attaching to walls.</span>"
+		if(ASSEMBLY_WRENCHED)
+			. += "<span class='notice'>It could be securely <i>welded</i> to the wall or <b>unbolted</b> from it.</span>"
+		if(ASSEMBLY_WELDED)
+			. += "<span class='notice'>It could be <i>wired</i> or <b>sliced</b> away from the wall.</span>"
+		if(ASSEMBLY_WIRED)
+			. += "<span class='notice'>It could be <i>screwed</i> shut or the wires <b>cut</b>.</span>"
+			if(!is_type_in_list(/obj/item/assembly/prox_sensor, upgrades))
+				. += "<span class='notice'>You could add a <b>proximity sensor</b> to enable the motion-sensitivity.</span>"
+			if(!is_type_in_list(/obj/item/stack/sheet/mineral/plasma, upgrades))
+				. += "<span class='notice'>You could add a <b>plasma sheet</b> to enable the EMP protection.</span>"
 
 /obj/item/camera_assembly/Destroy()
 	QDEL_LIST(upgrades)
 	return ..()
 
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
-	if(state == ASSEMBLY_WELDED && iscoil(I))
+	if(buildstage == ASSEMBLY_WELDED && iscoil(I))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(2))
 			to_chat(user, "<span class='notice'>You add wires to the assembly.</span>")
 			playsound(loc, I.usesound, 50, 1)
-			state = ASSEMBLY_WIRED
+			buildstage = ASSEMBLY_WIRED
 		else
 			to_chat(user, "<span class='warning'>You need 2 coils of wire to wire the assembly.</span>")
 		return
@@ -61,28 +76,28 @@
 		upgrades -= U
 
 /obj/item/camera_assembly/screwdriver_act(mob/user, obj/item/I)
-	if(state != ASSEMBLY_WIRED)
+	if(buildstage != ASSEMBLY_WIRED)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	state = HEY_IM_WORKING_HERE
+	buildstage = HEY_IM_WORKING_HERE
 	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Seperate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
 	if(!input)
-		state = ASSEMBLY_WIRED
+		buildstage = ASSEMBLY_WIRED
 		to_chat(usr, "<span class='warning'>No input found please hang up and try your call again.</span>")
 		return
 
 	var/list/tempnetwork = splittext(input, ",")
 	if(tempnetwork.len < 1)
-		state = ASSEMBLY_WIRED
+		buildstage = ASSEMBLY_WIRED
 		to_chat(usr, "<span class='warning'>No network found please hang up and try your call again.</span>")
 		return
 
 	var/area/camera_area = get_area(src)
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
-	state = ASSEMBLY_BUILT
+	buildstage = ASSEMBLY_BUILT
 	var/obj/machinery/camera/C = new(loc)
 	loc = C
 	C.assembly = src
@@ -107,53 +122,53 @@
 
 
 /obj/item/camera_assembly/wirecutter_act(mob/user, obj/item/I)
-	if(state != ASSEMBLY_WIRED)
+	if(buildstage != ASSEMBLY_WIRED)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	new/obj/item/stack/cable_coil(get_turf(src), 2)
 	WIRECUTTER_SNIP_MESSAGE
-	state = ASSEMBLY_WELDED
+	buildstage = ASSEMBLY_WELDED
 	return
 
 /obj/item/camera_assembly/wrench_act(mob/user, obj/item/I)
-	if(state != ASSEMBLY_UNBUILT && state != ASSEMBLY_WRENCHED)
+	if(buildstage != ASSEMBLY_UNBUILT && buildstage != ASSEMBLY_WRENCHED)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(state == ASSEMBLY_UNBUILT && isturf(loc))
+	if(buildstage == ASSEMBLY_UNBUILT && isturf(loc))
 		WRENCH_ANCHOR_TO_WALL_MESSAGE
 		anchored = TRUE
-		state = ASSEMBLY_WRENCHED
+		buildstage = ASSEMBLY_WRENCHED
 		update_icon(UPDATE_ICON_STATE)
 		auto_turn()
-	else if(state == ASSEMBLY_WRENCHED)
-		WRENCH_UNANCHOR_WALL_MESSAGE
+	else if(buildstage == ASSEMBLY_WRENCHED)
+		WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
 		anchored = FALSE
 		update_icon(UPDATE_ICON_STATE)
-		state = ASSEMBLY_UNBUILT
+		buildstage = ASSEMBLY_UNBUILT
 	else
 		to_chat(user, "<span class='warning'>[src] can't fit here!</span>")
 
 /obj/item/camera_assembly/welder_act(mob/user, obj/item/I)
-	if(state == ASSEMBLY_UNBUILT)
+	if(buildstage == ASSEMBLY_UNBUILT)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
-	if(state == ASSEMBLY_WRENCHED)
+	if(buildstage == ASSEMBLY_WRENCHED)
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 			return
 		to_chat(user, "<span class='notice'>You weld [src] into place.</span>")
-		state = ASSEMBLY_WELDED
-	else if(state == ASSEMBLY_WELDED)
+		buildstage = ASSEMBLY_WELDED
+	else if(buildstage == ASSEMBLY_WELDED)
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 			return
 		to_chat(user, "<span class='notice'>You unweld [src] from its place.</span>")
-		state = ASSEMBLY_WRENCHED
+		buildstage = ASSEMBLY_WRENCHED
 
 /obj/item/camera_assembly/update_icon_state()
 	if(anchored)

@@ -56,6 +56,7 @@
 
 //NOTE: STUFF STOLEN FROM AIRLOCK.DM thx
 
+// If you dare to venture further, be warned: This code (especially with construction/deconstruction) is filled with so many terrible, hacky, and non-standard ways of doing things, you will probably lose your mind.
 
 /obj/machinery/power/apc
 	name = "area power controller"
@@ -264,24 +265,28 @@
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		if(stat & BROKEN)
-			. += "Looks broken."
-		else if(opened)
+		if(stat & BROKEN && !opened)
+			. += "<span class='notice'>The cover is stuck in place, It would need to be removed with some <b>force</b></span>"
+		else if(opened) // Ideally this should use buildstage but I am not refactoring APCs, this really is terrible.
 			if(has_electronics() && terminal)
-				. += "The cover is [opened == APC_OPENED ? "removed" : "open"] and the power cell is [ cell ? "installed" : "missing"]."
-			else if(!has_electronics() && terminal)
-				. += "There are some wires but no electronics."
+				if(electronics_state == APC_ELECTRONICS_SECURED)
+					. += "<span class='notice'>The cover is [opened == APC_OPENED ? "open" : "removed"] and the power cell is [ cell ? "<b>installed</b>" : "<i>missing</i>"].</span>"
+					. += "<span class='notice'>[ cell ? "The power cell is blocking the electronics" : "The electronics are <b>screwed</b> into place"].</span>"
+				else if(electronics_state == APC_ELECTRONICS_INSTALLED)
+					. += "<span class='notice'>There are some <b>terminal cables</b> attached and are holding the electronics in place, or you could secure the electronics by <b>screwing</b> them.</span>"
+			else if(!has_electronics() && terminal) // This shouldnt be possible??? and as far as I can tell it's not used in game
+				. += "<span class='userdanger'>There are some wires but no electronics. This should not be possible and should reported on the Github!</span>"
 			else if(has_electronics() && !terminal)
-				. += "Electronics installed but not wired."
-			else /* if(!has_electronics() && !terminal) */
-				. += "There are no electronics nor connected wires."
+				. += "<span class='notice'>The electronics could be <i>wired</i> or <b>pried</b> from the frame.</span>"
+			else if(!has_electronics() && !terminal)
+				. += "<span class='notice'>There is an empty slot for a <i>circuit</i> amnd the frame is <b>welded</b> to the wall.</span>"
 		else
 			if(stat & MAINT)
-				. += "The cover is closed. Something wrong with it: it doesn't work."
+				. += "<span class='userdanger'>The cover is closed. Something wrong with it: it doesn't work. This should not be possible and should reported on the Github!</span>" // This description is NOT helpful and it should never appear without something going wrong. It should only appear when theres no electronics and the cover is closed (Which shouldnt be possible)
 			else if(malfhack)
-				. += "The cover is broken. It may be hard to force it open."
+				. += "<span class='warning'>The cover is broken. It may be hard to force it open.</span>" // Not sure if this desc is accurate
 			else
-				. += "The cover is closed."
+				. += "<span class='notice'>The cover is closed.</span>"
 
 /obj/machinery/power/apc/detailed_examine()
 	return "An APC (Area Power Controller) regulates and supplies backup power for the area they are in. Their power channels are divided \
@@ -497,8 +502,7 @@
 	return TRUE
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
-/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params) // TODO: BUILDSTAGE THIS SHIIIT
-
+/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
 	if(issilicon(user) && get_dist(src, user) > 1)
 		return attack_hand(user)
 
@@ -669,7 +673,7 @@
 		return
 	else if(opened)
 		if(cell && !(stat & MAINT))
-			to_chat(user, "<span class='warning'>Close the APC first!</span>") //Less hints more mystery!
+			to_chat(user, "<span class='warning'>Close the APC first!</span>") //Less hints more mystery! // There is no amount of words to describe how much I hate you. What does this even mean?
 			return
 		else
 			if(electronics_state == APC_ELECTRONICS_INSTALLED)
@@ -931,7 +935,7 @@
 	autoflag = 5
 	if(istype(user, /mob/living/silicon))
 		var/mob/living/silicon/ai/AI = user
-		var/mob/living/silicon/robot/robot = user
+		var/mob/living/silicon/robot/robot = user // fuck your stupid glue down there
 		if(                                                             \
 			aidisabled ||                                            \
 			malfhack && istype(malfai) &&                                \

@@ -290,6 +290,12 @@
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+/obj/machinery/shower/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You could <b>analyze</b> [src]'s temperature.</span>"
+	. += "<span class='notice'>The temperature valve seems to be held in place with <b>bolts</b>.</span>"
+	. += "<span class='notice'>It looks like you could <b>slice</b> [src] away from the wall.</span>"
+
 /obj/machinery/shower/attack_hand(mob/M)
 	on = !on
 	update_icon()

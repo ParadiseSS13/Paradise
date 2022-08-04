@@ -102,12 +102,14 @@ Fire alarm electronics
 	. = ..()
 	switch(buildstage)
 		if(FIRE_ALARM_FRAME)
-			. += "<span class='notice'>It could be <i>welded</i> off the wall but also has an empty slot for a <b>circuit</b>.</span>"
+			. += "<span class='notice'>It is <i>bolted</i> to the wall and the <b>circuit</b> slot is empty.</span>"
 		if(FIRE_ALARM_UNWIRED)
 			. += "<span class='notice'>The circuit inside could be <i>pried out</i> or could be <b>wired</b>.</span>"
 		if(FIRE_ALARM_READY)
 			if(wiresexposed)
 				. += "<span class='notice'>Its wires would need to be <i>cut</i> to access the circuit or panel could <b>screwed</b> closed.</span>"
+			else
+				. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
 
 /obj/machinery/firealarm/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
@@ -194,7 +196,7 @@ Fire alarm electronics
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	WRENCH_UNANCHOR_WALL_MESSAGE
+	WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
 	new /obj/item/mounted/frame/firealarm(loc)
 	qdel(src)
 
@@ -272,10 +274,6 @@ Fire alarm electronics
 			reset()
 		else
 			alarm()
-
-/obj/machinery/firealarm/examine(mob/user)
-	. = ..()
-	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
 
 /obj/machinery/firealarm/proc/reset()
 	if(!working || !report_fire_alarms)

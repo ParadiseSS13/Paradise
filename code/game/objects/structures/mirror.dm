@@ -29,6 +29,10 @@
 	GLOB.mirrors -= src
 	return ..()
 
+/obj/structure/mirror/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It seems to be <b>screwed</b> onto the wall.</span>"
+
 /obj/structure/mirror/attack_hand(mob/user)
 	if(broken)
 		return
