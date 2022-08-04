@@ -55,7 +55,7 @@
 			if(FIXTURE_EMPTY)
 				. += "<span class='notice'>It could be <i>wired</i>.</span>"
 			if(FIXTURE_WIRED)
-				. += "<span class='notice'>It's <b>wired</b> and could be <i>screwed close</i>.</span>"
+				. += "<span class='notice'>It's <b>wired</b> and could be <i>screwed closed</i>.</span>"
 			if(FIXTURE_READY)
 				. += "<span class='notice'>The casing is closed, but could be opened by <b>unscrewing</b> it.</span>"
 
@@ -507,7 +507,8 @@
 /obj/machinery/light/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(status == LIGHT_EMPTY)
-		playsound(loc, W.usesound, W.tool_volume, 1)
+		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+			return
 		user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
 			"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
 		deconstruct()

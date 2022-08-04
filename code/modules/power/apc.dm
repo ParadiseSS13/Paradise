@@ -279,7 +279,7 @@
 			else if(has_electronics() && !terminal)
 				. += "<span class='notice'>The electronics could be <i>wired</i> or <b>pried</b> from the frame.</span>"
 			else if(!has_electronics() && !terminal)
-				. += "<span class='notice'>There is an empty slot for a <i>circuit</i> amnd the frame is <b>welded</b> to the wall.</span>"
+				. += "<span class='notice'>There is an empty slot for a <i>circuit</i> and the frame is <b>welded</b> to the wall.</span>"
 		else
 			if(stat & MAINT)
 				. += "<span class='userdanger'>The cover is closed. Something wrong with it: it doesn't work. This should not be possible and should reported on the Github!</span>" // This description is NOT helpful and it should never appear without something going wrong. It should only appear when theres no electronics and the cover is closed (Which shouldnt be possible)
