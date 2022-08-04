@@ -59660,13 +59660,12 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/structure/sign/deathsposal{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/turbine)
@@ -60321,8 +60320,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/sign/deathsposal{
-	pixel_y = 32
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/turbine)
