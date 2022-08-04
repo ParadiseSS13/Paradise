@@ -56,7 +56,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
@@ -1389,7 +1389,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cI" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cJ" = (
@@ -3840,7 +3840,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "hA" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "hB" = (
@@ -4150,7 +4150,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ip" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/basic{
 	dir = 1
@@ -4259,7 +4259,7 @@
 	dir = 6;
 	level = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "iD" = (
