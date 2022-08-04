@@ -119,17 +119,17 @@
 // Checks if the direction the mob is trying to move towards would be blocked by a corner railing
 /obj/structure/railing/proc/ordinal_direction_check(check_dir)
 	switch(dir)
-		if(5)
-			if(check_dir == 1 || check_dir == 4)
+		if(NORTHEAST)
+			if(check_dir == NORTH || check_dir == EAST)
 				return TRUE
-		if(6)
-			if(check_dir == 2 || check_dir == 4)
+		if(SOUTHEAST)
+			if(check_dir == SOUTH || check_dir == EAST)
 				return TRUE
-		if(9)
-			if(check_dir == 1 || check_dir == 8)
+		if(NORTHWEST)
+			if(check_dir == NORTH || check_dir == WEST)
 				return TRUE
-		if(10)
-			if(check_dir == 2 || check_dir == 8)
+		if(SOUTHWEST)
+			if(check_dir == SOUTH || check_dir == WEST)
 				return TRUE
 	return FALSE
 
