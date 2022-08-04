@@ -7,7 +7,7 @@
 		/datum/surgery_step/proxy/open_organ,
 		/datum/surgery_step/augment
 	)
-	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")
+	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG)
 
 /datum/surgery/limb_augmentation/can_start(mob/user, mob/living/carbon/target)
 	. = ..()

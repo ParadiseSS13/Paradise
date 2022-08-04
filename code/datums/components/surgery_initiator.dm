@@ -23,9 +23,6 @@
 
 	src.forced_surgery = forced_surgery
 
-/datum/component/surgery_initiator/Destroy(force, silent)
-	return ..()
-
 /datum/component/surgery_initiator/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/initiate_surgery_moment)
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS, .proc/on_parent_sharpness_change)
@@ -55,6 +52,7 @@
 		to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
 		return //no cult ghost surgery please
 	INVOKE_ASYNC(src, .proc/do_initiate_surgery_moment, target, user)
+	// This signal is actually part of the attack chain, so it needs to return true to stop it
 	return TRUE
 
 /// Meat and potatoes of starting surgery.
@@ -130,7 +128,7 @@
 				continue
 		else if(carbon_target && surgery.requires_bodypart) //mob with no limb in surgery zone when we need a limb
 			continue
-		if(surgery.lying_required && target.body_position != LYING_DOWN)
+		if(surgery.lying_required && !IS_HORIZONTAL(target))
 			continue
 		if(!surgery.self_operable && target == user)
 			continue
@@ -168,14 +166,12 @@
 	var/obj/item/other_hand = user.get_inactive_hand()
 
 	var/is_robotic = !the_surgery.requires_organic_bodypart
-	var/datum/surgery_step/close_carbon = new /datum/surgery_step/generic/cauterize/premature()
-	var/datum/surgery_step/close_robo = new /datum/surgery_step/robotics/external/close_hatch/premature()
 	var/datum/surgery_step/chosen_close_step
 
 	if(is_robotic)
-		chosen_close_step = close_robo
+		chosen_close_step = new /datum/surgery_step/robotics/external/close_hatch/premature()
 	else
-		chosen_close_step = close_carbon
+		chosen_close_step = new /datum/surgery_step/generic/cauterize/premature()
 
 	if(isrobot(user))
 		if(!is_robotic)
@@ -200,6 +196,7 @@
 	if(chosen_close_step.try_op(user, patient, selected_zone, close_tool, the_surgery))
 		// logging in case people wonder why they're cut up inside
 		log_attack(user, patient, "Prematurely finished \a [the_surgery] surgery.")
+		qdel(chosen_close_step)
 		patient.surgeries -= the_surgery
 		qdel(the_surgery)
 

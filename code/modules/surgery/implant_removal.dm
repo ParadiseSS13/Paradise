@@ -12,7 +12,7 @@
 		/datum/surgery_step/extract_implant,
 		/datum/surgery_step/generic/cauterize
 	)
-	possible_locs = list("chest")
+	possible_locs = list(BODY_ZONE_CHEST)
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/implant_removal/synth

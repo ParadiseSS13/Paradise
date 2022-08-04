@@ -7,7 +7,7 @@
 		/datum/surgery_step/reshape_face,
 		/datum/surgery_step/generic/cauterize
 	)
-	possible_locs = list("head")
+	possible_locs = list(BODY_ZONE_HEAD)
 	requires_organic_bodypart = TRUE
 
 /datum/surgery_step/reshape_face

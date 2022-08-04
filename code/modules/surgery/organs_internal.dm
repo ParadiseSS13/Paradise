@@ -21,12 +21,12 @@
 		/datum/surgery_step/proxy/open_organ,
 		/datum/surgery_step/generic/cauterize
 	)
-	possible_locs = list("chest","head")
+	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 	requires_organic_bodypart = TRUE
 	requires_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/soft
-	possible_locs = list("groin", "eyes", "mouth")
+	possible_locs = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -37,7 +37,7 @@
 
 /datum/surgery/organ_manipulation_boneless
 	name = "Organ Manipulation"
-	possible_locs = list("chest","head","groin", "eyes", "mouth", "l_arm", "r_arm")
+	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -50,7 +50,7 @@
 
 /datum/surgery/organ_manipulation/alien
 	name = "Alien Organ Manipulation"
-	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
 	target_mobtypes = list(/mob/living/carbon/alien/humanoid)
 	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace,/datum/surgery_step/proxy/manipulate_organs,)
 
@@ -695,10 +695,10 @@
 /datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/msg = "[user] starts to pry open the incision on [target]'s [target_zone] with [tool]."
 	var/self_msg = "You start to pry open the incision on [target]'s [target_zone] with [tool]."
-	if(target_zone == "chest")
+	if(target_zone == BODY_ZONE_CHEST)
 		msg = "[user] starts to separate the ribcage and rearrange the organs in [target]'s torso with [tool]."
 		self_msg = "You start to separate the ribcage and rearrange the organs in [target]'s torso with [tool]."
-	if(target_zone == "groin")
+	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = "[user] starts to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
 		self_msg = "You start to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
 	user.visible_message(msg, self_msg)
@@ -707,10 +707,10 @@
 /datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with [tool]</span>."
 	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [target_zone] with [tool].</span>"
-	if(target_zone == "chest")
+	if(target_zone == BODY_ZONE_CHEST)
 		msg = "<span class='notice'> [user] keeps the ribcage open on [target]'s torso with [tool].</span>"
 		self_msg = "<span class='notice'> You keep the ribcage open on [target]'s torso with [tool].</span>"
-	if(target_zone == "groin")
+	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = "<span class='notice'> [user] keeps the incision open on [target]'s lower abdomen with [tool].</span>"
 		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with [tool].</span>"
 	user.visible_message(msg, self_msg)
@@ -719,10 +719,10 @@
 /datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/msg = "<span class='warning'> [user]'s hand slips, tearing the edges of incision on [target]'s [target_zone] with [tool]!</span>"
 	var/self_msg = "<span class='warning'> Your hand slips, tearing the edges of incision on [target]'s [target_zone] with [tool]!</span>"
-	if(target_zone == "chest")
+	if(target_zone == BODY_ZONE_CHEST)
 		msg = "<span class='warning'> [user]'s hand slips, damaging several organs in [target]'s torso with [tool]!</span>"
 		self_msg = "<span class='warning'> Your hand slips, damaging several organs in [target]'s torso with [tool]!</span>"
-	if(target_zone == "groin")
+	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = "<span class='warning'> [user]'s hand slips, damaging several organs in [target]'s lower abdomen with [tool]</span>"
 		self_msg = "<span class='warning'> Your hand slips, damaging several organs in [target]'s lower abdomen with [tool]!</span>"
 	user.visible_message(msg, self_msg)

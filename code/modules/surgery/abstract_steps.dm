@@ -193,7 +193,7 @@
 	name = "Internal Bleeding (abstract)"
 	desc = "An intermediate surgery to fix internal bleeding while a patient is undergoing another procedure."
 	steps = list(/datum/surgery_step/fix_vein)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 
 /datum/surgery/intermediate/bleeding/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -212,7 +212,7 @@
 	name = "Mend Bone (abstract)"
 	desc = "An intermediate surgery to mend bones while a patient is undergoing another procedure."
 	steps = list(/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone)
-	possible_locs = list("chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/intermediate/mendbone/can_start(mob/user, mob/living/carbon/target)
 	. = ..()

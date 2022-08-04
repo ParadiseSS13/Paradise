@@ -20,7 +20,7 @@
 		/datum/surgery_step/proxy/robotics/repair_limb,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
 	requires_organic_bodypart = FALSE
 
 /datum/surgery/robotics/cybernetic_repair/internal
@@ -32,12 +32,12 @@
 		/datum/surgery_step/proxy/robotics/manipulate_organs,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list("eyes", "mouth", "chest","head","groin","l_arm","r_arm")
+	possible_locs = list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_PRECISE_GROIN,"l_arm",BODY_ZONE_R_ARM)
 
 /datum/surgery/robotics/cybernetic_amputation
 	name = "Robotic Limb Amputation"
 	steps = list(/datum/surgery_step/robotics/external/amputate)
-	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/robotics/cybernetic_amputation/can_start(mob/user, mob/living/carbon/human/target)
 	. = ..()
@@ -56,7 +56,7 @@
 		/datum/surgery_step/robotics/external/customize_appearance,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
+	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/robotics/cybernetic_customization/can_start(mob/user, mob/living/carbon/human/target)
 	. = ..()
@@ -90,7 +90,7 @@
 	steps = list(/datum/surgery_step/robotics/manipulate_robotic_organs/mend)
 /datum/surgery/intermediate/robotics/manipulate_organs/install_mmi
 	steps = list(/datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi)
-	possible_locs = list("chest")
+	possible_locs = list(BODY_ZONE_CHEST)
 
 /datum/surgery_step/robotics
 	can_infect = FALSE
@@ -517,7 +517,7 @@
 	allowed_tools = list(/obj/item/mmi = 100)
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(target_zone != "chest")
+	if(target_zone != BODY_ZONE_CHEST)
 		to_chat(user, "<span class='notice'> You must target the chest cavity.</span>")
 
 		return SURGERY_BEGINSTEP_SKIP

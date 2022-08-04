@@ -6,7 +6,7 @@
 /datum/surgery/amputation
 	name = "Amputation"
 	steps = list(/datum/surgery_step/generic/amputate)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	possible_locs = list(BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
@@ -25,7 +25,7 @@
 		/datum/surgery_step/limb/attach,
 		/datum/surgery_step/limb/connect
 	)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	possible_locs = list(BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -49,13 +49,13 @@
 	name = "Synthetic Limb Reattachment"
 	requires_bodypart = FALSE
 	steps = list(/datum/surgery_step/limb/attach/robo)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	possible_locs = list(BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/robo_attach
 	name = "Apply Robotic Prosthetic"
 	requires_bodypart = FALSE
 	steps = list(/datum/surgery_step/limb/mechanize)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	possible_locs = list(BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery_step/limb
 	can_infect = FALSE
@@ -141,8 +141,8 @@
 	if(!(E.dna) && E.is_robotic() && target.dna)
 		E.set_dna(target.dna)
 	..()
-	if(E.limb_name == "head")
-		var/obj/item/organ/external/head/H = target.get_organ("head")
+	if(E.limb_name == BODY_ZONE_HEAD)
+		var/obj/item/organ/external/head/H = target.get_organ(BODY_ZONE_HEAD)
 		var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 		if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
 			H.h_style = "Bald"

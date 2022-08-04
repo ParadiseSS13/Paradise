@@ -15,7 +15,7 @@
 		/datum/surgery_step/finish_bone,
 		/datum/surgery_step/generic/cauterize
 	)
-	possible_locs = list("chest","head")
+	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/target)
 	if(HAS_TRAIT(target, TRAIT_NO_BONES))
@@ -34,10 +34,10 @@
 		/datum/surgery_step/cavity/close_space,
 		/datum/surgery_step/generic/cauterize
 	)
-	possible_locs = list("groin")
+	possible_locs = list(BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/cavity_implant/boneless
-	possible_locs = list("chest","head")
+	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 
 /datum/surgery/cavity_implant/boneless/can_start(mob/user, mob/living/carbon/target)
 	if(!HAS_TRAIT(target, TRAIT_NO_BONES))
@@ -52,28 +52,28 @@
 		/datum/surgery_step/proxy/cavity_manipulation,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list("chest","head","groin")
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN)
 	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/cavity
 
 /datum/surgery_step/cavity/proc/get_max_wclass(obj/item/organ/external/affected)
 	switch(affected.limb_name)
-		if("head")
+		if(BODY_ZONE_HEAD)
 			return WEIGHT_CLASS_TINY
-		if("chest")
+		if(BODY_ZONE_CHEST)
 			return WEIGHT_CLASS_NORMAL
-		if("groin")
+		if(BODY_ZONE_PRECISE_GROIN)
 			return WEIGHT_CLASS_SMALL
 	return 0
 
 /datum/surgery_step/cavity/proc/get_cavity(obj/item/organ/external/affected)
 	switch(affected.limb_name)
-		if("head")
+		if(BODY_ZONE_HEAD)
 			return "cranial"
-		if("chest")
+		if(BODY_ZONE_CHEST)
 			return "thoracic"
-		if("groin")
+		if(BODY_ZONE_PRECISE_GROIN)
 			return "abdominal"
 	return ""
 
@@ -218,14 +218,14 @@
 		/datum/surgery_step/cavity/make_space,
 		/datum/surgery_step/cavity/place_item
 	)
-	possible_locs = list("chest","head")
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 
 /datum/surgery/intermediate/open_cavity/extract
 	name = "extract object"
 	steps = list(
 		/datum/surgery_step/cavity/remove_item
 	)
-	possible_locs = list("chest","head")
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 
 
 
