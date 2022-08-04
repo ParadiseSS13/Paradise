@@ -128,13 +128,13 @@
 	var/just_sleeping = FALSE //We don't appear as dead upon casual examination, just sleeping
 
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		appears_dead = TRUE
-
 		var/obj/item/clothing/glasses/E = get_item_by_slot(slot_glasses)
 		var/are_we_in_weekend_at_bernies = E?.tint && istype(buckled, /obj/structure/chair/wheelchair) //Are we in a wheelchair with our eyes obscured?
 
 		if(isliving(user) && are_we_in_weekend_at_bernies)
 			just_sleeping = TRUE
+		else
+			appears_dead = TRUE
 
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
@@ -277,11 +277,8 @@
 
 	msg += "</span>"
 
-	if(just_sleeping)
-		msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
-
 	if(!appears_dead)
-		if(stat == UNCONSCIOUS)
+		if(stat == UNCONSCIOUS || just_sleeping)
 			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
 		else if(getBrainLoss() >= 60)
 			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
