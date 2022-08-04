@@ -20,7 +20,7 @@
 	QDEL_NULL(integrated_signaler)
 
 	if(istype(loc, /obj/item/assembly/shock_kit))
-		var/obj/item/assembly/shock_kit/S = src.loc
+		var/obj/item/assembly/shock_kit/S = loc
 		if(S.part1 == src)
 			S.part1 = null
 
