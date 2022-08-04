@@ -73011,17 +73011,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
-"gWN" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "gXL" = (
 /obj/machinery/door/window/southright{
 	name = "Toxins Launcher";
@@ -76917,7 +76906,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/hallway/primary/starboard/east)
 "knB" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -77401,7 +77390,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/hallway/primary/starboard/east)
 "kKV" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -80980,17 +80969,6 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
-"nYB" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/space)
 "nYZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/dark{
@@ -83681,15 +83659,6 @@
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"qle" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "qll" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -90832,9 +90801,6 @@
 	icon_state = "darkpurple"
 	},
 /area/crew_quarters/hor)
-"wrg" = (
-/turf/simulated/floor/plasteel,
-/area/space)
 "wrj" = (
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 1
@@ -91397,9 +91363,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"wTU" = (
-/turf/simulated/wall,
-/area/space)
 "wUH" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
@@ -136497,10 +136460,10 @@ aGX
 aGY
 aMz
 aGX
-wTU
-wTU
-qle
-gWN
+aGX
+aGX
+aSg
+aYW
 bau
 bco
 bhw
@@ -136513,8 +136476,8 @@ boF
 bcp
 brw
 bau
-nYB
-wrg
+bvg
+bwv
 kKJ
 kmN
 bFn
