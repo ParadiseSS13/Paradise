@@ -158,7 +158,7 @@
 			setRegents(I, newfood)
 		if(istype(I, /obj/item/reagent_containers/food/snacks))
 			setCooked(I, newfood)
-		newfood.cooktype[thiscooktype] = 1
+		newfood.cooktype[thiscooktype] = TRUE
 		turnoff(I)
 		//qdel(I)
 
