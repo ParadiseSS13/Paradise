@@ -59660,7 +59660,7 @@
 /obj/structure/sign/deathsposal{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cTW" = (
 /obj/structure/lattice/catwalk,
@@ -59683,7 +59683,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cTY" = (
 /obj/structure/cable{
@@ -60317,7 +60317,12 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/turf/simulated/floor/plating,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cVI" = (
 /obj/structure/cable{
@@ -61310,7 +61315,6 @@
 /turf/simulated/floor/plasteel,
 /area/storage/office)
 "cYM" = (
-/obj/structure/cable,
 /turf/simulated/wall,
 /area/engine/engine_smes)
 "cYN" = (
@@ -62373,6 +62377,11 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dcv" = (
@@ -62477,7 +62486,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dcH" = (
 /obj/structure/cable{
@@ -62494,7 +62503,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dcK" = (
 /obj/structure/chair/stool,
@@ -62952,11 +62961,6 @@
 /turf/space,
 /area/space/nearstation)
 "dea" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -63088,14 +63092,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
-"det" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "deu" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -64096,7 +64092,7 @@
 "dhm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
-	dir = 4
+	dir = 8
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -68923,6 +68919,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -70830,6 +70831,11 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "fza" = (
@@ -71171,17 +71177,6 @@
 	icon_state = "redfull"
 	},
 /area/security/prisonlockers)
-"fNE" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 10
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "fNM" = (
 /obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /obj/structure/cable{
@@ -73242,20 +73237,6 @@
 	icon_state = "dark"
 	},
 /area/medical/cmo)
-"hnF" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/asmaint)
 "hnY" = (
 /obj/machinery/light{
 	dir = 1
@@ -73622,11 +73603,6 @@
 	dir = 1
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "hBr" = (
@@ -74160,6 +74136,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -74602,6 +74583,16 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
+"inj" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "inv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -74823,11 +74814,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -75562,11 +75548,6 @@
 /area/maintenance/aft)
 "jjs" = (
 /obj/effect/decal/cleanable/ash,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "jkw" = (
@@ -76852,11 +76833,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
@@ -77225,6 +77201,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
+"kJI" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "kKD" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/stripes/line{
@@ -77452,6 +77437,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -79328,6 +79318,11 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "mHO" = (
@@ -79841,6 +79836,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
+"ndt" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/aft)
 "ndH" = (
 /obj/structure/chair{
 	dir = 8
@@ -80708,16 +80709,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/medical/cmo)
-"nQB" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/blood_maybe,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "nQG" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -81093,9 +81084,11 @@
 "ojT" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
+	d1 = 1;
 	d2 = 4;
-	icon_state = "0-4"
+	icon_state = "1-4"
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "omx" = (
@@ -81209,11 +81202,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/random_spawners/blood_maybe,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "orF" = (
@@ -82121,9 +82109,9 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
+	d1 = 1;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -83539,16 +83527,13 @@
 "qll" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+	d2 = 4;
+	icon_state = "0-4"
 	},
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "qlE" = (
@@ -85132,18 +85117,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"rDY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "rEv" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/tinted,
@@ -86529,6 +86502,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -86598,19 +86576,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
-"sUI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
-	},
-/area/maintenance/aft)
 "sWc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -87968,21 +87933,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/spawner/random_spawners/blood_maybe,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "udq" = (
@@ -89371,6 +89321,15 @@
 	icon_state = "redfull"
 	},
 /area/security/permabrig)
+"vro" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/asmaint)
 "vrA" = (
 /obj/structure/morgue{
 	dir = 8
@@ -89388,9 +89347,11 @@
 "vtf" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
+	d1 = 1;
 	d2 = 8;
-	icon_state = "0-8"
+	icon_state = "1-8"
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "vtj" = (
@@ -89977,17 +89938,6 @@
 /area/maintenance/asmaint)
 "vMe" = (
 /obj/effect/spawner/window/reinforced/tinted,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
-"vMi" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 5
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "vMv" = (
@@ -92284,9 +92234,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -92753,6 +92703,11 @@
 "ykw" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "ykL" = (
@@ -133857,13 +133812,13 @@ rDM
 chf
 chf
 cEx
-cxO
 chf
-cxO
-cxO
-cxO
-cxO
-cxO
+chf
+chf
+chf
+chf
+chf
+chf
 dhQ
 yao
 cyJ
@@ -134114,13 +134069,13 @@ xLR
 iNe
 xhX
 cHZ
-cxO
+chf
 tzW
-cxO
+chf
 cJu
 cMd
 ufC
-cxO
+chf
 ctZ
 dcg
 vQZ
@@ -134377,7 +134332,7 @@ cKD
 vcO
 cJG
 pnV
-cxO
+chf
 chf
 yao
 cep
@@ -134628,13 +134583,13 @@ xmj
 tAb
 cHe
 lER
-cxO
+chf
 cTQ
-cxO
+chf
 ehQ
 cJv
 msm
-cxO
+chf
 ctZ
 yao
 cep
@@ -134883,15 +134838,15 @@ fyQ
 uAo
 rAi
 xRP
-cxO
-cxO
-cxO
-cxO
-cxO
+chf
+chf
+chf
+chf
+chf
 cyJ
 dxN
 xIi
-cxO
+chf
 ctZ
 hMp
 cYi
@@ -135140,7 +135095,7 @@ paW
 cyJ
 uAo
 xRP
-cxO
+chf
 pak
 ukQ
 mba
@@ -135148,7 +135103,7 @@ wkB
 huR
 cep
 pWW
-cxO
+chf
 dbq
 dep
 fBv
@@ -135397,7 +135352,7 @@ hnb
 kae
 ogr
 xrV
-cxO
+chf
 cIc
 nyh
 qxc
@@ -136447,15 +136402,15 @@ uqE
 qiB
 chf
 czq
-rDY
+ppp
 qTA
 pGa
 dbr
-ppp
+cyJ
 sAB
 czr
 mgJ
-itZ
+vLy
 aaa
 aaa
 aaa
@@ -136711,7 +136666,7 @@ iyJ
 ucU
 hAL
 orE
-sUI
+jrq
 qll
 aaa
 aaa
@@ -136961,15 +136916,15 @@ cyJ
 xxd
 chf
 cAv
-czq
+ndt
 exu
 dLd
 dbr
-nQB
+czr
 kGB
 cyJ
 jrq
-vLy
+itZ
 aaa
 aaa
 aaa
@@ -137482,7 +137437,7 @@ xvM
 cUq
 yiG
 vzC
-ykw
+inj
 chf
 aaa
 aaa
@@ -142093,7 +142048,7 @@ dIQ
 hlu
 lko
 dIQ
-dIQ
+kJI
 dea
 vMe
 iot
@@ -142341,7 +142296,7 @@ eaT
 kmA
 hyf
 hlu
-hnF
+hlu
 dIQ
 dIQ
 kmI
@@ -142350,8 +142305,8 @@ ciY
 bUx
 csL
 csL
-csL
-dia
+cNq
+cga
 ePu
 ePu
 dkv
@@ -142607,8 +142562,8 @@ ciY
 ciY
 ciY
 dSu
-csL
-hhD
+cNq
+ePu
 vMe
 cKF
 ctq
@@ -142855,7 +142810,7 @@ hWs
 mtx
 ciY
 cDo
-cNq
+csL
 ugC
 ciY
 dsQ
@@ -142864,8 +142819,8 @@ ciY
 gEj
 rVK
 ciY
-csL
 cNq
+csL
 ciY
 djQ
 djQ
@@ -143112,7 +143067,7 @@ dHc
 pOY
 ciY
 yjF
-hhD
+ePu
 ugC
 ciY
 vJN
@@ -143121,8 +143076,8 @@ dXm
 dXm
 csL
 cQw
-csL
-hhD
+cNq
+ePu
 djC
 djQ
 deS
@@ -143369,7 +143324,7 @@ ylP
 ciY
 ciY
 kMc
-cNq
+csL
 csL
 slp
 opZ
@@ -143378,8 +143333,8 @@ tZu
 fvV
 csL
 slp
-ePu
-det
+vro
+cOm
 cOm
 dcm
 deN
@@ -143626,7 +143581,7 @@ uCU
 iYo
 ciY
 csL
-dtM
+hyk
 csL
 ciY
 ciY
@@ -143883,7 +143838,7 @@ gwq
 gzC
 qhY
 gzC
-vMi
+dfi
 csL
 cga
 ciY
@@ -144140,7 +144095,7 @@ hyk
 csL
 ciY
 ciY
-fNE
+gwq
 gzC
 gzC
 ddJ
