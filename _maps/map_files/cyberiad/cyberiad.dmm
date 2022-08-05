@@ -76888,7 +76888,6 @@
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/clothing/glasses/welding/superior,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	dir = 4;
