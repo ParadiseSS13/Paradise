@@ -367,6 +367,7 @@
 	desc = "A mask made of soft vinyl and latex, representing the head of a bee."
 	icon_state = "bee"
 	item_state = "bee"
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 
 /obj/item/clothing/mask/face/bear
 	name = "bear mask"
