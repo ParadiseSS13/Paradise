@@ -257,8 +257,8 @@
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
-/obj/machinery/alarm/Initialize()
-	..()
+/obj/machinery/alarm/Initialize(mapload)
+	. = ..()
 	set_frequency(frequency)
 	if(!master_is_operating())
 		elect_master()
@@ -391,6 +391,15 @@
 			icon_state = "alarm2" //yes, alarm2 is yellow alarm
 		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
+
+/obj/machinery/alarm/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER || buildstage != AIR_ALARM_READY || wiresexposed || shorted)
+		return
+
+	underlays += emissive_appearance(icon, "alarm_lightmask")
 
 /obj/machinery/alarm/proc/register_env_machine(m_id, device_type)
 	var/new_name
@@ -624,8 +633,6 @@
 	var/datum/gas_mixture/environment = location.return_air()
 	var/known_total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins
 	var/total = environment.total_moles()
-	if(total == 0)
-		return null
 
 	var/datum/tlv/cur_tlv
 	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature/environment.volume
@@ -636,24 +643,24 @@
 
 	cur_tlv = TLV["oxygen"]
 	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen*GET_PP)
-	var/oxygen_percent = environment.oxygen / total * 100
+	var/oxygen_percent = total ? environment.oxygen / total * 100 : 0
 
 	cur_tlv = TLV["nitrogen"]
 	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen*GET_PP)
-	var/nitrogen_percent = environment.nitrogen / total * 100
+	var/nitrogen_percent = total ? environment.nitrogen / total * 100 : 0
 
 	cur_tlv = TLV["carbon dioxide"]
 	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide*GET_PP)
-	var/co2_percent = environment.carbon_dioxide / total * 100
+	var/co2_percent = total ? environment.carbon_dioxide / total * 100 : 0
 
 	cur_tlv = TLV["plasma"]
 	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins*GET_PP)
-	var/plasma_percent = environment.toxins / total * 100
+	var/plasma_percent = total ? environment.toxins / total * 100 : 0
 
 	cur_tlv = TLV["other"]
 	var/other_moles = total - known_total
 	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
-	var/other_percent = other_moles / total * 100
+	var/other_percent = total ? other_moles / total * 100 : 0
 
 	cur_tlv = TLV["temperature"]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
@@ -994,7 +1001,7 @@
 				coil.use(5)
 
 				buildstage = 2
-				update_icon(UPDATE_ICON_STATE)
+				update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 				first_run()
 				return
 		if(0)
@@ -1039,7 +1046,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	wiresexposed = !wiresexposed
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	if(wiresexposed)
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
 	else
@@ -1072,13 +1079,15 @@
 /obj/machinery/alarm/power_change()
 	if(powered(power_channel))
 		stat &= ~NOPOWER
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	else
 		stat |= NOPOWER
-	update_icon(UPDATE_ICON_STATE)
+		set_light(0)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/obj_break(damage_flag)
 	..()
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -1099,7 +1108,7 @@
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)
 		shorted = FALSE
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/proc/enable_ai_control_callback()
 	if(aidisabled)

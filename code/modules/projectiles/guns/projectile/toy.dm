@@ -38,10 +38,6 @@
 	desc = "RIOT! Ages 8 and up."
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol/riot
 
-/obj/item/gun/projectile/automatic/toy/pistol/riot/New()
-	magazine = new /obj/item/ammo_box/magazine/toy/pistol/riot(src)
-	..()
-
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
 	name = "foam Enforcer"
 	desc = "A toy inspired by the popular Enforcer pistol. Ages 8 and up!"

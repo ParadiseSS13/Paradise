@@ -145,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 41
+sql_version = 42
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -269,7 +269,6 @@ away_mission_delay = 0
 # List of all enabled away missions. Comment out an entry to disable it.
 enabled_away_missions = [
 	"_maps/map_files/RandomZLevels/beach.dmm",
-	"_maps/map_files/RandomZLevels/blackmarketpackers.dmm",
 	"_maps/map_files/RandomZLevels/centcomAway.dmm",
 	#"_maps/map_files/RandomZLevels/evil_santa.dmm",			# Special christmas mission. Enable for festivities
 	#"_maps/map_files/RandomZLevels/example.dmm",				# Example file. Do not enable.
@@ -632,8 +631,8 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedzoo.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/deepstorage.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
-	"_maps/map_files/RandomRuins/SpaceRuins/gasthelizards.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/meatpackers.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/mechtransport.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
@@ -651,6 +650,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/clownmime.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/dj.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/druglab.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndicatedruglab.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/syndiedepot.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/syndie_space_base.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/ussp_tele.dmm",
@@ -699,7 +699,9 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cube.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hall.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_monster_nest.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm",

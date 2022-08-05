@@ -282,7 +282,7 @@
 /obj/machinery/light/update_icon_state()
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
-			if(emergency_mode)
+			if(emergency_mode || fire_mode)
 				icon_state = "[base_state]_emergency"
 			else
 				icon_state = "[base_state][on]"
@@ -295,6 +295,17 @@
 		if(LIGHT_BROKEN)
 			icon_state = "[base_state]-broken"
 			on = FALSE
+
+/obj/machinery/light/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(status != LIGHT_OK || !on || !turning_on)
+		return
+	if(nightshift_enabled || emergency_mode || fire_mode || turning_on)
+		underlays += emissive_appearance(icon, "[base_state]_emergency_lightmask")
+	else
+		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
 /**
   * Updates the light's 'on' state and power consumption based on [/obj/machinery/light/var/on].
@@ -367,7 +378,6 @@
 		return // Nothing's changed here
 
 	switchcount++
-	update_icon()
 	if(trigger && (status == LIGHT_OK))
 		if(rigged)
 			log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast].")
@@ -381,19 +391,20 @@
 			return
 
 	use_power = ACTIVE_POWER_USE
+	update_icon()
 	set_light(BR, PO, CO)
 	if(play_sound)
 		playsound(src, 'sound/machines/light_on.ogg', 60, TRUE)
 
 /obj/machinery/light/proc/burnout()
 	status = LIGHT_BURNED
-	icon_state = "[base_state]-burned"
 
 	visible_message("<span class='boldwarning'>[src] burns out!</span>")
 	do_sparks(2, 1, src)
 
 	on = FALSE
 	set_light(0)
+	update_icon()
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
@@ -572,9 +583,11 @@
 		return
 	if(fire_mode)
 		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
+		update_icon()
 		return
 	emergency_mode = TRUE
 	set_light(3, 1.7, bulb_emergency_colour)
+	update_icon()
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update, override = TRUE)
 
 /obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
@@ -769,6 +782,7 @@
 	force = 2
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
+	blocks_emissive = FALSE
 	/// Light status (LIGHT_OK | LIGHT_BURNED | LIGHT_BROKEN)
 	var/status = LIGHT_OK
 	var/base_state

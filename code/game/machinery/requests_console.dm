@@ -73,7 +73,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 /obj/machinery/requests_console/power_change()
 	..()
-	update_icon(UPDATE_ICON_STATE)
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/requests_console/update_icon_state()
 	if(stat & NOPOWER)
@@ -81,6 +85,19 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			icon_state = "req_comp_off"
 	else
 		icon_state = "req_comp[newmessagepriority]"
+
+/obj/machinery/requests_console/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	if(newmessagepriority == RQ_NONEW_MESSAGES)
+		underlays += emissive_appearance(icon, "req_comp_lightmask")
+	else
+		underlays += emissive_appearance(icon, "req_comp2_lightmask")
+
 
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
@@ -336,7 +353,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	capitalize(title)
 	if(newmessagepriority < priority)
 		newmessagepriority = priority
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	if(!silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)

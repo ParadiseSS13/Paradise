@@ -197,8 +197,8 @@
 			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
 			observer.key = key
-			QDEL_NULL(mind)
 			observer.add_to_respawnable_list()
+			mind.current = null
 			qdel(src)
 			return TRUE
 		return FALSE

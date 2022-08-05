@@ -76,6 +76,13 @@
 	else
 		icon_state = "disco0"
 
+/obj/machinery/disco/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(active)
+		underlays += emissive_appearance(icon, "disco_lightmask")
+
 /obj/machinery/disco/attack_hand(mob/user)
 	if(..())
 		return
@@ -125,7 +132,8 @@
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
 				active = TRUE
-				update_icon(UPDATE_ICON_STATE)
+				update_icon()
+				set_light(1, LIGHTING_MINIMUM_POWER) //for emmisive appearance
 				dance_setup()
 				START_PROCESSING(SSobj, src)
 				lights_spin()
@@ -480,7 +488,8 @@
 		STOP_PROCESSING(SSobj, src)
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
-		icon_state = "disco0"
+		update_icon()
+		set_light(0)
 		stop = world.time + 100
 
 

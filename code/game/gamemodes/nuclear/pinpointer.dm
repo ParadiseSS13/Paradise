@@ -361,6 +361,13 @@
 	if(istype(I, /obj/item/gun/energy/detective))
 		link_gun(I.UID())
 
+/obj/item/pinpointer/crew/emp_act(severity)
+	var/obj/item/gun/energy/detective/D = locateUID(linked_gun_UID)
+	if(!D)
+		return
+	D.unlink()
+	atom_say("EMP detected. Connection to revolver tracking system lost.")
+
 /obj/item/pinpointer/crew/proc/link_gun(gun_UID)
 	var/obj/item/gun/energy/detective/D = locateUID(gun_UID)
 	if(!D)

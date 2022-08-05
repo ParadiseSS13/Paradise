@@ -505,7 +505,7 @@
 				to_chat(usr, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>")
 			else if(SSshuttle.supply.getDockedId() == "supply_home")
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
-				investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
+				investigate_log("| [key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
 				post_signal("supply")
 				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
@@ -556,6 +556,7 @@
 					return
 				if(i == 1)
 					O.generateRequisition(loc)
+					investigate_log("| [key_name(usr)] has placed an order for [amount] [O.object.name] with reason: '[reason]'", "cargo")
 
 		if("approve")
 			// Public consoles cant approve stuff
@@ -576,7 +577,7 @@
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
 						SSshuttle.shoppinglist += O
-						investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", "cargo")
+						investigate_log("| [key_name(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", "cargo")
 						SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, P.name)
 					else
 						to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
@@ -596,6 +597,7 @@
 					// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
 					else
 						SSshuttle.requestlist.Cut(i,i+1)
+						investigate_log("| [key_name(usr)] has denied an order for [SO.object.name]. Remaining points: [SSshuttle.points].", "cargo")
 						break
 
 		// Popup to show CC message logs. Its easier this way to avoid box-spam in TGUI

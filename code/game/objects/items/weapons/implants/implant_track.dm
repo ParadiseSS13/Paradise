@@ -4,6 +4,7 @@
 	activated = IMPLANT_ACTIVATED_PASSIVE
 	origin_tech = "materials=2;magnets=2;programming=2;biotech=2"
 	var/id = 1
+	var/warn_cooldown = 0
 
 
 /obj/item/implant/tracking/New()

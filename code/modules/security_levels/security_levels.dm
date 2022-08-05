@@ -123,6 +123,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 	for(var/obj/machinery/firealarm/FA in GLOB.machines)
 		if(is_station_contact(FA.z))
 			FA.update_icon()
+			FA.update_fire_light()
 
 /proc/num2seclevel(num)
 	switch(num)

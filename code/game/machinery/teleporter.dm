@@ -307,6 +307,24 @@
 	density = TRUE
 	anchored = TRUE
 
+/**
+	Internal helper function
+
+	Prevents AI from using the teleporter, prints out failure messages for clarity
+*/
+/obj/machinery/teleport/proc/blockAI(atom/A)
+	if(istype(A, /mob/living/silicon/ai) || istype(A, /obj/structure/AIcore))
+		visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
+		if(istype(A, /mob/living/silicon/ai))
+			var/mob/living/silicon/ai/T = A
+			var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
+			"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
+			"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
+			"<span class='warning'>Your AI core's anti-bluespace failsafes trigger and prevent teleportation!</span>")
+			to_chat(T, "[pick(TPError)]")
+		return TRUE
+	return FALSE
+
 /obj/machinery/teleport/hub
 	name = "teleporter hub"
 	desc = "It's the hub of a teleporting machine."
@@ -362,7 +380,8 @@
 
 /obj/machinery/teleport/hub/Bumped(M as mob|obj)
 	if(!is_teleport_allowed(z) && !admin_usage)
-		to_chat(M, "You can't use this here.")
+		if(ismob(M))
+			to_chat(M, "You can't use this here.")
 		return
 	if(power_station && power_station.engaged && !panel_open && !blockAI(M))
 		if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
@@ -413,6 +432,19 @@
 	else
 		icon_state = "tele0"
 
+/obj/machinery/teleport/hub/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(power_station && power_station.engaged && !panel_open)
+		underlays += emissive_appearance(icon, "tele1_lightmask")
+
+/obj/machinery/teleport/hub/proc/update_lighting()
+	if(power_station && power_station.engaged && !panel_open)
+		set_light(2, 1, "#f1f1bd")
+	else
+		set_light(0)
+
 /obj/machinery/teleport/perma
 	name = "permanent teleporter"
 	desc = "A teleporter with the target pre-set on the circuit board."
@@ -425,6 +457,10 @@
 	var/target
 	var/tele_delay = 50
 
+/obj/machinery/teleport/perma/Initialize(mapload)
+	. = ..()
+	update_lighting()
+
 /obj/machinery/teleport/perma/RefreshParts()
 	for(var/obj/item/circuitboard/teleporter_perma/C in component_parts)
 		target = C.target
@@ -433,24 +469,6 @@
 		A -= M.rating * 10
 	tele_delay = max(A, 0)
 	update_icon(UPDATE_ICON_STATE)
-
-/**
-	Internal helper function
-
-	Prevents AI from using the teleporter, prints out failure messages for clarity
-*/
-/obj/machinery/teleport/proc/blockAI(atom/A)
-	if(istype(A, /mob/living/silicon/ai) || istype(A, /obj/structure/AIcore))
-		visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
-		if(istype(A, /mob/living/silicon/ai))
-			var/mob/living/silicon/ai/T = A
-			var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
-			"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
-			"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
-			"<span class='warning'>Your AI core's anti-bluespace failsafes trigger and prevent teleportation!</span>")
-			to_chat(T, "[pick(TPError)]")
-		return TRUE
-	return FALSE
 
 /obj/machinery/teleport/perma/Bumped(atom/A)
 	if(stat & (BROKEN|NOPOWER))
@@ -464,16 +482,19 @@
 		use_power(5000)
 		if(tele_delay)
 			recalibrating = TRUE
-			update_icon(UPDATE_ICON_STATE)
+			update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+			update_lighting()
 			addtimer(CALLBACK(src, .proc/BumpedCallback), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_lighting()
 
 /obj/machinery/teleport/perma/power_change()
 	..()
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_lighting()
 
 /obj/machinery/teleport/perma/update_icon_state()
 	if(panel_open)
@@ -482,6 +503,19 @@
 		icon_state = "tele1"
 	else
 		icon_state = "tele0"
+
+/obj/machinery/teleport/perma/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)) && !panel_open)
+		underlays += emissive_appearance(icon, "tele1_lightmask")
+
+/obj/machinery/teleport/perma/proc/update_lighting()
+	if(target && !recalibrating && !panel_open && !(stat & (BROKEN|NOPOWER)))
+		set_light(2, 1, "#f1f1bd")
+	else
+		set_light(0)
 
 /obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -584,7 +618,7 @@
 
 /obj/machinery/teleport/station/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", I))
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 		return TRUE
 
 /obj/machinery/teleport/station/wirecutter_act(mob/user, obj/item/I)
@@ -618,15 +652,23 @@
 	else
 		visible_message("<span class='alert'>No target detected.</span>")
 		engaged = FALSE
-	teleporter_hub.update_icon(UPDATE_ICON_STATE)
+	teleporter_hub.update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	teleporter_hub.update_lighting()
 	if(istype(user))
 		add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
 	..()
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+
 	if(teleporter_hub)
-		teleporter_hub.update_icon(UPDATE_ICON_STATE)
+		teleporter_hub.update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+		teleporter_hub.update_lighting()
+
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/teleport/station/update_icon_state()
 	if(panel_open)
@@ -635,3 +677,10 @@
 		icon_state = "controller-p"
 	else
 		icon_state = "controller"
+
+/obj/machinery/teleport/station/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(!(stat & NOPOWER) && !panel_open)
+		underlays += emissive_appearance(icon, "controller_lightmask")

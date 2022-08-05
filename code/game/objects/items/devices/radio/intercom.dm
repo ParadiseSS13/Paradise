@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
 	flags = CONDUCT
+	blocks_emissive = FALSE
 	var/circuitry_installed = 1
 	var/buildstage = 0
 	var/custom_name
@@ -64,7 +65,7 @@
 		b_stat = TRUE
 		on = FALSE
 	GLOB.global_intercoms.Add(src)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/item/radio/intercom/Initialize()
 	. = ..()
@@ -205,7 +206,7 @@
 	on = FALSE
 	b_stat = TRUE
 	buildstage = 1
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_operating_status(FALSE)
 
 /obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
@@ -225,6 +226,13 @@
 		icon_state="intercom-frame"
 	else
 		icon_state = "intercom[!on?"-p":""][b_stat ? "-open":""]"
+
+/obj/item/radio/intercom/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(on && buildstage == 3)
+		underlays += emissive_appearance(icon, "intercom_lightmask")
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
 	var/area/current_area = get_area(src)
@@ -247,9 +255,11 @@
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		on = FALSE
+		set_light(0)
 	else
 		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
-	update_icon(UPDATE_ICON_STATE)
+		set_light(1, LIGHTING_MINIMUM_POWER)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/item/intercom_electronics
 	name = "intercom electronics"

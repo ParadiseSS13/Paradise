@@ -41,8 +41,8 @@
 	#define REPLACE_TILE	5
 	#define TILE_EMAG		6
 
-/mob/living/simple_animal/bot/floorbot/New(mapload, new_toolbox_color)
-	..()
+/mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
+	. = ..()
 	toolbox_color = new_toolbox_color
 	update_icon()
 	var/datum/job/engineer/J = new/datum/job/engineer

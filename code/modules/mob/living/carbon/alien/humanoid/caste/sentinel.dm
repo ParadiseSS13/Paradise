@@ -32,14 +32,19 @@
 	for(var/image/I in overlays_standing)
 		overlays += I
 
-/mob/living/carbon/alien/humanoid/sentinel/New()
+/mob/living/carbon/alien/humanoid/sentinel/Initialize(mapload)
+	. = ..()
 	if(name == "alien sentinel")
-		name = text("alien sentinel ([rand(1, 1000)])")
+		name = "alien sentinel ([rand(1, 1000)])"
 	real_name = name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel
-	alien_organs += new /obj/item/organ/internal/xenos/acidgland
-	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
-	..()
+
+/mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()
+	. = ..()
+	. += list(
+		/obj/item/organ/internal/xenos/plasmavessel,
+		/obj/item/organ/internal/xenos/acidgland,
+		/obj/item/organ/internal/xenos/neurotoxin,
+	)
 
 /*
 /mob/living/carbon/alien/humanoid/sentinel/verb/evolve() // -- TLE

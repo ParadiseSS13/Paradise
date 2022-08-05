@@ -70,14 +70,17 @@
 	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
 	var/datum/action/toggle_scope_zoom/azoom
 
-/obj/item/gun/New()
-	..()
+/obj/item/gun/Initialize(mapload)
+	. = ..()
 	if(gun_light)
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(bayonet)
+	QDEL_NULL(chambered)
+	QDEL_NULL(azoom)
+	QDEL_NULL(gun_light)
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)
@@ -471,6 +474,10 @@
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
+
+/datum/action/toggle_scope_zoom/Destroy()
+	gun = null
+	return ..()
 
 /datum/action/toggle_scope_zoom/Trigger()
 	gun.zoom(owner)
