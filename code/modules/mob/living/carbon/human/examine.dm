@@ -411,6 +411,7 @@
 			if(!H.disfigured)
 				msg += "[print_flavor_text()]\n"
 
+	msg += "</span>"
 	if(pose)
 		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
