@@ -57028,7 +57028,6 @@
 	id_tag = "xenobio7";
 	name = "Chamber 7 Containment Blast Doors"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -83860,9 +83859,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "qxc" = (
-/obj/structure/closet/crate/secure/unknownchemicals{
-	req_one_access = list(33,41)
+/obj/structure/closet/crate/secure{
+	req_one_access = list(33,41);
+	req_one_access_txt = "33;41"
 	},
+/obj/item/storage/pill_bottle/random_drug_bottle,
+/obj/item/storage/pill_bottle/random_drug_bottle,
+/obj/item/storage/pill_bottle/random_drug_bottle,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "qxh" = (
@@ -86869,7 +86872,6 @@
 	id_tag = "xenobio6";
 	name = "Chamber 6 Containment Blast Doors"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -86901,7 +86903,6 @@
 	id_tag = "xenobio5";
 	name = "Chamber 5 Containment Blast Doors"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
