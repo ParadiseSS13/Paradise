@@ -90573,15 +90573,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
-"jat" = (
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
-/area/medical/reception)
 "jav" = (
 /obj/machinery/door/airlock{
 	name = "Magistrate's Office";
@@ -141275,7 +141266,7 @@ bqu
 cHN
 cJh
 nCu
-jat
+npp
 cbH
 ceQ
 ckS
