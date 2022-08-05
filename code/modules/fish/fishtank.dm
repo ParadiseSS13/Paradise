@@ -324,8 +324,8 @@
 	if(get_num_fish() <= 0)									//Can't catch non-existant fish!
 		to_chat(user, "<span class='warning'>There are no fish in [src] to catch!</span>")
 		return
-	var/list/fish_types = list()
-	var/list/fish_types_input = list()
+	var/list/fish_types = list() // fish sorted by type. Key is type of fish, value is a list of fish of that type
+	var/list/fish_types_input = list() // The choices given to the player, and the types of fish those choices are for. Key is string shown to player, value is type of fish
 	for(var/datum/fish/F in fish_list) // Group up the fish first
 		fish_types[F.type] += list(F)
 	for(var/key in fish_types) // Then populate the list
