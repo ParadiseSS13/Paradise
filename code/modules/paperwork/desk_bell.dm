@@ -47,10 +47,10 @@
 /obj/item/desk_bell/screwdriver_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(broken_ringer)
-		visible_message("<span class='notice'>[user] begins repairing the bell...</span>", "<span class='notice'>You begin repairing [src]...</span>")
+		visible_message("<span class='notice'>[user] begins repairing [src]...</span>", "<span class='notice'>You begin repairing [src]...</span>")
 		tool.play_tool_sound(src)
 		if(tool.use_tool(src, user, 5 SECONDS))
-			user.visible_message("<span class='notice'>[user] repairs the bell.</span>", "<span class='notice'>You repair [src].</span>")
+			user.visible_message("<span class='notice'>[user] repairs [src].</span>", "<span class='notice'>You repair [src].</span>")
 			playsound(user, 'sound/items/change_drill.ogg', 50, vary = TRUE)
 			broken_ringer = FALSE
 			times_rang = 0
@@ -61,22 +61,22 @@
 /obj/item/desk_bell/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(user.a_intent == INTENT_HARM && !in_inventory)
-		visible_message("<span class='notice'>[user] begins taking apart [src]]...</span>", "<span class='notice'>You begin taking apart [src]</span>")
-		if(tool.use_tool(src, user, 5 SECONDS))
-			visible_message("<span class='notice'>[user]begins taking apart [src]</span>")
+		visible_message("<span class='notice'>[user] begins taking apart [src]...</span>", "<span class='notice'>You begin taking apart [src]...</span>")
+		if(tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume))
+			visible_message("<span class='notice'>[user] takes apart [src].</span>", "<span class='notice'>You take apart [src].</span>")
 			playsound(user, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
 			new /obj/item/stack/sheet/metal(drop_location(), 2)
 			qdel(src)
 			return TRUE
 	if(!in_inventory)
 		if(!anchored)
-			user.visible_message("[user] begins securing [src].", "You begin securing [src]...")
-			if(!tool.use_tool(src, user, 30, volume = tool.tool_volume))
+			user.visible_message("[user] begins securing [src]...", "You begin securing [src]...")
+			if(!tool.use_tool(src, user, 3 SECONDS, volume = tool.tool_volume))
 				return
 			anchored = TRUE
 		else
-			user.visible_message("[user] begins unsecuring [src].", "You begin unsecuring [src]...")
-			if(!tool.use_tool(src, user, 30, volume = tool.tool_volume))
+			user.visible_message("[user] begins unsecuring [src]...", "You begin unsecuring [src]...")
+			if(!tool.use_tool(src, user, 3 SECONDS, volume = tool.tool_volume))
 				return
 			anchored = FALSE
 
