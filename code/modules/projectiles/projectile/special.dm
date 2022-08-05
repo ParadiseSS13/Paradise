@@ -7,18 +7,18 @@
 	nodamage = 1
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
+	var/weak = FALSE
 
 /obj/item/projectile/ion/on_hit(atom/target, blocked = 0)
 	..()
-	empulse(target, 1, 1, 1, cause = "[type] fired by [key_name(firer)]")
+	if(!weak)
+		empulse(target, 1, 1, 1, cause = "[type] fired by [key_name(firer)]")
+	else
+		empulse(target, 0, 0, 1, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/item/projectile/ion/weak
-
-/obj/item/projectile/ion/weak/on_hit(atom/target, blocked = 0)
-	..()
-	empulse(target, 0, 0, 1, cause = "[type] fired by [key_name(firer)]")
-	return 1
+	weak = TRUE
 
 /obj/item/projectile/bullet/gyro
 	name ="explosive bolt"
