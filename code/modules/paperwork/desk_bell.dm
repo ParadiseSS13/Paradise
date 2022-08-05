@@ -47,10 +47,10 @@
 /obj/item/desk_bell/screwdriver_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(broken_ringer)
-		to_chat(user, "<span class='notice'>You begin repairing the bell...</span>")
+		visible_message("<span class='notice'>[user] begins repairing the bell...</span>", "<span class='notice'>You begin repairing [src]...</span>")
 		tool.play_tool_sound(src)
 		if(tool.use_tool(src, user, 5 SECONDS))
-			user.visible_message("<span class='notice'>[user] repairs the bell.</span>", "<span class='notice'>You repair the bell.</span>")
+			user.visible_message("<span class='notice'>[user] repairs the bell.</span>", "<span class='notice'>You repair [src].</span>")
 			playsound(user, 'sound/items/change_drill.ogg', 50, vary = TRUE)
 			broken_ringer = FALSE
 			times_rang = 0
@@ -61,21 +61,21 @@
 /obj/item/desk_bell/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(user.a_intent == INTENT_HARM && !in_inventory)
-		visible_message("<span class='notice'>[user] begins taking apart the bell...</span>", "<span class='notice'>You begin taking apart the bell</span>")
+		visible_message("<span class='notice'>[user] begins taking apart [src]]...</span>", "<span class='notice'>You begin taking apart [src]</span>")
 		if(tool.use_tool(src, user, 5 SECONDS))
-			to_chat(user, "<span class='notice'>You disassemble the bell.</span>")
+			visible_message("<span class='notice'>[user]begins taking apart [src]</span>")
 			playsound(user, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
 			new /obj/item/stack/sheet/metal(drop_location(), 2)
 			qdel(src)
 			return TRUE
 	if(!in_inventory)
 		if(!anchored)
-			user.visible_message("[user] begins securing [src].", "You begin securing the bell...")
+			user.visible_message("[user] begins securing [src].", "You begin securing [src]...")
 			if(!tool.use_tool(src, user, 30, volume = tool.tool_volume))
 				return
 			anchored = TRUE
 		else
-			user.visible_message("[user] begins unsecuring [src].", "You begin unsecuring the bell...")
+			user.visible_message("[user] begins unsecuring [src].", "You begin unsecuring [src]...")
 			if(!tool.use_tool(src, user, 30, volume = tool.tool_volume))
 				return
 			anchored = FALSE
