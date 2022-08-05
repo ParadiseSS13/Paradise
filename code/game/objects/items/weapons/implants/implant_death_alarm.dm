@@ -3,7 +3,7 @@
 	desc = "An alarm which monitors host vital signs and transmits a radio message upon death."
 	activated = IMPLANT_ACTIVATED_PASSIVE
 	trigger_causes = IMPLANT_TRIGGER_DEATH_ANY
-	implant_data = new /datum/implant_fluff/death_alarm
+	implant_data = /datum/implant_fluff/death_alarm
 	implant_state = "implant-nanotrasen"
 
 	var/mobname = "Unknown"

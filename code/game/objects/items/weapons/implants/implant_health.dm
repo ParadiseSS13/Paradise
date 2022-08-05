@@ -1,7 +1,7 @@
 /obj/item/implant/health
 	name = "health implant"
 	activated = FALSE
-	implant_data = new /datum/implant_fluff/health
+	implant_data = /datum/implant_fluff/health
 	implant_state = "implant-default"
 
 	var/healthstring = ""

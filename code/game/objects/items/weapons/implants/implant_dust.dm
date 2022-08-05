@@ -7,7 +7,7 @@
 	icon_state = "remains"
 	actions_types = list(/datum/action/item_action/hands_free/activate/always)
 	trigger_causes = IMPLANT_TRIGGER_DEATH_ONCE | IMPLANT_TRIGGER_NOT_WHEN_GIBBED
-	implant_data = new /datum/implant_fluff/dust
+	implant_data = /datum/implant_fluff/dust
 	implant_state = "implant-nanotrasen"
 
 /obj/item/implant/dust/death_trigger(emote, mob/source, force)

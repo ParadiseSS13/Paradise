@@ -4,7 +4,7 @@
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "radio"
 	origin_tech = "materials=4;magnets=4;programming=4;biotech=4;syndicate=5;bluespace=5"
-	implant_data = new /datum/implant_fluff/uplink
+	implant_data = /datum/implant_fluff/uplink
 	implant_state = "implant-syndicate"
 
 /obj/item/implant/uplink/Initialize(mapload)

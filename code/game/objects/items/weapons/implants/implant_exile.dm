@@ -5,7 +5,7 @@
 	desc = "Prevents you from returning from away missions"
 	origin_tech = "materials=2;biotech=3;magnets=2;bluespace=3"
 	activated = IMPLANT_ACTIVATED_PASSIVE
-	implant_data = new /datum/implant_fluff/exile
+	implant_data = /datum/implant_fluff/exile
 	implant_state = "implant-nanotrasen"
 
 /obj/item/implanter/exile

@@ -4,7 +4,7 @@
 	trigger_emotes = list("deathgasp")
 	// If something forces the clown to fake death, it's pretty funny to still see the sad trombone played
 	trigger_causes = IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL | IMPLANT_TRIGGER_DEATH_ANY
-	implant_data = new /datum/implant_fluff/sad_trombone
+	implant_data = /datum/implant_fluff/sad_trombone
 	implant_state = "implant-honk"
 
 /obj/item/implant/sad_trombone/emote_trigger(emote, mob/source, force)

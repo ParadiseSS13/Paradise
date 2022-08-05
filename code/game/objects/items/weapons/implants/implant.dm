@@ -29,7 +29,7 @@
 	icon_state = "generic" //Shows up as a auto surgeon, used as a placeholder when a implant doesn't have a sprite
 	origin_tech = "materials=2;biotech=3;programming=2"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
-	item_color = "b"
+	item_color = "black"
 	flags = DROPDEL  // By default, don't let implants be harvestable.
 
 	///which implant overlay should be used for implant cases. This should point to a state in implants.dmi
@@ -54,7 +54,11 @@
 	var/has_triggered_on_death = FALSE
 
 	///the implant_fluff datum attached to this implant, purely cosmetic "lore" information
-	var/datum/implant_fluff/implant_data = new()
+	var/datum/implant_fluff/implant_data = /datum/implant_fluff
+
+/obj/item/implant/Initialize(mapload)
+	. = ..()
+	if(ispath(implant_data)) implant_data = new implant_data
 
 /obj/item/implant/proc/unregister_emotes()
 	if(imp_in && LAZYLEN(trigger_emotes))

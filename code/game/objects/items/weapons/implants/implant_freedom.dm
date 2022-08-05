@@ -5,7 +5,7 @@
 	item_color = "r"
 	origin_tech = "combat=5;magnets=3;biotech=4;syndicate=2"
 	uses = 4
-	implant_data = new /datum/implant_fluff/freedom
+	implant_data = /datum/implant_fluff/freedom
 	implant_state = "implant-syndicate"
 
 

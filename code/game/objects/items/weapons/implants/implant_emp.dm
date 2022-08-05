@@ -4,7 +4,7 @@
 	icon_state = "emp"
 	origin_tech = "biotech=3;magnets=4;syndicate=1"
 	uses = 2
-	implant_data = new /datum/implant_fluff/emp
+	implant_data = /datum/implant_fluff/emp
 	implant_state = "implant-syndicate"
 
 /obj/item/implant/emp/activate()

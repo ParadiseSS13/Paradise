@@ -5,7 +5,7 @@
 	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
 	actions_types = list(/datum/action/item_action/hands_free/activate/always)
 	trigger_causes = IMPLANT_TRIGGER_DEATH_ONCE // Not surviving that
-	implant_data = new /datum/implant_fluff/explosive
+	implant_data = /datum/implant_fluff/explosive
 	implant_state = "implant-syndicate"
 
 	var/detonating = FALSE

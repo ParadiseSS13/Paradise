@@ -3,7 +3,7 @@
 	desc = "Stops people messing with your mind."
 	origin_tech = "materials=2;biotech=4;programming=4"
 	activated = IMPLANT_ACTIVATED_PASSIVE
-	implant_data = new /datum/implant_fluff/mindshield
+	implant_data = /datum/implant_fluff/mindshield
 	implant_state = "implant-nanotrasen"
 
 /obj/item/implant/mindshield/implant(mob/target)

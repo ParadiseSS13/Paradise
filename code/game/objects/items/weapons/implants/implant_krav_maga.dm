@@ -5,7 +5,7 @@
 	icon_state ="scroll2"
 	activated = IMPLANT_ACTIVATED_ACTIVE
 	origin_tech = "materials=2;biotech=4;combat=5;syndicate=4"
-	implant_data = new /datum/implant_fluff/krav_maga
+	implant_data = /datum/implant_fluff/krav_maga
 	implant_state = "implant-default"
 
 	var/datum/martial_art/krav_maga/style = new

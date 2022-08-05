@@ -3,7 +3,7 @@
 	desc = "Divide and Conquer"
 	origin_tech = "programming=5;biotech=5;syndicate=8"
 	activated = FALSE
-	implant_data = new /datum/implant_fluff/traitor
+	implant_data = /datum/implant_fluff/traitor
 	implant_state = "implant-syndicate"
 
 	/// The UID of the mindslave's `mind`. Stored to solve GC race conditions and ensure we can remove their mindslave status even when they're deleted or gibbed.

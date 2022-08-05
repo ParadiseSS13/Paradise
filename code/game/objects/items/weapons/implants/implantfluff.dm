@@ -2,10 +2,8 @@
 /**
  * # Implant Fluff Datum
  *
- * All implants have used to have a get_data() call which used to return html, this datum serves to better method to
- * store this data and allow it to actually be accessed and used seperately from browserUI. Implant fluff is just lore
- * about the implant that is accessed through the implantpad, you must attach one of these datums to the implant_data
- * var on an implant for it to show it up.
+ * Implant fluff is just lore about the implant that is accessed through the implantpad, you must attach
+ * one of these datums to the implant_data var on an implant for it to show it up.
  */
 /datum/implant_fluff
 	var/name = "Unknown Implant"

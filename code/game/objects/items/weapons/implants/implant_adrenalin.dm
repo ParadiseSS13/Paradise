@@ -4,7 +4,7 @@
 	icon_state = "adrenal"
 	origin_tech = "materials=2;biotech=4;combat=3;syndicate=4"
 	uses = 3
-	implant_data = new /datum/implant_fluff/adrenaline
+	implant_data = /datum/implant_fluff/adrenaline
 	implant_state = "implant-syndicate"
 
 /obj/item/implant/adrenalin/activate()

@@ -3,7 +3,7 @@
 	desc = "Track with this."
 	activated = IMPLANT_ACTIVATED_PASSIVE
 	origin_tech = "materials=2;magnets=2;programming=2;biotech=2"
-	implant_data = new /datum/implant_fluff/tracking
+	implant_data = /datum/implant_fluff/tracking
 	implant_state = "implant-nanotrasen"
 
 /obj/item/implant/tracking/Initialize(mapload)

@@ -5,7 +5,7 @@
 	origin_tech = "materials=3;biotech=4"
 	container_type = OPENCONTAINER
 	trigger_causes = IMPLANT_TRIGGER_DEATH_ANY
-	implant_data = new /datum/implant_fluff/chem
+	implant_data = /datum/implant_fluff/chem
 	implant_state = "implant-nanotrasen"
 
 /obj/item/implant/chem/Initialize(mapload)

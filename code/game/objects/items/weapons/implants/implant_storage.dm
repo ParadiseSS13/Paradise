@@ -13,7 +13,7 @@
 	icon_state = "storage"
 	origin_tech = "materials=2;magnets=4;bluespace=5;syndicate=4"
 	item_color = "r"
-	implant_data = new /datum/implant_fluff/storage
+	implant_data = /datum/implant_fluff/storage
 	implant_state = "implant-syndicate"
 
 	var/obj/item/storage/hidden/implant/storage
