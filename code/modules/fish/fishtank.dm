@@ -321,7 +321,7 @@
 		to_chat(user, "<span class='notice'>[duds] egg\s [duds == 1 ? "was a dud" : "were duds"]!</span>")
 
 /obj/machinery/fishtank/proc/harvest_fish(mob/user)
-	if(get_num_fish() <= 0)									//Can't catch non-existant fish!
+	if(!get_num_fish())									//Can't catch non-existant fish!
 		to_chat(user, "<span class='warning'>There are no fish in [src] to catch!</span>")
 		return
 	var/list/fish_types = list() // fish sorted by type. Key is type of fish, value is a list of fish of that type
@@ -339,15 +339,15 @@
 	if(!Adjacent(user))
 		to_chat(user, "<span class='warning'>You are no longer next to [src], so you can't catch fish!</span>")
 		return
-	if(get_num_fish() <= 0)
+	if(!get_num_fish())
 		to_chat(user, "<span class='warning'>There are no fish in [src] to catch!</span>")
 		return
-	var/list/fish_type_caught = fish_types_input[caught_fish]
+	var/fish_type_caught = fish_types_input[caught_fish]
 	var/list/fishes_of_type = list()
 	for(var/datum/fish/F in fish_list)
 		if(F.type == fish_type_caught)
 			fishes_of_type += list(F)
-	if(length(fishes_of_type) == 0)
+	if(!length(fishes_of_type))
 		var/datum/fish/fish_type = fish_type_caught
 		to_chat(user, "<span class='warning'>There are no [fish_type.fish_name] in [src] to catch!</span>")
 		return
@@ -677,7 +677,7 @@
 		//Only add food if there is water and it isn't already full of food
 		if(water_level)
 			if(food_level < 10)
-				if(get_num_fish() == 0)
+				if(!get_num_fish())
 					user.visible_message("<span class='notice'>[user.name] shakes some fish food into the empty [src]... How sad.</span>", "<span class='notice'>You shake some fish food into the empty [src]... If only it had fish.</span>")
 				else
 					user.visible_message("<span class='notice'>[user.name] feeds the fish in [src]. The fish look excited!</span>", "<span class='notice'>You feed the fish in [src]. They look excited!</span>")
