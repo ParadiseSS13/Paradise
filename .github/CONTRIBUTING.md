@@ -344,17 +344,17 @@ Do not enclose a proc in an if-block when returning on a condition is more feasi
 
 This is bad:
 
-````dm
+```dm
 /datum/datum1/proc/proc1()
     if(thing1)
         if(!thing2)
             if(thing3 == 30)
                 do stuff
-````
+```
 
 This is good:
 
-````dm
+```dm
 /datum/datum1/proc/proc1()
     if(!thing1)
         return
@@ -363,7 +363,7 @@ This is good:
     if(thing3 != 30)
         return
     do stuff
-````
+```
 
 This prevents nesting levels from getting deeper then they need to be.
 
