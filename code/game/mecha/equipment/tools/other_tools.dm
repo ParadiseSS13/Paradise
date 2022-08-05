@@ -122,7 +122,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	name = "armor booster module (Ranged weaponry)"
-	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
+	desc = "Boosts exosuit armor against ranged attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_proj"
 	origin_tech = "materials=4;combat=3;engineering=3"
 	equip_cooldown = 10

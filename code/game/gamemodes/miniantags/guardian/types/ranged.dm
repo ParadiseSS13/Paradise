@@ -3,7 +3,7 @@
 	icon_state = "guardian"
 	damage = 20
 	damage_type = BRUTE
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 
 /mob/living/simple_animal/hostile/guardian/ranged
 	friendly = "quietly assesses"

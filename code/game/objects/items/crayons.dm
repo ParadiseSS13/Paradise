@@ -294,7 +294,7 @@
 						var/mob/living/carbon/human/H = target
 						if(H.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
 							H.Confused(6 SECONDS)
-							H.Weaken(6 SECONDS)
+							H.KnockDown(6 SECONDS)
 						H.lip_style = "spray_face"
 						H.lip_color = colour
 						H.update_body()

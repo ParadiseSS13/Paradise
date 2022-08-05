@@ -228,6 +228,11 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
+/obj/item/organ/external/head/examine(mob/user)
+	. = ..()
+	if(!length(contents))
+		. += "<span class='warning'>There is nothing left inside!</span>"
+
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))

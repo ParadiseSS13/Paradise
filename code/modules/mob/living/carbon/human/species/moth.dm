@@ -148,6 +148,7 @@
 		C.preparing_to_emerge = TRUE
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)
 		H.KnockOut()
+		H.create_log(MISC_LOG, "has woven a cocoon")
 		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
@@ -190,6 +191,7 @@
 		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
 		H.WakeUp()
 		H.forceMove(loc)
+		H.create_log(MISC_LOG, "has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
 	return ..()
 
 /datum/status_effect/burnt_wings

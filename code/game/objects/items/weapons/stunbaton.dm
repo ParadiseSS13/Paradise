@@ -243,9 +243,9 @@
 	force = 3
 	throwforce = 5
 	knockdown_duration = 6 SECONDS
-	stam_damage = 40 // three hits to crit
+	w_class = WEIGHT_CLASS_BULKY
 	hitcost = 2000
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_BACK | SLOT_BELT
 	var/obj/item/assembly/igniter/sparkler = null
 
 /obj/item/melee/baton/cattleprod/Initialize(mapload)
