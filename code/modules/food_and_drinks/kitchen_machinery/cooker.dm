@@ -132,7 +132,7 @@
 		if(L.stat != DEAD)
 			if(ispAI(L)) //Snowflake check because pAIs are weird
 				var/mob/living/silicon/pai/P = L
-				P.death(cleanWipe = 1)
+				P.death(cleanWipe = TRUE)
 			else
 				L.death()
 		break
