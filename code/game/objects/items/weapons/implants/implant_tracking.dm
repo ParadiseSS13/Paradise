@@ -5,6 +5,7 @@
 	origin_tech = "materials=2;magnets=2;programming=2;biotech=2"
 	implant_data = /datum/implant_fluff/tracking
 	implant_state = "implant-nanotrasen"
+	var/warn_cooldown = 0
 
 /obj/item/implant/tracking/Initialize(mapload)
 	..()
