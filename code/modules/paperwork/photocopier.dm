@@ -29,9 +29,9 @@
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
 	var/mob/living/ass = null
 	var/syndicate = FALSE
-	var/info_box = "Если у вас есть пожелания или\
-					идеи для улучшения стандартных\
-					форм, обратитесь в Департамент\
+	var/info_box = "Если у вас есть пожелания или \
+					идеи для улучшения стандартных \
+					форм, обратитесь в Департамент \
 					Стандартизации Nanotrasen."
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
