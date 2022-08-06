@@ -113,13 +113,13 @@
 	. = ..()
 	switch(buildstage)
 		if(DRIVER_FRAME)
-			. += "<span class='notice'>Its <i>unbolted</i> from the [get_turf(src)] and could be <b>welded</b> down.</span>"
+			. += "<span class='notice'>It's <i>unbolted</i> from the [get_turf(src)] and could be <b>welded</b> down.</span>"
 		if(DRIVER_BOLTS)
 			. += "<span class='notice'>It could be securely <i>welded</i> to the [get_turf(src)] or could be <b>unbolted</b>.</span>"
 		if(DRIVER_WELDED)
-			. += "<span class='notice'>Its could be <i>wired</i> or <b>sliced</b> away from [get_turf(src)].</span>"
+			. += "<span class='notice'>It could be <i>wired</i> or <b>sliced</b> away from [get_turf(src)].</span>"
 		if(DRIVER_WIRED)
-			. += "<span class='notice'>Its missing its <i>grille</i> and is <b>wired</b>.</span>"
+			. += "<span class='notice'>It's missing its <i>grille</i> and is <b>wired</b>.</span>"
 		if(DRIVER_GRILLE)
 			. += "<span class='notice'>Its maintenance panel is <i>screwed</i> open and its <b>grille</b> is installed.</span>"
 

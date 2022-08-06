@@ -161,12 +161,12 @@ Intercom electronics
 		if(INTERCOM_FRAME)
 			. += "<span class='notice'>It is <i>bolted</i> onto the wall and the circuit slot is <b>empty</b>.</span>"
 		if(INTERCOM_UNWIRED)
-			. += "<span class='notice'>The circuit is <i>connected loosely</i> to its slot, but also has space for <b>wiring</b>.</span>"
+			. += "<span class='notice'>The circuit is <i>connected loosely</i> to its slot, but it also has space for <b>wiring</b>.</span>"
 		if(INTERCOM_READY)
 			if(wiresexposed)
 				. += "<span class='notice'>The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.</span>"
 			else
-				. += "<span class='notice'>You can add :i before your message when speaking, to talk into the radio inside it.</span>"
+				. += "<span class='notice'>You can speak into it with :i while standing nearby.</span>"
 
 /obj/item/radio/intercom/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww

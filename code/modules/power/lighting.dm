@@ -417,12 +417,12 @@
 	update()
 
 // examine verb
-/obj/machinery/light/examine(mob/user) // TODO: MAKE THIS NOTICE SPANS
+/obj/machinery/light/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		switch(status)
 			if(LIGHT_OK)
-				. += "<span class='notice'>It is turned [on? "on" : "off"].</span>"
+				. += "<span class='notice'>It is turned [on ? "on" : "off"].</span>"
 			if(LIGHT_EMPTY)
 				. += "<span class='notice'>The [fitting] has been removed.</span>"
 			if(LIGHT_BURNED)

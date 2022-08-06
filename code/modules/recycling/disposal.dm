@@ -1025,12 +1025,7 @@
 /obj/structure/disposalpipe/sortjunction/examine(mob/user)
 	. = ..()
 	if(sortType>0)
-		. += getdestination()
-
-/obj/structure/disposalpipe/sortjunction/proc/getdestination()
-	if(sortType>0)
-		var/tag = uppertext(GLOB.TAGGERLOCATIONS[sortType])
-		return "<span class='notice'>It's tagged with <b>[tag]</b>.</span>"
+		. += "<span class='notice'>It's tagged with <b>[uppertext(GLOB.TAGGERLOCATIONS[sortType])]</b>.</span>"
 
 /obj/structure/disposalpipe/sortjunction/proc/updatedir()
 	posdir = dir

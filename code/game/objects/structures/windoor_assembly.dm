@@ -39,7 +39,7 @@
 			. += "<span class='notice'>It looks like it could be <b>reinforced</b>.</span>"
 		if(WINDOOR_WIRED)
 			if(!electronics) //screwdriver act
-				. += "<span class='notice'>Theres some <b>cables</b> inside and the <i>circuit</i> slot is empty.</span>"
+				. += "<span class='notice'>There are some <b>cables</b> inside and the <i>circuit</i> slot is empty.</span>"
 			else
 				. += "<span class='notice'>It looks like it could be <i>pried</i> closed.</span>"
 	if(!anchored)

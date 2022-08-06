@@ -118,7 +118,7 @@
 		if(!wires.is_all_cut())
 			. += "<span class='notice'>You could <b>cut</b> the wires to access the welds."
 		else
-			. += "<span class='notice'>It's wires could be <i>mended</i> or the frame <b>sliced</b> away from the wall.</span>"
+			. += "<span class='notice'>Its wires could be <i>mended</i> or the frame <b>sliced</b> away from the wall.</span>"
 		if(!isMotion())
 			. += "<span class='notice'>You could add a <b>proximity sensor</b> to enable the motion-sensitivity.</span>"
 		if(!isEmpProof())
@@ -282,7 +282,7 @@
 			visible_message("<span class='danger'>[user] [status ? "reactivates" : "deactivates"] [src]!</span>")
 			add_hiddenprint(user)
 		else
-			visible_message("<span class='danger'>\The [src] [status ? "reactivates" : "deactivates"]!</span>")
+			visible_message("<span class='danger'>[src] [status ? "reactivates" : "deactivates"]!</span>")
 
 		playsound(loc, toggle_sound, 100, 1)
 	update_icon(UPDATE_ICON_STATE)

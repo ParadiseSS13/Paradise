@@ -1127,7 +1127,7 @@
 
 /obj/machinery/alarm/all_access
 	name = "all-access air alarm"
-	desc = "A wall-mounted device used to control atmospheric equipment. It's access restrictions appear to have been removed."
+	desc = "A wall-mounted device used to control atmospheric equipment. Its access restrictions appear to have been removed."
 	locked = FALSE
 	custom_name = TRUE
 	req_access = null

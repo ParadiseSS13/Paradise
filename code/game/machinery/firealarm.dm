@@ -107,9 +107,9 @@ Fire alarm electronics
 			. += "<span class='notice'>The circuit inside could be <i>pried out</i> or could be <b>wired</b>.</span>"
 		if(FIRE_ALARM_READY)
 			if(wiresexposed)
-				. += "<span class='notice'>Its wires would need to be <i>cut</i> to access the circuit or panel could <b>screwed</b> closed.</span>"
+				. += "<span class='notice'>Its wires would need to be <i>cut</i> to access the circuit, otherwise the panel could <b>screwed</b> closed.</span>"
 			else
-				. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
+				. += "It shows the alert level as: <b><u>[capitalize(get_security_level())]</u></b>."
 
 /obj/machinery/firealarm/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)

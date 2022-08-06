@@ -599,11 +599,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			if(AIRLOCK_SECURITY_METAL)
 				. += "<span class='notice'>Its wires are hidden behind a <b>welded</b> metal cover.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_I_S)
-				. += "<span class='notice'>There is some shredded plasteel <b>stuck</b> in place.</span>"
+				. += "<span class='notice'>There is some shredded plasteel inside, it could be <b>pried</b> away.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_I)
-				. += "<span class='notice'>Its wires are behind an inner layer of welded plasteel.</span>"
+				. += "<span class='notice'>Its wires are behind an inner layer of <b>welded</b> plasteel.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_O_S)
-				. += "<span class='notice'>There is some shredded plasteel <b>stuck</b> in place.</span>"
+				. += "<span class='notice'>There is some shredded plasteel inside, it could be <b>pried</b> away.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
 				. += "<span class='notice'>There is a <b>welded</b> plasteel cover hiding its wires.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL)
