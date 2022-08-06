@@ -20,6 +20,13 @@
 	..()
 	add_fingerprint(user)
 
+/obj/structure/railing/examine(mob/user)
+	. = ..()
+	if(anchored)
+		. += "<span class='notice'>It is <b>bolted</b> to the floor.</span>"
+	else
+		. += "<span class='notice'>It could be <i>bolted</i> to the floor or <b>cut</b> back down into rods.</span>"
+
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
 	if(user.intent != INTENT_HELP)
 		return
@@ -36,10 +43,11 @@
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	if(anchored)
 		return
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	. = TRUE
 	to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
-	I.play_tool_sound(src, 100)
 	deconstruct()
-	return TRUE
 
 /obj/structure/railing/deconstruct(disassembled)
 	if(!(flags & NODECONSTRUCT))

@@ -36,6 +36,8 @@
 			. += "There is a large hole in \the [src]."
 		if(LARGE_HOLE)
 			. += "\The [src] has been completely cut through."
+	if(!invulnerable)
+		. += "<span class='notice'>It looks like you could <b>cut</b> the links apart.</span>"
 
 /obj/structure/fence/end
 	icon_state = "end"

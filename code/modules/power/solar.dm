@@ -178,14 +178,25 @@
 
 /obj/item/solar_assembly
 	name = "solar panel assembly"
-	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker"
+	desc = "A solar panel assembly kit, it can be used to build a solar panel or a solar tracker."
 	icon = 'icons/goonstation/objects/power.dmi'
 	icon_state = "sp_base"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
 	anchored = FALSE
-	var/tracker = 0
+	var/tracker = FALSE
 	var/glass_type = null
+
+/obj/item/solar_assembly/examine(mob/user)
+	. = ..()
+	if(anchored)
+		. += "<span class='notice'>Its <b>bolted</b> to [loc] and has a slot for inserting <i>glass</i>.</span>"
+	else
+		. += "<span class='notice'>Its <i>unbolted</i>.</span>"
+	if(tracker)
+		. += "<span class='notice'>It has a circuit <b>pried</b> into frame.</span>"
+	else
+		. += "<span class='notice'>Its tracking <i>circuit</i> slot is empty.</span>"
 
 /obj/item/solar_assembly/attack_hand(mob/user)
 	if(!anchored)
@@ -194,57 +205,55 @@
 // Give back the glass type we were supplied with
 /obj/item/solar_assembly/proc/give_glass()
 	if(glass_type)
-		var/obj/item/stack/sheet/S = new glass_type(src.loc)
+		var/obj/item/stack/sheet/S = new glass_type(loc)
 		S.amount = 2
 		glass_type = null
 
-
 /obj/item/solar_assembly/attackby(obj/item/W, mob/user, params)
-
-	if(!anchored && isturf(loc))
-		if(istype(W, /obj/item/wrench))
-			anchored = TRUE
-			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
-			playsound(src.loc, W.usesound, 50, 1)
-			return 1
-	else
-		if(istype(W, /obj/item/wrench))
-			anchored = FALSE
-			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
-			playsound(src.loc, W.usesound, 50, 1)
-			return 1
-
-		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
-			var/obj/item/stack/sheet/S = W
-			if(S.use(2))
-				glass_type = S.merge_type
-				playsound(loc, S.usesound, 50, 1)
-				user.visible_message("[user] places the glass on the solar assembly.", "<span class='notice'>You place the glass on the solar assembly.</span>")
-				if(tracker)
-					new /obj/machinery/power/tracker(get_turf(src), src)
-				else
-					new /obj/machinery/power/solar(get_turf(src), src)
+	if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
+		var/obj/item/stack/sheet/S = W
+		if(S.use(2))
+			glass_type = S.merge_type
+			playsound(loc, S.usesound, 50, 1)
+			user.visible_message("[user] places the glass on the solar assembly.", "<span class='notice'>You place the glass on the solar assembly.</span>")
+			if(tracker)
+				new /obj/machinery/power/tracker(get_turf(src), src)
 			else
-				to_chat(user, "<span class='warning'>You need two sheets of glass to put them into a solar panel.</span>")
-				return
-			return 1
+				new /obj/machinery/power/solar(get_turf(src), src)
+		else
+			to_chat(user, "<span class='warning'>You need two sheets of glass to put them into a solar panel.</span>")
+			return
+		return 1
 
 	if(!tracker)
 		if(istype(W, /obj/item/tracker_electronics))
 			if(!user.drop_item())
 				return
-			tracker = 1
+			tracker = TRUE
 			qdel(W)
 			user.visible_message("[user] inserts the electronics into the solar assembly.", "<span class='notice'>You insert the electronics into the solar assembly.</span>")
 			return 1
-	else if(istype(W, /obj/item/crowbar))
-		new /obj/item/tracker_electronics(src.loc)
-		tracker = 0
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
-		return 1
 	else
 		return ..()
+
+/obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/I)
+	if(!isturf(loc))
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	user.visible_message("[user] [anchored ? "" : "un"]wrenches the solar assembly [anchored ? "into" : "from its"] place.", "<span class='notice'>You [anchored ? "" : "un"]wrench the solar assembly [anchored ? "into" : "from its"] place.</span>")
+
+/obj/item/solar_assembly/crowbar_act(mob/living/user, obj/item/I)
+	if(!tracker)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	new /obj/item/tracker_electronics(loc)
+	tracker = FALSE
+	user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
 
 //
 // Solar Control Computer

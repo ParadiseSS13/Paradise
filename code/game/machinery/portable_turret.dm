@@ -852,7 +852,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding some metal armor to the interior frame...</span>")
-				if(if(do_after(user, 20, 1, target = src)) && M.use(2))
+				if((do_after(user, 20, 1, target = src)) && M.use(2))
 					to_chat(user, "<span class='notice'>You add some metal armor to the interior frame.</span>")
 					buildstage = TURRET_CONSTRUCT_ADD_ARMOR
 					update_icon(UPDATE_ICON_STATE)

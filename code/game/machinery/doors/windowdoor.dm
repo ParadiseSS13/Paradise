@@ -51,7 +51,7 @@
 		if(!panel_open)
 			. += "<span class='notice'>Its maintenance panel could be <i>screwed</i> open.</span>"
 		else
-			. += decon_examine() // because clockwork windoors want to be special // FUUUUUUUUUCK windoors, this doesnt work yet. TODO: MAKE IT WORK
+			. += decon_examine() // because clockwork windoors want to be special
 
 /obj/machinery/door/window/proc/decon_examine()
 	return "<span class='notice'>The electronics could be <b>pried</b> out, or the maintenance panel could be <i>screwed</i> closed.</span>"
