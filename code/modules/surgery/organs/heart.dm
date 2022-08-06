@@ -9,7 +9,7 @@
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
 
-/obj/item/organ/internal/heart/update_icon()
+/obj/item/organ/internal/heart/update_icon_state()
 	if(beating)
 		icon_state = "[icon_base]-on"
 	else
@@ -54,12 +54,12 @@
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/item/organ/internal/heart/proc/Restart()
 	beating = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/item/organ/internal/heart/prepare_eat()

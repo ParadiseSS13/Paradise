@@ -114,8 +114,8 @@
 	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
 	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Swarmer)</span>")
 
-/mob/living/simple_animal/hostile/swarmer/New()
-	..()
+/mob/living/simple_animal/hostile/swarmer/Initialize(mapload)
+	. = ..()
 	add_language("Swarmer", 1)
 	verbs -= /mob/living/verb/pulled
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
@@ -342,7 +342,7 @@
 	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
 	return FALSE
 
-/obj/machinery/portable_atmospherics/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/machinery/atmospherics/portable/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 	return FALSE
 

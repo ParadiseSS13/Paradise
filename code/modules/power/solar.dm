@@ -93,15 +93,13 @@
 			new /obj/item/shard(src.loc)
 	qdel(src)
 
-/obj/machinery/power/solar/update_icon()
-	..()
-	overlays.Cut()
+/obj/machinery/power/solar/update_overlays()
+	. = ..()
 	if(stat & BROKEN)
-		overlays += image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
+		. += image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
 	else
-		overlays += image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
+		. += image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
 		set_angle(adir)
-	return
 
 //calculates the fraction of the sunlight that the panel recieves
 /obj/machinery/power/solar/proc/update_solar_exposure()
@@ -340,16 +338,16 @@
 		set_panels(cdir)
 	updateDialog()
 
-/obj/machinery/power/solar_control/update_icon()
-	overlays.Cut()
+/obj/machinery/power/solar_control/update_overlays()
+	. = ..()
 	if(stat & NOPOWER)
-		overlays += "[icon_keyboard]_off"
+		. += "[icon_keyboard]_off"
 		return
-	overlays += icon_keyboard
+	. += icon_keyboard
 	if(stat & BROKEN)
-		overlays += "[icon_state]_broken"
+		. += "[icon_state]_broken"
 	else
-		overlays += icon_screen
+		. += icon_screen
 
 /obj/machinery/power/solar_control/attack_ai(mob/user as mob)
 	add_hiddenprint(user)

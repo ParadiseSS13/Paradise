@@ -44,7 +44,7 @@
 		tot_rating += SP.rating
 	heat_gen /= max(1, tot_rating)
 
-/obj/machinery/r_n_d/server/update_icon()
+/obj/machinery/r_n_d/server/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "RD-server-off"
 	else
@@ -52,7 +52,7 @@
 
 /obj/machinery/r_n_d/server/power_change()
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/r_n_d/server/proc/initialize_serv()
 	if(!files)
@@ -140,12 +140,6 @@
 				air_update_turf()
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(disabled)
-		return
-
-	if(shocked)
-		shock(user,50)
-
 	if(istype(O, /obj/item/screwdriver))
 		default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", O)
 		return 1
@@ -160,14 +154,6 @@
 			return 1
 	else
 		return ..()
-
-/obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
-	if(disabled)
-		return
-
-	if(shocked)
-		shock(user,50)
-	return
 
 /obj/machinery/r_n_d/server/centcom
 	name = "CentComm. Central R&D Database"

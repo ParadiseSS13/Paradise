@@ -1,5 +1,5 @@
 /mob
-	density = 1
+	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = 2
 	pressure_resistance = 8
@@ -28,7 +28,7 @@
 	var/obj/screen/leap_icon = null
 	var/obj/screen/healthdoll/healthdoll = null
 
-	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
+	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
 	var/computer_id = null
 	var/lastattacker = null // real name of the person  doing the attacking
@@ -43,7 +43,7 @@
 	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
-	var/notransform = null	//Carbon
+	var/notransform = FALSE	//Carbon
 	var/hand = null
 	var/real_name = null
 	var/flavor_text = ""
@@ -52,7 +52,7 @@
 	var/gen_record = ""
 	var/lying_prev = 0
 	var/lastpuke = 0
-	var/can_strip = 1
+	var/can_strip = TRUE
 	var/list/languages = list()         // For speaking/listening.
 	var/list/abilities = list()         // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
@@ -62,7 +62,7 @@
 	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = 310.055	//98.7 F
-	var/flying = 0
+	var/flying = FALSE
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
 	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
@@ -89,13 +89,13 @@
 
 	hud_possible = list(SPECIALROLE_HUD)
 
-	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
+	var/research_scanner = FALSE //For research scanner equipped mobs. Enable to show research data when examining.
 
 	var/list/grabbed_by = list()
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
-	var/in_throw_mode = 0
+	var/in_throw_mode = FALSE
 
 	// See /datum/emote
 
@@ -118,12 +118,12 @@
 
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 
-	var/move_on_shuttle = 1 // Can move on the shuttle.
+	var/move_on_shuttle = TRUE // Can move on the shuttle.
 
 	/// Whether antagHUD has been enabled previously.
 	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
-	var/can_change_intents = 1 //all mobs can change intents by default.
+	var/can_change_intents = TRUE //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
@@ -156,7 +156,7 @@
 
 	var/area/lastarea = null
 
-	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
+	var/has_unlimited_silicon_privilege = FALSE // Can they interact with station electronics
 
 	var/atom/movable/remote_control //Calls relaymove() to whatever it is
 

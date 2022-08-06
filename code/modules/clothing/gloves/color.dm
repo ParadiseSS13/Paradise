@@ -65,16 +65,16 @@
 	item_color="yellow"
 	resistance_flags = NONE
 
-/obj/item/clothing/gloves/color/fyellow/New()
-	..()
+/obj/item/clothing/gloves/color/fyellow/Initialize(mapload)
+	. = ..()
 	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
 
 /obj/item/clothing/gloves/color/fyellow/old
 	name = "worn out insulated gloves"
 	desc = "Old and worn out insulated gloves, hopefully they still work."
 
-/obj/item/clothing/gloves/color/fyellow/old/New()
-	..()
+/obj/item/clothing/gloves/color/fyellow/old/Initialize(mapload)
+	. = ..()
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
 /obj/item/clothing/gloves/color/black
@@ -242,7 +242,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 115, ACID = 50)
 
 /obj/item/clothing/gloves/furgloves
 	desc = "These gloves are warm and furry."

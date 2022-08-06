@@ -13,7 +13,7 @@
 	var/obj/item/implant/imp = null
 
 
-/obj/item/implanter/update_icon()
+/obj/item/implanter/update_icon_state()
 	if(imp)
 		icon_state = "implanter1"
 		origin_tech = imp.origin_tech
@@ -38,7 +38,7 @@
 					else
 						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] implants you.</span>")
 					imp = null
-					update_icon()
+					update_icon(UPDATE_ICON_STATE)
 
 /obj/item/implanter/attackby(obj/item/W, mob/user, params)
 	..()
@@ -48,7 +48,7 @@
 /obj/item/implanter/New()
 	..()
 	spawn(1)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/implanter/adrenalin

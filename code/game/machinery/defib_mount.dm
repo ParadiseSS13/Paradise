@@ -37,7 +37,7 @@
 /obj/machinery/defibrillator_mount/loaded/Initialize(mapload) //loaded subtype for mapping use
 	. = ..()
 	defib = new/obj/item/defibrillator/loaded(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/defibrillator_mount/Destroy()
 	QDEL_NULL(defib)
@@ -58,19 +58,19 @@
 	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
 		use_power(200)
 		defib.cell.give(180) //90% efficiency, slightly better than the cell charger's 87.5%
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/defibrillator_mount/update_icon()
-	cut_overlays()
+/obj/machinery/defibrillator_mount/update_overlays()
+	. = ..()
 	if(defib)
-		add_overlay("defib")
+		. += "defib"
 		if(defib.powered)
-			add_overlay(defib.safety ? "online" : "emagged")
+			. += "[defib.safety ? "online" : "emagged"]"
 			var/ratio = defib.cell.charge / defib.cell.maxcharge
 			ratio = CEILING(ratio * 4, 1) * 25
-			add_overlay("charge[ratio]")
+			. += "charge[ratio]"
 		if(clamps_locked)
-			add_overlay("clamps")
+			. += "clamps"
 
 //defib interaction
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/user)
@@ -95,7 +95,7 @@
 		"<span class='notice'>You press [I] into the mount, and it clicks into place.</span>")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	else if(defib && I == defib.paddles)
 		user.drop_item()
@@ -108,7 +108,7 @@
 				return
 			clamps_locked = !clamps_locked
 			to_chat(user, "<span class='notice'>Clamps [clamps_locked ? "" : "dis"]engaged.</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>Insufficient access.</span>")
 		return
@@ -143,7 +143,7 @@
 	"<span class='notice'>You slide out [defib] from [src] and unhook the charging cables.</span>")
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	defib = null
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 //wallframe, for attaching the mounts easily
 /obj/item/mounted/frame/defib_mount

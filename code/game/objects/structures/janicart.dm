@@ -40,7 +40,7 @@
 	return
 
 /obj/structure/janitorialcart/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
@@ -66,7 +66,7 @@
 			if(!myspray)
 				put_in_cart(I, user)
 				myspray=I
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/lightreplacer))
@@ -79,7 +79,7 @@
 			if(signs < max_signs)
 				put_in_cart(I, user)
 				signs++
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 		else if(istype(I, /obj/item/crowbar))
@@ -163,22 +163,22 @@
 				WARNING("Signs ([signs]) didn't match contents")
 				signs = 0
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	updateUsrDialog()
 
 
-/obj/structure/janitorialcart/update_icon()
-	overlays = null
+/obj/structure/janitorialcart/update_overlays()
+	. = ..()
 	if(mybag)
-		overlays += "cart_garbage"
+		. += "cart_garbage"
 	if(mymop)
-		overlays += "cart_mop"
+		. += "cart_mop"
 	if(myspray)
-		overlays += "cart_spray"
+		. += "cart_spray"
 	if(myreplacer)
-		overlays += "cart_replacer"
+		. += "cart_replacer"
 	if(signs)
-		overlays += "cart_sign[signs]"
+		. += "cart_sign[signs]"
 	if(reagents.total_volume > 0)
 		var/image/reagentsImage = image(icon,src,"cart_reagents0")
 		reagentsImage.alpha = 150
@@ -192,4 +192,4 @@
 			if(76 to 100)
 				reagentsImage.icon_state = "cart_reagents4"
 		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(reagentsImage)
+		. += reagentsImage

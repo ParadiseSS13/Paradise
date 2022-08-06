@@ -84,7 +84,7 @@
 	opening = FALSE
 	update_icon()
 
-/obj/structure/falsewall/update_icon()
+/obj/structure/falsewall/update_icon_state()
 	if(opening)
 		smoothing_flags = NONE
 		clear_smooth_overlays()

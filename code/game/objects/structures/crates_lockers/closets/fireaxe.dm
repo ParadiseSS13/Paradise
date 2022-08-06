@@ -20,7 +20,7 @@
 /obj/structure/closet/fireaxecabinet/populate_contents()
 	fireaxe = new/obj/item/twohanded/fireaxe(src)
 	has_axe = "full"
-	update_icon()	// So its initial icon doesn't show it without the fireaxe
+	update_icon(UPDATE_ICON_STATE)	// So its initial icon doesn't show it without the fireaxe
 
 /obj/structure/closet/fireaxecabinet/examine(mob/user)
 	. = ..()
@@ -37,7 +37,7 @@
 			if(do_after(user, 20 * O.toolspeed, target = src))
 				locked = FALSE
 				to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 			return
 		else if(istype(O, /obj/item))
 			user.changeNext_move(CLICK_CD_MELEE)
@@ -58,7 +58,7 @@
 					smashed = TRUE
 					locked = FALSE
 					localopened = TRUE
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		return
 	if(istype(O, /obj/item/twohanded/fireaxe) && localopened)
 		if(!fireaxe)
@@ -73,7 +73,7 @@
 			has_axe = "full"
 			contents += F
 			to_chat(user, "<span class='notice'>You place \the [F] back in the [name].</span>")
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		else
 			if(smashed)
 				return
@@ -107,7 +107,7 @@
 		fireaxe = null
 
 		add_fingerprint(user)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 	if(smashed)
 		return
@@ -119,7 +119,7 @@
 		to_chat(user, "<span class='notice'>You telekinetically remove \the [fireaxe].</span>")
 		has_axe = "empty"
 		fireaxe = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 	attack_hand(user)
 
@@ -153,7 +153,7 @@
 			to_chat(usr, "<span class='notice'>[src] is empty.</span>")
 	else
 		to_chat(usr, "<span class='notice'>[src] is closed.</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/closet/fireaxecabinet/attack_ai(mob/user as mob)
 	if(smashed)
@@ -180,14 +180,17 @@
 	else
 		flick("fireaxe_[has_axe]_opening", src)
 	sleep(10)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/structure/closet/fireaxecabinet/update_icon()
+/obj/structure/closet/fireaxecabinet/update_icon_state()
 	if(localopened && !smashed)
 		icon_state = "fireaxe_[has_axe]_open"
-		return
-	icon_state = "fireaxe_[has_axe]_[hitstaken]hits"
+	else
+		icon_state = "fireaxe_[has_axe]_[hitstaken]hits"
+
+/obj/structure/closet/fireaxecabinet/update_overlays()
+	return list()
 
 /obj/structure/closet/fireaxecabinet/open()
 	return

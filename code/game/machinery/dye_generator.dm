@@ -24,19 +24,19 @@
 	else
 		stat |= NOPOWER
 		set_light(0)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/dye_generator/extinguish_light()
 	set_light(0)
 	underlays.Cut()
 
-/obj/machinery/dye_generator/update_icon()
-	cut_overlays()
+/obj/machinery/dye_generator/update_overlays()
+	. = ..()
 	underlays.Cut()
 	if(stat & (BROKEN|NOPOWER))
-		add_overlay("barbervend_off")
+		. += "barbervend_off"
 		if(stat & BROKEN)
-			add_overlay("barbervend_broken")
+			. += "barbervend_broken"
 	if(light)
 		underlays += emissive_appearance(icon, "barbervend_lightmask")
 
@@ -58,14 +58,14 @@
 		var/obj/item/hair_dye_bottle/HD = I
 		user.visible_message("<span class='notice'>[user] fills [HD] up with some dye.</span>","<span class='notice'>You fill [HD] up with some hair dye.</span>")
 		HD.dye_color = dye_color
-		HD.update_dye_overlay()
+		HD.update_icon()
 		return
 	return ..()
 
 /obj/machinery/dye_generator/obj_break(damage_flag)
 	if(!(stat & BROKEN))
 		stat |= BROKEN
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 //Hair Dye Bottle
 
@@ -83,13 +83,13 @@
 
 /obj/item/hair_dye_bottle/New()
 	..()
-	update_dye_overlay()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/hair_dye_bottle/proc/update_dye_overlay()
-	overlays.Cut()
+/obj/item/hair_dye_bottle/update_overlays()
+	. = ..()
 	var/image/I = new('icons/obj/items.dmi', "hairdyebottle-overlay")
 	I.color = dye_color
-	overlays += I
+	. += I
 
 /obj/item/hair_dye_bottle/attack(mob/living/carbon/M, mob/user)
 	if(user.a_intent != INTENT_HELP)

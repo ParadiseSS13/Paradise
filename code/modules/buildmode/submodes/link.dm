@@ -57,7 +57,7 @@
 				if(link_lines.len && alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", "Yes", "No") == "No")
 					speed_execute()
 					return
-				M.normaldoorcontrol = 1
+				M.normaldoorcontrol = TRUE
 			if(P.id_tag && alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
 				speed_execute()
 				return
@@ -79,7 +79,7 @@
 				if(link_lines.len && alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", "Yes", "No") == "No")
 					speed_execute()
 					return
-				M.normaldoorcontrol = 0
+				M.normaldoorcontrol = FALSE
 			if(!M.id || M.id == "")
 				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
 				if(!M.id || M.id == "")

@@ -172,12 +172,13 @@ Actual Adjacent procs :
 	if(!istype(caller_atom))
 		caller_atom = null
 
-	for(var/obj/structure/window/W in src)
-		if(!W.CanAStarPass(ID, adir))
+	for(var/obj/O in src)
+		if(!(O.flags & ON_BORDER))
+			continue //skip over things that are not on the edge of the turf
+
+		if(!O.CanAStarPass(ID, adir))
 			return TRUE
-	for(var/obj/machinery/door/window/W in src)
-		if(!W.CanAStarPass(ID, adir))
-			return TRUE
+
 	for(var/obj/O in T)
 		var/pass_through = FALSE
 		if(caller_atom)

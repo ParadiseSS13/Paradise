@@ -76,7 +76,7 @@
 	real_name = "magical morph"
 	desc = "A revolting, pulsating pile of flesh. This one looks somewhat.. magical."
 
-/mob/living/simple_animal/hostile/morph/wizard/New()
+/mob/living/simple_animal/hostile/morph/wizard/Initialize(mapload)
 	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/smoke)
 	AddSpell(new /obj/effect/proc_holder/spell/forcewall)

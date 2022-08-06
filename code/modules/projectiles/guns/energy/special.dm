@@ -43,11 +43,14 @@
 	ammo_x_offset = 1
 	can_holster = TRUE
 
-/obj/item/gun/energy/decloner/update_icon()
-	..()
+/obj/item/gun/energy/decloner/update_icon_state()
+	return
+
+/obj/item/gun/energy/decloner/update_overlays()
+	. = list()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(cell.charge > shot.e_cost)
-		add_overlay("decloner_spin")
+		. += "decloner_spin"
 
 // Flora Gun //
 /obj/item/gun/energy/floragun
@@ -191,8 +194,8 @@
 	else
 		return ..()
 
-/obj/item/gun/energy/plasmacutter/update_icon()
-	return
+/obj/item/gun/energy/plasmacutter/update_overlays()
+	return list()
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -217,10 +220,9 @@
 	var/obj/effect/portal/orange
 
 
-/obj/item/gun/energy/wormhole_projector/update_icon()
+/obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
-	return
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
@@ -262,8 +264,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 
-/obj/item/gun/energy/printer/update_icon()
-	return
+/obj/item/gun/energy/printer/update_overlays()
+	return list()
 
 /obj/item/gun/energy/printer/emp_act()
 	return
@@ -519,8 +521,7 @@
 	..()
 	update_icon()
 
-/obj/item/gun/energy/bsg/update_icon()
-	. = ..()
+/obj/item/gun/energy/bsg/update_icon_state()
 	if(core)
 		if(has_bluespace_crystal)
 			icon_state = "bsg_finished"
@@ -589,11 +590,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/gun/energy/temperature/newshot()
-	..()
-
 /obj/item/gun/energy/temperature/attack_self(mob/living/user as mob)
-	user.set_machine(src)
 	update_dat()
 	user << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x120")
 	onclose(user, "tempgun")
@@ -607,7 +604,7 @@
 /obj/item/gun/energy/temperature/Topic(href, href_list)
 	if(..())
 		return
-	usr.set_machine(src)
+
 	add_fingerprint(usr)
 
 	if(href_list["temp"])
@@ -616,10 +613,12 @@
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
 			target_temperature = max(0, target_temperature+amount)
+
 	if(istype(loc, /mob))
 		attack_self(loc)
+
 	add_fingerprint(usr)
-	return
+
 
 /obj/item/gun/energy/temperature/process()
 	..()
@@ -691,7 +690,7 @@
 	dat += "Power cost: "
 	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
 
-/obj/item/gun/energy/temperature/proc/update_temperature()
+/obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
 		if(501 to INFINITY)
 			item_state = "tempgun_8"
@@ -713,32 +712,26 @@
 			item_state = "tempgun_0"
 	icon_state = item_state
 
-/obj/item/gun/energy/temperature/update_icon()
-	overlays = 0
-	update_temperature()
-	update_user()
-	update_charge()
-
-/obj/item/gun/energy/temperature/proc/update_user()
 	if(istype(loc,/mob/living/carbon))
 		var/mob/living/carbon/M = loc
 		M.update_inv_back()
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
-/obj/item/gun/energy/temperature/proc/update_charge()
+/obj/item/gun/energy/temperature/update_overlays()
+	. = ..()
 	var/charge = cell.charge
 	switch(charge)
-		if(900 to INFINITY)		overlays += "900"
-		if(800 to 900)			overlays += "800"
-		if(700 to 800)			overlays += "700"
-		if(600 to 700)			overlays += "600"
-		if(500 to 600)			overlays += "500"
-		if(400 to 500)			overlays += "400"
-		if(300 to 400)			overlays += "300"
-		if(200 to 300)			overlays += "200"
-		if(100 to 202)			overlays += "100"
-		if(-INFINITY to 100)	overlays += "0"
+		if(900 to INFINITY)		. += "900"
+		if(800 to 900)			. += "800"
+		if(700 to 800)			. += "700"
+		if(600 to 700)			. += "600"
+		if(500 to 600)			. += "500"
+		if(400 to 500)			. += "400"
+		if(300 to 400)			. += "300"
+		if(200 to 300)			. += "200"
+		if(100 to 200)			. += "100"
+		if(-INFINITY to 100)	. += "0"
 
 // Mimic Gun //
 /obj/item/gun/energy/mimicgun
@@ -797,6 +790,12 @@
 	. = ..()
 	. += "<span class='notice'>Ctrl-click to clear active tracked target or clear linked pinpointer.</span>"
 
+/obj/item/gun/energy/detective/emp_act(severity)
+	. = ..()
+	unlink()
+	atom_say("EMP detected. Pinpointer and tracker system reset.")
+
+
 /obj/item/gun/energy/detective/CtrlClick(mob/user)
 	. = ..()
 	if(!isliving(loc)) //don't do this next bit if this gun is on the floor
@@ -809,14 +808,20 @@
 	if(linked_pinpointer_UID)
 		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
 			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
-			var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
-			C.linked_gun_UID = null
-			if(C.mode == MODE_DET)
-				C.stop_tracking()
-			linked_pinpointer_UID = null
+			unlink()
 
 /obj/item/gun/energy/detective/proc/link_pinpointer(pinpointer_UID)
 	linked_pinpointer_UID = pinpointer_UID
+
+/obj/item/gun/energy/detective/proc/unlink()
+	var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+	if(!C)
+		return
+	C.linked_gun_UID = null
+	if(C.mode == MODE_DET)
+		C.stop_tracking()
+	linked_pinpointer_UID = null
+	tracking_target_UID = null
 
 /obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -850,7 +855,7 @@
 		return
 	var/new_speedcharger_charge = cell.give(S.charge)
 	S.charge -= new_speedcharger_charge
-	S.update_icon()
+	S.update_icon(UPDATE_OVERLAYS)
 	update_icon()
 
 /obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)

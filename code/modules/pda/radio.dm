@@ -14,7 +14,7 @@
 
 	var/control_freq = 1447
 
-	var/on = 0 //Are we currently active??
+	var/on = FALSE //Are we currently active??
 	var/menu_message = ""
 
 /obj/item/integrated_radio/Initialize(mapload)

@@ -210,9 +210,7 @@
 		if(prob(30))
 			dismantle_wall()
 
-/turf/simulated/wall/r_wall/update_icon()
-	. = ..()
-
+/turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
 		icon_state = "r_wall-[d_state]"
 		smoothing_flags = NONE

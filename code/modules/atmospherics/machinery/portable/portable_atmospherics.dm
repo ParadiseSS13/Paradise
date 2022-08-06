@@ -1,59 +1,63 @@
-/obj/machinery/portable_atmospherics
+/obj/machinery/atmospherics/portable
 	name = "atmoalter"
+	anchored = FALSE
+	layer = BELOW_OBJ_LAYER
 	use_power = NO_POWER_USE
 	max_integrity = 250
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 60, ACID = 30)
 	var/datum/gas_mixture/air_contents = new
 
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
-	var/obj/item/tank/holding
+	var/obj/item/tank/holding_tank
 
 	var/volume = 0
 
-	var/maximum_pressure = 90*ONE_ATMOSPHERE
+	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
-/obj/machinery/portable_atmospherics/New()
-	..()
+/obj/machinery/atmospherics/portable/Initialize(mapload)
+	. = ..()
 	SSair.atmos_machinery += src
 
 	air_contents.volume = volume
 	air_contents.temperature = T20C
 
-	return 1
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/portable_atmospherics/Initialize()
-	. = ..()
-	spawn()
-		var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
-		if(port)
-			connect(port)
-			update_icon()
+	check_for_port()
 
-/obj/machinery/portable_atmospherics/process_atmos()
+// Late init this otherwise it shares with the port and it tries to div temperature by 0
+/obj/machinery/atmospherics/portable/LateInitialize()
+	check_for_port()
+
+/obj/machinery/atmospherics/portable/proc/check_for_port()
+	var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
+	if(port)
+		connect(port)
+
+/obj/machinery/atmospherics/portable/process_atmos()
 	if(!connected_port) //only react when pipe_network will ont it do it for you
 		//Allow for reactions
 		air_contents.react()
-	else
-		update_icon()
+		return
 
-/obj/machinery/portable_atmospherics/Destroy()
+	update_icon()
+
+/obj/machinery/atmospherics/portable/Destroy()
 	SSair.atmos_machinery -= src
 	disconnect()
 	QDEL_NULL(air_contents)
-	QDEL_NULL(holding)
+	QDEL_NULL(holding_tank)
 	return ..()
 
-/obj/machinery/portable_atmospherics/update_icon()
-	return null
-
-/obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
+/obj/machinery/atmospherics/portable/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
-		return 0
+		return
 
 	//Make sure are close enough for a valid connection
 	if(new_port.loc != loc)
-		return 0
+		return
 
 	//Perform the connection
 	connected_port = new_port
@@ -66,23 +70,23 @@
 
 	anchored = TRUE //Prevent movement
 
-	return 1
+	return TRUE
 
-/obj/machinery/portable_atmospherics/proc/disconnect()
+/obj/machinery/atmospherics/portable/disconnect()
 	if(!connected_port)
-		return 0
+		return
 
 	anchored = FALSE
 
 	connected_port.connected_device = null
 	connected_port = null
 
-	return 1
+	return TRUE
 
-/obj/machinery/portable_atmospherics/portableConnectorReturnAir()
+/obj/machinery/atmospherics/portable/portableConnectorReturnAir()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/AltClick(mob/living/user)
+/obj/machinery/atmospherics/portable/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
@@ -90,39 +94,39 @@
 		return
 	if(!ishuman(usr) && !issilicon(usr))
 		return
-	if(holding)
-		to_chat(user, "<span class='notice'>You remove [holding] from [src].</span>")
+	if(holding_tank)
+		to_chat(user, "<span class='notice'>You remove [holding_tank] from [src].</span>")
 		replace_tank(user, TRUE)
 
-/obj/machinery/portable_atmospherics/examine(mob/user)
+/obj/machinery/atmospherics/portable/examine(mob/user)
 	. = ..()
-	if(holding)
-		. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>"
+	if(holding_tank)
+		. += "<span class='notice'>\The [src] contains [holding_tank]. Alt-click [src] to remove it.</span>"
 
-/obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
-	if(holding)
-		holding.forceMove(drop_location())
+/obj/machinery/atmospherics/portable/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
+	if(holding_tank)
+		holding_tank.forceMove(drop_location())
 		if(Adjacent(user) && !issilicon(user))
-			user.put_in_hands(holding)
+			user.put_in_hands(holding_tank)
 	if(new_tank)
-		holding = new_tank
+		holding_tank = new_tank
 	else
-		holding = null
+		holding_tank = null
 	update_icon()
 	return TRUE
 
-/obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
+/obj/machinery/atmospherics/portable/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))
 		if(!(stat & BROKEN))
 			if(!user.drop_item())
 				return
 			var/obj/item/tank/T = W
 			user.drop_item()
-			if(src.holding)
-				to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
+			if(holding_tank)
+				to_chat(user, "<span class='notice'>[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
 				replace_tank(user, FALSE)
 			T.loc = src
-			src.holding = T
+			holding_tank = T
 			update_icon()
 		return
 	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
@@ -130,7 +134,7 @@
 		return
 	return ..()
 
-/obj/machinery/portable_atmospherics/wrench_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/portable/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -151,7 +155,7 @@
 		else
 			to_chat(user, "<span class='notice'>Nothing happens.</span>")
 
-/obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
+/obj/machinery/atmospherics/portable/attacked_by(obj/item/I, mob/user)
 	if(I.force < 10 && !(stat & BROKEN))
 		take_damage(0)
 	else

@@ -19,11 +19,11 @@
 	if(ispath(holder))
 		holder = new holder(src)
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	slot = parent_organ + "_device"
 	items_list = contents.Copy()
 
-/obj/item/organ/internal/cyberimp/arm/update_icon()
+/obj/item/organ/internal/cyberimp/arm/update_icon_state()
 	if(parent_organ == "r_arm")
 		transform = null
 	else // Mirroring the icon
@@ -43,7 +43,7 @@
 		parent_organ = "r_arm"
 	slot = parent_organ + "_device"
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)

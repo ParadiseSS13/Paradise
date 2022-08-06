@@ -87,11 +87,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = "end_cap"
 	reference = "end_cap"
 
-/obj/structure/particle_accelerator/update_icon()
-	..()
-	return
-
-
 /obj/structure/particle_accelerator/verb/rotate()
 	set name = "Rotate Clockwise"
 	set category = "Object"
@@ -155,7 +150,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(prob(50))
 		qdel(src)
 
-/obj/structure/particle_accelerator/update_icon()
+/obj/structure/particle_accelerator/update_icon_state()
 	switch(construction_state)
 		if(0,1)
 			icon_state="[reference]"
@@ -166,7 +161,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				icon_state="[reference]p[strength]"
 			else
 				icon_state="[reference]c"
-	return
 
 /obj/structure/particle_accelerator/proc/update_state()
 	if(master)
@@ -291,9 +285,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return 0
 	dir = turn(dir, 90)
 	return 1
-
-/obj/machinery/particle_accelerator/update_icon()
-	return
 
 /obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
 	if(!iscoil(W))

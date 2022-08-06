@@ -27,9 +27,29 @@
 	add_fingerprint(user)
 
 	use_power(50)
-	src.on = !( src.on )
-	src.icon_state = text("igniter[]", src.on)
+	on = !on
+	update_icon()
+	if(on)
+		set_light(1, 1, "#ff821c")
+	else
+		set_light(0)
 	return
+
+/obj/machinery/igniter/update_icon_state()
+	. = ..()
+
+	if(stat & (NOPOWER|BROKEN))
+		icon_state = "igniter0"
+		return
+
+	icon_state = "igniter[on]"
+
+/obj/machinery/igniter/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(on)
+		underlays += emissive_appearance(icon, "igniter_lightmask")
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()?
 	if(src.on && !(stat & NOPOWER) )
@@ -40,13 +60,13 @@
 
 /obj/machinery/igniter/Initialize(mapload)
 	. = ..()
-	icon_state = "igniter[on]"
+	update_icon()
 
 /obj/machinery/igniter/power_change()
-	if(!( stat & NOPOWER) )
-		icon_state = "igniter[src.on]"
-	else
-		icon_state = "igniter0"
+	. = ..()
+	if(stat & NOPOWER)
+		on = FALSE
+	update_icon()
 
 // Wall mounted remote-control igniter.
 

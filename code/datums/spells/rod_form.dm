@@ -3,7 +3,7 @@
 	desc = "Take on the form of an immovable rod, destroying all in your path."
 	clothes_req = TRUE
 	human_req = FALSE
-	charge_max = 600
+	base_cooldown = 600
 	cooldown_min = 200
 	invocation = "CLANG!"
 	invocation_type = "shout"

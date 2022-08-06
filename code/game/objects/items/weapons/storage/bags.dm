@@ -45,7 +45,7 @@
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
 	return TOXLOSS
 
-/obj/item/storage/bag/trash/update_icon()
+/obj/item/storage/bag/trash/update_icon_state()
 	switch(contents.len)
 		if(21 to INFINITY)
 			icon_state = "[initial(icon_state)]3"
@@ -59,14 +59,12 @@
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
-	..()
 
 /obj/item/storage/bag/trash/cyborg
 
 /obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	J.mybag = src
 	J.put_in_cart(src, user)
-	J.mybag=src
-	J.update_icon()
 
 /obj/item/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
@@ -405,58 +403,51 @@
 		if(prob(10))
 			M.Weaken(4 SECONDS)
 
-/obj/item/storage/bag/tray/proc/rebuild_overlays()
-	overlays.Cut()
+/obj/item/storage/bag/tray/update_icon_state()
+	return
+
+/obj/item/storage/bag/tray/update_overlays()
+	. = ..()
 	for(var/obj/item/I in contents)
-		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
-
-/obj/item/storage/bag/tray/remove_from_storage(obj/item/W as obj, atom/new_location)
-	..()
-	rebuild_overlays()
-
-/obj/item/storage/bag/tray/handle_item_insertion(obj/item/I, prevent_warning = 0)
-	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
-	..()
+		. += image(icon = I.icon, icon_state = I.icon_state, layer = -1)
 
 /obj/item/storage/bag/tray/cyborg
 
 /obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
 	if( isturf(target) || istype(target,/obj/structure/table) )
-		var/foundtable = istype(target,/obj/structure/table/)
-		if( !foundtable ) //it must be a turf!
+		var/found_table = istype(target,/obj/structure/table/)
+		if(!found_table) //it must be a turf!
 			for(var/obj/structure/table/T in target)
-				foundtable = 1
+				found_table = TRUE
 				break
 
 		var/turf/dropspot
-		if( !foundtable ) // don't unload things onto walls or other silly places.
+		if(!found_table) // don't unload things onto walls or other silly places.
 			dropspot = user.loc
 		else if( isturf(target) ) // they clicked on a turf with a table in it
 			dropspot = target
 		else					// they clicked on a table
 			dropspot = target.loc
 
-		overlays = null
-
-		var/droppedSomething = 0
+		var/dropped_something = FALSE
 
 		for(var/obj/item/I in contents)
 			I.loc = dropspot
 			contents.Remove(I)
-			droppedSomething = 1
-			if(!foundtable && isturf(dropspot))
+			dropped_something = TRUE
+			if(!found_table && isturf(dropspot))
 				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
 				spawn()
 					for(var/i = 1, i <= rand(1,2), i++)
 						if(I)
 							step(I, pick(NORTH,SOUTH,EAST,WEST))
 							sleep(rand(2,4))
-		if( droppedSomething )
-			if( foundtable )
+		if(dropped_something)
+			if(found_table)
 				user.visible_message("<span class='notice'>[user] unloads [user.p_their()] service tray.</span>")
 			else
 				user.visible_message("<span class='notice'>[user] drops all the items on [user.p_their()] tray.</span>")
-
+		update_icon(UPDATE_OVERLAYS)
 	return ..()
 
 
@@ -466,8 +457,8 @@
 /obj/item/storage/bag/tray/cookies_tray/populate_contents() // By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
 		var/obj/item/C = new cookie(src)
-		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
-	rebuild_overlays()
+		C.in_inventory = TRUE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie

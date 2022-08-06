@@ -13,12 +13,11 @@
 	volume = 30
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/glass/bottle/update_icon()
-	overlays.Cut()
+/obj/item/reagent_containers/glass/bottle/update_overlays()
+	. = ..()
 	underlays.Cut()
-
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
 
@@ -39,8 +38,7 @@
 		underlays += filling
 
 	if(!is_open_container())
-		var/image/lid = image(icon, src, "lid_[icon_state]")
-		overlays += lid
+		. += "lid_[icon_state]"
 
 /obj/item/reagent_containers/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)
@@ -253,8 +251,8 @@
 	possible_transfer_amounts = list(5,10,15,25,30,40)
 	volume = 40
 
-/obj/item/reagent_containers/glass/bottle/traitor/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/traitor/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent(pick_list("chemistry_tools.json", "traitor_poison_bottle"), 40)
 
 /obj/item/reagent_containers/glass/bottle/plasma

@@ -55,13 +55,12 @@
 		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
 		C.Weaken(4 SECONDS)
 
-/mob/living/simple_animal/bot/secbot/griefsky/New()
-	..()
+/mob/living/simple_animal/bot/secbot/griefsky/Initialize(mapload)
+	. = ..()
 	icon_state = "[base_icon][on]"
-	spawn(3)
-		var/datum/job/detective/J = new/datum/job/detective
-		access_card.access += J.get_access()
-		prev_access = access_card.access
+	var/datum/job/detective/J = new/datum/job/detective
+	access_card.access += J.get_access()
+	prev_access = access_card.access
 
 /mob/living/simple_animal/bot/secbot/griefsky/Destroy()
 	QDEL_NULL(weapon)

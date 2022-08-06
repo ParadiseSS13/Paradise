@@ -39,9 +39,7 @@
 	radio_connection = null
 	return ..()
 
-/obj/machinery/atmospherics/unary/outlet_injector/update_icon()
-	..()
-
+/obj/machinery/atmospherics/unary/outlet_injector/update_icon_state()
 	if(!powered())
 		icon_state = "off"
 	else

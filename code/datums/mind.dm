@@ -1711,6 +1711,7 @@
 			if("Scientist")
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
+		SEND_SOUND(H, sound('sound/ambience/antag/abductors.ogg'))
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S

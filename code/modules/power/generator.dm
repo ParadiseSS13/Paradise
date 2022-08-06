@@ -21,10 +21,11 @@
 
 /obj/machinery/power/generator/Initialize(mapload)
 	. = ..()
-	update_desc()
+	update_appearance(UPDATE_DESC)
 	connect()
 
-/obj/machinery/power/generator/proc/update_desc()
+/obj/machinery/power/generator/update_desc()
+	. = ..()
 	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."
 
 /obj/machinery/power/generator/Destroy()
@@ -74,22 +75,21 @@
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-
-/obj/machinery/power/generator/update_icon()
+/obj/machinery/power/generator/update_overlays()
+	. = ..()
 	if(stat & (NOPOWER|BROKEN))
-		cut_overlays()
-		underlays.Cut()
 		return
-	else
-		cut_overlays()
-		if(lastgenlev != 0)
-			add_overlay(mutable_appearance('icons/obj/power.dmi', "teg-op[lastgenlev]"))
-			underlays += emissive_appearance(icon, "teg-op[lastgenlev]")
 
-		add_overlay(mutable_appearance('icons/obj/power.dmi', "teg-oc[lastcirc]"))
-		underlays += emissive_appearance(icon, "teg-oc[lastcirc]")
+	if(lastgenlev != 0)
+		. += "teg-op[lastgenlev]"
+		if(light)
+			. += emissive_appearance(icon, "teg-op[lastgenlev]")
+
+	. += "teg-oc[lastcirc]"
+	if(light)
+		. += emissive_appearance(icon, "teg-oc[lastcirc]")
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))
@@ -152,7 +152,7 @@
 	if((genlev != lastgenlev) || (circ != lastcirc))
 		lastgenlev = genlev
 		lastcirc = circ
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 	updateDialog()
 
@@ -188,7 +188,7 @@
 		hot_dir = SOUTH
 	connect()
 	to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
 /obj/machinery/power/generator/wrench_act(mob/user, obj/item/I)
 	. = TRUE

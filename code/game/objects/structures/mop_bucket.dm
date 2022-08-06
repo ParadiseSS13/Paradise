@@ -6,7 +6,7 @@
 	density = TRUE
 	container_type = OPENCONTAINER
 	face_while_pulling = FALSE
-	var/obj/item/mop/mymop = null
+	var/obj/item/mop/stored_mop = null
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
 
 /obj/structure/mopbucket/Initialize(mapload)
@@ -29,12 +29,12 @@
 
 /obj/structure/mopbucket/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/mop))
-		var/obj/item/mop/m = W
-		if(m.reagents.total_volume < m.reagents.maximum_volume)
-			m.wet_mop(src, user)
+		var/obj/item/mop/M = W
+		if(M.reagents.total_volume < M.reagents.maximum_volume)
+			M.wet_mop(src, user)
 			return
-		if(!mymop)
-			m.janicart_insert(user, src)
+		if(!stored_mop)
+			M.janicart_insert(user, src)
 			return
 		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
 		return
@@ -47,12 +47,12 @@
 	return
 
 /obj/structure/mopbucket/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/mopbucket/update_icon()
-	overlays.Cut()
-	if(mymop)
-		overlays += image(icon,"mopbucket_mop")
+/obj/structure/mopbucket/update_overlays()
+	. = ..()
+	if(stored_mop)
+		. += "mopbucket_mop"
 	if(reagents.total_volume > 0)
 		var/image/reagentsImage = image(icon, src, "mopbucket_reagents0")
 		reagentsImage.alpha = 150
@@ -66,15 +66,15 @@
 			if(76 to 100)
 				reagentsImage.icon_state = "mopbucket_reagents4"
 		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(reagentsImage)
+		. += reagentsImage
 
 /obj/structure/mopbucket/attack_hand(mob/living/user)
 	. = ..()
-	if(mymop)
-		user.put_in_hands(mymop)
-		to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
-		mymop = null
-		update_icon()
+	if(stored_mop)
+		user.put_in_hands(stored_mop)
+		to_chat(user, "<span class='notice'>You take [stored_mop] from [src].</span>")
+		stored_mop = null
+		update_icon(UPDATE_OVERLAYS)
 		return
 
 

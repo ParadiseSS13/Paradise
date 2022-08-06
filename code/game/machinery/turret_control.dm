@@ -215,15 +215,14 @@
 			if(faction == aTurret.faction)
 				aTurret.setState(TC)
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/power_change()
 	..()
 	updateTurrets()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/turretid/update_icon()
-	..()
+/obj/machinery/turretid/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "control_off"
 		set_light(0)

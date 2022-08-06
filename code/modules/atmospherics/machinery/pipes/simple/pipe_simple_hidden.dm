@@ -7,7 +7,7 @@
 	name = "Scrubbers pipe"
 	desc = "A one meter section of scrubbers pipe"
 	icon_state = "intact-scrubbers"
-	connect_types = list(3)
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = 2.38
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
@@ -20,7 +20,7 @@
 	name = "Air supply pipe"
 	desc = "A one meter section of supply pipe"
 	icon_state = "intact-supply"
-	connect_types = list(2)
+	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
@@ -32,22 +32,19 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal
 	name="Universal pipe adapter"
 	desc = "An adapter for regular, supply and scrubbers pipes"
-	connect_types = list(1,2,3)
+	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER)
 	icon_state = "map_universal"
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/detailed_examine()
 	return "This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes."
 
-/obj/machinery/atmospherics/pipe/simple/hidden/universal/update_icon(safety = 0)
-	..()
-
-	if(!check_icon_cache())
-		return
-
+/obj/machinery/atmospherics/pipe/simple/hidden/universal/update_overlays()
+	. = list()
 	alpha = 255
+	. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
+	update_underlays()
 
-	overlays.Cut()
-	overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "universal")
+/obj/machinery/atmospherics/pipe/simple/hidden/universal/update_underlays()
 	underlays.Cut()
 
 	if(node1)
@@ -56,18 +53,14 @@
 			universal_underlays(node2)
 		else
 			var/node2_dir = turn(get_dir(src,node1),-180)
-			universal_underlays(,node2_dir)
+			universal_underlays(direction = node2_dir)
 	else if(node2)
 		universal_underlays(node2)
 		var/node1_dir = turn(get_dir(src,node2),-180)
-		universal_underlays(,node1_dir)
+		universal_underlays(direction = node1_dir)
 	else
-		universal_underlays(,dir)
-		universal_underlays(,turn(dir, -180))
-
-/obj/machinery/atmospherics/pipe/simple/hidden/universal/update_underlays()
-	..()
-	update_icon()
+		universal_underlays(direction = dir)
+		universal_underlays(direction = turn(dir, -180))
 
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow
 	color = PIPE_COLOR_YELLOW

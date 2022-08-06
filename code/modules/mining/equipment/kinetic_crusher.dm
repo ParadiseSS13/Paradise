@@ -13,7 +13,7 @@
 	force_wielded = 20
 	throwforce = 5
 	throw_speed = 4
-	armour_penetration = 10
+	armour_penetration_flat = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")
@@ -154,18 +154,19 @@
 	else
 		set_light(0)
 
-/obj/item/twohanded/kinetic_crusher/update_icon()
-	..()
-	cut_overlays()
+/obj/item/twohanded/kinetic_crusher/update_icon_state()
+	item_state = "crusher[wielded]"
+
+/obj/item/twohanded/kinetic_crusher/update_overlays()
+	. = ..()
 	if(!charged)
-		add_overlay("[icon_state]_uncharged")
+		. += "[icon_state]_uncharged"
 	if(light_on)
-		add_overlay("[icon_state]_lit")
+		. += "[icon_state]_lit"
 	spawn(1)
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-	item_state = "crusher[wielded]"
 
 //destablizing force
 /obj/item/projectile/destabilizer
@@ -441,17 +442,12 @@
 	denied_type = /obj/item/crusher_trophy/vortex_talisman
 
 /obj/item/crusher_trophy/vortex_talisman/effect_desc()
-	return "mark detonation to create a barrier you can pass"
+	return "mark detonation to create a homing hierophant chaser"
 
 /obj/item/crusher_trophy/vortex_talisman/on_mark_detonation(mob/living/target, mob/living/user)
-	var/turf/T = get_turf(user)
-	new /obj/effect/temp_visual/hierophant/wall/crusher(T, user) //a wall only you can pass!
-	var/turf/otherT = get_step(T, turn(user.dir, 90))
-	if(otherT)
-		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
-	otherT = get_step(T, turn(user.dir, -90))
-	if(otherT)
-		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
+	var/obj/effect/temp_visual/hierophant/chaser/chaser = new(get_turf(user), user, target, 3, TRUE)
+	chaser.monster_damage_boost = FALSE // Weaker due to no cooldown
+	chaser.damage = 20 //But also stronger due to AI / mining mob resistance
 
 /obj/effect/temp_visual/hierophant/wall/crusher
 	duration = 75

@@ -25,9 +25,7 @@
 		ui_interact(user)
 	else
 		on = !on
-		icon_state = "headphones[on]"
-		item_state = "headphones[on]"
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/clothing/ears/headphones/ui_data(mob/user)
 	return song.ui_data(user)
@@ -42,12 +40,12 @@
 		return
 	return song.ui_act(action, params)
 
-/obj/item/clothing/ears/headphones/update_icon()
+/obj/item/clothing/ears/headphones/update_icon_state()
 	var/mob/living/carbon/human/user = loc
 	if(istype(user))
 		user.update_action_buttons_icon()
 		user.update_inv_ears()
-	..()
+	icon_state = item_state = "headphones[on]"
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
 	if(slot == slot_l_ear || slot == slot_r_ear)
@@ -57,15 +55,15 @@
   * Called by a component signal when our song starts playing.
   */
 /obj/item/clothing/ears/headphones/proc/start_playing()
-	icon_state = item_state = "headphones1"
-	update_icon()
+	on = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * Called by a component signal when our song stops playing.
   */
 /obj/item/clothing/ears/headphones/proc/stop_playing()
-	icon_state = item_state = "headphones0"
-	update_icon()
+	on = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * Whether the headphone's song should stop playing

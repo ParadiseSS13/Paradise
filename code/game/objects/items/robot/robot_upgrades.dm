@@ -39,11 +39,11 @@
 /obj/item/borg/upgrade/proc/pre_install_checks(mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
 		to_chat(usr, "<span class='warning'>[src] will not function on a deceased cyborg.</span>")
-		return FALSE
+		return
 	if(module_type && !istype(R.module, module_type))
 		to_chat(R, "<span class='warning'>Upgrade mounting error!  No suitable hardpoint detected!</span>")
 		to_chat(usr, "<span class='warning'>There's no mounting point for the module!</span>")
-		return FALSE
+		return
 	return TRUE
 
 /**
@@ -99,7 +99,7 @@
 /obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
 	if(!R.allow_rename)
 		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
-		return 0
+		return
 	R.notify_ai(3, R.name, heldname)
 	R.name = heldname
 	R.custom_name = heldname
@@ -116,7 +116,7 @@
 /obj/item/borg/upgrade/restart/do_install(mob/living/silicon/robot/R)
 	if(R.health < 0)
 		to_chat(usr, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
-		return 0
+		return
 
 	if(!R.key)
 		for(var/mob/dead/observer/ghost in GLOB.player_list)
@@ -286,7 +286,7 @@
 	var/obj/item/borg/upgrade/selfrepair/U = locate() in R
 	if(U)
 		to_chat(usr, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
-		return 0
+		return
 
 	cyborg = R
 	icon_state = "selfrepair_off"
@@ -308,9 +308,9 @@
 	else
 		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
 		STOP_PROCESSING(SSobj, src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/borg/upgrade/selfrepair/update_icon()
+/obj/item/borg/upgrade/selfrepair/update_icon_state()
 	if(cyborg)
 		icon_state = "selfrepair_[on ? "on" : "off"]"
 		for(var/X in actions)
@@ -322,7 +322,7 @@
 /obj/item/borg/upgrade/selfrepair/proc/deactivate()
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/borg/upgrade/selfrepair/process()
 	if(!repair_tick)

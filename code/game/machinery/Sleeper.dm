@@ -50,6 +50,12 @@
 	else
 		set_light(0)
 
+/obj/machinery/sleeper/update_icon_state()
+	if(occupant)
+		icon_state = base_icon
+	else
+		icon_state = "[base_icon]-open"
+
 /obj/machinery/sleeper/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -346,7 +352,7 @@
 			var/mob/M = G.affecting
 			M.forceMove(src)
 			occupant = M
-			icon_state = "[base_icon]"
+			update_icon(UPDATE_ICON_STATE)
 			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 			add_fingerprint(user)
 			qdel(G)
@@ -396,7 +402,7 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 	if(A == beaker)
 		beaker = null
@@ -431,7 +437,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	icon_state = "[base_icon]-open"
+	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(loc)
@@ -463,10 +469,11 @@
 	set category = "Object"
 	set src in oview(1)
 
+	if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+		return
 	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 
-	icon_state = "[base_icon]-open"
 	go_out()
 	add_fingerprint(usr)
 	return
@@ -502,7 +509,7 @@
 			return
 		L.forceMove(src)
 		occupant = L
-		icon_state = "[base_icon]"
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 		add_fingerprint(user)
 		if(user.pulling == L)
@@ -573,7 +580,7 @@
 		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
-		icon_state = "[base_icon]"
+		update_icon(UPDATE_ICON_STATE)
 
 		for(var/obj/O in src)
 			qdel(O)

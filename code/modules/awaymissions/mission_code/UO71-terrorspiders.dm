@@ -178,8 +178,8 @@
 	desc = "An energy gun that recharges wirelessly during away missions. Does not work on the main station."
 	force = 10
 	origin_tech = null
-	selfcharge = 1
-	can_charge = 0
+	selfcharge = TRUE
+	can_charge = FALSE
 	// Selfcharge is enabled and disabled, and used as the away mission tracker
 	selfcharge = TRUE
 
@@ -204,8 +204,8 @@
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
 
-/obj/item/reagent_containers/glass/beaker/terror_black_toxin/New()
-	..()
+/obj/item/reagent_containers/glass/beaker/terror_black_toxin/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("terror_black_toxin", 50)
 	update_icon()
 

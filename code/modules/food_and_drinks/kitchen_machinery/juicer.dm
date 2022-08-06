@@ -34,46 +34,47 @@
 	. = ..()
 	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
 
-/obj/machinery/juicer/update_icon()
-	icon_state = "juicer"+num2text(!isnull(beaker))
-	return
-
+/obj/machinery/juicer/update_icon_state()
+	if(beaker)
+		icon_state = "juicer1"
+	else
+		icon_state = "juicer0"
 
 /obj/machinery/juicer/attackby(obj/item/O, mob/user, params)
 	if(istype(O,/obj/item/reagent_containers/glass) || \
 		istype(O,/obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
-			return 1
+			return TRUE
 		else
 			if(!user.unEquip(O))
 				to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
-				return 0
+				return
 			O.forceMove(src)
 			beaker = O
 			verbs += /obj/machinery/juicer/verb/detach
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			updateUsrDialog()
-			return 0
+			return
 	if(!is_type_in_list(O, allowed_items))
 		to_chat(user, "It doesn't look like that contains any juice.")
-		return 1
+		return TRUE
 	if(!user.unEquip(O))
 		to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
-		return 0
+		return
 	O.forceMove(src)
 	updateUsrDialog()
-	return 0
+	return
 
 /obj/machinery/juicer/attack_ai(mob/user)
-	return 0
+	return
 
 /obj/machinery/juicer/attack_hand(mob/user)
 	user.set_machine(src)
 	interact(user)
 
 /obj/machinery/juicer/interact(mob/user) // The microwave Menu
-	var/is_chamber_empty = 0
-	var/is_beaker_ready = 0
+	var/is_chamber_empty = FALSE
+	var/is_beaker_ready = FALSE
 	var/processing_chamber = ""
 	var/beaker_contents = ""
 
@@ -84,16 +85,16 @@
 			processing_chamber+= "some <B>[O]</B><BR>"
 			break
 	if(!processing_chamber)
-		is_chamber_empty = 1
+		is_chamber_empty = TRUE
 		processing_chamber = "Nothing."
 	if(!beaker)
 		beaker_contents = "\The [src] has no beaker attached."
 	else if(!beaker.reagents.total_volume)
 		beaker_contents = "\The [src]  has attached an empty beaker."
-		is_beaker_ready = 1
+		is_beaker_ready = TRUE
 	else if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
 		beaker_contents = "\The [src]  has attached a beaker with something."
-		is_beaker_ready = 1
+		is_beaker_ready = TRUE
 	else
 		beaker_contents = "\The [src]  has attached a beaker and beaker is full!"
 
@@ -137,7 +138,7 @@
 	verbs -= /obj/machinery/juicer/verb/detach
 	beaker.forceMove(loc)
 	beaker = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/juicer/proc/get_juice_id(obj/item/reagent_containers/food/snacks/grown/O)
 	for (var/i in allowed_items)

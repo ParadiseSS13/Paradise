@@ -2,7 +2,7 @@
 	name = "Mimic"
 	desc =  "Learn a new form to mimic or become one of your known forms"
 	clothes_req = FALSE
-	charge_max = 3 SECONDS
+	base_cooldown = 3 SECONDS
 	action_icon_state = "genetic_morph"
 	selection_activated_message = "<span class='sinister'>Click on a target to remember it's form. Click on yourself to change form.</span>"
 	create_attack_logs = FALSE
@@ -18,8 +18,19 @@
 	/// If a message is shown when somebody examines the user from close range
 	var/perfect_disguise = FALSE
 
-	var/static/list/black_listed_form_types = list(/obj/screen, /obj/singularity, /obj/effect, /mob/living/simple_animal/hostile/megafauna, /atom/movable/lighting_object, /obj/machinery/dna_vault,
-													/obj/machinery/power/bluespace_tap, /obj/structure/sign/barsign, /obj/machinery/atmospherics/unary/cryo_cell)
+	var/static/list/black_listed_form_types = list(
+		/obj/screen,
+		/obj/singularity,
+		/obj/effect,
+		/mob/living/simple_animal/hostile/megafauna,
+		/atom/movable/lighting_object,
+		/obj/machinery/dna_vault,
+		/obj/machinery/power/bluespace_tap,
+		/obj/structure/sign/barsign,
+		/obj/machinery/atmospherics/unary/cryo_cell,
+		/obj/machinery/gravity_generator
+	)
+
 
 /obj/effect/proc_holder/spell/mimic/create_new_targeting()
 	var/datum/spell_targeting/click/T = new

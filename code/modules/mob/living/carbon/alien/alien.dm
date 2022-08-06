@@ -20,20 +20,28 @@
 	var/heat_protection = 0.5
 	var/leaping = FALSE
 	ventcrawler = 2
-	var/list/alien_organs = list()
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
-/mob/living/carbon/alien/New()
-	..()
+/mob/living/carbon/alien/Initialize(mapload)
+	. = ..()
 	create_reagents(1000)
 	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/rest
-	alien_organs += new /obj/item/organ/internal/brain/xeno
-	alien_organs += new /obj/item/organ/internal/xenos/hivenode
-	alien_organs += new /obj/item/organ/internal/ears
-	for(var/obj/item/organ/internal/I in alien_organs)
-		I.insert(src)
+
+	for(var/organ_path in get_caste_organs())
+		var/obj/item/organ/internal/organ = new organ_path()
+		organ.insert(src)
+
+/// returns the list of type paths of the organs that we need to insert into
+/// this particular xeno upon its creation
+/mob/living/carbon/alien/proc/get_caste_organs()
+	RETURN_TYPE(/list/obj/item/organ/internal)
+	return list(
+		/obj/item/organ/internal/brain/xeno,
+		/obj/item/organ/internal/xenos/hivenode,
+		/obj/item/organ/internal/ears
+	)
 
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)

@@ -156,13 +156,13 @@
 
 /obj/machinery/mineral/ore_redemption/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
 		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
-/obj/machinery/mineral/ore_redemption/update_icon()
+/obj/machinery/mineral/ore_redemption/update_icon_state()
 	if(powered())
 		icon_state = initial(icon_state)
 	else

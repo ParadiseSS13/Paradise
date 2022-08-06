@@ -64,7 +64,7 @@
 
 	return
 
-/obj/machinery/particle_accelerator/control_box/update_icon()
+/obj/machinery/particle_accelerator/control_box/update_icon_state()
 	if(active)
 		icon_state = "[reference]p[strength]"
 	else
@@ -83,7 +83,6 @@
 					icon_state = "[reference]w"
 				else
 					icon_state = "[reference]c"
-	return
 
 /obj/machinery/particle_accelerator/control_box/Topic(href, href_list)
 	if(..(href, href_list))

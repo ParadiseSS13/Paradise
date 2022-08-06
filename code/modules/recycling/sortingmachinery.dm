@@ -3,11 +3,11 @@
 	desc = "A big wrapped package."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycloset"
-	density = 1
+	density = TRUE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/obj/wrapped = null
-	var/init_welded = 0
-	var/giftwrapped = 0
+	var/init_welded = FALSE
+	var/giftwrapped = FALSE
 	var/sortTag = 0
 
 /obj/structure/bigDelivery/Destroy()
@@ -62,7 +62,7 @@
 		var/obj/item/stack/wrapping_paper/WP = W
 		if(WP.use(3))
 			user.visible_message("<span class='notice'>[user] wraps the package in festive paper!</span>")
-			giftwrapped = 1
+			giftwrapped = TRUE
 			if(istype(wrapped, /obj/structure/closet/crate))
 				icon_state = "giftcrate"
 			else
@@ -80,7 +80,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycrate2"
 	var/obj/item/wrapped = null
-	var/giftwrapped = 0
+	var/giftwrapped = FALSE
 	var/sortTag = 0
 
 /obj/item/smallDelivery/ex_act(severity)
@@ -130,7 +130,7 @@
 		var/obj/item/stack/wrapping_paper/WP = W
 		if(WP.use(1))
 			icon_state = "giftcrate[wrapped.w_class]"
-			giftwrapped = 1
+			giftwrapped = TRUE
 			user.visible_message("<span class='notice'>[user] wraps the package in festive paper!</span>")
 			if(WP.amount <= 0 && !WP.loc) //if we used our last wrapping paper, drop a cardboard tube
 				new /obj/item/c_tube( get_turf(user) )
@@ -442,7 +442,8 @@
 			user.unEquip(src)
 			qdel(src)
 
-/obj/item/shippingPackage/proc/update_desc()
+/obj/item/shippingPackage/update_desc()
+	. = ..()
 	desc = "A pre-labeled package for shipping an item to coworkers."
 	if(sortTag)
 		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sortTag]]\"."

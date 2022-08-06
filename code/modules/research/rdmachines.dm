@@ -8,33 +8,11 @@
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	var/busy = FALSE
-	var/hacked = FALSE
-	var/disabled = FALSE
-	var/shocked = FALSE
-	var/list/wires = list()
-	var/hack_wire
-	var/disable_wire
-	var/shock_wire
 	var/obj/machinery/computer/rdconsole/linked_console
 	var/obj/item/loaded_item = null
 	var/datum/component/material_container/materials	//Store for hyper speed!
 	var/efficiency_coeff = 1
 	var/list/categories = list()
-
-
-/obj/machinery/r_n_d/Initialize(mapload)
-	. = ..()
-
-	wires["Red"] = 0
-	wires["Blue"] = 0
-	wires["Green"] = 0
-	wires["Yellow"] = 0
-	wires["Black"] = 0
-	wires["White"] = 0
-	var/list/w = list("Red","Blue","Green","Yellow","Black","White")
-	hack_wire = pick_n_take(w)
-	shock_wire = pick_n_take(w)
-	disable_wire = pick_n_take(w)
 
 /obj/machinery/r_n_d/ComponentInitialize()
 	..()
@@ -49,84 +27,32 @@
 	materials = null
 	return ..()
 
-/obj/machinery/r_n_d/attack_hand(mob/user as mob)
-	if(shocked)
-		shock(user,50)
-	if(panel_open)
-		var/list/dat = list()
-		dat += "[src.name] Wires:<BR>"
-		for(var/wire in wires)
-			dat += "[wire] Wire: <A href='?src=[UID()];wire=[wire];cut=1'>[src.wires[wire] ? "Mend" : "Cut"]</A> <A href='?src=[UID()];wire=[wire];pulse=1'>Pulse</A><BR>"
-
-		dat += "The red light is [src.disabled ? "off" : "on"].<BR>"
-		dat += "The green light is [src.shocked ? "off" : "on"].<BR>"
-		dat += "The blue light is [src.hacked ? "off" : "on"].<BR>"
-		user << browse("<HTML><HEAD><TITLE>[src.name] Hacking</TITLE></HEAD><BODY>[dat.Join("")]</BODY></HTML>","window=hack_win")
-	return
-
-
-/obj/machinery/r_n_d/Topic(href, href_list)
-	if(..())
-		return
-	usr.set_machine(src)
-	src.add_fingerprint(usr)
-	if(href_list["pulse"])
-		var/temp_wire = href_list["wire"]
-		if(!istype(usr.get_active_hand(), /obj/item/multitool))
-			to_chat(usr, "You need a multitool!")
-		else
-			if(src.wires[temp_wire])
-				to_chat(usr, "You can't pulse a cut wire.")
-			else
-				if(src.hack_wire == href_list["wire"])
-					src.hacked = !src.hacked
-					spawn(100) src.hacked = !src.hacked
-				if(src.disable_wire == href_list["wire"])
-					src.disabled = !src.disabled
-					src.shock(usr,50)
-					spawn(100) src.disabled = !src.disabled
-				if(src.shock_wire == href_list["wire"])
-					src.shocked = !src.shocked
-					src.shock(usr,50)
-					spawn(100) src.shocked = !src.shocked
-	if(href_list["cut"])
-		if(!istype(usr.get_active_hand(), /obj/item/wirecutters))
-			to_chat(usr, "You need wirecutters!")
-		else
-			var/temp_wire = href_list["wire"]
-			wires[temp_wire] = !wires[temp_wire]
-			if(src.hack_wire == temp_wire)
-				src.hacked = !src.hacked
-			if(src.disable_wire == temp_wire)
-				src.disabled = !src.disabled
-				src.shock(usr,50)
-			if(src.shock_wire == temp_wire)
-				src.shocked = !src.shocked
-				src.shock(usr,50)
-	src.updateUsrDialog()
-
 //whether the machine can have an item inserted in its current state.
 /obj/machinery/r_n_d/proc/is_insertion_ready(mob/user)
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't load [src] while it's opened!</span>")
 		return FALSE
-	if(disabled)
-		return FALSE
+
 	if(!linked_console)
 		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
 		return FALSE
+
 	if(busy)
 		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
 		return FALSE
+
 	if(stat & BROKEN)
 		to_chat(user, "<span class='warning'>[src] is broken.</span>")
 		return FALSE
+
 	if(stat & NOPOWER)
 		to_chat(user, "<span class='warning'>[src] has no power.</span>")
 		return FALSE
+
 	if(loaded_item)
 		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
 		return FALSE
+
 	return TRUE
 
 /obj/machinery/r_n_d/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)

@@ -30,7 +30,7 @@
 	attached = null
 	return ..()
 
-/obj/item/powersink/update_icon()
+/obj/item/powersink/update_icon_state()
 	icon_state = "powersink[mode == OPERATING]"
 
 /obj/item/powersink/proc/set_mode(value)
@@ -60,7 +60,7 @@
 			density = TRUE
 
 	mode = value
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	set_light(0)
 
 /obj/item/powersink/screwdriver_act(mob/user, obj/item/I)

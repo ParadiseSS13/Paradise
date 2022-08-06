@@ -57,7 +57,7 @@
 	icon_state = "sunhudmed"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
-	tint = 1
+	tint = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "diagnostic HUD"
@@ -88,7 +88,7 @@
 	icon_state = "sunhuddiag"
 	item_state = "glasses"
 	flash_protect = FLASH_PROTECTION_FLASH
-	tint = 1
+	tint = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -133,7 +133,7 @@
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
-	tint = 1
+	tint = FLASH_PROTECTION_FLASH
 	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
@@ -220,7 +220,7 @@
 	icon_state = "sunhudskill"
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = FLASH_PROTECTION_FLASH
-	tint = 1
+	tint = FLASH_PROTECTION_FLASH
 	prescription_upgradable = TRUE
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',

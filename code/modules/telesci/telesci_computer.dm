@@ -5,7 +5,7 @@
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console
 	req_access = list(ACCESS_RESEARCH)
-	var/sending = 1
+	var/sending = TRUE
 	var/obj/machinery/telepad/telepad = null
 	var/temp_msg = "Telescience control console initialized.<BR>Welcome."
 
@@ -25,7 +25,7 @@
 	// Based on the power used
 	var/teleport_cooldown = 0 // every index requires a bluespace crystal
 	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 80)
-	var/teleporting = 0
+	var/teleporting = FALSE
 	var/crystals = 0
 	var/max_crystals = 4
 	var/obj/item/gps/inserted_gps
@@ -75,7 +75,7 @@
 /obj/machinery/computer/telescience/emag_act(user as mob)
 	if(!emagged)
 		to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
-		emagged = 1
+		emagged = TRUE
 	else
 		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
 
@@ -185,7 +185,7 @@
 		if(spawn_time > 15) // 1.5 seconds
 			playsound(telepad.loc, 'sound/weapons/flash.ogg', 25, 1)
 			// Wait depending on the time the projectile took to get there
-			teleporting = 1
+			teleporting = TRUE
 			temp_msg = "Powering up bluespace crystals.<BR>Please wait."
 
 
@@ -194,7 +194,7 @@
 				return
 			if(telepad.stat & NOPOWER)
 				return
-			teleporting = 0
+			teleporting = FALSE
 			teleport_cooldown = world.time + (power * 2)
 			teles_left -= 1
 
@@ -280,7 +280,7 @@
 		temp_msg = "ERROR!<BR>Elevation is less than 1 or greater than 90."
 		return
 	if(z_co == 2 || z_co < 1 || z_co > 6)
-		if(z_co == 7 & emagged == 1)
+		if(z_co == 7 & emagged)
 		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
 		else
 			telefail()
@@ -296,7 +296,7 @@
 	var/turf/target = locate(clamp(round(proj_data.dest_x, 1), 1, world.maxx), clamp(round(proj_data.dest_y, 1), 1, world.maxy), z_co)
 	var/area/A = get_area(target)
 
-	if(A.tele_proof == 1)
+	if(A.tele_proof)
 		telefail()
 		temp_msg = "ERROR! Target destination unreachable due to interference."
 		return
@@ -368,11 +368,11 @@
 			temp_msg = "ERROR!<BR>No data was stored."
 
 	if(href_list["send"])
-		sending = 1
+		sending = TRUE
 		teleport(usr)
 
 	if(href_list["receive"])
-		sending = 0
+		sending = FALSE
 		teleport(usr)
 
 	if(href_list["recal"])

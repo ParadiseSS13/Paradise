@@ -82,21 +82,22 @@
 			min_wchance = 0
 			min_wrate = 0
 
-/obj/machinery/plantgenes/update_icon()
-	..()
-	overlays.Cut()
+/obj/machinery/plantgenes/update_icon_state()
 	if((stat & (BROKEN|NOPOWER)))
 		icon_state = "dnamod-off"
 	else
 		icon_state = "dnamod"
+
+/obj/machinery/plantgenes/update_overlays()
+	. = ..()
 	if(seed)
-		overlays += "dnamod-dna"
+		. += "dnamod-dna"
 	if(panel_open)
-		overlays += "dnamod-open"
+		. += "dnamod-open"
 
 /obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	if(exchange_parts(user, I))
 		return
@@ -301,7 +302,7 @@
 			seed.verb_pickup()
 			seed = null
 			update_genes()
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/seeds))
@@ -309,7 +310,7 @@
 					return
 				insert_seed(I)
 				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else if(href_list["eject_disk"] && !operation)
 		if(disk)
 			disk.forceMove(loc)
@@ -376,7 +377,7 @@
 								gene.value = max(gene.value, min_wchance)
 						disk.update_name()
 						QDEL_NULL(seed)
-						update_icon()
+						update_icon(UPDATE_OVERLAYS)
 				if("replace")
 					if(disk && disk.gene && istype(disk.gene, G.type) && istype(G, /datum/plant_gene/core))
 						seed.genes -= G
@@ -417,7 +418,7 @@
 	S.forceMove(src)
 	seed = S
 	update_genes()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/plantgenes/proc/update_genes()
 	core_genes = list()
@@ -477,7 +478,8 @@
 	if(istype(W, /obj/item/pen))
 		rename_interactive(user, W)
 
-/obj/item/disk/plantgene/proc/update_name()
+/obj/item/disk/plantgene/update_name()
+	. = ..()
 	if(gene)
 		name = "[gene.get_name()] (Plant Data Disk)"
 	else

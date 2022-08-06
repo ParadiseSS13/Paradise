@@ -57,7 +57,7 @@
 	if(A != container)
 		return
 	container = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 /obj/machinery/biogenerator/RefreshParts()
@@ -75,7 +75,7 @@
 	if(effeciency_prev != efficiency)
 		update_ui_product_list() // We have have a higher `efficiency` now, and need to re-calc the product costs.
 
-/obj/machinery/biogenerator/update_icon()
+/obj/machinery/biogenerator/update_icon_state()
 	if(panel_open)
 		icon_state = "biogen-empty-o"
 	else if(!container)
@@ -118,7 +118,7 @@
 		O.forceMove(src)
 		container = O
 		to_chat(user, "<span class='notice'>You add the [container] to [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 		return TRUE
 
@@ -260,7 +260,7 @@
 
 	processing = TRUE
 	SStgui.update_uis(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/plants_processed = length(stored_plants)
 	for(var/obj/plant as anything in stored_plants)
@@ -276,7 +276,7 @@
 /obj/machinery/biogenerator/proc/end_processing()
 	processing = FALSE
 	SStgui.update_uis(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
  * Ejects the biogenerator's stored plants
@@ -346,7 +346,7 @@
 
 	biomass -= (D.materials[MAT_BIOMASS] / efficiency) * amount
 	SStgui.update_uis(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
  * Detach the `container` from the biogenerator.
@@ -356,6 +356,6 @@
 		return
 	container.forceMove(get_turf(src))
 	container = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 #undef BASE_MAX_STORABLE_PLANTS

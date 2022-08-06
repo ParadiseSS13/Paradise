@@ -2,7 +2,7 @@
 	name = "Instant Summons"
 	desc = "This spell can be used to recall a previously marked item to your hand from anywhere in the universe."
 	school = "transmutation"
-	charge_max = 100
+	base_cooldown = 100
 	clothes_req = FALSE
 	invocation = "GAR YOK"
 	invocation_type = "whisper"
@@ -87,8 +87,8 @@
 								break
 
 				else
-					if(istype(item_to_retrieve.loc,/obj/machinery/portable_atmospherics/)) //Edge cases for moved machinery
-						var/obj/machinery/portable_atmospherics/P = item_to_retrieve.loc
+					if(istype(item_to_retrieve.loc,/obj/machinery/atmospherics/portable/)) //Edge cases for moved machinery
+						var/obj/machinery/atmospherics/portable/P = item_to_retrieve.loc
 						P.disconnect()
 						P.update_icon()
 					if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
