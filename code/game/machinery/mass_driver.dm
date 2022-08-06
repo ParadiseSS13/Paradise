@@ -113,15 +113,15 @@
 	. = ..()
 	switch(buildstage)
 		if(DRIVER_FRAME)
-			. += "<span class='notice'>Its <i>unbolted</i> from the floor and could be <b>welded</b> down.</span>"
+			. += "<span class='notice'>Its <i>unbolted</i> from the [get_turf(src)] and could be <b>welded</b> down.</span>"
 		if(DRIVER_BOLTS)
-			. += "<span class='notice'>It could be securely <i>welded</i> to the floor or could be <b>unbolted</b>.</span>"
+			. += "<span class='notice'>It could be securely <i>welded</i> to the [get_turf(src)] or could be <b>unbolted</b>.</span>"
 		if(DRIVER_WELDED)
-			. += "<span class='notice'>Its securely <b>welded</b> to the floor and could be <i>wired</i></span>"
+			. += "<span class='notice'>Its could be <i>wired</i> or <b>sliced</b> away from [get_turf(src)].</span>"
 		if(DRIVER_WIRED)
-			. += "<span class='notice'>Its <b>wired</b> and its missing its <i>grille</i>.</span>"
+			. += "<span class='notice'>Its missing its <i>grille</i> and is <b>wired</b>.</span>"
 		if(DRIVER_GRILLE)
-			. += "<span class='notice'>Its <b>grille</b> is installed and its maintenance panel is <i>screwed</i> open.</span>"
+			. += "<span class='notice'>Its maintenance panel is <i>screwed</i> open and its <b>grille</b> is installed.</span>"
 
 /obj/machinery/mass_driver_frame/attackby(obj/item/W as obj, mob/user as mob)
 	switch(buildstage)
@@ -130,7 +130,7 @@
 				var/obj/item/stack/cable_coil/C = W
 				to_chat(user, "You start adding cables to \the [src]...")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 20 * C.toolspeed, target = src) && (C.get_amount() >= 2) && (buildstage == DRIVER_WELDED))
+				if(do_after(user, 20 * C.toolspeed, target = src) && (C.get_amount() >= 2) && buildstage == DRIVER_WELDED)
 					C.use(2)
 					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
 					buildstage = DRIVER_WIRED
@@ -140,7 +140,7 @@
 				var/obj/item/stack/rods/R = W
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
-				if(do_after(user, 20 * R.toolspeed, target = src) && (R.get_amount() >= 2) && (buildstage == DRIVER_WIRED))
+				if(do_after(user, 20 * R.toolspeed, target = src) && (R.get_amount() >= 2) && buildstage == DRIVER_WIRED)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					buildstage = DRIVER_GRILLE
@@ -153,49 +153,48 @@
 		if(DRIVER_FRAME) // Loose frame
 			. = TRUE
 			to_chat(user, "You begin to anchor \the [src] on the floor.")
-			playsound(get_turf(src), W.usesound, 50, 1)
-			if(do_after(user, 10 * W.toolspeed, target = src) && (buildstage == DRIVER_FRAME))
-				to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
-				anchored = TRUE
-				buildstage = DRIVER_BOLTS
+			if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || buildstage != DRIVER_FRAME)
+				return
+			to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
+			anchored = TRUE
+			buildstage = DRIVER_BOLTS
 		if(DRIVER_BOLTS) // Fixed to the floor
 			. = TRUE
 			to_chat(user, "You begin to de-anchor \the [src] from the floor.")
-			playsound(get_turf(src), W.usesound, 50, 1)
-			if(do_after(user, 10 * W.toolspeed, target = src) && (buildstage == DRIVER_BOLTS))
-				buildstage = DRIVER_FRAME
-				anchored = FALSE
-				to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
+			if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || buildstage != DRIVER_BOLTS)
+				return
+			buildstage = DRIVER_FRAME
+			anchored = FALSE
+			to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
 
 /obj/machinery/mass_driver_frame/screwdriver_act(mob/living/user, obj/item/I)
 	switch(buildstage)
 		if(DRIVER_GRILLE) // Grille in place
 			. = TRUE
 			to_chat(user, "You finalize the Mass Driver...")
-			playsound(get_turf(src), W.usesound, 50, 1)
+			if(!I.use_tool(src, user, 0, volume = I.tool_volume) || buildstage != DRIVER_GRILLE)
+				return
 			var/obj/machinery/mass_driver/M = new(get_turf(src))
 			M.dir = dir
 			qdel(src)
-
-/obj/machinery/mass_driver_frame/crowbar_act(mob/living/user, obj/item/I)
-	switch(buildstage)
-		if(DRIVER_GRILLE) // Grille in place
-			. = TRUE
-			to_chat(user, "You begin to pry off the grille from \the [src]...")
-			playsound(get_turf(src), W.usesound, 50, 1)
-			if(do_after(user, 30 * W.toolspeed, target = src) && (buildstage == DRIVER_GRILLE))
-				new /obj/item/stack/rods(loc,2)
-				buildstage = DRIVER_WIRED
 
 /obj/machinery/mass_driver_frame/wirecutter_act(mob/living/user, obj/item/I)
 	switch(buildstage)
 		if(DRIVER_WIRED) // Wired
 			to_chat(user, "You begin to remove the wiring from \the [src].")
-			if(do_after(user, 10 * W.toolspeed, target = src) && (buildstage == 3))
-				new /obj/item/stack/cable_coil(loc,2)
-				playsound(get_turf(src), W.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
-				buildstage = DRIVER_WELDED
+			if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume || buildstage != DRIVER_WIRED))
+				return
+			new /obj/item/stack/cable_coil(loc,2)
+			to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
+			buildstage = DRIVER_WELDED
+		if(DRIVER_GRILLE) // Grille in place
+			. = TRUE
+			to_chat(user, "You begin to cut [src]'s grille apart...")
+			if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || buildstage != DRIVER_GRILLE)
+				return
+			to_chat(user, "You cut [src]'s grille apart.")
+			new /obj/item/stack/rods(loc,2)
+			buildstage = DRIVER_WIRED
 
 /obj/machinery/mass_driver_frame/welder_act(mob/user, obj/item/I)
 	if(!I.tool_use_check(user, 0))
@@ -204,7 +203,7 @@
 		if(DRIVER_FRAME) //can deconstruct
 			. = TRUE
 			WELDER_ATTEMPT_SLICING_MESSAGE
-			if(I.use_tool(src, user, 30, volume = I.tool_volume))
+			if(I.use_tool(src, user, 30, volume = I.tool_volume) && buildstage == DRIVER_FRAME)
 				WELDER_SLICING_SUCCESS_MESSAGE
 				new /obj/item/stack/sheet/plasteel(drop_location(),3)
 				qdel(src)
@@ -230,3 +229,9 @@
 		return
 
 	dir = turn(dir, -90)
+
+#undef DRIVER_FRAME
+#undef DRIVER_BOLTS
+#undef DRIVER_WELDED
+#undef DRIVER_WIRED
+#undef DRIVER_GRILLE
