@@ -24,6 +24,13 @@
 		dir = direction
 	update()
 
+/obj/structure/disposalconstruct/examine(mob/user)
+	. = ..()
+	if(anchored)
+		. += "<span class='notice'>It is <b>bolted</b> to the floor.</span>"
+	else
+		. += "<span class='notice'>It could be <i>bolted</i> to the floor.</span>"
+
 	// update iconstate and dpdir due to dir and type
 /obj/structure/disposalconstruct/proc/update()
 	base_state = get_pipe_icon(ptype)

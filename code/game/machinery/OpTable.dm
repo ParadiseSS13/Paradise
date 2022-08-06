@@ -31,6 +31,10 @@
 	patient = null
 	return ..()
 
+/obj/machinery/optable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is held together by only <b>bolts</b>.</span>"
+
 /obj/machinery/optable/detailed_examine()
 	return "Click your target and drag them onto the table to place them onto it."
 

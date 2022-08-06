@@ -539,6 +539,11 @@
 
 	toggle_tint()
 
+/obj/machinery/button/windowtint/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is turned [active ? "on" : "off"].</span>"
+	. += "<span class='notice'>It is turned <b>bolted</b> to the wall.</span>"
+
 /obj/machinery/button/windowtint/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))

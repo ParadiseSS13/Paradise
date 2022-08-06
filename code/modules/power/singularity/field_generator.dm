@@ -76,6 +76,15 @@ field_generator power level display
 	else
 		to_chat(user, "<span class='warning'>[src] needs to be firmly secured to the floor first!</span>")
 
+/obj/machinery/field/generator/examine(mob/user)
+	. = ..()
+	switch(state)
+		if(FG_UNSECURED)
+			. += "<span class='notice'>Its <i>unbolted</i>.</span>"
+		if(FG_SECURED)
+			. += "<span class='notice'>Its could be <i>welded</i> to secure it or <b>unbolted</b> from its place.</span>"
+		if(FG_WELDED)
+			. += "<span class='notice'>Its <b>welded</b> securely to [get_turf(src)].</span>"
 
 /obj/machinery/field/generator/attackby(obj/item/W, mob/user, params)
 	if(active)

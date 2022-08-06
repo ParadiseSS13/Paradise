@@ -13,9 +13,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_stopped_cw"
 	name = "conveyor belt"
-	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly.<br>\
-	<span class='notice'>Use a <b>wrench</b> on the belt to rotate it.<br>\
-	Use a <b>crowbar</b> on the belt to dislodge it.<span>"
+	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly."
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
 	move_force = MOVE_FORCE_DEFAULT
@@ -29,6 +27,11 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/slow_factor = 1 	// How slow the items move on the conveyor. MUST be >=1
 
 	var/list/affecting = list() // the list of all items that are in the process of being moved
+
+/obj/machinery/conveyor/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It could be <b>pried</b> away from the floor.</span>"
+	. += "<span class='notice'>Its <b>bolts</b> stop it from rotating.</span>"
 
 // create a conveyor
 /obj/machinery/conveyor/New(loc, new_dir, new_id)
@@ -261,6 +264,11 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/reversed = TRUE  // If we're in neutral, would we go forwards or backwards next?
 	var/slow_factor = 1  // How slow the belts should go. Gets copied into connected belts slow_factor.
 
+/obj/machinery/conveyor_switch/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It could be <b>pried</b> away from the floor.</span>"
+	. += "<span class='notice'>It looks like it could be configured with a <b>multitool</b>.</span>"
+
 /obj/machinery/conveyor_switch/New(newloc, new_id)
 	..(newloc)
 	GLOB.conveyor_switches += src
@@ -442,9 +450,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/item/conveyor_switch_construct
 	name = "conveyor switch assembly"
-	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to.<br>\
-	<span class='notice'><b>Use</b> it on a section of conveyor belt to link them together.<br>\
-	<b>Use</b> the assembly on the ground to finalize it.<span>"
+	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch"
 	w_class = WEIGHT_CLASS_BULKY
@@ -457,6 +463,9 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	else
 		id = world.time + rand() //this couldn't possibly go wrong
 
+/obj/item/conveyor_switch_construct/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It could be linked to a conveyor belt by <b>hitting</b> the belt.</span>"
 
 /obj/item/conveyor_switch_construct/afterattack(turf/T, mob/user, proximity)
 	if(!proximity)

@@ -55,6 +55,13 @@
 	. = ..()
 	if(panel_open)
 		. += "<span class='notice'>The maintenance panel is open.</span>"
+	switch(state)
+		if(EMITTER_NEEDS_WRENCH)
+			. += "<span class='notice'>Its <i>unbolted</i>.</span>"
+		if(EMITTER_NEEDS_WELDER)
+			. += "<span class='notice'>Its could be <i>welded</i> to secure it or <b>unbolted</b> from its place.</span>"
+		if(EMITTER_WELDED)
+			. += "<span class='notice'>Its <b>welded</b> securely to [get_turf(src)].</span>"
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120

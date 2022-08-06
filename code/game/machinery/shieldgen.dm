@@ -141,6 +141,13 @@
 	var/is_open = FALSE //Whether or not the wires are exposed
 	var/locked = FALSE
 
+/obj/machinery/shieldgen/examine(mob/user)
+	. = ..()
+	if(anchored)
+		. += "<span class='notice'>It is held in place by some <b>bolts</b>.</span>"
+	else
+		. += "<span class='notice'>It looks like it could be <i>bolted</i> into place.</span>"
+
 /obj/machinery/shieldgen/Destroy()
 	QDEL_LIST(deployed_shields)
 	deployed_shields = null
@@ -453,6 +460,13 @@
 	else
 		add_fingerprint(user)
 		..()
+
+/obj/machinery/shieldwallgen/examine(mob/user)
+	. = ..()
+	if(anchored)
+		. += "<span class='notice'>It is held in place by some external reinforcing <b>bolts</b>.</span>"
+	else
+		. += "<span class='notice'>It looks like it could be <i>bolted</i> into place.</span>"
 
 /obj/machinery/shieldwallgen/wrench_act(mob/user, obj/item/I)
 	. = TRUE

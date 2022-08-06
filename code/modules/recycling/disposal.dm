@@ -27,7 +27,6 @@
 	var/flush_every_ticks = 30 //Every 30 ticks it will look whether it is ready to flush
 	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
 	var/last_sound = 0
-	var/required_mode_to_deconstruct = -1
 	var/deconstructs_to = PIPE_DISPOSALS_BIN
 	active_power_usage = 600
 	idle_power_usage = 100
@@ -90,10 +89,10 @@
 	if(stat & BROKEN || !user || I.flags & ABSTRACT)
 		return
 
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 
 	if(istype(I, /obj/item/melee/energy/blade))
-		to_chat(user, "You can't place that item inside the disposal unit.")
+		to_chat(user, "You can't place that item inside the disposal unit.") // dumb snowflake check
 		return
 
 	if(istype(I, /obj/item/storage))
@@ -128,27 +127,26 @@
 	user.visible_message("[user] places [I] into [src].", "You place [I] into [src].")
 	update()
 
-
-
+/obj/machinery/disposal/examine(mob/user)
+	. = ..()
+	if(panel_open)
+		. += "<span class='notice'>It could be <b>sliced</b> away from the floor.</span>"
 
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
-	if(mode>0) // It's on
+	if(mode > 0) // It's on
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(contents.len > 0)
-		to_chat(user, "Eject the items first!")
+		to_chat(user, "<span class='warning'>Eject the items first!</span>")
 		return
-	if(mode==0) // It's off but still not unscrewed
-		mode=-1 // Set it to doubleoff l0l
-	else if(mode==-1)
-		mode=0
-	to_chat(user, "You [mode ? "unfasten": "fasten"] the screws around the power connection.")
+	panel_open = !panel_open
+	to_chat(user, "<span class='notice'>You [panel_open ? "unfasten": "fasten"] the screws around the power connection.</span>")
 	update()
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
-	if(mode != required_mode_to_deconstruct)
+	if(!panel_open)
 		return
 	. = TRUE
 	if(contents.len > 0)
@@ -159,7 +157,7 @@
 	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
-		var/obj/structure/disposalconstruct/C = new (src.loc)
+		var/obj/structure/disposalconstruct/C = new (loc)
 		C.ptype = deconstructs_to
 		C.update()
 		C.anchored = TRUE
@@ -274,7 +272,7 @@
 		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
 		return
 
-	if(mode==-1 && action != "eject") // If the mode is -1, only allow ejection
+	if(panel_open && action != "eject") // If panel is open, only allow ejection
 		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
 		return
 
@@ -338,7 +336,11 @@
 	if(flush)
 		. += "dispover-handle"
 
-	if(stat & (NOPOWER|BROKEN) || mode == -1)
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(panel_open)
+		. += "dispover-unscrewed"
 		return
 
 	// 	check for items in disposal - occupied light
@@ -348,8 +350,6 @@
 
 	// charging and ready light
 	switch(mode)
-		if(-1)
-			. += "dispover-unscrewed"
 		if(1)
 			. += "dispover-charge"
 			. += "dispover-panel"
@@ -737,6 +737,10 @@
 /obj/structure/disposalpipe/proc/nextdir(fromdir)
 	return dpdir & (~turn(fromdir, 180))
 
+/obj/structure/disposalpipe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It could be <b>welded</b> into place.</span>"
+
 // transfer the holder through this pipe segment
 // overriden for special behaviour
 //
@@ -1011,18 +1015,22 @@
 
 //a three-way junction that sorts objects
 /obj/structure/disposalpipe/sortjunction
-
+	desc = "An underfloor disposal pipe with a package sorting mechanism."
 	icon_state = "pipe-j1s"
 	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
 
-/obj/structure/disposalpipe/sortjunction/proc/updatedesc()
-	desc = "An underfloor disposal pipe with a package sorting mechanism."
+/obj/structure/disposalpipe/sortjunction/examine(mob/user)
+	. = ..()
+	if(sortType>0)
+		. += getdestination()
+
+/obj/structure/disposalpipe/sortjunction/proc/getdestination()
 	if(sortType>0)
 		var/tag = uppertext(GLOB.TAGGERLOCATIONS[sortType])
-		desc += "\nIt's tagged with [tag]"
+		return "<span class='notice'>It's tagged with <b>[tag]</b>.</span>"
 
 /obj/structure/disposalpipe/sortjunction/proc/updatedir()
 	posdir = dir
@@ -1039,7 +1047,6 @@
 /obj/structure/disposalpipe/sortjunction/Initialize(mapload)
 	. = ..()
 	updatedir()
-	updatedesc()
 	update()
 	return
 
@@ -1056,7 +1063,6 @@
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>Changed filter to [tag]</span>")
-			updatedesc()
 
 
 	// next direction to move

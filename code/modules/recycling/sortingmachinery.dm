@@ -281,9 +281,7 @@
 	desc = "A chute for big and small packages alike!"
 	density = TRUE
 	icon_state = "intake"
-	required_mode_to_deconstruct = 1
 	deconstructs_to = PIPE_DISPOSALS_CHUTE
-	var/can_deconstruct = FALSE
 
 /obj/machinery/disposal/deliveryChute/Initialize(mapload)
 	. = ..()
@@ -354,16 +352,16 @@
 	update()
 	return
 
-/obj/machinery/disposal/deliveryChute/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/disposal/deliveryChute/screwdriver_act(mob/user, obj/item/I) //Cant eject contents, needs its own proc so we dont have to check for contents
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	can_deconstruct = !can_deconstruct
-	to_chat(user, "You [can_deconstruct ? "unfasten": "fasten"] the screws around the power connection.")
+	panel_open = !panel_open
+	to_chat(user, "You [panel_open ? "unfasten": "fasten"] the screws around the power connection.")
 
 /obj/machinery/disposal/deliveryChute/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!can_deconstruct)
+	if(!panel_open)
 		return
 	if(length(contents) > 0)
 		to_chat(user, "Eject the items first!")

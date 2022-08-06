@@ -21,6 +21,10 @@
 	var/framestack = /obj/item/stack/rods
 	var/framestackamount = 2
 
+/obj/structure/table_frame/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is <i>missing a top cover</i> and is being held together by <b>bolts</b>.</span>"
+
 /obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/P = I

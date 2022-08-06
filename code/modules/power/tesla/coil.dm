@@ -42,6 +42,10 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Power generation at <b>[input_power_multiplier*100]%</b>.<br>Shock interval at <b>[zap_cooldown*0.1]</b> seconds.</span>"
+	if(anchored)
+		. += "<span class='notice'>It is held in place by some <b>bolts</b>.</span>"
+	else
+		. += "<span class='notice'>It looks like it could be <i>bolted</i> into place.</span>"
 
 /obj/machinery/power/tesla_coil/attackby(obj/item/W, mob/user, params)
 	if(exchange_parts(user, W))
@@ -66,8 +70,6 @@
 
 /obj/machinery/power/tesla_coil/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
 	default_deconstruction_screwdriver(user, "coil_open[anchored]", "coil[anchored]", I)
 
 /obj/machinery/power/tesla_coil/wirecutter_act(mob/user, obj/item/I)
@@ -81,11 +83,20 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	update_icon(UPDATE_ICON_STATE)
 	if(default_unfasten_wrench(user, I))
 		if(!anchored)
 			disconnect_from_network()
 		else
 			connect_to_network()
+
+/obj/machinery/power/tesla_coil/update_icon_state()
+	. = ..()
+	if(panel_open)
+		icon_state = "coil_open[anchored]"
+	else
+		icon_state = "coil[anchored]"
+
 
 /obj/machinery/power/tesla_coil/zap_act(power, zap_flags)
 	if(anchored && !panel_open)
@@ -134,6 +145,13 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
 
+/obj/machinery/power/grounding_rod/examine(mob/user)
+	. = ..()
+
+/obj/machinery/power/grounding_rod/detailed_examine()
+	return "Absorbs extra energy from nearby sources that is not absorbed by power coils."
+
+
 /obj/machinery/power/grounding_rod/attackby(obj/item/W, mob/user, params)
 	if(exchange_parts(user, W))
 		return
@@ -141,10 +159,12 @@
 /obj/machinery/power/grounding_rod/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, "grounding_rod_open[anchored]", "grounding_rod[anchored]", I)
+	// icon_state change is handled in default_deconstruction_screwdriver, no need for update_icon I suppose.
 
 /obj/machinery/power/grounding_rod/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/power/grounding_rod/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -157,3 +177,10 @@
 		return FALSE
 	else
 		. = ..()
+
+/obj/machinery/power/grounding_rod/update_icon_state()
+	. = ..()
+	if(panel_open)
+		icon_state = "grounding_rod_open[anchored]"
+	else
+		icon_state = "grounding_rod[anchored]"

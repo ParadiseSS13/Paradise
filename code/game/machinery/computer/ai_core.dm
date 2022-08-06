@@ -16,6 +16,23 @@
 	QDEL_NULL(brain)
 	return ..()
 
+/obj/structure/AIcore/examine(mob/user)
+	. = ..()
+	switch(state)
+		if(EMPTY_CORE)
+			. += "<span class='notice'>Its <i>circuit</i> is empty and the core could be <b>sliced</b> apart.</span>"
+		if(CIRCUIT_CORE)
+			. += "<span class='notice'>Its circuit is unsecured, it could be <i>screwed</i> into place or <b>pried</b> from the frame.</span>"
+		if(SCREWED_CORE)
+			. += "<span class='notice'>Its missing its <i>wiring</i> and the circuit could be <b>unscrewed</b>.</span>"
+		if(CABLED_CORE)
+			. += "<span class='notice'>Its missing its <i>reinforced glass</i> screen and is <b>wired</b>.</span>"
+			. += "<span class='notice'>It also has a slot for a law circuitboard and a place for a brain.</span>"
+		if(GLASS_CORE)
+			. += "<span class='notice'>Its monitor could be <i>screwed</i> shut or the glass <b>pried</b> from the frame.</span>"
+		if(AI_READY_CORE)
+			. += "<span class='notice'>Its monitor is <b>screwed</b> shut.</span>"
+
 /obj/structure/AIcore/attackby(obj/item/P, mob/user, params)
 	switch(state)
 		if(EMPTY_CORE)
@@ -136,11 +153,13 @@
 			state = EMPTY_CORE
 			circuit.forceMove(loc)
 			circuit = null
+			update_icon(UPDATE_ICON_STATE)
 			return
 		if(GLASS_CORE)
 			to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 			state = CABLED_CORE
 			new /obj/item/stack/sheet/rglass(loc, 2)
+			update_icon(UPDATE_ICON_STATE)
 			return
 		if(CABLED_CORE)
 			if(brain)
