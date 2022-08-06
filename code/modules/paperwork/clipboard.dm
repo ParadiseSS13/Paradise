@@ -24,8 +24,8 @@
 			penPlacement(user, user.get_active_hand(), TRUE)
 		else
 			removePen(user)
-	else
-		. = ..()
+		return
+	. = ..()
 
 /obj/item/clipboard/verb/removePen(mob/user)
 	set category = "Object"

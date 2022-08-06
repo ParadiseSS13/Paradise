@@ -198,9 +198,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/AltClick(mob/user)
 	if(in_range(user, src) && !user.incapacitated())
 		change_size()
-	else
-		. = ..()
-
+		return
+	. = ..()
 
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -484,9 +483,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	icon_state = icon_off
 	on = FALSE
-	spawn(64)
-		icon_state = icon_on
-		on = TRUE
+	on_cooldown = TRUE
+	addtimer(CALLBACK(src, .proc/reset_cooldown), 6.4 SECONDS) // magic numbers here too
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
 	if(saved_pictures.len >= max_storage)
