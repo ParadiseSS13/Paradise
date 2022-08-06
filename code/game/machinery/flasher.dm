@@ -45,7 +45,7 @@
 /obj/machinery/flasher/update_icon_state()
 	. = ..()
 
-	if((stat & NOPOWER) || anchored == FALSE)
+	if((stat & NOPOWER) || !anchored)
 		icon_state = "[base_state]1-p"
 	else
 		icon_state = "[base_state]1"
@@ -53,12 +53,12 @@
 /obj/machinery/flasher/update_overlays()
 	. = ..()
 	underlays.Cut()
-	overlays.Cut()
+	cut_overlays()
 	if(stat & NOPOWER)
 		return
 
 	if(anchored)
-		overlays += "[base_state]-s"
+		. += "[base_state]-s"
 		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
 
