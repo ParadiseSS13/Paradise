@@ -488,6 +488,7 @@
 			double_eye = TRUE
 			icon_state = "doublegodeye"
 			item_state = "doublegodeye"
+			name = "eyes of god"
 			desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
