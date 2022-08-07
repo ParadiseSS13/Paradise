@@ -75,19 +75,19 @@
 	M.clean_blood()
 
 /datum/reagent/blood
-	data = list("donor"=null,
-				"viruses"=null,
-				"blood_DNA"=null,
-				"blood_type"=null,
-				"blood_colour"="#A10808",
-				"resistances"=null,
-				"trace_chem"=null,
-				"mind"=null,
-				"ckey"=null,
-				"gender"=null,
-				"real_name"=null,
-				"cloneable"=null,
-				"factions"=null,
+	data = list("donor" = null,
+				"viruses" = null,
+				"blood_DNA" = null,
+				"blood_type" = null,
+				"blood_colour" = "#A10808",
+				"resistances" = null,
+				"trace_chem" = null,
+				"mind" = null,
+				"ckey" = null,
+				"gender" = null,
+				"real_name" = null,
+				"cloneable" = null,
+				"factions" = null,
 				"dna" = null,
 				"species" = "Synthetic Humanoid",
 				"species_only" = FALSE)
@@ -128,7 +128,7 @@
 /datum/reagent/blood/on_merge(list/mix_data)
 	if(data && mix_data)
 		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc coagulated
-		if(data["species_only"] == TRUE && data["species"] != mix_data["species"] || mix_data["species_only"] == TRUE && data["species"] != mix_data["species"] == "Vox") // Vox blood with non vox blood
+		if(data["species_only"] == TRUE && data["species"] != mix_data["species"] || mix_data["species_only"] == TRUE && data["species"] != mix_data["species"]) // Vox blood with non vox blood
 			data["species"] = "Cogulated blood"
 			data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
 			data["species_only"] = TRUE
