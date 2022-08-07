@@ -88,7 +88,7 @@
 				var/turf/T = get_turf(src)
 				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 				qdel(src)
-				return
+			return
 	return ..()
 
 /obj/structure/barricade/wooden/crude
