@@ -145,7 +145,7 @@
 	var/breathing_tube = affecting.get_organ_slot("breathing_tube")
 
 	if(state >= GRAB_NECK)
-		affecting.Stun(3 SECONDS)
+		affecting.SetStunned(3 SECONDS)
 		if(isliving(affecting) && !breathing_tube) //It will hamper your breathing, being choked and all.
 			var/mob/living/L = affecting
 			L.adjustOxyLoss(1)
