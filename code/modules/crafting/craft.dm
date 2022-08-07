@@ -29,21 +29,14 @@
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
 
-
-
-
-
 /*	This is what procs do:
 	get_environment - gets a list of things accessable for crafting by user
 	get_surroundings - takes a list of things and makes a list of key-types to values-amounts of said type in the list
 	check_contents - takes a recipe and a key-type list and checks if said recipe can be done with available stuff
 	check_tools - takes recipe, a key-type list, and a user and checks if there are enough tools to do the stuff, checks bugs one level deep
-	construct_item - takes a recipe and a user, call all the checking procs, calls do_after, checks all the things again, calls del_reqs, creates result, calls CheckParts of said result with argument being list returned by deel_reqs
-	del_reqs - takes recipe and a user, loops over the recipes reqs var and tries to find everything in the list make by get_environment and delete it/add to parts list, then returns the said list
+	construct_item - takes a recipe and a user, call all the checking procs, calls do_after, checks all the things again, calls requirements_deletion, creates result, calls CheckParts of said result with argument being list returned by deel_reqs
+	requirements_deletion - takes recipe and a user, loops over the recipes reqs var and tries to find everything in the list make by get_environment and delete it/add to parts list, then returns the said list
 */
-
-
-
 
 /datum/personal_crafting/proc/check_contents(datum/crafting_recipe/R, list/contents)
 	contents = contents["other"]
@@ -171,11 +164,11 @@
 		return ", missing tool."
 	if(!check_pathtools(user, R, contents))
 		return ", missing tool."
-	
-	var/list/parts = del_reqs(R, user)
+
+	var/list/parts = requirements_deletion(R, user)
 	if(!parts)
 		return ", missing component."
-					
+
 	var/atom/movable/I = new R.result (get_turf(user.loc))
 	I.CheckParts(parts, R)
 	if(isitem(I))
@@ -184,91 +177,96 @@
 	if(send_feedback)
 		SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
 	return 0
-			
 
-/datum/personal_crafting/proc/del_reqs(datum/crafting_recipe/recipe, mob/user)
+/datum/personal_crafting/proc/requirements_deletion(datum/crafting_recipe/recipe, mob/user)
 	var/list/surroundings = get_environment(user)
-	var/list/parts_list_for_return = list()
-	var/list/things_for_deletion = list()
+	var/list/parts_used = list()
+	var/list/reagent_containers_for_deletion = list()
+	var/list/item_stacks_for_deletion = list()
 
 	for(var/thing in recipe.reqs)
 		var/needed_amount = recipe.reqs[thing]
 		if(ispath(thing, /datum/reagent))
-			var/datum/reagent/part_reagent = locate(thing) in parts_list_for_return
+			var/datum/reagent/part_reagent = locate(thing) in parts_used
 			if(!part_reagent)
 				part_reagent = new thing()
-				parts_list_for_return += part_reagent
+				parts_used += part_reagent
 
-			for(var/obj/item/reagent_containers/container in surroundings)
+			for(var/obj/item/reagent_containers/container in (surroundings - reagent_containers_for_deletion))
 				var/datum/reagent/contained_reagent = container.reagents.get_reagent(thing)
 				if(!contained_reagent)
 					continue
-				
-				if(contained_reagent.volume > needed_amount)
-					things_for_deletion[container] = list(contained_reagent, needed_amount)
-					part_reagent.volume = needed_amount
-					part_reagent.data = contained_reagent.data
-					needed_amount = 0
+
+				var/extracted_amount = min(contained_reagent.volume, needed_amount)
+				reagent_containers_for_deletion[container] = list(contained_reagent, extracted_amount)
+				part_reagent.volume += extracted_amount
+				part_reagent.data += contained_reagent.data
+				needed_amount -= extracted_amount
+				if(needed_amount <= 0)
 					break
-				else
-					needed_amount -= contained_reagent.volume
-					things_for_deletion[container] = list(contained_reagent, contained_reagent.volume)
-					part_reagent.volume += contained_reagent.volume
-					part_reagent.data += contained_reagent.data
-	
+
 			if(needed_amount > 0)
-				return null
+				stack_trace("While crafting [recipe], some of [thing] went missing (still need [needed_amount])!")
+				continue // ignore the error, and continue crafting for player's benefit
 
 		else if(ispath(thing, /obj/item/stack))
-			var/obj/item/stack/part_stack = locate(thing) in parts_list_for_return
+			var/obj/item/stack/part_stack = locate(thing) in parts_used
 			if(!part_stack)
 				part_stack = new thing()
 				part_stack.amount = 0
-				parts_list_for_return += part_stack
+				parts_used += part_stack
 
-			for(var/obj/item/stack/item_stack in (surroundings - things_for_deletion))
+			for(var/obj/item/stack/item_stack in (surroundings - item_stacks_for_deletion))
 				if(!istype(item_stack, thing))
 					continue
-				
-				if(item_stack.amount > needed_amount)
-					things_for_deletion[item_stack] = needed_amount
-					part_stack.amount += needed_amount
-					needed_amount = 0
+
+				var/extracted_amount = min(item_stack.amount, needed_amount)
+				item_stacks_for_deletion[item_stack] = extracted_amount
+				part_stack.amount += extracted_amount
+				needed_amount -= extracted_amount
+				if(needed_amount <= 0)
 					break
-				else
-					needed_amount -= item_stack.amount
-					part_stack.amount += item_stack.amount
-					things_for_deletion[item_stack] = item_stack.amount
-			
+
 			if(needed_amount > 0)
-				return null
+				stack_trace("While crafting [recipe], some of [thing] went missing (still need [needed_amount])!")
+				continue
 
 		else
-			var/atom/movable/part_atom = locate(thing) in (surroundings - parts_list_for_return)
-			if(!part_atom)
-				return null
-			parts_list_for_return += part_atom
+			for(var/i in 1 to needed_amount)
+				var/atom/movable/part_atom = locate(thing) in (surroundings - parts_used)
+				if(!part_atom)
+					stack_trace("While crafting [recipe], the [thing] went missing!")
+					continue
+				parts_used += part_atom
 
-	for(var/thing in things_for_deletion)
-		if(istype(thing, /obj/item/reagent_containers))
-			var/obj/item/reagent_containers/container_to_clear = thing
-			var/datum/reagent/reagent_to_delete = things_for_deletion[thing][1]
-			var/amount_to_delete = things_for_deletion[thing][2]
+	for(var/obj/item/reagent_containers/container_to_clear as anything in reagent_containers_for_deletion)
+		var/datum/reagent/reagent_to_delete = reagent_containers_for_deletion[container_to_clear][1]
+		var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][2]
 
-			if(amount_to_delete < reagent_to_delete.volume)
-				reagent_to_delete.volume -= amount_to_delete
-			else
-				container_to_clear.reagents.reagent_list -= reagent_to_delete
-			container_to_clear.reagents.conditional_update(container_to_clear)
-			container_to_clear.update_icon()
+		if(amount_to_delete < reagent_to_delete.volume)
+			reagent_to_delete.volume -= amount_to_delete
+		else
+			container_to_clear.reagents.reagent_list -= reagent_to_delete
+		container_to_clear.reagents.conditional_update(container_to_clear)
+		container_to_clear.update_icon()
 
-		else if(istype(thing, /obj/item/stack))
-			var/obj/item/stack/stack_to_delete = thing
-			var/amount_to_delete = things_for_deletion[thing]
+	for(var/obj/item/stack/stack_to_delete as anything in item_stacks_for_deletion)
+		var/amount_to_delete = item_stacks_for_deletion[stack_to_delete]
+		stack_to_delete.use(amount_to_delete)
 
-			stack_to_delete.use(amount_to_delete)
+	// Sort out the used parts into the ones we need to return (denoted by recipe.parts),
+	// and the ones we need to delete (the rest of recipe.reqs)
+	var/parts_returned = list()
+	for(var/part_path in recipe.parts)
+		for(var/i in 1 to recipe.parts[part_path])
+			var/part = locate(part_path) in parts_used
+			if(!part)
+				stack_trace("Part [part_path] went missing")
+			parts_returned += part
+			parts_used -= part
+	QDEL_LIST(parts_used)
 
-	return parts_list_for_return
+	return parts_returned
 
 
 /datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_turf_state)
