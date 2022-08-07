@@ -51,7 +51,7 @@
 	..()
 	holder.mouse_pointer_icon = file("icons/mouse_icons/give_item.dmi")
 	to_chat(holder, "<span class='info'>You can now left click on someone to give them your held item.</span>")
-	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), /datum/proc/signal_qdel)
+	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), /datum/proc/signal_qdel)
 	RegisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), /datum/proc/signal_qdel)
 
 
@@ -60,7 +60,7 @@
 	holder.mob.give_icon.icon_state = "act_give_off"
 	if(!item_offered)
 		to_chat(holder.mob, "<span class='info'>You're no longer trying to give someone your held item.</span>")
-	UnregisterSignal(holder.mob.get_active_hand(), list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(holder.mob.get_active_hand(), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 	UnregisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS))
 	return ..()
 
@@ -134,10 +134,8 @@
 
 
 /obj/screen/alert/take_item/proc/unregister_signals()
-	var/mob/living/giver = locateUID(giver_UID)
-	var/obj/item/I = locateUID(item_UID)
-	UnregisterSignal(I, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
-	UnregisterSignal(giver, list(COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS))
+	UnregisterSignal(locateUID(item_UID), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(locateUID(giver_UID), list(COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS))
 	UnregisterSignal(locateUID(receiver_UID), COMSIG_PARENT_QDELETING)
 
 
