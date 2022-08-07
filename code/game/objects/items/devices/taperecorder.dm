@@ -337,6 +337,10 @@
 	ruined = TRUE
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/item/tape/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/pen))
+		rename_interactive(user, I)
+
 /obj/item/tape/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(ruined)
@@ -347,8 +351,6 @@
 			to_chat(user, "<span class='notice'>You wind the tape back in!</span>")
 			ruined = FALSE
 			update_icon(UPDATE_OVERLAYS)
-	else if(istype(I, /obj/item/pen))
-		rename_interactive(user, I)
 
 //Random colour tapes
 /obj/item/tape/random/New()
