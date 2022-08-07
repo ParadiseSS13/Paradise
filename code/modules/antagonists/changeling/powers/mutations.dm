@@ -112,7 +112,7 @@
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
-	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
+	desc = "A grotesque blade made of bone and flesh that cleaves through people like a hot knife through butter."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
@@ -462,6 +462,62 @@
 	. = ..()
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+
+
+/obj/item/clothing/suit/armor/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+	. = ..()
+
+	if(!IS_HORIZONTAL(owner))
+		return
+
+	var/obj/item/I = hitby
+
+	if(!istype(I.loc, /mob/living))
+		// Maybe it's on the ground? Maybe it's being used telekinetically? IDK
+		return
+
+	// The user who's wielding the tool
+	var/mob/living/user = I.loc
+
+	// snowflake checks my beloved
+	// this will become tooltype checks I swear
+	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/twohanded/required/chainsaw) && !istype(I, /obj/item/twohanded/chainsaw))
+		return
+
+	user.visible_message(
+		"<span class='notice'>[user] starts to saw through [owner]'s [name].</span>",
+		"<span class='notice'>You start to saw through [owner]'s [name].</span>",
+		"<span class='notice'>You hear a loud grinding noise.</span>"
+	)
+
+	if(!do_after(user, 15 SECONDS, target = owner))
+		user.visible_message(
+			"<span class='warning'>[user] fails to cut through [owner]'s [name].</span>",
+			"<span class='warning'>You fail to cut through [owner]'s [name].</span>",
+			"<span class='notice'>You hear the grinding stop.</span>"
+		)
+		return FALSE
+
+	// check again after the do_after to make sure they haven't gotten up
+	if(!IS_HORIZONTAL(owner))
+		return FALSE
+
+	user.visible_message(
+		"<span class='warning'>\The [name] turns to shreds as [user] cleaves through it!</span>",
+		"<span class='warning'>\The [name] turns to shreds as you cleave through it!</span>",
+		"<span class='notice'>You hear something fall as the grinding ends.</span>"
+	)
+
+	playsound(I, I.hitsound, 50)
+	// you've torn it up, get rid of it.
+	new /obj/effect/decal/cleanable/shreds(owner.loc)
+	// just unequip them since they qdel on drop
+	owner.unEquip(src, TRUE, TRUE)
+	if(istype(owner.head, /obj/item/clothing/head/helmet/changeling))
+		owner.unEquip(owner.head, TRUE, TRUE)
+
+	return TRUE
+
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"

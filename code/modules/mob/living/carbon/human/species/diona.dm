@@ -8,8 +8,7 @@
 	unarmed_type = /datum/unarmed_attack/diona
 	remains_type = /obj/effect/decal/cleanable/ash
 
-	burn_mod = 1.25
-	heatmod = 1.5
+	heatmod = 3
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
@@ -103,7 +102,6 @@
 			if(!pod && H.health <= 0)
 				return
 			H.adjustBruteLoss(-1)
-			H.adjustFireLoss(-1)
 			H.adjustToxLoss(-1)
 			H.adjustOxyLoss(-1)
 

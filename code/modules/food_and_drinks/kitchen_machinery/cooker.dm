@@ -41,15 +41,24 @@
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
-		return 0
-	if(istype(check, /obj/item/reagent_containers/food/snacks))
-		return 1
+		return FALSE
 	if(istype(check, /obj/item/grab))
 		return special_attack(check, user)
 	if(has_specials && checkSpecials(check))
 		return TRUE
-	to_chat(user, "<span class ='notice'>You can only process food!</span>")
-	return 0
+	if(istype(check, /obj/item/reagent_containers/food/snacks) || emagged)
+		if(istype(check, /obj/item/disk/nuclear)) //(1984 voice) you will not deep fry the NAD
+			to_chat(user, "<span class='notice'>The disk is more useful raw than [thiscooktype].</span>")
+			return FALSE
+		var/obj/item/disk/nuclear/datdisk = locate() in check
+		if(datdisk)
+			to_chat(user, "<span class='notice'>You get the feeling that something very important is inside this. Something that shouldn't be [thiscooktype].</span>")
+			return FALSE
+		if(check.flags & (ABSTRACT | DROPDEL | NODROP)) //you will not deep fry the armblade
+			return FALSE
+		return TRUE
+	to_chat(user, "<span class='notice'>You can only process food!</span>")
+	return FALSE
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
 	copyto.color = foodcolor
@@ -119,6 +128,14 @@
 				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
 				return
 	putIn(I, user)
+	for(var/mob/living/L in I.contents) //Emagged cookers - Any mob put in will not survive the trip
+		if(L.stat != DEAD)
+			if(ispAI(L)) //Snowflake check because pAIs are weird
+				var/mob/living/silicon/pai/P = L
+				P.death(cleanWipe = TRUE)
+			else
+				L.death()
+		break
 	sleep(cooktime)
 	if(I && I.loc == src)
 		//New interaction to allow special foods to be made/cooked via deepfryer without removing original functionality
@@ -141,7 +158,7 @@
 			setRegents(I, newfood)
 		if(istype(I, /obj/item/reagent_containers/food/snacks))
 			setCooked(I, newfood)
-		newfood.cooktype[thiscooktype] = 1
+		newfood.cooktype[thiscooktype] = TRUE
 		turnoff(I)
 		//qdel(I)
 

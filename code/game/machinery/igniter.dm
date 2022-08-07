@@ -88,7 +88,7 @@
 		icon_state = "[base_state]"
 //		src.sd_set_light(2)
 	else
-		stat |= ~NOPOWER
+		stat |= NOPOWER
 		icon_state = "[base_state]-p"
 //		src.sd_set_light(0)
 

@@ -124,7 +124,7 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
-	armour_penetration = 20
+	armour_penetration_flat = 20
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=3;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -237,8 +237,8 @@
 	force = 0.2
 	throwforce = 0.2
 
-/obj/item/reagent_containers/glass/bottle/nutrient/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/nutrient/Initialize(mapload)
+	. = ..()
 	add_lid()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
@@ -312,8 +312,8 @@
 	icon_state = "plastic_jug_k"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/glass/bottle/nutrient/killer/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
