@@ -89,7 +89,7 @@
 		/obj/item/storage/lockbox/mindshield = 1
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
 /datum/outfit/job/centcom/response_team/commander/gamma
