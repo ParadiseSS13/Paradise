@@ -164,7 +164,7 @@
 		C.density = TRUE
 		qdel(src)
 
-/obj/machinery/disposal/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/disposal/crowbar_act(mob/living/user, obj/item/I) // We dont want people disassembling disposals. // Okay this is still broken, TODO: FIX LATER
 	. = ..()
 	return FALSE
 
