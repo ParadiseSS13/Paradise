@@ -66,7 +66,7 @@ Intercom electronics
 /obj/item/radio/intercom/New(turf/loc, direction, building = 2)
 	. = ..()
 	buildstage = building
-	if(buildstage == 2)
+	if(buildstage == INTERCOM_READY)
 		update_operating_status()
 	else
 		if(direction)
@@ -230,7 +230,7 @@ Intercom electronics
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
-	if(!(buildstage == 2 && wiresexposed && wires.is_all_cut()))
+	if(!(buildstage == INTERCOM_READY && wiresexposed && wires.is_all_cut()))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -253,7 +253,7 @@ Intercom electronics
 	qdel(src)
 
 /obj/item/radio/intercom/update_icon_state()
-	if(buildstage == 0)
+	if(buildstage == INTERCOM_FRAME)
 		icon_state = "intercom-frame"
 	else
 		icon_state = "intercom[!on?"-p":""][wiresexposed ? "-open":""]"
@@ -262,7 +262,7 @@ Intercom electronics
 	. = ..()
 	underlays.Cut()
 
-	if(on && buildstage == 2)
+	if(on && buildstage == INTERCOM_READY)
 		underlays += emissive_appearance(icon, "intercom_lightmask")
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)

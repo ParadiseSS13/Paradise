@@ -173,10 +173,11 @@
 		return
 	. = TRUE
 	WRENCH_UNANCHOR_WALL_ATTEMPT_MESSAGE
-	if(I.use_tool(src, user, 30, volume = I.tool_volume))
-		WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
-		new/obj/item/mounted/frame/light_switch(loc)
-		qdel(src)
+	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_WALL_SUCCESS_MESSAGE
+	new/obj/item/mounted/frame/light_switch(loc)
+	qdel(src)
 
 /obj/machinery/light_switch/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"

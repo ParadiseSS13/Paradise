@@ -43,7 +43,7 @@
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	if(anchored)
 		return
-	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	. = TRUE
 	to_chat(user, "<span class='warning'>You cut apart the railing.</span>")

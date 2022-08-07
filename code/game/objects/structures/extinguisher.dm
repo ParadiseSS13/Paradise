@@ -34,6 +34,7 @@
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It is <b>bolted</b> onto the wall.</span>"
+	. += "<span class='notice'>Alt-Click to [opened ? "close":"open"] it.</span>"
 
 
 /obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
@@ -85,7 +86,6 @@
 	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 	opened = !opened
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I)
 	if(has_extinguisher)

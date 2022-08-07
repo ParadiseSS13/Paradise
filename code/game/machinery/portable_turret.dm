@@ -801,15 +801,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		Portable turret constructions
 		Known as "turret frame"s
 */
-#define TURRET_CONSTRUCT_FRAME 			0
-#define TURRET_CONSTRUCT_BOLTS 			1
-#define TURRET_CONSTRUCT_ADD_ARMOR 		2
-#define TURRET_CONSTRUCT_SECURE_ARMOR 	3
-#define TURRET_CONSTRUCT_GUN 			4
-#define TURRET_CONSTRUCT_PROX 			5
-#define TURRET_CONSTRUCT_SCREWS 		6
-#define TURRET_CONSTRUCT_ARMOR2			7
-#define TURRET_CONSTRUCT_COMPLETE		8
+#define TURRET_CONSTRUCT_FRAME 				0
+#define TURRET_CONSTRUCT_BOLTS 				1
+#define TURRET_CONSTRUCT_ADD_ARMOR 			2
+#define TURRET_CONSTRUCT_SECURE_ARMOR 		3
+#define TURRET_CONSTRUCT_GUN 				4
+#define TURRET_CONSTRUCT_PROX 				5
+#define TURRET_CONSTRUCT_SCREWS 			6
+#define TURRET_CONSTRUCT_ARMOR2				7
+#define TURRET_CONSTRUCT_COMPLETE			8
 
 /obj/machinery/porta_turret_construct
 	name = "turret frame"
