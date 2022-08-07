@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 /obj/machinery/conveyor/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It could be <b>pried</b> away from the floor.</span>"
-	. += "<span class='notice'>Its <b>bolts</b> stop it from rotating.</span>"
+	. += "<span class='notice'>It could be rotated with a <b>wrench</b>.</span>"
 
 // create a conveyor
 /obj/machinery/conveyor/New(loc, new_dir, new_id)
@@ -250,10 +250,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/machinery/conveyor_switch
 	name = "conveyor switch"
-	desc = "This switch controls any and all conveyor belts it is linked to.<br>\
-	<span class='notice'>Use a <b>multitool</b> to configure.<br>\
-	Use a <b>crowbar</b> to dislodge it.<br>\
-	Dislodge the switch and <b>use</b> it on a section of conveyor belt or conveyor placer to link them.</span>"
+	desc = "This switch controls any and all conveyor belts it is linked to."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch-off"
 	anchored = TRUE
@@ -465,7 +462,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/item/conveyor_switch_construct/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It could be linked to a conveyor belt by <b>hitting</b> the belt.</span>"
+	. += "<span class='notice'>It could be linked by <b>hitting</b> a belt.</span>"
 
 /obj/item/conveyor_switch_construct/afterattack(turf/T, mob/user, proximity)
 	if(!proximity)

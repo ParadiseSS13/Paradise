@@ -509,6 +509,7 @@
 	if(status == LIGHT_EMPTY)
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 			return
+		. = TRUE
 		user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
 			"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
 		deconstruct()

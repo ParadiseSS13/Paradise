@@ -27,7 +27,7 @@
 /obj/structure/disposalconstruct/examine(mob/user)
 	. = ..()
 	if(anchored)
-		. += "<span class='notice'>It is <b>bolted</b> to the floor.</span>"
+		. += "<span class='notice'>It is <b>bolted</b> to the floor, it could be <i>welded</i> to the floor.</span>"
 	else
 		. += "<span class='notice'>It could be <i>bolted</i> to the floor.</span>"
 

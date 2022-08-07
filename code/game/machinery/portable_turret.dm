@@ -327,10 +327,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	. = ..()
 	if((stat & BROKEN) && !syndicate)
 		. += "<span class='notice'>You could <i>pry</i> out some parts to salvage.</span>"
-	if(anchored)
-		. += "<span class='notice'>It is <b>bolted</b> to the floor.</span>"
 	else
-		. += "<span class='notice'>It could be <b>bolted</b> to the floor.</span>"
+		if(anchored)
+			. += "<span class='notice'>It is <b>bolted</b> to the floor.</span>"
+		else
+			. += "<span class='notice'>It is <i>unbolted</i>.</span>"
 
 /obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
 	. = ..()

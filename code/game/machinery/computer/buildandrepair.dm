@@ -426,13 +426,13 @@
 	. = ..()
 	switch(state)
 		if(STATE_EMPTY)
-			. += "<span class='notice'>Its <i>circuit</i> is empty or could it could be <b>sliced</b> apart.</span>"
+			. += "<span class='notice'>It's <i>circuit</i> is empty or could it could be <b>sliced</b> apart.</span>"
 		if(STATE_CIRCUIT)
-			. += "<span class='notice'>Its cover could be <i>screwed</i> closed or its circuit could be <b>pried</b> from the frame.</span>"
+			. += "<span class='notice'>It's cover could be <i>screwed</i> closed or its circuit could be <b>pried</b> from the frame.</span>"
 		if(STATE_NOWIRES)
 			. += "<span class='notice'>Its missing <i>wiring </i> and the cover could be <b>screwed</b> open.</span>"
 		if(STATE_WIRES)
-			. += "<span class='notice'>Its missing its <i>glass</i> screen or its wires could be <b>cut</b>.</span>"
+			. += "<span class='notice'>It's <i>glass</i> screen is missing and its wires could be <b>cut</b>.</span>"
 		if(STATE_GLASS)
 			. += "<span class='notice'>Its screen could be <i>screwed</i> into place or <b>pried</b> from the frame.</span>"
 

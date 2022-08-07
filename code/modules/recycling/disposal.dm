@@ -164,6 +164,10 @@
 		C.density = TRUE
 		qdel(src)
 
+/obj/machinery/disposal/crowbar_act(mob/living/user, obj/item/I)
+	. = ..()
+	return FALSE
+
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
@@ -739,7 +743,7 @@
 
 /obj/structure/disposalpipe/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It could be <b>welded</b> into place.</span>"
+	. += "<span class='notice'>It is <b>welded</b> into place.</span>"
 
 // transfer the holder through this pipe segment
 // overriden for special behaviour

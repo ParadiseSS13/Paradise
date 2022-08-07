@@ -81,7 +81,7 @@
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It is turned [on ? "on" : "off"].</span>"
-	. += "<span class='notice'>It is turned <b>bolted</b> to the wall.</span>"
+	. += "<span class='notice'>It is <b>bolted</b> to the wall.</span>"
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())

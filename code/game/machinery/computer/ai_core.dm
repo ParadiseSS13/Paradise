@@ -20,18 +20,18 @@
 	. = ..()
 	switch(state)
 		if(EMPTY_CORE)
-			. += "<span class='notice'>Its <i>circuit</i> is empty and the core could be <b>sliced</b> apart.</span>"
+			. += "<span class='notice'>It's <i>circuit</i> slot is empty and the core could be <b>sliced</b> apart.</span>"
 		if(CIRCUIT_CORE)
-			. += "<span class='notice'>Its circuit is unsecured, it could be <i>screwed</i> into place or <b>pried</b> from the frame.</span>"
+			. += "<span class='notice'>It's circuit is unsecured, it could be <i>screwed</i> into place or <b>pried</b> from the frame.</span>"
 		if(SCREWED_CORE)
 			. += "<span class='notice'>Its missing its <i>wiring</i> and the circuit could be <b>unscrewed</b>.</span>"
 		if(CABLED_CORE)
 			. += "<span class='notice'>Its missing its <i>reinforced glass</i> screen and is <b>wired</b>.</span>"
 			. += "<span class='notice'>It also has a slot for a law circuitboard and a place for a brain.</span>"
 		if(GLASS_CORE)
-			. += "<span class='notice'>Its monitor could be <i>screwed</i> shut or the glass <b>pried</b> from the frame.</span>"
+			. += "<span class='notice'>It's monitor could be <i>screwed</i> shut or the glass <b>pried</b> from the frame.</span>"
 		if(AI_READY_CORE)
-			. += "<span class='notice'>Its monitor is <b>screwed</b> shut.</span>"
+			. += "<span class='notice'>It's monitor is <b>screwed</b> shut.</span>"
 
 /obj/structure/AIcore/attackby(obj/item/P, mob/user, params)
 	switch(state)

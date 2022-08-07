@@ -273,7 +273,7 @@
 					. += "<span class='notice'>The cover is [opened == APC_OPENED ? "open" : "removed"] and the power cell is [ cell ? "<b>installed</b>" : "<i>missing</i>"].</span>"
 					. += "<span class='notice'>[ cell ? "The power cell is blocking the electronics" : "The electronics are <b>screwed</b> into place"].</span>"
 				else if(electronics_state == APC_ELECTRONICS_INSTALLED)
-					. += "<span class='notice'>There are some <b>terminal cables</b> attached and are holding the electronics in place, or you could secure the electronics by <b>screwing</b> them.</span>"
+					. += "<span class='notice'>There are some <b>terminal cables</b> leading into the floor, or the electronics could be secured by <i>screwing</i> them into place.</span>"
 			else if(!has_electronics() && terminal) // This shouldnt be possible??? and as far as I can tell it's not used in game
 				. += "<span class='userdanger'>There are some wires but no electronics. This should not be possible and should reported on the Github!</span>"
 			else if(has_electronics() && !terminal)

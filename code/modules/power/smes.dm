@@ -190,7 +190,7 @@
 	if(istype(I, /obj/item/wirecutters) && terminal && panel_open)
 		var/turf/T = get_turf(terminal)
 		if(T.intact) //is the floor plating removed ?
-			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
+			to_chat(user, "<span class='alert'>You must first expose the power terminal underneath the [T]!</span>")
 			return
 
 		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
