@@ -24,7 +24,7 @@
 	// Parent object this camera is assigned to. Used for camera bugs
 	var/atom/movable/parent
 
-	// We want to make sounds silent if it is camera bug
+	/// is the console silent when switching cameras?
 	var/silent_console = FALSE
 
 /obj/machinery/computer/security/ui_host()
