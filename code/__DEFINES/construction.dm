@@ -38,6 +38,9 @@
 #define PLASTIC_FLAPS_NORMAL 0
 #define PLASTIC_FLAPS_DETACHED 1
 
+//Mounted Frames BITMASK
+#define MOUNTED_FRAME_SIMFLOOR	1
+#define MOUNTED_FRAME_NOSPACE	2
 
 //ai core defines
 #define EMPTY_CORE 0
