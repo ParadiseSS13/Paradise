@@ -337,7 +337,7 @@
 		overlays += "[icon_state]_empty"
 
 /*
- * cigcase 
+ * cigcase
  */
 
 /obj/item/storage/fancy/cigcase
@@ -357,8 +357,6 @@
 	..()
 	for(var/i=1; i <= storage_slots; i++)
 		new /obj/item/clothing/mask/cigarette/cigar(src)
-	return
-	
 
 /*
  * Vial Box
@@ -372,12 +370,10 @@
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
 
-
 /obj/item/storage/fancy/vials/New()
 	..()
 	for(var/i=1; i <= storage_slots; i++)
 		new /obj/item/reagent_containers/glass/beaker/vial(src)
-	return
 
 /obj/item/storage/lockbox/vials
 	name = "secure vial storage box"
@@ -393,6 +389,8 @@
 
 /obj/item/storage/lockbox/vials/New()
 	..()
+	for(var/i=1; i <= storage_slots; i++)
+		new /obj/item/reagent_containers/glass/beaker/vial(src)
 	update_icon()
 
 /obj/item/storage/lockbox/vials/update_icon(var/itemremoved = 0)

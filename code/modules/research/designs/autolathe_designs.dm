@@ -463,6 +463,30 @@
 	build_path = /obj/item/reagent_containers/glass/beaker/large
 	category = list("initial", "Medical")
 
+/datum/design/vial
+	name = "Vial"
+	id = "vial"
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 250)
+	build_path = /obj/item/reagent_containers/glass/beaker/vial
+	category = list("initial", "Medical")
+
+/datum/design/vial_storage_box
+	name = "Vial storage box"
+	id = "vial_storage_box"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 250, MAT_GLASS = 1500)
+	build_path = /obj/item/storage/fancy/vials
+	category = list("initial", "Medical")
+
+/datum/design/secure_vial_storage_box
+	name = "Secure vial storage box"
+	id = "secure_vial_storage_box"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 1500)
+	build_path = /obj/item/storage/lockbox/vials
+	category = list("initial", "Medical")
+
 /datum/design/healthanalyzer
 	name = "Health Analyzer"
 	id = "healthanalyzer"
