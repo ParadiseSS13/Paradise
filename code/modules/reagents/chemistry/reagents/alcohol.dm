@@ -1550,9 +1550,6 @@
 			if(!light_activated)
 				M.set_light(2)
 				light_activated = TRUE
-		if(current_cycle > 5 && current_cycle % 10 == 0 && prob(50))
-			var/sun_message = pick("Sun!", "Pretty colors...", "Ahhh, bliss.", "Can stay here forever.", "We will be together, always.")
-			to_chat(M, "<span class='notice'>[sun_message]</span>")
 	return ..()
 
 /datum/reagent/consumable/ethanol/sontse/on_mob_delete(mob/living/M)
@@ -1631,8 +1628,6 @@
 		if(current_cycle % 10 == 0 && prob(50) && M.AmountSluring() > 0) // say random stuff only if we are drunk and once in a while
 			var/mob/living/carbon/human/H = M
 			H.emote("scream")
-			var/msg = pick("Vox are not pox!", "Freedom for the vox.", "You is Skrek!", "SKREEE!", "Is smart, yaya!", "Alas, poor voxik.")
-			H.say(msg);
 	return ..()
 
 /datum/reagent/consumable/ethanol/slime_mold
@@ -1696,7 +1691,7 @@
 			var/mob/living/target = pick(targets)
 			if(target == null)
 				return ..()
-			var/say = pick("DO YOU EVEN RESPECT ME?", "YOU KNOW WHAT CROP CIRCLES ACTUALLY ARE?", "PFFFT, I'M NOT EVEN DRUNK.", "HI, HOW ARE YOU?", "WHAT DO WE HAVE HERE?")
+			var/say = "HI!"
 			log_say("(Forced TPATH to [key_name(target)]) [say]", M)
 			M.create_log(SAY_LOG, "Telepathically force said '[say]' using [src]", target)
 			if(target.dna?.GetSEState(GLOB.remotetalkblock))
