@@ -58,7 +58,8 @@
 
 /obj/item/implant/Initialize(mapload)
 	. = ..()
-	if(ispath(implant_data)) implant_data = new implant_data
+	if(ispath(implant_data)) 
+		implant_data = new implant_data
 
 /obj/item/implant/proc/unregister_emotes()
 	if(imp_in && LAZYLEN(trigger_emotes))

@@ -60,14 +60,14 @@
 /datum/implant_fluff/explosive_macro
 	name = "Cybersun Industries RX-79 Employee Management Implant"
 	life = "Destroyed upon activation"
-	notes = "Compared to it's predecessor (the RX-78) contains a much larger explosive, sometimes you just need a bigger boom. Due to its bulkiness, it has be known to press into the user's frontal lobe, impairing judgement."
-	function = "Contains a bulky, electrically detonated explosive that detonates upon receiving a specially encoded signal or upon host death."
+	notes = "Compared to its predecessor, the RX-79 contains a much larger explosive; sometimes you just need a bigger boom. Due to its bulkiness, it has been known to press into the user's frontal lobe, impairing judgement."
+	function = "Contains a bulky, electrically triggered explosive that detonates upon receiving a specially encoded signal or upon host death."
 
 /datum/implant_fluff/freedom
 	name = "Cybersun Industries RX-92 Quick Escape Implant"
 	life = "Destroyed after 4 uses"
 	notes = "An implant that is illegal in many systems. It is notoriously known for allowing users to grotesquely fracture bones and over-exert joints in order to slip out of the tightest of restraints."
-	function = "Uses a mixture of cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restrains"
+	function = "Uses a mixture of cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
 
 /datum/implant_fluff/health
 	name = "Nanotrasen Health Implant"
@@ -92,8 +92,8 @@
 /datum/implant_fluff/tracking
 	name = "Nanotrasen RFID Tracking Chip"
 	life = "Unknown, known to last up to a few years"
-	notes = "Tracking implants are Neuro-safe! It uses Specialized shell that will melt and disintegrate into bio-safe elements if it ever malfunctions. "
-	function = "Continuously transmits low power signal. Can be used for tracking and teleporting to the user."
+	notes = "Tracking implants are Neuro-safe! Makes use of a specialized shell that will melt and disintegrate into bio-safe elements in the event of a malfunction. "
+	function = "Continuously transmits a low power signal. Can be used for tracking and teleporting to the user."
 
 /datum/implant_fluff/traitor
 	name = "Syndicate Type E Mindslave Implant"
@@ -104,9 +104,9 @@
 /datum/implant_fluff/uplink
 	name = "Syndicate Agent Uplink Implant"
 	life = "Unknown, no collected sample has been active long enough to determine lifespan"
-	notes = "An intricate piece of machinery that interfaces directly with the users brain and which inner workings area a closely guarded syndicate secret."
+	notes = "An intricate piece of machinery that interfaces directly with the users brain and which inner workings are a closely guarded syndicate secret."
 	function = "Allows the user to access a syndicate uplink connected contained within their body, invisible to the outside but provides the same functionality as a regular uplink."
 
 /datum/implant_fluff/sad_trombone
 	name = "BioTech Solution Comedy Implant"
-	function = "Plays a Sad Trombone noise upon death of the implantee, allows clowns to entertain the crew even in the post-mordem"
+	function = "Plays a sad trombone noise upon death of the implantee, allows clowns to entertain the crew even post-mortem."
