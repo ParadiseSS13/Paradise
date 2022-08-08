@@ -84,6 +84,7 @@
 		ui.open()
 
 /obj/machinery/computer/security/ui_close(mob/user)
+	..()
 	watchers -= user.UID()
 
 /obj/machinery/computer/security/ui_data()
