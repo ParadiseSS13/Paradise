@@ -233,11 +233,12 @@
 	status |= ORGAN_ROBOT
 
 /*
-  * # remove()
+  * remove
   *
-  * base organ removal proc that is needed to properly remove internal organs from users, if the organ is vital it will
-  * kill the user, this is where deletion of the organ is handled if it is supposed to delete upon removal. This proc
-  * will return itself if the removal is succesful, otherwise if the organ is being deleted it will return null!
+  * Removes the organ from the user properly.
+  * If the organ is vital, it will kill the user.
+  * The proc returns the organ removed (i.e. `src`) assuming it was removed successfully;
+* otherwise, or if the organ gets destroyed in the process, it returns null.
 */
 /obj/item/organ/proc/remove(mob/living/user, special = FALSE, )
 	if(!istype(owner))
