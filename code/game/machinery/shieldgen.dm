@@ -317,6 +317,8 @@
 	active_shields = list() // Doing it here since you can't cast numeral defines to strings using "[NORTH]" in the definition
 	for(var/direction in GLOB.cardinal)
 		active_shields["[direction]"] = list()
+	if(!activated)
+		STOP_PROCESSING(SSmachines, src)
 
 /obj/machinery/shieldwallgen/update_icon_state()
 	icon_state = "Shield_Gen[activated ? " +a" : ""]"
@@ -328,13 +330,13 @@
 	var/datum/powernet/PN = C?.powernet // find the powernet of the connected cable
 
 	if(!PN)
-		activated = FALSE
+		deactivate()
 		return FALSE
 
 	var/surplus = max(PN.avail - PN.load, 0)
 	var/shieldload = min(rand(50, 200), surplus)
 	if(!shieldload && stored_power <= 0)		// no cable or no power, and no power stored
-		activated = FALSE
+		deactivate()
 		return FALSE
 
 	stored_power += min(shieldload, MAX_STORED_POWER - stored_power)
@@ -366,8 +368,6 @@
 	add_fingerprint(user)
 
 /obj/machinery/shieldwallgen/process()
-	if(!activated)
-		return
 	if(!try_charge_shields_power())
 		visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
 				"You hear heavy droning fade out")
@@ -377,6 +377,7 @@
 
 /obj/machinery/shieldwallgen/proc/activate()
 	activated = TRUE
+	START_PROCESSING(SSmachines, src)
 	for(var/direction in GLOB.cardinal)
 		INVOKE_ASYNC(src, .proc/try_link_generators, direction)
 
@@ -400,13 +401,14 @@
 
 	var/opposite_direction = turn(direction, 180)
 	for(var/T in traveled_turfs)
-		var/obj/machinery/shieldwall/SW = new/obj/machinery/shieldwall(T, src, other_generator) //(ref to this gen, ref to connected gen)
+		var/obj/machinery/shieldwall/SW = new /obj/machinery/shieldwall(T, src, other_generator) //(ref to this gen, ref to connected gen)
 		SW.dir = direction
 		active_shields["[direction]"] += SW
 		other_generator.active_shields["[opposite_direction]"] += SW
 
 /obj/machinery/shieldwallgen/proc/deactivate()
 	activated = FALSE
+	STOP_PROCESSING(SSmachines, src)
 	for(var/direction in GLOB.cardinal)
 		var/list/L = active_shields["[direction]"]
 		QDEL_LIST(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
