@@ -123,7 +123,7 @@
 	prescription_upgradable = TRUE
 	scan_reagents = 1 //You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -478,19 +478,22 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
+	///Have we combined this with another godeye?
+	var/double_eye = FALSE
 
-/obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, src) && W != src && W.loc == user)
-		if(W.icon_state == "godeye")
-			W.icon_state = "doublegodeye"
-			W.item_state = "doublegodeye"
-			W.desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
+/obj/item/clothing/glasses/godeye/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/clothing/glasses/godeye) && W != src)
+		var/obj/item/clothing/glasses/godeye/second_eye = W
+		if(!second_eye.double_eye && !double_eye)
+			double_eye = TRUE
+			icon_state = "doublegodeye"
+			item_state = "doublegodeye"
+			name = "eyes of god"
+			desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.update_inv_wear_mask()
-		else
-			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
-		qdel(src)
+			qdel(W)
 	..()
 
 /obj/item/clothing/glasses/tajblind

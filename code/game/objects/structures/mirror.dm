@@ -22,9 +22,11 @@
 				pixel_x = -32
 			if(WEST)
 				pixel_x = 32
+	GLOB.mirrors += src
 
 /obj/structure/mirror/Destroy()
 	QDEL_LIST_ASSOC_VAL(ui_users)
+	GLOB.mirrors -= src
 	return ..()
 
 /obj/structure/mirror/attack_hand(mob/user)
@@ -48,6 +50,7 @@
 		if(desc == initial(desc))
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
+		GLOB.mirrors -= src
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

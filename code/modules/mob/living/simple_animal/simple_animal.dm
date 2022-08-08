@@ -56,7 +56,10 @@
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
 	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
-	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
+	/// Flat armour reduction, occurs after percentage armour penetration.
+	var/armour_penetration_flat = 0
+	/// Percentage armour reduction, happens before flat armour reduction.
+	var/armour_penetration_percentage = 0
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
 	var/attacktext = "attacks"
@@ -185,9 +188,11 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 		else
-			if(IsSleeping() && (stat == CONSCIOUS))
-				KnockOut()
-			else
+			if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+				if(stat == CONSCIOUS)
+					KnockOut()
+					create_debug_log("knocked out, trigger reason: [reason]")
+			else if(stat == UNCONSCIOUS)
 				WakeUp()
 				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()

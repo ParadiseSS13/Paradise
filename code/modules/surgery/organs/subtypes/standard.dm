@@ -228,21 +228,26 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
+/obj/item/organ/external/head/examine(mob/user)
+	. = ..()
+	if(!length(contents))
+		. += "<span class='warning'>There is nothing left inside!</span>"
+
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
 		if(owner.glasses)
-			owner.unEquip(owner.glasses)
+			owner.unEquip(owner.glasses, force = TRUE)
 		if(owner.head)
-			owner.unEquip(owner.head)
+			owner.unEquip(owner.head, force = TRUE)
 		if(owner.l_ear)
-			owner.unEquip(owner.l_ear)
+			owner.unEquip(owner.l_ear, force = TRUE)
 		if(owner.r_ear)
-			owner.unEquip(owner.r_ear)
+			owner.unEquip(owner.r_ear, force = TRUE)
 		if(owner.wear_mask)
-			owner.unEquip(owner.wear_mask)
+			owner.unEquip(owner.wear_mask, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()

@@ -146,7 +146,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "aQ" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "aS" = (
@@ -222,7 +222,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "bi" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "bm" = (

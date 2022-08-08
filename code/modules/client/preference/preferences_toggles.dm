@@ -342,6 +342,14 @@
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "now" : "no longer"] see item outlines on hover.")
 
+/client/verb/toggle_item_tooltips()
+	set name = "Toggle Hover-over Item Tooltips"
+	set category = "Preferences"
+	set desc = "Toggles textboxes with the item descriptions after hovering on them in your inventory."
+	prefs.toggles2 ^= PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS) ? "no longer" : "now"] see item tooltips when you hover over items on your HUD.")
+
 /mob/verb/toggle_anonmode()
 	set name = "Toggle Anonymous Mode"
 	set category = "Preferences"
