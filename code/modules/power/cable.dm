@@ -617,7 +617,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		else if(get_amount() == 2)
 			. += "A piece of power cable."
 		else
-			. += "A coil of power cable. There are [get_amount()] lengths of cable in the coil."
+			. += "There are [get_amount()] lengths of cable in the coil."
 
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
