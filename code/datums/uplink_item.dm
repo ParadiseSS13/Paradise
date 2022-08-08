@@ -669,7 +669,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/ammo/aps
 	name = "Stechkin APS - 10mm Magazine"
 	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with rounds that are cheap but around half as effective as .357"
-	reference = "10MM"
+	reference = "10MMAPS"
 	item = /obj/item/ammo_box/magazine/apsm10mm
 	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
@@ -677,7 +677,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/ammo/apsap
 	name = "Stechkin APS - 10mm Armour Piercing Magazine"
 	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
-	reference = "10MMAP"
+	reference = "10MMAPSAP"
 	item = /obj/item/ammo_box/magazine/apsm10mm/ap
 	cost = 3
 	gamemodes = list(/datum/game_mode/nuclear)
@@ -685,7 +685,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/ammo/apsfire
 	name = "Stechkin APS - 10mm Incendiary Magazine"
 	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with incendiary rounds which ignite the target."
-	reference = "10MMFIRE"
+	reference = "10MMAPSFIRE"
 	item = /obj/item/ammo_box/magazine/apsm10mm/fire
 	cost = 3
 	gamemodes = list(/datum/game_mode/nuclear)
@@ -693,7 +693,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/ammo/apshp
 	name = "Stechkin APS - 10mm Hollow Point Magazine"
 	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with rounds which are more damaging but ineffective against armour."
-	reference = "10MMHP"
+	reference = "10MMAPSHP"
 	item = /obj/item/ammo_box/magazine/apsm10mm/hp
 	cost = 4
 	gamemodes = list(/datum/game_mode/nuclear)
