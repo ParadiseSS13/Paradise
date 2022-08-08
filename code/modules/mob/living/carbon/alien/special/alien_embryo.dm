@@ -6,7 +6,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "larva0_dead"
 	var/stage = 0
-	var/polling = 0
+	var/polling = FALSE
 
 /obj/item/organ/internal/body_egg/alien_embryo/on_find(mob/living/finder)
 	..()
@@ -15,7 +15,7 @@
 	else
 		to_chat(finder, "It's grown quite large, and writhes slightly as you look at it.")
 		if(prob(10))
-			AttemptGrow(0)
+			AttemptGrow(burst_on_success = FALSE)
 
 /obj/item/organ/internal/body_egg/alien_embryo/prepare_eat()
 	var/obj/S = ..()
@@ -59,16 +59,16 @@
 	if(stage == 5 && prob(50))
 		for(var/datum/surgery/S in owner.surgeries)
 			if(S.location == "chest" && istype(S.get_surgery_step(), /datum/surgery_step/internal/manipulate_organs))
-				AttemptGrow(0)
+				AttemptGrow(burst_on_success = FALSE)
 				return
 		AttemptGrow()
 
 
 
-/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(burst_on_success = 1)
+/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(burst_on_success = TRUE)
 	if(!owner || polling)
 		return
-	polling = 1
+	polling = TRUE
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an alien?", ROLE_ALIEN, FALSE, source = /mob/living/carbon/alien/larva)
 		var/mob/C = null
@@ -84,7 +84,7 @@
 			C = owner.client
 		else
 			stage = 2 // Let's try again later.
-			polling = 0
+			polling = FALSE
 			return
 
 		var/overlay = image('icons/mob/alien.dmi', loc = owner, icon_state = "burst_lie")
@@ -99,7 +99,7 @@
 			new_xeno.mind.name = new_xeno.name
 			new_xeno.mind.assigned_role = SPECIAL_ROLE_XENOMORPH
 			new_xeno.mind.special_role = SPECIAL_ROLE_XENOMORPH
-			new_xeno << sound('sound/voice/hiss5.ogg',0,0,0,100)//To get the player's attention
+			SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg'))
 			to_chat(new_xeno, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Xenomorph)</span>")
 
 			if(burst_on_success) //If we burst naturally
