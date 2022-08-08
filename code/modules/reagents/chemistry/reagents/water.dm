@@ -128,7 +128,7 @@
 /datum/reagent/blood/on_merge(list/mix_data)
 	if(data && mix_data)
 		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc coagulated
-		if(data["species_only"] == TRUE && data["species"] != mix_data["species"] || mix_data["species_only"] == TRUE && data["species"] != mix_data["species"]) // Vox blood with non vox blood
+		if(data["species"] != mix_data["species"] && (data["species_only"] == TRUE || mix_data["species_only"] == TRUE))
 			data["species"] = "Cogulated blood"
 			data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
 			data["species_only"] = TRUE
