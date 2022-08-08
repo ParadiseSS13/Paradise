@@ -12,7 +12,7 @@
 	build_path = /obj/item/circuitboard/mecha/ripley/main
 	category = list("Exosuit Modules")
 
-/datum/design/ripley_peri
+/datum/design/ripley_peripherals
 	name = "Exosuit Board (APLU \"Ripley\" Peripherals Control module)"
 	desc = "Allows for the construction of a  \"Ripley\" Peripheral Control module."
 	id = "ripley_peri"
@@ -33,7 +33,7 @@
 	build_path = /obj/item/circuitboard/mecha/odysseus/main
 	category = list("Exosuit Modules")
 
-/datum/design/odysseus_peri
+/datum/design/odysseus_peripherals
 	name = "Exosuit Board (\"Odysseus\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Odysseus\" Peripheral Control module."
 	id = "odysseus_peri"
@@ -54,7 +54,7 @@
 	build_path = /obj/item/circuitboard/mecha/gygax/main
 	category = list("Exosuit Modules")
 
-/datum/design/gygax_peri
+/datum/design/gygax_peripherals
 	name = "Exosuit Board (\"Gygax\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Gygax\" Peripheral Control module."
 	id = "gygax_peri"
@@ -64,7 +64,7 @@
 	build_path = /obj/item/circuitboard/mecha/gygax/peripherals
 	category = list("Exosuit Modules")
 
-/datum/design/gygax_targ
+/datum/design/gygax_targeting
 	name = "Exosuit Board (\"Gygax\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Gygax\" Weapons & Targeting Control module."
 	id = "gygax_targ"
@@ -85,7 +85,7 @@
 	build_path = /obj/item/circuitboard/mecha/durand/main
 	category = list("Exosuit Modules")
 
-/datum/design/durand_peri
+/datum/design/durand_peripherals
 	name = "Exosuit Board (\"Durand\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Durand\" Peripheral Control module."
 	id = "durand_peri"
@@ -95,7 +95,7 @@
 	build_path = /obj/item/circuitboard/mecha/durand/peripherals
 	category = list("Exosuit Modules")
 
-/datum/design/durand_targ
+/datum/design/durand_targeting
 	name = "Exosuit Board (\"Durand\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Durand\" Weapons & Targeting Control module."
 	id = "durand_targ"
@@ -116,7 +116,7 @@
 	build_path = /obj/item/circuitboard/mecha/phazon/main
 	category = list("Exosuit Modules")
 
-/datum/design/phazon_peri
+/datum/design/phazon_peripherals
 	name = "Exosuit Board (\"Phazon\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Phazon\" Peripheral Control module."
 	id = "phazon_peri"
@@ -126,7 +126,7 @@
 	build_path = /obj/item/circuitboard/mecha/phazon/peripherals
 	category = list("Exosuit Modules")
 
-/datum/design/phazon_targ
+/datum/design/phazon_targeting
 	name = "Exosuit Design (\"Phazon\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Phazon\" Weapons & Targeting Control module."
 	id = "phazon_targ"
@@ -147,7 +147,7 @@
 	build_path = /obj/item/circuitboard/mecha/honker/main
 	category = list("Exosuit Modules")
 
-/datum/design/honker_peri
+/datum/design/honker_peripherals
 	name = "Exosuit Board (\"H.O.N.K\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"H.O.N.K\" Peripheral Control module."
 	id = "honker_peri"
@@ -157,7 +157,7 @@
 	build_path = /obj/item/circuitboard/mecha/honker/peripherals
 	category = list("Exosuit Modules")
 
-/datum/design/honker_targ
+/datum/design/honker_targeting
 	name = "Exosuit Board (\"H.O.N.K\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"H.O.N.K\" Weapons & Targeting Control module."
 	id = "honker_targ"
@@ -177,7 +177,7 @@
 	build_path = /obj/item/circuitboard/mecha/reticence/main
 	category = list("Exosuit Modules")
 
-/datum/design/reticence_peri
+/datum/design/reticence_peripherals
 	name = "Exosuit Module (\"Reticence\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Reticence\" Peripheral Control module."
 	id = "reticence_peri"
@@ -187,7 +187,7 @@
 	build_path = /obj/item/circuitboard/mecha/reticence/peripherals
 	category = list("Exosuit Modules")
 
-/datum/design/reticence_targ
+/datum/design/reticence_targeting
 	name = "Exosuit Module (\"Reticence\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Reticence\" Weapons & Targeting Control module."
 	id = "reticence_targ"
