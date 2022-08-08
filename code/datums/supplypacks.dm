@@ -957,12 +957,28 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 
 /datum/supply_packs/science/robotics/mecha_ripley
-	name = "Circuit Crate (Ripley APLU)"
+	name = "Circuit Crate (Ripley)"
 	contains = list(/obj/item/book/manual/ripley_build_and_repair,
-					/obj/item/circuitboard/mecha/ripley/main, //TEMPORARY due to lack of circuitboard printer
-					/obj/item/circuitboard/mecha/ripley/peripherals) //TEMPORARY due to lack of circuitboard printer
+		            /obj/item/circuitboard/mecha/ripley/main,
+					/obj/item/circuitboard/mecha/ripley/peripherals)
 	cost = 30
 	containername = "\improper APLU \"Ripley\" circuit crate"
+
+/datum/supply_packs/science/robotics/mecha_gygax
+	name = "Circuit Crate (Gygax)"
+	contains = list(/obj/item/circuitboard/mecha/gygax/main,
+					/obj/item/circuitboard/mecha/gygax/peripherals,
+					/obj/item/circuitboard/mecha/gygax/targeting)
+	cost = 50
+	containername = "\improper \"Gygax\" circuit crate"
+
+/datum/supply_packs/science/robotics/mecha_durand
+	name = "Circuit Crate (Durand)"
+	contains = list(/obj/item/circuitboard/mecha/durand/main,
+					/obj/item/circuitboard/mecha/durand/peripherals,
+					/obj/item/circuitboard/mecha/durand/targeting)
+	cost = 50
+	containername = "\improper \"Durand\" circuit crate"
 
 /datum/supply_packs/science/robotics/mecha_odysseus
 	name = "Circuit Crate (Odysseus)"
