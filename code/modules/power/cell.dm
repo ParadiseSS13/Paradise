@@ -373,9 +373,4 @@
 /obj/item/stock_parts/cell/emproof/reactive // EMP proof so emp_act does not double dip.
 	name = "reactive armor power cell"
 	desc = "A cell used to power reactive armors."
-	maxcharge = 2000
-
-/obj/item/stock_parts/cell/emproof/reactive/small
-	name = "small reactive armor power cell"
-	desc = "A smaller cell used to power reactive armors."
-	maxcharge = 1200
+	maxcharge = 2400

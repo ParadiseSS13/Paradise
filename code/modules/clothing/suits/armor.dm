@@ -271,20 +271,17 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
-	/// The default cell reactive armor uses.
+	/// The cell reactive armor uses.
 	var/obj/item/stock_parts/cell/emproof/reactive/cell
-	/// The cell it will start with, used by stronger armors to have smaller cells.
-	var/cell_type = /obj/item/stock_parts/cell/emproof/reactive
+	/// Cost multiplier for armor. "Stronger" armors use 200 charge, other armors use 120.
+	var/energy_cost = 120
 	/// Is the armor in the one second grace period, to prevent rubbershot / buckshot from draining significant cell useage.
 	var/in_grace_period = FALSE
 
 
 /obj/item/clothing/suit/armor/reactive/Initialize(mapload, ...)
 	. = ..()
-	if(cell_type)
-		cell = new cell_type(src)
-	else
-		cell = new(src)
+	cell = new(src)
 
 /obj/item/clothing/suit/armor/reactive/Destroy()
 	qdel(cell)
@@ -317,7 +314,7 @@
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	var/emp_power = 5 + (severity-1 ? 0 : 5)
 	if(!disabled) //We want ions to drain power, but we do not want it to drain all power in one go, or be one shot via ion scatter
-		cell.use(400 / severity)
+		cell.use(energy_cost * 4 / severity)
 	disable(emp_power)
 	..()
 
@@ -326,7 +323,7 @@
 		return
 	else
 		in_grace_period = TRUE
-		cell.use(100) // 20 blocks for most armors, 12 blocks for the "stronger" armors
+		cell.use(energy_cost) // 20 blocks for most armors, 12 blocks for the "stronger" armors
 		addtimer(VARSET_CALLBACK(src, in_grace_period, FALSE), 1 SECONDS)
 
 /obj/item/clothing/suit/armor/reactive/get_cell()
@@ -366,7 +363,7 @@
 /obj/item/clothing/suit/armor/reactive/teleport
 	name = "reactive teleport armor"
 	desc = "Someone seperated our Research Director from his own head!"
-	cell_type = /obj/item/stock_parts/cell/emproof/reactive/small
+	energy_cost = 200
 	var/tele_range = 6
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -415,7 +412,7 @@
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
 	desc = "This armor uses an anomaly core combined with holographic projectors to make the user invisible temporarly, and make a fake image of the user."
-	cell_type = /obj/item/stock_parts/cell/emproof/reactive/small
+	energy_cost = 200
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
@@ -460,7 +457,7 @@
 	var/repulse_range = 5
 	/// What the sparkles looks like
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
-	cell_type = /obj/item/stock_parts/cell/emproof/reactive/small
+	energy_cost = 200
 
 /obj/item/clothing/suit/armor/reactive/repulse/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
