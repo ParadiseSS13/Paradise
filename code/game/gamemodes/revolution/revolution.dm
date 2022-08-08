@@ -101,6 +101,7 @@
 		possible_revolutionaries -= lenin
 		head_revolutionaries += lenin
 		lenin.restricted_roles = restricted_jobs
+		lenin.special_role = SPECIAL_ROLE_REV
 
 	if(head_revolutionaries.len < required_enemies)
 		return FALSE
@@ -117,7 +118,7 @@
 		var/datum/mind/trotsky = pick(head_revolutionaries)
 		possible_revolutionaries += trotsky
 		head_revolutionaries -= trotsky
-		update_rev_icons_removed(trotsky)
+		trotsky.special_role = null
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		log_game("[key_name(rev_mind)] has been selected as a head rev")
@@ -156,13 +157,13 @@
 /datum/game_mode/proc/greet_revolutionary(datum/mind/rev_mind, you_are=1)
 	var/obj_count = 1
 	update_rev_icons_added(rev_mind)
+	rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
+	var/datum/action/innate/revolution_recruitment/C = new()
+	C.Grant(rev_mind.current)
 	if(you_are)
 		to_chat(rev_mind.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership!</span>")
 	for(var/datum/objective/objective in rev_mind.objectives)
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
-		var/datum/action/innate/revolution_recruitment/C = new()
-		C.Grant(rev_mind.current)
 		obj_count++
 
 /////////////////////////////////////////////////////////////////////////////////
