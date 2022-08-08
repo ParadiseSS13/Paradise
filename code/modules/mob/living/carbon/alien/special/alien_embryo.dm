@@ -43,11 +43,11 @@
 				if(prob(20))
 					owner.take_organ_damage(1)
 			if(prob(4))
-				to_chat(owner, "<span class='danger'>Your stomach hurts.</span>")
+				to_chat(owner, "<span class='danger'>Your chest hurts.</span>")
 				if(prob(20))
 					owner.adjustToxLoss(1)
 		if(5)
-			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach...</span>")
+			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your chest...</span>")
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
@@ -65,7 +65,7 @@
 
 
 
-/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(gib_on_success = 1)
+/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(burst_on_success = 1)
 	if(!owner || polling)
 		return
 	polling = 1
@@ -91,6 +91,7 @@
 		owner.overlays += overlay
 
 		spawn(6)
+			owner.overlays -= overlay
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
 			new_xeno.key = C.key
 			if(SSticker && SSticker.mode)
@@ -101,11 +102,13 @@
 			new_xeno << sound('sound/voice/hiss5.ogg',0,0,0,100)//To get the player's attention
 			to_chat(new_xeno, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Xenomorph)</span>")
 
-			if(gib_on_success)
-				owner.gib()
-			else
+			if(burst_on_success) //If we burst naturally
+				owner.apply_damage(300, BRUTE, "chest")
+				owner.bleed(BLOOD_VOLUME_NORMAL)
+				var/obj/item/organ/external/chestorgans = owner.get_organ(ran_zone("chest"))
+				chestorgans.droplimb()
+			else //If we are discovered mid-surgery
 				owner.adjustBruteLoss(40)
-				owner.overlays -= overlay
 			qdel(src)
 
 /*----------------------------------------
