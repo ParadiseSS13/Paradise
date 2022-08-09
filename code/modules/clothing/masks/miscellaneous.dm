@@ -367,6 +367,7 @@
 	desc = "A mask made of soft vinyl and latex, representing the head of a bee."
 	icon_state = "bee"
 	item_state = "bee"
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 
 /obj/item/clothing/mask/face/bear
 	name = "bear mask"
@@ -508,7 +509,7 @@
 	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = NODROP | AIRTIGHT
+	flags = NODROP | AIRTIGHT | DROPDEL
 	flags_cover = MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
