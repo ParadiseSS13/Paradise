@@ -429,7 +429,7 @@
 	source.apply_damage(5, BRUTE, "chest")
 	if(ishostile(source))
 		var/mob/living/simple_animal/hostile/target = source
-		target.ranged_cooldown += 5 SECONDS
+		target.ranged_cooldown += 2 SECONDS
 	else if(iscarbon(source))
 		var/mob/living/carbon/target = source
 		target.AdjustConfused(8 SECONDS)
@@ -467,7 +467,7 @@
 		hostile_target.LoseTarget()
 
 	addtimer(CALLBACK(src, .proc/uncloak, user), 5 SECONDS, TIMER_UNIQUE)
-	addtimer(VARSET_CALLBACK(src, cloak_on_cooldown, FALSE), 10 SECONDS)
+	addtimer(VARSET_CALLBACK(src, cloak_on_cooldown, FALSE), 15 SECONDS)
 
 /obj/item/cursed_katana/proc/uncloak(mob/user)
 	user.reset_visibility()
@@ -512,6 +512,7 @@
 		"<span class='notice'>You shatter [src] over [target]!</span>")
 	to_chat(target, "<span class='userdanger'>[user] shatters [src] over you!</span>")
 	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, "chest", TRUE)
+	target.KnockDown(3 SECONDS)
 	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 	playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
 	if(ishuman(user))
