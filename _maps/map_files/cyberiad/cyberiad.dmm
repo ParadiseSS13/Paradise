@@ -65996,9 +65996,7 @@
 	name = "\improper AI Satellite Hallway"
 	})
 "dlV" = (
-/obj/machinery/atmospherics/binary/pump{
-	on = 1
-	},
+/obj/machinery/atmospherics/binary/pump/on,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	layer = 3.1;
@@ -66016,9 +66014,8 @@
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dlW" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1;
-	on = 1
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 1
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -66141,8 +66138,7 @@
 	})
 "dml" = (
 /obj/machinery/atmospherics/binary/pump{
-	name = "Waste Out";
-	on = 1
+	name = "Waste Out"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -85510,7 +85506,7 @@
 /area/maintenance/apmaint)
 "rSS" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/toxins/misc_lab)
 "rSX" = (
 /obj/structure/cable{
@@ -85863,7 +85859,6 @@
 /area/maintenance/asmaint)
 "slp" = (
 /obj/machinery/door/airlock/maintenance{
-	electrified_until = -1;
 	locked = 1;
 	req_access_txt = "33"
 	},
@@ -142373,7 +142368,7 @@ qkz
 vgY
 czc
 jCu
-qhq
+cAP
 cDD
 cDG
 cFU
@@ -142630,7 +142625,7 @@ afs
 hTK
 cze
 oJo
-qhq
+cAP
 fBk
 bWR
 cGa
@@ -142887,7 +142882,7 @@ ciY
 ciY
 ciY
 ciY
-qhq
+cAP
 cDF
 cHr
 cFZ
@@ -143144,7 +143139,7 @@ gpq
 gpq
 gpq
 kfv
-qhq
+cAP
 cDH
 cFb
 cGd
@@ -143401,13 +143396,13 @@ ugC
 csL
 dbX
 vnw
-qhq
+cAP
 lXi
 cHr
 tMg
 cHr
 wAG
-qhq
+cAP
 aab
 vkV
 aaa
@@ -143659,12 +143654,12 @@ tVF
 csL
 vJN
 rSS
-qhq
+cAP
 poC
 tVd
 fjx
-qhq
-qhq
+cAP
+cAP
 ciY
 ciY
 ciY
@@ -143916,11 +143911,11 @@ kos
 csL
 vJN
 ugC
-qhq
-qhq
-qhq
-qhq
-qhq
+cAP
+cAP
+cAP
+cAP
+cAP
 rID
 cga
 cga
