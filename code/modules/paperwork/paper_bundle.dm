@@ -201,8 +201,9 @@
 	if(in_range(user, src) && !user.incapacitated())
 		if(is_pen(user.get_active_hand()))
 			rename()
-	else
-		. = ..()
+		return
+
+	. = ..()
 
 /obj/item/paper_bundle/verb/rename()
 	set name = "Rename bundle"
@@ -238,8 +239,10 @@
 	if(amount == (photos - 1))
 		desc = "[photos] photos clipped together." // In case you clip 2 photos together and remove the paper
 		return
+
 	else if(((amount + 1) - photos) >= 2) // extra papers + original paper - photos
 		desc = "[(amount + 1) - photos] papers clipped to each other."
+
 	else
 		desc = "A single sheet of paper."
 	if(photos)
@@ -255,12 +258,14 @@
 	if(length(contents))
 		var/obj/item/paper/P = contents[1]
 		. += P.overlays
+
 	var/counter = 0
 	for(var/obj/O in src)
 		var/image/sheet = image('icons/obj/bureaucracy.dmi')
 		if(istype(O, /obj/item/paper))
 			if(length(underlays) == 3)
 				continue
+
 			sheet.icon_state = O.icon_state
 			sheet.pixel_x -= min(1 * counter, 2)
 			sheet.pixel_y -= min(1 * counter, 2)
@@ -268,9 +273,11 @@
 			pixel_y = min(1 * counter, 2)
 			underlays += sheet
 			counter++
+
 		else if(istype(O, /obj/item/photo))
 			var/obj/item/photo/picture = O
 			sheet = picture.tiny
 			. += sheet
+
 	. += "clip"
 	update_desc()
