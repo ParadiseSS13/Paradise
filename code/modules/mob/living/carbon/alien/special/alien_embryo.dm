@@ -88,10 +88,10 @@
 			return
 
 		var/overlay = image('icons/mob/alien.dmi', loc = owner, icon_state = "burst_lie")
-		owner.overlays += overlay
+		owner.add_overlay(overlay)
 
 		spawn(6)
-			owner.overlays -= overlay
+			owner.cut_overlay(overlay)
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
 			new_xeno.key = C.key
 			if(SSticker && SSticker.mode)
