@@ -284,7 +284,7 @@
 	cell = new(src)
 
 /obj/item/clothing/suit/armor/reactive/Destroy()
-	qdel(cell)
+	QDEL_NULL(cell)
 	return ..()
 
 /obj/item/clothing/suit/armor/reactive/examine(mob/user)
