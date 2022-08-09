@@ -141,18 +141,8 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_controls()
 
-/mob/living/simple_animal/bot/New()
-	/*
-		HEY! LISTEN!
-
-		I see you're poking the the bot/New() proc
-		Assuming you are converting this to Initialize() [yay], please see my note in
-		code\game\jobs\job\job.dm | /datum/job/proc/get_access()
-
-		Theres a useless check that bugs me but needs to exist because these things New()
-		-AA07
-	*/
-	..()
+/mob/living/simple_animal/bot/Initialize(mapload)
+	. = ..()
 	GLOB.bots_list += src
 	icon_living = icon_state
 	icon_dead = icon_state
@@ -170,9 +160,9 @@
 	default_language = GLOB.all_languages["Galactic Common"]
 
 	bot_core = new bot_core_type(src)
-	spawn(30)
-		if(SSradio && bot_filter)
-			SSradio.add_object(bot_core, control_freq, bot_filter)
+
+	if(SSradio && bot_filter)
+		SSradio.add_object(bot_core, control_freq, bot_filter)
 
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)

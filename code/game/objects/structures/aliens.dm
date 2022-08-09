@@ -204,6 +204,7 @@
 	integrity_failure = 5
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
+	flags_2 = CRITICAL_ATOM_2
 
 /obj/structure/alien/egg/grown
 	status = GROWN

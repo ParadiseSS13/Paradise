@@ -89,6 +89,9 @@
 	var/missing_ages = 0
 	var/msg = ""
 	for(var/client/C in GLOB.clients)
+		if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE))
+			continue // Skip those in stealth mode if an admin isnt viewing the panel
+
 		if(C.player_age == "Requires database")
 			missing_ages = 1
 			continue

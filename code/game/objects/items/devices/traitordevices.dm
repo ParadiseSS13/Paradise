@@ -20,7 +20,7 @@
 
 /obj/item/teleporter
 	name = "syndicate teleporter"
-	desc = "A strange syndicate version of a cult veil shifter. Warrenty voided if exposed to EMP."
+	desc = "A strange syndicate version of a cult veil shifter. Warranty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-tele"
 	throwforce = 5
