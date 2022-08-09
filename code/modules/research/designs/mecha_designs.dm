@@ -15,7 +15,7 @@
 /datum/design/ripley_peripherals
 	name = "Exosuit Board (APLU \"Ripley\" Peripherals Control module)"
 	desc = "Allows for the construction of a  \"Ripley\" Peripheral Control module."
-	id = "ripley_peri"
+	id = "ripley_peripherals"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
@@ -36,7 +36,7 @@
 /datum/design/odysseus_peripherals
 	name = "Exosuit Board (\"Odysseus\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Odysseus\" Peripheral Control module."
-	id = "odysseus_peri"
+	id = "odysseus_peripherals"
 	req_tech = list("programming" = 3,"biotech" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
@@ -57,7 +57,7 @@
 /datum/design/gygax_peripherals
 	name = "Exosuit Board (\"Gygax\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Gygax\" Peripheral Control module."
-	id = "gygax_peri"
+	id = "gygax_peripherals"
 	req_tech = list("programming" = 8, "combat" = 8, "engineering" = 8)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
@@ -67,7 +67,7 @@
 /datum/design/gygax_targeting
 	name = "Exosuit Board (\"Gygax\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Gygax\" Weapons & Targeting Control module."
-	id = "gygax_targ"
+	id = "gygax_targeting"
 	req_tech = list("programming" = 8, "combat" = 8, "engineering" = 8)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
@@ -88,7 +88,7 @@
 /datum/design/durand_peripherals
 	name = "Exosuit Board (\"Durand\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Durand\" Peripheral Control module."
-	id = "durand_peri"
+	id = "durand_peripherals"
 	req_tech = list("programming" = 8, "combat" = 8, "engineering" = 8)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
@@ -98,7 +98,7 @@
 /datum/design/durand_targeting
 	name = "Exosuit Board (\"Durand\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Durand\" Weapons & Targeting Control module."
-	id = "durand_targ"
+	id = "durand_targeting"
 	req_tech = list("programming" = 8, "combat" = 8, "engineering" = 8)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
@@ -119,7 +119,7 @@
 /datum/design/phazon_peripherals
 	name = "Exosuit Board (\"Phazon\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Phazon\" Peripheral Control module."
-	id = "phazon_peri"
+	id = "phazon_peripherals"
 	req_tech = list("programming" = 6, "bluespace" = 5, "plasmatech" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
@@ -129,7 +129,7 @@
 /datum/design/phazon_targeting
 	name = "Exosuit Design (\"Phazon\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Phazon\" Weapons & Targeting Control module."
-	id = "phazon_targ"
+	id = "phazon_targeting"
 	req_tech = list("programming" = 6, "magnets" = 5, "plasmatech" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
@@ -150,7 +150,7 @@
 /datum/design/honker_peripherals
 	name = "Exosuit Board (\"H.O.N.K\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"H.O.N.K\" Peripheral Control module."
-	id = "honker_peri"
+	id = "honker_peripherals"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
@@ -160,7 +160,7 @@
 /datum/design/honker_targeting
 	name = "Exosuit Board (\"H.O.N.K\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"H.O.N.K\" Weapons & Targeting Control module."
-	id = "honker_targ"
+	id = "honker_targeting"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
@@ -180,7 +180,7 @@
 /datum/design/reticence_peripherals
 	name = "Exosuit Module (\"Reticence\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Reticence\" Peripheral Control module."
-	id = "reticence_peri"
+	id = "reticence_peripherals"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
@@ -190,7 +190,7 @@
 /datum/design/reticence_targeting
 	name = "Exosuit Module (\"Reticence\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Reticence\" Weapons & Targeting Control module."
-	id = "reticence_targ"
+	id = "reticence_targeting"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
