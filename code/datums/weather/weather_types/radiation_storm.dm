@@ -44,7 +44,10 @@
 	if(HAS_TRAIT(H, TRAIT_RADIMMUNE) || resist == INFINITY)
 		return
 
-	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))) && !HAS_TRAIT(H, TRAIT_GENELESS))
+	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
+		L.rad_act(20)
+		if(HAS_TRAIT(H, TRAIT_GENELESS))
+			return
 		randmuti(H) // Applies bad mutation
 		if(prob(50))
 			if(prob(90))
@@ -53,8 +56,6 @@
 				randmutg(H)
 
 		domutcheck(H, MUTCHK_FORCED)
-
-		L.rad_act(20)
 
 /datum/weather/rad_storm/end()
 	if(..())
