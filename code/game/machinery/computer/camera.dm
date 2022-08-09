@@ -83,6 +83,10 @@
 		ui = new(user, src, ui_key, "CameraConsole", name, 870, 708, master_ui, state)
 		ui.open()
 
+/obj/machinery/computer/security/ui_close(mob/user)
+	..()
+	watchers -= user.UID()
+
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
 	data["network"] = network
