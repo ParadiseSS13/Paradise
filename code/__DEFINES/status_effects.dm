@@ -70,6 +70,8 @@
 
 #define STATUS_EFFECT_SAWBLEED /datum/status_effect/saw_bleed //if the bleed builds up enough, takes a ton of damage
 
+#define STATUS_EFFECT_BLOODLETTING /datum/status_effect/saw_bleed/bloodletting //nerfed version
+
 #define STATUS_EFFECT_TELEPORTSICK /datum/status_effect/teleport_sickness //increasing debuffs as you rapidly teleport.
 
 #define STATUS_EFFECT_PACIFIED /datum/status_effect/pacifism //forces the pacifism trait

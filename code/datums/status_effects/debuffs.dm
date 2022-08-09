@@ -77,6 +77,7 @@
 	var/delay_before_decay = 5
 	var/bleed_damage = 200
 	var/needs_to_bleed = FALSE
+	var/bleed_cap = 10
 
 /datum/status_effect/saw_bleed/Destroy()
 	if(owner)
@@ -113,7 +114,7 @@
 	owner.underlays -= bleed_underlay
 	bleed_amount += amount
 	if(bleed_amount)
-		if(bleed_amount >= 10)
+		if(bleed_amount >= bleed_cap)
 			needs_to_bleed = TRUE
 			qdel(src)
 		else
@@ -136,6 +137,12 @@
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
+
+/datum/status_effect/saw_bleed/bloodletting
+	id = "bloodletting"
+	bleed_cap = 7
+	bleed_damage = 25 //Seems weak (it is) but it also works on humans and bipasses armor SOOOO
+	bleed_amount = 6
 
 /datum/status_effect/teleport_sickness
 	id = "teleportation sickness"

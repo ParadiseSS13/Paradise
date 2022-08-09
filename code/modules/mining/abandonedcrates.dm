@@ -143,7 +143,7 @@
 			new /obj/item/gun/projectile/automatic/pistol(src)
 			new /obj/item/ammo_box/magazine/m10mm(src)
 		if(98)
-			new /obj/item/katana/cursed(src)
+			new /obj/item/organ/internal/cyberimp/arm/katana(src)
 		if(99)
 			new /obj/item/storage/belt/champion(src)
 			new /obj/item/clothing/mask/luchador(src)
