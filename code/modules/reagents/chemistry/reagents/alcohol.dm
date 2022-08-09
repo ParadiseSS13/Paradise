@@ -1625,9 +1625,9 @@
 
 /datum/reagent/consumable/ethanol/jungle_vox/on_mob_life(mob/living/M)
 	if(isvox(M))
-		if(current_cycle % 10 == 0 && prob(50) && M.AmountSluring() > 0) // say random stuff only if we are drunk and once in a while
-			var/mob/living/carbon/human/H = M
-			H.emote("scream")
+		if(current_cycle > 5 && M.health > 0)
+			M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+			M.AdjustLoseBreath(-2 SECONDS)
 	return ..()
 
 /datum/reagent/consumable/ethanol/slime_mold
@@ -1680,7 +1680,7 @@
 
 /datum/reagent/consumable/ethanol/acid_dreams/on_mob_life(mob/living/M)
 	if(isgrey(M))
-		if(current_cycle % 10 == 0 && prob(50) && M.AmountSluring() > 0) // say random stuff only if we are drunk and once in a while
+		if(current_cycle % 10 == 0 && prob(50))
 			var/list/mob/living/targets = list()
 			for(var/mob/living/L in orange(14, M))
 				if(L.is_dead()) //we don't care about dead mobs
@@ -1691,17 +1691,8 @@
 			var/mob/living/target = pick(targets)
 			if(target == null)
 				return ..()
-			var/say = "HI!"
-			log_say("(Forced TPATH to [key_name(target)]) [say]", M)
-			M.create_log(SAY_LOG, "Telepathically force said '[say]' using [src]", target)
-			if(target.dna?.GetSEState(GLOB.remotetalkblock))
-				target.show_message("<span class='abductor'>You hear [M.real_name]'s voice: [say]</span>")
-			else
-				target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
-				target.emote("scream")
-			M.show_message("<span class='abductor'>You project your mind into [(target in M.get_visible_mobs()) ? target.name : "the unknown entity"]: [say]</span>")
-			for(var/mob/dead/observer/G in GLOB.player_list)
-				G.show_message("<i>Telepathic forced message from <b>[M]</b> ([ghost_follow_link(M, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
+			to_chat(M, "<span class='warning'>You feel that [target.name] is somewhere near.</span>")
+
 	return ..()
 
 /datum/reagent/consumable/ethanol/islay_whiskey
@@ -1771,8 +1762,9 @@
 
 /datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
 	if(isvulpkanin(M))
-		if(current_cycle % 10 == 0 && prob(50) && M.AmountSluring() > 0) // say random stuff only if we are drunk and once in a while
-			M.emote("howl")
+		var/mob/living/carbon/human/H = M
+		if(H.health > 0)
+			H.adjustToxLoss(-0.5)
 			
 	return ..()
 
