@@ -455,7 +455,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/gun/projectile/automatic/pistol/APS
 	cost = 8
 	gamemodes = list(/datum/game_mode/nuclear)
-	surplus = 40
 
 /datum/uplink_item/dangerous/smg
 	name = "C-20r Submachine Gun"
