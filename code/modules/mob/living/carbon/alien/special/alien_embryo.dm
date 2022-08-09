@@ -103,10 +103,11 @@
 			to_chat(new_xeno, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Xenomorph)</span>")
 
 			if(burst_on_success) //If we burst naturally
-				owner.apply_damage(300, BRUTE, "chest")
+				owner.apply_damage(300, BRUTE, BODY_ZONE_CHEST)
 				owner.bleed(BLOOD_VOLUME_NORMAL)
-				var/obj/item/organ/external/chestorgans = owner.get_organ(ran_zone("chest"))
-				chestorgans.droplimb()
+				var/obj/item/organ/external/chest = owner.get_organ(BODY_ZONE_CHEST)
+				chest.fracture()
+				chest.droplimb()
 			else //If we are discovered mid-surgery
 				owner.adjustBruteLoss(40)
 			qdel(src)
