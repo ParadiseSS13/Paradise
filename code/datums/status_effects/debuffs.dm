@@ -220,6 +220,23 @@
 /datum/status_effect/bluespace_slowdown/on_remove()
 	owner.next_move_modifier /= 2
 
+/datum/status_effect/katana_curse //tracking if user is dead
+	id = "katana_curse"
+	duration = -1
+	alert_type = null
+	var/deathTick = 0
+
+/datum/status_effect/katana_curse/tick()
+	if(owner.stat == DEAD)
+		if(deathTick < 4)
+			deathTick += 1
+		else
+			if(ishuman(owner))
+				var/mob/living/carbon/human/H = owner
+				for(var/obj/item/organ/internal/cyberimp/arm/katana/O in H.internal_organs)
+					O.user_death(owner)
+					qdel(src)
+
 // start of `living` level status procs.
 
 /**

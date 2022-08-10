@@ -274,10 +274,11 @@
 	contents = newlist(/obj/item/cursed_katana)
 
 
-/obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/user, modifiers)
+/obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
 	. = ..()
 	to_chat(user,"<span class='userdanger'>The mass goes up your arm and goes inside it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
+	user.apply_status_effect(STATUS_EFFECT_KATANA_CURSE)
 	user.drop_item()
 	insert(user)
 
@@ -304,6 +305,19 @@
 			return FALSE
 	return ..()
 
+/obj/item/organ/internal/cyberimp/arm/katana/proc/user_death(mob/user)
+	Retract(TRUE)
+	user.visible_message("<span class='warning'>[user] begins to turn to dust, his soul being contained within [src]!</span>",
+		"<span class='userdanger'>You feel your body begin to turn to dust, your soul being drawn into [src]!</span>")
+	forceMove(get_turf(owner))
+	remove(user)
+	addtimer(CALLBACK(user, /mob/.proc/dust), 1 SECONDS)
+
+
+/obj/item/organ/internal/cyberimp/arm/katana/remove(mob/living/carbon/M, special)
+	M.remove_status_effect(STATUS_EFFECT_KATANA_CURSE)
+	. = ..()
+
 
 #define LEFT_SLASH "Harm"
 #define RIGHT_SLASH "Disarm"
@@ -313,7 +327,7 @@
 #define ATTACK_SLICE "Wide Slice"
 #define ATTACK_DASH "Dash Attack"
 #define ATTACK_CUT "Tendon Cut"
-#define ATTACK_CLOAK "Dark Cloak"
+#define ATTACK_HEAL "Dark Heal"
 #define ATTACK_SHATTER "Shatter"
 
 
@@ -336,7 +350,6 @@
 	var/shattered = FALSE
 	var/drew_blood = FALSE
 	var/timerid
-	var/cloak_on_cooldown = FALSE // 10 second cooldown between cloaks. We do not want someone to be *always invisible* with this
 	var/list/input_list = list()
 	var/list/combo_strings = list()
 	var/static/list/combo_list = list(
@@ -344,7 +357,7 @@
 		ATTACK_SLICE = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, LEFT_SLASH), COMBO_PROC = .proc/slice),
 		ATTACK_DASH = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, RIGHT_SLASH), COMBO_PROC = .proc/dash),
 		ATTACK_CUT = list(COMBO_STEPS = list(RIGHT_SLASH, RIGHT_SLASH, LEFT_SLASH), COMBO_PROC = .proc/cut),
-		ATTACK_CLOAK = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = .proc/cloak),
+		ATTACK_HEAL = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = .proc/heal),
 		ATTACK_SHATTER = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH), COMBO_PROC = .proc/shatter),
 		)
 
@@ -412,7 +425,7 @@
 
 /obj/item/cursed_katana/proc/strike(mob/living/target, mob/user)
 	user.visible_message("<span class='warning'>[user] strikes [target] with [src]'s hilt!</span>",
-		"<span class='notice'>You hilt strike [target]</span>!")
+		"<span class='notice'>You hilt strike [target]!</span>")
 	to_chat(target, "<span class='userdanger'>You've been struck by [user]!</span>")
 	playsound(src, 'sound/weapons/genhit3.ogg', 50, TRUE)
 	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, .proc/strike_throw_impact)
@@ -451,30 +464,11 @@
 				to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
 	target.apply_damage(5, BRUTE, "chest", TRUE)
 
-/obj/item/cursed_katana/proc/cloak(mob/living/target, mob/user)
-	if(cloak_on_cooldown)
-		to_chat(user, "<span class='warning'>You can not cloak again so soon!</span>")
-		target.apply_damage(5, BRUTE, "chest", TRUE) //small damage to make up for it
-		return
-	user.visible_message("<span class='warning'>[user] vanishes into thin air!</span>",
-		"<span class='notice'>You enter the dark cloak.</span>")
-	playsound(src, 'sound/magic/smoke.ogg', 50, TRUE)
-	user.make_invisible()
-	user.sight |= SEE_SELF // so we can see us
-	cloak_on_cooldown = TRUE
-	if(ishostile(target))
-		var/mob/living/simple_animal/hostile/hostile_target = target
-		hostile_target.LoseTarget()
-
-	addtimer(CALLBACK(src, .proc/uncloak, user), 5 SECONDS, TIMER_UNIQUE)
-	addtimer(VARSET_CALLBACK(src, cloak_on_cooldown, FALSE), 15 SECONDS)
-
-/obj/item/cursed_katana/proc/uncloak(mob/user)
-	user.reset_visibility()
-	user.sight &= ~SEE_SELF
-	user.visible_message("<span class='warning'>[user] appears from thin air!</span>",
-		"<span class='notice'>You exit the dark cloak.</span>")
-	playsound(src, 'sound/magic/summonitems_generic.ogg', 50, TRUE)
+/obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
+	user.visible_message("<span class='warning'>[user] lets [src] feast on [target]'s blood!</span>",
+		"<span class='warning'>You let [src] feast on [target], and it heals you, at a price!</span>")
+	target.apply_damage(15, BRUTE, "chest", TRUE)
+	user.apply_status_effect(STATUS_EFFECT_SHADOW_MEND)
 
 /obj/item/cursed_katana/proc/cut(mob/living/target, mob/user)
 	user.visible_message("<span class='warning'>[user] cuts [target]'s tendons!</span>",
@@ -490,21 +484,27 @@
 		A.add_bleed(6)
 
 /obj/item/cursed_katana/proc/dash(mob/living/target, mob/user)
+	var/turf/dash_target = get_turf(target)
+	var/turf/user_turf = get_turf(user)
+	if(!is_teleport_allowed(dash_target.z)) //No teleporting at CC
+		to_chat(user, ("<span class='userdanger'>You can not dash here!</span>"))
+		return
 	user.visible_message("<span class='warning'>[user] dashes through [target]!</span>",
 		"<span class='notice'>You dash through [target]!</span>")
 	to_chat(target, ("<span class='userdanger'>[user] dashes through you!</span>"))
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
 	target.apply_damage(17, BRUTE, "chest", TRUE)
-	var/turf/dash_target = get_turf(target)
-	var/turf/user_turf = get_turf(user)
 	for(var/distance in 0 to 8)
 		var/turf/current_dash_target = dash_target
 		current_dash_target = get_step(current_dash_target, user.dir)
-		if(!current_dash_target.density)
+		if(!is_blocked_turf(current_dash_target, TRUE))
 			dash_target = current_dash_target
 		else
 			break
-	user_turf.Beam(dash_target, icon_state = "warp_beam", icon = 'icons/effects/effects.dmi', time = 0.3 SECONDS, maxdistance = INFINITY) //Currently not working, need to look into, if anyone has an idea why please tell
+		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
+			additional_target.apply_damage(15, BRUTE, "chest", TRUE)
+			to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
+	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY) //Currently not working, need to look into, if anyone has an idea why please tell
 	user.forceMove(dash_target)
 
 /obj/item/cursed_katana/proc/shatter(mob/living/target, mob/user)
@@ -536,5 +536,5 @@
 #undef ATTACK_SLICE
 #undef ATTACK_DASH
 #undef ATTACK_CUT
-#undef ATTACK_CLOAK
+#undef ATTACK_HEAL
 #undef ATTACK_SHATTER
