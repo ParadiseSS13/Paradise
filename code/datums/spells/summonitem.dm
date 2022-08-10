@@ -122,7 +122,7 @@
 					item_to_retrieve.loc.visible_message("<span class='warning'>[item_to_retrieve] reappears in an instant!</span>")
 			else
 				item_to_retrieve.loc.visible_message("<span class='caution'>[item_to_retrieve] suddenly appears in [target]'s hand!</span>")
-				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
+				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg', 50, 1)
 
 		if(message)
 			to_chat(target, message)
