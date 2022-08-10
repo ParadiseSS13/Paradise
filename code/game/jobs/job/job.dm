@@ -193,8 +193,11 @@
 				if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
 					permitted = FALSE
 
+				if(H.client.donator_level < G?.donator_tier)
+					permitted = FALSE
+
 				if(!permitted)
-					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [gear]!</span>")
+					to_chat(H, "<span class='warning'>Your current job, donator tier or whitelist status does not permit you to spawn with [gear]!</span>")
 					continue
 
 				if(G.slot)
