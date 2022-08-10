@@ -251,12 +251,18 @@
 	if(istype(hand_item, /obj/item/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]")
+			log_emote("[key_name(usr)] point [hand_item] to [A] ([A.x],[A.y],[A.z])", src)
+			create_log(EMOTE_LOG, "[key_name(usr)] point [hand_item] to [A] ([A.x],[A.y],[A.z])")
 			return TRUE
 		A.visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]!</span>",
 											"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(A.gender,"тебя","вас")]!</span>")
 		A << 'sound/weapons/targeton.ogg'
+		log_emote("[key_name(usr)] point [hand_item] HARM to [A] ([A.x],[A.y],[A.z])", src)
+		create_log(EMOTE_LOG, "[key_name(usr)] point [hand_item] HARM to [A] ([A.x],[A.y],[A.z])")
 		return TRUE
 	visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] на [A.declent_ru(ACCUSATIVE)]")
+	log_emote("[key_name(usr)] point to [A] ([A.x],[A.y],[A.z])", src)
+	create_log(EMOTE_LOG, "[key_name(usr)] point to [A] ([A.x],[A.y],[A.z])")
 	return TRUE
 
 /mob/living/verb/succumb()
