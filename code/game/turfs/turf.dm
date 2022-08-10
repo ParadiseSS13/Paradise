@@ -269,7 +269,7 @@
 	levelupdate()
 	CalculateAdjacentTurfs()
 
-	if(SSair && !ignore_air)
+	if(!ignore_air)
 		SSair.add_to_active(src)
 
 	//update firedoor adjacency
