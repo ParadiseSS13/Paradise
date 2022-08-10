@@ -105,10 +105,10 @@
 
 	//todo: have current temperature affected. require power to bring down current temperature again
 
-	var/temperature_delta= abs(old_temperature - air_contents.temperature)
+	var/temperature_delta = abs(old_temperature - air_contents.temperature)
 	if(temperature_delta > 1)
 		active_power_usage = (heat_capacity * temperature_delta) + idle_power_usage
-		parent.update = 1
+		parent.update = TRUE
 	else
 		active_power_usage = idle_power_usage
 	return 1
