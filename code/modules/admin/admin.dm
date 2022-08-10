@@ -68,7 +68,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/show_player_panel(var/mob/M in GLOB.mob_list)
 	set category = null
-	set name = "Show Player Panel"
+	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
 	if(!M)
@@ -122,11 +122,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	if(M.ckey)
 		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
-		body += "<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> | "
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
 		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
-		body += "<A href='?_src_=holder;randomizename=[M.UID()]'>Randomize Name</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 		body += "<A href='?_src_=holder;geoip=[M.UID()]'>GeoIP</A> | "
 		if(config.forum_playerinfo_url)
@@ -140,8 +138,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 		body += "| <A href='?_src_=holder;sendtoprison=[M.UID()]'>Prison</A> | "
 		body += "\ <A href='?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</A> | "
-		body += "\ <A href='?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</A> | "
-		body += "\ <A href='?_src_=holder;userandomname=[M.UID()]'>Use Random Name</A> | "
 		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
 			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"#6685f5"]'>IC</font></a> |
@@ -151,6 +147,24 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"#6685f5"]'>DEADCHAT</font></a>\]
 			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"#6685f5"]'>toggle all</font></a>)
 		"}
+		body += {"<br><b>Mob Manipulation:</b>
+			<A href='?_src_=holder;randomizename=[M.UID()]'>Randomize Name</A> |
+			<A href='?_src_=holder;userandomname=[M.UID()]'>User Randomize Name</A> |
+			<A href='?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</A> |
+			"}
+		if(ishuman(M))
+			body += {"
+			<A href='?_src_=holder;cma_admin=[M.UID()]'>Mirror UI to Admin</A> |
+			<A href='?_src_=holder;cma_self=[M.UID()]'>Mirror UI to Player</A> |
+			<A href='?_src_=holder;select_equip=[M.UID()]'>Select Equipment</A> |
+			<A href='?_src_=holder;update_mob_sprite=[M.UID()]'>Update Mob Sprite</A> |
+			"}
+		if(isliving(M))
+			body += {"<A href='?_src_=holder;check_contents=[M.UID()]'>Check Contents</A> |"}
+		body += {"
+		<A href='?_src_=holder;man_up=[M.UID()]'>Man Up</A> |
+		"}
+
 
 	var/jumptoeye = ""
 	if(isAI(M))
@@ -188,21 +202,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			else
 				body += "<A href='?_src_=holder;monkeyone=[M.UID()]'>Monkeyize</A> | "
 
-			//Corgi
-			if(iscorgi(M))
-				body += "<B>Corgized</B> | "
-			else
-				body += "<A href='?_src_=holder;corgione=[M.UID()]'>Corgize</A> | "
-
 			//AI / Cyborg
 			if(isAI(M))
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
-				body += {"<A href='?_src_=holder;makeai=[M.UID()]'>Make AI</A> |
-					<A href='?_src_=holder;makerobot=[M.UID()]'>Make Robot</A> |
-					<A href='?_src_=holder;makealien=[M.UID()]'>Make Alien</A> |
-					<A href='?_src_=holder;makeslime=[M.UID()]'>Make Slime</A> |
-					<A href='?_src_=holder;makesuper=[M.UID()]'>Make Superhero</A>
+				body += {"<A href='?_src_=holder;makeai=[M.UID()]'>AI</A> |
+					<A href='?_src_=holder;makerobot=[M.UID()]'>Robot</A> |
+					<A href='?_src_=holder;makesuper=[M.UID()]'>Superhero</A> |
 				"}
 
 			//Simple Animals
@@ -789,9 +795,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	message_admins("[key_name_admin(usr)] checked the AI laws")
 
 /client/proc/update_mob_sprite(mob/living/carbon/human/H as mob)
-	set name = "Update Mob Sprite"
-	set desc = "Should fix any mob sprite update errors."
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return

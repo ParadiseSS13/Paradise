@@ -21,16 +21,13 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
-	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
-	/client/proc/jumptocoord,			/*we ghost and jump to a coordinate*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
-	/client/proc/Jump,
-	/client/proc/jumptokey,				/*allows us to jump to the location of a mob with a certain ckey*/
 	/client/proc/jumptomob,				/*allows us to jump to a specific mob*/
 	/client/proc/jumptoturf,			/*allows us to jump to a specific turf*/
+	/client/proc/jump_to,				/*Opens a menu for jumping to an Area, Mob, Key or Coordinate*/
 	/client/proc/admin_call_shuttle,	/*allows us to call the emergency shuttle*/
 	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
 	/client/proc/admin_deny_shuttle,	/*toggles availability of shuttle calling*/
@@ -56,8 +53,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggleattacklogs,
 	/client/proc/toggleadminlogs,
 	/client/proc/toggledebuglogs,
-	/client/proc/update_mob_sprite,
-	/client/proc/man_up,
 	/client/proc/global_man_up,
 	/client/proc/delbook,
 	/client/proc/view_flagged_books,
@@ -101,7 +96,6 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
-	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/cmd_admin_create_centcom_report,
@@ -110,9 +104,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/modify_goals,
 	/client/proc/outfit_manager,
 	/client/proc/cmd_admin_headset_message,
-	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
-	/client/proc/force_hijack
+	/client/proc/force_hijack,
+	/client/proc/requests
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -500,52 +493,6 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")
 
-#define MAX_WARNS 3
-#define AUTOBANTIME 10
-
-/client/proc/warn(warned_ckey)
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(!warned_ckey || !istext(warned_ckey))	return
-	if(warned_ckey in GLOB.admin_datums)
-		to_chat(usr, "<font color='red'>Error: warn(): You can't warn admins.</font>")
-		return
-
-	var/datum/preferences/D
-	var/client/C = GLOB.directory[warned_ckey]
-	if(C)	D = C.prefs
-	else	D = GLOB.preferences_datums[warned_ckey]
-
-	if(!D)
-		to_chat(src, "<font color='red'>Error: warn(): No such ckey found.</font>")
-		return
-
-	if(++D.warns >= MAX_WARNS)					//uh ohhhh...you'reee iiiiin trouuuubble O:)
-		ban_unban_log_save("[ckey] warned [warned_ckey], resulting in a [AUTOBANTIME] minute autoban.")
-		if(C)
-			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban")
-			log_admin("[key_name(src)] has warned [key_name(C)] resulting in a [AUTOBANTIME] minute ban")
-			to_chat(C, "<font color='red'><BIG><B>You have been autobanned due to a warning by [ckey].</B></BIG><br>This is a temporary ban, it will be removed in [AUTOBANTIME] minutes.")
-			qdel(C)
-		else
-			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
-			log_admin("[key_name(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
-		AddBan(warned_ckey, D.last_id, "Autobanning due to too many formal warnings", ckey, 1, AUTOBANTIME)
-	else
-		if(C)
-			to_chat(C, "<font color='red'><BIG><B>You have been formally warned by an administrator.</B></BIG><br>Further warnings will result in an autoban.</font>")
-			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
-			log_admin("[key_name(src)] has warned [key_name(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
-		else
-			message_admins("[key_name_admin(src)] has warned [warned_ckey] (DC). They have [MAX_WARNS-D.warns] strikes remaining.")
-			log_admin("[key_name(src)] has warned [warned_ckey] (DC). They have [MAX_WARNS-D.warns] strikes remaining.")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Warning") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-#undef MAX_WARNS
-#undef AUTOBANTIME
-
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
 	set category = "Event"
 	set name = "Drop Bomb"
@@ -583,6 +530,149 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/smite(mob/living/M as mob)
+	set category = "Event"
+	set name = "Smite"
+	if(!check_rights(R_EVENT))
+		return
+	var/mob/living/carbon/human/H
+	if(!istype(M))
+		to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
+		return
+	var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
+	if(ishuman(M))
+		H = M
+		ptypes += "Brain Damage"
+		ptypes += "Honk Tumor"
+		ptypes += "Hallucinate"
+		ptypes += "Cold"
+		ptypes += "Hunger"
+		ptypes += "Cluwne"
+		ptypes += "Mutagen Cookie"
+		ptypes += "Hellwater Cookie"
+		ptypes += "Hunter"
+		ptypes += "Crew Traitor"
+		ptypes += "Floor Cluwne"
+		ptypes += "Shamebrero"
+		ptypes += "Dust"
+	var/punishment = input("How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
+	if(!(punishment in ptypes))
+		return
+	var/logmsg = null
+	switch(punishment)
+		// These smiting types are valid for all living mobs
+		if("Lightning bolt")
+			M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+			M.adjustFireLoss(75)
+			M.Weaken(5)
+			to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
+			logmsg = "a lightning bolt."
+		if("Fire Death")
+			to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+			var/turf/simulated/T = get_turf(M)
+			new /obj/effect/hotspot(T)
+			M.adjustFireLoss(150)
+			logmsg = "a firey death."
+		if("Gib")
+			M.gib(FALSE)
+			logmsg = "gibbed."
+
+		// These smiting types are only valid for ishuman() mobs
+		if("Brain Damage")
+			H.adjustBrainLoss(75)
+			logmsg = "75 brain damage."
+		if("Honk Tumor")
+			if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
+				var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
+				to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
+				organ.insert(H)
+			logmsg = "a honk tumor."
+		if("Hallucinate")
+			H.Hallucinate(1000)
+			logmsg = "hallucinations."
+		if("Cold")
+			H.reagents.add_reagent("frostoil", 40)
+			H.reagents.add_reagent("ice", 40)
+			logmsg = "cold."
+		if("Hunger")
+			H.set_nutrition(NUTRITION_LEVEL_CURSED)
+			logmsg = "starvation."
+		if("Cluwne")
+			H.makeCluwne()
+			H.mutations |= NOCLONE
+			logmsg = "cluwned."
+		if("Mutagen Cookie")
+			var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
+			evilcookie.reagents.add_reagent("mutagen", 10)
+			evilcookie.desc = "It has a faint green glow."
+			evilcookie.bitesize = 100
+			evilcookie.flags = NODROP | DROPDEL
+			H.drop_l_hand()
+			H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+			logmsg = "a mutagen cookie."
+		if("Hellwater Cookie")
+			var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
+			evilcookie.reagents.add_reagent("hell_water", 25)
+			evilcookie.desc = "Sulphur-flavored."
+			evilcookie.bitesize = 100
+			evilcookie.flags = NODROP | DROPDEL
+			H.drop_l_hand()
+			H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+			logmsg = "a hellwater cookie."
+		if("Hunter")
+			H.mutations |= NOCLONE
+			usr.client.create_eventmob_for(H, 1)
+			logmsg = "hunter."
+		if("Crew Traitor")
+			if(!H.mind)
+				to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>")
+				return
+			var/list/possible_traitors = list()
+			for(var/mob/living/player in GLOB.alive_mob_list)
+				if(player.client && player.mind && player.stat != DEAD && player != H)
+					if(ishuman(player) && !player.mind.special_role)
+						if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
+							possible_traitors += player.mind
+			for(var/datum/mind/player in possible_traitors)
+				if(player.current)
+					if(ismindshielded(player.current))
+						possible_traitors -= player
+			if(possible_traitors.len)
+				var/datum/mind/newtraitormind = pick(possible_traitors)
+				var/datum/objective/assassinate/kill_objective = new()
+				kill_objective.target = H.mind
+				kill_objective.owner = newtraitormind
+				kill_objective.explanation_text = "Assassinate [H.mind.name], the [H.mind.assigned_role]"
+				newtraitormind.objectives += kill_objective
+				var/datum/antagonist/traitor/T = new()
+				T.give_objectives = FALSE
+				to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+				to_chat(newtraitormind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
+				newtraitormind.add_antag_datum(T)
+			else
+				to_chat(usr, "<span class='warning'>ERROR: Unable to find any valid candidate to send after [H].</span>")
+				return
+			logmsg = "crew traitor."
+		if("Floor Cluwne")
+			var/turf/T = get_turf(M)
+			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
+			FC.smiting = TRUE
+			FC.Acquire_Victim(M)
+			logmsg = "floor cluwne"
+		if("Shamebrero")
+			if(H.head)
+				H.unEquip(H.head, TRUE)
+			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
+			H.equip_to_slot_or_del(S, slot_head)
+			logmsg = "shamebrero"
+		if("Dust")
+			H.dust()
+			logmsg = "dust"
+	if(logmsg)
+		log_admin("[key_name(usr)] smited [key_name(M)] with: [logmsg]")
+		message_admins("[key_name_admin(usr)] smited [key_name_admin(M)] with: [logmsg]")
 
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = "Event"
@@ -622,7 +712,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/make_sound(var/obj/O in view()) // -- TLE
 	set category = "Event"
-	set name = "Make Sound"
+	set name = "\[Admin\] Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
 
 	if(!check_rights(R_EVENT))
@@ -843,11 +933,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	log_and_message_admins("has opened [S]'s law manager.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
-	set name = "C.M.A. - Admin"
-	set desc = "Allows you to change the mob appearance"
-	set category = null
-
+/client/proc/change_human_appearance_admin(mob/living/carbon/human/H)
 	if(!check_rights(R_EVENT))
 		return
 
@@ -869,11 +955,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
-	set name = "C.M.A. - Self"
-	set desc = "Allows the mob to change its appearance"
-	set category = null
-
+/client/proc/change_human_appearance_self(mob/living/carbon/human/H)
 	if(!check_rights(R_EVENT))
 		return
 
@@ -1019,11 +1101,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	else
 		to_chat(usr, "You now won't get debug log messages")
 
-/client/proc/man_up(mob/T as mob in GLOB.player_list)
-	set category = null
-	set name = "Man Up"
-	set desc = "Tells mob to man up and deal with it."
-
+/client/proc/man_up(mob/T)
 	if(!check_rights(R_ADMIN))
 		return
 

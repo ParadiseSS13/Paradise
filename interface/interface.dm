@@ -89,7 +89,7 @@ Admin:
 Admin ghost:
 \tCtrl+Click = Player Panel
 \tCtrl+Shift+Click = View Variables
-\tShift+Middle Click = Mob Info
+\tShift+Middle Click = Freeze Mob
 </font>"}
 
 	mob.hotkey_help()

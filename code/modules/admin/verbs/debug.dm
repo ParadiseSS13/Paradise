@@ -173,7 +173,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/callproc_datum(var/A as null|area|mob|obj|turf)
 	set category = null
-	set name = "Atom ProcCall"
+	set name = "\[Admin\] Atom ProcCall"
 
 	if(!check_rights(R_PROCCALL))
 		return
@@ -324,83 +324,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(src)] has animalized [M.key].")
 	spawn(10)
 		M.Animalize()
-
-
-/client/proc/makepAI(var/turf/T in GLOB.mob_list)
-	set category = "Event"
-	set name = "Make pAI"
-	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
-
-	if(!check_rights(R_SPAWN))
-		return
-
-	var/list/available = list()
-	for(var/mob/C in GLOB.mob_list)
-		if(C.key)
-			available.Add(C)
-	var/mob/choice = input("Choose a player to play the pAI", "Spawn pAI") in available
-	if(!choice)
-		return 0
-	if(!istype(choice, /mob/dead/observer))
-		var/confirm = input("[choice.key] isn't ghosting right now. Are you sure you want to yank [choice.p_them()] out of [choice.p_their()] body and place [choice.p_them()] in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
-		if(confirm != "Yes")
-			return 0
-	var/obj/item/paicard/card = new(T)
-	var/mob/living/silicon/pai/pai = new(card)
-	var/raw_name = clean_input("Enter your pAI name:", "pAI Name", "Personal AI", choice)
-	var/new_name = reject_bad_name(raw_name, 1)
-	if(new_name)
-		pai.name = new_name
-		pai.real_name = new_name
-	else
-		to_chat(usr, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
-	pai.real_name = pai.name
-	pai.key = choice.key
-	card.setPersonality(pai)
-	for(var/datum/paiCandidate/candidate in GLOB.paiController.pai_candidates)
-		if(candidate.key == choice.key)
-			GLOB.paiController.pai_candidates.Remove(candidate)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/cmd_admin_alienize(var/mob/M in GLOB.mob_list)
-	set category = "Event"
-	set name = "Make Alien"
-
-	if(!check_rights(R_SPAWN))
-		return
-
-	if(!SSticker)
-		alert("Wait until the game starts")
-		return
-	if(ishuman(M))
-		log_admin("[key_name(src)] has alienized [M.key].")
-		spawn(10)
-			M:Alienize()
-			SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Alien") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		log_admin("[key_name(usr)] made [key_name(M)] into an alien.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into an alien.</span>", 1)
-	else
-		alert("Invalid mob")
-
-/client/proc/cmd_admin_slimeize(var/mob/M in GLOB.mob_list)
-	set category = "Event"
-	set name = "Make slime"
-
-	if(!check_rights(R_SPAWN))
-		return
-
-	if(!SSticker)
-		alert("Wait until the game starts")
-		return
-	if(ishuman(M))
-		log_admin("[key_name(src)] has slimeized [M.key].")
-		spawn(10)
-			M:slimeize()
-			SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Slime") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		log_admin("[key_name(usr)] made [key_name(M)] into a slime.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into a slime.</span>", 1)
-	else
-		alert("Invalid mob")
 
 /client/proc/cmd_admin_super(var/mob/M in GLOB.mob_list)
 	set category = "Event"
@@ -630,7 +553,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
 	set category = "Event"
-	set name = "Select equipment"
+	set name = "\[Admin\] Select equipment"
 
 	if(!check_rights(R_EVENT))
 		return

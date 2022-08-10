@@ -117,70 +117,6 @@
 	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
-//human -> alien
-/mob/living/carbon/human/proc/Alienize()
-	if(notransform)
-		return
-	for(var/obj/item/W in src)
-		unEquip(W)
-	regenerate_icons()
-	notransform = 1
-	canmove = 0
-	icon = null
-	invisibility = 101
-	for(var/t in bodyparts)
-		qdel(t)
-
-	var/alien_caste = pick("Hunter","Sentinel","Drone")
-	var/mob/living/carbon/alien/humanoid/new_xeno
-	switch(alien_caste)
-		if("Hunter")
-			new_xeno = new /mob/living/carbon/alien/humanoid/hunter(loc)
-		if("Sentinel")
-			new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(loc)
-		if("Drone")
-			new_xeno = new /mob/living/carbon/alien/humanoid/drone(loc)
-
-	new_xeno.a_intent = INTENT_HARM
-	new_xeno.key = key
-
-	to_chat(new_xeno, "<B>You are now an alien.</B>")
-	new_xeno.update_pipe_vision()
-	qdel(src)
-
-/mob/living/carbon/human/proc/slimeize(reproduce as num)
-	if(notransform)
-		return
-	notransform = TRUE
-	canmove = FALSE
-	for(var/obj/item/I in src)
-		unEquip(I)
-	regenerate_icons()
-	icon = null
-	invisibility = INVISIBILITY_MAXIMUM
-	for(var/t in bodyparts)
-		qdel(t)
-
-	var/mob/living/simple_animal/slime/new_slime
-	if(reproduce)
-		var/number = pick(14;2,3,4)	//reproduce (has a small chance of producing 3 or 4 offspring)
-		var/list/babies = list()
-		for(var/i=1,i<=number,i++)
-			var/mob/living/simple_animal/slime/M = new/mob/living/simple_animal/slime(loc)
-			M.set_nutrition(round(nutrition / number))
-			step_away(M,src)
-			babies += M
-		new_slime = pick(babies)
-	else
-		new_slime = new /mob/living/simple_animal/slime(loc)
-	new_slime.a_intent = INTENT_HARM
-	new_slime.key = key
-
-	to_chat(new_slime, "<B>You are now a slime. Skreee!</B>")
-	new_slime.update_pipe_vision()
-	. = new_slime
-	qdel(src)
-
 /mob/living/carbon/human/proc/corgize()
 	if(notransform)
 		return
@@ -244,32 +180,6 @@
 
 	qdel(src)
 
-
-/mob/living/carbon/human/proc/paize(var/name)
-	if(notransform)
-		return
-	for(var/obj/item/W in src)
-		unEquip(W)
-	regenerate_icons()
-	notransform = 1
-	canmove = 0
-	icon = null
-	invisibility = 101
-	for(var/t in bodyparts)	//this really should not be necessary
-		qdel(t)
-
-	var/obj/item/paicard/card = new(loc)
-	var/mob/living/silicon/pai/pai = new(card)
-	pai.key = key
-	card.setPersonality(pai)
-
-	pai.name = name
-	pai.real_name = name
-	card.name = name
-
-	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
-	pai.update_pipe_vision()
-	qdel(src)
 
 /mob/proc/safe_respawn(var/MP)
 	if(!MP)
