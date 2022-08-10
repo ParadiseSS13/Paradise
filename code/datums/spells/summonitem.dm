@@ -118,7 +118,7 @@
 					playsound(get_turf(target),'sound/magic/summonitems_generic.ogg', 50, 1)
 				else
 					item_to_retrieve.loc.visible_message("<span class='caution'>[item_to_retrieve] fails to appear!</span>")
-					playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
+					playsound(get_turf(target),'sound/magic/summonitems_generic.ogg', 50, 1)
 					item_to_retrieve.loc.visible_message("<span class='warning'>[item_to_retrieve] reappears in an instant!</span>")
 			else
 				item_to_retrieve.loc.visible_message("<span class='caution'>[item_to_retrieve] suddenly appears in [target]'s hand!</span>")
