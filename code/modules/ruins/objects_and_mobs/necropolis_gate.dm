@@ -168,7 +168,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		locked = TRUE
 		var/turf/T = get_turf(src)
 		visible_message("<span class='userdanger'>Something horrible emerges from the Necropolis!</span>")
-		message_admins("[user ? ADMIN_LOOKUPFLW(user):"Unknown"] has released Legion!")
+		message_admins("[user ? ADMIN_LOOKUPFLW(user) : "Unknown"] has released Legion!")
 		log_game("[user ? key_name(user) : "Unknown"] released Legion.")
 
 		var/sound/legion_sound = sound('sound/creatures/legion_spawn.ogg')
