@@ -129,6 +129,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 /datum/cameranet/proc/updatePortableCamera(obj/machinery/camera/c)
 	if(c.can_use())
 		majorChunkChange(c, 1)
+		c.update_computers_watched_by()
 	//else
 	//	majorChunkChange(c, 0)
 

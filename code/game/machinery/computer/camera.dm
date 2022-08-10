@@ -51,6 +51,7 @@
 	qdel(cam_screen)
 	QDEL_LIST(cam_plane_masters)
 	qdel(cam_background)
+	active_camera = null
 	return ..()
 
 /obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -114,7 +115,9 @@
 		var/c_tag = params["name"]
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/C = cameras[c_tag]
+		active_camera?.computers_watched_by -= src
 		active_camera = C
+		active_camera.computers_watched_by += src
 		playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
 		// Show static if can't use the camera
@@ -122,19 +125,24 @@
 			show_camera_static()
 			return TRUE
 
-		var/list/visible_turfs = list()
-		for(var/turf/T in view(C.view_range, get_turf(C)))
-			visible_turfs += T
-
-		var/list/bbox = get_bbox_of_atoms(visible_turfs)
-		var/size_x = bbox[3] - bbox[1] + 1
-		var/size_y = bbox[4] - bbox[2] + 1
-
-		cam_screen.vis_contents = visible_turfs
-		cam_background.icon_state = "clear"
-		cam_background.fill_rect(1, 1, size_x, size_y)
+		update_camera_view()
 
 		return TRUE
+
+/obj/machinery/computer/security/proc/update_camera_view()
+	if(!active_camera)
+		return
+	var/list/visible_turfs = list()
+	for(var/turf/T in view(active_camera.view_range, get_turf(active_camera)))
+		visible_turfs += T
+
+	var/list/bbox = get_bbox_of_atoms(visible_turfs)
+	var/size_x = bbox[3] - bbox[1] + 1
+	var/size_y = bbox[4] - bbox[2] + 1
+
+	cam_screen.vis_contents = visible_turfs
+	cam_background.icon_state = "clear"
+	cam_background.fill_rect(1, 1, size_x, size_y)
 
 // Returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()

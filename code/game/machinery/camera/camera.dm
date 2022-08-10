@@ -16,11 +16,12 @@
 	var/list/network = list("SS13")
 	var/c_tag = null
 	var/c_tag_order = 999
-	var/status = 1
+	var/status = TRUE
 	anchored = TRUE
 	var/start_active = FALSE //If it ignores the random chance to start broken on round start
 	var/invuln = null
 	var/obj/item/camera_assembly/assembly = null
+	var/list/computers_watched_by = list()
 
 	//OTHER
 
@@ -68,6 +69,7 @@
 	area_motion = null
 	cancelCameraAlarm()
 	cancelAlarm()
+	LAZYCLEARLIST(computers_watched_by)
 	return ..()
 
 /obj/machinery/camera/emp_act(severity)
@@ -327,6 +329,10 @@
 	else
 		see = hear(view_range, pos)
 	return see
+
+/obj/machinery/camera/proc/update_computers_watched_by()
+	for(var/obj/machinery/computer/security/computer as anything in computers_watched_by)
+		computer.update_camera_view()
 
 /atom/proc/auto_turn()
 	//Automatically turns based on nearby walls.

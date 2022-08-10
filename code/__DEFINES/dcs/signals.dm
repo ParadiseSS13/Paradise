@@ -221,6 +221,8 @@
 	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE (1<<0)
 ///from base of atom/movable/Moved(): (/atom, dir)
 #define COMSIG_MOVABLE_MOVED "movable_moved"
+///fomr base of atom/movable/Moved(): (/atom, dir)
+#define COMSIG_MOVABLE_HOLDER_MOVED "movable_holder_moved"
 ///from base of atom/movable/Cross(): (/atom/movable)
 #define COMSIG_MOVABLE_CROSS "movable_cross"
 ///from base of atom/movable/Crossed(): (/atom/movable)

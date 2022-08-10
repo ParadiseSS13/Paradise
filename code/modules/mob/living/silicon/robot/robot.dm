@@ -1264,18 +1264,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		cell = null
 	qdel(src)
 
-#define BORG_CAMERA_BUFFER 30
 /mob/living/silicon/robot/Move(a, b, flag)
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)
-		if(src.camera)
-			if(!updating)
-				updating = 1
-				spawn(BORG_CAMERA_BUFFER)
-					if(camera && oldLoc != src.loc)
-						GLOB.cameranet.updatePortableCamera(src.camera)
-					updating = 0
+		if(camera && oldLoc != src.loc)
+			GLOB.cameranet.updatePortableCamera(src.camera)
 	if(module)
 		if(module.type == /obj/item/robot_module/janitor)
 			var/turf/tile = loc
@@ -1312,7 +1306,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				if(floor_only)
 					tile.clean_blood()
 		return
-#undef BORG_CAMERA_BUFFER
 
 /mob/living/silicon/robot/proc/self_destruct()
 	if(emagged)
