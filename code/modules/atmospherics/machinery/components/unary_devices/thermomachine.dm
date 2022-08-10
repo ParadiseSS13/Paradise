@@ -107,7 +107,7 @@
 
 	var/temperature_delta= abs(old_temperature - air_contents.temperature)
 	if(temperature_delta > 1)
-		active_power_usage = (heat_capacity * temperature_delta) / 10 + idle_power_usage
+		active_power_usage = (heat_capacity * temperature_delta) + idle_power_usage
 		parent.update = 1
 	else
 		active_power_usage = idle_power_usage
