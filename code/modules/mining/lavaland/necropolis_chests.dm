@@ -446,7 +446,7 @@
 	else if(iscarbon(source))
 		var/mob/living/carbon/target = source
 		target.AdjustConfused(8 SECONDS)
-	return NONE // the fuck is return none?
+	return NONE
 
 /obj/item/cursed_katana/proc/slice(mob/living/target, mob/user)
 	user.visible_message("<span class='warning'>[user] does a wide slice!</span>",
@@ -504,7 +504,7 @@
 		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
 			additional_target.apply_damage(15, BRUTE, "chest", TRUE)
 			to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
-	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY) //Currently not working, need to look into, if anyone has an idea why please tell
+	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
 	user.forceMove(dash_target)
 
 /obj/item/cursed_katana/proc/shatter(mob/living/target, mob/user)
