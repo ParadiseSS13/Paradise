@@ -115,7 +115,7 @@
 				if(isturf(target.loc))
 					item_to_retrieve.loc = target.loc
 					item_to_retrieve.loc.visible_message("<span class='caution'>[item_to_retrieve] suddenly appears!</span>")
-					playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
+					playsound(get_turf(target),'sound/magic/summonitems_generic.ogg', 50, 1)
 				else
 					item_to_retrieve.loc.visible_message("<span class='caution'>[item_to_retrieve] fails to appear!</span>")
 					playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
