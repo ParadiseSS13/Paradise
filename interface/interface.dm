@@ -85,6 +85,7 @@ Admin:
 \tF7 = Player Panel
 \tF8 = Admin PM
 \tF9 = Invisimin
+\tF10 = Dsay
 
 Admin ghost:
 \tCtrl+Click = Player Panel
