@@ -157,7 +157,7 @@
 	addtimer(CALLBACK(src, .proc/on_end_grace_period), revival_grace_period)  // hide the scars to fade away the shake-up
 
 /obj/item/organ/internal/heart/cursed/proc/after_revive()
-	owner.WakeUp()
+	owner.SetSleeping(0)
 	owner.SetParalysis(0)
 
 /// Run this just before the shock is applied so we end up with enough blood to revive.
