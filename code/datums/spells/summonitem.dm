@@ -110,7 +110,7 @@
 			else			//right active hand
 				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
 					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
-						butterfingers = 1
+						butterfingers = TRUE
 			if(butterfingers)
 				if(isturf(target.loc))
 					item_to_retrieve.loc = target.loc
