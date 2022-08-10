@@ -106,6 +106,11 @@
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 
 /mob/visible_message(message, self_message, blind_message)
+	if(!isturf(src.loc)) // cant see what do mob do in a locker or something
+		if(self_message)
+			var/msg = self_message
+			src.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		return
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
