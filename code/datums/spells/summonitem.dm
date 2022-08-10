@@ -112,9 +112,14 @@
 					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
 						butterfingers = 1
 			if(butterfingers)
-				item_to_retrieve.loc = target.loc
-				item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears!</span>")
-				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
+				if(isturf(target.loc))
+					item_to_retrieve.loc = target.loc
+					item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears!</span>")
+					playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
+				else
+					item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] fails to appear!</span>")
+					playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
+					item_to_retrieve.loc.visible_message("<span class='warning'>\The [item_to_retrieve] reappears in an instant!</span>")
 			else
 				item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears in [target]'s hand!</span>")
 				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
