@@ -545,15 +545,15 @@
 		return FALSE
 	else
 		var/play_soundeffect = 1
+		var/animal_damage = rand(user.melee_damage_lower,user.melee_damage_upper)
+		if(user.obj_damage)
+			animal_damage = max(animal_damage, user.obj_damage)
+		animal_damage = max(animal_damage, min(20 * user.environment_smash, 40))
+		if(animal_damage)
+			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
 		if(user.environment_smash)
 			play_soundeffect = 0
 			playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
-		var/animal_damage = rand(user.melee_damage_lower,user.melee_damage_upper)
-		if(user.obj_damage)
-			animal_damage = user.obj_damage
-		animal_damage = min(animal_damage, 20*user.environment_smash)
-		if(animal_damage)
-			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
 		attack_generic(user, animal_damage, user.melee_damage_type, MELEE, play_soundeffect)
 		return TRUE
 
