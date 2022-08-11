@@ -255,13 +255,15 @@
 			if(!length(pages))
 				to_chat(user, "<span class='notice'>There aren't any pages in this book!</span>")
 				return
-			var/page_choice = stripped_input(user, "There are [length(pages)] pages, which page number would you like to remove?")
+			var/page_choice = text2num(stripped_input(user, "There are [length(pages)] pages, which page number would you like to remove?"))
 			if(!page_choice)
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
 			if(!isnum(page_choice) || page_choice <= 0 || page_choice > length(pages))
 				to_chat(user, "<span class='notice'>That is not an acceptable value.</span")
 				return
+			if(page_choice == length(pages))
+				current_page--
 			pages -= pages[page_choice]
 
 /obj/item/book/proc/edit_page(content, page_number)
