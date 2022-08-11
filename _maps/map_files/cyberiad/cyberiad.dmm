@@ -77928,14 +77928,6 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/virology)
-"lvM" = (
-/obj/effect/spawner/window,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "maint3";
-	name = "Blast Door"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "lwg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -80067,27 +80059,6 @@
 	icon_state = "dark"
 	},
 /area/medical/genetics)
-"nlW" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door_control{
-	id = "maint1";
-	name = "Blast Control Door A";
-	pixel_x = -28;
-	pixel_y = -6
-	},
-/obj/machinery/door_control{
-	id = "maint2";
-	name = "Blast Control Door B";
-	pixel_x = -28;
-	pixel_y = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "nmO" = (
 /obj/structure/closet/secure_closet/paramedic,
 /obj/machinery/alarm{
@@ -92181,6 +92152,27 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"xRy" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door_control{
+	id = "maint2";
+	name = "Blast Control Door B";
+	pixel_x = -28;
+	pixel_y = 4
+	},
+/obj/machinery/door_control{
+	id = "maint1";
+	name = "Blast Control Door A";
+	pixel_x = -28;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "xRG" = (
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
@@ -135635,7 +135627,7 @@ aGX
 aOG
 aMz
 aMz
-aGX
+aMz
 aMz
 aSg
 aYO
@@ -135888,11 +135880,11 @@ aGX
 aMo
 aRJ
 aTe
-aZX
+xRy
 aXX
 aZX
 bbF
-nlW
+aZX
 bfK
 aWg
 aYX
@@ -136406,7 +136398,7 @@ aGX
 aGY
 aMz
 aGX
-aGY
+aGX
 aGX
 aSg
 aYW
@@ -136918,7 +136910,7 @@ aGY
 aMz
 aGY
 aGY
-lvM
+aIE
 aGY
 aGY
 aGX
