@@ -314,7 +314,7 @@
 
 /// Causes the next "cycle" fires to be missed. Effect is accumulative but can reset by calling update_nextfire(reset_time = TRUE)
 /datum/controller/subsystem/proc/postpone(cycles = 1)
-	if (can_fire && cycles >= 1)
+	if(can_fire && cycles >= 1)
 		postponed_fires += cycles
 
 //usually called via datum/controller/subsystem/New() when replacing a subsystem (i.e. due to a recurring crash)
@@ -322,12 +322,12 @@
 /datum/controller/subsystem/Recover()
 
 /datum/controller/subsystem/vv_edit_var(var_name, var_value)
-	switch (var_name)
-		if (NAMEOF(src, can_fire))
+	switch(var_name)
+		if(NAMEOF(src, can_fire))
 			//this is so the subsystem doesn't rapid fire to make up missed ticks causing more lag
-			if (var_value)
+			if(var_value)
 				update_nextfire(reset_time = TRUE)
-		if (NAMEOF(src, queued_priority)) //editing this breaks things.
+		if(NAMEOF(src, queued_priority)) //editing this breaks things.
 			return FALSE
 	. = ..()
 

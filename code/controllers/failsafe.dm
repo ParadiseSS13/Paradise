@@ -144,7 +144,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	for(var/I in subsytem_types)
 		new I
 	. = Recreate_MC()
-	if (. == 1) //We were able to create a new master
+	if(. == 1) //We were able to create a new master
 		SSticker.Recover(); //Recover the ticket system so the Masters runlevel gets set
 		Master.Initialize(10, FALSE, TRUE) //Need to manually start the MC, normally world.new would do this
 		to_chat(GLOB.admins, "<span class='boldnotice'>MC successfully recreated after recovering all subsystems!</span>")
@@ -158,10 +158,10 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 		return
 	del(Master)
 	for(var/global_var in global.vars)
-		if (istype(global.vars[global_var], /datum/controller/subsystem))
+		if(istype(global.vars[global_var], /datum/controller/subsystem))
 			del(global.vars[global_var])
 	. = Recreate_MC()
-	if (. == 1) //We were able to create a new master
+	if(. == 1) //We were able to create a new master
 		SSticker.Recover(); //Recover the ticket system so the Masters runlevel gets set
 		Master.Initialize(10, FALSE, TRUE) //Need to manually start the MC, normally world.new would do this
 		to_chat(GLOB.admins, "<span class=\"boldnotice\">MC successfully recreated after deleting and recreating all subsystems!</span>")
