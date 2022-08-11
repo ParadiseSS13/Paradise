@@ -37,6 +37,7 @@
 		return
 
 	amount_per_transfer_from_this = N
+	to_chat(usr, "<span class='notice'>[src] will now transfer [amount_per_transfer_from_this] units at a time.</span>")
 
 /obj/item/reagent_containers/AltClick()
 	set_APTFT()
