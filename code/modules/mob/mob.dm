@@ -113,7 +113,7 @@
 			var/msg = message
 			if(self_message && M == src)
 				msg = self_message
-			if(!(M.loc == loc))
+			if(M.loc != loc)
 				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
 					continue
 				msg = blind_message
