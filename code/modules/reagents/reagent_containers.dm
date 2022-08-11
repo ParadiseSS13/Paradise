@@ -26,6 +26,8 @@
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
 		default = amount_per_transfer_from_this
 	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
+	if(!N)
+		return
 
 	if(!usr.Adjacent(src))
 		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
@@ -34,8 +36,7 @@
 		to_chat(usr, "<span class='warning'>You can't use your hands!</span>")
 		return
 
-	if(N)
-		amount_per_transfer_from_this = N
+	amount_per_transfer_from_this = N
 
 /obj/item/reagent_containers/AltClick()
 	set_APTFT()
