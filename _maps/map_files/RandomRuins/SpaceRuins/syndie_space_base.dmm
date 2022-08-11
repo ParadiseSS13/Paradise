@@ -122,19 +122,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
-"aX" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/syndicate_space_base/engineering)
 "be" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	name = "Air To Distro"
@@ -340,6 +327,13 @@
 	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"dg" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1;
+	name = "Burn Mix Connector Port"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "di" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -640,6 +634,20 @@
 "gD" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/medbay)
+"gF" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "gS" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -885,14 +893,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
-"ji" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/syndicate_space_base/engineering)
 "jl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1024,7 +1024,8 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "kq" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 1
+	dir = 1;
+	name = "Cold Cyclic Gas Pump"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -1275,20 +1276,6 @@
 "nj" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/telecomms)
-"nm" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/red,
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/syndicate_space_base/engineering)
 "nr" = (
 /obj/machinery/door/airlock/vault{
 	id_tag = "syndie_lavaland_vault";
@@ -1460,7 +1447,8 @@
 "oZ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/binary/pump{
-	dir = 1
+	dir = 1;
+	name = "Burn Mix Gas Pump"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -1526,11 +1514,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "qn" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	icon_state = "intact";
 	dir = 6
@@ -1782,7 +1765,9 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/unary/portables_connector{
+	name = "Heat Loop Connector Port"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "tj" = (
@@ -1935,15 +1920,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
-"uQ" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/red,
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/syndicate_space_base/engineering)
 "uX" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/structure/cable{
@@ -2880,13 +2856,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "ER" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/binary/pump{
-	dir = 1
+	dir = 1;
+	name = "Hot Cyclic Gas Pump"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -3584,7 +3556,7 @@
 	pixel_y = 24;
 	shock_proof = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -3597,6 +3569,10 @@
 	icon_state = "1-8"
 	},
 /obj/item/storage/toolbox/syndicate,
+/obj/item/paper{
+	info = "<h3>TEG Setup Guide</h3><ol><li>Take N2 Canister and wrench it into Cooling Loop Connector Port</li><li>Take CO2 Canister and wrench it into Heat Loop Connector Port</li><li>Take first O2 Canister. Maximize output pressure in it. Connect it to the Burn Mix Connector Port. Maximize pressure on the Burn Mix Pump and enable nearby pipe valve. Wait until O2 Canister is fully drained.</li><li>Repeat that for the second O2 Canister you have.</li>  <li>Set Burn Mix gas pump pressure to 11kpa</li>  <li>Take one of Plasma Canisters, ensure again that Burn Mix pump is not higher than 50kpa (recommended 11kpa). Wrench Plasma Canister to it.</li>  <li>Set both East and West TEG cyclic pumps (the closest ones to TEG) to max pressure and ON.</li>  <li>Use multitool on TEG until you see that HOT side is on the West and COLD side is on the East.</li>  <li>Use multitool on TEG's both heat exchangers until you see that Input is from the North.</li>  <li>By this time the Burn Mix Chamber should have enough plasma to start. Press the spark ignition button, and watch fire appear. If at any moment fire disappears but plasma particles are still visible - reignite the chamber.</li>  <li>Open the Heat Loop valve. TEG should now produce electicity.</li>  <li>Max both SMES on input, set 30kW on output. The station consumes 25-40kW, this should be more than enough.</li>  <li>Remember, your station needs just a little power and you don't have a lot of Plasma. You need to keep mix burning, don't burn entire planet-worth of plasma to power a 30kW secret low signature base!</li></ol><h3>  Ways to Improve</h3><ol>  <li>Use nearby Atmos to fill tanks with air mix and use that in burn chamber - it's not as pure but there is more of it.</li><li>Introduce more gas into Cooling Loop than there is in a single Canister.</li>  <li>Replace Pressure Pumps around TEG with Volume Pumps.</li>  <li>Replace Indirect heat loop with Direct intake loop.</li></ol>";
+	name = "How to set up Thermo-Electric Generator"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Ls" = (
@@ -3701,10 +3677,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -3812,7 +3789,8 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Ns" = (
 /obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
+	dir = 8;
+	name = "Cooling Loop Connector Port"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -3882,8 +3860,8 @@
 	dir = 4
 	},
 /obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Op" = (
@@ -4427,6 +4405,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Vg" = (
@@ -4480,10 +4463,10 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "VK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -6812,7 +6795,7 @@ AV
 AV
 Em
 PX
-DH
+gF
 vs
 Vf
 VH
@@ -6875,7 +6858,7 @@ AV
 Em
 Lm
 VK
-aX
+qF
 Mc
 On
 EA
@@ -6937,12 +6920,12 @@ AV
 Em
 NT
 qF
-ji
-AM
+qF
+qF
 qn
-uQ
+mn
 ER
-nm
+at
 hY
 ds
 Em
@@ -7251,7 +7234,7 @@ NE
 EW
 oZ
 cE
-Bt
+dg
 qF
 mr
 qY
