@@ -88,8 +88,7 @@
 		for(var/A in B.contents)
 			qdel(A)
 		return
-	if(smoothing_flags & SMOOTH_QUEUED)
-		REMOVE_FROM_SMOOTH_QUEUE(src)
+	REMOVE_FROM_SMOOTH_QUEUE(src)
 	// Adds the adjacent turfs to the current atmos processing
 	for(var/turf/simulated/T in atmos_adjacent_turfs)
 		SSair.add_to_active(T)
