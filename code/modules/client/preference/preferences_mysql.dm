@@ -54,7 +54,7 @@
 	// Might as well scrub out any malformed be_special list entries while we're here
 	for(var/role in be_special)
 		if(!(role in GLOB.special_roles))
-			log_runtime(EXCEPTION("[C.key] had a malformed role entry: '[role]'. Removing!"), src)
+			stack_trace("[C.key] had a malformed role entry: '[role]'. Removing!")
 			be_special -= role
 
 	// We're saving volume_mixer here as well, so no point in keeping the timer running

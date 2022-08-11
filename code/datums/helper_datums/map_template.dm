@@ -55,10 +55,10 @@
 	if(!bounds)
 		return 0
 	if(bot_left == null || top_right == null)
-		log_runtime(EXCEPTION("One of the late setup corners is bust"), src)
+		stack_trace("One of the late setup corners is bust")
 
 	if(ST_bot_left == null || ST_top_right == null)
-		log_runtime(EXCEPTION("One of the smoothing corners is bust"), src)
+		stack_trace("One of the smoothing corners is bust")
 
 	GLOB.space_manager.remove_dirt(placement.z)
 	late_setup_level(
@@ -75,7 +75,7 @@
 		. = file(mappath)
 
 	if(!.)
-		log_runtime(EXCEPTION("  The file of [src] appears to be empty/non-existent."), src)
+		stack_trace("  The file of [src] appears to be empty/non-existent.")
 
 /datum/map_template/proc/get_affected_turfs(turf/T, centered = 0)
 	var/turf/placement = T
