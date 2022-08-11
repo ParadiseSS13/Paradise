@@ -1597,14 +1597,6 @@
     item_state = "rbscarf"
     item_color = "rbscarf"
 
-/obj/item/instrument/accordion/fluff/asmer_accordion //Asmerath: Coloratura
-	name = "Rara's Somber Accordion"
-	desc = "A blue colored accordion with claw indentations on the keys made special for vulpkanins."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "asmer_accordion"
-	item_state = "asmer_accordion"
-
-
 /obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello
 	name = "Bluespace Horns"
 	desc = "A pair of fake horns. Now with added bluespace!"
