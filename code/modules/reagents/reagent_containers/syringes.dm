@@ -10,7 +10,7 @@
 	icon_state = "0"
 	belt_icon = "syringe"
 	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	volume = 15
 	sharp = TRUE
 	var/busy = FALSE
