@@ -40322,8 +40322,7 @@
 /obj/machinery/door/window/eastright{
 	base_state = "left";
 	icon_state = "left";
-	name = "Research Division Delivery";
-	req_access_txt = "47"
+	name = "Research Division Delivery"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -42889,8 +42888,7 @@
 	base_state = "left";
 	dir = 1;
 	icon_state = "left";
-	name = "Medical Delivery";
-	req_access_txt = "5"
+	name = "Medical Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
