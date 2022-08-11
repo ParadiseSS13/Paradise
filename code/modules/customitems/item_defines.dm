@@ -1702,6 +1702,18 @@
 	item_color = "kikerimask"
 	species_restricted = list("Vox")
 
+/obj/item/clothing/mask/gas/fluff/yahiyamask //Asmerath: Yahiya
+	name = "Yahiya's Mask"
+	desc = "A dark brown and silver mask resembling that of an eagle. There is a fiery red gem embedded into the forehead."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
+	icon_state = "yahiyamask"
+	item_state = "yahiyamask"
+	item_color = "yahiyamask"
+	species_restricted = list("Vox")
+
 /obj/item/id_decal/aa07
 	name = "lifetime ID card decal"
 	desc = "Make your ID look like the property of a nerd. Applies to any ID."
