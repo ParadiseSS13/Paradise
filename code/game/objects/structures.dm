@@ -28,6 +28,8 @@
 /obj/structure/Destroy()
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
+	if(smoothing_flags & SMOOTH_QUEUED)
+		REMOVE_FROM_SMOOTH_QUEUE(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		var/turf/T = get_turf(src)
 		spawn(0)
