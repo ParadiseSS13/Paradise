@@ -25,7 +25,7 @@
 #define MISC_ROLES list("Bar", "Chapel", "Kitchen", "Hydroponics", "Janitorial")
 #define MED_ROLES list("Virology", "Chief Medical Officer's Desk", "Medbay")
 #define COM_ROLES list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge")
-#define SCI_ROLES list("Robotics","Science","Research Director's Desk")
+#define SCI_ROLES list("Robotics", "Science", "Research Director's Desk")
 
 #define RQ_NONEW_MESSAGES 0
 #define RQ_NORMALPRIORITY 1
