@@ -496,7 +496,7 @@
 			if("Show")
 				return ..()
 			if("Edit")
-				switch(input(user,"What would you like to edit on \the [src]?") in list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information"))
+				switch(input(user,"What would you like to edit on \the [src]?") in list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Tracking", "Reset Access", "Delete Card Information"))
 					if("Name")
 						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name), TRUE)
 						if(!Adjacent(user))
@@ -577,9 +577,26 @@
 
 						var/department = input(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
 						var/new_job = "Civilian"
+						var/new_rank = "Civilian"
 
 						if(department == "Custom")
 							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
+							var/department_icon = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+							switch(department_icon)
+								if("Engineering")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
+								if("Medical")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
+								if("Science")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
+								if("Security")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
+								if("Support")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
+								if("Command")
+									new_rank = input(user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+								if("Custom")
+									new_rank = null
 						else if(department != "Civilian")
 							switch(department)
 								if("Engineering")
@@ -594,10 +611,12 @@
 									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
 								if("Command")
 									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+							new_rank = new_job
 
 						if(!Adjacent(user))
 							return
 						assignment = new_job
+						rank = new_rank
 						to_chat(user, "<span class='notice'>Occupation changed to [new_job].</span>")
 						UpdateName()
 						RebuildHTML()
@@ -650,6 +669,14 @@
 						fingerprint_hash = new_fingerprint_hash
 						to_chat(user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 						RebuildHTML()
+
+					if("Tracking")
+						var/response = alert(user, "Do you want this ID card to be trackable by AI's?", "Tracking", "No", "Yes")
+						if(response == "Yes")
+							untrackable = 0
+						else
+							untrackable = 1
+						to_chat(user, "<span class='notice'>This ID card is now [untrackable ? "untrackable" : "trackable"] by the AI's.</span>")
 
 					if("Reset Access")
 						var/response = alert(user, "Are you sure you want to reset access saved on the card?","Reset Access", "No", "Yes")
