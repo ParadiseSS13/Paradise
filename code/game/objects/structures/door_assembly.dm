@@ -272,12 +272,12 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is configuring the windows in the airlock assembly...", "You start to configure the windows in the airlock assembly...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 
 	polarized_glass = !polarized_glass
 
-	to_chat(user, "<span class='notice'>You [polarized_glass ? "enabled" : "disabled"] the electrochromic windows in the airlock assembly.</span>")
+	to_chat(user, "<span class='notice'>You [polarized_glass ? "enable" : "disable"] the electrochromic windows in the airlock assembly.</span>")
 
 /obj/structure/door_assembly/update_overlays()
 	. = ..()

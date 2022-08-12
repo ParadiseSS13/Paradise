@@ -19,6 +19,7 @@
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
+	/// Color for the window if it gets changed at some point, to preserve painter functionality
 	var/old_color
 
 /obj/machinery/door/window/New(loc, set_dir)
