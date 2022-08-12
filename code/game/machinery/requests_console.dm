@@ -21,7 +21,7 @@
 
 //Radio list
 #define ENGI_ROLES list("Atmospherics","Engineering","Chief Engineer's Desk","Telecoms Admin")
-#define SEC_ROLES list("Warden","Security","Detective","Head of Security's Desk")
+#define SEC_ROLES list("Warden", "Security", "Detective", "Head of Security's Desk")
 #define MISC_ROLES list("Bar", "Chapel", "Kitchen", "Hydroponics", "Janitorial")
 #define MED_ROLES list("Virology", "Chief Medical Officer's Desk", "Medbay")
 #define COM_ROLES list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge")
