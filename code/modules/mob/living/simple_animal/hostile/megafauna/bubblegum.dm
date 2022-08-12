@@ -516,6 +516,7 @@ Difficulty: Hard
 	deathmessage = "Explodes into a pool of blood!"
 	death_sound = 'sound/effects/splat.ogg'
 	true_spawn = FALSE
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize(mapload)
 	. = ..()

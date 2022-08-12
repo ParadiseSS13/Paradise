@@ -188,9 +188,11 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 		else
-			if(IsSleeping() && (stat == CONSCIOUS))
-				KnockOut()
-			else
+			if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+				if(stat == CONSCIOUS)
+					KnockOut()
+					create_debug_log("knocked out, trigger reason: [reason]")
+			else if(stat == UNCONSCIOUS)
 				WakeUp()
 				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()

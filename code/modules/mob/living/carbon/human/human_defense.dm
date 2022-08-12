@@ -473,7 +473,6 @@ emp_act
 		bonus_damage = H.physiology.melee_bonus
 
 	apply_damage(I.force + bonus_damage , I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
-	. = TRUE // at this point the attack has succeeded.
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
