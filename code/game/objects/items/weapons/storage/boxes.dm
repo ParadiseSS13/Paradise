@@ -321,7 +321,7 @@
 
 /obj/item/storage/box/tapes/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/tape(src)
+		new /obj/item/tape/random(src)
 
 /obj/item/storage/box/rxglasses
 	name = "prescription glasses"

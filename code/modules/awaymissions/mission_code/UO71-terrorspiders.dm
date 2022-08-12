@@ -204,8 +204,8 @@
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
 
-/obj/item/reagent_containers/glass/beaker/terror_black_toxin/New()
-	..()
+/obj/item/reagent_containers/glass/beaker/terror_black_toxin/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("terror_black_toxin", 50)
 	update_icon()
 

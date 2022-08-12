@@ -53,6 +53,9 @@
 		var/icon/new_donut_icon = icon('icons/obj/food/containers.dmi', "[(I - 1)]donut[donut.donut_sprite_type]")
 		. += new_donut_icon
 
+/obj/item/storage/fancy/update_icon_state()
+	return
+
 /obj/item/storage/fancy/donut_box/populate_contents()
 	for(var/I in 1 to storage_slots)
 		new /obj/item/reagent_containers/food/snacks/donut(src)

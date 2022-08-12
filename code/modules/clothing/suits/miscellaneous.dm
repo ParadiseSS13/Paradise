@@ -329,6 +329,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	flags = THICKMATERIAL
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/head/hooded/bee_hood
 	name = "bee hood"
@@ -337,6 +338,7 @@
 	body_parts_covered = HEAD
 	flags = THICKMATERIAL|BLOCKHAIR
 	flags_inv = HIDEEARS
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
@@ -591,25 +593,6 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
-
-
-
-//pyjamas
-//originally intended to be pinstripes >.>
-
-/obj/item/clothing/under/bluepyjamas
-	name = "blue pyjamas"
-	desc = "Slightly old-fashioned sleepwear."
-	icon_state = "blue_pyjamas"
-	item_state = "blue_pyjamas"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-
-/obj/item/clothing/under/redpyjamas
-	name = "red pyjamas"
-	desc = "Slightly old-fashioned sleepwear."
-	icon_state = "red_pyjamas"
-	item_state = "red_pyjamas"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 //coats
 

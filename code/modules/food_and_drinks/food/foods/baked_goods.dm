@@ -304,8 +304,8 @@
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
 	tastes = list("pie" = 1, "mushroom" = 1)
 
-/obj/item/reagent_containers/food/snacks/plump_pie/New()
-	..()
+/obj/item/reagent_containers/food/snacks/plump_pie/Initialize(mapload)
+	. = ..()
 	if(prob(10))
 		name = "exceptional plump pie"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!" // What
@@ -375,8 +375,8 @@
 	var/donut_sprite_type = DONUT_NORMAL
 	tastes = list("donut" = 1)
 
-/obj/item/reagent_containers/food/snacks/donut/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/Initialize(mapload)
+	. = ..()
 	if(randomized_sprinkles && prob(30))
 		icon_state = "donut2"
 		name = "frosted donut"
@@ -398,8 +398,8 @@
 	bitesize = 10
 	tastes = list("donut" = 3, "chaos" = 1)
 
-/obj/item/reagent_containers/food/snacks/donut/chaos/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/chaos/Initialize(mapload)
+	. = ..()
 	extra_reagent = pick("nutriment", "capsaicin", "frostoil", "krokodil", "plasma", "cocoa", "slimejelly", "banana", "berryjuice", "omnizine")
 	reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
@@ -415,8 +415,8 @@
 	extra_reagent = "berryjuice"
 	tastes = list("jelly" = 1, "donut" = 3)
 
-/obj/item/reagent_containers/food/snacks/donut/jelly/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/jelly/Initialize(mapload)
+	. = ..()
 	if(extra_reagent)
 		reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
@@ -500,8 +500,8 @@
 	list_reagents = list("nutriment" = 5)
 	tastes = list("mushroom" = 1, "biscuit" = 1)
 
-/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/New()
-	..()
+/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/Initialize(mapload)
+	. = ..()
 	if(prob(10))
 		name = "exceptional plump helmet biscuit"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!" // Is this a reference?

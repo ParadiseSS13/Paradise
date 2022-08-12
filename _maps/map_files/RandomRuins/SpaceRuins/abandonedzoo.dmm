@@ -679,7 +679,7 @@
 /area/ruin/space/unpowered)
 "bA" = (
 /obj/structure/table/reinforced,
-/obj/machinery/juicer,
+/obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
