@@ -89,6 +89,9 @@
 	var/missing_ages = 0
 	var/msg = ""
 	for(var/client/C in GLOB.clients)
+		if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE))
+			continue // Skip those in stealth mode if an admin isnt viewing the panel
+
 		if(C.player_age == "Requires database")
 			missing_ages = 1
 			continue
@@ -482,7 +485,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 				//Add aliens.
 				else
-					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
+					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, FALSE, FALSE)
 					SSjobs.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.

@@ -983,7 +983,7 @@
 //Cyborg Upgrade Modules
 
 /datum/design/borg_upgrade_reset
-	name = "Cyborg Upgrade Module (Reset)"
+	name = "Cyborg Upgrade Module (Module Reset)"
 	id = "borg_upgrade_reset"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/reset
