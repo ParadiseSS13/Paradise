@@ -61046,6 +61046,7 @@
 /area/crew_quarters/fitness)
 "cOu" = (
 /obj/structure/table,
+/obj/item/paicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -63802,20 +63803,21 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/item/clipboard,
+/obj/item/folder,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
 "cUI" = (
 /obj/structure/table,
-/obj/item/clipboard,
-/obj/item/folder,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/item/camera,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -65133,7 +65135,7 @@
 /area/crew_quarters/fitness)
 "cXQ" = (
 /obj/structure/table/wood,
-/obj/item/camera,
+/obj/item/stack/tape_roll,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "escape"
