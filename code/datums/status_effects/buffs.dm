@@ -98,6 +98,7 @@
 /datum/status_effect/void_price/refresh()
 	price++
 	return ..()
+	
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"
 	duration = 10

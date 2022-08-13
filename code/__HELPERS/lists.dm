@@ -906,10 +906,10 @@ proc/dd_sortedObjectList(list/incoming)
 	if(!islist(l) || !islist(d))
 		return FALSE
 
-	if(l.len != d.len)
+	if(length(l) != length(d))
 		return FALSE
 
-	for(var/i in 1 to l.len)
+	for(var/i in 1 to length(l))
 		if(l[i] != d[i])
 			return FALSE
 
