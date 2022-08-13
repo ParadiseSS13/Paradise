@@ -330,30 +330,3 @@
 	H.mind.make_vampire()
 	H.revive()
 	H.Weaken(40 SECONDS)
-
-/obj/effect/proc_holder/spell/turf_teleport/shadow_step
-	name = "Shadow Step (30)"
-	desc = "Teleport to a nearby dark region"
-	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
-	action_icon_state = "shadowblink"
-	base_cooldown = 2 SECONDS
-	clothes_req = FALSE
-	centcom_cancast = FALSE
-	include_space = FALSE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
-
-	// Teleport radii
-	inner_tele_radius = 0
-	outer_tele_radius = 6
-
-	include_light_turfs = FALSE
-
-	sound1 = null
-	sound2 = null
-
-/obj/effect/proc_holder/spell/turf_teleport/shadow_step/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	H.required_blood = 30
-	return H

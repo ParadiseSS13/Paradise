@@ -106,6 +106,79 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/effect/proc_holder/spell/vampire/soul_anchor
+	name = "Soul Anchor (30)"
+	desc = "You summon a dimenional anchor after a delay, recasting will teleport you back to the anchor. you are forced back after 2 minutes."
+	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will, do beware after saving you are forced back to that point after 2 minutes."
+	required_blood = 30
+	base_cooldown = 3 MINUTES
+	should_recharge_after_cast = FALSE
+	deduct_blood_on_cast = FALSE
+	var/obj/structure/shadow_anchor/anchor
+	var/timer
+
+/obj/effect/proc_holder/spell/vampire/soul_anchor/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/vampire/soul_anchor/cast(list/targets, mob/user)
+	if(timer && !anchor) // second cast, but we are impatient
+		to_chat(user, "<span class='notice'>Your anchor isn't ready yet!</span>")
+		return
+
+	if(!timer && !anchor) // first cast, setup the anchor
+		var/turf/anchor_turf = get_turf(user)
+		timer = addtimer(CALLBACK(src, .proc/make_anchor, user, anchor_turf), 10 SECONDS, TIMER_STOPPABLE)
+		should_recharge_after_cast = TRUE
+
+	if(timer && anchor) // second cast, teleport us back
+		recall(user)
+
+
+/obj/effect/proc_holder/spell/vampire/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
+	anchor = new(anchor_turf)
+	timer = addtimer(CALLBACK(src, .proc/recall, user), 2 MINUTES, TIMER_STOPPABLE)
+
+/obj/effect/proc_holder/spell/vampire/soul_anchor/proc/recall(mob/user)
+	if(timer)
+		deltimer(timer)
+		timer = null
+	var/turf/start_turf = get_turf(user)
+	var/turf/end_turf = get_turf(anchor)
+	QDEL_NULL(anchor)
+	user.forceMove(end_turf)
+
+	if(end_turf.z == start_turf.z)
+		var/x_difference = end_turf.x - start_turf.x
+		var/y_difference = end_turf.y - start_turf.y
+		var/distance = sqrt(x_difference ** 2 + y_difference ** 2) // pythag baby
+
+		var/obj/effect/immortality_talisman/effect = new(start_turf)
+		effect.dir = user.dir
+		effect.can_destroy = TRUE
+
+		var/animation_time = distance
+		animate(effect, time = animation_time, alpha = 0, pixel_x = x_difference * 32, pixel_y = y_difference * 32) //each turf is 32 pixels long
+		QDEL_IN(effect, animation_time)
+
+	var/datum/spell_handler/vampire/V = custom_handler
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/blood_cost = V.calculate_blood_cost(vampire)
+	vampire.bloodusable -= blood_cost
+	should_recharge_after_cast = FALSE
+
+// an indicator that shows where the vampire will land
+/obj/structure/shadow_anchor
+	name = "shadow anchor"
+	desc = "Looking at this thing makes you feel uneasy..."
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "pylon"
+	alpha = 120
+	color = "#545454"
+	density = TRUE
+	opacity = FALSE
+	anchored = TRUE
+	flags = INDESTRUCTIBLE
+
 /obj/effect/proc_holder/spell/vampire/dark_passage
 	name = "Dark Passage (30)"
 	desc = "You teleport to a targeted turf."

@@ -53,7 +53,7 @@
 		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
-	durability -= 1
+	durability--
 	if(durability <= 0)
 		qdel(src)
 		to_chat(user, "<span class='warning'>Your claws shatter!</span>")
@@ -67,7 +67,7 @@
 	return ..()
 
 /obj/item/twohanded/required/vamp_claws/process()
-	durability -= 1
+	durability--
 	if(durability <= 0)
 		qdel(src)
 
@@ -129,6 +129,100 @@
 
 /obj/effect/temp_visual/blood_tendril/long
 	duration = 2 SECONDS
+
+/obj/effect/proc_holder/spell/vampire/blood_barrier
+	name = "Blood Barrier (25)"
+	desc = "Select two points within 5 tiles of eachother and make a barrier between these two points. some of the cost is refunded for each tile with blood on it."
+	gain_desc = "You have gained the ability to summon a crystaline wall of blood between two points, the barrier is easily destructable, however you can walk freely through it."
+	required_blood = 25
+	should_recharge_after_cast = FALSE
+	deduct_blood_on_cast = FALSE
+	icon_state = "wall"
+
+	var/max_walls = 5
+	var/turf/start_turf = null
+
+/obj/effect/proc_holder/spell/vampire/blood_barrier/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.allowed_type = /atom
+	T.try_auto_target = FALSE
+	return T
+
+/obj/effect/proc_holder/spell/vampire/blood_barrier/remove_ranged_ability(mob/user, msg)
+	. = ..()
+	if(msg) // this is only true if the user intentionally turned off the spell
+		start_turf = null
+		should_recharge_after_cast = FALSE
+
+/obj/effect/proc_holder/spell/vampire/blood_barrier/should_remove_click_intercept()
+	if(start_turf)
+		return TRUE
+	return FALSE
+
+/obj/effect/proc_holder/spell/vampire/blood_barrier/cast(list/targets, mob/user)
+	var/turf/target_turf = get_turf(targets[1])
+	if(target_turf == start_turf)
+		to_chat(user, "<span class='notice'>You deselect the targetted turf.</span>")
+		start_turf = null
+		should_recharge_after_cast = FALSE
+		return
+	if(!start_turf)
+		start_turf = target_turf
+		should_recharge_after_cast = TRUE
+		return
+	var/wall_count
+	for(var/turf/T in getline(target_turf, start_turf))
+		if(max_walls <= wall_count)
+			break
+		new /obj/structure/blood_barrier(T)
+		wall_count++
+	var/datum/spell_handler/vampire/V = custom_handler
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/blood_cost = V.calculate_blood_cost(vampire)
+	vampire.bloodusable -= blood_cost
+	start_turf = null
+	should_recharge_after_cast = FALSE
+
+/obj/structure/blood_barrier
+	name = "blood barrier"
+	desc = "a grotesque structure of crystalised blood. Its slowly melting away..."
+	max_integrity = 100
+	icon_state = "blood_barrier"
+	color = COLOR_BLOOD_BASE
+	density = TRUE
+	anchored = TRUE
+	opacity = FALSE
+
+/obj/structure/blood_barrier/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj,src)
+
+/obj/structure/blood_barrier/Destroy()
+	STOP_PROCESSING(SSobj,src)
+	return ..()
+
+
+/obj/structure/blood_barrier/process()
+	take_damage(20, sound_effect = FALSE)
+
+/obj/structure/blood_barrier/obj_destruction(damage_flag)
+	new /obj/effect/decal/cleanable/blood(loc)
+	return ..()
+
+
+/obj/structure/blood_barrier/CanPass(atom/movable/mover, turf/target, height)
+	if(!isliving(mover))
+		return FALSE
+	var/mob/living/L = mover
+	if(!L.mind)
+		return FALSE
+	var/datum/antagonist/vampire/V = L.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(!V)
+		return FALSE
+	if(is_type_in_list(V.subclass, list(SUBCLASS_HEMOMANCER, SUBCLASS_ANCIENT)))
+		return TRUE
+
+
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool
 	name = "Sanguine Pool (50)"

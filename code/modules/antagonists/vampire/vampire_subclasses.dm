@@ -25,6 +25,7 @@
 	name = "umbrae"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/cloak = 150,
 							/obj/effect/proc_holder/spell/vampire/shadow_snare = 250,
+							/obj/effect/proc_holder/spell/vampire/soul_anchor = 250,
 							/obj/effect/proc_holder/spell/vampire/dark_passage = 400,
 							/obj/effect/proc_holder/spell/vampire/vamp_extinguish = 600)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
@@ -35,6 +36,7 @@
 	name = "hemomancer"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/vamp_claws = 150,
 							/obj/effect/proc_holder/spell/vampire/blood_tendrils = 250,
+							/obj/effect/proc_holder/spell/vampire/blood_barrier = 250,
 							/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool = 400,
 							/obj/effect/proc_holder/spell/vampire/blood_eruption = 600)
 	fully_powered_abilities = list(/datum/vampire_passive/full,

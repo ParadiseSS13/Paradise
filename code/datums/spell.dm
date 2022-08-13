@@ -314,12 +314,19 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(!length(targets))
 		to_chat(user, "<span class='warning'>No suitable target found.</span>")
 		return FALSE
-
-	remove_ranged_ability(user) // Targeting succeeded. So remove the click interceptor if there is one. Even if the cast didn't succeed afterwards
+	if(should_remove_click_intercept()) // returns TRUE by default
+		remove_ranged_ability(user) // Targeting succeeded. So remove the click interceptor if there is one. Even if the cast didn't succeed afterwards
 	if(!cast_check(TRUE, TRUE, user))
 		return
 
 	perform(targets, should_recharge_after_cast, user)
+
+/**
+ * Called in `try_perform` before removing the click interceptor. useful to override if you have a spell that requires more than 1 click
+ */
+
+/obj/effect/proc_holder/spell/proc/should_remove_click_intercept()
+	return TRUE
 
 /**
  * Handles all the code for performing a spell once the targets are known
@@ -338,7 +345,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			write_custom_logs(targets, user)
 		if(create_attack_logs)
 			add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
-	cooldown_handler.start_recharge()
+	if(recharge)
+		cooldown_handler.start_recharge()
 
 	if(sound)
 		playMagSound()
