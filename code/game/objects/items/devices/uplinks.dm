@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/ui_host()
 	return loc
 
-/obj/item/uplink/proc/update_uplink_type(var/new_uplink_type)
+/obj/item/uplink/proc/update_uplink_type(new_uplink_type)
 	uplink_type = new_uplink_type
 	uplink_items = get_uplink_items(src)
 
