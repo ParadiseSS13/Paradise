@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				continue
 			if(length(I.uplinktypes) && !(U.uplink_type in I.uplinktypes) && U.uplink_type != UPLINK_TYPE_ADMIN)
 				continue
-			if(I.excludefrom.len && SSticker && (U.uplink_type in I.excludefrom))
+			if(length(I.excludefrom) && (U.uplink_type in I.excludefrom))
 				continue
 			if(I.last)
 				last += I
