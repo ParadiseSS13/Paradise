@@ -39126,7 +39126,8 @@
 /area/storage/tools)
 "bRa" = (
 /obj/machinery/door/airlock/security{
-	name = "Detective"
+	name = "Detective";
+	req_access_txt = "4"
 	},
 /obj/structure/cable{
 	d1 = 1;
