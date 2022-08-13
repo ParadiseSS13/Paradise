@@ -274,22 +274,6 @@
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
 
-/obj/item/clothing/head/ratge
-	name = "ratge head"
-	desc = "Ну ты и крыса!"
-	icon_state = "ratgehead"
-	item_state = "ratgehead"
-	flags = BLOCKHAIR|BLOCKHEADHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
-	ru_names = list(NOMINATIVE = "шлем ратге", GENITIVE = "шлема ратге", DATIVE = "шлему ратге", ACCUSATIVE = "шлем ратге", INSTRUMENTAL = "шлемом ратге", PREPOSITIONAL = "шлеме ратге")
-	sprite_sheets = list(
-	"Grey" = 'icons/mob/species/grey/head.dmi',
-	"Kidan" = 'icons/mob/species/kidan/head.dmi',
-	"Tajaran" = 'icons/mob/species/tajaran/head.dmi',
-	"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
-	)
-
 /obj/item/clothing/head/corgi
 	name = "corgi suit head"
 	desc = "Woof!"
