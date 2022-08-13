@@ -306,6 +306,6 @@
 	id = "mo19"
 	suffix = "moonoutpost19.dmm"
 	name = "Moon Outpost 19"
-	description = "A now-defunct lunar outpost, with the last received signal being that of distress."
+	description = "A now-defunct outpost, with the last received signal being that of distress."
 	allow_duplicates = FALSE
 	cost = 2 // Also pretty big
