@@ -10,6 +10,10 @@
 	/// If true, can be used with a cautery in the off-hand to cancel a surgery.
 	var/can_cancel = TRUE
 
+	/// If true, can start surgery on someone while they're standing up.
+	/// Seeing as how we really don't support this (yet), it's much nicer to selectively enable this if we want it.
+	var/can_start_on_stander = FALSE
+
 /**
  * Create a new surgery initiating component.
  *
@@ -46,6 +50,8 @@
 	if(!user.Adjacent(target))
 		return
 	if(user.a_intent != INTENT_HELP)
+		return
+	if(!IS_HORIZONTAL(target) && !can_start_on_stander)
 		return
 	var/mob/living/L = user
 	if(istype(L) && L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
