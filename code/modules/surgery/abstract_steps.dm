@@ -92,13 +92,13 @@
 	for(var/datum/surgery/S in branches_init)
 		first_step = S.get_surgery_step()
 
-		if(!tool && accept_hand)
+		if(!tool && first_step.accept_hand)
 			if(SURGERY_TOOL_HAND in starting_tools)
 				CRASH("[src] was provided with multiple branches that allow an empty hand.")
 			next_surgery = S
 			starting_tools.Add(SURGERY_TOOL_HAND)
 
-		else if(accept_any_item)
+		else if(first_step.accept_any_item)
 			if(SURGERY_TOOL_ANY in starting_tools)
 				CRASH("[src] was provided with multiple branches that allow any tool.")
 			next_surgery = S

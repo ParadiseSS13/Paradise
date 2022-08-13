@@ -7,6 +7,7 @@
 		/datum/surgery_step/proxy/ib,  // just do IB here since we're sawing the bone anyway
 		/datum/surgery_step/open_encased/saw,
 		/datum/surgery_step/open_encased/retract,
+		/datum/surgery_step/cavity/make_space,
 		/datum/surgery_step/proxy/cavity_manipulation,
 		/datum/surgery_step/cavity/close_space,
 		/datum/surgery_step/open_encased/close,
@@ -30,16 +31,17 @@
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/ib,  // just do IB here since we're sawing the bone anyway
 		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/cavity/make_space,
 		/datum/surgery_step/proxy/cavity_manipulation,
 		/datum/surgery_step/cavity/close_space,
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN)
 
-/datum/surgery/cavity_implant/boneless
+/datum/surgery/cavity_implant/soft/boneless
 	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 
-/datum/surgery/cavity_implant/boneless/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/cavity_implant/soft/boneless/can_start(mob/user, mob/living/carbon/target)
 	if(!HAS_TRAIT(target, TRAIT_NO_BONES))
 		return FALSE
 	return TRUE
@@ -102,6 +104,7 @@
 	name = "make cavity space"
 	allowed_tools = list(
 		TOOL_DRILL = 100,
+		/obj/item/screwdriver/power = 90,
 		/obj/item/pen = 90,
 		/obj/item/stack/rods = 60
 	)
@@ -215,7 +218,6 @@
 /datum/surgery/intermediate/open_cavity/implant
 	name = "implant object"
 	steps = list(
-		/datum/surgery_step/cavity/make_space,
 		/datum/surgery_step/cavity/place_item
 	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
