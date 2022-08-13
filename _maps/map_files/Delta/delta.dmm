@@ -61604,7 +61604,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
 "cPO" = (
-/obj/machinery/door/firedoor,
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "Psych"
 	},
@@ -71361,8 +71360,9 @@
 	},
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+	name = "custom placement";
+	pixel_x = -24;
+	pixel_y = -8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -90521,15 +90521,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
-"jat" = (
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
-/area/medical/reception)
 "jav" = (
 /obj/machinery/door/airlock{
 	name = "Magistrate's Office";
@@ -97774,13 +97765,12 @@
 	},
 /area/hallway/primary/starboard)
 "xLC" = (
-/obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "Psych"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Psych"
 	},
 /turf/simulated/floor/plating,
 /area/medical/psych)
@@ -141029,7 +141019,7 @@ bqu
 cHN
 cJh
 nCu
-jat
+npp
 cbH
 ceQ
 ckS
