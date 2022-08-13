@@ -902,7 +902,7 @@ proc/dd_sortedObjectList(list/incoming)
 		.[thing] = TRUE
 
 ///compare two lists, returns TRUE if they are the same
-/proc/compare_list(list/l,list/d)
+/proc/compare_list(list/l, list/d)
 	if(!islist(l) || !islist(d))
 		return FALSE
 
