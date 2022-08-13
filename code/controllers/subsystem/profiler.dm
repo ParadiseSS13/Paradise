@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(profiler)
 	mfetch_cost = MC_AVERAGE(mfetch_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 	CHECK_TICK
 
-	var/mjson_file = file("[GLOB.log_directory]/profile.json")
+	var/mjson_file = file("[GLOB.log_directory]/map_profile.json")
 
 	// Put it in a file
 	if(fexists(mjson_file))
