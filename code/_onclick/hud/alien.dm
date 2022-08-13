@@ -96,7 +96,7 @@
 	using.name = "resist"
 	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = "act_resist"
-	using.screen_loc = ui_alien_pull_resist
+	using.screen_loc = ui_pull_resist
 	static_inventory += using
 
 	using = new /obj/screen/drop()
@@ -121,7 +121,7 @@
 	mymob.pullin.icon = 'icons/mob/screen_alien.dmi'
 	mymob.pullin.hud = src
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)
-	mymob.pullin.screen_loc = ui_alien_pull_resist
+	mymob.pullin.screen_loc = ui_pull_resist
 	hotkeybuttons += mymob.pullin
 
 	alien_plasma_display = new /obj/screen/alien/plasma_display()

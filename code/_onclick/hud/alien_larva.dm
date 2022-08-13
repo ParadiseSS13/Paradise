@@ -28,7 +28,7 @@
 	mymob.pullin.icon = 'icons/mob/screen_alien.dmi'
 	mymob.pullin.hud = src
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)
-	mymob.pullin.screen_loc = ui_alien_pull_resist
+	mymob.pullin.screen_loc = ui_pull_resist
 	hotkeybuttons += mymob.pullin
 
 	using = new /obj/screen/language_menu

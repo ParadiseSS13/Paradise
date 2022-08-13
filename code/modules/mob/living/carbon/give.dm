@@ -1,7 +1,10 @@
 /**
  * Toggles the [/datum/click_intercept/give] on or off for the src mob.
  */
-/mob/living/carbon/proc/toggle_give()
+/mob/living/carbon/verb/toggle_give()
+	set name = "Give Item"
+	set category = "IC"
+
 	if(has_status_effect(STATUS_EFFECT_OFFERING_ITEM))
 		to_chat(src, "<span class='warning'>You're already offering an item to someone!</span>")
 		return
@@ -19,7 +22,6 @@
 		to_chat(src, "<span class='warning'>That's not exactly something you can give.</span>")
 		return
 
-	give_icon.icon_state = "act_give_on"
 	new /datum/click_intercept/give(client)
 
 /**
@@ -76,7 +78,6 @@
 
 /datum/click_intercept/give/Destroy(force = FALSE, ...)
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
-	holder.mob.give_icon.icon_state = "act_give_off"
 	if(!item_offered)
 		to_chat(holder.mob, "<span class='info'>You're no longer trying to give someone your held item.</span>")
 	return ..()

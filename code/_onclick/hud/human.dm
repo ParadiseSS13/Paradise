@@ -231,7 +231,7 @@
 	using.icon = ui_style
 	using.color = ui_color
 	using.alpha = ui_alpha
-	using.screen_loc = ui_give_resist
+	using.screen_loc = ui_pull_resist
 	hotkeybuttons += using
 
 	using = new /obj/screen/human/toggle()
@@ -325,13 +325,6 @@
 	mymob.throw_icon.alpha = ui_alpha
 	hotkeybuttons += mymob.throw_icon
 
-	mymob.give_icon = new /obj/screen/give()
-	mymob.give_icon.icon = ui_style
-	mymob.give_icon.screen_loc = ui_give_resist
-	mymob.give_icon.color = ui_color
-	mymob.give_icon.alpha = ui_alpha
-	hotkeybuttons += mymob.give_icon
-
 	mymob.healths = new /obj/screen/healths()
 	infodisplay += mymob.healths
 
@@ -342,7 +335,7 @@
 	mymob.pullin.icon = ui_style
 	mymob.pullin.hud = src
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)
-	mymob.pullin.screen_loc = ui_stop_pull
+	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
 	lingchemdisplay = new /obj/screen/ling/chems()

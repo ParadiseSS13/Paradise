@@ -147,17 +147,6 @@
 		var/mob/living/carbon/C = usr
 		C.toggle_throw_mode()
 
-/obj/screen/give
-	name = "give"
-	icon = 'icons/mob/screen_midnight.dmi'
-	icon_state = "act_give_off"
-
-/obj/screen/give/Click()
-	if(!iscarbon(usr))
-		return
-	var/mob/living/carbon/C = usr
-	C.toggle_give()
-
 /obj/screen/storage
 	name = "storage"
 

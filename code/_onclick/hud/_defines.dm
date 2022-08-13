@@ -56,14 +56,12 @@
 #define ui_alien_storage_l "CENTER-2:14,SOUTH:5"//alien
 #define ui_alien_storage_r "CENTER+1:18,SOUTH:5"//alien
 #define ui_alien_language_menu "EAST-3:25,SOUTH+1:7"//alien
-#define ui_alien_pull_resist "EAST-2:26,SOUTH+1:7"
 #define ui_alienlarva_language_menu "EAST-3:26,SOUTH:5"//alien
 
 //Lower right, persistant menu
 //#define ui_dropbutton "11:22,1:5"
 #define ui_drop_throw "EAST-1:28,SOUTH+1:7"
-#define ui_give_resist "EAST-2:26,SOUTH+1:7"
-#define ui_stop_pull "EAST-3:24,SOUTH+1:7"
+#define ui_pull_resist "EAST-2:26,SOUTH+1:7"
 #define ui_acti "EAST-2:26,SOUTH:5"
 #define ui_movi "EAST-3:24,SOUTH:5"
 #define ui_zonesel "EAST-1:28,SOUTH:5"
