@@ -52096,8 +52096,8 @@
 	name = "Operating Theatre 3";
 	req_access_txt = "45"
 	},
-/obj/effect/spawner/random_barrier/obstruction,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "czb" = (
@@ -52132,7 +52132,6 @@
 /obj/structure/computerframe{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "czi" = (
@@ -76471,7 +76470,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Coldroom Maintenance";
-	req_one_access_txt = "5;32"
+	req_access_txt = "5"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -78172,7 +78171,6 @@
 	},
 /area/maintenance/asmaint)
 "lHU" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/sleeper{
 	dir = 2
 	},
@@ -90524,7 +90522,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Coldroom Maintenance";
-	req_one_access_txt = "5;32"
+	req_one_access_txt = "5;24"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
