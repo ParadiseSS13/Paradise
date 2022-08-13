@@ -273,6 +273,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	..()
 	if(hidden_uplink)
 		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
+		hidden_uplink.uses = 500
 
 /obj/item/multitool/uplink/New()
 	..()
