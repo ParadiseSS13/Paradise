@@ -55,6 +55,11 @@ export const BrigTimer = (props, context) => {
                   disabled={!data.isAllowed}
                   onClick={() => act('flash')} />
                 <Button
+                  icon="angle-up"
+                  content="Add Timer"
+                  disabled={!data.timing || !data.isAllowed}
+                  onClick={() => act('add_timer')} />
+                <Button
                   icon="sync"
                   content="Reset Timer"
                   disabled={!data.timing || !data.isAllowed}
@@ -111,6 +116,8 @@ export const BrigTimer = (props, context) => {
                   disabled={!data.prisoner_name
                   || !data.prisoner_charge
                   || !data.prisoner_time
+                  || data.prisoner_time < 0
+                  || data.prisoner_time > 60
                   || !data.isAllowed}
                   onClick={() => act('start')} />
               </LabeledList.Item>
