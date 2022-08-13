@@ -20,7 +20,7 @@
 /obj/effect/proc_holder/spell/summonitem/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		var/list/hand_items = list(target.get_active_hand(),target.get_inactive_hand())
-		var/butterfingers = 0
+		var/butterfingers = FALSE
 		var/message
 
 		if(!marked_item) //linking item to the spell
@@ -70,18 +70,11 @@
 
 					if(ishuman(M)) //Edge case housekeeping
 						var/mob/living/carbon/human/C = M
-						/*if(C.internal_bodyparts_by_name  && item_to_retrieve in C.internal_bodyparts_by_name ) //This won't work, as we use organ datums instead of objects. --DZD
-							C.internal_bodyparts_by_name  -= item_to_retrieve
-							if(istype(marked_item, /obj/item/brain)) //If this code ever runs I will be happy
-								var/obj/item/brain/B = new /obj/item/brain(target.loc)
-								B.transfer_identity(C)
-								C.death()
-								add_attack_logs(target, C, "Magically debrained INTENT: [uppertext(target.a_intent)]")*/
 						for(var/X in C.bodyparts)
 							var/obj/item/organ/external/part = X
 							if(item_to_retrieve in part.embedded_objects)
 								part.remove_embedded_object(item_to_retrieve)
-								to_chat(C, "<span class='warning'>\The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
+								to_chat(C, "<span class='warning'>[item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
 								if(!C.has_embedded_objects())
 									C.clear_alert("embeddedobject")
 								break
@@ -100,24 +93,28 @@
 			if(!item_to_retrieve)
 				return
 
-			item_to_retrieve.loc.visible_message("<span class='warning'>\The [item_to_retrieve] suddenly disappears!</span>")
+			if(!isturf(target.loc))
+				to_chat(target, "<span class='caution'>You attempt to cast the spell, but it fails! Perhaps you aren't available?</span>")
+				return
+
+			item_to_retrieve.loc.visible_message("<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
 
 
 			if(target.hand) //left active hand
 				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
 					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
-						butterfingers = 1
+						butterfingers = TRUE
 			else			//right active hand
 				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
 					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
-						butterfingers = 1
+						butterfingers = TRUE
 			if(butterfingers)
 				item_to_retrieve.loc = target.loc
-				item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears!</span>")
-				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
+				item_to_retrieve.loc.visible_message("<span class='caution'>[item_to_retrieve] suddenly appears!</span>")
+				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg', 50, 1)
 			else
-				item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears in [target]'s hand!</span>")
-				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
+				item_to_retrieve.loc.visible_message("<span class='caution'>[item_to_retrieve] suddenly appears in [target]'s hand!</span>")
+				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg', 50, 1)
 
 		if(message)
 			to_chat(target, message)
