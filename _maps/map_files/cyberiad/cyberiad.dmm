@@ -6887,7 +6887,9 @@
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/range)
@@ -9803,7 +9805,9 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -19816,7 +19820,9 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/cryopod{
 	dir = 4
@@ -20270,7 +20276,9 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/item/clothing/head/bearpelt,
 /obj/item/folder/documents,
@@ -26769,7 +26777,9 @@
 /obj/item/clothing/mask/breath,
 /obj/machinery/light_switch{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /turf/simulated/floor/plating,
 /area/storage/emergency2)
@@ -28943,7 +28953,9 @@
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -29038,7 +29050,9 @@
 "bsW" = (
 /obj/machinery/light_switch{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -29917,7 +29931,9 @@
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/light{
 	dir = 8
@@ -34014,7 +34030,9 @@
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -38451,7 +38469,9 @@
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/light{
 	dir = 8
@@ -38520,7 +38540,9 @@
 	},
 /obj/machinery/light_switch{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/structure/dresser,
 /obj/machinery/power/apc{
@@ -38941,7 +38963,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -39939,7 +39963,9 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/camera{
 	c_tag = "Gravity Generator Room South";
@@ -40598,7 +40624,9 @@
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -40764,7 +40792,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -42972,7 +43002,9 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/camera{
 	c_tag = "Messaging Server";
@@ -43010,7 +43042,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/light,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -46545,7 +46579,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -50377,7 +50413,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -50938,7 +50976,9 @@
 "cvZ" = (
 /obj/machinery/light_switch{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -51294,7 +51334,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1441;
 	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -51469,7 +51509,7 @@
 	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -52527,7 +52567,7 @@
 	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -52977,7 +53017,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -53553,7 +53595,9 @@
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -54836,7 +54880,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -55359,7 +55405,7 @@
 	dir = 4;
 	frequency = 1441;
 	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -56604,7 +56650,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -57785,7 +57833,7 @@
 	input_tag = "tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "tox_out";
-	sensors = list("tox_sensor"="Tank")
+	sensors = list("tox_sensor" = "Tank")
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -57859,7 +57907,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/machinery/vending/engidrobe,
 /turf/simulated/floor/plasteel,
@@ -59456,7 +59506,7 @@
 	input_tag = "waste_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "waste_out";
-	sensors = list("waste_sensor"="Tank")
+	sensors = list("waste_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -61098,7 +61148,7 @@
 	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "n2o_out";
-	sensors = list("n2o_sensor"="Tank")
+	sensors = list("n2o_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -61863,7 +61913,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 30
@@ -62170,7 +62222,9 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/machinery/camera{
@@ -63364,7 +63418,7 @@
 	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "co2_out";
-	sensors = list("co2_sensor"="Tank")
+	sensors = list("co2_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -64108,7 +64162,9 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/condiment/peppermill{
@@ -64235,7 +64291,7 @@
 	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "n2_out";
-	sensors = list("n2_sensor"="Tank")
+	sensors = list("n2_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -64263,7 +64319,7 @@
 	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "o2_out";
-	sensors = list("o2_sensor"="Tank")
+	sensors = list("o2_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -64294,7 +64350,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "air_out";
 	pressure_setting = 2000;
-	sensors = list("air_sensor"="Tank")
+	sensors = list("air_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -66944,7 +67000,9 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	on = 0;
+	icon_state = "light0"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -68549,7 +68607,9 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
@@ -69332,7 +69392,9 @@
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -87393,7 +87455,9 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -88612,7 +88676,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor"="Burn Mix")
+	sensors = list("burn_sensor" = "Burn Mix")
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -89257,7 +89321,9 @@
 /obj/machinery/light_switch{
 	pixel_x = -7;
 	pixel_y = 24;
-	name = "custom placement"
+	name = "custom placement";
+	on = 0;
+	icon_state = "light0"
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
@@ -92391,7 +92457,9 @@
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -24;
+	on = 0;
+	icon_state = "light0"
 	},
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = -32

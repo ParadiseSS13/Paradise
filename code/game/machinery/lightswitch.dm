@@ -43,8 +43,7 @@
 		if(!name)
 			name = "light switch([area.name])"
 
-		src.on = src.area.lightswitch
-		update_icon(UPDATE_ICON_STATE)
+		toggle_on_off_state(on)
 
 /obj/machinery/light_switch/Initialize()
 	..()
@@ -82,13 +81,8 @@
 	. = ..()
 	. += "A light switch. It is [on ? "on" : "off"]."
 
-/obj/machinery/light_switch/attack_ghost(mob/user)
-	if(user.can_advanced_admin_interact())
-		return attack_hand(user)
-
-/obj/machinery/light_switch/attack_hand(mob/user)
-	on = !on
-	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
+/obj/machinery/light_switch/proc/toggle_on_off_state(new_state)
+	on = new_state
 	update_icon(UPDATE_ICON_STATE)
 
 	if(light_connect)
@@ -104,6 +98,14 @@
 			L.update_icon(UPDATE_ICON_STATE)
 
 		area.power_change()
+
+/obj/machinery/light_switch/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
+
+/obj/machinery/light_switch/attack_hand(mob/user)
+	toggle_on_off_state(!on)
+	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 
 /obj/machinery/light_switch/proc/handle_output()
 	if(!radio_connection)		//can't output without this
