@@ -14,7 +14,7 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
-		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || paralysis || sleeping || resting || stunned || IsWeakened() || getOxyLoss() > maxHealth * 0.5)
+		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || paralysis || sleeping || stunned || IsWeakened() || getOxyLoss() > maxHealth * 0.5)
 			if(stat == CONSCIOUS)
 				KnockOut()
 				update_headlamp()
