@@ -173,6 +173,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	#endif
 	/client/proc/dmapi_debug,
 	/client/proc/dmapi_log,
+	/client/proc/timer_log,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

@@ -548,6 +548,38 @@ SUBSYSTEM_DEF(timer)
 	else
 		. = "[callBack.object.type]"
 
+GLOBAL_LIST_EMPTY(timers_by_type)
+// Allows us to track what types generate the most timers. Just invokes the global addtimer
+/datum/proc/addtimer(datum/callback/callback, wait = 0, flags = 0)
+	var/tt = "[type]"
+	if(tt in GLOB.timers_by_type)
+		GLOB.timers_by_type[tt]++
+	else
+		GLOB.timers_by_type[tt] = 1
+	return global.addtimer(callback, wait, flags)
+
+/**
+  * Opens a log of timers
+  *
+  * In-round ability to view what has created a timer, and how many times a timer for that path has been created
+  */
+/client/proc/timer_log()
+	set name = "View Timer Log"
+	set category = "Debug"
+	set desc = "Shows the log of what types created timers this round"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	var/list/sorted = sortTim(GLOB.timers_by_type, cmp=/proc/cmp_numeric_dsc, associative = TRUE)
+	var/list/text = list("<h1>Timer Log</h1>", "<ul>")
+	for(var/key in sorted)
+		text += "<li>[key] - [sorted[key]]</li>"
+
+	text += "</ul>"
+	usr << browse(text.Join(), "window=timerlog")
+
+
 /**
  * Create a new timer and insert it in the queue.
  * You should not call this directly, and should instead use the addtimer macro, which includes source information.
