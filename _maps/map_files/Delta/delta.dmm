@@ -16673,7 +16673,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "aVC" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -18189,7 +18189,7 @@
 	},
 /area/atmos)
 "aYN" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/camera{
@@ -19704,9 +19704,6 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pod_3)
 "bbM" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics West";
 	dir = 4;
@@ -21049,9 +21046,6 @@
 	},
 /area/atmos)
 "beR" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
@@ -23794,7 +23788,7 @@
 	},
 /area/atmos)
 "bkP" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/atmospherics/binary/pump{
