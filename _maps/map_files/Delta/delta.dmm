@@ -78747,6 +78747,11 @@
 /obj/item/FixOVein,
 /obj/item/surgicaldrill,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/button/windowtint{
+	id = "RoboSurgery";
+	pixel_x = 24;
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "dBP" = (
@@ -80275,11 +80280,6 @@
 	pixel_y = 4
 	},
 /obj/item/reagent_containers/spray/cleaner,
-/obj/machinery/button/windowtint{
-	id = "RoboSurgery";
-	pixel_x = 24;
-	dir = 8
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
