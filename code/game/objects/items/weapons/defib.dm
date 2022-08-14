@@ -516,7 +516,7 @@ affecting = person being shocked with excess energy from the defib (not neccessa
 /obj/item/twohanded/shockpaddles/proc/excess_shock(mob/living/carbon/human/origin, mob/living/carbon/human/affecting)
 	if(electrocute_mob(affecting, defib.cell, origin)) // shock anyone touching them >:)
 		var/obj/item/organ/internal/heart/HE = affecting.get_organ_slot("heart")
-		if(prob(5) && HE.parent_organ == "chest" && affecting.has_both_hands()) // Random chance, making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart
+		if(HE.parent_organ == "chest" && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
 			affecting.visible_message("<span class='danger'>[affecting]'s entire body shakes as a shock travels up their arm!</span>", \
 							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ("l_arm") : affecting.get_organ("r_arm")] and back down your [affecting.hand ? affecting.get_organ("r_arm") : affecting.get_organ("l_arm")]!</span>")
 			affecting.set_heartattack(TRUE)
