@@ -54584,6 +54584,11 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "cGi" = (
@@ -90356,9 +90361,6 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/bot_red,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -91741,6 +91743,9 @@
 	dir = 4;
 	name = "east bump";
 	pixel_x = 24
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
