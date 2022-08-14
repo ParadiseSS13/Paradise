@@ -411,7 +411,7 @@
 		var/index = findtext(text, char)
 		var/keylength = length(char)
 		while(index)
-			log_runtime(EXCEPTION("Bad string given to dmm encoder! [text]"))
+			stack_trace("Bad string given to dmm encoder! [text]")
 			// Replace w/ underscore to prevent "&#3&#123;4;" from cheesing the radar
 			// Should probably also use canon text replacing procs
 			text = copytext(text, 1, index) + "_" + copytext(text, index+keylength)

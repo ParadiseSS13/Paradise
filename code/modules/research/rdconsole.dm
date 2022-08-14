@@ -81,6 +81,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = TRUE		//If sync if FALSE, it doesn't show up on Server Control Console
+	///Range to search for rnd devices in proximity to console
+	var/range = 3
 
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
@@ -129,7 +131,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				return initial(rt.name)
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
-	for(var/obj/machinery/r_n_d/D in range(3,src))
+	for(var/obj/machinery/r_n_d/D in range(range, src))
 		if(!isnull(D.linked_console) || D.panel_open)
 			continue
 
@@ -946,6 +948,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 3
+	range = 5
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/public

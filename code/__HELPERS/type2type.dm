@@ -100,7 +100,7 @@
 		if(4.0) return EAST
 		if(8.0) return WEST
 		else
-			log_runtime(EXCEPTION("UNKNOWN DIRECTION: [direction]"))
+			stack_trace("UNKNOWN DIRECTION: [direction]")
 
 /proc/dir2text(direction)
 	switch(direction)

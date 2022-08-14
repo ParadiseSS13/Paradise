@@ -137,8 +137,8 @@
 			mages_made++
 			return TRUE
 		else
-			log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)
-			return FALSE
+			. = FALSE
+			CRASH("The candidates list for ragin' mages contained non-observer entries!")
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS
