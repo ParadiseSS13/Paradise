@@ -407,7 +407,6 @@
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return 1
 
-	post_signal("supply")
 	ui_interact(user)
 	return
 
@@ -507,7 +506,6 @@
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
 				investigate_log("| [key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
-				post_signal("supply")
 				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
 					var/datum/supply_order/O = new /datum/supply_order()
 					O.ordernum = SSshuttle.ordernum
@@ -608,15 +606,3 @@
 			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Central Command Cargo Message Log", 800, 600)
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
-
-/obj/machinery/computer/supplycomp/proc/post_signal(command)
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-
-	if(!frequency) return
-
-	var/datum/signal/status_signal = new
-	status_signal.source = src
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
-
-	frequency.post_signal(src, status_signal)

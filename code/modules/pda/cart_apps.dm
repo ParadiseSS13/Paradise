@@ -21,45 +21,24 @@
 
 	. = TRUE
 	switch(action)
+		if("SetMessage")
+			if(params["msgnum"])
+				switch(text2num(params["msgnum"]))
+					if(1)
+						message1 = clean_input("Line 1", "Enter Message Text", message1)
+					if(2)
+						message2 = clean_input("Line 2", "Enter Message Text", message2)
+
 		if("Status")
-			switch(params["statdisp"])
-				if("message")
-					post_status("message", message1, message2)
-				if("alert")
-					post_status("alert", params["alert"])
-				if("setmsg1")
-					message1 = clean_input("Line 1", "Enter Message Text", message1)
-				if("setmsg2")
-					message2 = clean_input("Line 2", "Enter Message Text", message2)
+			switch(text2num(params["statdisp"]))
+				if(STATUS_DISPLAY_MESSAGE)
+					post_status(STATUS_DISPLAY_MESSAGE, message1, message2)
+
+				if(STATUS_DISPLAY_ALERT)
+					post_status(STATUS_DISPLAY_ALERT, params["alert"])
+
 				else
-					post_status(params["statdisp"])
-
-/datum/data/pda/app/status_display/proc/post_status(command, data1, data2)
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-	if(!frequency)
-		return
-
-	var/datum/signal/status_signal = new
-	status_signal.source = src
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
-
-	switch(command)
-		if("message")
-			status_signal.data["msg1"] = data1
-			status_signal.data["msg2"] = data2
-			var/mob/user = pda.fingerprintslast
-			if(istype(pda.loc, /mob/living))
-				name = pda.loc
-			log_admin("STATUS: [user] set status screen with [pda]. Message: [data1] [data2]")
-			message_admins("STATUS: [user] set status screen with [pda]. Message: [data1] [data2]")
-
-		if("alert")
-			status_signal.data["picture_state"] = data1
-
-	spawn(0)
-		frequency.post_signal(src, status_signal)
-
+					post_status(text2num(params["statdisp"]))
 
 /datum/data/pda/app/signaller
 	name = "Signaler System"
