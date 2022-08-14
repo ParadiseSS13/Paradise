@@ -719,7 +719,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/engine/supermatter_shard
 	name = "Supermatter Shard Crate"
-	contains = list(/obj/machinery/power/supermatter_crystal/shard)
+	contains = list(/obj/machinery/atmospherics/supermatter_crystal/shard)
 	cost = 50 //So cargo thinks twice before killing themselves with it
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "supermatter shard crate"
@@ -758,7 +758,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "HEADER"
 	containertype = /obj/structure/closet/crate/medical
 	group = SUPPLY_MEDICAL
-	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"), "Security" = list("Brig Medbay"))
+	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"))
 
 
 /datum/supply_packs/medical/supplies
@@ -890,7 +890,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/blood/BMinus,
 					/obj/item/reagent_containers/iv_bag/blood/OPlus,
 					/obj/item/reagent_containers/iv_bag/blood/OMinus,
-					/obj/item/reagent_containers/iv_bag/slime)
+					/obj/item/reagent_containers/iv_bag/slime,
+					/obj/item/reagent_containers/iv_bag/blood/vox)
 	cost = 35
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "blood pack crate"
@@ -1071,7 +1072,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Pizza Crate"
 	contains = list(/obj/item/pizzabox/margherita,
 					/obj/item/pizzabox/mushroom,
-					/obj/item/pizzabox/meat,
+					/obj/item/pizzabox/pepperoni,
 					/obj/item/pizzabox/vegetable,
 					/obj/item/pizzabox/hawaiian)
 	cost = 60
@@ -1334,20 +1335,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	amount = 50
 	cost = 10
 	containername = "metal sheets crate"
-
-/datum/supply_packs/materials/plasteel20
-	name = "20 Plasteel Sheets Crate"
-	contains = list(/obj/item/stack/sheet/plasteel)
-	amount = 20
-	cost = 30
-	containername = "plasteel sheets crate"
-
-/datum/supply_packs/materials/plasteel50
-	name = "50 Plasteel Sheets Crate"
-	contains = list(/obj/item/stack/sheet/plasteel)
-	amount = 50
-	cost = 50
-	containername = "plasteel sheets crate"
 
 /datum/supply_packs/materials/glass50
 	name = "50 Glass Sheets Crate"

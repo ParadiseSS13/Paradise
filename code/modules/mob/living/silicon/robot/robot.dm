@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
 			ghostize()
-			log_runtime(EXCEPTION("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey]."), src)
+			stack_trace("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
@@ -437,6 +437,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/reset_module()
 	notify_ai(2)
 
+	shown_robot_modules = 0
+	client.screen -= robot_modules_background
+	client.screen -= hud_used.module_store_icon
 	uneq_all()
 	SStgui.close_user_uis(src)
 	sight_mode = null

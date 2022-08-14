@@ -251,7 +251,7 @@
 	ChangeTurf(/turf/simulated/floor)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
-	var/wait = 100
+	var/wait = 20 SECONDS
 	if(speed)
 		wait = speed
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))

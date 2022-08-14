@@ -227,7 +227,8 @@
 /obj/item/twohanded/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
 	force_wielded = 35
-	armour_penetration = 20
+	armour_penetration_flat = 10
+	armour_penetration_percentage = 30
 	var/charge = 20
 	var/max_charge = 20
 
@@ -280,7 +281,8 @@
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
-	armour_penetration = 35
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 10
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
@@ -393,7 +395,7 @@
 	force_wielded = 18
 	throwforce = 20
 	throw_speed = 4
-	armour_penetration = 10
+	armour_penetration_flat = 5
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
@@ -444,7 +446,7 @@
 	force_unwielded = 11
 	force_wielded = 20					//I have no idea how to balance
 	throwforce = 22
-	armour_penetration = 15				//Enhanced armor piercing
+	armour_penetration_percentage = 15				//Enhanced armor piercing
 	icon_prefix = "bone_spear"
 
 //GREY TIDE
@@ -577,7 +579,7 @@
 /obj/item/twohanded/required/chainsaw/doomslayer
 	name = "OOOH BABY"
 	desc = "<span class='warning'>VRRRRRRR!!!</span>"
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 	force_on = 30
 
 /obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -603,7 +605,8 @@
 	hitsound = null // Handled in the snowflaked attack proc
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
-	armour_penetration = 35
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 10
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
@@ -625,7 +628,7 @@
 		else
 			if(target.stat != DEAD)
 				user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
-			if(..())
+			if(isnull(..())) // attack returns null if the attack was successful, (against humans)
 				target.KnockDown(8 SECONDS)
 		return
 	else

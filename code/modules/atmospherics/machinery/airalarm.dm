@@ -257,8 +257,8 @@
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
-/obj/machinery/alarm/Initialize()
-	..()
+/obj/machinery/alarm/Initialize(mapload)
+	. = ..()
 	set_frequency(frequency)
 	if(!master_is_operating())
 		elect_master()
@@ -267,8 +267,8 @@
 	if(!alarm_area)
 		alarm_area = get_area(src)
 	if(!alarm_area)
-		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area vars during proc/master_is_operating()"), src)
-		return FALSE
+		. = FALSE
+		CRASH("Air alarm /obj/machinery/alarm lacks alarm_area vars during proc/master_is_operating()")
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
 

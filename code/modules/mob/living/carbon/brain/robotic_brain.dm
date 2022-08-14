@@ -86,7 +86,7 @@
 
 // This should not ever happen, but let's be safe
 /obj/item/mmi/robotic_brain/dropbrain(turf/dropspot)
-	log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain."), src)
+	CRASH("[src] at [loc] attempted to drop brain without a contained brain.")
 
 /obj/item/mmi/robotic_brain/transfer_identity(mob/living/carbon/H)
 	name = "[src] ([H])"

@@ -63,11 +63,11 @@
 
 /obj/item/projectile/bullet/saw
 	damage = 45
-	armour_penetration = 5
+	armour_penetration_flat = 5
 
 /obj/item/projectile/bullet/saw/bleeding
 	damage = 20
-	armour_penetration = 0
+	armour_penetration_flat = 0
 
 /obj/item/projectile/bullet/saw/bleeding/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
@@ -77,15 +77,15 @@
 
 /obj/item/projectile/bullet/saw/hollow
 	damage = 60
-	armour_penetration = -10
+	armour_penetration_flat = -30
 
 /obj/item/projectile/bullet/saw/ap
 	damage = 40
-	armour_penetration = 75
+	armour_penetration_percentage = 100
 
 /obj/item/projectile/bullet/saw/incen
 	damage = 7
-	armour_penetration = 0
+	armour_penetration_flat = 0
 
 /obj/item/projectile/bullet/saw/incen/Move()
 	..()

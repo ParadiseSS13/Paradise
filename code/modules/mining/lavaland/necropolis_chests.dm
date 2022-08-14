@@ -64,7 +64,6 @@
 			new /obj/item/grenade/clusterbuster/inferno(src)
 		if(21)
 			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor(src)
 		if(22)
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(23)

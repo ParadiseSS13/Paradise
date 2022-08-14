@@ -51,7 +51,7 @@
 		if(holder.dna)
 			dna = holder.dna.Clone()
 		else
-			log_runtime(EXCEPTION("[holder] spawned without a proper DNA."), holder)
+			stack_trace("[holder] spawned without a proper DNA.")
 		var/mob/living/carbon/human/H = holder
 		if(istype(H))
 			if(dna)

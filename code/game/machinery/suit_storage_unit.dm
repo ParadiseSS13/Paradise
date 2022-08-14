@@ -159,6 +159,7 @@
 	name = "mining suit storage unit"
 	suit_type = /obj/item/clothing/suit/hooded/explorer
 	mask_type = /obj/item/clothing/mask/gas/explorer
+	storage_type = /obj/item/gps/mining
 	req_access = list(ACCESS_MINING_STATION)
 
 /obj/machinery/suit_storage_unit/cmo

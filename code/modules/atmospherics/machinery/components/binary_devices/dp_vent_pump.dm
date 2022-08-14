@@ -14,7 +14,7 @@
 
 	level = 1
 
-	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
+	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER) //connects to regular, supply and scrubbers pipes
 
 	var/releasing = TRUE //FALSE = siphoning, TRUE = releasing
 

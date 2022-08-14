@@ -119,10 +119,17 @@
 	if(!M.can_inject(user, TRUE))
 		return
 	var/transfered = 0
+	var/contained = list()
+
+	for(var/R in reagents.reagent_list)
+		var/datum/reagent/reagent = R
+		contained += "[round(reagent.volume, 0.01)]u [reagent]"
+
 	if(reagents.total_volume && M.reagents)
 		transfered = reagents.trans_to(M, 50)
+
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
-	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
+	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	return TRUE
 
 
@@ -140,7 +147,7 @@
 	var/on = FALSE
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
-	armour_penetration = 20
+	armour_penetration_flat = 20
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)

@@ -2067,7 +2067,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gB" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gC" = (
@@ -2361,7 +2361,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "hx" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "hy" = (
