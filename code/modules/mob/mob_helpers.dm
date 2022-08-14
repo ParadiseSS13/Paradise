@@ -720,12 +720,13 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		newphrase+="[newletter]";counter-=1
 	return newphrase
 
+// Why does this exist?
 /mob/proc/get_preference(toggleflag)
 	if(!client)
 		return FALSE
 	if(!client.prefs)
-		log_runtime(EXCEPTION("Mob '[src]', ckey '[ckey]' is missing a prefs datum on the client!"))
-		return FALSE
+		. = FALSE
+		CRASH("Mob '[src]', ckey '[ckey]' is missing a prefs datum on the client!")
 	// Cast to 1/0
 	return !!(client.prefs.toggles & toggleflag)
 

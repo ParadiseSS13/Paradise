@@ -627,7 +627,7 @@
 		else
 			if(target.stat != DEAD)
 				user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
-			if(..())
+			if(isnull(..())) // attack returns null if the attack was successful, (against humans)
 				target.KnockDown(8 SECONDS)
 		return
 	else

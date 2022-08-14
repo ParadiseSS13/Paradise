@@ -27,6 +27,8 @@ DEFINE_BITFIELD(smoothing_flags, list(
 
 #define QUEUE_SMOOTH_NEIGHBORS(thing_to_queue) for(var/neighbor in orange(1, thing_to_queue)) {var/atom/atom_neighbor = neighbor; QUEUE_SMOOTH(atom_neighbor)}
 
+#define REMOVE_FROM_SMOOTH_QUEUE(thing_to_remove) if(thing_to_remove.smoothing_flags & SMOOTH_QUEUED) {SSicon_smooth.remove_from_queues(thing_to_remove)}
+
 /**SMOOTHING GROUPS
  * Groups of things to smooth with.
  * * Contained in the `list/smoothing_groups` variable.

@@ -259,7 +259,7 @@
 			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
-		affecting.Stun(20 SECONDS) //10 ticks of ensured grab
+		affecting.Stun(3 SECONDS) // Ensures the grab is able to be secured
 	else if(state < GRAB_UPGRADING)
 		assailant.visible_message("<span class='danger'>[assailant] starts to tighten [assailant.p_their()] grip on [affecting]'s neck!</span>")
 		hud.icon_state = "kill1"

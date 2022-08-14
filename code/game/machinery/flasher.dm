@@ -34,18 +34,18 @@
 	AddComponent(/datum/component/proximity_monitor)
 
 /obj/machinery/flasher/power_change()
-	if( powered() )
+	if(powered())
 		stat &= ~NOPOWER
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	else
-		stat |= ~NOPOWER
+		stat |= NOPOWER
 		set_light(0)
 	update_icon()
 
 /obj/machinery/flasher/update_icon_state()
 	. = ..()
 
-	if(stat & NOPOWER)
+	if((stat & NOPOWER) || !anchored)
 		icon_state = "[base_state]1-p"
 	else
 		icon_state = "[base_state]1"
@@ -53,11 +53,13 @@
 /obj/machinery/flasher/update_overlays()
 	. = ..()
 	underlays.Cut()
-
+	cut_overlays()
 	if(stat & NOPOWER)
 		return
 
-	underlays += emissive_appearance(icon, "[base_state]_lightmask")
+	if(anchored)
+		. += "[base_state]-s"
+		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
 
 //Let the AI trigger them directly.
@@ -125,10 +127,9 @@
 	anchored = !anchored
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
-		overlays.Cut()
 	else
 		WRENCH_UNANCHOR_MESSAGE
-		overlays += "[base_state]-s"
+	update_icon()
 
 // Flasher button
 /obj/machinery/flasher_button

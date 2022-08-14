@@ -62,6 +62,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		msg += "<TH>[thisdept]</TH>"
 	msg += "</TR>"
 	for(var/client/C in GLOB.clients)
+		if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE))
+			continue // Skip those in stealth mode if an admin isnt viewing the panel
+
 		msg += "<TR>"
 		if(check_rights(R_ADMIN, 0))
 			msg += "<TD>[key_name_admin(C.mob)]</TD>"

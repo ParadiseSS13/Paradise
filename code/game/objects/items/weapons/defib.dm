@@ -65,7 +65,7 @@
 		. += "[icon_state]-emagged"
 	if(powered)
 		. += "[icon_state]-powered"
-	if(powered && cell) 
+	if(powered && cell)
 		var/ratio = cell.charge / cell.maxcharge
 		ratio = CEILING(ratio*4, 1) * 25
 		. += "[icon_state]-charge[ratio]"
@@ -562,7 +562,7 @@
 			if(ghost && !ghost.client)
 				// In case the ghost's not getting deleted for some reason
 				H.key = ghost.key
-				log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), H)
+				stack_trace("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
 
 				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath

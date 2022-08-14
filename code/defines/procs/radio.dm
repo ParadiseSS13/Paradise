@@ -23,10 +23,3 @@
 		freq_text = format_frequency(display_freq)
 
 	return freq_text
-
-/proc/get_message_server()
-	if(GLOB.message_servers)
-		for(var/obj/machinery/message_server/MS in GLOB.message_servers)
-			if(MS.active)
-				return MS
-	return null

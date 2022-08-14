@@ -298,7 +298,7 @@
 				if(overdose_results) // to protect against poorly-coded overdose procs
 					update_flags |= overdose_results[REAGENT_OVERDOSE_FLAGS]
 				else
-					log_runtime(EXCEPTION("Reagent '[R.name]' does not return an overdose info list!"))
+					stack_trace("Reagent '[R.name]' does not return an overdose info list!")
 
 	for(var/AB in addiction_list)
 		var/datum/reagent/R = AB
