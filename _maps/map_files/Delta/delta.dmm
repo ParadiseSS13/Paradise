@@ -36519,7 +36519,9 @@
 	},
 /obj/machinery/requests_console{
 	name = "Detective Requests Console";
-	pixel_x = 30
+	pixel_x = 30;
+	department = "Detective";
+	departmentType = 5
 	},
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
@@ -40134,8 +40136,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/junction{
-	dir = 8
+/obj/structure/disposalpipe/sortjunction{
+	dir = 8;
+	name = "Detective";
+	sortType = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
