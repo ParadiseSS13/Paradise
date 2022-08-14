@@ -617,6 +617,8 @@
 		icon_state = "chainsaw0"
 
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
+	if(can_operate(target) && (user.a_intent == INTENT_HELP))
+		return ..()
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
 		if(isrobot(target))
