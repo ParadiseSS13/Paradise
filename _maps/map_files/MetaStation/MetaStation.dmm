@@ -15795,7 +15795,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/item/desk_bell{
 	pixel_x = 7;
-	pixel_y = 7
+	pixel_y = 7;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -75075,7 +75076,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/item/desk_bell{
-	pixel_y = 8
+	pixel_y = 8;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"

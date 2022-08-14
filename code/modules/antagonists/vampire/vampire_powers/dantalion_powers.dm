@@ -39,28 +39,28 @@
 		to_chat(user, "<span class='warning'>You or your target moved.</span>")
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
+	. = FALSE
 	if(!C)
-		log_runtime(EXCEPTION("target was null while trying to vampire enthrall, attacker is [user] [user.key] \ref[user]"), user)
-		return FALSE
+		CRASH("target was null while trying to vampire enthrall, attacker is [user] [user.key] \ref[user]")
 	if(!user.mind.som)
 		CRASH("Dantalion Thrall datum ended up null.")
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>You can only enthrall sentient humanoids!</span>")
-		return FALSE
+		return
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
-		return FALSE
+		return
 
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.subclass.thrall_cap <= length(user.mind.som.serv))
 		to_chat(user, "<span class='warning'>You don't have enough power to enthrall any more people!</span>")
-		return FALSE
+		return
 	if(ismindshielded(C) || C.mind.has_antag_datum(/datum/antagonist/vampire) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
-		return FALSE
+		return
 	if(C.mind.isholy)
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
-		return FALSE
+		return
 	return TRUE
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)

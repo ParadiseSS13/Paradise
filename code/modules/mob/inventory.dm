@@ -95,11 +95,22 @@
 //If both fail it drops it on the floor and returns 0.
 //This is probably the main one you need to know :)
 //Just puts stuff on the floor for most mobs, since all mobs have hands but putting stuff in the AI/corgi/ghost hand is VERY BAD.
-/mob/proc/put_in_hands(obj/item/W)
+/**
+ * Try to put an item into a mob's hands.
+ *
+ * Put the item into our active hand if possible. Failing that, try to put it into our inactive hand. Failing that as well, drop it onto the ground.
+ * Should return TRUE if the item is successfully put into our hands, and failing that, the item will be dropped and FALSE will be returned.
+ *
+ * Arguments
+ * * W - The item to try to put into your hands
+ * * ignore_anim - If TRUE, the pickup animation of the item moving to you will be suppressed.
+ */
+/mob/proc/put_in_hands(obj/item/W, ignore_anim = TRUE)
 	W.forceMove(drop_location())
 	W.layer = initial(W.layer)
 	W.plane = initial(W.plane)
 	W.dropped()
+	return FALSE
 
 /mob/proc/drop_item_v()		//this is dumb.
 	if(stat == CONSCIOUS && isturf(loc))
