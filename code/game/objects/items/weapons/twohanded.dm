@@ -837,7 +837,7 @@
 	force = 22
 	force_wielded = 22
 	damtype = BURN
-	armour_penetration = 20
+	armour_penetration_percentage = 50
 	block_chance = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
