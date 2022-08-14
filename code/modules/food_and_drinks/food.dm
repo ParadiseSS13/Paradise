@@ -36,6 +36,8 @@
 	return ..()
 
 /obj/item/reagent_containers/food/process()
+	if(!antable)
+		return PROCESS_KILL
 	if(world.time > last_ant_time + 5 MINUTES)
 		check_for_ants()
 
@@ -44,9 +46,6 @@
 	..()
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
-	if(!antable)
-		return
-
 	var/turf/T = get_turf(src)
 	if(isturf(loc) && !locate(/obj/structure/table) in T)
 		if(ant_location == T)
