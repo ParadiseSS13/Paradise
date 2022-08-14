@@ -1,4 +1,9 @@
-/// Allows an item to be used to initiate surgeries.
+
+/**
+ * # Surgery Initiator
+ *
+ * Allows an item to start (or prematurely stop) a surgical operation.
+ */
 /datum/component/surgery_initiator
 	/// If present, this surgery TYPE will be attempted when the item is used.
 	/// Useful for things like limb reattachments that don't need a scalpel.
@@ -35,7 +40,8 @@
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS)
 
-/// Keep tabs on the attached item's sharpness. Any sharp item can start a surgery.
+/// Keep tabs on the attached item's sharpness.
+/// This component gets added in atoms when they're made sharp as well.
 /datum/component/surgery_initiator/proc/on_parent_sharpness_change()
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
 	var/obj/item/P = parent
@@ -47,14 +53,14 @@
 	SIGNAL_HANDLER	// COMSIG_ITEM_ATTACK
 	if(!isliving(user))
 		return
+	var/mob/living/L = target
 	if(!user.Adjacent(target))
 		return
 	if(user.a_intent != INTENT_HELP)
 		return
-	if(!IS_HORIZONTAL(target) && !can_start_on_stander)
+	if(!IS_HORIZONTAL(L) && !can_start_on_stander)
 		return
-	var/mob/living/L = user
-	if(istype(L) && L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+	if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
 		return //no cult ghost surgery please
 	INVOKE_ASYNC(src, .proc/do_initiate_surgery_moment, target, user)
