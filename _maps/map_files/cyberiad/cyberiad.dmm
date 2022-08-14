@@ -38313,7 +38313,9 @@
 /obj/structure/noticeboard{
 	pixel_y = 27
 	},
-/obj/item/desk_bell,
+/obj/item/desk_bell{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bQf" = (
@@ -73923,6 +73925,9 @@
 	icon_state = "left";
 	name = "Research and Development Desk";
 	req_access_txt = "47"
+	},
+/obj/item/desk_bell{
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;

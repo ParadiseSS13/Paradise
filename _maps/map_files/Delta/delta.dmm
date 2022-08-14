@@ -38678,7 +38678,8 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/item/desk_bell{
 	pixel_x = -6;
-	pixel_y = 3
+	pixel_y = 3;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -63256,7 +63257,8 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/item/desk_bell{
 	pixel_x = -6;
-	pixel_y = 3
+	pixel_y = 3;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
