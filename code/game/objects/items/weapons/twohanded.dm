@@ -617,7 +617,7 @@
 		icon_state = "chainsaw0"
 
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
-	if(can_operate(target) && (user.a_intent == INTENT_HELP))
+	if(can_operate(target) && (user.a_intent == INTENT_HELP)) // stops you from triggering STATUS_EFFECT_CHAINSAW_SLAYING if you are trying to operate on a valid mob
 		return ..()
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
