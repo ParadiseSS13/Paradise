@@ -24,6 +24,9 @@
 	// Parent object this camera is assigned to. Used for camera bugs
 	var/atom/movable/parent
 
+	/// is the console silent when switching cameras?
+	var/silent_console = FALSE
+
 /obj/machinery/computer/security/ui_host()
 	return parent ? parent : src
 
@@ -68,7 +71,8 @@
 			watchers += user_uid
 		// Turn on the console
 		if(length(watchers) == 1 && is_living)
-			playsound(src, 'sound/machines/terminal_on.ogg', 25, FALSE)
+			if(!silent_console)
+				playsound(src, 'sound/machines/terminal_on.ogg', 25, FALSE)
 			use_power(active_power_usage)
 		// Register map objects
 		user.client.register_map_obj(cam_screen)
@@ -78,6 +82,10 @@
 		// Open UI
 		ui = new(user, src, ui_key, "CameraConsole", name, 870, 708, master_ui, state)
 		ui.open()
+
+/obj/machinery/computer/security/ui_close(mob/user)
+	..()
+	watchers -= user.UID()
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
@@ -112,7 +120,8 @@
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/C = cameras[c_tag]
 		active_camera = C
-		playsound(src, get_sfx("terminal_type"), 25, FALSE)
+		if(!silent_console)
+			playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
 		// Show static if can't use the camera
 		if(!active_camera?.can_use())

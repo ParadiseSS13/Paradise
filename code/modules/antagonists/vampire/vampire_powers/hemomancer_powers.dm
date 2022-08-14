@@ -43,6 +43,9 @@
 	var/blood_absorbed_amount = 5
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
+		return
+
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
 
 	if(!V)
@@ -53,7 +56,7 @@
 		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
-	durability -= 1
+	durability--
 	if(durability <= 0)
 		qdel(src)
 		to_chat(user, "<span class='warning'>Your claws shatter!</span>")
@@ -67,7 +70,7 @@
 	return ..()
 
 /obj/item/twohanded/required/vamp_claws/process()
-	durability -= 1
+	durability--
 	if(durability <= 0)
 		qdel(src)
 
