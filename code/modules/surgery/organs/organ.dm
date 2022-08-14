@@ -240,7 +240,7 @@
   * The proc returns the organ removed (i.e. `src`) assuming it was removed successfully;
 * otherwise, or if the organ gets destroyed in the process, it returns null.
 */
-/obj/item/organ/proc/remove(mob/living/user, special = FALSE, )
+/obj/item/organ/proc/remove(mob/living/user, special = 0)
 	if(!istype(owner))
 		return
 

@@ -36,7 +36,7 @@
 
 /obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = 0)
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
-	..()
+	return ..()
 
 // Terror Spiders - white spider infection
 

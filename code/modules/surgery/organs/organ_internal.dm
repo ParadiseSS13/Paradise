@@ -228,7 +228,7 @@
 	singlemutcheck(M, GLOB.comicblock, MUTCHK_FORCED)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/honktumor/on_life()
 	if(organhonked < world.time)
@@ -283,7 +283,7 @@
 
 /obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = 0)
 	QDEL_NULL(squeak)
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
