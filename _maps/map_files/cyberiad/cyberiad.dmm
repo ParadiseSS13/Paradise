@@ -73902,6 +73902,9 @@
 	name = "Research and Development Desk";
 	req_access_txt = "47"
 	},
+/obj/item/desk_bell{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"
