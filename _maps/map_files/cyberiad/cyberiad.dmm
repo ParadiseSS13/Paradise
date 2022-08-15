@@ -92138,7 +92138,10 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/virology,
+/obj/machinery/door/airlock/virology{
+	name = "Virology Bedroom";
+	req_access_txt = "39"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
