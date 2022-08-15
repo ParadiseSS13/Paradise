@@ -428,6 +428,9 @@
 	SIGNAL_HANDLER
 	SHOULD_CALL_PARENT(TRUE)
 
+	if(updates & NONE)
+		return // NONE is being sent on purpose, and thus no signal should be sent. 
+
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
 	if(updates & UPDATE_ICON_STATE)
 		update_icon_state()

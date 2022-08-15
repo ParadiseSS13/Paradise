@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 // new damage icon system
 // adjusted to set damage_state to brute/burn code only (without r_name0 as before)
-/obj/item/organ/external/update_icon(updates=ALL)
+/obj/item/organ/external/update_icon(updates=NONE)
 	..()
 	var/n_is = damage_state_text()
 	if(n_is != damage_state)
