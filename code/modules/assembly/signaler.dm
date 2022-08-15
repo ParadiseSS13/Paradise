@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	. = ..()
 	. += "The power light is [receiving ? "on" : "off"]"
 
-// Called from activate(), actually invokes the signal on other signallers in the world
+/// Called from activate(), actually invokes the signal on other signallers in the world
 /obj/item/assembly/signaler/proc/signal()
 	for(var/obj/item/assembly/signaler/S as anything in GLOB.remote_signalers)
 		if(S == src)

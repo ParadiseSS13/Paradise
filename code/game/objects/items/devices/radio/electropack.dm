@@ -41,7 +41,7 @@
 /obj/item/electropack/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/electropack/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/electropack/attackby(obj/item/W, mob/user, params)
 	..()
 
 	if(istype(W, /obj/item/clothing/head/helmet))
