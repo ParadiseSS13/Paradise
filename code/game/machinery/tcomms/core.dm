@@ -45,7 +45,7 @@
 
 	if(mapload) //Automatically links new midround tcomms cores to the cc relay
 		return
-	var/obj/machinery/tcomms/relay/cc/cc_relay = locateUID(GLOB.cc_tcomms_relay)
+	var/obj/machinery/tcomms/relay/cc/cc_relay = locateUID(GLOB.cc_tcomms_relay_uid)
 	if(cc_relay?.linked_core) //if we are already linked, ignore!
 		return
 	cc_relay.AddLink(src)
