@@ -14,7 +14,7 @@
 	origin_tech = "combat=5;powerstorage=3;syndicate=3"
 	var/click_delay = 1.5
 	var/fisto_setting = 1
-	var/gasperfist = 0.5 //original consumption mod was 3, for reference
+	var/gasperfist = 0.5
 	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.
 
 /obj/item/melee/powerfist/Destroy()
