@@ -1564,17 +1564,17 @@
 	for(var/obj/item/I in L)
 		if(I.hidden_uplink)
 			return I.hidden_uplink
-	return null
+	return
 
 /datum/mind/proc/take_uplink()
+	var/list/L = current.get_contents()
+	for(var/obj/item/I in L)
+		if(!isnull(I.hidden_uplink))
+			I.hidden_uplink = null
 	var/obj/item/uplink/hidden/H = find_syndicate_uplink()
 	if(H)
 		qdel(H)
-
-	var/list/L = current.get_contents()
-		for(var/obj/item/I in L)
-			if(!isnull(I.hidden_uplink))
-				I.hidden_uplink = null
+	return
 
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))
