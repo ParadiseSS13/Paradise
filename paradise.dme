@@ -767,7 +767,6 @@
 #include "code\game\machinery\embedded_controller\embedded_controller_base.dm"
 #include "code\game\machinery\embedded_controller\embedded_program_base.dm"
 #include "code\game\machinery\pipe\construction.dm"
-#include "code\game\machinery\pipe\pipe_dispenser.dm"
 #include "code\game\machinery\tcomms\_base.dm"
 #include "code\game\machinery\tcomms\core.dm"
 #include "code\game\machinery\tcomms\nttc.dm"

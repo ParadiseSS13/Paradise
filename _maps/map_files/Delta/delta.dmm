@@ -51310,11 +51310,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/engine/engineering)
-"cso" = (
-/obj/machinery/pipedispenser/disposal,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
 "csp" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -52491,11 +52486,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"cuR" = (
-/obj/machinery/pipedispenser,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
-/area/engine/engine_smes)
 "cuS" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -69362,7 +69352,6 @@
 	},
 /area/hallway/secondary/construction)
 "dhl" = (
-/obj/machinery/pipedispenser,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -69372,13 +69361,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
-	},
-/area/hallway/secondary/construction)
-"dhn" = (
-/obj/machinery/pipedispenser,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
 	},
 /area/hallway/secondary/construction)
 "dho" = (
@@ -72588,6 +72570,7 @@
 "dop" = (
 /obj/structure/table,
 /obj/item/analyzer,
+/obj/item/rpd,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "yellowcorner"
@@ -125754,8 +125737,8 @@ clv
 cnb
 cnb
 buB
-cso
-cuR
+cnb
+cnb
 clv
 cuZ
 cwA
@@ -150198,7 +150181,7 @@ dAX
 dOb
 dXY
 dfI
-dhn
+dlH
 diS
 diS
 diS
