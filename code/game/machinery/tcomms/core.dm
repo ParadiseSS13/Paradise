@@ -43,6 +43,13 @@
 		visible_message("<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
 	update_icon()
 
+	if(mapload) //Automatically links new midround tcomms cores to the cc relay
+		return
+	var/obj/machinery/tcomms/relay/cc/cc_relay = locateUID(GLOB.cc_tcomms_relay)
+	if(cc_relay?.linked_core) //if we are already linked, ignore!
+		return
+	cc_relay.AddLink(src)
+
 /**
   * Destructor for the core.
   *

@@ -31,3 +31,7 @@
 	hidden_link = TRUE
 	password_bypass = TRUE
 
+GLOBAL_VAR(cc_tcomms_relay)
+/obj/machinery/tcomms/relay/cc/Initialize(mapload)
+	. = ..()
+	GLOB.cc_tcomms_relay = UID(src)
