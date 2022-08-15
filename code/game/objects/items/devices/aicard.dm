@@ -24,17 +24,19 @@
 
 /obj/item/aicard/proc/update_state()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
+	update_icon(UPDATE_OVERLAYS)
 	if(AI)
 		name = "intelliCard - [AI.name]"
-		if(AI.stat == DEAD)
-			icon_state = "aicard-404"
-		else
-			icon_state = "aicard-full"
 		AI.cancel_camera() //AI are forced to move when transferred, so do this whenver one is downloaded.
 	else
-		icon_state = "aicard"
 		name = "intelliCard"
-		overlays.Cut()
+
+/obj/item/aicard/update_overlays()
+	. = ..()
+	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
+	if(AI)
+		. += AI.icon_state
+
 
 /obj/item/aicard/attack_self(mob/user)
 	ui_interact(user)
