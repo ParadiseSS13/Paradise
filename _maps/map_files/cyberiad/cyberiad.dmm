@@ -40105,10 +40105,6 @@
 	name = "Morgue";
 	req_access_txt = "6"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -79874,14 +79870,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/aft)
-"mON" = (
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "mPM" = (
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/wood{
@@ -80228,10 +80216,6 @@
 /turf/simulated/floor/noslip,
 /area/engine/engineering)
 "ngS" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown"
-	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "coroner"
 	},
@@ -85066,14 +85050,10 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "rek" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown"
-	},
+/obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "coroner"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "rex" = (
@@ -85109,11 +85089,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -145832,7 +145807,7 @@ uDR
 cgs
 qCZ
 rfn
-mON
+csL
 ciY
 csL
 fmn
