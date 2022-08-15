@@ -73466,6 +73466,16 @@
 	icon_state = "darkblue"
 	},
 /area/medical/surgeryobs)
+"hpY" = (
+/obj/structure/chair/sofa/bench{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "hqe" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=HOP2";
@@ -79942,6 +79952,19 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"mSJ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/hallway/secondary/exit)
 "mTj" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -138879,10 +138902,10 @@ lqd
 cLQ
 oVH
 cBR
-cxN
-cxN
-cxN
-cxN
+cBR
+cBR
+cBR
+cBR
 cZt
 lUp
 lKO
@@ -143711,7 +143734,7 @@ bEF
 bEF
 dBt
 rFe
-rFe
+hpY
 glD
 kTU
 bHV
@@ -147061,7 +147084,7 @@ nHv
 swk
 snH
 bSc
-oMz
+mSJ
 bEF
 bEF
 aaa
