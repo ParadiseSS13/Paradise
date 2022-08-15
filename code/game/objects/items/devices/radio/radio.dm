@@ -465,10 +465,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			addtimer(CALLBACK(src, .proc/broadcast_callback, tcm), 2 SECONDS)
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not, on all z levels
-			for(var/zlevel in 1 to length(GLOB.space_manager.z_list))
-				if(zlevel in tcm.zlevels)
-					continue
-				LAZYADD(tcm.zlevels, zlevel)
+			for(var/z in 1 to world.maxz)
+				tcm.zlevels |= z
 			broadcast_message(tcm)
 			qdel(tcm) // Delete the message datum
 		return TRUE
