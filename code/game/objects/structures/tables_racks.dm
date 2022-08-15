@@ -92,6 +92,10 @@
 	new /obj/structure/table/wood(loc)
 	qdel(src)
 
+/obj/structure/table/do_climb(mob/living/user)
+	. = ..()
+	item_placed(user)
+
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
 	if(climber)
@@ -107,11 +111,8 @@
 /obj/structure/table/attack_tk() // no telehulk sorry
 	return
 
-/**
- * Called when an item in particular is placed onto a table.
- */
-/obj/structure/table/proc/item_placed(obj/item/I, mob/previous_holder)
-	I.do_drop_animation(get_turf(previous_holder))
+/obj/structure/table/proc/item_placed(item)
+	return
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
@@ -205,6 +206,7 @@
 			return FALSE
 		G.affecting.forceMove(get_turf(src))
 		G.affecting.Weaken(4 SECONDS)
+		item_placed(G.affecting)
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
 		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
@@ -230,7 +232,7 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			item_placed(I, user)
+			item_placed(I)
 	else
 		return ..()
 
@@ -703,7 +705,7 @@
 			continue
 		held.forceMove(NewLoc)
 
-/obj/structure/table/tray/item_placed(atom/movable/item, mob/previous_holder)
+/obj/structure/table/tray/item_placed(atom/movable/item)
 	. = ..()
 	if(is_type_in_typecache(item, typecache_can_hold))
 		held_items += item.UID()
@@ -777,7 +779,6 @@
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
-			W.do_drop_animation(user)
 	return
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
