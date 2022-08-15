@@ -79128,7 +79128,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 10
 	},
-/obj/item/radio/electropack,
+/obj/item/electropack,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
