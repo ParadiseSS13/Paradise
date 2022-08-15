@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	// blend the individual damage states with our icons
 	for(var/D in bodyparts)
 		var/obj/item/organ/external/E = D
-		E.update_icon()
+		E.update_state()
 		if(E.damage_state == "00")
 			continue
 
