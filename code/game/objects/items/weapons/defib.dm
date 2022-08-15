@@ -473,10 +473,10 @@
 
 						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 						if(ishuman(H.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
-							excess_shock(H, H.pulledby)
+							excess_shock(user, H, H.pulledby)
 						for(var/obj/item/grab/G in H.grabbed_by)
 							if(ishuman(G.assailant))
-								excess_shock(H, G.assailant)
+								excess_shock(user, H, G.assailant)
 
 						H.med_hud_set_health()
 						H.med_hud_set_status()
@@ -510,10 +510,14 @@
 		update_icon(UPDATE_ICON_STATE)
 
 /*
+user = the person using the defib
 origin = person being revived
 affecting = person being shocked with excess energy from the defib (not neccessarily the defib user)
 */
-/obj/item/twohanded/shockpaddles/proc/excess_shock(mob/living/carbon/human/origin, mob/living/carbon/human/affecting)
+/obj/item/twohanded/shockpaddles/proc/excess_shock(mob/user, mob/living/carbon/human/origin, mob/living/carbon/human/affecting)
+	if(user == affecting)
+		return
+
 	if(electrocute_mob(affecting, defib.cell, origin)) // shock anyone touching them >:)
 		var/obj/item/organ/internal/heart/HE = affecting.get_organ_slot("heart")
 		if(HE.parent_organ == "chest" && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
