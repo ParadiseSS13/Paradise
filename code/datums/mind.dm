@@ -1571,6 +1571,11 @@
 	if(H)
 		qdel(H)
 
+	var/list/L = current.get_contents()
+		for(var/obj/item/I in L)
+			if(!isnull(I.hidden_uplink))
+				I.hidden_uplink = null
+
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))
 		add_antag_datum(/datum/antagonist/traitor)
