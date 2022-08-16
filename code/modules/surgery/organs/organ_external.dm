@@ -655,7 +655,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/cause_internal_bleeding()
 	if(is_robotic())
 		return
-	if(HAS_TRAIT(owner, NO_BLOOD))
+	if(NO_BLOOD in owner.dna.species.species_traits)
 		return
 	status |= ORGAN_INT_BLEEDING
 	owner.custom_pain("You feel something rip in your [name]!")
