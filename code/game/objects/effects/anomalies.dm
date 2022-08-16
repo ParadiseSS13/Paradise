@@ -114,7 +114,7 @@
 		if(!O.anchored && O.loc != src) // so it cannot throw the anomaly core
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
-				O.throw_at(target, 5, 10, undodgeable = TRUE)
+				O.throw_at(target, 5, 10, dodgeable = FALSE)
 
 /obj/effect/anomaly/grav/Crossed(atom/movable/AM)
 	. = ..()
