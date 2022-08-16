@@ -22,10 +22,12 @@
 	var/patchamount = 10
 	var/bottlesprite = 1
 	var/pillsprite = 1
+	var/patchsprite = 1
 	var/client/has_sprites = list()
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles
+	var/static/list/patch_styles
 
 /obj/machinery/chem_master/New()
 	..()
@@ -281,6 +283,7 @@
 		data["buffer_reagents"] = list()
 
 	data["pillsprite"] = pillsprite
+	data["patchsprite"] = patchsprite
 	data["bottlesprite"] = bottlesprite
 	data["mode"] = mode
 	data["printing"] = printing
@@ -386,6 +389,13 @@
 					if(condi || !reagents.total_volume)
 						return
 					ui_modal_input(src, id, "Please enter the amount of patches to make (max [MAX_MULTI_AMOUNT] at a time):", null, arguments, pillamount, 5)
+				if("change_patch_style")
+					if(!patch_styles)
+						patch_styles = list("bandaid_med", "bandaid_brute", "bandaid_burn", "bandaid", "bandaid_clown")
+					var/list/patch_styles_png = list()
+					for(var/style in patch_styles)
+						patch_styles_png += "[style].png"
+					ui_modal_bento(src, id, "Please select the new style for patches:", null, arguments, patchsprite, patch_styles_png)
 				if("create_bottle")
 					if(condi || !reagents.total_volume)
 						return
@@ -491,9 +501,9 @@
 						P.pixel_x = rand(-7, 7) // random position
 						P.pixel_y = rand(-7, 7)
 						reagents.trans_to(P, amount_per_patch)
+						P.icon_state = length(patch_styles) && patch_styles[patchsprite] || "patch"
 						if(is_medical_patch)
 							P.instant_application = TRUE
-							P.icon_state = "bandaid_med"
 						// Load the patches in the bottle if there's one loaded
 						if(istype(loaded_pill_bottle, /obj/item/storage/pill_bottle/patch_pack) && length(loaded_pill_bottle.contents) < loaded_pill_bottle.storage_slots)
 							P.forceMove(loaded_pill_bottle)
@@ -501,6 +511,13 @@
 					if(condi || !reagents.total_volume)
 						return
 					ui_act("modal_open", list("id" = "create_patch", "arguments" = list("num" = answer)), ui, state)
+				if("change_patch_style")
+					if(!patch_styles)
+						return
+					var/new_sprite = text2num(answer) || 1
+					if(new_sprite < 1 || new_sprite > length(patch_styles))
+						return
+					patchsprite = new_sprite
 				if("create_bottle")
 					if(condi || !reagents.total_volume)
 						return

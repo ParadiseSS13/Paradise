@@ -13,6 +13,13 @@ const bottleStyles = [
   "round_bottle.png",
   "reagent_bottle.png",
 ];
+const patchStyles = [
+  "bandaid_med.png", 
+  "bandaid_brute.png", 
+  "bandaid_burn.png", 
+  "bandaid.png", 
+  "bandaid_clown.png",
+];
 
 const analyzeModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
@@ -316,14 +323,27 @@ const ChemMasterProductionChemical = (props, context) => {
         <Button
           icon="square"
           content="One (20u max)"
-          mr="0.5rem"
           onClick={() => modalOpen(context, 'create_patch')}
         />
         <Button
           icon="plus-square"
           content="Multiple"
+          mx="0.5rem"
           onClick={() => modalOpen(context, 'create_patch_multiple')}
         />
+        <Button
+          onClick={() => modalOpen(context, 'change_patch_style')}>
+          <div style={
+            "display: inline-block;"
+            + "width: 20px;"
+            + "height: 16px;"
+            + "vertical-align: middle;"
+            + "background: url(" + patchStyles[data.patchsprite - 1] + ");"
+            + "background-size: 200%;"
+            + "background-position: left -12px bottom -12px;"
+          } />
+          Style
+        </Button>
       </LabeledList.Item>
       <LabeledList.Item label="Bottle">
         <Button
