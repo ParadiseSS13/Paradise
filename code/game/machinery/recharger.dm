@@ -105,7 +105,6 @@
 		WRENCH_ANCHOR_MESSAGE
 	else
 		WRENCH_UNANCHOR_MESSAGE
-	update_icon()
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))
