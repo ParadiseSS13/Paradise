@@ -105,6 +105,7 @@
 		WRENCH_ANCHOR_MESSAGE
 	else
 		WRENCH_UNANCHOR_MESSAGE
+	update_icon()
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))
@@ -130,9 +131,13 @@
 /obj/machinery/recharger/process()
 	if(stat & (NOPOWER|BROKEN) || !anchored || panel_open)
 		return
+	if(!charging)
+		return
 
+	var/old_power_state = using_power
 	using_power = try_recharging_if_possible()
-	update_icon()
+	if(using_power != old_power_state)
+		update_icon()
 
 /obj/machinery/recharger/emp_act(severity)
 	if(stat & (NOPOWER|BROKEN) || !anchored)
