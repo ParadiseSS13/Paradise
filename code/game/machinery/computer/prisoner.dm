@@ -5,7 +5,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(ACCESS_BRIG)
 	circuit = /obj/item/circuitboard/prisoner
 
 	var/authenticated = FALSE // FALSE - No Access Denied, TRUE - Access allowed
