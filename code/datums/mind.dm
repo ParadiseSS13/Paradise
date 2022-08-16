@@ -1571,7 +1571,8 @@
 /datum/mind/proc/take_uplink()
 	var/list/A = current.actions //remove uplink implant action button
 	for(var/datum/action/item_action/hands_free/activate/I in A)
-		if(istype(I.target, /obj/item/implant/uplink))
+		var/obj/item/implant/uplink/U = I.target
+		if(!isnull(U.hidden_uplink))
 			I.Remove(current)
 
 	var/list/L = current.get_contents() //set all hidden_uplink vars to null
