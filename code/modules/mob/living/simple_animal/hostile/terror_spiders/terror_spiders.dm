@@ -334,7 +334,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			gib()
 	else
 		if(degenerate)
-			adjustToxLoss(rand(1,10))
+			adjustToxLoss(rand(1, 10))
 		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick
 		if(getBruteLoss() || getFireLoss())
@@ -345,7 +345,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 				else if(getFireLoss())
 					adjustFireLoss(-1)
 					regen_points -= regen_points_per_hp
-		if(prob(5))
+		if(prob(5)) // AA 2022-08-11 - This gives me prob(80) vibes. Should probably be refactored.
 			CheckFaction()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()
@@ -389,7 +389,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
 	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)
 		to_chat(src, "<span class='userdanger'>Your connection to the hive mind has been severed!</span>")
-		log_runtime(EXCEPTION("Terror spider with incorrect faction list at: [atom_loc_line(src)]"))
+		stack_trace("Terror spider with incorrect faction list at: [atom_loc_line(src)]")
 		gib()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(obj/machinery/door/airlock/D)

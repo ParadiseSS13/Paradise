@@ -236,8 +236,8 @@
 		user.visible_message("[user] begins to close and secure the hatch on [target]'s [affected.name] with \the [tool]." , \
 		"You begin to close and secure the hatch on [target]'s [affected.name] with \the [tool].")
 	else
-		log_runtime(EXCEPTION("Invalid tool: '[implement_type]'"), src)
-		return -1
+		. = -1
+		CRASH("Invalid tool: '[implement_type]'")
 	..()
 
 /datum/surgery_step/robotics/external/repair/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

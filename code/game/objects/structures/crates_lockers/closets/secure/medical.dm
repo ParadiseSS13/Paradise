@@ -181,9 +181,9 @@
 
 /obj/structure/closet/secure_closet/animal/populate_contents()
 	new /obj/item/assembly/signaler(src)
-	new /obj/item/radio/electropack(src)
-	new /obj/item/radio/electropack(src)
-	new /obj/item/radio/electropack(src)
+	new /obj/item/electropack(src)
+	new /obj/item/electropack(src)
+	new /obj/item/electropack(src)
 
 
 /obj/structure/closet/secure_closet/chemical

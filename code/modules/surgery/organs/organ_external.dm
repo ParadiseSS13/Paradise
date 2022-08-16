@@ -167,6 +167,8 @@
 		brute *= brute_mod
 		burn *= burn_mod
 
+	// See if bones need to break
+	check_fracture(brute)
 	// Threshold needed to have a chance of hurting internal bits with something sharp
 #define LIMB_SHARP_THRESH_INT_DMG 5
 	// Threshold needed to have a chance of hurting internal bits
@@ -237,8 +239,6 @@
 			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
 
-	// See if bones need to break
-	check_fracture(brute)
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
@@ -655,7 +655,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/cause_internal_bleeding()
 	if(is_robotic())
 		return
-	if(HAS_TRAIT(owner, NO_BLOOD))
+	if(NO_BLOOD in owner.dna.species.species_traits)
 		return
 	status |= ORGAN_INT_BLEEDING
 	owner.custom_pain("You feel something rip in your [name]!")

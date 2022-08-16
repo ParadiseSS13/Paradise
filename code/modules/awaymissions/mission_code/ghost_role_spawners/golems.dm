@@ -168,8 +168,12 @@
 		user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>",
 		"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
 		message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
-		create(ckey = user.ckey, name = user.real_name)
+		var/mob/living/carbon/human/g = create() //Create the golem and prep mind transfer stuff
+		user.mind.transfer_to(g)
+		g.real_name = user.real_name
+		g.faction = user.faction
 		user.death()  //Keeps brain intact to prevent forcing redtext
+		to_chat(g, "<span class='warning'>You have become the [g.dna.species]. Your allegiances, alliances, and roles are still the same as they were prior to using [I]!</span>")
 		qdel(I)
 
 /obj/effect/mob_spawn/human/golem/servant

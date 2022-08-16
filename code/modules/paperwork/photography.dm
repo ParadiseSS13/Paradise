@@ -27,7 +27,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "photo"
 	item_state = "paper"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	var/blueprints = 0 // Does this have the blueprints?
@@ -56,20 +56,17 @@
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
-		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!", \
-		"[class]You hold [P] up to [src], burning it slowly.")
+		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
+		"[class]You hold [P] up to [src], burning it slowly.</span>")
 
-		spawn(20)
-			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
-
+		if(do_after(user, 50, target = src))
+			if(user.get_active_hand() == P && P.lit)
+				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 				if(user.is_in_inactive_hand(src))
 					user.unEquip(src)
-
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				qdel(src)
-
 			else
 				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
 
@@ -117,11 +114,16 @@
 **************/
 /obj/item/storage/photo_album
 	name = "Photo album"
+	desc = "A slim book with little plastic coverings to keep photos from deteriorating, it reminds you of the good ol' days."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "album"
-	item_state = "briefcase"
+	item_state = "syringe_kit"
 	can_hold = list(/obj/item/photo)
 	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
+	storage_slots = 14
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 
 /obj/item/storage/photo_album/MouseDrop(obj/over_object as obj)
 
@@ -153,7 +155,7 @@
 /obj/item/camera
 	name = "camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "A polaroid camera. 10 photos left."
+	desc = "A polaroid camera."
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
@@ -169,7 +171,12 @@
 	var/size = 3
 	var/see_ghosts = FALSE //for the spoop of it
 	var/current_photo_num = 1
+	var/digital = FALSE
 
+/obj/item/camera/examine(mob/user)
+	. = ..()
+	if(!digital)
+		. += "<span class='notice'>There is [pictures_left] photos left.</span>"
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
 	..()
@@ -187,6 +194,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	name = "camera obscura"
 	desc = "A polaroid camera, some say it can see ghosts!"
 	see_ghosts = TRUE
+
+/obj/item/camera/AltClick(mob/user)
+	if(in_range(user, src) && !user.incapacitated())
+		change_size()
+		return
+	. = ..()
 
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -339,7 +352,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
 	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
 	pictures_left--
-	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
 	on = FALSE
@@ -452,23 +464,27 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 ******************/
 /obj/item/camera/digital
 	name = "digital camera"
-	desc = "A digital camera. A small screen shows there is space for 10 photos left."
+	desc = "A digital camera."
+	digital = TRUE
 	var/list/datum/picture/saved_pictures = list()
 	pictures_left = 30
 	var/max_storage = 10
 
-/obj/item/camera/digital/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
-	if(!on || !pictures_left || ismob(target.loc)) return
-	captureimage(target, user, flag)
+/obj/item/camera/digital/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A small screen shows that there are currently [length(saved_pictures)] pictures stored.</span>"
 
+/obj/item/camera/digital/afterattack(atom/target, mob/user, flag)
+	if(!on || !pictures_left || ismob(target.loc))
+		return
+
+	captureimage(target, user, flag)
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
 
-	desc = "A digital camera. A small screen shows that there are currently [saved_pictures.len] pictures stored."
 	icon_state = icon_off
 	on = FALSE
-	spawn(64)
-		icon_state = icon_on
-		on = TRUE
+	on_cooldown = TRUE
+	addtimer(CALLBACK(src, .proc/reset_cooldown), 6.4 SECONDS) // magic numbers here too
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
 	if(saved_pictures.len >= max_storage)
