@@ -505,7 +505,47 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("cash mould", /obj/item/kitchen/mould/cash, 1, on_floor = 1), \
 	new /datum/stack_recipe("coin mould", /obj/item/kitchen/mould/coin, 1, on_floor = 1), \
 	new /datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = 1), \
-	new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = 1)
+	new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = 1), \
+	new /datum/stack_recipe_list("signs", list(
+		new /datum/stack_recipe("secure area", /obj/structure/sign/securearea, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("biohazard", /obj/structure/sign/biohazard, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("high voltage", /obj/structure/sign/electricshock, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("exam room", /obj/structure/sign/examroom, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("vacuum", /obj/structure/sign/vacuum, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("external airlock", /obj/structure/sign/vacuum/external, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("deathsposal", /obj/structure/sign/deathsposal, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("pods", /obj/structure/sign/pods, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("fire", /obj/structure/sign/fire, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("no smoking", /obj/structure/sign/nosmoking_1, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("no smoking alt", /obj/structure/sign/nosmoking_2, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("hazardous radiation", /obj/structure/sign/radiation, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("radioactive area", /obj/structure/sign/radiation/rad_area, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("dangerous alien life", /obj/structure/sign/xeno_warning_mining, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("red cross", /obj/structure/sign/redcross, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("green cross", /obj/structure/sign/greencross, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("barber shop", /obj/structure/sign/barber, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("chinese restaurant", /obj/structure/sign/chinese, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("science", /obj/structure/sign/science, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("chemistry", /obj/structure/sign/chemistry, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("botany", /obj/structure/sign/botany, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("xenobio", /obj/structure/sign/xenobio, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("evacuation", /obj/structure/sign/evac, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("drop pods", /obj/structure/sign/drop, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("custodian", /obj/structure/sign/custodian, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("engineering", /obj/structure/sign/engineering, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("cargo", /obj/structure/sign/cargo, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("security", /obj/structure/sign/security, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("holy", /obj/structure/sign/holy, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("restroom", /obj/structure/sign/restroom, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("research division", /obj/structure/sign/directions/science, 10, time = 20, one_per_turf = 1, on_floor = 1),//да, они немного багнуты и я это знаю
+		new /datum/stack_recipe("engineering department", /obj/structure/sign/directions/engineering, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("security department", /obj/structure/sign/directions/security, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("medical bay", /obj/structure/sign/directions/medical, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("escape arm", /obj/structure/sign/directions/evac, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("cargo department", /obj/structure/sign/directions/cargo, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("explosives", /obj/structure/sign/explosives, 10, time = 20, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("explosives alt", /obj/structure/sign/explosives/alt, 10, time = 20, one_per_turf = 1, on_floor = 1),
+	))
 ))
 
 /obj/item/stack/sheet/plastic
