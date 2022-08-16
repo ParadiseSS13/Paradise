@@ -29,7 +29,7 @@
 	base_state = "pflash"
 	density = TRUE
 
-/obj/machinery/flasher/portable/ComponentInitialize()
+/obj/machinery/flasher/portable/Initialize()
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 
