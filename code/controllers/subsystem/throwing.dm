@@ -67,6 +67,8 @@ SUBSYSTEM_DEF(throwing)
 	var/paused = FALSE
 	var/delayed_time = 0
 	var/last_move = 0
+	///When this variable is true, non dense mobs will be hit by a thrown item. Currently used by gravitational, to prevent cheese.
+	var/undodgeable = FALSE
 
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
@@ -90,6 +92,7 @@ SUBSYSTEM_DEF(throwing)
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
 		if((dist_travelled >= maxrange || AM.loc == target_turf) && has_gravity(AM, AM.loc))
+			hitcheck() //Just to be sure
 			finalize()
 			return
 
@@ -148,6 +151,6 @@ SUBSYSTEM_DEF(throwing)
 		var/atom/movable/AM = thing
 		if(AM == thrownthing || AM == thrower)
 			continue
-		if(AM.density && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
+		if((AM.density || istype(AM, /mob/living) && undodgeable) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
 			finalize(hit = TRUE, target = AM)
 			return TRUE
