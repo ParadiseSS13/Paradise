@@ -58,6 +58,7 @@
 	new /obj/item/card/id/syndicate(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
 	new /obj/item/lighter/zippo(src)
+	new /obj/item/encryptionkey/syndicate(src)
 
 /obj/item/paper/contractor_guide
 	name = "contractor guide"
