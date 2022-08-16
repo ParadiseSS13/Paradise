@@ -159,6 +159,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/spider_debug = FALSE
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+
+
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
 // --------------------------------------------------------------------------------
