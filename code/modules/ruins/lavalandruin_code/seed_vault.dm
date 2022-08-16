@@ -18,6 +18,7 @@
 	roundstart = FALSE
 	death = FALSE
 	mob_species = /datum/species/diona/pod
+	important_info = "Распространение Лозы \"Кудзу\" на территории Лаваленда запрещено правилами."
 	description = "You are a diona on Lavaland with access to a full botany setup. Perfect to mess around with plants in peace."
 	flavour_text = "You are a sentient ecosystem, an example of the mastery over life that your creators possessed. Your masters, benevolent as they were, created uncounted \
 	seed vaults and spread them across the universe to every planet they could chart. You are in one such seed vault. Your goal is to cultivate and spread life wherever it will go while waiting \
