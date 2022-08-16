@@ -1,4 +1,5 @@
-#define ADDICTION_TIME 4800 //8 minutes
+#define ADDICTION_TIME 8 MINUTES
+#define MINOR_ADDICTION_TIME 45 MINUTES
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -243,7 +244,7 @@
 		temperature_reagents(M.bodytemperature - 30)
 
 	for(var/thing in addiction_threshold_accumulated)
-		if(has_reagent(thing))
+		if(has_addict_supertype_reagent(thing))
 			continue // if we have the reagent in our system, then don't deplete the addiction threshold
 		addiction_threshold_accumulated[thing] -= 0.01 // Otherwise very slowly deplete the buildup
 		if(addiction_threshold_accumulated[thing] <= 0)
@@ -302,9 +303,18 @@
 	for(var/AB in addiction_list)
 		var/datum/reagent/R = AB
 		if(M && R)
+			var/addiction_time
+			if(R.minor_addiction)
+				addiction_time = MINOR_ADDICTION_TIME
+			else
+				addiction_time = ADDICTION_TIME
 			if(R.addiction_stage < 5)
-				if(prob(5))
-					R.addiction_stage++
+				if(R.minor_addiction)
+					if(prob(5) && (world.timeofday > (R.last_addiction_dose + addiction_time / 5) * R.addiction_stage))
+						R.addiction_stage++
+				else
+					if(prob(5))
+						R.addiction_stage++
 			if(world.timeofday > R.last_addiction_dose) //time check so addiction act doesn't play over and over. Allows incremental dosages to work.
 				switch(R.addiction_stage)
 					if(1)
@@ -317,7 +327,7 @@
 						update_flags |= R.addiction_act_stage4(M)
 					if(5)
 						update_flags |= R.addiction_act_stage5(M)
-			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
+			if(prob(20) && (world.timeofday > (R.last_addiction_dose + addiction_time))) //Each addiction lasts 8 minutes before it can end
 				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				addiction_list.Remove(R)
 				qdel(R)
@@ -659,9 +669,20 @@
 	return TRUE
 
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
+	for(var/datum/reagent/R in reagent_list)
 		if(R.id == reagent)
+			if(!amount)
+				return R
+			else
+				if(R.volume >= amount)
+					return R
+				else
+					return FALSE
+	return FALSE
+
+/datum/reagents/proc/has_addict_supertype_reagent(reagent, amount = -1)
+	for(var/datum/reagent/R in reagent_list)
+		if(R.id == R.addict_supertype)
 			if(!amount)
 				return R
 			else

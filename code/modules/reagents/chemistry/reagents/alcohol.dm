@@ -6,9 +6,16 @@
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
+	addiction_chance = 3
+	addiction_threshold = 150
+	minor_addiction = TRUE
+	addict_supertype = /datum/reagent/consumable/ethanol
 	var/dizzy_adj = 3
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "liquid fire"
+
+/datum/reagent/consumable/ethanol/New()
+	addict_supertype = /datum/reagent/consumable/ethanol
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
 	M.AdjustDrunk(alcohol_perc)

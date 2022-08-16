@@ -879,6 +879,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_AULD_IMPERIAL, "Староимпѣрская рѣчь")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NICOTINE_ADDICT, "Nicotine addict")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_TEA_ADDICT, "Tea addict")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COFFEE_ADDICT, "Coffee addict")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_ALCOHOLE_ADDICT, "Alcohole addict")
 
 
 	HTML += {"</ul>
@@ -2251,6 +2255,26 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	character.change_eye_color(e_colour)
 	character.original_eye_color = e_colour
+
+	if(disabilities & DISABILITY_FLAG_COFFEE_ADDICT)
+		var/datum/reagent/new_reagent = new /datum/reagent/consumable/drink/coffee()
+		new_reagent.last_addiction_dose = world.timeofday
+		character.reagents.addiction_list.Add(new_reagent)
+
+	if(disabilities & DISABILITY_FLAG_TEA_ADDICT)
+		var/datum/reagent/new_reagent = new /datum/reagent/consumable/drink/tea()
+		new_reagent.last_addiction_dose = world.timeofday
+		character.reagents.addiction_list.Add(new_reagent)
+
+	if(disabilities & DISABILITY_FLAG_NICOTINE_ADDICT)
+		var/datum/reagent/new_reagent = new /datum/reagent/nicotine()
+		new_reagent.last_addiction_dose = world.timeofday
+		character.reagents.addiction_list.Add(new_reagent)
+
+	if(disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT)
+		var/datum/reagent/new_reagent = new /datum/reagent/consumable/ethanol()
+		new_reagent.last_addiction_dose = world.timeofday
+		character.reagents.addiction_list.Add(new_reagent)
 
 	if(disabilities & DISABILITY_FLAG_FAT)
 		character.dna.SetSEState(GLOB.fatblock, TRUE, TRUE)

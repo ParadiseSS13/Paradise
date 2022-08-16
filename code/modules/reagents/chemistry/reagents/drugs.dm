@@ -90,7 +90,7 @@
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
 	addiction_chance = 3
-	addiction_threshold = 80
+	addiction_threshold = 160
 	minor_addiction = TRUE
 	heart_rate_increase = 1
 	taste_description = "calm"
