@@ -151,6 +151,6 @@ SUBSYSTEM_DEF(throwing)
 		var/atom/movable/AM = thing
 		if(AM == thrownthing || AM == thrower)
 			continue
-		if((AM.density || istype(AM, /mob/living) && undodgeable) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
+		if((AM.density || isliving(AM) && undodgeable) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
 			finalize(hit = TRUE, target = AM)
 			return TRUE
