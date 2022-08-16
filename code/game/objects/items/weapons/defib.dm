@@ -81,7 +81,8 @@
 	update_icon()
 
 /obj/item/defibrillator/ui_action_click()
-	toggle_paddles()
+	if(ishuman(usr) && Adjacent(usr))
+		toggle_paddles()
 
 /obj/item/defibrillator/CtrlClick()
 	if(ishuman(usr) && Adjacent(usr))
@@ -138,19 +139,27 @@
 	set category = "Object"
 
 	var/mob/living/carbon/human/user = usr
+	var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
+	var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
 
 	if(paddles_on_defib)
 		//Detach the paddles into the user's hands
 		if(usr.incapacitated()) return
 
+		if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
+			to_chat(user, "<span class='warning'>You can't use your hand to take out the paddles!</span>")
+			return
+
+		if((usr.r_hand != null && usr.l_hand != null))
+			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
+			return
+
 		if(!usr.put_in_hands(paddles))
 			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
-			update_icon()
 			return
 		paddles.loc = user
 		paddles_on_defib = FALSE
-	else if(user.is_in_active_hand(paddles))
-		//Remove from their hands and back onto the defib unit
+	else //remove in any case because some automatic shit
 		remove_paddles(user)
 
 	update_icon()

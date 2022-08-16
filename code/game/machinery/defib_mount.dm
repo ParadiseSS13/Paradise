@@ -73,10 +73,19 @@
 			add_overlay("clamps")
 
 //defib interaction
-/obj/machinery/defibrillator_mount/attack_hand(mob/living/user)
+/obj/machinery/defibrillator_mount/attack_hand(mob/living/carbon/)
+	var/mob/living/carbon/human/user = usr
+	var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
+	var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
+
 	if(!defib)
 		to_chat(user, "<span class='warning'>There's no defibrillator unit loaded!</span>")
 		return
+
+	if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
+		to_chat(user, "<span class='warning'>You can't use your hand to take out the paddles!</span>")
+		return
+
 	if(defib.paddles.loc != defib)
 		to_chat(user, "<span class='warning'>[defib.paddles.loc == user ? "You are already" : "Someone else is"] holding [defib]'s paddles!</span>")
 		return
@@ -125,7 +134,10 @@
 	new /obj/item/mounted/frame/defib_mount(get_turf(user))
 	qdel(src)
 
-/obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/user)
+/obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/)
+	var/mob/living/carbon/human/user = usr
+	var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
+	var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
 	if(!istype(user))
 		return
 	if(user.incapacitated())
@@ -134,6 +146,9 @@
 		return
 	if(!defib)
 		to_chat(user, "<span class='warning'>It'd be hard to remove a defib unit from a mount that has none.</span>")
+		return
+	if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
+		to_chat(user, "<span class='warning'>You can't use your hand to take out the defibrillator!</span>")
 		return
 	if(clamps_locked)
 		to_chat(user, "<span class='warning'>You try to tug out [defib], but the mount's clamps are locked tight!</span>")
