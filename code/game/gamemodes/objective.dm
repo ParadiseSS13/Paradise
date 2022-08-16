@@ -104,19 +104,25 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/mutiny/find_target()
 	..()
 	if(target && target.current)
-		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+		explanation_text = "Exile or assassinate [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
 	return target
 
 /datum/objective/mutiny/check_completion()
 	if(target && target.current)
-		if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
+		if(target.current.stat == DEAD)
+			return 1
+		if(!target.current.ckey)
+			return 1
+		if(issilicon(target.current))
+			return 1
+		if(isbrain(target.current))
 			return 1
 		var/turf/T = get_turf(target.current)
-		if(T && !is_station_level(T.z))			//If they leave the station they count as dead for this
-			return 1
-		return 0
+		if(is_admin_level(T.z))
+			return 0
+		return 1
 	return 1
 
 /datum/objective/mutiny/on_target_cryo()

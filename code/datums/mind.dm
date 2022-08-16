@@ -821,11 +821,13 @@
 
 			if("rev")
 				if(src in SSticker.mode.head_revolutionaries)
+					for(var/datum/action/innate/revolution_recruitment/C in current.actions)
+						qdel(C)
 					SSticker.mode.head_revolutionaries -= src
 					SSticker.mode.update_rev_icons_removed(src)
 					to_chat(current, "<span class='warning'><FONT size = 3><B>Revolution has been disappointed of your leadership traits! You are a regular revolutionary now!</B></FONT></span>")
 				else if(!(src in SSticker.mode.revolutionaries))
-					to_chat(current, "<span class='warning'><FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT></span>")
+					to_chat(current, "<span class='warning'><FONT size = 3> You are now a revolutionary! Follow orders given by revolution leaders. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons.</FONT></span>")
 				else
 					return
 				SSticker.mode.revolutionaries += src
@@ -843,17 +845,6 @@
 					to_chat(current, "<span class='notice'>You are a member of the revolutionaries' leadership now!</span>")
 				else
 					return
-				if(SSticker.mode.head_revolutionaries.len>0)
-					// copy targets
-					var/datum/mind/valid_head = locate() in SSticker.mode.head_revolutionaries
-					if(valid_head)
-						for(var/datum/objective/mutiny/O in valid_head.objectives)
-							var/datum/objective/mutiny/rev_obj = new
-							rev_obj.owner = src
-							rev_obj.target = O.target
-							rev_obj.explanation_text = "Assassinate [O.target.name], the [O.target.assigned_role]."
-							objectives += rev_obj
-						SSticker.mode.greet_revolutionary(src,0)
 				SSticker.mode.head_revolutionaries += src
 				SSticker.mode.update_rev_icons_added(src)
 				special_role = SPECIAL_ROLE_HEAD_REV
@@ -863,8 +854,9 @@
 				message_admins("[key_name_admin(usr)] has head-rev'd [key_name_admin(current)]")
 
 			if("autoobjectives")
-				SSticker.mode.forge_revolutionary_objectives(src)
-				SSticker.mode.greet_revolutionary(src,0)
+				var/list/heads = SSticker.mode.get_living_heads()
+				for(var/datum/mind/head_mind in heads)
+					SSticker.mode.rev_objective(src, head_mind)
 				log_admin("[key_name(usr)] has automatically forged revolutionary objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged revolutionary objectives for [key_name_admin(current)]")
 
@@ -1792,33 +1784,12 @@
 		SSticker.mode.update_wiz_icons_added(src)
 
 /datum/mind/proc/make_Rev()
-	if(SSticker.mode.head_revolutionaries.len>0)
-		// copy targets
-		var/datum/mind/valid_head = locate() in SSticker.mode.head_revolutionaries
-		if(valid_head)
-			for(var/datum/objective/mutiny/O in valid_head.objectives)
-				var/datum/objective/mutiny/rev_obj = new
-				rev_obj.owner = src
-				rev_obj.target = O.target
-				rev_obj.explanation_text = "Assassinate [O.target.current.real_name], the [O.target.assigned_role]."
-				objectives += rev_obj
-			SSticker.mode.greet_revolutionary(src,0)
 	SSticker.mode.head_revolutionaries += src
-	SSticker.mode.update_rev_icons_added(src)
-	special_role = SPECIAL_ROLE_HEAD_REV
-	var/datum/action/innate/revolution_recruitment/C = new()
-	C.Grant(current)
-
-	SSticker.mode.forge_revolutionary_objectives(src)
+	var/list/heads = SSticker.mode.get_living_heads()
+	for(var/datum/mind/head_mind in heads)
+		SSticker.mode.rev_objective(src, head_mind)
+	SSticker.mode.equip_revolutionary(current)
 	SSticker.mode.greet_revolutionary(src,0)
-
-	var/list/L = current.get_contents()
-	var/obj/item/flash/flash = locate() in L
-	qdel(flash)
-	take_uplink()
-	var/fail = 0
-//	fail |= !ticker.mode.equip_traitor(current, 1)
-	fail |= !SSticker.mode.equip_revolutionary(current)
 
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
