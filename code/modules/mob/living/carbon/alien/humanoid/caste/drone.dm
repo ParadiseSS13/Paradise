@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/drone
 	name = "alien drone"
 	caste = "d"
-	maxHealth = 100
-	health = 100
+	maxHealth = 180
+	health = 180
 	icon_state = "aliend_s"
 
 	var/datum/action/innate/xeno_action/evolve_to_queen/evolve_to_queen_action = new

@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/sentinel
 	name = "alien sentinel"
 	caste = "s"
-	maxHealth = 150
-	health = 150
+	maxHealth = 250
+	health = 250
 	icon_state = "aliens_s"
 
 /mob/living/carbon/alien/humanoid/sentinel/GrantAlienActions()
@@ -18,14 +18,14 @@
 	icon = 'icons/mob/alienlarge.dmi'
 	icon_state = "prat_s"
 	pixel_x = -16
-	maxHealth = 200
-	health = 200
+	maxHealth = 300
+	health = 300
 	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/praetorian
 	name = "alien praetorian"
-	maxHealth = 200
-	health = 200
+	maxHealth = 300
+	health = 300
 	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/large/update_icons()

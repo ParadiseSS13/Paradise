@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/queen
 	name = "alien queen"
 	caste = "q"
-	maxHealth = 250
-	health = 250
+	maxHealth = 640
+	health = 640
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	heal_rate = 5

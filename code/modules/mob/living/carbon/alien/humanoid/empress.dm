@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/empress
 	name = "alien empress"
 	caste = "q"
-	maxHealth = 700
-	health = 700
+	maxHealth = 900
+	health = 900
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	mob_size = MOB_SIZE_LARGE

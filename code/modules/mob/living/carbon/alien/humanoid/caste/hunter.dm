@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/hunter
 	name = "alien hunter"
 	caste = "h"
-	maxHealth = 125
-	health = 125
+	maxHealth = 205
+	health = 205
 	icon_state = "alienh_s"
 
 /mob/living/carbon/alien/humanoid/hunter/GrantAlienActions()
