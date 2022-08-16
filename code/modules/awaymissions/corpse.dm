@@ -448,6 +448,12 @@
 	id_job = "Scientist"
 	outfit = /datum/outfit/job/scientist
 
+/obj/effect/mob_spawn/human/securty
+	name = "Security Officer"
+	mob_name = "Security Officer"
+	id_job = "Security Officer"
+	outfit = /datum/outfit/job/officer
+
 /obj/effect/mob_spawn/human/miner
 	name = "Shaft Miner"
 	mob_name = "Shaft Miner"
