@@ -712,6 +712,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(invisibility) // Only show the button if the ghost is not visible to the living
 		follow_link = " ([ghost_follow_link(A, src)])"
 	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>")
+	log_ghostsay("point to [key_name(A)] ([A.x],[A.y],[A.z])", src)
+	create_log(DEADCHAT_LOG, "point to [key_name(A)] ([A.x],[A.y],[A.z])")
 	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost()
