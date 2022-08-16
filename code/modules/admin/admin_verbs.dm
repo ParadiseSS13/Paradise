@@ -532,6 +532,141 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/bless(mob/living/M as mob)
+	set category = "Event"
+	set name = "Bless"
+	if(!check_rights(R_EVENT))
+		return
+	if(!istype(M))
+		to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
+		return
+	var/btypes = list("To Arrivals", "Moderate Heal")
+	var/mob/living/carbon/human/H
+	if(ishuman(M))
+		H = M
+		btypes += "Spawn Cookie"
+		btypes += "Heal Over Time"
+		btypes += "Permanent Regeneration"
+		btypes += "Super Powers"
+		btypes += "Scarab Guardian"
+		btypes += "Human Protector"
+		btypes += "Sentient Pet"
+		btypes += "All Access"
+	var/blessing = input(usr, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
+	if(!(blessing in btypes))
+		return
+	var/logmsg = null
+	switch(blessing)
+		if("Spawn Cookie")
+			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_l_hand )
+			if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
+				H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
+				if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
+					log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(usr)].")
+					message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(usr)].")
+					return
+				else
+					H.update_inv_r_hand()//To ensure the icon appears in the HUD
+			else
+				H.update_inv_l_hand()
+			logmsg = "spawn cookie."
+		if("To Arrivals")
+			M.forceMove(pick(GLOB.latejoin))
+			to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+			logmsg = "a teleport to arrivals."
+		if("Moderate Heal")
+			M.adjustBruteLoss(-25)
+			M.adjustFireLoss(-25)
+			M.adjustToxLoss(-25)
+			M.adjustOxyLoss(-25)
+			to_chat(M,"<span class='userdanger'>You feel invigorated!</span>")
+			logmsg = "a moderate heal."
+		if("Heal Over Time")
+			H.reagents.add_reagent("salglu_solution", 30)
+			H.reagents.add_reagent("salbutamol", 20)
+			H.reagents.add_reagent("spaceacillin", 20)
+			logmsg = "a heal over time."
+		if("Permanent Regeneration")
+			H.dna.SetSEState(GLOB.regenerateblock, 1)
+			genemutcheck(H, GLOB.regenerateblock,  null, MUTCHK_FORCED)
+			H.update_mutations()
+			H.gene_stability = 100
+			logmsg = "permanent regeneration."
+		if("Super Powers")
+			var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
+			for(var/gene in default_genes)
+				H.dna.SetSEState(gene, 1)
+				genemutcheck(H, gene,  null, MUTCHK_FORCED)
+				H.update_mutations()
+			H.gene_stability = 100
+			logmsg = "superpowers."
+		if("Scarab Guardian")
+			var/obj/item/guardiancreator/biological/scarab = new /obj/item/guardiancreator/biological(H)
+			var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Random")
+			var/typechoice = input("Select Guardian Type", "Type") as null|anything in possible_guardians
+			if(isnull(typechoice))
+				return
+			if(typechoice != "Random")
+				possible_guardians -= "Random"
+				scarab.possible_guardians = list()
+				scarab.possible_guardians += typechoice
+			scarab.attack_self(H)
+			spawn(700)
+				qdel(scarab)
+			logmsg = "scarab guardian."
+		if("Sentient Pet")
+			var/pets = subtypesof(/mob/living/simple_animal)
+			var/petchoice = input("Select pet type", "Pets") as null|anything in pets
+			if(isnull(petchoice))
+				return
+			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
+			var/mob/dead/observer/theghost = null
+			if(candidates.len)
+				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
+				theghost = pick(candidates)
+				P.key = theghost.key
+				P.master_commander = H
+				P.universal_speak = 1
+				P.universal_understand = 1
+				P.can_collar = 1
+				P.faction = list("neutral")
+				var/obj/item/clothing/accessory/petcollar/C = new
+				P.add_collar(C)
+				var/obj/item/card/id/I = H.wear_id
+				if(I)
+					var/obj/item/card/id/D = new /obj/item/card/id(C)
+					D.access = I.access
+					D.registered_name = P.name
+					D.assignment = "Pet"
+					C.access_id = D
+				spawn(30)
+					var/newname = sanitize(copytext_char(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
+					if(newname && newname != P.name)
+						P.name = newname
+						if(P.mind)
+							P.mind.name = newname
+				logmsg = "pet ([P])."
+			else
+				to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play the special event pet.</span>")
+				logmsg = "pet (no volunteers)."
+		if("Human Protector")
+			usr.client.create_eventmob_for(H, 0)
+			logmsg = "syndie protector."
+		if("All Access")
+			var/obj/item/card/id/I = H.wear_id
+			if(I)
+				var/list/access_to_give = get_all_accesses()
+				for(var/this_access in access_to_give)
+					if(!(this_access in I.access))
+						// don't have it - add it
+						I.access |= this_access
+			else
+				to_chat(usr, "<span class='warning'>ERROR: [H] is not wearing an ID card.</span>")
+			logmsg = "all access."
+	if(logmsg)
+		log_admin("[key_name(usr)] blessed [key_name(M)] with: [logmsg]")
+		message_admins("[key_name(usr)] blessed [key_name(M)] with: [logmsg]")
+
 /client/proc/smite(mob/living/M as mob)
 	set category = "Event"
 	set name = "Smite"

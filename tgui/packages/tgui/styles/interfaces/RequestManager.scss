@@ -11,6 +11,8 @@
 $color-prayer: colors.bg(colors.$purple) !default;
 $color-centcom: colors.bg(colors.$yellow) !default;
 $color-syndicate: colors.bg(colors.$red) !default;
+$color-honk: colors.bg(colors.$pink) !default;
+$color-ert: colors.bg(colors.$orange) !default;
 $color-nuke: colors.bg(colors.$yellow) !default;
 $color-muted: colors.bg(colors.$label) !default;
 $color-header: colors.bg(colors.$label) !default;
@@ -33,6 +35,14 @@ $text-color: base.$color-fg !default;
 
 .RequestManager__request_syndicate {
   color: $color-syndicate;
+}
+
+.RequestManager__request_honk {
+  color: $color-honk;
+}
+
+.RequestManager__request_ert {
+  color: $color-ert;
 }
 
 .RequestManager__request_nuke {

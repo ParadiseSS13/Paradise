@@ -24,9 +24,6 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 
 /datum/request_manager/proc/pray(client/C, message, is_chaplain)
 	request_for_client(C, REQUEST_PRAYER, message)
-	for(var/client/admin in GLOB.admins)
-		if(is_chaplain && admin.prefs.sound & SOUND_PRAYERNOTIFY)
-			SEND_SOUND(admin, sound('sound/effects/pray.ogg'))
 
 /datum/request_manager/proc/message_centcom(client/C, message)
 	request_for_client(C, REQUEST_CENTCOM, message)
@@ -109,9 +106,16 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				return TRUE
 			usr.client.open_logging_view(list(M), TRUE)
 			return TRUE
+		if ("bless")
+			if(!check_rights(R_EVENT))
+				to_chat(usr, "Insufficient permissions to bless, you require +EVENT")
+				return TRUE
+			var/mob/living/M = request.owner?.mob
+			usr.client.bless(M)
+			return TRUE
 		if ("smite")
 			if(!check_rights(R_EVENT))
-				to_chat(usr, "Insufficient permissions to smite, you require +FUN")
+				to_chat(usr, "Insufficient permissions to smite, you require +EVENT")
 				return TRUE
 			var/mob/living/M = request.owner?.mob
 			usr.client.smite(M)
