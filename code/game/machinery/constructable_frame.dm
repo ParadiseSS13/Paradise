@@ -285,7 +285,7 @@ to destroy them and players will be able to make replacements.
 		for(var/path in vending_names_paths)
 			display_vending_names_paths[vending_names_paths[path]] = path
 	var/choice =  input(user, "Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
-	if(loc != user)
+	if(!(loc == user || (istype(loc, /obj/item/gripper) && loc && loc.loc == user)))
 		to_chat(user, "<span class='notice'>You need to keep [src] in your hands while doing that!</span>")
 		return
 	set_type(display_vending_names_paths[choice])
