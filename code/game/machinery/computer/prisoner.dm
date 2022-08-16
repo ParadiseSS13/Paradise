@@ -61,7 +61,7 @@
 	ui_login_data(data, user)
 	data["prisonerInfo"] = list(
 		"name" = inserted_id?.name,
-		"points" = inserted_id?.points,
+		"points" = inserted_id?.mining_points,
 		"goal" = inserted_id?.goal,
 	)
 
@@ -138,7 +138,7 @@
 			implant.activate(text2num(params["amount"]))
 		if("reset_points")
 			if(inserted_id)
-				inserted_id.points = 0
+				inserted_id.mining_points = 0
 
 /obj/machinery/computer/prisoner/proc/ui_act_modal(action, list/params, datum/tgui/ui)
 	if(!ui_login_get().logged_in)

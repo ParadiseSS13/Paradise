@@ -327,7 +327,7 @@
 			desc += "\nOwned by [prisoner_id.registered_name]."
 			return TRUE //they are trying to lock it, so let them
 
-		if(prisoner_id.points >= prisoner_id.goal)
+		if(prisoner_id.mining_points >= prisoner_id.goal)
 			registered_ID_UID = null
 			desc = initial(desc)
 			return TRUE //completed goal? do the interaction

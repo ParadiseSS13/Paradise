@@ -21,7 +21,7 @@
 		if(!prisoner_id.goal)
 			continue //no goal? no shuttle
 
-		if(prisoner_id.points >= prisoner_id.goal)
+		if(prisoner_id.mining_points >= prisoner_id.goal)
 			return TRUE //completed goal? call it
 
 	return FALSE //if we didn't match above, no shuttle call
@@ -84,7 +84,7 @@
 	data["id_inserted"] = inserted_id != null
 	if(inserted_id)
 		data["id_name"] = inserted_id.registered_name
-		data["id_points"] = inserted_id.points
+		data["id_points"] = inserted_id.mining_points
 		data["id_goal"] = inserted_id.goal
 
 	if(check_auth())
@@ -147,7 +147,7 @@
 		return TRUE //Shuttle is emagged, let any ol' person through
 	if(!inserted_id?.goal)
 		return FALSE //ID not properly set up, abort!
-	return (istype(inserted_id) && inserted_id.points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
+	return (istype(inserted_id) && inserted_id.mining_points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/emag_act(mob/user)
 	if(!(emagged))
@@ -176,7 +176,7 @@
 				to_chat(user, "<span class='warning'>Error: No point quota assigned by security, exiting due to incorrect ID configuration.</span>")
 				return
 			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
-			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.points]</span>")
+			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
 			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
 			to_chat(user, "<span class='notice'>Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release.</span>")
 		else
