@@ -928,9 +928,12 @@
 	x_offset = 0
 	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
-	access_tcomms = TRUE
-	access_construction = TRUE
-	access_mining = TRUE
+	space_turfs_only = FALSE
+	access_admin_zone = TRUE	//can we park on Admin z_lvls?
+	access_mining = TRUE		//can we park on Lavaland z_lvl?
+	access_taipan = TRUE 		//can we park on Taipan z_lvl?
+	access_away = TRUE 		//can we park on Away_Mission z_lvl?
+	access_derelict = TRUE		//can we park in Unexplored Space?
 
 /obj/machinery/computer/shuttle/trade
 	name = "Freighter Console"

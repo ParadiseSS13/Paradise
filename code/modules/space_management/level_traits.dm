@@ -28,6 +28,9 @@
 /proc/level_boosts_signal(z)
 	return check_level_trait(z, BOOSTS_SIGNAL)
 
+/proc/is_explorable_space(z)
+	return check_level_trait(z, SPAWN_RUINS)
+
 /proc/is_taipan(z)
 	return check_level_trait(z, TAIPAN)
 

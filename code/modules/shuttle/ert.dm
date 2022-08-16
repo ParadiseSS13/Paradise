@@ -25,6 +25,4 @@
 	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
 	flags = NODECONSTRUCT
-	access_tcomms = FALSE
-	access_construction = FALSE
 	access_mining = FALSE
