@@ -6,6 +6,9 @@
 	tail = "sogtail"
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
+	male_scream_sound = 'sound/voice/scream_unathi_m.ogg'
+	female_scream_sound = 'sound/voice/scream_unathi_f.ogg'
+	death_sounds = list('sound/voice/unathi_deathsound.ogg')
 	primitive_form = /datum/species/monkey/unathi
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
