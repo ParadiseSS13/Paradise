@@ -344,6 +344,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -871,10 +872,6 @@
 /area/mine/laborcamp)
 "cc" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/bot/secbot/beepsky{
-	desc = "Powered by the tears and sweat of laborers.";
-	name = "Prison Ofitser"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
@@ -2785,7 +2782,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -2980,10 +2976,6 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "hj" = (
-/obj/machinery/flasher{
-	id = "gulagshuttleflasher";
-	pixel_x = 25
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -3111,6 +3103,12 @@
 /obj/structure/stone_tile/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"iB" = (
+/obj/machinery/mineral/labor_prisoner_shuttle_console{
+	pixel_y = 32
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
 "iC" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -4034,13 +4032,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
-"nT" = (
-/obj/machinery/mineral/stacking_machine/laborstacker{
-	input_dir = 2;
-	output_dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/siberia)
 "on" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4119,10 +4110,6 @@
 "rd" = (
 /obj/structure/closet/secure_closet/brig/gulag,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera{
-	c_tag = "Labor Camp Lockers";
-	network = list("Labor Camp")
-	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "rj" = (
@@ -4172,7 +4159,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "sv" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/brig/gulag,
@@ -4219,15 +4206,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"ta" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/mine/laborcamp/security)
 "tb" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -4335,6 +4313,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -4516,9 +4495,12 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/light/small{
-	dir = 8
+/obj/machinery/camera{
+	c_tag = "Labor Camp Lockers";
+	network = list("Labor Camp");
+	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Ab" = (
@@ -4596,6 +4578,10 @@
 /area/shuttle/mining)
 "CI" = (
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/bot/secbot/beepsky{
+	desc = "Powered by the tears and sweat of laborers.";
+	name = "Prison Ofitser"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -4901,9 +4887,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "KR" = (
-/obj/machinery/mineral/labor_claim_console{
-	machinedir = 1;
-	pixel_x = 30
+/obj/machinery/flasher{
+	id = "gulagshuttleflasher";
+	pixel_x = 25
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
@@ -5377,7 +5363,7 @@
 	},
 /area/mine/laborcamp)
 "YW" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8461,9 +8447,9 @@ aj
 ab
 NW
 BP
-hf
+Bg
 kI
-pq
+iB
 pq
 pq
 wP
@@ -8718,8 +8704,8 @@ aj
 aj
 NW
 Wx
-Bg
-nT
+hf
+kI
 KR
 hj
 pq
@@ -10516,7 +10502,7 @@ hv
 ZZ
 sP
 aQ
-ta
+OE
 OU
 PX
 op

@@ -10,12 +10,11 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const LaborClaimConsole = (props, context) => {
+export const PrisonerShuttleConsole = (props, context) => {
   return (
     <Window>
       <Window.Content>
         <ShuttleControlSection />
-        <MaterialValuesSection />
       </Window.Content>
     </Window>
   );
@@ -30,7 +29,6 @@ const ShuttleControlSection = (props, context) => {
     id_name,
     id_points,
     id_goal,
-    unclaimed_points,
   } = data;
   const bad_progress = emagged ? 0 : 1;
   const completionStatus = emagged
@@ -64,14 +62,6 @@ const ShuttleControlSection = (props, context) => {
             onClick={() => act('move_shuttle')}
           />
         </LabeledList.Item>
-        <LabeledList.Item label="Unclaimed points">
-          <Button
-            fluid
-            content={'Claim points (' + unclaimed_points + ')'}
-            disabled={!id_inserted || !unclaimed_points}
-            onClick={() => act('claim_points')}
-          />
-        </LabeledList.Item>
         <LabeledList.Item label="Inserted ID">
           <Button
             fluid
@@ -80,33 +70,6 @@ const ShuttleControlSection = (props, context) => {
           />
         </LabeledList.Item>
       </LabeledList>
-    </Section>
-  );
-};
-
-const MaterialValuesSection = (props, context) => {
-  const { data } = useBackend(context);
-  const { ores } = data;
-  return (
-    <Section title="Material values">
-      <Table>
-        <Table.Row header>
-          <Table.Cell>Material</Table.Cell>
-          <Table.Cell collapsing textAlign="right">
-            Value
-          </Table.Cell>
-        </Table.Row>
-        {ores.map((ore) => (
-          <Table.Row key={ore.ore}>
-            <Table.Cell>{toTitleCase(ore.ore)}</Table.Cell>
-            <Table.Cell collapsing textAlign="right">
-              <Box color="label" inline>
-                {ore.value}
-              </Box>
-            </Table.Cell>
-          </Table.Row>
-        ))}
-      </Table>
     </Section>
   );
 };
