@@ -119,7 +119,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
-
 	var/spider_role_summary = "UNDEFINED"
 	var/spider_placed = FALSE
 
