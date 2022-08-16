@@ -1562,16 +1562,24 @@
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
 	for(var/obj/item/I in L)
-		if(I.hidden_uplink)
+		if(I.hidden_uplink) //find items disguised as uplinks
 			return I.hidden_uplink
+		if(istype(I, /obj/item/implant/uplink)) //find uplink implants
+			return I
 	return
 
 /datum/mind/proc/take_uplink()
-	var/list/L = current.get_contents()
+	var/list/A = current.actions //remove uplink implant action button
+	for(var/datum/action/item_action/hands_free/activate/I in A)
+		if(istype(I.target, /obj/item/implant/uplink))
+			I.Remove(current)
+
+	var/list/L = current.get_contents() //set all hidden_uplink vars to null
 	for(var/obj/item/I in L)
 		if(!isnull(I.hidden_uplink))
 			I.hidden_uplink = null
-	var/obj/item/uplink/hidden/H = find_syndicate_uplink()
+
+	var/obj/item/uplink/hidden/H = find_syndicate_uplink() //remove all uplinks
 	if(H)
 		qdel(H)
 	return
