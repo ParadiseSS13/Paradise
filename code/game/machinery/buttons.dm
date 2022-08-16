@@ -58,8 +58,6 @@
 	qdel(src)
 
 /obj/machinery/driver_button/attack_hand(mob/user)
-	add_fingerprint(usr)
-
 	if(stat & (NOPOWER|BROKEN))
 		return
 
