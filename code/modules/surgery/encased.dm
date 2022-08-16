@@ -49,6 +49,7 @@
 
 	user.visible_message("<span class='notice'> [user] has cut [target]'s [affected.encased] open with \the [tool].</span>",		\
 	"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>")
+	affected.fracture()
 	affected.open = 2.5
 	return 1
 
@@ -200,6 +201,7 @@
 	var/self_msg = "<span class='notice'> You applied \the [tool] to [target]'s [affected.encased].</span>"
 	user.visible_message(msg, self_msg)
 
+	affected.mend_fracture()
 	affected.open = 2
 
 	return 1
