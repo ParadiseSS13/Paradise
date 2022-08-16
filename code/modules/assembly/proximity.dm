@@ -13,7 +13,7 @@
 	var/timing = FALSE
 	var/time = 10
 
-/obj/item/assembly/prox_sensor/Initialize()
+/obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor, _always_active = TRUE)
 

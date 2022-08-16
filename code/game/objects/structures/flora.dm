@@ -11,7 +11,7 @@
 	layer = 9
 
 //Adds the transparency component, exists to be overridden for different args.
-/obj/structure/flora/tree/Initialize()
+/obj/structure/flora/tree/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/largetransparency)
 
@@ -33,7 +33,7 @@
 	icon = 'icons/obj/flora/deadtrees.dmi'
 	icon_state = "tree_1"
 
-/obj/structure/flora/tree/dead/Initialize()
+/obj/structure/flora/tree/dead/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/largetransparency, 0, 1, 0, 0)
 
@@ -68,7 +68,7 @@
 	pixel_x = -32
 	icon = 'icons/obj/flora/jungletreesmall.dmi'
 
-/obj/structure/flora/tree/jungle/small/Initialize()
+/obj/structure/flora/tree/jungle/small/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/largetransparency)
 

@@ -13,7 +13,7 @@
 	discrete = 1
 	var/cleanspeed = 50 //slower than mop
 
-/obj/item/soap/Initialize()
+/obj/item/soap/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, src, 8 SECONDS, 100, 0, FALSE)
 

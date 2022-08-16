@@ -15,7 +15,7 @@
 	var/armed = FALSE
 	var/timepassed = 0
 
-/obj/item/caution/proximity_sign/Initialize()
+/obj/item/caution/proximity_sign/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 
