@@ -106,7 +106,7 @@
 		return TRUE
 
 	// Now we generate the list of where that signal should go to
-	tcm.zlevels = reachable_zlevels
+	tcm.zlevels = reachable_zlevels.Copy()
 	tcm.zlevels |= tcm.source_level
 
 	// Now check if they actually have pieces, if so, broadcast
