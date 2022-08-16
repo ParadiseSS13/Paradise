@@ -5,7 +5,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
-	req_access = list(ACCESS_ARMORY)
+	req_access = list(ACCESS_SECURITY)
 	circuit = /obj/item/circuitboard/prisoner
 
 	var/authenticated = FALSE // FALSE - No Access Denied, TRUE - Access allowed
@@ -21,13 +21,25 @@
  	GLOB.prisoncomputer_list -= src
  	return ..()
 
+/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user, params)
+	var/datum/ui_login/state = ui_login_get()
+	if(state.logged_in)
+		var/obj/item/card/id/prisoner/I = O
+		if(istype(I) && user.drop_item())
+			I.forceMove(src)
+			inserted_id = I
+			return
+	if(ui_login_attackby(O, user))
+		return
+	return ..()
+
 /obj/machinery/computer/prisoner/attack_ai(mob/user)
 	ui_interact(user)
 
 /obj/machinery/computer/prisoner/attack_hand(mob/user)
 	if(..())
 		return TRUE
-
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/computer/prisoner/proc/check_implant(obj/item/implant/I)
@@ -41,7 +53,7 @@
 /obj/machinery/computer/prisoner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "PrisonerImplantManager", name, 475, 500, master_ui, state)
+		ui = new(user, src, ui_key, "PrisonerImplantManager", name, 500, 500, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/prisoner/ui_data(mob/user)
@@ -106,12 +118,11 @@
 
 	var/mob/living/user = ui.user
 
-
-
 	switch(action)
 		if("id_card")
 			if(inserted_id)
-				inserted_id.forceMove(loc)
+				if(!usr.put_in_hands(inserted_id))
+					inserted_id.forceMove(get_turf(src))
 				inserted_id = null
 				return
 			var/obj/item/card/id/prisoner/I = user.get_active_hand()
@@ -128,7 +139,6 @@
 		if("reset_points")
 			if(inserted_id)
 				inserted_id.points = 0
-
 
 /obj/machinery/computer/prisoner/proc/ui_act_modal(action, list/params, datum/tgui/ui)
 	if(!ui_login_get().logged_in)

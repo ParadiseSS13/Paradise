@@ -128,6 +128,8 @@
 /obj/machinery/mineral/labor_claim_console/proc/check_auth()
 	if(emagged)
 		return TRUE //Shuttle is emagged, let any ol' person through
+	if(!inserted_id?.goal)
+		return FALSE //ID not properly set up, abort!
 	return (istype(inserted_id) && inserted_id.mining_points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
 
 /obj/machinery/mineral/labor_claim_console/emag_act(mob/user)
@@ -170,6 +172,9 @@
 	if(istype(I, /obj/item/card/id))
 		if(istype(I, /obj/item/card/id/prisoner))
 			var/obj/item/card/id/prisoner/prisoner_id = I
+			if(!prisoner_id.goal)
+				to_chat(user, "<span class='warning'>Error: No point quota assigned by security, exiting due to incorrect ID configuration.</span>")
+				return
 			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
 			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
 			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
