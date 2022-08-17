@@ -501,7 +501,7 @@
 						P.pixel_x = rand(-7, 7) // random position
 						P.pixel_y = rand(-7, 7)
 						reagents.trans_to(P, amount_per_patch)
-						P.icon_state = length(patch_styles) && patch_styles[patchsprite] || "patch"
+						P.icon_state = length(patch_styles) && patch_styles[patchsprite] || "bandaid_med"
 						if(is_medical_patch)
 							P.instant_application = TRUE
 						// Load the patches in the bottle if there's one loaded
