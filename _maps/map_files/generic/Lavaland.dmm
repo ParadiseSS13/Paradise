@@ -87,7 +87,9 @@
 	dir = 4;
 	network = list("Labor Camp")
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "at" = (
@@ -96,7 +98,9 @@
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "au" = (
@@ -131,12 +135,8 @@
 /area/shuttle/siberia)
 "ax" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "ay" = (
@@ -146,9 +146,6 @@
 	dir = 8
 	},
 /obj/structure/curtain/open/shower,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "az" = (
@@ -161,7 +158,7 @@
 	name = "custom placement";
 	pixel_y = -22
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
 /obj/machinery/camera{
@@ -835,7 +832,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -3047,7 +3044,6 @@
 /area/mine/laborcamp)
 "ic" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/cigbutt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4180,9 +4176,6 @@
 /obj/structure/table,
 /obj/item/storage/firstaid/ancient,
 /obj/item/stack/medical/bruise_pack/advanced,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -4199,10 +4192,10 @@
 "sR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
+	dir = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -4295,10 +4288,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "uL" = (
+/obj/effect/spawner/window/reinforced,
 /obj/machinery/flasher{
 	id = "labor"
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "vf" = (
@@ -4416,7 +4409,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -4448,6 +4440,7 @@
 "ym" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -4553,6 +4546,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Ca" = (
+/obj/machinery/vending/cola/free,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/mine/laborcamp)
 "Cf" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
@@ -4630,8 +4633,8 @@
 /area/mine/laborcamp)
 "DX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -4775,10 +4778,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Il" = (
-/obj/machinery/vending/cola/free,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/item/trash/sosjerky,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "Iv" = (
@@ -4849,7 +4852,7 @@
 /area/mine/laborcamp)
 "JV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/sustenance,
+/obj/item/cigbutt,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "JX" = (
@@ -4979,9 +4982,6 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "NP" = (
@@ -5109,13 +5109,13 @@
 /obj/item/mining_scanner,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/breath,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
 /obj/item/clothing/head/beanie/orange,
 /obj/item/clothing/gloves/fingerless,
 /obj/item/clothing/shoes/workboots,
 /obj/item/clothing/suit/storage/hazardvest,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -5333,6 +5333,16 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Xq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/white,
+/area/mine/laborcamp)
 "Xr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -5400,6 +5410,13 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"Zv" = (
+/obj/machinery/vending/sustenance,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
 /area/mine/laborcamp)
 "ZZ" = (
 /obj/effect/decal/cleanable/fungus,
@@ -9727,7 +9744,7 @@ ap
 ap
 ap
 qT
-aj
+qT
 Yb
 Ov
 OE
@@ -9979,12 +9996,12 @@ aj
 aj
 aj
 aD
-tZ
+aq
 vw
 zo
 Kl
-qT
-qT
+Zv
+Ca
 PX
 Ab
 EF
@@ -9995,8 +10012,8 @@ PK
 JZ
 hQ
 aq
-aj
 Lz
+aj
 aj
 aj
 aj
@@ -10252,8 +10269,8 @@ JZ
 YI
 aJ
 aq
-aq
 Ni
+aq
 aq
 aj
 aj
@@ -10493,7 +10510,7 @@ an
 an
 aj
 aj
-qT
+tZ
 vI
 ic
 ym
@@ -11266,7 +11283,7 @@ qT
 qT
 GD
 YY
-KE
+Xq
 ax
 aB
 Xd
