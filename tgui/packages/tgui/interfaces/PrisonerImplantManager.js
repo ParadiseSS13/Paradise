@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { Button, Section, Box, Flex } from '../components';
-import { LabeledList, LabeledListDivider, LabeledListItem } from '../components/LabeledList';
+import { LabeledList, LabeledListItem } from '../components/LabeledList';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
