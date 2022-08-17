@@ -419,6 +419,13 @@
 	max_combined_w_class = 30
 	slowdown = 1
 
+/obj/item/storage/backpack/duffel/durathread
+	name = "durathread duffelbag"
+	desc = "A large durathread duffelbag"
+	icon_state = "duffel-durathread"
+	item_state = "duffel-durathread"
+	slowdown = 0
+
 /obj/item/storage/backpack/duffel/syndie
 	name = "suspicious looking duffelbag"
 	desc = "A large duffelbag for holding extra tactical supplies."
