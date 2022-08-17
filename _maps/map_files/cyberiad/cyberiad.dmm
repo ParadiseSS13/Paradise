@@ -1896,31 +1896,23 @@
 	},
 /area/security/securearmory)
 "aeS" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Lethal bullets"
-	},
-/obj/item/ammo_box/c9mm,
-/obj/item/ammo_box/c9mm{
+/obj/item/gun/energy/gun/advtaser{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/ammo_box/magazine/enforcer/lethal{
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/ammo_box/magazine/enforcer/lethal,
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = -6;
-	pixel_y = 6
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Tasers";
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -88538,23 +88530,32 @@
 	},
 /area/shuttle/escape)
 "eeS" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Lethal bullets"
 	},
-/obj/item/gun/energy/gun/advtaser{
+/obj/item/ammo_box/c9mm,
+/obj/item/ammo_box/c9mm{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/energy/gun/advtaser,
-/obj/item/gun/energy/gun/advtaser{
+/obj/item/ammo_box/magazine/enforcer/lethal{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/window/reinforced{
-	dir = 4
+/obj/item/ammo_box/magazine/enforcer/lethal,
+/obj/item/ammo_box/magazine/enforcer/lethal{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/enforcer/lethal{
+	pixel_x = -6;
+	pixel_y = 6
 	},
 /obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
