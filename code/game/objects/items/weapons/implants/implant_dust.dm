@@ -10,7 +10,7 @@
 	implant_data = /datum/implant_fluff/dust
 	implant_state = "implant-nanotrasen"
 
-/obj/item/implant/dust/death_trigger(emote, mob/source, force)
+/obj/item/implant/dust/death_trigger(mob/source, force)
 	activate("death")
 
 /obj/item/implant/dust/activate(cause)

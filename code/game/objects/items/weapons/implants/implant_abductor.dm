@@ -53,8 +53,8 @@
 	name = "implanter (abductor)"
 
 /obj/item/implanter/abductor/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/abductor(src)
-	..()
 
 /obj/item/implantcase/abductor
 	name = "implant case - 'abductor'"

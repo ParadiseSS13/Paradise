@@ -105,7 +105,7 @@
 	name = "Syndicate Agent Uplink Implant"
 	life = "Unknown, no collected sample has been active long enough to determine lifespan"
 	notes = "An intricate piece of machinery that interfaces directly with the users brain and which inner workings are a closely guarded syndicate secret."
-	function = "Allows the user to access a syndicate uplink connected contained within their body, invisible to the outside but provides the same functionality as a regular uplink."
+	function = "Allows the user to access a syndicate uplink connected contained within their body, invisible from the outside but provides the same functionality as a regular uplink."
 
 /datum/implant_fluff/sad_trombone
 	name = "BioTech Solution Comedy Implant"
