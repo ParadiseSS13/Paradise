@@ -27,7 +27,8 @@
 							/obj/effect/proc_holder/spell/vampire/shadow_snare = 250,
 							/obj/effect/proc_holder/spell/vampire/soul_anchor = 250,
 							/obj/effect/proc_holder/spell/vampire/dark_passage = 400,
-							/obj/effect/proc_holder/spell/vampire/vamp_extinguish = 600)
+							/obj/effect/proc_holder/spell/vampire/vamp_extinguish = 600,
+							/obj/effect/proc_holder/spell/vampire/shadow_boxing = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
 								/datum/vampire_passive/xray)

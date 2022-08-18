@@ -148,23 +148,26 @@
 	user.forceMove(end_turf)
 
 	if(end_turf.z == start_turf.z)
-		var/x_difference = end_turf.x - start_turf.x
-		var/y_difference = end_turf.y - start_turf.y
-		var/distance = sqrt(x_difference ** 2 + y_difference ** 2) // pythag baby
-
-		var/obj/effect/immortality_talisman/effect = new(start_turf)
-		effect.dir = user.dir
-		effect.can_destroy = TRUE
-
-		var/animation_time = distance
-		animate(effect, time = animation_time, alpha = 0, pixel_x = x_difference * 32, pixel_y = y_difference * 32) //each turf is 32 pixels long
-		QDEL_IN(effect, animation_time)
+		shadow_to_animation(start_turf, end_turf, user)
 
 	var/datum/spell_handler/vampire/V = custom_handler
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/blood_cost = V.calculate_blood_cost(vampire)
 	vampire.bloodusable -= blood_cost
 	should_recharge_after_cast = FALSE
+
+/proc/shadow_to_animation(turf/start_turf, turf/end_turf, mob/user)
+	var/x_difference = end_turf.x - start_turf.x
+	var/y_difference = end_turf.y - start_turf.y
+	var/distance = sqrt(x_difference ** 2 + y_difference ** 2) // pythag baby
+
+	var/obj/effect/immortality_talisman/effect = new(start_turf)
+	effect.dir = user.dir
+	effect.can_destroy = TRUE
+
+	var/animation_time = distance
+	animate(effect, time = animation_time, alpha = 0, pixel_x = x_difference * 32, pixel_y = y_difference * 32) //each turf is 32 pixels long
+	QDEL_IN(effect, animation_time)
 
 // an indicator that shows where the vampire will land
 /obj/structure/shadow_anchor
@@ -224,6 +227,25 @@
 		T.extinguish_light()
 		for(var/atom/A in T.contents)
 			A.extinguish_light()
+
+/obj/effect/proc_holder/spell/vampire/shadow_boxing
+	name = "Shadow Boxing (30)"
+	desc = "Target someone to have your shadow beat them up. you must stay within 2 tiles for this to work."
+	gain_desc = "You have gained the ability to make your shadow fight for you."
+	base_cooldown = 30 SECONDS
+	required_blood = 30
+	var/target_UID
+
+/obj/effect/proc_holder/spell/vampire/shadow_boxing/create_new_targeting()
+	var/datum/spell_targeting/click/C = new
+	C.allowed_type = /mob/living
+	C.range = 2
+	C.try_auto_target = FALSE
+	return C
+
+/obj/effect/proc_holder/spell/vampire/shadow_boxing/cast(list/targets, mob/user)
+	var/mob/living/target = targets[1]
+	target.apply_status_effect(STATUS_EFFECT_SHADOW_BOXING, user)
 
 /obj/effect/proc_holder/spell/vampire/self/eternal_darkness
 	name = "Eternal Darkness"
