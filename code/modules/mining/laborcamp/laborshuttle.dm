@@ -35,9 +35,7 @@
 	icon_state = "console"
 	density = FALSE
 	var/machinedir = SOUTH
-	var/obj/item/card/id/prisoner/inserted_id
-	var/obj/machinery/door/airlock/release_door
-	var/door_tag = "prisonshuttle"
+	var/inserted_id_uid
 	var/obj/item/radio/intercom/announcer
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/Initialize()
@@ -47,25 +45,23 @@
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/Destroy()
 	QDEL_NULL(announcer)
-	release_door = null
-	if(inserted_id)
-		inserted_id.forceMove(get_turf(src))
-		inserted_id = null
 	return ..()
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id/prisoner))
-		if(!inserted_id)
-			if(!user.unEquip(I))
-				return
-			I.forceMove(src)
-			inserted_id = I
-			to_chat(user, "<span class='notice'>You insert [I].</span>")
-			SStgui.update_uis(src)
-			return
-		else
+		if(inserted_id_uid)
 			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
+			return
+
+		if(!user.unEquip(I))
+			return
+
+		I.forceMove(src)
+		inserted_id_uid = I.UID()
+		to_chat(user, "<span class='notice'>You insert [I].</span>")
+		SStgui.update_uis(src)
 		return
+
 	return ..()
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/attack_hand(mob/user)
@@ -83,6 +79,7 @@
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/ui_data(mob/user)
 	var/list/data = list()
+	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
 
 	data["emagged"] = emagged
 	data["id_inserted"] = !isnull(inserted_id)
@@ -98,38 +95,42 @@
 /obj/machinery/mineral/labor_prisoner_shuttle_console/ui_act(action, params)
 	if(..())
 		return
-
+	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
 	switch(action)
+
 		if("handle_id")
 			if(inserted_id)
 				if(!usr.put_in_hands(inserted_id))
 					inserted_id.forceMove(get_turf(src))
-				inserted_id = null
-			else
-				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/card/id/prisoner))
-					if(!usr.unEquip(I))
-						return
-					I.forceMove(src)
-					inserted_id = I
+				inserted_id_uid = null
+				return TRUE
+
+			var/obj/item/I = usr.get_active_hand()
+			if(istype(I, /obj/item/card/id/prisoner))
+				if(!usr.unEquip(I))
+					return
+				I.forceMove(src)
+				inserted_id_uid = I.UID()
+
 		if("move_shuttle")
 			if(!alone_in_area(get_area(src), usr))
 				to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
-			else
-				switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, usr))
-					if(1)
-						to_chat(usr, "<span class='notice'>Shuttle not found.</span>")
-					if(2)
-						to_chat(usr, "<span class='notice'>Shuttle already at station.</span>")
-					if(3)
-						to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
-					else
-						if(!emagged)
-							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
-							announcer.autosay(message, "Labor Camp Controller", "Security")
-							sec_record_release(usr)
-						to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
-						usr.create_log(MISC_LOG, "used [src] to call the laborcamp shuttle")
+				return TRUE
+
+			switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, usr))
+				if(1)
+					to_chat(usr, "<span class='notice'>Shuttle not found.</span>")
+				if(2)
+					to_chat(usr, "<span class='notice'>Shuttle already at station.</span>")
+				if(3)
+					to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
+				else
+					if(!emagged)
+						var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
+						announcer.autosay(message, "Labor Camp Controller", "Security")
+						sec_record_release(usr)
+					to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+					usr.create_log(MISC_LOG, "used [src] to call the laborcamp shuttle")
 
 	return TRUE
 
@@ -145,6 +146,7 @@
 /obj/machinery/mineral/labor_prisoner_shuttle_console/proc/check_auth()
 	if(emagged)
 		return TRUE //Shuttle is emagged, let any ol' person through
+	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
 	if(!inserted_id?.goal)
 		return FALSE //ID not properly set up or not present, abort!
 	return (inserted_id.mining_points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
@@ -169,17 +171,17 @@
 	user.examinate(src)
 
 /obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/card/id/prisoner))
+		var/obj/item/card/id/prisoner/prisoner_id = I
+		if(!prisoner_id.goal)
+			to_chat(user, "<span class='warning'>Error: No point quota assigned by security, exiting.</span>")
+			return
+		to_chat(user, "<span class='notice'><b>ID: [prisoner_id.registered_name]</b></span>")
+		to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
+		to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
+		to_chat(user, "<span class='notice'>Collect points by bringing ore to the labor camp ore redemption machine. Reach your quota to earn your release.</span>")
+		return
 	if(istype(I, /obj/item/card/id))
-		if(istype(I, /obj/item/card/id/prisoner))
-			var/obj/item/card/id/prisoner/prisoner_id = I
-			if(!prisoner_id.goal)
-				to_chat(user, "<span class='warning'>Error: No point quota assigned by security, exiting.</span>")
-				return
-			to_chat(user, "<span class='notice'><b>ID: [prisoner_id.registered_name]</b></span>")
-			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
-			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
-			to_chat(user, "<span class='notice'>Collect points by bringing ore to the labor camp ore redemption machine. Reach your quota to earn your release.</span>")
-		else
-			to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
+		to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
 		return
 	return ..()
