@@ -510,9 +510,9 @@
 		update_icon(UPDATE_ICON_STATE)
 
 /*
-user = the person using the defib
-origin = person being revived
-affecting = person being shocked with excess energy from the defib (not neccessarily the defib user)
+ * user = the person using the defib
+ * origin = person being revived
+ * affecting = person being shocked with excess energy from the defib
 */
 /obj/item/twohanded/shockpaddles/proc/excess_shock(mob/user, mob/living/carbon/human/origin, mob/living/carbon/human/affecting)
 	if(user == affecting)
