@@ -150,7 +150,7 @@
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
-	say("Pray.")
+	say("Pray")
 	SLEEP_CHECK_DEATH(0.75 SECONDS)// no point blank instant shotgun.
 	shoot_projectile(target_turf, angle_to_target, FALSE, TRUE)
 	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 0.2 SECONDS)
