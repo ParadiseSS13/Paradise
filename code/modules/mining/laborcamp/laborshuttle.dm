@@ -13,8 +13,7 @@
 	circuit = /obj/item/circuitboard/labor_shuttle/one_way
 
 /obj/machinery/computer/shuttle/labor/one_way/allowed(mob/M)
-	. = ..()
-	if(.)
+	if(..())
 		return TRUE
 
 	for(var/obj/item/card/id/prisoner/prisoner_id in M)
@@ -97,7 +96,6 @@
 		return
 	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
 	switch(action)
-
 		if("handle_id")
 			if(inserted_id)
 				if(!ui.user.put_in_hands(inserted_id))

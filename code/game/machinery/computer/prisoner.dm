@@ -179,6 +179,6 @@
 					if(isnull(text2num(answer)))
 						return
 					var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
-					inserted_id.goal = max(text2num(answer), 0)
+					inserted_id?.goal = max(text2num(answer), 0)
 
 	return FALSE

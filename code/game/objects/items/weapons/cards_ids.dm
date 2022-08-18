@@ -658,8 +658,10 @@
 	registered_name = "Scum"
 	var/goal = 0 //How far from freedom?
 
-/obj/item/card/id/prisoner/attack_self(mob/user as mob)
-	to_chat(usr, "You have accumulated [mining_points] out of the [goal] points you need for freedom.")
+/obj/item/card/id/prisoner/examine(mob/user)
+	. = ..()
+	if(goal)
+		. += "\nYou have accumulated [mining_points] out of the [goal] points assigned to gain freedom."
 
 /obj/item/card/id/prisoner/one
 	name = "Prisoner #13-001"
