@@ -204,16 +204,16 @@
 
 /datum/mind/proc/memory_edit_revolution(mob/living/carbon/human/H)
 	. = _memory_edit_header("revolution")
-	if(ismindshielded(H))
-		. += "<b>NO</b>|headrev|rev"
-	else if(src in SSticker.mode.head_revolutionaries)
+	if(src in SSticker.mode.head_revolutionaries)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='?src=[UID()];revolution=rev'>rev</a>"
 
-		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives traitor uplink)."
+		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives security HUD and spray can)."
 		if(objectives.len==0)
 			. += "<br>Objectives are empty! <a href='?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
 	else if(src in SSticker.mode.revolutionaries)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
+	else if(ismindshielded(H))
+		. += "<b>NO</b>|headrev|rev"
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<a href='?src=[UID()];revolution=rev'>rev</a>"
 
@@ -776,13 +776,7 @@
 
 				to_chat(H, "<span class='warning'><Font size =3><B>You somehow have become the recepient of a mindshield transplant, and it just activated!</B></FONT></span>")
 				if(src in SSticker.mode.revolutionaries)
-					special_role = null
-					SSticker.mode.revolutionaries -= src
-					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
-				if(src in SSticker.mode.head_revolutionaries)
-					special_role = null
-					SSticker.mode.head_revolutionaries -=src
-					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
+					SSticker.mode.remove_revolutionary(src)
 			if("ertadd")
 				var/obj/item/implant/mindshield/ert/L = new/obj/item/implant/mindshield/ert(H)
 				L.implant(H)
@@ -792,30 +786,16 @@
 
 				to_chat(H, "<span class='warning'><Font size =3><B>You somehow have become the recepient of a ert mindshield transplant, and it just activated!</B></FONT></span>")
 				if(src in SSticker.mode.revolutionaries)
-					special_role = null
-					SSticker.mode.revolutionaries -= src
-					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the ert mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
-				if(src in SSticker.mode.head_revolutionaries)
-					special_role = null
-					SSticker.mode.head_revolutionaries -=src
-					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the ert mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
+					SSticker.mode.remove_revolutionary(src)
 
 	else if(href_list["revolution"])
 
 		switch(href_list["revolution"])
 			if("clear")
 				if(src in SSticker.mode.revolutionaries)
-					SSticker.mode.revolutionaries -= src
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary!</B></FONT></span>")
-					SSticker.mode.update_rev_icons_removed(src)
-					special_role = null
+					SSticker.mode.remove_revolutionary(src)
 				if(src in SSticker.mode.head_revolutionaries)
-					SSticker.mode.head_revolutionaries -= src
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a head revolutionary!</B></FONT></span>")
-					SSticker.mode.update_rev_icons_removed(src)
-					special_role = null
-				for(var/datum/action/innate/revolution_recruitment/C in current.actions)
-					qdel(C)
+					SSticker.mode.remove_revolutionary(src)
 				log_admin("[key_name(usr)] has de-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-rev'd [key_name_admin(current)]")
 
@@ -860,39 +840,8 @@
 				log_admin("[key_name(usr)] has automatically forged revolutionary objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged revolutionary objectives for [key_name_admin(current)]")
 
-			if("flash")
-				if(!SSticker.mode.equip_revolutionary(current))
-					to_chat(usr, "<span class='warning'>Spawning flash failed!</span>")
-				log_admin("[key_name(usr)] has given [key_name(current)] a flash")
-				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a flash")
-
-			if("takeflash")
-				var/list/L = current.get_contents()
-				var/obj/item/flash/flash = locate() in L
-				if(!flash)
-					to_chat(usr, "<span class='warning'>Deleting flash failed!</span>")
-				qdel(flash)
-				log_admin("[key_name(usr)] has taken [key_name(current)]'s flash")
-				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s flash")
-
-			if("repairflash")
-				var/list/L = current.get_contents()
-				var/obj/item/flash/flash = locate() in L
-				if(!flash)
-					to_chat(usr, "<span class='warning'>Repairing flash failed!</span>")
-				else
-					flash.broken = 0
-					log_admin("[key_name(usr)] has repaired [key_name(current)]'s flash")
-					message_admins("[key_name_admin(usr)] has repaired [key_name_admin(current)]'s flash")
-
 			if("reequip")
-				var/list/L = current.get_contents()
-				var/obj/item/flash/flash = locate() in L
-				qdel(flash)
-				take_uplink()
 				var/fail = 0
-				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
-				fail |= !T.equip_traitor(src)
 				fail |= !SSticker.mode.equip_revolutionary(current)
 				if(fail)
 					to_chat(usr, "<span class='warning'>Reequipping revolutionary goes wrong!</span>")

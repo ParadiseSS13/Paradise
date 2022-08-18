@@ -43,7 +43,7 @@
 
 /datum/action/innate/revolution_recruitment/proc/choose_targets(mob/user = usr)
 	var/list/validtargets = list()
-	for(var/mob/living/M in view(user.client.view, get_turf(user)))
+	for(var/mob/living/carbon/human/M in view(user.client.view, get_turf(user)))
 		if(M && M.mind && M.stat == CONSCIOUS)
 			if(M == user)
 				continue
@@ -52,7 +52,7 @@
 			validtargets += M
 	if(!validtargets.len)
 		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
-	var/mob/living/target = input("Choose a target for recruitment.", "Targeting") as null|mob in validtargets
+	var/mob/living/carbon/human/target = input("Choose a target for recruitment.", "Targeting") as null|mob in validtargets
 	return target
 
 /datum/action/innate/revolution_recruitment/Activate()
@@ -63,12 +63,12 @@
 		to_chat(usr, "<span class='danger'>You must wait between attempts.")
 		return
 	usr.mind.rev_cooldown = world.time + 50
-	var/mob/living/recruit = choose_targets()
+	var/mob/living/carbon/human/recruit = choose_targets()
 	if(!recruit)
 		return
 	log_admin("[key_name(usr)] attempted recruitment [key_name(recruit)] into the revolution.", usr)
 	to_chat(usr, "<span class='info'><b>You are trying to recruit [recruit]: </b></span>")
-	if(ismindshielded(recruit))
+	if(ismindshielded(recruit) || (recruit.mind in SSticker.mode.get_living_heads()))
 		to_chat(recruit, "<span class='danger'><FONT size = 4>You were asked to join the revolution, but for reasons you did not know, you refused.")
 		to_chat(usr, "<span class='danger'>\The [recruit] does not support the revolution!")
 		return
@@ -240,11 +240,6 @@
 //Deals with converting players to the revolution//
 ///////////////////////////////////////////////////
 /datum/game_mode/proc/add_revolutionary(datum/mind/rev_mind)
-	if(rev_mind.assigned_role in GLOB.command_positions)
-		return 0
-	var/mob/living/carbon/human/H = rev_mind.current//Check to see if the potential rev is implanted
-	if(ismindshielded(H))
-		return 0
 	if((rev_mind in revolutionaries) || (rev_mind in head_revolutionaries))
 		return 0
 	revolutionaries += rev_mind
@@ -259,9 +254,9 @@
 //////////////////////////////////////////////////////////////////////////////
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.
 //////////////////////////////////////////////////////////////////////////////
-/datum/game_mode/proc/remove_revolutionary(datum/mind/rev_mind , beingborged)
+/datum/game_mode/proc/remove_revolutionary(datum/mind/rev_mind, beingborged)
 	var/remove_head = 0
-	if(beingborged && (rev_mind in head_revolutionaries))
+	if(rev_mind in head_revolutionaries)
 		head_revolutionaries -= rev_mind
 		remove_head = 1
 
