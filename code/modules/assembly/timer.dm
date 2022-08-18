@@ -14,10 +14,12 @@
 	var/repeat = FALSE
 	var/set_time = 10
 
-/obj/item/assembly/timer/describe()
+/obj/item/assembly/timer/examine(mob/user)
+	. = ..()
 	if(timing)
-		return "The timer is counting down from [time]!"
-	return "The timer is set for [time] seconds."
+		. += "The timer is counting down from [time]!"
+	else
+		. += "The timer is set for [time] seconds."
 
 /obj/item/assembly/timer/activate()
 	if(!..())

@@ -53090,7 +53090,7 @@
 /area/toxins/hallway)
 "cBC" = (
 /obj/structure/table,
-/obj/item/radio/electropack,
+/obj/item/electropack,
 /obj/item/assembly/signaler,
 /obj/structure/cable{
 	d1 = 4;

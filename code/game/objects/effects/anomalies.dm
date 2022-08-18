@@ -40,7 +40,7 @@
 	var/frequency = rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ)
 	if(ISMULTIPLE(frequency, 2))//signaller frequencies are always uneven!
 		frequency++
-	aSignal.set_frequency(frequency)
+	aSignal.frequency = frequency
 
 	if(new_lifespan)
 		lifespan = new_lifespan

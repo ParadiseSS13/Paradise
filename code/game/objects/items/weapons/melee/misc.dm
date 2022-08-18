@@ -118,6 +118,7 @@
 	force = 25
 	armour_penetration_flat = 50
 	block_chance = 50
+	sharp = TRUE
 	///enchantment holder, gives it unique on hit effects.
 	var/datum/enchantment/enchant = null
 	///the cooldown and power of enchantments are multiplied by this var when its applied
