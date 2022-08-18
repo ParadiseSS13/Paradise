@@ -9,7 +9,7 @@
 	circuit = /obj/item/circuitboard/prisoner
 
 	var/authenticated = FALSE // FALSE - No Access Denied, TRUE - Access allowed
-	var/obj/item/card/id/prisoner/inserted_id
+	var/inserted_id_uid
 
 	light_color = LIGHT_COLOR_DARKRED
 
@@ -27,7 +27,7 @@
 		var/obj/item/card/id/prisoner/I = O
 		if(istype(I) && user.drop_item())
 			I.forceMove(src)
-			inserted_id = I
+			inserted_id_uid = I.UID()
 			return
 	if(ui_login_attackby(O, user))
 		return
@@ -59,6 +59,7 @@
 /obj/machinery/computer/prisoner/ui_data(mob/user)
 	var/list/data = list()
 	ui_login_data(data, user)
+	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
 	data["prisonerInfo"] = list(
 		"name" = inserted_id?.name,
 		"points" = inserted_id?.mining_points,
@@ -109,7 +110,7 @@
 	if(..())
 		return
 
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 
 	if(ui_act_modal(action, params, ui))
 		return
@@ -117,18 +118,18 @@
 		return
 
 	var/mob/living/user = ui.user
-
+	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
 	switch(action)
 		if("id_card")
 			if(inserted_id)
-				if(!usr.put_in_hands(inserted_id))
+				if(!ui.user.put_in_hands(inserted_id))
 					inserted_id.forceMove(get_turf(src))
-				inserted_id = null
+				inserted_id_uid = null
 				return
 			var/obj/item/card/id/prisoner/I = user.get_active_hand()
 			if(istype(I) && user.drop_item())
 				I.forceMove(src)
-				inserted_id = I
+				inserted_id_uid = I.UID()
 			else
 				to_chat(user, "<span class='warning'>No valid ID.</span>")
 		if("inject")
@@ -147,6 +148,7 @@
 	var/id = params["id"]
 	var/mob/living/user = ui.user
 	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
+
 	switch(ui_modal_act(src, action, params))
 		if(UI_MODAL_OPEN)
 			switch(id)
@@ -156,8 +158,7 @@
 					))
 				if("set_points")
 					ui_modal_input(src, id, "Please enter the new point goal:", null, arguments)
-				else
-					return FALSE
+
 		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
@@ -173,11 +174,11 @@
 						var/mob/living/carbon/implantee = implant.imp_in
 						var/warning = copytext(sanitize(text2num(answer)), 1, MAX_MESSAGE_LEN)
 						to_chat(implantee, "<span class='boldnotice'>Your skull vibrates violently as a loud announcement is broadcasted to you: '[warning]'</span>")
+
 				if("set_points")
 					if(isnull(text2num(answer)))
 						return
+					var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
 					inserted_id.goal = max(text2num(answer), 0)
-				else
-					return FALSE
-		else
-			return FALSE
+
+	return FALSE

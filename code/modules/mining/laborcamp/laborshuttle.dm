@@ -92,7 +92,7 @@
 
 	return data
 
-/obj/machinery/mineral/labor_prisoner_shuttle_console/ui_act(action, params)
+/obj/machinery/mineral/labor_prisoner_shuttle_console/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
@@ -100,37 +100,37 @@
 
 		if("handle_id")
 			if(inserted_id)
-				if(!usr.put_in_hands(inserted_id))
+				if(!ui.user.put_in_hands(inserted_id))
 					inserted_id.forceMove(get_turf(src))
 				inserted_id_uid = null
 				return TRUE
 
-			var/obj/item/I = usr.get_active_hand()
+			var/obj/item/I = ui.user.get_active_hand()
 			if(istype(I, /obj/item/card/id/prisoner))
-				if(!usr.unEquip(I))
+				if(!ui.user.unEquip(I))
 					return
 				I.forceMove(src)
 				inserted_id_uid = I.UID()
 
 		if("move_shuttle")
-			if(!alone_in_area(get_area(src), usr))
-				to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
+			if(!alone_in_area(get_area(src), ui.user))
+				to_chat(ui.user, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
 				return TRUE
 
-			switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, usr))
+			switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, ui.user))
 				if(1)
-					to_chat(usr, "<span class='notice'>Shuttle not found.</span>")
+					to_chat(ui.user, "<span class='notice'>Shuttle not found.</span>")
 				if(2)
-					to_chat(usr, "<span class='notice'>Shuttle already at station.</span>")
+					to_chat(ui.user, "<span class='notice'>Shuttle already at station.</span>")
 				if(3)
-					to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
+					to_chat(ui.user, "<span class='notice'>No permission to dock could be granted.</span>")
 				else
 					if(!emagged)
 						var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
 						announcer.autosay(message, "Labor Camp Controller", "Security")
-						sec_record_release(usr)
-					to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
-					usr.create_log(MISC_LOG, "used [src] to call the laborcamp shuttle")
+						sec_record_release(ui.user)
+					to_chat(ui.user, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+					ui.user.create_log(MISC_LOG, "used [src] to call the laborcamp shuttle")
 
 	return TRUE
 
