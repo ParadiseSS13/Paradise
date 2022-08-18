@@ -46,8 +46,12 @@
 	announcer.config(list("Security" = 0))
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/Destroy()
-	. = ..()
 	QDEL_NULL(announcer)
+	release_door = null
+	if(inserted_id)
+		inserted_id.forceMove(get_turf(src))
+		inserted_id = null
+	return ..()
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id/prisoner))
@@ -65,6 +69,7 @@
 	return ..()
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/attack_ghost(mob/user)
@@ -78,19 +83,15 @@
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/ui_data(mob/user)
 	var/list/data = list()
-	var/can_go_home = FALSE
 
 	data["emagged"] = emagged
-	data["id_inserted"] = inserted_id != null
+	data["id_inserted"] = !isnull(inserted_id)
 	if(inserted_id)
 		data["id_name"] = inserted_id.registered_name
 		data["id_points"] = inserted_id.mining_points
 		data["id_goal"] = inserted_id.goal
 
-	if(check_auth())
-		can_go_home = TRUE
-
-	data["can_go_home"] = can_go_home
+	data["can_go_home"] = check_auth()
 
 	return data
 
@@ -132,25 +133,24 @@
 
 	return TRUE
 
-/obj/machinery/mineral/labor_prisoner_shuttle_console/proc/sec_record_release(mob/to_be_released)
-	var/mob/living/carbon/human/target = to_be_released
-	var/target_name = target.get_visible_name(TRUE)
+/obj/machinery/mineral/labor_prisoner_shuttle_console/proc/sec_record_release(mob/living/carbon/human/target)
+	var/target_name = target?.get_visible_name(TRUE)
 	if(!target_name || target_name == "Unknown")
 		return //Do you have the slightest idea how little that narrows it down?
 	var/datum/data/record/R = find_record("name", target_name, GLOB.data_core.security)
 	if(!(R?.fields["criminal"] in list(SEC_RECORD_STATUS_INCARCERATED)))
 		return //stops cheese
-	set_criminal_status(to_be_released, R, SEC_RECORD_STATUS_RELEASED, "Automatically released upon reaching labor points quota", "Labor Camp Controller", user_name = "Automated System")
+	set_criminal_status(target, R, SEC_RECORD_STATUS_RELEASED, "Automatically released upon reaching labor points quota", "Labor Camp Controller", user_name = "Automated System")
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/proc/check_auth()
 	if(emagged)
 		return TRUE //Shuttle is emagged, let any ol' person through
 	if(!inserted_id?.goal)
-		return FALSE //ID not properly set up, abort!
-	return (istype(inserted_id) && inserted_id.mining_points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
+		return FALSE //ID not properly set up or not present, abort!
+	return (inserted_id.mining_points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/emag_act(mob/user)
-	if(!(emagged))
+	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 
@@ -173,12 +173,12 @@
 		if(istype(I, /obj/item/card/id/prisoner))
 			var/obj/item/card/id/prisoner/prisoner_id = I
 			if(!prisoner_id.goal)
-				to_chat(user, "<span class='warning'>Error: No point quota assigned by security, exiting due to incorrect ID configuration.</span>")
+				to_chat(user, "<span class='warning'>Error: No point quota assigned by security, exiting.</span>")
 				return
-			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
+			to_chat(user, "<span class='notice'><b>ID: [prisoner_id.registered_name]</b></span>")
 			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
 			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
-			to_chat(user, "<span class='notice'>Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release.</span>")
+			to_chat(user, "<span class='notice'>Collect points by bringing ore to the labor camp ore redemption machine. Reach your quota to earn your release.</span>")
 		else
 			to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
 		return
