@@ -590,6 +590,7 @@
 	text = replacetext(text, "</td><tr>",				"\[row\]")
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
+	text = replacetext(text, "<img src = syndielogo.png>",	"\[syndielogo\]")
 	return text
 
 /datum/html/split_holder
