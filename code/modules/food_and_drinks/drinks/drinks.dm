@@ -277,31 +277,33 @@
 	reagents.set_reacting(FALSE)
 
 /obj/item/reagent_containers/food/drinks/shaker/attack_self(mob/user)
-	if(reagents.is_empty())
+	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>You won't shake an empty shaker now, will you?</span>")
 		return
 
-	if(!shaking)
-		shaking = TRUE
-		var/adjective = pick("furiously", "passionately", "with vigor", "with determination", "like a devil", "with care and love", "like there is no tomorrow")
-		user.visible_message("<span class='notice'>\The [user] shakes \the [src] [adjective]!</span>", "<span class='notice'>You shake \the [src] [adjective]!</span>")
-		icon_state = "shaker-shake"
-		if(iscarbon(loc))
-			var/mob/living/carbon/M = loc
-			M.update_inv_r_hand()
-			M.update_inv_l_hand()
-		playsound(user, 'sound/items/boston_shaker.ogg', 80, 1)
-		if(do_after(user, 3 SECONDS, src))
-			reagents.set_reacting(TRUE)
-			reagents.handle_reactions()
-		icon_state = "shaker"
-		if(iscarbon(loc))
-			var/mob/living/carbon/M = loc
-			M.update_inv_r_hand()
-			M.update_inv_l_hand()
+	if(shaking)
+		return
 
-		shaking = FALSE
-		reagents.set_reacting(FALSE)
+	shaking = TRUE
+	var/adjective = pick("furiously", "passionately", "with vigor", "with determination", "like a devil", "with care and love", "like there is no tomorrow")
+	user.visible_message("<span class='notice'>\The [user] shakes \the [src] [adjective]!</span>", "<span class='notice'>You shake \the [src] [adjective]!</span>")
+	icon_state = "shaker-shake"
+	if(iscarbon(loc))
+		var/mob/living/carbon/M = loc
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
+	playsound(user, 'sound/items/boston_shaker.ogg', 80, 1)
+	if(do_after(user, 3 SECONDS, src))
+		reagents.set_reacting(TRUE)
+		reagents.handle_reactions()
+	icon_state = "shaker"
+	if(iscarbon(loc))
+		var/mob/living/carbon/M = loc
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
+
+	shaking = FALSE
+	reagents.set_reacting(FALSE)
 
 /obj/item/reagent_containers/food/drinks/flask
 	name = "flask"

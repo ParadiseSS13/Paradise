@@ -673,8 +673,6 @@
 			return R.volume
 	return FALSE
 
-/datum/reagents/proc/is_empty()
-	return total_volume <= 0
 
 /datum/reagents/proc/get_reagents()
 	var/res = ""
