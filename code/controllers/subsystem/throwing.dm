@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(throwing)
 	var/paused = FALSE
 	var/delayed_time = 0
 	var/last_move = 0
-	///When this variable is false, non dense mobs will be hit by a thrown item. Currently used by gravitational, to prevent cheese.
+	///When this variable is false, non dense mobs will be hit by a thrown item. useful for things that you dont want to be cheesed by crawling, EG. gravitational anomalies
 	var/dodgeable = TRUE
 
 /datum/thrownthing/proc/tick()

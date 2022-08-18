@@ -2,6 +2,7 @@
 
 /// Chance of taking a step per second
 #define ANOMALY_MOVECHANCE 70
+#define BLUESPACE_MASS_TELEPORT_RANGE 16
 
 /obj/effect/anomaly
 	name = "anomaly"
@@ -239,7 +240,7 @@
 
 			var/y_distance = turf_to.y - turf_from.y
 			var/x_distance = turf_to.x - turf_from.x
-			for(var/atom/movable/A in urange(16, turf_from)) // iterate thru list of mobs in the area
+			for(var/atom/movable/A in urange(BLUESPACE_MASS_TELEPORT_RANGE, turf_from)) // iterate thru list of mobs in the area
 				if(istype(A, /obj/item/radio/beacon))
 					continue // don't teleport beacons because that's just insanely stupid
 				if(A.anchored || A.move_resist == INFINITY)
@@ -375,3 +376,4 @@
 		T.ex_act(ex_act_force)
 
 #undef ANOMALY_MOVECHANCE
+#undef BLUESPACE_MASS_TELEPORT_RANGE
