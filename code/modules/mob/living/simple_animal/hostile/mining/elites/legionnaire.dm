@@ -312,7 +312,7 @@
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "legionnaire_spine"
 	denied_type = /obj/item/crusher_trophy/legionnaire_spine
-	bonus_value = 75 // listen this dies in on hit, this can be a high chance.
+	bonus_value = 75 // listen this dies in one hit, this can be a high chance.
 	/// Time at which the item becomes usable again
 	var/next_use_time
 
