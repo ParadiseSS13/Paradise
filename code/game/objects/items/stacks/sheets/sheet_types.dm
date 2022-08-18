@@ -135,6 +135,9 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	return "Use in your hand to bring up the recipe menu. If you have enough sheets, click on something on the list to build it.<br>\
 			You can replenish your supply of metal as a synthetic by recharging."
 
+/obj/item/stack/sheet/metal/five
+	amount = 5
+
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
 

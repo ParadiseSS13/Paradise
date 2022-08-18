@@ -96,7 +96,6 @@
 #include "code\__DEFINES\tgui.dm"
 #include "code\__DEFINES\tools.dm"
 #include "code\__DEFINES\typeids.dm"
-#include "code\__DEFINES\uplinks.dm"
 #include "code\__DEFINES\vampire.dm"
 #include "code\__DEFINES\vv.dm"
 #include "code\__DEFINES\wires.dm"

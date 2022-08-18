@@ -2196,6 +2196,7 @@
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/reagent_containers/glass/rag = 3)
 	contraband = list(/obj/item/toy/figure/crew/chef = 1)
+	premium = list(/obj/item/storage/box/dish_drive = 1)
 	refill_canister = /obj/item/vending_refill/chefdrobe
 
 /obj/machinery/vending/bardrobe
@@ -2216,6 +2217,7 @@
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/reagent_containers/glass/rag = 3)
 	contraband = list(/obj/item/toy/figure/crew/bartender = 1)
+	premium = list(/obj/item/storage/box/dish_drive = 1)
 	refill_canister = /obj/item/vending_refill/bardrobe
 
 /obj/machinery/vending/hydrodrobe
