@@ -8,22 +8,22 @@
 // mob/var/list/mutations
 
 // Used in preferences.
-#define DISABILITY_FLAG_NEARSIGHTED   (1<<1)
-#define DISABILITY_FLAG_FAT           (1<<2)
-#define DISABILITY_FLAG_BLIND         (1<<3)
-#define DISABILITY_FLAG_MUTE          (1<<4)
-#define DISABILITY_FLAG_COLOURBLIND   (1<<5)
-#define DISABILITY_FLAG_WINGDINGS     (1<<6)
-#define DISABILITY_FLAG_NERVOUS       (1<<7)
-#define DISABILITY_FLAG_SWEDISH       (1<<8)
-#define DISABILITY_FLAG_LISP          (1<<9)
-#define DISABILITY_FLAG_DIZZY         (1<<10)
-#define DISABILITY_FLAG_AULD_IMPERIAL (1<<11)
-#define DISABILITY_FLAG_DEAF          (1<<12)
-#define DISABILITY_FLAG_COFFEE_ADDICT (1<<13)
-#define DISABILITY_FLAG_TEA_ADDICT    (1<<14)
-#define DISABILITY_FLAG_ALCOHOLE_ADDICT (1<<15)
-#define DISABILITY_FLAG_NICOTINE_ADDICT (1<<16)
+#define DISABILITY_FLAG_NEARSIGHTED   (1<<0)
+#define DISABILITY_FLAG_FAT           (1<<1)
+#define DISABILITY_FLAG_BLIND         (1<<2)
+#define DISABILITY_FLAG_MUTE          (1<<3)
+#define DISABILITY_FLAG_COLOURBLIND   (1<<4)
+#define DISABILITY_FLAG_WINGDINGS     (1<<5)
+#define DISABILITY_FLAG_NERVOUS       (1<<6)
+#define DISABILITY_FLAG_SWEDISH       (1<<7)
+#define DISABILITY_FLAG_LISP          (1<<8)
+#define DISABILITY_FLAG_DIZZY         (1<<9)
+#define DISABILITY_FLAG_AULD_IMPERIAL (1<<10)
+#define DISABILITY_FLAG_DEAF          (1<<11)
+#define DISABILITY_FLAG_COFFEE_ADDICT (1<<12)
+#define DISABILITY_FLAG_TEA_ADDICT    (1<<13)
+#define DISABILITY_FLAG_ALCOHOLE_ADDICT (1<<14)
+#define DISABILITY_FLAG_NICOTINE_ADDICT (1<<15)
 
 ///////////////////////////////////////
 // MUTATIONS
