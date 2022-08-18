@@ -374,7 +374,7 @@
 
 	switch(damagetype)
 		if(BRUTE)
-			var/damage_amount = ARMOUR_EQUATION(damage, blocked + armor, brute_mod * H.physiology.brute_mod)
+			var/damage_amount = ARMOUR_EQUATION(damage, blocked, brute_mod * H.physiology.brute_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -384,7 +384,7 @@
 			else //no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount)
 		if(BURN)
-			var/damage_amount = ARMOUR_EQUATION(damage, blocked + armor, burn_mod * H.physiology.burn_mod)
+			var/damage_amount = ARMOUR_EQUATION(damage, blocked, burn_mod * H.physiology.burn_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
