@@ -213,7 +213,7 @@
 
 /obj/item/clothing/head/hooded/berserker/process()
 	if(berserk_active)
-		berserk_charge = clamp(berserk_charge - CHARGE_DRAINED_PER_SECOND, 0, MAX_BERSERK_CHARGE)
+		berserk_charge = clamp(berserk_charge - CHARGE_DRAINED_PER_SECOND * 2, 0, MAX_BERSERK_CHARGE)
 	if(!berserk_charge)
 		if(ishuman(loc))
 			end_berserk(loc)
@@ -236,10 +236,6 @@
 	berserk_charge = clamp(round(berserk_charge + berserk_value), 0, MAX_BERSERK_CHARGE)
 	if(berserk_charge >= MAX_BERSERK_CHARGE)
 		to_chat(owner, "<span class='notice'>Berserk mode is fully charged.</span>")
-
-/obj/item/clothing/head/hooded/berserker/IsReflect()
-	if(berserk_active)
-		return TRUE
 
 /// Starts berserk, giving the wearer 40 armor, doubled attacking speed, NOGUNS trait, adding a color and giving them a little more movespeed
 /obj/item/clothing/head/hooded/berserker/proc/berserk_mode(mob/living/carbon/human/user)
