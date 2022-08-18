@@ -470,7 +470,14 @@
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
+
 						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
+						if(ishuman(H.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
+							excess_shock(user, H, H.pulledby)
+						for(var/obj/item/grab/G in H.grabbed_by)
+							if(ishuman(G.assailant))
+								excess_shock(user, H, G.assailant)
+
 						H.med_hud_set_health()
 						H.med_hud_set_status()
 						defib.deductcharge(revivecost)
@@ -501,6 +508,22 @@
 					playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		busy = FALSE
 		update_icon(UPDATE_ICON_STATE)
+
+/*
+ * user = the person using the defib
+ * origin = person being revived
+ * affecting = person being shocked with excess energy from the defib
+*/
+/obj/item/twohanded/shockpaddles/proc/excess_shock(mob/user, mob/living/carbon/human/origin, mob/living/carbon/human/affecting)
+	if(user == affecting)
+		return
+
+	if(electrocute_mob(affecting, defib.cell, origin)) // shock anyone touching them >:)
+		var/obj/item/organ/internal/heart/HE = affecting.get_organ_slot("heart")
+		if(HE.parent_organ == "chest" && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
+			affecting.visible_message("<span class='danger'>[affecting]'s entire body shakes as a shock travels up their arm!</span>", \
+							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ("l_arm") : affecting.get_organ("r_arm")] and back down your [affecting.hand ? affecting.get_organ("r_arm") : affecting.get_organ("l_arm")]!</span>")
+			affecting.set_heartattack(TRUE)
 
 /obj/item/borg_defib
 	name = "defibrillator paddles"
