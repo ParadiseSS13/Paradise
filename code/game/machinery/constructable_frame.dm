@@ -3,6 +3,7 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
 	density = TRUE
+	pass_flags = PASSTABLE
 	anchored = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 250
@@ -672,8 +673,8 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/dish_drive/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>")
-	to_chat(user, "<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>")
+	. += "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>"
+	. += "<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"
 
 /obj/item/circuitboard/dish_drive/attack_self(mob/living/user)
 	suction = !suction
