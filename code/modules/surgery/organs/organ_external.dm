@@ -7,6 +7,9 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
+
+	blocks_emissive = FALSE
+
 	var/brute_mod = 1
 	var/burn_mod = 1
 
@@ -249,7 +252,7 @@
 
 	if(owner_old)
 		owner_old.updatehealth("limb receive damage")
-	return update_icon()
+	return update_state()
 
 #undef LIMB_SHARP_THRESH_INT_DMG
 #undef LIMB_THRESH_INT_DMG
@@ -269,7 +272,7 @@
 	if(updating_health)
 		owner.updatehealth("limb heal damage")
 
-	return update_icon()
+	return update_state()
 
 /obj/item/organ/external/emp_act(severity)
 	if(!is_robotic() || emp_proof)
@@ -322,7 +325,7 @@ This function completely restores a damaged organ to perfect condition.
 
 	if(owner)
 		owner.updatehealth("limb rejuvenate")
-	update_icon()
+	update_state()
 	if(!owner)
 		START_PROCESSING(SSobj, src)
 
