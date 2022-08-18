@@ -3,7 +3,6 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
 	density = TRUE
-	pass_flags = PASSTABLE
 	anchored = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 250
