@@ -546,9 +546,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(istype(loc, /obj/item/aicard/))
 		var/obj/item/aicard/AIC = loc
 		AIC.update_icon(UPDATE_OVERLAYS)
-	//else
-//			to_chat(usr, "You can only change your display once!")
-			//return
 
 // this verb lets the ai see the stations manifest
 /mob/living/silicon/ai/proc/ai_roster()
