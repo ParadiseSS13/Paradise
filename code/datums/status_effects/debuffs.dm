@@ -137,6 +137,26 @@
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
 
+/datum/status_effect/ground_pound
+	id = "ground_pound"
+	duration = -1
+	tick_interval = 5 SECONDS
+	alert_type = null
+	var/stacks = 0
+
+/datum/status_effect/ground_pound/on_apply()
+	if(owner.stat == DEAD)
+		return FALSE
+	return ..()
+
+/datum/status_effect/ground_pound/tick()
+	qdel(src)
+
+/datum/status_effect/ground_pound/proc/add_stack()
+	stacks++
+	if(stacks > 1)
+		return TRUE
+
 /datum/status_effect/teleport_sickness
 	id = "teleportation sickness"
 	duration = 30 SECONDS

@@ -134,6 +134,17 @@
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.remove_stun_absorption("blooddrunk")
 
+/obj/screen/alert/status_effect/dash
+	name = "Dash"
+	desc = "Your have the ability to dash!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "genetic_jump"
+
+/datum/status_effect/dash
+	id = "dash"
+	duration = 5 SECONDS
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/dash
 /datum/status_effect/bloodswell
 	id = "bloodswell"
 	duration = 30 SECONDS

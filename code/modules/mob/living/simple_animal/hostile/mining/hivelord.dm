@@ -279,7 +279,7 @@
 	can_infest_dead = TRUE
 
 //Legion that spawns Legions
-/mob/living/simple_animal/hostile/big_legion
+/mob/living/simple_animal/hostile/asteroid/big_legion
 	name = "big legion"
 	desc = "This monstrosity has clearly been corrupting for centuries, and is looking for a fight. Rumours claim it is capable of throwing the strongest of miners and his name is Billy."
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
@@ -288,32 +288,31 @@
 	icon_dead = "legion-dead"
 	health = 350
 	maxHealth = 350
-	melee_damage_lower = 40
-	melee_damage_upper = 40
-	anchored = FALSE
-	AIStatus = AI_ON
-	stop_automated_movement = FALSE
+	melee_damage_lower = 30
+	melee_damage_upper = 30
 	wander = TRUE
-	maxbodytemp = INFINITY
 	layer = MOB_LAYER
-	sentience_type = SENTIENCE_BOSS
+	move_force = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_VERY_STRONG
+	pull_force = MOVE_FORCE_VERY_STRONG
 	attack_sound = 'sound/misc/demon_attack1.ogg'
-	vision_range = 5
-	move_to_delay = 2
-	aggro_vision_range = 9
 	speed = 0
-	faction = list("mining")
-	weather_immunities = list("lava","ash")
-	obj_damage = 30
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
-/mob/living/simple_animal/hostile/big_legion/AttackingTarget()
-	flick("legion-smash", src)
-	addtimer(CALLBACK(src, .proc/throw_mobs), 1 SECONDS)
+/mob/living/simple_animal/hostile/asteroid/big_legion/AttackingTarget()
+	if(!isliving(target))
+		return ..()
+	var/mob/living/L = target
+	var/datum/status_effect/ground_pound/G = L.has_status_effect(STATUS_EFFECT_GROUNDPOUND)
+	if(!G)
+		L.apply_status_effect(STATUS_EFFECT_GROUNDPOUND)
+	else if(G.add_stack())
+		G.Destroy()
+		flick("legion-smash", src)
+		addtimer(CALLBACK(src, .proc/throw_mobs), 1 SECONDS)
+		return
+	. = ..()
 
-/mob/living/simple_animal/hostile/big_legion/proc/throw_mobs()
+/mob/living/simple_animal/hostile/asteroid/big_legion/proc/throw_mobs()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	for(var/mob/living/L in range(3, src))
 		if(faction_check(faction, L.faction, FALSE))

@@ -133,6 +133,10 @@
 
 /obj/effect/ebeam/disintegration_telegraph
 	alpha = 100
+	layer = ON_EDGED_TURF_LAYER
+
+/obj/effect/ebeam/disintegration
+	layer = ON_EDGED_TURF_LAYER
 
 /obj/effect/ebeam/disintegration/Crossed(atom/A, oldloc)
 	..()
@@ -148,6 +152,7 @@
 		if(faction_check(O.faction, L.faction, FALSE))
 			return
 		damage = 70 - ((O.health / O.maxHealth) * 20)
+	playsound(L,'sound/weapons/sear.ogg', 50, TRUE, -4)
 	to_chat(L, "<span class='userdanger'>You're struck by a disintegration laser!</span>")
 	var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 	var/armor = L.run_armor_check(limb_to_hit, LASER)
