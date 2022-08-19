@@ -9,6 +9,7 @@
 
 /obj/machinery/light_switch/Initialize(mapload, build_dir)
 	. = ..()
+	name = "light switch" // Needed to remove the "(dir) bump" naming
 	switch(build_dir)
 		if(NORTH)
 			pixel_y = 25
