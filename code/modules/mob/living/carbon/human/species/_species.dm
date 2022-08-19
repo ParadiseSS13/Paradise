@@ -372,9 +372,11 @@
 			if(!organ)
 				organ = H.bodyparts[1]
 
+	var/total_armour = blocked + armor
+
 	switch(damagetype)
 		if(BRUTE)
-			var/damage_amount = ARMOUR_EQUATION(damage, blocked + armor, brute_mod * H.physiology.brute_mod)
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, brute_mod * H.physiology.brute_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -384,7 +386,7 @@
 			else //no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount)
 		if(BURN)
-			var/damage_amount = ARMOUR_EQUATION(damage, blocked + armor, burn_mod * H.physiology.burn_mod)
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, burn_mod * H.physiology.burn_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -394,19 +396,19 @@
 			else
 				H.adjustFireLoss(damage_amount)
 		if(TOX)
-			var/damage_amount = ARMOUR_EQUATION(damage, blocked + armor, H.physiology.tox_mod)
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.tox_mod)
 			H.adjustToxLoss(damage_amount)
 		if(OXY)
-			var/damage_amount = ARMOUR_EQUATION(damage, blocked + armor, H.physiology.oxy_mod)
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.oxy_mod)
 			H.adjustOxyLoss(damage_amount)
 		if(CLONE)
-			var/damage_amount = ARMOUR_EQUATION(damage, blocked + armor, H.physiology.clone_mod)
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.clone_mod)
 			H.adjustCloneLoss(damage_amount)
 		if(STAMINA)
-			var/damage_amount = ARMOUR_EQUATION(damage, blocked + armor, H.physiology.stamina_mod)
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.stamina_mod)
 			H.adjustStaminaLoss(damage_amount)
 		if(BRAIN)
-			var/damage_amount = ARMOUR_EQUATION(damage, blocked + armor, H.physiology.brain_mod)
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.brain_mod)
 			H.adjustBrainLoss(damage_amount)
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
