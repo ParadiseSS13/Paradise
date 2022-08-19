@@ -186,6 +186,8 @@
 	desc = "Peering into the eyes of the helmet is enough to seal damnation."
 	icon_state = "hardsuit0-berserker"
 	item_color = "berserker"
+	light_color = BERSERK_COLOUR
+	light_power = 4
 	actions_types = list(/datum/action/item_action/berserk_mode)
 	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	heat_protection = HEAD
@@ -245,6 +247,7 @@
 /obj/item/clothing/head/hooded/berserker/proc/berserk_mode(mob/living/carbon/human/user)
 	to_chat(user, "<span class='warning'>You enter berserk mode.</span>")
 	playsound(user, 'sound/magic/staff_healing.ogg', 50)
+	set_light(3)
 	user.physiology.burn_mod *= BERSERK_DAMAGE_REDUCTION
 	user.physiology.brute_mod *= BERSERK_DAMAGE_REDUCTION
 	user.next_move_modifier *= BERSERK_ATTACK_SPEED_MODIFIER
@@ -264,6 +267,7 @@
 		return
 	to_chat(user, "<span class='warning'>You exit berserk mode.</span>")
 	playsound(user, 'sound/magic/summonitems_generic.ogg', 50)
+	set_light(0)
 	user.physiology.burn_mod /= BERSERK_DAMAGE_REDUCTION
 	user.physiology.brute_mod /= BERSERK_DAMAGE_REDUCTION
 	user.next_move_modifier /= BERSERK_ATTACK_SPEED_MODIFIER
