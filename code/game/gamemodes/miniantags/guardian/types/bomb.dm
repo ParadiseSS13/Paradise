@@ -22,7 +22,7 @@
 	if(get_dist(get_turf(src), get_turf(A)) > 1)
 		to_chat(src, "<span class='danger'>You're too far from [A] to disguise it as a bomb.</span>")
 		return
-	if(istype(A, /obj/))
+	if(istype(A, /obj/) && can_plant(A))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
@@ -35,12 +35,27 @@
 		else
 			to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place next bomb.</span>")
 
+/mob/living/simple_animal/hostile/guardian/bomb/proc/can_plant(atom/movable/A)
+	if(istype(A, /obj/mecha))
+		var/obj/mecha/target = A
+		if(target.occupant)
+			to_chat(src, "<span class='warning'>You can't disguise piloted mechs as a bomb!</span>")
+			return FALSE
+	if(istype(A, /obj/spacepod))
+		var/obj/spacepod/target = A
+		if(target.pilot)
+			to_chat(src, "<span class='warning'>You can't disguise piloted pods as a bomb!</span>")
+			return FALSE
+	if(istype(A, /obj/machinery/disposal)) // Have no idea why they just destroy themselves
+		to_chat(src, "<span class='warning'>You can't disguise disposal units as a bomb!</span>")
+		return FALSE
+	return TRUE
+
 /obj/item/guardian_bomb
 	name = "bomb"
 	desc = "You shouldn't be seeing this!"
 	var/obj/stored_obj
 	var/mob/living/spawner
-
 
 /obj/item/guardian_bomb/proc/disguise(var/obj/A)
 	A.forceMove(src)
@@ -85,6 +100,21 @@
 /obj/item/guardian_bomb/pickup(mob/living/user)
 	detonate(user)
 	return FALSE // Disarm or blow up. No picking up
+
+/obj/item/guardian_bomb/MouseDrop_T(obj/item/I, mob/living/user)
+	detonate(user)
+
+/obj/item/guardian_bomb/AltClick(mob/living/user)
+	detonate(user)
+
+/obj/item/guardian_bomb/MouseDrop(mob/living/user)
+	detonate(user)
+
+/obj/item/guardian_bomb/Bumped(mob/living/user)
+	detonate(user)
+
+/obj/item/guardian_bomb/can_be_pulled(mob/living/user)
+	detonate(user)
 
 /obj/item/guardian_bomb/examine(mob/user)
 	. = stored_obj.examine(user)
