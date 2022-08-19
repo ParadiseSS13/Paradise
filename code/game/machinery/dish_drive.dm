@@ -27,13 +27,13 @@
 	var/transmit_enabled = TRUE
 	var/list/dish_drive_contents
 
-/obj/machinery/dna_scannernew/Initialize(mapload)
+/obj/machinery/dish_drive/Initialize(mapload)
 	. = ..()
 	component_parts = list()
+	component_parts += new /obj/item/circuitboard/dish_drive(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/dish_drive/examine(mob/user)
