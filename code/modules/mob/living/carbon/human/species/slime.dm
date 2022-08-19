@@ -65,18 +65,20 @@
 		"становится коричневым, тусклым и растекается в лужу!")
 
 	var/reagent_skin_coloring = FALSE
-	var/datum/action/innate/regrow/grow
-	var/datum/action/innate/slimecolor/recolor
 
 	disliked_food = SUGAR | FRIED
 	liked_food = MEAT | TOXIC | RAW
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
-	grow = new()
-	grow.Grant(H)
-	recolor = new()
-	recolor.Grant(H)
+	var/datum/action/innate/regrow/grow = locate() in H.actions
+	if(!grow)
+		grow = new
+		grow.Grant(H)
+	var/datum/action/innate/slimecolor/recolor = locate() in H.actions
+	if(!recolor)
+		recolor = new
+		recolor.Grant(H)
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
 	blend(H)
@@ -85,8 +87,10 @@
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
 	..()
+	var/datum/action/innate/regrow/grow = locate() in H.actions
 	if(grow)
 		grow.Remove(H)
+	var/datum/action/innate/slimecolor/recolor = locate() in H.actions
 	if(recolor)
 		recolor.Remove(H)
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")

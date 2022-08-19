@@ -33,6 +33,11 @@
 	H.light_color = "#1C1C00"
 	H.set_light(2)
 
+/datum/species/nucleation/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.light_color = null
+	H.set_light(0)
+
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>Тело [H] взрывается, оставляя после себя множество микроскопических кристаллов!</span>")

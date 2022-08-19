@@ -72,21 +72,8 @@
 		"сворачивает себе шею!",
 		"задерживает дыхание!")
 
-	var/datum/action/innate/tail_lash/lash
-
 	disliked_food = VEGETABLES | FRUIT | GRAIN
 	liked_food = MEAT | RAW | EGG
-
-
-/datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
-	..()
-	lash = new
-	lash.Grant(H)
-
-/datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
-	..()
-	if(lash)
-		lash.Remove(H)
 
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
@@ -154,9 +141,16 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag
 	H.verbs |= /mob/living/carbon/human/proc/emote_swag
 	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
+	var/datum/action/innate/tail_lash/lash = locate() in H.actions
+	if(!lash)
+		lash = new
+		lash.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
 	H.verbs -= /mob/living/carbon/human/proc/emote_hiss
+	var/datum/action/innate/tail_lash/lash = locate() in H.actions
+	if(lash)
+		lash.Remove(H)

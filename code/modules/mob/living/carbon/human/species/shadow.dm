@@ -27,7 +27,6 @@
 		"пялится на ближайший источник света!")
 
 	var/grant_vision_toggle = TRUE
-	var/datum/action/innate/shadow/darkvision/vision_toggle
 
 	disliked_food = NONE
 
@@ -49,14 +48,18 @@
 /datum/species/shadow/on_species_gain(mob/living/carbon/human/H)
 	..()
 	if(grant_vision_toggle)
-		vision_toggle = new
-		vision_toggle.Grant(H)
+		var/datum/action/innate/shadow/darkvision/vision_toggle = locate() in H.actions
+		if(!vision_toggle)
+			vision_toggle = new
+			vision_toggle.Grant(H)
 
 /datum/species/shadow/on_species_loss(mob/living/carbon/human/H)
 	..()
+	var/datum/action/innate/shadow/darkvision/vision_toggle = locate() in H.actions
 	if(grant_vision_toggle && vision_toggle)
 		H.vision_type = null
 		vision_toggle.Remove(H)
+	H.clear_alert("lightexposure")
 
 /datum/species/shadow/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0

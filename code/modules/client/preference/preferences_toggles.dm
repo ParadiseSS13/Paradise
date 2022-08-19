@@ -1,8 +1,16 @@
 //toggles
+/client/verb/toggle_attack_animations()
+	set name = "Show/Hide Attack Animations"
+	set category = "Preferences"
+	set desc = "Toggle seeing an attack animation"
+	prefs.toggles2 ^= PREFTOGGLE_2_ITEMATTACK
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK) ? "now" : "no longer"] see attack animations.")
+
 /client/verb/toggle_ghost_ears()
 	set name = "Show/Hide GhostEars"
 	set category = "Preferences"
-	set desc = ".Toggle Between seeing all mob speech, and only speech of nearby mobs"
+	set desc = "Toggle between seeing all mob speech, and only speech of nearby mobs"
 	prefs.toggles ^= PREFTOGGLE_CHAT_GHOSTEARS
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "see all speech in the world" : "only see speech from nearby mobs"].")
 	prefs.save_preferences(src)
@@ -11,7 +19,7 @@
 /client/verb/toggle_ghost_sight()
 	set name = "Show/Hide GhostSight"
 	set category = "Preferences"
-	set desc = ".Toggle Between seeing all mob emotes, and only emotes of nearby mobs"
+	set desc = "Toggle between seeing all mob emotes, and only emotes of nearby mobs"
 	prefs.toggles ^= PREFTOGGLE_CHAT_GHOSTSIGHT
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "see all emotes in the world" : "only see emotes from nearby mobs"].")
 	prefs.save_preferences(src)
@@ -20,7 +28,7 @@
 /client/verb/toggle_ghost_radio()
 	set name = "Enable/Disable GhostRadio"
 	set category = "Preferences"
-	set desc = ".Toggle between hearing all radio chatter, or only from nearby speakers"
+	set desc = "Toggle between hearing all radio chatter, or only from nearby speakers"
 	prefs.toggles ^= PREFTOGGLE_CHAT_GHOSTRADIO
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "hear all radio chat in the world" : "only hear from nearby speakers"].")
 	prefs.save_preferences(src)
@@ -333,7 +341,7 @@
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) ? "now" : "no longer"] see a notification in deadchat when a player dies.")
 
 /client/verb/toggle_item_outlines()
-	set name = "Toggle Item Outlines"
+	set name = "Show/Hide Item Outlines"
 	set category = "Preferences"
 	set desc = "Toggles seeing item outlines on hover."
 	prefs.toggles2 ^= PREFTOGGLE_2_SEE_ITEM_OUTLINES

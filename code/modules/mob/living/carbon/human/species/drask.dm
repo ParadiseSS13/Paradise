@@ -61,6 +61,9 @@
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)
 
+	disliked_food = SUGAR | GROSS
+	liked_food = DAIRY
+
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
@@ -73,5 +76,3 @@
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_hum
 
-	disliked_food = SUGAR | GROSS
-	liked_food = DAIRY

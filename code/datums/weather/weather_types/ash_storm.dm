@@ -79,9 +79,12 @@
 		if(ismecha(L)) //Mechs are immune
 			return TRUE
 		if(ishuman(L)) //Are you immune?
-			var/mob/living/carbon/human/H = L
-			var/thermal_protection = H.get_thermal_protection()
-			if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+			var/mob/living/carbon/human/target = L
+			if(target.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+				return TRUE
+		if(istype(L, /mob/living/simple_animal/borer))
+			var/mob/living/simple_animal/borer/target = L
+			if(target.host?.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 				return TRUE
 		L = L.loc //Matryoshka check
 	return FALSE //RIP you

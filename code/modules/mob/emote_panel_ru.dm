@@ -114,7 +114,7 @@
 	usr.emote("nod")
 
 /mob/living/carbon/human/verb/emote_moan()
-	set name = "~ Стонать "
+	set name = "> Стонать "
 	set category = "Эмоции"
 	usr.emote("moan")
 
@@ -229,7 +229,7 @@
 	usr.emote("airguitar")
 
 /mob/living/carbon/human/verb/emote_dance()
-	set name = "~ Танцевать "
+	set name = "> Танцевать "
 	set category = "Эмоции"
 	usr.emote("dance")
 
