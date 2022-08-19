@@ -41,6 +41,12 @@
 	desc = "A cap issued to Nanotrasen Representatives."
 	icon_state = "ntrep"
 
+//Research Director
+/obj/item/clothing/head/beret/purple
+	name = "research director's beret"
+	desc = " A purple beret, with a small golden crescent moon sewn onto it. Smells like plasma."
+	icon_state = "beret_purple"
+	item_state = "purpleberet"
 
 //Chaplain
 /obj/item/clothing/head/hooded/chaplain_hood
@@ -139,6 +145,11 @@
 	dog_fashion = null
 	muhtar_fashion = /datum/muhtar_fashion/head/beret
 
+/obj/item/clothing/head/beret/sec/black
+	name = "black security beret"
+	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
+	icon_state = "beret_officer_black"
+
 /obj/item/clothing/head/beret/sec/warden
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
@@ -170,6 +181,13 @@
 	name = "medical beret"
 	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "beret_med"
+
+//CMO
+/obj/item/clothing/head/beret/elo
+	name = "chief medical officer beret"
+	desc = "Stylish beret of the Chief Medical Officer. You can smell a faint antiseptic smell coming from it."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elo-beret"
 
 /obj/item/clothing/head/surgery
 	name = "surgical cap"

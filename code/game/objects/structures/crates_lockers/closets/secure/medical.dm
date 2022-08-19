@@ -180,6 +180,7 @@
 	new /obj/item/clothing/under/rank/chief_medical_officer(src)
 	new /obj/item/clothing/neck/mantle/chief_medical_officer(src)
 	new /obj/item/clothing/neck/cloak/chief_medical_officer(src)
+	new /obj/item/clothing/head/beret/elo(src)
 	new /obj/item/clothing/shoes/brown	(src)
 	new /obj/item/radio/headset/heads/cmo(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)

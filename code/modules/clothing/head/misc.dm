@@ -360,12 +360,6 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-/obj/item/clothing/head/beret/purple
-	name = "Pierson Family Beret"
-	desc = " A purple beret, with a small golden crescent moon sewn onto it."
-	icon_state = "beret_purple"
-	item_state = "purpleberet"
-
 /obj/item/clothing/head/beret/centcom/officer
 	name = "officers beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
@@ -379,6 +373,18 @@
 	icon_state = "beret_centcom_officer_navy"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
+
+/obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret
+	name = "royal marines commando beret"
+	desc = "Dark Green beret with an old insignia on it."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "sparkyninja_beret"
+
+/obj/item/clothing/head/beret/centcom/officer/sigholt
+	name = "marine lieutenant beret"
+	desc = "This beret bears insignia of the SOLGOV Marine Corps 417th Regiment, 2nd Battalion, Bravo Company. It looks meticulously maintained."
+	icon_state = "beret_hos"
+	item_state = "beret_hos"
 
 /obj/item/clothing/head/beret/centcom/captain
 	name = "captains beret"

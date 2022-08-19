@@ -67,6 +67,9 @@
 	new /obj/item/clothing/head/soft/sec/corp(src)
 	new /obj/item/clothing/head/soft/sec/corp(src)
 	new /obj/item/clothing/head/soft/sec/corp(src)
+	new /obj/item/clothing/head/beret/sec/black(src)
+	new /obj/item/clothing/head/beret/sec/black(src)
+	new /obj/item/clothing/head/beret/sec/black(src)
 
 /obj/structure/closet/wardrobe/pink
 	name = "pink wardrobe"

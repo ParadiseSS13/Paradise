@@ -145,6 +145,21 @@
 	path = /obj/item/clothing/head/beret/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
+/datum/gear/hat/beret_job/sec_black
+	display_name = "black security beret"
+	path = /obj/item/clothing/head/beret/sec/black
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+
+/datum/gear/hat/beret_job/marine
+	display_name = "royal marines commando beret"
+	path = /obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret
+	allowed_roles = list("Head of Security", "Blueshield")
+
+/datum/gear/hat/beret_job/marine_old
+	display_name = "marine lieutenant beret"
+	path = /obj/item/clothing/head/beret/centcom/officer/sigholt
+	allowed_roles = list("Head of Security", "Blueshield")
+
 /datum/gear/hat/beret_job/sci
 	display_name = "science beret"
 	path = /obj/item/clothing/head/beret/sci

@@ -19428,29 +19428,29 @@
 /obj/item/clothing/head/beret/eng{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/elo{
+/obj/item/clothing/head/beret/elo{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/elo{
+/obj/item/clothing/head/beret/elo{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
 	name = "beret"
 	},
-/obj/item/clothing/head/fluff/sparkyninja_beret{
+/obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret{
 	name = "beret"
 	},
-/obj/item/clothing/head/fluff/sparkyninja_beret{
+/obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
 	icon_state = "officerberet";
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
 	icon_state = "officerberet";
 	name = "beret"
 	},
@@ -19468,11 +19468,11 @@
 /obj/item/clothing/head/beret/purple{
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
 	icon_state = "beret_hos_black";
 	name = "beret"
 	},
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
 	icon_state = "beret_hos_black";
 	name = "beret"
 	},
@@ -22891,7 +22891,7 @@
 	name = "jumpsuit"
 	},
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/clothing/head/beret/fluff/sigholt{
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
 	icon_state = "officerberet";
 	name = "beret"
 	},
