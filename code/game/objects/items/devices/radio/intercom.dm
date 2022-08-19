@@ -215,7 +215,7 @@ Intercom electronics
 	update_icon(UPDATE_ICON)
 
 /obj/item/radio/intercom/screwdriver_act(mob/user, obj/item/I)
-	if(!(buildstage == INTERCOM_READY))
+	if(buildstage != INTERCOM_READY)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -235,7 +235,7 @@ Intercom electronics
 
 /obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
 	if(!(buildstage == INTERCOM_READY && wiresexposed && wires.is_all_cut()))
-		return
+		return ..()
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -247,7 +247,7 @@ Intercom electronics
 	update_icon(UPDATE_ICON)
 
 /obj/item/radio/intercom/wrench_act(mob/user, obj/item/I)
-	if(!(buildstage == INTERCOM_FRAME))
+	if(buildstage != INTERCOM_FRAME)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
