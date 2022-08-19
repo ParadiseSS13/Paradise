@@ -245,8 +245,8 @@
 /obj/item/clothing/head/hooded/berserker/proc/berserk_mode(mob/living/carbon/human/user)
 	to_chat(user, "<span class='warning'>You enter berserk mode.</span>")
 	playsound(user, 'sound/magic/staff_healing.ogg', 50)
-	user.dna.species.burn_mod *= BERSERK_DAMAGE_REDUCTION
-	user.dna.species.brute_mod *= BERSERK_DAMAGE_REDUCTION
+	user.physiology.burn_mod *= BERSERK_DAMAGE_REDUCTION
+	user.physiology.brute_mod *= BERSERK_DAMAGE_REDUCTION
 	user.next_move_modifier *= BERSERK_ATTACK_SPEED_MODIFIER
 	user.add_atom_colour(BERSERK_COLOUR, TEMPORARY_COLOUR_PRIORITY)
 	ADD_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
@@ -264,8 +264,8 @@
 		return
 	to_chat(user, "<span class='warning'>You exit berserk mode.</span>")
 	playsound(user, 'sound/magic/summonitems_generic.ogg', 50)
-	user.dna.species.burn_mod /= BERSERK_DAMAGE_REDUCTION
-	user.dna.species.brute_mod /= BERSERK_DAMAGE_REDUCTION
+	user.physiology.burn_mod /= BERSERK_DAMAGE_REDUCTION
+	user.physiology.brute_mod /= BERSERK_DAMAGE_REDUCTION
 	user.next_move_modifier /= BERSERK_ATTACK_SPEED_MODIFIER
 	user.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, BERSERK_COLOUR)
 	REMOVE_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
