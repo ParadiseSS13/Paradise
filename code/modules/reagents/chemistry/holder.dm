@@ -673,7 +673,6 @@
 			return R.volume
 	return FALSE
 
-
 /datum/reagents/proc/get_reagents()
 	var/res = ""
 	for(var/A in reagent_list)
