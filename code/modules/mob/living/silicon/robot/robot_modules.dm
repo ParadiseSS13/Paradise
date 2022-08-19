@@ -197,6 +197,11 @@
 	fix_modules()
 	handle_storages()
 
+/obj/item/robot_module/standard/respawn_consumable(mob/living/silicon/robot/R)
+	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
+	C.reagents.add_reagent("cleaner", 3)
+	..()
+
 /obj/item/robot_module/medical
 	name = "medical robot module"
 	module_type = "Medical"
