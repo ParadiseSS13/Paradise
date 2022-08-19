@@ -349,7 +349,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/security/armory/shielded_hardsuit
 	name = "Syndicate Shielded Hardsuit Crate"
-	contains = list(/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
+	contains = list(/obj/item/clothing/suit/space/hardsuit/syndi/shielded,
 					/obj/item/tank/internals/emergency_oxygen/engi/syndi,
 					/obj/item/clothing/mask/gas/syndicate)
 	cost = 40000

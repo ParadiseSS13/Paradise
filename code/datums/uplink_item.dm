@@ -1508,7 +1508,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/hardsuit/shielded
 	name = "Shielded Hardsuit"
 	desc = "An advanced hardsuit with built in energy shielding. The shields will rapidly recharge when not under fire."
-	item = /obj/item/clothing/suit/space/hardsuit/shielded/syndi
+	item = /obj/item/clothing/suit/space/hardsuit/syndi/shielded
 	cost = 30
 	reference = "SHS"
 	excludefrom = list()

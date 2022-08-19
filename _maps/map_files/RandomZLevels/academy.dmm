@@ -266,7 +266,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "aL" = (
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
+/obj/item/clothing/suit/space/hardsuit/wizard/shielded,
 /obj/structure/table/wood,
 /obj/item/stack/sheet/mineral/silver{
 	amount = 20

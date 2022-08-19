@@ -26303,7 +26303,7 @@
 	req_access_txt = "114"
 	},
 /obj/item/door_remote/centcomm,
-/obj/item/storage/box/erttaserproof,
+/obj/item/storage/box/ert_taser_proof,
 /obj/item/storage/box/permits,
 /turf/unsimulated/floor{
 	dir = 8;
