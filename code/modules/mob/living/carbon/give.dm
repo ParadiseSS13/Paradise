@@ -70,7 +70,7 @@
 
 /datum/click_intercept/give/New(client/C)
 	..()
-	holder.mouse_pointer_icon = file("icons/mouse_icons/give_item.dmi")
+	holder.mouse_pointer_icon = 'icons/mouse_icons/give_item.dmi'
 	to_chat(holder, "<span class='info'>You can now left click on someone to give them your held item.</span>")
 	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), /datum/proc/signal_qdel)
 	RegisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), /datum/proc/signal_qdel)
