@@ -280,6 +280,25 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "Helmet crate"
 	containertype = /obj/structure/closet/crate/secure/gear
 
+/datum/syndie_supply_packs/security/combat_webbing
+	name = "Combat Webbing Crate"
+	contains = list(/obj/item/clothing/accessory/storage/webbing,
+					/obj/item/clothing/accessory/storage/webbing,
+					/obj/item/clothing/accessory/storage/webbing)
+	cost = 6000
+	containername = "Combat Webbing Crate"
+	containertype = /obj/structure/closet/crate/secure/gear
+
+/datum/syndie_supply_packs/security/vest
+	name = "Combat Vest Crate"
+	contains = list(/obj/item/clothing/accessory/storage/black_vest,
+					/obj/item/clothing/accessory/storage/black_vest,
+					/obj/item/clothing/accessory/storage/brown_vest,
+					/obj/item/clothing/accessory/storage/brown_vest)
+	cost = 6000
+	containername = "Combat Vest Crate"
+	containertype = /obj/structure/closet/crate/secure/gear
+
 /datum/syndie_supply_packs/security/bola
 	name = "Tactical Bola's Crate"
 	contains = list(/obj/item/restraints/legcuffs/bola/tactical,

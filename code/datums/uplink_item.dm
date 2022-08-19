@@ -1392,6 +1392,27 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/accessory/holster
 	cost = 2
 
+/datum/uplink_item/device_tools/webbing
+	name = "Combat Webbing"
+	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
+	reference = "WBNG"
+	item = /obj/item/clothing/accessory/storage/webbing
+	cost = 2
+
+/datum/uplink_item/device_tools/black_vest
+	name = "Black Vest"
+	desc = "Robust black synthcotton vest with lots of pockets to hold whatever you need, but cannot hold in hands."
+	reference = "BLCKVST"
+	item = /obj/item/clothing/accessory/storage/black_vest
+	cost = 2
+
+/datum/uplink_item/device_tools/brown_vest
+	name = "Brown Vest"
+	desc = "Worn brownish synthcotton vest with lots of pockets to unload your hands."
+	reference = "BRWNVST"
+	item = /obj/item/clothing/accessory/storage/brown_vest
+	cost = 2
+
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
 	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."

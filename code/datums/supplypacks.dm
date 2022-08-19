@@ -378,6 +378,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "tactical webbing crate"
 
+/datum/supply_packs/security/armory/combat_webbing
+	name = "Combat Webbing Crate"
+	contains = list(/obj/item/clothing/accessory/storage/webbing,
+					/obj/item/clothing/accessory/storage/webbing,
+					/obj/item/clothing/accessory/storage/webbing)
+	cost = 25
+	containername = "combat webbing crate"
+
+/datum/supply_packs/security/armory/vest
+	name = "Combat Vest Crate"
+	contains = list(/obj/item/clothing/accessory/storage/black_vest,
+					/obj/item/clothing/accessory/storage/black_vest,
+					/obj/item/clothing/accessory/storage/brown_vest,
+					/obj/item/clothing/accessory/storage/brown_vest)
+	cost = 25
+	containername = "combat vest crate"
+
 /datum/supply_packs/security/armory/swat
 	name = "SWAT gear crate"
 	contains = list(/obj/item/clothing/head/helmet/swat,
