@@ -544,7 +544,7 @@
 		else if(isclient(D))
 			var/client/C = D
 			href_list[paramname] = C.UID()
-		log_runtime(EXCEPTION("Found \\ref-based '[paramname]' param in VV topic for [datuminfo], should be UID: [href]"))
+		stack_trace("Found \\ref-based '[paramname]' param in VV topic for [datuminfo], should be UID: [href]")
 
 	if(href_list["Vars"])
 		debug_variables(locateUID(href_list["Vars"]))

@@ -1597,14 +1597,6 @@
     item_state = "rbscarf"
     item_color = "rbscarf"
 
-/obj/item/instrument/accordion/fluff/asmer_accordion //Asmerath: Coloratura
-	name = "Rara's Somber Accordion"
-	desc = "A blue colored accordion with claw indentations on the keys made special for vulpkanins."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "asmer_accordion"
-	item_state = "asmer_accordion"
-
-
 /obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello
 	name = "Bluespace Horns"
 	desc = "A pair of fake horns. Now with added bluespace!"
@@ -1700,6 +1692,18 @@
 	icon_state = "kikerimask"
 	item_state = "kikerimask"
 	item_color = "kikerimask"
+	species_restricted = list("Vox")
+
+/obj/item/clothing/mask/gas/fluff/yahiyamask //Asmerath: Yahiya
+	name = "Yahiya's Mask"
+	desc = "A dark brown and silver mask resembling that of an eagle. There is a fiery red gem embedded into the forehead."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
+	icon_state = "yahiyamask"
+	item_state = "yahiyamask"
+	item_color = "yahiyamask"
 	species_restricted = list("Vox")
 
 /obj/item/id_decal/aa07

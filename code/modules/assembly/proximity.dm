@@ -13,14 +13,16 @@
 	var/timing = FALSE
 	var/time = 10
 
-/obj/item/assembly/prox_sensor/ComponentInitialize()
+/obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor, _always_active = TRUE)
 
-/obj/item/assembly/prox_sensor/describe()
+/obj/item/assembly/prox_sensor/examine(mob/user)
+	. = ..()
 	if(timing)
-		return "<span class='notice'>The proximity sensor is arming.</span>"
-	return "The proximity sensor is [scanning ? "armed" : "disarmed"]."
+		. += "<span class='notice'>The proximity sensor is arming.</span>"
+	else
+		. += "The proximity sensor is [scanning ? "armed" : "disarmed"]."
 
 /obj/item/assembly/prox_sensor/activate()
 	if(!..())

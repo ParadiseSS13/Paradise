@@ -33,62 +33,54 @@
 	if(!user.incapacitated() && Adjacent(user))
 		toggle_welding_screen(user)
 
-/obj/item/clothing/head/helmet/space/plasmaman/visor_toggling() //handles all the actual toggling of flags
-	up = !up
-	flags ^= visor_flags
-	flags_inv ^= visor_flags_inv
-	icon_state = "[initial(icon_state)]"
-	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
-		flash_protect ^= initial(flash_protect)
-	if(visor_vars_to_toggle & VISOR_TINT)
-		tint ^= initial(tint)
-	if(on)
-		toggle_light()
-
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
 		if(on)
-			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
-			on = FALSE
-			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-			update_icon()
+			toggle_light(update_light = TRUE)
 		else
-			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
 			update_icon()
+		playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
+
+/obj/item/clothing/head/helmet/space/plasmaman/update_icon(updates=ALL)
+	. = ..()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
-	icon_state = "[initial(icon_state)][on ? "-light":""]"
+	if(!up)
+		icon_state = initial(icon_state)
+	else
+		icon_state = "[initial(icon_state)][on ? "-light":""]"
 	item_state = icon_state
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	. = ..()
-	. += visor_icon
+	if(!up)
+		. += visor_icon
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	toggle_light(user)
 
-/obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
-	if(up)
+/obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user, update_light)
+	if(!update_light)
 		on = !on
+	update_icon()
 	if(isnull(user))
 		user = loc
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
 		H.update_inv_head()
-	if(on)
-		if(!up)
-			if(istype(H))
-				to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
-			set_light(0)
-		else
-			set_light(brightness_on)
-	else
-		set_light(0)
+		if(!update_light)
+			to_chat(user, "<span class='notice'>You turn \the [src]'s torch [on ? "on":"off"].</span>")
+		if(on && !up)
+			to_chat(user, "<span class='notice'>[src]'s torch can't pass through your welding visor!</span>")
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-	update_icon()
+	if(!on || !up)
+		set_light(0)
+		return
+	
+	set_light(brightness_on)
 
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light()
 	if(on)

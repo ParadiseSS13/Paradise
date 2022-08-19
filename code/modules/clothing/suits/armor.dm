@@ -271,6 +271,26 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
+	/// The cell reactive armor uses.
+	var/obj/item/stock_parts/cell/emproof/reactive/cell
+	/// Cost multiplier for armor. "Stronger" armors use 200 charge, other armors use 120.
+	var/energy_cost = 120
+	/// Is the armor in the one second grace period, to prevent rubbershot / buckshot from draining significant cell useage.
+	var/in_grace_period = FALSE
+
+
+/obj/item/clothing/suit/armor/reactive/Initialize(mapload, ...)
+	. = ..()
+	cell = new(src)
+
+/obj/item/clothing/suit/armor/reactive/Destroy()
+	QDEL_NULL(cell)
+	return ..()
+
+/obj/item/clothing/suit/armor/reactive/examine(mob/user)
+	. = ..()
+	if(cell)
+		. += "<span class='notice'>The armor is [round(cell.percent())]% charged.</span>"
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
@@ -293,8 +313,21 @@
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	var/emp_power = 5 + (severity-1 ? 0 : 5)
+	if(!disabled) //We want ions to drain power, but we do not want it to drain all power in one go, or be one shot via ion scatter
+		cell.use(energy_cost * 4 / severity)
 	disable(emp_power)
 	..()
+
+/obj/item/clothing/suit/armor/reactive/proc/use_power()
+	if(in_grace_period)
+		return
+	else
+		in_grace_period = TRUE
+		cell.use(energy_cost) // 20 blocks for most armors, 12 blocks for the "stronger" armors
+		addtimer(VARSET_CALLBACK(src, in_grace_period, FALSE), 1 SECONDS)
+
+/obj/item/clothing/suit/armor/reactive/get_cell()
+	return cell
 
 /obj/item/clothing/suit/armor/reactive/proc/disable(disable_time = 0)
 	active = FALSE
@@ -321,7 +354,7 @@
 			var/obj/item/projectile/P = hitby
 			if(istype(P, /obj/item/projectile/ion))
 				return FALSE
-			if(!P.nodamage || P.stun)
+			if(!P.nodamage || P.stun || P.weaken)
 				return TRUE
 		else
 			return TRUE
@@ -330,6 +363,7 @@
 /obj/item/clothing/suit/armor/reactive/teleport
 	name = "reactive teleport armor"
 	desc = "Someone seperated our Research Director from his own head!"
+	energy_cost = 200
 	var/tele_range = 6
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -339,6 +373,7 @@
 		var/mob/living/carbon/human/H = owner
 		if(do_teleport(owner, owner, 6, safe_turf_pick = TRUE)) //Teleport on the same spot with a precision of 6 gets a random tile near the owner.
 			owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
+			use_power()
 			return TRUE
 		return FALSE
 	return FALSE
@@ -349,11 +384,22 @@
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
+/obj/item/clothing/suit/armor/reactive/fire/equipped(mob/user, slot)
+	..()
+	if(slot != slot_wear_suit)
+		return
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, "[UID()]")
+
+/obj/item/clothing/suit/armor/reactive/fire/dropped(mob/user, silent)
+	..()
+	REMOVE_TRAIT(user, TRAIT_RESISTHEAT, "[UID()]")
+
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby))
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out jets of flame!</span>")
+		use_power()
 		for(var/mob/living/carbon/C in range(6, owner))
 			if(C != owner)
 				C.fire_stacks += 8
@@ -366,6 +412,7 @@
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
 	desc = "This armor uses an anomaly core combined with holographic projectors to make the user invisible temporarly, and make a fake image of the user."
+	energy_cost = 200
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
@@ -377,6 +424,7 @@
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
 		owner.make_invisible()
+		use_power()
 		addtimer(CALLBACK(owner, /mob/living/.proc/reset_visibility), 4 SECONDS)
 		return TRUE
 
@@ -389,6 +437,7 @@
 		return FALSE
 	if(reaction_check(hitby))
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
+		use_power()
 		for(var/mob/living/M in view(6, owner))
 			if(M == owner)
 				continue
@@ -408,12 +457,14 @@
 	var/repulse_range = 5
 	/// What the sparkles looks like
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
+	energy_cost = 200
 
 /obj/item/clothing/suit/armor/reactive/repulse/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby))
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
+		use_power()
 		var/list/thrown_atoms = list()
 		for(var/turf/T in range(repulse_range, owner)) //Done this way so things don't get thrown all around hilariously.
 			for(var/atom/movable/AM in T)
@@ -567,7 +618,7 @@
 	item_state = "dragon"
 	desc = "A suit of armour fashioned from the remains of an ash drake."
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
-	armor = list(MELEE = 115, BULLET = 20, LASER = 50, ENERGY = 35, BOMB = 115, BIO = 75, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 115, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 150, BIO = 25, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
 	hoodtype = /obj/item/clothing/head/hooded/drake
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -579,7 +630,7 @@
 	icon_state = "dragon"
 	item_state = "dragon"
 	desc = "The skull of a dragon."
-	armor = list(MELEE = 115, BULLET = 20, LASER = 50, ENERGY = 35, BOMB = 115, BIO = 75, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 115, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 150, BIO = 25, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF

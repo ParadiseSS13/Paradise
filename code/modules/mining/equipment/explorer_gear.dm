@@ -48,25 +48,21 @@
 	desc = "Hostile Environment Cross-Kinetic Suit: A suit designed to withstand the wide variety of hazards from Lavaland. It wasn't enough for its last owner."
 	icon_state = "hostile_env"
 	item_state = "hostile_env"
-	flags = THICKMATERIAL //not spaceproof
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	slowdown = 0
-	armor = list(MELEE = 115, BULLET = 35, LASER = 5, ENERGY = 5, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 120, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/melee/spellblade)
 
 
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
-/obj/item/clothing/suit/space/hostile_environment/ComponentInitialize()
-	..()
-	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/space/hostile_environment/process()
 	var/mob/living/carbon/C = loc
@@ -83,16 +79,12 @@
 	item_state = "hostile_env"
 	w_class = WEIGHT_CLASS_NORMAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	flags = THICKMATERIAL // no space protection
-	armor = list(MELEE = 115, BULLET = 35, LASER = 5, ENERGY = 5, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 120, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
 	. = ..()
 	update_icon()
-
-/obj/item/clothing/head/helmet/space/hostile_environment/ComponentInitialize()
-	..()
 	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()

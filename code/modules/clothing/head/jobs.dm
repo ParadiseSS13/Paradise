@@ -23,6 +23,7 @@
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 //Captain: no longer space-worthy
 /obj/item/clothing/head/caphat/parade

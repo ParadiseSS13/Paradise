@@ -33,7 +33,7 @@
 		var/mob/living/carbon/human/H = M
 		parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
-			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
+			stack_trace("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]")
 		else
 			parent.internal_organs |= src
 	loc = null
@@ -49,7 +49,7 @@
 // However, you MUST set the object's positiion yourself when you call this!
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
-		log_runtime(EXCEPTION("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]"), src)
+		stack_trace("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
 	owner = null
 	if(M)
 		M.internal_organs -= src
@@ -63,7 +63,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
-			log_runtime(EXCEPTION("[src] attempted to remove from a [parent_organ], but [parent_organ] didn't exist! [atom_loc_line(M)]"), src)
+			stack_trace("[src] attempted to remove from a [parent_organ], but [parent_organ] didn't exist! [atom_loc_line(M)]")
 		else
 			parent.internal_organs -= src
 		H.update_int_organs()
@@ -127,9 +127,8 @@
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
 
-/obj/item/reagent_containers/food/snacks/organ/New()
-	..()
-
+/obj/item/reagent_containers/food/snacks/organ/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("nutriment", 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)

@@ -101,3 +101,9 @@
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed
 	addtimer(CALLBACK(src, .proc/gib), rand(2 SECONDS, 10 SECONDS))
+
+/mob/living/carbon/proc/inflate_gib() // Plays an animation that makes mobs appear to inflate before finally gibbing
+	addtimer(CALLBACK(src, .proc/gib, null, null, TRUE, TRUE), 25)
+	var/matrix/M = matrix()
+	M.Scale(1.8, 1.2)
+	animate(src, time = 40, transform = M, easing = SINE_EASING)

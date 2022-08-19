@@ -99,11 +99,13 @@
 			return TRUE
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
 	. = TRUE
+	if(locate(/obj/structure/cable) in src)
+		to_chat(user, "<span class='notice'>There is a cable still attached to [src]. Remove it first!</span>")
+		return
+	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
