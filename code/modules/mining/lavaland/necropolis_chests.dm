@@ -156,7 +156,7 @@
 #define PROJECTILE_HIT_MULTIPLIER 1.5
 #define DAMAGE_TO_CHARGE_SCALE 0.75
 #define CHARGE_DRAINED_PER_SECOND 5
-#define BERSERK_ARMOR_ADDED 40
+#define BERSERK_DAMAGE_REDUCTION 0.6
 #define BERSERK_ATTACK_SPEED_MODIFIER 0.5
 #define BERSERK_COLOUR rgb(149, 10, 10)
 
@@ -230,6 +230,10 @@
 /obj/item/clothing/head/hooded/berserker/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(berserk_active)
 		return
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.damage_type != BRUTE && P.damage_type != BURN)
+			return //no disabler rage
 	var/berserk_value = damage * DAMAGE_TO_CHARGE_SCALE
 	if(attack_type == PROJECTILE_ATTACK)
 		berserk_value *= PROJECTILE_HIT_MULTIPLIER
@@ -237,12 +241,12 @@
 	if(berserk_charge >= MAX_BERSERK_CHARGE)
 		to_chat(owner, "<span class='notice'>Berserk mode is fully charged.</span>")
 
-/// Starts berserk, giving the wearer 40 armor, doubled attacking speed, NOGUNS trait, adding a color and giving them a little more movespeed
+/// Starts berserk, giving the wearer 40 armor, doubled attacking speed, NOGUNS trait, and colours them blood red.
 /obj/item/clothing/head/hooded/berserker/proc/berserk_mode(mob/living/carbon/human/user)
 	to_chat(user, "<span class='warning'>You enter berserk mode.</span>")
 	playsound(user, 'sound/magic/staff_healing.ogg', 50)
-	ADD_TRAIT(user, TRAIT_GOTTAGONOTSOFAST, "berserk[UID()]")
-	user.dna.species.armor += BERSERK_ARMOR_ADDED
+	user.dna.species.burn_mod *= BERSERK_DAMAGE_REDUCTION
+	user.dna.species.brute_mod *= BERSERK_DAMAGE_REDUCTION
 	user.next_move_modifier *= BERSERK_ATTACK_SPEED_MODIFIER
 	user.add_atom_colour(BERSERK_COLOUR, TEMPORARY_COLOUR_PRIORITY)
 	ADD_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
@@ -260,8 +264,8 @@
 		return
 	to_chat(user, "<span class='warning'>You exit berserk mode.</span>")
 	playsound(user, 'sound/magic/summonitems_generic.ogg', 50)
-	REMOVE_TRAIT(user, TRAIT_GOTTAGONOTSOFAST, "berserk[UID()]")
-	user.dna.species.armor -= BERSERK_ARMOR_ADDED
+	user.dna.species.burn_mod /= BERSERK_DAMAGE_REDUCTION
+	user.dna.species.brute_mod /= BERSERK_DAMAGE_REDUCTION
 	user.next_move_modifier /= BERSERK_ATTACK_SPEED_MODIFIER
 	user.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, BERSERK_COLOUR)
 	REMOVE_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
@@ -290,7 +294,7 @@
 #undef PROJECTILE_HIT_MULTIPLIER
 #undef DAMAGE_TO_CHARGE_SCALE
 #undef CHARGE_DRAINED_PER_SECOND
-#undef BERSERK_ARMOR_ADDED
+#undef BERSERK_DAMAGE_REDUCTION
 #undef BERSERK_ATTACK_SPEED_MODIFIER
 #undef BERSERK_COLOUR
 
