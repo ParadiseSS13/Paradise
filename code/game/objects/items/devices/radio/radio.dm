@@ -36,7 +36,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	/// the range which mobs can hear this radio from
 	var/canhear_range = 3
 	var/datum/wires/radio/wires = null
-	var/b_stat = 0
+	/// If this is true, it will block it from being modified or attached
+	var/b_stat = FALSE
 
 	/// Whether the radio will broadcast stuff it hears, out over the radio
 	var/broadcasting = FALSE
@@ -52,7 +53,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	/// Whether loudspeaker can be toggled by the user
 	var/has_loudspeaker = FALSE
 
-	/// see communications.dm for full list. First channes is a "default" for :h
+	/// see communications.dm for full list. First channel is a "default" for :h
 	var/list/channels = list()
 	/// Holder for the syndicate encryption key if present
 	var/obj/item/encryptionkey/syndicate/syndiekey = null
@@ -83,7 +84,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
-
 
 /obj/item/radio/New()
 	..()
@@ -125,7 +125,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return 0
 	if(b_stat)
 		wires.Interact(user)
-	ui_interact(user)
+	else
+		ui_interact(user)
 
 /obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -184,8 +185,12 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				set_frequency(text2num(freq))
 		if("listen")
 			listening = !listening
+			if(istype(src, /obj/item/radio/intercom))
+				update_icon(UPDATE_OVERLAYS)
 		if("broadcast")
 			broadcasting = !broadcasting
+			if(istype(src, /obj/item/radio/intercom))
+				update_icon(UPDATE_OVERLAYS)
 		if("channel")
 			var/channel = params["channel"]
 			if(!(channel in channels))
@@ -344,18 +349,18 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, verbage = "says")
 	if(!on)
-		return 0 // the device has to be on
+		return FALSE // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
 	if(!M || !message_pieces)
-		return 0
+		return FALSE
 
 	//  Uncommenting this. To the above comment:
 	// 	The permacell radios aren't suppose to be able to transmit, this isn't a bug and this "fix" is just making radio wires useless. -Giacom
 	if(wires.is_cut(WIRE_RADIO_TRANSMIT)) // The device has to have all its wires and shit intact
-		return 0
+		return FALSE
 
 	if(!M.IsVocal())
-		return 0
+		return FALSE
 
 	var/jammed = FALSE
 	var/turf/position = get_turf(src)
@@ -369,10 +374,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	switch(message_mode) //special cases
 		// This is if the connection fails
 		if(RADIO_CONNECTION_FAIL)
-			return 0
+			return FALSE
 		// This is if were using either a binary key, or a hivemind through a headset somehow. Dont ask.
 		if(RADIO_CONNECTION_NON_SUBSPACE)
-			return 1
+			return TRUE
 
 	if(!istype(message_mode, /datum/radio_frequency)) //if not a special case, it should be returning a radio connection
 		return
@@ -406,7 +411,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		jobname = "Cyborg"
 
 	// --- Personal AI (pAI) ---
-	else if(istype(M, /mob/living/silicon/pai))
+	else if(ispAI(M))
 		jobname = "Personal AI"
 
 	// --- Unidentifiable mob ---
@@ -553,7 +558,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
-	if(in_range(src, user) || loc == user)
+	if((in_range(src, user) || loc == user) && !istype(src, /obj/item/radio/intercom))
 		if(b_stat)
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
 		else
@@ -565,13 +570,16 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return
 
 	b_stat = !b_stat
-	if(!istype(src, /obj/item/radio/beacon))
+	if(istype(src, /obj/item/radio/beacon))
+		return
+	if(istype(src, /obj/item/radio/intercom))
+		to_chat(user, "<span class='notice'>You [b_stat ? "open":"close"] the panel on the [src].</span>")
+	else
 		if(b_stat)
-			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
+			to_chat(user, "<span class='notice'>The radio can now be attached and modified!</span>")
 		else
-			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
-
-		updateDialog()
+			to_chat(user, "<span class='notice'>The radio can no longer be modified or attached!</span>")
+	updateDialog()
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
