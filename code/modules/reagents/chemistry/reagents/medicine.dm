@@ -122,14 +122,7 @@
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/external_temp
-	if(istype(M.loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		var/obj/machinery/atmospherics/unary/cryo_cell/C = M.loc
-		external_temp = C.temperature_archived
-	else
-		var/turf/T = get_turf(M)
-		external_temp = T.temperature
-	if(external_temp < TCRYO)
+	if(iscarbon(M) && M.bodytemperature < TCRYO)
 		update_flags |= M.adjustCloneLoss(-1, FALSE)
 		update_flags |= M.adjustOxyLoss(-2, FALSE)
 		update_flags |= M.adjustToxLoss(-0.5, FALSE)
