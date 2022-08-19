@@ -492,6 +492,8 @@
 		text = replacetext(text, "\[row\]", 	"")
 		text = replacetext(text, "\[cell\]", 	"")
 		text = replacetext(text, "\[logo\]", 	"")
+		text = replacetext(text, "\[syndielogo\]", 	"")
+
 	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
@@ -507,7 +509,8 @@
 		text = replacetext(text, "\[/grid\]",	"</td></tr></table>")
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
-		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src = ntlogo.png>")
+		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src='ntlogo.png'>")
+		text = replacetext(text, "\[syndielogo\]", 	"&ZeroWidthSpace;<img src='syndielogo.png'>")
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
 		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
 		text = replacetext(text, "\[station\]", "[SSmapping.map_datum.fluff_name]")
@@ -589,7 +592,8 @@
 	text = replacetext(text, "</td></tr></table>",		"\[/grid\]")
 	text = replacetext(text, "</td><tr>",				"\[row\]")
 	text = replacetext(text, "<td>",					"\[cell\]")
-	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
+	text = replacetext(text, "<img src='ntlogo.png'>",	"\[logo\]")
+	text = replacetext(text, "<img src='syndielogo.png'>",	"\[syndielogo\]")
 	return text
 
 /datum/html/split_holder

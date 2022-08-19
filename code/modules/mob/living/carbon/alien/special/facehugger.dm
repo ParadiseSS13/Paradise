@@ -29,7 +29,7 @@
 
 	var/attached = 0
 
-/obj/item/clothing/mask/facehugger/ComponentInitialize()
+/obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 

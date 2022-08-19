@@ -150,14 +150,14 @@
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
+	say("Pray")
+	SLEEP_CHECK_DEATH(0.75 SECONDS)// no point blank instant shotgun.
 	shoot_projectile(target_turf, angle_to_target, FALSE, TRUE)
 	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 0.2 SECONDS)
-	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 0.4 SECONDS)
 	if(health < maxHealth * 0.5 && !is_mirror)
 		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 1 SECONDS)
 		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 1.2 SECONDS)
-		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 1.4 SECONDS)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_circleshot(offset)
 	var/static/list/directional_shot_angles = list(1, 45, 90, 135, 180, 225, 270, 315) //Trust me, use 1. It really doesn't like zero.
