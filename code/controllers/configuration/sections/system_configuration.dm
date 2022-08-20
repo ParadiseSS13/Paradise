@@ -28,6 +28,8 @@
 	var/external_tos_handler = FALSE
 	/// Map datum of the map to use, overriding the defaults, and `data/next_map.txt`
 	var/override_map = null
+	/// Assoc list of region names and their server IPs. Used for geo-routing.
+	var/list/region_map = list()
 
 /datum/configuration_section/system_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -48,3 +50,9 @@
 	CONFIG_LOAD_STR(internal_ip, data["internal_ip"])
 
 	CONFIG_LOAD_STR(override_map, data["override_map"])
+
+	// Load region overrides
+	if(islist(data["regional_servers"]))
+		region_map.Cut()
+		for(var/list/kvset in data["regional_servers"])
+			region_map[kvset["name"]] = kvset["ip"]
