@@ -80,8 +80,8 @@
 	else if(istype(A, /obj/item/dnainjector))
 		to_chat(user, "<span class='notice'>[src] is incompatible with DNA-Injectors.</span>")
 		return
-	else
-		return ..()
+
+	return ..()
 /obj/item/gun/syringe/rapidsyringe_old
 	name = "rapid syringe gun"
 	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes. Not compatible with DNA-Injectors."
