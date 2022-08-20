@@ -10,6 +10,7 @@
 
 #define EMPTY_ASSEMBLY "01"
 #define WIRED_ASSEMBLY "02"
+
 /obj/structure/windoor_assembly
 	icon = 'icons/obj/doors/windoor.dmi'
 	name = "windoor assembly"
