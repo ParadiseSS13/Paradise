@@ -190,7 +190,9 @@
 //Updating pixelshift, position and direction
 //Gets called on process, when the grab gets upgraded or the assailant moves
 /obj/item/grab/proc/adjust_position()
-	if(!affecting || affecting.buckled)
+	if(!confirm())
+		return
+	if(affecting.buckled)
 		return
 	if(affecting.lying && state != GRAB_KILL)
 		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
@@ -232,7 +234,7 @@
 			animate(affecting, pixel_x =-shift, pixel_y = 0, 5, 1, LINEAR_EASING)
 
 /obj/item/grab/proc/s_click(obj/screen/S)
-	if(!affecting)
+	if(!confirm())
 		return
 	if(state >= GRAB_AGGRESSIVE && HAS_TRAIT(assailant, TRAIT_PACIFISM))
 		to_chat(assailant, "<span class='warning'>You don't want to risk hurting [affecting]!</span>")
@@ -304,7 +306,7 @@
 		return 0
 
 	if(affecting)
-		if(!isturf(assailant.loc) || ( !isturf(affecting.loc) || assailant.loc != affecting.loc && get_dist(assailant, affecting) > 1) )
+		if(!isturf(assailant.loc) || !isturf(affecting.loc) || (assailant.loc != affecting.loc && get_dist(assailant, affecting) > 1))
 			qdel(src)
 			return 0
 	return 1

@@ -604,6 +604,8 @@
 		var/mob/M = grabbing[i]
 		if(QDELETED(M))  // old code warned me that M could go missing during a move, so I'm cargo-culting it here
 			continue
+		if(!isturf(M.loc))
+			continue
 		// compile a list of turfs we can maybe move them towards
 		// importantly, this should happen before actually trying to move them to either of those
 		// otherwise they can be moved twice (since `Move` returns TRUE only if it managed to
