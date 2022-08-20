@@ -30,11 +30,6 @@
 	attackcycles = 0
 	..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/white/death(gibbed)
-	if(can_die() && !hasdied && spider_uo71)
-		UnlockBlastDoors("UO71_Bridge")
-	return ..(gibbed)
-
 /mob/living/simple_animal/hostile/poison/terror_spider/white/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(!poisonable)
 		..()

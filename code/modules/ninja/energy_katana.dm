@@ -5,7 +5,8 @@
 	item_state = "energy_katana"
 	force = 40
 	throwforce = 20
-	armour_penetration = 50
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 10
 	var/cooldown = 0 // Because spam aint cool, yo.
 	var/datum/effect_system/spark_spread/spark_system
 

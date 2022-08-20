@@ -81,7 +81,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "aq" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "ar" = (
@@ -125,7 +125,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "az" = (
@@ -592,7 +592,7 @@
 /area/ruin/space/tcommsat)
 "bW" = (
 /obj/structure/table,
-/obj/item/radio/electropack,
+/obj/item/electropack,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "bX" = (

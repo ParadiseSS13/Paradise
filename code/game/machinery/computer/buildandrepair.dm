@@ -175,10 +175,6 @@
 	board_name = "Atmospheric Monitor"
 	build_path = /obj/machinery/computer/general_air_control
 
-/obj/item/circuitboard/injector_control
-	board_name = "Injector Control"
-	build_path = /obj/machinery/computer/general_air_control/fuel_injection
-
 /obj/item/circuitboard/robotics
 	board_name = "Robotics Control Console"
 	build_path = /obj/machinery/computer/robotics
@@ -553,6 +549,10 @@
 			var/obj/item/circuitboard/B = I
 			if(B.board_type != "computer")
 				to_chat(user, "<span class='warning'>[src] does not accept circuit boards of this type!</span>")
+				return
+
+			if(!B.build_path)
+				to_chat(user, "<span class='warning'>This is not a functional computer circuit board!</span>")
 				return
 
 			B.play_tool_sound(src)

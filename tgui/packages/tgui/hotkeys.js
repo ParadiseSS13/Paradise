@@ -60,6 +60,7 @@ const NO_PASSTHROUGH_KEYS = [
   KEY_TAB,
   KEY_CTRL,
   KEY_SHIFT,
+  KEY_ALT, // to prevent alt tabbing breaking shit
 ];
 
 // Tracks the "pressed" state of keys
@@ -149,10 +150,7 @@ const handlePassthrough = (e, eventType) => {
   const keyData = getKeyData(e);
   const { keyCode, ctrlKey, shiftKey } = keyData;
   const byondKey = keyCodeToByond(keyCode);
-  // NOTE: We pass through only Alt of all modifier keys, because Alt
-  // modifier is implemented very shittily
-  // in our codebase. We pass no other modifier keys, because they can
-  // be used internally as tgui hotkeys.
+
   if (NO_PASSTHROUGH_KEYS.includes(keyCode)) {
     return;
   }

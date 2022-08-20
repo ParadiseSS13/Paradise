@@ -16,6 +16,7 @@
 	throw_range = 5
 	tint = 3
 	flags = AIRTIGHT
+	flags_2 = CRITICAL_ATOM_2
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
 	max_integrity = 100
@@ -28,7 +29,7 @@
 
 	var/attached = 0
 
-/obj/item/clothing/mask/facehugger/ComponentInitialize()
+/obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 

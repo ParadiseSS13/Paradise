@@ -10,11 +10,12 @@
 	var/spawn_inside = null
 
 // This needs to use New() instead of Initialize() because the thing it creates might need to be initialized too
+// AA 2022-08-11: The above comment doesnt even make sense. If extra atoms are loaded during SSatoms.Initialize(), they still get initialised!
 /obj/effect/spawner/random_spawners/New()
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)
-		log_runtime(EXCEPTION("Spawner placed in nullspace!"), src)
+		stack_trace("Spawner placed in nullspace!")
 		return
 	randspawn(T)
 

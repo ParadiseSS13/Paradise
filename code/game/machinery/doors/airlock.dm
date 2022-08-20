@@ -288,12 +288,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		electrified_until = 0
 	else if(!duration && electrified_until != 0)
 		message = "The door is now un-electrified."
+		add_attack_logs(user, src, "Un-electrified [ADMIN_COORDJMP(src)]", ATKLOG_ALL)
 		electrified_until = 0
 	else if(duration)	//electrify door for the given duration seconds
 		if(user)
 			shockedby += text("\[[time_stamp()]\] - [user](ckey:[user.ckey])")
-			user.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
-			add_attack_logs(user, src, "Electrified", ATKLOG_ALL)
+			add_attack_logs(user, src, "Electrified [ADMIN_COORDJMP(src)]", ATKLOG_ALL)
 		else
 			shockedby += text("\[[time_stamp()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."

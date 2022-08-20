@@ -106,6 +106,19 @@
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 
 /mob/visible_message(message, self_message, blind_message)
+	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
+		for(var/mob/M in get_mobs_in_view(3, src))
+			if(M.see_invisible < invisibility)
+				continue //can't view the invisible
+			var/msg = message
+			if(self_message && M == src)
+				msg = self_message
+			if(M.loc != loc)
+				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
+					continue
+				msg = blind_message
+			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		return
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
@@ -994,7 +1007,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
-			stat("CPU:", "[Master.formatcpu()]")
+			stat("CPU:", "[Master.formatcpu(world.cpu)]")
+			stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
 			stat("Server Time:", time_stamp())

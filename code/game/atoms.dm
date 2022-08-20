@@ -123,9 +123,7 @@
 		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
 
 	if(loc)
-		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
-
-	ComponentInitialize()
+		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
 	if(length(smoothing_groups))
 		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
@@ -140,13 +138,6 @@
 
 //called if Initialize returns INITIALIZE_HINT_LATELOAD
 /atom/proc/LateInitialize()
-	return
-
-// Put your AddComponent() calls here
-/atom/proc/ComponentInitialize()
-	return
-
-/atom/proc/InitializedOn(atom/A) // Proc for when something is initialized on a atom - Optional to call. Useful for observer pattern etc.
 	return
 
 /atom/proc/onCentcom()
@@ -430,6 +421,9 @@
 /atom/proc/update_icon(updates=ALL)
 	SIGNAL_HANDLER
 	SHOULD_CALL_PARENT(TRUE)
+
+	if(updates & NONE)
+		return // NONE is being sent on purpose, and thus no signal should be sent. 
 
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
 	if(updates & UPDATE_ICON_STATE)

@@ -1733,8 +1733,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/machinery/door/airlock = "AIRLOCK",
 			/obj/machinery/door = "DOOR",
 			/obj/machinery/kitchen_machine = "KITCHEN",
-			/obj/machinery/portable_atmospherics/canister = "CANISTER",
-			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
+			/obj/machinery/atmospherics/portable/canister = "CANISTER",
+			/obj/machinery/atmospherics/portable = "PORT_ATMOS",
 			/obj/machinery/power = "POWER",
 			/obj/machinery = "MACHINERY",
 			/obj/mecha = "MECHA",
@@ -1922,13 +1922,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(check_shift && !(A.pixel_x == shift_x && A.pixel_y == shift_y))
 			continue
 		. += A
-
-//gives us the stack trace from CRASH() without ending the current proc.
-/proc/stack_trace(msg)
-	CRASH(msg)
-
-/datum/proc/stack_trace(msg)
-	CRASH(msg)
 
 /proc/pass()
 	return
