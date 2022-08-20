@@ -140,4 +140,4 @@
 		flick("synthesizer_beam", src)
 	else
 		visible_message("<span class='notice'>There are no disposable items in [src]!</span>")
-	time_since_dishes = world.time + 600
+	time_since_dishes = world.time + 60 SECONDS

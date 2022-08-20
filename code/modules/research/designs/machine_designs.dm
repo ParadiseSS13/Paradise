@@ -350,7 +350,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/dish_drive
-	category = list ("Misc. Machinery")
+	category = list("Misc. Machinery")
 
 /datum/design/monkey_recycler
 	name = "Machine Design (Monkey Recycler Board)"
