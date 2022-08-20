@@ -41,7 +41,7 @@
 /obj/item/gun/syringe/examine(mob/user)
 	. = ..()
 	var/num_syringes = syringes.len + (chambered.BB ? 1 : 0)
-	. += "Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining."
+	. += "<span class='notice'>Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining.</span>"
 
 /obj/item/gun/syringe/attack_self(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
@@ -109,4 +109,4 @@
 		user.adjustStaminaLoss(20)
 		user.adjustOxyLoss(20)
 		..()
-		
+

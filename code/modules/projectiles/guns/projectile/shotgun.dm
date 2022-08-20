@@ -69,7 +69,7 @@
 /obj/item/gun/projectile/shotgun/examine(mob/user)
 	. = ..()
 	if(chambered)
-		. += "A [chambered.BB ? "live" : "spent"] one is in the chamber."
+		. += "<span class='notice'>A [chambered.BB ? "live" : "spent"] one is in the chamber.</span>"
 
 /obj/item/gun/projectile/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
@@ -240,7 +240,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/examine(mob/user)
 	. = ..()
-	. += "The bolt is [bolt_open ? "open" : "closed"]."
+	. += "<span class='notice'>The bolt is [bolt_open ? "open" : "closed"].</span>"
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted
 	name = "enchanted bolt action rifle"

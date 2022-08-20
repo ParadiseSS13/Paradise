@@ -167,19 +167,19 @@
 	var/integrity = obj_integrity * 100 / max_integrity
 	switch(integrity)
 		if(85 to 100)
-			. += "It's fully intact."
+			. += "<span class='notice'>It's fully intact.</span>"
 		if(65 to 85)
-			. += "It's slightly damaged."
+			. += "<span class='notice'>It's slightly damaged.</span>"
 		if(45 to 65)
-			. += "It's badly damaged."
+			. += "<span class='notice'>It's badly damaged.</span>"
 		if(25 to 45)
-			. += "It's heavily damaged."
+			. += "<span class='notice'>It's heavily damaged.</span>"
 		else
-			. += "It's falling apart."
+			. += "<span class='warning'>It's falling apart.</span>"
 	if(equipment && equipment.len)
-		. += "It's equipped with:"
+		. += "<span class='notice'>It's equipped with:</span>"
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
-			. += "[bicon(ME)] [ME]"
+			. += "<span class='notice'>[bicon(ME)] [ME]</span>"
 
 /obj/mecha/hear_talk(mob/M, list/message_pieces)
 	if(M == occupant && radio.broadcasting)

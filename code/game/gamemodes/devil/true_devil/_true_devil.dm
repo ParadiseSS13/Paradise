@@ -65,7 +65,7 @@
 
 
 /mob/living/carbon/true_devil/examine(mob/user)
-	var/msg = "<span class='info'>*---------*\nThis is [bicon(src)] <b>[src]</b>!\n"
+	var/msg = "This is [bicon(src)] <b>[src]</b>!\n"
 
 	//Left hand items
 	if(l_hand && !(l_hand.flags & ABSTRACT))
@@ -83,7 +83,7 @@
 
 	//Braindead
 	if(!client && stat != DEAD)
-		msg += "The devil seems to be in deep contemplation.\n"
+		msg += "<span class='deadsay'>The devil seems to be in deep contemplation.</span>\n"
 
 	//Damaged
 	if(stat == DEAD)
@@ -92,7 +92,7 @@
 		msg += "<span class='warning'>You can see hellfire inside of it's gaping wounds.</span>\n"
 	else if(health < (maxHealth/2))
 		msg += "<span class='warning'>You can see hellfire inside of it's wounds.</span>\n"
-	msg += "*---------*</span>"
+
 	. = list(msg)
 
 

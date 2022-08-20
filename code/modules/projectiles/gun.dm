@@ -89,15 +89,15 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin && !current_skin)
-		. += "<span class='notice'>Alt-click it to reskin it.</span>"
+		. += "<span class='info'>Alt-click it to reskin it.</span>"
 	if(unique_rename)
-		. += "<span class='notice'>Use a pen on it to rename it.</span>"
+		. += "<span class='info'>Use a pen on it to rename it.</span>"
 	if(bayonet)
-		. += "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it."
+		. += "<span class='notice'>It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.</span>"
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
 			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
-		. += "It has a <b>bayonet</b> lug on it."
+		. += "<span class='notice'>It has a <b>bayonet</b> lug on it.</span>"
 
 /obj/item/gun/proc/process_chamber()
 	return 0

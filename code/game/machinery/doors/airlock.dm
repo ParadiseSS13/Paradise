@@ -554,33 +554,33 @@ About the new airlock wires panel:
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 	if(note)
 		if(!in_range(user, src))
-			. += "There's a [note.name] pinned to the front. You can't [note_type() == "note" ? "read" : "see"] it from here."
+			. += "<span class='notice'>There's a [note.name] pinned to the front. You can't [note_type() == "note" ? "read" : "see"] it from here.</span>"
 		else
-			. += "There's a [note.name] pinned to the front..."
+			. += "<span class='notice'>There's a [note.name] pinned to the front...</span>"
 			note.examine(user)
 			. += "<span class='notice'>Use an empty hand on the airlock on grab mode to remove [note.name].</span>"
 
 	if(panel_open)
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
-				. += "Its wires are exposed!"
+				. += "<span class='notice'>Its wires are exposed!</span>"
 			if(AIRLOCK_SECURITY_METAL)
-				. += "Its wires are hidden behind a welded metal cover."
+				. += "<span class='notice'>Its wires are hidden behind a welded metal cover.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_I_S)
-				. += "There is some shredded plasteel inside."
+				. += "<span class='notice'>There is some shredded plasteel inside.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_I)
-				. += "Its wires are behind an inner layer of plasteel."
+				. += "<span class='notice'>Its wires are behind an inner layer of plasteel.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_O_S)
-				. += "There is some shredded plasteel inside."
+				. += "<span class='notice'>There is some shredded plasteel inside.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
-				. += "There is a welded plasteel cover hiding its wires."
+				. += "<span class='notice'>There is a welded plasteel cover hiding its wires.</span>"
 			if(AIRLOCK_SECURITY_PLASTEEL)
-				. += "There is a protective grille over its panel."
+				. += "<span class='notice'>There is a protective grille over its panel.</span>"
 	else if(security_level)
 		if(security_level == AIRLOCK_SECURITY_METAL)
-			. += "It looks a bit stronger."
+			. += "<span class='notice'>It looks a bit stronger.</span>"
 		else
-			. += "It looks very robust."
+			. += "<span class='notice'>It looks very robust.</span>"
 
 /obj/machinery/door/airlock/attack_ghost(mob/user)
 	if(panel_open)

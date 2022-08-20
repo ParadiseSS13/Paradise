@@ -63,4 +63,4 @@
 
 /obj/item/grenade/iedcasing/examine(mob/user)
 	. = ..()
-	. += "You can't tell when it will explode!"
+	. += "<span class='warning'>You can't tell when it will explode!</span>"

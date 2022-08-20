@@ -437,25 +437,25 @@
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 
-	var/msg = "<span class='info'>"
+	var/msg = "<span class='notice'>"
 
 	switch(stat)
 		if(CONSCIOUS)
 			if(!client)
-				msg += "\nIt appears to be in stand-by mode." //afk
+				msg += "It appears to be in stand-by mode.\n" //afk
 		if(UNCONSCIOUS)
-			msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
+			msg += "<span class='warning'>It doesn't seem to be responding.\n</span>"
 		if(DEAD)
-			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
+			msg += "<span class='deadsay'>It looks completely unsalvageable.\n</span>"
 
 	if(print_flavor_text())
-		msg += "\n[print_flavor_text()]"
+		msg += "[print_flavor_text()]\n"
 
 	if(pose)
 		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "\nIt is [pose]"
-	msg += "\n*---------*</span>"
+		msg += "It is [pose]"
+	msg += "</span>"
 
 	. += msg
 

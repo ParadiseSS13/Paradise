@@ -41,7 +41,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) && has_camera)
-		. += "This helmet has a built-in camera. It's [camera ? "" : "in"]active."
+		. += "<span class='notice'>This helmet has a built-in camera. It's [camera ? "" : "in"]active.</span>"
 
 /obj/item/clothing/suit/space/hardsuit/ert
 	name = "emergency response team suit"

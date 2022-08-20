@@ -41,15 +41,12 @@
 	. = ..()
 	display_timer = (stage == READY && !nadeassembly)	//show/hide the timer based on assembly state
 
-
-
 /obj/item/grenade/chem_grenade/proc/get_trigger()
 	if(!nadeassembly) return null
 	for(var/obj/O in list(nadeassembly.a_left, nadeassembly.a_right))
 		if(!O || istype(O,/obj/item/assembly/igniter)) continue
 		return O
 	return null
-
 
 /obj/item/grenade/chem_grenade/proc/update_overlays()
 	underlays = list()

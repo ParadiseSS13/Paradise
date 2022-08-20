@@ -90,7 +90,7 @@
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) && user == loc)
-		. += "[round(reagents.total_volume)] units left."
+		. += "<span class='notice'>[round(reagents.total_volume)] units left.</span>"
 
 /obj/item/reagent_containers/spray/verb/empty()
 

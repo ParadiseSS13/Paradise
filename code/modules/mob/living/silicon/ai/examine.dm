@@ -1,6 +1,6 @@
 /mob/living/silicon/ai/examine(mob/user)
 	. = ..()
-	var/msg = "<span class='info'>"
+	var/msg = "<span class='notice'>"
 	if(src.stat == DEAD)
 		msg += "<span class='deadsay'>It appears to be powered-down.</span>\n"
 	else
@@ -20,7 +20,7 @@
 		if(!shunted && !client)
 			msg += "[src]Core.exe has stopped responding! NTOS is searching for a solution to the problem...\n"
 		msg += "</span>"
-	msg += "*---------*</span>"
+	msg += "</span>"
 
 	. += msg
 	user.showLaws(src)

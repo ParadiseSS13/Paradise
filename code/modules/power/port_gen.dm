@@ -157,8 +157,8 @@
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
 	. = ..()
-	. += "\The [src] appears to be producing [power_gen*power_output] W."
-	. += "There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper."
+	. += "<span class='notice'>\The [src] appears to be producing [power_gen*power_output] W.</span>"
+	. += "<span class='notice'>There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper.</span>"
 	if(IsBroken())
 		. += "<span class='warning'>\The [src] seems to have broken down.</span>"
 	if(overheating)

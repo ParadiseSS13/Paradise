@@ -30,7 +30,7 @@
 /obj/item/storage/secure/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "The service panel is [open ? "open" : "closed"]."
+		. += "<span class='notice'>The service panel is [open ? "open" : "closed"].</span>"
 
 /obj/item/storage/secure/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(locked)

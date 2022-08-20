@@ -27,8 +27,8 @@
 /obj/item/survivalcapsule/examine(mob/user)
 	. = ..()
 	get_template()
-	. += "This capsule has the [template.name] stored."
-	. += template.description
+	. += "<span class='notice'>This capsule has the [template.name] stored.</span>"
+	. += "<span class='notice'>[template.description]</span>"
 
 /obj/item/survivalcapsule/attack_self()
 	// Can't grab when capsule is New() because templates aren't loaded then

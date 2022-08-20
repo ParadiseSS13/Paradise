@@ -324,6 +324,8 @@
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
 
+	msg += "</span>"
+
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
 			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"

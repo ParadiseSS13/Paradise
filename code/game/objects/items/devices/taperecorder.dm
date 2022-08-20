@@ -31,7 +31,7 @@
 /obj/item/taperecorder/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "The wire panel is [open_panel ? "opened" : "closed"]."
+		. += "<span class='notice'>The wire panel is [open_panel ? "opened" : "closed"].</span>"
 
 
 /obj/item/taperecorder/attackby(obj/item/I, mob/user)

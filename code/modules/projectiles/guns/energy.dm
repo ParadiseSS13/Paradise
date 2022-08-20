@@ -24,7 +24,7 @@
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	if(sibyl_mod)
-		. += "Вы видите индикаторы модуля Sibyl System."
+		. += "<span class='notice'>Вы видите индикаторы модуля Sibyl System.</span>"
 
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
 	..()

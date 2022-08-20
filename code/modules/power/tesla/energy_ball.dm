@@ -60,7 +60,7 @@
 	. = ..()
 	var/len = LAZYLEN(orbiting_balls)
 	if(len)
-		. += "The amount of orbiting mini-balls is [len]."
+		. += "<span class='notice'>The amount of orbiting mini-balls is [len].</span>"
 
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(var/move_amount)

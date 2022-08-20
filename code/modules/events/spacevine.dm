@@ -432,7 +432,7 @@
 	else
 		text += " normal"
 	text += " vine."
-	. += text
+	. += "<span class='notice'>[text]</span>"
 
 /obj/structure/spacevine/proc/wither()
 	for(var/datum/spacevine_mutation/SM in mutations)

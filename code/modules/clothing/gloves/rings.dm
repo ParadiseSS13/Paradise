@@ -21,9 +21,9 @@
 /obj/item/clothing/gloves/ring/examine(mob/user)
 	. = ..()
 	if(!fluff_material)
-		. += "This one is made of [material]."
+		. += "<span class='notice'>This one is made of [material].</span>"
 	if(stud)
-		. += "It is adorned with a single gem."
+		. += "<span class='notice'>It is adorned with a single gem.</span>"
 
 /obj/item/clothing/gloves/ring/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))

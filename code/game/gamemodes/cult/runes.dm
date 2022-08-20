@@ -69,9 +69,9 @@ To draw a rune, use a ritual dagger.
 /obj/effect/rune/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects
-		. += "<b>Name:</b> [cultist_name]"
-		. += "<b>Effects:</b> [capitalize(cultist_desc)]"
-		. += "<b>Required Acolytes:</b> [req_cultists]"
+		. += "<span class='info'><b>Name:</b> [cultist_name]</span>"
+		. += "<span class='info'><b>Effects:</b> [capitalize(cultist_desc)]</span>"
+		. += "<span class='info'><b>Required Acolytes:</b> [req_cultists]</span>"
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> <span class='cultitalic'>[keyword]</span>"
 

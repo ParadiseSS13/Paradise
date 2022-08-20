@@ -12,14 +12,14 @@
 
 /obj/item/radio/spy_spider/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Сейчас он [broadcasting ? "включён" : "выключен"]</span>"
+	. += "<span class='notice'>Сейчас он [broadcasting ? "включён" : "выключен"]</span>"
 
 /obj/item/radio/spy_spider/attack_self(mob/user)
 	broadcasting = !broadcasting
 	if(broadcasting)
-		to_chat(user, "<span class='info'>Ты включаешь жучок.</span>")
+		to_chat(user, "<span class='notice'>Ты включаешь жучок.</span>")
 	else
-		to_chat(user, "<span class='info'>Ты выключил жучка.</span>")
+		to_chat(user, "<span class='notice'>Ты выключил жучка.</span>")
 	return TRUE
 
 /obj/item/encryptionkey/spy_spider

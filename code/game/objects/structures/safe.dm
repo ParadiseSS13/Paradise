@@ -99,9 +99,9 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/examine(mob/user)
 	. = ..()
-	. += "This model appears to have [number_of_tumblers] tumblers."
+	. += "<span class='notice'>This model appears to have [number_of_tumblers] tumblers.</span>"
 	if(open)
-		. += "The inside of the the door has numbers written on it: <b>[get_combination()]</b>"
+		. += "<span class='notice'>The inside of the the door has numbers written on it: <b>[get_combination()]</b></span>"
 
 /obj/structure/safe/blob_act(obj/structure/blob/B)
 	return

@@ -140,8 +140,8 @@
 
 /obj/item/rcd/examine(mob/user)
 	. = ..()
-	. += "MATTER: [matter]/[max_matter] matter-units."
-	. += "MODE: [mode]."
+	. += "<span class='notice'>MATTER: [matter]/[max_matter] matter-units.</span>"
+	. += "<span class='notice'>MODE: [mode].</span>"
 
 /obj/item/rcd/Destroy()
 	QDEL_NULL(spark_system)

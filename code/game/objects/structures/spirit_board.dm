@@ -12,7 +12,7 @@
 
 /obj/structure/spirit_board/examine(mob/user)
 	. = ..()
-	. += "[initial(desc)] The planchette is sitting at \"[planchette]\"."
+	. += "<span class='notice'>The planchette is sitting at \"[planchette]\".</span>"
 
 /obj/structure/spirit_board/attack_hand(mob/user as mob)
 	if(..())

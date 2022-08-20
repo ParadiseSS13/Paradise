@@ -246,12 +246,11 @@ LINEN BINS
 /obj/structure/bedsheetbin/examine(mob/user)
 	. = ..()
 	if(amount < 1)
-		. += "There are no bed sheets in the bin."
+		. += "<span class='notice'>There are no bed sheets in the bin.</span>"
 	else if(amount == 1)
-		. += "There is one bed sheet in the bin."
+		. += "<span class='notice'>There is one bed sheet in the bin.</span>"
 	else
-		. += "There are [amount] bed sheets in the bin."
-
+		. += "<span class='notice'>There are [amount] bed sheets in the bin.</span>"
 
 /obj/structure/bedsheetbin/update_icon()
 	switch(amount)

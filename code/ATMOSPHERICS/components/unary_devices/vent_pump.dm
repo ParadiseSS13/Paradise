@@ -395,7 +395,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
 	. = ..()
 	if(welded)
-		. += "It seems welded shut."
+		. += "<span class = 'notice'>It seems welded shut.</span>"
 
 /obj/machinery/atmospherics/unary/vent_pump/power_change()
 	var/old_stat = stat

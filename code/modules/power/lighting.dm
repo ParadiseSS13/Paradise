@@ -43,11 +43,11 @@
 	if(get_dist(user, src) <= 2)
 		switch(stage)
 			if(1)
-				. += "It's an empty frame."
+				. += "<span class='notice'>It's an empty frame.</span>"
 			if(2)
-				. += "It's wired."
+				. += "<span class='notice'>It's wired.</span>"
 			if(3)
-				. += "The casing is closed."
+				. += "<span class='notice'>The casing is closed.</span>"
 
 /obj/machinery/light_construct/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -367,6 +367,7 @@
 // examine verb
 /obj/machinery/light/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>"
 	if(in_range(user, src))
 		switch(status)
 			if(LIGHT_OK)
@@ -377,6 +378,7 @@
 				. += "The [fitting] is burnt out."
 			if(LIGHT_BROKEN)
 				. += "The [fitting] has been smashed."
+	. += "</span>"
 
 
 

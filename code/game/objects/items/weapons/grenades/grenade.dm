@@ -57,9 +57,9 @@
 	. = ..()
 	if(display_timer)
 		if(det_time > 1)
-			. += "The timer is set to [det_time/10] second\s."
+			. += "<span class='notice'>The timer is set to [det_time/10] second\s.</span>"
 		else
-			. += "\The [src] is set for instant detonation."
+			. += "<span class='warning'>\The [src] is set for instant detonation.</span>"
 
 /obj/item/grenade/attack_self(mob/user as mob)
 	if(!active)

@@ -1078,9 +1078,9 @@
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
 	if(buildstage < 2)
-		. += "It is not wired."
+		. += "<span class='notice'>It is not wired.</span>"
 	if(buildstage < 1)
-		. += "The circuit is missing."
+		. += "<span class='notice'>The circuit is missing.</span>"
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)

@@ -226,7 +226,7 @@
 /obj/structure/reagent_dispensers/water_cooler/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
-		. += "There are [paper_cups ? paper_cups : "no"] paper cups left."
+		. += "<span class='notice'>There are [paper_cups ? paper_cups : "no"] paper cups left.</span>"
 
 /obj/structure/reagent_dispensers/water_cooler/attack_hand(mob/living/user)
 	if(!paper_cups)

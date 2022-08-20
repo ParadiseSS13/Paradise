@@ -169,7 +169,7 @@
 
 /obj/machinery/treadmill_monitor/examine(mob/user)
 	. = ..()
-	. += "The display reads:<div style='text-align: center'>[line1]<br>[line2]</div>"
+	. += "<span class='notice'>The display reads:<div style='text-align: center'>[line1]<br>[line2]</div></span>"
 
 /obj/machinery/treadmill_monitor/update_icon()
 	overlays.Cut()

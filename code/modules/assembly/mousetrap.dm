@@ -11,7 +11,7 @@
 /obj/item/assembly/mousetrap/examine(mob/user)
 	. = ..()
 	if(armed)
-		. += "It looks like it's armed."
+		. += "<span class='warning'>It looks like it's armed.</span>"
 
 /obj/item/assembly/mousetrap/activate()
 	if(..())

@@ -29,7 +29,7 @@
 /mob/living/simple_animal/hostile/headslug/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += "It appears to be dead."
+		. += "<span class='deadsay'>It appears to be dead.</span>"
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)

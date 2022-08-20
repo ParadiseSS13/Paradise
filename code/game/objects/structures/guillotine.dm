@@ -34,16 +34,14 @@
 
 /obj/structure/guillotine/examine(mob/user)
 	. = ..()
-
 	var/msg = ""
-
 	msg += "It is [anchored ? "wrenched to the floor." : "unsecured. A wrench should fix that."]<br/>"
 
 	if(blade_status == GUILLOTINE_BLADE_RAISED)
 		msg += "The blade is raised, ready to fall, and"
 
 		if(blade_sharpness >= GUILLOTINE_DECAP_MIN_SHARP)
-			msg += " looks sharp enough to decapitate without any resistance."
+			msg += "<span class='danger'> looks sharp enough to decapitate without any resistance.</span>"
 		else
 			msg += " doesn't look particularly sharp. Perhaps a whetstone can be used to sharpen it."
 	else
@@ -52,9 +50,7 @@
 	if(has_buckled_mobs())
 		msg += "<br/>"
 		msg += "Someone appears to be strapped in. You can help them out, or you can harm them by activating the guillotine."
-
-	. += msg
-
+	. += "<span class='notice'>[msg]</span>"
 /obj/structure/guillotine/attack_hand(mob/user)
 	add_fingerprint(user)
 

@@ -472,7 +472,7 @@
 
 /obj/item/disk/plantgene/examine(mob/user)
 	. = ..()
-	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
+	. += "<span class='notice'>The write-protect tab is set to [read_only ? "protected" : "unprotected"].</span>"
 
 
 /*

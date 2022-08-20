@@ -309,9 +309,9 @@
 /obj/item/cult_shift/examine(mob/user)
 	. = ..()
 	if(uses)
-		. += "<span class='cult'>It has [uses] use\s remaining.</span>"
+		. += "<span class='cultitalic'>It has [uses] use\s remaining.</span>"
 	else
-		. += "<span class='cult'>It seems drained.</span>"
+		. += "<span class='cultitalic'>It seems drained.</span>"
 
 /obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
 	var/mob/living/carbon/C = user

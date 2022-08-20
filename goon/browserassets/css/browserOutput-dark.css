@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5, h6	{color: #06f;}
 h1.alert, h2.alert			{color: #FFF;}
 .ghostalert				{color: #cc00c6;}
 
-.info					{color: #6685f5;}
+.info					{color: #4450ff;}
 .notice					{color: #6685f5;}
 .boldnotice				{color: #6685f5;}
 
@@ -91,7 +91,7 @@ span.body .coderesponses {color: #FF3333;}
 /* Examine styles */
 .examine {border: 1px solid #1c1c1c; padding: 10px; margin: 2px 10px; background: #252525; color: #FFFFFF}
 .examine a 						{color: #FFFFFF;}
-.examine .info					{color: #6685f5;} /* No idea why to keep these, but oh well */
+.examine .info					{color: #4450ff;} /* No idea why to keep these, but oh well */
 .examine .notice				{color: #6685f5;}
 .examine .boldnotice			{color: #6685f5;}
 .examine .deptradio				{color: #AD43AB;}

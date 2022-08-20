@@ -63,7 +63,7 @@
 /obj/item/twohanded/rcl/examine(mob/user)
 	. = ..()
 	if(loaded)
-		. += "<span class='info'>It contains [loaded.amount]/[max_amount] cables.</span>"
+		. += "<span class='notice'>It contains [loaded.amount]/[max_amount] cables.</span>"
 
 /obj/item/twohanded/rcl/Destroy()
 	QDEL_NULL(loaded)

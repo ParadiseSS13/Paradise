@@ -122,7 +122,7 @@
 
 /obj/machinery/door/unpowered/hotel_door/examine(mob/user)
 	. = ..()
-	. += "This room is currently [occupant ? "" : "un"]occupied."
+	. += "<span class='notice'>This room is currently [occupant ? "" : "un"]occupied.</span>"
 
 /obj/machinery/door/unpowered/hotel_door/allowed(mob/living/carbon/user)
 	for(var/obj/item/card/hotel_card/C in user.get_all_slots())

@@ -47,7 +47,7 @@
 	return
 
 /obj/item/assembly/proc/describe()                  // Called by grenades to describe the state of the trigger (time left, etc)
-	return "The trigger assembly looks broken!"
+	return "<span class='warning'>The trigger assembly looks broken!</span>"
 
 /obj/item/assembly/interact(mob/user)					//Called when attack_self is called
 	return
@@ -134,9 +134,9 @@
 	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(secured)
-			. += "[src] is ready!"
+			. += "<span class='notice'>[src] is ready!</span>"
 		else
-			. += "[src] can be attached!"
+			. += "<span class='notice'>[src] can be attached!</span>"
 
 /obj/item/assembly/attack_self(mob/user)
 	if(!user)

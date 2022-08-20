@@ -35,11 +35,11 @@
 
 /obj/machinery/space_heater/examine(mob/user)
 	. = ..()
-	. += "The heater is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"]."
+	. += "<span class='notice'>The heater is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"].</span>"
 	if(open)
-		. += "The power cell is [cell ? "installed" : "missing"]."
+		. += "<span class='notice'>The power cell is [cell ? "installed" : "missing"].</span>"
 	else
-		. += "The charge meter reads [cell ? round(cell.percent(),1) : 0]%"
+		. += "<span class='notice'>The charge meter reads [cell ? round(cell.percent(),1) : 0]%.</span>"
 
 /obj/machinery/space_heater/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

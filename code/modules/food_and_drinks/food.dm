@@ -129,15 +129,27 @@
 
 /obj/item/reagent_containers/food/examine(mob/user)
 	. = ..()
-	if(foodtype & MEAT)	. += "<span class='notice'>It contains meat.</span>"
-	if(foodtype & VEGETABLES)	. += "<span class='notice'>It contains vegetables.</span>"
-	if(foodtype & RAW)	. += "<span class='notice'>It is not properly cooked.</span>"
-	if(foodtype & JUNKFOOD)	. += "<span class='notice'>It is junkfood.</span>"
-	if(foodtype & GRAIN)	. += "<span class='notice'>It is made of grain.</span>"
-	if(foodtype & FRUIT)	. += "<span class='notice'>It contains fruits.</span>"
-	if(foodtype & DAIRY)	. += "<span class='notice'>It contains dairy.</span>"
-	if(foodtype & FRIED)	. += "<span class='notice'>It is fried.</span>"
-	if(foodtype & SUGAR)	. += "<span class='notice'>It is sugary.</span>"
-	if(foodtype & EGG)	. += "<span class='notice'>It contains eggs.</span>"
-	if(foodtype & GROSS)	. += "<span class='notice'>This is pure garbage.</span>"
-	if(foodtype & TOXIC)	. += "<span class='notice'>This is straight up poisonous.</span>"
+	if(foodtype & MEAT)
+		. += "<span class='notice'>It contains meat.</span>"
+	if(foodtype & VEGETABLES)
+		. += "<span class='notice'>It contains vegetables.</span>"
+	if(foodtype & RAW)
+		. += "<span class='notice'>It is not properly cooked.</span>"
+	if(foodtype & JUNKFOOD)
+		. += "<span class='notice'>It is junkfood.</span>"
+	if(foodtype & GRAIN)
+		. += "<span class='notice'>It is made of grain.</span>"
+	if(foodtype & FRUIT)
+		. += "<span class='notice'>It contains fruits.</span>"
+	if(foodtype & DAIRY)
+		. += "<span class='notice'>It contains dairy.</span>"
+	if(foodtype & FRIED)
+		. += "<span class='notice'>It is fried.</span>"
+	if(foodtype & SUGAR)
+		. += "<span class='notice'>It is sugary.</span>"
+	if(foodtype & EGG)
+		. += "<span class='notice'>It contains eggs.</span>"
+	if(foodtype & GROSS)
+		. += "<span class='notice'>This is pure garbage.</span>"
+	if(foodtype & TOXIC)
+		. += "<span class='notice'>This is straight up poisonous.</span>"

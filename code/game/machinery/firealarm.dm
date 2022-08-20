@@ -255,7 +255,7 @@ FIRE ALARM
 
 /obj/machinery/firealarm/examine(mob/user)
 	. = ..()
-	. += "Текущий уровень угрозы: <B><U>[capitalize(get_security_level_ru())]</U></B>."
+	. += "<span class='notice'>Текущий уровень угрозы: <B><U>[capitalize(get_security_level_ru())]</U></B>.</span>"
 
 /obj/machinery/firealarm/proc/reset()
 	if(!working || !report_fire_alarms)

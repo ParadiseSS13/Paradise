@@ -91,9 +91,9 @@
 /obj/item/clothing/accessory/holster/examine(mob/user)
 	. = ..()
 	if(holstered)
-		. += "A [holstered] is holstered here."
+		. += "<span class='notice'>A [holstered] is holstered here.</span>"
 	else
-		. += "It is empty."
+		. += "<span class='notice'>It is empty.</span>"
 
 /obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/S, mob/user as mob)
 	..()

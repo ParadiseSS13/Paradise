@@ -238,23 +238,23 @@
 	. = ..()
 	if(in_range(user, src))
 		if(stat & BROKEN)
-			. += "Looks broken."
+			. += "<span class='warning'>Looks broken</span>"
 		else if(opened)
 			if(has_electronics && terminal)
-				. += "The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"]."
+				. += "<span class='notice'>The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"].</span>"
 			else if(!has_electronics && terminal)
-				. += "There are some wires but no electronics."
+				. += "<span class='notice'>There are some wires but no electronics.</span>"
 			else if(has_electronics && !terminal)
-				. += "Electronics installed but not wired."
+				. += "<span class='notice'>Electronics installed but not wired.</span>"
 			else /* if(!has_electronics && !terminal) */
-				. += "There are no electronics nor connected wires."
+				. += "<span class='notice'>There are no electronics nor connected wires.</span>"
 		else
 			if(stat & MAINT)
-				. += "The cover is closed. Something wrong with it: it doesn't work."
+				. += "<span class='notice'>The cover is closed. Something wrong with it: it doesn't work.</span>"
 			else if(malfhack)
-				. += "The cover is broken. It may be hard to force it open."
+				. += "<span class='warning'>The cover is broken. It may be hard to force it open.</span>"
 			else
-				. += "The cover is closed."
+				. += "<span class='notice'>The cover is closed.</span>"
 
 // update the APC icon to show the three base states
 // also add overlays for indicator lights

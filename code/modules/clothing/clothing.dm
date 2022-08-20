@@ -731,17 +731,16 @@ BLIND     // can't see anything
 	. = ..()
 	switch(sensor_mode)
 		if(0)
-			. += "Its sensors appear to be disabled."
+			. += "<span class='notice'>Its sensors appear to be disabled.</span>"
 		if(1)
-			. += "Its binary life sensors appear to be enabled."
+			. += "<span class='notice'>Its binary life sensors appear to be enabled.</span>"
 		if(2)
-			. += "Its vital tracker appears to be enabled."
+			. += "<span class='notice'>Its vital tracker appears to be enabled.</span>"
 		if(3)
-			. += "Its vital tracker and tracking beacon appear to be enabled."
+			. += "<span class='notice'>Its vital tracker and tracking beacon appear to be enabled.</span>"
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
-			. += "\A [A] is attached to it."
-
+			. += "<span class='notice'>\A [A] is attached to it.</span>"
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Roll Down Jumpsuit"

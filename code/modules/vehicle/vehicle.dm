@@ -51,9 +51,9 @@
 	var/healthpercent = obj_integrity/max_integrity * 100
 	switch(healthpercent)
 		if(50 to 99)
-			. += "It looks slightly damaged."
+			. += "<span class='notice'>It looks slightly damaged.</span>"
 		if(25 to 50)
-			. += "It appears heavily damaged."
+			. += "<span class='notice'>It appears heavily damaged.</span>"
 		if(0 to 25)
 			. += "<span class='warning'>It's falling apart!</span>"
 

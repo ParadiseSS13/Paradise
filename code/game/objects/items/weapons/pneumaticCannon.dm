@@ -30,7 +30,7 @@
 		if(tank)
 			. += "<span class='notice'>[bicon(tank)] It has \the [tank] mounted onto it.</span>"
 		for(var/obj/item/I in loadedItems)
-			. += "<span class='info'>[bicon(I)] It has \the [I] loaded.</span>"
+			. += "<span class='notice'>[bicon(I)] It has \the [I] loaded.</span>"
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
 	..()

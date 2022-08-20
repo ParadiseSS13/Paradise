@@ -85,7 +85,7 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	. += "[get_ammo(0,0)] of those are live rounds."
+	. += "<span class='notice'>[get_ammo(0,0)] of those are live rounds.</span>"
 
 /obj/item/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."

@@ -48,9 +48,8 @@
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
 	if(in_range(src, user) && radio_desc)
-		. += "The following channels are available:"
-		. += radio_desc
-
+		. += "<span class='notice'>The following channels are available:</span>"
+		. += "<span class='info'>radio_desc</span>"
 /obj/item/radio/headset/handle_message_mode(mob/living/M as mob, list/message_pieces, channel)
 	if(channel == "special")
 		if(translate_binary)

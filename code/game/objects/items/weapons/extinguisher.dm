@@ -44,7 +44,6 @@
 	. = ..()
 	. += "<span class='notice'>The safety is [safety ? "on" : "off"].</span>"
 
-
 /obj/item/extinguisher/New()
 	..()
 	create_reagents(max_water)

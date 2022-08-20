@@ -99,7 +99,7 @@
 
 /obj/machinery/syndicatebomb/examine(mob/user)
 	. = ..()
-	. += "A digital display on it reads \"[seconds_remaining()]\"."
+	. += "<span class='warning'>A digital display on it reads \"[seconds_remaining()]\".</span>"
 
 /obj/machinery/syndicatebomb/update_icon()
 	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"

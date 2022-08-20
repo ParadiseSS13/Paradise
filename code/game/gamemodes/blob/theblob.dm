@@ -202,9 +202,8 @@
 
 /obj/structure/blob/examine(mob/user)
 	. = ..()
-	. += "It looks like it's made of [get_chem_name()]."
-	. += "It looks like this chemical does: [get_chem_desc()]"
-
+	. += "<span class='notice'>It looks like it's made of [get_chem_name()].</span>"
+	. += "<span class='notice'>It looks like this chemical does: [get_chem_desc()].</span>"
 
 /obj/structure/blob/proc/get_chem_name()
 	for(var/mob/camera/blob/B in GLOB.mob_list)

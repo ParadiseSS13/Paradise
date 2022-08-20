@@ -17,7 +17,7 @@
 	if(canopened)
 		. += "<span class='notice'>It has been opened.</span>"
 	else
-		. += "<span class='info'>Alt-click to shake it up!</span>"
+		. += "<span class='info'>Alt-Click to shake it up!</span>"
 
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(canopened)

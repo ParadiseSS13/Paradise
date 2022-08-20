@@ -49,9 +49,9 @@
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
 	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
-		. += "You can feel the small spark of life still left in this one."
+		. += "<span class='notice'>You can feel the small spark of life still left in this one.</span>"
 	else
-		. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
+		. += "<span class='notice'>This one seems particularly lifeless. Perhaps it will regain some of its luster later...</span>"
 
 /obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
 	if(dna)

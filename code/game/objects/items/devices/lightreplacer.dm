@@ -69,7 +69,7 @@
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
-	. += status_string()
+	. += "<span class='notice'>[status_string()]</span>"
 
 /obj/item/lightreplacer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/glass))

@@ -603,11 +603,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	. = ..()
 	if(in_range(user, src))
 		if(get_amount() == 1)
-			. += "A short piece of power cable."
+			. += "<span class='notice'>A short piece of power cable.</span>"
 		else if(get_amount() == 2)
-			. += "A piece of power cable."
+			. += "<span class='notice'>A piece of power cable.</span>"
 		else
-			. += "A coil of power cable. There are [get_amount()] lengths of cable in the coil."
+			. += "<span class='notice'>A coil of power cable. There are [get_amount()] lengths of cable in the coil.</span>"
 
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !

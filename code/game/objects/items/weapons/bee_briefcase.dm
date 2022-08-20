@@ -28,7 +28,7 @@
 		if(bees_left)
 			. += "<span class='warning'>There are [bees_left] bees still inside in briefcase!</span>"
 		else
-			. += "<span class='danger'>The bees are gone... Colony collapse disorder?</span>"
+			. += "<span class='warning'>The bees are gone... Colony collapse disorder?</span>"
 
 /obj/item/bee_briefcase/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))

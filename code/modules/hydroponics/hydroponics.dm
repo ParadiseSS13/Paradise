@@ -343,29 +343,29 @@
 /obj/machinery/hydroponics/examine(mob/living/carbon/human/H)
 	. = ..()
 	if(myseed)
-		. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+		. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
 		if (H.glasses && istype(H.glasses, /obj/item/clothing/glasses/hud/hydroponic))
 			. += myseed.get_analyzer_text()
-			. += "<span class='info'>Weed: [weedlevel] / 10</span>"
-			. += "<span class='info'>Pest: [pestlevel] / 10</span>"
-			. += "<span class='info'>Toxicity: [toxic] / 100</span>"
+			. += "<span class='notice'>Weed: [weedlevel] / 10</span>"
+			. += "<span class='notice'>Pest: [pestlevel] / 10</span>"
+			. += "<span class='notice'>Toxicity: [toxic] / 100</span>"
 		if (dead)
 			. += "<span class='warning'>It's dead!</span>"
 		else if (harvest)
-			. += "<span class='info'>It's ready to harvest.</span>"
+			. += "<span class='notice'>It's ready to harvest.</span>"
 		else if (plant_health <= (myseed.endurance / 2))
 			. += "<span class='warning'>It looks unhealthy.</span>"
 	else
-		. += "<span class='info'>[src] is empty.</span>"
+		. += "<span class='notice'>[src] is empty.</span>"
 
 	if(!self_sustaining)
-		. += "<span class='info'>Water: [waterlevel] / [maxwater]</span>"
-		. += "<span class='info'>Nutrient: [nutrilevel] / [maxnutri]</span>"
+		. += "<span class='notice'>Water: [waterlevel] / [maxwater]</span>"
+		. += "<span class='notice'>Nutrient: [nutrilevel] / [maxnutri]</span>"
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
-			. += "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
+			. += "<span class='notice'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
 	else
-		. += "<span class='info'>It doesn't require any water or nutrients.</span>"
+		. += "<span class='notice'>It doesn't require any water or nutrients.</span>"
 
 	if(weedlevel >= 5)
 		. += "<span class='warning'>[src] is filled with weeds!</span>"

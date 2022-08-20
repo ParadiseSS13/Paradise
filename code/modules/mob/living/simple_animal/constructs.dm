@@ -52,17 +52,11 @@
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
 
-	var/msg = ""
 	if(src.health < src.maxHealth)
-		msg += "<span class='warning'>"
 		if(src.health >= src.maxHealth/2)
-			msg += "It looks slightly dented.\n"
+			. += "<span class='notice'>It looks slightly dented.</span>"
 		else
-			msg += "<B>It looks severely dented!</B>\n"
-		msg += "</span>"
-	msg += "*---------*</span>"
-
-	. += msg
+			. += "<span class='warning'>It looks severely dented!</span>"
 
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))

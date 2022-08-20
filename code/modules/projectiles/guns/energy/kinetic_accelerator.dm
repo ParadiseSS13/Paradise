@@ -31,7 +31,7 @@
 	. = ..()
 	if(in_range(user, src))
 		if(max_mod_capacity)
-			. += "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining."
+			. += "<span class='notice'><b>[get_remaining_mod_capacity()]%</b> mod capacity remaining.</span>"
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"

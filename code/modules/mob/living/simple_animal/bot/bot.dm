@@ -236,11 +236,11 @@
 	. = ..()
 	if(health < maxHealth)
 		if(health > maxHealth/3)
-			. += "[src]'s parts look loose."
+			. += "<span class='notice'>[src]'s parts look loose.</span>"
 		else
-			. += "[src]'s parts look very loose!"
+			. += "<span class='warning'>[src]'s parts look very loose!</span>"
 	else
-		. += "[src] is in pristine condition."
+		. += "<span class='notice'>[src] is in pristine condition.</span>"
 
 /mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE)
 	if(amount > 0 && prob(10))

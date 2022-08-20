@@ -22,7 +22,7 @@
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
-		. += "<span class='warning'>[src] appears to be floating without any support!</span>"
+		. += "<span class='notice'>[src] appears to be floating without any support!</span>"
 	else
 		. += "<span class='warning'>[src] appears to be having trouble staying afloat!</span>"
 

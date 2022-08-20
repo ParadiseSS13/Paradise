@@ -28,12 +28,11 @@
 	if(in_range(user, src))
 		var/len = LAZYLEN(contents)
 		if(len <= 0)
-			. += "There are no [src.icon_type]s left in the box."
+			. += "<span class='notice'>There are no [src.icon_type]s left in the box.</span>"
 		else if(len == 1)
-			. += "There is one [src.icon_type] left in the box."
+			. += "<span class='notice'>There is one [src.icon_type] left in the box.</span>"
 		else
-			. += "There are [src.contents.len] [src.icon_type]s in the box."
-
+			. += "<span class='notice'>There are [src.contents.len] [src.icon_type]s in the box.</span>"
 /*
  * Donut Box
  */

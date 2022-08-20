@@ -43,7 +43,7 @@
 /obj/vehicle/janicart/examine(mob/user)
 	. = ..()
 	if(floorbuffer)
-		. += "It has been upgraded with a floor buffer."
+		. += "<span class='notice'>It has been upgraded with a floor buffer.</span>"
 
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))

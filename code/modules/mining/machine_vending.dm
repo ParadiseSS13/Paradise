@@ -388,7 +388,7 @@
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()
-	. += "There's [points] points on the card."
+	. += "<span class='notice'>There's [points] points on the card.</span>"
 
 
 #undef EQUIPMENT

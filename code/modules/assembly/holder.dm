@@ -79,9 +79,9 @@
 	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(secured)
-			. += "[src] is ready!"
+			. += "<span class='notice'>[src] is ready!</span>"
 		else
-			. += "[src] can be attached!"
+			. += "<span class='notice'>[src] can be attached!</span>"
 
 
 /obj/item/assembly_holder/HasProximity(atom/movable/AM)

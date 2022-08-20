@@ -38,9 +38,9 @@
 
 /obj/machinery/cell_charger/examine(mob/user)
 	. = ..()
-	. += "There's [charging ? "a" : "no"] cell in the charger."
+	. += "<span class='notice'>There's [charging ? "a" : "no"] cell in the charger.</span>"
 	if(charging)
-		. += "Current charge: [round(charging.percent(), 1)]%"
+		. += "<span class='notice'>Current charge: [round(charging.percent(), 1)]%</span>"
 
 /obj/machinery/cell_charger/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))

@@ -1520,8 +1520,8 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += "Has [fake_bullets] round\s remaining."
-	. += "[fake_bullets] of those are live rounds."
+	. += "<span class='notice'>Has [fake_bullets] round\s remaining.</span>"
+	. += "<span class='notice'>[fake_bullets] of those are live rounds.</span>"
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")

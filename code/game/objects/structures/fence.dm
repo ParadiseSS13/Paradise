@@ -33,9 +33,9 @@
 	. = ..()
 	switch(hole_size)
 		if(MEDIUM_HOLE)
-			. += "There is a large hole in \the [src]."
+			. += "<span class='notice'>There is a large hole in \the [src].</span>"
 		if(LARGE_HOLE)
-			. += "\The [src] has been completely cut through."
+			. += "<span class='warning'>\The [src] has been completely cut through.</span>"
 
 /obj/structure/fence/end
 	icon_state = "end"

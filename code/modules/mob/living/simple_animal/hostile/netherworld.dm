@@ -83,9 +83,9 @@
 /obj/structure/spawner/nether/examine(mob/user)
 	. = ..()
 	if(isskeleton(user))
-		. += "A direct link to another dimension full of creatures very happy to see you. <span class='nicegreen'>You can see your house from here!</span>"
+		. += "<span class='notice'>A direct link to another dimension full of creatures very happy to see you.</span> <span class='nicegreen'>You can see your house from here!</span>"
 	else
-		. += "A direct link to another dimension full of creatures not very happy to see you. <span class='warning'>Entering the link would be a very bad idea.</span>"
+		. += "<span class='notice'>A direct link to another dimension full of creatures not very happy to see you.</span> <span class='warning'>Entering the link would be a very bad idea.</span>"
 
 /obj/structure/spawner/nether/attack_hand(mob/user)
 	. = ..()

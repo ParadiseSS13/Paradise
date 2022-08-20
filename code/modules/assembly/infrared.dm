@@ -26,7 +26,7 @@
 	return ..()
 
 /obj/item/assembly/infra/describe()
-	return "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
+	return "<span class='notice'>The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"].</span>"
 
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()

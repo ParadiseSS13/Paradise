@@ -139,7 +139,7 @@
 	if(shows_nuke_timer)
 		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 			if(bomb.timing)
-				. += "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
+				. += "<span class='warning'>Extreme danger. Arming signal detected. Time remaining: [bomb.timeleft]</span>"
 
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
@@ -329,9 +329,9 @@
 	. = ..()
 	if(mode == MODE_OPERATIVE)
 		if(nearest_op)
-			. += "Nearest operative detected is <i>[nearest_op.real_name].</i>"
+			. += "<span class='notice'>Nearest operative detected is <i>[nearest_op.real_name].</i></span>"
 		else
-			. += "No operatives detected within scanning range."
+			. += "<span class='notice'>No operatives detected within scanning range.</span>"
 
 /obj/item/pinpointer/crew
 	name = "crew pinpointer"

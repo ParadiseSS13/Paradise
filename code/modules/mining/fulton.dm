@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/item/extraction_pack/examine(mob/user)
 	. = ..()
-	. += "It has [uses_left] use\s remaining."
+	. += "<span class='notice'>It has [uses_left] use\s remaining.</span>"
 
 /obj/item/extraction_pack/attack_self(mob/user)
 	var/list/possible_beacons = list()

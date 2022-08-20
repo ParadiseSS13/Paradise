@@ -33,7 +33,7 @@
 
 /obj/structure/glowshroom/examine(mob/user)
 	. = ..()
-	. += "This is a [generation]\th generation [name]!"
+	. += "<span class='notice'>This is a [generation]\th generation [name]!</span>"
 
 /obj/structure/glowshroom/Destroy()
 	QDEL_NULL(myseed)

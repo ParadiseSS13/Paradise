@@ -42,7 +42,7 @@
 	if(showpiece)
 		. += "<span class='notice'>There's [showpiece] inside.</span>"
 	if(trophy_message)
-		. += "The plaque reads:\n [trophy_message]"
+		. += "<span class='notice'>The plaque reads:\n [trophy_message]</span>"
 
 /obj/structure/displaycase/proc/dump()
 	if(showpiece)
