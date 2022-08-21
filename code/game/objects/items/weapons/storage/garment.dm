@@ -8,6 +8,11 @@
 	storage_slots = 21
 	resistance_flags = FLAMMABLE
 	can_hold = list(/obj/item/clothing)
+	cant_hold = list(
+		/obj/item/clothing/suit/space,
+		/obj/item/clothing/suit/armor/riot,
+		/obj/item/clothing/suit/armor/reactive
+	)
 
 /obj/item/storage/bag/garment/captain
 	name = "captain's garment bag"
