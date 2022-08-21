@@ -321,7 +321,7 @@
 /obj/item/clothing/suit/armor/reactive/proc/use_power()
 	if(in_grace_period)
 		return TRUE
-	if(cell.charge == 0) //No working if cells are dry
+	if(cell.charge <= 0) //No working if cells are dry
 		return FALSE
 	else
 		in_grace_period = TRUE
