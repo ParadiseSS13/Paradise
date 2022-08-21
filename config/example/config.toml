@@ -747,6 +747,12 @@ external_tos_handler = false
 # Do not use in production.
 # Comment out to disable.
 #override_map = "/datum/map/test_tiny"
+# Regional servers.
+# This is not for separate DD instances per region, but if you have a geo-routing setup deployed to optimise routing for players
+# I am 99.9% certain you will never need to fill this out
+regional_servers = [
+	#{name = "UK", ip = "byond://uk.paradisestation.org:6666"},
+]
 
 
 ################################################################

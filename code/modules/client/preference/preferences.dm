@@ -123,6 +123,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/datum/keybindings = list()
 	/// Keybinding overrides ("name" => ["key"...])
 	var/list/keybindings_overrides = null
+	/// Player's region override for routing optimisation
+	var/server_region = null
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
