@@ -179,7 +179,7 @@
 	H.equip_or_collect(new /obj/item/clothing/mask/breath(H), slot_wear_mask)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.active_character.speciesprefs : null
 	var/obj/item/tank/internal_tank
-	if(tank_pref)//Diseasel, here you go
+	if(tank_pref) //Diseasel, here you go
 		internal_tank = new /obj/item/tank/internals/plasmaman/full(H)
 	else
 		internal_tank = new /obj/item/tank/internals/plasmaman/belt/full(H)
