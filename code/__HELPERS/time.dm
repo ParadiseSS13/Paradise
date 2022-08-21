@@ -30,7 +30,7 @@
 /proc/time_stamp()
 	var/date_portion = time2text(world.timeofday, "YYYY-MM-DD")
 	var/time_portion = time2text(world.timeofday, "hh:mm:ss")
-	return "[date_portion] T[time_portion]"
+	return "[date_portion]T[time_portion]"
 
 /proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
 	if(wtime == null)
