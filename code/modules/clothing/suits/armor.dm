@@ -323,6 +323,7 @@
 		return TRUE
 	if(!cell.use(energy_cost)) //No working if cells are dry
 		return FALSE
+	in_grace_period = TRUE
 	addtimer(VARSET_CALLBACK(src, in_grace_period, FALSE), 1 SECONDS)
 	return TRUE
 
