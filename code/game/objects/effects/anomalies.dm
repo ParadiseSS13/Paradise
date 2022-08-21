@@ -2,6 +2,7 @@
 
 /// Chance of taking a step per second
 #define ANOMALY_MOVECHANCE 70
+#define BLUESPACE_MASS_TELEPORT_RANGE 16
 
 /obj/effect/anomaly
 	name = "anomaly"
@@ -114,7 +115,7 @@
 		if(!O.anchored && O.loc != src) // so it cannot throw the anomaly core
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
-				O.throw_at(target, 5, 10)
+				O.throw_at(target, 5, 10, dodgeable = FALSE)
 
 /obj/effect/anomaly/grav/Crossed(atom/movable/AM)
 	. = ..()
@@ -143,6 +144,9 @@
 	var/canshock = FALSE
 	var/shockdamage = 20
 	var/explosive = TRUE
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	var/zap_range = 5
+	var/power = 5000
 
 /obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
 	. = ..()
@@ -153,6 +157,9 @@
 	canshock = TRUE
 	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
+	if(explosive && prob(50)) //Let us not fuck up the sm that much
+		tesla_zap(src, zap_range, power, zap_flags)
+
 
 /obj/effect/anomaly/flux/Crossed(atom/movable/AM)
 	. = ..()
@@ -168,6 +175,7 @@
 	if(canshock && istype(M))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
 		M.electrocute_act(shockdamage, name, flags = SHOCK_NOGLOVES)
+		M.Weaken(explosive ? 6 SECONDS : 3 SECONDS) //Back to being deadly if you touch it, rather than just being able to crawl out of it. Non explosive ones less deadly, since you can't loot them / vetus
 
 /obj/effect/anomaly/flux/detonate()
 	if(explosive)
@@ -191,8 +199,11 @@
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
-	for(var/mob/living/M in range(1, src))
+	for(var/mob/living/M in range(3, src))
 		do_teleport(M, locate(M.x, M.y, M.z), 4)
+	for(var/obj/item/O in range (3, src))
+		if(!O.anchored && O.invisibility == 0 && prob(50))
+			do_teleport(O, locate(O.x, O.y, O.z), 6)
 
 /obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
 	if(isliving(AM))
@@ -229,7 +240,7 @@
 
 			var/y_distance = turf_to.y - turf_from.y
 			var/x_distance = turf_to.x - turf_from.x
-			for(var/atom/movable/A in urange(12, turf_from)) // iterate thru list of mobs in the area
+			for(var/atom/movable/A in urange(BLUESPACE_MASS_TELEPORT_RANGE, turf_from)) // iterate thru list of mobs in the area
 				if(istype(A, /obj/item/radio/beacon))
 					continue // don't teleport beacons because that's just insanely stupid
 				if(A.anchored || A.move_resist == INFINITY)
@@ -274,6 +285,11 @@
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
 	ticks++
+	for(var/mob/living/M in range(4, src))
+		if(prob(50))
+			M.adjust_fire_stacks(4)
+			M.IgniteMob()
+
 	if(ticks < 5)
 		return
 	else
@@ -360,3 +376,4 @@
 		T.ex_act(ex_act_force)
 
 #undef ANOMALY_MOVECHANCE
+#undef BLUESPACE_MASS_TELEPORT_RANGE
