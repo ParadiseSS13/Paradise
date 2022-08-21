@@ -107,6 +107,8 @@ Difficulty: Medium
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 	if(client)
+		if(a_intent == INTENT_HELP || intent == INTENT_HELP)
+			return
 		switch(chosen_attack)
 			if(1)
 				fire_cone(meteors = FALSE)
@@ -589,6 +591,8 @@ Difficulty: Medium
 	attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/AltClickOn(atom/movable/A)
+	if(a_intent == INTENT_HELP || intent == INTENT_HELP)
+		return
 	if(!istype(A))
 		return
 	if(player_cooldown >= world.time)
