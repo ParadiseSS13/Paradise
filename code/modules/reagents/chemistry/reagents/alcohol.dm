@@ -1592,26 +1592,6 @@
 			M.bodytemperature = min(360, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
 
-/datum/reagent/consumable/ethanol/fyrsskar_tears
-	name = "Tears of Fyrsskar"
-	id = "fyrsskartears"
-	description = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld... before they were purged."
-	color = "#C300AE" // rgb: 195, 0, 174
-	alcohol_perc = 0.7
-	drink_icon = "fyrsskartears"
-	drink_name = "Tears of Fyrsskar"
-	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld... before they were purged."
-	taste_description = "plasma"
-
-/datum/reagent/consumable/ethanol/fyrsskar_tears/on_mob_life(mob/living/M)
-	if(isskrell(M))
-		if(holder)
-			to_chat(M, "<span class='warning'>You convert this alcoholic drink into harmless substance in your stomach.</span>")			
-			holder.add_reagent("fyrsskartears_neutralized", volume)			
-			holder.del_reagent(id)
-			return STATUS_UPDATE_NONE
-	return ..()
-
 /datum/reagent/consumable/ethanol/jungle_vox
 	name = "Jungle Vox"
 	id = "junglevox"

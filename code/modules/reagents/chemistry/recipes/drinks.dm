@@ -988,7 +988,7 @@
 	name = "Tears of Fyrsskar"
 	id = "fyrsskartears"
 	result = "fyrsskartears"
-	required_reagents = list("plasma" = 1, "oxygen" = 1, "vodka" = 1)
+	required_reagents = list("plasma" = 1, "oxygen" = 1, "triple_citrus" = 1)
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 

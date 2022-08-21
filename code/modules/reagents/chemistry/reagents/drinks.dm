@@ -710,12 +710,33 @@
 	drink_desc = "A wholesome mixture of lemonade and iced tea... looks like somebody didn't stir this one very well."
 	taste_description = "sweet and fizzy"
 
-/datum/reagent/consumable/drink/fyrsskar_tears_neutralized
-	name = "Tears of Fyrsskar, Neutralized"
-	id = "fyrsskartears_neutralized"
-	description = "Tears of Fyrsskar cocktail that has passed thru Skrellian digestive system and was converted into harmless drink. Ewww."
-	color = "#8B5427" // rgb: 139, 84, 39
+/datum/reagent/consumable/drink/fyrsskar_tears
+	name = "Tears of Fyrsskar"
+	id = "fyrsskartears"
+	description = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	color = "#C300AE" // rgb: 195, 0, 174
 	drink_icon = "fyrsskartears"
-	drink_name = "Tears of Fyrsskar, Neutralized"
-	drink_desc = "Tears of Fyrsskar cocktail that has passed thru Skrellian digestive system and was converted into harmless drink. Ewww."
-	taste_description = "digested"
+	drink_name = "Tears of Fyrsskar"
+	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	taste_description = "plasma"
+	var/alert_thrown = FALSE
+
+/datum/reagent/consumable/drink/fyrsskar_tears/on_mob_life(mob/living/M)
+	if(isskrell(M))
+		// imitate alcohol effects using current cycle
+		if(current_cycle > 5)
+			M.Slur(1)
+			if(!alert_thrown)
+				alert_thrown = TRUE
+				M.throw_alert("drunk", /obj/screen/alert/drunk)
+				M.sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
+		if(current_cycle > 20  && prob(3.3))
+			M.AdjustConfused(6 SECONDS, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
+		if(current_cycle > 50)
+			M.EyeBlurry(20 SECONDS)
+	return ..()
+
+/datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
+	if(isskrell(M) && alert_thrown)
+		M.clear_alert("drunk")
+		M.sound_environment_override = SOUND_ENVIRONMENT_NONE
