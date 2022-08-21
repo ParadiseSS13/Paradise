@@ -292,10 +292,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		electrified_until = 0
 	else if(duration)	//electrify door for the given duration seconds
 		if(user)
-			shockedby += text("\[[time_stamp()]\] - [user](ckey:[user.ckey])")
+			shockedby += text("\[[all_timestamps()]\] - [user](ckey:[user.ckey])")
 			add_attack_logs(user, src, "Electrified [ADMIN_COORDJMP(src)]", ATKLOG_ALL)
 		else
-			shockedby += text("\[[time_stamp()]\] - EMP)")
+			shockedby += text("\[[all_timestamps()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
 		electrified_until = duration == -1 ? -1 : world.time + duration SECONDS
 		if(duration != -1)
@@ -1380,7 +1380,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		lock() //Bolt it!
 		electrified_until = -1  //Shock it!
 		if(origin)
-			shockedby += "\[[time_stamp()]\][origin](ckey:[origin.ckey])"
+			shockedby += "\[[all_timestamps()]\][origin](ckey:[origin.ckey])"
 
 /obj/machinery/door/airlock/disable_lockdown()
 	// Must be powered and have working AI wire.

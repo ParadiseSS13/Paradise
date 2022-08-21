@@ -30,7 +30,7 @@
 /proc/time_stamp()
 	var/date_portion = time2text(world.timeofday, "YYYY-MM-DD")
 	var/time_portion = time2text(world.timeofday, "hh:mm:ss")
-	return "[date_portion]T[time_portion]"
+	return "[date_portion] T[time_portion]"
 
 /proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
 	if(wtime == null)
@@ -60,6 +60,12 @@
 
 /proc/station_time_timestamp(format = "hh:mm:ss", time=world.time)
 	return time2text(station_time(time, TRUE), format)
+
+/proc/all_timestamps()
+	var/real_time = time_stamp()
+	var/station_time = station_time_timestamp()
+	var/all = "[real_time] ST[station_time]"
+	return all
 
 /* Returns 1 if it is the selected month and day */
 /proc/isDay(month, day)
