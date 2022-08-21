@@ -321,13 +321,10 @@
 /obj/item/clothing/suit/armor/reactive/proc/use_power()
 	if(in_grace_period)
 		return TRUE
-	if(cell.charge <= 0) //No working if cells are dry
+	if(!cell.use(energy_cost)) //No working if cells are dry
 		return FALSE
-	else
-		in_grace_period = TRUE
-		cell.use(energy_cost) // 20 blocks for most armors, 12 blocks for the "stronger" armors
-		addtimer(VARSET_CALLBACK(src, in_grace_period, FALSE), 1 SECONDS)
-		return TRUE
+	addtimer(VARSET_CALLBACK(src, in_grace_period, FALSE), 1 SECONDS)
+	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/get_cell()
 	return cell
