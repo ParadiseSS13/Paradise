@@ -189,5 +189,5 @@
 			H.equip_or_collect(internal_tank, slot_l_hand)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
-	to_chat(H, "<span class='notice'>You are now running on plasma internals from [internal_tank]. Your species finds oxygen toxic, so you must breathe plasma only.</span>")
+	to_chat(H, "<span class='notice'>You are now running on plasma internals from [internal_tank]. Oxygen is toxic to your species, so you must breathe plasma only.</span>")
 	H.update_action_buttons_icon()
