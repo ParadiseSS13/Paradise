@@ -1713,7 +1713,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return md5(dna.uni_identity)
 
 /mob/living/carbon/human/can_see_reagents()
-	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
+	var/slots_to_see = src.get_all_slots() - l_store - r_store
+	for(var/obj/item/clothing/C in slots_to_see) //If they have some clothing equipped that lets them see reagents, they can see reagents
 		if(C.scan_reagents)
 			return 1
 
