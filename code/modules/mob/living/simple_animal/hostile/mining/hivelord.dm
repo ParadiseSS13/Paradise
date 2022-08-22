@@ -302,15 +302,12 @@
 	if(!isliving(target))
 		return ..()
 	var/mob/living/L = target
-	var/datum/status_effect/ground_pound/G = L.has_status_effect(STATUS_EFFECT_GROUNDPOUND)
+	var/datum/status_effect/stacking/ground_pound/G = L.has_status_effect(STATUS_EFFECT_GROUNDPOUND)
 	if(!G)
-		L.apply_status_effect(STATUS_EFFECT_GROUNDPOUND)
-	else if(G.add_stack())
-		G.Destroy()
-		flick("legion-smash", src)
-		addtimer(CALLBACK(src, .proc/throw_mobs), 1 SECONDS)
-		return
-	. = ..()
+		L.apply_status_effect(STATUS_EFFECT_GROUNDPOUND, 1, src)
+		. = ..()
+	else if(G.add_stacks(stacks_added = 1, attacker = src))
+		. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/big_legion/proc/throw_mobs()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
@@ -326,6 +323,7 @@
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 		var/armor = L.run_armor_check(def_zone = limb_to_hit, attack_flag = MELEE, armour_penetration_percentage = 50)
 		L.apply_damage(40, BRUTE, limb_to_hit, armor)
+
 //Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.
 /obj/effect/mob_spawn/human/corpse/charredskeleton
 	name = "charred skeletal remains"

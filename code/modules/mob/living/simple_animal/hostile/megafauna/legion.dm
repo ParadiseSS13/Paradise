@@ -40,7 +40,7 @@ Difficulty: Medium
 	ranged_cooldown_time = 20
 	var/charging = FALSE
 	var/firing_laser = FALSE
-	internal_type = /obj/item/gps/internal/legion
+	internal_gps = /obj/item/gps/internal/legion
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
 	loot = list(/obj/item/staff/storm)
@@ -51,7 +51,6 @@ Difficulty: Medium
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 	appearance_flags = 512
-	var/datum/beam/disintegration_laser
 
 /mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
 	. = ..()
@@ -106,6 +105,7 @@ Difficulty: Medium
 			visible_message("<span class='danger'>A [A] emerges from [src]!</span>",
 			"<span class='userdanger'>You summon a [A]!</span>")
 			ranged_cooldown = world.time + 2 SECONDS
+
 /mob/living/simple_animal/hostile/megafauna/legion/MoveToTarget()
 	if(firing_laser)
 		return
