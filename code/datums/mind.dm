@@ -443,10 +443,14 @@
 		(has_antag_datum(/datum/antagonist/traitor)) || \
 		(src in SSticker.mode.syndicates)))
 		. = "Uplink: <a href='?src=[UID()];common=uplink'>give</a>"
-		var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
+		var/list/uplinks = find_syndicate_uplinks()
+		if(!uplinks) // return if no uplinks are found
+			return
+		var/obj/item/uplink/hidden/suplink
 		var/crystals
-		if(suplink)
-			crystals = suplink.uses
+		for(var/obj/item/I in uplinks) // sum up all crystals across all uplinks
+			suplink = I.hidden_uplink
+			crystals += suplink.uses
 		if(suplink)
 			. += "|<a href='?src=[UID()];common=takeuplink'>take</a>"
 			if(usr.client.holder.rights & (R_SERVER|R_EVENT))
@@ -1467,16 +1471,30 @@
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s uplink")
 			if("crystals")
 				if(usr.client.holder.rights & (R_SERVER|R_EVENT))
-					var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
+					var/list/uplinks = find_syndicate_uplinks()
+					if(!uplinks) // return if no uplinks are found
+						return
+					var/obj/item/main_uplink = uplinks[1]
+					var/obj/item/uplink/hidden/suplink
 					var/crystals
-					if(suplink)
-						crystals = suplink.uses
-					crystals = input("Amount of telecrystals for [key]","Syndicate uplink", crystals) as null|num
+					if(uplinks.len)	// sum up all crystals across all uplinks
+						for(var/obj/item/I in uplinks)
+							suplink = I.hidden_uplink
+							crystals += suplink.uses
+					crystals = input("Amount of telecrystals for [key]","Syndicate uplink", crystals) as null|num // set the amount of TC in the main uplink
 					if(!isnull(crystals))
+						suplink = main_uplink.hidden_uplink
 						if(suplink)
 							suplink.uses = crystals
 							log_admin("[key_name(usr)] has set [key_name(current)]'s telecrystals to [crystals]")
 							message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s telecrystals to [crystals]")
+						if(uplinks.len == 1) // do nothing more if there's only one uplink
+							return
+						var/list/skip_main = uplinks
+						skip_main.Remove(main_uplink)
+						for(var/obj/item/I in skip_main) // remove TC from all other uplinks, so the value previously set by admins is accurate
+							suplink = I.hidden_uplink
+							suplink.uses = 0
 			if("uplink")
 				if(has_antag_datum(/datum/antagonist/traitor))
 					var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
@@ -1559,31 +1577,32 @@
 		for(var/line in splittext(gen_objective_text(), "<br>"))
 			to_chat(current, line)
 
-/datum/mind/proc/find_syndicate_uplink()
+/datum/mind/proc/find_syndicate_uplinks()
 	var/list/L = current.get_contents()
+	var/list/uplinks = new()
 	for(var/obj/item/I in L)
 		if(I.hidden_uplink) //find items disguised as uplinks
-			return I.hidden_uplink
-		if(istype(I, /obj/item/implant/uplink)) //find uplink implants
-			return I
-	return
+			uplinks += I
+	if(uplinks.len) //return the list only if any uplinks were found, otherwise null
+		return uplinks
 
 /datum/mind/proc/take_uplink()
 	var/list/A = current.actions //remove uplink implant action button
 	for(var/datum/action/item_action/hands_free/activate/I in A)
 		var/obj/item/implant/uplink/U = I.target
-		if(!isnull(U.hidden_uplink))
+		if(!U.hidden_uplink)
 			I.Remove(current)
+
+	var/list/uplinks = find_syndicate_uplinks() //remove all uplinks
+	for(var/obj/item/I in uplinks)
+		qdel(I.hidden_uplink)
+		if(istype(I, /obj/item/implant/uplink)) //if it's an implant, remove it, too
+			qdel(I)
 
 	var/list/L = current.get_contents() //set all hidden_uplink vars to null
 	for(var/obj/item/I in L)
-		if(!isnull(I.hidden_uplink))
+		if(I.hidden_uplink)
 			I.hidden_uplink = null
-
-	var/obj/item/uplink/hidden/H = find_syndicate_uplink() //remove all uplinks
-	if(H)
-		qdel(H)
-	return
 
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))
