@@ -652,10 +652,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 		return hit_atom.hitby(src, 0, itempush, throwingdatum = throwingdatum)
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin = 1, diagonals_first = 0, datum/callback/callback, force, dodgeable)
 	thrownby = thrower?.UID()
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
-	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
+	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if(callback) //call the original callback
