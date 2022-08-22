@@ -719,24 +719,20 @@
 	drink_name = "Tears of Fyrsskar"
 	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
 	taste_description = "plasma"
-	var/alert_thrown = FALSE
+	var/alcohol_perc = 0.05
+	var/dizzy_adj = 6 SECONDS
+	var/gave_resist = FALSE
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_life(mob/living/M)
 	if(isskrell(M))
 		// imitate alcohol effects using current cycle
-		if(current_cycle > 5)
-			M.Slur(1)
-			if(!alert_thrown)
-				alert_thrown = TRUE
-				M.throw_alert("drunk", /obj/screen/alert/drunk)
-				M.sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
-		if(current_cycle > 20  && prob(3.3))
-			M.AdjustConfused(6 SECONDS, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
-		if(current_cycle > 50)
-			M.EyeBlurry(20 SECONDS)
+		M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
+		M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)
+		if(!gave_resist)
+			gave_resist = TRUE
+			ADD_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
 	return ..()
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
-	if(isskrell(M) && alert_thrown)
-		M.clear_alert("drunk")
-		M.sound_environment_override = SOUND_ENVIRONMENT_NONE
+	if(isskrell(M) && gave_resist)
+		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
