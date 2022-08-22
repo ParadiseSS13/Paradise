@@ -634,7 +634,6 @@
 		return
 	if(target.stat != DEAD) //no buff from attacking dead targets
 		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
-	return
 
 /obj/item/twohanded/chainsaw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
