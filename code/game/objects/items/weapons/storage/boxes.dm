@@ -922,7 +922,7 @@
 	desc = "Contains everything you need to build your own Dish Drive!"
 
 /obj/item/storage/box/dish_drive/populate_contents()
-	new /obj/item/stack/sheet/metal/five(src)
+	new /obj/item/stack/sheet/metal/(src, 5)
 	new /obj/item/stack/cable_coil/five(src)
 	new /obj/item/circuitboard/dish_drive(src)
 	new /obj/item/stack/sheet/glass(src)

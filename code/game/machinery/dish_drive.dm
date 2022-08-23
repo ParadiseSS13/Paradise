@@ -49,24 +49,20 @@
 	LAZYREMOVE(dish_drive_contents, I)
 	user.put_in_hands(I)
 	to_chat(user, "<span class='notice'>You take out [I] from [src].</span>")
-	playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
+	playsound(src, 'sound/items/pshoom.ogg', 15, TRUE)
 	flick("synthesizer_beam", src)
 
-/obj/machinery/dish_drive/attackby(obj/item/I, mob/living/user, params)
-	if(is_type_in_list(I, collectable_items) && user.a_intent != INTENT_HARM)
-		if(!user.drop_item())
-			return
-		LAZYADD(dish_drive_contents, I)
-		to_chat(user, "<span class='notice'>You put [I] in [src], and it's beamed into energy!</span>")
-		playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
-		flick("synthesizer_beam", src)
-		return
-	else if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
-		return
-	else if(default_unfasten_wrench(user, I))
-		return
-	else if(default_deconstruction_crowbar(I, FALSE))
-		return
+/obj/machinery/dish_drive/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
+		return TRUE
+
+/obj/machinery/dish_drive/wrench_act(mob/user, obj/item/I)
+	if(default_unfasten_wrench(user, I))
+		return TRUE
+
+/obj/machinery/dish_drive/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
 	..()
 
 /obj/machinery/dish_drive/RefreshParts()
@@ -98,7 +94,7 @@
 				LAZYADD(dish_drive_contents, I)
 				visible_message("<span class='notice'>[src] beams up [I]!</span>")
 				I.forceMove(src)
-				playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
+				playsound(src, 'sound/items/pshoom.ogg', 15, TRUE)
 				flick("synthesizer_beam", src)
 			else
 				step_towards(I, src)
@@ -122,7 +118,7 @@
 	if(!bin)
 		if(manual)
 			visible_message("<span class='warning'>[src] buzzes. There are no disposal bins in range!</span>")
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
 	var/disposed = 0
 	for(var/obj/item/I in dish_drive_contents)
@@ -133,8 +129,8 @@
 			disposed++
 	if(disposed)
 		visible_message("<span class='notice'>[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name].</span>")
-		playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
-		playsound(bin, 'sound/items/pshoom.ogg', 50, TRUE)
+		playsound(src, 'sound/items/pshoom.ogg', 15, TRUE)
+		playsound(bin, 'sound/items/pshoom.ogg', 15, TRUE)
 		Beam(bin, icon_state = "rped_upgrade", time = 5)
 		bin.update_icon()
 		flick("synthesizer_beam", src)
