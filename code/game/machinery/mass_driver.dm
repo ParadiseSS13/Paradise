@@ -20,7 +20,7 @@
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
 
-	var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
+	var/obj/machinery/mass_driver_frame/F = new (get_turf(src))
 	F.dir = src.dir
 	F.anchored = TRUE
 	F.build = 4

@@ -19,7 +19,7 @@
 /obj/machinery/igniter/on
 	on = TRUE
 
-/obj/machinery/igniter/attack_ai(mob/user as mob)
+/obj/machinery/igniter/attack_ai(mob/user)
 	attack_hand(user)
 
 /obj/machinery/igniter/attack_hand(mob/user as mob)
@@ -119,7 +119,7 @@
 	if(!powered())
 		return
 
-	if(disable || (last_spark && world.time < last_spark + 50))
+	if(disable || (last_spark && world.time < last_spark + 5 SECONDS))
 		return
 
 	flick("[base_state]-spark", src)
