@@ -183,8 +183,7 @@
 		internal_tank = new /obj/item/tank/internals/plasmaman/full(H)
 	else
 		internal_tank = new /obj/item/tank/internals/plasmaman/belt/full(H)
-	if(!H.equip_to_appropriate_slot(internal_tank))
-		if(!H.put_in_any_hand_if_possible(internal_tank))
+	if(!H.equip_to_appropriate_slot(internal_tank) && !H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)
 			H.equip_or_collect(internal_tank, slot_l_hand)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
