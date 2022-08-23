@@ -305,6 +305,10 @@
 	shaking = FALSE
 	reagents.set_reacting(FALSE)
 
+/obj/item/reagent_containers/food/drinks/shaker/dropped(mob/user)
+	. = ..()
+	icon_state = "shaker"
+
 /obj/item/reagent_containers/food/drinks/flask
 	name = "flask"
 	desc = "Every good spaceman knows it's a good idea to bring along a couple of pints of whiskey wherever they go."
