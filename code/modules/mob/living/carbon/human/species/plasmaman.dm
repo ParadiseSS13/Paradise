@@ -187,6 +187,7 @@
 			H.unEquip(H.l_hand)
 			H.equip_or_collect(internal_tank, slot_l_hand)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug.</span>")
+			stack_trace("Failed to equip plasmaman with a tank, with the job [J.type]")
 	H.internal = internal_tank
 	to_chat(H, "<span class='notice'>You are now running on plasma internals from [internal_tank]. Oxygen is toxic to your species, so you must breathe plasma only.</span>")
 	H.update_action_buttons_icon()
