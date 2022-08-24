@@ -187,10 +187,6 @@
 	data["sectors_available"] = "Count: [length(reachable_zlevels)] | List: [jointext(reachable_zlevels, " ")]"
 	// Toggles
 	data["active"] = active
-	data["nttc_toggle_jobs"] = nttc.toggle_jobs
-	data["nttc_toggle_job_color"] = nttc.toggle_job_color
-	data["nttc_toggle_name_color"] = nttc.toggle_name_color
-	data["nttc_toggle_command_bold"] = nttc.toggle_command_bold
 	// Strings
 	data["nttc_setting_language"] = nttc.setting_language
 	data["nttc_job_indicator_type"] = nttc.job_indicator_type
@@ -234,21 +230,6 @@
 				update_icon()
 			else
 				to_chat(usr, "<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
-
-		// NTTC Toggles
-		if("nttc_toggle_jobs")
-			nttc.toggle_jobs = !nttc.toggle_jobs
-			log_action(usr, "toggled job tags (Now [nttc.toggle_jobs])")
-		if("nttc_toggle_job_color")
-			nttc.toggle_job_color = !nttc.toggle_job_color
-			log_action(usr, "toggled job colors (Now [nttc.toggle_job_color])")
-		if("nttc_toggle_name_color")
-			nttc.toggle_name_color = !nttc.toggle_name_color
-			log_action(usr, "toggled name colors (Now [nttc.toggle_name_color])")
-		if("nttc_toggle_command_bold")
-			nttc.toggle_command_bold = !nttc.toggle_command_bold
-			log_action(usr, "toggled command bold (Now [nttc.toggle_command_bold])")
-		// We need to be a little more fancy for the others
 
 		// Job Format
 		if("nttc_job_indicator_type")

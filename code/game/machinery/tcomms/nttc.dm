@@ -124,11 +124,6 @@
 	// Defined so code compiles and incase someone has a non-standard job
 	var/job_class = "radio"
 	// NOW FOR ACTUAL TOGGLES
-	/* Simple Toggles */
-	var/toggle_jobs = FALSE
-	var/toggle_job_color = FALSE
-	var/toggle_name_color = FALSE
-	var/toggle_command_bold = FALSE
 
 	/* Strings */
 	var/setting_language = null
@@ -136,21 +131,13 @@
 
 	// This tells the datum what is safe to serialize and what's not. It also applies to deserialization.
 	var/list/to_serialize = list(
-		"toggle_jobs",
-		"toggle_job_color",
-		"toggle_name_color",
 		"job_indicator_type",
-		"toggle_command_bold",
 		"setting_language"
 	)
 
 	// This is used for sanitization.
 	var/list/serialize_sanitize = list(
-		"toggle_jobs" = "bool",
-		"toggle_job_color" = "bool",
-		"toggle_name_color" = "bool",
 		"job_indicator_type" = "string",
-		"toggle_command_bold" = "bool",
 		"setting_language" = "string"
 	)
 
@@ -166,11 +153,6 @@
 	var/list/valid_languages = list("--DISABLE--")
 
 /datum/nttc_configuration/proc/reset()
-	toggle_jobs = initial(toggle_jobs)
-	toggle_job_color = initial(toggle_job_color)
-	toggle_name_color = initial(toggle_name_color)
-	toggle_command_bold = initial(toggle_command_bold)
-	/* Strings */
 	setting_language = initial(setting_language)
 	job_indicator_type = initial(job_indicator_type)
 
@@ -232,61 +214,44 @@
 	// Check if they should be blacklisted right off the bat. We can save CPU if the message wont even be processed
 	if(tcm.sender_name in filtering)
 		tcm.pass = FALSE
+
 	// All job and coloring shit
-	if(toggle_job_color || toggle_name_color)
-		var/job = tcm.sender_job
-		job_class = all_jobs[job]
+	var/job = tcm.sender_job
+	job_class = all_jobs[tcm.sender_job]
 
-	if(toggle_name_color)
-		var/new_name = "<span class=\"[job_class]\">[tcm.sender_name]</span>"
-		tcm.sender_name = new_name
-		tcm.vname = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
+	var/new_name = "<span class=\"[job_class]\">[tcm.sender_name]</span>"
+	var/job_name = tcm.sender_job
 
-	if(toggle_jobs)
-		var/new_name = ""
-		var/job = tcm.sender_job
-		if(job in ert_jobs)
-			job = "ERT"
-		if(toggle_job_color)
-			switch(job_indicator_type)
-				// These must have trailing spaces. No exceptions.
-				if(JOB_STYLE_1)
-					new_name = "[tcm.sender_name] <span class=\"[job_class]\">([job])</span> "
-				if(JOB_STYLE_2)
-					new_name = "[tcm.sender_name] - <span class=\"[job_class]\">[job]</span> "
-				if(JOB_STYLE_3)
-					new_name = "<span class=\"[job_class]\"><small>\[[job]\]</small></span> [tcm.sender_name] "
-				if(JOB_STYLE_4)
-					new_name = "<span class=[job_class]>([job])</span> [tcm.sender_name] "
-		else
-			switch(job_indicator_type)
-				if(JOB_STYLE_1)
-					new_name = "[tcm.sender_name] ([job]) "
-				if(JOB_STYLE_2)
-					new_name = "[tcm.sender_name] - [job] "
-				if(JOB_STYLE_3)
-					new_name = "<small>\[[job]\]</small> [tcm.sender_name] "
-				if(JOB_STYLE_4)
-					new_name = "([job]) [tcm.sender_name] "
+	if(job in ert_jobs)
+		job_name = "ERT"
 
-		// Only change the name if they have a job tag set, otherwise everyone becomes unknown, and thats bad
-		if(new_name != "")
-			tcm.sender_name = new_name
-			tcm.vname = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
+	switch(job_indicator_type)
+		// These must have trailing spaces. No exceptions.
+		if(JOB_STYLE_1)
+			new_name = "[tcm.sender_name] <span class=\"[job_class]\">([job])</span> "
+		if(JOB_STYLE_2)
+			new_name = "[tcm.sender_name] - <span class=\"[job_class]\">[job]</span> "
+		if(JOB_STYLE_3)
+			new_name = "<span class=\"[job_class]\"><small>\[[job]\]</small></span> [tcm.sender_name] "
+		if(JOB_STYLE_4)
+			new_name = "<span class=[job_class]>([job])</span> [tcm.sender_name] "
+
+	new_name = "[new_name] <span class=\"[job_class]\">([job_name])</span> "
+	tcm.sender_name = new_name
+	tcm.vname = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
+
 	// This is hacky stuff for multilingual messages...
 	var/list/message_pieces = tcm.message_pieces
 
 	// Makes heads of staff bold
-	if(toggle_command_bold)
-		var/job = tcm.sender_job
-		if((job in ert_jobs) || (job in heads) || (job in cc_jobs) || (job in tsf_jobs))
-			for(var/I in 1 to length(message_pieces))
-				var/datum/multilingual_say_piece/S = message_pieces[I]
-				if(!S.message)
-					continue
-				if(I == 1 && !istype(S.speaking, /datum/language/noise)) // Capitalise the first section only, unless it's an emote.
-					S.message = "[capitalize(S.message)]"
-				S.message = "<b>[S.message]</b>" // Make everything bolded
+	if((job in ert_jobs) || (job in heads) || (job in cc_jobs) || (job in tsf_jobs))
+		for(var/I in 1 to length(message_pieces))
+			var/datum/multilingual_say_piece/S = message_pieces[I]
+			if(!S.message)
+				continue
+			if(I == 1 && !istype(S.speaking, /datum/language/noise)) // Capitalise the first section only, unless it's an emote.
+				S.message = "[capitalize(S.message)]"
+			S.message = "<b>[S.message]</b>" // Make everything bolded
 
 
 	// Language Conversion

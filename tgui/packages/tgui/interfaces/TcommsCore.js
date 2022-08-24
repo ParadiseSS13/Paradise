@@ -83,10 +83,6 @@ const ConfigPage = (_properties, context) => {
   const {
     active,
     sectors_available,
-    nttc_toggle_jobs,
-    nttc_toggle_job_color,
-    nttc_toggle_name_color,
-    nttc_toggle_command_bold,
     nttc_job_indicator_type,
     nttc_setting_language,
     network_id,
@@ -105,43 +101,6 @@ const ConfigPage = (_properties, context) => {
           </LabeledList.Item>
           <LabeledList.Item label="Sector Coverage">
             {sectors_available}
-          </LabeledList.Item>
-        </LabeledList>
-      </Section>
-
-      <Section title="Radio Configuration">
-        <LabeledList>
-          <LabeledList.Item label="Job Announcements">
-            <Button
-              content={nttc_toggle_jobs ? 'On' : 'Off'}
-              selected={nttc_toggle_jobs}
-              icon="user-tag"
-              onClick={() => act('nttc_toggle_jobs')}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Job Departmentalisation">
-            <Button
-              content={nttc_toggle_job_color ? 'On' : 'Off'}
-              selected={nttc_toggle_job_color}
-              icon="clipboard-list"
-              onClick={() => act('nttc_toggle_job_color')}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Name Departmentalisation">
-            <Button
-              content={nttc_toggle_name_color ? 'On' : 'Off'}
-              selected={nttc_toggle_name_color}
-              icon="user-tag"
-              onClick={() => act('nttc_toggle_name_color')}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Command Amplification">
-            <Button
-              content={nttc_toggle_command_bold ? 'On' : 'Off'}
-              selected={nttc_toggle_command_bold}
-              icon="volume-up"
-              onClick={() => act('nttc_toggle_command_bold')}
-            />
           </LabeledList.Item>
         </LabeledList>
       </Section>
