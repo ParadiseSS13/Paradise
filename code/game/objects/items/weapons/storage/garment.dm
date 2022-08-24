@@ -4,6 +4,7 @@
 	icon_state = "garment_bag"
 	slot_flags = NONE
 	max_w_class = WEIGHT_CLASS_NORMAL
+	display_contents_with_number = FALSE
 	max_combined_w_class = 200
 	storage_slots = 21
 	resistance_flags = FLAMMABLE
