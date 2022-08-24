@@ -33914,7 +33914,7 @@
 "bGa" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
-	req_access_txt = "1"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -39129,7 +39129,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/tools)
 "bRa" = (
-/obj/machinery/door/airlock/security/glass{
+/obj/machinery/door/airlock/security{
 	name = "Detective";
 	req_access_txt = "4"
 	},
@@ -48056,7 +48056,7 @@
 "cla" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
-	req_access_txt = "1"
+	req_access_txt = "63"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -49273,7 +49273,7 @@
 "cnT" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
-	req_access_txt = "1"
+	req_access_txt = "63"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -92869,6 +92869,10 @@
 	icon_state = "dark"
 	},
 /area/security/execution)
+"nQk" = (
+/obj/structure/lattice,
+/turf/simulated/wall,
+/area/space/nearstation)
 "nQq" = (
 /obj/machinery/atm{
 	pixel_x = 32
@@ -156055,7 +156059,7 @@ vbN
 abj
 aaa
 aaa
-jQY
+qBV
 qBV
 jYK
 bRd
@@ -157856,7 +157860,7 @@ bPS
 oEG
 oEG
 abj
-abj
+nQk
 abj
 oEG
 oEG
