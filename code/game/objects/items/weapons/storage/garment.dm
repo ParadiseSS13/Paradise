@@ -9,9 +9,15 @@
 	resistance_flags = FLAMMABLE
 	can_hold = list(/obj/item/clothing)
 	cant_hold = list(
+		/obj/item/storage,
 		/obj/item/clothing/suit/space,
+		/obj/item/clothing/mask/cigarette,
+		/obj/item/clothing/mask/facehugger, //Why would you do this
+		/obj/item/clothing/accessory/medal,
 		/obj/item/clothing/suit/armor/riot,
-		/obj/item/clothing/suit/armor/reactive
+		/obj/item/clothing/suit/armor/reactive,
+		/obj/item/clothing/suit/armor/laserproof,
+		/obj/item/clothing/gloves/color/black/krav_maga,
 	)
 
 /obj/item/storage/bag/garment/captain
