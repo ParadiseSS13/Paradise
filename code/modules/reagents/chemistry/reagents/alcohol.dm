@@ -1606,7 +1606,7 @@
 /datum/reagent/consumable/ethanol/jungle_vox/on_mob_life(mob/living/M)
 	if(isvox(M))
 		if(current_cycle > 5 && M.health > 0)
-			M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+			M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			M.AdjustLoseBreath(-2 SECONDS)
 	return ..()
 
@@ -1663,15 +1663,12 @@
 		if(current_cycle % 10 == 0 && prob(50))
 			var/list/mob/living/targets = list()
 			for(var/mob/living/L in orange(14, M))
-				if(L.is_dead()) //we don't care about dead mobs
-					continue
-				if(!L.client)
+				if(L.is_dead() || !L.client) //we don't care about dead mobs
 					continue
 				targets += L
 			var/mob/living/target = pick(targets)
-			if(target == null)
-				return ..()
-			to_chat(M, "<span class='warning'>You feel that [target.name] is somewhere near.</span>")
+			if(target)
+				to_chat(M, "<span class='warning'>You feel that [target.name] is somewhere near.</span>")
 
 	return ..()
 
@@ -1690,7 +1687,7 @@
 	if(isdiona(M))
 		if(current_cycle > 5)
 			var/mob/living/carbon/human/H = M
-			var/turf/T = H.loc
+			var/turf/T = get_turf(H)
 			var/light_amount = min(1, T.get_lumcount()) - 0.5
 
 			if(light_amount > 0.2 && !H.suiciding)
@@ -1721,7 +1718,7 @@
 			var/mob/living/carbon/human/H = M
 			to_chat(M, "<span class='warning'>You expell flaming substance from within your suit.</span>")
 			var/obj/item/clothing/under/plasmaman/suit = H.w_uniform
-			if(suit != null)
+			if(suit)
 				suit.next_extinguish = world.time + 10 SECONDS
 			H.adjust_fire_stacks(1)
 			H.IgniteMob()
