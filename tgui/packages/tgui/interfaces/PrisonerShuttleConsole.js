@@ -18,29 +18,31 @@ export const PrisonerShuttleConsole = (props, context) => {
     id_goal,
   } = data;
   const bad_progress = emagged ? 0 : 1;
-  const completionStatus = emagged
-    ? 'ERR0R'
-    : can_go_home
-    ? 'Completed!'
-    : 'Insufficient';
+  let completionStatus = can_go_home ? 'Completed!' : 'Insufficient';
+  if (emagged) {
+    completionStatus = 'ERR0R'
+  }
+  let statusBlock = 'No ID inserted'
+  if (id_inserted) {
+    statusBlock = (
+      <ProgressBar
+          value={id_points / id_goal}
+          ranges={{
+            good: [bad_progress, Infinity],
+            bad: [-Infinity, bad_progress],
+          }}>
+          {id_points + ' / ' + id_goal + ' ' + completionStatus}
+        </ProgressBar>)
+  }
+  else if (emagged) {
+      statusBlock = 'ERR0R COMPLETED?!@'
+  }
   return (
     <Window>
       <Window.Content>
         <LabeledList>
           <LabeledList.Item label="Status">
-            {(!!id_inserted && (
-              <ProgressBar
-                value={id_points / id_goal}
-                ranges={{
-                  good: [bad_progress, Infinity],
-                  bad: [-Infinity, bad_progress],
-                }}
-              >
-                {id_points + ' / ' + id_goal + ' ' + completionStatus}
-              </ProgressBar>
-            )) ||
-              (!!emagged && 'ERR0R COMPLETED?!@') ||
-              'No ID inserted'}
+            {statusBlock}
           </LabeledList.Item>
           <LabeledList.Item label="Shuttle controls">
             <Button
