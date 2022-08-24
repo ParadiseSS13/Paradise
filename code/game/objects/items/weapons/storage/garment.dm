@@ -3,6 +3,7 @@
 	desc = "A bag for storing extra clothes and shoes."
 	icon_state = "garment_bag"
 	slot_flags = NONE
+	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
 	display_contents_with_number = FALSE
 	max_combined_w_class = 200
