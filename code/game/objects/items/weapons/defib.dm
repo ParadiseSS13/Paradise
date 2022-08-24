@@ -404,7 +404,7 @@
 			var/total_burn	= 0
 			var/total_brute	= 0
 
-			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_BEFORE_DEFIB, user, defib, ghost)
+			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_PRE_DEFIB, user, defib, ghost)
 
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 				signal_result |= SEND_SIGNAL(M, COMSIG_LIVING_DEFIBBED, user, defib, ghost)
@@ -577,7 +577,7 @@
 			var/total_burn	= 0
 			var/total_brute	= 0
 
-			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_BEFORE_DEFIB, user, src, ghost)
+			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_PRE_DEFIB, user, src, ghost)
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 				signal_result |= SEND_SIGNAL(M, COMSIG_LIVING_DEFIBBED, user, src, ghost)
 				if(H.stat == DEAD)

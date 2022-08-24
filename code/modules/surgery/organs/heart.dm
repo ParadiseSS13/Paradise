@@ -121,17 +121,11 @@
 	..()
 	if(owner)
 		to_chat(owner, "<span class='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
-		RegisterSignal(owner, COMSIG_LIVING_BEFORE_DEFIB, .proc/on_defib)
+		RegisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, .proc/just_before_revive)
 		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, .proc/on_defib_revive)
 
-/obj/item/organ/internal/heart/cursed/remove(mob/living/carbon/M, special)
-	if(owner)
-		UnregisterSignal(owner, COMSIG_LIVING_BEFORE_DEFIB)
-		UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
-	. = ..()
-
 /obj/item/organ/internal/heart/cursed/proc/on_defib_revive(mob/living/carbon/shocked, mob/living/carbon/shocker, obj/item/defib, mob/dead/observer/ghost = null)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_LIVING_DEFIBBED
 
 	if(!owner || !istype(owner) || owner.stat != DEAD)
 		return
@@ -161,12 +155,11 @@
 	owner.SetParalysis(0)
 
 /// Run this just before the shock is applied so we end up with enough blood to revive.
-/obj/item/organ/internal/heart/cursed/proc/on_defib(mob/living/carbon/shocked, mob/living/carbon/shocker, mob/dead/observer/ghost = null)
-	SIGNAL_HANDLER
+/obj/item/organ/internal/heart/cursed/proc/just_before_revive(mob/living/carbon/shocked, mob/living/carbon/shocker, mob/dead/observer/ghost = null)
+	SIGNAL_HANDLER  // COMSIG_LIVING_PRE_DEFIB
 
 	if(owner.stat == DEAD)
 		owner.blood_volume = BLOOD_VOLUME_OKAY
-
 
 /obj/item/organ/internal/heart/cursed/proc/on_end_grace_period()
 	in_grace_period = FALSE
