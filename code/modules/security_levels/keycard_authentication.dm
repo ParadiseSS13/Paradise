@@ -105,6 +105,9 @@
 			reset()
 		if("triggerevent")
 			event = params["triggerevent"]
+			if(GLOB.security_level > SEC_LEVEL_RED && event == "Red Alert") //if gamma, epsilon or delta
+				to_chat(usr, "<span class='warning'>CentCom security measures prevent you from changing the alert level.</span>")
+				return
 			swiping = TRUE
 
 	add_fingerprint(usr)

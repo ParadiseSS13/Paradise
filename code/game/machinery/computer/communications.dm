@@ -124,6 +124,9 @@
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id/I = H.get_idcard(TRUE)
 			if(istype(I))
+				if((GLOB.security_level > SEC_LEVEL_RED) && !(ACCESS_CENT_GENERAL in I.access)) //if gamma, epsilon or delta and no centcom access. Decline it
+					to_chat(usr, "<span class='warning'>CentCom security measures prevent you from changing the alert level.</span>")
+					return
 				if(ACCESS_HEADS in I.access)
 					change_security_level(text2num(params["level"]))
 				else
