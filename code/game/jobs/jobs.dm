@@ -32,6 +32,9 @@ GLOBAL_LIST_INIT(medical_positions, list(
 	"Coroner"
 ))
 
+GLOBAL_LIST_INIT(additional_medical_positions, list(
+	"Brig Physician" // So they will not be part of medical in crew manifest
+))
 
 GLOBAL_LIST_INIT(science_positions, list(
 	"Research Director",
@@ -138,7 +141,7 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_EXEMPT = list(), // special grandfather setting
 	EXP_TYPE_COMMAND = list(titles = command_positions),
 	EXP_TYPE_ENGINEERING = list(titles = engineering_positions),
-	EXP_TYPE_MEDICAL = list(titles = medical_positions),
+	EXP_TYPE_MEDICAL = list(titles = medical_positions | additional_medical_positions),
 	EXP_TYPE_SCIENCE = list(titles = science_positions),
 	EXP_TYPE_SUPPLY = list(titles = supply_positions),
 	EXP_TYPE_SECURITY = list(titles = security_positions),
