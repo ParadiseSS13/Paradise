@@ -18,6 +18,15 @@
 		/mob/living/simple_animal/pet/dog/corgi,
 		/mob/living/simple_animal/hostile/construct/armoured)
 
+/obj/effect/proc_holder/spell/targeted/shapeshift/can_cast(mob/user, charge_check, show_message)
+	if(isliving(user))
+		var/mob/living/target = user
+		if(target.weakened || target.stunned)
+			return FALSE
+	if(!isturf(user.loc) && !length(current_casters)) //Can't use inside of things, such as a mecha
+		return FALSE
+	. = ..()
+
 /obj/effect/proc_holder/spell/targeted/shapeshift/cast(list/targets, mob/user = usr)
 	for(var/mob/living/M in targets)
 		if(!shapeshift_type)
@@ -35,21 +44,25 @@
 			Shapeshift(M)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/proc/Shapeshift(mob/living/caster)
-	for(var/mob/living/M in caster)
-		if(M.status_flags & GODMODE)
-			to_chat(caster, "<span class='warning'>You're already shapeshifted!</span>")
-			return
+	if(do_after(caster, 2 SECONDS, target = caster))
+		for(var/mob/living/M in caster)
+			if(M.status_flags & GODMODE)
+				to_chat(caster, "<span class='warning'>You're already shapeshifted!</span>")
+				return
 
-	var/mob/living/shape = new shapeshift_type(caster.loc)
-	caster.loc = shape
-	caster.status_flags |= GODMODE
+		var/mob/living/shape = new shapeshift_type(caster.loc)
+		caster.loc = shape
+		caster.status_flags |= GODMODE
 
-	current_shapes |= shape
-	current_casters |= caster
-	clothes_req = 0
-	human_req = 0
+		current_shapes |= shape
+		current_casters |= caster
+		clothes_req = 0
+		human_req = 0
 
-	caster.mind.transfer_to(shape)
+		caster.mind.transfer_to(shape)
+	else
+		to_chat(caster, "<span class='warning'>You were interrupted!</span>")
+		charge_counter = charge_max
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/proc/Restore(mob/living/shape)
 	var/mob/living/caster
