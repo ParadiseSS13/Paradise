@@ -304,6 +304,39 @@
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)
 
+/obj/structure/closet/secure_closet/brig/gulag
+	name = "labor camp locker"
+	desc = "A special locker designed to store prisoner belongings, allows access when prisoners meet their point quota."
+	locked = FALSE
+	var/registered_ID_UID
+
+/obj/structure/closet/secure_closet/brig/gulag/allowed(mob/M)
+	. = ..()
+	if(.) //we were gonna let them do it anyway
+		return TRUE
+
+	for(var/obj/item/card/id/prisoner/prisoner_id in M) //they might have a stash of them
+		if(!prisoner_id.goal)
+			continue //no goal? no interaction
+
+		if(locked && registered_ID_UID && !(prisoner_id.UID() == registered_ID_UID))
+			continue //you don't own this!
+
+		if(!locked)
+			registered_ID_UID = prisoner_id.UID()
+			return TRUE //they are trying to lock it, so let them
+
+		if(prisoner_id.mining_points >= prisoner_id.goal)
+			registered_ID_UID = null
+			return TRUE //completed goal? do the interaction
+
+	return FALSE //if we didn't match above, no interaction for you
+
+/obj/structure/closet/secure_closet/brig/gulag/examine(mob/user)
+	. = ..()
+	if(registered_ID_UID)
+		var/obj/item/card/id/prisoner/prisoner_id = locateUID(registered_ID_UID)
+		. += "\nOwned by [prisoner_id.registered_name]."
 
 /obj/structure/closet/secure_closet/courtroom
 	name = "courtroom locker"
