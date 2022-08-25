@@ -16,6 +16,7 @@
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	flags = NONE
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/mine/dangerous/explored/golem
 	name = "Small Asteroid"
@@ -90,6 +91,7 @@
 /area/lavaland
 	icon_state = "mining"
 	has_gravity = TRUE
+	sound_environment = SOUND_AREA_LAVALAND
 
 /area/lavaland/surface
 	name = "Lavaland"

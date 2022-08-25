@@ -5,3 +5,7 @@
 	mid_length = 10
 	end_sound = 'sound/machines/shower/shower_end.ogg'
 	volume = 20
+	extra_range = 25
+	falloff_exponent = 10
+	falloff_distance = 5
+	vary = TRUE

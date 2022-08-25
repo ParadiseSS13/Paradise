@@ -14,6 +14,7 @@
 	attacktext = "кусает"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/pet/dog/security/ranger
 	name = "Ranger"

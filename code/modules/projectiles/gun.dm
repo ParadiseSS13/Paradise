@@ -119,12 +119,12 @@
 	var/muzzle_strength = chambered.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
 	if(suppressed)
-		playsound(user, fire_sound, 10, 1)
+		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 		muzzle_range *= 0.5
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
 	else
-		playsound(user, fire_sound, 50, 1)
+		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
 				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")

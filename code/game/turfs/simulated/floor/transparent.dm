@@ -6,10 +6,6 @@
 	baseturf = /turf/space
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/simulated/floor/transparent/glass, /turf/simulated/floor/transparent/glass/reinforced, /turf/simulated/floor/transparent/glass/plasma, /turf/simulated/floor/transparent/glass/reinforced/plasma)
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/glass1.ogg','sound/effects/footstep/glass2.ogg','sound/effects/footstep/glass3.ogg','sound/effects/footstep/glassbarefoot.ogg','sound/effects/footstep/glassbarefoot2.ogg','sound/effects/footstep/glassbarefoot3.ogg'),
-	"xeno"  = list('sound/effects/footstep/glass1.ogg','sound/effects/footstep/glass2.ogg','sound/effects/footstep/glass3.ogg','sound/effects/footstep/glassbarefoot.ogg','sound/effects/footstep/glassbarefoot2.ogg','sound/effects/footstep/glassbarefoot3.ogg')
-	)
 	light_power = 0.25
 	light_range = 2
 	layer = TRANSPARENT_TURF_LAYER
@@ -17,6 +13,10 @@
 	intact = FALSE
 	transparent_floor = TRUE
 	heat_capacity = 800
+	footstep = FOOTSTEP_GLASS
+	barefootstep = FOOTSTEP_GLASS
+	clawfootstep = FOOTSTEP_GLASS
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/transparent/glass/Initialize(mapload)
 	. = ..()

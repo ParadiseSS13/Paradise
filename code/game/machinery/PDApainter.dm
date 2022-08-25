@@ -165,7 +165,7 @@
 				storedpda.icon_state = params["selectedPda"]
 				storedpda.desc = colorlist[storedpda.icon_state][2]
 				storedpda.iconImage = colorlist[storedpda.icon_state][1]
-				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, 1, extrarange = -6, falloff = 10)
+				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, TRUE)
 				statusLabel = "Покраска завершена"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
 		if("erase_pda")

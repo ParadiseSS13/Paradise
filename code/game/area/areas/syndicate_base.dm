@@ -115,7 +115,6 @@
 	name = "Syndicate Space Maintenance"
 	ambientsounds = MAINTENANCE_SOUNDS
 	valid_territory = FALSE
-	sound_env = TUNNEL_ENCLOSED
 
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central

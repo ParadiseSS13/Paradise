@@ -253,7 +253,7 @@
 	if(locked)
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-		playsound(src.loc, "sparks", 60, 1)
+		playsound(src.loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		src.locked = 0
 		src.broken = 1
 		update_icon()
@@ -268,7 +268,7 @@
 		else
 			overlays += sparks
 			spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 			src.locked = 0
 		update_icon()
 	if(!opened && prob(20/severity))

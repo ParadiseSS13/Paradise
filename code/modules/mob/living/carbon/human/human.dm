@@ -37,6 +37,8 @@
 		dna.real_name = real_name
 		sync_organ_dna(1)
 
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+
 	UpdateAppearance()
 	GLOB.human_list += src
 

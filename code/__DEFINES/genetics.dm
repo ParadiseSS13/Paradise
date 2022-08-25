@@ -73,6 +73,7 @@
 #define EATER			"matter_eater"
 #define JUMPY			"jumpy"
 #define POLYMORPH		"polymorph"
+#define SILENT_FOOTSTEPS "silent_footsteps" //makes your footsteps completely silent
 //disabilities
 #define NEARSIGHTED		"nearsighted"
 #define EPILEPSY		"epilepsy"

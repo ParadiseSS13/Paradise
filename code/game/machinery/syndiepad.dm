@@ -233,9 +233,9 @@
 			sparks()
 			linked_pad.sparks()
 			flick("sqpad-beam", src)
-			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			flick("sqpad-beam", linked_pad)
-			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			var/tele_success = FALSE
 
 			for(var/atom/movable/ROI in get_turf(src))

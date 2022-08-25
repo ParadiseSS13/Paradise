@@ -52,19 +52,19 @@
 /turf/simulated/shuttle/floor
 	name = "floor"
 	icon_state = "floor"
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/plating1.ogg','sound/effects/footstep/plating2.ogg','sound/effects/footstep/plating3.ogg','sound/effects/footstep/plating4.ogg','sound/effects/footstep/plating5.ogg'),
-	"xeno"  = list('sound/effects/footstep/plating1.ogg','sound/effects/footstep/plating2.ogg','sound/effects/footstep/plating3.ogg','sound/effects/footstep/plating4.ogg','sound/effects/footstep/plating5.ogg')
-	)
+	footstep = FOOTSTEP_FLOOR
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/shuttle/plating
 	name = "plating"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "plating"
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/plating_human.ogg'),
-	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
-	)
+	footstep = FOOTSTEP_PLATING
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/shuttle/plating/vox	//Vox skipjack plating
 	oxygen = 0

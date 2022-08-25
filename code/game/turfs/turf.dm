@@ -36,9 +36,10 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
-	var/list/footstep_sounds
-	var/shoe_running_volume = 50
-	var/shoe_walking_volume = 20
+	var/footstep = FOOTSTEP_FLOOR
+	var/barefootstep = FOOTSTEP_HARD_BAREFOOT
+	var/clawfootstep = FOOTSTEP_HARD_CLAW
+	var/heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)

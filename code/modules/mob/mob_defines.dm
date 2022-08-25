@@ -121,6 +121,8 @@
 	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = 1 //all mobs can change intents by default.
+	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
+	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()

@@ -67,7 +67,7 @@
 			H.dna.species.stamina_mod *= 0.1
 		add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
 		owner.add_stun_absorption("blooddrunk", INFINITY, 4)
-		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, 1)
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
 
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))

@@ -21,6 +21,7 @@
 	speak_emote = list("growls")
 	emote_taunt = list("wails")
 	taunt_chance = 25
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0

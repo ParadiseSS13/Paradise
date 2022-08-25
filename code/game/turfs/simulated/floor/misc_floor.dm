@@ -42,6 +42,10 @@
 /turf/simulated/floor/beach
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
@@ -49,46 +53,43 @@
 /turf/simulated/floor/beach/sand
 	name = "sand"
 	icon_state = "sand"
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/carpet3.ogg','sound/effects/footstep/carpet5.ogg'),
-	"xeno"  = list('sound/effects/footstep/carpet3.ogg','sound/effects/footstep/carpet5.ogg')
-	)
+
 
 /turf/simulated/floor/beach/coastline
 	name = "coastline"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/water1.ogg','sound/effects/footstep/water2.ogg','sound/effects/footstep/water3.ogg','sound/effects/footstep/water4.ogg'),
-	"xeno"  = list('sound/effects/footstep/water1.ogg','sound/effects/footstep/water2.ogg','sound/effects/footstep/water3.ogg','sound/effects/footstep/water4.ogg')
-	)
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/coastline_t
 	name = "coastline"
 	desc = "Tide's high tonight. Charge your batons."
 	icon_state = "sandwater_t"
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/water1.ogg','sound/effects/footstep/water2.ogg','sound/effects/footstep/water3.ogg','sound/effects/footstep/water4.ogg'),
-	"xeno"  = list('sound/effects/footstep/water1.ogg','sound/effects/footstep/water2.ogg','sound/effects/footstep/water3.ogg','sound/effects/footstep/water4.ogg')
-	)
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/coastline_b
 	name = "coastline"
 	icon_state = "sandwater_b"
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/water1.ogg','sound/effects/footstep/water2.ogg','sound/effects/footstep/water3.ogg','sound/effects/footstep/water4.ogg'),
-	"xeno"  = list('sound/effects/footstep/water1.ogg','sound/effects/footstep/water2.ogg','sound/effects/footstep/water3.ogg','sound/effects/footstep/water4.ogg')
-	)
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
 	name = "water"
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/water1.ogg','sound/effects/footstep/water2.ogg','sound/effects/footstep/water3.ogg','sound/effects/footstep/water4.ogg'),
-	"xeno"  = list('sound/effects/footstep/water1.ogg','sound/effects/footstep/water2.ogg','sound/effects/footstep/water3.ogg','sound/effects/footstep/water4.ogg')
-	)
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/water/Initialize(mapload)
 	. = ..()

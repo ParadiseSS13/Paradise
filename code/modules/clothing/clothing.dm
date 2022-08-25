@@ -450,8 +450,6 @@ BLIND     // can't see anything
 	slot_flags = SLOT_FEET
 
 	var/silence_steps = 0
-	var/shoe_sound_footstep = 1
-	var/shoe_sound = null
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 
@@ -490,26 +488,6 @@ BLIND     // can't see anything
 		return
 	else
 		return ..()
-
-/obj/item/clothing/shoes/proc/step_action(var/mob/living/carbon/human/H) //squeek squeek
-	SEND_SIGNAL(src, COMSIG_SHOES_STEP_ACTION)
-	if(shoe_sound)
-		var/turf/T = get_turf(H)
-
-		if(!istype(H) || !istype(T))
-			return 0
-
-		if(H.m_intent == MOVE_INTENT_RUN)
-			if(shoe_sound_footstep >= 2)
-				if(T.shoe_running_volume)
-					playsound(src, shoe_sound, T.shoe_running_volume, 1)
-				shoe_sound_footstep = 0
-			else
-				shoe_sound_footstep++
-		else if(T.shoe_walking_volume)
-			playsound(src, shoe_sound, T.shoe_walking_volume, 1)
-
-	return 1
 
 /obj/item/proc/negates_gravity()
 	return 0

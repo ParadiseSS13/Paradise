@@ -307,7 +307,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		for(var/obj/machinery/syndiepad/recieving_pad as anything in recievingPads)
 			recieving_pad.use_power(10000 / recieving_pad.power_efficiency)
 			flick("sqpad-beam", recieving_pad )
-			playsound(get_turf(recieving_pad), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(get_turf(recieving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 
 		if(!T)
 			data_storage.shoppinglist.Cut(1, data_storage.shoppinglist.Find(SO))

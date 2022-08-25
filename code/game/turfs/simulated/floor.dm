@@ -20,10 +20,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/icon_plating = "plating"
-	footstep_sounds = list(
-	"human" = list('sound/effects/footstep/floor1.ogg','sound/effects/footstep/floor2.ogg','sound/effects/footstep/floor3.ogg','sound/effects/footstep/floor4.ogg','sound/effects/footstep/floor5.ogg'),
-	"xeno"  = list('sound/effects/footstep/floor1.ogg','sound/effects/footstep/floor2.ogg','sound/effects/footstep/floor3.ogg','sound/effects/footstep/floor4.ogg','sound/effects/footstep/floor5.ogg')
-	)
 	thermal_conductivity = 0.040
 	heat_capacity = 10000
 	var/lava = 0
@@ -35,6 +31,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/list/burnt_states = list("floorscorched1", "floorscorched2")
 	var/list/prying_tool_list = list(TOOL_CROWBAR) //What tool/s can we use to pry up the tile?
 	var/keep_dir = TRUE //When false, resets dir to default on changeturf()
+
+	footstep = FOOTSTEP_FLOOR
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/Initialize(mapload)
 	. = ..()

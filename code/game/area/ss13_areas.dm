@@ -42,6 +42,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	valid_territory = FALSE
 	outdoors = TRUE
 	ambientsounds = SPACE_SOUNDS
+	sound_environment = SOUND_AREA_SPACE
 
 /area/space/nearstation
 	icon_state = "space_near"
@@ -66,7 +67,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	valid_territory = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	parallax_movedir = NORTH
-	sound_env = SMALL_ENCLOSED
+	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/shuttle/arrival
 	name = "\improper Arrival Shuttle"
@@ -646,7 +647,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance
 	ambientsounds = MAINTENANCE_SOUNDS
 	valid_territory = FALSE
-	sound_env = TUNNEL_ENCLOSED
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/maintenance/fore
 	name = "Fore Maintenance"
@@ -760,6 +761,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/hallway
 	valid_territory = FALSE //too many areas with similar/same names, also not very interesting summon spots
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/hallway/primary/fore
 	name = "\improper Fore Primary Hallway"
@@ -838,10 +840,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Bridge"
 	icon_state = "bridge"
 	ambientsounds = list('sound/ambience/signal.ogg')
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/bridge/meeting_room
 	name = "\improper Heads of Staff Meeting Room"
 	icon_state = "meeting"
+	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
 /area/bridge/vip
 	name = "\improper VIP Area"
@@ -850,6 +854,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/captain
 	name = "\improper Captain's Office"
 	icon_state = "captain"
+	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/crew_quarters/captain/bedroom
 	name = "\improper Captain's Bedroom"
@@ -906,10 +911,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/comms
 	name = "\improper Communications Relay"
 	icon_state = "tcomsatcham"
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/server
 	name = "\improper Messaging Server Room"
 	icon_state = "server"
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/ntrep
 	name = "\improper Nanotrasen Representative's Office"
@@ -939,6 +946,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters
 	name = "\improper Dormitories"
 	icon_state = "Sleep"
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/crew_quarters/serviceyard
 	name = "\improper Service Yard"
@@ -959,6 +967,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/toilet
 	name = "\improper Dormitory Toilets"
 	icon_state = "toilet"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/crew_quarters/sleep
 	name = "\improper Dormitories"
@@ -1012,6 +1021,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/bar
 	name = "\improper Bar"
 	icon_state = "bar"
+	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/crew_quarters/bar/atrium
 	name = "Atrium"
@@ -1020,6 +1030,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/theatre
 	name = "\improper Theatre"
 	icon_state = "Theatre"
+	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/crew_quarters/mrchangs
 	name = "\improper Mr Chang's"
@@ -1028,10 +1039,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/library
 	name = "\improper Library"
 	icon_state = "library"
+	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 
 /area/library/abandoned
 	name = "\improper Abandoned Library"
 	icon_state = "library"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/chapel
 	icon_state = "chapel"
@@ -1052,14 +1065,17 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/lawoffice
 	name = "\improper Law Office"
 	icon_state = "law"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/magistrateoffice
 	name = "\improper Magistrate's Office"
 	icon_state = "magistrate"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/clownoffice
 	name = "\improper Clown's Office"
 	icon_state = "clown_office"
+	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 
 /area/mimeoffice
 	name = "\improper Mime's Office"
@@ -1181,6 +1197,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Engineering
 /area/engine
 	ambientsounds = ENGINEERING_SOUNDS
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/engine/engine_smes
 	name = "\improper Engineering SMES"
@@ -1199,6 +1216,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/break_room
 	name = "\improper Engineering Foyer"
 	icon_state = "engine"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/engine/aienter
 	name = "\improper AI Sattelit Access Point"
@@ -1207,6 +1225,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/equipmentstorage
 	name = "\improper Engineering Equipment Storage"
 	icon_state = "storage"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/engine/hardsuitstorage
 	name = "\improper Engineering Hardsuit Storage"
@@ -1239,6 +1258,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/supermatter
 	name = "\improper Supermatter Engine"
 	icon_state = "engine"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 //Solars
 
@@ -1247,10 +1267,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	valid_territory = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	ambientsounds = ENGINEERING_SOUNDS
+	sound_environment = SOUND_AREA_SPACE
 
 /area/solar/auxport
 	name = "\improper Fore Port Solar Array"
 	icon_state = "panelsA"
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/solar/auxstarboard
 	name = "\improper Fore Starboard Solar Array"
@@ -1343,6 +1365,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/medical
 	ambientsounds = MEDICAL_SOUNDS
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/medical/medbay
 	name = "\improper Medbay"
@@ -1377,6 +1400,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/patients_rooms
 	name = "\improper Patient's Rooms"
 	icon_state = "patients"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/medical/ward
 	name = "\improper Medbay Patient Ward"
@@ -1443,6 +1467,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "morgue"
 	ambientsounds = SPOOKY_SOUNDS
 	is_haunted = TRUE
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/medical/chemistry
 	name = "\improper Chemistry"
@@ -1492,6 +1517,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/security
 	ambientsounds = HIGHSEC_SOUNDS
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/security/main
 	name = "\improper Security Office"
@@ -1586,6 +1612,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/courtroomdandp
 	name = "\improper Courtroom Defense and Prosecution"
 	icon_state = "seccourt"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/security/interrogationobs
 	name = "\improper Interrogation Observation"
@@ -1613,6 +1640,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/warden
 	name = "\improper Warden's Office"
 	icon_state = "Warden"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/security/armory
 	name = "\improper Armory"
@@ -1686,12 +1714,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/quartermaster
 	name = "\improper Quartermasters"
 	icon_state = "quart"
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 ///////////WORK IN PROGRESS//////////
 
 /area/quartermaster/sorting
 	name = "\improper Delivery Office"
 	icon_state = "quartstorage"
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 ////////////WORK IN PROGRESS//////////
 
@@ -1710,6 +1740,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/quartermaster/storage
 	name = "\improper Cargo Bay"
 	icon_state = "quartstorage"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/quartermaster/qm
 	name = "\improper Quartermaster's Office"
@@ -1730,10 +1761,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/janitor
 	name = "\improper Custodial Closet"
 	icon_state = "janitor"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/hydroponics
 	name = "\improper Hydroponics"
 	icon_state = "hydro"
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/maintenance/garden
 	name = "Old Garden"
@@ -1751,6 +1784,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Toxins
 
+/area/toxins
+	sound_environment = SOUND_AREA_STANDARD_STATION
 /area/toxins/lab
 	name = "\improper Research and Development"
 	icon_state = "toxlab"
@@ -1818,6 +1853,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "toxmisc"
 
 //Storage
+
+/area/storage
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/storage/tools
 	name = "Auxiliary Tool Storage"
@@ -2005,6 +2043,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Construction Area"
 	icon_state = "yellow"
 	ambientsounds = ENGINEERING_SOUNDS
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/mining_construction
 	name = "Auxillary Base Construction"
@@ -2094,6 +2133,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //AI
 
+/area/ai_monitored
+	sound_environment = SOUND_AREA_STANDARD_STATION
 /area/ai_monitored/storage/eva
 	name = "EVA Storage"
 	icon_state = "eva"
@@ -2113,10 +2154,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/turret_protected/ai_upload
 	name = "\improper AI Upload Chamber"
 	icon_state = "ai_upload"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/turret_protected/ai_upload_foyer
 	name = "AI Upload Access"
 	icon_state = "ai_foyer"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/turret_protected/ai
 	name = "\improper AI Chamber"
@@ -2125,6 +2168,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/turret_protected/aisat
 	name = "\improper AI Satellite"
 	icon_state = "ai"
+	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/aisat
 	name = "\improper AI Satellite Exterior"
@@ -2141,6 +2185,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/turret_protected/aisat_interior
 	name = "\improper AI Satellite Antechamber"
 	icon_state = "ai"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 
 //Misc
@@ -2201,6 +2246,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat/computer
 	name = "\improper Telecoms Control Room"
 	icon_state = "tcomsatcomp"
+	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
 /area/tcommsat/server
 	name = "\improper Telecoms Server Room"
@@ -2220,6 +2266,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "away"
 	report_alerts = FALSE
 	ambientsounds = AWAY_MISSION_SOUNDS
+	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/awaymission/example
 	name = "\improper Strange Station"

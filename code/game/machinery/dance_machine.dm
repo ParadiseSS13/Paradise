@@ -467,7 +467,7 @@
 			if(!M.client || M.client.prefs.sound & SOUND_DISCO)
 				if(!(M in rangers))
 					rangers[M] = TRUE
-					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
+					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
 		for(var/mob/L in rangers)
 			if(get_dist(src, L) > 10)
 				rangers -= L

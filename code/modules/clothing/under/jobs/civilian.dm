@@ -67,7 +67,7 @@
 
 /obj/item/clothing/under/rank/clown/Initialize()
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50)
+	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/under/rank/clown/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(ishuman(loc))

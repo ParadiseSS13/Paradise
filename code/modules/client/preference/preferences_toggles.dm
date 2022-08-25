@@ -347,3 +347,11 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_SEE_ITEM_OUTLINES
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "now" : "no longer"] see item outlines on hover.")
+
+/client/verb/toggle_reverb()
+	set name = "Enable/Disable Reverb"
+	set category = "Preferences"
+	set desc = "Toggle ingame reverb effects"
+	prefs.toggles2 ^= PREFTOGGLE_2_REVERB_DISABLE
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_REVERB_DISABLE) ? "no longer" : "now"] get reverb on ingame sounds.")

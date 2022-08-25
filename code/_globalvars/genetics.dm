@@ -57,6 +57,7 @@ GLOBAL_VAR_INIT(jumpblock, 0)
 GLOBAL_VAR_INIT(empathblock, 0)
 GLOBAL_VAR_INIT(immolateblock, 0)
 GLOBAL_VAR_INIT(polymorphblock, 0)
+GLOBAL_VAR_INIT(silentfootstepsblock, 0)
 
 ///////////////////////////////
 // /vg/ Mutations
