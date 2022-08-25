@@ -984,14 +984,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				neck.screen_loc = ui_neck
 			client.screen += neck
 
+		var/mutable_appearance/standing
 		if(neck.icon_override)
-			overlays_standing[NECK_LAYER] = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
+			standing = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
 		else if(neck.sprite_sheets && neck.sprite_sheets[dna.species.name])
-			overlays_standing[NECK_LAYER] = mutable_appearance(neck.sprite_sheets[dna.species.name], "[neck.icon_state]", layer = -NECK_LAYER)
+			standing = mutable_appearance(neck.sprite_sheets[dna.species.name], "[neck.icon_state]", layer = -NECK_LAYER)
 		else
-			overlays_standing[NECK_LAYER] = mutable_appearance('icons/mob/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
-	 overlays_standing[NECK_LAYER]?.alpha = neck.alpha
-	 overlays_standing[NECK_LAYER]?.color = neck.color
+			standing = mutable_appearance('icons/mob/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
+		standing.alpha = neck.alpha
+		standing.color = neck.color
+		overlays_standing[NECK_LAYER] = standing
 	apply_overlay(NECK_LAYER)
 
 /mob/living/carbon/human/update_inv_back()

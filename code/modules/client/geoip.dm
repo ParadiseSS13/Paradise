@@ -1,7 +1,3 @@
-var/global/geoip_query_counter = 0
-var/global/geoip_next_counter_reset = 0
-var/global/list/geoip_ckey_updated = list()
-
 /datum/geoip_data
 	var/holder = null
 	var/status = null
@@ -37,8 +33,8 @@ var/global/list/geoip_ckey_updated = list()
 	if(status == "updated")
 		var/msg = "[holder] connected from ([country], [regionName], [city]) using ISP: ([isp]) with IP: ([ip]) Proxy: ([proxy])"
 		log_admin(msg)
-		if(SSticker.current_state > GAME_STATE_STARTUP && !(C.ckey in geoip_ckey_updated))
-			geoip_ckey_updated |= C.ckey
+		if(SSticker.current_state > GAME_STATE_STARTUP && !(C.ckey in GLOB.geoip_ckey_updated))
+			GLOB.geoip_ckey_updated |= C.ckey
 			message_admins(msg)
 
 		if(proxy == "true")
@@ -116,12 +112,12 @@ var/global/list/geoip_ckey_updated = list()
 	return TRUE
 
 /proc/geoip_check(addr)
-	if(world.time > geoip_next_counter_reset)
-		geoip_next_counter_reset = world.time + 900
-		geoip_query_counter = 0
+	if(world.time > GLOB.geoip_next_counter_reset)
+		GLOB.geoip_next_counter_reset = world.time + 900
+		GLOB.geoip_query_counter = 0
 
-	geoip_query_counter++
-	if(geoip_query_counter > 130)
+	GLOB.geoip_query_counter++
+	if(GLOB.geoip_query_counter > 130)
 		return "limit reached"
 
 	var/list/vl = world.Export("http://ip-api.com/json/[addr]?fields=205599")

@@ -1495,7 +1495,6 @@
 #include "code\modules\detective_work\evidence.dm"
 #include "code\modules\detective_work\footprints_and_rag.dm"
 #include "code\modules\detective_work\scanner.dm"
-#include "code\modules\detectivework\forensics.dm"
 #include "code\modules\detectivework\microscope\dnascanner.dm"
 #include "code\modules\detectivework\microscope\microscope.dm"
 #include "code\modules\detectivework\tools\crimekit.dm"

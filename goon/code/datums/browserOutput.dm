@@ -18,8 +18,8 @@ var/list/chatResources = list(
 //Should match the value set in the browser js
 #define MAX_COOKIE_LENGTH 5
 
-/var/savefile/iconCache = new /savefile("data/iconCache.sav")
-/var/chatDebug = file("data/chatDebug.log")
+var/savefile/iconCache = new /savefile("data/iconCache.sav")
+var/chatDebug = file("data/chatDebug.log")
 
 /datum/chatOutput
 	var/client/owner = null
@@ -235,7 +235,7 @@ var/list/chatResources = list(
 	chatOutput.ehjax_send(data = list("firebug" = 1))
 
 
-/var/list/bicon_cache = list()
+var/list/bicon_cache = list()
 
 //Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
 // exporting it as text, and then parsing the base64 from that.

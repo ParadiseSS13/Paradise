@@ -62,3 +62,23 @@
 #define JOB_BRIGDOC			(1<<5)
 #define JOB_JUDGE				(1<<6)
 #define JOB_PILOT				(1<<7)
+
+#define TAIPAN_SCIENTIST	"Space Base Syndicate Scientist"
+#define TAIPAN_MEDIC 		"Space Base Syndicate Medic"
+#define TAIPAN_BOTANIST		"Space Base Syndicate Botanist"
+#define TAIPAN_CARGO		"Space Base Syndicate Cargo Technician"
+#define TAIPAN_CHEF			"Space Base Syndicate Chef"
+#define TAIPAN_ENGINEER		"Space Base Syndicate Engineer"
+#define TAIPAN_COMMS 		"Space Base Syndicate Comms Officer"
+#define TAIPAN_RD			"Space Base Syndicate Research Director"
+#define CYBORG				"Cyborg"
+
+#define TAIPAN_HUD_SCIENTIST	1
+#define TAIPAN_HUD_MEDIC 		2
+#define TAIPAN_HUD_BOTANIST		3
+#define TAIPAN_HUD_CARGO		4
+#define TAIPAN_HUD_CHEF			5
+#define TAIPAN_HUD_ENGINEER		6
+#define TAIPAN_HUD_COMMS 		7
+#define TAIPAN_HUD_RD			8
+#define TAIPAN_HUD_CYBORG		9

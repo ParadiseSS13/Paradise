@@ -42,3 +42,7 @@ GLOBAL_PROTECT(shutdown_shell_command)
 
 GLOBAL_VAR(python_path) //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 GLOBAL_PROTECT(python_path)
+
+//GeoIP
+GLOBAL_VAR_INIT(geoip_query_counter, 0)
+GLOBAL_VAR_INIT(geoip_next_counter_reset, 0)

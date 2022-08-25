@@ -679,7 +679,7 @@
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob/living")
 			return
-		var/selected_job = input("Select a job", "Hud Job Selection") as null|anything in all_taipan_jobs
+		var/selected_job = input("Select a job", "Hud Job Selection") as null|anything in GLOB.all_taipan_jobs
 
 		if(!selected_job)
 			to_chat(usr, "No job selected!")

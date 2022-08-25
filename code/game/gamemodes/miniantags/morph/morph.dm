@@ -2,8 +2,6 @@
 #define ITEM_EAT_COST 5
 #define MORPHS_ANNOUNCE_THRESHOLD 5
 
-var/announced = FALSE
-
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
 	real_name = "morph"
@@ -65,10 +63,10 @@ var/announced = FALSE
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
 
-proc/check_morphs()
-	if((GLOB.MORPHS_NUMBER > MORPHS_ANNOUNCE_THRESHOLD) && (!announced))
+/mob/living/simple_animal/hostile/morph/proc/check_morphs()
+	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
 		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходимо уничтожение для продолжения безопасной работы.", "Central Command Biological Affairs", 'sound/AI/commandreport.ogg')
-		announced = TRUE
+		GLOB.morphs_announced = TRUE
 	else
 		return
 
@@ -82,7 +80,7 @@ proc/check_morphs()
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
-	GLOB.MORPHS_NUMBER++
+	GLOB.morphs_alive_list += src
 	check_morphs()
 
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
@@ -216,7 +214,7 @@ proc/check_morphs()
 	// Only execute the below if we successfully died
 	if(!.)
 		return FALSE
-	GLOB.MORPHS_NUMBER--
+	GLOB.morphs_alive_list -= src
 
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/attacker)
 	if(ambush_prepared)

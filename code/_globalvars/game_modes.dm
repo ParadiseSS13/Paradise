@@ -7,3 +7,5 @@ GLOBAL_DATUM(start_state, /datum/station_state) // Used in round-end report. Don
 
 GLOBAL_VAR(custom_event_msg)
 GLOBAL_VAR(custom_event_admin_msg)
+
+GLOBAL_VAR_INIT(morphs_announced, FALSE)

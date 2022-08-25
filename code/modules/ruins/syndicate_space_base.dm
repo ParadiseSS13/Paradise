@@ -1,25 +1,3 @@
-#define TAIPAN_SCIENTIST	"Space Base Syndicate Scientist"
-#define TAIPAN_MEDIC 		"Space Base Syndicate Medic"
-#define TAIPAN_BOTANIST		"Space Base Syndicate Botanist"
-#define TAIPAN_CARGO		"Space Base Syndicate Cargo Technician"
-#define TAIPAN_CHEF			"Space Base Syndicate Chef"
-#define TAIPAN_ENGINEER		"Space Base Syndicate Engineer"
-#define TAIPAN_COMMS 		"Space Base Syndicate Comms Officer"
-#define TAIPAN_RD			"Space Base Syndicate Research Director"
-#define CYBORG				"Cyborg"
-
-var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,TAIPAN_CARGO,TAIPAN_CHEF,TAIPAN_ENGINEER,TAIPAN_COMMS,TAIPAN_RD,CYBORG)
-
-#define TAIPAN_HUD_SCIENTIST	1
-#define TAIPAN_HUD_MEDIC 		2
-#define TAIPAN_HUD_BOTANIST		3
-#define TAIPAN_HUD_CARGO		4
-#define TAIPAN_HUD_CHEF			5
-#define TAIPAN_HUD_ENGINEER		6
-#define TAIPAN_HUD_COMMS 		7
-#define TAIPAN_HUD_RD			8
-#define TAIPAN_HUD_CYBORG		9
-
 /obj/item/paper/syndicate/code_words
 	name = "Code Words"
 

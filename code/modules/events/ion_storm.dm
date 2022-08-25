@@ -2,7 +2,6 @@
 #define ION_RANDOM 0
 #define ION_ANNOUNCE 1
 
-var/iondepartment = pick_list("ion_laws.json", "отделы")
 /datum/event/ion_storm
 	var/botEmagChance = 10
 	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
@@ -46,6 +45,7 @@ var/iondepartment = pick_list("ion_laws.json", "отделы")
 	return message
 
 /proc/generate_static_ion_law()
+	var/iondepartment = pick_list("ion_laws.json", "отделы")
 	var/list/players = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(	!player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > 10 MINUTES)
