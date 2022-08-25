@@ -97,8 +97,7 @@
 	return t
 
 /obj/machinery/meter/examine(mob/user)
-	.  += "A gas flow meter. "
-
+	. = ..()
 	if(get_dist(user, src) > 3 && !(istype(user, /mob/living/silicon/ai) || istype(user, /mob/dead)))
 		. += "<span class='boldnotice'>You are too far away to read it.</span>"
 
