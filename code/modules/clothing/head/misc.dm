@@ -43,6 +43,10 @@
 	item_state = "that"
 	dog_fashion = /datum/dog_fashion/head
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
 	icon_state = "redcoat"
@@ -53,11 +57,19 @@
 	icon_state = "mailman"
 	desc = "<i>'Right-on-time'</i> mail service head wear."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/plaguedoctorhat
 	name = "plague doctor's hat"
 	desc = "These were once used by Plague doctors. They're pretty much useless."
 	icon_state = "plaguedoctor"
 	permeability_coefficient = 0.01
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/hasturhood
 	name = "hastur's hood"
@@ -169,11 +181,19 @@
 	item_state = "pirate"
 	dog_fashion = /datum/dog_fashion/head/pirate
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/hgpiratecap
 	name = "pirate hat"
 	desc = "Yarr."
 	icon_state = "hgpiratecap"
 	item_state = "hgpiratecap"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/bandana
 	name = "pirate bandana"
@@ -194,6 +214,10 @@
 	desc = "For that industrial age look."
 	dog_fashion = /datum/dog_fashion/head/bowlerhat
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/beaverhat
 	name = "beaver hat"
 	icon_state = "beaver_hat"
@@ -209,6 +233,10 @@
 	icon_state = "boater_hat"
 	item_state = "boater_hat"
 	desc = "Goes well with celery."
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/cowboyhat
 	name = "cowboy hat"
@@ -264,6 +292,10 @@
 	item_state = "fez"
 	desc = "Put it on your monkey, make lots of cash money."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 //end bs12 hats
 
 /obj/item/clothing/head/witchwig
@@ -272,6 +304,10 @@
 	icon_state = "witch"
 	item_state = "witch"
 	flags = BLOCKHAIR
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/chicken
 	name = "chicken suit head"
@@ -397,6 +433,10 @@
 	desc = "You can practically taste the fiesta."
 	dog_fashion = /datum/dog_fashion/head/sombrero
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/sombrero/green
 	name = "green sombrero"
 	icon_state = "greensombrero"
@@ -432,10 +472,18 @@
 	desc = "A hat with bells, to add some merryness to the suit."
 	icon_state = "jester_hat"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/rice_hat
 	name = "rice hat"
 	desc = "Welcome to the rice fields, motherfucker."
 	icon_state = "rice_hat"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/griffin
 	name = "griffon head"
@@ -516,3 +564,7 @@
 	desc = "Now just to find some maracas!"
 	icon_state = "cuban_hat"
 	item_state = "cuban_hat"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
