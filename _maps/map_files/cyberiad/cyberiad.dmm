@@ -66370,11 +66370,11 @@
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dmz" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	dir = 1
-	},
 /obj/structure/sign/vacuum{
 	pixel_y = -30
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -66386,6 +66386,10 @@
 	},
 /obj/machinery/igniter{
 	id = "gasturbine"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -66486,6 +66490,7 @@
 	comp_id = "incineratorturbine";
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dmP" = (
@@ -66650,6 +66655,7 @@
 "dne" = (
 /obj/structure/cable,
 /obj/machinery/power/turbine,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dnf" = (
@@ -84576,6 +84582,12 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"qIz" = (
+/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/turbine)
 "qIW" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -131987,8 +131999,8 @@ dln
 dmy
 dgS
 dgS
+dgS
 dnx
-aaa
 doE
 aaa
 aaa
@@ -132244,8 +132256,8 @@ dmh
 dmA
 dmO
 dne
+qIz
 dnI
-aaa
 doE
 aaa
 aaa
@@ -132501,8 +132513,8 @@ dln
 dmz
 dgS
 dgS
+dgS
 dnx
-aaa
 doE
 aaa
 aaa
