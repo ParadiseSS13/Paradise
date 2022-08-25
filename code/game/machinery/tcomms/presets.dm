@@ -34,4 +34,4 @@
 GLOBAL_VAR(cc_tcomms_relay_uid)
 /obj/machinery/tcomms/relay/cc/Initialize(mapload)
 	. = ..()
-	GLOB.cc_tcomms_relay_uid = UID(src)
+	GLOB.cc_tcomms_relay_uid = UID()
