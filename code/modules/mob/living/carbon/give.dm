@@ -175,7 +175,7 @@
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
 	receiver.visible_message("<span class='notice'>[giver] handed [I] to [receiver].</span>")
-	receiver.clear_alert("give item [item_UID]")
+	receiver.clear_alert("take item [item_UID]")
 
 
 /obj/screen/alert/take_item/do_timeout(mob/M, category)
