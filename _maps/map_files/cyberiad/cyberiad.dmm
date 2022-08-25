@@ -66362,10 +66362,8 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "dmy" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
-	frequency = 1443;
-	id = "air_in"
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
