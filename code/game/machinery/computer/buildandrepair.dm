@@ -551,6 +551,10 @@
 				to_chat(user, "<span class='warning'>[src] does not accept circuit boards of this type!</span>")
 				return
 
+			if(!B.build_path)
+				to_chat(user, "<span class='warning'>This is not a functional computer circuit board!</span>")
+				return
+
 			B.play_tool_sound(src)
 			to_chat(user, "<span class='notice'>You place [B] inside [src].</span>")
 			name += " ([B.board_name])"

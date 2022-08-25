@@ -153,13 +153,14 @@
 	var/throwtarget = get_edge_target_turf(src, move_dir)
 	for(var/mob/living/L in T.contents - hit_things - src)
 		if(faction_check_mob(L))
+			charging = FALSE
 			return
 		hit_things += L
 		visible_message("<span class='danger'>[src] tramples and kicks [L]!</span>")
 		to_chat(L, "<span class='userdanger'>[src] tramples you and kicks you away!</span>")
 		L.throw_at(throwtarget, 10, 1, src)
 		L.KnockDown(1 SECONDS)
-		L.adjustBruteLoss(melee_damage_upper)
+		L.adjustBruteLoss(25)
 	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, move_dir, (times_ran + 1)), 0.7)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/head_detach(target)
@@ -199,7 +200,7 @@
 	visible_message("<span class='danger'>The top of [src]'s spine leaks a black liquid, forming into a skull!</span>")
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/bonfire_teleport()
-	ranged_cooldown = world.time + 0.5 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 2 SECONDS * revive_multiplier()
 	if(isnull(mypile))
 		var/obj/structure/legionnaire_bonfire/newpile = new /obj/structure/legionnaire_bonfire(loc)
 		mypile = newpile
@@ -311,7 +312,7 @@
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "legionnaire_spine"
 	denied_type = /obj/item/crusher_trophy/legionnaire_spine
-	bonus_value = 25
+	bonus_value = 75 // listen this dies in one hit, this can be a high chance.
 	/// Time at which the item becomes usable again
 	var/next_use_time
 

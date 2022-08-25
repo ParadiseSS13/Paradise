@@ -43,6 +43,7 @@
 	icon_state = "tophat"
 	item_state = "that"
 	dog_fashion = /datum/dog_fashion/head
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/collectable/captain
 	name = "collectable captain's hat"
@@ -50,6 +51,7 @@
 	icon_state = "captain"
 	item_state = "caphat"
 	dog_fashion = /datum/dog_fashion/head/captain
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/collectable/police
 	name = "collectable police officer's hat"

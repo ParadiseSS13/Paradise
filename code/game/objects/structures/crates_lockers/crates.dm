@@ -40,7 +40,7 @@
 					return FALSE
 				break
 
-	if(rigged && locate(/obj/item/radio/electropack) in src)
+	if(rigged && locate(/obj/item/electropack) in src)
 		if(isliving(usr))
 			var/mob/living/L = usr
 			if(L.electrocute_act(17, src))
@@ -105,7 +105,7 @@
 		else
 			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
 		return TRUE
-	if(istype(W, /obj/item/radio/electropack))
+	if(istype(W, /obj/item/electropack))
 		if(rigged)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
@@ -140,7 +140,7 @@
 		update_icon()
 		return
 	else
-		if(rigged && locate(/obj/item/radio/electropack) in src)
+		if(rigged && locate(/obj/item/electropack) in src)
 			if(isliving(user))
 				var/mob/living/L = user
 				if(L.electrocute_act(17, src))
@@ -372,6 +372,7 @@
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/salglu(src)
 	new /obj/item/reagent_containers/iv_bag/slime(src)
+	new /obj/item/reagent_containers/iv_bag/blood/vox(src)
 
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."

@@ -25,12 +25,9 @@
 		fire_location = null
 	return ..()
 
-/obj/item/assembly/infra/describe()
-	return "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
-
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
-	. += describe()
+	. += "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
 
 /obj/item/assembly/infra/activate()
 	if(!..())

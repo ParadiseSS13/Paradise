@@ -18,8 +18,6 @@
 		error_on_humanize = "You are not able to control any terror spider this round."
 	else if(cannotPossess(user))
 		error_on_humanize = "You have enabled antag HUD and are unable to re-enter the round."
-	else if(spider_awaymission)
-		error_on_humanize = "Terror spiders that are part of an away mission cannot be controlled by ghosts."
 	else if(!ai_playercontrol_allowtype)
 		error_on_humanize = "This specific type of terror spider is not player-controllable."
 	else if(degenerate)

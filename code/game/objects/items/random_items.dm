@@ -45,8 +45,8 @@
 	name = "unlabelled bottle"
 	//	identify_probability = 0
 
-/obj/item/reagent_containers/glass/bottle/random_reagent/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/random_reagent/Initialize(mapload)
+	. = ..()
 	var/list/possible_chems = GLOB.chemical_reagents_list.Copy()
 	possible_chems -= GLOB.blocked_chems.Copy()
 	var/datum/reagent/R = pick(possible_chems)
@@ -62,8 +62,8 @@
 	name = "unlabelled chemical bottle"
 	//	identify_probability = 0
 
-/obj/item/reagent_containers/glass/bottle/random_chem/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/random_chem/Initialize(mapload)
+	. = ..()
 	var/R = get_random_reagent_id()
 	if(GLOB.rare_chemicals.Find(R))
 		reagents.add_reagent(R, 10)
@@ -77,8 +77,8 @@
 	name = "unlabelled chemical bottle"
 	//	identify_probability = 0
 
-/obj/item/reagent_containers/glass/bottle/random_base_chem/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/random_base_chem/Initialize(mapload)
+	. = ..()
 	var/datum/reagent/R = pick(GLOB.base_chemicals)
 	reagents.add_reagent(R, rand(2, 6)*5)
 	name = "unlabelled bottle"
@@ -89,8 +89,8 @@
 	name = "unlabelled drink"
 	icon = 'icons/obj/drinks.dmi'
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink/New()
-	..()
+/obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize(mapload)
+	. = ..()
 	var/list/possible_drinks = GLOB.drinks.Copy()
 	if(prob(50))
 		possible_drinks += list("pancuronium","lsd","omnizine","blood")
@@ -106,8 +106,8 @@
 	name = "unlabelled drink?"
 	icon = 'icons/obj/drinks.dmi'
 
-/obj/item/reagent_containers/food/drinks/bottle/random_reagent/New()
-	..()
+/obj/item/reagent_containers/food/drinks/bottle/random_reagent/Initialize(mapload)
+	. = ..()
 
 	var/R = get_random_reagent_id()
 	if(GLOB.rare_chemicals.Find(R))

@@ -148,6 +148,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return FALSE
 	if(A.tele_proof)
 		return TRUE
+	if(!is_teleport_allowed(O.z))
+		return TRUE
 	else
 		return FALSE
 
@@ -1922,13 +1924,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(check_shift && !(A.pixel_x == shift_x && A.pixel_y == shift_y))
 			continue
 		. += A
-
-//gives us the stack trace from CRASH() without ending the current proc.
-/proc/stack_trace(msg)
-	CRASH(msg)
-
-/datum/proc/stack_trace(msg)
-	CRASH(msg)
 
 /proc/pass()
 	return

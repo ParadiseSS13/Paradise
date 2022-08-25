@@ -42,6 +42,9 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	GLOB.revision_info.log_info()
 	load_admins(run_async = FALSE) // This better happen early on.
 
+	if(TgsAvailable())
+		world.log = file("[GLOB.log_directory]/dd.log") //not all runtimes trigger world/Error, so this is the only way to ensure we can see all of them.
+
 	#ifdef UNIT_TESTS
 	log_world("Unit Tests Are Enabled!")
 	#endif
@@ -156,8 +159,13 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
 		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
-		if(GLOB.configuration.url.server_url) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-			C << link("byond://[GLOB.configuration.url.server_url]")
+		if(C.prefs.server_region)
+			// Keep them on the same relay
+			C << link(GLOB.configuration.system.region_map[C.prefs.server_region])
+		else
+			// Use the default
+			if(GLOB.configuration.url.server_url) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+				C << link("byond://[GLOB.configuration.url.server_url]")
 
 	// And begin the real shutdown
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.

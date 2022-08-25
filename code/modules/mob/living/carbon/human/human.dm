@@ -8,13 +8,8 @@
 	deathgasp_on_death = TRUE
 	throw_range = 4
 
-/mob/living/carbon/human/New(loc)
-	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
-	if(length(args) > 1)
-		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
-	. = ..()
-
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
+	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	create_dna()
 
 	. = ..()
@@ -24,6 +19,7 @@
 
 	UpdateAppearance()
 	GLOB.human_list += src
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 
 /**
   * Sets up DNA and species.
@@ -49,9 +45,6 @@
 /mob/living/carbon/human/proc/setup_other()
 	create_reagents(330)
 	physiology = new()
-
-/mob/living/carbon/human/ComponentInitialize()
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 
 /mob/living/carbon/human/OpenCraftingMenu()
 	if(!handcrafting)

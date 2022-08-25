@@ -109,7 +109,8 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = /datum/dog_fashion/head/ushanka
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user as mob)
