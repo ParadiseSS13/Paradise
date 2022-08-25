@@ -451,10 +451,16 @@
 	item_color = "dress_rd"
 
 /obj/item/clothing/under/dress/dress_cap
-	name = "captain's dress uniform"
+	name = "captain's dress"
 	desc = "Feminine fashion for the style concious captain."
 	icon_state = "captain_dress"
 	item_color = "captain_dress"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		)
 
 /obj/item/clothing/under/dress/dress_hop
 	name = "head of personal's dress uniform"
