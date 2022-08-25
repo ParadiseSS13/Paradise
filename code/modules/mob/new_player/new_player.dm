@@ -288,7 +288,7 @@
 	if(jobban_isbanned(src,rank))	return 0
 	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(client))	return 0
-	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
+	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
 	if(job.available_in_playtime(client))
 		return 0
 
