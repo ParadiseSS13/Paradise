@@ -11435,10 +11435,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"aRi" = (
-/obj/machinery/pipedispenser,
-/turf/simulated/floor/plating,
-/area/construction)
 "aRm" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -11819,7 +11815,8 @@
 /turf/simulated/floor/plating,
 /area/construction)
 "aSw" = (
-/obj/machinery/pipedispenser/disposal,
+/obj/item/rpd,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/construction)
 "aSy" = (
@@ -15795,7 +15792,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/item/desk_bell{
 	pixel_x = 7;
-	pixel_y = 7
+	pixel_y = 7;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -75075,7 +75073,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/item/desk_bell{
-	pixel_y = 8
+	pixel_y = 8;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -79126,7 +79125,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 10
 	},
-/obj/item/radio/electropack,
+/obj/item/electropack,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
@@ -106690,7 +106689,7 @@ aLB
 aLB
 aLB
 aLB
-aML
+aSw
 aZm
 bOz
 bBt
@@ -107970,8 +107969,8 @@ aLG
 aML
 aML
 aTQ
-aRi
-aSw
+aLB
+aML
 aTQ
 aUZ
 aWK

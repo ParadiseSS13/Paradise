@@ -43,6 +43,7 @@
 	icon_state = "tophat"
 	item_state = "that"
 	dog_fashion = /datum/dog_fashion/head
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/collectable/captain
 	name = "collectable captain's hat"

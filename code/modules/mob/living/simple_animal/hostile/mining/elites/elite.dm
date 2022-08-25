@@ -193,7 +193,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
 				to_chat(mychild, "<span class='warning'>Someone has activated your tumor.  You will be returned to fight shortly, get ready!</span>")
 			addtimer(CALLBACK(src, .proc/return_elite), 3 SECONDS)
-			INVOKE_ASYNC(src, .proc/arena_checks)
 		if(TUMOR_INACTIVE)
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
 				user.visible_message("<span class='warning'>[user] reaches for [src] with [user.p_their()] arm, but nothing happens.</span>",
@@ -246,6 +245,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.health = mychild.maxHealth
 		mychild.grab_ghost()
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+	INVOKE_ASYNC(src, .proc/arena_checks)
 
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()

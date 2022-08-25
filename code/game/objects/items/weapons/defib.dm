@@ -65,7 +65,7 @@
 		. += "[icon_state]-emagged"
 	if(powered)
 		. += "[icon_state]-powered"
-	if(powered && cell) 
+	if(powered && cell)
 		var/ratio = cell.charge / cell.maxcharge
 		ratio = CEILING(ratio*4, 1) * 25
 		. += "[icon_state]-charge[ratio]"
@@ -404,7 +404,10 @@
 			var/total_burn	= 0
 			var/total_brute	= 0
 
+			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_PRE_DEFIB, user, defib, ghost)
+
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+				signal_result |= SEND_SIGNAL(M, COMSIG_LIVING_DEFIBBED, user, defib, ghost)
 				for(var/obj/item/carried_item in H.contents)
 					if(istype(carried_item, /obj/item/clothing/suit/space))
 						if(!defib.combat)
@@ -413,6 +416,9 @@
 							busy = FALSE
 							update_icon(UPDATE_ICON_STATE)
 							return
+				if(signal_result & COMPONENT_DEFIB_OVERRIDE)
+					// let our signal handle it
+					return
 				if(H.undergoing_cardiac_arrest())
 					if(!H.get_int_organ(/obj/item/organ/internal/heart) && !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 						user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
@@ -450,7 +456,7 @@
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
 					ghost = H.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !HAS_TRAIT(H, TRAIT_BADDNA) && H.blood_volume > BLOOD_VOLUME_SURVIVE && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !HAS_TRAIT(H, TRAIT_BADDNA) && H.blood_volume > BLOOD_VOLUME_SURVIVE && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)) && !(signal_result & COMPONENT_BLOCK_DEFIB))
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
@@ -470,7 +476,14 @@
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
+
 						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
+						if(ishuman(H.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
+							excess_shock(user, H, H.pulledby)
+						for(var/obj/item/grab/G in H.grabbed_by)
+							if(ishuman(G.assailant))
+								excess_shock(user, H, G.assailant)
+
 						H.med_hud_set_health()
 						H.med_hud_set_status()
 						defib.deductcharge(revivecost)
@@ -486,7 +499,7 @@
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient blood volume critically low.</span>")
 						else if(ghost)
 							if(!ghost.can_reenter_corpse) // DNR or AntagHUD
-								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resucitation failed: No electrical brain activity detected.</span>")
+								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: No electrical brain activity detected.</span>")
 							else
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 						else
@@ -501,6 +514,22 @@
 					playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		busy = FALSE
 		update_icon(UPDATE_ICON_STATE)
+
+/*
+ * user = the person using the defib
+ * origin = person being revived
+ * affecting = person being shocked with excess energy from the defib
+*/
+/obj/item/twohanded/shockpaddles/proc/excess_shock(mob/user, mob/living/carbon/human/origin, mob/living/carbon/human/affecting)
+	if(user == affecting)
+		return
+
+	if(electrocute_mob(affecting, defib.cell, origin)) // shock anyone touching them >:)
+		var/obj/item/organ/internal/heart/HE = affecting.get_organ_slot("heart")
+		if(HE.parent_organ == "chest" && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
+			affecting.visible_message("<span class='danger'>[affecting]'s entire body shakes as a shock travels up their arm!</span>", \
+							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ("l_arm") : affecting.get_organ("r_arm")] and back down your [affecting.hand ? affecting.get_organ("r_arm") : affecting.get_organ("l_arm")]!</span>")
+			affecting.set_heartattack(TRUE)
 
 /obj/item/borg_defib
 	name = "defibrillator paddles"
@@ -562,7 +591,7 @@
 			if(ghost && !ghost.client)
 				// In case the ghost's not getting deleted for some reason
 				H.key = ghost.key
-				log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), H)
+				stack_trace("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
 
 				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath
@@ -570,7 +599,10 @@
 			var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
 			var/total_burn	= 0
 			var/total_brute	= 0
+
+			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_PRE_DEFIB, user, src, ghost)
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+				signal_result |= SEND_SIGNAL(M, COMSIG_LIVING_DEFIBBED, user, src, ghost)
 				if(H.stat == DEAD)
 					var/health = H.health
 					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
@@ -579,7 +611,7 @@
 					for(var/obj/item/organ/external/O in H.bodyparts)
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK))
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !(signal_result & COMPONENT_BLOCK_DEFIB))
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
@@ -595,6 +627,7 @@
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
 						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
+						SEND_SIGNAL(H, COMSIG_LIVING_DEFIBBED, user, src)
 						if(isrobot(user))
 							var/mob/living/silicon/robot/R = user
 							R.cell.use(revivecost)
