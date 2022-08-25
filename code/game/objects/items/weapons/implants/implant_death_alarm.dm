@@ -61,7 +61,7 @@
 	..()
 
 /obj/item/implantcase/death_alarm
-	name = "Glass Case- 'Death Alarm'"
+	name = "Implant Case - 'Death Alarm'"
 	desc = "A case containing a death alarm implant."
 
 /obj/item/implantcase/death_alarm/Initialize(mapload)

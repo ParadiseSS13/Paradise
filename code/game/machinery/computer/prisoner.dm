@@ -169,7 +169,8 @@
 				if("set_points")
 					if(isnull(text2num(answer)))
 						return
-					inserted_id.goal = clamp(text2num(answer), 0, 50000)
+					//some insight into 20,000 here - reccomended value of points is 150 per minute, this keeps the max value around a bit above 2 hours worth of points
+					inserted_id.goal = clamp(text2num(answer), 0, 20000) //no you cannot enter 999999999 as a value here... smh
 				else
 					return FALSE
 		else

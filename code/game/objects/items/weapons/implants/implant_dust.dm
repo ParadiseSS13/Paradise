@@ -2,7 +2,7 @@
 
 /obj/item/implant/dust
 	name = "duster implant"
-	desc = "An alarm which monitors host vital signs, transmitting a radio message and dusting the corpse on death."
+	desc = "A remote controlled implant that will dust the user upon activation (or death of user)."
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	actions_types = list(/datum/action/item_action/hands_free/activate/always)
