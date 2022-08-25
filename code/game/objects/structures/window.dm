@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 					M.apply_damage(20)
 					take_damage(50)
 				if(4)
-					visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
+					M.visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
 					M.Weaken(5)
 					M.apply_damage(30)
 					take_damage(75)
