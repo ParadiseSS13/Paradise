@@ -60,6 +60,8 @@
 		return
 	if(!IS_HORIZONTAL(L) && !can_start_on_stander)
 		return
+	if(IS_HORIZONTAL(L) && !on_operable_surface(L))
+		return
 	if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
 		return //no cult ghost surgery please
