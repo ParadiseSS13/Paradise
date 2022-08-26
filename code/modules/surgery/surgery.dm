@@ -181,7 +181,7 @@
 	if(accept_hand)
 		if(!tool)
 			success = TRUE
-		if(isrobot(user))
+		if(isrobot(user) && istype(tool, /obj/item/gripper/medical))
 			success = TRUE
 
 	if(accept_any_item)
