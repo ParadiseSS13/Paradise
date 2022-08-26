@@ -8,6 +8,7 @@
 	disease_amount = 0
 	volume = 10
 	amount_per_transfer_from_this = 0
+	visible_transfer_rate = FALSE
 	list_reagents = list("honey" = 5)
 	var/honey_color = ""
 

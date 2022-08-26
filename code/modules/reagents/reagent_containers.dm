@@ -5,6 +5,7 @@
 	icon_state = null
 	w_class = WEIGHT_CLASS_TINY
 	var/amount_per_transfer_from_this = 5
+	var/visible_transfer_rate = TRUE
 	var/possible_transfer_amounts = list(5,10,15,25,30)
 	var/volume = 30
 	var/list/list_reagents = null
@@ -102,8 +103,9 @@
 /obj/item/reagent_containers/examine(mob/user)
 	. = ..()
 
-	// Food has no valid possible_transfer_amounts, and we don't want to show
-	// this message on examining food.
-	if(possible_transfer_amounts)
+	if(visible_transfer_rate)
 		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this > 1 ? "s" : ""] at a time.</span>"
+
+	// Items that have no valid possible_transfer_amounts shouldn't say their transfer rate is variable
+	if(possible_transfer_amounts)
 		. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
