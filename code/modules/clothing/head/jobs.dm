@@ -36,6 +36,16 @@
 	icon_state = "captain_cap"
 	dog_fashion = /datum/dog_fashion/head/captain
 
+/obj/item/clothing/head/caphat/beret
+	name = "captain's beret"
+	desc = "For Captains that are more inclined towards style."
+	icon_state = "captain_beret"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		)
+
 //Head of Personnel
 /obj/item/clothing/head/hopcap
 	name = "head of personnel's cap"

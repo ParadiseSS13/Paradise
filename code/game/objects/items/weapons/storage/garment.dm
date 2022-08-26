@@ -29,6 +29,7 @@
 /obj/item/storage/bag/garment/captain/populate_contents()
 	new /obj/item/clothing/head/caphat(src)
 	new /obj/item/clothing/head/caphat/parade(src)
+	new /obj/item/clothing/head/caphat/beret(src)
 	new /obj/item/clothing/head/crown/fancy(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
