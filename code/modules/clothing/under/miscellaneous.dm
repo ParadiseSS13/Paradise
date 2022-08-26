@@ -69,12 +69,24 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/solgov/elite
+	name = "\improper Trans-Solar Federation Specops marine uniform"
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
+	icon_state = "solgovelite"
+	item_color = "solgovelite"
+
 /obj/item/clothing/under/solgov/command
 	name = "Sol Federation Lieutenant's uniform"
 	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
 	icon_state = "solgovc"
 	item_color = "solgovc"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+
+/obj/item/clothing/under/solgov/command/elite
+	name = "\improper Trans-Solar Federation Specops Lieutenant's uniform"
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces. This one has additional insignia on its shoulders and cuffs."
+	icon_state = "solgovcelite"
+	item_color = "solgovcelite"
 
 /obj/item/clothing/under/solgov/rep
 	name = "Sol Federation representative's uniform"
@@ -117,6 +129,10 @@
 	item_color = "navy_gold"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
+
+/obj/item/clothing/under/rank/centcom/captain/solgov
+	name = "\improper Trans-Solar Federation commander's uniform"
+	desc = "Gold trim on space-black cloth, this uniform is worn by generals of the Trans-Solar Federation. It has exotic materials for protection."
 
 /obj/item/clothing/under/rank/centcom/blueshield
 	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."

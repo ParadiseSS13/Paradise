@@ -80,6 +80,7 @@
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntspecops,
+			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
 			/datum/job/syndicateofficer
 		)

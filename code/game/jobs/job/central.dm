@@ -104,3 +104,29 @@
 	if(visualsOnly)
 		return
 	H.mind.offstation_role = TRUE
+
+//Tran-Solar Federation General
+/datum/job/ntspecops/solgovspecops
+	title = "Solar Federation General"
+	outfit = /datum/outfit/job/ntspecops/solgovspecops
+
+/datum/outfit/job/ntspecops/solgovspecops
+	name = "Solar Federation General"
+	uniform = /obj/item/clothing/under/rank/centcom/captain/solgov
+	suit = /obj/item/clothing/suit/space/deathsquad/officer/solgov
+	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
+	l_ear = /obj/item/radio/headset/centcom/solgov
+
+	implants = list(
+		/obj/item/implant/dust
+	)
+
+/datum/outfit/job/ntspecops/solgovspecops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_centcom_access(name), name, "lifetimeid")
+	H.sec_hud_set_ID()
+	H.mind.offstation_role = TRUE

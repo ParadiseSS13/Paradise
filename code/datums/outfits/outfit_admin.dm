@@ -617,7 +617,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/night
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
-	l_ear = /obj/item/radio/headset/ert
+	l_ear = /obj/item/radio/headset/ert/alt/solgov
 	id = /obj/item/card/id/silver
 	r_pocket = /obj/item/lighter/zippo/blue
 	l_pocket = /obj/item/storage/fancy/cigarettes/cigpack_robustgold
@@ -636,33 +636,84 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
+	H.sec_hud_set_ID()
 
 
 /datum/outfit/admin/solgov
 	name = "Solar Federation Marine"
-
 	uniform = /obj/item/clothing/under/solgov
 	suit = /obj/item/clothing/suit/armor/bulletproof
-	back = /obj/item/storage/backpack/security
-	belt = /obj/item/storage/belt/military/assault
+	back = /obj/item/storage/backpack/ert/solgov
+	belt = /obj/item/storage/belt/military/assault/marines/full
+	suit_store = /obj/item/gun/projectile/automatic/shotgun/bulldog
 	head = /obj/item/clothing/head/soft/solgov
-	glasses = /obj/item/clothing/glasses/hud/security/night
+	glasses = /obj/item/clothing/glasses/night
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
-	l_ear = /obj/item/radio/headset/ert
+	l_ear = /obj/item/radio/headset/ert/alt/solgov
 	id = /obj/item/card/id
-	l_hand = /obj/item/gun/projectile/automatic/ar
 	r_pocket = /obj/item/flashlight/seclite
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
-		/obj/item/ammo_box/magazine/m556 = 3,
 		/obj/item/clothing/shoes/magboots = 1,
+		/obj/item/whetstone = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
-		/obj/item/ammo_box/magazine/m45 = 2
+	)
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/arm/flash,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
 	var/is_tsf_lieutenant = FALSE
 
+/datum/outfit/admin/solgov/elite
+	name = "Solar Federation Specops Marine"
+	uniform = /obj/item/clothing/under/solgov/elite
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
+	suit_store = /obj/item/gun/projectile/automatic/ar
+	head = /obj/item/clothing/head/soft/solgov/elite
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	belt = /obj/item/storage/belt/military/assault/marines/elite/full
+	id = /obj/item/card/id
+	backpack_contents = list(
+		/obj/item/storage/box/responseteam = 1,
+		/obj/item/clothing/shoes/magboots/advance = 1,
+		/obj/item/whetstone = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
+		/obj/item/gun/projectile/automatic/pistol/m1911 = 1
+	)
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+		/obj/item/organ/internal/cyberimp/arm/flash,
+		/obj/item/organ/internal/cyberimp/eyes/shield
+	)
+	is_tsf_lieutenant = FALSE
+
+/datum/outfit/admin/solgov/elite/lieutenant
+	name = "Solar Federation Specops Lieutenant"
+	uniform = /obj/item/clothing/under/solgov/command/elite
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
+	head = /obj/item/clothing/head/beret/solgov/command/elite
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	belt = /obj/item/melee/baton/loaded
+	l_hand = null
+	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
+	l_pocket = /obj/item/pinpointer/advpinpointer
+	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
+	id = /obj/item/card/id
+	backpack_contents = list(
+		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/handcuffs = 1,
+		/obj/item/clothing/shoes/magboots/advance = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
+		/obj/item/ammo_box/magazine/m50 = 3
+	)
+	is_tsf_lieutenant = TRUE
 
 /datum/outfit/admin/solgov/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -677,23 +728,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
-
-/datum/outfit/admin/solgov/lieutenant
-	name = "Solar Federation Lieutenant"
-
-	uniform = /obj/item/clothing/under/solgov/command
-	head = /obj/item/clothing/head/soft/solgov/command
-	back = /obj/item/storage/backpack/satchel
-	l_hand = null
-	l_pocket = /obj/item/pinpointer/advpinpointer
-	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
-		/obj/item/melee/classic_baton/telescopic = 1,
-		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/gun/projectile/automatic/pistol/deagle = 1,
-		/obj/item/ammo_box/magazine/m50 = 2
-	)
-	is_tsf_lieutenant = TRUE
+	H.sec_hud_set_ID()
 
 /datum/outfit/admin/sol_trader
 	name = "Sol Trader"
@@ -721,6 +756,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
+	H.sec_hud_set_ID()
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"

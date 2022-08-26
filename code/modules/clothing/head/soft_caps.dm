@@ -119,15 +119,29 @@
 	item_color = "corp"
 
 /obj/item/clothing/head/soft/solgov
-	name = "Sol Federation marine cap"
+	name = "Trans-Solar Federation marine cap"
 	desc = "A soft cap worn by marines of the Sol Federation."
 	icon_state = "solgovsoft"
 	item_color = "solgov"
 	dog_fashion = null
 
+/obj/item/clothing/head/soft/solgov/elite
+	name = "\improper Trans-Solar Federation Specops marine cap"
+	desc = "A cap worn by marines of the Trans-Solar Federation Specops division."
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	icon_state = "solgovelitesoft_flipped"
+	item_color = "solgovelite"
+
 /obj/item/clothing/head/soft/solgov/command
-	name = "Sol Federation Lieutenant's cap"
+	name = "Trans-Solar Federation Lieutenant's cap"
 	desc = "A soft cap worn by marines of the Sol Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
+	armor= list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	icon_state = "solgovcsoft"
 	item_color = "solgovc"
 	dog_fashion = null
+
+/obj/item/clothing/head/soft/solgov/command/elite
+	name = "\improper Trans-Solar Federation Specops Lieutenant's cap"
+	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
+	icon_state = "solgovcelitesoft"
+	item_color = "solgovcelite"
