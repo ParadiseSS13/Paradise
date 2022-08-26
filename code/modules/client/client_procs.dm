@@ -1183,9 +1183,8 @@
 		SSambience.ambience_listening_clients -= src
 
 /client/proc/try_localhost_autoadmin()
-	if(GLOB.configuration.admin.enable_localhost_autoadmin)
-		if(is_connecting_from_localhost())
-			return new /datum/admins("!LOCALHOST!", R_HOST, ckey)
+	if(GLOB.configuration.admin.enable_localhost_autoadmin && is_connecting_from_localhost())
+		return new /datum/admins("!LOCALHOST!", R_HOST, ckey)
 
 // Verb scoped to the client level so its ALWAYS available
 /client/verb/open_tos()
