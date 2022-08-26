@@ -22,10 +22,15 @@
 	if(!usr.Adjacent(src) || !ishuman(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
-	var/default = null
-	if(amount_per_transfer_from_this in possible_transfer_amounts)
-		default = amount_per_transfer_from_this
-	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
+	var/picked_amount
+	if(length(possible_transfer_amounts) == 1) // If theres only one option, pick it for them.
+		picked_amount = pick(possible_transfer_amounts)
+		to_chat(usr, "<span class='warning'>[src] has only one transfer option: [picked_amount] units.</span>")
+	else
+		var/default = null
+		if(amount_per_transfer_from_this in possible_transfer_amounts)
+			default = amount_per_transfer_from_this
+		picked_amount = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
 
 	if(!usr.Adjacent(src))
 		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
@@ -34,8 +39,8 @@
 		to_chat(usr, "<span class='warning'>You can't use your hands!</span>")
 		return
 
-	if(N)
-		amount_per_transfer_from_this = N
+	if(picked_amount)
+		amount_per_transfer_from_this = picked_amount
 
 /obj/item/reagent_containers/AltClick()
 	set_APTFT()
@@ -104,4 +109,5 @@
 	// this message on examining food.
 	if(possible_transfer_amounts)
 		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this > 1 ? "s" : ""] at a time.</span>"
-		. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
+		if(possible_transfer_amounts > 1)
+			. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
