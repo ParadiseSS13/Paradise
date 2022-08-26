@@ -128,6 +128,8 @@
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
+#define STATUS_EFFECT_ARMOUR_CHANGE /datum/status_effect/armour_change
+
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 
 #define STATUS_EFFECT_CRUSHERDAMAGETRACKING /datum/status_effect/crusher_damage //tracks total kinetic crusher damage on a target

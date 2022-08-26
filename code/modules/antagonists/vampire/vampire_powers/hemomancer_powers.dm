@@ -38,12 +38,13 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
-	var/durability = 20
+	var/durability = 15
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	var/mob/living/attacker = user
 
 	if(!V)
 		return
@@ -53,23 +54,15 @@
 		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
-	durability--
-	if(durability <= 0)
-		qdel(src)
-		to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+			attacker.adjustStaminaLoss(-20)
+			attacker.heal_overall_damage(4, 4)
+			attacker.AdjustKnockDown(-1 SECONDS)
 
-/obj/item/twohanded/required/vamp_claws/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSobj, src)
-
-/obj/item/twohanded/required/vamp_claws/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/twohanded/required/vamp_claws/process()
-	durability--
-	if(durability <= 0)
-		qdel(src)
+	if(!V.get_ability(/datum/vampire_passive/blood_spill))
+		durability--
+		if(durability <= 0)
+			qdel(src)
+			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
 
 /obj/item/twohanded/required/vamp_claws/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == PROJECTILE_ATTACK)
@@ -246,6 +239,35 @@
 	H.required_blood = 50
 	return H
 
+/obj/effect/proc_holder/spell/vampire/predator_senses
+	name = "Predator Senses"
+	desc = "Hunt down your prey, there's nowhere to hide..."
+	gain_desc = "Your senses are hightened, nobody can hide from you now."
+	base_cooldown = 40 SECONDS
+
+/obj/effect/proc_holder/spell/vampire/predator_senses/create_new_targeting()
+	var/datum/spell_targeting/alive_mob_list/A = new()
+	A.allowed_type = /mob/living/carbon/human
+	A.max_targets = 300 // hopefully we never hit this number
+	return A
+
+/obj/effect/proc_holder/spell/vampire/predator_senses/valid_target(mob/target, mob/user)
+	return target.z == user.z && target.mind
+
+/obj/effect/proc_holder/spell/vampire/predator_senses/cast(list/targets, mob/user)
+	var/targets_by_name = list()
+	for(var/mob/living/carbon/human/H as anything in targets)
+		targets_by_name[H.real_name] = H
+
+	var/target_name = input(user, "Person to Locate", "Blood Stench") in targets_by_name
+	if(!target_name)
+		return
+	var/mob/living/carbon/human/target = targets_by_name[target_name]
+	var/message = "[target_name] is in [get_area(target)], [dir2text(get_dir(user, target))] from you."
+	if(target.get_damage_amount() >= 40 || target.bleed_rate)
+		message += "They are wounded..."
+	to_chat(user, "<span class='cultlarge'>[message]</span>")
+
 /obj/effect/proc_holder/spell/vampire/blood_eruption
 	name = "Blood Eruption (100)"
 	desc = "Every pool of blood in 4 tiles erupts with a spike of living blood, damaging anyone stood on it."
@@ -285,7 +307,7 @@
 
 /obj/effect/proc_holder/spell/vampire/self/blood_spill
 	name = "The Blood Bringers Rite"
-	desc = "When toggled, everyone around you begins to bleed profusely."
+	desc = "When toggled, everyone around you begins to bleed profusely. You will drain their blood and rejuvinate yourself with it."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
 	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
@@ -312,9 +334,8 @@
 
 /datum/vampire_passive/blood_spill/process()
 	var/beam_number = 0
-	var/turf/T = get_turf(owner)
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
-	for(var/mob/living/carbon/human/H in view(7, T))
+	for(var/mob/living/carbon/human/H in view(7, owner))
 		if(NO_BLOOD in H.dna.species.species_traits)
 			continue
 
@@ -336,6 +357,8 @@
 
 		if(beam_number >= max_beams)
 			break
+
 	V.bloodusable = max(V.bloodusable - 10, 0)
+
 	if(!V.bloodusable || owner.stat == DEAD)
 		V.remove_ability(src)

@@ -70,3 +70,50 @@
 /datum/status_effect/charging
 	id = "charging"
 	alert_type = null
+
+/*
+ * Changes the armour value of a mob, only usable on humans
+ * do not use a value of -50 unless you want a mob to die instantly
+ * duration will be indefinite if null, unless the status effect is already applied, in which you will need to specifiy -1 for indefinite
+ */
+
+/mob/living/carbon/human/proc/adjust_species_armour(amount, duration)
+	var/datum/status_effect/armour_change/A = has_status_effect(STATUS_EFFECT_ARMOUR_CHANGE)
+	if(A)
+		A.armour_value += amount
+		dna.species.armor += amount
+		if(duration == -1)
+			A.duration = duration
+		else if(isnum(duration))
+			A.duration = world.time + duration
+	else
+		apply_status_effect(STATUS_EFFECT_ARMOUR_CHANGE, amount, duration)
+
+
+// dont apply this directly
+/datum/status_effect/armour_change
+	id = "armour_change"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
+	duration = -1
+	var/armour_value = 0
+
+/datum/status_effect/armour_change/on_creation(mob/living/new_owner, _armour_value, _duration, ...)
+	if(!isnum(_armour_value))
+		return FALSE
+	armour_value = _armour_value
+	duration = _duration
+	if(!armour_value || !duration)
+		return FALSE
+	. = ..()
+	if(!ishuman(owner))
+		return FALSE
+
+/datum/status_effect/armour_change/on_apply()
+	. = TRUE
+	var/mob/living/carbon/human/H = owner
+	H.dna.species.armor += armour_value
+
+/datum/status_effect/armour_change/on_remove()
+	var/mob/living/carbon/human/H = owner
+	H.dna.species.armor -= armour_value

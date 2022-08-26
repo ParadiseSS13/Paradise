@@ -39,7 +39,8 @@
 							/obj/effect/proc_holder/spell/vampire/blood_tendrils = 250,
 							/obj/effect/proc_holder/spell/vampire/blood_barrier = 250,
 							/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool = 400,
-							/obj/effect/proc_holder/spell/vampire/blood_eruption = 600)
+							/obj/effect/proc_holder/spell/vampire/predator_senses = 600,
+							/obj/effect/proc_holder/spell/vampire/blood_eruption = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/obj/effect/proc_holder/spell/vampire/self/blood_spill)
 
@@ -47,8 +48,10 @@
 	name = "gargantua"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/blood_swell = 150,
 							/obj/effect/proc_holder/spell/vampire/self/blood_rush = 250,
+							/obj/effect/proc_holder/spell/vampire/self/stomp = 250,
 							/datum/vampire_passive/blood_swell_upgrade = 400,
-							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 600)
+							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 600,
+							/obj/effect/proc_holder/spell/vampire/vampiric_deprival = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/obj/effect/proc_holder/spell/vampire/charge)
 	improved_rejuv_healing = TRUE
