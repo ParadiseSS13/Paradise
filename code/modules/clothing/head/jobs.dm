@@ -34,7 +34,6 @@
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "captain_cap"
-	dog_fashion = /datum/dog_fashion/head/captain
 
 /obj/item/clothing/head/caphat/beret
 	name = "captain's beret"
