@@ -104,7 +104,7 @@
 	. = ..()
 
 	if(visible_transfer_rate)
-		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this > 1 ? "s" : ""] at a time.</span>"
+		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this != 1 ? "s" : ""] at a time.</span>"
 
 	// Items that have no valid possible_transfer_amounts shouldn't say their transfer rate is variable
 	if(possible_transfer_amounts)
