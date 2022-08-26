@@ -1,7 +1,7 @@
 /// Amount of units to transfer from the container to the organs during disinfection step.
 #define GHETTO_DISINFECT_AMOUNT 5
 /// Amount of mito necessary to revive an organ
-#define MITO_REVIVAL_COST 3
+#define MITO_REVIVAL_COST 1
 
 
 
