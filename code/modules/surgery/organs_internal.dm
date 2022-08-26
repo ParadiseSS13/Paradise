@@ -128,8 +128,8 @@
 /datum/surgery_step/internal/manipulate_organs/mend
 	name = "mend organs"
 	allowed_tools = list(
-		/obj/item/stack/medical/bruise_pack = 20,
 		/obj/item/stack/medical/bruise_pack/advanced = 100,
+		/obj/item/stack/medical/bruise_pack = 20,
 		/obj/item/stack/nanopaste = 100
 	)
 
