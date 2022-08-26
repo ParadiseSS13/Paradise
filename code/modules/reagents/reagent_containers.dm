@@ -27,7 +27,7 @@
 		picked_amount = pick(possible_transfer_amounts)
 		to_chat(usr, "<span class='warning'>[src] has only one transfer option: [picked_amount] units.</span>")
 	else
-		var/default = null
+		var/default
 		if(amount_per_transfer_from_this in possible_transfer_amounts)
 			default = amount_per_transfer_from_this
 		picked_amount = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
@@ -109,5 +109,5 @@
 	// this message on examining food.
 	if(possible_transfer_amounts)
 		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this > 1 ? "s" : ""] at a time.</span>"
-		if(possible_transfer_amounts > 1)
+		if(length(possible_transfer_amounts) > 1)
 			. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
