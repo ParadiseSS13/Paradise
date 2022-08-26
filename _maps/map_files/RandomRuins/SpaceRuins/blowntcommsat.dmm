@@ -592,7 +592,7 @@
 /area/ruin/space/tcommsat)
 "bW" = (
 /obj/structure/table,
-/obj/item/radio/electropack,
+/obj/item/electropack,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "bX" = (

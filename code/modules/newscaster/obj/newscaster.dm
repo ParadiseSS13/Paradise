@@ -112,13 +112,13 @@
 		. += "newscaster_alert"
 	var/hp_percent = obj_integrity * 100 / max_integrity
 	switch(hp_percent)
-		if(75 to INFINITY)
+		if(75 to 200)
 			return
 		if(50 to 75)
 			. += "crack1"
 		if(25 to 50)
 			. += "crack2"
-		else
+		if(1 to 25)
 			. += "crack3"
 
 /obj/machinery/newscaster/power_change()

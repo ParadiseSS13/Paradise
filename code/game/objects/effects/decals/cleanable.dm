@@ -16,6 +16,9 @@
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
 		var/hasfeet = TRUE
+		if(IS_HORIZONTAL(H) && !H.buckled) //Make people bloody if they're lying down and move into blood
+			if(bloodiness > 0 && length(blood_DNA))
+				H.add_blood(H.blood_DNA, basecolor)
 		if(!l_foot && !r_foot)
 			hasfeet = FALSE
 		if(H.shoes && blood_state && bloodiness)

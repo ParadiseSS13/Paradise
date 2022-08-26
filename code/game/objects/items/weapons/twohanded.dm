@@ -617,22 +617,23 @@
 		icon_state = "chainsaw0"
 
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
+	. = ..()
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
-		if(isrobot(target))
-			..()
-			return
-		if(!isliving(target))
-			return
-		else
-			if(target.stat != DEAD)
-				user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
-			if(isnull(..())) // attack returns null if the attack was successful, (against humans)
-				target.KnockDown(8 SECONDS)
+		if(isnull(.)) //necessary check, successful attacks return null, without it target will drop any shields they may have before they get a chance to block
+			target.KnockDown(8 SECONDS)
+
+/obj/item/twohanded/chainsaw/afterattack(mob/living/target, mob/living/user, proximity)
+	if(!proximity) //only works on adjacent targets, no telekinetic chainsaws
 		return
-	else
-		playsound(loc, "swing_hit", 50, 1, -1)
-		return ..()
+	if(!wielded)
+		return
+	if(isrobot(target)) //no buff from attacking robots
+		return
+	if(!isliving(target)) //no buff from attacking inanimate objects
+		return
+	if(target.stat != DEAD) //no buff from attacking dead targets
+		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
 
 /obj/item/twohanded/chainsaw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)

@@ -68,10 +68,10 @@
 	category = "Utilities"
 
 /datum/data/pda/app/signaller/update_ui(mob/user as mob, list/data)
-	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
-		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
-		data["frequency"] = R.frequency
-		data["code"] = R.code
+	if(pda?.cartridge?.integ_signaler)
+		var/obj/item/assembly/signaler/S = pda.cartridge.integ_signaler // Simpler access
+		data["frequency"] = S.frequency
+		data["code"] = S.code
 		data["minFrequency"] = PUBLIC_LOW_FREQ
 		data["maxFrequency"] = PUBLIC_HIGH_FREQ
 
@@ -84,20 +84,18 @@
 	if(!pda.silent)
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
-	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
-		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
+	if(pda?.cartridge?.integ_signaler)
+		var/obj/item/assembly/signaler/S = pda.cartridge.integ_signaler // Simpler access
 
 		switch(action)
 			if("signal")
-				spawn(0)
-					R.send_signal("ACTIVATE")
+				S.activate()
 
 			if("freq")
-				var/new_frequency = sanitize_frequency(text2num(params["freq"]) * 10)
-				R.set_frequency(new_frequency)
+				S.frequency = sanitize_frequency(text2num(params["freq"]) * 10)
 
 			if("code")
-				R.code = clamp(text2num(params["code"]), 1, 100)
+				S.code = clamp(text2num(params["code"]), 1, 100)
 
 /datum/data/pda/app/power
 	name = "Power Monitor"

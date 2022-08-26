@@ -29,7 +29,7 @@
 
 	var/attached = 0
 
-/obj/item/clothing/mask/facehugger/ComponentInitialize()
+/obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 
@@ -88,7 +88,7 @@
 		return Attach(AM)
 	return 0
 
-/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, dodgeable)
 	if(!..())
 		return
 	if(stat == CONSCIOUS)

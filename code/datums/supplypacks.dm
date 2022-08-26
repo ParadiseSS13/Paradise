@@ -758,7 +758,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "HEADER"
 	containertype = /obj/structure/closet/crate/medical
 	group = SUPPLY_MEDICAL
-	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"), "Security" = list("Brig Medbay"))
+	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"))
 
 
 /datum/supply_packs/medical/supplies
@@ -890,7 +890,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/blood/BMinus,
 					/obj/item/reagent_containers/iv_bag/blood/OPlus,
 					/obj/item/reagent_containers/iv_bag/blood/OMinus,
-					/obj/item/reagent_containers/iv_bag/slime)
+					/obj/item/reagent_containers/iv_bag/slime,
+					/obj/item/reagent_containers/iv_bag/blood/vox)
 	cost = 35
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "blood pack crate"

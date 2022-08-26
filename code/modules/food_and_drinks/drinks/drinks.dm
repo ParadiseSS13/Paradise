@@ -14,8 +14,8 @@
 	antable = FALSE
 	var/chugging = FALSE
 
-/obj/item/reagent_containers/food/drinks/New()
-	..()
+/obj/item/reagent_containers/food/drinks/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 	bitesize = amount_per_transfer_from_this
@@ -191,8 +191,8 @@
 	item_state = "coffee"
 	list_reagents = list("tea" = 30)
 
-/obj/item/reagent_containers/food/drinks/tea/New()
-	..()
+/obj/item/reagent_containers/food/drinks/tea/Initialize(mapload)
+	. = ..()
 	if(prob(20))
 		reagents.add_reagent("mugwort", 3)
 
@@ -232,8 +232,8 @@
 	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
 
-/obj/item/reagent_containers/food/drinks/dry_ramen/New()
-	..()
+/obj/item/reagent_containers/food/drinks/dry_ramen/Initialize(mapload)
+	. = ..()
 	if(prob(20))
 		reagents.add_reagent("enzyme", 3)
 

@@ -148,6 +148,6 @@
 	picked_cult = new random_cult()
 
 	if(!picked_cult)
-		log_runtime(EXCEPTION("Cult datum creation failed"))
+		stack_trace("Cult datum creation failed")
 	//todo:add adminonly datum var, check for said var here...
 	return picked_cult

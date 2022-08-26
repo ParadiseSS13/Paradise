@@ -116,10 +116,12 @@
 		recalculation_speed = 2
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/chaser_burst(target)
-	ranged_cooldown = world.time + cooldown_time * 2
+	ranged_cooldown = world.time + cooldown_time * 2.5 // this shreads people incredibly effectivly at low hp, so needs higher cooldown than other attacks
 	var/active_chasers = 0
 	for(var/mob/living/M in orange(7, src))
 		if(M.faction_check_mob(src))
+			continue
+		if(M.stat == DEAD) //Let us not have dead mobs be used to make a disco inferno.
 			continue
 		if(active_chasers >= MAX_CHASERS)
 			return

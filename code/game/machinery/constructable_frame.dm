@@ -99,6 +99,9 @@
 			if(istype(P, /obj/item/circuitboard))
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "machine")
+					if(!B.build_path)
+						to_chat(user, "<span class='warning'>This is not a functional machine board!</span>")
+						return
 					playsound(src.loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P

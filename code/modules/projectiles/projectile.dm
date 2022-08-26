@@ -167,7 +167,7 @@
 
 	var/additional_log_text
 	if(blocked)
-		additional_log_text = " [blocked]% blocked"
+		additional_log_text = " [ARMOUR_VALUE_TO_PERCENTAGE(blocked)]% blocked"
 	if(reagents && reagents.reagent_list)
 		var/reagent_note = "REAGENTS:"
 		for(var/datum/reagent/R in reagents.reagent_list)
