@@ -276,7 +276,6 @@
 	show_starting_message(user, target, procedure)
 
 	log_attack(user, target, "operated on (OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
-	add_attack_logs(user, target, "started operation on (OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
 
 /datum/component/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target)
 	return !surgery.ignore_clothes && !get_location_accessible(target, target.zone_selected)
