@@ -765,14 +765,14 @@
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
+				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
+					M.delayed_gib()
+					return
+
 				var/mob/dead/observer/ghost = M.get_ghost(TRUE)
 				if(ghost && !ghost.can_reenter_corpse || ghost && !ghost.client || M.suiciding || HAS_TRAIT(M, TRAIT_HUSK) || HAS_TRAIT(M, TRAIT_BADDNA))
 					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
 					M.do_jitter_animation(50)
-					return
-
-				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					M.delayed_gib()
 					return
 
 				M.visible_message("<span class='warning'>[M] shakes violently!</span>")
