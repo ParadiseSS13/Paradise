@@ -337,7 +337,7 @@
 		var/obj/item/organ/internal/brain/brain = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(brain))
 			if(TRAIT_NO_CLONESCAN in brain.dna.species.species_traits)
-				set_scan_temp("[brain.dna.species.name_plural] are not scannable.", "bad")
+				set_scan_temp("[brain.dna.species.name_plural] are not scannable. Alternative revival methods may succeed.", "bad")
 				SStgui.update_uis(src)
 				return
 	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
@@ -365,7 +365,7 @@
 		SStgui.update_uis(src)
 		return
 	if(HAS_TRAIT(subject, TRAIT_NO_CLONESCAN))
-		set_scan_temp("Subject is not scannable.", "bad")
+		set_scan_temp("Subject is not scannable. Alternative revival methods may succeed.", "bad")
 		SStgui.update_uis(src)
 		return
 
