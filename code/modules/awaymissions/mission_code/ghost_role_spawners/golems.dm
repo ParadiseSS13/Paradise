@@ -42,7 +42,7 @@
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/O = I
 		var/species = golem_shell_species_types[O.merge_type]
-		if(!ishuman())
+		if(!ishuman(user))
 			to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 			return
 		if(species)
