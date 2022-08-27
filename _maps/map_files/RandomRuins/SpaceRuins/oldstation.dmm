@@ -5004,8 +5004,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/pipedispenser,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/rpd,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "lF" = (

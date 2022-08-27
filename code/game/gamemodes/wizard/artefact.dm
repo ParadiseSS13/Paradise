@@ -814,6 +814,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	unlimited = 1
 
 /obj/item/organ/internal/heart/cursed/wizard
+	max_shocks_allowed = 3
 	pump_delay = 60
 	heal_brute = 25
 	heal_burn = 25

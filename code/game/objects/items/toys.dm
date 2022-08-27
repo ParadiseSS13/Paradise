@@ -572,7 +572,7 @@
 	name = "grumpy fox"
 	desc = "An ancient plushie that seems particularly grumpy."
 
-/obj/item/toy/plushie/orange_fox/grump/ComponentInitialize()
+/obj/item/toy/plushie/orange_fox/grump/Initialize(mapload)
 	. = ..()
 	var/static/list/grumps = list("Ahh, yes, you're so clever, var editing that.", "Really?", "If you make a runtime with var edits, it's your own damn fault.",
 	"Don't you dare post issues on the git when you don't even know how this works.", "Was that necessary?", "Ohhh, setting admin edited var must be your favorite pastime!",
