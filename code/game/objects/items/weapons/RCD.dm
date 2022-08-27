@@ -288,12 +288,8 @@
 				message_admins("RCD Door HREF exploit attempted by [key_name(usr)]!")
 				return FALSE
 			door_type = new_door_type
-			var/obj/machinery/door/airlock/proto = new door_type(null)
-			if(proto.glass)
-				airlock_glass = TRUE
-			else
-				airlock_glass = FALSE
-			qdel(proto)
+			var/obj/machinery/door/airlock/picked_door = door_type
+			airlock_glass = initial(picked_door.glass)
 
 		if("electrochromic")
 			electrochromic = !electrochromic
