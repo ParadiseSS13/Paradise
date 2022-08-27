@@ -140,5 +140,5 @@
 /obj/item/reagent_containers/food/pill/mannitol
 	name = "\improper Mannitol pill"
 	desc = "Used to treat cranial swelling."
-	icon_state = "pill7"
+	icon_state = "pill19"
 	list_reagents = list("mannitol" = 10)
