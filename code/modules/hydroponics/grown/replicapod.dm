@@ -30,7 +30,7 @@
 		if(!contains_sample)
 			for(var/datum/reagent/blood/bloodSample in W.reagents.reagent_list)
 				var/datum/dna/dna = bloodSample.data["dna"]
-				if(bloodSample.data["mind"] && bloodSample.data["cloneable"] && !(NO_CLONESCAN in dna.species.species_traits))
+				if(bloodSample.data["mind"] && bloodSample.data["cloneable"] && !(TRAIT_NO_CLONESCAN in dna.species.species_traits))
 					mind = bloodSample.data["mind"]
 					ckey = bloodSample.data["ckey"]
 					realName = bloodSample.data["real_name"]

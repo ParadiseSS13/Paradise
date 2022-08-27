@@ -20,6 +20,7 @@
 #define DISABILITY_FLAG_DIZZY       512
 #define DISABILITY_FLAG_CHAV        1024
 #define DISABILITY_FLAG_DEAF        2048
+#define DISABILITY_FLAG_NO_CLONESCAN	4096
 
 ///////////////////////////////////////
 // MUTATIONS
@@ -79,5 +80,5 @@
 #define EXOTIC_COLOR	"exotic_blood_color"
 #define NO_INTORGANS	"no_internal_organs"
 #define CAN_WINGDINGS	"can_wingdings"
-#define NO_CLONESCAN 	"no_clone_scan"
 #define NO_HAIR			"no_hair"
+#define TRAIT_NO_CLONESCAN 	"no_clonescan"

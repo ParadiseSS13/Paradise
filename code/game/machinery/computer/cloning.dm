@@ -334,10 +334,10 @@
 			SStgui.update_uis(src)
 			return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
-		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
-		if(istype(Brn))
-			if(NO_CLONESCAN in Brn.dna.species.species_traits)
-				set_scan_temp("[Brn.dna.species.name_plural] are not scannable.", "bad")
+		var/obj/item/organ/internal/brain/brain = subject.get_int_organ(/obj/item/organ/internal/brain)
+		if(istype(brain))
+			if(TRAIT_NO_CLONESCAN in brain.dna.species.species_traits)
+				set_scan_temp("[brain.dna.species.name_plural] are not scannable.", "bad")
 				SStgui.update_uis(src)
 				return
 	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
@@ -364,6 +364,10 @@
 		set_scan_temp("Subject is not dead.", "bad")
 		SStgui.update_uis(src)
 		return
+	if(HAS_TRAIT(subject, TRAIT_NO_CLONESCAN))
+		set_scan_temp("Subject is not scannable.", "bad")
+		SStgui.update_uis(src)
+		return
 
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(pod.occupant && pod.clonemind == subject.mind)
@@ -380,7 +384,7 @@
 		var/obj/item/organ/B = subject.get_int_organ(/obj/item/organ/internal/brain)
 		B.dna.check_integrity()
 		R.dna=B.dna.Clone()
-		if(NO_CLONESCAN in R.dna.species.species_traits)
+		if(TRAIT_NO_CLONESCAN in R.dna.species.species_traits)
 			extra_info = "Proper genetic interface not found, defaulting to genetic data of the body."
 			R.dna.species = new subject.dna.species.type
 		R.id= copytext(md5(B.dna.real_name), 2, 6)

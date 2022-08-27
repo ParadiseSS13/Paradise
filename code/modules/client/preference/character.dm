@@ -1571,6 +1571,8 @@
 
 	if(CAN_WINGDINGS in S.species_traits)
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_WINGDINGS, "Speak in Wingdings")
+	if(!(TRAIT_NO_CLONESCAN in S.species_traits))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_NO_CLONESCAN, "Uncloneable")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NEARSIGHTED, "Nearsighted")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COLOURBLIND, "Colourblind")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
@@ -1583,7 +1585,6 @@
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_CHAV, "Chav accent")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
-
 
 	HTML += {"</ul>
 		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
@@ -1881,6 +1882,9 @@
 	if(disabilities & DISABILITY_FLAG_WINGDINGS && (CAN_WINGDINGS in character.dna.species.species_traits))
 		character.dna.SetSEState(GLOB.wingdingsblock, TRUE, TRUE)
 		character.dna.default_blocks.Add(GLOB.wingdingsblock)
+
+	if(disabilities & DISABILITY_FLAG_NO_CLONESCAN && !(TRAIT_NO_CLONESCAN in character.dna.species.species_traits))
+		ADD_TRAIT(character, TRAIT_NO_CLONESCAN, "character creation")
 
 	character.dna.species.handle_dna(character)
 
