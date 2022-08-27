@@ -40,11 +40,12 @@
 		/obj/item/stack/sheet/plastic					= /datum/species/golem/plastic)
 
 	if(istype(I, /obj/item/stack))
-		var/obj/item/stack/O = I
-		var/species = golem_shell_species_types[O.merge_type]
 		if(!ishuman(user))
 			to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 			return
+			
+		var/obj/item/stack/O = I
+		var/species = golem_shell_species_types[O.merge_type]
 		if(species)
 			if(O.use(10))
 				to_chat(user, "You finish up the golem shell with ten sheets of [O].")
