@@ -779,7 +779,7 @@
 				if(ghost && ghost.can_reenter_corpse && ghost.client)
 					to_chat(ghost, "<span class='ghostalert'>Your body is being revived with Strange Reagent. Return to your body if you want to be revived!</span>")
 					window_flash(ghost.client)
-					ghost << sound('sound/effects/genetics.ogg')
+					SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
 				M.do_jitter_animation(200)
 				addtimer(CALLBACK(src, /datum/reagent/medicine/strange_reagent/.proc/revivify, M), revive_time)
