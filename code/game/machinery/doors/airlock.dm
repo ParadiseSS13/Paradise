@@ -328,9 +328,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(operating || !density)
 		return // It's toggled, but don't try to animate the effect.
 
-	var/image/polarized_image
 	var/animate_color
-	polarized_image = get_airlock_overlay("[airlock_material]_closed", overlays_file)
+	var/image/polarized_image = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 	polarized_image.dir = dir
 
 	overlays -= old_filling_overlay
@@ -359,12 +358,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	duration = 0.5 SECONDS
 	randomdir = FALSE
 
-/obj/effect/temp_visual/polarized_airlock/New(loc, image/airlock_overlay, animate_color)
+/obj/effect/temp_visual/polarized_airlock/Initialize(mapload, image/airlock_overlay, animate_color)
+	. = ..()
 	icon = airlock_overlay.icon
 	icon_state = airlock_overlay.icon_state
 	color = airlock_overlay.color
 	dir = airlock_overlay.dir
-	..()
 	animate(src, color = animate_color, time = 0.5 SECONDS)
 
 //
