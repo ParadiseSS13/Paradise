@@ -69,10 +69,10 @@
 					var/datum/action/A = X
 					A.UpdateButtonIcon()
 	else
-		if(hood.flags & NODROP && respects_nodrop)
+		if((hood.flags & NODROP) && respects_nodrop)
 			if(ishuman(loc))
 				var/mob/living/carbon/human/H = loc
-				to_chat(H,"<span class='warning'>[hood] is stuck to your head!</span>")
+				to_chat(H, "<span class='warning'>[hood] is stuck to your head!</span>")
 			return
 		RemoveHood()
 

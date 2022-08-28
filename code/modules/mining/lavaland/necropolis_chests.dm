@@ -162,7 +162,7 @@
 
 /obj/item/clothing/suit/hooded/berserker
 	name = "champion's hardsuit"
-	desc = "Voices echo from the hardsuit, driving the user insane. Is not space proof"
+	desc = "Voices echo from the hardsuit, driving the user insane. Is not space-proof."
 	icon_state = "hardsuit-berserker"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
 	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
@@ -211,7 +211,7 @@
 
 /obj/item/clothing/head/hooded/berserker/examine()
 	. = ..()
-	. += ("<span class='notice'>Berserk mode is [berserk_charge]% charged.</span>")
+	. += "<span class='notice'>Berserk mode is [berserk_charge]% charged.</span>"
 
 /obj/item/clothing/head/hooded/berserker/process()
 	if(berserk_active)
