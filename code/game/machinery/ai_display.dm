@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 
 		// BSOD
 		if(AI_DISPLAY_MODE_BSOD)
-			new_display ="ai_bsod"
+			new_display = "ai_bsod"
 
 	. += new_display
 	underlays += emissive_appearance(icon, "lightmask")
