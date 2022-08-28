@@ -11,7 +11,9 @@
 		ai_icon_list -= excl
 
 	for(var/icn_st in ai_icon_list)
-		if(!(locate(icn_st) in aicard_icon_list))
+		if(locate(icn_st) in aicard_icon_list)
+			continue
+		else
 			Fail("Every AI Display must have a corresponding icon of the same name in [int_card.icon] for intelicards, [icn_st] is missing!")
 
 	//The exclusions list will need to be updated anytime any non-display icons are added to ai.dmi
