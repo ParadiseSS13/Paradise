@@ -276,7 +276,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
 	. = ..()
-	to_chat(user,"<span class='userdanger'>The mass goes up your arm and goes inside it!</span>")
+	to_chat(user,"<span class='userdanger'>The mass goes up your arm and inside it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 	user.apply_status_effect(STATUS_EFFECT_KATANA_CURSE)
 	user.drop_item()
