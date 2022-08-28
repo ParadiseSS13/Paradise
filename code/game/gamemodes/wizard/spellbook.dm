@@ -496,7 +496,7 @@
 	log_name = "SI"
 	category = "Weapons and Armors"
 
-/datum/spellbook_entry/item/spell_blade
+/datum/spellbook_entry/item/cursed_katana
 	name = "Cursed Katana"
 	desc = "A cursed artifact, used to seal a horrible being inside the katana, which has now reformed. Can be used to make multiple powerful combos, examine it to see them. Can no be dropped. On death, you will dust."
 	item_path = /obj/item/organ/internal/cyberimp/arm/katana
