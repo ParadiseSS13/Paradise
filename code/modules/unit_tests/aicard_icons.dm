@@ -7,7 +7,8 @@
 
 	var/list/ai_icon_exclusions = list("eye", "ai-holo-old", "holo-angel", "holo-borb", "holo-biggestfan", "holo-cloudkat", "holo-donut", "holo-frostphoenix", "holo1", "holo2", "holo3", "holo4", "0", "1", "2", "3", "3b", "4")
 
-	ai_icon_list = ai_icon_list - ai_icon_exclusions
+	for(var/excl in ai_icon_exclusions)
+		ai_icon_list -= excl
 
 	for(var/icn_st in ai_icon_list)
 		if(!(locate(icn_st) in aicard_icon_list))
