@@ -52,13 +52,6 @@
 	var/egg_progress = 0 // # of on_life() cycles completed, unlike cycle_num this is reset on each hatch event
 	var/egg_progress_per_hatch = 90 // if egg_progress > this, chance to hatch and reset egg_progress
 	var/eggs_hatched = 0 // num of hatch events completed
-	var/awaymission_infection = FALSE // TRUE if infection occurred inside gateway
-
-/obj/item/organ/internal/body_egg/terror_eggs/Initialize(mapload)
-	. = ..()
-	var/turf/T = get_turf(src)
-	if(istype(T) && is_away_level(T.z))
-		awaymission_infection = TRUE
 
 /obj/item/organ/internal/body_egg/terror_eggs/on_life()
 	// Safety first.
@@ -91,16 +84,6 @@
 	return extra_progress
 
 /obj/item/organ/internal/body_egg/terror_eggs/proc/hatch_egg()
-	// Detect & stop people attempting to bring a gateway white spider infection back to the main station.
-	if(awaymission_infection)
-		var/turf/T = get_turf(owner)
-		if(istype(T) && !is_away_level(T.z))
-			owner.gib()
-			// give a hint of the cause of death
-			new /obj/effect/decal/cleanable/spiderling_remains(T)
-			qdel(src)
-			return
-
 	var/infection_completed = FALSE
 	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)

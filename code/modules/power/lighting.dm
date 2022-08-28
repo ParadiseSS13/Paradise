@@ -799,7 +799,7 @@
 	/// Light colour
 	var/brightness_color = null
 
-/obj/item/light/ComponentInitialize()
+/obj/item/light/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
 

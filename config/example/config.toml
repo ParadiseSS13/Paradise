@@ -145,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 43
+sql_version = 44
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -272,8 +272,6 @@ enabled_away_missions = [
 	"_maps/map_files/RandomZLevels/centcomAway.dmm",
 	#"_maps/map_files/RandomZLevels/evil_santa.dmm",			# Special christmas mission. Enable for festivities
 	#"_maps/map_files/RandomZLevels/example.dmm",				# Example file. Do not enable.
-	"_maps/map_files/RandomZLevels/moonoutpost19.dmm",
-	"_maps/map_files/RandomZLevels/terrorspiders.dmm",
 ]
 
 
@@ -639,6 +637,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/debris2.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/debris3.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/moonoutpost19.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/oldstation.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/onehalf.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
@@ -691,7 +690,6 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm",
 	# Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_swarmer_crash.dmm",
 
 	##MISC
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_animal_hospital.dmm",
@@ -749,6 +747,12 @@ external_tos_handler = false
 # Do not use in production.
 # Comment out to disable.
 #override_map = "/datum/map/test_tiny"
+# Regional servers.
+# This is not for separate DD instances per region, but if you have a geo-routing setup deployed to optimise routing for players
+# I am 99.9% certain you will never need to fill this out
+regional_servers = [
+	#{name = "UK", ip = "byond://uk.paradisestation.org:6666"},
+]
 
 
 ################################################################

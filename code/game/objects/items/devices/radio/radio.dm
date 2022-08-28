@@ -322,7 +322,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return ..()
 
 /mob/living/automatedannouncer/proc/autocleanup()
-	log_runtime(EXCEPTION("An announcer somehow managed to outlive the radio! Deleting!"), src, list("Message: '[message]'"))
+	stack_trace("An announcer somehow managed to outlive the radio! Deleting! (Message: [message])")
 	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum

@@ -13,7 +13,7 @@
 	var/obj/structure/window/WI
 	for(var/obj/structure/grille/G in get_turf(src))
 		// Complain noisily
-		log_runtime(EXCEPTION("Extra grille on turf: ([T.x],[T.y],[T.z])"), src)
+		stack_trace("Extra grille on turf: ([T.x],[T.y],[T.z])")
 		qdel(G) //just in case mappers don't know what they are doing
 
 	if(!useFull)
