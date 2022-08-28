@@ -150,6 +150,7 @@
 			H.emote("scream")
 		else
 			copymob.apply_damage(30, BURN)
+			sleep(PHOTOCOPIER_DELAY)
 		to_chat(copymob, "<span class='notice'>Something smells toasty...</span>")
 	if(ishuman(copymob)) //Suit checks are in check_mob
 		var/mob/living/carbon/human/H = copymob
