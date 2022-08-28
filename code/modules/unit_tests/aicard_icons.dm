@@ -1,6 +1,6 @@
 /datum/unit_test/aicard_icons/Run()
-	var/mob/living/silicon/ai/ai_box = /mob/living/silicon/ai/
-	var/obj/item/aicard/int_card = /obj/item/aicard/
+	var/mob/living/silicon/ai/ai_box
+	var/obj/item/aicard/int_card
 
 	var/list/ai_icon_list = ai_box.icon
 	var/list/aicard_icon_list = int_card.icon
