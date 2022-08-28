@@ -317,6 +317,7 @@
 		for(var/i in copies to 1 step -1)
 			if(!copyass())
 				break
+			sleep(PHOTOCOPIER_DELAY)
 			toner -= 5
 	else
 		to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src], ejecting.</span>")
