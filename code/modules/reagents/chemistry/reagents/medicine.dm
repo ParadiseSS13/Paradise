@@ -770,7 +770,7 @@
 					return
 
 				var/mob/dead/observer/ghost = M.get_ghost(TRUE)
-				if(ghost && !ghost.can_reenter_corpse || ghost && !ghost.client || M.suiciding || HAS_TRAIT(M, TRAIT_HUSK) || HAS_TRAIT(M, TRAIT_BADDNA))
+				if(ghost && !ghost.can_reenter_corpse || M.suiciding || HAS_TRAIT(M, TRAIT_HUSK) || HAS_TRAIT(M, TRAIT_BADDNA))
 					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
 					M.do_jitter_animation(50)
 					return
