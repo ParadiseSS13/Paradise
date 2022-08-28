@@ -18,4 +18,5 @@
 #include "subsystem_metric_sanity.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
+#include "aicard_icons.dm"
 #endif
