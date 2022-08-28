@@ -10,6 +10,8 @@
 	var/next_attack = 0
 	var/pounce_cooldown = 0
 	var/pounce_cooldown_time = 30
+	var/neurotoxin_cooldown = FALSE
+	var/neurotoxin_cooldown_time = 5 SECONDS
 	var/leap_on_click = 0
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
