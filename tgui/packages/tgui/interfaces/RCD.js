@@ -98,7 +98,7 @@ const AirlockSettings = (props, context) => {
           />
         </LabeledList.Item>
       </LabeledList>
-      <box hidden={!airlock_glass}>
+      {airlock_glass === 1 &&
         <LabeledList>
           <LabeledList.Item color="silver" label="Electrochromic">
             <Button
@@ -109,7 +109,7 @@ const AirlockSettings = (props, context) => {
             />
           </LabeledList.Item>
         </LabeledList>
-      </box>
+      }
     </Section>
   );
 };
