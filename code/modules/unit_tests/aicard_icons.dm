@@ -2,8 +2,8 @@
 	var/mob/living/silicon/ai/ai_box = new /mob/living/silicon/ai/
 	var/obj/item/aicard/int_card = new /obj/item/aicard/
 
-	var/list/ai_icon_list = ai_box.icon
-	var/list/aicard_icon_list = int_card.icon
+	var/list/ai_icon_list = icon_states(ai_box.icon)
+	var/list/aicard_icon_list = icon_states(int_card.icon)
 
 	var/list/ai_icon_exclusions = list("eye", "ai-holo-old", "holo-angel", "holo-borb", "holo-biggestfan", "holo-cloudkat", "holo-donut", "holo-frostphoenix", "holo1", "holo2", "holo3", "holo4", "0", "1", "2", "3", "3b", "4")
 
