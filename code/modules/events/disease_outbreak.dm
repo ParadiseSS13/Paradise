@@ -46,7 +46,11 @@ GLOBAL_VAR(current_pending_disease)
 
 
 	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
-		to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a [severity_text] disease!</span>")
+		if(istype(chosen_disease, /datum/disease/advance))
+			var/datum/disease/advance/temp_disease = chosen_disease.Copy()
+			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of [temp_disease.name]! A [severity_text] disease with the following symptoms: [english_list(temp_disease.symptoms)]</span>")
+		else
+			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a [severity_text] disease: [chosen_disease.name]!</span>")
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
@@ -64,6 +68,7 @@ GLOBAL_VAR(current_pending_disease)
 			popleft(A.symptoms)	//We have a full symptom list but are still not transmittable. Try removing one of the "payloads"
 
 		A.AssignProperties(A.GenerateProperties())
+	A.name = pick(GLOB.alphabet_uppercase) + num2text(rand(1,9)) + pick(GLOB.alphabet_uppercase) + num2text(rand(1,9)) + pick("v", "V", "-" + num2text(GLOB.game_year), "")
 	A.Refresh()
 	return A
 
