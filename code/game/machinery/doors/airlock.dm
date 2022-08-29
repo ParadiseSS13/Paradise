@@ -581,6 +581,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	. = ..()
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+	if(cmagged)
+		. += "<span class='warning'>The access panel is coated in yellow ooze...</span>"
 	if(note)
 		if(!in_range(user, src))
 			. += "There's a [note.name] pinned to the front. You can't [note_type() == "note" ? "read" : "see"] it from here."
@@ -1310,6 +1312,18 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(!open())
 			update_icon(AIRLOCK_CLOSED, 1)
 		emagged = TRUE
+		return 1
+
+/obj/machinery/door/airlock/cmag_act(mob/user)
+	if(!operating && density && arePowerSystemsOn() && !cmagged)
+		operating = TRUE
+		update_icon(AIRLOCK_EMAG, 1)
+		sleep(6)
+		if(QDELETED(src))
+			return
+		operating = FALSE
+		update_icon(AIRLOCK_CLOSED, 1)
+		cmagged = TRUE
 		return 1
 
 /obj/machinery/door/airlock/emp_act(severity)

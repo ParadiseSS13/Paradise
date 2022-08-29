@@ -34,6 +34,7 @@
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 	/// Is it emagged or not?
 	var/emagged = FALSE
+	var/cmagged = FALSE
 
 /obj/New()
 	..()

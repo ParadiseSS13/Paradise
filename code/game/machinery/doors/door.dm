@@ -111,8 +111,14 @@
 				if(world.time - mecha.occupant.last_bumped <= 10)
 					return
 			if(mecha.occupant && allowed(mecha.occupant) || check_access_list(mecha.operation_req_access))
+				if(cmagged)
+					cmag_switch(FALSE)
+					return
 				open()
 			else
+				if(cmagged)
+					cmag_switch(TRUE)
+					return
 				do_animate("deny")
 		return
 
@@ -144,12 +150,18 @@
 
 	if(density && !emagged)
 		if(allowed(user))
+			if(cmagged)
+				cmag_switch(FALSE, user)
+				return
 			open()
 			if(isbot(user))
 				var/mob/living/simple_animal/bot/B = user
 				B.door_opened(src)
 		else
 			if(pry_open_check(user))
+				return
+			if(cmagged)
+				cmag_switch(TRUE, user)
 				return
 			do_animate("deny")
 
@@ -199,12 +211,24 @@
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
+			if(cmagged && !user.can_advanced_admin_interact()) //cmag should not prevent admin intervention
+				cmag_switch(FALSE, user)
+				return
 			open()
 		else
+			if(cmagged && !user.can_advanced_admin_interact())
+				return
 			close()
 		return TRUE
 	if(density)
+		if(cmagged)
+			cmag_switch(TRUE, user)
+			return
 		do_animate("deny")
+	else
+		if(cmagged)
+			cmag_switch(TRUE, user)
+			return
 
 /obj/machinery/door/allowed(mob/M)
 	if(emergency)
@@ -266,6 +290,36 @@
 		open()
 		emagged = TRUE
 		return TRUE
+
+/obj/machinery/door/cmag_act(mob/user)
+	if(density)
+		flick("door_spark", src)
+		sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
+		cmagged = TRUE
+		return TRUE
+
+////Proc for inverting access on cmagged doors. "canopen" should always return the OPPOSITE of the normal result.
+/obj/machinery/door/proc/cmag_switch(canopen, dooruser)
+	if(canopen)
+		if(ishuman(dooruser))
+			var/mob/living/carbon/human/H = dooruser
+			var/obj/item/card/id/idcard = H.get_idcard()
+			if(!idcard) //Humans can't game inverted access by taking their ID off.
+				if(density)
+					do_animate("deny")
+					to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
+					playsound(src.loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE)
+					return
+				return
+		if(density)
+			open()
+		else
+			close()
+	else
+		do_animate("deny")
+		playsound(src.loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE)
+
+
 
 /obj/machinery/door/update_icon_state()
 	icon_state = "door[density]"
