@@ -1,4 +1,4 @@
-GLOBAL_VAR(current_pending_disease)
+GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak
 	/// The type of disease that patient zero will be infected with.
 	var/datum/disease/chosen_disease
@@ -34,7 +34,7 @@ GLOBAL_VAR(current_pending_disease)
 	chosen_disease.carrier = TRUE
 
 /datum/event/disease_outbreak/start()
-	GLOB.current_pending_disease = chosen_disease
+	GLOB.current_pending_diseases += chosen_disease
 	var/severity_text = "undefined (contact a coder)"
 	switch(severity)
 		if(EVENT_LEVEL_MUNDANE)
