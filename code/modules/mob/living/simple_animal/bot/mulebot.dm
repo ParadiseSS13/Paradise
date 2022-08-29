@@ -25,7 +25,7 @@
 	bot_filter = RADIO_MULEBOT
 	model = "MULE"
 	bot_purpose = "deliver crates and other packages between departments, as requested"
-	bot_core_type = /obj/machinery/bot_core/mulebot
+	req_access = list(ACCESS_CARGO)
 	path_image_color = "#7F5200"
 
 
@@ -250,7 +250,7 @@
 	update_controls()
 
 /mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
-	if(bot_core.allowed(user))
+	if(allowed(user))
 		locked = !locked
 		update_controls()
 		return 1
@@ -442,7 +442,7 @@
 	// with items dropping as mobs are loaded
 
 	for(var/atom/movable/AM in src)
-		if(AM == cell || AM == access_card || AM == Radio || AM == bot_core || AM == paicard)
+		if(AM == cell || AM == access_card || AM == Radio || AM == paicard)
 			continue
 
 		AM.forceMove(loc)
@@ -741,6 +741,7 @@
 		else
 			..()
 
+/*
 /mob/living/simple_animal/bot/mulebot/receive_signal(datum/signal/signal)
 	if(wires.is_cut(WIRE_REMOTE_RX) || ..())
 		return TRUE
@@ -775,15 +776,10 @@
 		else
 			return 0
 	return 1
+*/
 
-// send a radio signal with multiple data key/values
-/mob/living/simple_animal/bot/mulebot/post_signal_multiple(freq, list/keyval)
-	if(wires.is_cut(WIRE_REMOTE_TX))
-		return
 
-	..()
-
-// signals bot status etc. to controller
+/*
 /mob/living/simple_animal/bot/mulebot/send_status()
 	var/list/kv = list(
 		"type" = MULE_BOT,
@@ -798,6 +794,7 @@
 		"pick" = auto_pickup,
 	)
 	post_signal_multiple(control_freq, kv)
+*/
 
 // player on mulebot attempted to move
 /mob/living/simple_animal/bot/mulebot/relaymove(mob/user)
@@ -874,5 +871,3 @@
 #undef ANNOYED
 #undef DELIGHT
 
-/obj/machinery/bot_core/mulebot
-	req_access = list(ACCESS_CARGO)

@@ -19,7 +19,7 @@
 	bot_filter = RADIO_SECBOT
 	model = "ED-209"
 	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
-	bot_core_type = /obj/machinery/bot_core/secbot
+	req_access = list(ACCESS_SECURITY)
 	window_id = "autoed209"
 	window_name = "Automatic Security Unit v2.6"
 	path_image_color = "#FF0000"
@@ -62,7 +62,7 @@
 		check_records = FALSE //Don't actively target people set to arrest
 		arrest_type = TRUE //Don't even try to cuff
 		declare_arrests = FALSE // Don't spam sec
-		bot_core.req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
+		req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
 		if(created_name == initial(name) || !created_name)
 			if(lasercolor == "b")

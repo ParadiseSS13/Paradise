@@ -16,7 +16,7 @@
 	bot_filter = RADIO_MEDBOT
 	model = "Medibot"
 	bot_purpose = "seek out hurt crewmembers and ensure that they are healed"
-	bot_core_type = /obj/machinery/bot_core/medbot
+	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 	window_id = "automed"
 	window_name = "Automatic Medical Unit v1.1"
 	path_image_color = "#DDDDFF"
@@ -87,7 +87,7 @@
 	treatment_fire = "kelotane"
 	treatment_tox = "charcoal"
 	syndicate_aligned = TRUE
-	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
+	req_access = list(ACCESS_SYNDICATE)
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
 	radio_channel = "Syndicate"
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
@@ -598,8 +598,3 @@
 	spawn(200) //Twenty seconds
 		declare_cooldown = 0
 
-/obj/machinery/bot_core/medbot
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
-
-/obj/machinery/bot_core/medbot/syndicate
-	req_one_access = list(ACCESS_SYNDICATE)

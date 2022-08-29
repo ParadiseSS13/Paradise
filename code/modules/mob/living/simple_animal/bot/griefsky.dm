@@ -29,13 +29,10 @@
 	block_chance_melee = 1
 	block_chance_ranged = 1
 	stun_chance = 0
-	bot_core_type = /obj/machinery/bot_core/toy
+	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 	weapon = /obj/item/toy/sword
 	frustration_number = 5
 	locked = FALSE
-
-/obj/machinery/bot_core/toy
-	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/spam_flag_false() //used for addtimer to not spam comms
 	spam_flag = 0

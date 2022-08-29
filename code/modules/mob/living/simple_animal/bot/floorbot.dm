@@ -14,7 +14,7 @@
 	bot_filter = RADIO_FLOORBOT
 	model = "Floorbot"
 	bot_purpose = "seek out damaged or missing floor tiles, and repair or replace them as necessary"
-	bot_core_type = /obj/machinery/bot_core/floorbot
+	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 	window_id = "autofloor"
 	window_name = "Automatic Station Floor Repairer v1.1"
 	path_image_color = "#FFA500"
@@ -415,9 +415,6 @@
 
 	do_sparks(3, 1, src)
 	..()
-
-/obj/machinery/bot_core/floorbot
-	req_one_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 
 /mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A)
 	if(isturf(A))

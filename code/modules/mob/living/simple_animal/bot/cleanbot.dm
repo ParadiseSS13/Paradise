@@ -13,7 +13,7 @@
 	bot_type = CLEAN_BOT
 	model = "Cleanbot"
 	bot_purpose = "seek out messes and clean them"
-	bot_core_type = /obj/machinery/bot_core/cleanbot
+	req_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
 	window_id = "autoclean"
 	window_name = "Automatic Station Cleaner v1.1"
 	pass_flags = PASSMOB
@@ -61,7 +61,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-		if(bot_core.allowed(user) && !open && !emagged)
+		if(allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
 		else
@@ -185,10 +185,6 @@
 		drop_part(robot_arm, Tsec)
 	do_sparks(3, 1, src)
 	..()
-
-/obj/machinery/bot_core/cleanbot
-	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
-
 
 /mob/living/simple_animal/bot/cleanbot/show_controls(mob/M)
 	ui_interact(M)

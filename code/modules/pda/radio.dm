@@ -30,63 +30,6 @@
 	hostpda = null
 	return ..()
 
-/obj/item/integrated_radio/proc/post_signal(freq, key, value, key2, value2, key3, value3, key4, value4, s_filter)
-
-//	to_chat(world, "Post: [freq]: [key]=[value], [key2]=[value2]")
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(freq)
-
-	if(!frequency)
-		return
-
-	var/datum/signal/signal = new()
-	signal.source = src
-	signal.transmission_method = 1
-	signal.data[key] = value
-	if(key2)
-		signal.data[key2] = value2
-	if(key3)
-		signal.data[key3] = value3
-	if(key4)
-		signal.data[key4] = value4
-
-	frequency.post_signal(src, signal, filter = s_filter)
-
-/obj/item/integrated_radio/receive_signal(datum/signal/signal)
-	if(bot_type && istype(signal.source, /obj/machinery/bot_core) && signal.data["type"] == bot_type)
-		if(!botlist)
-			botlist = new()
-
-		var/obj/machinery/bot_core/core = signal.source
-
-		if(istype(core) && !(core.owner in botlist))
-			botlist += core.owner
-
-		if(active == core.owner)
-			var/list/b = signal.data
-			botstatus = b.Copy()
-
-/obj/item/integrated_radio/Topic(href, href_list)
-	..()
-	switch(href_list["op"])
-		if("control")
-			active = locateUID(href_list["bot"])
-			post_signal(control_freq, "command", "bot_status", "active", active, s_filter = bot_filter)
-
-		if("scanbots")		// find all bots
-			botlist = null
-			post_signal(control_freq, "command", "bot_status", s_filter = bot_filter)
-
-		if("botlist")
-			active = null
-
-		if("stop", "go", "home")
-			post_signal(control_freq, "command", href_list["op"], "active", active, s_filter = bot_filter)
-			post_signal(control_freq, "command", "bot_status", "active", active, s_filter = bot_filter)
-
-		if("summon")
-			post_signal(control_freq, "command", "summon", "active", active, "target", get_turf(hostpda), "useraccess", hostpda.GetAccess(), "user", usr, s_filter = bot_filter)
-			post_signal(control_freq, "command", "bot_status", "active", active, s_filter = bot_filter)
-
 /obj/item/integrated_radio/proc/add_to_radio(bot_filter) //Master filter control for bots. Must be placed in the bot's local New() to support map spawned bots.
 	if(SSradio)
 		SSradio.add_object(src, control_freq, filter = bot_filter)
@@ -115,6 +58,7 @@
 	bot_filter = RADIO_MULEBOT
 	bot_type = MULE_BOT
 
+/*
 /obj/item/integrated_radio/mule/Topic(href, href_list)
 	..()
 	switch(href_list["op"])
@@ -143,3 +87,4 @@
 			post_signal(control_freq, "command", "autopick", "active", active, "value", 1, s_filter = RADIO_MULEBOT)
 
 	post_signal(control_freq, "command", "bot_status", "active", active, s_filter = RADIO_MULEBOT)
+*/

@@ -17,7 +17,7 @@
 	bot_filter = RADIO_SECBOT
 	model = "Securitron"
 	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
-	bot_core_type = /obj/machinery/bot_core/secbot
+	req_access = list(ACCESS_SECURITY)
 	window_id = "autosec"
 	window_name = "Automatic Security Unit v1.6"
 	path_image_color = "#FF0000"
@@ -475,8 +475,5 @@
 		C.Weaken(4 SECONDS)
 		return
 	..()
-
-/obj/machinery/bot_core/secbot
-	req_access = list(ACCESS_SECURITY)
 
 #undef BATON_COOLDOWN
