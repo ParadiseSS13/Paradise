@@ -12,10 +12,8 @@
 
 	B1.reagents.add_reagent(filth, 25)
 	if(prob(25))
-		if(prob(25))
-			B1.reagents.add_reagent("radium", 25) // Rarely radioactive
-		else
-			B1.reagents.add_reagent(pick(muck), 25)
+		muck += "radium"
+		B1.reagents.add_reagent(pick(muck), 25)
 
 	beakers += B1
 
