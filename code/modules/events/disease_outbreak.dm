@@ -4,7 +4,7 @@ GLOBAL_VAR(current_pending_disease)
 	var/datum/disease/chosen_disease
 
 	var/list/disease_blacklist = list(/datum/disease/advance, /datum/disease/appendicitis, /datum/disease/kuru, /datum/disease/critical, /datum/disease/rhumba_beat, /datum/disease/fake_gbs,
-										/datum/disease/gbs, /datum/disease/transformation, /datum/disease/food_poisoning, /datum/disease/advance/cold, /datum/disease/advance/flu, /datum/disease/advance/heal,
+										/datum/disease/gbs, /datum/disease/transformation,  /datum/disease/food_poisoning, /datum/disease/advance/cold, /datum/disease/advance/flu, /datum/disease/advance/heal,
 										/datum/disease/advance/hullucigen, /datum/disease/advance/sensory_restoration, /datum/disease/advance/voice_change)
 	var/static/list/transmissable_symptoms = list()
 	var/static/list/diseases_minor = list()
@@ -74,8 +74,8 @@ GLOBAL_VAR(current_pending_disease)
 
 /datum/event/disease_outbreak/proc/populate_diseases()
 	for(var/candidate in subtypesof(/datum/disease))
-		var/datum/disease/CD = candidate
-		if(candidate in disease_blacklist)
+		var/datum/disease/CD = new candidate
+		if(is_type_in_list(CD, disease_blacklist))
 			continue
 		switch(initial(CD.severity))
 			if(NONTHREAT, MINOR)
