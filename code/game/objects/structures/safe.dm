@@ -155,6 +155,7 @@ GLOBAL_LIST_EMPTY(safes)
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
+					cut_overlay(progress_bar)
 					update_icon()
 					STOP_PROCESSING(SSobj, src)
 			if("Remove Drill")
