@@ -145,6 +145,7 @@
 	duration = 5 SECONDS
 	tick_interval = 0
 	alert_type = /obj/screen/alert/status_effect/dash
+
 /datum/status_effect/bloodswell
 	id = "bloodswell"
 	duration = 30 SECONDS
