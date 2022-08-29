@@ -103,19 +103,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
-	switch(dir)
-		if(EAST)
-			setDir(SOUTH)
-			return
-		if(SOUTH)
-			setDir(WEST)
-			return
-		if(WEST)
-			setDir(NORTH)
-			return
-		else
-			setDir(EAST)
-			return
+
+	setDir(turn(dir, -90))
 
 /obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))

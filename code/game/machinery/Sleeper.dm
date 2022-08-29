@@ -383,19 +383,7 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
-	switch(dir)
-		if(EAST)
-			setDir(SOUTH)
-			return
-		if(SOUTH)
-			setDir(WEST)
-			return
-		if(WEST)
-			setDir(NORTH)
-			return
-		else
-			setDir(EAST)
-			return
+	setDir(turn(dir, -90))
 
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)
