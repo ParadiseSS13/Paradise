@@ -215,20 +215,20 @@
 
 	insert_self_after = TRUE
 
+/datum/surgery/intermediate/open_cavity
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
+
 /datum/surgery/intermediate/open_cavity/implant
 	name = "implant object"
 	steps = list(
 		/datum/surgery_step/cavity/place_item
 	)
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 
 /datum/surgery/intermediate/open_cavity/extract
 	name = "extract object"
 	steps = list(
 		/datum/surgery_step/cavity/remove_item
 	)
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
-
 
 
 /datum/surgery_step/cavity/place_item

@@ -32,7 +32,7 @@
 		/datum/surgery_step/proxy/robotics/manipulate_organs,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_PRECISE_GROIN,"l_arm",BODY_ZONE_R_ARM)
+	possible_locs = list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_PRECISE_GROIN,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM)
 
 /datum/surgery/robotics/cybernetic_amputation
 	name = "Robotic Limb Amputation"
@@ -71,6 +71,7 @@
 // Intermediate repair surgeries, for fixing up internal maladies mid-surgery.
 
 /datum/surgery/intermediate/robotics/repair
+	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/intermediate/robotics/repair/burn
 	steps = list(/datum/surgery_step/robotics/external/repair/burn)
@@ -79,6 +80,9 @@
 	steps = list(/datum/surgery_step/robotics/external/repair/brute)
 
 // Manipulate organs sub-surgeries
+
+/datum/surgery/intermediate/robotics/manipulate_organs
+	possible_locs = list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_PRECISE_GROIN,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM)
 
 /datum/surgery/intermediate/robotics/manipulate_organs/extract
 	steps = list(/datum/surgery_step/robotics/manipulate_robotic_organs/extract)
@@ -210,7 +214,7 @@
 /datum/surgery_step/robotics/external/close_hatch/premature
 	name = "close hatch prematurely"
 
-/datum/surgery_step/robotics/external/close_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/robotics/external/close_hatch/premature/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] begins to close and secure the hatch on [target]'s [affected.name] with \the [tool].",

@@ -78,6 +78,11 @@
 /datum/surgery_step/proxy/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	var/list/starting_tools = list()
+
+	// pull this out separately. We don't want to move ahead with an any item surgery unless we've exhausted all of our
+	// other options.
+	// There will also only ever be one possibility for this in a surgery step (unless someone screwed up)
+	var/datum/surgery/possible_any_surgery
 	var/datum/surgery/next_surgery
 
 	var/datum/surgery_step/next_surgery_step = surgery.get_surgery_next_step()
@@ -95,13 +100,13 @@
 		if(!tool && first_step.accept_hand)
 			if(SURGERY_TOOL_HAND in starting_tools)
 				CRASH("[src] was provided with multiple branches that allow an empty hand.")
-			next_surgery = S
+			next_surgery = S  // if there's no tool, just proceed forward.
 			starting_tools.Add(SURGERY_TOOL_HAND)
 
 		else if(first_step.accept_any_item)
 			if(SURGERY_TOOL_ANY in starting_tools)
 				CRASH("[src] was provided with multiple branches that allow any tool.")
-			next_surgery = S
+			possible_any_surgery = S
 			starting_tools.Add(SURGERY_TOOL_ANY)
 
 
@@ -112,6 +117,12 @@
 				CRASH("[src] was provided with multiple branches that start with tool [allowed].")
 			else
 				starting_tools.Add(allowed)
+
+	// if we didn't set our next surgery (defined by the tool in use), check to see if a catch-all like accept hand or any item work
+	if(!next_surgery)
+		if(SURGERY_TOOL_ANY in starting_tools && tool)
+			next_surgery = possible_any_surgery
+
 
 	// If this is set to true, the tool in use will force the next step in the main surgery.
 	var/overridden_tool = FALSE
