@@ -780,7 +780,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/ai_control_check(mob/user)
 	if(!issilicon(user))
 		return TRUE
-	if(emagged)
+	if(emagged || cmagged)
 		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
 		return FALSE
 	if(!canAIControl())
