@@ -89,12 +89,13 @@ Doesn't work on other aliens/AI.*/
 	set name = "Spit Neurotoxin (50)"
 	set desc = "Spits neurotoxin at someone, paralyzing them for a short time."
 	set category = "Alien"
+	var/obj/item/organ/internal/xenos/neurotoxin/organ = locate() in src.internal_organs
 
-	if(powerc(50) && neurotoxin_cooldown == FALSE)
+	if(powerc(50) && organ.neurotoxin_cooldown == FALSE)
 		adjustPlasma(-50)
 		src.visible_message("<span class='danger'>[src] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
-		neurotoxin_cooldown = TRUE
-		addtimer(CALLBACK(src, .proc/neurotoxin_cooldown_reset), neurotoxin_cooldown_time)
+		organ.neurotoxin_cooldown = TRUE
+		addtimer(VARSET_CALLBACK(organ, neurotoxin_cooldown, FALSE), organ.neurotoxin_cooldown_time)
 
 		var/turf/T = loc
 		var/turf/U = get_step(src, dir) // Get the tile infront of the move, based on their direction
@@ -110,10 +111,6 @@ Doesn't work on other aliens/AI.*/
 		A.fire()
 		A.newtonian_move(get_dir(U, T))
 		newtonian_move(get_dir(U, T))
-	return
-
-/mob/living/carbon/alien/humanoid/proc/neurotoxin_cooldown_reset()
-	neurotoxin_cooldown = FALSE
 	return
 
 /mob/living/carbon/alien/humanoid/proc/resin() // -- TLE
