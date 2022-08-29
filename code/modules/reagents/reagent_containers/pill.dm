@@ -134,11 +134,11 @@
 /obj/item/reagent_containers/food/pill/mutadone
 	name = "\improper Mutadone pill"
 	desc = "Used to cure genetic abnormalities."
-	icon_state = "pill18"
-	list_reagents = list("mutadone" = 20)
+	icon_state = "pill13"
+	list_reagents = list("mutadone" = 1)
 
 /obj/item/reagent_containers/food/pill/mannitol
 	name = "\improper Mannitol pill"
 	desc = "Used to treat cranial swelling."
 	icon_state = "pill19"
-	list_reagents = list("mannitol" = 20)
+	list_reagents = list("mannitol" = 10)
