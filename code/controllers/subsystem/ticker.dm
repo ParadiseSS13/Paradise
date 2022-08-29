@@ -134,6 +134,17 @@ SUBSYSTEM_DEF(ticker)
 			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
 			if(GLOB.configuration.vote.enable_map_voting)
 				SSvote.start_vote(new /datum/vote/map)
+			else
+				// Pick random map
+				var/list/pickable_types = list()
+				for(var/x in subtypesof(/datum/map))
+					var/datum/map/M = x
+					if(initial(M.voteable))
+						pickable_types += M
+
+				var/datum/map/target_map = pick(pickable_types)
+				SSmapping.next_map = new target_map
+				to_chat(world, "<span class='interface'>Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</span>")
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)

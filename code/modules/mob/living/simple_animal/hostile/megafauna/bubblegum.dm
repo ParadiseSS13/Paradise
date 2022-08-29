@@ -461,8 +461,8 @@ Difficulty: Hard
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/A)
-	if(charging)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/A, yes)
+	if(charging && yes)
 		if(isturf(A) || isobj(A) && A.density)
 			A.ex_act(EXPLODE_HEAVY)
 		DestroySurroundings()
