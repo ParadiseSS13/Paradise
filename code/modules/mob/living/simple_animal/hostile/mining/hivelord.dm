@@ -305,9 +305,9 @@
 	var/datum/status_effect/stacking/ground_pound/G = L.has_status_effect(STATUS_EFFECT_GROUNDPOUND)
 	if(!G)
 		L.apply_status_effect(STATUS_EFFECT_GROUNDPOUND, 1, src)
-		. = ..()
-	else if(G.add_stacks(stacks_added = 1, attacker = src))
-		. = ..()
+		return ..()
+	if(G.add_stacks(stacks_added = 1, attacker = src))
+		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/big_legion/proc/throw_mobs()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
