@@ -49,3 +49,29 @@
 // Called when a limb containing this object is placed back on a body
 /atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	return 0
+
+/// Check to see if a surgical operation proposed on ourselves is valid or not. We are the target of the surgery
+/mob/living/proc/can_run_surgery(datum/surgery/surgery, mob/surgeon, obj/item/organ/external/affecting)
+	if(!affecting)
+		// try to pull it if it isn't passed in (it's a parameter mostly for optimization purposes)
+		affecting = get_organ(check_zone(surgeon.zone_selected))
+
+	if(!surgery.possible_locs.Find(surgeon.zone_selected))
+		return
+	if(affecting)
+		if(!surgery.requires_bodypart)
+			return
+		if((surgery.requires_organic_bodypart && affecting.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting.is_robotic()))
+			return
+		if(surgery.requires_real_bodypart && !affecting.is_primary_organ())
+			return
+	else if(surgery.requires_bodypart) //mob with no limb in surgery zone when we need a limb
+		return
+	if(surgery.lying_required && !IS_HORIZONTAL(src))
+		return
+	if(!surgery.self_operable && src == surgeon)
+		return
+	if(!surgery.can_start(surgeon, src))
+		return
+
+	return TRUE

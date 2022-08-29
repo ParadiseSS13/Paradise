@@ -130,7 +130,7 @@
 	if(!is_robotic())
 		application_surgery = /datum/surgery/reattach
 	else
-		application_surgery = /datum/surgery/reattach_synth
+		application_surgery = /datum/surgery/attach_robotic_limb
 
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = application_surgery)
 

@@ -167,6 +167,11 @@
 		var/datum/surgery_step/next_step = surgery.get_surgery_step()
 		return next_step.try_op(user, target, target_zone, tool, surgery)
 
+	if(!target.can_run_surgery(next_surgery, user))
+		// Make sure the target can support the surgery.
+		// note that this should be run before can_start
+		return TRUE
+
 	if(!next_surgery.can_start(user, target))
 		// If we wouldn't be able to start the next surgery anyway, don't move past this step.
 		// Let them try other tools if necessary.
