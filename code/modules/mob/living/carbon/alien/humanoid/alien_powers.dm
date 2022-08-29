@@ -91,7 +91,7 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 	var/obj/item/organ/internal/xenos/neurotoxin/organ = locate() in src.internal_organs
 
-	if(powerc(50) && organ.neurotoxin_cooldown == FALSE)
+	if(powerc(50) && !organ.neurotoxin_cooldown)
 		adjustPlasma(-50)
 		src.visible_message("<span class='danger'>[src] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
 		organ.neurotoxin_cooldown = TRUE
