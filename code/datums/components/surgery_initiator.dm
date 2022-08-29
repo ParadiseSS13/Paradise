@@ -19,6 +19,11 @@
 	/// Seeing as how we really don't support this (yet), it's much nicer to selectively enable this if we want it.
 	var/can_start_on_stander = FALSE
 
+	/// Bitfield for the types of surgeries that this can start.
+	/// Note that in cases where organs are missing, this will be ignored.
+	/// Also, note that for anything sharp, SURGERY_INITIATOR_ORGANIC should be set as well.
+	var/valid_starting_types = SURGERY_INITIATOR_ORGANIC
+
 /**
  * Create a new surgery initiating component.
  *
@@ -62,6 +67,15 @@
 		return
 	if(IS_HORIZONTAL(L) && !on_operable_surface(L))
 		return
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		var/obj/item/organ/external/affected = C.get_organ(user.zone_selected)
+		if(affected)
+			if((affected.status & ORGAN_ROBOT) && !(valid_starting_types & SURGERY_INITIATOR_ROBOTIC))
+				return
+			if(!(affected.status & ORGAN_ROBOT) && !(valid_starting_types & SURGERY_INITIATOR_ORGANIC))
+				return
+
 	if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
 		return //no cult ghost surgery please
@@ -86,8 +100,7 @@
 			return
 		if(istype(parent, /obj/item/scalpel/laser/manager/debug))
 			return
-		if((can_cancel_before_first && current_surgery.step_number == 1) || current_surgery.step_number > 1)
-			attempt_cancel_surgery(current_surgery, target, user)
+		if(attempt_cancel_surgery(current_surgery, target, user))
 			return
 
 	if(!isnull(current_surgery) && current_surgery.step_in_progress)
@@ -162,12 +175,12 @@
 	if(the_surgery.step_number == 1)
 		patient.surgeries -= the_surgery
 		user.visible_message(
-			"<span class='notice'>[user] draws [parent] away from [patient]'s [parse_zone(selected_zone)].</span>",
-			"<span class='notice'>You remove [parent] from [patient]'s [parse_zone(selected_zone)].</span>",
+			"<span class='notice'>[user] stops the surgery on [patient]'s [parse_zone(selected_zone)] with [parent].</span>",
+			"<span class='notice'>You stop the surgery on [patient]'s [parse_zone(selected_zone)] with [parent].</span>",
 		)
 
 		qdel(the_surgery)
-		return
+		return TRUE
 
 	if(!the_surgery.can_cancel)
 		return
@@ -181,13 +194,30 @@
 
 	var/is_robotic = !the_surgery.requires_organic_bodypart
 	var/datum/surgery_step/chosen_close_step
+	var/skip_surgery = FALSE  // if true, don't even run an operation, just end the surgery.
 
-	if(is_robotic)
-		chosen_close_step = new /datum/surgery_step/robotics/external/close_hatch/premature()
-	else
-		chosen_close_step = new /datum/surgery_step/generic/cauterize/premature()
+	if(!the_surgery.requires_bodypart)
+		// special behavior here; if it doesn't require a bodypart just check if there's a limb there or not.
+		// this is a little bit gross and I do apologize
+		if(iscarbon(patient))
+			var/mob/living/carbon/C = patient
+			var/obj/item/organ/external/affected = C.get_organ(user.zone_selected)
+			if(!affected)
+				skip_surgery = TRUE
 
-	if(isrobot(user))
+		else
+			// uh there's no reason this should be hit but let's be safe LOL
+			skip_surgery = TRUE
+
+	if(!skip_surgery)
+		if(is_robotic)
+			chosen_close_step = new /datum/surgery_step/robotics/external/close_hatch/premature()
+		else
+			chosen_close_step = new /datum/surgery_step/generic/cauterize/premature()
+
+	if(skip_surgery)
+		close_tool = user.get_active_hand()  // sure, just something so that it isn't null
+	else if(isrobot(user))
 		if(!is_robotic)
 			// borgs need to be able to finish surgeries with just the laser scalpel, no special checks here.
 			close_tool = parent
@@ -195,7 +225,7 @@
 			close_tool = locate(/obj/item/crowbar) in user.get_all_slots()
 			if(!close_tool)
 				to_chat(user, "<span class='warning'>You need a prying tool in an inactive slot to stop the surgery!</span>")
-				return
+				return TRUE
 
 	else if(other_hand)
 		for(var/key in chosen_close_step.allowed_tools)
@@ -205,14 +235,15 @@
 
 	if(!close_tool)
 		to_chat(user, "<span class='warning'>You need a [is_robotic ? "prying": "cauterizing"] tool in your inactive hand to stop the surgery!</span>")
-		return
+		return TRUE
 
-	if(chosen_close_step.try_op(user, patient, selected_zone, close_tool, the_surgery))
+	if(skip_surgery || chosen_close_step.try_op(user, patient, selected_zone, close_tool, the_surgery))
 		// logging in case people wonder why they're cut up inside
 		log_attack(user, patient, "Prematurely finished \a [the_surgery] surgery.")
 		qdel(chosen_close_step)
 		patient.surgeries -= the_surgery
 		qdel(the_surgery)
+		return TRUE
 
 /datum/component/surgery_initiator/proc/can_start_surgery(mob/user, mob/living/target)
 	if(!user.Adjacent(target))
@@ -226,7 +257,7 @@
 	// While we were choosing, another surgery was started at the same location
 	for(var/datum/surgery/surgery in target.surgeries)
 		if(surgery.location == user.zone_selected)
-			to_chat(user, "<span class='warning'>There's already another surgery in progress on their [surgery.location].</span>")
+			to_chat(user, "<span class='warning'>There's already another surgery in progress on their [parse_zone(surgery.location)].</span>")
 			return FALSE
 
 	return TRUE
@@ -289,3 +320,9 @@
 
 /datum/component/surgery_initiator/limb
 	can_cancel = FALSE  // don't let a leg cancel a surgery
+
+/datum/component/surgery_initiator/robo
+	valid_starting_types = SURGERY_INITIATOR_ROBOTIC
+
+/datum/component/surgery_initiator/robo/sharp
+	valid_starting_types = SURGERY_INITIATOR_ORGANIC | SURGERY_INITIATOR_ROBOTIC

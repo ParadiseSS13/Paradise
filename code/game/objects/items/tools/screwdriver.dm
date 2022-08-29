@@ -25,7 +25,7 @@
 
 /obj/item/screwdriver/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/surgery_initiator)
+	AddComponent(/datum/component/surgery_initiator/robo)
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"

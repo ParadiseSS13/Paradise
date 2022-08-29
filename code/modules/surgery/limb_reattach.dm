@@ -49,13 +49,34 @@
 	name = "Synthetic Limb Reattachment"
 	requires_bodypart = FALSE
 	steps = list(/datum/surgery_step/limb/attach/robo)
+	abstract = TRUE  // these shouldn't show in the list; they'll be replaced by attach_robotic_limb
 	possible_locs = list(BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/robo_attach
 	name = "Apply Robotic Prosthetic"
 	requires_bodypart = FALSE
 	steps = list(/datum/surgery_step/limb/mechanize)
+	abstract = TRUE
 	possible_locs = list(BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
+
+
+/datum/surgery_step/proxy/robo_limb_attach
+	name = "apply robotic limb (proxy)"
+	branches = list(
+		/datum/surgery/robo_attach,
+		/datum/surgery/reattach_synth
+	)
+	insert_self_after = FALSE
+
+/datum/surgery/attach_robotic_limb
+	name = "Apply Robotic or Synthetic Limb"
+	requires_bodypart = FALSE
+	steps = list(
+		/datum/surgery_step/proxy/robo_limb_attach
+	)
+
+	possible_locs = list(BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
+
 
 /datum/surgery_step/limb
 	can_infect = FALSE

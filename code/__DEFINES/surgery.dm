@@ -9,6 +9,13 @@
 /// Cover the surgeon's body in blood.
 #define SURGERY_BLOODSPREAD_FULLBODY 2
 
+// The type of surgeries that an initiator can start.
+// Note that this doesn't apply for surgeries applied on missing organs.
+/// An initiator with this can start surgeries on organic organs. Make sure that anything that can be sharp gets this as well.
+#define SURGERY_INITIATOR_ORGANIC 1
+/// An initiator with this can start surgeries on robotic organs.
+#define SURGERY_INITIATOR_ROBOTIC 2
+
 // How "open" an organ is.
 
 /// Closed up.
