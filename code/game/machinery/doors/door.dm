@@ -252,7 +252,17 @@
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
 	if(cmagged) //Emags are Engineering's problem, cmags are the janitor's problem
-		if(istype(I, /obj/item/reagent_containers/spray/cleaner) || istype(I, /obj/item/soap))
+		var/cleaning = FALSE
+		if(istype(I, /obj/item/reagent_containers/spray/cleaner))
+			var/obj/item/reagent_containers/spray/cleaner/C = I
+			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+				cleaning = TRUE
+			else
+				return
+		if(istype(I, /obj/item/soap))
+			cleaning = TRUE
+
+		if(cleaning)
 			user.visible_message("<span class='notice'>[user] starts to clean the ooze off the access panel.</span>", "<span class='notice'>You start to clean the ooze off the access panel.</span>")
 			if(do_after(user, 50, target = src))
 				user.visible_message("<span class='notice'>[user] has cleaned the ooze off [src].</span>", "<span class='notice'>You've cleaned the ooze off [src].</span>")
@@ -267,7 +277,6 @@
 		try_to_activate_door(user)
 		return 1
 	return ..()
-
 
 /obj/machinery/door/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -323,7 +332,7 @@
 					do_animate("deny")
 					if(hasPower())
 						to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
-						playsound(src.loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+						playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 					return
 				return
 		if(density)
@@ -333,7 +342,7 @@
 	else
 		do_animate("deny")
 		if(hasPower())
-			playsound(src.loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 
 /obj/machinery/door/proc/toggle_polarization()
 	return
