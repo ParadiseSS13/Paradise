@@ -141,10 +141,9 @@
 /mob/proc/ForceContractDisease(datum/disease/D, respect_carrier, notify_ghosts = FALSE)
 	if(!CanContractDisease(D))
 		return FALSE
-	var/is_carrier = D.carrier == src
 	if(notify_ghosts)
 		for(var/mob/ghost as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
-			to_chat(ghost, "<span class='deadsay'><b>Disease outbreak: </b>[src] ([ghost_follow_link(src, ghost)]) [is_carrier ? "is now a carrier of" : "has contracted"] [D]!</span>")
+			to_chat(ghost, "<span class='deadsay'><b>Disease outbreak: </b>[src] ([ghost_follow_link(src, ghost)]) [D.carrier ? "is now a carrier of" : "has contracted"] [D]!</span>")
 	AddDisease(D, respect_carrier)
 	return TRUE
 
