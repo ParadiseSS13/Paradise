@@ -36,7 +36,7 @@ const damages = [
   ['Brute', 'bruteLoss'],
   ['Genetic', 'cloneLoss'],
   ['Burn', 'fireLoss'],
-  ['Drunkenness', 'drunkenness'],
+  ['Inebriation', 'drunkenness'],
 ];
 
 const damageRange = {
