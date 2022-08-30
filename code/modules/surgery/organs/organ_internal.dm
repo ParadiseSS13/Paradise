@@ -72,7 +72,7 @@
 		var/datum/action/A = X
 		A.Remove(M)
 	START_PROCESSING(SSobj, src)
-	if(!QDELETED(src) && destroy_on_removal)
+	if(destroy_on_removal && !QDELETED(src))
 		qdel(src)
 		return
 	return src

@@ -256,7 +256,7 @@
 		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user ? ATKLOG_FEW : ATKLOG_ALL)
 		owner.death()
 	owner = null
-	if(!QDELETED(src) && destroy_on_removal)
+	if(destroy_on_removal && !QDELETED(src))
 		qdel(src)
 		return
 	return src
