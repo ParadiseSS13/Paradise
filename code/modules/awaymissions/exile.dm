@@ -2,28 +2,28 @@
 //This will allow security to exile badguys/for badguys to exile their kill targets
 
 /obj/item/implant/exile
-	name = "exile implant"
+	name = "exile microchip"
 	desc = "Prevents you from returning from away missions"
 	origin_tech = "materials=2;biotech=3;magnets=2;bluespace=3"
-	activated = IMPLANT_ACTIVATED_PASSIVE
+	activated = MICROCHIP_ACTIVATED_PASSIVE
 
 /obj/item/implant/exile/get_data()
-	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Nanotrasen Employee Exile Implant<BR>
-				<b>Implant Details:</b> The onboard gateway system has been modified to reject entry by individuals containing this implant<BR>"}
+	var/dat = {"<b>Microchip Specifications:</b><BR>
+				<b>Name:</b> Nanotrasen Employee Exile Microchip<BR>
+				<b>Microchip Details:</b> The onboard gateway system has been modified to reject entry by individuals containing this microchip<BR>"}
 	return dat
 
 
 /obj/item/implanter/exile
-	name = "implanter (exile)"
+	name = "Microchipper (exile)"
 
 /obj/item/implanter/exile/New()
 	imp = new /obj/item/implant/exile( src )
 	..()
 
 /obj/item/implantcase/exile
-	name = "implant case - 'Exile'"
-	desc = "A glass case containing an exile implant."
+	name = "microchip case - 'Exile'"
+	desc = "A glass case containing an exile microchip."
 
 /obj/item/implantcase/exile/New()
 	imp = new /obj/item/implant/exile(src)
@@ -31,7 +31,7 @@
 
 
 /obj/structure/closet/secure_closet/exile
-	name = "exile implants"
+	name = "exile microchips"
 	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/exile/populate_contents()

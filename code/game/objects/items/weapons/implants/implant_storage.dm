@@ -9,7 +9,7 @@
 
 
 /obj/item/implant/storage
-	name = "storage implant"
+	name = "storage microchip"
 	desc = "Stores up to two big items in a bluespace pocket."
 	icon_state = "storage"
 	origin_tech = "materials=2;magnets=4;bluespace=5;syndicate=4"
@@ -58,7 +58,7 @@
 		return storage.contents
 
 /obj/item/implanter/storage
-	name = "implanter (storage)"
+	name = "microchipper (storage)"
 
 /obj/item/implanter/storage/New()
 	imp = new /obj/item/implant/storage(src)

@@ -1120,7 +1120,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cant_discount = TRUE
 
 /datum/uplink_item/explosives/emp
-	name = "EMP Grenades and Implanter Kit"
+	name = "EMP Grenades and microchipper Kit"
 	desc = "A box that contains two EMP grenades and an EMP implant with 2 uses. Useful to disrupt communication, \
 			security's energy weapons, and silicon lifeforms when you're in a tight spot."
 	reference = "EMPK"
@@ -1565,15 +1565,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Implants"
 
 /datum/uplink_item/implants/freedom
-	name = "Freedom Implant"
-	desc = "An implant injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
+	name = "Freedom Microchip"
+	desc = "A microchip injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
 	reference = "FI"
 	item = /obj/item/implanter/freedom
 	cost = 5
 
 /datum/uplink_item/implants/uplink
-	name = "Uplink Implant"
-	desc = "An implant injected into the body, and later activated manually to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
+	name = "Uplink Microchip"
+	desc = "A microchip injected into the body, and later activated manually to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
 	item = /obj/item/implanter/uplink
 	cost = 14
@@ -1582,36 +1582,36 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cant_discount = TRUE
 
 /datum/uplink_item/implants/uplink/nuclear
-	name = "Nuclear Uplink Implant"
+	name = "Nuclear Uplink Microchip"
 	reference = "UIN"
 	item = /obj/item/implanter/nuclear_uplink
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/implants/storage
-	name = "Storage Implant"
-	desc = "An implant injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
+	name = "Storage Microchip"
+	desc = "A microchip injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
 	reference = "ESI"
 	item = /obj/item/implanter/storage
 	cost = 8
 
 /datum/uplink_item/implants/mindslave
-	name = "Mindslave Implant"
-	desc = "A box containing an implanter filled with a mindslave implant that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
+	name = "Mindslave Microchip"
+	desc = "A box containing a microchipper filled with a mindslave microchip that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
 	reference = "MI"
 	item = /obj/item/implanter/traitor
 	cost = 10
 
 /datum/uplink_item/implants/adrenal
-	name = "Adrenal Implant"
-	desc = "An implant injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
+	name = "Adrenal Microchip"
+	desc = "A microchip injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "AI"
 	item = /obj/item/implanter/adrenalin
 	cost = 8
 
 /datum/uplink_item/implants/microbomb
-	name = "Microbomb Implant"
-	desc = "An implant injected into the body, and later activated either manually or automatically upon death. The more implants inside of you, the higher the explosive power. \
+	name = "Microbomb Microchip"
+	desc = "A microchip injected into the body, and later activated either manually or automatically upon death. The more implants inside of you, the higher the explosive power. \
 	This will permanently destroy your body, however."
 	reference = "MBI"
 	item = /obj/item/implanter/explosive
@@ -1700,8 +1700,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cant_discount = TRUE
 
 /datum/uplink_item/implants/macrobomb
-	name = "Macrobomb Implant"
-	desc = "An implant injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
+	name = "Macrobomb Microchip"
+	desc = "A microchip injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
 	reference = "HAB"
 	item = /obj/item/implanter/explosive_macro
 	cost = 20

@@ -1,9 +1,9 @@
 /obj/item/implant/abductor
-	name = "recall implant"
+	name = "recall microchip"
 	desc = "Returns you to the mothership."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "implant"
-	activated = IMPLANT_ACTIVATED_ACTIVE
+	activated = MICROCHIP_ACTIVATED_ACTIVE
 	origin_tech = "materials=2;biotech=7;magnets=4;bluespace=4;abductor=5"
 	var/obj/machinery/abductor/pad/home
 	var/cooldown = 30

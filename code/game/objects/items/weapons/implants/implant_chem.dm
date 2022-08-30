@@ -1,25 +1,25 @@
 /obj/item/implant/chem
-	name = "chem implant"
+	name = "chem microchip"
 	desc = "Injects things."
 	icon_state = "reagents"
 	origin_tech = "materials=3;biotech=4"
 	container_type = OPENCONTAINER
-	trigger_causes = IMPLANT_TRIGGER_DEATH_ANY
+	trigger_causes = MICROCHIP_TRIGGER_DEATH_ANY
 
 /obj/item/implant/chem/get_data()
-	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Robust Corp MJ-420 Prisoner Management Implant<BR>
+	var/dat = {"<b>Microchip Specifications:</b><BR>
+				<b>Name:</b> Robust Corp MJ-420 Prisoner Management Microchip<BR>
 				<b>Life:</b> Deactivates upon death but remains within the body.<BR>
 				<b>Important Notes: Due to the system functioning off of nutrients in the implanted subject's body, the subject<BR>
 				will suffer from an increased appetite.</B><BR>
 				<HR>
-				<b>Implant Details:</b><BR>
+				<b>Microchip Details:</b><BR>
 				<b>Function:</b> Contains a small capsule that can contain various chemicals. Upon receiving a specially encoded signal<BR>
-				the implant releases the chemicals directly into the blood stream.<BR>
+				the microchip releases the chemicals directly into the blood stream.<BR>
 				<b>Special Features:</b>
 				<i>Micro-Capsule</i>- Can be loaded with any sort of chemical agent via the common syringe and can hold 50 units.<BR>
 				Can only be loaded while still in its original case.<BR>
-				<b>Integrity:</b> Implant will last so long as the subject is alive."}
+				<b>Integrity:</b> Microchip will last so long as the subject is alive."}
 	return dat
 
 /obj/item/implant/chem/New()
@@ -50,8 +50,8 @@
 
 
 /obj/item/implantcase/chem
-	name = "implant case - 'Remote Chemical'"
-	desc = "A glass case containing a remote chemical implant."
+	name = "microchip case - 'Remote Chemical'"
+	desc = "A glass case containing a remote chemical microchip."
 
 /obj/item/implantcase/chem/New()
 	imp = new /obj/item/implant/chem(src)

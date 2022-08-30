@@ -1,5 +1,5 @@
 /obj/item/implantcase
-	name = "implant case"
+	name = "microchip case"
 	desc = "A glass case containing an implant."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implantcase-0"
@@ -65,8 +65,8 @@
 
 
 /obj/item/implantcase/tracking
-	name = "implant case - 'Tracking'"
-	desc = "A glass case containing a tracking implant."
+	name = "microchip case - 'Tracking'"
+	desc = "A glass case containing a tracking microchip."
 
 /obj/item/implantcase/tracking/New()
 	imp = new /obj/item/implant/tracking(src)
@@ -74,16 +74,16 @@
 
 
 /obj/item/implantcase/weapons_auth
-	name = "implant case - 'Firearms Authentication'"
-	desc = "A glass case containing a firearms authentication implant."
+	name = "microchip case - 'Firearms Authentication'"
+	desc = "A glass case containing a firearms authentication microchip."
 
 /obj/item/implantcase/weapons_auth/New()
 	imp = new /obj/item/implant/weapons_auth(src)
 	..()
 
 /obj/item/implantcase/adrenaline
-	name = "implant case - 'Adrenaline'"
-	desc = "A glass case containing an adrenaline implant."
+	name = "microchip case - 'Adrenaline'"
+	desc = "A glass case containing an adrenaline microchip."
 
 /obj/item/implantcase/adrenaline/New()
 	imp = new /obj/item/implant/adrenalin(src)
@@ -91,7 +91,7 @@
 
 /obj/item/implantcase/death_alarm
 	name = "Glass Case- 'Death Alarm'"
-	desc = "A case containing a death alarm implant."
+	desc = "A case containing a death alarm microchip."
 
 /obj/item/implantcase/death_alarm/New()
 	imp = new /obj/item/implant/death_alarm(src)

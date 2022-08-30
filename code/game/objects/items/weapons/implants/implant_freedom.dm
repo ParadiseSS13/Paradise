@@ -1,5 +1,5 @@
 /obj/item/implant/freedom
-	name = "freedom implant"
+	name = "freedom microchip"
 	desc = "Use this to escape from those evil Red Shirts."
 	icon_state = "freedom"
 	item_color = "r"
@@ -28,23 +28,23 @@
 
 /obj/item/implant/freedom/get_data()
 	var/dat = {"
-<b>Implant Specifications:</b><BR>
+<b>Microchip Specifications:</b><BR>
 <b>Name:</b> Freedom Beacon<BR>
 <b>Life:</b> optimum 5 uses<BR>
 <b>Important Notes:</b> <font color='red'>Illegal</font><BR>
 <HR>
-<b>Implant Details:</b> <BR>
+<b>Microchip Details:</b> <BR>
 <b>Function:</b> Transmits a specialized cluster of signals to override handcuff locking
 mechanisms<BR>
 <b>Special Features:</b><BR>
 <i>Neuro-Scan</i>- Analyzes certain shadow signals in the nervous system<BR>
 <HR>
-No Implant Specifics"}
+No Microchip Specifics"}
 	return dat
 
 
 /obj/item/implanter/freedom
-	name = "implanter (freedom)"
+	name = "microchipper (freedom)"
 
 /obj/item/implanter/freedom/New()
 	imp = new /obj/item/implant/freedom(src)
@@ -52,8 +52,8 @@ No Implant Specifics"}
 
 
 /obj/item/implantcase/freedom
-	name = "implant case - 'Freedom'"
-	desc = "A glass case containing a freedom implant."
+	name = "microchip case - 'Freedom'"
+	desc = "A glass case containing a freedom microchip."
 
 /obj/item/implantcase/freedom/New()
 	imp = new /obj/item/implant/freedom(src)

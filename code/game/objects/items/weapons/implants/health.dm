@@ -1,5 +1,5 @@
 /obj/item/implant/health
-	name = "health implant"
+	name = "health microchip"
 	activated = FALSE
 	var/healthstring = ""
 
