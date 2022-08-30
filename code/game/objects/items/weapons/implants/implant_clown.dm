@@ -23,7 +23,7 @@
 	playsound(loc, 'sound/misc/sadtrombone.ogg', 50, FALSE)
 
 /obj/item/implanter/sad_trombone
-	name = "micromicrochipper (sad trombone)"
+	name = "micromicrochip implanter (sad trombone)"
 
 /obj/item/implanter/sad_trombone/New() //gross
 	imp = new /obj/item/implant/sad_trombone

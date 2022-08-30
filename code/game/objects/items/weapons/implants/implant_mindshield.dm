@@ -37,7 +37,7 @@
 
 
 /obj/item/implanter/mindshield
-	name = "microchipper (mindshield)"
+	name = "microchip implanter (mindshield)"
 
 /obj/item/implanter/mindshield/New()
 	imp = new /obj/item/implant/mindshield(src)

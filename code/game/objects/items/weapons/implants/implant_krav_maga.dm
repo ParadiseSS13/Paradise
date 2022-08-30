@@ -25,7 +25,7 @@
 		style.teach(H, TRUE)
 
 /obj/item/implanter/krav_maga
-	name = "microchipper (krav maga)"
+	name = "microchip implanter (krav maga)"
 
 /obj/item/implanter/krav_maga/New()
 	imp = new /obj/item/implant/krav_maga(src)

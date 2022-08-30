@@ -110,7 +110,7 @@
 
 
 /obj/item/implanter/explosive
-	name = "microchipper (explosive)"
+	name = "microchip implanter (explosive)"
 
 /obj/item/implanter/explosive/New()
 	imp = new /obj/item/implant/explosive(src)
@@ -127,7 +127,7 @@
 
 
 /obj/item/implanter/explosive_macro
-	name = "microchipper (macro-explosive)"
+	name = "microchip implanter (macro-explosive)"
 
 /obj/item/implanter/explosive_macro/New()
 	imp = new /obj/item/implant/explosive/macro(src)
@@ -177,7 +177,7 @@
 	return
 
 /obj/item/implanter/dust
-	name = "microchipper (Dust-on-death)"
+	name = "microchip implanter (Dust-on-death)"
 
 /obj/item/implanter/dust/New()
 	imp = new /obj/item/implant/dust(src)

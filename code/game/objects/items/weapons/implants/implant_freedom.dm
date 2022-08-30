@@ -44,7 +44,7 @@ No Microchip Specifics"}
 
 
 /obj/item/implanter/freedom
-	name = "microchipper (freedom)"
+	name = "microchip implanter (freedom)"
 
 /obj/item/implanter/freedom/New()
 	imp = new /obj/item/implant/freedom(src)

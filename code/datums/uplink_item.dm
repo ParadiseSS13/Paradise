@@ -1120,7 +1120,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cant_discount = TRUE
 
 /datum/uplink_item/explosives/emp
-	name = "EMP Grenades and microchipper Kit"
+	name = "EMP Grenades and microchip implanter Kit"
 	desc = "A box that contains two EMP grenades and an EMP implant with 2 uses. Useful to disrupt communication, \
 			security's energy weapons, and silicon lifeforms when you're in a tight spot."
 	reference = "EMPK"
@@ -1597,7 +1597,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/implants/mindslave
 	name = "Mindslave Microchip"
-	desc = "A box containing a microchipper filled with a mindslave microchip that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
+	desc = "A box containing a microchip implanter filled with a mindslave microchip that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
 	reference = "MI"
 	item = /obj/item/implanter/traitor
 	cost = 10

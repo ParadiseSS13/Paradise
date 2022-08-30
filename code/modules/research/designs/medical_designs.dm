@@ -524,7 +524,7 @@
 /////////////////////////////////////////
 
 /datum/design/implanter
-	name = "Microchipper"
+	name = "microchip implanter"
 	desc = "A sterile automatic microchip injector."
 	id = "implanter"
 	req_tech = list("materials" = 2, "biotech" = 3, "programming" = 2)

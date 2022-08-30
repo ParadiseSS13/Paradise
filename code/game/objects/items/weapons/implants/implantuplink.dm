@@ -43,14 +43,14 @@
 
 
 /obj/item/implanter/uplink
-	name = "microchipper (uplink)"
+	name = "microchip implanter (uplink)"
 
 /obj/item/implanter/uplink/New()
 	imp = new /obj/item/implant/uplink(src)
 	..()
 
 /obj/item/implanter/nuclear_uplink
-	name = "microchipper (nuclear uplink)"
+	name = "microchip implanter (nuclear uplink)"
 
 /obj/item/implanter/nuclear_uplink/New()
 	imp = new /obj/item/implant/uplink/nuclear(src)

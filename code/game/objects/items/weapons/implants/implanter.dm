@@ -1,5 +1,5 @@
 /obj/item/implanter
-	name = "microchipper"
+	name = "microchip implanter"
 	desc = "A sterile automatic microchip injector."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implanter0"
@@ -52,7 +52,7 @@
 
 
 /obj/item/implanter/adrenalin
-	name = "microchipper (adrenalin)"
+	name = "microchip implanter (adrenalin)"
 
 /obj/item/implanter/adrenalin/New()
 	imp = new /obj/item/implant/adrenalin(src)
@@ -60,21 +60,21 @@
 
 
 /obj/item/implanter/emp
-	name = "microchipper (EMP)"
+	name = "microchip implanter (EMP)"
 
 /obj/item/implanter/emp/New()
 	imp = new /obj/item/implant/emp(src)
 	..()
 
 /obj/item/implanter/traitor
-	name = "microchipper (Mindslave)"
+	name = "microchip implanter (Mindslave)"
 
 /obj/item/implanter/traitor/New()
 	imp = new /obj/item/implant/traitor(src)
 	..()
 
 /obj/item/implanter/death_alarm
-	name = "microchipper (Death Alarm)"
+	name = "microchip implanter (Death Alarm)"
 
 /obj/item/implanter/death_alarm/New()
 	imp = new /obj/item/implant/death_alarm(src)

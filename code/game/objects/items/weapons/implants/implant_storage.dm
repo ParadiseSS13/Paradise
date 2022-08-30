@@ -58,7 +58,7 @@
 		return storage.contents
 
 /obj/item/implanter/storage
-	name = "microchipper (storage)"
+	name = "microchip implanter (storage)"
 
 /obj/item/implanter/storage/New()
 	imp = new /obj/item/implant/storage(src)

@@ -1,5 +1,5 @@
 /obj/machinery/implantchair
-	name = "mindshield microchipper"
+	name = "mindshield microchip implanter"
 	desc = "Used to implant occupants with mindshield chips."
 	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
@@ -33,7 +33,7 @@
 		else
 			health_text = "[round(src.occupant.health,0.1)]"
 
-	var/dat ="<B>Microchipper Status</B><BR>"
+	var/dat ="<B>microchip implanter Status</B><BR>"
 
 	dat +="<B>Current occupant:</B> [src.occupant ? "<BR>Name: [src.occupant]<BR>Health: [health_text]<BR>" : "<FONT color=red>None</FONT>"]<BR>"
 	dat += "<B>Microchips:</B> [src.implant_list.len ? "[implant_list.len]" : "<A href='?src=[UID()];replenish=1'>Replenish</A>"]<BR>"

@@ -15,7 +15,7 @@
 
 
 /obj/item/implanter/exile
-	name = "Microchipper (exile)"
+	name = "microchip implanter (exile)"
 
 /obj/item/implanter/exile/New()
 	imp = new /obj/item/implant/exile( src )
