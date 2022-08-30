@@ -1218,16 +1218,39 @@
 	icon_panel = "wide_vendor"
 	ads_list = list("Go save some lives!","The best stuff for your medbay.","Only the finest tools.","Natural chemicals!","This stuff saves lives.","Don't you want some?","Ping!")
 	req_access_txt = "5"
-	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4, /obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
-					/obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/diphenhydramine = 4,
-					/obj/item/reagent_containers/glass/bottle/salicylic = 4, /obj/item/reagent_containers/glass/bottle/potassium_iodide =3, /obj/item/reagent_containers/glass/bottle/saline = 5,
-					/obj/item/reagent_containers/glass/bottle/morphine = 4, /obj/item/reagent_containers/glass/bottle/ether = 4, /obj/item/reagent_containers/glass/bottle/atropine = 3,
-					/obj/item/reagent_containers/glass/bottle/oculine = 2, /obj/item/reagent_containers/syringe/antiviral = 6,
-					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/syringe/heparin = 4, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
-					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/mutadone = 5, /obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4, /obj/item/stack/medical/bruise_pack = 4,
-					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
-					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
-	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
+	products = list(/obj/item/reagent_containers/syringe = 12,
+					/obj/item/reagent_containers/food/pill/patch/styptic = 4,
+					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 4,
+					/obj/item/reagent_containers/applicator/brute = 3,
+					/obj/item/reagent_containers/applicator/burn = 3,
+					/obj/item/reagent_containers/glass/bottle/charcoal = 4,
+					/obj/item/reagent_containers/glass/bottle/epinephrine = 4,
+					/obj/item/reagent_containers/glass/bottle/salicylic = 4,
+					/obj/item/reagent_containers/glass/bottle/potassium_iodide = 3,
+					/obj/item/reagent_containers/glass/bottle/saline = 5,
+					/obj/item/reagent_containers/glass/bottle/morphine = 4,
+					/obj/item/reagent_containers/glass/bottle/atropine = 3,
+					/obj/item/reagent_containers/glass/bottle/oculine = 2,
+					/obj/item/reagent_containers/syringe/antiviral = 6,
+					/obj/item/reagent_containers/syringe/calomel = 10,
+					/obj/item/reagent_containers/syringe/heparin = 4,
+					/obj/item/reagent_containers/hypospray/autoinjector = 5,
+					/obj/item/reagent_containers/food/pill/salbutamol = 10,
+					/obj/item/reagent_containers/food/pill/mannitol = 10,
+					/obj/item/reagent_containers/food/pill/mutadone = 5,
+					/obj/item/stack/medical/bruise_pack/advanced = 4,
+					/obj/item/stack/medical/ointment/advanced = 4,
+					/obj/item/stack/medical/bruise_pack = 4,
+					/obj/item/stack/medical/splint = 4,
+					/obj/item/reagent_containers/glass/beaker = 4,
+					/obj/item/reagent_containers/dropper = 4,
+					/obj/item/healthanalyzer/advanced = 4,
+					/obj/item/reagent_containers/hypospray/safety = 2,
+					/obj/item/sensor_device = 2,
+					/obj/item/pinpointer/crew = 2)
+	contraband = list(/obj/item/reagent_containers/syringe/insulin = 6,
+					/obj/item/reagent_containers/glass/bottle/sulfonal = 1,
+					/obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
