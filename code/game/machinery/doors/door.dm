@@ -36,6 +36,9 @@
 	var/unres_sides = 0
 	//Multi-tile doors
 	var/width = 1
+	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
+	var/soundready = TRUE
+	var/soundcooldown = 1 SECONDS
 
 	/// ID for the window tint button, or another external control
 	var/id
@@ -117,12 +120,12 @@
 					return
 			if(mecha.occupant && allowed(mecha.occupant) || check_access_list(mecha.operation_req_access))
 				if(cmagged)
-					cmag_switch(FALSE)
+					cmag_switch(FALSE, mecha.occupant)
 					return
 				open()
 			else
 				if(cmagged)
-					cmag_switch(TRUE)
+					cmag_switch(TRUE, mecha.occupant)
 					return
 				do_animate("deny")
 		return
@@ -331,7 +334,9 @@
 				if(density)
 					do_animate("deny")
 					to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
-					playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+					if(soundready)
+						playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = TRUE)
+						soundcooldown() //Thanks, mechs
 					return
 				return
 		if(density)
@@ -341,8 +346,15 @@
 	else
 		if(density) //Windoors can still do their deny animation in unpowered environments, this bugs out if density isn't checked for
 			do_animate("deny")
-		if(hasPower())
-			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+		if(hasPower() && soundready)
+			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = TRUE)
+			soundcooldown()
+
+/obj/machinery/door/proc/soundcooldown()
+	if(!soundready)
+		return
+	soundready = FALSE
+	addtimer(VARSET_CALLBACK(src, soundready, TRUE), soundcooldown)
 
 /obj/machinery/door/proc/toggle_polarization()
 	return
