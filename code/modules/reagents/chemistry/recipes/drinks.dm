@@ -955,6 +955,9 @@
 	name = "Bilkshake"
 	id = "bilkshake"
 	result = "bilkshake"
-	required_reagents = list
-	result_amount =
-	mix_sound = 'sound/'
+	required_reagents = list("cream" = 1, "bilk" =2, "ice" = 2)
+	result_amount = 5
+	mix_sound = 'sound/effects/bubbles.ogg'
+
+
+
