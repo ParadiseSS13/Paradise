@@ -323,7 +323,7 @@
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
 /obj/machinery/door/proc/cmag_switch(canopen, dooruser)
-	if(canopen)
+	if(canopen && !locked)
 		if(ishuman(dooruser))
 			var/mob/living/carbon/human/H = dooruser
 			var/obj/item/card/id/idcard = H.get_idcard()
