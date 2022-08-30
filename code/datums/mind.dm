@@ -780,21 +780,21 @@
 				for(var/obj/item/implant/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield chip has been deactivated.</B></FONT></span>")
-				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield chip")
-				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield chip")
+				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield microchip has been deactivated.</B></FONT></span>")
+				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield microchip")
+				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield microchip")
 			if("add")
 				var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
 				L.implant(H)
 
-				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield chip")
-				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield chip")
+				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield microchip")
+				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield microchip")
 
 				to_chat(H, "<span class='warning'><Font size =3><B>You somehow have become the recepient of a mindshield transplant, and it just activated!</B></FONT></span>")
 				if(src in SSticker.mode.revolutionaries)
 					special_role = null
 					SSticker.mode.revolutionaries -= src
-					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield chip remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
+					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield microchip remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
 				if(src in SSticker.mode.head_revolutionaries)
 					special_role = null
 					SSticker.mode.head_revolutionaries -=src
