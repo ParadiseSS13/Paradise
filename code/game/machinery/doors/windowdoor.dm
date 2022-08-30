@@ -92,12 +92,12 @@
 	add_fingerprint(user)
 	if(!requiresID() || allowed(user))
 		if(cmagged)
-			cmag_switch(FALSE)
+			cmag_switch(FALSE, user)
 			return
 		open_and_close()
 	else
 		if(cmagged)
-			cmag_switch(TRUE)
+			cmag_switch(TRUE, user)
 			return
 		do_animate("deny")
 

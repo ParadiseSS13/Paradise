@@ -246,6 +246,15 @@
 	return
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
+	if(cmagged) //Emags are Engineering's problem, cmags are the janitor's problem
+		if(istype(I, /obj/item/reagent_containers/spray/cleaner) || istype(I, /obj/item/soap))
+			user.visible_message("<span class='notice'>[user] starts to clean the ooze off the access panel.</span>", "<span class='notice'>You start to clean the ooze off the access panel.</span>")
+			if(do_after(user, 50, target = src))
+				user.visible_message("<span class='notice'>[user] has cleaned the ooze off [src].</span>", "<span class='notice'>You've cleaned the ooze off [src].</span>")
+				cmagged = FALSE
+				return
+			return
+
 	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
 		try_to_crowbar(user, I)
 		return 1
@@ -298,7 +307,7 @@
 		cmagged = TRUE
 		return TRUE
 
-////Proc for inverting access on cmagged doors. "canopen" should always return the OPPOSITE of the normal result.
+//Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
 /obj/machinery/door/proc/cmag_switch(canopen, dooruser)
 	if(canopen)
 		if(ishuman(dooruser))
@@ -307,8 +316,9 @@
 			if(!idcard) //Humans can't game inverted access by taking their ID off.
 				if(density)
 					do_animate("deny")
-					to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
-					playsound(src.loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE)
+					if(hasPower())
+						to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
+						playsound(src.loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 					return
 				return
 		if(density)
@@ -317,7 +327,8 @@
 			close()
 	else
 		do_animate("deny")
-		playsound(src.loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE)
+		if(hasPower())
+			playsound(src.loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 
 
 
