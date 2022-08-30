@@ -72,6 +72,9 @@
 		var/datum/action/A = X
 		A.Remove(M)
 	START_PROCESSING(SSobj, src)
+	if(destroy_on_removal && !QDELETED(src))
+		qdel(src)
+		return
 	return src
 
 /obj/item/organ/internal/emp_act(severity)
@@ -202,6 +205,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
+	destroy_on_removal = TRUE
+
 	var/organhonked = 0
 	var/suffering_delay = 900
 	var/datum/component/squeak
@@ -217,14 +222,13 @@
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
-	. = ..()
 	M.dna.SetSEState(GLOB.clumsyblock, FALSE)
 	M.dna.SetSEState(GLOB.comicblock, FALSE)
 	singlemutcheck(M, GLOB.clumsyblock, MUTCHK_FORCED)
 	singlemutcheck(M, GLOB.comicblock, MUTCHK_FORCED)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
-	qdel(src)
+	return ..()
 
 /obj/item/organ/internal/honktumor/on_life()
 	if(organhonked < world.time)
@@ -269,6 +273,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "groin"
 	slot = "honk_bladder"
+	destroy_on_removal = TRUE
+
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0)
@@ -276,10 +282,8 @@
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 
 /obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = 0)
-	. = ..()
-
 	QDEL_NULL(squeak)
-	qdel(src)
+	return ..()
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
