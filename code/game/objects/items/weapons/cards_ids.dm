@@ -97,10 +97,9 @@
 	return
 
 /obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
-	var/atom/A = target
 	if(!proximity)
 		return
-	A.cmag_act(user)
+	target.cmag_act(user)
 
 /obj/item/card/id
 	name = "identification card"

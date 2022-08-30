@@ -225,15 +225,11 @@
 				return
 			close()
 		return TRUE
+	if(cmagged)
+		cmag_switch(TRUE, user)
+		return
 	if(density)
-		if(cmagged)
-			cmag_switch(TRUE, user)
-			return
 		do_animate("deny")
-	else
-		if(cmagged)
-			cmag_switch(TRUE, user)
-			return
 
 /obj/machinery/door/allowed(mob/M)
 	if(emergency)
@@ -250,25 +246,28 @@
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
-/obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(cmagged) //Emags are Engineering's problem, cmags are the janitor's problem
-		var/cleaning = FALSE
-		if(istype(I, /obj/item/reagent_containers/spray/cleaner))
-			var/obj/item/reagent_containers/spray/cleaner/C = I
-			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
-				cleaning = TRUE
-			else
-				return
-		if(istype(I, /obj/item/soap))
+/obj/machinery/door/proc/clean_cmag_ooze(obj/item/I, mob/user) //Emags are Engineering's problem, cmags are the janitor's problem
+	var/cleaning = FALSE
+	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
+		var/obj/item/reagent_containers/spray/cleaner/C = I
+		if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
 			cleaning = TRUE
-
-		if(cleaning)
-			user.visible_message("<span class='notice'>[user] starts to clean the ooze off the access panel.</span>", "<span class='notice'>You start to clean the ooze off the access panel.</span>")
-			if(do_after(user, 50, target = src))
-				user.visible_message("<span class='notice'>[user] has cleaned the ooze off [src].</span>", "<span class='notice'>You've cleaned the ooze off [src].</span>")
-				cmagged = FALSE
-				return
+		else
 			return
+	if(istype(I, /obj/item/soap))
+		cleaning = TRUE
+
+	if(!cleaning)
+		return
+	user.visible_message("<span class='notice'>[user] starts to clean the ooze off the access panel.</span>", "<span class='notice'>You start to clean the ooze off the access panel.</span>")
+	if(do_after(user, 50, target = src))
+		user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
+		cmagged = FALSE
+	return
+
+/obj/machinery/door/attackby(obj/item/I, mob/user, params)
+	if(cmagged)
+		clean_cmag_ooze(I, user)
 
 	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
 		try_to_crowbar(user, I)
@@ -315,24 +314,24 @@
 		return TRUE
 
 /obj/machinery/door/cmag_act(mob/user)
-	if(density)
-		flick("door_spark", src)
-		sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
-		cmagged = TRUE
-		return TRUE
+	if(!density)
+		return
+	flick("door_spark", src)
+	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
+	cmagged = TRUE
+	return TRUE
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
-/obj/machinery/door/proc/cmag_switch(canopen, dooruser)
-	if(canopen && !locked)
-		if(ishuman(dooruser))
-			var/mob/living/carbon/human/H = dooruser
+/obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)
+	if(canopen && !locked && hasPower())
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
 			var/obj/item/card/id/idcard = H.get_idcard()
 			if(!idcard) //Humans can't game inverted access by taking their ID off.
 				if(density)
 					do_animate("deny")
-					if(hasPower())
-						to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
-						playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+					to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
+					playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 					return
 				return
 		if(density)
@@ -340,7 +339,8 @@
 		else
 			close()
 	else
-		do_animate("deny")
+		if(density) //Windoors can still do their deny animation in unpowered environments, this bugs out if density isn't checked for
+			do_animate("deny")
 		if(hasPower())
 			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 

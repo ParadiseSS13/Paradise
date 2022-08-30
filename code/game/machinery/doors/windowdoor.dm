@@ -262,14 +262,15 @@
 		return 1
 
 /obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
-	if(!operating && density && !cmagged)
-		cmagged = TRUE
-		operating = TRUE
-		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		sleep(6)
-		operating = FALSE
-		return 1
+	if(operating || !density || cmagged)
+		return
+	cmagged = TRUE
+	operating = TRUE
+	flick("[base_state]spark", src)
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	sleep(6)
+	operating = FALSE
+	return TRUE
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click

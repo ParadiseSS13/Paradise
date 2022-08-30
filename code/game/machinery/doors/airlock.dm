@@ -1381,16 +1381,17 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return 1
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
-	if(!operating && density && arePowerSystemsOn() && !cmagged)
-		operating = TRUE
-		update_icon(AIRLOCK_EMAG, 1)
-		sleep(6)
-		if(QDELETED(src))
-			return
-		operating = FALSE
-		update_icon(AIRLOCK_CLOSED, 1)
-		cmagged = TRUE
-		return 1
+	if(operating || cmagged || !density || !arePowerSystemsOn())
+		return
+	operating = TRUE
+	update_icon(AIRLOCK_EMAG, 1)
+	sleep(6)
+	if(QDELETED(src))
+		return
+	operating = FALSE
+	update_icon(AIRLOCK_CLOSED, 1)
+	cmagged = TRUE
+	return TRUE
 
 /obj/machinery/door/airlock/emp_act(severity)
 	. = ..()
