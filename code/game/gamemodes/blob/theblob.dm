@@ -114,7 +114,7 @@
 		var/turf/T = get_step(src, dirn)
 		var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 		if(!B)
-			expand(T,1,a_color, overmind)//No blob here so try and expand
+			expand(T, 1, a_color, overmind)//No blob here so try and expand
 			return
 		B.adjustcolors(a_color)
 
