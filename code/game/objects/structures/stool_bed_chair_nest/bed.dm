@@ -25,6 +25,16 @@
 	buckle_offset = -6
 	var/comfort = 2 // default comfort
 
+/obj/structure/bed/post_buckle_mob(mob/living/M)
+	. = ..()
+	M.resting = TRUE
+	M.update_canmove()
+
+/obj/sturcture/bed/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	M.resting = FALSE
+	M.update_canmove()
+
 /obj/structure/bed/psych
 	name = "psych bed"
 	desc = "For prime comfort during psychiatric evaluations."
@@ -84,11 +94,13 @@
 		return ..()
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
+	. = ..()
 	density = TRUE
 	icon_state = "up"
 	M.pixel_y = initial(M.pixel_y)
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
+	. = ..()
 	density = FALSE
 	icon_state = "down"
 	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
