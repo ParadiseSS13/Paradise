@@ -257,7 +257,7 @@
 		var/obj/item/stack/tape_roll/TR = I
 		if((!silence_steps) && TR.use(4))
 			silence_steps = TRUE
-			GetComponent(/datum/component/squeak)?.RemoveComponent()
+			GetComponent(/datum/component/jackboots)?.RemoveComponent()
 			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
 	else
 		return ..()
