@@ -48,10 +48,10 @@
 	if(hidden_uplink)
 		hidden_uplink.update_uplink_type(UPLINK_TYPE_NUCLEAR)
 
-/obj/item/implanter/uplink/nuclear
+/obj/item/implanter/nuclear
 	name = "implanter (Nuclear Agent Uplink)"
 
-/obj/item/implanter/nuclear_uplink/Initialize(mapload)
+/obj/item/implanter/nuclear/Initialize(mapload)
 	..()
 	imp = new /obj/item/implant/uplink/nuclear(src)
 
