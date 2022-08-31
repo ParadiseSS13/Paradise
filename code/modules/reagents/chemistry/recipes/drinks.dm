@@ -957,7 +957,6 @@
 	result = "bilkshake"
 	required_reagents = list("cream" = 1, "bilk" = 2, "ice" = 2)
 	result_amount = 5
-	mix_sound = 'sound/effects/bubbles.ogg'
 
 
 
