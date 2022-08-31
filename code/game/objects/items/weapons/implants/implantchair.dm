@@ -126,10 +126,9 @@
 
 
 /obj/machinery/implantchair/proc/add_implants()
-	for(var/i = 0, i< max_implants, i++)
-		var/obj/item/implant/mindshield/I = new /obj/item/implant/mindshield(src)
-		implant_list += I
-	return
+	for(var/i in 1 to max_implants)
+		var/obj/item/implant/mindshield/new_implant = new /obj/item/implant/mindshield(src)
+		implant_list += new_implant
 
 /obj/machinery/implantchair/verb/get_out()
 	set name = "Eject occupant"

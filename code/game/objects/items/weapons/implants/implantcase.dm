@@ -13,6 +13,15 @@
 
 	var/obj/item/implant/imp
 
+/obj/item/implantcase/Initialize(mapload)
+	. = ..()
+	update_state()
+
+/obj/item/implantcase/Destroy()
+	if(imp)
+		QDEL_NULL(imp)
+	return ..()
+
 /obj/item/implantcase/proc/update_state()
 	if(imp)
 		origin_tech = imp.origin_tech
@@ -54,7 +63,3 @@
 				imp = null
 				update_state()
 			I.update_icon(UPDATE_ICON_STATE)
-
-/obj/item/implantcase/Initialize(mapload)
-	..()
-	update_state()
