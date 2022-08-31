@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		var/datum/disease/CD = new candidate
 		if(is_type_in_list(CD, disease_blacklist))
 			continue
-		switch(initial(CD.severity))
+		switch(CD.severity)
 			if(NONTHREAT, MINOR)
 				diseases_minor += candidate
 			if(MEDIUM, HARMFUL)
