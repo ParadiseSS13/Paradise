@@ -266,7 +266,6 @@
 	if(do_after(user, 50, target = src))
 		user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
 		cmagged = FALSE
-	return
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
 	if(cmagged)
@@ -335,9 +334,8 @@
 					do_animate("deny")
 					to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
 					if(soundready)
-						playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = TRUE)
+						playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 						soundcooldown() //Thanks, mechs
-					return
 				return
 		if(density)
 			open()
@@ -347,7 +345,7 @@
 		if(density) //Windoors can still do their deny animation in unpowered environments, this bugs out if density isn't checked for
 			do_animate("deny")
 		if(hasPower() && soundready)
-			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = TRUE)
+			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 			soundcooldown()
 
 /obj/machinery/door/proc/soundcooldown()
