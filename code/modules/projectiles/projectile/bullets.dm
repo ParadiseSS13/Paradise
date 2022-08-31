@@ -282,12 +282,13 @@
 	icon_state = "neurotoxin"
 	damage = 5
 	damage_type = TOX
-	weaken = 10 SECONDS
+	stamina = 40
+	knockdown = 10 SECONDS
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = 0)
 	if(isalien(target))
-		weaken = 0
-		nodamage = 1
+		knockdown = 0
+		nodamage = TRUE
 	. = ..() // Execute the rest of the code.
 
 /obj/item/projectile/bullet/cap
