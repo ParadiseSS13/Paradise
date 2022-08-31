@@ -1,6 +1,6 @@
 /obj/machinery/implantchair
 	name = "mindshield bio-chip implanter"
-	desc = "Used to implant occupants with mindshield chips."
+	desc = "Used to implant occupants with mindshield bio-chips."
 	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
 	density = TRUE
@@ -118,7 +118,7 @@
 		if(!imp)
 			continue
 		if(istype(imp, /obj/item/implant/mindshield))
-			visible_message("<span class='warning'>[src] chips [M].</span>")
+			visible_message("<span class='warning'>[src] bio-chips [M].</span>")
 
 			if(imp.implant(M))
 				implant_list -= imp

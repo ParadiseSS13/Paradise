@@ -1,6 +1,6 @@
 /obj/item/implantcase
 	name = "bio-chip case"
-	desc = "A glass case containing an implant."
+	desc = "A glass case containing a bio-chip."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implantcase-0"
 	item_state = "implantcase"

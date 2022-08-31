@@ -3,12 +3,12 @@
 //////////////////////////////////////////////////////////////////
 
 /datum/surgery/implant_removal
-	name = "Implant Removal"
+	name = "Bio-chip Removal"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,/datum/surgery_step/extract_implant,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest")
 
 /datum/surgery/implant_removal/synth
-	name = "Implant Removal"
+	name = "Bio-chip Removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/extract_implant,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest")
 	requires_organic_bodypart = FALSE
@@ -35,7 +35,7 @@
 	return TRUE
 
 /datum/surgery_step/extract_implant
-	name = "extract implant"
+	name = "extract bio-chip"
 	allowed_tools = list(/obj/item/hemostat = 100, /obj/item/crowbar = 65)
 	time = 64
 	var/obj/item/implant/I = null
