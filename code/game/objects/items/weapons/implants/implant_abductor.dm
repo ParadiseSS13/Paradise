@@ -61,5 +61,5 @@
 	desc = "A glass case containing an abductor implant."
 
 /obj/item/implantcase/abductor/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/abductor(src)
-	..()

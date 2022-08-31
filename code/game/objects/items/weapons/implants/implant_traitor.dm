@@ -51,13 +51,13 @@
 	name = "implanter (Mindslave)"
 
 /obj/item/implanter/traitor/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/traitor(src)
-	..()
 
 /obj/item/implantcase/traitor
 	name = "implant case - 'Mindslave'"
 	desc = "A glass case containing a mindslave implant."
 
 /obj/item/implantcase/traitor/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/traitor(src)
-	..()

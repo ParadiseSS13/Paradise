@@ -8,7 +8,7 @@
 	var/warn_cooldown = 0
 
 /obj/item/implant/tracking/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.tracked_implants += src
 
 /obj/item/implant/tracking/Destroy()
@@ -19,13 +19,13 @@
 	name = "implanter (tracking)"
 
 /obj/item/implanter/tracking/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/tracking(src)
-	..()
 
 /obj/item/implantcase/tracking
 	name = "implant case - 'Tracking'"
 	desc = "A glass case containing a tracking implant."
 
 /obj/item/implantcase/tracking/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/tracking(src)
-	..()

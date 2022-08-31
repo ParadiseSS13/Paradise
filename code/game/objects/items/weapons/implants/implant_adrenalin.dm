@@ -27,13 +27,13 @@
 	name = "implanter (adrenalin)"
 
 /obj/item/implanter/adrenalin/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/adrenalin(src)
-	..()
 
 /obj/item/implantcase/adrenaline
 	name = "implant case - 'Adrenaline'"
 	desc = "A glass case containing an adrenaline implant."
 
 /obj/item/implantcase/adrenaline/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/adrenalin(src)
-	..()

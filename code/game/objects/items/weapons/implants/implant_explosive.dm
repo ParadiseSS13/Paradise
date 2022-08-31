@@ -107,28 +107,28 @@
 	name = "implanter (explosive)"
 
 /obj/item/implanter/explosive/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/explosive(src)
-	..()
 
 /obj/item/implantcase/explosive
 	name = "implant case - 'Micro Explosive'"
 	desc = "A glass case containing a micro explosive implant."
 
 /obj/item/implantcase/explosive/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/explosive(src)
-	..()
 
 /obj/item/implanter/explosive_macro
 	name = "implanter (macro-explosive)"
 
 /obj/item/implanter/explosive_macro/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/explosive/macro(src)
-	..()
 
 /obj/item/implantcase/explosive_macro
 	name = "implant case - 'Macro Explosive'"
 	desc = "A glass case containing a macro explosive implant."
 
 /obj/item/implantcase/explosive_macro/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/explosive/macro(src)
-	..()

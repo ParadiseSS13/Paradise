@@ -57,13 +57,13 @@
 	name = "implanter (Death Alarm)"
 
 /obj/item/implanter/death_alarm/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/death_alarm(src)
-	..()
 
 /obj/item/implantcase/death_alarm
 	name = "Implant Case - 'Death Alarm'"
 	desc = "A case containing a death alarm implant."
 
 /obj/item/implantcase/death_alarm/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/death_alarm(src)
-	..()

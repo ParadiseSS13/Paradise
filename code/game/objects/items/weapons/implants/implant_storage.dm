@@ -19,7 +19,7 @@
 	var/obj/item/storage/hidden/implant/storage
 
 /obj/item/implant/storage/Initialize(mapload)
-	..()
+	. = ..()
 	storage = new /obj/item/storage/hidden/implant(src)
 
 /obj/item/implant/storage/emp_act(severity)
@@ -63,13 +63,13 @@
 	name = "implanter (storage)"
 
 /obj/item/implanter/storage/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/storage(src)
-	..()
 
 /obj/item/implantcase/storage
 	name = "implant case - 'Storage'"
 	desc = "A glass case containing a storage implant."
 
 /obj/item/implantcase/storage/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/storage(src)
-	..()

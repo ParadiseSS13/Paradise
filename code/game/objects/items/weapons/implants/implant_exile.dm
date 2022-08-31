@@ -12,16 +12,16 @@
 	name = "implanter (exile)"
 
 /obj/item/implanter/exile/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/exile(src)
-	..()
 
 /obj/item/implantcase/exile
 	name = "implant case - 'Exile'"
 	desc = "A glass case containing an exile implant."
 
 /obj/item/implantcase/exile/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/exile(src)
-	..()
 
 /obj/structure/closet/secure_closet/exile
 	name = "exile implants"
