@@ -1523,7 +1523,6 @@
 	name = "Bilkshake"
 	id = "bilkshake"
 	description = "An upsetting treat that combines beer and milk."
-	reagent_state = LIQUID
 	color = "#7B5835" // rgb: (123, 88, 53)
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	alcohol_perc = 0.1
