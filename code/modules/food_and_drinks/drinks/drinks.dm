@@ -270,6 +270,44 @@
 	materials = list(MAT_METAL=1500)
 	amount_per_transfer_from_this = 10
 	volume = 100
+	var/shaking = FALSE
+
+/obj/item/reagent_containers/food/drinks/shaker/Initialize(mapload)
+	. = ..()
+	reagents.set_reacting(FALSE)
+
+/obj/item/reagent_containers/food/drinks/shaker/attack_self(mob/user)
+	if(!reagents.total_volume)
+		to_chat(user, "<span class='warning'>You won't shake an empty shaker now, will you?</span>")
+		return
+
+	if(shaking)
+		return
+
+	shaking = TRUE
+	var/adjective = pick("furiously", "passionately", "with vigor", "with determination", "like a devil", "with care and love", "like there is no tomorrow")
+	user.visible_message("<span class='notice'>\The [user] shakes \the [src] [adjective]!</span>", "<span class='notice'>You shake \the [src] [adjective]!</span>")
+	icon_state = "shaker-shake"
+	if(iscarbon(loc))
+		var/mob/living/carbon/M = loc
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
+	playsound(user, 'sound/items/boston_shaker.ogg', 80, 1)
+	if(do_after(user, 3 SECONDS, target = src))
+		reagents.set_reacting(TRUE)
+		reagents.handle_reactions()
+	icon_state = "shaker"
+	if(iscarbon(loc))
+		var/mob/living/carbon/M = loc
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
+
+	shaking = FALSE
+	reagents.set_reacting(FALSE)
+
+/obj/item/reagent_containers/food/drinks/shaker/dropped(mob/user)
+	. = ..()
+	icon_state = "shaker"
 
 /obj/item/reagent_containers/food/drinks/flask
 	name = "flask"

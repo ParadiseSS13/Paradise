@@ -179,32 +179,32 @@
 		M.update_inv_r_hand()
 
 /obj/item/reagent_containers/syringe/antiviral
-	name = "Syringe (spaceacillin)"
+	name = "syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
 	list_reagents = list("spaceacillin" = 15)
 
 /obj/item/reagent_containers/syringe/charcoal
-	name = "Syringe (charcoal)"
+	name = "syringe (charcoal)"
 	desc = "Contains charcoal - used to treat toxins and damage from toxins."
 	list_reagents = list("charcoal" = 15)
 
 /obj/item/reagent_containers/syringe/epinephrine
-	name = "Syringe (Epinephrine)"
+	name = "syringe (Epinephrine)"
 	desc = "Contains epinephrine - used to stabilize patients."
 	list_reagents = list("epinephrine" = 15)
 
 /obj/item/reagent_containers/syringe/insulin
-	name = "Syringe (insulin)"
+	name = "syringe (insulin)"
 	desc = "Contains insulin - used to treat diabetes."
 	list_reagents = list("insulin" = 15)
 
 /obj/item/reagent_containers/syringe/calomel
-	name = "Syringe (calomel)"
+	name = "syringe (calomel)"
 	desc = "Contains calomel, which be used to purge impurities, but is highly toxic itself."
 	list_reagents = list("calomel" = 15)
 
 /obj/item/reagent_containers/syringe/heparin
-	name = "Syringe (heparin)"
+	name = "syringe (heparin)"
 	desc = "Contains heparin, a blood anticoagulant."
 	list_reagents = list("heparin" = 15)
 

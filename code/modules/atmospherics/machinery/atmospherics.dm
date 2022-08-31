@@ -19,19 +19,29 @@ Pipelines + Other Objects -> Pipe network
 	power_channel = ENVIRON
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
-	var/nodealert = FALSE
+
+	/// Can this be unwrenched?
 	var/can_unwrench = FALSE
 	/// If the machine is currently operating or not.
 	var/on = FALSE
 	/// The amount of pressure the machine wants to operate at.
 	var/target_pressure = 0
+
+
+	// Vars below this point are all pipe related
+	// I know not all subtypes are pipes, but this helps
+
+	/// Type of pipes this machine can connect to
 	var/list/connect_types = list(CONNECT_TYPE_NORMAL)
-	var/connected_to = 1 //same as above, currently not used for anything
-	var/icon_connect_type = "" //"-supply" or "-scrubbers"
-
+	/// What this machine is connected to
+	var/connected_to = CONNECT_TYPE_NORMAL
+	/// Icon suffix for connection, can be "-supply" or "-scrubbers"
+	var/icon_connect_type = ""
+	/// Directions to initialize in to grab pipes
 	var/initialize_directions = 0
-
+	/// Pipe colour, not used for all subtypes
 	var/pipe_color
+	/// Pipe image, not used for all subtypes
 	var/image/pipe_image
 
 
