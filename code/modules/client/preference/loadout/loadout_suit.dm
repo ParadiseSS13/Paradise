@@ -71,7 +71,7 @@
 /datum/gear/suit/coat/job/miner
 	display_name = "Winter coat, mining"
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
-	allowed_roles = list("Shaft Miner", "Quartermaster")
+	allowed_roles = list("Quartermaster", "Shaft Miner")
 
 //LABCOATS
 /datum/gear/suit/labcoat_emt
@@ -103,12 +103,12 @@
 /datum/gear/suit/cargo_bomber_jacket
 	display_name = "Cargo bomber jacket"
 	path = /obj/item/clothing/suit/jacket/cargobomber
-	allowed_roles = list("Cargo Technician", "Quartermaster")
+	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/suit/mining_bomber_jacket
 	display_name = "Mining bomber jacket"
 	path = /obj/item/clothing/suit/jacket/miningbomber
-	allowed_roles = list("Shaft Miner", "Quartermaster")
+	allowed_roles = list("Quartermaster", "Shaft Miner")
 
 /datum/gear/suit/ol_miljacket
 	display_name = "Military jacket, olive"
