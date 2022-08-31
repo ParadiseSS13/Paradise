@@ -1,0 +1,21 @@
+# When the .py is changed
+python:
+  - './*.py'
+  - '**/*.py'
+
+# Javascript changes
+javascript:
+  - '**/*.js'
+
+# Any .dmi changes
+DMI:
+  - '**/*.dmi'
+
+# Changes to a .dmm
+MAP:
+  - '**/*.dmm'
+
+# Encompasses both the tgui and the tgui-next folder
+TGUI:
+  - 'tgui/**'
+  - 'tgui-next/**'

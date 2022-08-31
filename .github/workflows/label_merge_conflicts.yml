@@ -2,7 +2,7 @@ name: 'Merge Conflict Detection'
 on:
   push:
     branches:
-      - master
+      - master220
 jobs:
   triage:
     runs-on: ubuntu-latest
@@ -11,3 +11,4 @@ jobs:
         with:
           CONFLICT_LABEL_NAME: 'Merge Conflict'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WAIT_MS: 10000
