@@ -1,6 +1,6 @@
 /obj/item/implanter
-	name = "microchip implanter"
-	desc = "A sterile automatic microchip injector."
+	name = "bio-chip implanter"
+	desc = "A sterile automatic bio-chip injector."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implanter0"
 	item_state = "syringe_0"
@@ -27,16 +27,16 @@
 		return
 	if(user && imp)
 		if(M != user)
-			M.visible_message("<span class='warning'>[user] is attempting to microchip [M].</span>")
+			M.visible_message("<span class='warning'>[user] is attempting to bio-chip [M].</span>")
 
 		var/turf/T = get_turf(M)
 		if(T && (M == user || do_after(user, 50 * toolspeed, target = M)))
 			if(user && M && (get_turf(M) == T) && src && imp)
 				if(imp.implant(M, user))
 					if(M == user)
-						to_chat(user, "<span class='notice'>You microchip yourself.</span>")
+						to_chat(user, "<span class='notice'>You bio-chip yourself.</span>")
 					else
-						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] microchips you.</span>")
+						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] bio-chips you.</span>")
 					imp = null
 					update_icon(UPDATE_ICON_STATE)
 
@@ -52,7 +52,7 @@
 
 
 /obj/item/implanter/adrenalin
-	name = "microchip implanter (adrenalin)"
+	name = "bio-chip implanter (adrenalin)"
 
 /obj/item/implanter/adrenalin/New()
 	imp = new /obj/item/implant/adrenalin(src)
@@ -60,21 +60,21 @@
 
 
 /obj/item/implanter/emp
-	name = "microchip implanter (EMP)"
+	name = "bio-chip implanter (EMP)"
 
 /obj/item/implanter/emp/New()
 	imp = new /obj/item/implant/emp(src)
 	..()
 
 /obj/item/implanter/traitor
-	name = "microchip implanter (Mindslave)"
+	name = "bio-chip implanter (Mindslave)"
 
 /obj/item/implanter/traitor/New()
 	imp = new /obj/item/implant/traitor(src)
 	..()
 
 /obj/item/implanter/death_alarm
-	name = "microchip implanter (Death Alarm)"
+	name = "bio-chip implanter (Death Alarm)"
 
 /obj/item/implanter/death_alarm/New()
 	imp = new /obj/item/implant/death_alarm(src)

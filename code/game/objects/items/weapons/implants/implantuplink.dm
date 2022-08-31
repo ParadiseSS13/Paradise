@@ -1,5 +1,5 @@
 /obj/item/implant/uplink
-	name = "uplink microchip"
+	name = "uplink bio-chip"
 	desc = "Summon things."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "radio"
@@ -43,14 +43,14 @@
 
 
 /obj/item/implanter/uplink
-	name = "microchip implanter (uplink)"
+	name = "bio-chip implanter (uplink)"
 
 /obj/item/implanter/uplink/New()
 	imp = new /obj/item/implant/uplink(src)
 	..()
 
 /obj/item/implanter/nuclear_uplink
-	name = "microchip implanter (nuclear uplink)"
+	name = "bio-chip implanter (nuclear uplink)"
 
 /obj/item/implanter/nuclear_uplink/New()
 	imp = new /obj/item/implant/uplink/nuclear(src)

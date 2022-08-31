@@ -1,5 +1,5 @@
 /obj/item/implant/explosive
-	name = "microbomb microchip"
+	name = "microbomb bio-chip"
 	desc = "And boom goes the weasel."
 	icon_state = "explosive"
 	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
@@ -9,15 +9,15 @@
 	var/medium = 0.8
 	var/heavy = 0.4
 	var/delay = 7
-	trigger_causes = MICROCHIP_TRIGGER_DEATH_ONCE // Not surviving that
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE // Not surviving that
 
 /obj/item/implant/explosive/get_data()
-	var/dat = {"<b>Microchip Specifications:</b><BR>
-				<b>Name:</b> Robust Corp RX-78 Employee Management Microchip<BR>
+	var/dat = {"<b>Bio-chip Specifications:</b><BR>
+				<b>Name:</b> Robust Corp RX-78 Employee Management Bio-chip<BR>
 				<b>Life:</b> Activates upon death.<BR>
 				<b>Important Notes:</b> Explodes<BR>
 				<HR>
-				<b>Microchip Details:</b><BR>
+				<b>Bio-chip Details:</b><BR>
 				<b>Function:</b> Contains a compact, electrically detonated explosive that detonates upon receiving a specially encoded signal or upon host death.<BR>
 				<b>Special Features:</b> Explodes<BR>
 				"}
@@ -29,7 +29,7 @@
 /obj/item/implant/explosive/activate(cause)
 	if(!cause || !imp_in)
 		return FALSE
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb microchip? This will cause you to explode!", "Microbomb Microchip Confirmation", "Yes", "No") != "Yes")
+	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb bio-chip? This will cause you to explode!", "Microbomb Bio-chip Confirmation", "Yes", "No") != "Yes")
 		return FALSE
 	if(detonating)
 		return FALSE
@@ -37,7 +37,7 @@
 	medium = round(medium)
 	weak = round(weak)
 	detonating = TRUE
-	to_chat(imp_in, "<span class='danger'>You activate your microbomb microchip.</span>")
+	to_chat(imp_in, "<span class='danger'>You activate your microbomb bio-chip.</span>")
 //If the delay is short, just blow up already jeez
 	if(delay <= 7)
 		explosion(src, heavy, medium, weak, weak, flame_range = weak)
@@ -78,7 +78,7 @@
 	qdel(src)
 
 /obj/item/implant/explosive/macro
-	name = "macrobomb microchip"
+	name = "macrobomb bio-chip"
 	desc = "And boom goes the weasel. And everything else nearby."
 	icon_state = "explosive"
 	origin_tech = "materials=3;combat=5;biotech=4;syndicate=5"
@@ -89,9 +89,9 @@
 
 /obj/item/implant/explosive/macro/activate(cause)
 	if(!cause || !imp_in)	return 0
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb microchip? This will cause you to explode and gib!", "Macrobomb Microchip Confirmation", "Yes", "No") != "Yes")
+	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb bio-chip? This will cause you to explode and gib!", "Macrobomb Bio-chip Confirmation", "Yes", "No") != "Yes")
 		return 0
-	to_chat(imp_in, "<span class='notice'>You activate your macrobomb microchip.</span>")
+	to_chat(imp_in, "<span class='notice'>You activate your macrobomb bio-chip.</span>")
 	timed_explosion()
 
 /obj/item/implant/explosive/macro/implant(mob/source)
@@ -110,7 +110,7 @@
 
 
 /obj/item/implanter/explosive
-	name = "microchip implanter (explosive)"
+	name = "bio-chip implanter (explosive)"
 
 /obj/item/implanter/explosive/New()
 	imp = new /obj/item/implant/explosive(src)
@@ -118,8 +118,8 @@
 
 
 /obj/item/implantcase/explosive
-	name = "microchip case - 'Explosive'"
-	desc = "A glass case containing an explosive microchip."
+	name = "bio-chip case - 'Explosive'"
+	desc = "A glass case containing an explosive bio-chip."
 
 /obj/item/implantcase/explosive/New()
 	imp = new /obj/item/implant/explosive(src)
@@ -127,7 +127,7 @@
 
 
 /obj/item/implanter/explosive_macro
-	name = "microchip implanter (macro-explosive)"
+	name = "bio-chip implanter (macro-explosive)"
 
 /obj/item/implanter/explosive_macro/New()
 	imp = new /obj/item/implant/explosive/macro(src)
@@ -137,20 +137,20 @@
 // Dust implant, for CC officers. Prevents gear theft if they die.
 
 /obj/item/implant/dust
-	name = "duster microchip"
+	name = "duster bio-chip"
 	desc = "An alarm which monitors host vital signs, transmitting a radio message and dusting the corpse on death."
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	actions_types = list(/datum/action/item_action/hands_free/activate/always)
-	trigger_causes = MICROCHIP_TRIGGER_DEATH_ONCE | MICROCHIP_TRIGGER_NOT_WHEN_GIBBED
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE | BIOCHIP_TRIGGER_NOT_WHEN_GIBBED
 
 /obj/item/implant/dust/get_data()
-	var/dat = {"<b>Microchip Specifications:</b><BR>
-				<b>Name:</b> Ultraviolet Corp XX-13 Security Microchip<BR>
+	var/dat = {"<b>Bio-chip Specifications:</b><BR>
+				<b>Name:</b> Ultraviolet Corp XX-13 Security Bio-chip<BR>
 				<b>Life:</b> Activates upon death.<BR>
 				<b>Important Notes:</b> Vaporizes organic matter<BR>
 				<HR>
-				<b>Microchip Details:</b><BR>
+				<b>Bio-chip Details:</b><BR>
 				<b>Function:</b> Contains a compact, electrically activated heat source that turns its host to ash upon activation, or their death. <BR>
 				<b>Special Features:</b> Vaporizes<BR>
 				"}
@@ -162,9 +162,9 @@
 /obj/item/implant/dust/activate(cause)
 	if(!cause || !imp_in || cause == "emp")
 		return 0
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your dusting microchip? This will turn you to ash!", "Dusting Confirmation", "Yes", "No") != "Yes")
+	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your dusting bio-chip? This will turn you to ash!", "Dusting Confirmation", "Yes", "No") != "Yes")
 		return 0
-	to_chat(imp_in, "<span class='notice'>Your dusting microchip activates!</span>")
+	to_chat(imp_in, "<span class='notice'>Your dusting bio-chip activates!</span>")
 	imp_in.visible_message("<span class = 'warning'>[imp_in] burns up in a flash!</span>")
 	for(var/obj/item/I in imp_in.contents)
 		if(I == src)
@@ -177,7 +177,7 @@
 	return
 
 /obj/item/implanter/dust
-	name = "microchip implanter (Dust-on-death)"
+	name = "bio-chip implanter (Dust-on-death)"
 
 /obj/item/implanter/dust/New()
 	imp = new /obj/item/implant/dust(src)

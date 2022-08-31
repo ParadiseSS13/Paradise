@@ -1,17 +1,17 @@
 /obj/item/implant/krav_maga
-	name = "krav maga microchip"
+	name = "krav maga bio-chip"
 	desc = "Teaches you the arts of Krav Maga in 5 short instructional videos beamed directly into your eyeballs."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
-	activated = MICROCHIP_ACTIVATED_ACTIVE
+	activated = BIOCHIP_ACTIVATED_ACTIVE
 	origin_tech = "materials=2;biotech=4;combat=5;syndicate=4"
 	var/datum/martial_art/krav_maga/style = new
 
 /obj/item/implant/krav_maga/get_data()
-	var/dat = {"<b>Microchip Specifications:</b><BR>
-				<b>Name:</b> Krav Maga Microchip<BR>
+	var/dat = {"<b>Bio-chip Specifications:</b><BR>
+				<b>Name:</b> Krav Maga Bio-chip<BR>
 				<b>Life:</b> 4 hours after death of host<BR>
-				<b>Microchip Details:</b> <BR>
+				<b>Bio-chip Details:</b> <BR>
 				<b>Function:</b> Teaches even the clumsiest host the arts of Krav Maga."}
 	return dat
 
@@ -25,15 +25,15 @@
 		style.teach(H, TRUE)
 
 /obj/item/implanter/krav_maga
-	name = "microchip implanter (krav maga)"
+	name = "bio-chip implanter (krav maga)"
 
 /obj/item/implanter/krav_maga/New()
 	imp = new /obj/item/implant/krav_maga(src)
 	..()
 
 /obj/item/implantcase/krav_maga
-	name = "microchip case - 'Krav Maga'"
-	desc = "A glass case containing an microchip that can teach the user the art of Krav Maga."
+	name = "bio-chip case - 'Krav Maga'"
+	desc = "A glass case containing an bio-chip that can teach the user the art of Krav Maga."
 
 /obj/item/implantcase/krav_maga/New()
 	imp = new /obj/item/implant/krav_maga(src)

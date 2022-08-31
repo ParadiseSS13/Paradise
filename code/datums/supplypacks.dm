@@ -446,28 +446,28 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
-	name = "Mindshield Microchips Crate"
+	name = "Mindshield Bio-chips Crate"
 	contains = list (/obj/item/storage/lockbox/mindshield)
 	cost = 40
-	containername = "mindshield microchip crate"
+	containername = "mindshield bio-chip crate"
 
 /datum/supply_packs/security/armory/trackingimp
-	name = "Tracking Microchips Crate"
+	name = "Tracking Bio-chips Crate"
 	contains = list (/obj/item/storage/box/trackimp)
 	cost = 20
-	containername = "tracking microchip crate"
+	containername = "tracking bio-chip crate"
 
 /datum/supply_packs/security/armory/chemimp
-	name = "Chemical Microchips Crate"
+	name = "Chemical Bio-chips Crate"
 	contains = list (/obj/item/storage/box/chemimp)
 	cost = 20
-	containername = "chemical microchip crate"
+	containername = "chemical bio-chip crate"
 
 /datum/supply_packs/security/armory/exileimp
-	name = "Exile Microchips Crate"
+	name = "Exile Bio-chips Crate"
 	contains = list (/obj/item/storage/box/exileimp)
 	cost = 30
-	containername = "exile microchip crate"
+	containername = "exile bio-chip crate"
 
 /datum/supply_packs/security/securitybarriers
 	name = "Security Barriers Crate"

@@ -1,7 +1,7 @@
 /obj/item/implant/tracking
-	name = "tracking microchip"
+	name = "tracking bio-chip"
 	desc = "Track with this."
-	activated = MICROCHIP_ACTIVATED_PASSIVE
+	activated = BIOCHIP_ACTIVATED_PASSIVE
 	origin_tech = "materials=2;magnets=2;programming=2;biotech=2"
 	var/id = 1
 	var/warn_cooldown = 0
@@ -16,18 +16,18 @@
 	return ..()
 
 /obj/item/implant/tracking/get_data()
-	var/dat = {"<b>Microchip Specifications:</b><BR>
+	var/dat = {"<b>Bio-chip Specifications:</b><BR>
 				<b>Name:</b> Tracking Beacon<BR>
 				<b>Life:</b> 10 minutes after death of host<BR>
 				<b>Important Notes:</b> None<BR>
 				<HR>
-				<b>Microchip Details:</b> <BR>
+				<b>Bio-chip Details:</b> <BR>
 				<b>Function:</b> Continuously transmits low power signal. Useful for tracking.<BR>
 				<b>Special Features:</b><BR>
-				<i>Neuro-Safe</i>- Specialized shell absorbs excess voltages self-destructing the microchip if
-				a malfunction occurs thereby securing safety of subject. The microchip will melt and
+				<i>Neuro-Safe</i>- Specialized shell absorbs excess voltages self-destructing the bio-chip if
+				a malfunction occurs thereby securing safety of subject. The bio-chip will melt and
 				disintegrate into bio-safe elements.<BR>
 				<b>Integrity:</b> Gradient creates slight risk of being overcharged and frying the
 				circuitry. As a result neurotoxins can cause massive damage.<HR>
-				Microchip Specifics:<BR>"}
+				Bio-chip Specifics:<BR>"}
 	return dat

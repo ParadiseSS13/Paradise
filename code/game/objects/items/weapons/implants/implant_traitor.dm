@@ -1,5 +1,5 @@
 /obj/item/implant/traitor
-	name = "Mindslave Microchip"
+	name = "Mindslave Bio-chip"
 	desc = "Divide and Conquer"
 	origin_tech = "programming=5;biotech=5;syndicate=8"
 	activated = FALSE
@@ -7,15 +7,15 @@
 	var/mindslave_UID
 
 /obj/item/implant/traitor/get_data()
-	var/dat = {"<b>Microchip Specifications:</b><BR>
-				<b>Name:</b> Mind-Slave Microchip<BR>
+	var/dat = {"<b>Bio-chip Specifications:</b><BR>
+				<b>Name:</b> Mind-Slave Bio-chip<BR>
 				<b>Life:</b> ??? <BR>
-				<b>Important Notes:</b> Any humanoid injected with this microchip will become loyal to the injector, unless of course the host is already loyal to someone else.<BR>
+				<b>Important Notes:</b> Any humanoid injected with this bio-chip will become loyal to the injector, unless of course the host is already loyal to someone else.<BR>
 				<HR>
-				<b>Microchip Details:</b><BR>
+				<b>Bio-chip Details:</b><BR>
 				<b>Function:</b> Contains a small pod of nanobots that manipulate the host's mental functions.<BR>
 				<b>Special Features:</b> Diplomacy was never so easy.<BR>
-				<b>Integrity:</b> Microchip will last so long as the nanobots are inside the bloodstream."}
+				<b>Integrity:</b> Bio-chip will last so long as the nanobots are inside the bloodstream."}
 	return dat
 
 /obj/item/implant/traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user)
@@ -31,7 +31,7 @@
 	// Fails if they're already a mindslave of someone, or if they're mindshielded.
 	if(ismindslave(mindslave_target) || ismindshielded(mindslave_target))
 		mindslave_target.visible_message(
-			"<span class='warning'>[mindslave_target] seems to resist the microchip!</span>", \
+			"<span class='warning'>[mindslave_target] seems to resist the bio-chip!</span>", \
 			"<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
 		removed(mindslave_target)
 		qdel(src)

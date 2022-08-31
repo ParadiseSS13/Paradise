@@ -1,21 +1,21 @@
 /obj/item/implant/death_alarm
-	name = "death alarm microchip"
+	name = "death alarm bio-chip"
 	desc = "An alarm which monitors host vital signs and transmits a radio message upon death."
 	var/mobname = "Will Robinson"
-	activated = MICROCHIP_ACTIVATED_PASSIVE
+	activated = BIOCHIP_ACTIVATED_PASSIVE
 	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_mothership, /area/shuttle/syndicate_elite))
-	trigger_causes = MICROCHIP_TRIGGER_DEATH_ANY
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 
 /obj/item/implant/death_alarm/get_data()
-	var/dat = {"<b>Microchip Specifications:</b><BR>
+	var/dat = {"<b>Bio-chip Specifications:</b><BR>
 				<b>Name:</b> Nanotrasen \"Profit Margin\" Class Employee Lifesign Sensor<BR>
 				<b>Life:</b> Activates upon death.<BR>
 				<b>Important Notes:</b> Alerts crew to crewmember death.<BR>
 				<HR>
-				<b>Microchip Details:</b><BR>
+				<b>Bio-chip Details:</b><BR>
 				<b>Function:</b> Contains a compact radio signaler that triggers when the host's lifesigns cease.<BR>
 				<b>Special Features:</b> Alerts crew to crewmember death.<BR>
-				<b>Integrity:</b> Microchip will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
+				<b>Integrity:</b> Bio-chip will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
 	return dat
 
 /obj/item/implant/death_alarm/implant(mob/target)

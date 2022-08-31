@@ -1,5 +1,5 @@
 /obj/item/implantpad
-	name = "microchip pad"
+	name = "bio-chip pad"
 	desc = "Used to modify implants."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implantpad-0"
@@ -24,7 +24,7 @@
 	if(!user || !C)
 		return
 	if(case)
-		to_chat(user, "<span class='warning'>There's already a microchip in the pad!</span>")
+		to_chat(user, "<span class='warning'>There's already a bio-chip in the pad!</span>")
 		return
 	user.unEquip(C)
 	C.forceMove(src)
@@ -33,7 +33,7 @@
 
 /obj/item/implantpad/proc/dropcase(mob/user as mob)
 	if(!case)
-		to_chat(user, "<span class='warning'>There's no microchip in the pad!</span>")
+		to_chat(user, "<span class='warning'>There's no bio-chip in the pad!</span>")
 		return
 	if(user)
 		if(user.put_in_hands(case))
@@ -49,7 +49,7 @@
 
 /obj/item/implantpad/verb/remove_implant()
 	set category = "Object"
-	set name = "Remove Microchip"
+	set name = "Remove Bio-chip"
 	set src in usr
 
 	if(usr.stat || usr.restrained())
@@ -66,7 +66,7 @@
 /obj/item/implantpad/attack_self(mob/user as mob)
 	add_fingerprint(user)
 	user.set_machine(src)
-	var/dat = "<B>Microchip Mini-Computer:</B><HR>"
+	var/dat = "<B>Bio-chip Mini-Computer:</B><HR>"
 	if(case)
 		if(case.imp)
 			if(istype(case.imp, /obj/item/implant))
@@ -80,9 +80,9 @@
 					<A href='byond://?src=[UID()];tracking_id=1'>+</A>
 					<A href='byond://?src=[UID()];tracking_id=10'>+</A><BR>"}
 		else
-			dat += "The microchip casing is empty."
+			dat += "The bio-chip casing is empty."
 	else
-		dat += "Please insert a microchip casing!"
+		dat += "Please insert a bio-chip casing!"
 	user << browse(dat, "window=implantpad")
 	onclose(user, "implantpad")
 	return
