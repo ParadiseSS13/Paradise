@@ -26,6 +26,11 @@
 	var/drop_y = 1
 	var/drop_z = 1
 
+	footstep = null
+	barefootstep = null
+	clawfootstep = null
+	heavyfootstep = null
+
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()
 	START_PROCESSING(SSprocessing, src)

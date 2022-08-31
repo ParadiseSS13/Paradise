@@ -4,26 +4,32 @@
 	ambientsounds = HIGHSEC_SOUNDS
 	report_alerts = FALSE
 	hide_attacklogs = TRUE
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/syndicate/unpowered/syndicate_space_base/engineering
 	name = "Syndicate Space Engineering"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage
 
 /area/syndicate/unpowered/syndicate_space_base/medbay
 	name = "Syndicate Space Medbay"
 	ambientsounds = MEDICAL_SOUNDS
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1
 	name = "Syndicate Space Surgery1"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2
 	name = "Syndicate Space Surgery1"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/syndicate/unpowered/syndicate_space_base/arrivals
 	name = "Syndicate Space Arrivals"
 
 /area/syndicate/unpowered/syndicate_space_base/bar
 	name = "Syndicate Space Bar"
+	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/syndicate/unpowered/syndicate_space_base/bar/storage
 
@@ -42,6 +48,7 @@
 
 /area/syndicate/unpowered/syndicate_space_base/cargo
 	name = "Syndicate Space Cargo Bay"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals
@@ -74,14 +81,16 @@
 
 /area/syndicate/unpowered/syndicate_space_base/morgue
 	name = "Syndicate Space Morgue"
-	ambientsounds = MEDICAL_SOUNDS
+	ambientsounds = SPOOKY_SOUNDS
 	is_haunted = TRUE
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/syndicate/unpowered/syndicate_space_base/botany
 	name = "Syndicate Space Botany"
 
 /area/syndicate/unpowered/syndicate_space_base/janitorial
 	name = "Syndicate Space Janitorial"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/syndicate/unpowered/syndicate_space_base/teleporter
 	name = "Syndicate Space Teleporter"
@@ -89,9 +98,11 @@
 
 /area/syndicate/unpowered/syndicate_space_base/toilets
 	name = "Syndicate Space Toilets"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/syndicate/unpowered/syndicate_space_base/dormitories
 	name = "Syndicate Space Dormitories"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2
@@ -115,6 +126,7 @@
 	name = "Syndicate Space Maintenance"
 	ambientsounds = MAINTENANCE_SOUNDS
 	valid_territory = FALSE
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central
@@ -124,6 +136,7 @@
 /area/syndicate/unpowered/syndicate_space_base/turrets
 	name = "Syndicate Space Turrets"
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	sound_environment = SOUND_AREA_SPACE
 
 /area/syndicate/unpowered/syndicate_space_base/vault
 	name = "Syndicate Space Vault"
@@ -144,3 +157,4 @@
 	name = "Syndicate Space Torture_room"
 	ambientsounds = SPOOKY_SOUNDS
 	is_haunted = TRUE
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED

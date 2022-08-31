@@ -3,6 +3,7 @@
 /area/mine
 	icon_state = "mining"
 	has_gravity = TRUE
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/mine/explored
 	name = "Mine"
@@ -16,7 +17,6 @@
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	flags = NONE
-	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/mine/dangerous/explored/golem
 	name = "Small Asteroid"
@@ -50,6 +50,7 @@
 /area/mine/living_quarters
 	name = "Mining Station Port Wing"
 	icon_state = "mining_living"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/mine/eva
 	name = "Mining Station EVA"
@@ -57,6 +58,7 @@
 
 /area/mine/maintenance
 	name = "Mining Station Communications"
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/mine/cafeteria
 	name = "Mining station Cafeteria"

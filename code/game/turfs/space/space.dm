@@ -17,6 +17,11 @@
 	var/destination_x
 	var/destination_y
 	plane = PLANE_SPACE
+	footstep = null
+	barefootstep = null
+	clawfootstep = null
+	heavyfootstep = null
+
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)

@@ -36,10 +36,10 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
-	var/footstep = FOOTSTEP_FLOOR
-	var/barefootstep = FOOTSTEP_HARD_BAREFOOT
-	var/clawfootstep = FOOTSTEP_HARD_CLAW
-	var/heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	var/footstep = null
+	var/barefootstep = null
+	var/clawfootstep = null
+	var/heavyfootstep = null
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)

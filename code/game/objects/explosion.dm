@@ -23,6 +23,13 @@
 	var/orig_max_distance = max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range)
 
 	if(!ignorecap)
+		// Clamp all minimal values to 0, due to negative explosions doesn't exist
+		devastation_range = max(devastation_range, 0)
+		heavy_impact_range = max(heavy_impact_range, 0)
+		light_impact_range = max(light_impact_range, 0)
+		flash_range = max(flash_range, 0)
+		flame_range = max(flame_range, 0)
+
 		// Clamp all values to MAX_EXPLOSION_RANGE
 		devastation_range = min (GLOB.max_ex_devastation_range, devastation_range)
 		heavy_impact_range = min (GLOB.max_ex_heavy_range, heavy_impact_range)
