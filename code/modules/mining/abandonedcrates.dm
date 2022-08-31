@@ -208,7 +208,7 @@
 
 /obj/structure/closet/crate/secure/loot/togglelock(mob/user)
 	if(locked)
-		boom(user)
+		attack_hand(user)
 	else
 		..()
 
