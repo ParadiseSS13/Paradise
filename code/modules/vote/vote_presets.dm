@@ -21,8 +21,11 @@
 /datum/vote/map/generate_choices()
 	for(var/x in subtypesof(/datum/map))
 		var/datum/map/M = x
-		if(initial(M.voteable))
-			choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
+		if(!initial(M.voteable))
+			continue
+		if(GLOB.configuration.vote.non_repeating_maps && istype(SSmapping.map_datum, M))
+			continue
+		choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
 
 /datum/vote/map/announce()
 	..()
