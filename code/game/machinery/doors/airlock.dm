@@ -364,7 +364,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/update_icon(state=0, override=0)
 	if(operating && !override)
 		return
-	check_unres()
+
 	icon_state = density ? "closed" : "open"
 	switch(state)
 		if(0)
@@ -553,6 +553,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	overlays += sparks_overlay
 	overlays += damag_overlay
 	overlays += note_overlay
+
+	check_unres()
 
 	//EMISSIVE ICONS
 	if(buttons_underlay != old_buttons_underlay)
