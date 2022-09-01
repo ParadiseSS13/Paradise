@@ -57,7 +57,16 @@
 		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
-	durability -= 1
+			attacker.adjustStaminaLoss(-20) // security is dead
+			attacker.heal_overall_damage(4, 4) // the station is full
+			attacker.AdjustKnockDown(-1 SECONDS) // blood is fuel
+
+	if(!V.get_ability(/datum/vampire_passive/blood_spill))
+		durability--
+		if(durability <= 0)
+			qdel(src)
+			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+
 	if(durability <= 0)
 		qdel(src)
 		to_chat(user, "<span class='warning'>Your claws shatter!</span>")
@@ -69,11 +78,6 @@
 /obj/item/twohanded/required/vamp_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
-/obj/item/twohanded/required/vamp_claws/process()
-	durability -= 1
-	if(durability <= 0)
-		qdel(src)
 
 /obj/item/twohanded/required/vamp_claws/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == PROJECTILE_ATTACK)

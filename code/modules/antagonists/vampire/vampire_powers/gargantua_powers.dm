@@ -13,7 +13,7 @@
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_SWELL)
 
 /obj/effect/proc_holder/spell/vampire/self/stomp
-	name = "Siesmic Stomp"
+	name = "Siesmic Stomp (30)"
 	desc = "You slam your foot into the ground sending a powerful shockwave through the stations hull, sending people flying away."
 	gain_desc = "You have gained the ability to send a knock people back using a powerful stomp."
 	base_cooldown = 60 SECONDS
@@ -89,26 +89,54 @@
 		to_chat(H, "<span class='notice'>You feel a rush of energy!</span>")
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
 
-/obj/effect/proc_holder/spell/vampire/vampiric_deprival
-	name = "Vampiric Deprival (50)"
-	desc = "Weaken your target and buff up yourself."
-	gain_desc = "You have gained the ability to temporarily drain a target of their resistance to damage and increase your own."
-	human_req = TRUE
-	base_cooldown = 1 MINUTES
-	required_blood = 50
+/obj/effect/proc_holder/spell/fireball/demonic_grasp
+	name = "Demonic Grasp (20)"
+	desc = "Fire out a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm push, grab pull."
+	gain_desc = "You have gained the ability to snare and disrupt people with demonic apendages."
+	base_cooldown = 30 SECONDS
+	fireball_type = /obj/item/projectile/magic/demonic_grasp
 
-/obj/effect/proc_holder/spell/vampire/vampiric_deprival/create_new_targeting()
-	var/datum/spell_targeting/click/C = new
-	C.range = 7
-	C.allowed_type = /mob/living/carbon/human
-	return C
+	selection_activated_message		= "<span class='notice'>You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B></span>"
+	selection_deactivated_message	= "<span class='notice'>You re-absorb the energy...for now.</span>"
 
-/obj/effect/proc_holder/spell/vampire/vampiric_deprival/cast(list/targets, mob/user)
-	var/mob/living/carbon/human/target = targets[1]
-	var/mob/living/carbon/human/human_user = user
-	target.Beam(user, "sendbeam", time = 2 SECONDS)
-	target.adjust_species_armour(-10, 20 SECONDS)
-	human_user.adjust_species_armour(10, 20 SECONDS)
+	panel = "Vampire"
+	school = "vampire"
+	action_background_icon_state = "bg_vampire"
+	sound = null
+	invocation = null
+
+/obj/effect/proc_holder/spell/fireball/demonic_grasp/create_new_handler()
+	var/datum/spell_handler/vampire/V = new()
+	V.required_blood = 20
+	return V
+
+/obj/item/projectile/magic/demonic_grasp
+	name = "demonic grasp"
+	// parry this you filthy casual
+	reflectability = REFLECTABILITY_NEVER
+
+/obj/item/projectile/magic/demonic_grasp/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(!isliving(target))
+		return
+	var/mob/living/L = target
+	L.Immobilize(1 SECONDS)
+	var/throw_target
+	if(!firer)
+		return
+
+	if(!L.affects_vampire(firer))
+		return
+
+
+	switch(firer.a_intent)
+		if(INTENT_DISARM)
+			throw_target = get_edge_target_turf(L, get_dir(firer, L))
+			L.throw_at(throw_target, 2, 5, spin = FALSE) // shove away
+		if(INTENT_GRAB)
+			throw_target = get_step(firer, get_dir(firer, L))
+			throw_target = get_step_towards(firer, get_dir(firer, L))
+			L.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE) // pull towards
 
 /obj/effect/proc_holder/spell/vampire/charge
 	name = "Charge (30)"

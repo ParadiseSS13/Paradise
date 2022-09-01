@@ -51,7 +51,7 @@
 							/obj/effect/proc_holder/spell/vampire/self/stomp = 250,
 							/datum/vampire_passive/blood_swell_upgrade = 400,
 							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 600,
-							/obj/effect/proc_holder/spell/vampire/vampiric_deprival = 800)
+							/obj/effect/proc_holder/spell/fireball/demonic_grasp = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/obj/effect/proc_holder/spell/vampire/charge)
 	improved_rejuv_healing = TRUE
@@ -61,10 +61,12 @@
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/enthrall = 150,
 							/obj/effect/proc_holder/spell/vampire/thrall_commune = 150,
 							/obj/effect/proc_holder/spell/vampire/pacify = 250,
+							/obj/effect/proc_holder/spell/vampire/switch_places = 250,
 							/obj/effect/proc_holder/spell/vampire/self/decoy = 400,
 							/datum/vampire_passive/increment_thrall_cap = 400,
 							/obj/effect/proc_holder/spell/vampire/rally_thralls = 600,
-							/datum/vampire_passive/increment_thrall_cap/two = 600)
+							/datum/vampire_passive/increment_thrall_cap/two = 600,
+							/obj/effect/proc_holder/spell/vampire/self/share_damage = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/obj/effect/proc_holder/spell/vampire/hysteria,
 								/datum/vampire_passive/increment_thrall_cap/three)

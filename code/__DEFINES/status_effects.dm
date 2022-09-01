@@ -22,6 +22,8 @@
 
 #define STATUS_EFFECT_REGENERATIVE_CORE /datum/status_effect/regenerative_core
 
+#define STATUS_EFFECT_THRALL_NET /datum/status_effect/thrall_net
+
 //#define STATUS_EFFECT_VANGUARD /datum/status_effect/vanguard_shield //Grants temporary stun absorption, but will stun the user based on how many stuns they absorbed.
 //#define STATUS_EFFECT_INATHNEQS_ENDOWMENT /datum/status_effect/inathneqs_endowment //A 15-second invulnerability and stun absorption, granted by Inath-neq.
 //#define STATUS_EFFECT_WRAITHSPECS /datum/status_effect/wraith_spectacles
@@ -127,8 +129,6 @@
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
-
-#define STATUS_EFFECT_ARMOUR_CHANGE /datum/status_effect/armour_change
 
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 
