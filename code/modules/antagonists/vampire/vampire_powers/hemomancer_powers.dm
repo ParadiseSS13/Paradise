@@ -71,14 +71,6 @@
 		qdel(src)
 		to_chat(user, "<span class='warning'>Your claws shatter!</span>")
 
-/obj/item/twohanded/required/vamp_claws/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSobj, src)
-
-/obj/item/twohanded/required/vamp_claws/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
 /obj/item/twohanded/required/vamp_claws/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == PROJECTILE_ATTACK)
 		final_block_chance = 0
