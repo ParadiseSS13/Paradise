@@ -91189,10 +91189,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
-"wjN" = (
-/turf/simulated/wall,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/exit)
 "wjQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -149169,11 +149165,11 @@ btp
 bol
 bjR
 brL
-wjN
+bEF
 cWE
 bGN
 dgz
-wjN
+bEF
 bAN
 bjR
 bol
