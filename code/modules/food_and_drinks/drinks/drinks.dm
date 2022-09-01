@@ -9,6 +9,7 @@
 	container_type = OPENCONTAINER
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
+	visible_transfer_rate = TRUE
 	volume = 50
 	resistance_flags = NONE
 	antable = FALSE
@@ -125,7 +126,7 @@
 	throwforce = 1
 	amount_per_transfer_from_this = 5
 	materials = list(MAT_METAL=100)
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	volume = 5
 	flags = CONDUCT
 	container_type = OPENCONTAINER
@@ -249,7 +250,7 @@
 	desc = "A paper water cup."
 	icon_state = "water_cup_e"
 	item_state = "coffee"
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	volume = 10
 
 /obj/item/reagent_containers/food/drinks/sillycup/on_reagent_change()
