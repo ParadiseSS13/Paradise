@@ -13,7 +13,7 @@
 	/// Enable map voting?
 	var/enable_map_voting = FALSE
 	/// If TRUE, you will not be able to vote for the current map
-	var/non_repeating_maps = FALSE
+	var/non_repeating_maps = TRUE
 
 /datum/configuration_section/vote_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
