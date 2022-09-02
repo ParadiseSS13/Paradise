@@ -278,7 +278,9 @@
 	. = ..()
 	to_chat(user,"<span class='userdanger'>The mass goes up your arm and inside it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
-	user.apply_status_effect(STATUS_EFFECT_KATANA_CURSE)
+	//user.apply_status_effect(STATUS_EFFECT_KATANA_CURSE)
+	RegisterSignal(user, COMSIG_MOB_DEATH, .proc/user_death)
+
 	user.drop_item()
 	insert(user)
 
@@ -306,7 +308,11 @@
 	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/katana/proc/user_death(mob/user)
-	Retract(TRUE)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, .proc/user_death_async, user)
+
+/obj/item/organ/internal/cyberimp/arm/katana/proc/user_death_async(mob/user)
+	Retract()
 	user.visible_message("<span class='warning'>[user] begins to turn to dust, his soul being contained within [src]!</span>",
 		"<span class='userdanger'>You feel your body begin to turn to dust, your soul being drawn into [src]!</span>")
 	forceMove(get_turf(owner))
@@ -315,7 +321,7 @@
 
 
 /obj/item/organ/internal/cyberimp/arm/katana/remove(mob/living/carbon/M, special)
-	M.remove_status_effect(STATUS_EFFECT_KATANA_CURSE)
+	UnregisterSignal(M, COMSIG_MOB_DEATH)
 	. = ..()
 
 
@@ -386,7 +392,7 @@
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
-		return
+		return TRUE
 	drew_blood = TRUE
 	if(user.a_intent == INTENT_DISARM)
 		input_list += RIGHT_SLASH
@@ -456,9 +462,9 @@
 	var/dir_to_target = get_dir(user_turf, get_turf(target))
 	var/static/list/cursed_katana_slice_angles = list(0, -45, 45, -90, 90) //so that the animation animates towards the target clicked and not towards a side target
 	for(var/iteration in cursed_katana_slice_angles)
-		var/turf/turf = get_step(user_turf, turn(dir_to_target, iteration))
-		user.do_attack_animation(turf, ATTACK_EFFECT_CLAW)
-		for(var/mob/living/additional_target in turf)
+		var/turf/T = get_step(user_turf, turn(dir_to_target, iteration))
+		user.do_attack_animation(T, ATTACK_EFFECT_CLAW)
+		for(var/mob/living/additional_target in T)
 			if(user.Adjacent(additional_target) && additional_target.density)
 				additional_target.apply_damage(15, BRUTE, "chest", TRUE)
 				to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
