@@ -79,7 +79,7 @@
 	else
 		M.set_body_position(LYING_DOWN)
 	
-	if(M.pulling && (M.pulling == src))
+	if(M.pulling && M.pulling == src)
 		M.stop_pulling()
 
 	M.buckling = null
