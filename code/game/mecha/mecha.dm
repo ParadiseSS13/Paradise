@@ -733,7 +733,7 @@
 		// Check if a tracker exists
 		var/obj/item/mecha_parts/mecha_tracking/new_tracker = W
 		for(var/obj/item/mecha_parts/mecha_tracking/current_tracker in trackers)
-			if(new_tracker.ai_beacon && current_tracker.ai_beacon || trackers)
+			if(new_tracker.ai_beacon == current_tracker.ai_beacon)
 				to_chat(user, "<span class='warning'>This exosuit already has \a [new_tracker.ai_beacon ? "AI" : "tracking"] beacon.</span>")
 				user.put_in_hands(new_tracker)
 				return
