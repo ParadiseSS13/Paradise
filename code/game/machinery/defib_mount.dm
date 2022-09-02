@@ -151,9 +151,9 @@
 	desc = "A frame for a defibrillator mount."
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
-	sheets_refunded = 0
-	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 	w_class = WEIGHT_CLASS_BULKY
+
+	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 
 /obj/item/mounted/frame/defib_mount/do_build(turf/on_wall, mob/user)
 	new /obj/machinery/defibrillator_mount(get_turf(src), get_dir(user, on_wall), 1)

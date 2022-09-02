@@ -29,8 +29,8 @@
 	var/turf/T = loc
 	if(!T.transparent_floor)
 		hide(T.intact)
-	if(!codes || !codes.len)
-		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
+	if(!length(codes))
+		stack_trace("Empty codes datum at ([x],[y],[z]) (codes_txt: [codes_txt])")
 	if("patrol" in codes)
 		if(!GLOB.navbeacons["[z]"])
 			GLOB.navbeacons["[z]"] = list()

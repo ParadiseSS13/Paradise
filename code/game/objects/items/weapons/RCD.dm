@@ -45,6 +45,9 @@
 	var/door_type = /obj/machinery/door/airlock
 	/// The name that newly build airlocks will receive.
 	var/door_name = "Airlock"
+	/// If the glass airlock is polarized.
+	var/electrochromic = FALSE
+	var/airlock_glass = FALSE
 	/// If this is TRUE, any airlocks that gets built will require only ONE of the checked accesses. If FALSE, it will require ALL of them.
 	var/one_access = TRUE
 	/// Which airlock tab the UI is currently set to display.
@@ -238,6 +241,8 @@
 		"matter" = matter,
 		"door_type" = door_type,
 		"door_name" = door_name,
+		"electrochromic" = electrochromic,
+		"airlock_glass" = airlock_glass,
 		"one_access" = one_access,
 		"selected_accesses" = selected_accesses,
 		"modal" = ui_modal_data(src)
@@ -283,6 +288,11 @@
 				message_admins("RCD Door HREF exploit attempted by [key_name(usr)]!")
 				return FALSE
 			door_type = new_door_type
+			var/obj/machinery/door/airlock/picked_door = door_type
+			airlock_glass = initial(picked_door.glass)
+
+		if("electrochromic")
+			electrochromic = !electrochromic
 
 		if("set_lock")
 			if(!allowed(usr))
@@ -401,6 +411,8 @@
 					return FALSE
 				playsound(loc, usesound, 50, 1)
 				var/obj/machinery/door/airlock/T = new door_type(A)
+				if(T.glass)
+					T.polarized_glass = electrochromic
 				T.name = door_name
 				T.autoclose = TRUE
 				if(one_access)

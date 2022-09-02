@@ -197,7 +197,8 @@
 	icon_state = "surgcap_blue"
 	flags = BLOCKHEADHAIR
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
 /obj/item/clothing/head/surgery/purple

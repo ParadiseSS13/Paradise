@@ -369,3 +369,8 @@
 	desc = "A high capacity, slow charging cell for the B.S.G."
 	maxcharge = 40000
 	chargerate = 2600 // about 30 seconds to charge with a default recharger
+
+/obj/item/stock_parts/cell/emproof/reactive // EMP proof so emp_act does not double dip.
+	name = "reactive armor power cell"
+	desc = "A cell used to power reactive armors."
+	maxcharge = 2400

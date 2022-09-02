@@ -154,11 +154,12 @@
 	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
 	visible_message("<span class='warning'>The ground shakes near [src]!</span>")
 	var/list/directions = GLOB.cardinal.Copy() + GLOB.diagonals.Copy()
-	for(var/mob/child in children_list)
+	for(var/mob/living/child in children_list)
 		var/spawndir = pick_n_take(directions)
 		var/turf/T = get_step(src, spawndir)
 		if(T)
 			child.forceMove(T)
+			child.revive() // at most this is a 29 hp heal.
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1)
 
 //The goliath's children.  Pretty weak, simple mobs which are able to put a single tentacle under their target when at range.
@@ -249,7 +250,7 @@
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "broodmother_tongue"
 	denied_type = /obj/item/crusher_trophy/broodmother_tongue
-	bonus_value = 25
+	bonus_value = 75 // same reasoning as legionnaire trophy, target if moving will dodge it, and things like hiero trophy does more anyway.
 	/// Time at which the item becomes usable again
 	var/use_time
 
@@ -257,7 +258,7 @@
 	return "mark detonation to have a <b>[bonus_value]%</b> chance to summon a patch of goliath tentacles at the target's location"
 
 /obj/item/crusher_trophy/broodmother_tongue/on_mark_detonation(mob/living/target, mob/living/user)
-	if(rand(1, 100) <= bonus_value && target.stat != DEAD)
+	if(prob(bonus_value) && target.stat != DEAD)
 		new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(get_turf(target), user)
 
 /obj/item/crusher_trophy/broodmother_tongue/attack_self(mob/user)
@@ -272,7 +273,7 @@
 		return
 	living_user.weather_immunities += "lava"
 	to_chat(living_user, "<b>You squeeze the tongue, and some transluscent liquid shoots out all over you.</b>")
-	addtimer(CALLBACK(src, .proc/remove_lava, living_user), 10 SECONDS)
+	addtimer(CALLBACK(src, .proc/remove_lava, living_user), 20 SECONDS)
 	use_time = world.time + 60 SECONDS
 
 /obj/item/crusher_trophy/broodmother_tongue/proc/remove_lava(mob/living/user)

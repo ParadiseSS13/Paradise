@@ -29,7 +29,7 @@
 		return
 	template = GLOB.shelter_templates[template_id]
 	if(!template)
-		log_runtime("Shelter template ([template_id]) not found!", src)
+		stack_trace("Shelter template ([template_id]) not found!")
 		qdel(src)
 
 /obj/item/survivalcapsule/examine(mob/user)

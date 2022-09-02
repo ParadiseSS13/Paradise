@@ -173,6 +173,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	#endif
 	/client/proc/dmapi_debug,
 	/client/proc/dmapi_log,
+	/client/proc/timer_log,
+	/client/proc/debug_timers,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -308,7 +310,8 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		GLOB.admin_verbs_proccall,
 		GLOB.admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
-		GLOB.admin_verbs_ticket
+		GLOB.admin_verbs_ticket,
+		GLOB.admin_verbs_maintainer,
 	)
 
 /client/proc/hide_verbs()
