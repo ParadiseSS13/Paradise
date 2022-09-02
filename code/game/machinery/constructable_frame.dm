@@ -99,6 +99,9 @@
 			if(istype(P, /obj/item/circuitboard))
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "machine")
+					if(!B.build_path)
+						to_chat(user, "<span class='warning'>This is not a functional machine board!</span>")
+						return
 					playsound(src.loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
@@ -845,6 +848,13 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stack/sheet/glass = 4)
+
+/obj/item/circuitboard/cell_charger
+	board_name = "Cell Charger"
+	build_path = /obj/machinery/cell_charger
+	board_type = "machine"
+	origin_tech = "powerstorage=3;materials=2"
+	req_components = list(/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/cyborgrecharger
 	board_name = "Cyborg Recharger"

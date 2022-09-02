@@ -319,7 +319,7 @@
 	SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
-	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
+	character = SSjobs.AssignRank(character, rank, TRUE)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
@@ -367,6 +367,8 @@
 			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
 
+			if(length(GLOB.current_pending_diseases) && character.ForceContractDisease(GLOB.current_pending_diseases[1], TRUE, TRUE))
+				popleft(GLOB.current_pending_diseases)
 			if(GLOB.summon_guns_triggered)
 				give_guns(character)
 			if(GLOB.summon_magic_triggered)
@@ -561,14 +563,14 @@
 		chosen_species = GLOB.all_species[client.prefs.active_character.species]
 	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
-		log_runtime(EXCEPTION("[src] had species [client.prefs.active_character.species], though they weren't supposed to. Setting to Human."), src)
+		stack_trace("[src] had species [client.prefs.active_character.species], though they weren't supposed to. Setting to Human.")
 		client.prefs.active_character.species = "Human"
 
 	var/datum/language/chosen_language
 	if(client.prefs.active_character.language)
 		chosen_language = GLOB.all_languages[client.prefs.active_character.language]
 	if((chosen_language == null && client.prefs.active_character.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
-		log_runtime(EXCEPTION("[src] had language [client.prefs.active_character.language], though they weren't supposed to. Setting to None."), src)
+		stack_trace("[src] had language [client.prefs.active_character.language], though they weren't supposed to. Setting to None.")
 		client.prefs.active_character.language = "None"
 
 /mob/new_player/proc/ViewManifest()

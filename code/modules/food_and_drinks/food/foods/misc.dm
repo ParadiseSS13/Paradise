@@ -164,8 +164,8 @@
 	list_reagents = list("nutriment" = 2)
 	tastes = list("popcorn" = 3, "butter" = 1)
 
-/obj/item/reagent_containers/food/snacks/popcorn/New()
-	..()
+/obj/item/reagent_containers/food/snacks/popcorn/Initialize(mapload)
+	. = ..()
 	unpopped = rand(1,10)
 
 /obj/item/reagent_containers/food/snacks/popcorn/On_Consume(mob/M, mob/user)

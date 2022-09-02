@@ -39,11 +39,12 @@
 	var/lights_power = 6
 	var/frozen = FALSE
 	var/repairing = FALSE
+	var/emp_proof = FALSE //If it is immune to emps
 
 	//inner atmos
 	var/use_internal_tank = 0
 	var/internal_tank_valve = ONE_ATMOSPHERE
-	var/obj/machinery/portable_atmospherics/canister/internal_tank
+	var/obj/machinery/atmospherics/portable/canister/internal_tank
 	var/datum/gas_mixture/cabin_air
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port = null
 
@@ -133,7 +134,7 @@
 	return cell
 
 /obj/mecha/proc/add_airtank()
-	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
+	internal_tank = new /obj/machinery/atmospherics/portable/canister/air(src)
 	return internal_tank
 
 /obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
@@ -543,16 +544,16 @@
 		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [src].")
 		return FALSE
 	else
-		var/play_soundeffect = 1
-		if(user.environment_smash)
-			play_soundeffect = 0
-			playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
+		var/play_soundeffect = TRUE
 		var/animal_damage = rand(user.melee_damage_lower,user.melee_damage_upper)
 		if(user.obj_damage)
-			animal_damage = user.obj_damage
-		animal_damage = min(animal_damage, 20*user.environment_smash)
+			animal_damage = max(animal_damage, user.obj_damage)
+		animal_damage = max(animal_damage, min(20 * user.environment_smash, 40))
 		if(animal_damage)
 			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
+		if(user.environment_smash)
+			play_soundeffect = FALSE
+			playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		attack_generic(user, animal_damage, user.melee_damage_type, MELEE, play_soundeffect)
 		return TRUE
 
@@ -645,6 +646,8 @@
 
 //TODO
 /obj/mecha/emp_act(severity)
+	if(emp_proof)
+		return
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)

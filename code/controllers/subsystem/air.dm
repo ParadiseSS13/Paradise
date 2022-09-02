@@ -196,7 +196,7 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/machinery/M = currentrun[currentrun.len]
+		var/obj/machinery/atmospherics/M = currentrun[currentrun.len]
 		currentrun.len--
 		if(!M || (M.process_atmos(seconds) == PROCESS_KILL))
 			atmos_machinery.Remove(M)

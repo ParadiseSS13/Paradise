@@ -13,7 +13,7 @@
 	active_power_usage = 200
 	pass_flags = PASSTABLE
 
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive)
 	var/recharge_coeff = 1
 
 	var/obj/item/charging = null // The item that is being charged
@@ -88,7 +88,6 @@
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
 	else
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
-	
 	update_icon()
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
@@ -131,9 +130,13 @@
 /obj/machinery/recharger/process()
 	if(stat & (NOPOWER|BROKEN) || !anchored || panel_open)
 		return
+	if(!charging)
+		return
 
+	var/old_power_state = using_power
 	using_power = try_recharging_if_possible()
-	update_icon()
+	if(using_power != old_power_state)
+		update_icon()
 
 /obj/machinery/recharger/emp_act(severity)
 	if(stat & (NOPOWER|BROKEN) || !anchored)
@@ -199,6 +202,10 @@
 	if(istype(I, /obj/item/bodyanalyzer))
 		var/obj/item/bodyanalyzer/B = I
 		return B.cell
+
+	if(istype(I, /obj/item/clothing/suit/armor/reactive))
+		var/obj/item/clothing/suit/armor/reactive/A = I
+		return A.cell
 
 	return null
 

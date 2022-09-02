@@ -5,7 +5,7 @@
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
 	item_state = "centhat"
-	armor = list(MELEE = 30, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 80
 
 /obj/item/clothing/head/hairflower
@@ -43,6 +43,10 @@
 	item_state = "that"
 	dog_fashion = /datum/dog_fashion/head
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
 	icon_state = "redcoat"
@@ -53,11 +57,19 @@
 	icon_state = "mailman"
 	desc = "<i>'Right-on-time'</i> mail service head wear."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/plaguedoctorhat
 	name = "plague doctor's hat"
 	desc = "These were once used by Plague doctors. They're pretty much useless."
 	icon_state = "plaguedoctor"
 	permeability_coefficient = 0.01
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/hasturhood
 	name = "hastur's hood"
@@ -169,11 +181,19 @@
 	item_state = "pirate"
 	dog_fashion = /datum/dog_fashion/head/pirate
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/hgpiratecap
 	name = "pirate hat"
 	desc = "Yarr."
 	icon_state = "hgpiratecap"
 	item_state = "hgpiratecap"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/bandana
 	name = "pirate bandana"
@@ -194,6 +214,10 @@
 	desc = "For that industrial age look."
 	dog_fashion = /datum/dog_fashion/head/bowlerhat
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/beaverhat
 	name = "beaver hat"
 	icon_state = "beaver_hat"
@@ -209,6 +233,10 @@
 	icon_state = "boater_hat"
 	item_state = "boater_hat"
 	desc = "Goes well with celery."
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/cowboyhat
 	name = "cowboy hat"
@@ -264,6 +292,10 @@
 	item_state = "fez"
 	desc = "Put it on your monkey, make lots of cash money."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 //end bs12 hats
 
 /obj/item/clothing/head/witchwig
@@ -272,6 +304,10 @@
 	icon_state = "witch"
 	item_state = "witch"
 	flags = BLOCKHAIR
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/chicken
 	name = "chicken suit head"
@@ -377,15 +413,13 @@
 	name = "officer beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/centcom/officer/navy
 	name = "navy blue officer beret"
 	desc = "A navy blue beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer_navy"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
-	strip_delay = 60
 
 /obj/item/clothing/head/beret/centcom/captain
 	name = "captain's beret"
@@ -398,6 +432,10 @@
 	item_state = "sombrero"
 	desc = "You can practically taste the fiesta."
 	dog_fashion = /datum/dog_fashion/head/sombrero
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/sombrero/green
 	name = "green sombrero"
@@ -434,10 +472,18 @@
 	desc = "A hat with bells, to add some merryness to the suit."
 	icon_state = "jester_hat"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 /obj/item/clothing/head/rice_hat
 	name = "rice hat"
 	desc = "Welcome to the rice fields, motherfucker."
 	icon_state = "rice_hat"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/griffin
 	name = "griffon head"
@@ -499,7 +545,7 @@
 	name = "crown"
 	desc = "A crown fit for a king, a petty king maybe."
 	icon_state = "crown"
-	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/crown/fancy
@@ -518,3 +564,7 @@
 	desc = "Now just to find some maracas!"
 	icon_state = "cuban_hat"
 	item_state = "cuban_hat"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)

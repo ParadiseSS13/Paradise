@@ -59,12 +59,9 @@
 /mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
-/mob/living/simple_animal/hostile/poison/bees/ComponentInitialize()
-	..()
-	AddComponent(/datum/component/swarming)
-
 /mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/swarming)
 	generate_bee_visuals()
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()

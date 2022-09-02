@@ -1301,7 +1301,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
 "dJ" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
 "dK" = (
@@ -4055,7 +4055,7 @@
 /area/ruin/ancientstation)
 "jy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -4515,7 +4515,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/atmo)
 "kE" = (
@@ -5004,8 +5004,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/pipedispenser,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/rpd,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "lF" = (

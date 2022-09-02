@@ -7,13 +7,14 @@
 	var/brightness_on = 4 //luminosity when on
 	var/on = FALSE
 	item_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
-	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 10, RAD = 20, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 5, RAD = 10, FIRE = INFINITY, ACID = 50)
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
 /obj/item/clothing/head/hardhat/attack_self(mob/living/user)
@@ -100,5 +101,6 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)

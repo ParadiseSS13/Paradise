@@ -37,6 +37,11 @@
 	//Multi-tile doors
 	var/width = 1
 
+	/// ID for the window tint button, or another external control
+	var/id
+	var/polarized_glass = FALSE
+	var/polarized_on
+
 /obj/machinery/door/New()
 	..()
 	GLOB.airlocks += src
@@ -267,6 +272,9 @@
 		emagged = TRUE
 		return TRUE
 
+/obj/machinery/door/proc/toggle_polarization()
+	return
+
 /obj/machinery/door/update_icon_state()
 	icon_state = "door[density]"
 
@@ -330,8 +338,8 @@
 	density = TRUE
 	sleep(5)
 	update_icon()
-	if(visible && !glass)
-		set_opacity(1)
+	if(!glass || polarized_on)
+		set_opacity(TRUE)
 	operating = FALSE
 	air_update_turf(1)
 	update_freelook_sight()

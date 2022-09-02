@@ -18,9 +18,9 @@
 	if(isnull(part)) //This e-chair was not custom built
 		part = new(src)
 		var/obj/item/clothing/head/helmet/part1 = new(part)
-		var/obj/item/radio/electropack/part2 = new(part)
-		part2.set_frequency(1445)
-		part2.code = 6
+		var/obj/item/electropack/part2 = new(part)
+		part2.integrated_signaler.frequency = 1445
+		part2.integrated_signaler.code = 6
 		part2.master = part
 		part.part1 = part1
 		part.part2 = part2

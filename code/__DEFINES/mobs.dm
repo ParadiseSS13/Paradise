@@ -241,7 +241,6 @@
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
 #define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
 #define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
-#define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
 #define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))

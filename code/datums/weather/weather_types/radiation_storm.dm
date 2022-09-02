@@ -33,7 +33,6 @@
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, RAD)
 	if(!prob(60))
 		return
 
@@ -41,10 +40,14 @@
 		return
 
 	var/mob/living/carbon/human/H = L
-	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))
+	var/resist = H.getarmor(null, RAD)
+	if(HAS_TRAIT(H, TRAIT_RADIMMUNE) || resist == INFINITY)
 		return
 
-	if(prob(max(0, 100 - resist)) && !HAS_TRAIT(H, TRAIT_GENELESS))
+	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
+		L.rad_act(20)
+		if(HAS_TRAIT(H, TRAIT_GENELESS))
+			return
 		randmuti(H) // Applies bad mutation
 		if(prob(50))
 			if(prob(90))
@@ -53,8 +56,6 @@
 				randmutg(H)
 
 		domutcheck(H, MUTCHK_FORCED)
-
-		L.rad_act(20)
 
 /datum/weather/rad_storm/end()
 	if(..())
@@ -66,7 +67,6 @@
 
 /datum/weather/rad_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
 	if(active)
-		post_status("alert", "radiation")
+		post_status(STATUS_DISPLAY_ALERT, "radiation")
 	else
-		post_status("blank")
-		post_status("shuttle")
+		post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
