@@ -435,7 +435,7 @@
 
 /obj/structure/flora/junglebush/large/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/largetransparency)
+	AddComponent(/datum/component/largetransparency, 0, 0, 0, 0)
 
 /obj/structure/flora/rock/pile/largejungle
 	name = "rocks"
