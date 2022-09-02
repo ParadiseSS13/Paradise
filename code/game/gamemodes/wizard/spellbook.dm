@@ -498,7 +498,7 @@
 
 /datum/spellbook_entry/item/cursed_katana
 	name = "Cursed Katana"
-	desc = "A cursed artifact, used to seal a horrible being inside the katana, which has now reformed. Can be used to make multiple powerful combos, examine it to see them. Can no be dropped. On death, you will dust."
+	desc = "A cursed artefact, used to seal a horrible being inside the katana, which has now reformed. Can be used to make multiple powerful combos, examine it to see them. Can not be dropped. On death, you will dust."
 	item_path = /obj/item/organ/internal/cyberimp/arm/katana
 	cost = 1
 	log_name = "CK"
