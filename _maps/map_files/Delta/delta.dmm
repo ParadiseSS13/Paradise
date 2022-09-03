@@ -45693,10 +45693,8 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/computer/station_alert,
-/obj/machinery/computer/monitor{
-	dir = 1;
-	name = "Grid Power Monitoring Computer"
+/obj/machinery/computer/station_alert{
+	dir = 1
 	},
 /obj/structure/cable{
 	d1 = 4;
