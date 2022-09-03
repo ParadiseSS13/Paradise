@@ -218,10 +218,16 @@
 			beepskyData["botstatus"] = list("loca" = loca_name, "mode" = active_bot.mode)
 	else
 		var/botsCount = 0
+		var/list/mob/living/simple_animal/bot/bots = list()
 		for(var/mob/living/simple_animal/bot/secbot/SB in GLOB.bots_list)
+			bots += SB
+		for(var/mob/living/simple_animal/bot/ed209/ED in GLOB.bots_list)
+			bots += ED
+
+		for(var/mob/living/simple_animal/bot/B in bots)
 			botsCount++
-			if(SB.loc)
-				botsData[++botsData.len] = list("Name" = sanitize(SB.name), "Location" = sanitize(get_area(SB).name), "uid" = "[SB.UID()]")
+			if(B.loc)
+				botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(get_area(B).name), "uid" = "[B.UID()]")
 
 		if(!length(botsData))
 			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
@@ -248,14 +254,14 @@
 			active_uid = null
 
 		if("stop", "go", "home")
-			var/mob/living/simple_animal/bot/secbot/active_bot = locateUID(active_uid)
+			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
 			if(active_bot)
 				active_bot.handle_command(usr, action)
 			else
 				active_uid = null
 
 		if("summon")
-			var/mob/living/simple_animal/bot/secbot/active_bot = locateUID(active_uid)
+			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
 			if(active_bot)
 				active_bot.handle_command(usr, "summon", list("target" = get_turf(usr), "useraccess" = usr.get_access()))
 			else

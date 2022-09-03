@@ -50,6 +50,8 @@
 	var/currentBloodColor = "#A10808"
 	var/currentDNA = null
 
+	var/num_steps
+
 /mob/living/simple_animal/bot/mulebot/get_cell()
 	return cell
 
@@ -466,32 +468,20 @@
 	if(!has_power())
 		on = FALSE
 		return
-	if(on)
-		var/speed = (!wires.is_cut(WIRE_MOTOR1) ? 1 : 0) + (!wires.is_cut(WIRE_MOTOR2) ? 2 : 0)
-		var/num_steps = 0
-		switch(speed)
-			if(0)
-				// do nothing
-			if(1)
-				num_steps = 10
-			if(2)
-				num_steps = 5
-			if(3)
-				num_steps = 3
-
-		if(num_steps)
-			process_bot()
-			num_steps--
-			if(mode != BOT_IDLE)
-				spawn(0)
-					for(var/i=num_steps,i>0,i--)
-						sleep(2)
-						process_bot()
-
-/mob/living/simple_animal/bot/mulebot/proc/process_bot()
 	if(!on)
 		return
-	update_icon()
+
+	var/speed = (!wires.is_cut(WIRE_MOTOR1) ? 1 : 0) + (!wires.is_cut(WIRE_MOTOR2) ? 2 : 0)
+	if(!speed)//Devide by zero man bad
+		return
+	num_steps = round(10/speed) //10, 5, or 3 steps, depending on how many wires we have cut
+	START_PROCESSING(SSfastprocess, src)
+
+/mob/living/simple_animal/bot/mulebot/process()
+	if(!on)
+		return PROCESS_KILL
+
+	num_steps--
 
 	switch(mode)
 		if(BOT_IDLE) // idle
@@ -502,73 +492,68 @@
 				at_target()
 				return
 
-			else if(path.len > 0 && target) // valid path
+			else if(length(path) && target) // valid path
 				var/turf/next = path[1]
-				reached_target = 0
+				reached_target = FALSE
 				if(next == loc)
-					increment_path()
+					path -= next
 					return
-				if(istype(next, /turf/simulated))
-//					to_chat(world, "at ([x],[y]) moving to ([next.x],[next.y])")
-
+				if(isturf(next))
 					var/oldloc = loc
-					var/moved = step_towards(src, next)	// attempt to move
-					if(cell) cell.use(1)
-					if(moved && oldloc!=loc)	// successful move
-//						to_chat(world, "Successful move.")
+					var/moved = step_towards(src, next) // attempt to move
+					if(moved && oldloc!=loc) // successful move
 						blockcount = 0
-						increment_path()
-
+						path -= loc
 						if(destination == home_destination)
 							mode = BOT_GO_HOME
 						else
 							mode = BOT_DELIVER
 
-					else		// failed to move
+					else // failed to move
 
-//						to_chat(world, "Unable to move.")
 						blockcount++
 						mode = BOT_BLOCKED
 						if(blockcount == 3)
 							buzz(ANNOYED)
 
-						if(blockcount > 10)	// attempt 10 times before recomputing
+						if(blockcount > 10) // attempt 10 times before recomputing
 							// find new path excluding blocked turf
 							buzz(SIGH)
 							mode = BOT_WAIT_FOR_NAV
 							blockcount = 0
-							spawn(20)
-								calc_path(avoid=next)
-								if(path.len > 0)
-									buzz(DELIGHT)
-								mode = BOT_BLOCKED
+							addtimer(CALLBACK(src, .proc/process_blocked, next), 2 SECONDS)
 							return
 						return
 				else
 					buzz(ANNOYED)
-//					to_chat(world, "Bad turf.")
 					mode = BOT_NAV
 					return
 			else
-//				to_chat(world, "No path.")
 				mode = BOT_NAV
 				return
 
-		if(BOT_NAV)	// calculate new path
-//			to_chat(world, "Calc new path.")
+		if(BOT_NAV) // calculate new path
 			mode = BOT_WAIT_FOR_NAV
-			spawn(0)
-				calc_path()
+			INVOKE_ASYNC(src, .proc/process_nav)
 
-				if(path.len > 0)
-					blockcount = 0
-					mode = BOT_BLOCKED
-					buzz(DELIGHT)
+/mob/living/simple_animal/bot/mulebot/proc/process_blocked(turf/next)
+	calc_path(avoid=next)
+	if(length(path))
+		buzz(DELIGHT)
+	mode = BOT_BLOCKED
 
-				else
-					buzz(SIGH)
+/mob/living/simple_animal/bot/mulebot/proc/process_nav()
+	calc_path()
 
-					mode = BOT_NO_ROUTE
+	if(length(path))
+		blockcount = 0
+		mode = BOT_BLOCKED
+		buzz(DELIGHT)
+
+	else
+		buzz(SIGH)
+
+		mode = BOT_NO_ROUTE
 
 // calculates a path to the current destination
 // given an optional turf to avoid
@@ -599,9 +584,11 @@
 /mob/living/simple_animal/bot/mulebot/proc/start_home()
 	if(!on)
 		return
-	spawn(0)
-		set_destination(home_destination)
-		mode = BOT_BLOCKED
+	INVOKE_ASYNC(src, .proc/do_start_home)
+
+/mob/living/simple_animal/bot/mulebot/proc/do_start_home()
+	set_destination(home_destination)
+	mode = BOT_BLOCKED
 	update_icon()
 
 // called when bot reaches current target

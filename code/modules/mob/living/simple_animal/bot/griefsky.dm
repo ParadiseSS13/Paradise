@@ -79,9 +79,11 @@
 		..()
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
-	src.do_attack_animation(C)
+	do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
-	spawn(2)
+	addtimer(CALLBACK(src, .proc/do_sword_attack, C), 2)
+
+/mob/living/simple_animal/bot/secbot/griefsky/proc/do_sword_attack(mob/living/carbon/C)
 	icon_state = spin_icon
 	var/threat = C.assess_threat(src)
 	if(ishuman(C))

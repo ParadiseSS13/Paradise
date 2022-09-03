@@ -508,31 +508,31 @@
 		bot_reset()
 		return
 	else
-		if(!emagged && check_overdose(patient,reagent_id,injection_amount))
+		if(!emagged && check_overdose(patient, reagent_id, injection_amount))
 			soft_reset()
 			return
 		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
 			"<span class='userdanger'>[src] is trying to inject you!</span>")
 
-		spawn(30)//replace with do mob
-			if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
-				if(inject_beaker)
-					if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
-						var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
-						reagent_glass.reagents.reaction(patient, REAGENT_INGEST, fraction)
-						reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
-				else
-					patient.reagents.add_reagent(reagent_id,injection_amount)
-				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
-					"<span class='userdanger'>[src] injects you with its syringe!</span>")
-			else
-				visible_message("[src] retracts its syringe.")
-			update_icon()
-			soft_reset()
-			return
+		addtimer(CALLBACK(src, .proc/do_inject, C, inject_beaker, reagent_id), 3 SECONDS)
+		return
 
-	reagent_id = null
-	return
+/mob/living/simple_animal/bot/medbot/proc/do_inject(mob/living/carbon/C, inject_beaker, reagent_id)
+	if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
+		if(inject_beaker)
+			if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
+				var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
+				reagent_glass.reagents.reaction(patient, REAGENT_INGEST, fraction)
+				reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
+		else
+			patient.reagents.add_reagent(reagent_id, injection_amount)
+
+		C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", "<span class='userdanger'>[src] injects you with its syringe!</span>")
+	else
+		visible_message("[src] retracts its syringe.")
+
+	update_icon()
+	soft_reset()
 
 /mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,reagent_id,injection_amount)
 	var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]

@@ -131,7 +131,7 @@
 			return
 
 	if(target && loc == target.loc)
-		clean(target)
+		start_clean(target)
 		path = list()
 		target = null
 
@@ -163,17 +163,19 @@
 		target_types += /obj/effect/decal/cleanable/dirt
 		target_types += /obj/effect/decal/cleanable/trail_holder
 
-/mob/living/simple_animal/bot/cleanbot/proc/clean(obj/effect/decal/cleanable/target)
+/mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
 	icon_state = "cleanbot-c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
-	spawn(50)
-		if(mode == BOT_CLEANING)
-			QDEL_NULL(target)
-			anchored = FALSE
-		mode = BOT_IDLE
-		icon_state = "cleanbot[on]"
+	addtimer(CALLBACK(src, .proc/do_clean, target), 5 SECONDS)
+
+/mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
+	if(mode == BOT_CLEANING)
+		QDEL_NULL(target)
+		anchored = FALSE
+	mode = BOT_IDLE
+	icon_state = "cleanbot[on]"
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
@@ -241,6 +243,6 @@
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
 	if(istype(A,/obj/effect/decal/cleanable))
-		clean(A)
+		start_clean(A)
 	else
 		..()
