@@ -76,7 +76,7 @@ export const PrisonerImplantManager = (props, context) => {
           {trackingInfo
             .map(implant => (
               <>
-                <Box bold>Subject: {implant.subject}</Box><Box key={implant.id}>
+                <Box bold>Subject: {implant.subject}</Box><Box key={implant.subject}>
                   <LabeledList>
                     <LabeledListItem label="Location">{implant.location}</LabeledListItem>
                     <LabeledListItem label="Health">{implant.health}</LabeledListItem>
