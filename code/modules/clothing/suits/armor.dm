@@ -182,15 +182,15 @@
 	armor = list(MELEE = 40, BULLET = 20, LASER = 25, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = 450)
 	flags_inv = HIDEJUMPSUIT
 
-/obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic
-	name = "captain's tunic"
-	desc = "Worn by a Captain to show their class."
-	icon_state = "captain_tunic"
-
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket/formal
 	name = "captain's formal coat"
 	desc = "For when an armored vest isn't fashionable enough."
 	icon_state = "captain_formal"
+
+/obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic/white
+	name = "captain's white tunic"
+	desc = "Worn by a Captain to show their class. And their affinity for easily stainable wear."
+	icon_state = "captain_tunic_white"
 
 /obj/item/clothing/suit/armor/riot
 	name = "riot suit"

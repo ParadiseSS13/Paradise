@@ -39,11 +39,15 @@
 	name = "captain's beret"
 	desc = "For Captains that are more inclined towards style."
 	icon_state = "captain_beret"
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		)
+
+/obj/item/clothing/head/caphat/beret/white
+	name = "captain's white beret"
+	desc = "For Captains that are more inclined towards style, and for the color white."
+	icon_state = "captain_beret_white"
 
 //Head of Personnel
 /obj/item/clothing/head/hopcap
