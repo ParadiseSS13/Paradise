@@ -60,11 +60,6 @@
 	if(default_unfasten_wrench(user, I))
 		return TRUE
 
-/obj/machinery/dish_drive/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
-	..()
-
 /obj/machinery/dish_drive/RefreshParts()
 	idle_power_usage = initial(idle_power_usage)
 	active_power_usage = initial(active_power_usage)
