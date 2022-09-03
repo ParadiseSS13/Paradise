@@ -1004,113 +1004,6 @@
 		log_admin("[key_name(usr)] has rotated \the [A]")
 		href_list["datumrefresh"] = href_list["rotatedatum"]
 
-	else if(href_list["makemonkey"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makemonkey"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("monkeyone"=href_list["makemonkey"]))
-
-	else if(href_list["makerobot"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makerobot"=href_list["makerobot"]))
-
-	else if(href_list["makealien"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makealien"=href_list["makealien"]))
-
-	else if(href_list["makeslime"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makeslime"=href_list["makeslime"]))
-
-	else if(href_list["makesuper"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makesuper"=href_list["makesuper"]))
-
-	else if(href_list["makeai"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makeai"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makeai"=href_list["makeai"]))
-
-	else if(href_list["setspecies"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["setspecies"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		var/new_species = input("Please choose a new species.","Species",null) as null|anything in GLOB.all_species
-
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-
-		var/datum/species/S = GLOB.all_species[new_species]
-		if(H.set_species(S.type))
-			to_chat(usr, "Set species of [H] to [H.dna.species].")
-			H.regenerate_icons()
-			message_admins("[key_name_admin(usr)] has changed the species of [key_name_admin(H)] to [new_species]")
-			log_admin("[key_name(usr)] has changed the species of [key_name(H)] to [new_species]")
-		else
-			to_chat(usr, "Failed! Something went wrong.")
-
 	else if(href_list["addlanguage"])
 		if(!check_rights(R_SPAWN))	return
 
@@ -1329,13 +1222,6 @@
 		if(!istype(DAT, /datum) && !isclient(DAT))
 			return
 		src.debug_variables(DAT)
-
-	if(href_list["copyoutfit"])
-		if(!check_rights(R_EVENT))
-			return
-		var/mob/living/carbon/human/H = locateUID(href_list["copyoutfit"])
-		if(istype(H))
-			H.copy_outfit()
 
 	if(href_list["manipcolours"])
 		if(!check_rights(R_DEBUG))

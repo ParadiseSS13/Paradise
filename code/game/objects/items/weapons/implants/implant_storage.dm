@@ -7,17 +7,19 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 	silent = TRUE
 
-
 /obj/item/implant/storage
 	name = "storage implant"
 	desc = "Stores up to two big items in a bluespace pocket."
 	icon_state = "storage"
 	origin_tech = "materials=2;magnets=4;bluespace=5;syndicate=4"
 	item_color = "r"
+	implant_data = /datum/implant_fluff/storage
+	implant_state = "implant-syndicate"
+
 	var/obj/item/storage/hidden/implant/storage
 
-/obj/item/implant/storage/New()
-	..()
+/obj/item/implant/storage/Initialize(mapload)
+	. = ..()
 	storage = new /obj/item/storage/hidden/implant(src)
 
 /obj/item/implant/storage/emp_act(severity)
@@ -34,10 +36,10 @@
 				storage.close(M)
 		for(var/obj/item/I in storage)
 			storage.remove_from_storage(I, get_turf(source))
-		return 1
+		return TRUE
 
 /obj/item/implant/storage/implant(mob/source)
-	var/obj/item/implant/storage/imp_e = locate(src.type) in source
+	var/obj/item/implant/storage/imp_e = locate(type) in source
 	if(imp_e)
 		imp_e.storage.storage_slots += storage.storage_slots
 		imp_e.storage.max_combined_w_class += storage.max_combined_w_class
@@ -49,7 +51,7 @@
 		storage.show_to(source)
 
 		qdel(src)
-		return 1
+		return TRUE
 
 	return ..()
 
@@ -60,6 +62,14 @@
 /obj/item/implanter/storage
 	name = "implanter (storage)"
 
-/obj/item/implanter/storage/New()
+/obj/item/implanter/storage/Initialize(mapload)
+	. = ..()
 	imp = new /obj/item/implant/storage(src)
-	..()
+
+/obj/item/implantcase/storage
+	name = "implant case - 'Storage'"
+	desc = "A glass case containing a storage implant."
+
+/obj/item/implantcase/storage/Initialize(mapload)
+	. = ..()
+	imp = new /obj/item/implant/storage(src)

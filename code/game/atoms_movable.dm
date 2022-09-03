@@ -147,6 +147,8 @@
 		if(show_message)
 			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
 		return FALSE
+	if(user in buckled_mobs)
+		return FALSE
 	return TRUE
 
 // Used in shuttle movement and AI eye stuff.

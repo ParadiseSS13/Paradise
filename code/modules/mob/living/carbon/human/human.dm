@@ -1915,20 +1915,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	..()
 
-
-/mob/living/carbon/human/vv_get_dropdown()
-	. = ..()
-	. += "---"
-	.["Set Species"] = "?_src_=vars;setspecies=[UID()]"
-	.["Copy Outfit"] = "?_src_=vars;copyoutfit=[UID()]"
-	.["Make AI"] = "?_src_=vars;makeai=[UID()]"
-	.["Make cyborg"] = "?_src_=vars;makerobot=[UID()]"
-	.["Make monkey"] = "?_src_=vars;makemonkey=[UID()]"
-	.["Make alien"] = "?_src_=vars;makealien=[UID()]"
-	.["Make slime"] = "?_src_=vars;makeslime=[UID()]"
-	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
-	. += "---"
-
 /mob/living/carbon/human/adjust_nutrition(change)
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
