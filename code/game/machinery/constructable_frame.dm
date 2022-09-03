@@ -663,12 +663,12 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/dish_drive
 	board_type = "machine"
 	origin_tech = "programming=2"
-	var/suction = TRUE
-	var/transmit = TRUE
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/sheet/glass = 1)
+	var/suction = TRUE
+	var/transmit = TRUE
 
 /obj/item/circuitboard/dish_drive/examine(mob/user)
 	. = ..()
