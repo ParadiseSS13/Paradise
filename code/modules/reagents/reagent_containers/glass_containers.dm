@@ -240,7 +240,7 @@
 	desc = "A baggie. Can hold up to 10 units."
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
-	possible_transfer_amounts = 2
+	possible_transfer_amounts = null
 	volume = 10
 	container_type = OPENCONTAINER
 	can_assembly = 0
