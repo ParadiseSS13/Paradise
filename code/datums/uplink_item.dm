@@ -1584,7 +1584,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/implants/uplink/nuclear
 	name = "Nuclear Uplink Implant"
 	reference = "UIN"
-	item = /obj/item/implanter/nuclear_uplink
+	item = /obj/item/implanter/nuclear
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
