@@ -298,6 +298,7 @@ REAGENT SCANNER
 	return ..()
 
 /obj/item/healthanalyzer/advanced
+	name = "advanced health analyzer"
 	advanced = TRUE
 
 /obj/item/healthanalyzer/advanced/Initialize(mapload)

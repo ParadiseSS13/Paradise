@@ -122,7 +122,7 @@ export const CommunicationsComputer = (props, context) => {
         content={ib.label}
         selected={ib.alert === data.stat_display.icon}
         disabled={!data.authhead}
-        onClick={() => act('setstat', { statdisp: 'alert', alert: ib.alert })}
+        onClick={() => act('setstat', { statdisp: 3, alert: ib.alert })}
       />
     );
   });

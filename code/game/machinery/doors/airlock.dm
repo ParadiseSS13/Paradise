@@ -322,7 +322,55 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/shock_user(mob/user, prob)
 	return (!issilicon(user) && isElectrified() && shock(user, prob))
 
-/obj/machinery/door/airlock/update_icon(state=0, override=0)
+/obj/machinery/door/airlock/toggle_polarization()
+	polarized_on = !polarized_on
+
+	if(operating || !density)
+		return // It's toggled, but don't try to animate the effect.
+
+	var/animate_color
+	var/image/polarized_image = get_airlock_overlay("[airlock_material]_closed", overlays_file)
+	polarized_image.dir = dir
+
+	overlays -= old_filling_overlay
+
+	if(!polarized_on)
+		polarized_image.color = "#222222"
+		animate_color = "#FFFFFF"
+		set_opacity(FALSE)
+	else
+		polarized_image.color = "#FFFFFF"
+		animate_color = "#222222"
+		set_opacity(TRUE)
+
+	// Animate() does not work on overlays, so a temporary effect is used
+	new /obj/effect/temp_visual/polarized_airlock(get_turf(src), polarized_image, animate_color)
+
+	// Overlays are reset at the same time, due to some oddities when it comes dealing with the cache without changing the base airlock state.
+	addtimer(CALLBACK(src, /atom/.proc/update_icon, 0, 0, TRUE), 0.5 SECONDS)
+
+//
+// Polarization toggling effect
+//
+
+/obj/effect/temp_visual/polarized_airlock
+	layer = OPEN_DOOR_LAYER
+	duration = 0.5 SECONDS
+	randomdir = FALSE
+
+/obj/effect/temp_visual/polarized_airlock/Initialize(mapload, image/airlock_overlay, animate_color)
+	. = ..()
+	icon = airlock_overlay.icon
+	icon_state = airlock_overlay.icon_state
+	color = airlock_overlay.color
+	dir = airlock_overlay.dir
+	animate(src, color = animate_color, time = 0.5 SECONDS)
+
+//
+// Icon handling
+//
+
+/obj/machinery/door/airlock/update_icon(state=0, override=0, reset_overlays)
 	if(operating && !override)
 		return
 	check_unres()
@@ -338,6 +386,18 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			icon_state = "nonexistenticonstate" //MADNESS
 
 	. = ..(UPDATE_ICON_STATE) // Sent after the icon_state is changed
+
+	if(reset_overlays)
+		cut_overlays()
+
+		old_frame_overlay = null
+		old_filling_overlay = null
+		old_lights_overlay = null
+		old_panel_overlay = null
+		old_weld_overlay = null
+		old_sparks_overlay = null
+		old_dam_overlay = null
+		old_note_overlay = null
 
 	set_airlock_overlays(state)
 
@@ -389,6 +449,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 					lights_underlay = get_airlock_emissive_underlay("lights_emergency_lightmask", overlays_file)
 			if(note)
 				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
+				note_overlay.layer = layer + 0.1
 
 		if(AIRLOCK_DENY)
 			if(!arePowerSystemsOn())
@@ -497,6 +558,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 					panel_overlay = get_airlock_overlay("panel_opening", overlays_file)
 			if(note)
 				note_overlay = get_airlock_overlay("[notetype]_opening", note_overlay_file)
+
+	if(polarized_on)
+		filling_overlay.color = "#222222"
+	else
+		filling_overlay.color = "#FFFFFF"
 
 	//doesn't use overlays.Cut() for performance reasons
 	if(frame_overlay != old_frame_overlay)
@@ -1259,7 +1325,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		sleep(4)
 	if(!safe)
 		crush()
-	if(visible && !glass)
+	if((visible && !glass) || polarized_on)
 		set_opacity(1)
 	update_freelook_sight()
 	sleep(1)
@@ -1414,6 +1480,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		DA.heat_proof_finished = heat_proof //tracks whether there's rglass in
 		DA.anchored = TRUE
 		DA.glass = src.glass
+		DA.polarized_glass = polarized_glass
 		DA.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 		DA.created_name = name
 		DA.previous_assembly = previous_airlock

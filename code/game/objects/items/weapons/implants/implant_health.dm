@@ -1,6 +1,9 @@
 /obj/item/implant/health
 	name = "health implant"
 	activated = FALSE
+	implant_data = /datum/implant_fluff/health
+	implant_state = "implant-default"
+
 	var/healthstring = ""
 
 /obj/item/implant/health/proc/sensehealth()

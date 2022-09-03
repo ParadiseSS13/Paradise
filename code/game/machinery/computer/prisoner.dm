@@ -42,6 +42,11 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
+/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user)
+	if(ui_login_attackby(O, user))
+		return
+	return ..()
+
 /obj/machinery/computer/prisoner/proc/check_implant(obj/item/implant/I)
 	var/turf/implant_location = get_turf(I)
 	if(!implant_location || implant_location.z != z)
@@ -94,7 +99,6 @@
 			loc_display = "[get_area(implant_location)]"
 
 		var/list/implant_info = list(
-			"id" = T.id,
 			"subject" = M.name,
 			"location" = loc_display,
 			"health" = health_display,
@@ -172,7 +176,7 @@
 					implant.warn_cooldown = world.time + IMPLANT_WARN_COOLDOWN
 					if(implant.imp_in)
 						var/mob/living/carbon/implantee = implant.imp_in
-						var/warning = copytext(sanitize(text2num(answer)), 1, MAX_MESSAGE_LEN)
+						var/warning = copytext(sanitize(answer), 1, MAX_MESSAGE_LEN)
 						to_chat(implantee, "<span class='boldnotice'>Your skull vibrates violently as a loud announcement is broadcasted to you: '[warning]'</span>")
 
 				if("set_points")

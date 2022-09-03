@@ -52,8 +52,7 @@
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 		/obj/item/slime_extract = list(),
-		/obj/item/reagent_containers/food = list(),
-		/obj/item/reagent_containers/honeycomb = list()
+		/obj/item/reagent_containers/food = list()
 	)
 
 	var/list/juice_items = list (

@@ -950,3 +950,13 @@
 	required_reagents = list("rum" = 3, "pineapplejuice" = 2, "cream" = 1)
 	result_amount = 6
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/bilkshake
+	name = "Bilkshake"
+	id = "bilkshake"
+	result = "bilkshake"
+	required_reagents = list("cream" = 1, "bilk" = 2, "ice" = 2)
+	result_amount = 5
+
+
+

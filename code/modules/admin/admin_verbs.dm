@@ -72,7 +72,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
-	/client/proc/stickybanpanel,
 	/datum/admins/proc/vpn_whitelist
 	))
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(

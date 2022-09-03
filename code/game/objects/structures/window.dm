@@ -216,6 +216,8 @@
 		return
 	if(state != WINDOW_OUT_OF_FRAME && state != WINDOW_IN_FRAME)
 		return
+	if(!anchored)
+		return
 	if(flags & NODECONSTRUCT)
 		return
 	. = TRUE
@@ -563,6 +565,12 @@
 	for(var/obj/structure/window/full/reinforced/polarized/W in range(src, range))
 		if(W.id == id || !W.id)
 			W.toggle_polarization()
+
+	for(var/obj/machinery/door/D in range(src, range))
+		if(!D.polarized_glass)
+			continue
+		if(D.id == id || !D.id)
+			D.toggle_polarization()
 
 /obj/machinery/button/windowtint/power_change()
 	..()
