@@ -61,7 +61,7 @@
 	if(ispath(implant_data))
 		implant_data = new implant_data
 
-/obj/item/implant/Destroy(mapload)
+/obj/item/implant/Destroy()
 	QDEL_NULL(implant_data)
 	return ..()
 
