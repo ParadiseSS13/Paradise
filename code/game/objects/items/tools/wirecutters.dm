@@ -28,6 +28,8 @@
 	if(random_color)
 		if(!param_color)
 			param_color = pick("yellow", "red")
+		if(param_color != "red") // Red is the default color
+			belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
 
 /obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
