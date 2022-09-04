@@ -647,7 +647,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	. = ..()
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
-	if(cmagged)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		. += "<span class='warning'>The access panel is coated in yellow ooze...</span>"
 	if(note)
 		if(!in_range(user, src))
@@ -846,7 +846,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/ai_control_check(mob/user)
 	if(!issilicon(user))
 		return TRUE
-	if(emagged || cmagged)
+	if(emagged || HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
 		return FALSE
 	if(!canAIControl())
@@ -1381,7 +1381,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return 1
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
-	if(operating || cmagged || !density || !arePowerSystemsOn())
+	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn())
 		return
 	operating = TRUE
 	update_icon(AIRLOCK_EMAG, 1)
@@ -1390,7 +1390,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	operating = FALSE
 	update_icon(AIRLOCK_CLOSED, 1)
-	cmagged = TRUE
+	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
 	return TRUE
 
 /obj/machinery/door/airlock/emp_act(severity)
