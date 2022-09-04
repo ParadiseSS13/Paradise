@@ -216,6 +216,8 @@
 		return
 	if(state != WINDOW_OUT_OF_FRAME && state != WINDOW_IN_FRAME)
 		return
+	if(!anchored)
+		return
 	if(flags & NODECONSTRUCT)
 		return
 	. = TRUE

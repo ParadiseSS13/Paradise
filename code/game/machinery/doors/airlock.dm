@@ -89,15 +89,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
 
-	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating
-	var/image/old_filling_overlay
-	var/image/old_lights_overlay
-	var/image/old_panel_overlay
-	var/image/old_weld_overlay
-	var/image/old_sparks_overlay
-	var/image/old_dam_overlay
-	var/image/old_note_overlay
-
 	var/mutable_appearance/old_buttons_underlay
 	var/mutable_appearance/old_lights_underlay
 	var/mutable_appearance/old_damag_underlay
@@ -330,9 +321,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	var/animate_color
 	var/image/polarized_image = get_airlock_overlay("[airlock_material]_closed", overlays_file)
-	polarized_image.dir = dir
 
-	overlays -= old_filling_overlay
+	polarized_image.dir = dir
 
 	if(!polarized_on)
 		polarized_image.color = "#222222"
@@ -342,12 +332,13 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		polarized_image.color = "#FFFFFF"
 		animate_color = "#222222"
 		set_opacity(TRUE)
+	
+	overlays -= polarized_image
 
 	// Animate() does not work on overlays, so a temporary effect is used
 	new /obj/effect/temp_visual/polarized_airlock(get_turf(src), polarized_image, animate_color)
 
-	// Overlays are reset at the same time, due to some oddities when it comes dealing with the cache without changing the base airlock state.
-	addtimer(CALLBACK(src, /atom/.proc/update_icon, 0, 0, TRUE), 0.5 SECONDS)
+	addtimer(CALLBACK(src, /atom/.proc/update_icon, 0, 0), 0.5 SECONDS)
 
 //
 // Polarization toggling effect
@@ -370,10 +361,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 // Icon handling
 //
 
-/obj/machinery/door/airlock/update_icon(state=0, override=0, reset_overlays)
+/obj/machinery/door/airlock/update_icon(state=0, override=0)
 	if(operating && !override)
 		return
-	check_unres()
+
 	icon_state = density ? "closed" : "open"
 	switch(state)
 		if(0)
@@ -386,18 +377,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			icon_state = "nonexistenticonstate" //MADNESS
 
 	. = ..(UPDATE_ICON_STATE) // Sent after the icon_state is changed
-
-	if(reset_overlays)
-		cut_overlays()
-
-		old_frame_overlay = null
-		old_filling_overlay = null
-		old_lights_overlay = null
-		old_panel_overlay = null
-		old_weld_overlay = null
-		old_sparks_overlay = null
-		old_dam_overlay = null
-		old_note_overlay = null
 
 	set_airlock_overlays(state)
 
@@ -564,39 +543,18 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	else
 		filling_overlay.color = "#FFFFFF"
 
-	//doesn't use overlays.Cut() for performance reasons
-	if(frame_overlay != old_frame_overlay)
-		overlays -= old_frame_overlay
-		overlays += frame_overlay
-		old_frame_overlay = frame_overlay
-	if(filling_overlay != old_filling_overlay)
-		overlays -= old_filling_overlay
-		overlays += filling_overlay
-		old_filling_overlay = filling_overlay
-	if(lights_overlay != old_lights_overlay)
-		overlays -= old_lights_overlay
-		overlays += lights_overlay
-		old_lights_overlay = lights_overlay
-	if(panel_overlay != old_panel_overlay)
-		overlays -= old_panel_overlay
-		overlays += panel_overlay
-		old_panel_overlay = panel_overlay
-	if(weld_overlay != old_weld_overlay)
-		overlays -= old_weld_overlay
-		overlays += weld_overlay
-		old_weld_overlay = weld_overlay
-	if(sparks_overlay != old_sparks_overlay)
-		overlays -= old_sparks_overlay
-		overlays += sparks_overlay
-		old_sparks_overlay = sparks_overlay
-	if(damag_overlay != old_dam_overlay)
-		overlays -= old_dam_overlay
-		overlays += damag_overlay
-		old_dam_overlay = damag_overlay
-	if(note_overlay != old_note_overlay)
-		overlays -= old_note_overlay
-		overlays += note_overlay
-		old_note_overlay = note_overlay
+	cut_overlays()
+
+	overlays += frame_overlay
+	overlays += filling_overlay
+	overlays += lights_overlay
+	overlays += panel_overlay
+	overlays += weld_overlay
+	overlays += sparks_overlay
+	overlays += damag_overlay
+	overlays += note_overlay
+
+	check_unres()
 
 	//EMISSIVE ICONS
 	if(buttons_underlay != old_buttons_underlay)
