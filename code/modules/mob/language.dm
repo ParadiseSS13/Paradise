@@ -467,15 +467,15 @@
 	key = "?"
 	space_chance = 65
 	english_names = 1
-	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
-					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
-					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
-					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
-					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
-					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
-					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
-					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+	syllables = list("дыен","бар","бота","выек","тво","слов","слав","сыен","доуп","вах","лаз","глоз","йет",
+					 "нет","да","скй","глав","глаз","нетз","доомат","дома","зат","молчат","боз","сомы",
+					 "вгад","враде","таы","бли","аы","нов","ливн","толв","глаз","глиз","оуй","зет","йевт",
+					 "дат","ботат","нев","новы","взя","новаия","что","обш","дафский","кеы","щкей","овскй",
+					 "скайа","бибю","киев",элек","студех","вар","бйл","вйаня","цион","вая","мыяак","гино",
+					 "воло","олам","мити","ниноская","мынов","перов","одаскй","тров","ники","ивано","достов",
+					 "достоевский","соколов","опа","первом","щел","тизан","чх","таган","добрый","охт","бода",
+					 "вета","иди","на","хуй","сука","блять","уди","литчки","кас","лиха","лихз","толй",
+					 "анатов","вич","веч","вуч","тои","ха","вод")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"
