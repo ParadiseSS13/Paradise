@@ -31,6 +31,11 @@
 
 	suffix = ""
 
+	/// Delay in deciseconds between each step
+	var/step_delay = 0
+	/// world.time of next move
+	var/next_move_time = 0
+
 	var/global/mulebot_count = 0
 	var/atom/movable/load = null
 	var/mob/living/passenger = null
@@ -471,10 +476,13 @@
 	if(!on)
 		return
 
-	var/speed = (!wires.is_cut(WIRE_MOTOR1) ? 1 : 0) + (!wires.is_cut(WIRE_MOTOR2) ? 2 : 0)
-	if(!speed)//Devide by zero man bad
+	var/new_speed = (!wires.is_cut(WIRE_MOTOR1) ? 1 : 0) + (!wires.is_cut(WIRE_MOTOR2) ? 2 : 0)
+	if(!new_speed)//Devide by zero man bad
 		return
-	num_steps = round(10/speed) //10, 5, or 3 steps, depending on how many wires we have cut
+
+
+	num_steps = round(10 / new_speed) //10, 5, or 3 steps, depending on how many wires we have cut
+	step_delay = num_steps // step_delay shouldnt change, num_steps should
 	START_PROCESSING(SSfastprocess, src)
 
 /mob/living/simple_animal/bot/mulebot/process()
@@ -488,6 +496,11 @@
 			return
 
 		if(BOT_DELIVER, BOT_GO_HOME, BOT_BLOCKED) // navigating to deliver,home, or blocked
+			if(world.time < next_move_time)
+				return
+
+			next_move_time = world.time + step_delay
+
 			if(loc == target) // reached target
 				at_target()
 				return
@@ -719,69 +732,52 @@
 				to_chat(src, "<span class='warning big'>DELIVER [load] TO [destination]</span>")
 			else
 				to_chat(src, "<span class='warning big'>PICK UP DELIVERY AT [destination]</span>")
-		if("unload")
+
+		if("unload", "load")
 			if(load)
 				to_chat(src, "<span class='warning big'>UNLOAD</span>")
 			else
 				to_chat(src, "<span class='warning big'>LOAD</span>")
-		if("autoret", "autopick", "target")
-		else
-			..()
 
-/*
-/mob/living/simple_animal/bot/mulebot/receive_signal(datum/signal/signal)
-	if(wires.is_cut(WIRE_REMOTE_RX) || ..())
-		return TRUE
 
-	var/recv = signal.data["command"]
+
+/mob/living/simple_animal/bot/mulebot/handle_command(mob/user, command, list/params)
+	if(wires.is_cut(WIRE_REMOTE_RX) || !..())
+		return FALSE
+
+	if(client)
+		bot_control_message(command, user, null)
+		return
+
+	. = TRUE
 
 	// process control input
-	switch(recv)
+	switch(command)
 		if("start")
 			start()
 
-		if("target")
-			set_destination(signal.data["destination"])
+		if("stop")
+			bot_reset()
+
+		if("home")
+			start_home()
 
 		if("unload")
-			if(client)
-				return 1
 			if(loc == target)
 				unload(loaddir)
 			else
 				unload(0)
 
-		if("home")
-			start_home()
+		if("target")
+			var/dest = input("Select Bot Destination", "Mulebot [suffix] Interlink", destination) as null|anything in GLOB.deliverybeacontags
+			if(dest)
+				set_destination(dest)
 
-		if("autoret")
-			auto_return = text2num(signal.data["value"])
+		if("set_auto_return")
+			auto_return = text2num(params["autoret"])
 
-		if("autopick")
-			auto_pickup = text2num(signal.data["value"])
-
-		else
-			return 0
-	return 1
-*/
-
-
-/*
-/mob/living/simple_animal/bot/mulebot/send_status()
-	var/list/kv = list(
-		"type" = MULE_BOT,
-		"name" = suffix,
-		"loca" = get_area(src),
-		"mode" = mode,
-		"powr" = (cell ? cell.percent() : 0),
-		"dest" = destination,
-		"home" = home_destination,
-		"load" = load,
-		"retn" = auto_return,
-		"pick" = auto_pickup,
-	)
-	post_signal_multiple(control_freq, kv)
-*/
+		if("set_pickup_type")
+			auto_pickup = text2num(params["autopick"])
 
 // player on mulebot attempted to move
 /mob/living/simple_animal/bot/mulebot/relaymove(mob/user)

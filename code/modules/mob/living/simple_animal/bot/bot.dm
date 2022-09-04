@@ -714,11 +714,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/handle_command(mob/user, command, list/params)
 	// We aint even on, why bother
 	if(!on)
-		return
+		return FALSE
 
 	// check to see if we are the commanded bot
 	if(emagged == 2 || remote_disabled) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
-		return
+		return FALSE
 
 	if(client)
 		bot_control_message(command, user, params["target"] ? params["target"] : "Unknown")
@@ -743,6 +743,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 			mode = BOT_SUMMON
 			calc_summon_path()
 			speak("Responding.", radio_channel)
+
+	return TRUE
 
 
 /mob/living/simple_animal/bot/proc/bot_summon() // summoned to PDA
