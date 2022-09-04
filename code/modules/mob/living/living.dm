@@ -975,6 +975,15 @@
 		visible_message("<span class='notice'>[user] butchers [src].</span>")
 		gib()
 
+/mob/living/proc/can_use(atom/movable/M, be_close = FALSE)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
+		return FALSE
+	if(be_close && !in_range(M, src))
+		to_chat(src, "<span class='warning'>You are too far away!</span>")
+		return FALSE
+	return TRUE
+
 /mob/living/movement_delay(ignorewalk = 0)
 	. = ..()
 	if(isturf(loc))
