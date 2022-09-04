@@ -191,7 +191,7 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 30
-	weaken = 8 SECONDS
+	knockdown = 8 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 /obj/item/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)

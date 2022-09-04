@@ -1821,9 +1821,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/list/limbs_list = list()
 	var/list/organs_list = list()
 	var/list/equip_list = list()
+	var/list/implant_list = list()
 	data["limbs"] = limbs_list
 	data["iorgans"] = organs_list
 	data["equip"] = equip_list
+	data["implant_list"] = implant_list
 
 	data["dna"] = dna.serialize()
 	data["age"] = age
@@ -1854,12 +1856,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(thing != null)
 			equip_list[i] = thing.serialize()
 
+	for(var/obj/item/implant/implant in src)
+		implant_list[implant] = implant.serialize()
+
 	return data
 
 /mob/living/carbon/human/deserialize(list/data)
 	var/list/limbs_list = data["limbs"]
 	var/list/organs_list = data["iorgans"]
 	var/list/equip_list = data["equip"]
+	var/list/implant_list = data["implant_list"]
 	var/turf/T = get_turf(src)
 	if(!islist(data["limbs"]))
 		throw EXCEPTION("Expected a limbs list, but found none")
@@ -1890,6 +1896,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	for(var/organ in organs_list)
 		// As above, "New" code handles insertion, DNA sync
 		list_to_object(organs_list[organ], src)
+
+	for(var/thing in implant_list)
+		var/implant_data = implant_list[thing]
+		var/path = text2path(implant_data["type"])
+		var/obj/item/implant/implant = new path(T)
+		if(!implant.implant(src, src))
+			qdel(implant)
 
 	UpdateAppearance()
 
