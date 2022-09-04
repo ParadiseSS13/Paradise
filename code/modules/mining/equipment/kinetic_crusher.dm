@@ -93,7 +93,7 @@
 	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
 		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
 			playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
-			user.visible_message("<span class='warning'>[usr] dashes!</span>")
+			user.visible_message("<span class='warning'>[user] dashes!</span>")
 		else
 			to_chat(user, "<span class='warning'>Something prevents you from dashing!</span>")
 		user.remove_status_effect(STATUS_EFFECT_DASH)
