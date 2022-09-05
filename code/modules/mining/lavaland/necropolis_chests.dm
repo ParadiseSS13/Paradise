@@ -158,7 +158,7 @@
 #define CHARGE_DRAINED_PER_SECOND 5
 #define BERSERK_DAMAGE_REDUCTION 0.6
 #define BERSERK_ATTACK_SPEED_MODIFIER 0.5
-#define BERSERK_COLOUR rgb(149, 10, 10)
+#define BERSERK_COLOUR "#950a0a"
 
 /obj/item/clothing/suit/hooded/berserker
 	name = "champion's hardsuit"
