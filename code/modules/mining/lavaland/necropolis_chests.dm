@@ -167,9 +167,9 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
 	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	hoodtype = /obj/item/clothing/head/hooded/berserker
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	flags_inv = HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT | HIDETAIL
+	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS| FEET | ARMS | HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	respects_nodrop = TRUE
@@ -195,7 +195,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK | HIDEEARS | HIDEEYES | HIDEFACE
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -234,16 +234,16 @@
 		return
 	if(istype(hitby, /obj/item/projectile))
 		var/obj/item/projectile/P = hitby
-		if(P.damage_type != BRUTE && P.damage_type != BURN)
+		if(P.damage_type == STAMINA)
 			return //no disabler rage
 	var/berserk_value = damage * DAMAGE_TO_CHARGE_SCALE
 	if(attack_type == PROJECTILE_ATTACK)
 		berserk_value *= PROJECTILE_HIT_MULTIPLIER
 	berserk_charge = clamp(round(berserk_charge + berserk_value), 0, MAX_BERSERK_CHARGE)
 	if(berserk_charge >= MAX_BERSERK_CHARGE)
-		to_chat(owner, "<span class='notice'>Berserk mode is fully charged.</span>")
+		to_chat(owner, "<span class='userdanger'>Berserk mode is fully charged!</span>")
 
-/// Starts berserk, giving the wearer 40 armor, doubled attacking speed, NOGUNS trait, and colours them blood red.
+/// Starts berserk, giving the wearer 40% brute / burn resist, doubled attacking speed, NOGUNS trait, and colours them blood red.
 /obj/item/clothing/head/hooded/berserker/proc/berserk_mode(mob/living/carbon/human/user)
 	to_chat(user, "<span class='warning'>You enter berserk mode.</span>")
 	playsound(user, 'sound/magic/staff_healing.ogg', 50)
