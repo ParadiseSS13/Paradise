@@ -217,6 +217,13 @@
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
 
+/obj/structure/closet/crate/secure/AltClick(mob/user)
+	if(Adjacent(user) && !opened)
+		verb_togglelock()
+		return
+
+	. = ..()
+
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
 	set src in oview(1) // One square distance
 	set category = null

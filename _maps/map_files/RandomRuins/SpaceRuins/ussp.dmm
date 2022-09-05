@@ -361,18 +361,14 @@
 /turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/derelict/arrival)
 "aX" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+/obj/structure/closet/cabinet,
+/obj/item/clothing/suit/space/syndicate/blue{
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	name = "Cosmonaut Command Suit"
 	},
 /obj/item/clothing/head/helmet/space/syndicate/blue{
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
 	name = "Cosmonaut Command Helmet"
-	},
-/obj/item/clothing/suit/space/syndicate/blue{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
-	name = "Cosmonaut Command Suit"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)

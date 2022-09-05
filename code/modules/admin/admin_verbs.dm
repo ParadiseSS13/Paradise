@@ -72,7 +72,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
-	/client/proc/stickybanpanel,
 	/datum/admins/proc/vpn_whitelist
 	))
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(
@@ -310,7 +309,8 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		GLOB.admin_verbs_proccall,
 		GLOB.admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
-		GLOB.admin_verbs_ticket
+		GLOB.admin_verbs_ticket,
+		GLOB.admin_verbs_maintainer,
 	)
 
 /client/proc/hide_verbs()

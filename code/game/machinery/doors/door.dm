@@ -37,6 +37,11 @@
 	//Multi-tile doors
 	var/width = 1
 
+	/// ID for the window tint button, or another external control
+	var/id
+	var/polarized_glass = FALSE
+	var/polarized_on
+
 /obj/machinery/door/New()
 	..()
 	GLOB.airlocks += src
@@ -267,6 +272,9 @@
 		emagged = TRUE
 		return TRUE
 
+/obj/machinery/door/proc/toggle_polarization()
+	return
+
 /obj/machinery/door/update_icon_state()
 	icon_state = "door[density]"
 
@@ -330,8 +338,8 @@
 	density = TRUE
 	sleep(5)
 	update_icon()
-	if(visible && !glass)
-		set_opacity(1)
+	if(!glass || polarized_on)
+		set_opacity(TRUE)
 	operating = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
@@ -388,28 +396,23 @@
 
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)
+		set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 		if(unres_sides & NORTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
 			I.pixel_y = 32
-			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & SOUTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
 			I.pixel_y = -32
-			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & EAST)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
 			I.pixel_x = 32
-			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & WEST)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
 			I.pixel_x = -32
-			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
-	else
-		set_light(0)
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
