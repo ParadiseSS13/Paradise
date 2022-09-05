@@ -81,8 +81,9 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 				diseases_moderate += candidate
 			if(DANGEROUS, BIOHAZARD)
 				diseases_major += candidate
-	if(MAJOR_INTO_MODERATE)
+	#ifdef MAJOR_INTO_MODERATE
 		diseases_moderate += diseases_major
+	#endif
 
 /datum/event/disease_outbreak/proc/populate_symptoms()
 	for(var/candidate in subtypesof(/datum/symptom))
