@@ -169,7 +169,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/berserker
 	flags_inv = HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT | HIDETAIL
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS| FEET | ARMS | HANDS
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	respects_nodrop = TRUE
@@ -241,7 +241,7 @@
 		berserk_value *= PROJECTILE_HIT_MULTIPLIER
 	berserk_charge = clamp(round(berserk_charge + berserk_value), 0, MAX_BERSERK_CHARGE)
 	if(berserk_charge >= MAX_BERSERK_CHARGE)
-		to_chat(owner, "<span class='userdanger'>Berserk mode is fully charged!</span>")
+		to_chat(owner, "<span class='boldnotice'>Berserk mode is fully charged!</span>")
 
 /// Starts berserk, giving the wearer 40% brute / burn resist, doubled attacking speed, NOGUNS trait, and colours them blood red.
 /obj/item/clothing/head/hooded/berserker/proc/berserk_mode(mob/living/carbon/human/user)
