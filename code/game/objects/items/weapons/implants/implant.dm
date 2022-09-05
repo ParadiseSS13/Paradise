@@ -26,22 +26,25 @@
 /obj/item/implant
 	name = "implant"
 	icon = 'icons/obj/implants.dmi'
-	icon_state = "generic" //Shows up as the action button icon
+	icon_state = "generic" //Shows up as a auto surgeon, used as a placeholder when a implant doesn't have a sprite
 	origin_tech = "materials=2;biotech=3;programming=2"
-
 	actions_types = list(/datum/action/item_action/hands_free/activate)
+	item_color = "black"
+	flags = DROPDEL  // By default, don't let implants be harvestable.
+
+	///which implant overlay should be used for implant cases. This should point to a state in implants.dmi
+	var/implant_state = "implant-default"
 	/// How the implant is activated.
 	var/activated = IMPLANT_ACTIVATED_ACTIVE
 	/// Whether the implant is implanted. Null if it's never been inserted, TRUE if it's currently inside someone, or FALSE if it's been removed.
-	var/implanted = null
+	var/implanted
 	/// Who the implant is inside of.
-	var/mob/living/imp_in = null
-	item_color = "b"
+	var/mob/living/imp_in
+
 	/// Whether multiple implants of this same type can be inserted into someone.
 	var/allow_multiple = FALSE
 	/// Amount of times that the implant can be triggered by the user. If the implant can't be used, it can't be inserted.
 	var/uses = -1
-	flags = DROPDEL  // By default, don't let implants be harvestable.
 
 	/// List of emote keys that activate this implant when used.
 	var/list/trigger_emotes
@@ -49,6 +52,18 @@
 	var/trigger_causes
 	/// Whether this implant has already triggered on death or not, to prevent it firing multiple times.
 	var/has_triggered_on_death = FALSE
+
+	///the implant_fluff datum attached to this implant, purely cosmetic "lore" information
+	var/datum/implant_fluff/implant_data = /datum/implant_fluff
+
+/obj/item/implant/Initialize(mapload)
+	. = ..()
+	if(ispath(implant_data))
+		implant_data = new implant_data
+
+/obj/item/implant/Destroy()
+	QDEL_NULL(implant_data)
+	return ..()
 
 /obj/item/implant/proc/unregister_emotes()
 	if(imp_in && LAZYLEN(trigger_emotes))
@@ -211,10 +226,6 @@
 	if(imp_in)
 		removed(imp_in)
 	return ..()
-
-
-/obj/item/implant/proc/get_data()
-	return "No information available"
 
 /obj/item/implant/dropped(mob/user)
 	. = TRUE

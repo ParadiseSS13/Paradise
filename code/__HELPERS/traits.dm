@@ -199,6 +199,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
+#define TRAIT_CMAGGED "cmagged"
 
 //
 // common trait sources
