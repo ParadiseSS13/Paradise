@@ -111,6 +111,7 @@
 	desc = "You summon a dimenional anchor after a delay, recasting will teleport you back to the anchor. you are forced back after 2 minutes."
 	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will, do beware after saving you are forced back to that point after 2 minutes."
 	required_blood = 30
+	centcom_cancast = FALSE
 	base_cooldown = 3 MINUTES
 	should_recharge_after_cast = FALSE
 	deduct_blood_on_cast = FALSE
@@ -145,6 +146,11 @@
 	var/turf/start_turf = get_turf(user)
 	var/turf/end_turf = get_turf(anchor)
 	QDEL_NULL(anchor)
+	if(end_turf.z != start_turf.z)
+		return
+	if(!is_teleport_allowed(end_turf.z))
+		return
+
 	user.forceMove(end_turf)
 
 	if(end_turf.z == start_turf.z)
@@ -229,11 +235,11 @@
 			A.extinguish_light()
 
 /obj/effect/proc_holder/spell/vampire/shadow_boxing
-	name = "Shadow Boxing (30)"
+	name = "Shadow Boxing (50)"
 	desc = "Target someone to have your shadow beat them up. you must stay within 2 tiles for this to work."
 	gain_desc = "You have gained the ability to make your shadow fight for you."
 	base_cooldown = 30 SECONDS
-	required_blood = 30
+	required_blood = 50
 	var/target_UID
 
 /obj/effect/proc_holder/spell/vampire/shadow_boxing/create_new_targeting()

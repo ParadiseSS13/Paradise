@@ -103,6 +103,7 @@
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	sound = null
+	invocation_type = "none"
 	invocation = null
 
 /obj/effect/proc_holder/spell/fireball/demonic_grasp/create_new_handler()
@@ -114,6 +115,15 @@
 	name = "demonic grasp"
 	// parry this you filthy casual
 	reflectability = REFLECTABILITY_NEVER
+
+/obj/item/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
+	. = ..()
+	if(prob(50))
+		new /obj/effect/temp_visual/bubblegum_hands/rightpaw(loc)
+		new /obj/effect/temp_visual/bubblegum_hands/rightthumb(loc)
+	else
+		new /obj/effect/temp_visual/bubblegum_hands/leftpaw(loc)
+		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(loc)
 
 /obj/item/projectile/magic/demonic_grasp/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
@@ -128,6 +138,13 @@
 	if(!L.affects_vampire(firer))
 		return
 
+	if(prob(50))
+		new /obj/effect/temp_visual/bubblegum_hands/rightpaw(target.loc)
+		new /obj/effect/temp_visual/bubblegum_hands/rightthumb(target.loc)
+	else
+		new /obj/effect/temp_visual/bubblegum_hands/leftpaw(target.loc)
+		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(target.loc)
+
 
 	switch(firer.a_intent)
 		if(INTENT_DISARM)
@@ -135,7 +152,6 @@
 			L.throw_at(throw_target, 2, 5, spin = FALSE) // shove away
 		if(INTENT_GRAB)
 			throw_target = get_step(firer, get_dir(firer, L))
-			throw_target = get_step_towards(firer, get_dir(firer, L))
 			L.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE) // pull towards
 
 /obj/effect/proc_holder/spell/vampire/charge

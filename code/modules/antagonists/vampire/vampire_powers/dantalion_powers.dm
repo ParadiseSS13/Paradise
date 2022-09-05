@@ -210,7 +210,7 @@
 		addtimer(CALLBACK(H, /atom/.proc/cut_overlay, I), 6 SECONDS) // this makes it obvious who your thralls are for a while.
 
 /obj/effect/proc_holder/spell/vampire/self/share_damage
-	name = "Damage Net"
+	name = "Blood Bond"
 	desc = "Creates a net between you and your nearby thralls that shares out all damage recieved."
 	gain_desc = "You have gained the ability to share damage between you and your thralls."
 	required_blood = 5
