@@ -278,7 +278,6 @@
 	. = ..()
 	to_chat(user,"<span class='userdanger'>The mass goes up your arm and inside it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
-	//user.apply_status_effect(STATUS_EFFECT_KATANA_CURSE)
 	RegisterSignal(user, COMSIG_MOB_DEATH, .proc/user_death)
 
 	user.drop_item()
@@ -425,7 +424,7 @@
 /obj/item/cursed_katana/proc/reset_inputs(mob/user, deltimer)
 	input_list.Cut()
 	if(user)
-		to_chat(user, "<span class='notice'>You return to neutral stance</span>")
+		to_chat(user, "<span class='notice'>You return to neutral stance.</span>")
 	if(deltimer && timerid)
 		deltimer(timerid)
 
@@ -435,9 +434,10 @@
 	to_chat(target, "<span class='userdanger'>You've been struck by [user]!</span>")
 	playsound(src, 'sound/weapons/genhit3.ogg', 50, TRUE)
 	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, .proc/strike_throw_impact)
+	addtimer(CALLBACK(/datum/.proc/UnregisterSignal, target, COMSIG_MOVABLE_IMPACT), 5 SECONDS)
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, 5, 3, user, FALSE)
-	target.apply_damage(17, BRUTE, "chest")
+	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST)
 	to_chat(target, "<span class='userdanger'>You've been struck by [user]!</span>")
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
@@ -445,7 +445,7 @@
 	SIGNAL_HANDLER
 
 	UnregisterSignal(source, COMSIG_MOVABLE_IMPACT)
-	source.apply_damage(5, BRUTE, "chest")
+	source.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
 	if(ishostile(source))
 		var/mob/living/simple_animal/hostile/target = source
 		target.ranged_cooldown += 2 SECONDS
@@ -466,21 +466,21 @@
 		user.do_attack_animation(T, ATTACK_EFFECT_CLAW)
 		for(var/mob/living/additional_target in T)
 			if(user.Adjacent(additional_target) && additional_target.density)
-				additional_target.apply_damage(15, BRUTE, "chest", TRUE)
+				additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 				to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
-	target.apply_damage(5, BRUTE, "chest", TRUE)
+	target.apply_damage(5, BRUTE, BODY_ZONE_CHEST, TRUE)
 
 /obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
 	user.visible_message("<span class='warning'>[user] lets [src] feast on [target]'s blood!</span>",
 		"<span class='warning'>You let [src] feast on [target], and it heals you, at a price!</span>")
-	target.apply_damage(15, BRUTE, "chest", TRUE)
+	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.apply_status_effect(STATUS_EFFECT_SHADOW_MEND)
 
 /obj/item/cursed_katana/proc/cut(mob/living/target, mob/user)
 	user.visible_message("<span class='warning'>[user] cuts [target]'s tendons!</span>",
 		"<span class='notice'>You tendon cut [target]!</span>")
 	to_chat(target, "<span class='userdanger'>Your tendons have been cut by [user]!</span>")
-	target.apply_damage(15, BRUTE, "chest", TRUE)
+	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(src, 'sound/weapons/rapierhit.ogg', 50, TRUE)
 	var/datum/status_effect/saw_bleed/bloodletting/A = target.has_status_effect(STATUS_EFFECT_BLOODLETTING)
@@ -499,7 +499,7 @@
 		"<span class='notice'>You dash through [target]!</span>")
 	to_chat(target, ("<span class='userdanger'>[user] dashes through you!</span>"))
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
-	target.apply_damage(17, BRUTE, "chest", TRUE)
+	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
 	for(var/distance in 0 to 8)
 		var/turf/current_dash_target = dash_target
 		current_dash_target = get_step(current_dash_target, user.dir)
@@ -508,7 +508,7 @@
 		else
 			break
 		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
-			additional_target.apply_damage(15, BRUTE, "chest", TRUE)
+			additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 			to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
 	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
 	user.forceMove(dash_target)
@@ -517,7 +517,7 @@
 	user.visible_message("<span class='warning'>[user] shatters [src] over [target]!</span>",
 		"<span class='notice'>You shatter [src] over [target]!</span>")
 	to_chat(target, "<span class='userdanger'>[user] shatters [src] over you!</span>")
-	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, "chest", TRUE)
+	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, BODY_ZONE_CHEST, TRUE)
 	target.KnockDown(5 SECONDS)
 	target.adjustStaminaLoss(60) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
 	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
