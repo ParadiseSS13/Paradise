@@ -336,13 +336,14 @@
 		var/mob/living/carbon/human/H = user
 		var/obj/item/card/id/idcard = H.get_idcard()
 		if(!idcard?.assignment) //Humans can't game inverted access by taking their ID off or using spare IDs.
-			if(density)
-				do_animate("deny")
-				to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
-				if(sound_ready)
-					playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
-					soundcooldown() //Thanks, mechs
+			if(!density)
 				return
+			do_animate("deny")
+			to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
+			if(sound_ready)
+				playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+				soundcooldown() //Thanks, mechs
+			return
 	if(density)
 		open()
 	else
