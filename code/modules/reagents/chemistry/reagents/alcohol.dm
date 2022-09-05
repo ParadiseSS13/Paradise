@@ -1668,7 +1668,7 @@
 				targets += L
 			var/mob/living/target = pick(targets)
 			if(target)
-				to_chat(M, "<span class='warning'>You feel that [target.name] is somewhere near.</span>")
+				to_chat(target, "<span class='warning'>You feel that [M.name] is somewhere near.</span>")
 
 	return ..()
 
