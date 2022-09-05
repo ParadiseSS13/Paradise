@@ -171,7 +171,6 @@
 /datum/status_effect/stacking/ground_pound/on_remove()
 	latest_attacker = null
 
-
 /datum/status_effect/teleport_sickness
 	id = "teleportation sickness"
 	duration = 30 SECONDS
