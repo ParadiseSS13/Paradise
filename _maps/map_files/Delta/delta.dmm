@@ -13153,8 +13153,9 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aNU" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -13188,7 +13189,7 @@
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "aNY" = (
-/obj/machinery/atmospherics/pipe/manifold/visible,
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -13666,6 +13667,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "aPm" = (
@@ -13682,6 +13686,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "aPn" = (
@@ -13693,6 +13700,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -13744,6 +13754,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/binary/valve{
+	name = "Exhaust Reuse"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -13761,7 +13774,9 @@
 	},
 /area/maintenance/incinerator)
 "aPt" = (
-/obj/machinery/atmospherics/binary/valve,
+/obj/machinery/atmospherics/binary/valve{
+	name = "Exhaust Disposal"
+	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
@@ -14352,10 +14367,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "aQM" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 4;
-	frequency = 1441;
-	id = "mix_in"
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -14406,9 +14419,7 @@
 	dir = 1;
 	id = "incineratorturbine"
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -97485,6 +97496,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/prison/cell_block)
+"wok" = (
+/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
 "wpr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -118460,9 +118477,9 @@ abj
 aLQ
 abj
 aLT
-abj
-aaa
-abj
+aNT
+aPk
+aNT
 acF
 aaa
 abj
@@ -118717,9 +118734,9 @@ aGX
 aJK
 aGX
 acF
-aNT
-aPk
-aNT
+aGZ
+wok
+aGZ
 aWR
 abj
 abj
