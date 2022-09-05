@@ -709,3 +709,13 @@
 	drink_name = "Arnold Palmer"
 	drink_desc = "A wholesome mixture of lemonade and iced tea... looks like somebody didn't stir this one very well."
 	taste_description = "sweet and fizzy"
+
+/datum/reagent/consumable/drink/fyrsskar_tears_neutralized
+	name = "Tears of Fyrsskar, Neutralized"
+	id = "fyrsskartears_neutralized"
+	description = "Tears of Fyrsskar cocktail that has passed thru Skrellian digestive system and was converted into harmless drink. Ewww."
+	color = "#8B5427" // rgb: 139, 84, 39
+	drink_icon = "fyrsskartears"
+	drink_name = "Tears of Fyrsskar, Neutralized"
+	drink_desc = "Tears of Fyrsskar cocktail that has passed thru Skrellian digestive system and was converted into harmless drink. Ewww."
+	taste_description = "digested"
