@@ -187,12 +187,12 @@
 	var/germs = 0
 
 	for(var/mob/living/carbon/human/H in view(2, E.loc))//germs from people
-		if(AStar(E.loc, H.loc, /turf/proc/Distance, 2, simulated_only = 0))
+		if(get_path_to(E.loc, H.loc, /turf/proc/Distance, 2, simulated_only = 0))
 			if(!HAS_TRAIT(H, TRAIT_NOBREATH) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
 				germs += H.germ_level * 0.25
 
 	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes
-		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
+		if(get_path_to(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
 			germs++
 
 	if(tool && tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
