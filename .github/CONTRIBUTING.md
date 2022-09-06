@@ -607,6 +607,8 @@ in the SQL/updates folder.
 
 * All new var/proc names should use the American English spelling of words. This is for consistency with BYOND.
 
+* If you are making a PR that adds a config option to change existing behaviour, said config option must default to as close to as current behaviour as possible.
+
 ### Dream Maker Quirks/Tricks
 
 Like all languages, Dream Maker has its quirks, some of them are beneficial to us, like these:
