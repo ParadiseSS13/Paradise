@@ -5,6 +5,8 @@
 	name = "spider eggs"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "eggs"
+	destroy_on_removal = TRUE
+
 	var/stage = 1
 
 /obj/item/organ/internal/body_egg/spider_eggs/on_life()
@@ -33,13 +35,8 @@
 				owner.gib()
 
 /obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = 0)
-	..()
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
-	if(!QDELETED(src))
-		qdel(src) // prevent people re-implanting them into others
-	return null
-
-
+	return ..()
 
 // Terror Spiders - white spider infection
 
@@ -47,6 +44,7 @@
 	name = "terror eggs"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "eggs"
+	destroy_on_removal = TRUE
 
 	var/cycle_num = 0 // # of on_life() cycles completed, never reset
 	var/egg_progress = 0 // # of on_life() cycles completed, unlike cycle_num this is reset on each hatch event
@@ -102,11 +100,5 @@
 	eggs_hatched++
 	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
 	owner.Paralyse(20 SECONDS)
-	if(infection_completed && !QDELETED(src))
-		qdel(src)
-
-/obj/item/organ/internal/body_egg/terror_eggs/remove(mob/living/carbon/M, special = 0)
-	..()
-	if(!QDELETED(src))
-		qdel(src) // prevent people re-implanting them into others
-	return null
+	if(infection_completed)
+		remove(owner)

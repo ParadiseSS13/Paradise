@@ -90,6 +90,14 @@
 	. = ..()
 	if(!wielded)
 		return
+	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
+		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
+			playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+			user.visible_message("<span class='warning'>[user] dashes!</span>")
+		else
+			to_chat(user, "<span class='warning'>Something prevents you from dashing!</span>")
+		user.remove_status_effect(STATUS_EFFECT_DASH)
+		return
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = user.loc
 		if(!isturf(proj_turf))
@@ -347,6 +355,20 @@
 
 /obj/item/crusher_trophy/miner_eye/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_BLOODDRUNK)
+
+//legion
+
+/obj/item/crusher_trophy/empowered_legion_skull
+	name = "empowered legion skull"
+	desc = "A powerful looking skull with glowing red eyes."
+	icon_state = "ashen_skull"
+	denied_type = /obj/item/crusher_trophy/empowered_legion_skull
+
+/obj/item/crusher_trophy/empowered_legion_skull/effect_desc()
+	return "mark detonation grants the ability to dash a short distance on help intent"
+
+/obj/item/crusher_trophy/empowered_legion_skull/on_mark_detonation(mob/living/target, mob/living/user)
+	user.apply_status_effect(STATUS_EFFECT_DASH)
 
 //ash drake
 /obj/item/crusher_trophy/tail_spike

@@ -3,6 +3,8 @@
 	name = "Man-Machine Interface"
 	parent_organ = "chest"
 	status = ORGAN_ROBOT
+	destroy_on_removal = TRUE
+
 	var/obj/item/mmi/stored_mmi
 
 /obj/item/organ/internal/brain/mmi_holder/Destroy()
@@ -22,9 +24,7 @@
 				owner.mind.transfer_to(stored_mmi.brainmob)
 			stored_mmi.forceMove(get_turf(owner))
 			stored_mmi = null
-	..()
-	if(!QDELETED(src))
-		qdel(src)
+	return ..()
 
 /obj/item/organ/internal/brain/mmi_holder/proc/update_from_mmi()
 	if(!stored_mmi)
