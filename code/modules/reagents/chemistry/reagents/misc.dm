@@ -692,7 +692,7 @@
 			else
 				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
 	if(prob(10))
-		M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don’t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."))
+		M.say(pick("Maybe he's born with it, maybe its Tangerine.", "Dude, Toasters are like...tanning beds for bread.", "They said I could become anything so I became beef jerky.", "I can't afford a leather couch so I became one.", "I've entered the bronze age!"))
 
 	return list(0, STATUS_UPDATE_NONE)
 

@@ -238,6 +238,9 @@ emp_act
 	if(w_uniform && w_uniform.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return TRUE
 
+	if(head && head.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return TRUE
+
 	return FALSE
 
 #undef BLOCK_CHANCE_CALCULATION

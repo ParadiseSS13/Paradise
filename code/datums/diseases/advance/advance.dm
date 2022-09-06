@@ -126,6 +126,26 @@ GLOBAL_LIST_INIT(advance_cures, list(
 			return 1
 	return 0
 
+/datum/disease/advance/proc/GenerateSymptomsBySeverity(sev_min, sev_max, amount = 1)
+
+	var/list/generated = list() // Symptoms we generated.
+
+	var/list/possible_symptoms = list()
+	for(var/symp in GLOB.list_symptoms)
+		var/datum/symptom/S = new symp
+		if(S.severity >= sev_min && S.severity <= sev_max)
+			if(!HasSymptom(S))
+				possible_symptoms += S
+
+	if(!length(possible_symptoms))
+		return generated
+
+	for(var/i = 1 to amount)
+		generated += pick_n_take(possible_symptoms)
+
+	return generated
+
+
 // Will generate new unique symptoms, use this if there are none. Returns a list of symptoms that were generated.
 /datum/disease/advance/proc/GenerateSymptoms(level_min, level_max, amount_get = 0)
 
@@ -154,7 +174,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	return generated
 
-/datum/disease/advance/proc/Refresh(new_name = 0)
+/datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE)
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties)
 	id = null
