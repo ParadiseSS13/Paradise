@@ -412,7 +412,7 @@
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
-		var/list/path_to_take = get_path_to(src, get_turf(parrot_interest), /turf/proc/Distance_cardinal)
+		var/list/path_to_take = get_path_to(src, parrot_interest)
 		if(length(path_to_take) <= 1) // The target is below us
 			parrot_interest = null
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
@@ -437,7 +437,7 @@
 			icon_state = "parrot_sit"
 			return
 
-		var/list/path_to_take = get_path_to(src, get_turf(parrot_perch), /turf/proc/Distance_cardinal)
+		var/list/path_to_take = get_path_to(src, parrot_perch)
 		if(length(path_to_take) <= 1) // The target is below us
 			parrot_perch = null
 			parrot_state = PARROT_WANDER
