@@ -315,7 +315,7 @@
 			return
 		lag_turf = current_turf
 		current_turf = get_step(current_turf, heading)
-		steps_taken++
+		steps_taken += SQRT_2
 		if(!CAN_STEP(lag_turf, current_turf))
 			return
 
