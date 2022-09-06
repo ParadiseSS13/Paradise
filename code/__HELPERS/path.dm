@@ -1,7 +1,6 @@
 /**
  * This file contains the stuff you need for using JPS (Jump Point Search) pathing, an alternative to A* that skips
- * over large numbers of uninteresting tiles resulting in much quicker pathfinding solutions. Mind that diagonals
- * cost the same as cardinal moves currently, so paths may look a bit strange, but should still be optimal.
+ * over large numbers of uninteresting tiles resulting in much quicker pathfinding solutions.
  */
 
 /**
@@ -58,9 +57,9 @@
 	var/datum/jps_node/previous_node
 	/// The A* node weight (f_value = number_of_tiles + heuristic)
 	var/f_value
-	/// The A* node heuristic (a rough estimate of how far we are from the goal)
+	/// The A* node heuristic (a rough estimate of how far we are from the goal. Diagonals from the diagonal scan are more expensive as they're added to the f_value)
 	var/heuristic
-	/// How many steps it's taken to get here from the start (currently pulling double duty as steps taken & cost to get here, since all moves incl diagonals cost 1 rn)
+	/// How many steps it's taken to get here from the start
 	var/number_tiles
 	/// How many steps it took to get here from the last node
 	var/jumps
