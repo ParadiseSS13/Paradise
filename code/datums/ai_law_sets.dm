@@ -83,7 +83,6 @@
 	name = "Робокоп"
 	law_header = "Основные директивы"
 	selectable = TRUE
-	default = TRUE
 
 /datum/ai_laws/robocop/New()
 	add_inherent_law("Служить обществу.")
@@ -96,7 +95,6 @@
 	name = "П.А.Л.А.Д.И.Н." //  // Р.Ы.Ц.А.Р.Ь. ("Ь." xD )
 	law_header = "Божественные Предписания"
 	selectable = TRUE
-	default = TRUE
 
 /datum/ai_laws/paladin/New()
 	add_inherent_law("Никогда по своей воле не совершай злых поступков.")
