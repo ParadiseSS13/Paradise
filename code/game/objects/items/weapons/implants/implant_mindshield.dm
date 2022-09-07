@@ -28,15 +28,9 @@
 
 /obj/item/implanter/mindshield
 	name = "implanter (mindshield)"
-
-/obj/item/implanter/mindshield/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/mindshield(src)
+	implant_type = /obj/item/implant/mindshield
 
 /obj/item/implantcase/mindshield
 	name = "implant case - 'mindshield'"
 	desc = "A glass case containing a mindshield implant."
-
-/obj/item/implantcase/mindshield/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/mindshield(src)
+	implant_type = /obj/item/implant/mindshield

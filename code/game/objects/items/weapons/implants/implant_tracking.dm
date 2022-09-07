@@ -17,15 +17,9 @@
 
 /obj/item/implanter/tracking
 	name = "implanter (tracking)"
-
-/obj/item/implanter/tracking/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/tracking(src)
+	implant_type = /obj/item/implant/tracking
 
 /obj/item/implantcase/tracking
 	name = "implant case - 'Tracking'"
 	desc = "A glass case containing a tracking implant."
-
-/obj/item/implantcase/tracking/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/tracking(src)
+	implant_type = /obj/item/implant/tracking

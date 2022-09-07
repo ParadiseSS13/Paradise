@@ -12,6 +12,22 @@
 	hidden_uplink = new(src)
 	hidden_uplink.uses = 10
 
+/obj/item/implant/uplink/nuclear/Initialize(mapload)
+	. = ..()
+	if(hidden_uplink)
+		hidden_uplink.update_uplink_type(UPLINK_TYPE_NUCLEAR)
+
+/obj/item/implant/uplink/sit/Initialize(mapload)
+	. = ..()
+	if(hidden_uplink)
+		hidden_uplink.update_uplink_type(UPLINK_TYPE_SIT)
+
+/obj/item/implant/uplink/admin/Initialize(mapload)
+	. = ..()
+	if(hidden_uplink)
+		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
+
+
 /obj/item/implant/uplink/implant(mob/source)
 	var/obj/item/implant/imp_e = locate(type) in source
 	if(imp_e && imp_e != src)
@@ -30,38 +46,17 @@
 
 /obj/item/implanter/uplink
 	name = "implanter (uplink)"
-
-/obj/item/implanter/uplink/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/uplink(src)
+	implant_type = /obj/item/implant/uplink
 
 /obj/item/implantcase/uplink
 	name = "implant case - 'Syndicate Uplink'"
 	desc = "A glass case containing an uplink implant."
-
-/obj/item/implantcase/uplink/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/uplink(src)
-
-/obj/item/implant/uplink/nuclear/Initialize(mapload)
-	. = ..()
-	if(hidden_uplink)
-		hidden_uplink.update_uplink_type(UPLINK_TYPE_NUCLEAR)
+	implant_type = /obj/item/implant/uplink
 
 /obj/item/implanter/nuclear
 	name = "implanter (Nuclear Agent Uplink)"
+	implant_type = /obj/item/implant/uplink/nuclear
 
-/obj/item/implanter/nuclear/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/uplink/nuclear(src)
-
-/obj/item/implant/uplink/sit/Initialize(mapload)
-	. = ..()
-	if(hidden_uplink)
-		hidden_uplink.update_uplink_type(UPLINK_TYPE_SIT)
-
-
-/obj/item/implant/uplink/admin/Initialize(mapload)
-	. = ..()
-	if(hidden_uplink)
-		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
+/obj/item/implantcase/nuclear
+	name = "implant case - 'Nuclear Agent Uplink'"
+	implant_type = /obj/item/implant/uplink/nuclear

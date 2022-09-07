@@ -15,15 +15,9 @@
 
 /obj/item/implanter/emp
 	name = "implanter (EMP)"
-
-/obj/item/implanter/emp/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/emp(src)
+	implant_type = /obj/item/implant/emp
 
 /obj/item/implantcase/emp
 	name = "implant case - 'EMP'"
 	desc = "A glass case containing an EMP implant."
-
-/obj/item/implantcase/emp/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/emp(src)
+	implant_type = /obj/item/implant/emp
