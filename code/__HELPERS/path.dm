@@ -314,7 +314,7 @@
 			return
 		lag_turf = current_turf
 		current_turf = get_step(current_turf, heading)
-		steps_taken += SQRT_2
+		steps_taken += SQRT_2 // Diagonals are more expensive, with SQRT_2 being the movement delay multiplier for mobs
 		if(!CAN_STEP(lag_turf, current_turf))
 			return
 
