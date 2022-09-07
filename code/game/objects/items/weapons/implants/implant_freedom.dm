@@ -29,15 +29,9 @@
 
 /obj/item/implanter/freedom
 	name = "implanter (freedom)"
-
-/obj/item/implanter/freedom/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/freedom(src)
+	implant_type = /obj/item/implant/freedom
 
 /obj/item/implantcase/freedom
 	name = "implant case - 'Freedom'"
 	desc = "A glass case containing a freedom implant."
-
-/obj/item/implantcase/freedom/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/freedom(src)
+	implant_type = /obj/item/implant/freedom

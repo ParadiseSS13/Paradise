@@ -19,15 +19,9 @@
 
 /obj/item/implanter/sad_trombone
 	name = "implanter (sad trombone)"
-
-/obj/item/implanter/sad_trombone/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/sad_trombone
+	implant_type = /obj/item/implant/sad_trombone
 
 /obj/item/implantcase/sad_trombone
 	name = "implant case - 'Sad Trombone'"
 	desc = "A glass case containing a sad trombone implant."
-
-/obj/item/implantcase/sad_trombone/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/sad_trombone
+	implant_type = /obj/item/implant/sad_trombone
