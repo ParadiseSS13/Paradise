@@ -508,6 +508,7 @@
 	name = "ablative trenchcoat"
 	desc = "Experimental trenchcoat specially crafted to reflect and absorb laser and disabler shots. Don't expect it to do all that much against an axe or a shotgun, however."
 	icon_state = "ablativecoat"
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "ablativecoat"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
