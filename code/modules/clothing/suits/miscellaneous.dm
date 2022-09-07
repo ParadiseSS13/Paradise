@@ -494,6 +494,38 @@
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
 
+/obj/item/clothing/head/hooded/ablative
+	name = "ablative hood"
+	desc = "Hood hopefully belonging to an ablative trenchcoat. Includes a flash proof visor."
+	icon_state = "ablativehood"
+	flash_protect = FLASH_PROTECTION_FLASH
+	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	strip_delay = 3 SECONDS
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+						 "Grey" = 'icons/mob/clothing/species/grey/head.dmi')
+
+/obj/item/clothing/suit/hooded/ablative
+	name = "ablative trenchcoat"
+	desc = "Experimental trenchcoat specially crafted to reflect and absorb laser and disabler shots. Don't expect it to do all that much against an axe or a shotgun, however."
+	icon_state = "ablativecoat"
+	w_class = WEIGHT_CLASS_NORMAL
+	item_state = "ablativecoat"
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	hoodtype = /obj/item/clothing/head/hooded/ablative
+	strip_delay = 3 SECONDS
+	put_on_delay = 4 SECONDS
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+						 "Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
+	var/hit_reflect_chance = 50
+
+/obj/item/clothing/suit/hooded/ablative/IsReflect()
+	var/mob/living/carbon/human/user = loc
+	if(prob(hit_reflect_chance) && (user.wear_suit == src))
+		return 1
 
 /*
  * Misc
