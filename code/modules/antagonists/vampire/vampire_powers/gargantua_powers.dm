@@ -15,7 +15,8 @@
 /obj/effect/proc_holder/spell/vampire/self/stomp
 	name = "Siesmic Stomp (30)"
 	desc = "You slam your foot into the ground sending a powerful shockwave through the stations hull, sending people flying away."
-	gain_desc = "You have gained the ability to send a knock people back using a powerful stomp."
+	gain_desc = "You have gained the ability to knock people back using a powerful stomp."
+	action_icon_state = "seismic_stomp"
 	base_cooldown = 60 SECONDS
 	required_blood = 30
 	var/max_range = 4
@@ -23,7 +24,7 @@
 /obj/effect/proc_holder/spell/vampire/self/stomp/cast(list/targets, mob/user)
 	var/turf/T = get_turf(user)
 	playsound(T, 'sound/effects/meteorimpact.ogg', 100, TRUE)
-	hit_check(1, T, user)
+	addtimer(CALLBACK(src, .proc/hit_check, 1, T, user), 0.2 SECONDS)
 	new /obj/effect/temp_visual/stomp(T)
 
 /obj/effect/proc_holder/spell/vampire/self/stomp/proc/hit_check(range, turf/start_turf, mob/user, safe_targets = list())
@@ -45,13 +46,17 @@
 		addtimer(CALLBACK(src, .proc/hit_check, new_range, start_turf, user, safe_targets), 0.2 SECONDS)
 
 /obj/effect/temp_visual/stomp
-	icon = 'icons/effects/vampire_effects.dmi'
+	icon = 'icons/effects/seismic_stomp_effect.dmi'
 	icon_state = "stomp_effect"
 	duration = 0.8 SECONDS
+	pixel_y = -16
+	pixel_x = -16
 
 /obj/effect/temp_visual/stomp/Initialize(mapload)
 	. = ..()
-	animate(src, transform = matrix() * 8, time = duration, alpha = 0)
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * 8, time = duration, alpha = 0)
 
 /datum/vampire_passive/blood_swell_upgrade
 	gain_desc = "While blood swell is active all of your melee attacks deal increased damage."
@@ -99,12 +104,17 @@
 	selection_activated_message		= "<span class='notice'>You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You re-absorb the energy...for now.</span>"
 
+	action_icon_state = "demonic_grasp"
+
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	sound = null
 	invocation_type = "none"
 	invocation = null
+
+/obj/effect/proc_holder/spell/fireball/demonic_grasp/update_icon_state()
+	return
 
 /obj/effect/proc_holder/spell/fireball/demonic_grasp/create_new_handler()
 	var/datum/spell_handler/vampire/V = new()
@@ -115,15 +125,11 @@
 	name = "demonic grasp"
 	// parry this you filthy casual
 	reflectability = REFLECTABILITY_NEVER
+	icon_state = null
 
 /obj/item/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
 	. = ..()
-	if(prob(50))
-		new /obj/effect/temp_visual/bubblegum_hands/rightpaw(loc)
-		new /obj/effect/temp_visual/bubblegum_hands/rightthumb(loc)
-	else
-		new /obj/effect/temp_visual/bubblegum_hands/leftpaw(loc)
-		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(loc)
+	new /obj/effect/temp_visual/demonic_grasp(loc)
 
 /obj/item/projectile/magic/demonic_grasp/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
@@ -138,21 +144,28 @@
 	if(!L.affects_vampire(firer))
 		return
 
-	if(prob(50))
-		new /obj/effect/temp_visual/bubblegum_hands/rightpaw(target.loc)
-		new /obj/effect/temp_visual/bubblegum_hands/rightthumb(target.loc)
-	else
-		new /obj/effect/temp_visual/bubblegum_hands/leftpaw(target.loc)
-		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(target.loc)
-
+	new /obj/effect/temp_visual/demonic_grasp(loc)
 
 	switch(firer.a_intent)
 		if(INTENT_DISARM)
 			throw_target = get_edge_target_turf(L, get_dir(firer, L))
-			L.throw_at(throw_target, 2, 5, spin = FALSE) // shove away
+			L.throw_at(throw_target, 2, 5, spin = FALSE, callback = CALLBACK(src, .proc/create_snare, L)) // shove away
 		if(INTENT_GRAB)
 			throw_target = get_step(firer, get_dir(firer, L))
-			L.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE) // pull towards
+			L.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, .proc/create_snare, L)) // pull towards
+
+/obj/item/projectile/magic/demonic_grasp/proc/create_snare(mob/target)
+	new /obj/effect/temp_visual/demonic_snare(target.loc)
+
+/obj/effect/temp_visual/demonic_grasp
+	icon = 'icons/effects/vampire_effects.dmi'
+	icon_state = "demonic_grasp"
+	duration = 3.5 SECONDS
+
+/obj/effect/temp_visual/demonic_snare
+	icon = 'icons/effects/vampire_effects.dmi'
+	icon_state = "immobilized"
+	duration = 1 SECONDS
 
 /obj/effect/proc_holder/spell/vampire/charge
 	name = "Charge (30)"

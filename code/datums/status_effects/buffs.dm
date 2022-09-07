@@ -491,15 +491,17 @@
 			continue
 		if(!(M.current in view(7, owner)))
 			continue
+		if(M.current.stat == DEAD)
+			continue
 		target_UIDs += M.current.UID()
 		M.current.Beam(owner, "sendbeam", time = 2 SECONDS, maxdistance = 7)
 
 /datum/status_effect/thrall_net/tick()
 	var/total_damage = 0
-	for(var/thing in target_UIDs)
-		var/mob/living/L = locateUID(thing)
-		if(!(L in view(7, owner)))
-			target_UIDs -= thing
+	for(var/uid in target_UIDs)
+		var/mob/living/L = locateUID(uid)
+		if(!(L in view(7, owner)) || L.stat == DEAD)
+			target_UIDs -= uid
 			continue
 		total_damage += (L.maxHealth - L.health)
 		L.Beam(owner, "sendbeam", time = 2 SECONDS, maxdistance = 7)

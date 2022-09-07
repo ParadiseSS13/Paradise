@@ -67,10 +67,6 @@
 			qdel(src)
 			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
 
-	if(durability <= 0)
-		qdel(src)
-		to_chat(user, "<span class='warning'>Your claws shatter!</span>")
-
 /obj/item/twohanded/required/vamp_claws/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == PROJECTILE_ATTACK)
 		final_block_chance = 0
@@ -138,7 +134,7 @@
 	base_cooldown = 1 MINUTES
 	should_recharge_after_cast = FALSE
 	deduct_blood_on_cast = FALSE
-	icon_state = "wall"
+	action_icon_state = "blood_barrier"
 
 	var/max_walls = 3
 	var/turf/start_turf = null
@@ -188,7 +184,8 @@
 	name = "blood barrier"
 	desc = "a grotesque structure of crystalised blood. Its slowly melting away..."
 	max_integrity = 100
-	icon_state = "blood_barrier"
+	icon_state = "shield-cult"
+	icon = 'icons/effects/effects.dmi' // temporary
 	color = COLOR_BLOOD_BASE
 	density = TRUE
 	anchored = TRUE
@@ -251,6 +248,7 @@
 	name = "Predator Senses"
 	desc = "Hunt down your prey, there's nowhere to hide..."
 	gain_desc = "Your senses are hightened, nobody can hide from you now."
+	action_icon_state = "predator_sense"
 	base_cooldown = 20 SECONDS
 
 /obj/effect/proc_holder/spell/vampire/predator_senses/create_new_targeting()
@@ -273,7 +271,7 @@
 	var/mob/living/carbon/human/target = targets_by_name[target_name]
 	var/message = "[target_name] is in [get_area(target)], [dir2text(get_dir(user, target))] from you."
 	if(target.get_damage_amount() >= 40 || target.bleed_rate)
-		message += "They are wounded..."
+		message += " They are wounded..."
 	to_chat(user, "<span class='cultlarge'>[message]</span>")
 
 /obj/effect/proc_holder/spell/vampire/blood_eruption

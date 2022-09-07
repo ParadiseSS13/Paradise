@@ -113,6 +113,7 @@
 	required_blood = 30
 	centcom_cancast = FALSE
 	base_cooldown = 3 MINUTES
+	action_icon_state = "shadow_anchor"
 	should_recharge_after_cast = FALSE
 	deduct_blood_on_cast = FALSE
 	var/obj/structure/shadow_anchor/anchor
@@ -129,7 +130,6 @@
 	if(!timer && !anchor) // first cast, setup the anchor
 		var/turf/anchor_turf = get_turf(user)
 		timer = addtimer(CALLBACK(src, .proc/make_anchor, user, anchor_turf), 10 SECONDS, TIMER_STOPPABLE)
-		should_recharge_after_cast = TRUE
 
 	if(timer && anchor) // second cast, teleport us back
 		recall(user)
@@ -138,6 +138,7 @@
 /obj/effect/proc_holder/spell/vampire/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
 	anchor = new(anchor_turf)
 	timer = addtimer(CALLBACK(src, .proc/recall, user), 2 MINUTES, TIMER_STOPPABLE)
+	should_recharge_after_cast = TRUE
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/proc/recall(mob/user)
 	if(timer)
@@ -160,7 +161,7 @@
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/blood_cost = V.calculate_blood_cost(vampire)
 	vampire.bloodusable -= blood_cost
-	should_recharge_after_cast = FALSE
+	addtimer(VARSET_CALLBACK(src, should_recharge_after_cast, FALSE), 1 SECONDS) // this is needed so that the spell handler knows we casted it properly
 
 /proc/shadow_to_animation(turf/start_turf, turf/end_turf, mob/user)
 	var/x_difference = end_turf.x - start_turf.x
@@ -239,6 +240,7 @@
 	desc = "Target someone to have your shadow beat them up. you must stay within 2 tiles for this to work."
 	gain_desc = "You have gained the ability to make your shadow fight for you."
 	base_cooldown = 30 SECONDS
+	action_icon_state = "shadow_boxing"
 	required_blood = 50
 	var/target_UID
 

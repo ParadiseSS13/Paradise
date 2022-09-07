@@ -148,6 +148,7 @@
 	desc = "Switch positions with a target."
 	gain_desc = "You have gained the ability to switch positions with a targeted mob."
 	centcom_cancast = FALSE
+	action_icon_state = "subspace_swap"
 	base_cooldown = 30 SECONDS
 	required_blood = 30
 
@@ -213,6 +214,7 @@
 	name = "Blood Bond"
 	desc = "Creates a net between you and your nearby thralls that shares out all damage recieved."
 	gain_desc = "You have gained the ability to share damage between you and your thralls."
+	action_icon_state = "blood_bond"
 	required_blood = 5
 
 /obj/effect/proc_holder/spell/vampire/self/share_damage/cast(list/targets, mob/living/user)
