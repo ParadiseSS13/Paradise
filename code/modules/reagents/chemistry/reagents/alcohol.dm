@@ -1545,6 +1545,7 @@
 
 /datum/reagent/consumable/ethanol/sontse/on_mob_life(mob/living/M)
 	if(current_cycle != 5 || !ismoth(M))
+		return ..()
 	to_chat(M, "<span class='warning'>The Sun was within you all this time!</span>")
 	if(!light_activated)
 		M.set_light(2)
