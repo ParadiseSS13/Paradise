@@ -721,19 +721,19 @@
 	taste_description = "plasma"
 	var/alcohol_perc = 0.05
 	var/dizzy_adj = 6 SECONDS
-	var/gave_resist = FALSE
+
+/datum/reagent/consumable/drink/fyrsskar_tears/on_mob_add(mob/living/M)
+	if(isskrell(M))
+		ADD_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_life(mob/living/M)
 	if(!isskrell(M))
 		return ..()
 	// imitate alcohol effects using current cycle
 	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
-	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)
-	if(!gave_resist)
-		gave_resist = TRUE
-		ADD_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)		
 	return ..()
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
-	if(isskrell(M) && gave_resist)
+	if(isskrell(M))
 		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
