@@ -1,6 +1,3 @@
-#define MAJOR_INTO_MODERATE TRUE  //If true folds die major diseases/symptoms into moderate ones
-
-
 GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak
 	/// The type of disease that patient zero will be infected with.
@@ -11,11 +8,10 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 										/datum/disease/advance/hullucigen, /datum/disease/advance/sensory_restoration, /datum/disease/advance/voice_change)
 	var/static/list/transmissable_symptoms = list()
 	var/static/list/diseases_minor = list()
-	var/static/list/diseases_moderate = list()
-	var/static/list/diseases_major = list()
+	var/static/list/diseases_moderate_major = list()
 
 /datum/event/disease_outbreak/setup()
-	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate) && isemptylist(diseases_major))
+	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate_major))
 		populate_diseases()
 	if(isemptylist(transmissable_symptoms))
 		populate_symptoms()
@@ -25,15 +21,13 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 			if(EVENT_LEVEL_MUNDANE)
 				virus = pick(diseases_minor)
 			if(EVENT_LEVEL_MODERATE)
-				virus = pick(diseases_moderate)
-			if(EVENT_LEVEL_MAJOR)
-				virus = pick(diseases_major)
+				virus = pick(diseases_moderate_major)
 			else
-				stack_trace("Disease Outbreak: Invalid Event Level [severity]. Expected: 1-3")
+				stack_trace("Disease Outbreak: Invalid Event Level [severity]. Expected: 1-2")
 				virus = /datum/disease/cold
 		chosen_disease = new virus()
 	else
-		if(severity == EVENT_LEVEL_MODERATE && MAJOR_INTO_MODERATE)
+		if(severity == EVENT_LEVEL_MODERATE)
 			chosen_disease = create_virus(severity * pick(2,3))	//50% chance for a major disease instead of a moderate one
 		else
 			chosen_disease = create_virus(severity * 2)
@@ -77,18 +71,11 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		switch(CD.severity)
 			if(NONTHREAT, MINOR)
 				diseases_minor += candidate
-			if(MEDIUM, HARMFUL)
-				diseases_moderate += candidate
-			if(DANGEROUS, BIOHAZARD)
-				diseases_major += candidate
-	#ifdef MAJOR_INTO_MODERATE
-		diseases_moderate += diseases_major
-	#endif
+			if(MEDIUM, HARMFUL, DANGEROUS, BIOHAZARD)
+				diseases_moderate_major += candidate
 
 /datum/event/disease_outbreak/proc/populate_symptoms()
 	for(var/candidate in subtypesof(/datum/symptom))
 		var/datum/symptom/CS = candidate
 		if(initial(CS.transmittable) > 1)
 			transmissable_symptoms += candidate
-
-#undef MAJOR_INTO_MODERATE
