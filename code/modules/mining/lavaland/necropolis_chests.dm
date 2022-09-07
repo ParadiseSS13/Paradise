@@ -42,7 +42,7 @@
 		if(11)
 			new /obj/item/ship_in_a_bottle(src)
 		if(12)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/berserker(src)
+			new /obj/item/clothing/suit/hooded/berserker(src)
 		if(13)
 			new /obj/item/nullrod/scythe/talking(src)
 		if(14)
@@ -149,6 +149,159 @@
 	build_type = PROTOLATHE | MECHFAB
 
 //Spooky special loot
+
+// Beserker armor
+
+#define MAX_BERSERK_CHARGE 100
+#define PROJECTILE_HIT_MULTIPLIER 1.5
+#define DAMAGE_TO_CHARGE_SCALE 0.75
+#define CHARGE_DRAINED_PER_SECOND 5
+#define BERSERK_DAMAGE_REDUCTION 0.6
+#define BERSERK_ATTACK_SPEED_MODIFIER 0.5
+#define BERSERK_COLOUR "#950a0a"
+
+/obj/item/clothing/suit/hooded/berserker
+	name = "champion's hardsuit"
+	desc = "Voices echo from the hardsuit, driving the user insane. Is not space-proof."
+	icon_state = "hardsuit-berserker"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
+	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	hoodtype = /obj/item/clothing/head/hooded/berserker
+	flags_inv = HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT | HIDETAIL
+	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	respects_nodrop = TRUE
+	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		)
+	hide_tail_by_species = list("Unathi, Tajaran, Vox, Vulpkanin")
+
+/obj/item/clothing/head/hooded/berserker
+	name = "berserker helmet"
+	desc = "Peering into the eyes of the helmet is enough to seal damnation."
+	icon_state = "hardsuit0-berserker"
+	item_color = "berserker"
+	light_color = BERSERK_COLOUR
+	light_power = 4
+	actions_types = list(/datum/action/item_action/berserk_mode)
+	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	heat_protection = HEAD
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_inv = HIDEMASK | HIDEEARS | HIDEEYES | HIDEFACE
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		)
+	/// Current charge of berserk, goes from 0 to 100
+	var/berserk_charge = 0
+	/// Status of berserk
+	var/berserk_active = FALSE
+
+
+/obj/item/clothing/head/hooded/berserker/examine()
+	. = ..()
+	. += "<span class='notice'>Berserk mode is [berserk_charge]% charged.</span>"
+
+/obj/item/clothing/head/hooded/berserker/process()
+	if(berserk_active)
+		berserk_charge = clamp(berserk_charge - CHARGE_DRAINED_PER_SECOND * 2, 0, MAX_BERSERK_CHARGE)
+	if(!berserk_charge)
+		if(ishuman(loc))
+			end_berserk(loc)
+
+/obj/item/clothing/head/hooded/berserker/dropped(mob/user)
+	. = ..()
+	end_berserk(user)
+
+/obj/item/clothing/head/hooded/berserker/Destroy()
+	end_berserk()
+	return ..()
+
+
+/obj/item/clothing/head/hooded/berserker/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(berserk_active)
+		return
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.damage_type == STAMINA)
+			return //no disabler rage
+	var/berserk_value = damage * DAMAGE_TO_CHARGE_SCALE
+	if(attack_type == PROJECTILE_ATTACK)
+		berserk_value *= PROJECTILE_HIT_MULTIPLIER
+	berserk_charge = clamp(round(berserk_charge + berserk_value), 0, MAX_BERSERK_CHARGE)
+	if(berserk_charge >= MAX_BERSERK_CHARGE)
+		to_chat(owner, "<span class='boldnotice'>Berserk mode is fully charged!</span>")
+
+/// Starts berserk, giving the wearer 40% brute / burn resist, doubled attacking speed, NOGUNS trait, and colours them blood red.
+/obj/item/clothing/head/hooded/berserker/proc/berserk_mode(mob/living/carbon/human/user)
+	to_chat(user, "<span class='warning'>You enter berserk mode.</span>")
+	playsound(user, 'sound/magic/staff_healing.ogg', 50)
+	set_light(3)
+	user.physiology.burn_mod *= BERSERK_DAMAGE_REDUCTION
+	user.physiology.brute_mod *= BERSERK_DAMAGE_REDUCTION
+	user.next_move_modifier *= BERSERK_ATTACK_SPEED_MODIFIER
+	user.add_atom_colour(BERSERK_COLOUR, TEMPORARY_COLOUR_PRIORITY)
+	ADD_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
+	flags |= NODROP
+	suit.flags |= NODROP
+	berserk_active = TRUE
+	START_PROCESSING(SSobj, src)
+
+/// Ends berserk, reverting the changes from the proc [berserk_mode]
+/obj/item/clothing/head/hooded/berserker/proc/end_berserk(mob/living/carbon/human/user)
+	if(!berserk_active)
+		return
+	berserk_active = FALSE
+	if(QDELETED(user))
+		return
+	to_chat(user, "<span class='warning'>You exit berserk mode.</span>")
+	playsound(user, 'sound/magic/summonitems_generic.ogg', 50)
+	set_light(0)
+	user.physiology.burn_mod /= BERSERK_DAMAGE_REDUCTION
+	user.physiology.brute_mod /= BERSERK_DAMAGE_REDUCTION
+	user.next_move_modifier /= BERSERK_ATTACK_SPEED_MODIFIER
+	user.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, BERSERK_COLOUR)
+	REMOVE_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
+	flags &= ~NODROP
+	suit.flags &= ~NODROP
+	STOP_PROCESSING(SSobj, src)
+
+/datum/action/item_action/berserk_mode
+	name = "Berserk"
+	desc = "Increase your movement and melee speed while also increasing your melee armor for a short amount of time."
+
+/datum/action/item_action/berserk_mode/Trigger(trigger_flags)
+	if(istype(target, /obj/item/clothing/head/hooded/berserker))
+		var/obj/item/clothing/head/hooded/berserker/berzerk = target
+		if(berzerk.berserk_active)
+			to_chat(owner, "<span class='warning'>You are already berserk!</span>")
+			return
+		if(berzerk.berserk_charge < 100)
+			to_chat(owner, "<span class='warning'>You don't have a full charge.</span>")
+			return
+		berzerk.berserk_mode(owner)
+		return
+	return ..()
+
+#undef MAX_BERSERK_CHARGE
+#undef PROJECTILE_HIT_MULTIPLIER
+#undef DAMAGE_TO_CHARGE_SCALE
+#undef CHARGE_DRAINED_PER_SECOND
+#undef BERSERK_DAMAGE_REDUCTION
+#undef BERSERK_ATTACK_SPEED_MODIFIER
+#undef BERSERK_COLOUR
+
 
 //Rod of Asclepius
 #define RIGHT_HAND 0

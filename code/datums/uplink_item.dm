@@ -182,6 +182,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 75
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/cmag
+	name = "Jestographic Sequencer"
+	desc = "The jestographic sequencer, also known as a cmag, is a small card that inverts the access on any door it's used on. Perfect for locking command out of their own departments. Honk!"
+	reference = "CMG"
+	item = /obj/item/card/cmag
+	cost = 4
+	surplus = 75
+	job = list("Clown")
+
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Trick Revolver"
 	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."

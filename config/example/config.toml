@@ -814,7 +814,8 @@ prevent_dead_voting = false
 disable_default_vote = true
 # Enable voting for a map on end round
 enable_map_voting = false
-
+# Set to true to prevent the same map from being voted on twice in a row
+non_repeating_maps = true
 
 ################################################################
 
