@@ -131,8 +131,8 @@
 	location_override = "the Chief Medical Officer's Office"
 
 /datum/theft_objective/ablative
-	name = "an ablative armor vest"
-	typepath = /obj/item/clothing/suit/armor/laserproof
+	name = "an ablative trenchcoat"
+	typepath = /obj/item/clothing/suit/hooded/ablative
 	protected_jobs = list("Head of Security", "Warden")
 	location_override = "the Armory"
 

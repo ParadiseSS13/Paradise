@@ -58,6 +58,7 @@
 
 	var/secHUD = FALSE			// Toggles whether the Security HUD is active or not
 	var/medHUD = FALSE			// Toggles whether the Medical  HUD is active or not
+	var/dHUD = FALSE			// Toggles whether the Diagnostic HUD is active or not
 
 	/// Currently active software
 	var/datum/pai_software/active_software

@@ -108,6 +108,21 @@
 	update_icon()
 	//much roomier now that we've managed to remove two tools
 
+/obj/item/storage/belt/utility/syndi_researcher // A cool looking belt thats essentially a syndicate toolbox
+	desc = "A belt for holding tools, but with style."
+	icon_state = "assaultbelt"
+	item_state = "assault"
+
+/obj/item/storage/belt/utility/syndi_researcher/populate_contents()
+	new /obj/item/screwdriver(src, "red")
+	new /obj/item/wrench(src)
+	new /obj/item/weldingtool/largetank(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/wirecutters(src, "red")
+	new /obj/item/multitool/red(src)
+	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
+	update_icon()
+
 /obj/item/storage/belt/medical
 	name = "medical belt"
 	desc = "Can hold various medical equipment."

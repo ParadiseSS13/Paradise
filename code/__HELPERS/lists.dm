@@ -900,3 +900,17 @@ proc/dd_sortedObjectList(list/incoming)
 	. = list()
 	for(var/thing in flat_list)
 		.[thing] = TRUE
+
+///compare two lists, returns TRUE if they are the same
+/proc/compare_list(list/l, list/d)
+	if(!islist(l) || !islist(d))
+		return FALSE
+
+	if(length(l) != length(d))
+		return FALSE
+
+	for(var/i in 1 to length(l))
+		if(l[i] != d[i])
+			return FALSE
+
+	return TRUE

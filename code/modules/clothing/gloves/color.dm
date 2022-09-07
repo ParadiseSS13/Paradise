@@ -89,6 +89,12 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	var/can_be_cut = 1
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
+		)
 
 
 /obj/item/clothing/gloves/color/black/hos

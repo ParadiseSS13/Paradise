@@ -1518,3 +1518,17 @@
 	drink_name = "Pina Colada"
 	drink_desc = "After taking a sip, you feel contractually obligated to start singing a certain song of the same name."
 	taste_description = "tart and tropical pineapple"
+
+/datum/reagent/consumable/ethanol/bilkshake
+	name = "Bilkshake"
+	id = "bilkshake"
+	description = "An upsetting treat that combines beer and milk."
+	color = "#7B5835" // rgb: (123, 88, 53)
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	alcohol_perc = 0.1
+	drink_icon = "bilkshake"
+	drink_name = "Bilkshake"
+	drink_desc = "Your mind bubbles and oozes as it tries to comprehend what it's seeing. What the HELL is this?"
+	taste_description = "bilk, cream, and cold tears"
+
+
