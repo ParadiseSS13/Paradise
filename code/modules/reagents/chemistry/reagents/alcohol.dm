@@ -1544,18 +1544,18 @@
 	var/light_activated = FALSE
 
 /datum/reagent/consumable/ethanol/sontse/on_mob_life(mob/living/M)
-	if(ismoth(M))
-		if(current_cycle == 5)
-			to_chat(M, "<span class='warning'>The Sun was within you all this time!</span>")
-			if(!light_activated)
-				M.set_light(2)
-				light_activated = TRUE
+	if(current_cycle != 5 || !ismoth(M))
+	to_chat(M, "<span class='warning'>The Sun was within you all this time!</span>")
+	if(!light_activated)
+		M.set_light(2)
+		light_activated = TRUE
 	return ..()
 
 /datum/reagent/consumable/ethanol/sontse/on_mob_delete(mob/living/M)
-	if(ismoth(M))
-		to_chat(M, "<span class='warning'>The Sun within you subsides.</span>")
-		M.set_light(0)
+	if(!ismoth(M))
+		..()
+	to_chat(M, "<span class='warning'>The Sun within you subsides.</span>")
+	M.set_light(0)
 	..()
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse
@@ -1570,10 +1570,11 @@
 	taste_description = "ice"
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_life(mob/living/M)
-	if(istajaran(M))
-		if(M.bodytemperature > 250)
-			M.bodytemperature = max(250, M.bodytemperature - (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	return ..()
+	if(!istajaran(M))
+		return ..()
+	if(M.bodytemperature > 250)
+		M.bodytemperature = max(250, M.bodytemperature - (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
+
 
 /datum/reagent/consumable/ethanol/beach_feast
 	name = "Feast by the Beach"
@@ -1587,9 +1588,10 @@
 	taste_description = "sand"
 
 /datum/reagent/consumable/ethanol/beach_feast/on_mob_life(mob/living/M)
-	if(isunathi(M))
-		if(M.bodytemperature < 360)
-			M.bodytemperature = min(360, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	if(!isunathi(M))
+		return ..()
+	if(M.bodytemperature < 360)
+		M.bodytemperature = min(360, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
 
 /datum/reagent/consumable/ethanol/jungle_vox
@@ -1604,10 +1606,11 @@
 	taste_description = "bubbles"
 
 /datum/reagent/consumable/ethanol/jungle_vox/on_mob_life(mob/living/M)
-	if(isvox(M))
-		if(current_cycle > 5 && M.health > 0)
-			M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			M.AdjustLoseBreath(-2 SECONDS)
+	if(current_cycle <= 5 || !isvox(M))
+		return ..()
+	if(M.health > 0)
+		M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		M.AdjustLoseBreath(-2 SECONDS)
 	return ..()
 
 /datum/reagent/consumable/ethanol/slime_mold
@@ -1622,11 +1625,12 @@
 	taste_description = "jelly"
 
 /datum/reagent/consumable/ethanol/slime_mold/on_mob_life(mob/living/M)
-	if(isslimeperson(M))
-		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits))
-			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += REAGENTS_METABOLISM / 2 // half of the reagent is converted into blood, netting us just a little bit
+	if(!isslimeperson(M))
+		return ..()
+	var/mob/living/carbon/human/H = M
+	if(!(NO_BLOOD in H.dna.species.species_traits))
+		if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+			H.blood_volume += REAGENTS_METABOLISM / 2 // half of the reagent is converted into blood, netting us just a little bit
 	return ..()
 
 /datum/reagent/consumable/ethanol/die_seife
@@ -1641,10 +1645,12 @@
 	taste_description = "soap"
 
 /datum/reagent/consumable/ethanol/die_seife/on_mob_life(mob/living/M)
-	if(isdrask(M))
-		if(current_cycle % 10 == 0 && prob(50))
-			to_chat(M, "<span class='warning'>Your skin emits a soapy liquid from its pores cleaning you in the process.</span>")
-			M.clean_blood()
+	if(current_cycle % 10 != 0 || !isdrask(M))
+		return ..()
+
+	if(prob(50))
+		to_chat(M, "<span class='warning'>Your skin emits a soapy liquid from its pores cleaning you in the process.</span>")
+		M.clean_blood()
 	return ..()
 
 /datum/reagent/consumable/ethanol/acid_dreams
@@ -1659,17 +1665,17 @@
 	taste_description = "acid"
 
 /datum/reagent/consumable/ethanol/acid_dreams/on_mob_life(mob/living/M)
-	if(isgrey(M))
-		if(current_cycle % 10 == 0 && prob(50))
-			var/list/mob/living/targets = list()
-			for(var/mob/living/L in orange(14, M))
-				if(L.is_dead() || !L.client) //we don't care about dead mobs
-					continue
-				targets += L
-			var/mob/living/target = pick(targets)
-			if(target)
-				to_chat(target, "<span class='warning'>You feel that [M.name] is somewhere near.</span>")
-
+	if(current_cycle % 10 != 0 || !isgrey(M))
+		return ..()
+	if(prob(50))
+		var/list/mob/living/targets = list()
+		for(var/mob/living/L in orange(14, M))
+			if(L.is_dead() || !L.client) //we don't care about dead mobs
+				continue
+			targets += L
+		var/mob/living/target = pick(targets)
+		if(target)
+			to_chat(target, "<span class='warning'>You feel that [M.name] is somewhere near.</span>")
 	return ..()
 
 /datum/reagent/consumable/ethanol/islay_whiskey
@@ -1684,17 +1690,17 @@
 	taste_description = "soil"
 
 /datum/reagent/consumable/ethanol/islay_whiskey/on_mob_life(mob/living/M)
-	if(isdiona(M))
-		if(current_cycle > 5)
-			var/mob/living/carbon/human/H = M
-			var/turf/T = get_turf(H)
-			var/light_amount = min(1, T.get_lumcount()) - 0.5
+	if(current_cycle <=5 || !isdiona(M))
+		return ..()
 
-			if(light_amount > 0.2 && !H.suiciding)
-				if(H.health > 0)
-					H.adjustBruteLoss(-0.25)
-					H.adjustToxLoss(-0.25)
-					H.adjustOxyLoss(-0.25)
+	var/mob/living/carbon/human/H = M
+	var/turf/T = get_turf(H)
+	var/light_amount = min(1, T.get_lumcount()) - 0.5
+
+	if(light_amount > 0.2 && !H.suiciding && H.health > 0)
+		H.adjustBruteLoss(-0.25)
+		H.adjustToxLoss(-0.25)
+		H.adjustOxyLoss(-0.25)
 	return ..()
 
 /datum/reagent/consumable/ethanol/ultramatter
@@ -1710,19 +1716,23 @@
 	var/on_fire = FALSE
 
 /datum/reagent/consumable/ethanol/ultramatter/on_mob_life(mob/living/M)
-	if(isplasmaman(M))
-		if(on_fire)
-			M.adjust_fire_stacks(-1)
-			on_fire = FALSE
-		if(current_cycle % 10 == 0 && prob(30))
-			var/mob/living/carbon/human/H = M
-			to_chat(M, "<span class='warning'>You expell flaming substance from within your suit.</span>")
-			var/obj/item/clothing/under/plasmaman/suit = H.w_uniform
-			if(suit)
-				suit.next_extinguish = world.time + 10 SECONDS
-			H.adjust_fire_stacks(1)
-			H.IgniteMob()
-			on_fire = TRUE
+	// species agnostic as it is DRINKS on_fire, so only plasmaman can get it
+	if(on_fire)
+		M.adjust_fire_stacks(-1)
+		on_fire = FALSE
+
+	if(current_cycle % 10 != 0 || !isplasmaman(M))
+		return ..()
+	
+	if(prob(30))
+		var/mob/living/carbon/human/H = M
+		to_chat(M, "<span class='warning'>You expell flaming substance from within your suit.</span>")
+		var/obj/item/clothing/under/plasmaman/suit = H.w_uniform
+		if(suit)
+			suit.next_extinguish = world.time + 10 SECONDS
+		H.adjust_fire_stacks(1)
+		H.IgniteMob()
+		on_fire = TRUE
 			
 	return ..()
 
@@ -1738,11 +1748,13 @@
 	taste_description = "citrus"
 
 /datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
-	if(isvulpkanin(M))
-		var/mob/living/carbon/human/H = M
-		if(H.health > 0)
-			H.adjustToxLoss(-0.5)
-			
+	if(!isvulpkanin(M))
+		return ..()
+		
+	var/mob/living/carbon/human/H = M
+	if(H.health > 0)
+		H.adjustToxLoss(-0.5)
+		
 	return ..()
 
 /datum/reagent/consumable/ethanol/diona_smash
@@ -1758,9 +1770,11 @@
 	var/mutated = FALSE
 
 /datum/reagent/consumable/ethanol/diona_smash/on_mob_life(mob/living/M)
-	if(iskidan(M) && !mutated)
-		to_chat(M, "<span class='warning'>Mmm, tasty.</span>")
-		nutriment_factor = 1 * REAGENTS_METABOLISM
-		mutated = TRUE
-			
+	if(mutated || !iskidan(M))
+		return ..()
+
+	to_chat(M, "<span class='warning'>Mmm, tasty.</span>")
+	nutriment_factor = 1 * REAGENTS_METABOLISM
+	mutated = TRUE
+		
 	return ..()
