@@ -1554,7 +1554,7 @@
 
 /datum/reagent/consumable/ethanol/sontse/on_mob_delete(mob/living/M)
 	if(!ismoth(M))
-		..()
+		return ..()
 	to_chat(M, "<span class='warning'>The Sun within you subsides.</span>")
 	M.set_light(0)
 	..()
