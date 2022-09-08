@@ -85860,6 +85860,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/lighter/zippo/black,
 /turf/simulated/floor/plasteel/dark,
 /area/chapel/office)
 "dTr" = (
