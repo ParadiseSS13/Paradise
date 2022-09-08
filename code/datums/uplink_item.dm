@@ -438,9 +438,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PP"
 	item = /obj/item/pen/poison
 	cost = 1
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(/datum/game_mode/nuclear)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
-
 
 // DANGEROUS WEAPONS
 
@@ -530,7 +529,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FT"
 	item = /obj/item/flamethrower/full/tank
 	cost = 1
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(/datum/game_mode/nuclear)
 	surplus = 40
 
 /datum/uplink_item/dangerous/sword
