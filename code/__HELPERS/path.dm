@@ -18,7 +18,7 @@
  * * skip_first: Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break movement for some creatures.
  * * diagonal_safety: ensures diagonal moves won't use invalid midstep turfs by splitting them into two orthogonal moves if necessary
  */
-/proc/get_path_to(caller, end, max_distance = 30, mintargetdist, id=null, simulated_only = TRUE, turf/exclude, skip_first=TRUE, diagonal_safety=TRUE)
+/proc/get_path_to(caller, end, max_distance = 30, mintargetdist, id = null, simulated_only = TRUE, turf/exclude, skip_first = TRUE, diagonal_safety = TRUE)
 	if(!caller || !get_turf(end))
 		return
 
@@ -36,7 +36,7 @@
 	if(!path)
 		path = list()
 	if(length(path) > 0 && skip_first)
-		path.Cut(1,2)
+		path.Cut(1, 2)
 	return path
 
 /**
@@ -147,13 +147,13 @@
 	if(!start || !end)
 		stack_trace("Invalid A* start or destination")
 		return
-	if(start.z != end.z || start == end ) //no pathfinding between z levels
+	if(start.z != end.z || start == end) //no pathfinding between z levels
 		return
 	if(max_distance && (max_distance < get_dist(start, end))) //if start turf is farther than max_distance from end turf, no need to do anything
 		return
 
 	//initialization
-	var/datum/jps_node/current_processed_node = new (start, -1, 0, end)
+	var/datum/jps_node/current_processed_node = new(start, -1, 0, end)
 	open.Insert(current_processed_node)
 	sources[start] = start // i'm sure this is fine
 
@@ -383,9 +383,9 @@
 		var/first_step_direction_a = in_dir & 3 // eg. north   (1+8)&3 (0000 0011) = 1 (0000 0001)
 		var/first_step_direction_b = in_dir & 12 // eg. west   (1+8)&12 (0000 1100) = 8 (0000 1000)
 
-		for(var/first_step_direction in list(first_step_direction_a,first_step_direction_b))
-			var/turf/midstep_turf = get_step(destination_turf,first_step_direction)
-			var/way_blocked = midstep_turf.density || LinkBlockedWithAccess(midstep_turf,caller,ID, no_id = no_id) || midstep_turf.LinkBlockedWithAccess(destination_turf,caller,ID, no_id = no_id)
+		for(var/first_step_direction in list(first_step_direction_a, first_step_direction_b))
+			var/turf/midstep_turf = get_step(destination_turf, first_step_direction)
+			var/way_blocked = midstep_turf.density || LinkBlockedWithAccess(midstep_turf, caller, ID, no_id = no_id) || midstep_turf.LinkBlockedWithAccess(destination_turf, caller, ID, no_id = no_id)
 			if(!way_blocked)
 				return FALSE
 		return TRUE
@@ -394,12 +394,11 @@
 
 	/// These are generally cheaper than looping contents so they go first
 	switch(destination_turf.pathing_pass_method)
-		// This is already assumed to be true
-		//if(TURF_PATHING_PASS_DENSITY)
-		//	if(destination_turf.density)
-		//		return TRUE
+		if(TURF_PATHING_PASS_DENSITY)
+			if(destination_turf.density)
+				return TRUE
 		if(TURF_PATHING_PASS_PROC)
-			if(!destination_turf.CanAStarPass(ID, actual_dir , caller, no_id = no_id))
+			if(!destination_turf.CanAStarPass(ID, actual_dir, caller, no_id = no_id))
 				return TRUE
 		if(TURF_PATHING_PASS_NO)
 			return TRUE

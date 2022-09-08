@@ -597,7 +597,7 @@
 	. = list()
 
 	for(var/iter_dir in GLOB.cardinal)
-		var/turf/turf_to_check = get_step(src,iter_dir)
+		var/turf/turf_to_check = get_step(src, iter_dir)
 		if(!turf_to_check || (simulated_only && space_type_cache[turf_to_check.type]))
 			continue
 		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID, no_id = no_id))

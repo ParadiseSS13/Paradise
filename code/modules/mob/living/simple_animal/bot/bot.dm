@@ -479,7 +479,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 */
 /mob/living/simple_animal/bot/proc/bot_move(dest, move_speed)
 
-	if(!dest || !path || path.len == 0) //A-star failed or a path/destination was not set.
+	if(!dest || !path || !length(path)) //A-star failed or a path/destination was not set.
 		set_path(null)
 		return 0
 	dest = get_turf(dest) //We must always compare turfs, so get the turf of the dest var if dest was originally something else.
@@ -613,7 +613,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/target_patrol()
 	calc_path() // Find a route to it
-	if(!path.len)
+	if(!length(path))
 		patrol_target = null
 		return
 	mode = BOT_PATROL
@@ -631,7 +631,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			find_patrol_target() //If it fails, look for the nearest one instead.
 		return
 
-	else if(path.len > 0 && patrol_target) // valid path
+	else if(length(path) && patrol_target) // valid path
 		if(path[1] == loc)
 			increment_path()
 			return
