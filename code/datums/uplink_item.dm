@@ -438,7 +438,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PP"
 	item = /obj/item/pen/poison
 	cost = 1
-	excludefrom = list(/datum/game_mode/nuclear)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
 
