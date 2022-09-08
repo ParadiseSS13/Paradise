@@ -49,11 +49,11 @@
 	if(get_dist(user, src) <= 2)
 		switch(stage)
 			if(1)
-				. += "It's an empty frame."
+				. += "<span class='notice'>It's an empty frame <b>bolted</b> to the wall. It needs to be <i>wired</i>.</span>"
 			if(2)
-				. += "It's wired."
+				. += "<span class='notice'>The frame is <b>wired</b>, but the casing's cover is <i>unscrewed</i>.</span>"
 			if(3)
-				. += "The casing is closed."
+				. += "<span class='notice'>The casing is <b>screwed</b> shut.</span>"
 
 /obj/machinery/light_construct/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE

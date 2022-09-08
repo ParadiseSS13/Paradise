@@ -1100,10 +1100,11 @@
 
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
-	if(buildstage < 2)
-		. += "It is not wired."
-	if(buildstage < 1)
-		. += "The circuit is missing."
+	switch(buildstage)
+		if(AIR_ALARM_FRAME)
+			. += "<span class='notice'>The <i>control circuit</i> is missing and the <b>mounting bolts<b> are exposed.</span>"
+		if(AIR_ALARM_BUILDING)
+			. += "<span class='notice'>The frame is missing <i>wires</i>, but the control circuit can be <b>pried out</b>.</span>"
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)
