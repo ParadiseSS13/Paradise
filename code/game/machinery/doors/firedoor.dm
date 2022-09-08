@@ -85,7 +85,21 @@
 		latetoggle()
 	else
 		stat |= NOPOWER
+	adjust_light()
 	update_icon()
+
+/obj/machinery/door/firedoor/proc/adjust_light()
+	if(stat & (NOPOWER|BROKEN))
+		set_light(0)
+		return
+	if(active_alarm)
+		set_light(1, 0.5, COLOR_RED_LIGHT)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
+
+/obj/machinery/door/firedoor/extinguish_light()
+	set_light(0)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/door/firedoor/attack_hand(mob/user)
 	if(operating || !density)
@@ -211,6 +225,8 @@
 	. = ..()
 	if(active_alarm && hasPower())
 		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
+		if(light)
+			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights")
 	if(density && welded)
 		. += "welded"
 		return
@@ -219,10 +235,12 @@
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
+	adjust_light()
 	update_icon()
 
 /obj/machinery/door/firedoor/proc/deactivate_alarm()
 	active_alarm = FALSE
+	adjust_light()
 	update_icon()
 
 /obj/machinery/door/firedoor/open(auto_close = TRUE)
