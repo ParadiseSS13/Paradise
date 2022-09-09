@@ -51,6 +51,14 @@ Difficulty: Medium
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 
+/mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(damage, updating_health)
+	. = ..()
+	if(!GLOB.necropolis_gate)
+		return
+	if(GLOB.necropolis_gate.legion_triggered)
+		return
+	GLOB.necropolis_gate.toggle_the_gate(src, TRUE)
+
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
 	. = ..()
 	if(. && ishuman(target))
