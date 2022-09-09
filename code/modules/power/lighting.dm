@@ -418,13 +418,14 @@
 	if(in_range(user, src))
 		switch(status)
 			if(LIGHT_OK)
-				. += "It is turned [on? "on" : "off"]."
+				. += "<span class='notice'>It is turned [on? "on" : "off"].</span>"
 			if(LIGHT_EMPTY)
-				. += "The [fitting] has been removed."
+				. += "<span class='notice'>The [fitting] has been removed.</span>"
+				. += "<span class='notice'>The casing can be <b>unscrewed</b>.</span>"
 			if(LIGHT_BURNED)
-				. += "The [fitting] is burnt out."
+				. += "<span class='notice'>The [fitting] is burnt out.</span>"
 			if(LIGHT_BROKEN)
-				. += "The [fitting] has been smashed."
+				. += "<span class='notice'>The [fitting] has been smashed.</span>"
 
 // attack with item - insert light (if right type), otherwise try to break the light
 

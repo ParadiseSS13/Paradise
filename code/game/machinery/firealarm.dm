@@ -265,7 +265,7 @@ FIRE ALARM
 	. = ..()
 	switch(buildstage)
 		if(FIRE_ALARM_FRAME)
-			. += "<span class='notice'>It's missing the <i>control board<i>, but the <b>mounting bolts</b> are exposed.</span>"
+			. += "<span class='notice'>It's missing a <i>circuit board<i> and the <b>bolts</b> are exposed.</span>"
 		if(FIRE_ALARM_UNWIRED)
 			. += "<span class='notice'>The control board needs <i>wiring</i> and can be <b>pried out</b>.</span>"
 		if(FIRE_ALARM_READY)

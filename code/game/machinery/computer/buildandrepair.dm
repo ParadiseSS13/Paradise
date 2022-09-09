@@ -424,7 +424,7 @@
 
 /obj/structure/computerframe/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is <b>[anchored ? "bolted to the floor" : "unbolted"]</b>. [anchored ? "" : "Alt-Click to rotate it."]</span>"
+	. += "<span class='notice'>It is <b>[anchored ? "bolted to the floor" : "unbolted"]</b>.</span>"
 	switch(state)
 		if(STATE_EMPTY)
 			. += "<span class='notice'>The frame is <b>welded together</b>, but it is missing a <i>circuit board</i>.</span>"
@@ -436,6 +436,8 @@
 			. += "<span class='notice'>The frame is <b>wired</b>, but the <i>glass</i> is missing.</span>"
 		if(STATE_GLASS)
 			. += "<span class='notice'>The glass is <b>loosely connected</b> and needs to be <i>screwed into place</i>.</span>"
+	if(!anchored)
+		. += "<span class='notice'>Alt-Click to rotate it.</span>"
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
