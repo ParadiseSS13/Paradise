@@ -2919,7 +2919,7 @@
 /area/lawoffice)
 "ald" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/glass{
 	name = "Internal Affairs Office";
 	req_access_txt = "38"
 	},
@@ -2931,6 +2931,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "IAA"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -3757,7 +3760,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
+/obj/machinery/door/airlock/command/glass{
 	id_tag = "hosofficedoor";
 	name = "Head of Security";
 	req_access_txt = "58"
@@ -3766,6 +3769,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "HoS"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7794,7 +7800,7 @@
 /area/security/lobby)
 "avW" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/glass{
 	name = "Internal Affairs Office";
 	req_access_txt = "38"
 	},
@@ -7803,6 +7809,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "IAA"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -7919,9 +7928,12 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security{
+/obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Processing";
 	req_access_txt = "63"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Processing"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8572,9 +8584,12 @@
 /area/security/prison/cell_block/A)
 "axP" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security{
+/obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Processing";
 	req_access_txt = "63"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Processing"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -9175,7 +9190,7 @@
 /area/security/interrogation)
 "azd" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security{
+/obj/machinery/door/airlock/security/glass{
 	name = "Interrogation";
 	req_access_txt = "63"
 	},
@@ -9185,6 +9200,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Interrogation"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10421,7 +10439,7 @@
 /area/lawoffice)
 "aCc" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/glass{
 	name = "Internal Affairs Office";
 	req_access_txt = "38"
 	},
@@ -10429,6 +10447,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "IAA"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -13229,9 +13250,12 @@
 /area/maintenance/fpmaint2)
 "aIM" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/glass{
 	name = "Magistrate's Office";
 	req_access_txt = "74"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Magistrate"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -13905,7 +13929,7 @@
 /area/lawoffice)
 "aKx" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/glass{
 	name = "Magistrate's Office";
 	req_access_txt = "74"
 	},
@@ -13916,6 +13940,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Magistrate"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -14203,9 +14230,12 @@
 /area/maintenance/fpmaint2)
 "aLh" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security{
+/obj/machinery/door/airlock/security/glass{
 	name = "Detective";
 	req_access_txt = "4"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Detective"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -15349,9 +15379,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/glass{
 	name = "Courtroom";
 	req_access_txt = "63"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Courtroom"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
@@ -15745,9 +15778,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/glass{
 	name = "Courtroom";
 	req_access_txt = "63"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Courtroom"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
@@ -43948,7 +43984,7 @@
 /area/janitor)
 "cdf" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
+/obj/machinery/door/airlock/command/glass{
 	id_tag = "rdofficedoor";
 	name = "Research Director's Office";
 	req_access_txt = "30"
@@ -43971,6 +44007,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "rd"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -46766,13 +46805,16 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
+/obj/machinery/door/airlock/command/glass{
 	id_tag = "blueshieldofficedoor";
 	name = "Blueshield's Office";
 	req_access_txt = "67"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "BS"
+	},
 /turf/simulated/floor/wood,
 /area/blueshield)
 "ckL" = (
@@ -46807,13 +46849,16 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
+/obj/machinery/door/airlock/command/glass{
 	id_tag = "ntrepofficedoor";
 	name = "NT Representative's Office";
 	req_access_txt = "73"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "NT"
+	},
 /turf/simulated/floor/wood,
 /area/ntrep)
 "ckO" = (
@@ -49286,7 +49331,7 @@
 /area/toxins/hallway)
 "crA" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
+/obj/machinery/door/airlock/command/glass{
 	id_tag = "cmoofficedoor";
 	name = "CMO's Office";
 	req_access_txt = "40"
@@ -49307,6 +49352,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "CMO"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -49993,7 +50041,7 @@
 /area/medical/surgeryobs)
 "csX" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/medical/glass{
 	name = "Operating Theatre 1";
 	req_access_txt = "45"
 	},
@@ -50013,6 +50061,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Surgery 1"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -59590,7 +59641,7 @@
 /area/engine/chiefs_office)
 "cTg" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
+/obj/machinery/door/airlock/command/glass{
 	id_tag = "ceofficedoor";
 	name = "Chief Engineer's Office";
 	req_access_txt = "56"
@@ -59602,6 +59653,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "CE"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
@@ -60692,9 +60746,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/command{
+/obj/machinery/door/airlock/command/glass{
 	name = "Chief Engineer's Office";
 	req_access_txt = "56"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "CE"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
@@ -76224,11 +76281,14 @@
 /area/medical/virology)
 "jyI" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/medical/glass{
 	name = "Psych Office";
 	req_access_txt = "64"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "psychoffice"
+	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "jyO" = (
