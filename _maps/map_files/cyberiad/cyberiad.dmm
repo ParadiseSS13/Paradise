@@ -68852,6 +68852,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door_control{
+	id = "medbayfoyerport";
+	pixel_y = 21;
+	name = "Medbay Doors Control";
+	normaldoorcontrol = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
