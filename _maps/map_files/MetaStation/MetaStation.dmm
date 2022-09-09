@@ -72163,10 +72163,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Perma Gate";
-	name = "Prison Blast Door"
-	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -90993,10 +90989,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Perma Gate";
-	name = "Prison Blast Door"
-	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -91323,10 +91315,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Perma Gate";
-	name = "Prison Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/security/brig)
 "whX" = (
