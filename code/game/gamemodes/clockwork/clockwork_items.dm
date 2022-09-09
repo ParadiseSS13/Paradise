@@ -56,7 +56,7 @@
 		return
 	if(enchant_type == HIDE_SPELL)
 		to_chat(user, "<span class='notice'>You disguise your tool as some little toy.</span>")
-		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+		playsound(user, 'sound/magic/cult_spell.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		var/chosen_plush = pick(plush_colors)
 		name = chosen_plush
 		desc = "An adorable, soft, and cuddly plushie."
@@ -102,7 +102,7 @@
 		if(do_after(user, 1.5 SECONDS, target = user))
 			do_sparks(4, 0, user)
 			user.forceMove(get_turf(destination))
-			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE)
+			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			add_attack_logs(user, destination, "Teleported to by [src]", ATKLOG_ALL)
 			deplete_spell()
 		user.color = null
@@ -151,7 +151,7 @@
 				if(istype(door, /obj/machinery/door/airlock))
 					var/obj/machinery/door/airlock/A = door
 					A.unlock(TRUE)	//forced because it's magic!
-				playsound(get_turf(usr), 'sound/magic/knock.ogg', 10, TRUE)
+				playsound(get_turf(usr), 'sound/magic/knock.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				door.open()
 				deplete_spell()
 			else if(istype(target, /obj/structure/closet))
@@ -159,7 +159,7 @@
 				if(istype(closet, /obj/structure/closet/secure_closet))
 					var/obj/structure/closet/secure_closet/SC = closet
 					SC.locked = FALSE
-				playsound(get_turf(usr), 'sound/magic/knock.ogg', 10, TRUE)
+				playsound(get_turf(usr), 'sound/magic/knock.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				closet.open()
 				deplete_spell()
 			else
@@ -178,7 +178,7 @@
 			if(do_after(user, 1.5 SECONDS, target = user))
 				do_sparks(4, 0, user)
 				user.forceMove(get_turf(target))
-				playsound(user, 'sound/effects/phasein.ogg', 20, TRUE)
+				playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				add_attack_logs(user, target, "Teleported to by [src]", ATKLOG_ALL)
 				deplete_spell()
 			user.color = null
@@ -505,7 +505,7 @@
 		if(enchant_type == INVIS_SPELL)
 			if(carbon.wear_suit != src)
 				return
-			playsound(get_turf(carbon), 'sound/magic/smoke.ogg', 30, TRUE)
+			playsound(get_turf(carbon), 'sound/magic/smoke.ogg', 30, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			enchant_type = CASTING_SPELL
 			animate(carbon, alpha = 20, time = 1 SECONDS)
 			flags |= NODROP
@@ -514,12 +514,12 @@
 			add_attack_logs(user, user, "cloaked [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, .proc/uncloak, carbon), 10 SECONDS)
 		if(enchant_type == SPEED_SPELL)
-			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
 			enchant_type = CASTING_SPELL
 			flags |= NODROP
 			carbon.status_flags |= GOTTAGOFAST
-			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, .proc/unspeed, carbon), 8 SECONDS)
+			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
+			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
 	else
 		ToggleHood()
 
@@ -530,8 +530,8 @@
 	user.alpha = 255
 	deplete_spell()
 
-/obj/item/clothing/suit/hooded/clockrobe/proc/unspeed(mob/user)
-	user.status_flags &= ~GOTTAGONOTSOFAST
+/obj/item/clothing/suit/hooded/clockrobe/proc/unspeed(mob/living/carbon/carbon)
+	carbon.status_flags &= ~GOTTAGONOTSOFAST
 	flags &= ~NODROP
 	deplete_spell()
 
@@ -899,7 +899,7 @@
 			cell.use(round(0.001*cell.maxcharge,1))
 			adjust_clockwork_power(CLOCK_POWER_COG) //Power is shared, so only do it once; this runs very quickly so it's about CLOCK_POWER_COG(1)/second
 			if(prob(1))
-				playsound(apc, 'sound/machines/clockcult/steam_whoosh.ogg', 5, TRUE)
+				playsound(apc, 'sound/machines/clockcult/steam_whoosh.ogg', 5, TRUE, SILENCED_SOUND_EXTRARANGE)
 				new/obj/effect/temp_visual/small_smoke(get_turf(apc))
 
 // Soul vessel (Posi Brain)
@@ -1071,7 +1071,6 @@
 			return
 		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
 		soul.brainmob.mind.transfer_to(cog)
-		SSticker.mode.add_clock_actions(cog.mind)
 		playsound(cog, 'sound/effects/constructform.ogg', 50)
 		user.unEquip(soul)
 		qdel(soul)

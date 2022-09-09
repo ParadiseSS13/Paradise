@@ -186,18 +186,20 @@
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
-		if(I.enchant_type == HIDE_SPELL)
-			if(!toggle_hide())
-				STOP_PROCESSING(SSprocessing, src)
-			else
-				if(anchored)
-					START_PROCESSING(SSprocessing, src)
-			to_chat(user, "<span class='notice'>You [hidden ? null : "un"]disguise [src].</span>")
-			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
-			I.deplete_spell()
-			return TRUE
 		if(hidden)
-			to_chat(user, "<span class='warning'>You have to clear the view of this structure in order to manipulate with it!</span>")
+			toggle_hide()
+			if(anchored)
+				START_PROCESSING(SSprocessing, src)
+			to_chat(user, "<span class='notice'>You undisguise [src].</span>")
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			return TRUE
+		else if(I.enchant_type == HIDE_SPELL)
+			toggle_hide()//cuz we sure its unhidden
+			if(isprocessing)
+				STOP_PROCESSING(SSprocessing, src)
+			to_chat(user, "<span class='notice'>You disguise [src].</span>")
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			I.deplete_spell()
 			return TRUE
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
@@ -238,6 +240,7 @@
 			desc = "Apply butt."
 			icon = 'icons/obj/chairs.dmi'
 			icon_state = "stool"
+	return hidden
 
 /obj/structure/clockwork/functional/altar/Crossed(atom/movable/AM, oldloc)
 	. = ..()
