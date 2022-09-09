@@ -301,6 +301,7 @@
 #include "code\datums\browser.dm"
 #include "code\datums\callback.dm"
 #include "code\datums\chatmessage.dm"
+#include "code\datums\cleaning.dm"
 #include "code\datums\click_intercept.dm"
 #include "code\datums\custom_user_item.dm"
 #include "code\datums\datacore.dm"

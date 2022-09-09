@@ -35,34 +35,27 @@
 	to_chat(user, "<span class='notice'>You wet [src] in [o].</span>")
 	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 
-/obj/item/mop/proc/clean(turf/simulated/A)
-	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
-		A.clean_blood()
-		for(var/obj/effect/O in A)
-			if(O.is_cleanable())
-				qdel(O)
-	reagents.reaction(A, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
-	reagents.remove_any(1)			//reaction() doesn't use up the reagents
-
 /obj/item/mop/afterattack(atom/A, mob/user, proximity)
-	if(!proximity) return
-
-	if(reagents.total_volume < 1)
-		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
+	if(!proximity)
 		return
-
-	var/turf/simulated/T = get_turf(A)
 
 	if(istype(A, /obj/item/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/structure/mopbucket))
 		return
 
+	cleaning_act(A, user, src, mopspeed, ismop = TRUE)
+
+	/*if(reagents.total_volume < 1)
+		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
+		return
+
+	var/turf/simulated/T = get_turf(A)
 	if(istype(T))
 		user.visible_message("[user] begins to clean [T] with [src].", "<span class='notice'>You begin to clean [T] with [src]...</span>")
 
 		if(do_after(user, src.mopspeed, target = T))
 			to_chat(user, "<span class='notice'>You finish mopping.</span>")
 			clean(T)
-
+*/
 /obj/effect/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
 		return
