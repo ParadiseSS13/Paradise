@@ -11,7 +11,8 @@ FIRE ALARM
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "firealarm_on"
-	var/detecting = TRUE //whether or not the fire alarm's temperature sensors are working
+	/// Whether or not the fire alarm will sound the alarm if its temperature rises above 200C
+	var/detecting = TRUE
 	var/working = TRUE
 	var/time = 10.0
 	var/timing = 0.0
