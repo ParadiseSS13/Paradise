@@ -34,6 +34,6 @@
 		..()
 
 /obj/item/reagent_containers/glass/rag/afterattack(atom/target, mob/user, proximity)
-	if(!proximity)
+	if(!proximity || ishuman(target)) //Human check so we don't clean the person we're trying to ether
 		return
 	cleaning_act(target, user, src, wipespeed)
