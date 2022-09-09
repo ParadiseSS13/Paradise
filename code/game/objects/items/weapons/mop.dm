@@ -38,24 +38,10 @@
 /obj/item/mop/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
-
 	if(istype(A, /obj/item/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/structure/mopbucket))
 		return
-
 	cleaning_act(A, user, src, mopspeed, ismop = TRUE)
 
-	/*if(reagents.total_volume < 1)
-		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
-		return
-
-	var/turf/simulated/T = get_turf(A)
-	if(istype(T))
-		user.visible_message("[user] begins to clean [T] with [src].", "<span class='notice'>You begin to clean [T] with [src]...</span>")
-
-		if(do_after(user, src.mopspeed, target = T))
-			to_chat(user, "<span class='notice'>You finish mopping.</span>")
-			clean(T)
-*/
 /obj/effect/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
 		return
