@@ -719,6 +719,58 @@
 	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
 	G?.drop_gripped_item(silent = TRUE)
 
+/obj/item/robot_module/ninja
+	name = "service robot module"  //to disguise in examine
+	module_type = "ninja"
+
+/obj/item/robot_module/ninja/New()
+	..()
+	// Ниндзя штучки
+	modules += new /obj/item/gun/energy/shuriken_emitter/borg(src)
+	modules += new /obj/item/melee/energy_katana/borg(src)
+	modules += new /obj/item/pinpointer/ninja(src)			// Почему бы и да
+	// Инструменты
+	modules += new /obj/item/rcd/borg/syndicate(src)
+	modules += new /obj/item/rpd(src)
+	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
+	modules += new /obj/item/screwdriver/cyborg(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wirecutters/cyborg(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/analyzer(src)
+	modules += new /obj/item/gripper(src)
+	modules += new /obj/item/stack/sheet/metal/cyborg(src)
+	modules += new /obj/item/stack/sheet/glass/cyborg(src)
+	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
+	modules += new /obj/item/stack/rods/cyborg(src)
+	// Наручники
+	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	// Мед. инструменты
+	modules += new /obj/item/scalpel/laser/laser1(src)
+	modules += new /obj/item/hemostat(src)
+	modules += new /obj/item/retractor(src)
+	modules += new /obj/item/bonegel(src)
+	modules += new /obj/item/FixOVein(src)
+	modules += new /obj/item/bonesetter(src)
+	modules += new /obj/item/circular_saw(src)
+	modules += new /obj/item/surgicaldrill(src)
+	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
+	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/handheld_defibrillator(src)
+	modules += new /obj/item/roller_holder(src)
+	modules += new /obj/item/reagent_containers/borghypo/upgraded(src)
+
+	var/obj/item/borg_chameleon/cham_proj = new /obj/item/borg_chameleon(src)
+	cham_proj.disguise = "maximillion"
+	modules += cham_proj
+	emag = null
+	fix_modules()
+	handle_storages()
+
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
 	if(!istype(loc, /mob/living/silicon/robot))

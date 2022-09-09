@@ -525,7 +525,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Bloodhound")
 			R = new /mob/living/silicon/robot/syndicate(T)
 			R.playstyle_string = "<span class='userdanger'>Вы Штурмовой Киборг Синдиката!</span><br> \
-							<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
+						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
 						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
 						Вы вооружены мощными наступательными инструментами чтобы выполнять выданные вам миссии. \
 						Встроенное в вас LMG самостоятельно производит патроны используя вашу батарею. \
@@ -1614,6 +1614,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	see_reagents = TRUE
+	drain_act_protected = TRUE
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)

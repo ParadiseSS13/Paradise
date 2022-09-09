@@ -27,14 +27,14 @@
 		if(PIERCEIMMUNE in H.dna.species.species_traits)
 			return
 
-		if((flags & CALTROP_IGNORE_WALKERS) && H.m_intent == MOVE_INTENT_WALK)
+		if(!(flags & CALTROP_BYPASS_WALKERS) && H.m_intent == MOVE_INTENT_WALK)
 			return
 
 		var/picked_def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 		var/obj/item/organ/external/O = H.get_organ(picked_def_zone)
 		if(!istype(O))
 			return
-		if(O.is_robotic())
+		if(!(flags & CALTROP_BYPASS_ROBOTIC_LEGS) && (O.is_robotic()))
 			return
 
 		var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))

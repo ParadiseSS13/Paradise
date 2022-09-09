@@ -128,6 +128,7 @@
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
+	var/action_initialisation_text = null	//Space ninja abilities only
 
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
@@ -217,6 +218,18 @@
 			if(target == C.internal)
 				button.icon = 'icons/mob/actions/actions.dmi'
 				button.icon_state = "bg_default_on"
+
+/datum/action/item_action/set_internals_ninja
+	name = "Set Internals"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
+
+/datum/action/item_action/set_internals_ninja/UpdateButtonIcon()
+	if(..()) //button available
+		if(iscarbon(owner))
+			var/mob/living/carbon/C = owner
+			if(target == C.internal)
+				button.icon_state = "background_green_active"
 
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"

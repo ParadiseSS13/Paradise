@@ -728,6 +728,17 @@
 	for(var/i in 1 to 7)
 		new	/obj/item/restraints/handcuffs/alien(src)
 
+/obj/item/storage/box/manacles
+	name = "box of spare manacles"
+	desc = "A box full of manacles. Old but gold."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	icon_state = "box_manacle"
+
+/obj/item/storage/box/manacles/New()
+	..()
+	for(var/i in 1 to 7)
+		new	/obj/item/restraints/handcuffs/manacles(src)
+
 /obj/item/storage/box/fakesyndiesuit
 	name = "boxed space suit and helmet"
 	desc = "A sleek, sturdy box used to hold replica spacesuits."

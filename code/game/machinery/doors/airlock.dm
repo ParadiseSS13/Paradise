@@ -717,6 +717,8 @@ About the new airlock wires panel:
 		set_light(0)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(isElectrified() && density && istype(mover, /obj/item))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)

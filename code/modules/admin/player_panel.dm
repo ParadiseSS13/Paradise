@@ -440,8 +440,8 @@
 		if(SSticker.mode.raiders.len)
 			dat += check_role_table("Raiders", SSticker.mode.raiders)
 
-		/*if(ticker.mode.ninjas.len)
-			dat += check_role_table("Ninjas", ticker.mode.ninjas)*/
+		if(SSticker.mode.space_ninjas.len)
+			dat += check_role_table("Ninjas", SSticker.mode.space_ninjas)
 
 		if(SSticker.mode.cult.len)
 			var/datum/game_mode/gamemode = SSticker.mode

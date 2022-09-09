@@ -310,6 +310,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 
+/* --------------------------------
+ * Хрен знает зачем у нас тут шарф у которого даже спрайта нет. И который ещё и маска...
+ * Я пожалуй оставлю, но закоменчу этот код.
 /obj/item/clothing/mask/ninjascarf
 	name = "ninja scarf"
 	desc = "A stealthy, dark scarf."
@@ -318,7 +321,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
-
+*/
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"

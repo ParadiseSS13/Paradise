@@ -54,40 +54,42 @@ REAGENT SCANNER
 
 /obj/item/t_scanner/proc/scan()
 
-	for(var/turf/T in range(scan_range, src.loc) )
+	for(var/turf/scan_turf in range(scan_range, src.loc) )
 
-		if(!T.intact)
+		if(!scan_turf.intact)
 			continue
 
-		for(var/obj/O in T.contents)
+		for(var/obj/in_turf_object in scan_turf.contents)
 
-			if(O.level != 1)
+			if(in_turf_object.level != 1)
 				continue
 
-			if(O.invisibility == 101)
-				O.invisibility = 0
-				O.alpha = 128
+			if(in_turf_object.invisibility == 101)
+				in_turf_object.invisibility = 0
+				in_turf_object.alpha = 128
+				in_turf_object.drain_act_protected = TRUE
 				spawn(pulse_duration)
-					if(O)
-						var/turf/U = O.loc
-						if(U && U.intact)
-							O.invisibility = 101
-						O.alpha = 255
-		for(var/mob/living/M in T.contents)
-			var/oldalpha = M.alpha
-			if(M.alpha < 255 && istype(M))
-				M.alpha = 255
+					if(in_turf_object)
+						var/turf/objects_turf = in_turf_object.loc
+						if(objects_turf && objects_turf.intact)
+							in_turf_object.invisibility = 101
+						in_turf_object.alpha = 255
+						in_turf_object.drain_act_protected = FALSE
+		for(var/mob/living/in_turf_mob in scan_turf.contents)
+			var/oldalpha = in_turf_mob.alpha
+			if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
+				in_turf_mob.alpha = 255
 				spawn(10)
-					if(M)
-						M.alpha = oldalpha
+					if(in_turf_mob)
+						in_turf_mob.alpha = oldalpha
 
-		var/mob/living/M = locate() in T
+		var/mob/living/in_turf_mob = locate() in scan_turf
 
-		if(M && M.invisibility == 2)
-			M.invisibility = 0
+		if(in_turf_mob && in_turf_mob.invisibility == 2)
+			in_turf_mob.invisibility = 0
 			spawn(2)
-				if(M)
-					M.invisibility = INVISIBILITY_LEVEL_TWO
+				if(in_turf_mob)
+					in_turf_mob.invisibility = INVISIBILITY_LEVEL_TWO
 
 
 /proc/chemscan(mob/living/user, mob/living/M)

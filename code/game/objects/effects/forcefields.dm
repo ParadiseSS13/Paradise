@@ -52,6 +52,8 @@
 	desc = "A slowly fading energy wall that blocks passage for every possible nanotrasen scum"
 
 /obj/effect/forcefield/mecha/syndicate/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	var/mob/living/M = get_mob_in_atom_without_warning(mover)
 	if("syndicate" in M.faction || istype(M.get_id_card(), /obj/item/card/id/syndicate))
 		return TRUE

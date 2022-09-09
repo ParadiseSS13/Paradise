@@ -598,12 +598,22 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	no_teleportlocs = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
 /area/ninja/outpost
-	name = "\improper SpiderClan Outpost"
+	name = "\improper SpiderClan Dojo"
+	icon_state = "ninja_dojo"
 
 /area/ninja/holding
 	name = "\improper SpiderClan Holding Facility"
+	icon_state = "ninja_holding"
+	ambientsounds = list('sound/ambience/ambifailure.ogg', 'sound/ambience/ambigen4.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimystery.ogg', 'sound/ambience/ambitech2.ogg')
+
+/area/ninja/outside
+	name = "\improper SpiderClan Territory"
+	icon_state = "ninja_outside"
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	sound_environment = SOUND_AREA_ASTEROID
 
 /area/vox_station
 	name = "\improper Vox Base"

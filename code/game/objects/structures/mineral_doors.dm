@@ -55,6 +55,8 @@
 		SwitchState()
 
 /obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height = 0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
@@ -213,6 +215,17 @@
 	icon_state = "wood"
 	openSound = 'sound/effects/doorcreaky.ogg'
 	closeSound = 'sound/effects/doorcreaky.ogg'
+	sheetType = /obj/item/stack/sheet/wood
+	hardness = 1
+	resistance_flags = FLAMMABLE
+	max_integrity = 200
+
+/obj/structure/mineral_door/wood/paperframe
+	name = "Paperframe door"
+	desc = "Just looking at it's clean and simple design makes you at piece with your demons"
+	icon_state = "paperframe"
+	openSound = 'sound/effects/glider_door.ogg'
+	closeSound = 'sound/effects/glider_door.ogg'
 	sheetType = /obj/item/stack/sheet/wood
 	hardness = 1
 	resistance_flags = FLAMMABLE

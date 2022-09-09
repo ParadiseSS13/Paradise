@@ -610,6 +610,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/list/MsgType = list("Central Command Report" = "Nanotrasen Update",
 		"Syndicate Communique" = "Syndicate Message",
 		"Space Wizard Federation Message" = "Sorcerous Message",
+		"Spider Clan Сommunique" = "Spider Clan Message",
 		"Enemy Communications" = "Unknown Message",
 		"Custom" = "Cryptic Message")
 

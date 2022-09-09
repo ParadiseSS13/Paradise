@@ -54,6 +54,8 @@
 	return ..()
 
 /obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(height==0 || wall_mounted)
 		return TRUE
 	return (!density)

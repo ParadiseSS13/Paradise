@@ -234,6 +234,12 @@
 /obj/structure/chair/comfy/shuttle/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
 
+/obj/structure/chair/comfy/shuttle/dark
+	icon_state = "shuttle_chair_dark"
+
+/obj/structure/chair/comfy/shuttle/dark/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_dark_armrest")
+
 /obj/structure/chair/office/Bump(atom/A)
 	..()
 	if(!has_buckled_mobs())

@@ -173,12 +173,14 @@
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
-
 			if(mind.vampire)
 				stat("Всего крови", "[mind.vampire.bloodtotal]")
 				stat("Доступная кровь", "[mind.vampire.bloodusable]")
 			if(isclocker(mind.current))
 				stat("Total Power", "[GLOB.clockwork_power]")
+			if(mind.ninja && mind.ninja.my_suit)
+				stat("Заряд костюма","[mind.ninja.return_cell_charge()]")
+				stat("Заряд рывков","[mind.ninja.return_dash_charge()]")
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
@@ -277,6 +279,7 @@
 /mob/living/carbon/human/blob_act(obj/structure/blob/B)
 	if(stat == DEAD)
 		return
+	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 	show_message("<span class='userdanger'>The blob attacks you!</span>")
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
@@ -1700,6 +1703,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
 		to_chat(src, "<span class='warning'>[mind.martial_art.no_guns_message]</span>")
+		return FALSE
+
+	// Ниндзя не пользуется чужими пушками. В этом нет чести, нет уважения, нет САКЭ!
+	if(mind && mind.ninja && !mind.ninja.allow_guns && !G.ninja_weapon)
+		to_chat(src, "<span class='warning'>[mind.ninja.no_guns_message]</span>")
 		return FALSE
 
 /mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)

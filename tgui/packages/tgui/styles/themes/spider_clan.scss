@@ -1,0 +1,122 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '../colors.scss' with ($primary: #00ff00,
+  $fg-map-keys: (),
+  $bg-map-keys: (),
+);
+@use '../base.scss' with ($color-fg: #1efa72, $color-bg: #002800,
+  $color-bg-grad-spread: 5%,
+  $border-radius: 2px,
+);
+
+.theme-spider_clan {
+  // Atomic classes
+  @include meta.load-css('../atomic/color.scss');
+
+  // Components
+  /*
+  @include meta.load-css('../components/Button.scss', $with: ('color-default': colors.$primary,
+      'color-disabled': #363636,
+      'color-selected': #9d0808,
+      'color-caution': #be6209,
+      'color-danger': #9a9d00,
+    ));
+*/
+  @include meta.load-css('../components/Button.scss', $with: ('color-default': #15e264,
+      'color-disabled': #3a3a3a,
+      'color-selected': #3cfd1e,
+      'color-caution': #be6209,
+      'color-danger': #9a9d00,
+    ));
+
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': #87ce87,
+    ));
+  @include meta.load-css('../components/NoticeBox.scss', $with: ('color-background': #044a1b,
+    ));
+  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #87ce87,
+    ));
+  @include meta.load-css('../components/ProgressBar.scss', $with: ('color-background': rgba(0, 0, 0, 0.5),
+    ));
+  @include meta.load-css('../components/Section.scss', $with: ('color-background': #003000,
+    ));
+  @include meta.load-css('../components/Tooltip.scss', $with: ('color-background': #002800));
+
+  @include meta.load-css('../components/Dropdown.scss');
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('color-background': #044a1b,
+    ));
+
+  .Tooltip {
+    font-family: 'Times New Roman', Times, serif;
+    color: #15e264;
+  }
+
+  .Button {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    border-radius: 20px;
+    color: #003920 !important;
+
+  }
+
+  .Button_red {
+    background-color: rgba(204, 0, 0, 0.1) !important;
+    border-radius: 20px;
+
+    &:hover {
+      background-color: rgba(80, 20, 20, 0.1) !important;
+    }
+  }
+
+  .Button_green {
+    background-color: rgba(21, 226, 100, 0.1) !important;
+    border-radius: 20px;
+
+    &:hover {
+      background-color: rgba(4, 74, 27, 0.1) !important;
+    }
+  }
+
+  .Button_blue {
+    background-color: rgba(0, 174, 208, 0.1) !important;
+    border-radius: 20px;
+
+    &:hover {
+      background-color: rgba(53, 94, 163, 0.1) !important;
+    }
+  }
+
+  .Button_disabled {
+    background-color: rgba(50, 50, 50, 0.5)  !important;
+    color: #15e264 !important;
+  }
+
+  .NoticeBox {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 16px;
+  }
+
+  .NoticeBox_red {
+    background-color: rgba(80, 20, 20, 1) !important;
+  }
+
+  .NoticeBox_blue {
+    background-color: rgba(53, 94, 163, 0.8) !important;
+  }
+
+  .Dropdown__control {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .Layout__content {
+    background-image: url('../../assets/bg-spider_clan.svg');
+  }
+}

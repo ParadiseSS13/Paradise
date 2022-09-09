@@ -100,6 +100,7 @@
 							"Cultist" = (mind in SSticker.mode.cult),
 							"Wizard" = (mind in SSticker.mode.wizards),
 							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
+							"Spider Clan" = (mind in SSticker.mode.space_ninjas),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
 							"Shadowling" = (mind in SSticker.mode.shadows),
 							"Shadowling Thrall" = (mind in SSticker.mode.shadowling_thralls),

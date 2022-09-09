@@ -5,6 +5,7 @@
 #define MODE_SHIP 4
 #define MODE_OPERATIVE 5
 #define MODE_CREW 6
+#define MODE_NINJA 7
 #define SETTING_DISK 0
 #define SETTING_LOCATION 1
 #define SETTING_OBJECT 2
@@ -332,6 +333,39 @@
 			. += "<span class='notice'>Nearest operative detected is <i>[nearest_op.real_name].</i></span>"
 		else
 			. += "<span class='notice'>No operatives detected within scanning range.</span>"
+
+/obj/item/pinpointer/ninja
+	name = "spider clan pinpointer"
+	desc = "A pinpointer that leads to the first Spider Clan assassin detected."
+	var/mob/living/carbon/nearest_ninja = null
+	modes = list(MODE_NINJA)
+
+/obj/item/pinpointer/ninja/process()
+	if(mode == MODE_NINJA)
+		workninja()
+	else
+		icon_state = icon_off
+
+/obj/item/pinpointer/ninja/proc/scan_for_ninja()
+	if(mode == MODE_NINJA)
+		nearest_ninja = null //Resets nearest_ninja every time it scans
+		var/closest_distance = 1000
+		for(var/mob/living/carbon/potential_ninja in GLOB.mob_list)
+			if(isninja(potential_ninja))
+				if(get_dist(potential_ninja, get_turf(src)) < closest_distance)
+					nearest_ninja = potential_ninja
+
+/obj/item/pinpointer/ninja/proc/workninja()
+	scan_for_ninja()
+	point_at(nearest_ninja, FALSE)
+
+/obj/item/pinpointer/ninja/examine(mob/user)
+	. = ..()
+	if(mode == MODE_NINJA)
+		if(nearest_ninja)
+			. += "Nearest ninja detected is <i>[nearest_ninja.real_name].</i>"
+		else
+			. += "No ninjas detected within scanning range."
 
 /obj/item/pinpointer/crew
 	name = "crew pinpointer"

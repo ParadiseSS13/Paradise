@@ -9,6 +9,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
+	var/check_cryo = TRUE				 //if the objective goes cryo, do we check for a new objective or ignore it
 
 /datum/objective/New(text)
 	GLOB.all_objectives += src
@@ -58,6 +59,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
   * Called when the objective's target goes to cryo.
   */
 /datum/objective/proc/on_target_cryo()
+	if(!check_cryo)
+		return
 	if(owner?.current)
 		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
@@ -209,7 +212,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 1
 	return 0
 
-/datum/objective/protect/mindslave //subytpe for mindslave implants
+/datum/objective/protect/mindslave //subtype for mindslave implants
 
 
 /datum/objective/hijack
@@ -833,3 +836,237 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/wizchaos
 	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
 	completed = 1
+
+//Space Ninja
+
+/datum/objective/cyborg_hijack
+	explanation_text = "Используя свои перчатки обратите на свою сторону хотя бы одного киборга, чтобы он помог вам в саботаже станции!"
+
+/datum/objective/plant_explosive
+	///Where we should KABOOM
+	var/area/detonation_location
+
+/datum/objective/plant_explosive/Destroy()
+	. = ..()
+	detonation_location = null
+
+//Цель на добычу определённой суммы денег налом
+/datum/objective/get_money
+	var/req_amount = 75000
+
+/datum/objective/get_money/check_completion()
+	if(!owner.current)
+		return FALSE
+	if(!isliving(owner.current))
+		return FALSE
+	var/list/all_items = owner.current.get_contents()
+	var/cash_summ = 0
+	for(var/obj/I in all_items) //Check for items
+		if(istype(I, /obj/item/stack/spacecash))
+			var/obj/item/stack/spacecash/current_cash = I
+			cash_summ += current_cash.amount
+	if(cash_summ >= req_amount)
+		return TRUE
+	return FALSE
+
+
+/datum/objective/protect/ninja //subtype for the ninja
+	var/list/killers_objectives = list()
+
+/datum/objective/protect/ninja/Destroy()
+	if(killers_objectives)
+		for(var/datum/objective/killer_objective in killers_objectives)
+			log_debug("Ninja_Objectives_Log: Удаляем цели на защищаемого у убийц.")
+			GLOB.all_objectives -= killer_objective
+			killer_objective.owner?.objectives -= killer_objective
+			qdel(killer_objective)
+	..()
+
+/datum/objective/protect/ninja/find_target()
+	log_debug("Ninja_Objectives_Log: Начата генерация потенциальных целей на защиту.")
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target))
+			continue
+		possible_targets += possible_target
+		if(killers_objectives.len)
+			for(var/datum/objective/killer_objective in killers_objectives)
+				possible_targets -= killer_objective.owner
+				log_debug("Ninja_Objectives_Log: Из потенциальных целей убран [killer_objective.owner]")
+
+	if(possible_targets.len > 0)
+		if(target)
+			if(target in possible_targets)
+				possible_targets -= target
+				log_debug("Ninja_Objectives_Log: Из потенциальных целей убран [target]")
+
+		target = pick(possible_targets)
+	if(target && target.current)
+		log_debug("Ninja_Objectives_Log: Целью выбран: [target]")
+		explanation_text = "На [target.current.real_name], \
+		[target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)] ведут охоту. \
+		[target.current.real_name] должен любой ценой дожить до конца смены и ваша работа как можно незаметнее позаботится о том, чтобы он остался жив."
+	else
+		explanation_text = "Free Objective"
+	return target
+
+/datum/objective/protect/ninja/on_target_cryo()
+	if(!check_cryo)
+		return
+	if(owner?.current)
+		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
+//	target = null
+	log_debug("Ninja_Objectives_Log: Цель для защиты ушла в крио.")
+	INVOKE_ASYNC(src, .proc/post_target_cryo)
+
+/datum/objective/protect/ninja/post_target_cryo()
+	find_target()
+	if(!target)
+		log_debug("Ninja_Objectives_Log: Персонаж для защиты не найден! Удаляем цель")
+		GLOB.all_objectives -= src
+		owner?.objectives -= src
+		qdel(src)
+	else
+		update_killers()
+	owner?.announce_objectives()
+
+/datum/objective/protect/ninja/proc/update_killers()
+	if(killers_objectives)
+		for(var/datum/objective/killer_objective in killers_objectives)
+			killer_objective.target = target
+			if(istype(killer_objective, /datum/objective/assassinate))
+				killer_objective.explanation_text = "Assassinate [killer_objective.target.current.real_name], the [killer_objective.target.assigned_role]."
+			else if(istype(killer_objective, /datum/objective/maroon))
+				killer_objective.explanation_text = "Prevent from escaping alive or assassinate [killer_objective.target.current.real_name], the [killer_objective.target.assigned_role]."
+			killer_objective.owner?.announce_objectives()
+			log_debug("Ninja_Objectives_Log: Произведена замена цели на [killer_objective.target] для [killer_objective.owner]")
+
+//Цель на то чтобы подставить человека заставив сб его арестовать
+/datum/objective/set_up
+	martyr_compatible = 1
+
+/datum/objective/set_up/find_target()
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target))
+			continue
+		if(ismindshielded(possible_target.current))
+			continue
+		possible_targets[possible_target.assigned_role] += list(possible_target)
+	if(possible_targets.len > 0)
+		var/target_role = pick(possible_targets)
+		target = pick(possible_targets[target_role])
+	if(target && target.current)
+		explanation_text = "Любым способом подставьте [target.current.real_name], [target.assigned_role], чтобы его лишили свободы. Но не убили!"
+	else
+		explanation_text = "Free Objective"
+	return target
+
+/**
+  * Called when the objective's target goes to cryo.
+  */
+/datum/objective/set_up/on_target_cryo()
+	if(check_completion())
+		completed = TRUE
+		return
+	if(owner?.current)
+		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
+	if(!completed)
+		target = null
+		INVOKE_ASYNC(src, .proc/post_target_cryo)
+
+/datum/objective/set_up/check_completion()
+	if(issilicon(target.current))
+		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель боргизирована. Провал")
+		return 0
+	if(isbrain(target.current))
+		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - мозг. Провал")
+		return 0
+	if(!target.current || target.current.stat == DEAD)
+		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - труп. Провал")
+		return 0
+	// Проверка по наличию криминального статуса в консоли
+	var/datum/data/record/target_record = find_security_record("name", target.name)
+	if(target_record)
+		if(target_record.fields["criminal"] == SEC_RECORD_STATUS_INCARCERATED || target_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE || target_record.fields["criminal"] == SEC_RECORD_STATUS_PAROLLED || target_record.fields["criminal"] == SEC_RECORD_STATUS_RELEASED)
+			log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - имеет подходящий охранный статус. Успех")
+			return 1
+	// Находится ли цель в карцере/камере/перме в конце раунда
+	if(istype(target.current.lastarea, /area/security/prison/cell_block) || istype(target.current.lastarea, /area/security/permabrig) || istype(target.current.lastarea, /area/security/processing))
+		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - за решёткой. Успех")
+		return 1
+	// Зона СБ на шатле эвакуации
+	var/turf/location = get_turf(target.current)
+	if(!location)
+		return 0
+	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
+		log_debug("Ninja_Objectives_Log: Цель на подставу. Цель - в зоне СБ на шаттле. Успех")
+		return 1
+
+	return 0
+
+// Цель на то, чтобы найти обладающего информацией человека. Всё что известно ниндзя - его предполагаемая профессия.
+// Для выполнения этой цели - ниндзя должен похищать людей определённой профессии пока не найдёт ТОГО САМОГО засранца обладающего инфой.
+// Либо пока не похитит достаточно людей (от 3 до 8(на 100 игроков))
+/datum/objective/find_and_scan
+	martyr_compatible = 1
+	var/list/possible_roles = list()
+	// Переменные ниже наполняются устройством для сканирования
+	var/list/scanned_occupants = list()
+	var/scans_to_win = 3
+
+// Задание построено так, что даже без цели - выполнимо. Замена не нужна
+/datum/objective/find_and_scan/on_target_cryo()
+	return
+
+/datum/objective/find_and_scan/find_target()
+	var/list/roles = list("Clown", "Mime", "Cargo Technician", "Shaft Miner", "Scientist", "Roboticist", "Medical Doctor", "Geneticist", "Security Officer", "Chemist", "Station Engineer", "Civilian")
+	var/list/possible_targets = list()
+	var/list/priority_targets = list()
+
+	if(!possible_roles.len)
+		for(var/i = 0, i < 3 , i++)
+			var/role = pick(roles)
+			possible_roles += role
+			roles -= role
+
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != possible_target.special_role) && !possible_target.offstation_role)
+			possible_targets += possible_target
+			for(var/role in possible_roles)
+				if(possible_target.assigned_role == role)
+					priority_targets += possible_target
+					continue
+
+	if(priority_targets.len > 0)
+		target = pick(priority_targets)
+	else if(possible_targets.len > 0)
+		target = pick(possible_targets)
+
+	if(target)
+		possible_roles[pick(1,2,3)] = target.assigned_role
+
+	//Даже если мы не нашли цель. Эту задачу всё ещё можно будет выполнить похитив достаточно разных человек с ролями
+	explanation_text = "Найдите обладающего важной информацией человека среди следующих профессий: [possible_roles[1]], [possible_roles[2]], [possible_roles[3]]. \
+		Для проверки и анализа памяти человека, вам придётся похитить его и просканировать в специальном устройстве на вашей базе."
+
+	return target
+
+/datum/objective/research_corrupt
+	explanation_text = "Используя свои перчатки, загрузите мощный вирус на любой научный сервер станции, тем самым саботировав все их исследования! \
+	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
+
+/datum/objective/ai_corrupt
+	explanation_text = "Используя свои перчатки, загрузите в ИИ станции специальный вирус через консоль для смены законов которая стоит в загрузочной. \
+	Подойдёт только консоль в этой зоне из-за уязвимости оставленной заранее для вируса. \
+	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
+/*
+//Пока что я отказалась от этих взломов консоли ибо у нас консоли отличаются и их надо переписать. Плюс приглашать ещё антагов на нашу пати не комельфо.
+/datum/objective/security_scramble
+	explanation_text = "Use your gloves on a security console to set everyone to arrest at least once.  Note that the AI will be alerted once you begin!"
+
+/datum/objective/terror_message
+	explanation_text = "Use your gloves on a communication console in order to bring another threat to the station.  Note that the AI will be alerted once you begin!"
+*/

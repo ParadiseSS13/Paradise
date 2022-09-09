@@ -65,6 +65,8 @@
 	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
 	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/list/ru_names
+	// Can it be drained of energy by ninja?
+	var/drain_act_protected = FALSE
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)

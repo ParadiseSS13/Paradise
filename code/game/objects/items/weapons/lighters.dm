@@ -217,6 +217,18 @@
 	icon_on = "zippo_rd_on"
 	icon_off = "zippo_rd"
 
+//Ninja-Zippo//
+/obj/item/lighter/zippo/ninja
+	name = "\"Shinobi on a rice field\" zippo"
+	desc = "A custom made Zippo. It looks almost like a bag of noodles. There is a blood stain on it, and it smells like burnt rice..."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "zippo_ninja"
+	item_state = "zippo_ninja"
+	icon_on = "zippo_ninja_on"
+	icon_off = "zippo_ninja"
+
 ///////////
 //MATCHES//
 ///////////

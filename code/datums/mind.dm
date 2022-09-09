@@ -53,6 +53,7 @@
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
+	var/datum/ninja/ninja				//ninja holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -362,6 +363,18 @@
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
+/datum/mind/proc/memory_edit_ninja(mob/living/carbon/human/H)
+	. = _memory_edit_header("ninja")
+	if(src in SSticker.mode.space_ninjas)
+		. += "<b><font color='red'>Ninja</font></b>|<a href='?src=[UID()];ninja=clear'>no</a>"
+		. += "<br><a href='?src=[UID()];ninja=dojo'>To dojo</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];ninja=dressup'>dress up</a>, <a href='?src=[UID()];ninja=name'>let choose name</a>."
+		if(objectives.len==0)
+			. += "<br>Objectives are empty! <a href='?src=[UID()];ninja=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='?src=[UID()];ninja=ninja'>ninja</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_NINJA)
+
 /datum/mind/proc/memory_edit_devil(mob/living/H)
 	. = _memory_edit_header("devil", list("devilagents"))
 	if(src in SSticker.mode.devils)
@@ -510,6 +523,7 @@
 		"vampire", // "traitorvamp",
 		"nuclear",
 		"traitor", // "traitorchan",
+		"ninja",
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -529,6 +543,8 @@
 		sections["shadowling"] = memory_edit_shadowling(H)
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
+		/** Space Ninja **/
+		sections["ninja"] = memory_edit_ninja(H)
 	/** DEVIL ***/
 	var/static/list/devils_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/true_devil, /mob/living/silicon/robot))
 	if(is_type_in_typecache(current, devils_typecache))
@@ -634,7 +650,17 @@
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "blood", "debrain", "protect", "prevent", "brig", "hijack", "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
+		var/list/objective_types = list(
+			"assassinate", "blood", "debrain", "protect", "prevent", "brig", "hijack",
+			"escape", "survive", "steal", "download", "nuclear", "capture", "absorb",
+			"destroy", "maroon", "identity theft",
+			// Цели для ниндзя //
+			"get money", "find and scan", "set up",
+			"research corrupt", "ai corrupt", "plant explosive", "cyborg hijack",
+			// Кастомная цель//
+			"custom")
+
+		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in objective_types
 		if(!new_obj_type)
 			return
 
@@ -724,6 +750,88 @@
 				new_objective = new /datum/objective/nuclear
 				new_objective.owner = src
 
+			if("find and scan")
+				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
+					new_objective = new /datum/objective/find_and_scan
+					var/datum/objective/find_and_scan/scan_objective = new_objective
+					var/list/roles = list("Clown", "Mime", "Cargo Technician", "Shaft Miner", "Scientist", "Roboticist", "Medical Doctor", "Geneticist", "Security Officer", "Chemist", "Station Engineer", "Civilian")
+					if(alert(usr, "Do you want to pick roles yourself? No will randomise it", "Pick roles", "Yes", "No") == "Yes")
+						for(var/i = 0, i < 3 , i++)
+							var/role = input("Select role:", "Objective role") as null|anything in roles
+							if(role)
+								roles -= role
+								scan_objective.possible_roles += role
+							else
+								qdel(scan_objective)
+								return
+					scan_objective.find_target()
+					scan_objective.owner = src
+
+			if("research corrupt")
+				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
+					new_objective = new /datum/objective/research_corrupt
+					new_objective.owner = src
+
+			if("ai corrupt")
+				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
+					new_objective = new /datum/objective/ai_corrupt
+					new_objective.owner = src
+
+			if("cyborg hijack")
+				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
+					new_objective = new /datum/objective/cyborg_hijack
+					new_objective.owner = src
+
+			if("plant explosive")
+				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
+					new_objective = new /datum/objective/plant_explosive
+					var/datum/objective/plant_explosive/bomb_objective = new_objective
+					var/area/random_detonation_area = null
+					var/area/detonation_area = null
+					if(alert(usr, "Do you want to pick detonation area yourself? No will randomise it", "Pick objective", "Yes", "No") == "No")
+						for(var/sanity in 1 to 100) // 100 checks at most.
+							var/area/selected_area = pick(return_sorted_areas())
+							if(selected_area && is_station_level(selected_area.z) && selected_area.valid_territory) //Целью должна быть зона на станции!
+								random_detonation_area = selected_area
+								break
+					else
+						detonation_area = input("Select area:", "Objective area") as null|anything in return_sorted_areas()
+
+					bomb_objective.detonation_location = detonation_area ? detonation_area : random_detonation_area
+					bomb_objective.explanation_text = "Взорвите выданную вам бомбу в [bomb_objective.detonation_location]. Учтите, что бомбу нельзя активировать на не предназначенной для подрыва территории!"
+					bomb_objective.owner = src
+					//Выдача бомбы
+					var/obj/item/grenade/plastic/c4/ninja/charge = new
+					var/mob/living/carbon/human/bomber = current
+					bomber.equip_or_collect(charge, slot_l_store)
+					charge.detonation_objective = bomb_objective
+
+			if("set up")
+				new_objective = new /datum/objective/set_up
+				new_objective.owner = src //Должно быть вначале чтобы проверки ниже работали
+				var/list/possible_targets = list()
+				for(var/datum/mind/possible_target in SSticker.minds)
+					if(new_objective.is_invalid_target(possible_target))
+						continue
+					if(ismindshielded(possible_target.current))
+						continue
+					possible_targets += possible_target
+				possible_targets = sortAtom(possible_targets)
+
+				var/new_target = null
+				var/target_pick = null
+				if(length(possible_targets) > 0)
+					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "No")
+						target_pick = pick(possible_targets)
+					else
+						new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+					new_objective.target = new_target ? new_target : target_pick
+					new_objective.explanation_text = "Любым способом подставьте [new_objective.target.current.real_name], [new_objective.target.assigned_role], чтобы его лишили свободы. Но не убили!"
+
+				else
+					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					new_target = "Free objective"
+
 			if("steal")
 				if(!istype(objective, /datum/objective/steal))
 					new_objective = new /datum/objective/steal
@@ -733,6 +841,19 @@
 				var/datum/objective/steal/steal = new_objective
 				if(!steal.select_target())
 					return
+
+			if("get money")
+				new_objective = new /datum/objective/get_money
+				var/datum/objective/get_money/money_objective = new_objective
+				var/temp_cash_summ
+				var/input_sum = null
+				for(var/datum/money_account/account in GLOB.all_money_accounts)
+					temp_cash_summ += account.money
+				if(alert(usr, "Do you want to pick the summ yourself? No will use 60% of cash in all accounts.", "Confirmation", "Yes", "No") == "Yes")
+					input_sum = input("Input required money sum:", "Objective") as num|null
+				money_objective.req_amount = !input_sum ? ((temp_cash_summ / 100) * 60): input_sum
+				money_objective.explanation_text = "Добудьте [money_objective.req_amount] кредитов со станции, наличкой."
+				money_objective.owner = src
 
 			if("download","capture","absorb", "blood")
 				var/def_num
@@ -1602,6 +1723,47 @@
 						H.equipOutfit(/datum/outfit/abductor/agent)
 					else
 						H.equipOutfit(/datum/outfit/abductor/scientist)
+	else if(href_list["ninja"])
+		switch(href_list["ninja"])
+			if("clear")
+				SSticker.mode.remove_ninja(src, usr, TRUE)
+			if("ninja")
+				if(!(src in SSticker.mode.space_ninjas))
+					SSticker.mode.space_ninjas += src
+					special_role = SPECIAL_ROLE_SPACE_NINJA
+					assigned_role = SPECIAL_ROLE_SPACE_NINJA
+					var/mob/living/carbon/human/ninja_mob = current
+					if(istype(ninja_mob.wear_suit, /obj/item/clothing/suit/space/space_ninja) && !ninja)
+						SSticker.mode.give_ninja_datum(src)
+					SSticker.mode.update_ninja_icons_added(src)
+					SSticker.mode.greet_ninja(src)
+					log_admin("[key_name(usr)] has made [key_name(current)] into a \"Ninja\"")
+					message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Ninja\"")
+			if("dojo")
+				current.forceMove(pick(GLOB.ninjastart))
+				log_admin("[key_name(usr)] has moved [key_name(current)] tp dojo")
+				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to dojo")
+			if("dressup")
+				SSticker.mode.equip_space_ninja(src.current)
+				SSticker.mode.give_ninja_datum(src)			//Учитывая то, что этот датум хранит в себе референс к частям костюма, его надо генерить туть
+				SSticker.mode.basic_ninja_needs_check(src)
+				log_admin("[key_name(usr)] has equipped [key_name(current)] as a ninja")
+				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a ninja")
+			if("name")
+				INVOKE_ASYNC(SSticker.mode, /datum/game_mode/space_ninja.proc/name_ninja, current)
+				log_admin("[key_name(usr)] has allowed ninja [key_name(current)] to name themselves")
+				message_admins("[key_name_admin(usr)] has allowed ninja [key_name_admin(current)] to name themselves")
+			if("autoobjectives")
+				if(!ninja)
+					to_chat(usr, "<span class='notice'>Ниндзя - зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!</span>")
+					return
+				var/list/objective_types = list("stealthy", "generic", "aggressive")
+				var/objective_type = input("Select type of objectives to generate", "Objective type selection") as null|anything in objective_types
+				SSticker.mode.forge_ninja_objectives(src, objective_type)
+				SSticker.mode.basic_ninja_needs_check(src)
+				to_chat(usr, "<span class='notice'>Цели для ниндзя: [key] были сгенерированы. Вы можете их отредактировать и оповестить игрока о целях вручную.</span>")
+				log_admin("[key_name(usr)] has automatically forged ninja objectives for [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has automatically forged ninja objectives for [key_name_admin(current)]")
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
@@ -1851,6 +2013,24 @@
 		SSticker.mode.forge_wizard_objectives(src)
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
+
+/datum/mind/proc/make_Space_Ninja()
+	if(!(src in SSticker.mode.space_ninjas))
+		SSticker.mode.space_ninjas += src
+		special_role = SPECIAL_ROLE_SPACE_NINJA
+		assigned_role = SPECIAL_ROLE_SPACE_NINJA
+		var/mob/living/carbon/human/ninja_mob = current
+		if(!GLOB.ninjastart.len)
+			ninja_mob.loc = pick(GLOB.latejoin)
+			to_chat(ninja_mob, "HOT INSERTION, GO GO GO")
+		else
+			ninja_mob.loc = pick(GLOB.ninjastart)
+		INVOKE_ASYNC(SSticker.mode, /datum/game_mode/space_ninja.proc/name_ninja, ninja_mob)
+		SSticker.mode.update_ninja_icons_added(src)
+		SSticker.mode.greet_ninja(src)
+		SSticker.mode.equip_space_ninja(ninja_mob)
+		SSticker.mode.give_ninja_datum(src)
+		SSticker.mode.basic_ninja_needs_check(src)
 
 /datum/mind/proc/make_Rev()
 	SSticker.mode.head_revolutionaries += src

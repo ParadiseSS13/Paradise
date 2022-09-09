@@ -220,3 +220,40 @@
 
 /obj/item/tank/internals/generic/populate_gas()
 	return
+
+/*
+ * Ninja
+ */
+
+/obj/item/tank/internals/oxygen/ninja
+	desc = "A tank of oxygen, this one looks kinda cool!."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "oxygen_ninja"
+	dog_fashion = null
+	actions_types = list(/datum/action/item_action/set_internals_ninja)
+
+/obj/item/tank/internals/emergency_oxygen/ninja
+	desc = "Used for \"emergencies\". Contains very little oxygen, so try to conserve it until you actually need it. Looks kinda cool!"
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "oxygen_ninja_emergency"
+	dog_fashion = null
+	actions_types = list(/datum/action/item_action/set_internals_ninja)
+
+/obj/item/tank/internals/emergency_oxygen/ninja/empty/populate_gas()
+	return
+
+/obj/item/tank/internals/emergency_oxygen/double/ninja
+	desc = "Used for \"emergencies\", it actually contains a fair amount of oxygen. Looks kinda cool!"
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "oxygen_ninja_emergency_double"
+	dog_fashion = null
+	actions_types = list(/datum/action/item_action/set_internals_ninja)
+
+/obj/item/tank/internals/emergency_oxygen/double/ninja/empty/populate_gas()
+	return

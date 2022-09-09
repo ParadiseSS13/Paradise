@@ -171,7 +171,7 @@
 	if(CM.stat || CM.restrained())
 		return
 
-	to_chat(CM, SPAN_ALERT("You attempt to slide yourself out of \the [src]..."))
+	to_chat(CM, span_alert("You attempt to slide yourself out of \the [src]..."))
 	src.attack_hand(CM)
 
 
@@ -217,7 +217,7 @@
 		return
 	O.forceMove(loc)
 	if(user != O)
-		user.visible_message(SPAN_WARNING("[user] stuffs [O] into [src]!"))
+		user.visible_message(span_warning("[user] stuffs [O] into [src]!"))
 	return
 
 /obj/structure/m_tray/Destroy()
@@ -297,7 +297,7 @@
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if(cremating)
-		to_chat(usr, SPAN_WARNING("It's locked."))
+		to_chat(usr, span_warning("It's locked."))
 		return
 	if((connected) && (locked == 0))
 		for(var/atom/movable/A in connected.loc)
@@ -354,16 +354,16 @@
 	var/list/crema_content = get_all_contents() - src - connected
 
 	if(!length(crema_content))
-		audible_message(SPAN_WARNING("Вы слышите глухой треск."))
+		audible_message(span_warning("Вы слышите глухой треск."))
 		return
 
 	// Ash piles are not crematable
 	if(locate(/obj/effect/decal/cleanable/ash) in crema_content)
-		audible_message(SPAN_WARNING("Крематорий разгорается на несколько секунд и затухает."))
+		audible_message(span_warning("Крематорий разгорается на несколько секунд и затухает."))
 		return
 
 	else
-		audible_message(SPAN_WARNING("Запустив крематорий, вы слышите рёв."))
+		audible_message(span_warning("Запустив крематорий, вы слышите рёв."))
 
 		cremating = TRUE
 		locked = TRUE
@@ -415,7 +415,7 @@
 	if(CM.stat || CM.restrained())
 		return
 
-	to_chat(CM, SPAN_ALERT("You attempt to slide yourself out of \the [src]..."))
+	to_chat(CM, span_alert("You attempt to slide yourself out of \the [src]..."))
 	src.attack_hand(CM)
 
 /obj/structure/crematorium/get_remote_view_fullscreens(mob/user)
@@ -458,7 +458,7 @@
 		return
 	O.forceMove(loc)
 	if(user != O)
-		user.visible_message(SPAN_WARNING("[user] stuffs [O] into [src]!"))
+		user.visible_message(span_warning("[user] stuffs [O] into [src]!"))
 			//Foreach goto(99)
 	return
 
@@ -492,7 +492,7 @@
 				if(!C.cremating)
 					C.cremate(user)
 	else
-		to_chat(usr, SPAN_WARNING("Access denied."))
+		to_chat(usr, span_warning("Access denied."))
 
 /mob/proc/update_morgue()
 	if(stat == DEAD)

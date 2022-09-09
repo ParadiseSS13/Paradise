@@ -193,3 +193,23 @@
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return
+
+/obj/item/restraints/handcuffs/manacles
+	name = "manacles"
+	desc = "Wooden handcuffs analogue. Use this to keep prisoners in line."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "manacle_lock"
+	item_state = "manacle"
+	breakouttime = 450 //Deciseconds = 45s
+	cuffsound = 'sound/items/zippoclose.ogg'
+	materials = list()
+	trashtype = /obj/item/restraints/handcuffs/manacles/used
+
+/obj/item/restraints/handcuffs/manacles/used
+	desc = "A pair of broken manacles."
+	icon_state = "manacle_unlock"
+
+/obj/item/restraints/handcuffs/manacles/used/attack()
+	return

@@ -22,6 +22,7 @@
 		<a href='?src=[UID()];makeAntag=7'>Make Vampires</a><br>
 		<a href='?src=[UID()];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=10'>Make Space Ninja (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -325,11 +326,26 @@
 	E.processing = TRUE
 	return TRUE
 
-/*
+
 /datum/admins/proc/makeSpaceNinja()
-	space_ninja_arrival()
-	return 1
-*/
+	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
+	if(confirm != "Yes")
+		return 0
+	var/image/I = new('icons/mob/ninja_previews.dmi', "ninja_preview_new_hood_green")
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Spider Clan Assassin'?", ROLE_NINJA, source = I)
+
+	log_admin("[key_name(owner)] tried making a Space Ninja with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making a Space Ninja with One-Click-Antag")
+
+	if(candidates.len)
+		var/mob/dead/observer/selected = pick(candidates)
+		candidates -= selected
+
+		var/mob/living/carbon/human/new_character = makeBody(selected)
+		new_character.mind.make_Space_Ninja()
+		return 1
+	return 0
+
 
 /datum/admins/proc/makeDeathsquad()
 	var/list/mob/candidates = list()

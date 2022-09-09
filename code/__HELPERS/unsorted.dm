@@ -987,10 +987,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/dy = abs(B.y - A.y)
 	return get_dir(A, B) & (rand() * (dx+dy) < dy ? 3 : 12)
 
-//chances are 1:value. anyprob(1) will always return true
-/proc/anyprob(value)
-	return (rand(1,value)==value)
-
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
 		if("view")

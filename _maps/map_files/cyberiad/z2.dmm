@@ -37,12 +37,6 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
-"aby" = (
-/obj/effect/spawner/window/reinforced,
-/turf/unsimulated/floor{
-	name = "plating"
-	},
-/area/ninja/holding)
 "abH" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -60,6 +54,36 @@
 	tag = "icon-fakewindows (EAST)"
 	},
 /area/syndicate_mothership)
+"acH" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami_nolines";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
+"adp" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/flag/ninja,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
+"adC" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "adO" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Shuttle Dock"
@@ -82,6 +106,15 @@
 	dir = 8
 	},
 /area/space)
+"aec" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "aeh" = (
 /turf/unsimulated/wall{
 	dir = 1;
@@ -103,6 +136,16 @@
 /obj/effect/landmark/shuttle_import,
 /turf/space,
 /area/space)
+"afC" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
+"agp" = (
+/obj/structure/flora/bush,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "ahI" = (
 /obj/docking_port/stationary/transit{
 	dheight = 9;
@@ -442,6 +485,20 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_thunderdomecourt)
+"ayD" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/firstaid/regular,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "ayN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
@@ -458,12 +515,41 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"azj" = (
+/obj/structure/showcase{
+	desc = "This one is empty";
+	icon = 'icons/obj/ninjaobjects.dmi';
+	icon_state = "ninjastasis-none";
+	name = "Suit energy supply";
+	pixel_x = 10
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "aAA" = (
 /obj/item/flag/nt,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"aAF" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/cyan,
+/area/ninja/outpost)
+"aAK" = (
+/obj/structure/flora/junglebush,
+/obj/structure/flora/rock/pile/largejungle{
+	icon_state = "rocks1"
+	},
+/obj/structure/flora/tree/jungle/small,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "aBv" = (
 /obj/structure/table/reinforced,
 /turf/unsimulated/floor{
@@ -472,6 +558,12 @@
 	icon_state = "carpet"
 	},
 /area/trader_station/sol)
+"aBX" = (
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "ninja_walls_corners_alt"
+	},
+/area/shuttle/ninja)
 "aDk" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -519,12 +611,37 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"aFc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "aFj" = (
 /obj/effect/landmark/abductor/agent{
 	team = 4
 	},
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"aFM" = (
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 1
+	},
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/obj/item/storage/box/lights/mixed,
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "aGp" = (
 /turf/unsimulated/floor{
 	icon_state = "white"
@@ -603,6 +720,12 @@
 	icon_state = "darkgreen"
 	},
 /area/centcom/zone1)
+"aIV" = (
+/obj/machinery/computer/operating,
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/ninja/outpost)
 "aJn" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser,
@@ -617,6 +740,34 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"aKa" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/ninja/outpost)
+"aKj" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1331;
+	id_tag = "ninja_pump"
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock";
+	name = "interior access button";
+	pixel_x = 23;
+	pixel_y = 25
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "aKp" = (
 /obj/structure/mirror{
 	pixel_x = 30
@@ -652,6 +803,16 @@
 	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
+"aLA" = (
+/obj/structure/rack,
+/obj/item/twohanded/bostaff,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "aMo" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -699,6 +860,15 @@
 	icon_state = "iron6"
 	},
 /area/syndicate_mothership)
+"aOb" = (
+/obj/effect/baseturf_helper/asteroid/snow{
+	baseturf = /turf/unsimulated/floor/snow;
+	name = "snow baseturf editor"
+	},
+/turf/unsimulated/wall{
+	icon_state = "arust8"
+	},
+/area/ninja/holding)
 "aOd" = (
 /turf/unsimulated/floor{
 	dir = 8;
@@ -791,14 +961,15 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
-"aQX" = (
-/turf/unsimulated/wall{
-	desc = "The door appears to be locked tightly.";
-	icon = 'icons/obj/doors/airlocks/hatch/centcom.dmi';
-	icon_state = "closed";
-	name = "Locked Door"
+"aRk" = (
+/obj/structure/table/wood/fancy/green,
+/obj/item/reagent_containers/food/snacks/chinese/chowmein{
+	pixel_x = 4;
+	pixel_y = 4
 	},
-/area/ninja/holding)
+/obj/item/reagent_containers/food/snacks/chinese/tao,
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "aRB" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -887,6 +1058,18 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"aUj" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "aUH" = (
 /obj/structure/table/wood,
 /turf/unsimulated/floor{
@@ -934,6 +1117,15 @@
 	icon_state = "darkgreen"
 	},
 /area/centcom/zone1)
+"aWu" = (
+/obj/machinery/vending/boozeomat{
+	req_access_txt = null
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "aXk" = (
 /obj/structure/closet/thunderdome/tdred,
 /turf/unsimulated/floor{
@@ -1050,14 +1242,6 @@
 	icon_state = "darkpurplecorners"
 	},
 /area/centcom/specops)
-"bbV" = (
-/obj/effect/landmark{
-	name = "Holding Facility"
-	},
-/turf/unsimulated/floor{
-	icon_state = "engine"
-	},
-/area/ninja/holding)
 "bbX" = (
 /obj/machinery/vending/sustenance,
 /turf/unsimulated/floor{
@@ -1110,6 +1294,14 @@
 	tag = "icon-snow"
 	},
 /area/holodeck/source_snowfield)
+"bfz" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "floor"
+	},
+/area/ninja/holding)
 "bgo" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
@@ -1126,6 +1318,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"bgK" = (
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/obj/structure/flora/grass/both,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "bie" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers,
@@ -1152,6 +1351,18 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"biI" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/mineral_door/wood/paperframe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "biT" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	damage_deflection = 75;
@@ -1228,6 +1439,9 @@
 	icon_state = "carpet5-1"
 	},
 /area/centcom/zone1)
+"blc" = (
+/turf/simulated/wall/mineral/wood,
+/area/ninja/outpost)
 "bln" = (
 /obj/machinery/door/airlock/hatch/syndicate/command,
 /obj/machinery/door/poddoor/shutters{
@@ -1256,6 +1470,13 @@
 	},
 /turf/space,
 /area/space)
+"bmG" = (
+/obj/structure/flora/junglebush,
+/obj/effect/turf_decal/siding/green{
+	dir = 4
+	},
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "bmO" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "What?"
@@ -1314,6 +1535,14 @@
 	icon_state = "diagonalWall3"
 	},
 /area/space)
+"boN" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/junglebush/c,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "bpg" = (
 /obj/structure/window/reinforced,
 /turf/unsimulated/floor{
@@ -1335,6 +1564,12 @@
 /obj/vehicle/snowmobile/blue/key,
 /turf/unsimulated/floor/snow,
 /area/syndicate_mothership)
+"bpU" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/vending/cola/free,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "bpZ" = (
 /obj/effect/decal/cleanable/molten_object,
 /turf/unsimulated/floor{
@@ -1374,6 +1609,12 @@
 	},
 /turf/space,
 /area/space)
+"brC" = (
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "bsn" = (
 /turf/unsimulated/floor{
 	dir = 1;
@@ -1443,6 +1684,13 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"btT" = (
+/obj/structure/flora/grass/both,
+/obj/structure/flora/tree/pine{
+	pixel_x = 1
+	},
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "bue" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/grenadelauncher,
@@ -1478,6 +1726,22 @@
 	icon_state = "darkfull"
 	},
 /area/event_zone)
+"bvq" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 1
+	},
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/machinery/light{
+	dir = 1;
+	switchcount = 50
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "bvP" = (
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/holofloor{
@@ -1508,6 +1772,16 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"bwO" = (
+/obj/structure/fermenting_barrel,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "bxc" = (
 /obj/item/toy/syndicateballoon,
 /turf/unsimulated/floor{
@@ -1522,6 +1796,14 @@
 	icon_state = "carpet"
 	},
 /area/wizard_station)
+"byG" = (
+/obj/structure/railing,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/ninja/outpost)
 "byK" = (
 /obj/structure/lattice,
 /turf/unsimulated/wall,
@@ -1551,6 +1833,17 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"bAp" = (
+/obj/structure/sign/poster/official/air2{
+	pixel_y = -32
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	maximum_pressure = 50000
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "bAy" = (
 /turf/unsimulated/floor{
 	dir = 8;
@@ -1580,6 +1873,21 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"bBU" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater3x3";
+	tag = "icon-heater (NORTH)"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/ninja)
 "bBX" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/advtaser/mounted,
@@ -1588,6 +1896,18 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"bDl" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444"
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "bDt" = (
 /turf/unsimulated/floor{
 	dir = 4;
@@ -1635,6 +1955,16 @@
 	tag = "icon-asteroid2 (EAST)"
 	},
 /area/holodeck/source_desert)
+"bHJ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "bHZ" = (
 /obj/machinery/door/airlock{
 	name = "Туалет"
@@ -1643,18 +1973,6 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
-"bIV" = (
-/obj/effect/landmark{
-	name = "Holding Facility"
-	},
-/obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
-	},
-/turf/unsimulated/floor{
-	icon_state = "engine"
-	},
-/area/ninja/holding)
 "bJv" = (
 /obj/structure/holohoop{
 	dir = 8
@@ -1700,6 +2018,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"bKB" = (
+/obj/structure/flora/tree/pine{
+	pixel_x = 1
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "bKE" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/riot,
@@ -1819,6 +2144,11 @@
 /mob/living/simple_animal/cow,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"bOH" = (
+/turf/unsimulated/wall{
+	icon_state = "arust"
+	},
+/area/ninja/holding)
 "bOP" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/sign/evac{
@@ -1898,6 +2228,14 @@
 /obj/effect/landmark/abductor/agent,
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"bVf" = (
+/obj/structure/rack,
+/obj/item/twohanded/bamboospear,
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "bWl" = (
 /turf/unsimulated/floor{
 	icon_state = "dark"
@@ -2005,6 +2343,19 @@
 	},
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"bZR" = (
+/obj/structure/chair/stool,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "bZZ" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/pistol/m1911,
@@ -2013,6 +2364,12 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"caf" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "cah" = (
 /obj/structure/curtain/open/shower/security,
 /turf/unsimulated/floor{
@@ -2031,6 +2388,11 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/specops)
+"cbA" = (
+/turf/unsimulated/wall{
+	icon_state = "arust8"
+	},
+/area/ninja/holding)
 "cbF" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -2106,6 +2468,23 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"cdk" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 1
+	},
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
+"cdm" = (
+/obj/structure/flora/grass/both,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "cdB" = (
 /obj/machinery/computer/communications,
 /turf/unsimulated/floor{
@@ -2137,14 +2516,28 @@
 	tag = "icon-snow"
 	},
 /area/holodeck/source_snowfield)
-"cfZ" = (
-/obj/machinery/sleeper/upgraded{
+"cff" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss{
+	pixel_x = -6
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
+"cfS" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/unsimulated/floor{
-	icon_state = "grimy"
+/obj/structure/mineral_door/wood/paperframe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
 	},
-/area/ninja/holding)
+/area/ninja/outpost)
 "cgH" = (
 /obj/structure/closet/walllocker/emerglocker/north{
 	pixel_y = 30
@@ -2154,6 +2547,16 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"cgZ" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
+"chz" = (
+/obj/machinery/light,
+/turf/simulated/floor/carpet/red,
+/area/ninja/outpost)
 "chH" = (
 /turf/unsimulated/floor{
 	dir = 8;
@@ -2176,6 +2579,18 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
+"cjs" = (
+/obj/structure/window/plasmareinforced{
+	color = "#00f700";
+	dir = 8
+	},
+/obj/machinery/ninja_clonepod{
+	pixel_x = 3
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "cjZ" = (
 /turf/unsimulated/floor{
 	icon_state = "dark"
@@ -2524,6 +2939,21 @@
 	tag = "icon-fakewindows (NORTHEAST)"
 	},
 /area/wizard_station)
+"cCm" = (
+/obj/structure/window/plasmareinforced{
+	color = "#00f700";
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700";
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "cCw" = (
 /obj/machinery/light{
 	dir = 1
@@ -2536,14 +2966,6 @@
 	},
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
-"cCA" = (
-/obj/effect/landmark{
-	name = "ninjastart"
-	},
-/turf/unsimulated/floor{
-	icon_state = "grimy"
-	},
-/area/ninja/holding)
 "cCP" = (
 /obj/structure/table/reinforced,
 /obj/item/wirecutters{
@@ -2672,13 +3094,6 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
-"cEK" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 8;
-	icon_state = "fakewindows2";
-	tag = "icon-fakewindows2 (WEST)"
-	},
-/area/space)
 "cFi" = (
 /turf/unsimulated/floor{
 	dir = 1;
@@ -2790,6 +3205,13 @@
 /obj/item/seeds/ambrosia/gaia,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"cHA" = (
+/obj/structure/flora/rock/jungle,
+/obj/effect/turf_decal/siding/green{
+	dir = 9
+	},
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "cHF" = (
 /turf/unsimulated/floor{
 	icon_state = "rcircuit"
@@ -2871,6 +3293,13 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"cKm" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	dir = 9;
+	icon_state = "ninja_walls"
+	},
+/area/shuttle/ninja)
 "cKr" = (
 /obj/structure/table/abductor{
 	name = "table"
@@ -2887,6 +3316,13 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/specops)
+"cKP" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/item/flag/ninja,
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "cLn" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -2927,6 +3363,15 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
+"cLs" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "cLu" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -30
@@ -3128,6 +3573,31 @@
 	icon_state = "sepia"
 	},
 /area/centcom/zone1)
+"cSc" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
+"cSl" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
+"cSR" = (
+/turf/unsimulated/floor{
+	icon_state = "floor"
+	},
+/area/ninja/holding)
 "cTd" = (
 /obj/structure/table/reinforced,
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
@@ -3146,23 +3616,6 @@
 	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
-"cTS" = (
-/turf/unsimulated/floor{
-	icon_state = "dark"
-	},
-/area/ninja/holding)
-"cTT" = (
-/obj/structure/chair/stool,
-/obj/machinery/computer/security/telescreen{
-	desc = "Damn, they better have /tg/thechannel on these things.";
-	icon_state = "entertainment";
-	name = "Entertainment monitor";
-	pixel_y = -30
-	},
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "cVo" = (
 /turf/unsimulated/floor{
 	icon_state = "bcircuit"
@@ -3175,6 +3628,12 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"cVL" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "cVV" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -3215,6 +3674,13 @@
 	icon_state = "carpet"
 	},
 /area/trader_station/sol)
+"cXy" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck/black,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "cXT" = (
 /turf/unsimulated/wall{
 	icon_state = "sandstone6"
@@ -3345,6 +3811,10 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"dgl" = (
+/obj/structure/flora/junglebush,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "dgy" = (
 /obj/machinery/smartfridge,
 /obj/structure/window/reinforced{
@@ -3378,6 +3848,21 @@
 	icon_state = "wood"
 	},
 /area/centcom/zone1)
+"dij" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater3x3_side_inv";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/ninja)
 "dil" = (
 /obj/machinery/light{
 	dir = 8;
@@ -3505,6 +3990,19 @@
 	icon_state = "stage_bleft"
 	},
 /area/centcom/jail)
+"dkh" = (
+/obj/structure/chair/stool,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "dkl" = (
 /obj/machinery/light,
 /obj/machinery/cryopod/right,
@@ -3513,6 +4011,13 @@
 	icon_state = "grimy"
 	},
 /area/trader_station/sol)
+"dko" = (
+/turf/unsimulated/wall{
+	color = "#91857C";
+	icon_state = "rock";
+	name = "rock"
+	},
+/area/space)
 "dks" = (
 /obj/machinery/light/spot{
 	dir = 8;
@@ -3588,6 +4093,14 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"dmE" = (
+/obj/structure/railing,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/ninja/outpost)
 "dnh" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger/wallcharger{
@@ -3638,6 +4151,24 @@
 /mob/living/simple_animal/turkey,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"dnC" = (
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
+"dnH" = (
+/obj/machinery/computer/shuttle/ninja,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "dnT" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -3665,6 +4196,15 @@
 	icon_state = "stairs-m"
 	},
 /area/centcom/evac)
+"dok" = (
+/obj/item/flag/ninja,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "dol" = (
 /obj/machinery/computer/teleporter{
 	req_access = list(150)
@@ -3674,12 +4214,44 @@
 	icon_state = "grimy"
 	},
 /area/event_zone)
+"dpw" = (
+/obj/structure/rack,
+/obj/item/oar{
+	desc = "Редко можно увидеть весло с именем. В чём его тайна? Почему его зовут так? Может это связано с некой древней легендой? Или лодочник, что владел им раньше просто оставил на нём свою подпись? Эта информация сокрыта за туманом времени...";
+	name = "Миямото Мусаси"
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
+"dpD" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
+"dpG" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "dqw" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 1;
 	tag = "icon-fakewindows (WEST)"
 	},
 /area/centcom)
+"drI" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "drJ" = (
 /turf/unsimulated/floor{
 	icon_state = "stairs-m"
@@ -3734,6 +4306,11 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"dvo" = (
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "dvF" = (
 /obj/structure/closet/secure_closet/contractor,
 /turf/unsimulated/floor{
@@ -3760,6 +4337,12 @@
 	icon_state = "carpet"
 	},
 /area/trader_station/sol)
+"dxx" = (
+/turf/unsimulated/wall{
+	icon_state = "rock";
+	name = "rock"
+	},
+/area/ninja/holding)
 "dxC" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small{
@@ -3804,6 +4387,10 @@
 	icon_state = "carpetnoconnect"
 	},
 /area/wizard_station)
+"dzg" = (
+/obj/machinery/hydroponics/soil,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "dzo" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator,
@@ -3835,6 +4422,13 @@
 	tag = "icon-wall3 (NORTH)"
 	},
 /area/space)
+"dzG" = (
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/turf/simulated/floor/carpet/blue,
+/area/ninja/outpost)
 "dzV" = (
 /obj/machinery/door/window{
 	color = null;
@@ -3915,6 +4509,15 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"dCd" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	dir = 4;
+	icon_state = "rampbottom"
+	},
+/area/ninja/holding)
 "dCf" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/weightmachine/weightlifter,
@@ -3941,6 +4544,21 @@
 	icon_state = "stage_bleft"
 	},
 /area/centcom/jail)
+"dCC" = (
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444"
+	},
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "dCZ" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/unsimulated/floor{
@@ -3969,14 +4587,6 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/centcom/specops)
-"dEh" = (
-/obj/structure/ninjatele{
-	pixel_y = 25
-	},
-/turf/unsimulated/floor{
-	icon_state = "dark"
-	},
-/area/ninja/holding)
 "dEq" = (
 /obj/machinery/door/airlock{
 	name = "Toilet"
@@ -4068,11 +4678,6 @@
 	icon_state = "wood"
 	},
 /area/trader_station/sol)
-"dGD" = (
-/turf/unsimulated/floor{
-	icon_state = "grimy"
-	},
-/area/ninja/holding)
 "dGH" = (
 /obj/structure/urinal{
 	pixel_y = 28
@@ -4114,6 +4719,12 @@
 	icon_state = "bcarpet02"
 	},
 /area/centcom/evac)
+"dIU" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "dJg" = (
 /turf/unsimulated/floor{
 	icon_state = "darkred"
@@ -4135,6 +4746,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"dJP" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "dJV" = (
 /obj/item/flag/wiz,
 /obj/machinery/light/small{
@@ -4239,6 +4856,20 @@
 	icon_state = "bcarpet02"
 	},
 /area/centcom/evac)
+"dPG" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 10
+	},
+/obj/structure/toilet{
+	dir = 1;
+	layer = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "dPP" = (
 /obj/structure/sink{
 	pixel_y = 25
@@ -4316,6 +4947,15 @@
 	icon_state = "wood-broken4"
 	},
 /area/wizard_station)
+"dTe" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "dTj" = (
 /turf/unsimulated/floor{
 	icon_state = "carpet"
@@ -4346,13 +4986,6 @@
 	icon_state = "alien5"
 	},
 /area/abductor_ship)
-"dUZ" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave/upgraded,
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
 "dVb" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -4372,6 +5005,14 @@
 	icon_state = "freezerfloor"
 	},
 /area/syndicate_mothership)
+"dVx" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "dVK" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
@@ -4383,12 +5024,6 @@
 	icon_state = "white"
 	},
 /area/centcom/zone1)
-"dVO" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 8;
-	tag = "icon-fakewindows (WEST)"
-	},
-/area/ninja/holding)
 "dWu" = (
 /obj/structure/table/wood,
 /obj/item/toy/cards/deck,
@@ -4427,6 +5062,20 @@
 	icon_state = "wood"
 	},
 /area/centcom/zone1)
+"dXI" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
+"dYe" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "dYk" = (
 /obj/structure/dresser,
 /turf/unsimulated/floor{
@@ -4476,6 +5125,19 @@
 	icon_state = "wood"
 	},
 /area/centcom/zone1)
+"dZC" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "dZO" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/deagle,
@@ -4585,6 +5247,13 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/jail)
+"edg" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/reedbush,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "edY" = (
 /obj/machinery/vending/cigarette,
 /turf/unsimulated/floor{
@@ -4598,6 +5267,12 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"eeA" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "eeC" = (
 /obj/effect/decal/cleanable/molten_object,
 /obj/machinery/light/small{
@@ -4611,6 +5286,22 @@
 	icon_state = "hierophant1"
 	},
 /area/wizard_station)
+"eeJ" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock";
+	name = "interior access button";
+	pixel_x = 23;
+	pixel_y = 25
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "eeN" = (
 /obj/structure/mopbucket,
 /obj/machinery/light{
@@ -4658,6 +5349,25 @@
 	icon_state = "bcarpet05"
 	},
 /area/centcom/evac)
+"efP" = (
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
+"efZ" = (
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/obj/item/stack/nanopaste{
+	pixel_x = -7
+	},
+/obj/item/storage/toolbox/surgery,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/ninja/outpost)
 "egi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/unsimulated/floor{
@@ -4752,6 +5462,22 @@
 	icon_state = "vault"
 	},
 /area/ussp_ship)
+"eiu" = (
+/obj/item/shard,
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
+"ejm" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "ejr" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/sign/poster/contraband/random{
@@ -4762,6 +5488,11 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"ejW" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/vending/snack/free,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "eka" = (
 /obj/structure/toilet,
 /turf/unsimulated/floor{
@@ -4863,6 +5594,12 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"emv" = (
+/obj/effect/turf_decal/siding/green,
+/obj/structure/flora/ausbushes/palebush,
+/obj/structure/flora/junglebush,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "emV" = (
 /obj/structure/closet/crate/can,
 /turf/unsimulated/floor{
@@ -4925,12 +5662,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/zone3)
-"eqF" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 4;
-	tag = "icon-fakewindows (WEST)"
-	},
-/area/ninja/holding)
 "erc" = (
 /obj/machinery/chem_dispenser/supgraded,
 /turf/unsimulated/floor{
@@ -4943,6 +5674,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"esd" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "esx" = (
 /obj/machinery/bodyscanner,
 /obj/structure/window/reinforced{
@@ -4976,6 +5716,15 @@
 	tag = "icon-floor"
 	},
 /area/event_zone)
+"etD" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroidplating"
+	},
+/area/ninja/holding)
 "evr" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/snacks/candy/cotton/blue,
@@ -5197,6 +5946,15 @@
 	icon_state = "freezerfloor"
 	},
 /area/trader_station/sol)
+"eDu" = (
+/obj/structure/table/wood/fancy/green,
+/obj/item/reagent_containers/food/drinks/tea{
+	desc = "Don't drink it with sugar!";
+	name = "Green tea";
+	pixel_y = 7
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "eDV" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 30
@@ -5237,6 +5995,13 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/specops)
+"eFg" = (
+/obj/structure/flora/junglebush/c,
+/obj/effect/turf_decal/siding/green{
+	dir = 1
+	},
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "eFy" = (
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/pointybush,
@@ -5311,18 +6076,6 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/specops)
-"eId" = (
-/obj/structure/rack,
-/obj/item/clothing/head/that{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/clothing/under/suit_jacket,
-/obj/item/clothing/suit/wcoat,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "eIt" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/unsimulated/floor{
@@ -5364,22 +6117,22 @@
 	tag = "icon-iron3"
 	},
 /area/space)
+"eJC" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
 "eJM" = (
 /turf/unsimulated/wall{
 	icon_state = "sandstone10"
 	},
 /area/wizard_station)
-"eJQ" = (
-/obj/structure/rack,
-/obj/item/camera,
-/obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
-	},
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "eJU" = (
 /obj/structure/table/reinforced,
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
@@ -5423,6 +6176,10 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
+"eKS" = (
+/obj/structure/flora/grass/green,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "eLi" = (
 /obj/machinery/cooker/deepfryer/upgraded,
 /turf/unsimulated/floor{
@@ -5435,14 +6192,20 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
-"eMu" = (
-/obj/structure/rack,
-/obj/item/toy/sword,
-/obj/item/gun/projectile/revolver/capgun,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
+"eLL" = (
+/obj/structure/bed,
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 5
 	},
-/area/ninja/holding)
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/item/bedsheet/black,
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "eMv" = (
 /obj/structure/chair/comfy/red{
 	dir = 1
@@ -5466,6 +6229,28 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"eMC" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_outer";
+	name = "Ship External Access"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"eME" = (
+/obj/machinery/atmospherics/unary/tank/air/ninja{
+	dir = 1
+	},
+/turf/simulated/shuttle/wall/interior{
+	dir = 10;
+	icon_state = "ninja_walls";
+	underlay_floor_icon = 'icons/turf/shuttle.dmi';
+	underlay_floor_icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "eMF" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
 /obj/machinery/light/small{
@@ -5559,6 +6344,17 @@
 	icon_state = "wood"
 	},
 /area/trader_station/sol)
+"eNN" = (
+/obj/structure/rack,
+/obj/item/toy/katana{
+	desc = "Not really usefull in a real fight";
+	name = "training katana"
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "eOr" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -5718,6 +6514,18 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"eUj" = (
+/obj/item/grown/log/tree{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/grown/log/tree,
+/obj/item/grown/log/tree{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "eUA" = (
 /turf/unsimulated/wall{
 	icon_state = "iron15"
@@ -5746,6 +6554,28 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"eWd" = (
+/obj/structure/flora/grass/brown,
+/obj/structure/flora/grass/both,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
+"eWg" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "eWu" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Prison";
@@ -5916,6 +6746,18 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"fbP" = (
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "fbQ" = (
 /obj/mecha/combat/gygax/dark/loaded,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -6118,6 +6960,21 @@
 	icon_state = "white"
 	},
 /area/centcom/evac)
+"fgT" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater3x3";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/ninja)
 "fhS" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/flashlight/lamp/green,
@@ -6288,6 +7145,13 @@
 	icon_state = "white"
 	},
 /area/centcom/evac)
+"fmO" = (
+/obj/machinery/light{
+	dir = 1;
+	switchcount = 50
+	},
+/turf/simulated/floor/carpet/blue,
+/area/ninja/outpost)
 "fnq" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
@@ -6453,6 +7317,12 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"frL" = (
+/turf/simulated/shuttle/wall{
+	dir = 6;
+	icon_state = "ninja_walls"
+	},
+/area/shuttle/ninja)
 "fsa" = (
 /obj/structure/table/wood/fancy,
 /obj/machinery/photocopier/faxmachine/longrange/syndie{
@@ -6607,6 +7477,15 @@
 	icon_state = "bcarpet05"
 	},
 /area/centcom/zone1)
+"fuM" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "fuP" = (
 /turf/unsimulated/wall,
 /area/centcom/specops)
@@ -6700,6 +7579,17 @@
 	icon_state = "white"
 	},
 /area/centcom/evac)
+"fyw" = (
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444"
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "fyH" = (
 /obj/machinery/door/window/southleft{
 	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
@@ -6740,6 +7630,15 @@
 	},
 /turf/simulated/floor/wood,
 /area/secret/gaybar)
+"fAf" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "fAh" = (
 /obj/structure/flora/grass/brown,
 /turf/unsimulated/floor/snow,
@@ -6782,6 +7681,13 @@
 	icon_state = "carpet"
 	},
 /area/trader_station/sol)
+"fBN" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22";
+	tag = "icon-plant-22"
+	},
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "fBO" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
@@ -6823,6 +7729,9 @@
 	icon_state = "white"
 	},
 /area/centcom/evac)
+"fDj" = (
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "fDu" = (
 /obj/structure/chair/sofa{
 	dir = 8
@@ -6883,6 +7792,18 @@
 	icon_state = "alien3"
 	},
 /area/abductor_ship)
+"fGl" = (
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/obj/structure/sign/poster/contraband/hacking_guide{
+	pixel_x = 32
+	},
+/turf/unsimulated/floor{
+	icon_state = "floor"
+	},
+/area/ninja/holding)
 "fGA" = (
 /obj/structure/sink{
 	dir = 4;
@@ -6958,6 +7879,12 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"fJp" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "fJr" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ASSAULT3";
@@ -6984,6 +7911,14 @@
 	tag = "icon-fakewindows2 (WEST)"
 	},
 /area/centcom)
+"fKj" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "fKp" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -7128,9 +8063,28 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
-"fTl" = (
-/turf/unsimulated/beach/water,
-/area/ninja/holding)
+"fSj" = (
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444"
+	},
+/obj/effect/landmark{
+	name = "ninjastart"
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
+"fST" = (
+/mob/living/carbon/human/wolpin,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
 "fTE" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/light/small{
@@ -7248,6 +8202,12 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/zone1)
+"fXo" = (
+/turf/simulated/shuttle/wall{
+	dir = 8;
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
 "fXw" = (
 /obj/machinery/porta_turret/centcom/pulse{
 	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" =100, "rad" = 100, "fire" = 100, "acid" = 100);
@@ -7402,6 +8362,16 @@
 	tag = "icon-carpet5-1 (EAST)"
 	},
 /area/holodeck/source_theatre)
+"gdS" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "geL" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers,
@@ -7430,6 +8400,15 @@
 	icon_state = "bcarpet09"
 	},
 /area/centcom/evac)
+"ggf" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "ggH" = (
 /obj/machinery/portable_atmospherics/canister/oxygen{
 	maximum_pressure = 50000
@@ -7728,10 +8707,6 @@
 	name = "grass"
 	},
 /area/centcom/evac)
-"gsF" = (
-/obj/structure/chair/stool,
-/turf/unsimulated/beach/sand,
-/area/ninja/holding)
 "gsH" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/weightmachine/stacklifter,
@@ -7831,12 +8806,6 @@
 	name = "grass"
 	},
 /area/centcom/evac)
-"gvu" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 8;
-	tag = "icon-fakewindows (WEST)"
-	},
-/area/space)
 "gvF" = (
 /turf/space,
 /turf/unsimulated/wall{
@@ -7846,6 +8815,18 @@
 	tag = "icon-wall3 (NORTH)"
 	},
 /area/ussp_ship)
+"gvI" = (
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "gwm" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -7856,6 +8837,15 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
+"gwr" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "gwT" = (
 /obj/machinery/door/poddoor{
 	id_tag = "CC_arrivals_blastdoor";
@@ -7871,6 +8861,20 @@
 	tag = "icon-fakewindows (WEST)"
 	},
 /area/centcom/evac)
+"gxP" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/obj/structure/mineral_door/wood/paperframe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "gyc" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark{
@@ -7882,6 +8886,12 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
+"gyl" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/ninja,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "gyA" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/chair/sofa/left,
@@ -7953,6 +8963,20 @@
 	name = "grass"
 	},
 /area/centcom/zone2)
+"gBt" = (
+/obj/structure/rack,
+/obj/machinery/light,
+/obj/item/toy/katana{
+	desc = "Говорят тому, кто будет орудовать этой катаной в настоящей битве - не светит победы даже в бою с пьяницей вооружённым веслом";
+	name = "Сасаки Кадзиро"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "gBR" = (
 /obj/machinery/vending/snack,
 /obj/structure/sign/poster/official/random{
@@ -8137,6 +9161,10 @@
 	icon_state = "grimy"
 	},
 /area/event_zone)
+"gHk" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "gHs" = (
 /obj/structure/sink/kitchen{
 	dir = 4;
@@ -8248,6 +9276,17 @@
 	icon_state = "carpet"
 	},
 /area/centcom/specops)
+"gKE" = (
+/obj/structure/showcase{
+	desc = "This one has an old damaged suit in it. Not working...";
+	icon = 'icons/obj/ninjaobjects.dmi';
+	icon_state = "ninjastasis-m";
+	name = "Suit energy supply"
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "gKV" = (
 /obj/structure/closet/crate/freezer{
 	desc = "A crate.";
@@ -8293,6 +9332,18 @@
 	icon_state = "dark"
 	},
 /area/tdome/arena)
+"gLV" = (
+/obj/item/storage/firstaid/ancient{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/item/storage/firstaid/fire,
+/obj/structure/table/wood/fancy/royalblue,
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "gMc" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
@@ -8346,6 +9397,13 @@
 	icon_state = "rampbottom"
 	},
 /area/centcom/zone1)
+"gMQ" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "gNc" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -8534,6 +9592,12 @@
 	icon_state = "wood"
 	},
 /area/trader_station/sol)
+"gXT" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "gYA" = (
 /turf/unsimulated/floor{
 	dir = 4;
@@ -8577,6 +9641,13 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/zone1)
+"hbh" = (
+/obj/structure/flora/rock/pile/largejungle{
+	icon_state = "rocks2"
+	},
+/obj/structure/flora/tree/jungle/small,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "hbO" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -8588,6 +9659,28 @@
 	},
 /turf/space/transit,
 /area/space)
+"hbT" = (
+/obj/structure/rack,
+/obj/item/oar,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
+"hci" = (
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "hcI" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
@@ -8747,15 +9840,6 @@
 	icon_state = "carpetnoconnect"
 	},
 /area/wizard_station)
-"hfR" = (
-/obj/machinery/vending/cola,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "hge" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -8767,6 +9851,15 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
+"hgs" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "hgF" = (
 /obj/machinery/computer/account_database,
 /turf/unsimulated/floor{
@@ -8785,13 +9878,6 @@
 	icon_state = "bcarpet05"
 	},
 /area/centcom/zone1)
-"hhh" = (
-/obj/structure/table,
-/obj/machinery/recharger,
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
 "hhr" = (
 /obj/machinery/newscaster{
 	pixel_x = -30
@@ -9031,11 +10117,19 @@
 	icon_state = "darkfull"
 	},
 /area/chrono_ship)
-"hql" = (
-/obj/effect/overlay/palmtree_r,
-/obj/effect/overlay/coconut,
-/turf/unsimulated/beach/sand,
-/area/ninja/holding)
+"hpT" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "ninja_airlock";
+	name = "interior access button";
+	pixel_x = 10
+	},
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
 "hqV" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Kitchen room";
@@ -9177,6 +10271,16 @@
 	},
 /turf/space/transit,
 /area/space)
+"hwh" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "hwQ" = (
 /obj/structure/table/wood,
 /obj/item/clothing/glasses/hud/hydroponic,
@@ -9189,6 +10293,18 @@
 /obj/item/reagent_containers/glass/bucket,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"hwR" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "hwV" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8
@@ -9250,13 +10366,6 @@
 	toxins = 5000
 	},
 /area/holodeck/source_burntest)
-"hyN" = (
-/obj/structure/rack,
-/obj/item/storage/fancy/crayons,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "hzJ" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -9322,6 +10431,11 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
+"hBO" = (
+/obj/structure/energy_caltrops/noselfdestroy,
+/obj/structure/flora/grass/both,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "hCD" = (
 /obj/item/radio/intercom{
 	pixel_x = -30
@@ -9382,12 +10496,34 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"hFA" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "hFH" = (
 /obj/machinery/computer/camera_advanced/abductor{
 	team = 4
 	},
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"hFV" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "hGI" = (
 /obj/machinery/bodyscanner,
 /obj/structure/window/reinforced{
@@ -9453,6 +10589,16 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"hIn" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/ninja/outpost)
 "hIF" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Kitchen room";
@@ -9516,6 +10662,14 @@
 	name = "grass"
 	},
 /area/centcom/specops)
+"hKa" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "hKD" = (
 /obj/structure/chair/sofa{
 	dir = 10
@@ -9589,6 +10743,16 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
+"hLv" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "hLK" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/light{
@@ -9643,6 +10807,15 @@
 	icon_state = "white"
 	},
 /area/centcom/zone1)
+"hOU" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "hOV" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/shaker,
@@ -9730,6 +10903,23 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"hQW" = (
+/obj/structure/rack,
+/obj/item/twohanded/bamboospear,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
+"hRy" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/flag/ninja,
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "hRV" = (
 /obj/structure/table/wood,
 /obj/item/folder/white,
@@ -9760,6 +10950,21 @@
 	tag = "icon-floor"
 	},
 /area/centcom/evac)
+"hSg" = (
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen/double/ninja{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/tank/internals/emergency_oxygen/double/ninja,
+/obj/item/tank/internals/emergency_oxygen/double/ninja{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "hSw" = (
 /obj/structure/flora/grass/green,
 /turf/unsimulated/floor/snow,
@@ -9971,6 +11176,15 @@
 	icon_state = "floor"
 	},
 /area/tdome/tdomeadmin)
+"icd" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/cyan,
+/area/ninja/outpost)
 "ieG" = (
 /obj/structure/chair/comfy/brown,
 /obj/structure/window/reinforced{
@@ -10002,6 +11216,13 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"igo" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "igG" = (
 /turf/unsimulated/floor{
 	color = "#CCCCCC";
@@ -10118,12 +11339,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
-"ijS" = (
-/obj/structure/chair/stool/bar,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "iky" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -10166,6 +11381,27 @@
 /obj/structure/table/wood,
 /turf/unsimulated/floor/snow,
 /area/syndicate_mothership)
+"imo" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/item/radio/intercom/syndicate{
+	pixel_y = 30
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
+"imT" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/cyan,
+/area/ninja/outpost)
 "inp" = (
 /obj/structure/table/wood,
 /obj/item/dnainjector/antiblind,
@@ -10498,6 +11734,20 @@
 	tag = "icon-floor"
 	},
 /area/centcom/evac)
+"ivt" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/structure/mineral_door/wood/paperframe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "ivN" = (
 /obj/mecha/combat/durand{
 	armor = list("melee" = 60, "bullet" = 50, "laser" = 20, "energy" = 25, "bomb" = 50, "bio" = 0, "rad" = 50, "fire" = 80, "acid" = 80);
@@ -10766,6 +12016,13 @@
 	icon_state = "stage_bleft"
 	},
 /area/syndicate_mothership)
+"iEz" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "iEI" = (
 /obj/docking_port/stationary/transit{
 	dwidth = 3;
@@ -10814,6 +12071,11 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
+"iFB" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
 "iFT" = (
 /obj/item/target,
 /obj/machinery/light/small{
@@ -10853,6 +12115,12 @@
 	icon_state = "stage_bleft"
 	},
 /area/centcom/jail)
+"iGR" = (
+/obj/effect/turf_decal/siding/green,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/junglebush/b,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "iGV" = (
 /obj/machinery/computer/mecha,
 /turf/unsimulated/floor{
@@ -11112,6 +12380,12 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"iRl" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "iRo" = (
 /obj/structure/table/abductor,
 /obj/item/retractor/alien,
@@ -11156,6 +12430,23 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
+"iTc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	brightness_range = 2;
+	dir = 8;
+	light_range = 2;
+	nightshift_light_range = 2;
+	tag = "icon-bulb1 (WEST)";
+	throw_range = 2
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "iTG" = (
 /turf/unsimulated/floor{
 	dir = 8;
@@ -11273,6 +12564,33 @@
 	icon_state = "plastitanium"
 	},
 /area/vox_station)
+"iYd" = (
+/turf/simulated/shuttle/wall{
+	dir = 5;
+	icon_state = "ninja_walls"
+	},
+/area/shuttle/ninja)
+"iYj" = (
+/turf/simulated/shuttle/wall{
+	dir = 6;
+	icon_state = "ninja_walls_full"
+	},
+/area/shuttle/ninja)
+"iZq" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 1
+	},
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/landmark{
+	name = "ninjastart"
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "jaa" = (
 /turf/unsimulated/floor{
 	dir = 1;
@@ -11354,6 +12672,11 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"jcy" = (
+/obj/structure/flora/grass/both,
+/obj/structure/flora/grass/green,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "jcG" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Equipment Room";
@@ -11375,6 +12698,13 @@
 	icon_state = "whitecorner"
 	},
 /area/centcom/evac)
+"jcY" = (
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/turf/simulated/floor/carpet/red,
+/area/ninja/outpost)
 "jej" = (
 /obj/structure/chair,
 /turf/unsimulated/floor{
@@ -11472,6 +12802,13 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
+"jhs" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/machinery/vending/chinese/free,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "jix" = (
 /turf/unsimulated/floor{
 	icon_state = "carpet11-12"
@@ -11575,6 +12912,34 @@
 	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
+"jkG" = (
+/obj/structure/closet/crate/medical,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/storage/box/beakers,
+/obj/item/robot_parts/l_arm,
+/obj/item/robot_parts/r_arm,
+/obj/item/clothing/mask/surgical,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/obj/item/robot_parts/l_leg,
+/obj/item/robot_parts/r_leg,
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/ninja/outpost)
+"jlj" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "jly" = (
 /obj/structure/window/reinforced{
 	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
@@ -11612,11 +12977,22 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"jlI" = (
+/turf/simulated/shuttle/floor/transparent_floor,
+/area/shuttle/ninja)
 "jmq" = (
 /turf/unsimulated/floor{
 	icon_state = "carpet14-10"
 	},
 /area/wizard_station)
+"jmt" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "floor"
+	},
+/area/ninja/holding)
 "jmK" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/m90,
@@ -11769,6 +13145,15 @@
 	icon_state = "carpet"
 	},
 /area/trader_station/sol)
+"jrE" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "jrZ" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen{
@@ -11873,6 +13258,22 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"juT" = (
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 1
+	},
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "jvg" = (
 /turf/unsimulated/wall{
 	icon_state = "iron9";
@@ -11903,6 +13304,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"jww" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "jwy" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_scanner/adv,
@@ -11975,6 +13384,23 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"jyN" = (
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/obj/item/storage/box/manacles{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/storage/box/manacles{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "jzk" = (
 /obj/structure/window/full/reinforced{
 	layer = 2
@@ -12030,6 +13456,22 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/specops)
+"jBz" = (
+/obj/structure/shuttle/engine/platform{
+	layer = 2.9
+	},
+/obj/structure/shuttle/engine/large{
+	dir = 1;
+	opacity = 0
+	},
+/turf/simulated/shuttle/floor/transparent_floor,
+/area/shuttle/ninja)
+"jDc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "jDd" = (
 /obj/machinery/porta_turret/centcom/pulse{
 	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" =100, "rad" = 100, "fire" = 100, "acid" = 100);
@@ -12045,6 +13487,17 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"jDO" = (
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/junglebush/c,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
+"jEq" = (
+/turf/unsimulated/wall{
+	icon_state = "rock";
+	name = "rock"
+	},
+/area/space)
 "jEz" = (
 /turf/unsimulated/wall{
 	icon_state = "iron3"
@@ -12141,14 +13594,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
-"jGo" = (
-/obj/structure/chair/stool,
-/obj/item/clothing/head/bandana{
-	pixel_y = -10
-	},
-/obj/item/clothing/glasses/sunglasses,
-/turf/unsimulated/beach/sand,
-/area/ninja/holding)
 "jGI" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Armory 1";
@@ -12258,12 +13703,33 @@
 	icon_state = "carpet"
 	},
 /area/ussp_ship)
+"jJg" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "jJB" = (
 /turf/simulated/floor/holofloor{
 	dir = 10;
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
+"jKb" = (
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "jKH" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 30
@@ -12275,14 +13741,6 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
-"jKJ" = (
-/turf/unsimulated/wall{
-	desc = "The door appears to be locked tightly.";
-	icon = 'icons/obj/doors/airlocks/hatch/centcom.dmi';
-	icon_state = "closed";
-	name = "Locked Door"
-	},
-/area/space)
 "jKW" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -12337,6 +13795,11 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"jMy" = (
+/obj/structure/flora/junglebush,
+/obj/effect/turf_decal/siding/green,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "jNo" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/stack/spacecash/c1000000{
@@ -12371,6 +13834,18 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"jNy" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "jOT" = (
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
@@ -12418,14 +13893,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
-"jQJ" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access_txt = "25"
-	},
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
 "jQL" = (
 /obj/structure/table/wood,
 /obj/item/paper/form/NT_HR_00,
@@ -12447,6 +13914,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"jSp" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/ninja/outpost)
 "jSz" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -12472,6 +13949,34 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/specops)
+"jTh" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon = 'icons/obj/ninjaobjects.dmi';
+	icon_state = "wallkatana";
+	name = "Katanas"
+	},
+/turf/unsimulated/wall{
+	icon_state = "arust"
+	},
+/area/ninja/holding)
+"jTr" = (
+/obj/structure/flora/junglebush,
+/obj/effect/turf_decal/siding/green{
+	dir = 8
+	},
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
+"jTK" = (
+/obj/structure/grille,
+/obj/structure/shuttle/window{
+	dir = 4;
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "ninja_window";
+	tag = "icon-window5_end"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/ninja)
 "jUg" = (
 /obj/item/radio/intercom/specops{
 	pixel_x = -25
@@ -12574,6 +14079,15 @@
 	name = "grass"
 	},
 /area/centcom/zone1)
+"jXr" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/cyan,
+/area/ninja/outpost)
 "jYo" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Jail 4";
@@ -12691,10 +14205,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"kch" = (
-/obj/item/clothing/head/collectable/paper,
-/turf/unsimulated/beach/coastline,
-/area/ninja/holding)
 "kdb" = (
 /turf/unsimulated/wall{
 	dir = 8;
@@ -12794,6 +14304,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"kfe" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "kgi" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sit_away";
@@ -12814,6 +14332,15 @@
 	icon_state = "tranquillite"
 	},
 /area/centcom/specops)
+"kgF" = (
+/obj/item/flag/ninja,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "kgG" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/ionrifle/carbine,
@@ -12926,6 +14453,19 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"klr" = (
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/obj/structure/sign/poster/contraband/cc64k_ad{
+	pixel_y = 32
+	},
+/obj/item/toy/figure/ninja,
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "kmt" = (
 /obj/item/flag/nt,
 /obj/structure/window/reinforced{
@@ -13081,6 +14621,13 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"kro" = (
+/obj/structure/flora/junglebush,
+/obj/effect/turf_decal/siding/green{
+	dir = 5
+	},
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "krt" = (
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -13112,6 +14659,12 @@
 	tag = "icon-iron11"
 	},
 /area/space)
+"ktq" = (
+/obj/structure/shuttle/engine/platform{
+	layer = 2.9
+	},
+/turf/simulated/shuttle/floor/transparent_floor,
+/area/shuttle/ninja)
 "kty" = (
 /turf/space,
 /turf/unsimulated/floor{
@@ -13172,6 +14725,18 @@
 	},
 /turf/space,
 /area/ussp_ship)
+"kvY" = (
+/obj/machinery/light/small{
+	brightness_range = 2;
+	light_range = 2;
+	nightshift_light_range = 2;
+	tag = "icon-bulb1 (WEST)";
+	throw_range = 2
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "kwf" = (
 /obj/structure/noticeboard{
 	pixel_y = -30
@@ -13408,6 +14973,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"kCN" = (
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
 "kDo" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/unsimulated/floor{
@@ -13470,6 +15041,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"kFK" = (
+/obj/machinery/light{
+	dir = 1;
+	switchcount = 50
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "kFU" = (
 /obj/machinery/shower{
 	dir = 8
@@ -13490,6 +15071,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"kHq" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "kHx" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window{
@@ -13506,6 +15097,21 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"kHL" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "ninja_sensor";
+	pixel_x = 12;
+	pixel_y = 25;
+	req_access_txt = "150"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "kHZ" = (
 /turf/unsimulated/floor{
 	dir = 4;
@@ -13697,6 +15303,14 @@
 	icon_state = "wood"
 	},
 /area/centcom/evac)
+"kOD" = (
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -32
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "kPw" = (
 /obj/machinery/kitchen_machine/grill/upgraded,
 /turf/unsimulated/floor{
@@ -13815,6 +15429,11 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/gamma/space)
+"kTw" = (
+/obj/structure/table/wood/fancy/green,
+/obj/item/reagent_containers/food/snacks/chimichanga,
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "kTJ" = (
 /obj/structure/table,
 /obj/machinery/door_control{
@@ -13841,12 +15460,30 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
+"kUd" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 9
+	},
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "kUg" = (
 /obj/item/beach_ball/holoball,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"kVa" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 1
+	},
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "kVg" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -13881,6 +15518,12 @@
 "kVI" = (
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"kVO" = (
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "kVV" = (
 /obj/machinery/door/window{
 	closingLayer = 2.9;
@@ -14098,11 +15741,6 @@
 	tag = "icon-floor"
 	},
 /area/admin)
-"lce" = (
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "lcX" = (
 /turf/unsimulated/wall,
 /area/syndicate_mothership)
@@ -14228,6 +15866,13 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"lfG" = (
+/obj/structure/flora/grass/brown,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
+"lfW" = (
+/turf/simulated/floor/carpet/blue,
+/area/ninja/outpost)
 "lfY" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window{
@@ -14239,6 +15884,12 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"lgE" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "lgJ" = (
 /obj/effect/landmark{
 	name = "Syndicate-Infiltrator-Leader";
@@ -14287,13 +15938,6 @@
 	icon_state = "rampbottom"
 	},
 /area/ussp_ship)
-"lhG" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/cola,
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
 "lhP" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
@@ -14482,6 +16126,15 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"lps" = (
+/obj/item/flag/ninja,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "lqe" = (
 /obj/mecha/combat/marauder/mauler/loaded{
 	operation_req_access = list(114)
@@ -14524,6 +16177,12 @@
 	icon_state = "grimy"
 	},
 /area/centcom/court)
+"lqI" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "lqJ" = (
 /obj/machinery/light{
 	dir = 1
@@ -14533,6 +16192,10 @@
 	icon_state = "grimy"
 	},
 /area/trader_station/sol)
+"lrq" = (
+/obj/item/lighter/zippo/ninja,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "lrE" = (
 /obj/structure/table/wood/poker,
 /obj/item/toy/cards/deck/syndicate{
@@ -14565,6 +16228,13 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"lrS" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "lth" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall3";
@@ -14575,16 +16245,6 @@
 /obj/structure/flora/bush,
 /turf/unsimulated/floor/snow,
 /area/syndicate_mothership)
-"ltv" = (
-/obj/structure/table,
-/obj/item/clothing/head/that{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
 "ltZ" = (
 /obj/structure/sign/poster/contraband/syndicate_pistol{
 	pixel_x = -32
@@ -14636,18 +16296,26 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
-"luP" = (
-/obj/structure/table,
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
 "lvs" = (
 /obj/machinery/clonepod/biomass,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"lvv" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "lwB" = (
 /obj/machinery/bsa/full/admin/east{
 	layer = 1
@@ -14707,13 +16375,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
-"lxW" = (
-/obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
-	},
-/turf/unsimulated/beach/sand,
-/area/ninja/holding)
 "lyv" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -14959,6 +16620,17 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"lCv" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 9
+	},
+/obj/structure/toilet,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "lCE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
@@ -15040,12 +16712,48 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"lFS" = (
+/obj/effect/baseturf_helper/asteroid/snow{
+	baseturf = /turf/unsimulated/floor/snow;
+	name = "snow baseturf editor"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
+"lGp" = (
+/obj/machinery/atmospherics/unary/tank/air/ninja{
+	dir = 1
+	},
+/turf/simulated/shuttle/wall/interior{
+	dir = 6;
+	icon_state = "ninja_walls";
+	underlay_floor_icon = 'icons/turf/shuttle.dmi';
+	underlay_floor_icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "lGr" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "snow";
 	tag = "icon-snow"
 	},
 /area/holodeck/source_snowfield)
+"lGX" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_inner";
+	locked = 1;
+	name = "Ship External Access"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "lGZ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Medical and Rest room";
@@ -15085,6 +16793,22 @@
 	icon_state = "alien6"
 	},
 /area/abductor_ship)
+"lIq" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock";
+	name = "interior access button";
+	pixel_x = -25;
+	pixel_y = 25
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "lIE" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/unsimulated/floor{
@@ -15102,6 +16826,10 @@
 	icon_state = "plastitanium"
 	},
 /area/vox_station)
+"lJL" = (
+/obj/structure/energy_caltrops/noselfdestroy,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "lKj" = (
 /obj/structure/sink{
 	dir = 8;
@@ -15163,6 +16891,12 @@
 	icon_state = "carpet"
 	},
 /area/centcom/specops)
+"lOF" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "lPh" = (
 /obj/machinery/door_control{
 	id = "CC_zone2_checkpoint_lockdown";
@@ -15217,6 +16951,38 @@
 	icon_state = "carpet"
 	},
 /area/ussp_ship)
+"lQN" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/railing/corner,
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
+"lRc" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_outer";
+	name = "Ship External Access"
+	},
+/obj/docking_port/mobile{
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra";
+	name = "Spider Clan Ombra";
+	roundstart_move = "ombra_home";
+	width = 21
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "lSb" = (
 /turf/unsimulated/floor{
 	icon_state = "darkgrey"
@@ -15237,6 +17003,21 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"lSJ" = (
+/obj/effect/turf_decal/sand{
+	alpha = 128
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroidfloor"
+	},
+/area/ninja/holding)
+"lTl" = (
+/turf/simulated/shuttle/wall{
+	dir = 10;
+	icon_state = "ninja_walls"
+	},
+/area/shuttle/ninja)
 "lTt" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
@@ -15462,6 +17243,14 @@
 	icon_state = "carpet"
 	},
 /area/ussp_ship)
+"mbn" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "floor"
+	},
+/area/ninja/holding)
 "mbp" = (
 /obj/effect/landmark/abductor/scientist{
 	team = 3
@@ -15482,6 +17271,21 @@
 	icon_state = "carpet"
 	},
 /area/centcom/specops)
+"mbN" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "mcd" = (
 /obj/machinery/turretid/lethal{
 	ailock = 1;
@@ -15515,6 +17319,14 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"mdb" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 8
+	},
+/obj/structure/railing,
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "mde" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -15541,6 +17353,19 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"mdi" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
+"mdS" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/wheat/rice,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "mef" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 1;
@@ -15666,10 +17491,6 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
-"mhm" = (
-/obj/effect/overlay/palmtree_l,
-/turf/unsimulated/beach/sand,
-/area/ninja/holding)
 "mho" = (
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/brute,
@@ -15753,6 +17574,21 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
+"miU" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater3x3_side_inv";
+	tag = "icon-heater (NORTH)"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/ninja)
 "miX" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -15920,6 +17756,14 @@
 	icon_state = "wood"
 	},
 /area/event_zone)
+"mpE" = (
+/obj/structure/rack,
+/obj/item/twohanded/bostaff,
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "mpH" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 30
@@ -16111,6 +17955,10 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"mxD" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "mxE" = (
 /obj/structure/window/reinforced,
 /turf/unsimulated/floor{
@@ -16535,6 +18383,12 @@
 	name = "grass"
 	},
 /area/centcom/zone1)
+"mNl" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "mNz" = (
 /obj/structure/table/wood,
 /obj/item/stamp/captain,
@@ -16666,10 +18520,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
-"mSW" = (
-/obj/machinery/light/spot,
-/turf/unsimulated/beach/water,
-/area/ninja/holding)
 "mTN" = (
 /obj/machinery/door/airlock{
 	name = "Комната отдыха"
@@ -16697,9 +18547,6 @@
 	tag = "icon-floor"
 	},
 /area/admin)
-"mUD" = (
-/turf/unsimulated/beach/coastline,
-/area/ninja/holding)
 "mVb" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/twohanded/required/kirbyplants,
@@ -16775,6 +18622,9 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone3)
+"mWv" = (
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "mWK" = (
 /obj/item/storage/box/syringes,
 /obj/item/assembly/igniter,
@@ -16804,12 +18654,28 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"mXj" = (
+/obj/structure/bookcase,
+/obj/item/book/manual,
+/obj/item/book/manual,
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "mXM" = (
 /obj/structure/table/wood/fancy/black,
 /turf/unsimulated/floor{
 	icon_state = "carpet6-2"
 	},
 /area/wizard_station)
+"mYn" = (
+/obj/machinery/chem_dispenser/beer/upgraded,
+/obj/structure/table/wood/poker,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "mYZ" = (
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
@@ -16928,12 +18794,6 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_emptycourt)
-"ncY" = (
-/obj/effect/decal/warning_stripes/yellow,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "ncZ" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
@@ -17209,6 +19069,23 @@
 	tag = "icon-carpet14-10 (EAST)"
 	},
 /area/holodeck/source_theatre)
+"nle" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"nlm" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "rampbottom"
+	},
+/area/ninja/holding)
 "nlR" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -30
@@ -17368,10 +19245,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
 /area/secret/gaybar)
-"nql" = (
-/obj/item/beach_ball,
-/turf/unsimulated/beach/sand,
-/area/ninja/holding)
 "nqC" = (
 /obj/structure/chair/sofa{
 	dir = 4
@@ -17463,6 +19336,15 @@
 	},
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
+"nsq" = (
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "nsF" = (
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/pointybush,
@@ -17482,6 +19364,11 @@
 	icon_state = "light_on-cycle_all"
 	},
 /area/centcom/evac)
+"ntz" = (
+/obj/structure/flora/tree/dead,
+/obj/structure/flora/grass/both,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "ntO" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
@@ -17517,6 +19404,10 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
+"nvB" = (
+/mob/living/simple_animal/pet/penguin/baby,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "nvL" = (
 /obj/structure/chair/sofa{
 	dir = 8
@@ -17526,6 +19417,19 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"nvY" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 6
+	},
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/structure/dresser,
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "nwJ" = (
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -17643,6 +19547,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"nzD" = (
+/obj/structure/flora/tree/pine{
+	pixel_x = 1
+	},
+/obj/structure/flora/grass/both,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "nzR" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -17708,6 +19619,23 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
+"nDw" = (
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/ninja/outpost)
+"nDA" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/railing,
+/turf/simulated/floor/carpet/blue,
+/area/ninja/outpost)
 "nDL" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/unsimulated/floor{
@@ -17749,6 +19677,9 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"nFy" = (
+/turf/simulated/floor/carpet/red,
+/area/ninja/outpost)
 "nFE" = (
 /obj/effect/landmark{
 	name = "tdome2"
@@ -17849,6 +19780,22 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"nHl" = (
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "nHq" = (
 /obj/structure/closet/secure_closet/bar{
 	req_access = null
@@ -17870,6 +19817,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
+"nIF" = (
+/turf/unsimulated/wall{
+	color = "#91857C";
+	icon_state = "rock";
+	name = "rock"
+	},
+/area/ninja/holding)
 "nIO" = (
 /obj/structure/table/wood,
 /obj/machinery/syndicatebomb/badmin/clown,
@@ -18084,12 +20038,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
-"nOv" = (
-/obj/machinery/vending/boozeomat,
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
 "nOx" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove{
@@ -18122,6 +20070,25 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
+"nQa" = (
+/obj/structure/flora/grass/both,
+/mob/living/simple_animal/pet/penguin/emperor,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
+"nQl" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
+"nRn" = (
+/turf/simulated/shuttle/wall/interior{
+	dir = 6;
+	icon_state = "ninja_walls";
+	underlay_floor_icon = 'icons/turf/shuttle.dmi';
+	underlay_floor_icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "nSb" = (
 /obj/structure/piano{
 	icon_state = "piano"
@@ -18204,12 +20171,28 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"nVZ" = (
+/obj/machinery/bodyscanner{
+	dir = 4;
+	layer = 3.5
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/ninja/outpost)
 "nXm" = (
 /obj/structure/weightmachine/weightlifter,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"nYc" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "nYs" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/meteorgun,
@@ -18262,6 +20245,20 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
+"ocs" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/storage/firstaid/ancient{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/item/storage/firstaid/fire,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "ocX" = (
 /obj/structure/chair/stool,
 /obj/machinery/light/small{
@@ -18379,6 +20376,11 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"ofv" = (
+/obj/structure/flora/grass/both,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "ofJ" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/holofloor{
@@ -18427,10 +20429,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
-"ohL" = (
-/obj/item/camera,
-/turf/unsimulated/beach/sand,
-/area/ninja/holding)
 "ohS" = (
 /obj/machinery/photocopier,
 /turf/unsimulated/floor{
@@ -18438,6 +20436,17 @@
 	icon_state = "grimy"
 	},
 /area/centcom/bridge)
+"ohV" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami_nolines";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
 "oid" = (
 /obj/structure/table/wood/fancy/black,
 /turf/unsimulated/floor{
@@ -18457,6 +20466,11 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
+"ojC" = (
+/obj/structure/flora/grass/both,
+/obj/structure/flora/grass/both,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "ojW" = (
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_basketball)
@@ -18468,6 +20482,15 @@
 	name = "grass"
 	},
 /area/centcom/evac)
+"olk" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "olF" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw,
@@ -18620,6 +20643,10 @@
 	icon_state = "sepia"
 	},
 /area/ussp_ship)
+"our" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "ovq" = (
 /obj/machinery/cryopod/right,
 /obj/machinery/camera{
@@ -18664,6 +20691,18 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"oxB" = (
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "oyb" = (
 /obj/structure/window/reinforced,
 /turf/unsimulated/floor/grass,
@@ -18915,6 +20954,14 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"oDk" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 6
+	},
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/junglebush,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "oEi" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
@@ -18934,6 +20981,19 @@
 	icon_state = "grimy"
 	},
 /area/centcom/bridge)
+"oFO" = (
+/obj/structure/chair/stool,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "oGz" = (
 /obj/structure/sign/poster/official/ue_no,
 /turf/unsimulated/wall{
@@ -18992,6 +21052,13 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone2)
+"oKj" = (
+/obj/structure/shuttle/engine/huge{
+	dir = 1;
+	opacity = 0
+	},
+/turf/simulated/shuttle/floor/transparent_floor,
+/area/shuttle/ninja)
 "oKr" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 5;
@@ -19119,6 +21186,46 @@
 	tag = "icon-fakewindows (WEST)"
 	},
 /area/ussp_ship)
+"oPR" = (
+/obj/effect/baseturf_helper/asteroid/snow{
+	baseturf = /turf/unsimulated/floor/snow;
+	name = "snow baseturf editor"
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
+"oPZ" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
+"oRs" = (
+/obj/structure/bookcase,
+/obj/item/book/manual,
+/obj/item/book/manual,
+/obj/item/book/manual,
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
+"oRx" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
+"oRB" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "oRN" = (
 /obj/structure/table/wood/poker,
 /obj/item/toy/cards/deck,
@@ -19133,6 +21240,17 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
+"oSD" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
+"oSZ" = (
+/obj/structure/flora/grass/both,
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "oTp" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
@@ -19240,6 +21358,17 @@
 	icon_state = "bcarpet06"
 	},
 /area/centcom/evac)
+"oXv" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
 "oXT" = (
 /obj/structure/table/wood/fancy/black,
 /turf/unsimulated/floor{
@@ -19295,6 +21424,12 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"paq" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "paH" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
@@ -19307,6 +21442,25 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"paV" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
+"paX" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater3x3_side";
+	tag = "icon-heater (NORTH)"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/ninja)
 "paY" = (
 /obj/structure/lattice,
 /turf/unsimulated/wall/fakeglass{
@@ -19356,6 +21510,15 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"pcD" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "pcJ" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -19520,13 +21683,19 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
-"pgj" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/shaker,
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
+"pfK" = (
+/obj/item/grown/log/tree{
+	pixel_x = 3;
+	pixel_y = -3
 	},
-/area/ninja/holding)
+/obj/item/grown/log/tree,
+/obj/item/grown/log/tree{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/hatchet/wooden,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "pgx" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -30
@@ -19577,6 +21746,21 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
+"phP" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "phS" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -19643,6 +21827,18 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"piT" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "pje" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/unsimulated/floor{
@@ -19794,6 +21990,37 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
+"plP" = (
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "ninja_airlock";
+	pixel_y = 3;
+	tag_airpump = "ninja_pump";
+	tag_chamber_sensor = "ninja_sensor";
+	tag_exterior_door = "ninja_outer";
+	tag_interior_door = "ninja_inner"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"pmd" = (
+/obj/structure/grille,
+/obj/structure/shuttle/window{
+	dir = 8;
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "ninja_window";
+	tag = "icon-window5_end"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/ninja)
 "pml" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -19813,6 +22040,15 @@
 	icon_state = "carpet"
 	},
 /area/centcom/bridge)
+"pon" = (
+/obj/structure/ninjatele{
+	pixel_y = 25
+	},
+/obj/effect/turf_decal/box,
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "por" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave/upgraded,
@@ -19991,6 +22227,14 @@
 	icon_state = "wood"
 	},
 /area/centcom/zone1)
+"ppZ" = (
+/obj/structure/window/full/paperframe{
+	icon_state = "paperframe"
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/ninja/outpost)
 "pqC" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/color/black{
@@ -20066,6 +22310,23 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"psQ" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	brightness_range = 2;
+	light_range = 2;
+	nightshift_light_range = 2;
+	tag = "icon-bulb1 (WEST)";
+	throw_range = 2
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "ptj" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -20176,6 +22437,13 @@
 	name = "grass"
 	},
 /area/centcom/zone2)
+"pxC" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "pxF" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/soda/upgraded,
@@ -20447,6 +22715,14 @@
 	},
 /turf/space/transit,
 /area/space)
+"pEt" = (
+/obj/machinery/chem_dispenser/soda/upgraded,
+/obj/structure/table/wood/poker,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "pFs" = (
 /turf/unsimulated/floor{
 	icon_state = "freezerfloor"
@@ -20591,6 +22867,11 @@
 	tag = "icon-fakewindows (EAST)"
 	},
 /area/centcom)
+"pJc" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "pJA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
@@ -20836,6 +23117,18 @@
 	icon_state = "carpet"
 	},
 /area/centcom/court)
+"pQj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "pQL" = (
 /obj/structure/sign/poster/official/enlist{
 	pixel_y = 32
@@ -20866,13 +23159,13 @@
 	name = "plating"
 	},
 /area/centcom/zone2)
-"pRX" = (
-/obj/structure/table,
-/obj/item/dice/d20,
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
+"pRR" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami_nolines";
+	name = "Tatami"
 	},
-/area/ninja/holding)
+/area/ninja/outpost)
 "pRZ" = (
 /obj/machinery/light{
 	dir = 8
@@ -20917,6 +23210,10 @@
 	icon_state = "iron5"
 	},
 /area/syndicate_mothership)
+"pUz" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "pUB" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/folder/blue,
@@ -21009,6 +23306,13 @@
 	},
 /turf/space/transit/horizontal,
 /area/space)
+"pYa" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "pYe" = (
 /obj/item/clothing/suit/space/syndicate/orange{
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
@@ -21067,6 +23371,12 @@
 	icon_state = "darkfull"
 	},
 /area/chrono_ship)
+"pYP" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "pZv" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/automatic/combat,
@@ -21210,12 +23520,6 @@
 /turf/space,
 /turf/unsimulated/wall,
 /area/centcom/evac)
-"qcM" = (
-/obj/machinery/poolcontroller/invisible{
-	pixel_x = 30
-	},
-/turf/unsimulated/beach/water,
-/area/ninja/holding)
 "qds" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -21277,6 +23581,11 @@
 	name = "grass"
 	},
 /area/centcom/evac)
+"qeM" = (
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/ninja/outpost)
 "qeT" = (
 /turf/simulated/floor/holofloor{
 	dir = 1;
@@ -21319,6 +23628,12 @@
 	icon_state = "carpet"
 	},
 /area/centcom/court)
+"qfQ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/cyan,
+/area/ninja/outpost)
 "qfU" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove{
@@ -21374,6 +23689,19 @@
 	icon_state = "freezerfloor"
 	},
 /area/syndicate_mothership)
+"qhP" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "qiF" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/teargas{
@@ -21447,6 +23775,19 @@
 	},
 /turf/unsimulated/floor/snow,
 /area/syndicate_mothership)
+"qkh" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "ninja_airlock";
+	name = "interior access button";
+	pixel_x = -12
+	},
+/turf/simulated/shuttle/wall{
+	dir = 8;
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
 "qkt" = (
 /obj/structure/table,
 /obj/item/rcd,
@@ -21481,6 +23822,15 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/specops)
+"qlJ" = (
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "qlU" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom,
@@ -21516,6 +23866,18 @@
 "qny" = (
 /turf/simulated/floor/bluegrid,
 /area/tdome/arena)
+"qob" = (
+/obj/item/storage/firstaid/brute{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/firstaid/regular,
+/obj/structure/table/wood/fancy/royalblue,
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "qow" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Ferry Dock";
@@ -21695,6 +24057,17 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"qut" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
 "quB" = (
 /obj/structure/chair/comfy/brown{
 	color = "#FF3300"
@@ -21858,6 +24231,14 @@
 	icon_state = "carpet"
 	},
 /area/centcom/court)
+"qyX" = (
+/obj/effect/turf_decal/sand{
+	alpha = 128
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "qzb" = (
 /obj/structure/bookcase/manuals,
 /obj/item/book/manual/security_space_law{
@@ -21949,17 +24330,12 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
-"qBu" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave/upgraded,
-/obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+"qBW" = (
+/obj/structure/flora/tree/pine{
+	pixel_x = 1
 	},
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "qCD" = (
 /obj/item/flag/nt,
 /turf/unsimulated/floor{
@@ -22000,6 +24376,15 @@
 	icon_state = "darkgreynavybluecorner"
 	},
 /area/centcom/specops)
+"qEK" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/flag/ninja,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "qEU" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop{
@@ -22221,6 +24606,23 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"qNx" = (
+/obj/item/flag/ninja,
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
+"qOz" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami_nolines";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
 "qOI" = (
 /obj/structure/closet/syndicate/sst,
 /obj/item/ammo_box/magazine/mm556x45/bleeding,
@@ -22435,6 +24837,10 @@
 	icon_state = "darkbrown"
 	},
 /area/centcom/ferry)
+"qWe" = (
+/obj/structure/chair/stool,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "qWt" = (
 /obj/structure/sink{
 	dir = 8;
@@ -22460,6 +24866,10 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/zone3)
+"qXd" = (
+/obj/structure/flora/straw_bail,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "qXw" = (
 /obj/machinery/abductor/pad{
 	team = 2
@@ -22510,6 +24920,15 @@
 	icon_state = "wood-broken7"
 	},
 /area/wizard_station)
+"qYO" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/bush,
+/obj/structure/flora/junglebush/b,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "qYU" = (
 /obj/structure/chair/stool,
 /turf/unsimulated/floor{
@@ -22530,28 +24949,6 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
-"qZe" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
 "qZw" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -22615,12 +25012,6 @@
 "rbx" = (
 /turf/unsimulated/wall/fakeglass,
 /area/centcom)
-"rbO" = (
-/obj/machinery/prize_counter,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "rbV" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -22640,6 +25031,17 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/specops)
+"rci" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444"
+	},
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "rcx" = (
 /obj/item/clothing/under/rainbow,
 /obj/item/clothing/glasses/sunglasses,
@@ -22963,6 +25365,21 @@
 	name = "grass"
 	},
 /area/centcom/zone1)
+"rpp" = (
+/obj/item/flag/ninja,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
+"rpu" = (
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroidfloor"
+	},
+/area/ninja/holding)
 "rpv" = (
 /turf/unsimulated/floor{
 	dir = 5;
@@ -23229,6 +25646,15 @@
 	name = "grass"
 	},
 /area/centcom/specops)
+"rvj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/red,
+/area/ninja/outpost)
 "rvl" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup,
@@ -23310,6 +25736,12 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"rxK" = (
+/obj/structure/energy_caltrops/noselfdestroy,
+/obj/structure/flora/grass/both,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "rxT" = (
 /obj/structure/bed,
 /obj/item/bedsheet/hos{
@@ -23389,12 +25821,6 @@
 	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
-"rzf" = (
-/obj/machinery/vending/cigarette,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "rzl" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss{
@@ -23415,11 +25841,17 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
-"rAe" = (
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
+"rAb" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 1
 	},
-/area/ninja/holding)
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
 "rAz" = (
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/unsimulated/floor{
@@ -23455,6 +25887,21 @@
 	},
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"rCb" = (
+/obj/structure/window/plasmareinforced{
+	color = "#00f700";
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700";
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "rCL" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -23630,6 +26077,15 @@
 	icon_state = "wood-broken7"
 	},
 /area/wizard_station)
+"rKf" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "rKI" = (
 /obj/effect/decal/warning_stripes/west{
 	layer = 50
@@ -23707,6 +26163,12 @@
 	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
+"rNa" = (
+/obj/item/flag/ninja,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "rNj" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/plasmaman/wizard,
@@ -24006,6 +26468,21 @@
 	tag = "icon-grimy"
 	},
 /area/holodeck/source_meetinghall)
+"rVb" = (
+/obj/structure/flora/tree/dead,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
+"rVx" = (
+/obj/structure/railing/corner,
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "rVZ" = (
 /obj/structure/table,
 /obj/random/technology_scanner,
@@ -24026,6 +26503,16 @@
 	icon_state = "sandstone2"
 	},
 /area/wizard_station)
+"rWD" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "rWO" = (
 /obj/machinery/door/poddoor/shutters{
 	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
@@ -24070,6 +26557,40 @@
 	icon_state = "darkbrown"
 	},
 /area/centcom/ferry)
+"rYT" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	brightness_range = 2;
+	dir = 8;
+	light_range = 2;
+	nightshift_light_range = 2;
+	tag = "icon-bulb1 (WEST)";
+	throw_range = 2
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -32
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
+"rYV" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/structure/mineral_door/wood/paperframe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "rZf" = (
 /obj/structure/flora/tree/palm,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -24245,6 +26766,16 @@
 	icon_state = "carpet"
 	},
 /area/centcom/specops)
+"seX" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/ninjaobjects.dmi';
+	icon_state = "wallkatana";
+	name = "Katanas"
+	},
+/turf/unsimulated/wall{
+	icon_state = "arust"
+	},
+/area/ninja/holding)
 "sfp" = (
 /obj/machinery/camera{
 	c_tag = "CentComm SOF Artillery";
@@ -24342,6 +26873,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"sif" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "six" = (
 /obj/structure/flora/grass/both,
 /turf/unsimulated/floor/snow,
@@ -24375,6 +26915,15 @@
 	name = "plating"
 	},
 /area/centcom/specops)
+"sjv" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/cyan,
+/area/ninja/outpost)
 "sjC" = (
 /obj/machinery/door/window{
 	color = null;
@@ -24405,6 +26954,21 @@
 	name = "plating"
 	},
 /area/centcom/specops)
+"skE" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater2x2";
+	tag = "icon-heater (NORTH)"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/ninja)
 "slB" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/unsimulated/floor{
@@ -24450,6 +27014,21 @@
 	icon_state = "vault"
 	},
 /area/syndicate_mothership)
+"slS" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "ninja_sensor";
+	pixel_x = -12;
+	pixel_y = 25;
+	req_access_txt = "150"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "slZ" = (
 /obj/effect/spawner/window/reinforced,
 /turf/unsimulated/floor{
@@ -24524,6 +27103,12 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"spn" = (
+/obj/effect/turf_decal/siding/green,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/fernybush,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "spt" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
 	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
@@ -24639,6 +27224,13 @@
 	tag = "icon-iron11"
 	},
 /area/space)
+"ssE" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/carpet/cyan,
+/area/ninja/outpost)
 "ssS" = (
 /obj/machinery/computer/shuttle/sit,
 /turf/unsimulated/floor{
@@ -24777,6 +27369,21 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
+"sxh" = (
+/obj/item/tank/internals/oxygen/ninja{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/tank/internals/oxygen/ninja,
+/obj/item/tank/internals/oxygen/ninja{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/structure/rack,
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "sxL" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/unsimulated/floor{
@@ -24829,6 +27436,21 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"sBd" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
+"sBj" = (
+/turf/simulated/shuttle/wall{
+	dir = 8;
+	icon_state = "ninja_walls_corners_alt"
+	},
+/area/shuttle/ninja)
 "sBu" = (
 /obj/structure/window/reinforced{
 	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
@@ -25093,6 +27715,22 @@
 	tag = "icon-cult"
 	},
 /area/holodeck/source_theatre)
+"sKy" = (
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "sKF" = (
 /obj/machinery/door/poddoor/shutters{
 	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
@@ -25327,6 +27965,20 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
+"sRV" = (
+/obj/docking_port/stationary{
+	area_type = /area/ninja/outside;
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra_home";
+	name = "Spider Clan Facility";
+	turf_type = /turf/unsimulated/floor/snow;
+	width = 21
+	},
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "sSa" = (
 /turf/unsimulated/floor{
 	dir = 8;
@@ -25352,6 +28004,13 @@
 	icon_state = "darkred"
 	},
 /area/centcom/zone3)
+"sTG" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "sTL" = (
 /obj/structure/table/wood,
 /obj/item/folder/yellow{
@@ -25461,6 +28120,13 @@
 	icon_state = "alien13"
 	},
 /area/abductor_ship)
+"sWq" = (
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "sWK" = (
 /turf/simulated/floor/light,
 /area/secret/gaybar)
@@ -25553,13 +28219,6 @@
 	tag = "icon-fakewindows (WEST)"
 	},
 /area/ussp_ship)
-"tbo" = (
-/obj/structure/table,
-/obj/item/lighter/zippo,
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
 "tbs" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -25616,6 +28275,13 @@
 	tag = "icon-fakewindows2 (WEST)"
 	},
 /area/centcom)
+"tgk" = (
+/obj/structure/bonfire/dense,
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "tgm" = (
 /obj/structure/table/wood/fancy,
 /obj/item/paper_bin/syndicate,
@@ -25645,6 +28311,12 @@
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"thD" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "thL" = (
 /obj/machinery/computer/crew,
 /turf/unsimulated/floor{
@@ -25692,6 +28364,25 @@
 	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
+"tjE" = (
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 5
+	},
+/obj/structure/dresser,
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
+"tjR" = (
+/turf/simulated/shuttle/wall{
+	dir = 10;
+	icon_state = "ninja_walls_corners_alt"
+	},
+/area/shuttle/ninja)
 "tjT" = (
 /turf/unsimulated/floor{
 	dir = 8;
@@ -25808,6 +28499,14 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"tmH" = (
+/obj/machinery/door/airlock/survival_pod{
+	drain_act_protected = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "floor"
+	},
+/area/ninja/holding)
 "tmL" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -30
@@ -25816,6 +28515,18 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone3)
+"tnc" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "tnf" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Zone 3 Check point";
@@ -25860,6 +28571,11 @@
 	icon_state = "darkred"
 	},
 /area/centcom/zone3)
+"toZ" = (
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "tpb" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Special Team Ready Room";
@@ -25870,12 +28586,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/srtops)
-"tpf" = (
-/obj/machinery/computer/arcade,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "tpg" = (
 /turf/unsimulated/floor{
 	icon_state = "floor";
@@ -25924,12 +28634,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
-"tqR" = (
-/obj/structure/table,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "trk" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -25938,6 +28642,13 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
+"tsw" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/flora/grass/both,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "tsP" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -25957,6 +28668,16 @@
 /turf/space,
 /turf/space,
 /area/space)
+"ttv" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/flag/ninja,
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "ttV" = (
 /obj/structure/noticeboard{
 	pixel_y = -30
@@ -26129,6 +28850,13 @@
 	icon_state = "darkred"
 	},
 /area/centcom/zone3)
+"tyB" = (
+/obj/structure/flora/junglebush,
+/obj/effect/turf_decal/siding/green{
+	dir = 10
+	},
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "tzl" = (
 /turf/unsimulated/wall{
 	icon_state = "sandstone5"
@@ -26485,12 +29213,6 @@
 	icon_state = "carpet"
 	},
 /area/centcom/specops)
-"tMz" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 4;
-	tag = "icon-fakewindows (EAST)"
-	},
-/area/space)
 "tNi" = (
 /obj/structure/table/wood/fancy/black,
 /turf/unsimulated/floor{
@@ -26504,15 +29226,6 @@
 	tag = "icon-wood_siding1"
 	},
 /area/holodeck/source_picnicarea)
-"tNO" = (
-/obj/machinery/vending/coffee,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "tPs" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -26542,6 +29255,11 @@
 	icon_state = "sandstone12"
 	},
 /area/wizard_station)
+"tQW" = (
+/obj/structure/table/wood/fancy/green,
+/obj/item/reagent_containers/food/snacks/ricepudding,
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "tRe" = (
 /obj/machinery/computer/bsa_control/admin{
 	integrity_failure = 20;
@@ -26617,6 +29335,22 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"tVR" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444"
+	},
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/obj/item/storage/box/lights/mixed,
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "tWj" = (
 /obj/item/flag/nt,
 /turf/unsimulated/floor{
@@ -26823,6 +29557,27 @@
 /obj/item/radio/intercom,
 /turf/unsimulated/wall,
 /area/centcom)
+"udz" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/mineral_door/wood/paperframe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
+"udC" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "uer" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/chrono_gun,
@@ -26847,6 +29602,12 @@
 	},
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"ufc" = (
+/turf/simulated/shuttle/wall{
+	dir = 1;
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
 "ufB" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/color/black{
@@ -26915,6 +29676,26 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
+"ugR" = (
+/obj/structure/flora/rock/icy,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
+"uib" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 5
+	},
+/obj/structure/mirror{
+	pixel_y = 30
+	},
+/obj/structure/sink{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "uik" = (
 /obj/item/flag/nt,
 /turf/unsimulated/floor{
@@ -26930,6 +29711,18 @@
 	icon_state = "white"
 	},
 /area/centcom/zone1)
+"uin" = (
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "uir" = (
 /obj/structure/dresser,
 /obj/structure/mirror/magic{
@@ -26955,6 +29748,14 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
+"uje" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "uju" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
@@ -27090,6 +29891,18 @@
 	},
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"umC" = (
+/obj/machinery/door/airlock/survival_pod{
+	drain_act_protected = 1
+	},
+/obj/effect/turf_decal/sand{
+	alpha = 128
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroidfloor"
+	},
+/area/ninja/holding)
 "umM" = (
 /obj/machinery/computer/bsa_control/admin{
 	integrity_failure = 20;
@@ -27169,6 +29982,34 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"uqU" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
+"urh" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/suit_storage_unit/standard_unit{
+	req_access = null
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "urk" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -27226,6 +30067,17 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"utF" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/mineral_door/wood/paperframe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "uui" = (
 /turf/space,
 /turf/unsimulated/floor{
@@ -27250,6 +30102,9 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/specops)
+"uvC" = (
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "uvI" = (
 /obj/machinery/computer/mech_bay_power_console,
 /turf/unsimulated/floor{
@@ -27364,6 +30219,12 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
+"uDB" = (
+/turf/simulated/shuttle/wall{
+	dir = 9;
+	icon_state = "ninja_walls"
+	},
+/area/shuttle/ninja)
 "uDP" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Bathroom";
@@ -27516,6 +30377,19 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
+"uHK" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "uHY" = (
 /obj/structure/bookcase/manuals,
 /obj/item/book/manual/engineering_construction,
@@ -27581,6 +30455,20 @@
 	name = "grass"
 	},
 /area/centcom)
+"uKm" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#00f700";
+	drain_act_protected = 1;
+	name = "Riot Control"
+	},
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "uKO" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 9;
@@ -27733,12 +30621,6 @@
 	tag = "icon-fakewindows2 (WEST)"
 	},
 /area/syndicate_mothership)
-"uRQ" = (
-/obj/structure/chair/stool,
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "uSb" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
@@ -27776,6 +30658,21 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"uSe" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
+"uSi" = (
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 4
+	},
+/turf/unsimulated/floor/wood{
+	icon_state = "wood-cherry"
+	},
+/area/ninja/outside)
 "uSl" = (
 /obj/machinery/vending/cola/free,
 /obj/machinery/camera{
@@ -27839,6 +30736,23 @@
 	icon_state = "wood"
 	},
 /area/centcom/jail)
+"uUv" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
+"uUB" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "uVh" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/suit/armor/riot/knight/blue,
@@ -27859,6 +30773,18 @@
 	icon_state = "darkgreynavybluecorner"
 	},
 /area/centcom/specops)
+"uWU" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
+"uXZ" = (
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 8
+	},
+/turf/unsimulated/floor/wood{
+	icon_state = "wood-cherry"
+	},
+/area/ninja/outside)
 "uYh" = (
 /turf/simulated/floor/wood,
 /area/secret/gaybar)
@@ -27933,6 +30859,9 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone2)
+"uZF" = (
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "uZN" = (
 /turf/unsimulated/floor{
 	icon_state = "dark"
@@ -27999,6 +30928,13 @@
 /obj/machinery/abductor/gland_dispenser,
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"vcn" = (
+/obj/structure/flora/rock/pile/largejungle{
+	icon_state = "rocks3"
+	},
+/obj/structure/flora/tree/jungle/small,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "vcx" = (
 /turf/unsimulated/floor{
 	dir = 8;
@@ -28246,6 +31182,10 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone3)
+"vjn" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
 "vjt" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger/wallcharger{
@@ -28275,6 +31215,10 @@
 	icon_state = "dark"
 	},
 /area/centcom/srtops)
+"vks" = (
+/obj/structure/flora/grass/both,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "vlb" = (
 /obj/item/grenade/clusterbuster/smoke,
 /obj/structure/table/wood,
@@ -28368,6 +31312,20 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"vpn" = (
+/obj/effect/turf_decal/tile{
+	alpha = 128;
+	color = "#363636";
+	icon_state = "diagonal_edge"
+	},
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 6
+	},
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/turf/simulated/floor/plasteel,
+/area/ninja/outpost)
 "vpr" = (
 /turf/space,
 /turf/unsimulated/floor{
@@ -28437,6 +31395,14 @@
 	icon_state = "carpet"
 	},
 /area/centcom/srtops)
+"vrp" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "floor"
+	},
+/area/ninja/holding)
 "vrt" = (
 /turf/unsimulated/wall{
 	dir = 8;
@@ -28457,6 +31423,29 @@
 	dir = 4
 	},
 /area/space)
+"vsB" = (
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
+"vta" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#00f700";
+	dir = 8;
+	drain_act_protected = 1;
+	name = "Riot Control"
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "vup" = (
 /turf/unsimulated/wall{
 	icon_state = "sandstone11"
@@ -28531,6 +31520,15 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/zone3)
+"vwl" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "vwJ" = (
 /obj/machinery/door_control{
 	id = "CC_supply_internal";
@@ -28608,6 +31606,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"vyX" = (
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "vzH" = (
 /turf/unsimulated/floor{
 	dir = 8;
@@ -28686,6 +31690,18 @@
 	icon_state = "floor"
 	},
 /area/centcom/evac)
+"vDe" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#00f700";
+	dir = 8;
+	drain_act_protected = 1;
+	icon_state = "rightsecure";
+	name = "Riot Control"
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "vDh" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -28744,12 +31760,6 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/specops)
-"vEW" = (
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/unsimulated/floor{
-	icon_state = "freezerfloor"
-	},
-/area/ninja/holding)
 "vEY" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -30
@@ -28779,6 +31789,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/srtops)
+"vFf" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "vFk" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -28790,6 +31808,12 @@
 /turf/space,
 /turf/space,
 /area/ussp_ship)
+"vGb" = (
+/turf/simulated/shuttle/wall{
+	dir = 10;
+	icon_state = "ninja_walls_full"
+	},
+/area/shuttle/ninja)
 "vGv" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -28818,6 +31842,17 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"vGX" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami_nolines";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
 "vHd" = (
 /obj/machinery/light{
 	dir = 1
@@ -29286,6 +32321,17 @@
 	icon_state = "dark"
 	},
 /area/centcom/blops)
+"vUO" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "vUT" = (
 /obj/machinery/computer/pod/deathsquad,
 /turf/unsimulated/floor{
@@ -29345,6 +32391,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/blops)
+"vXm" = (
+/obj/machinery/door/airlock/survival_pod{
+	drain_act_protected = 1
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroidwarning"
+	},
+/area/ninja/holding)
 "vYf" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -29625,6 +32680,11 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"wgY" = (
+/obj/structure/flora/grass/brown,
+/obj/structure/flora/grass/brown,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "wgZ" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/holofloor{
@@ -29696,7 +32756,7 @@
 /obj/item/clothing/head/helmet/space/space_ninja,
 /obj/item/clothing/shoes/space_ninja,
 /obj/item/clothing/mask/gas/space_ninja,
-/obj/item/katana/energy,
+/obj/item/melee/energy_katana,
 /obj/item/clothing/gloves/space_ninja,
 /obj/item/clothing/suit/space/space_ninja,
 /turf/unsimulated/floor{
@@ -29909,6 +32969,22 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"wrE" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 6
+	},
+/obj/structure/mirror{
+	pixel_y = -30
+	},
+/obj/structure/sink{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "wrO" = (
 /obj/structure/table,
 /obj/item/grenade/syndieminibomb{
@@ -29931,6 +33007,15 @@
 	icon_state = "stage_bleft"
 	},
 /area/syndicate_mothership)
+"wta" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "wto" = (
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -29995,6 +33080,13 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/specops)
+"wuP" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "wvl" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_s9"
@@ -30008,6 +33100,21 @@
 	icon_state = "carpet"
 	},
 /area/centcom/srtops)
+"wvR" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "wwc" = (
 /turf/unsimulated/floor{
 	icon_state = "dark"
@@ -30066,6 +33173,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"wxS" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "wxZ" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 1;
@@ -30079,6 +33194,12 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_thunderdomecourt)
+"wyG" = (
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "wyS" = (
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/medal/engineering{
@@ -30168,6 +33289,34 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"wzx" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 5
+	},
+/obj/structure/safe/floor,
+/obj/item/reagent_containers/food/snacks/chinese/rice,
+/obj/item/reagent_containers/food/snacks/chinese/rice,
+/obj/item/reagent_containers/food/snacks/chinese/rice,
+/obj/item/reagent_containers/food/snacks/grown/rice,
+/obj/item/reagent_containers/food/snacks/grown/rice,
+/obj/item/reagent_containers/food/snacks/grown/rice,
+/obj/item/seeds/wheat/rice,
+/obj/item/seeds/wheat/rice,
+/obj/item/seeds/wheat/rice,
+/obj/item/seeds/wheat/rice,
+/obj/item/clothing/head/rice_hat,
+/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/food/snacks/grown/rice,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "wzV" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/radio/intercom/specops,
@@ -30183,6 +33332,15 @@
 	icon_state = "vault"
 	},
 /area/centcom/supply)
+"wAw" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "wAy" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -30
@@ -30283,6 +33441,36 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"wEg" = (
+/obj/structure/railing,
+/turf/unsimulated/floor{
+	dir = 4;
+	icon_state = "rampbottom"
+	},
+/area/ninja/holding)
+"wFp" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami_nolines";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
+"wFB" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
+"wFF" = (
+/obj/machinery/ninja_mindscan_machine,
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "wFH" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -30330,6 +33518,21 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"wHR" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater2x2_side";
+	tag = "icon-heater (NORTH)"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/ninja)
 "wHU" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/unsimulated/floor{
@@ -30574,6 +33777,21 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"wPN" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#00f700";
+	dir = 8;
+	drain_act_protected = 1;
+	name = "Riot Control"
+	},
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "wQl" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/utensil/fork{
@@ -30617,6 +33835,14 @@
 	icon_state = "solarpanel"
 	},
 /area/ussp_ship)
+"wRR" = (
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/carpet/cyan,
+/area/ninja/outpost)
 "wSh" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -30646,6 +33872,36 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"wTl" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
+"wTm" = (
+/obj/structure/flora/junglebush/c,
+/obj/effect/turf_decal/siding/green{
+	dir = 4
+	},
+/turf/unsimulated/floor/grass,
+/area/ninja/outside)
+"wTs" = (
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/double/ninja,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "wTQ" = (
 /obj/machinery/computer/communications,
 /turf/unsimulated/floor{
@@ -30662,6 +33918,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"wUC" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "wUM" = (
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/medal/gold{
@@ -30922,6 +34184,18 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"xcJ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "xdc" = (
 /obj/machinery/cryopod/robot,
 /turf/unsimulated/floor{
@@ -30975,6 +34249,10 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"xgf" = (
+/obj/structure/flora/tree/dead,
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
 "xhs" = (
 /obj/machinery/vending/cigarette{
 	prices = list()
@@ -31016,6 +34294,15 @@
 	tag = "icon-fakewindows (WEST)"
 	},
 /area/centcom)
+"xiz" = (
+/obj/item/flag/ninja,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/ninja/outpost)
 "xjq" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_s6"
@@ -31032,6 +34319,12 @@
 	},
 /turf/space/transit,
 /area/space)
+"xkg" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "xkE" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall12";
@@ -31233,12 +34526,33 @@
 	icon_state = "darkgrey"
 	},
 /area/centcom/specops)
+"xpW" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/mineral_door/wood/paperframe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ninja/outpost)
 "xqL" = (
 /turf/unsimulated/floor{
 	dir = 5;
 	icon_state = "darkblue"
 	},
 /area/centcom/jail)
+"xqQ" = (
+/obj/item/broken_bottle,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
 "xqX" = (
 /turf/unsimulated/floor{
 	dir = 4;
@@ -31333,6 +34647,16 @@
 	icon_state = "iron9"
 	},
 /area/syndicate_mothership)
+"xuq" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/ninja/outpost)
 "xuX" = (
 /obj/machinery/camera{
 	c_tag = "Thunderdome Arena";
@@ -31402,12 +34726,46 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/zone1)
+"xzL" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "xAa" = (
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"xAt" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/obj/item/shard,
+/turf/unsimulated/floor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid"
+	},
+/area/ninja/outside)
+"xAw" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "ninja_pump"
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock";
+	name = "interior access button";
+	pixel_x = -25;
+	pixel_y = 25
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "xAM" = (
 /obj/item/gun/energy/shock_revolver,
 /obj/structure/table/wood,
@@ -31425,6 +34783,14 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"xBv" = (
+/obj/machinery/door/airlock/survival_pod{
+	drain_act_protected = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "xBN" = (
 /obj/structure/table/abductor,
 /turf/unsimulated/floor{
@@ -31604,6 +34970,23 @@
 	},
 /turf/space,
 /area/ussp_ship)
+"xEY" = (
+/obj/effect/mapping_helpers/light{
+	light_power = 3
+	},
+/obj/structure/flora/tree/pine{
+	pixel_x = 1
+	},
+/turf/unsimulated/floor/snow,
+/area/ninja/outside)
+"xFR" = (
+/turf/simulated/shuttle/wall/interior{
+	dir = 10;
+	icon_state = "ninja_walls";
+	underlay_floor_icon = 'icons/turf/shuttle.dmi';
+	underlay_floor_icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "xGL" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Gamma Armory";
@@ -31627,15 +35010,6 @@
 	name = "Prisoner position"
 	},
 /area/centcom/jail)
-"xHr" = (
-/obj/machinery/vending/snack,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/unsimulated/floor{
-	icon_state = "cafeteria"
-	},
-/area/ninja/holding)
 "xHJ" = (
 /obj/structure/window/reinforced,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -31751,6 +35125,10 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"xLl" = (
+/mob/living/simple_animal/hostile/retaliate/carp/koi,
+/turf/unsimulated/beach/water/deep/dense,
+/area/ninja/outside)
 "xLp" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	layer = 2.9;
@@ -31767,6 +35145,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/gamma/space)
+"xLx" = (
+/turf/simulated/shuttle/wall{
+	dir = 6;
+	icon_state = "ninja_walls_corners_alt"
+	},
+/area/shuttle/ninja)
 "xLA" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	layer = 2.9;
@@ -31799,6 +35183,11 @@
 	icon_state = "swall_f6"
 	},
 /area/ussp_ship)
+"xMk" = (
+/turf/unsimulated/wall{
+	icon_state = "arust4"
+	},
+/area/ninja/holding)
 "xMo" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/utensil/spork,
@@ -31840,6 +35229,15 @@
 	},
 /turf/space/transit/horizontal,
 /area/space)
+"xOi" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "xOp" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/armor/heavy,
@@ -32015,6 +35413,18 @@
 	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
+"xXA" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/green,
+/area/ninja/outpost)
 "xXH" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/security_space_law{
@@ -32036,6 +35446,18 @@
 	icon_state = "wood"
 	},
 /area/centcom/jail)
+"xXN" = (
+/obj/docking_port/stationary/transit{
+	dheight = 1;
+	dir = 2;
+	dwidth = 4;
+	height = 20;
+	id = "ombra_transit";
+	name = "Ombra in transit";
+	width = 9
+	},
+/turf/space/transit,
+/area/space)
 "xYb" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/hooded/wintercoat/fluff,
@@ -32044,6 +35466,12 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"xYG" = (
+/turf/simulated/shuttle/wall{
+	dir = 1;
+	icon_state = "ninja_walls_corners_alt"
+	},
+/area/shuttle/ninja)
 "xYH" = (
 /turf/unsimulated/floor{
 	icon_state = "dark"
@@ -32070,6 +35498,12 @@
 	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
+"xZm" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/ninja/outpost)
 "xZq" = (
 /turf/unsimulated/floor{
 	icon_state = "white"
@@ -32179,6 +35613,18 @@
 	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
+"ydp" = (
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/ninja/outpost)
 "ydA" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/wizrobe/marisa,
@@ -32554,6 +36000,13 @@
 	icon_state = "dark"
 	},
 /area/tdome/arena)
+"yiG" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami";
+	name = "Tatami"
+	},
+/area/ninja/outpost)
 "yiH" = (
 /turf/unsimulated/floor{
 	icon_state = "dark"
@@ -32589,6 +36042,14 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/jail)
+"yjh" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "yjq" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "SST_classified_gear_room";
@@ -32605,6 +36066,17 @@
 	icon_state = "darkred"
 	},
 /area/centcom/jail)
+"ykm" = (
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
+/turf/unsimulated/floor/wood{
+	icon_state = "wood-cherry"
+	},
+/area/ninja/outside)
 "yky" = (
 /obj/structure/chair/sofa/left,
 /turf/unsimulated/floor{
@@ -32621,6 +36093,18 @@
 	icon_state = "darkredcorners"
 	},
 /area/centcom/jail)
+"ykO" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
+	},
+/obj/machinery/optable,
+/obj/machinery/shower{
+	pixel_y = 20
+	},
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/ninja/outpost)
 "ylb" = (
 /turf/unsimulated/floor{
 	dir = 9;
@@ -32642,23 +36126,20 @@
 	icon_state = "wood"
 	},
 /area/centcom/evac)
-"ylZ" = (
-/turf/unsimulated/beach/sand,
-/area/ninja/holding)
 
 (1,1,1) = {"
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -32904,18 +36385,18 @@ lAC
 lAC
 "}
 (2,1,1) = {"
-xUq
-qBu
-dUZ
-hhh
-eId
-hyN
-hyN
-rzf
-aby
-bIV
-bbV
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -33161,18 +36642,18 @@ lAC
 lAC
 "}
 (3,1,1) = {"
-gvu
-rAe
-rAe
-rAe
-lce
-lce
-lce
-lce
-ncY
-bbV
-bbV
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -33418,18 +36899,18 @@ lAC
 lAC
 "}
 (4,1,1) = {"
-cEK
-jQJ
-rAe
-pgj
-ijS
-lce
-lce
-lce
-ncY
-bbV
-bbV
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -33675,18 +37156,18 @@ lAC
 lAC
 "}
 (5,1,1) = {"
-cEK
-vEW
-rAe
-luP
-ijS
-lce
-lce
-lce
-aby
-bbV
-bbV
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -33932,18 +37413,18 @@ lAC
 lAC
 "}
 (6,1,1) = {"
-tMz
-vEW
-rAe
-tbo
-ijS
-lce
-lce
-lce
-xUq
-xUq
-xUq
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -34189,18 +37670,18 @@ lAC
 lAC
 "}
 (7,1,1) = {"
-xUq
-nOv
-rAe
-lhG
-ijS
-lce
-lce
-uRQ
-xUq
-cfZ
-dGD
-dVO
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -34446,18 +37927,18 @@ lAC
 lAC
 "}
 (8,1,1) = {"
-xUq
-qZe
-ltv
-pRX
-ijS
-lce
-cTT
-tqR
-xUq
-cCA
-dGD
-eqF
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -34703,18 +38184,18 @@ lAC
 lAC
 "}
 (9,1,1) = {"
-xUq
-eJQ
-lce
-lce
-lce
-lce
-lce
-lce
-aQX
-cTS
-cTS
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -34960,18 +38441,18 @@ lAC
 lAC
 "}
 (10,1,1) = {"
-xUq
-eMu
-lce
-lce
-lce
-lce
-lce
-uRQ
-xUq
-dEh
-cTS
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -35217,18 +38698,18 @@ lAC
 lAC
 "}
 (11,1,1) = {"
-xUq
-rbO
-lce
-lce
-lce
-lce
-cTT
-tqR
-xUq
-xUq
-xUq
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -35474,15 +38955,15 @@ lAC
 lAC
 "}
 (12,1,1) = {"
-xUq
-tpf
-uRQ
-lce
-lce
-lce
-lce
-uRQ
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -35731,15 +39212,15 @@ lAC
 lAC
 "}
 (13,1,1) = {"
-xUq
-ylZ
-ylZ
-ylZ
-ylZ
-tNO
-xHr
-hfR
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -35988,15 +39469,15 @@ lAC
 lAC
 "}
 (14,1,1) = {"
-xUq
-hql
-ylZ
-ylZ
-ylZ
-ylZ
-mUD
-fTl
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -36245,15 +39726,15 @@ lAC
 lAC
 "}
 (15,1,1) = {"
-xUq
-ylZ
-ylZ
-jGo
-ylZ
-ylZ
-mUD
-fTl
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -36502,15 +39983,15 @@ lAC
 lAC
 "}
 (16,1,1) = {"
-jKJ
-ylZ
-ohL
-ylZ
-nql
-ylZ
-mUD
-fTl
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -36759,15 +40240,15 @@ lAC
 lAC
 "}
 (17,1,1) = {"
-xUq
-lxW
-ylZ
-gsF
-ylZ
-ylZ
-kch
-mSW
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -37016,15 +40497,15 @@ lAC
 lAC
 "}
 (18,1,1) = {"
-xUq
-mhm
-ylZ
-hql
-ylZ
-ylZ
-mUD
-qcM
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -37273,15 +40754,15 @@ lAC
 lAC
 "}
 (19,1,1) = {"
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
-xUq
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
+jyD
 jyD
 jyD
 jyD
@@ -40708,23 +44189,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -40965,23 +44446,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -41222,23 +44703,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -41479,23 +44960,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -41736,23 +45217,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -41993,23 +45474,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -42250,23 +45731,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -42507,23 +45988,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -42764,23 +46245,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -43021,23 +46502,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -43278,23 +46759,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -43535,23 +47016,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -43792,23 +47273,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -44049,23 +47530,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -44306,23 +47787,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -44563,23 +48044,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -44820,23 +48301,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -45077,23 +48558,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -45334,23 +48815,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -45591,23 +49072,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -45848,23 +49329,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -46105,23 +49586,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+xXN
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -46362,23 +49843,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -46619,23 +50100,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -46876,23 +50357,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -47133,23 +50614,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -47390,23 +50871,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -47647,23 +51128,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -47904,23 +51385,23 @@ lcX
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
+cxQ
 jyD
 jyD
 jyD
@@ -62481,30 +65962,30 @@ jyD
 jyD
 jyD
 jyD
+dko
+dko
+dko
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
 jyD
 jyD
 jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -62737,32 +66218,32 @@ jyD
 jyD
 jyD
 jyD
+dko
+dko
+our
+ugR
+vks
+fDj
+fDj
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+fDj
+fDj
+fDj
+eKS
+fDj
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -62993,34 +66474,34 @@ jyD
 jyD
 jyD
 jyD
+dko
+dko
+mWv
+our
+vks
+fDj
+xgf
+vks
+vks
+fDj
+fDj
+jEq
+jEq
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+jEq
+fDj
+fDj
+fDj
+xgf
+fDj
+eKS
+fDj
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -63249,35 +66730,35 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+dko
+dko
+mWv
+wyG
+our
+fDj
+fDj
+vks
+vks
+fDj
+eKS
+fDj
+xgf
+jEq
+jEq
+jEq
+fDj
+fDj
+qBW
+fDj
+fDj
+fDj
+ugR
+fDj
+fDj
+fDj
+vks
+fDj
+jEq
 jyD
 jyD
 jyD
@@ -63505,37 +66986,37 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+dko
+dko
+drI
+mWv
+mWv
+our
+vks
+vks
+fDj
+ugR
+eKS
+vks
+vks
+vks
+vks
+vks
+lfG
+fDj
+fDj
+eWd
+fDj
+eKS
+fDj
+fDj
+fDj
+vks
+qBW
+fDj
+vks
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -63761,39 +67242,39 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+dko
+fDj
+xkg
+xLl
+mWv
+lgE
+fDj
+fDj
+fDj
+qBW
+jcy
+vwl
+olk
+olk
+olk
+jJg
+fDj
+lfG
+fDj
+vks
+fDj
+fDj
+lfG
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -64017,40 +67498,40 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+fDj
+drI
+mWv
+mWv
+our
+fDj
+fDj
+fDj
+fDj
+eKS
+vwl
+fAf
+fAf
+fAf
+fAf
+brC
+jJg
+xgf
+lfG
+lfG
+vks
+wgY
+fDj
+xgf
+vks
+vks
+fDj
+eKS
+eKS
+ugR
+fDj
+jEq
 jyD
 jyD
 jyD
@@ -64273,42 +67754,42 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+fDj
+fDj
+xkg
+wyG
+mWv
+lgE
+fDj
+fDj
+fDj
+eKS
+vwl
+cLs
+vks
+xgf
+fDj
+vks
+sif
+brC
+olk
+olk
+olk
+olk
+olk
+olk
+olk
+olk
+jJg
+fDj
+fDj
+fDj
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -64529,44 +68010,44 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+fDj
+fDj
+drI
+mWv
+mWv
+lgE
+fDj
+ugR
+vks
+vwl
+olk
+cLs
+vyX
+fDj
+fDj
+fDj
+fDj
+bgK
+sif
+fAf
+fAf
+fAf
+fAf
+fAf
+fAf
+fAf
+fAf
+brC
+jJg
+xgf
+fDj
+eKS
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -64776,54 +68257,54 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+fDj
+fDj
+ejm
+uUv
+uUv
+lrS
+fDj
+vks
+vwl
+olk
+fAf
+cLs
+vks
+vks
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+nzD
+fDj
+fDj
+fDj
+vks
+sif
+brC
+jJg
+fDj
+fDj
+eKS
+fDj
+fDj
+jEq
 jyD
 jyD
 jyD
@@ -65032,66 +68513,66 @@ bJA
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+fDj
+vks
+fDj
+ugR
+fDj
+fDj
+vks
+fDj
+fDj
+fDj
+fDj
+vwl
+uXZ
+uXZ
+uXZ
+uXZ
+olk
+olk
+brC
+cLs
+vks
+blc
+blc
+blc
+ppZ
+ppZ
+ppZ
+ppZ
+blc
+blc
+blc
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+xgf
+fDj
+cSc
+wuP
+vks
+fDj
+lfG
+fDj
+fDj
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -65288,68 +68769,68 @@ lia
 (128,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+fDj
+hBO
+fDj
+vks
+fDj
+fDj
+hBO
+vks
+hBO
+xgf
+fDj
+vwl
+fAf
+uSi
+uSi
+uSi
+ykm
+vsB
+fAf
+cLs
+xEY
+fDj
+blc
+mYn
+xzL
+xzL
+lFS
+xzL
+xzL
+xzL
+jhs
+blc
+fDj
+vyX
+fDj
+gHk
+fDj
+fDj
+pUz
+fDj
+cSc
+wuP
+vks
+fDj
+fDj
+fDj
+fDj
+qBW
+fDj
+vks
+fDj
+vks
+vks
+fDj
+fDj
+vks
+vks
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -65545,69 +69026,69 @@ fFT
 (129,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+fDj
+fDj
+fDj
+hBO
+qBW
+hBO
+pUz
+vks
+fDj
+fDj
+jlj
+cLs
+fDj
+dYe
+nQl
+pYa
+tsw
+vks
+fDj
+fDj
+fDj
+fDj
+blc
+pEt
+uZF
+wUC
+xZm
+xZm
+afC
+uZF
+ejW
+blc
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vyX
+fDj
+sif
+brC
+jJg
+vks
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+qBW
+vks
+vks
+vks
+vks
+vks
+ugR
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -65802,70 +69283,70 @@ iqu
 (130,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+fDj
+hBO
+fDj
+hBO
+fDj
+fDj
+hBO
+vks
+vks
+xgf
+hBO
+fDj
+fDj
+xkg
+mWv
+our
+blc
+blc
+blc
+blc
+blc
+blc
+blc
+aWu
+uZF
+pYP
+aRk
+kTw
+uWU
+uZF
+bpU
+blc
+blc
+blc
+blc
+blc
+blc
+blc
+fDj
+pUz
+vks
+cSc
+wuP
+vks
+fDj
+fDj
+fDj
+ojC
+vks
+fDj
+vks
+vks
+fDj
+vks
+vks
+fDj
+vks
+vks
+ugR
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -66059,71 +69540,71 @@ dUX
 (131,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+qBW
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+rxK
+pUz
+vks
+fDj
+fDj
+ugR
+xkg
+mWv
+our
+blc
+phP
+qEK
+pQj
+qEK
+hFV
+blc
+bwO
+uZF
+pYP
+tQW
+eDu
+uWU
+uZF
+cXy
+blc
+phP
+qEK
+pQj
+qEK
+hFV
+blc
+fDj
+gHk
+fDj
+sif
+brC
+jJg
+fDj
+lfG
+fDj
+vks
+fDj
+fDj
+fDj
+fDj
+kVO
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -66316,72 +69797,72 @@ jyD
 (132,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+fDj
+hBO
+vks
+pUz
+hBO
+fDj
+hBO
+fDj
+dzg
+vks
+dzg
+fDj
+dzg
+xkg
+wyG
+our
+blc
+lOF
+efP
+efP
+efP
+efP
+utF
+uZF
+uZF
+jDc
+cVL
+cVL
+wFB
+uZF
+uZF
+utF
+efP
+efP
+efP
+efP
+nYc
+blc
+fDj
+ugR
+fDj
+vks
+cSc
+wuP
+vks
+fDj
+fDj
+fDj
+fDj
+fDj
+vyX
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+xgf
+fDj
+fDj
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -66573,77 +70054,77 @@ jyD
 (133,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+hBO
+fDj
+fDj
+xgf
+fDj
+fDj
+fDj
+hBO
+dzg
+fDj
+mdS
+vks
+dzg
+xkg
+mWv
+our
+blc
+lOF
+oSD
+kHq
+thD
+efP
+utF
+uZF
+uZF
+uZF
+uZF
+uZF
+uZF
+uZF
+uZF
+utF
+efP
+oSD
+kHq
+thD
+nYc
+blc
+fDj
+fDj
+gHk
+fDj
+sif
+brC
+jJg
+xgf
+lfG
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+vks
+fDj
+vks
+fDj
+fDj
+jEq
+jyD
+jyD
+jyD
+jyD
+iYd
 jyD
 jyD
 jyD
@@ -66830,78 +70311,78 @@ jyD
 (134,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+rxK
+fDj
+fDj
+vks
+hBO
+dxx
+dxx
+dxx
+dxx
+dxx
+dxx
+dxx
+qXd
+xkg
+xLl
+our
+blc
+lOF
+nYc
+blc
+dTe
+adC
+blc
+wvR
+kgF
+nHl
+fuM
+sTG
+sKy
+kgF
+mbN
+blc
+ggf
+nYc
+blc
+lOF
+nYc
+blc
+fDj
+fDj
+fDj
+fDj
+fDj
+sif
+brC
+jJg
+vks
+lfG
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+kVO
+fDj
+vks
+fDj
+vks
+fDj
+vks
+fDj
+fDj
+jEq
+jyD
+jyD
+jyD
+jyD
+xYG
+iYd
 jyD
 jyD
 jyD
@@ -67087,79 +70568,79 @@ jyD
 (135,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+ugR
+lJL
+xgf
+vks
+hBO
+dxx
+dxx
+nIF
+nIF
+nIF
+nIF
+nIF
+dxx
+dxx
+dJP
+mWv
+our
+blc
+lOF
+nYc
+blc
+udz
+udz
+blc
+blc
+blc
+blc
+imo
+mxD
+blc
+blc
+blc
+blc
+udz
+udz
+blc
+lOF
+nYc
+blc
+fDj
+fDj
+fDj
+fDj
+fDj
+vks
+sif
+brC
+jJg
+vks
+fDj
+fDj
+fDj
+fDj
+fDj
+vyX
+fDj
+fDj
+vks
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+jEq
+jyD
+jyD
+jyD
+jyD
+kCN
+xFR
+iYd
 jyD
 jyD
 jyD
@@ -67344,80 +70825,80 @@ jyD
 (136,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+fDj
+fDj
+fDj
+dxx
+dxx
+nIF
+nIF
+oRs
+mXj
+mXj
+nIF
+nIF
+dxx
+dxx
+wta
+our
+blc
+kFK
+nYc
+blc
+kUd
+oxB
+xpW
+hwh
+dPG
+blc
+pcD
+oPZ
+blc
+lCv
+gdS
+utF
+uin
+oxB
+blc
+lOF
+dXI
+blc
+fDj
+pUz
+vyX
+gHk
+pUz
+fDj
+vks
+sif
+brC
+olk
+olk
+tnc
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+xgf
+fDj
+vks
+ugR
+fDj
+jEq
+jyD
+jyD
+jyD
+jyD
+eMC
+pJc
+xFR
+iYd
 jyD
 jyD
 jyD
@@ -67601,81 +71082,81 @@ jyD
 (137,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+pUz
+qBW
+hBO
+dxx
+dxx
+nIF
+nIF
+toZ
+toZ
+toZ
+toZ
+qyX
+nIF
+nIF
+dxx
+xkg
+our
+blc
+lOF
+nYc
+blc
+cdk
+dCC
+blc
+wzx
+wrE
+blc
+udz
+udz
+blc
+uib
+rWD
+blc
+juT
+fyw
+blc
+lOF
+nYc
+blc
+fDj
+fDj
+fDj
+fDj
+ugR
+fDj
+fDj
+fDj
+cSc
+brC
+gvI
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+kVO
+fDj
+vks
+fDj
+vks
+fDj
+jEq
+jyD
+jyD
+jyD
+jyD
+qkh
+slS
+aKj
+xFR
+iYd
 jyD
 jyD
 jyD
@@ -67858,82 +71339,82 @@ jyD
 (138,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+fDj
+hBO
+dxx
+nIF
+nIF
+toZ
+toZ
+rVx
+udC
+aUj
+qyX
+lSJ
+nIF
+dxx
+xkg
+our
+blc
+lOF
+nYc
+blc
+bvq
+tVR
+blc
+ppZ
+ppZ
+blc
+hIn
+byG
+blc
+ppZ
+ppZ
+blc
+aFM
+bDl
+blc
+lOF
+nYc
+blc
+fDj
+fDj
+pUz
+fDj
+fDj
+fDj
+xgf
+vwl
+brC
+fbP
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vyX
+fDj
+fDj
+vks
+fDj
+vks
+fDj
+jEq
+jyD
+jyD
+jyD
+frL
+aBX
+iFB
+lGX
+ufc
+aBX
+iYd
 jyD
 jyD
 jyD
@@ -68115,83 +71596,83 @@ jyD
 (139,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+fDj
+hBO
+dxx
+nIF
+toZ
+toZ
+toZ
+nIF
+qNx
+nIF
+lSJ
+lSJ
+nIF
+dxx
+xkg
+our
+blc
+dTe
+dpD
+blc
+iZq
+rci
+ppZ
+dgl
+dgl
+iGR
+brC
+brC
+qYO
+paV
+dgl
+ppZ
+jKb
+fSj
+blc
+dTe
+dpD
+blc
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+cSc
+wuP
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+jEq
+jyD
+jyD
+jlI
+jlI
+ktq
+dij
+lIq
+rCb
+uKm
+xYG
+iYd
 jyD
 jyD
 jyD
@@ -68372,84 +71853,84 @@ jyD
 (140,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+hBO
+fDj
+dxx
+nIF
+xBv
+xBv
+nIF
+nIF
+nIF
+nIF
+nIF
+nlm
+nIF
+dxx
+nsq
+our
+blc
+udz
+udz
+blc
+eLL
+nvY
+ppZ
+dgl
+aAK
+spn
+qlJ
+brC
+eFg
+vcn
+jDO
+ppZ
+tjE
+vpn
+blc
+udz
+udz
+blc
+blc
+blc
+ppZ
+blc
+blc
+fDj
+fDj
+cSc
+wuP
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+xgf
+fDj
+fDj
+fDj
+jEq
+jyD
+jyD
+jlI
+oKj
+ktq
+fgT
+nle
+iRl
+iRl
+eME
+vGb
+iYd
 jyD
 jyD
 jyD
@@ -68629,84 +72110,84 @@ jyD
 (141,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+lJL
+qBW
+dxx
+nIF
+dCd
+wEg
+nIF
+nIF
+rKf
+nIF
+nIF
+umC
+nIF
+dxx
+wAw
+igo
+blc
+lvv
+psQ
+blc
+blc
+blc
+blc
+oRx
+jww
+oDk
+brC
+brC
+kro
+wTm
+bmG
+blc
+blc
+blc
+blc
+uqU
+hLv
+blc
+blc
+qhP
+hRy
+dpG
+blc
+blc
+fBN
+cSc
+wuP
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+jEq
+jyD
+jyD
+jlI
+jlI
+ktq
+paX
+urh
+pJc
+pJc
+pJc
+xFR
+xLx
 jyD
 jyD
 jyD
@@ -68886,84 +72367,84 @@ jyD
 (142,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+fDj
+fDj
+dxx
+nIF
+mbn
+toZ
+xBv
+jmt
+yjh
+fKj
+nIF
+rpu
+vXm
+uXZ
+uXZ
+uXZ
+xpW
+dvo
+dvo
+rYV
+kfe
+kfe
+nDw
+brC
+brC
+brC
+oPR
+brC
+brC
+qlJ
+brC
+aKa
+kfe
+kfe
+ivt
+dvo
+dvo
+xpW
+dvo
+dvo
+dvo
+dvo
+dvo
+xpW
+nDw
+brC
+wuP
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+vks
+fDj
+fDj
+jEq
+jyD
+jyD
+jyD
+jlI
+jBz
+skE
+plP
+pJc
+pJc
+gXT
+dnH
+pmd
 jyD
 jyD
 jyD
@@ -69143,84 +72624,84 @@ jyD
 (143,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+fDj
+hBO
+dxx
+nIF
+azj
+gKE
+nIF
+toZ
+fGl
+toZ
+nIF
+etD
+vXm
+uSi
+uSi
+uSi
+xpW
+dvo
+dvo
+biI
+aFc
+aFc
+ydp
+brC
+qlJ
+brC
+brC
+brC
+brC
+brC
+brC
+jSp
+aFc
+aFc
+gxP
+dvo
+dvo
+xpW
+dvo
+dvo
+dvo
+dvo
+dvo
+xpW
+ydp
+brC
+wuP
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+jEq
+jyD
+jyD
+jyD
+jlI
+ktq
+wHR
+wTs
+pJc
+pJc
+gXT
+gyl
+jTK
 jyD
 jyD
 jyD
@@ -69400,84 +72881,84 @@ jyD
 (144,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+xgf
+fDj
+dxx
+nIF
+nIF
+nIF
+nIF
+tmH
+xMk
+tmH
+nIF
+nIF
+nIF
+dxx
+aec
+pYa
+blc
+lvv
+psQ
+blc
+blc
+blc
+blc
+jTr
+edg
+tyB
+brC
+brC
+cHA
+boN
+jTr
+blc
+blc
+blc
+blc
+uqU
+hLv
+blc
+blc
+dZC
+cKP
+bHJ
+blc
+blc
+fBN
+cSc
+wuP
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+ugR
+fDj
+jEq
+jyD
+jyD
+jlI
+jlI
+ktq
+miU
+urh
+pJc
+pJc
+pJc
+nRn
+tjR
 jyD
 jyD
 jyD
@@ -69657,84 +73138,84 @@ jyD
 (145,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+pUz
+fDj
+dxx
+dxx
+nIF
+nIF
+seX
+dCd
+cbA
+wEg
+jTh
+nIF
+nIF
+dxx
+nsq
+our
+blc
+udz
+udz
+blc
+uje
+mdi
+ppZ
+uvC
+hbh
+jMy
+brC
+qlJ
+kVa
+vcn
+agp
+ppZ
+uje
+mdi
+blc
+udz
+udz
+blc
+blc
+blc
+ppZ
+blc
+blc
+fDj
+fDj
+cSc
+wuP
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+ntz
+fDj
+vks
+fDj
+jEq
+jyD
+jyD
+jlI
+oKj
+ktq
+bBU
+nle
+iRl
+iRl
+lGp
+iYj
+uDB
 jyD
 jyD
 jyD
@@ -69914,83 +73395,83 @@ jyD
 (146,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+vks
+hBO
+fDj
+fDj
+dxx
+nIF
+pon
+bfz
+cSR
+kOD
+toZ
+dVx
+sxh
+nIF
+dxx
+xkg
+our
+blc
+lfW
+lfW
+blc
+wxS
+cff
+ppZ
+dgl
+vjn
+emv
+brC
+brC
+pxC
+vjn
+dgl
+ppZ
+wTl
+kvY
+blc
+nFy
+nFy
+blc
+fDj
+fDj
+vks
+fDj
+fDj
+fDj
+fDj
+cSc
+wuP
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+jEq
+jyD
+jyD
+jlI
+jlI
+ktq
+paX
+eeJ
+cCm
+wPN
+xYG
+uDB
 jyD
 jyD
 jyD
@@ -70171,82 +73652,82 @@ jyD
 (147,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+vks
+fDj
+btT
+vks
+dxx
+nIF
+wFF
+cSR
+vFf
+xMk
+klr
+toZ
+jyN
+nIF
+dxx
+xkg
+our
+blc
+lfW
+lfW
+blc
+uUB
+vUO
+blc
+ppZ
+ppZ
+blc
+xuq
+dmE
+blc
+ppZ
+ppZ
+blc
+eWg
+oRB
+blc
+nFy
+nFy
+blc
+vks
+vks
+vks
+fDj
+vks
+fDj
+xgf
+sif
+brC
+hci
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vyX
+fDj
+fDj
+vks
+fDj
+fDj
+fDj
+jEq
+jyD
+jyD
+jyD
+lTl
+sBj
+iFB
+lGX
+ufc
+sBj
+uDB
 jyD
 jyD
 jyD
@@ -70428,81 +73909,81 @@ jyD
 (148,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+hBO
+fDj
+vks
+dxx
+nIF
+wFF
+toZ
+vFf
+aOb
+vrp
+cSR
+bAp
+nIF
+dxx
+xkg
+our
+blc
+fmO
+lfW
+lfW
+lfW
+nDA
+hOU
+rNa
+hOU
+blc
+cfS
+cfS
+blc
+hOU
+rNa
+hOU
+rvj
+nFy
+nFy
+nFy
+chz
+blc
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+sif
+brC
+dnC
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+kVO
+fDj
+fDj
+vks
+vks
+vks
+jEq
+jyD
+jyD
+jyD
+jyD
+hpT
+kHL
+xAw
+nRn
+uDB
 jyD
 jyD
 jyD
@@ -70685,80 +74166,80 @@ jyD
 (149,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+cdm
+vks
+fDj
+dxx
+nIF
+pon
+toZ
+toZ
+cSR
+toZ
+toZ
+hSg
+nIF
+dxx
+nsq
+our
+blc
+rpp
+lfW
+wUC
+xZm
+xcJ
+jrE
+jrE
+jrE
+rYT
+xZm
+xZm
+iTc
+jrE
+jrE
+jrE
+jNy
+xZm
+afC
+nFy
+lps
+blc
+fDj
+vks
+vyX
+vks
+fDj
+vks
+pUz
+fDj
+fDj
+sif
+fAf
+tnc
+sRV
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+xgf
+fDj
+fDj
+fDj
+fDj
+jEq
+jyD
+jyD
+jyD
+jyD
+lRc
+pJc
+nRn
+uDB
 jyD
 jyD
 jyD
@@ -70942,79 +74423,79 @@ jyD
 (150,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+xgf
+fDj
+vks
+vks
+dxx
+nIF
+nIF
+bOH
+vDe
+cjs
+vta
+bOH
+nIF
+nIF
+dxx
+xkg
+our
+blc
+qob
+lfW
+pYP
+qut
+ohV
+eJC
+ohV
+eJC
+ohV
+eJC
+ohV
+eJC
+ohV
+eJC
+ohV
+eJC
+vGX
+uWU
+nFy
+ayD
+blc
+fDj
+vks
+fDj
+fDj
+qBW
+fDj
+vks
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vyX
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vks
+ugR
+fDj
+jEq
+jyD
+jyD
+jyD
+jyD
+fXo
+nRn
+uDB
 tue
 jyD
 jyD
@@ -71199,78 +74680,78 @@ jyD
 (151,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+vks
+hBO
+fDj
+pUz
+dxx
+dxx
+nIF
+nIF
+nIF
+nIF
+nIF
+nIF
+nIF
+dxx
+dxx
+xkg
+our
+blc
+eNN
+lfW
+pYP
+rAb
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+acH
+uWU
+nFy
+hbT
+blc
+vks
+fDj
+vks
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+kVO
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+jEq
+jyD
+jyD
+jyD
+jyD
+xYG
+uDB
 jyD
 tue
 jyD
@@ -71456,77 +74937,77 @@ jyD
 (152,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+lfG
+fDj
+hBO
+cdm
+vks
+dxx
+dxx
+dxx
+dxx
+dxx
+dxx
+dxx
+dxx
+dxx
+drI
+mWv
+our
+blc
+mpE
+lfW
+pYP
+rAb
+pRR
+yiG
+pRR
+yiG
+pRR
+fST
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+acH
+uWU
+nFy
+hQW
+blc
+fDj
+vks
+fDj
+pUz
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+jEq
 jyD
 jyD
 jyD
 tue
-tue
+cKm
 tue
 tue
 tue
@@ -71713,72 +75194,72 @@ jyD
 (153,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+fDj
+fDj
+fDj
+btT
+fDj
+fDj
+lfG
+eUj
+pfK
+vks
+lrq
+vks
+vks
+fDj
+xkg
+wyG
+our
+blc
+bVf
+lfW
+pYP
+rAb
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+acH
+uWU
+nFy
+aLA
+blc
+vks
+vks
+vks
+vks
+vks
+fDj
+vks
+fDj
+xgf
+fDj
+vks
+fDj
+vyX
+fDj
+fDj
+fDj
+fDj
+fDj
+fDj
+xgf
+vks
+fDj
+vks
+fDj
+jEq
+jEq
 tue
 tue
 tue
@@ -71970,71 +75451,71 @@ jyD
 (154,1,1) = {"
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+lfG
+fDj
+cdm
+hBO
+hBO
+qBW
+vks
+dkh
+fDj
+qWe
+fDj
+fDj
+drI
+mWv
+xLl
+our
+blc
+dpw
+lfW
+pYP
+rAb
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+pRR
+yiG
+acH
+uWU
+nFy
+gBt
+blc
+fDj
+qBW
+fDj
+fDj
+fDj
+fDj
+fDj
+pUz
+fDj
+fDj
+fDj
+vks
+vks
+kVO
+fDj
+fDj
+fDj
+vks
+vks
+fDj
+fDj
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -72228,69 +75709,69 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+fDj
+rxK
+lfG
+fDj
+fDj
+vks
+cSc
+xqQ
+olk
+bZR
+fDj
+xkg
+mWv
+mWv
+our
+blc
+gLV
+lfW
+esd
+cSl
+qOz
+oXv
+qOz
+oXv
+qOz
+oXv
+qOz
+oXv
+qOz
+oXv
+qOz
+oXv
+wFp
+iEz
+nFy
+ocs
+blc
+fDj
+fDj
+vks
+vks
+cdm
+pUz
+qBW
+pUz
+fDj
+fDj
+fDj
+qBW
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+fDj
+vks
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -72486,67 +75967,67 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+ugR
+vks
+lfG
+vks
+fDj
+oFO
+eiu
+tgk
+wuP
+qWe
+fDj
+xkg
+xLl
+mWv
+lgE
+blc
+dok
+lfW
+jDc
+cVL
+hKa
+gwr
+gwr
+gwr
+uHK
+cVL
+cVL
+lQN
+gwr
+gwr
+gwr
+piT
+cVL
+wFB
+nFy
+xiz
+blc
+fDj
+vyX
+vks
+qBW
+fDj
+fDj
+fDj
+vks
+fDj
+vks
+fDj
+fDj
+fDj
+vks
+fDj
+vks
+vks
+fDj
+vks
+vks
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -72743,66 +76224,66 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+fDj
+bKB
+fDj
+hBO
+vks
+sif
+fAf
+xAt
+fDj
+drI
+mWv
+wyG
+our
+ugR
+blc
+fmO
+lfW
+dzG
+lfW
+nDA
+hOU
+rNa
+hOU
+blc
+blc
+blc
+blc
+hOU
+rNa
+hOU
+rvj
+nFy
+jcY
+nFy
+chz
+blc
+fDj
+fDj
+vks
+fDj
+vks
+vks
+fDj
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+fDj
+fDj
+vks
+fDj
+fDj
+ugR
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -73001,64 +76482,64 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+fDj
+vks
+vks
+xgf
+qWe
+qWe
+fDj
+xgf
+xkg
+mWv
+mWv
+lgE
+nQa
+blc
+lfW
+lfW
+blc
+ppZ
+ppZ
+blc
+ppZ
+ppZ
+blc
+ykO
+aIV
+blc
+ppZ
+ppZ
+blc
+ppZ
+ppZ
+blc
+nFy
+nFy
+blc
+qBW
+fDj
+fDj
+fDj
+fDj
+pUz
+vks
+vks
+fDj
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -73259,52 +76740,52 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+vks
+fDj
+fDj
+fDj
+qBW
+fDj
+vks
+xkg
+mWv
+our
+fDj
+nvB
+blc
+lfW
+lfW
+blc
+phP
+ttv
+blc
+paq
+uSe
+efZ
+qeM
+jkG
+nVZ
+hFA
+paq
+blc
+adp
+hFV
+blc
+nFy
+nFy
+blc
+fDj
+vks
+pUz
+vks
+vks
+fDj
+fDj
+vks
+fDj
+jEq
 jyD
 jyD
 jyD
@@ -73517,51 +76998,51 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+jEq
+jEq
+ofv
+fDj
+vks
+fDj
+xkg
+mWv
+our
+vks
+rVb
+blc
+udz
+udz
+blc
+lOF
+efP
+biI
+icd
+sjv
+qfQ
+qfQ
+qfQ
+qfQ
+icd
+sjv
+biI
+efP
+nYc
+blc
+udz
+udz
+blc
+fDj
+cdm
+fDj
+vks
+vks
+vks
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -73777,47 +77258,47 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+vks
+qBW
+fDj
+xkg
+mWv
+our
+fDj
+vks
+blc
+ggf
+cgZ
+xOi
+fJp
+efP
+rYV
+jXr
+wRR
+aAF
+aAF
+aAF
+aAF
+imT
+ssE
+rYV
+efP
+cgZ
+xOi
+fJp
+gMQ
+blc
+fDj
+vyX
+fDj
+xgf
+vks
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -74035,45 +77516,45 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+vks
+vks
+dJP
+mWv
+mWv
+lqI
+vks
+blc
+eeA
+dIU
+dIU
+dIU
+xXA
+blc
+mNl
+mdb
+rNa
+hOU
+hOU
+rNa
+hwR
+caf
+blc
+hgs
+dIU
+dIU
+dIU
+sBd
+blc
+fDj
+fDj
+pUz
+fDj
+ugR
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -74293,43 +77774,43 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+ugR
+vks
+xkg
+wyG
+our
+fDj
+blc
+blc
+ppZ
+ppZ
+ppZ
+blc
+blc
+blc
+blc
+ppZ
+ppZ
+ppZ
+ppZ
+blc
+blc
+blc
+blc
+ppZ
+ppZ
+ppZ
+blc
+blc
+fDj
+vks
+fDj
+fDj
+fDj
+vks
+jEq
 jyD
 jyD
 jyD
@@ -74551,42 +78032,42 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+vks
+fDj
+xkg
+mWv
+our
+pUz
+fDj
+fDj
+vks
+fDj
+vks
+fDj
+fDj
+fDj
+fDj
+vks
+vks
+vks
+fDj
+fDj
+vks
+fDj
+pUz
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+fDj
+fDj
+fDj
+vks
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -74808,41 +78289,41 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+xgf
+xkg
+mWv
+our
+qBW
+fDj
+vks
+fDj
+oSZ
+fDj
+fDj
+xgf
+cdm
+fDj
+pUz
+vyX
+sWq
+vks
+fDj
+fDj
+qBW
+vks
+vks
+vyX
+fDj
+vks
+fDj
+fDj
+vks
+vks
+pUz
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -75066,39 +78547,39 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+ugR
+xkg
+mWv
+our
+vks
+ugR
+vks
+fDj
+fDj
+vks
+pUz
+pUz
+vks
+fDj
+ugR
+jEq
+jEq
+jEq
+jEq
+fDj
+fDj
+vks
+cdm
+vks
+fDj
+xgf
+vks
+fDj
+pUz
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -75323,38 +78804,38 @@ jyD
 jyD
 jyD
 jyD
+jEq
+dko
+dko
+dko
+dko
+dko
+jEq
+jEq
+vks
+vks
+fDj
+qBW
+fDj
+fDj
+jEq
+jEq
+jEq
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+jEq
+fDj
+fDj
+fDj
+fDj
+vks
+fDj
+fDj
+fDj
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -75587,30 +79068,30 @@ jyD
 jyD
 jyD
 jyD
+jEq
+jEq
+fDj
+vks
+fDj
+ugR
+jEq
+jEq
 jyD
 jyD
 jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+jEq
+jEq
+ugR
+fDj
+fDj
+jEq
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -75845,6 +79326,12 @@ jyD
 jyD
 jyD
 jyD
+jEq
+jEq
+jEq
+jEq
+jEq
+jEq
 jyD
 jyD
 jyD
@@ -75855,17 +79342,11 @@ jyD
 jyD
 jyD
 jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
-jyD
+jEq
+jEq
+jEq
+jEq
+jEq
 jyD
 jyD
 jyD

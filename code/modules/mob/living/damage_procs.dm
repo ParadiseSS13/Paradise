@@ -11,6 +11,7 @@
 /mob/living/proc/apply_damage(var/damage = 0, var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/used_weapon = null)
 	blocked = (100-blocked)/100
 	if(!damage || (blocked <= 0))	return 0
+	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	switch(damagetype)
 		if(BRUTE)
 			adjustBruteLoss(damage * blocked)

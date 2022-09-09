@@ -47,7 +47,7 @@ emp_act
 		return bullet_act(P, "chest") //act on chest instead
 
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
-
+	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	return (..(P , def_zone))
 
 /mob/living/carbon/human/welder_act(mob/user, obj/item/I)
@@ -514,6 +514,7 @@ emp_act
 		throwpower = I.throwforce
 		if(I.thrownby == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
+	SEND_SIGNAL(src, COMSIG_CARBON_HITBY)
 	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
 		hitpush = FALSE
 		skipcatch = TRUE

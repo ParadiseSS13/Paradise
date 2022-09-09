@@ -20,6 +20,8 @@
 	var/obj/screen/blobpwrdisplay
 	var/obj/screen/blobhealthdisplay
 	var/obj/screen/vampire_blood_display
+	var/obj/screen/ninja_energy_display
+	var/obj/screen/ninja_focus_display
 	var/obj/screen/alien_plasma_display
 	var/obj/screen/nightvisionicon
 	var/obj/screen/action_intent
@@ -88,6 +90,8 @@
 	blobpwrdisplay = null
 	alien_plasma_display = null
 	vampire_blood_display = null
+	ninja_energy_display = null
+	ninja_focus_display = null
 	nightvisionicon = null
 	devilsouldisplay = null
 

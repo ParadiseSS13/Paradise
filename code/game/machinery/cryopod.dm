@@ -561,7 +561,7 @@
 		return
 
 	if(!L.mind)
-		to_chat(user, "<span class='noitce'>Catatonic people are not allowed into cryo.</span>")
+		to_chat(user, "<span class='notice'>Catatonic people are not allowed into cryo.</span>")
 		return
 
 	if(L.has_buckled_mobs()) //mob attached to us

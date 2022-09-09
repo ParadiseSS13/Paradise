@@ -102,11 +102,11 @@
 			else if(role == ROLE_CULTIST)
 				message_say = "FOR NARSIE!"
 			else if(role == ROLE_NINJA)
-				message_say = "FOR THE CLAN!"
+				message_say = "FOR THE SPIDER CLAN!"
 			else if(role == ROLE_WIZARD)
 				message_say = "FOR THE FEDERATION!"
 			else if(role == ROLE_REV || role == "head revolutionary")
-				message_say = "FOR THE REVOLOUTION!"
+				message_say = "FOR THE REVOLUTION!"
 			else if(role == "death commando" || role == ROLE_ERT)
 				message_say = "FOR NANOTRASEN!"
 			else if(role == ROLE_DEVIL)
@@ -131,6 +131,10 @@
 /obj/item/grenade/plastic/c4
 	name = "C4"
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteurs favourite."
+	var/devastation_range = 0
+	var/heavy_impact_range = 0
+	var/light_impact_range = 3
+	var/flash_range = 0
 
 /obj/item/grenade/plastic/c4/prime()
 	var/turf/location
@@ -144,7 +148,7 @@
 	else
 		location = get_atom_on_turf(src)
 	if(location)
-		explosion(location,0,0,3)
+		explosion(location, devastation_range = devastation_range, heavy_impact_range = heavy_impact_range, light_impact_range = light_impact_range, flash_range = flash_range)
 		location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target

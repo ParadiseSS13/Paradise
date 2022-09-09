@@ -12,6 +12,14 @@
 	density = 1
 	blocks_air = 1
 
+/turf/simulated/shuttle/wall/Initialize()
+	..()
+	var/obj/O
+	O = new()
+	O.underlays.Add(src)
+	underlays = O.underlays
+	qdel(O)
+
 /turf/simulated/shuttle/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_DELETE_MODE)//No pipes on shuttles
 		our_rpd.delete_all_pipes(user, src)
@@ -26,6 +34,17 @@
 
 //sub-type to be used for interior shuttle walls
 //won't get an underlay of the destination turf on shuttle move
+/turf/simulated/shuttle/wall/interior
+	var/underlay_floor_icon = null
+	var/underlay_floor_icon_state = null
+
+/turf/simulated/shuttle/wall/interior/Initialize()
+	..()
+	if(underlay_floor_icon && underlay_floor_icon_state)
+		var/image/floor_underlay = image(underlay_floor_icon,,underlay_floor_icon_state)
+		underlays.Cut()
+		underlays.Add(floor_underlay)
+
 /turf/simulated/shuttle/wall/interior/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type)
@@ -73,6 +92,22 @@
 /turf/simulated/shuttle/plating/vox	//Vox skipjack plating
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+/turf/simulated/shuttle/floor/transparent_floor
+	icon = 'icons/turf/shuttle.dmi'
+	icon_state = "transparent"
+
+/turf/simulated/shuttle/floor/transparent_floor/Initialize()
+	..()
+	var/obj/O
+	O = new()
+	O.underlays.Add(src)
+	underlays = O.underlays
+	qdel(O)
+
+/turf/simulated/shuttle/floor/transparent_floor/copyTurf(turf/T)
+	. = ..()
+	T.transform = transform
 
 /turf/simulated/shuttle/floor4 // Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
 	name = "brig floor"        // Also added it into the 2x3 brig area of the shuttle.

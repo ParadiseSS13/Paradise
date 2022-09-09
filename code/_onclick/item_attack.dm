@@ -39,27 +39,27 @@
 		return TRUE
 	return I.attack(src, user)
 
-/obj/item/proc/attack(mob/living/M, mob/living/user, def_zone)
-	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
+/obj/item/proc/attack(mob/living/target, mob/living/user, def_zone)
+	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, user)
 	if(flags & (NOBLUDGEON))
 		return FALSE
-	if(can_operate(M))  //Checks if mob is lying down on table for surgery
+	if(can_operate(target))  //Checks if mob is lying down on table for surgery
 		if(istype(src,/obj/item/robot_parts))//popup override for direct attach
-			if(!attempt_initiate_surgery(src, M, user,1))
+			if(!attempt_initiate_surgery(src, target, user,1))
 				return FALSE
 			else
 				return TRUE
 		if(istype(src,/obj/item/organ/external))
 			var/obj/item/organ/external/E = src
 			if(E.is_robotic()) // Robot limbs are less messy to attach
-				if(!attempt_initiate_surgery(src, M, user,1))
+				if(!attempt_initiate_surgery(src, target, user,1))
 					return FALSE
 				else
 					return TRUE
-		var/obj/item/organ/external/O = M.get_organ(user.zone_selected)
+		var/obj/item/organ/external/O = target.get_organ(user.zone_selected)
 		if((is_sharp(src) || (isscrewdriver(src) && O?.is_robotic())) && user.a_intent == INTENT_HELP)
-			if(!attempt_initiate_surgery(src, M, user))
+			if(!attempt_initiate_surgery(src, target, user))
 				return FALSE
 			else
 				return TRUE
@@ -71,16 +71,16 @@
 	if(!force)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
 	else
-		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
-		add_attack_logs(user, M, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+		SEND_SIGNAL(target, COMSIG_ITEM_ATTACK)
+		add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (target.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 		if(hitsound)
 			playsound(loc, hitsound, get_clamped_volume(), 1, -1)
 
-	M.lastattacker = user.real_name
-	M.lastattackerckey = user.ckey
+	target.lastattacker = user.real_name
+	target.lastattackerckey = user.ckey
 
-	user.do_attack_animation(M)
-	. = M.attacked_by(src, user, def_zone)
+	user.do_attack_animation(target)
+	. = target.attacked_by(src, user, def_zone)
 
 	add_fingerprint(user)
 

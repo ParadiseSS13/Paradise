@@ -231,7 +231,7 @@
 			animate(offset = f:offset - 1, time = rand() * 20 + 10)
 		if(do_after(user, 50, target = user) && user.cell.use(activationCost))
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
-			to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen engineering cyborg.</span>")
+			to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen cyborg.</span>")
 			activate(user)
 		else
 			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")

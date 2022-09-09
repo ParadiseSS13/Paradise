@@ -840,6 +840,13 @@
 	assemblytype = /obj/structure/door_assembly/multi_tile
 	paintable = FALSE
 
+// Добавлено потому, что с помощью флагов не пройти через двойные двери
+/obj/machinery/door/airlock/multi_tile/Cross(atom/movable/mover as mob|obj)
+	if(!src.CanPass(mover, mover.loc, 1))
+		mover.Bump(src, TRUE)
+		return FALSE
+	return TRUE
+
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return
 

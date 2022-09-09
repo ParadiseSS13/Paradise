@@ -32,6 +32,8 @@
 	name = "engine"
 	density = 1
 	anchored = 1.0
+	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль - бред
+	var/list/obj/structure/fillers = list()		// Для коллизии более больших двигателей
 
 /obj/structure/shuttle/engine/heater
 	name = "heater"

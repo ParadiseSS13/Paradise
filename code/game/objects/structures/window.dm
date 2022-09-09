@@ -648,6 +648,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 
+/obj/structure/window/full/paperframe
+	name = "Paperframe Window"
+	desc = "Just looking at it's clean and simple design makes you at piece with your demons"
+	icon = 'icons/obj/smooth_structures/paperframe.dmi'
+	icon_state = "paperframe"
+	max_integrity = 50
+	smooth = SMOOTH_TRUE
+	cancolor = FALSE
+	canSmoothWith = list(/obj/structure/window/full/paperframe)
+
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."

@@ -75,6 +75,10 @@
 			GLOB.ninjastart += loc
 			qdel(src)
 
+		if("ninja_teleport")
+			GLOB.ninja_teleport += loc
+			qdel(src)
+
 		if("carpspawn")
 			GLOB.carplist += loc
 

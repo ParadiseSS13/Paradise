@@ -4,6 +4,7 @@
 		SSticker.mode.remove_revolutionary(mind, 1)
 		SSticker.mode.remove_cultist(mind, 1)
 		SSticker.mode.remove_wizard(mind)
+		SSticker.mode.remove_ninja(mind)
 		SSticker.mode.remove_changeling(mind)
 		SSticker.mode.remove_vampire(mind)
 		SSticker.mode.remove_thrall(mind, 0)

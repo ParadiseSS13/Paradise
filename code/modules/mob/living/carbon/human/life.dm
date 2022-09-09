@@ -41,6 +41,11 @@
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
+	if(mind?.ninja)
+		mind.ninja.handle_ninja()
+		if(life_tick == 1)
+			regenerate_icons() // Make sure the inventory updates
+
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
 		handle_ghosted()
 	if(player_logged > 0 && stat != DEAD && job)

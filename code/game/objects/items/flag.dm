@@ -191,6 +191,11 @@
 	desc = "A flag proudly boasting the logo of the cultists, sworn enemies of NT."
 	icon_state = "cultflag"
 
+/obj/item/flag/ninja
+	name = "Spider Clan flag"
+	desc = "A flag proudly boasting the logo of the fearfull Spider Clan, known for their assassins, they work for the ones who pay them most."
+	icon_state = "ninjaflag"
+
 //Chameleon
 
 /obj/item/flag/chameleon
