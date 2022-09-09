@@ -40,6 +40,9 @@
 		return
 	if(istype(A, /obj/item/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/structure/mopbucket))
 		return
+	if(reagents.total_volume < 1)
+		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
+		return
 	cleaning_act(A, user, src, mopspeed, ismop = TRUE)
 
 /obj/effect/attackby(obj/item/I, mob/user, params)

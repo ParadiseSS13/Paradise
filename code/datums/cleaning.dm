@@ -1,15 +1,10 @@
 //For handling standard click-to-clean items like soap and mops.
-/datum/proc/cleaning_act(atom/target, mob/user, atom/cleaner, cleanspeed = 50, ismop = FALSE)
+/atom/proc/cleaning_act(atom/target, mob/user, atom/cleaner, cleanspeed = 50, ismop = FALSE)
 	var/innatecleaner = FALSE //If the user cleaning is innately able to clean, i.e. Lusty Xenomorph Maid
 	var/cmag_cleantime = 50 //The cleaning time for cmagged objects is locked to this, for balance reasons
 
 	if(user == cleaner)
 		innatecleaner = TRUE
-
-	if(ismop)
-		if(cleaner.reagents.total_volume < 1)
-			to_chat(user, "<span class='warning'>Your mop is dry!</span>")
-			return
 
 	if(HAS_TRAIT(target, TRAIT_CMAGGED))
 		user.visible_message("<span class='notice'>[user] starts to clean the ooze off \the [target.name].</span>", "<span class='notice'>You start to clean the ooze off \the [target.name].</span>")
@@ -54,7 +49,7 @@
 			qdel(C)
 			target.clean_blood()
 
-/datum/proc/clean_turf(turf/simulated/T, atom/cleaner, ismop = FALSE)
+/atom/proc/clean_turf(turf/simulated/T, atom/cleaner, ismop = FALSE)
 	var/canclean = TRUE
 
 	if(ismop)
@@ -69,7 +64,7 @@
 			if(O.is_cleanable())
 				qdel(O)
 
-/datum/proc/iscleaner(obj/C) //All objects that use the above procs (Lusty Xenomorph Maid is not an object, sorry!)
+/atom/proc/iscleaner(obj/C) //All objects that use the above procs (Lusty Xenomorph Maid is not an object, sorry!)
 	var/list/cleaning_items = list(
 		/obj/item/soap,
 		/obj/item/mop,
