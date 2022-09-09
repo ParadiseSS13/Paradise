@@ -35309,6 +35309,19 @@
 	icon_state = "dark"
 	},
 /area/assembly/chargebay)
+"bIf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay2)
 "bIh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -68841,9 +68854,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dJl" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -78829,7 +78839,7 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control switch for the medbay foyer.";
-	id = "MedbayFoyerPort";
+	id = "medbayfoyerport";
 	name = "Medbay Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = -9;
@@ -130693,7 +130703,7 @@ bQU
 bSw
 bEp
 vAN
-cbO
+bIf
 bWd
 bXK
 ccA
