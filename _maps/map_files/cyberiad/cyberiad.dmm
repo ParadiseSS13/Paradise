@@ -39583,7 +39583,7 @@
 "bSR" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "MedbayFoyerPort";
+	id_tag = "medbayfoyerport";
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
@@ -41797,7 +41797,7 @@
 "bYe" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "MedbayFoyerPort";
+	id_tag = "medbayfoyerport";
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
@@ -72738,7 +72738,7 @@
 "gKS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "MedbayFoyerPort";
+	id_tag = "medbayfoyerport";
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
