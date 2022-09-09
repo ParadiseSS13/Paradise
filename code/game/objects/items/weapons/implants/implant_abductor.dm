@@ -51,15 +51,9 @@
 
 /obj/item/implanter/abductor
 	name = "implanter (abductor)"
-
-/obj/item/implanter/abductor/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/abductor(src)
+	implant_type = /obj/item/implant/abductor
 
 /obj/item/implantcase/abductor
 	name = "implant case - 'abductor'"
 	desc = "A glass case containing an abductor implant."
-
-/obj/item/implantcase/abductor/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/abductor(src)
+	implant_type = /obj/item/implant/abductor

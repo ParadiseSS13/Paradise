@@ -61,15 +61,9 @@
 
 /obj/item/implanter/storage
 	name = "implanter (storage)"
-
-/obj/item/implanter/storage/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/storage(src)
+	implant_type = /obj/item/implant/storage
 
 /obj/item/implantcase/storage
 	name = "implant case - 'Storage'"
 	desc = "A glass case containing a storage implant."
-
-/obj/item/implantcase/storage/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/storage(src)
+	implant_type = /obj/item/implant/storage

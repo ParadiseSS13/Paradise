@@ -3,7 +3,7 @@
 	desc = "This cuts wires."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
-	belt_icon = "wirecutters"
+	belt_icon = "wirecutters_red"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 6
@@ -28,6 +28,7 @@
 	if(random_color)
 		if(!param_color)
 			param_color = pick("yellow", "red")
+		belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
 
 /obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)

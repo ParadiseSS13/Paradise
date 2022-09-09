@@ -19,6 +19,7 @@
 		/obj/item/clothing/suit/armor/riot,
 		/obj/item/clothing/suit/armor/reactive,
 		/obj/item/clothing/suit/armor/laserproof,
+		/obj/item/clothing/suit/hooded/ablative,
 		/obj/item/clothing/gloves/color/black/krav_maga,
 	)
 
