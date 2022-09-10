@@ -26,7 +26,8 @@
 		"Parrot" = "parrot",
 		"Box Bot" = "boxbot",
 		"Spider Bot" = "spiderbot",
-		"Fairy" = "fairy"
+		"Fairy" = "fairy",
+		"Espeon" = "pAIkemon_Espeon"
 		)
 
 	var/global/list/possible_say_verbs = list(
