@@ -43,7 +43,17 @@
 	if(reagents.total_volume < 1)
 		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
 		return
-	cleaning_act(A, user, src, mopspeed, ismop = TRUE)
+	cleaning_act(A, user, src, mopspeed)
+
+/obj/item/mop/can_clean()
+	if(reagents.has_reagent("water", 0) && reagents.has_reagent("cleaner", 0) && reagents.has_reagent("holywater", 0))
+		return FALSE
+	else
+		return ..()
+
+/obj/item/mop/post_clean(atom/target, mob/user)
+	reagents.reaction(target, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
+	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
 /obj/effect/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))

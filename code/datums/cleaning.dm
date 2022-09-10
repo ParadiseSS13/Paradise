@@ -1,5 +1,5 @@
 //For handling standard click-to-clean items like soap and mops.
-/atom/proc/cleaning_act(atom/target, mob/user, atom/cleaner, cleanspeed = 50, ismop = FALSE)
+/atom/proc/cleaning_act(atom/target, mob/user, atom/cleaner, cleanspeed = 50)
 	var/innatecleaner = FALSE //If the user cleaning is innately able to clean, i.e. Lusty Xenomorph Maid
 	var/cmag_cleantime = 50 //The cleaning time for cmagged objects is locked to this, for balance reasons
 
@@ -25,7 +25,7 @@
 		if(do_after(user, cleanspeed, target = target) && target)
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
 			if(issimulatedturf(target.loc))
-				clean_turf(target.loc, cleaner, ismop)
+				clean_turf(target.loc, user, cleaner)
 				return
 			qdel(target)
 		return
@@ -37,7 +37,7 @@
 			user.visible_message("<span class='warning'>[user] begins to clean \the [target.name].</span>")
 		if(do_after(user, cleanspeed, target = target))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
-			clean_turf(target, cleaner, ismop)
+			clean_turf(target, user, cleaner)
 	else
 		if(!innatecleaner)
 			user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
@@ -49,20 +49,19 @@
 			qdel(C)
 			target.clean_blood()
 
-/atom/proc/clean_turf(turf/simulated/T, atom/cleaner, ismop = FALSE)
-	var/canclean = TRUE
-
-	if(ismop)
-		if(cleaner.reagents.has_reagent("water", 0) && cleaner.reagents.has_reagent("cleaner", 0) && cleaner.reagents.has_reagent("holywater", 0))
-			canclean = FALSE
-		cleaner.reagents.reaction(T, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
-		cleaner.reagents.remove_any(1)			//reaction() doesn't use up the reagents
-
-	if(canclean)
+/atom/proc/clean_turf(turf/simulated/T, mob/user, atom/cleaner)
+	if(cleaner.can_clean())
 		T.clean_blood()
 		for(var/obj/effect/O in T)
 			if(O.is_cleanable())
 				qdel(O)
+	cleaner.post_clean(T, user, cleaner)
+
+/atom/proc/can_clean() //For determining if a cleaning object can actually remove decals
+	return TRUE
+
+/atom/proc/post_clean(atom/target, mob/user, atom/cleaner) //For object-specifc behaviors after cleaning, such as mops making floors slippery
+	return
 
 /atom/proc/iscleaner(obj/C) //All objects that use the above procs (Lusty Xenomorph Maid is not an object, sorry!)
 	var/list/cleaning_items = list(
