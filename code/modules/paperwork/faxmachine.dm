@@ -334,7 +334,32 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	use_power(active_power_usage)
 
 	if(!(istype(copyitem, /obj/item/paper) || istype(copyitem, /obj/item/paper_bundle) || istype(copyitem, /obj/item/photo)))
-		visible_message("[src] beeps, \"Error transmitting message.\"")
+		atom_say("Error transmitting message.")
+		return
+
+	// Check for missing stamp or signature, reject the fax and inform the player about the mistake if finding none.
+	var/error_message
+
+	// Paper bundles
+	if(istype(copyitem, /obj/item/paper_bundle))
+		for(var/obj/item/paper/bundle_paper in copyitem)
+			if(!bundle_paper.stamped)
+				error_message = "Error: The current item is not stamped. Aborting..."
+				break
+			if(!bundle_paper.is_signed())
+				error_message = "Error: The current item lacks a signature. Aborting..."
+				break
+
+	// Paper
+	if(istype(copyitem, /obj/item/paper))
+		var/obj/item/paper/paper = copyitem
+		if(!paper.stamped)
+			error_message = "Error: The current item is not stamped. Aborting..."
+		if(!paper.is_signed())
+			error_message = "Error: The current item lacks a signature. Aborting..."
+
+	if(error_message)
+		atom_say(error_message)
 		return
 
 	var/datum/fax/admin/A = new /datum/fax/admin()
@@ -355,7 +380,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			F.receivefax(copyitem)
-	visible_message("[src] beeps, \"Message transmitted successfully.\"")
+	atom_say("Message transmitted successfully.")
 
 /obj/machinery/photocopier/faxmachine/proc/cooldown_seconds()
 	if(sendcooldown < world.time)

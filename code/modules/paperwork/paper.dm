@@ -487,6 +487,9 @@
 	stamp_overlays += stampoverlay
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/item/paper/proc/is_signed()
+	return findtext(info, "<font face=\"[SIGNFONT]\">")
+
 /obj/item/paper/update_overlays()
 	return stamp_overlays
 
