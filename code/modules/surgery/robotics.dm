@@ -460,10 +460,10 @@
 	var/list/organs = target.get_organs_zone(target_zone)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected && affected.is_robotic()))
-		return SURGERY_BEGINSTEP_ABORT
+		return SURGERY_BEGINSTEP_SKIP
 	if(!length(organs))
 		to_chat(user, "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
-		return SURGERY_BEGINSTEP_ABORT
+		return SURGERY_BEGINSTEP_SKIP
 	else
 		for(var/obj/item/organ/internal/O in organs)
 			O.on_find(user)
@@ -474,7 +474,7 @@
 		if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 			I = organs[I]
 			if(!I)
-				return SURGERY_BEGINSTEP_ABORT
+				return SURGERY_BEGINSTEP_SKIP
 			user.visible_message(
 				"[user] starts to decouple [target]'s [I] with \the [tool].",
 				"You start to decouple [target]'s [I] with \the [tool]."
@@ -482,7 +482,7 @@
 
 			target.custom_pain("The pain in your [affected.name] is living hell!")
 		else
-			return SURGERY_BEGINSTEP_ABORT
+			return SURGERY_BEGINSTEP_SKIP
 
 	return ..()
 
@@ -546,7 +546,7 @@
 
 	if(!target.dna.species)
 		to_chat(user, "<span class='danger'>You have no idea what species this person is. Report this on the bug tracker.</span>")
-		return SURGERY_BEGINSTEP_ABORT
+		return SURGERY_BEGINSTEP_SKIP
 
 	if(!target.dna.species.has_organ["brain"])
 		to_chat(user, "<span class='danger'>You're pretty sure [target.dna.species.name_plural] don't normally have a brain.</span>")
