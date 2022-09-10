@@ -30,7 +30,6 @@
 /obj/effect/spawner/lootdrop/maintenance
 	name = "maintenance loot spawner (1 item)"
 	icon_state = "loot"
-	color = null
 
 	//How to balance this table
 	//-------------------------
