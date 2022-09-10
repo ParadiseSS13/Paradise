@@ -11,6 +11,13 @@
 	anchored = TRUE
 	density = TRUE
 
+/obj/structure/signpost/thelizardsgas
+	name = "Nearest Gas Station"
+
+/obj/structure/signpost/thelizardsgas/Initialize(mapload)
+	. = ..()
+	desc = "A sign pointing to the nearest gas station, only [rand(100, 1000000)] miles away."
+
 /obj/structure/ninjatele
 
 	name = "Long-Distance Teleportation Console"

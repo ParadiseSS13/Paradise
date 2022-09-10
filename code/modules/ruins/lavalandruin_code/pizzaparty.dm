@@ -1,5 +1,6 @@
 /obj/effect/spawner/lootdrop/pizzaparty
 	name = "pizza bomb spawner"
+	icon_state = "pizza"
 	loot = list(/obj/item/pizzabox/margherita = 2,
 				/obj/item/pizzabox/meat = 2,
 				/obj/item/pizzabox/mushroom = 1,

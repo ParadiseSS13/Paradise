@@ -65,6 +65,9 @@
 	req_access = null
 	locked = FALSE
 
+/obj/structure/closet/secure_closet/freezer/fridge/open/empty/populate_contents()
+	return
+
 /obj/structure/closet/secure_closet/freezer/money
 	name = "freezer"
 	icon_state = "freezer"

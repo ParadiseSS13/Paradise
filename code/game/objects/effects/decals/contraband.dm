@@ -580,4 +580,14 @@
 	desc = "A healthy crew is a happy crew!"
 	icon_state = "poster40_legit"
 
+/obj/structure/sign/poster/fluff/lizards_gas_payment
+	name = "Please Pay"
+	desc = "A crudely-made poster asking the reader to please pay for any items they may wish to leave the station with."
+	icon_state = "gas_payment"
+
+/obj/structure/sign/poster/fluff/lizards_gas_power
+	name = "Conserve Power"
+	desc = "A crudely-made poster asking the reader to turn off the power before they leave. Hopefully, it's turned on for their re-opening."
+	icon_state = "gas_power"
+
 #undef PLACE_SPEED

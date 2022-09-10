@@ -1,0 +1,1292 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ac" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	id = "air_in";
+	dir = 4
+	},
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/thelizardsgas)
+"co" = (
+/obj/structure/closet/secure_closet/freezer/meat,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"cV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"eh" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/thelizardsgas)
+"fB" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"hu" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"im" = (
+/mob/living/simple_animal/lizard{
+	name = "Blarpo";
+	desc = "How are you ALIVE?"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"iB" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"iV" = (
+/obj/structure/rack{
+	dir = 4
+	},
+/obj/item/storage/belt/janitor/full,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"iW" = (
+/obj/item/stack/spacecash/c1000,
+/obj/item/toy/plushie/lizardplushie{
+	name = "Zingo"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"jc" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/thelizardsgas)
+"kt" = (
+/obj/structure/table/reinforced,
+/obj/item/gps,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/thelizardsgas)
+"kJ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"kR" = (
+/obj/structure/signpost/thelizardsgas,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/thelizardsgas)
+"lc" = (
+/obj/machinery/computer/general_air_control{
+	frequency = 1220;
+	name = "Gas Station Monitor";
+	sensors = slist("gas_station"="Gas Supply");
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/thelizardsgas)
+"lj" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open/empty,
+/obj/effect/spawner/lootdrop/pizzaparty,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"lo" = (
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/thelizardsgas)
+"me" = (
+/obj/machinery/door/window{
+	dir = 2
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/thelizardsgas)
+"mx" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"mD" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/yellow,
+/turf/template_noop,
+/area/template_noop)
+"mO" = (
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/thelizardsgas)
+"nc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/structure/sign/poster/fluff/lizards_gas_payment{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"pv" = (
+/obj/structure/rack{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/lootdrop/seed_vault,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"pw" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/thelizardsgas)
+"qB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"sd" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/thelizardsgas)
+"sJ" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"ta" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"tn" = (
+/turf/simulated/wall,
+/area/ruin/space/thelizardsgas)
+"tC" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"ua" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/thelizardsgas)
+"uf" = (
+/obj/structure/marker_beacon/dock_marker/collision,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/thelizardsgas)
+"un" = (
+/obj/machinery/atmospherics/air_sensor{
+	frequency = 1220;
+	id_tag = "gas_station"
+	},
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/thelizardsgas)
+"vk" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/sign/poster/fluff/lizards_gas_power{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"wW" = (
+/obj/machinery/power/apc/noalarm{
+	dir = 1;
+	pixel_y = 24;
+	name = "Gas station APC"
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/thelizardsgas)
+"wZ" = (
+/turf/template_noop,
+/area/template_noop)
+"xp" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"xC" = (
+/turf/simulated/mineral,
+/area/ruin/space/thelizardsgas)
+"yK" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/sign/fire{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"yT" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"zU" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"Ak" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/suit_storage_unit/security,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"Aq" = (
+/obj/machinery/alarm/monitor{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/thelizardsgas)
+"Bc" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"CY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/wall/r_wall,
+/area/ruin/space/thelizardsgas)
+"DR" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/manifold/hidden/yellow,
+/turf/template_noop,
+/area/template_noop)
+"DZ" = (
+/obj/machinery/atmospherics/unary/vent_pump/siphon/on,
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/thelizardsgas)
+"Ee" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"Fm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"FK" = (
+/obj/structure/chair/wood/wings{
+	dir = 4
+	},
+/obj/item/toy/pet_rock/fred,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/thelizardsgas)
+"GU" = (
+/obj/structure/rack{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/item/storage/box/donkpockets,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"GZ" = (
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/obj/item/toy/pet_rock/roxie,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/thelizardsgas)
+"Hd" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall,
+/area/ruin/space/thelizardsgas)
+"Hn" = (
+/obj/structure/disposalpipe/trunk,
+/obj/structure/disposaloutlet{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/thelizardsgas)
+"IO" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"Jt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"Ju" = (
+/obj/structure/rack{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/lootdrop/lizardboots,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"Km" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"Le" = (
+/obj/structure/table/wood,
+/obj/item/candle,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/thelizardsgas)
+"Ml" = (
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"Nc" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"NV" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"NX" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"OJ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"Pl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"PC" = (
+/obj/structure/rack{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/snacks,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"QP" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open/empty,
+/obj/effect/spawner/lootdrop/three_course_meal,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/thelizardsgas)
+"Su" = (
+/obj/structure/rack{
+	dir = 4
+	},
+/obj/item/analyzer,
+/obj/item/storage/toolbox/emergency,
+/obj/item/stack/cable_coil/random,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"SU" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/atmospherics/portable/scrubber,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"Tc" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"Ty" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/power/smes/engineering,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"TC" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"TV" = (
+/obj/structure/rack{
+	dir = 4
+	},
+/obj/structure/sign/poster/fluff/lizards_gas_payment{
+	pixel_y = 32
+	},
+/obj/effect/spawner/lootdrop/cigarette_pack,
+/obj/effect/spawner/lootdrop/cigarette_pack,
+/obj/effect/spawner/lootdrop/cigarette_pack,
+/obj/effect/spawner/lootdrop/cigarette_pack,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/thelizardsgas)
+"Vl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"WR" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"YM" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"YP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"Za" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"Zk" = (
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plating,
+/area/ruin/space/thelizardsgas)
+"ZG" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/thelizardsgas)
+"ZJ" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(2,1,1) = {"
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(3,1,1) = {"
+wZ
+wZ
+wZ
+wZ
+xC
+xC
+xC
+xC
+xC
+xC
+xC
+xC
+jc
+jc
+xC
+jc
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(4,1,1) = {"
+wZ
+wZ
+wZ
+xC
+xC
+tn
+tn
+tn
+tn
+tn
+tn
+tn
+tn
+tn
+tn
+jc
+uf
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(5,1,1) = {"
+wZ
+wZ
+wZ
+xC
+xC
+tn
+wW
+ua
+me
+xp
+Bc
+tn
+iV
+tC
+tn
+jc
+jc
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(6,1,1) = {"
+wZ
+wZ
+wZ
+xC
+xC
+tn
+Aq
+mO
+eh
+kJ
+Bc
+Bc
+tn
+Zk
+tn
+xC
+jc
+wZ
+Tc
+wZ
+wZ
+Tc
+wZ
+wZ
+wZ
+"}
+(7,1,1) = {"
+wZ
+wZ
+xC
+xC
+xC
+tn
+TV
+lc
+kt
+kJ
+PC
+Bc
+TC
+tC
+tn
+xC
+jc
+wZ
+Za
+wZ
+wZ
+Za
+wZ
+wZ
+wZ
+"}
+(8,1,1) = {"
+wZ
+wZ
+xC
+xC
+pw
+pw
+sJ
+sJ
+sJ
+kJ
+PC
+Bc
+tn
+tn
+tn
+tn
+uf
+wZ
+Za
+wZ
+wZ
+Za
+wZ
+wZ
+wZ
+"}
+(9,1,1) = {"
+wZ
+wZ
+xC
+xC
+pw
+sd
+lo
+DZ
+Pl
+zU
+cV
+cV
+nc
+yT
+YP
+yT
+ZJ
+ZJ
+mD
+ZJ
+ZJ
+DR
+Ml
+wZ
+wZ
+"}
+(10,1,1) = {"
+wZ
+wZ
+xC
+xC
+pw
+lo
+un
+lo
+sJ
+kJ
+hu
+Bc
+Ee
+tn
+tn
+tn
+wZ
+wZ
+Za
+wZ
+wZ
+Za
+wZ
+wZ
+wZ
+"}
+(11,1,1) = {"
+wZ
+wZ
+wZ
+xC
+pw
+ac
+lo
+lo
+sJ
+kJ
+Jt
+Bc
+Bc
+NV
+wZ
+wZ
+wZ
+wZ
+Za
+wZ
+wZ
+Za
+wZ
+wZ
+wZ
+"}
+(12,1,1) = {"
+wZ
+wZ
+wZ
+xC
+pw
+CY
+pw
+pw
+pw
+yK
+Jt
+PC
+Bc
+NV
+jc
+wZ
+wZ
+wZ
+YM
+wZ
+wZ
+YM
+wZ
+wZ
+wZ
+"}
+(13,1,1) = {"
+wZ
+wZ
+wZ
+xC
+tn
+mx
+Vl
+iB
+tn
+pv
+Jt
+PC
+Bc
+NV
+jc
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(14,1,1) = {"
+wZ
+wZ
+wZ
+Hn
+Hd
+ta
+WR
+Su
+tn
+GU
+Jt
+PC
+im
+NV
+jc
+jc
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(15,1,1) = {"
+wZ
+wZ
+wZ
+xC
+tn
+Ak
+qB
+SU
+tn
+Ju
+Jt
+PC
+Bc
+NV
+jc
+jc
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(16,1,1) = {"
+wZ
+wZ
+wZ
+xC
+tn
+Ty
+OJ
+vk
+NX
+Km
+Fm
+PC
+Bc
+NV
+jc
+jc
+uf
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(17,1,1) = {"
+wZ
+wZ
+xC
+xC
+tn
+tn
+tn
+tn
+tn
+IO
+Nc
+PC
+Bc
+tn
+xC
+jc
+jc
+jc
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(18,1,1) = {"
+wZ
+xC
+xC
+xC
+ZG
+tn
+iW
+tn
+QP
+Bc
+Bc
+PC
+Bc
+tn
+xC
+jc
+kR
+jc
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(19,1,1) = {"
+wZ
+xC
+jc
+jc
+jc
+tn
+tn
+tn
+lj
+Bc
+Bc
+PC
+Bc
+tn
+xC
+xC
+jc
+jc
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(20,1,1) = {"
+wZ
+xC
+jc
+jc
+FK
+jc
+xC
+tn
+co
+Bc
+fB
+Bc
+Bc
+tn
+xC
+jc
+jc
+jc
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(21,1,1) = {"
+wZ
+wZ
+jc
+jc
+Le
+jc
+xC
+tn
+tn
+tn
+tn
+tn
+tn
+tn
+jc
+jc
+uf
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(22,1,1) = {"
+wZ
+wZ
+wZ
+jc
+GZ
+jc
+xC
+xC
+xC
+xC
+xC
+xC
+xC
+xC
+jc
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(23,1,1) = {"
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(24,1,1) = {"
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}
+(25,1,1) = {"
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+"}

@@ -309,3 +309,10 @@
 	description = "A now-defunct outpost, with the last received signal being that of distress."
 	allow_duplicates = FALSE
 	cost = 2 // Also pretty big
+
+/datum/map_template/ruin/space/thelizardsgas
+	id = "thelizardsgas"
+	suffix = "thelizardsgas.dmm"
+	name = "The Lizard's Gas"
+	description = "A refueling station stocked with enough plasma for any space-worthy vessel. Well, maybe if it weren't 50 years ago."
+	cost = 2 // Still pretty big

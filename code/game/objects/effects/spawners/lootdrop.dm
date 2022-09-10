@@ -391,6 +391,7 @@
 
 /obj/effect/spawner/lootdrop/three_course_meal
 	name = "three course meal spawner"
+	icon_state = "soup"
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
@@ -412,3 +413,42 @@
 /obj/effect/spawner/lootdrop/three_course_meal/Initialize(mapload)
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)
 	. = ..()
+
+/obj/effect/spawner/lootdrop/snacks
+	name = "snacks spawner"
+	icon_state = "chips"
+	lootcount = 2
+	lootdoubles = FALSE
+	loot = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 5,
+				/obj/item/reagent_containers/food/drinks/dry_ramen = 5,
+				/obj/item/reagent_containers/food/drinks/chicken_soup = 5,
+				/obj/item/reagent_containers/food/snacks/chips = 5,
+				/obj/item/reagent_containers/food/snacks/sosjerky = 5,
+				/obj/item/reagent_containers/food/snacks/no_raisin = 5,
+				/obj/item/reagent_containers/food/snacks/pistachios = 5,
+				/obj/item/reagent_containers/food/snacks/spacetwinkie = 5,
+				/obj/item/reagent_containers/food/snacks/cheesiehonkers = 5,
+				/obj/item/reagent_containers/food/snacks/tastybread = 5,
+				/obj/item/storage/fancy/donut_box = 3,
+				/obj/item/reagent_containers/food/snacks/donut/chaos = 3,
+				/obj/item/reagent_containers/food/snacks/poppypretzel = 3,
+				/obj/item/reagent_containers/food/snacks/cookie = 3,
+				/obj/item/reagent_containers/food/snacks/appletart = 1,
+				/obj/item/reagent_containers/food/snacks/syndicake = 1,)
+
+/obj/effect/spawner/lootdrop/cigarette_pack
+	name = "cigarette pack spawner"
+	icon_state = "cigarettes"
+	loot = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 8,
+				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
+				/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,
+				/obj/item/storage/fancy/cigarettes/cigpack_carp = 2,
+				/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
+				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+				/obj/item/lighter/random = 4,
+				/obj/item/lighter/zippo = 3,
+				/obj/item/storage/box/matches = 1)

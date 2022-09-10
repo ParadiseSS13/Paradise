@@ -21,6 +21,9 @@
 /area/ruin/space/unpowered/no_grav/way_home
 	name = "\improper Salvation"
 
+/area/ruin/space/thelizardsgas
+	name = "\improper The Lizard's Gas"
+
 // Old tcommsat
 /area/ruin/space/tcommsat
 	name = "Telecommunications Satellite"
