@@ -3,9 +3,6 @@
 //						COMMON STEPS							//
 //////////////////////////////////////////////////////////////////
 
-/datum/surgery/intermediate/robotics
-	requires_bodypart = TRUE
-	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/proxy/robotics
 
@@ -69,6 +66,10 @@
 		return TRUE
 
 // Intermediate repair surgeries, for fixing up internal maladies mid-surgery.
+
+/datum/surgery/intermediate/robotics
+	requires_bodypart = TRUE
+	requires_organic_bodypart = FALSE
 
 /datum/surgery/intermediate/robotics/repair
 	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
@@ -456,7 +457,6 @@
 	var/obj/item/organ/internal/I
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	..()
 	var/list/organs = target.get_organs_zone(target_zone)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected && affected.is_robotic()))
