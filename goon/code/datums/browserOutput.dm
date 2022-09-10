@@ -66,7 +66,7 @@ var/list/chatResources = list(
 
 	for(var/attempts in 1 to 5)
 		for(var/asset in global.chatResources)
-			owner << browse_rsc(file(asset))
+			owner << browse_rsc(wrap_file(asset))
 
 		for(var/subattempts in 1 to 3)
 			owner << browse(file2text("goon/browserassets/html/browserOutput.html"), "window=browseroutput")
