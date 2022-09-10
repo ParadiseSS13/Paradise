@@ -209,7 +209,7 @@
 
 	var/mob/living/simple_animal/bot/secbot/active_bot = locateUID(active_uid)
 
-	if(active_bot)
+	if(active_bot && !QDELETED(active_bot))
 		beepskyData["active"] = active_bot ? sanitize(active_bot.name) : null
 		has_back = !!active_bot
 		if(active_bot && !isnull(active_bot.mode))
@@ -256,14 +256,14 @@
 
 		if("stop", "go", "home")
 			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
-			if(active_bot)
+			if(active_bot && !QDELETED(active_bot))
 				active_bot.handle_command(usr, action)
 			else
 				active_uid = null
 
 		if("summon")
 			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
-			if(active_bot)
+			if(active_bot && !QDELETED(active_bot))
 				active_bot.handle_command(usr, "summon", list("target" = get_turf(usr), "useraccess" = usr.get_access()))
 			else
 				active_uid = null
@@ -282,7 +282,7 @@
 
 	var/mob/living/simple_animal/bot/mulebot/active_bot = locateUID(active_uid)
 
-	if(active_bot)
+	if(active_bot && !QDELETED(active_bot))
 		muleData["active"] = active_bot ? sanitize(active_bot.name) : null
 		has_back = !!active_bot
 		if(active_bot && !isnull(active_bot.mode))
@@ -332,14 +332,14 @@
 
 		if("stop", "start", "home", "unload", "target")
 			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
-			if(active_bot)
+			if(active_bot && !QDELETED(active_bot))
 				active_bot.handle_command(usr, action)
 			else
 				active_uid = null
 
 		if("set_auto_return", "set_pickup_type")
 			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
-			if(active_bot)
+			if(active_bot && !QDELETED(active_bot))
 				active_bot.handle_command(usr, action, params)
 			else
 				active_uid = null
