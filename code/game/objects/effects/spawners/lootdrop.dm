@@ -1,7 +1,6 @@
 /obj/effect/spawner/lootdrop
 	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "questionmark"
-	color = "#00FF00"
 	var/lootcount = 1		//how many items will be spawned
 	var/lootdoubles = TRUE		//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
@@ -190,8 +189,6 @@
 /obj/effect/spawner/lootdrop/trade_sol/
 	name = "trader item spawner"
 	lootcount = 6
-	color = "#00FFFF"
-
 
 /obj/effect/spawner/lootdrop/trade_sol/civ
 	name = "1. civilian gear"
