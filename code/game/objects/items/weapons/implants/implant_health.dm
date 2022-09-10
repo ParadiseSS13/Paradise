@@ -12,3 +12,12 @@
 	else
 		healthstring = "[round(imp_in.getOxyLoss())] - [round(imp_in.getFireLoss())] - [round(imp_in.getToxLoss())] - [round(imp_in.getBruteLoss())]"
 	return healthstring
+
+/obj/item/implanter/health
+	name = "implanter (health)"
+	implant_type = /obj/item/implant/health
+
+/obj/item/implantcase/health
+	name = "implant case - 'Health'"
+	desc = "A glass case containing a health implant."
+	implant_type = /obj/item/implant/health

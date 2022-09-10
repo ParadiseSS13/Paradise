@@ -21,15 +21,9 @@
 
 /obj/item/implanter/krav_maga
 	name = "implanter (krav maga)"
-
-/obj/item/implanter/krav_maga/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/krav_maga(src)
+	implant_type = /obj/item/implant/krav_maga
 
 /obj/item/implantcase/krav_maga
 	name = "implant case - 'Krav Maga'"
 	desc = "A glass case containing an implant that can teach the user the art of Krav Maga."
-
-/obj/item/implantcase/krav_maga/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/krav_maga(src)
+	implant_type = /obj/item/implant/krav_maga
