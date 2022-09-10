@@ -692,6 +692,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ptypes += "Floor Cluwne"
 		ptypes += "Shamebrero"
 		ptypes += "Dust"
+		ptypes += "Shitcurity Goblin"
 	var/punishment = input("How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 	if(!(punishment in ptypes))
 		return
@@ -806,6 +807,11 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		if("Dust")
 			H.dust()
 			logmsg = "dust"
+		if("Shitcurity Goblin")
+			var/turf/T = get_turf(M)
+			var/mob/living/simple_animal/hostile/shitcur_goblin/goblin = new (T)
+			goblin.GiveTarget(M)
+			logmsg = "shitcurity goblin"
 	if(logmsg)
 		log_admin("[key_name(usr)] smited [key_name(M)] with: [logmsg]")
 		message_admins("[key_name_admin(usr)] smited [key_name_admin(M)] with: [logmsg]")

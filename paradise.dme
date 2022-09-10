@@ -2075,6 +2075,7 @@
 #include "code\modules\mob\living\simple_animal\hostile\netherworld.dm"
 #include "code\modules\mob\living\simple_animal\hostile\pirate.dm"
 #include "code\modules\mob\living\simple_animal\hostile\russian.dm"
+#include "code\modules\mob\living\simple_animal\hostile\shitcur_goblin.dm"
 #include "code\modules\mob\living\simple_animal\hostile\skeleton.dm"
 #include "code\modules\mob\living\simple_animal\hostile\spaceworms.dm"
 #include "code\modules\mob\living\simple_animal\hostile\statue.dm"
