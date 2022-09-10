@@ -58,18 +58,7 @@
 	cleaner.post_clean(T, user, cleaner)
 
 /atom/proc/can_clean() //For determining if a cleaning object can actually remove decals
-	return TRUE
+	return FALSE
 
 /atom/proc/post_clean(atom/target, mob/user, atom/cleaner) //For object-specifc behaviors after cleaning, such as mops making floors slippery
 	return
-
-/atom/proc/iscleaner(obj/C) //All objects that use the above procs (Lusty Xenomorph Maid is not an object, sorry!)
-	var/list/cleaning_items = list(
-		/obj/item/soap,
-		/obj/item/mop,
-		/obj/item/reagent_containers/glass/rag
-	)
-	for(var/thing in cleaning_items)
-		if(istype(C, thing))
-			return TRUE
-	return FALSE

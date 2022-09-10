@@ -37,3 +37,6 @@
 	if(!proximity || ishuman(target)) //Human check so we don't clean the person we're trying to ether
 		return
 	cleaning_act(target, user, src, wipespeed)
+
+/obj/item/reagent_containers/glass/rag/can_clean()
+	return TRUE

@@ -182,3 +182,6 @@
 		return TRUE
 	cleaning_act(target, src, src, cleanspeed) //LXM is both the user and the cleaning implement itself. Wow!
 
+/mob/living/simple_animal/hostile/alien/maid/can_clean()
+	return TRUE
+

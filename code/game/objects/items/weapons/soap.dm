@@ -35,6 +35,9 @@
 		return
 	..()
 
+/obj/item/soap/can_clean()
+	return TRUE
+
 /obj/item/soap/nanotrasen
 	desc = "A Nanotrasen brand bar of soap. Smells of plasma."
 	icon_state = "soapnt"
