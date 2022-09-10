@@ -579,7 +579,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "REINF"
 	item = /obj/item/antag_spawner/nuke_ops
 	refund_path = /obj/item/antag_spawner/nuke_ops
-	cost = 25
+	cost = 20
 	refundable = TRUE
 	cant_discount = TRUE
 
