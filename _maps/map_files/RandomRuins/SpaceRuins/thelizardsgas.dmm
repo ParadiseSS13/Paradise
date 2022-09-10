@@ -42,7 +42,7 @@
 	},
 /area/ruin/space/thelizardsgas)
 "im" = (
-/mob/living/simple_animal/lizard{
+/mob/living/simple_animal/lizard/space{
 	name = "Blarpo";
 	desc = "How are you ALIVE?"
 	},
@@ -65,10 +65,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/thelizardsgas)
 "iW" = (
-/obj/item/stack/spacecash/c1000,
-/obj/item/toy/plushie/lizardplushie{
-	name = "Zingo"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/ruin/space/thelizardsgas)
 "jc" = (
@@ -76,9 +73,22 @@
 /area/ruin/space/thelizardsgas)
 "kt" = (
 /obj/structure/table/reinforced,
-/obj/item/gps,
+/obj/item/gps{
+	tracking = 0;
+	gpstag = "LIZZ"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
+	},
+/area/ruin/space/thelizardsgas)
+"ku" = (
+/obj/structure/rack{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/cigarette_pack,
+/obj/effect/spawner/lootdrop/cigarette_pack,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
 /area/ruin/space/thelizardsgas)
 "kJ" = (
@@ -242,7 +252,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 24;
-	name = "Gas station APC"
+	start_charge = 0
 	},
 /obj/machinery/light{
 	dir = 8
@@ -289,6 +299,9 @@
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
 /area/ruin/space/thelizardsgas)
+"zF" = (
+/turf/simulated/mineral,
+/area/template_noop)
 "zU" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -305,11 +318,16 @@
 	dir = 6
 	},
 /obj/machinery/suit_storage_unit/security,
+/obj/structure/sign/electricshock{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/thelizardsgas)
 "Aq" = (
 /obj/machinery/alarm/monitor{
-	pixel_y = 24
+	pixel_y = 24;
+	req_one_access = null;
+	locked = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -327,13 +345,12 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/thelizardsgas)
 "DR" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden/yellow,
+/obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/template_noop)
 "DZ" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on,
+/obj/machinery/atmospherics/unary/vent_pump/siphon,
 /turf/simulated/floor/engine/plasma,
 /area/ruin/space/thelizardsgas)
 "Ee" = (
@@ -485,12 +502,17 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/power/terminal{
-	dir = 1
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/power/terminal{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/thelizardsgas)
@@ -542,7 +564,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes{
+	charge = 2e6;
+	output_level = 0
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/thelizardsgas)
 "TC" = (
@@ -550,16 +579,16 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/thelizardsgas)
 "TV" = (
-/obj/structure/rack{
-	dir = 4
-	},
 /obj/structure/sign/poster/fluff/lizards_gas_payment{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/cigarette_pack,
-/obj/effect/spawner/lootdrop/cigarette_pack,
-/obj/effect/spawner/lootdrop/cigarette_pack,
-/obj/effect/spawner/lootdrop/cigarette_pack,
+/obj/structure/closet,
+/obj/item/stack/spacecash/c1000,
+/obj/item/stack/spacecash/c1000,
+/obj/item/stack/spacecash/c1000,
+/obj/item/toy/plushie/lizardplushie{
+	name = "Zingo"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -602,7 +631,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Zk" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating,
 /area/ruin/space/thelizardsgas)
 "ZG" = (
@@ -650,9 +679,9 @@ wZ
 wZ
 wZ
 wZ
-wZ
-wZ
-wZ
+xC
+xC
+xC
 wZ
 wZ
 wZ
@@ -737,9 +766,9 @@ xp
 Bc
 tn
 iV
-tC
+iW
 tn
-jc
+xC
 jc
 wZ
 wZ
@@ -764,9 +793,9 @@ kJ
 Bc
 Bc
 tn
-Zk
+tC
 tn
-xC
+tn
 jc
 wZ
 Tc
@@ -788,12 +817,12 @@ TV
 lc
 kt
 kJ
-PC
+ku
 Bc
 TC
 tC
+Zk
 tn
-xC
 jc
 wZ
 Za
@@ -815,7 +844,7 @@ sJ
 sJ
 sJ
 kJ
-PC
+ku
 Bc
 tn
 tn
@@ -1009,7 +1038,7 @@ PC
 Bc
 NV
 jc
-jc
+uf
 wZ
 wZ
 wZ
@@ -1037,7 +1066,7 @@ Bc
 NV
 jc
 jc
-uf
+jc
 wZ
 wZ
 wZ
@@ -1076,12 +1105,12 @@ wZ
 "}
 (18,1,1) = {"
 wZ
+wZ
 xC
 xC
-xC
+jc
+jc
 ZG
-tn
-iW
 tn
 QP
 Bc
@@ -1092,7 +1121,7 @@ tn
 xC
 jc
 kR
-jc
+uf
 wZ
 wZ
 wZ
@@ -1104,11 +1133,11 @@ wZ
 (19,1,1) = {"
 wZ
 xC
+xC
 jc
 jc
 jc
-tn
-tn
+jc
 tn
 lj
 Bc
@@ -1131,7 +1160,7 @@ wZ
 (20,1,1) = {"
 wZ
 xC
-jc
+xC
 jc
 FK
 jc
@@ -1189,7 +1218,7 @@ wZ
 jc
 GZ
 jc
-xC
+jc
 xC
 xC
 xC
@@ -1219,9 +1248,9 @@ wZ
 wZ
 wZ
 wZ
-wZ
-wZ
-wZ
+zF
+zF
+zF
 wZ
 wZ
 wZ
