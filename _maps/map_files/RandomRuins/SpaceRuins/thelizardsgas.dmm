@@ -99,7 +99,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1220;
 	name = "Gas Station Monitor";
-	sensors = slist("gas_station"="Gas Supply");
+	sensors = list("gas_station"="Gas Supply");
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{

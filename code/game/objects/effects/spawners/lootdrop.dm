@@ -391,7 +391,6 @@
 
 /obj/effect/spawner/lootdrop/three_course_meal
 	name = "three course meal spawner"
-	icon_state = "soup"
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
@@ -416,7 +415,6 @@
 
 /obj/effect/spawner/lootdrop/snacks
 	name = "snacks spawner"
-	icon_state = "chips"
 	lootcount = 2
 	lootdoubles = FALSE
 	loot = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 5,
@@ -438,7 +436,6 @@
 
 /obj/effect/spawner/lootdrop/cigarette_pack
 	name = "cigarette pack spawner"
-	icon_state = "cigarettes"
 	loot = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 8,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
@@ -449,6 +446,6 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
-				/obj/item/lighter/random = 4,
-				/obj/item/lighter/zippo = 3,
-				/obj/item/storage/box/matches = 1)
+				/obj/item/lighter/random = 8,
+				/obj/item/lighter/zippo = 6,
+				/obj/item/storage/box/matches = 3)
