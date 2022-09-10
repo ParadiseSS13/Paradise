@@ -120,7 +120,7 @@
 
 	// if we didn't set our next surgery (defined by the tool in use), check to see if a catch-all like accept hand or any item work
 	if(!next_surgery)
-		if(SURGERY_TOOL_ANY in starting_tools && tool)
+		if((SURGERY_TOOL_ANY in starting_tools) && tool)
 			next_surgery = possible_any_surgery
 
 

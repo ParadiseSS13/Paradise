@@ -51,7 +51,7 @@
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
-		/datum/surgery_step/proxy/cavity_manipulation,
+		/datum/surgery_step/proxy/cavity_manipulation/robotic,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN)
@@ -215,6 +215,13 @@
 
 	insert_self_after = TRUE
 
+/datum/surgery_step/proxy/cavity_manipulation/robotic
+	name = "Robotic Cavity Manipulation (proxy)"
+	branches = list(
+		/datum/surgery/intermediate/open_cavity/implant/robotic,
+		/datum/surgery/intermediate/open_cavity/extract/robotic
+	)
+
 /datum/surgery/intermediate/open_cavity
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 
@@ -230,11 +237,15 @@
 		/datum/surgery_step/cavity/remove_item
 	)
 
+/datum/surgery/intermediate/open_cavity/implant/robotic
+	requires_organic_bodypart = FALSE
+
+/datum/surgery/intermediate/open_cavity/extract/robotic
+	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/cavity/place_item
 	name = "implant object"
 	accept_any_item = TRUE
-	allowed_tools = list(/obj/item = 100)
 
 	time = 3.2 SECONDS
 
