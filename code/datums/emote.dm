@@ -208,7 +208,7 @@
 			for(var/mob/dead/observer/ghost in viewers(user))
 				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE)
 
-		else if(emote_type & EMOTE_VISIBLE || user.mind?.miming)
+		else if(emote_type & (EMOTE_AUDIBLE | EMOTE_SOUND) && !user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
 		else
 			user.visible_message(displayed_msg, blind_message = "<span class='emote'>You hear how someone [msg]</span>")
@@ -586,6 +586,28 @@
 	if(copytext(msg, -1) in end_punctuation)
 		msg = copytext(msg, 1, -1)
 	return msg
+
+/**
+ * Pass the emote message to all hearers in range.
+ * This is shamelessly stolen from mob/audible message, and is used to find people (or objects) that would be able to hear a message
+ * that might otherwise not be sent audibly (like sound emotes with a visible portion).
+ *
+ * Arguments:
+ * * user - mob who is emitting the sound
+ * * msg - message to send out to listeners.
+ */
+/datum/emote/proc/find_hearers(mob/user, msg)
+	var/list/listening_obj = list()
+	for(var/atom/movable/A in view(7, user))
+		if(istype(A, /mob))
+			var/mob/M = A
+			for(var/obj/O in M.contents)
+				listening_obj |= O
+		else if(istype(A, /obj))
+			var/obj/O = A
+			listening_obj |= O
+	for(var/obj/O in listening_obj)
+		O.hear_message(user, msg)
 
 /**
 * Allows the intrepid coder to send a basic emote
