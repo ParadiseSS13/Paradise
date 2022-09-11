@@ -32,7 +32,7 @@
 	var/drying = FALSE
 	/// Whether the fridge's contents are visible on the world icon.
 	var/visible_contents = TRUE
-	/// Whether the fridge is electric and thus silicon crontrollable.
+	/// Whether the fridge is electric and thus silicon controllable.
 	var/silicon_controllable = TRUE
 	/// The wires controlling the fridge.
 	var/datum/wires/smartfridge/wires
