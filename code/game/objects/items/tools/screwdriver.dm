@@ -53,7 +53,7 @@
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		M = user
-	return eyestab(M,user)
+	return eyestab(M, user)
 
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"
