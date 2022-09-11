@@ -18,6 +18,10 @@
 /proc/isscrewdriver(O)
 	if(istype(O, /obj/item/screwdriver))
 		return TRUE
+	if(istype(O, /obj/item/pen/screwdriver))
+		var/obj/item/pen/screwdriver/S = O
+		if(S.extended)
+			return TRUE
 	return FALSE
 
 /proc/ismultitool(O)
