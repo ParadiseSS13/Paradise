@@ -60,7 +60,7 @@
 
 /// Check whether or not this door can close, based on whether or not someone's standing in front of it holding it open
 /obj/machinery/door/window/proc/check_close()
-	var/mob/living/blocker = get_turf(get_step(src, dir))  // check the facing turf
+	var/mob/living/blocker = locate(/mob/living) in get_turf(get_step(src, dir))  // check the facing turf
 	if(!blocker)
 		blocker = locate(/mob/living) in get_turf(src)
 	if(blocker && !blocker.stat)
