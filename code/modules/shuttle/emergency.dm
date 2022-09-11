@@ -29,9 +29,9 @@
 		. += "Security systems present on console. Any unauthorized tampering will result in an emergency announcement, and a fee of 20000 credits."
 	if(user?.mind?.get_hijack_speed())
 		. += "<span class='danger'>Alt click on this to attempt to hijack the shuttle. This will take multiple tries (current: stage [SSshuttle.emergency.hijack_status]/[HIJACKED]).</span>"
-		. += "<span class='danger'>It will take you [user.mind.get_hijack_speed()/ 10] seconds to reprogram a stage of the shuttle's navigational firmware, and the console will undergo automated timed lockout for [hijack_stage_cooldown/10] seconds after each stage.</span>"
+		. += "<span class='danger'>It will take you [user.mind.get_hijack_speed() / 10] seconds to reprogram a stage of the shuttle's navigational firmware, and the console will undergo automated timed lockout for [hijack_stage_cooldown / 10] seconds after each stage.</span>"
 		if(hijack_announce)
-			. += "<span class='warning'>It is probably best to fortify your position as to be uninterrupted during the attempt, given the automatic announcements..</span>"
+			. += "<span class='warning'>It is probably best to fortify your position as to be uninterrupted during the attempt, given the automatic announcements...</span>"
 
 /obj/machinery/computer/emergency_shuttle/attackby(obj/item/card/W, mob/user, params)
 	if(stat & (BROKEN|NOPOWER))
@@ -138,7 +138,7 @@
 		atom_say("Error - Catastrophic software error detected. Input is currently on timeout.")
 		return
 	hijack_hacking = TRUE
-	to_chat(user, "<span class='userdanger'>You [SSshuttle.emergency.hijack_status == NOT_BEGUN? "begin" : "continue"] to override [src]'s navigational protocols.</span>")
+	to_chat(user, "<span class='userdanger'>You [SSshuttle.emergency.hijack_status == NOT_BEGUN ? "begin" : "continue"] to override [src]'s navigational protocols.</span>")
 	atom_say("Software override initiated.")
 	playsound(src, 'sound/machines/terminal_on.ogg', 100, FALSE)
 	var/turf/console_hijack_turf = get_turf(src)
@@ -150,7 +150,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] has hijacked [src] in [ADMIN_VERBOSEJMP(console_hijack_turf)]. Hijack stage increased to stage [SSshuttle.emergency.hijack_status] out of [HIJACKED].")
 		log_game("[key_name(usr)] has hijacked [src]. Hijack stage increased to stage [SSshuttle.emergency.hijack_status] out of [HIJACKED].")
 		. = TRUE
-		to_chat(user, "<span class='notice'>You reprogram some of [src]'s programming, putting it on timeout for [hijack_stage_cooldown/10] seconds.</span>")
+		to_chat(user, "<span class='notice'>You fiddle with [src]'s programming and manage to get a foothold, looks like it'll take [hijack_stage_cooldown / 10] seconds before you can try again!</span>")
 		visible_message("<span class='warning'>[user.name] appears to be tampering with [src].</span>")
 	hijack_hacking = FALSE
 
@@ -176,7 +176,7 @@
 			([Gibberish("#######", 100, 90)]/[Gibberish("#######", 100, 90)]/[Gibberish("#######", 100, 90)]) \
 			{AUTH - ROOT (uid: 0)}. <br>\
 			[SSshuttle.emergency.mode == SHUTTLE_ESCAPE ? "Diverting from existing route - Bluespace exit in <br>\
-			[hijack_completion_flight_time_set >= INFINITY ? "[Gibberish("\[ERROR\]", 50, 50)]" : hijack_completion_flight_time_set/10] seconds." : ""]"
+			[hijack_completion_flight_time_set >= INFINITY ? "[Gibberish("\[ERROR\]", 50, 50)]" : hijack_completion_flight_time_set / 10] seconds." : ""]"
 	announce_here("SYSTEM ERROR", Gibberish(msg, 70, rand(3,6)))
 
 
