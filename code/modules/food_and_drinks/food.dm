@@ -15,7 +15,7 @@
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 	var/can_taste = TRUE//whether you can taste eating from this
 	var/antable = TRUE // Will ants come near it?
-	var/ant_location = null
+	var/ant_location = null // location checked every 5 minutes, if its the same the food has a chance to spawn ants
 	/// Time we last checked for ants
 	var/last_ant_time = 0
 	resistance_flags = FLAMMABLE
@@ -48,14 +48,11 @@
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	var/turf/T = get_turf(src)
-	if((locate(/obj/structure/table) in T) || (locate(/obj/structure/rack) in T))
-		last_ant_time = world.time
-		return
-	if(!isturf(loc))
+	if((locate(/obj/structure/table) in T) || (locate(/obj/structure/rack) in T) || !isturf(loc))
 		last_ant_time = world.time
 		return
 
-	if(ant_location == T)
+	if(ant_location == T) //It must have been on the same floor since at least the last check_for_ants()
 		if(prob(15))
 			if(!locate(/obj/effect/decal/cleanable/ants) in T)
 				new /obj/effect/decal/cleanable/ants(T)
