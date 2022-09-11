@@ -588,28 +588,6 @@
 	return msg
 
 /**
- * Pass the emote message to all hearers in range.
- * This is shamelessly stolen from mob/audible message, and is used to find people (or objects) that would be able to hear a message
- * that might otherwise not be sent audibly (like sound emotes with a visible portion).
- *
- * Arguments:
- * * user - mob who is emitting the sound
- * * msg - message to send out to listeners.
- */
-/datum/emote/proc/find_hearers(mob/user, msg)
-	var/list/listening_obj = list()
-	for(var/atom/movable/A in view(7, user))
-		if(istype(A, /mob))
-			var/mob/M = A
-			for(var/obj/O in M.contents)
-				listening_obj |= O
-		else if(istype(A, /obj))
-			var/obj/O = A
-			listening_obj |= O
-	for(var/obj/O in listening_obj)
-		O.hear_message(user, msg)
-
-/**
 * Allows the intrepid coder to send a basic emote
 * Takes text as input, sends it out to those who need to know after some light parsing
 * If you need something more complex, make it into a datum emote
