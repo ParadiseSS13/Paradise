@@ -7,7 +7,9 @@
 /turf/simulated/floor/engine/plasma,
 /area/ruin/space/thelizardsgas)
 "co" = (
-/obj/structure/closet/secure_closet/freezer/meat,
+/obj/structure/closet/secure_closet/freezer/meat{
+	locked = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -252,7 +254,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 24;
-	start_charge = 0
+	start_charge = 0;
+	locked = 0
 	},
 /obj/machinery/light{
 	dir = 8
@@ -299,9 +302,6 @@
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
 /area/ruin/space/thelizardsgas)
-"zF" = (
-/turf/simulated/mineral,
-/area/template_noop)
 "zU" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1248,9 +1248,9 @@ wZ
 wZ
 wZ
 wZ
-zF
-zF
-zF
+xC
+xC
+xC
 wZ
 wZ
 wZ
