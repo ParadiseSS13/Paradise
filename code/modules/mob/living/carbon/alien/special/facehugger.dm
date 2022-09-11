@@ -105,9 +105,8 @@
 	if(attached)
 		return FALSE
 	else
-		attached++
-		spawn(impregnation_time)
-			attached = 0
+		attached = TRUE
+		addtimer(VARSET_CALLBACK(src, attached, FALSE), impregnation_time)
 	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
 		return FALSE
 	if(loc == M)
@@ -146,13 +145,11 @@
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
 			M.EyeBlind(impregnation_time + 2 SECONDS)
-			flags = NODROP //You can't take it off until it dies... or figures out you're an IPC.
+			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
 
 	GoIdle() //so it doesn't jump the people that tear it off
 
-	spawn(impregnation_time)
-		Impregnate(M)
-
+	addtimer(CALLBACK(src, .proc/Impregnate, M), impregnation_time)
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
@@ -167,14 +164,14 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(!H.check_has_mouth())
-			flags -= NODROP
+			flags &= ~NODROP
 			return
 
 	if(!sterile)
 		//target.contract_disease(new /datum/disease/alien_embryo(0)) //so infection chance is same as virus infection chance
 		target.visible_message("<span class='danger'>[src] falls limp after violating [target]'s face!</span>", \
 								"<span class='userdanger'>[src] falls limp after violating [target]'s face!</span>")
-		flags -= NODROP
+		flags &= ~NODROP
 		Die()
 		icon_state = "[initial(icon_state)]_impregnated"
 
@@ -197,10 +194,7 @@
 
 	stat = UNCONSCIOUS
 	icon_state = "[initial(icon_state)]_inactive"
-
-	spawn(rand(min_active_time,max_active_time))
-		GoActive()
-	return
+	addtimer(CALLBACK(src, .proc/GoActive), rand(min_active_time,max_active_time))
 
 /obj/item/clothing/mask/facehugger/proc/Die()
 	if(stat == DEAD)
