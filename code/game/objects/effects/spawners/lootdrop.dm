@@ -105,6 +105,7 @@
 				/obj/item/hand_labeler = 10,
 				/obj/item/paper/crumpled = 10,
 				/obj/item/pen = 10,
+				/obj/item/pen/screwdriver = 15,
 				/obj/item/cultivator = 10,
 				/obj/item/reagent_containers/spray/pestspray = 10,
 				/obj/item/stock_parts/cell = 30,

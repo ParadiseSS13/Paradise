@@ -300,11 +300,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 		var/obj/item/pen/O = locate() in src
 		if(O)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
-		else
-			user.drop_item()
-			C.forceMove(src)
-			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
-			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+			return
+		if(C.w_class > WEIGHT_CLASS_TINY)
+			to_chat(user, "<span class='warning'>[C] doesnt fit!</span>")
+			return
+		user.drop_item()
+		C.forceMove(src)
+		to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/nanomob_card))
 		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
 			cartridge.attackby(C, user, params)

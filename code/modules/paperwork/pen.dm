@@ -204,3 +204,55 @@
 		to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
 	else
 		to_chat(user, "<span class='warning'>[src] clicks. It seems to be depleted.</span>")
+
+/*
+ * Screwdriver pen
+ */
+/obj/item/pen/screwdriver
+	name = "screwdriver pen"
+	desc = "A pen with an extendable screwdriver. It seems somewhat flimsy."
+	icon_state = "pen_screwdriver"
+	toolspeed = 1.2  // max screwdriver time is for rewinding a tape: 12 seconds * 1.2 of toolspeed = 14.4 seconds, about 2.4 added seconds at most
+	usesound = 'sound/items/screwdriver.ogg'
+	var/extended = FALSE
+	var/extend_sound = 'sound/weapons/batonextend.ogg'
+
+/obj/item/pen/screwdriver/attack_self(mob/living/user)
+	if(extended)
+		w_class = initial(w_class)
+		tool_behaviour = initial(tool_behaviour)
+		force = initial(force)
+		throwforce = initial(throwforce)
+		throw_speed = initial(throw_speed)
+		throw_range = initial(throw_range)
+		hitsound = initial(hitsound)
+		attack_verb = list()
+		to_chat(user, "<span class='notice'>You retract the screwdriver into the pen.</span>")
+	else
+		tool_behaviour = TOOL_SCREWDRIVER
+		w_class = WEIGHT_CLASS_SMALL  // still can fit in pocket, but not a PDA
+		force = 4 // Just a bit less damage than a REAL screwdriver
+		throwforce = 5
+		throw_speed = 3
+		throw_range = 5
+		hitsound = 'sound/weapons/bladeslice.ogg'
+		attack_verb = list("stabbed")
+		to_chat(user, "<span class='notice'>You extend the screwdriver from the pen.</span>")
+	extended = !extended
+	playsound(loc, extend_sound, 30, TRUE)
+	update_icon()
+
+/obj/item/pen/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(!istype(M) || user.a_intent == INTENT_HELP) // shamelessly stolen eyestab checking code from screwdriver.dm
+		return ..()
+	if(user.zone_selected != "eyes" && user.zone_selected != "head")
+		return ..()
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		M = user
+	return eyestab(M,user)
+
+/obj/item/pen/screwdriver/update_icon_state()
+	if(extended)
+		icon_state = "pen_screwdriver-extended"
+	else
+		icon_state = initial(icon_state)
