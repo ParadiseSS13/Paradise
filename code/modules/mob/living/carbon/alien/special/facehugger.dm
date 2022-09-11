@@ -18,10 +18,11 @@
 	var/sterile = FALSE
 	var/real = TRUE //0 for the toy, 1 for real. Sure I could istype, but fuck that.
 	var/strength = 5
-	var/attached = 0
+	var/attached = FALSE
 	var/impregnation_time = 12 SECONDS //Time it takes for facehugger to deposit its eggs and die.
-	var/min_active_time = 200 //time between being dropped and going idle
-	var/max_active_time = 400
+	///Time it takes for a facehugger to become active again after going idle.
+	var/min_active_time = 20 SECONDS
+	var/max_active_time = 40 SECONDS
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
@@ -194,7 +195,7 @@
 
 	stat = UNCONSCIOUS
 	icon_state = "[initial(icon_state)]_inactive"
-	addtimer(CALLBACK(src, .proc/GoActive), rand(min_active_time,max_active_time))
+	addtimer(CALLBACK(src, .proc/GoActive), rand(min_active_time, max_active_time))
 
 /obj/item/clothing/mask/facehugger/proc/Die()
 	if(stat == DEAD)
