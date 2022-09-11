@@ -370,6 +370,7 @@ a {
 /obj/proc/set_sharpness(new_sharp_val)
 	if(sharp == new_sharp_val)
 		return
+	sharp = new_sharp_val
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
 	if(!sharp && new_sharp_val)
 		AddComponent(/datum/component/surgery_initiator)

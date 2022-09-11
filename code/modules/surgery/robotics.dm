@@ -242,12 +242,14 @@
 		return SURGERY_BEGINSTEP_SKIP
 	if(!istype(C))
 		return SURGERY_BEGINSTEP_SKIP
-	if(!C.get_amount() >= 3)
+	if(C.get_amount() < 3)
 		to_chat(user, "<span class='warning'>You need three or more cable pieces to repair this damage.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 	C.use(3)
-	user.visible_message("[user] begins to splice new cabling into [target]'s [affected.name]." , \
-	"You begin to splice new cabling into [target]'s [affected.name].")
+	user.visible_message(
+		"[user] begins to splice new cabling into [target]'s [affected.name].",
+		"You begin to splice new cabling into [target]'s [affected.name]."
+	)
 	return ..()
 
 

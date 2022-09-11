@@ -60,11 +60,11 @@
 		new_surgery.steps.Add(src)
 		branches_init.Add(new branch_type())
 
-	. = ..()
+	..()
 
 /datum/surgery_step/proxy/Destroy(force, ...)
 	QDEL_LIST(branches_init)
-	. = ..()
+	return ..()
 
 /datum/surgery_step/proxy/get_step_information(datum/surgery/surgery)
 	var/datum/surgery_step/cur = surgery.get_surgery_next_step()
@@ -213,6 +213,8 @@
 
 /datum/surgery/intermediate/bleeding/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
+	if(!.)
+		return FALSE
 	var/mob/living/carbon/human/H = target
 	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 	if(affected.status & ORGAN_INT_BLEEDING)
@@ -232,6 +234,8 @@
 
 /datum/surgery/intermediate/mendbone/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
+	if(!.)
+		return FALSE
 	var/mob/living/carbon/human/H = target
 	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 	if(HAS_TRAIT(target, TRAIT_NO_BONES))

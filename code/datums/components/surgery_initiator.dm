@@ -52,6 +52,7 @@
 	var/obj/item/P = parent
 	if(!P.sharp)
 		RemoveComponent()
+		qdel(src)
 
 /// Does the surgery initiation.
 /datum/component/surgery_initiator/proc/initiate_surgery_moment(datum/source, atom/target, mob/user)
