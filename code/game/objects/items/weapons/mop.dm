@@ -43,7 +43,7 @@
 	if(reagents.total_volume < 1)
 		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
 		return
-	cleaning_act(A, user, src, mopspeed, text1= "begins to mop", text2 = ".", text3 = "finish mopping")
+	cleaning_act(A, user, src, mopspeed, text1= "mop", text2 = ".", text3 = "finish mopping")
 
 /obj/item/mop/can_clean()
 	if(reagents.has_reagent("water", 0) && reagents.has_reagent("cleaner", 0) && reagents.has_reagent("holywater", 0))
