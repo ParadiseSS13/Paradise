@@ -172,25 +172,38 @@
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
-		)
+	)
 
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket
 	name = "captain's jacket"
 	desc = "A less formal jacket for everyday captain use."
 	icon_state = "captain_jacket"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	armor = list(MELEE = 40, BULLET = 20, LASER = 25, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = 450)
 	flags_inv = HIDEJUMPSUIT
 
-/obj/item/clothing/suit/armor/vest/capcarapace/jacket/formal
+/obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic
+	name = "captain's tunic"
+	desc = "Worn by a Captain to show their class."
+	icon_state = "captain_tunic"
+
+/obj/item/clothing/suit/armor/vest/capcarapace/coat
 	name = "captain's formal coat"
 	desc = "For when an armored vest isn't fashionable enough."
 	icon_state = "captain_formal"
+	armor = list(MELEE = 35, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = 450)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
-/obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic/white
-	name = "captain's white tunic"
-	desc = "Worn by a Captain to show their class. And their affinity for easily stainable wear."
-	icon_state = "captain_tunic_white"
+/obj/item/clothing/suit/armor/vest/capcarapace/coat/white
+	name = "captain's long white tunic"
+	desc = "An old style captain tunic. Makes you look and feel like you're wearing a cardboard box with arm holes cut in it but looks like it would be great for a wedding... or a funeral."
+	icon_state = "captain_white"
+
+	sprite_sheets = list( //Drask look fine in the regular human version
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/riot
 	name = "riot suit"
