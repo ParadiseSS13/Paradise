@@ -19,7 +19,7 @@
 	var/real = TRUE //0 for the toy, 1 for real. Sure I could istype, but fuck that.
 	var/strength = 5
 	var/attached = 0
-	var/impregnation_time = 150 //Time it takes for facehugger to deposit its eggs and die.
+	var/impregnation_time = 12 SECONDS //Time it takes for facehugger to deposit its eggs and die.
 	var/min_active_time = 200 //time between being dropped and going idle
 	var/max_active_time = 400
 
@@ -144,8 +144,8 @@
 		src.loc = target
 		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
 		if(!sterile)
-			M.KnockDown(impregnation_time + 10)
-			M.EyeBlind(impregnation_time + 10)
+			M.KnockDown(impregnation_time + 2 SECONDS)
+			M.EyeBlind(impregnation_time + 2 SECONDS)
 			flags = NODROP //You can't take it off until it dies... or figures out you're an IPC.
 
 	GoIdle() //so it doesn't jump the people that tear it off
