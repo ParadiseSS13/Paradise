@@ -121,12 +121,16 @@
 		attempt_hijack_stage(user)
 
 /obj/machinery/computer/emergency_shuttle/proc/attempt_hijack_stage(mob/living/user)
-	if(!Adjacent(user) && !isAI(user))
+	var/is_ai = isAI(user)
+	if(!Adjacent(user) && !is_ai)
+		return
+	if(!ishuman(user) && !is_ai) //No, xenomorphs, constructs and traitors in cyborgs can not hack it.
 		return
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You need your hands free before you can manipulate [src].</span>")
 		return
-	if(!user?.mind?.get_hijack_speed())
+	var/speed = user?.mind?.get_hijack_speed()
+	if(!speed)
 		to_chat(user, "<span class='warning'>You manage to open a user-mode shell on [src], and hundreds of lines of debugging output fly through your vision. It is probably best to leave this alone.</span>")
 		return
 	if(hijack_hacking == TRUE)
@@ -135,7 +139,7 @@
 		to_chat(user, "<span class='warning'>The emergency shuttle is already loaded with a corrupt navigational payload. What more do you want from it?</span>")
 		return
 	if(hijack_last_stage_increase >= world.time - hijack_stage_cooldown)
-		atom_say("Error - Catastrophic software error detected. Input is currently on timeout.")
+		atom_say("ACCESS DENIED: Console is temporarily on security lockdown. Please try again.")
 		return
 	hijack_hacking = TRUE
 	to_chat(user, "<span class='userdanger'>You [SSshuttle.emergency.hijack_status == NOT_BEGUN ? "begin" : "continue"] to override [src]'s navigational protocols.</span>")
@@ -144,14 +148,14 @@
 	var/turf/console_hijack_turf = get_turf(src)
 	message_admins("[src] is being overriden for hijack by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(console_hijack_turf)]")
 	. = FALSE
-	if(do_after(user, user.mind.get_hijack_speed(), target = src))
+	if(do_after(user, speed, target = src))
 		increase_hijack_stage()
 		console_hijack_turf = get_turf(src)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has hijacked [src] in [ADMIN_VERBOSEJMP(console_hijack_turf)]. Hijack stage increased to stage [SSshuttle.emergency.hijack_status] out of [HIJACKED].")
 		log_game("[key_name(usr)] has hijacked [src]. Hijack stage increased to stage [SSshuttle.emergency.hijack_status] out of [HIJACKED].")
 		. = TRUE
 		to_chat(user, "<span class='notice'>You fiddle with [src]'s programming and manage to get a foothold, looks like it'll take [hijack_stage_cooldown / 10] seconds before you can try again!</span>")
-		visible_message("<span class='warning'>[user.name] appears to be tampering with [src].</span>")
+		visible_message("<span class='danger'>[user.name] appears to be tampering with [src].</span>")
 	hijack_hacking = FALSE
 
 /obj/machinery/computer/emergency_shuttle/proc/announce_hijack_stage()
@@ -181,16 +185,8 @@
 
 
 /obj/machinery/computer/emergency_shuttle/proc/announce_here(a_header = "Emergency Shuttle", a_text = "")
-	var/area/A = get_area(src)
 	var/msg_text = "<b><font size=4 color=red>[a_header]</font><br> <font size=3><span class='robot'>[a_text]</font size></font></b></span>"
-	var/list/receivers = list()
-	for(var/mob/M in GLOB.mob_list)
-		if(!M.ckey)
-			continue
-		var/turf/T = get_turf(M)
-		if(T && T.loc && T.loc == A)
-			receivers |= M
-	for(var/mob/R in receivers)
+	for(var/mob/R in range(35, src)) //Normal escape shutttle is 30 tiles from console to bottom. Extra range for if we ever get a bigger shuttle. Would do in shuttle area, doesn't account for mechs and such,
 		to_chat(R, msg_text)
 		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
 
