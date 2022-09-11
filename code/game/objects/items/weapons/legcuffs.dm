@@ -74,18 +74,21 @@
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You sneak [sig] underneath the pressure plate and connect the trigger wire.</span>")
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
-	if(istype(I, /obj/item/screwdriver))
-		if(IED)
-			IED.forceMove(get_turf(src))
-			IED = null
-			to_chat(user, "<span class='notice'>You remove the IED from [src].</span>")
-			return
-		if(sig)
-			sig.forceMove(get_turf(src))
-			sig = null
-			to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
-			return
 	..()
+
+/obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/living/user, obj/item/I)
+	if(!IED && !sig)
+		return
+
+	. = TRUE
+	if(IED)
+		IED.forceMove(get_turf(src))
+		IED = null
+		to_chat(user, "<span class='notice'>You remove the IED from [src].</span>")
+	if(sig)
+		sig.forceMove(get_turf(src))
+		sig = null
+		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
 
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
 	if(armed && isturf(src.loc))

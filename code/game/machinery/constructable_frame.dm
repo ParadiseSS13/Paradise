@@ -144,27 +144,6 @@
 				icon_state = "box_1"
 				return
 
-			if(istype(P, /obj/item/screwdriver))
-				var/component_check = 1
-				for(var/R in req_components)
-					if(req_components[R] > 0)
-						component_check = 0
-						break
-				if(component_check)
-					playsound(src.loc, P.usesound, 50, 1)
-					var/obj/machinery/new_machine = new src.circuit.build_path(src.loc)
-					new_machine.on_construction()
-					for(var/obj/O in new_machine.component_parts)
-						qdel(O)
-					new_machine.component_parts = list()
-					for(var/obj/O in src)
-						O.loc = null
-						new_machine.component_parts += O
-					circuit.loc = null
-					new_machine.RefreshParts()
-					qdel(src)
-				return
-
 			if(istype(P, /obj/item/storage/part_replacer) && P.contents.len && get_req_components_amt())
 				var/obj/item/storage/part_replacer/replacer = P
 				var/list/added_components = list()
@@ -219,6 +198,30 @@
 				return
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+/obj/machinery/constructable_frame/machine_frame/screwdriver_act(mob/living/user, obj/item/I)
+	if(state != 3)
+		return
+
+	. = TRUE
+	var/component_check = 1
+	for(var/R in req_components)
+		if(req_components[R] > 0)
+			component_check = 0
+			break
+	if(component_check)
+		playsound(loc, I.usesound, 50, 1)
+		var/obj/machinery/new_machine = new circuit.build_path(src.loc)
+		new_machine.on_construction()
+		for(var/obj/O in new_machine.component_parts)
+			qdel(O)
+		new_machine.component_parts = list()
+		for(var/obj/O in src)
+			O.loc = null
+			new_machine.component_parts += O
+		circuit.loc = null
+		new_machine.RefreshParts()
+		qdel(src)
 
 
 //Machine Frame Circuit Boards
