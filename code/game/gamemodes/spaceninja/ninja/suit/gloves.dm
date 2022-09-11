@@ -29,10 +29,9 @@
 	///Whether or not we're currently draining something
 	var/draining = FALSE
 	///Minimum amount of power we can drain in a single drain action
-	var/mindrain = 200
+	var/mindrain = 800
 	///Maximum amount of power we can drain in a single drain action
-	var/maxdrain = 400
-
+	var/maxdrain = 1600
 
 /obj/item/clothing/gloves/space_ninja/Touch(atom/A,proximity,modifiers)
 	var/mob/living/carbon/human/wearer = loc
@@ -59,7 +58,7 @@
 		if(.)
 			to_chat(wearer, span_notice("Gained <B>[.]</B> of energy from [A]."))
 		else
-			to_chat(wearer, span_danger("The connection with [A] has been cancelled."))	//Не всегда этот текст вызывается когда у источника кончается ток, чаще когда ниндзя тупо отходит. Поэтому видоизменила.
+			to_chat(wearer, span_danger("The connection with [A] has been cancelled."))
 	else
 		. = FALSE //as to not cancel attack_hand()
 

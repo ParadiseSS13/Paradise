@@ -40,8 +40,6 @@
 			to_chat(ninja, span_notice("You now can pass almost through everything."))	// Если же невидимы - пишем только себе
 		ninja.pass_flags |= PASS_EVERYTHING
 		drop_restraints()
-// Я оставлю код компонента тут, но не считаю что игромеханом форма духа должна отключаться в бою. За неё итак платится огромная цена в энергии.
-//		ninja.AddComponent(/datum/component/ninja_states_breaker, src)
 		for(var/datum/action/item_action/ninja_spirit_form/ninja_action in actions)
 			toggle_ninja_action_active(ninja_action, TRUE)
 
@@ -62,9 +60,10 @@
 		animate(ninja, color = null, time = 6)
 		if(!stealth)	//Не стоит трогать альфу, когда мы уже невидимы
 			animate(ninja, alpha = 255, time = 6)
+			ninja.visible_message(span_warning("[ninja.name] becomes stable again!"), span_notice("You lose your ability to pass the corporeal...")) //Если мы не в стелсе, пишем текст того, что видят другие
+		else
+			to_chat(ninja, span_notice("You lose your ability to pass the corporeal...")) // Если же невидимы - пишем только себе
 		ninja.pass_flags = 0 	//Отнимать этот флаг - "PASS_EVERYTHING" по нормальному он не хочет, значит сделаем полный сброс.
-		ninja.visible_message(span_warning("[ninja.name] becomes stable again!"), span_notice("You lose your ability to pass the corporeal..."))
-//		qdel(ninja.GetComponent(/datum/component/ninja_states_breaker))
 		for(var/datum/action/item_action/ninja_spirit_form/ninja_action in actions)
 			toggle_ninja_action_active(ninja_action, FALSE)
 		return TRUE

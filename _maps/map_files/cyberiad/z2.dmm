@@ -550,6 +550,15 @@
 /obj/structure/flora/tree/jungle/small,
 /turf/unsimulated/floor/grass,
 /area/ninja/outside)
+"aBs" = (
+/obj/effect/turf_decal/box,
+/obj/structure/ninjatele{
+	pixel_y = 25
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "aBv" = (
 /obj/structure/table/reinforced,
 /turf/unsimulated/floor{
@@ -1598,6 +1607,17 @@
 	tag = "icon-fakewindows2 (WEST)"
 	},
 /area/centcom/specops)
+"bqS" = (
+/obj/machinery/power/smes/magical{
+	color = "#444455";
+	desc = "Может показаться, что он сломан и не работает, но на самом деле он специально настроен для подзарядки костюма посредством использования на нём перчаток";
+	name = "SpiderClan power storage unit";
+	resistance_flags = 371
+	},
+/turf/unsimulated/floor{
+	icon_state = "floorgrime"
+	},
+/area/ninja/holding)
 "brx" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -73145,7 +73165,7 @@ fDj
 dxx
 dxx
 nIF
-nIF
+bqS
 seX
 dCd
 cbA
@@ -73402,7 +73422,7 @@ fDj
 fDj
 dxx
 nIF
-pon
+aBs
 bfz
 cSR
 kOD

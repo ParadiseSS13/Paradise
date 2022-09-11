@@ -26,7 +26,7 @@
 				if(istype(affected_terminal.master, /obj/machinery/power/apc))
 					var/obj/machinery/power/apc/affected_apc = affected_terminal.master
 					if(affected_apc.operating && affected_apc.cell && affected_apc.cell.charge > 0)
-						affected_apc.cell.charge = max(0, affected_apc.cell.charge - 10)
+						affected_apc.cell.use(10)
 						drain += 1
 						drained += 10
 		else

@@ -15,15 +15,21 @@
 		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 		spark_system.set_up(5, 0, loc)
 		while(cell.charge > 0 && !maxcapacity)
-			drain = rand(ninja_gloves.mindrain, ninja_gloves.maxdrain)
-
+			// Берём 20% от макс. заряда
+			drain = cell.maxcharge * 0.2
+			// Лимитируем
+			// Проверяем меньше ли оно чем mindrain
+			drain = drain < ninja_gloves.mindrain ? ninja_gloves.mindrain : drain
+			// Проверяем больше ли оно чем maxdrain
+			drain = drain > ninja_gloves.maxdrain ? ninja_gloves.maxdrain : rand(drain, ninja_gloves.maxdrain)
+			// Проверяем больше ли drain, чем нынешний заряд
 			if(cell.charge < drain)
 				drain = cell.charge
-
+			// Зарядились до конца
 			if(ninja_suit.cell.charge + drain > ninja_suit.cell.maxcharge)
 				drain = ninja_suit.cell.maxcharge - ninja_suit.cell.charge
-				maxcapacity = TRUE//Reached maximum battery capacity.
-
+				maxcapacity = TRUE
+			// Сама зарядка
 			if(do_after(ninja ,10, target = src))
 				spark_system.start()
 				playsound(loc, "sparks", 50, TRUE, 5)
