@@ -180,7 +180,7 @@
 		H.clean_blood()
 		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
 		return TRUE
-	cleaning_act(target, src, src, cleanspeed) //LXM is both the user and the cleaning implement itself. Wow!
+	cleaning_act(target, src, src, cleanspeed, text2 = ".") //LXM is both the user and the cleaning implement itself. Wow!
 
 /mob/living/simple_animal/hostile/alien/maid/can_clean()
 	return TRUE

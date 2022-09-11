@@ -1,10 +1,7 @@
 //For handling standard click-to-clean items like soap and mops.
-/atom/proc/cleaning_act(atom/target, mob/user, atom/cleaner, cleanspeed = 50)
-	var/innatecleaner = FALSE //If the user cleaning is innately able to clean, i.e. Lusty Xenomorph Maid
+//text1, text2, and text3 carry strings that, when pieced together by this proc, make the cleaning messages.
+/atom/proc/cleaning_act(atom/target, mob/user, atom/cleaner, cleanspeed = 50, text1 = "begins to clean", text2 = " with [src].", text3 = "clean")
 	var/cmag_cleantime = 50 //The cleaning time for cmagged objects is locked to this, for balance reasons
-
-	if(user == cleaner)
-		innatecleaner = TRUE
 
 	if(HAS_TRAIT(target, TRAIT_CMAGGED))
 		user.visible_message("<span class='notice'>[user] starts to clean the ooze off \the [target.name].</span>", "<span class='notice'>You start to clean the ooze off \the [target.name].</span>")
@@ -18,10 +15,7 @@
 		return
 
 	if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
-		if(!innatecleaner)
-			user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
-		else
-			user.visible_message("<span class='warning'>[user] begins to scrub out \the [target.name].</span>")
+		user.visible_message("<span class='warning'>[user] begins to scrub out \the [target.name][text2]</span>")
 		if(do_after(user, cleanspeed, target = target) && target)
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
 			if(issimulatedturf(target.loc))
@@ -31,20 +25,14 @@
 		return
 
 	if(issimulatedturf(target))
-		if(!innatecleaner)
-			user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
-		else
-			user.visible_message("<span class='warning'>[user] begins to clean \the [target.name].</span>")
+		user.visible_message("<span class='warning'>[user] [text1] \the [target.name][text2]</span>")
 		if(do_after(user, cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			to_chat(user, "<span class='notice'>You [text3] \the [target.name].</span>")
 			clean_turf(target, user, cleaner)
 	else
-		if(!innatecleaner)
-			user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
-		else
-			user.visible_message("<span class='warning'>[user] begins to clean \the [target.name].</span>")
+		user.visible_message("<span class='warning'>[user] [text1] \the [target.name][text2]</span>")
 		if(do_after(user, cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			to_chat(user, "<span class='notice'>You [text3] \the [target.name].</span>")
 			var/obj/effect/decal/cleanable/C = locate() in target
 			qdel(C)
 			target.clean_blood()
