@@ -48,7 +48,7 @@
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	var/turf/T = get_turf(src)
-	if(isturf(loc) && !((locate(/obj/structure/table) in T) || (locate(/obj/structure/rack) in T)))
+	if(isturf(loc) && !locate(/obj/structure/table) in T)
 		if(ant_location == T)
 			if(prob(15))
 				if(!locate(/obj/effect/decal/cleanable/ants) in T)
