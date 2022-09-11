@@ -48,15 +48,21 @@
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	var/turf/T = get_turf(src)
-	if(isturf(loc) && !((locate(/obj/structure/table) in T) || (locate(/obj/structure/rack) in T)))
-		if(ant_location == T)
-			if(prob(15))
-				if(!locate(/obj/effect/decal/cleanable/ants) in T)
-					new /obj/effect/decal/cleanable/ants(T)
-					antable = FALSE
-					desc += " It appears to be infested with ants. Yuck!"
-					reagents.add_reagent("ants", 1) // Don't eat things with ants in it you weirdo.
-		else
-			ant_location = T
+	if((locate(/obj/structure/table) in T) || (locate(/obj/structure/rack) in T))
+		last_ant_time = world.time
+		return
+	if(!isturf(loc))
+		last_ant_time = world.time
+		return
+
+	if(ant_location == T)
+		if(prob(15))
+			if(!locate(/obj/effect/decal/cleanable/ants) in T)
+				new /obj/effect/decal/cleanable/ants(T)
+				antable = FALSE
+				desc += " It appears to be infested with ants. Yuck!"
+				reagents.add_reagent("ants", 1) // Don't eat things with ants in it you weirdo.
+	else
+		ant_location = T
 
 	last_ant_time = world.time
