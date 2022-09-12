@@ -150,19 +150,20 @@
 					new /obj/item/stack/rods(loc,2)
 					build--
 				return TRUE
-
-			if(istype(W, /obj/item/screwdriver))
-				to_chat(user, "You finalize the Mass Driver...")
-				playsound(get_turf(src), W.usesound, 50, 1)
-				var/obj/machinery/mass_driver/M = new(get_turf(src))
-				M.dir = src.dir
-				qdel(src)
-				return TRUE
-
 			return FALSE
 
-
 	return ..()
+
+/obj/machinery/mass_driver_frame/screwdriver_act(mob/living/user, obj/item/I)
+	if(build != 4)
+		return
+
+	to_chat(user, "You finalize the Mass Driver...")
+	playsound(get_turf(src), W.usesound, 50, 1)
+	var/obj/machinery/mass_driver/M = new(get_turf(src))
+	M.dir = src.dir
+	qdel(src)
+	return TRUE
 
 /obj/machinery/mass_driver_frame/welder_act(mob/user, obj/item/I)
 	if(build != 0 && build != 1 && build != 2)
