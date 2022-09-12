@@ -38,8 +38,9 @@
 	icon_state = "mustard"
 	anchored = FALSE
 
-/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/Initialize(newLoc, amt = 1, d = 0)
+/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/Initialize(newLoc, amt = 2, d = 0)
 	dir = d //Setting this direction means you won't get torched by your own flamethrower.
+			//Original value for the amount was 1, causing the lit fuel to spawn on top of the user.
 	. = ..()
 
 /obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/Spread()
@@ -57,5 +58,4 @@
 		if(O.CanPass(null, S, 0, 0) && S.CanPass(null, O, 0, 0))
 			new/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel(O, amount * 0.25, d)
 			O.hotspot_expose((T20C*2) + 380,500) //Light flamethrower fuel on fire immediately.
-
 	amount *= 0.25
