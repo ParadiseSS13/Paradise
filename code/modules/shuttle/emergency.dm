@@ -129,7 +129,7 @@
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You need your hands free before you can manipulate [src].</span>")
 		return
-	var/speed = user?.mind?.get_hijack_speed()
+	var/speed = user.mind?.get_hijack_speed()
 	if(!speed)
 		to_chat(user, "<span class='warning'>You manage to open a user-mode shell on [src], and hundreds of lines of debugging output fly through your vision. It is probably best to leave this alone.</span>")
 		return
