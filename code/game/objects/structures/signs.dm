@@ -66,7 +66,7 @@
 	var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
 	if(direction == "Cancel")
 		return TRUE // These gotta be true or we stab the sign
-	if(QDELETED(src)
+	if(QDELETED(src))
 		return TRUE
 
 	var/obj/structure/sign/S = new(user.loc)
