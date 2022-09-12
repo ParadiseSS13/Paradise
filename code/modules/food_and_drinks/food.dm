@@ -47,9 +47,9 @@
 	..()
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
+	last_ant_time = world.time
 	var/turf/T = get_turf(src)
 	if((locate(/obj/structure/table) in T) || (locate(/obj/structure/rack) in T) || !isturf(loc))
-		last_ant_time = world.time
 		return
 
 	if(ant_location == T) //It must have been on the same floor since at least the last check_for_ants()
@@ -61,5 +61,3 @@
 				reagents.add_reagent("ants", 1) // Don't eat things with ants in it you weirdo.
 	else
 		ant_location = T
-
-	last_ant_time = world.time
