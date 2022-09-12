@@ -146,29 +146,34 @@
 	return cameras
 
 /area/proc/air_doors_close()
-	if(!air_doors_activated)
-		air_doors_activated = TRUE
-		for(var/obj/machinery/door/firedoor/D in src)
-			if(!D.welded)
-				D.activate_alarm()
-				if(D.operating)
-					D.nextstate = FD_CLOSED
-				else if(!D.density)
-					spawn(0)
-						D.close()
+	if(air_doors_activated)
+		return
+	air_doors_activated = TRUE
+	for(var/obj/machinery/door/firedoor/D in src)
+		if(!D.is_operational())
+			continue
+		D.activate_alarm()
+		if(D.welded)
+			continue
+		if(D.operating && D.operating != CLOSING)
+			D.nextstate = FD_CLOSED
+		else if(!D.density)
+			INVOKE_ASYNC(D, /obj/machinery/door/firedoor.proc/close)
 
 /area/proc/air_doors_open()
-	if(air_doors_activated)
-		air_doors_activated = FALSE
-		for(var/obj/machinery/door/firedoor/D in src)
-			if(!D.welded)
-				D.deactivate_alarm()
-				if(D.operating)
-					D.nextstate = OPEN
-				else if(D.density)
-					spawn(0)
-						D.open()
-
+	if(!air_doors_activated)
+		return
+	air_doors_activated = FALSE
+	for(var/obj/machinery/door/firedoor/D in src)
+		if(!D.is_operational())
+			continue
+		D.deactivate_alarm()
+		if(D.welded)
+			continue
+		if(D.operating && D.operating != OPENING)
+			D.nextstate = FD_OPEN
+		else if(D.density)
+			INVOKE_ASYNC(D, /obj/machinery/door/firedoor.proc/open)
 
 /area/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -233,21 +238,30 @@
 		return
 	firedoors_last_closed_on = world.time
 	for(var/obj/machinery/door/firedoor/D in firedoors)
-		var/cont = !D.welded
-		if(!cont)
+		if(!D.is_operational())
 			continue
-		if(cont && opening)	//don't open if adjacent area is on fire
+		var/valid = TRUE
+		if(opening)	//don't open if adjacent area is on fire
 			for(var/I in D.affecting_areas)
 				var/area/A = I
 				if(A.fire)
-					cont = FALSE
+					valid = FALSE
 					break
-		if(cont && D.is_operational())
-			if(D.operating)
+		if(!valid)
+			continue
+
+		// At this point, the area is safe and the door is technically functional.
+
+		INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/deactivate_alarm : /obj/machinery/door/firedoor.proc/activate_alarm)) 
+		if(D.welded)
+			continue // Alarm is toggled, but door stuck
+		if(D.operating)
+			if((D.operating == OPENING && opening) || (D.operating == CLOSING && !opening))
+				continue
+			else
 				D.nextstate = opening ? FD_OPEN : FD_CLOSED
-			else if(D.density == opening)
-				INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
-			INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/deactivate_alarm : /obj/machinery/door/firedoor.proc/activate_alarm))
+		else if(D.density == opening)
+			INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
 
 /**
   * Generate a firealarm alert for this area

@@ -182,7 +182,7 @@
 	else
 		WELDER_WELD_SUCCESS_MESSAGE
 	welded = !welded
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
@@ -226,12 +226,9 @@
 	if(active_alarm && hasPower())
 		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
 		if(light)
-			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights")
-	if(density && welded)
-		. += "welded"
-		return
+			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask")
 	if(welded)
-		. += "welded_open"
+		. += "welded[density ? "" : "_open"]"
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
@@ -240,6 +237,8 @@
 
 /obj/machinery/door/firedoor/proc/deactivate_alarm()
 	active_alarm = FALSE
+	if(!density)
+		layer = initial(layer)
 	adjust_light()
 	update_icon()
 
@@ -248,7 +247,8 @@
 		return
 	. = ..()
 	latetoggle(auto_close)
-
+	if(active_alarm)
+		layer = closingLayer // Active firedoors take precedence and remain visible over closed airlocks.
 	if(auto_close)
 		autoclose = TRUE
 
@@ -263,13 +263,11 @@
 /obj/machinery/door/firedoor/proc/latetoggle(auto_close = TRUE)
 	if(operating || !hasPower() || !nextstate)
 		return
-	switch(nextstate)
-		if(FD_OPEN)
-			nextstate = null
-			open(auto_close)
-		if(FD_CLOSED)
-			nextstate = null
-			close()
+	if(nextstate == FD_OPEN)
+		INVOKE_ASYNC(src, .proc/open, auto_close)
+	if(nextstate == FD_CLOSED)
+		INVOKE_ASYNC(src, .proc/close)
+	nextstate = null
 
 /obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE, auto_close = TRUE)
 	if(!magic && (operating || !hasPower()))
