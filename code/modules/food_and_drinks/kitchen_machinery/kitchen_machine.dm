@@ -136,9 +136,9 @@
 
 /obj/machinery/kitchen_machine/screwdriver_act(mob/living/user, obj/item/I)
 	if(operating || broken != 2)
-
+		return
 	user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-	if(do_after(user, 20 * O.toolspeed, target = src))
+	if(do_after(user, 20 * I.toolspeed, target = src))
 		user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
 		broken = 1 // Fix it a bit
 	return TRUE

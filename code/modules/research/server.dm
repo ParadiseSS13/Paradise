@@ -152,7 +152,7 @@
 		return ..()
 
 /obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
-	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", O)
+	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", I)
 	return TRUE
 
 /obj/machinery/r_n_d/server/centcom

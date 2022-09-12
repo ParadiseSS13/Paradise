@@ -325,13 +325,13 @@
 		return
 	if(open)
 		to_chat(user, "<span class='notice'>Now closing the vent.</span>")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			playsound(loc, W.usesound, 100, 1)
+		if(do_after(user, 20 * I.toolspeed, target = src))
+			playsound(loc, I.usesound, 100, 1)
 			user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 	else
 		to_chat(user, "<span class='notice'>Now opening the vent.</span>")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			playsound(loc, W.usesound, 100, 1)
+		if(do_after(user, 20 * I.toolspeed, target = src))
+			playsound(loc, I.usesound, 100, 1)
 			user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
 	open = !open
 	return TRUE

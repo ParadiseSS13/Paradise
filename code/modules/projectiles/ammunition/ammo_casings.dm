@@ -376,6 +376,7 @@
 
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
+	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
 	if((istype(A, /obj/item/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return

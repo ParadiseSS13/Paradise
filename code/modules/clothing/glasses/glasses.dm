@@ -7,7 +7,7 @@
 /obj/item/clothing/glasses/attackby(obj/item/I, mob/user)
 	if(!prescription_upgradable || user.stat || user.restrained() || !ishuman(user))
 		return ..()
-	var/mob/living/carbon/human/H = user
+	var/mob/living/carbon/human/H = user // why?
 
 	// Adding prescription glasses
 	if(istype(I, /obj/item/clothing/glasses/regular))
@@ -29,11 +29,11 @@
 	var/obj/item/clothing/glasses/regular/G = locate() in src
 	if(!G)
 		G = new(src)
-	to_chat(H, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
+	to_chat(user, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
 	prescription = FALSE
 	name = initial(name)
-	H.put_in_hands(G)
-	H.update_nearsighted_effects()
+	user.put_in_hands(G)
+	user.update_nearsighted_effects()
 	return TRUE
 
 /obj/item/clothing/glasses/update_icon_state()

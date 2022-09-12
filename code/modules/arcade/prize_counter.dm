@@ -53,7 +53,7 @@
 /obj/machinery/prize_counter/screwdriver_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return
-	playsound(loc, O.usesound, 50, 1)
+	playsound(loc, I.usesound, 50, 1)
 	panel_open = !panel_open
 	to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 	update_icon(UPDATE_ICON_STATE)

@@ -175,9 +175,9 @@
 /obj/item/ed209_assembly/screwdriver_act(mob/living/user, obj/item/I)
 	if(build_step != 8)
 		return
-	playsound(loc, W.usesound, 100, 1)
+	playsound(loc, I.usesound, 100, 1)
 	to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
-	if(do_after(user, 40 * W.toolspeed, target = src))
+	if(do_after(user, 40 * I.toolspeed, target = src))
 		build_step++
 		update_appearance(UPDATE_NAME)
 		to_chat(user, "<span class='notice'>Taser gun attached.</span>")
