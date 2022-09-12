@@ -1,5 +1,5 @@
 /obj/item/implant/emp
-	name = "emp implant"
+	name = "emp bio-chip"
 	desc = "Triggers an EMP."
 	icon_state = "emp"
 	origin_tech = "biotech=3;magnets=4;syndicate=1"
@@ -14,10 +14,10 @@
 		qdel(src)
 
 /obj/item/implanter/emp
-	name = "implanter (EMP)"
+	name = "bio-chip implanter (EMP)"
 	implant_type = /obj/item/implant/emp
 
 /obj/item/implantcase/emp
-	name = "implant case - 'EMP'"
-	desc = "A glass case containing an EMP implant."
+	name = "bio-chip case - 'EMP'"
+	desc = "A glass case containing an EMP bio-chip."
 	implant_type = /obj/item/implant/emp
