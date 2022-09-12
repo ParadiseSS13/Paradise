@@ -49,7 +49,9 @@
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	last_ant_time = world.time
 	var/turf/T = get_turf(src)
-	if((locate(/obj/structure/table) in T) || (locate(/obj/structure/rack) in T) || !isturf(loc))
+	if(!isturf(loc))
+		return
+	if((locate(/obj/structure/table) in T) || (locate(/obj/structure/rack) in T))
 		return
 
 	if(ant_location == T) //It must have been on the same floor since at least the last check_for_ants()
