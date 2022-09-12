@@ -38,9 +38,8 @@
 	icon_state = "mustard"
 	anchored = FALSE
 
-/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/Initialize(newLoc, amt = 2, d = 0)
+/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/Initialize(newLoc, amt = 1, d = 0)
 	dir = d //Setting this direction means you won't get torched by your own flamethrower.
-			//Original value for the amount was 1, causing the lit fuel to spawn on top of the user.
 	. = ..()
 
 /obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/Spread()
