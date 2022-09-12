@@ -14,11 +14,12 @@
 	req_access = list(ACCESS_KITCHEN)
 
 /obj/structure/closet/secure_closet/freezer/kitchen/populate_contents()
-	for(var/i in 1 to 3)
-		new /obj/item/reagent_containers/food/condiment/flour(src)
+	new /obj/item/reagent_containers/food/condiment/flour(src)
+	new /obj/item/reagent_containers/food/condiment/flour(src)
+	new /obj/item/reagent_containers/food/condiment/flour(src)
 	new /obj/item/reagent_containers/food/condiment/rice(src)
 	new /obj/item/reagent_containers/food/condiment/sugar(src)
-
+	new /obj/item/reagent_containers/food/drinks/bottle/cream(src)
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
@@ -34,7 +35,7 @@
 	for(var/i = 0, i < 5, i++)
 		new /obj/item/reagent_containers/food/condiment/soymilk(src)
 	for(var/i = 0, i < 2, i++)
-		new /obj/item/storage/fancy/egg_box(src)
+		new /obj/item/storage/fancy/egg_box/full(src)
 
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"
@@ -59,7 +60,7 @@
 		new /obj/item/reagent_containers/food/condiment/milk(src)
 		new /obj/item/reagent_containers/food/condiment/soymilk(src)
 	for(var/i in 1 to 2)
-		new /obj/item/storage/fancy/egg_box(src)
+		new /obj/item/storage/fancy/egg_box/full(src)
 
 /obj/structure/closet/secure_closet/freezer/fridge/open
 	req_access = null
