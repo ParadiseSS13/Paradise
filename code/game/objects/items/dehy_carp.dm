@@ -43,9 +43,9 @@
 	icon = 'icons/mob/carp.dmi'
 	flick("carp_swell", src)
 	// Wait for animation to end
-	addtimer(CALLBACK(src, .proc/Spawn), 6)
+	addtimer(CALLBACK(src, .proc/MakeCarp), 6)
 
-/obj/item/toy/carpplushie/dehy_carp/proc/Spawn()
+/obj/item/toy/carpplushie/dehy_carp/proc/MakeCarp()
 	// Make space carp
 	var/mob/living/simple_animal/hostile/carp/C = new /mob/living/simple_animal/hostile/carp(get_turf(src))
 	// Make carp non-hostile to user, yes this means
