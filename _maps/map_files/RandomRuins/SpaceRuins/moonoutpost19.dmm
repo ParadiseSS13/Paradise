@@ -4206,7 +4206,7 @@
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
-/obj/item/storage/fancy/egg_box,
+/obj/item/storage/fancy/egg_box/full,
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";

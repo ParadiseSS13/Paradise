@@ -77,7 +77,7 @@
 	storage_slots = 12
 	can_hold = list(/obj/item/reagent_containers/food/snacks/egg)
 
-/obj/item/storage/fancy/egg_box/populate_contents()
+/obj/item/storage/fancy/egg_box/full/populate_contents()
 	for(var/I in 1 to storage_slots)
 		new /obj/item/reagent_containers/food/snacks/egg(src)
 

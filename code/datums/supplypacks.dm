@@ -1055,7 +1055,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/food/condiment/saltshaker,
 					/obj/item/reagent_containers/food/condiment/peppermill,
 					/obj/item/kitchen/rollingpin,
-					/obj/item/storage/fancy/egg_box,
+					/obj/item/storage/fancy/egg_box/full,
 					/obj/item/mixing_bowl,
 					/obj/item/mixing_bowl,
 					/obj/item/reagent_containers/food/condiment/enzyme,
