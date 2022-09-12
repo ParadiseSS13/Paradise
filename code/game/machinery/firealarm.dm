@@ -57,7 +57,7 @@ FIRE ALARM
 		return
 	
 	var/area/area = get_area(src)
-	if(area && area.fire)
+	if(area.fire)
 		icon_state = "firealarm_alarming"
 		return
 	if(!detecting)
