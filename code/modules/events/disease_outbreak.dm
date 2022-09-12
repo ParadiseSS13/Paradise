@@ -5,14 +5,13 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 
 	var/list/disease_blacklist = list(/datum/disease/advance, /datum/disease/appendicitis, /datum/disease/kuru, /datum/disease/critical, /datum/disease/rhumba_beat, /datum/disease/fake_gbs,
 										/datum/disease/gbs, /datum/disease/transformation, /datum/disease/food_poisoning, /datum/disease/advance/cold, /datum/disease/advance/flu, /datum/disease/advance/heal,
-										/datum/disease/advance/hullucigen, /datum/disease/advance/sensory_restoration, /datum/disease/advance/voice_change)
+										/datum/disease/advance/hullucigen, /datum/disease/advance/sensory_restoration, /datum/disease/advance/voice_change, /datum/disease/berserker)
 	var/static/list/transmissable_symptoms = list()
 	var/static/list/diseases_minor = list()
-	var/static/list/diseases_moderate = list()
-	var/static/list/diseases_major = list()
+	var/static/list/diseases_moderate_major = list()
 
 /datum/event/disease_outbreak/setup()
-	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate) && isemptylist(diseases_major))
+	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate_major))
 		populate_diseases()
 	if(isemptylist(transmissable_symptoms))
 		populate_symptoms()
@@ -22,35 +21,27 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 			if(EVENT_LEVEL_MUNDANE)
 				virus = pick(diseases_minor)
 			if(EVENT_LEVEL_MODERATE)
-				virus = pick(diseases_moderate)
-			if(EVENT_LEVEL_MAJOR)
-				virus = pick(diseases_major)
+				virus = pick(diseases_moderate_major)
 			else
-				stack_trace("Disease Outbreak: Invalid Event Level [severity]. Expected: 1-3")
+				stack_trace("Disease Outbreak: Invalid Event Level [severity]. Expected: 1-2")
 				virus = /datum/disease/cold
 		chosen_disease = new virus()
 	else
-		chosen_disease = create_virus(severity * 2)	//Severity of the virus depends on the event severity level
+		if(severity == EVENT_LEVEL_MODERATE)
+			chosen_disease = create_virus(severity * pick(2,3))	//50% chance for a major disease instead of a moderate one
+		else
+			chosen_disease = create_virus(severity * 2)
+
 	chosen_disease.carrier = TRUE
 
 /datum/event/disease_outbreak/start()
 	GLOB.current_pending_diseases += chosen_disease
-	var/severity_text = "undefined (contact a coder)"
-	switch(severity)
-		if(EVENT_LEVEL_MUNDANE)
-			severity_text = "mundane"
-		if(EVENT_LEVEL_MODERATE)
-			severity_text = "moderate"
-		if(EVENT_LEVEL_MAJOR)
-			severity_text = "major"
-
-
 	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
 		if(istype(chosen_disease, /datum/disease/advance))
 			var/datum/disease/advance/temp_disease = chosen_disease.Copy()
-			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of [temp_disease.name]! A [severity_text] disease with the following symptoms: [english_list(temp_disease.symptoms)]</span>")
+			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of [chosen_disease.name]! A \"[chosen_disease.severity]\" disease with the following symptoms: [english_list(temp_disease.symptoms)]</span>")
 		else
-			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a [severity_text] disease: [chosen_disease.name]!</span>")
+			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!</span>")
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
@@ -80,10 +71,8 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		switch(CD.severity)
 			if(NONTHREAT, MINOR)
 				diseases_minor += candidate
-			if(MEDIUM, HARMFUL)
-				diseases_moderate += candidate
-			if(DANGEROUS, BIOHAZARD)
-				diseases_major += candidate
+			if(MEDIUM, HARMFUL, DANGEROUS, BIOHAZARD)
+				diseases_moderate_major += candidate
 
 /datum/event/disease_outbreak/proc/populate_symptoms()
 	for(var/candidate in subtypesof(/datum/symptom))
