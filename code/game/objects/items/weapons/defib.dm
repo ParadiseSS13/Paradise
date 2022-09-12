@@ -105,12 +105,12 @@
 	if(!cell)
 		return
 
-	. = TRUE
 	cell.update_icon()
 	cell.forceMove(get_turf(loc))
 	cell = null
 	to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
 	update_icon(UPDATE_OVERLAYS)
+	return TRUE
 
 /obj/item/defibrillator/emag_act(user as mob)
 	if(safety)

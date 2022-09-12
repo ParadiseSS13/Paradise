@@ -192,7 +192,7 @@
 
 /obj/item/grenade/chem_grenade/screwdriver_act(mob/living/user, obj/item/I)
 	if(stage == WIRED)
-		if(beakers.len)
+		if(length(beakers))
 			to_chat(user, "<span class='notice'>You lock the assembly.</span>")
 			playsound(loc, prime_sound, 25, -3)
 			stage = READY
@@ -200,7 +200,8 @@
 			contained = ""
 			cores = "" // clear them out so no recursive logging by accidentally
 			for(var/obj/O in beakers)
-				if(!O.reagents) continue
+				if(!O.reagents)
+					continue
 				if(istype(O,/obj/item/slime_extract))
 					cores += " [O]"
 				for(var/R in O.reagents.reagent_list)

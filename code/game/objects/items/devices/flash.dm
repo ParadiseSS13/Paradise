@@ -44,12 +44,12 @@
 	if(!can_overcharge)
 		return
 
-	. = TRUE
 	if(battery_panel)
 		to_chat(user, "<span class='notice'>You close the battery compartment on [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>You open the battery compartment on [src].</span>")
 	battery_panel = !battery_panel
+	return TRUE
 
 /obj/item/flash/random/New()
 	..()

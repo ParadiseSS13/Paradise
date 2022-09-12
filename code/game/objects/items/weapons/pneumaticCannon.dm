@@ -79,8 +79,8 @@
 	if(!tank)
 		return
 
-	. = TRUE
 	updateTank(tank, 1, user)
+	return TRUE
 
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
 	if(istype(target, /obj/item/storage)) //So you can store it in backpacks

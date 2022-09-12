@@ -137,13 +137,13 @@
 	if(open)
 		return
 
-	. = TRUE
 	if(unlocked)
 		to_chat(user, "You screw the battery panel in place.")
 	else
 		to_chat(user, "You unscrew the battery panel.")
 	unlocked = !unlocked
 	update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
 /obj/machinery/floodlight/extinguish_light()
 	on = FALSE

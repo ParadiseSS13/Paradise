@@ -53,10 +53,10 @@
 		to_chat(usr, "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>")
 		return
 
-	. = TRUE
 	var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
 	user.unEquip(src)
 	user.put_in_hands(G)
 	G.deliveryamt = fillamt
 	to_chat(user, "<span class='notice'>You lock the assembly shut, readying it for HONK.</span>")
 	qdel(src)
+	return TRUE

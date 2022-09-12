@@ -80,7 +80,6 @@
 	if(!IED && !sig)
 		return
 
-	. = TRUE
 	if(IED)
 		IED.forceMove(get_turf(src))
 		IED = null
@@ -89,6 +88,7 @@
 		sig.forceMove(get_turf(src))
 		sig = null
 		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
+	return TRUE
 
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
 	if(armed && isturf(src.loc))

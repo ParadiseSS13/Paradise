@@ -203,7 +203,6 @@
 	if(state != 3)
 		return
 
-	. = TRUE
 	var/component_check = 1
 	for(var/R in req_components)
 		if(req_components[R] > 0)
@@ -222,6 +221,7 @@
 		circuit.loc = null
 		new_machine.RefreshParts()
 		qdel(src)
+	return TRUE
 
 
 //Machine Frame Circuit Boards

@@ -89,7 +89,6 @@
 		M.unEquip(src)
 
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
-	. = TRUE
 	switch(det_time)
 		if("1")
 			det_time = 10
@@ -104,8 +103,7 @@
 			det_time = 1
 			to_chat(user, "<span class='notice'>You set [src] for instant detonation.</span>")
 	add_fingerprint(user)
-
-
+	return TRUE
 
 /obj/item/grenade/attack_hand()
 	walk(src, null, null)

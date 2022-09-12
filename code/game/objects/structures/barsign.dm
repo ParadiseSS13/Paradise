@@ -107,7 +107,6 @@
 		return ..()
 
 /obj/structure/sign/barsign/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
 		set_sign(new /datum/barsign/hiddensigns/signoff)
@@ -121,6 +120,7 @@
 		else
 			set_sign(new /datum/barsign/hiddensigns/empbarsign)
 	panel_open = !panel_open
+	return TRUE
 
 /obj/structure/sign/barsign/emp_act(severity)
     set_sign(new /datum/barsign/hiddensigns/empbarsign)

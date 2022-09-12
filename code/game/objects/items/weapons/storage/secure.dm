@@ -64,10 +64,10 @@
 	return ..()
 
 /obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
-	. = TRUE
 	if(do_after(user, 20 * I.toolspeed, target = src))
 		open = !open
 		user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
+	return TRUE
 
 /obj/item/storage/secure/emag_act(user as mob, weapon as obj)
 	if(!emagged)
