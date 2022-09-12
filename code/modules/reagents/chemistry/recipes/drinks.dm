@@ -950,3 +950,108 @@
 	required_reagents = list("rum" = 3, "pineapplejuice" = 2, "cream" = 1)
 	result_amount = 6
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/bilkshake
+	name = "Bilkshake"
+	id = "bilkshake"
+	result = "bilkshake"
+	required_reagents = list("cream" = 1, "bilk" = 2, "ice" = 2)
+	result_amount = 5
+
+/datum/chemical_reaction/sontse
+	name = "Sontse"
+	id = "sontse"
+	result = "sontse"
+	required_reagents = list("tequilasunrise" = 2, "flamingmoe" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/ahdomai_eclipse
+	name = "Ahdomai Eclipse"
+	id = "ahdomaieclipse"
+	result = "ahdomaieclipse"
+	required_reagents = list("antifreeze" = 1, "ice" = 5)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	max_temp = T0C
+
+/datum/chemical_reaction/beach_feast
+	name = "Feast by the Beach"
+	id = "beachfeast"
+	result = "beachfeast"
+	required_reagents = list("vodka" = 1, "limejuice" = 1, "grapejuice" = 1, "silicon" = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	min_temp = T0C + 100
+
+/datum/chemical_reaction/fyrsskar_tears
+	name = "Tears of Fyrsskar"
+	id = "fyrsskartears"
+	result = "fyrsskartears"
+	required_reagents = list("plasma" = 1, "oxygen" = 1, "triple_citrus" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/jungle_vox
+	name = "Jungle Vox"
+	id = "junglevox"
+	result = "junglevox"
+	required_reagents = list("rum" = 1, "limejuice" = 1, "sugar" = 1, "kahlua" = 1, "nitrogen" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/die_seife
+	name = "Die Seife"
+	id = "dieseife"
+	result = "dieseife"
+	required_reagents = list("lye" = 1, "whiskey" = 1, "iced_beer" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/slime_mold
+	name = "Slime Mold"
+	id = "slimemold"
+	result = "slimemold"
+	required_reagents = list("booger" = 2, "slimejelly" = 2, "egg" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/acid_dreams
+	name = "Acid Dreams"
+	id = "aciddreams"
+	result = "aciddreams"
+	required_reagents = list("sacid" = 1, "gargleblaster" = 1, "sugar" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/islay_whiskey
+	name = "Islay Whiskey"
+	id = "islaywhiskey"
+	result = "islaywhiskey"
+	required_reagents = list("eznutriment" = 1, "whiskey" = 1, "nutriment" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/diona_smash
+	name = "Diona Smash"
+	id = "dionasmash"
+	result = "dionasmash"
+	required_reagents = list("nutriment" = 4, "sugar" = 1, "gin" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/ultramatter
+	name = "Ultramatter"
+	id = "ultramatter"
+	result = "ultramatter"
+	required_reagents = list("singulo" = 5, "plasma_dust" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/howler
+	name = "Howler"
+	id = "howler"
+	result = "howler"
+	required_reagents = list("limejuice" = 1, "lemon_lime" = 1, "orangejuice" = 1, "tequila" = 2)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

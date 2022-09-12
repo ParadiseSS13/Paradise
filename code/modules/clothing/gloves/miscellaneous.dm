@@ -10,6 +10,12 @@
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
+		)
 
 /obj/item/clothing/gloves/cyborg
 	name = "cyborg gloves"

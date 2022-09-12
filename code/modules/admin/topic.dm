@@ -37,9 +37,6 @@
 				return
 			SSmentor_tickets.showDetailUI(usr, ticketID)
 
-	if(href_list["stickyban"])
-		stickyban(href_list["stickyban"],href_list)
-
 	if(href_list["makeAntag"])
 		switch(href_list["makeAntag"])
 			if("1")

@@ -917,6 +917,19 @@
 		new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implanter/mindshield(src)
 
+/obj/item/storage/box/dish_drive
+	name = "DIY Dish Drive Kit"
+	desc = "Contains everything you need to build your own Dish Drive!"
+
+/obj/item/storage/box/dish_drive/populate_contents()
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	new /obj/item/circuitboard/dish_drive(src)
+	new /obj/item/stack/sheet/glass(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/screwdriver(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

@@ -261,22 +261,6 @@
 	armor = list(MELEE = 95, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = 200, ACID = 200)
 	slowdown = 0
 
-/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/berserker
-	name = "champion's helmet"
-	desc = "Peering into the eyes of the helmet is enough to seal damnation."
-	icon_state = "hardsuit0-berserker"
-	item_color = "berserker"
-	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	armor = list(MELEE = 60, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 75, BIO = INFINITY, RAD = 25, FIRE = 200, ACID = 200)
-
-/obj/item/clothing/suit/space/hardsuit/ert/paranormal/berserker
-	name = "champion's hardsuit"
-	desc = "Voices echo from the hardsuit, driving the user insane."
-	icon_state = "hardsuit-berserker"
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/berserker
-	armor = list(MELEE = 60, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 75, BIO = INFINITY, RAD = 25, FIRE = 200, ACID = 200)
-	slowdown = 0
 
 // Solgov
 

@@ -160,11 +160,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aD" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/storage/backpack/satchel,
 /obj/item/lighter/zippo,
 /turf/simulated/floor/carpet,

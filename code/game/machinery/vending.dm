@@ -2187,6 +2187,7 @@
 	products = list(/obj/item/clothing/under/rank/cargotech = 6,
 					/obj/item/clothing/under/rank/cargotech/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
+					/obj/item/clothing/suit/jacket/cargobomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/soft = 3,
 					/obj/item/clothing/head/hardhat/orange = 2,
@@ -2219,6 +2220,7 @@
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/reagent_containers/glass/rag = 3)
 	contraband = list(/obj/item/toy/figure/crew/chef = 1)
+	premium = list(/obj/item/storage/box/dish_drive = 1)
 	refill_canister = /obj/item/vending_refill/chefdrobe
 
 /obj/machinery/vending/bardrobe
@@ -2239,6 +2241,7 @@
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/reagent_containers/glass/rag = 3)
 	contraband = list(/obj/item/toy/figure/crew/bartender = 1)
+	premium = list(/obj/item/storage/box/dish_drive = 1)
 	refill_canister = /obj/item/vending_refill/bardrobe
 
 /obj/machinery/vending/hydrodrobe

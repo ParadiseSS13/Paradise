@@ -3,30 +3,21 @@
 	desc = "Stops people messing with your mind."
 	origin_tech = "materials=2;biotech=4;programming=4"
 	activated = BIOCHIP_ACTIVATED_PASSIVE
-
-/obj/item/implant/mindshield/get_data()
-	var/dat = {"<b>Bio-chip Specifications:</b><BR>
-				<b>Name:</b> Nanotrasen Employee Management Bio-chip<BR>
-				<b>Life:</b> Ten years.<BR>
-				<b>Important Notes:</b> Personnel injected with this device can better resist mental compulsions.<BR>
-				<HR>
-				<b>Bio-chip Details:</b><BR>
-				<b>Function:</b> Contains a small pod of nanobots that manipulate the host's mental functions.<BR>
-				<b>Special Features:</b> Will prevent and cure most forms of brainwashing.<BR>
-				<b>Integrity:</b> Bio-chip will last so long as the nanobots are inside the bloodstream."}
-	return dat
-
+	implant_data = /datum/implant_fluff/mindshield
+	implant_state = "implant-nanotrasen"
 
 /obj/item/implant/mindshield/implant(mob/target)
-	if(..())
+	if(!..())
+		return FALSE
+	if(target.mind)
 		if(target.mind in SSticker.mode.revolutionaries)
 			SSticker.mode.remove_revolutionary(target.mind)
 		if(target.mind in SSticker.mode.cult)
 			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
-		else
-			to_chat(target, "<span class='notice'>Your mind feels hardened - more resistant to brainwashing.</span>")
 		return TRUE
-	return FALSE
+
+	to_chat(target, "<span class='notice'>Your mind feels hardened - more resistant to brainwashing.</span>")
+	return TRUE
 
 /obj/item/implant/mindshield/removed(mob/target, silent = 0)
 	if(..())
@@ -35,18 +26,11 @@
 		return TRUE
 	return FALSE
 
-
 /obj/item/implanter/mindshield
 	name = "bio-chip implanter (mindshield)"
-
-/obj/item/implanter/mindshield/New()
-	imp = new /obj/item/implant/mindshield(src)
-	..()
+	implant_type = /obj/item/implant/mindshield
 
 /obj/item/implantcase/mindshield
 	name = "bio-chip case - 'mindshield'"
 	desc = "A glass case containing a mindshield bio-chip."
-
-/obj/item/implantcase/mindshield/New()
-	imp = new /obj/item/implant/mindshield(src)
-	..()
+	implant_type = /obj/item/implant/mindshield

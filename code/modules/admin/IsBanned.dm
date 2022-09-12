@@ -11,7 +11,7 @@
 	if(type == "world")
 		return ..() //shunt world topic banchecks to purely to byond's internal ban system
 
-	if(text2num(computer_id) == 2147483647) //this cid causes stickybans to go haywire
+	if(text2num(computer_id) == 2147483647) //this cid causes bans to go haywire
 		log_adminwarn("Failed Login (invalid cid): [key] [address]-[computer_id]")
 		if(log_info)
 			INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_INVALID)
@@ -212,11 +212,11 @@
 	if(.)
 		//byond will not trigger isbanned() for "global" host bans,
 		//ie, ones where the "apply to this game only" checkbox is not checked (defaults to not checked)
-		//So it's safe to let admins walk thru host/sticky bans here
+		//So it's safe to let admins walk thru bans here
 		if(admin)
-			log_admin("The admin [key] has been allowed to bypass a matching host/sticky ban")
-			message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching host/sticky ban</span>")
-			addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching host/sticky ban.</span>")
+			log_admin("The admin [key] has been allowed to bypass a matching ban")
+			message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban</span>")
+			addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban.</span>")
 			return null
 		else
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["message"]]")

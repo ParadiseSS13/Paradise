@@ -62,6 +62,8 @@
 	. = ..()
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "<span class='warning'>The access panel is coated in yellow ooze...</span>"
 
 /obj/machinery/door/window/emp_act(severity)
 	. = ..()
@@ -83,8 +85,14 @@
 		if(ismecha(AM))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && allowed(mecha.occupant))
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(FALSE)
+					return
 				open_and_close()
 			else
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(TRUE)
+					return
 				do_animate("deny")
 		return
 	if(!SSticker)
@@ -98,8 +106,14 @@
 		return
 	add_fingerprint(user)
 	if(!requiresID() || allowed(user))
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(FALSE, user)
+			return
 		open_and_close()
 	else
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(TRUE, user)
+			return
 		do_animate("deny")
 
 /obj/machinery/door/window/unrestricted_side(mob/M)
@@ -246,6 +260,17 @@
 		operating = FALSE
 		open(2)
 		return 1
+
+/obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
+	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	operating = TRUE
+	flick("[base_state]spark", src)
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	sleep(6)
+	operating = FALSE
+	return TRUE
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click

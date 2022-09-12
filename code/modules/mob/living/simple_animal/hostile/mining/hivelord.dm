@@ -279,42 +279,51 @@
 	can_infest_dead = TRUE
 
 //Legion that spawns Legions
-/mob/living/simple_animal/hostile/big_legion
-	name = "legion"
-	desc = "One of many."
+/mob/living/simple_animal/hostile/asteroid/big_legion
+	name = "big legion"
+	desc = "This monstrosity has clearly been corrupting for centuries, and is looking for a fight. Rumours claim it is capable of throwing the strongest of miners and his name is Billy."
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "legion"
 	icon_living = "legion"
-	icon_dead = "legion"
-	health = 450
-	maxHealth = 450
-	melee_damage_lower = 20
-	melee_damage_upper = 20
-	anchored = FALSE
-	AIStatus = AI_ON
-	stop_automated_movement = FALSE
+	icon_dead = "legion-dead"
+	health = 350
+	maxHealth = 350
+	melee_damage_lower = 30
+	melee_damage_upper = 30
 	wander = TRUE
-	maxbodytemp = INFINITY
 	layer = MOB_LAYER
-	del_on_death = TRUE
+	move_force = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_VERY_STRONG
+	pull_force = MOVE_FORCE_VERY_STRONG
 	sentience_type = SENTIENCE_BOSS
 	attack_sound = 'sound/misc/demon_attack1.ogg'
-	loot = list(/obj/item/organ/internal/regenerative_core/legion = 3, /obj/effect/mob_spawn/human/corpse/damaged/legioninfested = 5)
-	move_to_delay = 14
-	vision_range = 5
-	aggro_vision_range = 9
-	speed = 3
-	faction = list("mining")
-	weather_immunities = list("lava","ash")
-	obj_damage = 30
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	speed = 0
 
+/mob/living/simple_animal/hostile/asteroid/big_legion/AttackingTarget()
+	if(!isliving(target))
+		return ..()
+	var/mob/living/L = target
+	var/datum/status_effect/stacking/ground_pound/G = L.has_status_effect(STATUS_EFFECT_GROUNDPOUND)
+	if(!G)
+		L.apply_status_effect(STATUS_EFFECT_GROUNDPOUND, 1, src)
+		return ..()
+	if(G.add_stacks(stacks_added = 1, attacker = src))
+		return ..()
 
-/mob/living/simple_animal/hostile/big_legion/Initialize(mapload)
-	.=..()
-	AddComponent(/datum/component/spawner, list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion), 200, faction, "peels itself off from", 3)
+/mob/living/simple_animal/hostile/asteroid/big_legion/proc/throw_mobs()
+	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
+	for(var/mob/living/L in range(3, src))
+		if(faction_check(faction, L.faction, FALSE))
+			continue
+
+		L.visible_message("<span class='danger'>[L] was thrown by [src]!</span>",
+		"<span class='userdanger'>You feel a strong force throwing you!</span>",
+		"<span class='danger'>You hear a thud.</span>")
+		var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
+		L.throw_at(throw_target, 4, 4)
+		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
+		var/armor = L.run_armor_check(def_zone = limb_to_hit, attack_flag = MELEE, armour_penetration_percentage = 50)
+		L.apply_damage(40, BRUTE, limb_to_hit, armor)
 
 //Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.
 /obj/effect/mob_spawn/human/corpse/charredskeleton
