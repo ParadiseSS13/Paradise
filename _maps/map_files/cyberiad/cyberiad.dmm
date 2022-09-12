@@ -29034,10 +29034,12 @@
 /area/storage/tools)
 "bsS" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	layer = 5
+/obj/item/book/manual/wiki/chef_recipes{
+	pixel_x = 7
 	},
-/obj/item/stack/packageWrap,
+/obj/item/book/manual/wiki/sop_service{
+	pixel_x = -6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -29049,7 +29051,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table,
-/obj/item/book/manual/wiki/sop_service,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -29612,7 +29613,6 @@
 /area/crew_quarters/kitchen)
 "bus" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -29631,7 +29631,9 @@
 /area/crew_quarters/kitchen)
 "buu" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/cream,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	layer = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -131754,7 +131756,7 @@ bpG
 bdT
 boj
 btJ
-bus
+brm
 bsS
 bof
 bof
@@ -132268,7 +132270,7 @@ dnD
 bmy
 boo
 btM
-brm
+bus
 bsU
 bof
 bof

@@ -637,7 +637,6 @@
 	},
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/glass/bottle/facid{
-	name = "fluorosulfuric acid bottle";
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -1322,14 +1321,12 @@
 /area/maintenance/fpmaint)
 "akA" = (
 /obj/structure/table,
-/obj/machinery/processor{
-	pixel_y = 12
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -32015,7 +32012,6 @@
 /area/crew_quarters/kitchen)
 "bQP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 5
@@ -33660,11 +33656,10 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/reagentgrinder{
-	pixel_x = 6;
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/tile/bar,
+/obj/machinery/reagentgrinder{
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitecorner"
@@ -55067,7 +55062,12 @@
 /area/crew_quarters/sleep)
 "edB" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/chef_recipes,
+/obj/item/book/manual/wiki/sop_service{
+	pixel_x = -6
+	},
+/obj/item/book/manual/wiki/chef_recipes{
+	pixel_x = 7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -78845,16 +78845,11 @@
 	},
 /area/medical/cmo)
 "pSz" = (
-/obj/structure/rack,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
-/obj/item/hand_labeler,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/bar,
+/obj/machinery/processor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitecorner"
@@ -80077,7 +80072,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/item/storage/fancy/egg_box,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/rice,
 /obj/machinery/light{
@@ -130652,7 +130646,7 @@ bGi
 bHO
 bbQ
 soT
-bQJ
+edB
 bQP
 niS
 bVp
@@ -130909,7 +130903,7 @@ bEv
 bHO
 dTK
 soT
-edB
+bQJ
 bQQ
 ukO
 bUh

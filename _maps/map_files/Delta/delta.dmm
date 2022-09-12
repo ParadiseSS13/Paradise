@@ -20680,9 +20680,7 @@
 	pixel_x = -24
 	},
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
-/obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -21813,16 +21811,16 @@
 	},
 /area/crew_quarters/kitchen)
 "bgA" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/bag/tray,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/crew_quarters/kitchen)
 "bgB" = (
-/obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -22272,9 +22270,12 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bhN" = (
-/obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -22305,17 +22306,23 @@
 	},
 /area/hallway/primary/fore)
 "bhQ" = (
-/obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/dough,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
 /area/crew_quarters/kitchen)
 "bhR" = (
-/obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
+/obj/item/book/manual/wiki/sop_service{
+	pixel_x = -6
+	},
+/obj/item/book/manual/wiki/chef_recipes{
+	pixel_x = 7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -23939,13 +23946,13 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bli" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -23954,16 +23961,14 @@
 /obj/structure/rack,
 /obj/item/storage/box/donkpockets,
 /obj/item/storage/box/donkpockets,
-/obj/item/clothing/head/chefhat,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "blk" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/mint,
 /obj/item/reagent_containers/food/condiment/enzyme,
 /obj/machinery/reagentgrinder,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bll" = (
@@ -23984,10 +23989,10 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "blo" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/toy/figure/crew/chef,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/toy/figure/crew/chef,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "blq" = (
@@ -24893,10 +24898,9 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bnc" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/suit/chef,
 /obj/item/kitchen/rollingpin,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bnd" = (
@@ -24913,11 +24917,11 @@
 /turf/simulated/wall,
 /area/hallway/primary/fore)
 "bne" = (
-/obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/condiment/saltshaker,
 /obj/item/reagent_containers/food/condiment/peppermill,
 /obj/item/kitchen/knife,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bnf" = (
@@ -38925,9 +38929,9 @@
 	},
 /area/toxins/xenobiology)
 "bQy" = (
-/obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bQz" = (
