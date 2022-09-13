@@ -17,7 +17,7 @@
 		/datum/surgery_step/proxy/robotics/repair_limb,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
 	requires_organic_bodypart = FALSE
 
 /datum/surgery/robotics/cybernetic_repair/internal
@@ -29,12 +29,12 @@
 		/datum/surgery_step/proxy/robotics/manipulate_organs,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_PRECISE_GROIN,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM)
+	possible_locs = list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
 /datum/surgery/robotics/cybernetic_amputation
 	name = "Robotic Limb Amputation"
 	steps = list(/datum/surgery_step/robotics/external/amputate)
-	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/robotics/cybernetic_amputation/can_start(mob/user, mob/living/carbon/human/target)
 	. = ..()
@@ -72,7 +72,7 @@
 	requires_organic_bodypart = FALSE
 
 /datum/surgery/intermediate/robotics/repair
-	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_ARM,BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_R_LEG,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_L_LEG,BODY_ZONE_PRECISE_L_FOOT,BODY_ZONE_PRECISE_GROIN)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/intermediate/robotics/repair/burn
 	steps = list(/datum/surgery_step/robotics/external/repair/burn)
@@ -83,7 +83,7 @@
 // Manipulate organs sub-surgeries
 
 /datum/surgery/intermediate/robotics/manipulate_organs
-	possible_locs = list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_CHEST,BODY_ZONE_HEAD,BODY_ZONE_PRECISE_GROIN,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM)
+	possible_locs = list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
 /datum/surgery/intermediate/robotics/manipulate_organs/extract
 	steps = list(/datum/surgery_step/robotics/manipulate_robotic_organs/extract)

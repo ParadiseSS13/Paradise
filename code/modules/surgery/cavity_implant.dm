@@ -16,7 +16,7 @@
 		/datum/surgery_step/finish_bone,
 		/datum/surgery_step/generic/cauterize
 	)
-	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/target)
 	if(HAS_TRAIT(target, TRAIT_NO_BONES))
@@ -39,7 +39,7 @@
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/cavity_implant/soft/boneless
-	possible_locs = list(BODY_ZONE_CHEST,BODY_ZONE_HEAD)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 
 /datum/surgery/cavity_implant/soft/boneless/can_start(mob/user, mob/living/carbon/target)
 	if(!HAS_TRAIT(target, TRAIT_NO_BONES))
