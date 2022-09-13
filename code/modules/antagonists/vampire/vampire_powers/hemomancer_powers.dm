@@ -128,7 +128,7 @@
 
 /obj/effect/proc_holder/spell/vampire/blood_barrier
 	name = "Blood Barrier (40)"
-	desc = "Select two points within 3 tiles of eachother and make a barrier between these two points. some of the cost is refunded for each tile with blood on it."
+	desc = "Select two points within 3 tiles of eachother and make a barrier between these two points."
 	gain_desc = "You have gained the ability to summon a crystaline wall of blood between two points, the barrier is easily destructable, however you can walk freely through it."
 	required_blood = 30
 	base_cooldown = 1 MINUTES
@@ -184,9 +184,8 @@
 	name = "blood barrier"
 	desc = "a grotesque structure of crystalised blood. Its slowly melting away..."
 	max_integrity = 100
-	icon_state = "shield-cult"
-	icon = 'icons/effects/effects.dmi' // temporary
-	color = COLOR_BLOOD_BASE
+	icon_state = "blood_barrier"
+	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
 	opacity = FALSE

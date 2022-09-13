@@ -28,7 +28,12 @@
 	new /obj/effect/temp_visual/stomp(T)
 
 /obj/effect/proc_holder/spell/vampire/self/stomp/proc/hit_check(range, turf/start_turf, mob/user, safe_targets = list())
-	for(var/mob/living/L in view(range, start_turf) - view(range - 1, start_turf))
+	var/list/targets = view(range, start_turf) - view(range - 1, start_turf)
+	for(var/turf/simulated/floor/flooring in targets)
+		if(prob(100 - (range * 20)))
+			flooring.ex_act(EXPLODE_LIGHT)
+
+	for(var/mob/living/L in targets)
 		if(L in safe_targets)
 			continue
 		if(L.throwing) // no double hits
