@@ -224,16 +224,12 @@
  */
 /datum/surgery_step/proc/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
-	// if(surgery.organ_to_manipulate && !target.get_organ_slot(surgery.organ_to_manipulate))
-	// 	to_chat(user, "<span class='warning'>[target] seems to be missing the organ necessary to complete this surgery!</span>")
-	// 	return FALSE
-
 	if(is_valid_tool(user, tool))
 		if(target_zone == surgery.location)
 			if(get_location_accessible(target, target_zone) || surgery.ignore_clothes)
 				initiate(user, target, target_zone, tool, surgery)
 			else
-				to_chat(user, "<span class='warning>You need to expose [target]'s [parse_zone(target_zone)] before you can perform surgery on it!")
+				to_chat(user, "<span class='warning'>You need to expose [target]'s [parse_zone(target_zone)] before you can perform surgery on it!")
 			return TRUE //returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)

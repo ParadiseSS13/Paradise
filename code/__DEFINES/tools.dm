@@ -7,7 +7,6 @@
 #define TOOL_WELDER 		"welder"
 
 // Surgery tools
-
 #define TOOL_RETRACTOR "retractor"
 #define TOOL_HEMOSTAT "hemostat"
 #define TOOL_CAUTERY "cautery"
@@ -29,8 +28,6 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 	TOOL_BONEGEL,
 	TOOL_FIXOVEIN
 ))
-
-GLOBAL_LIST_INIT(robotic_surgery_tool_behaviors, list(TOOL_SCREWDRIVER, TOOL_CROWBAR))
 
 #define MIN_TOOL_SOUND_DELAY 20
 
