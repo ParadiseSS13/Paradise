@@ -46,6 +46,7 @@
 
 /obj/item/implanter/Initialize(mapload)
 	. = ..()
-	if(implant_type)
-		imp = new implant_type()
-		update_icon(UPDATE_ICON_STATE)
+	if(!implant_type)
+		return
+	imp = new implant_type()
+	update_icon(UPDATE_ICON_STATE)
