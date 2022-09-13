@@ -1056,7 +1056,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/syndicate_bomb/nuke
 	reference = "NSB"
-	item = /obj/item/radio/beacon/syndicate/bomb
 	cost = 11
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -1076,7 +1075,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/emp_bomb/nuke
 	reference = "NSBEMP"
-	item = /obj/item/radio/beacon/syndicate/bomb/emp
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -1150,7 +1148,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/atmosfiregrenades/nuke
 	reference = "NAPG"
-	item = /obj/item/storage/box/syndie_kit/atmosfiregrenades
 	hijack_only = FALSE
 	cost = 12
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
