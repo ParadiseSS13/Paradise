@@ -225,8 +225,6 @@
 	. = ..()
 	if(active_alarm && hasPower())
 		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
-		if(light)
-			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask")
 	if(welded)
 		. += "welded[density ? "" : "_open"]"
 
