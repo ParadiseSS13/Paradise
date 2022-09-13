@@ -133,7 +133,7 @@
 	if(!speed)
 		to_chat(user, "<span class='warning'>You manage to open a user-mode shell on [src], and hundreds of lines of debugging output fly through your vision. It is probably best to leave this alone.</span>")
 		return
-	if(hijack_hacking == TRUE)
+	if(hijack_hacking)
 		return
 	if(SSshuttle.emergency.hijack_status >= HIJACKED)
 		to_chat(user, "<span class='warning'>The emergency shuttle is already loaded with a corrupt navigational payload. What more do you want from it?</span>")
