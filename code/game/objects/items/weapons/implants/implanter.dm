@@ -11,7 +11,7 @@
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
 	toolspeed = 1
 	var/obj/item/implant/imp
-	var/implant_type = /obj/item/implant
+	var/obj/item/implant/implant_type
 
 /obj/item/implanter/update_icon_state()
 	if(imp)
@@ -46,5 +46,6 @@
 
 /obj/item/implanter/Initialize(mapload)
 	. = ..()
-	imp = new implant_type()
-	update_icon(UPDATE_ICON_STATE)
+	if(implant_type)
+		imp = new implant_type()
+		update_icon(UPDATE_ICON_STATE)
