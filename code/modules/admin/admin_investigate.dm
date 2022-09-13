@@ -9,7 +9,7 @@
 
 //SYSTEM
 /proc/investigate_subject2file(subject)
-	return file("[INVESTIGATE_DIR][subject].html")
+	return wrap_file("[INVESTIGATE_DIR][subject].html")
 
 /proc/investigate_reset()
 	if(fdel(INVESTIGATE_DIR))	return 1

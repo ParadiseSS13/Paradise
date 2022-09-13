@@ -709,3 +709,31 @@
 	drink_name = "Arnold Palmer"
 	drink_desc = "A wholesome mixture of lemonade and iced tea... looks like somebody didn't stir this one very well."
 	taste_description = "sweet and fizzy"
+
+/datum/reagent/consumable/drink/fyrsskar_tears
+	name = "Tears of Fyrsskar"
+	id = "fyrsskartears"
+	description = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	color = "#C300AE" // rgb: 195, 0, 174
+	drink_icon = "fyrsskartears"
+	drink_name = "Tears of Fyrsskar"
+	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	taste_description = "plasma"
+	var/alcohol_perc = 0.05
+	var/dizzy_adj = 6 SECONDS
+
+/datum/reagent/consumable/drink/fyrsskar_tears/on_mob_add(mob/living/M)
+	if(isskrell(M))
+		ADD_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+
+/datum/reagent/consumable/drink/fyrsskar_tears/on_mob_life(mob/living/M)
+	if(!isskrell(M))
+		return ..()
+	// imitate alcohol effects using current cycle
+	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
+	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)		
+	return ..()
+
+/datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
+	if(isskrell(M))
+		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
