@@ -37,7 +37,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			return
 		tfile = file2text(tfile)
 		if(!length(tfile))
-			throw EXCEPTION("Map path '[fname]' does not exist!")
+			log_runtime( EXCEPTION("Map path '[fname]' does not exist!"))
 
 	if(!x_offset)
 		x_offset = 1
@@ -69,14 +69,16 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 					if(!key_len)
 						key_len = length(key)
 					else
-						throw EXCEPTION("Inconsistent key length in DMM")
+						log_runtime( EXCEPTION("Inconsistent key length in DMM"))
+						return
 				if(!measureOnly)
 					grid_models[key] = dmmRegex.group[2]
 
 			// (1,1,1) = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
 			else if(dmmRegex.group[3]) // Coords
 				if(!key_len)
-					throw EXCEPTION("Coords before model definition in DMM")
+					log_runtime( EXCEPTION("Coords before model definition in DMM"))
+					return
 
 				var/xcrdStart = text2num(dmmRegex.group[3]) + x_offset - 1
 				// position of the currently processed square
@@ -136,7 +138,8 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 								if(xcrd >= 1)
 									var/model_key = copytext(line, tpos, tpos + key_len)
 									if(!grid_models[model_key])
-										throw EXCEPTION("Undefined model key in DMM: [model_key]. Map file: [fname].")
+										log_runtime( EXCEPTION("Undefined model key in DMM: [model_key]. Map file: [fname]."))
+										return
 									parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM)
 									// After this call, it is NOT safe to reference `dmmRegex` without another call to
 									// "Find" - we might've hit a map loader here and changed its state
@@ -150,7 +153,8 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			CHECK_TICK
 	catch(var/exception/e)
 		GLOB._preloader.reset()
-		throw e
+		log_runtime(e)
+		return
 
 	GLOB._preloader.reset()
 	log_debug("Loaded map in [stop_watch(watch)]s.")
@@ -162,7 +166,8 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		"Min z: [bounds[MAP_MINZ]]",
 		"Max x: [bounds[MAP_MAXX]]",
 		"Max y: [bounds[MAP_MAXY]]",
-		"Max z: [bounds[MAP_MAXZ]]"))
+		"Max z: [bounds[MAP_MAXZ]]",
+		"Try again"))
 		return null
 	else
 		if(!measureOnly)
@@ -261,7 +266,8 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		// We assume `members[index]` is an area path, as above, yes? I will operate
 		// on that assumption.
 		if(!ispath(members[index], /area))
-			throw EXCEPTION("Oh no, I thought this was an area!")
+			log_runtime( EXCEPTION("Oh no, I thought this was an area!"))
+			return
 
 		GLOB._preloader.setup(members_attributes[index]) // preloader for assigning  set variables on atom creation
 		var/atom/instance = LM.area_path_to_real_area(members[index])
@@ -440,11 +446,13 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			A.deserialize(json_decode(json_data))
 		catch(var/exception/E)
 			log_runtime(EXCEPTION("Bad json data: '[json_data]'"), src)
-			throw E
+			return E
 	for(var/attribute in attributes)
 		var/value = attributes[attribute]
 		if(islist(value))
 			value = deepCopyList(value)
+		if(value == null)
+			continue
 		A.vars[attribute] = value
 	GLOB.use_preloader = FALSE
 
@@ -464,7 +472,8 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 /datum/dmm_suite/loaded_map/proc/area_path_to_real_area(area/A)
 	if(!ispath(A, /area))
-		throw EXCEPTION("Wrong argument to `area_path_to_real_area`")
+		log_runtime(EXCEPTION("Wrong argument to `area_path_to_real_area`"))
+		return null
 
 	if(!(A in area_list))
 		if(initial(A.there_can_be_many))
