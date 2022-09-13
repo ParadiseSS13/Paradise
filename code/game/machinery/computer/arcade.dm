@@ -866,7 +866,7 @@
 					eventdat += "<P ALIGN=Right>Cant afford a new Crewmember</P>"
 
 				//Sell crew
-				if(settlers.len > 1)
+				if(length(settlers) > 1)
 					eventdat += "<P ALIGN=Right><a href='byond://?src=[UID()];sellcrew=1'>Sell crew for Fuel and Food (+7FU,+7FO)</a></P>"
 				else
 					eventdat += "<P ALIGN=Right>Cant afford to sell a Crewmember</P>"
