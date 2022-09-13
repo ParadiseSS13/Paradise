@@ -223,12 +223,12 @@
 
 /obj/machinery/door/firedoor/update_overlays()
 	. = ..()
-	if(active_alarm && hasPower())
-		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
-		if(light)
-			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask")
 	if(welded)
 		. += "welded[density ? "" : "_open"]"
+	if(active_alarm && hasPower())
+		if(light)
+			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask")
+		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
