@@ -383,7 +383,7 @@
 	if(operating)
 		return
 	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
-	operating = OPENING
+	operating = DOOR_OPENING
 	do_animate("opening")
 	set_opacity(0)
 	sleep(5)
@@ -413,7 +413,7 @@
 					return
 
 	SEND_SIGNAL(src, COMSIG_DOOR_CLOSE)
-	operating = CLOSING
+	operating = DOOR_CLOSING
 
 	do_animate("closing")
 	layer = closingLayer

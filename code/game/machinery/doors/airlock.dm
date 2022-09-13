@@ -1233,7 +1233,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!density)
 		return TRUE
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN)
-	operating = OPENING
+	operating = DOOR_OPENING
 	update_icon(AIRLOCK_OPENING, 1)
 	sleep(1)
 	set_opacity(0)
@@ -1274,7 +1274,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		killthis.ex_act(EXPLODE_HEAVY)//Smashin windows
 
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_CLOSE)
-	operating = CLOSING
+	operating = DOOR_CLOSING
 	update_icon(AIRLOCK_CLOSING, 1)
 	layer = CLOSED_DOOR_LAYER
 	if(!override)
@@ -1326,7 +1326,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/emag_act(mob/user)
 	if(!operating && density && arePowerSystemsOn() && !emagged)
-		operating = MALF
+		operating = DOOR_MALF
 		update_icon(AIRLOCK_EMAG, 1)
 		sleep(6)
 		if(QDELETED(src))
@@ -1341,7 +1341,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/cmag_act(mob/user)
 	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn())
 		return
-	operating = MALF
+	operating = DOOR_MALF
 	update_icon(AIRLOCK_EMAG, 1)
 	sleep(6)
 	if(QDELETED(src))

@@ -169,7 +169,7 @@
 		if(emagged)
 			return 0
 	if(!operating) //in case of emag
-		operating = OPENING
+		operating = DOOR_OPENING
 	do_animate("opening")
 	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
@@ -194,7 +194,7 @@
 	if(forced < 2)
 		if(emagged)
 			return 0
-	operating = CLOSING
+	operating = DOOR_CLOSING
 	do_animate("closing")
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state = base_state
@@ -252,7 +252,7 @@
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(!operating && density && !emagged)
 		emagged = TRUE
-		operating = MALF
+		operating = DOOR_MALF
 		electronics = new /obj/item/airlock_electronics/destroyed()
 		flick("[base_state]spark", src)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -265,7 +265,7 @@
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
-	operating = MALF
+	operating = DOOR_MALF
 	flick("[base_state]spark", src)
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	sleep(6)

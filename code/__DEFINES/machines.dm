@@ -128,6 +128,6 @@
 #define AI_DISPLAY_MODE_BSOD 2
 
 // Door operations
-#define OPENING 1
-#define CLOSING 2
-#define MALF 3
+#define DOOR_OPENING 1
+#define DOOR_CLOSING 2
+#define DOOR_MALF 3

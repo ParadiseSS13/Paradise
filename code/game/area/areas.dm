@@ -155,7 +155,7 @@
 		D.activate_alarm()
 		if(D.welded)
 			continue
-		if(D.operating && D.operating != CLOSING)
+		if(D.operating && D.operating != DOOR_CLOSING)
 			D.nextstate = FD_CLOSED
 		else if(!D.density)
 			INVOKE_ASYNC(D, /obj/machinery/door/firedoor.proc/close)
@@ -170,7 +170,7 @@
 		D.deactivate_alarm()
 		if(D.welded)
 			continue
-		if(D.operating && D.operating != OPENING)
+		if(D.operating && D.operating != DOOR_OPENING)
 			D.nextstate = FD_OPEN
 		else if(D.density)
 			INVOKE_ASYNC(D, /obj/machinery/door/firedoor.proc/open)
@@ -256,7 +256,7 @@
 		if(D.welded)
 			continue // Alarm is toggled, but door stuck
 		if(D.operating)
-			if((D.operating == OPENING && opening) || (D.operating == CLOSING && !opening))
+			if((D.operating == DOOR_OPENING && opening) || (D.operating == DOOR_CLOSING && !opening))
 				continue
 			else
 				D.nextstate = opening ? FD_OPEN : FD_CLOSED
