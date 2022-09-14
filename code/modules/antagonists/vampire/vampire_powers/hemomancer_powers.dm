@@ -128,7 +128,7 @@
 
 /obj/effect/proc_holder/spell/vampire/blood_barrier
 	name = "Blood Barrier (40)"
-	desc = "Select two points within 3 tiles of eachother and make a barrier between these two points."
+	desc = "Select two points within 3 tiles of each other and make a barrier between them."
 	gain_desc = "You have gained the ability to summon a crystaline wall of blood between two points, the barrier is easily destructable, however you can walk freely through it."
 	required_blood = 30
 	base_cooldown = 1 MINUTES

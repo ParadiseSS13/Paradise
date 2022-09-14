@@ -101,7 +101,7 @@
 
 /obj/effect/proc_holder/spell/fireball/demonic_grasp
 	name = "Demonic Grasp (20)"
-	desc = "Fire out a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm push, grab pull."
+	desc = "Fire a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm pushes, grab pulls."
 	gain_desc = "You have gained the ability to snare and disrupt people with demonic apendages."
 	base_cooldown = 30 SECONDS
 	fireball_type = /obj/item/projectile/magic/demonic_grasp
