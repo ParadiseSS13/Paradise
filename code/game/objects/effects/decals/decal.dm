@@ -4,11 +4,8 @@
 	layer = TURF_DECAL_LAYER
 
 /obj/effect/turf_decal/Initialize(mapload)
-	. = ..()
-	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
-
-/obj/effect/turf_decal/ComponentInitialize()
-	. = ..()
+	..()
+	. = INITIALIZE_HINT_QDEL
 	var/turf/T = loc
 	if(!istype(T)) //you know this will happen somehow
 		CRASH("Turf decal initialized in an object/nullspace")

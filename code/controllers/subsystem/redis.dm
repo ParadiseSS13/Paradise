@@ -13,8 +13,8 @@ SUBSYSTEM_DEF(redis)
 	offline_implications = "The server will no longer be able to send or receive redis messages. Shuttle call recommended (Potential server crash inbound)."
 
 // SS meta procs
-/datum/controller/subsystem/redis/stat_entry()
-	..("S:[length(subbed_channels)] | Q:[length(queue)] | C:[connected ? "Y" : "N"]")
+/datum/controller/subsystem/redis/get_stat_details()
+	return "S:[length(subbed_channels)] | Q:[length(queue)] | C:[connected ? "Y" : "N"]"
 
 /datum/controller/subsystem/redis/Initialize()
 	// Connect to cappuccino

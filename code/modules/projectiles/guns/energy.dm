@@ -10,15 +10,19 @@
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
-	var/can_charge = 1
+	var/can_charge = TRUE
 	var/charge_sections = 4
+	var/inhand_charge_sections = 4
 	ammo_x_offset = 2
-	var/shaded_charge = 0 //if this gun uses a stateful charge bar for more detail
-	var/selfcharge = 0
+	var/shaded_charge = FALSE //if this gun uses a stateful charge bar for more detail
+	var/selfcharge = FALSE
 	var/charge_tick = 0
 	var/charge_delay = 4
 	/// Do you want the gun to fit into a turret, defaults to true, used for if a energy gun is too strong to be in a turret, or does not make sense to be in one.
 	var/can_fit_in_turrets = TRUE
+	var/new_icon_state
+	/// Used when updating icon and overlays to determine the energy pips
+	var/ratio
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
@@ -57,6 +61,7 @@
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
+	select = clamp(select, 1, length(ammo_type)) // If we decrease ammo types while selecting a removed one, we want to make sure it doesnt try to select an out of bounds index
 	for(var/i = 1, i <= ammo_type.len, i++)
 		var/shottype = ammo_type[i]
 		shot = new shottype(src)
@@ -139,37 +144,54 @@
 	update_icon()
 	return
 
-/obj/item/gun/energy/update_icon()
-	overlays.Cut()
-	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+/obj/item/gun/energy/update_icon(updates=ALL)
+	..()
+	var/mob/living/carbon/human/user = loc
+	if(istype(user))
+		if(user.hand) //this is kinda ew but whatever
+			user.update_inv_r_hand()
+		else
+			user.update_inv_l_hand()
+
+/obj/item/gun/energy/update_icon_state()
+	icon_state = initial(icon_state)
+	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+	var/inhand_ratio = CEILING((cell.charge / cell.maxcharge) * inhand_charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/iconState = "[icon_state]_charge"
-	var/itemState = null
+	new_icon_state = "[icon_state]_charge"
+	var/new_item_state = null
 	if(!initial(item_state))
-		itemState = icon_state
+		new_item_state = icon_state
 	if(modifystate)
-		overlays += "[icon_state]_[shot.select_name]"
-		iconState += "_[shot.select_name]"
-		if(itemState)
-			itemState += "[shot.select_name]"
+		new_icon_state += "_[shot.select_name]"
+		if(new_item_state)
+			new_item_state += "[shot.select_name]"
+	if(new_item_state)
+		new_item_state += "[inhand_ratio]"
+		item_state = new_item_state
+	if(current_skin)
+		icon_state = current_skin
+
+/obj/item/gun/energy/update_overlays()
+	. = ..()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(modifystate)
+		. += "[icon_state]_[shot.select_name]"
 	if(cell.charge < shot.e_cost)
-		overlays += "[icon_state]_empty"
+		. += "[icon_state]_empty"
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
-				overlays += image(icon = icon, icon_state = iconState, pixel_x = ammo_x_offset * (i -1))
+				. += image(icon = icon, icon_state = new_icon_state, pixel_x = ammo_x_offset * (i -1))
 		else
-			overlays += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
+			. += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
 	if(gun_light && can_flashlight)
 		var/iconF = "flight"
 		if(gun_light.on)
 			iconF = "flight_on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 	if(bayonet && can_bayonet)
-		overlays += knife_overlay
-	if(itemState)
-		itemState += "[ratio]"
-		item_state = itemState
+		. += knife_overlay
 
 /obj/item/gun/energy/ui_action_click()
 	toggle_gunlight()

@@ -145,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 37
+sql_version = 44
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -269,12 +269,9 @@ away_mission_delay = 0
 # List of all enabled away missions. Comment out an entry to disable it.
 enabled_away_missions = [
 	"_maps/map_files/RandomZLevels/beach.dmm",
-	"_maps/map_files/RandomZLevels/blackmarketpackers.dmm",
 	"_maps/map_files/RandomZLevels/centcomAway.dmm",
 	#"_maps/map_files/RandomZLevels/evil_santa.dmm",			# Special christmas mission. Enable for festivities
 	#"_maps/map_files/RandomZLevels/example.dmm",				# Example file. Do not enable.
-	"_maps/map_files/RandomZLevels/moonoutpost19.dmm",
-	"_maps/map_files/RandomZLevels/terrorspiders.dmm",
 ]
 
 
@@ -558,6 +555,8 @@ mc_highpop_threshold_disable = 60
 base_run_speed = 1
 # Base walk speed before modifiers
 base_walk_speed = 4
+# Move delay added from crawling
+crawling_speed_reduction = 4
 # Move delay for humanoids
 human_delay = 1.5
 # Move delay for cyborgs
@@ -606,7 +605,7 @@ redis_connstring = "redis://127.0.0.1/"
 
 # Whether to load the lavaland Z-level.
 enable_lavaland = true
-# Globally enable and disable placing of space ruins. Lava ruins will still place.
+# Globally enable and disable placing of all ruins, including lavaland ruins and lavaland tendrils.
 enable_space_ruins = false
 # Minimum number of extra zlevels to generate and fill with ruins
 minimum_zlevels = 2
@@ -630,14 +629,15 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedzoo.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/deepstorage.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
-	"_maps/map_files/RandomRuins/SpaceRuins/gasthelizards.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/meatpackers.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/mechtransport.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/debris2.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/debris3.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/moonoutpost19.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/oldstation.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/onehalf.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
@@ -649,6 +649,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/clownmime.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/dj.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/druglab.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/syndicatedruglab.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/syndiedepot.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/syndie_space_base.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/ussp_tele.dmm",
@@ -689,7 +690,6 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm",
 	# Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_swarmer_crash.dmm",
 
 	##MISC
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_animal_hospital.dmm",
@@ -697,7 +697,9 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cube.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hall.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_monster_nest.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm",
@@ -745,6 +747,12 @@ external_tos_handler = false
 # Do not use in production.
 # Comment out to disable.
 #override_map = "/datum/map/test_tiny"
+# Regional servers.
+# This is not for separate DD instances per region, but if you have a geo-routing setup deployed to optimise routing for players
+# I am 99.9% certain you will never need to fill this out
+regional_servers = [
+	#{name = "UK", ip = "byond://uk.paradisestation.org:6666"},
+]
 
 
 ################################################################
@@ -794,12 +802,6 @@ centcomm_ban_db_url = "https://centcom.melonmesa.com/ban/search/"
 [voting_configuration]
 # This section contains all settings relating to the ingame voting system
 
-# Allow players to vote for a round restart?
-allow_vote_restart = false
-# Allow players to vote for a gamemode in lobby?
-allow_vote_mode = false
-# Minimum delay between each vote (deciseconds)
-vote_delay = 18000
 # Time that a vote will last for (deciseconds)
 vote_time = 600
 # Time before the first auto crew transfer vote (deciseconds)
@@ -812,7 +814,8 @@ prevent_dead_voting = false
 disable_default_vote = true
 # Enable voting for a map on end round
 enable_map_voting = false
-
+# Set to true to prevent the same map from being voted on twice in a row
+non_repeating_maps = true
 
 ################################################################
 

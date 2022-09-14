@@ -88,7 +88,7 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
 	icon_state = "resin_membrane-0"
 	base_icon_state = "resin_membrane"
-	opacity = 0
+	opacity = FALSE
 	max_integrity = 160
 	resintype = "membrane"
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
@@ -204,6 +204,7 @@
 	integrity_failure = 5
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
+	flags_2 = CRITICAL_ATOM_2
 
 /obj/structure/alien/egg/grown
 	status = GROWN

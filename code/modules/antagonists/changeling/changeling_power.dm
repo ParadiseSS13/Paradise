@@ -27,10 +27,6 @@
 	var/req_human = FALSE
 	/// What `stat` value the changeling needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
 	var/req_stat = CONSCIOUS
-	/// The amount of genetic damage caused by using this power. Is not related to the mob's `cloneloss`.
-	var/genetic_damage = 0
-	/// The max `genetic_damage` the changeling is allowed to have before they cannot use this power anymore.
-	var/max_genetic_damage = 100
 	/// If this power is active or not. Used for toggleable abilities.
 	var/active = FALSE
 	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
@@ -72,7 +68,6 @@
 
 /datum/action/changeling/proc/take_chemical_cost()
 	cling.chem_charges -= chemical_cost
-	cling.genetic_damage += genetic_damage
 
 /datum/action/changeling/proc/can_sting(mob/user, mob/target)
 	SHOULD_CALL_PARENT(TRUE)
@@ -90,9 +85,6 @@
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
-		return FALSE
-	if(cling.genetic_damage > max_genetic_damage)
-		to_chat(user, "<span class='warning'>Our genomes are still reassembling. We need time to recover first.</span>")
 		return FALSE
 	return TRUE
 

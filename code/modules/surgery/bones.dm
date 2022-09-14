@@ -18,14 +18,14 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
-			return 0
+			return FALSE
 		if(affected.is_robotic())
-			return 0
+			return FALSE
 		if(affected.limb_flags & CANNOT_BREAK)
 			return FALSE
 		if(affected.status & ORGAN_BROKEN)
-			return 1
-		return 1
+			return TRUE
+		return TRUE
 
 
 //surgery steps
@@ -36,7 +36,7 @@
 	/obj/item/bonegel = 100,	\
 	/obj/item/screwdriver = 90
 	)
-	can_infect = 1
+	can_infect = TRUE
 	blood_level = 1
 
 	time = 24
@@ -57,13 +57,13 @@
 		user.visible_message("<span class='notice'> [user] applies some [tool] to [target]'s bone in [affected.name]</span>", \
 			"<span class='notice'> You apply some [tool] to [target]'s bone in [affected.name] with \the [tool].</span>")
 
-		return 1
+		return TRUE
 
 /datum/surgery_step/glue_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>" , \
 		"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
-		return 0
+		return FALSE
 
 /datum/surgery_step/set_bone
 	name = "set bone"
@@ -91,18 +91,18 @@
 	if(affected.status & ORGAN_BROKEN)
 		user.visible_message("<span class='notice'> [user] sets the bone in [target]'s [affected.name] in place with \the [tool].</span>", \
 			"<span class='notice'> You set the bone in [target]'s [affected.name] in place with \the [tool].</span>")
-		return 1
+		return TRUE
 	else
 		user.visible_message("<span class='notice'> [user] sets the bone in [target]'s [affected.name] in place with \the [tool].</span>", \
 			"<span class='notice'> You set the bone in [target]'s [affected.name] in place with \the [tool].</span>")
-		return 1
+		return TRUE
 
 /datum/surgery_step/set_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!</span>" , \
 		"<span class='warning'> Your hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!</span>")
 	affected.receive_damage(5)
-	return 0
+	return FALSE
 
 /datum/surgery_step/mend_skull
 	name = "mend skull"
@@ -128,7 +128,7 @@
 	user.visible_message("<span class='notice'> [user] sets [target]'s [affected.encased] with \the [tool].</span>" , \
 		"<span class='notice'> You set [target]'s [affected.encased] with \the [tool].</span>")
 
-	return 1
+	return TRUE
 
 /datum/surgery_step/mend_skull/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -137,7 +137,7 @@
 	var/obj/item/organ/external/head/h = affected
 	h.receive_damage(10)
 	h.disfigure()
-	return 0
+	return FALSE
 
 /datum/surgery_step/finish_bone
 	name = "medicate bones"
@@ -146,7 +146,7 @@
 	/obj/item/bonegel = 100,	\
 	/obj/item/screwdriver = 90
 	)
-	can_infect = 1
+	can_infect = TRUE
 	blood_level = 1
 
 	time = 24
@@ -172,4 +172,4 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>" , \
 	"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
-	return 0
+	return FALSE

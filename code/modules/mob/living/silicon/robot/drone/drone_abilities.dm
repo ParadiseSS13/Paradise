@@ -53,8 +53,8 @@
 	var/obj/item/holder/H = ..()
 	if(!istype(H))
 		return
-	if(resting)
-		resting = 0
+	if(IS_HORIZONTAL(src))
+		stand_up()
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'

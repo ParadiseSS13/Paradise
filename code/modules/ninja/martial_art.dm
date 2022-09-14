@@ -15,7 +15,7 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "injector"
 	attack_verb = list("poked", "prodded")
-	var/used = 0
+	var/used = FALSE
 
 /obj/item/creeping_widow_injector/attack_self(mob/living/carbon/human/user as mob)
 	if(!used)
@@ -26,7 +26,7 @@
 		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
 		N.teach(user)
 
-		used = 1
+		used = TRUE
 		icon_state = "injector-used"
 		desc = "A strange autoinjector made of a black metal.<br>It appears to be used up and empty."
 		return 0

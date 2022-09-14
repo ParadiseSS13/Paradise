@@ -2,9 +2,9 @@
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
-	density = 0
+	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = 1 //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
+	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -12,8 +12,9 @@
 	var/hitsound_wall = ""
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
+	var/atom/firer_source_atom = null //the gun or object this came from
 	var/obj/item/ammo_casing/ammo_casing = null
-	var/suppressed = 0	//Attack message
+	var/suppressed = FALSE	//Attack message
 	var/yo = null
 	var/xo = null
 	var/current = null
@@ -38,11 +39,13 @@
 	var/flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
-	var/is_reflectable = FALSE // Can it be reflected or not?
+	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
+	var/reflectability = REFLECTABILITY_PHYSICAL
 	var/alwayslog = FALSE // ALWAYS log this projectile on hit even if it doesn't hit a living target. Useful for AOE explosion / EMP.
 	//Effects
 	var/stun = 0
 	var/weaken = 0
+	var/knockdown = 0
 	var/paralyze = 0
 	var/irradiate = 0
 	var/stutter = 0
@@ -120,7 +123,7 @@
 		return 0
 	var/mob/living/L = target
 	var/mob/living/carbon/human/H
-	if(blocked < 100) // not completely blocked
+	if(blocked != INFINITY) // not completely blocked
 		if(damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
 			if(starting)
@@ -164,7 +167,7 @@
 
 	var/additional_log_text
 	if(blocked)
-		additional_log_text = " [blocked]% blocked"
+		additional_log_text = " [ARMOUR_VALUE_TO_PERCENTAGE(blocked)]% blocked"
 	if(reagents && reagents.reagent_list)
 		var/reagent_note = "REAGENTS:"
 		for(var/datum/reagent/R in reagents.reagent_list)
@@ -174,7 +177,7 @@
 
 	if(!log_override && firer && !alwayslog)
 		add_attack_logs(firer, L, "Shot with a [type][additional_log_text]")
-	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+	return L.apply_effects(stun, weaken, knockdown, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
@@ -195,7 +198,7 @@
 	if(!yes) //prevents double bumps.
 		return
 
-	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
+	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
@@ -329,8 +332,6 @@
 
 	if(ismob(source))
 		firer = source // The reflecting mob will be the new firer
-	else
-		firer = null // Reflected by something other than a mob so firer will be null
 
 	// redirect the projectile
 	original = locate(new_x, new_y, z)
@@ -348,6 +349,8 @@
 /obj/item/projectile/Destroy()
 	STOP_PROCESSING(SSprojectiles, src)
 	ammo_casing = null
+	firer_source_atom = null
+	firer = null
 	return ..()
 
 /obj/item/projectile/proc/dumbfire(dir)
@@ -387,3 +390,10 @@
 		return
 	if(trajectory && !trajectory_ignore_forcemove && isturf(target))
 		trajectory.initialize_location(target.x, target.y, target.z, 0, 0)
+
+/obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
+	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not
+		return FALSE
+	if(reflectability < desired_reflectability_level)
+		return FALSE
+	return TRUE

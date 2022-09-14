@@ -19,7 +19,7 @@
 #define PREFTOGGLE_CHAT_GHOSTSIGHT			8
 #define PREFTOGGLE_CHAT_PRAYER				16
 #define PREFTOGGLE_CHAT_RADIO				32
-#define PREFTOGGLE_AZERTY					64
+#define PREFTOGGLE_AZERTY					64 // obsolete
 #define PREFTOGGLE_CHAT_DEBUGLOGS 			128
 #define PREFTOGGLE_CHAT_LOOC 				256
 #define PREFTOGGLE_CHAT_GHOSTRADIO 			512
@@ -36,7 +36,7 @@
 #define PREFTOGGLE_TYPING_ONCE 				1048576
 #define PREFTOGGLE_AMBIENT_OCCLUSION 		2097152
 #define PREFTOGGLE_CHAT_GHOSTPDA 			4194304
-#define PREFTOGGLE_NUMPAD_TARGET 			8388608
+#define PREFTOGGLE_NUMPAD_TARGET 			8388608 // Made obsolete with key bindings
 
 #define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
@@ -47,7 +47,7 @@
 #define PREFTOGGLE_2_FANCYUI		2
 #define PREFTOGGLE_2_ITEMATTACK		4
 #define PREFTOGGLE_2_WINDOWFLASHING	8
-#define PREFTOGGLE_2_ANONDCHAT		16
+#define PREFTOGGLE_2_ANON			16
 #define PREFTOGGLE_2_AFKWATCH		32
 #define PREFTOGGLE_2_RUNECHAT		64
 #define PREFTOGGLE_2_DEATHMESSAGE	128
@@ -57,8 +57,9 @@
 #define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT	1024
 #define PREFTOGGLE_2_SIMPLE_STAT_PANEL	2048
 #define PREFTOGGLE_2_SEE_ITEM_OUTLINES 	4096
+#define PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS  8192
 
-#define TOGGLES_2_TOTAL 			8191 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL 			16383 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_EMOTE_BUBBLE|PREFTOGGLE_2_SEE_ITEM_OUTLINES)
 
@@ -121,6 +122,7 @@
 #define TAB_CHAR 0
 #define TAB_GAME 1
 #define TAB_GEAR 2
+#define TAB_KEYS 3
 
 // Colourblind modes
 #define COLOURBLIND_MODE_NONE "None"

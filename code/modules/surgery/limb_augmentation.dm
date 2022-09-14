@@ -8,12 +8,12 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
-			return 0
+			return FALSE
 		if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
-			return 0
+			return FALSE
 		if(affected.is_robotic())
-			return 0
-		return 1
+			return FALSE
+		return TRUE
 
 /datum/surgery_step/augment
 	name = "augment limb with robotic part"
@@ -25,8 +25,8 @@
 	if(p.part)
 		if(!(target_zone in p.part))
 			to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -42,9 +42,9 @@
 		for(var/part_name in L.part)
 			if(!target.get_organ(part_name))
 				continue
-			affected.robotize(L.model_info, make_tough = 1, convert_all = 0)
+			affected.robotize(L.model_info, make_tough = TRUE, convert_all = FALSE)
 			if(L.sabotaged)
-				affected.sabotaged = 1
+				affected.sabotaged = TRUE
 			break
 	target.update_body()
 	target.updatehealth()
@@ -54,4 +54,4 @@
 
 	affected.open = 0
 	affected.germ_level = 0
-	return 1
+	return TRUE

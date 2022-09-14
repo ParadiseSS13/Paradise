@@ -25,8 +25,8 @@ SUBSYSTEM_DEF(sun)
 	return ..()
 
 
-/datum/controller/subsystem/sun/stat_entry(msg)
-	..("P:[solars.len]")
+/datum/controller/subsystem/sun/get_stat_details()
+	return "P:[length(solars)]"
 
 /datum/controller/subsystem/sun/fire()
 	angle = (360 + angle + rate * 6) % 360	 // increase/decrease the angle to the sun, adjusted by the rate

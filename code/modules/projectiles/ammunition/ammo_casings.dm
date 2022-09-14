@@ -29,14 +29,6 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-/obj/item/ammo_casing/c38
-	desc = "A .38 bullet casing."
-	caliber = "38"
-	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/c38
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-
 /obj/item/ammo_casing/c38/invisible
 	projectile_type = /obj/item/projectile/bullet/mime
 	muzzle_flash_effect = null // invisible eh
@@ -333,7 +325,7 @@
 /obj/item/ammo_casing/caseless
 	desc = "A caseless bullet casing."
 
-/obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread)
+/obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
 	if(..())
 		loc = null
 		return 1
@@ -367,11 +359,14 @@
 	var/modified = 0
 	harmful = FALSE
 
-/obj/item/ammo_casing/caseless/foam_dart/update_icon()
-	..()
+/obj/item/ammo_casing/caseless/foam_dart/update_desc()
+	. = ..()
+	if(modified)
+		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
+
+/obj/item/ammo_casing/caseless/foam_dart/update_icon_state()
 	if(modified)
 		icon_state = "foamdart_empty"
-		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdart_empty"
 	else
@@ -424,11 +419,15 @@
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper
 	icon_state = "foamdartsniper"
 
-/obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon()
-	..()
+
+/obj/item/ammo_casing/caseless/foam_dart/sniper/update_desc()
+	. = ..()
+	if(modified)
+		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
+
+/obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon_state()
 	if(modified)
 		icon_state = "foamdartsniper_empty"
-		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdartsniper_empty"
 	else

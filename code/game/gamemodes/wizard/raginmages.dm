@@ -2,8 +2,8 @@
 	name = "ragin' mages"
 	config_tag = "raginmages"
 	required_players = 20
-	use_huds = 1
-	but_wait_theres_more = 1
+	use_huds = TRUE
+	but_wait_theres_more = TRUE
 	var/max_mages = 0
 	var/making_mage = FALSE
 	var/mages_made = 1
@@ -78,7 +78,7 @@
 			make_more_mages()
 	else
 		if(wizards.len >= wizard_cap)
-			finished = 1
+			finished = TRUE
 			return 1
 		else
 			make_more_mages()
@@ -137,8 +137,8 @@
 			mages_made++
 			return TRUE
 		else
-			log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)
-			return FALSE
+			. = FALSE
+			CRASH("The candidates list for ragin' mages contained non-observer entries!")
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS

@@ -3,8 +3,7 @@
 		return FALSE
 	//robots don't die when gibbed. instead they drop their MMI'd brain
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -27,8 +26,7 @@
 /mob/living/silicon/robot/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	invisibility = 101
 	dust_animation()
 	if(mmi)
@@ -60,7 +58,7 @@
 	diag_hud_set_status()
 	diag_hud_set_health()
 	if(camera)
-		camera.status = 0
+		camera.status = FALSE
 	update_headlamp(1) //So borg lights are disabled when killed.
 
 	if(in_contents_of(/obj/machinery/recharge_station))//exit the recharge station

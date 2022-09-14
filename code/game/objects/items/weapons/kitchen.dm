@@ -32,7 +32,7 @@
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
-	sharp = 0
+	sharp = FALSE
 	var/max_contents = 1
 
 /obj/item/kitchen/utensil/New()
@@ -128,7 +128,7 @@
 	desc = "The bluntest of blades."
 	icon_state = "pknife"
 	item_state = "knife"
-	sharp = 0
+	sharp = FALSE
 
 /obj/item/kitchen/knife/ritual
 	name = "ritual knife"

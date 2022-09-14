@@ -136,7 +136,7 @@
 		qdel(Orchiectomy_target)
 
 	else if(length(orbiting_balls))
-		dissipate() //sing code has a much better system.
+		do_dissipate() //sing code has a much better system.
 
 /obj/singularity/energy_ball/proc/new_mini_ball()
 	if(!loc)
@@ -223,7 +223,7 @@
 	var/closest_type = 0
 	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure, /obj/vehicle))
 	var/static/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
-										/obj/machinery/portable_atmospherics,
+										/obj/machinery/atmospherics/portable,
 										/obj/machinery/power/emitter,
 										/obj/machinery/field/generator,
 										/mob/living/simple_animal/slime,

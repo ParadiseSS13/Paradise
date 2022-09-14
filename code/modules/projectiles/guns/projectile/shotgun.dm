@@ -58,7 +58,6 @@
 	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, 1)
 	pump_unload(M)
 	pump_reload(M)
-	update_icon() //I.E. fix the desc
 	return 1
 
 /obj/item/gun/projectile/shotgun/proc/pump_unload(mob/M)
@@ -88,7 +87,7 @@
 	name = "riot shotgun"
 	desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "riotshotgun"
-	item_state = "shotgun_riot"
+	item_state = "riotshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
 	sawn_state = SAWN_INTACT
@@ -136,16 +135,14 @@
 
 
 /obj/item/gun/projectile/shotgun/riot/proc/post_sawoff()
-	name = "assault shotgun"
-	desc = sawn_desc
 	w_class = WEIGHT_CLASS_NORMAL
-	current_skin = "riotshotgun-short"
-	item_state = "shotgun_assault"			//phil235 is it different with different skin?
+	current_skin = "riotshotgun_sawn"
+	item_state = "riotshotgun_sawn"			//phil235 is it different with different skin?
 	slot_flags &= ~SLOT_BACK    //you can't sling it on your back
 	slot_flags |= SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
 	magazine.max_ammo = 3
-	update_icon()
+	update_appearance()
 
 
 /obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
@@ -179,8 +176,6 @@
 		return 1
 
 /obj/item/gun/projectile/shotgun/riot/proc/post_unsaw()
-	name = initial(name)
-	desc = initial(desc)
 	w_class = initial(w_class)
 	current_skin = "riotshotgun"
 	item_state = initial(item_state)
@@ -188,10 +183,9 @@
 	slot_flags |= SLOT_BACK
 	sawn_state = SAWN_INTACT
 	magazine.max_ammo = 6
-	update_icon()
+	update_appearance()
 
-/obj/item/gun/projectile/shotgun/riot/update_icon() //Can't use the old proc as it makes it go to riotshotgun-short_sawn
-	..()
+/obj/item/gun/projectile/shotgun/riot/update_icon_state() //Can't use the old proc as it makes it go to riotshotgun-short_sawn
 	if(current_skin)
 		icon_state = "[current_skin]"
 	else
@@ -200,8 +194,8 @@
 /obj/item/gun/projectile/shotgun/riot/short
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
 
-/obj/item/gun/projectile/shotgun/riot/short/New()
-	..()
+/obj/item/gun/projectile/shotgun/riot/short/Initialize(mapload)
+	. = ..()
 	post_sawoff()
 
 ///////////////////////
@@ -217,7 +211,6 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
-	slot_flags = 0 //no SLOT_BACK sprite, alas
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	var/bolt_open = 0
@@ -232,7 +225,6 @@
 	else
 		pump_unload(M)
 	bolt_open = !bolt_open
-	update_icon()	//I.E. fix the desc
 	return 1
 
 /obj/item/gun/projectile/shotgun/blow_up(mob/user)
@@ -258,8 +250,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	can_bayonet = FALSE
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/New()
-	..()
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/Initialize(mapload)
+	. = ..()
 	bolt_open = 1
 	pump()
 
@@ -340,10 +332,14 @@
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/New()
-	..()
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
+	. = ..()
 	if(!alternate_magazine)
 		alternate_magazine = new mag_type(src)
+
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/Destroy()
+	QDEL_NULL(alternate_magazine)
+	return ..()
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/attack_self(mob/living/user)
 	if(!chambered && magazine.contents.len)

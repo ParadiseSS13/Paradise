@@ -75,7 +75,22 @@
 	M.clean_blood()
 
 /datum/reagent/blood
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
+	data = list("donor" = null,
+				"viruses" = null,
+				"blood_DNA" = null,
+				"blood_type" = null,
+				"blood_colour" = "#A10808",
+				"resistances" = null,
+				"trace_chem" = null,
+				"mind" = null,
+				"ckey" = null,
+				"gender" = null,
+				"real_name" = null,
+				"cloneable" = null,
+				"factions" = null,
+				"dna" = null,
+				"species" = "Synthetic Humanoid",
+				"species_only" = FALSE)
 	name = "Blood"
 	id = "blood"
 	reagent_state = LIQUID
@@ -112,7 +127,13 @@
 
 /datum/reagent/blood/on_merge(list/mix_data)
 	if(data && mix_data)
-		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
+		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc coagulated
+		if(data["species"] != mix_data["species"] && (data["species_only"] == TRUE || mix_data["species_only"] == TRUE))
+			data["species"] = "Cogulated blood"
+			data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
+			data["species_only"] = TRUE
+		else if(data["species"] != mix_data["species"])
+			data["species"] = "Mixed Humanoid blood"
 		if(data["viruses"] || mix_data["viruses"])
 
 			var/list/mix1 = data["viruses"]
@@ -346,10 +367,12 @@
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-4 SECONDS)
 		M.AdjustWeakened(-4 SECONDS)
-		update_flags |= M.adjustToxLoss(-2, FALSE)
-		update_flags |= M.adjustFireLoss(-2, FALSE)
-		update_flags |= M.adjustOxyLoss(-2, FALSE)
-		update_flags |= M.adjustBruteLoss(-2, FALSE)
+		M.AdjustKnockDown(-4 SECONDS)
+		update_flags |= M.adjustStaminaLoss(-25, FALSE)
+		update_flags |= M.adjustToxLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustOxyLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	else
 		update_flags |= M.adjustBrainLoss(3, FALSE)
 		update_flags |= M.adjustToxLoss(1, FALSE)

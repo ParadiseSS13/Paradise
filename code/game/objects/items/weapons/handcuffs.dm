@@ -13,9 +13,11 @@
 	throw_range = 5
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
-	breakouttime = 600 //Deciseconds = 60s = 1 minutes
+	breakouttime = 1 MINUTES
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
+	// Icon state for cuffed overlay on a mob
+	var/cuffed_state = "handcuff"
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
 
@@ -85,17 +87,19 @@
 	icon_state = "sinewcuff"
 	item_state = "sinewcuff"
 	belt_icon = null
-	breakouttime = 300 //Deciseconds = 30s
+	breakouttime = 30 SECONDS
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
 /obj/item/restraints/handcuffs/cable
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
-	icon_state = "cuff_white"
+	icon_state = "cablecuff"
+	item_state = "cablecuff"
+	cuffed_state = "cablecuff"
 	belt_icon = null
 	origin_tech = "engineering=2"
 	materials = list(MAT_METAL=150, MAT_GLASS=75)
-	breakouttime = 300 //Deciseconds = 30s
+	breakouttime = 30 SECONDS
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
 /obj/item/restraints/handcuffs/cable/red
@@ -123,7 +127,7 @@
 	color = COLOR_WHITE
 
 /obj/item/restraints/handcuffs/cable/random/New()
-	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
 	..()
 
 /obj/item/restraints/handcuffs/cable/proc/cable_color(colorC)
@@ -147,6 +151,7 @@
 	name = "fluffy pink handcuffs"
 	desc = "Use this to keep prisoners in line. Or you know, your significant other."
 	icon_state = "pinkcuffs"
+	cuffed_state = "pinkcuff"
 
 /obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user as mob, params)
 	..()
@@ -182,8 +187,8 @@
 /obj/item/restraints/handcuffs/cable/zipties
 	name = "zipties"
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
-	icon_state = "cuff_white"
-	breakouttime = 450 //Deciseconds = 45s
+	icon_state = "cablecuff"
+	breakouttime = 45 SECONDS
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 
@@ -193,7 +198,7 @@
 
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
-	icon_state = "cuff_white_used"
+	icon_state = "cablecuff_used"
 
 /obj/item/restraints/handcuffs/cable/zipties/used/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 1

@@ -18,6 +18,7 @@
 	/// Associative list of all jobs and their department color classes
 	var/all_jobs = list(
 		// AI
+		"Automated Announcement" = "airadio",
 		"AI" = "airadio",
 		"Android" = "airadio",
 		"Cyborg" = "airadio",
@@ -237,7 +238,7 @@
 		job_class = all_jobs[job]
 
 	if(toggle_name_color)
-		var/new_name = "<span class=\"[job_class]\">" + tcm.sender_name + "</span>"
+		var/new_name = "<span class=\"[job_class]\">[tcm.sender_name]</span>"
 		tcm.sender_name = new_name
 		tcm.vname = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
 

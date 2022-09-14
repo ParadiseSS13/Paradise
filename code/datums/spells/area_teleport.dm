@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/area_teleport
-	nonabstract_req = 1
+	nonabstract_req = TRUE
 
 	var/randomise_selection = 0 //if it lets the usr choose the teleport loc or picks it from the list
 	var/invocation_area = 1 //if the invocation appends the selected area

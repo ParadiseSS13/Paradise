@@ -5,16 +5,12 @@
 	button_icon_state = "lesser_form"
 	chemical_cost = 5
 	dna_cost = 1
-	genetic_damage = 3
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 //Transform into a monkey.
 /datum/action/changeling/lesserform/sting_action(mob/living/carbon/human/user)
 	if(!user)
-		return FALSE
-	if(user.has_brain_worms())
-		to_chat(user, "<span class='warning'>We cannot perform this ability at the present time!</span>")
 		return FALSE
 
 	var/mob/living/carbon/human/H = user

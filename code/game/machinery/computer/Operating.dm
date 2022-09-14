@@ -2,8 +2,8 @@
 
 /obj/machinery/computer/operating
 	name = "operating computer"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating
@@ -23,8 +23,8 @@
 	var/mob/living/carbon/currentPatient
 	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
 
-/obj/machinery/computer/operating/New()
-	..()
+/obj/machinery/computer/operating/Initialize(mapload)
+	. = ..()
 	table = locate(/obj/machinery/optable, orange(1, src))
 	if(table)
 		table.computer = src
@@ -140,11 +140,9 @@
 /obj/machinery/computer/operating/ui_act(action, params)
 	if(..())
 		return
+
 	if(stat & (NOPOWER|BROKEN))
 		return
-
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
-		usr.set_machine(src)
 
 	. = TRUE
 	switch(action)

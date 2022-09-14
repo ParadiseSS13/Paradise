@@ -139,16 +139,16 @@
 //Gets blood from mob to a container or other mob, preserving all data in it.
 /mob/living/proc/transfer_blood_to(atom/movable/AM, amount, forced)
 	if(!blood_volume || !AM.reagents)
-		return 0
+		return FALSE
 	if(blood_volume < BLOOD_VOLUME_BAD && !forced)
-		return 0
+		return FALSE
 
 	if(blood_volume < amount)
 		amount = blood_volume
 
 	var/blood_id = get_blood_id()
 	if(!blood_id)
-		return 0
+		return FALSE
 
 	blood_volume -= amount
 
@@ -164,7 +164,7 @@
 						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
-				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)))
+				if(!(blood_data?["blood_type"] in get_safe_blood(C.dna.blood_type)) || C.dna.species.name != blood_data["species"] && (blood_data["species_only"] || C.dna.species.own_species_blood))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
@@ -208,6 +208,8 @@
 		blood_data["blood_color"] = dna.species.blood_color
 		blood_data["factions"] = faction
 		blood_data["dna"] = dna.Clone()
+		blood_data["species"] = dna.species.name
+		blood_data["species_only"] = dna.species.own_species_blood
 		return blood_data
 	if(blood_id == "slimejelly")
 		var/blood_data = list()

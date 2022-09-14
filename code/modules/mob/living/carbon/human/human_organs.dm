@@ -19,7 +19,7 @@
 		var/obj/item/organ/external/E = Y
 		E.process()
 
-		if(!lying && world.time - l_move_time < 15)
+		if(!IS_HORIZONTAL(src) && world.time - l_move_time < 15)
 		//Moving around with fractured ribs won't do you any good
 			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
@@ -34,7 +34,7 @@
 /mob/living/carbon/human/proc/handle_stance()
 	// Don't need to process any of this if they aren't standing anyways
 	// unless their stance is damaged, and we want to check if they should stay down
-	if(!stance_damage && (lying || resting) && (life_tick % 4) == 0)
+	if(!stance_damage && IS_HORIZONTAL(src) && (life_tick % 4) == 0)
 		return
 
 	stance_damage = 0
@@ -64,11 +64,11 @@
 
 	// standing is poor
 	if(stance_damage >= 8)
-		if(!(lying || resting))
+		if(!IS_HORIZONTAL(src))
 			if(!HAS_TRAIT(src, TRAIT_NOPAIN))
 				emote("scream")
 			emote("collapses")
-		Weaken(10 SECONDS) //can't emote while weakened, apparently.
+		KnockDown(10 SECONDS)
 
 
 /mob/living/carbon/human/proc/handle_grasp()

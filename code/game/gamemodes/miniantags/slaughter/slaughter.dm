@@ -16,7 +16,7 @@
 	speed = 1
 	a_intent = INTENT_HARM
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
-	stop_automated_movement = 1
+	stop_automated_movement = TRUE
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	var/feast_sound = 'sound/misc/demon_consume.ogg'
@@ -29,7 +29,6 @@
 	maxHealth = 200
 	health = 200
 	environment_smash = 1
-	//universal_understand = 1
 	obj_damage = 50
 	melee_damage_lower = 30
 	melee_damage_upper = 30
@@ -50,7 +49,7 @@
 						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
 						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 
 	var/datum/action/innate/demon/whisper/whisper_action
@@ -65,7 +64,7 @@
 	whisper_action = new()
 	whisper_action.Grant(src)
 	if(istype(loc, /obj/effect/dummy/slaughter))
-		bloodspell.phased = 1
+		bloodspell.phased = TRUE
 	addtimer(CALLBACK(src, .proc/attempt_objectives), 5 SECONDS)
 
 
@@ -140,8 +139,8 @@
 /obj/effect/proc_holder/spell/sense_victims
 	name = "Sense Victims"
 	desc = "Sense the location of heretics"
-	charge_max = 0
-	clothes_req = 0
+	base_cooldown = 0
+	clothes_req = FALSE
 	cooldown_min = 0
 	overlay = null
 	action_icon_state = "bloodcrawl"
@@ -249,7 +248,7 @@
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
 
-/obj/item/organ/internal/heart/demon/update_icon()
+/obj/item/organ/internal/heart/demon/update_icon_state()
 	return //always beating visually
 
 /obj/item/organ/internal/heart/demon/prepare_eat()
@@ -345,7 +344,7 @@
 	..()
 
 /datum/objective/slaughter/check_completion()
-	if(!istype(owner.current, /mob/living/simple_animal/slaughter) || !owner.current)
+	if(!isslaughterdemon(owner.current) || !owner.current)
 		return 0
 	var/mob/living/simple_animal/slaughter/R = owner.current
 	if(!R || R.stat == DEAD)

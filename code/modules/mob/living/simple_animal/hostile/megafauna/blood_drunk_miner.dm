@@ -44,7 +44,7 @@ Difficulty: Medium
 	wander = FALSE
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
-	internal_type = /obj/item/gps/internal/miner
+	internal_gps = /obj/item/gps/internal/miner
 	medal_type = BOSS_MEDAL_MINER
 	var/obj/item/melee/energy/cleaving_saw/miner/miner_saw
 	var/time_until_next_transform = 0
@@ -115,7 +115,7 @@ Difficulty: Medium
 /obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
 	target.add_stun_absorption("miner", 10, INFINITY)
 	..()
-	target.stun_absorption -= "miner"
+	target.remove_stun_absorption("miner")
 
 /obj/item/projectile/kinetic/miner
 	damage = 20

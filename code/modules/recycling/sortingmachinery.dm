@@ -3,11 +3,11 @@
 	desc = "A big wrapped package."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycloset"
-	density = 1
+	density = TRUE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/obj/wrapped = null
-	var/init_welded = 0
-	var/giftwrapped = 0
+	var/init_welded = FALSE
+	var/giftwrapped = FALSE
 	var/sortTag = 0
 
 /obj/structure/bigDelivery/Destroy()
@@ -23,7 +23,7 @@
 	..()
 
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
-	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	if(wrapped)
 		wrapped.forceMove(get_turf(src))
 		if(istype(wrapped, /obj/structure/closet))
@@ -62,7 +62,7 @@
 		var/obj/item/stack/wrapping_paper/WP = W
 		if(WP.use(3))
 			user.visible_message("<span class='notice'>[user] wraps the package in festive paper!</span>")
-			giftwrapped = 1
+			giftwrapped = TRUE
 			if(istype(wrapped, /obj/structure/closet/crate))
 				icon_state = "giftcrate"
 			else
@@ -80,7 +80,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycrate2"
 	var/obj/item/wrapped = null
-	var/giftwrapped = 0
+	var/giftwrapped = FALSE
 	var/sortTag = 0
 
 /obj/item/smallDelivery/ex_act(severity)
@@ -130,7 +130,7 @@
 		var/obj/item/stack/wrapping_paper/WP = W
 		if(WP.use(1))
 			icon_state = "giftcrate[wrapped.w_class]"
-			giftwrapped = 1
+			giftwrapped = TRUE
 			user.visible_message("<span class='notice'>[user] wraps the package in festive paper!</span>")
 			if(WP.amount <= 0 && !WP.loc) //if we used our last wrapping paper, drop a cardboard tube
 				new /obj/item/c_tube( get_turf(user) )
@@ -234,56 +234,67 @@
 	desc = "Used to set the destination of properly wrapped packages."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dest_tagger"
-	var/currTag = 0
-	//The whole system for the sorttype var is determined based on the order of this list,
-	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
 
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "electronic"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
+	///Value of the tag
+	var/currTag = 1
+	//The whole system for the sorttype var is determined based on the order of this list,
+	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
 
-/obj/item/destTagger/proc/openwindow(mob/user as mob)
-	var/dat = "<tt><center><h1><b>TagMaster 2.2</b></h1></center>"
+/obj/item/destTagger/attack_self(mob/user)
+	ui_interact(user)
 
-	dat += "<table style='width:100%; padding:4px;'><tr>"
-	for(var/i = 1, i <= GLOB.TAGGERLOCATIONS.len, i++)
-		dat += "<td><a href='?src=[UID()];nextTag=[i]'>[GLOB.TAGGERLOCATIONS[i]]</a></td>"
+/obj/item/destTagger/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "DestinationTagger", name, 395, 350, master_ui, state)
+		ui.open()
 
-		if(i%4==0)
-			dat += "</tr><tr>"
+/obj/item/destTagger/ui_data(mob/user)
+	var/list/data = list()
+	data["selected_destination_id"] = clamp(currTag, 1, length(GLOB.TAGGERLOCATIONS))
+	return data
 
-	dat += "</tr></table><br>Current Selection: [currTag ? GLOB.TAGGERLOCATIONS[currTag] : "None"]</tt>"
+/obj/item/destTagger/ui_static_data(mob/user)
+	var/list/static_data = list()
+	static_data["destinations"] = list()
+	for(var/destination_index in 1 to length(GLOB.TAGGERLOCATIONS))
+		var/list/destination_data = list(
+			"name" = GLOB.TAGGERLOCATIONS[destination_index],
+			"id"   = destination_index,
+		)
+		static_data["destinations"] += list(destination_data)
+	return static_data
 
-	user << browse(dat, "window=destTagScreen;size=450x350")
-	onclose(user, "destTagScreen")
+/obj/item/destTagger/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
 
-/obj/item/destTagger/attack_self(mob/user as mob)
-	openwindow(user)
-	return
-
-/obj/item/destTagger/Topic(href, href_list)
-	src.add_fingerprint(usr)
-	if(href_list["nextTag"])
-		var/n = text2num(href_list["nextTag"])
-		src.currTag = n
-	openwindow(usr)
+	if(action == "select_destination")
+		var/destination_id = clamp(text2num(params["destination"]), 1, length(GLOB.TAGGERLOCATIONS))
+		if(currTag != destination_id)
+			currTag = destination_id
+			playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
+			add_fingerprint(usr)
 
 /obj/machinery/disposal/deliveryChute
 	name = "Delivery chute"
 	desc = "A chute for big and small packages alike!"
-	density = 1
+	density = TRUE
 	icon_state = "intake"
 	required_mode_to_deconstruct = 1
 	deconstructs_to = PIPE_DISPOSALS_CHUTE
 	var/can_deconstruct = FALSE
 
-/obj/machinery/disposal/deliveryChute/New()
-	..()
-	spawn(5)
-		trunk = locate() in src.loc
-		if(trunk)
-			trunk.linked = src	// link the pipe trunk to self
+/obj/machinery/disposal/deliveryChute/Initialize(mapload)
+	. = ..()
+
+	trunk = locate() in loc
+	if(trunk)
+		trunk.linked = src	// link the pipe trunk to self
 
 /obj/machinery/disposal/deliveryChute/interact()
 	return
@@ -295,13 +306,13 @@
 	if(istype(AM, /obj/item/projectile)	|| isAI(AM))  return
 	switch(dir)
 		if(NORTH)
-			if(AM.loc.y != src.loc.y+1) return
+			if(AM.loc.y != loc.y + 1) return
 		if(EAST)
-			if(AM.loc.x != src.loc.x+1) return
+			if(AM.loc.x != loc.x + 1) return
 		if(SOUTH)
-			if(AM.loc.y != src.loc.y-1) return
+			if(AM.loc.y != loc.y - 1) return
 		if(WEST)
-			if(AM.loc.x != src.loc.x-1) return
+			if(AM.loc.x != loc.x - 1) return
 
 	if(istype(AM, /obj))
 		var/obj/O = AM
@@ -309,7 +320,7 @@
 	else if(istype(AM, /mob))
 		var/mob/M = AM
 		M.loc = src
-	src.flush()
+	flush()
 
 /obj/machinery/disposal/deliveryChute/flush()
 	flushing = 1
@@ -358,7 +369,7 @@
 	. = TRUE
 	if(!can_deconstruct)
 		return
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		to_chat(user, "Eject the items first!")
 		return
 	if(!I.tool_use_check(user, 0))
@@ -385,7 +396,7 @@
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)
 	if(sealed)
 		if(istype(O, /obj/item/pen))
-			var/str = copytext(sanitize(input(user,"Intended recipient?","Address","")),1,MAX_NAME_LEN)
+			var/str = copytext(sanitize(input(user, "Intended recipient?", "Address", "")), 1, MAX_NAME_LEN)
 			if(!str || !length(str))
 				to_chat(user, "<span class='notice'>Invalid text.</span>")
 				return
@@ -435,7 +446,8 @@
 			user.unEquip(src)
 			qdel(src)
 
-/obj/item/shippingPackage/proc/update_desc()
+/obj/item/shippingPackage/update_desc()
+	. = ..()
 	desc = "A pre-labeled package for shipping an item to coworkers."
 	if(sortTag)
 		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sortTag]]\"."

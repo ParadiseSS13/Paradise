@@ -3,7 +3,7 @@
 	desc = "This shouldn't exist"
 	icon_state = ""
 	var/last_event = 0
-	var/active = null
+	var/active = FALSE
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
 
@@ -75,13 +75,13 @@
 
 /turf/simulated/wall/mineral/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event + 15)
-			active = 1
+		if(world.time > last_event + 1.5 SECONDS)
+			active = TRUE
 			radiation_pulse(src, 40)
 			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time
-			active = null
+			active = FALSE
 
 /turf/simulated/wall/mineral/uranium/attack_hand(mob/user as mob)
 	radiate()

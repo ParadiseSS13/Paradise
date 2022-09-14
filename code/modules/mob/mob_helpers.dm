@@ -129,7 +129,8 @@
 		SPECIAL_ROLE_REV,
 		SPECIAL_ROLE_TRAITOR,
 		SPECIAL_ROLE_VAMPIRE,
-		SPECIAL_ROLE_VAMPIRE_THRALL
+		SPECIAL_ROLE_VAMPIRE_THRALL,
+		SPECIAL_ROLE_DEATHSQUAD
 	)
 	if(special_role in crew_roles)
 		return 0
@@ -326,13 +327,13 @@
 	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 
-/proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
+/proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
 	for(var/i = 1, i <= length(t), i++)
 
 		var/letter = copytext(t, i, i+1)
-		if(prob(50))
+		if(prob(replace_rate))
 			if(p >= 70)
 				letter = ""
 
@@ -460,21 +461,25 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	if(IsSleeping())
 		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
 		return
-	else
-		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
-			SetSleeping(40 SECONDS) //Short nap
+	if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+		SetSleeping(40 SECONDS, voluntary = TRUE) //Short nap
 
-/mob/living/verb/lay_down()
+/mob/living/verb/rest()
 	set name = "Rest"
 	set category = "IC"
 
-	if(!resting)
-		client.move_delay = world.time + 20
+
+	resting = !resting // this happens before the do_mob so that you can stay resting if you are stunned.
+
+	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/cannot_stand)), only_use_extra_checks = TRUE))
+		return
+
+	if(resting)
 		to_chat(src, "<span class='notice'>You are now resting.</span>")
-		StartResting()
-	else if(resting)
-		to_chat(src, "<span class='notice'>You are now getting up.</span>")
-		StopResting()
+		lay_down()
+	else
+		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
+		stand_up()
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool
@@ -526,11 +531,12 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
-				if(check_rights(R_ADMIN|R_MOD,0,M)) 							// What admins see
-					lname = "[keyname][(DM && DM.client && DM.client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "*" : (DM ? "" : "^")] ([name])"
+				if(check_rights(R_ADMIN|R_MOD, FALSE, M)) 							// What admins see
+					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
+					//lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? TRUE : (DM ? "" : "^")] ([name])"
 				else
-					if(DM && DM.client && DM.client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT)	// If the person is actually observer they have the option to be anonymous
-						lname = "Ghost of [name]"
+					if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)	// If the person is actually observer they have the option to be anonymous
+						lname = "<i>Anon</i> ([name])"
 					else if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
 					else										// Everyone else (dead people who didn't ghost yet, etc.)
@@ -714,12 +720,13 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		newphrase+="[newletter]";counter-=1
 	return newphrase
 
+// Why does this exist?
 /mob/proc/get_preference(toggleflag)
 	if(!client)
 		return FALSE
 	if(!client.prefs)
-		log_runtime(EXCEPTION("Mob '[src]', ckey '[ckey]' is missing a prefs datum on the client!"))
-		return FALSE
+		. = FALSE
+		CRASH("Mob '[src]', ckey '[ckey]' is missing a prefs datum on the client!")
 	// Cast to 1/0
 	return !!(client.prefs.toggles & toggleflag)
 

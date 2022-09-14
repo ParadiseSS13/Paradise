@@ -81,8 +81,10 @@
 			if(L.IsStunned() || L.IsWeakened())
 				return FALSE
 	if(check_flags & AB_CHECK_LYING)
-		if(owner.lying)
-			return FALSE
+		if(isliving(owner))
+			var/mob/living/L = owner
+			if(IS_HORIZONTAL(L))
+				return FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
 			return FALSE
@@ -407,7 +409,7 @@
 
 /datum/action/item_action/toggle_research_scanner/Remove(mob/living/L)
 	if(owner)
-		owner.research_scanner = 0
+		owner.research_scanner = FALSE
 	..()
 
 /datum/action/item_action/toggle_research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
@@ -516,6 +518,10 @@
 	name = "View Storage"
 
 
+/datum/action/item_action/accessory/herald
+	name = "Mirror Walk"
+	desc = "Use near a mirror to enter it"
+
 //Preset for spells
 /datum/action/spell_action
 	check_flags = 0
@@ -559,7 +565,7 @@
 	var/obj/effect/proc_holder/spell/S = target
 	if(!istype(S))
 		return ..()
-	var/progress = S.get_availability_percentage()
+	var/progress = S.cooldown_handler.get_availability_percentage()
 	if(progress == 1)
 		return ..() // This means that the spell is charged but unavailable due to something else
 

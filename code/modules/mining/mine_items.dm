@@ -38,6 +38,10 @@
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/suit/jacket/miningbomber(src)
+	new /obj/item/clothing/suit/jacket/miningbomber(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
@@ -83,6 +87,6 @@
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
 	name = "mining car (not for rails)"
 	icon_state = "miningcar"
-	density = 1
+	density = TRUE
 	icon_opened = "miningcar_open"
 	icon_closed = "miningcar"

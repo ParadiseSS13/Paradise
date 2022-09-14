@@ -134,10 +134,10 @@
 	handle_rotation()
 
 /obj/structure/chair/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!Adjacent(user))
 		return
 	rotate()
 
@@ -370,7 +370,7 @@
 	icon_state = "pewend_right"
 
 /obj/structure/chair/sofa/bench
-	name = "Bench"
+	name = "bench"
 	desc = "You sit in this. Either by will or force."
 	icon_state = "bench_middle_mapping"
 	base_icon_state = "bench_middle"
@@ -412,11 +412,15 @@
 	base_icon_state = "bench_right"
 
 /obj/structure/chair/sofa/bamboo
-	name = "Bamboo Bench"
+	name = "bamboo bench"
 	desc = "Not the most comfortable, but vegan!"
 	icon_state = "bamboo_sofamiddle"
 	color = null
 	colorable = FALSE
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
+	buildstackamount = 2
+	buildstacktype = /obj/item/stack/sheet/wood
 
 /obj/structure/chair/sofa/bamboo/left
 	icon_state = "bamboo_sofaend_left"
@@ -442,6 +446,10 @@
 	desc = "Not the most comfortable, but vegan!"
 	icon_state = "bamboo_stool"
 	item_chair = /obj/item/chair/stool/bamboo
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
+	buildstackamount = 2
+	buildstacktype = /obj/item/stack/sheet/wood
 
 /obj/item/chair
 	name = "chair"
@@ -502,7 +510,7 @@
 
 	user.visible_message("<span class='notice'>[user] rights [src].</span>", "<span class='notice'>You right [src].</span>")
 	var/obj/structure/chair/C = new origin_type(get_turf(loc))
-	C.setDir(dir)
+	C.setDir(user.dir)
 	qdel(src)
 
 /obj/item/chair/proc/smash(mob/living/user)

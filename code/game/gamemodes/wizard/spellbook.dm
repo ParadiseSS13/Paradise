@@ -31,9 +31,7 @@
 			else
 				aspell.name = initial(aspell.name)
 				aspell.spell_level++
-				aspell.charge_max = round(initial(aspell.charge_max) - aspell.spell_level * (initial(aspell.charge_max) - aspell.cooldown_min) / aspell.level_max)
-				if(aspell.charge_max < aspell.charge_counter)
-					aspell.charge_counter = aspell.charge_max
+				aspell.cooldown_handler.recharge_duration = round(aspell.base_cooldown - aspell.spell_level * (aspell.base_cooldown - aspell.cooldown_min) / aspell.level_max)
 				switch(aspell.spell_level)
 					if(1)
 						to_chat(user, "<span class='notice'>You have improved [aspell.name] into Efficient [aspell.name].</span>")
@@ -89,8 +87,7 @@
 		S = new spell_type()
 	var/dat =""
 	dat += "<b>[name]</b>"
-	if(S.charge_type == "recharge")
-		dat += " Cooldown:[S.charge_max/10]"
+	dat += " Cooldown:[S.base_cooldown/10]"
 	dat += " Cost:[cost]<br>"
 	dat += "<i>[S.desc][desc]</i><br>"
 	dat += "[S.clothes_req?"Needs wizard garb":"Can be cast without wizard garb"]<br>"
@@ -499,6 +496,14 @@
 	log_name = "SI"
 	category = "Weapons and Armors"
 
+/datum/spellbook_entry/item/cursed_katana
+	name = "Cursed Katana"
+	desc = "A cursed artefact, used to seal a horrible being inside the katana, which has now reformed. Can be used to make multiple powerful combos, examine it to see them. Can not be dropped. On death, you will dust."
+	item_path = /obj/item/organ/internal/cyberimp/arm/katana
+	cost = 1
+	log_name = "CK"
+	category = "Weapons and Armors"
+
 /datum/spellbook_entry/item/spell_blade
 	name = "Spellblade"
 	desc = "A magical sword that can be enchanted by using it in hand to have a unique on-hit effect. Lighting: arcs electricity between nearby targets, stunning and damaging them. Fire: creates a massive ball of fire on hit, and makes the wielder immune to fire. Bluespace: allows you to strike people from a range, teleporting you to them. Forceshield: on hit, makes you stun immune for 3 seconds and reduces damage by half."
@@ -650,7 +655,11 @@
 	for(var/path in spells_path)
 		var/obj/effect/proc_holder/spell/S = new path()
 		LearnSpell(user, book, S)
+	OnBuy(user, book)
 	return TRUE
+
+/datum/spellbook_entry/loadout/proc/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	return
 
 /obj/item/spellbook
 	name = "spell book"
@@ -902,7 +911,7 @@
 /obj/item/spellbook/oneuse
 	var/spell = /obj/effect/proc_holder/spell/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
 	var/spellname = "sandbox"
-	var/used = 0
+	var/used = FALSE
 	name = "spellbook of "
 	uses = 1
 	desc = "This template spellbook was never meant for the eyes of man..."
@@ -937,7 +946,7 @@
 	user.visible_message("<span class='warning'>[src] glows in a black light!</span>")
 
 /obj/item/spellbook/oneuse/proc/onlearned(mob/user)
-	used = 1
+	used = TRUE
 	user.visible_message("<span class='caution'>[src] glows dark for a second!</span>")
 
 /obj/item/spellbook/oneuse/attackby()

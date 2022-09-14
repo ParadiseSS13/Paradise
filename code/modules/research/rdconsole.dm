@@ -74,15 +74,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/machinery/r_n_d/protolathe/linked_lathe = null				//Linked Protolathe
 	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
 
-	var/screen = 1.0	//Which screen is currently showing.
-
 	var/menu = MENU_MAIN
 	var/submenu = SUBMENU_MAIN
 	var/wait_message = 0
 	var/wait_message_timer = 0
 
 	var/id = 0			//ID of the computer (for server restrictions).
-	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
+	var/sync = TRUE		//If sync if FALSE, it doesn't show up on Server Control Console
+	///Range to search for rnd devices in proximity to console
+	var/range = 3
 
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
@@ -131,22 +131,24 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				return initial(rt.name)
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
-	for(var/obj/machinery/r_n_d/D in range(3,src))
-		if(!isnull(D.linked_console) || D.disabled || D.panel_open)
+	for(var/obj/machinery/r_n_d/D in range(range, src))
+		if(!isnull(D.linked_console) || D.panel_open)
 			continue
+
 		if(istype(D, /obj/machinery/r_n_d/destructive_analyzer))
 			if(linked_destroy == null)
 				linked_destroy = D
 				D.linked_console = src
+
 		else if(istype(D, /obj/machinery/r_n_d/protolathe))
 			if(linked_lathe == null)
 				linked_lathe = D
 				D.linked_console = src
+
 		else if(istype(D, /obj/machinery/r_n_d/circuit_imprinter))
 			if(linked_imprinter == null)
 				linked_imprinter = D
 				D.linked_console = src
-	return
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -162,17 +164,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			KT.level=KT.max_level
 	files.RefreshResearch()
 
-/obj/machinery/computer/rdconsole/New()
-	..()
+/obj/machinery/computer/rdconsole/Initialize(mapload)
+	. = ..()
 	files = new /datum/research(src) //Setup the research data holder.
 	matching_designs = list()
-	if(!id)
-		for(var/obj/machinery/r_n_d/server/centcom/S in GLOB.machines)
-			S.initialize_serv()
-			break
-
-/obj/machinery/computer/rdconsole/Initialize()
-	..()
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
@@ -276,16 +271,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		var/server_processed = FALSE
-		if(S.disabled)
-			continue
+
 		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
 			files.push_data(S.files)
 			server_processed = TRUE
-		if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
+
+		if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)))
 			S.files.push_data(files)
 			server_processed = TRUE
+
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 			S.produce_heat(100)
+
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/reset_research()
@@ -348,14 +345,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!linked_destroy || !temp_tech)
 		return
 
-	if(!linked_destroy.hacked)
-		if(!linked_destroy.loaded_item)
-			to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
-		else
-			for(var/T in temp_tech)
-				files.UpdateTech(T, temp_tech[T])
-			send_mats()
-			linked_destroy.loaded_item = null
+	if(!linked_destroy.loaded_item)
+		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+	else
+		for(var/T in temp_tech)
+			files.UpdateTech(T, temp_tech[T])
+		send_mats()
+		linked_destroy.loaded_item = null
 
 	for(var/obj/I in linked_destroy.contents)
 		for(var/mob/M in I.contents)
@@ -952,6 +948,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 3
+	range = 5
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/public

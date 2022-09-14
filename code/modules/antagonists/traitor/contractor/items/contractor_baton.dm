@@ -3,8 +3,10 @@
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
 	// Overrides
 	affect_silicon = TRUE
-	stun_time = 2 SECONDS
+	knockdown_duration = 4 SECONDS
 	cooldown = 2.5 SECONDS
+	stamina_damage = 70
+	stamina_armour_pen = 100
 	force_off = 5
 	force_on = 15
 	item_state_on = "contractor_baton"
@@ -13,15 +15,12 @@
 	stun_sound = 'sound/weapons/contractorbatonhit.ogg'
 	extend_sound = 'sound/weapons/contractorbatonextend.ogg'
 	// Settings
-	/// Stamina damage to deal on stun.
-	var/stamina_damage = 70
 	/// Jitter to deal on stun.
 	var/jitter_amount = 5 SECONDS
 	/// Stutter to deal on stun.
 	var/stutter_amount = 10 SECONDS
 
-/obj/item/melee/classic_baton/telescopic/contractor/stun(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/telescopic/contractor/baton_knockdown(mob/living/target, mob/living/user)
 	. = ..()
-	target.adjustStaminaLoss(stamina_damage)
 	target.Jitter(jitter_amount)
 	target.AdjustStuttering(stutter_amount)

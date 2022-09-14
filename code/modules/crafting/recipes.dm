@@ -66,6 +66,158 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/advancedegun
+	name = "Advanced Energy Gun"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/gun/nuclear)
+	reqs = list(/obj/item/gun/energy/gun = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/nuclear = 1)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/advancedegun/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/gun)
+
+/datum/crafting_recipe/tempgun
+	name = "Temperature Gun"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/temperature)
+	reqs = list(/obj/item/gun/energy/gun = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/temperature = 1)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/tempgun/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/gun)
+
+/datum/crafting_recipe/decloner
+	name = "Biological Demolecularisor"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/decloner)
+	reqs = list(/obj/item/gun/energy/gun = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/decloner = 1,
+				/datum/reagent/mutagen = 40)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/decloner/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/gun)
+
+/datum/crafting_recipe/ioncarbine
+	name = "Ion Carbine"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/ionrifle/carbine)
+	reqs = list(/obj/item/gun/energy/gun = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/ion = 1)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/ioncarbine/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/gun)
+
+/datum/crafting_recipe/ebow
+	name = "Energy Crossbow"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/kinetic_accelerator/crossbow/large)
+	reqs = list(/obj/item/gun/energy/kinetic_accelerator  = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/ebow = 1,
+				/datum/reagent/radium = 15)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/ebow/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/kinetic_accelerator)
+
+/datum/crafting_recipe/xraylaser
+	name = "X-ray Laser Gun"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/xray)
+	reqs = list(/obj/item/gun/energy/laser = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/xray = 1)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/xraylaser/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/laser)
+
+/datum/crafting_recipe/immolator
+	name = "Immolator Laser Gun"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/immolator)
+	reqs = list(/obj/item/gun/energy/laser = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/immolator = 1)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/immolator/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/laser)
+
+/datum/crafting_recipe/plasma
+	name = "Plasma Pistol"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/plasma_pistol)
+	reqs = list(/obj/item/gun/energy/laser = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/plasma = 1)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/plasma/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/laser)
+
+/datum/crafting_recipe/teslarevolver
+	name = "Tesla Revolver"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/shock_revolver)
+	reqs = list(/obj/item/gun/energy/laser = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/tesla = 1)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/teslarevolver/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/laser)
+
+/datum/crafting_recipe/accelerator
+	name = "Accelerator Laser Cannon"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/lasercannon)
+	reqs = list(/obj/item/gun/energy/laser = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/accelerator = 1)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/accelerator/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/laser)
+
 /datum/crafting_recipe/ed209
 	name = "ED209"
 	result = list(/mob/living/simple_animal/bot/ed209)

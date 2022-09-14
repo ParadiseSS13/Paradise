@@ -35,6 +35,13 @@
 #define AGE_MIN 17			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
 
+/// Mob is standing up, usually associated with lying_angle value of 0.
+#define STANDING_UP 0
+/// Mob is lying down, usually associated with lying_angle values of 90 or 270.
+#define LYING_DOWN 1
+
+///How much a mob's sprite should be moved when they're lying down
+#define PIXEL_Y_OFFSET_LYING -6
 
 #define LEFT 1
 #define RIGHT 2
@@ -229,16 +236,16 @@
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
-#define isanimal(A)		(istype((A), /mob/living/simple_animal))
-#define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
-#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
-#define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
-#define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
-#define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
-#define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
-#define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
-#define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
-#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+#define isanimal(A)			(istype((A), /mob/living/simple_animal))
+#define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
+#define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
+#define ismouse(A)			(istype((A), /mob/living/simple_animal/mouse))
+#define isbot(A)			(istype((A), /mob/living/simple_animal/bot))
+#define isguardian(A)		(istype((A), /mob/living/simple_animal/hostile/guardian))
+#define isnymph(A)      	(istype((A), /mob/living/simple_animal/diona))
+#define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
+#define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/slaughter))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))

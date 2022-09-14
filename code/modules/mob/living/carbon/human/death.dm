@@ -2,8 +2,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	if(!ismachineperson(src))
@@ -50,7 +49,6 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	notransform = TRUE
-	canmove = FALSE
 	dust_animation()
 	QDEL_IN(src, 20)
 	return TRUE
@@ -69,8 +67,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -99,7 +96,7 @@
 		dna.species.handle_death(gibbed, src)
 
 	if(SSticker && SSticker.mode)
-		SSblackbox.ReportDeath(src)
+		INVOKE_ASYNC(SSblackbox, /datum/controller/subsystem/blackbox/proc/ReportDeath, src)
 
 /mob/living/carbon/human/update_revive(updating)
 	. = ..()

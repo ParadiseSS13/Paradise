@@ -24,16 +24,16 @@
 	. = ..()
 	if(has_latches)
 		if(prob(10))
-			latches = "double_latch"
 			if(prob(1))
 				latches = "triple_latch"
-	update_icon()
+			else
+				latches = "double_latch"
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/storage/toolbox/update_icon()
-	..()
-	cut_overlays()
+/obj/item/storage/toolbox/update_overlays()
+	. = ..()
 	if(has_latches)
-		add_overlay(latches)
+		. += latches
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
@@ -109,7 +109,7 @@
 	new /obj/item/weldingtool/largetank(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/wirecutters(src, "red")
-	new /obj/item/multitool(src)
+	new /obj/item/multitool/red(src)
 	new /obj/item/clothing/gloves/combat(src)
 
 /obj/item/storage/toolbox/fakesyndi

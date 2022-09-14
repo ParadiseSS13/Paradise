@@ -108,7 +108,7 @@
 		chaser_speed = max(chaser_speed + health_percent, 0.5) //one tenth of a second faster for each missing 10% of health
 		blast_range -= round(health_percent * 10) //one additional range for each missing 10% of health
 
-/obj/item/hierophant_club/update_icon()
+/obj/item/hierophant_club/update_icon_state()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
 	item_state = icon_state
 	if(ismob(loc))
@@ -158,6 +158,9 @@
 		return
 	if(get_dist(user, beacon) <= 2) //beacon too close abort
 		to_chat(user, "<span class='warning'>You are too close to the beacon to teleport to it!</span>")
+		return
+	if(is_in_teleport_proof_area(beacon))
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
 	if(is_blocked_turf(get_turf(beacon), TRUE))
 		to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")

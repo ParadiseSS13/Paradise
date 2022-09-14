@@ -1,0 +1,47 @@
+//library category defines
+
+//General Categories
+#define LIB_CATEGORY_FICTION     1
+#define LIB_CATEGORY_NONFICTION  2
+#define LIB_CATEGORY_RELIGION    3
+#define LIB_CATEGORY_FANTASY     4
+#define LIB_CATEGORY_HORROR      5
+#define LIB_CATEGORY_ROMANCE     6
+#define LIB_CATEGORY_MYSTERY     7
+#define LIB_CATEGORY_ADVENTURE   8
+#define LIB_CATEGORY_HISTORY     9
+#define LIB_CATEGORY_PHILOSOPHY  10
+#define LIB_CATEGORY_DRAMA       11
+#define LIB_CATEGORY_POETRY      12
+
+
+//Other Categories, ss13 related
+#define LIB_CATEGORY_EXPERIMENT  13
+#define LIB_CATEGORY_LEGAL       14
+#define LIB_CATEGORY_BIOGRAPHY   15
+#define LIB_CATEGORY_GUIDE       16
+#define LIB_CATEGORY_PAPERWORK   17
+#define LIB_CATEGORY_COOKING     18
+#define LIB_CATEGORY_DESIGN      19
+#define LIB_CATEGORY_COMBAT      20
+#define LIB_CATEGORY_THEATRE     21
+#define LIB_CATEGORY_EXPLORATION 22
+
+//Departmental
+#define LIB_CATEGORY_LAW         23
+#define LIB_CATEGORY_SECURITY    24
+#define LIB_CATEGORY_SUPPLY      25
+#define LIB_CATEGORY_ENGINEERING 26
+#define LIB_CATEGORY_SERVICE     27
+#define LIB_CATEGORY_MEDICAL     28
+#define LIB_CATEGORY_RESEARCH    29
+#define LIB_CATEGORY_COMMAND     30
+
+//Library Report button defines
+#define LIB_REPORT_HATESPEECH    1
+#define LIB_REPORT_EROTICA       2
+#define LIB_REPORT_OOC           3
+#define LIB_REPORT_COPYPASTA     4
+#define LIB_REPORT_BLANK         5
+#define LIB_REPORT_NOEFFORT      6
+#define LIB_REPORT_OTHER         7

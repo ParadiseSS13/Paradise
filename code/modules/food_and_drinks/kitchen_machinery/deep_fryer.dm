@@ -4,18 +4,18 @@
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "fryer_off"
 	thiscooktype = "deep fried"
-	burns = 1
+	burns = TRUE
 	firechance = 100
 	cooktime = 200
 	foodcolor = "#FFAD33"
 	officon = "fryer_off"
 	onicon = "fryer_on"
 	openicon = "fryer_open"
-	has_specials = 1
-	upgradeable = 1
+	has_specials = TRUE
+	upgradeable = TRUE
 
-/obj/machinery/cooker/deepfryer/New()
-	..()
+/obj/machinery/cooker/deepfryer/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/deepfryer(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -23,8 +23,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
-/obj/machinery/cooker/deepfryer/upgraded/New()
-	..()
+/obj/machinery/cooker/deepfryer/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/deepfryer(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -42,6 +42,18 @@
 /obj/machinery/cooker/deepfryer/gettype()
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
+
+/obj/machinery/cooker/deepfryer/examine(mob/user)
+	. = ..()
+	if(emagged)
+		. += "<span class='warning'>The heating element is smoking slightly.</span>"
+
+/obj/machinery/cooker/deepfryer/emag_act()
+	if(!emagged)
+		to_chat(usr, "<span class='warning'>You short out the fryer's safeties, allowing non-food objects to be placed in the oil.</span>")
+		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		emagged = TRUE
+		return
 
 /obj/machinery/cooker/deepfryer/special_attack(obj/item/grab/G, mob/user)
 	if(ishuman(G.affecting))

@@ -1,6 +1,6 @@
 /area/ruin/unpowered/syndicate_space_base
 	name = "Secret Base"
-	icon_state = "dk_yellow"
+	icon_state = "yellow"
 	ambientsounds = HIGHSEC_SOUNDS
 	report_alerts = FALSE
 	hide_attacklogs = TRUE
@@ -11,7 +11,7 @@
 
 /area/ruin/unpowered/syndicate_space_base/medbay
 	name = "Syndicate Space Base Medbay"
-	icon_state = "medbay2"
+	icon_state = "medbay"
 
 /area/ruin/unpowered/syndicate_space_base/arrivals
 	name = "Syndicate Space Base Arrivals"
@@ -47,4 +47,4 @@
 
 /area/ruin/unpowered/syndicate_space_base/telecomms
 	name = "Syndicate Space Base Telecommunications"
-	icon_state = "tcomsatcham"
+	icon_state = "tcomms"

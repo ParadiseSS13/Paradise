@@ -77,6 +77,7 @@
 	var/delay_before_decay = 5
 	var/bleed_damage = 200
 	var/needs_to_bleed = FALSE
+	var/bleed_cap = 10
 
 /datum/status_effect/saw_bleed/Destroy()
 	if(owner)
@@ -113,7 +114,7 @@
 	owner.underlays -= bleed_underlay
 	bleed_amount += amount
 	if(bleed_amount)
-		if(bleed_amount >= 10)
+		if(bleed_amount >= bleed_cap)
 			needs_to_bleed = TRUE
 			qdel(src)
 		else
@@ -137,6 +138,68 @@
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
 
+/datum/status_effect/saw_bleed/bloodletting
+	id = "bloodletting"
+	bleed_cap = 7
+	bleed_damage = 25 //Seems weak (it is) but it also works on humans and bypasses armor SOOOO
+	bleed_amount = 6
+
+/datum/status_effect/stacking/ground_pound
+	id = "ground_pound"
+	tick_interval = 5 SECONDS
+	stack_threshold = 3
+	max_stacks = 3
+	reset_ticks_on_stack = TRUE
+	var/mob/living/simple_animal/hostile/asteroid/big_legion/latest_attacker
+
+/datum/status_effect/stacking/ground_pound/on_creation(mob/living/new_owner, stacks_to_apply, mob/living/attacker)
+	. = ..()
+	if(.)
+		latest_attacker = attacker
+
+/datum/status_effect/stacking/ground_pound/add_stacks(stacks_added, mob/living/attacker)
+	. = ..()
+	if(.)
+		latest_attacker = attacker
+	if(stacks != stack_threshold)
+		return TRUE
+
+/datum/status_effect/stacking/ground_pound/stacks_consumed_effect()
+	flick("legion-smash", latest_attacker)
+	addtimer(CALLBACK(latest_attacker, /mob/living/simple_animal/hostile/asteroid/big_legion/.proc/throw_mobs), 1 SECONDS)
+
+/datum/status_effect/stacking/ground_pound/on_remove()
+	latest_attacker = null
+
+/datum/status_effect/teleport_sickness
+	id = "teleportation sickness"
+	duration = 30 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /obj/screen/alert/status_effect/teleport_sickness
+	var/teleports = 1
+
+/obj/screen/alert/status_effect/teleport_sickness
+	name = "Teleportation sickness"
+	desc = "You feel like you are going to throw up with all this teleporting."
+	icon_state = "bluespace"
+
+/datum/status_effect/teleport_sickness/refresh()
+	. = ..()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/M = owner
+		teleports++
+		if(teleports < 3)
+			return
+		if(teleports < 6)
+			to_chat(M, "<span class='warning'>You feel a bit sick!</span>")
+			M.vomit(lost_nutrition = 15, blood = 0, stun = 0, distance = 0, message = 1)
+			M.Weaken(2 SECONDS)
+		else
+			to_chat(M, "<span class='danger'>You feel really sick!</span>")
+			M.adjustBruteLoss(rand(0, teleports * 2))
+			M.vomit(lost_nutrition = 30, blood = 0, stun = 0, distance = 0, message = 1)
+			M.Weaken(6 SECONDS)
+
 /datum/status_effect/pacifism
 	id = "pacifism_debuff"
 	alert_type = null
@@ -148,6 +211,41 @@
 
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
+
+// used to track if hitting someone with a cult dagger/sword should stamina crit.
+/datum/status_effect/cult_stun_mark
+	id = "cult_stun"
+	duration = 10 SECONDS // when the knockdown ends, the mark disappears.
+	alert_type = null
+	var/mutable_appearance/overlay
+
+/datum/status_effect/cult_stun_mark/on_apply()
+	. = ..()
+	if(!ishuman(owner))
+		return
+	overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
+	var/mob/living/carbon/human/H = owner
+	H.add_overlay(overlay)
+
+/datum/status_effect/cult_stun_mark/on_remove()
+	owner.cut_overlay(overlay)
+
+/datum/status_effect/cult_stun_mark/proc/trigger()
+	owner.adjustStaminaLoss(60)
+	owner.Silence(6 SECONDS) // refresh the silence
+	qdel(src)
+
+/datum/status_effect/bluespace_slowdown
+	id = "bluespace_slowdown"
+	alert_type = null
+	duration = 15 SECONDS
+
+/datum/status_effect/bluespace_slowdown/on_apply()
+	owner.next_move_modifier *= 2
+	return ..()
+
+/datum/status_effect/bluespace_slowdown/on_remove()
+	owner.next_move_modifier /= 2
 
 // start of `living` level status procs.
 
@@ -214,7 +312,7 @@
 	owner.client?.pixel_y = py_diff
 
 /datum/status_effect/transient/dizziness/calc_decay()
-	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
 
 /**
  * # Drowsiness
@@ -235,7 +333,7 @@
 		owner.Paralyse(10 SECONDS)
 
 /datum/status_effect/transient/drowsiness/calc_decay()
-	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
 
 /**
  * # Drukenness
@@ -264,6 +362,8 @@
 		alert_thrown = FALSE
 		owner.clear_alert("drunk")
 		owner.sound_environment_override = SOUND_ENVIRONMENT_NONE
+	if(owner.mind && istype(owner.mind.martial_art, DRUNK_BRAWLING))
+		owner.mind.martial_art.remove(owner)
 	return ..()
 
 /datum/status_effect/transient/drunkenness/tick()
@@ -301,10 +401,10 @@
 	if(M)
 		if(actual_strength >= THRESHOLD_BRAWLING)
 			if(!istype(M.martial_art, DRUNK_BRAWLING))
-				var/datum/martial_art/MA = new
+				var/datum/martial_art/drunk_brawling/MA = new
 				MA.teach(owner, TRUE)
 		else if(istype(M.martial_art, DRUNK_BRAWLING))
-			M.martial_art.remove(src)
+			M.martial_art.remove(owner)
 	// THRESHOLD_CONFUSION (80 SECONDS)
 	if(actual_strength >= THRESHOLD_CONFUSION && prob(3.3))
 		owner.AdjustConfused(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
@@ -371,37 +471,113 @@
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
 		owner.update_stat()
-	owner.update_canmove()
 
 
 /datum/status_effect/incapacitating/on_remove()
-	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
+	if(needs_update_stat || issilicon(owner)) //silicons need stat updates
 		owner.update_stat()
-	owner.update_canmove()
 	return ..()
+
+//FLOORED - forces the victim prone.
+/datum/status_effect/incapacitating/floored
+	id = "floored"
+
+/datum/status_effect/incapacitating/floored/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_FLOORED, "[id]")
+
+/datum/status_effect/incapacitating/floored/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, "[id]")
+	return ..()
+
 
 //STUN - prevents movement and actions, victim stays standing
 /datum/status_effect/incapacitating/stun
 	id = "stun"
 
+/datum/status_effect/incapacitating/stun/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
+
+/datum/status_effect/incapacitating/stun/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
+	return ..()
+
 //IMMOBILIZED - prevents movement, victim can still stand and act
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
 
+/datum/status_effect/incapacitating/immobilized/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+
+/datum/status_effect/incapacitating/immobilized/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	return ..()
+
 //WEAKENED - prevents movement and action, victim falls over
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
+
+/datum/status_effect/incapacitating/weakened/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	ADD_TRAIT(owner, TRAIT_FLOORED, "[id]")
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
+
+/datum/status_effect/incapacitating/weakened/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, "[id]")
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
+	return ..()
 
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
 	needs_update_stat = TRUE
 
+/datum/status_effect/incapacitating/paralyzed/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
+
+/datum/status_effect/incapacitating/paralyzed/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
+	return ..()
+
 //SLEEPING - victim falls over, cannot act, cannot see or hear, heals under certain conditions.
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"
 	tick_interval = 2 SECONDS
 	needs_update_stat = TRUE
+	/// Whether we decided to take a nap on our own.
+	/// As opposed to being hard knocked out with N2O or similar.
+	var/voluntary = FALSE
+
+/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner, set_duration, voluntary = FALSE)
+	..()
+	src.voluntary = voluntary
+
+/datum/status_effect/incapacitating/sleeping/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
+
+/datum/status_effect/incapacitating/sleeping/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
+	return ..()
 
 /datum/status_effect/incapacitating/sleeping/tick()
 	if(!iscarbon(owner))
@@ -470,7 +646,7 @@
 	owner.do_jitter_animation(strength / 20, 1)
 
 /datum/status_effect/transient/jittery/calc_decay()
-	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
 
 /datum/status_effect/transient/stammering
 	id = "stammer"

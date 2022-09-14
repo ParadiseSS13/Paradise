@@ -201,11 +201,12 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(!next_poll_to_finish || P2.time_left() < next_poll_to_finish.time_left())
 				next_poll_to_finish = P2
 
-/datum/controller/subsystem/ghost_spawns/stat_entry(msg)
+/datum/controller/subsystem/ghost_spawns/get_stat_details()
+	var/list/msg = list()
 	msg += "Active: [length(currently_polling)] | Total: [total_polls]"
 	if(next_poll_to_finish)
 		msg += " | Next: [DisplayTimeText(next_poll_to_finish.time_left())] ([length(next_poll_to_finish.signed_up)] candidates)"
-	..(msg)
+	return msg.Join("")
 
 // The datum that describes one instance of candidate polling
 /datum/candidate_poll

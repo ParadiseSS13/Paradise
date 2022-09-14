@@ -152,7 +152,7 @@
 
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on [H.p_their()] missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
 	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob/living.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, /mob/living.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+		if(H.incapacitated(extra_checks = list(CALLBACK(H, /mob/living.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 			to_chat(H, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
 			return
 

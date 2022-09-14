@@ -14,8 +14,8 @@
 	speed = 0
 	mob_biotypes = NONE
 	a_intent = INTENT_HARM
-	can_change_intents = 0
-	stop_automated_movement = 1
+	can_change_intents = FALSE
+	stop_automated_movement = TRUE
 	flying = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
@@ -33,7 +33,7 @@
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
-	var/light_on = 0
+	var/light_on = FALSE
 	var/luminosity_on = 3
 	var/mob/living/summoner
 	var/range = 10 //how far from the user the spirit can be
@@ -228,7 +228,7 @@
 /obj/item/guardiancreator
 	name = "deck of tarot cards"
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power. "
-	icon = 'icons/obj/toy.dmi'
+	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "deck_syndicate_full"
 	var/used = FALSE
 	var/theme = "magic"
@@ -350,6 +350,7 @@
 	G.name_color = color_list[color]
 	var/picked_name = pick(name_list)
 	create_theme(G, user, picked_name, color)
+	SSblackbox.record_feedback("tally", "guardian_pick", 1, "[pickedtype]")
 
 /obj/item/guardiancreator/proc/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"
@@ -458,22 +459,19 @@
  <br>
  <b>Assassin</b>: Medium damage with no damage resistance, can enter stealth which massively increases the damage of the next attack causing it to ignore armour.
  <br>
- <b>Charger</b>: Medium damage and defense, very fast and has a special charge attack which damages a target and knocks items out of their hands.
+ <b>Charger</b>: Medium damage and defense, very fast and has a special charge attack which damages a target and knocks them to the ground.
  <br>
  <b>Lightning</b>: Applies lightning chains to any targets on attack with a link to your summoner, lightning chains will shock anyone nearby.
  <br>
  <b>Protector</b>: You will become leashed to your holoparasite instead of them to you. Has two modes, a medium attack/defense mode and a protection mode which greatly reduces incoming damage to the holoparasite.
 "}
 
-/obj/item/paper/guardian/update_icon()
+/obj/item/paper/guardian/update_icon_state()
 	return
-
 
 /obj/item/storage/box/syndie_kit/guardian
 	name = "holoparasite injector kit"
 
-/obj/item/storage/box/syndie_kit/guardian/New()
-	..()
+/obj/item/storage/box/syndie_kit/guardian/populate_contents()
 	new /obj/item/guardiancreator/tech/choose(src)
 	new /obj/item/paper/guardian(src)
-	return

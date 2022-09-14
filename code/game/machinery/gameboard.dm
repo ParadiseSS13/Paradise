@@ -3,14 +3,14 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gboard_on"
 	desc = "A holographic table allowing the crew to have fun(TM) on boring shifts! One player per board."
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	var/cooling_down = 0
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
-/obj/machinery/gameboard/New()
-	..()
+/obj/machinery/gameboard/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/gameboard(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -20,13 +20,13 @@
 
 /obj/machinery/gameboard/power_change()
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(stat & NOPOWER)
 		set_light(0)
 	else
 		set_light(3, 3)
 
-/obj/machinery/gameboard/update_icon()
+/obj/machinery/gameboard/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "gboard_off"
 	else

@@ -10,32 +10,57 @@
 	damage_deflection = 10
 	var/id = null
 	var/range = 2 //this is roughly the size of brig cell
-	var/disable = 0
+	var/disable = FALSE
 	var/last_flash = 0 //Don't want it getting spammed like regular flashes
 	var/strength = 10 SECONDS //How weakened targets are when flashed.
 	var/base_state = "mflash"
-	anchored = 1
+	anchored = TRUE
+
+/obj/machinery/flasher/Initialize()
+	. = ..()
+	update_icon()
 
 /obj/machinery/flasher/portable //Portable version of the flasher. Only flashes when anchored
 	name = "portable flasher"
 	desc = "A portable flashing device. Wrench to activate and deactivate. Cannot detect slow movements."
 	icon_state = "pflash1"
 	strength = 4
-	anchored = 0
+	anchored = FALSE
 	base_state = "pflash"
-	density = 1
+	density = TRUE
 
-/obj/machinery/flasher/portable/ComponentInitialize()
+/obj/machinery/flasher/portable/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 
 /obj/machinery/flasher/power_change()
-	if( powered() )
+	if(powered())
 		stat &= ~NOPOWER
-		icon_state = "[base_state]1"
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	else
-		stat |= ~NOPOWER
+		stat |= NOPOWER
+		set_light(0)
+	update_icon()
+
+/obj/machinery/flasher/update_icon_state()
+	. = ..()
+
+	if((stat & NOPOWER) || !anchored)
 		icon_state = "[base_state]1-p"
+	else
+		icon_state = "[base_state]1"
+
+/obj/machinery/flasher/update_overlays()
+	. = ..()
+	underlays.Cut()
+	cut_overlays()
+	if(stat & NOPOWER)
+		return
+
+	if(anchored)
+		. += "[base_state]-s"
+		underlays += emissive_appearance(icon, "[base_state]_lightmask")
+
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
@@ -102,10 +127,9 @@
 	anchored = !anchored
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
-		overlays.Cut()
 	else
 		WRENCH_UNANCHOR_MESSAGE
-		overlays += "[base_state]-s"
+	update_icon()
 
 // Flasher button
 /obj/machinery/flasher_button
@@ -114,8 +138,8 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "launcherbtt"
 	var/id = null
-	var/active = 0
-	anchored = 1.0
+	var/active = FALSE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
@@ -135,7 +159,7 @@
 
 	use_power(5)
 
-	active = 1
+	active = TRUE
 	icon_state = "launcheract"
 
 	for(var/obj/machinery/flasher/M in GLOB.machines)
@@ -146,4 +170,4 @@
 	sleep(50)
 
 	icon_state = "launcherbtt"
-	active = 0
+	active = FALSE

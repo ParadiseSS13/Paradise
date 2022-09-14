@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	// blend the individual damage states with our icons
 	for(var/D in bodyparts)
 		var/obj/item/organ/external/E = D
-		E.update_icon()
+		E.update_state()
 		if(E.damage_state == "00")
 			continue
 
@@ -385,13 +385,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			// Gradient
 			var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[O.h_grad_style]
 			if(gradient)
-				var/mutable_appearance/img_gradient = mutable_appearance(gradient.icon, gradient.icon_state)
-				img_gradient.alpha = O.h_grad_alpha
-				img_gradient.color = COLOR_MATRIX_OVERLAY(O.h_grad_colour)
-				img_gradient.pixel_x = O.h_grad_offset_x
-				img_gradient.pixel_y = O.h_grad_offset_y
-				img_gradient.blend_mode = BLEND_INSET_OVERLAY
-				MA.overlays += img_gradient
+				var/icon/icn_alpha_mask = icon(gradient.icon, gradient.icon_state)
+				var/icon/icn_gradient = icon(gradient.icon, "full")
+				var/list/icn_color = ReadRGB(O.h_grad_colour)
+				icn_gradient.MapColors(rgb(icn_color[1], 0, 0), rgb(0, icn_color[2], 0), rgb(0, 0, icn_color[3]))
+				icn_gradient.ChangeOpacity(O.h_grad_alpha / 255)
+				icn_gradient.AddAlphaMask(icn_alpha_mask)
+				icn_gradient.Shift(EAST, O.h_grad_offset_x)
+				icn_gradient.Shift(NORTH, O.h_grad_offset_y)
+				icn_gradient.AddAlphaMask(icon(hair.icon, "[hair.icon_state]_s"))
+
+				MA.overlays += icn_gradient
 
 			// Secondary style
 			if(hair.secondary_theme)
@@ -772,7 +776,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			standing = mutable_appearance('icons/mob/clothing/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
 
-
 		if(shoes.blood_DNA)
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
 			bloodsies.color = shoes.blood_color
@@ -822,6 +825,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = mutable_appearance(head.icon_override, "[head.icon_state]", layer = -HEAD_LAYER)
 		else if(head.sprite_sheets && head.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(head.sprite_sheets[dna.species.name], "[head.icon_state]", layer = -HEAD_LAYER)
+			if(istype(head, /obj/item/clothing/head/helmet/space/plasmaman))
+				var/obj/item/clothing/head/helmet/space/plasmaman/P = head
+				if(!P.up)
+					standing.overlays += P.visor_icon
 		else
 			standing = mutable_appearance('icons/mob/clothing/head.dmi', "[head.icon_state]", layer = -HEAD_LAYER)
 
@@ -979,13 +986,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(BACK_LAYER)
 	if(back)
 		//determine the icon to use
+		var/t_state = back.item_state
+		if(!t_state)
+			t_state = back.icon_state
 		var/mutable_appearance/standing
 		if(back.icon_override)
-			standing = mutable_appearance(back.icon_override, "[back.icon_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance(back.icon_override, "[t_state]", layer = -BACK_LAYER)
 		else if(back.sprite_sheets && back.sprite_sheets[dna.species.name])
-			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[back.icon_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[t_state]", layer = -BACK_LAYER)
 		else
-			standing = mutable_appearance('icons/mob/clothing/back.dmi', "[back.icon_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance('icons/mob/clothing/back.dmi', "[t_state]", layer = -BACK_LAYER)
 
 		//create the image
 		standing.alpha = back.alpha
@@ -996,17 +1006,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_handcuffed()
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
-		if(istype(handcuffed, /obj/item/restraints/handcuffs/pinkcuffs))
-			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "pinkcuff1", layer = -HANDCUFF_LAYER)
-		else
-			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", layer = -HANDCUFF_LAYER)
+		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', handcuffed.cuffed_state, layer = -HANDCUFF_LAYER, color = handcuffed.color)
 	apply_overlay(HANDCUFF_LAYER)
 
 /mob/living/carbon/human/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
 	clear_alert("legcuffed")
 	if(legcuffed)
-		overlays_standing[LEGCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "legcuff1", layer = -LEGCUFF_LAYER)
+		overlays_standing[LEGCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "legcuff", layer = -LEGCUFF_LAYER)
 		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
 		if(m_intent != MOVE_INTENT_WALK)
 			m_intent = MOVE_INTENT_WALK
@@ -1026,9 +1033,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/standing
 		if(r_hand.sprite_sheets_inhand && r_hand.sprite_sheets_inhand[dna.species.name])
 			t_state = "[t_state]_r"
-			standing = mutable_appearance(r_hand.sprite_sheets_inhand[dna.species.name], "[t_state]", layer = -R_HAND_LAYER)
+			standing = mutable_appearance(r_hand.sprite_sheets_inhand[dna.species.name], "[t_state]", layer = -R_HAND_LAYER, color = r_hand.color)
 		else
-			standing = mutable_appearance(r_hand.righthand_file, "[t_state]", layer = -R_HAND_LAYER)
+			standing = mutable_appearance(r_hand.righthand_file, "[t_state]", layer = -R_HAND_LAYER, color = r_hand.color)
 			standing = center_image(standing, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
 		overlays_standing[R_HAND_LAYER] = standing
 	apply_overlay(R_HAND_LAYER)
@@ -1045,9 +1052,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/standing
 		if(l_hand.sprite_sheets_inhand && l_hand.sprite_sheets_inhand[dna.species.name])
 			t_state = "[t_state]_l"
-			standing = mutable_appearance(l_hand.sprite_sheets_inhand[dna.species.name], "[t_state]", layer = -L_HAND_LAYER)
+			standing = mutable_appearance(l_hand.sprite_sheets_inhand[dna.species.name], "[t_state]", layer = -L_HAND_LAYER, color = l_hand.color)
 		else
-			standing = mutable_appearance(l_hand.lefthand_file, "[t_state]", layer = -L_HAND_LAYER)
+			standing = mutable_appearance(l_hand.lefthand_file, "[t_state]", layer = -L_HAND_LAYER, color = l_hand.color)
 			standing = center_image(standing, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
 		overlays_standing[L_HAND_LAYER] = standing
 	apply_overlay(L_HAND_LAYER)

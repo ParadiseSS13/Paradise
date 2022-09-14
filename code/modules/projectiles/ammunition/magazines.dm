@@ -58,12 +58,6 @@
 
 	return 0
 
-/obj/item/ammo_box/magazine/internal/cylinder/rev38
-	name = "detective revolver cylinder"
-	ammo_type = /obj/item/ammo_casing/c38
-	caliber = "38"
-	max_ammo = 6
-
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	name = "finger gun cylinder"
 	desc = "Wait, what?"
@@ -234,13 +228,11 @@
 	multi_sprite_step = 1
 	caliber = "9mm"
 
-/obj/item/ammo_box/magazine/enforcer/update_icon()
-	..()
-	overlays.Cut()
-
+/obj/item/ammo_box/magazine/enforcer/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_rubber())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
 
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
@@ -269,14 +261,17 @@
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
+	icon_state = "46x30mmtA"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
 
 /obj/item/ammo_box/magazine/wt550m9/wttx
 	name = "wt550 magazine (Toxin Tipped 4.6x30mm)"
+	icon_state = "46x30mmtT"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
 
 /obj/item/ammo_box/magazine/wt550m9/wtic
 	name = "wt550 magazine (Incendiary 4.6x30mm)"
+	icon_state = "46x30mmtI"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 
 /obj/item/ammo_box/magazine/uzim9mm
@@ -311,13 +306,37 @@
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
 	materials = list(MAT_METAL = 3000)
 
-/obj/item/ammo_box/magazine/pistolm9mm
-	name = "pistol magazine (9mm)"
-	icon_state = "9x19p"
-	ammo_type = /obj/item/ammo_casing/c9mm
-	caliber = "9mm"
-	max_ammo = 15
-	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
+/obj/item/ammo_box/magazine/apsm10mm
+	name = "stechkin aps magazine (10mm)"
+	icon_state = "10mmaps"
+	ammo_type = /obj/item/ammo_casing/c10mm
+	caliber = "10mm"
+	max_ammo = 20
+	multi_sprite_step = 5
+
+/obj/item/ammo_box/magazine/apsm10mm/fire
+	name = "stechkin aps magazine (10mm incendiary)"
+	icon_state = "10mmapsI"
+	ammo_type = /obj/item/ammo_casing/c10mm/fire
+	caliber = "10mm"
+	max_ammo = 20
+	multi_sprite_step = 5
+
+/obj/item/ammo_box/magazine/apsm10mm/hp
+	name = "stechkin aps magazine (10mm HP)"
+	icon_state = "10mmapsH"
+	ammo_type = /obj/item/ammo_casing/c10mm/hp
+	caliber = "10mm"
+	max_ammo = 20
+	multi_sprite_step = 5
+
+/obj/item/ammo_box/magazine/apsm10mm/ap
+	name = "stechkin aps magazine (10mm AP)"
+	icon_state = "10mmapsA"
+	ammo_type = /obj/item/ammo_casing/c10mm/ap
+	caliber = "10mm"
+	max_ammo = 20
+	multi_sprite_step = 5
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "\improper SMG magazine (.45)"
@@ -368,7 +387,7 @@
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
 	desc = "A drum magazine."
-	icon_state = "m12gb"
+	icon_state = "m12gsl"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	origin_tech = "combat=3;syndicate=1"
 	caliber = "shotgun"
@@ -449,15 +468,13 @@
 	multi_sprite_step = 1
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
-/obj/item/ammo_box/magazine/toy/enforcer/update_icon()
-	..()
-	overlays.Cut()
-
+/obj/item/ammo_box/magazine/toy/enforcer/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
@@ -496,3 +513,31 @@
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+
+/obj/item/ammo_box/magazine/detective/speedcharger //yes this doesn't really belong here but nowhere else works
+	name = "DL-88 charge pack"
+	desc = "One-use charge pack for the DL-88 energy revolver."
+	icon_state = "handgun_ammo_battery"
+	var/charge = 1000
+
+/obj/item/ammo_box/magazine/detective/speedcharger/update_icon_state()
+	return
+
+/obj/item/ammo_box/magazine/detective/speedcharger/update_overlays()
+	. = ..()
+	var/charge_percent_rounded = round(charge_percent(), 20) // to the nearest 20%
+	if(charge_percent_rounded)
+		. += "hab_charge_[charge_percent_rounded]"
+
+/obj/item/ammo_box/magazine/detective/speedcharger/proc/charge_percent()
+	return (charge / initial(charge) * 100)
+
+/obj/item/ammo_box/magazine/detective/speedcharger/examine()
+	. = ..()
+	. += "<span class='notice'>There is [charge_percent()]% charge left!</span>"
+
+/obj/item/ammo_box/magazine/detective/speedcharger/attack_self()
+	return
+
+/obj/item/ammo_box/magazine/detective/speedcharger/attackby()
+	return

@@ -3,7 +3,6 @@
 	desc = "Let it snow, let it snow, let it snow!"
 	icon_state = "snowcloud"
 	layer = FLY_LAYER
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/snow_machine/parent_machine
 
@@ -70,7 +69,6 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "snow"
 	layer = ABOVE_ICYOVERLAY_LAYER
-	anchored = TRUE
 
 /obj/effect/snow/New()
 	START_PROCESSING(SSobj, src)

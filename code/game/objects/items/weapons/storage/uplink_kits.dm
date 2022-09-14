@@ -143,10 +143,6 @@
 /obj/item/storage/box/syndie_kit/conversion
 	name = "box (CK)"
 
-/obj/item/storage/box/syndie_kit/conversion/populate_contents()
-	new /obj/item/conversion_kit(src)
-	new /obj/item/ammo_box/a357(src)
-
 /obj/item/storage/box/syndie_kit/boolets
 	name = "shotgun shells"
 
@@ -284,7 +280,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/mask/balaclava(src)
 	new /obj/item/clothing/accessory/stethoscope(src)
-	new /obj/item/book/manual/engineering_hacking(src)
+	new /obj/item/book/manual/wiki/hacking(src)
 
 /obj/item/storage/box/syndie_kit/chameleon
 	name = "chameleon kit"

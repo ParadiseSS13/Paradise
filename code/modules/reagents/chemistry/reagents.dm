@@ -32,6 +32,8 @@
 	var/drink_desc = "You can't really tell what this is."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
 	var/taste_description = "metaphorical salt"
+	/// how quickly the addiction threshold var decays
+	var/addiction_decay_rate = 0.01
 
 /datum/reagent/Destroy()
 	. = ..()
@@ -61,7 +63,7 @@
 
 	var/mob/living/carbon/C = M
 	if(method == REAGENT_INGEST && istype(C) && C.get_blood_id() == id)
-		if(id == "blood" && !(data?["blood_type"] in get_safe_blood(C.dna?.blood_type)))
+		if(id == "blood" && !(data?["blood_type"] in get_safe_blood(C.dna?.blood_type)) || C.dna?.species.name != data?["species"] && (data?["species_only"] || C.dna?.species.own_species_blood))
 			C.reagents.add_reagent("toxin", volume * 0.5)
 		else
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
@@ -89,8 +91,8 @@
 
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && !is_type_in_list(src, M.reagents.addiction_list))
-		M.reagents.addiction_threshold_accumulated[id] += consumption_rate
-		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[id]
+		M.reagents.addiction_threshold_accumulated[type] += consumption_rate
+		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[type]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
 			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
@@ -249,8 +251,8 @@
 /datum/reagent/proc/fakerevive(mob/living/M)
 	if(!HAS_TRAIT_FROM(M, TRAIT_FAKEDEATH, id))
 		return
-	if(M.resting)
-		M.StopResting()
+	if(IS_HORIZONTAL(M))
+		M.stand_up()
 	REMOVE_TRAIT(M, TRAIT_FAKEDEATH, id)
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()

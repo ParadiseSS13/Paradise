@@ -39,28 +39,28 @@
 		to_chat(user, "<span class='warning'>You or your target moved.</span>")
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
+	. = FALSE
 	if(!C)
-		log_runtime(EXCEPTION("target was null while trying to vampire enthrall, attacker is [user] [user.key] \ref[user]"), user)
-		return FALSE
+		CRASH("target was null while trying to vampire enthrall, attacker is [user] [user.key] \ref[user]")
 	if(!user.mind.som)
 		CRASH("Dantalion Thrall datum ended up null.")
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>You can only enthrall sentient humanoids!</span>")
-		return FALSE
+		return
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
-		return FALSE
+		return
 
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.subclass.thrall_cap <= length(user.mind.som.serv))
 		to_chat(user, "<span class='warning'>You don't have enough power to enthrall any more people!</span>")
-		return FALSE
+		return
 	if(ismindshielded(C) || C.mind.has_antag_datum(/datum/antagonist/vampire) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
-		return FALSE
+		return
 	if(C.mind.isholy)
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
-		return FALSE
+		return
 	return TRUE
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
@@ -80,7 +80,7 @@
 	desc = "Talk to your thralls telepathically."
 	gain_desc = "You have gained the ability to commune with your thralls."
 	action_icon_state = "vamp_communication"
-	charge_max = 2 SECONDS
+	base_cooldown = 2 SECONDS
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/create_new_handler() //so thralls can use it
 	return
@@ -129,7 +129,7 @@
 	desc = "Pacify a target temporarily, making them unable to cause harm."
 	gain_desc = "You have gained the ability to pacify someone's harmful tendencies, preventing them from doing any physical harm to anyone."
 	action_icon_state = "pacify"
-	charge_max = 30 SECONDS
+	base_cooldown = 30 SECONDS
 	required_blood = 10
 
 /obj/effect/proc_holder/spell/vampire/pacify/create_new_targeting()
@@ -149,7 +149,7 @@
 	gain_desc = "You have gained the ability to turn invisible and create decoy illusions."
 	action_icon_state = "decoy"
 	required_blood = 30
-	charge_max = 40 SECONDS
+	base_cooldown = 40 SECONDS
 
 /obj/effect/proc_holder/spell/vampire/self/decoy/cast(list/targets, mob/user)
 	var/mob/living/simple_animal/hostile/illusion/escape/E = new(get_turf(user))
@@ -165,7 +165,7 @@
 	gain_desc = "You have gained the ability to remove all incapacitating effects from nearby thralls."
 	action_icon_state = "thralls_up"
 	required_blood = 100
-	charge_max = 100 SECONDS
+	base_cooldown = 100 SECONDS
 
 /obj/effect/proc_holder/spell/vampire/rally_thralls/create_new_targeting()
 	var/datum/spell_targeting/aoe/thralls/A = new
@@ -192,7 +192,7 @@
 	gain_desc = "You have gained the ability to make everyone nearby percieve others to looks like random animals after briefly blinding them."
 	action_icon_state = "hysteria"
 	required_blood = 70
-	charge_max = 180 SECONDS
+	base_cooldown = 180 SECONDS
 
 /obj/effect/proc_holder/spell/vampire/hysteria/create_new_targeting()
 	var/datum/spell_targeting/aoe/A = new

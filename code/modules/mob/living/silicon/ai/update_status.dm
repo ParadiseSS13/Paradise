@@ -6,6 +6,10 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+			if(stat == CONSCIOUS)
+				KnockOut()
+				create_debug_log("fell unconscious, trigger reason: [reason]")
 		else if(stat == UNCONSCIOUS)
 			WakeUp()
 			create_debug_log("woke up, trigger reason: [reason]")

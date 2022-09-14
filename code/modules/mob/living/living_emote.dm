@@ -2,7 +2,6 @@
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,	// nice try
-		/mob/living/captive_brain,
 		/mob/living/silicon,
 		/mob/living/simple_animal/bot
 	)
@@ -83,7 +82,6 @@
 
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,
-		/mob/living/captive_brain
 	)
 
 /datum/emote/living/deathgasp/get_sound(mob/living/user)
@@ -109,6 +107,13 @@
 	if(issilicon(user))
 		var/mob/living/silicon/SI = user
 		return SI.death_sound
+
+/datum/emote/living/deathgasp/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
+	var/mob/living/carbon/human/H = user
+	if(!istype(H))
+		return ..()
+	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
+	playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(), ignore_walls = !isnull(user.mind))
 
 /datum/emote/living/drool
 	key = "drool"
@@ -339,7 +344,6 @@
 
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,
-		/mob/living/captive_brain
 	)
 
 /datum/emote/living/tilt
@@ -382,7 +386,6 @@
 	message = null
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,	// nice try
-		/mob/living/captive_brain
 	)
 
 	// Custom emotes should be able to be forced out regardless of context.

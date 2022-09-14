@@ -2,40 +2,40 @@
 
 /area/ruin/powered/beach
 	name = "Beach Bar"
-	icon_state = "dk_yellow"
+	icon_state = "beach"
 
 /area/ruin/powered/clownplanet
-	icon_state = "dk_yellow"
+	icon_state = "yellow"
 	ambientsounds = list('sound/music/clown.ogg')
 
 /area/ruin/powered/animal_hospital
-	icon_state = "dk_yellow"
+	icon_state = "yellow"
 
 /area/ruin/powered/snow_biodome
-	icon_state = "dk_yellow"
+	icon_state = "yellow"
 
 /area/ruin/powered/snow_cabin
 	icon_state = "bar"
 
 /area/ruin/powered/gluttony
-	icon_state = "dk_yellow"
+	icon_state = "yellow"
 
 /area/ruin/powered/golem_ship
 	name = "Free Golem Landing"
-	icon_state = "dk_yellow"
+	icon_state = "yellow"
 
 /area/ruin/powered/greed
-	icon_state = "dk_yellow"
+	icon_state = "yellow"
 
 /area/ruin/unpowered/hierophant
 	name = "Hierophant's Arena"
-	icon_state = "dk_yellow"
+	icon_state = "yellow"
 
 /area/ruin/powered/pride
-	icon_state = "dk_yellow"
+	icon_state = "yellow"
 
 /area/ruin/powered/seedvault
-	icon_state = "dk_yellow"
+	icon_state = "yellow"
 
 
 //Xeno Nest

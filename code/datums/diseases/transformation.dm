@@ -48,8 +48,7 @@
 			return
 		if(transformation_text)
 			to_chat(affected_mob, transformation_text)
-		affected_mob.notransform = 1
-		affected_mob.canmove = 0
+		affected_mob.notransform = TRUE
 		affected_mob.icon = null
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = 101

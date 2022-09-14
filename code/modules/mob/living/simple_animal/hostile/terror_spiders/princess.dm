@@ -21,7 +21,7 @@
 	spider_tier = TS_TIER_3
 
 	// Unlike queens, no ranged attack.
-	ranged = 0
+	ranged = FALSE
 	retreat_distance = 0
 	minimum_distance = 0
 	projectilesound = null

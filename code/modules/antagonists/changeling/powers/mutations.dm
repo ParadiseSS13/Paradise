@@ -12,7 +12,6 @@
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
-	genetic_damage = 1000
 	power_type = CHANGELING_UNOBTAINABLE_POWER
 	var/silent = FALSE
 	var/weapon_type
@@ -47,7 +46,6 @@
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
-	genetic_damage = 1000
 	power_type = CHANGELING_UNOBTAINABLE_POWER
 	var/helmet_type = /obj/item
 	var/suit_type = /obj/item
@@ -62,7 +60,7 @@
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
-		H.visible_message("<span class='warning'>[H] casts off [H.p_their()] [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple][genetic_damage > 0 ? ", temporarily weakening our genomes." : "."]</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
+		H.visible_message("<span class='warning'>[H] casts off [H.p_their()] [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple].</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
 		qdel(H.wear_suit)
 		qdel(H.head)
 		H.update_inv_wear_suit()
@@ -74,7 +72,6 @@
 			H.add_splatter_floor()
 			playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
 
-		cling.genetic_damage += genetic_damage //Casting off a space suit leaves you weak for a few seconds.
 		cling.chem_recharge_slowdown -= recharge_slowdown
 		return FALSE
 	..(H, target)
@@ -108,21 +105,19 @@
 	button_icon_state = "armblade"
 	chemical_cost = 25
 	dna_cost = 2
-	genetic_damage = 10
 	req_human = TRUE
-	max_genetic_damage = 20
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
-	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
+	desc = "A grotesque blade made of bone and flesh that cleaves through people like a hot knife through butter."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	sharp = 1
+	sharp = TRUE
 	force = 25
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
@@ -176,9 +171,7 @@
 	button_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 2
-	genetic_damage = 5
 	req_human = TRUE
-	max_genetic_damage = 10
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
 	silent = TRUE
@@ -200,8 +193,8 @@
 	throw_range = 0
 	throw_speed = 0
 
-/obj/item/gun/magic/tentacle/New(location,silent)
-	..()
+/obj/item/gun/magic/tentacle/Initialize(mapload, silent)
+	. = ..()
 	if(ismob(loc))
 		if(!silent)
 			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
@@ -350,9 +343,7 @@
 	button_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 1
-	genetic_damage = 12
 	req_human = TRUE
-	max_genetic_damage = 20
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 	power_type = CHANGELING_PURCHASABLE_POWER
@@ -373,8 +364,8 @@
 
 	var/remaining_uses //Set by the changeling ability.
 
-/obj/item/shield/changeling/New()
-	..()
+/obj/item/shield/changeling/Initialize(mapload)
+	. = ..()
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
@@ -401,9 +392,7 @@
 	button_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 2
-	genetic_damage = 8
 	req_human = TRUE
-	max_genetic_damage = 20
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/space/changeling
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
@@ -420,8 +409,8 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90) //No armor at all
 
-/obj/item/clothing/suit/space/changeling/New()
-	..()
+/obj/item/clothing/suit/space/changeling/Initialize(mapload)
+	. = ..()
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 	START_PROCESSING(SSobj, src)
@@ -449,9 +438,7 @@
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 25
 	dna_cost = 2
-	genetic_damage = 11
 	req_human = TRUE
-	max_genetic_damage = 20
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/armor/changeling
 	helmet_type = /obj/item/clothing/head/helmet/changeling
@@ -471,10 +458,66 @@
 	heat_protection = 0
 	sprite_sheets = null
 
-/obj/item/clothing/suit/armor/changeling/New()
-	..()
+/obj/item/clothing/suit/armor/changeling/Initialize(mapload)
+	. = ..()
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+
+
+/obj/item/clothing/suit/armor/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+	. = ..()
+
+	if(!IS_HORIZONTAL(owner))
+		return
+
+	var/obj/item/I = hitby
+
+	if(!istype(I.loc, /mob/living))
+		// Maybe it's on the ground? Maybe it's being used telekinetically? IDK
+		return
+
+	// The user who's wielding the tool
+	var/mob/living/user = I.loc
+
+	// snowflake checks my beloved
+	// this will become tooltype checks I swear
+	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/twohanded/required/chainsaw) && !istype(I, /obj/item/twohanded/chainsaw))
+		return
+
+	user.visible_message(
+		"<span class='notice'>[user] starts to saw through [owner]'s [name].</span>",
+		"<span class='notice'>You start to saw through [owner]'s [name].</span>",
+		"<span class='notice'>You hear a loud grinding noise.</span>"
+	)
+
+	if(!do_after(user, 15 SECONDS, target = owner))
+		user.visible_message(
+			"<span class='warning'>[user] fails to cut through [owner]'s [name].</span>",
+			"<span class='warning'>You fail to cut through [owner]'s [name].</span>",
+			"<span class='notice'>You hear the grinding stop.</span>"
+		)
+		return FALSE
+
+	// check again after the do_after to make sure they haven't gotten up
+	if(!IS_HORIZONTAL(owner))
+		return FALSE
+
+	user.visible_message(
+		"<span class='warning'>\The [name] turns to shreds as [user] cleaves through it!</span>",
+		"<span class='warning'>\The [name] turns to shreds as you cleave through it!</span>",
+		"<span class='notice'>You hear something fall as the grinding ends.</span>"
+	)
+
+	playsound(I, I.hitsound, 50)
+	// you've torn it up, get rid of it.
+	new /obj/effect/decal/cleanable/shreds(owner.loc)
+	// just unequip them since they qdel on drop
+	owner.unEquip(src, TRUE, TRUE)
+	if(istype(owner.head, /obj/item/clothing/head/helmet/changeling))
+		owner.unEquip(owner.head, TRUE, TRUE)
+
+	return TRUE
+
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"

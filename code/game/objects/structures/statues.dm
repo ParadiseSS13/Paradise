@@ -3,8 +3,8 @@
 	desc = "Placeholder. Yell at Firecage if you SOMEHOW see this."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
@@ -61,7 +61,7 @@
 	light_range = 2
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
 	var/last_event = 0
-	var/active = null
+	var/active = FALSE
 
 /obj/structure/statue/uranium/nuke
 	name = "statue of a nuclear fission explosive"
@@ -87,11 +87,11 @@
 
 /obj/structure/statue/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event + 15)
-			active = 1
+		if(world.time > last_event + 1.5 SECONDS)
+			active = TRUE
 			radiation_pulse(src, 30)
 			last_event = world.time
-			active = null
+			active = FALSE
 
 /obj/structure/statue/plasma
 	max_integrity = 200

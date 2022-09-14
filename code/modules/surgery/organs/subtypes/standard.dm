@@ -12,7 +12,7 @@
 	body_part = UPPER_TORSO
 	vital = TRUE
 	amputation_point = "spine"
-	gendered_icon = 1
+	gendered_icon = TRUE
 	parent_organ = null
 	encased = "ribcage"
 	convertable_children = list(/obj/item/organ/external/groin)
@@ -39,7 +39,7 @@
 	vital = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
-	gendered_icon = 1
+	gendered_icon = TRUE
 
 /obj/item/organ/external/arm
 	limb_name = "l_arm"
@@ -204,7 +204,7 @@
 	body_part = HEAD
 	parent_organ = "chest"
 	amputation_point = "neck"
-	gendered_icon = 1
+	gendered_icon = TRUE
 	encased = "skull"
 	var/can_intake_reagents = 1
 	var/alt_head = "None"
@@ -228,21 +228,29 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
+/obj/item/organ/external/head/examine(mob/user)
+	. = ..()
+	if(!length(contents))
+		. += "<span class='warning'>There is nothing left inside!</span>"
+
+/obj/item/organ/external/head/vars_to_save()
+	return list("color", "name", "h_grad_style", "h_grad_offset_x", "h_grad_offset_y", "h_grad_colour", "h_grad_alpha")
+
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
 		if(owner.glasses)
-			owner.unEquip(owner.glasses)
+			owner.unEquip(owner.glasses, force = TRUE)
 		if(owner.head)
-			owner.unEquip(owner.head)
+			owner.unEquip(owner.head, force = TRUE)
 		if(owner.l_ear)
-			owner.unEquip(owner.l_ear)
+			owner.unEquip(owner.l_ear, force = TRUE)
 		if(owner.r_ear)
-			owner.unEquip(owner.r_ear)
+			owner.unEquip(owner.r_ear, force = TRUE)
 		if(owner.wear_mask)
-			owner.unEquip(owner.wear_mask)
+			owner.unEquip(owner.wear_mask, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()

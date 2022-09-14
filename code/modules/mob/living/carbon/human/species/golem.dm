@@ -412,7 +412,7 @@
 
 /datum/species/golem/glass/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
-		if(P.is_reflectable)
+		if(P.is_reflectable(REFLECTABILITY_ENERGY))
 			H.visible_message("<span class='danger'>[P] gets reflected by [H]'s glass skin!</span>", \
 			"<span class='userdanger'>[P] gets reflected by [H]'s glass skin!</span>")
 
@@ -568,7 +568,7 @@
 	var/honkooldown = 0
 	var/last_banana = 0
 	var/banana_cooldown = 100
-	var/active = null
+	var/active = FALSE
 
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -619,11 +619,11 @@
 /datum/species/golem/bananium/handle_life(mob/living/carbon/human/H)
 	if(!active)
 		if(world.time > last_honk + honkooldown)
-			active = 1
+			active = TRUE
 			playsound(get_turf(H), 'sound/items/bikehorn.ogg', 50, 1)
 			last_honk = world.time
 			honkooldown = rand(20, 80)
-			active = null
+			active = FALSE
 	..()
 
 /datum/species/golem/bananium/handle_death(gibbed, mob/living/carbon/human/H)

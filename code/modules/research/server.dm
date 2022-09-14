@@ -15,8 +15,8 @@
 	req_access = list(ACCESS_RD) //Only the R&D can change server settings.
 	var/plays_sound = 0
 
-/obj/machinery/r_n_d/server/New()
-	..()
+/obj/machinery/r_n_d/server/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -25,8 +25,8 @@
 	RefreshParts()
 	initialize_serv(); //Agouri // fuck you agouri
 
-/obj/machinery/r_n_d/server/upgraded/New()
-	..()
+/obj/machinery/r_n_d/server/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -44,7 +44,7 @@
 		tot_rating += SP.rating
 	heat_gen /= max(1, tot_rating)
 
-/obj/machinery/r_n_d/server/update_icon()
+/obj/machinery/r_n_d/server/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "RD-server-off"
 	else
@@ -52,7 +52,7 @@
 
 /obj/machinery/r_n_d/server/power_change()
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/r_n_d/server/proc/initialize_serv()
 	if(!files)
@@ -140,12 +140,6 @@
 				air_update_turf()
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(disabled)
-		return
-
-	if(shocked)
-		shock(user,50)
-
 	if(istype(O, /obj/item/screwdriver))
 		default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", O)
 		return 1
@@ -160,14 +154,6 @@
 			return 1
 	else
 		return ..()
-
-/obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
-	if(disabled)
-		return
-
-	if(shocked)
-		shock(user,50)
-	return
 
 /obj/machinery/r_n_d/server/centcom
 	name = "CentComm. Central R&D Database"
@@ -352,7 +338,7 @@
 /obj/machinery/computer/rdservercontrol/emag_act(user as mob)
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You you disable the security protocols</span>")
 	src.updateUsrDialog()
 

@@ -12,7 +12,7 @@
 	var/current_size = 1
 	var/allowed_size = 1
 	var/energy = 100 //How strong are we?
-	var/dissipate = 1 //Do we lose energy over time?
+	var/dissipate = TRUE //Do we lose energy over time?
 	var/dissipate_delay = 10
 	var/dissipate_track = 0
 	var/dissipate_strength = 1 //How much energy do we lose?
@@ -24,8 +24,7 @@
 	var/target = null //its target. moves towards the target if it has one
 	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
 	var/last_warning
-	var/consumedSupermatter = 0 //If the singularity has eaten a supermatter shard and can go to stage six
-	allow_spin = 0
+	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
@@ -121,7 +120,7 @@
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
-	dissipate()
+	do_dissipate()
 	check_energy()
 
 	return
@@ -138,7 +137,7 @@
 		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]","singulo")
 
-/obj/singularity/proc/dissipate()
+/obj/singularity/proc/do_dissipate()
 	if(!dissipate)
 		return
 	if(dissipate_track >= dissipate_delay)
@@ -210,7 +209,7 @@
 			pixel_y = -128
 			grav_pull = 10
 			consume_range = 4
-			dissipate = 0 //It cant go smaller due to e loss
+			dissipate = FALSE //It cant go smaller due to e loss
 		if(STAGE_SIX) //This only happens if a stage 5 singulo consumes a supermatter shard.
 			current_size = STAGE_SIX
 			icon = 'icons/effects/352x352.dmi'
@@ -219,7 +218,7 @@
 			pixel_y = -160
 			grav_pull = 15
 			consume_range = 5
-			dissipate = 0
+			dissipate = FALSE
 	if(current_size == allowed_size)
 		investigate_log("<font color='red'>grew to size [current_size]</font>","singulo")
 		return 1
@@ -276,10 +275,10 @@
 /obj/singularity/proc/consume(atom/A)
 	var/gain = A.singularity_act(current_size)
 	src.energy += gain
-	if(istype(A, /obj/machinery/power/supermatter_crystal) && !consumedSupermatter)
+	if(istype(A, /obj/machinery/atmospherics/supermatter_crystal) && !consumedSupermatter)
 		desc = "[initial(desc)] It glows fiercely with inner fire."
 		name = "supermatter-charged [initial(name)]"
-		consumedSupermatter = 1
+		consumedSupermatter = TRUE
 		set_light(10)
 	if(istype(A, /obj/singularity/narsie))
 		if(current_size == STAGE_SIX)
@@ -372,7 +371,7 @@
 			return 0
 	else if(locate(/obj/machinery/shieldwallgen) in T)
 		var/obj/machinery/shieldwallgen/S = locate(/obj/machinery/shieldwallgen) in T
-		if(S && S.active)
+		if(S?.activated)
 			return 0
 	return 1
 

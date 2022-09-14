@@ -25,7 +25,7 @@
 	max_stages = 3
 	spread_flags = SPECIAL
 	cure_text = "Saline-Glucose Solution"
-	cures = list("salglu_solution", "syndicate_nanites")
+	cures = list("salglu_solution", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 6
@@ -86,7 +86,7 @@
 	max_stages = 3
 	spread_flags = SPECIAL
 	cure_text = "Atropine, Epinephrine, or Heparin"
-	cures = list("atropine", "epinephrine", "heparin", "syndicate_nanites")
+	cures = list("atropine", "epinephrine", "heparin", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
 	needs_all_cures = FALSE
 	viable_mobtypes = list(/mob/living/carbon/human)
@@ -96,12 +96,6 @@
 	required_organs = list(/obj/item/organ/internal/heart)
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
-
-/datum/disease/critical/heart_failure/has_cure()
-	if(affected_mob.has_status_effect(STATUS_EFFECT_EXERCISED))
-		return TRUE
-
-	return ..()
 
 /datum/disease/critical/heart_failure/stage_act()
 	if(..())

@@ -13,6 +13,7 @@
 	can_holster = FALSE
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
+	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
 	flight_x_offset = 17
@@ -42,11 +43,14 @@
 	ammo_x_offset = 1
 	can_holster = TRUE
 
-/obj/item/gun/energy/decloner/update_icon()
-	..()
+/obj/item/gun/energy/decloner/update_icon_state()
+	return
+
+/obj/item/gun/energy/decloner/update_overlays()
+	. = list()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(cell.charge > shot.e_cost)
-		overlays += "decloner_spin"
+		. += "decloner_spin"
 
 // Flora Gun //
 /obj/item/gun/energy/floragun
@@ -59,7 +63,7 @@
 	origin_tech = "materials=2;biotech=4"
 	modifystate = 1
 	ammo_x_offset = 1
-	selfcharge = 1
+	selfcharge = TRUE
 	can_holster = TRUE
 
 // Meteor Gun //
@@ -73,8 +77,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
 	cell_type = /obj/item/stock_parts/cell/potato
-	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
+	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
+	selfcharge = TRUE
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -104,16 +108,16 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=4;syndicate=5"
-	suppressed = 1
+	suppressed = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
 	weapon_weight = WEAPON_LIGHT
 	unique_rename = FALSE
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	can_flashlight = 0
+	can_flashlight = FALSE
 	max_mod_capacity = 0
-	empty_state = null
+	empty_state = "crossbow_empty"
 	can_holster = TRUE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine()
@@ -121,7 +125,7 @@
 			then click where you want to fire."
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine_antag()
-	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a stun effect, in \
+	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a knockdown effect, in \
 			addition to toxins. The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
@@ -131,8 +135,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=4000)
 	origin_tech = "combat=4;magnets=4;syndicate=2"
-	suppressed = 0
+	suppressed = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
+	empty_state = "crossbowlarge_empty"
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
@@ -163,8 +168,8 @@
 	flags = CONDUCT
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
-	sharp = 1
-	can_charge = 0
+	sharp = TRUE
+	can_charge = FALSE
 	can_holster = TRUE
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
@@ -189,8 +194,8 @@
 	else
 		return ..()
 
-/obj/item/gun/energy/plasmacutter/update_icon()
-	return
+/obj/item/gun/energy/plasmacutter/update_overlays()
+	return list()
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -215,10 +220,9 @@
 	var/obj/effect/portal/orange
 
 
-/obj/item/gun/energy/wormhole_projector/update_icon()
+/obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
-	return
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
@@ -258,10 +262,10 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
-	can_charge = 0
+	can_charge = FALSE
 
-/obj/item/gun/energy/printer/update_icon()
-	return
+/obj/item/gun/energy/printer/update_overlays()
+	return list()
 
 /obj/item/gun/energy/printer/emp_act()
 	return
@@ -297,8 +301,8 @@
 	desc = "Clown Planet's finest."
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
-	clumsy_check = 0
-	selfcharge = 1
+	clumsy_check = FALSE
+	selfcharge = TRUE
 	ammo_x_offset = 3
 	can_holster = TRUE  // you'll never see it coming
 
@@ -311,7 +315,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
-	shaded_charge = 1
+	shaded_charge = TRUE
 	can_holster = TRUE
 	atom_say_verb = "beeps"
 	bubble_icon = "swarmer"
@@ -517,8 +521,7 @@
 	..()
 	update_icon()
 
-/obj/item/gun/energy/bsg/update_icon()
-	. = ..()
+/obj/item/gun/energy/bsg/update_icon_state()
 	if(core)
 		if(has_bluespace_crystal)
 			icon_state = "bsg_finished"
@@ -571,7 +574,7 @@
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
-	selfcharge = 1
+	selfcharge = TRUE
 
 	var/powercost = ""
 	var/powercostcolor = ""
@@ -587,11 +590,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/gun/energy/temperature/newshot()
-	..()
-
 /obj/item/gun/energy/temperature/attack_self(mob/living/user as mob)
-	user.set_machine(src)
 	update_dat()
 	user << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x120")
 	onclose(user, "tempgun")
@@ -605,7 +604,7 @@
 /obj/item/gun/energy/temperature/Topic(href, href_list)
 	if(..())
 		return
-	usr.set_machine(src)
+
 	add_fingerprint(usr)
 
 	if(href_list["temp"])
@@ -614,10 +613,12 @@
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
 			target_temperature = max(0, target_temperature+amount)
+
 	if(istype(loc, /mob))
 		attack_self(loc)
+
 	add_fingerprint(usr)
-	return
+
 
 /obj/item/gun/energy/temperature/process()
 	..()
@@ -689,7 +690,7 @@
 	dat += "Power cost: "
 	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
 
-/obj/item/gun/energy/temperature/proc/update_temperature()
+/obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
 		if(501 to INFINITY)
 			item_state = "tempgun_8"
@@ -711,32 +712,26 @@
 			item_state = "tempgun_0"
 	icon_state = item_state
 
-/obj/item/gun/energy/temperature/update_icon()
-	overlays = 0
-	update_temperature()
-	update_user()
-	update_charge()
-
-/obj/item/gun/energy/temperature/proc/update_user()
 	if(istype(loc,/mob/living/carbon))
 		var/mob/living/carbon/M = loc
 		M.update_inv_back()
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
-/obj/item/gun/energy/temperature/proc/update_charge()
+/obj/item/gun/energy/temperature/update_overlays()
+	. = ..()
 	var/charge = cell.charge
 	switch(charge)
-		if(900 to INFINITY)		overlays += "900"
-		if(800 to 900)			overlays += "800"
-		if(700 to 800)			overlays += "700"
-		if(600 to 700)			overlays += "600"
-		if(500 to 600)			overlays += "500"
-		if(400 to 500)			overlays += "400"
-		if(300 to 400)			overlays += "300"
-		if(200 to 300)			overlays += "200"
-		if(100 to 202)			overlays += "100"
-		if(-INFINITY to 100)	overlays += "0"
+		if(900 to INFINITY)		. += "900"
+		if(800 to 900)			. += "800"
+		if(700 to 800)			. += "700"
+		if(600 to 700)			. += "600"
+		if(500 to 600)			. += "500"
+		if(400 to 500)			. += "400"
+		if(300 to 400)			. += "300"
+		if(200 to 300)			. += "200"
+		if(100 to 200)			. += "100"
+		if(-INFINITY to 100)	. += "0"
 
 // Mimic Gun //
 /obj/item/gun/energy/mimicgun
@@ -744,8 +739,8 @@
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse. Why does this one have teeth?"
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/mimic)
-	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
+	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
+	selfcharge = TRUE
 	ammo_x_offset = 3
 	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
 	can_holster = TRUE
@@ -754,6 +749,146 @@
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
 	M.mimic_type = mimic_type
 	..()
+
+/obj/item/gun/energy/detective
+	name = "DL-88 energy revolver"
+	desc = "A 'modern' take on the classic projectile revolver."
+	icon_state = "handgun"
+	item_state = null
+	modifystate = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
+	/// If true, this gun is tracking something and cannot track another mob
+	var/tracking_target_UID
+	/// Used to track if the gun is overcharged
+	var/overcharged
+	/// Yes, this gun has a radio, welcome to 2022
+	var/obj/item/radio/headset/Announcer
+	/// Used to link back to the pinpointer
+	var/linked_pinpointer_UID
+	shaded_charge = TRUE
+	can_holster = TRUE
+	can_fit_in_turrets = FALSE
+	can_charge = FALSE
+	unique_reskin = TRUE
+	charge_sections = 5
+	inhand_charge_sections = 3
+
+/obj/item/gun/energy/detective/Initialize(mapload, ...)
+	. = ..()
+	Announcer = new /obj/item/radio/headset(src)
+	Announcer.config(list("Security" = 1))
+	options["The Original"] = "handgun"
+	options["Golden Mamba"] = "handgun_golden-mamba"
+	options["NT's Finest"] = "handgun_nt-finest"
+	options["Cancel"] = null
+
+/obj/item/gun/energy/detective/Destroy()
+	QDEL_NULL(Announcer)
+	return ..()
+
+/obj/item/gun/energy/detective/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Ctrl-click to clear active tracked target or clear linked pinpointer.</span>"
+
+/obj/item/gun/energy/detective/emp_act(severity)
+	. = ..()
+	unlink()
+	atom_say("EMP detected. Pinpointer and tracker system reset.")
+
+
+/obj/item/gun/energy/detective/CtrlClick(mob/user)
+	. = ..()
+	if(!isliving(loc)) //don't do this next bit if this gun is on the floor
+		return
+	var/tracking_target = locateUID(tracking_target_UID)
+	if(tracking_target)
+		if(alert("Do you want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
+			to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
+			stop_pointing()
+	if(linked_pinpointer_UID)
+		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
+			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
+			unlink()
+
+/obj/item/gun/energy/detective/proc/link_pinpointer(pinpointer_UID)
+	linked_pinpointer_UID = pinpointer_UID
+
+/obj/item/gun/energy/detective/proc/unlink()
+	var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+	if(!C)
+		return
+	C.linked_gun_UID = null
+	if(C.mode == MODE_DET)
+		C.stop_tracking()
+	linked_pinpointer_UID = null
+	tracking_target_UID = null
+
+/obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message("<span class='notice'>[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].</span>", "<span class='notice'>You start [overcharged ? "restoring" : "removing"] the safety limits on [src]</span>")
+	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume))
+		user.visible_message("<span class='notice'>[user] stops modifying the safety limits on [src].", "You stop modifying the [src]'s safety limits</span>")
+		return
+	if(!overcharged)
+		overcharged = TRUE
+		ammo_type = list(/obj/item/ammo_casing/energy/detective/overcharge)
+		update_ammo_types()
+		select_fire(user)
+	else // Unable to early return due to the visible message at the end
+		overcharged = FALSE
+		ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
+		update_ammo_types()
+		select_fire(user)
+	user.visible_message("<span class='notice'>[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]</span>")
+	update_icon()
+
+/obj/item/gun/energy/detective/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!istype(I, /obj/item/ammo_box/magazine/detective/speedcharger))
+		return
+	var/obj/item/ammo_box/magazine/detective/speedcharger/S = I
+	if(!S.charge)
+		to_chat(user, "<span class='notice'>[S] has no charge to give!</span>")
+		return
+	if(cell.charge == cell.maxcharge)
+		to_chat(user, "<span class='notice'>[src] is already at full power!</span>")
+		return
+	var/new_speedcharger_charge = cell.give(S.charge)
+	S.charge -= new_speedcharger_charge
+	S.update_icon(UPDATE_OVERLAYS)
+	update_icon()
+
+/obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	if(!overcharged)
+		return ..()
+	if(prob(clamp((100 - ((cell.charge / cell.maxcharge) * 100)), 10, 70)))	//minimum probability of 10, maximum of 70
+		playsound(user, fire_sound, 50, 1)
+		visible_message("<span class='userdanger'>[src]'s energy cell overloads!</span>")
+		user.apply_damage(60, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+		user.EyeBlurry(10 SECONDS)
+		user.flash_eyes(2, TRUE)
+		do_sparks(rand(5, 9), FALSE, src)
+		playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
+		user.unEquip(src)
+		cell.charge = 0 //ha ha you lose
+		update_icon()
+		return
+	return ..()
+
+/obj/item/gun/energy/detective/proc/start_pointing(target_UID)
+	tracking_target_UID = target_UID
+	Announcer.autosay("Alert: Detective's revolver discharged in tracking mode. Tracking: [locateUID(tracking_target_UID)] at [get_area_name(src)].", src, "Security")
+	var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+	if(C)
+		C.start_tracking()
+		addtimer(CALLBACK(src, .proc/stop_pointing), 1 MINUTES, TIMER_UNIQUE)
+
+/obj/item/gun/energy/detective/proc/stop_pointing()
+	if(linked_pinpointer_UID)
+		var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+		if(C?.mode == MODE_DET)
+			C.stop_tracking()
+	tracking_target_UID = null
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT

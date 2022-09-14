@@ -7,7 +7,7 @@
 	throw_speed = 2
 	throw_range = 4
 	flags = CONDUCT //Copied this from old code, so this may or may not be necessary
-	var/status = 0   //0 - not readied //1 - bomb finished with welder
+	var/status = FALSE   //FALSE - not readied //TRUE - bomb finished with welder
 	var/obj/item/assembly_holder/bombassembly = null   //The first part of the bomb is an assembly holder, holding an igniter+some device
 	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
 	origin_tech = "materials=1;engineering=1"
@@ -16,13 +16,16 @@
 	. = ..()
 	. += bombtank.examine(user)
 
-/obj/item/onetankbomb/update_icon()
+/obj/item/onetankbomb/update_icon_state()
 	if(bombtank)
 		icon_state = bombtank.icon_state
+
+/obj/item/onetankbomb/update_overlays()
+	. = ..()
 	if(bombassembly)
-		overlays += bombassembly.icon_state
-		overlays += bombassembly.overlays
-		overlays += "bomb_assembly"
+		. += bombassembly.icon_state
+		. += bombassembly.overlays
+		. += "bomb_assembly"
 
 /obj/item/onetankbomb/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/analyzer))

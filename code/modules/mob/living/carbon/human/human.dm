@@ -6,14 +6,10 @@
 	icon_state = "body_m_s"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	deathgasp_on_death = TRUE
-
-/mob/living/carbon/human/New(loc)
-	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
-	if(length(args) > 1)
-		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
-	. = ..()
+	throw_range = 4
 
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
+	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	create_dna()
 
 	. = ..()
@@ -23,6 +19,7 @@
 
 	UpdateAppearance()
 	GLOB.human_list += src
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 
 /**
   * Sets up DNA and species.
@@ -48,9 +45,6 @@
 /mob/living/carbon/human/proc/setup_other()
 	create_reagents(330)
 	physiology = new()
-
-/mob/living/carbon/human/ComponentInitialize()
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 
 /mob/living/carbon/human/OpenCraftingMenu()
 	if(!handcrafting)
@@ -203,9 +197,6 @@
 				stat("Distribution Pressure", internal.distribute_pressure)
 
 		// I REALLY need to split up status panel things into datums
-		var/mob/living/simple_animal/borer/B = has_brain_worms()
-		if(B && B.controlling)
-			stat("Chemicals", B.chemicals)
 
 		if(mind)
 			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
@@ -224,7 +215,7 @@
 
 	var/brute_loss = 0
 	var/burn_loss = 0
-	var/bomb_armor = getarmor(null, BOMB)
+	var/bomb_armor = ARMOUR_VALUE_TO_PERCENTAGE(getarmor(null, BOMB))
 	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
 	var/limbs_amount = 1
 	var/limb_loss_chance = 50
@@ -242,6 +233,7 @@
 				limbs_amount = 4
 
 		if(EXPLODE_HEAVY)
+			var/stuntime = 5 SECONDS - (bomb_armor / 2) //Between no stun and 5 seconds of stun depending on bomb armor
 			brute_loss = 60
 			burn_loss = 60
 			if(bomb_armor)
@@ -249,7 +241,8 @@
 				burn_loss = brute_loss				//Damage gets reduced from 120 to up to 60 combined brute+burn
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(30, 120)
-			Weaken(20 SECONDS - (bomb_armor * 1.6 / 10) SECONDS) 	//Between ~4 and ~20 seconds of knockdown depending on bomb armor
+			Weaken(stuntime)
+			KnockDown(stuntime * 3) //Up to 15 seconds of knockdown
 
 		if(EXPLODE_LIGHT)
 			brute_loss = 30
@@ -257,7 +250,7 @@
 				brute_loss = 15 * (2 - round(bomb_armor * 0.01, 0.05)) //Reduced from 30 to up to 15
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
-			Weaken(16 SECONDS - (bomb_armor * 1.6 / 10) SECONDS) //Between no knockdown to ~16 seconds depending on bomb armor
+			KnockDown(10 SECONDS - bomb_armor) //Between no knockdown to 10 seconds of knockdown depending on bomb armor
 			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
 			limb_loss_chance = 25
 
@@ -511,6 +504,10 @@
 	var/obj/item/pda/pda = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
+	else
+		pda = wear_pda
+		if(istype(pda) && pda.id)
+			id = pda.id
 
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/card/id))
@@ -600,7 +597,7 @@
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags = NONE)
 
 /mob/living/carbon/human/Topic(href, href_list)
-	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+	if(!usr.stat && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.restrained() && in_range(src, usr))
 		var/thief_mode = 0
 		if(ishuman(usr))
 			var/mob/living/carbon/human/H = usr
@@ -951,6 +948,7 @@
 	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
 	if(E)
 		number += E.flash_protect
+	number = clamp(number, -1, 2)
 	return number
 
 /mob/living/carbon/human/check_ear_prot()
@@ -1131,6 +1129,7 @@
 			else
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
+	qdel(temp_holder)
 
 /**
  * Regrows a given external limb if it is missing. Does not add internal organs back in.
@@ -1826,9 +1825,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/list/limbs_list = list()
 	var/list/organs_list = list()
 	var/list/equip_list = list()
+	var/list/implant_list = list()
 	data["limbs"] = limbs_list
 	data["iorgans"] = organs_list
 	data["equip"] = equip_list
+	data["implant_list"] = implant_list
 
 	data["dna"] = dna.serialize()
 	data["age"] = age
@@ -1859,12 +1860,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(thing != null)
 			equip_list[i] = thing.serialize()
 
+	for(var/obj/item/implant/implant in src)
+		implant_list[implant] = implant.serialize()
+
 	return data
 
 /mob/living/carbon/human/deserialize(list/data)
 	var/list/limbs_list = data["limbs"]
 	var/list/organs_list = data["iorgans"]
 	var/list/equip_list = data["equip"]
+	var/list/implant_list = data["implant_list"]
 	var/turf/T = get_turf(src)
 	if(!islist(data["limbs"]))
 		throw EXCEPTION("Expected a limbs list, but found none")
@@ -1896,6 +1901,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		// As above, "New" code handles insertion, DNA sync
 		list_to_object(organs_list[organ], src)
 
+	for(var/thing in implant_list)
+		var/implant_data = implant_list[thing]
+		var/path = text2path(implant_data["type"])
+		var/obj/item/implant/implant = new path(T)
+		if(!implant.implant(src, src))
+			qdel(implant)
+
 	UpdateAppearance()
 
 	// De-serialize equipment
@@ -1919,20 +1931,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	update_icons()
 
 	..()
-
-
-/mob/living/carbon/human/vv_get_dropdown()
-	. = ..()
-	. += "---"
-	.["Set Species"] = "?_src_=vars;setspecies=[UID()]"
-	.["Copy Outfit"] = "?_src_=vars;copyoutfit=[UID()]"
-	.["Make AI"] = "?_src_=vars;makeai=[UID()]"
-	.["Make cyborg"] = "?_src_=vars;makerobot=[UID()]"
-	.["Make monkey"] = "?_src_=vars;makemonkey=[UID()]"
-	.["Make alien"] = "?_src_=vars;makealien=[UID()]"
-	.["Make slime"] = "?_src_=vars;makeslime=[UID()]"
-	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
-	. += "---"
 
 /mob/living/carbon/human/adjust_nutrition(change)
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))

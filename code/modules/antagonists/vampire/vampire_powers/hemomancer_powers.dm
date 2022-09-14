@@ -2,7 +2,7 @@
 	name = "Vampiric Claws (30)"
 	desc = "You channel blood magics to forge deadly vampiric claws that leech blood and strike rapidly. Cannot be used if you are holding something that cannot be dropped."
 	gain_desc = "You have gained the ability to forge your hands into vampiric claws."
-	charge_max = 30 SECONDS
+	base_cooldown = 30 SECONDS
 	required_blood = 30
 	action_icon_state = "vampire_claws"
 
@@ -31,7 +31,7 @@
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 10
 	force_wielded = 10
-	armour_penetration = 20
+	armour_penetration_flat = 20
 	block_chance = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
@@ -43,6 +43,9 @@
 	var/blood_absorbed_amount = 5
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
+		return
+
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
 
 	if(!V)
@@ -53,7 +56,7 @@
 		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
-	durability -= 1
+	durability--
 	if(durability <= 0)
 		qdel(src)
 		to_chat(user, "<span class='warning'>Your claws shatter!</span>")
@@ -67,7 +70,7 @@
 	return ..()
 
 /obj/item/twohanded/required/vamp_claws/process()
-	durability -= 1
+	durability--
 	if(durability <= 0)
 		qdel(src)
 
@@ -91,7 +94,7 @@
 	gain_desc = "You have gained the ability to summon blood tendrils to slow people down in an area that you target."
 	required_blood = 10
 
-	charge_max = 30 SECONDS
+	base_cooldown = 30 SECONDS
 	action_icon_state = "blood_tendrils"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
@@ -157,7 +160,7 @@
 	desc = "Every pool of blood in 4 tiles erupts with a spike of living blood, damaging anyone stood on it."
 	gain_desc = "You have gained the ability to weaponise pools of blood to damage those stood on them."
 	required_blood = 100
-	charge_max = 200 SECONDS
+	base_cooldown = 200 SECONDS
 	action_icon_state = "blood_spikes"
 
 /obj/effect/proc_holder/spell/vampire/blood_eruption/create_new_targeting()
@@ -193,7 +196,7 @@
 	name = "The Blood Bringers Rite"
 	desc = "When toggled, everyone around you begins to bleed profusely."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
-	charge_max = 10 SECONDS
+	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
 
@@ -236,6 +239,7 @@
 		owner.adjustStaminaLoss(-15)
 		owner.AdjustStunned(-2 SECONDS)
 		owner.AdjustWeakened(-2 SECONDS)
+		owner.AdjustKnockDown(-2 SECONDS)
 		if(drain_amount == 10)
 			to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
 

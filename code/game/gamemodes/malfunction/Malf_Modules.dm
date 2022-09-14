@@ -261,11 +261,11 @@
 	name = "doomsday device"
 	icon_state = "nuclearbomb_base"
 	desc = "A weapon which disintegrates all organic life in a large area."
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	atom_say_verb = "blares"
 	speed_process = TRUE // Disgusting fix. Please remove once #12952 is merged
-	var/timing = 0
+	var/timing = FALSE
 	var/default_timer = 4500
 	var/detonation_timer
 	var/announced = 0
@@ -281,7 +281,7 @@
 
 /obj/machinery/doomsday_device/proc/start()
 	detonation_timer = world.time + default_timer
-	timing = 1
+	timing = TRUE
 	START_PROCESSING(SSfastprocess, src)
 	SSshuttle.emergencyNoEscape = 1
 
@@ -303,7 +303,7 @@
 		return
 	var/sec_left = seconds_remaining()
 	if(sec_left <= 0)
-		timing = 0
+		timing = FALSE
 		detonate(T.z)
 		qdel(src)
 	else

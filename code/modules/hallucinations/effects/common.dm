@@ -16,7 +16,7 @@
 	. = TRUE
 	if(isliving(mover) && mover == target)
 		var/mob/living/M = mover
-		if(M.lying || !prob(trip_chance))
+		if(!(M.mobility_flags & MOBILITY_MOVE) || !prob(trip_chance))
 			return
 		M.Weaken(weaken)
 		on_crossed()

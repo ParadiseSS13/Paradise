@@ -43,8 +43,7 @@
 			return
 		if(held_brain)
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
-			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
-			return
+			CRASH("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
 		if(user.drop_item())
 			B.forceMove(src)
 			if(!syndiemmi)
@@ -53,7 +52,7 @@
 			B.brainmob = null
 			brainmob.container = src
 			brainmob.forceMove(src)
-			brainmob.stat = CONSCIOUS
+			brainmob.set_stat(CONSCIOUS)
 			brainmob.see_invisible = initial(brainmob.see_invisible)
 			brainmob.remove_from_respawnable_list()
 			GLOB.dead_mob_list -= brainmob//Update dem lists
@@ -157,7 +156,7 @@
 //problem i was having with alien/nonalien brain drops.
 /obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
-		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
+		stack_trace("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)].")
 		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()

@@ -1,3 +1,6 @@
+/obj/item/clothing/gloves/color
+	dyeable = TRUE
+
 /obj/item/clothing/gloves/color/yellow
 	name = "insulated gloves"
 	desc = "These gloves will protect the wearer from electric shock."
@@ -7,7 +10,6 @@
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
-	dyeable = TRUE
 
 /obj/item/clothing/gloves/color/yellow/power
 	var/old_mclick_override
@@ -51,7 +53,6 @@
 	unlimited_power = TRUE
 
 /obj/item/clothing/gloves/color/yellow/fake
-	desc = "These gloves will protect the wearer from electric shock. They don't feel like rubber..."
 	siemens_coefficient = 1
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
@@ -64,16 +65,16 @@
 	item_color="yellow"
 	resistance_flags = NONE
 
-/obj/item/clothing/gloves/color/fyellow/New()
-	..()
+/obj/item/clothing/gloves/color/fyellow/Initialize(mapload)
+	. = ..()
 	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
 
 /obj/item/clothing/gloves/color/fyellow/old
 	name = "worn out insulated gloves"
 	desc = "Old and worn out insulated gloves, hopefully they still work."
 
-/obj/item/clothing/gloves/color/fyellow/old/New()
-	..()
+/obj/item/clothing/gloves/color/fyellow/old/Initialize(mapload)
+	. = ..()
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
 /obj/item/clothing/gloves/color/black
@@ -88,6 +89,12 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	var/can_be_cut = 1
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
+		)
 
 
 /obj/item/clothing/gloves/color/black/hos
@@ -241,7 +248,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 115, ACID = 50)
 
 /obj/item/clothing/gloves/furgloves
 	desc = "These gloves are warm and furry."

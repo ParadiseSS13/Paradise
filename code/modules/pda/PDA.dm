@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/silent = FALSE //To beep or not to beep, that is the question
 	var/honkamt = 0 //How many honks left when infected with honk.exe
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
-	var/detonate = 1 // Can the PDA be blown up?
+	var/detonate = TRUE // Can the PDA be blown up?
 	var/ttone = "beep" //The ringtone!
 	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
 								"boom" = 'sound/effects/explosionfar.ogg',
@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return 0
 
 	var/mob/M = loc
-	if(M.incapacitated(ignore_lying = TRUE))
+	if(M.incapacitated())
 		return 0
 	if((src in M.contents) || ( istype(loc, /turf) && in_range(src, M) ))
 		return 1
@@ -106,7 +106,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return attack_self(M)
 
 /obj/item/pda/attack_self(mob/user as mob)
-	user.set_machine(src)
 	if(active_uplink_check(user))
 		return
 	ui_interact(user)

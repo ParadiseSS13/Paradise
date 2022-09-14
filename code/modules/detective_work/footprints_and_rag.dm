@@ -16,11 +16,12 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "rag"
 	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = list(5)
+	possible_transfer_amounts = null
 	volume = 5
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	has_lid = FALSE
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/wipespeed = 30
 
 /obj/item/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)

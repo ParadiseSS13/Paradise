@@ -10,8 +10,8 @@
 	icon = 'icons/effects/96x96.dmi'
 	pixel_x = -32
 	pixel_y = -32
-	opacity = 1
-	anchored = 0
+	opacity = TRUE
+	anchored = FALSE
 	var/steps = 0
 	var/lifetime = 5
 	var/direction
@@ -142,11 +142,11 @@
 /obj/effect/particle_effect/smoke/freezing
 	name = "nanofrost smoke"
 	color = "#B2FFFF"
-	opacity = 0
+	opacity = FALSE
 
 /datum/effect_system/smoke_spread/freezing
 	effect_type = /obj/effect/particle_effect/smoke/freezing
-	var/blast = 0
+	var/blast = FALSE
 
 /datum/effect_system/smoke_spread/freezing/proc/Chilled(atom/A)
 	if(istype(A, /turf/simulated))
@@ -163,12 +163,12 @@
 					G.toxins = 0
 		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
 			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
-				V.welded = 1
+				V.welded = TRUE
 				V.update_icon()
 				V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/U in T)
 			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent scrubber.
-				U.welded = 1
+				U.welded = TRUE
 				U.update_icon()
 				U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
 		for(var/mob/living/L in T)

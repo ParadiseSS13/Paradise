@@ -35,7 +35,7 @@
 	var/buildstackamount = 1
 	var/framestackamount = 2
 	var/deconstruction_ready = TRUE
-	var/flipped = 0
+	var/flipped = FALSE
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
@@ -49,15 +49,15 @@
 /obj/structure/table/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
 
-/obj/structure/table/update_icon()
+/obj/structure/table/update_icon(updates=ALL)
+	. = ..()
+	update_smoothing()
+
+/obj/structure/table/update_icon_state()
 	if((smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) && !flipped)
 		icon_state = ""
-		QUEUE_SMOOTH(src)
-		QUEUE_SMOOTH_NEIGHBORS(src)
 
 	if(flipped)
-		clear_smooth_overlays()
-
 		var/type = 0
 		var/subtype = null
 		for(var/direction in list(turn(dir,90), turn(dir,-90)) )
@@ -80,7 +80,13 @@
 
 		icon_state = "[base]flip[type][type == 1 ? subtype : ""]"
 
-		return 1
+/obj/structure/table/proc/update_smoothing()
+	if((smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) && !flipped)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
+
+	if(flipped)
+		clear_smooth_overlays()
 
 /obj/structure/table/narsie_act()
 	new /obj/structure/table/wood(loc)
@@ -230,6 +236,20 @@
 	else
 		return ..()
 
+/obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
+	if(locate(/obj/structure/table) in get_turf(target))
+		return FALSE
+	if(flipped)
+		return FALSE
+	var/pass_flags_cache = target.pass_flags
+	target.pass_flags |= PASSTABLE
+	if(target.Move(loc))
+		. = TRUE
+		target.Weaken(4 SECONDS)
+		add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
+	else
+		. = FALSE
+	target.pass_flags = pass_flags_cache
 
 /obj/structure/table/screwdriver_act(mob/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
@@ -334,7 +354,7 @@
 	dir = direction
 	if(dir != NORTH)
 		layer = 5
-	flipped = 1
+	flipped = TRUE
 	smoothing_flags = NONE
 	flags |= ON_BORDER
 	for(var/D in list(turn(direction, 90), turn(direction, -90)))
@@ -360,7 +380,7 @@
 	verbs +=/obj/structure/table/verb/do_flip
 
 	layer = initial(layer)
-	flipped = 0
+	flipped = FALSE
 	smoothing_flags = initial(smoothing_flags)
 	flags &= ~ON_BORDER
 	for(var/D in list(turn(dir, 90), turn(dir, -90)))
@@ -440,6 +460,16 @@
 			AM.throw_impact(L)
 	L.Weaken(10 SECONDS)
 	qdel(src)
+
+/obj/structure/table/glass/shove_impact(mob/living/target, mob/living/attacker)
+	var/pass_flags_cache = target.pass_flags
+	target.pass_flags |= PASSTABLE
+	if(target.Move(loc)) // moving onto a table smashes it, stunning them
+		. = TRUE
+		add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
+	else
+		. = FALSE
+	target.pass_flags = pass_flags_cache
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))
@@ -716,7 +746,7 @@
 /obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
 		return 1
-	if(density == 0) //Because broken racks -Agouri |TODO: SPRITE!|
+	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
@@ -761,7 +791,7 @@
 	deconstruct(TRUE)
 
 /obj/structure/rack/attack_hand(mob/living/user)
-	if(user.IsWeakened() || user.resting || user.lying)
+	if(user.IsWeakened())
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)

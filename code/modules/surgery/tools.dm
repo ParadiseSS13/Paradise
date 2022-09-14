@@ -52,7 +52,7 @@
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
 	flags = CONDUCT
 	force = 15.0
-	sharp = 1
+	sharp = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
@@ -77,7 +77,7 @@
 	item_state = "scalpel"
 	flags = CONDUCT
 	force = 10.0
-	sharp = 1
+	sharp = TRUE
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5.0
 	throw_speed = 3
@@ -141,7 +141,7 @@
 	mob_throw_hit_sound =  'sound/weapons/pierce.ogg'
 	flags = CONDUCT
 	force = 15.0
-	sharp = 1
+	sharp = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9.0
 	throw_speed = 3

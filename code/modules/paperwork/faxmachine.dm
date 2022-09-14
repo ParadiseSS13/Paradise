@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		req_one_access = list()
 		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
 	else

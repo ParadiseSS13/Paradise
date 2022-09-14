@@ -17,11 +17,9 @@ export const AIFixer = (props, context) => {
       </Window>
     );
   } else {
-    let workingAI = null; // If the AI is dead (stat = 2) or isn't existent
+    let workingAI = true; // If the AI is dead (stat = 2) or isn't existent
     if (data.stat === 2 || data.stat === null) {
       workingAI = false;
-    } else {
-      workingAI = true;
     }
 
     let integrityColor = null; // Handles changing color of the integrity bar
@@ -33,11 +31,9 @@ export const AIFixer = (props, context) => {
       integrityColor = 'red';
     }
 
-    let integrityFull = null; // If integrity >= 100, prevents overchar
-    if (data.integrity >= 100) {
-      integrityFull = true;
-    } else {
-      integrityFull = false;
+    let repairable = true; // Is the AI repairable? (Stat 2 = dead)
+    if (data.integrity >= 100 && data.stat !== 2) {
+      repairable = false;
     }
 
     return (
@@ -103,8 +99,8 @@ export const AIFixer = (props, context) => {
               <LabeledList.Item label="Start Repairs">
                 <Button
                   icon="wrench"
-                  disabled={integrityFull || data.active}
-                  content={integrityFull ? 'Already Repaired' : 'Repair'}
+                  disabled={!repairable || data.active}
+                  content={(!repairable || data.active) ? 'Already Repaired' : 'Repair'}
                   onClick={() => act('fix')}
                 />
               </LabeledList.Item>

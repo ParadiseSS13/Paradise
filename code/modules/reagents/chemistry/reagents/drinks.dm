@@ -59,11 +59,11 @@
 /datum/reagent/consumable/drink/carrotjuice
 	name = "Carrot juice"
 	id = "carrotjuice"
-	description = "It is just like a carrot but without crunching."
+	description = "Just like a carrot, but without the crunching."
 	color = "#973800" // rgb: 151, 56, 0
 	drink_icon = "carrotjuice"
 	drink_name = "Glass of  carrot juice"
-	drink_desc = "It is just like a carrot but without crunching."
+	drink_desc = "Just like a carrot, but without the crunching."
 	taste_description = "carrot juice"
 
 /datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
@@ -117,7 +117,7 @@
 	color = "#863333" // rgb: 134, 51, 51
 	drink_icon = "berryjuice"
 	drink_name = "Glass of berry juice"
-	drink_desc = "Berry juice. Or maybe its jam. Who cares?"
+	drink_desc = "Berry juice. Or maybe it's jam. Who cares?"
 	taste_description = "berry juice"
 
 /datum/reagent/consumable/drink/poisonberryjuice
@@ -267,10 +267,9 @@
 	description = "Made with love! And coco beans."
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
-	adj_temp_hot = 5
 	drink_icon = "hot_coco"
 	drink_name = "Glass of hot coco"
-	drink_desc = "Delicious and cozy"
+	drink_desc = "Delicious and cozy."
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/drink/coffee
@@ -282,7 +281,6 @@
 	adj_dizzy = -10 SECONDS
 	adj_drowsy = -6 SECONDS
 	adj_sleepy = -4 SECONDS
-	adj_temp_hot = 25
 	overdose_threshold = 45
 	addiction_chance = 2 // It's true.
 	addiction_chance_additional = 20
@@ -298,10 +296,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(holder.has_reagent("frostoil"))
 		holder.remove_reagent("frostoil", 5)
-	if(prob(50))
-		M.AdjustParalysis(-2 SECONDS)
-		M.AdjustStunned(-2 SECONDS)
-		M.AdjustWeakened(-2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)
@@ -314,8 +308,6 @@
 	id = "icecoffee"
 	description = "Coffee and ice, refreshing and cool."
 	color = "#102838" // rgb: 16, 40, 56
-	adj_temp_hot = 0
-	adj_temp_cool = 5
 	drink_icon = "icedcoffeeglass"
 	drink_name = "Iced Coffee"
 	drink_desc = "A drink to perk you up and refresh you!"
@@ -327,7 +319,6 @@
 	description = "A nice and tasty beverage while you are reading your hippie books."
 	color = "#664300" // rgb: 102, 67, 0
 	adj_sleepy = 0
-	adj_temp_hot = 5
 	drink_icon = "soy_latte"
 	drink_name = "Soy Latte"
 	drink_desc = "A nice and refrshing beverage while you are reading."
@@ -346,7 +337,6 @@
 	description = "A nice, strong and tasty beverage while you are reading."
 	color = "#664300" // rgb: 102, 67, 0
 	adj_sleepy = 0
-	adj_temp_hot = 5
 	drink_icon = "cafe_latte"
 	drink_name = "Cafe Latte"
 	drink_desc = "A nice, strong and refreshing beverage while you are reading."
@@ -362,10 +352,10 @@
 /datum/reagent/consumable/drink/coffee/cafe_latte/cafe_mocha
 	name = "Cafe Mocha"
 	id = "cafe_mocha"
-	description = "The perfect blend of coffe, milk, and chocolate."
+	description = "The perfect blend of coffee, milk, and chocolate."
 	color = "#673629"
 	drink_name = "Cafe Mocha"
-	drink_desc = "The perfect blend of coffe, milk, and chocolate."
+	drink_desc = "The perfect blend of coffee, milk, and chocolate."
 	taste_description = "chocolatey coffee"
 
 /datum/reagent/consumable/drink/tea
@@ -377,7 +367,6 @@
 	adj_dizzy = -4 SECONDS
 	adj_drowsy = -2 SECONDS
 	adj_sleepy = -6 SECONDS
-	adj_temp_hot = 20
 	addiction_chance = 1
 	addiction_chance_additional = 1
 	addiction_threshold = 10
@@ -398,8 +387,6 @@
 	id = "icetea"
 	description = "No relation to a certain rap artist/ actor."
 	color = "#104038" // rgb: 16, 64, 56
-	adj_temp_hot = 0
-	adj_temp_cool = 5
 	drink_icon = "icetea"
 	drink_name = "Iced Tea"
 	drink_desc = "No relation to a certain rap artist/ actor."
@@ -447,7 +434,7 @@
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "chocolatepudding"
 	drink_name = "Chocolate Pudding"
-	drink_desc = "Tasty"
+	drink_desc = "A decadent chocolate dessert, in drinkable form."
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/drink/vanillapudding
@@ -458,7 +445,7 @@
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "vanillapudding"
 	drink_name = "Vanilla Pudding"
-	drink_desc = "Tasty."
+	drink_desc = "A rich vanilla dessert, in drinkable form."
 	taste_description = "vanilla"
 
 /datum/reagent/consumable/drink/cherryshake
@@ -537,9 +524,216 @@
 	id = "icecoco"
 	description = "Hot cocoa and ice, refreshing and cool."
 	color = "#102838" // rgb: 16, 40, 56
-	adj_temp_hot = 0
-	adj_temp_cool = 5
 	drink_icon = "icedcoffeeglass"
 	drink_name = "Iced Cocoa"
 	drink_desc = "A sweeter drink to perk you up and refresh you!"
 	taste_description = "refreshingly cold cocoa"
+
+/datum/reagent/consumable/drink/tonic
+	name = "Tonic Water"
+	id = "tonic"
+	description = "It tastes strange but at least the quinine keeps the Space Malaria at bay."
+	color = "#664300" // rgb: 102, 67, 0
+	adj_dizzy = -10 SECONDS
+	adj_drowsy = -6 SECONDS
+	adj_sleepy = -4 SECONDS
+	drink_icon = "glass_clear"
+	drink_name = "Glass of Tonic Water"
+	drink_desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
+	taste_description = "bitterness"
+
+/datum/reagent/consumable/drink/sodawater
+	name = "Soda Water"
+	id = "sodawater"
+	description = "A can of club soda. Why not make a scotch and soda?"
+	color = "#619494" // rgb: 97, 148, 148
+	adj_dizzy = -10 SECONDS
+	adj_drowsy = -6 SECONDS
+	drink_icon = "glass_clear"
+	drink_name = "Glass of Soda Water"
+	drink_desc = "Soda water. Why not make a scotch and soda?"
+	taste_description = "fizz"
+
+/datum/reagent/consumable/drink/ice
+	name = "Ice"
+	id = "ice"
+	description = "Frozen water, your dentist wouldn't like you chewing this."
+	reagent_state = SOLID
+	color = "#619494" // rgb: 97, 148, 148
+	drink_icon = "iceglass"
+	drink_name = "Glass of ice"
+	drink_desc = "Generally, you're supposed to put something else in there too..."
+	taste_description = "cold"
+
+/datum/reagent/consumable/drink/ice/on_mob_life(mob/living/M)
+	M.bodytemperature = max(M.bodytemperature - 5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0)
+	return ..()
+
+/datum/reagent/consumable/drink/space_cola
+	name = "Cola"
+	id = "cola"
+	description = "A refreshing beverage."
+	reagent_state = LIQUID
+	color = "#100800" // rgb: 16, 8, 0
+	adj_drowsy = -10 SECONDS
+	drink_icon = "glass_brown"
+	drink_name = "Glass of Space Cola"
+	drink_desc = "A glass of refreshing Space Cola."
+	taste_description = "cola"
+
+/datum/reagent/consumable/drink/nuka_cola
+	name = "Nuka Cola"
+	id = "nuka_cola"
+	description = "Cola, cola never changes."
+	color = "#100800" // rgb: 16, 8, 0
+	adj_sleepy = -4 SECONDS
+	drink_icon = "nuka_colaglass"
+	drink_name = "Nuka Cola"
+	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland."
+	harmless = FALSE
+	taste_description = "radioactive cola"
+
+/datum/reagent/consumable/drink/nuka_cola/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.Jitter(40 SECONDS)
+	M.Druggy(60 SECONDS)
+	M.AdjustDizzy(10 SECONDS)
+	M.SetDrowsy(0)
+	ADD_TRAIT(M, TRAIT_GOTTAGONOTSOFAST, id)
+	return ..() | update_flags
+
+/datum/reagent/consumable/drink/nuka_cola/on_mob_delete(mob/living/M)
+	REMOVE_TRAIT(M, TRAIT_GOTTAGONOTSOFAST, id)
+	..()
+
+/datum/reagent/consumable/drink/spacemountainwind
+	name = "Space Mountain Wind"
+	id = "spacemountainwind"
+	description = "Blows right through you like a space wind."
+	color = "#102000" // rgb: 16, 32, 0
+	adj_drowsy = -14 SECONDS
+	adj_sleepy = -2 SECONDS
+	drink_icon = "Space_mountain_wind_glass"
+	drink_name = "Glass of Space Mountain Wind"
+	drink_desc = "Space Mountain Wind. As you know, there are no mountains in space, only wind."
+	taste_description = "lime soda"
+
+/datum/reagent/consumable/drink/dr_gibb
+	name = "Dr. Gibb"
+	id = "dr_gibb"
+	description = "A delicious blend of 42 different flavours"
+	color = "#102000" // rgb: 16, 32, 0
+	adj_drowsy = -12 SECONDS
+	drink_icon = "dr_gibb_glass"
+	drink_name = "Glass of Dr. Gibb"
+	drink_desc = "Dr. Gibb. Not as dangerous as the name might imply."
+	taste_description = "cherry soda"
+
+/datum/reagent/consumable/drink/space_up
+	name = "Space-Up"
+	id = "space_up"
+	description = "Tastes like a hull breach in your mouth."
+	color = "#202800" // rgb: 32, 40, 0
+	drink_icon = "space-up_glass"
+	drink_name = "Glass of Space-up"
+	drink_desc = "Space-up. It helps keep your cool."
+	taste_description = "lemon soda"
+
+/datum/reagent/consumable/drink/lemon_lime
+	name = "Lemon Lime"
+	description = "A tangy substance made of 0.5% natural citrus!"
+	id = "lemon_lime"
+	color = "#878F00" // rgb: 135, 40, 0
+	taste_description = "citrus soda"
+
+/datum/reagent/consumable/drink/lemonade
+	name = "Lemonade"
+	description = "Oh the nostalgia..."
+	id = "lemonade"
+	color = "#FFFF00" // rgb: 255, 255, 0
+	drink_icon = "lemonade"
+	drink_name = "Lemonade"
+	drink_desc = "Oh the nostalgia..."
+	taste_description = "lemonade"
+
+/datum/reagent/consumable/drink/kiraspecial
+	name = "Kira Special"
+	description = "Long live the guy who everyone had mistaken for a girl. Baka!"
+	id = "kiraspecial"
+	color = "#CCCC99" // rgb: 204, 204, 153
+	drink_icon = "kiraspecial"
+	drink_name = "Kira Special"
+	drink_desc = "Long live the guy who everyone had mistaken for a girl. Baka!"
+	taste_description = "citrus soda"
+
+/datum/reagent/consumable/drink/brownstar
+	name = "Brown Star"
+	description = "It's not what it sounds like..."
+	id = "brownstar"
+	color = "#9F3400" // rgb: 159, 052, 000
+	drink_icon = "brownstar"
+	drink_name = "Brown Star"
+	drink_desc = "Its not what it sounds like..."
+	taste_description = "orange soda"
+
+/datum/reagent/consumable/drink/milkshake
+	name = "Milkshake"
+	description = "Glorious brainfreezing mixture."
+	id = "milkshake"
+	color = "#AEE5E4" // rgb" 174, 229, 228
+	drink_icon = "milkshake"
+	drink_name = "Milkshake"
+	drink_desc = "Glorious brainfreezing mixture."
+	taste_description = "milkshake"
+
+/datum/reagent/consumable/drink/rewriter
+	name = "Rewriter"
+	description = "The secret of the sanctuary of the Librarian..."
+	id = "rewriter"
+	color = "#485000" // rgb:72, 080, 0
+	drink_icon = "rewriter"
+	drink_name = "Rewriter"
+	drink_desc = "The secret of the sanctuary of the Librarian..."
+	taste_description = "coffee...soda?"
+
+/datum/reagent/consumable/drink/rewriter/on_mob_life(mob/living/M)
+	M.Jitter(10 SECONDS)
+	return ..()
+
+/datum/reagent/consumable/drink/arnold_palmer
+	name = "Arnold Palmer"
+	id = "arnold_palmer"
+	description = "A wholesome mixture of lemonade and iced tea."
+	color = "#8B5427" // rgb: 139, 84, 39
+	drink_icon = "arnoldpalmer"
+	drink_name = "Arnold Palmer"
+	drink_desc = "A wholesome mixture of lemonade and iced tea... looks like somebody didn't stir this one very well."
+	taste_description = "sweet and fizzy"
+
+/datum/reagent/consumable/drink/fyrsskar_tears
+	name = "Tears of Fyrsskar"
+	id = "fyrsskartears"
+	description = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	color = "#C300AE" // rgb: 195, 0, 174
+	drink_icon = "fyrsskartears"
+	drink_name = "Tears of Fyrsskar"
+	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	taste_description = "plasma"
+	var/alcohol_perc = 0.05
+	var/dizzy_adj = 6 SECONDS
+
+/datum/reagent/consumable/drink/fyrsskar_tears/on_mob_add(mob/living/M)
+	if(isskrell(M))
+		ADD_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+
+/datum/reagent/consumable/drink/fyrsskar_tears/on_mob_life(mob/living/M)
+	if(!isskrell(M))
+		return ..()
+	// imitate alcohol effects using current cycle
+	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
+	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)		
+	return ..()
+
+/datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
+	if(isskrell(M))
+		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)

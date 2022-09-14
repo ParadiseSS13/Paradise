@@ -99,6 +99,7 @@
 									"SECRET TECHNIQUE: TOOLBOX TO THE FACE!",
 									"SECRET TECHNIQUE: PLASMA CANISTER FIRE!",
 									"SECRET TECHNIQUE: TABLE AND DISPOSAL!",
+									// Borers got removed but the below reference stays because its hilarious
 									"[pick("MY BROTHER", " MY DOG", "MY BEST FRIEND", "THE BORER", "GEORGE MELONS", "BADMINS")] DID IT!",
 									";s WHATS SPACE LAW?!",
 									"I BOUGHT THESE GLOVES, NOT STEAL THEM",
@@ -119,7 +120,7 @@
 /datum/reagent/consumable/drink/grape_granade/on_mob_life(mob/living/M)
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
-		goonchem_vortex(T, FALSE, 0, TRUE) // Ignore the 0 volume
+		goonchem_vortex(T, FALSE, 30) //Capped at 30 to prevent sorium abuse
 		M.emote("burp")
 		to_chat(M, "<span class='notice'>You feel ready to burst! Oh wait, just a burp...</span>")
 	else if(prob(25))

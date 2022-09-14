@@ -18,10 +18,6 @@
 	icon_state = "emitter_right"
 	reference = "emitter_right"
 
-/obj/structure/particle_accelerator/particle_emitter/update_icon()
-	..()
-	return
-
 /obj/structure/particle_accelerator/particle_emitter/proc/set_delay(delay)
 	if(delay && delay >= 0)
 		fire_delay = delay

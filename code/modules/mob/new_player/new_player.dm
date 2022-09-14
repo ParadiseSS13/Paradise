@@ -1,15 +1,14 @@
 /mob/new_player
-	var/ready = 0
-	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
+	var/ready = FALSE
+	var/spawning = FALSE	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
-	universal_speak = 1
+	universal_speak = TRUE
 
 	invisibility = 101
 
-	density = 0
-	stat = 2
-	canmove = 0
+	density = FALSE
+	stat = DEAD
 
 /mob/new_player/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -179,7 +178,7 @@
 				return 1
 			var/mob/dead/observer/observer = new(src)
 			src << browse(null, "window=playersetup")
-			spawning = 1
+			spawning = TRUE
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 
@@ -198,8 +197,8 @@
 			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
 			observer.key = key
-			QDEL_NULL(mind)
 			observer.add_to_respawnable_list()
+			mind.current = null
 			qdel(src)
 			return TRUE
 		return FALSE
@@ -320,7 +319,7 @@
 	SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
-	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
+	character = SSjobs.AssignRank(character, rank, TRUE)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
@@ -368,6 +367,8 @@
 			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
 
+			if(length(GLOB.current_pending_diseases) && character.ForceContractDisease(GLOB.current_pending_diseases[1], TRUE, TRUE))
+				popleft(GLOB.current_pending_diseases)
 			if(GLOB.summon_guns_triggered)
 				give_guns(character)
 			if(GLOB.summon_magic_triggered)
@@ -524,7 +525,7 @@
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
 /mob/new_player/proc/create_character()
-	spawning = 1
+	spawning = TRUE
 	close_spawn_windows()
 
 	check_prefs_are_sane()
@@ -540,7 +541,7 @@
 
 
 	if(mind)
-		mind.active = 0					//we wish to transfer the key manually
+		mind.active = FALSE					//we wish to transfer the key manually
 		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
 			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("clown")
@@ -562,14 +563,14 @@
 		chosen_species = GLOB.all_species[client.prefs.active_character.species]
 	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
-		log_runtime(EXCEPTION("[src] had species [client.prefs.active_character.species], though they weren't supposed to. Setting to Human."), src)
+		stack_trace("[src] had species [client.prefs.active_character.species], though they weren't supposed to. Setting to Human.")
 		client.prefs.active_character.species = "Human"
 
 	var/datum/language/chosen_language
 	if(client.prefs.active_character.language)
 		chosen_language = GLOB.all_languages[client.prefs.active_character.language]
 	if((chosen_language == null && client.prefs.active_character.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
-		log_runtime(EXCEPTION("[src] had language [client.prefs.active_character.language], though they weren't supposed to. Setting to None."), src)
+		stack_trace("[src] had language [client.prefs.active_character.language], though they weren't supposed to. Setting to None.")
 		client.prefs.active_character.language = "None"
 
 /mob/new_player/proc/ViewManifest()

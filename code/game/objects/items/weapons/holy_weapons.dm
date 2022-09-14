@@ -2,7 +2,7 @@
 	name = "null rod"
 	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of dark magic."
 	icon_state = "nullrod"
-	item_state = "nullrod"
+	item_state = "tele_baton"
 	force = 15
 	throw_speed = 3
 	throw_range = 4
@@ -157,7 +157,7 @@
 /obj/item/nullrod/claymore/darkblade
 	name = "dark blade"
 	icon_state = "cultblade"
-	item_state = "cultblade"
+	item_state = "darkbalde"
 	desc = "Spread the glory of the dark gods!"
 	slot_flags = SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
@@ -229,7 +229,7 @@
 	item_state = "scythe0"
 	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
-	armour_penetration = 35
+	armour_penetration_flat = 30
 	slot_flags = SLOT_BACK
 	sharp = TRUE
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -237,7 +237,7 @@
 
 /obj/item/nullrod/scythe/vibro
 	name = "high frequency blade"
-	icon_state = "hfrequency0"
+	icon_state = "hfrequency1"
 	item_state = "hfrequency1"
 	desc = "Bad references are the DNA of the soul."
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")

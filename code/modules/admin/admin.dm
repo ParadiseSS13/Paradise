@@ -688,7 +688,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/spawn_atom(object as text)
 	set category = "Debug"
-	set desc = "(atom path) Spawn an atom"
+	set desc = "(atom path) Spawn an atom. Append a period to the text in order to exclude subtypes of paths matching the input."
 	set name = "Spawn"
 
 	if(!check_rights(R_SPAWN))
@@ -697,9 +697,20 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/list/types = typesof(/atom)
 	var/list/matches = new()
 
-	for(var/path in types)
-		if(findtext("[path]", object))
-			matches += path
+	var/include_subtypes = TRUE
+	if(copytext(object, -1) == ".")
+		include_subtypes = FALSE
+		object = copytext(object, 1, -1)
+
+	if(include_subtypes)
+		for(var/path in types)
+			if(findtext("[path]", object))
+				matches += path
+	else
+		var/needle_length = length(object)
+		for(var/path in types)
+			if(copytext("[path]", -needle_length) == object)
+				matches += path
 
 	if(matches.len==0)
 		return

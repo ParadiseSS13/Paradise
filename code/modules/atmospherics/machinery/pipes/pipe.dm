@@ -4,7 +4,7 @@
 	var/volume = 0
 	force = 20
 	use_power = NO_POWER_USE
-	can_unwrench = 1
+	can_unwrench = TRUE
 	damage_deflection = 12
 	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
 
@@ -15,8 +15,8 @@
 
 	flags_2 = NO_MALF_EFFECT_2
 
-/obj/machinery/atmospherics/pipe/New()
-	..()
+/obj/machinery/atmospherics/pipe/Initialize(mapload)
+	. = ..()
 	//so pipes under walls are hidden
 	if(istype(get_turf(src), /turf/simulated/wall))
 		level = 1
@@ -26,7 +26,7 @@
 	QDEL_NULL(air_temporary)
 
 	var/turf/T = loc
-	for(var/obj/machinery/meter/meter in T)
+	for(var/obj/machinery/atmospherics/meter/meter in T)
 		if(meter.target == src)
 			var/obj/item/pipe_meter/PM = new (T)
 			meter.transfer_fingerprints_to(PM)

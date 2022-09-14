@@ -74,7 +74,7 @@
 			calculated_laser_rating += laser.rating
 		max_temperature = T20C + (base_heating * calculated_laser_rating) //573.15K with T1 stock parts
 
-/obj/machinery/atmospherics/unary/thermomachine/update_icon()
+/obj/machinery/atmospherics/unary/thermomachine/update_icon_state()
 	if(panel_open)
 		icon_state = icon_state_open
 	else if(on)

@@ -10,11 +10,7 @@
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	damage = 5
-	stamina = 80
-
-/obj/item/projectile/bullet/c38
-	name = ".38 bullet"
-	damage = 25
+	stamina = 40
 
 /obj/item/projectile/bullet/weakbullet/booze
 
@@ -68,24 +64,34 @@
 
 /obj/item/projectile/bullet/armourpiercing
 	damage = 17
-	armour_penetration = 10
+	armour_penetration_flat = 10
 
 /obj/item/projectile/bullet/armourpiercing/wt550
 	damage = 15
-	armour_penetration = 40
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 25
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
 	damage = 12.5
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
-	armour_penetration = -30
+	armour_penetration_flat = -20
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
 	damage = 3
-	stamina = 25
+	stamina = 12.5
 	icon_state = "bullet-r"
+	armour_penetration_flat = -10
+
+/obj/item/projectile/bullet/pellet/rubber/on_hit(atom/target, blocked = 0)
+    . = ..()
+    if(!ishuman(target))
+        return
+    var/mob/living/carbon/human/H = target
+    if(H.getStaminaLoss() >= 60)
+        H.KnockDown(8 SECONDS)
 
 /obj/item/projectile/bullet/pellet/weak
 	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
@@ -140,11 +146,11 @@
 
 /obj/item/projectile/bullet/midbullet3/hp
 	damage = 40
-	armour_penetration = -50
+	armour_penetration_flat = -40
 
 /obj/item/projectile/bullet/midbullet3/ap
 	damage = 27
-	armour_penetration = 40
+	armour_penetration_flat = 40
 
 /obj/item/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
@@ -185,7 +191,7 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 30
-	weaken = 8 SECONDS
+	knockdown = 8 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 /obj/item/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
@@ -237,13 +243,13 @@
 /obj/item/projectile/bullet/dart/on_hit(atom/target, blocked = 0, hit_zone)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		if(blocked != 100)
+		if(blocked != INFINITY)
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 				reagents.trans_to(M, reagents.total_volume)
 				return 1
 			else
-				blocked = 100
+				blocked = INFINITY
 				target.visible_message("<span class='danger'>[src] was deflected!</span>", \
 									"<span class='userdanger'>You were protected against [src]!</span>")
 	..(target, blocked, hit_zone)
@@ -276,12 +282,13 @@
 	icon_state = "neurotoxin"
 	damage = 5
 	damage_type = TOX
-	weaken = 10 SECONDS
+	stamina = 40
+	knockdown = 10 SECONDS
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = 0)
 	if(isalien(target))
-		weaken = 0
-		nodamage = 1
+		knockdown = 0
+		nodamage = TRUE
 	. = ..() // Execute the rest of the code.
 
 /obj/item/projectile/bullet/cap

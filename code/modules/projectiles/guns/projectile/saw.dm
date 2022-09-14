@@ -11,8 +11,8 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
-	var/cover_open = 0
-	can_suppress = 0
+	var/cover_open = FALSE
+	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 1
 
@@ -22,7 +22,7 @@
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
 	update_icon()
 
-/obj/item/gun/projectile/automatic/l6_saw/update_icon()
+/obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
 	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
@@ -63,11 +63,11 @@
 
 /obj/item/projectile/bullet/saw
 	damage = 45
-	armour_penetration = 5
+	armour_penetration_flat = 5
 
 /obj/item/projectile/bullet/saw/bleeding
 	damage = 20
-	armour_penetration = 0
+	armour_penetration_flat = 0
 
 /obj/item/projectile/bullet/saw/bleeding/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
@@ -77,15 +77,15 @@
 
 /obj/item/projectile/bullet/saw/hollow
 	damage = 60
-	armour_penetration = -10
+	armour_penetration_flat = -30
 
 /obj/item/projectile/bullet/saw/ap
 	damage = 40
-	armour_penetration = 75
+	armour_penetration_percentage = 100
 
 /obj/item/projectile/bullet/saw/incen
 	damage = 7
-	armour_penetration = 0
+	armour_penetration_flat = 0
 
 /obj/item/projectile/bullet/saw/incen/Move()
 	..()

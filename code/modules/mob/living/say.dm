@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(client)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
-			return
+			return FALSE
 
 	if(sanitize)
 		message = trim_strip_html_properly(message)
@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(stat)
 		if(stat == DEAD)
 			return say_dead(message)
-		return
+		return FALSE
 
 	var/message_mode = parse_message_mode(message, "headset")
 
@@ -150,8 +150,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 
 	if(!LAZYLEN(message_pieces))
-		log_runtime(EXCEPTION("Message failed to generate pieces. [message] - [json_encode(message_pieces)]"))
-		return 0
+		. = FALSE
+		CRASH("Message failed to generate pieces. [message] - [json_encode(message_pieces)]")
 
 	if(message_mode == "cords")
 		if(iscarbon(src))
@@ -160,7 +160,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(V && V.can_speak_with())
 				C.say(V.handle_speech(message), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 				V.speak_with(message) //words come before actions
-		return 1
+		return TRUE
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
 	verb = say_quote(message, first_piece.speaking)
@@ -184,7 +184,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
-		return 1
+		return TRUE
 
 	// Log of what we've said, plain message, no spans or junk
 	// handle_message_mode should have logged this already if it handled it
@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	//speaking into radios
 	if(used_radios.len)
-		italics = 1
+		italics = TRUE
 		message_range = 1
 		if(first_piece.speaking)
 			message_range = first_piece.speaking.get_talkinto_msg_range(message)
@@ -283,11 +283,11 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
 	for(var/obj/O in listening_obj)
-		spawn(0)
+		spawn(0) // KILL THIS
 			if(O) //It's possible that it could be deleted in the meantime.
 				O.hear_talk(src, message_pieces, verb)
 
-	return 1
+	return TRUE
 
 /obj/effect/speech_bubble
 	var/mob/parent

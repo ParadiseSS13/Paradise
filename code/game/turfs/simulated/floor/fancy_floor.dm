@@ -22,8 +22,8 @@
 
 /turf/simulated/floor/wood/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)
-		broken = 0
-		burnt = 0
+		broken = FALSE
+		burnt = FALSE
 		if(user && !silent)
 			to_chat(user, "<span class='notice'>You remove the broken planks.</span>")
 	else
@@ -110,9 +110,7 @@
 	. = ..()
 	update_icon()
 
-/turf/simulated/floor/carpet/update_icon()
-	if(!..())
-		return 0
+/turf/simulated/floor/carpet/update_icon_state()
 	if(!broken && !burnt)
 		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH(src)
@@ -126,11 +124,11 @@
 	icon_state = "carpet-0"
 
 /turf/simulated/floor/carpet/break_tile()
-	broken = 1
+	broken = TRUE
 	update_icon()
 
 /turf/simulated/floor/carpet/burn_tile()
-	burnt = 1
+	burnt = TRUE
 	update_icon()
 
 /turf/simulated/floor/carpet/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)

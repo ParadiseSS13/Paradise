@@ -147,6 +147,8 @@
 		qdel(insert_query)
 		return
 
+	qdel(insert_query)
+
 	// Update for this round
 	purchased_packages -= package.database_id
 

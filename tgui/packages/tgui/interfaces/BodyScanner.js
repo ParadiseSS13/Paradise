@@ -22,12 +22,6 @@ const stats = [
 ];
 
 const abnormalities = [
-  [
-    'hasBorer',
-    'bad',
-    'Large growth detected in frontal lobe,' +
-      ' possibly cancerous. Surgical removal is recommended.',
-  ],
   ['hasVirus', 'bad', 'Viral pathogen detected in blood stream.'],
   ['blind', 'average', 'Cataracts detected.'],
   ['colourblind', 'average', 'Photoreceptor abnormalities detected.'],
@@ -42,7 +36,7 @@ const damages = [
   ['Brute', 'bruteLoss'],
   ['Genetic', 'cloneLoss'],
   ['Burn', 'fireLoss'],
-  ['Paralysis', 'paralysis'],
+  ['Inebriation', 'drunkenness'],
 ];
 
 const damageRange = {

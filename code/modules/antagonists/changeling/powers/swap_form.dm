@@ -25,9 +25,6 @@
 	if(ischangeling(target))
 		to_chat(user, "<span class='warning'>We are unable to swap forms with another changeling!</span>")
 		return FALSE
-	if(target.has_brain_worms() || user.has_brain_worms())
-		to_chat(user, "<span class='warning'>A foreign presence repels us from this body!</span>")
-		return FALSE
 	return TRUE
 
 /datum/action/changeling/swap_form/sting_action(mob/living/carbon/user)
@@ -35,8 +32,8 @@
 	var/mob/living/carbon/human/target = G.affecting
 
 	to_chat(user, "<span class='notice'>We tighten our grip. We must hold still....</span>")
-	target.Jitter(1000 SECONDS)
-	user.Jitter(1000 SECONDS)
+	target.Jitter(10 SECONDS)
+	user.Jitter(10 SECONDS)
 
 	if(!do_mob(user, target, 10 SECONDS))
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")

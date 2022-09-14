@@ -623,7 +623,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -771,7 +771,7 @@
 	name = "Station Intercom (General)";
 	pixel_y = -28
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/light,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{

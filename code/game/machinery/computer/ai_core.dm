@@ -1,6 +1,6 @@
 /obj/structure/AIcore
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	name = "AI core"
 	icon = 'icons/mob/AI.dmi'
 	icon_state = "0"
@@ -24,7 +24,7 @@
 					return
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				state = CIRCUIT_CORE
 				P.forceMove(src)
 				circuit = P
@@ -38,7 +38,7 @@
 					if(do_after(user, 20, target = src) && state == SCREWED_CORE && C.use(5))
 						to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 						state = CABLED_CORE
-						update_icon()
+						update_icon(UPDATE_ICON_STATE)
 				else
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the AI core!</span>")
 				return
@@ -51,7 +51,7 @@
 					if(do_after(user, 20, target = src) && state == CABLED_CORE && G.use(2))
 						to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 						state = GLASS_CORE
-						update_icon()
+						update_icon(UPDATE_ICON_STATE)
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of reinforced glass to insert them into the AI core!</span>")
 				return
@@ -119,7 +119,7 @@
 				M.forceMove(src)
 				brain = M
 				to_chat(user, "<span class='notice'>You add [M.name] to the frame.</span>")
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				return
 
 	return ..()
@@ -147,7 +147,7 @@
 				to_chat(user, "<span class='notice'>You remove the brain.</span>")
 				brain.forceMove(loc)
 				brain = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/AIcore/screwdriver_act(mob/living/user, obj/item/I)
 	if(!(state in list(SCREWED_CORE, CIRCUIT_CORE, GLASS_CORE, AI_READY_CORE)))
@@ -185,7 +185,7 @@
 		if(AI_READY_CORE)
 			to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 			state = GLASS_CORE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/structure/AIcore/wirecutter_act(mob/living/user, obj/item/I)
@@ -199,7 +199,7 @@
 	else
 		to_chat(user, "<span class='notice'>You remove the cables.</span>")
 		state = SCREWED_CORE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
 		A.amount = 5
 
@@ -209,7 +209,7 @@
 		return
 	default_unfasten_wrench(user, I, 20)
 
-/obj/structure/AIcore/update_icon()
+/obj/structure/AIcore/update_icon_state()
 	switch(state)
 		if(EMPTY_CORE)
 			icon_state = "0"
@@ -311,8 +311,8 @@ That prevents a few funky behaviors.
 		return
  //Transferring a carded AI to a core.
 	if(interaction == AI_TRANS_FROM_CARD)
-		AI.control_disabled = 0
-		AI.aiRadio.disabledAi = 0
+		AI.control_disabled = FALSE
+		AI.aiRadio.disabledAi = FALSE
 		AI.forceMove(loc)//To replace the terminal.
 		to_chat(AI, "You have been uploaded to a stationary terminal. Remote device connection restored.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.</span>")

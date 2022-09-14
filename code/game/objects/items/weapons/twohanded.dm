@@ -202,9 +202,8 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
-	..()
 
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -221,17 +220,18 @@
 	force_wielded = 23
 	needs_permit = TRUE
 
-/obj/item/twohanded/fireaxe/boneaxe/update_icon()
+/obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
 	icon_state = "bone_axe[wielded]"
 
 /obj/item/twohanded/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
-	force_wielded = 30
-	armour_penetration = 20
-	var/charge = 30
-	var/max_charge = 30
+	force_wielded = 35
+	armour_penetration_flat = 10
+	armour_penetration_percentage = 30
+	var/charge = 20
+	var/max_charge = 20
 
-/obj/item/twohanded/fireaxe/energized/update_icon()
+/obj/item/twohanded/fireaxe/energized/update_icon_state()
 	if(wielded)
 		icon_state = "fireaxe2"
 	else
@@ -257,7 +257,7 @@
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
 			do_sparks(1, 1, src)
-			target.Weaken(8 SECONDS)
+			target.KnockDown(8 SECONDS)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
 
@@ -280,7 +280,8 @@
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
-	armour_penetration = 35
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 10
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
@@ -298,14 +299,13 @@
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
 
-/obj/item/twohanded/dualsaber/update_icon()
+/obj/item/twohanded/dualsaber/update_icon_state()
 	if(wielded)
 		icon_state = "dualsaber[blade_color][wielded]"
 		set_light(brightness_on, l_color=colormap[blade_color])
 	else
 		icon_state = "dualsaber0"
 		set_light(0)
-	..()
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HULK))
@@ -394,7 +394,7 @@
 	force_wielded = 18
 	throwforce = 20
 	throw_speed = 4
-	armour_penetration = 10
+	armour_penetration_flat = 5
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
@@ -406,7 +406,7 @@
 	needs_permit = TRUE
 	var/icon_prefix = "spearglass"
 
-/obj/item/twohanded/spear/update_icon()
+/obj/item/twohanded/spear/update_icon_state()
 	icon_state = "[icon_prefix][wielded]"
 
 /obj/item/twohanded/spear/CheckParts(list/parts_list)
@@ -445,7 +445,7 @@
 	force_unwielded = 11
 	force_wielded = 20					//I have no idea how to balance
 	throwforce = 22
-	armour_penetration = 15				//Enhanced armor piercing
+	armour_penetration_percentage = 15				//Enhanced armor piercing
 	icon_prefix = "bone_spear"
 
 //GREY TIDE
@@ -578,7 +578,7 @@
 /obj/item/twohanded/required/chainsaw/doomslayer
 	name = "OOOH BABY"
 	desc = "<span class='warning'>VRRRRRRR!!!</span>"
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 	force_on = 30
 
 /obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -604,33 +604,43 @@
 	hitsound = null // Handled in the snowflaked attack proc
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
-	armour_penetration = 35
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 10
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
 
-/obj/item/twohanded/chainsaw/update_icon()
+/obj/item/twohanded/chainsaw/update_icon_state()
 	if(wielded)
 		icon_state = "chainsaw[wielded]"
 	else
 		icon_state = "chainsaw0"
-	..()
 
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
+	. = ..()
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
-		if(isrobot(target))
-			..()
-			return
-		if(!isliving(target))
-			return
-		else
-			target.Weaken(8 SECONDS)
-			..()
+		if(isnull(.)) //necessary check, successful attacks return null, without it target will drop any shields they may have before they get a chance to block
+			target.KnockDown(8 SECONDS)
+
+/obj/item/twohanded/chainsaw/afterattack(mob/living/target, mob/living/user, proximity)
+	if(!proximity) //only works on adjacent targets, no telekinetic chainsaws
 		return
-	else
-		playsound(loc, "swing_hit", 50, 1, -1)
-		return ..()
+	if(!wielded)
+		return
+	if(isrobot(target)) //no buff from attacking robots
+		return
+	if(!isliving(target)) //no buff from attacking inanimate objects
+		return
+	if(target.stat != DEAD) //no buff from attacking dead targets
+		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
+
+/obj/item/twohanded/chainsaw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //It's a chainsaw, you try blocking bullets with it
+	else if(owner.has_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING))
+		final_block_chance = 80 //Need to be ready to ruuuummbllleeee
+	return ..()
 
 /obj/item/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
 	. = ..()
@@ -676,9 +686,8 @@
 	if(charged < 2)
 		charged++
 
-/obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/singularityhammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "singulohammer[wielded]"
-	..()
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/X in orange(5, pull))
@@ -753,9 +762,8 @@
 		L.Stun(6 SECONDS)
 		shock(L)
 
-/obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/mjollnir/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
-	..()
 
 /obj/item/twohanded/knighthammer
 	name = "singuloth knight's hammer"
@@ -784,9 +792,8 @@
 	if(charged < 5)
 		charged++
 
-/obj/item/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/knighthammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer[wielded]"
-	..()
 
 /obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)

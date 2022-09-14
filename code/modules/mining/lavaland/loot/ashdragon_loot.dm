@@ -31,7 +31,7 @@
 	icon_state = "spectral"
 	item_state = "spectral"
 	flags = CONDUCT
-	sharp = 1
+	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1

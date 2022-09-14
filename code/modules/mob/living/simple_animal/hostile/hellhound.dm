@@ -20,39 +20,38 @@
 	maxHealth = 250 // same as sgt araneus
 	health = 250
 	obj_damage = 50
-	robust_searching = 1
+	robust_searching = TRUE
 	stat_attack = UNCONSCIOUS
 	attacktext = "savages"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")
 	see_in_dark = 9
-	universal_understand = 1
-	wander = 0
+	universal_understand = TRUE
+	wander = FALSE
 	var/life_regen_cycles = 0
 	var/life_regen_cycle_trigger = 10 // heal once for every X number of cycles spent resting
 	var/life_regen_amount = -10 // negative, because negative = healing
 	var/smoke_lastuse = 0
 	var/smoke_freq = 300 // 30 seconds
-	var/datum/action/innate/demon/whisper/whisper_action
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/hostile/hellhound/New()
+/mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()
-	whisper_action = new()
+	var/datum/action/innate/demon/whisper/whisper_action = new
 	whisper_action.Grant(src)
 	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
 /mob/living/simple_animal/hostile/hellhound/handle_automated_action()
 	if(!..())
 		return
-	if(resting)
+	if(IS_HORIZONTAL(src))
 		if(!wants_to_rest())
 			custom_emote(EMOTE_VISIBLE, "growls, and gets up.")
 			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
-			StopResting()
+			stand_up()
 	else if(wants_to_rest())
 		custom_emote(EMOTE_VISIBLE, "lays down, and starts to lick their wounds.")
-		StartResting()
+		lay_down()
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)
 	. = ..()
@@ -68,7 +67,7 @@
 			msgs += "<span class='warning'>It has many injuries.</span>"
 		else if(health > (maxHealth*0.25))
 			msgs += "<span class='warning'>It is covered in wounds!</span>"
-		if(resting)
+		if(IS_HORIZONTAL(src))
 			if(getBruteLoss() || getFireLoss())
 				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
 			else
@@ -77,7 +76,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
-	if(stat != DEAD && resting && (getBruteLoss() || getFireLoss()))
+	if(stat != DEAD && IS_HORIZONTAL(src) && (getBruteLoss() || getFireLoss()))
 		if(life_regen_cycles >= life_regen_cycle_trigger)
 			life_regen_cycles = 0
 			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
@@ -109,14 +108,14 @@
 	maxHealth = 400
 	health = 400
 	force_threshold = 5 // no punching
-	universal_speak = 1
+	universal_speak = TRUE
 	smoke_freq = 200
 	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	environment_smash = 2
 
-/mob/living/simple_animal/hostile/hellhound/greater/New()
+/mob/living/simple_animal/hostile/hellhound/greater/Initialize(mapload)
 	. = ..()
 	// Movement
 	AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
@@ -134,7 +133,7 @@
 	AddSpell(wallspell)
 	// Offense
 	var/obj/effect/proc_holder/spell/aoe_turf/conjure/creature/summonspell = new
-	summonspell.charge_max = 1
+	summonspell.base_cooldown = 1
 	summonspell.invocation_type = "none"
 	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
 	summonspell.summon_amt = 1

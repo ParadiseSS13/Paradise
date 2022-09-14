@@ -356,6 +356,10 @@
 	icon_state = "impact_laser_purple"
 	duration = 4
 
+/obj/effect/temp_visual/impact_effect/yellow_laser
+	icon_state = "impact_laser_yellow"
+	duration = 4
+
 /obj/effect/temp_visual/impact_effect/ion
 	icon_state = "shieldsparkles"
 	duration = 6

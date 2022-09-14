@@ -10,9 +10,9 @@
 	circuit = /obj/item/circuitboard/crew
 	var/datum/ui_module/crew_monitor/crew_monitor
 
-/obj/machinery/computer/crew/New()
+/obj/machinery/computer/crew/Initialize()
+	. = ..()
 	crew_monitor = new(src)
-	..()
 
 /obj/machinery/computer/crew/Destroy()
 	QDEL_NULL(crew_monitor)

@@ -45,7 +45,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
-	/client/proc/gsay,					/*cross-server asay*/
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
@@ -56,8 +55,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/update_mob_sprite,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
-	/client/proc/delbook,
-	/client/proc/view_flagged_books,
+	/client/proc/library_manager,
 	/client/proc/view_asays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
@@ -69,11 +67,11 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds_afks,
 	/client/proc/ccbdb_lookup_ckey,
-	/client/proc/view_instances
+	/client/proc/view_instances,
+	/client/proc/start_vote
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
-	/client/proc/stickybanpanel,
 	/datum/admins/proc/vpn_whitelist
 	))
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(
@@ -131,8 +129,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/toggleAI,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/cmd_debug_del_sing,
-	/client/proc/delbook,
-	/client/proc/view_flagged_books,
+	/client/proc/library_manager,
 	/client/proc/view_asays,
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
@@ -167,11 +164,16 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
+	/client/proc/ss_breakdown,
 	#ifdef REFERENCE_TRACKING
 	/datum/proc/find_refs,
 	/datum/proc/qdel_then_find_references,
 	/datum/proc/qdel_then_if_fail_find_references,
 	#endif
+	/client/proc/dmapi_debug,
+	/client/proc/dmapi_log,
+	/client/proc/timer_log,
+	/client/proc/debug_timers,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -282,6 +284,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 			verbs += /client/proc/cmd_display_del_log_simple
 			verbs += /client/proc/toggledebuglogs
 			verbs += /client/proc/debug_variables /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+			verbs += /client/proc/ss_breakdown
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
@@ -306,7 +309,8 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		GLOB.admin_verbs_proccall,
 		GLOB.admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
-		GLOB.admin_verbs_ticket
+		GLOB.admin_verbs_ticket,
+		GLOB.admin_verbs_maintainer,
 	)
 
 /client/proc/hide_verbs()
@@ -671,54 +675,56 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 
 		qdel(rank_read)
 	if(!D)
-		if(!GLOB.configuration.admin.use_database_admins)
-			if(GLOB.admin_ranks[rank] == null)
-				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
-				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
-				return
-
-			// Do a little check here
-			if(GLOB.configuration.system.is_production && (GLOB.admin_ranks[rank] & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-				to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
-				return
-			D = new(rank, GLOB.admin_ranks[rank], ckey)
-		else
-			if(!SSdbcore.IsConnected())
-				to_chat(src, "Warning, MYSQL database is not connected.")
-				return
-
-			var/datum/db_query/admin_read = SSdbcore.NewQuery(
-				"SELECT ckey, admin_rank, flags FROM admin WHERE ckey=:ckey",
-				list("ckey" = ckey)
-			)
-
-			if(!admin_read.warn_execute())
-				qdel(admin_read)
-				return FALSE
-
-			while(admin_read.NextRow())
-				var/admin_ckey = admin_read.item[1]
-				var/admin_rank = admin_read.item[2]
-				var/flags = admin_read.item[3]
-				if(!admin_ckey)
-					to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.")
-					qdel(admin_read)
-					return
-				if(admin_rank == "Removed") //This person was de-adminned. They are only in the admin list for archive purposes.
-					to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.")
-					qdel(admin_read)
+		D = try_localhost_autoadmin()
+		if(!D)
+			if(!GLOB.configuration.admin.use_database_admins)
+				if(GLOB.admin_ranks[rank] == null)
+					error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
+					to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
 					return
 
-				if(istext(flags))
-					flags = text2num(flags)
-				var/client/check_client = GLOB.directory[ckey]
 				// Do a little check here
-				if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && check_client.prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
+				if(GLOB.configuration.system.is_production && (GLOB.admin_ranks[rank] & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
 					to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
-					qdel(admin_read)
 					return
-				D = new(admin_rank, flags, ckey)
-			qdel(admin_read)
+				D = new(rank, GLOB.admin_ranks[rank], ckey)
+			else
+				if(!SSdbcore.IsConnected())
+					to_chat(src, "Warning, MYSQL database is not connected.")
+					return
+
+				var/datum/db_query/admin_read = SSdbcore.NewQuery(
+					"SELECT ckey, admin_rank, flags FROM admin WHERE ckey=:ckey",
+					list("ckey" = ckey)
+				)
+
+				if(!admin_read.warn_execute())
+					qdel(admin_read)
+					return FALSE
+
+				while(admin_read.NextRow())
+					var/admin_ckey = admin_read.item[1]
+					var/admin_rank = admin_read.item[2]
+					var/flags = admin_read.item[3]
+					if(!admin_ckey)
+						to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.")
+						qdel(admin_read)
+						return
+					if(admin_rank == "Removed") //This person was de-adminned. They are only in the admin list for archive purposes.
+						to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.")
+						qdel(admin_read)
+						return
+
+					if(istext(flags))
+						flags = text2num(flags)
+					var/client/check_client = GLOB.directory[ckey]
+					// Do a little check here
+					if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && check_client.prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
+						to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+						qdel(admin_read)
+						return
+					D = new(admin_rank, flags, ckey)
+				qdel(admin_read)
 
 		var/client/C = GLOB.directory[ckey]
 		D.associate(C)

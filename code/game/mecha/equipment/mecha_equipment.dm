@@ -22,14 +22,11 @@
 	if(chassis)
 		send_byjax(chassis.occupant,"exosuit.browser","eq_list",chassis.get_equipment_list())
 		send_byjax(chassis.occupant,"exosuit.browser","equipment_menu",chassis.get_equipment_menu(),"dropdowns")
-		return 1
-	return
+		return
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_equip_info()
 	if(chassis)
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		return 1
-	return
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
@@ -64,17 +61,17 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/action_checks(atom/target)
 	if(!target)
-		return 0
+		return FALSE
 	if(!chassis)
-		return 0
+		return FALSE
 	if(!equip_ready)
-		return 0
+		return FALSE
 	if(energy_drain && !chassis.has_charge(energy_drain))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/action(atom/target)
-	return 0
+	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/start_cooldown()
 	set_ready_state(0)
@@ -83,7 +80,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target)
 	if(!chassis)
-		return
+		return FALSE
 	var/C = chassis.loc
 	set_ready_state(0)
 	chassis.use_power(energy_drain)
@@ -94,7 +91,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_mecha(atom/target, delay)
 	if(!chassis)
-		return
+		return FALSE
 	var/C = chassis.loc
 	. = do_after(chassis.occupant, delay, target = target)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
@@ -103,8 +100,8 @@
 /obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
 	if(istype(M))
 		if(M.equipment.len<M.max_equip)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M)
 	M.equipment += src

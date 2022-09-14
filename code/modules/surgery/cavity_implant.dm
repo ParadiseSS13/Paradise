@@ -15,37 +15,36 @@
 	name = "Robotic Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest","head","groin")
-	requires_organic_bodypart = 0
+	requires_organic_bodypart = FALSE
 
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
-		return 0
+		return FALSE
 	if(affected.is_robotic())
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/surgery/cavity_implant/synth/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
-		return 0
+		return FALSE
 	return affected.is_robotic()
 
 /datum/surgery_step/cavity
-	priority = 1
 
 /datum/surgery_step/cavity/proc/get_max_wclass(obj/item/organ/external/affected)
 	switch(affected.limb_name)
 		if("head")
-			return 1
+			return WEIGHT_CLASS_TINY
 		if("chest")
-			return 3
+			return WEIGHT_CLASS_NORMAL
 		if("groin")
-			return 2
+			return WEIGHT_CLASS_SMALL
 	return 0
 
 /datum/surgery_step/cavity/proc/get_cavity(obj/item/organ/external/affected)
@@ -86,7 +85,7 @@
 	user.visible_message("<span class='notice'> [user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>", \
 	"<span class='notice'> You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>" )
 
-	return 1
+	return TRUE
 
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
@@ -112,13 +111,13 @@
 	user.visible_message("<span class='notice'> [user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>", \
 	"<span class='notice'> You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>" )
 
-	return 1
+	return TRUE
 
 
 /datum/surgery_step/cavity/place_item
 	name = "implant/extract object"
-	accept_hand = 1
-	accept_any_item = 1
+	accept_hand = TRUE
+	accept_any_item = TRUE
 	var/obj/item/IC = null
 	allowed_tools = list(/obj/item = 100)
 
@@ -127,16 +126,16 @@
 
 /datum/surgery_step/cavity/place_item/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!ishuman(target))
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected)
 		to_chat(user, "<span class='warning'>\The [target] lacks a [parse_zone(target_zone)]!</span>")
-		return 0
+		return FALSE
 	if(tool)
 		var/can_fit = !affected.hidden && tool.w_class <= get_max_wclass(affected)
 		if(!can_fit)
 			to_chat(user, "<span class='warning'>\The [tool] won't fit in \The [affected.name]!</span>")
-			return 0
+			return FALSE
 	return ..()
 
 /datum/surgery_step/cavity/place_item/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -165,27 +164,27 @@
 
 	if(istype(tool, /obj/item/disk/nuclear))
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone.</span>")
-		return 0//fail
+		return FALSE//fail
 
 	var/obj/item/disk/nuclear/datdisk = locate() in tool
 	if(datdisk)
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone. Even if in a box. Especially in a box.</span>")
-		return 0//fail
+		return FALSE//fail
 
 	if(istype(tool,/obj/item/organ))
 		to_chat(user, "<span class='warning'>This isn't the type of surgery for organ transplants!</span>")
-		return 0//fail
+		return FALSE//fail
 
 	if(!user.canUnEquip(tool, 0))
 		to_chat(user, "<span class='warning'>[tool] is stuck to your hand, you can't put it in [target]!</span>")
-		return 0
+		return FALSE
 
 	if(istype(tool,/obj/item/cautery))
-		return 1//god this is ugly....
+		return TRUE//god this is ugly....
 	else if(tool)
 		if(IC)
 			to_chat(user, "<span class='notice'>There seems to be something in there already!</span>")
-			return 1
+			return TRUE
 		else
 			user.visible_message("<span class='notice'> [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>", \
 			"<span class='notice'> You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>" )
@@ -195,13 +194,13 @@
 			user.drop_item()
 			affected.hidden = tool
 			tool.forceMove(target)
-			return 1
+			return TRUE
 	else
 		if(IC)
 			user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
 			user.put_in_hands(IC)
 			affected.hidden = null
-			return 1
+			return TRUE
 		else
 			to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>")
-			return 0
+			return FALSE

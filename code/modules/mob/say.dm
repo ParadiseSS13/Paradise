@@ -2,8 +2,6 @@
 #define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
-#define USABLE_DEAD_EMOTES list("*flip", "*spin")
-
 /mob/proc/say()
 	return
 

@@ -30,6 +30,7 @@
 		qdel(src)
 		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')
+	L.apply_status_effect(STATUS_EFFECT_TELEPORTSICK)
 
 /obj/item/stack/ore/bluespace_crystal/throw_impact(atom/hit_atom)
 	..()

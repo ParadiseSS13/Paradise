@@ -38,6 +38,13 @@
 	get_kill()
 	. = ..()
 
+/datum/status_effect/adaptive_learning
+	id = "adaptive_learning"
+	duration = 30 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+	var/bonus_damage = 0
+
 /datum/status_effect/high_five
 	id = "high_five"
 	duration = 5 SECONDS

@@ -7,15 +7,14 @@
 
 	pass_flags = PASSTABLE 	// Floating past tables is pretty damn spooky.
 	status_flags = null 	// No canpush to prevent grabs ...
-	density = 0 			//  ... But a density of 0 means we won't be blocking anyone's way.
-	healable = 0			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
-	wander = 0				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
+	density = FALSE 		//  ... But a density of 0 means we won't be blocking anyone's way.
+	healable = FALSE			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
+	wander = FALSE				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
 
-	universal_speak = 1		// Tell the humans spooky things about the afterlife
+	universal_speak = TRUE	// Tell the humans spooky things about the afterlife
 	speak_emote = list("mumbles", "moans", "whispers", "laments", "screeches")
 
-	allow_spin = 0			// No spinning. Spinning breaks our floating animation.
-	no_spin_thrown = 1
+	no_spin_thrown = TRUE
 	del_on_death = TRUE
 
 	var/obj/item/possessed_item
@@ -42,7 +41,7 @@
 	var/response = alert(src, "End your possession of this object? (It will not stop you from respawning later)","Are you sure you want to ghost?","Ghost","Stay in body")
 	if(response != "Ghost")
 		return
-	StartResting()
+	lay_down()
 	var/mob/dead/observer/ghost = ghostize(1)
 	ghost.timeofdeath = world.time
 	death(0) // Turn back into a regular object.
@@ -84,13 +83,13 @@
 
 	if(!istype(loc, /obj/item)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins("<span class='adminnotice'>Posessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
-		log_runtime(EXCEPTION("[src] spawned manually, no object to assign attributes to."), src)
+		stack_trace("[src] spawned manually, no object to assign attributes to.")
 		qdel(src)
 
 	var/turf/possessed_loc = get_turf(loc)
 	if(!istype(possessed_loc)) // Will this ever happen? Who goddamn knows.
 		message_admins("<span class='adminnotice'>Posessed object could not find turf, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
-		log_runtime(EXCEPTION("[src] attempted to find a turf to spawn on, and could not."), src)
+		stack_trace("[src] attempted to find a turf to spawn on, and could not.")
 		qdel(src)
 
 	possessed_item = loc
@@ -141,7 +140,7 @@
 
 	update_icon()
 
-/mob/living/simple_animal/possessed_object/proc/update_icon(update_pixel_xy = 0)
+/mob/living/simple_animal/possessed_object/update_icon(update_pixel_xy = 0)
 	name = possessed_item.name // Take on all the attributes of the item we've possessed.
 	real_name = name
 	desc = possessed_item.desc
@@ -155,3 +154,4 @@
 	color = possessed_item.color
 	overlays = possessed_item.overlays
 	set_opacity(possessed_item.opacity)
+	return ..(NONE)

@@ -34,14 +34,14 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/marker_beacon/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Use in-hand to place a [singular_name].</span>"
 	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
 
-/obj/item/stack/marker_beacon/update_icon()
+/obj/item/stack/marker_beacon/update_icon_state()
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]"
 
 /obj/item/stack/marker_beacon/attack_self(mob/user)
@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		return
 	if(input_color)
 		picked_color = input_color
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/marker_beacon
 	name = "marker beacon"
@@ -84,13 +84,13 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 /obj/structure/marker_beacon/Initialize(mapload, set_color)
 	. = ..()
 	picked_color = set_color
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/marker_beacon/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		var/obj/item/stack/marker_beacon/M = new(loc)
 		M.picked_color = picked_color
-		M.update_icon()
+		M.update_icon(UPDATE_ICON_STATE)
 	qdel(src)
 
 /obj/structure/marker_beacon/examine(mob/user)
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	if(picked_color)
 		. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
 
-/obj/structure/marker_beacon/update_icon()
+/obj/structure/marker_beacon/update_icon_state()
 	while(!picked_color || !GLOB.marker_beacon_colors[picked_color])
 		picked_color = pick(GLOB.marker_beacon_colors)
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]-on"
@@ -115,7 +115,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	if(do_after(user, remove_speed, target = src))
 		var/obj/item/stack/marker_beacon/M = new(loc)
 		M.picked_color = picked_color
-		M.update_icon()
+		M.update_icon(UPDATE_ICON_STATE)
 		transfer_fingerprints_to(M)
 		user.put_in_hands(M)
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		return
 	if(input_color)
 		picked_color = input_color
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/marker_beacon/dock_marker
 	name = "docking beacon"
@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	icon_state = "dockingmarker"
 	flags = NODECONSTRUCT
 
-/obj/structure/marker_beacon/dock_marker/update_icon()
+/obj/structure/marker_beacon/dock_marker/update_icon_state()
 	set_light(light_range, light_power, LIGHT_COLOR_BLUE)
 
 /obj/structure/marker_beacon/dock_marker/attackby()
@@ -166,6 +166,5 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	desc = "A Prism-brand collision illumination device. It is anchored in place and glowing steadily."
 	icon_state = "markerburgundy-on"
 
-/obj/structure/marker_beacon/dock_marker/collision/update_icon()
+/obj/structure/marker_beacon/dock_marker/collision/update_icon_state()
 	set_light(light_range, light_power, LIGHT_COLOR_FLARE)
-	return

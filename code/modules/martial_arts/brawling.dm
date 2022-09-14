@@ -40,7 +40,7 @@
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.Weaken(10 SECONDS)
 			D.forcesay(GLOB.hit_appends)
-		else if(D.lying)
+		else if(IS_HORIZONTAL(D))
 			D.forcesay(GLOB.hit_appends)
 	return 1
 
@@ -98,6 +98,6 @@
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.Paralyse(10 SECONDS)
 			D.forcesay(GLOB.hit_appends)
-		else if(D.lying)
+		else if(IS_HORIZONTAL(D))
 			D.forcesay(GLOB.hit_appends)
 	return 1

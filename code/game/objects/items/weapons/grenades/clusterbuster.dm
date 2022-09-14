@@ -6,6 +6,7 @@
 	name = "clusterbang"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang"
+	item_state = "flashbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
 
 /obj/item/grenade/clusterbuster/prime()
@@ -37,12 +38,12 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
-/obj/item/grenade/clusterbuster/segment/New(loc, payload_type = /obj/item/grenade/flashbang/cluster)
-	..()
+/obj/item/grenade/clusterbuster/segment/Initialize(mapload, payload_type = /obj/item/grenade/flashbang/cluster)
+	. = ..()
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
-	active = 1
-	walk_away(src,loc,rand(1,4))
+	active = TRUE
+	walk_away(src, loc, rand(1,4))
 	spawn(rand(15,60))
 		prime()
 
@@ -63,7 +64,7 @@
 	for(var/loop = numspawned ,loop > 0, loop--)
 		var/obj/item/grenade/P = new type(loc)
 		if(istype(P, /obj/item/grenade))
-			P.active = 1
+			P.active = TRUE
 		walk_away(P,loc,rand(1,4))
 
 		spawn(rand(15,60))

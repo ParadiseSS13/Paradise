@@ -18,9 +18,7 @@
 	. = ..()
 	broken_states = list("[initial(icon_state)]_dam")
 
-/turf/simulated/floor/mineral/update_icon()
-	if(!..())
-		return 0
+/turf/simulated/floor/mineral/update_icon_state()
 	if(!broken && !burnt)
 		if(!(icon_state in icons))
 			icon_state = initial(icon_state)
@@ -180,7 +178,7 @@
 
 /turf/simulated/floor/mineral/bananium/proc/squeek()
 	if(spam_flag < world.time)
-		playsound(src, "clownstep", 50, 1)
+		playsound(src, 'sound/effects/clownstep1.ogg', 50, 1)
 		spam_flag = world.time + 10
 
 /turf/simulated/floor/mineral/bananium/airless
@@ -224,7 +222,7 @@
 	floor_tile = /obj/item/stack/tile/mineral/uranium
 	icons = list("uranium","uranium_dam")
 	var/last_event = 0
-	var/active = null
+	var/active = FALSE
 
 /turf/simulated/floor/mineral/uranium/Entered(mob/AM)
 	.=..()

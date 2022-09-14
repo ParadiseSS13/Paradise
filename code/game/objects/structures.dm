@@ -30,8 +30,8 @@
 		GLOB.cameranet.updateVisibility(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		var/turf/T = get_turf(src)
-		spawn(0)
-			QUEUE_SMOOTH_NEIGHBORS(T)
+		QUEUE_SMOOTH_NEIGHBORS(T)
+	REMOVE_FROM_SMOOTH_QUEUE(src)
 	return ..()
 
 /obj/structure/proc/climb_on()
@@ -92,7 +92,8 @@
 
 	for(var/mob/living/M in get_turf(src))
 
-		if(M.lying) return //No spamming this on people.
+		if(IS_HORIZONTAL(M))
+			return //No spamming this on people.
 
 		M.Weaken(10 SECONDS)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
@@ -140,7 +141,7 @@
 	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
 		return 0
-	if(user.stat || user.IsParalyzed() || user.IsSleeping() || user.lying || user.IsWeakened())
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return 0
 	if(issilicon(user))
 		to_chat(user, "<span class='notice'>You need hands for this.</span>")

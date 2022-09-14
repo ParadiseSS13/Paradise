@@ -1,16 +1,16 @@
 /mob/living/silicon/robot/syndicate
 	base_icon = "syndie_bloodhound"
 	icon_state = "syndie_bloodhound"
-	lawupdate = 0
-	scrambledcodes = 1
+	lawupdate = FALSE
+	scrambledcodes = TRUE
 	has_camera = FALSE
-	pdahide = 1
+	pdahide = TRUE
 	faction = list("syndicate")
 	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
 	req_access = list(ACCESS_SYNDICATE)
-	ionpulse = 1
+	ionpulse = TRUE
 	damage_protection = 5
 	brute_mod = 0.7 //30% less damage
 	burn_mod = 0.7

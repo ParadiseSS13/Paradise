@@ -4,7 +4,7 @@
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
-	item_state = "flashbang"
+	item_state = "grenade"
 	var/spawn_contents = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 	var/spawn_amount = 100
 
@@ -36,7 +36,7 @@
 	name = "gluon grenade"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "gluon"
-	item_state = "flashbang"
+	item_state = "grenade"
 	var/freeze_range = 4
 	var/rad_damage = 350
 	var/stamina_damage = 30

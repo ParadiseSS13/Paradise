@@ -14,7 +14,7 @@
 
 	var/vision_flags = 0
 	var/see_in_dark = 2
-	var/tint = 0
+	var/tint = FLASH_PROTECTION_NONE
 	var/flash_protect = FLASH_PROTECTION_NONE
 	var/see_invisible = SEE_INVISIBLE_LIVING
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE

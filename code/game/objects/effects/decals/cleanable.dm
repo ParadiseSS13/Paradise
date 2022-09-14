@@ -1,5 +1,4 @@
 /obj/effect/decal/cleanable
-	anchored = TRUE
 	var/list/random_icon_states = list()
 	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
 	var/mergeable_decal = TRUE //when two of these are on a same tile or do we need to merge them into just one?
@@ -17,6 +16,9 @@
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
 		var/hasfeet = TRUE
+		if(IS_HORIZONTAL(H) && !H.buckled) //Make people bloody if they're lying down and move into blood
+			if(bloodiness > 0 && length(blood_DNA))
+				H.add_blood(H.blood_DNA, basecolor)
 		if(!l_foot && !r_foot)
 			hasfeet = FALSE
 		if(H.shoes && blood_state && bloodiness)

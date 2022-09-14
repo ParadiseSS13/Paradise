@@ -7,7 +7,7 @@
 
 	maxHealth = 25
 	health = 25
-	density = 0
+	density = FALSE
 
 	var/amount_grown = 0
 	var/max_grown = 200
@@ -16,15 +16,19 @@
 	death_sound = null
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
-/mob/living/carbon/alien/larva/New()
+/mob/living/carbon/alien/larva/Initialize(mapload)
+	. = ..()
 	if(name == "alien larva")
 		name = "alien larva ([rand(1, 1000)])"
 	real_name = name
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
-	..()
+
+/mob/living/carbon/alien/larva/get_caste_organs()
+	. = ..()
+	. += /obj/item/organ/internal/xenos/plasmavessel/larva
+
 
 //This needs to be fixed
 /mob/living/carbon/alien/larva/Stat()
@@ -84,11 +88,3 @@
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
 
-/* Commented out because it's duplicated in life.dm
-/mob/living/carbon/alien/larva/proc/grow() // Larvae can grow into full fledged Xenos if they survive long enough -- TLE
-	if(icon_state == "larva_l" && !canmove) // This is a shit death check. It is made of shit and death. Fix later.
-		return
-	else
-		var/mob/living/carbon/alien/humanoid/A = new(loc)
-		A.key = key
-		qdel(src) */

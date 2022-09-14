@@ -9,7 +9,7 @@
 	desc = "A controller for the nearby pool."
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
-	anchored = 1 //this is what I get for assuming /obj/machinery has anchored set to 1 by default
+	anchored = TRUE //this is what I get for assuming /obj/machinery has anchored set to 1 by default
 	var/list/linkedturfs = list() //List contains all of the linked pool turfs to this controller, assignment happens on New()
 	var/mobinpool = list() //List contains all of the mob in the pool, to prevent looping through the entire area to find mobs inside..
 	var/decalinpool = list() // List containing all of the cleanable decals in pool
@@ -30,6 +30,7 @@
 	deep_water = TRUE
 
 /obj/machinery/poolcontroller/Initialize(mapload)
+	. = ..()
 	var/contents_loop = linked_area
 	if(!linked_area)
 		contents_loop = range(srange, src)
@@ -44,7 +45,17 @@
 			W.linkedcontroller = src
 			linkedturfs += T
 
-	. = ..()
+/obj/machinery/poolcontroller/Destroy()
+	for(var/T in linkedturfs)
+		if(istype(T, /turf/simulated/floor/beach/water))
+			var/turf/simulated/floor/beach/water/W = T
+			if(W.linkedcontroller == src)
+				W.linkedcontroller = null
+		else if(istype(T, /turf/simulated/floor/beach/away/water))
+			var/turf/simulated/floor/beach/away/water/W = T
+			if(W.linkedcontroller == src)
+				W.linkedcontroller = null
+	return ..()
 
 /obj/machinery/poolcontroller/invisible/Initialize(mapload)
 	linked_area = get_area(src)
@@ -54,7 +65,7 @@
 	if(!emagged) //If it is not already emagged, emag it.
 		to_chat(user, "<span class='warning'>You disable \the [src]'s temperature safeguards.</span>")//Inform the mob of what emagging does.
 
-		emagged = 1 //Set the emag var to true.
+		emagged = TRUE //Set the emag var to true.
 
 /obj/machinery/poolcontroller/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -112,7 +123,7 @@
 	if(!drownee)
 		return
 
-	if(drownee && ((drownee.lying && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
+	if(drownee && ((IS_HORIZONTAL(drownee) && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
 		if(HAS_TRAIT(drownee, TRAIT_NOBREATH))

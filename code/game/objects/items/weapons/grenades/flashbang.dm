@@ -47,20 +47,20 @@
 		M.show_message("<span class='warning'>BANG</span>", 2)
 
 		var/distance = max(1, get_dist(source_turf, get_turf(M)))
-		var/stun_amount = max(20 SECONDS / distance, 6 SECONDS)
+		var/status_duration = max(10 SECONDS / distance, 4 SECONDS)
 
 		// Flash
 		if(flash)
 			if(M.flash_eyes(affect_silicon = TRUE))
-				M.Weaken(stun_amount)
+				M.Confused(status_duration * 2)
 
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
 			if(!distance || A.loc == M || A.loc == M.loc) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
-				M.Weaken(20 SECONDS)
+				M.KnockDown(10 SECONDS)
 			if(!ear_safety)
-				M.Weaken(stun_amount)
+				M.KnockDown(status_duration)
 				M.AdjustEarDamage(5, 15)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M

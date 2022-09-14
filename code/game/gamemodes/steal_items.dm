@@ -131,8 +131,8 @@
 	location_override = "the Chief Medical Officer's Office"
 
 /datum/theft_objective/ablative
-	name = "an ablative armor vest"
-	typepath = /obj/item/clothing/suit/armor/laserproof
+	name = "an ablative trenchcoat"
+	typepath = /obj/item/clothing/suit/hooded/ablative
 	protected_jobs = list("Head of Security", "Warden")
 	location_override = "the Armory"
 
@@ -151,7 +151,7 @@
 	job_possession = FALSE //The CE / engineers / atmos techs do not carry around supermater slivers.
 
 /datum/theft_objective/plutonium_core
-	name = "the plutonium core from the stations nuclear device"
+	name = "the plutonium core from the station's nuclear device"
 	typepath = /obj/item/nuke_core/plutonium
 	location_override = "the Vault. You can use the box and instructions provided to remove the core, with some extra tools"
 	special_equipment = /obj/item/storage/box/syndie_kit/nuke

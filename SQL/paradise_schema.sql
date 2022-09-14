@@ -76,6 +76,7 @@ CREATE TABLE `characters` (
   `hair_gradient_offset` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0,0',
   `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
   `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '255',
+  `custom_emotes` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -266,14 +267,14 @@ CREATE TABLE `player` (
   `UI_style` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT 'Midnight',
   `UI_style_color` varchar(7) COLLATE utf8mb4_unicode_ci DEFAULT '#ffffff',
   `UI_style_alpha` smallint(4) DEFAULT '255',
-  `be_role` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `be_role` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `default_slot` smallint(4) DEFAULT '1',
   `toggles` int(11) DEFAULT NULL,
   `toggles_2` int(11) DEFAULT NULL,
   `sound` mediumint(8) DEFAULT '31',
-  `volume_mixer` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `volume_mixer` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `exp` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `exp` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `clientfps` smallint(4) DEFAULT '63',
   `atklog` smallint(4) DEFAULT '0',
   `fuid` bigint(20) DEFAULT NULL,
@@ -285,6 +286,8 @@ CREATE TABLE `player` (
   `screentip_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#ffd391',
   `ghost_darkness_level` tinyint(1) UNSIGNED NOT NULL DEFAULT '255',
   `colourblind_mode` VARCHAR(48) NOT NULL DEFAULT 'None' COLLATE 'utf8mb4_general_ci',
+  `keybindings` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
+  `server_region` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -350,6 +353,7 @@ CREATE TABLE `karma_totals` (
 ) ENGINE=InnoDB AUTO_INCREMENT=25715 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+DROP TABLE IF EXISTS `karma_purchases`;
 CREATE TABLE `karma_purchases` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`ckey` VARCHAR(32) NOT NULL COLLATE 'utf8_general_ci',
@@ -367,17 +371,22 @@ DROP TABLE IF EXISTS `library`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `library` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `flagged` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `ckey` (`ckey`),
-  KEY `flagged` (`flagged`)
-) ENGINE=InnoDB AUTO_INCREMENT=4537 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`author` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`title` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`content` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`ckey` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`reports` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
+	`summary` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
+	`rating` DOUBLE NULL DEFAULT '0',
+	`raters` MEDIUMTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
+	`primary_category` INT(11) NULL DEFAULT '0',
+	`secondary_category` INT(11) NOT NULL DEFAULT '0',
+	`tertiary_category` INT(11) NULL DEFAULT '0',
+	PRIMARY KEY (`id`) USING BTREE,
+	INDEX `ckey` (`ckey`) USING BTREE,
+	INDEX `flagged` (`reports`(1024)) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -585,6 +594,7 @@ CREATE TABLE `round` (
 --
 -- Table structure for table `2fa_secrets`
 --
+DROP TABLE IF EXISTS `2fa_secrets`;
 CREATE TABLE `2fa_secrets` (
 	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`secret` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -596,6 +606,7 @@ CREATE TABLE `2fa_secrets` (
 --
 -- Table structure for table `pai_saves`
 --
+DROP TABLE IF EXISTS `pai_saves`;
 CREATE TABLE `pai_saves` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -610,6 +621,7 @@ CREATE TABLE `pai_saves` (
 --
 -- Table structure for table `instance_data_cache`
 --
+DROP TABLE IF EXISTS `instance_data_cache`;
 CREATE TABLE `instance_data_cache` (
 	`server_id` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`key_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',

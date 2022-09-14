@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile/scarybat
-	name = "space bats"
+	name = "\improper space bats"
 	desc = "A swarm of cute little blood sucking bats that looks pretty pissed."
 	icon = 'icons/mob/bats.dmi'
 	icon_state = "bat"
@@ -10,9 +10,9 @@
 	speak_chance = 0
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm = "hits the"
+	response_help = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm = "hits"
 	speed = 4
 	maxHealth = 20
 	health = 20
@@ -63,6 +63,6 @@
 	melee_damage_upper = 30
 	a_intent = INTENT_HARM
 	pass_flags = PASSTABLE
-	universal_speak = 1
-	universal_understand = 1
+	universal_speak = TRUE
+	universal_understand = TRUE
 	gold_core_spawnable = NO_SPAWN //badmin only

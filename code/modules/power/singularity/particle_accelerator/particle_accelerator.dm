@@ -64,14 +64,14 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "none"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 80)
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = 0
 	var/reference = null
-	var/powered = 0
+	var/powered = FALSE
 	var/strength = null
 	var/desc_holder = null
 
@@ -87,17 +87,12 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = "end_cap"
 	reference = "end_cap"
 
-/obj/structure/particle_accelerator/update_icon()
-	..()
-	return
-
-
 /obj/structure/particle_accelerator/verb/rotate()
 	set name = "Rotate Clockwise"
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
@@ -118,7 +113,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
@@ -155,7 +150,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(prob(50))
 		qdel(src)
 
-/obj/structure/particle_accelerator/update_icon()
+/obj/structure/particle_accelerator/update_icon_state()
 	switch(construction_state)
 		if(0,1)
 			icon_state="[reference]"
@@ -166,7 +161,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				icon_state="[reference]p[strength]"
 			else
 				icon_state="[reference]c"
-	return
 
 /obj/structure/particle_accelerator/proc/update_state()
 	if(master)
@@ -253,15 +247,15 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "none"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
 	var/construction_state = 0
-	var/active = 0
+	var/active = FALSE
 	var/reference = null
-	var/powered = null
+	var/powered = FALSE
 	var/strength = 0
 	var/desc_holder = null
 
@@ -271,7 +265,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
@@ -284,16 +278,13 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	dir = turn(dir, 90)
 	return 1
-
-/obj/machinery/particle_accelerator/update_icon()
-	return
 
 /obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
 	if(!iscoil(W))

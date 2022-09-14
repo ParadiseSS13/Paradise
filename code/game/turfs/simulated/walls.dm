@@ -17,12 +17,11 @@
 	var/damage = 0
 	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
 
-	var/damage_overlay
 	var/global/damage_overlays[8]
 
-	opacity = 1
-	density = 1
-	blocks_air = 1
+	opacity = TRUE
+	density = TRUE
+	blocks_air = TRUE
 	explosion_block = 1
 
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
@@ -90,35 +89,36 @@
 /turf/simulated/wall/proc/rust()
 	if(rusted)
 		return
-	name = "rusted [name]"
 	rusted = TRUE
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
-/turf/simulated/wall/proc/update_icon()
+/turf/simulated/wall/update_name()
+	. = ..()
+	name = "[rusted ? "rusted " : ""][name]"
+
+/turf/simulated/wall/update_overlays()
+	. = ..()
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
 	QUEUE_SMOOTH(src)
 	if(rusted && !rusted_overlay)
 		rusted_overlay = icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST))
-		add_overlay(rusted_overlay)
+		. += rusted_overlay
 
 	if(!damage)
-		if(damage_overlay)
-			overlays -= damage_overlays[damage_overlay]
-			damage_overlay = null
+		. += dent_decals
 		return
 
 	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
 	if(overlay > damage_overlays.len)
 		overlay = damage_overlays.len
 
-	if(damage_overlay && overlay == damage_overlay) //No need to update.
-		return
-	if(damage_overlay)
-		overlays -= damage_overlays[damage_overlay]
-	overlays += damage_overlays[overlay]
-	damage_overlay = overlay
+	if(length(dent_decals))
+		. += dent_decals
+
+	. += damage_overlays[overlay]
+	. += dent_decals
 
 /turf/simulated/wall/proc/generate_overlays()
 	var/alpha_inc = 256 / damage_overlays.len
@@ -251,7 +251,7 @@
 	ChangeTurf(/turf/simulated/floor)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
-	var/wait = 100
+	var/wait = 20 SECONDS
 	if(speed)
 		wait = speed
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
@@ -262,8 +262,8 @@
 	O.desc = "Looks hot."
 	O.icon = 'icons/effects/fire.dmi'
 	O.icon_state = "2"
-	O.anchored = 1
-	O.density = 1
+	O.anchored = TRUE
+	O.density = TRUE
 	O.layer = 5
 
 	src.ChangeTurf(/turf/simulated/floor/plating)
@@ -285,6 +285,7 @@
 	M.do_attack_animation(src)
 	if((M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
 		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			dismantle_wall(1)
 			to_chat(M, "<span class='info'>You smash through the wall.</span>")
 		else
@@ -386,8 +387,8 @@
 	if(I.use_tool(src, user, time, volume = I.tool_volume))
 		if(repairing)
 			WELDER_REPAIR_SUCCESS_MESSAGE
-			cut_overlay(dent_decals)
 			dent_decals?.Cut() // I feel like this isn't needed but it can't hurt to keep it in anyway
+			update_icon()
 			take_damage(-damage)
 		else
 			WELDER_SLICING_SUCCESS_MESSAGE
@@ -516,11 +517,10 @@
 	decal.pixel_y = y
 
 	if(LAZYLEN(dent_decals))
-		cut_overlay(dent_decals)
 		dent_decals += decal
 	else
 		dent_decals = list(decal)
 
-	add_overlay(dent_decals)
+	update_icon()
 
 #undef MAX_DENT_DECALS

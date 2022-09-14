@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	is_cyborg = TRUE
 	materials = list()
 
-/obj/item/stack/rods/cyborg/update_icon()
+/obj/item/stack/rods/cyborg/update_icon_state()
 	return // icon_state should always be a full stack of rods.
 
 /obj/item/stack/rods/ten
@@ -58,9 +58,9 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 /obj/item/stack/rods/New(loc, amount=null)
 	..()
 	recipes = GLOB.rod_recipes
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/stack/rods/update_icon()
+/obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
 	if((amount <= 5) && (amount > 0))
 		icon_state = "rods-[amount]"

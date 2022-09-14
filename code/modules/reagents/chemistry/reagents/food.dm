@@ -104,10 +104,6 @@
 	M.AdjustDrowsy(-10 SECONDS)
 	if(current_cycle >= 90)
 		M.AdjustJitter(4 SECONDS)
-	if(prob(50))
-		M.AdjustParalysis(-2 SECONDS)
-		M.AdjustStunned(-2 SECONDS)
-		M.AdjustWeakened(-2 SECONDS)
 	if(prob(4))
 		M.reagents.add_reagent("epinephrine", 1.2)
 	return ..() | update_flags
@@ -354,18 +350,9 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/datum/antagonist/vampire/V = H.mind?.has_antag_datum(/datum/antagonist/vampire)
-		if(V && !V.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
-			if(prob(min(25, current_cycle)))
-				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
-				H.Weaken(2 SECONDS)
-				H.Jitter(20 SECONDS)
-				H.fakevomit()
-		else
-			if(H.job == "Chef")
-				if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
-					update_flags |= H.adjustBruteLoss(-1, FALSE)
-					update_flags |= H.adjustFireLoss(-1, FALSE)
+		if(H.job == "Chef" && prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
+			update_flags |= H.adjustBruteLoss(-1, FALSE)
+			update_flags |= H.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/sprinkles
@@ -825,7 +812,6 @@
 	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
 			H.Weaken(4 SECONDS)
-			H.update_canmove()
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(HAS_TRAIT(H, TRAIT_NOHUNGER)) //If you don't eat, then you can't get food poisoning
 			return

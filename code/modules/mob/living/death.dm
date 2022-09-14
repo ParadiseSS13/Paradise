@@ -4,8 +4,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	// hide and freeze for the GC
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -22,8 +21,7 @@
 		return FALSE
 	new /obj/effect/decal/cleanable/ash(loc)
 	// hide and freeze them while they get GC'd
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	QDEL_IN(src, 0)
@@ -33,8 +31,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	// hide and freeze them while they get GC'd
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	QDEL_IN(src, 0)
@@ -51,8 +48,8 @@
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
 
+	set_stat(DEAD)
 	..()
-	stat = DEAD
 
 	timeofdeath = world.time
 	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
@@ -70,16 +67,14 @@
 	hud_used?.reload_fullscreen()
 	update_sight()
 	update_action_buttons_icon()
-
+	ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT) // immobilized is superfluous as moving when dead ghosts you.
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
-
-	if(!gibbed)
-		update_canmove()
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src
@@ -106,3 +101,9 @@
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed
 	addtimer(CALLBACK(src, .proc/gib), rand(2 SECONDS, 10 SECONDS))
+
+/mob/living/carbon/proc/inflate_gib() // Plays an animation that makes mobs appear to inflate before finally gibbing
+	addtimer(CALLBACK(src, .proc/gib, null, null, TRUE, TRUE), 25)
+	var/matrix/M = matrix()
+	M.Scale(1.8, 1.2)
+	animate(src, time = 40, transform = M, easing = SINE_EASING)

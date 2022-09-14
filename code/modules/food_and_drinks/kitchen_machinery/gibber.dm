@@ -4,12 +4,12 @@
 	desc = "The name isn't descriptive enough?"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
-	density = 1
-	anchored = 1
-	var/operating = 0 //Is it on?
-	var/dirty = 0 // Does it need cleaning?
+	density = TRUE
+	anchored = TRUE
+	var/operating = FALSE //Is it on?
+	var/dirty = FALSE // Does it need cleaning?
 	var/mob/living/occupant // Mob who has been put inside
-	var/locked = 0 //Used to prevent mobs from breaking the feedin anim
+	var/locked = FALSE //Used to prevent mobs from breaking the feedin anim
 
 	var/gib_throw_dir = WEST // Direction to spit meat and gibs in. Defaults to west.
 
@@ -46,28 +46,23 @@
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	feedinTopanim()
 	addtimer(CALLBACK(src, .proc/startgibbing, user), 33)
 	return OBLITERATION
 
-/obj/machinery/gibber/update_icon()
-	overlays.Cut()
-
+/obj/machinery/gibber/update_overlays()
+	. = ..()
 	if(dirty)
-		overlays += image('icons/obj/kitchen.dmi', "grbloody")
-
+		. += "grbloody"
 	if(stat & (NOPOWER|BROKEN))
 		return
-
 	if(!occupant)
-		overlays += image('icons/obj/kitchen.dmi', "grjam")
-
+		. += "grjam"
 	else if(operating)
-		overlays += image('icons/obj/kitchen.dmi', "gruse")
-
+		. += "gruse"
 	else
-		overlays += image('icons/obj/kitchen.dmi', "gridle")
+		. += "gridle"
 
 /obj/machinery/gibber/relaymove(mob/user)
 	if(locked)
@@ -151,7 +146,7 @@
 		victim.forceMove(src)
 		occupant = victim
 
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		feedinTopanim()
 
 /obj/machinery/gibber/verb/eject()
@@ -178,7 +173,7 @@
 	occupant.forceMove(get_turf(src))
 	occupant = null
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 	return
 
@@ -186,7 +181,7 @@
 	if(!occupant)
 		return
 
-	locked = 1 //lock gibber
+	locked = TRUE //lock gibber
 
 	var/image/gibberoverlay = new //used to simulate 3D effects
 	gibberoverlay.icon = icon
@@ -204,14 +199,14 @@
 	holder.pixel_x = 2
 	holder.loc = get_turf(src)
 	holder.layer = MOB_LAYER //simulate mob-like layering
-	holder.anchored = 1
+	holder.anchored = TRUE
 
 	var/atom/movable/holder2 = new //holder for gibber overlay, used to simulate 3D effect
 	holder2.name = null
 	holder2.overlays += gibberoverlay
 	holder2.loc = get_turf(src)
 	holder2.layer = MOB_LAYER + 0.1 //3D, it's above the mob, rest of the gibber is behind
-	holder2.anchored = 1
+	holder2.anchored = TRUE
 
 	animate(holder, pixel_y = 16, time = animation_delay) //animate going down
 
@@ -226,7 +221,7 @@
 
 	qdel(holder) //get rid of holder object
 	qdel(holder2) //get rid of holder object
-	locked = 0 //unlock
+	locked = FALSE //unlock
 
 /obj/machinery/gibber/proc/startgibbing(mob/user, UserOverride=0)
 	if(!istype(user) && !UserOverride)
@@ -247,8 +242,8 @@
 	use_power(1000)
 	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
 
-	operating = 1
-	update_icon()
+	operating = TRUE
+	update_icon(UPDATE_OVERLAYS)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
 
@@ -284,7 +279,7 @@
 
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
-	victims += "\[[time_stamp()]\] [key_name(occupant)] killed by [UserOverride ? "Autogibbing" : "[key_name(user)]"]" //have to do this before ghostizing
+	victims += "\[[all_timestamps()]\] [key_name(occupant)] killed by [UserOverride ? "Autogibbing" : "[key_name(user)]"]" //have to do this before ghostizing
 	occupant.death(1)
 	occupant.ghostize()
 
@@ -309,8 +304,8 @@
 				sleep(1)
 
 		pixel_x = initial(pixel_x) //return to it's spot after shaking
-		operating = 0
-		update_icon()
+		operating = FALSE
+		update_icon(UPDATE_OVERLAYS)
 
 
 
@@ -326,12 +321,13 @@
 	var/consumption_delay = 3 SECONDS
 	var/list/victim_targets = list()
 
-/obj/machinery/gibber/autogibber/New()
-	..()
-	spawn(5)
-		var/turf/T = get_step(src, acceptdir)
-		if(istype(T))
-			lturf = T
+/obj/machinery/gibber/autogibber/Initialize(mapload)
+	. = ..()
+
+	var/turf/T = get_step(src, acceptdir)
+	if(istype(T))
+		lturf = T
+
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/gibber(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -358,11 +354,11 @@
 		for(var/mob/living/carbon/H in victim_targets)
 			if(H.loc == lturf) //still standing there
 				if(force_move_into_gibber(H))
-					locked = 1 // no escape
+					locked = TRUE // no escape
 					ejectclothes(occupant)
 					cleanbay()
 					startgibbing(null, 1)
-					locked = 0
+					locked = FALSE
 			break
 	victim_targets.Cut()
 
@@ -373,7 +369,7 @@
 	victim.forceMove(src)
 	occupant = victim
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	feedinTopanim()
 	return 1
 

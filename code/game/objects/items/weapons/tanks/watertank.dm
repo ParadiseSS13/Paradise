@@ -14,7 +14,7 @@
 	resistance_flags = FIRE_PROOF
 
 	var/obj/item/noz
-	var/on = 0
+	var/on = FALSE
 	var/volume = 500
 
 /obj/item/watertank/New()
@@ -50,7 +50,7 @@
 
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
-			on = 0
+			on = FALSE
 			to_chat(user, "<span class='notice'>You need a free hand to hold the mister.</span>")
 			return
 		noz.loc = user
@@ -143,7 +143,7 @@
 /obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
 	..()
 	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
-	tank.on = 0
+	tank.on = FALSE
 	loc = tank
 
 /obj/item/reagent_containers/spray/mister/attack_self()
@@ -276,7 +276,7 @@
 /obj/item/extinguisher/mini/nozzle/dropped(mob/user as mob)
 	..()
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
-	tank.on = 0
+	tank.on = FALSE
 	loc = tank
 
 /obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)

@@ -2,8 +2,8 @@
 	name = "computer"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
@@ -11,7 +11,6 @@
 	integrity_failure = 100
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
-	var/processing = 0
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
 	var/light_range_on = 1
@@ -22,7 +21,7 @@
 	var/force_no_power_icon_state = FALSE
 
 /obj/machinery/computer/Initialize()
-	..()
+	. = ..()
 	power_change()
 	update_icon()
 
@@ -68,24 +67,24 @@
 	update_icon()
 	flickering = FALSE
 
-/obj/machinery/computer/update_icon()
-	cut_overlays()
+/obj/machinery/computer/update_overlays()
+	. = ..()
 	underlays.Cut()
 	if((stat & NOPOWER) || force_no_power_icon_state)
 		if(icon_keyboard)
-			add_overlay("[icon_keyboard]_off")
+			. += "[icon_keyboard]_off"
 		return
 
 	// This whole block lets screens and keyboards ignore lighting and be visible even in the darkest room
 	var/overlay_state = icon_screen
 	if(stat & BROKEN)
 		overlay_state = "[icon_state]_broken"
-	add_overlay("[overlay_state]")
+	. += "[overlay_state]"
 	if(!(stat & BROKEN) && light)
 		underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 	if(icon_keyboard)
-		add_overlay("[icon_keyboard]")
+		. += "[icon_keyboard]"
 		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask")
 
 /obj/machinery/computer/power_change()

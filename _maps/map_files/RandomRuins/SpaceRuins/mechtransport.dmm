@@ -4,88 +4,88 @@
 /area/template_noop)
 "b" = (
 /turf/simulated/wall/mineral/titanium,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "c" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "f" = (
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "g" = (
 /obj/structure/table,
 /obj/machinery/door_control{
 	id = "mecha cargo"
 	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "h" = (
 /obj/structure/table,
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "i" = (
 /obj/machinery/computer{
 	name = "shuttle control console"
 	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "j" = (
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "k" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "l" = (
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "m" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "n" = (
 /obj/machinery/computer{
 	name = "exosuit control console"
 	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "p" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "q" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "r" = (
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "s" = (
 /obj/structure/mecha_wreckage/phazon,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "t" = (
 /turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "u" = (
 /obj/structure/mecha_wreckage/ripley/firefighter,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "v" = (
 /obj/structure/mecha_wreckage/ripley,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "w" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "x" = (
 /obj/effect/decal/cleanable/blood/gibs/robot/up,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "y" = (
 /obj/machinery/door/poddoor{
 	id_tag = "mecha cargo";
@@ -93,25 +93,25 @@
 	tag = ""
 	},
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "z" = (
 /obj/effect/decal/cleanable/blood/gibs/robot,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "A" = (
 /obj/structure/mecha_wreckage/durand,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "B" = (
 /obj/item/stack/tile/plasteel{
 	pixel_x = 7;
 	pixel_y = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "C" = (
 /turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "D" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -119,11 +119,11 @@
 "E" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "F" = (
 /obj/effect/decal/cleanable/blood/gibs/robot,
 /turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "G" = (
 /obj/item/stack/tile/plasteel{
 	pixel_x = 7;
@@ -131,15 +131,15 @@
 	},
 /obj/effect/decal/cleanable/blood/gibs/robot,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "H" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "J" = (
 /obj/structure/mecha_wreckage/odysseus,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "K" = (
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
@@ -147,7 +147,7 @@
 "L" = (
 /obj/structure/mecha_wreckage/gygax,
 /turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "M" = (
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -158,11 +158,11 @@
 "R" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "U" = (
 /obj/item/gps/ruin,
 /turf/simulated/wall/mineral/titanium,
-/area/ruin/powered)
+/area/ruin/space/powered)
 
 (1,1,1) = {"
 a

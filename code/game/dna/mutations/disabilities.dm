@@ -72,15 +72,13 @@
 	name = "Tourettes"
 	activation_messages = list("You twitch.")
 	deactivation_messages = list("Your mouth tastes like soap.")
-	instability = -GENE_INSTABILITY_MODERATE
 
 /datum/mutation/disability/tourettes/New()
 	..()
 	block = GLOB.twitchblock
 
 /datum/mutation/disability/tourettes/on_life(mob/living/carbon/human/H)
-	if((prob(10) && H.AmountParalyzed() <= 1))
-		H.Stun(20 SECONDS)
+	if(prob(10))
 		switch(rand(1, 3))
 			if(1)
 				H.emote("twitch")
@@ -493,11 +491,10 @@
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	panel = "Abilities"
 
-	charge_type = "recharge"
-	charge_max = 600
+	base_cooldown = 600
 
-	clothes_req = 0
-	stat_allowed = 0
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
