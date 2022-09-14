@@ -504,6 +504,10 @@
 	var/obj/item/pda/pda = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
+	else
+		pda = wear_pda
+		if(istype(pda) && pda.id)
+			id = pda.id
 
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/card/id))

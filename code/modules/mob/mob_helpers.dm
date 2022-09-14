@@ -327,13 +327,13 @@
 	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 
-/proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
+/proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
 	for(var/i = 1, i <= length(t), i++)
 
 		var/letter = copytext(t, i, i+1)
-		if(prob(50))
+		if(prob(replace_rate))
 			if(p >= 70)
 				letter = ""
 
