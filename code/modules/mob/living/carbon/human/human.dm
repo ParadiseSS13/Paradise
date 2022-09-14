@@ -502,12 +502,13 @@
 /mob/living/carbon/human/proc/get_idcard(check_hands = FALSE)
 	var/obj/item/card/id/id = wear_id
 	var/obj/item/pda/pda = wear_id
-	if(istype(pda) && pda.id)
-		id = pda.id
-	else
-		pda = wear_pda
+	if(!istype(id)) //We only check for PDAs if there isn't an ID in the ID slot. IDs take priority.
 		if(istype(pda) && pda.id)
 			id = pda.id
+		else
+			pda = wear_pda
+			if(istype(pda) && pda.id)
+				id = pda.id
 
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/card/id))
