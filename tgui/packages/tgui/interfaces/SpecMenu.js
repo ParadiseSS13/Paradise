@@ -31,7 +31,7 @@ const HemoMenu = (props, context) => {
         </h3>
         <p>
           <b>Vampiric claws</b>: Unlocked at 150 blood, allows you to summon a
-          robust pair of claws that attack rapidly and drain a targets blood and heal you.
+          robust pair of claws that attack rapidly, drain a targets blood, and heal you.
         </p>
         <p>
           <b>Blood Barrier</b>: Unlocked at 250 blood, allows you to select two
@@ -48,8 +48,8 @@ const HemoMenu = (props, context) => {
           doing this.
         </p>
         <p>
-          <b>Predator senses</b>: Unlocked at 600 blood, allows you to sniff down
-          anyone on the same sector as you.
+          <b>Predator senses</b>: Unlocked at 600 blood, allows you to sniff out
+          anyone within the same sector as you.
         </p>
         <p>
           <b>Blood eruption</b>: Unlocked at 800 blood, allows you to manipulate
@@ -82,10 +82,11 @@ const UmbrMenu = (props, context) => {
           While active, burn damage is more effective against you.
         </p>
         <p>
-          <b>Shadow anchor</b>: Unlocked at 250 blood, casting it will create
-          an anchor at the cast location after a short delay. After which you
-          can recast the ability to be teleported back to the anchor. If you do
-          not recall in 2 minutes, it forces you back to the anchor.
+        <b>Shadow anchor</b>: Unlocked at 250 blood, casting it will create
+          an anchor at the cast location after a short delay.
+          If you then cast the ability again, you are teleported back to the anchor.
+          If you do not cast again within 2 minutes, you are forced back to the anchor.
+          It will not teleport you between Z levels.
         </p>
         <p>
           <b>Shadow snare</b>: Unlocked at 250 blood, allows you to summon a
@@ -100,8 +101,8 @@ const UmbrMenu = (props, context) => {
           <b>Extinguish</b>: Unlocked at 600 blood, allows you to snuff out
           nearby electronic light sources and glowshrooms.
         </p>
-          <b>Shadow boxing</b>: Unlocked at 800 blood, allows you to send out shadow
-          clones out towards a target, damaging them as long as you remain in range.
+          <b>Shadow boxing</b>: Unlocked at 800 blood, sends out shadow
+          clones towards a target, damaging them while you remain in range.
         <p>
           <b>Full power</b>
           <Divider />
@@ -133,7 +134,7 @@ const GarMenu = (props, context) => {
           active you cannot fire guns.
         </p>
         <p>
-          <b>Siesmic stomp</b>: Unlocked at 250 blood, allows you to stomp the ground
+        <b>Seismic stomp</b>: Unlocked at 250 blood, allows you to stomp the ground
           to send out a shockwave, knocking people back.
         </p>
         <p>
@@ -150,9 +151,9 @@ const GarMenu = (props, context) => {
           In addition, you cannot be pushed or pulled while it is active.
         </p>
         <p>
-          <b>Demonic grasp</b>: Unlocked at 800 blood, allows you to send out a
-          demonic hand to snare someone, if you are on disarm/grab intent you will
-          push/pull the target.
+        <b>Demonic grasp</b>: Unlocked at 800 blood, allows you to send out a
+          demonic hand to snare someone. If you are on disarm/grab intent you will
+          push/pull the target, respectively.
         </p>
         <p>
           <b>Full Power</b>
@@ -200,14 +201,13 @@ const DantMenu = (props, context) => {
           out an illusion to fool everyone nearby.
         </p>
         <p>
-          <b>Rally thralls</b>: Unlocked at 600 blood, all nearby thralls
-          get all incapacitating effects removed from them.
+        <b>Rally thralls</b>: Unlocked at 600 blood, removes all incapacitating effects from nearby thralls.
         </p>
         <p>
-          <b>Blood bond</b>: Unlocked at 800 blood, when cast, all nearby thralls
-          become linked to you, if anyone in the network takes damage, it is shared
-          equally between everyone in the network. if a thrall goes out of range
-          their connection will be broken.
+        <b>Blood bond</b>: Unlocked at 800 blood, when cast, all nearby thralls
+          become linked to you. If anyone in the network takes damage, it is shared
+          equally between everyone in the network. If a thrall goes out of range,
+          they will be removed from the network.
         </p>
         <p>
           <b>Full Power</b>

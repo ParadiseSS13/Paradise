@@ -486,10 +486,11 @@
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
 	target_UIDs += owner.UID()
+	var/list/view_cache = view(7, owner)
 	for(var/datum/mind/M in owner.mind.som.serv)
 		if(!M.has_antag_datum(/datum/antagonist/mindslave/thrall))
 			continue
-		if(!(M.current in view(7, owner)))
+		if(!(M.current in view_cache))
 			continue
 		if(M.current.stat == DEAD)
 			continue
@@ -498,9 +499,10 @@
 
 /datum/status_effect/thrall_net/tick()
 	var/total_damage = 0
+	var/list/view_cache = view(7, owner)
 	for(var/uid in target_UIDs)
 		var/mob/living/L = locateUID(uid)
-		if(!(L in view(7, owner)) || L.stat == DEAD)
+		if(!(L in view_cache) || L.stat == DEAD)
 			target_UIDs -= uid
 			continue
 		total_damage += (L.maxHealth - L.health)

@@ -159,7 +159,7 @@
 /obj/effect/proc_holder/spell/vampire/blood_barrier/cast(list/targets, mob/user)
 	var/turf/target_turf = get_turf(targets[1])
 	if(target_turf == start_turf)
-		to_chat(user, "<span class='notice'>You deselect the targetted turf.</span>")
+		to_chat(user, "<span class='notice'>You deselect the targeted turf.</span>")
 		start_turf = null
 		should_recharge_after_cast = FALSE
 		return
@@ -182,7 +182,7 @@
 
 /obj/structure/blood_barrier
 	name = "blood barrier"
-	desc = "a grotesque structure of crystalised blood. Its slowly melting away..."
+	desc = "a grotesque structure of crystalised blood. It's slowly melting away..."
 	max_integrity = 100
 	icon_state = "blood_barrier"
 	icon = 'icons/effects/vampire_effects.dmi'
@@ -192,10 +192,10 @@
 
 /obj/structure/blood_barrier/Initialize(mapload)
 	. = ..()
-	START_PROCESSING(SSobj,src)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/blood_barrier/Destroy()
-	STOP_PROCESSING(SSobj,src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 
@@ -246,7 +246,7 @@
 /obj/effect/proc_holder/spell/vampire/predator_senses
 	name = "Predator Senses"
 	desc = "Hunt down your prey, there's nowhere to hide..."
-	gain_desc = "Your senses are hightened, nobody can hide from you now."
+	gain_desc = "Your senses are heightened, nobody can hide from you now."
 	action_icon_state = "predator_sense"
 	base_cooldown = 20 SECONDS
 
@@ -270,7 +270,7 @@
 	var/mob/living/carbon/human/target = targets_by_name[target_name]
 	var/message = "[target_name] is in [get_area(target)], [dir2text(get_dir(user, target))] from you."
 	if(target.get_damage_amount() >= 40 || target.bleed_rate)
-		message += " They are wounded..."
+		message += "<i> They are wounded...</i>"
 	to_chat(user, "<span class='cultlarge'>[message]</span>")
 
 /obj/effect/proc_holder/spell/vampire/blood_eruption
@@ -312,7 +312,7 @@
 
 /obj/effect/proc_holder/spell/vampire/self/blood_spill
 	name = "The Blood Bringers Rite"
-	desc = "When toggled, everyone around you begins to bleed profusely. You will drain their blood and rejuvinate yourself with it."
+	desc = "When toggled, everyone around you begins to bleed profusely. You will drain their blood and rejuvenate yourself with it."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
 	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"

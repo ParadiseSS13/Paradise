@@ -108,8 +108,8 @@
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor
 	name = "Soul Anchor (30)"
-	desc = "You summon a dimenional anchor after a delay, recasting will teleport you back to the anchor. you are forced back after 2 minutes."
-	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will, do beware after saving you are forced back to that point after 2 minutes."
+	desc = "You summon a dimenional anchor after a delay, casting again will teleport you back to the anchor. You are forced back after 2 minutes if you have not cast again."
+	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will. Unless you willingly teleport back to that point within 2 minutes, you are forced back."
 	required_blood = 30
 	centcom_cancast = FALSE
 	base_cooldown = 3 MINUTES
@@ -117,21 +117,28 @@
 	should_recharge_after_cast = FALSE
 	deduct_blood_on_cast = FALSE
 	var/obj/structure/shadow_anchor/anchor
+	/// are we making an anchor?
+	var/making_anchor = FALSE
+	/// holds a reference to the timer until the caster is forced to recall
 	var/timer
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/create_new_targeting()
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/cast(list/targets, mob/user)
-	if(timer && !anchor) // second cast, but we are impatient
+	if(making_anchor) // second cast, but we are impatient
 		to_chat(user, "<span class='notice'>Your anchor isn't ready yet!</span>")
 		return
 
-	if(!timer && !anchor) // first cast, setup the anchor
+	if(!making_anchor && !anchor) // first cast, setup the anchor
 		var/turf/anchor_turf = get_turf(user)
-		timer = addtimer(CALLBACK(src, .proc/make_anchor, user, anchor_turf), 10 SECONDS, TIMER_STOPPABLE)
+		making_anchor = TRUE
+		if(do_mob(user, user, 10 SECONDS, only_use_extra_checks = TRUE)) // no checks, cant fail
+			make_anchor(user, anchor_turf)
+			making_anchor = FALSE
+			return
 
-	if(timer && anchor) // second cast, teleport us back
+	if(anchor) // second cast, teleport us back
 		recall(user)
 
 
@@ -237,7 +244,7 @@
 
 /obj/effect/proc_holder/spell/vampire/shadow_boxing
 	name = "Shadow Boxing (50)"
-	desc = "Target someone to have your shadow beat them up. you must stay within 2 tiles for this to work."
+	desc = "Target someone to have your shadow beat them up. You must stay within 2 tiles for this to work."
 	gain_desc = "You have gained the ability to make your shadow fight for you."
 	base_cooldown = 30 SECONDS
 	action_icon_state = "shadow_boxing"

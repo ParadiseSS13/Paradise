@@ -13,8 +13,8 @@
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_SWELL)
 
 /obj/effect/proc_holder/spell/vampire/self/stomp
-	name = "Siesmic Stomp (30)"
-	desc = "You slam your foot into the ground sending a powerful shockwave through the stations hull, sending people flying away."
+	name = "Seismic Stomp (30)"
+	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away."
 	gain_desc = "You have gained the ability to knock people back using a powerful stomp."
 	action_icon_state = "seismic_stomp"
 	base_cooldown = 60 SECONDS
