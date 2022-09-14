@@ -1,11 +1,4 @@
 //TODO: Make these simple_animals
-
-#define MIN_IMPREGNATION_TIME 100 //time it takes to impregnate someone
-#define MAX_IMPREGNATION_TIME 150
-
-#define MIN_ACTIVE_TIME 200 //time between being dropped and going idle
-#define MAX_ACTIVE_TIME 400
-
 /obj/item/clothing/mask/facehugger
 	name = "alien"
 	desc = "It has some sort of a tube at the end of its tail."
@@ -22,12 +15,14 @@
 	max_integrity = 100
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
-
 	var/sterile = FALSE
 	var/real = TRUE //0 for the toy, 1 for real. Sure I could istype, but fuck that.
 	var/strength = 5
-
-	var/attached = 0
+	var/attached = FALSE
+	var/impregnation_time = 12 SECONDS //Time it takes for facehugger to deposit its eggs and die.
+	///Time it takes for a facehugger to become active again after going idle.
+	var/min_active_time = 20 SECONDS
+	var/max_active_time = 40 SECONDS
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
@@ -111,9 +106,8 @@
 	if(attached)
 		return FALSE
 	else
-		attached++
-		spawn(MAX_IMPREGNATION_TIME)
-			attached = 0
+		attached = TRUE
+		addtimer(VARSET_CALLBACK(src, attached, FALSE), impregnation_time)
 	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
 		return FALSE
 	if(loc == M)
@@ -134,8 +128,6 @@
 	if(iscarbon(M))
 		var/mob/living/carbon/target = M
 		if(target.wear_mask)
-			if(prob(20))
-				return FALSE
 			if(istype(target.wear_mask, /obj/item/clothing/mask/muzzle))
 				var/obj/item/clothing/mask/muzzle/S = target.wear_mask
 				if(S.do_break())
@@ -152,13 +144,13 @@
 		src.loc = target
 		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
 		if(!sterile)
-			M.Paralyse(MAX_IMPREGNATION_TIME * 10 / 6) //something like 25 ticks = 20 seconds with the default settings
+			M.KnockDown(impregnation_time + 2 SECONDS)
+			M.EyeBlind(impregnation_time + 2 SECONDS)
+			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
 
 	GoIdle() //so it doesn't jump the people that tear it off
 
-	spawn(rand(MIN_IMPREGNATION_TIME,MAX_IMPREGNATION_TIME))
-		Impregnate(M)
-
+	addtimer(CALLBACK(src, .proc/Impregnate, M), impregnation_time)
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
@@ -173,13 +165,14 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(!H.check_has_mouth())
+			flags &= ~NODROP
 			return
 
 	if(!sterile)
 		//target.contract_disease(new /datum/disease/alien_embryo(0)) //so infection chance is same as virus infection chance
 		target.visible_message("<span class='danger'>[src] falls limp after violating [target]'s face!</span>", \
 								"<span class='userdanger'>[src] falls limp after violating [target]'s face!</span>")
-
+		flags &= ~NODROP
 		Die()
 		icon_state = "[initial(icon_state)]_impregnated"
 
@@ -202,10 +195,7 @@
 
 	stat = UNCONSCIOUS
 	icon_state = "[initial(icon_state)]_inactive"
-
-	spawn(rand(MIN_ACTIVE_TIME,MAX_ACTIVE_TIME))
-		GoActive()
-	return
+	addtimer(CALLBACK(src, .proc/GoActive), rand(min_active_time, max_active_time))
 
 /obj/item/clothing/mask/facehugger/proc/Die()
 	if(stat == DEAD)
