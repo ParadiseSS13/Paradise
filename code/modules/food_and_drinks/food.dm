@@ -15,7 +15,8 @@
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 	var/can_taste = TRUE//whether you can taste eating from this
 	var/antable = TRUE // Will ants come near it?
-	var/ant_location // location checked every 5 minutes. If its the same place, the food has a chance to spawn ants
+	/// location checked every 5 minutes. If its the same place, the food has a chance to spawn ants
+	var/ant_location
 	/// Time we last checked for ants
 	var/last_ant_time = 0
 	resistance_flags = FLAMMABLE
