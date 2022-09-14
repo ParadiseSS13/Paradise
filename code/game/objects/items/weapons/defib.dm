@@ -61,14 +61,14 @@
 	. = ..()
 	if(paddles_on_defib)
 		. += "[icon_state]-paddles"
-	if(!safety)
-		. += "[icon_state]-emagged"
 	if(powered)
 		. += "[icon_state]-powered"
 	if(powered && cell)
 		var/ratio = cell.charge / cell.maxcharge
 		ratio = CEILING(ratio*4, 1) * 25
 		. += "[icon_state]-charge[ratio]"
+	if(!safety)
+		. += "[icon_state]-emagged"
 	if(!cell)
 		. += "[icon_state]-nocell"
 
@@ -115,6 +115,7 @@
 	else
 		safety = TRUE
 		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/emp_act(severity)
 	if(cell)
