@@ -220,7 +220,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	for(var/area/maintenance/A in world) // Why are these global lists? AAAAAAAAAAAAAA
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
-			D.update_appearance()
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
 	GLOB.maint_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
@@ -229,7 +229,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	for(var/area/maintenance/A in world)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
-			D.update_appearance()
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
 	GLOB.maint_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
@@ -238,7 +238,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
 		if(is_station_level(D.z))
 			D.emergency = 1
-			D.update_appearance()
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
 	GLOB.station_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
@@ -247,7 +247,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
 		if(is_station_level(D.z))
 			D.emergency = 0
-			D.update_appearance()
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
 	GLOB.station_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))

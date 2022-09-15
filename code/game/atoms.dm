@@ -125,8 +125,6 @@
 	if(loc)
 		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
-	ComponentInitialize()
-
 	if(length(smoothing_groups))
 		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
 		SET_BITFLAG_LIST(smoothing_groups)
@@ -140,10 +138,6 @@
 
 //called if Initialize returns INITIALIZE_HINT_LATELOAD
 /atom/proc/LateInitialize()
-	return
-
-// Put your AddComponent() calls here
-/atom/proc/ComponentInitialize()
 	return
 
 /atom/proc/onCentcom()
@@ -428,6 +422,9 @@
 	SIGNAL_HANDLER
 	SHOULD_CALL_PARENT(TRUE)
 
+	if(updates & NONE)
+		return // NONE is being sent on purpose, and thus no signal should be sent.
+
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
 	if(updates & UPDATE_ICON_STATE)
 		update_icon_state()
@@ -515,6 +512,9 @@
 	return
 
 /atom/proc/unemag()
+	return
+
+/atom/proc/cmag_act()
 	return
 
 /**
@@ -643,7 +643,7 @@
 				//Add the list if it does not exist.
 				if(!fingerprintshidden)
 					fingerprintshidden = list()
-				fingerprintshidden += text("\[[time_stamp()]\] (Wearing gloves). Real name: [], Key: []", H.real_name, H.key)
+				fingerprintshidden += text("\[[all_timestamps()]\] (Wearing gloves). Real name: [], Key: []", H.real_name, H.key)
 				fingerprintslast = H.ckey
 			return FALSE
 		if(!fingerprints)
@@ -651,7 +651,7 @@
 				//Add the list if it does not exist.
 				if(!fingerprintshidden)
 					fingerprintshidden = list()
-				fingerprintshidden += text("\[[time_stamp()]\] Real name: [], Key: []", H.real_name, H.key)
+				fingerprintshidden += text("\[[all_timestamps()]\] Real name: [], Key: []", H.real_name, H.key)
 				fingerprintslast = H.ckey
 			return TRUE
 	else
@@ -659,7 +659,7 @@
 			//Add the list if it does not exist.
 			if(!fingerprintshidden)
 				fingerprintshidden = list()
-			fingerprintshidden += text("\[[time_stamp()]\] Real name: [], Key: []", M.real_name, M.key)
+			fingerprintshidden += text("\[[all_timestamps()]\] Real name: [], Key: []", M.real_name, M.key)
 			fingerprintslast = M.ckey
 	return
 
@@ -702,14 +702,14 @@
 		if(!ignoregloves)
 			if(H.gloves && H.gloves != src)
 				if(fingerprintslast != H.ckey)
-					fingerprintshidden += text("\[[]\](Wearing gloves). Real name: [], Key: []", time_stamp(), H.real_name, H.key)
+					fingerprintshidden += text("\[[all_timestamps()]\] (Wearing gloves). Real name: [], Key: []", H.real_name, H.key)
 					fingerprintslast = H.ckey
 				H.gloves.add_fingerprint(M)
 				return FALSE
 
 		//More adminstuffz
 		if(fingerprintslast != H.ckey)
-			fingerprintshidden += text("\[[]\]Real name: [], Key: []", time_stamp(), H.real_name, H.key)
+			fingerprintshidden += text("\[[all_timestamps()]\] Real name: [], Key: []", H.real_name, H.key)
 			fingerprintslast = H.ckey
 
 		//Make the list if it does not exist.
@@ -726,7 +726,7 @@
 	else
 		//Smudge up dem prints some
 		if(fingerprintslast != M.ckey)
-			fingerprintshidden += text("\[[]\]Real name: [], Key: []", time_stamp(), M.real_name, M.key)
+			fingerprintshidden += text("\[[all_timestamps()]\] Real name: [], Key: []", M.real_name, M.key)
 			fingerprintslast = M.ckey
 
 	return

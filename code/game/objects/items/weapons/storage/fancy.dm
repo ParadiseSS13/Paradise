@@ -39,7 +39,7 @@
 /obj/item/storage/fancy/donut_box
 	name = "donut box"
 	icon_type = "donut"
-	icon_state = "donutbox_back"
+	icon_state = "donutbox"
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/food/snacks/donut)
 	icon_type = "donut"
@@ -50,11 +50,11 @@
 	. = ..()
 	for(var/I = 1 to length(contents))
 		var/obj/item/reagent_containers/food/snacks/donut/donut = contents[I]
-		var/icon/new_donut_icon = icon('icons/obj/food/containers.dmi', "donut_[donut.donut_sprite_type]")
-		new_donut_icon.Shift(EAST, 3 * (I-1))
+		var/icon/new_donut_icon = icon('icons/obj/food/containers.dmi', "[(I - 1)]donut[donut.donut_sprite_type]")
 		. += new_donut_icon
 
-	. += "donutbox_front"
+/obj/item/storage/fancy/update_icon_state()
+	return
 
 /obj/item/storage/fancy/donut_box/populate_contents()
 	for(var/I in 1 to storage_slots)

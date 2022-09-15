@@ -33,7 +33,6 @@
 						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
 						  /obj/item/stack/ore/titanium)
 	healable = FALSE
-	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
 	var/mode = MINEDRONE_COLLECT
 	var/light_on = FALSE

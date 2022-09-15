@@ -3,6 +3,7 @@
 	desc = "Swipe your ID card to make purchases electronically."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "eftpos"
+	w_class = WEIGHT_CLASS_SMALL
 	var/machine_name = ""
 	var/transaction_locked = 0
 	var/transaction_paid = 0

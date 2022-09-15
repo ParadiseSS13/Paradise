@@ -496,6 +496,14 @@
 	log_name = "SI"
 	category = "Weapons and Armors"
 
+/datum/spellbook_entry/item/cursed_katana
+	name = "Cursed Katana"
+	desc = "A cursed artefact, used to seal a horrible being inside the katana, which has now reformed. Can be used to make multiple powerful combos, examine it to see them. Can not be dropped. On death, you will dust."
+	item_path = /obj/item/organ/internal/cyberimp/arm/katana
+	cost = 1
+	log_name = "CK"
+	category = "Weapons and Armors"
+
 /datum/spellbook_entry/item/spell_blade
 	name = "Spellblade"
 	desc = "A magical sword that can be enchanted by using it in hand to have a unique on-hit effect. Lighting: arcs electricity between nearby targets, stunning and damaging them. Fire: creates a massive ball of fire on hit, and makes the wielder immune to fire. Bluespace: allows you to strike people from a range, teleporting you to them. Forceshield: on hit, makes you stun immune for 3 seconds and reduces damage by half."

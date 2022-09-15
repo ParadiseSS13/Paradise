@@ -13,7 +13,7 @@
 	force_wielded = 20
 	throwforce = 5
 	throw_speed = 4
-	armour_penetration = 10
+	armour_penetration_flat = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")
@@ -89,6 +89,14 @@
 /obj/item/twohanded/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
 	. = ..()
 	if(!wielded)
+		return
+	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
+		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
+			playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+			user.visible_message("<span class='warning'>[user] dashes!</span>")
+		else
+			to_chat(user, "<span class='warning'>Something prevents you from dashing!</span>")
+		user.remove_status_effect(STATUS_EFFECT_DASH)
 		return
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = user.loc
@@ -348,6 +356,20 @@
 /obj/item/crusher_trophy/miner_eye/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_BLOODDRUNK)
 
+//legion
+
+/obj/item/crusher_trophy/empowered_legion_skull
+	name = "empowered legion skull"
+	desc = "A powerful looking skull with glowing red eyes."
+	icon_state = "ashen_skull"
+	denied_type = /obj/item/crusher_trophy/empowered_legion_skull
+
+/obj/item/crusher_trophy/empowered_legion_skull/effect_desc()
+	return "mark detonation grants the ability to dash a short distance on help intent"
+
+/obj/item/crusher_trophy/empowered_legion_skull/on_mark_detonation(mob/living/target, mob/living/user)
+	user.apply_status_effect(STATUS_EFFECT_DASH)
+
 //ash drake
 /obj/item/crusher_trophy/tail_spike
 	desc = "A spike taken from an ash drake's tail. Suitable as a trophy for a kinetic crusher."
@@ -442,17 +464,12 @@
 	denied_type = /obj/item/crusher_trophy/vortex_talisman
 
 /obj/item/crusher_trophy/vortex_talisman/effect_desc()
-	return "mark detonation to create a barrier you can pass"
+	return "mark detonation to create a homing hierophant chaser"
 
 /obj/item/crusher_trophy/vortex_talisman/on_mark_detonation(mob/living/target, mob/living/user)
-	var/turf/T = get_turf(user)
-	new /obj/effect/temp_visual/hierophant/wall/crusher(T, user) //a wall only you can pass!
-	var/turf/otherT = get_step(T, turn(user.dir, 90))
-	if(otherT)
-		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
-	otherT = get_step(T, turn(user.dir, -90))
-	if(otherT)
-		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
+	var/obj/effect/temp_visual/hierophant/chaser/chaser = new(get_turf(user), user, target, 3, TRUE)
+	chaser.monster_damage_boost = FALSE // Weaker due to no cooldown
+	chaser.damage = 20 //But also stronger due to AI / mining mob resistance
 
 /obj/effect/temp_visual/hierophant/wall/crusher
 	duration = 75

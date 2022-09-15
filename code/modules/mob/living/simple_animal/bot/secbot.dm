@@ -472,7 +472,7 @@
 						  "[C] trips over [src] and falls!", \
 						  "[C] topples over [src]!", \
 						  "[C] leaps out of [src]'s way!")]</span>")
-		C.Weaken(4 SECONDS)
+		C.KnockDown(4 SECONDS)
 		return
 	..()
 

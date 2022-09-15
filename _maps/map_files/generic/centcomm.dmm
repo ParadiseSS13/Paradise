@@ -1860,7 +1860,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
 "he" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
 "hf" = (
@@ -3605,7 +3605,7 @@
 /area/syndicate_mothership)
 "mq" = (
 /obj/structure/table,
-/obj/item/radio/electropack{
+/obj/item/electropack{
 	pixel_x = -5
 	},
 /obj/item/assembly/signaler{
@@ -3894,7 +3894,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "nk" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -5532,7 +5532,7 @@
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "ts" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tt" = (

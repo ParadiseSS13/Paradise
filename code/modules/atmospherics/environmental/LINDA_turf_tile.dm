@@ -58,9 +58,8 @@
 
 	var/atmos_overlay_type = null //current active overlay
 
-// Dont make this Initialize(), youll break all of atmos
-/turf/simulated/New()
-	..()
+/turf/simulated/Initialize(mapload)
+	. = ..()
 	if(!blocks_air)
 		air = new
 

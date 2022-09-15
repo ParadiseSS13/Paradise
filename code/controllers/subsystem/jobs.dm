@@ -394,7 +394,7 @@ SUBSYSTEM_DEF(jobs)
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return 1
 
-/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = 0)
+/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE, log_to_db = TRUE)
 	if(!H)
 		return null
 	var/datum/job/job = GetJob(rank)
@@ -435,6 +435,9 @@ SUBSYSTEM_DEF(jobs)
 	if(job.important_information)
 		to_chat(H, "<center><div class='userdanger' style='width: 80%'>[job.important_information]</div></center>")
 	to_chat(H, "<center><span class='green'>----------------</span><br><br></center>")
+
+	if(log_to_db)
+		SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (joined_late ? "latejoin" : "roundstart")))
 
 	return H
 

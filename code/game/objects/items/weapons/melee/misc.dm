@@ -37,7 +37,7 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 50
-	armour_penetration = 75
+	armour_penetration_percentage = 75
 	sharp = TRUE
 	origin_tech = "combat=5"
 	attack_verb = list("lunged at", "stabbed")
@@ -116,8 +116,9 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
-	armour_penetration = 50
+	armour_penetration_flat = 50
 	block_chance = 50
+	sharp = TRUE
 	///enchantment holder, gives it unique on hit effects.
 	var/datum/enchantment/enchant = null
 	///the cooldown and power of enchantments are multiplied by this var when its applied

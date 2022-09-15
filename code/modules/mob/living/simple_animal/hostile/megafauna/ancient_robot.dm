@@ -59,7 +59,7 @@ Difficulty: Hard
 	speak_emote = list("BUZZES")
 	universal_speak = TRUE
 	universal_understand = TRUE
-	armour_penetration = 40
+	armour_penetration_percentage = 50
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	melee_damage_type = BURN //Legs do the stomping, this is just a shock
@@ -71,7 +71,7 @@ Difficulty: Hard
 	del_on_death = TRUE
 	loot = list(/obj/structure/closet/crate/necropolis/ancient)
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
-	internal_type = /obj/item/gps/internal/ancient
+	internal_gps = /obj/item/gps/internal/ancient
 	medal_type = BOSS_MEDAL_ROBOT
 	score_type = ROBOT_SCORE
 	deathmessage = "explodes into a shower of alloys"
@@ -238,16 +238,16 @@ Difficulty: Hard
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A, yes)
 	if(charging)
 		DestroySurroundings()
-		if(isliving(A))
+		if(isliving(A) && yes)
 			var/mob/living/L = A
 			if(!istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
 				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
 				forceMove(get_turf(L))
 				var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-				L.apply_damage(25, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
+				L.apply_damage(25, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
 				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 				shake_camera(L, 4, 3)
 				shake_camera(src, 2, 3)
@@ -532,7 +532,7 @@ Difficulty: Hard
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	projectiletype = /obj/item/projectile/ancient_robot_bullet
 	attacktext = "stomps on"
-	armour_penetration = 40
+	armour_penetration_percentage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	obj_damage = 400
@@ -621,16 +621,16 @@ Difficulty: Hard
 	walk_towards(src, T, movespeed)
 	DestroySurroundings()
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A)
+/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A, yes)
 	if(!core.charging)
 		return
-	if(isliving(A))
+	if(isliving(A) && yes)
 		if(!istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
 			forceMove(get_turf(L))
 			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-			L.apply_damage(12.5, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
+			L.apply_damage(12.5, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
 			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			shake_camera(L, 4, 3)
 			shake_camera(src, 2, 3)

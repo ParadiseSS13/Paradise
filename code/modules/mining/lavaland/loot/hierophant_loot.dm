@@ -159,6 +159,9 @@
 	if(get_dist(user, beacon) <= 2) //beacon too close abort
 		to_chat(user, "<span class='warning'>You are too close to the beacon to teleport to it!</span>")
 		return
+	if(is_in_teleport_proof_area(beacon))
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		return
 	if(is_blocked_turf(get_turf(beacon), TRUE))
 		to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
 		return
