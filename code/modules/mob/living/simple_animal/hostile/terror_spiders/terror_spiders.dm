@@ -119,9 +119,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
-	var/spider_awaymission = FALSE // if TRUE, limits certain behavior in away missions
-	var/spider_uo71 = FALSE // if TRUE, spider is in the UO71 away mission
-	var/spider_unlock_id_tag = "" // if defined, unlock awaymission blast doors with this tag on death
 	var/spider_role_summary = "UNDEFINED"
 	var/spider_placed = FALSE
 
@@ -161,6 +158,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/spider_growinstantly = FALSE // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
 	var/spider_debug = FALSE
 	footstep_type = FOOTSTEP_MOB_CLAW
+
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
@@ -278,19 +276,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
-	if(is_away_level(z))
-		spider_awaymission = TRUE
-		GLOB.ts_count_alive_awaymission++
-		if(spider_tier >= 3)
-			ai_ventcrawls = FALSE // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
-		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
-			spider_uo71 = TRUE
-			if(world.time < 600)
-				// these are static spiders, specifically for the UO71 away mission, make them stay in place
-				ai_ventcrawls = FALSE
-				spider_placed = TRUE
-	else
-		GLOB.ts_count_alive_station++
+	GLOB.ts_count_alive_station++
 	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
 	addtimer(CALLBACK(src, .proc/CheckFaction), 20)
 	addtimer(CALLBACK(src, .proc/announcetoghosts), 30)
@@ -299,8 +285,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
-	if(spider_awaymission)
-		return
 	if(stat == DEAD)
 		return
 	if(ckey)
@@ -353,10 +337,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		hasdied = TRUE
 		GLOB.ts_count_dead++
 		GLOB.ts_death_last = world.time
-		if(spider_awaymission)
-			GLOB.ts_count_alive_awaymission--
-		else
-			GLOB.ts_count_alive_station--
+		GLOB.ts_count_alive_station--
 
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if(can_die())
@@ -468,8 +449,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat == DEAD)
-			continue
-		if(T.spider_awaymission != spider_awaymission)
 			continue
 		targets |= T // we use |= instead of += to avoid adding src to the list twice
 	var/mob/living/L = input("Choose a terror to watch.", "Selection") in targets

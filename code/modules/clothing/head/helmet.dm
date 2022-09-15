@@ -71,9 +71,9 @@
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"
 	desc = "A bulletproof helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
-	icon_state = "swat"
-	item_state = "swat-alt"
-	armor = list(MELEE = 10, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 45, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	icon_state = "bulletproof"
+	item_state = "bulletproof"
+	armor = list(MELEE = 10, BULLET = 50, LASER = 5, ENERGY = 5, BOMB = 45, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/riot

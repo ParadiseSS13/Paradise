@@ -36,7 +36,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				GLOB.security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.", 'sound/AI/green.ogg')
 				GLOB.security_level = SEC_LEVEL_GREEN
 				unset_stationwide_emergency_lighting()
-				post_status("alert", "outline")
+				post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 				update_firealarms()
 
 			if(SEC_LEVEL_BLUE)
@@ -46,7 +46,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					GLOB.security_announcement_down.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.","Attention! Security level lowered to blue.", 'sound/AI/blue.ogg')
 				GLOB.security_level = SEC_LEVEL_BLUE
 
-				post_status("alert", "outline")
+				post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 				unset_stationwide_emergency_lighting()
 				update_firealarms()
 
@@ -62,7 +62,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				if(R && is_station_level(R.z))
 					R.unlock(TRUE)
 
-				post_status("alert", "redalert")
+				post_status(STATUS_DISPLAY_ALERT, "redalert")
 				update_firealarms()
 
 			if(SEC_LEVEL_GAMMA)
@@ -74,7 +74,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						if(is_station_level(R.z))
 							R.unlock(TRUE)
 
-				post_status("alert", "gammaalert")
+				post_status(STATUS_DISPLAY_ALERT, "gammaalert")
 				update_firealarms()
 
 			if(SEC_LEVEL_EPSILON)
@@ -92,7 +92,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				GLOB.security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", 'sound/effects/deltaalarm.ogg', new_sound2 = 'sound/AI/delta.ogg')
 				GLOB.security_level = SEC_LEVEL_DELTA
 
-				post_status("alert", "deltaalert")
+				post_status(STATUS_DISPLAY_ALERT, "deltaalert")
 				update_firealarms()
 				set_stationwide_emergency_lighting()
 				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
@@ -206,7 +206,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 /proc/epsilon_process()
 	GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", 'sound/effects/purge_siren.ogg')
 	GLOB.security_level = SEC_LEVEL_EPSILON
-	post_status("alert", "epsilonalert")
+	post_status(STATUS_DISPLAY_ALERT, "epsilonalert")
 	for(var/area/A as anything in GLOB.all_areas)
 		if(!is_station_level(A.z))
 			continue

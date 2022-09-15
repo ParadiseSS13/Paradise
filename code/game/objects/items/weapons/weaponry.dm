@@ -88,8 +88,6 @@
 	resistance_flags = FIRE_PROOF
 	needs_permit = TRUE
 
-/obj/item/katana/cursed
-	slot_flags = null
 
 /obj/item/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")

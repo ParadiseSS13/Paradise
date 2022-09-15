@@ -83,10 +83,10 @@ const ConstructionTypeCheckbox = (props, context) => {
 };
 
 const AirlockSettings = (props, context) => {
-  const { data } = useBackend(context);
-  const { door_name } = data;
+  const { act, data } = useBackend(context);
+  const { door_name, electrochromic, airlock_glass } = data;
   return (
-    <Section title="Airlock Settings" flexBasis="content" height={5.5}>
+    <Section title="Airlock Settings" flexBasis="content" height={airlock_glass ? 7.5 : 5.5}>
       <LabeledList>
         <LabeledList.Item color="silver" label="Name">
           {door_name}
@@ -98,6 +98,18 @@ const AirlockSettings = (props, context) => {
           />
         </LabeledList.Item>
       </LabeledList>
+      {airlock_glass === 1 &&
+        <LabeledList>
+          <LabeledList.Item color="silver" label="Electrochromic">
+            <Button
+              icon={electrochromic ? 'toggle-on' : 'toggle-off'}
+              content={electrochromic ? "On" : "Off"}
+              selected={electrochromic}
+              onClick={() => act('electrochromic')}
+            />
+          </LabeledList.Item>
+        </LabeledList>
+      }
     </Section>
   );
 };

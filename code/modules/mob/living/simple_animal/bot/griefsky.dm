@@ -53,7 +53,7 @@
 	if(ismob(AM) && AM == target)
 		var/mob/living/carbon/C = AM
 		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
-		C.Weaken(4 SECONDS)
+		C.KnockDown(4 SECONDS)
 
 /mob/living/simple_animal/bot/secbot/griefsky/Initialize(mapload)
 	. = ..()

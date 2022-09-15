@@ -19,6 +19,7 @@
 
 	UpdateAppearance()
 	GLOB.human_list += src
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 
 /**
   * Sets up DNA and species.
@@ -44,9 +45,6 @@
 /mob/living/carbon/human/proc/setup_other()
 	create_reagents(330)
 	physiology = new()
-
-/mob/living/carbon/human/ComponentInitialize()
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 
 /mob/living/carbon/human/OpenCraftingMenu()
 	if(!handcrafting)
@@ -506,6 +504,10 @@
 	var/obj/item/pda/pda = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
+	else
+		pda = wear_pda
+		if(istype(pda) && pda.id)
+			id = pda.id
 
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/card/id))
@@ -1823,9 +1825,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/list/limbs_list = list()
 	var/list/organs_list = list()
 	var/list/equip_list = list()
+	var/list/implant_list = list()
 	data["limbs"] = limbs_list
 	data["iorgans"] = organs_list
 	data["equip"] = equip_list
+	data["implant_list"] = implant_list
 
 	data["dna"] = dna.serialize()
 	data["age"] = age
@@ -1856,12 +1860,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(thing != null)
 			equip_list[i] = thing.serialize()
 
+	for(var/obj/item/implant/implant in src)
+		implant_list[implant] = implant.serialize()
+
 	return data
 
 /mob/living/carbon/human/deserialize(list/data)
 	var/list/limbs_list = data["limbs"]
 	var/list/organs_list = data["iorgans"]
 	var/list/equip_list = data["equip"]
+	var/list/implant_list = data["implant_list"]
 	var/turf/T = get_turf(src)
 	if(!islist(data["limbs"]))
 		throw EXCEPTION("Expected a limbs list, but found none")
@@ -1893,6 +1901,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		// As above, "New" code handles insertion, DNA sync
 		list_to_object(organs_list[organ], src)
 
+	for(var/thing in implant_list)
+		var/implant_data = implant_list[thing]
+		var/path = text2path(implant_data["type"])
+		var/obj/item/implant/implant = new path(T)
+		if(!implant.implant(src, src))
+			qdel(implant)
+
 	UpdateAppearance()
 
 	// De-serialize equipment
@@ -1916,20 +1931,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	update_icons()
 
 	..()
-
-
-/mob/living/carbon/human/vv_get_dropdown()
-	. = ..()
-	. += "---"
-	.["Set Species"] = "?_src_=vars;setspecies=[UID()]"
-	.["Copy Outfit"] = "?_src_=vars;copyoutfit=[UID()]"
-	.["Make AI"] = "?_src_=vars;makeai=[UID()]"
-	.["Make cyborg"] = "?_src_=vars;makerobot=[UID()]"
-	.["Make monkey"] = "?_src_=vars;makemonkey=[UID()]"
-	.["Make alien"] = "?_src_=vars;makealien=[UID()]"
-	.["Make slime"] = "?_src_=vars;makeslime=[UID()]"
-	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
-	. += "---"
 
 /mob/living/carbon/human/adjust_nutrition(change)
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))

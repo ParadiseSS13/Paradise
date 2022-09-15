@@ -254,9 +254,7 @@
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
-	if(GLOB.configuration.admin.enable_localhost_autoadmin)
-		if(is_connecting_from_localhost())
-			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
+	try_localhost_autoadmin()
 
 	holder = GLOB.admin_datums[ckey]
 	if(holder)
@@ -417,6 +415,9 @@
 	if(karmaholder)
 		karmaholder.processRefunds(mob)
 
+	// Tell client about their connection
+	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
+	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -1181,6 +1182,9 @@
 	else
 		SSambience.ambience_listening_clients -= src
 
+/client/proc/try_localhost_autoadmin()
+	if(GLOB.configuration.admin.enable_localhost_autoadmin && is_connecting_from_localhost())
+		return new /datum/admins("!LOCALHOST!", R_HOST, ckey)
 
 // Verb scoped to the client level so its ALWAYS available
 /client/verb/open_tos()
@@ -1195,6 +1199,36 @@
 
 	popup.set_content(output)
 	popup.open(FALSE)
+
+/client/verb/change_region()
+	set category = "OOC"
+	set name = "Change Region"
+
+	if(!length(GLOB.configuration.system.region_map))
+		to_chat(usr, "<span class='warning'>Error: No extra regions defined for this server</span>")
+		return
+
+	var/list/target_regions = list("--DIRECT--")
+	for(var/region in GLOB.configuration.system.region_map)
+		target_regions += region
+
+	var/formatted_existing = (prefs.server_region ? prefs.server_region : "--DIRECT--")
+
+	var/choice = input(usr, "Select a region for routing optimisation.\nSelecting --DIRECT-- will bypass routing optimisations.", "Region", formatted_existing) as null|anything in target_regions
+
+	if(!choice || (choice == formatted_existing))
+		return
+
+	prefs.server_region = choice
+	prefs.save_preferences(src)
+
+	alert(usr, "Now routing you from [formatted_existing] to [choice]. You will briefly disconnect.", "ALERT", "Ok")
+
+	if(choice == "--DIRECT--")
+		src << link("byond://[GLOB.configuration.url.server_url]")
+	else
+		src << link(GLOB.configuration.system.region_map[choice])
+
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

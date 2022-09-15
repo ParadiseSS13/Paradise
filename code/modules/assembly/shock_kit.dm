@@ -4,7 +4,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "shock_kit"
 	var/obj/item/clothing/head/helmet/part1 = null
-	var/obj/item/radio/electropack/part2 = null
+	var/obj/item/electropack/part2 = null
 	var/status = FALSE
 	w_class = WEIGHT_CLASS_HUGE
 	flags = CONDUCT
@@ -39,8 +39,7 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/assembly/shock_kit/receive_signal()
+/obj/item/assembly/shock_kit/proc/shock_invoke()
 	if(istype(loc, /obj/structure/chair/e_chair))
 		var/obj/structure/chair/e_chair/C = loc
 		C.shock()
-	return
