@@ -18,7 +18,7 @@
 	category = list("initial")
 
 /datum/design/plaglass_alloy
-	name = "Plasma glass(Plasma + Glass)"
+	name = "Plasma Glass(Plasma + Glass)"
 	id = "plasmaglass"
 	build_type = SMELTER
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
@@ -26,7 +26,7 @@
 	category = list("initial")
 
 /datum/design/titaniumglass_alloy
-	name = "Titanium glass(Titanium + Glass)"
+	name = "Titanium Glass(Titanium + Glass)"
 	id = "titaniumglass"
 	build_type = SMELTER
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
@@ -34,7 +34,7 @@
 	category = list("initial")
 
 /datum/design/plastitaniumglass_alloy
-	name = "Plastitanium glass(Plasma + Titanium + Glass)"
+	name = "Plastitanium Glass(Plasma + Titanium + Glass)"
 	id = "plastitaniumglass"
 	build_type = SMELTER
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT, MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
