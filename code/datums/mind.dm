@@ -792,6 +792,8 @@
 						for(var/sanity in 1 to 100) // 100 checks at most.
 							var/area/selected_area = pick(return_sorted_areas())
 							if(selected_area && is_station_level(selected_area.z) && selected_area.valid_territory) //Целью должна быть зона на станции!
+								if(selected_area in bomb_objective.area_blacklist)
+									continue
 								random_detonation_area = selected_area
 								break
 					else

@@ -26,9 +26,9 @@
 			new /obj/effect/particle_effect/ion_trails(T, direction)
 
 /obj/item/tank/jetpack/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/toggle_jetpack)
+	if(actiontype == /datum/action/item_action/toggle_jetpack || actiontype == /datum/action/item_action/toggle_jetpack/ninja)
 		cycle(user)
-	else if(actiontype == /datum/action/item_action/jetpack_stabilization)
+	else if(actiontype == /datum/action/item_action/jetpack_stabilization || actiontype == /datum/action/item_action/jetpack_stabilization/ninja)
 		toggle_stabilization(user)
 	else
 		toggle_internals(user)
@@ -37,6 +37,9 @@
 	if(on)
 		stabilizers = !stabilizers
 		to_chat(user, "<span class='notice'>You turn [src]'s stabilization [stabilizers ? "on" : "off"].</span>")
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/tank/jetpack/proc/cycle(mob/user)
 	if(user.incapacitated())
@@ -159,6 +162,8 @@
 	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank = null
 	var/mob/living/carbon/human/cur_user
+	var/req_suit_type = /obj/item/clothing/suit/space/hardsuit
+	var/req_suit_name = "hardsuit"
 
 /obj/item/tank/jetpack/suit/New()
 	..()
@@ -169,8 +174,8 @@
 	return
 
 /obj/item/tank/jetpack/suit/cycle(mob/user)
-	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit))
-		to_chat(user, "<span class='warning'>[src] must be connected to a hardsuit!</span>")
+	if(!istype(loc, req_suit_type))
+		to_chat(user, "<span class='warning'>[src] must be connected to a [req_suit_name]!</span>")
 		return
 
 	var/mob/living/carbon/human/H = user
@@ -180,7 +185,7 @@
 	..()
 
 /obj/item/tank/jetpack/suit/turn_on(mob/user)
-	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc) || loc.loc != user)
+	if(!istype(loc, req_suit_type) || !ishuman(loc.loc) || loc.loc != user)
 		return
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
@@ -197,7 +202,7 @@
 	..()
 
 /obj/item/tank/jetpack/suit/process()
-	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc))
+	if(!istype(loc, req_suit_type) || !ishuman(loc.loc))
 		turn_off(cur_user)
 		return
 	var/mob/living/carbon/human/H = loc.loc
@@ -205,3 +210,19 @@
 		turn_off(cur_user)
 		return
 	..()
+
+/obj/item/tank/jetpack/suit/ninja
+	name = "ninja jetpack upgrade"
+	desc = "A modular, compact set of thrusters designed to integrate with ninja's suit. It is fueled by a tank inserted into the suit's storage compartment."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	icon_state = "ninja_jetpack"
+	actions_types = list(/datum/action/item_action/toggle_jetpack/ninja, /datum/action/item_action/jetpack_stabilization/ninja)
+	req_suit_type = /obj/item/clothing/suit/space/space_ninja
+	req_suit_name = "ninja suit"
+
+/obj/item/tank/jetpack/suit/ninja/New()
+	..()
+	var/datum/action/item_action/jetpack_action
+	for(jetpack_action in actions)
+		jetpack_action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
+		jetpack_action.background_icon_state = "background_green"

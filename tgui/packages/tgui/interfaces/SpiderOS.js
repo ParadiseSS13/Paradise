@@ -221,8 +221,10 @@ const SuitTuning = (properties, context) => {
             </LabeledList.Item>
             <LabeledList.Item label="Шарф/Капюшон">
               <Button
+                className={suit_state === 0 ? "" : "Button_disabled"}
                 width="78px"
                 selected={preferred_scarf_over_hood}
+                disabled={suit_state}
                 textAlign="left"
                 content={dynamicButtonText_scarf}
                 onClick={() => act("toggle_scarf")} />
@@ -665,7 +667,7 @@ const ActionBuyPanel = (properties, context) => {
                 \nЭта эксперементальная технология не сделает вас неуязвимым для пуль и лезвий!\
                 \nНо позволит вам снять с себя наручники, болы и даже вылезти из гроба или ящика, окажись вы там заперты...\
                 \nАктивация способности мгновенна. \
-                \nАктивная форма духа значительно увеличивает пассивный расход энергии!"}
+                \nАктивная форма духа значительно увеличивает пассивный расход энергии! Потребление одинаково большое вне зависимости от объёма батареи."}
                 position="right" />
             </Button>
           </NoticeBox>

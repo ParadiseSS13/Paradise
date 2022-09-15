@@ -19,6 +19,8 @@
 /datum/component/ninja_states_breaker/RegisterWithParent()
 	RegisterSignal(parent, list(
 		COMSIG_ATOM_BLOB_ACT,
+		COMSIG_ATOM_FIRE_ACT,
+		COMSIG_MOB_ADJUST_FIRE,
 		COMSIG_PARENT_ATTACKBY,
 		COMSIG_MOB_DEATH,
 		COMSIG_ATOM_BULLET_ACT,
@@ -32,6 +34,8 @@
 /datum/component/ninja_states_breaker/UnregisterFromParent()
 	UnregisterSignal(parent, list(
 		COMSIG_ATOM_BLOB_ACT,
+		COMSIG_ATOM_FIRE_ACT,
+		COMSIG_MOB_ADJUST_FIRE,
 		COMSIG_PARENT_ATTACKBY,
 		COMSIG_MOB_DEATH,
 		COMSIG_ATOM_BULLET_ACT,
@@ -48,5 +52,3 @@
 		my_suit.cancel_stealth()
 	if(my_suit.disguise_active)
 		my_suit.restore_form()
-
-

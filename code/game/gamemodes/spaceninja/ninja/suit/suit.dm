@@ -87,6 +87,8 @@
 	var/obj/machinery/ninja_clonepod/cloning_ref
 	/// Купил ли ниндзя клон абилку?
 	var/ninja_clonable = FALSE
+	/// Встроенный в костюм джетпак
+	var/obj/item/tank/jetpack/suit/jetpack = /obj/item/tank/jetpack/suit/ninja
 
 	/// UI stuff ///
 	/// Флаги отвечающие за то - показываем мы или нет интерфейс заряда и концентрации ниндзя
@@ -203,6 +205,8 @@
 	var/s_cost = 5
 	/// Дополнительные затраты энергии за активированные хамелион и/или невидимость за тик
 	var/s_acost = 8
+	/// Процент энергии тратящийся формой духа каждый тик process
+	var/s_spirit_form__percent_cost = 0.02
 	/// Как быстро костюм выполняет некоторые задачи. Преимущественно влияет на скорость активации/деактивации костюма.
 	var/s_delay = 40
 	/// Whether or not the wearer is in the middle of an action, like hacking.
@@ -268,14 +272,17 @@
 /obj/item/clothing/suit/space/space_ninja/Initialize(mapload)
 	. = ..()
 
-	//Spark Init
+	// Spark Init
 	spark_system = new
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
-	//Smoke Init
+	// Smoke Init
 	smoke_system = new
 	smoke_system.set_up(20, 0, src)
 	smoke_system.attach(src)
+	// Jetpack initialize
+	if(jetpack && ispath(jetpack))
+		jetpack = new jetpack(src)
 
 	if(!mapload)
 
@@ -320,6 +327,36 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
+/obj/item/clothing/suit/space/space_ninja/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!jetpack)
+		to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
+		return
+	if(src == user.get_item_by_slot(slot_wear_suit))
+		to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
+		return
+	jetpack.turn_off(user)
+	jetpack.forceMove(drop_location())
+	jetpack = null
+	to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
+
+/obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot)
+	..()
+	if(jetpack)
+		if(slot == slot_wear_suit)
+			for(var/X in jetpack.actions)
+				var/datum/action/A = X
+				A.Grant(user)
+
+/obj/item/clothing/suit/space/space_ninja/dropped(mob/user)
+	..()
+	if(jetpack)
+		for(var/X in jetpack.actions)
+			var/datum/action/A = X
+			A.Remove(user)
+
 /obj/item/clothing/suit/space/space_ninja/proc/start()
 	if(!s_initialized)
 		START_PROCESSING(SSfastprocess, src)
@@ -356,7 +393,7 @@
 			if(disguise_active) // If chameleon is active.
 				used_power += s_acost
 			if(spirited) // If spirit form is active.
-				used_power += s_acost*10 //that shit is NOT cheap
+				used_power += cell.maxcharge * s_spirit_form__percent_cost //that shit is NOT cheap
 			if(cell.charge < used_power) // Проверка на случай когда он не может отнять энергию до нуля и в итоге вечно торчит в инвизе/форме духа/хамелионе
 				cell.charge = 0
 			cell.use(used_power)
@@ -475,6 +512,14 @@
 		energyKatana.item_state = "energy_katana_[color_choice]"
 		energyKatana.color_style = color_choice
 		energyKatana.jaunt.update_action_style(color_choice)
+	//Покраска дыма
+	switch(color_choice)
+		if("red")
+			smoke_system.color = "#af0033"
+		if("blue")
+			smoke_system.color = "#88aaff"
+		if("green")
+			smoke_system.color = "#00ff00"
 
 	var/datum/action/item_action/action
 	for(action in ninja.actions)

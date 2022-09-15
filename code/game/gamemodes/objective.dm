@@ -845,6 +845,20 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/plant_explosive
 	///Where we should KABOOM
 	var/area/detonation_location
+	var/list/area_blacklist = list(
+		/area/engine/engineering, /area/engine/supermatter,
+		/area/toxins/test_area, /area/turret_protected/ai)
+
+/datum/objective/plant_explosive/proc/choose_target_area()
+	for(var/sanity in 1 to 100) // 100 checks at most.
+		var/area/selected_area = pick(return_sorted_areas())
+		if(selected_area && is_station_level(selected_area.z) && selected_area.valid_territory) //Целью должна быть зона на станции!
+			if(selected_area in area_blacklist)
+				continue
+			detonation_location = selected_area
+			break
+	if(detonation_location)
+		explanation_text = "Взорвите выданную вам бомбу в [detonation_location]. Учтите, что бомбу нельзя активировать на не предназначенной для подрыва территории!"
 
 /datum/objective/plant_explosive/Destroy()
 	. = ..()
@@ -1025,13 +1039,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/list/roles = list("Clown", "Mime", "Cargo Technician", "Shaft Miner", "Scientist", "Roboticist", "Medical Doctor", "Geneticist", "Security Officer", "Chemist", "Station Engineer", "Civilian")
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
-
+	log_debug("Ninja_Objectives_Log: Генерация цели на Похищения")
+	log_debug("Ninja_Objectives_Log: Выборка ролей.")
 	if(!possible_roles.len)
-		for(var/i = 0, i < 3 , i++)
+		for(var/i in 1 to 3)
 			var/role = pick(roles)
+			log_debug("Ninja_Objectives_Log: [role].")
 			possible_roles += role
 			roles -= role
-
+	log_debug("Ninja_Objectives_Log: Выборка окончена.")
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != possible_target.special_role) && !possible_target.offstation_role)
 			possible_targets += possible_target
@@ -1041,12 +1057,17 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 					continue
 
 	if(priority_targets.len > 0)
+		log_debug("Ninja_Objectives_Log: Выбираем цель из приоритетного списка целей")
 		target = pick(priority_targets)
 	else if(possible_targets.len > 0)
+		log_debug("Ninja_Objectives_Log: Выбираем цель из обычного списка целей")
 		target = pick(possible_targets)
 
 	if(target)
-		possible_roles[pick(1,2,3)] = target.assigned_role
+		log_debug("Ninja_Objectives_Log: Выбранная цель: [target]")
+		if(!(target.assigned_role in possible_roles))
+			log_debug("Ninja_Objectives_Log: Подмена одной из ролей под роль цели!")
+			possible_roles[pick(1,2,3)] = target.assigned_role
 
 	//Даже если мы не нашли цель. Эту задачу всё ещё можно будет выполнить похитив достаточно разных человек с ролями
 	explanation_text = "Найдите обладающего важной информацией человека среди следующих профессий: [possible_roles[1]], [possible_roles[2]], [possible_roles[3]]. \

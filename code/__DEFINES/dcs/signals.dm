@@ -331,6 +331,8 @@
 	#define SPEECH_LANGUAGE 5
 	#define SPEECH_IGNORE_SPAM 6
 	#define SPEECH_FORCED 7 */
+////from mob/living/adjust_fire_stacks()
+#define COMSIG_MOB_ADJUST_FIRE "mob_adjust_fire"
 
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"

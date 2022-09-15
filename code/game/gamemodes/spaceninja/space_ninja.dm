@@ -344,14 +344,7 @@
 	//БОМБА
 	var/datum/objective/plant_explosive/bomb_objective = new
 	bomb_objective.owner = ninja_mind
-	//Explosive plant, the bomb will register its completion on priming
-	for(var/sanity in 1 to 100) // 100 checks at most.
-		var/area/selected_area = pick(return_sorted_areas())
-		if(selected_area && is_station_level(selected_area.z) && selected_area.valid_territory) //Целью должна быть зона на станции!
-			bomb_objective.detonation_location = selected_area
-			break
-	if(bomb_objective.detonation_location)
-		bomb_objective.explanation_text = "Взорвите выданную вам бомбу в [bomb_objective.detonation_location]. Учтите, что бомбу нельзя активировать на не предназначенной для подрыва территории!"
+	bomb_objective.choose_target_area()
 	//Если у нас каким то чудом уже есть бомба(ы) с другой зоной или без неё - мы должны выдать ей(им) новую зону
 	for(var/obj/item/grenade/plastic/c4/ninja/ninja_bomb in ninja_mob.get_contents())
 		ninja_bomb.detonation_objective = bomb_objective

@@ -17,4 +17,4 @@
 		return
 	if(!ninjacost(150))
 		do_teleport(ninja, get_turf(ninja), 8, asoundin = 'sound/effects/phasein.ogg')
-		s_coold = 1 SECONDS
+		s_coold = 3 SECONDS

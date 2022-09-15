@@ -1,5 +1,5 @@
 /datum/action/item_action/ninja_clones
-	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS
 	name = "Energy Clones"
 	desc = "Creates two clones of the user to confuse enemies in the fight. Also changes your and the clones possition after that. Energy cost: 4000"
 	use_itemicon = FALSE
@@ -15,7 +15,7 @@
 		return
 	if(!ninjacost(400))
 		playsound(ninja, 'sound/effects/clone_jutsu.ogg', 50, TRUE)
-		s_coold = 2 SECONDS
+		s_coold = 4 SECONDS
 		sleep(15)
 		do_sparks(3, FALSE, ninja)
 		for(var/i=0, i<2, i++)

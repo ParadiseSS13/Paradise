@@ -229,7 +229,7 @@
 		if(iscarbon(owner))
 			var/mob/living/carbon/C = owner
 			if(target == C.internal)
-				button.icon_state = "background_green_active"
+				button.icon_state = "[background_icon_state]_active"
 
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
@@ -396,6 +396,32 @@
 	if(!istype(J) || !J.on)
 		return FALSE
 	return ..()
+
+/datum/action/item_action/toggle_jetpack/ninja
+	name = "Toggle Jetpack"
+
+/datum/action/item_action/toggle_jetpack/ninja/apply_unavailable_effect()
+	return
+
+/datum/action/item_action/toggle_jetpack/ninja/UpdateButtonIcon()
+	..()
+	var/obj/item/tank/jetpack/J = target
+	if(!istype(J) || !J.on)
+		button.icon_state = "[background_icon_state]"
+	else
+		button.icon_state = "[background_icon_state]_active"
+
+/datum/action/item_action/jetpack_stabilization/ninja
+	name = "Toggle Jetpack Stabilization"
+
+/datum/action/item_action/jetpack_stabilization/ninja/UpdateButtonIcon()
+	..()
+	var/obj/item/tank/jetpack/J = target
+	if(!istype(J) || !J.stabilizers)
+		button.icon_state = "[background_icon_state]"
+	else
+		button.icon_state = "[background_icon_state]_active"
+
 
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS

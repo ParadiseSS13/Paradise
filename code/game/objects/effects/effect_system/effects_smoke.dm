@@ -77,6 +77,7 @@
 /datum/effect_system/smoke_spread
 	effect_type = /obj/effect/particle_effect/smoke
 	var/direction
+	var/color
 
 /datum/effect_system/smoke_spread/set_up(n = 5, c = 0, loca, direct)
 	if(n > 20)
@@ -95,6 +96,8 @@
 		if(holder)
 			location = get_turf(holder)
 		var/obj/effect/particle_effect/smoke/S = new effect_type(location)
+		if(color)
+			S.color = color
 		if(!direction)
 			if(cardinals)
 				S.direction = pick(GLOB.cardinal)
