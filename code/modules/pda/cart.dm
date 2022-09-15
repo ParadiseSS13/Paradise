@@ -34,6 +34,7 @@
 
 /obj/item/cartridge/engineering
 	name = "Power-ON Cartridge"
+	desc = "A data cartridge for portable microcomputers. Has a power monitor and a halogen counter."
 	icon_state = "cart-e"
 	programs = list(
 		new /datum/data/pda/app/power,
@@ -42,6 +43,7 @@
 
 /obj/item/cartridge/atmos
 	name = "BreatheDeep Cartridge"
+	desc = "A data cartridge for portable microcomputers. Has a gas scanner."
 	icon_state = "cart-a"
 	programs = list(
 		new /datum/data/pda/utility/scanmode/gas
@@ -49,6 +51,7 @@
 
 /obj/item/cartridge/medical
 	name = "Med-U Cartridge"
+	desc = "A data cartridge for portable microcomputers. Has medical records and a med scanner."
 	icon_state = "cart-m"
 	programs = list(
 		new /datum/data/pda/app/crew_records/medical,
@@ -57,6 +60,7 @@
 
 /obj/item/cartridge/chemistry
 	name = "ChemWhiz Cartridge"
+	desc = "A data cartridge for portable microcomputers. Has a reagent scanner."
 	icon_state = "cart-chem"
 	programs = list(
 		new /datum/data/pda/utility/scanmode/reagent
@@ -64,6 +68,7 @@
 
 /obj/item/cartridge/security
 	name = "R.O.B.U.S.T. Cartridge"
+	desc = "A data cartridge for portable microcomputers. Has security records and security bot control."
 	icon_state = "cart-s"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
@@ -76,6 +81,7 @@
 
 /obj/item/cartridge/detective
 	name = "D.E.T.E.C.T. Cartridge"
+	desc = "A data cartridge for portable microcomputers. Has medical records, security records and a med scanner."
 	icon_state = "cart-s"
 	programs = list(
 		new /datum/data/pda/app/crew_records/medical,
@@ -86,7 +92,7 @@
 
 /obj/item/cartridge/janitor
 	name = "CustodiPRO Cartridge"
-	desc = "The ultimate in clean-room design."
+	desc = "A data cartridge for portable microcomputers. Tracks custodial equipment."
 	icon_state = "cart-j"
 	programs = list(
 		new /datum/data/pda/app/janitor
@@ -94,6 +100,7 @@
 
 /obj/item/cartridge/lawyer
 	name = "P.R.O.V.E. Cartridge"
+	desc = "A data cartridge for portable microcomputers. Has security records."
 	icon_state = "cart-s"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security
@@ -101,6 +108,7 @@
 
 /obj/item/cartridge/clown
 	name = "Honkworks 5.0"
+	desc = "A data cartridge for portable microcomputers. Has a virus sender to make anyones PDA honk on any action."
 	icon_state = "cart-clown"
 	charges = 5
 	programs = list(
@@ -112,6 +120,7 @@
 
 /obj/item/cartridge/mime
 	name = "Gestur-O 1000"
+	desc = "A data cartridge for portable microcomputers. Has a virus sender to mute anyones PDA."
 	icon_state = "cart-mi"
 	charges = 5
 	messenger_plugins = list(
@@ -131,7 +140,7 @@
 
 /obj/item/cartridge/signal/toxins
 	name = "Signal Ace 2"
-	desc = "Complete with integrated radio signaler!"
+	desc = "A data cartridge for portable microcomputers. Has a reagent scanner, gas scanner and signaler system."
 	icon_state = "cart-tox"
 	programs = list(
 		new /datum/data/pda/utility/scanmode/gas,
@@ -141,7 +150,7 @@
 
 /obj/item/cartridge/quartermaster
 	name = "Space Parts & Space Vendors Cartridge"
-	desc = "Perfect for the Quartermaster on the go!"
+	desc = "A data cartridge for portable microcomputers. Has supply records and MULEbot control."
 	icon_state = "cart-q"
 	programs = list(
 		new /datum/data/pda/app/supply,
@@ -153,7 +162,8 @@
 	radio = new /obj/item/integrated_radio/mule(src)
 
 /obj/item/cartridge/head
-	name = "Easy-Record DELUXE"
+	name = "Easy-Record"
+	desc = "A data cartridge for portable microcomputers. Has status display controller."
 	icon_state = "cart-h"
 	programs = list(
 		new /datum/data/pda/app/status_display
@@ -161,6 +171,7 @@
 
 /obj/item/cartridge/hop
 	name = "HumanResources9001"
+	desc = "A data cartridge for portable microcomputers. Has supply records, MULEbot control, custodial locator and status display controller."
 	icon_state = "cart-h"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
@@ -176,6 +187,7 @@
 
 /obj/item/cartridge/hos
 	name = "R.O.B.U.S.T. DELUXE"
+	desc = "A data cartridge for portable microcomputers. Has security records, security bot control and status display controller."
 	icon_state = "cart-hos"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
@@ -189,6 +201,7 @@
 
 /obj/item/cartridge/ce
 	name = "Power-On DELUXE"
+	desc = "A data cartridge for portable microcomputers. Has a power monitor, gas scanner, halogen counter and status display controller."
 	icon_state = "cart-ce"
 	programs = list(
 		new /datum/data/pda/app/power,
@@ -199,6 +212,7 @@
 
 /obj/item/cartridge/cmo
 	name = "Med-U DELUXE"
+	desc = "A data cartridge for portable microcomputers. Has medical records, reagent scanner, med scanner and status display controller."
 	icon_state = "cart-cmo"
 	programs = list(
 		new /datum/data/pda/app/crew_records/medical,
@@ -209,6 +223,7 @@
 
 /obj/item/cartridge/rd
 	name = "Signal Ace DELUXE"
+	desc = "A data cartridge for portable microcomputers. Has a reagent scanner, gas scanner status display controller and signaler system."
 	icon_state = "cart-rd"
 	programs = list(
 		new /datum/data/pda/utility/scanmode/gas,
@@ -223,7 +238,7 @@
 
 /obj/item/cartridge/captain
 	name = "Value-PAK Cartridge"
-	desc = "Now with 200% more value!"
+	desc = "A data cartridge for portable microcomputers. Has everything except a signaler system."
 	icon_state = "cart-c"
 	programs = list(
 		new /datum/data/pda/app/power,
@@ -247,6 +262,7 @@
 
 /obj/item/cartridge/supervisor
 	name = "Easy-Record DELUXE"
+	desc = "A data cartridge for portable microcomputers. Has security records and status display controller."
 	icon_state = "cart-h"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
@@ -277,6 +293,7 @@
 
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
+	desc = "Allows you to use the detonate function in the messenger program to attempt to remotely detonate other people's PDAs."
 	icon_state = "cart"
 	charges = 4
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/detonate)
@@ -297,6 +314,7 @@
 
 /obj/item/cartridge/frame
 	name = "F.R.A.M.E. cartridge"
+	desc = "Allows you to upload a virus onto a PDA with it's messenger on."
 	icon_state = "cart"
 	charges = 5
 	var/telecrystals = 0
