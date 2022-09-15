@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		else
 			message = copytext(message, 3)
 
-	message = trim_left(message)
+	message = text_emphasis(trim_left(message))
 
 	//parse the language code and consume it
 	var/list/message_pieces = list()
@@ -441,3 +441,17 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)
+
+/// Transforms the speech emphasis mods from [/atom/proc/text_emphasis] into the appropriate HTML tags
+#define ENCODE_HTML_EMPHASIS(input, char, html, varname) \
+	var/static/regex/##varname = regex("[char](.+?)[char]", "g");\
+	input = varname.Replace_char(input, "<[html]>$1</[html]>")
+
+/// Scans the input sentence for speech emphasis modifiers, notably |italics|, +bold+, and _underline_ -mothblocks
+/atom/proc/text_emphasis(input)
+	ENCODE_HTML_EMPHASIS(input, "\\|", "i", italics)
+	ENCODE_HTML_EMPHASIS(input, "\\+", "b", bold)
+	ENCODE_HTML_EMPHASIS(input, "_", "u", underline)
+	return input
+
+#undef ENCODE_HTML_EMPHASIS

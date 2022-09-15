@@ -425,7 +425,7 @@
 		if(type_override)
 			custom_emote_type = type_override
 
-	message = custom_emote
+	message = user.text_emphasis(custom_emote)
 	emote_type = custom_emote_type
 	. = ..()
 	message = initial(message)
