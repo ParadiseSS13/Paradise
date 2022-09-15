@@ -16,6 +16,8 @@
 			if(!is_blocked_turf(candidate,TRUE))
 				target_turf = candidate
 				break
+		if(target_turf)
+			break
 	if(!target_turf)
 		CRASH("Anomaly: No valid turfs found for [impact_area] - [impact_area.type]")
 
