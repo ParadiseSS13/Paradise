@@ -881,12 +881,12 @@
 			return
 
 		if(A.arePowerSystemsOn())
-			user.visible_message("<span class='warning'>[user] jams [src] into the airlock and starts prying it open!</span>", "<span class='warning'>You start forcing the airlock open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+			user.visible_message("<span class='warning'>[user] jams [user.p_their()] [name] into the airlock and starts prying it open!</span>", "<span class='warning'>You start forcing the airlock open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
 			if(!do_after(user, 25, target = A))
 				return
 
-		user.visible_message("<span class='warning'>[user] forces the airlock to open with [user.p_their()] [name]!</span>", "<span class='warning'>You open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+		user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
 		A.open(2)
 
 /obj/item/clothing/gloves/color/black/pyro_claws
@@ -898,7 +898,7 @@
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on_cooldown = FALSE
-	var/obj/item/assembly/signaler/anomaly/pyro/core = null
+	var/obj/item/assembly/signaler/anomaly/pyro/core
 
 /obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
 	QDEL_NULL(core)
