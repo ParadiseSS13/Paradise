@@ -12,6 +12,7 @@
 	///Tracking log of all actions on the account databse, used for admin logging and debugging
 	var/list/hidden_database_logs = list()
 
+	var/datum/money_account/vendor_account
 	///Will the database permit actions on it? Useful for random events
 	var/online = TRUE
 
@@ -21,6 +22,10 @@
 	if(!supress_log)
 		log_account_action(new_account, "Account Creation", terminal, log_on_database = TRUE)
 	return new_account
+
+/datum/money_account_database/proc/create_vendor_account(name)
+	var/datum/money_account/new_vendor_account = new("[name] Vendor Account", DEPARTMENT_STARTING_BALANCE, ACCOUNT_SECURITY_RESTRICTED)
+	vendor_account = new_vendor_account
 
 ///takes in an account_numb and returns either an account if it locates one or null if it finds none
 /datum/money_account_database/proc/find_user_account(account_number)
@@ -42,14 +47,14 @@
 		return
 	. = account.try_withdraw_credits(amount, allow_overdraft)
 	if(. && !supress_log)
-		log_account_action(account, amount, purpose, transactor)
+		log_account_action(account, amount, purpose, transactor, log_on_database = FALSE)
 
-/datum/money_account_database/proc/credit_account(datum/money_account/account, amount, supress_log = FALSE)
+/datum/money_account_database/proc/credit_account(datum/money_account/account, amount, purpose, transactor, supress_log = FALSE)
 	if(!online)
 		return
 	. = account.deposit_credits(amount)
 	if(. && !supress_log)
-		log_account_action(account, amount, purpose, transactor) //no if check here for now, since deposit credits currently will always return true
+		log_account_action(account, amount, purpose, transactor, log_on_database = FALSE) //no if check here for now, since deposit credits currently will always return true
 
 /datum/money_account_database/proc/try_authenticate_login(datum/money_account/account, pin, restricted_bypass = FALSE, is_vendor = FALSE, is_admin = FALSE)
 	if(!online && !is_admin)
@@ -70,11 +75,12 @@
 /datum/money_account_database/main_station
 	///list of money accounts for each department on station
 	var/list/department_accounts = list()
-	var/datum/money_account/vendor_account
+
 
 /datum/money_account_database/main_station/create_account(account_name = "Unnamed", starting_funds = CREW_MEMBER_STARTING_BALANCE, _security_level = ACCOUNT_SECURITY_ID, supress_log = FALSE)
 	var/datum/money_account/new_account	= ..()
 	new_account.set_credits(starting_funds)
+	return new_account
 
 /datum/money_account_database/main_station/proc/create_department_account(department)
 	if(department_accounts[department])
@@ -82,7 +88,7 @@
 	var/datum/money_account/department_account = new("[department] Account", DEPARTMENT_STARTING_BALANCE, ACCOUNT_SECURITY_RESTRICTED)
 	department_accounts[department] = department_account
 
-/datum/money_account_database/main_station/proc/create_vendor_account()
+/datum/money_account_database/main_station/create_vendor_account()
 	var/datum/money_account/new_vendor_account = new("[station_name()] Vendor Account", DEPARTMENT_STARTING_BALANCE, ACCOUNT_SECURITY_RESTRICTED)
 	vendor_account = new_vendor_account
 
@@ -97,3 +103,4 @@
 /datum/money_account_database/central_command/create_account(account_name = "NAS Trurl Account", starting_funds = CC_OFFICER_STARTING_BALANCE, _security_level = ACCOUNT_SECURITY_CC, supress_log = FALSE)
 	var/datum/money_account/new_account	= ..()
 	new_account.set_credits(starting_funds)
+	return new_account

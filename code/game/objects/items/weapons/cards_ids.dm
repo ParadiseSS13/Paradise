@@ -20,6 +20,9 @@
 
 	var/list/files = list(  )
 
+/obj/item/card/proc/get_card_account()
+	return GLOB.station_money_database.find_user_account(associated_account_number)
+
 /obj/item/card/data
 	name = "data card"
 	desc = "A disk containing data."

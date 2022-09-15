@@ -1,5 +1,3 @@
-
-
 SUBSYSTEM_DEF(economy)
 	name = "Economy"
 	flags = SS_BACKGROUND | SS_NO_FIRE
@@ -20,7 +18,6 @@ SUBSYSTEM_DEF(economy)
 	var/space_credits_destroyed = 0
 	///The amount of space credits that have been created out of thin air, does not include credits created at round-start
 	var/space_credits_created = 0
-
 
 /datum/controller/subsystem/economy/Initialize()
 	///create main station accounts

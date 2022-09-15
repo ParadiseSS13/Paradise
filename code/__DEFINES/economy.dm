@@ -26,3 +26,8 @@
 #define STATION_CREATION_DATE "2 April, 2555"
 #define STATION_CREATION_TIME "11:24:30"
 #define STATION_SOURCE_TERMINAL "Biesel GalaxyNet Terminal #227"
+
+///merch computer categories
+#define MERCH_CAT_APPAREL     "apparel"
+#define MERCH_CAT_TOY         "toy"
+#define MERCH_CAT_DECORATION  "decoration"

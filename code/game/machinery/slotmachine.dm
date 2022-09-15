@@ -1,45 +1,52 @@
-/obj/machinery/slot_machine
+/obj/machinery/economy/slot_machine
 	name = "slot machine"
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots-off"
 	anchored = TRUE
 	density = TRUE
+
 	var/plays = 0
 	var/working = FALSE
-	var/datum/money_account/account
-	var/result = null
-	var/resultlvl = null
+	var/result
+	var/resultlvl
 
-/obj/machinery/slot_machine/attack_hand(mob/user as mob)
+	var/datum/money_account/user_account
+
+/obj/machinery/economy/slot_machine/Initialize(mapload)
+	. = ..()
+	reconnect_database()
+
+/obj/machinery/economy/slot_machine/attack_hand(mob/user as mob)
 	ui_interact(user)
 
-/obj/machinery/slot_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/economy/slot_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SlotMachine", name, 350, 200, master_ui, state)
 		ui.open()
 
-/obj/machinery/slot_machine/ui_data(mob/user)
+/obj/machinery/economy/slot_machine/ui_data(mob/user)
 	var/list/data = list()
 	// Get account
-	account = user.get_worn_id_account()
-	if(!account)
-		if(istype(user.get_active_hand(), /obj/item/card/id))
-			account = get_card_account(user.get_active_hand())
+	user_account = user.get_worn_id_account()
+	if(!user_account)
+		var/obj/item/card/id/id_card = user.get_active_hand()
+		if(istype(id_card))
+			user_account = id_card.get_card_account()
 		else
-			account = null
+			user_account = null
 
 
 	// Send data
 	data["working"] = working
-	data["money"] = account ? account.credit_balance : null
+	data["money"] = user_account ? user_account.credit_balance : null
 	data["plays"] = plays
 	data["result"] = result
 	data["resultlvl"] = resultlvl
 	return data
 
-/obj/machinery/slot_machine/ui_act(action, params)
+/obj/machinery/economy/slot_machine/ui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)
@@ -47,17 +54,18 @@
 	if(action == "spin")
 		if(working)
 			return
-		if(!account || account.credit_balance < 50)
+		if(!user_account || user_account.credit_balance < 50)
 			return
-		//if(!account.charge(50, null, "Bet", "Slot Machine", "Slot Machine"))
-		//	return
+		if(!account_database.charge_account(user_account, 50, "Slot Machine Charge", machine_id, FALSE, TRUE))
+			return //we want to surpress transaction logs here in-case someone uses the slot machine 100+ times
+		account_database.credit_account(account_database.vendor_account, 59, "Slot Machine Charge", machine_id, TRUE)
 		plays++
 		working = TRUE
 		icon_state = "slots-on"
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 		addtimer(CALLBACK(src, .proc/spin_slots, usr.name), 25)
 
-/obj/machinery/slot_machine/proc/spin_slots(userName)
+/obj/machinery/economy/slot_machine/proc/spin_slots(userName)
 	switch(rand(1,5000))
 		if(1)
 			atom_say("JACKPOT! [userName] has won ten thousand credits!")
@@ -92,14 +100,15 @@
 	icon_state = "slots-off"
 	SStgui.update_uis(src) // Push a UI update
 
-/obj/machinery/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
+/obj/machinery/economy/slot_machine/proc/win_money(amount, sound = 'sound/machines/ping.ogg')
 	if(sound)
 		playsound(loc, sound, 55, 1)
-	if(!account)
+	if(!user_account)
 		return
-	//account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)
+	account_database.charge_account(account_database.vendor_account, amount, "Slot Machine Payout", machine_id, TRUE, FALSE)
+	account_database.credit_account(user_account, amount, "Slot Machine Winnings Deposit", machine_id, FALSE)
 
-/obj/machinery/slot_machine/wrench_act(mob/user, obj/item/I)
+/obj/machinery/economy/slot_machine/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

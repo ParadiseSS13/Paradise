@@ -13472,7 +13472,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aJL" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /obj/item/coin/iron,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -13808,7 +13808,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "aKK" = (
-/obj/machinery/arcade/claw,
+/obj/machinery/economy/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aKL" = (
@@ -14198,7 +14198,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aLJ" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aLK" = (
@@ -15199,7 +15199,7 @@
 	},
 /area/civilian/barber)
 "aNZ" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /obj/structure/disposalpipe/segment{
@@ -22990,7 +22990,7 @@
 	dir = 4
 	},
 /obj/machinery/light,
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -25450,7 +25450,7 @@
 /turf/simulated/floor/wood,
 /area/library)
 "bkM" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -26663,7 +26663,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "bnu" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -27939,7 +27939,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -31031,7 +31031,7 @@
 	},
 /area/bridge)
 "bxE" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = 32
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -32336,7 +32336,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bAn" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -32749,7 +32749,7 @@
 	},
 /area/quartermaster/office)
 "bBq" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -34231,7 +34231,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bFo" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = 32
 	},
 /obj/structure/cable{
@@ -34403,7 +34403,7 @@
 	},
 /area/engine/gravitygenerator)
 "bFF" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
 	},
@@ -42971,9 +42971,7 @@
 /area/engine/break_room)
 "bWU" = (
 /obj/machinery/light,
-/obj/machinery/computer/merch{
-	dir = 8
-	},
+/obj/machinery/economy/merch,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bWV" = (
@@ -43921,7 +43919,7 @@
 	c_tag = "Cargo Bay Entrance";
 	dir = 4
 	},
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -45986,7 +45984,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "ccn" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -60974,7 +60972,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "cGI" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "cGJ" = (
@@ -61698,7 +61696,7 @@
 	},
 /area/maintenance/aft)
 "cIk" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood,
 /area/maintenance/aft)
 "cIl" = (
@@ -62492,7 +62490,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cKd" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
@@ -74551,7 +74549,7 @@
 	},
 /area/turret_protected/ai)
 "dnk" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,

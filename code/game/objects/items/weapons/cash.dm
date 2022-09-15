@@ -11,15 +11,23 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	singular_name = "credit"
-	max_amount = 1000000
+	max_amount = MAX_STACKABLE_CASH
 	merge_type = /obj/item/stack/spacecash
 
-/obj/item/stack/spacecash/New(loc, amt = null)
-	..()
+/obj/item/stack/spacecash/Initialize(mapload, uncompensated = TRUE)
+	. = ..()
+	if(uncompensated)
+		SSeconomy.space_credits_created += amount
+	SSeconomy.total_space_cash += amount
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/stack/spacecash/Destroy()
+	SSeconomy.total_space_cash -= amount
+	SSeconomy.space_credits_destroyed += amount
+	return ..()
+
 /obj/item/stack/spacecash/update_icon_state()
-	name = "[amount == max_amount ? "1000000" : amount] Credit[amount > 1 ? "s" : ""]"
+	name = "[amount == max_amount ? "10000" : amount] Credit[amount > 1 ? "s" : ""]"
 	if(amount >= 1 && amount < 10)
 		icon_state = "cashgreen"
 	else if(amount >= 10 && amount < 50)
@@ -28,11 +36,13 @@
 		icon_state = "cashblue"
 	else if(amount >= 500 && amount < 1000)
 		icon_state = "cashindi"
-	else if(amount >= 1000 && amount < 1000000)
+	else if(amount >= 1000 && amount <= 10000)
 		icon_state = "cashpurp"
 	else
 		icon_state = "cashrbow"
 
+/obj/item/stack/spacecash/c5
+	amount = 5
 /obj/item/stack/spacecash/c10
 	amount = 10
 
@@ -54,5 +64,8 @@
 /obj/item/stack/spacecash/c1000
 	amount = 1000
 
-/obj/item/stack/spacecash/c1000000
-	amount = 1000000
+/obj/item/stack/spacecash/c10000
+	amount = 10000
+
+/obj/item/twohanded/required/cash_pile
+	name = "Pile of Cash"

@@ -1045,7 +1045,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "ajl" = (
-/obj/machinery/arcade/claw,
+/obj/machinery/economy/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "ajm" = (
@@ -5847,7 +5847,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /obj/structure/cable/yellow{
@@ -12086,7 +12086,7 @@
 	name = "\improper Restrooms"
 	})
 "aTi" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -24685,7 +24685,7 @@
 	},
 /area/tcommsat/computer)
 "bxe" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
@@ -24949,7 +24949,7 @@
 	},
 /area/turret_protected/aisat_interior)
 "bxH" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -27994,7 +27994,7 @@
 	c_tag = "Arrivals - Middle Arm";
 	dir = 1
 	},
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -31913,7 +31913,7 @@
 	name = "\improper Command Hallway"
 	})
 "bQu" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken4"
 	},
@@ -33803,7 +33803,7 @@
 	},
 /area/atmos)
 "bVP" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "bVR" = (
@@ -37267,7 +37267,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cfb" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -49516,7 +49516,7 @@
 	},
 /area/medical/surgery2)
 "cRq" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -81426,7 +81426,7 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "rmg" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -93941,7 +93941,7 @@
 /area/chapel/main)
 "xKg" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{

@@ -68,11 +68,13 @@
 	data["linked_account"] = linked_account ? linked_account.account_name : null
 	return data
 
-/obj/item/eftpos/ui_act(action, list/params)
+/obj/item/eftpos/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
 	. = TRUE
+
+	var/mob/living/user = ui.user
 
 	switch(action)
 		if("change_code")
@@ -116,6 +118,16 @@
 				alert("That is not a valid amount!")
 			else
 				transaction_amount = try_num
+		if("toggle_lock")
+			if(transaction_locked)
+				var/attempt_code = input("Enter EFTPOS access code", "Reset Transaction") as num
+				if(attempt_code == access_code)
+					transaction_locked = FALSE
+					transaction_paid = FALSE
+			else if(linked_account)
+				transaction_locked = TRUE
+			else
+				to_chat(usr, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
 		if("scan_card")
 			//attempt to connect to a new db, and if that doesn't work then fail
 			if(!account_database)
@@ -142,14 +154,18 @@
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user)
 	visible_message("<span class='info'>[user] swipes a card through [src].</span>")
 
+	if(!transaction_locked || transaction_paid)
+		return
+
 	if(!linked_account)
 		to_chat(user, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
 		return
 
 	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number)
 	//if security level high enough, prompt for pin
+	var/attempt_pin
 	if(D.security_level != ACCOUNT_SECURITY_ID)
-		var/attempt_pin = input("Enter pin code", "EFTPOS transaction") as num
+		attempt_pin = input("Enter pin code", "EFTPOS transaction") as num
 		if(!attempt_pin || !Adjacent(user))
 			return
 	//given the credentials, can the associated account be accessed right now?
@@ -167,6 +183,7 @@
 
 	playsound(src, 'sound/machines/chime.ogg', 50, 1)
 	visible_message("<span class='notice'>[src] chimes!</span>")
+	transaction_paid = TRUE
 
 ///creates and builds paper with info about the EFTPOS
 /obj/item/eftpos/proc/print_reference()

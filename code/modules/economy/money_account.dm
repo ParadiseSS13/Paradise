@@ -102,7 +102,7 @@
 	T.account = src
 	T.transactor = transactor ? transactor : "Unknown"
 	T.purpose = purpose ? purpose : "No Reason Specified"
-	T.amount = "[transaction_amount ? transaction_amount : "N/A"]"
+	T.amount = "[amount ? amount : "N/A"]"
 	T.time = station_time_timestamp()
 	account_log += T
 	hidden_account_log += T

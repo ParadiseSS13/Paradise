@@ -13913,7 +13913,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -14677,7 +14677,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
 "aRo" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -16844,7 +16844,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "aVW" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "aVX" = (
@@ -38955,7 +38955,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bQG" = (
@@ -51159,7 +51159,7 @@
 	},
 /area/hallway/primary/central)
 "crV" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -56599,7 +56599,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "cEu" = (
-/obj/machinery/arcade/claw,
+/obj/machinery/economy/arcade/claw,
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
@@ -58457,7 +58457,7 @@
 	},
 /area/crew_quarters/fitness)
 "cIc" = (
-/obj/machinery/arcade/claw,
+/obj/machinery/economy/arcade/claw,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
@@ -89960,7 +89960,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/assembly/chargebay)
 "ibc" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -90808,7 +90808,7 @@
 	},
 /area/engine/engineering)
 "jHa" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -92262,7 +92262,7 @@
 	},
 /area/engine/engineering)
 "mOF" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -92831,7 +92831,7 @@
 	},
 /area/security/execution)
 "nQq" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -93480,7 +93480,7 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "pfp" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -96841,7 +96841,7 @@
 	},
 /area/security/prisonershuttle)
 "vEw" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

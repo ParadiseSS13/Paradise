@@ -310,7 +310,7 @@
 	S.DisIntegrate(src)
 	return TRUE
 
-/obj/machinery/vending/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//It's more visually interesting than dismantling the machine
+/obj/machinery/economy/vending/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//It's more visually interesting than dismantling the machine
 	if(!..())
 		return FALSE
 	S.DisIntegrate(src)

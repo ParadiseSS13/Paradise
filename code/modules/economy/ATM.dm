@@ -6,7 +6,7 @@
 #define PRINT_DELAY  (30 SECONDS)
 #define LOCKOUT_TIME (10 SECONDS)
 
-/obj/machinery/atm
+/obj/machinery/economy/atm
 	name = "Nanotrasen automatic teller machine"
 	desc = "For all your monetary needs! Just insert your ID card to make a withdrawal or deposit!"
 	icon = 'icons/obj/terminals.dmi'
@@ -14,9 +14,8 @@
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
+	density = FALSE
 
-	///linked money account database to this ATM
-	var/datum/money_account_database/account_database
 	///Current money account the ATM is accessing
 	var/datum/money_account/authenticated_account
 	///ID Card that is currently inserted into the ATM
@@ -30,22 +29,19 @@
 	var/lockout_time = 0
 	///failed login attempts counter, used for locking out the atm
 	var/login_attempts = 0
-	var/machine_id = ""
 
-/obj/machinery/atm/Initialize(mapload)
+/obj/machinery/economy/atm/Initialize(mapload)
 	. = ..()
-	reconnect_database()
 	update_icon()
 
-/obj/machinery/atm/update_icon_state()
+/obj/machinery/economy/atm/update_icon_state()
 	. = ..()
-
 	if(stat & NOPOWER)
 		icon_state = "atm_off"
 	else
 		icon_state = "atm"
 
-/obj/machinery/atm/update_overlays()
+/obj/machinery/economy/atm/update_overlays()
 	. = ..()
 	underlays.Cut()
 
@@ -54,7 +50,7 @@
 
 	underlays += emissive_appearance(icon, "atm_lightmask")
 
-/obj/machinery/atm/power_change()
+/obj/machinery/economy/atm/power_change()
 	..()
 	if(stat & NOPOWER)
 		set_light(0)
@@ -62,17 +58,11 @@
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
-/obj/machinery/atm/proc/reconnect_database()
-	if(is_station_level(z))
-		account_database = GLOB.station_money_database
-	else
-		//sstuff shit fuck
-
-/obj/machinery/atm/process()
+/obj/machinery/economy/atm/process()
 	if(stat & NOPOWER)
 		return
 
-/obj/machinery/atm/attack_hand(mob/user)
+/obj/machinery/economy/atm/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	if(issilicon(user))
@@ -83,10 +73,10 @@
 
 	ui_interact(user)
 
-/obj/machinery/atm/attack_ghost(mob/user)
+/obj/machinery/economy/atm/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atm/attackby(obj/item/I, mob/user)
+/obj/machinery/economy/atm/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/card))
 		if(powered())
 			handle_id_insert(I, user)
@@ -94,11 +84,18 @@
 		if(istype(I, /obj/item/stack/spacecash))
 			if(!powered())
 				return
-			handle_cash_insert(I, user)
-	else
-		return ..()
+			insert_cash(I, user)
 
-/obj/machinery/atm/proc/handle_id_insert(obj/item/card/id, mob/user)
+	return ..()
+
+/obj/machinery/economy/atm/insert_cash(obj/item/stack/spacecash/cash_money, mob/user)
+	visible_message("<span class='info'>[user] inserts [cash_money] into [src].</span>")
+	cash_stored += cash_money.amount
+	account_database.credit_account(authenticated_account, cash_money.amount, "ATM Deposity", machine_id, FALSE)
+	cash_money.use(cash_money.amount)
+	return TRUE
+
+/obj/machinery/economy/atm/proc/handle_id_insert(obj/item/card/id, mob/user)
 	if(held_card)
 		return
 	user.drop_item()
@@ -108,7 +105,7 @@
 	if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 		authenticated_account = null
 
-/obj/machinery/atm/proc/eject_inserted_id(mob/user)
+/obj/machinery/economy/atm/proc/eject_inserted_id(mob/user)
 	if(!held_card)
 		return
 	held_card.forceMove(loc)
@@ -119,46 +116,22 @@
 	held_card = null
 
 ///ensures proper GC of ID card
-/obj/machinery/atm/proc/clear_held_card()
+/obj/machinery/economy/atm/proc/clear_held_card()
 	held_card = null
 
-/obj/machinery/atm/proc/handle_cash_insert(obj/item/stack/spacecash/cash, mob/user)
-	if(!cash.amount || !authenticated_account)
-		return
-	if(!account_database.credit_account(authenticated_account, cash.amount))
-		return
-	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
-	to_chat(user, "<span class='info'>You insert [cash] into [src].</span>")
-	cash.use(cash.amount)
-
-//create the most effective combination of notes to make up the requested amount
-/obj/machinery/atm/proc/dispense_space_cash(amount, mob/user)
-	var/stacks_to_dispense = min(CEILING(amount / MAX_STACKABLE_CASH, 1), 10)
-	var/remaining_cash = amount
-
-	for(var/i in 1 to stacks_to_dispense)
-		if(remaining_cash >= MAX_STACKABLE_CASH)
-			remaining_cash -= MAX_STACKABLE_CASH
-			new /obj/item/stack/spacecash(get_turf(src), MAX_STACKABLE_CASH)
-			continue
-		var/obj/item/stack/spacecash/C = new(get_turf(src), remaining_cash)
-		if(user)
-			user.put_in_hands(C)
-
-	return remaining_cash
-
-/obj/machinery/atm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/economy/atm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "ATM", name, 550, 650)
 		ui.open()
 
-/obj/machinery/atm/ui_data(mob/user)
+/obj/machinery/economy/atm/ui_data(mob/user)
 	var/list/data = list()
 
 	data["view_screen"] = view_screen
 	data["machine_id"] = machine_id
 	data["held_card_name"] = held_card?.name
+	data["linked_db"] = account_database ? TRUE : FALSE
 
 	data["authenticated_account"] = authenticated_account
 	if(authenticated_account)
@@ -166,20 +139,20 @@
 		data["money"] = authenticated_account.credit_balance
 		data["security_level"] = authenticated_account.security_level
 
-		var/list/trx = list()
-		for(var/datum/transaction/T in authenticated_account.transaction_log)
-			trx[++trx.len] = list(
-				"date" = T.date,
+		data["transaction_log"] = list()
+		for(var/datum/transaction/T in authenticated_account.account_log)
+			var/list/transaction_info = list(
 				"time" = T.time,
-				"target_name" = T.target_name,
+				"target_name" = T.transactor,
 				"purpose" = T.purpose,
-				"amount" = T.amount,
-				"source_terminal" = T.source_terminal)
-		data["transaction_log"] = trx
+				"amount" = T.amount
+			)
+			data["transaction_log"] += list(transaction_info)
+
 
 	return data
 
-/obj/machinery/atm/ui_act(action, params, datum/tgui/ui)
+/obj/machinery/economy/atm/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 
@@ -229,46 +202,49 @@
 
 	. = TRUE
 
-/obj/machinery/atm/proc/authenticate_account(account_number, account_pin, mob/user)
+/obj/machinery/economy/atm/proc/authenticate_account(account_number, account_pin, mob/user, silent = TRUE)
 	var/datum/money_account/target_account = account_database.find_user_account(account_number)
-	if(target_account.authenticate_login(account_pin, FALSE, FALSE, FALSE))
-		to_chat(usr, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.account_name].'</span>")
+	if(attempt_account_authentification(target_account, account_pin, user))
+		if(!silent)
+			to_chat(usr, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.account_name].'</span>")
 		return TRUE
-	playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
-	to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure, incorrect credentials or insufficient permissions.</span>")
+	if(!silent)
+		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
+		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure, incorrect credentials or insufficient permissions.</span>")
 	return FALSE
 
-/obj/machinery/atm/proc/attempt_login(account_number, account_pin, mob/user)
-	if(!authenticate_account(account_number, account_pin, user))
-		return
+/obj/machinery/economy/atm/proc/attempt_login(account_number, account_pin, mob/user)
+	var/datum/money_account/user_account
+	var/account_to_attempt = account_number ? account_number : held_card?.associated_account_number
+	if(!account_to_attempt)
+		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: Account number not found.</span>")
+		return FALSE
+
+	user_account = account_database.find_user_account(account_number)
+	if(!user_account)
+		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: User Account Not Found.</span>")
+		return FALSE
+
+	if(attempt_account_authentification(user_account, account_pin, user))
+		authenticated_account = user_account
+		return TRUE
+
+	//else failed login
+
 	login_attempts++
+	account_database.log_account_action(user_account, 0, "Unauthorised login attempt", machine_id, log_on_database = FALSE)
+	to_chat(user, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [3 - login_attempts] attempt\s remaining.</span>")
 	if(login_attempts >= 3)
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
-		var/datum/money_account/failed_account = account_database.find_user_account(account_number)
-		if(failed_account)
-			var/datum/transaction/T = new()
-			T.target_name = failed_account.account_name
-			T.purpose = "Unauthorised login attempt"
-			T.source_terminal = machine_id
-			T.date = GLOB.current_date_string
-		to_chat(user, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [3 - login_attempts] attempt\s remaining.</span>")
 		view_screen = ATM_SCREEN_DEFAULT
 		lockout_time = world.time + LOCKOUT_TIME
-		return
-	var/datum/transaction/T = new()
-	T.target_name = authenticated_account.account_name
-	T.purpose = "Remote terminal access"
-	T.source_terminal = machine_id
-	T.date = GLOB.current_date_string
-	T.time = station_time_timestamp()
-	authenticated_account.transaction_log.Add(T)
 
-/obj/machinery/atm/proc/logout()
+/obj/machinery/economy/atm/proc/logout()
 	authenticated_account = null
 	view_screen = ATM_SCREEN_DEFAULT
 	login_attempts = 0
 
-/obj/machinery/atm/proc/transfer_credits(amount, target_account_number, mob/user)
+/obj/machinery/economy/atm/proc/transfer_credits(amount, target_account_number, mob/user)
 	if(!authenticated_account)
 		return
 	if(amount <= 0)
@@ -282,7 +258,7 @@
 	else
 		to_chat(user, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 
-/obj/machinery/atm/proc/withdraw(amount, mob/user)
+/obj/machinery/economy/atm/proc/withdraw(amount, mob/user)
 	if(!authenticated_account)
 		return
 	if(amount <= 0)
@@ -293,7 +269,7 @@
 		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 		dispense_space_cash(amount, user)
 
-/obj/machinery/atm/proc/print_balance_statement()
+/obj/machinery/economy/atm/proc/print_balance_statement()
 	if(!authenticated_account)
 		return
 	if(world.time <= print_cooldown)

@@ -58,13 +58,13 @@
 
 				var/list/transactions = list()
 				for(var/datum/transaction/T in detailed_account_view.transaction_log)
-					transactions.Add(list(list(
-						"date" = T.date,
+					var/list/transaction_info = list(
+						"targetname" = T.transactor,
 						"time" = T.time,
-						"target_name" = T.target_name,
 						"purpose" = T.purpose,
 						"amount" = T.amount,
-						"source_terminal" = T.source_terminal)))
+					)
+					transactions += transaction_info
 
 				data["transactions"] = transactions
 	return data

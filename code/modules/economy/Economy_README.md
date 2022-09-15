@@ -5,3 +5,7 @@ The entirety backing of the financial system in the code is based on two datums,
 entity such as vendors or specific departments; These money accounts hold all information about the account including
 its name, balance, account credentials, and the procs for interfacing with the accounts. Money Account Databases
 are where money_accounts are stored
+
+
+TODO
+1. Merch Vendor TGUI
