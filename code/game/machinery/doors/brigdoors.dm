@@ -1,7 +1,3 @@
-#define CHARS_PER_LINE 5
-#define FONT_SIZE "5pt"
-#define FONT_COLOR "#09f"
-#define FONT_STYLE "Small Fonts"
 #define CELL_NONE "None"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -416,7 +412,7 @@
 		var/disp1 = id
 		var/timeleft = timeleft()
 		var/disp2 = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-		if(length(disp2) > CHARS_PER_LINE)
+		if(length(disp2) > DISPLAY_CHARS_PER_LINE)
 			disp2 = "Error"
 		update_display(disp1, disp2)
 	else
@@ -440,7 +436,7 @@
 /obj/machinery/door_timer/proc/update_display(line1, line2)
 	line1 = uppertext(line1)
 	line2 = uppertext(line2)
-	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
+	var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text
 
@@ -485,8 +481,4 @@
 	name = "Cell 6"
 	id = "Cell 6"
 
-#undef FONT_SIZE
-#undef FONT_COLOR
-#undef FONT_STYLE
-#undef CHARS_PER_LINE
 #undef CELL_NONE

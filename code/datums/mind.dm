@@ -120,7 +120,7 @@
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 	if(!istype(new_character))
-		log_runtime(EXCEPTION("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob."), src)
+		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
 	if(current)					//remove ourself from our old body's mind variable
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
@@ -725,8 +725,7 @@
 					return
 				var/datum/mind/targ = new_target
 				if(!istype(targ))
-					log_runtime(EXCEPTION("Invalid target for identity theft objective, cancelling"), src)
-					return
+					CRASH("Invalid target for identity theft objective, cancelling")
 				new_objective = new /datum/objective/escape/escape_with_identity
 				new_objective.owner = src
 				new_objective.target = new_target
@@ -1539,6 +1538,17 @@
  */
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
 	QDEL_LIST(antag_datums)
+
+/// This proc sets the hijack speed for a mob. If greater than zero, they can hijack. Outputs in seconds.
+/datum/mind/proc/get_hijack_speed()
+	var/hijack_speed = 0
+	if(special_role)
+		hijack_speed = 15 SECONDS
+	if(locate(/datum/objective/hijack) in get_all_objectives())
+		hijack_speed = 10 SECONDS
+	return hijack_speed
+
+
 
 /**
  * Returns an antag datum instance if the src mind has the specified `datum_type`. Returns `null` otherwise.

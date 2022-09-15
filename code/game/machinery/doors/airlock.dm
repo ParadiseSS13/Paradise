@@ -89,15 +89,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
 
-	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating
-	var/image/old_filling_overlay
-	var/image/old_lights_overlay
-	var/image/old_panel_overlay
-	var/image/old_weld_overlay
-	var/image/old_sparks_overlay
-	var/image/old_dam_overlay
-	var/image/old_note_overlay
-
 	var/mutable_appearance/old_buttons_underlay
 	var/mutable_appearance/old_lights_underlay
 	var/mutable_appearance/old_damag_underlay
@@ -292,10 +283,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		electrified_until = 0
 	else if(duration)	//electrify door for the given duration seconds
 		if(user)
-			shockedby += text("\[[time_stamp()]\] - [user](ckey:[user.ckey])")
+			shockedby += text("\[[all_timestamps()]\] - [user](ckey:[user.ckey])")
 			add_attack_logs(user, src, "Electrified [ADMIN_COORDJMP(src)]", ATKLOG_ALL)
 		else
-			shockedby += text("\[[time_stamp()]\] - EMP)")
+			shockedby += text("\[[all_timestamps()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
 		electrified_until = duration == -1 ? -1 : world.time + duration SECONDS
 		if(duration != -1)
@@ -322,10 +313,58 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/shock_user(mob/user, prob)
 	return (!issilicon(user) && isElectrified() && shock(user, prob))
 
+/obj/machinery/door/airlock/toggle_polarization()
+	polarized_on = !polarized_on
+
+	if(operating || !density)
+		return // It's toggled, but don't try to animate the effect.
+
+	var/animate_color
+	var/image/polarized_image = get_airlock_overlay("[airlock_material]_closed", overlays_file)
+
+	polarized_image.dir = dir
+
+	if(!polarized_on)
+		polarized_image.color = "#222222"
+		animate_color = "#FFFFFF"
+		set_opacity(FALSE)
+	else
+		polarized_image.color = "#FFFFFF"
+		animate_color = "#222222"
+		set_opacity(TRUE)
+	
+	overlays -= polarized_image
+
+	// Animate() does not work on overlays, so a temporary effect is used
+	new /obj/effect/temp_visual/polarized_airlock(get_turf(src), polarized_image, animate_color)
+
+	addtimer(CALLBACK(src, /atom/.proc/update_icon, 0, 0), 0.5 SECONDS)
+
+//
+// Polarization toggling effect
+//
+
+/obj/effect/temp_visual/polarized_airlock
+	layer = OPEN_DOOR_LAYER
+	duration = 0.5 SECONDS
+	randomdir = FALSE
+
+/obj/effect/temp_visual/polarized_airlock/Initialize(mapload, image/airlock_overlay, animate_color)
+	. = ..()
+	icon = airlock_overlay.icon
+	icon_state = airlock_overlay.icon_state
+	color = airlock_overlay.color
+	dir = airlock_overlay.dir
+	animate(src, color = animate_color, time = 0.5 SECONDS)
+
+//
+// Icon handling
+//
+
 /obj/machinery/door/airlock/update_icon(state=0, override=0)
 	if(operating && !override)
 		return
-	check_unres()
+
 	icon_state = density ? "closed" : "open"
 	switch(state)
 		if(0)
@@ -389,6 +428,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 					lights_underlay = get_airlock_emissive_underlay("lights_emergency_lightmask", overlays_file)
 			if(note)
 				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
+				note_overlay.layer = layer + 0.1
 
 		if(AIRLOCK_DENY)
 			if(!arePowerSystemsOn())
@@ -498,39 +538,23 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			if(note)
 				note_overlay = get_airlock_overlay("[notetype]_opening", note_overlay_file)
 
-	//doesn't use overlays.Cut() for performance reasons
-	if(frame_overlay != old_frame_overlay)
-		overlays -= old_frame_overlay
-		overlays += frame_overlay
-		old_frame_overlay = frame_overlay
-	if(filling_overlay != old_filling_overlay)
-		overlays -= old_filling_overlay
-		overlays += filling_overlay
-		old_filling_overlay = filling_overlay
-	if(lights_overlay != old_lights_overlay)
-		overlays -= old_lights_overlay
-		overlays += lights_overlay
-		old_lights_overlay = lights_overlay
-	if(panel_overlay != old_panel_overlay)
-		overlays -= old_panel_overlay
-		overlays += panel_overlay
-		old_panel_overlay = panel_overlay
-	if(weld_overlay != old_weld_overlay)
-		overlays -= old_weld_overlay
-		overlays += weld_overlay
-		old_weld_overlay = weld_overlay
-	if(sparks_overlay != old_sparks_overlay)
-		overlays -= old_sparks_overlay
-		overlays += sparks_overlay
-		old_sparks_overlay = sparks_overlay
-	if(damag_overlay != old_dam_overlay)
-		overlays -= old_dam_overlay
-		overlays += damag_overlay
-		old_dam_overlay = damag_overlay
-	if(note_overlay != old_note_overlay)
-		overlays -= old_note_overlay
-		overlays += note_overlay
-		old_note_overlay = note_overlay
+	if(polarized_on)
+		filling_overlay.color = "#222222"
+	else
+		filling_overlay.color = "#FFFFFF"
+
+	cut_overlays()
+
+	overlays += frame_overlay
+	overlays += filling_overlay
+	overlays += lights_overlay
+	overlays += panel_overlay
+	overlays += weld_overlay
+	overlays += sparks_overlay
+	overlays += damag_overlay
+	overlays += note_overlay
+
+	check_unres()
 
 	//EMISSIVE ICONS
 	if(buttons_underlay != old_buttons_underlay)
@@ -581,6 +605,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	. = ..()
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "<span class='warning'>The access panel is coated in yellow ooze...</span>"
 	if(note)
 		if(!in_range(user, src))
 			. += "There's a [note.name] pinned to the front. You can't [note_type() == "note" ? "read" : "see"] it from here."
@@ -778,7 +804,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/ai_control_check(mob/user)
 	if(!issilicon(user))
 		return TRUE
-	if(emagged)
+	if(emagged || HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
 		return FALSE
 	if(!canAIControl())
@@ -1259,7 +1285,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		sleep(4)
 	if(!safe)
 		crush()
-	if(visible && !glass)
+	if((visible && !glass) || polarized_on)
 		set_opacity(1)
 	update_freelook_sight()
 	sleep(1)
@@ -1311,6 +1337,19 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			update_icon(AIRLOCK_CLOSED, 1)
 		emagged = TRUE
 		return 1
+
+/obj/machinery/door/airlock/cmag_act(mob/user)
+	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn())
+		return
+	operating = TRUE
+	update_icon(AIRLOCK_EMAG, 1)
+	sleep(6)
+	if(QDELETED(src))
+		return
+	operating = FALSE
+	update_icon(AIRLOCK_CLOSED, 1)
+	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	return TRUE
 
 /obj/machinery/door/airlock/emp_act(severity)
 	. = ..()
@@ -1380,7 +1419,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		lock() //Bolt it!
 		electrified_until = -1  //Shock it!
 		if(origin)
-			shockedby += "\[[time_stamp()]\][origin](ckey:[origin.ckey])"
+			shockedby += "\[[all_timestamps()]\][origin](ckey:[origin.ckey])"
 
 /obj/machinery/door/airlock/disable_lockdown()
 	// Must be powered and have working AI wire.
@@ -1414,6 +1453,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		DA.heat_proof_finished = heat_proof //tracks whether there's rglass in
 		DA.anchored = TRUE
 		DA.glass = src.glass
+		DA.polarized_glass = polarized_glass
 		DA.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 		DA.created_name = name
 		DA.previous_assembly = previous_airlock

@@ -228,9 +228,14 @@
 	icon_state = "bulletproof"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 10, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 35, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
-	strip_delay = 70
-	put_on_delay = 50
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	armor = list(MELEE = 10, BULLET = 50, LASER = 5, ENERGY = 5, BOMB = 35, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	strip_delay = 8 SECONDS
+	put_on_delay = 6 SECONDS
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+						 "Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "ablative armor vest"
@@ -239,7 +244,6 @@
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 5, BULLET = 5, LASER = 75, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
@@ -271,6 +275,26 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
+	/// The cell reactive armor uses.
+	var/obj/item/stock_parts/cell/emproof/reactive/cell
+	/// Cost multiplier for armor. "Stronger" armors use 200 charge, other armors use 120.
+	var/energy_cost = 120
+	/// Is the armor in the one second grace period, to prevent rubbershot / buckshot from draining significant cell useage.
+	var/in_grace_period = FALSE
+
+
+/obj/item/clothing/suit/armor/reactive/Initialize(mapload, ...)
+	. = ..()
+	cell = new(src)
+
+/obj/item/clothing/suit/armor/reactive/Destroy()
+	QDEL_NULL(cell)
+	return ..()
+
+/obj/item/clothing/suit/armor/reactive/examine(mob/user)
+	. = ..()
+	if(cell)
+		. += "<span class='notice'>The armor is [round(cell.percent())]% charged.</span>"
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
@@ -293,8 +317,22 @@
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	var/emp_power = 5 + (severity-1 ? 0 : 5)
+	if(!disabled) //We want ions to drain power, but we do not want it to drain all power in one go, or be one shot via ion scatter
+		cell.use(energy_cost * 4 / severity)
 	disable(emp_power)
 	..()
+
+/obj/item/clothing/suit/armor/reactive/proc/use_power()
+	if(in_grace_period)
+		return TRUE
+	if(!cell.use(energy_cost)) //No working if cells are dry
+		return FALSE
+	in_grace_period = TRUE
+	addtimer(VARSET_CALLBACK(src, in_grace_period, FALSE), 1 SECONDS)
+	return TRUE
+
+/obj/item/clothing/suit/armor/reactive/get_cell()
+	return cell
 
 /obj/item/clothing/suit/armor/reactive/proc/disable(disable_time = 0)
 	active = FALSE
@@ -321,7 +359,7 @@
 			var/obj/item/projectile/P = hitby
 			if(istype(P, /obj/item/projectile/ion))
 				return FALSE
-			if(!P.nodamage || P.stun)
+			if(!P.nodamage || P.stun || P.weaken)
 				return TRUE
 		else
 			return TRUE
@@ -330,12 +368,13 @@
 /obj/item/clothing/suit/armor/reactive/teleport
 	name = "reactive teleport armor"
 	desc = "Someone seperated our Research Director from his own head!"
+	energy_cost = 200
 	var/tele_range = 6
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
 		return 0
-	if(reaction_check(hitby) && is_teleport_allowed(owner.z))
+	if(reaction_check(hitby) && is_teleport_allowed(owner.z) && use_power())
 		var/mob/living/carbon/human/H = owner
 		if(do_teleport(owner, owner, 6, safe_turf_pick = TRUE)) //Teleport on the same spot with a precision of 6 gets a random tile near the owner.
 			owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
@@ -362,7 +401,7 @@
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
 		return FALSE
-	if(reaction_check(hitby))
+	if(reaction_check(hitby) && use_power())
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out jets of flame!</span>")
 		for(var/mob/living/carbon/C in range(6, owner))
 			if(C != owner)
@@ -376,11 +415,12 @@
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
 	desc = "This armor uses an anomaly core combined with holographic projectors to make the user invisible temporarly, and make a fake image of the user."
+	energy_cost = 200
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
 		return FALSE
-	if(reaction_check(hitby))
+	if(reaction_check(hitby) && use_power())
 		var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
 		E.Copy_Parent(owner, 50)
 		E.GiveTarget(owner) //so it starts running right away
@@ -397,7 +437,7 @@
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
 		return FALSE
-	if(reaction_check(hitby))
+	if(reaction_check(hitby) && use_power())
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
 		for(var/mob/living/M in view(6, owner))
 			if(M == owner)
@@ -418,12 +458,14 @@
 	var/repulse_range = 5
 	/// What the sparkles looks like
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
+	energy_cost = 200
 
 /obj/item/clothing/suit/armor/reactive/repulse/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
 		return FALSE
-	if(reaction_check(hitby))
+	if(reaction_check(hitby) && use_power())
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
+		use_power()
 		var/list/thrown_atoms = list()
 		for(var/turf/T in range(repulse_range, owner)) //Done this way so things don't get thrown all around hilariously.
 			for(var/atom/movable/AM in T)

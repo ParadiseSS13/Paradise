@@ -544,16 +544,16 @@
 		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [src].")
 		return FALSE
 	else
-		var/play_soundeffect = 1
-		if(user.environment_smash)
-			play_soundeffect = 0
-			playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
+		var/play_soundeffect = TRUE
 		var/animal_damage = rand(user.melee_damage_lower,user.melee_damage_upper)
 		if(user.obj_damage)
-			animal_damage = user.obj_damage
-		animal_damage = min(animal_damage, 20*user.environment_smash)
+			animal_damage = max(animal_damage, user.obj_damage)
+		animal_damage = max(animal_damage, min(20 * user.environment_smash, 40))
 		if(animal_damage)
 			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
+		if(user.environment_smash)
+			play_soundeffect = FALSE
+			playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		attack_generic(user, animal_damage, user.melee_damage_type, MELEE, play_soundeffect)
 		return TRUE
 
@@ -729,9 +729,18 @@
 		if(!user.unEquip(W))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return
-		W.forceMove(src)
+
+		// Check if a tracker exists
+		var/obj/item/mecha_parts/mecha_tracking/new_tracker = W
+		for(var/obj/item/mecha_parts/mecha_tracking/current_tracker in trackers)
+			if(new_tracker.ai_beacon == current_tracker.ai_beacon)
+				to_chat(user, "<span class='warning'>This exosuit already has \a [new_tracker.ai_beacon ? "AI" : "tracking"] beacon.</span>")
+				user.put_in_hands(new_tracker)
+				return
+
+		new_tracker.forceMove(src)
 		trackers += W
-		user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
+		user.visible_message("[user] attaches [new_tracker] to [src].", "<span class='notice'>You attach [new_tracker] to [src].</span>")
 		diag_hud_set_mechtracking()
 		return
 

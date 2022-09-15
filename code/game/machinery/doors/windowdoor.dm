@@ -6,19 +6,21 @@
 	layer = ABOVE_WINDOW_LAYER
 	closingLayer = ABOVE_WINDOW_LAYER
 	resistance_flags = ACID_PROOF
-	visible = FALSE
 	flags = ON_BORDER
 	opacity = FALSE
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
 	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
+	glass = TRUE // Used by polarized helpers. Windoors are always glass.
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = FALSE
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
+	/// Color for the window if it gets changed at some point, to preserve painter functionality
+	var/old_color
 
 /obj/machinery/door/window/New(loc, set_dir)
 	..()
@@ -37,6 +39,19 @@
 	QDEL_NULL(electronics)
 	return ..()
 
+/obj/machinery/door/window/toggle_polarization()
+	polarized_on = !polarized_on
+
+	if(!polarized_on)
+		if(!old_color)
+			old_color = "#FFFFFF"
+		animate(src, color = old_color, time = 0.5 SECONDS)
+		set_opacity(FALSE)
+	else
+		old_color = color
+		animate(src, color = "#222222", time = 0.5 SECONDS)
+		set_opacity(TRUE)
+
 /obj/machinery/door/window/update_icon_state()
 	if(density)
 		icon_state = base_state
@@ -47,6 +62,8 @@
 	. = ..()
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "<span class='warning'>The access panel is coated in yellow ooze...</span>"
 
 /obj/machinery/door/window/emp_act(severity)
 	. = ..()
@@ -68,8 +85,14 @@
 		if(ismecha(AM))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && allowed(mecha.occupant))
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(FALSE)
+					return
 				open_and_close()
 			else
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(TRUE)
+					return
 				do_animate("deny")
 		return
 	if(!SSticker)
@@ -83,8 +106,14 @@
 		return
 	add_fingerprint(user)
 	if(!requiresID() || allowed(user))
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(FALSE, user)
+			return
 		open_and_close()
 	else
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(TRUE, user)
+			return
 		do_animate("deny")
 
 /obj/machinery/door/window/unrestricted_side(mob/M)
@@ -142,6 +171,7 @@
 	if(!operating) //in case of emag
 		operating = TRUE
 	do_animate("opening")
+	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state ="[base_state]open"
 	sleep(10)
@@ -170,8 +200,8 @@
 	icon_state = base_state
 
 	density = TRUE
-//	if(visible)
-//		set_opacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
+	if(polarized_on)
+		set_opacity(TRUE)
 	air_update_turf(1)
 	update_freelook_sight()
 	sleep(10)
@@ -231,6 +261,17 @@
 		open(2)
 		return 1
 
+/obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
+	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	operating = TRUE
+	flick("[base_state]spark", src)
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	sleep(6)
+	operating = FALSE
+	return TRUE
+
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
@@ -277,6 +318,7 @@
 					if("rightsecure")
 						WA.facing = "r"
 						WA.secure = TRUE
+				WA.polarized_glass = polarized_glass
 				WA.anchored = TRUE
 				WA.state= "02"
 				WA.setDir(dir)
@@ -333,7 +375,6 @@
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
 	reinf = TRUE
 	explosion_block = 1
-	var/id = null
 
 /obj/machinery/door/window/brigdoor/security/cell
 	name = "cell door"

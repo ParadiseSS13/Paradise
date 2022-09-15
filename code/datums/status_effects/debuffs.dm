@@ -77,6 +77,7 @@
 	var/delay_before_decay = 5
 	var/bleed_damage = 200
 	var/needs_to_bleed = FALSE
+	var/bleed_cap = 10
 
 /datum/status_effect/saw_bleed/Destroy()
 	if(owner)
@@ -113,7 +114,7 @@
 	owner.underlays -= bleed_underlay
 	bleed_amount += amount
 	if(bleed_amount)
-		if(bleed_amount >= 10)
+		if(bleed_amount >= bleed_cap)
 			needs_to_bleed = TRUE
 			qdel(src)
 		else
@@ -136,6 +137,39 @@
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
+
+/datum/status_effect/saw_bleed/bloodletting
+	id = "bloodletting"
+	bleed_cap = 7
+	bleed_damage = 25 //Seems weak (it is) but it also works on humans and bypasses armor SOOOO
+	bleed_amount = 6
+
+/datum/status_effect/stacking/ground_pound
+	id = "ground_pound"
+	tick_interval = 5 SECONDS
+	stack_threshold = 3
+	max_stacks = 3
+	reset_ticks_on_stack = TRUE
+	var/mob/living/simple_animal/hostile/asteroid/big_legion/latest_attacker
+
+/datum/status_effect/stacking/ground_pound/on_creation(mob/living/new_owner, stacks_to_apply, mob/living/attacker)
+	. = ..()
+	if(.)
+		latest_attacker = attacker
+
+/datum/status_effect/stacking/ground_pound/add_stacks(stacks_added, mob/living/attacker)
+	. = ..()
+	if(.)
+		latest_attacker = attacker
+	if(stacks != stack_threshold)
+		return TRUE
+
+/datum/status_effect/stacking/ground_pound/stacks_consumed_effect()
+	flick("legion-smash", latest_attacker)
+	addtimer(CALLBACK(latest_attacker, /mob/living/simple_animal/hostile/asteroid/big_legion/.proc/throw_mobs), 1 SECONDS)
+
+/datum/status_effect/stacking/ground_pound/on_remove()
+	latest_attacker = null
 
 /datum/status_effect/teleport_sickness
 	id = "teleportation sickness"

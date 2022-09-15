@@ -38,7 +38,8 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
 	ttone = "honk"
 
-/obj/item/pda/clown/ComponentInitialize()
+/obj/item/pda/clown/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
 
 /obj/item/pda/mime

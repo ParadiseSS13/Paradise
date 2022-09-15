@@ -12,12 +12,15 @@
 	var/disable_default_vote = TRUE
 	/// Enable map voting?
 	var/enable_map_voting = FALSE
+	/// If TRUE, you will not be able to vote for the current map
+	var/non_repeating_maps = TRUE
 
 /datum/configuration_section/vote_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
 	CONFIG_LOAD_BOOL(prevent_dead_voting, data["prevent_dead_voting"])
 	CONFIG_LOAD_BOOL(disable_default_vote, data["disable_default_vote"])
 	CONFIG_LOAD_BOOL(enable_map_voting, data["enable_map_voting"])
+	CONFIG_LOAD_BOOL(non_repeating_maps, data["non_repeating_maps"])
 
 	CONFIG_LOAD_NUM(vote_time, data["vote_time"])
 	CONFIG_LOAD_NUM(autotransfer_initial_time, data["autotransfer_initial_time"])

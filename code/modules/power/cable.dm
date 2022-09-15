@@ -494,7 +494,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
 	color = COLOR_RED
-	desc = "A coil of power cable."
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
@@ -516,7 +515,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, paramcolor = null)
 	..()
-	amount = length
 	if(paramcolor)
 		color = paramcolor
 	pixel_x = rand(-2,2)
@@ -617,7 +615,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		else if(get_amount() == 2)
 			. += "A piece of power cable."
 		else
-			. += "A coil of power cable. There are [get_amount()] lengths of cable in the coil."
+			. += "A coil of power cables."
 
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
@@ -835,6 +833,13 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	pixel_y = rand(-2,2)
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	update_wclass()
+
+
+/obj/item/stack/cable_coil/five
+
+// Passes '5' to the parent as `new_amount`, so 5 coils are created.
+/obj/item/stack/cable_coil/five/New(loc, new_amount = 5, merge = TRUE, paramcolor = null)
+	..()
 
 /obj/item/stack/cable_coil/yellow
 	color = COLOR_YELLOW

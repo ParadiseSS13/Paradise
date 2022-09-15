@@ -27,6 +27,7 @@
 	name = "screwdriver"
 	desc = "A screwdriver with an ultra thin tip."
 	icon_state = "screwdriver_nuke"
+	belt_icon = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
 
@@ -40,6 +41,7 @@
 		if(!param_color)
 			param_color = pick("red","blue","pink","brown","green","cyan","yellow")
 		icon_state = "screwdriver_[param_color]"
+		belt_icon = "screwdriver_[param_color]"
 
 	if (prob(75))
 		src.pixel_y = rand(0, 16)

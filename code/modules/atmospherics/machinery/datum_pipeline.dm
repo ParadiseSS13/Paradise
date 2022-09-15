@@ -57,7 +57,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 						if(!members.Find(item))
 
 							if(item.parent)
-								log_runtime(EXCEPTION("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Nearby: [item.x], [item.y], [item.z]."))
+								stack_trace("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Nearby: [item.x], [item.y], [item.z].")
 							members += item
 							possible_expansions += item
 
