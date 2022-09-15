@@ -832,7 +832,6 @@
 /obj/item/twohanded/required/pyro_claws
 	name = "hardplasma energy claws"
 	desc = "The power of the sun, in the claws of your hand."
-	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "pyro_claws"
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 22
@@ -912,7 +911,7 @@
 	else
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
 
-/obj/item/clothing/gloves/color/black/pyro_claws/attack_self(mob/user)
+/obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
 	if(!core)
 		to_chat(user, "<span class='notice'>[src] has no core to power it!</span>")
 		return
@@ -920,8 +919,8 @@
 		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
 		do_sparks(rand(1,6), 1, loc)
 		return
-	if(!user.drop_item())
-		to_chat(user, "<span class='notice'>[user.get_active_hand()] is stuck to your hand, you cannot deploy your [src]!</span>")
+	if(!user.drop_l_hand() || !user.drop_r_hand())
+		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
 		return
 	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
 	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
