@@ -306,11 +306,19 @@
 
 	if(traitor_kind == TRAITOR_HUMAN)
 		var/mob/living/carbon/human/traitor_mob = owner.current
-
+		var/uplink_pref = traitor_mob.client?.prefs?.uplink_pref
+		if(!uplink_pref)
+			uplink_pref = "pda"
+		var/obj/item/R = null
 		// find a radio! toolbox(es), backpack, belt, headset
-		var/obj/item/R = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
-		if(!R)
-			R = locate(/obj/item/radio) in traitor_mob.contents
+		if(uplink_pref == "pda")
+			R = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
+			if(!R)
+				R = locate(/obj/item/radio) in traitor_mob.contents
+		else
+			R = locate(/obj/item/radio) in traitor_mob.contents //Hide the uplink in a radio if available, otherwise PDA
+			if(!R)
+				R = locate(/obj/item/pda) in traitor_mob.contents
 
 		if(!R)
 			to_chat(traitor_mob, "Unfortunately, the Syndicate wasn't able to get you a radio.")
