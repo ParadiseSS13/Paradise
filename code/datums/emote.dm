@@ -208,7 +208,7 @@
 			for(var/mob/dead/observer/ghost in viewers(user))
 				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE)
 
-		else if(emote_type & EMOTE_VISIBLE || user.mind?.miming)
+		else if(emote_type & (EMOTE_AUDIBLE | EMOTE_SOUND) && !user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
 		else
 			user.visible_message(displayed_msg, blind_message = "<span class='emote'>You hear how someone [msg]</span>")
