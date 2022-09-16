@@ -305,11 +305,13 @@
 
 	if(!player) return
 
-	if(player.mob && player.mob.mind)
-		player.mob.mind.transfer_to(src)
-		player.mob.mind.assigned_role = "Drone"
-	else
-		ckey = player.ckey
+	mind = new
+	mind.current = src
+	mind.original = src
+	mind.assigned_role = "Drone"
+	SSticker.minds += mind
+	mind.key = player.key
+	key = player.key
 
 	lawupdate = 0
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
