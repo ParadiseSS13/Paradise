@@ -94428,7 +94428,7 @@
 /area/hallway/primary/central)
 "xKQ" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/armor/laserproof,
+/obj/item/clothing/suit/hooded/ablative,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"

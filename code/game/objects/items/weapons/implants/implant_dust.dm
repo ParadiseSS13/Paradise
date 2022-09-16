@@ -32,15 +32,9 @@
 
 /obj/item/implanter/dust
 	name = "implanter (Dust-on-death)"
-
-/obj/item/implanter/dust/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/dust(src)
+	implant_type = /obj/item/implant/dust
 
 /obj/item/implantcase/dust
 	name = "implant case - 'Dust'"
 	desc = "A glass case containing a dust implant."
-
-/obj/item/implantcase/dust/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/dust(src)
+	implant_type = /obj/item/implant/dust

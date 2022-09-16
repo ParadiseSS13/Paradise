@@ -37,14 +37,9 @@
 
 /obj/item/implanter/chem
 	name = "implanter (chem)"
+	implant_type = /obj/item/implant/chem
 
-/obj/item/implanter/chem/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/dust(src)
 /obj/item/implantcase/chem
 	name = "implant case - 'Remote Chemical'"
 	desc = "A glass case containing a remote chemical implant."
-
-/obj/item/implantcase/chem/Initialize(mapload)
-	. = ..()
-	imp = new /obj/item/implant/chem(src)
+	implant_type = /obj/item/implant/chem

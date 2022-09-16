@@ -729,9 +729,18 @@
 		if(!user.unEquip(W))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return
-		W.forceMove(src)
+
+		// Check if a tracker exists
+		var/obj/item/mecha_parts/mecha_tracking/new_tracker = W
+		for(var/obj/item/mecha_parts/mecha_tracking/current_tracker in trackers)
+			if(new_tracker.ai_beacon == current_tracker.ai_beacon)
+				to_chat(user, "<span class='warning'>This exosuit already has \a [new_tracker.ai_beacon ? "AI" : "tracking"] beacon.</span>")
+				user.put_in_hands(new_tracker)
+				return
+
+		new_tracker.forceMove(src)
 		trackers += W
-		user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
+		user.visible_message("[user] attaches [new_tracker] to [src].", "<span class='notice'>You attach [new_tracker] to [src].</span>")
 		diag_hud_set_mechtracking()
 		return
 
