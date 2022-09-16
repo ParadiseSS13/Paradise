@@ -11,7 +11,7 @@
 
 /obj/item/retractor/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/retractor/augment
 	desc = "Micro-mechanical manipulator for retracting stuff."
@@ -32,7 +32,7 @@
 
 /obj/item/hemostat/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/hemostat/augment
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
@@ -52,7 +52,7 @@
 
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/cautery/augment
 	desc = "A heated element that cauterizes wounds."
@@ -75,7 +75,7 @@
 
 /obj/item/surgicaldrill/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/surgicaldrill/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide.</span>",
@@ -110,7 +110,7 @@
 
 /obj/item/scalpel/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 	AddComponent(/datum/component/surgery_initiator)
 
 
@@ -196,7 +196,7 @@
 
 /obj/item/circular_saw/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/circular_saw/augment
 	desc = "A small but very fast spinning saw. Edges dulled to prevent accidental cutting inside of the surgeon."
@@ -217,7 +217,7 @@
 
 /obj/item/bonegel/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/bonegel/augment
 	toolspeed = 0.5
@@ -234,7 +234,7 @@
 
 /obj/item/FixOVein/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/FixOVein/augment
 	toolspeed = 0.5
@@ -254,7 +254,7 @@
 
 /obj/item/bonesetter/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/bonesetter/augment
 	toolspeed = 0.5
