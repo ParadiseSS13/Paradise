@@ -377,9 +377,12 @@
 	var/recharging_time = 0 //time until next dash
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
-	if(!isliving(user))
+	if(!ishuman(user))
 		return
-
+	var/mob/living/carbon/human/jumper = user
+	if(jumper.shoes != src)
+		to_chat(user, "<span class='warning'>You need to wear \the [src] to use them!</span>")
+		return
 	if(recharging_time > world.time)
 		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
 		return
