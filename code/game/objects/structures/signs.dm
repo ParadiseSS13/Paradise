@@ -59,17 +59,17 @@
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
-/obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
-	if(!isturf(user.loc))
+/obj/item/sign/screwdriver_act(mob/living/user, obj/item/I)
+	if(!isturf(user.loc)) // Why does this use user? This should just be loc.
 		return
 
 	var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
 	if(direction == "Cancel")
 		return TRUE // These gotta be true or we stab the sign
 	if(QDELETED(src))
-		return TRUE
+		return TRUE // Unsure about this, but stabbing something that doesnt exist seems like a bad idea
 
-	var/obj/structure/sign/S = new(user.loc)
+	var/obj/structure/sign/S = new(user.loc) //This is really awkward to use user.loc
 	switch(direction)
 		if("North")
 			S.pixel_y = 32
@@ -84,7 +84,7 @@
 	S.name = name
 	S.desc = desc
 	S.icon_state = sign_state
-	to_chat(user, "<span class='notice'>You fasten \the [S] with your [tool].</span>")
+	to_chat(user, "<span class='notice'>You fasten [S] with your [I].</span>")
 	qdel(src)
 	return TRUE
 

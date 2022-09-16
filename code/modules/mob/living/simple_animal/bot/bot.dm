@@ -363,11 +363,14 @@
 		return ..()
 
 /mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(locked)
 		to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
-		return
+		return TRUE // must be true or we attempt to stab the bot
 
 	open = !open
+	playsound(loc, I.usesound, I.tool_volume, 1)
 	to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
 	return TRUE
 

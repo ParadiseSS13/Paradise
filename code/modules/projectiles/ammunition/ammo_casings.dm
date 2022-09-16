@@ -388,6 +388,7 @@
 		return
 
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
+	playsound(loc, I.usesound, I.tool_volume, 1)
 	modified = TRUE
 	FD.damage_type = BRUTE
 	update_icon()

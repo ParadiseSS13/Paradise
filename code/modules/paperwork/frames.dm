@@ -1,4 +1,4 @@
-/obj/item/picture_frame
+/obj/item/picture_frame // This seems somewhat broken and not used anywhere
 	name = "picture frame"
 	desc = "Its patented design allows it to be folded larger or smaller to accommodate standard paper, photo, and poster, and canvas sizes."
 	icon = 'icons/obj/bureaucracy.dmi'
@@ -78,7 +78,7 @@
 		return ..()
 
 /obj/item/picture_frame/screwdriver_act(mob/living/user, obj/item/I)
-	if(displayed)
+	if(!displayed)
 		to_chat(user, "<span class='notice'>There is nothing to remove from [src].</span>")
 		return
 

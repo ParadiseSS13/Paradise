@@ -55,7 +55,7 @@
 		return
 	playsound(loc, I.usesound, 50, 1)
 	panel_open = !panel_open
-	to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
+	to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 

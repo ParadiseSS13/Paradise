@@ -21,7 +21,7 @@
 		return
 
 	var/obj/machinery/mass_driver_frame/F = new (get_turf(src))
-	F.dir = src.dir
+	F.dir = dir
 	F.anchored = TRUE
 	F.build = 4
 	F.update_icon()
@@ -158,10 +158,10 @@
 	if(build != 4)
 		return
 
-	to_chat(user, "You finalize the Mass Driver...")
+	to_chat(user, "<span class='notice'>You finalize the Mass Driver.</span>")
 	playsound(get_turf(src), I.usesound, 50, 1)
 	var/obj/machinery/mass_driver/M = new(get_turf(src))
-	M.dir = src.dir
+	M.dir = dir
 	qdel(src)
 	return TRUE
 

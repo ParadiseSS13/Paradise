@@ -343,5 +343,6 @@
 
 /obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
 	if(beaker)
-		beaker.forceMove(get_turf(src))
-	return TRUE
+		eject_beaker()
+		return TRUE
+	return ..()

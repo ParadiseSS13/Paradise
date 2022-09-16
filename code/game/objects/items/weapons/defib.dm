@@ -103,6 +103,7 @@
 
 /obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
+		to_chat(user, "<span class='notice'>[src] doesn't have a cell.</span>")
 		return
 
 	cell.update_icon()

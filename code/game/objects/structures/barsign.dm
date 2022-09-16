@@ -109,6 +109,7 @@
 /obj/structure/sign/barsign/screwdriver_act(mob/user, obj/item/I)
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+		prev_sign = current_sign
 		set_sign(new /datum/barsign/hiddensigns/signoff)
 	else
 		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")

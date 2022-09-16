@@ -75,7 +75,7 @@
 	if(!BB)
 		to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
 		return
-	if(initial(BB.name) == "bullet")
+	if(!initial(BB.name) == "bullet")
 		to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
 		return
 

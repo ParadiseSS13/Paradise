@@ -180,7 +180,7 @@
 	if(do_after(user, 40 * I.toolspeed, target = src))
 		build_step++
 		update_appearance(UPDATE_NAME)
-		to_chat(user, "<span class='notice'>Taser gun attached.</span>")
+		to_chat(user, "<span class='notice'>You attach the gun to the frame.</span>")
 	return TRUE
 
 /obj/item/ed209_assembly/update_name()
@@ -445,15 +445,16 @@
 		..()
 		return
 
-	if(!S.secured)
-		qdel(S)
-		var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly
-		user.put_in_hands(A)
-		to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
-		user.unEquip(src, 1)
-		qdel(src)
-	else
+	if(S.secured)
+		to_chat(user, "<span class='notice'>[S] is secured.</span>")
 		return
+	qdel(S)
+	var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly
+	user.put_in_hands(A)
+	to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
+	user.unEquip(src, 1)
+	qdel(src)
+
 
 /obj/item/secbot_assembly/attackby(obj/item/I, mob/user, params)
 	..()
@@ -527,6 +528,7 @@
 			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
 			build_step--
 
+	playsound(loc, I.usesound, I.tool_volume, 1)
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 	return TRUE
 
@@ -601,6 +603,7 @@
 		new /obj/item/toy/sword(get_turf(src))
 		to_chat(user, "<span class='notice'>You detach the toy sword from [src].</span>")
 		toy_step--
+	playsound(loc, I.usesound, I.tool_volume, 1)
 	return TRUE
 
 //Honkbot Assembly

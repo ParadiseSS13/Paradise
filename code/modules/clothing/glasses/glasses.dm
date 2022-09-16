@@ -7,7 +7,7 @@
 /obj/item/clothing/glasses/attackby(obj/item/I, mob/user)
 	if(!prescription_upgradable || user.stat || user.restrained() || !ishuman(user))
 		return ..()
-	var/mob/living/carbon/human/H = user // why?
+	var/mob/living/carbon/human/H = user
 
 	// Adding prescription glasses
 	if(istype(I, /obj/item/clothing/glasses/regular))

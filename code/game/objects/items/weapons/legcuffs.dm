@@ -67,7 +67,7 @@
 			return
 		sig = I
 		if(sig.secured)
-			to_chat(user, "<span class='notice'>The signaler is secured.</span>")
+			to_chat(user, "<span class='warning'>The signaler is secured.</span>")
 			sig = null
 			return
 		user.drop_item()

@@ -1333,7 +1333,7 @@
 		to_chat(user, "You remove the screws around the power connection.")
 	else if(mode==1)
 		to_chat(user, "You attach the screws around the power connection.")
-	playsound(loc, I.usesound, 50, 1)
+	playsound(loc, I.usesound, I.tool_volume, 1)
 	mode = !mode
 	return TRUE
 
