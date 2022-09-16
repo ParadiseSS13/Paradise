@@ -1,7 +1,7 @@
 ///////SMELTABLE ALLOYS///////
 
 /datum/design/plasteel_alloy
-	name = "Plasteel(Plasma + Iron)"
+	name = "Plasteel (Plasma + Iron)"
 	id = "plasteel"
 	build_type = SMELTER
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
