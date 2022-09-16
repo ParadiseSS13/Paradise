@@ -1365,6 +1365,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 8
 
+/datum/uplink_item/device_tools/utility_belt
+	name = "Owlman's Utility Belt"
+	desc = "The utility belt used by the famous vigilante Owlman! Automatically restocks itself with up to two bolas, and four smoke grenades."
+	reference = "UTL"
+	item = /obj/item/storage/belt/bluespace/owlman
+	cost = 10
+
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Thermal Safe Drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."

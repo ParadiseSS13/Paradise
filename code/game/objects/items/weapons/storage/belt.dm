@@ -664,7 +664,6 @@
 		/obj/item/restraints/legcuffs/bola
 		)
 
-	flags = NODROP
 	var/smokecount = 0
 	var/bolacount = 0
 	var/cooldown = 0
@@ -685,7 +684,7 @@
 	return ..()
 
 /obj/item/storage/belt/bluespace/owlman/process()
-	if(cooldown < world.time - 600)
+	if(cooldown < world.time - 60 SECONDS)
 		smokecount = 0
 		var/obj/item/grenade/smokebomb/S
 		for(S in src)
