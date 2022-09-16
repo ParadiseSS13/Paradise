@@ -315,6 +315,8 @@
 /datum/component/material_container/proc/get_item_material_amount(obj/item/I)
 	if(!istype(I))
 		return FALSE
+	if(!I.materials || !length(I.materials))
+		return FALSE
 	var/material_amount = 0
 	for(var/MAT in materials)
 		material_amount += I.materials[MAT]
