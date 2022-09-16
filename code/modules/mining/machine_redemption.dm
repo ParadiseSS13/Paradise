@@ -393,7 +393,10 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/amount_compatible = materials.get_item_material_amount(O)
 	if(amount_compatible)
-		materials.insert_item(O, sheet_per_ore)
+		if(O.refined_type) // Prevents duping
+			materials.insert_item(O, sheet_per_ore)
+		else
+			materials.insert_item(O, 1)
 	// Delete the stack
 	ore_buffer -= O
 	qdel(O)
