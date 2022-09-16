@@ -112,7 +112,7 @@
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	entry_vent = null
-	if (amount_grown < 100)
+	if(amount_grown < 100)
 		new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
 	return ..()
 
