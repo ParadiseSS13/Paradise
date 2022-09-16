@@ -1,3 +1,6 @@
+/obj/item/clothing/gloves/color
+	dyeable = TRUE
+
 /obj/item/clothing/gloves/color/yellow
 	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"

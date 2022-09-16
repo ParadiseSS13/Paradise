@@ -10,6 +10,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi'
 		)
+	dyeable = TRUE
 
 /obj/item/clothing/head/soft/dropped()
 	icon_state = "[item_color]soft"
