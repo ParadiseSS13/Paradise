@@ -145,6 +145,7 @@
 		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
+			M.EyeBlind(impregnation_time + 2 SECONDS)
 			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
 
 	GoIdle() //so it doesn't jump the people that tear it off
@@ -152,7 +153,7 @@
 	addtimer(CALLBACK(src, .proc/Impregnate, M), impregnation_time)
 	return TRUE
 
-/obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
+/obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target)
 	flags &= ~NODROP
 
 	if(!target || target.stat == DEAD || loc != target) //was taken off or something
@@ -166,7 +167,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(!H.check_has_mouth())
-			target.visible_message("<span class='notice'>[src] relaxes its grip on your head... it seems indifferent to you.</span>")
+			target.show_message("<span class='notice'>[src] relaxes its grip on your head... it seems indifferent to you.</span>")
 			return
 
 	if(!sterile)
