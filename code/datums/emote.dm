@@ -188,7 +188,7 @@
 	var/sound_volume = get_volume(user)
 	// If our sound emote is forced by code, don't worry about cooldowns at all.
 	if(tmp_sound && should_play_sound(user, intentional) && sound_volume > 0)
-		if(bypass_unintentional_cooldown || user.start_audio_emote_cooldown(intentional ? audio_cooldown : unintentional_audio_cooldown))
+		if(bypass_unintentional_cooldown || user.start_audio_emote_cooldown(intentional, intentional ? audio_cooldown : unintentional_audio_cooldown))
 			play_sound_effect(user, intentional, tmp_sound, sound_volume)
 
 	if(msg)
@@ -307,7 +307,7 @@
 		return TRUE
 	// if our emote would play sound but another audio emote is on cooldown, prevent this emote from being used.
 	// Note that this only applies to intentional emotes
-	if(get_sound(user) && should_play_sound(user, intentional) && !user.can_use_audio_emote())
+	if(get_sound(user) && should_play_sound(user, intentional) && !user.can_use_audio_emote(intentional))
 		return FALSE
 	var/cooldown_in_use
 	if(!isnull(user.emote_cooldown_override))
