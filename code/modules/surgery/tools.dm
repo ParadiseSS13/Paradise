@@ -162,7 +162,7 @@
 /obj/item/scalpel/laser/manager/Initialize(mapload)
 	. = ..()
 	// this one can automatically retry its steps, too!
-	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/scalpel/laser/manager/debug
 	name = "debug IMS"

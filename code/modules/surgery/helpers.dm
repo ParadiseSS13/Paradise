@@ -40,9 +40,9 @@
 /proc/on_operable_surface(mob/living/carbon/target)
 	if(locate(/obj/machinery/optable, target.loc) && IS_HORIZONTAL(target))
 		return TRUE
-	if(locate(/obj/structure/bed, target.loc) && (IS_HORIZONTAL(target) || target.IsWeakened() || target.IsStunned() || target.IsParalyzed() || target.IsSleeping() || target.stat))
+	if(locate(/obj/structure/bed, target.loc) && (IS_HORIZONTAL(target)))
 		return TRUE
-	if(locate(/obj/structure/table, target.loc) && (IS_HORIZONTAL(target) || target.IsWeakened() || target.IsStunned() || target.IsParalyzed() || target.IsSleeping()  || target.stat))
+	if(locate(/obj/structure/table, target.loc) && (IS_HORIZONTAL(target)))
 		return TRUE
 	return FALSE
 

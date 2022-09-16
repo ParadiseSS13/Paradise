@@ -92,6 +92,10 @@
 	toolspeed = 0.25
 	random_color = FALSE
 
+/obj/item/screwdriver/power/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
+
 /obj/item/screwdriver/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS

@@ -78,7 +78,7 @@
 
 /obj/item/crowbar/power/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, "init")
+	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/crowbar/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
