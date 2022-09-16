@@ -6,152 +6,142 @@
 /datum/surgery/infection
 	name = "External Infection Treatment"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 
 /datum/surgery/bleeding
 	name = "Internal Bleeding"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_organ,
+		/datum/surgery_step/generic/cauterize
+	)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 
 /datum/surgery/debridement
 	name = "Debridement"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_dead_tissue,/datum/surgery_step/treat_necrosis,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
-
-/datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return FALSE
-		if(affected.is_robotic())
-			return FALSE
-		return TRUE
-	return FALSE
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_organ,
+		/datum/surgery_step/fix_dead_tissue,
+		/datum/surgery_step/treat_necrosis,
+		/datum/surgery_step/generic/cauterize
+	)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
+	requires_organic_bodypart = TRUE
 
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return FALSE
-
-		if(affected.status & ORGAN_INT_BLEEDING)
-			return TRUE
+	. = ..()
+	if(!.)
 		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(affected.status & ORGAN_INT_BLEEDING)
+		return TRUE
+	return FALSE
 
 /datum/surgery/debridement/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(!(affected.status & ORGAN_DEAD))
+		return FALSE
+	return TRUE
 
-		if(!hasorgans(target))
-			return FALSE
-
-		if(!affected)
-			return FALSE
-
-		if(!(affected.status & ORGAN_DEAD))
-			return FALSE
-
-		return TRUE
-
-	return FALSE
 
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
 	allowed_tools = list(
-	/obj/item/FixOVein = 100, \
-	/obj/item/stack/cable_coil = 90
+		TOOL_FIXOVEIN = 100,
+		/obj/item/stack/cable_coil = 90
 	)
 	can_infect = TRUE
-	blood_level = 1
+	blood_level = SURGERY_BLOODSPREAD_HANDS
 
-	time = 32
+	time = 3.2 SECONDS
 
-/datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected)
-		return FALSE
+	if(!(affected.status & ORGAN_INT_BLEEDING))
+		to_chat(user, "<span class='notice'>The veins in [affected] seem to be in perfect shape!</span>")
+		return SURGERY_BEGINSTEP_SKIP
 
-	if(affected.status & ORGAN_INT_BLEEDING)
-		return TRUE
-
-/datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool]." , \
-	"You start patching the damaged vein in [target]'s [affected.name] with \the [tool].")
+	user.visible_message(
+		"[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool].",
+		"You start patching the damaged vein in [target]'s [affected.name] with \the [tool]."
+	)
 	target.custom_pain("The pain in your [affected.name] is unbearable!")
-	..()
+	return ..()
 
-/datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+
+/datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message(
+		"<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>"
+	)
 
 	affected.fix_internal_bleeding()
 	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/fix_vein/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/fix_vein/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>" , \
-	"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
+	user.visible_message(
+		"<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>",
+		"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>"
+	)
 	affected.receive_damage(5, 0)
 
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/fix_dead_tissue		//Debridement
 	name = "remove dead tissue"
 	allowed_tools = list(
-		/obj/item/scalpel = 100,		\
-		/obj/item/kitchen/knife = 90,	\
-		/obj/item/shard = 60, 		\
+		TOOL_SCALPEL = 100,
+		/obj/item/kitchen/knife = 90,
+		/obj/item/shard = 60
 	)
 
 	can_infect = TRUE
-	blood_level = 1
+	blood_level = SURGERY_BLOODSPREAD_HANDS
 
-	time = 16
+	time = 1.6 SECONDS
 
-/datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(!hasorgans(target))
-		return FALSE
-
+/datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-	if(!affected)
-		return FALSE
-
-	if(!(affected.status & ORGAN_DEAD))
-		return FALSE
-	return TRUE
-
-/datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts cutting away necrotic tissue in [target]'s [affected.name] with \the [tool]." , \
-	"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].")
+	user.visible_message(
+		"[user] starts cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].",
+		"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool]."
+	)
 	target.custom_pain("The pain in [affected.name] is unbearable!")
-	..()
+	return ..()
 
-/datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>")
-	affected.open = 3
+	user.visible_message(
+		"<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>"
+	)
+	affected.open = ORGAN_ORGANIC_OPEN
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>", \
-	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")
+	user.visible_message(
+		"<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>"
+	)
 	affected.receive_damage(20)
 
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/treat_necrosis
 	name = "treat necrosis"
@@ -166,46 +156,43 @@
 	)
 
 	can_infect = FALSE
-	blood_level = 0
+	blood_level = SURGERY_BLOODSPREAD_NONE
 
-	time = 24
+	time = 2.4 SECONDS
 
-/datum/surgery_step/treat_necrosis/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(!istype(tool, /obj/item/reagent_containers))
-		return FALSE
 
+/datum/surgery_step/treat_necrosis/tool_check(mob/user, obj/item/tool)
+	. = ..()
 	var/obj/item/reagent_containers/container = tool
 	if(!container.reagents.has_reagent("mitocholide"))
-		user.visible_message("[user] looks at \the [tool] and ponders." , \
-		"You are not sure if \the [tool] contains mitocholide to treat the necrosis.")
+		user.visible_message(
+			"[user] looks at \the [tool] and ponders.",
+			"You are not sure if \the [tool] contains the mitocholide necessary to treat the necrosis.")
 		return FALSE
 
-	if(!hasorgans(target))
-		return FALSE
+/datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
 	if(!(affected.status & ORGAN_DEAD))
-		return FALSE
-	return TRUE
+		to_chat(user, "<span class='warning'>The [affected] seems to already be in fine condition!")
+		return SURGERY_BEGINSTEP_SKIP
 
-/datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]." , \
-	"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].")
+	user.visible_message(
+		"[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
+		"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]."
+	)
 	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
-	..()
+	return ..()
 
-/datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-	if(!istype(tool, /obj/item/reagent_containers))
-		return FALSE
 
 	var/obj/item/reagent_containers/container = tool
-	var/mitocholide = 0
+	var/mitocholide = FALSE
 
 	if(container.reagents.has_reagent("mitocholide"))
-		mitocholide = 1
+		mitocholide = TRUE
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 	if(trans > 0)
@@ -213,25 +200,32 @@
 
 		if(mitocholide)
 			affected.status &= ~ORGAN_DEAD
+			affected.germ_level = 0
 			target.update_body()
 
-		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \
-			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>")
+		user.visible_message(
+			"<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>",
+			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>"
+		)
 
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/treat_necrosis/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/treat_necrosis/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!istype(tool, /obj/item/reagent_containers))
-		return
+		return SURGERY_STEP_INCOMPLETE
 
 	var/obj/item/reagent_containers/container = tool
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 	container.reagents.reaction(target, REAGENT_INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
-	user.visible_message("<span class='warning'> [user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>" , \
-	"<span class='warning'> Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>")
+	user.visible_message(
+		"<span class='warning'> [user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>",
+		"<span class='warning'> Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>"
+	)
 
 	//no damage or anything, just wastes medicine
+
+	return SURGERY_STEP_RETRY

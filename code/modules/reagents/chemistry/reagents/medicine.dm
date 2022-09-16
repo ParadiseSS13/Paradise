@@ -740,6 +740,7 @@
 	taste_description = "life"
 	harmless = FALSE
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
+	var/revive_time = 5 SECONDS // How long it takes for the revive to apply, about the same as a defib
 
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -767,37 +768,54 @@
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return
-				if(!M.ghost_can_reenter())
+
+				var/mob/dead/observer/ghost = M.get_ghost(TRUE)
+				if(ghost && !ghost.can_reenter_corpse || M.suiciding || HAS_TRAIT(M, TRAIT_HUSK) || HAS_TRAIT(M, TRAIT_BADDNA))
 					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
+					M.do_jitter_animation(50)
 					return
 
-				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK) && !HAS_TRAIT(M, TRAIT_BADDNA))
-					var/time_dead = world.time - M.timeofdeath
-					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
-					M.adjustCloneLoss(50)
-					M.setOxyLoss(0)
-					M.adjustBruteLoss(rand(0, 15))
-					M.adjustToxLoss(rand(0, 15))
-					M.adjustFireLoss(rand(0, 15))
-					if(ishuman(M))
-						var/mob/living/carbon/human/H = M
-						H.decaylevel = 0
-						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
-						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
-							// Per non-vital body part:
-							// 0% chance of necrosis within 1 minute of death
-							// 40% chance of necrosis after 20 minutes of death
-							if(!O.vital && prob(necrosis_prob))
-								// side effects may include: Organ failure
-								O.necrotize(FALSE)
-								if(O.status & ORGAN_DEAD)
-									O.germ_level = INFECTION_LEVEL_THREE
-						H.update_body()
+				M.visible_message("<span class='warning'>[M] shakes violently!</span>")
+				if(ghost && ghost.can_reenter_corpse && ghost.client)
+					to_chat(ghost, "<span class='ghostalert'>Your body is being revived with Strange Reagent. Return to your body if you want to be revived!</span>")
+					window_flash(ghost.client)
+					SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
-					M.grab_ghost()
-					M.update_revive()
-					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
+				M.do_jitter_animation(200)
+				addtimer(CALLBACK(src, /datum/reagent/medicine/strange_reagent/.proc/revivify, M), revive_time)
 	..()
+
+/datum/reagent/medicine/strange_reagent/proc/revivify(mob/living/M)
+	var/mob/dead/observer/ghost = M.get_ghost(TRUE) // update to check if they still have a ghost
+	if(ghost) // if the observer is still outside their body
+		M.visible_message("<span class='warning'>[M] stops shaking and falls limp.</span>")
+		return
+
+	var/time_dead = world.time - M.timeofdeath
+	M.adjustCloneLoss(50)
+	M.setOxyLoss(0)
+	M.adjustBruteLoss(rand(0, 15))
+	M.adjustToxLoss(rand(0, 15))
+	M.adjustFireLoss(rand(0, 15))
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.decaylevel = 0
+		var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
+		for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
+			// Per non-vital body part:
+			// 0% chance of necrosis within 1 minute of death
+			// 40% chance of necrosis after 20 minutes of death
+			if(!O.vital && prob(necrosis_prob))
+				// side effects may include: Organ failure
+				O.necrotize(FALSE)
+				if(O.status & ORGAN_DEAD)
+					O.germ_level = INFECTION_LEVEL_THREE
+		H.update_body()
+
+	M.grab_ghost()
+	M.update_revive()
+	M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>", "<span class='userdanger'>You rise from the dead!</span>")
+	add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"

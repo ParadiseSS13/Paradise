@@ -13,6 +13,7 @@
 	var/static/list/collectable_items = list(/obj/item/trash/waffles,
 		/obj/item/trash/plate,
 		/obj/item/trash/tray,
+		/obj/item/trash/snack_bowl,
 		/obj/item/reagent_containers/food/drinks/drinkingglass,
 		/obj/item/kitchen/utensil/fork,
 		/obj/item/shard,
@@ -20,6 +21,7 @@
 	var/static/list/disposable_items = list(/obj/item/trash/waffles,
 		/obj/item/trash/plate,
 		/obj/item/trash/tray,
+		/obj/item/trash/snack_bowl,
 		/obj/item/shard,
 		/obj/item/broken_bottle)
 	var/time_since_dishes = 0
@@ -129,6 +131,4 @@
 		Beam(bin, icon_state = "rped_upgrade", time = 5)
 		bin.update_icon()
 		flick("synthesizer_beam", src)
-	else
-		visible_message("<span class='notice'>There are no disposable items in [src]!</span>")
 	time_since_dishes = world.time + 60 SECONDS

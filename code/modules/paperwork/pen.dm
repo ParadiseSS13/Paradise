@@ -153,7 +153,6 @@
 	if(on)
 		on = FALSE
 		force = initial(force)
-		sharp = FALSE
 		w_class = initial(w_class)
 		name = initial(name)
 		attack_verb = list()
@@ -166,7 +165,6 @@
 	else
 		on = TRUE
 		force = 18
-		sharp = TRUE
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -176,6 +174,7 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 		set_light(brightness_on, 1)
+	set_sharpness(on)
 	update_icon()
 
 /obj/item/pen/edagger/update_icon_state()

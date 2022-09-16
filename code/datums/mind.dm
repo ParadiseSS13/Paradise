@@ -1539,6 +1539,17 @@
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
 	QDEL_LIST(antag_datums)
 
+/// This proc sets the hijack speed for a mob. If greater than zero, they can hijack. Outputs in seconds.
+/datum/mind/proc/get_hijack_speed()
+	var/hijack_speed = 0
+	if(special_role)
+		hijack_speed = 15 SECONDS
+	if(locate(/datum/objective/hijack) in get_all_objectives())
+		hijack_speed = 10 SECONDS
+	return hijack_speed
+
+
+
 /**
  * Returns an antag datum instance if the src mind has the specified `datum_type`. Returns `null` otherwise.
  *
