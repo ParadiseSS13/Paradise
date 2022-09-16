@@ -195,14 +195,12 @@ const OreLine = (properties, context) => {
     <Box className="OreLine">
       <Flex width="100%">
         <Flex.Item basis="45%" align="center">
-          {ore.value && (
             <Box
               as="img"
               src={'sheet-' + (iconNameOverrides[cleanId] || cleanId) + '.png'}
               verticalAlign="middle"
               ml="-0.5rem"
             />
-          )}
           {ore.name}
         </Flex.Item>
         <Flex.Item
