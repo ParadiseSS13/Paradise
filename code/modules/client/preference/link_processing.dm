@@ -963,6 +963,12 @@
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()
 
+				if("thought_bubble")
+					toggles2 ^= PREFTOGGLE_2_THOUGHT_BUBBLE
+					if(length(parent?.screen))
+						var/obj/screen/plane_master/point/PM = locate(/obj/screen/plane_master/point) in parent.screen
+						PM.backdrop(parent.mob)
+
 				if("be_special")
 					var/r = href_list["role"]
 					if(r in GLOB.special_roles)
