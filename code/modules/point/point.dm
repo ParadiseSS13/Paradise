@@ -11,7 +11,7 @@
 	if(!isturf(loc))
 		return
 
-	if(pointed_atom in src)
+	if((pointed_atom in src) || (pointed_atom.loc in src))
 		create_point_bubble(pointed_atom)
 		return
 
@@ -98,8 +98,12 @@
 	set name = "Point To"
 	set category = "Object"
 
-	if(istype(A, /obj/effect/temp_visual/point))
+	if(istype(A, /obj/effect/temp_visual/point) || istype(A, /atom/movable/emissive_blocker))
 		return FALSE
+
+	if(A.loc in src) // Object is inside a container on the mob. It's not part of the verb's list since it's not in view and requires middle clicking.
+		point_at(A)
+		return TRUE
 
 	if(client && !(A in view(client.view, src)))
 		return FALSE
