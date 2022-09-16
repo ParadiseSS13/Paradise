@@ -39743,6 +39743,7 @@
 	pixel_y = 32;
 	name = "north bump"
 	},
+/obj/machinery/smartfridge/id,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bTd" = (
