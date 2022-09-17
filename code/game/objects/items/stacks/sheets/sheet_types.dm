@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("bronze ashtray", /obj/item/ashtray/bronze, 1, time = 10),
 	null,
 	new /datum/stack_recipe_list("office chairs",list(
 		new /datum/stack_recipe("dark office chair", /obj/structure/chair/office/dark, 5, one_per_turf = 1, on_floor = 1),
@@ -529,7 +530,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle), \
 	new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2), \
 	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 1, time = 10), \
 	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic spoon", /obj/item/kitchen/utensil/pspoon, 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic spork", /obj/item/kitchen/utensil/pspork, 1, on_floor = 1), \
