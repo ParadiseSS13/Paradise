@@ -153,7 +153,9 @@
 	addtimer(CALLBACK(src, .proc/Impregnate, M), impregnation_time)
 	return TRUE
 
-/obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
+/obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target)
+	flags &= ~NODROP
+
 	if(!target || target.stat == DEAD || loc != target) //was taken off or something
 		return
 
@@ -165,14 +167,13 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(!H.check_has_mouth())
-			flags &= ~NODROP
+			target.show_message("<span class='notice'>[src] relaxes its grip on your head... it seems indifferent to you.</span>")
 			return
 
 	if(!sterile)
 		//target.contract_disease(new /datum/disease/alien_embryo(0)) //so infection chance is same as virus infection chance
 		target.visible_message("<span class='danger'>[src] falls limp after violating [target]'s face!</span>", \
 								"<span class='userdanger'>[src] falls limp after violating [target]'s face!</span>")
-		flags &= ~NODROP
 		Die()
 		icon_state = "[initial(icon_state)]_impregnated"
 
