@@ -150,32 +150,32 @@
 
 /datum/gear/uniform/skirt/job/roboticist
 	display_name = "Skirt, roboticist"
-	path = /obj/item/clothing/under/rank/roboticist/skirt
+	path = /obj/item/clothing/under/rank/rnd/roboticist/skirt
 	allowed_roles = list("Research Director","Roboticist")
 
 /datum/gear/uniform/skirt/job/cmo
 	display_name = "Skirt, cmo"
-	path = /obj/item/clothing/under/rank/chief_medical_officer/skirt
+	path = /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt
 	allowed_roles = list("Chief Medical Officer")
 
 /datum/gear/uniform/skirt/job/chem
 	display_name = "Skirt, chemist"
-	path = /obj/item/clothing/under/rank/chemist/skirt
+	path = /obj/item/clothing/under/rank/medical/chemist/skirt
 	allowed_roles = list("Chief Medical Officer","Chemist")
 
 /datum/gear/uniform/skirt/job/viro
 	display_name = "Skirt, virologist"
-	path = /obj/item/clothing/under/rank/virologist/skirt
+	path = /obj/item/clothing/under/rank/medical/virologist/skirt
 	allowed_roles = list("Virologist")
 
 /datum/gear/uniform/skirt/job/med
 	display_name = "Skirt, medical"
-	path = /obj/item/clothing/under/rank/medical/skirt
+	path = /obj/item/clothing/under/rank/medical/doctor/skirt
 	allowed_roles = list("Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Coroner")
 
 /datum/gear/uniform/skirt/job/sci
 	display_name = "Skirt, scientist"
-	path = /obj/item/clothing/under/rank/scientist/skirt
+	path = /obj/item/clothing/under/rank/rnd/scientist/skirt
 	allowed_roles = list("Research Director","Scientist")
 
 /datum/gear/uniform/skirt/job/cargo
@@ -219,12 +219,12 @@
 
 /datum/gear/uniform/medical/pscrubs
 	display_name = "Medical scrubs, purple"
-	path = /obj/item/clothing/under/rank/medical/purple
+	path = /obj/item/clothing/under/rank/medical/scrubs/purple
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
 /datum/gear/uniform/medical/gscrubs
 	display_name = "Medical scrubs, green"
-	path = /obj/item/clothing/under/rank/medical/green
+	path = /obj/item/clothing/under/rank/medical/scrubs/green
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
 /datum/gear/uniform/sec

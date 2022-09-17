@@ -297,7 +297,7 @@
 	name = "RT Medic"
 	rt_job = "Emergency Response Team Medic"
 	rt_mob_job = "ERT Medical"
-	uniform = /obj/item/clothing/under/rank/medical
+	uniform = /obj/item/clothing/under/rank/medical/doctor
 	back = /obj/item/storage/backpack/ert/medical
 	pda = /obj/item/pda/heads/ert/medical
 	id = /obj/item/card/id/ert/medic

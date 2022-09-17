@@ -52173,13 +52173,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cyK" = (
-/obj/item/clothing/under/rank/medical/purple,
+/obj/item/clothing/under/rank/medical/scrubs/purple,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cyM" = (
-/obj/item/clothing/under/medigown,
+/obj/item/clothing/under/rank/medical/gown,
 /obj/structure/table/tray,
 /obj/item/hemostat{
 	pixel_x = 6
@@ -71825,7 +71825,7 @@
 "fWJ" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/under/rank/nursesuit,
+/obj/item/clothing/under/rank/medical/nursesuit,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -75497,7 +75497,7 @@
 "iNe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/item/clothing/under/rank/medical/blue,
+/obj/item/clothing/under/rank/medical/scrubs,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -28
@@ -85422,7 +85422,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/backpack/duffel/medical,
-/obj/item/clothing/under/rank/nurse,
+/obj/item/clothing/under/rank/medical/nurse,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "rfh" = (

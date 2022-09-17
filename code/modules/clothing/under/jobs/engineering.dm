@@ -50,17 +50,3 @@
 	icon_state = "enginef"
 	item_color = "enginef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-
-/obj/item/clothing/under/rank/roboticist
-	desc = "It's a slimming black with reinforced seams; great for industrial work."
-	name = "roboticist's jumpsuit"
-	icon_state = "robotics"
-	item_state = "robotics"
-	item_color = "robotics"
-	resistance_flags = NONE
-
-/obj/item/clothing/under/rank/roboticist/skirt
-	desc = "It's a slimming black jumpskirt with reinforced seams; great for industrial work."
-	name = "roboticist's jumpskirt"
-	icon_state = "roboticsf"
-	item_color = "roboticsf"

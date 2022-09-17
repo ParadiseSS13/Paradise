@@ -91,7 +91,7 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the research director."
 
 /obj/item/storage/bag/garment/research_director/populate_contents()
-	new /obj/item/clothing/under/rank/research_director(src)
+	new /obj/item/clothing/under/rank/rnd/research_director(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/suit/mantle/labcoat(src)
 	new /obj/item/clothing/shoes/white(src)
@@ -106,10 +106,10 @@
 	new /obj/item/clothing/head/surgery/blue(src)
 	new /obj/item/clothing/head/surgery/green(src)
 	new /obj/item/clothing/head/surgery/purple(src)
-	new /obj/item/clothing/under/rank/chief_medical_officer(src)
-	new /obj/item/clothing/under/rank/medical/blue(src)
-	new /obj/item/clothing/under/rank/medical/green(src)
-	new /obj/item/clothing/under/rank/medical/purple(src)
+	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
+	new /obj/item/clothing/under/rank/medical/scrubs(src)
+	new /obj/item/clothing/under/rank/medical/scrubs/green(src)
+	new /obj/item/clothing/under/rank/medical/scrubs/purple(src)
 	new /obj/item/clothing/suit/storage/labcoat/cmo(src)
 	new /obj/item/clothing/suit/mantle/labcoat/chief_medical_officer(src)
 	new /obj/item/clothing/shoes/white(src)

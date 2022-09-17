@@ -1662,7 +1662,7 @@
 	icon_deny = "robotics_deny"
 	icon_lightmask = "robotics"
 	req_access_txt = "29"
-	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 4,
+	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/rnd/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 4,
 					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
 					/obj/item/scalpel = 2,/obj/item/circular_saw = 2,/obj/item/tank/internals/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
 					/obj/item/screwdriver = 5,/obj/item/crowbar = 5)
@@ -1974,13 +1974,13 @@
 	icon_addon = "medidrobe"
 	ads_list = list("Make those blood stains look fashionable!")
 	vend_reply = "Thank you for using the MediDrobe!"
-	products = list(/obj/item/clothing/under/rank/medical = 3,
-					/obj/item/clothing/under/rank/medical/skirt = 3,
-					/obj/item/clothing/under/rank/medical/blue = 3,
-					/obj/item/clothing/under/rank/medical/green = 3,
-					/obj/item/clothing/under/rank/medical/purple = 3,
-					/obj/item/clothing/under/rank/nurse = 3,
-					/obj/item/clothing/under/medigown = 3,
+	products = list(/obj/item/clothing/under/rank/medical/doctor = 3,
+					/obj/item/clothing/under/rank/medical/doctor/skirt = 3,
+					/obj/item/clothing/under/rank/medical/scrubs = 3,
+					/obj/item/clothing/under/rank/medical/scrubs/green = 3,
+					/obj/item/clothing/under/rank/medical/scrubs/purple = 3,
+					/obj/item/clothing/under/rank/medical/nurse = 3,
+					/obj/item/clothing/under/rank/medical/gown = 3,
 					/obj/item/clothing/head/beret/med = 3,
 					/obj/item/clothing/head/surgery/blue = 3,
 					/obj/item/clothing/head/surgery/green = 3,
@@ -2010,8 +2010,8 @@
 	icon_addon = "virodrobe"
 	ads_list = list("Viruses getting you down? Nothing a change of clothes can't fix!", "Upgrade to sterilized clothing today!")
 	vend_reply = "Thank you for using the ViroDrobe!"
-	products = list(/obj/item/clothing/under/rank/virologist = 2,
-					/obj/item/clothing/under/rank/virologist/skirt = 2,
+	products = list(/obj/item/clothing/under/rank/medical/virologist = 2,
+					/obj/item/clothing/under/rank/medical/virologist/skirt = 2,
 					/obj/item/clothing/head/beret/med = 2,
 					/obj/item/clothing/suit/storage/labcoat/virologist = 2,
 					/obj/item/clothing/accessory/armband/med = 2,
@@ -2034,8 +2034,8 @@
 	icon_addon = "chemdrobe"
 	ads_list = list("Our clothes are 0.5% more resistant to acid spills! Get yours now!")
 	vend_reply = "Thank you for using the ChemDrobe!"
-	products = list(/obj/item/clothing/under/rank/chemist = 2,
-					/obj/item/clothing/under/rank/chemist/skirt = 2,
+	products = list(/obj/item/clothing/under/rank/medical/chemist = 2,
+					/obj/item/clothing/under/rank/medical/chemist/skirt = 2,
 					/obj/item/clothing/head/beret/med = 2,
 					/obj/item/clothing/suit/storage/labcoat/chemist = 2,
 					/obj/item/clothing/accessory/armband/med = 2,
@@ -2059,7 +2059,7 @@
 	icon_addon = "genedrobe"
 	ads_list = "Perfect for the mad scientist in you!"
 	vend_reply = "Thank you for using the GeneDrobe!"
-	products = list(/obj/item/clothing/under/rank/geneticist = 3,
+	products = list(/obj/item/clothing/under/rank/rnd/geneticist = 3,
 					/obj/item/clothing/suit/storage/labcoat/genetics = 3,
 					/obj/item/clothing/shoes/laceup = 3,
 					/obj/item/clothing/shoes/white = 3,
@@ -2079,8 +2079,8 @@
 	icon_addon = "scidrobe"
 	ads_list = list("Longing for the smell of plasma burnt flesh?", "Buy your science clothing now!", "Made with 10% Auxetics, so you don't have to worry about losing your arm!")
 	vend_reply = "Thank you for using the SciDrobe!"
-	products = list(/obj/item/clothing/under/rank/scientist = 6,
-					/obj/item/clothing/under/rank/scientist/skirt = 3,
+	products = list(/obj/item/clothing/under/rank/rnd/scientist = 6,
+					/obj/item/clothing/under/rank/rnd/scientist/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/science = 3,
 					/obj/item/clothing/suit/storage/labcoat/science = 3,
 					/obj/item/clothing/head/beret/sci = 3,
@@ -2104,8 +2104,8 @@
 	icon_addon = "robodrobe"
 	ads_list = list("You turn me TRUE, use defines!","0110001101101100011011110111010001101000011001010111001101101000011001010111001001100101")
 	vend_reply = "Thank you for using the RoboDrobe!"
-	products = list(/obj/item/clothing/under/rank/roboticist = 3,
-					/obj/item/clothing/under/rank/roboticist/skirt = 3,
+	products = list(/obj/item/clothing/under/rank/rnd/roboticist = 3,
+					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 3,
 					/obj/item/clothing/suit/storage/labcoat = 3,
 					/obj/item/clothing/head/soft/black = 3,
 					/obj/item/clothing/gloves/fingerless = 3,

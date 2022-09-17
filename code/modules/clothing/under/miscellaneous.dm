@@ -444,12 +444,6 @@
 	icon_state = "dress_saloon"
 	item_color = "dress_saloon"
 
-/obj/item/clothing/under/dress/dress_rd
-	name = "research director's dress uniform"
-	desc = "Feminine fashion for the style concious RD."
-	icon_state = "dress_rd"
-	item_color = "dress_rd"
-
 /obj/item/clothing/under/dress/dress_cap
 	name = "captain's dress"
 	desc = "Feminine fashion for the style concious captain."
@@ -810,14 +804,6 @@
 	icon_state = "victorianredvest"
 	item_state = "victorianredvest"
 	item_color = "victorianredvest"
-
-/obj/item/clothing/under/medigown
-	name = "medical gown"
-	desc = "a flimsy examination gown, the back ties never close."
-	icon_state = "medicalgown"
-	item_state = "medicalgown"
-	item_color = "medicalgown"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/burial
 	name = "burial garments"
