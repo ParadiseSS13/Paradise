@@ -21,7 +21,7 @@
 				M.AdjustConfused(40 SECONDS)
 				M.Jitter(100 SECONDS)
 			else
-				SEND_SOUND(M, sound('sound/effects/screech.ogg'))
+				SEND_SOUND(M, sound('sound/effects/Ling_Resonant.ogg'))
 
 		if(issilicon(M))
 			SEND_SOUND(M, sound('sound/weapons/flash.ogg'))
@@ -44,6 +44,8 @@
 
 //A flashy ability, good for crowd control and sewing chaos.
 /datum/action/changeling/dissonant_shriek/sting_action(mob/user)
+	for(var/mob/living/M in get_mobs_in_view(4, user))
+		SEND_SOUND(M, sound('sound/effects/Ling_Dissonant.ogg'))
 	for(var/obj/machinery/light/L in range(5, usr))
 		L.on = TRUE
 		L.break_light_tube()
