@@ -663,8 +663,8 @@
 
 /**
   * # Disk Compartmentalizer
-  * # Identification Compartmentalizer
-  * Variants of the [Smart Fridge][/obj/machinery/smartfridge].
+  *
+  * Disk variant of the [Smart Fridge][/obj/machinery/smartfridge].
   */
 /obj/machinery/smartfridge/disks
 	name = "disk compartmentalizer"
