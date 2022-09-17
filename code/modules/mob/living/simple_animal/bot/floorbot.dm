@@ -332,27 +332,31 @@
 		addtimer(CALLBACK(src, .proc/make_bridge_plating, F), 5 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
-	if(mode == BOT_REPAIRING)
-		F.broken = FALSE
-		F.burnt = FALSE
-		F.ChangeTurf(/turf/simulated/floor/plasteel)
-		mode = BOT_IDLE
-		amount -= 1
-		update_icon(UPDATE_ICON_STATE)
-		anchored = FALSE
-		target = null
+	if(mode != BOT_REPAIRING)
+		return
+
+	F.broken = FALSE
+	F.burnt = FALSE
+	F.ChangeTurf(/turf/simulated/floor/plasteel)
+	mode = BOT_IDLE
+	amount--
+	update_icon(UPDATE_ICON_STATE)
+	anchored = FALSE
+	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
-	if(mode == BOT_REPAIRING)
-		if(autotile) //Build the floor and include a tile.
-			target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
-		else //Build a hull plating without a floor tile.
-			target_turf.ChangeTurf(/turf/simulated/floor/plating)
-		mode = BOT_IDLE
-		amount -= 1
-		update_icon(UPDATE_ICON_STATE)
-		anchored = FALSE
-		target = null
+	if(mode != BOT_REPAIRING)
+		return
+
+	if(autotile) //Build the floor and include a tile.
+		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
+	else //Build a hull plating without a floor tile.
+		target_turf.ChangeTurf(/turf/simulated/floor/plating)
+	mode = BOT_IDLE
+	amount--
+	update_icon(UPDATE_ICON_STATE)
+	anchored = FALSE
+	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/start_eattile(obj/item/stack/tile/plasteel/T)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
