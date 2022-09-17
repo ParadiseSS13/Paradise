@@ -54,7 +54,7 @@
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
-	if(stage < 4 && world.time > last_stage_progress + incubation_time_per_stage) //Time for incubation is increased or decreased by a deviation of 15%, then we check to see if we've passed the threshold to goto our next stage of development
+	if(stage < 4 && world.time > last_stage_progress + incubation_deviation) //Time for incubation is increased or decreased by a deviation of 15%, then we check to see if we've passed the threshold to goto our next stage of development
 		stage++
 		RefreshInfectionImage()
 		last_stage_progress = world.time
