@@ -1,10 +1,18 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dyeable = TRUE
+	icon = 'icons/obj/clothing/under/color.dmi'
+
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/color.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
+		)
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	. = ..()
-	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color/blackf, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball, /obj/item/clothing/under/color/red/jersey, /obj/item/clothing/under/color/blue/jersey)
+	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball, /obj/item/clothing/under/color/red/jersey, /obj/item/clothing/under/color/blue/jersey)
 	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - excluded)
 	name = initial(C.name)
 	icon_state = initial(C.icon_state)
@@ -17,13 +25,6 @@
 	item_state = "bl_suit"
 	item_color = "black"
 	resistance_flags = NONE
-
-/obj/item/clothing/under/color/blackf
-	name = "feminine black jumpsuit"
-	desc = "It's very smart and in a ladies-size!"
-	icon_state = "black"
-	item_state = "bl_suit"
-	item_color = "blackf"
 
 /obj/item/clothing/under/color/blue
 	name = "blue jumpsuit"
@@ -107,10 +108,6 @@
 	desc = "Groovy!"
 	icon_state = "psyche"
 	item_color = "psyche"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"
