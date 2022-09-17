@@ -802,7 +802,7 @@
 /datum/outfit/admin/sol_trader
 	name = "Sol Trader"
 
-	uniform = /obj/item/clothing/under/rank/cargotech
+	uniform = /obj/item/clothing/under/rank/cargo/tech
 	back = /obj/item/storage/backpack/industrial
 	belt = /obj/item/melee/classic_baton
 	head = /obj/item/clothing/head/soft

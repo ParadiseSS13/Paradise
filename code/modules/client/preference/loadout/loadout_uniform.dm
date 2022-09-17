@@ -180,7 +180,7 @@
 
 /datum/gear/uniform/skirt/job/cargo
 	display_name = "Skirt, cargo"
-	path = /obj/item/clothing/under/rank/cargotech/skirt
+	path = /obj/item/clothing/under/rank/cargo/tech/skirt
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
 /datum/gear/uniform/skirt/job/qm

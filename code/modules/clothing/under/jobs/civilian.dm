@@ -28,33 +28,6 @@
 	item_state = "by_suit"
 	item_color = "captain_parade"
 
-/obj/item/clothing/under/rank/cargo
-	name = "quartermaster's jumpsuit"
-	desc = "It's a jumpsuit worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
-	icon_state = "qm"
-	item_state = "lb_suit"
-	item_color = "qm"
-
-/obj/item/clothing/under/rank/cargo/skirt
-	name = "quartermaster's jumpskirt"
-	desc = "It's a jumpskirt worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
-	icon_state = "qmf"
-	item_color = "qmf"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-
-/obj/item/clothing/under/rank/cargotech
-	name = "cargo technician's jumpsuit"
-	desc = "Shooooorts! They're comfy and easy to wear!"
-	icon_state = "cargotech"
-	item_state = "lb_suit"
-	item_color = "cargo"
-
-/obj/item/clothing/under/rank/cargotech/skirt
-	name = "cargo technician's jumpskirt"
-	desc = "Skirrrrrts! They're comfy and easy to wear!"
-	icon_state = "cargof"
-	item_color = "cargof"
-
 /obj/item/clothing/under/rank/chaplain
 	desc = "It's a black jumpsuit, often worn by religious folk."
 	name = "chaplain's jumpsuit"
@@ -213,22 +186,6 @@
 
 /obj/item/clothing/under/mime/nodrop
 	flags = NODROP
-
-/obj/item/clothing/under/rank/miner
-	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
-	name = "shaft miner's jumpsuit"
-	icon_state = "miner"
-	item_state = "miner"
-	item_color = "miner"
-
-/obj/item/clothing/under/rank/miner/lavaland
-	desc = "A green uniform for operating in hazardous environments."
-	name = "shaft miner's jumpsuit"
-	icon_state = "explorer"
-	item_state = "explorer"
-	item_color = "explorer"
-
-	sprite_sheets = list()
 
 /obj/item/clothing/under/barber
 	desc = "It's a barber's uniform."

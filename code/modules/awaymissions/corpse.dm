@@ -468,7 +468,7 @@
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
-	uniform = /obj/item/clothing/under/rank/miner
+	uniform = /obj/item/clothing/under/rank/cargo/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_cargo/mining

@@ -348,7 +348,7 @@
 	switch(type)
 		if("Miner")
 			mob_species = pickweight(list(/datum/species/human = 72, /datum/species/unathi = 28))
-			uniform = /obj/item/clothing/under/rank/miner/lavaland
+			uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 			if(prob(4))
 				belt = pickweight(list(/obj/item/storage/belt/mining = 2, /obj/item/storage/belt/mining/alt = 2))
 			else if(prob(10))

@@ -5,8 +5,8 @@
 	open_door_sprite = "mining_door"
 
 /obj/structure/closet/secure_closet/cargotech/populate_contents()
-	new /obj/item/clothing/under/rank/cargotech(src)
-	new /obj/item/clothing/under/rank/cargotech/skirt(src)
+	new /obj/item/clothing/under/rank/cargo/tech(src)
+	new /obj/item/clothing/under/rank/cargo/tech/skirt(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/gloves/fingerless(src)

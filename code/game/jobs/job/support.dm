@@ -17,7 +17,7 @@
 	name = "Quartermaster"
 	jobtype = /datum/job/qm
 
-	uniform = /obj/item/clothing/under/rank/cargo
+	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -45,7 +45,7 @@
 	name = "Cargo Technician"
 	jobtype = /datum/job/cargo_tech
 
-	uniform = /obj/item/clothing/under/rank/cargotech
+	uniform = /obj/item/clothing/under/rank/cargo/tech
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
@@ -75,7 +75,7 @@
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black
-	uniform = /obj/item/clothing/under/rank/miner/lavaland
+	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 	l_pocket = /obj/item/reagent_containers/hypospray/autoinjector/survival
 	r_pocket = /obj/item/storage/bag/ore
 	id = /obj/item/card/id/supply
