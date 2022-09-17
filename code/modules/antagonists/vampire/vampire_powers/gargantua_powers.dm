@@ -14,12 +14,17 @@
 
 /obj/effect/proc_holder/spell/vampire/self/stomp
 	name = "Seismic Stomp (30)"
-	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away."
+	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away. Cannot be cast if you legs are impared by a bola or similar."
 	gain_desc = "You have gained the ability to knock people back using a powerful stomp."
 	action_icon_state = "seismic_stomp"
 	base_cooldown = 60 SECONDS
 	required_blood = 30
 	var/max_range = 4
+
+/obj/effect/proc_holder/spell/vampire/self/stomp/can_cast(mob/living/carbon/user, charge_check, show_message)
+	if(user.legcuffed)
+		return FALSE
+	return ..()
 
 /obj/effect/proc_holder/spell/vampire/self/stomp/cast(list/targets, mob/user)
 	var/turf/T = get_turf(user)
@@ -28,7 +33,8 @@
 	new /obj/effect/temp_visual/stomp(T)
 
 /obj/effect/proc_holder/spell/vampire/self/stomp/proc/hit_check(range, turf/start_turf, mob/user, safe_targets = list())
-	var/list/targets = view(range, start_turf) - view(range - 1, start_turf)
+	// gets the two outermost turfs in a ring, we get two so people cannot "walk over" the shockwave
+	var/list/targets = view(range, start_turf) - view(range - 2, start_turf)
 	for(var/turf/simulated/floor/flooring in targets)
 		if(prob(100 - (range * 20)))
 			flooring.ex_act(EXPLODE_LIGHT)
