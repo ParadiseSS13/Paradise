@@ -34926,7 +34926,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bHf" = (
-/obj/item/clothing/under/rank/security2,
+/obj/item/clothing/under/rank/security/officer/uniform,
 /obj/structure/closet/cabinet,
 /obj/item/clothing/head/officer,
 /turf/simulated/floor/plasteel{

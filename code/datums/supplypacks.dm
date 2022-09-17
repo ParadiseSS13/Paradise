@@ -480,13 +480,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/securityclothes
 	name = "Security Clothing Crate"
-	contains = list(/obj/item/clothing/under/rank/security/corp,
-					/obj/item/clothing/under/rank/security/corp,
+	contains = list(/obj/item/clothing/under/rank/security/officer/corporate,
+					/obj/item/clothing/under/rank/security/officer/corporate,
 					/obj/item/clothing/head/soft/sec/corp,
 					/obj/item/clothing/head/soft/sec/corp,
-					/obj/item/clothing/under/rank/warden/corp,
+					/obj/item/clothing/under/rank/security/warden/corporate,
 					/obj/item/clothing/head/beret/sec/warden,
-					/obj/item/clothing/under/rank/head_of_security/corp,
+					/obj/item/clothing/under/rank/security/head_of_security/corporate,
 					/obj/item/clothing/head/HoS/beret)
 	cost = 30
 	containername = "security clothing crate"

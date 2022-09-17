@@ -190,17 +190,17 @@
 
 /datum/gear/uniform/skirt/job/warden
 	display_name = "Skirt, warden"
-	path = /obj/item/clothing/under/rank/warden/skirt
+	path = /obj/item/clothing/under/rank/security/warden/skirt
 	allowed_roles = list("Head of Security", "Warden")
 
 /datum/gear/uniform/skirt/job/security
 	display_name = "Skirt, security"
-	path = /obj/item/clothing/under/rank/security/skirt
+	path = /obj/item/clothing/under/rank/security/officer/skirt
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/uniform/skirt/job/head_of_security
 	display_name = "Skirt, hos"
-	path = /obj/item/clothing/under/rank/head_of_security/skirt
+	path = /obj/item/clothing/under/rank/security/head_of_security/skirt
 	allowed_roles = list("Head of Security")
 
 /datum/gear/uniform/skirt/job/ntrep
@@ -237,17 +237,17 @@
 
 /datum/gear/uniform/sec/secorporate
 	display_name = "Security uniform, corporate"
-	path = /obj/item/clothing/under/rank/security/corp
+	path = /obj/item/clothing/under/rank/security/officer/corporate
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/uniform/sec/dispatch
 	display_name = "Security uniform, dispatch"
-	path = /obj/item/clothing/under/rank/dispatch
+	path = /obj/item/clothing/under/rank/security/officer/dispatch
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/uniform/sec/casual
 	display_name = "Security uniform, casual"
-	path = /obj/item/clothing/under/rank/security2
+	path = /obj/item/clothing/under/rank/security/officer/uniform
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective")
 
 /datum/gear/uniform/shorts

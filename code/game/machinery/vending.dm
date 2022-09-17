@@ -1905,15 +1905,15 @@
 	icon_panel = "drobe"
 	ads_list = list("Beat perps in style!", "It's red so you can't see the blood!", "You have the right to be fashionable!", "Now you can be the fashion police you always wanted to be!")
 	vend_reply = "Thank you for using the SecDrobe!"
-	products = list(/obj/item/clothing/under/rank/security/corp = 4,
-					/obj/item/clothing/under/rank/security/skirt/corp = 4,
-					/obj/item/clothing/under/rank/dispatch = 4,
-					/obj/item/clothing/under/rank/security/skirt = 4,
-					/obj/item/clothing/under/rank/security = 4,
-					/obj/item/clothing/under/rank/security2 = 4,
+	products = list(/obj/item/clothing/under/rank/security/officer/corporate = 4,
+					/obj/item/clothing/under/rank/security/officer/skirt/corporate = 4,
+					/obj/item/clothing/under/rank/security/officer/dispatch = 4,
+					/obj/item/clothing/under/rank/security/officer/skirt = 4,
+					/obj/item/clothing/under/rank/security/officer = 4,
+					/obj/item/clothing/under/rank/security/officer/uniform = 4,
 					/obj/item/clothing/under/rank/security/formal = 4,
-					/obj/item/clothing/under/rank/security/fancy = 4,
-					/obj/item/clothing/under/rank/security/skirt/fancy = 4,
+					/obj/item/clothing/under/rank/security/officer/fancy = 4,
+					/obj/item/clothing/under/rank/security/officer/skirt/fancy = 4,
 					/obj/item/clothing/head/soft/sec/corp = 4,
 					/obj/item/clothing/head/officer = 4,
 					/obj/item/clothing/head/beret/sec = 4,
@@ -1945,7 +1945,7 @@
 	icon_panel = "drobe"
 	ads_list = list("Apply your brilliant deductive methods in style!", "They already smell of cigarettes!")
 	vend_reply = "Thank you for using the DetDrobe!"
-	products = list(/obj/item/clothing/under/det = 2,
+	products = list(/obj/item/clothing/under/rank/security/detective = 2,
 					/obj/item/clothing/suit/storage/det_suit = 2,
 					/obj/item/clothing/suit/storage/det_suit/forensics/red = 1,
 					/obj/item/clothing/suit/storage/det_suit/forensics/blue = 1,
