@@ -1,4 +1,5 @@
 #define TURF_FIND_TRIES 10
+
 /datum/event/anomaly
 	name = "Anomaly: Energetic Flux"
 	var/obj/effect/anomaly/anomaly_path = /obj/effect/anomaly/flux
