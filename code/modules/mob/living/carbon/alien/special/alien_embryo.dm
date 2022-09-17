@@ -7,7 +7,7 @@
 	icon_state = "larva0_dead"
 	var/stage = 0
 	var/polling = FALSE
-	var/incubation_time_per_stage = 7 //How long it takes for an alien embryo to advance a stage in it's development// Pretend this is 70 seconds it basically is I swear
+	var/incubation_time_per_stage = 70 SECONDS //How long it takes for an alien embryo to advance a stage in it's development// Pretend this is 70 seconds it basically is I swear
 	var/incubation_deviation = 0 //The random deviation for how long the incubation period per stage will take, ranging from -15% to +15. NOTE! If you have a better name for this var, I'd love it
 	var/last_stage_progress = 0 //Used to keep track of when incubation progressed to the next stage
 
@@ -25,7 +25,7 @@
 	return S
 
 /obj/item/organ/internal/body_egg/alien_embryo/on_life() //I'm gonna do something about this, I swear
-	incubation_deviation = rand(85, 115) //The actual deviation location
+	incubation_deviation = PERCENT_OF(rand(85, 115), incubation_time_per_stage) //The actual deviation location, and where the magic happens
 	switch(stage)
 		if(2)
 			if(prob(2))
@@ -50,11 +50,11 @@
 				if(prob(20))
 					owner.adjustToxLoss(1)
 		if(4)
-			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your chest...</span>") //Every 2 seconds take 10 toxin damage... wtf
+			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your chest...</span>")
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
-	if(stage < 4 && world.time > last_stage_progress + incubation_time_per_stage * incubation_deviation) //Time for incubation is increased or decreased by a deviation of 15%, then we check to see if we've passed the threshold to goto our next stage of development
+	if(stage < 4 && world.time > last_stage_progress + incubation_time_per_stage) //Time for incubation is increased or decreased by a deviation of 15%, then we check to see if we've passed the threshold to goto our next stage of development
 		stage++
 		RefreshInfectionImage()
 		last_stage_progress = world.time
