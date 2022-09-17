@@ -38,6 +38,10 @@
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/suit/jacket/miningbomber(src)
+	new /obj/item/clothing/suit/jacket/miningbomber(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"

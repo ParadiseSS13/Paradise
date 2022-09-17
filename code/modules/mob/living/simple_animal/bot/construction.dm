@@ -405,7 +405,7 @@
 					if(!syndicate_aligned)
 						var/mob/living/simple_animal/bot/medbot/S = new /mob/living/simple_animal/bot/medbot(T, skin)
 						S.name = created_name
-						S.bot_core.req_one_access = req_one_access
+						S.req_access = req_one_access
 						S.treatment_oxy = treatment_oxy
 						S.treatment_brute = treatment_brute
 						S.treatment_fire = treatment_fire

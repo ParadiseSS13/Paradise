@@ -23,10 +23,15 @@
 	tool_behaviour = TOOL_SCREWDRIVER
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
+/obj/item/screwdriver/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/surgery_initiator/robo)
+
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
 	desc = "A screwdriver with an ultra thin tip."
 	icon_state = "screwdriver_nuke"
+	belt_icon = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
 
@@ -40,6 +45,7 @@
 		if(!param_color)
 			param_color = pick("red","blue","pink","brown","green","cyan","yellow")
 		icon_state = "screwdriver_[param_color]"
+		belt_icon = "screwdriver_[param_color]"
 
 	if (prob(75))
 		src.pixel_y = rand(0, 16)
@@ -87,6 +93,10 @@
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.25
 	random_color = FALSE
+
+/obj/item/screwdriver/power/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/screwdriver/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")

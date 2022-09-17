@@ -59,7 +59,7 @@
 			if(animation)
 				qdel(animation)
 			var/sound
-			if(istype(src, /mob/living/simple_animal/slaughter))
+			if(isslaughterdemon(src))
 				var/mob/living/simple_animal/slaughter/SD = src
 				sound = SD.feast_sound
 			else
@@ -133,7 +133,7 @@
 	animation.master = B.loc
 	animation.dir = dir
 
-	if(prob(25) && istype(src, /mob/living/simple_animal/slaughter))
+	if(prob(25) && isslaughterdemon(src))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
 		playsound(get_turf(src), pick(voice),50, 1, -1)
 	visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")

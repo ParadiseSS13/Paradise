@@ -433,6 +433,10 @@
 	pixel_y = -12
 	layer = ABOVE_ALL_MOB_LAYER
 
+/obj/structure/flora/junglebush/large/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, 0, 0, 0, 0)
+
 /obj/structure/flora/rock/pile/largejungle
 	name = "rocks"
 	icon_state = "rocks1"

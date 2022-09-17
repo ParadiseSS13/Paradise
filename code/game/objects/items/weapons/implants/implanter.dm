@@ -11,6 +11,7 @@
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
 	toolspeed = 1
 	var/obj/item/implant/imp
+	var/obj/item/implant/implant_type
 
 /obj/item/implanter/update_icon_state()
 	if(imp)
@@ -43,6 +44,9 @@
 	if(istype(W, /obj/item/pen))
 		rename_interactive(user, W)
 
-/obj/item/implanter/New()
-	..()
+/obj/item/implanter/Initialize(mapload)
+	. = ..()
+	if(!implant_type)
+		return
+	imp = new implant_type()
 	update_icon(UPDATE_ICON_STATE)

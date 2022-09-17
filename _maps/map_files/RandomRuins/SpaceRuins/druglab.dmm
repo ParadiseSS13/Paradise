@@ -78,8 +78,7 @@
 "p" = (
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
 	dir = 4;

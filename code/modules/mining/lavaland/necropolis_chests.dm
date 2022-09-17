@@ -22,7 +22,7 @@
 		if(3)
 			new /obj/item/soulstone/anybody(src)
 		if(4)
-			new /obj/item/katana/cursed(src)
+			new /obj/item/organ/internal/cyberimp/arm/katana(src)
 		if(5)
 			new /obj/item/clothing/glasses/godeye(src)
 		if(6)
@@ -417,3 +417,283 @@
 
 #undef RIGHT_HAND
 #undef LEFT_HAND
+
+/obj/item/organ/internal/cyberimp/arm/katana
+	name = "dark shard"
+	desc = "An eerie metal shard surrounded by dark energies."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "cursed_katana_organ"
+	status = 0
+	contents = newlist(/obj/item/cursed_katana)
+
+
+/obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
+	. = ..()
+	to_chat(user,"<span class='userdanger'>The mass goes up your arm and inside it!</span>")
+	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
+	RegisterSignal(user, COMSIG_MOB_DEATH, .proc/user_death)
+
+	user.drop_item()
+	insert(user)
+
+/obj/item/organ/internal/cyberimp/arm/katana/emp_act() //Organic, no emp stuff
+	return
+
+/obj/item/organ/internal/cyberimp/arm/katana/Retract()
+	var/obj/item/cursed_katana/katana = holder
+	if(!katana || katana.shattered)
+		return FALSE
+	if(!katana.drew_blood)
+		to_chat(owner, "<span class='userdanger'>[katana] lashes out at you in hunger!</span>")
+		playsound(owner, 'sound/misc/demon_attack1.ogg', 50, TRUE)
+		if(parent_organ)
+			owner.apply_damage(25, BRUTE, parent_organ, TRUE)
+	katana.drew_blood = FALSE
+	katana.clean_blood()
+	return ..()
+
+/obj/item/organ/internal/cyberimp/arm/katana/Extend()
+	for(var/obj/item/cursed_katana/katana in contents)
+		if(katana.shattered)
+			to_chat(owner, "<span class='warning'> Your cursed katana has not reformed yet!</span>")
+			return FALSE
+	return ..()
+
+/obj/item/organ/internal/cyberimp/arm/katana/proc/user_death(mob/user)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, .proc/user_death_async, user)
+
+/obj/item/organ/internal/cyberimp/arm/katana/proc/user_death_async(mob/user)
+	Retract()
+	user.visible_message("<span class='warning'>[user] begins to turn to dust, his soul being contained within [src]!</span>",
+		"<span class='userdanger'>You feel your body begin to turn to dust, your soul being drawn into [src]!</span>")
+	forceMove(get_turf(owner))
+	remove(user)
+	addtimer(CALLBACK(user, /mob/.proc/dust), 1 SECONDS)
+
+
+/obj/item/organ/internal/cyberimp/arm/katana/remove(mob/living/carbon/M, special)
+	UnregisterSignal(M, COMSIG_MOB_DEATH)
+	. = ..()
+
+
+#define LEFT_SLASH "Harm"
+#define RIGHT_SLASH "Disarm"
+#define COMBO_STEPS "steps"
+#define COMBO_PROC "proc"
+#define ATTACK_STRIKE "Hilt Strike"
+#define ATTACK_SLICE "Wide Slice"
+#define ATTACK_DASH "Dash Attack"
+#define ATTACK_CUT "Tendon Cut"
+#define ATTACK_HEAL "Dark Heal"
+#define ATTACK_SHATTER "Shatter"
+
+
+/obj/item/cursed_katana
+	name = "cursed katana"
+	desc = "A katana used to seal something vile away long ago. \
+	Even with the weapon destroyed, all the pieces containing the creature have coagulated back together to find a new host."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "cursed_katana"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	force = 15
+	armour_penetration_percentage = 40
+	armour_penetration_flat = 10
+	block_chance = 50
+	sharp = TRUE
+	w_class = WEIGHT_CLASS_HUGE
+	attack_verb = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	var/shattered = FALSE
+	var/drew_blood = FALSE
+	var/timerid
+	var/list/input_list = list()
+	var/list/combo_strings = list()
+	var/static/list/combo_list = list(
+		ATTACK_STRIKE = list(COMBO_STEPS = list(LEFT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = .proc/strike),
+		ATTACK_SLICE = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, LEFT_SLASH), COMBO_PROC = .proc/slice),
+		ATTACK_DASH = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, RIGHT_SLASH), COMBO_PROC = .proc/dash),
+		ATTACK_CUT = list(COMBO_STEPS = list(RIGHT_SLASH, RIGHT_SLASH, LEFT_SLASH), COMBO_PROC = .proc/cut),
+		ATTACK_HEAL = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = .proc/heal),
+		ATTACK_SHATTER = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH), COMBO_PROC = .proc/shatter),
+		)
+
+/obj/item/cursed_katana/Initialize(mapload)
+	. = ..()
+	for(var/combo in combo_list)
+		var/list/combo_specifics = combo_list[combo]
+		var/step_string = english_list(combo_specifics[COMBO_STEPS])
+		combo_strings += ("<span class='notice'><b>[combo]</b> - [step_string]</span>")
+
+/obj/item/cursed_katana/examine(mob/user)
+	. = ..()
+	. += drew_blood ? ("<span class='notice'>It's sated... for now.</span>") : ("<span class='danger'>It will not be sated until it tastes blood.</span>")
+	. += combo_strings
+
+/obj/item/cursed_katana/dropped(mob/user)
+	. = ..()
+	reset_inputs(null, TRUE)
+
+/obj/item/cursed_katana/attack_self(mob/user)
+	. = ..()
+	reset_inputs(user, TRUE)
+
+/obj/item/cursed_katana/attack(mob/living/target, mob/user, click_parameters)
+	if(target.stat == DEAD || target == user) //No, you can not stab yourself to cloak / not take the penalty for not drawing blood
+		return ..()
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+		return TRUE
+	drew_blood = TRUE
+	if(user.a_intent == INTENT_DISARM)
+		input_list += RIGHT_SLASH
+	if(user.a_intent == INTENT_HARM)
+		input_list += LEFT_SLASH
+	if(ishostile(target))
+		user.changeNext_move(CLICK_CD_RAPID)
+	if(length(input_list) > 4)
+		reset_inputs(user, TRUE)
+	if(check_input(target, user))
+		reset_inputs(null, TRUE)
+		return TRUE
+	else
+		timerid = addtimer(CALLBACK(src, .proc/reset_inputs, user, FALSE), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
+		return ..()
+
+/obj/item/cursed_katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	return ..()
+
+/obj/item/cursed_katana/proc/check_input(mob/living/target, mob/user)
+	for(var/combo in combo_list)
+		var/list/combo_specifics = combo_list[combo]
+		if(compare_list(input_list,combo_specifics[COMBO_STEPS]))
+			INVOKE_ASYNC(src, combo_specifics[COMBO_PROC], target, user)
+			return TRUE
+	return FALSE
+
+/obj/item/cursed_katana/proc/reset_inputs(mob/user, deltimer)
+	input_list.Cut()
+	if(user)
+		to_chat(user, "<span class='notice'>You return to neutral stance.</span>")
+	if(deltimer && timerid)
+		deltimer(timerid)
+
+/obj/item/cursed_katana/proc/strike(mob/living/target, mob/user)
+	user.visible_message("<span class='warning'>[user] strikes [target] with [src]'s hilt!</span>",
+		"<span class='notice'>You hilt strike [target]!</span>")
+	to_chat(target, "<span class='userdanger'>You've been struck by [user]!</span>")
+	playsound(src, 'sound/weapons/genhit3.ogg', 50, TRUE)
+	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, .proc/strike_throw_impact)
+	var/atom/throw_target = get_edge_target_turf(target, user.dir)
+	target.throw_at(throw_target, 5, 3, user, FALSE, callback = CALLBACK(target, /datum/.proc/UnregisterSignal, target, COMSIG_MOVABLE_IMPACT))
+	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST)
+	to_chat(target, "<span class='userdanger'>You've been struck by [user]!</span>")
+	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
+
+/obj/item/cursed_katana/proc/strike_throw_impact(mob/living/source, atom/hit_atom, datum/thrownthing/thrownthing)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(source, COMSIG_MOVABLE_IMPACT)
+	source.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
+	if(ishostile(source))
+		var/mob/living/simple_animal/hostile/target = source
+		target.ranged_cooldown += 2 SECONDS
+	else if(iscarbon(source))
+		var/mob/living/carbon/target = source
+		target.AdjustConfused(8 SECONDS)
+	return NONE
+
+/obj/item/cursed_katana/proc/slice(mob/living/target, mob/user)
+	user.visible_message("<span class='warning'>[user] does a wide slice!</span>",
+		"<span class='notice'>You do a wide slice!</span>")
+	playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
+	var/turf/user_turf = get_turf(user)
+	var/dir_to_target = get_dir(user_turf, get_turf(target))
+	var/static/list/cursed_katana_slice_angles = list(0, -45, 45, -90, 90) //so that the animation animates towards the target clicked and not towards a side target
+	for(var/iteration in cursed_katana_slice_angles)
+		var/turf/T = get_step(user_turf, turn(dir_to_target, iteration))
+		user.do_attack_animation(T, ATTACK_EFFECT_CLAW)
+		for(var/mob/living/additional_target in T)
+			if(user.Adjacent(additional_target) && additional_target.density)
+				additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+				to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
+	target.apply_damage(5, BRUTE, BODY_ZONE_CHEST, TRUE)
+
+/obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
+	user.visible_message("<span class='warning'>[user] lets [src] feast on [target]'s blood!</span>",
+		"<span class='warning'>You let [src] feast on [target], and it heals you, at a price!</span>")
+	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+	user.apply_status_effect(STATUS_EFFECT_SHADOW_MEND)
+
+/obj/item/cursed_katana/proc/cut(mob/living/target, mob/user)
+	user.visible_message("<span class='warning'>[user] cuts [target]'s tendons!</span>",
+		"<span class='notice'>You tendon cut [target]!</span>")
+	to_chat(target, "<span class='userdanger'>Your tendons have been cut by [user]!</span>")
+	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	playsound(src, 'sound/weapons/rapierhit.ogg', 50, TRUE)
+	var/datum/status_effect/saw_bleed/bloodletting/A = target.has_status_effect(STATUS_EFFECT_BLOODLETTING)
+	if(!A)
+		target.apply_status_effect(STATUS_EFFECT_BLOODLETTING)
+	else
+		A.add_bleed(6)
+
+/obj/item/cursed_katana/proc/dash(mob/living/target, mob/user)
+	var/turf/dash_target = get_turf(target)
+	var/turf/user_turf = get_turf(user)
+	if(!is_teleport_allowed(dash_target.z)) //No teleporting at CC
+		to_chat(user, ("<span class='userdanger'>You can not dash here!</span>"))
+		return
+	user.visible_message("<span class='warning'>[user] dashes through [target]!</span>",
+		"<span class='notice'>You dash through [target]!</span>")
+	to_chat(target, ("<span class='userdanger'>[user] dashes through you!</span>"))
+	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
+	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
+	for(var/distance in 0 to 8)
+		var/turf/current_dash_target = dash_target
+		current_dash_target = get_step(current_dash_target, user.dir)
+		if(!is_blocked_turf(current_dash_target, TRUE))
+			dash_target = current_dash_target
+		else
+			break
+		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
+			additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+			to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
+	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
+	user.forceMove(dash_target)
+
+/obj/item/cursed_katana/proc/shatter(mob/living/target, mob/user)
+	user.visible_message("<span class='warning'>[user] shatters [src] over [target]!</span>",
+		"<span class='notice'>You shatter [src] over [target]!</span>")
+	to_chat(target, "<span class='userdanger'>[user] shatters [src] over you!</span>")
+	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, BODY_ZONE_CHEST, TRUE)
+	target.KnockDown(5 SECONDS)
+	target.adjustStaminaLoss(60) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
+	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+	playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		for(var/obj/item/organ/internal/cyberimp/arm/katana/O in H.internal_organs)
+			if(O.holder == src)
+				O.Retract()
+	shattered = TRUE
+	addtimer(CALLBACK(src, .proc/coagulate, user), 45 SECONDS)
+
+/obj/item/cursed_katana/proc/coagulate(mob/user)
+	to_chat(user, "<span class='notice'>[src] reforms!</span>")
+	shattered = FALSE
+	playsound(src, 'sound/misc/demon_consume.ogg', 50, TRUE)
+
+#undef LEFT_SLASH
+#undef RIGHT_SLASH
+#undef COMBO_STEPS
+#undef COMBO_PROC
+#undef ATTACK_STRIKE
+#undef ATTACK_SLICE
+#undef ATTACK_DASH
+#undef ATTACK_CUT
+#undef ATTACK_HEAL
+#undef ATTACK_SHATTER

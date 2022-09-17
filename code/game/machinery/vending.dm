@@ -2187,6 +2187,7 @@
 	products = list(/obj/item/clothing/under/rank/cargotech = 6,
 					/obj/item/clothing/under/rank/cargotech/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
+					/obj/item/clothing/suit/jacket/cargobomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/soft = 3,
 					/obj/item/clothing/head/hardhat/orange = 2,
