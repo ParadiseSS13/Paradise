@@ -19,7 +19,7 @@
 	bot_filter = RADIO_SECBOT
 	model = "ED-209"
 	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
-	bot_core_type = /obj/machinery/bot_core/secbot
+	req_access = list(ACCESS_SECURITY)
 	window_id = "autoed209"
 	window_name = "Automatic Security Unit v2.6"
 	path_image_color = "#FF0000"
@@ -62,7 +62,7 @@
 		check_records = FALSE //Don't actively target people set to arrest
 		arrest_type = TRUE //Don't even try to cuff
 		declare_arrests = FALSE // Don't spam sec
-		bot_core.req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
+		req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
 		if(created_name == initial(name) || !created_name)
 			if(lasercolor == "b")
@@ -296,7 +296,7 @@
 			if(iscarbon(target) && target.canBeHandcuffed())
 				if(!arrest_type)
 					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
-						cuff(target)
+						start_cuffing(target)
 					else
 						back_to_idle()
 						return
@@ -340,15 +340,13 @@
 	target = null
 	last_found = world.time
 	frustration = 0
-	spawn(0)
-		handle_automated_action() //ensure bot quickly responds
+	INVOKE_ASYNC(src, .proc/handle_automated_action)
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
-	spawn(0)
-		handle_automated_action() //ensure bot quickly responds
+	INVOKE_ASYNC(src, .proc/handle_automated_action)
 
 // look for a criminal in view of the bot
 
@@ -376,8 +374,7 @@
 			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, 0)
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
-			spawn(0)
-				handle_automated_action()	// ensure bot quickly responds to a perp
+			INVOKE_ASYNC(src, .proc/handle_automated_action)
 			break
 		else
 			continue
@@ -488,8 +485,7 @@
 		pulse2.name = "emp sparks"
 		pulse2.anchored = TRUE
 		pulse2.dir = pick(GLOB.cardinal)
-		spawn(10)
-			qdel(pulse2)
+		QDEL_IN(pulse2, 1 SECONDS)
 		var/list/mob/living/carbon/targets = new
 		for(var/mob/living/carbon/C in view(12,src))
 			if(C.stat==2)
@@ -522,22 +518,28 @@
 		if((lasercolor == "b"))
 			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
 				lasertag_check++
+
 		else if((lasercolor == "r"))
 			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
 				lasertag_check++
+
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
 			disabled = TRUE
 			walk_to(src, 0)
 			target = null
-			spawn(100)
-				disabled = FALSE
-				icon_state = "[lasercolor]ed2091"
-			return 1
+			addtimer(CALLBACK(src, .proc/unset_disabled), 10 SECONDS)
+			return TRUE
+
 		else
 			..(Proj)
+
 	else
 		..(Proj)
+
+/mob/living/simple_animal/bot/ed209/proc/unset_disabled()
+	disabled = FALSE
+	icon_state = "[lasercolor]ed2091"
 
 /mob/living/simple_animal/bot/ed209/bluetag
 	lasercolor = "b"
@@ -553,7 +555,7 @@
 		if(!C.IsStunned() || arrest_type && !baton_delayed)
 			stun_attack(A)
 		else if(C.canBeHandcuffed() && !C.handcuffed)
-			cuff(A)
+			start_cuffing(A)
 	else
 		..()
 
@@ -573,8 +575,7 @@
 /mob/living/simple_animal/bot/ed209/proc/stun_attack(mob/living/carbon/C)
 	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 	icon_state = "[lasercolor]ed209-c"
-	spawn(2)
-		icon_state = "[lasercolor]ed209[on]"
+	addtimer(VARSET_CALLBACK(src, icon_state, "[lasercolor]ed209[on]"), 2)
 	var/threat = C.assess_threat(src)
 	C.SetStuttering(10 SECONDS)
 	C.adjustStaminaLoss(60)
@@ -588,18 +589,21 @@
 	C.visible_message("<span class='danger'>[src] has stunned [C]!</span>",\
 							"<span class='userdanger'>[src] has stunned you!</span>")
 
-/mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
+/mob/living/simple_animal/bot/ed209/proc/start_cuffing(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
 
-	spawn(60)
-		if( !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
-			return
-		if(!C.handcuffed)
-			C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
-			C.update_handcuffed()
-			back_to_idle()
+	addtimer(CALLBACK(src, .proc/cuff_target, C), 6 SECONDS)
+
+/mob/living/simple_animal/bot/ed209/proc/cuff_target(mob/living/carbon/C)
+	if(!Adjacent(C)|| !isturf(C.loc)) //if he's in a closet or not adjacent, we cancel cuffing.
+		return
+
+	if(!C.handcuffed)
+		C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
+		C.update_handcuffed()
+		back_to_idle()
 
 #undef BATON_COOLDOWN
