@@ -214,7 +214,7 @@
 	rt_job = "Emergency Response Team Engineer"
 	rt_mob_job = "ERT Engineering"
 	back = /obj/item/storage/backpack/ert/engineer
-	uniform = /obj/item/clothing/under/rank/engineer
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	belt = /obj/item/storage/belt/utility/full/multitool
 	pda = /obj/item/pda/heads/ert/engineering
 	id = /obj/item/card/id/ert/engineering

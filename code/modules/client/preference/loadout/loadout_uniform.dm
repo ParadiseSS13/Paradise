@@ -135,17 +135,17 @@
 
 /datum/gear/uniform/skirt/job/ce
 	display_name = "Skirt, ce"
-	path = /obj/item/clothing/under/rank/chief_engineer/skirt
+	path = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
 	allowed_roles = list("Chief Engineer")
 
 /datum/gear/uniform/skirt/job/atmos
 	display_name = "Skirt, atmos"
-	path = /obj/item/clothing/under/rank/atmospheric_technician/skirt
+	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt
 	allowed_roles = list("Chief Engineer","Life Support Specialist")
 
 /datum/gear/uniform/skirt/job/eng
 	display_name = "Skirt, engineer"
-	path = /obj/item/clothing/under/rank/engineer/skirt
+	path = /obj/item/clothing/under/rank/engineering/engineer/skirt
 	allowed_roles = list("Chief Engineer","Station Engineer")
 
 /datum/gear/uniform/skirt/job/roboticist

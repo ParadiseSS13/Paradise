@@ -383,7 +383,7 @@
 /datum/outfit/job/engineer/suit
 	name = "Station Engineer"
 
-	uniform = /obj/item/clothing/under/rank/engineer
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	belt = /obj/item/storage/belt/utility/full
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
 	shoes = /obj/item/clothing/shoes/workboots
