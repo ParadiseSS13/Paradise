@@ -38,7 +38,7 @@
 		unEquip(w_uniform, TRUE)
 		unEquip(wear_suit, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/mime, slot_wear_mask, TRUE, TRUE)
-		equip_to_slot_if_possible(new /obj/item/clothing/under/mime, slot_w_uniform, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/mime, slot_w_uniform, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/suit/suspenders, slot_wear_suit, TRUE, TRUE)
 		Silence(14 SECONDS)
 	else
@@ -46,7 +46,7 @@
 		qdel(w_uniform)
 		qdel(wear_suit)
 		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/mime/nodrop, slot_wear_mask, TRUE, TRUE)
-		equip_to_slot_if_possible(new /obj/item/clothing/under/mime/nodrop, slot_w_uniform, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/mime/nodrop, slot_w_uniform, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/suit/suspenders/nodrop, slot_wear_suit, TRUE, TRUE)
 		dna.SetSEState(GLOB.muteblock , TRUE, TRUE)
 		singlemutcheck(src, GLOB.muteblock, MUTCHK_FORCED)

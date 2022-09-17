@@ -162,6 +162,13 @@
 	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
 
+/obj/item/clothing/under/rank/centcom/representative/skirt
+	desc = "A silky smooth black and gold representative uniform with blue markings."
+	name = "representative skirt"
+	icon_state = "ntrepf"
+	item_state = "ntrepf"
+	item_color = "ntrepf"
+
 /obj/item/clothing/under/rank/centcom/magistrate
 	name = "formal magistrate's uniform"
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
@@ -449,12 +456,6 @@
 	desc = "Feminine fashion for the style concious HoP."
 	icon_state = "dress_hop"
 	item_color = "dress_hop"
-
-/obj/item/clothing/under/dress/dress_hr
-	name = "human resources director's uniform"
-	desc = "Superior class for the nosy H.R. Director."
-	icon_state = "huresource"
-	item_color = "huresource"
 
 /obj/item/clothing/under/dress/plaid_blue
 	name = "blue plaid skirt"

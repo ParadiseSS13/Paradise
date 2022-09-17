@@ -205,7 +205,7 @@
 
 /datum/gear/uniform/skirt/job/ntrep
 	display_name = "Skirt, nt rep"
-	path = /obj/item/clothing/under/rank/ntrep/skirt
+	path = /obj/item/clothing/under/rank/centcom/representative/skirt
 	allowed_roles = list("Nanotrasen Representative")
 
 /datum/gear/uniform/skirt/job/blueshield

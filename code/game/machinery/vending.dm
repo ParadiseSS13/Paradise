@@ -1504,9 +1504,9 @@
 					/obj/item/clothing/head/wizard/fake = 1,
 					/obj/item/twohanded/staff = 3,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
-					/obj/item/clothing/under/rank/clown/sexy = 1,
+					/obj/item/clothing/under/rank/civilian/clown/sexy = 1,
 					/obj/item/clothing/mask/gas/sexymime = 1,
-					/obj/item/clothing/under/sexymime = 1,
+					/obj/item/clothing/under/rank/civilian/mime/sexy = 1,
 					/obj/item/clothing/mask/face/bat = 1,
 					/obj/item/clothing/mask/face/bee = 1,
 					/obj/item/clothing/mask/face/bear = 1,
@@ -2208,7 +2208,7 @@
 	icon_addon = "chefdrobe"
 	ads_list = list("Our clothes are guaranteed to protect you from food splatters!", "Comfortable enough for a CQC practice!")
 	vend_reply = "Thank you for using the ChefDrobe!"
-	products = list(/obj/item/clothing/under/rank/chef = 2,
+	products = list(/obj/item/clothing/under/rank/civilian/chef = 2,
 					/obj/item/clothing/under/waiter = 2,
 					/obj/item/clothing/suit/chef = 2,
 					/obj/item/clothing/suit/chef/classic = 2,
@@ -2231,7 +2231,7 @@
 	icon_panel = "drobe"
 	ads_list = list("Guaranteed to prevent stains from spilled drinks!")
 	vend_reply = "Thank you for using the BarDrobe!"
-	products = list(/obj/item/clothing/under/rank/bartender = 2,
+	products = list(/obj/item/clothing/under/rank/civilian/bartender = 2,
 					/obj/item/clothing/under/sl_suit = 2,
 					/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/soft/black = 2,
@@ -2252,7 +2252,7 @@
 	icon_panel = "drobe"
 	ads_list = list("Do you love soil? Then buy our clothes!", "Get outfits to match your green thumb here!")
 	vend_reply = "Thank you for using the HydroDrobe!"
-	products = list(/obj/item/clothing/under/rank/hydroponics = 3,
+	products = list(/obj/item/clothing/under/rank/civilian/hydroponics = 3,
 					/obj/item/reagent_containers/glass/bucket = 3,
 					/obj/item/clothing/suit/apron = 3,
 					/obj/item/clothing/suit/apron/overalls = 3,

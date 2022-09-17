@@ -127,7 +127,7 @@
 		if(94)
 			new /obj/item/katana(src)
 		if(95)
-			new /obj/item/clothing/under/mime(src)
+			new /obj/item/clothing/under/rank/civilian/mime(src)
 			new /obj/item/clothing/shoes/black(src)
 			new /obj/item/pda/mime(src)
 			new /obj/item/clothing/gloves/color/white(src)
