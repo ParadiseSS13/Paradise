@@ -66,6 +66,7 @@
 /obj/item/crowbar/power
 	name = "jaws of life"
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."
+	flags = CONDUCT
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
 	belt_icon = "jaws"
@@ -75,6 +76,10 @@
 	force = 15
 	toolspeed = 0.25
 	var/airlock_open_time = 100 // Time required to open powered airlocks
+
+/obj/item/crowbar/power/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/crowbar/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")

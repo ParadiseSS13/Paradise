@@ -382,7 +382,7 @@
 		return TRUE
 
 	if(prob(5))
-		user.visible_message("<span class='danger'><b>[user]</b> snaps [p_their()] fingers right off!</span>")
+		user.visible_message("<span class='danger'><b>[user]</b> snaps [user.p_their()] fingers right off!</span>")
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
 		return TRUE
 	return ..()

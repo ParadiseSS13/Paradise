@@ -20,11 +20,11 @@
 		wetlevel = min(wetlevel + 1,5)
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
-	if(IS_HORIZONTAL(src) && surgeries.len)
-		if(user != src && user.a_intent == INTENT_HELP)
+	if(length(surgeries))
+		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
-					return 1
+					return TRUE
 	return ..()
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
@@ -45,8 +45,8 @@
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
-					return 1
-	return 0
+					return TRUE
+	return FALSE
 
 /mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack

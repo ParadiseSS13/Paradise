@@ -36,7 +36,7 @@
 	wielded = FALSE
 	force = force_unwielded
 	if(sharp_when_wielded)
-		sharp = FALSE
+		set_sharpness(FALSE)
 	var/sf = findtext(name," (Wielded)")
 	if(sf)
 		name = copytext(name, 1, sf)
@@ -75,7 +75,7 @@
 	wielded = TRUE
 	force = force_wielded
 	if(sharp_when_wielded)
-		sharp = TRUE
+		set_sharpness(TRUE)
 	name = "[name] (Wielded)"
 	update_icon()
 	if(user)
