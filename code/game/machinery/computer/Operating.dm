@@ -118,21 +118,26 @@
 			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/occupant.max_blood), 0.01) //copy pasta ends here
 
 			occupantData["bloodType"] = occupant.dna.blood_type
-		if(occupant.surgeries.len)
+		if(length(occupant.surgeries))
 			occupantData["inSurgery"] = 1
 			for(var/datum/surgery/procedure in occupant.surgeries)
 				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
 				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				occupantData["stepName"] = "[capitalize(surgery_step.name)]"
+				var/surgery_desc = "[capitalize(surgery_step.get_step_information(procedure))]"
+				if(surgery_step.repeatable)
+					var/datum/surgery_step/next = procedure.get_surgery_next_step()
+					if(next)
+						surgery_desc += " or [capitalize(next.get_step_information(procedure))]"
+				occupantData["stepName"] = surgery_desc
 
 	data["occupant"] = occupantData
-	data["verbose"]=verbose
-	data["oxyAlarm"]=oxyAlarm
-	data["choice"]=choice
-	data["health"]=healthAnnounce
-	data["crit"]=crit
-	data["healthAlarm"]=healthAlarm
-	data["oxy"]=oxy
+	data["verbose"] = verbose
+	data["oxyAlarm"] = oxyAlarm
+	data["choice"] = choice
+	data["health"] = healthAnnounce
+	data["crit"] = crit
+	data["healthAlarm"] = healthAlarm
+	data["oxy"] = oxy
 
 	return data
 

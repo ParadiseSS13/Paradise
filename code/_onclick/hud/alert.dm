@@ -199,6 +199,10 @@
 
 /// Machine "hunger"
 
+/obj/screen/alert/hunger/fat/machine
+	name = "Over Charged"
+	desc = "Your cell has excessive charge due to electrical shocks. Run around the station and spend some energy."
+
 /obj/screen/alert/hunger/full/machine
 	name = "Full Charge"
 	desc = "Your cell is at full charge. Might want to give APCs some space."
