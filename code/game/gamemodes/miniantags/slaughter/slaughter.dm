@@ -344,7 +344,7 @@
 	..()
 
 /datum/objective/slaughter/check_completion()
-	if(!istype(owner.current, /mob/living/simple_animal/slaughter) || !owner.current)
+	if(!isslaughterdemon(owner.current) || !owner.current)
 		return 0
 	var/mob/living/simple_animal/slaughter/R = owner.current
 	if(!R || R.stat == DEAD)
