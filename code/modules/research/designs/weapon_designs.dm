@@ -31,6 +31,7 @@
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1500, MAT_URANIUM = 1500, MAT_SILVER = 1500)
 	build_path = /obj/item/weaponcrafting/gunkit/ebow
 	category = list("Weapons")
+	locked = TRUE
 
 /datum/design/flora_gun
 	name = "Floral Somatoray"
