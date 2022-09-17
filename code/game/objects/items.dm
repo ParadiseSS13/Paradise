@@ -66,7 +66,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/permeability_coefficient = 1 // for chemicals/diseases
 	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
 	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
-	var/armour_penetration = 0 //percentage of armour effectiveness to remove
+	/// Flat armour reduction, occurs after percentage armour penetration.
+	var/armour_penetration_flat = 0
+	/// Percentage armour reduction, happens before flat armour reduction.
+	var/armour_penetration_percentage = 0
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
@@ -130,8 +133,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/New()
 	..()
-	for(var/path in actions_types)
-		new path(src, action_icon[path], action_icon_state[path])
 
 	if(!hitsound)
 		if(damtype == "fire")
@@ -144,6 +145,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/Initialize(mapload)
 	. = ..()
+	for(var/path in actions_types)
+		new path(src, action_icon[path], action_icon_state[path])
 	if(istype(loc, /obj/item/storage)) //marks all items in storage as being such
 		in_storage = TRUE
 
@@ -649,10 +652,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 		return hit_atom.hitby(src, 0, itempush, throwingdatum = throwingdatum)
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin = 1, diagonals_first = 0, datum/callback/callback, force, dodgeable)
 	thrownby = thrower?.UID()
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
-	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
+	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if(callback) //call the original callback
@@ -715,14 +718,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/MouseEntered(location, control, params)
 	. = ..()
 	if(in_inventory || in_storage)
-		var/timedelay = 8
 		var/mob/user = usr
-		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)
+		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS))
+			tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), 8, TIMER_STOPPABLE)
 		if(QDELETED(src))
 			return
-		var/mob/living/L = user
 		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES))
 			return
+		var/mob/living/L = user
 		if(istype(L) && HAS_TRAIT(L, TRAIT_HANDS_BLOCKED))
 			apply_outline(L, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
 		else

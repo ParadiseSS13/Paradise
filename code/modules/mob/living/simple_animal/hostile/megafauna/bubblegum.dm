@@ -40,7 +40,7 @@ Difficulty: Hard
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
-	armour_penetration = 40
+	armour_penetration_percentage = 50
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	speed = 5
@@ -59,7 +59,7 @@ Difficulty: Hard
 	var/enrage_till = 0
 	var/enrage_time = 70
 	var/revving_charge = FALSE
-	internal_type = /obj/item/gps/internal/bubblegum
+	internal_gps = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
 	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
@@ -253,7 +253,7 @@ Difficulty: Hard
 			to_chat(L, "<span class='userdanger'>[src] rends you!</span>")
 			playsound(T, attack_sound, 100, TRUE, -1)
 			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-			L.apply_damage(10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
+			L.apply_damage(10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
 	SLEEP_CHECK_DEATH(3)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/bloodgrab(turf/T, handedness)
@@ -461,8 +461,8 @@ Difficulty: Hard
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/A)
-	if(charging)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/A, yes)
+	if(charging && yes)
 		if(isturf(A) || isobj(A) && A.density)
 			A.ex_act(EXPLODE_HEAVY)
 		DestroySurroundings()
@@ -516,6 +516,7 @@ Difficulty: Hard
 	deathmessage = "Explodes into a pool of blood!"
 	death_sound = 'sound/effects/splat.ogg'
 	true_spawn = FALSE
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize(mapload)
 	. = ..()

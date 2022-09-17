@@ -11,6 +11,7 @@ FIRE ALARM
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "firealarm_on"
+	/// Whether or not the fire alarm will sound the alarm if its temperature rises above 200C
 	var/detecting = TRUE
 	var/working = TRUE
 	var/time = 10.0
@@ -25,7 +26,7 @@ FIRE ALARM
 	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
 
-	light_power = 0
+	light_power = LIGHTING_MINIMUM_POWER
 	light_range = 7
 	light_color = "#ff3232"
 
@@ -50,22 +51,33 @@ FIRE ALARM
 		return
 	if(stat & BROKEN)
 		icon_state = "firealarm_broken"
-	else if(stat & NOPOWER)
+		return
+	if(stat & NOPOWER)
 		icon_state = "firealarm_off"
-	else if(!detecting)
+		return
+	
+	var/area/area = get_area(src)
+	if(area.fire)
+		icon_state = "firealarm_alarming"
+		return
+	if(!detecting)
 		icon_state = "firealarm_detect"
+		return
 	else
 		icon_state = "firealarm_on"
 
 /obj/machinery/firealarm/update_overlays()
 	. = ..()
 	underlays.Cut()
+
+	if(stat & (NOPOWER|BROKEN))
+		return
+
 	if(is_station_contact(z) && show_alert_level)
-		if(GLOB.security_level)
-			. += "overlay_[get_security_level()]"
-		if(light)
-			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
-	if(light && !wiresexposed)
+		. += "overlay_[get_security_level()]"
+		underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
+
+	if(!wiresexposed)
 		underlays += emissive_appearance(icon, "firealarm_lightmask")
 
 /obj/machinery/firealarm/emag_act(mob/user)
@@ -212,18 +224,26 @@ FIRE ALARM
 	qdel(src)
 
 /obj/machinery/firealarm/proc/update_fire_light(fire)
-	if(fire == !!light_power)
+	if(stat & NOPOWER)
+		set_light(0)
+		return
+	else if(GLOB.security_level == SEC_LEVEL_EPSILON)
+		set_light(2, 1, COLOR_WHITE)
+		return
+	else if(fire == !!light_power || fire == !!(light_power - 0.1))
 		return  // do nothing if we're already active
+
 	if(fire)
 		set_light(l_power = 0.8)
 	else
-		set_light(l_power = 0)
+		set_light(l_power = LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
+	update_fire_light()
 	update_icon()
 
 /obj/machinery/firealarm/attack_hand(mob/user)
@@ -265,7 +285,6 @@ FIRE ALARM
 		return
 	var/area/A = get_area(src)
 	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
-	update_icon()
 
 /obj/machinery/firealarm/New(location, direction, building)
 	. = ..()
@@ -282,6 +301,7 @@ FIRE ALARM
 /obj/machinery/firealarm/Initialize(mapload)
 	. = ..()
 	name = "fire alarm"
+	set_light(1, LIGHTING_MINIMUM_POWER) //for emissives
 	update_icon()
 
 /obj/machinery/firealarm/Destroy()

@@ -119,9 +119,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
-	var/spider_awaymission = FALSE // if TRUE, limits certain behavior in away missions
-	var/spider_uo71 = FALSE // if TRUE, spider is in the UO71 away mission
-	var/spider_unlock_id_tag = "" // if defined, unlock awaymission blast doors with this tag on death
 	var/spider_role_summary = "UNDEFINED"
 	var/spider_placed = FALSE
 
@@ -149,9 +146,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/chasecycles = 0
 	var/spider_creation_time = 0
 
-	var/datum/action/innate/terrorspider/web/web_action
 	var/web_type = /obj/structure/spider/terrorweb
-	var/datum/action/innate/terrorspider/wrap/wrap_action
 
 	// Breathing - require some oxygen, and no toxins
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -163,6 +158,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/spider_growinstantly = FALSE // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
 	var/spider_debug = FALSE
 	footstep_type = FOOTSTEP_MOB_CLAW
+
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
@@ -262,8 +258,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(killcount >= 1)
 			. += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
 
-/mob/living/simple_animal/hostile/poison/terror_spider/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	. = ..()
 	GLOB.ts_spiderlist += src
 	add_language("Spider Hivemind")
 	if(spider_tier >= TS_TIER_2)
@@ -271,28 +267,16 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	default_language = GLOB.all_languages["Spider Hivemind"]
 
 	if(web_type)
-		web_action = new()
-		web_action.Grant(src)
+		var/datum/action/innate/terrorspider/web/web_act = new
+		web_act.Grant(src)
 	if(regen_points_per_tick < regen_points_per_hp)
 		// Only grant the Wrap action button to spiders who need to use it to regenerate their health
-		wrap_action = new()
-		wrap_action.Grant(src)
+		var/datum/action/innate/terrorspider/wrap/wrap_act = new
+		wrap_act.Grant(src)
 	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
-	if(is_away_level(z))
-		spider_awaymission = TRUE
-		GLOB.ts_count_alive_awaymission++
-		if(spider_tier >= 3)
-			ai_ventcrawls = FALSE // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
-		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
-			spider_uo71 = TRUE
-			if(world.time < 600)
-				// these are static spiders, specifically for the UO71 away mission, make them stay in place
-				ai_ventcrawls = FALSE
-				spider_placed = TRUE
-	else
-		GLOB.ts_count_alive_station++
+	GLOB.ts_count_alive_station++
 	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
 	addtimer(CALLBACK(src, .proc/CheckFaction), 20)
 	addtimer(CALLBACK(src, .proc/announcetoghosts), 30)
@@ -301,8 +285,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
-	if(spider_awaymission)
-		return
 	if(stat == DEAD)
 		return
 	if(ckey)
@@ -316,6 +298,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.remove_hud_from(src)
 	handle_dying()
+
+	spider_mymother = null
+	spider_myqueen = null
+
+	entry_vent = null
+	exit_vent = null
+	nest_vent = null
+
+	cocoon_target = null
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
@@ -327,7 +318,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			gib()
 	else
 		if(degenerate)
-			adjustToxLoss(rand(1,10))
+			adjustToxLoss(rand(1, 10))
 		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick
 		if(getBruteLoss() || getFireLoss())
@@ -338,7 +329,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 				else if(getFireLoss())
 					adjustFireLoss(-1)
 					regen_points -= regen_points_per_hp
-		if(prob(5))
+		if(prob(5)) // AA 2022-08-11 - This gives me prob(80) vibes. Should probably be refactored.
 			CheckFaction()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()
@@ -346,10 +337,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		hasdied = TRUE
 		GLOB.ts_count_dead++
 		GLOB.ts_death_last = world.time
-		if(spider_awaymission)
-			GLOB.ts_count_alive_awaymission--
-		else
-			GLOB.ts_count_alive_station--
+		GLOB.ts_count_alive_station--
 
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if(can_die())
@@ -382,7 +370,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
 	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)
 		to_chat(src, "<span class='userdanger'>Your connection to the hive mind has been severed!</span>")
-		log_runtime(EXCEPTION("Terror spider with incorrect faction list at: [atom_loc_line(src)]"))
+		stack_trace("Terror spider with incorrect faction list at: [atom_loc_line(src)]")
 		gib()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(obj/machinery/door/airlock/D)
@@ -461,8 +449,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat == DEAD)
-			continue
-		if(T.spider_awaymission != spider_awaymission)
 			continue
 		targets |= T // we use |= instead of += to avoid adding src to the list twice
 	var/mob/living/L = input("Choose a terror to watch.", "Selection") in targets

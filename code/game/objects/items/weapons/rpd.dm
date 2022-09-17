@@ -95,8 +95,7 @@
 
 /obj/item/rpd/proc/create_atmos_pipe(mob/user, turf/T) //Make an atmos pipe, meter, or gas sensor
 	if(!can_dispense_pipe(whatpipe, RPD_ATMOS_MODE))
-		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatpipe, PIPETYPE_ATMOS)] - possible tampering detected")) //Damn dirty apes -- I mean hackers
-		return
+		CRASH("Failed to spawn [get_pipe_name(whatpipe, PIPETYPE_ATMOS)] - possible tampering detected") //Damn dirty apes -- I mean hackers
 	var/obj/item/pipe/P
 	if(whatpipe == PIPE_GAS_SENSOR)
 		P = new /obj/item/pipe_gsensor(T)
@@ -117,8 +116,7 @@
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
 	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
-		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected"))
-		return
+		CRASH("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected")
 	var/obj/structure/disposalconstruct/P = new(T, whatdpipe, iconrotation)
 	if(!iconrotation) //Automatic rotation
 		P.dir = user.dir
@@ -173,7 +171,6 @@
 	ui_interact(user)
 
 /obj/item/rpd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	user.set_machine(src)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "RPD", name, 450, 650, master_ui, state)
@@ -281,7 +278,14 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+		if(get_dist(src, T) <= (user.client.view + 2))\
+			user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+		else
+			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")
+			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+			to_chat(user, "<span class='notice'>ERROR: \The [T] is out of [src]'s range!</span>")
+			return
+
 	T.rpd_act(user, src)
 
 #undef RPD_COOLDOWN_TIME

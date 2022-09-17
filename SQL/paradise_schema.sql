@@ -76,6 +76,7 @@ CREATE TABLE `characters` (
   `hair_gradient_offset` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0,0',
   `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
   `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '255',
+  `custom_emotes` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -286,6 +287,7 @@ CREATE TABLE `player` (
   `ghost_darkness_level` tinyint(1) UNSIGNED NOT NULL DEFAULT '255',
   `colourblind_mode` VARCHAR(48) NOT NULL DEFAULT 'None' COLLATE 'utf8mb4_general_ci',
   `keybindings` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
+  `server_region` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),

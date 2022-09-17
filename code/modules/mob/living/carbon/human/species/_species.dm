@@ -56,7 +56,7 @@
 	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
-	///Percentage modifier for overall defense of the race, or less defense, if it's negative.
+	///Additional armour value for the species.
 	var/armor = 0
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
@@ -80,6 +80,7 @@
 
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
+	var/own_species_blood = FALSE // Can it only use blood from it's species?
 	var/skinned_type
 	var/list/no_equip = list()	// slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
@@ -357,9 +358,7 @@
 	return
 
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
-	var/hit_percent = (100 - (blocked + armor)) / 100
-	hit_percent = (hit_percent * (100 - H.physiology.damage_resistance)) / 100
-	if(!damage || (hit_percent <= 0))
+	if(!damage)
 		return FALSE
 
 	var/obj/item/organ/external/organ = null
@@ -373,9 +372,11 @@
 			if(!organ)
 				organ = H.bodyparts[1]
 
+	var/total_armour = blocked + armor
+
 	switch(damagetype)
 		if(BRUTE)
-			var/damage_amount = damage * hit_percent * brute_mod * H.physiology.brute_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, brute_mod * H.physiology.brute_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -385,7 +386,7 @@
 			else //no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount)
 		if(BURN)
-			var/damage_amount = damage * hit_percent * burn_mod * H.physiology.burn_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, burn_mod * H.physiology.burn_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -395,19 +396,19 @@
 			else
 				H.adjustFireLoss(damage_amount)
 		if(TOX)
-			var/damage_amount = damage * hit_percent * H.physiology.tox_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.tox_mod)
 			H.adjustToxLoss(damage_amount)
 		if(OXY)
-			var/damage_amount = damage * hit_percent * H.physiology.oxy_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.oxy_mod)
 			H.adjustOxyLoss(damage_amount)
 		if(CLONE)
-			var/damage_amount = damage * hit_percent * H.physiology.clone_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.clone_mod)
 			H.adjustCloneLoss(damage_amount)
 		if(STAMINA)
-			var/damage_amount = damage * hit_percent * H.physiology.stamina_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.stamina_mod)
 			H.adjustStaminaLoss(damage_amount)
 		if(BRAIN)
-			var/damage_amount = damage * hit_percent * H.physiology.brain_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.brain_mod)
 			H.adjustBrainLoss(damage_amount)
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
@@ -1001,6 +1002,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
 	return FALSE
+
+/datum/species/proc/handle_brain_death(mob/living/carbon/human/H)
+	H.AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
+	H.Weaken(60 SECONDS)
 
 /**
   * Species-specific runechat colour handler

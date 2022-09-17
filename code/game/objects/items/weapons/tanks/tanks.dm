@@ -115,6 +115,20 @@
 
 		qdel(src)
 
+/obj/item/tank/suicide_act(mob/user)
+	var/mob/living/carbon/human/H = user
+	user.visible_message("<span class='suicide'>[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
+
+	if(!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		head.disfigure()
+		H.inflate_gib()
+		return OBLITERATION
+
+	to_chat(user, "<span class='warning'>There isn't enough pressure in [src] to commit suicide with...</span>")
+	return SHAME
+
 /obj/item/tank/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		var/turf/T = get_turf(src)

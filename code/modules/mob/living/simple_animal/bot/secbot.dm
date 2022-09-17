@@ -85,13 +85,13 @@
 	arrest_type = TRUE
 	weaponscheck = TRUE
 
-/mob/living/simple_animal/bot/secbot/New()
-	..()
+/mob/living/simple_animal/bot/secbot/Initialize(mapload)
+	. = ..()
 	icon_state = "[base_icon][on]"
-	spawn(3)
-		var/datum/job/detective/J = new/datum/job/detective
-		access_card.access += J.get_access()
-		prev_access = access_card.access
+
+	var/datum/job/detective/J = new/datum/job/detective
+	access_card.access += J.get_access()
+	prev_access = access_card.access
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
@@ -472,7 +472,7 @@
 						  "[C] trips over [src] and falls!", \
 						  "[C] topples over [src]!", \
 						  "[C] leaps out of [src]'s way!")]</span>")
-		C.Weaken(4 SECONDS)
+		C.KnockDown(4 SECONDS)
 		return
 	..()
 

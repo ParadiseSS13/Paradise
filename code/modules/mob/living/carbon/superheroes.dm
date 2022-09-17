@@ -147,7 +147,7 @@
 /obj/effect/proc_holder/spell/recruit
 	name = "Recruit Greyshirt"
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Assistants only and you can recruit a maximum of 3!."
-	charge_max = 450
+	base_cooldown = 450
 	clothes_req = FALSE
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0

@@ -26,6 +26,9 @@
 		ghost_darkness_level = query.item[20]
 		colourblind_mode = query.item[21]
 		keybindings = init_keybindings(raw = query.item[22])
+		server_region = query.item[23]
+
+	lastchangelog_2 = lastchangelog // Clone please
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -46,13 +49,18 @@
 	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
 	ghost_darkness_level = sanitize_integer(ghost_darkness_level, 0, 255, initial(ghost_darkness_level))
 	colourblind_mode = sanitize_inlist(colourblind_mode, list(COLOURBLIND_MODE_NONE, COLOURBLIND_MODE_DEUTER, COLOURBLIND_MODE_PROT, COLOURBLIND_MODE_TRIT), COLOURBLIND_MODE_NONE)
+
+	// Sanitize the region
+	if(!(server_region in GLOB.configuration.system.region_map))
+		server_region = null // This region doesnt exist anymore
+
 	return TRUE
 
 /datum/preferences/proc/save_preferences(client/C)
 	// Might as well scrub out any malformed be_special list entries while we're here
 	for(var/role in be_special)
 		if(!(role in GLOB.special_roles))
-			log_runtime(EXCEPTION("[C.key] had a malformed role entry: '[role]'. Removing!"), src)
+			stack_trace("[C.key] had a malformed role entry: '[role]'. Removing!")
 			be_special -= role
 
 	// We're saving volume_mixer here as well, so no point in keeping the timer running
@@ -80,7 +88,8 @@
 		screentip_color=:screentip_color,
 		ghost_darkness_level=:ghost_darkness_level,
 		colourblind_mode=:colourblind_mode,
-		keybindings=:keybindings
+		keybindings=:keybindings,
+		server_region=:server_region
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -105,6 +114,7 @@
 			"colourblind_mode" = colourblind_mode,
 			"keybindings" = json_encode(keybindings_overrides),
 			"ckey" = C.ckey,
+			"server_region" = server_region,
 		))
 
 	if(!query.warn_execute())

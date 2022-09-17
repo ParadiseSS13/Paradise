@@ -340,7 +340,8 @@
 		EQUIPMENT("Cards", /obj/item/deck/cards, 150),
 		EQUIPMENT("Guitar", /obj/item/instrument/guitar, 750),
 		EQUIPMENT("Synthesizer", /obj/item/instrument/piano_synth, 1500),
-		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000)
+		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
+		EQUIPMENT("Analyzer", /obj/item/analyzer, 50)
 	)
 
 /**********************Mining Equipment Datum**************************/

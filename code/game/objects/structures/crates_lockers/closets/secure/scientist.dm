@@ -44,14 +44,10 @@
 	open_door_sprite = "rd_door"
 
 /obj/structure/closet/secure_closet/RD/populate_contents()
+	new /obj/item/storage/bag/garment/research_director(src)
 	new /obj/item/clothing/suit/bio_suit/scientist(src)
 	new /obj/item/clothing/head/bio_hood/scientist(src)
-	new /obj/item/clothing/under/rank/research_director(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
-	new /obj/item/clothing/suit/mantle/labcoat(src)
 	new /obj/item/cartridge/rd(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/radio/headset/heads/rd(src)
 	new /obj/item/tank/internals/air(src)
 	new /obj/item/clothing/mask/gas(src)

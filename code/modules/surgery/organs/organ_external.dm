@@ -7,6 +7,9 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
+
+	blocks_emissive = FALSE
+
 	var/brute_mod = 1
 	var/burn_mod = 1
 
@@ -167,6 +170,8 @@
 		brute *= brute_mod
 		burn *= burn_mod
 
+	// See if bones need to break
+	check_fracture(brute)
 	// Threshold needed to have a chance of hurting internal bits with something sharp
 #define LIMB_SHARP_THRESH_INT_DMG 5
 	// Threshold needed to have a chance of hurting internal bits
@@ -237,8 +242,6 @@
 			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
 
-	// See if bones need to break
-	check_fracture(brute)
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
@@ -249,7 +252,7 @@
 
 	if(owner_old)
 		owner_old.updatehealth("limb receive damage")
-	return update_icon()
+	return update_state()
 
 #undef LIMB_SHARP_THRESH_INT_DMG
 #undef LIMB_THRESH_INT_DMG
@@ -269,7 +272,7 @@
 	if(updating_health)
 		owner.updatehealth("limb heal damage")
 
-	return update_icon()
+	return update_state()
 
 /obj/item/organ/external/emp_act(severity)
 	if(!is_robotic() || emp_proof)
@@ -322,7 +325,7 @@ This function completely restores a damaged organ to perfect condition.
 
 	if(owner)
 		owner.updatehealth("limb rejuvenate")
-	update_icon()
+	update_state()
 	if(!owner)
 		START_PROCESSING(SSobj, src)
 
@@ -575,7 +578,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
 		add_fingerprint(user)
-		if(!contents.len)
+		if(!length(contents))
 			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
 			return
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
@@ -655,7 +658,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/cause_internal_bleeding()
 	if(is_robotic())
 		return
-	if(HAS_TRAIT(owner, NO_BLOOD))
+	if(NO_BLOOD in owner.dna.species.species_traits)
 		return
 	status |= ORGAN_INT_BLEEDING
 	owner.custom_pain("You feel something rip in your [name]!")

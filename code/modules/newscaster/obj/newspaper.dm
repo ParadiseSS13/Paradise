@@ -132,7 +132,7 @@
 	var/mob/living/M = usr
 	if(!Adjacent(M))
 		return
-	M.set_machine(src)
+
 	if(href_list["next_page"])
 		if(curr_page == pages + 1)
 			return //Don't need that at all, but anyway.
@@ -142,6 +142,7 @@
 			screen = SCREEN_PAGE_INNER
 		curr_page++
 		playsound(loc, "pageturn", 50, TRUE)
+
 	else if(href_list["prev_page"])
 		if(curr_page == 0)
 			return

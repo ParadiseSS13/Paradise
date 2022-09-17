@@ -3,7 +3,7 @@
 	desc = "Toggles whether you are currently cloaking yourself in darkness. When in darkness and toggled on, you move at increased speeds."
 	gain_desc = "You have gained the Cloak of Darkness ability, which when toggled makes you nearly invisible and highly agile in the shroud of darkness."
 	action_icon_state = "vampire_cloak"
-	charge_max = 2 SECONDS
+	base_cooldown = 2 SECONDS
 
 /obj/effect/proc_holder/spell/vampire/self/cloak/New()
 	..()
@@ -43,7 +43,7 @@
 	name = "Shadow Snare (20)"
 	desc = "You summon a trap on the ground. When crossed it will blind the target, extinguish any lights they may have, and ensnare them."
 	gain_desc = "You have gained the ability to summon a trap that will blind, ensnare, and turn off the lights of anyone who crosses it."
-	charge_max = 20 SECONDS
+	base_cooldown = 20 SECONDS
 	required_blood = 20
 	action_icon_state = "shadow_snare"
 
@@ -110,7 +110,7 @@
 	name = "Dark Passage (30)"
 	desc = "You teleport to a targeted turf."
 	gain_desc = "You have gained the ability to blink a short distance towards a targeted turf."
-	charge_max = 40 SECONDS
+	base_cooldown = 40 SECONDS
 	required_blood = 30
 	centcom_cancast = FALSE
 	action_icon_state = "dark_passage"
@@ -137,7 +137,7 @@
 	name = "Extinguish"
 	desc = "You extinguish any light source in an area around you."
 	gain_desc = "You have gained the ability to extinguish nearby light sources."
-	charge_max = 20 SECONDS
+	base_cooldown = 20 SECONDS
 	action_icon_state = "vampire_extinguish"
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
@@ -156,7 +156,7 @@
 	name = "Eternal Darkness"
 	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby."
 	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
-	charge_max = 10 SECONDS
+	base_cooldown = 10 SECONDS
 	action_icon_state = "eternal_darkness"
 	required_blood = 5
 	var/shroud_power = -4

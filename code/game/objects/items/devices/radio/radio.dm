@@ -322,7 +322,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return ..()
 
 /mob/living/automatedannouncer/proc/autocleanup()
-	log_runtime(EXCEPTION("An announcer somehow managed to outlive the radio! Deleting!"), src, list("Message: '[message]'"))
+	stack_trace("An announcer somehow managed to outlive the radio! Deleting! (Message: [message])")
 	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
@@ -464,7 +464,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			// Simulate two seconds of lag
 			addtimer(CALLBACK(src, .proc/broadcast_callback, tcm), 2 SECONDS)
 		else
-			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
+			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not, on all z levels
+			for(var/z in 1 to world.maxz)
+				tcm.zlevels |= z
 			broadcast_message(tcm)
 			qdel(tcm) // Delete the message datum
 		return TRUE
@@ -563,13 +565,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	user.set_machine(src)
+
 	b_stat = !b_stat
 	if(!istype(src, /obj/item/radio/beacon))
 		if(b_stat)
 			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
 		else
 			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
+
 		updateDialog()
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/I)
@@ -663,7 +666,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/encryptionkey/))
-		user.set_machine(src)
+
 		if(keyslot)
 			to_chat(user, "The radio can't hold another key!")
 			return
@@ -674,14 +677,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			keyslot = W
 
 		recalculateChannels()
-	else
-		return ..()
+		return
+
+	return ..()
 
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	user.set_machine(src)
+
 	if(keyslot)
 		for(var/ch_name in channels)
 			SSradio.remove_object(src, SSradio.radiochannels[ch_name])

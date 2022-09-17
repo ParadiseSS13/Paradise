@@ -13,10 +13,20 @@
 	category = list ("Engineering Machinery")
 
 /datum/design/recharger
-	name = "Machine Board(Weapon Recharger)"
+	name = "Machine Board (Weapon Recharger)"
 	desc = "The circuit board for a weapon recharger"
 	id = "recharger"
 	build_path = /obj/item/circuitboard/recharger
+	materials = list(MAT_GLASS = 1000)
+	build_type = IMPRINTER
+	req_tech = list("powerstorage" = 3, "materials" = 3)
+	category = list("Misc. Machinery")
+
+/datum/design/cell_charger
+	name = "Machine Board (Cell Charger)"
+	desc = "The circuit board for a cell charger"
+	id = "cell_charger"
+	build_path = /obj/item/circuitboard/cell_charger
 	materials = list(MAT_GLASS = 1000)
 	build_type = IMPRINTER
 	req_tech = list("powerstorage" = 3, "materials" = 3)
@@ -331,6 +341,16 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/smartfridge
 	category = list ("Misc. Machinery")
+
+/datum/design/dish_drive
+	name = "Machine Design (Dish Drive Board)"
+	desc = "The circuit board for a dish drive."
+	id = "dishdrive"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/dish_drive
+	category = list("Misc. Machinery")
 
 /datum/design/monkey_recycler
 	name = "Machine Design (Monkey Recycler Board)"

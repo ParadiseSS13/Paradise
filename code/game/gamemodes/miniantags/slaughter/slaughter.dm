@@ -139,7 +139,7 @@
 /obj/effect/proc_holder/spell/sense_victims
 	name = "Sense Victims"
 	desc = "Sense the location of heretics"
-	charge_max = 0
+	base_cooldown = 0
 	clothes_req = FALSE
 	cooldown_min = 0
 	overlay = null
@@ -344,7 +344,7 @@
 	..()
 
 /datum/objective/slaughter/check_completion()
-	if(!istype(owner.current, /mob/living/simple_animal/slaughter) || !owner.current)
+	if(!isslaughterdemon(owner.current) || !owner.current)
 		return 0
 	var/mob/living/simple_animal/slaughter/R = owner.current
 	if(!R || R.stat == DEAD)

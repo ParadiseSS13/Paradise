@@ -43,6 +43,18 @@
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
 
+/obj/machinery/cooker/deepfryer/examine(mob/user)
+	. = ..()
+	if(emagged)
+		. += "<span class='warning'>The heating element is smoking slightly.</span>"
+
+/obj/machinery/cooker/deepfryer/emag_act()
+	if(!emagged)
+		to_chat(usr, "<span class='warning'>You short out the fryer's safeties, allowing non-food objects to be placed in the oil.</span>")
+		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		emagged = TRUE
+		return
+
 /obj/machinery/cooker/deepfryer/special_attack(obj/item/grab/G, mob/user)
 	if(ishuman(G.affecting))
 		if(G.state < GRAB_AGGRESSIVE)

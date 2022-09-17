@@ -162,7 +162,7 @@
 
 /obj/item/reagent_containers/food/drinks/cans/cola
 	name = "space cola"
-	desc = "Cola. in space."
+	desc = "Cola. In space."
 	icon_state = "cola"
 	list_reagents = list("cola" = 30)
 

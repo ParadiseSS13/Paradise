@@ -38,8 +38,8 @@
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/New()
-	..()
+/obj/item/gun/projectile/automatic/pistol/enforcer/Initialize(mapload)
+	. = ..()
 	options["Grey slide"] = "enforcer_grey"
 	options["Red slide"] = "enforcer_red"
 	options["Green slide"] = "enforcer_green"
@@ -70,10 +70,7 @@
 	toggle_gunlight()
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
-
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal/New()
-	magazine = new/obj/item/ammo_box/magazine/enforcer/lethal
-	..()
+	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
 
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle
@@ -100,11 +97,11 @@
 //APS Pistol//
 /obj/item/gun/projectile/automatic/pistol/APS
 	name = "stechkin APS pistol"
-	desc = "The original russian version of a widely used Syndicate sidearm. Uses 9mm ammo."
+	desc = "The original russian version of a widely used Syndicate sidearm. Uses 10mm ammo."
 	icon_state = "aps"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
-	mag_type = /obj/item/ammo_box/magazine/apsm9mm
+	mag_type = /obj/item/ammo_box/magazine/apsm10mm
 	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 2

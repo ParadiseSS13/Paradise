@@ -174,6 +174,8 @@
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
+/// Called from atom/Initialize() of target: (atom/target)
+#define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"
 
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
@@ -390,6 +392,14 @@
 #define COMSIG_LIVING_SHOCK_PREVENTED "living_shock_prevented"
 ///sent by stuff like stunbatons and tasers: ()
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"
+///Sent from defibrillators when everything seems good and the user will be shocked: (defibber, defib_item, ghost)
+#define COMSIG_LIVING_PRE_DEFIB "living_pre_defib"
+	/// If returned from LIVING_BEFORE_DEFIB or LIVING_DEFIBBED, the defibrillation will fail
+	#define COMPONENT_BLOCK_DEFIB (1<<0)
+	/// If returned, don't even show the "failed" message, defer to the signal handler to do that.
+	#define COMPONENT_DEFIB_OVERRIDE (1<<1)
+///send from defibs on ressurection: (defibber, defib_item, ghost)
+#define COMSIG_LIVING_DEFIBBED "living_defibbed"
 ///from base of mob/living/revive() (full_heal, admin_revive)
 #define COMSIG_LIVING_REVIVE "living_revive"
 ///from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)
@@ -447,6 +457,9 @@
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
 /// From /mob/living/carbon/swap_hand(): Called when the user swaps their active hand
 #define COMSIG_CARBON_SWAP_HANDS "carbon_swap_hands"
+/// From /mob/living/carbon/toggle_throw_mode()
+#define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
+
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"

@@ -53,6 +53,7 @@
 
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
+	desc = "A security Nanotrasen-licensed newsfeed handler for use in commercial space stations. It comes with a small slot for inserting photos."
 	is_security = TRUE
 
 /obj/machinery/newscaster/Initialize(mapload)
@@ -102,21 +103,30 @@
 
 /obj/machinery/newscaster/update_overlays()
 	. = ..()
+	underlays.Cut()
+
+	if(!(stat & NOPOWER))
+		underlays += emissive_appearance(icon, "newscaster_lightmask")
+
 	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
 		. += "newscaster_alert"
 	var/hp_percent = obj_integrity * 100 / max_integrity
 	switch(hp_percent)
-		if(75 to INFINITY)
+		if(75 to 200)
 			return
 		if(50 to 75)
 			. += "crack1"
 		if(25 to 50)
 			. += "crack2"
-		else
+		if(1 to 25)
 			. += "crack3"
 
 /obj/machinery/newscaster/power_change()
 	..()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir)
@@ -422,6 +432,8 @@
 				return
 			GLOB.news_network.wanted_issue = null
 			set_temp("Wanted notice cleared.", update_now = TRUE)
+			for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
+				NC.update_icon()
 			return FALSE
 		if("toggle_mute")
 			is_silent = !is_silent
@@ -533,8 +545,7 @@
 					SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 					var/announcement = FC.get_announce_text(title)
 					// Announce it
-					for(var/nc in GLOB.allNewscasters)
-						var/obj/machinery/newscaster/NC = nc
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(announcement)
 					// Redirect and eject photo
 					LAZYINITLIST(last_views[user_name])
@@ -567,8 +578,7 @@
 					WN.admin_locked = usr.can_admin_interact() && admin_locked
 					WN.publish_time = world.time
 					// Announce it and eject photo
-					for(var/nc in GLOB.allNewscasters)
-						var/obj/machinery/newscaster/NC = nc
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
 					set_temp("Wanted notice distributed.", "good")

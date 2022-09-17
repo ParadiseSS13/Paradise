@@ -99,6 +99,9 @@
 			if(istype(P, /obj/item/circuitboard))
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "machine")
+					if(!B.build_path)
+						to_chat(user, "<span class='warning'>This is not a functional machine board!</span>")
+						return
 					playsound(src.loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
@@ -655,6 +658,33 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/reagent_containers/glass/beaker = 2)
 
+/obj/item/circuitboard/dish_drive
+	board_name = "Dish Drive"
+	build_path = /obj/machinery/dish_drive
+	board_type = "machine"
+	origin_tech = "programming=2"
+	req_components = list(
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stack/sheet/glass = 1)
+	var/suction = TRUE
+	var/transmit = TRUE
+
+/obj/item/circuitboard/dish_drive/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>"
+	. += "<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"
+
+/obj/item/circuitboard/dish_drive/attack_self(mob/living/user)
+	suction = !suction
+	to_chat(user, "<span class='notice'>You [suction ? "enable" : "disable"] the board's suction function.</span>")
+
+/obj/item/circuitboard/dish_drive/AltClick(mob/living/user)
+	if(!user.Adjacent(src))
+		return
+	transmit = !transmit
+	to_chat(user, "<span class='notice'>You [transmit ? "enable" : "disable"] the board's automatic disposal transmission.</span>")
+
 /obj/item/circuitboard/chem_dispenser/soda
 	board_name = "Soda Machine"
 	build_path = /obj/machinery/chem_dispenser/soda
@@ -845,6 +875,13 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stack/sheet/glass = 4)
+
+/obj/item/circuitboard/cell_charger
+	board_name = "Cell Charger"
+	build_path = /obj/machinery/cell_charger
+	board_type = "machine"
+	origin_tech = "powerstorage=3;materials=2"
+	req_components = list(/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/cyborgrecharger
 	board_name = "Cyborg Recharger"

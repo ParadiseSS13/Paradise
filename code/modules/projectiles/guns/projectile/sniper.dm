@@ -67,7 +67,7 @@
 /obj/item/projectile/bullet/sniper
 	damage = 70
 	weaken = 10 SECONDS
-	armour_penetration = 50
+	armour_penetration_flat = 70
 
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
 	name = "sniper rounds (Antimatter)"
@@ -108,7 +108,7 @@
 	harmful = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific
-	armour_penetration = 0
+	armour_penetration_flat = 0
 	nodamage = 1
 	weaken = 0
 
@@ -136,7 +136,7 @@
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/haemorrhage
-	armour_penetration = 25
+	armour_penetration_flat = 25
 	damage = 45
 	weaken = 6 SECONDS
 

@@ -10,6 +10,11 @@
 	pixel_x = -16
 	layer = 9
 
+//Adds the transparency component, exists to be overridden for different args.
+/obj/structure/flora/tree/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency)
+
 /obj/structure/flora/tree/pine
 	name = "pine tree"
 	icon = 'icons/obj/flora/pinetrees.dmi'
@@ -27,6 +32,10 @@
 /obj/structure/flora/tree/dead
 	icon = 'icons/obj/flora/deadtrees.dmi'
 	icon_state = "tree_1"
+
+/obj/structure/flora/tree/dead/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, 0, 1, 0, 0)
 
 /obj/structure/flora/tree/dead/Initialize(mapload)
 	. = ..()
@@ -50,13 +59,18 @@
 	pixel_y = -20
 
 /obj/structure/flora/tree/jungle/Initialize(mapload)
-	icon_state = "[icon_state][rand(1, 6)]"
 	. = ..()
+	icon_state = "[icon_state][rand(1, 6)]"
+	AddComponent(/datum/component/largetransparency, -1, 1, 2, 2)
 
 /obj/structure/flora/tree/jungle/small
 	pixel_y = 0
 	pixel_x = -32
 	icon = 'icons/obj/flora/jungletreesmall.dmi'
+
+/obj/structure/flora/tree/jungle/small/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency)
 
 //grass
 /obj/structure/flora/grass
@@ -418,6 +432,10 @@
 	pixel_x = -16
 	pixel_y = -12
 	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/flora/junglebush/large/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, 0, 0, 0, 0)
 
 /obj/structure/flora/rock/pile/largejungle
 	name = "rocks"

@@ -10,6 +10,12 @@
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
+		)
 
 /obj/item/clothing/gloves/cyborg
 	name = "cyborg gloves"
@@ -22,6 +28,7 @@
 	name = "forensics gloves"
 	desc = "These high-tech gloves don't leave any material traces on objects they touch. Perfect for leaving crime scenes undisturbed...both before and after the crime."
 	icon_state = "forensics"
+	item_state = "forensics"
 	can_leave_fibers = FALSE
 
 /obj/item/clothing/gloves/combat
@@ -37,7 +44,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 200, ACID = 50)
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
@@ -52,7 +59,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 15, BULLET = 25, LASER = 15, ENERGY = 15, BOMB = 20, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 10, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/gloves/botanic_leather
 	name = "botanist's leather gloves"
@@ -65,7 +72,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 115, ACID = 20)
 
 /obj/item/clothing/gloves/batmangloves
 	name = "batgloves"

@@ -13,6 +13,10 @@ Code is pretty much ripped verbatim from nano modules, but with un-needed stuff 
 /datum/ui_module/New(datum/_host)
 	host = _host
 
+/datum/ui_module/Destroy()
+	host = null
+	return ..()
+
 /datum/ui_module/ui_host()
 	return host ? host : src
 
