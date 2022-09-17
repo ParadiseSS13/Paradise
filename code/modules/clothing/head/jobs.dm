@@ -17,20 +17,37 @@
 //Captain
 /obj/item/clothing/head/caphat
 	name = "captain's hat"
-	icon_state = "captain"
 	desc = "It's good being the king."
-	item_state = "caphat"
+	icon_state = "captain_hat"
+	item_state = "captain_hat"
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
-//Captain: no longer space-worthy
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		)
+
 /obj/item/clothing/head/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
-	icon_state = "capcap"
-	dog_fashion = /datum/dog_fashion/head/captain
+	icon_state = "captain_cap"
+
+/obj/item/clothing/head/caphat/beret
+	name = "captain's beret"
+	desc = "For Captains that are more inclined towards style."
+	icon_state = "captain_beret"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		)
+
+/obj/item/clothing/head/caphat/beret/white
+	name = "captain's white beret"
+	desc = "For Captains that are more inclined towards style, and for the color white."
+	icon_state = "captain_beret_white"
 
 //Head of Personnel
 /obj/item/clothing/head/hopcap
