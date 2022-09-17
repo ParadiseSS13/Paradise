@@ -7,6 +7,11 @@
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=1;biotech=1"
+	tool_behaviour = TOOL_RETRACTOR
+
+/obj/item/retractor/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/retractor/augment
 	desc = "Micro-mechanical manipulator for retracting stuff."
@@ -23,6 +28,11 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
+	tool_behaviour = TOOL_HEMOSTAT
+
+/obj/item/hemostat/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/hemostat/augment
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
@@ -38,6 +48,11 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
+	tool_behaviour = TOOL_CAUTERY
+
+/obj/item/cautery/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/cautery/augment
 	desc = "A heated element that cauterizes wounds."
@@ -56,6 +71,11 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
+	tool_behaviour = TOOL_DRILL
+
+/obj/item/surgicaldrill/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/surgicaldrill/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide.</span>",
@@ -86,6 +106,13 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	tool_behaviour = TOOL_SCALPEL
+
+/obj/item/scalpel/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/surgery_initiator)
+
 
 /obj/item/scalpel/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
@@ -132,6 +159,22 @@
 	icon_state = "scalpel_manager_on"
 	toolspeed = 0.2
 
+/obj/item/scalpel/laser/manager/Initialize(mapload)
+	. = ..()
+	// this one can automatically retry its steps, too!
+	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
+
+/obj/item/scalpel/laser/manager/debug
+	name = "debug IMS"
+	desc = "A wonder of modern medicine. This tool functions as any other sort of surgery tool, and finishes in only a fraction of the time. Hey, how'd you get your hands on this, anyway?"
+	toolspeed = 0.01
+
+/obj/item/scalpel/laser/manager/debug/attack_self(mob/user)
+	. = ..()
+	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
+	to_chat(user, "[src] is now set to toolspeed [toolspeed]")
+	playsound(src, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
+
 /obj/item/circular_saw
 	name = "circular saw"
 	desc = "For heavy duty cutting."
@@ -149,6 +192,11 @@
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
 	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
+	tool_behaviour = TOOL_SAW
+
+/obj/item/circular_saw/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/circular_saw/augment
 	desc = "A small but very fast spinning saw. Edges dulled to prevent accidental cutting inside of the surgeon."
@@ -165,6 +213,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
+	tool_behaviour = TOOL_BONEGEL
+
+/obj/item/bonegel/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/bonegel/augment
 	toolspeed = 0.5
@@ -177,6 +230,11 @@
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 	w_class = WEIGHT_CLASS_SMALL
+	tool_behaviour = TOOL_FIXOVEIN
+
+/obj/item/FixOVein/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/FixOVein/augment
 	toolspeed = 0.5
@@ -192,6 +250,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "hit", "bludgeoned")
 	origin_tech = "materials=1;biotech=1"
+	tool_behaviour = TOOL_BONESET
+
+/obj/item/bonesetter/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/bonesetter/augment
 	toolspeed = 0.5

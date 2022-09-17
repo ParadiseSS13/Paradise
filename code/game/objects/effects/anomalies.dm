@@ -285,7 +285,7 @@
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
 	ticks++
-	for(var/mob/living/M in range(4, src))
+	for(var/mob/living/M in hearers(4, src))
 		if(prob(50))
 			M.adjust_fire_stacks(4)
 			M.IgniteMob()

@@ -9,8 +9,6 @@
 	/// Integrated signaler for captain, science & generic signaler cartridge
 	var/obj/item/assembly/signaler/integ_signaler
 
-	var/obj/item/integrated_radio/radio = null
-
 	var/charges = 0
 
 	var/list/stored_data = list()
@@ -18,7 +16,6 @@
 	var/list/messenger_plugins = list()
 
 /obj/item/cartridge/Destroy()
-	QDEL_NULL(radio)
 	QDEL_LIST(programs)
 	QDEL_LIST(messenger_plugins)
 	return ..()
@@ -69,10 +66,6 @@
 		new /datum/data/pda/app/crew_records/security,
 		new /datum/data/pda/app/secbot_control
 	)
-
-/obj/item/cartridge/security/Initialize(mapload)
-	. = ..()
-	radio = new /obj/item/integrated_radio/beepsky(src)
 
 /obj/item/cartridge/detective
 	name = "D.E.T.E.C.T. Cartridge"
@@ -148,10 +141,6 @@
 		new /datum/data/pda/app/mule_control
 	)
 
-/obj/item/cartridge/quartermaster/Initialize(mapload)
-	. = ..()
-	radio = new /obj/item/integrated_radio/mule(src)
-
 /obj/item/cartridge/head
 	name = "Easy-Record DELUXE"
 	icon_state = "cart-h"
@@ -170,10 +159,6 @@
 		new /datum/data/pda/app/status_display
 	)
 
-/obj/item/cartridge/hop/Initialize(mapload)
-	. = ..()
-	radio = new /obj/item/integrated_radio/mule(src)
-
 /obj/item/cartridge/hos
 	name = "R.O.B.U.S.T. DELUXE"
 	icon_state = "cart-hos"
@@ -182,10 +167,6 @@
 		new /datum/data/pda/app/secbot_control,
 		new /datum/data/pda/app/status_display
 	)
-
-/obj/item/cartridge/hos/Initialize(mapload)
-	. = ..()
-	radio = new /obj/item/integrated_radio/beepsky(src)
 
 /obj/item/cartridge/ce
 	name = "Power-On DELUXE"
@@ -242,7 +223,6 @@
 
 /obj/item/cartridge/captain/Initialize(mapload)
 	. = ..()
-	radio = new /obj/item/integrated_radio/beepsky(src)
 	integ_signaler = new /obj/item/assembly/signaler(src)
 
 /obj/item/cartridge/supervisor
@@ -270,10 +250,6 @@
 		new /datum/data/pda/app/supply,
 		new /datum/data/pda/app/status_display
 	)
-
-/obj/item/cartridge/centcom/Initialize(mapload)
-	. = ..()
-	radio = new /obj/item/integrated_radio/beepsky(src)
 
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
