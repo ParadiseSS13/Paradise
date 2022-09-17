@@ -1528,6 +1528,7 @@
 #include "code\modules\clothing\under\accessories\armband.dm"
 #include "code\modules\clothing\under\accessories\holster.dm"
 #include "code\modules\clothing\under\accessories\storage.dm"
+#include "code\modules\clothing\under\jobs\captain.dm"
 #include "code\modules\clothing\under\jobs\cargo.dm"
 #include "code\modules\clothing\under\jobs\civilian.dm"
 #include "code\modules\clothing\under\jobs\engineering.dm"

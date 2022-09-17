@@ -41,7 +41,7 @@
 	new /obj/item/clothing/suit/mantle/armor/captain(src)
 	new /obj/item/clothing/under/rank/captain(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
-	new /obj/item/clothing/under/dress/dress_cap(src)
+	new /obj/item/clothing/under/rank/captain/dress(src)
 	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/laceup(src)
