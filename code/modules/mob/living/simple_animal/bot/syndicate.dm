@@ -173,7 +173,7 @@
 		return
 	shootAt(A)
 
-/mob/living/simple_animal/bot/ed209/syndicate/cuff(mob/living/carbon/C)
+/mob/living/simple_animal/bot/ed209/syndicate/start_cuffing(mob/living/carbon/C)
 	shootAt(C)
 
 /mob/living/simple_animal/bot/ed209/syndicate/stun_attack(mob/living/carbon/C)

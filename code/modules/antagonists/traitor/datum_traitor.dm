@@ -45,6 +45,26 @@
 		owner.som = null
 
 	owner.current.client.chatOutput?.clear_syndicate_codes()
+
+	// Try removing their uplink, check PDA
+	var/mob/M = owner.current
+	var/obj/item/uplink_holder = locate(/obj/item/pda) in M.contents
+
+    // No PDA or it has no uplink? Check headset
+	if(!uplink_holder || !uplink_holder.hidden_uplink)
+		uplink_holder = locate(/obj/item/radio) in M.contents
+
+    // If the headset has an uplink, delete it
+	if(uplink_holder && uplink_holder.hidden_uplink)
+		var/uplink = locate(/obj/item/uplink/hidden) in uplink_holder.contents
+		uplink_holder.hidden_uplink = null
+		qdel(uplink)
+
+	// Check for an uplink implant
+	var/uplink_implant = locate(/obj/item/implant/uplink) in M.contents
+	if(uplink_implant)
+		qdel(uplink_implant)
+
 	return ..()
 
 /datum/antagonist/traitor/add_owner_to_gamemode()
