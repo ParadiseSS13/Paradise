@@ -13,6 +13,9 @@
 	var/leap_on_click = 0
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
+	var/alien_disarm_damage = 30 //Aliens deal a good amount of stamina damage on disarm intent
+	var/alien_slash_damage = 20 //Aliens deal a good amount of damage on harm intent
+
 	pass_flags = PASSTABLE
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
