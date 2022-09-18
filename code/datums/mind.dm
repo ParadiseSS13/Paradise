@@ -610,8 +610,8 @@
 				for(var/datum/mind/possible_target in SSticker.minds)
 					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
 						possible_targets += possible_target.current // Allows for admins to pick off station roles
-						if(!possible_target.offstation_role)
-							possible_targets_random += possible_target.current // but doesnt allow it to be randomly picked
+						if(!is_invalid_target(possible_target))
+							possible_targets_random += possible_target.current // For random picking, only valid targets
 
 				var/mob/def_target = null
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
