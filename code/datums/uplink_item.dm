@@ -1657,7 +1657,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/implants/storage
 	name = "Storage Implant"
 	desc = "An implant injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
-	reference = "ESI"
+	reference = "SI"
 	item = /obj/item/implanter/storage
 	cost = 6
 
