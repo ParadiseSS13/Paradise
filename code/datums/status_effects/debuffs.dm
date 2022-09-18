@@ -252,6 +252,7 @@
 	alert_type = null
 	duration = 10 SECONDS
 	tick_interval = 0.4 SECONDS
+	var/damage = 8
 	var/source_UID
 
 /datum/status_effect/shadow_boxing/on_creation(mob/living/new_owner, mob/living/source)
@@ -262,7 +263,7 @@
 	var/mob/living/attacker = locateUID(source_UID)
 	if(attacker in view(owner, 2))
 		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
-		owner.apply_damage(12, BRUTE)
+		owner.apply_damage(damage, BRUTE)
 		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
 
 
