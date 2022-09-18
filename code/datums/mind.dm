@@ -620,12 +620,12 @@
 				possible_targets = sortAtom(possible_targets)
 
 				var/new_target
-				if(length(possible_targets) > 0)
+				if(length(possible_targets))
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
 						possible_targets += "Free objective"
 						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 					else
-						if(!(length(possible_targets_random) > 0))
+						if(!length(possible_targets_random))
 							to_chat(usr, "<span class='warning'>No random target found. Pick one manually.</span>")
 							return
 						new_target = pick(possible_targets_random)
