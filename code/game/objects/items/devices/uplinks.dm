@@ -248,7 +248,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/New()
 	..()
 	hidden_uplink = new(src)
-	icon_state = "radio"
 
 /obj/item/radio/uplink/attack_self(mob/user as mob)
 	if(hidden_uplink)
