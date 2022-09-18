@@ -606,9 +606,12 @@
 				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
 
 				var/list/possible_targets = list()
+				var/list/possible_targets_random = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
 					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
-						possible_targets += possible_target.current
+						possible_targets += possible_target.current // Allows for admins to pick off station roles
+						if(!possible_target.offstation_role)
+							possible_targets_random += possible_target.current // but doesnt allow it to be randomly picked
 
 				var/mob/def_target = null
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
@@ -622,7 +625,10 @@
 						possible_targets += "Free objective"
 						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 					else
-						new_target = pick(possible_targets)
+						if(!(length(possible_targets_random) > 0))
+							to_chat(usr, "<span class='warning'>No random target found. Pick one manually.</span>")
+							return
+						new_target = pick(possible_targets_random)
 
 					if(!new_target)
 						return
