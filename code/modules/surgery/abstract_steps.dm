@@ -174,7 +174,6 @@
 
 	if(overridden_tool || next_surgery == surgery || !next_surgery)
 		// Continue along with the original surgery.
-		var/datum/surgery_step/next = surgery.get_surgery_next_step()
 		return try_next_step(user, target, target_zone, tool, surgery, null, TRUE)
 
 	if(!target.can_run_surgery(next_surgery, user))
