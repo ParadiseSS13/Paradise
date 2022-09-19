@@ -55,6 +55,7 @@
 		START_PROCESSING(SSobj, src)
 	else
 		STOP_PROCESSING(SSobj, src)
+		user_health = null // Clear out the user data, we're no longer scanning
 
 /obj/item/assembly/health/attack_self(mob/user)
 	ui_interact(user)
