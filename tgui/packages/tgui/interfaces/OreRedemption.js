@@ -128,9 +128,11 @@ const IdDisk = (properties, context) => {
     </Section>
   );
 };
+
 /*
 References "Sheet" in line: 31
 */
+
 const Sheet = (properties, context) => {
   const { act, data } = useBackend(context);
   const { sheets } = data;
@@ -268,13 +270,6 @@ const SheetLine = (properties, context) => {
 const AlloyLine = (properties, context) => {
   const { act } = useBackend(context);
   const { ore } = properties;
-  if (
-    ore.value &&
-    ore.amount <= 0 &&
-    !(['$metal', '$glass'].indexOf(ore.id) > -1)
-  ) {
-    return;
-  }
   const cleanId = ore.id.replace('$', '');
   return (
     <Box className="SheetLine">
