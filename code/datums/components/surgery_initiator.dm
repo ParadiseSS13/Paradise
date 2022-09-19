@@ -97,7 +97,6 @@
 
 	if(!isnull(current_surgery) && !current_surgery.step_in_progress)
 		var/datum/surgery_step/current_step = current_surgery.get_surgery_step()
-		// TODO Currently an accept_any_tool step is impossible to terminate early with the right tools.
 		if(current_step.try_op(user, target, user.zone_selected, parent, current_surgery) == SURGERY_INITIATE_SUCCESS)
 			return
 		if(istype(parent, /obj/item/scalpel/laser/manager/debug))
