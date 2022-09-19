@@ -8,8 +8,11 @@
 	materials = list(MAT_METAL=800, MAT_GLASS=200)
 	origin_tech = "magnets=1;biotech=1"
 
+	/// Are we scanning our user's health?
 	var/scanning = FALSE
+	/// Our user's health
 	var/user_health
+	/// The health amount on which to activate
 	var/alarm_health = MAX_HEALTH_ACTIVATE
 
 /obj/item/assembly/health/activate()
@@ -20,10 +23,11 @@
 
 /obj/item/assembly/health/toggle_secure()
 	secured = !secured
-	if(secured)
+	if(secured && scanning)
 		START_PROCESSING(SSobj, src)
 	else
 		scanning = FALSE
+		user_health = null // Clear out the user data, we're no longer scanning
 		STOP_PROCESSING(SSobj, src)
 	update_icon()
 	return secured
@@ -36,16 +40,18 @@
 	if(connected && connected.holder)
 		A = connected.holder
 
-	for(A, A && !ismob(A), A=A.loc); //??? wtf
+	for(A, A && !ismob(A), A=A.loc); // For A, check A exists and that its not a mob, if these are both true then set A to A.loc and repeat
 	// like get_turf(), but for mobs.
-	var/mob/living/M = A
 
-	if(M)
-		user_health = M.health
-		if(user_health <= alarm_health)
-			pulse()
-			audible_message("[bicon(src)] *beep* *beep*")
-			toggle_scan()
+	if(!isliving(A))
+		return
+
+	var/mob/living/M = A
+	user_health = M.health
+	if(user_health <= alarm_health) // Its a health detector, not a death detector
+		pulse()
+		audible_message("[bicon(src)] *beep* *beep*")
+		toggle_scan()
 
 /obj/item/assembly/health/proc/toggle_scan()
 	if(!secured)
@@ -54,8 +60,8 @@
 	if(scanning)
 		START_PROCESSING(SSobj, src)
 	else
-		STOP_PROCESSING(SSobj, src)
 		user_health = null // Clear out the user data, we're no longer scanning
+		STOP_PROCESSING(SSobj, src)
 
 /obj/item/assembly/health/attack_self(mob/user)
 	ui_interact(user)
