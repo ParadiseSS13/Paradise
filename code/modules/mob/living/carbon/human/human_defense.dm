@@ -632,7 +632,7 @@ emp_act
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
  				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
-			apply_damage(adjustBruteLoss(M.alien_slash_damage), BRUTE, affecting, armor_block)
+			apply_damage(M.alien_slash_damage, BRUTE, affecting, armor_block)
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 
