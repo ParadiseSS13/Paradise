@@ -299,7 +299,6 @@ const AlloyLine = (properties, context) => {
                   align="center"
                   >
                     {ore.description}
-
                   </Flex.Item>
           <Flex.Item
             basis="10%"

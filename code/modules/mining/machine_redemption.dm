@@ -286,6 +286,7 @@
 		alloys += list(list(
 			"id" = D.id,
 			"name" = D.name,
+			"description" = D.desc,
 			"amount" = get_num_smeltable_alloy(D)
 		))
 	data["alloys"] = alloys
