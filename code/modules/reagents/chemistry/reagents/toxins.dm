@@ -454,10 +454,20 @@
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
-		if(1 to 50)
-			M.Sleeping(4 SECONDS)
+		if(1 to 5)
+			if(prob(25))
+				M.emote("yawn")
+		if(6 to 9)
+			M.AdjustEyeBlurry(10 SECONDS)
+			if(prob(35))
+				M.emote("yawn")
+		if(10)
+			M.emote("faint")
+			M.Weaken(4 SECONDS)
+		if(11 to 50)
+			M.Paralyse(4 SECONDS)
 		if(51 to INFINITY)
-			M.Sleeping(4 SECONDS)
+			M.Paralyse(4 SECONDS)
 			update_flags |= M.adjustToxLoss((current_cycle - 50)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 

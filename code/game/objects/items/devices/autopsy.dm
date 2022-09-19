@@ -154,7 +154,7 @@
 	if(!istype(M))
 		return
 
-	if(!can_operate(M))
+	if(!on_operable_surface(M))
 		return
 
 	if(target_UID != M.UID())
