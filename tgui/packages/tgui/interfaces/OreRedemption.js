@@ -168,9 +168,9 @@ const Alloy = (properties, context) => {
       <OreHeader
         title="Alloys"
         columns={[
-          ['Recipe', '44%'],
-          ['Available', '20%'],
-          ['Smelt', '15%'],
+          ['Recipe', '50%'],
+          ['Available', '12%'],
+          ['Smelt', '20%'],
 
         ]}
       />
@@ -329,4 +329,6 @@ const AlloyLine = (properties, context) => {
               />
 
           </Flex.Item>
-  </Flex></Box> )}
+  </Flex></Box>
+  )
+};
