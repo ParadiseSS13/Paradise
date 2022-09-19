@@ -28,8 +28,8 @@ export const OreRedemption = (properties, context) => {
             <IdDisk height="100%" />
           </Flex.Item>
           <Flex.Item grow="1" overflow="hidden">
-            <Sheet height="40%" />
-            <Alloy height="60%" />
+            <Sheet height="43%" />
+            <Alloy height="57%" />
           </Flex.Item>
         </Flex>
       </Window.Content>
@@ -225,7 +225,7 @@ const SheetLine = (properties, context) => {
             as="img"
             src={'sheet-' + (iconNameOverrides[cleanId] || cleanId) + '.png'}
             verticalAlign="middle"
-            ml="-0.5rem"
+            ml="0rem"
             />
             {ore.name}
           </Flex.Item>
@@ -276,12 +276,12 @@ const AlloyLine = (properties, context) => {
   return (
     <Box className="SheetLine">
       <Flex width="100%">
-        <Flex.Item basis="5%" align="middle">
+        <Flex.Item basis="7%" align="middle">
           <Box
             as="img"
             src={'sheet-' + (cleanId) + '.png'}
             verticalAlign="middle"
-            ml="-0.5rem"
+            ml="`0rem"
             />
             </Flex.Item>
                <FlexItem
