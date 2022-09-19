@@ -130,7 +130,7 @@ const IdDisk = (properties, context) => {
 };
 
 /*
-References "Sheet" in line: 31
+Manages titles under "Sheet"
 */
 
 const Sheet = (properties, context) => {
@@ -156,7 +156,7 @@ const Sheet = (properties, context) => {
 };
 
 /*
-References "Alloy" in line: 32
+Manages titles under "Alloy"
 */
 
 const Alloy = (properties, context) => {
@@ -168,8 +168,10 @@ const Alloy = (properties, context) => {
       <OreHeader
         title="Alloys"
         columns={[
+          ['Recipe', '44%'],
           ['Available', '20%'],
           ['Smelt', '15%'],
+
         ]}
       />
       {alloys.map((alloy) => (
@@ -273,18 +275,34 @@ const AlloyLine = (properties, context) => {
   const cleanId = ore.id.replace('$', '');
   return (
     <Box className="SheetLine">
-      <Flex width="95%">
-        <Flex.Item basis="100%" align="middle">
+      <Flex width="100%">
+        <Flex.Item basis="5%" align="middle">
           <Box
             as="img"
-            src={'sheet-' + (iconNameOverrides[cleanId] || cleanId) + '.png'}
+            src={'sheet-' + (cleanId) + '.png'}
             verticalAlign="middle"
             ml="-0.5rem"
             />
-            {ore.name}
-          </Flex.Item>
+            </Flex.Item>
+               <FlexItem
+                  basis="30%"
+                  textAlign="middle"
+                  align="center"
+                >
+                  {ore.name}
+
+                </FlexItem>
+                <Flex.Item
+                  basis="35%"
+                  textAlign="middle"
+                  color={ore.amount > 0 ? 'good' : 'gray'}
+                  align="center"
+                  >
+                    {ore.description}
+
+                  </Flex.Item>
           <Flex.Item
-            basis="40%"
+            basis="10%"
             textAlign="center"
             color={ore.amount > 0 ? 'good' : 'gray'}
             bold={ore.amount > 0}
@@ -293,7 +311,7 @@ const AlloyLine = (properties, context) => {
             {ore.amount.toLocaleString('en-US')}
           </Flex.Item>
           <Flex.Item
-            basis="15%"
+            basis="20%"
             textAlign="center"
             align="center"
             lineHeight="32px"
